@@ -1,0 +1,55 @@
+C The difficulty did not change; it is already set to Normal
+E C1 minecraft:chest_minecart pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=minecraft:chests/simple_dungeon seed=5
+E C2 minecraft:chest_minecart pos=5.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=minecraft:chests/bastion_other seed=3
+E C3 minecraft:chest_minecart pos=14.5,-58.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:bone*2;2:minecraft:golden_horse_armor*1;7:minecraft:bone*4;8:minecraft:golden_apple*1;9:minecraft:pumpkin_seeds*1;10:minecraft:rotten_flesh*1;11:minecraft:bone*2;12:minecraft:pumpkin_seeds*1;14:minecraft:redstone*1;15:minecraft:bone*1;16:minecraft:rotten_flesh*1;17:minecraft:golden_apple*1;18:minecraft:bone*2;20:minecraft:pumpkin_seeds*1;21:minecraft:bone*1;23:minecraft:redstone*1;26:minecraft:rotten_flesh*1 loot=- seed=5
+E C4 minecraft:hopper_minecart pos=20.5,-58.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:bone*3;2:minecraft:bread*1;3:minecraft:bone*6;4:minecraft:bone*1 loot=- seed=6 enabled=1
+E C5 minecraft:chest_minecart pos=26.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:golden_horse_armor*1;1:minecraft:stone*1;2:minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:projectile_protection:2}};5:minecraft:gunpowder*1;6:minecraft:gunpowder*1;7:minecraft:bone*5;9:minecraft:melon_seeds*1;10:minecraft:coal*2;11:minecraft:coal*1;14:minecraft:bone*1;15:minecraft:rotten_flesh*1;16:minecraft:rotten_flesh*2;18:minecraft:gunpowder*1;19:minecraft:melon_seeds*1;20:minecraft:bone*2;23:minecraft:gunpowder*1;26:minecraft:gunpowder*2 loot=- seed=7
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+# the player opens the dungeon cart: the table is unpacked for the player, the loot is in the menu
+PKT A minecraft:open_screen 3c01020a080009696e73657274696f6e002463343930373034652d326565302d346136612d626161362d3333376263363162333138630a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001f656e746974792e6d696e6563726166742e63686573745f6d696e656361727400080006616374696f6e000b73686f775f656e74697479080002696400186d696e6563726166743a63686573745f6d696e65636172740b00047575696400000004c490704e2ee04a6abaa6337bc61b318c000800097472616e736c617465001f656e746974792e6d696e6563726166742e63686573745f6d696e656361727400
+PKT A minecraft:container_set_content 1201013f0003c009000001800b00000000000004c009000001cc08000001ea09000001f009000002c009000001ea0900000001b806000001c009000001f009000001cc08000002c00900000001ea09000001c00900000001b8060000000001f009000000000000000000000000000000000000000000000000000000000000000000000000000000
+E C1 minecraft:chest_minecart pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:bone*3;2:minecraft:golden_horse_armor*1;7:minecraft:bone*4;8:minecraft:golden_apple*1;9:minecraft:pumpkin_seeds*1;10:minecraft:rotten_flesh*1;11:minecraft:bone*2;12:minecraft:pumpkin_seeds*1;14:minecraft:redstone*1;15:minecraft:bone*1;16:minecraft:rotten_flesh*1;17:minecraft:golden_apple*1;18:minecraft:bone*2;20:minecraft:pumpkin_seeds*1;21:minecraft:bone*1;23:minecraft:redstone*1;26:minecraft:rotten_flesh*1 loot=- seed=5
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 1 minecraft:bone*3
+MS 2 minecraft:golden_horse_armor*1
+MS 7 minecraft:bone*4
+MS 8 minecraft:golden_apple*1
+MS 9 minecraft:pumpkin_seeds*1
+MS 10 minecraft:rotten_flesh*1
+MS 11 minecraft:bone*2
+MS 12 minecraft:pumpkin_seeds*1
+MS 14 minecraft:redstone*1
+MS 15 minecraft:bone*1
+MS 16 minecraft:rotten_flesh*1
+MS 17 minecraft:golden_apple*1
+MS 18 minecraft:bone*2
+MS 20 minecraft:pumpkin_seeds*1
+MS 21 minecraft:bone*1
+MS 23 minecraft:redstone*1
+MS 26 minecraft:rotten_flesh*1
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+# the bastion loot table grants the advancement criterion
+PKT A minecraft:open_screen 3c02020a080009696e73657274696f6e002461323262333161622d356461352d346236362d613964392d3930393333646335633839390a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001f656e746974792e6d696e6563726166742e63686573745f6d696e656361727400080006616374696f6e000b73686f775f656e74697479080002696400186d696e6563726166743a63686573745f6d696e65636172740b00047575696400000004a22b31ab5da54b66a9d990933dc5c899000800097472616e736c617465001f656e746974792e6d696e6563726166742e63686573745f6d696e656361727400
+PKT A minecraft:container_set_content 1202013f000001f107000001b00b00000001cc08000001d903000001f107000004d90300000001f107000001f107000001d90300000003f1070000017700000002d9030000019508020003d2010d0123040000000001b00b000006f10700000001b00b000000000000000000000000000000000000000000000000000000000000000000000000000000
+E C2 minecraft:chest_minecart pos=5.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=2:minecraft:arrow*1;3:minecraft:iron_nugget*1;5:minecraft:golden_apple*1;6:minecraft:iron_chain*1;7:minecraft:arrow*1;8:minecraft:iron_chain*4;10:minecraft:arrow*1;11:minecraft:arrow*1;12:minecraft:iron_chain*1;14:minecraft:arrow*3;15:minecraft:iron_block*1;17:minecraft:iron_chain*2;18:minecraft:iron_sword*1/dmg=210{minecraft:damage:210,minecraft:enchantments:{minecraft:smite:4}};23:minecraft:iron_nugget*1;24:minecraft:arrow*6;26:minecraft:iron_nugget*1 loot=- seed=3
+ADV A minecraft:nether/loot_bastion loot_bastion_other
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+# a hopper below the dungeon cart pulls from the unpacked cart (the same table and seed as the first cart)
+E C3 minecraft:chest_minecart pos=14.5,-58.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=2:minecraft:golden_horse_armor*1;7:minecraft:bone*4;8:minecraft:golden_apple*1;9:minecraft:pumpkin_seeds*1;10:minecraft:rotten_flesh*1;11:minecraft:bone*2;12:minecraft:pumpkin_seeds*1;14:minecraft:redstone*1;15:minecraft:bone*1;16:minecraft:rotten_flesh*1;17:minecraft:golden_apple*1;18:minecraft:bone*2;20:minecraft:pumpkin_seeds*1;21:minecraft:bone*1;23:minecraft:redstone*1;26:minecraft:rotten_flesh*1 loot=- seed=5
+BE 14 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:bone"}],TransferCooldown:3,components:{},id:"minecraft:hopper",x:14,y:-60,z:0}
+BE 14 -61 0 {Items:[{Slot:0b,count:2,id:"minecraft:bone"}],components:{},id:"minecraft:chest",x:14,y:-61,z:0}
+E C3 minecraft:chest_minecart pos=14.5,-58.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=7:minecraft:bone*2;8:minecraft:golden_apple*1;9:minecraft:pumpkin_seeds*1;10:minecraft:rotten_flesh*1;11:minecraft:bone*2;12:minecraft:pumpkin_seeds*1;14:minecraft:redstone*1;15:minecraft:bone*1;16:minecraft:rotten_flesh*1;17:minecraft:golden_apple*1;18:minecraft:bone*2;20:minecraft:pumpkin_seeds*1;21:minecraft:bone*1;23:minecraft:redstone*1;26:minecraft:rotten_flesh*1 loot=- seed=5
+BE 14 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:bone"}],TransferCooldown:7,components:{},id:"minecraft:hopper",x:14,y:-60,z:0}
+BE 14 -61 0 {Items:[{Slot:0b,count:4,id:"minecraft:bone"},{Slot:1b,count:1,id:"minecraft:golden_horse_armor"}],components:{},id:"minecraft:chest",x:14,y:-61,z:0}
+# a hopper below the hopper cart with a loot table
+E C4 minecraft:hopper_minecart pos=20.5,-58.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=3:minecraft:bone*3;4:minecraft:bone*1 loot=- seed=6 enabled=1
+BE 20 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:bone"}],TransferCooldown:3,components:{},id:"minecraft:hopper",x:20,y:-60,z:0}
+BE 20 -61 0 {Items:[{Slot:0b,count:1,id:"minecraft:golden_horse_armor"},{Slot:1b,count:5,id:"minecraft:bone"},{Slot:2b,count:1,id:"minecraft:bread"}],components:{},id:"minecraft:chest",x:20,y:-61,z:0}
+E C4 minecraft:hopper_minecart pos=20.5,-58.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=4:minecraft:bone*1 loot=- seed=6 enabled=1
+BE 20 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:bone"}],TransferCooldown:7,components:{},id:"minecraft:hopper",x:20,y:-60,z:0}
+BE 20 -61 0 {Items:[{Slot:0b,count:1,id:"minecraft:golden_horse_armor"},{Slot:1b,count:8,id:"minecraft:bone"},{Slot:2b,count:1,id:"minecraft:bread"}],components:{},id:"minecraft:chest",x:20,y:-61,z:0}
+# a hopper above a cart with a pending loot table pushes its items into the unpacked cart
+E C5 minecraft:chest_minecart pos=26.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:golden_horse_armor*1;1:minecraft:stone*5;2:minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:projectile_protection:2}};3:minecraft:dirt*3;5:minecraft:gunpowder*1;6:minecraft:gunpowder*1;7:minecraft:bone*5;9:minecraft:melon_seeds*1;10:minecraft:coal*2;11:minecraft:coal*1;14:minecraft:bone*1;15:minecraft:rotten_flesh*1;16:minecraft:rotten_flesh*2;18:minecraft:gunpowder*1;19:minecraft:melon_seeds*1;20:minecraft:bone*2;23:minecraft:gunpowder*1;26:minecraft:gunpowder*2 loot=- seed=7
+BE 26 -59 0 {Items:[],TransferCooldown:0,components:{},id:"minecraft:hopper",x:26,y:-59,z:0}
+E C5 minecraft:chest_minecart pos=26.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:golden_horse_armor*1;1:minecraft:stone*5;2:minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:projectile_protection:2}};3:minecraft:dirt*3;5:minecraft:gunpowder*1;6:minecraft:gunpowder*1;7:minecraft:bone*5;9:minecraft:melon_seeds*1;10:minecraft:coal*2;11:minecraft:coal*1;14:minecraft:bone*1;15:minecraft:rotten_flesh*1;16:minecraft:rotten_flesh*2;18:minecraft:gunpowder*1;19:minecraft:melon_seeds*1;20:minecraft:bone*2;23:minecraft:gunpowder*1;26:minecraft:gunpowder*2 loot=- seed=7
+BE 26 -59 0 {Items:[],TransferCooldown:0,components:{},id:"minecraft:hopper",x:26,y:-59,z:0}

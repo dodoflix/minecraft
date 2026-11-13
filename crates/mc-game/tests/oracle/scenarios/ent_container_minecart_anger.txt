@@ -1,0 +1,55 @@
+# Piglins and broken container minecarts: a player who breaks a chest cart or a hopper cart angers the piglins that see the player; a mob
+# that breaks a cart does not, and neither does a break with entity_drops off. Each case has its own player and piglin, far apart.
+command_env
+level flat
+preload 9
+level_seed 151
+entity_counter 2100
+difficulty normal
+fill -2 -60 -4 140 -40 12 minecraft:air
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player B survival 40.5 -60 3.5 180 0
+spawn_player D survival 80.5 -60 3.5 180 0
+spawn_player E survival 120.5 -60 3.5 180 0
+give A head minecraft:golden_helmet
+give B head minecraft:golden_helmet
+give D head minecraft:golden_helmet
+give E head minecraft:golden_helmet
+give A mainhand minecraft:diamond_sword
+give B mainhand minecraft:diamond_sword
+give E mainhand minecraft:diamond_sword
+spawn C1 minecraft:chest_minecart 0.5 -59.9375 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3}]}
+entity_seed C1 161
+spawn H1 minecraft:hopper_minecart 40.5 -59.9375 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:stick",count:3}]}
+entity_seed H1 162
+spawn C2 minecraft:chest_minecart 80.5 -59.9375 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3}]}
+entity_seed C2 163
+spawn C3 minecraft:chest_minecart 120.5 -59.9375 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3}]}
+entity_seed C3 164
+spawn P1 minecraft:piglin 0.5 -60 8.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b}
+entity_seed P1 171
+spawn P2 minecraft:piglin 40.5 -60 8.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b}
+entity_seed P2 172
+spawn P3 minecraft:piglin 80.5 -60 8.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b}
+entity_seed P3 173
+spawn P4 minecraft:piglin 120.5 -60 8.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b}
+entity_seed P4 174
+tick 25
+dump packets:A:none packets:B:none packets:D:none packets:E:none nbt:P1 nbt:P2 nbt:P3 nbt:P4
+note a player breaks a chest cart: the piglin that sees the player is angry
+attack A C1
+tick 2
+dump nbt:P1 nbt:P2 nbt:P3 nbt:P4
+note a player breaks a hopper cart
+attack B H1
+tick 2
+dump nbt:P1 nbt:P2 nbt:P3 nbt:P4
+note a mob breaks a chest cart: nobody gets angry
+hurt C2 mob_attack 50
+tick 2
+dump nbt:P1 nbt:P2 nbt:P3 nbt:P4
+note entity_drops off: the break angers nobody
+gamerule entity_drops false
+attack E C3
+tick 2
+dump nbt:P1 nbt:P2 nbt:P3 nbt:P4

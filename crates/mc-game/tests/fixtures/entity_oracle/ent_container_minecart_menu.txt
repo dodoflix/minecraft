@@ -1,0 +1,125 @@
+# the hopper menu: take a stack, place it into an empty slot, shift-click both ways, split a stack
+MENU A cid=1 type=minecraft:hopper state=1 carried=empty
+MS 0 minecraft:iron_ingot*5
+MS 2 minecraft:stick*3
+MS 5 minecraft:diamond*5
+MS 32 minecraft:cobblestone*30
+MS 33 minecraft:iron_ingot*10
+PKT A minecraft:open_screen 3c01100a080009696e73657274696f6e002461353534653837322d653034382d343266362d616337622d6136303234613135666162640a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650020656e746974792e6d696e6563726166742e686f707065725f6d696e656361727400080006616374696f6e000b73686f775f656e74697479080002696400196d696e6563726166743a686f707065725f6d696e65636172740b00047575696400000004a554e872e04842f6ac7ba6024a15fabd000800097472616e736c6174650020656e746974792e6d696e6563726166742e686f707065725f6d696e656361727400
+PKT A minecraft:container_set_content 1201012905fa0700000003a4080000000005f407000000000000000000000000000000000000000000000000000000001e3e00000afa0700000000000000000000
+E H minecraft:hopper_minecart pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*5;2:minecraft:stick*3 loot=- seed=0 enabled=1
+MENU A cid=1 type=minecraft:hopper state=2 carried=minecraft:iron_ingot*5
+MS 2 minecraft:stick*3
+MS 5 minecraft:diamond*5
+MS 32 minecraft:cobblestone*30
+MS 33 minecraft:iron_ingot*10
+PKT A minecraft:container_set_slot 140102000000
+PKT A minecraft:set_cursor_item 6205fa070000
+E H minecraft:hopper_minecart pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=2:minecraft:stick*3 loot=- seed=0 enabled=1
+MENU A cid=1 type=minecraft:hopper state=3 carried=empty
+MS 2 minecraft:stick*3
+MS 3 minecraft:iron_ingot*5
+MS 5 minecraft:diamond*5
+MS 32 minecraft:cobblestone*30
+MS 33 minecraft:iron_ingot*10
+PKT A minecraft:container_set_slot 140103000305fa070000
+PKT A minecraft:set_cursor_item 6200
+E H minecraft:hopper_minecart pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=2:minecraft:stick*3;3:minecraft:iron_ingot*5 loot=- seed=0 enabled=1
+MENU A cid=1 type=minecraft:hopper state=5 carried=empty
+MS 0 minecraft:cobblestone*30
+MS 2 minecraft:stick*3
+MS 3 minecraft:iron_ingot*5
+MS 5 minecraft:diamond*5
+MS 33 minecraft:iron_ingot*10
+PKT A minecraft:container_set_slot 14010400001e3e0000
+PKT A minecraft:container_set_slot 140105002000
+E H minecraft:hopper_minecart pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:cobblestone*30;2:minecraft:stick*3;3:minecraft:iron_ingot*5 loot=- seed=0 enabled=1
+MENU A cid=1 type=minecraft:hopper state=7 carried=empty
+MS 0 minecraft:cobblestone*30
+MS 3 minecraft:iron_ingot*5
+MS 5 minecraft:diamond*5
+MS 33 minecraft:iron_ingot*10
+MS 40 minecraft:stick*3
+PKT A minecraft:container_set_slot 140106000200
+PKT A minecraft:container_set_slot 140107002803a4080000
+E H minecraft:hopper_minecart pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:cobblestone*30;3:minecraft:iron_ingot*5 loot=- seed=0 enabled=1
+MENU A cid=1 type=minecraft:hopper state=8 carried=minecraft:iron_ingot*3
+MS 0 minecraft:cobblestone*30
+MS 3 minecraft:iron_ingot*2
+MS 5 minecraft:diamond*5
+MS 33 minecraft:iron_ingot*10
+MS 40 minecraft:stick*3
+PKT A minecraft:container_set_slot 140108000302fa070000
+PKT A minecraft:set_cursor_item 6203fa070000
+E H minecraft:hopper_minecart pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:cobblestone*30;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E H minecraft:hopper_minecart pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:cobblestone*30;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+I A 1 minecraft:iron_ingot*13
+I A 8 minecraft:stick*3
+I A 9 minecraft:diamond*5
+# the chest menu: shift-click from the inventory into the cart and back, the close event
+MENU A cid=2 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 27 minecraft:diamond*5
+MS 55 minecraft:iron_ingot*13
+MS 62 minecraft:stick*3
+PKT A minecraft:open_screen 3c02020a080009696e73657274696f6e002433343564353434362d396561392d343163342d616233322d3832356466323235666563380a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001f656e746974792e6d696e6563726166742e63686573745f6d696e656361727400080006616374696f6e000b73686f775f656e74697479080002696400186d696e6563726166743a63686573745f6d696e65636172740b00047575696400000004345d54469ea941c4ab32825df225fec8000800097472616e736c617465001f656e746974792e6d696e6563726166742e63686573745f6d696e656361727400
+PKT A minecraft:container_set_content 1202013f1e010000053700000000000000000000000000000000000000000000000000000005f40700000000000000000000000000000000000000000000000000000000000dfa07000000000000000003a408000000
+E C minecraft:chest_minecart pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:stone*30;1:minecraft:dirt*5 loot=- seed=0
+MENU A cid=2 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 27 minecraft:diamond*5
+MS 55 minecraft:iron_ingot*13
+MS 62 minecraft:stick*3
+E C minecraft:chest_minecart pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:stone*30;1:minecraft:dirt*5 loot=- seed=0
+MENU A cid=2 type=minecraft:generic_9x3 state=3 carried=empty
+MS 1 minecraft:dirt*5
+MS 27 minecraft:diamond*5
+MS 55 minecraft:iron_ingot*13
+MS 61 minecraft:stone*30
+MS 62 minecraft:stick*3
+PKT A minecraft:container_set_slot 140202000000
+PKT A minecraft:container_set_slot 140203003d1e010000
+E C minecraft:chest_minecart pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:dirt*5 loot=- seed=0
+MENU A cid=2 type=minecraft:generic_9x3 state=5 carried=empty
+MS 0 minecraft:diamond*5
+MS 1 minecraft:dirt*5
+MS 55 minecraft:iron_ingot*13
+MS 61 minecraft:stone*30
+MS 62 minecraft:stick*3
+PKT A minecraft:container_set_slot 140204000005f4070000
+PKT A minecraft:container_set_slot 140205001b00
+E C minecraft:chest_minecart pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:diamond*5;1:minecraft:dirt*5 loot=- seed=0
+E C minecraft:chest_minecart pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:diamond*5;1:minecraft:dirt*5 loot=- seed=0
+I A 1 minecraft:iron_ingot*13
+I A 7 minecraft:stone*30
+I A 8 minecraft:stick*3
+# the menu stays open 7.3 blocks from the cart and closes at 7.6
+MENU B cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*3
+PKT B minecraft:open_screen 3c01020a080009696e73657274696f6e002463323132303635622d303963382d346562362d386363352d3736303762336539346630330a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001f656e746974792e6d696e6563726166742e63686573745f6d696e656361727400080006616374696f6e000b73686f775f656e74697479080002696400186d696e6563726166743a63686573745f6d696e65636172740b00047575696400000004c212065b09c84eb68cc57607b3e94f03000800097472616e736c617465001f656e746974792e6d696e6563726166742e63686573745f6d696e656361727400
+PKT B minecraft:container_set_content 1201013f03010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+MENU B cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*3
+MENU B cid=0 type=inventory state=1 carried=empty
+PKT B minecraft:container_close 1101
+# the menu closes when the cart is removed
+MENU A cid=3 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*3
+MS 55 minecraft:iron_ingot*13
+MS 61 minecraft:stone*30
+MS 62 minecraft:stick*3
+PKT A minecraft:open_screen 3c03020a080009696e73657274696f6e002431373435363435652d316132642d343965362d393237332d3231363764656437653665370a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001f656e746974792e6d696e6563726166742e63686573745f6d696e656361727400080006616374696f6e000b73686f775f656e74697479080002696400186d696e6563726166743a63686573745f6d696e65636172740b000475756964000000041745645e1a2d49e692732167ded7e6e7000800097472616e736c617465001f656e746974792e6d696e6563726166742e63686573745f6d696e656361727400
+PKT A minecraft:container_set_content 1203013f030100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dfa07000000000000001e01000003a408000000
+HURT K mob_attack 50 -> true
+MENU A cid=0 type=inventory state=4 carried=empty
+MS 37 minecraft:iron_ingot*13
+MS 43 minecraft:stone*30
+MS 44 minecraft:stick*3
+PKT A minecraft:container_close 1103
+E H minecraft:hopper_minecart pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:cobblestone*30;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E C minecraft:chest_minecart pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:diamond*5;1:minecraft:dirt*5 loot=- seed=0
+E D minecraft:chest_minecart pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:stone*3 loot=- seed=0
+E item#1 minecraft:item pos=8.571142367136877,-59.27665646706468,0.8255565771590714 delta=-0.00831423141701901,0.08130245927961478,0.02120850123409109 rot=92.19252,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*3 age=1 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.570043490649201,-59.84,0.5739556316189663 delta=0.06864262217219169,0.1568000030517578,0.07247652039717878 rot=112.72084,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:chest_minecart*1 age=1 pickup=9 health=5 owner=- thrower=-

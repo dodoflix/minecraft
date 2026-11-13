@@ -906,10 +906,7 @@ fn analog_output_blocks_override_get_analog_output_signal() {
             blocks_where(|s| s.has_analog_output_signal()),
             &["get_analog_output_signal"],
         ),
-        &[(
-            "DetectorRailBlock lacks get_analog_output_signal",
-            "minecart detection needs minecart entities",
-        )],
+        &[],
     );
 }
 
@@ -1074,10 +1071,6 @@ const ACCEPTED_SHADOWS: &[(&str, &str)] = &[];
 
 /// Known hooks without a Rust override (key as in the failure text, why).
 const ACCEPTED_HOOKS: &[(&str, &str)] = &[
-    (
-        "getAnalogOutputSignal@DetectorRailBlock -> DetectorRailBlock (registered as DetectorRailBlock)",
-        "minecart detection needs minecart entities",
-    ),
     (
         "getStateForPlacement@GrowingPlantBlock -> CaveVinesPlantBlock (registered as CaveVinesPlantBlock)",
         "a plant body answers with its own default state, like the trait default",

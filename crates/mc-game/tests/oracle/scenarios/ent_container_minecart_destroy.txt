@@ -1,0 +1,49 @@
+# Breaking container minecarts: a hit that breaks a chest cart drops its contents and the cart (named carts keep the name); a mob breaks
+# a hopper cart; a creative player discards a cart (its contents drop, the cart does not); a cart with a pending loot table rolls it
+# before dropping; with entity_drops off the contents still drop on removal but the cart item does not.
+command_env
+level flat
+preload 3
+level_seed 61
+entity_counter 1600
+difficulty normal
+fill -2 -60 -4 40 -40 12 minecraft:air
+spawn_player A survival 2.5 -60 3.5 180 0
+spawn_player B creative 20.5 -60 3.5 180 0
+give A mainhand minecraft:diamond_sword
+spawn C1 minecraft:chest_minecart 2.5 -59.9375 0.5 0 0 {CustomName:'"Rusty"',Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:13b,id:"minecraft:stick",count:64},{Slot:26b,id:"minecraft:cobblestone",count:64}]}
+entity_seed C1 71
+spawn C2 minecraft:chest_minecart 8.5 -59.9375 0.5 0 0 {Items:[{Slot:1b,id:"minecraft:emerald",count:2}]}
+entity_seed C2 72
+spawn C3 minecraft:chest_minecart 12.5 -59.9375 0.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+entity_seed C3 73
+spawn H1 minecraft:hopper_minecart 16.5 -59.9375 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:64},{Slot:4b,id:"minecraft:copper_ingot",count:3}]}
+entity_seed H1 74
+spawn H2 minecraft:hopper_minecart 22.5 -59.9375 0.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+entity_seed H2 75
+tick 25
+dump packets:A:none packets:B:none
+note the player hits the chest cart with a sword: contents and the item with the name
+attack A C1
+tick 3
+dump xentities packets:A:add_entity,remove_entities,set_entity_data,entity_event
+note a creative player discards a cart: the contents drop, the cart does not
+hurt C2 player_attack 1 by=B direct=B
+tick 3
+dump xentities packets:A:add_entity,remove_entities
+note a mob breaks the chest cart with the pending loot table: the loot is rolled before the drops
+level_seed 62
+hurt C3 mob_attack 50
+tick 3
+dump xentities packets:A:add_entity,remove_entities,set_entity_data
+note a mob breaks a hopper cart
+level_seed 63
+hurt H1 mob_attack 50
+tick 3
+dump xentities packets:A:add_entity,remove_entities,set_entity_data
+note entity_drops off: the contents of a hopper cart with a pending loot table still drop, the cart item does not
+gamerule entity_drops false
+level_seed 64
+hurt H2 mob_attack 50
+tick 3
+dump xentities packets:A:add_entity,remove_entities

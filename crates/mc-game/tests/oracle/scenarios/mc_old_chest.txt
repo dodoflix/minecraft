@@ -1,0 +1,29 @@
+# Chest minecart on rails: the fuller the cart the more it slows down, an empty one and a cart with a pending loot table keep the
+# base slowdown (the loot table is not unpacked by rolling).
+level flat
+preload 3
+level_seed 3
+entity_counter 900
+fill -2 -60 -2 60 -40 14 minecraft:air
+fill 0 -60 0 30 -60 0 minecraft:rail[shape=east_west]
+fill 0 -60 3 30 -60 3 minecraft:rail[shape=east_west]
+fill 0 -60 6 30 -60 6 minecraft:rail[shape=east_west]
+fill 0 -60 9 30 -60 9 minecraft:rail[shape=east_west]
+fill 0 -60 12 30 -60 12 minecraft:rail[shape=east_west]
+spawn c1 minecraft:chest_minecart 0.5 -59.9375 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:cobblestone",count:64},{Slot:5b,id:"minecraft:diamond",count:3}]}
+entity_seed c1 11
+velocity c1 0.4 0 0
+spawn c2 minecraft:chest_minecart 0.5 -59.9375 3.5
+entity_seed c2 12
+velocity c2 0.4 0 0
+spawn c3 minecraft:chest_minecart 0.5 -59.9375 6.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12345L}
+entity_seed c3 13
+velocity c3 0.4 0 0
+spawn c4 minecraft:chest_minecart 0.5 -59.9375 9.5 0 0 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:stone",count:64},{Slot:3b,id:"minecraft:stone",count:64},{Slot:4b,id:"minecraft:stone",count:64},{Slot:5b,id:"minecraft:stone",count:64},{Slot:6b,id:"minecraft:stone",count:64},{Slot:7b,id:"minecraft:stone",count:64},{Slot:8b,id:"minecraft:stone",count:64},{Slot:9b,id:"minecraft:stone",count:64},{Slot:10b,id:"minecraft:stone",count:64},{Slot:11b,id:"minecraft:stone",count:64},{Slot:12b,id:"minecraft:stone",count:64},{Slot:13b,id:"minecraft:stone",count:64},{Slot:14b,id:"minecraft:stone",count:64},{Slot:15b,id:"minecraft:stone",count:64},{Slot:16b,id:"minecraft:stone",count:64},{Slot:17b,id:"minecraft:stone",count:64},{Slot:18b,id:"minecraft:stone",count:64},{Slot:19b,id:"minecraft:stone",count:64},{Slot:20b,id:"minecraft:stone",count:64},{Slot:21b,id:"minecraft:stone",count:64},{Slot:22b,id:"minecraft:stone",count:64},{Slot:23b,id:"minecraft:stone",count:64},{Slot:24b,id:"minecraft:stone",count:64},{Slot:25b,id:"minecraft:stone",count:64},{Slot:26b,id:"minecraft:stone",count:64}]}
+entity_seed c4 14
+velocity c4 0.4 0 0
+spawn c5 minecraft:hopper_minecart 0.5 -59.9375 12.5 0 0 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:stone",count:64}]}
+entity_seed c5 15
+velocity c5 0.4 0 0
+watch xentities
+tick 40

@@ -1,0 +1,811 @@
+T 1
+E a1 minecraft:item pos=3.5,-59.54,0.5 delta=0.0,-0.03920000076293945,0.0 rot=122.45205,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*5 age=1 pickup=0 health=5 owner=- thrower=-
+E a2 minecraft:item pos=8.5,-59.54,0.5 delta=0.0,-0.03920000076293945,0.0 rot=313.8597,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=1 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-59.54,0.5 delta=0.0,-0.03920000076293945,0.0 rot=93.47524,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=1 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-59.54,1.0 delta=0.0,-0.03920000076293945,0.0 rot=0.0049996376,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=1 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=0.8,-59.9375,0.5 delta=0.29760001301765443,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*60 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=0.8,-59.9375,4.5 delta=0.2985000014305115,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-59.54,4.5 delta=0.0,-0.03920000076293945,0.0 rot=114.02304,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=1 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-59.54,4.5 delta=0.0,-0.03920000076293945,0.0 rot=288.38733,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=1 pickup=0 health=5 owner=- thrower=-
+T 2
+E a1 minecraft:item pos=3.5,-59.61920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=122.45205,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*5 age=2 pickup=0 health=5 owner=- thrower=-
+E a2 minecraft:item pos=8.5,-59.61920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=313.8597,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=2 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-59.61920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=93.47524,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=2 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-59.61920000076294,1.0 delta=0.0,-0.0776160022583008,0.0 rot=0.0049996376,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=2 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=1.0976000130176544,-59.9375,0.5 delta=0.2952192258270269,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*60 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=1.0985000014305115,-59.9375,4.5 delta=0.29700750284671784,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-59.61920000076294,4.5 delta=0.0,-0.0776160022583008,0.0 rot=114.02304,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=2 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-59.61920000076294,4.5 delta=0.0,-0.0776160022583008,0.0 rot=288.38733,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=2 pickup=0 health=5 owner=- thrower=-
+T 3
+E a1 minecraft:item pos=3.5,-59.73681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=122.45205,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*5 age=3 pickup=0 health=5 owner=- thrower=-
+E a2 minecraft:item pos=8.5,-59.73681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=313.8597,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=3 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-59.73681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=93.47524,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=3 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-59.73681600302124,1.0 delta=0.0,-0.115263684456482,0.0 rot=0.0049996376,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=3 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=1.3928192388446814,-59.9375,0.5 delta=0.2928574848306169,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*60 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=1.3955075042772294,-59.9375,4.5 delta=0.2955224667487264,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-59.73681600302124,4.5 delta=0.0,-0.115263684456482,0.0 rot=114.02304,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=3 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-59.73681600302124,4.5 delta=0.0,-0.115263684456482,0.0 rot=288.38733,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=3 pickup=0 health=5 owner=- thrower=-
+T 4
+E a1 minecraft:item pos=3.5,-59.89207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=122.45205,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*5 age=4 pickup=0 health=5 owner=- thrower=-
+E a2 minecraft:item pos=8.5,-59.89207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=313.8597,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=4 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-59.89207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=93.47524,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=4 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-59.89207968747772,1.0 delta=0.0,-0.15215841372877212,0.0 rot=0.0049996376,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=4 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=1.6856767236752983,-59.9375,0.5 delta=0.2905146376596971,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*60 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=1.6910299710259558,-59.9375,4.5 delta=0.2940448558241437,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-59.89207968747772,4.5 delta=0.0,-0.15215841372877212,0.0 rot=114.02304,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=4 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-59.89207968747772,4.5 delta=0.0,-0.15215841372877212,0.0 rot=288.38733,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=4 pickup=0 health=5 owner=- thrower=-
+T 5
+E a1 minecraft:item pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=122.45205,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*5 age=5 pickup=0 health=5 owner=- thrower=-
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=5 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=5 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=5 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=1.9761913613349953,-59.9375,0.5 delta=0.2881905331644834,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*60 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=1.9850748268500995,-59.9375,4.5 delta=0.2925746329471381,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=5 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=5 pickup=0 health=5 owner=- thrower=-
+T 6
+E a1 minecraft:item pos=3.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=122.45205,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*5 age=6 pickup=0 health=5 owner=- thrower=-
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=6 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=6 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=6 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=2.2643818944994787,-59.9375,0.5 delta=0.28588502140438343,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*60 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=2.2776494597972374,-59.9375,4.5 delta=0.291111761177507,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=6 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=6 pickup=0 health=5 owner=- thrower=-
+T 7
+E a1 minecraft:item pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=122.45205,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*5 age=7 pickup=0 health=5 owner=- thrower=-
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=7 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=7 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=7 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=2.5502669159038622,-59.9375,0.5 delta=0.2835979536383231,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*60 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=2.5687612209747446,-59.9375,4.5 delta=0.2896562037597485,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=7 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=7 pickup=0 health=5 owner=- thrower=-
+T 8
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=8 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=8 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=8 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=2.833864869542185,-59.9375,0.5 delta=0.28132918231515036,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=2.858417424734493,-59.9375,4.5 delta=0.28820792412213814,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=8 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=8 pickup=0 health=5 owner=- thrower=-
+T 9
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=9 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=9 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=9 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=3.1151940518573356,-59.9375,0.5 delta=0.27907856106411605,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=3.1466253488566314,-59.9375,4.5 delta=0.2867668858758099,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=9 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=9 pickup=0 health=5 owner=- thrower=-
+T 10
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=10 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=10 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=10 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=3.3942726129214518,-59.9375,0.5 delta=0.27684594468543067,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=3.433392234732441,-59.9375,4.5 delta=0.2853330528138419,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=10 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=10 pickup=0 health=5 owner=- thrower=-
+T 11
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=11 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=11 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=11 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=3.6711185576068823,-59.9375,0.5 delta=0.2746311891408967,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=3.718725287546283,-59.9375,4.5 delta=0.28390638891034675,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=11 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=11 pickup=0 health=5 owner=- thrower=-
+T 12
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=12 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=12 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=12 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=3.945749746747779,-59.9375,0.5 delta=0.27243415154461587,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=4.002631676456629,-59.9375,4.5 delta=0.28248685831956616,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=12 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=12 pickup=0 health=5 owner=- thrower=-
+T 13
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=13 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=13 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=13 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=4.218183898292395,-59.9375,0.5 delta=0.27025469015377107,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=4.2851185347761955,-59.9375,4.5 delta=0.2810744253749706,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=13 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=13 pickup=0 health=5 owner=- thrower=-
+T 14
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=14 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=14 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=14 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=4.488438588446166,-59.9375,0.5 delta=0.2680926643594814,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=4.566192960151167,-59.9375,4.5 delta=0.27966905458836305,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=14 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=14 pickup=0 health=5 owner=- thrower=-
+T 15
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=15 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=15 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=15 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=4.756531252805647,-59.9375,0.5 delta=0.2659479346777311,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=4.84586201473953,-59.9375,4.5 delta=0.27827071064898723,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=15 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=15 pickup=0 health=5 owner=- thrower=-
+T 16
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=16 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=16 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=16 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=5.022479187483379,-59.9375,0.5 delta=0.26382036274037024,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=5.124132725388517,-59.9375,4.5 delta=0.27687935842264044,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=16 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=16 pickup=0 health=5 owner=- thrower=-
+T 17
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=17 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=17 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=17 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=5.286299550223749,-59.9375,0.5 delta=0.2617098112861883,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=5.401012083811157,-59.9375,4.5 delta=0.2754949629507909,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=17 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=17 pickup=0 health=5 owner=- thrower=-
+T 18
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=18 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=18 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=18 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=5.548009361509937,-59.9375,0.5 delta=0.2596161441520584,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=5.676507046761948,-59.9375,4.5 delta=0.2741174894496993,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=18 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=18 pickup=0 health=5 owner=- thrower=-
+T 19
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=19 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=19 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=19 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=5.807625505661996,-59.9375,0.5 delta=0.25753922626415277,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=5.950624536211647,-59.9375,4.5 delta=0.2727469033095449,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=19 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=19 pickup=0 health=5 owner=- thrower=-
+T 20
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=20 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=20 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=20 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=6.065164731926148,-59.9375,0.5 delta=0.25547892362922836,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=6.223371439521192,-59.9375,4.5 delta=0.2713831700935557,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=20 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=20 pickup=0 health=5 owner=- thrower=-
+T 21
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=21 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=21 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=21 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=6.320643655555377,-59.9375,0.5 delta=0.25343510332598235,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=6.4947546096147475,-59.9375,4.5 delta=0.27002625553714377,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=21 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=21 pickup=0 health=5 owner=- thrower=-
+T 22
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=22 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=22 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=22 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=6.574078758881359,-59.9375,0.5 delta=0.2514076334964765,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=6.7647808651518915,-59.9375,4.5 delta=0.26867612554704356,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=22 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=22 pickup=0 health=5 owner=- thrower=-
+T 23
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=23 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=23 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=23 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=6.825486392377835,-59.9375,0.5 delta=0.2493963833376303,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=7.0334569906989355,-59.9375,4.5 delta=0.26733274620045594,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=23 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=23 pickup=0 health=5 owner=- thrower=-
+T 24
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=24 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=24 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=24 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=7.074882775715465,-59.9375,0.5 delta=0.24740122309278237,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=7.300789736899391,-59.9375,4.5 delta=0.26599608374419553,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=24 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=24 pickup=0 health=5 owner=- thrower=-
+T 25
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=25 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=25 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=25 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=7.322283998808247,-59.9375,0.5 delta=0.24542202404331886,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=7.566785820643587,-59.9375,4.5 delta=0.2646661045938427,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=25 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=25 pickup=0 health=5 owner=- thrower=-
+T 26
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=26 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=26 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=26 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=7.567706022851566,-59.9375,0.5 delta=0.2434586585003693,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=7.83145192523743,-59.9375,4.5 delta=0.26334277533289985,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=26 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=26 pickup=0 health=5 owner=- thrower=-
+T 27
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=27 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=27 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=27 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=7.8111646813519355,-59.9375,0.5 delta=0.24151099979656862,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=8.09479470057033,-59.9375,4.5 delta=0.26202606271195156,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=27 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=27 pickup=0 health=5 owner=- thrower=-
+T 28
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=28 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=28 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=28 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=8.052675681148504,-59.9375,0.5 delta=0.2395789222778852,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=8.35682076328228,-59.9375,4.5 delta=0.2607159336478294,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=28 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=28 pickup=0 health=5 owner=- thrower=-
+T 29
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=29 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=29 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=29 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=8.29225460342639,-59.9375,0.5 delta=0.23766230129551416,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=8.61753669693011,-59.9375,4.5 delta=0.2594123552227807,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=29 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=29 pickup=0 health=5 owner=- thrower=-
+T 30
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=30 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=30 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=30 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=8.529916904721905,-59.9375,0.5 delta=0.23576101319783574,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=8.87694905215289,-59.9375,4.5 delta=0.2581152946836413,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=30 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=30 pickup=0 health=5 owner=- thrower=-
+T 31
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=31 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=31 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=31 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=8.76567791791974,-59.9375,0.5 delta=0.2338749353224377,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=9.135064346836531,-59.9375,4.5 delta=0.25682471944101276,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=31 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=31 pickup=0 health=5 owner=- thrower=-
+T 32
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=32 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=32 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=32 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=8.999552853242179,-59.9375,0.5 delta=0.23200394598820182,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=9.391889066277544,-59.9375,4.5 delta=0.2555405970684434,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=32 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=32 pickup=0 health=5 owner=- thrower=-
+T 33
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=33 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=33 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=33 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=9.23155679923038,-59.9375,0.5 delta=0.2301479244874535,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=9.647429663345987,-59.9375,4.5 delta=0.2542628953016137,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=33 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=33 pickup=0 health=5 owner=- thrower=-
+T 34
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=34 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=34 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=34 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=9.461704723717835,-59.9375,0.5 delta=0.22830675107817436,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=9.9016925586476,-59.9375,4.5 delta=0.25299158203752564,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=34 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=34 pickup=0 health=5 owner=- thrower=-
+T 35
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=35 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=35 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=35 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=9.690011474796009,-59.9375,0.5 delta=0.2264803069762769,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=10.154684140685125,-59.9375,4.5 delta=0.2517266253336959,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=35 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=35 pickup=0 health=5 owner=- thrower=-
+T 36
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=36 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=36 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=36 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=9.916491781772287,-59.9375,0.5 delta=0.22466847434794127,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=10.406410766018821,-59.9375,4.5 delta=0.2504679934073535,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=36 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=36 pickup=0 health=5 owner=- thrower=-
+T 37
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=37 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=37 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=37 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=10.141160256120228,-59.9375,0.5 delta=0.22287113630201294,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=10.656878759426174,-59.9375,4.5 delta=0.24921565463464118,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=37 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=37 pickup=0 health=5 owner=- thrower=-
+T 38
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=38 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=38 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=38 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=10.364031392422241,-59.9375,0.5 delta=0.2210881768824616,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=10.906094414060815,-59.9375,4.5 delta=0.24796957754982082,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=38 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=38 pickup=0 health=5 owner=- thrower=-
+T 39
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=39 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=39 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=39 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=10.585119569304704,-59.9375,0.5 delta=0.21931948106090018,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=11.154063991610636,-59.9375,4.5 delta=0.2467297308444828,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=39 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=39 pickup=0 health=5 owner=- thrower=-
+T 40
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=40 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=40 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=40 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=10.804439050365604,-59.9375,0.5 delta=0.2175649347291637,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=11.400793722455118,-59.9375,4.5 delta=0.24549608336675943,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=40 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=40 pickup=0 health=5 owner=- thrower=-
+T 41
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=41 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=41 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=41 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=11.022003985094766,-59.9375,0.5 delta=0.2158244246919475,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=11.646289805821878,-59.9375,4.5 delta=0.2442686041205422,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=41 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=41 pickup=0 health=5 owner=- thrower=-
+T 42
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=42 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=42 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=42 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=11.237828409786713,-59.9375,0.5 delta=0.2140978386595045,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=11.89055840994242,-59.9375,4.5 delta=0.24304726226470294,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=42 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=42 pickup=0 health=5 owner=- thrower=-
+T 43
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=43 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=43 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=43 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=11.451926248446219,-59.9375,0.5 delta=0.2123850652404007,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=12.133605672207123,-59.9375,4.5 delta=0.24183202711231908,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=43 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=43 pickup=0 health=5 owner=- thrower=-
+T 44
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=44 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=44 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=44 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=11.66431131368662,-59.9375,0.5 delta=0.21068599393432877,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=12.375437699319441,-59.9375,4.5 delta=0.24062286812990244,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=44 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=44 pickup=0 health=5 owner=- thrower=-
+T 45
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=45 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=45 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=45 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=11.874997307620948,-59.9375,0.5 delta=0.209000515124979,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=12.616060567449344,-59.9375,4.5 delta=0.23941975493663217,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=45 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=45 pickup=0 health=5 owner=- thrower=-
+T 46
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=46 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=46 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=46 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=12.083997822745927,-59.9375,0.5 delta=0.20732852007296743,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=12.855480322385976,-59.9375,4.5 delta=0.23822265730359138,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=46 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=46 pickup=0 health=5 owner=- thrower=-
+T 47
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=47 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=47 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=47 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=12.291326342818895,-59.9375,0.5 delta=0.20566990090882042,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=13.093702979689567,-59.9375,4.5 delta=0.23703154515300756,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=47 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=47 pickup=0 health=5 owner=- thrower=-
+T 48
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=48 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=48 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=48 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=12.496996243727715,-59.9375,0.5 delta=0.20402455062601552,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=13.330734524842574,-59.9375,4.5 delta=0.235846388557497,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=48 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=48 pickup=0 health=5 owner=- thrower=-
+T 49
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=49 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=49 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=49 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=12.701020794353731,-59.9375,0.5 delta=0.2023923630740777,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=13.566580913400072,-59.9375,4.5 delta=0.23466715773931274,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=49 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=49 pickup=0 health=5 owner=- thrower=-
+T 50
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=50 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=50 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=50 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=12.903413157427808,-59.9375,0.5 delta=0.20077323295173122,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=13.801248071139385,-59.9375,4.5 delta=0.23349382306959637,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=50 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=50 pickup=0 health=5 owner=- thrower=-
+T 51
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=51 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=51 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=51 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=13.104186390379539,-59.9375,0.5 delta=0.1991670558001059,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=14.034741894208981,-59.9375,4.5 delta=0.2323263550676337,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=0
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=51 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=51 pickup=0 health=5 owner=- thrower=-
+T 52
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=52 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=52 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=52 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=13.303353446179644,-59.9375,0.5 delta=0.19757372799599807,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=14.267068249276615,-59.9375,4.5 delta=0.2311647244001139,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=52 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=52 pickup=0 health=5 owner=- thrower=-
+T 53
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=53 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=53 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=53 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=13.500927174175642,-59.9375,0.5 delta=0.19599314674518512,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=14.49823297367673,-59.9375,4.5 delta=0.23000890188039264,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=53 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=53 pickup=0 health=5 owner=- thrower=-
+T 54
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=54 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=54 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=54 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=13.696920320920826,-59.9375,0.5 delta=0.1944252100757938,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=14.728241875557122,-59.9375,4.5 delta=0.22885885846775858,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=54 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=54 pickup=0 health=5 owner=- thrower=-
+T 55
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=55 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=55 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=55 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=13.89134553099662,-59.9375,0.5 delta=0.19286981683172144,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=14.95710073402488,-59.9375,4.5 delta=0.22771456526670386,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=55 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=55 pickup=0 health=5 owner=- thrower=-
+T 56
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=56 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=56 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=56 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=14.084215347828343,-59.9375,0.5 delta=0.19132686666610974,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=0
+E h2 minecraft:hopper_minecart pos=15.184815299291584,-59.9375,4.5 delta=0.226575993526198,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=56 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=56 pickup=0 health=5 owner=- thrower=-
+T 57
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=57 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=57 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=57 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=14.275542214494452,-59.9375,0.5 delta=0.18979626003487096,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=15.411391292817783,-59.9375,4.5 delta=0.22544311463896555,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=57 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=57 pickup=0 health=5 owner=- thrower=-
+T 58
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=58 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=58 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=58 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=14.465338474529323,-59.9375,0.5 delta=0.18827789819026575,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=15.636834407456748,-59.9375,4.5 delta=0.22431590014076727,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=58 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=58 pickup=0 health=5 owner=- thrower=-
+T 59
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=59 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=59 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=59 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=14.65361637271959,-59.9375,0.5 delta=0.18677168317453233,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=15.861150307597516,-59.9375,4.5 delta=0.223194321709685,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=59 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=59 pickup=0 health=5 owner=- thrower=-
+T 60
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=60 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=60 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=60 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=14.840388055894122,-59.9375,0.5 delta=0.18527751781356683,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=16.0843446293072,-59.9375,4.5 delta=0.22207835116541005,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=60 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=60 pickup=0 health=5 owner=- thrower=-
+T 61
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=61 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=61 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=61 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=15.02566557370769,-59.9375,0.5 delta=0.18379530571065394,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=16.30642298047261,-59.9375,4.5 delta=0.2209679604685351,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=61 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=61 pickup=0 health=5 owner=- thrower=-
+T 62
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=62 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=62 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=62 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=15.209460879418343,-59.9375,0.5 delta=0.18232495124024795,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=16.527390940941146,-59.9375,4.5 delta=0.21986312171984976,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=62 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=62 pickup=0 health=5 owner=- thrower=-
+T 63
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=63 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=63 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=63 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=15.391785830658591,-59.9375,0.5 delta=0.18086635954180333,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=16.747254062660996,-59.9375,4.5 delta=0.21876380715963958,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=63 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=63 pickup=0 health=5 owner=- thrower=-
+T 64
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=64 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=64 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=64 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=15.572652190200394,-59.9375,0.5 delta=0.17941943651365477,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=16.966017869820636,-59.9375,4.5 delta=0.21766998916698851,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=64 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=64 pickup=0 health=5 owner=- thrower=-
+T 65
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=65 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=65 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=65 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=15.752071626714049,-59.9375,0.5 delta=0.17798408880694627,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=17.183687858987625,-59.9375,4.5 delta=0.21658164025908497,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=65 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=65 pickup=0 health=5 owner=- thrower=-
+T 66
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=66 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=66 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=66 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=15.930055715520995,-59.9375,0.5 delta=0.17656022381960856,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=17.40026949924671,-59.9375,4.5 delta=0.21549873309053127,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=66 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=66 pickup=0 health=5 owner=- thrower=-
+T 67
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=67 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=67 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=67 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=16.106615939340603,-59.9375,0.5 delta=0.17514774969038496,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=17.615768232337242,-59.9375,4.5 delta=0.21442124045265665,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=- loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=67 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=18.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=288.38733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=67 pickup=0 health=5 owner=- thrower=-
+T 68
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=68 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=68 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,0.0,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=68 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=16.28176368903099,-59.9375,0.5 delta=0.1737465752929048,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=17.830189472789897,-59.9375,4.5 delta=0.2133491352728335,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=68 pickup=0 health=5 owner=- thrower=-
+T 69
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=69 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=69 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.04,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=69 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=16.455510264323895,-59.9375,0.5 delta=0.17235661022980447,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=18.04353860806273,-59.9375,4.5 delta=0.21206904422530992,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=69 pickup=0 health=5 owner=- thrower=-
+T 70
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=70 pickup=0 health=5 owner=- thrower=-
+E a3 minecraft:item pos=17.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=93.47524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=70 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.08,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=70 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=16.6278668745537,-59.9375,0.5 delta=0.17097776482689533,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=18.255607652288038,-59.9375,4.5 delta=0.21079663370148688,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=70 pickup=0 health=5 owner=- thrower=-
+N h1 {Air:300s,Enabled:1b,Fire:0s,FlippedRotation:1b,HasTicked:0b,Invulnerable:0b,Items:[{Slot:0b,count:64,id:"minecraft:cobblestone"},{Slot:1b,count:1,id:"minecraft:cobblestone"}],Motion:[0.17097776482689533d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[16.6278668745537d,-59.9375d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N h2 {Air:300s,Enabled:1b,Fire:0s,FlippedRotation:1b,HasTicked:0b,Invulnerable:0b,Items:[{Slot:0b,count:5,id:"minecraft:dirt"}],Motion:[0.21079663370148688d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[18.255607652288038d,-59.9375d,4.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+# a hopper below a hopper cart pulls its contents out, the cart standing still on a derailed spot sucks items dropped on it
+T 71
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=71 pickup=0 health=5 owner=- thrower=-
+E a4 minecraft:item pos=17.5,-60.0,1.0 delta=0.0,-0.12,0.0 rot=0.0049996376,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=71 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=16.798844639380594,-59.9375,0.5 delta=0.16960995012737837,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=18.466404285989526,-59.9375,4.5 delta=0.20953185761835766,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=71 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*2;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 72
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=72 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=16.96845458950797,-59.9375,0.5 delta=0.16825307788610505,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=18.675936143607885,-59.9375,4.5 delta=0.2082746701694128,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=72 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*2;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 73
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=73 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=17.136707667394077,-59.9375,0.5 delta=0.16673879962352486,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=18.884210813777297,-59.9375,4.5 delta=0.2070250258229811,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=73 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*2;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 74
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=74 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=17.3034464670176,-59.9375,0.5 delta=0.16523814987036234,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=19.09123583960028,-59.9375,4.5 delta=0.20578287932058054,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=74 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*2;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 75
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=75 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=17.468684616887963,-59.9375,0.5 delta=0.16375100596998726,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=19.29701871892086,-59.9375,4.5 delta=0.20454818567527921,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=75 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*2;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 76
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=76 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=17.63243562285795,-59.9375,0.5 delta=0.16227724636967944,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=19.50156690459614,-59.9375,4.5 delta=0.20332090017006604,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=76 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*2;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 77
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=77 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=17.79471286922763,-59.9375,0.5 delta=0.1608167506106936,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=19.704887804766205,-59.9375,4.5 delta=0.20210097835623117,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=77 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*2;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 78
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=78 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=17.955529619838323,-59.9375,0.5 delta=0.15936939931841354,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=19.906988783122436,-59.9375,4.5 delta=0.20088837605175627,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=78 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*2;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 79
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=79 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=18.114899019156738,-59.9375,0.5 delta=0.15793507419259506,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=20.107877159174194,-59.9375,4.5 delta=0.1996830493397143,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=79 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*1;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 80
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=80 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=18.27283409334933,-59.9375,0.5 delta=0.1565136579976965,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=20.30756020851391,-59.9375,4.5 delta=0.19848495456667906,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=80 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*1;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 81
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=81 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=18.429347751347027,-59.9375,0.5 delta=0.15510503455329655,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=20.50604516308059,-59.9375,4.5 delta=0.19729404834114406,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=81 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*1;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 82
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=82 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=18.584452785900325,-59.9375,0.5 delta=0.153709088724598,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=20.703339211421735,-59.9375,4.5 delta=0.19611028753195112,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=82 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*1;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 83
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=83 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=18.73816187462492,-59.9375,0.5 delta=0.15232570641301718,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=20.899449498953686,-59.9375,4.5 delta=0.19493362926672828,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=83 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*1;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 84
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=84 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=18.890487581037938,-59.9375,0.5 delta=0.15095477454685813,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.094383128220414,-60.0,4.5 delta=0.19376403093033703,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=84 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*1;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 85
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=85 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=19.041442355584795,-59.9375,0.5 delta=0.14959618107207048,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.28814715915075,-60.0,4.5 delta=0.19376403093033703,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=85 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*1;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 86
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=86 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=19.191038536656865,-59.9375,0.5 delta=0.14824981494309072,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.38502917461592,-60.0,4.5 delta=0.09688201546516852,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=86 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:iron_ingot*1;1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 87
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=87 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=19.339288351599958,-59.9375,0.5 delta=0.14691556611376577,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.433470182348504,-60.0,4.5 delta=0.04844100773258426,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=87 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 88
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=88 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=19.486203917713723,-59.9375,0.5 delta=0.14559332552835827,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.457690686214796,-60.0,4.5 delta=0.02422050386629213,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=88 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 89
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=89 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=19.631797243242083,-59.9375,0.5 delta=0.1442829851126329,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.46980093814794,-60.0,4.5 delta=0.012110251933146065,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=89 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 90
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=90 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=19.776080228354715,-59.9375,0.5 delta=0.1429844377650228,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.475856064114513,-60.0,4.5 delta=0.006055125966573032,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=90 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 91
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=91 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=19.919064666119738,-59.9375,0.5 delta=0.14169757734787553,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.4788836270978,-60.0,4.5 delta=0.003027562983286516,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=91 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 92
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=92 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=20.060762243467614,-59.9375,0.5 delta=0.14042229867877795,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.480397408589443,-60.0,4.5 delta=0.001513781491643258,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=92 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 93
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=93 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=20.201184542146393,-59.9375,0.5 delta=0.13915849752195897,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481154299335266,-60.0,4.5 delta=7.56890745821629E-4,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=93 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 94
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=94 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=20.34034303966835,-59.9375,0.5 delta=0.13790607057976975,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=3.784453729108145E-4,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=94 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*3;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 95
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=95 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=20.47824911024812,-59.9375,0.5 delta=0.13666491548424065,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=1.8922268645540726E-4,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=95 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*2;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 96
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=96 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=20.61491402573236,-59.9375,0.5 delta=0.1354349307887141,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=9.461134322770363E-5,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=96 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*2;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 97
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=97 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=20.750348956521076,-59.9375,0.5 delta=0.13421601595955282,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=4.7305671613851815E-5,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=97 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*2;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 98
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=98 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=20.88456497248063,-59.9375,0.5 delta=0.13300807136792256,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=2.3652835806925907E-5,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=98 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*2;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 99
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=99 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=21.01757304384855,-59.9375,0.5 delta=0.1318109982816489,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=1.1826417903462954E-5,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=99 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*2;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 100
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=100 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=21.149384042130198,-59.9375,0.5 delta=0.1306246988571474,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=5.913208951731477E-6,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=100 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*2;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 101
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=101 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=21.280008740987345,-59.9375,0.5 delta=0.1294490761314261,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=2.9566044758657384E-6,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=101 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*2;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 102
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=102 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=21.40945781711877,-59.9375,0.5 delta=0.12828403401416036,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=1.4783022379328692E-6,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=102 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*2;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 103
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=103 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=21.53774185113293,-59.9375,0.5 delta=0.12712947727983875,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=7.391511189664346E-7,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=103 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*1;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 104
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=104 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=21.66487132841277,-59.9375,0.5 delta=0.1259853115599798,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=3.695755594832173E-7,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=104 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*1;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 105
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=105 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=21.79085663997275,-59.9375,0.5 delta=0.12485144333541864,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=1.8478777974160865E-7,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=105 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*1;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 106
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=106 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=21.915708083308168,-59.9375,0.5 delta=0.12372777992866323,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=9.239388987080433E-8,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=106 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*1;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 107
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=107 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=22.039435863236832,-59.9375,0.5 delta=0.12261422949631924,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=4.619694493540216E-8,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=107 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*1;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 108
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=108 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=22.16205009273315,-59.9375,0.5 delta=0.12151070102158322,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=2.309847246770108E-8,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=108 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*1;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 109
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=109 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=22.283560793754734,-59.9375,0.5 delta=0.12041710430680325,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=1.154923623385054E-8,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=109 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*1;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+T 110
+E a2 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=110 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:hopper_minecart pos=22.403977898061537,-59.9375,0.5 delta=0.11933334996610657,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:cobblestone*64;1:minecraft:cobblestone*1;2:minecraft:diamond*2;3:minecraft:iron_ingot*2 loot=- seed=0 enabled=1
+E h2 minecraft:hopper_minecart pos=21.481532744708176,-60.0,4.5 delta=5.77461811692527E-9,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=- items=0:minecraft:dirt*5 loot=- seed=0 enabled=1
+E b1 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=110 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:hopper_minecart pos=30.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:coal*1;3:minecraft:gold_ingot*2 loot=- seed=0 enabled=1
+BE 30 -60 8 {Items:[{Slot:0b,count:1,id:"minecraft:coal"}],TransferCooldown:1,components:{},id:"minecraft:hopper",x:30,y:-60,z:8}
+BE 30 -61 8 {Items:[{Slot:0b,count:3,id:"minecraft:iron_ingot"},{Slot:1b,count:1,id:"minecraft:coal"}],components:{},id:"minecraft:chest",x:30,y:-61,z:8}
+N h3 {Air:300s,Enabled:1b,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Items:[{Slot:1b,count:1,id:"minecraft:coal"},{Slot:3b,count:2,id:"minecraft:gold_ingot"}],Motion:[0.0d,0.0d,0.0d],NoGravity:1b,OnGround:0b,PortalCooldown:0,Pos:[30.5d,-59.0d,8.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}

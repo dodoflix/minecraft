@@ -4,31 +4,51 @@
 //! plus `Container` (what `ContainerKey::Entity` resolves through [`Entity::as_container_mut`]). [`ContainerEntity`] is the
 //! trait of the entities embedding it; its defaults are the interface's `default` methods that need the entity itself.
 //!
+//! Not implemented: `ContainerEntity.getChestVehicleSlot` (the `container.N` slots that `/item` and predicates address).
+//!
 //! The vanilla getters unpack a pending loot table lazily (`unpackChestVehicleLootTable(null)` on every `getItem`...). A `&self`
 //! container cannot do that without the level, so the paths that have it unpack explicitly: opening the menu
-//! ([`ChestVehicleMenuProvider`], with the player), dropping the contents on removal/destruction, `clearContent`.
+//! ([`ChestVehicleMenuProvider`], with the player), dropping the contents on removal/destruction, a hopper reading or filling the
+//! container, a comparator reading it through a detector rail, `clearContent`.
 
+use crate::advancements::triggers::CriteriaTriggers;
 use crate::server::level::ServerLevel;
+use crate::server::level::block_break::anger_nearby_piglins;
 use crate::world::container::{Container, empty_stack, helper};
 use crate::world::containers::drop_item_stack;
 use crate::world::damagesource::DamageSource;
 use crate::world::damagesource::display_name::entity_display_name;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::inventory::{
-    AbstractContainerMenu, ChestMenu, ContainerRef, MenuPlayer, MenuProvider,
+    AbstractContainerMenu, ChestMenu, ContainerRef, HopperMenu, MenuPlayer, MenuProvider,
 };
 use crate::world::item::{InteractionResult, ItemStack};
 use crate::world::level::storage::loot::{LootContextParamSets, LootParams, loading};
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
+use mc_data::GameEvent;
 use mc_nbt::CompoundTag;
 use mc_text::Component;
 use std::any::Any;
+
+/// The menu a chest vehicle opens (`createMenu`).
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum ChestVehicleMenu {
+    /// `ChestMenu.threeRows` (chest boats, chest minecarts).
+    ThreeRows,
+    /// `HopperMenu` (hopper minecarts).
+    Hopper,
+}
+
+/// Slots of the item list a minecart container starts with (`AbstractMinecartContainer.itemStacks`), whatever its container size.
+const MINECART_INITIAL_STACKS: usize = 36;
 
 /// `ContainerEntity.getItemStacks()` & the loot table fields of the implementing entity.
 pub struct ChestVehicleData {
     entity_id: EntityId,
     item_stacks: Vec<ItemStack>,
+    container_size: usize,
+    menu: ChestVehicleMenu,
     loot_table: Option<Identifier>,
     loot_table_seed: i64,
 }
@@ -39,9 +59,31 @@ impl ChestVehicleData {
         Self {
             entity_id,
             item_stacks: vec![ItemStack::empty(); size],
+            container_size: size,
+            menu: ChestVehicleMenu::ThreeRows,
             loot_table: None,
             loot_table_seed: 0,
         }
+    }
+
+    /// The state of an `AbstractMinecartContainer`: the item list starts with 36 slots (the list is only resized to
+    /// `getContainerSize()` when the cart is loaded or cleared).
+    pub fn new_minecart(
+        entity_id: EntityId,
+        container_size: usize,
+        menu: ChestVehicleMenu,
+    ) -> Self {
+        Self {
+            item_stacks: vec![ItemStack::empty(); MINECART_INITIAL_STACKS],
+            container_size,
+            menu,
+            ..Self::new(entity_id, 0)
+        }
+    }
+
+    /// Whether a loot table is waiting to be unpacked.
+    pub fn has_loot_table(&self) -> bool {
+        self.loot_table.is_some()
     }
 
     pub fn get_container_loot_table(&self) -> Option<&Identifier> {
@@ -64,10 +106,9 @@ impl ChestVehicleData {
         &self.item_stacks
     }
 
-    /// `clearItemStacks()`: a fresh list of empty stacks of the same size.
+    /// `clearItemStacks()`: a fresh list of empty stacks of the container size.
     pub fn clear_item_stacks(&mut self) {
-        let size = self.item_stacks.len();
-        self.item_stacks = vec![ItemStack::empty(); size];
+        self.item_stacks = vec![ItemStack::empty(); self.container_size];
     }
 
     /// `addChestVehicleSaveData(output)`: the loot table (and its seed when non-zero) replaces the items.
@@ -94,8 +135,26 @@ impl ChestVehicleData {
         }
     }
 
-    /// `unpackChestVehicleLootTable(player)` at `origin` (the entity's position).
+    /// `unpackChestVehicleLootTable(player)` at `origin` (the entity's position): `GENERATE_LOOT`, then the fill with the
+    /// player's luck.
     pub fn unpack_chest_vehicle_loot_table(
+        &mut self,
+        level: &mut ServerLevel,
+        origin: Vec3,
+        player: &mut ServerPlayer,
+    ) {
+        if let Some(table) = &self.loot_table {
+            CriteriaTriggers::GENERATE_LOOT.trigger(level, player, table);
+        }
+        self.fill_from_loot_table(level, origin, Some(&*player));
+    }
+
+    /// `unpackChestVehicleLootTable(null)`: the lazy unpack of the container getters.
+    pub fn unpack_for_access(&mut self, level: &ServerLevel, origin: Vec3) {
+        self.fill_from_loot_table(level, origin, None);
+    }
+
+    fn fill_from_loot_table(
         &mut self,
         level: &ServerLevel,
         origin: Vec3,
@@ -105,7 +164,6 @@ impl ChestVehicleData {
             return;
         };
         let table = loading::get_loot_table(&level.registries, &table_id);
-        // Not implemented: `CriteriaTriggers.GENERATE_LOOT.trigger(player, lootTable)` when a player opened it
         let seed = self.loot_table_seed;
         let mut builder = LootParams::builder(level).origin(origin);
         if let Some(p) = player {
@@ -118,11 +176,11 @@ impl ChestVehicleData {
         table.fill(self, &params, seed);
     }
 
-    /// `Containers.dropContents(level, entity, container)` with `getItem` unpacking first; the stacks are consumed like
-    /// `dropItemStack` splits them.
+    /// `Containers.dropContents(level, entity, container)` with `getItem` unpacking first: one drop per slot of the container
+    /// size; the stacks are consumed like `dropItemStack` splits them.
     pub fn drop_contents(&mut self, level: &mut ServerLevel, position: Vec3) {
-        self.unpack_chest_vehicle_loot_table(level, position, None);
-        for stack in &mut self.item_stacks {
+        self.unpack_for_access(level, position);
+        for stack in self.item_stacks.iter_mut().take(self.container_size) {
             drop_item_stack(
                 level,
                 position.x,
@@ -142,7 +200,7 @@ impl Container for ChestVehicleData {
         self
     }
     fn get_container_size(&self) -> usize {
-        self.item_stacks.len()
+        self.container_size
     }
     /// `isChestVehicleEmpty()`.
     fn is_empty(&self) -> bool {
@@ -186,7 +244,7 @@ impl Container for ChestVehicleData {
     }
 }
 
-/// The menu a chest vehicle opens (`MenuProvider.createMenu`: unpack the loot table for the player, `ChestMenu.threeRows`).
+/// The menu a chest vehicle opens (`MenuProvider.createMenu`: unpack the loot table for the player, then the chest or hopper menu).
 pub struct ChestVehicleMenuProvider {
     entity_id: EntityId,
     title: Component,
@@ -209,11 +267,14 @@ impl MenuProvider for ChestVehicleMenuProvider {
         player: &mut dyn MenuPlayer,
     ) -> Option<Box<dyn AbstractContainerMenu>> {
         let id = self.entity_id;
-        let loot_pending = player
-            .level_ref()
-            .and_then(|l| l.get_entity(id))
-            .and_then(|e| e.chest_vehicle())
-            .is_some_and(|c| c.loot_table.is_some());
+        let chest = |player: &dyn MenuPlayer| {
+            player
+                .level_ref()
+                .and_then(|l| l.get_entity(id))
+                .and_then(|e| e.chest_vehicle())
+                .map(|c| (c.loot_table.is_some(), c.container_size, c.menu))
+        };
+        let (loot_pending, size, menu) = chest(&*player)?;
         if loot_pending && player.is_spectator() {
             return None;
         }
@@ -221,20 +282,17 @@ impl MenuProvider for ChestVehicleMenuProvider {
             level.with_entity(id, |level, e| {
                 let position = e.position();
                 if let Some(chest) = e.chest_vehicle_mut() {
-                    chest.unpack_chest_vehicle_loot_table(level, position, Some(&*server_player));
+                    chest.unpack_chest_vehicle_loot_table(level, position, server_player);
                 }
             });
         });
-        let size = player
-            .level_ref()
-            .and_then(|l| l.get_entity(id))
-            .and_then(|e| e.chest_vehicle())
-            .map_or(0, |c| c.get_container_size());
-        Some(Box::new(ChestMenu::three_rows(
-            container_id,
-            player,
-            ContainerRef::entity(id, size),
-        )))
+        let container = ContainerRef::entity(id, size);
+        Some(match menu {
+            ChestVehicleMenu::ThreeRows => {
+                Box::new(ChestMenu::three_rows(container_id, player, container))
+            }
+            ChestVehicleMenu::Hopper => Box::new(HopperMenu::new(container_id, player, container)),
+        })
     }
 }
 
@@ -253,10 +311,35 @@ pub trait ContainerEntity: Entity {
     fn chest_vehicle_destroyed(&mut self, source: &DamageSource, level: &mut ServerLevel) {
         if level.entity_drops() {
             self.drop_chest_contents(level);
-            if source.direct_is_player() {
-                // Not implemented: `PiglinAi.angerNearbyPiglins(level, player, true)` (the attacking player is taken out of the level here; call `block_break::anger_nearby_piglins`)
+            // the attacking player runs outside the level storage: the anger waits until it is put back
+            if let Some(player) = source
+                .get_direct_entity()
+                .filter(|_| source.direct_is_player())
+            {
+                level.with_entity_or_defer(player, |level, player| {
+                    anger_nearby_piglins(level, &*player, true);
+                });
             }
         }
+    }
+
+    /// What chest boats and chest minecarts do when the player uses them: `interactWithContainerVehicle`, then on success the
+    /// `CONTAINER_OPEN` game event at the vehicle and the anger of the piglins that see the player.
+    fn open_chest_vehicle(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+    ) -> InteractionResult {
+        let result = self.interact_with_container_vehicle(level, player);
+        if result.consumes_action() {
+            level.game_event_from_entity(
+                Some(player.id()),
+                GameEvent::CONTAINER_OPEN,
+                self.base().position(),
+            );
+            anger_nearby_piglins(level, &*player, true);
+        }
+        result
     }
 
     /// `interactWithContainerVehicle(player)`: `player.openMenu(this)`. The vehicle is out of the level while it is being

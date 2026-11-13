@@ -1,0 +1,68 @@
+# Comparators on detector rails: a powered detector rail reports the fill of the first container minecart on it (a chest cart at several fill levels,
+# a hopper cart, a cart with a pending loot table that is unpacked by the read), a plain minecart reports nothing, and a
+# plain minecart beside a container cart on the same rail is skipped.
+level flat
+preload 3
+level_seed 141
+entity_counter 2000
+fill -2 -60 -4 70 -40 8 minecraft:air
+note an empty chest cart presses the rail, signal 0
+block 0 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 0 -60 0 minecraft:detector_rail[shape=east_west,powered=false]
+spawn k0_0 minecraft:chest_minecart 0.5 -59.9375 0.5 0 0 {NoGravity:1b}
+entity_seed k0_0 1
+note one stack in a chest cart
+block 3 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 3 -60 0 minecraft:detector_rail[shape=east_west,powered=false]
+spawn k3_0 minecraft:chest_minecart 3.5 -59.9375 0.5 0 0 {NoGravity:1b,Items:[{Slot:0b,id:"minecraft:stone",count:64}]}
+entity_seed k3_0 31
+note fourteen stacks
+block 6 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 6 -60 0 minecraft:detector_rail[shape=east_west,powered=false]
+spawn k6_0 minecraft:chest_minecart 6.5 -59.9375 0.5 0 0 {NoGravity:1b,Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:stone",count:64},{Slot:3b,id:"minecraft:stone",count:64},{Slot:4b,id:"minecraft:stone",count:64},{Slot:5b,id:"minecraft:stone",count:64},{Slot:6b,id:"minecraft:stone",count:64},{Slot:7b,id:"minecraft:stone",count:64},{Slot:8b,id:"minecraft:stone",count:64},{Slot:9b,id:"minecraft:stone",count:64},{Slot:10b,id:"minecraft:stone",count:64},{Slot:11b,id:"minecraft:stone",count:64},{Slot:12b,id:"minecraft:stone",count:64},{Slot:13b,id:"minecraft:stone",count:64}]}
+entity_seed k6_0 61
+note a full chest cart
+block 9 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 9 -60 0 minecraft:detector_rail[shape=east_west,powered=false]
+spawn k9_0 minecraft:chest_minecart 9.5 -59.9375 0.5 0 0 {NoGravity:1b,Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:stone",count:64},{Slot:3b,id:"minecraft:stone",count:64},{Slot:4b,id:"minecraft:stone",count:64},{Slot:5b,id:"minecraft:stone",count:64},{Slot:6b,id:"minecraft:stone",count:64},{Slot:7b,id:"minecraft:stone",count:64},{Slot:8b,id:"minecraft:stone",count:64},{Slot:9b,id:"minecraft:stone",count:64},{Slot:10b,id:"minecraft:stone",count:64},{Slot:11b,id:"minecraft:stone",count:64},{Slot:12b,id:"minecraft:stone",count:64},{Slot:13b,id:"minecraft:stone",count:64},{Slot:14b,id:"minecraft:stone",count:64},{Slot:15b,id:"minecraft:stone",count:64},{Slot:16b,id:"minecraft:stone",count:64},{Slot:17b,id:"minecraft:stone",count:64},{Slot:18b,id:"minecraft:stone",count:64},{Slot:19b,id:"minecraft:stone",count:64},{Slot:20b,id:"minecraft:stone",count:64},{Slot:21b,id:"minecraft:stone",count:64},{Slot:22b,id:"minecraft:stone",count:64},{Slot:23b,id:"minecraft:stone",count:64},{Slot:24b,id:"minecraft:stone",count:64},{Slot:25b,id:"minecraft:stone",count:64},{Slot:26b,id:"minecraft:stone",count:64}]}
+entity_seed k9_0 91
+note a hopper cart with two stacks
+block 12 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 12 -60 0 minecraft:detector_rail[shape=east_west,powered=false]
+spawn k12_0 minecraft:hopper_minecart 12.5 -59.9375 0.5 0 0 {NoGravity:1b,Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:32}]}
+entity_seed k12_0 121
+note a full hopper cart
+block 15 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 15 -60 0 minecraft:detector_rail[shape=east_west,powered=false]
+spawn k15_0 minecraft:hopper_minecart 15.5 -59.9375 0.5 0 0 {NoGravity:1b,Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:stone",count:64},{Slot:3b,id:"minecraft:stone",count:64},{Slot:4b,id:"minecraft:stone",count:64}]}
+entity_seed k15_0 151
+note a chest cart with a pending loot table: the comparator read unpacks it
+block 18 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 18 -60 0 minecraft:detector_rail[shape=east_west,powered=false]
+spawn k18_0 minecraft:chest_minecart 18.5 -59.9375 0.5 0 0 {NoGravity:1b,LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:21L}
+entity_seed k18_0 181
+note a plain minecart reports nothing
+block 21 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 21 -60 0 minecraft:detector_rail[shape=east_west,powered=false]
+spawn k21_0 minecraft:minecart 21.5 -59.9375 0.5 0 0 {NoGravity:1b}
+entity_seed k21_0 211
+note a plain minecart and a chest cart on the same rail: the chest cart counts
+block 24 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 24 -60 0 minecraft:detector_rail[shape=east_west,powered=false]
+spawn k24_0 minecraft:minecart 24.5 -59.9375 0.5 0 0 {NoGravity:1b}
+entity_seed k24_0 241
+spawn k24_1 minecraft:chest_minecart 24.5 -59.9375 0.5 0 0 {NoGravity:1b,Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:stone",count:64},{Slot:3b,id:"minecraft:stone",count:64},{Slot:4b,id:"minecraft:stone",count:64}]}
+entity_seed k24_1 242
+note a chest cart and a hopper cart on the same rail: the first in query order counts
+block 27 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 27 -60 0 minecraft:detector_rail[shape=east_west,powered=false]
+spawn k27_0 minecraft:chest_minecart 27.5 -59.9375 0.5 0 0 {NoGravity:1b,Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64}]}
+entity_seed k27_0 271
+spawn k27_1 minecraft:hopper_minecart 27.5 -59.9375 0.5 0 0 {NoGravity:1b,Items:[{Slot:0b,id:"minecraft:stone",count:64}]}
+entity_seed k27_1 272
+tick 6
+dump be:0,-60,1 be:3,-60,1 be:6,-60,1 be:9,-60,1 be:12,-60,1 be:15,-60,1 be:18,-60,1 be:21,-60,1 be:24,-60,1 be:27,-60,1 blocks:0,-60,0,30,-60,1 xentities
+note a cart that leaves the rail (killed) releases it: the signal drops to 0 after the rail check
+kill k3_0
+tick 25
+dump be:3,-60,1 blocks:3,-60,0,3,-60,1

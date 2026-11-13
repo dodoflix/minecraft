@@ -56,6 +56,9 @@ pub trait Hopper: Container {
     fn get_level_y(&self) -> f64;
     fn get_level_z(&self) -> f64;
     fn is_grid_aligned(&self) -> bool;
+    /// The lazy loot table unpack of `getItem` for a hopper whose container is an entity (a block entity hopper unpacks in
+    /// its own tick): called before items are moved into the hopper.
+    fn unpack_pending_loot(&mut self, _level: &ServerLevel) {}
 }
 
 pub struct HopperBlockEntity {
@@ -422,15 +425,7 @@ pub fn suck_in_items(level: &mut ServerLevel, hopper: &mut dyn Hopper) -> bool {
         let mut moved = false;
         if !is_blocked {
             for id in get_items_at_and_above(level, &*hopper) {
-                let absorbed = level
-                    .with_entity(id, |level, entity| {
-                        match entity.as_any_mut().downcast_mut::<ItemEntity>() {
-                            Some(item) => add_item_entity(level, hopper, item),
-                            None => false,
-                        }
-                    })
-                    .unwrap_or(false);
-                if absorbed {
+                if absorb_item_entity(level, hopper, id) {
                     moved = true;
                     break;
                 }
@@ -455,6 +450,7 @@ fn try_take_in_item_from_slot(
     {
         let original_count = stack.count();
         let one = container.remove_item(slot, 1);
+        hopper.unpack_pending_loot(level);
         let result = add_item(level, Some(&*container), hopper, one, None);
         if result.is_empty() {
             container.set_changed();
@@ -469,6 +465,19 @@ fn try_take_in_item_from_slot(
         }
     }
     false
+}
+
+/// `addItem(hopper, itemEntity)` for the item entity `id` (false when it is gone or not an item).
+pub fn absorb_item_entity(level: &mut ServerLevel, hopper: &mut dyn Hopper, id: EntityId) -> bool {
+    level
+        .with_entity(id, |level, entity| {
+            let Some(item) = entity.as_any_mut().downcast_mut::<ItemEntity>() else {
+                return false;
+            };
+            hopper.unpack_pending_loot(level);
+            add_item_entity(level, hopper, item)
+        })
+        .unwrap_or(false)
 }
 
 /// `addItem(container, itemEntity)`: absorbs what fits, discards the entity when everything moved.
@@ -697,17 +706,10 @@ fn combine_chest(level: &mut ServerLevel, pos: BlockPos, state: BlockState) -> C
     ContainerTarget::BlockEntity(pos)
 }
 
-/// `EntitySelector.CONTAINER_ENTITY_SELECTOR` type test (`entity instanceof Container`): only the chest/hopper minecarts and
-/// the chest boats are containers (horse inventories and the like are not `Container` entities).
+/// `EntitySelector.CONTAINER_ENTITY_SELECTOR` type test (`entity instanceof Container`): the chest/hopper minecarts and the
+/// chest boats, every `ContainerEntity` (horse inventories and the like are not `Container` entities).
 fn is_container_entity(entity: &dyn Entity) -> bool {
-    if entity.as_container().is_none() {
-        return false;
-    }
-    let name = entity.get_type().name();
-    name == "minecraft:chest_minecart"
-        || name == "minecraft:hopper_minecart"
-        || name.ends_with("_chest_boat")
-        || name.ends_with("_chest_raft")
+    entity.chest_vehicle().is_some()
 }
 
 /// `getEntityContainer(level, x, y, z)`: one of the container entities in the 1x1x1 box, picked with the level random.
@@ -726,8 +728,8 @@ fn get_entity_container(
     Some(ContainerTarget::Entity(entities[index]))
 }
 
-/// Runs `f` with the container of `target` (its owner is out of the level meanwhile). Block entity containers unpack
-/// their loot table first (vanilla unpacks inside every accessor). `None` when the owner disappeared.
+/// Runs `f` with the container of `target` (its owner is out of the level meanwhile). Block entity and entity containers
+/// unpack their loot table first (vanilla unpacks inside every accessor). `None` when the owner disappeared.
 pub fn with_container<R>(
     level: &mut ServerLevel,
     target: &ContainerTarget,
@@ -779,6 +781,10 @@ pub fn with_container<R>(
         }
         ContainerTarget::Entity(id) => {
             let mut entity = level.take_entity(*id)?;
+            let position = entity.position();
+            if let Some(chest) = entity.chest_vehicle_mut() {
+                chest.unpack_for_access(level, position);
+            }
             let result = entity
                 .as_container_mut()
                 .map(|container| f(level, container));

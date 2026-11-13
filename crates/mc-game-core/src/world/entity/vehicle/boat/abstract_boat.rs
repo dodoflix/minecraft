@@ -995,16 +995,7 @@ impl Entity for AbstractBoat {
         if self.can_add_passenger(&*player) && !secondary {
             return InteractionResult::PASS;
         }
-        let result = self.interact_with_container_vehicle(level, player);
-        if result.consumes_action() {
-            level.game_event_from_entity(
-                Some(player.id()),
-                GameEvent::CONTAINER_OPEN,
-                self.base.position(),
-            );
-            crate::server::level::block_break::anger_nearby_piglins(level, &*player, true);
-        }
-        result
+        self.open_chest_vehicle(level, player)
     }
 
     /// `AbstractChestBoat.remove(reason)` (contents) and `AbstractBoat.remove(reason)` (leash) run before `setRemoved`.

@@ -4692,8 +4692,8 @@ pub trait Entity: Any {
     ) -> Option<&mut super::vehicle::container_entity::ChestVehicleData> {
         None
     }
-    /// `entity instanceof MenuProvider`: the menu a spectator opens with `Player.interactOn` (chest boats).
-    /// Not implemented: chest and hopper minecarts.
+    /// `entity instanceof MenuProvider`: the menu a spectator opens with `Player.interactOn` (chest boats, chest and hopper
+    /// minecarts).
     fn as_menu_provider(
         &self,
         _level: &ServerLevel,

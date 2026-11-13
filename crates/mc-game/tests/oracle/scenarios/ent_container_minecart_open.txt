@@ -1,0 +1,61 @@
+# Opening container minecarts: a survival player opens a chest cart (menu, container-open game event, nearby piglins that see the player get
+# angry) and a hopper cart (menu only, no event, no anger); a spectator opens carts without a loot table but not the one with a pending loot table
+# (`container.spectatorCantOpen`); the players wear gold so the piglin stays idle; every open carries the cart's own title; closing a chest cart posts the container-close event.
+command_env
+level flat
+preload 3
+level_seed 41
+entity_counter 1500
+difficulty normal
+watch events
+fill -2 -60 -4 40 -40 12 minecraft:air
+spawn_player A survival 8.5 -60 3.5 180 0
+spawn_player S spectator 7.5 -60 3.5 180 0
+spawn_player O survival 9.5 -60 3.5 180 0
+give A head minecraft:golden_helmet
+give O head minecraft:golden_helmet
+spawn C1 minecraft:chest_minecart 5.0 -59.9375 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:13b,id:"minecraft:stick",count:7}]}
+entity_seed C1 51
+spawn C2 minecraft:chest_minecart 6.5 -59.9375 0.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+entity_seed C2 52
+spawn H1 minecraft:hopper_minecart 8.0 -59.9375 0.5 0 0 {Items:[{Slot:2b,id:"minecraft:iron_ingot",count:5}]}
+entity_seed H1 53
+spawn H2 minecraft:hopper_minecart 9.5 -59.9375 0.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+entity_seed H2 54
+spawn C3 minecraft:chest_minecart 11.0 -59.9375 0.5 0 0 {CustomName:'"Stash"'}
+entity_seed C3 55
+spawn P minecraft:piglin 8.5 -60 8.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b}
+entity_seed P 56
+tick 25
+dump packets:A:none packets:S:none packets:O:none nbt:P events
+note a hopper cart opens its hopper menu and angers nobody
+interact O H1
+dump packets:O:open_screen,container_set_content,container_set_slot,game_event,sound,swing events nbt:P menu:O
+close_menu O
+dump packets:O:container_close,game_event events nbt:P
+note a chest cart opens its chest menu, posts the container-open event and angers the piglin that sees the player
+interact A C1
+dump packets:A:open_screen,container_set_content,container_set_slot,game_event,sound,swing events nbt:P menu:A
+close_menu A
+dump packets:A:container_close,game_event events
+note a named cart shows its name
+interact A C3
+dump packets:A:open_screen,container_set_content,game_event events
+close_menu A
+note the spectator opens a cart with items and an empty hopper cart, but not carts with a pending loot table
+interact S C1
+dump packets:S:open_screen,container_set_content,container_set_slot,system_chat,game_event,sound,swing events
+close_menu S
+interact S H1
+dump packets:S:open_screen,container_set_content,system_chat,game_event events
+close_menu S
+interact S C2
+dump packets:S:open_screen,container_set_content,system_chat,game_event events xentity:C2
+interact S H2
+dump packets:S:open_screen,container_set_content,system_chat,game_event events xentity:H2
+note a sneaking survival player opens a cart too
+interact A C3 main sneak
+dump packets:A:open_screen,container_set_content,game_event events
+close_menu A
+tick 2
+dump events

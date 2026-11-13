@@ -1,0 +1,51 @@
+# Loot tables of container minecarts: opening one unpacks the table once for the player (luck, the loot-generated advancement), a hopper below
+# one unpacks it with the same seed to the same items and then pulls them one by one, a hopper above one fills the unpacked cart.
+command_env
+level flat
+preload 3
+level_seed 81
+entity_counter 1700
+difficulty normal
+fill -2 -60 -4 40 -40 12 minecraft:air
+spawn_player A survival 2.5 -60 3.5 180 0
+spawn C1 minecraft:chest_minecart 2.5 -59.9375 0.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+entity_seed C1 91
+spawn C2 minecraft:chest_minecart 5.5 -59.9375 0.5 0 0 {LootTable:"minecraft:chests/bastion_other",LootTableSeed:3L}
+entity_seed C2 92
+spawn C3 minecraft:chest_minecart 14.5 -58.9375 0.5 0 0 {NoGravity:1b,LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+entity_seed C3 93
+block 14 -60 0 minecraft:hopper[facing=down,enabled=true]
+block 14 -61 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+spawn C4 minecraft:hopper_minecart 20.5 -58.9375 0.5 0 0 {NoGravity:1b,LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+entity_seed C4 94
+block 20 -60 0 minecraft:hopper[facing=down,enabled=true]
+block 20 -61 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+spawn C5 minecraft:chest_minecart 26.5 -59.9375 0.5 0 0 {NoGravity:1b,LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+entity_seed C5 95
+block 26 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 26 -59 0 {Items:[{Slot:0b,id:"minecraft:stone",count:5},{Slot:1b,id:"minecraft:dirt",count:3}]}
+tick 2
+dump packets:A:none xentities advancements:A
+note the player opens the dungeon cart: the table is unpacked for the player, the loot is in the menu
+interact A C1
+dump packets:A:open_screen,container_set_content,container_set_slot,game_event,sound,swing xentity:C1 menu:A advancements:A
+close_menu A
+note the bastion loot table grants the advancement criterion
+interact A C2
+dump packets:A:open_screen,container_set_content,game_event xentity:C2 advancements:A
+close_menu A
+note a hopper below the dungeon cart pulls from the unpacked cart (the same table and seed as the first cart)
+tick 20
+dump xentity:C3 be:14,-60,0 be:14,-61,0
+tick 20
+dump xentity:C3 be:14,-60,0 be:14,-61,0
+note a hopper below the hopper cart with a loot table
+tick 20
+dump xentity:C4 be:20,-60,0 be:20,-61,0
+tick 20
+dump xentity:C4 be:20,-60,0 be:20,-61,0
+note a hopper above a cart with a pending loot table pushes its items into the unpacked cart
+tick 20
+dump xentity:C5 be:26,-59,0
+tick 20
+dump xentity:C5 be:26,-59,0

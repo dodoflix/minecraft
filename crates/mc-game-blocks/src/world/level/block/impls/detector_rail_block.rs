@@ -3,6 +3,7 @@ use mc_core::phys::AABB;
 use mc_data::EntityType;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::container::get_redstone_signal_from_container;
 use mc_game_core::world::entity::Entity;
 use mc_game_core::world::level::block::impls::base_rail_block::{self, rail_behaviour};
 use mc_game_core::world::level::block::impls::prelude::*;
@@ -24,6 +25,11 @@ fn is_abstract_minecart(entity: &dyn Entity) -> bool {
             | EntityType::SPAWNER_MINECART
             | EntityType::TNT_MINECART
     )
+}
+
+/// `EntitySelector.CONTAINER_ENTITY_SELECTOR`: `entity instanceof Container && entity.isAlive()`.
+fn is_live_container_entity(entity: &dyn Entity) -> bool {
+    entity.chest_vehicle().is_some() && entity.is_alive()
 }
 
 /// `DetectorRailBlock.getSearchBB`.
@@ -50,24 +56,14 @@ fn get_interacting_minecarts(
     level.get_entities_of_class(&get_search_bb(pos), test, selector)
 }
 
-/// `DetectorRailBlock.checkPressed`. `ticking` is the entity whose `entityInside` triggered the check: it is not in the
-/// level's entity storage while it ticks, vanilla's query finds it there.
-fn check_pressed(
-    level: &mut ServerLevel,
-    pos: BlockPos,
-    state: BlockState,
-    ticking: Option<&dyn Entity>,
-) {
+/// `DetectorRailBlock.checkPressed`.
+fn check_pressed(level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
     if base_rail_block::can_survive(&*level, pos)
         && level.get_block_state(pos).block() == state.block()
     {
         let was_pressed = state.get(props::POWERED);
         let should_be_pressed =
-            !get_interacting_minecarts(level, pos, is_abstract_minecart, |_| true).is_empty()
-                || ticking.is_some_and(|e| {
-                    is_abstract_minecart(e)
-                        && get_search_bb(pos).intersects_aabb(&e.get_bounding_box())
-                });
+            !get_interacting_minecarts(level, pos, is_abstract_minecart, |_| true).is_empty();
         let block = state.block();
         if should_be_pressed && !was_pressed {
             set_pressed(level, pos, state, true);
@@ -117,24 +113,65 @@ fn on_place(
 ) {
     if old_state.block() != state.block() {
         let updated = base_rail_block::update_state_moved(state, level, pos, moved_by_piston);
-        check_pressed(level, pos, updated, None);
+        check_pressed(level, pos, updated);
     }
 }
 
-// Not implemented: `getAnalogOutputSignal` (comparators read command-block and container minecarts; needs the minecart entities).
+/// The first live container minecart in the search box of the rail at `pos` (query order).
+fn first_container_minecart(
+    level: &ServerLevel,
+    pos: BlockPos,
+) -> Option<mc_game_core::world::entity::EntityId> {
+    get_interacting_minecarts(level, pos, is_abstract_minecart, is_live_container_entity)
+        .first()
+        .copied()
+}
+
+/// `getAnalogOutputSignal` of a powered rail: the container minecart on it as a container.
+// Not implemented: the `MinecartCommandBlock` success count that vanilla reads before the container minecarts
+fn container_minecart_signal(level: &ServerLevel, pos: BlockPos) -> Option<i32> {
+    let cart = level.get_entity(first_container_minecart(level, pos)?)?;
+    Some(get_redstone_signal_from_container(cart.as_container()))
+}
+
+/// The lazy loot table unpack of `getRedstoneSignalFromContainer` for the container minecart a comparator reads through the
+/// detector rail at `pos` (the analog output getters only get a shared level, so the comparator calls this first).
+pub fn unpack_loot_for_signal(level: &mut ServerLevel, state: BlockState, pos: BlockPos) {
+    if !state.get(props::POWERED) {
+        return;
+    }
+    let Some(id) = first_container_minecart(level, pos) else {
+        return;
+    };
+    level.with_entity(id, |level, cart| {
+        let position = cart.position();
+        if let Some(chest) = cart.chest_vehicle_mut() {
+            chest.unpack_for_access(level, position);
+        }
+    });
+}
+
 #[rustfmt::skip]
 rail_behaviour!(DetectorRailBlock, |_state, _level, _pos, _block| {}, on_place,
     fn own_signal(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> i32 {
         if state.get(props::POWERED) { 15 } else { 0 }
     }
+    fn get_analog_output_signal(&self, state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
+        if state.get(props::POWERED) {
+            container_minecart_signal(level, pos).unwrap_or(0)
+        } else {
+            0
+        }
+    }
     fn entity_inside(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier, _is_precise: bool) {
         if !state.get(props::POWERED) {
-            check_pressed(level, pos, state, Some(&*entity));
+            // the entity runs outside the level's storage: lent, the box query of the check finds it
+            level.lend(entity, |level| check_pressed(level, pos, state));
         }
     }
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if state.get(props::POWERED) {
-            check_pressed(level, pos, state, None);
+            check_pressed(level, pos, state);
         }
     }
     fn get_direct_signal(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, direction: Direction) -> i32 {

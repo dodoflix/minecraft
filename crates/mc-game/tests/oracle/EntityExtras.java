@@ -9,6 +9,8 @@ import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ShulkerBullet;
 import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.minecart.AbstractMinecartContainer;
+import net.minecraft.world.entity.vehicle.minecart.MinecartHopper;
 
 /**
  * Per-class fields of the rich `E` lines (`dump xentity:REF`, `xentities`, `mob:REF`, `mobs`): the Java twin of the Rust registry
@@ -87,6 +89,21 @@ final class EntityExtras {
          out.add("tzd", EntityOracleDriver.f((Double)EntityOracleDriver.priv(e, "targetDeltaZ")));
          out.add("target", d.uuidName(target == null ? null : target.getUUID()));
       }));
+      ALL.add(new Extra(31, AbstractMinecartContainer.class, (d, e, out) -> {
+         AbstractMinecartContainer c = (AbstractMinecartContainer)e;
+         // the raw list: reading it through getItem would unpack a pending loot table
+         StringBuilder items = new StringBuilder();
+         var stacks = c.getItemStacks();
+         for (int i = 0; i < stacks.size(); i++) {
+            if (!stacks.get(i).isEmpty()) {
+               items.append(items.length() > 0 ? ";" : "").append(i).append(':').append(d.itemFull(stacks.get(i)));
+            }
+         }
+         out.add("items", items.length() == 0 ? "-" : items.toString());
+         out.add("loot", c.getContainerLootTable() == null ? "-" : c.getContainerLootTable().identifier());
+         out.add("seed", c.getContainerLootTableSeed());
+      }));
+      ALL.add(new Extra(32, MinecartHopper.class, (d, e, out) -> out.add("enabled", EntityOracleDriver.bool(((MinecartHopper)e).isEnabled()))));
       ALL.sort(Comparator.comparingInt(Extra::order));
    }
 

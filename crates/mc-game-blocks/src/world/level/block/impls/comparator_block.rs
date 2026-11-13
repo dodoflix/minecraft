@@ -2,7 +2,6 @@
 use crate::world::block_entity::ComparatorBlockEntity;
 use mc_data::enums::ComparatorMode;
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::container::unpack_loot_for_signal;
 use mc_game_core::world::entity::Entity as _;
 use mc_game_core::world::item::InteractionResult;
 use mc_game_core::world::level::block::impls::diode_block::{self, Diode, diode_behaviour};
@@ -12,6 +11,16 @@ use mc_protocol::packets::play::level::SoundSource;
 use mc_world::ticks::TickPriority;
 
 pub struct ComparatorBlock;
+
+/// The lazy loot table unpack of the container a comparator reads: a chest, other container block entities, or the
+/// container minecart on a detector rail.
+fn unpack_loot_for_signal(level: &mut ServerLevel, state: BlockState, pos: BlockPos) {
+    if state.is_block(Block::DETECTOR_RAIL) {
+        super::detector_rail_block::unpack_loot_for_signal(level, state, pos);
+    } else {
+        mc_game_core::world::container::unpack_loot_for_signal(level, state, pos);
+    }
+}
 
 /// `level.getBlockEntity(pos) instanceof ComparatorBlockEntity be ? be.getOutputSignal() : 0`.
 fn stored_output(level: &dyn BlockGetter, pos: BlockPos) -> i32 {

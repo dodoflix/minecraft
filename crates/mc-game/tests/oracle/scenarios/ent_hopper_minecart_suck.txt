@@ -1,0 +1,36 @@
+# Hopper minecart: sucking item entities that lie in the box above it or touch it, a container above, the enabled flag toggled by activator
+# rails (a powered one disables it until it rolls over an unpowered one), a full cart, a hopper below pulling from it, saving.
+level flat
+preload 3
+level_seed 101
+entity_counter 1800
+fill -2 -60 -4 60 -40 14 minecraft:air
+fill 0 -60 0 40 -60 0 minecraft:rail[shape=east_west]
+block 6 -61 0 minecraft:redstone_block
+block 6 -60 0 minecraft:activator_rail[powered=true,shape=east_west]
+block 14 -60 0 minecraft:activator_rail[powered=false,shape=east_west]
+spawn_item a1 minecraft:cobblestone 3.5 -59.5 0.5 0 0 0 5
+spawn_item a2 minecraft:stick 8.5 -59.5 0.5 0 0 0 4
+spawn_item a3 minecraft:diamond 17.5 -59.5 0.5 0 0 0 2
+spawn_item a4 minecraft:iron_ingot 17.5 -59.5 1.0 0 0 0 2
+spawn h1 minecraft:hopper_minecart 0.5 -59.9375 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:cobblestone",count:60}]}
+entity_seed h1 111
+velocity h1 0.3 0 0
+fill 0 -60 4 20 -60 4 minecraft:rail[shape=east_west]
+spawn h2 minecraft:hopper_minecart 0.5 -59.9375 4.5 0 0 {Enabled:0b}
+entity_seed h2 112
+velocity h2 0.3 0 0
+block 14 -60 4 minecraft:activator_rail[powered=false,shape=east_west]
+spawn_item b1 minecraft:stone 8.5 -59.5 4.5 0 0 0 5
+spawn_item b2 minecraft:dirt 18.5 -59.5 4.5 0 0 0 5
+watch xentities
+tick 70
+dump nbt:h1 nbt:h2
+note a hopper below a hopper cart pulls its contents out, the cart standing still on a derailed spot sucks items dropped on it
+block 30 -60 8 minecraft:hopper[facing=down,enabled=true]
+block 30 -61 8 minecraft:chest[facing=south,type=single,waterlogged=false]
+spawn h3 minecraft:hopper_minecart 30.5 -59.0 8.5 0 0 {NoGravity:1b,Items:[{Slot:0b,id:"minecraft:iron_ingot",count:3},{Slot:3b,id:"minecraft:gold_ingot",count:2}]}
+entity_seed h3 113
+spawn_item c1 minecraft:coal 30.5 -58.4 8.5 0 0 0 3
+tick 40
+dump be:30,-60,8 be:30,-61,8 nbt:h3

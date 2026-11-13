@@ -1,0 +1,66 @@
+# Menus of container minecarts through the packet handlers: clicks on a hopper menu and a chest menu backed by the cart's items, the
+# container-close event of a chest cart, the menu staying open within interaction range of the cart and closing beyond it or when the cart is removed.
+command_env
+level flat
+preload 3
+level_seed 121
+entity_counter 1900
+fill -2 -60 -4 40 -40 12 minecraft:air
+spawn_player A survival 6.5 -60 3.5 180 0
+spawn_player B survival 10.5 -60 3.5 180 0
+give A hotbar0 minecraft:cobblestone 30
+give A hotbar1 minecraft:iron_ingot 10
+give A inv9 minecraft:diamond 5
+spawn H minecraft:hopper_minecart 2.5 -59.9375 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:5},{Slot:2b,id:"minecraft:stick",count:3}]}
+entity_seed H 131
+spawn C minecraft:chest_minecart 6.5 -59.9375 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:stone",count:30},{Slot:1b,id:"minecraft:dirt",count:5}]}
+entity_seed C 132
+spawn D minecraft:chest_minecart 10.5 -59.9375 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:stone",count:3}]}
+entity_seed D 133
+spawn K minecraft:chest_minecart 8.5 -59.9375 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:stone",count:3}]}
+entity_seed K 134
+tick 2
+dump packets:A:none packets:B:none events
+note the hopper menu: take a stack, place it into an empty slot, shift-click both ways, split a stack
+interact A H
+dump menu:A packets:A:open_screen,container_set_content xentity:H
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item xentity:H
+click A 3 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item xentity:H
+click A 32 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item xentity:H
+click A 2 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item xentity:H
+click A 3 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item xentity:H
+close_menu A
+dump packets:A:container_close,set_cursor_item events xentity:H inventory:A
+note the chest menu: shift-click from the inventory into the cart and back, the close event
+interact A C
+dump menu:A packets:A:open_screen,container_set_content xentity:C
+click A 54 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item xentity:C
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item xentity:C
+click A 27 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item xentity:C
+close_menu A
+dump packets:A:container_close,set_cursor_item events xentity:C inventory:A
+note the menu stays open 7.3 blocks from the cart and closes at 7.6
+interact B D
+dump menu:B packets:B:open_screen,container_set_content
+tp B 10.5 -60 7.8
+tick 1
+dump menu:B packets:B:container_close events
+tp B 10.5 -60 8.1
+tick 1
+dump menu:B packets:B:container_close events
+note the menu closes when the cart is removed
+interact A K
+dump menu:A packets:A:open_screen,container_set_content events
+hurt K mob_attack 50
+tick 1
+dump menu:A packets:A:container_close events xentities
+tick 2
+dump events
