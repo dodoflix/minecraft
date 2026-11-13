@@ -94,6 +94,7 @@ mod ent_leash_knot_golden;
 mod ent_lightning_golden;
 mod ent_marker_interaction_golden;
 mod ent_minecart_golden;
+mod ent_minecart_item_golden;
 mod ent_movers_golden;
 mod ent_orb_falling_golden;
 mod ent_players_golden;

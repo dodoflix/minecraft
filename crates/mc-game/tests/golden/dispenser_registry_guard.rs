@@ -102,12 +102,6 @@ const VANILLA: &[&str] = &[
 #[rustfmt::skip]
 const NOT_IMPLEMENTED: &[(&str, &str)] = &[
     ("minecraft:brush", "brushes a scute off an armadillo in front (Armadillo.brushOffScute) and damages the brush"),
-    ("minecraft:minecart", "MinecartDispenseItemBehavior: places the minecart on a rail in front (no minecart entities yet)"),
-    ("minecraft:chest_minecart", "MinecartDispenseItemBehavior: places the minecart on a rail in front (no minecart entities yet)"),
-    ("minecraft:furnace_minecart", "MinecartDispenseItemBehavior: places the minecart on a rail in front (no minecart entities yet)"),
-    ("minecraft:tnt_minecart", "MinecartDispenseItemBehavior: places the minecart on a rail in front (no minecart entities yet)"),
-    ("minecraft:hopper_minecart", "MinecartDispenseItemBehavior: places the minecart on a rail in front (no minecart entities yet)"),
-    ("minecraft:command_block_minecart", "MinecartDispenseItemBehavior: places the minecart on a rail in front (no minecart entities yet)"),
 ];
 
 /// Registered items that only implement part of the vanilla behaviour (item, the missing part). The entry is deleted by

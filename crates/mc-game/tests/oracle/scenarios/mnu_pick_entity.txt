@@ -1,13 +1,16 @@
 # ServerboundPickItemFromEntityPacket through the player's listener: what Entity.getPickResult returns for a mob (its spawn egg), an armor stand, boats,
-# an item frame (empty: the frame, filled: the framed item), a painting and a cushion; an entity without a pick result and one out of reach do nothing;
+# an item frame (empty: the frame, filled: the framed item), a painting, a cushion and the six minecart types; an entity without a pick result and one out of reach do nothing;
 # the creative player adds the stack to the hotbar (or replaces the selected slot of a full hotbar, or swaps a stack of the main inventory into it), the
 # survival player only selects a stack he already carries; the profile print of an avatar needs a creative operator.
 command_env
 level flat
 preload 2
+level_seed 31
+entity_counter 845
 spawn_player C creative 4.5 -60 4.5 180 0
 spawn_player A survival 4.5 -60 4.5 180 0
 spawn_player B survival 1.5 -60 4.0 180 0
+spawn_player D creative 4.5 -60 4.5 180 0
 op C
 gamerule send_command_feedback true
 fill 0 -60 2 10 -58 2 minecraft:stone
@@ -23,6 +26,12 @@ spawn RA minecraft:bamboo_raft 8.5 -60 6.5 0 0 {}
 spawn CU minecraft:cushion 0.5 -60 4.5 0 0 {color:"red"}
 spawn PI minecraft:pillager 6.5 -60 4.0 0 0 {NoAI:1b,PersistenceRequired:1b}
 spawn MQ minecraft:mannequin 8.5 -60 4.0 0 0 {}
+spawn MC minecraft:minecart 1.5 -60 5.5 0 0 {}
+spawn MH minecraft:chest_minecart 2.7 -60 5.5 0 0 {}
+spawn MF minecraft:furnace_minecart 3.9 -60 5.5 0 0 {}
+spawn MT minecraft:tnt_minecart 5.1 -60 5.5 0 0 {}
+spawn MP minecraft:hopper_minecart 6.3 -60 5.5 0 0 {}
+spawn MK minecraft:command_block_minecart 7.5 -60 5.5 0 0 {}
 spawn_item IT minecraft:stone 2.0 -60 3.5 0 0 0
 spawn FAR minecraft:cow 30.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
 tick 2
@@ -97,3 +106,16 @@ pick_entity C COW data
 dump packets:C:set_held_slot,system_chat
 pick_entity A B data
 dump packets:A:set_held_slot,system_chat
+note the six minecart types: a creative player with an empty hotbar picks each cart item, a survival player selects the one he carries
+pick_entity D MC
+pick_entity D MH
+pick_entity D MF
+pick_entity D MT
+pick_entity D MP
+pick_entity D MK
+dump inventory:D packets:D:set_held_slot,container_set_slot
+give A hotbar7 minecraft:furnace_minecart
+pick_entity A MF
+dump inventory:A packets:A:set_held_slot,container_set_slot
+pick_entity A MK
+dump inventory:A packets:A:set_held_slot,container_set_slot

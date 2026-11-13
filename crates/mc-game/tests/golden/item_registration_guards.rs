@@ -13,16 +13,10 @@ const EXPECTED_PLAIN: &[&str] = &["Item", "SmithingTemplateItem", "DiscFragmentI
 
 /// Vanilla classes with behaviour of their own that no registration implements yet (class, the missing behaviour). The
 /// entry goes away with the commit that registers the class.
-const EXPECTED_MISSING: &[(&str, &str)] = &[
-    (
-        "FishingRodItem",
-        "use casts a FishingHook or reels it in and damages the rod (no fishing hook entity yet)",
-    ),
-    (
-        "MinecartItem",
-        "useOn on a rail places the minecart entity of the item (no minecart entities yet)",
-    ),
-];
+const EXPECTED_MISSING: &[(&str, &str)] = &[(
+    "FishingRodItem",
+    "use casts a FishingHook or reels it in and damages the rod (no fishing hook entity yet)",
+)];
 
 /// Classes that ARE registered but only implement part of the vanilla class (class, the missing behaviour). Registering
 /// the class cannot tell these from a complete one, so the entry is deleted by hand with the commit that completes it.

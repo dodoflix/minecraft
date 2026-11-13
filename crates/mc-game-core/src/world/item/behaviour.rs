@@ -373,7 +373,6 @@ fn build(item: Item) -> Box<dyn ItemBehaviour> {
     }
     // Vanilla uses the item's own class; these items behave like a plain item (no use action).
     // Not implemented: `FishingRodItem` (use casts a `FishingHook` or reels it in and damages the rod).
-    // Not implemented: `MinecartItem` (useOn on a rail places the minecart entity of the item).
     Box::new(PlainItem)
 }
 

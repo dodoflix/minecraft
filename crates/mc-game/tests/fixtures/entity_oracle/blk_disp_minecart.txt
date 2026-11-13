@@ -1,0 +1,162 @@
+# a flat rail in front, a stack of three with a custom name
+BE 0 -60 0 {Items:[{Slot:0b,components:{"minecraft:custom_name":"Carty"},count:1,id:"minecraft:minecart"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E minecart#1 minecraft:minecart pos=1.625,-59.9,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+N minecart#1 {Air:300s,CustomName:"Carty",Fire:0s,FlippedRotation:0b,HasTicked:1b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[1.625d,-59.9d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+# a slope in front
+BE 10 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:0}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=11.57781171875,-59.35968828125,0.5 delta=-0.02390938281250006,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,0 data=5 global=0
+# air in front with a rail below it
+BE 20 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:20,y:-60,z:0}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=11.458175616639846,-59.47932438336015,0.5 delta=-0.04854324383360127,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=21.625,-60.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=1000 pos=20,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=20,-60,0 data=5 global=0
+# air in front with a sloped rail below it
+BE 30 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:30,y:-60,z:0}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=11.26389645224965,-59.673603547750346,0.5 delta=-0.07392353547750323,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=21.625,-60.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=31.57781171875,-60.35968828125,0.5 delta=-0.02390938281250006,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=1000 pos=30,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=30,-60,0 data=5 global=0
+# facing down: a rail in front, and air with a rail below it (a slope below makes no difference)
+BE 40 -58 0 {Items:[],components:{},id:"minecraft:dispenser",x:40,y:-58,z:0}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=10.992712466149268,-60.0,0.5 delta=-0.09511877259897705,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=21.625,-60.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=31.490000009536743,-60.44749999046326,0.5 delta=0.0,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=40.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=1000 pos=40,-58,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=40,-58,0 data=0 global=0
+BE 50 -58 0 {Items:[],components:{},id:"minecraft:dispenser",x:50,y:-58,z:0}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=10.826254614101058,-60.0,0.5 delta=-0.023779693149744263,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=21.625,-60.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=31.490000009536743,-60.44749999046326,0.5 delta=0.0,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=40.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#6 minecraft:minecart pos=50.5,-59.48468828125,0.5471882812500001 delta=0.0,-0.0,0.02390938281250006 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=1000 pos=50,-58,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=50,-58,0 data=0 global=0
+# facing up: a rail in front
+BE 60 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:60,y:-60,z:0}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=10.805447382595032,-60.0,0.5 delta=-0.002972461643718033,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=21.625,-60.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=31.490000009536743,-60.44749999046326,0.5 delta=0.0,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=40.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#6 minecraft:minecart pos=50.5,-59.60432438336016,0.6668243833601565 delta=0.0,-0.0,0.048543243833601646 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#7 minecraft:minecart pos=60.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=1000 pos=60,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=60,-60,0 data=1 global=0
+# a solid block in front, and air with nothing below: dropped as an item
+BE 70 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:minecart"}],components:{},id:"minecraft:dispenser",x:70,y:-60,z:0}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=10.803218036362244,-60.0,0.5 delta=-7.431154109295082E-4,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=21.625,-60.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=31.490000009536743,-60.44749999046326,0.5 delta=0.0,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=40.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#6 minecraft:minecart pos=50.5,-59.7254119284657,0.7879119284656957 delta=0.0,-0.0,0.06537911928465699 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#7 minecraft:minecart pos=60.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E item#1 minecraft:item pos=71.5587576743358,-59.18488165670997,0.29706092175410603 delta=0.14894130302726621,0.27711607339900013,-0.0842518861932539 rot=69.03727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=2 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=70,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=70,-60,0 data=5 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=70,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=70,-60,0 data=5 global=0
+BE 80 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:furnace_minecart"}],components:{},id:"minecraft:dispenser",x:80,y:-60,z:0}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=10.802846478656779,-60.0,0.5 delta=-1.8577885273237706E-4,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=21.625,-60.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=31.490000009536743,-60.44749999046326,0.5 delta=0.0,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=40.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#6 minecraft:minecart pos=50.5,-59.88033958322786,0.9428395832278562 delta=0.0,-0.0,0.08255339583227865 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#7 minecraft:minecart pos=60.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E item#1 minecraft:item pos=71.75256754649799,-58.99940888493538,0.032263706900120204 delta=0.08046181855991989,0.06005535520358815,-0.19757613805023766 rot=69.03727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=4 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=81.61628559686648,-59.48229196677319,0.4139367197356185 delta=0.20191954492004144,0.06458045435331768,-0.04174503878135411 rot=308.35165,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:furnace_minecart*1 age=2 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=80,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=80,-60,0 data=5 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=80,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=80,-60,0 data=5 global=0
+# every other cart type on a flat rail, with entity data from the stack
+BE 0 -60 8 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:8}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=10.802846478656779,-60.0,0.5 delta=-2.3222356591547132E-5,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=21.625,-60.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=31.490000009536743,-60.44749999046326,0.5 delta=0.0,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=40.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#6 minecraft:minecart pos=50.5,-60.0,1.1633323690586161 delta=0.0,0.0,0.04337562999949375 rot=-90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#7 minecraft:minecart pos=60.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E item#1 minecraft:item pos=71.98915748233425,-59.05963811812541,-0.5486891805774574 delta=0.07573002435578953,-0.05874006128139265,-0.18595709138148306 rot=69.03727,0.0 og=0 fall=0.08028458803892136 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=7 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=82.21000983814925,-59.52921559816788,0.29118960534610355 delta=0.1900450714187773,-0.05448107391378572,-0.03929009883477922 rot=308.35165,0.0 og=0 fall=0.07150408625602722 fire=0 air=300 alive=1 pose=standing item=minecraft:furnace_minecart*1 age=5 pickup=0 health=5 owner=- thrower=-
+E chest_minecart#1 minecraft:chest_minecart pos=1.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=minecraft:chests/simple_dungeon seed=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,8 data=5 global=0
+N chest_minecart#1 {Air:300s,CustomName:"Chesty",Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:1b,LootTable:"minecraft:chests/simple_dungeon",Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[1.625d,-59.9375d,8.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+BE 10 -60 8 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:8}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=10.802846478656779,-60.0,0.5 delta=-2.9027945739433915E-6,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=21.625,-60.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=31.490000009536743,-60.44749999046326,0.5 delta=0.0,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=40.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#6 minecraft:minecart pos=50.5,-60.0,1.201286045308173 delta=0.0,0.0,0.005421953749936719 rot=-90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#7 minecraft:minecart pos=60.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E item#1 minecraft:item pos=72.21183405022555,-59.469173400654775,-1.0954774225742465 delta=0.07127649724518213,-0.17054936344207097,-0.17502133697070532 rot=69.03727,0.0 og=0 fall=0.48981986939907074 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=82.7688183768785,-59.926227754001076,0.17566099651409717 delta=0.1788689113026194,-0.1665408383695276,-0.03697952886167243 rot=308.35165,0.0 og=0 fall=0.4685162380337715 fire=0 air=300 alive=1 pose=standing item=minecraft:furnace_minecart*1 age=8 pickup=0 health=5 owner=- thrower=-
+E chest_minecart#1 minecraft:chest_minecart pos=1.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=minecraft:chests/simple_dungeon seed=0
+E furnace_minecart#1 minecraft:furnace_minecart pos=11.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=47 push=0.0/0.0
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,8 data=5 global=0
+BE 20 -60 8 {Items:[],components:{},id:"minecraft:dispenser",x:20,y:-60,z:8}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=10.802846478656779,-60.0,0.5 delta=-3.6284932174292394E-7,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=21.625,-60.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=31.490000009536743,-60.44749999046326,0.5 delta=0.0,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=40.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#6 minecraft:minecart pos=50.5,-60.0,1.2060302548393678 delta=0.0,0.0,6.777442187420899E-4 rot=-90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#7 minecraft:minecart pos=60.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E item#1 minecraft:item pos=72.42141546674937,-60.0,-1.610110171684179 delta=0.04025092701143104,0.0,-0.09883722309778799 rot=69.03727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=13 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=83.11470508391012,-60.0,0.10415204969714695 delta=0.03636360845711278,0.0,-0.007517847001256195 rot=308.35165,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:furnace_minecart*1 age=11 pickup=0 health=5 owner=- thrower=-
+E chest_minecart#1 minecraft:chest_minecart pos=1.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=minecraft:chests/simple_dungeon seed=0
+E furnace_minecart#1 minecraft:furnace_minecart pos=11.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=44 push=0.0/0.0
+E tnt_minecart#1 minecraft:tnt_minecart pos=21.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+EV level_event r=64.0 ex=0 type=1000 pos=20,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=20,-60,8 data=5 global=0
+BE 30 -60 8 {Items:[],components:{},id:"minecraft:dispenser",x:30,y:-60,z:8}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=10.802846478656779,-60.0,0.5 delta=-4.535616521786549E-8,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=21.625,-60.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=31.490000009536743,-60.44749999046326,0.5 delta=0.0,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=40.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#6 minecraft:minecart pos=50.5,-60.0,1.2063691269487389 delta=0.0,0.0,8.471802734276123E-5 rot=-90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#7 minecraft:minecart pos=60.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E item#1 minecraft:item pos=72.49925046053092,-60.0,-1.801236071542794 delta=0.008182914175640026,0.0,-0.02009336365689409 rot=69.03727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=16 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=83.18502299826102,-60.0,0.08961445719828771 delta=0.0073926319022820566,0.0,-0.0015283597513021613 rot=308.35165,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:furnace_minecart*1 age=14 pickup=0 health=5 owner=- thrower=-
+E chest_minecart#1 minecraft:chest_minecart pos=1.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=minecraft:chests/simple_dungeon seed=0
+E furnace_minecart#1 minecraft:furnace_minecart pos=11.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=41 push=0.0/0.0
+E tnt_minecart#1 minecraft:tnt_minecart pos=21.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E hopper_minecart#1 minecraft:hopper_minecart pos=31.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=- seed=0 enabled=1
+EV level_event r=64.0 ex=0 type=1000 pos=30,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=30,-60,8 data=5 global=0
+BE 40 -60 8 {Items:[],components:{},id:"minecraft:dispenser",x:40,y:-60,z:8}
+E minecart#1 minecraft:minecart pos=1.625,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=10.802846478656779,-60.0,0.5 delta=-5.6695206522331865E-9,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=21.625,-60.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=31.490000009536743,-60.44749999046326,0.5 delta=0.0,-0.0,-0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=40.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#6 minecraft:minecart pos=50.5,-60.0,1.2063691269487389 delta=0.0,0.0,1.0589753417845154E-5 rot=-90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#7 minecraft:minecart pos=60.5,-58.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E item#1 minecraft:item pos=72.5150741227734,-60.0,-1.8400914955393854 delta=0.001663566267352655,0.0,-0.004084931267734375 rot=69.03727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=83.19676249815895,-60.0,0.08718742182285132 delta=0.0025559586384641306,-0.04,-5.28421320127648E-4 rot=308.35165,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:furnace_minecart*1 age=17 pickup=0 health=5 owner=- thrower=-
+E chest_minecart#1 minecraft:chest_minecart pos=1.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=minecraft:chests/simple_dungeon seed=0
+E furnace_minecart#1 minecraft:furnace_minecart pos=11.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=38 push=0.0/0.0
+E tnt_minecart#1 minecraft:tnt_minecart pos=21.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E hopper_minecart#1 minecraft:hopper_minecart pos=31.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=- seed=0 enabled=1
+E command_block_minecart#1 minecraft:command_block_minecart pos=41.625,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=1000 pos=40,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=40,-60,8 data=5 global=0

@@ -41,6 +41,7 @@ pub mod knowledge_book_item;
 pub mod lead_item;
 pub mod mace;
 pub mod map_item;
+mod minecart_item;
 mod misc_items;
 pub mod mob_bucket;
 pub mod name_tag_item;

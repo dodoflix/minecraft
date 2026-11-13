@@ -1,0 +1,97 @@
+# MinecartItem.useOn: every rail block takes the cart of the item (a slope half a block higher, the cart a sixteenth above the rail), anything else
+# refuses; the components of the stack (custom name, entity data) are applied to the cart; carts may share a rail; the stack shrinks for a survival
+# player and stays for a creative one; the placement is a vibration whose affected block is the one below the rail (wool dampens it).
+level flat
+preload 4
+level_seed 3
+entity_counter 920
+spawn_player P survival 4.5 -60 2.5 0 0
+spawn_player C creative 44.5 -60 2.5 0 0
+spawn_player O survival 3.5 -60 12.5 0 0
+give P mainhand minecraft:minecart 16
+give C mainhand minecraft:minecart 16
+block 4 -60 4 minecraft:rail[shape=north_south,waterlogged=false]
+block 9 -60 4 minecraft:stone
+block 8 -60 4 minecraft:powered_rail[powered=false,shape=ascending_east,waterlogged=false]
+block 12 -60 4 minecraft:detector_rail[powered=false,shape=east_west,waterlogged=false]
+block 16 -60 4 minecraft:activator_rail[powered=false,shape=east_west,waterlogged=false]
+block 20 -60 4 minecraft:rail[shape=south_east,waterlogged=false]
+block 24 -60 4 minecraft:stone
+block 28 -60 4 minecraft:rail[shape=east_west,waterlogged=false]
+block 4 -60 8 minecraft:sculk_sensor
+tick 3
+dump packets:O:none inventory:P blocks:4,-60,8,4,-60,8
+note a flat rail: the cart stands a sixteenth above it, the sculk sensor next to it hears the placement
+use_on P 4 -60 4 up
+tick 2
+dump xentities inventory:P blocks:4,-60,8,4,-60,8 packets:O:add_entity,set_entity_data,remove_entities
+tick 8
+dump blocks:4,-60,8,4,-60,8
+note a powered rail on a slope: half a block higher
+snap P 8.5 -60 2.5
+use_on P 8 -60 4 up
+tick 2
+dump xentities inventory:P
+note detector rail, activator rail and a curve
+snap P 12.5 -60 2.5
+use_on P 12 -60 4 up
+tick 2
+snap P 16.5 -60 2.5
+use_on P 16 -60 4 up
+tick 2
+snap P 20.5 -60 2.5
+use_on P 20 -60 4 up
+tick 2
+dump xentities inventory:P
+note not a rail: stone and the ground refuse, nothing is placed or consumed
+snap P 24.5 -60 2.5
+use_on P 24 -60 4 up
+tick 1
+use_on P 24 -61 4 up
+tick 1
+dump xentities inventory:P
+note two carts on one rail
+snap P 28.5 -60 2.5
+use_on P 28 -60 4 up
+tick 1
+use_on P 28 -60 4 north
+tick 2
+dump xentities inventory:P
+note every cart type with a name and entity data from the stack, on a slope and on flat rails
+block 32 -60 4 minecraft:rail[shape=east_west,waterlogged=false]
+block 36 -60 3 minecraft:stone
+block 36 -60 4 minecraft:powered_rail[powered=false,shape=ascending_north,waterlogged=false]
+block 40 -60 8 minecraft:rail[shape=north_south,waterlogged=false]
+block 40 -61 8 minecraft:white_wool
+block 40 -60 12 minecraft:sculk_sensor
+snap P 32.5 -60 2.5
+give P mainhand minecraft:chest_minecart[custom_name="Chesty",entity_data={id:"minecraft:chest_minecart",Invulnerable:1b,LootTable:"minecraft:chests/simple_dungeon"}] 2
+use_on P 32 -60 4 up
+tick 1
+give P mainhand minecraft:furnace_minecart[custom_name="Furn",entity_data={id:"minecraft:furnace_minecart",Fuel:50s,Invulnerable:1b}] 2
+snap P 36.5 -60 2.5
+use_on P 36 -60 4 up
+tick 1
+dump xentities inventory:P
+give P mainhand minecraft:tnt_minecart[custom_name="Boom",entity_data={id:"minecraft:tnt_minecart",Invulnerable:1b}]
+snap P 40.5 -60 6.5
+use_on P 40 -60 8 up
+tick 2
+dump xentities inventory:P blocks:40,-60,12,40,-60,12
+note hopper and command block carts
+block 48 -60 4 minecraft:rail[shape=east_west,waterlogged=false]
+block 52 -60 4 minecraft:rail[shape=east_west,waterlogged=false]
+snap P 48.5 -60 2.5
+give P mainhand minecraft:hopper_minecart[custom_name="Hop"]
+use_on P 48 -60 4 up
+tick 1
+snap P 52.5 -60 2.5
+give P mainhand minecraft:command_block_minecart[entity_data={id:"minecraft:command_block_minecart",Command:"list",TrackOutput:0b}]
+use_on P 52 -60 4 up
+tick 2
+dump xentities inventory:P
+note a creative player keeps the stack
+block 44 -60 4 minecraft:rail[shape=east_west,waterlogged=false]
+use_on C 44 -60 4 up
+tick 2
+dump xentities inventory:C

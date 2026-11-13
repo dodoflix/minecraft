@@ -1,0 +1,85 @@
+I P 0 minecraft:minecart*16
+B 4 -60 8 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+# a flat rail: the cart stands a sixteenth above it, the sculk sensor next to it hears the placement
+E minecart#1 minecraft:minecart pos=4.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+I P 0 minecraft:minecart*15
+B 4 -60 8 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+PKT O minecraft:add_entity 019c07ee34af9fa52949e094f4811cb3545205564012000000000000c04df8000000000040120000000000000000000000
+B 4 -60 8 minecraft:sculk_sensor[power=8,sculk_sensor_phase=active,waterlogged=false]
+# a powered rail on a slope: half a block higher
+E minecart#1 minecraft:minecart pos=4.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=8.5,-59.4375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+I P 0 minecraft:minecart*14
+# detector rail, activator rail and a curve
+E minecart#1 minecraft:minecart pos=4.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=8.5,-59.4375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=12.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=16.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=20.75,-59.9375,4.75 delta=0.0,-0.0,-0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+I P 0 minecraft:minecart*11
+# not a rail: stone and the ground refuse, nothing is placed or consumed
+E minecart#1 minecraft:minecart pos=4.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=8.5,-59.4375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=12.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=16.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=20.75,-59.9375,4.75 delta=0.0,-0.0,-0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+I P 0 minecraft:minecart*11
+# two carts on one rail
+E minecart#1 minecraft:minecart pos=4.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=8.5,-59.4375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=12.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=16.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=20.75,-59.9375,4.75 delta=0.0,-0.0,-0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#6 minecraft:minecart pos=28.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#7 minecraft:minecart pos=28.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+I P 0 minecraft:minecart*9
+# every cart type with a name and entity data from the stack, on a slope and on flat rails
+E minecart#1 minecraft:minecart pos=4.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=8.5,-59.4375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=12.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=16.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=20.75,-59.9375,4.75 delta=0.0,-0.0,-0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#6 minecraft:minecart pos=28.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#7 minecraft:minecart pos=28.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E chest_minecart#1 minecraft:chest_minecart pos=32.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=minecraft:chests/simple_dungeon seed=0
+E furnace_minecart#1 minecraft:furnace_minecart pos=36.5,-59.4375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=49 push=0.0/0.0
+I P 0 minecraft:furnace_minecart*1{minecraft:custom_name:"Furn",minecraft:entity_data:{Fuel:50s,Invulnerable:1b,id:"minecraft:furnace_minecart"}}
+E minecart#1 minecraft:minecart pos=4.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=8.5,-59.4375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=12.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=16.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=20.75,-59.9375,4.75 delta=0.0,-0.0,-0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#6 minecraft:minecart pos=28.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#7 minecraft:minecart pos=28.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E chest_minecart#1 minecraft:chest_minecart pos=32.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=minecraft:chests/simple_dungeon seed=0
+E furnace_minecart#1 minecraft:furnace_minecart pos=36.5,-59.4375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=47 push=0.0/0.0
+E tnt_minecart#1 minecraft:tnt_minecart pos=40.5,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+B 40 -60 12 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+# hopper and command block carts
+E minecart#1 minecraft:minecart pos=4.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=8.5,-59.4375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=12.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=16.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=20.75,-59.9375,4.75 delta=0.0,-0.0,-0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#6 minecraft:minecart pos=28.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#7 minecraft:minecart pos=28.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E chest_minecart#1 minecraft:chest_minecart pos=32.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=minecraft:chests/simple_dungeon seed=0
+E furnace_minecart#1 minecraft:furnace_minecart pos=36.5,-59.4375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=44 push=0.0/0.0
+E tnt_minecart#1 minecraft:tnt_minecart pos=40.5,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E hopper_minecart#1 minecraft:hopper_minecart pos=48.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=- seed=0 enabled=1
+E command_block_minecart#1 minecraft:command_block_minecart pos=52.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+# a creative player keeps the stack
+E minecart#1 minecraft:minecart pos=4.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#2 minecraft:minecart pos=8.5,-59.4375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#3 minecraft:minecart pos=12.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#4 minecraft:minecart pos=16.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#5 minecraft:minecart pos=20.75,-59.9375,4.75 delta=0.0,-0.0,-0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E minecart#6 minecraft:minecart pos=28.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#7 minecraft:minecart pos=28.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E chest_minecart#1 minecraft:chest_minecart pos=32.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=minecraft:chests/simple_dungeon seed=0
+E furnace_minecart#1 minecraft:furnace_minecart pos=36.5,-59.4375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=42 push=0.0/0.0
+E tnt_minecart#1 minecraft:tnt_minecart pos=40.5,-59.9375,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E hopper_minecart#1 minecraft:hopper_minecart pos=48.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=- seed=0 enabled=1
+E command_block_minecart#1 minecraft:command_block_minecart pos=52.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E minecart#8 minecraft:minecart pos=44.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+I C 0 minecraft:minecart*16
