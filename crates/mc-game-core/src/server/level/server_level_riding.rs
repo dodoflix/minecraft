@@ -129,7 +129,7 @@ impl ServerLevel {
         };
         if send_event_and_triggers {
             self.game_event_from_entity_ref(&*rider, GameEvent::ENTITY_MOUNT, position);
-            self.trigger_start_riding(rider, &passengers);
+            self.trigger_start_riding(rider, held_vehicle.as_deref_mut(), &passengers);
         }
         // `Mob.startRiding`: a leashed mob drops its leash when it starts riding
         if rider.mob().is_some() && crate::world::entity::mob::leashable::is_leashed(rider) {
@@ -457,60 +457,37 @@ impl ServerLevel {
         passenger.after_ride_tick(self);
     }
 
-    /// `CriteriaTriggers.START_RIDING_TRIGGER` for every player among the indirect passengers of the vehicle (pre-order);
-    /// `rider` is at hand, the other passengers are in storage.
-    fn trigger_start_riding(&mut self, rider: &mut dyn Entity, vehicle_passengers: &[EntityId]) {
-        fn collect(
-            level: &ServerLevel,
-            rider: &dyn Entity,
-            ids: &[EntityId],
-            players: &mut Vec<EntityId>,
-        ) {
+    /// `CriteriaTriggers.START_RIDING_TRIGGER` for every player among the indirect passengers of the vehicle (pre-order).
+    /// `rider` (and the vehicle, when its own code runs) are out of storage: lent, so the players' conditions find them.
+    fn trigger_start_riding(
+        &mut self,
+        rider: &mut dyn Entity,
+        held_vehicle: Option<&mut dyn Entity>,
+        vehicle_passengers: &[EntityId],
+    ) {
+        fn collect(level: &ServerLevel, ids: &[EntityId], players: &mut Vec<EntityId>) {
             for &id in ids {
-                let Some(entity) = (if id == rider.id() {
-                    Some(rider)
-                } else {
-                    level.entity_manager.get_any(id)
-                }) else {
+                let Some(entity) = level.entity_manager.get_any(id) else {
                     continue;
                 };
                 if entity.is_player() {
                     players.push(id);
                 }
-                collect(level, rider, &entity.base().passengers, players);
+                collect(level, &entity.base().passengers, players);
             }
         }
-        let mut players = Vec::new();
-        collect(self, &*rider, vehicle_passengers, &mut players);
-        let rider_id = rider.id();
-        let mut others = Vec::new();
-        for id in players {
-            if id == rider_id {
-                if let Some(player) = rider.as_any_mut().downcast_mut::<ServerPlayer>() {
-                    CriteriaTriggers::START_RIDING_TRIGGER.trigger(self, player);
-                }
-            } else {
-                others.push(id);
-            }
-        }
-        if others.is_empty() {
-            return;
-        }
-        let trigger_others = move |level: &mut ServerLevel| {
-            for id in others {
+        let trigger = |level: &mut ServerLevel| {
+            let mut players = Vec::new();
+            collect(level, vehicle_passengers, &mut players);
+            for id in players {
                 level.with_player(id, |level, player| {
                     CriteriaTriggers::START_RIDING_TRIGGER.trigger(level, player);
                 });
             }
         };
-        // the other players' conditions look the rider up in the level: wait until it is back in storage
-        if self.entity_manager.has_entity_with_id(rider_id) {
-            self.after_put_back_ops
-                .entry(rider_id)
-                .or_default()
-                .push(Box::new(trigger_others));
-        } else {
-            trigger_others(self);
+        match held_vehicle {
+            Some(vehicle) => self.lend(vehicle, |level| level.lend(rider, trigger)),
+            None => self.lend(rider, trigger),
         }
     }
 }

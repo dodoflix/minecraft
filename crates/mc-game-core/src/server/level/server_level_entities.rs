@@ -178,11 +178,6 @@ impl ServerLevel {
         self.entity_manager.put_back(id, entity);
         self.process_entity_events();
         self.process_waypoint_state(id);
-        if let Some(ops) = self.after_put_back_ops.remove(&id) {
-            for op in ops {
-                op(self);
-            }
-        }
         if let Some(ops) = self.deferred_level_ops.remove(&id)
             && let Some(mut entity) = self.take_entity(id)
         {

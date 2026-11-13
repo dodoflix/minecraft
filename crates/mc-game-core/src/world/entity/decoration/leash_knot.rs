@@ -49,14 +49,6 @@ impl LeashFenceKnotEntity {
         knot.set_pos(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()));
         knot
     }
-
-    /// `notifyLeasheeRemoved(leashee)` for a knot taken out of the level while it runs (its own `interact`): the removal of
-    /// the leashes happened without it.
-    fn discard_when_unleashed(&mut self, level: &ServerLevel) {
-        if leashable::leashable_leashed_to(level, self.as_dyn()).is_empty() {
-            self.discard();
-        }
-    }
 }
 
 /// `LeashFenceKnotEntity.getKnot(level, pos)`.
@@ -182,7 +174,10 @@ impl Entity for LeashFenceKnotEntity {
     }
     /// `notifyLeasheeRemoved(entity)`.
     fn notify_leashee_removed(&mut self, level: &mut ServerLevel, _leashee: EntityId) {
-        self.discard_when_unleashed(level);
+        if leashable::leashable_leashed_to(level, self.as_dyn()).is_empty() {
+            self.discard();
+            level.untrack_discarded_entity(self);
+        }
     }
     /// `interact(player, hand, location)`: shears, tying the player's mobs to the knot, or handing its mobs to the player.
     fn interact(
@@ -197,7 +192,6 @@ impl Entity for LeashFenceKnotEntity {
             if let InteractionResult::Success(s) = &result
                 && s.was_item_interaction()
             {
-                self.discard_when_unleashed(level);
                 return result;
             }
         }
@@ -217,20 +211,21 @@ impl Entity for LeashFenceKnotEntity {
         let mut any_dropped = false;
         if !attached_mob && !player.is_shift_key_down() {
             let holder = LeashHolder::of(&*player);
-            for id in leashable::leashable_leashed_to(level, self.as_dyn()) {
-                let can = level
-                    .get_entity(id)
-                    .is_some_and(|m| leashable::can_have_a_leash_attached_to(level, m, &*player));
-                if can {
-                    level.with_entity(id, |level, m| {
-                        leashable::set_leashed_to(m, level, holder, true)
+            let leashed = leashable::leashable_leashed_to(level, self.as_dyn());
+            // the mobs tell their old holder, this knot, which discards itself with the last one
+            level.lend(self.as_dyn_mut(), |level| {
+                for id in leashed {
+                    let can = level.get_entity(id).is_some_and(|m| {
+                        leashable::can_have_a_leash_attached_to(level, m, &*player)
                     });
-                    any_dropped = true;
+                    if can {
+                        level.with_entity(id, |level, m| {
+                            leashable::set_leashed_to(m, level, holder, true)
+                        });
+                        any_dropped = true;
+                    }
                 }
-            }
-            if any_dropped {
-                self.discard_when_unleashed(level);
-            }
+            });
         }
         if !attached_mob && !any_dropped {
             entity_interact(self, level, player, hand)

@@ -99,13 +99,6 @@ impl ServerPlayer {
         });
     }
 
-    /// Opens the screen a mount queued from inside its own `openCustomInventoryScreen`.
-    pub fn open_pending_mount_inventory(&mut self, level: &mut ServerLevel) {
-        if let Some(horse) = self.player.menus.pending_mount_inventory.take() {
-            self.open_horse_inventory(level, horse);
-        }
-    }
-
     /// `openNautilusInventory(nautilus, container)`.
     /// Not implemented: a caller (the `AbstractNautilus` entities do not exist yet).
     pub fn open_nautilus_inventory(

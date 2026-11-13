@@ -84,7 +84,6 @@ impl PlayerSystems for ServerPlayerSystems {
             ctx.level.with_entity(vehicle, |level, e| {
                 e.open_custom_inventory_screen(level, ctx.player)
             });
-            ctx.player.open_pending_mount_inventory(ctx.level);
             return;
         }
         let Some((title, position)) = ctx

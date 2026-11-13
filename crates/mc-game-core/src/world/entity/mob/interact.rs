@@ -77,9 +77,12 @@ pub fn drop_all_leash_connections(
         leashable::drop_leash(e, level);
         dropped = true;
     }
-    for id in leashed_to_me {
-        level.with_entity(id, |level, l| leashable::drop_leash(l, level));
-    }
+    // each mob tells its holder, `e`, that it lost the leash
+    level.lend(&mut *e, |level| {
+        for id in leashed_to_me {
+            level.with_entity(id, |level, l| leashable::drop_leash(l, level));
+        }
+    });
     if dropped {
         level.game_event_from_entity(player, GameEvent::SHEAR, e.position());
     }

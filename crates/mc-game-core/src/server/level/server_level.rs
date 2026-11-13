@@ -112,9 +112,6 @@ pub struct ServerLevel {
     /// Operations on entities that were taken out (running) when they were requested: run when put back
     /// (`ServerLevel::with_entity_or_defer`).
     pub deferred_level_ops: std::collections::HashMap<EntityId, Vec<DeferredLevelOp>>,
-    /// Operations that need an entity that was taken out (running) when they were requested to be back in storage: run
-    /// right after it is put back (`CriteriaTriggers.START_RIDING_TRIGGER` of the other riders of a vehicle).
-    pub after_put_back_ops: std::collections::HashMap<EntityId, Vec<AfterPutBackOp>>,
     /// A private `ENTITY_COUNTER` for this level (the scenario replay harness gives its level the oracle's id sequence 1, 2, 3, ...
     /// regardless of other levels created by tests running in parallel); `None` = the process wide counter.
     pub entity_id_counter: Option<std::sync::atomic::AtomicI32>,
@@ -127,10 +124,6 @@ pub struct ServerLevel {
     /// Natural spawning state: spawn state of the tick, custom spawners, dimension attribute base (see `world::level::spawner`).
     pub spawning: crate::world::level::spawner::LevelSpawnData,
 }
-
-/// A change to an entity that needs the level (kill credit, stats) and runs once the entity is back in storage.
-/// An operation that runs once the entity it waited for is back in storage.
-pub type AfterPutBackOp = Box<dyn FnOnce(&mut ServerLevel)>;
 
 pub type DeferredLevelOp = Box<dyn FnOnce(&mut ServerLevel, &mut dyn crate::world::entity::Entity)>;
 
@@ -198,7 +191,6 @@ impl ServerLevel {
             worldgen_clock: None,
             waypoint_manager: Default::default(),
             deferred_level_ops: Default::default(),
-            after_put_back_ops: Default::default(),
             entity_id_counter: None,
             path_type_cache: Default::default(),
             pending_start_references: Default::default(),

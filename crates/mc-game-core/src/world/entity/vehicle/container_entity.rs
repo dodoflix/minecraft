@@ -311,12 +311,11 @@ pub trait ContainerEntity: Entity {
     fn chest_vehicle_destroyed(&mut self, source: &DamageSource, level: &mut ServerLevel) {
         if level.entity_drops() {
             self.drop_chest_contents(level);
-            // the attacking player runs outside the level storage: the anger waits until it is put back
             if let Some(player) = source
                 .get_direct_entity()
                 .filter(|_| source.direct_is_player())
             {
-                level.with_entity_or_defer(player, |level, player| {
+                level.with_entity(player, |level, player| {
                     anger_nearby_piglins(level, &*player, true);
                 });
             }
@@ -343,28 +342,17 @@ pub trait ContainerEntity: Entity {
     }
 
     /// `interactWithContainerVehicle(player)`: `player.openMenu(this)`. The vehicle is out of the level while it is being
-    /// interacted with, so the menu (which addresses it through the level) opens when the player is put back.
+    /// interacted with, so it is lent for the menu, which addresses it through the level.
     fn interact_with_container_vehicle(
         &mut self,
         level: &mut ServerLevel,
-        player: &ServerPlayer,
+        player: &mut ServerPlayer,
     ) -> InteractionResult {
-        open_chest_vehicle_menu(level, player.id(), self.id());
+        let id = self.id();
+        let title = entity_display_name(level, self.as_dyn());
+        level.lend(self.as_dyn_mut(), |level| {
+            player.open_menu(level, &ChestVehicleMenuProvider::new(id, title));
+        });
         InteractionResult::SUCCESS
     }
-}
-
-/// `player.openMenu(vehicle)`: queued for `player_id` (runs at once when the player is in the level).
-pub fn open_chest_vehicle_menu(level: &mut ServerLevel, player_id: EntityId, vehicle_id: EntityId) {
-    level.with_entity_or_defer(player_id, move |level, player| {
-        let Some(title) = level
-            .get_entity(vehicle_id)
-            .map(|v| entity_display_name(level, v))
-        else {
-            return;
-        };
-        if let Some(player) = player.as_any_mut().downcast_mut::<ServerPlayer>() {
-            player.open_menu(level, &ChestVehicleMenuProvider::new(vehicle_id, title));
-        }
-    });
 }

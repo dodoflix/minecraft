@@ -670,14 +670,17 @@ pub fn play_step_sound(
 }
 
 /// `openCustomInventoryScreen(player)`. The screen reads the horse, which is out of its level while it runs
-/// (inside `interact`, the `OPEN_INVENTORY` hook): the open is deferred to `ServerPlayer::open_pending_mount_inventory`.
+/// (inside `interact`, the `OPEN_INVENTORY` hook), so the horse is lent for the open.
 pub fn open_custom_inventory_screen(
     e: &mut (impl AbstractHorse + ?Sized),
-    _level: &mut ServerLevel,
+    level: &mut ServerLevel,
     player: &mut ServerPlayer,
 ) {
     if (!e.base().is_vehicle() || e.base().passengers.contains(&player.id())) && is_tamed(e) {
-        player.player.menus.pending_mount_inventory = Some(e.id());
+        let id = e.id();
+        level.lend(e.as_dyn_mut(), |level| {
+            player.open_horse_inventory(level, id)
+        });
     }
 }
 
