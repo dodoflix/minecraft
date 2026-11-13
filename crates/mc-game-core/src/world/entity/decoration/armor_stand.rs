@@ -241,7 +241,7 @@ impl ArmorStand {
         let mut slot_clicked = EquipmentSlot::MainHand;
         let small = self.is_small();
         // `location.y / (getScale() * getAgeScale())`: float product widened to double
-        let click_y = location.y / f64::from(self.scale() * 1.0f32);
+        let click_y = location.y / f64::from(self.scale() * Entity::get_age_scale(self));
         if click_y >= 0.1
             && click_y < 0.1 + if small { 0.8 } else { 0.45 }
             && self.has_item_in_slot(EquipmentSlot::Feet)
