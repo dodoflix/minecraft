@@ -2,7 +2,7 @@
 use crate::common::entity_scenario::*;
 
 #[test]
-#[ignore = "deviation: from tick 7 the baby cow's follow_range spawn bonus differs (the level random state after the first breeding differs)"]
+#[ignore = "deviation: the level random state after the first breeding differs (line 5: `RNG level 250750202969979` in vanilla, 38176621015976 here)"]
 fn mob_breed() {
     run_scenario_test("mob_breed");
 }

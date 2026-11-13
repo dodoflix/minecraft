@@ -9,9 +9,10 @@ love P1 Steve
 love P2 Steve
 dump mobs
 breed P1 P2
-dump mobs
+dump mobs rng:level
 tick 3
 dump mobs
+level_seed 4242
 mobspawn B minecraft:cow 8.5 -60 8.5 0 0 {Age:-24000,PersistenceRequired:1b}
 watch mob:B
 tick 10

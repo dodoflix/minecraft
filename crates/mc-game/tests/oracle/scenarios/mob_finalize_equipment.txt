@@ -1,422 +1,631 @@
 # Mob.finalizeSpawn pipeline: attribute bonus, handedness, equipment/armor/enchant rolls (RNG of the entity), variants, baby chances.
-# One block per (type, difficulty, reason): rich E line + the saved NBT (UUID removed).
+# One block per (type, difficulty, reason): rich E line + the saved NBT (UUID removed). `Mob.finalizeSpawn` draws from the level random:
+# each block reseeds it, so one type's divergence never shifts the next block.
 level void
 time 30000
 difficulty easy
+level_seed 7919
 mobspawn F1 minecraft:zombie 1.5 -60 -6.5 reason=natural
 dump mob:F1 nbt:F1
+level_seed 15838
 mobspawn F2 minecraft:zombie 2.5 -60 -6.5 reason=spawner
 dump mob:F2 nbt:F2
+level_seed 23757
 mobspawn F3 minecraft:husk 3.5 -60 -6.5 reason=natural
 dump mob:F3 nbt:F3
+level_seed 31676
 mobspawn F4 minecraft:husk 4.5 -60 -6.5 reason=spawner
 dump mob:F4 nbt:F4
+level_seed 39595
 mobspawn F5 minecraft:drowned 5.5 -60 -6.5 reason=natural
 dump mob:F5 nbt:F5
+level_seed 47514
 mobspawn F6 minecraft:drowned 6.5 -60 -6.5 reason=spawner
 dump mob:F6 nbt:F6
+level_seed 55433
 mobspawn F7 minecraft:zombie_villager 7.5 -60 -6.5 reason=natural
 dump mob:F7 nbt:F7
+level_seed 63352
 mobspawn F8 minecraft:zombie_villager 8.5 -60 -6.5 reason=spawner
 dump mob:F8 nbt:F8
+level_seed 71271
 mobspawn F9 minecraft:skeleton 9.5 -60 -6.5 reason=natural
 dump mob:F9 nbt:F9
+level_seed 79190
 mobspawn F10 minecraft:skeleton 10.5 -60 -6.5 reason=spawner
 dump mob:F10 nbt:F10
+level_seed 87109
 mobspawn F11 minecraft:stray 11.5 -60 -6.5 reason=natural
 dump mob:F11 nbt:F11
+level_seed 95028
 mobspawn F12 minecraft:stray 12.5 -60 -6.5 reason=spawner
 dump mob:F12 nbt:F12
+level_seed 102947
 mobspawn F13 minecraft:bogged 13.5 -60 -6.5 reason=natural
 dump mob:F13 nbt:F13
+level_seed 110866
 mobspawn F14 minecraft:bogged 14.5 -60 -6.5 reason=spawner
 dump mob:F14 nbt:F14
+level_seed 118785
 mobspawn F15 minecraft:wither_skeleton 15.5 -60 -6.5 reason=natural
 dump mob:F15 nbt:F15
+level_seed 126704
 mobspawn F16 minecraft:wither_skeleton 16.5 -60 -6.5 reason=spawner
 dump mob:F16 nbt:F16
+level_seed 134623
 mobspawn F17 minecraft:piglin 17.5 -60 -6.5 reason=natural
 dump mob:F17 nbt:F17
+level_seed 142542
 mobspawn F18 minecraft:piglin 18.5 -60 -6.5 reason=spawner
 dump mob:F18 nbt:F18
+level_seed 150461
 mobspawn F19 minecraft:piglin_brute 19.5 -60 -6.5 reason=natural
 dump mob:F19 nbt:F19
+level_seed 158380
 mobspawn F20 minecraft:piglin_brute 20.5 -60 -6.5 reason=spawner
 dump mob:F20 nbt:F20
+level_seed 166299
 mobspawn F21 minecraft:zombified_piglin 21.5 -60 -6.5 reason=natural
 dump mob:F21 nbt:F21
+level_seed 174218
 mobspawn F22 minecraft:zombified_piglin 22.5 -60 -6.5 reason=spawner
 dump mob:F22 nbt:F22
+level_seed 182137
 mobspawn F23 minecraft:pillager 23.5 -60 -6.5 reason=natural
 dump mob:F23 nbt:F23
+level_seed 190056
 mobspawn F24 minecraft:pillager 24.5 -60 -6.5 reason=spawner
 dump mob:F24 nbt:F24
+level_seed 197975
 mobspawn F25 minecraft:vindicator 25.5 -60 -6.5 reason=natural
 dump mob:F25 nbt:F25
+level_seed 205894
 mobspawn F26 minecraft:vindicator 26.5 -60 -6.5 reason=spawner
 dump mob:F26 nbt:F26
+level_seed 213813
 mobspawn F27 minecraft:evoker 27.5 -60 -6.5 reason=natural
 dump mob:F27 nbt:F27
+level_seed 221732
 mobspawn F28 minecraft:evoker 28.5 -60 -6.5 reason=spawner
 dump mob:F28 nbt:F28
+level_seed 229651
 mobspawn F29 minecraft:vex 29.5 -60 -6.5 reason=natural
 dump mob:F29 nbt:F29
+level_seed 237570
 mobspawn F30 minecraft:vex 30.5 -60 -6.5 reason=spawner
 dump mob:F30 nbt:F30
+level_seed 245489
 mobspawn F31 minecraft:witch 31.5 -60 -6.5 reason=natural
 dump mob:F31 nbt:F31
+level_seed 253408
 mobspawn F32 minecraft:witch 32.5 -60 -6.5 reason=spawner
 dump mob:F32 nbt:F32
+level_seed 261327
 mobspawn F33 minecraft:spider 33.5 -60 -6.5 reason=natural
 dump mob:F33 nbt:F33
+level_seed 269246
 mobspawn F34 minecraft:spider 34.5 -60 -6.5 reason=spawner
 dump mob:F34 nbt:F34
+level_seed 277165
 mobspawn F35 minecraft:cave_spider 35.5 -60 -6.5 reason=natural
 dump mob:F35 nbt:F35
+level_seed 285084
 mobspawn F36 minecraft:cave_spider 36.5 -60 -6.5 reason=spawner
 dump mob:F36 nbt:F36
+level_seed 293003
 mobspawn F37 minecraft:creeper 37.5 -60 -6.5 reason=natural
 dump mob:F37 nbt:F37
+level_seed 300922
 mobspawn F38 minecraft:creeper 38.5 -60 -6.5 reason=spawner
 dump mob:F38 nbt:F38
+level_seed 308841
 mobspawn F39 minecraft:slime 39.5 -60 -6.5 reason=natural
 dump mob:F39 nbt:F39
+level_seed 316760
 mobspawn F40 minecraft:slime 0.5 -60 -3.5 reason=spawner
 dump mob:F40 nbt:F40
+level_seed 324679
 mobspawn F41 minecraft:magma_cube 1.5 -60 -3.5 reason=natural
 dump mob:F41 nbt:F41
+level_seed 332598
 mobspawn F42 minecraft:magma_cube 2.5 -60 -3.5 reason=spawner
 dump mob:F42 nbt:F42
+level_seed 340517
 mobspawn F43 minecraft:enderman 3.5 -60 -3.5 reason=natural
 dump mob:F43 nbt:F43
+level_seed 348436
 mobspawn F44 minecraft:enderman 4.5 -60 -3.5 reason=spawner
 dump mob:F44 nbt:F44
+level_seed 356355
 mobspawn F45 minecraft:silverfish 5.5 -60 -3.5 reason=natural
 dump mob:F45 nbt:F45
+level_seed 364274
 mobspawn F46 minecraft:silverfish 6.5 -60 -3.5 reason=spawner
 dump mob:F46 nbt:F46
+level_seed 372193
 mobspawn F47 minecraft:blaze 7.5 -60 -3.5 reason=natural
 dump mob:F47 nbt:F47
+level_seed 380112
 mobspawn F48 minecraft:blaze 8.5 -60 -3.5 reason=spawner
 dump mob:F48 nbt:F48
+level_seed 388031
 mobspawn F49 minecraft:ghast 9.5 -60 -3.5 reason=natural
 dump mob:F49 nbt:F49
+level_seed 395950
 mobspawn F50 minecraft:ghast 10.5 -60 -3.5 reason=spawner
 dump mob:F50 nbt:F50
+level_seed 403869
 mobspawn F51 minecraft:phantom 11.5 -60 -3.5 reason=natural
 dump mob:F51 nbt:F51
+level_seed 411788
 mobspawn F52 minecraft:phantom 12.5 -60 -3.5 reason=spawner
 dump mob:F52 nbt:F52
+level_seed 419707
 mobspawn F53 minecraft:sheep 13.5 -60 -3.5 reason=natural
 dump mob:F53 nbt:F53
+level_seed 427626
 mobspawn F54 minecraft:sheep 14.5 -60 -3.5 reason=spawner
 dump mob:F54 nbt:F54
+level_seed 435545
 mobspawn F55 minecraft:pig 15.5 -60 -3.5 reason=natural
 dump mob:F55 nbt:F55
+level_seed 443464
 mobspawn F56 minecraft:pig 16.5 -60 -3.5 reason=spawner
 dump mob:F56 nbt:F56
+level_seed 451383
 mobspawn F57 minecraft:cow 17.5 -60 -3.5 reason=natural
 dump mob:F57 nbt:F57
+level_seed 459302
 mobspawn F58 minecraft:cow 18.5 -60 -3.5 reason=spawner
 dump mob:F58 nbt:F58
+level_seed 467221
 mobspawn F59 minecraft:chicken 19.5 -60 -3.5 reason=natural
 dump mob:F59 nbt:F59
+level_seed 475140
 mobspawn F60 minecraft:chicken 20.5 -60 -3.5 reason=spawner
 dump mob:F60 nbt:F60
+level_seed 483059
 mobspawn F61 minecraft:rabbit 21.5 -60 -3.5 reason=natural
 dump mob:F61 nbt:F61
+level_seed 490978
 mobspawn F62 minecraft:rabbit 22.5 -60 -3.5 reason=spawner
 dump mob:F62 nbt:F62
+level_seed 498897
 mobspawn F63 minecraft:horse 23.5 -60 -3.5 reason=natural
 dump mob:F63 nbt:F63
+level_seed 506816
 mobspawn F64 minecraft:horse 24.5 -60 -3.5 reason=spawner
 dump mob:F64 nbt:F64
+level_seed 514735
 mobspawn F65 minecraft:donkey 25.5 -60 -3.5 reason=natural
 dump mob:F65 nbt:F65
+level_seed 522654
 mobspawn F66 minecraft:donkey 26.5 -60 -3.5 reason=spawner
 dump mob:F66 nbt:F66
+level_seed 530573
 mobspawn F67 minecraft:mule 27.5 -60 -3.5 reason=natural
 dump mob:F67 nbt:F67
+level_seed 538492
 mobspawn F68 minecraft:mule 28.5 -60 -3.5 reason=spawner
 dump mob:F68 nbt:F68
+level_seed 546411
 mobspawn F69 minecraft:llama 29.5 -60 -3.5 reason=natural
 dump mob:F69 nbt:F69
+level_seed 554330
 mobspawn F70 minecraft:llama 30.5 -60 -3.5 reason=spawner
 dump mob:F70 nbt:F70
+level_seed 562249
 mobspawn F71 minecraft:wolf 31.5 -60 -3.5 reason=natural
 dump mob:F71 nbt:F71
+level_seed 570168
 mobspawn F72 minecraft:wolf 32.5 -60 -3.5 reason=spawner
 dump mob:F72 nbt:F72
+level_seed 578087
 mobspawn F73 minecraft:cat 33.5 -60 -3.5 reason=natural
 dump mob:F73 nbt:F73
+level_seed 586006
 mobspawn F74 minecraft:cat 34.5 -60 -3.5 reason=spawner
 dump mob:F74 nbt:F74
+level_seed 593925
 mobspawn F75 minecraft:fox 35.5 -60 -3.5 reason=natural
 dump mob:F75 nbt:F75
+level_seed 601844
 mobspawn F76 minecraft:fox 36.5 -60 -3.5 reason=spawner
 dump mob:F76 nbt:F76
+level_seed 609763
 mobspawn F77 minecraft:panda 37.5 -60 -3.5 reason=natural
 dump mob:F77 nbt:F77
+level_seed 617682
 mobspawn F78 minecraft:panda 38.5 -60 -3.5 reason=spawner
 dump mob:F78 nbt:F78
+level_seed 625601
 mobspawn F79 minecraft:villager 39.5 -60 -3.5 reason=natural
 dump mob:F79 nbt:F79
+level_seed 633520
 mobspawn F80 minecraft:villager 0.5 -60 0.5 reason=spawner
 dump mob:F80 nbt:F80
+level_seed 641439
 mobspawn F81 minecraft:iron_golem 1.5 -60 0.5 reason=natural
 dump mob:F81 nbt:F81
+level_seed 649358
 mobspawn F82 minecraft:iron_golem 2.5 -60 0.5 reason=spawner
 dump mob:F82 nbt:F82
+level_seed 657277
 mobspawn F83 minecraft:snow_golem 3.5 -60 0.5 reason=natural
 dump mob:F83 nbt:F83
+level_seed 665196
 mobspawn F84 minecraft:snow_golem 4.5 -60 0.5 reason=spawner
 dump mob:F84 nbt:F84
+level_seed 673115
 mobspawn F85 minecraft:turtle 5.5 -60 0.5 reason=natural
 dump mob:F85 nbt:F85
+level_seed 681034
 mobspawn F86 minecraft:turtle 6.5 -60 0.5 reason=spawner
 dump mob:F86 nbt:F86
+level_seed 688953
 mobspawn F87 minecraft:frog 7.5 -60 0.5 reason=natural
 dump mob:F87 nbt:F87
+level_seed 696872
 mobspawn F88 minecraft:frog 8.5 -60 0.5 reason=spawner
 dump mob:F88 nbt:F88
+level_seed 704791
 mobspawn F89 minecraft:axolotl 9.5 -60 0.5 reason=natural
 dump mob:F89 nbt:F89
+level_seed 712710
 mobspawn F90 minecraft:axolotl 10.5 -60 0.5 reason=spawner
 dump mob:F90 nbt:F90
+level_seed 720629
 mobspawn F91 minecraft:goat 11.5 -60 0.5 reason=natural
 dump mob:F91 nbt:F91
+level_seed 728548
 mobspawn F92 minecraft:goat 12.5 -60 0.5 reason=spawner
 dump mob:F92 nbt:F92
+level_seed 736467
 mobspawn F93 minecraft:bee 13.5 -60 0.5 reason=natural
 dump mob:F93 nbt:F93
+level_seed 744386
 mobspawn F94 minecraft:bee 14.5 -60 0.5 reason=spawner
 dump mob:F94 nbt:F94
+level_seed 752305
 mobspawn F95 minecraft:parrot 15.5 -60 0.5 reason=natural
 dump mob:F95 nbt:F95
+level_seed 760224
 mobspawn F96 minecraft:parrot 16.5 -60 0.5 reason=spawner
 dump mob:F96 nbt:F96
+level_seed 768143
 mobspawn F97 minecraft:ocelot 17.5 -60 0.5 reason=natural
 dump mob:F97 nbt:F97
+level_seed 776062
 mobspawn F98 minecraft:ocelot 18.5 -60 0.5 reason=spawner
 dump mob:F98 nbt:F98
+level_seed 783981
 mobspawn F99 minecraft:polar_bear 19.5 -60 0.5 reason=natural
 dump mob:F99 nbt:F99
+level_seed 791900
 mobspawn F100 minecraft:polar_bear 20.5 -60 0.5 reason=spawner
 dump mob:F100 nbt:F100
+level_seed 799819
 mobspawn F101 minecraft:camel 21.5 -60 0.5 reason=natural
 dump mob:F101 nbt:F101
+level_seed 807738
 mobspawn F102 minecraft:camel 22.5 -60 0.5 reason=spawner
 dump mob:F102 nbt:F102
+level_seed 815657
 mobspawn F103 minecraft:sniffer 23.5 -60 0.5 reason=natural
 dump mob:F103 nbt:F103
+level_seed 823576
 mobspawn F104 minecraft:sniffer 24.5 -60 0.5 reason=spawner
 dump mob:F104 nbt:F104
 difficulty hard
+level_seed 831495
 mobspawn F105 minecraft:zombie 25.5 -60 0.5 reason=natural
 dump mob:F105 nbt:F105
+level_seed 839414
 mobspawn F106 minecraft:zombie 26.5 -60 0.5 reason=spawner
 dump mob:F106 nbt:F106
+level_seed 847333
 mobspawn F107 minecraft:husk 27.5 -60 0.5 reason=natural
 dump mob:F107 nbt:F107
+level_seed 855252
 mobspawn F108 minecraft:husk 28.5 -60 0.5 reason=spawner
 dump mob:F108 nbt:F108
+level_seed 863171
 mobspawn F109 minecraft:drowned 29.5 -60 0.5 reason=natural
 dump mob:F109 nbt:F109
+level_seed 871090
 mobspawn F110 minecraft:drowned 30.5 -60 0.5 reason=spawner
 dump mob:F110 nbt:F110
+level_seed 879009
 mobspawn F111 minecraft:zombie_villager 31.5 -60 0.5 reason=natural
 dump mob:F111 nbt:F111
+level_seed 886928
 mobspawn F112 minecraft:zombie_villager 32.5 -60 0.5 reason=spawner
 dump mob:F112 nbt:F112
+level_seed 894847
 mobspawn F113 minecraft:skeleton 33.5 -60 0.5 reason=natural
 dump mob:F113 nbt:F113
+level_seed 902766
 mobspawn F114 minecraft:skeleton 34.5 -60 0.5 reason=spawner
 dump mob:F114 nbt:F114
+level_seed 910685
 mobspawn F115 minecraft:stray 35.5 -60 0.5 reason=natural
 dump mob:F115 nbt:F115
+level_seed 918604
 mobspawn F116 minecraft:stray 36.5 -60 0.5 reason=spawner
 dump mob:F116 nbt:F116
+level_seed 926523
 mobspawn F117 minecraft:bogged 37.5 -60 0.5 reason=natural
 dump mob:F117 nbt:F117
+level_seed 934442
 mobspawn F118 minecraft:bogged 38.5 -60 0.5 reason=spawner
 dump mob:F118 nbt:F118
+level_seed 942361
 mobspawn F119 minecraft:wither_skeleton 39.5 -60 0.5 reason=natural
 dump mob:F119 nbt:F119
+level_seed 950280
 mobspawn F120 minecraft:wither_skeleton 0.5 -60 3.5 reason=spawner
 dump mob:F120 nbt:F120
+level_seed 958199
 mobspawn F121 minecraft:piglin 1.5 -60 3.5 reason=natural
 dump mob:F121 nbt:F121
+level_seed 966118
 mobspawn F122 minecraft:piglin 2.5 -60 3.5 reason=spawner
 dump mob:F122 nbt:F122
+level_seed 974037
 mobspawn F123 minecraft:piglin_brute 3.5 -60 3.5 reason=natural
 dump mob:F123 nbt:F123
+level_seed 981956
 mobspawn F124 minecraft:piglin_brute 4.5 -60 3.5 reason=spawner
 dump mob:F124 nbt:F124
+level_seed 989875
 mobspawn F125 minecraft:zombified_piglin 5.5 -60 3.5 reason=natural
 dump mob:F125 nbt:F125
+level_seed 997794
 mobspawn F126 minecraft:zombified_piglin 6.5 -60 3.5 reason=spawner
 dump mob:F126 nbt:F126
+level_seed 1005713
 mobspawn F127 minecraft:pillager 7.5 -60 3.5 reason=natural
 dump mob:F127 nbt:F127
+level_seed 1013632
 mobspawn F128 minecraft:pillager 8.5 -60 3.5 reason=spawner
 dump mob:F128 nbt:F128
+level_seed 1021551
 mobspawn F129 minecraft:vindicator 9.5 -60 3.5 reason=natural
 dump mob:F129 nbt:F129
+level_seed 1029470
 mobspawn F130 minecraft:vindicator 10.5 -60 3.5 reason=spawner
 dump mob:F130 nbt:F130
+level_seed 1037389
 mobspawn F131 minecraft:evoker 11.5 -60 3.5 reason=natural
 dump mob:F131 nbt:F131
+level_seed 1045308
 mobspawn F132 minecraft:evoker 12.5 -60 3.5 reason=spawner
 dump mob:F132 nbt:F132
+level_seed 1053227
 mobspawn F133 minecraft:vex 13.5 -60 3.5 reason=natural
 dump mob:F133 nbt:F133
+level_seed 1061146
 mobspawn F134 minecraft:vex 14.5 -60 3.5 reason=spawner
 dump mob:F134 nbt:F134
+level_seed 1069065
 mobspawn F135 minecraft:witch 15.5 -60 3.5 reason=natural
 dump mob:F135 nbt:F135
+level_seed 1076984
 mobspawn F136 minecraft:witch 16.5 -60 3.5 reason=spawner
 dump mob:F136 nbt:F136
+level_seed 1084903
 mobspawn F137 minecraft:spider 17.5 -60 3.5 reason=natural
 dump mob:F137 nbt:F137
+level_seed 1092822
 mobspawn F138 minecraft:spider 18.5 -60 3.5 reason=spawner
 dump mob:F138 nbt:F138
+level_seed 1100741
 mobspawn F139 minecraft:cave_spider 19.5 -60 3.5 reason=natural
 dump mob:F139 nbt:F139
+level_seed 1108660
 mobspawn F140 minecraft:cave_spider 20.5 -60 3.5 reason=spawner
 dump mob:F140 nbt:F140
+level_seed 1116579
 mobspawn F141 minecraft:creeper 21.5 -60 3.5 reason=natural
 dump mob:F141 nbt:F141
+level_seed 1124498
 mobspawn F142 minecraft:creeper 22.5 -60 3.5 reason=spawner
 dump mob:F142 nbt:F142
+level_seed 1132417
 mobspawn F143 minecraft:slime 23.5 -60 3.5 reason=natural
 dump mob:F143 nbt:F143
+level_seed 1140336
 mobspawn F144 minecraft:slime 24.5 -60 3.5 reason=spawner
 dump mob:F144 nbt:F144
+level_seed 1148255
 mobspawn F145 minecraft:magma_cube 25.5 -60 3.5 reason=natural
 dump mob:F145 nbt:F145
+level_seed 1156174
 mobspawn F146 minecraft:magma_cube 26.5 -60 3.5 reason=spawner
 dump mob:F146 nbt:F146
+level_seed 1164093
 mobspawn F147 minecraft:enderman 27.5 -60 3.5 reason=natural
 dump mob:F147 nbt:F147
+level_seed 1172012
 mobspawn F148 minecraft:enderman 28.5 -60 3.5 reason=spawner
 dump mob:F148 nbt:F148
+level_seed 1179931
 mobspawn F149 minecraft:silverfish 29.5 -60 3.5 reason=natural
 dump mob:F149 nbt:F149
+level_seed 1187850
 mobspawn F150 minecraft:silverfish 30.5 -60 3.5 reason=spawner
 dump mob:F150 nbt:F150
+level_seed 1195769
 mobspawn F151 minecraft:blaze 31.5 -60 3.5 reason=natural
 dump mob:F151 nbt:F151
+level_seed 1203688
 mobspawn F152 minecraft:blaze 32.5 -60 3.5 reason=spawner
 dump mob:F152 nbt:F152
+level_seed 1211607
 mobspawn F153 minecraft:ghast 33.5 -60 3.5 reason=natural
 dump mob:F153 nbt:F153
+level_seed 1219526
 mobspawn F154 minecraft:ghast 34.5 -60 3.5 reason=spawner
 dump mob:F154 nbt:F154
+level_seed 1227445
 mobspawn F155 minecraft:phantom 35.5 -60 3.5 reason=natural
 dump mob:F155 nbt:F155
+level_seed 1235364
 mobspawn F156 minecraft:phantom 36.5 -60 3.5 reason=spawner
 dump mob:F156 nbt:F156
+level_seed 1243283
 mobspawn F157 minecraft:sheep 37.5 -60 3.5 reason=natural
 dump mob:F157 nbt:F157
+level_seed 1251202
 mobspawn F158 minecraft:sheep 38.5 -60 3.5 reason=spawner
 dump mob:F158 nbt:F158
+level_seed 1259121
 mobspawn F159 minecraft:pig 39.5 -60 3.5 reason=natural
 dump mob:F159 nbt:F159
+level_seed 1267040
 mobspawn F160 minecraft:pig 0.5 -60 6.5 reason=spawner
 dump mob:F160 nbt:F160
+level_seed 1274959
 mobspawn F161 minecraft:cow 1.5 -60 6.5 reason=natural
 dump mob:F161 nbt:F161
+level_seed 1282878
 mobspawn F162 minecraft:cow 2.5 -60 6.5 reason=spawner
 dump mob:F162 nbt:F162
+level_seed 1290797
 mobspawn F163 minecraft:chicken 3.5 -60 6.5 reason=natural
 dump mob:F163 nbt:F163
+level_seed 1298716
 mobspawn F164 minecraft:chicken 4.5 -60 6.5 reason=spawner
 dump mob:F164 nbt:F164
+level_seed 1306635
 mobspawn F165 minecraft:rabbit 5.5 -60 6.5 reason=natural
 dump mob:F165 nbt:F165
+level_seed 1314554
 mobspawn F166 minecraft:rabbit 6.5 -60 6.5 reason=spawner
 dump mob:F166 nbt:F166
+level_seed 1322473
 mobspawn F167 minecraft:horse 7.5 -60 6.5 reason=natural
 dump mob:F167 nbt:F167
+level_seed 1330392
 mobspawn F168 minecraft:horse 8.5 -60 6.5 reason=spawner
 dump mob:F168 nbt:F168
+level_seed 1338311
 mobspawn F169 minecraft:donkey 9.5 -60 6.5 reason=natural
 dump mob:F169 nbt:F169
+level_seed 1346230
 mobspawn F170 minecraft:donkey 10.5 -60 6.5 reason=spawner
 dump mob:F170 nbt:F170
+level_seed 1354149
 mobspawn F171 minecraft:mule 11.5 -60 6.5 reason=natural
 dump mob:F171 nbt:F171
+level_seed 1362068
 mobspawn F172 minecraft:mule 12.5 -60 6.5 reason=spawner
 dump mob:F172 nbt:F172
+level_seed 1369987
 mobspawn F173 minecraft:llama 13.5 -60 6.5 reason=natural
 dump mob:F173 nbt:F173
+level_seed 1377906
 mobspawn F174 minecraft:llama 14.5 -60 6.5 reason=spawner
 dump mob:F174 nbt:F174
+level_seed 1385825
 mobspawn F175 minecraft:wolf 15.5 -60 6.5 reason=natural
 dump mob:F175 nbt:F175
+level_seed 1393744
 mobspawn F176 minecraft:wolf 16.5 -60 6.5 reason=spawner
 dump mob:F176 nbt:F176
+level_seed 1401663
 mobspawn F177 minecraft:cat 17.5 -60 6.5 reason=natural
 dump mob:F177 nbt:F177
+level_seed 1409582
 mobspawn F178 minecraft:cat 18.5 -60 6.5 reason=spawner
 dump mob:F178 nbt:F178
+level_seed 1417501
 mobspawn F179 minecraft:fox 19.5 -60 6.5 reason=natural
 dump mob:F179 nbt:F179
+level_seed 1425420
 mobspawn F180 minecraft:fox 20.5 -60 6.5 reason=spawner
 dump mob:F180 nbt:F180
+level_seed 1433339
 mobspawn F181 minecraft:panda 21.5 -60 6.5 reason=natural
 dump mob:F181 nbt:F181
+level_seed 1441258
 mobspawn F182 minecraft:panda 22.5 -60 6.5 reason=spawner
 dump mob:F182 nbt:F182
+level_seed 1449177
 mobspawn F183 minecraft:villager 23.5 -60 6.5 reason=natural
 dump mob:F183 nbt:F183
+level_seed 1457096
 mobspawn F184 minecraft:villager 24.5 -60 6.5 reason=spawner
 dump mob:F184 nbt:F184
+level_seed 1465015
 mobspawn F185 minecraft:iron_golem 25.5 -60 6.5 reason=natural
 dump mob:F185 nbt:F185
+level_seed 1472934
 mobspawn F186 minecraft:iron_golem 26.5 -60 6.5 reason=spawner
 dump mob:F186 nbt:F186
+level_seed 1480853
 mobspawn F187 minecraft:snow_golem 27.5 -60 6.5 reason=natural
 dump mob:F187 nbt:F187
+level_seed 1488772
 mobspawn F188 minecraft:snow_golem 28.5 -60 6.5 reason=spawner
 dump mob:F188 nbt:F188
+level_seed 1496691
 mobspawn F189 minecraft:turtle 29.5 -60 6.5 reason=natural
 dump mob:F189 nbt:F189
+level_seed 1504610
 mobspawn F190 minecraft:turtle 30.5 -60 6.5 reason=spawner
 dump mob:F190 nbt:F190
+level_seed 1512529
 mobspawn F191 minecraft:frog 31.5 -60 6.5 reason=natural
 dump mob:F191 nbt:F191
+level_seed 1520448
 mobspawn F192 minecraft:frog 32.5 -60 6.5 reason=spawner
 dump mob:F192 nbt:F192
+level_seed 1528367
 mobspawn F193 minecraft:axolotl 33.5 -60 6.5 reason=natural
 dump mob:F193 nbt:F193
+level_seed 1536286
 mobspawn F194 minecraft:axolotl 34.5 -60 6.5 reason=spawner
 dump mob:F194 nbt:F194
+level_seed 1544205
 mobspawn F195 minecraft:goat 35.5 -60 6.5 reason=natural
 dump mob:F195 nbt:F195
+level_seed 1552124
 mobspawn F196 minecraft:goat 36.5 -60 6.5 reason=spawner
 dump mob:F196 nbt:F196
+level_seed 1560043
 mobspawn F197 minecraft:bee 37.5 -60 6.5 reason=natural
 dump mob:F197 nbt:F197
+level_seed 1567962
 mobspawn F198 minecraft:bee 38.5 -60 6.5 reason=spawner
 dump mob:F198 nbt:F198
+level_seed 1575881
 mobspawn F199 minecraft:parrot 39.5 -60 6.5 reason=natural
 dump mob:F199 nbt:F199
+level_seed 1583800
 mobspawn F200 minecraft:parrot 0.5 -60 9.5 reason=spawner
 dump mob:F200 nbt:F200
+level_seed 1591719
 mobspawn F201 minecraft:ocelot 1.5 -60 9.5 reason=natural
 dump mob:F201 nbt:F201
+level_seed 1599638
 mobspawn F202 minecraft:ocelot 2.5 -60 9.5 reason=spawner
 dump mob:F202 nbt:F202
+level_seed 1607557
 mobspawn F203 minecraft:polar_bear 3.5 -60 9.5 reason=natural
 dump mob:F203 nbt:F203
+level_seed 1615476
 mobspawn F204 minecraft:polar_bear 4.5 -60 9.5 reason=spawner
 dump mob:F204 nbt:F204
+level_seed 1623395
 mobspawn F205 minecraft:camel 5.5 -60 9.5 reason=natural
 dump mob:F205 nbt:F205
+level_seed 1631314
 mobspawn F206 minecraft:camel 6.5 -60 9.5 reason=spawner
 dump mob:F206 nbt:F206
+level_seed 1639233
 mobspawn F207 minecraft:sniffer 7.5 -60 9.5 reason=natural
 dump mob:F207 nbt:F207
+level_seed 1647152
 mobspawn F208 minecraft:sniffer 8.5 -60 9.5 reason=spawner
 dump mob:F208 nbt:F208

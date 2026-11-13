@@ -178,6 +178,7 @@ mod mnu_smithing_golden;
 mod mnu_stonecutter_golden;
 mod mob_armadillo_golden;
 mod mob_ctrl_golden;
+mod mob_fixtures_golden;
 mod mob_registration_guards;
 mod mob_spine_golden;
 mod net_common;
