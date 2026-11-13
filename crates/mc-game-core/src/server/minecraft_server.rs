@@ -396,9 +396,18 @@ impl MinecraftServer {
             dimension: level.dimension.clone(),
             level: NonNull::from(&mut *level),
         };
+        // a server that does not own the dimension (a replay around a detached level) gets a taken-out slot for the call
+        let unowned = !self.levels.contains_key(&lent.dimension);
+        if unowned {
+            self.levels.insert(lent.dimension.clone(), None);
+        }
+        let dimension = lent.dimension.clone();
         let previous = self.lent_level.replace(lent);
         let result = panic::catch_unwind(AssertUnwindSafe(|| f(self)));
         self.lent_level = previous;
+        if unowned {
+            self.levels.shift_remove(&dimension);
+        }
         match result {
             Ok(r) => r,
             Err(payload) => panic::resume_unwind(payload),
