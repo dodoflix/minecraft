@@ -12,7 +12,6 @@ use crate::world::level::block::impls::base_fire_block;
 use crate::world::level::explosion::ExplosionInteraction;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
-use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::{EntityType, GameEvent, Item};
@@ -124,6 +123,7 @@ impl Entity for EndCrystal {
         source: &DamageSource,
         _amount: f32,
     ) -> bool {
+        level.note_unlent_attacker(source, self);
         if self.is_invulnerable_to_base(level, source) {
             return false;
         }
@@ -136,24 +136,20 @@ impl Entity for EndCrystal {
         if !self.is_removed() {
             level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Killed);
             if !source.is_tag(level, DamageTypeTags::IS_EXPLOSION) {
-                let damage_source = level
-                    .damage_sources()
-                    .explosion_caused_by(self.as_dyn(), source);
-                let held_player = source.get_entity().filter(|&id| {
-                    level.get_entity(id).is_none()
-                        && source.causing_info().is_some_and(|c| c.is_player)
-                });
-                if let Some(player_id) = held_player {
-                    // The attacking player is taken out of the level while its packet is handled: it takes part in
-                    // the explosion (damage, knockback, packet) as soon as it is put back.
-                    let (crystal_id, position) = (self.id(), self.base.position());
-                    level.with_entity_or_defer(player_id, move |level, player| {
-                        let crystal = removed_crystal(crystal_id, position);
-                        explode(level, &crystal, damage_source, &mut [player]);
-                    });
-                } else {
-                    explode(level, self.as_dyn(), damage_source, &mut []);
-                }
+                // a lent attacker (a player's hit runs inside `ServerLevel::lend`) is found here and takes part in
+                // the explosion where vanilla runs it; a causing entity that is out of the level and not lent (a
+                // projectile running its hit) is read from the source
+                let damage_source = match source.get_entity().and_then(|id| level.get_entity(id)) {
+                    Some(cause) => Some(
+                        level
+                            .damage_sources()
+                            .explosion(Some(self.as_dyn()), Some(cause)),
+                    ),
+                    None => level
+                        .damage_sources()
+                        .explosion_caused_by(self.as_dyn(), source),
+                };
+                explode(level, self.as_dyn(), damage_source);
             }
             self.on_destroyed_by(level, source);
         }
@@ -186,12 +182,7 @@ impl Entity for EndCrystal {
 }
 
 /// The explosion of a destroyed crystal at its position (`Level.explode(crystal, damageSource, null, x, y, z, 6.0F, false, BLOCK)`).
-fn explode(
-    level: &mut ServerLevel,
-    crystal: &dyn Entity,
-    damage_source: Option<DamageSource>,
-    participants: &mut [&mut dyn Entity],
-) {
+fn explode(level: &mut ServerLevel, crystal: &dyn Entity, damage_source: Option<DamageSource>) {
     let p = crystal.position();
     let params = Explode::new(
         Some(crystal),
@@ -202,15 +193,7 @@ fn explode(
         ExplosionInteraction::Block,
     )
     .with_damage_source(damage_source, None);
-    level.explode(params, participants);
-}
-
-/// A stand-in for a crystal that was already removed (the source of an explosion that runs after the crystal is gone).
-fn removed_crystal(id: EntityId, position: Vec3) -> EndCrystal {
-    let mut crystal = EndCrystal::new(EntityType::END_CRYSTAL, id);
-    crystal.set_pos(position.x, position.y, position.z);
-    crystal.base.set_removal_reason(RemovalReason::Killed);
-    crystal
+    level.explode(params, &mut []);
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]

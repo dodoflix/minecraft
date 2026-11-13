@@ -198,7 +198,9 @@ impl ServerPlayer {
                 );
                 let old_living_entity_health = entity.living().map_or(0.0, |l| l.get_health());
                 let old_movement = entity.base().delta_movement();
-                let was_hurt = entity.hurt_server(level, &damage_source, total_damage);
+                let was_hurt = level.lend(&mut *self, |level| {
+                    entity.hurt_server(level, &damage_source, total_damage)
+                });
                 if was_hurt {
                     let knockback =
                         combat::get_knockback(&mut *self, level, &mut *entity, &damage_source)
@@ -281,7 +283,10 @@ impl ServerPlayer {
         };
         let old_living_entity_health = target.living().map_or(0.0, |l| l.get_health());
         let old_movement = target.base().delta_movement();
-        let was_hurt = deals_damage && target.hurt_server(level, &damage_source, total_damage);
+        let was_hurt = deals_damage
+            && level.lend(&mut *self, |level| {
+                target.hurt_server(level, &damage_source, total_damage)
+            });
         if deals_knockback {
             Entity::cause_extra_knockback(
                 self,
@@ -632,7 +637,9 @@ impl ServerPlayer {
                     let enchanted_damage =
                         self.get_enchanted_damage(level, &mut *nearby, sweep_damage, damage_source)
                             * attack_strength_scale;
-                    if nearby.hurt_server(level, damage_source, enchanted_damage) {
+                    if level.lend(&mut *self, |level| {
+                        nearby.hurt_server(level, damage_source, enchanted_damage)
+                    }) {
                         nearby.knockback(
                             0.4f32 as f64,
                             sin,

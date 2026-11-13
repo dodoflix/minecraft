@@ -147,3 +147,17 @@ tick 1
 pick_entity A C13
 tick 1
 dump inventory:A
+note a sword hit by a survival player inside the blast: the explosion runs inside the hit, so the player is hurt before the attack's own sound
+snap A 14.5 -60 2.5
+velocity A 0 0 0
+snap V 4.5 -60 2.5
+velocity V 0 0 0
+set V health 20
+effect V minecraft:resistance 3 400
+spawn C14 minecraft:end_crystal 4.5 -60 4.5 0 0 {}
+entity_seed C14 47
+tick 1
+level_seed 17
+attack V C14
+tick 2
+dump entities player:V player:A events packets:V:remove_entities,explode,damage_event,set_entity_motion packets:A:remove_entities,explode

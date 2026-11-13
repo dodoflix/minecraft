@@ -862,7 +862,7 @@ fn report_unlent_attacker(attacker: &str, victim: &str) {
         .lines()
         .filter_map(|l| l.trim().split_once(": ").map(|(_, name)| name))
         .filter(|n| {
-            n.starts_with("mc_game")
+            n.contains("mc_game")
                 && !n.contains("note_unlent_attacker")
                 && !n.contains("report_unlent")
         })
@@ -881,6 +881,7 @@ fn report_unlent_attacker(attacker: &str, victim: &str) {
         .append(true)
         .open(path)
     {
-        let _ = writeln!(file, "{line}");
+        let thread = std::thread::current();
+        let _ = writeln!(file, "{line} [{}]", thread.name().unwrap_or("?"));
     }
 }
