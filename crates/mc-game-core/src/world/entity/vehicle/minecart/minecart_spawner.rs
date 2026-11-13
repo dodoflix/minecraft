@@ -27,7 +27,8 @@ impl BaseSpawnerHost for CartSpawnerHost {
 pub struct MinecartSpawner {
     base: EntityData,
     minecart: MinecartData,
-    spawner: BaseSpawner,
+    /// Out of the cart only while its tick runs the spawner (the cart is exposed to the spawner's queries meanwhile).
+    spawner: Option<BaseSpawner>,
 }
 
 impl MinecartSpawner {
@@ -36,13 +37,15 @@ impl MinecartSpawner {
         Self {
             base,
             minecart,
-            spawner: BaseSpawner::new(Box::new(CartSpawnerHost(id))),
+            spawner: Some(BaseSpawner::new(Box::new(CartSpawnerHost(id)))),
         }
     }
 
     /// `getSpawner()`.
     pub fn get_spawner(&mut self) -> &mut BaseSpawner {
-        &mut self.spawner
+        self.spawner
+            .as_mut()
+            .expect("the spawner is back after the tick")
     }
 }
 
@@ -70,7 +73,13 @@ impl Entity for MinecartSpawner {
     fn tick(&mut self, level: &mut ServerLevel) {
         abstract_minecart::tick(self, level);
         let pos = self.base.block_position();
-        self.spawner.server_tick(level, pos);
+        let mut spawner = self
+            .spawner
+            .take()
+            .expect("the spawner is back after the tick");
+        // vanilla's spawn collision and nearby-entity queries see the cart itself
+        level.expose(self, |level| spawner.server_tick(level, pos));
+        self.spawner = Some(spawner);
     }
 
     fn get_pick_result(&self) -> Option<ItemStack> {
@@ -83,12 +92,15 @@ impl Entity for MinecartSpawner {
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         abstract_minecart::add_additional_save_data(self, out);
-        self.spawner.save(out);
+        self.spawner
+            .as_ref()
+            .expect("the spawner is back after the tick")
+            .save(out);
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         abstract_minecart::read_additional_save_data(self, input);
-        self.spawner.load(input);
+        self.get_spawner().load(input);
     }
 }
 

@@ -94,6 +94,7 @@ kill item#2
 kill item#3
 reseed 11
 note frogspawn on water (scheduled hatch, tadpoles) and without support, sniffer eggs (boosted by moss, scheduled stages)
+level_seed 110
 fill 20 -61 0 24 -61 3 minecraft:water
 block 20 -60 0 minecraft:frogspawn
 block 22 -60 0 minecraft:frogspawn
@@ -105,7 +106,7 @@ block 30 -60 0 minecraft:sniffer_egg[hatch=2]
 block 32 -61 0 minecraft:moss_block
 block 32 -60 0 minecraft:sniffer_egg[hatch=2]
 dump ticks:20,-60,0,32,-60,3 events
-tick 3927
+tick 3881
 dump blocks:20,-60,0,32,-60,3 entities
 tick 1
 dump blocks:20,-60,0,32,-60,3 entities events
@@ -113,17 +114,18 @@ kill tadpole#1
 kill tadpole#2
 kill tadpole#3
 level_seed 101
-tick 201
+tick 258
 dump blocks:28,-60,0,32,-60,0 entities
 tick 1
 dump blocks:28,-60,0,32,-60,0 entities events
 kill sniffer#1
 level_seed 102
-tick 30
+tick 80
 dump blocks:28,-60,0,32,-60,0 entities
 tick 1
 dump blocks:28,-60,0,32,-60,0 entities events ticks:28,-60,0,28,-60,0
-tick 369
+level_seed 103
+tick 2515
 dump blocks:20,-60,0,26,-60,3 entities
 tick 1
 dump blocks:20,-60,0,26,-60,3 entities events
@@ -132,31 +134,34 @@ kill tadpole#5
 kill tadpole#6
 kill tadpole#7
 kill tadpole#8
-level_seed 103
-tick 1287
-dump blocks:20,-60,0,26,-60,3 entities
-tick 1
-dump blocks:20,-60,0,26,-60,3 entities events
-tick 994
+level_seed 104
+tick 129
 dump blocks:20,-60,0,26,-60,3 entities
 tick 1
 dump blocks:20,-60,0,26,-60,3 entities events
 kill tadpole#9
 kill tadpole#10
-level_seed 104
-tick 1332
+kill tadpole#11
+level_seed 105
+tick 1400
 dump blocks:28,-60,0,32,-60,0 entities
 tick 1
 dump blocks:28,-60,0,32,-60,0 entities events
 kill sniffer#2
-level_seed 105
-tick 153
+level_seed 106
+tick 161
+dump blocks:20,-60,0,26,-60,3 entities
+tick 1
+dump blocks:20,-60,0,26,-60,3 entities events
+level_seed 107
+tick 5
 dump blocks:28,-60,0,32,-60,0 entities
 tick 1
 dump blocks:28,-60,0,32,-60,0 entities events ticks:28,-60,0,28,-60,0
-tick 4199
+level_seed 108
+tick 4048
 dump blocks:28,-60,0,32,-60,0 entities
 tick 1
 dump blocks:28,-60,0,32,-60,0 entities events
 kill sniffer#3
-level_seed 106
+level_seed 109

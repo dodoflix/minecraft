@@ -30,9 +30,6 @@ T 9
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
-EV level_event r=64.0 ex=0 type=2004 pos=0,-60,0 data=0 global=0
-PKT P minecraft:entity_event 220000045114
-PKT P minecraft:entity_event 220000044e01
 T 10
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
@@ -45,6 +42,9 @@ T 12
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=2004 pos=0,-60,0 data=0 global=0
+PKT P minecraft:entity_event 220000045314
+PKT P minecraft:entity_event 220000044e01
 T 13
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
@@ -154,9 +154,6 @@ T 39
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
-EV level_event r=64.0 ex=0 type=2004 pos=0,-60,0 data=0 global=0
-PKT P minecraft:entity_event 220000045314
-PKT P minecraft:entity_event 220000044e01
 T 40
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
@@ -197,6 +194,11 @@ T 49
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=2004 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=0,-60,0 data=0 global=0
+PKT P minecraft:entity_event 220000045414
+PKT P minecraft:entity_event 220000045514
+PKT P minecraft:entity_event 220000044e01
 T 50
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
@@ -277,9 +279,6 @@ T 69
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
-EV level_event r=64.0 ex=0 type=2004 pos=0,-60,0 data=0 global=0
-PKT P minecraft:entity_event 220000045414
-PKT P minecraft:entity_event 220000044e01
 T 70
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
@@ -299,11 +298,11 @@ E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E pig#1 minecraft:pig pos=1.4235337302523412,-60.0,1.8604951493298971 delta=0.0,0.0,0.0 rot=217.42233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E pig#2 minecraft:pig pos=0.46395722612096557,-60.0,2.9477369654029375 delta=0.0,0.0,0.0 rot=199.89238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E pig#3 minecraft:pig pos=2.3421750952841753,-60.0,2.8454262087942226 delta=0.0,0.0,0.0 rot=79.81514,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-N s1 {Air:300s,Delay:30s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:3s,MaxSpawnDelay:40s,MinSpawnDelay:20s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],RequiredPlayerRange:16s,Rotation:[0.0f,0.0f],SpawnCount:2s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:pig"}},SpawnPotentials:[],SpawnRange:3s,fall_distance:0.0d}
-N s2 {Air:300s,Delay:334s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],RequiredPlayerRange:16s,Rotation:[0.0f,0.0f],SpawnCount:4s,SpawnData:{entity:{}},SpawnPotentials:[],SpawnRange:4s,fall_distance:0.0d}
+E pig#1 minecraft:pig pos=-1.27363861730544,-60.0,0.7391009177192472 delta=0.0,0.0,0.0 rot=304.29712,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=2.8001537272343833,-60.0,2.6884360631997617 delta=0.0,0.0,0.0 rot=57.52152,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#3 minecraft:pig pos=-0.8709574577275476,-60.0,-0.2371204938492587 delta=0.0,0.0,0.0 rot=83.494934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N s1 {Air:300s,Delay:12s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:3s,MaxSpawnDelay:40s,MinSpawnDelay:20s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],RequiredPlayerRange:16s,Rotation:[0.0f,0.0f],SpawnCount:2s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:pig"}},SpawnPotentials:[],SpawnRange:3s,fall_distance:0.0d}
+N s2 {Air:300s,Delay:733s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],RequiredPlayerRange:16s,Rotation:[0.0f,0.0f],SpawnCount:4s,SpawnData:{entity:{}},SpawnPotentials:[],SpawnRange:4s,fall_distance:0.0d}
 N s3 {Air:300s,Delay:1s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[16.5d,-60.0d,0.5d],RequiredPlayerRange:3s,Rotation:[0.0f,0.0f],SpawnCount:4s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:pig"}},SpawnPotentials:[],SpawnRange:4s,fall_distance:0.0d}
 # a merge into the live cart: another entity, the delay restarts with the next spawn
 N s2 {Air:300s,Delay:2s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],RequiredPlayerRange:30s,Rotation:[0.0f,0.0f],SpawnCount:1s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:cow"}},SpawnPotentials:[{data:{entity:{NoAI:1b,Silent:1b,id:"minecraft:cow"}},weight:1}],SpawnRange:4s,fall_distance:0.0d}
@@ -315,11 +314,11 @@ T 76
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 T 77
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
-EV level_event r=64.0 ex=0 type=2004 pos=8,-60,0 data=0 global=0
-PKT P minecraft:entity_event 220000045514
-PKT P minecraft:entity_event 220000044f01
 T 78
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=2004 pos=8,-60,0 data=0 global=0
+PKT P minecraft:entity_event 220000045714
+PKT P minecraft:entity_event 220000044f01
 T 79
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 T 80
@@ -333,28 +332,28 @@ E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E pig#1 minecraft:pig pos=1.4235337302523412,-60.0,1.8604951493298971 delta=0.0,0.0,0.0 rot=217.42233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E pig#2 minecraft:pig pos=0.46395722612096557,-60.0,2.9477369654029375 delta=0.0,0.0,0.0 rot=199.89238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E pig#3 minecraft:pig pos=2.3421750952841753,-60.0,2.8454262087942226 delta=0.0,0.0,0.0 rot=79.81514,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#1 minecraft:cow pos=4.7286485704397885,-60.0,2.0760754935077004 delta=0.0,0.0,0.0 rot=271.63702,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-N s2 {Air:300s,Delay:524s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],RequiredPlayerRange:30s,Rotation:[0.0f,0.0f],SpawnCount:1s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:cow"}},SpawnPotentials:[{data:{entity:{NoAI:1b,Silent:1b,id:"minecraft:cow"}},weight:1}],SpawnRange:4s,fall_distance:0.0d}
+E pig#1 minecraft:pig pos=-1.27363861730544,-60.0,0.7391009177192472 delta=0.0,0.0,0.0 rot=304.29712,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=2.8001537272343833,-60.0,2.6884360631997617 delta=0.0,0.0,0.0 rot=57.52152,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#3 minecraft:pig pos=-0.8709574577275476,-60.0,-0.2371204938492587 delta=0.0,0.0,0.0 rot=83.494934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=11.347685964830077,-60.0,1.4797927219305178 delta=0.0,0.0,0.0 rot=158.405,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N s2 {Air:300s,Delay:634s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],RequiredPlayerRange:30s,Rotation:[0.0f,0.0f],SpawnCount:1s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:cow"}},SpawnPotentials:[{data:{entity:{NoAI:1b,Silent:1b,id:"minecraft:cow"}},weight:1}],SpawnRange:4s,fall_distance:0.0d}
 # the rule off: nothing spawns
 C Game rule spawner_blocks_work is now set to false
 N s1 {Air:300s,Delay:1s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:3s,MaxSpawnDelay:40s,MinSpawnDelay:20s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],RequiredPlayerRange:16s,Rotation:[0.0f,0.0f],SpawnCount:2s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:pig"}},SpawnPotentials:[],SpawnRange:3s,fall_distance:0.0d}
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E pig#1 minecraft:pig pos=1.4235337302523412,-60.0,1.8604951493298971 delta=0.0,0.0,0.0 rot=217.42233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E pig#2 minecraft:pig pos=0.46395722612096557,-60.0,2.9477369654029375 delta=0.0,0.0,0.0 rot=199.89238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E pig#3 minecraft:pig pos=2.3421750952841753,-60.0,2.8454262087942226 delta=0.0,0.0,0.0 rot=79.81514,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#1 minecraft:cow pos=4.7286485704397885,-60.0,2.0760754935077004 delta=0.0,0.0,0.0 rot=271.63702,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=-1.27363861730544,-60.0,0.7391009177192472 delta=0.0,0.0,0.0 rot=304.29712,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=2.8001537272343833,-60.0,2.6884360631997617 delta=0.0,0.0,0.0 rot=57.52152,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#3 minecraft:pig pos=-0.8709574577275476,-60.0,-0.2371204938492587 delta=0.0,0.0,0.0 rot=83.494934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=11.347685964830077,-60.0,1.4797927219305178 delta=0.0,0.0,0.0 rot=158.405,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 C Game rule spawner_blocks_work is now set to true
 # drop and pick result
 HURT s3 generic 5 -> true
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E pig#1 minecraft:pig pos=1.4235337302523412,-60.0,1.8604951493298971 delta=0.0,0.0,0.0 rot=217.42233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E pig#2 minecraft:pig pos=0.46395722612096557,-60.0,2.9477369654029375 delta=0.0,0.0,0.0 rot=199.89238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E pig#3 minecraft:pig pos=2.3421750952841753,-60.0,2.8454262087942226 delta=0.0,0.0,0.0 rot=79.81514,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#1 minecraft:cow pos=4.7286485704397885,-60.0,2.0760754935077004 delta=0.0,0.0,0.0 rot=271.63702,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=-1.27363861730544,-60.0,0.7391009177192472 delta=0.0,0.0,0.0 rot=304.29712,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=2.8001537272343833,-60.0,2.6884360631997617 delta=0.0,0.0,0.0 rot=57.52152,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#3 minecraft:pig pos=-0.8709574577275476,-60.0,-0.2371204938492587 delta=0.0,0.0,0.0 rot=83.494934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=11.347685964830077,-60.0,1.4797927219305178 delta=0.0,0.0,0.0 rot=158.405,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E item#1 minecraft:item pos=16.5,-60.0,0.5 delta=-0.0705489486736677,0.2,0.01635250469569291 rot=247.36224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=0 pickup=10 health=5 owner=- thrower=-
