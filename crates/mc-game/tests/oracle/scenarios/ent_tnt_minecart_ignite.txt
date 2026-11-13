@@ -1,0 +1,50 @@
+# TNT minecart: fire damage and an explosion prime it (short fuse), a flaming arrow detonates it at once, a plain arrow only breaks it (item drop), a powered
+# activator rail primes it with the full fuse, a fall of three blocks or more detonates it, the tnt_explodes rule keeps a primed cart from exploding, saved fuse
+# and explosion power (clamped to 0..128). The observer sees remove_entities and explode. Destroyed blocks drop nothing (the fixture would be huge).
+level flat
+preload 6
+entity_counter 900
+level_seed 22
+gamerule block_drops false
+fill -4 -60 -6 100 -40 16 minecraft:air
+fill 76 -60 0 94 -60 0 minecraft:rail[shape=east_west]
+block 82 -61 0 minecraft:redstone_block
+block 82 -60 0 minecraft:activator_rail[powered=true,shape=east_west]
+spawn_player P creative 40.5 -60 -14.5 0 0
+tick 3
+dump packets:P:none
+spawn tA minecraft:tnt_minecart 0.5 -59.9375 0.5
+entity_seed tA 71
+spawn tB minecraft:tnt_minecart 16.5 -59.9375 0.5
+entity_seed tB 72
+spawn tC minecraft:tnt_minecart 32.5 -59.9375 0.5
+entity_seed tC 73
+spawn aC minecraft:arrow 27.5 -59.6 0.5 0 0 {Fire:100s}
+velocity aC 2.5 0 0
+spawn tD minecraft:tnt_minecart 48.5 -59.9375 0.5
+entity_seed tD 74
+spawn aD minecraft:arrow 43.5 -59.6 0.5 0 0
+velocity aD 2.5 0 0
+spawn tE minecraft:tnt_minecart 77.5 -59.9375 0.5
+entity_seed tE 75
+velocity tE 0.3 0 0
+spawn tF minecraft:tnt_minecart 64.5 -54 0.5
+entity_seed tF 76
+spawn tH minecraft:tnt_minecart 0.5 -59.9375 12.5 0 0 {fuse:5,explosion_power:1.5f,explosion_speed_factor:0.0f}
+entity_seed tH 77
+spawn tI minecraft:tnt_minecart 16.5 -59.9375 12.5 0 0 {fuse:3,explosion_power:-5.0f,explosion_speed_factor:500.0f}
+entity_seed tI 78
+dump xentities edata:tA nbt:tH nbt:tI
+note fire damage destroys it into a short fuse, an explosion nearby too
+hurt tA in_fire 1
+explode 16.5 -59.9 2.5 2 tnt
+watch xentities events packets:P:remove_entities,explode
+tick 100
+note the rule off: priming does nothing but the fuse still runs out and the cart is discarded without an explosion
+gamerule tnt_explodes false
+spawn tG minecraft:tnt_minecart 0.5 -59.9375 24.5
+entity_seed tG 79
+hurt tG in_fire 1
+tick 60
+dump xentities nbt:tG
+gamerule tnt_explodes true

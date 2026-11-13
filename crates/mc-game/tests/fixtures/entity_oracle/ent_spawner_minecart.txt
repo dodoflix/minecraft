@@ -1,0 +1,360 @@
+C The difficulty has been set to Peaceful
+E s1 minecraft:spawner_minecart pos=0.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+ED s1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06
+N s1 {Air:300s,Delay:5s,Fire:0s,FlippedRotation:0b,HasTicked:1b,Invulnerable:0b,MaxNearbyEntities:3s,MaxSpawnDelay:40s,MinSpawnDelay:20s,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-59.9375d,0.5d],RequiredPlayerRange:16s,Rotation:[0.0f,0.0f],SpawnCount:2s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:pig"}},SpawnPotentials:[],SpawnRange:3s,fall_distance:0.0d}
+N s2 {Air:300s,Delay:20s,Fire:0s,FlippedRotation:0b,HasTicked:1b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-59.9375d,0.5d],RequiredPlayerRange:16s,Rotation:[0.0f,0.0f],SpawnCount:4s,SpawnPotentials:[],SpawnRange:4s,fall_distance:0.0d}
+N s3 {Air:300s,Delay:1s,Fire:0s,FlippedRotation:0b,HasTicked:1b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[16.5d,-59.9375d,0.5d],RequiredPlayerRange:3s,Rotation:[0.0f,0.0f],SpawnCount:4s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:pig"}},SpawnPotentials:[],SpawnRange:4s,fall_distance:0.0d}
+T 4
+E s1 minecraft:spawner_minecart pos=0.5,-59.9775,0.5 delta=0.0,-0.037999999523162846,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-59.9775,0.5 delta=0.0,-0.037999999523162846,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-59.9775,0.5 delta=0.0,-0.037999999523162846,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 5
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 6
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 7
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 8
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 9
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=2004 pos=0,-60,0 data=0 global=0
+PKT P minecraft:entity_event 220000045114
+PKT P minecraft:entity_event 220000044e01
+T 10
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 11
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 12
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 13
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 14
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 15
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 16
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 17
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 18
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 19
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 20
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 21
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 22
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 23
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 24
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+PKT P minecraft:entity_event 220000044f01
+T 25
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 26
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 27
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 28
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 29
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 30
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 31
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 32
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 33
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 34
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 35
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 36
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 37
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 38
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 39
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=2004 pos=0,-60,0 data=0 global=0
+PKT P minecraft:entity_event 220000045314
+PKT P minecraft:entity_event 220000044e01
+T 40
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 41
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 42
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 43
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 44
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 45
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 46
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 47
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 48
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 49
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 50
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 51
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 52
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 53
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 54
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 55
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 56
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 57
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 58
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 59
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 60
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 61
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 62
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 63
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 64
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 65
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 66
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 67
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 68
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 69
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=2004 pos=0,-60,0 data=0 global=0
+PKT P minecraft:entity_event 220000045414
+PKT P minecraft:entity_event 220000044e01
+T 70
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 71
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 72
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 73
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E pig#1 minecraft:pig pos=1.4235337302523412,-60.0,1.8604951493298971 delta=0.0,0.0,0.0 rot=217.42233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=0.46395722612096557,-60.0,2.9477369654029375 delta=0.0,0.0,0.0 rot=199.89238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#3 minecraft:pig pos=2.3421750952841753,-60.0,2.8454262087942226 delta=0.0,0.0,0.0 rot=79.81514,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N s1 {Air:300s,Delay:30s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:3s,MaxSpawnDelay:40s,MinSpawnDelay:20s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],RequiredPlayerRange:16s,Rotation:[0.0f,0.0f],SpawnCount:2s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:pig"}},SpawnPotentials:[],SpawnRange:3s,fall_distance:0.0d}
+N s2 {Air:300s,Delay:334s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],RequiredPlayerRange:16s,Rotation:[0.0f,0.0f],SpawnCount:4s,SpawnData:{entity:{}},SpawnPotentials:[],SpawnRange:4s,fall_distance:0.0d}
+N s3 {Air:300s,Delay:1s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[16.5d,-60.0d,0.5d],RequiredPlayerRange:3s,Rotation:[0.0f,0.0f],SpawnCount:4s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:pig"}},SpawnPotentials:[],SpawnRange:4s,fall_distance:0.0d}
+# a merge into the live cart: another entity, the delay restarts with the next spawn
+N s2 {Air:300s,Delay:2s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],RequiredPlayerRange:30s,Rotation:[0.0f,0.0f],SpawnCount:1s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:cow"}},SpawnPotentials:[{data:{entity:{NoAI:1b,Silent:1b,id:"minecraft:cow"}},weight:1}],SpawnRange:4s,fall_distance:0.0d}
+T 74
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 75
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 76
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 77
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+EV level_event r=64.0 ex=0 type=2004 pos=8,-60,0 data=0 global=0
+PKT P minecraft:entity_event 220000045514
+PKT P minecraft:entity_event 220000044f01
+T 78
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 79
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 80
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 81
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 82
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 83
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E pig#1 minecraft:pig pos=1.4235337302523412,-60.0,1.8604951493298971 delta=0.0,0.0,0.0 rot=217.42233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=0.46395722612096557,-60.0,2.9477369654029375 delta=0.0,0.0,0.0 rot=199.89238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#3 minecraft:pig pos=2.3421750952841753,-60.0,2.8454262087942226 delta=0.0,0.0,0.0 rot=79.81514,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=4.7286485704397885,-60.0,2.0760754935077004 delta=0.0,0.0,0.0 rot=271.63702,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N s2 {Air:300s,Delay:524s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],RequiredPlayerRange:30s,Rotation:[0.0f,0.0f],SpawnCount:1s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:cow"}},SpawnPotentials:[{data:{entity:{NoAI:1b,Silent:1b,id:"minecraft:cow"}},weight:1}],SpawnRange:4s,fall_distance:0.0d}
+# the rule off: nothing spawns
+C Game rule spawner_blocks_work is now set to false
+N s1 {Air:300s,Delay:1s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:3s,MaxSpawnDelay:40s,MinSpawnDelay:20s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],RequiredPlayerRange:16s,Rotation:[0.0f,0.0f],SpawnCount:2s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:pig"}},SpawnPotentials:[],SpawnRange:3s,fall_distance:0.0d}
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s3 minecraft:spawner_minecart pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E pig#1 minecraft:pig pos=1.4235337302523412,-60.0,1.8604951493298971 delta=0.0,0.0,0.0 rot=217.42233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=0.46395722612096557,-60.0,2.9477369654029375 delta=0.0,0.0,0.0 rot=199.89238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#3 minecraft:pig pos=2.3421750952841753,-60.0,2.8454262087942226 delta=0.0,0.0,0.0 rot=79.81514,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=4.7286485704397885,-60.0,2.0760754935077004 delta=0.0,0.0,0.0 rot=271.63702,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+C Game rule spawner_blocks_work is now set to true
+# drop and pick result
+HURT s3 generic 5 -> true
+E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E pig#1 minecraft:pig pos=1.4235337302523412,-60.0,1.8604951493298971 delta=0.0,0.0,0.0 rot=217.42233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=0.46395722612096557,-60.0,2.9477369654029375 delta=0.0,0.0,0.0 rot=199.89238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#3 minecraft:pig pos=2.3421750952841753,-60.0,2.8454262087942226 delta=0.0,0.0,0.0 rot=79.81514,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=4.7286485704397885,-60.0,2.0760754935077004 delta=0.0,0.0,0.0 rot=271.63702,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=16.5,-60.0,0.5 delta=-0.0705489486736677,0.2,0.01635250469569291 rot=247.36224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=0 pickup=10 health=5 owner=- thrower=-

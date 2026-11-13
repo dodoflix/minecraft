@@ -10,7 +10,9 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ShulkerBullet;
 import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
 import net.minecraft.world.entity.vehicle.minecart.AbstractMinecartContainer;
+import net.minecraft.world.entity.vehicle.minecart.MinecartFurnace;
 import net.minecraft.world.entity.vehicle.minecart.MinecartHopper;
+import net.minecraft.world.entity.vehicle.minecart.MinecartTNT;
 
 /**
  * Per-class fields of the rich `E` lines (`dump xentity:REF`, `xentities`, `mob:REF`, `mobs`): the Java twin of the Rust registry
@@ -102,6 +104,14 @@ final class EntityExtras {
          out.add("items", items.length() == 0 ? "-" : items.toString());
          out.add("loot", c.getContainerLootTable() == null ? "-" : c.getContainerLootTable().identifier());
          out.add("seed", c.getContainerLootTableSeed());
+      }));
+      ALL.add(new Extra(31, MinecartFurnace.class, (d, e, out) -> {
+         MinecartFurnace c = (MinecartFurnace)e;
+         out.add("fuel", EntityOracleDriver.priv(e, MinecartFurnace.class, "fuel"));
+         out.add("push", EntityOracleDriver.f(c.push.x) + "/" + EntityOracleDriver.f(c.push.z));
+      }));
+      ALL.add(new Extra(31, MinecartTNT.class, (d, e, out) -> {
+         out.add("fuse", EntityOracleDriver.priv(e, MinecartTNT.class, "fuse"));
       }));
       ALL.add(new Extra(32, MinecartHopper.class, (d, e, out) -> out.add("enabled", EntityOracleDriver.bool(((MinecartHopper)e).isEnabled()))));
       ALL.sort(Comparator.comparingInt(Extra::order));

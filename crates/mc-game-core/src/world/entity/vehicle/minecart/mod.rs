@@ -1,5 +1,5 @@
 //! `net.minecraft.world.entity.vehicle.minecart`: `AbstractMinecart` (the state and behaviour every cart shares), the default
-//! `OldMinecartBehavior` and the rideable `Minecart`.
+//! `OldMinecartBehavior`, the rideable `Minecart` and the furnace, TNT, command block and spawner carts.
 //!
 //! A concrete cart embeds an `EntityData` and a [`abstract_minecart::MinecartData`], implements [`AbstractMinecart`] (the overridable
 //! vanilla methods; defaults are `AbstractMinecart`'s) and [`Entity`](crate::world::entity::Entity) through
@@ -15,6 +15,10 @@ pub mod abstract_minecart_container;
 )]
 pub mod minecart;
 pub mod minecart_chest;
+pub mod minecart_command_block;
+pub mod minecart_furnace;
+pub mod minecart_spawner;
+pub mod minecart_tnt;
 pub mod old_behavior;
 
 pub use abstract_minecart::{AbstractMinecart, MinecartData};

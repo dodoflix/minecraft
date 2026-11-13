@@ -1,0 +1,35 @@
+E f1 minecraft:furnace_minecart pos=2.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=0 push=0.0/0.0
+E f2 minecraft:furnace_minecart pos=12.5,-59.9375,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=0 push=0.0/0.0
+ED f1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06 13:8:00
+N f1 {Air:300s,Fire:0s,FlippedRotation:0b,Fuel:0s,HasTicked:1b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-59.9375d,0.5d],PushX:0.0d,PushZ:0.0d,Rotation:[0.0f,0.0f],fall_distance:0.0d}
+# a stick is not fuel, coal and charcoal are; the push points away from the player
+E f1 minecraft:furnace_minecart pos=2.5,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=0 push=0.0/0.0
+I S 0 minecraft:stick*3
+E f1 minecraft:furnace_minecart pos=3.3000000000000007,-59.9375,0.5 delta=4.250747144611506,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuel=3595 push=2.82786160897032/0.0
+ED f1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06 13:8:01
+N f1 {Air:300s,Fire:0s,FlippedRotation:1b,Fuel:3595s,HasTicked:0b,Invulnerable:0b,Motion:[4.250747144611506d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[3.3000000000000007d,-59.9375d,0.5d],PushX:2.82786160897032d,PushZ:0.0d,Rotation:[0.0f,0.0f],fall_distance:0.0d}
+I S 0 minecraft:coal*11
+E f1 minecraft:furnace_minecart pos=11.299999999999994,-59.9375,0.5 delta=4.838632442095392,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuel=10755 push=3.4402421271827/0.0
+N f1 {Air:300s,Fire:0s,FlippedRotation:1b,Fuel:10755s,HasTicked:0b,Invulnerable:0b,Motion:[4.838632442095392d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[11.299999999999994d,-59.9375d,0.5d],PushX:3.4402421271827d,PushZ:0.0d,Rotation:[0.0f,0.0f],fall_distance:0.0d}
+I S 0 minecraft:charcoal*1
+# a player on the other side of a standing cart turns the push around
+E f3 minecraft:furnace_minecart pos=24.5,-59.9375,6.5 delta=1.92,0.0,-1.92 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=3599 push=2.0/-2.0
+I S 0 minecraft:coal*1
+E f3 minecraft:furnace_minecart pos=18.90000000000002,-59.9375,6.5 delta=-4.250747144611507,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=7169 push=-2.8278616089703204/-0.0
+N f3 {Air:300s,Fire:0s,FlippedRotation:0b,Fuel:7169s,HasTicked:0b,Invulnerable:0b,Motion:[-4.250747144611507d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[18.90000000000002d,-59.9375d,6.5d],PushX:-2.8278616089703204d,PushZ:0.0d,Rotation:[0.0f,0.0f],fall_distance:0.0d}
+# creative: nine coal, the ninth (over 32000) is refused and nothing is consumed
+E f2 minecraft:furnace_minecart pos=12.5,-59.9375,6.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=3600 push=0.0/-2.0
+I C 0 minecraft:coal*20
+E f2 minecraft:furnace_minecart pos=12.5,-59.9375,6.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=28800 push=0.0/-2.0
+I C 0 minecraft:coal*20
+E f2 minecraft:furnace_minecart pos=12.5,-59.9375,6.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=28800 push=0.0/-2.0
+N f2 {Air:300s,Fire:0s,FlippedRotation:0b,Fuel:28800s,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[12.5d,-59.9375d,6.5d],PushX:0.0d,PushZ:-2.0d,Rotation:[0.0f,0.0f],fall_distance:0.0d}
+ED f2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06 13:8:00
+I C 0 minecraft:coal*20
+E f2 minecraft:furnace_minecart pos=13.899999999999995,-59.9375,6.5 delta=-3.49249357305081,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=28780 push=0.0/0.0
+# save data: fuel, push and a merge into the live cart
+E f2 minecraft:furnace_minecart pos=13.899999999999995,-59.9375,6.5 delta=-3.49249357305081,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=10 push=-0.25/0.5
+N f2 {Air:300s,Fire:0s,FlippedRotation:0b,Fuel:10s,HasTicked:0b,Invulnerable:0b,Motion:[-3.49249357305081d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[13.899999999999995d,-59.9375d,6.5d],PushX:-0.25d,PushZ:0.5d,Rotation:[0.0f,0.0f],fall_distance:0.0d}
+E f2 minecraft:furnace_minecart pos=10.900000000000006,-59.9375,6.5 delta=-3.49249357305081,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=0 push=0.0/0.0
+ED f2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06 13:8:00
+N f2 {Air:300s,Fire:0s,FlippedRotation:0b,Fuel:0s,HasTicked:0b,Invulnerable:0b,Motion:[-3.49249357305081d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[10.900000000000006d,-59.9375d,6.5d],PushX:0.0d,PushZ:0.0d,Rotation:[0.0f,0.0f],fall_distance:0.0d}

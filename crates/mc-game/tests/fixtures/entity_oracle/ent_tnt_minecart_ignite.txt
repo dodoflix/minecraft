@@ -1,0 +1,576 @@
+C Game rule block_drops is now set to false
+E tA minecraft:tnt_minecart pos=0.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E tB minecraft:tnt_minecart pos=16.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E tC minecraft:tnt_minecart pos=32.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E aC minecraft:arrow pos=27.5,-59.6,0.5 delta=2.5,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=100 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=- leftowner=0 shot=0 canbreak=0
+E tD minecraft:tnt_minecart pos=48.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E aD minecraft:arrow pos=43.5,-59.6,0.5 delta=2.5,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=- leftowner=0 shot=0 canbreak=0
+E tE minecraft:tnt_minecart pos=77.5,-59.9375,0.5 delta=0.3,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-54.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E tH minecraft:tnt_minecart pos=0.5,-59.9375,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=5
+E tI minecraft:tnt_minecart pos=16.5,-59.9375,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=3
+ED tA 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06
+N tH {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:1b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-59.9375d,12.5d],Rotation:[0.0f,0.0f],explosion_power:1.5f,explosion_speed_factor:0.0f,fall_distance:0.0d,fuse:5}
+N tI {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:1b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[16.5d,-59.9375d,12.5d],Rotation:[0.0f,0.0f],explosion_power:0.0f,explosion_speed_factor:128.0f,fall_distance:0.0d,fuse:3}
+# fire damage destroys it into a short fuse, an explosion nearby too
+HURT tA in_fire 1 -> true
+T 4
+E tA minecraft:tnt_minecart pos=0.5,-59.9775,0.5 delta=0.0,-0.037999999523162846,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=9/-1/9.0 mdir=west rider=- fuse=28
+E tB minecraft:tnt_minecart pos=16.5,-59.843266997664344,0.09999999999999998 delta=0.0,0.08952135109552596,-0.3799999952316284 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=9/-1/113.975395 mdir=north rider=- fuse=20
+E tC minecraft:tnt_minecart pos=32.5,-59.9775,0.5 delta=0.0,-0.037999999523162846,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E aC minecraft:arrow pos=30.0,-59.6,0.5 delta=2.475000023841858,-0.05,0.0 rot=17.999998,0.0 og=0 fall=0.0 fire=99 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E tD minecraft:tnt_minecart pos=48.5,-59.9775,0.5 delta=0.0,-0.037999999523162846,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E aD minecraft:arrow pos=46.0,-59.6,0.5 delta=2.475000023841858,-0.05,0.0 rot=17.999998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E tE minecraft:tnt_minecart pos=77.8,-59.9375,0.5 delta=0.288,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-54.04,0.5 delta=0.0,-0.037999999523162846,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E tH minecraft:tnt_minecart pos=0.5,-59.9775,12.5 delta=0.0,-0.037999999523162846,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=4
+E tI minecraft:tnt_minecart pos=16.5,-59.9775,12.5 delta=0.0,-0.037999999523162846,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=2
+EV sound at=0.5,-59.9375,0.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=block vol=1.0 pitch=1.0
+EV sound at=16.5,-59.9375,0.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=block vol=1.0 pitch=1.0
+PKT P minecraft:explode 244030800000000000c04df333333333334004000000000000400000000000008f001dc00502453f0000003f80000001483f8000003f8000000101
+T 5
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=8/-1/8.0 mdir=west rider=- fuse=27
+E tB minecraft:tnt_minecart pos=16.5,-59.793745646568816,-0.27999999523162844 delta=0.0,0.047045282950409155,-0.36099999094009405 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=8/-1/112.975395 mdir=north rider=- fuse=19
+E tE minecraft:tnt_minecart pos=78.088,-59.9375,0.5 delta=0.27647999999999995,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-54.117999999523164,0.5 delta=0.0,-0.07409999861717226,0.0 rot=0.0,0.0 og=0 fall=0.11800000071525574 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E tH minecraft:tnt_minecart pos=0.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=3
+E tI minecraft:tnt_minecart pos=16.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=1
+E item#1 minecraft:item pos=48.5,-60.0,0.5 delta=-0.07888522661047166,0.2,-0.05977351813827936 rot=108.005646,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=32.00999999046326,-59.640606060022236,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1488074
+EV sound at=48.00999999046326,-59.640606060022236,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.3250105
+PKT P minecraft:explode 244040400000000000c04e0000000000003fe000000000000040d6146400000836001dc00502453f0000003f80000001483f8000003f8000000101
+PKT P minecraft:remove_entities 4e018807
+PKT P minecraft:remove_entities 4e018907
+PKT P minecraft:remove_entities 4e018a07
+PKT P minecraft:remove_entities 4e018b07
+T 6
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=7/-1/7.0 mdir=west rider=- fuse=26
+E tB minecraft:tnt_minecart pos=16.5,-59.78670036361841,-0.6409999861717225 delta=0.0,0.006693018718902379,-0.3429499870896341 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=7/-1/111.975395 mdir=north rider=- fuse=18
+E tE minecraft:tnt_minecart pos=78.36448,-59.9375,0.5 delta=0.26542079999999996,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-54.232099998140335,0.5 delta=0.0,-0.10839499732613568,0.0 rot=0.0,0.0 og=0 fall=0.2321000024676323 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E tH minecraft:tnt_minecart pos=0.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=2
+E tI minecraft:tnt_minecart pos=16.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=0
+E item#1 minecraft:item pos=48.421114773389526,-59.84,0.44022648186172064 delta=-0.07730752358287853,0.1568000030517578,-0.05857804891560315 rot=108.005646,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=1 pickup=9 health=5 owner=- thrower=-
+T 7
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=6/-1/6.0 mdir=west rider=- fuse=25
+E tB minecraft:tnt_minecart pos=16.5,-59.82000734489951,-0.9839499732613566 delta=0.0,-0.031641631819992584,-0.32580248364687 rot=90.0,0.0 og=0 fall=0.03330698236823082 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=6/-1/110.975395 mdir=north rider=- fuse=17
+E tE minecraft:tnt_minecart pos=78.6299008,-59.9375,0.5 delta=0.25480396799999994,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-54.38049499546647,0.5 delta=0.0,-0.14097524569082268,0.0 rot=0.0,0.0 og=0 fall=0.38049500435590744 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E tH minecraft:tnt_minecart pos=0.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=1
+E item#1 minecraft:item pos=48.343807249806645,-59.723199996948246,0.3816484329461175 delta=-0.07576137458574494,0.11446400521850592,-0.0574064890545787 rot=108.005646,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=2 pickup=8 health=5 owner=- thrower=-
+PKT P minecraft:explode 244030800000000000c04e00000000000040290000000000000000000000000000001ec00502453f0000003f80000001483f8000003f8000000101
+T 8
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=5/-1/5.0 mdir=west rider=- fuse=24
+E tB minecraft:tnt_minecart pos=16.5,-59.8916489767195,-1.3097524569082266 delta=0.0,-0.06805954937495816,-0.3095123555806582 rot=90.0,0.0 og=0 fall=0.10494861379265785 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=5/-1/109.975395 mdir=north rider=- fuse=16
+E tE minecraft:tnt_minecart pos=78.884704768,-59.9375,0.5 delta=0.24461180927999993,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-54.561470241157295,0.5 delta=0.0,-0.1719264812488885,0.0 rot=0.0,0.0 og=0 fall=0.5614702478051186 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E tH minecraft:tnt_minecart pos=0.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=0
+E item#1 minecraft:item pos=48.2680458752209,-59.64873599172974,0.3242419438915388 delta=-0.07424614853906358,0.07297472653442398,-0.05625836036842901 rot=108.005646,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=3 pickup=7 health=5 owner=- thrower=-
+T 9
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=4/-1/4.0 mdir=west rider=- fuse=23
+E tB minecraft:tnt_minecart pos=16.5,-59.99970852609446,-1.6192648124888849 delta=0.0,-0.10265657061804004,-0.29403673411195047 rot=90.0,0.0 og=0 fall=0.21300816163420677 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=4/-1/108.975395 mdir=north rider=- fuse=15
+E tE minecraft:tnt_minecart pos=79.12931657728001,-59.9375,0.5 delta=0.23482733690879992,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-54.77339672240618,0.5 delta=0.0,-0.20133015466008355,0.0 rot=0.0,0.0 og=0 fall=0.773396722972393 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=48.19379972668184,-59.61576126519531,0.2679835835231098 delta=-0.07276122698441521,0.0323152326326785,-0.0551331942341035 rot=108.005646,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=4 pickup=6 health=5 owner=- thrower=-
+PKT P minecraft:explode 243fe0000000000000c04e00000000000040290000000000003fc000000000003e001ec00502453f0000003f80000001483f8000003f8000000101
+T 10
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=3/-1/3.0 mdir=west rider=- fuse=22
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-1.9133015466008354 delta=0.0,0.0,-0.29403673411195047 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=3/-1/107.975395 mdir=north rider=- fuse=14
+E tE minecraft:tnt_minecart pos=79.3641439141888,-59.9375,0.5 delta=0.22543424343244792,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-55.014726877066266,0.5 delta=0.0,-0.22926364405019975,0.0 rot=0.0,0.0 og=0 fall=1.014726884663105 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=48.12103849969742,-59.62344603256263,0.2128503892890063 delta=-0.07130600383253718,-0.0075310721665503766,-0.054030531401003654 rot=108.005646,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=5 pickup=5 health=5 owner=- thrower=-
+T 11
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=2/-1/2.0 mdir=west rider=- fuse=21
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.0603199136568104 delta=0.0,0.0,-0.14701836705597524 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=2/-1/106.975395 mdir=north rider=- fuse=13
+E tE minecraft:tnt_minecart pos=79.58957815762125,-59.9375,0.5 delta=0.21641687369515,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-55.283990521116465,0.5 delta=0.0,-0.255800458637817,0.0 rot=0.0,0.0 og=0 fall=1.283990539610386 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=48.04973249586488,-59.67097710472918,0.15881985788800262 delta=-0.06987988511594052,-0.04658045162980263,-0.05294992180353418 rot=108.005646,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=6 pickup=4 health=5 owner=- thrower=-
+T 12
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=1/-1/1.0 mdir=west rider=- fuse=20
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.133829097184798 delta=0.0,0.0,-0.07350918352798762 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=1/-1/105.975395 mdir=north rider=- fuse=12
+E tE minecraft:tnt_minecart pos=79.8059950313164,-59.9375,0.5 delta=0.207760198747344,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-55.57979097975428,0.5 delta=0.0,-0.28101043217970983,0.0 rot=0.0,0.0 og=0 fall=1.5797909870743752 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=47.97985261074894,-59.75755755635898,0.10586993608446844 delta=-0.06848228874647475,-0.08484884424859764,-0.05189092437740311 rot=108.005646,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=7 pickup=3 health=5 owner=- thrower=-
+T 13
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=19
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.170583688948792 delta=0.0,0.0,-0.03675459176399381 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/104.975395 mdir=north rider=- fuse=11
+E tE minecraft:tnt_minecart pos=80.01375523006374,-59.9375,0.5 delta=0.19944979079745023,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-55.90080141193399,0.5 delta=0.0,-0.30495990674398177,0.0 rot=0.0,0.0 og=0 fall=1.9008014276623726 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=47.91137032200247,-59.88240640060758,0.05397901170706534 delta=-0.06711264427774125,-0.1223518697449284,-0.050853106879595884 rot=108.005646,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=8 pickup=2 health=5 owner=- thrower=-
+T 14
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=18
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.1889609848307887 delta=0.0,0.0,-0.018377295881996904 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/103.975395 mdir=north rider=- fuse=10
+E tE minecraft:tnt_minecart pos=80.21320502086118,-59.9375,0.5 delta=0.1914717991655522,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-56.24576131867797,0.5 delta=0.0,-0.32771190729454014,0.0 rot=0.0,0.0 og=0 fall=2.2457613423466682 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=47.84425767772473,-60.0,0.003125904827469453 delta=-0.039462238803535374,0.0,-0.0299016298520351 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=9 pickup=1 health=5 owner=- thrower=-
+T 15
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=17
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.1981496327717873 delta=0.0,0.0,-0.009188647940998452 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/102.975395 mdir=north rider=- fuse=9
+E tE minecraft:tnt_minecart pos=80.40467682002674,-59.9375,0.5 delta=0.1838129271989301,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-56.61347322597251,0.5 delta=0.0,-0.3493263075463456,0.0 rot=0.0,0.0 og=0 fall=2.613473244011402 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=47.80479543892119,-60.0,-0.02677572502456565 delta=-0.023203798749794464,0.0,-0.01758216012101446 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=10 pickup=0 health=5 owner=- thrower=-
+T 16
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=16
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.2027439567422866 delta=0.0,0.0,-0.004594323970499226 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/101.975395 mdir=north rider=- fuse=8
+E tE minecraft:tnt_minecart pos=80.58848974722567,-59.9375,0.5 delta=0.1764604101109729,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-57.00279953351886,0.5 delta=0.0,-0.369859987527897,0.0 rot=0.0,0.0 og=0 fall=3.0027995482087135 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=47.78159164017139,-60.0,-0.0443578851455801 delta=-0.013643835036868893,0.0,-0.010338311190751083 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=11 pickup=0 health=5 owner=- thrower=-
+T 17
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=15
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.2050411187275363 delta=0.0,0.0,-0.002297161985249613 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/100.975395 mdir=north rider=- fuse=7
+E tE minecraft:tnt_minecart pos=80.76495015733664,-59.9375,0.5 delta=0.169401993706534,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-57.412659521046756,0.5 delta=0.0,-0.3893669832655903,0.0 rot=0.0,0.0 og=0 fall=3.4126595333218575 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=47.767947805134526,-60.0,-0.05469619633633119 delta=-0.008022575808408962,0.0,-0.0060789275914433115 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=12 pickup=0 health=5 owner=- thrower=-
+T 18
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=14
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.206189699720161 delta=0.0,0.0,-0.0011485809926248065 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/99.975395 mdir=north rider=- fuse=6
+E tE minecraft:tnt_minecart pos=80.93435215104317,-59.9375,0.5 delta=0.16262591395827264,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-57.842026504312344,0.5 delta=0.0,-0.4078986289838575,0.0 rot=0.0,0.0 og=0 fall=3.842026509344578 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=47.759925229326115,-60.0,-0.060775123927774496 delta=-0.004717275049701789,0.0,-0.0035744097832023283 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=13 pickup=0 health=5 owner=- thrower=-
+T 19
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=13
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.2067639902164733 delta=0.0,0.0,-5.742904963124033E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/98.975395 mdir=north rider=- fuse=5
+E tE minecraft:tnt_minecart pos=81.09697806500144,-59.9375,0.5 delta=0.15612087739994174,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-58.2899251332962,0.5 delta=0.0,-0.4255036921952969,0.0 rot=0.0,0.0 og=0 fall=4.289925135672092 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=47.755207954276415,-60.0,-0.06434953371097682 delta=-0.0027737580081467835,0.0,-0.002101753163869983 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=14 pickup=0 health=5 owner=- thrower=-
+T 20
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=12
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.2067639902164733 delta=0.0,0.0,-2.8714524815620163E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/97.975395 mdir=north rider=- fuse=4
+E tE minecraft:tnt_minecart pos=81.25309894240138,-59.9375,0.5 delta=0.14987604230394405,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-58.7554288254915,0.5 delta=0.0,-0.44222850203629555,0.0 rot=0.0,0.0 og=0 fall=4.755428828299046 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=47.75243419626827,-60.0,-0.0664512868748468 delta=-0.0016309698727965385,0.0,-0.001235830984627607 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=15 pickup=0 health=5 owner=- thrower=-
+T 21
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=11
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.2067639902164733 delta=0.0,0.0,-1.4357262407810082E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/96.975395 mdir=north rider=- fuse=3
+E tE minecraft:tnt_minecart pos=81.40297498470532,-59.9375,0.5 delta=0.1438810006117863,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-59.23765732752779,0.5 delta=0.0,-0.45811707118586903,0.0 rot=0.0,0.0 og=0 fall=5.237657316029072 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=47.75080322639547,-60.0,-0.06768711785947441 delta=-9.590103816400375E-4,0.0,-7.266686920330095E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=16 pickup=0 health=5 owner=- thrower=-
+T 22
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=10
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.2067639902164733 delta=0.0,0.0,-7.178631203905041E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/95.975395 mdir=north rider=- fuse=2
+E tE minecraft:tnt_minecart pos=81.54685598531711,-59.9375,0.5 delta=0.13812576058731485,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E tF minecraft:tnt_minecart pos=64.5,-59.73577439871366,0.5 delta=0.0,-0.47321121168855734,0.0 rot=0.0,0.0 og=0 fall=5.735774375498295 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
+E item#1 minecraft:item pos=47.75080322639547,-60.0,-0.06768711785947441 delta=-9.590103816400375E-4,-0.04,-7.266686920330095E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=17 pickup=0 health=5 owner=- thrower=-
+T 23
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=9
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.2067639902164733 delta=0.0,0.0,-3.5893156019525204E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/94.975395 mdir=north rider=- fuse=1
+E tE minecraft:tnt_minecart pos=81.68498174590442,-59.9375,0.5 delta=0.13260073016382226,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E item#1 minecraft:item pos=47.75080322639547,-60.0,-0.06768711785947441 delta=-9.590103816400375E-4,-0.08,-7.266686920330095E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=18 pickup=0 health=5 owner=- thrower=-
+PKT P minecraft:explode 244050200000000000c04e0000000000003fe00000000000004094db150000039b001dc00502453f0000003f80000001483f8000003f8000000101
+T 24
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=8
+E tB minecraft:tnt_minecart pos=16.5,-60.0,-2.2067639902164733 delta=0.0,0.0,-1.7946578009762602E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/93.975395 mdir=north rider=- fuse=0
+E tE minecraft:tnt_minecart pos=81.81758247606824,-59.9375,0.5 delta=0.12729670095726936,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E item#1 minecraft:item pos=47.75080322639547,-60.0,-0.06768711785947441 delta=-9.590103816400375E-4,-0.12,-7.266686920330095E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=19 pickup=0 health=5 owner=- thrower=-
+T 25
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=7
+E tE minecraft:tnt_minecart pos=81.94487917702551,-59.9375,0.5 delta=0.12220483291897859,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E item#1 minecraft:item pos=47.74984421601383,-60.0,-0.06841378655150743 delta=-5.638981611085234E-4,0.0,-4.2728123388173625E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=20 pickup=0 health=5 owner=- thrower=-
+PKT P minecraft:explode 244030800000000000c04e000000000000c001a773e0ffc3014080000d000002ad001dc00502453f0000003f80000001483f8000003f8000000101
+PKT P minecraft:remove_entities 4e018707
+T 26
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=6
+E tE minecraft:tnt_minecart pos=82.0670840099445,-59.9375,0.5 delta=0.11731663960221944,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=-1
+E item#1 minecraft:item pos=47.74984421601383,-60.0,-0.06841378655150743 delta=-5.638981611085234E-4,-0.04,-4.2728123388173625E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=21 pickup=0 health=5 owner=- thrower=-
+T 27
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=5
+E tE minecraft:tnt_minecart pos=82.18440064954672,-59.9375,0.5 delta=0.11262397401813067,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=79
+E item#1 minecraft:item pos=47.74984421601383,-60.0,-0.06841378655150743 delta=-5.638981611085234E-4,-0.08,-4.2728123388173625E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=22 pickup=0 health=5 owner=- thrower=-
+EV sound at=82.18440064954672,-59.9375,0.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=block vol=1.0 pitch=1.0
+T 28
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=4
+E tE minecraft:tnt_minecart pos=82.29702462356485,-59.9375,0.5 delta=0.10811901505740544,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=78
+E item#1 minecraft:item pos=47.74984421601383,-60.0,-0.06841378655150743 delta=-5.638981611085234E-4,-0.12,-4.2728123388173625E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=23 pickup=0 health=5 owner=- thrower=-
+T 29
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=3
+E tE minecraft:tnt_minecart pos=82.40514363862226,-59.9375,0.5 delta=0.10379425445510922,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=77
+E item#1 minecraft:item pos=47.749280317852715,-60.0,-0.06884106778538916 delta=-3.3157215207387376E-4,0.0,-2.5124139078666353E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=24 pickup=0 health=5 owner=- thrower=-
+T 30
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=2
+E tE minecraft:tnt_minecart pos=82.50893789307737,-59.9375,0.5 delta=0.09964248427690485,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=76
+E item#1 minecraft:item pos=47.749280317852715,-60.0,-0.06884106778538916 delta=-3.3157215207387376E-4,-0.04,-2.5124139078666353E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=25 pickup=0 health=5 owner=- thrower=-
+T 31
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=1
+E tE minecraft:tnt_minecart pos=82.60858037735427,-59.9375,0.5 delta=0.09565678490582866,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=75
+E item#1 minecraft:item pos=47.749280317852715,-60.0,-0.06884106778538916 delta=-3.3157215207387376E-4,-0.08,-2.5124139078666353E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=26 pickup=0 health=5 owner=- thrower=-
+T 32
+E tA minecraft:tnt_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=0
+E tE minecraft:tnt_minecart pos=82.7042371622601,-59.9375,0.5 delta=0.09183051350959551,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=74
+E item#1 minecraft:item pos=47.749280317852715,-60.0,-0.06884106778538916 delta=-3.3157215207387376E-4,-0.12,-2.5124139078666353E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=27 pickup=0 health=5 owner=- thrower=-
+T 33
+E tE minecraft:tnt_minecart pos=82.79606767576969,-59.9375,0.5 delta=0.08815729296921168,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=73
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.9496444502457218E-4,0.0,-1.4772995263791078E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=28 pickup=0 health=5 owner=- thrower=-
+PKT P minecraft:explode 243fe0000000000000c04e0000000000003fe00000000000004080000000000280001dc00502453f0000003f80000001483f8000003f8000000101
+T 34
+E tE minecraft:tnt_minecart pos=82.8842249687389,-59.9375,0.5 delta=0.0846310012504432,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=72
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.9496444502457218E-4,-0.04,-1.4772995263791078E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=29 pickup=0 health=5 owner=- thrower=-
+T 35
+E tE minecraft:tnt_minecart pos=82.96885596998935,-59.9375,0.5 delta=0.08124576120042547,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=71
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.9496444502457218E-4,-0.08,-1.4772995263791078E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=30 pickup=0 health=5 owner=- thrower=-
+T 36
+E tE minecraft:tnt_minecart pos=83.05010173118977,-59.9375,0.5 delta=0.07799593075240845,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=70
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.9496444502457218E-4,-0.12,-1.4772995263791078E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=31 pickup=0 health=5 owner=- thrower=-
+T 37
+E tE minecraft:tnt_minecart pos=83.12809766194218,-59.9375,0.5 delta=0.0748760935223121,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=69
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.1463910520226863E-4,0.0,-8.686522088603975E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=32 pickup=0 health=5 owner=- thrower=-
+T 38
+E tE minecraft:tnt_minecart pos=83.20297375546448,-59.9375,0.5 delta=0.07188104978141961,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=68
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.1463910520226863E-4,-0.04,-8.686522088603975E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=33 pickup=0 health=5 owner=- thrower=-
+T 39
+E tE minecraft:tnt_minecart pos=83.27485480524591,-59.9375,0.5 delta=0.06900580779016283,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=67
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.1463910520226863E-4,-0.08,-8.686522088603975E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=34 pickup=0 health=5 owner=- thrower=-
+T 40
+E tE minecraft:tnt_minecart pos=83.34386061303607,-59.9375,0.5 delta=0.0662455754785563,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=66
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.1463910520226863E-4,-0.12,-8.686522088603975E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=35 pickup=0 health=5 owner=- thrower=-
+T 41
+E tE minecraft:tnt_minecart pos=83.41010618851463,-59.9375,0.5 delta=0.06359575245941405,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=65
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-6.740780063729291E-5,0.0,-5.107675501714144E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=36 pickup=0 health=5 owner=- thrower=-
+T 42
+E tE minecraft:tnt_minecart pos=83.47370194097405,-59.9375,0.5 delta=0.061051922361037486,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=64
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-6.740780063729291E-5,-0.04,-5.107675501714144E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=37 pickup=0 health=5 owner=- thrower=-
+T 43
+E tE minecraft:tnt_minecart pos=83.53475386333508,-59.9375,0.5 delta=0.058609845466595985,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=63
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-6.740780063729291E-5,-0.08,-5.107675501714144E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=38 pickup=0 health=5 owner=- thrower=-
+T 44
+E tE minecraft:tnt_minecart pos=83.59336370880168,-59.9375,0.5 delta=0.056265451647932146,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=62
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-6.740780063729291E-5,-0.12,-5.107675501714144E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=39 pickup=0 health=5 owner=- thrower=-
+T 45
+E tE minecraft:tnt_minecart pos=83.6496291604496,-59.9375,0.5 delta=0.05401483358201486,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=61
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.96357907604037E-5,0.0,-3.0033134970135713E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=40 pickup=0 health=5 owner=- thrower=-
+T 46
+E tE minecraft:tnt_minecart pos=83.70364399403162,-59.9375,0.5 delta=0.051854240238734264,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=60
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.96357907604037E-5,-0.04,-3.0033134970135713E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=41 pickup=0 health=5 owner=- thrower=-
+T 47
+E tE minecraft:tnt_minecart pos=83.75549823427036,-59.9375,0.5 delta=0.049780070629184894,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=59
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.96357907604037E-5,-0.08,-3.0033134970135713E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=42 pickup=0 health=5 owner=- thrower=-
+T 48
+E tE minecraft:tnt_minecart pos=83.80527830489955,-59.9375,0.5 delta=0.0477888678040175,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=58
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.96357907604037E-5,-0.12,-3.0033134970135713E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=43 pickup=0 health=5 owner=- thrower=-
+T 49
+E tE minecraft:tnt_minecart pos=83.85306717270356,-59.9375,0.5 delta=0.045877313091856796,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=57
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.3305847310694787E-5,0.0,-1.7659485138233227E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=44 pickup=0 health=5 owner=- thrower=-
+T 50
+E tE minecraft:tnt_minecart pos=83.89894448579541,-59.9375,0.5 delta=0.04404222056818252,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=56
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.3305847310694787E-5,-0.04,-1.7659485138233227E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=45 pickup=0 health=5 owner=- thrower=-
+T 51
+E tE minecraft:tnt_minecart pos=83.9429867063636,-59.9375,0.5 delta=0.04228053174545522,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=55
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.3305847310694787E-5,-0.08,-1.7659485138233227E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=46 pickup=0 health=5 owner=- thrower=-
+T 52
+E tE minecraft:tnt_minecart pos=83.98526723810906,-59.9375,0.5 delta=0.04058931047563701,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=54
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.3305847310694787E-5,-0.12,-1.7659485138233227E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=47 pickup=0 health=5 owner=- thrower=-
+T 53
+E tE minecraft:tnt_minecart pos=84.0258565485847,-59.9375,0.5 delta=0.03896573805661153,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=53
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.3703839596712191E-5,0.0,-1.0383778305447777E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=48 pickup=0 health=5 owner=- thrower=-
+T 54
+E tE minecraft:tnt_minecart pos=84.06482228664132,-59.9375,0.5 delta=0.03740710853434707,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=52
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.3703839596712191E-5,-0.04,-1.0383778305447777E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=49 pickup=0 health=5 owner=- thrower=-
+T 55
+E tE minecraft:tnt_minecart pos=84.10222939517567,-59.9375,0.5 delta=0.03591082419297319,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=51
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.3703839596712191E-5,-0.08,-1.0383778305447777E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=50 pickup=0 health=5 owner=- thrower=-
+T 56
+E tE minecraft:tnt_minecart pos=84.13814021936864,-59.9375,0.5 delta=0.03447439122525426,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=50
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.3703839596712191E-5,-0.12,-1.0383778305447777E-5 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=51 pickup=0 health=5 owner=- thrower=-
+T 57
+E tE minecraft:tnt_minecart pos=84.1726146105939,-59.9375,0.5 delta=0.03309541557624409,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=49
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.05785849314476E-6,0.0,-6.105662257573339E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=52 pickup=0 health=5 owner=- thrower=-
+T 58
+E tE minecraft:tnt_minecart pos=84.20571002617014,-59.9375,0.5 delta=0.03177159895319433,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=48
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.05785849314476E-6,-0.04,-6.105662257573339E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=53 pickup=0 health=5 owner=- thrower=-
+T 59
+E tE minecraft:tnt_minecart pos=84.23748162512334,-59.9375,0.5 delta=0.03050073499506655,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=47
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.05785849314476E-6,-0.08,-6.105662257573339E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=54 pickup=0 health=5 owner=- thrower=-
+T 60
+E tE minecraft:tnt_minecart pos=84.26798236011841,-59.9375,0.5 delta=0.029280705595263887,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=46
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.05785849314476E-6,-0.12,-6.105662257573339E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=55 pickup=0 health=5 owner=- thrower=-
+T 61
+E tE minecraft:tnt_minecart pos=84.29726306571368,-59.9375,0.5 delta=0.02810947737145333,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=45
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-4.738021270412626E-6,0.0,-3.5901297684675467E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=56 pickup=0 health=5 owner=- thrower=-
+T 62
+E tE minecraft:tnt_minecart pos=84.32537254308514,-59.9375,0.5 delta=0.026985098276595197,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=44
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-4.738021270412626E-6,-0.04,-3.5901297684675467E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=57 pickup=0 health=5 owner=- thrower=-
+T 63
+E tE minecraft:tnt_minecart pos=84.35235764136173,-59.9375,0.5 delta=0.025905694345531388,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=43
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-4.738021270412626E-6,-0.08,-3.5901297684675467E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=58 pickup=0 health=5 owner=- thrower=-
+T 64
+E tE minecraft:tnt_minecart pos=84.37826333570726,-59.9375,0.5 delta=0.02486946657171013,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=42
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-4.738021270412626E-6,-0.12,-3.5901297684675467E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=59 pickup=0 health=5 owner=- thrower=-
+T 65
+E tE minecraft:tnt_minecart pos=84.40313280227898,-59.9375,0.5 delta=0.023874687908841723,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=41
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.785956787151434E-6,0.0,-2.1109965161354197E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=60 pickup=0 health=5 owner=- thrower=-
+T 66
+E tE minecraft:tnt_minecart pos=84.42700749018782,-59.9375,0.5 delta=0.022919700392488054,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=40
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.785956787151434E-6,-0.04,-2.1109965161354197E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=61 pickup=0 health=5 owner=- thrower=-
+T 67
+E tE minecraft:tnt_minecart pos=84.44992719058031,-59.9375,0.5 delta=0.02200291237678853,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=39
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.785956787151434E-6,-0.08,-2.1109965161354197E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=62 pickup=0 health=5 owner=- thrower=-
+T 68
+E tE minecraft:tnt_minecart pos=84.4719301029571,-59.9375,0.5 delta=0.021122795881716987,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=38
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.785956787151434E-6,-0.12,-2.1109965161354197E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=63 pickup=0 health=5 owner=- thrower=-
+T 69
+E tE minecraft:tnt_minecart pos=84.49305289883883,-59.9375,0.5 delta=0.020277884046448306,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=37
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.6381427555725602E-6,0.0,-1.2412660763062226E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=64 pickup=0 health=5 owner=- thrower=-
+T 70
+E tE minecraft:tnt_minecart pos=84.51333078288528,-59.9375,0.5 delta=0.019466768684590373,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=36
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.6381427555725602E-6,-0.04,-1.2412660763062226E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=65 pickup=0 health=5 owner=- thrower=-
+T 71
+E tE minecraft:tnt_minecart pos=84.53279755156987,-59.9375,0.5 delta=0.018688097937206757,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=35
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.6381427555725602E-6,-0.08,-1.2412660763062226E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=66 pickup=0 health=5 owner=- thrower=-
+T 72
+E tE minecraft:tnt_minecart pos=84.55148564950707,-59.9375,0.5 delta=0.017940574019718488,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=34
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.6381427555725602E-6,-0.12,-1.2412660763062226E-6 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=67 pickup=0 health=5 owner=- thrower=-
+T 73
+E tE minecraft:tnt_minecart pos=84.56942622352679,-59.9375,0.5 delta=0.017222951058929747,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=33
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-9.63228037136455E-7,0.0,-7.298645262614007E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=68 pickup=0 health=5 owner=- thrower=-
+T 74
+E tE minecraft:tnt_minecart pos=84.58664917458572,-59.9375,0.5 delta=0.016534033016572556,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=32
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-9.63228037136455E-7,-0.04,-7.298645262614007E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=69 pickup=0 health=5 owner=- thrower=-
+T 75
+E tE minecraft:tnt_minecart pos=84.60318320760229,-59.9375,0.5 delta=0.015872671695909654,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=31
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-9.63228037136455E-7,-0.08,-7.298645262614007E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=70 pickup=0 health=5 owner=- thrower=-
+T 76
+E tE minecraft:tnt_minecart pos=84.6190558792982,-59.9375,0.5 delta=0.015237764828073267,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=30
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-9.63228037136455E-7,-0.12,-7.298645262614007E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=71 pickup=0 health=5 owner=- thrower=-
+T 77
+E tE minecraft:tnt_minecart pos=84.63429364412627,-59.9375,0.5 delta=0.014628254234950335,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=29
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-5.663781427897976E-7,0.0,-4.291603845969929E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=72 pickup=0 health=5 owner=- thrower=-
+T 78
+E tE minecraft:tnt_minecart pos=84.64892189836122,-59.9375,0.5 delta=0.014043124065552321,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=28
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-5.663781427897976E-7,-0.04,-4.291603845969929E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=73 pickup=0 health=5 owner=- thrower=-
+T 79
+E tE minecraft:tnt_minecart pos=84.66296502242677,-59.9375,0.5 delta=0.013481399102930228,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=27
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-5.663781427897976E-7,-0.08,-4.291603845969929E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=74 pickup=0 health=5 owner=- thrower=-
+T 80
+E tE minecraft:tnt_minecart pos=84.6764464215297,-59.9375,0.5 delta=0.012942143138813018,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=26
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-5.663781427897976E-7,-0.12,-4.291603845969929E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=75 pickup=0 health=5 owner=- thrower=-
+T 81
+E tE minecraft:tnt_minecart pos=84.68938856466852,-59.9375,0.5 delta=0.012424457413260497,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=25
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.3303038144909884E-7,0.0,-2.5234633151834444E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=76 pickup=0 health=5 owner=- thrower=-
+T 82
+E tE minecraft:tnt_minecart pos=84.70181302208178,-59.9375,0.5 delta=0.011927479116730077,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=24
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.3303038144909884E-7,-0.04,-2.5234633151834444E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=77 pickup=0 health=5 owner=- thrower=-
+T 83
+E tE minecraft:tnt_minecart pos=84.71374050119852,-59.9375,0.5 delta=0.011450379952060873,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=23
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.3303038144909884E-7,-0.08,-2.5234633151834444E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=78 pickup=0 health=5 owner=- thrower=-
+T 84
+E tE minecraft:tnt_minecart pos=84.72519088115058,-59.9375,0.5 delta=0.010992364753978438,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=22
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.3303038144909884E-7,-0.12,-2.5234633151834444E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=79 pickup=0 health=5 owner=- thrower=-
+T 85
+E tE minecraft:tnt_minecart pos=84.73618324590456,-59.9375,0.5 delta=0.0105526701638193,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=21
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.9582188398342644E-7,0.0,-1.483796578534719E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=80 pickup=0 health=5 owner=- thrower=-
+T 86
+E tE minecraft:tnt_minecart pos=84.74673591606837,-59.9375,0.5 delta=0.010130563357266528,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=20
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.9582188398342644E-7,-0.04,-1.483796578534719E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=81 pickup=0 health=5 owner=- thrower=-
+T 87
+E tE minecraft:tnt_minecart pos=84.75686647942564,-59.9375,0.5 delta=0.009725340822975865,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=19
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.9582188398342644E-7,-0.08,-1.483796578534719E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=82 pickup=0 health=5 owner=- thrower=-
+T 88
+E tE minecraft:tnt_minecart pos=84.76659182024862,-59.9375,0.5 delta=0.00933632719005683,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=18
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.9582188398342644E-7,-0.12,-1.483796578534719E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=83 pickup=0 health=5 owner=- thrower=-
+T 89
+E tE minecraft:tnt_minecart pos=84.77592814743868,-59.9375,0.5 delta=0.008962874102454556,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=17
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.1514327936077343E-7,0.0,-8.724724759120533E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=84 pickup=0 health=5 owner=- thrower=-
+T 90
+E tE minecraft:tnt_minecart pos=84.78489102154113,-59.9375,0.5 delta=0.008604359138356374,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=16
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.1514327936077343E-7,-0.04,-8.724724759120533E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=85 pickup=0 health=5 owner=- thrower=-
+T 91
+E tE minecraft:tnt_minecart pos=84.79349538067949,-59.9375,0.5 delta=0.008260184772822119,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=15
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.1514327936077343E-7,-0.08,-8.724724759120533E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=86 pickup=0 health=5 owner=- thrower=-
+T 92
+E tE minecraft:tnt_minecart pos=84.80175556545231,-59.9375,0.5 delta=0.007929777381909234,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=14
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.1514327936077343E-7,-0.12,-8.724724759120533E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=87 pickup=0 health=5 owner=- thrower=-
+T 93
+E tE minecraft:tnt_minecart pos=84.80968534283421,-59.9375,0.5 delta=0.007612586286632864,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=13
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-6.770425507230445E-8,0.0,-5.1301386742367205E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=88 pickup=0 health=5 owner=- thrower=-
+T 94
+E tE minecraft:tnt_minecart pos=84.81729792912084,-59.9375,0.5 delta=0.007308082835167549,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=12
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-6.770425507230445E-8,-0.04,-5.1301386742367205E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=89 pickup=0 health=5 owner=- thrower=-
+T 95
+E tE minecraft:tnt_minecart pos=84.824606011956,-59.9375,0.5 delta=0.007015759521760847,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=11
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-6.770425507230445E-8,-0.08,-5.1301386742367205E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=90 pickup=0 health=5 owner=- thrower=-
+T 96
+E tE minecraft:tnt_minecart pos=84.83162177147777,-59.9375,0.5 delta=0.006735129140890413,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=10
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-6.770425507230445E-8,-0.12,-5.1301386742367205E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=91 pickup=0 health=5 owner=- thrower=-
+T 97
+E tE minecraft:tnt_minecart pos=84.83835690061866,-59.9375,0.5 delta=0.006465723975254797,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=9
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.981010598571918E-8,0.0,-3.0165218437850444E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=92 pickup=0 health=5 owner=- thrower=-
+T 98
+E tE minecraft:tnt_minecart pos=84.84482262459392,-59.9375,0.5 delta=0.006207095016244605,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=8
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.981010598571918E-8,-0.04,-3.0165218437850444E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=93 pickup=0 health=5 owner=- thrower=-
+T 99
+E tE minecraft:tnt_minecart pos=84.85102971961017,-59.9375,0.5 delta=0.00595881121559482,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=7
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.981010598571918E-8,-0.08,-3.0165218437850444E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=94 pickup=0 health=5 owner=- thrower=-
+T 100
+E tE minecraft:tnt_minecart pos=84.85698853082576,-59.9375,0.5 delta=0.005720458766971027,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=6
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.981010598571918E-8,-0.12,-3.0165218437850444E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=95 pickup=0 health=5 owner=- thrower=-
+T 101
+E tE minecraft:tnt_minecart pos=84.86270898959273,-59.9375,0.5 delta=0.0054916404162921855,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=5
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.3408344673487167E-8,0.0,-1.7737150225059295E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=96 pickup=0 health=5 owner=- thrower=-
+T 102
+E tE minecraft:tnt_minecart pos=84.86820063000903,-59.9375,0.5 delta=0.0052719747996404975,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=4
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.3408344673487167E-8,-0.04,-1.7737150225059295E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=97 pickup=0 health=5 owner=- thrower=-
+T 103
+E tE minecraft:tnt_minecart pos=84.87347260480867,-59.9375,0.5 delta=0.005061095807654878,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=3
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.3408344673487167E-8,-0.08,-1.7737150225059295E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=98 pickup=0 health=5 owner=- thrower=-
+# the rule off: priming does nothing but the fuse still runs out and the cart is discarded without an explosion
+C Game rule tnt_explodes is now set to false
+HURT tG in_fire 1 -> true
+T 104
+E tE minecraft:tnt_minecart pos=84.87853370061633,-59.9375,0.5 delta=0.004858651975348682,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=2
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.3408344673487167E-8,-0.12,-1.7737150225059295E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=99 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-59.9775,24.5 delta=0.0,-0.037999999523162846,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=9/-1/9.0 mdir=west rider=- fuse=33
+T 105
+E tE minecraft:tnt_minecart pos=84.88339235259168,-59.9375,0.5 delta=0.004664305896334735,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=1
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.3764108052094554E-8,0.0,-1.0429445381093672E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=100 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=8/-1/8.0 mdir=west rider=- fuse=32
+T 106
+E tE minecraft:tnt_minecart pos=84.88805665848803,-59.9375,0.5 delta=0.004477733660481346,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=0
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.3764108052094554E-8,-0.04,-1.0429445381093672E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=101 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=7/-1/7.0 mdir=west rider=- fuse=31
+T 107
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.3764108052094554E-8,-0.08,-1.0429445381093672E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=102 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=6/-1/6.0 mdir=west rider=- fuse=30
+T 108
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.3764108052094554E-8,-0.12,-1.0429445381093672E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=103 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=5/-1/5.0 mdir=west rider=- fuse=29
+T 109
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.093296348473132E-9,0.0,-6.132514500753319E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=104 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=4/-1/4.0 mdir=west rider=- fuse=28
+T 110
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.093296348473132E-9,-0.04,-6.132514500753319E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=105 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=3/-1/3.0 mdir=west rider=- fuse=27
+T 111
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.093296348473132E-9,-0.08,-6.132514500753319E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=106 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=2/-1/2.0 mdir=west rider=- fuse=26
+T 112
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.093296348473132E-9,-0.12,-6.132514500753319E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=107 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=1/-1/1.0 mdir=west rider=- fuse=25
+T 113
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-4.758858731441071E-9,0.0,-3.605918889045089E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=108 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=24
+T 114
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-4.758858731441071E-9,-0.04,-3.605918889045089E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=109 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=23
+T 115
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-4.758858731441071E-9,-0.08,-3.605918889045089E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=110 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=22
+T 116
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-4.758858731441071E-9,-0.12,-3.605918889045089E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=111 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=21
+T 117
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.7982092154682334E-9,0.0,-2.1202805199685906E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=112 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=20
+T 118
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.7982092154682334E-9,-0.04,-2.1202805199685906E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=113 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=19
+T 119
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.7982092154682334E-9,-0.08,-2.1202805199685906E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=114 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=18
+T 120
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.7982092154682334E-9,-0.12,-2.1202805199685906E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=115 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=17
+T 121
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.6453471841472974E-9,0.0,-1.24672507110907E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=116 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=16
+T 122
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.6453471841472974E-9,-0.04,-1.24672507110907E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=117 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=15
+T 123
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.6453471841472974E-9,-0.08,-1.24672507110907E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=118 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=14
+T 124
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.6453471841472974E-9,-0.12,-1.24672507110907E-9 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=119 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=13
+T 125
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-9.674642415643827E-10,0.0,-7.330744155282533E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=120 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=12
+T 126
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-9.674642415643827E-10,-0.04,-7.330744155282533E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=121 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=11
+T 127
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-9.674642415643827E-10,-0.08,-7.330744155282533E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=122 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=10
+T 128
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-9.674642415643827E-10,-0.12,-7.330744155282533E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=123 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=9
+T 129
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-5.688690312438966E-10,0.0,-4.31047799675696E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=124 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=8
+T 130
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-5.688690312438966E-10,-0.04,-4.31047799675696E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=125 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=7
+T 131
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-5.688690312438966E-10,-0.08,-4.31047799675696E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=126 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=6
+T 132
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-5.688690312438966E-10,-0.12,-4.31047799675696E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=127 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=5
+T 133
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.3449502400738983E-10,0.0,-2.534561316962206E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=128 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=4
+T 134
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.3449502400738983E-10,-0.04,-2.534561316962206E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=129 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=3
+T 135
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.3449502400738983E-10,-0.08,-2.534561316962206E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=130 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=2
+T 136
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.3449502400738983E-10,-0.12,-2.534561316962206E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=131 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=1
+T 137
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.9668309389430266E-10,0.0,-1.4903222042368312E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=132 pickup=0 health=5 owner=- thrower=-
+E tG minecraft:tnt_minecart pos=0.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/-1/0.0 mdir=west rider=- fuse=0
+T 138
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.9668309389430266E-10,-0.04,-1.4903222042368312E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=133 pickup=0 health=5 owner=- thrower=-
+T 139
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.9668309389430266E-10,-0.08,-1.4903222042368312E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=134 pickup=0 health=5 owner=- thrower=-
+T 140
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.9668309389430266E-10,-0.12,-1.4903222042368312E-10 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=135 pickup=0 health=5 owner=- thrower=-
+T 141
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.156496708392901E-10,0.0,-8.763095442107413E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=136 pickup=0 health=5 owner=- thrower=-
+T 142
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.156496708392901E-10,-0.04,-8.763095442107413E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=137 pickup=0 health=5 owner=- thrower=-
+T 143
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.156496708392901E-10,-0.08,-8.763095442107413E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=138 pickup=0 health=5 owner=- thrower=-
+T 144
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.156496708392901E-10,-0.12,-8.763095442107413E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=139 pickup=0 health=5 owner=- thrower=-
+T 145
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-6.800201329161406E-11,0.0,-5.15270063810178E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=140 pickup=0 health=5 owner=- thrower=-
+T 146
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-6.800201329161406E-11,-0.04,-5.15270063810178E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=141 pickup=0 health=5 owner=- thrower=-
+T 147
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-6.800201329161406E-11,-0.08,-5.15270063810178E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=142 pickup=0 health=5 owner=- thrower=-
+T 148
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-6.800201329161406E-11,-0.12,-5.15270063810178E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=143 pickup=0 health=5 owner=- thrower=-
+T 149
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.998518783627903E-11,0.0,-3.0297882798717386E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=144 pickup=0 health=5 owner=- thrower=-
+T 150
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.998518783627903E-11,-0.04,-3.0297882798717386E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=145 pickup=0 health=5 owner=- thrower=-
+T 151
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.998518783627903E-11,-0.08,-3.0297882798717386E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=146 pickup=0 health=5 owner=- thrower=-
+T 152
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-3.998518783627903E-11,-0.12,-3.0297882798717386E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=147 pickup=0 health=5 owner=- thrower=-
+T 153
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.351129281196856E-11,0.0,-1.781515687709321E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=148 pickup=0 health=5 owner=- thrower=-
+T 154
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.351129281196856E-11,-0.04,-1.781515687709321E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=149 pickup=0 health=5 owner=- thrower=-
+T 155
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.351129281196856E-11,-0.08,-1.781515687709321E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=150 pickup=0 health=5 owner=- thrower=-
+T 156
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.351129281196856E-11,-0.12,-1.781515687709321E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=151 pickup=0 health=5 owner=- thrower=-
+T 157
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.3824641563608712E-11,0.0,-1.0475313297101976E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=152 pickup=0 health=5 owner=- thrower=-
+T 158
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.3824641563608712E-11,-0.04,-1.0475313297101976E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=153 pickup=0 health=5 owner=- thrower=-
+T 159
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.3824641563608712E-11,-0.08,-1.0475313297101976E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=154 pickup=0 health=5 owner=- thrower=-
+T 160
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-1.3824641563608712E-11,-0.12,-1.0475313297101976E-11 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=155 pickup=0 health=5 owner=- thrower=-
+T 161
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.128890056822669E-12,0.0,-6.159484838078271E-12 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=156 pickup=0 health=5 owner=- thrower=-
+T 162
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.128890056822669E-12,-0.04,-6.159484838078271E-12 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=157 pickup=0 health=5 owner=- thrower=-
+T 163
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.128890056822669E-12,-0.08,-6.159484838078271E-12 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=158 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.128890056822669E-12,-0.08,-6.159484838078271E-12 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=158 pickup=0 health=5 owner=- thrower=-
+N tG {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,24.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d,fuse:0}
+C Game rule tnt_explodes is now set to true

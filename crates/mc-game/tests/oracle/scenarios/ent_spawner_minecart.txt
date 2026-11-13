@@ -1,0 +1,40 @@
+# Spawner minecart: the BaseSpawner timer runs at the cart's block position while a player is in range (spawn count, nearby limit, spawn range, the delay
+# redraw and the entity event for the tracking players), nothing without a player or with the rule off, a spawner without an entity, saved data, a merge
+# into the live cart, the drop and the display block.
+level flat
+preload 3
+entity_counter 1100
+difficulty peaceful
+fill -8 -60 -8 40 -40 20 minecraft:air
+spawn_player P survival 2.5 -60 6.5 0 0
+tick 3
+dump packets:P:none
+spawn s1 minecraft:spawner_minecart 0.5 -59.9375 0.5 0 0 {SpawnData:{entity:{id:"minecraft:pig",NoAI:1b,Silent:1b}},Delay:5s,MinSpawnDelay:20s,MaxSpawnDelay:40s,SpawnCount:2s,MaxNearbyEntities:3s,SpawnRange:3s,RequiredPlayerRange:16s}
+entity_seed s1 91
+spawn s2 minecraft:spawner_minecart 8.5 -59.9375 0.5 0 0 {}
+entity_seed s2 92
+spawn s3 minecraft:spawner_minecart 16.5 -59.9375 0.5 0 0 {SpawnData:{entity:{id:"minecraft:pig",NoAI:1b,Silent:1b}},Delay:1s,RequiredPlayerRange:3s}
+entity_seed s3 93
+dump xentities edata:s1 nbt:s1 nbt:s2 nbt:s3
+level_seed 31
+watch xentity:s1 xentity:s2 xentity:s3 events packets:P:entity_event
+tick 70
+watch off
+dump entities nbt:s1 nbt:s2 nbt:s3
+note a merge into the live cart: another entity, the delay restarts with the next spawn
+nbt s2 {SpawnData:{entity:{id:"minecraft:cow",NoAI:1b,Silent:1b}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:cow",NoAI:1b,Silent:1b}}}],Delay:2s,RequiredPlayerRange:30s,SpawnCount:1s}
+dump nbt:s2
+level_seed 32
+watch xentity:s2 events packets:P:entity_event
+tick 10
+watch off
+dump entities nbt:s2
+note the rule off: nothing spawns
+gamerule spawner_blocks_work false
+nbt s1 {Delay:1s}
+tick 5
+dump nbt:s1 entities
+gamerule spawner_blocks_work true
+note drop and pick result
+hurt s3 generic 5
+dump entities

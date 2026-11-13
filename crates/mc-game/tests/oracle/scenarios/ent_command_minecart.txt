@@ -1,0 +1,108 @@
+# Command block minecart: a powered activator rail runs the command (at most every fourth tick) as a game master source at the cart, an unpowered one does not,
+# a game master opens it (the server answers SUCCESS) and others cannot, the editor packet sets the command and the output tracking (not allowed without the
+# permission, disabled by command_blocks_work), the saved command, success count and output, the synched data, the drop and the pick result.
+# Command feedback is off: a failing command writes a time stamp into the last output, which a replay cannot reproduce.
+level flat
+preload 3
+command_env
+entity_counter 1000
+level_seed 6
+gamerule send_command_feedback false
+fill -4 -60 -6 40 -40 14 minecraft:air
+fill 0 -60 0 20 -60 0 minecraft:rail[shape=east_west]
+block 6 -61 0 minecraft:redstone_block
+block 6 -60 0 minecraft:activator_rail[powered=true,shape=east_west]
+fill 0 -60 4 20 -60 4 minecraft:rail[shape=east_west]
+block 6 -60 4 minecraft:activator_rail[powered=false,shape=east_west]
+fill 0 -60 8 20 -60 8 minecraft:rail[shape=east_west]
+block 6 -61 8 minecraft:redstone_block
+block 6 -60 8 minecraft:activator_rail[powered=true,shape=east_west]
+spawn_player Op creative 3.5 -60 2.5 0 0
+spawn_player Cre creative 9.5 -60 2.5 0 0
+spawn_player Plain survival 12.5 -60 2.5 0 0
+tick 3
+op Op
+dump packets:Op:none packets:Cre:none packets:Plain:none
+note a standing cart on a powered activator rail runs its command every fourth tick, one on an unpowered rail never, a moving cart once when it crosses the rail
+spawn act minecraft:command_block_minecart 6.5 -59.9375 0.5 0 0 {Command:"playsound minecraft:block.note_block.bell master @a ~ ~ ~ 1 1"}
+entity_seed act 81
+spawn idle minecraft:command_block_minecart 6.5 -59.9375 4.5 0 0 {Command:"playsound minecraft:block.note_block.bell master @a ~ ~ ~ 1 1"}
+entity_seed idle 82
+spawn mov minecraft:command_block_minecart 0.5 -59.9375 8.5 0 0 {Command:"playsound minecraft:block.note_block.pling master @a ~ ~ ~ 1 1"}
+entity_seed mov 83
+velocity mov 0.3 0 0
+dump xentities edata:act nbt:act nbt:idle
+watch xentity:act xentity:mov nbt:act packets:Op:sound
+tick 14
+watch off
+dump nbt:act nbt:idle nbt:mov
+note the position and the name of the source: the command places a block at the cart
+block 10 -61 4 minecraft:redstone_block
+block 10 -60 4 minecraft:activator_rail[powered=true,shape=east_west]
+spawn pos minecraft:command_block_minecart 10.5 -59.9375 4.5 0 0 {Command:"setblock ~ ~3 ~ minecraft:gold_block"}
+entity_seed pos 84
+tick 6
+dump nbt:pos blocks:9,-58,3,12,-56,5
+block 10 -60 4 minecraft:rail[shape=east_west]
+note opening the editor: a game master gets SUCCESS, a creative player without the permission and a survival player do not
+dump packets:Op:none packets:Cre:none packets:Plain:none
+interact Op act
+interact Cre act
+interact Plain act
+tick 1
+dump packets:Op packets:Cre packets:Plain
+note the editor packet sets the command, the success count restarts, the output tracking changes
+set_command_minecart Op act "playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1" true
+dump packets:Op:system_chat nbt:act edata:act
+tick 5
+dump nbt:act
+set_command_minecart Op act "playsound minecraft:block.note_block.bass master @a ~ ~ ~ 1 1" false
+dump packets:Op:system_chat nbt:act edata:act
+set_command_minecart Cre act "playsound minecraft:block.note_block.flute master @a ~ ~ ~ 1 1" true
+set_command_minecart Plain act "playsound minecraft:block.note_block.flute master @a ~ ~ ~ 1 1" true
+dump packets:Cre:system_chat packets:Plain:system_chat nbt:act
+set_command_minecart Op act "" true
+dump packets:Op:system_chat nbt:act
+set_command_minecart Op pos "playsound minecraft:block.note_block.guitar master @a ~ ~ ~ 1 1" true
+set_command_minecart Op idle "" true
+dump nbt:pos nbt:idle
+note command blocks disabled: the command is stored, the synched data is not updated and the cart runs nothing
+gamerule command_blocks_work false
+set_command_minecart Op act "playsound minecraft:block.note_block.chime master @a ~ ~ ~ 1 1" true
+dump packets:Op:system_chat nbt:act edata:act
+watch packets:Op:sound
+tick 6
+watch off
+gamerule command_blocks_work true
+note the cart is the source entity: @s is the cart and a command can change it (it runs once, the power is cut before the next activation)
+block 14 -61 12 minecraft:redstone_block
+fill 12 -60 12 16 -60 12 minecraft:rail[shape=east_west]
+block 14 -60 12 minecraft:activator_rail[powered=true,shape=east_west]
+spawn me minecraft:command_block_minecart 14.5 -59.9375 12.5 0 0 {Command:"execute as @s run data merge entity @s {Invulnerable:1b}"}
+entity_seed me 88
+tick 4
+block 14 -61 12 minecraft:dirt
+tick 3
+dump xentity:me nbt:me edata:me
+note save data: the success count of a loaded cart restarts, the name and the output components, the output tracking
+spawn sv minecraft:command_block_minecart 16.5 -59.9375 0.5 0 0 {Command:"playsound minecraft:block.note_block.bell master @a ~ ~ ~ 1 1",SuccessCount:5,LastOutput:'"hello"',TrackOutput:1b,CustomName:'"Named"',UpdateLastExecution:0b}
+entity_seed sv 85
+spawn sv2 minecraft:command_block_minecart 18.5 -59.9375 0.5 0 0 {Command:"Searge",SuccessCount:3,LastOutput:'{"text":"old","color":"red"}',TrackOutput:0b,LastExecution:7L}
+entity_seed sv2 86
+spawn sv3 minecraft:command_block_minecart 20.5 -59.9375 0.5 0 0 {Command:"",SuccessCount:2,LastOutput:'"kept"'}
+entity_seed sv3 87
+dump xentities edata:sv edata:sv2 edata:sv3 nbt:sv nbt:sv2 nbt:sv3
+nbt sv {Command:"Searge",SuccessCount:9}
+dump nbt:sv edata:sv
+note the Searge command succeeds with a fixed output
+block 16 -61 0 minecraft:redstone_block
+block 16 -60 0 minecraft:activator_rail[powered=true,shape=east_west]
+block 15 -60 0 minecraft:rail[shape=east_west]
+tick 6
+dump nbt:sv nbt:sv2
+note drops and pick result: a broken command block cart drops a plain minecart
+give Op hotbar0 minecraft:stick 1
+pick_entity Op sv2
+dump inventory:Op
+hurt sv2 generic 5
+dump entities

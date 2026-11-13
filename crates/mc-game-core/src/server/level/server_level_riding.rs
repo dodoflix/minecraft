@@ -390,16 +390,19 @@ impl ServerLevel {
             }
             crate::world::entity::entity::common_tick(entity.as_mut());
             entity.refresh_first_passenger_authority(self);
-            entity.tick(self);
+            // a command block minecart runs its command while it ticks, as a rider too
+            self.with_command_env(&mut *env, |level| entity.tick(level));
             if self.take_portal_teleport(id) {
                 env.teleport_through_portal(self, entity.as_mut());
             }
             passengers = entity.base().passengers.clone();
         }
         self.put_back_entity(id, entity);
-        for passenger in passengers {
-            self.tick_passenger(id, passenger);
-        }
+        self.with_command_env(&mut *env, |level| {
+            for passenger in passengers {
+                level.tick_passenger(id, passenger);
+            }
+        });
     }
 
     /// `ServerLevel.tickPassenger(vehicle, passenger)` (the vehicle is in storage).

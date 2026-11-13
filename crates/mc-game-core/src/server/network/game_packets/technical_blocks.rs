@@ -1,12 +1,13 @@
 //! The `ServerGamePacketListenerImpl` handlers of the technical blocks' editor screens: `handleSetCommandBlock`,
-//! `handleSetStructureBlock`, `handleSetJigsawBlock`. (`handleJigsawGenerate` needs the structure placement and lives in
-//! `mc-game-levelgen`; `handleSetCommandMinecart` belongs to the command minecart entity, `handleSetTestBlock` / `handleTestInstanceBlockAction` to the test blocks.)
+//! `handleSetCommandMinecart`, `handleSetStructureBlock`, `handleSetJigsawBlock`. (`handleJigsawGenerate` needs the structure
+//! placement and lives in `mc-game-levelgen`; `handleSetTestBlock` / `handleTestInstanceBlockAction` belong to the test blocks.)
 
 use super::PlayCtx;
 use super::hooks::{PLAY_HANDLERS, PlayHandlers};
 use crate::translatable;
 use crate::world::block_entity::command_block_entity::CommandBlockEntity;
 use crate::world::block_entity::{BlockEntity, JigsawBlockEntity, StructureBlockEntity};
+use crate::world::entity::vehicle::minecart::minecart_command_block::MinecartCommandBlock;
 use crate::world::level::gamerules::GameRules;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
@@ -14,9 +15,9 @@ use mc_core::pos::BlockPos;
 use mc_data::block::Block;
 use mc_data::props;
 use mc_protocol::packets::play::{
-    CommandBlockEntityMode, ServerboundSetCommandBlockPacket, ServerboundSetJigsawBlockPacket,
-    ServerboundSetStructureBlockPacket, StructureBlockEntityUpdateType,
-    StructureMode as PacketStructureMode,
+    CommandBlockEntityMode, ServerboundSetCommandBlockPacket, ServerboundSetCommandMinecartPacket,
+    ServerboundSetJigsawBlockPacket, ServerboundSetStructureBlockPacket,
+    StructureBlockEntityUpdateType, StructureMode as PacketStructureMode,
 };
 
 struct TechnicalBlockHandlers;
@@ -100,6 +101,50 @@ impl PlayHandlers for TechnicalBlockHandlers {
             CommandBlockEntity::on_updated(ctx.level, pos);
         }
         if !command.is_empty() {
+            ctx.player.send_system_message(translatable!(
+                if enabled {
+                    "advMode.setCommand.success"
+                } else {
+                    "advMode.setCommand.disabled"
+                },
+                command
+            ));
+        }
+    }
+
+    fn handle_set_command_minecart(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundSetCommandMinecartPacket,
+    ) {
+        if !ctx.player.can_use_game_master_blocks() {
+            ctx.player
+                .send_system_message(translatable!("advMode.notAllowed"));
+            return;
+        }
+        let command = packet.command.as_str();
+        let enabled = ctx
+            .server
+            .game_rules_ref()
+            .get(GameRules::COMMAND_BLOCKS_WORK);
+        let track_output = packet.track_output;
+        let found = ctx
+            .level
+            .with_entity(packet.entity, |_, entity| {
+                let cart = entity.as_any_mut().downcast_mut::<MinecartCommandBlock>()?;
+                let base = cart.get_command_block_mut();
+                base.set_command(command);
+                base.set_track_output(track_output);
+                if !track_output {
+                    base.set_last_output(None);
+                }
+                if enabled {
+                    cart.on_updated();
+                }
+                Some(())
+            })
+            .flatten();
+        if found.is_some() && !command.is_empty() {
             ctx.player.send_system_message(translatable!(
                 if enabled {
                     "advMode.setCommand.success"
