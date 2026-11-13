@@ -900,17 +900,34 @@ impl PersistentEntitySectionManager {
 
     /// Mutable access ignoring visibility (hidden entities included); `None` while taken out.
     pub fn get_any_mut(&mut self, id: EntityId) -> Option<&mut dyn Entity> {
+        if self.entities.get(&id).is_some_and(|s| s.entity.is_none()) {
+            return self.lent_mut(id).filter(|e| !e.is_removed());
+        }
         self.entities
             .get_mut(&id)
             .and_then(|s| s.entity.as_deref_mut())
     }
 
-    /// Mutable access to a live entity, or to one that was just removed and waits in limbo for its callbacks.
+    /// Mutable access to a live entity, or to one that was just removed and waits in limbo for its callbacks (or is
+    /// removed while its owner still holds it lent).
     pub fn get_any_or_removed_mut(&mut self, id: EntityId) -> Option<&mut dyn Entity> {
         if self.entities.get(&id).is_some_and(|s| s.entity.is_some()) {
             return self.get_any_mut(id);
         }
-        self.limbo.get_mut(&id).map(|e| e.as_mut())
+        if self.limbo.contains_key(&id) {
+            return self.limbo.get_mut(&id).map(|e| e.as_mut());
+        }
+        self.lent_mut(id)
+    }
+
+    /// The `&mut` of an entity its owner lent with [`Self::lend_in`], unless a re-entry holds it. The owner is blocked
+    /// inside `lend_in` and the result borrows `self`, so no other access to the entity can overlap.
+    fn lent_mut(&mut self, id: EntityId) -> Option<&mut dyn Entity> {
+        let index = self.reenterable(id)?;
+        let mut ptr = self.lent[index].ptr;
+        // SAFETY: as in `with_lent_mut`; the returned borrow keeps the manager (so every re-entry and shared read) out
+        // until it ends.
+        Some(unsafe { ptr.as_mut() })
     }
 
     pub fn get_by_uuid(&self, uuid: Uuid) -> Option<&dyn Entity> {
@@ -1008,9 +1025,10 @@ impl PersistentEntitySectionManager {
             });
     }
 
-    /// `for_each_in_aabb` that also visits the entities taken out of their slot (the running one): `entity` is `None`
-    /// for them and the consumer decides whether they are in the box.
-    pub fn for_each_in_aabb_with_taken_out(
+    /// The ids registered in the sections that `bb` reaches, in vanilla's iteration order (sections by key, insertion order
+    /// inside), without resolving them: the caller resolves an id to the entity or, for a player whose code is running, to
+    /// the level's record of it.
+    pub fn for_each_id_in_aabb(
         &self,
         bb: &AABB,
         mut consumer: impl FnMut(EntityId, Option<&dyn Entity>) -> ControlFlow<()>,

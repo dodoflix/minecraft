@@ -1,8 +1,7 @@
 //! Level-wide effect broadcasts of `ServerLevel` (sounds, level events, block events, block destruction progress): the
 //! packets go to the players of this level within range (`PlayerList.broadcast`, which iterates the level's players here).
 
-use super::{ServerLevel, TrackerPlayer};
-use crate::server::network::ConnectionSender;
+use super::{PlayerRecord, ServerLevel};
 use crate::server::network::connection::Payload;
 use crate::world::entity::EntityId;
 use crate::world::entity::player::ServerPlayer;
@@ -80,25 +79,14 @@ impl ServerLevel {
             if Some(id) == except {
                 continue;
             }
-            // a player that is running (taken out of the level: its own attack/use code) still hears its own sounds
-            let (connection, position): (&ConnectionSender, _) = match self.get_entity(id) {
-                Some(entity) => {
-                    let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() else {
-                        continue;
-                    };
-                    let Some(connection) = player.connection.as_ref() else {
-                        continue;
-                    };
-                    (connection, entity.position())
-                }
-                None => match self.taken_out_players.get(&id) {
-                    Some(TrackerPlayer {
-                        connection: Some(connection),
-                        position,
-                        ..
-                    }) => (connection, *position),
-                    _ => continue,
-                },
+            // a player that is running (out of the level storage: its own attack/use code) still hears its own sounds
+            let Some(PlayerRecord {
+                connection: Some(connection),
+                position,
+                ..
+            }) = self.player_record(id)
+            else {
+                continue;
             };
             let (dx, dy, dz) = (x - position.x, y - position.y, z - position.z);
             if dx * dx + dy * dy + dz * dz < range * range {

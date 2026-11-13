@@ -1,8 +1,6 @@
 //! `ServerLevel.sendParticles(...)`: a `ClientboundLevelParticlesPacket` to every player of this level close enough.
 
 use super::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::player::ServerPlayer;
 use mc_core::phys::Vec3;
 use mc_protocol::packets::play::{
     ClientboundLevelParticlesPacket, ParticleOptions, RandomizationType,
@@ -80,22 +78,12 @@ impl ServerLevel {
         };
         let mut result = 0;
         for &id in &self.players {
-            // a player that is running (taken out of the level: its own movement code) still gets its own particles
-            let target = match self.get_entity(id) {
-                Some(entity) => entity
-                    .as_any()
-                    .downcast_ref::<ServerPlayer>()
-                    .map(|p| (p.base().block_position(), p.connection.as_ref())),
-                None => self.taken_out_players.get(&id).map(|p| {
-                    (
-                        mc_core::pos::BlockPos::containing_position(&p.position),
-                        p.connection.as_ref(),
-                    )
-                }),
-            };
-            let Some((pos, connection)) = target else {
+            // a player that is running (out of the level storage: its own movement code) still gets its own particles
+            let Some(record) = self.player_record(id) else {
                 continue;
             };
+            let pos = mc_core::pos::BlockPos::containing_position(&record.position);
+            let connection = record.connection.as_ref();
             // `sendParticles(player, overrideLimiter, x, y, z, packet)`
             if pos.closer_to_center_than(
                 &Vec3::new(x, y, z),

@@ -3,8 +3,8 @@
 use super::{InteractionResult, ItemBehaviour, UseOnContext};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
+use crate::world::entity::ServerPlayer;
 use crate::world::entity::boss::end_crystal::EndCrystal;
-use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::BlockGetter;
 use crate::world::level::level_access::LevelReader;
 use mc_core::phys::{AABB, Vec3};
@@ -36,10 +36,8 @@ impl ItemBehaviour for EndCrystalItem {
             f64::from(above.z()),
         );
         let aabb = AABB::new(x, y, z, x + 1.0, y + 2.0, z + 1.0);
-        // `level.getEntities(null, aabb)` includes the player, who is taken out of the level while the item is used.
-        let blocked_by_player =
-            !player.is_spectator() && player.get_bounding_box().intersects_aabb(&aabb);
-        if blocked_by_player
+        // `level.getEntities(null, aabb)` includes the player, who is out of the level storage while the item is used.
+        if !level.get_players_in_aabb(&aabb).is_empty()
             || !level
                 .get_entities(None, &aabb, |e| !e.is_spectator())
                 .is_empty()

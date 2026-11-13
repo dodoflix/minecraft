@@ -2,7 +2,8 @@
 //! of the level tick that map (`MapItemSavedData.tickCarriedBy` with the frame, which records the frame marker) and sends
 //! the pending map update to each of them.
 
-use super::{Entities, TrackerPlayer, send};
+use super::{Entities, send};
+use crate::server::level::PlayerRecord;
 use crate::server::level::server_entity::encode_payload;
 use crate::world::entity::decoration::item_frame::framed_map_of;
 use crate::world::item::map_item::player_view;
@@ -24,7 +25,7 @@ pub struct FrameMapEnv<'a> {
 /// has saved data. Players that are not in `entities` (taken out of the level while they act) are skipped.
 pub(super) fn sync_framed_map(
     entities: &Entities<'_>,
-    players: &[TrackerPlayer],
+    players: &[PlayerRecord],
     env: &FrameMapEnv<'_>,
     frame_id: i32,
 ) {

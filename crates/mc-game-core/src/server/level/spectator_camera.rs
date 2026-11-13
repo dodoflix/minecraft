@@ -22,7 +22,7 @@ impl ServerPlayer {
             spectator: self.is_spectator(),
             alive: self.is_alive(),
         };
-        level.entity_tracker_move_taken_out_player(self);
+        level.entity_tracker_move_player(self);
         level.chunk_source.chunk_map.move_player(update);
     }
 

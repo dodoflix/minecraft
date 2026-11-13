@@ -72,8 +72,9 @@ pub struct ServerLevel {
     /// removed, like the oracle, whose references keep the object).
     pub removed_entities:
         Option<std::collections::HashMap<EntityId, Box<dyn crate::world::entity::Entity>>>,
-    /// Snapshots of the players that are currently taken out of the entity storage (see `tracker_players`).
-    pub(super) taken_out_players: std::collections::HashMap<EntityId, super::TrackerPlayer>,
+    /// The last known [`PlayerRecord`] of every player that is out of the entity storage (its packet or tick is being
+    /// handled); players in storage or lent are read live.
+    pub(super) player_records: std::collections::HashMap<EntityId, super::PlayerRecord>,
     /// `registryAccess()`: the server's registries (damage types, enchantments, tags, ...). Empty until the level
     /// factory installs them (`detached` levels stay empty).
     pub registries: crate::registry::RegistryAccess,
@@ -171,7 +172,7 @@ impl ServerLevel {
             dead_players: Default::default(),
             loading_entity: None,
             removed_entities: None,
-            taken_out_players: Default::default(),
+            player_records: Default::default(),
             registries: Default::default(),
             chunk_source,
             shared: params.shared,

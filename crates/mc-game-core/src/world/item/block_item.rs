@@ -17,7 +17,6 @@ use crate::world::level::collision::{
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::Direction;
-use mc_core::phys::shapes::{BooleanOp, Shapes};
 use mc_core::phys::{BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
@@ -765,18 +764,7 @@ impl BlockItem {
             return true;
         }
         let shape = shape.move_vec3i(*pos);
-        // the placing player is out of the level's entity storage while it acts: `isUnobstructed` cannot find it
-        let player_in_the_way = player.is_some_and(|p| {
-            !p.is_spectator()
-                && !p.is_removed()
-                && p.base().blocks_building
-                && Shapes::join_is_not_empty(
-                    &shape,
-                    &Shapes::create(p.get_bounding_box()),
-                    BooleanOp::AND,
-                )
-        });
-        !player_in_the_way && level.is_unobstructed(None, &shape)
+        level.is_unobstructed(None, &shape)
     }
 
     /// `placeBlock(context, placementState)`.

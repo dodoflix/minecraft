@@ -1,8 +1,9 @@
 //! The entity half of `ServerLevel`: id allocation, adding, lookups, queries, the take-out loop and the
 //! `ServerLevel.EntityCallbacks` (applied from the manager's event queue).
 
+use super::PlayerRecord;
 use super::ServerLevel;
-use super::entity_tracker::{Entities, TrackerPlayer};
+use super::entity_tracker::Entities;
 use crate::world::entity::{Entity, EntityId, RemovalReason};
 use crate::world::level::entity::{EntityLevelEvent, PersistentEntitySectionManager};
 use crate::world::level::gameevent::DynamicListenerAction;
@@ -166,15 +167,14 @@ impl ServerLevel {
             .as_any()
             .downcast_ref::<crate::world::entity::ServerPlayer>()
         {
-            self.taken_out_players
-                .insert(id, super::TrackerPlayer::of(p));
+            self.player_records.insert(id, super::PlayerRecord::of(p));
         }
         Some(entity)
     }
 
     /// Put a taken-out entity back and apply removal / section moves (`EntityInLevelCallback`).
     pub fn put_back_entity(&mut self, id: EntityId, entity: Box<dyn Entity>) {
-        self.taken_out_players.remove(&id);
+        self.player_records.remove(&id);
         self.entity_manager.put_back(id, entity);
         self.process_entity_events();
         self.process_waypoint_state(id);
@@ -235,11 +235,13 @@ impl ServerLevel {
     pub(super) fn untrack_discarded_entity(&mut self, entity: &mut dyn Entity) {
         debug_assert!(entity.is_removed() && !entity.is_player());
         let id = entity.id();
-        self.entity_tracker.remove_entity(
-            &mut Entities::with_extra(&mut self.entity_manager, entity),
-            id,
-            None,
-        );
+        self.lend(entity, |level| {
+            level.entity_tracker.remove_entity(
+                &mut Entities::new(&mut level.entity_manager),
+                id,
+                None,
+            );
+        });
     }
 
     /// Apply pending removal / section changes of an entity that was mutated in place.
@@ -484,7 +486,7 @@ impl ServerLevel {
                     }
                     self.update_sleeping_player_list();
                 }
-                let players = self.tracker_players();
+                let players = self.player_records();
                 self.entity_tracker.add_entity(
                     &mut Entities::new(&mut self.entity_manager),
                     &self.chunk_source.chunk_map,
@@ -510,7 +512,7 @@ impl ServerLevel {
                         e.as_any()
                             .downcast_ref::<crate::world::entity::ServerPlayer>()
                     })
-                    .map(super::TrackerPlayer::of);
+                    .map(PlayerRecord::of);
                 self.entity_tracker.remove_entity(
                     &mut Entities::new(&mut self.entity_manager),
                     id,
@@ -553,26 +555,29 @@ impl ServerLevel {
         self.entity_manager.get_any(id).map(|e| e.uuid())
     }
 
-    /// `level.players()` as the tracker reads them: live players from storage, players that are currently taken out
-    /// (their packet or tick is being handled) from the snapshot taken when they were taken out.
-    pub fn tracker_players(&self) -> Vec<super::TrackerPlayer> {
+    /// The record of player `id`: read live while the player is in storage or lent, else the last record taken when its
+    /// code started running.
+    pub fn player_record(&self, id: EntityId) -> Option<PlayerRecord> {
+        match self.entity_manager.get_any(id).and_then(|e| {
+            e.as_any()
+                .downcast_ref::<crate::world::entity::ServerPlayer>()
+        }) {
+            Some(p) => Some(PlayerRecord::of(p)),
+            None => self.player_records.get(&id).cloned(),
+        }
+    }
+
+    /// `level.players()` as records, in player-list order (what the tracker and the packet broadcasts walk).
+    pub fn player_records(&self) -> Vec<PlayerRecord> {
         self.players
             .iter()
-            .filter_map(|&id| {
-                match self.entity_manager.get_any(id).and_then(|e| {
-                    e.as_any()
-                        .downcast_ref::<crate::world::entity::ServerPlayer>()
-                }) {
-                    Some(p) => Some(super::TrackerPlayer::of(p)),
-                    None => self.taken_out_players.get(&id).cloned(),
-                }
-            })
+            .filter_map(|&id| self.player_record(id))
             .collect()
     }
 
     /// `ChunkMap.tick()`'s entity half (`updateTrackedEntities` + `sendChanges`).
     pub fn tick_entity_tracker(&mut self) {
-        let players = self.tracker_players();
+        let players = self.player_records();
         let shared = self.shared.clone();
         let maps = super::FrameMapEnv {
             map_storage: &shared.map_storage,
@@ -588,27 +593,26 @@ impl ServerLevel {
         );
     }
 
-    /// `ChunkMap.move(player)` entity half for a player that is currently taken out of the level (its packet or tick
-    /// is being handled): the player is passed explicitly. Call it BEFORE the chunk map's own `move_player` (vanilla
-    /// runs the tracker loop first, with the previous chunk tracking view).
-    pub fn entity_tracker_move_taken_out_player(
-        &mut self,
-        player: &mut crate::world::entity::ServerPlayer,
-    ) {
-        let mut players = self.tracker_players();
-        let snapshot = TrackerPlayer::of(player);
-        match players.iter_mut().find(|p| p.id == snapshot.id) {
-            Some(p) => *p = snapshot.clone(),
-            None => players.push(snapshot.clone()),
-        }
-        self.taken_out_players.insert(snapshot.id, snapshot.clone());
-        let mut entities = Entities::with_extra(&mut self.entity_manager, player);
-        self.entity_tracker.move_player(
-            &mut entities,
-            &self.chunk_source.chunk_map,
-            &players,
-            &snapshot,
-        );
+    /// `ChunkMap.move(player)` entity half: runs before the chunk map's own `move_player` (vanilla runs the tracker loop
+    /// first, with the previous chunk tracking view). `player` is out of the level storage while its code runs, so it is
+    /// lent: its own tracked entity pairs with the other players through the lent `&mut`.
+    pub fn entity_tracker_move_player(&mut self, player: &mut crate::world::entity::ServerPlayer) {
+        let record = PlayerRecord::of(player);
+        self.player_records.insert(record.id, record.clone());
+        let id = record.id;
+        self.lend(player, |level| {
+            let mut players = level.player_records();
+            match players.iter_mut().find(|p| p.id == id) {
+                Some(p) => *p = record.clone(),
+                None => players.push(record.clone()),
+            }
+            level.entity_tracker.move_player(
+                &mut Entities::new(&mut level.entity_manager),
+                &level.chunk_source.chunk_map,
+                &players,
+                &record,
+            );
+        });
     }
 
     // ---- queries ----------------------------------------------------------------------------------------------
@@ -646,34 +650,25 @@ impl ServerLevel {
         });
         out
     }
-    /// `getEntitiesOfClass(ServerPlayer.class, bb)` (spectators excluded) in vanilla's iteration order. A player that is
-    /// taken out of the level (its packet or tick is being handled) is included, as vanilla's entity storage still holds
-    /// it: its box is the standing one at the position it had when it was taken out.
+    /// `getEntitiesOfClass(ServerPlayer.class, bb)` (spectators excluded) in vanilla's iteration order. A player whose code
+    /// is running (out of the storage) is included through its record: vanilla's entity storage still holds it.
     pub fn get_players_in_aabb(&self, bb: &AABB) -> Vec<EntityId> {
         let mut out = Vec::new();
-        self.entity_manager
-            .for_each_in_aabb_with_taken_out(bb, |id, entity| {
-                let included = match entity {
-                    Some(e) => {
-                        e.as_any().is::<crate::world::entity::ServerPlayer>() && !e.is_spectator()
-                    }
-                    None => self.taken_out_players.get(&id).is_some_and(|p| {
-                        let p = p.position;
-                        bb.intersects_aabb(&AABB::new(
-                            p.x - 0.3,
-                            p.y,
-                            p.z - 0.3,
-                            p.x + 0.3,
-                            p.y + 1.8,
-                            p.z + 0.3,
-                        ))
-                    }),
-                };
-                if included {
-                    out.push(id);
+        self.entity_manager.for_each_id_in_aabb(bb, |id, entity| {
+            let included = match entity {
+                Some(e) => {
+                    e.as_any().is::<crate::world::entity::ServerPlayer>() && !e.is_spectator()
                 }
-                ControlFlow::Continue(())
-            });
+                None => self
+                    .player_records
+                    .get(&id)
+                    .is_some_and(|p| !p.spectator && bb.intersects_aabb(&p.bounding_box)),
+            };
+            if included {
+                out.push(id);
+            }
+            ControlFlow::Continue(())
+        });
         out
     }
 
@@ -705,11 +700,10 @@ impl ServerLevel {
 
     /// `getPlayerByUUID(uuid)`.
     pub fn get_player_by_uuid(&self, uuid: Uuid) -> Option<EntityId> {
-        self.players.iter().copied().find(|&id| {
-            self.entity_manager
-                .get_any(id)
-                .is_some_and(|p| p.uuid() == uuid)
-        })
+        self.players
+            .iter()
+            .copied()
+            .find(|&id| self.player_record(id).is_some_and(|p| p.uuid == uuid))
     }
 }
 
@@ -743,19 +737,28 @@ impl crate::world::level::collision::CollisionGetter for ServerLevel {
         if shape.is_empty() {
             return true;
         }
-        let source = source.and_then(|id| self.entity_manager.get_any(id));
-        self.get_entities(None, &shape.bounds(), |e| !e.is_spectator())
+        let bounds = shape.bounds();
+        let source_root = source.map(|id| self.root_vehicle(id));
+        let blocks = |id: EntityId, removed: bool, blocks_building: bool, aabb: &AABB| {
+            !removed
+                && blocks_building
+                && source_root.is_none_or(|root| self.root_vehicle(id) != root)
+                && Shapes::join_is_not_empty(shape, &Shapes::create(*aabb), BooleanOp::AND)
+        };
+        // a player whose code is running is not in the storage: its record blocks building like the entity would
+        self.get_entities(None, &bounds, |e| !e.is_spectator())
             .into_iter()
             .filter_map(|id| self.entity_manager.get_any(id))
             .all(|e| {
-                e.is_removed()
-                    || !e.base().blocks_building
-                    || source.is_some_and(|s| self.is_passenger_of_same_vehicle(s, e))
-                    || !Shapes::join_is_not_empty(
-                        shape,
-                        &Shapes::create(e.get_bounding_box()),
-                        BooleanOp::AND,
-                    )
+                !blocks(
+                    e.id(),
+                    e.is_removed(),
+                    e.base().blocks_building,
+                    &e.get_bounding_box(),
+                )
+            })
+            && self.player_records.values().all(|p| {
+                p.spectator || !blocks(p.id, p.removed, p.blocks_building, &p.bounding_box)
             })
     }
 
@@ -821,6 +824,23 @@ impl crate::world::entity::movement::MovementLevel for ServerLevel {
 }
 
 impl ServerLevel {
+    /// `getRootVehicle()` by id; a player whose code is running is read from its record.
+    fn root_vehicle(&self, id: EntityId) -> EntityId {
+        let mut root = id;
+        let mut cur = match self.entity_manager.get_any(id) {
+            Some(e) => e.base().vehicle,
+            None => self.player_records.get(&id).and_then(|p| p.vehicle),
+        };
+        while let Some(v) = cur {
+            root = v;
+            cur = self
+                .entity_manager
+                .get_any(v)
+                .and_then(|x| x.base().vehicle);
+        }
+        root
+    }
+
     /// `Entity.isPassengerOfSameVehicle(other)`: same root vehicle.
     pub fn is_passenger_of_same_vehicle(&self, a: &dyn Entity, b: &dyn Entity) -> bool {
         let root = |e: &dyn Entity| {

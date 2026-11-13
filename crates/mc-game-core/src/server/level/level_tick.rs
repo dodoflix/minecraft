@@ -347,13 +347,8 @@ impl ServerLevel {
     /// `PlayerList.broadcastAll(packet, dimension)`: every player of this level.
     pub fn broadcast_to_level_players<P: mc_protocol::packet::Packet>(&self, packet: &P) {
         let payload = super::level_events::encode_packet(packet);
-        for &id in &self.players {
-            if let Some(entity) = self.get_entity(id)
-                && let Some(player) = entity
-                    .as_any()
-                    .downcast_ref::<crate::world::entity::player::ServerPlayer>()
-                && let Some(connection) = &player.connection
-            {
+        for record in self.player_records() {
+            if let Some(connection) = &record.connection {
                 connection.send_payload(payload.clone());
             }
         }

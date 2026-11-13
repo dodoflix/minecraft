@@ -1,13 +1,13 @@
 //! `ChunkMap.entityMap` + `ChunkMap.TrackedEntity`: which players see which entity, pairing/unpairing, per-tick
 //! `ServerEntity.sendChanges`.
 
+use super::PlayerRecord;
 use super::fastutil::LongOpenHashMap;
 use super::server_entity::{Payload, ServerEntity, Synchronizer, UpdateInterval, bundle};
 use crate::server::network::ConnectionSender;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::level::entity::PersistentEntitySectionManager;
 use indexmap::IndexMap;
-use mc_core::phys::Vec3;
 use mc_core::pos::SectionPos;
 
 mod frame_maps;
@@ -43,79 +43,32 @@ pub trait TrackingEnv {
     fn in_entity_ticking_range(&self, chunk_key: i64) -> bool;
 }
 
-/// The entity storage as the tracker sees it: the manager plus, optionally, one entity that is currently taken out of
-/// it (the player whose packet or tick is being handled), so that its own tracked entity can still be updated.
+/// The entity storage as the tracker sees it.
 pub struct Entities<'a> {
     manager: &'a mut PersistentEntitySectionManager,
-    extra: Option<&'a mut dyn Entity>,
 }
 
 impl<'a> Entities<'a> {
     pub fn new(manager: &'a mut PersistentEntitySectionManager) -> Self {
-        Self {
-            manager,
-            extra: None,
-        }
+        Self { manager }
     }
 
-    pub fn with_extra(
-        manager: &'a mut PersistentEntitySectionManager,
-        extra: &'a mut dyn Entity,
-    ) -> Self {
-        Self {
-            manager,
-            extra: Some(extra),
-        }
-    }
-
-    /// The id of the entity with `uuid` (also the one taken out of the manager): `EntityReference.getEntity` for the owner of a
+    /// The id of the entity with `uuid` (also one taken out of the manager): `EntityReference.getEntity` for the owner of a
     /// projectile whose reference came from NBT, what `Projectile.getAddEntityPacket` writes as the packet data.
     fn id_by_uuid(&self, uuid: uuid::Uuid) -> Option<EntityId> {
-        match &self.extra {
-            Some(e) if e.uuid() == uuid => Some(e.id()),
-            _ => self.manager.id_by_uuid(uuid),
-        }
+        self.manager.id_by_uuid(uuid)
     }
 
     fn get_any(&self, id: EntityId) -> Option<&dyn Entity> {
-        match &self.extra {
-            Some(e) if e.id() == id => Some(&**e),
-            _ => self.manager.get_any(id),
-        }
+        self.manager.get_any(id)
     }
 
     fn get_any_mut(&mut self, id: EntityId) -> Option<&mut dyn Entity> {
-        match &mut self.extra {
-            Some(e) if e.id() == id => Some(&mut **e),
-            _ => self.manager.get_any_mut(id),
-        }
+        self.manager.get_any_mut(id)
     }
 
     fn get_any_or_removed_mut(&mut self, id: EntityId) -> Option<&mut dyn Entity> {
-        match &mut self.extra {
-            Some(e) if e.id() == id => Some(&mut **e),
-            _ => self.manager.get_any_or_removed_mut(id),
-        }
-    }
-}
-
-/// The player data `updatePlayer` reads (the player may be taken out of the level while it is handled).
-#[derive(Clone)]
-pub struct TrackerPlayer {
-    pub id: EntityId,
-    pub position: Vec3,
-    pub requested_view_distance: i32,
-    pub connection: Option<ConnectionSender>,
-}
-
-impl TrackerPlayer {
-    pub fn of(player: &ServerPlayer) -> Self {
-        Self {
-            id: player.base_id(),
-            position: player.player.living.entity.position(),
-            requested_view_distance: player.requested_view_distance,
-            connection: player.connection.clone(),
-        }
+        self.manager.get_any_or_removed_mut(id)
     }
 }
 
@@ -207,13 +160,15 @@ impl TrackedEntity {
         &mut self,
         entities: &mut Entities<'_>,
         env: &dyn TrackingEnv,
-        player: &TrackerPlayer,
+        player: &PlayerRecord,
     ) {
         if player.id == self.entity_id {
             return;
         }
-        // a lent entity cannot be paired (`get_any_mut` is empty): the next tracker pass after its put-back does
-        if entities.manager.is_lent(self.entity_id) {
+        // a lent entity whose `&mut` is out in a re-entry cannot be paired: the next tracker pass does
+        if entities.manager.is_lent(self.entity_id)
+            && !entities.manager.can_reenter_lent(self.entity_id)
+        {
             return;
         }
         let Some(entity) = entities.get_any(self.entity_id) else {
@@ -239,7 +194,7 @@ impl TrackedEntity {
     }
 
     /// `ServerEntity.addPairing(player)`.
-    fn add_pairing(&mut self, entities: &mut Entities<'_>, player: &TrackerPlayer) {
+    fn add_pairing(&mut self, entities: &mut Entities<'_>, player: &PlayerRecord) {
         let owner_id = entities
             .get_any(self.entity_id)
             .and_then(|e| e.as_projectile())
@@ -281,7 +236,7 @@ impl TrackedEntity {
         &mut self,
         entities: &mut Entities<'_>,
         env: &dyn TrackingEnv,
-        players: &[TrackerPlayer],
+        players: &[PlayerRecord],
     ) {
         for p in players {
             self.update_player(entities, env, p);
@@ -312,7 +267,7 @@ impl EntityTracker {
         &mut self,
         entities: &mut Entities<'_>,
         env: &dyn TrackingEnv,
-        players: &[TrackerPlayer],
+        players: &[PlayerRecord],
         entity_id: EntityId,
     ) {
         let Some(entity) = entities.get_any(entity_id) else {
@@ -338,7 +293,7 @@ impl EntityTracker {
         let player = entity
             .as_any()
             .downcast_ref::<ServerPlayer>()
-            .map(TrackerPlayer::of);
+            .map(PlayerRecord::of);
         let mut tracked = TrackedEntity {
             server_entity: ServerEntity::new(entity, interval, ty.data().track_deltas),
             entity_id,
@@ -369,7 +324,7 @@ impl EntityTracker {
         &mut self,
         entities: &mut Entities<'_>,
         entity_id: EntityId,
-        player: Option<&TrackerPlayer>,
+        player: Option<&PlayerRecord>,
     ) {
         if let Some(player) = player {
             for id in self.entity_map.keys() {
@@ -388,8 +343,8 @@ impl EntityTracker {
         &mut self,
         entities: &mut Entities<'_>,
         env: &dyn TrackingEnv,
-        all_players: &[TrackerPlayer],
-        player: &TrackerPlayer,
+        all_players: &[PlayerRecord],
+        player: &PlayerRecord,
     ) {
         for id in self.entity_map.keys() {
             let Some(t) = self.entity_map.get_mut(id) else {
@@ -408,10 +363,10 @@ impl EntityTracker {
         &mut self,
         entities: &mut Entities<'_>,
         env: &dyn TrackingEnv,
-        players: &[TrackerPlayer],
+        players: &[PlayerRecord],
         maps: &FrameMapEnv<'_>,
     ) {
-        let mut moved_players: Vec<TrackerPlayer> = Vec::new();
+        let mut moved_players: Vec<PlayerRecord> = Vec::new();
         for id in self.entity_map.keys() {
             let Some(t) = self.entity_map.get_mut(id) else {
                 continue;
@@ -428,7 +383,7 @@ impl EntityTracker {
                     && let Some(p) = entities
                         .get_any(t.entity_id)
                         .and_then(|e| e.as_any().downcast_ref::<ServerPlayer>())
-                        .map(TrackerPlayer::of)
+                        .map(PlayerRecord::of)
                 {
                     moved_players.push(p);
                 }
@@ -522,6 +477,7 @@ mod tests {
     use crate::server::network::Outbound;
     use crate::world::entity::plain::PlainEntity;
     use crate::world::level::entity::Visibility;
+    use mc_core::phys::Vec3;
     use mc_core::pos::chunk_pos::ChunkPos;
     use mc_data::EntityType;
     use mc_protocol::codec::{GameProfile, read_varint};
@@ -560,7 +516,7 @@ mod tests {
     fn setup() -> (
         PersistentEntitySectionManager,
         UnboundedReceiver<Outbound>,
-        TrackerPlayer,
+        PlayerRecord,
     ) {
         let mut m = PersistentEntitySectionManager::new(None);
         m.update_chunk_status(ChunkPos::new(0, 0), Visibility::Ticking);
@@ -577,7 +533,7 @@ mod tests {
         );
         player.connection = Some(ConnectionSender::new(tx));
         player.set_pos(10.0, 64.0, 0.0);
-        let tp = TrackerPlayer::of(&player);
+        let tp = PlayerRecord::of(&player);
         m.add_new_entity(Box::new(player)).ok().unwrap();
         (m, rx, tp)
     }
