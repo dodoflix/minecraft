@@ -285,6 +285,8 @@ pub fn create_respawned_player(
 ) -> ServerPlayer {
     let mut old = old;
     let client_information = old.client_information.clone();
+    // `new ServerPlayer(..)` takes a fresh id from the level before `setId` copies the dead player's: the counter advances
+    level.next_entity_id();
     let mut new = ServerPlayer::new(
         old.base_id(),
         transition.level.clone(),
