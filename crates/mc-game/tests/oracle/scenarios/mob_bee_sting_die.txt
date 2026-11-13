@@ -1,0 +1,99 @@
+# A bee that stung dies (random 1/(1200 - t) every 5 ticks); poison on hard; a bee in water drowns after 20 ticks.
+level flat
+difficulty hard
+entity_counter 40
+spawn_player Steve survival 0.5 -60 0.5 0 0
+fill 18 -61 18 22 -59 22 minecraft:stone
+fill 19 -61 19 21 -59 21 minecraft:water[level=0]
+mobspawn B minecraft:bee 3.5 -59 0.5 0 0 {PersistenceRequired:1b}
+mobspawn W minecraft:bee 20.5 -60 20.5 0 0 {PersistenceRequired:1b}
+entity_seed B 31
+entity_seed W 32
+tick 3
+hurt B minecraft:player_attack 1 by=Steve
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 5
+dump mob:B mob:W player:Steve
+tick 100
+dump mob:B player:Steve
+tick 100
+dump mob:B player:Steve
+tick 100
+dump mob:B player:Steve
+tick 100
+dump mob:B player:Steve
+tick 100
+dump mob:B player:Steve
+tick 100
+dump mob:B player:Steve
+tick 100
+dump mob:B player:Steve
+tick 100
+dump mob:B player:Steve
+tick 100
+dump mob:B player:Steve
+tick 100
+dump mob:B player:Steve
+tick 100
+dump mob:B player:Steve
+tick 100
+dump mob:B player:Steve
+dump nbt:B

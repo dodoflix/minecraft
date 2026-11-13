@@ -3728,6 +3728,10 @@ pub trait Entity: Any {
     ) -> Option<&mut dyn crate::world::entity::ai::goal::AbstractHorseAccess> {
         None
     }
+    /// `this instanceof Bee` (the surface block entities use; implemented by the bee class).
+    fn as_bee(&self) -> Option<&dyn crate::world::entity::animal::bee_access::BeeAccess> {
+        None
+    }
     /// `this instanceof ShoulderRidingEntity` (parrots).
     fn as_shoulder_riding(
         &self,

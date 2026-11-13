@@ -4,6 +4,8 @@ pub mod armadillo;
 
 pub mod axolotl;
 
+pub mod bee;
+
 pub mod cow;
 
 pub mod dolphin;

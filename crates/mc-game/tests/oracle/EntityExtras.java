@@ -5,6 +5,7 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OminousItemSpawner;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
+import net.minecraft.world.entity.animal.bee.Bee;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.monster.illager.Pillager;
@@ -91,6 +92,28 @@ final class EntityExtras {
          AreaEffectCloud c = (AreaEffectCloud)e;
          out.add("radius", EntityOracleDriver.f(c.getRadius())).add("waiting", EntityOracleDriver.bool(c.isWaiting()));
          out.add("duration", c.getDuration()).add("age", c.tickCount);
+      }));
+      ALL.add(new Extra(30, Bee.class, (d, e, out) -> {
+         Bee b = (Bee)e;
+         @SuppressWarnings("unchecked")
+         var flags = (net.minecraft.network.syncher.EntityDataAccessor<Byte>)EntityOracleDriver.priv(null, Bee.class, "DATA_FLAGS_ID");
+         out.add("flags", e.getEntityData().get(flags));
+         out.add("hive", b.getHivePos() == null ? "-" : EntityOracleDriver.pos(b.getHivePos()));
+         out.add("flower", b.getSavedFlowerPos() == null ? "-" : EntityOracleDriver.pos(b.getSavedFlowerPos()));
+         out.add("hivecd", EntityOracleDriver.priv(e, Bee.class, "remainingCooldownBeforeLocatingNewHive"));
+         out.add("flowercd", EntityOracleDriver.priv(e, Bee.class, "remainingCooldownBeforeLocatingNewFlower"));
+         out.add("nonectar", EntityOracleDriver.priv(e, Bee.class, "ticksWithoutNectarSinceExitingHive"));
+         out.add("stayout", EntityOracleDriver.priv(e, Bee.class, "stayOutOfHiveCountdown"));
+         out.add("crops", EntityOracleDriver.priv(e, Bee.class, "numCropsGrownSincePollination"));
+         out.add("sting", EntityOracleDriver.priv(e, Bee.class, "timeSinceSting"));
+         out.add("wet", EntityOracleDriver.priv(e, Bee.class, "underWaterTicks"));
+         out.add("roll", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Bee.class, "rollAmount")));
+         out.add("poll", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(EntityOracleDriver.priv(e, Bee.class, "beePollinateGoal"), "pollinating")));
+         var black = b.getBlacklistedHives();
+         out.add("black", black.isEmpty() ? "-" : black.stream().map(EntityOracleDriver::pos).collect(java.util.stream.Collectors.joining(";")));
+         var target = b.getPersistentAngerTarget();
+         out.add("angerend", b.getPersistentAngerEndTime());
+         out.add("angerat", d.uuidName(target == null ? null : target.getUUID()));
       }));
       ALL.add(new Extra(30, EvokerFangs.class, (d, e, out) -> {
          var owner = (net.minecraft.world.entity.EntityReference<?>)EntityOracleDriver.priv(e, "owner");

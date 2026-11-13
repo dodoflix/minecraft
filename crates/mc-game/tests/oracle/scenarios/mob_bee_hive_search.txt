@@ -1,0 +1,104 @@
+# Bee with nectar and no hive: BeeLocateHiveGoal over the POI manager (bee_home within 20, sorted by distance, with space), a caged hive that cannot be reached is blacklisted and dropped, the 200 tick cooldown, then the next hive.
+level flat
+preload 3
+difficulty normal
+gamerule spawn_mobs false
+entity_counter 40
+spawn_player Steve creative 20.5 -60 20.5 0 0
+fill 3 -61 -1 5 -59 1 minecraft:stone
+block 4 -60 0 minecraft:beehive[facing=south,honey_level=0]
+block 8 -60 6 minecraft:bee_nest[facing=south,honey_level=0]
+block -9 -60 4 minecraft:beehive[facing=south,honey_level=0]
+block 12 -60 -6 minecraft:beehive[facing=south,honey_level=0]
+mobspawn B minecraft:bee 0.5 -59 0.5 0 0 {PersistenceRequired:1b,HasNectar:1b}
+entity_seed B 4242
+dump mob:B nbt:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+dump mob:B events

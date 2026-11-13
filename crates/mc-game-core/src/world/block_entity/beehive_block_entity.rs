@@ -8,7 +8,9 @@ use super::{
 };
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
+use crate::world::entity::entity;
 use crate::world::entity::factory::{self, EntitySpawnRequest};
+use crate::world::entity::mob::leashable;
 use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor;
 use crate::world::level::block::BlockStateExt;
@@ -21,7 +23,7 @@ use mc_data::enums::EntitySpawnReason;
 use mc_data::{BlockEntityType, EntityType, GameEvent, SoundEvent, props};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::map::DataComponentMapBuilder;
-use mc_protocol::components::{BeeOccupant, Bees, block_pos_codec};
+use mc_protocol::components::{BeeOccupant, Bees, TypedEntityData, block_pos_codec};
 use mc_protocol::packets::play::SoundSource;
 
 /// `IGNORED_BEE_TAGS`: removed from a bee's saved data when it enters the hive and again when it is released.
@@ -160,6 +162,51 @@ impl BeehiveBlockEntity {
         self.stored.push(BeeData::new(occupant));
     }
 
+    /// `addOccupant(bee)`: the bee (an entity that is out of the level while it acts) is stored and leaves the level.
+    pub fn add_occupant(&mut self, level: &mut ServerLevel, bee: &mut dyn Entity) {
+        if self.stored.len() >= MAX_OCCUPANTS {
+            return;
+        }
+        level.stop_riding(bee);
+        level.eject_passengers(bee);
+        leashable::drop_leash(bee, level);
+        let mut tag = entity::save(&*bee, &|id| level.get_entity(id)).unwrap_or_default();
+        for ignored in IGNORED_BEE_TAGS {
+            tag.remove(ignored);
+        }
+        let has_nectar = tag.get_boolean_or("HasNectar", false);
+        self.store_bee(BeeOccupant {
+            entity_data: TypedEntityData::of(bee.get_type(), tag),
+            ticks_in_hive: 0,
+            min_ticks_in_hive: if has_nectar { 2400 } else { 600 },
+        });
+        if let Some(flower_pos) = bee.as_bee().and_then(|b| b.get_saved_flower_pos())
+            && (self.saved_flower_pos.is_none() || level.random().next_boolean())
+        {
+            self.saved_flower_pos = Some(flower_pos);
+        }
+        let pos = self.get_block_pos();
+        let state = self.get_block_state();
+        level.play_sound_at(
+            None,
+            f64::from(pos.x()),
+            f64::from(pos.y()),
+            f64::from(pos.z()),
+            SoundEvent::BLOCK_BEEHIVE_ENTER,
+            SoundSource::Blocks,
+            1.0,
+            1.0,
+        );
+        level.game_event_from_entity_ref_in_state(
+            &*bee,
+            Some(state),
+            GameEvent::BLOCK_CHANGE,
+            mc_core::phys::Vec3::at_center_of(&pos),
+        );
+        bee.discard_in_level(level);
+        set_changed(level, pos, state);
+    }
+
     /// `getBees()`: the occupants as saved (`ticks_in_hive` current).
     pub fn get_bees(&self) -> Vec<BeeOccupant> {
         self.stored.iter().map(BeeData::to_occupant).collect()
@@ -175,7 +222,7 @@ impl BeehiveBlockEntity {
 
     /// `emptyAllLivingFromHive(player, state, releaseReason)`: every occupant that may leave does. Not implemented: the
     /// `player` argument and the reactions of the released bees within 4 blocks of it (`Bee.setTarget(player)`, or
-    /// `setStayOutOfHiveCountdown(400)` when [`Self::is_sedated`]), which need the `Bee` entity.
+    /// `setStayOutOfHiveCountdown(400)` when [`Self::is_sedated`]).
     pub fn empty_all_living_from_hive(
         &mut self,
         level: &mut ServerLevel,
@@ -242,8 +289,8 @@ fn create_entity(level: &ServerLevel, occupant: &BeeOccupant) -> Option<Box<dyn 
     Some(entity)
 }
 
-/// `BeehiveBlockEntity.releaseOccupant`: whether the occupant left the hive. The `Bee`-only follow-up (flower position,
-/// honey delivery, spawn offset) is absent because no `Bee` entity exists.
+/// `BeehiveBlockEntity.releaseOccupant`: whether the occupant left the hive. Not implemented: the `Bee`-only part (hive position,
+/// saved flower position, honey delivery, spawn offset, age and love time passed in the hive).
 fn release_occupant(
     level: &mut ServerLevel,
     pos: BlockPos,

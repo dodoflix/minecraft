@@ -1,0 +1,91 @@
+# Bee anger: hurt by a player (BeeHurtByOtherGoal alerts the other bee with line of sight, persistent anger timer), roll, melee sting, poison on normal, HasStung ends the anger.
+level flat
+difficulty normal
+entity_counter 40
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn B1 minecraft:bee 3.5 -59 0.5 0 0 {PersistenceRequired:1b}
+mobspawn B2 minecraft:bee 5.5 -59 2.5 0 0 {PersistenceRequired:1b}
+entity_seed B1 11
+entity_seed B2 22
+tick 3
+hurt B1 minecraft:player_attack 1 by=Steve
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+tick 2
+dump mob:B1 mob:B2 player:Steve
+dump nbt:B1 nbt:B2

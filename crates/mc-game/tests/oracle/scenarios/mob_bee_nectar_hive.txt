@@ -1,0 +1,36 @@
+# Bee carrying nectar to its saved hive: GoToHive, EnterHive (addOccupant), the bee leaves the level and the hive stores it (block replay: the hive ticks its occupants).
+level flat
+preload 3
+difficulty normal
+gamerule spawn_mobs false
+entity_counter 40
+spawn_player Steve creative 20.5 -60 20.5 0 0
+block 10 -60 0 minecraft:beehive[facing=south,honey_level=0]
+mobspawn B minecraft:bee 0.5 -59 0.5 0 0 {PersistenceRequired:1b,HasNectar:1b,hive_pos:[I;10,-60,0],flower_pos:[I;3,-60,3]}
+entity_seed B 777
+dump mob:B nbt:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+tick 10
+dump mob:B
+dump events be:10,-60,0 blocks:10,-60,0,10,-60,0

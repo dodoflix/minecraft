@@ -19,10 +19,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "Allay: item fetching flyer, brain, duplication",
     ),
     (
-        "minecraft:bee",
-        "Bee: hive, pollination, anger and sting behaviours",
-    ),
-    (
         "minecraft:camel",
         "Camel: dash and sit state, rider controls, saddle menu",
     ),

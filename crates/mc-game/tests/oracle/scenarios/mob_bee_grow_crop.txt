@@ -1,0 +1,72 @@
+# Bee with nectar flying to its hive over crops: BeeGrowCropGoal (wheat, sweet berry bush, melon stem), level event 2011, crops grown since pollination.
+level flat
+preload 3
+difficulty normal
+gamerule random_tick_speed 0
+gamerule spawn_mobs false
+entity_counter 40
+spawn_player Steve creative 20.5 -60 30.5 0 0
+block 18 -60 8 minecraft:beehive[facing=west,honey_level=0]
+block 18 -60 10 minecraft:beehive[facing=west,honey_level=0]
+block 18 -60 12 minecraft:beehive[facing=west,honey_level=0]
+fill -2 -61 8 14 -61 8 minecraft:farmland[moisture=7]
+fill -2 -60 8 14 -60 8 minecraft:wheat[age=0]
+fill -2 -60 10 14 -60 10 minecraft:sweet_berry_bush[age=0]
+fill -2 -61 12 14 -61 12 minecraft:farmland[moisture=7]
+fill -2 -60 12 14 -60 12 minecraft:melon_stem[age=0]
+mobspawn B0 minecraft:bee -3.5 -59 8.5 -90 0 {PersistenceRequired:1b,HasNectar:1b,hive_pos:[I;18,-60,8]}
+entity_seed B0 100
+mobspawn B1 minecraft:bee -3.5 -59 10.5 -90 0 {PersistenceRequired:1b,HasNectar:1b,hive_pos:[I;18,-60,10]}
+entity_seed B1 101
+mobspawn B2 minecraft:bee -3.5 -59 12.5 -90 0 {PersistenceRequired:1b,HasNectar:1b,hive_pos:[I;18,-60,12]}
+entity_seed B2 102
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+tick 10
+dump mob:B0 mob:B1 mob:B2
+dump blocks:-2,-60,8,14,-60,12 events
