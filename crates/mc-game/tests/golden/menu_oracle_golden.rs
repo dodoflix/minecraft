@@ -25,3 +25,11 @@ fn loom_menu_script_matches_vanilla() {
     let ops = replay("menu_oracle", "loom");
     assert!(ops > 1000, "fixture has {ops} ops");
 }
+
+/// The cartography table: slot rules, scale/lock/copy results, taking them (crafted maps, the sound guard), every click kind on the
+/// result and two seeded random sessions.
+#[test]
+fn cartography_menu_script_matches_vanilla() {
+    let ops = replay("menu_oracle", "cartography");
+    assert!(ops > 300, "fixture has {ops} ops");
+}

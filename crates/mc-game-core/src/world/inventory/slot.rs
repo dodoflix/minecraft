@@ -246,7 +246,8 @@ pub trait SlotBehavior {
     fn remove(&self, slot: &Slot, env: &mut SlotEnv, amount: i32) -> ItemStack {
         slot.base_remove(env, amount)
     }
-    fn on_take(&self, slot: &Slot, env: &mut SlotEnv, _carried: &ItemStack) {
+    /// `onTake(player, carried)`: `carried` is the taken stack itself, so `onCraftedBy` rewrites it in place.
+    fn on_take(&self, slot: &Slot, env: &mut SlotEnv, _carried: &mut ItemStack) {
         slot.set_changed(env);
     }
     fn set_by_player(
@@ -374,8 +375,8 @@ impl Slot {
 
     pub fn safe_take(&self, env: &mut SlotEnv, amount: i32, max_amount: i32) -> ItemStack {
         match self.try_remove(env, amount, max_amount) {
-            Some(item) => {
-                self.on_take(env, &item);
+            Some(mut item) => {
+                self.on_take(env, &mut item);
                 item
             }
             None => ItemStack::empty(),
@@ -437,7 +438,7 @@ impl Slot {
     pub fn remove(&self, env: &mut SlotEnv, amount: i32) -> ItemStack {
         self.behavior.remove(self, env, amount)
     }
-    pub fn on_take(&self, env: &mut SlotEnv, carried: &ItemStack) {
+    pub fn on_take(&self, env: &mut SlotEnv, carried: &mut ItemStack) {
         self.behavior.on_take(self, env, carried)
     }
     pub fn set_by_player_with(&self, env: &mut SlotEnv, stack: ItemStack, previous: &ItemStack) {

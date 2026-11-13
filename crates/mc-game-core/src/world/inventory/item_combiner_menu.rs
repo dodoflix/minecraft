@@ -118,7 +118,7 @@ impl ItemCombinerMenuSlotDefinitionBuilder {
 /// `ItemCombinerMenu.resultSlots`: a `ResultContainer` whose `setChanged()` calls `slotsChanged(this)` (only an explicit
 /// `setChanged`, `setItem` does not notify).
 #[derive(Default)]
-struct CombinerResultContainer {
+pub(super) struct CombinerResultContainer {
     item: ItemStack,
     pending: u32,
 }

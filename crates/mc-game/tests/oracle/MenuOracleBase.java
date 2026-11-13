@@ -47,7 +47,7 @@ import net.minecraft.world.phys.AABB;
  * Script lines (stacks are `name[xCOUNT][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id][,b=pattern@color;..]`;
  * the printed ops carry the stack as `ItemStack.CODEC` SNBT, `-` = empty); `#` lines are copied:
  *   OPEN kind [xp [seed [creative [pseed [lseed [shelves [blockers]]]]]]]
- *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | chest): resets the world around TABLE,
+ *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | chest | cartography): resets the world around TABLE,
  *        places the kind's block and opens the menu it provides. xp = experience level, seed = enchantment seed, creative 0|1,
  *        pseed/lseed = seeds of the player's and the level's random, shelves/blockers = bookshelves/obstructions of an enchanting table.
  *        Gravity blocks (anvils) fall when ticked: no support block is placed.
@@ -67,7 +67,7 @@ import net.minecraft.world.phys.AABB;
  *   OUT S i=stack ..   menu slots (non-empty)   OUT D d0 d1 ..  data slots   OUT C carried   OUT I i=stack  player inventory
  *   OUT X level seed totalXp progressBits   OUT B state of the block at TABLE   OUT ORBS n  experience of the orbs near TABLE
  *   OUT DROPS id=n,..  dropped item entities (only when there are some)   OUT K ids  recipes the player knows (after a RECIPE op)
- *   OUT M id=cx,cz,scale,locked,colorHash ..  maps made by MAP (only when any)   OUT R b  result of BUTTON / NAME
+ *   OUT M id=cx,cz,scale,locked,colorHash ..  every map of the level, ids 0..63 (only when any)   OUT R b  result of BUTTON / NAME
  *   OUT PKT ...  container packets sent since the last op   OUT EV ...  broadcasts (EVENTS on)
  */
 public class MenuOracleBase {
@@ -84,7 +84,8 @@ public class MenuOracleBase {
    /** Set by the first RECIPE op: the real player also unlocks recipes by itself (inventory changes), which is only compared once scripts look at recipes. */
    static boolean recipes;
    static final List<BlockPos> placed = new ArrayList<>();
-   static final Map<Integer, MapItemSavedData> maps = new TreeMap<>();
+   /** The map ids 0..MAP_PROBE the M line looks at: the ones made by MAP and the ones crafted (cartography table). */
+   static final int MAP_PROBE = 64;
 
    /** What a kind adds around TABLE besides its block (shelves/blockers of an enchanting table). */
    interface Setup {
@@ -113,6 +114,7 @@ public class MenuOracleBase {
       KINDS.put("grindstone", new Kind(Blocks.GRINDSTONE, NO_SETUP));
       KINDS.put("loom", new Kind(Blocks.LOOM, NO_SETUP));
       KINDS.put("chest", new Kind(Blocks.CHEST, NO_SETUP));
+      KINDS.put("cartography", new Kind(Blocks.CARTOGRAPHY_TABLE, NO_SETUP));
    }
 
    static String st(ItemStack s) {
@@ -247,8 +249,11 @@ public class MenuOracleBase {
          stateUnlessEmpty("K", "K" + known.stream().map(k -> " " + k).reduce("", String::concat), "K");
       }
       StringBuilder m = new StringBuilder("M");
-      maps.forEach((id, data) -> m.append(' ').append(id).append('=').append(data.centerX).append(',').append(data.centerZ).append(',').append(data.scale)
-         .append(',').append(data.locked ? 1 : 0).append(',').append(Arrays.hashCode(data.colors)));
+      for (int id = 0; id < MAP_PROBE; id++) {
+         MapItemSavedData data = level.getMapData(new MapId(id));
+         if (data != null) m.append(' ').append(id).append('=').append(data.centerX).append(',').append(data.centerZ).append(',').append(data.scale)
+            .append(',').append(data.locked ? 1 : 0).append(',').append(Arrays.hashCode(data.colors));
+      }
       stateUnlessEmpty("M", m.toString(), "M");
       if (events) for (String e : VanillaLevel.EVENTS) out(e);
       VanillaLevel.EVENTS.clear();
@@ -396,7 +401,6 @@ public class MenuOracleBase {
       MapItemSavedData data = MapItemSavedData.createFresh(x, z, (byte) scale, false, false, level.dimension());
       if (locked) data = data.locked();
       level.setMapData(new MapId(id), data);
-      maps.put(id, data);
       dump();
    }
 

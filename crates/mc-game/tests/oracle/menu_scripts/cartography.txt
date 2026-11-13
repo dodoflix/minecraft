@@ -1,0 +1,242 @@
+# The cartography table: what the three slots accept, the result for paper (scale), glass pane (lock) and an empty map (copy), what
+# taking it does (the crafted map, the sound once per tick), shift-clicks, the other click kinds on the result and what closing returns.
+# Maps 50.. are made by MAP; the maps the table crafts take the free ids from 0.
+MAP 50 100 100 0 0
+MAP 51 -300 40 3 0
+MAP 52 0 0 4 0
+MAP 53 64 -64 2 1
+EVENTS on
+# what the slots accept
+OPEN cartography 0 0 0 1 1
+GIVE 0 filled_map,m=50
+GIVE 1 paperx5
+GIVE 2 glass_panex3
+GIVE 3 mapx4
+GIVE 4 dirtx7
+GIVE 5 stick,m=50
+GIVE 6 filled_map,m=99
+CLICK 30 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 30 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 2 1 PICKUP
+CLOSE
+# paper extends a map: scale 0 -> 1, the result is taken with the cursor and the inputs shrink
+OPEN cartography 0 0 0 1 1
+GIVE 0 filled_map,m=50
+GIVE 1 paperx3
+CLICK 30 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 36 0 PICKUP
+TICK 1
+# the extended map extends again until scale 4, then paper does nothing
+CLICK 36 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+CLOSE
+# scale 3 extends to 4 once; a scale 4 map and a locked map do not extend; a map the level does not know changes nothing
+OPEN cartography 0 0 0 1 1
+SET 0 filled_map,m=51
+SET 1 paperx2
+CLICK 2 0 QUICK_MOVE
+SET 0 filled_map,m=52
+SET 1 paperx2
+SET 0 filled_map,m=53
+SET 1 paperx2
+SET 0 filled_map,m=50
+SET 1 paperx2
+SET 0 filled_map,m=99
+SET 0 stick,m=50
+SET 0 -
+SET 1 -
+CLOSE
+# a glass pane locks: the taken result is a new locked map, a locked map cannot be locked again
+OPEN cartography 0 0 0 1 1
+GIVE 0 filled_map,m=50
+GIVE 1 glass_panex2
+CLICK 30 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 2 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 30 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLOSE
+# an empty map copies: two maps with the same id, one map and one empty map are used up
+OPEN cartography 0 0 0 1 1
+GIVE 0 filled_map,m=51
+GIVE 1 mapx3
+GIVE 2 filled_map,m=53
+CLICK 30 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 2 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 32 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLOSE
+# shift-click the result with a stack of inputs: one craft per click, a new map each, the sound once per tick
+OPEN cartography 0 0 0 1 1
+SET 0 filled_mapx3,m=50
+SET 1 paperx3
+CLICK 2 0 QUICK_MOVE
+TICK 1
+CLICK 2 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLOSE
+# the result with a full inventory stays and keeps the crafted map
+OPEN cartography 0 0 0 1 1
+GIVE 0 stonex64
+GIVE 1 stonex64
+GIVE 2 stonex64
+GIVE 3 stonex64
+GIVE 4 stonex64
+GIVE 5 stonex64
+GIVE 6 stonex64
+GIVE 7 stonex64
+GIVE 8 stonex64
+GIVE 9 dirtx64
+GIVE 10 dirtx64
+GIVE 11 dirtx64
+GIVE 12 dirtx64
+GIVE 13 dirtx64
+GIVE 14 dirtx64
+GIVE 15 dirtx64
+GIVE 16 dirtx64
+GIVE 17 dirtx64
+GIVE 18 dirtx64
+GIVE 19 dirtx64
+GIVE 20 dirtx64
+GIVE 21 dirtx64
+GIVE 22 dirtx64
+GIVE 23 dirtx64
+GIVE 24 dirtx64
+GIVE 25 dirtx64
+GIVE 26 dirtx64
+GIVE 27 dirtx64
+GIVE 28 dirtx64
+GIVE 29 dirtx64
+GIVE 30 dirtx64
+GIVE 31 dirtx64
+GIVE 32 dirtx64
+GIVE 33 dirtx64
+GIVE 34 dirtx64
+GIVE 35 filled_map,m=50
+SET 0 filled_map,m=50
+SET 1 glass_pane
+CLICK 2 0 QUICK_MOVE
+CLICK 2 0 PICKUP
+CLICK 2 0 THROW
+CLOSE
+# shift-click from the inventory: maps, paper, glass panes, empty maps and anything else
+OPEN cartography 0 0 0 1 1
+GIVE 0 filled_map,m=50
+GIVE 1 paperx9
+GIVE 2 glass_panex9
+GIVE 3 mapx9
+GIVE 4 dirtx9
+GIVE 9 filled_map,m=51
+GIVE 10 stick
+GIVE 11 paperx2
+CLICK 30 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 32 0 QUICK_MOVE
+CLICK 33 0 QUICK_MOVE
+CLICK 34 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+CLICK 5 0 QUICK_MOVE
+CLICK 35 0 QUICK_MOVE
+CLICK 36 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLOSE
+# the other click kinds on the result: swap into the hotbar, throw, creative clone, double click, drags
+OPEN cartography 0 0 0 1 1
+SET 0 filled_mapx2,m=50
+SET 1 glass_panex2
+GIVE 4 stick
+CLICK 2 0 SWAP
+CLICK 2 4 SWAP
+CLICK 2 8 SWAP
+CLICK 2 40 SWAP
+SET 1 paperx2
+CLICK 2 0 THROW
+CLICK 2 1 THROW
+CLICK 2 0 CLONE
+SET 0 filled_mapx2,m=51
+SET 1 mapx2
+CLICK 2 0 PICKUP_ALL
+CLICK 30 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 2 1 PICKUP
+CLICK 2 0 PICKUP_ALL
+DRAG 0 2 3 4
+CLOSE
+OPEN cartography 0 0 1 1 1
+SET 0 filled_map,m=50
+SET 1 paper
+CLICK 2 0 CLONE
+CLICK 2 0 CLONE
+SET 1 glass_pane
+CLICK 2 0 CLONE
+CLICK 3 0 PICKUP
+CLICK 2 0 PICKUP
+DRAG 2 3 4 5
+CLOSE
+# closing returns the inputs and drops the cursor; the result is gone
+OPEN cartography 0 0 0 1 1
+SET 0 filled_map,m=50
+SET 1 paperx2
+GIVE 0 stonex64
+CLICK 30 0 PICKUP
+CLOSE
+# the table is gone: the menu closes on the next tick and returns the inputs
+OPEN cartography 0 0 0 1 1
+SET 0 filled_map,m=51
+SET 1 mapx2
+BLOCK 0 70 0 minecraft:air
+TICK 1
+# random sessions
+GEN cartography 21 90 filled_map,m=50|filled_map,m=51|filled_map,m=52|filled_map,m=53|filled_map,m=99|paperx4|paperx64|glass_panex3|mapx2|map|dirtx3|stick,m=50|-
+GEN cartography 22 90 filled_mapx3,m=50|filled_map,m=51|paper|paperx64|glass_pane|glass_panex64|mapx64|stick,m=51|-

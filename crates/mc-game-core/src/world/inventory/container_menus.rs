@@ -56,7 +56,7 @@ fn quick_move_container(
             return ItemStack::empty();
         }
         menu.base_mut()
-            .with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
+            .with_slot(player, slot_index, |s, e| s.on_take(e, &mut stack));
     }
     menu.flush_container_events(player);
     clicked

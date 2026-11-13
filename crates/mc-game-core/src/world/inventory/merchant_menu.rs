@@ -195,7 +195,7 @@ impl SlotBehavior for MerchantResultSlot {
         .unwrap_or(false)
     }
 
-    fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, carried: &ItemStack) {
+    fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, carried: &mut ItemStack) {
         self.check_take_achievements(env, carried);
         let container = trade_container(env.locals);
         let Some(index) = container.active_offer else {
@@ -616,7 +616,7 @@ impl AbstractContainerMenu for MerchantMenu {
             return ItemStack::empty();
         }
         self.base
-            .with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
+            .with_slot(player, slot_index, |s, e| s.on_take(e, &mut stack));
         self.flush_container_events(player);
         clicked
     }

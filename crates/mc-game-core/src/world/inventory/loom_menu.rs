@@ -85,7 +85,7 @@ impl SlotBehavior for LoomResultSlot {
         false
     }
 
-    fn on_take(&self, slot: &Slot, env: &mut SlotEnv, _carried: &ItemStack) {
+    fn on_take(&self, slot: &Slot, env: &mut SlotEnv, _carried: &mut ItemStack) {
         env.locals[INPUT_LOCAL].remove_item(BANNER_SLOT, 1);
         env.locals[INPUT_LOCAL].remove_item(DYE_SLOT, 1);
         if env.locals[INPUT_LOCAL].get_item(BANNER_SLOT).is_empty()

@@ -56,6 +56,9 @@ use std::time::{Duration, Instant};
 
 pub const TABLE: BlockPos = BlockPos::new(0, 70, 0);
 
+/// The map ids `0..MAP_PROBE` the `M` line looks at (twin of `MenuOracleBase.MAP_PROBE`).
+const MAP_PROBE: i32 = 64;
+
 /// A menu the oracle can open: the block at [`TABLE`] provides it.
 pub struct MenuKind {
     /// The kind name of the `OPEN` op.
@@ -118,6 +121,11 @@ pub const MENU_KINDS: &[MenuKind] = &[
     MenuKind {
         name: "chest",
         block: Block::CHEST,
+        setup: no_setup,
+    },
+    MenuKind {
+        name: "cartography",
+        block: Block::CARTOGRAPHY_TABLE,
         setup: no_setup,
     },
 ];
@@ -324,7 +332,6 @@ pub struct Session {
     events: bool,
     /// Set by the first `RECIPE` op (see `MenuOracleBase.recipes`).
     recipes: bool,
-    maps: BTreeSet<i32>,
     log: Arc<Mutex<Vec<BroadcastRecord>>>,
 }
 
@@ -409,7 +416,6 @@ impl Session {
             ticks: 0,
             events: false,
             recipes: false,
-            maps: BTreeSet::new(),
             log,
         }
     }
@@ -558,7 +564,6 @@ impl Session {
             data = data.locked();
         }
         level.set_map_data(MapId(id), data);
-        self.maps.insert(id);
     }
 
     fn state(&mut self, out: &mut Vec<String>, key: &'static str, line: String) {
@@ -652,7 +657,7 @@ impl Session {
             self.state_unless_empty(&mut out, "K", format!("K{known}"), "K");
         }
         let mut maps = String::from("M");
-        for &id in &self.maps {
+        for id in 0..MAP_PROBE {
             self.player.level.read_map_data(MapId(id), |d| {
                 let hash = d.colors.iter().fold(1i32, |h, &c| {
                     h.wrapping_mul(31).wrapping_add(i32::from(c as i8))

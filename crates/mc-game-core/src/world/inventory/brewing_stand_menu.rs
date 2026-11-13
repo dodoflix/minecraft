@@ -67,7 +67,7 @@ impl SlotBehavior for PotionSlot {
         1
     }
 
-    fn on_take(&self, slot: &Slot, env: &mut SlotEnv, carried: &ItemStack) {
+    fn on_take(&self, slot: &Slot, env: &mut SlotEnv, carried: &mut ItemStack) {
         if let Some(potion_contents) = carried.get(&POTION_CONTENTS).cloned() {
             env.player.with_server_player(&mut |level, p| {
                 crate::advancements::triggers::CriteriaTriggers::BREWED_POTION.trigger(
@@ -264,7 +264,7 @@ impl AbstractContainerMenu for BrewingStandMenu {
             return ItemStack::empty();
         }
         self.base
-            .with_slot(player, slot_index, |s, e| s.on_take(e, &clicked));
+            .with_slot(player, slot_index, |s, e| s.on_take(e, &mut clicked));
         self.flush_container_events(player);
         clicked
     }

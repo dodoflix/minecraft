@@ -245,14 +245,10 @@ impl ResultSlot {
         }
     }
 
-    fn check_take_achievements(&self, slot: &Slot, env: &mut SlotEnv, carried: &ItemStack) {
+    fn check_take_achievements(&self, slot: &Slot, env: &mut SlotEnv, carried: &mut ItemStack) {
         let count = self.remove_count.get();
         if count > 0 {
-            // Not implemented: `Item.onCraftedBy` edits of the taken stack itself (`MapItem` post-processing of a
-            // crafted map): `SlotBehavior::on_take` only borrows it, so the post-processed copy is dropped. No vanilla
-            // recipe of the 2x2 grid produces such a stack.
-            let mut crafted = carried.clone();
-            on_crafted_by(&mut crafted, &mut *env.player, count);
+            on_crafted_by(carried, &mut *env.player, count);
         }
         let items = env.locals[self.craft_slots]
             .as_any()
@@ -284,7 +280,8 @@ impl SlotBehavior for ResultSlot {
     }
     fn on_quick_craft(&self, slot: &Slot, env: &mut SlotEnv, picked: &ItemStack, count: i32) {
         self.remove_count.set(self.remove_count.get() + count);
-        self.check_take_achievements(slot, env, picked);
+        // `picked` is the `clicked` copy of the quick move, which the caller only compares by item afterwards: a clone is equivalent.
+        self.check_take_achievements(slot, env, &mut picked.clone());
     }
     fn on_swap_craft(&self, _slot: &Slot, count: i32) {
         self.remove_count.set(self.remove_count.get() + count);
@@ -294,7 +291,7 @@ impl SlotBehavior for ResultSlot {
         behaviour(result.item()).on_crafted_by(&mut result, &mut *env.player);
         result
     }
-    fn on_take(&self, slot: &Slot, env: &mut SlotEnv, carried: &ItemStack) {
+    fn on_take(&self, slot: &Slot, env: &mut SlotEnv, carried: &mut ItemStack) {
         self.check_take_achievements(slot, env, carried);
         let (positioned, craft_width) = {
             let craft = env.locals[self.craft_slots]

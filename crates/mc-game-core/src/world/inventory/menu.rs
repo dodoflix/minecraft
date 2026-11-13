@@ -1077,7 +1077,7 @@ pub trait AbstractContainerMenu: Any {
                         carried = taken;
                         self.base_mut().set_carried(carried.clone());
                         self.base_mut()
-                            .with_slot(player, idx, |s, e| s.on_take(e, &carried));
+                            .with_slot(player, idx, |s, e| s.on_take(e, &mut carried));
                     }
                 } else if self
                     .base_mut()
@@ -1108,11 +1108,11 @@ pub trait AbstractContainerMenu: Any {
                     let taken = self.base_mut().with_slot(player, idx, |s, e| {
                         s.try_remove(e, clicked.count(), max_amount)
                     });
-                    if let Some(taken) = taken {
+                    if let Some(mut taken) = taken {
                         carried.grow(taken.count());
                         self.base_mut().set_carried(carried.clone());
                         self.base_mut()
-                            .with_slot(player, idx, |s, e| s.on_take(e, &taken));
+                            .with_slot(player, idx, |s, e| s.on_take(e, &mut taken));
                     }
                 }
             }
@@ -1126,7 +1126,7 @@ pub trait AbstractContainerMenu: Any {
     /// SWAP with hotbar slot `button` (0..9) or the offhand (40).
     fn click_swap(&mut self, idx: usize, button: usize, player: &mut dyn MenuPlayer) {
         let source = player.inventory().get_item(button).clone();
-        let target_stack = self.base_mut().with_slot(player, idx, |s, e| s.get_item(e));
+        let mut target_stack = self.base_mut().with_slot(player, idx, |s, e| s.get_item(e));
         if !source.is_empty() || !target_stack.is_empty() {
             if source.is_empty() {
                 if self
@@ -1139,8 +1139,12 @@ pub trait AbstractContainerMenu: Any {
                     self.base_mut().with_slot(player, idx, |s, e| {
                         s.on_swap_craft(target_stack.count());
                         s.set_by_player(e, ItemStack::empty());
-                        s.on_take(e, &target_stack);
+                        s.on_take(e, &mut target_stack);
                     });
+                    // the hotbar holds the very stack `onTake` may rewrite (map post-processing)
+                    if let Some(held) = player.inventory_mut().get_item_mut(button) {
+                        *held = target_stack;
+                    }
                 }
             } else if target_stack.is_empty() {
                 if self
@@ -1176,10 +1180,9 @@ pub trait AbstractContainerMenu: Any {
                         .get_item_mut(button)
                         .map(|s| s.split(max))
                         .unwrap_or_default();
-                    let mut target_stack = target_stack;
                     self.base_mut().with_slot(player, idx, |s, e| {
                         s.set_by_player(e, part);
-                        s.on_take(e, &target_stack);
+                        s.on_take(e, &mut target_stack);
                     });
                     self.flush_container_events(player);
                     let infinite = player.has_infinite_materials();
@@ -1192,8 +1195,11 @@ pub trait AbstractContainerMenu: Any {
                         .set_item(button, target_stack.clone());
                     self.base_mut().with_slot(player, idx, |s, e| {
                         s.set_by_player(e, source);
-                        s.on_take(e, &target_stack);
+                        s.on_take(e, &mut target_stack);
                     });
+                    if let Some(held) = player.inventory_mut().get_item_mut(button) {
+                        *held = target_stack;
+                    }
                 }
             }
         }

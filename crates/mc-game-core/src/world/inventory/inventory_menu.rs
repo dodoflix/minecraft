@@ -257,7 +257,7 @@ impl AbstractContainerMenu for InventoryMenu {
                 return ItemStack::empty();
             }
             self.base
-                .with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
+                .with_slot(player, slot_index, |s, e| s.on_take(e, &mut stack));
             self.flush_container_events(player);
             if slot_index == 0 {
                 player.drop(stack, false, Prediction::Predicted);

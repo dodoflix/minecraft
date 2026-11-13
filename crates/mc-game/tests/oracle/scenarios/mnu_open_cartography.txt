@@ -1,0 +1,49 @@
+# The cartography table through the player's listener: using it opens the menu (screen packet with the title, the slots and the stat), a
+# spectator opens it too, a held map falls through to the block, and the inputs come back when the menu closes.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+spawn_player S spectator 9.5 -60 7.5 0 0
+spawn_player C creative 6.5 -60 7.5 0 0
+block 3 -60 4 minecraft:cartography_table
+block 6 -60 4 minecraft:cartography_table
+block 9 -60 4 minecraft:cartography_table
+tick 2
+note using the table opens the menu and counts the interaction once
+use_on A 3 -60 4 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data
+close_menu A
+note a held map or paper does not stop the block from opening
+give A hotbar0 minecraft:paper 3
+give A hotbar1 minecraft:glass_pane 2
+give A hotbar2 minecraft:map 2
+use_on A 3 -60 4 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data
+note only paper, glass panes and empty maps go into the second slot, nothing without a map id into the first
+click A 30 0 PICKUP
+click A 1 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 0 0 PICKUP
+click A 30 0 PICKUP
+click A 31 0 QUICK_MOVE
+click A 32 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 1 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu A
+dump menu:A inventory:A packets:A:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a spectator opens the menu and takes nothing
+use_on S 9 -60 4 up main
+dump menu:S packets:S:open_screen,container_set_content,container_set_data
+give S hotbar0 minecraft:paper
+click S 30 0 PICKUP
+click S 1 0 PICKUP
+dump menu:S packets:S:container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu S
+note creative opens it like survival
+use_on C 6 -60 4 up main
+dump menu:C packets:C:open_screen,container_set_content,container_set_data
+close_menu C
+dump stats:A stats:S stats:C

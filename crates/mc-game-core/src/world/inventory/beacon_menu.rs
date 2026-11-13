@@ -311,7 +311,7 @@ impl AbstractContainerMenu for BeaconMenu {
             return ItemStack::empty();
         }
         self.base
-            .with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
+            .with_slot(player, slot_index, |s, e| s.on_take(e, &mut stack));
         self.flush_container_events(player);
         clicked
     }

@@ -1079,10 +1079,6 @@ const ACCEPTED_HOOKS: &[(&str, &str)] = &[
         "minecart detection needs minecart entities",
     ),
     (
-        "getMenuProvider@CartographyTableBlock -> CartographyTableBlock (registered as CartographyTableBlock)",
-        "menus are not implemented yet",
-    ),
-    (
         "getMenuProvider@CraftingTableBlock -> CraftingTableBlock (registered as CraftingTableBlock)",
         "menus are not implemented yet",
     ),

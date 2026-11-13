@@ -82,7 +82,7 @@ pub fn finish_quick_move(
     menu: &mut dyn super::AbstractContainerMenu,
     player: &mut dyn MenuPlayer,
     slot_index: usize,
-    stack: ItemStack,
+    mut stack: ItemStack,
     clicked: &ItemStack,
 ) -> ItemStack {
     if stack.is_empty() {
@@ -100,7 +100,7 @@ pub fn finish_quick_move(
         return ItemStack::empty();
     }
     menu.base_mut()
-        .with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
+        .with_slot(player, slot_index, |s, e| s.on_take(e, &mut stack));
     menu.flush_container_events(player);
     clicked.clone()
 }

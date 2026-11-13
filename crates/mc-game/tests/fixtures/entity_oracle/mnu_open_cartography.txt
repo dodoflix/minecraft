@@ -1,0 +1,73 @@
+# using the table opens the menu and counts the interaction once
+MENU A cid=1 type=minecraft:cartography_table state=1 carried=empty
+STAT A minecraft.custom:minecraft.interact_with_cartography_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+PKT A minecraft:open_screen 3c01170a0800097472616e736c617465001b636f6e7461696e65722e636172746f6772617068795f7461626c6500
+PKT A minecraft:container_set_content 1201012700000000000000000000000000000000000000000000000000000000000000000000000000000000
+# a held map or paper does not stop the block from opening
+MENU A cid=2 type=minecraft:cartography_table state=1 carried=empty
+MS 30 minecraft:paper*3
+MS 31 minecraft:glass_pane*2
+MS 32 minecraft:map*2
+STAT A minecraft.custom:minecraft.interact_with_cartography_table 2
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+PKT A minecraft:open_screen 3c02170a0800097472616e736c617465001b636f6e7461696e65722e636172746f6772617068795f7461626c6500
+PKT A minecraft:container_set_content 1202012700000000000000000000000000000000000000000000000000000000000003f908000002e203000002e60a000000000000000000
+# only paper, glass panes and empty maps go into the second slot, nothing without a map id into the first
+MENU A cid=2 type=minecraft:cartography_table state=3 carried=empty
+MS 1 minecraft:paper*3
+MS 31 minecraft:glass_pane*2
+MS 32 minecraft:map*2
+PKT A minecraft:container_set_slot 140202001e00
+PKT A minecraft:set_cursor_item 6203f9080000
+PKT A minecraft:container_set_slot 140203000103f9080000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=2 type=minecraft:cartography_table state=3 carried=empty
+MS 1 minecraft:paper*3
+MS 31 minecraft:glass_pane*2
+MS 32 minecraft:map*2
+MENU A cid=2 type=minecraft:cartography_table state=5 carried=empty
+MS 3 minecraft:paper*3
+MS 31 minecraft:glass_pane*2
+MS 32 minecraft:map*2
+PKT A minecraft:container_set_slot 140204000100
+PKT A minecraft:container_set_slot 140205000303f9080000
+MENU A cid=0 type=inventory state=1 carried=empty
+MS 9 minecraft:paper*3
+MS 37 minecraft:glass_pane*2
+MS 38 minecraft:map*2
+I A 1 minecraft:glass_pane*2
+I A 2 minecraft:map*2
+I A 9 minecraft:paper*3
+# a spectator opens the menu and takes nothing
+MENU S cid=1 type=minecraft:cartography_table state=1 carried=empty
+PKT S minecraft:open_screen 3c01170a0800097472616e736c617465001b636f6e7461696e65722e636172746f6772617068795f7461626c6500
+PKT S minecraft:container_set_content 1201012700000000000000000000000000000000000000000000000000000000000000000000000000000000
+MENU S cid=1 type=minecraft:cartography_table state=3 carried=empty
+MS 30 minecraft:paper*1
+PKT S minecraft:container_set_content 1201022700000000000000000000000000000000000000000000000000000000000001f9080000000000000000000000
+PKT S minecraft:container_set_content 1201032700000000000000000000000000000000000000000000000000000000000001f9080000000000000000000000
+# creative opens it like survival
+MENU C cid=1 type=minecraft:cartography_table state=1 carried=empty
+PKT C minecraft:open_screen 3c01170a0800097472616e736c617465001b636f6e7461696e65722e636172746f6772617068795f7461626c6500
+PKT C minecraft:container_set_content 1201012700000000000000000000000000000000000000000000000000000000000000000000000000000000
+STAT A minecraft.custom:minecraft.interact_with_cartography_table 2
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT S minecraft.custom:minecraft.play_time 2
+STAT S minecraft.custom:minecraft.time_since_death 2
+STAT S minecraft.custom:minecraft.time_since_rest 2
+STAT S minecraft.custom:minecraft.total_world_time 2
+STAT C minecraft.custom:minecraft.interact_with_cartography_table 1
+STAT C minecraft.custom:minecraft.play_time 2
+STAT C minecraft.custom:minecraft.time_since_death 2
+STAT C minecraft.custom:minecraft.time_since_rest 2
+STAT C minecraft.custom:minecraft.total_world_time 2

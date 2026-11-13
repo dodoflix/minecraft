@@ -68,3 +68,8 @@ fn the_loom_opens_takes_its_result_and_returns_its_inputs() {
 fn button_packets_reach_the_open_menu_only() {
     common::block_scenario::check("mnu_button_verb");
 }
+
+#[test]
+fn the_cartography_table_opens_for_survival_spectator_and_creative_players() {
+    common::block_scenario::check("mnu_open_cartography");
+}

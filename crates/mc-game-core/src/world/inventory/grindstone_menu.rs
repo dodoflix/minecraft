@@ -72,7 +72,7 @@ impl SlotBehavior for GrindstoneResultSlot {
         false
     }
 
-    fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, _carried: &ItemStack) {
+    fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, _carried: &mut ItemStack) {
         if let Some(pos) = self.access.pos() {
             // the amount is computed while the awarded orbs are being created: it reads the inputs and draws from the level's random
             let items = [

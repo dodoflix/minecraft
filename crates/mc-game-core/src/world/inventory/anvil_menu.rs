@@ -104,7 +104,7 @@ impl SlotBehavior for AnvilResultSlot {
         (env.player.has_infinite_materials() || env.player.experience_level() >= cost) && cost > 0
     }
 
-    fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, _carried: &ItemStack) {
+    fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, _carried: &mut ItemStack) {
         let infinite = env.player.has_infinite_materials();
         if !infinite {
             env.player
