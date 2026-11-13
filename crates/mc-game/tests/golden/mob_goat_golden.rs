@@ -5,9 +5,8 @@ use crate::common::block_scenario::check;
 use crate::common::entity_scenario::run_scenario_test;
 
 #[test]
-#[ignore = "deviation: a tempted goat walks slightly slower than vanilla on its first steps (position and delta differ from the first moving tick)"]
 fn mob_goat_breed_tempt_matches_vanilla() {
-    run_scenario_test("mob_goat_breed_tempt");
+    crate::common::block_scenario::check("mob_goat_breed_tempt");
 }
 
 /// Replayed by the block replay: the vanilla level shuffles its ticking chunks with `Level.random` every tick, which the goats' ram

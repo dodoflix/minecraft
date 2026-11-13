@@ -1,0 +1,441 @@
+C Set minecraft:overworld to 1000 tick(s)
+T 1
+RNG Skel 236516445155432
+T 2
+RNG Skel 272829416471472
+T 3
+RNG Skel 109484514279914
+T 4
+RNG Skel 230785669036914
+T 5
+RNG Skel 128989529439356
+E Skel minecraft:skeleton pos=3.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 6
+RNG Skel 259009765209668
+T 7
+RNG Skel 256544040620190
+T 8
+RNG Skel 20179573419174
+T 9
+RNG Skel 135272213557968
+T 10
+RNG Skel 50753822335768
+E Skel minecraft:skeleton pos=3.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 11
+RNG Skel 6751108742034
+T 12
+RNG Skel 18499531269800
+T 13
+RNG Skel 175574674805154
+T 14
+RNG Skel 124881933924848
+T 15
+RNG Skel 157281577224746
+E Skel minecraft:skeleton pos=3.8998127325928027,-60.0,0.5 delta=0.06848504475872795,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=156 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=315.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,0 path=1/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;3:FleeSunGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 16
+RNG Skel 63550790151736
+T 17
+RNG Skel 64321439697842
+T 18
+RNG Skel 2170516874112
+T 19
+RNG Skel 8022407149114
+T 20
+RNG Skel 169809894373832
+E Skel minecraft:skeleton pos=4.57413877639274,-60.0,0.5 delta=0.07484106363887,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=159 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,0 path=2/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;3:FleeSunGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 21
+RNG Skel 4718633167298
+T 22
+RNG Skel 204264962901578
+T 23
+RNG Skel 59590520807188
+T 24
+RNG Skel 13811133934546
+T 25
+RNG Skel 90236340360156
+E Skel minecraft:skeleton pos=5.261785514872722,-60.0,0.5 delta=0.07514948797906194,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=156 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,0 path=3/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;3:FleeSunGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 26
+RNG Skel 78659357850202
+T 27
+RNG Skel 102593915935140
+T 28
+RNG Skel 216930117439970
+T 29
+RNG Skel 163577624350828
+T 30
+RNG Skel 177518541918826
+E Skel minecraft:skeleton pos=5.9500786369687795,-60.0,0.5 delta=0.07516445419854881,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=151 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,0 path=3/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;3:FleeSunGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 31
+RNG Skel 244283806668852
+T 32
+RNG Skel 87741810924530
+T 33
+RNG Skel 80672707809532
+T 34
+RNG Skel 269903659830906
+T 35
+RNG Skel 137211171117764
+E Skel minecraft:skeleton pos=6.638403124679707,-60.0,0.5 delta=0.075165180430874,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=146 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/6 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,0 path=4/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;3:FleeSunGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 36
+RNG Skel 253611494935042
+T 37
+RNG Skel 149893508175244
+T 38
+RNG Skel 204049388301962
+T 39
+RNG Skel 266339166626132
+T 40
+RNG Skel 270312496225298
+E Skel minecraft:skeleton pos=7.326729134399812,-60.0,0.5 delta=0.07516521567112895,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=141 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/1 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,0 path=5/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;3:FleeSunGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 41
+RNG Skel 265975860616732
+T 42
+RNG Skel 198502775188452
+T 43
+RNG Skel 168121798987582
+T 44
+RNG Skel 61642869435052
+T 45
+RNG Skel 146421946113862
+E Skel minecraft:skeleton pos=8.015055217975059,-60.0,0.5 delta=0.07516521738115413,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=136 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,0 path=5/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;3:FleeSunGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 46
+RNG Skel 212059250424436
+T 47
+RNG Skel 40568654080078
+T 48
+RNG Skel 51829561310012
+T 49
+RNG Skel 73424395668054
+T 50
+RNG Skel 141767669173508
+E Skel minecraft:skeleton pos=8.703381305134108,-60.0,0.5 delta=0.0751652174641327,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=131 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,0 path=6/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;3:FleeSunGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 51
+RNG Skel 70132280534366
+T 52
+RNG Skel 174006305935308
+T 53
+RNG Skel 59496042207590
+T 54
+RNG Skel 40353749951380
+T 55
+RNG Skel 237186135393902
+E Skel minecraft:skeleton pos=9.232582388503353,-60.0,0.5 delta=0.022407959176079992,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=126 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/6 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;3:FleeSunGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 56
+RNG Skel 52323949251702
+T 57
+RNG Skel 19719382638368
+T 58
+RNG Skel 225814547253608
+T 59
+RNG Skel 269214318695010
+T 60
+RNG Skel 96367308940010
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=121 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/1 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 61
+RNG Skel 6953319062708
+T 62
+RNG Skel 248994002837142
+T 63
+RNG Skel 219554367884864
+T 64
+RNG Skel 158784017775752
+T 65
+RNG Skel 66744177232514
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=116 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 66
+RNG Skel 237348391911178
+T 67
+RNG Skel 51784028415444
+T 68
+RNG Skel 157427830403740
+T 69
+RNG Skel 178897234247862
+T 70
+RNG Skel 238166092761022
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=111 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 71
+RNG Skel 253389894827944
+T 72
+RNG Skel 189278136038128
+T 73
+RNG Skel 37920041770
+T 74
+RNG Skel 132307267570866
+T 75
+RNG Skel 122011008585660
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=106 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/6 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 76
+RNG Skel 201195839418756
+T 77
+RNG Skel 274275801046494
+T 78
+RNG Skel 128905911640550
+T 79
+RNG Skel 134589702294032
+T 80
+RNG Skel 210959565677144
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=101 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/1 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 81
+RNG Skel 7067273178322
+T 82
+RNG Skel 159504981697188
+T 83
+RNG Skel 224436155089918
+T 84
+RNG Skel 253960999447558
+T 85
+RNG Skel 187727464411440
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=96 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 86
+RNG Skel 199733595508088
+T 87
+RNG Skel 271187552804082
+T 88
+RNG Skel 161814518394746
+T 89
+RNG Skel 100879278629828
+T 90
+RNG Skel 141556562755212
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=91 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 91
+RNG Skel 10243273541158
+T 92
+RNG Skel 105920472386350
+T 93
+RNG Skel 137263977580696
+T 94
+RNG Skel 9111752288736
+T 95
+RNG Skel 52340005786522
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=86 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/6 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 96
+RNG Skel 153825230443298
+T 97
+RNG Skel 204512251007916
+T 98
+RNG Skel 98638694712180
+T 99
+RNG Skel 114884629879118
+T 100
+RNG Skel 212768722606934
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=81 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/1 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 101
+RNG Skel 205917302667520
+T 102
+RNG Skel 36216393902914
+T 103
+RNG Skel 240269940439244
+T 104
+RNG Skel 102153670093972
+T 105
+RNG Skel 183045245876078
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=76 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 106
+RNG Skel 127970542935414
+T 107
+RNG Skel 180843191425056
+T 108
+RNG Skel 37425893155432
+T 109
+RNG Skel 159292729398114
+T 110
+RNG Skel 212193312130026
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=71 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 111
+RNG Skel 102772475094452
+T 112
+RNG Skel 71734091140732
+T 113
+RNG Skel 50862461022102
+T 114
+RNG Skel 195007847920286
+T 115
+RNG Skel 226091286107528
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=66 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/6 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 116
+RNG Skel 248262521038032
+T 117
+RNG Skel 226406101524490
+T 118
+RNG Skel 50446771731858
+T 119
+RNG Skel 235435591424924
+T 120
+RNG Skel 187712288299364
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=61 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/1 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 121
+RNG Skel 171120982866110
+T 122
+RNG Skel 174437328644589
+T 123
+RNG Skel 213358358731503
+T 124
+RNG Skel 6038756901077
+T 125
+RNG Skel 112567055962135
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=56 air=300 alive=1 pose=standing hp=13.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=230.0 body=260.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;6:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 126
+RNG Skel 269798333615293
+T 127
+RNG Skel 81600827654719
+T 128
+RNG Skel 83678804635045
+T 129
+RNG Skel 36051569856871
+T 130
+RNG Skel 166418894553997
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=51 air=300 alive=1 pose=standing hp=13.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=180.0 body=260.0 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;6:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 131
+RNG Skel 38546963094927
+T 132
+RNG Skel 171919274471029
+T 133
+RNG Skel 144487100204727
+T 134
+RNG Skel 127681576652381
+T 135
+RNG Skel 275981064121567
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=46 air=300 alive=1 pose=standing hp=13.0 abs=0.0 hurt=0/6 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=151.16858 body=226.16858 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;6:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 136
+RNG Skel 22732027118405
+T 137
+RNG Skel 195357222154247
+T 138
+RNG Skel 18492771986733
+T 139
+RNG Skel 57814695079983
+T 140
+RNG Skel 54283200588821
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=41 air=300 alive=1 pose=standing hp=13.0 abs=0.0 hurt=0/1 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=151.16858 body=226.16858 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;6:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 141
+RNG Skel 223157802634583
+T 142
+RNG Skel 65659862427519
+T 143
+RNG Skel 96745813151697
+T 144
+RNG Skel 1887480405671
+T 145
+RNG Skel 1181676486457
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=36 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=151.16858 body=211.16858 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;6:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 146
+RNG Skel 281432954819279
+T 147
+RNG Skel 257624428540833
+T 148
+RNG Skel 2272664462327
+T 149
+RNG Skel 248788728663305
+T 150
+RNG Skel 203070817727007
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=31 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=151.16858 body=173.66858 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none;6:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 151
+RNG Skel 264729696529265
+T 152
+RNG Skel 119681167514951
+T 153
+RNG Skel 254020613467865
+T 154
+RNG Skel 3360779204417
+T 155
+RNG Skel 167079420877411
+E Skel minecraft:skeleton pos=9.277552642243327,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=26 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/6 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=151.16858 body=151.16858 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,0 path=7/7/1/10,-60,0 nodes=3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0 goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 156
+RNG Skel 1673583053897
+T 157
+RNG Skel 118198347139755
+T 158
+RNG Skel 117099644424881
+T 159
+RNG Skel 3434342382419
+T 160
+RNG Skel 41471779782169
+E Skel minecraft:skeleton pos=9.392832139024877,-60.0,1.0181282846462827 delta=0.015529928232251121,-0.0784000015258789,0.06981133949461808 rot=347.4611,0.0 og=1 fall=0.0 fire=21 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/1 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=382.45883 body=347.4611 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,6 path=1/6/1/10,-60,6 nodes=9,-60,0:WALKABLE:0.0;9,-60,1:WALKABLE:0.0;9,-60,2:WALKABLE:0.0;9,-60,3:WALKABLE:0.0;9,-60,4:WALKABLE:0.0;10,-60,5:WALKABLE:0.0 goals=2:RestrictSunGoal:none;5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 161
+RNG Skel 161499741149435
+T 162
+RNG Skel 159786319791011
+T 163
+RNG Skel 151285025637013
+T 164
+RNG Skel 40316574456651
+T 165
+RNG Skel 114102706194045
+E Skel minecraft:skeleton pos=9.47292965485874,-60.0,1.691639952853426 delta=0.004255073818205813,-0.0784000015258789,0.07477270540050376 rot=357.88788,0.0 og=1 fall=0.0 fire=16 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=357.6225 body=357.88788 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,6 path=2/6/1/10,-60,6 nodes=9,-60,0:WALKABLE:0.0;9,-60,1:WALKABLE:0.0;9,-60,2:WALKABLE:0.0;9,-60,3:WALKABLE:0.0;9,-60,4:WALKABLE:0.0;10,-60,5:WALKABLE:0.0 goals=2:RestrictSunGoal:none;5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 166
+RNG Skel 180017605263347
+T 167
+RNG Skel 180006951165797
+T 168
+RNG Skel 186743972434331
+T 169
+RNG Skel 260808026697037
+T 170
+RNG Skel 47988619046979
+E Skel minecraft:skeleton pos=9.487734584938945,-60.0,2.3789542856541224 delta=3.533366204401603E-4,-0.0784000015258789,0.07513489005231677 rot=359.41208,0.0 og=1 fall=0.0 fire=11 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=359.4451 body=359.41208 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,6 path=3/6/1/10,-60,6 nodes=9,-60,0:WALKABLE:0.0;9,-60,1:WALKABLE:0.0;9,-60,2:WALKABLE:0.0;9,-60,3:WALKABLE:0.0;9,-60,4:WALKABLE:0.0;10,-60,5:WALKABLE:0.0 goals=2:RestrictSunGoal:none;5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 171
+RNG Skel 9156497870901
+T 172
+RNG Skel 45773438385131
+T 173
+RNG Skel 260519148939293
+T 174
+RNG Skel 128530615719059
+T 175
+RNG Skel 196299372057861
+E Skel minecraft:skeleton pos=9.491857031986793,-60.0,3.0671727773000272 delta=5.496208155970767E-4,-0.0784000015258789,0.07515603350749024 rot=359.08115,0.0 og=1 fall=0.0 fire=6 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=0/6 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=359.18796 body=359.08115 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,6 path=3/6/1/10,-60,6 nodes=9,-60,0:WALKABLE:0.0;9,-60,1:WALKABLE:0.0;9,-60,2:WALKABLE:0.0;9,-60,3:WALKABLE:0.0;9,-60,4:WALKABLE:0.0;10,-60,5:WALKABLE:0.0 goals=2:RestrictSunGoal:none;5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 176
+RNG Skel 133648682392123
+T 177
+RNG Skel 158452959934189
+T 178
+RNG Skel 45713237798115
+T 179
+RNG Skel 229727048297941
+T 180
+RNG Skel 266296033111179
+E Skel minecraft:skeleton pos=9.493894335392607,-60.0,3.7554687312391954 delta=2.551897397630263E-4,-0.0784000015258789,0.0751630122731375 rot=359.5731,0.0 og=1 fall=0.0 fire=1 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=0/1 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=359.60645 body=359.5731 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,6 path=4/6/1/10,-60,6 nodes=9,-60,0:WALKABLE:0.0;9,-60,1:WALKABLE:0.0;9,-60,2:WALKABLE:0.0;9,-60,3:WALKABLE:0.0;9,-60,4:WALKABLE:0.0;10,-60,5:WALKABLE:0.0 goals=2:RestrictSunGoal:none;5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 181
+RNG Skel 35410574367165
+T 182
+RNG Skel 31938035267891
+T 183
+RNG Skel 271658635516581
+T 184
+RNG Skel 32631175967451
+T 185
+RNG Skel 80863987765389
+E Skel minecraft:skeleton pos=9.59293375716479,-60.0,4.4105605700660915 delta=0.03255946497429277,-0.0784000015258789,0.06391193235452378 rot=321.29672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=349.38834 body=321.29672 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,6 path=5/6/1/10,-60,6 nodes=9,-60,0:WALKABLE:0.0;9,-60,1:WALKABLE:0.0;9,-60,2:WALKABLE:0.0;9,-60,3:WALKABLE:0.0;9,-60,4:WALKABLE:0.0;10,-60,5:WALKABLE:0.0 goals=2:RestrictSunGoal:none;5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 186
+RNG Skel 21057463204227
+T 187
+RNG Skel 220094660189045
+T 188
+RNG Skel 58088334208299
+T 189
+RNG Skel 50127239551837
+T 190
+RNG Skel 273336915193299
+E Skel minecraft:skeleton pos=10.007200515795272,-60.0,4.9469683217977405 delta=0.048718405956611775,-0.0784000015258789,0.0568830804987705 rot=318.4719,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=318.70694 body=318.4719 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,6 path=5/6/1/10,-60,6 nodes=9,-60,0:WALKABLE:0.0;9,-60,1:WALKABLE:0.0;9,-60,2:WALKABLE:0.0;9,-60,3:WALKABLE:0.0;9,-60,4:WALKABLE:0.0;10,-60,5:WALKABLE:0.0 goals=2:RestrictSunGoal:none;5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 191
+RNG Skel 26673905709125
+T 192
+RNG Skel 140811963046779
+T 193
+RNG Skel 248560248519213
+T 194
+RNG Skel 211703610382613
+T 195
+RNG Skel 93363662848599
+E Skel minecraft:skeleton pos=10.196444865363812,-60.0,5.163973844545756 delta=0.0043817207024625035,-0.0784000015258789,0.005024496603156453 rot=318.29626,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=318.29626 body=318.29626 nav=done stuck=0 navspeed=1.0 ntarget=10,-60,6 path=- nodes=- goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 196
+RNG Skel 204883005783167
+T 197
+RNG Skel 181074899971281
+T 198
+RNG Skel 46311007523399
+T 199
+RNG Skel 218150659107801
+T 200
+RNG Skel 223741124631151
+E Skel minecraft:skeleton pos=10.46671534083562,-60.0,5.236738993813296 delta=0.06098245658226813,-0.0784000015258789,0.015536540511251997 rot=284.29364,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=298.29626 body=284.29364 nav=moving stuck=0 navspeed=1.0 ntarget=19,-60,4 path=1/9/1/19,-60,4 nodes=10,-60,5:WALKABLE:0.0;11,-60,5:WALKABLE:0.0;12,-60,5:WALKABLE:0.0;13,-60,5:WALKABLE:0.0;14,-60,5:WALKABLE:0.0;15,-60,5:WALKABLE:0.0;16,-60,5:WALKABLE:0.0;17,-60,5:WALKABLE:0.0;18,-60,4:WALKABLE:0.0 goals=2:RestrictSunGoal:none;5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25

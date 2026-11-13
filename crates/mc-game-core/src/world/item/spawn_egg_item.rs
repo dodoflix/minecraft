@@ -104,7 +104,7 @@ pub fn spawn_offspring_from_spawn_egg(
             },
         )?
     };
-    crate::world::entity::mob::ageable::set_baby(offspring.as_mut(), true);
+    crate::world::entity::mob::ageable::set_baby_in_level(offspring.as_mut(), level, true);
     if !offspring.is_baby() {
         return None;
     }

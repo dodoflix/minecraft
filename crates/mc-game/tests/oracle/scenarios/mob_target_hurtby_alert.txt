@@ -1,0 +1,67 @@
+# HurtByTargetGoal.setAlertOthers: a pack of wolves, one is hurt by the player and the pack within the follow range joins in, a far
+# wolf does not (getEntitiesOfClass order decides who is alerted first).
+level flat
+difficulty normal
+entity_counter 100
+spawn_player Steve survival 0.5 -60 0.5 0 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+mobspawn W1 minecraft:wolf 6.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn W2 minecraft:wolf 7.5 -60 2.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn W3 minecraft:wolf 9.5 -60 -2.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn W4 minecraft:wolf -45.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed W1 1
+entity_seed W2 2
+entity_seed W3 3
+entity_seed W4 4
+watch rng:W1 rng:W2 rng:W3 rng:W4
+tick 3
+hurt W1 player_attack 1 by=Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve
+tick 5
+dump mobs player:Steve

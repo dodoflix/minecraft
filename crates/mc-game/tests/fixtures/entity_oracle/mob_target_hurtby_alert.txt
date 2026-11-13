@@ -1,0 +1,736 @@
+T 1
+RNG W1 185454638771764
+RNG W2 9368989764503
+RNG W3 161889198337142
+RNG W4 80065311068369
+T 2
+RNG W1 155957491705596
+RNG W2 241258967538006
+RNG W3 115845733591934
+RNG W4 22064196792072
+T 3
+RNG W1 266611666813271
+RNG W2 209180304053342
+RNG W3 228324091639985
+RNG W4 42568052862544
+HURT W1 player_attack 1 -> true
+T 4
+RNG W1 44850098925764
+RNG W2 267283926969672
+RNG W3 11638133675184
+RNG W4 161723249711131
+T 5
+RNG W1 103864986390302
+RNG W2 77471499632987
+RNG W3 38930908316394
+RNG W4 101467777107651
+T 6
+RNG W1 216886569221349
+RNG W2 267163449770765
+RNG W3 124803293055125
+RNG W4 269152031052562
+T 7
+RNG W1 185743284753063
+RNG W2 13908098113372
+RNG W3 116210290277847
+RNG W4 211542074395034
+T 8
+RNG W1 175632655340682
+RNG W2 163895103036278
+RNG W3 32834209145246
+RNG W4 53194383389341
+E W1 minecraft:wolf pos=7.6625810826814025,-59.03520728561076,0.5 delta=0.14976775171675102,-0.05049583831769367,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=5/15 death=0 fx=- target=Steve hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=9.5,-60.0,-2.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=400.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 9
+RNG W1 247490521986900
+RNG W2 176878880955313
+RNG W3 90241815616648
+RNG W4 117198907322245
+T 10
+RNG W1 6591596262428
+RNG W2 193258843810899
+RNG W3 270556912805787
+RNG W4 219937932753324
+T 11
+RNG W1 198442661649974
+RNG W2 2992519691183
+RNG W3 93952085455693
+RNG W4 97619732506996
+T 12
+RNG W1 135594465824107
+RNG W2 232432973494145
+RNG W3 35296247154243
+RNG W4 34966677773935
+T 13
+RNG W1 153278550742429
+RNG W2 75105099558294
+RNG W3 210504102778421
+RNG W4 236493981418391
+E W1 minecraft:wolf pos=8.288224008090186,-60.0,0.5 delta=0.09345990483809921,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/10 death=0 fx=- target=Steve hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=50.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=120.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=9.5,-60.0,-2.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=400.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 14
+RNG W1 268789118358846
+RNG W2 156051850392896
+RNG W3 70030772923744
+RNG W4 160935303721302
+T 15
+RNG W1 77143590062376
+RNG W2 93927531341649
+RNG W3 119795538461466
+RNG W4 41695304461406
+T 16
+RNG W1 51990427906693
+RNG W2 157618745176307
+RNG W3 143858230829041
+RNG W4 142356505483281
+T 17
+RNG W1 3007394369863
+RNG W2 110204202187303
+RNG W3 140269105277587
+RNG W4 233359385972601
+T 18
+RNG W1 136869906230384
+RNG W2 108246742075065
+RNG W3 98924729501638
+RNG W4 228947950996624
+E W1 minecraft:wolf pos=8.484093605184025,-60.0,0.5 delta=0.004535120179417696,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/5 death=0 fx=- target=Steve hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=15.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=158.03824 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=9.5,-60.0,-2.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=400.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 19
+RNG W1 137223278198954
+RNG W2 222180134534666
+RNG W3 82749904868080
+RNG W4 201762889037016
+T 20
+RNG W1 274109905729903
+RNG W2 217277745478868
+RNG W3 253188978752749
+RNG W4 236740695543811
+T 21
+RNG W1 69081435016001
+RNG W2 258992041470753
+RNG W3 206070452037103
+RNG W4 243445410868516
+T 22
+RNG W1 111047762513507
+RNG W2 151857419542851
+RNG W3 157148356824001
+RNG W4 86442585100383
+T 23
+RNG W1 61249552624469
+RNG W2 117849702951221
+RNG W3 61540942119651
+RNG W4 98592302893765
+E W1 minecraft:wolf pos=7.91289834467487,-60.0,0.5000086286428577 delta=-0.0986184722900598,-0.0784000015258789,6.017915810861144E-18 rot=90.00084,-7.0566254 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=90.00006 body=90.00084 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=1/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=7.104889510951106,-60.0,2.5000086286428576 delta=-0.09061988448712216,-0.0784000015258789,6.017915810861144E-18 rot=90.000656,-7.5839534 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=106.4563 body=90.000656 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=1/8/1/0,-60,0 nodes=7,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;5,-60,1:WALKABLE:0.0;4,-60,1:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;2,-60,1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=9.092897150647268,-60.0,-2.092897150647266 delta=-0.06973378931311591,-0.0784000015258789,0.06973378931311591 rot=45.0,-5.8749957 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=72.673386 body=45.0 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=1/10/1/0,-60,0 nodes=9,-60,-3:WALKABLE:0.0;8,-60,-2:WALKABLE:0.0;7,-60,-2:WALKABLE:0.0;6,-60,-2:WALKABLE:0.0;5,-60,-1:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-60,-1:WALKABLE:0.0;2,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=120.0 body=100.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=400.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 24
+RNG W1 121599123553943
+RNG W2 120686176837495
+RNG W3 13460491367381
+RNG W4 234730887484396
+T 25
+RNG W1 65627519957161
+RNG W2 203393637315721
+RNG W3 28945533745943
+RNG W4 185188094900714
+T 26
+RNG W1 109001319337146
+RNG W2 211845533863147
+RNG W3 156797395700009
+RNG W4 116745148212397
+T 27
+RNG W1 166739936411839
+RNG W2 131694218141981
+RNG W3 52232507012922
+RNG W4 274570786385059
+T 28
+RNG W1 64402034072648
+RNG W2 225200191823263
+RNG W3 116062803557854
+RNG W4 16743978333042
+E W1 minecraft:wolf pos=6.941868764432467,-60.0,0.5000086286428577 delta=-0.10777114020485298,-0.0784000015258789,6.017915810861144E-18 rot=90.00078,-8.058539 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=90.00009 body=90.00078 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=6.268021387674258,-60.0,2.1519852472406447 delta=-0.0858529714966894,-0.0784000015258789,-0.06146269678294742 rot=129.5673,-8.645082 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=106.58362 body=129.5673 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/8/1/0,-60,0 nodes=7,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;5,-60,1:WALKABLE:0.0;4,-60,1:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;2,-60,1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=8.299010262689425,-60.0,-1.6053358814520247 delta=-0.10121189513000328,-0.0784000015258789,0.028525437856977063 rot=80.90538,-6.4840446 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=74.87837 body=80.90538 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/10/1/0,-60,0 nodes=9,-60,-3:WALKABLE:0.0;8,-60,-2:WALKABLE:0.0;7,-60,-2:WALKABLE:0.0;6,-60,-2:WALKABLE:0.0;5,-60,-1:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-60,-1:WALKABLE:0.0;2,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=157.99957 body=100.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=400.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 29
+RNG W1 183655865153573
+RNG W2 45387222730408
+RNG W3 163802586886856
+RNG W4 144591055670592
+T 30
+RNG W1 270839395360614
+RNG W2 254694448459269
+RNG W3 82101632731842
+RNG W4 133496795882571
+T 31
+RNG W1 105454459167835
+RNG W2 8060993664710
+RNG W3 194734002889804
+RNG W4 84615048863569
+T 32
+RNG W1 247255738071444
+RNG W2 174734153444155
+RNG W3 48081500045798
+RNG W4 105675375123336
+T 33
+RNG W1 124753216659169
+RNG W2 137460280088052
+RNG W3 68793383823888
+RNG W4 190486679823526
+E W1 minecraft:wolf pos=5.951657382326369,-60.0,0.5000086286428577 delta=-0.10821527129002573,-0.0784000015258789,6.017915810861144E-18 rot=90.00078,-9.446115 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=90.00009 body=90.00078 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=3/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=5.458718227363788,-60.0,1.6287645657437964 delta=-0.09920656571495944,-0.0784000015258789,-0.034522142810193106 rot=99.5562,-10.100629 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=103.05542 body=99.5562 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=3/8/1/0,-60,0 nodes=7,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;5,-60,1:WALKABLE:0.0;4,-60,1:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;2,-60,1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=7.3252452793275715,-60.0,-1.495915031043393 delta=-0.10780808045077077,-0.0784000015258789,0.0035863168676464 rot=89.860794,-7.3348365 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=74.08478 body=89.860794 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=3/10/1/0,-60,0 nodes=9,-60,-3:WALKABLE:0.0;8,-60,-2:WALKABLE:0.0;7,-60,-2:WALKABLE:0.0;6,-60,-2:WALKABLE:0.0;5,-60,-1:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-60,-1:WALKABLE:0.0;2,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=157.99957 body=100.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=400.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 34
+RNG W1 51661969502802
+RNG W2 68599193792193
+RNG W3 73901277988682
+RNG W4 114552003182265
+T 35
+RNG W1 177443196351799
+RNG W2 129641008065458
+RNG W3 22429160179732
+RNG W4 217443458733647
+T 36
+RNG W1 95959038924064
+RNG W2 258694941263383
+RNG W3 189534221066081
+RNG W4 4661886269870
+T 37
+RNG W1 138331219642589
+RNG W2 92725864268672
+RNG W3 267343217888466
+RNG W4 41720798101916
+T 38
+RNG W1 38514354164094
+RNG W2 114340223537853
+RNG W3 126157453865399
+RNG W4 30277445586016
+E W1 minecraft:wolf pos=4.960515207739148,-60.0,0.5000086286428577 delta=-0.10823682264779957,-0.0784000015258789,6.017915810861144E-18 rot=90.00078,-11.40754 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=90.00012 body=90.00078 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=4.489723327803166,-60.0,1.4961239565116262 delta=-0.1076633318523005,-0.0784000015258789,-0.004916272832259908 rot=90.24754,-12.314855 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=103.49924 body=90.24754 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/8/1/0,-60,0 nodes=7,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;5,-60,1:WALKABLE:0.0;4,-60,1:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;2,-60,1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=6.4124925659767875,-60.0,-1.2589894103188075 delta=-0.08941756676538708,-0.0784000015258789,0.05521700303398701 rot=51.369034,-8.414232 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=72.979095 body=51.369034 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/10/1/0,-60,0 nodes=9,-60,-3:WALKABLE:0.0;8,-60,-2:WALKABLE:0.0;7,-60,-2:WALKABLE:0.0;6,-60,-2:WALKABLE:0.0;5,-60,-1:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-60,-1:WALKABLE:0.0;2,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=157.99957 body=100.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=400.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 39
+RNG W1 201908304818003
+RNG W2 198454496955614
+RNG W3 173788552797088
+RNG W4 138176852020926
+T 40
+RNG W1 4330317306604
+RNG W2 278407292054067
+RNG W3 2028175024477
+RNG W4 178205702896369
+T 41
+RNG W1 48596324012569
+RNG W2 165412043966311
+RNG W3 37411807093758
+RNG W4 200964212240583
+T 42
+RNG W1 156350453548973
+RNG W2 177243772727568
+RNG W3 78897060381651
+RNG W4 263848413171398
+T 43
+RNG W1 146025518381710
+RNG W2 104413857256335
+RNG W3 89408571611500
+RNG W4 151850363432436
+E W1 minecraft:wolf pos=3.9693278666629244,-60.0,0.5000086286428577 delta=-0.10823786842243098,-0.0784000015258789,6.017915810861144E-18 rot=90.00072,-14.375563 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=90.00012 body=90.00072 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=5/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=3.4997656360494256,-60.0,1.4945296578949065 delta=-0.10820747849479839,-0.0784000015258789,2.4498342818494507E-4 rot=89.716965,-15.6788645 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=107.26785 body=89.716965 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=5/8/1/0,-60,0 nodes=7,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;5,-60,1:WALKABLE:0.0;4,-60,1:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;2,-60,1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=5.596704789603402,-60.0,-0.7372254102078597 delta=-0.09839324737786219,-0.0784000015258789,0.03906586471289465 rot=76.40611,-9.809303 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=76.07054 body=76.40611 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=5/10/1/0,-60,0 nodes=9,-60,-3:WALKABLE:0.0;8,-60,-2:WALKABLE:0.0;7,-60,-2:WALKABLE:0.0;6,-60,-2:WALKABLE:0.0;5,-60,-1:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-60,-1:WALKABLE:0.0;2,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=157.99957 body=135.49957 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=400.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 44
+RNG W1 101346447057522
+RNG W2 258597666718305
+RNG W3 270420969525552
+RNG W4 28200438286575
+T 45
+RNG W1 71750629899223
+RNG W2 208375280749522
+RNG W3 236624000237876
+RNG W4 119425905524437
+T 46
+RNG W1 63338170552139
+RNG W2 182246728483830
+RNG W3 99706836561166
+RNG W4 189456157499068
+T 47
+RNG W1 261482327872836
+RNG W2 259857898913323
+RNG W3 233799959833976
+RNG W4 246387751546426
+T 48
+RNG W1 25374002442888
+RNG W2 111541545505885
+RNG W3 22626049916146
+RNG W4 135176293649085
+E W1 minecraft:wolf pos=2.9781383338933116,-60.0,0.5000086286428577 delta=-0.10823791916840214,-0.0784000015258789,6.017915810861144E-18 rot=90.00072,-19.352365 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=90.00018 body=90.00072 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=6/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=2.553025608887975,-60.0,1.360806496343253 delta=-0.09305801944921395,-0.0784000015258789,-0.045536751769712315 rot=127.659,-21.262619 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=113.00879 body=127.659 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=6/8/1/0,-60,0 nodes=7,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;5,-60,1:WALKABLE:0.0;4,-60,1:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;2,-60,1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=4.638374079305804,-60.0,-0.525102596607779 delta=-0.10688547034551996,-0.0784000015258789,0.013153691872155171 rot=87.8884,-11.903386 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=76.3918 body=87.8884 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=6/10/1/0,-60,0 nodes=9,-60,-3:WALKABLE:0.0;8,-60,-2:WALKABLE:0.0;7,-60,-2:WALKABLE:0.0;6,-60,-2:WALKABLE:0.0;5,-60,-1:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-60,-1:WALKABLE:0.0;2,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=157.99957 body=157.99957 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=400.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 49
+RNG W1 179439574446949
+RNG W2 173722707849982
+RNG W3 131469954587132
+RNG W4 212775673506725
+T 50
+RNG W1 177664158233017
+RNG W2 3684627390163
+RNG W3 23920880477974
+RNG W4 85575610553164
+T 51
+RNG W1 256301602727178
+RNG W2 164462338486380
+RNG W3 234219644914368
+RNG W4 262423373928212
+T 52
+RNG W1 199015253766479
+RNG W2 251966981981593
+RNG W3 173357819413444
+RNG W4 239796679510927
+T 53
+RNG W1 120289009201688
+RNG W2 148173236548202
+RNG W3 130193464808145
+RNG W4 246801482101943
+E W1 minecraft:wolf pos=2.0496869197154832,-60.0,0.3758634449539681 delta=-0.05325713798463029,-0.0784000015258789,-0.12429222198664301 rot=87.071976,-28.845762 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=88.78728 body=87.071976 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=7/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=1.711027347303597,-60.0,0.9453318112618597 delta=-0.12515179757587808,-0.0784000015258789,0.024857487427561498 rot=139.59488,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=108.528046 body=139.59488 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=6/8/1/0,-60,0 nodes=7,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;5,-60,1:WALKABLE:0.0;4,-60,1:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;2,-60,1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=3.65007974979331,-60.0,-0.49656830492465304 delta=-0.10816974687512192,-0.0784000015258789,-1.3191454000194963E-4 rot=90.15619,-15.060841 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=73.42848 body=90.15619 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=7/10/1/0,-60,0 nodes=9,-60,-3:WALKABLE:0.0;8,-60,-2:WALKABLE:0.0;7,-60,-2:WALKABLE:0.0;6,-60,-2:WALKABLE:0.0;5,-60,-1:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-60,-1:WALKABLE:0.0;2,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=157.99957 body=157.99957 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.2070799147811012,0.2751840104494096,-0.06940087460838046 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=396.0 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+T 54
+RNG W1 277844550804533
+RNG W2 211217256031791
+RNG W3 185158087830274
+RNG W4 164101610036214
+T 55
+RNG W1 167922005329590
+RNG W2 86562864845944
+RNG W3 32515899055756
+RNG W4 264050529176318
+T 56
+RNG W1 231929995702251
+RNG W2 269136412340757
+RNG W3 37034514375225
+RNG W4 195000313406001
+T 57
+RNG W1 184173488612964
+RNG W2 239484768004969
+RNG W3 207700577413659
+RNG W4 150680107089305
+T 58
+RNG W1 135632195259889
+RNG W2 267611585400523
+RNG W3 65798215862868
+RNG W4 195772779622448
+E W1 minecraft:wolf pos=1.2406647491587406,-60.0,0.20883346477830683 delta=-0.05491604293483447,-0.0784000015258789,-0.05940613953512064 rot=73.97072,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=73.97072 body=73.97072 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=8/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.7893680786511896,-60.0,0.8772591317312526 delta=-0.011701329054062827,-0.0784000015258789,0.10740549615165634 rot=118.73645,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=125.644165 body=118.73645 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=8/8/1/0,-60,0 nodes=7,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;5,-60,1:WALKABLE:0.0;4,-60,1:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;2,-60,1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=2.4787672103089116,-58.84689203649143,-0.14590077639733648 delta=-0.15089256844917248,-0.015062138945312485,0.04517421462464846 rot=90.15619,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=90.15619 body=90.15619 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=- nodes=- goals=4:LeapAtTargetGoal:MOVE+JUMP tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=157.99957 body=157.99957 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.21221660199040565,-0.0784000015258789,-0.12468882375991824 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=396.0 abs=0.0 hurt=4/15 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+T 59
+RNG W1 17859372529826
+RNG W2 95117945742845
+RNG W3 102424867367726
+RNG W4 207420542626936
+T 60
+RNG W1 7915180944327
+RNG W2 26489246932351
+RNG W3 113200345962691
+RNG W4 14177597767459
+T 61
+RNG W1 147997121898736
+RNG W2 209297440650705
+RNG W3 264692639886517
+RNG W4 74336686196427
+T 62
+RNG W1 20842638133997
+RNG W2 225278800962419
+RNG W3 33823167727926
+RNG W4 209959546160762
+T 63
+RNG W1 180814559004366
+RNG W2 51813040975589
+RNG W3 32278047197664
+RNG W4 246159293415938
+E W1 minecraft:wolf pos=1.02738734586849,-60.0,0.08273079040439008 delta=0.08681436860112857,-0.0784000015258789,-0.06971343740550356 rot=62.181442,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=51.801483 body=62.181442 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=9/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.8401826724370451,-60.0,1.2423207256872464 delta=0.004321700402800937,-0.0784000015258789,0.014493487829285613 rot=118.73645,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=155.0989 body=118.73645 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=8/8/1/0,-60,0 nodes=7,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;5,-60,1:WALKABLE:0.0;4,-60,1:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;2,-60,1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=1.848425452054244,-59.68772615708176,0.04281092867160061 delta=-0.09416182673762288,-0.39024548020053856,0.02819016611760555 rot=90.15619,0.0 og=0 fall=0.8408341417089105 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=90.15619 body=90.15619 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=- nodes=- goals=4:LeapAtTargetGoal:MOVE+JUMP tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=157.99957 body=157.99957 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.08220217449724447,-0.0784000015258789,0.0367711969250955 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=396.83334 abs=0.0 hurt=0/10 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0999999 xp=0/0/0.0 sel=0 main=empty
+T 64
+RNG W1 170006295683299
+RNG W2 223281980036263
+RNG W3 226293419103389
+RNG W4 105633899390693
+T 65
+RNG W1 103236949403068
+RNG W2 90258915757904
+RNG W3 224024466210079
+RNG W4 263488374940877
+T 66
+RNG W1 168500067579689
+RNG W2 18134892866765
+RNG W3 98574890683432
+RNG W4 94853866936660
+T 67
+RNG W1 5067371887930
+RNG W2 56337275328929
+RNG W3 55904389058949
+RNG W4 217010381297180
+T 68
+RNG W1 209487643708223
+RNG W2 137550007448515
+RNG W3 38680834330694
+RNG W4 143125454328311
+E W1 minecraft:wolf pos=0.9142919433959583,-60.0,-0.1535091465668545 delta=-0.051740614922840863,-0.0784000015258789,-0.025890913255236517 rot=62.181442,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=40.026566 body=62.181442 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=9/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.7508246500946647,-60.0,1.0599329790957852 delta=0.017387759507135638,-0.0784000015258789,0.004569763783816488 rot=155.86945,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=155.86945 body=155.86945 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=1/2/1/0,-60,0 nodes=0,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=1.5149422255133063,-60.0,0.3271052138920516 delta=-0.047855611098083714,-0.0784000015258789,0.04595680979453025 rot=76.876144,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=76.876144 body=76.876144 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=1/2/1/0,-60,0 nodes=1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=157.99957 body=157.99957 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.224277427469755,0.10905472940649964,-0.011536350242698685 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=392.83334 abs=0.0 hurt=7/18 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999999 xp=0/0/0.0 sel=0 main=empty
+T 69
+RNG W1 180660967901384
+RNG W2 110111742082997
+RNG W3 99882418451131
+RNG W4 148048830636063
+T 70
+RNG W1 76362281037477
+RNG W2 277120637377015
+RNG W3 196983479427956
+RNG W4 209729125418814
+T 71
+RNG W1 222604841199590
+RNG W2 146011769451273
+RNG W3 78250923948609
+RNG W4 31481418720699
+T 72
+RNG W1 12301216163547
+RNG W2 273331952267115
+RNG W3 77032830962994
+RNG W4 270805276267178
+T 73
+RNG W1 95322987036180
+RNG W2 260869918492573
+RNG W3 38684896163223
+RNG W4 80221467357880
+E W1 minecraft:wolf pos=0.7939478442260699,-60.0,-0.34254240914492107 delta=0.005398580793854121,-0.0784000015258789,-0.016014845787696807 rot=62.181442,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=19.254562 body=62.181442 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=9/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.690262482714729,-60.0,1.2329890243989248 delta=-0.010839197929881328,-0.0784000015258789,0.04438231089584319 rot=154.37048,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=162.13037 body=154.37048 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=0.9352616941120354,-60.0,0.39542031632213404 delta=-0.028411120261839326,-0.0784000015258789,-0.015551648732952731 rot=80.606125,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=80.606125 body=80.606125 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=1/2/1/0,-60,0 nodes=1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=127.99957 body=137.99957 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.12043050608162008,-0.0784000015258789,-0.029495191343642854 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=393.5 abs=0.0 hurt=2/13 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+T 74
+RNG W1 253869024365921
+RNG W2 277908977887263
+RNG W3 125406697298176
+RNG W4 229106663647331
+T 75
+RNG W1 157022500770514
+RNG W2 238721758105969
+RNG W3 212374106474045
+RNG W4 154103057892009
+T 76
+RNG W1 120386871799735
+RNG W2 170515593885715
+RNG W3 22141685495390
+RNG W4 2341937494016
+T 77
+RNG W1 272461970715040
+RNG W2 159661647481516
+RNG W3 135572683882931
+RNG W4 97193796083038
+T 78
+RNG W1 165034584731485
+RNG W2 10265186718937
+RNG W3 12930985531596
+RNG W4 12163015865617
+E W1 minecraft:wolf pos=0.799346425019924,-60.0,-0.37207564462428727 delta=0.0,-0.0784000015258789,0.0 rot=62.181442,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=18.94516 body=62.181442 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=9/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.6702737429469963,-60.0,1.3260037280659296 delta=0.0,-0.0784000015258789,0.002153641329954322 rot=154.37048,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=168.29776 body=154.37048 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=1.1718460286993486,-60.0,0.2802555073000286 delta=0.04214344129584294,-0.0784000015258789,-0.01425348895893933 rot=80.606125,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=71.96329 body=80.606125 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=77.99957 body=137.99957 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.03111550841661164,-0.0784000015258789,0.006209056556418782 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=393.5 abs=0.0 hurt=0/8 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+T 79
+RNG W1 152958880598526
+RNG W2 226904245992106
+RNG W3 127850974450041
+RNG W4 198935795079655
+T 80
+RNG W1 255376950501843
+RNG W2 180745717922671
+RNG W3 26542902204362
+RNG W4 180212510921062
+T 81
+RNG W1 199571614519148
+RNG W2 187966316403384
+RNG W3 196956395049743
+RNG W4 224334900042644
+T 82
+RNG W1 198962931282073
+RNG W2 133840070892885
+RNG W3 267566057639640
+RNG W4 11864515655183
+T 83
+RNG W1 218906379508074
+RNG W2 231560154901078
+RNG W3 11347411793909
+RNG W4 198118762676981
+E W1 minecraft:wolf pos=0.799346425019924,-60.0,-0.37207564462428727 delta=0.0,-0.0784000015258789,0.0 rot=62.181442,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=18.94516 body=62.181442 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=9/9/1/0,-60,0 nodes=8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.6702737429469963,-60.0,1.3260037280659296 delta=0.0,-0.0784000015258789,0.0 rot=154.37048,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=168.35202 body=154.37048 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=1.2601685974101138,-60.0,0.2539704183639682 delta=0.002045000702514833,-0.0784000015258789,0.0 rot=80.606125,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=71.98274 body=80.606125 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=57.0636 body=137.99957 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=394.0 abs=0.0 hurt=0/3 death=0 fx=- gm=survival food=20 sat=2.0 exh=0.19999981 xp=0/0/0.0 sel=0 main=empty
+T 84
+RNG W1 88783618292015
+RNG W2 81774259986443
+RNG W3 108424201321846
+RNG W4 11845017165916
+T 85
+RNG W1 126947608005155
+RNG W2 58098798963972
+RNG W3 128849267991979
+RNG W4 18950747841242
+T 86
+RNG W1 103902072532245
+RNG W2 227132845014289
+RNG W3 158139829380900
+RNG W4 272777457398493
+T 87
+RNG W1 130558724732503
+RNG W2 4294651382338
+RNG W3 257544354562664
+RNG W4 176715500751187
+T 88
+RNG W1 49889391826537
+RNG W2 148633693823463
+RNG W3 219366123598690
+RNG W4 165717782989410
+E W1 minecraft:wolf pos=0.5214396243084198,-60.0,0.043175933863461996 delta=-0.01392769545526454,-0.0784000015258789,0.013657010416245008 rot=7.1481705,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=7.1481705 body=7.1481705 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=1/2/1/0,-60,0 nodes=0,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.6702737429469963,-60.0,1.3260037280659296 delta=0.0,-0.0784000015258789,0.0 rot=154.37048,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=168.35202 body=154.37048 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=1.3905160995575372,-60.0,0.39785292071684897 delta=0.008564659924114081,-0.0784000015258789,0.009453995522593347 rot=80.606125,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=82.224045 body=80.606125 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=57.0636 body=137.99957 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.19094631501765547,0.10905472940649964,0.1136579399475286 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=390.0 abs=0.0 hurt=7/18 death=0 fx=- gm=survival food=20 sat=2.0 exh=0.2999998 xp=0/0/0.0 sel=0 main=empty
+T 89
+RNG W1 232018110567802
+RNG W2 21144707313040
+RNG W3 8550576688620
+RNG W4 228945396804784
+T 90
+RNG W1 209239946932351
+RNG W2 219252004966413
+RNG W3 247091217880198
+RNG W4 183949821978363
+T 91
+RNG W1 204133082291976
+RNG W2 33964567684718
+RNG W3 113000370818480
+RNG W4 39730779409537
+T 92
+RNG W1 181273347402213
+RNG W2 203046785809667
+RNG W3 127456312599530
+RNG W4 161495265474808
+T 93
+RNG W1 153790599515174
+RNG W2 4528876095580
+RNG W3 112739254289844
+RNG W4 235657943160470
+E W1 minecraft:wolf pos=0.5421480762600565,-60.0,-0.08091179736309033 delta=0.007208858392315052,-0.0784000015258789,-0.07906112608096243 rot=2.687027,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=3.8458176 body=2.687027 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.7065493318577101,-60.0,1.3847510690422113 delta=0.006995042388300326,-0.0784000015258789,0.011328283087022564 rot=154.37048,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=167.36148 body=154.37048 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=1.4037570643433825,-60.0,0.41246879839434447 delta=0.0,-0.0784000015258789,0.0 rot=80.606125,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=84.468 body=80.606125 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=57.0636 body=102.0636 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.059778954848274855,-0.0784000015258789,0.08747308861090361 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=390.33334 abs=0.0 hurt=2/13 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.2999997 xp=0/0/0.0 sel=0 main=empty
+T 94
+RNG W1 86267234142235
+RNG W2 185688708592201
+RNG W3 18856631829902
+RNG W4 29752556249577
+T 95
+RNG W1 103997160980564
+RNG W2 70145049709274
+RNG W3 17038588983800
+RNG W4 208407443258449
+T 96
+RNG W1 261460336796833
+RNG W2 20874574900575
+RNG W3 213757184466290
+RNG W4 56740928287880
+T 97
+RNG W1 72047081669394
+RNG W2 34414185425256
+RNG W3 250940588732028
+RNG W4 125868580135888
+T 98
+RNG W1 44369073605879
+RNG W2 164757376810949
+RNG W3 206256708800406
+RNG W4 71154307620763
+E W1 minecraft:wolf pos=0.5532929717917565,-60.0,-0.2466049995773351 delta=0.0,-0.0784000015258789,-0.0038364227838491734 rot=2.687027,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=4.121437 body=2.687027 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.7173636678336434,-60.0,1.4056417386384794 delta=0.0,-0.0784000015258789,0.0 rot=154.37048,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=166.5037 body=154.37048 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=1.4037570643433825,-60.0,0.41246879839434447 delta=0.0,-0.0784000015258789,0.0 rot=80.606125,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=84.468 body=80.606125 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=87.0636 body=87.0636 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.0029007599024046295,-0.0784000015258789,0.004244611312225356 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=390.33334 abs=0.0 hurt=0/8 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.2999997 xp=0/0/0.0 sel=0 main=empty
+T 99
+RNG W1 106572866409067
+RNG W2 39547356791686
+RNG W3 269694466942784
+RNG W4 40575537118787
+T 100
+RNG W1 221410819564189
+RNG W2 178994355875579
+RNG W3 58946760392698
+RNG W4 34364035789970
+T 101
+RNG W1 200621900430111
+RNG W2 22412848217268
+RNG W3 277488246876228
+RNG W4 59648236276203
+T 102
+RNG W1 31039260400753
+RNG W2 206121752204417
+RNG W3 224209676358302
+RNG W4 192496473709338
+T 103
+RNG W1 214521388268307
+RNG W2 211396202830962
+RNG W3 271865166624136
+RNG W4 191952646791827
+E W1 minecraft:wolf pos=0.5532929717917565,-60.0,-0.2504414223611843 delta=0.0,-0.0784000015258789,0.0 rot=2.687027,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=Steve aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=4.062027 body=2.687027 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.7173636678336434,-60.0,1.4056417386384794 delta=0.0,-0.0784000015258789,0.0 rot=154.37048,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=166.5037 body=154.37048 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=1.4037570643433825,-60.0,0.41246879839434447 delta=0.0,-0.0784000015258789,0.0 rot=80.606125,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=84.468 body=80.606125 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=87.0636 body=87.0636 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=390.6667 abs=0.0 hurt=0/3 death=0 fx=- gm=survival food=20 sat=1.0 exh=0.2999997 xp=0/0/0.0 sel=0 main=empty
+T 104
+RNG W1 8463623626629
+RNG W2 23182721891799
+RNG W3 21122624514946
+RNG W4 30615476177570
+T 105
+RNG W1 89123837281863
+RNG W2 137798951349824
+RNG W3 114516744508172
+RNG W4 240083216295995
+T 106
+RNG W1 187764453982169
+RNG W2 1434094739268
+RNG W3 280850923564710
+RNG W4 41177073443626
+T 107
+RNG W1 120033045844155
+RNG W2 7279184208286
+RNG W3 172046798554320
+RNG W4 73416250915555
+T 108
+RNG W1 112746819686765
+RNG W2 102946446472
+RNG W3 100335925329930
+RNG W4 105159780091058
+E W1 minecraft:wolf pos=0.5532929717917565,-60.0,-0.2504414223611843 delta=0.0,-0.0784000015258789,0.0 rot=2.687027,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=4.062027 body=2.687027 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.7173636678336434,-60.0,1.4056417386384794 delta=0.0,-0.0784000015258789,0.0 rot=154.37048,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=166.5037 body=154.37048 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=1.4037570643433825,-60.0,0.41246879839434447 delta=0.0,-0.0784000015258789,0.0 rot=80.606125,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=84.468 body=80.606125 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=87.0636 body=87.0636 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.18001473779128307,0.10905472940649964,0.01743489144070599 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=386.6667 abs=0.0 hurt=7/18 death=0 fx=- gm=survival food=20 sat=1.0 exh=0.3999997 xp=0/0/0.0 sel=0 main=empty
+T 109
+RNG W1 209350263983727
+RNG W2 130981560117890
+RNG W3 206801377054420
+RNG W4 15254685399691
+T 110
+RNG W1 102824424532033
+RNG W2 210866808236556
+RNG W3 240803429377313
+RNG W4 197676593205050
+T 111
+RNG W1 214977893315427
+RNG W2 261887884172710
+RNG W3 134284186951058
+RNG W4 252828333393715
+T 112
+RNG W1 90823302830165
+RNG W2 44055942990800
+RNG W3 216940494326135
+RNG W4 127917549560514
+T 113
+RNG W1 144317515887511
+RNG W2 111483627626250
+RNG W3 254154565756512
+RNG W4 238312555790555
+E W1 minecraft:wolf pos=0.5532929717917565,-60.0,-0.2504414223611843 delta=0.0,-0.0784000015258789,0.0 rot=2.687027,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=4.062027 body=2.687027 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.7173636678336434,-60.0,1.4056417386384794 delta=0.0,-0.0784000015258789,0.0 rot=154.37048,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=166.5037 body=154.37048 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=1.4037570643433825,-60.0,0.41246879839434447 delta=0.0,-0.0784000015258789,0.0 rot=80.606125,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=84.468 body=84.468 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=87.0636 body=87.0636 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.04044060676150096,-0.0784000015258789,0.0039167770224488386 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=386.83334 abs=0.0 hurt=2/13 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.3999997 xp=0/0/0.0 sel=0 main=empty
+T 114
+RNG W1 134735281632681
+RNG W2 27401808299476
+RNG W3 166009207454493
+RNG W4 255993600139082
+T 115
+RNG W1 36920741724939
+RNG W2 43139920646830
+RNG W3 250536979994814
+RNG W4 112530907056003
+T 116
+RNG W1 8949913850941
+RNG W2 139437882711064
+RNG W3 138805383745427
+RNG W4 157535857386706
+T 117
+RNG W1 125103414973887
+RNG W2 250546570517650
+RNG W3 49736184537799
+RNG W4 112878500379435
+T 118
+RNG W1 194645915879441
+RNG W2 3753059226268
+RNG W3 28643076632665
+RNG W4 51095101084506
+E W1 minecraft:wolf pos=0.5532929717917565,-60.0,-0.2504414223611843 delta=0.0,-0.0784000015258789,0.0 rot=2.687027,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=4.062027 body=2.687027 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.7173636678336434,-60.0,1.4056417386384794 delta=0.0,-0.0784000015258789,0.0 rot=154.37048,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=166.5037 body=166.5037 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=1.4037570643433825,-60.0,0.41246879839434447 delta=0.0,-0.0784000015258789,0.0 rot=80.606125,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=84.468 body=84.468 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=87.0636 body=87.0636 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.0019623710521606903,-0.0784000015258789,1.900606954774699E-4 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=386.83334 abs=0.0 hurt=0/8 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.3999997 xp=0/0/0.0 sel=0 main=empty
+T 119
+RNG W1 202401810751411
+RNG W2 108485377958070
+RNG W3 94252600620347
+RNG W4 145015965481939
+T 120
+RNG W1 218973536773413
+RNG W2 84896981773664
+RNG W3 47964696431085
+RNG W4 64187307772642
+T 121
+RNG W1 217212291756134
+RNG W2 117752933450522
+RNG W3 185084043361007
+RNG W4 219315611462011
+T 122
+RNG W1 271976307763547
+RNG W2 267753862410340
+RNG W3 149615986190529
+RNG W4 275613985172330
+T 123
+RNG W1 219642040763028
+RNG W2 140396180580286
+RNG W3 72444197447651
+RNG W4 33291192230947
+E W1 minecraft:wolf pos=0.5532929717917565,-60.0,-0.2504414223611843 delta=0.0,-0.0784000015258789,0.0 rot=2.687027,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=4.062027 body=4.062027 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=3:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W2 minecraft:wolf pos=0.7173636678336434,-60.0,1.4056417386384794 delta=0.0,-0.0784000015258789,0.0 rot=154.37048,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=166.5037 body=166.5037 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=0,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W3 minecraft:wolf pos=1.4037570643433825,-60.0,0.41246879839434447 delta=0.0,-0.0784000015258789,0.0 rot=80.606125,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.0 xxa=0.0 yya=0.0 head=84.468 body=84.468 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/2/1/0,-60,0 nodes=1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=5:MeleeAttackGoal:MOVE+LOOK tgoals=4:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+E W4 minecraft:wolf pos=-45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=87.0636 body=87.0636 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=387.0 abs=0.0 hurt=0/3 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.3999996 xp=0/0/0.0 sel=0 main=empty

@@ -137,6 +137,14 @@ pub fn set_baby(e: &mut dyn Entity, baby: bool) {
     }
 }
 
+/// `setBaby(baby)` including `ageBoundaryReached()` (a goat calf's attack damage).
+pub fn set_baby_in_level(e: &mut dyn Entity, level: &mut ServerLevel, baby: bool) {
+    if e.can_be_a_baby() {
+        let start = if baby { e.get_baby_start_age() } else { 0 };
+        set_age_in_level(e, level, start);
+    }
+}
+
 /// `AgeableMob.finalizeSpawn(...)` up to `super.finalizeSpawn` (which the caller runs next).
 pub fn finalize_spawn(
     e: &mut dyn Entity,

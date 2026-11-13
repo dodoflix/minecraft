@@ -1,0 +1,72 @@
+# TargetGoal unseen memory: a zombie chasing the player loses its target 60 ticks after a wall closed the line of sight
+# (mustSee), and does not pick it up again.
+level flat
+difficulty normal
+time 18000
+entity_counter 100
+spawn_player Steve survival 0.5 -60 0.5 0 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+mobspawn Z minecraft:zombie 9.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed Z 15
+watch rng:Z
+tick 6
+dump mob:Z
+fill -2 -61 -2 2 -57 2 minecraft:stone
+fill -1 -60 -1 1 -58 1 minecraft:air
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z
+tick 5
+dump mob:Z

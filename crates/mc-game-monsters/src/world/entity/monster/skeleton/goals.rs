@@ -94,12 +94,19 @@ pub fn create_weapon_goals(skeleton: &mut AbstractSkeleton) {
     }));
 }
 
+/// Binary name of the anonymous `MeleeAttackGoal` subclass of `AbstractSkeleton`.
+const MELEE_GOAL_NAME: &str = "AbstractSkeleton$1";
+
 /// The anonymous `MeleeAttackGoal` subclass of `AbstractSkeleton` (aggressive flag on start/stop).
 struct SkeletonMeleeAttackGoal {
     melee: MeleeAttackGoal,
 }
 
 impl Goal for SkeletonMeleeAttackGoal {
+    fn name(&self) -> &'static str {
+        MELEE_GOAL_NAME
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.melee.can_use_impl(mob, level)
     }
@@ -132,7 +139,7 @@ impl Goal for SkeletonMeleeAttackGoal {
 }
 
 fn is_melee(goal: &dyn Goal) -> bool {
-    goal.name() == "SkeletonMeleeAttackGoal"
+    goal.name() == MELEE_GOAL_NAME
 }
 
 fn is_bow(goal: &dyn Goal) -> bool {

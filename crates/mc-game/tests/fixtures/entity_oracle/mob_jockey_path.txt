@@ -1,0 +1,477 @@
+C Set minecraft:overworld to 18000 tick(s)
+T 1
+RNG Sp 144300592762504
+RNG Sk 23350069481035
+T 2
+RNG Sp 257339806898471
+RNG Sk 112949814048762
+T 3
+RNG Sp 159550665097126
+RNG Sk 237412785670814
+T 4
+RNG Sp 237220012805453
+RNG Sk 67479858493777
+T 5
+RNG Sp 222642254550996
+RNG Sk 185628157291109
+E Sp minecraft:spider pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=14.5,-59.935000002384186,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 6
+RNG Sp 55790489960993
+RNG Sk 116538403506956
+T 7
+RNG Sp 89911029173784
+RNG Sk 143360331332816
+T 8
+RNG Sp 198764995358773
+RNG Sk 124313003246747
+T 9
+RNG Sp 221609623102620
+RNG Sk 263114623344719
+T 10
+RNG Sp 54089824643977
+RNG Sk 210475094801326
+E Sp minecraft:spider pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=14.5,-59.935000002384186,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 11
+RNG Sp 123596338503520
+RNG Sk 16523359720850
+T 12
+RNG Sp 66564062447645
+RNG Sk 245939164207925
+T 13
+RNG Sp 61377958216292
+RNG Sk 183279240873609
+T 14
+RNG Sp 189597687486961
+RNG Sk 247485514243098
+T 15
+RNG Sp 262419919507880
+RNG Sk 72754593403070
+E Sp minecraft:spider pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=14.5,-59.935000002384186,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 16
+RNG Sp 150773713532165
+RNG Sk 201904483456241
+T 17
+RNG Sp 203540062589228
+RNG Sk 248656552222725
+T 18
+RNG Sp 189403567746393
+RNG Sk 216532499324972
+T 19
+RNG Sp 170489668568304
+RNG Sk 132302994637808
+T 20
+RNG Sp 26296076946730
+RNG Sk 56651400138043
+E Sp minecraft:spider pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=14.5,-59.935000002384186,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 21
+RNG Sp 88916317411053
+RNG Sk 116552400701902
+T 22
+RNG Sp 278744302104820
+RNG Sk 71859179110593
+T 23
+RNG Sp 263897888853999
+RNG Sk 243419052832824
+T 24
+RNG Sp 278314755785422
+RNG Sk 86337428914147
+T 25
+RNG Sp 170917925733825
+RNG Sk 16017398031794
+E Sp minecraft:spider pos=13.876339526400011,-60.0,1.006093939035803 delta=-0.12086214721378531,-0.0784000015258789,0.05665597752822743 rot=84.91528,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.36 xxa=0.0 yya=0.0 head=60.0 body=84.91528 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=2/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=13.876339526400011,-59.935000002384186,1.006093939035803 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.7790026 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=91.69487 body=84.91528 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=2/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=4:AbstractSkeleton$1:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 26
+RNG Sp 69309644577080
+RNG Sk 221551028123861
+T 27
+RNG Sp 37145669504227
+RNG Sk 202026176614588
+T 28
+RNG Sp 162078398017202
+RNG Sk 218278241377238
+T 29
+RNG Sp 273029536910805
+RNG Sk 127438301015424
+T 30
+RNG Sp 12208459792828
+RNG Sk 21174801993786
+E Sp minecraft:spider pos=12.52977433381083,-60.0,1.0275836913915104 delta=-0.15344722975480574,-0.0784000015258789,-0.008976073425891908 rot=93.10791,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.36 xxa=0.0 yya=0.0 head=93.22223 body=93.10791 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=3/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=12.52977433381083,-59.935000002384186,1.0275836913915104 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.8601576 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=92.5302 body=93.10791 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=3/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=4:AbstractSkeleton$1:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 31
+RNG Sp 1484489581847
+RNG Sk 217007289782916
+T 32
+RNG Sp 37561128367318
+RNG Sk 22217767282398
+T 33
+RNG Sp 218626897167145
+RNG Sk 270458834174920
+T 34
+RNG Sp 186320302272128
+RNG Sk 136704773711269
+T 35
+RNG Sp 48856784702603
+RNG Sk 230746670564684
+E Sp minecraft:spider pos=11.108284234255514,-60.0,0.9914489290413807 delta=-0.1556813842656386,-0.0784000015258789,0.0022994336640035 rot=88.14206,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.36 xxa=0.0 yya=0.0 head=89.104355 body=88.14206 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=4/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=11.108284234255514,-59.935000002384186,0.9914489290413807 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.9719036 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=92.5609 body=88.14206 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=4/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=4:AbstractSkeleton$1:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 36
+RNG Sp 91411077282106
+RNG Sk 18197005044071
+T 37
+RNG Sp 109076851489213
+RNG Sk 186828439292646
+T 38
+RNG Sp 277133689332612
+RNG Sk 99810249099257
+T 39
+RNG Sp 43974045546303
+RNG Sk 205426011495184
+T 40
+RNG Sp 241520580435934
+RNG Sk 127414278825435
+E Sp minecraft:spider pos=9.681423917577407,-60.0,0.9979843945646955 delta=-0.15584439449046214,-0.0784000015258789,1.7638862845921176E-4 rot=89.86125,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.36 xxa=0.0 yya=0.0 head=88.90732 body=89.86125 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=6/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=9.681423917577407,-59.935000002384186,0.9979843945646955 delta=0.0,-0.0784000015258789,0.0 rot=90.0,1.1179819 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=93.00908 body=89.86125 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=6/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=4:AbstractSkeleton$1:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 41
+RNG Sp 91664453600657
+RNG Sk 256241208844362
+T 42
+RNG Sp 6025117213896
+RNG Sk 81319380646797
+T 43
+RNG Sp 242620190808371
+RNG Sk 256837347100948
+T 44
+RNG Sp 121006670302402
+RNG Sk 158230649055214
+T 45
+RNG Sp 87606026304165
+RNG Sk 251231093560152
+E Sp minecraft:spider pos=8.254152852035714,-60.0,0.9994008703225333 delta=-0.15586147203603232,-0.0784000015258789,1.0854690974877622E-4 rot=89.91527,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.36 xxa=0.0 yya=0.0 head=89.93347 body=89.91527 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=7/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=8.254152852035714,-59.935000002384186,0.9994008703225333 delta=0.0,-0.0784000015258789,0.0 rot=90.0,1.3157085 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=93.55315 body=89.91527 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=7/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=4:AbstractSkeleton$1:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 46
+RNG Sp 178490918696524
+RNG Sk 213407465850322
+T 47
+RNG Sp 179645396428391
+RNG Sk 65966890434012
+T 48
+RNG Sp 280438812107750
+RNG Sk 207653507948022
+T 49
+RNG Sp 160588365278457
+RNG Sk 17364766657696
+T 50
+RNG Sp 125748856249360
+RNG Sk 92073466057818
+E Sp minecraft:spider pos=6.826842973911231,-60.0,0.9998978798361875 delta=-0.15586252769733025,-0.0784000015258789,1.3568369896899063E-5 rot=89.993454,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.36 xxa=0.0 yya=0.0 head=89.97279 body=89.993454 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=9/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=6.826842973911231,-59.935000002384186,0.9998978798361875 delta=0.0,-0.0784000015258789,0.0 rot=90.0,1.5980045 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=94.323105 body=89.993454 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=9/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=4:AbstractSkeleton$1:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 51
+RNG Sp 219352156967643
+RNG Sk 41343039341476
+T 52
+RNG Sp 35867608762698
+RNG Sk 261027813149950
+T 53
+RNG Sp 97278907101325
+RNG Sk 35015069230824
+T 54
+RNG Sp 170064047036948
+RNG Sk 190260244888389
+T 55
+RNG Sp 129018899124879
+RNG Sk 236611355720300
+E Sp minecraft:spider pos=5.3995300669013835,-60.0,1.0000097070466805 delta=-0.1558626022077565,-0.0784000015258789,6.784184948449532E-6 rot=89.999756,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.36 xxa=0.0 yya=0.0 head=89.9991 body=89.999756 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=10/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=5.3995300669013835,-59.935000002384186,1.0000097070466805 delta=0.0,-0.0784000015258789,0.0 rot=90.0,2.033984 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=95.508224 body=89.999756 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=10/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=4:AbstractSkeleton$1:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 56
+RNG Sp 277868530114798
+RNG Sk 33947590486023
+T 57
+RNG Sp 159890585672067
+RNG Sk 199843951711494
+T 58
+RNG Sp 120911960166098
+RNG Sk 70872805857177
+T 59
+RNG Sp 268116819786613
+RNG Sk 144895382408827
+T 60
+RNG Sp 62101530439388
+RNG Sk 99331489850669
+E Sp minecraft:spider pos=3.972216989490154,-60.0,1.0000097070466805 delta=-0.155862607080728,-0.0784000015258789,8.665798767640048E-18 rot=90.00217,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.36 xxa=0.0 yya=0.0 head=90.00104 body=90.00217 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=11/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=3.972216989490154,-59.935000002384186,1.0000097070466805 delta=0.0,-0.0784000015258789,0.0 rot=90.0,2.7938845 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=97.57945 body=90.00217 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=11/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=4:AbstractSkeleton$1:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 61
+RNG Sp 183727486262199
+RNG Sk 270593167042607
+T 62
+RNG Sp 12245312534262
+RNG Sk 272278283991041
+T 63
+RNG Sp 210131351644873
+RNG Sk 21907377645859
+T 64
+RNG Sp 69531292192160
+RNG Sk 122190393140245
+T 65
+RNG Sp 50966383381803
+RNG Sk 259080088831319
+E Sp minecraft:spider pos=2.544903901866341,-60.0,1.0000097070466805 delta=-0.15586260731718782,-0.0784000015258789,8.665798767640048E-18 rot=90.00067,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.36 xxa=0.0 yya=0.0 head=90.00049 body=90.00067 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=13/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=2.544903901866341,-59.935000002384186,1.0000097070466805 delta=0.0,-0.0784000015258789,0.0 rot=90.0,4.438448 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=102.11003 body=90.00067 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=13/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=4:AbstractSkeleton$1:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 66
+RNG Sp 92704876952922
+RNG Sk 226214587743593
+T 67
+RNG Sp 253290476878685
+RNG Sk 115672650232011
+T 68
+RNG Sp 102219199861924
+RNG Sk 196281432791037
+T 69
+RNG Sp 203704389984735
+RNG Sk 15157520588671
+T 70
+RNG Sp 227399713916414
+RNG Sk 188717402228689
+E Sp minecraft:spider pos=1.1175908137469643,-60.0,1.0000097070466805 delta=-0.15586260732866195,-0.0784000015258789,8.665798767640048E-18 rot=90.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.36 xxa=0.0 yya=0.0 head=90.000824 body=90.0014 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=14/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=1.1175908137469643,-59.935000002384186,1.0000097070466805 delta=0.0,-0.0784000015258789,0.0 rot=90.0,10.160794 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=118.97279 body=90.0014 nav=moving stuck=0 navspeed=1.2 ntarget=0,-60,0 path=14/15/1/0,-60,0 nodes=14,-60,0:WALKABLE:0.0;13,-60,0:WALKABLE:0.0;12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=4:AbstractSkeleton$1:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 71
+RNG Sp 136930705686833
+RNG Sk 271779220782988
+T 72
+RNG Sp 167930662995944
+RNG Sk 156558913613606
+T 73
+RNG Sp 3482993462739
+RNG Sk 181270850406538
+T 74
+RNG Sp 253039173301474
+RNG Sk 226490039869133
+T 75
+RNG Sp 186803170070597
+RNG Sk 206700917287841
+E Sp minecraft:spider pos=0.7909400841924551,-60.0,0.7399170630855417 delta=-0.007563196826889123,-0.0784000015258789,-0.011517966436230183 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=135.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7909400841924551,-59.935000002384186,0.7399170630855417 delta=0.06522413577256797,-0.0784000015258789,0.05416141879898273 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=154.52312 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 76
+RNG Sp 206293429398380
+RNG Sk 43361114651032
+T 77
+RNG Sp 113897762292999
+RNG Sk 165605126293532
+T 78
+RNG Sp 42395373006342
+RNG Sk 229437231815671
+T 79
+RNG Sp 194628096081049
+RNG Sk 200883979850091
+T 80
+RNG Sp 178818585772848
+RNG Sk 102073347738778
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.06385014898314631,-0.0784000015258789,0.05014776157916871 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 81
+RNG Sp 129878076177275
+RNG Sk 281260206115134
+T 82
+RNG Sp 149392881735018
+RNG Sk 151217032881009
+T 83
+RNG Sp 64273767275053
+RNG Sk 71015641470597
+T 84
+RNG Sp 77755673252660
+RNG Sk 210507410527404
+T 85
+RNG Sp 101891557516591
+RNG Sk 177804432064624
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.06385648218737479,-0.0784000015258789,0.05002687508748964 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 86
+RNG Sp 94485156613902
+RNG Sk 96071414386619
+T 87
+RNG Sp 259646063000833
+RNG Sk 206581395832175
+T 88
+RNG Sp 250573612310392
+RNG Sk 199066458448462
+T 89
+RNG Sp 249715756299811
+RNG Sk 119895142483506
+T 90
+RNG Sp 8933076516594
+RNG Sk 127975871565653
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.06385702936155761,-0.0784000015258789,0.05000906669363955 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 91
+RNG Sp 162394467875093
+RNG Sk 122549880326656
+T 92
+RNG Sp 139224500612092
+RNG Sk 275070147068090
+T 93
+RNG Sp 14411129561687
+RNG Sk 118422371393374
+T 94
+RNG Sp 107953788471574
+RNG Sk 124458803924753
+T 95
+RNG Sp 179019526267497
+RNG Sk 118127351634981
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.026421931692282272,-0.0784000015258789,0.020690822725297302 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=148.06427 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 96
+RNG Sp 10657319697600
+RNG Sk 256865822980556
+T 97
+RNG Sp 272375364672971
+RNG Sk 156194682263440
+T 98
+RNG Sp 77711943881082
+RNG Sk 153191175530587
+T 99
+RNG Sp 258569311177981
+RNG Sk 168199124860943
+T 100
+RNG Sp 42888740541892
+RNG Sk 6200843386990
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.06365153314305365,-0.0784000015258789,0.04984517288007558 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 101
+RNG Sp 198646432291967
+RNG Sk 226378057967186
+T 102
+RNG Sp 26209496693790
+RNG Sk 171369146465525
+T 103
+RNG Sp 212418090814673
+RNG Sk 263789051462729
+T 104
+RNG Sp 201205846309640
+RNG Sk 79848371628320
+T 105
+RNG Sp 55388292125299
+RNG Sk 126660533151780
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.06383935310844878,-0.0784000015258789,0.04999215087481693 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 106
+RNG Sp 181184932949250
+RNG Sk 260568503299935
+T 107
+RNG Sp 101931403441637
+RNG Sk 168495409279827
+T 108
+RNG Sp 128909202649228
+RNG Sk 147925441866850
+T 109
+RNG Sp 100536334201767
+RNG Sk 170088940854662
+T 110
+RNG Sp 239405209258022
+RNG Sk 241765447906841
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.06385554958890806,-0.0784000015258789,0.050004819414736834 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 111
+RNG Sp 52243461577785
+RNG Sk 213295184316084
+T 112
+RNG Sp 230442805181008
+RNG Sk 142525784469134
+T 113
+RNG Sp 174977847112731
+RNG Sk 239944543475314
+T 114
+RNG Sp 148999001600394
+RNG Sk 245569481964181
+T 115
+RNG Sp 87466195538893
+RNG Sk 234139310832617
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.026421931692282272,-0.0784000015258789,0.020690822725297302 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=148.06427 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 116
+RNG Sp 39139271990356
+RNG Sk 66630909417536
+T 117
+RNG Sp 241997388826575
+RNG Sk 159527210182980
+T 118
+RNG Sp 13557495106862
+RNG Sk 99658542311935
+T 119
+RNG Sp 35046284783777
+RNG Sk 95069254744051
+T 120
+RNG Sp 175087333743256
+RNG Sk 180300848260226
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.06365149671293495,-0.0784000015258789,0.04984502467851158 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 121
+RNG Sp 268253863666371
+RNG Sk 113258197596070
+T 122
+RNG Sp 223350733389586
+RNG Sk 108332653172153
+T 123
+RNG Sp 92384021350069
+RNG Sk 191131910743373
+T 124
+RNG Sp 269397971826972
+RNG Sk 276060764639188
+T 125
+RNG Sp 34902560880887
+RNG Sk 153668878173720
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.06383934997212655,-0.0784000015258789,0.04999213111767474 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 126
+RNG Sp 187314930199350
+RNG Sk 175674636871747
+T 127
+RNG Sp 220407169608201
+RNG Sk 46377145456247
+T 128
+RNG Sp 257295872146400
+RNG Sk 185674422106806
+T 129
+RNG Sp 243452520316523
+RNG Sk 257562534690074
+T 130
+RNG Sp 40524374914458
+RNG Sk 167119212016799
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.06385554931800345,-0.0784000015258789,0.05000481669570804 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 131
+RNG Sp 170312146988701
+RNG Sk 26726543060130
+T 132
+RNG Sp 32516711409380
+RNG Sk 192268023056684
+T 133
+RNG Sp 42815609677599
+RNG Sk 181617358798064
+T 134
+RNG Sp 90559052317246
+RNG Sk 219269514547771
+T 135
+RNG Sp 108850056112241
+RNG Sk 92157605586927
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.026421931692282272,-0.0784000015258789,0.020690822725297302 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=148.06427 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+T 136
+RNG Sp 157003883363880
+RNG Sk 237459157662414
+T 137
+RNG Sp 180395012024083
+RNG Sk 53029056849586
+T 138
+RNG Sp 24563231946018
+RNG Sk 82859488110037
+T 139
+RNG Sp 124016366644101
+RNG Sk 75851583724329
+T 140
+RNG Sp 197818602735020
+RNG Sk 71175642441344
+E Sp minecraft:spider pos=0.7792473814184315,-60.0,0.7186765953649004 delta=0.0,-0.0784000015258789,0.0 rot=180.0014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.36 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Sk minecraft:skeleton pos=0.7792473814184315,-59.935000002384186,0.7186765953649004 delta=0.06365149670626573,-0.0784000015258789,0.04984502457615407 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=180.0014 body=180.0014 nav=done stuck=0 navspeed=1.2 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25

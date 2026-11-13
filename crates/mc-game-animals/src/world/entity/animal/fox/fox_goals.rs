@@ -308,7 +308,7 @@ fn fox_breed(animal: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId
     {
         fox_mut(&mut *offspring).add_trusted_entity(cause);
     }
-    ageable::set_baby(&mut *offspring, true);
+    ageable::set_baby_in_level(&mut *offspring, level, true);
     let p = animal.position();
     offspring.snap_to(p.x, p.y, p.z, 0.0, 0.0);
     animal::finalize_spawn_child_from_breeding(animal, level, partner, Some(&mut *offspring));

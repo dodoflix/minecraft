@@ -1,0 +1,1720 @@
+T 1
+RNG Pig 145493833091980
+RNG Cow 40211376248603
+RNG Sheep 46180658806137
+T 2
+RNG Pig 237826753660240
+RNG Cow 157672989792394
+RNG Sheep 242313314797716
+T 3
+RNG Pig 278327588659995
+RNG Cow 35277014148142
+RNG Sheep 1626079764239
+T 4
+RNG Pig 229477331740367
+RNG Cow 249849768328097
+RNG Sheep 86124024203602
+T 5
+RNG Pig 229066552901678
+RNG Cow 257150601757109
+RNG Sheep 110490797220853
+T 6
+RNG Pig 196417318674962
+RNG Cow 167043542079516
+RNG Sheep 82811580199968
+T 7
+RNG Pig 146473501158837
+RNG Cow 51492288563936
+RNG Sheep 158371211964843
+T 8
+RNG Pig 58999138369801
+RNG Cow 37031849582955
+RNG Sheep 46761942825086
+T 9
+RNG Pig 83237394761440
+RNG Cow 131976835299871
+RNG Sheep 84813322174897
+T 10
+RNG Pig 211607994775706
+RNG Cow 167249473198398
+RNG Sheep 30242298710508
+E Pig minecraft:pig pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.393947 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=30.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=-4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=3.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 11
+RNG Pig 233914976597405
+RNG Cow 149619245890594
+RNG Sheep 110967852106119
+T 12
+RNG Pig 10893242680863
+RNG Cow 75211834566277
+RNG Sheep 205568541818858
+T 13
+RNG Pig 152767798555966
+RNG Cow 131392696825561
+RNG Sheep 278872747651757
+T 14
+RNG Pig 175575728761128
+RNG Cow 223017293271152
+RNG Sheep 110410014471672
+T 15
+RNG Pig 56321747383827
+RNG Cow 195959847826548
+RNG Sheep 131378814438051
+T 16
+RNG Pig 89170772857477
+RNG Cow 176743929548143
+RNG Sheep 178234980461462
+T 17
+RNG Pig 95325800292524
+RNG Cow 256590861623907
+RNG Sheep 29709008671465
+T 18
+RNG Pig 148764752266566
+RNG Cow 207385802135090
+RNG Sheep 132579112494148
+T 19
+RNG Pig 136459752760025
+RNG Cow 19542227031126
+RNG Sheep 36244572997887
+T 20
+RNG Pig 33064315874235
+RNG Cow 243479935839401
+RNG Sheep 93933287982978
+E Pig minecraft:pig pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.393947 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=130.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=-4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=3.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 21
+RNG Pig 182566621864106
+RNG Cow 126164045151037
+RNG Sheep 208532787707493
+T 22
+RNG Pig 203292518166644
+RNG Cow 134147142452996
+RNG Sheep 238740397129936
+T 23
+RNG Pig 248655781517679
+RNG Cow 20736141323301
+RNG Sheep 240757428566171
+T 24
+RNG Pig 146773826857793
+RNG Cow 255032676141516
+RNG Sheep 189679199395758
+T 25
+RNG Pig 101835835674808
+RNG Cow 41547215124089
+RNG Sheep 130535073829153
+T 26
+RNG Pig 260460405813810
+RNG Cow 30818778834832
+RNG Sheep 281013531211676
+T 27
+RNG Pig 128143856536405
+RNG Cow 254652289569293
+RNG Sheep 170977801344375
+T 28
+RNG Pig 277144905473687
+RNG Cow 259413040897428
+RNG Sheep 238373125177370
+T 29
+RNG Pig 10324819046486
+RNG Cow 119702342385294
+RNG Sheep 107885780641565
+T 30
+RNG Pig 56951213315584
+RNG Cow 126885113935489
+RNG Sheep 138220482098344
+E Pig minecraft:pig pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.393947 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=135.0 body=67.5 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=-4.41045917720971,-60.0,3.4711440697653315 delta=0.02704929173446168,-0.0784000015258789,-0.015755339738153133 rot=223.83081,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=287.85748 body=223.83081 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=1/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=3.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 31
+RNG Pig 251397115026955
+RNG Cow 142975782734755
+RNG Sheep 48741871295379
+T 32
+RNG Pig 109783391381309
+RNG Cow 5107756836466
+RNG Sheep 68211403847149
+T 33
+RNG Pig 23084366234372
+RNG Cow 121813489557372
+RNG Sheep 121200344671220
+T 34
+RNG Pig 38391368469343
+RNG Cow 144444447051735
+RNG Sheep 224954497121336
+T 35
+RNG Pig 197749592584574
+RNG Cow 210015651990505
+RNG Sheep 261296665129955
+T 36
+RNG Pig 188826427819697
+RNG Cow 241778958264384
+RNG Sheep 242518628318231
+T 37
+RNG Pig 10004069572456
+RNG Cow 185459640805626
+RNG Sheep 20591459909590
+T 38
+RNG Pig 80306661429075
+RNG Cow 234779679821437
+RNG Sheep 256329895146554
+T 39
+RNG Pig 102801238268002
+RNG Cow 200995801086463
+RNG Sheep 155295071180989
+T 40
+RNG Pig 172191191428549
+RNG Cow 251240044743582
+RNG Sheep 46195717575825
+E Pig minecraft:pig pos=2.9339685473727357,-60.0,4.066031452627264 delta=-0.0523809678792218,-0.0784000015258789,0.0523809678792218 rot=45.0,-11.260116 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=120.0 body=45.0 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,11 path=1/8/1/0,-60,11 nodes=3,-60,3:WALKABLE:0.0;2,-60,4:WALKABLE:0.0;2,-60,5:WALKABLE:0.0;1,-60,6:WALKABLE:0.0;1,-60,7:WALKABLE:0.0;1,-60,8:WALKABLE:0.0;1,-60,9:WALKABLE:0.0;0,-60,10:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=-3.827281832337344,-60.0,2.8648454488751858 delta=0.03281821907544008,-0.0784000015258789,-0.03510422010566996 rot=224.15057,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=222.0863 body=224.15057 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=2/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=3.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-90.0 body=-10.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 41
+RNG Pig 221464674810604
+RNG Cow 243199394420360
+RNG Sheep 27182475577288
+T 42
+RNG Pig 201553221820039
+RNG Cow 191875644737523
+RNG Sheep 82720977440581
+T 43
+RNG Pig 235469125503366
+RNG Cow 71504811779941
+RNG Sheep 142889261809260
+T 44
+RNG Pig 137663649690137
+RNG Cow 179941911970828
+RNG Sheep 238349153610649
+T 45
+RNG Pig 158140133206250
+RNG Cow 251526343837606
+RNG Sheep 128639157143088
+T 46
+RNG Pig 95933221791661
+RNG Cow 25838194369977
+RNG Sheep 34935364876589
+T 47
+RNG Pig 97252417508020
+RNG Cow 171217725692315
+RNG Sheep 102123212965428
+T 48
+RNG Pig 139988081061551
+RNG Cow 134425384331530
+RNG Sheep 125163445390337
+T 49
+RNG Pig 104845123066510
+RNG Cow 110081893015508
+RNG Sheep 16156679701112
+T 50
+RNG Pig 145799766598273
+RNG Cow 194590743397711
+RNG Sheep 69718758225941
+E Pig minecraft:pig pos=2.465488019045565,-60.0,5.326969953479191 delta=-0.03781680734797206,-0.0784000015258789,0.06315374523355156 rot=38.762344,-9.458823 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=97.51851 body=38.762344 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,11 path=3/8/1/0,-60,11 nodes=3,-60,3:WALKABLE:0.0;2,-60,4:WALKABLE:0.0;2,-60,5:WALKABLE:0.0;1,-60,6:WALKABLE:0.0;1,-60,7:WALKABLE:0.0;1,-60,8:WALKABLE:0.0;1,-60,9:WALKABLE:0.0;0,-60,10:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=-3.2141087893864757,-60.0,2.232348780225882 delta=0.03357950518544592,-0.0784000015258789,-0.03444655736610095 rot=224.27692,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=224.27618 body=224.27692 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=2/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=2.8571331077897715,-60.0,-4.857133107789771 delta=-0.04479201668224351,-0.0784000015258789,0.04479201668224351 rot=45.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=2/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 51
+RNG Pig 243048268912376
+RNG Cow 120610103503393
+RNG Sheep 162488971624188
+T 52
+RNG Pig 18759570347939
+RNG Cow 116493290804760
+RNG Sheep 33302586691945
+T 53
+RNG Pig 21847633183346
+RNG Cow 81873834829458
+RNG Sheep 102901444984768
+T 54
+RNG Pig 146589885183637
+RNG Cow 75415741126709
+RNG Sheep 191816061774845
+T 55
+RNG Pig 225879395113852
+RNG Cow 227618483185271
+RNG Sheep 21256509606084
+T 56
+RNG Pig 271119689096151
+RNG Cow 124143550515894
+RNG Sheep 56852903877585
+T 57
+RNG Pig 271218042438806
+RNG Cow 168376684390240
+RNG Sheep 80766028373512
+T 58
+RNG Pig 170973298309097
+RNG Cow 149388193104875
+RNG Sheep 115201167127781
+T 59
+RNG Pig 115178248938560
+RNG Cow 262365723340829
+RNG Sheep 18257895359372
+T 60
+RNG Pig 28234753896267
+RNG Cow 91499861248612
+RNG Sheep 247584932629305
+E Pig minecraft:pig pos=1.7131251524145836,-60.0,6.4476392132434155 delta=-0.02181534701852733,-0.0784000015258789,0.07067595171396947 rot=12.087273,-8.174997 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=87.08727 body=12.087273 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,11 path=4/8/1/0,-60,11 nodes=3,-60,3:WALKABLE:0.0;2,-60,4:WALKABLE:0.0;2,-60,5:WALKABLE:0.0;1,-60,6:WALKABLE:0.0;1,-60,7:WALKABLE:0.0;1,-60,8:WALKABLE:0.0;1,-60,9:WALKABLE:0.0;0,-60,10:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=-2.596817755345225,-60.0,1.6037012548120724 delta=0.033887606433401884,-0.0784000015258789,-0.03414356403071469 rot=224.8186,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=224.81573 body=224.8186 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=3/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=2.033647405425943,-60.0,-4.033632023886679 delta=-0.044985469392619104,-0.0784000015258789,0.044985659445016236 rot=45.0007,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=45.000595 body=45.0007 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=2/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 61
+RNG Pig 213412731438330
+RNG Cow 217528402614696
+RNG Sheep 278837806234960
+T 62
+RNG Pig 203522119824708
+RNG Cow 56517106621587
+RNG Sheep 161835610387149
+T 63
+RNG Pig 201014192801279
+RNG Cow 93687390510341
+RNG Sheep 50006491483988
+T 64
+RNG Pig 215140926411345
+RNG Cow 28469148670252
+RNG Sheep 57854088396184
+T 65
+RNG Pig 247328738923144
+RNG Cow 206104155664838
+RNG Sheep 27814471911875
+T 66
+RNG Pig 56774789501058
+RNG Cow 239894368687449
+RNG Sheep 36528588932533
+T 67
+RNG Pig 64382082536293
+RNG Cow 68802296750651
+RNG Sheep 209332416760860
+T 68
+RNG Pig 45446090100007
+RNG Cow 2889691206954
+RNG Sheep 121630713263670
+T 69
+RNG Pig 216197664023462
+RNG Cow 151892099512564
+RNG Sheep 81518703974665
+T 70
+RNG Pig 225810710528464
+RNG Cow 235398741882863
+RNG Sheep 78081294009707
+E Pig minecraft:pig pos=1.5180187070982512,-60.0,7.802061619649285 delta=-0.0029371465996941653,-0.0784000015258789,0.07506057274736541 rot=1.604248,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=1.7691803 body=1.604248 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,11 path=5/8/1/0,-60,11 nodes=3,-60,3:WALKABLE:0.0;2,-60,4:WALKABLE:0.0;2,-60,5:WALKABLE:0.0;1,-60,6:WALKABLE:0.0;1,-60,7:WALKABLE:0.0;1,-60,8:WALKABLE:0.0;1,-60,9:WALKABLE:0.0;0,-60,10:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=-1.9758122297503034,-60.0,0.9787101702612665 delta=0.03391116804962613,-0.0784000015258789,-0.03412029882062819 rot=224.82559,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=224.82541 body=224.82559 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=3/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.5972032393532287,-60.0,-2.9967870400086434 delta=-0.012882269757025009,-0.0784000015258789,0.062214532831435757 rot=11.188255,-5.8145895 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=17.24472 body=11.188255 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=3/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 71
+RNG Pig 49286306964891
+RNG Cow 144266953092545
+RNG Sheep 49101961130138
+T 72
+RNG Pig 219906297749837
+RNG Cow 45592573485368
+RNG Sheep 278687210346980
+T 73
+RNG Pig 183229183237076
+RNG Cow 173892252022450
+RNG Sheep 30024684461599
+T 74
+RNG Pig 231170517801134
+RNG Cow 27529927210453
+RNG Sheep 1993652057969
+T 75
+RNG Pig 265038179685921
+RNG Cow 160459861150999
+RNG Sheep 280204984394024
+T 76
+RNG Pig 164238037582915
+RNG Cow 78085527796950
+RNG Sheep 123175151996962
+T 77
+RNG Pig 97319973782162
+RNG Cow 42662827554432
+RNG Sheep 108367535368837
+T 78
+RNG Pig 98524151425180
+RNG Cow 255744981038219
+RNG Sheep 228317299853639
+T 79
+RNG Pig 101398917771895
+RNG Cow 250597137850813
+RNG Sheep 240300293913926
+T 80
+RNG Pig 27699638075273
+RNG Cow 51357899041668
+RNG Sheep 152758790259824
+E Pig minecraft:pig pos=1.5077489098657835,-60.0,9.17829637956871 delta=-6.641119258260983E-4,-0.0784000015258789,0.0751537094891183 rot=1.1181107,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=0.9603195 body=1.1181107 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,11 path=6/8/1/0,-60,11 nodes=3,-60,3:WALKABLE:0.0;2,-60,4:WALKABLE:0.0;2,-60,5:WALKABLE:0.0;1,-60,6:WALKABLE:0.0;1,-60,7:WALKABLE:0.0;1,-60,8:WALKABLE:0.0;1,-60,9:WALKABLE:0.0;0,-60,10:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=-1.3536341894629018,-60.0,0.3548864913455375 delta=0.03398930164581788,-0.0784000015258789,-0.03404246908423883 rot=224.95789,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=224.95764 body=224.95789 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=4/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.519269898258886,-60.0,-1.8376505194102726 delta=-0.0013840506622040006,-0.0784000015258789,0.0635539397650888 rot=2.7493896,-8.24096 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=22.605484 body=2.7493896 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=4/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 81
+RNG Pig 179950396466016
+RNG Cow 224698644752350
+RNG Sheep 53331264570299
+T 82
+RNG Pig 183096288045338
+RNG Cow 110695488826769
+RNG Sheep 23576331500653
+T 83
+RNG Pig 203675605867549
+RNG Cow 230163937902899
+RNG Sheep 271557343094900
+T 84
+RNG Pig 93934098157727
+RNG Cow 231990935524546
+RNG Sheep 96810613835342
+T 85
+RNG Pig 77600073018814
+RNG Cow 233760801914444
+RNG Sheep 30453794751297
+T 86
+RNG Pig 182540679075240
+RNG Cow 111141533584999
+RNG Sheep 241919319344739
+T 87
+RNG Pig 272744485382291
+RNG Cow 120808612353273
+RNG Sheep 201612144126514
+T 88
+RNG Pig 259555993356549
+RNG Cow 2238805861392
+RNG Sheep 55790954916156
+T 89
+RNG Pig 280727737914668
+RNG Cow 185741045502282
+RNG Sheep 175416811714199
+T 90
+RNG Pig 75106513996016
+RNG Cow 273045194496141
+RNG Sheep 63065943699625
+E Pig minecraft:pig pos=0.8250905818686403,-60.0,10.14383593813662 delta=-0.014798589116532796,-0.0784000015258789,0.016764932300113982 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=42.059982 body=42.059982 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=-0.7310451468853676,-60.0,-0.2685275385588115 delta=0.034005742957296914,-0.0784000015258789,-0.03402604387755727 rot=224.98972,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=224.98917 body=224.98972 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=5/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.4318774965860346,-60.0,-0.6988191413582265 delta=-0.02660875484306456,-0.0784000015258789,0.05481788942296469 rot=37.04431,-13.30724 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=37.04431 body=37.04431 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=6/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 91
+RNG Pig 7366158626363
+RNG Cow 152018055510671
+RNG Sheep 24105398652416
+T 92
+RNG Pig 120368423519215
+RNG Cow 50392398948590
+RNG Sheep 258750275052730
+T 93
+RNG Pig 4693293639374
+RNG Cow 264722886147160
+RNG Sheep 131801004277565
+T 94
+RNG Pig 259901452931762
+RNG Cow 28813491847555
+RNG Sheep 211103755040959
+T 95
+RNG Pig 170910208369109
+RNG Cow 211958451790709
+RNG Sheep 199445237400414
+T 96
+RNG Pig 216677213214505
+RNG Cow 215084393363164
+RNG Sheep 227643248079944
+T 97
+RNG Pig 55653816840832
+RNG Cow 46692450942710
+RNG Sheep 209304628212403
+T 98
+RNG Pig 59672442251140
+RNG Cow 217310751183561
+RNG Sheep 109871199236133
+T 99
+RNG Pig 59350945524543
+RNG Cow 252464493540651
+RNG Sheep 241422086880716
+T 100
+RNG Pig 47222189346099
+RNG Cow 9682770576730
+RNG Sheep 273670042793830
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=42.059982 body=42.059982 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=-0.10817092841625393,-60.0,-0.8916566424458019 delta=0.03400936310957212,-0.0784000015258789,-0.0340224265230054 rot=224.99161,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=224.9914 body=224.99161 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=5/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.0928762634029325,-60.0,-0.2243947706276686 delta=0.03724215068918016,-0.0784000015258789,-0.045425466040093745 rot=39.292786,-22.505585 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=39.292786 body=39.292786 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=6/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 101
+RNG Pig 182422577262786
+RNG Cow 280442778770596
+RNG Sheep 145013407136377
+T 102
+RNG Pig 10527904925403
+RNG Cow 146372001253855
+RNG Sheep 146235481726043
+T 103
+RNG Pig 7815778151754
+RNG Cow 89544219060529
+RNG Sheep 78055544902858
+T 104
+RNG Pig 170399891785359
+RNG Cow 114292718358504
+RNG Sheep 104425956512148
+T 105
+RNG Pig 15926021604590
+RNG Cow 275777291697378
+RNG Sheep 108863780123663
+T 106
+RNG Pig 160628758891907
+RNG Cow 135713207023685
+RNG Sheep 17233981937377
+T 107
+RNG Pig 63873862447826
+RNG Cow 57378428185863
+RNG Sheep 11192440906712
+T 108
+RNG Pig 271947011100599
+RNG Cow 253640046196230
+RNG Sheep 105899194042962
+T 109
+RNG Pig 229553254800118
+RNG Cow 55641288657712
+RNG Sheep 218933579665653
+T 110
+RNG Pig 186065909793067
+RNG Cow 148812170109819
+RNG Sheep 268618058902839
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=57.585022 body=42.059982 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=0.5147459954310235,-60.0,-1.514743077638752 delta=0.03401258744744657,-0.0784000015258789,-0.034019205017565425 rot=224.9996,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=224.9993 body=224.9996 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=6/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.0499898902567524,-60.0,-0.17178447160465216 delta=0.030970780178099188,-0.0784000015258789,-0.03782430865547928 rot=39.306778,-23.733208 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=39.306778 body=39.306778 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=6/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 111
+RNG Pig 147939613565274
+RNG Cow 60066177008173
+RNG Sheep 262612508322422
+T 112
+RNG Pig 227936181491167
+RNG Cow 2791470209844
+RNG Sheep 246365005901088
+T 113
+RNG Pig 143665822476798
+RNG Cow 79735744370446
+RNG Sheep 63869446665899
+T 114
+RNG Pig 90315099275731
+RNG Cow 173995903182081
+RNG Sheep 93872430842077
+T 115
+RNG Pig 135357502675170
+RNG Cow 147776413982243
+RNG Sheep 245485063629860
+T 116
+RNG Pig 37232646764807
+RNG Cow 134251902437106
+RNG Sheep 162493049809278
+T 117
+RNG Pig 172001801769478
+RNG Cow 148762039071740
+RNG Sheep 189346842402481
+T 118
+RNG Pig 61073793560443
+RNG Cow 245653539588695
+RNG Sheep 35651680151379
+T 119
+RNG Pig 275489151367530
+RNG Cow 246199597173353
+RNG Sheep 79624273416290
+T 120
+RNG Pig 129954647873839
+RNG Cow 206032538780864
+RNG Sheep 158024261612268
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=57.585022 body=42.059982 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=1.1377344349731886,-60.0,-2.137757978063867 delta=0.03401588064883724,-0.0784000015258789,-0.034015909002611276 rot=225.00049,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=225.00137 body=225.00049 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=7/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.0423532492623184,-60.0,-0.16238100041770964 delta=0.033112381333769716,-0.0784000015258789,-0.04043853483846525 rot=39.31018,-24.19923 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=39.31018 body=39.31018 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=6/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 121
+RNG Pig 73141630563086
+RNG Cow 51052244801914
+RNG Sheep 104925649319559
+T 122
+RNG Pig 6150683257379
+RNG Cow 249612765951229
+RNG Sheep 247324328823321
+T 123
+RNG Pig 154599131357938
+RNG Cow 34095169160319
+RNG Sheep 109951504630448
+T 124
+RNG Pig 241231956110614
+RNG Cow 65182827365406
+RNG Sheep 68244685988074
+T 125
+RNG Pig 62657516353129
+RNG Cow 150038099163763
+RNG Sheep 4187497447341
+T 126
+RNG Pig 187926681379069
+RNG Cow 70713730757890
+RNG Sheep 127447732373167
+T 127
+RNG Pig 161098836122052
+RNG Cow 95113970884069
+RNG Sheep 97130194260622
+T 128
+RNG Pig 170326555410184
+RNG Cow 32984707430540
+RNG Sheep 99203575369464
+T 129
+RNG Pig 206491333592691
+RNG Cow 16978965928871
+RNG Sheep 190979855413155
+T 130
+RNG Pig 58564234995623
+RNG Cow 223004301545510
+RNG Sheep 105856934777724
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=57.585022 body=57.585022 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=1.7607360680928128,-60.0,-2.7607596734896918 delta=0.034015894786223154,-0.0784000015258789,-0.034015894852986464 rot=225.00085,-5.3523054 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=285.00055 body=225.00085 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=7/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE;6:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.0726384260278252,-60.0,-0.19930469297925643 delta=0.02625758435757377,-0.0784000015258789,-0.032060039915116675 rot=39.312546,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=39.312103 body=39.312546 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=6/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 131
+RNG Pig 239700232907814
+RNG Cow 162286083064889
+RNG Sheep 118664296018903
+T 132
+RNG Pig 216850947233162
+RNG Cow 170346156474960
+RNG Sheep 69481677691968
+T 133
+RNG Pig 101288986929101
+RNG Cow 74632592956443
+RNG Sheep 18399867373387
+T 134
+RNG Pig 223302974588065
+RNG Cow 18076243147146
+RNG Sheep 117098322980164
+T 135
+RNG Pig 49277202325144
+RNG Cow 234785503673293
+RNG Sheep 65487712886271
+T 136
+RNG Pig 49855139478812
+RNG Cow 270675509634132
+RNG Sheep 210470335269512
+T 137
+RNG Pig 10782146489591
+RNG Cow 55116830453711
+RNG Sheep 159083380960243
+T 138
+RNG Pig 218429677777515
+RNG Cow 269622388970798
+RNG Sheep 201299211302924
+T 139
+RNG Pig 179373526718874
+RNG Cow 71177073924257
+RNG Sheep 239042186192167
+T 140
+RNG Pig 225962776995390
+RNG Cow 86299871027864
+RNG Sheep 221872421108176
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=57.585022 body=57.585022 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=2.383737732278735,-60.0,-3.3837613378223237 delta=0.0340158948195118,-0.0784000015258789,-0.034015894819669004 rot=225.00058,-4.322782 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=300.00055 body=225.00058 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=8/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE;6:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.063272219967506,-60.0,-0.18779111775261956 delta=0.03441691630646383,-0.0784000015258789,-0.04202307359031465 rot=39.315857,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=39.315704 body=39.315857 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=6/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 141
+RNG Pig 41502882004081
+RNG Cow 140559268924099
+RNG Sheep 2470937673115
+T 142
+RNG Pig 236687058304901
+RNG Cow 26988366399250
+RNG Sheep 171323176850388
+T 143
+RNG Pig 180317940599212
+RNG Cow 7102569066165
+RNG Sheep 252049198278991
+T 144
+RNG Pig 57569350780272
+RNG Cow 47529289154844
+RNG Sheep 94492597787715
+T 145
+RNG Pig 171592345252027
+RNG Cow 57331253977335
+RNG Sheep 56170021632658
+T 146
+RNG Pig 125583024860783
+RNG Cow 103626913280822
+RNG Sheep 46917380415644
+T 147
+RNG Pig 214562959621966
+RNG Cow 212938170569225
+RNG Sheep 7286254275191
+T 148
+RNG Pig 96816318133042
+RNG Cow 265398918038496
+RNG Sheep 85018004936585
+T 149
+RNG Pig 198724067047509
+RNG Cow 223027416376939
+RNG Sheep 270778866850656
+T 150
+RNG Pig 279447248868777
+RNG Cow 3500236340634
+RNG Sheep 120593802109210
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=57.585022 body=57.585022 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=3.006739396537807,-60.0,-4.006763002081742 delta=0.03401589481959018,-0.0784000015258789,-0.03401589481959055 rot=225.00122,-3.6098142 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=300.0011 body=225.00122 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=8/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE;6:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.075375657388588,-60.0,-0.20249704613195355 delta=0.03517914093662699,-0.0784000015258789,-0.0429453697036573 rot=39.318512,-23.032091 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=39.318512 body=39.318512 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=6/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 151
+RNG Pig 231615884267264
+RNG Cow 254387813832349
+RNG Sheep 218421350757405
+T 152
+RNG Pig 239950334282756
+RNG Cow 163494102888164
+RNG Sheep 148610298161311
+T 153
+RNG Pig 36127684425151
+RNG Cow 264511880859423
+RNG Sheep 193007585076670
+T 154
+RNG Pig 104968603697075
+RNG Cow 262927750842942
+RNG Sheep 41267025333672
+T 155
+RNG Pig 37723291038018
+RNG Cow 208368302149745
+RNG Sheep 251972438884499
+T 156
+RNG Pig 167689885323366
+RNG Cow 131579986265640
+RNG Sheep 94688227778821
+T 157
+RNG Pig 251087645220729
+RNG Cow 193968190050067
+RNG Sheep 220707355479340
+T 158
+RNG Pig 156731763018509
+RNG Cow 8052958248226
+RNG Sheep 96123189642694
+T 159
+RNG Pig 22207311684244
+RNG Cow 272991531930501
+RNG Sheep 244521593346393
+T 160
+RNG Pig 83821575832792
+RNG Cow 58261188988332
+RNG Sheep 242718789584443
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=57.585022 body=57.585022 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=3.629741060797053,-60.0,-4.629764666340986 delta=0.03401589481959036,-0.0784000015258789,-0.034015894819590366 rot=225.00073,-3.0922513 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=300.0007 body=225.00073 nav=moving stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=9/10/1/5,-60,-6 nodes=-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE;6:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.0973902651531962,-60.0,-0.22928970922010494 delta=0.03652190804125293,-0.0784000015258789,-0.044582547829082754 rot=39.32202,-22.3098 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=39.32202 body=39.32202 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=6/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 161
+RNG Pig 208662277824515
+RNG Cow 87434133469766
+RNG Sheep 91951641684266
+T 162
+RNG Pig 185434856917559
+RNG Cow 60255962788825
+RNG Sheep 229027967446260
+T 163
+RNG Pig 21949219226486
+RNG Cow 166214414460091
+RNG Sheep 245098557266927
+T 164
+RNG Pig 46574610944474
+RNG Cow 168814630921642
+RNG Sheep 192196643877313
+T 165
+RNG Pig 147762098042333
+RNG Cow 247301370527092
+RNG Sheep 149821794211128
+T 166
+RNG Pig 224598347129777
+RNG Cow 165166566204015
+RNG Sheep 104239493515954
+T 167
+RNG Pig 157788781983848
+RNG Cow 266440845040705
+RNG Sheep 122640153835989
+T 168
+RNG Pig 8006006449132
+RNG Cow 179792613109176
+RNG Sheep 240134210171159
+T 169
+RNG Pig 48050960257927
+RNG Cow 259116758556220
+RNG Sheep 144155855098070
+T 170
+RNG Pig 101914063663611
+RNG Cow 174582938404759
+RNG Sheep 32642914200192
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=57.585022 body=57.585022 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.128571486182648,-60.0,-5.128595091726578 delta=0.005536814574366662,-0.0784000015258789,-0.005536814574366663 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=225.00137 body=225.00137 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.0542775325165565,-60.0,-0.1765709083963063 delta=0.031231405383211494,-0.0784000015258789,-0.038114212690339114 rot=39.32524,-23.587397 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=39.32524 body=39.32524 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=6/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 171
+RNG Pig 2865700899306
+RNG Cow 31194095900427
+RNG Sheep 144843115796619
+T 172
+RNG Pig 22349778307982
+RNG Cow 117521477398970
+RNG Sheep 180076538521021
+T 173
+RNG Pig 190047216746369
+RNG Cow 222872278261854
+RNG Sheep 231266234081156
+T 174
+RNG Pig 5744298419093
+RNG Cow 197104280599569
+RNG Sheep 198970645740510
+T 175
+RNG Pig 167655227901052
+RNG Cow 43151535102245
+RNG Sheep 93548898988433
+T 176
+RNG Pig 244119031569728
+RNG Cow 1323397198540
+RNG Sheep 132080298779955
+T 177
+RNG Pig 103898801878091
+RNG Cow 267666954150032
+RNG Sheep 46765862348994
+T 178
+RNG Pig 58846581725951
+RNG Cow 98501166005595
+RNG Sheep 110232959251020
+T 179
+RNG Pig 174682170726558
+RNG Cow 219858303706383
+RNG Sheep 168671771587175
+T 180
+RNG Pig 125649646588290
+RNG Cow 59568743514478
+RNG Sheep 180945652275449
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=57.585022 body=57.585022 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=225.00137 body=225.00137 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.0500066228956153,-60.0,-0.17133531005791502 delta=0.03360599911933286,-0.0784000015258789,-0.041017105479760355 rot=39.32675,-23.922812 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=39.32675 body=39.326416 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=6/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 181
+RNG Pig 278503792787557
+RNG Cow 37039055615826
+RNG Sheep 109585170896912
+T 182
+RNG Pig 160128172920505
+RNG Cow 63051887393269
+RNG Sheep 226212529005898
+T 183
+RNG Pig 27931566668496
+RNG Cow 46126201311561
+RNG Sheep 121544917818509
+T 184
+RNG Pig 101439182709972
+RNG Cow 114065805603360
+RNG Sheep 33440556752527
+T 185
+RNG Pig 187355344643663
+RNG Cow 226982480625956
+RNG Sheep 127294869404910
+T 186
+RNG Pig 82104642578755
+RNG Cow 201213625275487
+RNG Sheep 229741524086872
+T 187
+RNG Pig 101420634063762
+RNG Cow 116237004302419
+RNG Sheep 186053886174595
+T 188
+RNG Pig 270885150390198
+RNG Cow 9369077316962
+RNG Sheep 52394548668343
+T 189
+RNG Pig 224229760171145
+RNG Cow 272929737834118
+RNG Sheep 267248412480246
+T 190
+RNG Pig 274170705045789
+RNG Cow 173455560688409
+RNG Sheep 157709796542880
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=57.585022 body=57.585022 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=225.00137 body=225.00137 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.0500066228956153,-60.0,-0.17133531005791502 delta=0.03361102085970455,-0.0784000015258789,-0.04102323427523217 rot=39.32675,-23.922812 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=39.32675 body=39.326416 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,1 path=6/7/1/0,-60,1 nodes=3,-60,-6:WALKABLE:0.0;2,-60,-5:WALKABLE:0.0;1,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 191
+RNG Pig 269355329245028
+RNG Cow 92188089223341
+RNG Sheep 265463989688619
+T 192
+RNG Pig 90403745279656
+RNG Cow 185901655564212
+RNG Sheep 170665800640349
+T 193
+RNG Pig 217068692065683
+RNG Cow 268819426128888
+RNG Sheep 6691477672100
+T 194
+RNG Pig 194558086316231
+RNG Cow 190706400489635
+RNG Sheep 99667459924478
+T 195
+RNG Pig 142420244209350
+RNG Cow 120461156828375
+RNG Sheep 271461101792561
+T 196
+RNG Pig 110374214095402
+RNG Cow 158361759283606
+RNG Sheep 216148638243283
+T 197
+RNG Pig 223343359981
+RNG Cow 191941410785786
+RNG Sheep 35824104870114
+T 198
+RNG Pig 17166588081857
+RNG Cow 196514243173245
+RNG Sheep 183944663607148
+T 199
+RNG Pig 156256287979064
+RNG Cow 164818940216145
+RNG Sheep 93078538735879
+T 200
+RNG Pig 183271772974780
+RNG Cow 52603366764424
+RNG Sheep 206689075325081
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=57.585022 body=57.585022 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=225.00137 body=225.00137 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.0836176555565706,-60.0,-0.2123585587360129 delta=0.052925584689239434,-0.0784000015258789,-0.06459936521246272 rot=39.32675,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=39.32675 body=39.32675 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,1 path=- nodes=- goals=5:EatBlockGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 201
+RNG Pig 227899700317719
+RNG Cow 246275041438988
+RNG Sheep 93498243907376
+T 202
+RNG Pig 137722069697931
+RNG Cow 195456344684071
+RNG Sheep 21239965173627
+T 203
+RNG Pig 122253680639546
+RNG Cow 36538011819675
+RNG Sheep 154043678650730
+T 204
+RNG Pig 167411929658590
+RNG Cow 153272566106634
+RNG Sheep 101145236866605
+T 205
+RNG Pig 178203685746321
+RNG Cow 155677775785390
+RNG Sheep 246773481017140
+T 206
+RNG Pig 7390342871973
+RNG Cow 185368476321569
+RNG Sheep 14453811196207
+T 207
+RNG Pig 168712174265164
+RNG Cow 208715298211125
+RNG Sheep 40392393304846
+T 208
+RNG Pig 55837114210576
+RNG Cow 157038706644380
+RNG Sheep 266057576474881
+T 209
+RNG Pig 224170319580123
+RNG Cow 149292205629536
+RNG Sheep 59299503479672
+T 210
+RNG Pig 47738408164239
+RNG Cow 110267773569259
+RNG Sheep 152477678993955
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=57.585022 body=57.585022 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=225.00137 body=225.00137 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.1945370168270006,-60.0,-0.35087803983180255 delta=0.0,-0.0784000015258789,0.0 rot=39.32675,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=39.32675 body=39.32675 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,1 path=- nodes=- goals=5:EatBlockGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 211
+RNG Pig 210443646439768
+RNG Cow 264614718069151
+RNG Sheep 274403404995314
+T 212
+RNG Pig 144533875071964
+RNG Cow 104734955831998
+RNG Sheep 244898651219221
+T 213
+RNG Pig 47029901034679
+RNG Cow 272470446701986
+RNG Sheep 176383080736764
+T 214
+RNG Pig 128402006745508
+RNG Cow 78802309253637
+RNG Sheep 64729372454487
+T 215
+RNG Pig 189832545938143
+RNG Cow 215793634103897
+RNG Sheep 14796292695318
+T 216
+RNG Pig 185028003947752
+RNG Cow 236557533197866
+RNG Sheep 203567265386089
+T 217
+RNG Pig 78306119771859
+RNG Cow 281335198776270
+RNG Sheep 92701898635456
+T 218
+RNG Pig 89187113506924
+RNG Cow 46772898450113
+RNG Sheep 69812343695819
+T 219
+RNG Pig 145089622142471
+RNG Cow 134993148011221
+RNG Sheep 230011510943098
+T 220
+RNG Pig 222269072638000
+RNG Cow 57895056798396
+RNG Sheep 117991389608189
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=111.47601 body=67.58502 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=225.00137 body=225.00137 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.1945370168270006,-60.0,-0.35087803983180255 delta=0.0,-0.0784000015258789,0.0 rot=39.32675,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=39.32675 body=39.32675 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,1 path=- nodes=- goals=5:EatBlockGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 221
+RNG Pig 57869473395835
+RNG Cow 208749145567104
+RNG Sheep 48313694982596
+T 222
+RNG Pig 161160001036340
+RNG Cow 242284097452427
+RNG Sheep 195531204995199
+T 223
+RNG Pig 65238435458607
+RNG Cow 224116705014847
+RNG Sheep 270869582272542
+T 224
+RNG Pig 177499155151992
+RNG Cow 103527794202846
+RNG Sheep 13585570298065
+T 225
+RNG Pig 70755808743203
+RNG Cow 199111448630722
+RNG Sheep 58079336347400
+T 226
+RNG Pig 168123799984380
+RNG Cow 21511117606821
+RNG Sheep 17459677929075
+T 227
+RNG Pig 25880336812887
+RNG Cow 188116108710393
+RNG Sheep 18876944402690
+T 228
+RNG Pig 181745727060416
+RNG Cow 174212662123792
+RNG Sheep 136719161975269
+T 229
+RNG Pig 273280925374155
+RNG Cow 202475887586068
+RNG Sheep 198057201921164
+T 230
+RNG Pig 97842705654468
+RNG Cow 12619408347023
+RNG Sheep 115552834420647
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=111.47601 body=67.58502 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=225.00137 body=225.00137 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.1945370168270006,-60.0,-0.35087803983180255 delta=0.0,-0.0784000015258789,0.0 rot=39.32675,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=39.32675 body=39.32675 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,1 path=- nodes=- goals=5:EatBlockGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 231
+RNG Pig 37530989405567
+RNG Cow 139514129016451
+RNG Sheep 85430713312294
+T 232
+RNG Pig 190089527334920
+RNG Cow 251656308840402
+RNG Sheep 234727007078457
+T 233
+RNG Pig 184128804219763
+RNG Cow 199171342995446
+RNG Sheep 269798200964688
+T 234
+RNG Pig 216333683383692
+RNG Cow 48078574047177
+RNG Sheep 58689509507099
+T 235
+RNG Pig 187352720809127
+RNG Cow 111924750397533
+RNG Sheep 200625713778058
+T 236
+RNG Pig 75328743765840
+RNG Cow 125896144790948
+RNG Sheep 24947204472781
+T 237
+RNG Pig 77086197525787
+RNG Cow 240734053345512
+RNG Sheep 176966354982996
+T 238
+RNG Pig 280588972353876
+RNG Cow 82982152821459
+RNG Sheep 92234371077071
+T 239
+RNG Pig 208461418483919
+RNG Cow 6760259166727
+RNG Sheep 242111640955182
+T 240
+RNG Pig 261950352652184
+RNG Cow 201754281199366
+RNG Sheep 179462640956085
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=111.47601 body=111.47601 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=225.00137 body=225.00137 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.1945370168270006,-60.0,-0.35087803983180255 delta=0.0,-0.0784000015258789,0.0 rot=39.32675,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=39.32675 body=39.32675 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 241
+RNG Pig 255769126042563
+RNG Cow 129447137099370
+RNG Sheep 276181061465372
+T 242
+RNG Pig 158506237666844
+RNG Cow 9948634238765
+RNG Sheep 191296912968299
+T 243
+RNG Pig 91346304819703
+RNG Cow 129458076303873
+RNG Sheep 115903665459610
+T 244
+RNG Pig 137828116625259
+RNG Cow 159942539051128
+RNG Sheep 247223429665058
+T 245
+RNG Pig 184891974548122
+RNG Cow 100852557864188
+RNG Sheep 53013831899013
+T 246
+RNG Pig 162040780068670
+RNG Cow 109817002884951
+RNG Sheep 158455245502425
+T 247
+RNG Pig 269108537203057
+RNG Cow 258837270792907
+RNG Sheep 58966887923056
+T 248
+RNG Pig 263995578084485
+RNG Cow 261900731775610
+RNG Sheep 90563353358708
+T 249
+RNG Pig 162853036536492
+RNG Cow 192641977103646
+RNG Sheep 117855640536687
+T 250
+RNG Pig 16773983403632
+RNG Cow 13075496341969
+RNG Sheep 276995267046243
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=111.47601 body=111.47601 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=225.00137 body=225.00137 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.1945370168270006,-60.0,-0.35087803983180255 delta=0.0,-0.0784000015258789,0.0 rot=39.32675,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=-9.516525 body=29.326752 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,1 path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 251
+RNG Pig 203585794635195
+RNG Cow 111724819057381
+RNG Sheep 22594151803698
+T 252
+RNG Pig 82613747909487
+RNG Cow 77951568011660
+RNG Sheep 125983282657622
+T 253
+RNG Pig 17477145735246
+RNG Cow 155089237130064
+RNG Sheep 47642505768361
+T 254
+RNG Pig 241577635935282
+RNG Cow 217070395072795
+RNG Sheep 241492048432189
+T 255
+RNG Pig 20395082179925
+RNG Cow 105697335182543
+RNG Sheep 103273744974852
+T 256
+RNG Pig 253825221563049
+RNG Cow 216887156672046
+RNG Sheep 207747311783240
+T 257
+RNG Pig 159766704834560
+RNG Cow 209561191519735
+RNG Sheep 82501834675
+T 258
+RNG Pig 211935952999684
+RNG Cow 172227262039094
+RNG Sheep 234582854323431
+T 259
+RNG Pig 13926358977215
+RNG Cow 176298153601899
+RNG Sheep 240802250475622
+T 260
+RNG Pig 172270637311155
+RNG Cow 53829622521498
+RNG Sheep 48558076130762
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=111.47601 body=111.47601 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=265.00137 body=235.00137 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=7:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.1945370168270006,-60.0,-0.35087803983180255 delta=0.0,-0.0784000015258789,0.0 rot=39.32675,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=-9.516525 body=29.326752 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,1 path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 261
+RNG Pig 263423413432898
+RNG Cow 246256101631007
+RNG Sheep 271738098426637
+T 262
+RNG Pig 227491112952166
+RNG Cow 120670064556862
+RNG Sheep 199249976947681
+T 263
+RNG Pig 11408784350329
+RNG Cow 205687466013715
+RNG Sheep 144701326359768
+T 264
+RNG Pig 155864791603213
+RNG Cow 4934029393442
+RNG Sheep 256629445370423
+T 265
+RNG Pig 30578935212948
+RNG Cow 235974172856135
+RNG Sheep 62641541610358
+T 266
+RNG Pig 95662260985304
+RNG Cow 31344693939014
+RNG Sheep 160853617507243
+T 267
+RNG Pig 235109850825987
+RNG Cow 52744675191227
+RNG Sheep 270951142083034
+T 268
+RNG Pig 101504644906807
+RNG Cow 269552414197418
+RNG Sheep 195493346965599
+T 269
+RNG Pig 165593772627062
+RNG Cow 242416834885487
+RNG Sheep 46735811189374
+T 270
+RNG Pig 249110134026970
+RNG Cow 160399214498894
+RNG Sheep 227638791375955
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=111.47601 body=111.47601 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=275.77307 body=235.00137 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=7:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.1945370168270006,-60.0,-0.35087803983180255 delta=0.0,-0.0784000015258789,0.0 rot=39.32675,-19.316912 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=39.22336 body=20.483473 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,1 path=- nodes=- goals=7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 271
+RNG Pig 252448085426909
+RNG Cow 152261599374435
+RNG Sheep 71712514756962
+T 272
+RNG Pig 104140320653489
+RNG Cow 111479842330674
+RNG Sheep 237525610818439
+T 273
+RNG Pig 32082929258856
+RNG Cow 46860551027863
+RNG Sheep 134826602861190
+T 274
+RNG Pig 48125432925420
+RNG Cow 184338778666582
+RNG Sheep 47761245276667
+T 275
+RNG Pig 129702267783303
+RNG Cow 43491248577547
+RNG Sheep 10961004184042
+T 276
+RNG Pig 7399042479867
+RNG Cow 89764470313658
+RNG Sheep 81420594486191
+T 277
+RNG Pig 22599880420074
+RNG Cow 246767886974655
+RNG Sheep 188664204329870
+T 278
+RNG Pig 102584778259598
+RNG Cow 73966117638494
+RNG Sheep 28502409942179
+T 279
+RNG Pig 81412866219137
+RNG Cow 121330452945075
+RNG Sheep 117946227112818
+T 280
+RNG Pig 224113734389909
+RNG Cow 108627716642370
+RNG Sheep 5800953620695
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=111.47601 body=111.47601 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=275.77307 body=275.77307 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=7:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.1945370168270006,-60.0,-0.35087803983180255 delta=0.0,-0.0784000015258789,0.0 rot=39.32675,-19.316912 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=39.22336 body=20.483473 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,1 path=- nodes=- goals=7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 281
+RNG Pig 231620082920828
+RNG Cow 2570936720871
+RNG Sheep 38372142222742
+T 282
+RNG Pig 9152226694720
+RNG Cow 64195177432422
+RNG Sheep 192252964162635
+T 283
+RNG Pig 251070921406795
+RNG Cow 210140714795611
+RNG Sheep 232444519276026
+T 284
+RNG Pig 148933159989247
+RNG Cow 219859589874378
+RNG Sheep 224248568072036
+T 285
+RNG Pig 266789371382174
+RNG Cow 258587330427407
+RNG Sheep 265554936053151
+T 286
+RNG Pig 94951854903938
+RNG Cow 156115167556206
+RNG Sheep 57239474594545
+T 287
+RNG Pig 97200226020709
+RNG Cow 18245276006482
+RNG Sheep 230537034540712
+T 288
+RNG Pig 279375333673913
+RNG Cow 245635168626421
+RNG Sheep 221889856623010
+T 289
+RNG Pig 204936806396880
+RNG Cow 159441728343625
+RNG Sheep 193529209114117
+T 290
+RNG Pig 195353552818209
+RNG Cow 41408843098912
+RNG Sheep 273476308244679
+E Pig minecraft:pig pos=0.7978002649380391,-60.0,10.174752420254437 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=101.47601 body=101.47601 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,11 path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=275.77307 body=275.77307 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.7569306798381636,-60.0,0.025817127987001642 delta=0.0527720489182152,-0.0784000015258789,0.03384793130311152 rot=302.55896,-16.762917 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=377.55896 body=302.55896 nav=moving stuck=0 navspeed=1.0 ntarget=9,-60,3 path=1/8/1/9,-60,3 nodes=1,-60,-1:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;4,-60,2:WALKABLE:0.0;5,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;7,-60,2:WALKABLE:0.0;8,-60,3:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 291
+RNG Pig 267311804285976
+RNG Cow 238896294824484
+RNG Sheep 42106086381254
+T 292
+RNG Pig 237279891215538
+RNG Cow 87014955886943
+RNG Sheep 114092410354160
+T 293
+RNG Pig 182262015097813
+RNG Cow 255839785897299
+RNG Sheep 39617729481531
+T 294
+RNG Pig 26571164418839
+RNG Cow 47986978192994
+RNG Sheep 146889827028973
+T 295
+RNG Pig 13902557018838
+RNG Cow 200991373594502
+RNG Sheep 125755141895668
+T 296
+RNG Pig 206492034212992
+RNG Cow 72113120215065
+RNG Sheep 37732591800270
+T 297
+RNG Pig 182240273205899
+RNG Cow 95770802132397
+RNG Sheep 237088079400641
+T 298
+RNG Pig 143440570951613
+RNG Cow 166574179920052
+RNG Sheep 189052476603875
+T 299
+RNG Pig 151319217944964
+RNG Cow 213348395044088
+RNG Sheep 192485426351026
+T 300
+RNG Pig 107336121984478
+RNG Cow 186718678029731
+RNG Sheep 185722294757052
+E Pig minecraft:pig pos=0.046285304857722726,-60.0,10.942215340088433 delta=-0.05236448086723338,-0.0784000015258789,0.053470978692045854 rot=44.402924,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=44.402634 body=44.402924 nav=moving stuck=0 navspeed=1.0 ntarget=-8,-60,14 path=1/8/1/-8,-60,14 nodes=0,-60,10:WALKABLE:0.0;-1,-60,11:WALKABLE:0.0;-2,-60,12:WALKABLE:0.0;-3,-60,13:WALKABLE:0.0;-4,-60,13:WALKABLE:0.0;-5,-60,13:WALKABLE:0.0;-6,-60,13:WALKABLE:0.0;-7,-60,14:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=275.77307 body=275.77307 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=2.669083106138536,-60.0,0.7412753126917314 delta=0.04714015326371966,-0.0784000015258789,0.0427004469734482 rot=312.37802,-10.441767 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=387.34586 body=312.37802 nav=moving stuck=0 navspeed=1.0 ntarget=9,-60,3 path=2/8/1/9,-60,3 nodes=1,-60,-1:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;4,-60,2:WALKABLE:0.0;5,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;7,-60,2:WALKABLE:0.0;8,-60,3:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 301
+RNG Pig 202811236782993
+RNG Cow 81004608600535
+RNG Sheep 55679114683927
+T 302
+RNG Pig 128958765930291
+RNG Cow 23902626073238
+RNG Sheep 87896451476521
+T 303
+RNG Pig 54879551271618
+RNG Cow 12989832391418
+RNG Sheep 4811917026176
+T 304
+RNG Pig 233860710976588
+RNG Cow 219953164331133
+RNG Sheep 36764594484794
+T 305
+RNG Pig 131154401641575
+RNG Cow 81438269759569
+RNG Sheep 270148191597245
+T 306
+RNG Pig 163475265616633
+RNG Cow 67347947407496
+RNG Sheep 61959562401855
+T 307
+RNG Pig 7324276920848
+RNG Cow 279856667366924
+RNG Sheep 128711277407454
+T 308
+RNG Pig 275178704236362
+RNG Cow 20800874425127
+RNG Sheep 273064514206152
+T 309
+RNG Pig 49371454758541
+RNG Cow 131451046208411
+RNG Sheep 231432376994355
+T 310
+RNG Pig 112434092683407
+RNG Cow 98330064612106
+RNG Sheep 30701035770789
+E Pig minecraft:pig pos=-0.9219173686767645,-60.0,11.91984823059173 delta=-0.05304177590089534,-0.0784000015258789,0.053256567660173344 rot=44.895477,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=44.893646 body=44.895477 nav=moving stuck=0 navspeed=1.0 ntarget=-8,-60,14 path=2/8/1/-8,-60,14 nodes=0,-60,10:WALKABLE:0.0;-1,-60,11:WALKABLE:0.0;-2,-60,12:WALKABLE:0.0;-3,-60,13:WALKABLE:0.0;-4,-60,13:WALKABLE:0.0;-5,-60,13:WALKABLE:0.0;-6,-60,13:WALKABLE:0.0;-7,-60,14:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=275.77307 body=275.77307 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=3.519158277518138,-60.0,1.5378852411912796 delta=0.04551937735139015,-0.0784000015258789,0.04444364704079166 rot=314.43732,-7.107608 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=389.42123 body=314.43732 nav=moving stuck=0 navspeed=1.0 ntarget=9,-60,3 path=3/8/1/9,-60,3 nodes=1,-60,-1:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;4,-60,2:WALKABLE:0.0;5,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;7,-60,2:WALKABLE:0.0;8,-60,3:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE;7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 311
+RNG Pig 255235165169390
+RNG Cow 112816424918702
+RNG Sheep 66129080900428
+T 312
+RNG Pig 148681804327512
+RNG Cow 168026545710113
+RNG Sheep 238385370043897
+T 313
+RNG Pig 125871474120579
+RNG Cow 252662319231541
+RNG Sheep 242661912744208
+T 314
+RNG Pig 136433259456885
+RNG Cow 94235116306076
+RNG Sheep 175757390686605
+T 315
+RNG Pig 196175606564060
+RNG Cow 187788130687328
+RNG Sheep 234026052280084
+T 316
+RNG Pig 257484386090230
+RNG Cow 217258638413291
+RNG Sheep 176943226774113
+T 317
+RNG Pig 124210566199497
+RNG Cow 210122320342687
+RNG Sheep 146825053079896
+T 318
+RNG Pig 19965997992747
+RNG Cow 41923992417214
+RNG Sheep 252994980828277
+T 319
+RNG Pig 264877477077850
+RNG Cow 181342450777762
+RNG Sheep 270062873154524
+T 320
+RNG Pig 121589383031460
+RNG Cow 162628911462149
+RNG Sheep 258803984749513
+E Pig minecraft:pig pos=-1.8944936003198833,-60.0,12.894148521049445 delta=-0.05312872370725089,-0.0784000015258789,0.05317093582028334 rot=44.982803,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=44.982025 body=44.982803 nav=moving stuck=0 navspeed=1.0 ntarget=-8,-60,14 path=3/8/1/-8,-60,14 nodes=0,-60,10:WALKABLE:0.0;-1,-60,11:WALKABLE:0.0;-2,-60,12:WALKABLE:0.0;-3,-60,13:WALKABLE:0.0;-4,-60,13:WALKABLE:0.0;-5,-60,13:WALKABLE:0.0;-6,-60,13:WALKABLE:0.0;-7,-60,14:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=275.77307 body=275.77307 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=4.409955519258645,-60.0,2.2498811796321445 delta=0.059052447234377414,-0.0784000015258789,0.020201722122172656 rot=283.47552,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=299.43732 body=283.47552 nav=moving stuck=0 navspeed=1.0 ntarget=9,-60,3 path=4/8/1/9,-60,3 nodes=1,-60,-1:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;4,-60,2:WALKABLE:0.0;5,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;7,-60,2:WALKABLE:0.0;8,-60,3:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 321
+RNG Pig 267799368974303
+RNG Cow 193468668481369
+RNG Sheep 213299576947360
+T 322
+RNG Pig 92244547260209
+RNG Cow 144991656410864
+RNG Sheep 85107423147101
+T 323
+RNG Pig 259308579339752
+RNG Cow 97981266971380
+RNG Sheep 154497259018660
+T 324
+RNG Pig 90854736026338
+RNG Cow 211334201975279
+RNG Sheep 18657241467441
+T 325
+RNG Pig 142334127357509
+RNG Cow 250144424738531
+RNG Sheep 126718607645928
+T 326
+RNG Pig 159707638244103
+RNG Cow 180085158230194
+RNG Sheep 9102599760197
+T 327
+RNG Pig 216880931451910
+RNG Cow 162095974129366
+RNG Sheep 251167023894636
+T 328
+RNG Pig 249127021574448
+RNG Cow 153448097670441
+RNG Sheep 252325927429529
+T 329
+RNG Pig 261456960305531
+RNG Cow 147578990152158
+RNG Sheep 266050012379184
+T 330
+RNG Pig 203015572310061
+RNG Cow 113599033075601
+RNG Sheep 86532503671597
+E Pig minecraft:pig pos=-3.1163663251855738,-60.0,13.422615916414932 delta=-0.07336178122067502,-0.0784000015258789,0.0159016877011912 rot=78.38101,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=78.150986 body=78.38101 nav=moving stuck=0 navspeed=1.0 ntarget=-8,-60,14 path=4/8/1/-8,-60,14 nodes=0,-60,10:WALKABLE:0.0;-1,-60,11:WALKABLE:0.0;-2,-60,12:WALKABLE:0.0;-3,-60,13:WALKABLE:0.0;-4,-60,13:WALKABLE:0.0;-5,-60,13:WALKABLE:0.0;-6,-60,13:WALKABLE:0.0;-7,-60,14:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=295.77307 body=275.77307 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=7:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=5.548858417942759,-60.0,2.45865361133541 delta=0.06341855326378858,-0.0784000015258789,0.004025744613680111 rot=272.61362,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=272.79712 body=272.61362 nav=moving stuck=0 navspeed=1.0 ntarget=9,-60,3 path=5/8/1/9,-60,3 nodes=1,-60,-1:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;4,-60,2:WALKABLE:0.0;5,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;7,-60,2:WALKABLE:0.0;8,-60,3:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 331
+RNG Pig 165939670493492
+RNG Cow 227276124559042
+RNG Sheep 19658841856052
+T 332
+RNG Pig 118519458944270
+RNG Cow 275288635833509
+RNG Sheep 82357517043201
+T 333
+RNG Pig 217191119080193
+RNG Cow 83883319348710
+RNG Sheep 65858953720952
+T 334
+RNG Pig 137211170960419
+RNG Cow 75022329925369
+RNG Sheep 64600674128405
+T 335
+RNG Pig 270413799761138
+RNG Cow 115019448963914
+RNG Sheep 87657825915132
+T 336
+RNG Pig 275059846971900
+RNG Cow 147360938685069
+RNG Sheep 53681945807721
+T 337
+RNG Pig 242828867780695
+RNG Cow 22212894018286
+RNG Sheep 43419785933248
+T 338
+RNG Pig 223974371831913
+RNG Cow 110610396330849
+RNG Sheep 110249123317245
+T 339
+RNG Pig 270272818180800
+RNG Cow 90077219264722
+RNG Sheep 38526718789918
+T 340
+RNG Pig 111970674407290
+RNG Cow 210978850946421
+RNG Sheep 53750150988659
+E Pig minecraft:pig pos=-4.488306278093911,-60.0,13.488082650950707 delta=-0.07515156326737207,-0.0784000015258789,3.762371752397374E-4 rot=89.37155,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=89.409836 body=89.37155 nav=moving stuck=0 navspeed=1.0 ntarget=-8,-60,14 path=6/8/1/-8,-60,14 nodes=0,-60,10:WALKABLE:0.0;-1,-60,11:WALKABLE:0.0;-2,-60,12:WALKABLE:0.0;-3,-60,13:WALKABLE:0.0;-4,-60,13:WALKABLE:0.0;-5,-60,13:WALKABLE:0.0;-6,-60,13:WALKABLE:0.0;-7,-60,14:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=342.46423 body=275.77307 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=7:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=6.713044154370547,-60.0,2.484625361311616 delta=0.06360786286060703,-0.0784000015258789,5.205742352294752E-4 rot=271.0354,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=270.96722 body=271.0354 nav=moving stuck=0 navspeed=1.0 ntarget=9,-60,3 path=6/8/1/9,-60,3 nodes=1,-60,-1:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;4,-60,2:WALKABLE:0.0;5,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;7,-60,2:WALKABLE:0.0;8,-60,3:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 341
+RNG Pig 142563094428413
+RNG Cow 234364524585206
+RNG Sheep 70983874955778
+T 342
+RNG Pig 200117961603711
+RNG Cow 180510858562761
+RNG Sheep 81511818245287
+T 343
+RNG Pig 264871207272990
+RNG Cow 200321603897178
+RNG Sheep 199186660652326
+T 344
+RNG Pig 152182329471240
+RNG Cow 73161128181085
+RNG Sheep 198127093466395
+T 345
+RNG Pig 201927972180083
+RNG Cow 150167494471678
+RNG Sheep 76427229408906
+T 346
+RNG Pig 47155300033509
+RNG Cow 156157280559921
+RNG Sheep 185479840458959
+T 347
+RNG Pig 222991007762060
+RNG Cow 125578536107746
+RNG Sheep 204670331066926
+T 348
+RNG Pig 232070891327014
+RNG Cow 77963031138885
+RNG Sheep 269937265152963
+T 349
+RNG Pig 151503639767609
+RNG Cow 152397377689606
+RNG Sheep 200842516274194
+T 350
+RNG Pig 22682760950299
+RNG Cow 1376769564313
+RNG Sheep 143653506677239
+E Pig minecraft:pig pos=-5.74418147715709,-60.0,13.829363032405473 delta=-0.057931242603897794,-0.0784000015258789,0.04654636454628524 rot=48.749832,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=49.230576 body=48.749832 nav=moving stuck=0 navspeed=1.0 ntarget=-8,-60,14 path=7/8/1/-8,-60,14 nodes=0,-60,10:WALKABLE:0.0;-1,-60,11:WALKABLE:0.0;-2,-60,12:WALKABLE:0.0;-3,-60,13:WALKABLE:0.0;-4,-60,13:WALKABLE:0.0;-5,-60,13:WALKABLE:0.0;-6,-60,13:WALKABLE:0.0;-7,-60,14:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.1371314018657595,-60.0,-5.13715500740969 delta=0.0,-0.0784000015258789,0.0 rot=225.00137,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=342.46423 body=304.96423 nav=done stuck=0 navspeed=1.0 ntarget=5,-60,-6 path=- nodes=- goals=7:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=7.740689444784913,-60.0,2.8969334651887313 delta=0.05025848278721925,-0.0784000015258789,0.03868657234405075 rot=308.36453,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=308.2268 body=308.36453 nav=moving stuck=0 navspeed=1.0 ntarget=9,-60,3 path=7/8/1/9,-60,3 nodes=1,-60,-1:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;4,-60,2:WALKABLE:0.0;5,-60,2:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;7,-60,2:WALKABLE:0.0;8,-60,3:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 351
+RNG Pig 112889562067540
+RNG Cow 212699796331565
+RNG Sheep 255371256518710
+T 352
+RNG Pig 25119803478830
+RNG Cow 205145991490868
+RNG Sheep 114661139648363
+T 353
+RNG Pig 238478254145185
+RNG Cow 85286367336824
+RNG Sheep 8989128405658
+T 354
+RNG Pig 55865866428611
+RNG Cow 221172681254947
+RNG Sheep 136798296213535
+T 355
+RNG Pig 237858957468946
+RNG Cow 175309238432855
+RNG Sheep 94851395047230
+T 356
+RNG Pig 276621822226742
+RNG Cow 22657025127190
+RNG Sheep 225127817888901
+T 357
+RNG Pig 268310627596297
+RNG Cow 46927686940128
+RNG Sheep 142516311665324
+T 358
+RNG Pig 246186143210653
+RNG Cow 67170921492587
+RNG Sheep 253300762971579
+T 359
+RNG Pig 226580260551908
+RNG Cow 265640510222493
+RNG Sheep 80732526041770
+T 360
+RNG Pig 198988373865512
+RNG Cow 262391432642788
+RNG Sheep 102595960044865
+E Pig minecraft:pig pos=-6.173630332437099,-60.0,14.201877778666798 delta=0.0,-0.0784000015258789,0.0 rot=48.001297,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=48.001297 body=48.001297 nav=done stuck=0 navspeed=1.0 ntarget=-8,-60,14 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.318065992590967,-60.0,-5.318089598134897 delta=0.03099279371084503,-0.0784000015258789,-0.03099279371084503 rot=225.00055,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=270.00052 body=225.00055 nav=moving stuck=0 navspeed=1.0 ntarget=7,-60,-8 path=1/3/1/7,-60,-8 nodes=4,-60,-6:WALKABLE:0.0;5,-60,-7:WALKABLE:0.0;6,-60,-8:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=8.210651752089685,-60.0,3.268277178543068 delta=0.0,-0.0784000015258789,0.0 rot=308.60486,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=308.60486 body=308.60486 nav=done stuck=0 navspeed=1.0 ntarget=9,-60,3 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 361
+RNG Pig 118313911231763
+RNG Cow 221616099142718
+RNG Sheep 149344244218552
+T 362
+RNG Pig 47529254965319
+RNG Cow 111268783065713
+RNG Sheep 187414720864407
+T 363
+RNG Pig 129597075847238
+RNG Cow 143086790678803
+RNG Sheep 192850273192534
+T 364
+RNG Pig 208706181645226
+RNG Cow 207371591761698
+RNG Sheep 65750141245757
+T 365
+RNG Pig 118972621196141
+RNG Cow 229743036145580
+RNG Sheep 38511805959428
+T 366
+RNG Pig 135443618333249
+RNG Cow 252547557557319
+RNG Sheep 108404012776627
+T 367
+RNG Pig 170403071613880
+RNG Cow 165630111608281
+RNG Sheep 142677714528834
+T 368
+RNG Pig 275020375993404
+RNG Cow 180745898736496
+RNG Sheep 192325289587833
+T 369
+RNG Pig 268119324867991
+RNG Cow 51775056062378
+RNG Sheep 253660106067344
+T 370
+RNG Pig 41893027998987
+RNG Cow 244757456658285
+RNG Sheep 191723672182287
+E Pig minecraft:pig pos=-6.173630332437099,-60.0,14.201877778666798 delta=0.0,-0.0784000015258789,0.0 rot=48.001297,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=48.001297 body=48.001297 nav=done stuck=0 navspeed=1.0 ntarget=-8,-60,14 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=4.934424522102006,-60.0,-5.934448127645936 delta=0.03400877646522773,-0.0784000015258789,-0.03400877646522773 rot=225.0011,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=225.00098 body=225.0011 nav=moving stuck=0 navspeed=1.0 ntarget=7,-60,-8 path=1/3/1/7,-60,-8 nodes=4,-60,-6:WALKABLE:0.0;5,-60,-7:WALKABLE:0.0;6,-60,-8:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=8.210651752089685,-60.0,3.268277178543068 delta=0.0,-0.0784000015258789,0.0 rot=308.60486,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=308.60486 body=308.60486 nav=done stuck=0 navspeed=1.0 ntarget=9,-60,3 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 371
+RNG Pig 218549491814330
+RNG Cow 63670333443183
+RNG Sheep 34149230593646
+T 372
+RNG Pig 16730413538910
+RNG Cow 169748209501518
+RNG Sheep 100902921317109
+T 373
+RNG Pig 32894495777297
+RNG Cow 30743848001464
+RNG Sheep 194346157500508
+T 374
+RNG Pig 133936451133221
+RNG Cow 273790379118947
+RNG Sheep 139782478676139
+T 375
+RNG Pig 51254523199692
+RNG Cow 238338824414805
+RNG Sheep 113229235464922
+T 376
+RNG Pig 266191858208400
+RNG Cow 88268121550908
+RNG Sheep 265877713983665
+T 377
+RNG Pig 10864996389723
+RNG Cow 69402925434710
+RNG Sheep 84720397289832
+T 378
+RNG Pig 252496091601679
+RNG Cow 225267427828649
+RNG Sheep 278112155115655
+T 379
+RNG Pig 139290016792430
+RNG Cow 239542154748171
+RNG Sheep 92589326836614
+T 380
+RNG Pig 189182693299538
+RNG Cow 249400026051514
+RNG Sheep 178807420049837
+E Pig minecraft:pig pos=-6.173630332437099,-60.0,14.201877778666798 delta=0.0,-0.0784000015258789,0.0 rot=48.001297,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=48.001297 body=48.001297 nav=done stuck=0 navspeed=1.0 ntarget=-8,-60,14 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=5.557410544083499,-60.0,-6.557434149627429 delta=0.03401587805833529,-0.0784000015258789,-0.03401587805833529 rot=225.00067,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=225.00064 body=225.00067 nav=moving stuck=0 navspeed=1.0 ntarget=7,-60,-8 path=2/3/1/7,-60,-8 nodes=4,-60,-6:WALKABLE:0.0;5,-60,-7:WALKABLE:0.0;6,-60,-8:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=8.210651752089685,-60.0,3.268277178543068 delta=0.0,-0.0784000015258789,0.0 rot=308.60486,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=308.60486 body=308.60486 nav=done stuck=0 navspeed=1.0 ntarget=9,-60,3 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 381
+RNG Pig 280812050382837
+RNG Cow 110651489509892
+RNG Sheep 27696941800628
+T 382
+RNG Pig 51853149583177
+RNG Cow 149637095019455
+RNG Sheep 235240262810019
+T 383
+RNG Pig 181220258914336
+RNG Cow 99745631450641
+RNG Sheep 29134154497138
+T 384
+RNG Pig 207518330736420
+RNG Cow 158544920595272
+RNG Sheep 24028556921321
+T 385
+RNG Pig 99281131473503
+RNG Cow 199298369553612
+RNG Sheep 124424482393664
+T 386
+RNG Pig 9975861984851
+RNG Cow 200355765342951
+RNG Sheep 59014983927807
+T 387
+RNG Pig 269416988449634
+RNG Cow 99734716509561
+RNG Sheep 146578366841246
+T 388
+RNG Pig 98167487483
+RNG Cow 163306266055312
+RNG Sheep 202241676641637
+T 389
+RNG Pig 137813030783978
+RNG Cow 53276436554698
+RNG Sheep 54124844190220
+T 390
+RNG Pig 7828122611119
+RNG Cow 83480291637517
+RNG Sheep 124104467203995
+E Pig minecraft:pig pos=-6.173630332437099,-60.0,14.201877778666798 delta=0.0,-0.0784000015258789,0.0 rot=48.001297,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=78.0013 body=58.001297 nav=done stuck=0 navspeed=1.0 ntarget=-8,-60,14 path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=6.10840041420711,-60.0,-7.10842401975104 delta=0.01014068481630431,-0.0784000015258789,-0.01014068481630431 rot=225.00134,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=225.00134 body=225.00134 nav=done stuck=0 navspeed=1.0 ntarget=7,-60,-8 path=3/3/1/7,-60,-8 nodes=4,-60,-6:WALKABLE:0.0;5,-60,-7:WALKABLE:0.0;6,-60,-8:WALKABLE:0.0 goals=5:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=8.210651752089685,-60.0,3.268277178543068 delta=0.0,-0.0784000015258789,0.0 rot=308.60486,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=308.60486 body=308.60486 nav=done stuck=0 navspeed=1.0 ntarget=9,-60,3 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+T 391
+RNG Pig 184248599588238
+RNG Cow 126957632956897
+RNG Sheep 109533085318922
+T 392
+RNG Pig 237222724847267
+RNG Cow 229614588197592
+RNG Sheep 29064476846113
+T 393
+RNG Pig 32284273771890
+RNG Cow 58707629153628
+RNG Sheep 141277549231128
+T 394
+RNG Pig 219606311697111
+RNG Cow 231217295304759
+RNG Sheep 274972151706743
+T 395
+RNG Pig 239169939306390
+RNG Cow 69017732669867
+RNG Sheep 5511495483574
+T 396
+RNG Pig 81216828161611
+RNG Cow 16078616737754
+RNG Sheep 82186863283741
+T 397
+RNG Pig 134768525240314
+RNG Cow 237400945551486
+RNG Sheep 225166892765284
+T 398
+RNG Pig 230920309949695
+RNG Cow 156206588015025
+RNG Sheep 215499051256467
+T 399
+RNG Pig 230393522682526
+RNG Cow 121478458460357
+RNG Sheep 74072953311906
+T 400
+RNG Pig 274193677574312
+RNG Cow 251206911195628
+RNG Sheep 86393006560089
+E Pig minecraft:pig pos=-6.131809076157154,-60.0,14.24832379658777 delta=0.02283440858112673,-0.0784000015258789,0.025359528730426018 rot=318.00128,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=393.00128 body=318.00128 nav=moving stuck=0 navspeed=1.0 ntarget=-4,-60,15 path=1/3/1/-4,-60,15 nodes=-7,-60,14:WALKABLE:0.0;-6,-60,14:WALKABLE:0.0;-5,-60,15:WALKABLE:0.0 goals=6:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow minecraft:cow pos=6.127101014673211,-60.0,-7.127124620217141 delta=0.0,-0.0784000015258789,0.0 rot=225.00134,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=225.00134 body=225.00134 nav=done stuck=0 navspeed=1.0 ntarget=7,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=8.210651752089685,-60.0,3.268277178543068 delta=0.0,-0.0784000015258789,0.0 rot=308.60486,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.0 xxa=0.0 yya=0.0 head=308.60486 body=308.60486 nav=done stuck=0 navspeed=1.0 ntarget=9,-60,3 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-

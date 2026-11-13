@@ -112,6 +112,7 @@ impl ServerLevel {
                 v.after_add_passenger(rider);
                 if v.base().passengers.first() == Some(&rider_id) {
                     v.base_mut().first_passenger_client_authoritative = rider_authoritative;
+                    crate::world::entity::mob::set_first_passenger(v, Some(&*rider));
                 }
                 (v.base().position(), v.base().passengers.clone())
             }
@@ -123,6 +124,7 @@ impl ServerLevel {
                 v.after_add_passenger(rider);
                 if v.base().passengers.first() == Some(&rider_id) {
                     v.base_mut().first_passenger_client_authoritative = rider_authoritative;
+                    crate::world::entity::mob::set_first_passenger(v, Some(&*rider));
                 }
                 (v.base().position(), v.base().passengers.clone())
             }

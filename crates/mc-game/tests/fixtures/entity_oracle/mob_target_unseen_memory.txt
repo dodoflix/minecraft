@@ -1,0 +1,322 @@
+C Set minecraft:overworld to 18000 tick(s)
+T 1
+RNG Z 188549429321133
+T 2
+RNG Z 176574565969045
+T 3
+RNG Z 222263023081852
+T 4
+RNG Z 2049296544580
+T 5
+RNG Z 227499459487825
+T 6
+RNG Z 14709991892921
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 7
+RNG Z 201093362704336
+T 8
+RNG Z 159128388136984
+T 9
+RNG Z 119054398474819
+T 10
+RNG Z 280560982562283
+T 11
+RNG Z 244817229674266
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 12
+RNG Z 85433839478434
+T 13
+RNG Z 272247773478661
+T 14
+RNG Z 280684313977069
+T 15
+RNG Z 151224060146420
+T 16
+RNG Z 1026623390652
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 17
+RNG Z 255369546776343
+T 18
+RNG Z 186347140960575
+T 19
+RNG Z 193924476514782
+T 20
+RNG Z 4875095717350
+T 21
+RNG Z 2474344748793
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 22
+RNG Z 169857700070241
+T 23
+RNG Z 254012768556632
+T 24
+RNG Z 38158609477536
+T 25
+RNG Z 197890422851371
+T 26
+RNG Z 152730167035859
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 27
+RNG Z 169367647823586
+T 28
+RNG Z 22259329419114
+T 29
+RNG Z 153838530831405
+T 30
+RNG Z 24704375325461
+T 31
+RNG Z 186958371761660
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 32
+RNG Z 177360719730628
+T 33
+RNG Z 147786628167295
+T 34
+RNG Z 129558346403239
+T 35
+RNG Z 235121821669926
+T 36
+RNG Z 124184338013998
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 37
+RNG Z 28515412023969
+T 38
+RNG Z 246472864846857
+T 39
+RNG Z 134748783893984
+T 40
+RNG Z 237025863153029
+T 41
+RNG Z 259074569029548
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=70.0 body=80.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 42
+RNG Z 23754505916330
+T 43
+RNG Z 229594111698797
+T 44
+RNG Z 33318444849507
+T 45
+RNG Z 77587647594802
+T 46
+RNG Z 224548443876608
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=20.0 body=80.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 47
+RNG Z 159874037803275
+T 48
+RNG Z 5406170185233
+T 49
+RNG Z 91366704477000
+T 50
+RNG Z 195251643268710
+T 51
+RNG Z 155531847579001
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-13.721764 body=65.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 52
+RNG Z 12848517453583
+T 53
+RNG Z 36082813553518
+T 54
+RNG Z 25879598646620
+T 55
+RNG Z 165182447595575
+T 56
+RNG Z 37342961363933
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-13.721764 body=65.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 57
+RNG Z 159479565679396
+T 58
+RNG Z 168499610937186
+T 59
+RNG Z 168040659030213
+T 60
+RNG Z 106339314431995
+T 61
+RNG Z 104832333256682
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-13.721764 body=46.278236 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 62
+RNG Z 122877131510130
+T 63
+RNG Z 168518774757781
+T 64
+RNG Z 238306417687933
+T 65
+RNG Z 137366328966212
+T 66
+RNG Z 274600698750732
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=26.278236 body=38.778236 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 67
+RNG Z 191749712373799
+T 68
+RNG Z 246677749959759
+T 69
+RNG Z 62096282564526
+T 70
+RNG Z 4187842291126
+T 71
+RNG Z 71321833411209
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=38.778236 body=38.778236 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 72
+RNG Z 145559396018082
+T 73
+RNG Z 175150806936581
+T 74
+RNG Z 154728399911227
+T 75
+RNG Z 93131684405290
+T 76
+RNG Z 141638822925368
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=88.77824 body=38.778236 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 77
+RNG Z 201137345326051
+T 78
+RNG Z 192509641599529
+T 79
+RNG Z 12592277768576
+T 80
+RNG Z 225523153248990
+T 81
+RNG Z 130162452221073
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=138.77823 body=53.77823 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 82
+RNG Z 112944904418663
+T 83
+RNG Z 169517926663910
+T 84
+RNG Z 193187677742356
+T 85
+RNG Z 72358733267343
+T 86
+RNG Z 50777839022709
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=188.77823 body=113.77823 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 87
+RNG Z 31824020707804
+T 88
+RNG Z 260508522827866
+T 89
+RNG Z 215374897320541
+T 90
+RNG Z 157280615869651
+T 91
+RNG Z 192640823175138
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=197.5517 body=113.77823 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 92
+RNG Z 233239376485936
+T 93
+RNG Z 252936828729979
+T 94
+RNG Z 7154896585729
+T 95
+RNG Z 50445893851768
+T 96
+RNG Z 191111379905558
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=197.5517 body=113.77823 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 97
+RNG Z 39411757009257
+T 98
+RNG Z 91323008816081
+T 99
+RNG Z 200627485554184
+T 100
+RNG Z 81784324412752
+T 101
+RNG Z 204783576331035
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=167.5517 body=137.5517 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 102
+RNG Z 72085530001859
+T 103
+RNG Z 188327277081106
+T 104
+RNG Z 10840324966554
+T 105
+RNG Z 28082392925597
+T 106
+RNG Z 41188192625285
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=137.5517 body=137.5517 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 107
+RNG Z 200034427154604
+T 108
+RNG Z 73678734819444
+T 109
+RNG Z 183547647584623
+T 110
+RNG Z 92185267826327
+T 111
+RNG Z 42795692900438
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=137.5517 body=137.5517 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 112
+RNG Z 203598779194206
+T 113
+RNG Z 84902787619601
+T 114
+RNG Z 125613688091257
+T 115
+RNG Z 240547100423056
+T 116
+RNG Z 225027618814936
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=137.5517 body=137.5517 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 117
+RNG Z 222197077248771
+T 118
+RNG Z 53832738287275
+T 119
+RNG Z 179651989962970
+T 120
+RNG Z 14678279317602
+T 121
+RNG Z 256427502730693
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=137.5517 body=137.5517 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 122
+RNG Z 18136751863725
+T 123
+RNG Z 109004744876724
+T 124
+RNG Z 210984121789308
+T 125
+RNG Z 120547280333783
+T 126
+RNG Z 25769007945215
+E Z minecraft:zombie pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=137.5517 body=137.5517 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 127
+RNG Z 5867418613662
+T 128
+RNG Z 234584270986183
+T 129
+RNG Z 111107304054214
+T 130
+RNG Z 161114804258036
+T 131
+RNG Z 150951508726767
+E Z minecraft:zombie pos=9.5,-60.0,0.838401509144123 delta=0.0,-0.0784000015258789,0.05796574398684754 rot=360.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=405.0 body=360.0 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,10 path=1/10/1/10,-60,10 nodes=9,-60,0:WALKABLE:0.0;9,-60,1:WALKABLE:0.0;9,-60,2:WALKABLE:0.0;9,-60,3:WALKABLE:0.0;9,-60,4:WALKABLE:0.0;9,-60,5:WALKABLE:0.0;9,-60,6:WALKABLE:0.0;9,-60,7:WALKABLE:0.0;9,-60,8:WALKABLE:0.0;10,-60,9:WALKABLE:0.0 goals=7:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 132
+RNG Z 273998164242901
+T 133
+RNG Z 184427141404092
+T 134
+RNG Z 175649340356484
+T 135
+RNG Z 32100545231679
+T 136
+RNG Z 186153564446373
+E Z minecraft:zombie pos=9.5,-60.0,1.4091510933238063 delta=0.0,-0.0784000015258789,0.06334547856218238 rot=360.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=360.0 body=360.0 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,10 path=2/10/1/10,-60,10 nodes=9,-60,0:WALKABLE:0.0;9,-60,1:WALKABLE:0.0;9,-60,2:WALKABLE:0.0;9,-60,3:WALKABLE:0.0;9,-60,4:WALKABLE:0.0;9,-60,5:WALKABLE:0.0;9,-60,6:WALKABLE:0.0;9,-60,7:WALKABLE:0.0;9,-60,8:WALKABLE:0.0;10,-60,9:WALKABLE:0.0 goals=7:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 137
+RNG Z 85826425997900
+T 138
+RNG Z 48087769152842
+T 139
+RNG Z 131643687130253
+T 140
+RNG Z 214456535899523
+T 141
+RNG Z 229318131417810
+E Z minecraft:zombie pos=9.5,-60.0,1.9911753138897346 delta=0.0,-0.0784000015258789,0.06360652893319203 rot=360.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=360.0 body=360.0 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,10 path=2/10/1/10,-60,10 nodes=9,-60,0:WALKABLE:0.0;9,-60,1:WALKABLE:0.0;9,-60,2:WALKABLE:0.0;9,-60,3:WALKABLE:0.0;9,-60,4:WALKABLE:0.0;9,-60,5:WALKABLE:0.0;9,-60,6:WALKABLE:0.0;9,-60,7:WALKABLE:0.0;9,-60,8:WALKABLE:0.0;10,-60,9:WALKABLE:0.0 goals=7:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+T 142
+RNG Z 165000409473440
+T 143
+RNG Z 97233727803691
+T 144
+RNG Z 272997924152625
+T 145
+RNG Z 279344984677352
+T 146
+RNG Z 53516044231174
+E Z minecraft:zombie pos=9.5,-60.0,2.573746633568158 delta=0.0,-0.0784000015258789,0.06361919634182531 rot=360.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=360.0 body=360.0 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,10 path=3/10/1/10,-60,10 nodes=9,-60,0:WALKABLE:0.0;9,-60,1:WALKABLE:0.0;9,-60,2:WALKABLE:0.0;9,-60,3:WALKABLE:0.0;9,-60,4:WALKABLE:0.0;9,-60,5:WALKABLE:0.0;9,-60,6:WALKABLE:0.0;9,-60,7:WALKABLE:0.0;9,-60,8:WALKABLE:0.0;10,-60,9:WALKABLE:0.0 goals=7:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513

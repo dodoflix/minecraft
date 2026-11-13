@@ -593,6 +593,7 @@ pub fn start_riding_fresh_vehicle(
     rider.set_pose(Pose::Standing);
     rider.base_mut().vehicle = Some(vehicle.id());
     vehicle.add_passenger(&*rider, false);
+    crate::world::entity::mob::set_first_passenger(vehicle, Some(&*rider));
     if send_event_and_triggers {
         level.game_event(
             mc_data::GameEvent::ENTITY_MOUNT,

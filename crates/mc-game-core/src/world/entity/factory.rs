@@ -158,10 +158,24 @@ fn add_passenger_link(out: &mut LoadedEntities, vehicle_index: usize, passenger_
         .and_then(|&id| out.iter().find(|e| e.id() == id))
         .is_some_and(|e| e.is_player());
     let vehicle = out[vehicle_index].base_mut();
-    if passenger_is_player && !first_is_player {
+    let first = if passenger_is_player && !first_is_player {
         vehicle.passengers.insert(0, passenger_id);
+        true
     } else {
         vehicle.passengers.push(passenger_id);
+        vehicle.passengers.len() == 1
+    };
+    if first {
+        let (is_mob, controls) = out
+            .iter()
+            .find(|e| e.id() == passenger_id)
+            .map_or((false, false), |e| {
+                (e.mob().is_some(), e.can_control_vehicle())
+            });
+        if let Some(m) = out[vehicle_index].mob_mut() {
+            m.first_passenger_is_mob = is_mob;
+            m.first_passenger_controls = is_mob && controls;
+        }
     }
 }
 

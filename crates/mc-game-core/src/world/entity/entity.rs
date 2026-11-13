@@ -848,6 +848,14 @@ pub trait Entity: Any {
     }
     /// Refreshes `first_passenger_client_authoritative` from the first passenger in the level.
     fn refresh_first_passenger_authority(&mut self, level: &ServerLevel) {
+        if self.mob().is_some() {
+            let first = self.base().passengers.first().copied();
+            let found = first.and_then(|p| level.entity_manager.get_any(p));
+            // a passenger the level cannot hand out (lent) keeps the recorded flags
+            if first.is_none() || found.is_some() {
+                super::mob::set_first_passenger(self.as_dyn_mut(), found);
+            }
+        }
         let authoritative = self
             .base()
             .passengers
@@ -1434,7 +1442,7 @@ pub trait Entity: Any {
     }
     /// `getControllingPassenger()` (the living passenger id that drives this entity).
     fn get_controlling_passenger(&self) -> Option<EntityId> {
-        None
+        super::mob::controlling_passenger(self.as_dyn())
     }
     /// `isPushable()` (`LivingEntity`: alive, not spectating, not climbing, and in an entity-ticking chunk unless it
     /// always ticks).

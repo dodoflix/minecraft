@@ -1,0 +1,329 @@
+T 1
+RNG G 174327072806857
+T 2
+RNG G 235834672975409
+T 3
+RNG G 195718353555688
+E G minecraft:iron_golem pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+HURT V1 player_attack 0.5 -> true
+T 4
+RNG G 257849723038768
+T 5
+RNG G 188900211257467
+T 6
+RNG G 204313035655971
+T 7
+RNG G 1225127948274
+T 8
+RNG G 85335346979450
+T 9
+RNG G 144612038494717
+T 10
+RNG G 215599761887973
+T 11
+RNG G 277828753705356
+T 12
+RNG G 201549615355220
+T 13
+RNG G 255253864762575
+T 14
+RNG G 234598791634423
+T 15
+RNG G 122560748809270
+E G minecraft:iron_golem pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+HURT V1 player_attack 0.5 -> true
+T 16
+RNG G 44558460216126
+T 17
+RNG G 175201586836849
+T 18
+RNG G 233766561298649
+T 19
+RNG G 201332437133936
+T 20
+RNG G 92163635506872
+T 21
+RNG G 32804716246115
+T 22
+RNG G 11414535627787
+T 23
+RNG G 45584773511866
+T 24
+RNG G 277764265557570
+T 25
+RNG G 172174772981285
+T 26
+RNG G 170448780620813
+T 27
+RNG G 44183965538196
+E G minecraft:iron_golem pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+HURT V1 player_attack 0.5 -> true
+T 28
+RNG G 58076169821276
+T 29
+RNG G 120336045603639
+T 30
+RNG G 53702599962975
+T 31
+RNG G 263376746454910
+T 32
+RNG G 29776338106246
+T 33
+RNG G 238440066582553
+T 34
+RNG G 38515567523969
+T 35
+RNG G 198266725283064
+T 36
+RNG G 166674854232640
+T 37
+RNG G 190539123799371
+T 38
+RNG G 87967752018419
+T 39
+RNG G 191178647969410
+E G minecraft:iron_golem pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+HURT V1 player_attack 0.5 -> true
+T 40
+RNG G 190180687082279
+T 41
+RNG G 221389167599568
+T 42
+RNG G 95498698288161
+T 43
+RNG G 178012623769746
+T 44
+RNG G 197790472624247
+T 45
+RNG G 36382558519648
+T 46
+RNG G 45836132078109
+T 47
+RNG G 181620012817342
+T 48
+RNG G 66556624662163
+T 49
+RNG G 86198791639852
+T 50
+RNG G 136106215256820
+T 51
+RNG G 201209093110584
+E G minecraft:iron_golem pos=3.215670574073062,-60.0,1.0096052064189207 delta=-0.07477580699212986,-0.0784000015258789,-0.0011285285602768425 rot=91.89583,13.110856 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=100.16893 body=91.89583 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+HURT V1 player_attack 0.5 -> true
+T 52
+RNG G 198002408391612
+T 53
+RNG G 177736763527296
+T 54
+RNG G 72170411697540
+T 55
+RNG G 209151882675912
+T 56
+RNG G 53256874999312
+T 57
+RNG G 65260397287000
+T 58
+RNG G 133266703200476
+T 59
+RNG G 177772451380191
+T 60
+RNG G 194452151705351
+T 61
+RNG G 209765569656187
+T 62
+RNG G 135448379047727
+T 63
+RNG G 61501727305763
+E G minecraft:iron_golem pos=1.564725820623544,-60.0,1.0021040722938706 delta=-0.07516408729228655,-0.0784000015258789,-1.1123739543678068E-4 rot=90.18831,27.384127 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=112.67326 body=90.18831 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+T 64
+RNG G 264896994393175
+T 65
+RNG G 235869418657739
+T 66
+RNG G 108291504033310
+T 67
+RNG G 266112370838643
+T 68
+RNG G 152239223124620
+E G minecraft:iron_golem pos=1.226368349126849,-60.0,1.1707233039826261 delta=0.04632476555029557,-0.0784000015258789,0.07605303133717121 rot=115.23787,30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=129.98631 body=115.23787 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.303404349246479,-0.0784000015258789,-0.1854150926951777 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=393.33334 abs=0.0 hurt=0/11 death=0 fx=- gm=survival food=20 sat=5.0 exh=5.1 xp=0/0/0.0 sel=0 main=empty
+T 69
+RNG G 203676235079117
+T 70
+RNG G 238791443504942
+T 71
+RNG G 88923557712631
+T 72
+RNG G 22591327935968
+T 73
+RNG G 193414676550257
+E G minecraft:iron_golem pos=1.3804945018847095,-60.0,1.40273136067787 delta=0.06990070125931527,-0.0784000015258789,0.07080332126996947 rot=136.86653,29.350542 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.76732 body=136.86653 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.08897924328827277,-0.0784000015258789,-0.08378438600959463 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=393.33334 abs=0.0 hurt=0/6 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0999999 xp=0/0/0.0 sel=0 main=empty
+T 74
+RNG G 280372857337221
+T 75
+RNG G 255782253589977
+T 76
+RNG G 108805933311853
+T 77
+RNG G 128498412150337
+T 78
+RNG G 268295282092969
+E G minecraft:iron_golem pos=1.4654376017144877,-60.0,1.4785015580966172 delta=0.05529577882843412,-0.0784000015258789,0.05503545575599411 rot=135.91676,26.41348 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.43996 body=135.91676 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.059751127028243485,-0.0784000015258789,-0.060358590493944965 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=394.0 abs=0.0 hurt=0/1 death=0 fx=- gm=survival food=20 sat=4.0 exh=5.1 xp=0/0/0.0 sel=0 main=empty
+T 79
+RNG G 20767220943364
+T 80
+RNG G 65536041726792
+T 81
+RNG G 92632092273868
+T 82
+RNG G 182861276625552
+T 83
+RNG G 85714514190484
+E G minecraft:iron_golem pos=1.4489137500192664,-60.0,1.4556153838185522 delta=0.04023526038219418,-0.0784000015258789,0.039979267980113954 rot=135.47755,26.246193 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.23088 body=135.47755 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.2533522540240874,0.31107252097564914,-0.2561000889274499 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=382.5 abs=0.0 hurt=5/16 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+T 84
+RNG G 93692357599960
+T 85
+RNG G 198332128742432
+T 86
+RNG G 231209605413668
+T 87
+RNG G 261545769637480
+T 88
+RNG G 147386747314668
+E G minecraft:iron_golem pos=1.4711847533040225,-60.0,1.474536067461322 delta=0.054269278512407565,-0.0784000015258789,0.05418477104035323 rot=135.23589,26.34572 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.11366 body=135.23589 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.34364214740411714,-0.0784000015258789,-0.34620241609190744 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=383.0 abs=0.0 hurt=0/11 death=0 fx=- gm=survival food=20 sat=3.0 exh=4.2 xp=0/0/0.0 sel=0 main=empty
+T 89
+RNG G 56800059679152
+T 90
+RNG G 145808548469172
+T 91
+RNG G 104769106838140
+T 92
+RNG G 35837144103744
+T 93
+RNG G 219572999797828
+E G minecraft:iron_golem pos=1.4507358187805857,-60.0,1.4524472296016102 delta=0.04019242642963841,-0.0784000015258789,0.04012737934825841 rot=135.12236,26.26242 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.05894 body=135.12236 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.06472881063902569,-0.0784000015258789,-0.06495002752673561 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=383.0 abs=0.0 hurt=0/6 death=0 fx=- gm=survival food=20 sat=2.0 exh=0.19999981 xp=0/0/0.0 sel=0 main=empty
+T 94
+RNG G 74290711333256
+T 95
+RNG G 251353093183696
+T 96
+RNG G 119926552283416
+T 97
+RNG G 188377388650396
+T 98
+RNG G 18897378884192
+E G minecraft:iron_golem pos=1.472062155970221,-60.0,1.4729412152417753 delta=0.054291846681866145,-0.0784000015258789,0.0542731864484425 rot=135.06145,26.355677 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.02956 body=135.06145 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.0592975878994687,-0.0784000015258789,-0.059366752641448056 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=383.33334 abs=0.0 hurt=0/1 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.1999998 xp=0/0/0.0 sel=0 main=empty
+T 99
+RNG G 271818795043743
+T 100
+RNG G 71759506171591
+T 101
+RNG G 55304204777787
+T 102
+RNG G 276244051541743
+T 103
+RNG G 260206497133591
+E G minecraft:iron_golem pos=1.451194836511074,-60.0,1.4516724162688557 delta=0.04019340945815756,-0.0784000015258789,0.04017916659913331 rot=135.03358,26.266768 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.01625 body=135.03358 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.25472463682111457,0.31107252097564914,-0.25491769740698456 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=361.83334 abs=0.0 hurt=5/16 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.2999997 xp=0/0/0.0 sel=0 main=empty
+T 104
+RNG G 28985541593995
+T 105
+RNG G 201729663023155
+T 106
+RNG G 70373949764967
+T 107
+RNG G 163017400537563
+T 108
+RNG G 140998526009743
+E G minecraft:iron_golem pos=1.4723124700697883,-60.0,1.4725979688231114 delta=0.0542983797195704,-0.0784000015258789,0.054299019655381385 rot=135.01921,26.357538 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.00926 body=135.01921 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.3450286953309615,-0.0784000015258789,-0.3452153308816465 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=362.1667 abs=0.0 hurt=0/11 death=0 fx=- gm=survival food=20 sat=2.0 exh=4.2999997 xp=0/0/0.0 sel=0 main=empty
+T 109
+RNG G 17715857422467
+T 110
+RNG G 95633798884023
+T 111
+RNG G 109766684036139
+T 112
+RNG G 262179711347923
+T 113
+RNG G 26545707668487
+E G minecraft:iron_golem pos=1.451354902614596,-60.0,1.45153933640366 delta=0.04019576294666738,-0.0784000015258789,0.04019427268073111 rot=135.01256,26.26665 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.00606 body=135.01256 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.0648569424330665,-0.0784000015258789,-0.06487598274744986 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=362.1667 abs=0.0 hurt=0/6 death=0 fx=- gm=survival food=20 sat=1.0 exh=0.2999997 xp=0/0/0.0 sel=0 main=empty
+T 114
+RNG G 225101295286907
+T 115
+RNG G 19501366285359
+T 116
+RNG G 196423866134871
+T 117
+RNG G 204258327616715
+T 118
+RNG G 33275814693759
+E G minecraft:iron_golem pos=1.4724386256453528,-60.0,1.4725813672882124 delta=0.0543033428670532,-0.0784000015258789,0.054308806918024484 rot=135.00902,26.35609 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.00435 body=135.00902 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.059340703447131875,-0.0784000015258789,-0.05935016980426611 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=362.33334 abs=0.0 hurt=0/1 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.2999997 xp=0/0/0.0 sel=0 main=empty
+T 119
+RNG G 116657247625218
+T 120
+RNG G 1077035943050
+T 121
+RNG G 266572191535150
+T 122
+RNG G 256340903555602
+T 123
+RNG G 75574322662966
+E G minecraft:iron_golem pos=1.4514746555276659,-60.0,1.451589915158061 delta=0.04020007687078096,-0.0784000015258789,0.040201710691336046 rot=135.00755,26.26477 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.00365 body=135.00755 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.2548279890700524,0.31107252097564914,-0.2548632027527866 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=350.83334 abs=0.0 hurt=5/16 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.3999997 xp=0/0/0.0 sel=0 main=empty
+T 124
+RNG G 239868938962238
+T 125
+RNG G 131236574619682
+T 126
+RNG G 243200396711238
+T 127
+RNG G 101542944005710
+T 128
+RNG G 265769690399282
+E G minecraft:iron_golem pos=1.4725843328447368,-60.0,1.4726722816886608 delta=0.05431145294162083,-0.0784000015258789,0.054316146375356984 rot=135.00542,26.35347 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.00261 body=135.00542 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.34514311672768433,-0.0784000015258789,-0.3451835536446013 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=351.0 abs=0.0 hurt=0/11 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.3999996 xp=0/0/0.0 sel=0 main=empty
+T 129
+RNG G 24152916000854
+T 130
+RNG G 73137317166266
+T 131
+RNG G 278655767468894
+T 132
+RNG G 251512053075814
+T 133
+RNG G 183687808269422
+E G minecraft:iron_golem pos=1.451638127524005,-60.0,1.451733214419047 delta=0.040206856675811906,-0.0784000015258789,0.04021044338578942 rot=135.00597,26.261324 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.00291 body=135.00597 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.06487214451560355,-0.0784000015258789,-0.06487887849455358 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=351.0 abs=0.0 hurt=0/6 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.3999996 xp=0/0/0.0 sel=0 main=empty
+T 134
+RNG G 46041498198610
+T 135
+RNG G 47833337070198
+T 136
+RNG G 105471454167258
+T 137
+RNG G 168847475802494
+T 138
+RNG G 110430351239266
+E G minecraft:iron_golem pos=1.4727833650551774,-60.0,1.4728711530220466 delta=0.054322520931088324,-0.0784000015258789,0.05432623005251275 rot=135.00554,26.349009 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.00267 body=135.00554 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.05935279662576783,-0.0784000015258789,-0.05935821587830783 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=351.16666 abs=0.0 hurt=0/1 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.3999996 xp=0/0/0.0 sel=0 main=empty
+T 139
+RNG G 50269666640409
+T 140
+RNG G 208985333772929
+T 141
+RNG G 227593279702677
+T 142
+RNG G 37888554797033
+T 143
+RNG G 177087200774781
+E G minecraft:iron_golem pos=1.4518929931671563,-60.0,1.4519742478659898 delta=0.040220655926198175,-0.0784000015258789,0.04022016908153124 rot=135.00551,26.255732 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.00267 body=135.00551 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/5/1/0,-60,0 nodes=4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=1:MeleeAttackGoal:MOVE+LOOK tgoals=1:DefendVillageTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.2548639017038539,0.31107252097564914,-0.2548871434582634 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=343.66666 abs=0.0 hurt=5/16 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.4999995 xp=0/0/0.0 sel=0 main=empty

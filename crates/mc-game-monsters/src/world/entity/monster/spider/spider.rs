@@ -288,6 +288,10 @@ impl SpiderAttackGoal {
 }
 
 impl Goal for SpiderAttackGoal {
+    fn name(&self) -> &'static str {
+        "Spider$SpiderAttackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.melee.can_use_impl(mob, level) && !mob.base().is_vehicle()
     }
@@ -337,6 +341,10 @@ impl SpiderTargetGoal {
 }
 
 impl Goal for SpiderTargetGoal {
+    fn name(&self) -> &'static str {
+        "Spider$SpiderTargetGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let br = mob.get_light_level_dependent_magic_value(level);
         if br >= 0.5 {

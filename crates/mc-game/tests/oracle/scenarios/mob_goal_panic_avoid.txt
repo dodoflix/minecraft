@@ -1,0 +1,64 @@
+# PanicGoal (a pig hurt by the player runs around), AvoidEntityGoal (a skeleton flees from a wolf within 6 blocks), the wolf's
+# NearestAttackableTargetGoal on the skeleton and its LeapAtTargetGoal. Night, so the skeleton does not burn.
+level flat
+difficulty normal
+time 18000
+entity_counter 100
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn Pig minecraft:pig 6.5 -60 6.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn Skel minecraft:skeleton 40.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,HandItems:[{id:"minecraft:bow",count:1},{}]}
+mobspawn Wolf minecraft:wolf 45.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed Pig 11
+entity_seed Skel 22
+entity_seed Wolf 33
+watch rng:Pig rng:Skel rng:Wolf
+tick 3
+hurt Pig player_attack 1 by=Steve
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs
+tick 5
+dump mobs

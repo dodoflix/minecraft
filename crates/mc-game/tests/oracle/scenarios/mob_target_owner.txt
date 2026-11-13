@@ -1,0 +1,72 @@
+# OwnerHurtByTargetGoal and OwnerHurtTargetGoal of a tamed wolf, NonTameRandomTargetGoal of a wild wolf next to a sheep.
+level flat
+difficulty normal
+entity_counter 100
+spawn_player Steve survival 0.5 -60 0.5 0 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+mobspawn W minecraft:wolf 3.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn Z minecraft:zombie 12.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn Cow minecraft:cow -2.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn Wild minecraft:wolf -20.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn Sheep minecraft:sheep -23.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b}
+tame W Steve
+entity_seed W 5
+entity_seed Z 6
+entity_seed Cow 7
+entity_seed Wild 8
+entity_seed Sheep 9
+watch rng:W rng:Wild
+tick 5
+note the zombie hurts the owner: the wolf takes the zombie as target
+hurt Steve mob_attack 1 by=Z direct=Z
+tick 5
+dump mob:W mob:Z mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Z mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Z mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Z mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Z mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Z mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Z mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Z mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Z mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Z mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Z mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Z mob:Wild mob:Sheep
+note the owner hits the cow: the wolf takes the cow as target
+attack Steve Cow
+tick 5
+dump mob:W mob:Cow mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Cow mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Cow mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Cow mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Cow mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Cow mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Cow mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Cow mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Cow mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Cow mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Cow mob:Wild mob:Sheep
+tick 5
+dump mob:W mob:Cow mob:Wild mob:Sheep

@@ -1,0 +1,71 @@
+# A skeleton riding a spider (bow in hand): the skeleton is the controlling passenger, so the spider's goals lose
+# MOVE/LOOK/JUMP and the skeleton's goals steer through the spider's navigation and move control towards the player.
+level flat
+difficulty normal
+time 18000
+entity_counter 100
+spawn_player Steve survival 0.5 -60 0.5 0 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+mobspawn Sp minecraft:spider 14.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn Sk minecraft:skeleton 14.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,HandItems:[{id:"minecraft:bow",count:1},{}]}
+entity_seed Sp 16
+entity_seed Sk 17
+ride Sk Sp
+watch rng:Sp rng:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk
+tick 5
+dump mob:Sp mob:Sk

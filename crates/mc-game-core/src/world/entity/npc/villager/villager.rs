@@ -1086,6 +1086,10 @@ impl Entity for Villager {
         true
     }
 
+    fn get_player_reputation(&self, player: &Uuid) -> i32 {
+        Villager::get_player_reputation(self, player)
+    }
+
     fn on_set_last_hurt_by_mob(
         &mut self,
         level: &mut ServerLevel,

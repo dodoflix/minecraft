@@ -388,6 +388,7 @@ impl Entity for Strider {
 
     fn get_controlling_passenger(&self) -> Option<EntityId> {
         self.controller
+            .or_else(|| mc_game_core::world::entity::mob::controlling_passenger(self))
     }
 
     fn add_passenger(&mut self, passenger: &dyn Entity, first_passenger_is_player: bool) {

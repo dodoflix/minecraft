@@ -180,6 +180,7 @@ mod mob_armadillo_golden;
 mod mob_base_golden;
 mod mob_ctrl_golden;
 mod mob_fixtures_golden;
+mod mob_goal_golden;
 mod mob_goat_golden;
 mod mob_harness_golden;
 mod mob_illager_golden;

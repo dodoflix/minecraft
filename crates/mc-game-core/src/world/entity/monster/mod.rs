@@ -23,6 +23,7 @@ pub fn start_riding_unadded(rider: &mut dyn Entity, vehicle: &mut dyn Entity) ->
     }
     rider.base_mut().vehicle = Some(vehicle.id());
     vehicle.add_passenger(&*rider, false);
+    super::mob::set_first_passenger(vehicle, Some(&*rider));
     true
 }
 

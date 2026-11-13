@@ -18,6 +18,7 @@ use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
 use mc_game_core::world::entity::ai::memory::memory_module_type::{
     LONG_JUMP_COOLDOWN_TICKS, LONG_JUMP_MID_JUMP, LOOK_TARGET,
 };
+use mc_game_core::world::entity::ai::util::unseeded_shuffle::shuffle_unseeded;
 use mc_game_core::world::entity::entity::Entity;
 use mc_game_core::world::entity::mob::navigation;
 use mc_game_core::world::level::BlockGetter;
@@ -75,25 +76,6 @@ pub fn default_acceptable_landing_spot(
     let below = target_pos.below();
     let ty = navigation::path_type_static(body, level, target_pos);
     level.get_block_state(below).is_solid_render() && body.get_pathfinding_malus(level, ty) == 0.0
-}
-
-thread_local! {
-    /// The process-wide `java.util.Random` of `Collections.shuffle(list)` (unseeded).
-    static SHUFFLE_RANDOM: std::cell::RefCell<mc_core::random::SingleThreadedRandomSource> = {
-        use std::hash::{BuildHasher, Hasher};
-        let seed = std::collections::hash_map::RandomState::new().build_hasher().finish() as i64;
-        std::cell::RefCell::new(mc_core::random::SingleThreadedRandomSource::new(seed))
-    };
-}
-
-/// `Collections.shuffle(list)`: vanilla draws from an unseeded `java.util.Random`, never from the level random, so the
-/// order (and the jump vector of the first feasible angle) differs from run to run.
-fn shuffle_unseeded(list: &mut [i32]) {
-    SHUFFLE_RANDOM.with_borrow_mut(|random| {
-        for n in (2..=list.len()).rev() {
-            list.swap(n - 1, random.next_int_bounded(n as i32) as usize);
-        }
-    });
 }
 
 impl LongJumpToRandomPos {

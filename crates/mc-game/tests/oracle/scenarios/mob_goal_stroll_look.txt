@@ -1,0 +1,94 @@
+# WaterAvoidingRandomStrollGoal, LookAtPlayerGoal, RandomLookAroundGoal (and the sheep's EatBlockGoal) on three passive animals near a
+# player for 400 ticks: goal selection cadence, random target positions, navigation, look control. The entity random of every mob is
+# watched each tick (a draw too many or too few shows at its tick), the rich mob lines every 10 ticks.
+level flat
+difficulty normal
+entity_counter 100
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn Pig minecraft:pig 3.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn Cow minecraft:cow -4.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn Sheep minecraft:sheep 3.5 -60 -5.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed Pig 101
+entity_seed Cow 202
+entity_seed Sheep 303
+watch rng:Pig rng:Cow rng:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep
+tick 10
+dump mob:Pig mob:Cow mob:Sheep

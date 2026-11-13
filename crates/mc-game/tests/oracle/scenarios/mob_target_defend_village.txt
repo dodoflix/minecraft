@@ -1,0 +1,64 @@
+# DefendVillageTargetGoal: an iron golem next to two villagers (no AI) targets the player once the villagers' reputation of the player
+# is -100 or worse (each hurt adds minor negative gossip, drawn from the player's hits).
+level flat
+difficulty normal
+entity_counter 100
+spawn_player Steve survival 0.5 -60 0.5 0 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+mobspawn G minecraft:iron_golem 4.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn V1 minecraft:villager 6.5 -60 2.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn V2 minecraft:villager 6.5 -60 -1.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed G 12
+entity_seed V1 13
+entity_seed V2 14
+watch rng:G
+tick 3
+dump mob:G
+hurt V1 player_attack 0.5 by=Steve
+tick 12
+dump mob:G
+hurt V1 player_attack 0.5 by=Steve
+tick 12
+dump mob:G
+hurt V1 player_attack 0.5 by=Steve
+tick 12
+dump mob:G
+hurt V1 player_attack 0.5 by=Steve
+tick 12
+dump mob:G
+hurt V1 player_attack 0.5 by=Steve
+tick 12
+dump mob:G
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve
+tick 5
+dump mob:G player:Steve

@@ -181,6 +181,8 @@ pub struct MobData {
     /// `getFirstPassenger() instanceof Mob`, maintained by `add_passenger`/`remove_passenger` (the controlling-passenger and
     /// body-rotation checks of vanilla need the passenger's class without a level).
     pub first_passenger_is_mob: bool,
+    /// `getFirstPassenger() instanceof Mob && canControlVehicle()` (the `Mob.getControllingPassenger` test).
+    pub first_passenger_controls: bool,
     pub ageable: Option<AgeableData>,
     pub animal: Option<AnimalData>,
     pub tamable: Option<TamableData>,
@@ -254,6 +256,7 @@ impl MobData {
             home_position: BlockPos::ZERO,
             home_radius: -1,
             first_passenger_is_mob: false,
+            first_passenger_controls: false,
             ageable: kind.is_ageable().then(AgeableData::default),
             animal: kind.is_animal().then(AnimalData::default),
             tamable: (kind == MobKind::TamableAnimal).then(TamableData::default),
@@ -442,6 +445,26 @@ pub fn jump_control_jump(mob: &mut dyn Entity) {
         && let Some(j) = m.jump_control.as_deref_mut()
     {
         j.jump();
+    }
+}
+
+/// Records the class of `getFirstPassenger()` on a mob vehicle (`first` = the new first passenger, `None` = no passenger).
+pub fn set_first_passenger(vehicle: &mut dyn Entity, first: Option<&dyn Entity>) {
+    let is_mob = first.is_some_and(|p| p.mob().is_some());
+    let controls = is_mob && first.is_some_and(|p| p.can_control_vehicle());
+    if let Some(m) = vehicle.mob_mut() {
+        m.first_passenger_is_mob = is_mob;
+        m.first_passenger_controls = controls;
+    }
+}
+
+/// `Mob.getControllingPassenger()`: the first passenger when it is a `Mob` that can control a vehicle and this is not `noAi`.
+pub fn controlling_passenger(vehicle: &dyn Entity) -> Option<EntityId> {
+    let m = vehicle.mob()?;
+    if m.first_passenger_controls && !m.is_no_ai() {
+        vehicle.base().passengers.first().copied()
+    } else {
+        None
     }
 }
 
