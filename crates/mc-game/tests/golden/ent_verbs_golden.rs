@@ -29,3 +29,8 @@ fn spawned_player_yaw_matches_vanilla() {
 fn sneaking_click_resets_with_the_next_tick_like_vanilla() {
     common::block_scenario::check("ent_interact_sneak");
 }
+
+#[test]
+fn removed_entities_dump_like_vanilla() {
+    common::block_scenario::check("ent_removed_dump");
+}

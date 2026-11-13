@@ -299,6 +299,8 @@ pub struct Harness {
 impl Harness {
     pub fn new() -> Self {
         let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
+        // the oracle's references keep a removed entity: it dumps with `alive=0`
+        level.removed_entities = Some(Default::default());
         level.registries = registries();
         // item behaviour that reads registries without a level (`Item.getUseDuration` of a goat horn)
         mc_game::world::item::set_item_registries(level.registries.clone());
@@ -1174,7 +1176,7 @@ impl Harness {
                 ("mob", Some(n)) | ("xentity", Some(n)) => self.describe_ref(n, true),
                 ("edata", Some(n)) => {
                     let id = self.entity_ref(n);
-                    let line = match self.level.get_entity(id) {
+                    let line = match self.level.get_entity_or_removed(id) {
                         Some(e) => super::entity_describe::entity_data_line(n, e),
                         None => self.fail(&format!("entity {n} is not in the level")),
                     };
@@ -1225,7 +1227,7 @@ impl Harness {
 
     fn describe_ref(&mut self, name: &str, rich: bool) {
         let id = self.entity_ref(name);
-        let line = match self.level.get_entity(id) {
+        let line = match self.level.get_entity_or_removed(id) {
             Some(e) => self.describe(name, e, rich),
             None => self.fail(&format!("entity {name} is not in the level")),
         };

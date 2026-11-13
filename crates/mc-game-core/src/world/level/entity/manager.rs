@@ -121,6 +121,11 @@ impl PersistentEntitySectionManager {
         self.limbo.clear();
     }
 
+    /// Hands out the entities waiting in limbo instead of dropping them.
+    pub fn drain_limbo(&mut self) -> Vec<(EntityId, Box<dyn Entity>)> {
+        self.limbo.drain().collect()
+    }
+
     // ---- adding ---------------------------------------------------------------------------------------------
 
     fn add_entity_uuid(&mut self, uuid: Uuid, describe: impl FnOnce() -> String) -> bool {

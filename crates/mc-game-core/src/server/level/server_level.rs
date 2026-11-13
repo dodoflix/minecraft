@@ -68,6 +68,10 @@ pub struct ServerLevel {
     /// An entity that is loading and not part of the level yet, but whose own name resolution (`@s` in the text of a text
     /// display) must find it; see `ServerLevel::get_entity`.
     pub loading_entity: Option<Box<dyn crate::world::entity::Entity>>,
+    /// When set, removed entities are kept here instead of being dropped (the scenario replays dump an entity that was
+    /// removed, like the oracle, whose references keep the object).
+    pub removed_entities:
+        Option<std::collections::HashMap<EntityId, Box<dyn crate::world::entity::Entity>>>,
     /// Snapshots of the players that are currently taken out of the entity storage (see `tracker_players`).
     pub(super) taken_out_players: std::collections::HashMap<EntityId, super::TrackerPlayer>,
     /// The vibration-source facts of the players that are currently taken out (`GameEvent.Context.sourceEntity()` of
@@ -177,6 +181,7 @@ impl ServerLevel {
             server_state: Default::default(),
             dead_players: Default::default(),
             loading_entity: None,
+            removed_entities: None,
             taken_out_players: Default::default(),
             taken_out_player_sources: Default::default(),
             registries: Default::default(),

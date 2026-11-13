@@ -1,0 +1,12 @@
+# Dumping an entity that was removed: the oracle's reference keeps the object (alive=0), also through `watch`.
+level flat
+preload 2
+entity_counter 1100
+spawn t minecraft:tnt 0.5 -60 0.5 0 0 {fuse:2}
+entity_seed t 3
+spawn arrow minecraft:arrow 4.5 -58 0.5 0 0
+entity_seed arrow 4
+kill arrow
+watch entity:t xentity:arrow
+tick 4
+dump entity:t xentity:arrow edata:arrow entities

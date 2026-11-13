@@ -124,6 +124,16 @@ impl ServerLevel {
             .or_else(|| self.loading_entity.as_deref().filter(|e| e.id() == id))
     }
 
+    /// [`ServerLevel::get_entity`], or the entity that was removed when [`ServerLevel::removed_entities`] keeps them.
+    pub fn get_entity_or_removed(&self, id: EntityId) -> Option<&dyn Entity> {
+        self.entity_manager.get(id).or_else(|| {
+            self.removed_entities
+                .as_ref()
+                .and_then(|kept| kept.get(&id))
+                .map(|e| e.as_ref())
+        })
+    }
+
     pub fn get_entity_by_uuid(&self, uuid: Uuid) -> Option<&dyn Entity> {
         self.entity_manager.get_by_uuid(uuid)
     }
@@ -349,6 +359,9 @@ impl ServerLevel {
             if let Some(player) = self.entity_manager.take_removed(id) {
                 self.dead_players.insert(id, player);
             }
+        }
+        if let Some(kept) = self.removed_entities.as_mut() {
+            kept.extend(self.entity_manager.drain_limbo());
         }
         self.entity_manager.clear_limbo();
     }

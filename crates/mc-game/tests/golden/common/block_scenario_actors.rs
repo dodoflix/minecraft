@@ -1364,7 +1364,7 @@ impl Scenario {
                 let id = self.entity_id(name);
                 let level = self.level();
                 let e = level
-                    .get_entity(id)
+                    .get_entity_or_removed(id)
                     .unwrap_or_else(|| panic!("entity {name} is gone"));
                 let line = super::super::entity_describe::entity_data_line(name, e);
                 self.out.push(line);
@@ -1546,7 +1546,7 @@ impl Scenario {
             uuids: &uuids,
         };
         let e = level
-            .get_entity(id)
+            .get_entity_or_removed(id)
             .unwrap_or_else(|| panic!("entity {name} is gone"));
         super::super::entity_describe::describe(name, e, level, &ctx, rich)
     }

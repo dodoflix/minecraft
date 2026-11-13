@@ -676,6 +676,8 @@ impl Scenario {
             .tick_state
             .random
             .set_seed(self.opts_seed() ^ 0x5DEECE66D);
+        // the oracle's references keep a removed entity: it dumps with `alive=0`
+        level.removed_entities = Some(Default::default());
         self.level = Some(level);
         // loot tables, damage types, ... (the oracle server has them from the start)
         self.load_registries();
