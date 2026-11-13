@@ -5,6 +5,7 @@ use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ServerPlayer;
 use crate::world::entity::vehicle::minecart::abstract_minecart::{create_minecart, rail_shape};
+use crate::world::entity::vehicle::minecart::new_behavior::use_experimental_movement;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::impls::base_rail_block::is_slope;
 use crate::world::level::block::state::BlockStateExt;
@@ -18,8 +19,8 @@ struct MinecartItem {
 }
 
 impl ItemBehaviour for MinecartItem {
-    /// `useOn(context)`: any rail takes the cart, a slope half a block higher.
-    // Not implemented: the `NewMinecartBehavior` overlap check (another cart in the new cart's box refuses the placement).
+    /// `useOn(context)`: any rail takes the cart, a slope half a block higher; under the experimental movement another cart in
+    /// the new cart's box refuses the placement (the cart was created, so its entity id is used up).
     fn use_on(
         &self,
         context: &mut UseOnContext,
@@ -48,6 +49,15 @@ impl ItemBehaviour for MinecartItem {
         ) else {
             return InteractionResult::FAIL;
         };
+        if use_experimental_movement(level)
+            && !level
+                .get_entities(None, &cart.base().bounding_box(), |e| {
+                    e.as_abstract_minecart().is_some()
+                })
+                .is_empty()
+        {
+            return InteractionResult::FAIL;
+        }
         level.add_fresh_entity(cart);
         let below = level.get_block_state(pos.below());
         level.game_event_from_entity_ref_in_state(
