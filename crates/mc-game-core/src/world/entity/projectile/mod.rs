@@ -9,6 +9,7 @@
 pub mod arrow;
 pub mod deflection;
 pub mod evoker_fangs;
+pub mod eye_of_ender;
 pub mod firework_rocket;
 pub mod hurting;
 pub mod llama_spit;

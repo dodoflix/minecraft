@@ -1,19 +1,28 @@
 //! `EnderEyeItem`: filling an end portal frame (`useOn`) and the launch of the eye (`use`).
 
 use super::{
-    InteractionHand, InteractionResult, ItemBehaviour, UseOnContext, player_pov_hit_result_fluid,
+    InteractionHand, InteractionResult, ItemBehaviour, ItemStackExt, UseOnContext,
+    player_pov_hit_result_fluid,
 };
+use crate::advancements::triggers::CriteriaTriggers;
 use crate::register_item_class;
+use crate::registry::keys;
 use crate::server::level::ServerLevel;
-use crate::world::entity::ServerPlayer;
+use crate::world::entity::projectile::eye_of_ender::EyeOfEnder;
+use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::helpers::push_entities_up;
 use crate::world::level::block::pattern::{BlockInWorld, BlockPattern, BlockPatternBuilder};
 use crate::world::level::collision::ClipFluid;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::Direction;
+use mc_core::ident::Identifier;
+use mc_core::math::mth;
+use mc_core::phys::Vec3;
 use mc_data::block::Block;
 use mc_data::props;
+use mc_data::{GameEvent, Item, SoundEvent};
+use mc_protocol::packets::play::{SoundSource, Stat};
 use std::sync::LazyLock;
 
 /// `BlockInWorld.hasState(BlockStatePredicate.forBlock(END_PORTAL_FRAME).where(HAS_EYE, true).where(FACING, facing))`.
@@ -92,12 +101,59 @@ impl ItemBehaviour for EnderEyeItem {
         {
             return InteractionResult::PASS;
         }
+        let started_using = !player.is_using_item();
         player.start_using_item(level, hand);
-        // Not implemented: the eye of ender entity. Vanilla locates the nearest `#eye_of_ender_located` structure within
-        // 100 chunks (`find_nearest_map_structure`, none: CONSUME), spawns an `EyeOfEnder` at the player's eye height
-        // that signals to it, fires `PROJECTILE_SHOOT`, the `used_ender_eye` trigger, plays `ENDER_EYE_LAUNCH`,
-        // consumes one eye, awards the `used` statistic and returns SUCCESS_SERVER.
-        InteractionResult::CONSUME
+        let mut stack = player.get_item_in_hand(hand);
+        let tag = Identifier::new("minecraft", "eye_of_ender_located").expect("valid id");
+        let wanted: Vec<Identifier> = {
+            let registries = &level.registries;
+            match (
+                registries.registry(keys::STRUCTURE),
+                registries.tag(keys::STRUCTURE, &tag),
+            ) {
+                (Some(registry), Some(ids)) => {
+                    ids.iter().filter_map(|id| registry.name_of(*id)).collect()
+                }
+                _ => Vec::new(),
+            }
+        };
+        let Some((nearest_map_feature, _)) =
+            level.find_nearest_map_structure(&wanted, player.block_position(), 100, false)
+        else {
+            return InteractionResult::CONSUME;
+        };
+        let mut eye = EyeOfEnder::at(
+            level,
+            player.base().x(),
+            player.base().get_y_progress(0.5),
+            player.base().z(),
+        );
+        eye.set_item(&stack);
+        eye.signal_to(Vec3::at_lower_corner_of(&nearest_map_feature));
+        level.game_event_from_entity_ref(&*player, GameEvent::PROJECTILE_SHOOT, eye.position());
+        level.add_fresh_entity(Box::new(eye));
+        CriteriaTriggers::USED_ENDER_EYE.trigger(level, player, nearest_map_feature);
+        let pitch = mth::lerp_f32(level.random().next_float(), 0.33, 0.5);
+        let (x, y, z) = (player.base().x(), player.base().y(), player.base().z());
+        level.play_sound_at(
+            None,
+            x,
+            y,
+            z,
+            SoundEvent::ENTITY_ENDER_EYE_LAUNCH,
+            SoundSource::Neutral,
+            1.0,
+            pitch,
+        );
+        stack.consume(1, player.player.abilities.instabuild);
+        player.set_item_in_hand(hand, stack.clone());
+        if started_using {
+            // vanilla's used item is the hand's stack object: it shrinks with it
+            player.player.living.use_item = stack;
+        }
+        // `this`, not the stack's item: the consumed last eye leaves an empty stack
+        player.award_stat_once(level, Stat::Used(Item::ENDER_EYE));
+        InteractionResult::SUCCESS_SERVER
     }
 }
 

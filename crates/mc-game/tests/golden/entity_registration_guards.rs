@@ -15,7 +15,6 @@ use std::path::{Path, PathBuf};
 #[rustfmt::skip]
 const EXPECTED_MISSING: &[(&str, &str)] = &[
     ("minecraft:egg", "ThrownEgg: hit effects, chicken spawn"),
-    ("minecraft:eye_of_ender", "EyeOfEnder: flight toward the stronghold and the drop or break"),
     ("minecraft:fishing_bobber", "FishingHook: cast, bite, retrieve and loot"),
     ("minecraft:lingering_potion", "ThrownLingeringPotion: area effect cloud on hit"),
     ("minecraft:splash_potion", "ThrownSplashPotion: splash effects on hit"),
