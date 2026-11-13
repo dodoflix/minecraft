@@ -172,13 +172,17 @@ impl BehaviorControl for GateBehavior {
         }
     }
 
+    /// `GateBehavior.debugString()`: the running behaviours as a `HashSet<String>` (`[a, b]`, Java hash order).
     fn debug_string(&self) -> String {
-        let running: Vec<String> = self
+        let mut running = crate::advancements::java_hash::JavaHashSet::<String>::new();
+        for b in self
             .behaviors
             .iter()
             .filter(|g| g.get_status() == Status::Running)
-            .map(|b| b.debug_string())
-            .collect();
+        {
+            running.insert(b.debug_string());
+        }
+        let running: Vec<&str> = running.iter().map(String::as_str).collect();
         format!("{}: [{}]", self.name, running.join(", "))
     }
 }

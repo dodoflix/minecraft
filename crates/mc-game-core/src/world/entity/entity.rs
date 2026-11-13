@@ -2605,9 +2605,10 @@ pub trait Entity: Any {
     // ---- `LivingEntity` behaviour: defaults are the vanilla methods for every entity whose `living()` is Some;
     // ---- mobs/players override the hooks vanilla overrides (`travel`, `serverAiStep`, `isImmobile`, ...) -----------
 
-    /// `isEffectiveAi()` (server side: `Player` true, `Mob` `!isNoAi()`).
+    /// `isEffectiveAi()` (server side: `Entity`: `isLocalInstanceAuthoritative()`, so a mob steered by a client-authoritative rider
+    /// does not run its own AI; `Mob` adds `!isNoAi()`).
     fn is_effective_ai(&self) -> bool {
-        !self.mob().is_some_and(|m| m.is_no_ai())
+        self.is_local_instance_authoritative() && !self.mob().is_some_and(|m| m.is_no_ai())
     }
     /// `isImmobile()` (`LivingEntity`: dead or dying; `Player` adds sleeping).
     fn is_immobile(&self) -> bool {

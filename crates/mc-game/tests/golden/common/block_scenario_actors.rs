@@ -1,5 +1,5 @@
-//! Entities and players of the block scenario replay (`spawn`, `mobspawn`, `spawn_item`, `entity_seed`, `kill`, `nbt`, `hurt`, `effect`, `mob_attack`, `input` (sneak: the shift key), `op`, `pick_block`, `tp`, `snap`, `velocity`, `set`,
-//! `leash`, `spawn_player`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|xentities|entity:REF|xentity:REF|edata:REF|player:NAME|packets:NAME`). The player actions (`give select use use_on release interact drop swing swap dispense`
+//! Entities and players of the block scenario replay (`spawn`, `mobspawn`, `spawn_item`, `entity_seed`, `kill`, `nbt`, `hurt`, `effect`, `input` (sneak: the shift key), `op`, `pick_block`, `tp`, `snap`, `velocity`, `set`,
+//! `spawn_player`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|xentities|mobs|entity:REF|xentity:REF|mob:REF|edata:REF|player:NAME|packets:NAME`). The mob verbs (`target love age breed tame leash mob_attack nav path_query nav_stop`, dumps `goals brain path attrs nbt`) are shared with the entity replay: `mob_verbs.rs`. The player actions (`give select use use_on release interact drop swing swap dispense`
 //! and the dumps `use cooldowns stats inventory`) are shared with the entity replay: `player_actions.rs`; the `E` line of every dump is
 //! `entity_describe.rs`. `move_packet`, `move_vehicle`, `paddle`, `accept_teleport` and `client_tick_end` hand the packet the Java verb builds to the player's
 //! listener; `respawn` replays the player list's respawn and then delivers the client's loaded report.
@@ -28,7 +28,6 @@ use mc_game::server::network::game_listener::{
 use mc_game::server::network::{ConnectionSender, Outbound};
 use mc_game::world::block_entity::sign_block_entity::{SignTextSlot, update_sign_text_from_packet};
 use mc_game::world::entity::factory::{self, EntitySpawnRequest};
-use mc_game::world::entity::mob::leashable;
 use mc_game::world::entity::projectile::eye_of_ender::EyeOfEnder;
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game::world::item::InteractionHand;
@@ -359,30 +358,6 @@ impl Scenario {
                 reseed_for(&a[1]);
                 self.spawn(a);
             }
-            // leash REF HOLDER|-          Leashable.setLeashedTo(holder, true) / removeLeash()
-            "leash" => {
-                self.world();
-                let id = self.entity_id(&a[1]);
-                if a[2] == "-" {
-                    self.level()
-                        .with_entity(id, |level, e| leashable::remove_leash(e, level));
-                } else {
-                    let holder_id = self.entity_id(&a[2]);
-                    let holder = self
-                        .level()
-                        .take_entity(holder_id)
-                        .unwrap_or_else(|| panic!("leash holder {} is not in the level", a[2]));
-                    self.level().with_entity(id, |level, e| {
-                        leashable::set_leashed_to(
-                            e,
-                            level,
-                            leashable::LeashHolder::of(&*holder),
-                            true,
-                        )
-                    });
-                    self.level().put_back_entity(holder_id, holder);
-                }
-            }
             "spawn_item" => {
                 self.world();
                 self.load_registries();
@@ -607,22 +582,6 @@ impl Scenario {
                 self.out
                     .push(format!("EFFECT {} {} added={added}", a[1], a[2]));
             }
-            // mob_attack MOB REF        Mob.doHurtTarget(level, REF); prints `MOBATTACK mob ref -> result`
-            "mob_attack" => {
-                self.world();
-                self.load_registries();
-                let (mob, target) = (self.entity_id(&a[1]), self.entity_id(&a[2]));
-                let result = self
-                    .level()
-                    .with_entity(mob, |level, m| {
-                        level
-                            .with_entity(target, |level, t| m.do_hurt_target(level, t))
-                            .unwrap_or_else(|| panic!("entity {} is gone", a[2]))
-                    })
-                    .unwrap_or_else(|| panic!("entity {} is gone", a[1]));
-                self.out
-                    .push(format!("MOBATTACK {} {} -> {result}", a[1], a[2]));
-            }
             "mobspawn" => {
                 self.world();
                 self.load_registries();
@@ -813,7 +772,10 @@ impl Scenario {
                 self.load_registries();
                 self.explode(a);
             }
-            _ => return crate::common::player_actions::command(self, a),
+            _ => {
+                return crate::common::mob_verbs::command(self, a)
+                    || crate::common::player_actions::command(self, a);
+            }
         }
         true
     }
@@ -1398,6 +1360,22 @@ impl Scenario {
                     self.out.push(line);
                 }
             }
+            // every live Mob as a rich `E` line (the entity replay's `mobs`)
+            "mobs" => {
+                self.name_new_entities();
+                let mut all: Vec<(String, EntityId)> = self.actors.refs.clone();
+                all.retain(|(n, id)| {
+                    !self.actors.players.contains(n)
+                        && self.level().get_entity(*id).is_some_and(|e| {
+                            e.is_alive() && crate::common::entity_scenario::is_mob(e)
+                        })
+                });
+                all.sort_by_key(|(_, id)| *id);
+                for (name, id) in all {
+                    let line = self.describe(&name, id, true);
+                    self.out.push(line);
+                }
+            }
             "entity" | "player" | "xentity" | "mob" => {
                 let name = arg.expect("entity:REF");
                 let id = self.entity_id(name);
@@ -1429,46 +1407,6 @@ impl Scenario {
                     .get_entity_or_removed(id)
                     .unwrap_or_else(|| panic!("entity {name} is gone"));
                 let line = super::super::entity_describe::entity_data_line(name, e);
-                self.out.push(line);
-            }
-            // BRAIN REF .. / BM / BR lines (`mc_game::world::entity::scenario_dump`, shared with the entity replay)
-            "brain" => {
-                use mc_game::world::entity::scenario_dump as sd;
-                let name = arg.expect("brain:REF");
-                let id = self.entity_id(name);
-                let names: std::collections::BTreeMap<EntityId, String> = self
-                    .actors
-                    .refs
-                    .iter()
-                    .map(|(n, id)| (*id, n.clone()))
-                    .collect();
-                let uuids = std::collections::BTreeMap::new();
-                let ctx = sd::ScenarioDumpCtx {
-                    names: &names,
-                    uuids: &uuids,
-                };
-                let level = self.level();
-                let e = level
-                    .get_entity(id)
-                    .unwrap_or_else(|| panic!("entity {name} is gone"));
-                let lines = sd::brain_lines(name, e, level, &ctx);
-                self.out.extend(lines);
-            }
-            // N REF {canonical sorted SNBT of saveWithoutId, UUID removed}
-            "nbt" => {
-                let name = arg.expect("nbt:REF");
-                let id = self.entity_id(name);
-                let level = self.level();
-                let e = level
-                    .get_entity_or_removed(id)
-                    .unwrap_or_else(|| panic!("entity {name} is gone"));
-                let mut tag = mc_nbt::CompoundTag::new();
-                e.save_without_id(&mut tag, &|i| level.get_entity(i));
-                tag.remove("UUID");
-                let line = format!(
-                    "N {name} {}",
-                    super::super::entity_scenario::canon(&mc_nbt::Tag::Compound(tag))
-                );
                 self.out.push(line);
             }
             "advancements" => {
@@ -1587,22 +1525,42 @@ impl Scenario {
                     }
                 }
             }
-            _ => return crate::common::player_actions::dump(self, kind, arg),
+            _ => {
+                return crate::common::mob_verbs::dump(self, kind, arg)
+                    || crate::common::player_actions::dump(self, kind, arg);
+            }
         }
         true
     }
 
-    /// The `P`/`E` line of the driver's `describe` (`rich`: with the fields of the registered classes, `xentity:REF`).
-    fn describe(&mut self, name: &str, id: EntityId, rich: bool) -> String {
-        let refs = self.actors.refs.clone();
-        let level = self.level();
-        let names: std::collections::BTreeMap<EntityId, String> =
-            refs.iter().map(|(n, id)| (*id, n.clone())).collect();
-        // the driver's `uuidName`: a known entity prints as its scenario name, a removed one too (`refs` keeps it)
-        let uuids: std::collections::BTreeMap<uuid::Uuid, EntityId> = refs
+    /// The scenario names of the entities and the UUID table the dump context needs (the driver's `refs` / `uuidName`: a known entity
+    /// prints as its scenario name, a removed one too, `refs` keeps it).
+    fn names_and_uuids(
+        &self,
+    ) -> (
+        std::collections::BTreeMap<EntityId, String>,
+        std::collections::BTreeMap<uuid::Uuid, EntityId>,
+    ) {
+        let level = self.level.as_ref().expect("world");
+        let names = self
+            .actors
+            .refs
+            .iter()
+            .map(|(n, id)| (*id, n.clone()))
+            .collect();
+        let uuids = self
+            .actors
+            .refs
             .iter()
             .filter_map(|(_, id)| level.get_entity_or_removed(*id).map(|e| (e.uuid(), *id)))
             .collect();
+        (names, uuids)
+    }
+
+    /// The `P`/`E` line of the driver's `describe` (`rich`: with the fields of the registered classes, `xentity:REF`).
+    fn describe(&mut self, name: &str, id: EntityId, rich: bool) -> String {
+        let (names, uuids) = self.names_and_uuids();
+        let level = self.level();
         let ctx = mc_game::world::entity::scenario_dump::ScenarioDumpCtx {
             names: &names,
             uuids: &uuids,
@@ -1629,5 +1587,19 @@ impl crate::common::player_actions::ActionHost for Scenario {
     }
     fn emit(&mut self, line: String) {
         self.out.push(line);
+    }
+}
+
+impl crate::common::mob_verbs::MobHost for Scenario {
+    fn fail(&self, msg: &str) -> ! {
+        panic!("scenario line {}: `{}`: {msg}", self.line_no, self.line)
+    }
+    fn dump_names(
+        &self,
+    ) -> (
+        std::collections::BTreeMap<EntityId, String>,
+        std::collections::BTreeMap<uuid::Uuid, EntityId>,
+    ) {
+        self.names_and_uuids()
     }
 }

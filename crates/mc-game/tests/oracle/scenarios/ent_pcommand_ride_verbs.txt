@@ -1,0 +1,59 @@
+# The riding actions of the player command packet (START_RIDING_JUMP, STOP_RIDING_JUMP, OPEN_INVENTORY): only the rider that controls a
+# saddled horse starts its jump (a non-positive power does nothing); a rider of an unsaddled horse, a pig rider and a player on foot get
+# nothing; the inventory key opens the screen of the horse the player rides, but not for an untamed one.
+level flat
+preload 4
+entity_counter 5400
+level_seed 5401
+difficulty normal
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 10.5 -60 0.5 0 0
+spawn_player C survival 20.5 -60 0.5 0 0
+spawn_player D survival 30.5 -60 0.5 0 0
+spawn_player E survival 40.5 -60 0.5 0 0
+mobspawn H1 minecraft:horse 0.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Tame:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed H1 51
+mobspawn H2 minecraft:horse 10.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Tame:1b}
+entity_seed H2 52
+mobspawn P3 minecraft:pig 20.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed P3 53
+mobspawn H4 minecraft:horse 30.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed H4 54
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none events
+note the riders board; the horse of D is saddled but not tamed
+ride A H1
+ride B H2
+ride C P3
+ride D H4
+accept_teleport A
+accept_teleport B
+accept_teleport C
+accept_teleport D
+tick 1
+dump packets:A:none packets:B:none packets:C:none packets:D:none events xentity:H1 xentity:H2 xentity:P3 xentity:H4 edata:H1 edata:H2
+note a jump power of zero starts nothing, a positive one makes the controlled horse rear and jump
+pcommand A START_RIDING_JUMP 0
+dump events edata:H1
+pcommand A START_RIDING_JUMP 100
+dump events edata:H1 xentity:H1
+tick 3
+pcommand A STOP_RIDING_JUMP
+dump events edata:H1 xentity:H1
+note the other riders and the player on foot: nothing happens
+pcommand B START_RIDING_JUMP 80
+pcommand B STOP_RIDING_JUMP
+pcommand C START_RIDING_JUMP 80
+pcommand C STOP_RIDING_JUMP
+pcommand E START_RIDING_JUMP 80
+pcommand E STOP_RIDING_JUMP
+dump events edata:H2 edata:P3 player:E
+tick 2
+note the inventory key opens the mount screen of a tamed horse (not an untamed one, not a pig, not for a player on foot)
+pcommand A OPEN_INVENTORY
+pcommand B OPEN_INVENTORY
+pcommand C OPEN_INVENTORY
+pcommand D OPEN_INVENTORY
+pcommand E OPEN_INVENTORY
+tick 2
+dump menu:A menu:B menu:C menu:D menu:E packets:A:mount_screen_open,open_screen,container_set_content packets:B:mount_screen_open,open_screen,container_set_content packets:C:mount_screen_open,open_screen,container_set_content packets:D:mount_screen_open,open_screen,container_set_content packets:E:mount_screen_open,open_screen,container_set_content events

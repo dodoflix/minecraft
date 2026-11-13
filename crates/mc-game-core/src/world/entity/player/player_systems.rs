@@ -68,6 +68,39 @@ impl PlayerSystems for ServerPlayerSystems {
         matches.award(ctx.level, ctx.player);
     }
 
+    /// `START_RIDING_JUMP`: `player.getControlledVehicle() instanceof PlayerRideableJumping` with `canJump()` and `data > 0`
+    /// -> `handleStartJump(data)`.
+    fn start_riding_jump(&self, ctx: &mut PlayCtx, data: i32) {
+        use crate::world::entity::Entity;
+        let player_id = ctx.player.base_id();
+        let Some(vehicle) = ctx.player.base().vehicle else {
+            return;
+        };
+        ctx.level.with_entity(vehicle, |level, e| {
+            if e.get_controlling_passenger() == Some(player_id)
+                && e.is_player_rideable_jumping()
+                && e.can_jump()
+                && data > 0
+            {
+                e.handle_start_jump(level, data);
+            }
+        });
+    }
+
+    /// `STOP_RIDING_JUMP`: `player.getControlledVehicle() instanceof PlayerRideableJumping` -> `handleStopJump()`.
+    fn stop_riding_jump(&self, ctx: &mut PlayCtx) {
+        use crate::world::entity::Entity;
+        let player_id = ctx.player.base_id();
+        let Some(vehicle) = ctx.player.base().vehicle else {
+            return;
+        };
+        ctx.level.with_entity(vehicle, |_, e| {
+            if e.get_controlling_passenger() == Some(player_id) && e.is_player_rideable_jumping() {
+                e.handle_stop_jump();
+            }
+        });
+    }
+
     /// `OPEN_INVENTORY`: `player.getVehicle() instanceof HasCustomInventoryScreen` (chest boats) -> `openCustomInventoryScreen(player)`.
     fn open_vehicle_inventory(&self, ctx: &mut PlayCtx) {
         use crate::world::entity::Entity;

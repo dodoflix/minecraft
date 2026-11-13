@@ -157,11 +157,13 @@ import net.minecraft.util.RandomSource;
  * accept_teleport PLAYER    ServerboundAcceptTeleportationPacket for the teleport the server waits on (mounting a vehicle teleports the rider; its movement
  *                             packets are ignored until the client acknowledged it, as a real client does at once); nothing when none is pending
  * drop PLAYER [all]           DROP_ITEM / DROP_ALL_ITEMS            respawn PLAYER   ServerboundClientCommandPacket
- * pcommand PLAYER ACTION [data]   ServerboundPlayerCommandPacket (START_SPRINTING STOP_SPRINTING START_FALL_FLYING STOP_SLEEPING ...)
+ * pcommand PLAYER ACTION [data]   ServerboundPlayerCommandPacket (START_SPRINTING STOP_SPRINTING START_FALL_FLYING STOP_SLEEPING START_RIDING_JUMP [power]
+ *                             STOP_RIDING_JUMP OPEN_INVENTORY ...)
  * hurt REF DAMAGETYPE AMOUNT [by=REF] [direct=REF] [at=X,Y,Z]    entity.hurtServer(level, source, amount); prints "HURT result"
  * explode X Y Z RADIUS [fire] [none|block|mob|tnt|trigger] [source=REF]    Level.explode
  * -- mobs (added for the mob goldens; every `E` line of a Mob is only extended when dumped through `mob:REF` / `mobs`, so the older
- *    `entity:`/`entities` output and all committed fixtures are unchanged) --
+ *    `entity:`/`entities` output and all committed fixtures are unchanged; the Rust replays run these verbs and dumps through one shared module
+ *    (`tests/golden/common/mob_verbs.rs`) on both the flat entity tier and the ticking block tier, so a script may use them on either) --
  * difficulty NAME             before the first world command: world option (as above); afterwards: `/difficulty NAME`
  * biome X1 Y1 Z1 X2 Y2 Z2 BIOME   `/fillbiome` (biome overrides; the flat world is plains)       light X Y Z N   minecraft:light[level=N] block
  * mobspawn REF TYPE X Y Z [yaw pitch] [reason=NAME] [nofinalize] [SNBT]

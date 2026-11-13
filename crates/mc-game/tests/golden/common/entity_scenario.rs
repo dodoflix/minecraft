@@ -30,10 +30,10 @@
 //!   with the oracle's per-tick seed (`mc_core::random::reseed_uniquifier`, the Rust twin of the oracle's `RandomSupport` shadow), so
 //!   freshly created entities draw the same random seeds as in the oracle. Entity ids are assigned `1, 2, 3, ...` in creation order
 //!   (the oracle's `Entity` counter) for entities the scenario creates.
-//! * Commands implemented: see [`Harness::run`] plus the families in `entity_scenario/` (`mob_cmds.rs`: target love age breed tame leash;
-//!   `nav_cmds.rs`: nav path_query nav_stop; `dump_cmds.rs`: goals: brain: path: attrs: nbt:) and the player actions shared with the block replay
-//!   (`player_actions.rs`: use use_on release interact drop swing swap stab dispense select, dumps use: cooldowns: stats: inventory:), the `events` dump (EV lines). Add a new family as a new file with
-//!   `pub(super) fn run(&mut Harness, &[String]) -> bool` (+ a `mod` line and one `||` in the fallback arm of `run`). Entity ids come from the
+//! * Commands implemented: see [`Harness::run`] plus the mob verbs shared with the block replay (`mob_verbs.rs`: target love age breed tame leash
+//!   mob_attack nav path_query nav_stop, dumps goals: brain: path: attrs: nbt:) and the player actions shared with the block replay
+//!   (`player_actions.rs`: use use_on release interact drop swing swap stab dispense select, dumps use: cooldowns: stats: inventory:), the `events` dump (EV lines). Add a new verb family
+//!   to one of those shared modules (not here: the block replay needs it too) and the replay forwards to it in the fallback arm of `run`. Entity ids come from the
 //!   level's private counter (`ServerLevel::entity_id_counter`, starts at 1 like the oracle's `Entity.ENTITY_COUNTER`), so auto-created entities
 //!   (babies, arrows, orbs) get the oracle's ids; ids matter for `(tickCount + id) % n` throttles. An unsupported command or dump kind PANICS with `scenario:line`; there is no
 //!   silent skipping (`ignore_kinds` of [`Options`] only drops output lines at comparison time).
@@ -42,11 +42,6 @@
 //!   of the rich dumps (`mob:`, `mobs`, `xentity:`, `xentities`) by the `SCENARIO_DUMP_EXTRA` registry.
 use super::entity_oracle::{Fixture, Options, scenario_dir};
 
-// Command families of the DSL (one file each, `pub(super) fn run(&mut Harness, &[String]) -> bool` = "handled"): mob state
-// (love/age/breed/target/tame/leash), navigation (nav/path_query/nav_stop), extra dump kinds (goals/brain/path/attrs/nbt/difficulty).
-mod dump_cmds;
-mod mob_cmds;
-mod nav_cmds;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
@@ -192,7 +187,7 @@ fn jf64(v: f64) -> String {
     format!("{v:?}")
 }
 
-fn vec3(x: f64, y: f64, z: f64) -> String {
+pub fn vec3(x: f64, y: f64, z: f64) -> String {
     format!("{},{},{}", jf64(x), jf64(y), jf64(z))
 }
 
@@ -555,7 +550,7 @@ impl Harness {
 
     /// One scenario command. Implemented: `level seed difficulty preload note gamerule time reseed block fill cmd(effect clear)
     /// spawn spawn_item entity_seed spawn_player give effect attribute set nbt snap tp velocity kill input hurt tick watch dump
-    /// mobspawn`, the families in `entity_scenario/` and the player actions of `player_actions.rs`. Everything else panics.
+    /// mobspawn`, the mob verbs of `mob_verbs.rs` and the player actions of `player_actions.rs`. Everything else panics.
     pub fn run(&mut self) {
         let a = tokens(&self.line.clone());
         let cmd = a[0].clone();
@@ -835,11 +830,10 @@ impl Harness {
                 self.dump(&what);
             }
             other => {
-                if !(mob_cmds::run(self, &a)
-                    || nav_cmds::run(self, &a)
+                if !(super::mob_verbs::command(self, &a)
                     || super::player_actions::command(self, &a))
                 {
-                    self.fail(&format!("unsupported scenario command `{other}` (see the Harness::run doc and entity_scenario/*.rs for the implemented subset)"))
+                    self.fail(&format!("unsupported scenario command `{other}` (see the Harness::run doc, mob_verbs.rs and player_actions.rs for the implemented subset)"))
                 }
             }
         }
@@ -1229,10 +1223,10 @@ impl Harness {
                     }
                 }
                 _ => {
-                    if !(dump_cmds::dump(self, kind, arg)
+                    if !(super::mob_verbs::dump(self, kind, arg)
                         || super::player_actions::dump(self, kind, arg))
                     {
-                        self.fail(&format!("unsupported dump kind `{w}` (replayed: player: entity: mob: all_players entities mobs use: cooldowns: stats: inventory:, see entity_scenario/dump_cmds.rs)"))
+                        self.fail(&format!("unsupported dump kind `{w}` (replayed: player: entity: mob: all_players entities mobs goals: brain: path: attrs: nbt: use: cooldowns: stats: inventory:, see mob_verbs.rs and player_actions.rs)"))
                     }
                 }
             }
@@ -1276,6 +1270,15 @@ impl super::player_actions::ActionHost for Harness {
     }
 }
 
+impl super::mob_verbs::MobHost for Harness {
+    fn fail(&self, msg: &str) -> ! {
+        Harness::fail(self, msg)
+    }
+    fn dump_names(&self) -> (BTreeMap<EntityId, String>, BTreeMap<uuid::Uuid, EntityId>) {
+        (self.names.clone(), self.uuids.clone())
+    }
+}
+
 /// `instanceof AbstractArrow`.
 pub fn abstract_arrow(
     e: &dyn Entity,
@@ -1289,7 +1292,7 @@ pub fn abstract_arrow(
 }
 
 /// Is the entity a `Mob`? Defined by the generic mob dump registration (`order 10`, see `scenario_dump`).
-fn is_mob(e: &dyn Entity) -> bool {
+pub fn is_mob(e: &dyn Entity) -> bool {
     SCENARIO_DUMP_EXTRA
         .iter()
         .any(|x| x.order == 10 && (x.applies)(e))

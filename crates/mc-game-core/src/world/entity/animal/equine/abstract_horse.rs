@@ -1006,9 +1006,9 @@ pub fn clear_standing(e: &mut (impl AbstractHorse + ?Sized)) {
     e.horse_mut().stand_counter = 0;
 }
 
-/// `standIfPossible()`.
+/// `standIfPossible()` (`isEffectiveAi() || !level.isClientSide()`: always true on the server).
 pub fn stand_if_possible(e: &mut (impl AbstractHorse + ?Sized)) {
-    if e.can_perform_rearing() && e.is_effective_ai() {
+    if e.can_perform_rearing() {
         set_standing(e, 20);
     }
 }

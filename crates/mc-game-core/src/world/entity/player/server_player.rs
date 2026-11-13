@@ -595,6 +595,10 @@ impl Entity for ServerPlayer {
     fn is_client_authoritative(&self) -> bool {
         !self.simulate_local_player
     }
+    /// `Player.isEffectiveAi()`: true on the server.
+    fn is_effective_ai(&self) -> bool {
+        true
+    }
     /// `LocalPlayer.applyInput()` for a simulated player (keyboard input -> movement vector, jump, sprint).
     fn apply_input(&mut self) {
         if !self.simulate_local_player {

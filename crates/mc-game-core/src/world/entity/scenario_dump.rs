@@ -23,7 +23,7 @@
 //!
 //! Order reserved for the mob spine: `order 10` = the generic mob fields (`target hurtby aggr noai left persist canpickup home leash
 //! speed zza xxa yya head body nav stuck navspeed ntarget path nodes goals tgoals acts mem equip attrs`), `11` = AgeableMob (`age
-//! baby forcedage`), `12` = Animal (`love lovecause`), `13` = TamableAnimal (`tame owner sitting ordered`); `20` = `Projectile`
+//! baby forcedage`), `12` = Animal (`love lovecause`), `13` = TamableAnimal (`tame owner sitting ordered`), `14` = Villager (`vdata vxp`); `20` = `Projectile`
 //! (`owner leftowner shot canbreak`); concrete mob types use `20..30`, every other concrete class `>= 30`.
 
 use super::{Entity, EntityId};

@@ -475,9 +475,9 @@ impl Entity for ArmorStand {
         self.living.entity.pending_fudge_from = None;
     }
 
-    /// `isEffectiveAi()`.
+    /// `isEffectiveAi()`: `super.isEffectiveAi() && hasPhysics()`.
     fn is_effective_ai(&self) -> bool {
-        self.has_physics()
+        self.is_local_instance_authoritative() && self.has_physics()
     }
 
     fn is_pushable(&self, _level: &ServerLevel) -> bool {

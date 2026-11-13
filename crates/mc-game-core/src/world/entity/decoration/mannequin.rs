@@ -163,8 +163,9 @@ impl Entity for Mannequin {
     fn is_immobile(&self) -> bool {
         self.get_immovable() || self.living.is_dead_or_dying()
     }
+    /// `isEffectiveAi()`: `!getImmovable() && super.isEffectiveAi()`.
     fn is_effective_ai(&self) -> bool {
-        !self.get_immovable()
+        !self.get_immovable() && self.is_local_instance_authoritative()
     }
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
         if let Some(profile) = stack.get(&PROFILE) {

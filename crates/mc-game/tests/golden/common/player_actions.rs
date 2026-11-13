@@ -1,6 +1,6 @@
 //! Player actions of the scenario DSL, replayed the same way by the block replay (`block_scenario_actors.rs`), the entity replay
 //! (`entity_scenario.rs`) and the item entity replay: `give`, `select`, `use`, `use_on [inside]`, `release`, `interact`, `drop [all]`,
-//! `swing`, `swap`, `stab`, `pcommand` (sprint, sleep, gliding and open inventory actions), the menu verbs of `menu_actions.rs`, `dispense X Y Z` and the dump kinds `use:REF`, `cooldowns:REF`, `stats:REF`, `inventory:REF` (the
+//! `swing`, `swap`, `stab`, `pcommand` (sprint, sleep, gliding, riding jump and open inventory actions), the menu verbs of `menu_actions.rs`, `dispense X Y Z` and the dump kinds `use:REF`, `cooldowns:REF`, `stats:REF`, `inventory:REF` (the
 //! grammar of the Java driver, `tests/oracle/EntityOracleDriver.java`).
 //!
 //! The Rust level has no server, so the verbs do what the packet handlers of `ServerGamePacketListenerImpl` do around the player
@@ -405,6 +405,19 @@ fn player_command(level: &mut ServerLevel, p: &mut ServerPlayer, action: &str) {
     }
 }
 
+/// The `pcommand` actions that act on the vehicle of the player: `handlePlayerCommand` needs the listener for them.
+fn vehicle_action(
+    name: &str,
+) -> Option<mc_protocol::packets::play::ServerboundPlayerCommandAction> {
+    use mc_protocol::packets::play::ServerboundPlayerCommandAction as Action;
+    match name.to_ascii_lowercase().as_str() {
+        "open_inventory" => Some(Action::OpenInventory),
+        "start_riding_jump" => Some(Action::StartRidingJump),
+        "stop_riding_jump" => Some(Action::StopRidingJump),
+        _ => None,
+    }
+}
+
 /// `handleSetCarriedItem` for the replays whose players have no listener (the entity replay); the block replay delivers the packet.
 fn select(level: &mut ServerLevel, p: &mut ServerPlayer, slot: i32) {
     assert!((0..9).contains(&slot), "hotbar slot {slot}");
@@ -550,13 +563,14 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
                 }
             });
         }
-        // OPEN_INVENTORY needs the listener (a vehicle with its own inventory screen opens it)
-        "pcommand" if a[2].eq_ignore_ascii_case("open_inventory") => {
+        // the vehicle actions need the listener (`handlePlayerCommand` reads the vehicle the player controls or rides)
+        "pcommand" if vehicle_action(&a[2]).is_some() => {
+            let action = vehicle_action(&a[2]).expect("guard");
             super::menu_actions::deliver(h, &a[1], |_, p| {
                 mc_protocol::packets::play::ServerboundPlayPacket::PlayerCommand(
                     mc_protocol::packets::play::ServerboundPlayerCommandPacket {
                         id: p.base_id(),
-                        action: mc_protocol::packets::play::ServerboundPlayerCommandAction::OpenInventory,
+                        action,
                         data: a.get(3).map_or(0, |d| d.parse().expect("pcommand data")),
                     },
                 )

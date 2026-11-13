@@ -1,0 +1,51 @@
+# The mob verbs and dumps on the ticking block level in one script: a biome change, mobs spawned with finalizeSpawn, love and breeding, a
+# ticking block entity, a mounted horse jump from the player command packet, and the mob:/mobs/goals:/brain:/attrs:/nbt: dumps.
+level flat
+preload 4
+entity_counter 5300
+level_seed 5301
+difficulty normal
+spawn_player Rider survival 12.5 -60 12.5 0 0
+biome 0 -64 0 23 -48 23 minecraft:forest
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+block 2 -60 8 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+be_nbt 2 -60 8 {Items:[{Slot:0b,id:"minecraft:beef",count:1}],CookingTimes:[I;0,0,0,0],CookingTotalTimes:[I;600,0,0,0]}
+mobspawn C1 minecraft:cow 4.5 -60 2.5 0 0 {PersistenceRequired:1b}
+entity_seed C1 11
+mobspawn C2 minecraft:cow 6.5 -60 2.5 0 0 {PersistenceRequired:1b}
+entity_seed C2 12
+mobspawn V minecraft:villager 8.5 -60 8.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:2}}
+entity_seed V 13
+mobspawn H minecraft:horse 12.5 -60 14.5 0 0 nofinalize {PersistenceRequired:1b,Tame:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed H 14
+love C1
+love C2
+tick 1
+dump mob:C1 mob:C2 mob:V goals:C1 goals:V brain:V attrs:C1 nbt:C1 be:2,-60,8
+note the cows breed (the baby is named by the harness), the campfire keeps cooking
+breed C1 C2
+age C1 6000
+age C2 6000
+tick 5
+dump mobs be:2,-60,8
+note navigation: a path query, then a walk to a block next to the cow
+path_query C1 9 -60 4
+nav C2 9.5 -60 4.5 1.0
+tick 4
+dump path:C2 mob:C2
+nav_stop C2
+note a player takes the saddle and jumps from the mount
+ride Rider H
+accept_teleport Rider
+tick 1
+pcommand Rider START_RIDING_JUMP 100
+dump mob:H events
+tick 2
+pcommand Rider STOP_RIDING_JUMP
+watch mob:C1 mob:V
+tick 3
+watch off
+target C1 Rider
+nav_stop C1
+dump mobs goals:C1 brain:V path:C1 nbt:V events
