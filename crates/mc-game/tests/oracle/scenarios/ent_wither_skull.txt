@@ -1,0 +1,101 @@
+# Wither skull: damage by owner (a living owner is the cause and heals 5 when the target dies, nobody gives magic damage of 5),
+# the wither effect of the difficulty (peaceful... normal 10 s, hard 40 s, easy none), the blue skull (dangerous: slower, destroys
+# obsidian), the explosion of power 1 without fire, and a skull that cannot burn.
+command_env
+level flat
+preload 5
+difficulty normal
+level_seed 7
+entity_counter 1900
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 20.5 -60 0.5 0 0
+spawn_player C creative 6.5 -60 8.5 0 0
+tick 2
+dump packets:A:none packets:B:none packets:C:none
+spawn owner minecraft:pig 30.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:4.0f,UUID:[I;51,52,53,54]}
+entity_seed owner 13
+spawn p1 minecraft:pig 0.5 -60 8.5 0 0 {NoAI:1b,Health:10.0f}
+entity_seed p1 11
+spawn p2 minecraft:pig 14.5 -60 8.5 0 0 {NoAI:1b,Health:20.0f}
+entity_seed p2 12
+spawn p4 minecraft:pig 19.5 -60 8.5 0 0 {NoAI:1b,Health:3.0f}
+entity_seed p4 15
+spawn p3 minecraft:pig 24.5 -60 8.5 0 0 {NoAI:1b,Health:20.0f}
+entity_seed p3 14
+tick 1
+dump packets:A:none packets:B:none packets:C:none
+note a skull of player A at pig p1 on normal: 8 damage, the wither effect for 10 seconds
+spawn k1 minecraft:wither_skull 0.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],acceleration_power:0.1d}
+entity_seed k1 31
+velocity k1 0 0 0.3
+dump xentity:k1 edata:k1 nbt:k1 packets:B:add_entity,set_entity_data,set_entity_motion,projectile_power
+tick 1
+dump xentity:k1 nbt:k1 packets:B:set_entity_motion,projectile_power,move_entity_pos,move_entity_pos_rot,entity_position_sync,remove_entities events
+tick 14
+dump xentity:p1 entities events packets:B:damage_event,hurt_animation,entity_event,set_health,remove_entities,update_mob_effect,explode
+note the same on hard: wither for 40 seconds, and a creative player gets nothing
+difficulty hard
+spawn k2 minecraft:wither_skull 6.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],acceleration_power:0.1d}
+entity_seed k2 32
+velocity k2 0 0 0.3
+tick 14
+dump player:C entities events packets:C:damage_event,hurt_animation,set_health,update_mob_effect,explode
+note a skull of nobody on easy at pig p2: magic damage 5, no wither effect; then a skull of the owner pig at pig p4 that dies of it: the owner heals 5
+difficulty easy
+spawn k3 minecraft:wither_skull 14.5 -59.5 2.5 0 0 {acceleration_power:0.1d}
+entity_seed k3 33
+velocity k3 0 0 0.3
+tick 14
+dump xentity:p2 entities events packets:B:damage_event,hurt_animation,entity_event,set_health,update_mob_effect
+difficulty normal
+spawn k4 minecraft:wither_skull 19.5 -59.5 2.5 0 0 {Owner:[I;51,52,53,54],acceleration_power:0.1d}
+entity_seed k4 34
+velocity k4 0 0 0.3
+tick 14
+dump xentity:p4 xentity:owner entities events packets:B:damage_event,hurt_animation,entity_event,set_health,update_mob_effect
+note a blue skull owned by the pig: slower, kills and heals nothing for a healthy pig; explosion of power 1 with obsidian and stone in reach
+spawn k5 minecraft:wither_skull 24.5 -59.5 2.5 0 0 {Owner:[I;51,52,53,54],acceleration_power:0.1d,dangerous:1b}
+entity_seed k5 35
+velocity k5 0 0 0.3
+dump xentity:k5 edata:k5 nbt:k5
+tick 1
+dump xentity:k5 packets:B:set_entity_motion,projectile_power
+tick 20
+dump xentity:p3 xentity:owner entities events packets:B:damage_event,hurt_animation,entity_event,set_health,update_mob_effect
+note blue and normal skulls at a wall of obsidian, stone, a block that resists more, and a pig behind
+fill 38 -60 7 38 -58 7 minecraft:obsidian
+fill 42 -60 7 42 -58 7 minecraft:obsidian
+fill 46 -60 7 46 -58 7 minecraft:stone
+fill 50 -60 7 50 -58 7 minecraft:bedrock
+fill 54 -60 7 54 -58 7 minecraft:end_stone
+level_seed 61
+spawn k6 minecraft:wither_skull 38.5 -59.5 2.5 0 0 {acceleration_power:0.1d,dangerous:1b}
+entity_seed k6 36
+velocity k6 0 0 0.3
+tick 20
+dump entities events blocks:36,-60,5,56,-57,9
+level_seed 62
+spawn k7 minecraft:wither_skull 42.5 -59.5 2.5 0 0 {acceleration_power:0.1d}
+entity_seed k7 37
+velocity k7 0 0 0.3
+tick 20
+dump entities events blocks:36,-60,5,56,-57,9
+level_seed 63
+spawn k8 minecraft:wither_skull 46.5 -59.5 2.5 0 0 {acceleration_power:0.1d,dangerous:1b}
+entity_seed k8 38
+velocity k8 0 0 0.3
+spawn k9 minecraft:wither_skull 50.5 -59.5 2.5 0 0 {acceleration_power:0.1d,dangerous:1b}
+entity_seed k9 39
+velocity k9 0 0 0.3
+spawn k10 minecraft:wither_skull 54.5 -59.5 2.5 0 0 {acceleration_power:0.1d,dangerous:1b}
+entity_seed k10 40
+velocity k10 0 0 0.3
+tick 20
+dump entities events blocks:36,-60,5,56,-57,9
+gamerule mob_griefing false
+level_seed 64
+spawn k11 minecraft:wither_skull 42.5 -59.5 2.5 0 0 {acceleration_power:0.1d,dangerous:1b}
+entity_seed k11 41
+velocity k11 0 0 0.3
+tick 20
+dump entities events blocks:36,-60,5,56,-57,9

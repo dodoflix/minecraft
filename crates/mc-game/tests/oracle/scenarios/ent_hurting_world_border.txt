@@ -1,0 +1,44 @@
+# Hurting projectiles meet the world border: the clip reports a block hit on the border, the charge or fireball ends there like on a
+# wall (no bounce): a large fireball explodes at the border, a wind charge bursts a quarter block in front of it, a small fireball
+# disappears, and a charge that crosses the border at a side that is not a face of any block still ends.
+command_env
+level flat
+preload 5
+difficulty normal
+level_seed 7
+entity_counter 2400
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 20.5 -60 0.5 0 0
+tick 2
+dump packets:A:none packets:B:none
+cmd worldborder center 0 0
+cmd worldborder set 40
+tick 1
+dump packets:A:none packets:B:none
+note a large fireball flying at the border at z=20: it ends there
+level_seed 21
+spawn f1 minecraft:fireball 5.5 -59.5 12.5 0 0 {acceleration_power:0.1d}
+entity_seed f1 31
+velocity f1 0 0 0.3
+tick 20
+dump xentity:f1 entities events packets:B:explode,remove_entities
+note a wind charge and a small fireball at the border
+level_seed 22
+spawn w1 minecraft:wind_charge -5.5 -59.5 12.5 0 0 {}
+entity_seed w1 32
+velocity w1 0 0 0.5
+spawn s1 minecraft:small_fireball 10.5 -59.5 12.5 0 0 {acceleration_power:0.1d}
+entity_seed s1 33
+velocity s1 0 0 0.3
+tick 25
+dump entities events blocks:-10,-61,17,15,-57,22 packets:A:explode,set_entity_motion packets:B:explode,remove_entities
+note a wither skull and a dragon fireball
+level_seed 23
+spawn k1 minecraft:wither_skull -15.5 -59.5 12.5 0 0 {acceleration_power:0.1d}
+entity_seed k1 34
+velocity k1 0 0 0.3
+spawn d1 minecraft:dragon_fireball -10.5 -59.5 12.5 0 0 {acceleration_power:0.1d}
+entity_seed d1 35
+velocity d1 0 0 0.3
+tick 25
+dump xentities entities events

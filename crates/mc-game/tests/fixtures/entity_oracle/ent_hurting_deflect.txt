@@ -1,0 +1,66 @@
+# a fireball of the pig hangs in front of player A, who attacks it: it flies along A's look direction, A owns it, the power is back to 0.1
+E f1 minecraft:fireball pos=0.5,-59.5,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=owner leftowner=1 shot=1 canbreak=0
+N f1 {Air:300s,ExplosionPower:1b,Fire:20s,HasBeenShot:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:fire_charge"},LeftOwner:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;71,72,73,74],PortalCooldown:0,Pos:[0.5d,-59.5d,2.5d],Rotation:[0.0f,0.0f],acceleration_power:0.0d,fall_distance:0.0d}
+# hurting a hanging fireball or charge never works (the projectile is not hurt, nothing moves), by the player or by nothing
+HURT f1 generic 4 -> false
+HURT f1 player_attack 4 -> false
+E f1 minecraft:fireball pos=0.5,-59.5,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=owner leftowner=1 shot=1 canbreak=0
+E f1 minecraft:fireball pos=0.5,-59.5,2.5 delta=0.0,-0.0,1.0 rot=0.0,0.0 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+N f1 {Air:300s,ExplosionPower:1b,Fire:20s,HasBeenShot:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:fire_charge"},LeftOwner:1b,Motion:[0.0d,0.0d,1.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-59.5d,2.5d],Rotation:[0.0f,0.0f],acceleration_power:0.1d,fall_distance:0.0d}
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.attack.nodamage source=player vol=1.0 pitch=1.0
+PKT A minecraft:sound 779d0a0700000004fffffe20000000043f8000003f800000e32d4fcf84a7860e
+E f1 minecraft:fireball pos=0.5,-59.5,3.544999986886978 delta=0.0,-0.0,1.0449999868869781 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+PKT B minecraft:set_entity_motion 678112f9fffffcfffd
+PKT B minecraft:projectile_power 8a0181123fb999999999999a
+E f1 minecraft:fireball pos=0.5,-59.5,11.899999976158142 delta=0.0,-0.0,1.3029215112849741 rot=210.19899,-6.3493944E-6 og=0 fall=0.0 fire=20 air=300 alive=0 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+P B minecraft:player pos=0.5,-60.0,12.5 delta=0.0,0.1790197265005628,0.1940675612062086 rot=-180.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=12.133263 abs=0.0 hurt=2/13 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+E owner minecraft:pig pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=-0.6269957648938816,-60.27353780742959,12.875 delta=-0.048669112818881845,-0.08484884424859764,0.0 rot=217.91444,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*9 age=7 pickup=3 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,12.5 r=16.0 ex=1 event=minecraft:entity.player.hurt_on_fire source=player vol=1.0 pitch=1.0
+PKT B minecraft:set_entity_motion 678112faffc2defffd
+PKT B minecraft:damage_event 19fe110efe11821200
+PKT B minecraft:hurt_animation 2bfe1142b40001
+PKT B minecraft:explode 243fe0000000000000c04dc000000000004027cccccc0000003f800000000000200100000000000000003fe131290fde6c0e3fd26b8777652c001ec00502453f0000003f80000001483f8000003f8000000101
+PKT B minecraft:remove_entities 4e018112
+PKT B minecraft:set_health 6a414221d81440a00000
+PKT B minecraft:set_entity_motion 67fe11f9ffb011cd35
+# a wind charge of the pig in front of player C: the attack in its first ticks is refused, after 5 ticks it turns the charge
+E w1 minecraft:wind_charge pos=30.5,-59.5,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=owner leftowner=1 shot=1 canbreak=0
+N w1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;71,72,73,74],PortalCooldown:0,Pos:[30.5d,-59.5d,2.5d],Rotation:[0.0f,0.0f],acceleration_power:0.0d,fall_distance:0.0d}
+EV sound at=30.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.attack.nodamage source=player vol=1.0 pitch=1.0
+PKT C minecraft:set_entity_motion 678112f9fffffcfffd
+PKT C minecraft:set_entity_motion 678112faffc2defffd
+PKT C minecraft:sound 779d0a07000000f4fffffe20000000043f8000003f8000006fd465a290351d3c
+E w1 minecraft:wind_charge pos=30.5,-59.5,2.5 delta=0.0,-0.0,1.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=C leftowner=1 shot=1 canbreak=0
+N w1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,0.0d,1.0d],OnGround:0b,Owner:[I;407689464,1828073685,-2048753337,-1664646821],PortalCooldown:0,Pos:[30.5d,-59.5d,2.5d],Rotation:[0.0f,0.0f],acceleration_power:0.1d,fall_distance:0.0d}
+EV sound at=30.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.attack.nodamage source=player vol=1.0 pitch=1.0
+PKT C minecraft:sound 779d0a07000000f4fffffe20000000043f8000003f8000004b970fd5e0db99e1
+E w1 minecraft:wind_charge pos=30.5,-59.5,3.6 delta=0.0,-0.0,1.1 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=C leftowner=1 shot=1 canbreak=0
+PKT C minecraft:set_entity_motion 678312f9fffffcfffd
+E owner minecraft:pig pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E owner minecraft:pig pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=1.1006974
+EV sound at=0.5,-61.0,12.539053218427345 r=16.0 ex=1 event=minecraft:block.gravel.step source=player vol=0.15 pitch=1.0
+# a wind charge of player A flies at a fireball of the pig: the fireball is redirected along A's look direction with A as owner
+E f2 minecraft:fireball pos=0.5,-59.5,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=owner leftowner=1 shot=1 canbreak=0
+E w2 minecraft:wind_charge pos=0.5,-59.5,3.0 delta=0.0,0.0,0.5 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+E f2 minecraft:fireball pos=0.5,-54.33457184248598,19.270817295367547 delta=0.0,0.657030795063157,1.6244191159595824 rot=210.19899,-18.327253 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+P B minecraft:player pos=0.5,-60.0,12.5 delta=0.0,-0.7170746714356033,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.799929 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=2.0 exh=4.2 xp=0/0/0.0 sel=0 main=minecraft:dirt*9
+E owner minecraft:pig pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f2 minecraft:fireball pos=0.5,-54.33457184248598,19.270817295367547 delta=0.0,0.657030795063157,1.6244191159595824 rot=210.19899,-18.327253 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+PKT B minecraft:set_health 6a414f772d1440a00000
+PKT B minecraft:set_entity_motion 67821279f27ffefffd
+PKT B minecraft:set_entity_motion 678312f9fffffcfffd
+PKT B minecraft:remove_entities 4e018212
+PKT B minecraft:set_entity_motion 678312faffd996fffd
+PKT B minecraft:set_health 6a415a21d81440800000
+PKT B minecraft:explode 24403e800000000000c04dc000000000004033c000000000003f99999a000000400022f10d0001
+PKT B minecraft:remove_entities 4e018312
+PKT B minecraft:set_health 6a416221d81440400000
+PKT B minecraft:set_entity_motion 678512f9ffbffefffd
+PKT B minecraft:set_health 6a4167772d1440000000
+PKT B minecraft:explode 243fe0000000000000c04dc0000000000040170000000000003f99999a000000410022f10d0001
+PKT B minecraft:remove_entities 4e018512
+PKT B minecraft:set_entity_motion 678412faffe381507d
+PKT B minecraft:set_entity_motion 678412faffe5635201
+PKT B minecraft:set_health 6a416ccc821440000000

@@ -1,0 +1,76 @@
+# Large fireball: the power packet and synched item at pairing, the motion that grows with the acceleration power, and what it does
+# on impact: 6 fireball damage to the entity it hits (a pig, a creative player, a player behind a raised shield, a pig when the
+# fireball has no owner), then the explosion with the fireball's own power (entities, block destruction and fire follow
+# mob griefing, a stone wall, then the same wall with the rule off).
+command_env
+level flat
+preload 5
+difficulty normal
+level_seed 7
+entity_counter 1700
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 20.5 -60 0.5 0 0
+spawn_player C creative 6.5 -60 8.5 0 0
+spawn_player D survival 10.5 -60 8.5 -180 0
+give D offhand minecraft:shield
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+spawn p1 minecraft:pig 0.5 -60 8.5 0 0 {NoAI:1b,Health:10.0f}
+entity_seed p1 11
+spawn p2 minecraft:pig 14.5 -60 8.5 0 0 {NoAI:1b,Health:10.0f}
+entity_seed p2 12
+use D off
+tick 6
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+note a fireball of player A flies at pig p1 and hurts it with the fireball damage type, then explodes at its position
+level_seed 21
+spawn f1 minecraft:fireball 0.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed f1 31
+velocity f1 0 0 0.3
+dump xentity:f1 edata:f1 nbt:f1 packets:B:add_entity,set_entity_data,set_entity_motion,projectile_power
+tick 1
+dump xentity:f1 nbt:f1 packets:B:set_entity_motion,projectile_power,move_entity_pos,move_entity_pos_rot,entity_position_sync,remove_entities events
+tick 4
+dump xentity:f1 packets:B:set_entity_motion,projectile_power,move_entity_pos,move_entity_pos_rot,entity_position_sync,remove_entities
+tick 9
+dump xentity:p1 entities events packets:B:explode,damage_event,hurt_animation,entity_event,set_health,remove_entities packets:A:damage_event,hurt_animation,set_health,explode
+note a fireball at a creative player: no damage, the explosion does nothing to it
+level_seed 22
+spawn f2 minecraft:fireball 6.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed f2 32
+velocity f2 0 0 0.3
+tick 14
+dump player:C entities events packets:C:damage_event,hurt_animation,set_health,entity_event,explode packets:B:explode,damage_event
+note a fireball at a player behind a raised shield
+level_seed 23
+spawn f3 minecraft:fireball 10.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed f3 33
+velocity f3 0 0 0.3
+tick 14
+dump player:D entities events packets:D:damage_event,hurt_animation,set_health,entity_event,explode,set_entity_motion
+note a fireball without owner and explosion power 3 at pig p2
+level_seed 24
+spawn f4 minecraft:fireball 14.5 -59.5 2.5 0 0 {ExplosionPower:3b}
+entity_seed f4 34
+velocity f4 0 0 0.3
+tick 14
+dump xentity:p2 entities events packets:B:explode,damage_event,hurt_animation,entity_event,set_health,remove_entities packets:D:damage_event,explode,set_health
+note power 2 at a stone wall: blocks are destroyed, fire and items follow
+fill 28 -60 7 31 -58 9 minecraft:stone
+level_seed 25
+spawn f5 minecraft:fireball 29.5 -59.5 2.5 0 0 {ExplosionPower:2b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed f5 35
+velocity f5 0 0 0.3
+tick 14
+dump entities events blocks:26,-61,5,33,-57,11 packets:B:explode,block_update,section_blocks_update
+note the same wall with mob griefing off: the wall stays and nothing burns, entities are still hurt
+gamerule mob_griefing false
+fill 36 -60 7 39 -58 9 minecraft:stone
+spawn p3 minecraft:pig 37.5 -60 5.5 0 0 {NoAI:1b,Health:10.0f}
+entity_seed p3 13
+level_seed 26
+spawn f6 minecraft:fireball 37.5 -59.5 2.5 0 0 {ExplosionPower:2b}
+entity_seed f6 36
+velocity f6 0 0 0.3
+tick 14
+dump xentity:p3 entities events blocks:34,-61,5,41,-57,11 packets:B:explode,block_update,section_blocks_update

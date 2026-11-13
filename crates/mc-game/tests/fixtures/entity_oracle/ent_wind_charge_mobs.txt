@@ -1,0 +1,108 @@
+# a wind charge of player A at pig p1: the pig is hurt and thrown, A remembers it as the last target
+E w1 minecraft:wind_charge pos=0.5,-59.5,2.5 delta=0.0,0.0,0.5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=0 canbreak=0
+ED w1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00
+N w1 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.5d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-59.5d,2.5d],Rotation:[0.0f,0.0f],acceleration_power:0.0d,fall_distance:0.0d}
+PKT B minecraft:add_entity 01a1116a41c4e0b24c4d74af08a316a72b98ab93013fe0000000000000c04dc000000000004004000000000000000000009911
+E w1 minecraft:wind_charge pos=0.5,-59.5,3.0 delta=0.0,0.0,0.5 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+N w1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,0.0d,0.5d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-59.5d,3.0d],Rotation:[324.0f,-1.5258789E-6f],acceleration_power:0.0d,fall_distance:0.0d}
+PKT B minecraft:set_entity_motion 67a111f9ffbffefffd
+PKT B minecraft:projectile_power 8a01a1110000000000000000
+PKT B minecraft:move_entity_pos 36a11100000000000000
+PKT B minecraft:entity_position_sync 239f1100403e800000000000c04e0000000000004021000000000000000000000000000001
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.25379100394495446,1.1182764709934574 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.25379100394495446,1.1182764709934574 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=-
+E cow minecraft:cow pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E st minecraft:armor_stand pos=24.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=30.5,-60.0,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=66
+E it minecraft:item pos=34.5,-60.0,8.5 delta=0.0,-0.08,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=14 pickup=0 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.9991934
+PKT B minecraft:set_entity_motion 679e11f9ff7ffeebed
+PKT B minecraft:damage_event 199c11309a11a21100
+PKT B minecraft:explode 243fe0000000000000c04dc00000000000401f0000000000003f99999a000000400022f10d0001
+PKT B minecraft:remove_entities 4e01a111
+PKT B minecraft:set_entity_motion 679c11faffc78f2079
+PKT B minecraft:set_entity_motion 679c11faffc78f2079
+PKT A minecraft:set_entity_motion 67a111f9ffbffefffd
+PKT A minecraft:set_entity_motion 679e11f9ff7ffeebed
+PKT A minecraft:explode 243fe0000000000000c04dc00000000000401f0000000000003f99999a000000400022f10d0001
+PKT A minecraft:set_entity_motion 679c11faffc78f2079
+PKT A minecraft:set_entity_motion 679c11faffc78f2079
+# a charge of nobody at the cow and at the creative player
+E cow minecraft:cow pos=14.5,-60.0,8.5 delta=0.0,0.5557574590173584,0.9210226548446079 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=7/17 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.25379100394495446,1.1182764709934574 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/4 death=0 fx=-
+E cow minecraft:cow pos=14.5,-60.0,8.5 delta=0.0,0.5557574590173584,0.9210226548446079 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=7/17 death=0 fx=-
+E st minecraft:armor_stand pos=24.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=30.5,-60.0,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=52
+E it minecraft:item pos=34.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=28 pickup=0 health=5 owner=- thrower=-
+EV sound at=14.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.96978486
+PKT B minecraft:set_entity_motion 67a211f9ffbffefffd
+PKT B minecraft:damage_event 199d113000a31100
+PKT B minecraft:explode 24402d000000000000c04dc00000000000401f0000000000003f99999a000000410022f10d0001
+PKT B minecraft:set_entity_motion 679d11f9fff5e18e41
+PKT B minecraft:set_entity_motion 679d11f9fff5e18e41
+P C minecraft:player pos=6.5,-60.0,8.5 delta=0.0,0.2924918497559456,0.15990106242053273 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.25379100394495446,1.1182764709934574 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow minecraft:cow pos=14.5,-60.0,8.5 delta=0.0,0.5557574590173584,0.9210226548446079 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/3 death=0 fx=-
+E st minecraft:armor_stand pos=24.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=30.5,-60.0,8.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=38
+E it minecraft:item pos=34.5,-60.0,8.5 delta=0.0,-0.08,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=42 pickup=0 health=5 owner=- thrower=-
+PKT C minecraft:set_entity_motion 67a111f9ffbffefffd
+PKT C minecraft:set_entity_motion 679e11f9ff7ffeebed
+PKT C minecraft:damage_event 199c11309a11a21100
+PKT C minecraft:explode 243fe0000000000000c04dc00000000000401f0000000000003f99999a000000400022f10d0001
+PKT C minecraft:set_entity_motion 679c11faffc78f2079
+PKT C minecraft:set_entity_motion 679c11faffc78f2079
+PKT C minecraft:set_entity_motion 67a211f9ffbffefffd
+PKT C minecraft:damage_event 199d113000a31100
+PKT C minecraft:explode 24402d000000000000c04dc00000000000401f0000000000003f99999a000000410022f10d0001
+PKT C minecraft:set_entity_motion 679d11f9fff5e18e41
+PKT C minecraft:set_entity_motion 679d11f9fff5e18e41
+PKT C minecraft:set_entity_motion 67a311f9ffbffefffd
+PKT C minecraft:explode 24401a000000000000c04dc00000000000401f9999980000003f99999a0000003f0100000000000000003fe736cce5709e323fd8df494dc6b69e22f10d0001
+# a charge at an armor stand, a primed tnt and an item
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.25379100394495446,1.1182764709934574 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow minecraft:cow pos=14.5,-60.0,8.5 delta=0.0,0.5557574590173584,0.9210226548446079 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E tnt minecraft:tnt pos=30.5,-60.0,9.85712978464513 delta=0.0,-0.0,0.20315380116062434 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=24
+E it minecraft:item pos=34.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=56 pickup=0 health=5 owner=- thrower=-
+E w6 minecraft:wind_charge pos=34.5,-59.5,9.5 delta=0.0,0.0,0.5 rot=187.91647,-7.29385E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E item#1 minecraft:item pos=24.600516871113367,-59.36476873017919,8.749099635050296 delta=0.03363922401128518,0.07297472653442398,0.07737393209481006 rot=158.23851,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=3 pickup=7 health=5 owner=- thrower=-
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.25379100394495446,1.1182764709934574 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow minecraft:cow pos=14.5,-60.0,8.5 delta=0.0,0.5557574590173584,0.9210226548446079 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=30.5,-60.0,9.85712978464513 delta=0.0,-0.0,0.20315380116062434 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=24
+E it minecraft:item pos=34.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=56 pickup=0 health=5 owner=- thrower=-
+E w6 minecraft:wind_charge pos=34.5,-59.5,9.5 delta=0.0,0.0,0.5 rot=187.91647,-7.29385E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=24.600516871113367,-59.36476873017919,8.749099635050296 delta=0.03363922401128518,0.07297472653442398,0.07737393209481006 rot=158.23851,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=3 pickup=7 health=5 owner=- thrower=-
+EV sound at=6.5,-60.0,8.599783417364758 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=24.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+PKT B minecraft:set_entity_motion 67a311f9ffbffefffd
+PKT B minecraft:explode 24401a000000000000c04dc00000000000401f9999980000003f99999a0000003f0022f10d0001
+PKT B minecraft:set_entity_motion 67a411f9ffbffefffd
+PKT B minecraft:set_entity_motion 67a511f9ffbffefffd
+PKT B minecraft:set_entity_motion 67a611f9ffbffefffd
+PKT B minecraft:explode 244038800000000000c04dc00000000000401fcccccc0000003f99999a0000003c0022f10d0001
+PKT B minecraft:explode 24403e800000000000c04dc00000000000401ed70a3c0000003f99999a000000420022f10d0001
+PKT B minecraft:set_entity_motion 679f11f9ffd08a9a09
+PKT B minecraft:set_entity_motion 679f11f9ffb73efffd
+PKT B minecraft:set_entity_motion 679f11f9ffa5e6fffd
+# two charges flying into each other do not hit each other
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.25379100394495446,1.1182764709934574 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow minecraft:cow pos=14.5,-60.0,8.5 delta=0.0,0.5557574590173584,0.9210226548446079 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E tnt minecraft:tnt pos=30.5,-60.0,10.489183801101927 delta=0.0,-0.0,0.0046888484320222424 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=14
+E it minecraft:item pos=34.5,-60.0,8.5 delta=0.0,-0.08,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=66 pickup=0 health=5 owner=- thrower=-
+E w6 minecraft:wind_charge pos=34.5,-59.5,14.5 delta=0.0,0.0,0.5 rot=180.85002,-7.593366E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E item#1 minecraft:item pos=24.878795891597836,-60.0,9.389172129800835 delta=0.005936912759677416,0.0,0.013655555329278294 rot=158.23851,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=13 pickup=0 health=5 owner=- thrower=-
+E w7 minecraft:wind_charge pos=44.5,-59.5,7.5 delta=0.0,0.0,0.5 rot=199.32736,-6.8101945E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E w8 minecraft:wind_charge pos=44.5,-59.5,7.5 delta=0.0,0.0,-0.5 rot=6.8101945E-6,-6.8101945E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+# a charge shoved by an explosion keeps flying: the knockback of another charge does not move it
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.25379100394495446,1.1182764709934574 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow minecraft:cow pos=14.5,-60.0,8.5 delta=0.0,0.5557574590173584,0.9210226548446079 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E w6 minecraft:wind_charge pos=34.5,-59.5,22.0 delta=0.0,0.0,0.5 rot=180.0299,-7.6281267E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E w7 minecraft:wind_charge pos=44.5,-59.5,15.0 delta=0.0,0.0,0.5 rot=180.68002,-7.6005717E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E w8 minecraft:wind_charge pos=44.5,-59.5,0.0 delta=0.0,0.0,-0.5 rot=7.6005717E-6,-7.6005717E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E item#2 minecraft:item pos=30.311055492369846,-62.55283817308638,8.249640830189673 delta=-0.012831776069493794,0.1568000030517578,-0.0011148308065783217 rot=262.8421,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=31.247762526663216,-60.45547546477285,7.490520200117125 delta=-0.08792205874633859,0.1568000030517578,-0.0028864785912501383 rot=270.82516,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=32.63908149448855,-60.62526146683925,11.760094355278449 delta=-0.03918307811150636,0.1568000030517578,0.08667937136073872 rot=140.26749,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=33.57032085896805,-61.567837360089655,11.798578225280428 delta=0.02969223352633876,0.1568000030517578,0.052054874409678015 rot=252.79071,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=30.396280689090787,-62.54291632013704,10.584008063421448 delta=-0.06518835157224863,0.1568000030517578,-0.08023340044605769 rot=107.70777,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=30.509895895526526,-60.257363101057706,10.813283305282892 delta=-0.02062846116884063,0.1568000030517578,0.08688123250711392 rot=140.13197,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*15 age=1 pickup=9 health=5 owner=- thrower=-

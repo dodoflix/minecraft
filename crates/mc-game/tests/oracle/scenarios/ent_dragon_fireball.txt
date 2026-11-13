@@ -1,0 +1,64 @@
+# Dragon fireball: on a block or an entity that is not its owner it ends in a dragon breath cloud (radius 3, 600 ticks, instant damage
+# potion effect at a quarter of the duration, the owner kept) placed at the first living entity within 4 blocks, with the level
+# event for the breath; an owner it hits is passed through; a silent one makes the event silent; a cloud that ticks hurts.
+command_env
+level flat
+preload 5
+difficulty normal
+level_seed 7
+entity_counter 2000
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 20.5 -60 0.5 0 0
+spawn_player C creative 6.5 -60 8.5 0 0
+tick 2
+dump packets:A:none packets:B:none packets:C:none
+spawn p1 minecraft:pig 0.5 -60 8.5 0 0 {NoAI:1b,Health:20.0f}
+entity_seed p1 11
+spawn p2 minecraft:pig 14.5 -60 10.5 0 0 {NoAI:1b,Health:20.0f}
+entity_seed p2 12
+spawn p3 minecraft:pig 15.5 -60 12.0 0 0 {NoAI:1b,Health:20.0f}
+entity_seed p3 13
+tick 1
+dump packets:A:none packets:B:none packets:C:none
+note a dragon fireball of player A at pig p1: the cloud is placed at the pig, owned by A
+spawn d1 minecraft:dragon_fireball 0.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],acceleration_power:0.1d}
+entity_seed d1 31
+velocity d1 0 0 0.3
+dump xentity:d1 edata:d1 nbt:d1 packets:B:add_entity,set_entity_data,set_entity_motion,projectile_power
+tick 1
+dump xentity:d1 nbt:d1 packets:B:set_entity_motion,projectile_power,move_entity_pos,move_entity_pos_rot,entity_position_sync,remove_entities events
+tick 12
+dump xentity:p1 xentities entities events packets:B:add_entity,set_entity_data,remove_entities,damage_event,hurt_animation,set_health,entity_event
+tick 1
+dump xentity:p1 xentities events packets:B:damage_event,hurt_animation,set_health
+tick 40
+dump xentity:p1 xentities events packets:B:damage_event,hurt_animation,set_health
+note a fireball of nobody: the cloud goes to the first entity of the list within 4 blocks, not the nearest
+spawn d2 minecraft:dragon_fireball 15.5 -59.5 4.5 0 0 {acceleration_power:0.1d}
+entity_seed d2 32
+velocity d2 0 0 0.3
+tick 14
+dump xentities entities events packets:B:add_entity,set_entity_data,remove_entities
+note a silent fireball at a wall: the event carries -1
+fill 28 -60 7 31 -58 7 minecraft:stone
+spawn d3 minecraft:dragon_fireball 29.5 -59.5 2.5 0 0 {acceleration_power:0.1d,Silent:1b}
+entity_seed d3 33
+velocity d3 0 0 0.3
+tick 14
+dump xentities entities events packets:B:add_entity,set_entity_data,remove_entities
+note a fireball shot back at its owner leaves the owner's box first and then passes through it
+spawn d4 minecraft:dragon_fireball 0.5 -59.5 4.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],acceleration_power:0.1d}
+entity_seed d4 34
+velocity d4 0 0 -0.3
+tick 12
+dump xentity:d4 player:A entities events packets:B:remove_entities
+tick 30
+dump xentity:d4 player:A entities events
+note a fireball hits the creative player: not hurt, the cloud damages the others only
+spawn d5 minecraft:dragon_fireball 6.5 -59.5 2.5 0 0 {acceleration_power:0.1d}
+entity_seed d5 35
+velocity d5 0 0 0.3
+tick 14
+dump xentities player:C entities events
+tick 30
+dump xentities player:C entities events

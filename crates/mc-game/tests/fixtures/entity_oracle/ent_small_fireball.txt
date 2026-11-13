@@ -1,0 +1,285 @@
+# a small fireball of player A hurts pig p1 for 5 and leaves it burning
+E s1 minecraft:small_fireball pos=0.5,-59.5,2.5 delta=0.0,0.0,0.3 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=0 canbreak=0
+ED s1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:01d90a0000
+N s1 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Item:{count:1,id:"minecraft:fire_charge"},Motion:[0.0d,0.0d,0.3d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-59.5d,2.5d],Rotation:[0.0f,0.0f],acceleration_power:0.1d,fall_distance:0.0d}
+PKT B minecraft:add_entity 01900ecbb189a90fb343778488d42a4278641a793fe0000000000000c04dc00000000000400400000000000000000000890e
+PKT B minecraft:set_entity_data 65900e080701d90a0000ff
+E s1 minecraft:small_fireball pos=0.5,-59.5,2.8799999952316284 delta=0.0,0.0,0.3799999952316284 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+N s1 {Air:300s,Fire:20s,HasBeenShot:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:fire_charge"},LeftOwner:1b,Motion:[0.0d,0.0d,0.3799999952316284d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-59.5d,2.8799999952316284d],Rotation:[324.0f,-1.5258789E-6f],acceleration_power:0.1d,fall_distance:0.0d}
+PKT B minecraft:set_entity_motion 67900ef9ffa664fffd
+PKT B minecraft:projectile_power 8a01900e3fb999999999999a
+PKT B minecraft:move_entity_pos 36900e00000000000000
+EV sound at=14.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.134013
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=96 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=96 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=6/16 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=81 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/1 death=0 fx=-
+E owner minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=0.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.1252639
+PKT B minecraft:set_entity_data 65900e000001ff
+PKT B minecraft:damage_event 198d0e0e8a0e910e00
+PKT B minecraft:remove_entities 4e01900e
+PKT B minecraft:set_entity_data 658d0e090340a00000ff
+PKT B minecraft:set_entity_data 658d0e000001ff
+# a small fireball at the creative player already burning: the hit is refused and the fire ticks are restored
+P C minecraft:player pos=6.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=82 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/2 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=67 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/7 death=0 fx=-
+E owner minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=14.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.97760135
+EV sound at=28.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=1.1006974
+PKT C minecraft:set_entity_data 65900e080701d90a0000ff
+PKT C minecraft:set_entity_data 65900e080701d90a0000ff
+PKT C minecraft:set_entity_data 65900e000001ff
+PKT C minecraft:damage_event 198d0e0e8a0e910e00
+PKT C minecraft:set_entity_data 658d0e090340a00000ff
+PKT C minecraft:set_entity_data 658d0e000001ff
+PKT C minecraft:set_entity_data 65910e080701d90a0000ff
+PKT C minecraft:set_entity_data 65910e080701d90a0000ff
+PKT C minecraft:damage_event 198e0e1f000000
+PKT C minecraft:set_entity_data 65910e000001ff
+PKT C minecraft:set_entity_data 658e0e090341000000ff
+# a small fireball at the player behind a raised shield
+P D minecraft:player pos=10.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=4/15 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=68 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/8 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=53 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=3/13 death=0 fx=-
+E owner minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=0.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.99155605
+EV sound at=14.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0830002
+EV sound at=10.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:item.shield.block source=player vol=1.0 pitch=1.0569241
+EV sound at=10.5,-60.0,8.5 r=16.0 ex=1 event=minecraft:entity.player.hurt_on_fire source=player vol=1.0 pitch=1.0
+PKT D minecraft:set_entity_data 65900e080701d90a0000ff
+PKT D minecraft:set_entity_data 65900e080701d90a0000ff
+PKT D minecraft:set_entity_data 65900e000001ff
+PKT D minecraft:damage_event 198d0e0e8a0e910e00
+PKT D minecraft:set_entity_data 658d0e090340a00000ff
+PKT D minecraft:set_entity_data 658d0e000001ff
+PKT D minecraft:set_entity_data 65910e080701d90a0000ff
+PKT D minecraft:set_entity_data 65910e080701d90a0000ff
+PKT D minecraft:damage_event 198e0e1f000000
+PKT D minecraft:set_entity_data 65910e000001ff
+PKT D minecraft:set_entity_data 658e0e090341000000ff
+PKT D minecraft:set_entity_data 65920e080701d90a0000ff
+PKT D minecraft:set_entity_data 65920e080701d90a0000ff
+PKT D minecraft:set_entity_data 65920e000001ff
+PKT D minecraft:damage_event 198d0e1f000000
+PKT D minecraft:set_entity_data 658d0e090340800000ff
+PKT D minecraft:damage_event 198e0e1f000000
+PKT D minecraft:set_entity_data 658e0e090340e00000ff
+# a small fireball at the pig that burns already and a second one without owner at the same pig
+E p2 minecraft:pig pos=14.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=95 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=5/15 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=54 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=4/14 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=95 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=5/15 death=0 fx=-
+E owner minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=0.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.062089
+EV sound at=14.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.9273625
+PKT B minecraft:set_entity_data 65910e080701d90a0000ff
+PKT B minecraft:set_entity_data 65910e080701d90a0000ff
+PKT B minecraft:damage_event 198e0e1f000000
+PKT B minecraft:set_entity_data 65910e000001ff
+PKT B minecraft:set_entity_data 658e0e090341000000ff
+PKT B minecraft:set_entity_data 65920e080701d90a0000ff
+PKT B minecraft:set_entity_data 65920e080701d90a0000ff
+PKT B minecraft:set_entity_data 65920e000001ff
+PKT B minecraft:damage_event 198d0e1f000000
+PKT B minecraft:set_entity_data 658d0e090340800000ff
+PKT B minecraft:damage_event 198e0e1f000000
+PKT B minecraft:set_entity_data 658e0e090340e00000ff
+PKT B minecraft:set_entity_data 65930e080701d90a0000ff
+PKT B minecraft:set_entity_data 65930e080701d90a0000ff
+PKT B minecraft:set_entity_data 65930e000001ff
+PKT B minecraft:damage_event 198d0e1f000000
+PKT B minecraft:damage_event 198e0e2f940e940e00
+PKT B minecraft:set_entity_data 658e0e090340000000ff
+PKT B minecraft:set_entity_data 658d0e090340400000ff
+# walls: a fireball of the player, of the pig, of nobody and of the pig with mob griefing off; fire only on empty blocks
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=38 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=8/18 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=79 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=9/19 death=0 fx=-
+E owner minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=43.5,-59.5,5.122940415382118 r=16.0 ex=0 event=minecraft:entity.generic.splash source=neutral vol=0.059206653 pitch=1.1921055
+EV sound at=0.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.94890183
+EV sound at=14.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.1575788
+B 27 -61 5 minecraft:grass_block[snowy=false]
+B 27 -61 6 minecraft:grass_block[snowy=false]
+B 27 -61 7 minecraft:grass_block[snowy=false]
+B 27 -61 8 minecraft:grass_block[snowy=false]
+B 28 -61 5 minecraft:grass_block[snowy=false]
+B 28 -61 6 minecraft:grass_block[snowy=false]
+B 28 -61 7 minecraft:grass_block[snowy=false]
+B 28 -61 8 minecraft:grass_block[snowy=false]
+B 28 -60 6 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 28 -60 7 minecraft:stone
+B 28 -59 7 minecraft:stone
+B 28 -58 7 minecraft:stone
+B 29 -61 5 minecraft:grass_block[snowy=false]
+B 29 -61 6 minecraft:grass_block[snowy=false]
+B 29 -61 7 minecraft:grass_block[snowy=false]
+B 29 -61 8 minecraft:grass_block[snowy=false]
+B 30 -61 5 minecraft:grass_block[snowy=false]
+B 30 -61 6 minecraft:grass_block[snowy=false]
+B 30 -61 7 minecraft:grass_block[snowy=false]
+B 30 -61 8 minecraft:grass_block[snowy=false]
+B 31 -61 5 minecraft:grass_block[snowy=false]
+B 31 -61 6 minecraft:grass_block[snowy=false]
+B 31 -61 7 minecraft:grass_block[snowy=false]
+B 31 -61 8 minecraft:grass_block[snowy=false]
+B 31 -60 6 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 31 -60 7 minecraft:stone
+B 31 -59 7 minecraft:stone
+B 31 -58 7 minecraft:stone
+B 32 -61 5 minecraft:grass_block[snowy=false]
+B 32 -61 6 minecraft:grass_block[snowy=false]
+B 32 -61 7 minecraft:grass_block[snowy=false]
+B 32 -61 8 minecraft:grass_block[snowy=false]
+B 33 -61 5 minecraft:grass_block[snowy=false]
+B 33 -61 6 minecraft:grass_block[snowy=false]
+B 33 -61 7 minecraft:grass_block[snowy=false]
+B 33 -61 8 minecraft:grass_block[snowy=false]
+B 34 -61 5 minecraft:grass_block[snowy=false]
+B 34 -61 6 minecraft:grass_block[snowy=false]
+B 34 -61 7 minecraft:grass_block[snowy=false]
+B 34 -61 8 minecraft:grass_block[snowy=false]
+B 34 -60 6 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 34 -60 7 minecraft:stone
+B 34 -59 7 minecraft:stone
+B 34 -58 7 minecraft:stone
+B 35 -61 5 minecraft:grass_block[snowy=false]
+B 35 -61 6 minecraft:grass_block[snowy=false]
+B 35 -61 7 minecraft:grass_block[snowy=false]
+B 35 -61 8 minecraft:grass_block[snowy=false]
+B 36 -61 5 minecraft:grass_block[snowy=false]
+B 36 -61 6 minecraft:grass_block[snowy=false]
+B 36 -61 7 minecraft:grass_block[snowy=false]
+B 36 -61 8 minecraft:grass_block[snowy=false]
+B 37 -61 5 minecraft:grass_block[snowy=false]
+B 37 -61 6 minecraft:grass_block[snowy=false]
+B 37 -61 7 minecraft:grass_block[snowy=false]
+B 37 -61 8 minecraft:grass_block[snowy=false]
+B 37 -60 7 minecraft:stone
+B 37 -59 7 minecraft:stone
+B 37 -58 7 minecraft:stone
+B 38 -61 5 minecraft:grass_block[snowy=false]
+B 38 -61 6 minecraft:grass_block[snowy=false]
+B 38 -61 7 minecraft:grass_block[snowy=false]
+B 38 -61 8 minecraft:grass_block[snowy=false]
+B 39 -61 5 minecraft:grass_block[snowy=false]
+B 39 -61 6 minecraft:grass_block[snowy=false]
+B 39 -61 7 minecraft:grass_block[snowy=false]
+B 39 -61 8 minecraft:grass_block[snowy=false]
+B 40 -61 5 minecraft:grass_block[snowy=false]
+B 40 -61 6 minecraft:grass_block[snowy=false]
+B 40 -61 7 minecraft:grass_block[snowy=false]
+B 40 -61 8 minecraft:grass_block[snowy=false]
+B 40 -60 6 minecraft:water[level=3]
+B 40 -60 7 minecraft:stone
+B 40 -59 7 minecraft:stone
+B 40 -58 7 minecraft:stone
+B 41 -61 5 minecraft:grass_block[snowy=false]
+B 41 -61 6 minecraft:grass_block[snowy=false]
+B 41 -61 7 minecraft:grass_block[snowy=false]
+B 41 -61 8 minecraft:grass_block[snowy=false]
+B 41 -60 5 minecraft:water[level=3]
+B 41 -60 6 minecraft:water[level=2]
+B 41 -60 7 minecraft:water[level=3]
+B 42 -61 5 minecraft:grass_block[snowy=false]
+B 42 -61 6 minecraft:grass_block[snowy=false]
+B 42 -61 7 minecraft:grass_block[snowy=false]
+B 42 -61 8 minecraft:grass_block[snowy=false]
+B 42 -60 5 minecraft:water[level=2]
+B 42 -60 6 minecraft:water[level=1]
+B 42 -60 7 minecraft:water[level=2]
+B 42 -60 8 minecraft:water[level=3]
+B 43 -61 5 minecraft:grass_block[snowy=false]
+B 43 -61 6 minecraft:grass_block[snowy=false]
+B 43 -61 7 minecraft:grass_block[snowy=false]
+B 43 -61 8 minecraft:grass_block[snowy=false]
+B 43 -60 5 minecraft:water[level=1]
+B 43 -60 6 minecraft:water[level=0]
+B 43 -60 7 minecraft:oak_planks
+B 44 -61 5 minecraft:grass_block[snowy=false]
+B 44 -61 6 minecraft:grass_block[snowy=false]
+B 44 -61 7 minecraft:grass_block[snowy=false]
+B 44 -61 8 minecraft:grass_block[snowy=false]
+B 44 -60 5 minecraft:water[level=2]
+B 44 -60 6 minecraft:water[level=1]
+B 44 -60 7 minecraft:water[level=2]
+B 44 -60 8 minecraft:water[level=3]
+PKT B minecraft:section_blocks_update 5600000400000ffffc06f63ef53ef43ef438f538f638
+PKT B minecraft:section_blocks_update 5600000800000ffffc0bf630f42af52af62af4f603e4b616f530f430f624f524f424
+PKT B minecraft:section_blocks_update 5600000800000ffffc03d4d616e4d416e4d816
+PKT B minecraft:remove_entities 4e01940e
+PKT B minecraft:remove_entities 4e01950e
+PKT B minecraft:remove_entities 4e01960e
+PKT B minecraft:section_blocks_update 5600000400000ffffc02e4ded809e4d8d809
+PKT B minecraft:block_update 080000088000006fc4e226
+PKT B minecraft:remove_entities 4e01970e
+PKT B minecraft:section_blocks_update 5600000800000ffffc07e4fa16d4f816e4f216c4f616f4f416f4f816d4f416
+PKT B minecraft:section_blocks_update 5600000800000ffffc0b849517f49217e49017c49417e49c17d49a17c49817d49217849917b49617f49a17
+C Game rule mob_griefing is now set to false
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=22 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=0/2 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=63 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/3 death=0 fx=-
+E owner minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=40.5,-59.5,5.84679335261629 r=16.0 ex=0 event=minecraft:entity.generic.splash source=neutral vol=0.06474338 pitch=1.053862
+B 36 -61 5 minecraft:grass_block[snowy=false]
+B 36 -61 6 minecraft:grass_block[snowy=false]
+B 36 -61 7 minecraft:grass_block[snowy=false]
+B 36 -61 8 minecraft:grass_block[snowy=false]
+B 37 -61 5 minecraft:grass_block[snowy=false]
+B 37 -61 6 minecraft:grass_block[snowy=false]
+B 37 -61 7 minecraft:grass_block[snowy=false]
+B 37 -61 8 minecraft:grass_block[snowy=false]
+B 37 -60 6 minecraft:water[level=6]
+B 37 -60 7 minecraft:stone
+B 37 -59 7 minecraft:stone
+B 37 -58 7 minecraft:stone
+B 38 -61 5 minecraft:grass_block[snowy=false]
+B 38 -61 6 minecraft:grass_block[snowy=false]
+B 38 -61 7 minecraft:grass_block[snowy=false]
+B 38 -61 8 minecraft:grass_block[snowy=false]
+B 38 -60 5 minecraft:water[level=6]
+B 38 -60 6 minecraft:water[level=5]
+B 38 -60 7 minecraft:water[level=6]
+B 39 -61 5 minecraft:grass_block[snowy=false]
+B 39 -61 6 minecraft:grass_block[snowy=false]
+B 39 -61 7 minecraft:grass_block[snowy=false]
+B 39 -61 8 minecraft:grass_block[snowy=false]
+B 39 -60 5 minecraft:water[level=5]
+B 39 -60 6 minecraft:water[level=4]
+B 39 -60 7 minecraft:water[level=5]
+B 39 -60 8 minecraft:water[level=6]
+B 40 -61 5 minecraft:grass_block[snowy=false]
+B 40 -61 6 minecraft:grass_block[snowy=false]
+B 40 -61 7 minecraft:grass_block[snowy=false]
+B 40 -61 8 minecraft:grass_block[snowy=false]
+B 40 -60 5 minecraft:water[level=4]
+B 40 -60 6 minecraft:water[level=3]
+B 40 -60 7 minecraft:stone
+B 40 -60 8 minecraft:water[level=5]
+B 40 -59 7 minecraft:stone
+B 40 -58 7 minecraft:stone
+B 41 -61 5 minecraft:grass_block[snowy=false]
+B 41 -61 6 minecraft:grass_block[snowy=false]
+B 41 -61 7 minecraft:grass_block[snowy=false]
+B 41 -61 8 minecraft:grass_block[snowy=false]
+B 41 -60 5 minecraft:water[level=3]
+B 41 -60 6 minecraft:water[level=2]
+B 41 -60 7 minecraft:water[level=3]
+B 41 -60 8 minecraft:water[level=4]
+PKT B minecraft:section_blocks_update 5600000800000ffffc0ff4bc17e4ae17d4b01794b91784b717b4b41784bb17c4ba17b4b817a4b617e4be1794b517d4bc17c4b21784b317
+PKT B minecraft:remove_entities 4e01980e
+PKT B minecraft:remove_entities 4e01990e
+PKT B minecraft:section_blocks_update 5600000800000ffffc13a4d91794d717b4d21794db17d4ce17f4de17a4d517c4d01794d31784d117a4d417b4da1784dd17a4d81794d617f4ce17e4cc17d4de17c4dc17
+PKT B minecraft:section_blocks_update 5600000800000ffffc15a4fa1794f817a4fb1784f617d4ec17c4fe1784ff17b4fc1794f117b4f517a4f317c4ee17a4f21794fd1784ef17f4ec17e4ea17b4f017b4f91794f417a4f717
+# a small fireball that flies into water slows down and keeps burning out
+E w7 minecraft:small_fireball pos=53.5,-59.5,0.8799999952316284 delta=0.0,0.0,0.3799999952316284 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E w7 minecraft:small_fireball pos=53.5,-59.5,2.040960016078949 delta=0.0,0.0,0.38976001164436347 rot=253.728,-4.504395E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=18 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=8/18 death=0 fx=-
+E owner minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E w7 minecraft:small_fireball pos=53.5,-59.5,2.040960016078949 delta=0.0,0.0,0.38976001164436347 rot=253.728,-4.504395E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=14.5,-60.0,8.5 delta=0.017871321455808303,0.2,-0.0994230359778965 rot=348.2371,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_porkchop*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0228975
+EV sound at=14.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.death source=neutral vol=1.0 pitch=0.8696309
+E w7 minecraft:small_fireball pos=53.5,-59.5,10.215448986631099 delta=0.0,0.0,0.45813792126804614 rot=180.85002,-7.593366E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E owner minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E w7 minecraft:small_fireball pos=53.5,-59.5,10.215448986631099 delta=0.0,0.0,0.45813792126804614 rot=180.85002,-7.593366E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=14.669729326390291,-60.0,7.555749460612968 delta=2.1726226248136837E-4,-0.12,-0.0012086892283113089 rot=348.2371,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_porkchop*3 age=20 pickup=0 health=5 owner=- thrower=-

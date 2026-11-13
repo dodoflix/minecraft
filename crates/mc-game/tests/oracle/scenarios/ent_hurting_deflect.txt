@@ -1,0 +1,59 @@
+# Deflection of hurting projectiles: a player's attack turns a fireball or a wind charge to the player's look direction and makes the
+# player the owner (the fireball's acceleration power is back to 0.1), a wind charge refuses it during its first 5 ticks (the attack
+# then hurts it for nothing), a wind charge that hits a fireball redirects it with the owner of the charge, and the deflected fireball
+# explodes where it lands.
+command_env
+level flat
+preload 5
+difficulty normal
+level_seed 7
+entity_counter 2300
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 0.5 -60 12.5 180 0
+spawn_player C survival 30.5 -60 0.5 0 0
+tick 2
+dump packets:A:none packets:B:none packets:C:none
+spawn owner minecraft:pig 20.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,UUID:[I;71,72,73,74]}
+entity_seed owner 13
+note a fireball of the pig hangs in front of player A, who attacks it: it flies along A's look direction, A owns it, the power is back to 0.1
+spawn f1 minecraft:fireball 0.5 -59.5 2.5 0 0 {Owner:[I;71,72,73,74],acceleration_power:0.0d,ExplosionPower:1b}
+entity_seed f1 31
+tick 1
+dump xentity:f1 nbt:f1 packets:C:none packets:A:none packets:B:none
+note hurting a hanging fireball or charge never works (the projectile is not hurt, nothing moves), by the player or by nothing
+hurt f1 generic 4
+hurt f1 player_attack 4 by=A direct=A
+dump xentity:f1 events
+level_seed 21
+attack A f1
+dump xentity:f1 nbt:f1 events packets:A:sound,swing,set_entity_motion,animate packets:B:set_entity_motion,add_entity,projectile_power
+tick 1
+dump xentity:f1 events packets:B:set_entity_motion,projectile_power,move_entity_pos,move_entity_pos_rot,entity_position_sync
+tick 14
+dump xentity:f1 player:B entities events packets:B:explode,damage_event,hurt_animation,set_health,remove_entities,set_entity_motion
+fill 28 -60 20 32 -57 20 minecraft:stone
+note a wind charge of the pig in front of player C: the attack in its first ticks is refused, after 5 ticks it turns the charge
+spawn w1 minecraft:wind_charge 30.5 -59.5 2.5 0 0 {Owner:[I;71,72,73,74],acceleration_power:0.0d}
+entity_seed w1 32
+tick 1
+attack C w1
+dump xentity:w1 nbt:w1 events packets:C:set_entity_motion,sound,swing
+tick 5
+level_seed 22
+attack C w1
+dump xentity:w1 nbt:w1 events packets:C:set_entity_motion,sound,swing
+tick 1
+dump xentity:w1 events packets:C:set_entity_motion,move_entity_pos,remove_entities
+tick 20
+dump xentities entities events
+note a wind charge of player A flies at a fireball of the pig: the fireball is redirected along A's look direction with A as owner
+spawn f2 minecraft:fireball 0.5 -59.5 6.5 0 0 {Owner:[I;71,72,73,74],acceleration_power:0.0d,ExplosionPower:1b}
+entity_seed f2 33
+level_seed 23
+spawn w2 minecraft:wind_charge 0.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed w2 34
+velocity w2 0 0 0.5
+tick 1
+dump xentity:f2 xentity:w2 events
+tick 14
+dump xentity:f2 player:B entities events packets:B:explode,damage_event,hurt_animation,set_health,remove_entities,set_entity_motion

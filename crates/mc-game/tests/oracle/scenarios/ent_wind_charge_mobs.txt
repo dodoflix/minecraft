@@ -1,0 +1,75 @@
+# Wind charge fired by a player or by nobody at mobs and entities: damage 1 with the owner as the cause (the owner marks the
+# mob as its last target), the knockback of the explosion, the jump boost of the owner standing close, no hit on another wind charge
+# or an end crystal... (no crystal here), and a charge that cannot be deflected during its first 5 ticks.
+command_env
+level flat
+preload 5
+difficulty normal
+level_seed 7
+entity_counter 2200
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 20.5 -60 0.5 0 0
+spawn_player C creative 6.5 -60 8.5 0 0
+tick 2
+dump packets:A:none packets:B:none packets:C:none
+spawn p1 minecraft:pig 0.5 -60 8.5 0 0 {NoAI:1b,Health:10.0f}
+entity_seed p1 11
+spawn cow minecraft:cow 14.5 -60 8.5 0 0 {NoAI:1b,Health:10.0f}
+entity_seed cow 12
+spawn st minecraft:armor_stand 24.5 -60 8.5 0 0 {}
+entity_seed st 13
+spawn tnt minecraft:tnt 30.5 -60 8.5 0 0 {fuse:80s}
+entity_seed tnt 14
+spawn_item it minecraft:apple 34.5 -60 8.5 0 0 0
+tick 1
+dump packets:A:none packets:B:none packets:C:none
+note a wind charge of player A at pig p1: the pig is hurt and thrown, A remembers it as the last target
+level_seed 21
+spawn w1 minecraft:wind_charge 0.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed w1 31
+velocity w1 0 0 0.5
+dump xentity:w1 edata:w1 nbt:w1 packets:B:add_entity,set_entity_data,set_entity_motion,projectile_power
+tick 1
+dump xentity:w1 nbt:w1 packets:B:set_entity_motion,projectile_power,move_entity_pos,move_entity_pos_rot,entity_position_sync,remove_entities events
+tick 12
+dump mob:p1 player:A entities events packets:B:explode,damage_event,hurt_animation,entity_event,set_health,remove_entities,set_entity_motion packets:A:explode,set_entity_motion
+note a charge of nobody at the cow and at the creative player
+level_seed 22
+spawn w2 minecraft:wind_charge 14.5 -59.5 2.5 0 0 {}
+entity_seed w2 32
+velocity w2 0 0 0.5
+tick 14
+dump mob:cow entities events packets:B:explode,damage_event,hurt_animation,entity_event,set_health,set_entity_motion
+level_seed 23
+spawn w3 minecraft:wind_charge 6.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed w3 33
+velocity w3 0 0 0.5
+tick 14
+dump player:C entities events packets:C:damage_event,hurt_animation,set_health,explode,set_entity_motion
+note a charge at an armor stand, a primed tnt and an item
+level_seed 24
+spawn w4 minecraft:wind_charge 24.5 -59.5 2.5 0 0 {}
+entity_seed w4 34
+velocity w4 0 0 0.5
+level_seed 25
+spawn w5 minecraft:wind_charge 30.5 -59.5 2.5 0 0 {}
+entity_seed w5 35
+velocity w5 0 0 0.5
+level_seed 26
+spawn w6 minecraft:wind_charge 34.5 -59.5 2.5 0 0 {}
+entity_seed w6 36
+velocity w6 0 0 0.5
+tick 14
+dump xentities entities events packets:B:explode,set_entity_motion,damage_event
+note two charges flying into each other do not hit each other
+spawn w7 minecraft:wind_charge 44.5 -59.5 2.5 0 0 {}
+entity_seed w7 37
+velocity w7 0 0 0.5
+spawn w8 minecraft:wind_charge 44.5 -59.5 12.5 0 0 {}
+entity_seed w8 38
+velocity w8 0 0 -0.5
+tick 10
+dump xentities events
+note a charge shoved by an explosion keeps flying: the knockback of another charge does not move it
+tick 15
+dump xentities events

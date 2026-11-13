@@ -1,0 +1,175 @@
+# a dragon fireball of player A at pig p1: the cloud is placed at the pig, owned by A
+E d1 minecraft:dragon_fireball pos=0.5,-59.5,2.5 delta=0.0,0.0,0.3 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=0 canbreak=0
+ED d1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00
+N d1 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.3d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-59.5d,2.5d],Rotation:[0.0f,0.0f],acceleration_power:0.1d,fall_distance:0.0d}
+PKT B minecraft:add_entity 01d70fd7ef2d95ba1a44a1916440156cb56cd8263fe0000000000000c04dc00000000000400400000000000000000000d10f
+E d1 minecraft:dragon_fireball pos=0.5,-59.5,2.8799999952316284 delta=0.0,0.0,0.3799999952316284 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+N d1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,0.0d,0.3799999952316284d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-59.5d,2.8799999952316284d],Rotation:[324.0f,-1.5258789E-6f],acceleration_power:0.1d,fall_distance:0.0d}
+PKT B minecraft:set_entity_motion 67d70ff9ffa664fffd
+PKT B minecraft:projectile_power 8a01d70f3fb999999999999a
+PKT B minecraft:move_entity_pos 36d70f00000000000000
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p2 minecraft:pig pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p3 minecraft:pig pos=15.5,-60.0,12.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=600 age=4
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p3 minecraft:pig pos=15.5,-60.0,12.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=2006 pos=0,-60,7 data=1 global=0
+PKT B minecraft:add_entity 01d80f9710153d03944d3a84f32d3aa14f5ed5033fe0000000000000c04e00000000000040210000000000000000000000
+PKT B minecraft:set_entity_data 65d80f0a100f3f800000ff
+PKT B minecraft:remove_entities 4e01d70f
+PKT B minecraft:set_entity_data 65d80f0a100f3f800000ff
+PKT B minecraft:set_entity_data 65d80f090801ff
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p2 minecraft:pig pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p3 minecraft:pig pos=15.5,-60.0,12.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=600 age=5
+E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.45222504107843614,0.0,-0.3750007474265268 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=dying hp=0.0 abs=0.0 hurt=5/15 death=5 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p2 minecraft:pig pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p3 minecraft:pig pos=15.5,-60.0,12.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.1733332 waiting=0 duration=600 age=45
+E item#1 minecraft:item pos=0.2883418476138382,-59.62344603256263,8.86366923146381 delta=-0.039825937498097055,-0.0075310721665503766,0.06842858599575334 rot=259.32825,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=5 pickup=5 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=1.4592215572507414,-59.92386672108951,7.919414609273324 delta=0.19963025984464022,-0.04201997500155085,-0.1079095893358323 rot=123.61398,0.0 og=0 fall=0.057518220506608486 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=5 health=5
+EV sound at=0.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0051622
+EV sound at=15.5,-60.0,12.0 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=1.1006974
+EV sound at=14.5,-60.0,10.5 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=0.9324237
+EV sound at=0.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.death source=neutral vol=1.0 pitch=0.94030285
+PKT B minecraft:damage_event 19d40f17d20fd90f00
+PKT B minecraft:damage_event 19d40f17d20fd90f00
+# a fireball of nobody: the cloud goes to the first entity of the list within 4 blocks, not the nearest
+E p2 minecraft:pig pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p3 minecraft:pig pos=15.5,-60.0,12.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.2666664 waiting=0 duration=600 age=59
+E item#1 minecraft:item pos=0.08155748077787166,-60.0,9.218964366180687 delta=-5.356279340645719E-4,0.0,9.203113460823506E-4 rot=259.32825,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=19 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=2.8882732843695957,-60.0,7.631441821330556 delta=0.035248735136438614,0.0,0.008176997728900027 rot=123.61398,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=19 health=5
+E area_effect_cloud#2 minecraft:area_effect_cloud pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=600 age=4
+E p2 minecraft:pig pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p3 minecraft:pig pos=15.5,-60.0,12.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=0.08155748077787166,-60.0,9.218964366180687 delta=-5.356279340645719E-4,0.0,9.203113460823506E-4 rot=259.32825,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=19 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=2.8882732843695957,-60.0,7.631441821330556 delta=0.035248735136438614,0.0,0.008176997728900027 rot=123.61398,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=19 health=5
+E area_effect_cloud#2 minecraft:area_effect_cloud pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=2006 pos=15,-60,11 data=1 global=0
+PKT B minecraft:add_entity 01db0f4ea513a9e2ee48fcbefe4a6e40df47c926402f000000000000c04dc0000000000040120000000000000000000000
+PKT B minecraft:set_entity_data 65d80f0803404b17e4ff
+PKT B minecraft:set_entity_data 65d80f0803404b851eff
+PKT B minecraft:set_entity_data 65d80f0803404bf258ff
+PKT B minecraft:set_entity_data 65d80f0803404c5f92ff
+PKT B minecraft:set_entity_data 65d80f0803404cccccff
+PKT B minecraft:set_entity_data 65d80f0803404d3a06ff
+PKT B minecraft:set_entity_data 65d80f0803404da740ff
+PKT B minecraft:set_entity_data 65d80f0803404e147aff
+PKT B minecraft:set_entity_data 65d80f0803404e81b4ff
+PKT B minecraft:set_entity_data 65d80f0803404eeeeeff
+PKT B minecraft:add_entity 01dc0f40ab180599864f64ad7c4f34799cae6e03402d000000000000c04e00000000000040250000000000000000000000
+PKT B minecraft:set_entity_data 65dc0f0a100f3f800000ff
+PKT B minecraft:remove_entities 4e01db0f
+PKT B minecraft:set_entity_data 65dc0f0a100f3f800000ff
+PKT B minecraft:set_entity_data 65d80f0803404f5c28ff
+PKT B minecraft:set_entity_data 65dc0f090801ff
+PKT B minecraft:set_entity_data 65d80f0803404fc962ff
+PKT B minecraft:set_entity_data 65d80f08034050369cff
+PKT B minecraft:set_entity_data 65d80f08034050a3d6ff
+# a silent fireball at a wall: the event carries -1
+E p2 minecraft:pig pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p3 minecraft:pig pos=15.5,-60.0,12.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.3599997 waiting=0 duration=600 age=73
+E item#1 minecraft:item pos=0.08052171340522687,-60.0,9.220744012842715 delta=-1.0889183777757516E-4,-0.08,1.870970265534731E-4 rot=259.32825,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=33 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=3.9297020266128793,-60.0,7.881330776201121 delta=0.052769199523426964,0.0,0.012701266833890746 rot=123.61398,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=33 health=5
+E area_effect_cloud#2 minecraft:area_effect_cloud pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=600 age=18
+E area_effect_cloud#3 minecraft:area_effect_cloud pos=29.5,-59.5,7.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=600 age=6
+E p2 minecraft:pig pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p3 minecraft:pig pos=15.5,-60.0,12.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=0.08052171340522687,-60.0,9.220744012842715 delta=-1.0889183777757516E-4,-0.08,1.870970265534731E-4 rot=259.32825,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=33 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=3.9297020266128793,-60.0,7.881330776201121 delta=0.052769199523426964,0.0,0.012701266833890746 rot=123.61398,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=33 health=5
+E area_effect_cloud#2 minecraft:area_effect_cloud pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E area_effect_cloud#3 minecraft:area_effect_cloud pos=29.5,-59.5,7.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=2006 pos=29,-60,7 data=-1 global=0
+PKT B minecraft:add_entity 01dd0fbf08a36e79ca4a9eab6c53cfb61ea4c726403d800000000000c04dc0000000000040040000000000000000000000
+PKT B minecraft:set_entity_data 65dd0f040801ff
+PKT B minecraft:set_entity_data 65d80f080340511110ff
+PKT B minecraft:set_entity_data 65dd0f040801ff
+PKT B minecraft:remove_entities 4e01d40f
+PKT B minecraft:set_entity_data 65d80f080340517e4aff
+PKT B minecraft:set_entity_data 65d80f08034051eb84ff
+PKT B minecraft:set_entity_data 65d80f0803405258beff
+PKT B minecraft:set_entity_data 65d80f08034052c5f8ff
+PKT B minecraft:set_entity_data 65d80f080340533332ff
+PKT B minecraft:set_entity_data 65d80f08034053a06cff
+PKT B minecraft:set_entity_data 65d80f080340540da6ff
+PKT B minecraft:add_entity 01de0f2a2f6c8a750e4ac081a7e4e619b713bb03403d800000000000c04dc00000000000401c0000000000000000000000
+PKT B minecraft:set_entity_data 65de0f0a100f3f800000ff
+PKT B minecraft:remove_entities 4e01dd0f
+PKT B minecraft:set_entity_data 65d80f080340547ae0ff
+PKT B minecraft:set_entity_data 65de0f0a100f3f800000ff
+PKT B minecraft:set_entity_data 65d80f08034054e81aff
+PKT B minecraft:set_entity_data 65de0f090801ff
+PKT B minecraft:set_entity_data 65d80f080340555554ff
+PKT B minecraft:set_entity_data 65d80f08034055c28eff
+PKT B minecraft:set_entity_data 65d80f080340562fc8ff
+PKT B minecraft:set_entity_data 65d80f080340569d02ff
+# a fireball shot back at its owner leaves the owner's box first and then passes through it
+E d4 minecraft:dragon_fireball pos=0.5,-59.5,-3.6474924953061514 delta=0.0,0.0,-1.0354237707544052 rot=7.1051063E-6,-7.1051063E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E p2 minecraft:pig pos=14.5,-60.0,10.5 delta=-0.32875978423804986,0.0,-0.2278530426308206 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/10 death=0 fx=-
+E p3 minecraft:pig pos=15.5,-60.0,12.0 delta=0.22188008179636248,0.0,0.3328201226945437 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/10 death=0 fx=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=0.08052171340522687,-60.0,9.220744012842715 delta=-2.2137442019870994E-5,-0.08,3.80363639915602E-5 rot=259.32825,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=45 pickup=0 health=5 owner=- thrower=-
+E area_effect_cloud#2 minecraft:area_effect_cloud pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E area_effect_cloud#3 minecraft:area_effect_cloud pos=29.5,-59.5,7.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E d4 minecraft:dragon_fireball pos=0.5,-59.5,-3.6474924953061514 delta=0.0,0.0,-1.0354237707544052 rot=7.1051063E-6,-7.1051063E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=14.5,-60.0,10.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.98764795
+EV sound at=15.5,-60.0,12.0 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.1400695
+PKT B minecraft:remove_entities 4e01da0f
+E d4 minecraft:dragon_fireball pos=0.5,-59.5,-47.74639875067444 delta=0.0,0.0,-1.71442812218939 rot=7.6287456E-6,-7.6287456E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=0.08052171340522687,-60.0,9.220744012842715 delta=-3.163343800335385E-7,0.0,5.435230326611296E-7 rot=259.32825,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=75 pickup=0 health=5 owner=- thrower=-
+E area_effect_cloud#2 minecraft:area_effect_cloud pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E area_effect_cloud#3 minecraft:area_effect_cloud pos=29.5,-59.5,7.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E d4 minecraft:dragon_fireball pos=0.5,-59.5,-47.74639875067444 delta=0.0,0.0,-1.71442812218939 rot=7.6287456E-6,-7.6287456E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#2 minecraft:item pos=13.593751958777586,-60.0,10.015166637242983 delta=-6.812339714799132E-4,0.0,-3.644531543167958E-4 rot=42.053432,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*1 age=20 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=15.365715779465223,-60.0,11.851127968305487 delta=-5.001019200120824E-4,-0.04,-5.544299143267046E-4 rot=277.51035,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*2 age=20 pickup=0 health=5 owner=- thrower=-
+EV sound at=14.5,-60.0,10.5 r=16.0 ex=0 event=minecraft:entity.pig.death source=neutral vol=1.0 pitch=0.85101753
+EV sound at=15.5,-60.0,12.0 r=16.0 ex=0 event=minecraft:entity.pig.death source=neutral vol=1.0 pitch=0.86099046
+# a fireball hits the creative player: not hurt, the cloud damages the others only
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.7333326 waiting=0 duration=600 age=129
+E item#1 minecraft:item pos=0.08052171340522687,-60.0,9.220744012842715 delta=-6.430999916805919E-8,-0.08,1.1049689184764664E-7 rot=259.32825,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=89 pickup=0 health=5 owner=- thrower=-
+E area_effect_cloud#2 minecraft:area_effect_cloud pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.3666663 waiting=0 duration=600 age=74
+E area_effect_cloud#3 minecraft:area_effect_cloud pos=29.5,-59.5,7.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.2866664 waiting=0 duration=600 age=62
+E d4 minecraft:dragon_fireball pos=0.5,-59.5,-72.54000766051966 delta=0.0,0.0,-1.8095010099672284 rot=7.6293663E-6,-7.6293663E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+E item#2 minecraft:item pos=13.592670159190595,-60.0,10.014587885612379 delta=-1.3849318602196203E-4,-0.08,-7.409242728667286E-5 rot=42.053432,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*1 age=34 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=15.364921617586674,-60.0,11.850247533568753 delta=-1.016694867516834E-4,-0.12,-1.1271423398657216E-4 rot=277.51035,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*2 age=34 pickup=0 health=5 owner=- thrower=-
+E area_effect_cloud#4 minecraft:area_effect_cloud pos=6.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=600 age=5
+P C minecraft:player pos=6.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/1/0.14285715 sel=0 main=empty
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=0.08052171340522687,-60.0,9.220744012842715 delta=-6.430999916805919E-8,-0.08,1.1049689184764664E-7 rot=259.32825,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=89 pickup=0 health=5 owner=- thrower=-
+E area_effect_cloud#2 minecraft:area_effect_cloud pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E area_effect_cloud#3 minecraft:area_effect_cloud pos=29.5,-59.5,7.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E d4 minecraft:dragon_fireball pos=0.5,-59.5,-72.54000766051966 delta=0.0,0.0,-1.8095010099672284 rot=7.6293663E-6,-7.6293663E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#2 minecraft:item pos=13.592670159190595,-60.0,10.014587885612379 delta=-1.3849318602196203E-4,-0.08,-7.409242728667286E-5 rot=42.053432,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*1 age=34 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=15.364921617586674,-60.0,11.850247533568753 delta=-1.016694867516834E-4,-0.12,-1.1271423398657216E-4 rot=277.51035,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*2 age=34 pickup=0 health=5 owner=- thrower=-
+E area_effect_cloud#4 minecraft:area_effect_cloud pos=6.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=2006 pos=6,-60,7 data=1 global=0
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.9333324 waiting=0 duration=600 age=159
+E item#1 minecraft:item pos=0.08052171340522687,-60.0,9.220744012842715 delta=-9.189618068123997E-10,0.0,1.5789523354542454E-9 rot=259.32825,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=119 pickup=0 health=5 owner=- thrower=-
+E area_effect_cloud#2 minecraft:area_effect_cloud pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.5666661 waiting=0 duration=600 age=104
+E area_effect_cloud#3 minecraft:area_effect_cloud pos=29.5,-59.5,7.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.4866662 waiting=0 duration=600 age=92
+E d4 minecraft:dragon_fireball pos=0.5,-59.5,-81.65102800303451 delta=0.0,0.0,-1.8299735031735638 rot=7.629385E-6,-7.629385E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+E item#2 minecraft:item pos=13.592670159190595,-60.0,10.014587885612379 delta=-1.9790071544762052E-6,0.0,-1.058748433078732E-6 rot=42.053432,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*1 age=64 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=15.364921617586674,-60.0,11.850247533568753 delta=-1.452812571165765E-6,-0.04,-1.6106371864053915E-6 rot=277.51035,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*2 age=64 pickup=0 health=5 owner=- thrower=-
+E area_effect_cloud#4 minecraft:area_effect_cloud pos=6.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.1066666 waiting=0 duration=600 age=35
+P C minecraft:player pos=6.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/1/0.14285715 sel=0 main=empty
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=0.08052171340522687,-60.0,9.220744012842715 delta=-9.189618068123997E-10,0.0,1.5789523354542454E-9 rot=259.32825,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=119 pickup=0 health=5 owner=- thrower=-
+E area_effect_cloud#2 minecraft:area_effect_cloud pos=14.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E area_effect_cloud#3 minecraft:area_effect_cloud pos=29.5,-59.5,7.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E d4 minecraft:dragon_fireball pos=0.5,-59.5,-81.65102800303451 delta=0.0,0.0,-1.8299735031735638 rot=7.629385E-6,-7.629385E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#2 minecraft:item pos=13.592670159190595,-60.0,10.014587885612379 delta=-1.9790071544762052E-6,0.0,-1.058748433078732E-6 rot=42.053432,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*1 age=64 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=15.364921617586674,-60.0,11.850247533568753 delta=-1.452812571165765E-6,-0.04,-1.6106371864053915E-6 rot=277.51035,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*2 age=64 pickup=0 health=5 owner=- thrower=-
+E area_effect_cloud#4 minecraft:area_effect_cloud pos=6.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing

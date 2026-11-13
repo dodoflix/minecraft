@@ -1,0 +1,75 @@
+# Breeze wind charge (a charge shot by a breeze: the breeze class does not exist here, the charge needs only a living owner):
+# damage 1 of the wind charge type with the owner as the cause, the owner remembers the mob it hit, the explosion of radius 3 at the
+# charge (against an entity hit) or a quarter block in front of the block face, which throws players and mobs, shoves items,
+# arrows and boats, and a charge that climbs above the build limit bursts.
+command_env
+level flat
+preload 5
+difficulty normal
+level_seed 7
+entity_counter 2100
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 20.5 -60 0.5 0 0
+spawn_player C creative 6.5 -60 8.5 0 0
+spawn_player D survival 10.5 -60 8.5 -180 0
+give D offhand minecraft:shield
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+spawn owner minecraft:pig 30.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,UUID:[I;61,62,63,64]}
+entity_seed owner 13
+spawn p1 minecraft:pig 0.5 -60 8.5 0 0 {NoAI:1b,Health:10.0f}
+entity_seed p1 11
+spawn p2 minecraft:cow 14.5 -60 8.5 0 0 {NoAI:1b,Health:10.0f}
+entity_seed p2 12
+use D off
+tick 6
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+note a breeze charge of the owner pig at pig p1: damage, explosion at the charge
+level_seed 21
+spawn b1 minecraft:breeze_wind_charge 0.5 -59.5 2.5 0 0 {Owner:[I;61,62,63,64],acceleration_power:0.0d}
+entity_seed b1 31
+velocity b1 0 0 0.5
+dump xentity:b1 edata:b1 nbt:b1 packets:B:add_entity,set_entity_data,set_entity_motion,projectile_power
+tick 1
+dump xentity:b1 packets:B:set_entity_motion,projectile_power,move_entity_pos,move_entity_pos_rot,entity_position_sync,remove_entities events
+tick 12
+dump mob:p1 mob:owner entities events packets:B:explode,damage_event,hurt_animation,entity_event,set_health,remove_entities,set_entity_motion packets:A:explode,set_entity_motion
+note a charge at the creative player and at a player behind a raised shield
+level_seed 22
+spawn b2 minecraft:breeze_wind_charge 6.5 -59.5 2.5 0 0 {Owner:[I;61,62,63,64]}
+entity_seed b2 32
+velocity b2 0 0 0.5
+level_seed 23
+spawn b3 minecraft:breeze_wind_charge 10.5 -59.5 2.5 0 0 {Owner:[I;61,62,63,64]}
+entity_seed b3 33
+velocity b3 0 0 0.5
+tick 14
+dump player:C player:D entities events packets:C:damage_event,hurt_animation,set_health,explode,set_entity_motion packets:D:damage_event,hurt_animation,set_health,explode,set_entity_motion
+note a charge without owner at the cow, a charge owned by player A at a wall with an item, an arrow and a boat in reach
+level_seed 24
+spawn b4 minecraft:breeze_wind_charge 14.5 -59.5 2.5 0 0 {}
+entity_seed b4 34
+velocity b4 0 0 0.5
+tick 14
+dump mob:p2 entities events packets:B:explode,damage_event,hurt_animation,entity_event,set_health,set_entity_motion
+fill 28 -60 7 31 -58 7 minecraft:stone
+spawn_item it1 minecraft:apple 29.5 -60 5.5 0 0 0
+spawn bt minecraft:oak_boat 30.5 -60 4.5 0 0 {}
+entity_seed bt 14
+spawn ar minecraft:arrow 28.5 -59.5 4.5 0 0 {NoGravity:1b,pickup:0b}
+entity_seed ar 15
+level_seed 25
+spawn b5 minecraft:breeze_wind_charge 29.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed b5 35
+velocity b5 0 0 0.5
+tick 1
+dump xentities
+tick 13
+dump xentities entities events packets:B:explode,set_entity_motion,move_entity_pos,entity_position_sync
+note a charge that rises above the build limit bursts
+level_seed 26
+spawn b6 minecraft:breeze_wind_charge 40.5 349.5 0.5 0 0 {}
+entity_seed b6 36
+velocity b6 0 0.5 0
+tick 3
+dump xentities entities events
