@@ -20,7 +20,7 @@
 //!
 //! # What the replay does
 //! * Level: `ServerLevel::detached` + the vanilla registries, flat world (bedrock -64, dirt -63..-62, grass -61) filled for
-//!   `x,z in [-64, 64]`; `level void` leaves it empty (the chunks exist). `level normal` is not supported.
+//!   `x,z in [-64, 143]` (chunks -4..8, where the scenarios put their lanes); `level void` leaves it empty (the chunks exist). `level normal` is not supported.
 //! * Time: one `tick` = `HarnessEnv`-less entity pass of `ServerLevel.tick`'s entity part in creation order (no range checks),
 //!   then the connection tick of the players (`doTick`; a client-authoritative player is snapped back like `tickPlayer` does). Each tick
 //!   updates the sky and advances the game time first. Block ticks / fluid flow / random ticks / weather / chunk loading do NOT run
@@ -117,6 +117,9 @@ pub fn run_scenario_text(label: &str, text: &str) -> Vec<String> {
 }
 
 // ------------------------------------------------------------------------------------------------ small helpers
+
+/// Last block (x and z) of the flat world the harness fills: vanilla's flat generator is unbounded, scenarios put lanes up to z=140.
+const FLAT_MAX: i32 = 143;
 
 /// The driver's `hash(String)` (Java `char` = UTF-16 unit).
 pub fn java_hash(s: &str) -> i64 {
@@ -400,9 +403,9 @@ impl Harness {
                 Block::DIRT.default_state(),
                 Block::GRASS_BLOCK.default_state(),
             );
-            self.fill([-64, -64, -64], [64, -64, 64], bedrock);
-            self.fill([-64, -63, -64], [64, -62, 64], dirt);
-            self.fill([-64, -61, -64], [64, -61, 64], grass);
+            self.fill([-64, -64, -64], [FLAT_MAX, -64, FLAT_MAX], bedrock);
+            self.fill([-64, -63, -64], [FLAT_MAX, -62, FLAT_MAX], dirt);
+            self.fill([-64, -61, -64], [FLAT_MAX, -61, FLAT_MAX], grass);
         } else {
             // the oracle preloads the chunks around the origin even when it leaves them empty: an entity in a chunk that was never
             // created is not accessible. Touching one block per chunk creates it.

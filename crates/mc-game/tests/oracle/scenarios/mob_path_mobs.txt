@@ -1,0 +1,115 @@
+# Path queries of the real classes: one row per mob (z = 8 + 12k), the same course on every row: a wall at x=6, a 3 wide river at x=12..14, a one block step at x=20, a fence at x=24.
+# Targets: behind the wall, behind the river, on top of the step, behind the fence. PATH/PN lines = nodes with types/maluses; the mob itself is dumped at the end.
+level flat
+difficulty normal
+fill -4 -60 -4 60 -40 140 minecraft:air
+note row 0 husk
+fill 6 -60 4 6 -58 12 minecraft:stone
+fill 12 -61 4 14 -61 12 minecraft:water[level=0]
+fill 20 -60 4 20 -60 12 minecraft:stone
+fill 24 -60 4 24 -60 12 minecraft:oak_fence
+mobspawn Husk minecraft:husk 0.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note row 1 pig
+fill 6 -60 16 6 -58 24 minecraft:stone
+fill 12 -61 16 14 -61 24 minecraft:water[level=0]
+fill 20 -60 16 20 -60 24 minecraft:stone
+fill 24 -60 16 24 -60 24 minecraft:oak_fence
+mobspawn Pig minecraft:pig 0.5 -60 20.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note row 2 sheep
+fill 6 -60 28 6 -58 36 minecraft:stone
+fill 12 -61 28 14 -61 36 minecraft:water[level=0]
+fill 20 -60 28 20 -60 36 minecraft:stone
+fill 24 -60 28 24 -60 36 minecraft:oak_fence
+mobspawn Sheep minecraft:sheep 0.5 -60 32.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note row 3 villager
+fill 6 -60 40 6 -58 48 minecraft:stone
+fill 12 -61 40 14 -61 48 minecraft:water[level=0]
+fill 20 -60 40 20 -60 48 minecraft:stone
+fill 24 -60 40 24 -60 48 minecraft:oak_fence
+mobspawn Villager minecraft:villager 0.5 -60 44.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note row 4 spider
+fill 6 -60 52 6 -58 60 minecraft:stone
+fill 12 -61 52 14 -61 60 minecraft:water[level=0]
+fill 20 -60 52 20 -60 60 minecraft:stone
+fill 24 -60 52 24 -60 60 minecraft:oak_fence
+mobspawn Spider minecraft:spider 0.5 -60 56.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note row 5 strider
+fill 6 -60 64 6 -58 72 minecraft:stone
+fill 12 -61 64 14 -61 72 minecraft:water[level=0]
+fill 20 -60 64 20 -60 72 minecraft:stone
+fill 24 -60 64 24 -60 72 minecraft:oak_fence
+mobspawn Strider minecraft:strider 0.5 -60 68.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note row 6 creaking
+fill 6 -60 76 6 -58 84 minecraft:stone
+fill 12 -61 76 14 -61 84 minecraft:water[level=0]
+fill 20 -60 76 20 -60 84 minecraft:stone
+fill 24 -60 76 24 -60 84 minecraft:oak_fence
+mobspawn Creaking minecraft:creaking 0.5 -60 80.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note row 7 warden
+fill 6 -60 88 6 -58 96 minecraft:stone
+fill 12 -61 88 14 -61 96 minecraft:water[level=0]
+fill 20 -60 88 20 -60 96 minecraft:stone
+fill 24 -60 88 24 -60 96 minecraft:oak_fence
+mobspawn Warden minecraft:warden 0.5 -60 92.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note row 8 frog
+fill 6 -60 100 6 -58 108 minecraft:stone
+fill 12 -61 100 14 -61 108 minecraft:water[level=0]
+fill 20 -60 100 20 -60 108 minecraft:stone
+fill 24 -60 100 24 -60 108 minecraft:oak_fence
+mobspawn Frog minecraft:frog 0.5 -60 104.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+tick 4
+set Husk on_ground true
+set Pig on_ground true
+set Sheep on_ground true
+set Villager on_ground true
+set Spider on_ground true
+set Strider on_ground true
+set Creaking on_ground true
+set Warden on_ground true
+set Frog on_ground true
+note row 0 husk
+path_query Husk 9.5 -60 8.5
+path_query Husk 17.5 -60 8.5
+path_query Husk 20.5 -59 8.5
+path_query Husk 27.5 -60 8.5
+note row 1 pig
+path_query Pig 9.5 -60 20.5
+path_query Pig 17.5 -60 20.5
+path_query Pig 20.5 -59 20.5
+path_query Pig 27.5 -60 20.5
+note row 2 sheep
+path_query Sheep 9.5 -60 32.5
+path_query Sheep 17.5 -60 32.5
+path_query Sheep 20.5 -59 32.5
+path_query Sheep 27.5 -60 32.5
+note row 3 villager
+path_query Villager 9.5 -60 44.5
+path_query Villager 17.5 -60 44.5
+path_query Villager 20.5 -59 44.5
+path_query Villager 27.5 -60 44.5
+note row 4 spider
+path_query Spider 9.5 -60 56.5
+path_query Spider 17.5 -60 56.5
+path_query Spider 20.5 -59 56.5
+path_query Spider 27.5 -60 56.5
+note row 5 strider
+path_query Strider 9.5 -60 68.5
+path_query Strider 17.5 -60 68.5
+path_query Strider 20.5 -59 68.5
+path_query Strider 27.5 -60 68.5
+note row 6 creaking
+path_query Creaking 9.5 -60 80.5
+path_query Creaking 17.5 -60 80.5
+path_query Creaking 20.5 -59 80.5
+path_query Creaking 27.5 -60 80.5
+note row 7 warden
+path_query Warden 9.5 -60 92.5
+path_query Warden 17.5 -60 92.5
+path_query Warden 20.5 -59 92.5
+path_query Warden 27.5 -60 92.5
+note row 8 frog
+path_query Frog 9.5 -60 104.5
+path_query Frog 17.5 -60 104.5
+path_query Frog 20.5 -59 104.5
+path_query Frog 27.5 -60 104.5
+dump mob:Husk mob:Pig mob:Sheep mob:Villager mob:Spider mob:Strider mob:Creaking mob:Warden mob:Frog

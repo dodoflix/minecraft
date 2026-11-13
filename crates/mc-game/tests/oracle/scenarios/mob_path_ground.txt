@@ -40,7 +40,11 @@ block 5 -60 100 minecraft:oak_door[facing=east,half=lower,open=false,hinge=left]
 block 5 -59 100 minecraft:oak_door[facing=east,half=upper,open=false,hinge=left]
 mobspawn M10 minecraft:villager 0.5 -60 100.5 0 0 {NoAI:1b,PersistenceRequired:1b}
 note lane 11 hazards
-fill 4 -60 106 6 -60 114 minecraft:cactus
+fill 5 -61 107 5 -61 113 minecraft:sand
+block 5 -60 107 minecraft:cactus
+block 5 -60 109 minecraft:cactus
+block 5 -60 111 minecraft:cactus
+block 5 -60 113 minecraft:cactus
 block 8 -60 110 minecraft:fire
 block 8 -60 108 minecraft:magma_block
 mobspawn M11 minecraft:zombie 0.5 -60 110.5 0 0 {NoAI:1b,PersistenceRequired:1b}

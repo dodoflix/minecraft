@@ -135,7 +135,6 @@ fn mob_command_arms_run() {
 
 /// Path goldens of the mobs.
 #[test]
-#[ignore = "deviation: a cow finds no walkable path across the river (#8)"]
 fn mob_path_ground() {
     run_scenario_test("mob_path_ground");
 }
@@ -152,4 +151,47 @@ fn mob_piglin_barter() {
 #[ignore = "deviation: from tick 3 vanilla's `target=` shows the brain's attack target (Hoglin.getTarget reads ATTACK_TARGET), ours stays empty"]
 fn mob_hoglin_vs_player() {
     run_scenario_test("mob_hoglin_vs_player");
+}
+
+/// Wall climber navigation (spider, cave spider).
+#[test]
+fn mob_path_climb() {
+    run_scenario_test("mob_path_climb");
+}
+
+/// Flying navigation: the parrot lanes; bees and allays have no class yet.
+#[test]
+fn mob_path_fly() {
+    run_scenario_test_with(
+        "mob_path_fly",
+        &Options {
+            ignore_containing: vec!["Bee", "Allay"],
+            ..Default::default()
+        },
+    );
+}
+
+/// Path queries of the real ground classes. The villager's brain activity right after spawning is `rest` in vanilla and `idle` here,
+/// so `acts` is not compared.
+#[test]
+fn mob_path_mobs() {
+    run_scenario_test_with(
+        "mob_path_mobs",
+        &Options {
+            ignore_fields: vec!["acts"],
+            ..Default::default()
+        },
+    );
+}
+
+/// Water and amphibious navigation in a pool.
+#[test]
+fn mob_path_water() {
+    run_scenario_test("mob_path_water");
+}
+
+/// A zombie and a cow follow a path set with `nav`: move, jump and look controls for 80 ticks.
+#[test]
+fn mob_nav_follow() {
+    run_scenario_test("mob_nav_follow");
 }

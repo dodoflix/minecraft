@@ -177,18 +177,19 @@ PN M10 8 pos=8,-60,100 type=WALKABLE malus=0.0 walked=8.0
 PN M10 9 pos=9,-60,100 type=WALKABLE malus=0.0 walked=9.0
 # lane 11 hazards
 PATHQ M11 10.5,-60.0,110.5 found=true
-PATH M11 next=0 count=11 reached=1 target=10,-60,110 dist=1.0
+PATH M11 next=0 count=12 reached=1 target=10,-60,110 dist=1.0
 PN M11 0 pos=0,-60,110 type=WALKABLE malus=0.0 walked=0.0
-PN M11 1 pos=1,-60,110 type=WALKABLE malus=0.0 walked=1.0
-PN M11 2 pos=2,-60,110 type=WALKABLE malus=0.0 walked=2.0
-PN M11 3 pos=3,-60,110 type=WALKABLE malus=0.0 walked=3.0
-PN M11 4 pos=4,-60,110 type=WALKABLE malus=0.0 walked=4.0
-PN M11 5 pos=5,-60,110 type=WALKABLE malus=0.0 walked=5.0
-PN M11 6 pos=6,-60,111 type=WALKABLE malus=0.0 walked=7.0
-PN M11 7 pos=7,-60,112 type=WALKABLE malus=0.0 walked=8.414213
-PN M11 8 pos=8,-60,112 type=WALKABLE malus=0.0 walked=9.414213
-PN M11 9 pos=9,-60,112 type=WALKABLE malus=0.0 walked=10.414213
-PN M11 10 pos=10,-60,111 type=WALKABLE malus=0.0 walked=11.828426
+PN M11 1 pos=1,-60,111 type=WALKABLE malus=0.0 walked=6.0
+PN M11 2 pos=2,-60,112 type=WALKABLE malus=0.0 walked=7.4142137
+PN M11 3 pos=3,-60,113 type=WALKABLE malus=0.0 walked=8.828427
+PN M11 4 pos=3,-60,114 type=WALKABLE malus=0.0 walked=11.24264
+PN M11 5 pos=4,-60,115 type=WALKABLE malus=0.0 walked=12.656853
+PN M11 6 pos=5,-60,115 type=WALKABLE malus=0.0 walked=13.656853
+PN M11 7 pos=6,-60,115 type=WALKABLE malus=0.0 walked=14.656853
+PN M11 8 pos=7,-60,114 type=WALKABLE malus=0.0 walked=16.071066
+PN M11 9 pos=8,-60,113 type=WALKABLE malus=0.0 walked=17.48528
+PN M11 10 pos=9,-60,112 type=WALKABLE malus=0.0 walked=18.899492
+PN M11 11 pos=10,-60,111 type=WALKABLE malus=0.0 walked=20.313705
 # lane 12 pit
 PATHQ M12 10.5,-60.0,120.5 found=true
 PATH M12 next=0 count=12 reached=1 target=10,-60,120 dist=1.0

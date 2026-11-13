@@ -1,0 +1,477 @@
+# row 0 husk
+# row 1 pig
+# row 2 sheep
+# row 3 villager
+# row 4 spider
+# row 5 strider
+# row 6 creaking
+# row 7 warden
+# row 8 frog
+# row 0 husk
+PATHQ Husk 9.5,-60.0,8.5 found=true
+PATH Husk next=0 count=12 reached=1 target=9,-60,8 dist=1.0
+PN Husk 0 pos=0,-60,8 type=WALKABLE malus=0.0 walked=0.0
+PN Husk 1 pos=1,-60,9 type=WALKABLE malus=0.0 walked=10.0
+PN Husk 2 pos=2,-60,10 type=WALKABLE malus=0.0 walked=11.414213
+PN Husk 3 pos=3,-60,11 type=WALKABLE malus=0.0 walked=12.828426
+PN Husk 4 pos=4,-60,12 type=WALKABLE malus=0.0 walked=14.24264
+PN Husk 5 pos=5,-60,13 type=WALKABLE malus=0.0 walked=15.656853
+PN Husk 6 pos=6,-60,13 type=WALKABLE malus=0.0 walked=16.656853
+PN Husk 7 pos=7,-60,13 type=WALKABLE malus=0.0 walked=17.656853
+PN Husk 8 pos=8,-60,12 type=WALKABLE malus=0.0 walked=19.071066
+PN Husk 9 pos=8,-60,11 type=WALKABLE malus=0.0 walked=20.071066
+PN Husk 10 pos=8,-60,10 type=WALKABLE malus=0.0 walked=21.071066
+PN Husk 11 pos=9,-60,9 type=WALKABLE malus=0.0 walked=22.48528
+PATHQ Husk 17.5,-60.0,8.5 found=true
+PATH Husk next=0 count=15 reached=0 target=17,-60,8 dist=4.0
+PN Husk 0 pos=0,-60,8 type=WALKABLE malus=0.0 walked=0.0
+PN Husk 1 pos=1,-60,7 type=WALKABLE malus=0.0 walked=10.0
+PN Husk 2 pos=2,-60,6 type=WALKABLE malus=0.0 walked=11.414213
+PN Husk 3 pos=3,-60,5 type=WALKABLE malus=0.0 walked=12.828426
+PN Husk 4 pos=4,-60,4 type=WALKABLE malus=0.0 walked=14.24264
+PN Husk 5 pos=5,-60,3 type=WALKABLE malus=0.0 walked=15.656853
+PN Husk 6 pos=6,-60,3 type=WALKABLE malus=0.0 walked=16.656853
+PN Husk 7 pos=7,-60,3 type=WALKABLE malus=0.0 walked=17.656853
+PN Husk 8 pos=8,-60,4 type=WALKABLE malus=0.0 walked=19.071066
+PN Husk 9 pos=9,-60,5 type=WALKABLE malus=0.0 walked=20.48528
+PN Husk 10 pos=10,-60,6 type=WALKABLE malus=0.0 walked=21.899492
+PN Husk 11 pos=11,-60,7 type=WATER_BORDER malus=8.0 walked=25.313705
+PN Husk 12 pos=12,-61,8 type=WATER malus=8.0 walked=29.045755
+PN Husk 13 pos=13,-61,8 type=WATER malus=8.0 walked=31.459969
+PN Husk 14 pos=14,-61,8 type=WATER malus=8.0 walked=33.874184
+PATHQ Husk 20.5,-59.0,8.5 found=true
+PATH Husk next=0 count=15 reached=0 target=20,-59,8 dist=9.0
+PN Husk 0 pos=0,-60,8 type=WALKABLE malus=0.0 walked=0.0
+PN Husk 1 pos=1,-60,7 type=WALKABLE malus=0.0 walked=10.0
+PN Husk 2 pos=2,-60,6 type=WALKABLE malus=0.0 walked=11.414213
+PN Husk 3 pos=3,-60,5 type=WALKABLE malus=0.0 walked=12.828426
+PN Husk 4 pos=4,-60,4 type=WALKABLE malus=0.0 walked=14.24264
+PN Husk 5 pos=5,-60,3 type=WALKABLE malus=0.0 walked=15.656853
+PN Husk 6 pos=6,-60,3 type=WALKABLE malus=0.0 walked=16.656853
+PN Husk 7 pos=7,-60,3 type=WALKABLE malus=0.0 walked=17.656853
+PN Husk 8 pos=8,-60,4 type=WALKABLE malus=0.0 walked=19.071066
+PN Husk 9 pos=9,-60,5 type=WALKABLE malus=0.0 walked=20.48528
+PN Husk 10 pos=10,-60,5 type=WALKABLE malus=0.0 walked=21.48528
+PN Husk 11 pos=11,-60,5 type=WATER_BORDER malus=8.0 walked=25.313705
+PN Husk 12 pos=12,-61,6 type=WATER malus=8.0 walked=29.045755
+PN Husk 13 pos=13,-61,6 type=WATER malus=8.0 walked=31.459969
+PN Husk 14 pos=14,-61,7 type=WATER malus=8.0 walked=34.874184
+PATHQ Husk 27.5,-60.0,8.5 found=true
+PATH Husk next=0 count=21 reached=0 target=27,-60,8 dist=10.0
+PN Husk 0 pos=0,-60,8 type=WALKABLE malus=0.0 walked=0.0
+PN Husk 1 pos=1,-60,7 type=WALKABLE malus=0.0 walked=10.0
+PN Husk 2 pos=2,-60,6 type=WALKABLE malus=0.0 walked=11.414213
+PN Husk 3 pos=3,-60,5 type=WALKABLE malus=0.0 walked=12.828426
+PN Husk 4 pos=4,-60,4 type=WALKABLE malus=0.0 walked=14.24264
+PN Husk 5 pos=5,-60,3 type=WALKABLE malus=0.0 walked=15.656853
+PN Husk 6 pos=6,-60,3 type=WALKABLE malus=0.0 walked=16.656853
+PN Husk 7 pos=7,-60,3 type=WALKABLE malus=0.0 walked=17.656853
+PN Husk 8 pos=8,-60,3 type=WALKABLE malus=0.0 walked=18.656853
+PN Husk 9 pos=9,-60,3 type=WALKABLE malus=0.0 walked=19.656853
+PN Husk 10 pos=10,-60,3 type=WALKABLE malus=0.0 walked=20.656853
+PN Husk 11 pos=11,-60,2 type=WALKABLE malus=0.0 walked=22.071066
+PN Husk 12 pos=12,-60,2 type=WALKABLE malus=0.0 walked=23.071066
+PN Husk 13 pos=13,-60,2 type=WALKABLE malus=0.0 walked=24.071066
+PN Husk 14 pos=14,-60,2 type=WALKABLE malus=0.0 walked=25.071066
+PN Husk 15 pos=15,-60,2 type=WALKABLE malus=0.0 walked=26.071066
+PN Husk 16 pos=16,-60,3 type=WALKABLE malus=0.0 walked=27.48528
+PN Husk 17 pos=17,-60,4 type=WALKABLE malus=0.0 walked=28.899492
+PN Husk 18 pos=18,-60,5 type=WALKABLE malus=0.0 walked=30.313705
+PN Husk 19 pos=19,-60,6 type=WALKABLE malus=0.0 walked=31.727919
+PN Husk 20 pos=20,-59,6 type=WALKABLE malus=0.0 walked=33.14213
+# row 1 pig
+PATHQ Pig 9.5,-60.0,20.5 found=true
+PATH Pig next=0 count=6 reached=0 target=9,-60,20 dist=4.0
+PN Pig 0 pos=0,-60,20 type=WALKABLE malus=0.0 walked=0.0
+PN Pig 1 pos=1,-60,20 type=WALKABLE malus=0.0 walked=1.0
+PN Pig 2 pos=2,-60,20 type=WALKABLE malus=0.0 walked=2.0
+PN Pig 3 pos=3,-60,20 type=WALKABLE malus=0.0 walked=3.0
+PN Pig 4 pos=4,-60,20 type=WALKABLE malus=0.0 walked=4.0
+PN Pig 5 pos=5,-60,20 type=WALKABLE malus=0.0 walked=5.0
+PATHQ Pig 17.5,-60.0,20.5 found=true
+PATH Pig next=0 count=6 reached=0 target=17,-60,20 dist=12.0
+PN Pig 0 pos=0,-60,20 type=WALKABLE malus=0.0 walked=0.0
+PN Pig 1 pos=1,-60,20 type=WALKABLE malus=0.0 walked=1.0
+PN Pig 2 pos=2,-60,20 type=WALKABLE malus=0.0 walked=2.0
+PN Pig 3 pos=3,-60,20 type=WALKABLE malus=0.0 walked=3.0
+PN Pig 4 pos=4,-60,20 type=WALKABLE malus=0.0 walked=4.0
+PN Pig 5 pos=5,-60,20 type=WALKABLE malus=0.0 walked=5.0
+PATHQ Pig 20.5,-59.0,20.5 found=true
+PATH Pig next=0 count=6 reached=0 target=20,-59,20 dist=16.0
+PN Pig 0 pos=0,-60,20 type=WALKABLE malus=0.0 walked=0.0
+PN Pig 1 pos=1,-60,20 type=WALKABLE malus=0.0 walked=1.0
+PN Pig 2 pos=2,-60,20 type=WALKABLE malus=0.0 walked=2.0
+PN Pig 3 pos=3,-60,20 type=WALKABLE malus=0.0 walked=3.0
+PN Pig 4 pos=4,-60,20 type=WALKABLE malus=0.0 walked=4.0
+PN Pig 5 pos=5,-60,20 type=WALKABLE malus=0.0 walked=5.0
+PATHQ Pig 27.5,-60.0,20.5 found=true
+PATH Pig next=0 count=6 reached=0 target=27,-60,20 dist=22.0
+PN Pig 0 pos=0,-60,20 type=WALKABLE malus=0.0 walked=0.0
+PN Pig 1 pos=1,-60,20 type=WALKABLE malus=0.0 walked=1.0
+PN Pig 2 pos=2,-60,20 type=WALKABLE malus=0.0 walked=2.0
+PN Pig 3 pos=3,-60,20 type=WALKABLE malus=0.0 walked=3.0
+PN Pig 4 pos=4,-60,20 type=WALKABLE malus=0.0 walked=4.0
+PN Pig 5 pos=5,-60,20 type=WALKABLE malus=0.0 walked=5.0
+# row 2 sheep
+PATHQ Sheep 9.5,-60.0,32.5 found=true
+PATH Sheep next=0 count=6 reached=0 target=9,-60,32 dist=4.0
+PN Sheep 0 pos=0,-60,32 type=WALKABLE malus=0.0 walked=0.0
+PN Sheep 1 pos=1,-60,32 type=WALKABLE malus=0.0 walked=1.0
+PN Sheep 2 pos=2,-60,32 type=WALKABLE malus=0.0 walked=2.0
+PN Sheep 3 pos=3,-60,32 type=WALKABLE malus=0.0 walked=3.0
+PN Sheep 4 pos=4,-60,32 type=WALKABLE malus=0.0 walked=4.0
+PN Sheep 5 pos=5,-60,32 type=WALKABLE malus=0.0 walked=5.0
+PATHQ Sheep 17.5,-60.0,32.5 found=true
+PATH Sheep next=0 count=6 reached=0 target=17,-60,32 dist=12.0
+PN Sheep 0 pos=0,-60,32 type=WALKABLE malus=0.0 walked=0.0
+PN Sheep 1 pos=1,-60,32 type=WALKABLE malus=0.0 walked=1.0
+PN Sheep 2 pos=2,-60,32 type=WALKABLE malus=0.0 walked=2.0
+PN Sheep 3 pos=3,-60,32 type=WALKABLE malus=0.0 walked=3.0
+PN Sheep 4 pos=4,-60,32 type=WALKABLE malus=0.0 walked=4.0
+PN Sheep 5 pos=5,-60,32 type=WALKABLE malus=0.0 walked=5.0
+PATHQ Sheep 20.5,-59.0,32.5 found=true
+PATH Sheep next=0 count=6 reached=0 target=20,-59,32 dist=16.0
+PN Sheep 0 pos=0,-60,32 type=WALKABLE malus=0.0 walked=0.0
+PN Sheep 1 pos=1,-60,32 type=WALKABLE malus=0.0 walked=1.0
+PN Sheep 2 pos=2,-60,32 type=WALKABLE malus=0.0 walked=2.0
+PN Sheep 3 pos=3,-60,32 type=WALKABLE malus=0.0 walked=3.0
+PN Sheep 4 pos=4,-60,32 type=WALKABLE malus=0.0 walked=4.0
+PN Sheep 5 pos=5,-60,32 type=WALKABLE malus=0.0 walked=5.0
+PATHQ Sheep 27.5,-60.0,32.5 found=true
+PATH Sheep next=0 count=6 reached=0 target=27,-60,32 dist=22.0
+PN Sheep 0 pos=0,-60,32 type=WALKABLE malus=0.0 walked=0.0
+PN Sheep 1 pos=1,-60,32 type=WALKABLE malus=0.0 walked=1.0
+PN Sheep 2 pos=2,-60,32 type=WALKABLE malus=0.0 walked=2.0
+PN Sheep 3 pos=3,-60,32 type=WALKABLE malus=0.0 walked=3.0
+PN Sheep 4 pos=4,-60,32 type=WALKABLE malus=0.0 walked=4.0
+PN Sheep 5 pos=5,-60,32 type=WALKABLE malus=0.0 walked=5.0
+# row 3 villager
+PATHQ Villager 9.5,-60.0,44.5 found=true
+PATH Villager next=0 count=12 reached=1 target=9,-60,44 dist=1.0
+PN Villager 0 pos=0,-60,44 type=WALKABLE malus=0.0 walked=0.0
+PN Villager 1 pos=1,-60,45 type=WALKABLE malus=0.0 walked=10.0
+PN Villager 2 pos=2,-60,46 type=WALKABLE malus=0.0 walked=11.414213
+PN Villager 3 pos=3,-60,47 type=WALKABLE malus=0.0 walked=12.828426
+PN Villager 4 pos=4,-60,48 type=WALKABLE malus=0.0 walked=14.24264
+PN Villager 5 pos=5,-60,49 type=WALKABLE malus=0.0 walked=15.656853
+PN Villager 6 pos=6,-60,49 type=WALKABLE malus=0.0 walked=16.656853
+PN Villager 7 pos=7,-60,49 type=WALKABLE malus=0.0 walked=17.656853
+PN Villager 8 pos=8,-60,48 type=WALKABLE malus=0.0 walked=19.071066
+PN Villager 9 pos=8,-60,47 type=WALKABLE malus=0.0 walked=20.071066
+PN Villager 10 pos=8,-60,46 type=WALKABLE malus=0.0 walked=21.071066
+PN Villager 11 pos=9,-60,45 type=WALKABLE malus=0.0 walked=22.48528
+PATHQ Villager 17.5,-60.0,44.5 found=true
+PATH Villager next=0 count=21 reached=1 target=17,-60,44 dist=1.0
+PN Villager 0 pos=0,-60,44 type=WALKABLE malus=0.0 walked=0.0
+PN Villager 1 pos=1,-60,45 type=WALKABLE malus=0.0 walked=10.0
+PN Villager 2 pos=2,-60,46 type=WALKABLE malus=0.0 walked=11.414213
+PN Villager 3 pos=3,-60,47 type=WALKABLE malus=0.0 walked=12.828426
+PN Villager 4 pos=4,-60,48 type=WALKABLE malus=0.0 walked=14.24264
+PN Villager 5 pos=5,-60,49 type=WALKABLE malus=0.0 walked=15.656853
+PN Villager 6 pos=6,-60,49 type=WALKABLE malus=0.0 walked=16.656853
+PN Villager 7 pos=7,-60,49 type=WALKABLE malus=0.0 walked=17.656853
+PN Villager 8 pos=8,-60,49 type=WALKABLE malus=0.0 walked=25.727919
+PN Villager 9 pos=9,-60,49 type=WALKABLE malus=0.0 walked=26.727919
+PN Villager 10 pos=10,-60,49 type=WALKABLE malus=0.0 walked=27.727919
+PN Villager 11 pos=11,-60,50 type=WALKABLE malus=0.0 walked=29.142132
+PN Villager 12 pos=12,-60,50 type=WALKABLE malus=0.0 walked=30.142132
+PN Villager 13 pos=13,-60,50 type=WALKABLE malus=0.0 walked=31.142132
+PN Villager 14 pos=14,-60,50 type=WALKABLE malus=0.0 walked=32.14213
+PN Villager 15 pos=15,-60,50 type=WALKABLE malus=0.0 walked=33.14213
+PN Villager 16 pos=16,-60,49 type=WALKABLE malus=0.0 walked=34.556347
+PN Villager 17 pos=16,-60,48 type=WALKABLE malus=0.0 walked=35.556347
+PN Villager 18 pos=16,-60,47 type=WALKABLE malus=0.0 walked=36.556347
+PN Villager 19 pos=16,-60,46 type=WALKABLE malus=0.0 walked=37.556347
+PN Villager 20 pos=17,-60,45 type=WALKABLE malus=0.0 walked=38.970562
+PATHQ Villager 20.5,-59.0,44.5 found=true
+PATH Villager next=0 count=22 reached=1 target=20,-59,44 dist=1.0
+PN Villager 0 pos=0,-60,44 type=WALKABLE malus=0.0 walked=0.0
+PN Villager 1 pos=1,-60,43 type=WALKABLE malus=0.0 walked=10.0
+PN Villager 2 pos=2,-60,42 type=WALKABLE malus=0.0 walked=11.414213
+PN Villager 3 pos=3,-60,41 type=WALKABLE malus=0.0 walked=12.828426
+PN Villager 4 pos=4,-60,40 type=WALKABLE malus=0.0 walked=14.24264
+PN Villager 5 pos=5,-60,39 type=WALKABLE malus=0.0 walked=15.656853
+PN Villager 6 pos=6,-60,39 type=WALKABLE malus=0.0 walked=16.656853
+PN Villager 7 pos=7,-60,39 type=WALKABLE malus=0.0 walked=17.656853
+PN Villager 8 pos=8,-60,39 type=WALKABLE malus=0.0 walked=24.313705
+PN Villager 9 pos=9,-60,39 type=WALKABLE malus=0.0 walked=25.313705
+PN Villager 10 pos=10,-60,39 type=WALKABLE malus=0.0 walked=26.313705
+PN Villager 11 pos=11,-60,38 type=WALKABLE malus=0.0 walked=27.727919
+PN Villager 12 pos=12,-60,38 type=WALKABLE malus=0.0 walked=28.727919
+PN Villager 13 pos=13,-60,38 type=WALKABLE malus=0.0 walked=29.727919
+PN Villager 14 pos=14,-60,38 type=WALKABLE malus=0.0 walked=30.727919
+PN Villager 15 pos=15,-60,38 type=WALKABLE malus=0.0 walked=31.727919
+PN Villager 16 pos=16,-60,39 type=WALKABLE malus=0.0 walked=33.14213
+PN Villager 17 pos=17,-60,40 type=WALKABLE malus=0.0 walked=34.556347
+PN Villager 18 pos=18,-60,41 type=WALKABLE malus=0.0 walked=35.970562
+PN Villager 19 pos=19,-60,42 type=WALKABLE malus=0.0 walked=37.384777
+PN Villager 20 pos=19,-60,43 type=WALKABLE malus=0.0 walked=38.384777
+PN Villager 21 pos=20,-59,43 type=WALKABLE malus=0.0 walked=39.798992
+PATHQ Villager 27.5,-60.0,44.5 found=true
+PATH Villager next=0 count=30 reached=1 target=27,-60,44 dist=1.0
+PN Villager 0 pos=0,-60,44 type=WALKABLE malus=0.0 walked=0.0
+PN Villager 1 pos=1,-60,45 type=WALKABLE malus=0.0 walked=10.0
+PN Villager 2 pos=2,-60,46 type=WALKABLE malus=0.0 walked=11.414213
+PN Villager 3 pos=3,-60,47 type=WALKABLE malus=0.0 walked=12.828426
+PN Villager 4 pos=4,-60,48 type=WALKABLE malus=0.0 walked=14.24264
+PN Villager 5 pos=5,-60,49 type=WALKABLE malus=0.0 walked=15.656853
+PN Villager 6 pos=6,-60,49 type=WALKABLE malus=0.0 walked=16.656853
+PN Villager 7 pos=7,-60,49 type=WALKABLE malus=0.0 walked=17.656853
+PN Villager 8 pos=8,-60,49 type=WALKABLE malus=0.0 walked=18.656853
+PN Villager 9 pos=9,-60,49 type=WALKABLE malus=0.0 walked=19.656853
+PN Villager 10 pos=10,-60,49 type=WALKABLE malus=0.0 walked=20.656853
+PN Villager 11 pos=11,-60,50 type=WALKABLE malus=0.0 walked=22.071066
+PN Villager 12 pos=12,-60,50 type=WALKABLE malus=0.0 walked=23.071066
+PN Villager 13 pos=13,-60,50 type=WALKABLE malus=0.0 walked=24.071066
+PN Villager 14 pos=14,-60,50 type=WALKABLE malus=0.0 walked=25.071066
+PN Villager 15 pos=15,-60,50 type=WALKABLE malus=0.0 walked=26.071066
+PN Villager 16 pos=16,-60,49 type=WALKABLE malus=0.0 walked=27.48528
+PN Villager 17 pos=17,-60,49 type=WALKABLE malus=0.0 walked=34.142136
+PN Villager 18 pos=18,-60,49 type=WALKABLE malus=0.0 walked=35.142136
+PN Villager 19 pos=19,-60,49 type=WALKABLE malus=0.0 walked=36.142136
+PN Villager 20 pos=20,-60,49 type=WALKABLE malus=0.0 walked=37.142136
+PN Villager 21 pos=21,-60,49 type=WALKABLE malus=0.0 walked=38.142136
+PN Villager 22 pos=22,-60,49 type=WALKABLE malus=0.0 walked=39.142136
+PN Villager 23 pos=23,-60,49 type=WALKABLE malus=0.0 walked=40.142136
+PN Villager 24 pos=24,-60,49 type=WALKABLE malus=0.0 walked=41.142136
+PN Villager 25 pos=25,-60,49 type=WALKABLE malus=0.0 walked=42.142136
+PN Villager 26 pos=26,-60,48 type=WALKABLE malus=0.0 walked=43.55635
+PN Villager 27 pos=26,-60,47 type=WALKABLE malus=0.0 walked=44.55635
+PN Villager 28 pos=26,-60,46 type=WALKABLE malus=0.0 walked=45.55635
+PN Villager 29 pos=27,-60,45 type=WALKABLE malus=0.0 walked=46.970566
+# row 4 spider
+PATHQ Spider 9.5,-60.0,56.5 found=true
+PATH Spider next=0 count=5 reached=0 target=9,-60,56 dist=5.0
+PN Spider 0 pos=0,-60,56 type=WALKABLE malus=0.0 walked=0.0
+PN Spider 1 pos=1,-60,56 type=WALKABLE malus=0.0 walked=1.0
+PN Spider 2 pos=2,-60,56 type=WALKABLE malus=0.0 walked=2.0
+PN Spider 3 pos=3,-60,56 type=WALKABLE malus=0.0 walked=3.0
+PN Spider 4 pos=4,-60,56 type=WALKABLE malus=0.0 walked=4.0
+PATHQ Spider 17.5,-60.0,56.5 found=true
+PATH Spider next=0 count=5 reached=0 target=17,-60,56 dist=13.0
+PN Spider 0 pos=0,-60,56 type=WALKABLE malus=0.0 walked=0.0
+PN Spider 1 pos=1,-60,56 type=WALKABLE malus=0.0 walked=1.0
+PN Spider 2 pos=2,-60,56 type=WALKABLE malus=0.0 walked=2.0
+PN Spider 3 pos=3,-60,56 type=WALKABLE malus=0.0 walked=3.0
+PN Spider 4 pos=4,-60,56 type=WALKABLE malus=0.0 walked=4.0
+PATHQ Spider 20.5,-59.0,56.5 found=true
+PATH Spider next=0 count=7 reached=0 target=20,-59,56 dist=21.0
+PN Spider 0 pos=0,-60,56 type=WALKABLE malus=0.0 walked=0.0
+PN Spider 1 pos=1,-60,57 type=WALKABLE malus=0.0 walked=8.0
+PN Spider 2 pos=2,-60,58 type=WALKABLE malus=0.0 walked=9.414213
+PN Spider 3 pos=3,-60,59 type=WALKABLE malus=0.0 walked=10.828426
+PN Spider 4 pos=4,-60,60 type=WALKABLE malus=0.0 walked=12.24264
+PN Spider 5 pos=4,-60,61 type=WALKABLE malus=0.0 walked=14.656853
+PN Spider 6 pos=5,-60,61 type=WALKABLE malus=0.0 walked=15.656853
+PATHQ Spider 27.5,-60.0,56.5 found=true
+PATH Spider next=0 count=7 reached=0 target=27,-60,56 dist=27.0
+PN Spider 0 pos=0,-60,56 type=WALKABLE malus=0.0 walked=0.0
+PN Spider 1 pos=1,-60,57 type=WALKABLE malus=0.0 walked=8.0
+PN Spider 2 pos=2,-60,58 type=WALKABLE malus=0.0 walked=9.414213
+PN Spider 3 pos=3,-60,59 type=WALKABLE malus=0.0 walked=10.828426
+PN Spider 4 pos=4,-60,60 type=WALKABLE malus=0.0 walked=12.24264
+PN Spider 5 pos=4,-60,61 type=WALKABLE malus=0.0 walked=14.656853
+PN Spider 6 pos=5,-60,61 type=WALKABLE malus=0.0 walked=15.656853
+# row 5 strider
+PATHQ Strider 9.5,-60.0,68.5 found=true
+PATH Strider next=0 count=6 reached=0 target=9,-60,68 dist=4.0
+PN Strider 0 pos=0,-60,68 type=WALKABLE malus=0.0 walked=0.0
+PN Strider 1 pos=1,-60,68 type=WALKABLE malus=0.0 walked=1.0
+PN Strider 2 pos=2,-60,68 type=WALKABLE malus=0.0 walked=2.0
+PN Strider 3 pos=3,-60,68 type=WALKABLE malus=0.0 walked=3.0
+PN Strider 4 pos=4,-60,68 type=WALKABLE malus=0.0 walked=4.0
+PN Strider 5 pos=5,-60,68 type=WALKABLE malus=0.0 walked=5.0
+PATHQ Strider 17.5,-60.0,68.5 found=true
+PATH Strider next=0 count=6 reached=0 target=17,-60,68 dist=12.0
+PN Strider 0 pos=0,-60,68 type=WALKABLE malus=0.0 walked=0.0
+PN Strider 1 pos=1,-60,68 type=WALKABLE malus=0.0 walked=1.0
+PN Strider 2 pos=2,-60,68 type=WALKABLE malus=0.0 walked=2.0
+PN Strider 3 pos=3,-60,68 type=WALKABLE malus=0.0 walked=3.0
+PN Strider 4 pos=4,-60,68 type=WALKABLE malus=0.0 walked=4.0
+PN Strider 5 pos=5,-60,68 type=WALKABLE malus=0.0 walked=5.0
+PATHQ Strider 20.5,-59.0,68.5 found=true
+PATH Strider next=0 count=7 reached=0 target=20,-59,68 dist=20.0
+PN Strider 0 pos=0,-60,68 type=WALKABLE malus=0.0 walked=0.0
+PN Strider 1 pos=1,-60,67 type=WALKABLE malus=0.0 walked=10.0
+PN Strider 2 pos=2,-60,66 type=WALKABLE malus=0.0 walked=11.414213
+PN Strider 3 pos=3,-60,65 type=WALKABLE malus=0.0 walked=12.828426
+PN Strider 4 pos=4,-60,64 type=WALKABLE malus=0.0 walked=14.24264
+PN Strider 5 pos=5,-60,63 type=WALKABLE malus=0.0 walked=15.656853
+PN Strider 6 pos=6,-60,63 type=WALKABLE malus=0.0 walked=16.656853
+PATHQ Strider 27.5,-60.0,68.5 found=true
+PATH Strider next=0 count=7 reached=0 target=27,-60,68 dist=26.0
+PN Strider 0 pos=0,-60,68 type=WALKABLE malus=0.0 walked=0.0
+PN Strider 1 pos=1,-60,67 type=WALKABLE malus=0.0 walked=10.0
+PN Strider 2 pos=2,-60,66 type=WALKABLE malus=0.0 walked=11.414213
+PN Strider 3 pos=3,-60,65 type=WALKABLE malus=0.0 walked=12.828426
+PN Strider 4 pos=4,-60,64 type=WALKABLE malus=0.0 walked=14.24264
+PN Strider 5 pos=5,-60,63 type=WALKABLE malus=0.0 walked=15.656853
+PN Strider 6 pos=6,-60,63 type=WALKABLE malus=0.0 walked=16.656853
+# row 6 creaking
+PATHQ Creaking 9.5,-60.0,80.5 found=true
+PATH Creaking next=0 count=12 reached=1 target=9,-60,80 dist=1.0
+PN Creaking 0 pos=0,-60,80 type=WALKABLE malus=0.0 walked=0.0
+PN Creaking 1 pos=1,-60,81 type=WALKABLE malus=0.0 walked=10.0
+PN Creaking 2 pos=2,-60,82 type=WALKABLE malus=0.0 walked=11.414213
+PN Creaking 3 pos=3,-60,83 type=WALKABLE malus=0.0 walked=12.828426
+PN Creaking 4 pos=4,-60,84 type=WALKABLE malus=0.0 walked=14.24264
+PN Creaking 5 pos=5,-60,85 type=WALKABLE malus=0.0 walked=15.656853
+PN Creaking 6 pos=6,-60,85 type=WALKABLE malus=0.0 walked=16.656853
+PN Creaking 7 pos=7,-60,85 type=WALKABLE malus=0.0 walked=17.656853
+PN Creaking 8 pos=8,-60,84 type=WALKABLE malus=0.0 walked=19.071066
+PN Creaking 9 pos=8,-60,83 type=WALKABLE malus=0.0 walked=20.071066
+PN Creaking 10 pos=8,-60,82 type=WALKABLE malus=0.0 walked=21.071066
+PN Creaking 11 pos=9,-60,81 type=WALKABLE malus=0.0 walked=22.48528
+PATHQ Creaking 17.5,-60.0,80.5 found=true
+PATH Creaking next=0 count=14 reached=0 target=17,-60,80 dist=5.0
+PN Creaking 0 pos=0,-60,80 type=WALKABLE malus=0.0 walked=0.0
+PN Creaking 1 pos=1,-60,79 type=WALKABLE malus=0.0 walked=10.0
+PN Creaking 2 pos=2,-60,78 type=WALKABLE malus=0.0 walked=11.414213
+PN Creaking 3 pos=3,-60,77 type=WALKABLE malus=0.0 walked=12.828426
+PN Creaking 4 pos=4,-60,76 type=WALKABLE malus=0.0 walked=14.24264
+PN Creaking 5 pos=5,-60,75 type=WALKABLE malus=0.0 walked=15.656853
+PN Creaking 6 pos=6,-60,75 type=WALKABLE malus=0.0 walked=16.656853
+PN Creaking 7 pos=7,-60,75 type=WALKABLE malus=0.0 walked=17.656853
+PN Creaking 8 pos=8,-60,76 type=WALKABLE malus=0.0 walked=19.071066
+PN Creaking 9 pos=9,-60,77 type=WALKABLE malus=0.0 walked=20.48528
+PN Creaking 10 pos=10,-60,78 type=WALKABLE malus=0.0 walked=21.899492
+PN Creaking 11 pos=11,-60,79 type=WATER_BORDER malus=8.0 walked=25.313705
+PN Creaking 12 pos=12,-61,80 type=WATER malus=8.0 walked=29.045755
+PN Creaking 13 pos=13,-61,80 type=WATER malus=8.0 walked=31.459969
+PATHQ Creaking 20.5,-59.0,80.5 found=true
+PATH Creaking next=0 count=14 reached=0 target=20,-59,80 dist=11.0
+PN Creaking 0 pos=0,-60,80 type=WALKABLE malus=0.0 walked=0.0
+PN Creaking 1 pos=1,-60,79 type=WALKABLE malus=0.0 walked=10.0
+PN Creaking 2 pos=2,-60,78 type=WALKABLE malus=0.0 walked=11.414213
+PN Creaking 3 pos=3,-60,77 type=WALKABLE malus=0.0 walked=12.828426
+PN Creaking 4 pos=4,-60,76 type=WALKABLE malus=0.0 walked=14.24264
+PN Creaking 5 pos=5,-60,75 type=WALKABLE malus=0.0 walked=15.656853
+PN Creaking 6 pos=6,-60,75 type=WALKABLE malus=0.0 walked=16.656853
+PN Creaking 7 pos=7,-60,75 type=WALKABLE malus=0.0 walked=17.656853
+PN Creaking 8 pos=8,-60,76 type=WALKABLE malus=0.0 walked=19.071066
+PN Creaking 9 pos=9,-60,77 type=WALKABLE malus=0.0 walked=20.48528
+PN Creaking 10 pos=10,-60,77 type=WALKABLE malus=0.0 walked=21.48528
+PN Creaking 11 pos=11,-60,77 type=WATER_BORDER malus=8.0 walked=25.313705
+PN Creaking 12 pos=12,-61,78 type=WATER malus=8.0 walked=29.045755
+PN Creaking 13 pos=13,-61,78 type=WATER malus=8.0 walked=31.459969
+PATHQ Creaking 27.5,-60.0,80.5 found=true
+PATH Creaking next=0 count=19 reached=0 target=27,-60,80 dist=12.0
+PN Creaking 0 pos=0,-60,80 type=WALKABLE malus=0.0 walked=0.0
+PN Creaking 1 pos=1,-60,79 type=WALKABLE malus=0.0 walked=10.0
+PN Creaking 2 pos=2,-60,78 type=WALKABLE malus=0.0 walked=11.414213
+PN Creaking 3 pos=3,-60,77 type=WALKABLE malus=0.0 walked=12.828426
+PN Creaking 4 pos=4,-60,76 type=WALKABLE malus=0.0 walked=14.24264
+PN Creaking 5 pos=5,-60,75 type=WALKABLE malus=0.0 walked=15.656853
+PN Creaking 6 pos=6,-60,75 type=WALKABLE malus=0.0 walked=16.656853
+PN Creaking 7 pos=7,-60,75 type=WALKABLE malus=0.0 walked=17.656853
+PN Creaking 8 pos=8,-60,75 type=WALKABLE malus=0.0 walked=18.656853
+PN Creaking 9 pos=9,-60,75 type=WALKABLE malus=0.0 walked=19.656853
+PN Creaking 10 pos=10,-60,75 type=WALKABLE malus=0.0 walked=20.656853
+PN Creaking 11 pos=11,-60,74 type=WALKABLE malus=0.0 walked=22.071066
+PN Creaking 12 pos=12,-60,74 type=WALKABLE malus=0.0 walked=23.071066
+PN Creaking 13 pos=13,-60,74 type=WALKABLE malus=0.0 walked=24.071066
+PN Creaking 14 pos=14,-60,74 type=WALKABLE malus=0.0 walked=25.071066
+PN Creaking 15 pos=15,-60,74 type=WALKABLE malus=0.0 walked=26.071066
+PN Creaking 16 pos=16,-60,75 type=WALKABLE malus=0.0 walked=27.48528
+PN Creaking 17 pos=17,-60,76 type=WALKABLE malus=0.0 walked=28.899492
+PN Creaking 18 pos=18,-60,77 type=WALKABLE malus=0.0 walked=30.313705
+# row 7 warden
+PATHQ Warden 9.5,-60.0,92.5 found=true
+PATH Warden next=0 count=12 reached=1 target=9,-60,92 dist=1.0
+PN Warden 0 pos=0,-60,92 type=WALKABLE malus=0.0 walked=0.0
+PN Warden 1 pos=1,-60,93 type=WALKABLE malus=0.0 walked=10.0
+PN Warden 2 pos=2,-60,94 type=WALKABLE malus=0.0 walked=11.414213
+PN Warden 3 pos=3,-60,95 type=WALKABLE malus=0.0 walked=12.828426
+PN Warden 4 pos=4,-60,96 type=WALKABLE malus=0.0 walked=14.24264
+PN Warden 5 pos=5,-60,97 type=WALKABLE malus=0.0 walked=15.656853
+PN Warden 6 pos=6,-60,97 type=WALKABLE malus=0.0 walked=16.656853
+PN Warden 7 pos=7,-60,97 type=WALKABLE malus=0.0 walked=17.656853
+PN Warden 8 pos=8,-60,96 type=WALKABLE malus=0.0 walked=19.071066
+PN Warden 9 pos=8,-60,95 type=WALKABLE malus=0.0 walked=20.071066
+PN Warden 10 pos=8,-60,94 type=WALKABLE malus=0.0 walked=21.071066
+PN Warden 11 pos=9,-60,93 type=WALKABLE malus=0.0 walked=22.48528
+PATHQ Warden 17.5,-60.0,92.5 found=true
+PATH Warden next=0 count=12 reached=0 target=17,-60,92 dist=8.0
+PN Warden 0 pos=0,-60,92 type=WALKABLE malus=0.0 walked=0.0
+PN Warden 1 pos=1,-60,93 type=WALKABLE malus=0.0 walked=10.0
+PN Warden 2 pos=2,-60,94 type=WALKABLE malus=0.0 walked=11.414213
+PN Warden 3 pos=3,-60,95 type=WALKABLE malus=0.0 walked=12.828426
+PN Warden 4 pos=4,-60,96 type=WALKABLE malus=0.0 walked=14.24264
+PN Warden 5 pos=5,-60,97 type=WALKABLE malus=0.0 walked=15.656853
+PN Warden 6 pos=6,-60,97 type=WALKABLE malus=0.0 walked=16.656853
+PN Warden 7 pos=7,-60,97 type=WALKABLE malus=0.0 walked=17.656853
+PN Warden 8 pos=8,-60,96 type=WALKABLE malus=0.0 walked=19.071066
+PN Warden 9 pos=9,-60,95 type=WALKABLE malus=0.0 walked=20.48528
+PN Warden 10 pos=10,-60,94 type=WALKABLE malus=0.0 walked=21.899492
+PN Warden 11 pos=11,-60,94 type=WATER_BORDER malus=8.0 walked=24.313705
+PATHQ Warden 20.5,-59.0,92.5 found=true
+PATH Warden next=0 count=12 reached=0 target=20,-59,92 dist=12.0
+PN Warden 0 pos=0,-60,92 type=WALKABLE malus=0.0 walked=0.0
+PN Warden 1 pos=1,-60,91 type=WALKABLE malus=0.0 walked=10.0
+PN Warden 2 pos=2,-60,90 type=WALKABLE malus=0.0 walked=11.414213
+PN Warden 3 pos=3,-60,89 type=WALKABLE malus=0.0 walked=12.828426
+PN Warden 4 pos=4,-60,88 type=WALKABLE malus=0.0 walked=14.24264
+PN Warden 5 pos=5,-60,87 type=WALKABLE malus=0.0 walked=15.656853
+PN Warden 6 pos=6,-60,87 type=WALKABLE malus=0.0 walked=16.656853
+PN Warden 7 pos=7,-60,87 type=WALKABLE malus=0.0 walked=17.656853
+PN Warden 8 pos=8,-60,88 type=WALKABLE malus=0.0 walked=19.071066
+PN Warden 9 pos=9,-60,89 type=WALKABLE malus=0.0 walked=20.48528
+PN Warden 10 pos=10,-60,89 type=WALKABLE malus=0.0 walked=21.48528
+PN Warden 11 pos=11,-60,90 type=WATER_BORDER malus=8.0 walked=26.313705
+PATHQ Warden 27.5,-60.0,92.5 found=true
+PATH Warden next=0 count=13 reached=0 target=27,-60,92 dist=21.0
+PN Warden 0 pos=0,-60,92 type=WALKABLE malus=0.0 walked=0.0
+PN Warden 1 pos=1,-60,91 type=WALKABLE malus=0.0 walked=10.0
+PN Warden 2 pos=2,-60,90 type=WALKABLE malus=0.0 walked=11.414213
+PN Warden 3 pos=3,-60,89 type=WALKABLE malus=0.0 walked=12.828426
+PN Warden 4 pos=4,-60,88 type=WALKABLE malus=0.0 walked=14.24264
+PN Warden 5 pos=5,-60,87 type=WALKABLE malus=0.0 walked=15.656853
+PN Warden 6 pos=6,-60,87 type=WALKABLE malus=0.0 walked=16.656853
+PN Warden 7 pos=7,-60,87 type=WALKABLE malus=0.0 walked=17.656853
+PN Warden 8 pos=8,-60,87 type=WALKABLE malus=0.0 walked=18.656853
+PN Warden 9 pos=9,-60,87 type=WALKABLE malus=0.0 walked=19.656853
+PN Warden 10 pos=10,-60,87 type=WALKABLE malus=0.0 walked=20.656853
+PN Warden 11 pos=11,-60,86 type=WALKABLE malus=0.0 walked=22.071066
+PN Warden 12 pos=12,-60,86 type=WALKABLE malus=0.0 walked=23.071066
+# row 8 frog
+PATHQ Frog 9.5,-60.0,104.5 found=true
+PATH Frog next=0 count=6 reached=0 target=9,-60,104 dist=4.0
+PN Frog 0 pos=0,-60,104 type=WALKABLE malus=6.0 walked=0.0
+PN Frog 1 pos=1,-60,104 type=WALKABLE malus=6.0 walked=1.0
+PN Frog 2 pos=2,-60,104 type=WALKABLE malus=6.0 walked=3.4142137
+PN Frog 3 pos=3,-60,104 type=WALKABLE malus=6.0 walked=5.8284273
+PN Frog 4 pos=4,-60,104 type=WALKABLE malus=6.0 walked=8.2426405
+PN Frog 5 pos=5,-60,104 type=WALKABLE malus=6.0 walked=10.656854
+PATHQ Frog 17.5,-60.0,104.5 found=true
+PATH Frog next=0 count=6 reached=0 target=17,-60,104 dist=12.0
+PN Frog 0 pos=0,-60,104 type=WALKABLE malus=6.0 walked=0.0
+PN Frog 1 pos=1,-60,104 type=WALKABLE malus=6.0 walked=1.0
+PN Frog 2 pos=2,-60,104 type=WALKABLE malus=6.0 walked=3.4142137
+PN Frog 3 pos=3,-60,104 type=WALKABLE malus=6.0 walked=5.8284273
+PN Frog 4 pos=4,-60,104 type=WALKABLE malus=6.0 walked=8.2426405
+PN Frog 5 pos=5,-60,104 type=WALKABLE malus=6.0 walked=10.656854
+PATHQ Frog 20.5,-59.0,104.5 found=true
+PATH Frog next=0 count=6 reached=0 target=20,-59,104 dist=16.0
+PN Frog 0 pos=0,-60,104 type=WALKABLE malus=6.0 walked=0.0
+PN Frog 1 pos=1,-60,104 type=WALKABLE malus=6.0 walked=1.0
+PN Frog 2 pos=2,-60,104 type=WALKABLE malus=6.0 walked=3.4142137
+PN Frog 3 pos=3,-60,104 type=WALKABLE malus=6.0 walked=5.8284273
+PN Frog 4 pos=4,-60,104 type=WALKABLE malus=6.0 walked=8.2426405
+PN Frog 5 pos=5,-60,104 type=WALKABLE malus=6.0 walked=10.656854
+PATHQ Frog 27.5,-60.0,104.5 found=true
+PATH Frog next=0 count=6 reached=0 target=27,-60,104 dist=22.0
+PN Frog 0 pos=0,-60,104 type=WALKABLE malus=6.0 walked=0.0
+PN Frog 1 pos=1,-60,104 type=WALKABLE malus=6.0 walked=1.0
+PN Frog 2 pos=2,-60,104 type=WALKABLE malus=6.0 walked=3.4142137
+PN Frog 3 pos=3,-60,104 type=WALKABLE malus=6.0 walked=5.8284273
+PN Frog 4 pos=4,-60,104 type=WALKABLE malus=6.0 walked=8.2426405
+PN Frog 5 pos=5,-60,104 type=WALKABLE malus=6.0 walked=10.656854
+E Husk minecraft:husk pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=27,-60,8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:33.17383576606599;minecraft:knockback_resistance:0.023991435843884468;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.09201455747686567
+E Pig minecraft:pig pos=0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=27,-60,20 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.785638109642596;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=0.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=27,-60,32 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.791895449336781;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Villager minecraft:villager pos=0.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=27,-60,44 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:15.687608477124504;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E Spider minecraft:spider pos=0.5,-60.0,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=27,-60,56 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.717728566249384;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E Strider minecraft:strider pos=0.5,-60.0,68.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=27,-60,68 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.90572744469503;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Creaking minecraft:creaking pos=0.5,-60.0,80.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=27,-60,80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:30.361602321394436;minecraft:max_health:1.0;minecraft:movement_speed:0.4000000059604645;minecraft:step_height:1.0625
+E Warden minecraft:warden pos=0.5,-60.0,92.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=500.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=27,-60,92 path=- nodes=- goals=- tgoals=- acts=core;idle mem=dig_cooldown:INSTANCE:1200 equip=- attrs=minecraft:attack_damage:30.0;minecraft:attack_knockback:1.5;minecraft:follow_range:23.13810281833479;minecraft:knockback_resistance:1.0;minecraft:max_health:500.0;minecraft:movement_speed:0.30000001192092896
+E Frog minecraft:frog pos=0.5,-60.0,104.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=27,-60,104 path=- nodes=- goals=- tgoals=- acts=core;idle mem=long_jump_cooling_down:129:inf equip=- attrs=minecraft:attack_damage:10.0;minecraft:follow_range:15.562704541129987;minecraft:max_health:10.0;minecraft:movement_speed:1.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=-
