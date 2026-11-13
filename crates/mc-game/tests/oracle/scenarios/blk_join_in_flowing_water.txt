@@ -1,0 +1,14 @@
+# A simulated player that joins inside flowing water: the join teleport the client accepts moves the player once, which refreshes its fluid
+# state before the first tick, so the stream pushes it from the first tick on.
+level flat
+preload 4
+level_seed 11
+fill -2 -61 -2 20 -61 12 minecraft:stone
+fill 1 -60 2 12 -60 2 minecraft:stone
+fill 1 -60 4 12 -60 4 minecraft:stone
+block 1 -60 3 minecraft:water[level=0]
+tick 30
+spawn_player Swept survival 3.5 -60 3.5 0 0 sim
+watch player:Swept
+tick 12
+watch off

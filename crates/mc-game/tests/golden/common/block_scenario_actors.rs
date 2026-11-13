@@ -66,6 +66,8 @@ pub struct Actors {
     tracked_movement: HashMap<EntityId, Option<Vec3>>,
     /// Keeps the inbound queue of every replayed listener open.
     _inbound: Vec<std::sync::mpsc::Sender<mc_game::server::network::InboundPacket>>,
+    /// The server a scenario without `command_env` runs the join teleport's accept against (and the guard that keeps its directory).
+    accept_server: Option<(mc_game::server::MinecraftServer, Box<dyn std::any::Any>)>,
     pub registries_loaded: bool,
 }
 
@@ -708,22 +710,7 @@ impl Scenario {
                 })
             }),
             // accept_teleport PLAYER   ServerboundAcceptTeleportationPacket for the teleport the server waits on (nothing when none is pending)
-            "accept_teleport" => {
-                let pending = self.with_player_named(&a[1], |_, p| {
-                    let (id, at) = p.listener.as_ref()?.pending_teleport()?;
-                    Some(ServerboundAcceptTeleportationPacket {
-                        id,
-                        x: at.x,
-                        y: at.y,
-                        z: at.z,
-                        y_rot: p.get_y_rot(),
-                        x_rot: p.get_x_rot(),
-                    })
-                });
-                if let Some(packet) = pending {
-                    deliver(self, &a[1], |_, _| P::AcceptTeleportation(packet));
-                }
-            }
+            "accept_teleport" => self.accept_teleport(&a[1]),
             // paddle PLAYER LEFT RIGHT   ServerboundPaddleBoatPacket (true|false)
             "paddle" => deliver(self, &a[1], |_, _| {
                 P::PaddleBoat(ServerboundPaddleBoatPacket {
@@ -984,6 +971,36 @@ impl Scenario {
         self.actors.refs.push((a[1].clone(), id));
     }
 
+    /// `ServerboundAcceptTeleportationPacket` for the teleport the server waits on (nothing when none is pending). A scenario without
+    /// `command_env` has no server for the listener's handlers: the accept then runs against one of its own, kept until the scenario ends.
+    fn accept_teleport(&mut self, name: &str) {
+        let pending = self.with_player_named(name, |_, p| {
+            let (id, at) = p.listener.as_ref()?.pending_teleport()?;
+            Some(ServerboundAcceptTeleportationPacket {
+                id,
+                x: at.x,
+                y: at.y,
+                z: at.z,
+                y_rot: p.get_y_rot(),
+                x_rot: p.get_x_rot(),
+            })
+        });
+        let Some(packet) = pending else { return };
+        if mc_game::commands::server_access::has_server() {
+            deliver(self, name, |_, _| P::AcceptTeleportation(packet));
+            return;
+        }
+        let (mut server, keep) = self
+            .actors
+            .accept_server
+            .take()
+            .unwrap_or_else(crate::command_common::test_server);
+        mc_game::commands::server_access::enter_server(&mut server, || {
+            deliver(self, name, |_, _| P::AcceptTeleportation(packet))
+        });
+        self.actors.accept_server = Some((server, keep));
+    }
+
     fn spawn_player(&mut self, a: &[String]) {
         let name = a[1].clone();
         let flags = &a[6..];
@@ -1066,18 +1083,6 @@ impl Scenario {
         p.listener = Some(listener);
         p.handle = Some(handle);
         p.connection_teleport(num(&a[3]), num(&a[4]), num(&a[5]), yaw, pitch);
-        if let Some(l) = p.listener.as_mut() {
-            l.confirm_teleport();
-        }
-        // the accepted teleport goes through `handlePlayerPositionChange`, which wraps the client's rotation
-        let at = p.position();
-        p.abs_snap_to(
-            at.x,
-            at.y,
-            at.z,
-            mc_core::math::mth::wrap_degrees_f32(yaw),
-            mc_core::math::mth::wrap_degrees_f32(pitch),
-        );
         // `PlayerList.placeNewPlayer` broadcasts the join message before the new player joins the list: only the players
         // already in the level get it
         let joined =
@@ -1109,7 +1114,22 @@ impl Scenario {
             }
             p.init_inventory_menu(level)
         });
+        self.actors.known.insert(id);
+        self.actors.refs.push((name.clone(), id));
+        self.actors.players.push(name.clone());
+        self.actors._inbound.push(inbound_tx);
+        // `VanillaLevel.connect`: the listener has recorded the first position, then the client accepts the join teleport. Its
+        // `handlePlayerPositionChange` moves the player once (which refreshes the fluid state and wraps the rotation)
+        self.with_player_named(&name, |_, p| {
+            let at = p.position();
+            p.listener
+                .as_mut()
+                .expect("player listener")
+                .reset_position(at);
+        });
+        self.accept_teleport(&name);
         // a non-simulated player has no movement packets: onGround is derived once (resting on a block)
+        let level = self.level();
         if !sim {
             level.with_player(id, |level, p| {
                 let bb = p.base().bounding_box().move_(0.0, -1.0E-3, 0.0);
@@ -1117,10 +1137,13 @@ impl Scenario {
                 p.base_mut().set_on_ground_raw(!free);
             });
         }
-        self.actors.known.insert(id);
-        self.actors.refs.push((name.clone(), id));
-        self.actors.players.push(name.clone());
-        self.actors._inbound.push(inbound_tx);
+        // the accept flags a hovering client (kick after 80 ticks); a real client keeps sending moves
+        self.with_player_named(&name, |_, p| {
+            p.listener
+                .as_mut()
+                .expect("player listener")
+                .set_client_is_floating(false);
+        });
         // the join burst is only compared with `joinburst`: otherwise `packets:NAME` dumps start after the join
         let mut rx = rx;
         while !joinburst && rx.try_recv().is_ok() {}

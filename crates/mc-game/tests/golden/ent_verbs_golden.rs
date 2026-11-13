@@ -37,3 +37,8 @@ fn removed_entities_keep_their_names_in_dumps() {
 fn chat_and_command_output_reach_the_players() {
     common::block_scenario::check("blk_chat_command_output");
 }
+
+#[test]
+fn a_player_joining_in_flowing_water_is_pushed_from_the_first_tick() {
+    common::block_scenario::check("blk_join_in_flowing_water");
+}

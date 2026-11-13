@@ -1,0 +1,24 @@
+T 31
+P Swept minecraft:player pos=3.528,-60.0,3.5 delta=0.022400000333786012,-0.005,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 32
+P Swept minecraft:player pos=3.564400000333786,-60.0,3.5 delta=0.02912000070095063,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 33
+P Swept minecraft:player pos=3.6075200010347364,-60.0,3.5 delta=0.03449600107479097,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 34
+P Swept minecraft:player pos=3.6560160021095274,-60.0,3.5 delta=0.03879680143795016,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 35
+P Swept minecraft:player pos=3.7088128035474774,-60.0,3.5 delta=0.042237441779747045,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 36
+P Swept minecraft:player pos=3.7650502453272243,-60.0,3.5 delta=0.04498995409420018,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 37
+P Swept minecraft:player pos=3.8240401994214244,-60.0,3.5 delta=0.0471919639785752,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 38
+P Swept minecraft:player pos=3.8852321633999995,-60.0,3.5 delta=0.04895357191232521,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 39
+P Swept minecraft:player pos=3.948185735312325,-60.0,3.5 delta=0.05036285828032523,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 40
+P Swept minecraft:player pos=4.01254859359265,-60.0,3.5 delta=0.051490287391525245,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 41
+P Swept minecraft:player pos=4.078038880984176,-60.0,3.5 delta=0.05239223069392526,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 42
+P Swept minecraft:player pos=4.1444311116781005,-60.0,3.5 delta=0.053113785346597275,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

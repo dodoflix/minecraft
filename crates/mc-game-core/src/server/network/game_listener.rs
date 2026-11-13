@@ -249,6 +249,11 @@ impl ServerGamePacketListenerImpl {
         self.awaiting_position_from_client = None;
     }
 
+    /// `clientIsFloating`: the hovering flag the client's last position change set (a harness that plays the client clears it).
+    pub fn set_client_is_floating(&mut self, floating: bool) {
+        self.client_is_floating = floating;
+    }
+
     /// `resetFlyingTicks()`.
     pub fn reset_flying_ticks(&mut self) {
         self.above_ground_tick_count = 0;
