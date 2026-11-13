@@ -2,6 +2,8 @@ pub mod abstract_furnace_block_entity;
 
 pub mod crafter_block_entity;
 
+pub mod crafter_menu;
+
 pub mod enchanting_table_block_entity;
 
 mod beacon_block_entity;

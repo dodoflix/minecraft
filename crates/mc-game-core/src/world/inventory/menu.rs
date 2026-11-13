@@ -482,7 +482,7 @@ impl MenuBase {
         })
     }
 
-    /// Takes the pending `slotsChanged(inventory)` request raised by item hooks.
+    /// Takes the pending `slotsChanged` request raised by item hooks and by slots whose `setChanged()` notifies the menu.
     pub fn take_slots_changed_request(&mut self) -> bool {
         std::mem::take(&mut self.slots_changed_requested)
     }
@@ -532,16 +532,23 @@ pub trait AbstractContainerMenu: Any {
     ) {
     }
 
-    /// Hands the recorded slot changes to [`AbstractContainerMenu::slot_changed_listener`].
+    /// Hands the recorded slot changes to [`AbstractContainerMenu::slot_changed_listener`] and to the player's listener.
     fn dispatch_slot_events(&mut self, player: &mut dyn MenuPlayer) {
+        self.dispatch_slot_events_to(player, true);
+    }
+
+    /// `player_listener` = the `ServerPlayer` listener is already attached to the menu.
+    fn dispatch_slot_events_to(&mut self, player: &mut dyn MenuPlayer, player_listener: bool) {
         while !self.base().slot_events.is_empty() {
             let events = std::mem::take(&mut self.base_mut().slot_events);
             for (i, stack) in events {
                 // `ServerPlayer.containerListener.slotChanged`: `slot.container == player.getInventory()` -> INVENTORY_CHANGED
-                if matches!(
-                    self.base().slots[i].container,
-                    ContainerKey::PlayerInventory
-                ) {
+                if player_listener
+                    && matches!(
+                        self.base().slots[i].container,
+                        ContainerKey::PlayerInventory
+                    )
+                {
                     player.with_server_player(&mut |level, p| {
                         crate::advancements::triggers::CriteriaTriggers::INVENTORY_CHANGED
                             .trigger(level, p, &stack);
@@ -550,6 +557,29 @@ pub trait AbstractContainerMenu: Any {
                 self.slot_changed_listener(player, i, &stack);
             }
         }
+    }
+
+    /// `addSlotListener(this)` in the constructor of a menu that is its own `ContainerListener` (`CrafterMenu`): the
+    /// broadcast runs before the player's listener exists, so only the menu sees the changes it finds (and the later
+    /// `addSlotListener(containerListener)` finds none of them).
+    fn add_self_slot_listener(&mut self, player: &mut dyn MenuPlayer) {
+        for i in 0..self.base().slots.len() {
+            let current = self.base_mut().current_slot_item(player, i);
+            self.base_mut().trigger_slot_listeners(i, &current);
+            self.dispatch_slot_events_to(player, false);
+            self.base_mut().synchronize_slot_to_remote(i, &current);
+        }
+        self.base_mut().broadcast_carried_and_data(player);
+    }
+
+    /// The slot-state packet for this menu (`handleContainerSlotStateChanged`: `CrafterMenu` whose container is a
+    /// `CrafterBlockEntity` calls its `setSlotState`); every other menu ignores it.
+    fn set_container_slot_state(
+        &mut self,
+        _player: &mut dyn MenuPlayer,
+        _slot_id: i32,
+        _enabled: bool,
+    ) {
     }
 
     /// `addSlotListener(listener)`: attach and `broadcastChanges()`.
@@ -627,7 +657,8 @@ pub trait AbstractContainerMenu: Any {
         }
     }
 
-    /// Replays the `slotsChanged` callbacks queued by menu-local containers.
+    /// Replays the `slotsChanged` callbacks queued by menu-local containers and requested by slots (`CrafterSlot.setChanged`
+    /// calls `menu.slotsChanged(container)`).
     fn flush_container_events(&mut self, player: &mut dyn MenuPlayer) {
         loop {
             let mut pending = Vec::new();
@@ -636,11 +667,15 @@ pub trait AbstractContainerMenu: Any {
                     pending.push(i);
                 }
             }
-            if pending.is_empty() {
+            let requested = self.base_mut().take_slots_changed_request();
+            if pending.is_empty() && !requested {
                 break;
             }
             for i in pending {
                 self.slots_changed(player, &ContainerKey::Local(i));
+            }
+            if requested {
+                self.slots_changed(player, &ContainerKey::PlayerInventory);
             }
         }
     }

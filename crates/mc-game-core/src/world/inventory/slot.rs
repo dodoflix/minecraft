@@ -78,7 +78,8 @@ pub struct SlotEnv<'a> {
     pub player: &'a mut dyn MenuPlayer,
     pub locals: &'a mut Vec<Box<dyn Container>>,
     /// Set by item code that calls `player.containerMenu.slotsChanged(player.getInventory())` while the menu is
-    /// running a click (bundles); the menu replays it right after the item hook returns.
+    /// running a click (bundles; the menu replays it right after the item hook returns) and by slots whose `setChanged()`
+    /// calls `menu.slotsChanged(container)` (`CrafterSlot`; replayed by `flush_container_events`).
     pub slots_changed_requested: &'a mut bool,
 }
 
@@ -259,6 +260,10 @@ pub trait SlotBehavior {
     ) {
         slot.set(env, stack);
     }
+    /// `setChanged()`.
+    fn set_changed(&self, slot: &Slot, env: &mut SlotEnv) {
+        slot.base_set_changed(env)
+    }
     fn on_quick_craft(&self, _slot: &Slot, _env: &mut SlotEnv, _picked: &ItemStack, _count: i32) {}
     fn on_swap_craft(&self, _slot: &Slot, _count: i32) {}
     fn safe_clone(&self, slot: &Slot, env: &mut SlotEnv) -> ItemStack {
@@ -339,7 +344,7 @@ impl Slot {
     }
 
     pub fn set_changed(&self, env: &mut SlotEnv) {
-        env.with_container(&self.container, |c| c.set_changed());
+        self.behavior.set_changed(self, env)
     }
 
     /// `getMaxStackSize(stack)`.
@@ -456,6 +461,9 @@ impl Slot {
     pub fn base_allow_modification(&self, env: &mut SlotEnv) -> bool {
         let item = self.get_item(env);
         self.may_pickup(env) && self.may_place(env, &item)
+    }
+    pub fn base_set_changed(&self, env: &mut SlotEnv) {
+        env.with_container(&self.container, |c| c.set_changed());
     }
     pub fn base_get_max_stack_size(&self, env: &mut SlotEnv) -> i32 {
         env.with_container(&self.container, |c| c.get_max_stack_size())

@@ -1,0 +1,78 @@
+# The crafter through the player's listener: using it opens the menu (also for a spectator), the slot-state packet disables and re-enables
+# the slots of the crafter (only empty ones, only for the open menu and a player who is not a spectator), disabled slots refuse items
+# and show in the block entity, the preview slot follows the grid, and a redstone signal while the menu is open triggers the crafter.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+spawn_player S spectator 9.5 -60 7.5 0 0
+block 3 -60 4 minecraft:crafter
+block 9 -60 4 minecraft:crafter
+tick 2
+note using the crafter opens the menu, counts nothing and shows empty slots and a quiet preview
+use_on A 3 -60 4 up main
+dump menu:A stats:A be:3,-60,4 packets:A:open_screen,container_set_content,container_set_data
+give A hotbar0 minecraft:oak_log 8
+give A hotbar1 minecraft:oak_planks 16
+give A hotbar2 minecraft:stick 4
+note a log in the middle previews its planks; the preview is not a real slot to take from
+click A 36 0 PICKUP
+click A 4 1 PICKUP
+click A 45 0 PICKUP
+click A 45 0 QUICK_MOVE
+dump menu:A be:3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 4 0 PICKUP
+click A 36 0 PICKUP
+note the slot-state packet disables an empty slot and enables it again; the menu data slot follows on the broadcast
+slot_state A 0 false
+dump menu:A be:3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+tick 1
+dump menu:A be:3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a disabled slot refuses a stack from the cursor and from a shift-click
+click A 37 0 PICKUP
+click A 0 0 PICKUP
+click A 0 1 PICKUP
+click A 37 0 PICKUP
+click A 38 0 QUICK_MOVE
+dump menu:A be:3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a filled slot can not be disabled, a slot out of the grid or negative changes nothing
+click A 36 0 PICKUP
+click A 4 1 PICKUP
+click A 36 0 PICKUP
+slot_state A 4 false
+slot_state A 9 false
+slot_state A -1 false
+slot_state A 44 false
+tick 1
+dump menu:A be:3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a packet for another container id is ignored
+slot_state A 5 false cid=9
+tick 1
+dump menu:A be:3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note enabling a slot that is already enabled and disabling one twice are harmless
+slot_state A 0 true
+slot_state A 0 true
+slot_state A 7 false
+slot_state A 7 false
+tick 1
+dump menu:A be:3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a spectator opens it and can not toggle slots
+use_on S 9 -60 4 up main
+slot_state S 2 false
+tick 1
+dump menu:S be:9,-60,4 packets:S:open_screen,container_set_slot,container_set_content,container_set_data
+close_menu S
+note redstone power while the menu is open: the triggered data slot, the craft after its delay and the preview after it
+click A 1 0 QUICK_MOVE
+block 4 -60 4 minecraft:redstone_block
+tick 1
+dump menu:A be:3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+tick 5
+dump menu:A be:3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+block 4 -60 4 minecraft:air
+tick 2
+dump menu:A be:3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note breaking the crafter closes the menu
+block 3 -60 4 minecraft:air
+tick 1
+dump menu:A packets:A:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item

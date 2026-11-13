@@ -1,9 +1,7 @@
 //! `CrafterBlockEntity` (`RandomizableContainerBlockEntity` + `CraftingContainer`): nine slots, per-slot disabled flags,
 //! `triggered`, `crafting_ticks_remaining`.
 //!
-//! Not implemented: the crafter menu (`CrafterMenu`) does not exist yet, so `menu_provider` stays `None` and the block
-//! opens nothing; `container_data` plus [`CrafterBlockEntity::set_slot_state`] / [`CrafterBlockEntity::is_slot_disabled`]
-//! are what that menu reads.
+//! The menu is [`super::crafter_menu::CrafterMenu`]; it reads `container_data` and the slot states.
 //!
 //! Known difference: a container operation on a crafter that still has a loot table rolls it before the operation, while
 //! vanilla rolls it inside the first `setItem` / `removeItem` (its `getItem`, `isEmpty` and `canPlaceItem` do not unpack).

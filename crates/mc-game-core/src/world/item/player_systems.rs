@@ -14,7 +14,8 @@ use crate::world::entity::player::menu_ctx::PlayerCtx;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::inventory::{
     AbstractContainerMenu, CreativeSlotResult, PlayerMenus, handle_container_button_click,
-    handle_container_click, handle_set_creative_mode_slot, try_pick_item,
+    handle_container_click, handle_container_slot_state_changed, handle_set_creative_mode_slot,
+    try_pick_item,
 };
 use crate::world::level::block::{BlockStateExt, behaviour as block_behaviour};
 use crate::world::level::{BlockGetter, LevelReader};
@@ -27,9 +28,9 @@ use mc_protocol::components::{
 use mc_protocol::packets::play::{
     ClientboundSetHeldSlotPacket, ServerboundContainerButtonClickPacket,
     ServerboundContainerClickPacket, ServerboundContainerClosePacket,
-    ServerboundPickItemFromBlockPacket, ServerboundPickItemFromEntityPacket,
-    ServerboundSelectBundleItemPacket, ServerboundSetCreativeModeSlotPacket, SwingAnimation,
-    SwingAnimationType,
+    ServerboundContainerSlotStateChangedPacket, ServerboundPickItemFromBlockPacket,
+    ServerboundPickItemFromEntityPacket, ServerboundSelectBundleItemPacket,
+    ServerboundSetCreativeModeSlotPacket, SwingAnimation, SwingAnimationType,
 };
 
 /// Packs a `SwingAnimation` into the opaque `SwingAnimationRef` (bit 31 = "set", 24..26 = type, 0..24 = duration).
@@ -237,6 +238,22 @@ impl PlayHandlers for MenuHandlers {
     ) {
         with_current_menu(ctx, |menu, p| {
             handle_container_button_click(menu, p, packet.container_id, packet.button_id)
+        });
+    }
+
+    fn handle_container_slot_state_changed(
+        &self,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundContainerSlotStateChangedPacket,
+    ) {
+        with_current_menu(ctx, |menu, p| {
+            handle_container_slot_state_changed(
+                menu,
+                p,
+                packet.container_id,
+                packet.slot_id,
+                packet.new_state,
+            )
         });
     }
 

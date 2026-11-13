@@ -63,7 +63,7 @@ import net.minecraft.world.phys.AABB;
  * Script lines (stacks are `@item[components]` (the command syntax, no spaces, count 1) or `name[xCOUNT][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id][,b=pattern@color;..][,p=potion]`;
  * the printed ops carry the stack as `ItemStack.CODEC` SNBT, `-` = empty); `#` lines are copied:
  *   OPEN kind [xp [seed [creative [pseed [lseed [shelves [blockers]]]]]]]
- *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | crafting | chest | cartography | brewing_stand | beacon | lectern | stonecutter): resets the
+ *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | crafting | chest | cartography | brewing_stand | beacon | lectern | stonecutter | crafter): resets the
  *        world around TABLE, places the kind's block and opens the menu it provides. xp = experience level, seed = enchantment seed, creative 0|1,
  *        pseed/lseed = seeds of the player's and the level's random, shelves/blockers = bookshelves/obstructions of an enchanting table,
  *        the levels (0..4) of the iron pyramid under a beacon, the pages (at least 1) of the book on a lectern and whether that book is a writable one.
@@ -73,6 +73,7 @@ import net.minecraft.world.phys.AABB;
  *   DRAG type slot...                   the three CLICK groups of a quick-craft drag (type 0 charitable | 1 greedy | 2 clone)
  *   BUTTON id | NAME text | CLOSE
  *   BLOCK x y z id[props]               places a block (and its block entity) without resetting anything; undone by the next OPEN
+ *   SLOTSTATE slot 0|1                  the slot-state packet of the crafter menu (1 = enabled): the crafter's setSlotState, then broadcastChanges
  *   TICK n                              n real server ticks (the player's own tick: broadcastChanges, close when stillValid fails);
  *                                       ticks consume the level's random in a server dependent way: SEED level before the next draw.
  *                                       The stand-in player of the Rust twin ticks after the level (vanilla: before the block entities), so the
@@ -150,6 +151,7 @@ public class MenuOracleBase {
       KINDS.put("chest", new Kind(Blocks.CHEST, NO_SETUP));
       KINDS.put("cartography", new Kind(Blocks.CARTOGRAPHY_TABLE, NO_SETUP));
       KINDS.put("brewing_stand", new Kind(Blocks.BREWING_STAND, NO_SETUP));
+      KINDS.put("crafter", new Kind(Blocks.CRAFTER, NO_SETUP));
       // shelves = levels of the iron pyramid under the beacon
       KINDS.put("beacon", new Kind(Blocks.BEACON, (levels, unused) -> {
          for (int i = 1; i <= Math.min(levels, 4); i++) {
@@ -623,6 +625,16 @@ public class MenuOracleBase {
       return Optional.of(level.registryAccess().lookupOrThrow(Registries.MOB_EFFECT).getOrThrow(ResourceKey.create(Registries.MOB_EFFECT, Identifier.withDefaultNamespace(id))));
    }
 
+   /** handleContainerSlotStateChanged for the open crafter menu (an in-sync client): toggles the slot of the crafter and broadcasts. */
+   static void slotState(int slot, boolean enabled) {
+      op("SLOTSTATE " + slot + " " + (enabled ? 1 : 0));
+      if (!p.isSpectator() && menu instanceof CrafterMenu crafter && crafter.getContainer() instanceof net.minecraft.world.level.block.entity.CrafterBlockEntity be) {
+         be.setSlotState(slot, enabled);
+      }
+      menu.broadcastChanges();
+      dump();
+   }
+
    /** ServerGamePacketListenerImpl.handleSetBeaconPacket: `R false` = the listener would disconnect, `R npe` = validateEffects throws (the packet processor suppresses it). */
    static void setBeacon(String primary, String secondary) {
       op("SETBEACON " + primary + " " + secondary);
@@ -698,6 +710,7 @@ public class MenuOracleBase {
             default -> {
                if (menu instanceof MerchantMenu) trade(r.nextInt(9) - 1);
                else if (ticks && r.nextBoolean()) tick(1 + r.nextInt(30));
+               else if (menu instanceof CrafterMenu) slotState(r.nextInt(9), r.nextBoolean());
                else button(r.nextInt(4));
             }
          }
@@ -734,6 +747,7 @@ public class MenuOracleBase {
             case "EVENTS" -> events(a[1].equals("on"));
             case "MAYBUILD" -> maybuild(a[1].equals("1"));
             case "SETBEACON" -> setBeacon(a[1], a[2]);
+            case "SLOTSTATE" -> slotState(Integer.parseInt(a[1]), a[2].equals("1"));
             case "GEN" -> generate(a[1], Long.parseLong(a[2]), Integer.parseInt(a[3]), a[4].split("\\|"), a.length > 5 && a[5].equals("ticks"));
             case "GENCONT" -> generateContinue(Long.parseLong(a[1]), Integer.parseInt(a[2]), a[3].split("\\|"));
             case "SPAWN" -> spawn(a[1], a[2], Double.parseDouble(a[3]), Double.parseDouble(a[4]), Double.parseDouble(a[5]), Long.parseLong(a[6]), a.length > 7 ? a[7] : null);

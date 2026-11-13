@@ -1,0 +1,285 @@
+# The crafter menu: the preview slot (what the crafter would dispense for the grid, assembled from the recipe), disabled slots (what
+# the slot-state packet may change, what a disabled slot refuses, the re-enable on setItem), shift-clicks both ways, every click kind
+# on the preview slot, the ten data slots (nine slot states and `triggered`) and what a redstone signal does with the menu open.
+# Menu slots: 0-8 grid, 9-35 inventory, 36-44 hotbar, 45 preview; GIVE 0-8 is the hotbar, GIVE 9-35 the inventory.
+OPEN crafter 0 0 0 1 1
+GIVE 0 oak_planksx64
+GIVE 1 oak_logx8
+GIVE 2 stickx4
+GIVE 3 cobblestonex9
+GIVE 4 iron_ingotx9
+GIVE 5 stone
+GIVE 6 milk_bucket
+GIVE 7 wheatx9
+GIVE 8 sugarx5
+GIVE 9 eggx3
+GIVE 10 milk_bucket
+GIVE 11 milk_bucket
+GIVE 12 leather_chestplate
+GIVE 13 red_dyex2
+GIVE 14 iron_pickaxe,d=100
+GIVE 15 iron_pickaxe,d=60
+# the preview follows the grid: one log -> planks, then the same log with company -> nothing
+CLICK 37 0 PICKUP
+CLICK 4 1 PICKUP
+CLICK 0 1 PICKUP
+CLICK 0 0 PICKUP
+CLICK 4 0 PICKUP
+CLICK 4 0 PICKUP
+CLICK 4 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 4 1 PICKUP
+CLICK 4 0 PICKUP
+CLICK 37 0 PICKUP
+# a 2x2 recipe works wherever it sits in the 3x3 grid, a 1x2 one too
+CLICK 36 0 PICKUP
+CLICK 0 1 PICKUP
+CLICK 1 1 PICKUP
+CLICK 3 1 PICKUP
+CLICK 4 1 PICKUP
+CLICK 0 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 4 0 PICKUP
+CLICK 5 1 PICKUP
+CLICK 7 1 PICKUP
+CLICK 8 1 PICKUP
+CLICK 4 0 PICKUP
+CLICK 4 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 4 0 PICKUP
+CLICK 4 0 PICKUP
+CLICK 7 0 PICKUP
+CLICK 7 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 5 0 PICKUP
+CLICK 5 0 PICKUP
+CLICK 8 0 PICKUP
+CLICK 8 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 1 1 PICKUP
+CLICK 4 1 PICKUP
+CLICK 36 0 PICKUP
+# empty the grid back into the inventory and look at every click kind on the preview slot
+CLICK 1 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+CLICK 45 0 PICKUP
+CLICK 45 1 PICKUP
+CLICK 45 0 QUICK_MOVE
+CLICK 45 0 SWAP
+CLICK 45 0 THROW
+CLICK 45 1 THROW
+CLICK 45 0 PICKUP_ALL
+CLICK 45 0 CLONE
+CLICK 45 0 PICKUP
+CLICK -999 0 PICKUP
+# a stack on the cursor can not be put on the preview slot, nor dragged over it
+CLICK 36 0 PICKUP
+CLICK 45 0 PICKUP
+CLICK 45 1 PICKUP
+DRAG 0 45 0 1 2
+CLICK 4 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 4 0 PICKUP
+CLICK 45 0 PICKUP
+CLICK 45 0 PICKUP_ALL
+CLICK 45 0 SWAP
+CLICK 4 0 PICKUP_ALL
+CLICK 4 0 QUICK_MOVE
+# the data slots start at 0 (nothing disabled, not powered); only an empty slot can be disabled
+SLOTSTATE 0 0
+SLOTSTATE 4 0
+SLOTSTATE 9 0
+SLOTSTATE -1 0
+SLOTSTATE 8 0
+SLOTSTATE 8 0
+SLOTSTATE 99 0
+CLICK 36 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 0 1 PICKUP
+CLICK 4 0 PICKUP
+CLICK 8 0 PICKUP
+CLICK 8 1 PICKUP
+CLICK 1 0 PICKUP
+CLICK 4 0 PICKUP
+# a disabled slot refuses drops, drags, swaps, shift-clicks and pickup-all moves
+SLOTSTATE 2 0
+SLOTSTATE 6 0
+CLICK 37 0 QUICK_MOVE
+CLICK 36 0 QUICK_MOVE
+CLICK 36 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 2 1 PICKUP
+CLICK 6 0 PICKUP
+DRAG 0 2 5 6 7
+DRAG 1 0 1 2 6
+CLICK 4 0 PICKUP
+CLICK 2 0 SWAP
+CLICK 6 4 SWAP
+SLOTSTATE 2 1
+SLOTSTATE 2 1
+SLOTSTATE 6 1
+SLOTSTATE 6 1
+CLICK 2 0 SWAP
+CLICK 6 4 SWAP
+SLOTSTATE 0 0
+SLOTSTATE 1 0
+CLICK 38 0 QUICK_MOVE
+CLICK 39 0 QUICK_MOVE
+CLICK 40 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+SLOTSTATE 1 1
+CLICK 40 0 QUICK_MOVE
+CLICK 40 0 QUICK_MOVE
+# setItem re-enables a disabled slot; setByPlayer too (a cursor stack never lands there, SET does)
+SLOTSTATE 5 0
+SET 5 stone
+SET 5 -
+SLOTSTATE 7 0
+SET 7 -
+SLOTSTATE 7 1
+SET 0 -
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 6 -
+SET 8 -
+# the preview of the stranger recipes: shaped with offset, shapeless, repairing, dyeing, with remainders
+SET 0 oak_planks
+SET 3 oak_planks
+SET 4 stick
+SET 7 stick
+SET 1 oak_planksx2
+SET 2 oak_planks
+SET 0 -
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 7 -
+SET 0 wheat
+SET 1 wheat
+SET 2 wheat
+SET 3 milk_bucket
+SET 4 milk_bucket
+SET 5 milk_bucket
+SET 6 sugar
+SET 7 egg
+SET 8 sugar
+SET 3 -
+SET 4 -
+SET 5 -
+SET 0 -
+SET 1 -
+SET 2 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 0 leather_chestplate
+SET 1 red_dye
+SET 0 -
+SET 1 -
+SET 2 iron_pickaxe,d=100
+SET 6 iron_pickaxe,d=60
+SET 2 -
+SET 6 -
+SET 4 cobblestonex8
+SET 4 -
+SET 0 cobblestone
+SET 1 cobblestone
+SET 2 cobblestone
+SET 3 cobblestone
+SET 5 cobblestone
+SET 6 cobblestone
+SET 7 cobblestone
+SET 8 cobblestone
+SET 4 -
+SET 0 -
+SET 1 -
+SET 2 -
+SET 3 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+# shift-clicks of stackable items fill partial stacks first and stop at the grid's end; unstackable ones take empty slots
+SET 0 oak_planksx60
+SET 4 oak_planksx10
+GIVE 18 oak_planksx64
+GIVE 19 oak_planksx20
+GIVE 20 iron_pickaxe
+GIVE 21 iron_pickaxe
+GIVE 22 iron_pickaxe
+CLICK 18 0 QUICK_MOVE
+CLICK 19 0 QUICK_MOVE
+CLICK 20 0 QUICK_MOVE
+CLICK 21 0 QUICK_MOVE
+CLICK 22 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+CLICK 8 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+# the carried stack is dropped on close, the preview belongs to the menu
+CLICK 39 0 PICKUP
+CLOSE
+# a creative player clones the preview and the spectator-like rules (mayPickup false) still hold for everything else
+OPEN crafter 0 0 1 1 1
+GIVE 0 oak_logx4
+CLICK 36 0 PICKUP
+CLICK 4 1 PICKUP
+CLICK 36 0 PICKUP
+CLICK 45 0 CLONE
+CLICK 45 0 PICKUP
+CLICK -999 0 PICKUP
+CLICK 45 1 PICKUP
+CLICK 45 0 SWAP
+CLICK 45 0 QUICK_MOVE
+CLICK 45 0 THROW
+DRAG 2 0 1 45
+CLICK 36 0 CLONE
+CLICK 4 0 CLONE
+CLOSE
+# redstone while the menu is open: the signal sets the `triggered` data slot, the crafter crafts after its delay and the menu follows
+EVENTS on
+OPEN crafter 0 0 0 1 1
+GIVE 0 oak_logx4
+CLICK 36 0 PICKUP
+CLICK 4 1 PICKUP
+CLICK 4 0 PICKUP
+CLICK 36 0 PICKUP
+BLOCK 0 70 -1 chest
+BLOCK 1 70 0 redstone_block
+TICK 1
+TICK 1
+TICK 1
+TICK 1
+TICK 1
+TICK 3
+BLOCK 1 70 0 air
+TICK 2
+CLICK 45 0 PICKUP
+# a recipe without a result: the crafter only clicks, and the preview stays empty
+CLICK 36 0 PICKUP
+CLICK 0 1 PICKUP
+CLICK 36 0 PICKUP
+BLOCK 1 70 0 redstone_block
+TICK 6
+BLOCK 1 70 0 air
+TICK 2
+EVENTS off
+# seeded random sessions
+GEN crafter 1 220 oak_planksx64|oak_logx4|stickx8|cobblestonex9|stone|iron_ingotx6|milk_bucket|wheatx5|sugarx2|egg|leather_chestplate|red_dye|iron_pickaxe,d=80|iron_pickaxe|paper|gunpowder|oak_planksx2|-|-
+GEN crafter 2 220 oak_planksx64|oak_logx4|stickx8|cobblestonex9|stone|iron_ingotx6|milk_bucket|wheatx5|sugarx2|egg|leather_chestplate|red_dye|iron_pickaxe,d=80|iron_pickaxe|paper|gunpowder|oak_planksx2|-|-
+GEN crafter 3 220 oak_planksx64|oak_logx4|stickx8|cobblestonex9|stone|iron_ingotx6|milk_bucket|wheatx5|sugarx2|egg|leather_chestplate|red_dye|iron_pickaxe,d=80|iron_pickaxe|paper|gunpowder|oak_planksx2|-|-
+GEN crafter 4 220 oak_planksx64|oak_logx4|stickx8|cobblestonex9|stone|iron_ingotx6|milk_bucket|wheatx5|sugarx2|egg|leather_chestplate|red_dye|iron_pickaxe,d=80|iron_pickaxe|paper|gunpowder|oak_planksx2|-|-
+GEN crafter 5 220 oak_planksx4|oak_planksx2|stickx2|oak_logx2|cobblestonex3|-|-
+GEN crafter 6 220 oak_planksx4|oak_planksx2|stickx2|oak_logx2|cobblestonex3|-|-
+GEN crafter 7 220 oak_planksx64|oak_logx4|stickx8|cobblestonex9|stone|iron_ingotx6|milk_bucket|wheatx5|sugarx2|egg|iron_pickaxe,d=80|iron_pickaxe|paper|gunpowder|-|- ticks
+GEN crafter 8 220 oak_planksx64|oak_logx4|stickx8|cobblestonex9|stone|iron_ingotx6|milk_bucket|wheatx5|sugarx2|egg|iron_pickaxe,d=80|iron_pickaxe|paper|gunpowder|-|- ticks

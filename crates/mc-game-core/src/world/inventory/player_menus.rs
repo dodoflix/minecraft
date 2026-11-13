@@ -249,6 +249,19 @@ pub fn handle_container_button_click(
     }
 }
 
+/// `handleContainerSlotStateChanged`: only the crafter menu acts on it.
+pub fn handle_container_slot_state_changed(
+    menu: &mut dyn AbstractContainerMenu,
+    player: &mut dyn MenuPlayer,
+    container_id: i32,
+    slot_id: i32,
+    new_state: bool,
+) {
+    if !player.is_spectator() && container_id == menu.base().container_id {
+        menu.set_container_slot_state(player, slot_id, new_state);
+    }
+}
+
 /// `handleSetCreativeModeSlot` for a valid `slot_num` in the inventory menu (1..=45) or a drop (negative).
 /// `drop_throttle_ok` is `dropSpamThrottler.isUnderThreshold()`; the caller increments the throttler when this
 /// returns `CreativeSlotResult::Dropped`.

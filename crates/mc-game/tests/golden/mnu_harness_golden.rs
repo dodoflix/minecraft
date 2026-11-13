@@ -73,3 +73,8 @@ fn button_packets_reach_the_open_menu_only() {
 fn the_cartography_table_opens_for_survival_spectator_and_creative_players() {
     common::block_scenario::check("mnu_open_cartography");
 }
+
+#[test]
+fn the_crafter_toggles_slots_through_the_slot_state_packet() {
+    common::block_scenario::check("mnu_crafter_slots");
+}

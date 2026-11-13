@@ -1,8 +1,6 @@
 //! `net.minecraft.world.level.block.CrafterBlock`: redstone-triggered 3x3 crafting that dispenses the result into the
 //! container in front (or drops it). `orientation` rotates / mirrors like the jigsaw block.
-//!
-//! Not implemented: `useWithoutItem` opens the menu through the block entity's `menu_provider`, which stays `None` until
-//! the crafter menu exists.
+use crate::world::block_entity::container_menu_provider::BlockEntityMenuProvider;
 use crate::world::block_entity::crafter_block_entity::CrafterBlockEntity;
 use crate::world::block_entity::hopper_block_entity::{add_item, get_container_at, with_container};
 use mc_core::direction::FrontAndTop;
@@ -167,6 +165,17 @@ impl BlockBehaviour for CrafterBlock {
         level.update_neighbour_for_output_signal(pos, state.block());
     }
 
+    /// `BaseEntityBlock.getMenuProvider`: the crafter block entity is its own `MenuProvider`.
+    fn get_menu_provider(
+        &self,
+        _state: BlockState,
+        level: &ServerLevel,
+        pos: BlockPos,
+    ) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
+        BlockEntityMenuProvider::of(level, pos)
+            .map(|p| Box::new(p) as Box<dyn mc_game_core::world::inventory::MenuProvider>)
+    }
+
     fn use_without_item(
         &self,
         _state: BlockState,
@@ -175,12 +184,8 @@ impl BlockBehaviour for CrafterBlock {
         player: &mut ServerPlayer,
         _hit: &BlockHitResult,
     ) -> InteractionResult {
-        let provider = level
-            .get_block_entity(pos)
-            .filter(|be| be.as_any().is::<CrafterBlockEntity>())
-            .and_then(|be| be.menu_provider());
-        if let Some(provider) = provider {
-            player.open_menu(level, &*provider);
+        if let Some(provider) = BlockEntityMenuProvider::of(level, pos) {
+            player.open_menu(level, &provider);
         }
         InteractionResult::SUCCESS
     }

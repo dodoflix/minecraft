@@ -1,0 +1,259 @@
+# using the crafter opens the menu, counts nothing and shows empty slots and a quiet preview
+MENU A cid=1 type=minecraft:crafter_3x3 state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 0
+MD 8 0
+MD 9 0
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+BE 3 -60 4 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:3,y:-60,z:4}
+PKT A minecraft:open_screen 3c01070a0800097472616e736c6174650011636f6e7461696e65722e6372616674657200
+PKT A minecraft:container_set_content 1201012e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_data 130100010000
+PKT A minecraft:container_set_data 130100020000
+PKT A minecraft:container_set_data 130100030000
+PKT A minecraft:container_set_data 130100040000
+PKT A minecraft:container_set_data 130100050000
+PKT A minecraft:container_set_data 130100060000
+PKT A minecraft:container_set_data 130100070000
+PKT A minecraft:container_set_data 130100080000
+PKT A minecraft:container_set_data 130100090000
+# a log in the middle previews its planks; the preview is not a real slot to take from
+MENU A cid=1 type=minecraft:crafter_3x3 state=5 carried=minecraft:oak_log*7
+MS 4 minecraft:oak_log*1
+MS 37 minecraft:oak_planks*16
+MS 38 minecraft:stick*4
+MS 45 minecraft:oak_planks*4
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 0
+MD 8 0
+MD 9 0
+BE 3 -60 4 {Items:[{Slot:4b,count:1,id:"minecraft:oak_log"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:3,y:-60,z:4}
+PKT A minecraft:container_set_slot 1401020025103f0000
+PKT A minecraft:container_set_slot 140103002604a4080000
+PKT A minecraft:set_cursor_item 6208a3010000
+PKT A minecraft:container_set_slot 140104000401a3010000
+PKT A minecraft:container_set_slot 140105002d043f0000
+PKT A minecraft:set_cursor_item 6207a3010000
+# the slot-state packet disables an empty slot and enables it again; the menu data slot follows on the broadcast
+MENU A cid=1 type=minecraft:crafter_3x3 state=6 carried=empty
+MS 4 minecraft:oak_log*8
+MS 37 minecraft:oak_planks*16
+MS 38 minecraft:stick*4
+MS 45 minecraft:oak_planks*4
+MD 0 1
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 0
+MD 8 0
+MD 9 0
+BE 3 -60 4 {Items:[{Slot:4b,count:8,id:"minecraft:oak_log"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;0],id:"minecraft:crafter",triggered:0,x:3,y:-60,z:4}
+PKT A minecraft:container_set_slot 140106000408a3010000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=1 type=minecraft:crafter_3x3 state=6 carried=empty
+MS 4 minecraft:oak_log*8
+MS 37 minecraft:oak_planks*16
+MS 38 minecraft:stick*4
+MS 45 minecraft:oak_planks*4
+MD 0 1
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 0
+MD 8 0
+MD 9 0
+BE 3 -60 4 {Items:[{Slot:4b,count:8,id:"minecraft:oak_log"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;0],id:"minecraft:crafter",triggered:0,x:3,y:-60,z:4}
+PKT A minecraft:container_set_data 130100000001
+# a disabled slot refuses a stack from the cursor and from a shift-click
+MENU A cid=1 type=minecraft:crafter_3x3 state=11 carried=empty
+MS 1 minecraft:stick*4
+MS 4 minecraft:oak_log*8
+MS 37 minecraft:oak_planks*16
+MD 0 1
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 0
+MD 8 0
+MD 9 0
+BE 3 -60 4 {Items:[{Slot:1b,count:4,id:"minecraft:stick"},{Slot:4b,count:8,id:"minecraft:oak_log"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;0],id:"minecraft:crafter",triggered:0,x:3,y:-60,z:4}
+PKT A minecraft:container_set_slot 140107002500
+PKT A minecraft:set_cursor_item 62103f0000
+PKT A minecraft:container_set_slot 1401080025103f0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140109000104a4080000
+PKT A minecraft:container_set_slot 14010a002600
+PKT A minecraft:container_set_slot 14010b002d00
+# a filled slot can not be disabled, a slot out of the grid or negative changes nothing
+MENU A cid=1 type=minecraft:crafter_3x3 state=13 carried=empty
+MS 1 minecraft:stick*4
+MS 4 minecraft:oak_log*4
+MS 36 minecraft:oak_log*4
+MS 37 minecraft:oak_planks*16
+MD 0 1
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 0
+MD 8 0
+MD 9 0
+BE 3 -60 4 {Items:[{Slot:1b,count:4,id:"minecraft:stick"},{Slot:4b,count:4,id:"minecraft:oak_log"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;0],id:"minecraft:crafter",triggered:0,x:3,y:-60,z:4}
+PKT A minecraft:container_set_slot 14010c000404a3010000
+PKT A minecraft:set_cursor_item 6204a3010000
+PKT A minecraft:container_set_slot 14010d002404a3010000
+PKT A minecraft:set_cursor_item 6200
+# a packet for another container id is ignored
+MENU A cid=1 type=minecraft:crafter_3x3 state=13 carried=empty
+MS 1 minecraft:stick*4
+MS 4 minecraft:oak_log*4
+MS 36 minecraft:oak_log*4
+MS 37 minecraft:oak_planks*16
+MD 0 1
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 0
+MD 8 0
+MD 9 0
+BE 3 -60 4 {Items:[{Slot:1b,count:4,id:"minecraft:stick"},{Slot:4b,count:4,id:"minecraft:oak_log"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;0],id:"minecraft:crafter",triggered:0,x:3,y:-60,z:4}
+# enabling a slot that is already enabled and disabling one twice are harmless
+MENU A cid=1 type=minecraft:crafter_3x3 state=13 carried=empty
+MS 1 minecraft:stick*4
+MS 4 minecraft:oak_log*4
+MS 36 minecraft:oak_log*4
+MS 37 minecraft:oak_planks*16
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 1
+MD 8 0
+MD 9 0
+BE 3 -60 4 {Items:[{Slot:1b,count:4,id:"minecraft:stick"},{Slot:4b,count:4,id:"minecraft:oak_log"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;7],id:"minecraft:crafter",triggered:0,x:3,y:-60,z:4}
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_data 130100070001
+# a spectator opens it and can not toggle slots
+MENU S cid=1 type=minecraft:crafter_3x3 state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 0
+MD 8 0
+MD 9 0
+BE 9 -60 4 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:9,y:-60,z:4}
+PKT S minecraft:open_screen 3c01070a0800097472616e736c6174650011636f6e7461696e65722e6372616674657200
+PKT S minecraft:container_set_content 1201012e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT S minecraft:container_set_data 130100000000
+PKT S minecraft:container_set_data 130100010000
+PKT S minecraft:container_set_data 130100020000
+PKT S minecraft:container_set_data 130100030000
+PKT S minecraft:container_set_data 130100040000
+PKT S minecraft:container_set_data 130100050000
+PKT S minecraft:container_set_data 130100060000
+PKT S minecraft:container_set_data 130100070000
+PKT S minecraft:container_set_data 130100080000
+PKT S minecraft:container_set_data 130100090000
+# redstone power while the menu is open: the triggered data slot, the craft after its delay and the preview after it
+MENU A cid=1 type=minecraft:crafter_3x3 state=16 carried=empty
+MS 4 minecraft:oak_log*4
+MS 36 minecraft:oak_log*4
+MS 37 minecraft:oak_planks*16
+MS 44 minecraft:stick*4
+MS 45 minecraft:oak_planks*4
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 1
+MD 8 0
+MD 9 1
+BE 3 -60 4 {Items:[{Slot:4b,count:4,id:"minecraft:oak_log"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;7],id:"minecraft:crafter",triggered:1,x:3,y:-60,z:4}
+PKT A minecraft:container_set_slot 14010e000100
+PKT A minecraft:container_set_slot 14010f002c04a4080000
+PKT A minecraft:container_set_slot 140110002d043f0000
+PKT A minecraft:container_set_data 130100090001
+MENU A cid=1 type=minecraft:crafter_3x3 state=17 carried=empty
+MS 4 minecraft:oak_log*3
+MS 36 minecraft:oak_log*4
+MS 37 minecraft:oak_planks*16
+MS 44 minecraft:stick*4
+MS 45 minecraft:oak_planks*4
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 1
+MD 8 0
+MD 9 1
+BE 3 -60 4 {Items:[{Slot:4b,count:3,id:"minecraft:oak_log"}],components:{},crafting_ticks_remaining:3,disabled_slots:[I;7],id:"minecraft:crafter",triggered:1,x:3,y:-60,z:4}
+PKT A minecraft:container_set_slot 140111000403a3010000
+MENU A cid=1 type=minecraft:crafter_3x3 state=17 carried=empty
+MS 4 minecraft:oak_log*3
+MS 36 minecraft:oak_log*4
+MS 37 minecraft:oak_planks*16
+MS 44 minecraft:stick*4
+MS 45 minecraft:oak_planks*4
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 1
+MD 8 0
+MD 9 0
+BE 3 -60 4 {Items:[{Slot:4b,count:3,id:"minecraft:oak_log"}],components:{},crafting_ticks_remaining:1,disabled_slots:[I;7],id:"minecraft:crafter",triggered:0,x:3,y:-60,z:4}
+PKT A minecraft:container_set_data 130100090000
+# breaking the crafter closes the menu
+MENU A cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:oak_log*4
+MS 37 minecraft:oak_planks*16
+MS 44 minecraft:stick*4
+PKT A minecraft:container_set_slot 140112000400
+PKT A minecraft:container_set_slot 140113002d00
+PKT A minecraft:container_close 1101

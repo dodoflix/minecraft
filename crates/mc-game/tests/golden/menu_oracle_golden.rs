@@ -41,3 +41,12 @@ fn crafting_table_menu_script_matches_vanilla() {
     let ops = replay("menu_oracle", "crafting_table");
     assert!(ops > 1000, "fixture has {ops} ops");
 }
+
+/// The crafter: the preview slot for every kind of recipe, disabled slots (what may disable one, what they refuse, the re-enable on
+/// setItem), shift-clicks, every click kind on the preview slot, the `triggered` data slot with a redstone signal while the menu is open
+/// and seeded random sessions.
+#[test]
+fn crafter_menu_script_matches_vanilla() {
+    let ops = replay("menu_oracle", "crafter");
+    assert!(ops > 500, "fixture has {ops} ops");
+}

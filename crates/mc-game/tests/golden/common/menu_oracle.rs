@@ -198,6 +198,11 @@ pub const MENU_KINDS: &[MenuKind] = &[
         block: Block::STONECUTTER,
         setup: no_setup,
     },
+    MenuKind {
+        name: "crafter",
+        block: Block::CRAFTER,
+        setup: no_setup,
+    },
 ];
 
 fn st(s: &ItemStack) -> String {
@@ -887,6 +892,8 @@ impl Session {
                     s += &format!(" {i}={}", st(&it));
                 }
             }
+            // block entity values are read live like `DataSlot.get()`
+            menu.base_mut().refresh_data_slots(&self.player);
             let mut d = String::from("D");
             for v in menu.base().data_slot_values() {
                 d += &format!(" {v}");
@@ -1126,6 +1133,21 @@ impl Session {
             }
             "MAYBUILD" => {
                 self.player.may_build = rest == "1";
+                self.dump()
+            }
+            "SLOTSTATE" => {
+                let (slot, enabled) = rest.split_once(' ').unwrap();
+                let Session { player, menu, .. } = self;
+                let menu = menu.as_mut().unwrap();
+                let id = menu.base().container_id;
+                handle_container_slot_state_changed(
+                    menu.as_mut(),
+                    player,
+                    id,
+                    slot.parse().unwrap(),
+                    enabled == "1",
+                );
+                menu.broadcast_changes(player);
                 self.dump()
             }
             "SETBEACON" => {
