@@ -871,9 +871,6 @@ impl Entity for ServerPlayer {
     fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
         super::avatar_dimensions(pose)
     }
-    fn get_encode_id(&self) -> Option<&'static str> {
-        Some("minecraft:player")
-    }
     /// `getStats().getValue(statType.get(stat))`.
     fn get_stat_value(
         &self,
