@@ -5,6 +5,7 @@ use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::container::get_redstone_signal_from_container;
 use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::vehicle::minecart::minecart_command_block::MinecartCommandBlock;
 use mc_game_core::world::level::block::impls::base_rail_block::{self, rail_behaviour};
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::block::rail_state::RailState;
@@ -127,9 +128,22 @@ fn first_container_minecart(
         .copied()
 }
 
-/// `getAnalogOutputSignal` of a powered rail: the container minecart on it as a container.
-// Not implemented: the `MinecartCommandBlock` success count that vanilla reads before the container minecarts
-fn container_minecart_signal(level: &ServerLevel, pos: BlockPos) -> Option<i32> {
+/// `getAnalogOutputSignal` of a powered rail: the success count of the first command block minecart on it, else the first
+/// container minecart on it as a container.
+fn minecart_signal(level: &ServerLevel, pos: BlockPos) -> Option<i32> {
+    let command_blocks = get_interacting_minecarts(
+        level,
+        pos,
+        |e| e.get_type() == EntityType::COMMAND_BLOCK_MINECART,
+        |_| true,
+    );
+    if let Some(&id) = command_blocks.first() {
+        let cart = level
+            .get_entity(id)?
+            .as_any()
+            .downcast_ref::<MinecartCommandBlock>()?;
+        return Some(cart.get_command_block().get_success_count());
+    }
     let cart = level.get_entity(first_container_minecart(level, pos)?)?;
     Some(get_redstone_signal_from_container(cart.as_container()))
 }
@@ -158,7 +172,7 @@ rail_behaviour!(DetectorRailBlock, |_state, _level, _pos, _block| {}, on_place,
     }
     fn get_analog_output_signal(&self, state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
         if state.get(props::POWERED) {
-            container_minecart_signal(level, pos).unwrap_or(0)
+            minecart_signal(level, pos).unwrap_or(0)
         } else {
             0
         }

@@ -8,6 +8,7 @@
 # a plain minecart reports nothing
 # a plain minecart and a chest cart on the same rail: the chest cart counts
 # a chest cart and a hopper cart on the same rail: the first in query order counts
+# a command block cart reports its success count (a loaded count survives without a command), before a chest cart on the same rail
 BE 0 -60 1 {OutputSignal:0,components:{},id:"minecraft:comparator",x:0,y:-60,z:1}
 BE 3 -60 1 {OutputSignal:1,components:{},id:"minecraft:comparator",x:3,y:-60,z:1}
 BE 6 -60 1 {OutputSignal:8,components:{},id:"minecraft:comparator",x:6,y:-60,z:1}
@@ -18,6 +19,8 @@ BE 18 -60 1 {OutputSignal:1,components:{},id:"minecraft:comparator",x:18,y:-60,z
 BE 21 -60 1 {OutputSignal:0,components:{},id:"minecraft:comparator",x:21,y:-60,z:1}
 BE 24 -60 1 {OutputSignal:3,components:{},id:"minecraft:comparator",x:24,y:-60,z:1}
 BE 27 -60 1 {OutputSignal:2,components:{},id:"minecraft:comparator",x:27,y:-60,z:1}
+BE 30 -60 1 {OutputSignal:7,components:{},id:"minecraft:comparator",x:30,y:-60,z:1}
+BE 33 -60 1 {OutputSignal:2,components:{},id:"minecraft:comparator",x:33,y:-60,z:1}
 B 0 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=false]
 B 0 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
 B 3 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=false]
@@ -38,6 +41,10 @@ B 24 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=fals
 B 24 -60 1 minecraft:comparator[facing=north,mode=compare,powered=true]
 B 27 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=false]
 B 27 -60 1 minecraft:comparator[facing=north,mode=compare,powered=true]
+B 30 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=false]
+B 30 -60 1 minecraft:comparator[facing=north,mode=compare,powered=true]
+B 33 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=false]
+B 33 -60 1 minecraft:comparator[facing=north,mode=compare,powered=true]
 E k0_0 minecraft:chest_minecart pos=0.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=- seed=0
 E k3_0 minecraft:chest_minecart pos=3.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:stone*64 loot=- seed=0
 E k6_0 minecraft:chest_minecart pos=6.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:stone*64;1:minecraft:stone*64;2:minecraft:stone*64;3:minecraft:stone*64;4:minecraft:stone*64;5:minecraft:stone*64;6:minecraft:stone*64;7:minecraft:stone*64;8:minecraft:stone*64;9:minecraft:stone*64;10:minecraft:stone*64;11:minecraft:stone*64;12:minecraft:stone*64;13:minecraft:stone*64 loot=- seed=0
@@ -50,6 +57,9 @@ E k24_0 minecraft:minecart pos=24.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 o
 E k24_1 minecraft:chest_minecart pos=24.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:stone*64;1:minecraft:stone*64;2:minecraft:stone*64;3:minecraft:stone*64;4:minecraft:stone*64 loot=- seed=0
 E k27_0 minecraft:chest_minecart pos=27.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:stone*64;1:minecraft:stone*64 loot=- seed=0
 E k27_1 minecraft:hopper_minecart pos=27.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:stone*64 loot=- seed=0 enabled=1
+E k30_0 minecraft:command_block_minecart pos=30.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E k33_0 minecraft:chest_minecart pos=33.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:stone*64;1:minecraft:stone*64;2:minecraft:stone*64 loot=- seed=0
+E k33_1 minecraft:command_block_minecart pos=33.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 # a cart that leaves the rail (killed) releases it: the signal drops to 0 after the rail check
 BE 3 -60 1 {OutputSignal:0,components:{},id:"minecraft:comparator",x:3,y:-60,z:1}
 B 3 -60 0 minecraft:detector_rail[powered=false,shape=east_west,waterlogged=false]

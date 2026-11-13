@@ -60,8 +60,19 @@ spawn k27_0 minecraft:chest_minecart 27.5 -59.9375 0.5 0 0 {NoGravity:1b,Items:[
 entity_seed k27_0 271
 spawn k27_1 minecraft:hopper_minecart 27.5 -59.9375 0.5 0 0 {NoGravity:1b,Items:[{Slot:0b,id:"minecraft:stone",count:64}]}
 entity_seed k27_1 272
+note a command block cart reports its success count (a loaded count survives without a command), before a chest cart on the same rail
+block 30 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 30 -60 0 minecraft:detector_rail[shape=east_west,powered=false]
+spawn k30_0 minecraft:command_block_minecart 30.5 -59.9375 0.5 0 0 {NoGravity:1b,SuccessCount:7}
+entity_seed k30_0 301
+block 33 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 33 -60 0 minecraft:detector_rail[shape=east_west,powered=false]
+spawn k33_0 minecraft:chest_minecart 33.5 -59.9375 0.5 0 0 {NoGravity:1b,Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:stone",count:64}]}
+entity_seed k33_0 331
+spawn k33_1 minecraft:command_block_minecart 33.5 -59.9375 0.5 0 0 {NoGravity:1b,SuccessCount:2}
+entity_seed k33_1 332
 tick 6
-dump be:0,-60,1 be:3,-60,1 be:6,-60,1 be:9,-60,1 be:12,-60,1 be:15,-60,1 be:18,-60,1 be:21,-60,1 be:24,-60,1 be:27,-60,1 blocks:0,-60,0,30,-60,1 xentities
+dump be:0,-60,1 be:3,-60,1 be:6,-60,1 be:9,-60,1 be:12,-60,1 be:15,-60,1 be:18,-60,1 be:21,-60,1 be:24,-60,1 be:27,-60,1 be:30,-60,1 be:33,-60,1 blocks:0,-60,0,36,-60,1 xentities
 note a cart that leaves the rail (killed) releases it: the signal drops to 0 after the rail check
 kill k3_0
 tick 25
