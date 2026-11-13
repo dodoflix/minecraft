@@ -1,0 +1,40 @@
+# walled in on every side
+T 3
+P Alice minecraft:player pos=18.5,-60.3125,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 4
+P Alice minecraft:player pos=18.5,-60.3125,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 5
+P Alice minecraft:player pos=18.5,-60.3125,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 6
+P Alice minecraft:player pos=18.5,-59.20000001192093,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 7
+P Alice minecraft:player pos=18.5,-59.20000001192093,0.5 delta=0.0,-0.1552320045166016,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 8
+P Alice minecraft:player pos=18.5,-59.20000001192093,0.5 delta=0.0,-0.230527368912964,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# under a low ceiling
+T 9
+P Alice minecraft:player pos=24.5,-60.3125,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 10
+P Alice minecraft:player pos=24.5,-60.3125,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 11
+P Alice minecraft:player pos=24.5,-60.3125,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=7/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 12
+P Alice minecraft:player pos=23.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.0 abs=0.0 hurt=6/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 13
+P Alice minecraft:player pos=23.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.0 abs=0.0 hurt=5/17 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 14
+P Alice minecraft:player pos=23.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.0 abs=0.0 hurt=4/16 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c5 minecraft:minecart pos=18.5,-59.9,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+E c6 minecraft:minecart pos=24.5,-59.9,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+PKT Alice minecraft:player_position 49024032800000000000c04e2800000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT Alice minecraft:set_passengers 6dbe0a01bd0a
+PKT Alice minecraft:set_passengers 6dbe0a01bd0a
+PKT Alice minecraft:set_passengers 6dbe0a00
+PKT Alice minecraft:player_position 49034032800000000000c04d999999b333333fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT Alice minecraft:set_passengers 6dbe0a00
+PKT Alice minecraft:player_position 49044038800000000000c04e2800000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT Alice minecraft:set_passengers 6dbf0a01bd0a
+PKT Alice minecraft:set_passengers 6dbf0a01bd0a
+PKT Alice minecraft:set_passengers 6dbf0a00
+PKT Alice minecraft:player_position 49054037800000000000c04e0000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT Alice minecraft:set_passengers 6dbf0a00

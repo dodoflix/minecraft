@@ -1,0 +1,16 @@
+# minecart_improvements: Furnace minecart: fuel and push, pushing along rails, burnout, collision with another cart.
+features minecart_improvements
+level flat
+entity_counter 900
+level_seed 103
+fill -2 -60 -2 60 -40 8 minecraft:air
+fill 0 -60 0 40 -60 0 minecraft:rail[shape=east_west]
+fill 0 -60 3 40 -60 3 minecraft:rail[shape=east_west]
+spawn f1 minecraft:furnace_minecart 0.5 -59.9375 0.5 0 0 {Fuel:200s,PushX:0.5d,PushZ:0.0d}
+entity_seed f1 251
+spawn c1 minecraft:minecart 6.5 -59.9375 0.5
+entity_seed c1 252
+spawn f2 minecraft:furnace_minecart 0.5 -59.9375 3.5 0 0 {Fuel:30s,PushX:-1.0d,PushZ:0.0d}
+entity_seed f2 253
+watch xentity:f1 xentity:c1 xentity:f2
+tick 120

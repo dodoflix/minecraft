@@ -1,0 +1,15 @@
+# minecart_improvements: Minecart in water: speed caps, slowdown, gravity.
+features minecart_improvements
+level flat
+entity_counter 750
+fill -2 -60 -2 60 -40 8 minecraft:air
+fill 0 -60 -1 20 -58 1 minecraft:stone
+fill 1 -60 0 19 -58 0 minecraft:water[level=0]
+fill 1 -60 0 19 -60 0 minecraft:rail[shape=east_west]
+spawn c1 minecraft:minecart 1.5 -59.9375 0.5
+entity_seed c1 221
+velocity c1 0.3 0 0
+spawn c2 minecraft:minecart 10.5 -55 0.5
+entity_seed c2 222
+watch xentities
+tick 60

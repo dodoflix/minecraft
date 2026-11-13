@@ -1,0 +1,19 @@
+# minecart_improvements: TNT minecart hitting a wall at speed: explodes; and a TNT minecart ignited by fire damage.
+features minecart_improvements
+level flat
+entity_counter 910
+level_seed 105
+fill -2 -60 -2 60 -40 8 minecraft:air
+fill 0 -60 0 10 -60 0 minecraft:rail[shape=east_west]
+fill 11 -60 -3 11 -57 3 minecraft:stone
+fill 0 -60 6 12 -60 6 minecraft:rail[shape=east_west]
+spawn t1 minecraft:tnt_minecart 0.5 -59.9375 0.5
+entity_seed t1 277
+velocity t1 0.4 0 0
+spawn t2 minecraft:tnt_minecart 3.5 -59.9375 6.5
+entity_seed t2 1434
+watch xentity:t1 xentity:t2
+tick 3
+hurt t2 in_fire 1
+tick 100
+dump blocks:9,-61,-1,13,-57,1

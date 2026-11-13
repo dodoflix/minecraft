@@ -1,0 +1,33 @@
+# minecart_improvements: Damage: the wobble (10 per damage point), the break above 40 damage with the minecart item dropped, a creative player discards without a drop, a survival player's
+# hit wobbles, an explosion and a fall do not break a cart outright.
+features minecart_improvements
+level flat
+entity_counter 810
+level_seed 107
+fill -2 -60 -2 60 -40 8 minecraft:air
+spawn_player Alice survival 20.5 -60 5.5 0 0
+spawn_player Bob creative 24.5 -60 5.5 0 0
+spawn c1 minecraft:minecart 0.5 -59.9375 0.5
+entity_seed c1 231
+spawn c2 minecraft:minecart 3.5 -59.9375 0.5
+entity_seed c2 232
+spawn c3 minecraft:minecart 6.5 -59.9375 0.5
+entity_seed c3 233
+spawn c4 minecraft:minecart 9.5 -59.9375 0.5
+entity_seed c4 234
+tick 2
+dump packets:Alice:none packets:Bob:none
+watch xentities
+tick 2
+hurt c1 mob_attack 3
+tick 2
+hurt c1 mob_attack 1
+hurt c1 mob_attack 1
+tick 3
+hurt c2 player_attack 5 by=Alice direct=Alice
+tick 2
+hurt c3 player_attack 1 by=Bob direct=Bob
+tick 2
+hurt c4 explosion 1
+tick 3
+dump packets:Alice:set_entity_data,remove_entities,add_entity,entity_event

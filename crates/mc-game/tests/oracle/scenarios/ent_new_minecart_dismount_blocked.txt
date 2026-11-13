@@ -1,0 +1,33 @@
+# minecart_improvements: Dismounting a minecart where the sides are blocked: walled in on every side (the rider stands on top of the cart), then under a low ceiling
+# (only the swimming pose fits).
+features minecart_improvements
+level flat
+preload 3
+level_seed 113
+entity_counter 1340
+fill -2 -60 -4 40 -40 12 minecraft:air
+fill 0 -60 0 30 -60 0 minecraft:rail[shape=east_west]
+fill 17 -60 -1 19 -58 1 minecraft:stone
+fill 18 -60 0 18 -58 0 minecraft:air
+block 18 -60 0 minecraft:rail[shape=east_west]
+fill 23 -59 -1 25 -59 1 minecraft:stone
+spawn_player Alice survival 2.5 -60 3.5 -90 0
+spawn c5 minecraft:minecart 18.5 -59.9375 0.5 0 0
+entity_seed c5 265
+spawn c6 minecraft:minecart 24.5 -59.9375 0.5 0 0
+entity_seed c6 266
+tick 2
+dump packets:Alice:none
+watch player:Alice
+note walled in on every side
+ride Alice c5
+tick 3
+input Alice sneak
+tick 3
+input Alice none
+note under a low ceiling
+ride Alice c6
+tick 3
+input Alice sneak
+tick 3
+dump xentities packets:Alice:set_passengers,teleport_entity,player_position

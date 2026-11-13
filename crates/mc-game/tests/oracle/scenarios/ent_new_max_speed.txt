@@ -1,0 +1,28 @@
+# minecart_improvements: the max_minecart_speed rule (blocks per second, halved in water) caps a cart on a powered rail line and a derailed one; changing it while the cart rolls takes effect at once.
+features minecart_improvements
+level flat
+level_seed 15
+entity_counter 1320
+fill -2 -60 -6 120 -40 12 minecraft:air
+fill 0 -60 0 100 -60 0 minecraft:powered_rail[powered=true,shape=east_west]
+fill 0 -61 0 100 -61 0 minecraft:redstone_block
+fill 0 -60 4 20 -60 4 minecraft:rail[shape=east_west]
+fill 21 -60 3 60 -60 5 minecraft:stone
+fill 21 -59 3 60 -59 5 minecraft:air
+fill 0 -60 8 30 -58 8 minecraft:stone
+fill 1 -60 8 20 -60 8 minecraft:water[level=0]
+spawn c1 minecraft:minecart 0.5 -59.9375 0.5
+entity_seed c1 263
+velocity c1 0.1 0 0
+spawn c2 minecraft:minecart 0.5 -59.9375 4.5
+entity_seed c2 264
+velocity c2 0.8 0 0
+watch xentities
+tick 30
+gamerule max_minecart_speed 40
+tick 40
+gamerule max_minecart_speed 1
+tick 30
+gamerule max_minecart_speed 1000
+velocity c2 3 0 0
+tick 20

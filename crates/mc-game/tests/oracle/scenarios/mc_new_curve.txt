@@ -1,0 +1,21 @@
+# minecart_improvements: A closed rail loop with four curves; the carts circle it (rotation, flipping, slowdown).
+features minecart_improvements
+level flat
+entity_counter 710
+fill -2 -60 -2 30 -40 20 minecraft:air
+fill 1 -60 0 4 -60 0 minecraft:rail[shape=east_west]
+fill 1 -60 5 4 -60 5 minecraft:rail[shape=east_west]
+fill 0 -60 1 0 -60 4 minecraft:rail[shape=north_south]
+fill 5 -60 1 5 -60 4 minecraft:rail[shape=north_south]
+block 0 -60 0 minecraft:rail[shape=south_east]
+block 5 -60 0 minecraft:rail[shape=south_west]
+block 0 -60 5 minecraft:rail[shape=north_east]
+block 5 -60 5 minecraft:rail[shape=north_west]
+spawn c1 minecraft:minecart 2.5 -59.9375 0.5
+entity_seed c1 212
+velocity c1 0.3 0 0
+spawn c2 minecraft:minecart 0.5 -59.9375 3.5
+entity_seed c2 213
+velocity c2 0 0 -0.2
+watch xentities
+tick 150
