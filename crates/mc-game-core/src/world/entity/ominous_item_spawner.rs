@@ -151,7 +151,7 @@ impl Entity for OminousItemSpawner {
         }
         if i64::from(self.base.tick_count) >= self.spawn_item_after_ticks {
             self.spawn_item(level);
-            self.kill();
+            self.kill_in_level(level);
         }
     }
 

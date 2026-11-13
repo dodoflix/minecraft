@@ -2549,6 +2549,10 @@ pub trait Entity: Any {
     fn projectile_receives_side_effects_on_hit(&self, _was_hurt: bool) -> bool {
         true
     }
+    /// `isFlyingVehicle()`.
+    fn is_flying_vehicle(&self) -> bool {
+        false
+    }
     /// `mayInteract(level, pos)`.
     fn may_interact(&self, _level: &ServerLevel, _pos: BlockPos) -> bool {
         true

@@ -219,7 +219,7 @@ impl AbstractArrow for ThrownTrident {
                     })),
                 );
                 if broke.load(std::sync::atomic::Ordering::Relaxed) {
-                    self.kill();
+                    self.kill_in_level(level);
                 }
                 if target.living().is_some() {
                     super::do_knockback(self, level, target, &source);
@@ -253,7 +253,7 @@ impl AbstractArrow for ThrownTrident {
         // `getWeaponItem()` is the pickup stack: the live object the effects modify
         self.arrow.pickup_item_stack = weapon;
         if broke {
-            self.kill();
+            self.kill_in_level(level);
         }
     }
 

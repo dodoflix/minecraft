@@ -144,11 +144,6 @@ impl PrimedTnt {
         self.base.entity_data.get(DATA_BLOCK_STATE_ID)
     }
 
-    /// `setUsedPortal(true)` (called by `teleport` for the new entity).
-    pub fn set_used_portal(&mut self, used_portal: bool) {
-        self.used_portal = used_portal;
-    }
-
     /// `explode()`.
     fn explode(&self, level: &mut ServerLevel) {
         if level.tnt_explodes() {
@@ -188,6 +183,11 @@ impl Entity for PrimedTnt {
     }
     fn as_dyn_mut(&mut self) -> &mut dyn Entity {
         self
+    }
+
+    /// `teleport(transition)`: the entity that exists afterwards has used a portal.
+    fn after_teleport(&mut self, _level: &mut ServerLevel) {
+        self.used_portal = true;
     }
 
     fn get_movement_emission(&self) -> MovementEmission {

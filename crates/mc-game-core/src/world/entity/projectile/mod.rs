@@ -738,11 +738,10 @@ pub fn read_additional_save_data(projectile: &mut dyn Projectile, input: &mc_nbt
     d.owner_id = None;
     d.left_owner = input.get_boolean_or("LeftOwner", false);
     d.has_been_shot = input.get_boolean_or("HasBeenShot", false);
-    d.can_break = input.get("can_break").and_then(|t| {
-        mc_dfu::parse_nbt(&AdventureModePredicate::codec(), t)
-            .into_result()
-            .ok()
-    });
+    // `input.read` keeps the partial value of a failed decode
+    d.can_break = input
+        .get("can_break")
+        .and_then(|t| mc_dfu::parse_nbt(&AdventureModePredicate::codec(), t).result_or_partial());
 }
 
 /// `Projectile` fields of the rich scenario dumps (`owner leftowner shot canbreak`).

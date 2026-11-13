@@ -229,6 +229,8 @@ impl ExperienceOrb {
     }
 
     /// `followNearbyPlayer()`.
+    /// Not implemented: vanilla keeps the `Player` object after it left the level and keeps following its last position
+    /// while it stays within 8 blocks; here the target is looked up by id each tick, so it is searched again at once.
     fn follow_nearby_player(&mut self, level: &ServerLevel) {
         let following_valid = self
             .following_player

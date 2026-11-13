@@ -1,0 +1,25 @@
+# The game events of the ominous item spawner's own end (Entity.kill(level) posts ENTITY_DIE with the spawner as the source): sculk sensors
+# beside an empty spawner, one with a plain item and one with an arrow all hear it. One sensor per spawner, far apart.
+command_env
+level flat
+preload 6
+level_seed 5
+entity_counter 800
+spawn_player A survival 0.5 -60 40.5 0 0
+tick 2
+dump packets:A:none
+block 2 -60 2 minecraft:sculk_sensor
+block 42 -60 2 minecraft:sculk_sensor
+block -38 -60 2 minecraft:sculk_sensor
+tick 2
+note an empty spawner (nothing spawns) beside a sensor, a spawner with a plain item beside another, one with an arrow beside a third
+spawn o1 minecraft:ominous_item_spawner 4.5 -59 2.5 0 0 {spawn_item_after_ticks:5L}
+spawn o2 minecraft:ominous_item_spawner 44.5 -59 2.5 0 0 {item:{id:"minecraft:stone",count:1},spawn_item_after_ticks:5L}
+spawn o3 minecraft:ominous_item_spawner -35.5 -59 2.5 0 0 {item:{id:"minecraft:arrow",count:1},spawn_item_after_ticks:5L}
+entity_seed o2 3
+entity_seed o3 4
+watch xentities events
+tick 3
+dump blocks:2,-60,2,2,-60,2 blocks:42,-60,2,42,-60,2 blocks:-38,-60,2,-38,-60,2 events
+tick 8
+dump blocks:2,-60,2,2,-60,2 blocks:42,-60,2,42,-60,2 blocks:-38,-60,2,-38,-60,2 xentities events

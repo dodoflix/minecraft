@@ -1,0 +1,18 @@
+# A projectile whose saved can_break does not decode keeps what the decoder returned: a map holding a list of predicates (the shape of the
+# component's list form in the wrong place) leaves an empty predicate, an empty list or an unknown block leaves none, a valid one is kept.
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 800
+spawn_player A survival 0.5 -60 20.5 0 0
+tick 2
+dump packets:A:none
+spawn f1 minecraft:fireball 2.5 -55 4.5 0 0 {can_break:{predicates:[{blocks:"minecraft:stone"}]}}
+spawn f2 minecraft:fireball 4.5 -55 4.5 0 0 {can_break:[]}
+spawn f3 minecraft:fireball 6.5 -55 4.5 0 0 {can_break:{blocks:"minecraft:nope"}}
+spawn f4 minecraft:fireball 8.5 -55 4.5 0 0 {can_break:{blocks:"minecraft:stone"}}
+spawn s1 minecraft:snowball 10.5 -55 4.5 0 0 {can_break:{predicates:[{blocks:"minecraft:stone"}]}}
+spawn a1 minecraft:arrow 12.5 -55 4.5 0 0 {can_break:{predicates:[{blocks:"minecraft:stone"}]}}
+tick 2
+dump xentities nbt:f1 nbt:f2 nbt:f3 nbt:f4 nbt:s1 nbt:a1

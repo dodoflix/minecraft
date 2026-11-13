@@ -1,0 +1,52 @@
+# an empty spawner (nothing spawns) beside a sensor, a spawner with a plain item beside another, one with an arrow beside a third
+T 5
+E o1 minecraft:ominous_item_spawner pos=4.5,-59.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=empty ticks=5
+E o2 minecraft:ominous_item_spawner pos=44.5,-59.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 ticks=5
+E o3 minecraft:ominous_item_spawner pos=-35.5,-59.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:arrow*1 ticks=5
+T 6
+E o1 minecraft:ominous_item_spawner pos=4.5,-59.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=empty ticks=5
+E o2 minecraft:ominous_item_spawner pos=44.5,-59.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 ticks=5
+E o3 minecraft:ominous_item_spawner pos=-35.5,-59.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:arrow*1 ticks=5
+T 7
+E o1 minecraft:ominous_item_spawner pos=4.5,-59.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=empty ticks=5
+E o2 minecraft:ominous_item_spawner pos=44.5,-59.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 ticks=5
+E o3 minecraft:ominous_item_spawner pos=-35.5,-59.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:arrow*1 ticks=5
+B 2 -60 2 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+B 42 -60 2 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+B -38 -60 2 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 8
+E o1 minecraft:ominous_item_spawner pos=4.5,-59.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=empty ticks=5
+E o2 minecraft:ominous_item_spawner pos=44.5,-59.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 ticks=5
+E o3 minecraft:ominous_item_spawner pos=-35.5,-59.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:arrow*1 ticks=5
+T 9
+E item#1 minecraft:item pos=44.5,-59.0,2.5 delta=0.02584008575965624,0.2,-0.05824044830194595 rot=144.29912,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=0 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=-35.5,-59.0,2.5 delta=-0.07886213779807932,-1.0945534917526267,0.07990159278846017 rot=-44.624886,-84.14381 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=o3 leftowner=0 shot=0 canbreak=0
+EV level_event r=64.0 ex=0 type=3021 pos=44,-59,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=3021 pos=-36,-59,2 data=1 global=0
+T 10
+E item#1 minecraft:item pos=44.525840085759654,-58.84,2.441759551698054 delta=0.02532328453732364,0.1568000030517578,-0.05707564044675542 rot=144.29912,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=-35.52204959609264,-59.94999999925494,2.5229992572999 delta=0.0,0.0,0.0 rot=-44.624886,-84.14381 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0 owner=o3 leftowner=1 shot=1 canbreak=0
+EV sound at=-35.52204959609264,-59.94999999925494,2.5229992572999 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.2697221
+T 11
+E item#1 minecraft:item pos=44.551163370296976,-58.723199996948246,2.3846839112512987 delta=0.02481681932958049,0.11446400521850592,-0.05593412872645176 rot=144.29912,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=2 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=-35.52204959609264,-59.94999999925494,2.5229992572999 delta=0.0,0.0,0.0 rot=-44.624886,-84.14381 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=o3 leftowner=1 shot=1 canbreak=0
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8161631
+EV sound at=42.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8949007
+EV sound at=-37.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.85333484
+T 12
+E item#1 minecraft:item pos=44.575980189626556,-58.64873599172974,2.328749782524847 delta=0.024320483416332143,0.07297472653442398,-0.054815447218781566 rot=144.29912,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=-35.52204959609264,-59.94999999925494,2.5229992572999 delta=0.0,0.0,0.0 rot=-44.624886,-84.14381 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0 owner=o3 leftowner=1 shot=1 canbreak=0
+T 13
+E item#1 minecraft:item pos=44.60030067304289,-58.61576126519531,2.2739343353060653 delta=0.023834074211881908,0.0323152326326785,-0.05371913931992762 rot=144.29912,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=4 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=-35.52204959609264,-59.94999999925494,2.5229992572999 delta=0.0,0.0,0.0 rot=-44.624886,-84.14381 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=4 life=3 dmg=2.0 owner=o3 leftowner=1 shot=1 canbreak=0
+T 14
+E item#1 minecraft:item pos=44.62413474725477,-58.62344603256263,2.2202151959861376 delta=0.02335739318224316,-0.0075310721665503766,-0.05264475755814033 rot=144.29912,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=5 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=-35.52204959609264,-59.94999999925494,2.5229992572999 delta=0.0,0.0,0.0 rot=-44.624886,-84.14381 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=3 life=4 dmg=2.0 owner=o3 leftowner=1 shot=1 canbreak=0
+T 15
+E item#1 minecraft:item pos=44.647492140437016,-58.67097710472918,2.1675704384279975 delta=0.022890245764105217,-0.04658045162980263,-0.05159186341109659 rot=144.29912,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=6 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=-35.52204959609264,-59.94999999925494,2.5229992572999 delta=0.0,0.0,0.0 rot=-44.624886,-84.14381 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=2 life=5 dmg=2.0 owner=o3 leftowner=1 shot=1 canbreak=0
+B 2 -60 2 minecraft:sculk_sensor[power=11,sculk_sensor_phase=active,waterlogged=false]
+B 42 -60 2 minecraft:sculk_sensor[power=11,sculk_sensor_phase=active,waterlogged=false]
+B -38 -60 2 minecraft:sculk_sensor[power=11,sculk_sensor_phase=active,waterlogged=false]
+E item#1 minecraft:item pos=44.647492140437016,-58.67097710472918,2.1675704384279975 delta=0.022890245764105217,-0.04658045162980263,-0.05159186341109659 rot=144.29912,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=6 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=-35.52204959609264,-59.94999999925494,2.5229992572999 delta=0.0,0.0,0.0 rot=-44.624886,-84.14381 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=2 life=5 dmg=2.0 owner=o3 leftowner=1 shot=1 canbreak=0

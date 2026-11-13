@@ -1,0 +1,26 @@
+# A primed tnt that was teleported explodes with the portal damage calculator: a nether portal block is neither destroyed nor does it shield
+# the stone behind it. The tnt at the left portal is the control; the one at the right portal is moved by /tp before it explodes.
+command_env
+level flat
+preload 3
+entity_counter 800
+spawn_player A survival 0.5 -60 20.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+dump packets:A:none
+level_seed 5
+fill 4 -60 0 7 -56 0 minecraft:obsidian
+fill 5 -59 0 6 -57 0 minecraft:nether_portal[axis=x]
+fill 3 -60 -3 8 -56 -1 minecraft:stone
+fill 24 -60 0 27 -56 0 minecraft:obsidian
+fill 25 -59 0 26 -57 0 minecraft:nether_portal[axis=x]
+fill 23 -60 -3 28 -56 -1 minecraft:stone
+spawn n1 minecraft:tnt 5.5 -59 3.5 0 0 {fuse:20s}
+spawn n2 minecraft:tnt 25.5 -59 3.5 0 0 {fuse:20s}
+entity_seed n1 3
+entity_seed n2 3
+cmd tp @e[type=minecraft:tnt,x=25.5,y=-59,z=3.5,distance=..2] 25.5 -59 2.5
+tick 1
+dump xentities nbt:n1 nbt:n2
+tick 25
+dump blocks:2,-61,-4,9,-55,1 blocks:22,-61,-4,29,-55,1 entities packets:A:explode

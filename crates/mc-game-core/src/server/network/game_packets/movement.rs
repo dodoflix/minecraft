@@ -458,6 +458,7 @@ impl PlayCtx<'_> {
         let floating = y_dist >= -0.03125
             && !vehicle_rests_on_something
             && !self.server.allow_flight()
+            && !vehicle.is_flying_vehicle()
             && !vehicle.base().is_no_gravity()
             && self.no_blocks_around(vehicle);
         let l = self.lis();
