@@ -696,7 +696,7 @@ public class MenuOracleBase {
                int type = r.nextInt(p.getAbilities().instabuild ? 3 : 2);
                int[] slots = r.ints(1 + r.nextInt(4), 0, size).distinct().toArray();
                // the slots of a drag are placed in the order of an identity hash set: a crafting grid recomputes its result per slot, so keep one grid slot
-               if (k.equals("crafting")) {
+               if ("crafting".equals(kind)) {
                   boolean[] seen = {false};
                   slots = java.util.stream.IntStream.of(slots).filter(s -> {
                      if (s < 1 || s > 9) return true;
