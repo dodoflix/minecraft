@@ -62,7 +62,7 @@ pub fn is_allied_to(level: &ServerLevel, source: &dyn Entity, other: &dyn Entity
 }
 
 /// The scoreboard name of the team entity `e` plays for (`Entity.getTeam()`, tamed pets: their root owner's).
-pub(super) fn team_member_name(level: &ServerLevel, e: &dyn Entity) -> Option<String> {
+pub fn team_member_name(level: &ServerLevel, e: &dyn Entity) -> Option<String> {
     let scoreboard = level.scoreboard();
     if scoreboard
         .get_players_team(&e.get_scoreboard_name())

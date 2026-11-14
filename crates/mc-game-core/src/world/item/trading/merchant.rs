@@ -39,7 +39,7 @@ pub trait Merchant {
     fn can_restock(&self) -> bool {
         false
     }
-    /// `stillValid(player)` (`getTradingPlayer() == player`).
+    /// `stillValid(player)`, the trading-player part (`getTradingPlayer() == player`); the menu adds alive and range.
     fn still_valid(&self, player: EntityId) -> bool {
         self.get_trading_player() == Some(player)
     }

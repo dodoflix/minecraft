@@ -1,0 +1,34 @@
+C Set minecraft:overworld to 6000 tick(s)
+MENU A cid=1 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:emerald*40
+MENU B cid=1 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:emerald*40
+MENU C cid=1 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:emerald*40
+TRADER V xp=0 level=1 trading=A
+TRADER T xp=0 level=- trading=B
+TRADER K xp=0 level=- trading=C
+# 6.9 blocks away (inside the 3 + 4 block range) keeps the screens open
+MENU A cid=1 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:emerald*40
+MENU B cid=1 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:emerald*40
+TRADER V xp=0 level=1 trading=A
+TRADER T xp=0 level=- trading=B
+# 7.1 blocks away closes the villager and trader screens
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:emerald*40
+MENU B cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:emerald*40
+TRADER V xp=0 level=1 trading=-
+TRADER T xp=0 level=- trading=-
+PKT A minecraft:container_close 1101
+PKT B minecraft:container_close 1101
+# the trader that dies closes the screen
+C Killed Wandering Trader
+MENU C cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:emerald*40
+TRADER K xp=0 level=- trading=-
+PKT C minecraft:container_close 1101
+E V minecraft:villager pos=0.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E T minecraft:wandering_trader pos=20.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-

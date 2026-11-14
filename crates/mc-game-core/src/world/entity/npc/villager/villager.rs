@@ -875,10 +875,6 @@ impl Merchant for Villager {
     fn can_restock(&self) -> bool {
         true
     }
-
-    fn still_valid(&self, player: EntityId) -> bool {
-        self.av.trading_player == Some(player) && self.is_alive()
-    }
 }
 
 impl Entity for Villager {

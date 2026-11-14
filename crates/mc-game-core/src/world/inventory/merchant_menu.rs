@@ -523,11 +523,15 @@ impl AbstractContainerMenu for MerchantMenu {
 
     fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
         let me = player.entity_id();
+        // `AbstractVillager.stillValid`: the trading player, alive, within 4 blocks
         player
             .level_ref()
             .and_then(|l| l.get_entity(self.trader))
-            .and_then(|e| e.as_merchant())
-            .is_some_and(|m| m.still_valid(me))
+            .is_some_and(|e| {
+                e.as_merchant().is_some_and(|m| m.still_valid(me))
+                    && e.is_alive()
+                    && player.is_within_entity_interaction_range(&e.base().bounding_box(), 4.0)
+            })
     }
 
     fn can_take_item_for_pick_all(&self, _carried: &ItemStack, _target: &Slot) -> bool {

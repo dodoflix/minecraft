@@ -1,0 +1,50 @@
+# Scoreboard team collision rules on entity pushing (EntitySelector.pushableBy via Entity.getTeam, tamed animals take their owner's team): overlapping cows in a never-push team,
+# in a pushOwnTeam team, in two different teams, with no team, a tamed wolf (owner in a team) against a cow of another team, and a player in the same never-push team as a cow.
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 14000
+level_seed 14001
+spawn_player A survival 40.5 -60 40.5 0 0
+set A invulnerable true
+tick 30
+cmd team add red
+cmd team add blue
+cmd team modify red collisionRule never
+cmd team modify blue collisionRule pushOwnTeam
+mobspawn C1 minecraft:cow 10.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Tags:["g1"]}
+mobspawn C2 minecraft:cow 10.8 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Tags:["g1"]}
+mobspawn C3 minecraft:cow 20.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Tags:["g2"]}
+mobspawn C4 minecraft:cow 20.8 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Tags:["g2"]}
+mobspawn C5 minecraft:cow 30.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Tags:["g3"]}
+mobspawn C6 minecraft:cow 30.8 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Tags:["g4"]}
+mobspawn C7 minecraft:cow 10.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn C8 minecraft:cow 10.8 -60 20.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn W1 minecraft:wolf 20.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn C9 minecraft:cow 20.8 -60 20.5 0 0 nofinalize {PersistenceRequired:1b,Tags:["g5"]}
+mobspawn C10 minecraft:cow 40.8 -60 40.5 0 0 nofinalize {PersistenceRequired:1b,Tags:["g6"]}
+tame W1 A
+cmd team join red @e[tag=g1]
+cmd team join blue @e[tag=g2]
+cmd team join red @e[tag=g3]
+cmd team join blue @e[tag=g4]
+cmd team join blue @e[tag=g5]
+cmd team join red A
+cmd team join red @e[tag=g6]
+tick 2
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+note the wolf follows the owner's team: owner moves to blue
+cmd team join blue A
+tick 20
+dump mobs
+note a teamless tamed wolf beside its owner takes the owner's team (pushOwnTeam): neither of them pushes the other
+tp A 60.5 -60 60.5
+mobspawn W2 minecraft:wolf 60.7 -60 60.5 0 0 nofinalize {PersistenceRequired:1b}
+tame W2 A
+tick 20
+dump mobs

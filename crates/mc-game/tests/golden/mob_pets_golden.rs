@@ -86,3 +86,9 @@ fn parrot_imitate() {
 fn pet_biome_variants() {
     check("mob_pet_biome_variants");
 }
+
+/// A parrot fed a cookie dies of the poison it takes inside the interaction: the player is credited with the kill; a tamed parrot given a cookie.
+#[test]
+fn parrot_cookie() {
+    check("mob_parrot_cookie");
+}

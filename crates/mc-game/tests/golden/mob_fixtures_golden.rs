@@ -280,6 +280,18 @@ fn mob_trader_session() {
     block_scenario::check("mob_trader_session");
 }
 
+/// A trade screen closes when the player leaves the 4 block range or the trader dies.
+#[test]
+fn mob_trade_range() {
+    block_scenario::check("mob_trade_range");
+}
+
+/// A teleported villager or wandering trader stops trading.
+#[test]
+fn mob_trade_teleport() {
+    block_scenario::check("mob_trade_teleport");
+}
+
 /// A wandering trader drinks an invisibility potion in the dark and milk in daylight.
 #[test]
 fn mob_trader_drink_invisible() {

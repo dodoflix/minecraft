@@ -33,7 +33,7 @@ pub fn pushable_entities_in(
 ) -> Vec<crate::world::entity::EntityId> {
     use crate::world::scores::CollisionRule;
     let scoreboard = level.scoreboard();
-    let own_team = scoreboard.get_player_team(&entity.get_scoreboard_name());
+    let own_team = crate::world::entity::team::get_team(level, &scoreboard, entity);
     let own_rule = own_team.map_or(CollisionRule::Always, |t| t.get_collision_rule());
     if own_rule == CollisionRule::Never {
         return Vec::new();
@@ -42,7 +42,7 @@ pub fn pushable_entities_in(
         if other.is_spectator() || !other.is_pushable(level) {
             return false;
         }
-        let their_team = scoreboard.get_player_team(&other.get_scoreboard_name());
+        let their_team = crate::world::entity::team::get_team(level, &scoreboard, other);
         let their_rule = their_team.map_or(CollisionRule::Always, |t| t.get_collision_rule());
         if their_rule == CollisionRule::Never {
             return false;
@@ -62,7 +62,8 @@ pub fn pushable_entities_in(
 
 /// `LivingEntity.pushEntities()`.
 pub fn push_entities(entity: &mut dyn Entity, level: &mut ServerLevel) {
-    let pushable = get_pushable_entities(level, entity);
+    // a tamed pet takes its owner's team, which the lookup finds only while the owner (this entity, out of its slot) is visible
+    let pushable = level.expose(&*entity, |level| get_pushable_entities(level, entity));
     if pushable.is_empty() {
         return;
     }

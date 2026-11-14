@@ -1,0 +1,29 @@
+# A villager or wandering trader that is teleported stops trading first (AbstractVillager.teleport): the trading player is cleared, the screen closes
+# at the next check, and the merchant can be talked to again.
+command_env
+level flat
+preload 4
+difficulty normal
+time 6000
+entity_counter 400
+level_seed 4001
+spawn_player A survival 0.5 -60 6.5 180 0
+spawn_player B survival 20.5 -60 6.5 180 0
+spawn V minecraft:villager 0.5 -60 4.5 0 0 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:1},Xp:0,NoAI:1b,PersistenceRequired:1b,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]}}
+spawn T minecraft:wandering_trader 20.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]}}
+entity_seed V 41
+entity_seed T 42
+tick 1
+interact A V main
+interact B T main
+dump menu:A menu:B trader:V trader:T
+note teleporting the merchants a block away: they stop trading at once
+tp V 0.5 -60 3.5
+tp T 20.5 -60 3.5
+dump trader:V trader:T mob:V mob:T
+tick 2
+dump menu:A menu:B trader:V trader:T packets:A:container_close packets:B:container_close
+note a new conversation opens a fresh screen
+interact A V main
+interact B T main
+dump menu:A menu:B trader:V trader:T

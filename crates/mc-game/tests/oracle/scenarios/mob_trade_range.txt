@@ -1,0 +1,40 @@
+# A trade screen closes when the trading player leaves the 4 block interaction range of the villager or the wandering trader (AbstractVillager.stillValid),
+# stays open inside it (interaction range 3 plus the buffer 4), and closes when the trader dies.
+command_env
+level flat
+preload 4
+difficulty normal
+time 6000
+entity_counter 400
+level_seed 4001
+spawn_player A survival 0.5 -60 6.5 180 0
+spawn_player B survival 20.5 -60 6.5 180 0
+spawn_player C survival 40.5 -60 6.5 180 0
+spawn V minecraft:villager 0.5 -60 4.5 0 0 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:1},Xp:0,NoAI:1b,PersistenceRequired:1b,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]}}
+spawn T minecraft:wandering_trader 20.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]}}
+spawn K minecraft:wandering_trader 40.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["dying"],Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]}}
+give A hotbar0 minecraft:emerald 40
+give B hotbar0 minecraft:emerald 40
+give C hotbar0 minecraft:emerald 40
+entity_seed V 41
+entity_seed T 42
+entity_seed K 43
+tick 1
+interact A V main
+interact B T main
+interact C K main
+dump menu:A menu:B menu:C trader:V trader:T trader:K
+note 6.9 blocks away (inside the 3 + 4 block range) keeps the screens open
+tp A 0.5 -60 11.7
+tp B 20.5 -60 11.7
+tick 2
+dump menu:A menu:B trader:V trader:T packets:A:container_close packets:B:container_close
+note 7.1 blocks away closes the villager and trader screens
+tp A 0.5 -60 11.9
+tp B 20.5 -60 11.9
+tick 2
+dump menu:A menu:B trader:V trader:T packets:A:container_close packets:B:container_close
+note the trader that dies closes the screen
+cmd kill @e[tag=dying]
+tick 2
+dump menu:C trader:K packets:C:container_close entities

@@ -1,0 +1,27 @@
+# A parrot fed a cookie dies of the poison it gets (Parrot.mobInteract: the item is eaten, poison effect, no taming): the interaction, the mob state (effects, health), the player's
+# inventory and the events right after and 400 ticks later; also a wild parrot given wheat seeds (taming draws) and a tamed parrot given a cookie.
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 16000
+level_seed 16001
+spawn_player I1 survival 0.5 -60 0.5 0 0
+set I1 invulnerable true
+tick 30
+mobspawn Q1 minecraft:parrot 0.5 -60 3.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn Q2 minecraft:parrot 3.5 -60 3.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q1 5
+entity_seed Q2 6
+tame Q2 I1
+tick 2
+give I1 hotbar0 minecraft:cookie 4
+select I1 0
+interact I1 Q1 main
+tick 3
+dump mob:Q1 inventory:I1 entities events
+interact I1 Q2 main
+tick 3
+dump mob:Q2 inventory:I1 entities events
+tick 400
+dump mobs entities

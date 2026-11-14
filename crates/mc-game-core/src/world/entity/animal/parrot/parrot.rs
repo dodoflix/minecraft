@@ -622,7 +622,10 @@ impl Entity for Parrot {
             );
             if player.is_creative() || !self.is_invulnerable() {
                 let source = level.damage_sources().player_attack(&*player);
-                self.hurt_server(level, &source, f32::MAX);
+                // the kill credits the player, which the level finds only while it is lent
+                level.lend(&mut *player, |level| {
+                    self.hurt_server(level, &source, f32::MAX)
+                });
             }
             InteractionResult::SUCCESS
         }

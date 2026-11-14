@@ -72,6 +72,13 @@ fn calculate_passenger_transition(
         .transition_as_passenger()
 }
 
+/// `AbstractVillager.teleport(transition)` starts with `stopTrading()`.
+fn stop_trading(entity: &mut dyn Entity) {
+    if let Some(merchant) = entity.as_merchant_mut() {
+        merchant.set_trading_player(None);
+    }
+}
+
 /// `ServerPlayer.teleport` / `Entity.teleportSameDimension` for an entity (player or not) that is out of its level's
 /// storage; passengers move with it. The caller already did `stopRiding` / `removeVehicle` for a non-passenger move.
 pub fn teleport_same_dimension(
@@ -85,6 +92,7 @@ pub fn teleport_same_dimension(
         t.post_teleport_transition.on_transition(level, player);
         return;
     }
+    stop_trading(entity);
     for pid in entity.base().passengers.clone() {
         let Some(pt) = level
             .entity_manager
@@ -190,6 +198,7 @@ pub fn teleport_taken_out(
     entity: &mut dyn Entity,
     t: &TeleportTransition,
 ) -> Option<EntityId> {
+    stop_trading(entity);
     if entity.is_removed() {
         return None;
     }

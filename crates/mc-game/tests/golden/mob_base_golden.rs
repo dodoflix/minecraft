@@ -35,3 +35,9 @@ fn conversion_common() {
 fn baby_grows_against_blocks() {
     check("mob_baby_grow_wall");
 }
+
+/// Scoreboard team collision rules on pushing (`never`, `pushOwnTeam`, two teams, a tamed wolf taking its owner's team, a player in the team).
+#[test]
+fn team_push() {
+    check("mob_team_push");
+}
