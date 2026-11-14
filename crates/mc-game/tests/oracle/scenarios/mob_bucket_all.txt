@@ -1,0 +1,231 @@
+# Every fish bucket: a water bucket on the fish picks it up (Bucketable.bucketMobPickup: the bucket item with the mob's data, the
+# fish is gone, a survival and a creative player alike), and using the filled bucket on the floor releases it again (MobBucketItem.spawn:
+# water, from-bucket data, variant/size/puff state restored). Salmon sizes, puff states and tropical fish variants are each covered.
+level flat
+preload 2
+difficulty normal
+entity_counter 0
+spawn_player Steve survival 0.5 -60 0.5 0 90
+spawn_player Cre creative 0.5 -60 40.5 0 90
+tick 1
+dump events
+note CASE 1 cod_Steve
+tp Steve 0.5 -60 0.5 0 90
+mobspawn cod_Steve minecraft:cod 0.5 -60 1.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cod_Steve 35001
+give Steve mainhand minecraft:water_bucket 1
+interact Steve cod_Steve
+dump inventory:Steve mobs events
+level_seed 3501
+use Steve main 1
+dump mobs inventory:Steve blocks:0,-61,0,0,-60,0 events
+note CASE 2 cod_Cre
+tp Cre 0.5 -60 40.5 0 90
+mobspawn cod_Cre minecraft:cod 0.5 -60 41.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cod_Cre 35002
+give Cre mainhand minecraft:water_bucket 1
+interact Cre cod_Cre
+dump inventory:Cre mobs events
+level_seed 3502
+use Cre main 2
+dump mobs inventory:Cre blocks:0,-61,40,0,-60,40 events
+note CASE 3 cod_named_Steve
+tp Steve 4.5 -60 0.5 0 90
+mobspawn cod_named_Steve minecraft:cod 4.5 -60 1.5 0 0 {NoAI:1b,PersistenceRequired:1b,CustomName:'"Bucketed"',Health:2f}
+entity_seed cod_named_Steve 35003
+give Steve mainhand minecraft:water_bucket 1
+interact Steve cod_named_Steve
+dump inventory:Steve mobs events
+level_seed 3503
+use Steve main 3
+dump mobs inventory:Steve blocks:4,-61,0,4,-60,0 events
+note CASE 4 cod_named_Cre
+tp Cre 4.5 -60 40.5 0 90
+mobspawn cod_named_Cre minecraft:cod 4.5 -60 41.5 0 0 {NoAI:1b,PersistenceRequired:1b,CustomName:'"Bucketed"',Health:2f}
+entity_seed cod_named_Cre 35004
+give Cre mainhand minecraft:water_bucket 1
+interact Cre cod_named_Cre
+dump inventory:Cre mobs events
+level_seed 3504
+use Cre main 4
+dump mobs inventory:Cre blocks:4,-61,40,4,-60,40 events
+note CASE 5 salmon_small_Steve
+tp Steve 8.5 -60 0.5 0 90
+mobspawn salmon_small_Steve minecraft:salmon 8.5 -60 1.5 0 0 {NoAI:1b,PersistenceRequired:1b,type:"small"}
+entity_seed salmon_small_Steve 35005
+give Steve mainhand minecraft:water_bucket 1
+interact Steve salmon_small_Steve
+dump inventory:Steve mobs events
+level_seed 3505
+use Steve main 5
+dump mobs inventory:Steve blocks:8,-61,0,8,-60,0 events
+note CASE 6 salmon_small_Cre
+tp Cre 8.5 -60 40.5 0 90
+mobspawn salmon_small_Cre minecraft:salmon 8.5 -60 41.5 0 0 {NoAI:1b,PersistenceRequired:1b,type:"small"}
+entity_seed salmon_small_Cre 35006
+give Cre mainhand minecraft:water_bucket 1
+interact Cre salmon_small_Cre
+dump inventory:Cre mobs events
+level_seed 3506
+use Cre main 6
+dump mobs inventory:Cre blocks:8,-61,40,8,-60,40 events
+note CASE 7 salmon_medium_Steve
+tp Steve 12.5 -60 0.5 0 90
+mobspawn salmon_medium_Steve minecraft:salmon 12.5 -60 1.5 0 0 {NoAI:1b,PersistenceRequired:1b,type:"medium"}
+entity_seed salmon_medium_Steve 35007
+give Steve mainhand minecraft:water_bucket 1
+interact Steve salmon_medium_Steve
+dump inventory:Steve mobs events
+level_seed 3507
+use Steve main 7
+dump mobs inventory:Steve blocks:12,-61,0,12,-60,0 events
+note CASE 8 salmon_medium_Cre
+tp Cre 12.5 -60 40.5 0 90
+mobspawn salmon_medium_Cre minecraft:salmon 12.5 -60 41.5 0 0 {NoAI:1b,PersistenceRequired:1b,type:"medium"}
+entity_seed salmon_medium_Cre 35008
+give Cre mainhand minecraft:water_bucket 1
+interact Cre salmon_medium_Cre
+dump inventory:Cre mobs events
+level_seed 3508
+use Cre main 8
+dump mobs inventory:Cre blocks:12,-61,40,12,-60,40 events
+note CASE 9 salmon_large_Steve
+tp Steve 16.5 -60 0.5 0 90
+mobspawn salmon_large_Steve minecraft:salmon 16.5 -60 1.5 0 0 {NoAI:1b,PersistenceRequired:1b,type:"large"}
+entity_seed salmon_large_Steve 35009
+give Steve mainhand minecraft:water_bucket 1
+interact Steve salmon_large_Steve
+dump inventory:Steve mobs events
+level_seed 3509
+use Steve main 9
+dump mobs inventory:Steve blocks:16,-61,0,16,-60,0 events
+note CASE 10 salmon_large_Cre
+tp Cre 16.5 -60 40.5 0 90
+mobspawn salmon_large_Cre minecraft:salmon 16.5 -60 41.5 0 0 {NoAI:1b,PersistenceRequired:1b,type:"large"}
+entity_seed salmon_large_Cre 35010
+give Cre mainhand minecraft:water_bucket 1
+interact Cre salmon_large_Cre
+dump inventory:Cre mobs events
+level_seed 3510
+use Cre main 10
+dump mobs inventory:Cre blocks:16,-61,40,16,-60,40 events
+note CASE 11 puffer_0_Steve
+tp Steve 20.5 -60 0.5 0 90
+mobspawn puffer_0_Steve minecraft:pufferfish 20.5 -60 1.5 0 0 {NoAI:1b,PersistenceRequired:1b,PuffState:0}
+entity_seed puffer_0_Steve 35011
+give Steve mainhand minecraft:water_bucket 1
+interact Steve puffer_0_Steve
+dump inventory:Steve mobs events
+level_seed 3511
+use Steve main 11
+dump mobs inventory:Steve blocks:20,-61,0,20,-60,0 events
+note CASE 12 puffer_0_Cre
+tp Cre 20.5 -60 40.5 0 90
+mobspawn puffer_0_Cre minecraft:pufferfish 20.5 -60 41.5 0 0 {NoAI:1b,PersistenceRequired:1b,PuffState:0}
+entity_seed puffer_0_Cre 35012
+give Cre mainhand minecraft:water_bucket 1
+interact Cre puffer_0_Cre
+dump inventory:Cre mobs events
+level_seed 3512
+use Cre main 12
+dump mobs inventory:Cre blocks:20,-61,40,20,-60,40 events
+note CASE 13 puffer_1_Steve
+tp Steve 24.5 -60 0.5 0 90
+mobspawn puffer_1_Steve minecraft:pufferfish 24.5 -60 1.5 0 0 {NoAI:1b,PersistenceRequired:1b,PuffState:1}
+entity_seed puffer_1_Steve 35013
+give Steve mainhand minecraft:water_bucket 1
+interact Steve puffer_1_Steve
+dump inventory:Steve mobs events
+level_seed 3513
+use Steve main 13
+dump mobs inventory:Steve blocks:24,-61,0,24,-60,0 events
+note CASE 14 puffer_1_Cre
+tp Cre 24.5 -60 40.5 0 90
+mobspawn puffer_1_Cre minecraft:pufferfish 24.5 -60 41.5 0 0 {NoAI:1b,PersistenceRequired:1b,PuffState:1}
+entity_seed puffer_1_Cre 35014
+give Cre mainhand minecraft:water_bucket 1
+interact Cre puffer_1_Cre
+dump inventory:Cre mobs events
+level_seed 3514
+use Cre main 14
+dump mobs inventory:Cre blocks:24,-61,40,24,-60,40 events
+note CASE 15 puffer_2_Steve
+tp Steve 28.5 -60 0.5 0 90
+mobspawn puffer_2_Steve minecraft:pufferfish 28.5 -60 1.5 0 0 {NoAI:1b,PersistenceRequired:1b,PuffState:2}
+entity_seed puffer_2_Steve 35015
+give Steve mainhand minecraft:water_bucket 1
+interact Steve puffer_2_Steve
+dump inventory:Steve mobs events
+level_seed 3515
+use Steve main 15
+dump mobs inventory:Steve blocks:28,-61,0,28,-60,0 events
+note CASE 16 puffer_2_Cre
+tp Cre 28.5 -60 40.5 0 90
+mobspawn puffer_2_Cre minecraft:pufferfish 28.5 -60 41.5 0 0 {NoAI:1b,PersistenceRequired:1b,PuffState:2}
+entity_seed puffer_2_Cre 35016
+give Cre mainhand minecraft:water_bucket 1
+interact Cre puffer_2_Cre
+dump inventory:Cre mobs events
+level_seed 3516
+use Cre main 16
+dump mobs inventory:Cre blocks:28,-61,40,28,-60,40 events
+note CASE 17 tropical_default_Steve
+tp Steve 32.5 -60 0.5 0 90
+mobspawn tropical_default_Steve minecraft:tropical_fish 32.5 -60 1.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed tropical_default_Steve 35017
+give Steve mainhand minecraft:water_bucket 1
+interact Steve tropical_default_Steve
+dump inventory:Steve mobs events
+level_seed 3517
+use Steve main 17
+dump mobs inventory:Steve blocks:32,-61,0,32,-60,0 events
+note CASE 18 tropical_default_Cre
+tp Cre 32.5 -60 40.5 0 90
+mobspawn tropical_default_Cre minecraft:tropical_fish 32.5 -60 41.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed tropical_default_Cre 35018
+give Cre mainhand minecraft:water_bucket 1
+interact Cre tropical_default_Cre
+dump inventory:Cre mobs events
+level_seed 3518
+use Cre main 18
+dump mobs inventory:Cre blocks:32,-61,40,32,-60,40 events
+note CASE 19 tropical_flopper_Steve
+tp Steve 36.5 -60 0.5 0 90
+mobspawn tropical_flopper_Steve minecraft:tropical_fish 36.5 -60 1.5 0 0 {NoAI:1b,PersistenceRequired:1b,Variant:185466881}
+entity_seed tropical_flopper_Steve 35019
+give Steve mainhand minecraft:water_bucket 1
+interact Steve tropical_flopper_Steve
+dump inventory:Steve mobs events
+level_seed 3519
+use Steve main 19
+dump mobs inventory:Steve blocks:36,-61,0,36,-60,0 events
+note CASE 20 tropical_flopper_Cre
+tp Cre 36.5 -60 40.5 0 90
+mobspawn tropical_flopper_Cre minecraft:tropical_fish 36.5 -60 41.5 0 0 {NoAI:1b,PersistenceRequired:1b,Variant:185466881}
+entity_seed tropical_flopper_Cre 35020
+give Cre mainhand minecraft:water_bucket 1
+interact Cre tropical_flopper_Cre
+dump inventory:Cre mobs events
+level_seed 3520
+use Cre main 20
+dump mobs inventory:Cre blocks:36,-61,40,36,-60,40 events
+note CASE 21 tropical_clayfish_Steve
+tp Steve 40.5 -60 0.5 0 90
+mobspawn tropical_clayfish_Steve minecraft:tropical_fish 40.5 -60 1.5 0 0 {NoAI:1b,PersistenceRequired:1b,Variant:67175681}
+entity_seed tropical_clayfish_Steve 35021
+give Steve mainhand minecraft:water_bucket 1
+interact Steve tropical_clayfish_Steve
+dump inventory:Steve mobs events
+level_seed 3521
+use Steve main 21
+dump mobs inventory:Steve blocks:40,-61,0,40,-60,0 events
+note CASE 22 tropical_clayfish_Cre
+tp Cre 40.5 -60 40.5 0 90
+mobspawn tropical_clayfish_Cre minecraft:tropical_fish 40.5 -60 41.5 0 0 {NoAI:1b,PersistenceRequired:1b,Variant:67175681}
+entity_seed tropical_clayfish_Cre 35022
+give Cre mainhand minecraft:water_bucket 1
+interact Cre tropical_clayfish_Cre
+dump inventory:Cre mobs events
+level_seed 3522
+use Cre main 22
+dump mobs inventory:Cre blocks:40,-61,40,40,-60,40 events

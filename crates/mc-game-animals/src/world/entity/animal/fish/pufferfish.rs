@@ -81,6 +81,18 @@ impl Pufferfish {
     /// `setPuffState(state)`.
     pub fn set_puff_state(&mut self, state: i32) {
         self.mob.living.entity.entity_data.set(PUFF_STATE, state);
+        self.on_synced_data_updated(PUFF_STATE.id());
+    }
+
+    /// `setPuffState(state)` on the ticking level: `refreshDimensions` then pushes a grown fish out of blocks
+    /// (`fudgePositionAfterSizeChange`).
+    fn set_puff_state_in_level(&mut self, level: &mut ServerLevel, state: i32) {
+        self.set_puff_state(state);
+        if let Some(previous) = self.base_mut().pending_fudge_from.take() {
+            mc_game_core::world::entity::movement::fudge_position_after_size_change(
+                self, level, &previous,
+            );
+        }
     }
 
     /// `touch(level, mob)`.
@@ -164,19 +176,19 @@ impl Entity for Pufferfish {
             if self.inflate_counter > 0 {
                 if self.get_puff_state() == 0 {
                     make_sound(self, level, SoundEvent::ENTITY_PUFFER_FISH_BLOW_UP);
-                    self.set_puff_state(1);
+                    self.set_puff_state_in_level(level, 1);
                 } else if self.inflate_counter > 40 && self.get_puff_state() == 1 {
                     make_sound(self, level, SoundEvent::ENTITY_PUFFER_FISH_BLOW_UP);
-                    self.set_puff_state(2);
+                    self.set_puff_state_in_level(level, 2);
                 }
                 self.inflate_counter += 1;
             } else if self.get_puff_state() != 0 {
                 if self.deflate_timer > 60 && self.get_puff_state() == 2 {
                     make_sound(self, level, SoundEvent::ENTITY_PUFFER_FISH_BLOW_OUT);
-                    self.set_puff_state(1);
+                    self.set_puff_state_in_level(level, 1);
                 } else if self.deflate_timer > 100 && self.get_puff_state() == 1 {
                     make_sound(self, level, SoundEvent::ENTITY_PUFFER_FISH_BLOW_OUT);
-                    self.set_puff_state(0);
+                    self.set_puff_state_in_level(level, 0);
                 }
                 self.deflate_timer += 1;
             }
@@ -242,6 +254,10 @@ impl Entity for Pufferfish {
 struct PufferfishPuffGoal;
 
 impl Goal for PufferfishPuffGoal {
+    fn name(&self) -> &'static str {
+        "Pufferfish$PufferfishPuffGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let bb = mob.base().bounding_box().inflate(2.0, 2.0, 2.0);
         !level
@@ -276,3 +292,19 @@ static PUFFERFISH: EntityRegistration = EntityRegistration {
     entity_type: EntityType::PUFFERFISH,
     create: |ty, id, _registries| Box::new(Pufferfish::new(ty, id)),
 };
+
+/// The scenario dump fields of a pufferfish: `puff inflate deflate`.
+#[distributed_slice(mc_game_core::world::entity::scenario_dump::SCENARIO_DUMP_EXTRA)]
+static PUFFERFISH_DUMP: mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra =
+    mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra {
+        order: 30,
+        applies: |e| e.as_any().is::<Pufferfish>(),
+        fields: |e, _level, _ctx| {
+            let fish = e.as_any().downcast_ref::<Pufferfish>().expect("applies");
+            vec![
+                ("puff".into(), fish.get_puff_state().to_string()),
+                ("inflate".into(), fish.inflate_counter.to_string()),
+                ("deflate".into(), fish.deflate_timer.to_string()),
+            ]
+        },
+    };

@@ -1,0 +1,12 @@
+# DolphinJumpGoal in a one-block deep pool: the jump launch, breach sound, pitch easing back to level (Math.atan2), landing.
+level flat
+difficulty normal
+entity_counter 0
+fill -4 -60 -4 60 -40 40 minecraft:air
+fill 4 -61 -10 30 -55 10 minecraft:stone
+fill 5 -54 -9 29 -54 9 minecraft:water[level=0]
+mobspawn Dolphin minecraft:dolphin 14.5 -54 0.5 0 0 {PersistenceRequired:1b}
+entity_seed Dolphin 24021
+level_seed 2413
+watch mob:Dolphin events
+tick 400

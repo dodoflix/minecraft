@@ -1,0 +1,29 @@
+# Entity predicates over the data components salmon and tropical fish expose (salmon/size, tropical_fish/pattern, base_color, pattern_color):
+# `execute if predicate` tags the fish whose own value matches, and a different value must not match.
+command_env
+level flat
+preload 4
+entity_counter 8200
+level_seed 8201
+difficulty normal
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn SAL minecraft:salmon 3.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["sal"],type:"large"}
+entity_seed SAL 8210
+mobspawn TRO minecraft:tropical_fish 5.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["tro"],Variant:185466881}
+entity_seed TRO 8211
+mobspawn COD minecraft:cod 7.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["cod"]}
+entity_seed COD 8212
+tick 2
+cmd execute as @e[tag=sal] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:salmon/size":"large"}}} run tag @s add hit_salmon_size
+cmd execute as @e[tag=sal] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:salmon/size":"small"}}} run tag @s add miss_salmon_size
+cmd execute as @e[tag=tro] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:tropical_fish/pattern":"flopper"}}} run tag @s add hit_pattern
+cmd execute as @e[tag=tro] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:tropical_fish/pattern":"kob"}}} run tag @s add miss_pattern
+cmd execute as @e[tag=tro] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:tropical_fish/base_color":"red"}}} run tag @s add hit_base_color
+cmd execute as @e[tag=tro] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:tropical_fish/base_color":"white"}}} run tag @s add miss_base_color
+cmd execute as @e[tag=tro] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:tropical_fish/pattern_color":"blue"}}} run tag @s add hit_pattern_color
+cmd execute as @e[tag=tro] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:tropical_fish/pattern_color":"white"}}} run tag @s add miss_pattern_color
+cmd execute as @e[tag=cod] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:salmon/size":"medium"}}} run tag @s add miss_cod_size
+tick 1
+dump nbt:SAL
+dump nbt:TRO
+dump nbt:COD

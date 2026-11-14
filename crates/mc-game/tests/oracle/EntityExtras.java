@@ -5,6 +5,12 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OminousItemSpawner;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
+import net.minecraft.world.entity.animal.dolphin.Dolphin;
+import net.minecraft.world.entity.animal.fish.Pufferfish;
+import net.minecraft.world.entity.animal.fish.Salmon;
+import net.minecraft.world.entity.animal.fish.TropicalFish;
+import net.minecraft.world.entity.animal.squid.GlowSquid;
+import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.entity.animal.bee.Bee;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
@@ -135,6 +141,12 @@ final class EntityExtras {
          out.add("angerend", b.getPersistentAngerEndTime());
          out.add("angerat", d.uuidName(target == null ? null : target.getUUID()));
       }));
+      ALL.add(new Extra(30, Dolphin.class, (d, e, out) -> {
+         Dolphin dolphin = (Dolphin)e;
+         var treasure = (net.minecraft.core.BlockPos)EntityOracleDriver.priv(e, Dolphin.class, "treasurePos");
+         out.add("gotfish", EntityOracleDriver.bool(dolphin.gotFish())).add("moist", dolphin.getMoistnessLevel());
+         out.add("treasure", treasure == null ? "-" : EntityOracleDriver.pos(treasure));
+      }));
       ALL.add(new Extra(30, EvokerFangs.class, (d, e, out) -> {
          var owner = (net.minecraft.world.entity.EntityReference<?>)EntityOracleDriver.priv(e, "owner");
          out.add("warmup", EntityOracleDriver.priv(e, "warmupDelayTicks"));
@@ -163,10 +175,17 @@ final class EntityExtras {
          out.add("out", EntityOracleDriver.priv(e, "outOfWaterTime")).add("hookedin", d.entName(((FishingHook)e).getHookedIn()));
          out.add("luck", EntityOracleDriver.priv(e, "luck")).add("lure", EntityOracleDriver.priv(e, "lureSpeed"));
       }));
+      ALL.add(new Extra(30, GlowSquid.class, (d, e, out) -> out.add("dark", ((GlowSquid)e).getDarkTicksRemaining())));
       ALL.add(new Extra(30, OminousItemSpawner.class, (d, e, out) -> {
          OminousItemSpawner s = (OminousItemSpawner)e;
          out.add("item", EntityOracleDriver.item(s.getItem())).add("ticks", EntityOracleDriver.priv(s, "spawnItemAfterTicks"));
       }));
+      ALL.add(new Extra(30, Pufferfish.class, (d, e, out) -> {
+         out.add("puff", ((Pufferfish)e).getPuffState());
+         out.add("inflate", EntityOracleDriver.priv(e, Pufferfish.class, "inflateCounter"));
+         out.add("deflate", EntityOracleDriver.priv(e, Pufferfish.class, "deflateTimer"));
+      }));
+      ALL.add(new Extra(30, Salmon.class, (d, e, out) -> out.add("size", ((Salmon)e).getVariant().getSerializedName())));
       ALL.add(new Extra(30, ShulkerBullet.class, (d, e, out) -> {
          var target = (net.minecraft.world.entity.EntityReference<?>)EntityOracleDriver.priv(e, "finalTarget");
          var dir = (net.minecraft.core.Direction)EntityOracleDriver.priv(e, "currentMoveDirection");
@@ -175,6 +194,18 @@ final class EntityExtras {
          out.add("tyd", EntityOracleDriver.f((Double)EntityOracleDriver.priv(e, "targetDeltaY")));
          out.add("tzd", EntityOracleDriver.f((Double)EntityOracleDriver.priv(e, "targetDeltaZ")));
          out.add("target", d.uuidName(target == null ? null : target.getUUID()));
+      }));
+      ALL.add(new Extra(30, TropicalFish.class, (d, e, out) -> {
+         TropicalFish f = (TropicalFish)e;
+         out.add("pattern", f.getPattern().getSerializedName()).add("base", f.getBaseColor().getName()).add("pcolor", f.getPatternColor().getName());
+      }));
+      ALL.add(new Extra(30, Turtle.class, (d, e, out) -> {
+         Turtle t = (Turtle)e;
+         var travel = (net.minecraft.core.BlockPos)EntityOracleDriver.priv(e, Turtle.class, "travelPos");
+         out.add("egg", EntityOracleDriver.bool(t.hasEgg())).add("laying", EntityOracleDriver.bool(t.isLayingEgg()));
+         out.add("layegg", EntityOracleDriver.priv(e, Turtle.class, "layEggCounter"));
+         out.add("home", EntityOracleDriver.pos(t.getHomePos())).add("travel", travel == null ? "-" : EntityOracleDriver.pos(travel));
+         out.add("goinghome", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Turtle.class, "goingHome")));
       }));
       ALL.add(new Extra(31, AbstractChestBoat.class, (d, e, out) -> {
          AbstractChestBoat c = (AbstractChestBoat)e;

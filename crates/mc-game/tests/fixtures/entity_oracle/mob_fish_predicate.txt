@@ -1,0 +1,8 @@
+C The difficulty did not change; it is already set to Normal
+C Added tag 'hit_salmon_size' to Salmon
+C Added tag 'hit_pattern' to Tropical Fish
+C Added tag 'hit_base_color' to Tropical Fish
+C Added tag 'hit_pattern_color' to Tropical Fish
+N SAL {AbsorptionAmount:0.0f,Air:297s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,FromBucket:0b,Health:3.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[3.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["hit_salmon_size","sal"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,type:"large"}
+N TRO {AbsorptionAmount:0.0f,Air:297s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,FromBucket:0b,Health:3.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[5.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["tro","hit_base_color","hit_pattern","hit_pattern_color"],Variant:185466881,attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N COD {AbsorptionAmount:0.0f,Air:297s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,FromBucket:0b,Health:3.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[7.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["cod"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}

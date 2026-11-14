@@ -219,6 +219,10 @@ fn can_random_swim(e: &dyn Entity, level: &ServerLevel) -> bool {
 }
 
 impl Goal for FishSwimGoal {
+    fn name(&self) -> &'static str {
+        "AbstractFish$FishSwimGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         can_random_swim(mob, level) && self.inner.can_use(mob, level)
     }

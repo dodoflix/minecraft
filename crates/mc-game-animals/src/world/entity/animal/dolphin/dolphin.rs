@@ -457,17 +457,6 @@ impl Entity for Dolphin {
     }
 }
 
-/// `level.findNearestMapStructure(DOLPHIN_LOCATED, pos, 50, false)`. Not implemented: always `None`, so the dolphin finds
-/// no structure and gives up like vanilla's "no structure" branch.
-fn find_nearest_map_structure(
-    _level: &mut ServerLevel,
-    _wanted: &[Identifier],
-    _pos: BlockPos,
-    _radius: i32,
-) -> Option<BlockPos> {
-    None
-}
-
 /// `Dolphin.DolphinSwimToTreasureGoal`.
 struct DolphinSwimToTreasureGoal {
     stuck: bool,
@@ -492,6 +481,10 @@ fn dolphin(mob: &mut dyn Entity) -> &mut Dolphin {
 }
 
 impl Goal for DolphinSwimToTreasureGoal {
+    fn name(&self) -> &'static str {
+        "Dolphin$DolphinSwimToTreasureGoal"
+    }
+
     fn is_interruptable(&self) -> bool {
         false
     }
@@ -529,7 +522,9 @@ impl Goal for DolphinSwimToTreasureGoal {
                 _ => Vec::new(),
             }
         };
-        let treasure_pos = find_nearest_map_structure(level, &wanted, dolphin_pos, 50);
+        let treasure_pos = level
+            .find_nearest_map_structure(&wanted, dolphin_pos, 50, false)
+            .map(|(pos, _)| pos);
         match treasure_pos {
             Some(pos) => {
                 dolphin(mob).treasure_pos = Some(pos);
@@ -636,6 +631,10 @@ impl DolphinSwimWithPlayerGoal {
 }
 
 impl Goal for DolphinSwimWithPlayerGoal {
+    fn name(&self) -> &'static str {
+        "Dolphin$DolphinSwimWithPlayerGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let (x, y, z) = (mob.base().x(), mob.base().y(), mob.base().z());
         self.player =
@@ -746,6 +745,10 @@ struct MoveToItemGoal {
 }
 
 impl Goal for MoveToItemGoal {
+    fn name(&self) -> &'static str {
+        "Dolphin$MoveToItemGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if self.cooldown > mob.base().tick_count {
             return false;
@@ -791,6 +794,10 @@ impl Goal for MoveToItemGoal {
 struct PlayWithItemsGoal;
 
 impl Goal for PlayWithItemsGoal {
+    fn name(&self) -> &'static str {
+        "Dolphin$PlayWithItemsGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         !mob.get_item_by_slot(EquipmentSlot::MainHand).is_empty()
     }
@@ -813,3 +820,25 @@ static DOLPHIN: EntityRegistration = EntityRegistration {
     entity_type: EntityType::DOLPHIN,
     create: |ty, id, _registries| Box::new(Dolphin::new(ty, id)),
 };
+
+/// The scenario dump fields of a dolphin: `gotfish moist treasure`.
+#[distributed_slice(mc_game_core::world::entity::scenario_dump::SCENARIO_DUMP_EXTRA)]
+static DOLPHIN_DUMP: mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra =
+    mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra {
+        order: 30,
+        applies: |e| e.as_any().is::<Dolphin>(),
+        fields: |e, _level, _ctx| {
+            let dolphin = e.as_any().downcast_ref::<Dolphin>().expect("applies");
+            vec![
+                ("gotfish".into(), u8::from(dolphin.got_fish()).to_string()),
+                ("moist".into(), dolphin.get_moistness_level().to_string()),
+                (
+                    "treasure".into(),
+                    dolphin.treasure_pos.map_or_else(
+                        || "-".to_string(),
+                        |p| format!("{},{},{}", p.x(), p.y(), p.z()),
+                    ),
+                ),
+            ]
+        },
+    };

@@ -144,7 +144,7 @@ def water():
                 seed += 29
                 out += spawnpass_lines([(seed, *where[b])], f" cats={cats}")
         out.append("tick 2")
-    out.append("dump spawn_state")
+    out += ["dump mobs", "tick 40", "dump mobs", "dump spawn_state"]
     emit("mob_spawnpass_water", out)
 
 

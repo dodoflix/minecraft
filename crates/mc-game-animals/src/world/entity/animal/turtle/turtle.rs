@@ -268,6 +268,10 @@ impl TurtlePanicGoal {
 }
 
 impl Goal for TurtlePanicGoal {
+    fn name(&self) -> &'static str {
+        "Turtle$TurtlePanicGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if !self.panic.should_panic(mob, level) {
             return false;
@@ -334,6 +338,10 @@ pub struct TurtleBreedGoal {
 }
 
 impl Goal for TurtleBreedGoal {
+    fn name(&self) -> &'static str {
+        "Turtle$TurtleBreedGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.breed.can_use(mob, level) && !turtle(mob).has_egg()
     }
@@ -370,6 +378,10 @@ impl TurtleGoHomeGoal {
 }
 
 impl Goal for TurtleGoHomeGoal {
+    fn name(&self) -> &'static str {
+        "Turtle$TurtleGoHomeGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         if mob.is_baby() {
             return false;
@@ -474,6 +486,10 @@ impl MoveToBlock for TurtleGoToWaterGoal {
 }
 
 impl Goal for TurtleGoToWaterGoal {
+    fn name(&self) -> &'static str {
+        "Turtle$TurtleGoToWaterGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if (mob.is_baby() && !mob.is_in_water())
             || (!turtle(mob).going_home && !mob.is_in_water() && !turtle(mob).has_egg())
@@ -533,6 +549,10 @@ impl MoveToBlock for TurtleLayEggGoal {
 }
 
 impl Goal for TurtleLayEggGoal {
+    fn name(&self) -> &'static str {
+        "Turtle$TurtleLayEggGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if turtle(mob).has_egg()
             && turtle(mob)
@@ -576,7 +596,9 @@ impl Goal for TurtleLayEggGoal {
                 let egg_pos = self.mtb.block_pos.above();
                 let eggs = mob.base_mut().random.next_int_bounded(4) + 1;
                 let egg_state = Block::TURTLE_EGG.default_state().set(props::EGGS, eggs);
-                level.set_block_and_update(egg_pos, egg_state);
+                level.lend(&mut *mob, |level| {
+                    level.set_block_and_update(egg_pos, egg_state)
+                });
                 level.game_event_from_entity_ref_in_state(
                     &*mob,
                     Some(egg_state),
@@ -612,6 +634,10 @@ impl TurtleRandomStrollGoal {
 }
 
 impl Goal for TurtleRandomStrollGoal {
+    fn name(&self) -> &'static str {
+        "Turtle$TurtleRandomStrollGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if !mob.is_in_water() && !turtle(mob).going_home && !turtle(mob).has_egg() {
             self.stroll.can_use(mob, level)
@@ -649,6 +675,10 @@ impl TurtleTravelGoal {
 }
 
 impl Goal for TurtleTravelGoal {
+    fn name(&self) -> &'static str {
+        "Turtle$TurtleTravelGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         !turtle(mob).going_home && !turtle(mob).has_egg() && mob.is_in_water()
     }
@@ -951,3 +981,26 @@ static TURTLE: EntityRegistration = EntityRegistration {
     entity_type: EntityType::TURTLE,
     create: |ty, id, registries| Box::new(Turtle::new(ty, id, registries)),
 };
+
+/// The scenario dump fields of a turtle: `egg laying layegg home travel goinghome`.
+#[distributed_slice(mc_game_core::world::entity::scenario_dump::SCENARIO_DUMP_EXTRA)]
+static TURTLE_DUMP: mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra =
+    mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra {
+        order: 30,
+        applies: |e| e.as_any().is::<Turtle>(),
+        fields: |e, _level, _ctx| {
+            let t = e.as_any().downcast_ref::<Turtle>().expect("applies");
+            let pos = |p: BlockPos| format!("{},{},{}", p.x(), p.y(), p.z());
+            vec![
+                ("egg".into(), u8::from(t.has_egg()).to_string()),
+                ("laying".into(), u8::from(t.is_laying_egg()).to_string()),
+                ("layegg".into(), t.lay_egg_counter.to_string()),
+                ("home".into(), pos(t.home_pos)),
+                (
+                    "travel".into(),
+                    t.travel_pos.map_or_else(|| "-".to_string(), pos),
+                ),
+                ("goinghome".into(), u8::from(t.going_home).to_string()),
+            ]
+        },
+    };

@@ -335,6 +335,18 @@ impl Entity for TropicalFish {
         self.set_packed_variant(Variant::from_packed(packed).get_packed_id());
     }
 
+    fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(
+            self.base(),
+        );
+        mc_protocol::components::DataComponentMap::builder()
+            .add_all(&base)
+            .set(TROPICAL_FISH_PATTERN, self.get_pattern())
+            .set(TROPICAL_FISH_BASE_COLOR, self.get_base_color())
+            .set(TROPICAL_FISH_PATTERN_COLOR, self.get_pattern_color())
+            .build()
+    }
+
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
         if let Some(pattern) = stack.get(&TROPICAL_FISH_PATTERN) {
             self.set_pattern(*pattern);
@@ -441,3 +453,19 @@ static TROPICAL_FISH: EntityRegistration = EntityRegistration {
     entity_type: EntityType::TROPICAL_FISH,
     create: |ty, id, _registries| Box::new(TropicalFish::new(ty, id)),
 };
+
+/// The scenario dump fields of a tropical fish: `pattern base pcolor`.
+#[distributed_slice(mc_game_core::world::entity::scenario_dump::SCENARIO_DUMP_EXTRA)]
+static TROPICAL_FISH_DUMP: mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra =
+    mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra {
+        order: 30,
+        applies: |e| e.as_any().is::<TropicalFish>(),
+        fields: |e, _level, _ctx| {
+            let fish = e.as_any().downcast_ref::<TropicalFish>().expect("applies");
+            vec![
+                ("pattern".into(), fish.get_pattern().name().to_string()),
+                ("base".into(), fish.get_base_color().name().to_string()),
+                ("pcolor".into(), fish.get_pattern_color().name().to_string()),
+            ]
+        },
+    };

@@ -423,6 +423,10 @@ impl Entity for Squid {
 struct SquidRandomMovementGoal;
 
 impl Goal for SquidRandomMovementGoal {
+    fn name(&self) -> &'static str {
+        "Squid$SquidRandomMovementGoal"
+    }
+
     fn can_use(&mut self, _mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         true
     }
@@ -465,6 +469,10 @@ struct SquidFleeGoal {
 }
 
 impl Goal for SquidFleeGoal {
+    fn name(&self) -> &'static str {
+        "Squid$SquidFleeGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let Some(entity) = get_last_hurt_by_mob(level, mob).and_then(|id| level.get_entity(id))
         else {

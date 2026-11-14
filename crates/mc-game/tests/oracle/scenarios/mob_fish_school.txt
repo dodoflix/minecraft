@@ -1,0 +1,37 @@
+# Schooling fish spawned as groups: SchoolSpawnGroupData leader and followers (FollowFlockLeaderGoal: start/stop following, leader death),
+# tropical fish group data (shared variant, pattern and colours), salmon sizes (30/50/15 weights) and the dimensions they scale.
+level flat
+difficulty normal
+entity_counter 0
+fill -4 -60 -4 60 -40 40 minecraft:air
+fill 4 -61 -10 30 -50 10 minecraft:stone
+fill 5 -60 -9 29 -52 9 minecraft:water[level=0]
+mobspawn Cod1 minecraft:cod 10.5 -57 0.5 0 0 reason=natural group=cod {PersistenceRequired:1b}
+entity_seed Cod1 33001
+mobspawn Cod2 minecraft:cod 11.5 -57 1.5 0 0 reason=natural group=cod {PersistenceRequired:1b}
+entity_seed Cod2 33002
+mobspawn Cod3 minecraft:cod 12.5 -57 2.5 0 0 reason=natural group=cod {PersistenceRequired:1b}
+entity_seed Cod3 33003
+mobspawn Cod4 minecraft:cod 13.5 -57 3.5 0 0 reason=natural group=cod {PersistenceRequired:1b}
+entity_seed Cod4 33004
+mobspawn Tf1 minecraft:tropical_fish 18.5 -57 -4.5 0 0 reason=natural group=tf {PersistenceRequired:1b}
+entity_seed Tf1 33005
+mobspawn Tf2 minecraft:tropical_fish 19.5 -57 -3.5 0 0 reason=natural group=tf {PersistenceRequired:1b}
+entity_seed Tf2 33006
+mobspawn Tf3 minecraft:tropical_fish 20.5 -57 -2.5 0 0 reason=natural group=tf {PersistenceRequired:1b}
+entity_seed Tf3 33007
+mobspawn Tf4 minecraft:tropical_fish 18.5 -57 6.5 0 0 reason=spawner {PersistenceRequired:1b}
+entity_seed Tf4 33008
+mobspawn Sa1 minecraft:salmon 24.5 -57 5.5 0 0 reason=natural group=sa {PersistenceRequired:1b}
+entity_seed Sa1 33009
+mobspawn Sa2 minecraft:salmon 24.5 -57 6.5 0 0 reason=natural group=sa {PersistenceRequired:1b}
+entity_seed Sa2 33010
+mobspawn Sa3 minecraft:salmon 25.5 -57 6.5 0 0 reason=natural group=sa {PersistenceRequired:1b}
+entity_seed Sa3 33011
+mobspawn Sa4 minecraft:salmon 25.5 -57 5.5 0 0 reason=natural group=sa {PersistenceRequired:1b}
+entity_seed Sa4 33012
+level_seed 3301
+watch mobs
+tick 60
+kill Cod1
+tick 50

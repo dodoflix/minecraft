@@ -507,4 +507,7 @@ spawnpass 1136 chunk=-4,-2 cats=water_creature
 dump rng:level
 tick 1
 tick 2
+dump mobs
+tick 40
+dump mobs
 dump spawn_state

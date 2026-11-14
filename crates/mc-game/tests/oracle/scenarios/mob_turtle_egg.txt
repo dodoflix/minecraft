@@ -1,0 +1,31 @@
+# Turtle with an egg walks to its home beach, lays the egg on the only sand block (TurtleLayEggGoal: laying counter, level events, sound,
+# the egg block), the egg cracks and hatches on random ticks into baby turtles with the egg's position as home, and a baby that grows up
+# drops a scute (ageBoundaryReached, gift loot table).
+level flat
+preload 2
+difficulty normal
+entity_counter 0
+time 6000
+rand_value 99
+fill 5 -61 0 5 -61 0 minecraft:sand
+mobspawn Mother minecraft:turtle 4.5 -60 0.5 0 0 {PersistenceRequired:1b,has_egg:1b,home_pos:[I;5,-60,0]}
+entity_seed Mother 34001
+mobspawn Baby minecraft:turtle 8.5 -60 6.5 0 0 {PersistenceRequired:1b,Age:-3,home_pos:[I;8,-60,6]}
+entity_seed Baby 34002
+level_seed 3401
+watch mob:Mother mob:Baby events
+tick 6
+dump entities
+watch mob:Mother events
+tick 330
+dump blocks:4,-61,-1,6,-59,1 entities
+time 21100
+tick 1
+random_tick 5 -60 0
+dump blocks:4,-61,-1,6,-59,1 events
+random_tick 5 -60 0
+dump blocks:4,-61,-1,6,-59,1 events
+random_tick 5 -60 0
+dump blocks:4,-61,-1,6,-59,1 events mobs
+watch mobs
+tick 60

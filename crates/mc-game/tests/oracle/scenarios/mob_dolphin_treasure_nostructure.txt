@@ -1,0 +1,13 @@
+# The same fed dolphin in a flat world without structures: the search finds nothing, the goal gives up and the fish is gone.
+level flat
+difficulty normal
+entity_counter 0
+fill -4 -60 -4 60 -40 40 minecraft:air
+fill 4 -61 -10 30 -50 10 minecraft:stone
+fill 5 -60 -9 29 -52 9 minecraft:water[level=0]
+mobspawn Dolphin minecraft:dolphin 14.5 -57 0.5 0 0 {PersistenceRequired:1b,GotFish:1b}
+entity_seed Dolphin 24041
+level_seed 2415
+watch mob:Dolphin events
+tick 30
+dump nbt:Dolphin

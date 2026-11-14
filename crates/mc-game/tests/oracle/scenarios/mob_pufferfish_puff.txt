@@ -1,0 +1,28 @@
+# Pufferfish: PufferfishPuffGoal inflates (puff 0 -> 1 -> 2) when a non-creative player or a scary mob is within two blocks, sting poisons the
+# survival player (playerTouch) and a cow (touch), a creative player and a cod do not scare it, and it deflates again after they are gone.
+level flat
+difficulty normal
+entity_counter 0
+fill -4 -60 -4 60 -40 40 minecraft:air
+fill 4 -61 -10 30 -50 10 minecraft:stone
+fill 5 -60 -9 29 -52 9 minecraft:water[level=0]
+mobspawn Puffer1 minecraft:pufferfish 10.5 -57 0.5 0 0 {PersistenceRequired:1b}
+entity_seed Puffer1 32001
+mobspawn Puffer2 minecraft:pufferfish 20.5 -57 0.5 0 0 {PersistenceRequired:1b}
+entity_seed Puffer2 32002
+mobspawn Puffer3 minecraft:pufferfish 14.5 -57 6.5 0 0 {PersistenceRequired:1b}
+entity_seed Puffer3 32003
+mobspawn Cow minecraft:cow 21.5 -57 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed Cow 32004
+attribute Cow minecraft:max_health 100
+set Cow health 100
+mobspawn Cod minecraft:cod 15.5 -57 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed Cod 32005
+spawn_player Steve survival 10.5 -57 1.5 0 0
+spawn_player Cre creative 14.5 -57 7.5 0 0
+level_seed 3201
+watch mob:Puffer1 mob:Puffer2 mob:Puffer3 mob:Cow player:Steve
+tick 70
+kill Cow
+tp Steve 10.5 -52 8.5
+tick 160

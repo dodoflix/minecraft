@@ -1,0 +1,18 @@
+# A dolphin that was fed a fish swims towards the nearest dolphin_located structure (a shipwreck of the seeded world, 40+ chunks away):
+# DolphinSwimToTreasureGoal.start searches the structure, the swim targets are drawn towards it (DefaultRandomPos.getPosTowards).
+level normal
+structures true
+seed 4242
+preload 2
+difficulty normal
+entity_counter 0
+fill -4 99 -4 40 120 40 minecraft:air
+fill 4 98 -10 30 99 10 minecraft:stone
+fill 5 99 -9 29 107 9 minecraft:water[level=0]
+tick 2
+mobspawn Dolphin minecraft:dolphin 14.5 103 0.5 0 0 {PersistenceRequired:1b,GotFish:1b}
+entity_seed Dolphin 24031
+level_seed 2414
+watch mob:Dolphin events
+tick 120
+dump nbt:Dolphin rng:level

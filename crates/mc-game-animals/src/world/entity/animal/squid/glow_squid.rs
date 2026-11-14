@@ -156,3 +156,15 @@ static GLOW_SQUID: EntityRegistration = EntityRegistration {
     entity_type: EntityType::GLOW_SQUID,
     create: |ty, id, _registries| Box::new(GlowSquid::new(ty, id)),
 };
+
+/// The scenario dump field of a glow squid: `dark`.
+#[distributed_slice(mc_game_core::world::entity::scenario_dump::SCENARIO_DUMP_EXTRA)]
+static GLOW_SQUID_DUMP: mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra =
+    mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra {
+        order: 30,
+        applies: |e| e.as_any().is::<GlowSquid>(),
+        fields: |e, _level, _ctx| {
+            let squid = e.as_any().downcast_ref::<GlowSquid>().expect("applies");
+            vec![("dark".into(), squid.get_dark_ticks_remaining().to_string())]
+        },
+    };

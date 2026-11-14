@@ -143,13 +143,11 @@ fn mob_villager_brain() {
 }
 
 #[test]
-#[ignore = "deviation: goal names of nested classes drop the outer class (`AbstractFish$FishSwimGoal` in vanilla); from tick 21 a salmon path starts at another node (`nodes=14,-57,-5` vs `15,-57,-4`)"]
 fn aquatic_fish_swim() {
     run_scenario_test("aquatic_fish_swim");
 }
 
 #[test]
-#[ignore = "deviation: goal names of nested classes drop the outer class (`Squid$SquidRandomMovementGoal` in vanilla); everything else matches"]
 fn aquatic_squid_swim() {
     run_scenario_test("aquatic_squid_swim");
 }
