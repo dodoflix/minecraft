@@ -301,6 +301,8 @@ pub struct Harness {
     pub ticks: u64,
     booted: bool,
     pub label: String,
+    /// `mobspawn ... group=KEY`: the group data `finalizeSpawn` returned for the previous mob of that key.
+    groups: BTreeMap<String, Box<dyn mc_game::world::entity::spawn_group_data::SpawnGroupData>>,
     pub line_no: usize,
     pub line: String,
     flat: bool,
@@ -357,6 +359,7 @@ impl Harness {
             known: BTreeSet::new(),
             auto: BTreeMap::new(),
             players: Vec::new(),
+            groups: BTreeMap::new(),
             watches: Vec::new(),
             out: Vec::new(),
             ticks: 0,
@@ -923,18 +926,20 @@ impl Harness {
         self.add_entity(&name, e);
     }
 
-    /// `mobspawn REF TYPE X Y Z [yaw pitch] [reason=NAME] [nofinalize] [SNBT]`: creation, SNBT, `finalizeSpawn` (when the type is a
-    /// Mob that implements it), add.
+    /// `mobspawn REF TYPE X Y Z [yaw pitch] [reason=NAME] [group=KEY] [nofinalize] [SNBT]`: creation, SNBT, `finalizeSpawn` (when the type is a
+    /// Mob that implements it; `group=KEY` hands it the group data of the previous mob with that key), add.
     fn mob_spawn(&mut self, a: &[String]) {
         let name = a[1].clone();
         mc_core::random::reseed_uniquifier(java_hash(&name));
         let mut reason = mc_data::enums::EntitySpawnReason::Command;
-        let (mut finalize, mut snbt, mut rot) = (true, None, Vec::new());
+        let (mut finalize, mut snbt, mut rot, mut group) = (true, None, Vec::new(), None);
         for t in &a[6..] {
             if t.starts_with('{') {
                 snbt = Some(t.as_str());
             } else if let Some(r) = t.strip_prefix("reason=") {
                 reason = spawn_reason(r).unwrap_or_else(|| self.fail(&format!("spawn reason {r}")));
+            } else if let Some(k) = t.strip_prefix("group=") {
+                group = Some(k);
             } else if t == "nofinalize" {
                 finalize = false;
             } else {
@@ -954,8 +959,12 @@ impl Harness {
             snbt,
         );
         if finalize {
+            let mut data = group.and_then(|k| self.groups.remove(k));
             for hook in SCENARIO_FINALIZE_SPAWN.iter() {
-                hook(&mut self.level, e.as_mut(), reason);
+                data = hook(&mut self.level, e.as_mut(), reason, data);
+            }
+            if let (Some(k), Some(data)) = (group, data) {
+                self.groups.insert(k.to_string(), data);
             }
         }
         self.add_entity(&name, e);

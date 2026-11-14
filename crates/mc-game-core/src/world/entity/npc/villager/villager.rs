@@ -1265,6 +1265,21 @@ impl Entity for Villager {
         }
     }
 
+    /// `Villager.applyImplicitComponents`: the `villager/variant` component sets the type and finalizes the villager data.
+    fn apply_implicit_components(&mut self, stack: &ItemStack) {
+        if let Some(mc_protocol::components::holder::Holder::Reference(id)) =
+            stack.get(&mc_protocol::components::values::entity::VILLAGER_VARIANT)
+            && let Some(ty) = mc_data::VillagerType::by_name(&id.to_string())
+        {
+            self.set_villager_data(self.get_villager_data().with_type(ty));
+            self.set_villager_data_finalized(true);
+        }
+        crate::world::entity::spawn_config::apply_base_implicit_components(
+            self.as_dyn_mut(),
+            stack,
+        );
+    }
+
     fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
         let base =
             crate::advancements::predicates::entity::support::base_entity_components(self.base());

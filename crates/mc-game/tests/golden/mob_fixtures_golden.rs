@@ -11,10 +11,7 @@ const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[
     "minecraft:bee",
     "minecraft:camel",
     "minecraft:evoker",
-    "minecraft:goat",
-    "minecraft:pillager",
     "minecraft:sniffer",
-    "minecraft:vindicator",
     "minecraft:witch",
     // the `aggr` field is 0 where vanilla shows 1
     "minecraft:panda",
@@ -22,18 +19,59 @@ const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[
     "minecraft:zombie_villager",
 ];
 
+/// `mob_finalize_summon` and `mob_spawn_egg_finalize`: inert placeholders and the class-specific differences of single types.
+const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[
+    // inert placeholders: the dump line stops after the position fields
+    "minecraft:allay",
+    "minecraft:bee",
+    "minecraft:camel",
+    "minecraft:evoker",
+    "minecraft:ravager",
+    "minecraft:sniffer",
+    "minecraft:wandering_trader",
+    "minecraft:witch",
+    // the entity is loaded from its tag (`/summon`, an egg's `entity_data`) before `finalizeSpawn`; the load ends in
+    // `setTarget(null)`, whose speed attribute lookup creates the saved attribute instance (`movement_speed` without modifiers)
+    "minecraft:enderman",
+    // the saved `anger` data holds `suspects:[]` where vanilla saves `{}`
+    "minecraft:warden",
+    // the horse data (`Bred`, `EatingHaystack`, `Tame`, `Temper`) is not saved
+    "minecraft:zombie_horse",
+    // `yHeadRot` draws after another number of entity randoms; `ConversionTime`, `VillagerData`, `Xp` are not saved
+    "minecraft:zombie_villager",
+];
+
 /// Every `mobspawn` block of `mob_finalize_equipment` (208 mobs of about 52 types, each with its own difficulty and spawn reason).
 #[test]
 fn mob_finalize_equipment() {
-    let fixture = Fixture::load("mob_finalize_equipment");
     let actual = run_scenario("mob_finalize_equipment");
+    check_finalize_blocks(
+        "mob_finalize_equipment",
+        &actual,
+        FINALIZE_EQUIPMENT_DIVERGENT,
+    );
+}
+
+/// Compares the `E` and `N` lines of every named mob of a finalize scenario and checks that the types whose blocks differ are
+/// exactly `divergent`. The test fails when a type outside the list diverges and when a listed type no longer does.
+fn check_finalize_blocks(name: &str, actual: &[String], divergent: &[&str]) {
+    let fixture = Fixture::load(name);
     let opts = Options {
         ignore_kinds: vec!["C"],
         ..Default::default()
     };
-    // name -> (type, expected lines, actual lines)
+    // The villager brain applies its schedule at construction (`core;rest` at day time 0), here at the first AI step: the
+    // active activities are the only field skipped, so a villager's type, profession and saved data stay compared.
+    let villager_opts = Options {
+        ignore_fields: vec!["acts"],
+        ..Options {
+            ignore_kinds: vec!["C"],
+            ..Default::default()
+        }
+    };
+    // mob name -> (type, expected lines, actual lines)
     let mut blocks: BTreeMap<String, (String, Vec<&String>, Vec<&String>)> = BTreeMap::new();
-    for (lines, expected) in [(&fixture.lines, true), (&actual, false)] {
+    for (lines, expected) in [(&fixture.lines[..], true), (actual, false)] {
         for l in lines {
             let t: Vec<&str> = l.split(' ').collect();
             if !matches!(t[0], "E" | "N") {
@@ -50,21 +88,40 @@ fn mob_finalize_equipment() {
             }
         }
     }
-    let mut divergent: BTreeMap<&str, &str> = BTreeMap::new();
-    for (name, (ty, exp, act)) in &blocks {
+    let mut got: BTreeMap<&str, &str> = BTreeMap::new();
+    for (mob, (ty, exp, act)) in &blocks {
+        let opts = if ty == "minecraft:villager" {
+            &villager_opts
+        } else {
+            &opts
+        };
         let same =
-            exp.len() == act.len() && exp.iter().zip(act).all(|(e, a)| lines_match(e, a, &opts));
+            exp.len() == act.len() && exp.iter().zip(act).all(|(e, a)| lines_match(e, a, opts));
         if !same {
-            divergent.entry(ty).or_insert(name);
+            got.entry(ty).or_insert(mob);
         }
     }
-    let got: Vec<&str> = divergent.keys().copied().collect();
-    let mut want = FINALIZE_EQUIPMENT_DIVERGENT.to_vec();
+    let mut want = divergent.to_vec();
     want.sort_unstable();
     assert_eq!(
-        got, want,
-        "types whose finalizeSpawn block differs (first block of each: {divergent:?})"
+        got.keys().copied().collect::<Vec<_>>(),
+        want,
+        "types whose finalizeSpawn block differs (first block of each: {got:?})"
     );
+}
+
+/// `/summon` of every mob type, every other spawn reason and shared spawn group data (block replay).
+#[test]
+fn mob_finalize_summon() {
+    let actual = block_scenario::run_scenario("mob_finalize_summon");
+    check_finalize_blocks("mob_finalize_summon", &actual, FINALIZE_SUMMON_DIVERGENT);
+}
+
+/// Spawn eggs, mob buckets, the villager variant component and spawners holding a bare id (block replay).
+#[test]
+fn mob_spawn_egg_finalize() {
+    let actual = block_scenario::run_scenario("mob_spawn_egg_finalize");
+    check_finalize_blocks("mob_spawn_egg_finalize", &actual, FINALIZE_SUMMON_DIVERGENT);
 }
 
 #[test]

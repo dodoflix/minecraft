@@ -8,6 +8,7 @@ use crate::world::entity::Entity;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::scenario_dump::{
     SCENARIO_DUMP_EXTRA, SCENARIO_FINALIZE_SPAWN, ScenarioDumpCtx, ScenarioDumpExtra,
+    ScenarioFinalizeSpawnFn,
 };
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
@@ -245,13 +246,12 @@ static TAMABLE_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
     },
 };
 
-/// `Mob.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), reason, null)` of the `mobspawn` command.
+/// `Mob.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), reason, groupData)` of the `mobspawn` command.
 #[distributed_slice(SCENARIO_FINALIZE_SPAWN)]
-static FINALIZE: fn(&mut ServerLevel, &mut dyn Entity, mc_data::enums::EntitySpawnReason) =
-    |level, e, reason| {
-        if e.mob().is_some() {
-            let difficulty =
-                ServerLevelAccessor::get_current_difficulty_at(&*level, e.block_position());
-            e.finalize_spawn(level, difficulty, reason, None);
-        }
-    };
+static FINALIZE: ScenarioFinalizeSpawnFn = |level, e, reason, group_data| {
+    if e.mob().is_none() {
+        return group_data;
+    }
+    let difficulty = ServerLevelAccessor::get_current_difficulty_at(&*level, e.block_position());
+    e.finalize_spawn(level, difficulty, reason, group_data)
+};

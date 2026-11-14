@@ -1,0 +1,2672 @@
+# Mob.finalizeSpawn through /summon (spawn reason COMMAND, finalized when the tag is only the id), then through every other spawn reason
+# (the reason-dependent classes: zombies, piglins, villagers, axolotl, horses, slimes ...), then with shared spawn group data (group=KEY hands
+# a mob the group data its predecessor returned: baby rolls, school leaders, jockey flags). Hard difficulty and a late world time, the level
+# random seeded before every spawn; each block dumps the rich E line and the saved NBT (UUID removed).
+command_env
+level flat
+difficulty hard
+time 3000000
+preload 3
+tick 1
+entity_counter 400
+note /summon of every mob type
+level_seed 12345
+cmd summon minecraft:zombie -28.5 -60 -28.5
+dump mob:zombie#1 nbt:zombie#1
+level_seed 2654448106
+cmd summon minecraft:husk -27.5 -60 -28.5
+dump mob:husk#1 nbt:husk#1
+level_seed 5308883867
+cmd summon minecraft:drowned -26.5 -60 -28.5
+dump mob:drowned#1 nbt:drowned#1
+level_seed 7963319628
+cmd summon minecraft:zombie_villager -25.5 -60 -28.5
+dump mob:zombie_villager#1 nbt:zombie_villager#1
+level_seed 10617755389
+cmd summon minecraft:skeleton -24.5 -60 -28.5
+dump mob:skeleton#1 nbt:skeleton#1
+level_seed 13272191150
+cmd summon minecraft:stray -23.5 -60 -28.5
+dump mob:stray#1 nbt:stray#1
+level_seed 15926626911
+cmd summon minecraft:bogged -22.5 -60 -28.5
+dump mob:bogged#1 nbt:bogged#1
+level_seed 18581062672
+cmd summon minecraft:wither_skeleton -21.5 -60 -28.5
+dump mob:wither_skeleton#1 nbt:wither_skeleton#1
+level_seed 21235498433
+cmd summon minecraft:piglin -20.5 -60 -28.5
+dump mob:piglin#1 nbt:piglin#1
+level_seed 23889934194
+cmd summon minecraft:piglin_brute -19.5 -60 -28.5
+dump mob:piglin_brute#1 nbt:piglin_brute#1
+level_seed 26544369955
+cmd summon minecraft:zombified_piglin -18.5 -60 -28.5
+dump mob:zombified_piglin#1 nbt:zombified_piglin#1
+level_seed 29198805716
+cmd summon minecraft:pillager -17.5 -60 -28.5
+dump mob:pillager#1 nbt:pillager#1
+level_seed 31853241477
+cmd summon minecraft:vindicator -16.5 -60 -28.5
+dump mob:vindicator#1 nbt:vindicator#1
+level_seed 34507677238
+cmd summon minecraft:evoker -15.5 -60 -28.5
+dump mob:evoker#1 nbt:evoker#1
+level_seed 37162112999
+cmd summon minecraft:vex -14.5 -60 -28.5
+dump mob:vex#1 nbt:vex#1
+level_seed 39816548760
+cmd summon minecraft:witch -13.5 -60 -28.5
+dump mob:witch#1 nbt:witch#1
+level_seed 42470984521
+cmd summon minecraft:spider -12.5 -60 -28.5
+dump mob:spider#1 nbt:spider#1
+level_seed 45125420282
+cmd summon minecraft:cave_spider -11.5 -60 -28.5
+dump mob:cave_spider#1 nbt:cave_spider#1
+level_seed 47779856043
+cmd summon minecraft:creeper -10.5 -60 -28.5
+dump mob:creeper#1 nbt:creeper#1
+level_seed 50434291804
+cmd summon minecraft:slime -9.5 -60 -28.5
+dump mob:slime#1 nbt:slime#1
+level_seed 53088727565
+cmd summon minecraft:magma_cube -8.5 -60 -28.5
+dump mob:magma_cube#1 nbt:magma_cube#1
+level_seed 55743163326
+cmd summon minecraft:enderman -7.5 -60 -28.5
+dump mob:enderman#1 nbt:enderman#1
+level_seed 58397599087
+cmd summon minecraft:silverfish -6.5 -60 -28.5
+dump mob:silverfish#1 nbt:silverfish#1
+level_seed 61052034848
+cmd summon minecraft:blaze -5.5 -60 -28.5
+dump mob:blaze#1 nbt:blaze#1
+level_seed 63706470609
+cmd summon minecraft:ghast -4.5 -60 -28.5
+dump mob:ghast#1 nbt:ghast#1
+level_seed 66360906370
+cmd summon minecraft:phantom -3.5 -60 -28.5
+dump mob:phantom#1 nbt:phantom#1
+level_seed 69015342131
+cmd summon minecraft:sheep -2.5 -60 -28.5
+dump mob:sheep#1 nbt:sheep#1
+level_seed 71669777892
+cmd summon minecraft:pig -1.5 -60 -28.5
+dump mob:pig#1 nbt:pig#1
+level_seed 74324213653
+cmd summon minecraft:cow 0.5 -60 -28.5
+dump mob:cow#1 nbt:cow#1
+level_seed 76978649414
+cmd summon minecraft:chicken 1.5 -60 -28.5
+dump mob:chicken#1 nbt:chicken#1
+level_seed 79633085175
+cmd summon minecraft:rabbit 2.5 -60 -28.5
+dump mob:rabbit#1 nbt:rabbit#1
+level_seed 82287520936
+cmd summon minecraft:horse 3.5 -60 -28.5
+dump mob:horse#1 nbt:horse#1
+level_seed 84941956697
+cmd summon minecraft:donkey 4.5 -60 -28.5
+dump mob:donkey#1 nbt:donkey#1
+level_seed 87596392458
+cmd summon minecraft:mule 5.5 -60 -28.5
+dump mob:mule#1 nbt:mule#1
+level_seed 90250828219
+cmd summon minecraft:llama 6.5 -60 -28.5
+dump mob:llama#1 nbt:llama#1
+level_seed 92905263980
+cmd summon minecraft:wolf 7.5 -60 -28.5
+dump mob:wolf#1 nbt:wolf#1
+level_seed 95559699741
+cmd summon minecraft:cat 8.5 -60 -28.5
+dump mob:cat#1 nbt:cat#1
+level_seed 98214135502
+cmd summon minecraft:fox 9.5 -60 -28.5
+dump mob:fox#1 nbt:fox#1
+level_seed 100868571263
+cmd summon minecraft:panda 10.5 -60 -28.5
+dump mob:panda#1 nbt:panda#1
+level_seed 103523007024
+cmd summon minecraft:villager 11.5 -60 -28.5
+dump mob:villager#1 nbt:villager#1
+level_seed 106177442785
+cmd summon minecraft:iron_golem 12.5 -60 -28.5
+dump mob:iron_golem#1 nbt:iron_golem#1
+level_seed 108831878546
+cmd summon minecraft:snow_golem 13.5 -60 -28.5
+dump mob:snow_golem#1 nbt:snow_golem#1
+level_seed 111486314307
+cmd summon minecraft:turtle 14.5 -60 -28.5
+dump mob:turtle#1 nbt:turtle#1
+level_seed 114140750068
+cmd summon minecraft:frog 15.5 -60 -28.5
+dump mob:frog#1 nbt:frog#1
+level_seed 116795185829
+cmd summon minecraft:axolotl 16.5 -60 -28.5
+dump mob:axolotl#1 nbt:axolotl#1
+level_seed 119449621590
+cmd summon minecraft:goat 17.5 -60 -28.5
+dump mob:goat#1 nbt:goat#1
+level_seed 122104057351
+cmd summon minecraft:bee 18.5 -60 -28.5
+dump mob:bee#1 nbt:bee#1
+level_seed 124758493112
+cmd summon minecraft:parrot 19.5 -60 -28.5
+dump mob:parrot#1 nbt:parrot#1
+level_seed 127412928873
+cmd summon minecraft:ocelot 20.5 -60 -28.5
+dump mob:ocelot#1 nbt:ocelot#1
+level_seed 130067364634
+cmd summon minecraft:polar_bear 21.5 -60 -28.5
+dump mob:polar_bear#1 nbt:polar_bear#1
+level_seed 132721800395
+cmd summon minecraft:camel 22.5 -60 -28.5
+dump mob:camel#1 nbt:camel#1
+level_seed 135376236156
+cmd summon minecraft:sniffer 23.5 -60 -28.5
+dump mob:sniffer#1 nbt:sniffer#1
+level_seed 138030671917
+cmd summon minecraft:strider 24.5 -60 -28.5
+dump mob:strider#1 nbt:strider#1
+level_seed 140685107678
+cmd summon minecraft:hoglin 25.5 -60 -28.5
+dump mob:hoglin#1 nbt:hoglin#1
+level_seed 143339543439
+cmd summon minecraft:zoglin 26.5 -60 -28.5
+dump mob:zoglin#1 nbt:zoglin#1
+level_seed 145993979200
+cmd summon minecraft:guardian 27.5 -60 -28.5
+dump mob:guardian#1 nbt:guardian#1
+level_seed 148648414961
+cmd summon minecraft:elder_guardian 28.5 -60 -28.5
+dump mob:elder_guardian#1 nbt:elder_guardian#1
+level_seed 151302850722
+cmd summon minecraft:shulker -28.5 -60 -27.5
+dump mob:shulker#1 nbt:shulker#1
+level_seed 153957286483
+cmd summon minecraft:mooshroom -27.5 -60 -27.5
+dump mob:mooshroom#1 nbt:mooshroom#1
+level_seed 156611722244
+cmd summon minecraft:squid -26.5 -60 -27.5
+dump mob:squid#1 nbt:squid#1
+level_seed 159266158005
+cmd summon minecraft:glow_squid -25.5 -60 -27.5
+dump mob:glow_squid#1 nbt:glow_squid#1
+level_seed 161920593766
+cmd summon minecraft:dolphin -24.5 -60 -27.5
+dump mob:dolphin#1 nbt:dolphin#1
+level_seed 164575029527
+cmd summon minecraft:cod -23.5 -60 -27.5
+dump mob:cod#1 nbt:cod#1
+level_seed 167229465288
+cmd summon minecraft:salmon -22.5 -60 -27.5
+dump mob:salmon#1 nbt:salmon#1
+level_seed 169883901049
+cmd summon minecraft:pufferfish -21.5 -60 -27.5
+dump mob:pufferfish#1 nbt:pufferfish#1
+level_seed 172538336810
+cmd summon minecraft:tropical_fish -20.5 -60 -27.5
+dump mob:tropical_fish#1 nbt:tropical_fish#1
+level_seed 175192772571
+cmd summon minecraft:tadpole -19.5 -60 -27.5
+dump mob:tadpole#1 nbt:tadpole#1
+level_seed 177847208332
+cmd summon minecraft:skeleton_horse -18.5 -60 -27.5
+dump mob:skeleton_horse#1 nbt:skeleton_horse#1
+level_seed 180501644093
+cmd summon minecraft:zombie_horse -17.5 -60 -27.5
+dump mob:zombie_horse#1 nbt:zombie_horse#1
+level_seed 183156079854
+cmd summon minecraft:trader_llama -16.5 -60 -27.5
+dump mob:trader_llama#1 nbt:trader_llama#1
+level_seed 185810515615
+cmd summon minecraft:endermite -15.5 -60 -27.5
+dump mob:endermite#1 nbt:endermite#1
+level_seed 188464951376
+cmd summon minecraft:warden -14.5 -60 -27.5
+dump mob:warden#1 nbt:warden#1
+level_seed 191119387137
+cmd summon minecraft:breeze -13.5 -60 -27.5
+dump mob:breeze#1 nbt:breeze#1
+level_seed 193773822898
+cmd summon minecraft:creaking -12.5 -60 -27.5
+dump mob:creaking#1 nbt:creaking#1
+level_seed 196428258659
+cmd summon minecraft:bat -11.5 -60 -27.5
+dump mob:bat#1 nbt:bat#1
+level_seed 199082694420
+cmd summon minecraft:ravager -10.5 -60 -27.5
+dump mob:ravager#1 nbt:ravager#1
+level_seed 201737130181
+cmd summon minecraft:wandering_trader -9.5 -60 -27.5
+dump mob:wandering_trader#1 nbt:wandering_trader#1
+level_seed 204391565942
+cmd summon minecraft:armadillo -8.5 -60 -27.5
+dump mob:armadillo#1 nbt:armadillo#1
+level_seed 207046001703
+cmd summon minecraft:allay -7.5 -60 -27.5
+dump mob:allay#1 nbt:allay#1
+note every spawn reason
+level_seed 209700437464
+mobspawn R79 minecraft:zombie -6.5 -60 -27.5 reason=command
+dump mob:R79 nbt:R79
+level_seed 212354873225
+mobspawn R80 minecraft:zombie -5.5 -60 -27.5 reason=mob_summoned
+dump mob:R80 nbt:R80
+level_seed 215009308986
+mobspawn R81 minecraft:zombie -4.5 -60 -27.5 reason=structure
+dump mob:R81 nbt:R81
+level_seed 217663744747
+mobspawn R82 minecraft:zombie -3.5 -60 -27.5 reason=conversion
+dump mob:R82 nbt:R82
+level_seed 220318180508
+mobspawn R83 minecraft:zombie -2.5 -60 -27.5 reason=jockey
+dump mob:R83 nbt:R83
+level_seed 222972616269
+mobspawn R84 minecraft:zombie -1.5 -60 -27.5 reason=event
+dump mob:R84 nbt:R84
+level_seed 225627052030
+mobspawn R85 minecraft:zombie 0.5 -60 -27.5 reason=triggered
+dump mob:R85 nbt:R85
+level_seed 228281487791
+mobspawn R86 minecraft:zombie 1.5 -60 -27.5 reason=reinforcement
+dump mob:R86 nbt:R86
+level_seed 230935923552
+mobspawn R87 minecraft:zombie 2.5 -60 -27.5 reason=chunk_generation
+dump mob:R87 nbt:R87
+level_seed 233590359313
+mobspawn R88 minecraft:zombie 3.5 -60 -27.5 reason=trial_spawner
+dump mob:R88 nbt:R88
+level_seed 236244795074
+mobspawn R89 minecraft:zombie 4.5 -60 -27.5 reason=dispenser
+dump mob:R89 nbt:R89
+level_seed 238899230835
+mobspawn R90 minecraft:zombie 5.5 -60 -27.5 reason=patrol
+dump mob:R90 nbt:R90
+level_seed 241553666596
+mobspawn R91 minecraft:zombie 6.5 -60 -27.5 reason=bucket
+dump mob:R91 nbt:R91
+level_seed 244208102357
+mobspawn R92 minecraft:zombie 7.5 -60 -27.5 reason=breeding
+dump mob:R92 nbt:R92
+level_seed 246862538118
+mobspawn R93 minecraft:zombie 8.5 -60 -27.5 reason=spawn_item_use
+dump mob:R93 nbt:R93
+level_seed 249516973879
+mobspawn R94 minecraft:zombie 9.5 -60 -27.5 reason=load
+dump mob:R94 nbt:R94
+level_seed 252171409640
+mobspawn R95 minecraft:zombie 10.5 -60 -27.5 reason=dimension_travel
+dump mob:R95 nbt:R95
+level_seed 254825845401
+mobspawn R96 minecraft:zombie 11.5 -60 -27.5 reason=natural
+dump mob:R96 nbt:R96
+level_seed 257480281162
+mobspawn R97 minecraft:zombie 12.5 -60 -27.5 reason=spawner
+dump mob:R97 nbt:R97
+level_seed 260134716923
+mobspawn R98 minecraft:husk 13.5 -60 -27.5 reason=command
+dump mob:R98 nbt:R98
+level_seed 262789152684
+mobspawn R99 minecraft:husk 14.5 -60 -27.5 reason=mob_summoned
+dump mob:R99 nbt:R99
+level_seed 265443588445
+mobspawn R100 minecraft:husk 15.5 -60 -27.5 reason=structure
+dump mob:R100 nbt:R100
+level_seed 268098024206
+mobspawn R101 minecraft:husk 16.5 -60 -27.5 reason=conversion
+dump mob:R101 nbt:R101
+level_seed 270752459967
+mobspawn R102 minecraft:husk 17.5 -60 -27.5 reason=jockey
+dump mob:R102 nbt:R102
+level_seed 273406895728
+mobspawn R103 minecraft:husk 18.5 -60 -27.5 reason=event
+dump mob:R103 nbt:R103
+level_seed 276061331489
+mobspawn R104 minecraft:husk 19.5 -60 -27.5 reason=triggered
+dump mob:R104 nbt:R104
+level_seed 278715767250
+mobspawn R105 minecraft:husk 20.5 -60 -27.5 reason=reinforcement
+dump mob:R105 nbt:R105
+level_seed 281370203011
+mobspawn R106 minecraft:husk 21.5 -60 -27.5 reason=chunk_generation
+dump mob:R106 nbt:R106
+level_seed 284024638772
+mobspawn R107 minecraft:husk 22.5 -60 -27.5 reason=trial_spawner
+dump mob:R107 nbt:R107
+level_seed 286679074533
+mobspawn R108 minecraft:husk 23.5 -60 -27.5 reason=dispenser
+dump mob:R108 nbt:R108
+level_seed 289333510294
+mobspawn R109 minecraft:husk 24.5 -60 -27.5 reason=patrol
+dump mob:R109 nbt:R109
+level_seed 291987946055
+mobspawn R110 minecraft:husk 25.5 -60 -27.5 reason=bucket
+dump mob:R110 nbt:R110
+level_seed 294642381816
+mobspawn R111 minecraft:husk 26.5 -60 -27.5 reason=breeding
+dump mob:R111 nbt:R111
+level_seed 297296817577
+mobspawn R112 minecraft:husk 27.5 -60 -27.5 reason=spawn_item_use
+dump mob:R112 nbt:R112
+level_seed 299951253338
+mobspawn R113 minecraft:husk 28.5 -60 -27.5 reason=load
+dump mob:R113 nbt:R113
+level_seed 302605689099
+mobspawn R114 minecraft:husk -28.5 -60 -26.5 reason=dimension_travel
+dump mob:R114 nbt:R114
+level_seed 305260124860
+mobspawn R115 minecraft:husk -27.5 -60 -26.5 reason=natural
+dump mob:R115 nbt:R115
+level_seed 307914560621
+mobspawn R116 minecraft:husk -26.5 -60 -26.5 reason=spawner
+dump mob:R116 nbt:R116
+level_seed 310568996382
+mobspawn R117 minecraft:drowned -25.5 -60 -26.5 reason=command
+dump mob:R117 nbt:R117
+level_seed 313223432143
+mobspawn R118 minecraft:drowned -24.5 -60 -26.5 reason=mob_summoned
+dump mob:R118 nbt:R118
+level_seed 315877867904
+mobspawn R119 minecraft:drowned -23.5 -60 -26.5 reason=structure
+dump mob:R119 nbt:R119
+level_seed 318532303665
+mobspawn R120 minecraft:drowned -22.5 -60 -26.5 reason=conversion
+dump mob:R120 nbt:R120
+level_seed 321186739426
+mobspawn R121 minecraft:drowned -21.5 -60 -26.5 reason=jockey
+dump mob:R121 nbt:R121
+level_seed 323841175187
+mobspawn R122 minecraft:drowned -20.5 -60 -26.5 reason=event
+dump mob:R122 nbt:R122
+level_seed 326495610948
+mobspawn R123 minecraft:drowned -19.5 -60 -26.5 reason=triggered
+dump mob:R123 nbt:R123
+level_seed 329150046709
+mobspawn R124 minecraft:drowned -18.5 -60 -26.5 reason=reinforcement
+dump mob:R124 nbt:R124
+level_seed 331804482470
+mobspawn R125 minecraft:drowned -17.5 -60 -26.5 reason=chunk_generation
+dump mob:R125 nbt:R125
+level_seed 334458918231
+mobspawn R126 minecraft:drowned -16.5 -60 -26.5 reason=trial_spawner
+dump mob:R126 nbt:R126
+level_seed 337113353992
+mobspawn R127 minecraft:drowned -15.5 -60 -26.5 reason=dispenser
+dump mob:R127 nbt:R127
+level_seed 339767789753
+mobspawn R128 minecraft:drowned -14.5 -60 -26.5 reason=patrol
+dump mob:R128 nbt:R128
+level_seed 342422225514
+mobspawn R129 minecraft:drowned -13.5 -60 -26.5 reason=bucket
+dump mob:R129 nbt:R129
+level_seed 345076661275
+mobspawn R130 minecraft:drowned -12.5 -60 -26.5 reason=breeding
+dump mob:R130 nbt:R130
+level_seed 347731097036
+mobspawn R131 minecraft:drowned -11.5 -60 -26.5 reason=spawn_item_use
+dump mob:R131 nbt:R131
+level_seed 350385532797
+mobspawn R132 minecraft:drowned -10.5 -60 -26.5 reason=load
+dump mob:R132 nbt:R132
+level_seed 353039968558
+mobspawn R133 minecraft:drowned -9.5 -60 -26.5 reason=dimension_travel
+dump mob:R133 nbt:R133
+level_seed 355694404319
+mobspawn R134 minecraft:drowned -8.5 -60 -26.5 reason=natural
+dump mob:R134 nbt:R134
+level_seed 358348840080
+mobspawn R135 minecraft:drowned -7.5 -60 -26.5 reason=spawner
+dump mob:R135 nbt:R135
+level_seed 361003275841
+mobspawn R136 minecraft:zombified_piglin -6.5 -60 -26.5 reason=command
+dump mob:R136 nbt:R136
+level_seed 363657711602
+mobspawn R137 minecraft:zombified_piglin -5.5 -60 -26.5 reason=mob_summoned
+dump mob:R137 nbt:R137
+level_seed 366312147363
+mobspawn R138 minecraft:zombified_piglin -4.5 -60 -26.5 reason=structure
+dump mob:R138 nbt:R138
+level_seed 368966583124
+mobspawn R139 minecraft:zombified_piglin -3.5 -60 -26.5 reason=conversion
+dump mob:R139 nbt:R139
+level_seed 371621018885
+mobspawn R140 minecraft:zombified_piglin -2.5 -60 -26.5 reason=jockey
+dump mob:R140 nbt:R140
+level_seed 374275454646
+mobspawn R141 minecraft:zombified_piglin -1.5 -60 -26.5 reason=event
+dump mob:R141 nbt:R141
+level_seed 376929890407
+mobspawn R142 minecraft:zombified_piglin 0.5 -60 -26.5 reason=triggered
+dump mob:R142 nbt:R142
+level_seed 379584326168
+mobspawn R143 minecraft:zombified_piglin 1.5 -60 -26.5 reason=reinforcement
+dump mob:R143 nbt:R143
+level_seed 382238761929
+mobspawn R144 minecraft:zombified_piglin 2.5 -60 -26.5 reason=chunk_generation
+dump mob:R144 nbt:R144
+level_seed 384893197690
+mobspawn R145 minecraft:zombified_piglin 3.5 -60 -26.5 reason=trial_spawner
+dump mob:R145 nbt:R145
+level_seed 387547633451
+mobspawn R146 minecraft:zombified_piglin 4.5 -60 -26.5 reason=dispenser
+dump mob:R146 nbt:R146
+level_seed 390202069212
+mobspawn R147 minecraft:zombified_piglin 5.5 -60 -26.5 reason=patrol
+dump mob:R147 nbt:R147
+level_seed 392856504973
+mobspawn R148 minecraft:zombified_piglin 6.5 -60 -26.5 reason=bucket
+dump mob:R148 nbt:R148
+level_seed 395510940734
+mobspawn R149 minecraft:zombified_piglin 7.5 -60 -26.5 reason=breeding
+dump mob:R149 nbt:R149
+level_seed 398165376495
+mobspawn R150 minecraft:zombified_piglin 8.5 -60 -26.5 reason=spawn_item_use
+dump mob:R150 nbt:R150
+level_seed 400819812256
+mobspawn R151 minecraft:zombified_piglin 9.5 -60 -26.5 reason=load
+dump mob:R151 nbt:R151
+level_seed 403474248017
+mobspawn R152 minecraft:zombified_piglin 10.5 -60 -26.5 reason=dimension_travel
+dump mob:R152 nbt:R152
+level_seed 406128683778
+mobspawn R153 minecraft:zombified_piglin 11.5 -60 -26.5 reason=natural
+dump mob:R153 nbt:R153
+level_seed 408783119539
+mobspawn R154 minecraft:zombified_piglin 12.5 -60 -26.5 reason=spawner
+dump mob:R154 nbt:R154
+level_seed 411437555300
+mobspawn R155 minecraft:zombie_villager 13.5 -60 -26.5 reason=command
+dump mob:R155 nbt:R155
+level_seed 414091991061
+mobspawn R156 minecraft:zombie_villager 14.5 -60 -26.5 reason=mob_summoned
+dump mob:R156 nbt:R156
+level_seed 416746426822
+mobspawn R157 minecraft:zombie_villager 15.5 -60 -26.5 reason=structure
+dump mob:R157 nbt:R157
+level_seed 419400862583
+mobspawn R158 minecraft:zombie_villager 16.5 -60 -26.5 reason=conversion
+dump mob:R158 nbt:R158
+level_seed 422055298344
+mobspawn R159 minecraft:zombie_villager 17.5 -60 -26.5 reason=jockey
+dump mob:R159 nbt:R159
+level_seed 424709734105
+mobspawn R160 minecraft:zombie_villager 18.5 -60 -26.5 reason=event
+dump mob:R160 nbt:R160
+level_seed 427364169866
+mobspawn R161 minecraft:zombie_villager 19.5 -60 -26.5 reason=triggered
+dump mob:R161 nbt:R161
+level_seed 430018605627
+mobspawn R162 minecraft:zombie_villager 20.5 -60 -26.5 reason=reinforcement
+dump mob:R162 nbt:R162
+level_seed 432673041388
+mobspawn R163 minecraft:zombie_villager 21.5 -60 -26.5 reason=chunk_generation
+dump mob:R163 nbt:R163
+level_seed 435327477149
+mobspawn R164 minecraft:zombie_villager 22.5 -60 -26.5 reason=trial_spawner
+dump mob:R164 nbt:R164
+level_seed 437981912910
+mobspawn R165 minecraft:zombie_villager 23.5 -60 -26.5 reason=dispenser
+dump mob:R165 nbt:R165
+level_seed 440636348671
+mobspawn R166 minecraft:zombie_villager 24.5 -60 -26.5 reason=patrol
+dump mob:R166 nbt:R166
+level_seed 443290784432
+mobspawn R167 minecraft:zombie_villager 25.5 -60 -26.5 reason=bucket
+dump mob:R167 nbt:R167
+level_seed 445945220193
+mobspawn R168 minecraft:zombie_villager 26.5 -60 -26.5 reason=breeding
+dump mob:R168 nbt:R168
+level_seed 448599655954
+mobspawn R169 minecraft:zombie_villager 27.5 -60 -26.5 reason=spawn_item_use
+dump mob:R169 nbt:R169
+level_seed 451254091715
+mobspawn R170 minecraft:zombie_villager 28.5 -60 -26.5 reason=load
+dump mob:R170 nbt:R170
+level_seed 453908527476
+mobspawn R171 minecraft:zombie_villager -28.5 -60 -25.5 reason=dimension_travel
+dump mob:R171 nbt:R171
+level_seed 456562963237
+mobspawn R172 minecraft:zombie_villager -27.5 -60 -25.5 reason=natural
+dump mob:R172 nbt:R172
+level_seed 459217398998
+mobspawn R173 minecraft:zombie_villager -26.5 -60 -25.5 reason=spawner
+dump mob:R173 nbt:R173
+level_seed 461871834759
+mobspawn R174 minecraft:skeleton -25.5 -60 -25.5 reason=command
+dump mob:R174 nbt:R174
+level_seed 464526270520
+mobspawn R175 minecraft:skeleton -24.5 -60 -25.5 reason=mob_summoned
+dump mob:R175 nbt:R175
+level_seed 467180706281
+mobspawn R176 minecraft:skeleton -23.5 -60 -25.5 reason=structure
+dump mob:R176 nbt:R176
+level_seed 469835142042
+mobspawn R177 minecraft:skeleton -22.5 -60 -25.5 reason=conversion
+dump mob:R177 nbt:R177
+level_seed 472489577803
+mobspawn R178 minecraft:skeleton -21.5 -60 -25.5 reason=jockey
+dump mob:R178 nbt:R178
+level_seed 475144013564
+mobspawn R179 minecraft:skeleton -20.5 -60 -25.5 reason=event
+dump mob:R179 nbt:R179
+level_seed 477798449325
+mobspawn R180 minecraft:skeleton -19.5 -60 -25.5 reason=triggered
+dump mob:R180 nbt:R180
+level_seed 480452885086
+mobspawn R181 minecraft:skeleton -18.5 -60 -25.5 reason=reinforcement
+dump mob:R181 nbt:R181
+level_seed 483107320847
+mobspawn R182 minecraft:skeleton -17.5 -60 -25.5 reason=chunk_generation
+dump mob:R182 nbt:R182
+level_seed 485761756608
+mobspawn R183 minecraft:skeleton -16.5 -60 -25.5 reason=trial_spawner
+dump mob:R183 nbt:R183
+level_seed 488416192369
+mobspawn R184 minecraft:skeleton -15.5 -60 -25.5 reason=dispenser
+dump mob:R184 nbt:R184
+level_seed 491070628130
+mobspawn R185 minecraft:skeleton -14.5 -60 -25.5 reason=patrol
+dump mob:R185 nbt:R185
+level_seed 493725063891
+mobspawn R186 minecraft:skeleton -13.5 -60 -25.5 reason=bucket
+dump mob:R186 nbt:R186
+level_seed 496379499652
+mobspawn R187 minecraft:skeleton -12.5 -60 -25.5 reason=breeding
+dump mob:R187 nbt:R187
+level_seed 499033935413
+mobspawn R188 minecraft:skeleton -11.5 -60 -25.5 reason=spawn_item_use
+dump mob:R188 nbt:R188
+level_seed 501688371174
+mobspawn R189 minecraft:skeleton -10.5 -60 -25.5 reason=load
+dump mob:R189 nbt:R189
+level_seed 504342806935
+mobspawn R190 minecraft:skeleton -9.5 -60 -25.5 reason=dimension_travel
+dump mob:R190 nbt:R190
+level_seed 506997242696
+mobspawn R191 minecraft:skeleton -8.5 -60 -25.5 reason=natural
+dump mob:R191 nbt:R191
+level_seed 509651678457
+mobspawn R192 minecraft:skeleton -7.5 -60 -25.5 reason=spawner
+dump mob:R192 nbt:R192
+level_seed 512306114218
+mobspawn R193 minecraft:stray -6.5 -60 -25.5 reason=command
+dump mob:R193 nbt:R193
+level_seed 514960549979
+mobspawn R194 minecraft:stray -5.5 -60 -25.5 reason=mob_summoned
+dump mob:R194 nbt:R194
+level_seed 517614985740
+mobspawn R195 minecraft:stray -4.5 -60 -25.5 reason=structure
+dump mob:R195 nbt:R195
+level_seed 520269421501
+mobspawn R196 minecraft:stray -3.5 -60 -25.5 reason=conversion
+dump mob:R196 nbt:R196
+level_seed 522923857262
+mobspawn R197 minecraft:stray -2.5 -60 -25.5 reason=jockey
+dump mob:R197 nbt:R197
+level_seed 525578293023
+mobspawn R198 minecraft:stray -1.5 -60 -25.5 reason=event
+dump mob:R198 nbt:R198
+level_seed 528232728784
+mobspawn R199 minecraft:stray 0.5 -60 -25.5 reason=triggered
+dump mob:R199 nbt:R199
+level_seed 530887164545
+mobspawn R200 minecraft:stray 1.5 -60 -25.5 reason=reinforcement
+dump mob:R200 nbt:R200
+level_seed 533541600306
+mobspawn R201 minecraft:stray 2.5 -60 -25.5 reason=chunk_generation
+dump mob:R201 nbt:R201
+level_seed 536196036067
+mobspawn R202 minecraft:stray 3.5 -60 -25.5 reason=trial_spawner
+dump mob:R202 nbt:R202
+level_seed 538850471828
+mobspawn R203 minecraft:stray 4.5 -60 -25.5 reason=dispenser
+dump mob:R203 nbt:R203
+level_seed 541504907589
+mobspawn R204 minecraft:stray 5.5 -60 -25.5 reason=patrol
+dump mob:R204 nbt:R204
+level_seed 544159343350
+mobspawn R205 minecraft:stray 6.5 -60 -25.5 reason=bucket
+dump mob:R205 nbt:R205
+level_seed 546813779111
+mobspawn R206 minecraft:stray 7.5 -60 -25.5 reason=breeding
+dump mob:R206 nbt:R206
+level_seed 549468214872
+mobspawn R207 minecraft:stray 8.5 -60 -25.5 reason=spawn_item_use
+dump mob:R207 nbt:R207
+level_seed 552122650633
+mobspawn R208 minecraft:stray 9.5 -60 -25.5 reason=load
+dump mob:R208 nbt:R208
+level_seed 554777086394
+mobspawn R209 minecraft:stray 10.5 -60 -25.5 reason=dimension_travel
+dump mob:R209 nbt:R209
+level_seed 557431522155
+mobspawn R210 minecraft:stray 11.5 -60 -25.5 reason=natural
+dump mob:R210 nbt:R210
+level_seed 560085957916
+mobspawn R211 minecraft:stray 12.5 -60 -25.5 reason=spawner
+dump mob:R211 nbt:R211
+level_seed 562740393677
+mobspawn R212 minecraft:piglin 13.5 -60 -25.5 reason=command
+dump mob:R212 nbt:R212
+level_seed 565394829438
+mobspawn R213 minecraft:piglin 14.5 -60 -25.5 reason=mob_summoned
+dump mob:R213 nbt:R213
+level_seed 568049265199
+mobspawn R214 minecraft:piglin 15.5 -60 -25.5 reason=structure
+dump mob:R214 nbt:R214
+level_seed 570703700960
+mobspawn R215 minecraft:piglin 16.5 -60 -25.5 reason=conversion
+dump mob:R215 nbt:R215
+level_seed 573358136721
+mobspawn R216 minecraft:piglin 17.5 -60 -25.5 reason=jockey
+dump mob:R216 nbt:R216
+level_seed 576012572482
+mobspawn R217 minecraft:piglin 18.5 -60 -25.5 reason=event
+dump mob:R217 nbt:R217
+level_seed 578667008243
+mobspawn R218 minecraft:piglin 19.5 -60 -25.5 reason=triggered
+dump mob:R218 nbt:R218
+level_seed 581321444004
+mobspawn R219 minecraft:piglin 20.5 -60 -25.5 reason=reinforcement
+dump mob:R219 nbt:R219
+level_seed 583975879765
+mobspawn R220 minecraft:piglin 21.5 -60 -25.5 reason=chunk_generation
+dump mob:R220 nbt:R220
+level_seed 586630315526
+mobspawn R221 minecraft:piglin 22.5 -60 -25.5 reason=trial_spawner
+dump mob:R221 nbt:R221
+level_seed 589284751287
+mobspawn R222 minecraft:piglin 23.5 -60 -25.5 reason=dispenser
+dump mob:R222 nbt:R222
+level_seed 591939187048
+mobspawn R223 minecraft:piglin 24.5 -60 -25.5 reason=patrol
+dump mob:R223 nbt:R223
+level_seed 594593622809
+mobspawn R224 minecraft:piglin 25.5 -60 -25.5 reason=bucket
+dump mob:R224 nbt:R224
+level_seed 597248058570
+mobspawn R225 minecraft:piglin 26.5 -60 -25.5 reason=breeding
+dump mob:R225 nbt:R225
+level_seed 599902494331
+mobspawn R226 minecraft:piglin 27.5 -60 -25.5 reason=spawn_item_use
+dump mob:R226 nbt:R226
+level_seed 602556930092
+mobspawn R227 minecraft:piglin 28.5 -60 -25.5 reason=load
+dump mob:R227 nbt:R227
+level_seed 605211365853
+mobspawn R228 minecraft:piglin -28.5 -60 -24.5 reason=dimension_travel
+dump mob:R228 nbt:R228
+level_seed 607865801614
+mobspawn R229 minecraft:piglin -27.5 -60 -24.5 reason=natural
+dump mob:R229 nbt:R229
+level_seed 610520237375
+mobspawn R230 minecraft:piglin -26.5 -60 -24.5 reason=spawner
+dump mob:R230 nbt:R230
+level_seed 613174673136
+mobspawn R231 minecraft:piglin_brute -25.5 -60 -24.5 reason=command
+dump mob:R231 nbt:R231
+level_seed 615829108897
+mobspawn R232 minecraft:piglin_brute -24.5 -60 -24.5 reason=mob_summoned
+dump mob:R232 nbt:R232
+level_seed 618483544658
+mobspawn R233 minecraft:piglin_brute -23.5 -60 -24.5 reason=structure
+dump mob:R233 nbt:R233
+level_seed 621137980419
+mobspawn R234 minecraft:piglin_brute -22.5 -60 -24.5 reason=conversion
+dump mob:R234 nbt:R234
+level_seed 623792416180
+mobspawn R235 minecraft:piglin_brute -21.5 -60 -24.5 reason=jockey
+dump mob:R235 nbt:R235
+level_seed 626446851941
+mobspawn R236 minecraft:piglin_brute -20.5 -60 -24.5 reason=event
+dump mob:R236 nbt:R236
+level_seed 629101287702
+mobspawn R237 minecraft:piglin_brute -19.5 -60 -24.5 reason=triggered
+dump mob:R237 nbt:R237
+level_seed 631755723463
+mobspawn R238 minecraft:piglin_brute -18.5 -60 -24.5 reason=reinforcement
+dump mob:R238 nbt:R238
+level_seed 634410159224
+mobspawn R239 minecraft:piglin_brute -17.5 -60 -24.5 reason=chunk_generation
+dump mob:R239 nbt:R239
+level_seed 637064594985
+mobspawn R240 minecraft:piglin_brute -16.5 -60 -24.5 reason=trial_spawner
+dump mob:R240 nbt:R240
+level_seed 639719030746
+mobspawn R241 minecraft:piglin_brute -15.5 -60 -24.5 reason=dispenser
+dump mob:R241 nbt:R241
+level_seed 642373466507
+mobspawn R242 minecraft:piglin_brute -14.5 -60 -24.5 reason=patrol
+dump mob:R242 nbt:R242
+level_seed 645027902268
+mobspawn R243 minecraft:piglin_brute -13.5 -60 -24.5 reason=bucket
+dump mob:R243 nbt:R243
+level_seed 647682338029
+mobspawn R244 minecraft:piglin_brute -12.5 -60 -24.5 reason=breeding
+dump mob:R244 nbt:R244
+level_seed 650336773790
+mobspawn R245 minecraft:piglin_brute -11.5 -60 -24.5 reason=spawn_item_use
+dump mob:R245 nbt:R245
+level_seed 652991209551
+mobspawn R246 minecraft:piglin_brute -10.5 -60 -24.5 reason=load
+dump mob:R246 nbt:R246
+level_seed 655645645312
+mobspawn R247 minecraft:piglin_brute -9.5 -60 -24.5 reason=dimension_travel
+dump mob:R247 nbt:R247
+level_seed 658300081073
+mobspawn R248 minecraft:piglin_brute -8.5 -60 -24.5 reason=natural
+dump mob:R248 nbt:R248
+level_seed 660954516834
+mobspawn R249 minecraft:piglin_brute -7.5 -60 -24.5 reason=spawner
+dump mob:R249 nbt:R249
+level_seed 663608952595
+mobspawn R250 minecraft:villager -6.5 -60 -24.5 reason=command
+dump mob:R250 nbt:R250
+level_seed 666263388356
+mobspawn R251 minecraft:villager -5.5 -60 -24.5 reason=mob_summoned
+dump mob:R251 nbt:R251
+level_seed 668917824117
+mobspawn R252 minecraft:villager -4.5 -60 -24.5 reason=structure
+dump mob:R252 nbt:R252
+level_seed 671572259878
+mobspawn R253 minecraft:villager -3.5 -60 -24.5 reason=conversion
+dump mob:R253 nbt:R253
+level_seed 674226695639
+mobspawn R254 minecraft:villager -2.5 -60 -24.5 reason=jockey
+dump mob:R254 nbt:R254
+level_seed 676881131400
+mobspawn R255 minecraft:villager -1.5 -60 -24.5 reason=event
+dump mob:R255 nbt:R255
+level_seed 679535567161
+mobspawn R256 minecraft:villager 0.5 -60 -24.5 reason=triggered
+dump mob:R256 nbt:R256
+level_seed 682190002922
+mobspawn R257 minecraft:villager 1.5 -60 -24.5 reason=reinforcement
+dump mob:R257 nbt:R257
+level_seed 684844438683
+mobspawn R258 minecraft:villager 2.5 -60 -24.5 reason=chunk_generation
+dump mob:R258 nbt:R258
+level_seed 687498874444
+mobspawn R259 minecraft:villager 3.5 -60 -24.5 reason=trial_spawner
+dump mob:R259 nbt:R259
+level_seed 690153310205
+mobspawn R260 minecraft:villager 4.5 -60 -24.5 reason=dispenser
+dump mob:R260 nbt:R260
+level_seed 692807745966
+mobspawn R261 minecraft:villager 5.5 -60 -24.5 reason=patrol
+dump mob:R261 nbt:R261
+level_seed 695462181727
+mobspawn R262 minecraft:villager 6.5 -60 -24.5 reason=bucket
+dump mob:R262 nbt:R262
+level_seed 698116617488
+mobspawn R263 minecraft:villager 7.5 -60 -24.5 reason=breeding
+dump mob:R263 nbt:R263
+level_seed 700771053249
+mobspawn R264 minecraft:villager 8.5 -60 -24.5 reason=spawn_item_use
+dump mob:R264 nbt:R264
+level_seed 703425489010
+mobspawn R265 minecraft:villager 9.5 -60 -24.5 reason=load
+dump mob:R265 nbt:R265
+level_seed 706079924771
+mobspawn R266 minecraft:villager 10.5 -60 -24.5 reason=dimension_travel
+dump mob:R266 nbt:R266
+level_seed 708734360532
+mobspawn R267 minecraft:villager 11.5 -60 -24.5 reason=natural
+dump mob:R267 nbt:R267
+level_seed 711388796293
+mobspawn R268 minecraft:villager 12.5 -60 -24.5 reason=spawner
+dump mob:R268 nbt:R268
+level_seed 714043232054
+mobspawn R269 minecraft:axolotl 13.5 -60 -24.5 reason=command
+dump mob:R269 nbt:R269
+level_seed 716697667815
+mobspawn R270 minecraft:axolotl 14.5 -60 -24.5 reason=mob_summoned
+dump mob:R270 nbt:R270
+level_seed 719352103576
+mobspawn R271 minecraft:axolotl 15.5 -60 -24.5 reason=structure
+dump mob:R271 nbt:R271
+level_seed 722006539337
+mobspawn R272 minecraft:axolotl 16.5 -60 -24.5 reason=conversion
+dump mob:R272 nbt:R272
+level_seed 724660975098
+mobspawn R273 minecraft:axolotl 17.5 -60 -24.5 reason=jockey
+dump mob:R273 nbt:R273
+level_seed 727315410859
+mobspawn R274 minecraft:axolotl 18.5 -60 -24.5 reason=event
+dump mob:R274 nbt:R274
+level_seed 729969846620
+mobspawn R275 minecraft:axolotl 19.5 -60 -24.5 reason=triggered
+dump mob:R275 nbt:R275
+level_seed 732624282381
+mobspawn R276 minecraft:axolotl 20.5 -60 -24.5 reason=reinforcement
+dump mob:R276 nbt:R276
+level_seed 735278718142
+mobspawn R277 minecraft:axolotl 21.5 -60 -24.5 reason=chunk_generation
+dump mob:R277 nbt:R277
+level_seed 737933153903
+mobspawn R278 minecraft:axolotl 22.5 -60 -24.5 reason=trial_spawner
+dump mob:R278 nbt:R278
+level_seed 740587589664
+mobspawn R279 minecraft:axolotl 23.5 -60 -24.5 reason=dispenser
+dump mob:R279 nbt:R279
+level_seed 743242025425
+mobspawn R280 minecraft:axolotl 24.5 -60 -24.5 reason=patrol
+dump mob:R280 nbt:R280
+level_seed 745896461186
+mobspawn R281 minecraft:axolotl 25.5 -60 -24.5 reason=bucket
+dump mob:R281 nbt:R281
+level_seed 748550896947
+mobspawn R282 minecraft:axolotl 26.5 -60 -24.5 reason=breeding
+dump mob:R282 nbt:R282
+level_seed 751205332708
+mobspawn R283 minecraft:axolotl 27.5 -60 -24.5 reason=spawn_item_use
+dump mob:R283 nbt:R283
+level_seed 753859768469
+mobspawn R284 minecraft:axolotl 28.5 -60 -24.5 reason=load
+dump mob:R284 nbt:R284
+level_seed 756514204230
+mobspawn R285 minecraft:axolotl -28.5 -60 -23.5 reason=dimension_travel
+dump mob:R285 nbt:R285
+level_seed 759168639991
+mobspawn R286 minecraft:axolotl -27.5 -60 -23.5 reason=natural
+dump mob:R286 nbt:R286
+level_seed 761823075752
+mobspawn R287 minecraft:axolotl -26.5 -60 -23.5 reason=spawner
+dump mob:R287 nbt:R287
+level_seed 764477511513
+mobspawn R288 minecraft:trader_llama -25.5 -60 -23.5 reason=command
+dump mob:R288 nbt:R288
+level_seed 767131947274
+mobspawn R289 minecraft:trader_llama -24.5 -60 -23.5 reason=mob_summoned
+dump mob:R289 nbt:R289
+level_seed 769786383035
+mobspawn R290 minecraft:trader_llama -23.5 -60 -23.5 reason=structure
+dump mob:R290 nbt:R290
+level_seed 772440818796
+mobspawn R291 minecraft:trader_llama -22.5 -60 -23.5 reason=conversion
+dump mob:R291 nbt:R291
+level_seed 775095254557
+mobspawn R292 minecraft:trader_llama -21.5 -60 -23.5 reason=jockey
+dump mob:R292 nbt:R292
+level_seed 777749690318
+mobspawn R293 minecraft:trader_llama -20.5 -60 -23.5 reason=event
+dump mob:R293 nbt:R293
+level_seed 780404126079
+mobspawn R294 minecraft:trader_llama -19.5 -60 -23.5 reason=triggered
+dump mob:R294 nbt:R294
+level_seed 783058561840
+mobspawn R295 minecraft:trader_llama -18.5 -60 -23.5 reason=reinforcement
+dump mob:R295 nbt:R295
+level_seed 785712997601
+mobspawn R296 minecraft:trader_llama -17.5 -60 -23.5 reason=chunk_generation
+dump mob:R296 nbt:R296
+level_seed 788367433362
+mobspawn R297 minecraft:trader_llama -16.5 -60 -23.5 reason=trial_spawner
+dump mob:R297 nbt:R297
+level_seed 791021869123
+mobspawn R298 minecraft:trader_llama -15.5 -60 -23.5 reason=dispenser
+dump mob:R298 nbt:R298
+level_seed 793676304884
+mobspawn R299 minecraft:trader_llama -14.5 -60 -23.5 reason=patrol
+dump mob:R299 nbt:R299
+level_seed 796330740645
+mobspawn R300 minecraft:trader_llama -13.5 -60 -23.5 reason=bucket
+dump mob:R300 nbt:R300
+level_seed 798985176406
+mobspawn R301 minecraft:trader_llama -12.5 -60 -23.5 reason=breeding
+dump mob:R301 nbt:R301
+level_seed 801639612167
+mobspawn R302 minecraft:trader_llama -11.5 -60 -23.5 reason=spawn_item_use
+dump mob:R302 nbt:R302
+level_seed 804294047928
+mobspawn R303 minecraft:trader_llama -10.5 -60 -23.5 reason=load
+dump mob:R303 nbt:R303
+level_seed 806948483689
+mobspawn R304 minecraft:trader_llama -9.5 -60 -23.5 reason=dimension_travel
+dump mob:R304 nbt:R304
+level_seed 809602919450
+mobspawn R305 minecraft:trader_llama -8.5 -60 -23.5 reason=natural
+dump mob:R305 nbt:R305
+level_seed 812257355211
+mobspawn R306 minecraft:trader_llama -7.5 -60 -23.5 reason=spawner
+dump mob:R306 nbt:R306
+level_seed 814911790972
+mobspawn R307 minecraft:zombie_horse -6.5 -60 -23.5 reason=command
+dump mob:R307 nbt:R307
+level_seed 817566226733
+mobspawn R308 minecraft:zombie_horse -5.5 -60 -23.5 reason=mob_summoned
+dump mob:R308 nbt:R308
+level_seed 820220662494
+mobspawn R309 minecraft:zombie_horse -4.5 -60 -23.5 reason=structure
+dump mob:R309 nbt:R309
+level_seed 822875098255
+mobspawn R310 minecraft:zombie_horse -3.5 -60 -23.5 reason=conversion
+dump mob:R310 nbt:R310
+level_seed 825529534016
+mobspawn R311 minecraft:zombie_horse -2.5 -60 -23.5 reason=jockey
+dump mob:R311 nbt:R311
+level_seed 828183969777
+mobspawn R312 minecraft:zombie_horse -1.5 -60 -23.5 reason=event
+dump mob:R312 nbt:R312
+level_seed 830838405538
+mobspawn R313 minecraft:zombie_horse 0.5 -60 -23.5 reason=triggered
+dump mob:R313 nbt:R313
+level_seed 833492841299
+mobspawn R314 minecraft:zombie_horse 1.5 -60 -23.5 reason=reinforcement
+dump mob:R314 nbt:R314
+level_seed 836147277060
+mobspawn R315 minecraft:zombie_horse 2.5 -60 -23.5 reason=chunk_generation
+dump mob:R315 nbt:R315
+level_seed 838801712821
+mobspawn R316 minecraft:zombie_horse 3.5 -60 -23.5 reason=trial_spawner
+dump mob:R316 nbt:R316
+level_seed 841456148582
+mobspawn R317 minecraft:zombie_horse 4.5 -60 -23.5 reason=dispenser
+dump mob:R317 nbt:R317
+level_seed 844110584343
+mobspawn R318 minecraft:zombie_horse 5.5 -60 -23.5 reason=patrol
+dump mob:R318 nbt:R318
+level_seed 846765020104
+mobspawn R319 minecraft:zombie_horse 6.5 -60 -23.5 reason=bucket
+dump mob:R319 nbt:R319
+level_seed 849419455865
+mobspawn R320 minecraft:zombie_horse 7.5 -60 -23.5 reason=breeding
+dump mob:R320 nbt:R320
+level_seed 852073891626
+mobspawn R321 minecraft:zombie_horse 8.5 -60 -23.5 reason=spawn_item_use
+dump mob:R321 nbt:R321
+level_seed 854728327387
+mobspawn R322 minecraft:zombie_horse 9.5 -60 -23.5 reason=load
+dump mob:R322 nbt:R322
+level_seed 857382763148
+mobspawn R323 minecraft:zombie_horse 10.5 -60 -23.5 reason=dimension_travel
+dump mob:R323 nbt:R323
+level_seed 860037198909
+mobspawn R324 minecraft:zombie_horse 11.5 -60 -23.5 reason=natural
+dump mob:R324 nbt:R324
+level_seed 862691634670
+mobspawn R325 minecraft:zombie_horse 12.5 -60 -23.5 reason=spawner
+dump mob:R325 nbt:R325
+level_seed 865346070431
+mobspawn R326 minecraft:skeleton_horse 13.5 -60 -23.5 reason=command
+dump mob:R326 nbt:R326
+level_seed 868000506192
+mobspawn R327 minecraft:skeleton_horse 14.5 -60 -23.5 reason=mob_summoned
+dump mob:R327 nbt:R327
+level_seed 870654941953
+mobspawn R328 minecraft:skeleton_horse 15.5 -60 -23.5 reason=structure
+dump mob:R328 nbt:R328
+level_seed 873309377714
+mobspawn R329 minecraft:skeleton_horse 16.5 -60 -23.5 reason=conversion
+dump mob:R329 nbt:R329
+level_seed 875963813475
+mobspawn R330 minecraft:skeleton_horse 17.5 -60 -23.5 reason=jockey
+dump mob:R330 nbt:R330
+level_seed 878618249236
+mobspawn R331 minecraft:skeleton_horse 18.5 -60 -23.5 reason=event
+dump mob:R331 nbt:R331
+level_seed 881272684997
+mobspawn R332 minecraft:skeleton_horse 19.5 -60 -23.5 reason=triggered
+dump mob:R332 nbt:R332
+level_seed 883927120758
+mobspawn R333 minecraft:skeleton_horse 20.5 -60 -23.5 reason=reinforcement
+dump mob:R333 nbt:R333
+level_seed 886581556519
+mobspawn R334 minecraft:skeleton_horse 21.5 -60 -23.5 reason=chunk_generation
+dump mob:R334 nbt:R334
+level_seed 889235992280
+mobspawn R335 minecraft:skeleton_horse 22.5 -60 -23.5 reason=trial_spawner
+dump mob:R335 nbt:R335
+level_seed 891890428041
+mobspawn R336 minecraft:skeleton_horse 23.5 -60 -23.5 reason=dispenser
+dump mob:R336 nbt:R336
+level_seed 894544863802
+mobspawn R337 minecraft:skeleton_horse 24.5 -60 -23.5 reason=patrol
+dump mob:R337 nbt:R337
+level_seed 897199299563
+mobspawn R338 minecraft:skeleton_horse 25.5 -60 -23.5 reason=bucket
+dump mob:R338 nbt:R338
+level_seed 899853735324
+mobspawn R339 minecraft:skeleton_horse 26.5 -60 -23.5 reason=breeding
+dump mob:R339 nbt:R339
+level_seed 902508171085
+mobspawn R340 minecraft:skeleton_horse 27.5 -60 -23.5 reason=spawn_item_use
+dump mob:R340 nbt:R340
+level_seed 905162606846
+mobspawn R341 minecraft:skeleton_horse 28.5 -60 -23.5 reason=load
+dump mob:R341 nbt:R341
+level_seed 907817042607
+mobspawn R342 minecraft:skeleton_horse -28.5 -60 -22.5 reason=dimension_travel
+dump mob:R342 nbt:R342
+level_seed 910471478368
+mobspawn R343 minecraft:skeleton_horse -27.5 -60 -22.5 reason=natural
+dump mob:R343 nbt:R343
+level_seed 913125914129
+mobspawn R344 minecraft:skeleton_horse -26.5 -60 -22.5 reason=spawner
+dump mob:R344 nbt:R344
+level_seed 915780349890
+mobspawn R345 minecraft:slime -25.5 -60 -22.5 reason=command
+dump mob:R345 nbt:R345
+level_seed 918434785651
+mobspawn R346 minecraft:slime -24.5 -60 -22.5 reason=mob_summoned
+dump mob:R346 nbt:R346
+level_seed 921089221412
+mobspawn R347 minecraft:slime -23.5 -60 -22.5 reason=structure
+dump mob:R347 nbt:R347
+level_seed 923743657173
+mobspawn R348 minecraft:slime -22.5 -60 -22.5 reason=conversion
+dump mob:R348 nbt:R348
+level_seed 926398092934
+mobspawn R349 minecraft:slime -21.5 -60 -22.5 reason=jockey
+dump mob:R349 nbt:R349
+level_seed 929052528695
+mobspawn R350 minecraft:slime -20.5 -60 -22.5 reason=event
+dump mob:R350 nbt:R350
+level_seed 931706964456
+mobspawn R351 minecraft:slime -19.5 -60 -22.5 reason=triggered
+dump mob:R351 nbt:R351
+level_seed 934361400217
+mobspawn R352 minecraft:slime -18.5 -60 -22.5 reason=reinforcement
+dump mob:R352 nbt:R352
+level_seed 937015835978
+mobspawn R353 minecraft:slime -17.5 -60 -22.5 reason=chunk_generation
+dump mob:R353 nbt:R353
+level_seed 939670271739
+mobspawn R354 minecraft:slime -16.5 -60 -22.5 reason=trial_spawner
+dump mob:R354 nbt:R354
+level_seed 942324707500
+mobspawn R355 minecraft:slime -15.5 -60 -22.5 reason=dispenser
+dump mob:R355 nbt:R355
+level_seed 944979143261
+mobspawn R356 minecraft:slime -14.5 -60 -22.5 reason=patrol
+dump mob:R356 nbt:R356
+level_seed 947633579022
+mobspawn R357 minecraft:slime -13.5 -60 -22.5 reason=bucket
+dump mob:R357 nbt:R357
+level_seed 950288014783
+mobspawn R358 minecraft:slime -12.5 -60 -22.5 reason=breeding
+dump mob:R358 nbt:R358
+level_seed 952942450544
+mobspawn R359 minecraft:slime -11.5 -60 -22.5 reason=spawn_item_use
+dump mob:R359 nbt:R359
+level_seed 955596886305
+mobspawn R360 minecraft:slime -10.5 -60 -22.5 reason=load
+dump mob:R360 nbt:R360
+level_seed 958251322066
+mobspawn R361 minecraft:slime -9.5 -60 -22.5 reason=dimension_travel
+dump mob:R361 nbt:R361
+level_seed 960905757827
+mobspawn R362 minecraft:slime -8.5 -60 -22.5 reason=natural
+dump mob:R362 nbt:R362
+level_seed 963560193588
+mobspawn R363 minecraft:slime -7.5 -60 -22.5 reason=spawner
+dump mob:R363 nbt:R363
+level_seed 966214629349
+mobspawn R364 minecraft:spider -6.5 -60 -22.5 reason=command
+dump mob:R364 nbt:R364
+level_seed 968869065110
+mobspawn R365 minecraft:spider -5.5 -60 -22.5 reason=mob_summoned
+dump mob:R365 nbt:R365
+level_seed 971523500871
+mobspawn R366 minecraft:spider -4.5 -60 -22.5 reason=structure
+dump mob:R366 nbt:R366
+level_seed 974177936632
+mobspawn R367 minecraft:spider -3.5 -60 -22.5 reason=conversion
+dump mob:R367 nbt:R367
+level_seed 976832372393
+mobspawn R368 minecraft:spider -2.5 -60 -22.5 reason=jockey
+dump mob:R368 nbt:R368
+level_seed 979486808154
+mobspawn R369 minecraft:spider -1.5 -60 -22.5 reason=event
+dump mob:R369 nbt:R369
+level_seed 982141243915
+mobspawn R370 minecraft:spider 0.5 -60 -22.5 reason=triggered
+dump mob:R370 nbt:R370
+level_seed 984795679676
+mobspawn R371 minecraft:spider 1.5 -60 -22.5 reason=reinforcement
+dump mob:R371 nbt:R371
+level_seed 987450115437
+mobspawn R372 minecraft:spider 2.5 -60 -22.5 reason=chunk_generation
+dump mob:R372 nbt:R372
+level_seed 990104551198
+mobspawn R373 minecraft:spider 3.5 -60 -22.5 reason=trial_spawner
+dump mob:R373 nbt:R373
+level_seed 992758986959
+mobspawn R374 minecraft:spider 4.5 -60 -22.5 reason=dispenser
+dump mob:R374 nbt:R374
+level_seed 995413422720
+mobspawn R375 minecraft:spider 5.5 -60 -22.5 reason=patrol
+dump mob:R375 nbt:R375
+level_seed 998067858481
+mobspawn R376 minecraft:spider 6.5 -60 -22.5 reason=bucket
+dump mob:R376 nbt:R376
+level_seed 1000722294242
+mobspawn R377 minecraft:spider 7.5 -60 -22.5 reason=breeding
+dump mob:R377 nbt:R377
+level_seed 1003376730003
+mobspawn R378 minecraft:spider 8.5 -60 -22.5 reason=spawn_item_use
+dump mob:R378 nbt:R378
+level_seed 1006031165764
+mobspawn R379 minecraft:spider 9.5 -60 -22.5 reason=load
+dump mob:R379 nbt:R379
+level_seed 1008685601525
+mobspawn R380 minecraft:spider 10.5 -60 -22.5 reason=dimension_travel
+dump mob:R380 nbt:R380
+level_seed 1011340037286
+mobspawn R381 minecraft:spider 11.5 -60 -22.5 reason=natural
+dump mob:R381 nbt:R381
+level_seed 1013994473047
+mobspawn R382 minecraft:spider 12.5 -60 -22.5 reason=spawner
+dump mob:R382 nbt:R382
+level_seed 1016648908808
+mobspawn R383 minecraft:creeper 13.5 -60 -22.5 reason=command
+dump mob:R383 nbt:R383
+level_seed 1019303344569
+mobspawn R384 minecraft:creeper 14.5 -60 -22.5 reason=mob_summoned
+dump mob:R384 nbt:R384
+level_seed 1021957780330
+mobspawn R385 minecraft:creeper 15.5 -60 -22.5 reason=structure
+dump mob:R385 nbt:R385
+level_seed 1024612216091
+mobspawn R386 minecraft:creeper 16.5 -60 -22.5 reason=conversion
+dump mob:R386 nbt:R386
+level_seed 1027266651852
+mobspawn R387 minecraft:creeper 17.5 -60 -22.5 reason=jockey
+dump mob:R387 nbt:R387
+level_seed 1029921087613
+mobspawn R388 minecraft:creeper 18.5 -60 -22.5 reason=event
+dump mob:R388 nbt:R388
+level_seed 1032575523374
+mobspawn R389 minecraft:creeper 19.5 -60 -22.5 reason=triggered
+dump mob:R389 nbt:R389
+level_seed 1035229959135
+mobspawn R390 minecraft:creeper 20.5 -60 -22.5 reason=reinforcement
+dump mob:R390 nbt:R390
+level_seed 1037884394896
+mobspawn R391 minecraft:creeper 21.5 -60 -22.5 reason=chunk_generation
+dump mob:R391 nbt:R391
+level_seed 1040538830657
+mobspawn R392 minecraft:creeper 22.5 -60 -22.5 reason=trial_spawner
+dump mob:R392 nbt:R392
+level_seed 1043193266418
+mobspawn R393 minecraft:creeper 23.5 -60 -22.5 reason=dispenser
+dump mob:R393 nbt:R393
+level_seed 1045847702179
+mobspawn R394 minecraft:creeper 24.5 -60 -22.5 reason=patrol
+dump mob:R394 nbt:R394
+level_seed 1048502137940
+mobspawn R395 minecraft:creeper 25.5 -60 -22.5 reason=bucket
+dump mob:R395 nbt:R395
+level_seed 1051156573701
+mobspawn R396 minecraft:creeper 26.5 -60 -22.5 reason=breeding
+dump mob:R396 nbt:R396
+level_seed 1053811009462
+mobspawn R397 minecraft:creeper 27.5 -60 -22.5 reason=spawn_item_use
+dump mob:R397 nbt:R397
+level_seed 1056465445223
+mobspawn R398 minecraft:creeper 28.5 -60 -22.5 reason=load
+dump mob:R398 nbt:R398
+level_seed 1059119880984
+mobspawn R399 minecraft:creeper -28.5 -60 -21.5 reason=dimension_travel
+dump mob:R399 nbt:R399
+level_seed 1061774316745
+mobspawn R400 minecraft:creeper -27.5 -60 -21.5 reason=natural
+dump mob:R400 nbt:R400
+level_seed 1064428752506
+mobspawn R401 minecraft:creeper -26.5 -60 -21.5 reason=spawner
+dump mob:R401 nbt:R401
+level_seed 1067083188267
+mobspawn R402 minecraft:cow -25.5 -60 -21.5 reason=command
+dump mob:R402 nbt:R402
+level_seed 1069737624028
+mobspawn R403 minecraft:cow -24.5 -60 -21.5 reason=mob_summoned
+dump mob:R403 nbt:R403
+level_seed 1072392059789
+mobspawn R404 minecraft:cow -23.5 -60 -21.5 reason=structure
+dump mob:R404 nbt:R404
+level_seed 1075046495550
+mobspawn R405 minecraft:cow -22.5 -60 -21.5 reason=conversion
+dump mob:R405 nbt:R405
+level_seed 1077700931311
+mobspawn R406 minecraft:cow -21.5 -60 -21.5 reason=jockey
+dump mob:R406 nbt:R406
+level_seed 1080355367072
+mobspawn R407 minecraft:cow -20.5 -60 -21.5 reason=event
+dump mob:R407 nbt:R407
+level_seed 1083009802833
+mobspawn R408 minecraft:cow -19.5 -60 -21.5 reason=triggered
+dump mob:R408 nbt:R408
+level_seed 1085664238594
+mobspawn R409 minecraft:cow -18.5 -60 -21.5 reason=reinforcement
+dump mob:R409 nbt:R409
+level_seed 1088318674355
+mobspawn R410 minecraft:cow -17.5 -60 -21.5 reason=chunk_generation
+dump mob:R410 nbt:R410
+level_seed 1090973110116
+mobspawn R411 minecraft:cow -16.5 -60 -21.5 reason=trial_spawner
+dump mob:R411 nbt:R411
+level_seed 1093627545877
+mobspawn R412 minecraft:cow -15.5 -60 -21.5 reason=dispenser
+dump mob:R412 nbt:R412
+level_seed 1096281981638
+mobspawn R413 minecraft:cow -14.5 -60 -21.5 reason=patrol
+dump mob:R413 nbt:R413
+level_seed 1098936417399
+mobspawn R414 minecraft:cow -13.5 -60 -21.5 reason=bucket
+dump mob:R414 nbt:R414
+level_seed 2079225384
+mobspawn R415 minecraft:cow -12.5 -60 -21.5 reason=breeding
+dump mob:R415 nbt:R415
+level_seed 4733661145
+mobspawn R416 minecraft:cow -11.5 -60 -21.5 reason=spawn_item_use
+dump mob:R416 nbt:R416
+level_seed 7388096906
+mobspawn R417 minecraft:cow -10.5 -60 -21.5 reason=load
+dump mob:R417 nbt:R417
+level_seed 10042532667
+mobspawn R418 minecraft:cow -9.5 -60 -21.5 reason=dimension_travel
+dump mob:R418 nbt:R418
+level_seed 12696968428
+mobspawn R419 minecraft:cow -8.5 -60 -21.5 reason=natural
+dump mob:R419 nbt:R419
+level_seed 15351404189
+mobspawn R420 minecraft:cow -7.5 -60 -21.5 reason=spawner
+dump mob:R420 nbt:R420
+level_seed 18005839950
+mobspawn R421 minecraft:sheep -6.5 -60 -21.5 reason=command
+dump mob:R421 nbt:R421
+level_seed 20660275711
+mobspawn R422 minecraft:sheep -5.5 -60 -21.5 reason=mob_summoned
+dump mob:R422 nbt:R422
+level_seed 23314711472
+mobspawn R423 minecraft:sheep -4.5 -60 -21.5 reason=structure
+dump mob:R423 nbt:R423
+level_seed 25969147233
+mobspawn R424 minecraft:sheep -3.5 -60 -21.5 reason=conversion
+dump mob:R424 nbt:R424
+level_seed 28623582994
+mobspawn R425 minecraft:sheep -2.5 -60 -21.5 reason=jockey
+dump mob:R425 nbt:R425
+level_seed 31278018755
+mobspawn R426 minecraft:sheep -1.5 -60 -21.5 reason=event
+dump mob:R426 nbt:R426
+level_seed 33932454516
+mobspawn R427 minecraft:sheep 0.5 -60 -21.5 reason=triggered
+dump mob:R427 nbt:R427
+level_seed 36586890277
+mobspawn R428 minecraft:sheep 1.5 -60 -21.5 reason=reinforcement
+dump mob:R428 nbt:R428
+level_seed 39241326038
+mobspawn R429 minecraft:sheep 2.5 -60 -21.5 reason=chunk_generation
+dump mob:R429 nbt:R429
+level_seed 41895761799
+mobspawn R430 minecraft:sheep 3.5 -60 -21.5 reason=trial_spawner
+dump mob:R430 nbt:R430
+level_seed 44550197560
+mobspawn R431 minecraft:sheep 4.5 -60 -21.5 reason=dispenser
+dump mob:R431 nbt:R431
+level_seed 47204633321
+mobspawn R432 minecraft:sheep 5.5 -60 -21.5 reason=patrol
+dump mob:R432 nbt:R432
+level_seed 49859069082
+mobspawn R433 minecraft:sheep 6.5 -60 -21.5 reason=bucket
+dump mob:R433 nbt:R433
+level_seed 52513504843
+mobspawn R434 minecraft:sheep 7.5 -60 -21.5 reason=breeding
+dump mob:R434 nbt:R434
+level_seed 55167940604
+mobspawn R435 minecraft:sheep 8.5 -60 -21.5 reason=spawn_item_use
+dump mob:R435 nbt:R435
+level_seed 57822376365
+mobspawn R436 minecraft:sheep 9.5 -60 -21.5 reason=load
+dump mob:R436 nbt:R436
+level_seed 60476812126
+mobspawn R437 minecraft:sheep 10.5 -60 -21.5 reason=dimension_travel
+dump mob:R437 nbt:R437
+level_seed 63131247887
+mobspawn R438 minecraft:sheep 11.5 -60 -21.5 reason=natural
+dump mob:R438 nbt:R438
+level_seed 65785683648
+mobspawn R439 minecraft:sheep 12.5 -60 -21.5 reason=spawner
+dump mob:R439 nbt:R439
+level_seed 68440119409
+mobspawn R440 minecraft:wolf 13.5 -60 -21.5 reason=command
+dump mob:R440 nbt:R440
+level_seed 71094555170
+mobspawn R441 minecraft:wolf 14.5 -60 -21.5 reason=mob_summoned
+dump mob:R441 nbt:R441
+level_seed 73748990931
+mobspawn R442 minecraft:wolf 15.5 -60 -21.5 reason=structure
+dump mob:R442 nbt:R442
+level_seed 76403426692
+mobspawn R443 minecraft:wolf 16.5 -60 -21.5 reason=conversion
+dump mob:R443 nbt:R443
+level_seed 79057862453
+mobspawn R444 minecraft:wolf 17.5 -60 -21.5 reason=jockey
+dump mob:R444 nbt:R444
+level_seed 81712298214
+mobspawn R445 minecraft:wolf 18.5 -60 -21.5 reason=event
+dump mob:R445 nbt:R445
+level_seed 84366733975
+mobspawn R446 minecraft:wolf 19.5 -60 -21.5 reason=triggered
+dump mob:R446 nbt:R446
+level_seed 87021169736
+mobspawn R447 minecraft:wolf 20.5 -60 -21.5 reason=reinforcement
+dump mob:R447 nbt:R447
+level_seed 89675605497
+mobspawn R448 minecraft:wolf 21.5 -60 -21.5 reason=chunk_generation
+dump mob:R448 nbt:R448
+level_seed 92330041258
+mobspawn R449 minecraft:wolf 22.5 -60 -21.5 reason=trial_spawner
+dump mob:R449 nbt:R449
+level_seed 94984477019
+mobspawn R450 minecraft:wolf 23.5 -60 -21.5 reason=dispenser
+dump mob:R450 nbt:R450
+level_seed 97638912780
+mobspawn R451 minecraft:wolf 24.5 -60 -21.5 reason=patrol
+dump mob:R451 nbt:R451
+level_seed 100293348541
+mobspawn R452 minecraft:wolf 25.5 -60 -21.5 reason=bucket
+dump mob:R452 nbt:R452
+level_seed 102947784302
+mobspawn R453 minecraft:wolf 26.5 -60 -21.5 reason=breeding
+dump mob:R453 nbt:R453
+level_seed 105602220063
+mobspawn R454 minecraft:wolf 27.5 -60 -21.5 reason=spawn_item_use
+dump mob:R454 nbt:R454
+level_seed 108256655824
+mobspawn R455 minecraft:wolf 28.5 -60 -21.5 reason=load
+dump mob:R455 nbt:R455
+level_seed 110911091585
+mobspawn R456 minecraft:wolf -28.5 -60 -20.5 reason=dimension_travel
+dump mob:R456 nbt:R456
+level_seed 113565527346
+mobspawn R457 minecraft:wolf -27.5 -60 -20.5 reason=natural
+dump mob:R457 nbt:R457
+level_seed 116219963107
+mobspawn R458 minecraft:wolf -26.5 -60 -20.5 reason=spawner
+dump mob:R458 nbt:R458
+level_seed 118874398868
+mobspawn R459 minecraft:frog -25.5 -60 -20.5 reason=command
+dump mob:R459 nbt:R459
+level_seed 121528834629
+mobspawn R460 minecraft:frog -24.5 -60 -20.5 reason=mob_summoned
+dump mob:R460 nbt:R460
+level_seed 124183270390
+mobspawn R461 minecraft:frog -23.5 -60 -20.5 reason=structure
+dump mob:R461 nbt:R461
+level_seed 126837706151
+mobspawn R462 minecraft:frog -22.5 -60 -20.5 reason=conversion
+dump mob:R462 nbt:R462
+level_seed 129492141912
+mobspawn R463 minecraft:frog -21.5 -60 -20.5 reason=jockey
+dump mob:R463 nbt:R463
+level_seed 132146577673
+mobspawn R464 minecraft:frog -20.5 -60 -20.5 reason=event
+dump mob:R464 nbt:R464
+level_seed 134801013434
+mobspawn R465 minecraft:frog -19.5 -60 -20.5 reason=triggered
+dump mob:R465 nbt:R465
+level_seed 137455449195
+mobspawn R466 minecraft:frog -18.5 -60 -20.5 reason=reinforcement
+dump mob:R466 nbt:R466
+level_seed 140109884956
+mobspawn R467 minecraft:frog -17.5 -60 -20.5 reason=chunk_generation
+dump mob:R467 nbt:R467
+level_seed 142764320717
+mobspawn R468 minecraft:frog -16.5 -60 -20.5 reason=trial_spawner
+dump mob:R468 nbt:R468
+level_seed 145418756478
+mobspawn R469 minecraft:frog -15.5 -60 -20.5 reason=dispenser
+dump mob:R469 nbt:R469
+level_seed 148073192239
+mobspawn R470 minecraft:frog -14.5 -60 -20.5 reason=patrol
+dump mob:R470 nbt:R470
+level_seed 150727628000
+mobspawn R471 minecraft:frog -13.5 -60 -20.5 reason=bucket
+dump mob:R471 nbt:R471
+level_seed 153382063761
+mobspawn R472 minecraft:frog -12.5 -60 -20.5 reason=breeding
+dump mob:R472 nbt:R472
+level_seed 156036499522
+mobspawn R473 minecraft:frog -11.5 -60 -20.5 reason=spawn_item_use
+dump mob:R473 nbt:R473
+level_seed 158690935283
+mobspawn R474 minecraft:frog -10.5 -60 -20.5 reason=load
+dump mob:R474 nbt:R474
+level_seed 161345371044
+mobspawn R475 minecraft:frog -9.5 -60 -20.5 reason=dimension_travel
+dump mob:R475 nbt:R475
+level_seed 163999806805
+mobspawn R476 minecraft:frog -8.5 -60 -20.5 reason=natural
+dump mob:R476 nbt:R476
+level_seed 166654242566
+mobspawn R477 minecraft:frog -7.5 -60 -20.5 reason=spawner
+dump mob:R477 nbt:R477
+level_seed 169308678327
+mobspawn R478 minecraft:tadpole -6.5 -60 -20.5 reason=command
+dump mob:R478 nbt:R478
+level_seed 171963114088
+mobspawn R479 minecraft:tadpole -5.5 -60 -20.5 reason=mob_summoned
+dump mob:R479 nbt:R479
+level_seed 174617549849
+mobspawn R480 minecraft:tadpole -4.5 -60 -20.5 reason=structure
+dump mob:R480 nbt:R480
+level_seed 177271985610
+mobspawn R481 minecraft:tadpole -3.5 -60 -20.5 reason=conversion
+dump mob:R481 nbt:R481
+level_seed 179926421371
+mobspawn R482 minecraft:tadpole -2.5 -60 -20.5 reason=jockey
+dump mob:R482 nbt:R482
+level_seed 182580857132
+mobspawn R483 minecraft:tadpole -1.5 -60 -20.5 reason=event
+dump mob:R483 nbt:R483
+level_seed 185235292893
+mobspawn R484 minecraft:tadpole 0.5 -60 -20.5 reason=triggered
+dump mob:R484 nbt:R484
+level_seed 187889728654
+mobspawn R485 minecraft:tadpole 1.5 -60 -20.5 reason=reinforcement
+dump mob:R485 nbt:R485
+level_seed 190544164415
+mobspawn R486 minecraft:tadpole 2.5 -60 -20.5 reason=chunk_generation
+dump mob:R486 nbt:R486
+level_seed 193198600176
+mobspawn R487 minecraft:tadpole 3.5 -60 -20.5 reason=trial_spawner
+dump mob:R487 nbt:R487
+level_seed 195853035937
+mobspawn R488 minecraft:tadpole 4.5 -60 -20.5 reason=dispenser
+dump mob:R488 nbt:R488
+level_seed 198507471698
+mobspawn R489 minecraft:tadpole 5.5 -60 -20.5 reason=patrol
+dump mob:R489 nbt:R489
+level_seed 201161907459
+mobspawn R490 minecraft:tadpole 6.5 -60 -20.5 reason=bucket
+dump mob:R490 nbt:R490
+level_seed 203816343220
+mobspawn R491 minecraft:tadpole 7.5 -60 -20.5 reason=breeding
+dump mob:R491 nbt:R491
+level_seed 206470778981
+mobspawn R492 minecraft:tadpole 8.5 -60 -20.5 reason=spawn_item_use
+dump mob:R492 nbt:R492
+level_seed 209125214742
+mobspawn R493 minecraft:tadpole 9.5 -60 -20.5 reason=load
+dump mob:R493 nbt:R493
+level_seed 211779650503
+mobspawn R494 minecraft:tadpole 10.5 -60 -20.5 reason=dimension_travel
+dump mob:R494 nbt:R494
+level_seed 214434086264
+mobspawn R495 minecraft:tadpole 11.5 -60 -20.5 reason=natural
+dump mob:R495 nbt:R495
+level_seed 217088522025
+mobspawn R496 minecraft:tadpole 12.5 -60 -20.5 reason=spawner
+dump mob:R496 nbt:R496
+level_seed 219742957786
+mobspawn R497 minecraft:fox 13.5 -60 -20.5 reason=command
+dump mob:R497 nbt:R497
+level_seed 222397393547
+mobspawn R498 minecraft:fox 14.5 -60 -20.5 reason=mob_summoned
+dump mob:R498 nbt:R498
+level_seed 225051829308
+mobspawn R499 minecraft:fox 15.5 -60 -20.5 reason=structure
+dump mob:R499 nbt:R499
+level_seed 227706265069
+mobspawn R500 minecraft:fox 16.5 -60 -20.5 reason=conversion
+dump mob:R500 nbt:R500
+level_seed 230360700830
+mobspawn R501 minecraft:fox 17.5 -60 -20.5 reason=jockey
+dump mob:R501 nbt:R501
+level_seed 233015136591
+mobspawn R502 minecraft:fox 18.5 -60 -20.5 reason=event
+dump mob:R502 nbt:R502
+level_seed 235669572352
+mobspawn R503 minecraft:fox 19.5 -60 -20.5 reason=triggered
+dump mob:R503 nbt:R503
+level_seed 238324008113
+mobspawn R504 minecraft:fox 20.5 -60 -20.5 reason=reinforcement
+dump mob:R504 nbt:R504
+level_seed 240978443874
+mobspawn R505 minecraft:fox 21.5 -60 -20.5 reason=chunk_generation
+dump mob:R505 nbt:R505
+level_seed 243632879635
+mobspawn R506 minecraft:fox 22.5 -60 -20.5 reason=trial_spawner
+dump mob:R506 nbt:R506
+level_seed 246287315396
+mobspawn R507 minecraft:fox 23.5 -60 -20.5 reason=dispenser
+dump mob:R507 nbt:R507
+level_seed 248941751157
+mobspawn R508 minecraft:fox 24.5 -60 -20.5 reason=patrol
+dump mob:R508 nbt:R508
+level_seed 251596186918
+mobspawn R509 minecraft:fox 25.5 -60 -20.5 reason=bucket
+dump mob:R509 nbt:R509
+level_seed 254250622679
+mobspawn R510 minecraft:fox 26.5 -60 -20.5 reason=breeding
+dump mob:R510 nbt:R510
+level_seed 256905058440
+mobspawn R511 minecraft:fox 27.5 -60 -20.5 reason=spawn_item_use
+dump mob:R511 nbt:R511
+level_seed 259559494201
+mobspawn R512 minecraft:fox 28.5 -60 -20.5 reason=load
+dump mob:R512 nbt:R512
+level_seed 262213929962
+mobspawn R513 minecraft:fox -28.5 -60 -19.5 reason=dimension_travel
+dump mob:R513 nbt:R513
+level_seed 264868365723
+mobspawn R514 minecraft:fox -27.5 -60 -19.5 reason=natural
+dump mob:R514 nbt:R514
+level_seed 267522801484
+mobspawn R515 minecraft:fox -26.5 -60 -19.5 reason=spawner
+dump mob:R515 nbt:R515
+level_seed 270177237245
+mobspawn R516 minecraft:rabbit -25.5 -60 -19.5 reason=command
+dump mob:R516 nbt:R516
+level_seed 272831673006
+mobspawn R517 minecraft:rabbit -24.5 -60 -19.5 reason=mob_summoned
+dump mob:R517 nbt:R517
+level_seed 275486108767
+mobspawn R518 minecraft:rabbit -23.5 -60 -19.5 reason=structure
+dump mob:R518 nbt:R518
+level_seed 278140544528
+mobspawn R519 minecraft:rabbit -22.5 -60 -19.5 reason=conversion
+dump mob:R519 nbt:R519
+level_seed 280794980289
+mobspawn R520 minecraft:rabbit -21.5 -60 -19.5 reason=jockey
+dump mob:R520 nbt:R520
+level_seed 283449416050
+mobspawn R521 minecraft:rabbit -20.5 -60 -19.5 reason=event
+dump mob:R521 nbt:R521
+level_seed 286103851811
+mobspawn R522 minecraft:rabbit -19.5 -60 -19.5 reason=triggered
+dump mob:R522 nbt:R522
+level_seed 288758287572
+mobspawn R523 minecraft:rabbit -18.5 -60 -19.5 reason=reinforcement
+dump mob:R523 nbt:R523
+level_seed 291412723333
+mobspawn R524 minecraft:rabbit -17.5 -60 -19.5 reason=chunk_generation
+dump mob:R524 nbt:R524
+level_seed 294067159094
+mobspawn R525 minecraft:rabbit -16.5 -60 -19.5 reason=trial_spawner
+dump mob:R525 nbt:R525
+level_seed 296721594855
+mobspawn R526 minecraft:rabbit -15.5 -60 -19.5 reason=dispenser
+dump mob:R526 nbt:R526
+level_seed 299376030616
+mobspawn R527 minecraft:rabbit -14.5 -60 -19.5 reason=patrol
+dump mob:R527 nbt:R527
+level_seed 302030466377
+mobspawn R528 minecraft:rabbit -13.5 -60 -19.5 reason=bucket
+dump mob:R528 nbt:R528
+level_seed 304684902138
+mobspawn R529 minecraft:rabbit -12.5 -60 -19.5 reason=breeding
+dump mob:R529 nbt:R529
+level_seed 307339337899
+mobspawn R530 minecraft:rabbit -11.5 -60 -19.5 reason=spawn_item_use
+dump mob:R530 nbt:R530
+level_seed 309993773660
+mobspawn R531 minecraft:rabbit -10.5 -60 -19.5 reason=load
+dump mob:R531 nbt:R531
+level_seed 312648209421
+mobspawn R532 minecraft:rabbit -9.5 -60 -19.5 reason=dimension_travel
+dump mob:R532 nbt:R532
+level_seed 315302645182
+mobspawn R533 minecraft:rabbit -8.5 -60 -19.5 reason=natural
+dump mob:R533 nbt:R533
+level_seed 317957080943
+mobspawn R534 minecraft:rabbit -7.5 -60 -19.5 reason=spawner
+dump mob:R534 nbt:R534
+level_seed 320611516704
+mobspawn R535 minecraft:horse -6.5 -60 -19.5 reason=command
+dump mob:R535 nbt:R535
+level_seed 323265952465
+mobspawn R536 minecraft:horse -5.5 -60 -19.5 reason=mob_summoned
+dump mob:R536 nbt:R536
+level_seed 325920388226
+mobspawn R537 minecraft:horse -4.5 -60 -19.5 reason=structure
+dump mob:R537 nbt:R537
+level_seed 328574823987
+mobspawn R538 minecraft:horse -3.5 -60 -19.5 reason=conversion
+dump mob:R538 nbt:R538
+level_seed 331229259748
+mobspawn R539 minecraft:horse -2.5 -60 -19.5 reason=jockey
+dump mob:R539 nbt:R539
+level_seed 333883695509
+mobspawn R540 minecraft:horse -1.5 -60 -19.5 reason=event
+dump mob:R540 nbt:R540
+level_seed 336538131270
+mobspawn R541 minecraft:horse 0.5 -60 -19.5 reason=triggered
+dump mob:R541 nbt:R541
+level_seed 339192567031
+mobspawn R542 minecraft:horse 1.5 -60 -19.5 reason=reinforcement
+dump mob:R542 nbt:R542
+level_seed 341847002792
+mobspawn R543 minecraft:horse 2.5 -60 -19.5 reason=chunk_generation
+dump mob:R543 nbt:R543
+level_seed 344501438553
+mobspawn R544 minecraft:horse 3.5 -60 -19.5 reason=trial_spawner
+dump mob:R544 nbt:R544
+level_seed 347155874314
+mobspawn R545 minecraft:horse 4.5 -60 -19.5 reason=dispenser
+dump mob:R545 nbt:R545
+level_seed 349810310075
+mobspawn R546 minecraft:horse 5.5 -60 -19.5 reason=patrol
+dump mob:R546 nbt:R546
+level_seed 352464745836
+mobspawn R547 minecraft:horse 6.5 -60 -19.5 reason=bucket
+dump mob:R547 nbt:R547
+level_seed 355119181597
+mobspawn R548 minecraft:horse 7.5 -60 -19.5 reason=breeding
+dump mob:R548 nbt:R548
+level_seed 357773617358
+mobspawn R549 minecraft:horse 8.5 -60 -19.5 reason=spawn_item_use
+dump mob:R549 nbt:R549
+level_seed 360428053119
+mobspawn R550 minecraft:horse 9.5 -60 -19.5 reason=load
+dump mob:R550 nbt:R550
+level_seed 363082488880
+mobspawn R551 minecraft:horse 10.5 -60 -19.5 reason=dimension_travel
+dump mob:R551 nbt:R551
+level_seed 365736924641
+mobspawn R552 minecraft:horse 11.5 -60 -19.5 reason=natural
+dump mob:R552 nbt:R552
+level_seed 368391360402
+mobspawn R553 minecraft:horse 12.5 -60 -19.5 reason=spawner
+dump mob:R553 nbt:R553
+level_seed 371045796163
+mobspawn R554 minecraft:llama 13.5 -60 -19.5 reason=command
+dump mob:R554 nbt:R554
+level_seed 373700231924
+mobspawn R555 minecraft:llama 14.5 -60 -19.5 reason=mob_summoned
+dump mob:R555 nbt:R555
+level_seed 376354667685
+mobspawn R556 minecraft:llama 15.5 -60 -19.5 reason=structure
+dump mob:R556 nbt:R556
+level_seed 379009103446
+mobspawn R557 minecraft:llama 16.5 -60 -19.5 reason=conversion
+dump mob:R557 nbt:R557
+level_seed 381663539207
+mobspawn R558 minecraft:llama 17.5 -60 -19.5 reason=jockey
+dump mob:R558 nbt:R558
+level_seed 384317974968
+mobspawn R559 minecraft:llama 18.5 -60 -19.5 reason=event
+dump mob:R559 nbt:R559
+level_seed 386972410729
+mobspawn R560 minecraft:llama 19.5 -60 -19.5 reason=triggered
+dump mob:R560 nbt:R560
+level_seed 389626846490
+mobspawn R561 minecraft:llama 20.5 -60 -19.5 reason=reinforcement
+dump mob:R561 nbt:R561
+level_seed 392281282251
+mobspawn R562 minecraft:llama 21.5 -60 -19.5 reason=chunk_generation
+dump mob:R562 nbt:R562
+level_seed 394935718012
+mobspawn R563 minecraft:llama 22.5 -60 -19.5 reason=trial_spawner
+dump mob:R563 nbt:R563
+level_seed 397590153773
+mobspawn R564 minecraft:llama 23.5 -60 -19.5 reason=dispenser
+dump mob:R564 nbt:R564
+level_seed 400244589534
+mobspawn R565 minecraft:llama 24.5 -60 -19.5 reason=patrol
+dump mob:R565 nbt:R565
+level_seed 402899025295
+mobspawn R566 minecraft:llama 25.5 -60 -19.5 reason=bucket
+dump mob:R566 nbt:R566
+level_seed 405553461056
+mobspawn R567 minecraft:llama 26.5 -60 -19.5 reason=breeding
+dump mob:R567 nbt:R567
+level_seed 408207896817
+mobspawn R568 minecraft:llama 27.5 -60 -19.5 reason=spawn_item_use
+dump mob:R568 nbt:R568
+level_seed 410862332578
+mobspawn R569 minecraft:llama 28.5 -60 -19.5 reason=load
+dump mob:R569 nbt:R569
+level_seed 413516768339
+mobspawn R570 minecraft:llama -28.5 -60 -18.5 reason=dimension_travel
+dump mob:R570 nbt:R570
+level_seed 416171204100
+mobspawn R571 minecraft:llama -27.5 -60 -18.5 reason=natural
+dump mob:R571 nbt:R571
+level_seed 418825639861
+mobspawn R572 minecraft:llama -26.5 -60 -18.5 reason=spawner
+dump mob:R572 nbt:R572
+level_seed 421480075622
+mobspawn R573 minecraft:cat -25.5 -60 -18.5 reason=command
+dump mob:R573 nbt:R573
+level_seed 424134511383
+mobspawn R574 minecraft:cat -24.5 -60 -18.5 reason=mob_summoned
+dump mob:R574 nbt:R574
+level_seed 426788947144
+mobspawn R575 minecraft:cat -23.5 -60 -18.5 reason=structure
+dump mob:R575 nbt:R575
+level_seed 429443382905
+mobspawn R576 minecraft:cat -22.5 -60 -18.5 reason=conversion
+dump mob:R576 nbt:R576
+level_seed 432097818666
+mobspawn R577 minecraft:cat -21.5 -60 -18.5 reason=jockey
+dump mob:R577 nbt:R577
+level_seed 434752254427
+mobspawn R578 minecraft:cat -20.5 -60 -18.5 reason=event
+dump mob:R578 nbt:R578
+level_seed 437406690188
+mobspawn R579 minecraft:cat -19.5 -60 -18.5 reason=triggered
+dump mob:R579 nbt:R579
+level_seed 440061125949
+mobspawn R580 minecraft:cat -18.5 -60 -18.5 reason=reinforcement
+dump mob:R580 nbt:R580
+level_seed 442715561710
+mobspawn R581 minecraft:cat -17.5 -60 -18.5 reason=chunk_generation
+dump mob:R581 nbt:R581
+level_seed 445369997471
+mobspawn R582 minecraft:cat -16.5 -60 -18.5 reason=trial_spawner
+dump mob:R582 nbt:R582
+level_seed 448024433232
+mobspawn R583 minecraft:cat -15.5 -60 -18.5 reason=dispenser
+dump mob:R583 nbt:R583
+level_seed 450678868993
+mobspawn R584 minecraft:cat -14.5 -60 -18.5 reason=patrol
+dump mob:R584 nbt:R584
+level_seed 453333304754
+mobspawn R585 minecraft:cat -13.5 -60 -18.5 reason=bucket
+dump mob:R585 nbt:R585
+level_seed 455987740515
+mobspawn R586 minecraft:cat -12.5 -60 -18.5 reason=breeding
+dump mob:R586 nbt:R586
+level_seed 458642176276
+mobspawn R587 minecraft:cat -11.5 -60 -18.5 reason=spawn_item_use
+dump mob:R587 nbt:R587
+level_seed 461296612037
+mobspawn R588 minecraft:cat -10.5 -60 -18.5 reason=load
+dump mob:R588 nbt:R588
+level_seed 463951047798
+mobspawn R589 minecraft:cat -9.5 -60 -18.5 reason=dimension_travel
+dump mob:R589 nbt:R589
+level_seed 466605483559
+mobspawn R590 minecraft:cat -8.5 -60 -18.5 reason=natural
+dump mob:R590 nbt:R590
+level_seed 469259919320
+mobspawn R591 minecraft:cat -7.5 -60 -18.5 reason=spawner
+dump mob:R591 nbt:R591
+level_seed 471914355081
+mobspawn R592 minecraft:strider -6.5 -60 -18.5 reason=command
+dump mob:R592 nbt:R592
+level_seed 474568790842
+mobspawn R593 minecraft:strider -5.5 -60 -18.5 reason=mob_summoned
+dump mob:R593 nbt:R593
+level_seed 477223226603
+mobspawn R594 minecraft:strider -4.5 -60 -18.5 reason=structure
+dump mob:R594 nbt:R594
+level_seed 479877662364
+mobspawn R595 minecraft:strider -3.5 -60 -18.5 reason=conversion
+dump mob:R595 nbt:R595
+level_seed 482532098125
+mobspawn R596 minecraft:strider -2.5 -60 -18.5 reason=jockey
+dump mob:R596 nbt:R596
+level_seed 485186533886
+mobspawn R597 minecraft:strider -1.5 -60 -18.5 reason=event
+dump mob:R597 nbt:R597
+level_seed 487840969647
+mobspawn R598 minecraft:strider 0.5 -60 -18.5 reason=triggered
+dump mob:R598 nbt:R598
+level_seed 490495405408
+mobspawn R599 minecraft:strider 1.5 -60 -18.5 reason=reinforcement
+dump mob:R599 nbt:R599
+level_seed 493149841169
+mobspawn R600 minecraft:strider 2.5 -60 -18.5 reason=chunk_generation
+dump mob:R600 nbt:R600
+level_seed 495804276930
+mobspawn R601 minecraft:strider 3.5 -60 -18.5 reason=trial_spawner
+dump mob:R601 nbt:R601
+level_seed 498458712691
+mobspawn R602 minecraft:strider 4.5 -60 -18.5 reason=dispenser
+dump mob:R602 nbt:R602
+level_seed 501113148452
+mobspawn R603 minecraft:strider 5.5 -60 -18.5 reason=patrol
+dump mob:R603 nbt:R603
+level_seed 503767584213
+mobspawn R604 minecraft:strider 6.5 -60 -18.5 reason=bucket
+dump mob:R604 nbt:R604
+level_seed 506422019974
+mobspawn R605 minecraft:strider 7.5 -60 -18.5 reason=breeding
+dump mob:R605 nbt:R605
+level_seed 509076455735
+mobspawn R606 minecraft:strider 8.5 -60 -18.5 reason=spawn_item_use
+dump mob:R606 nbt:R606
+level_seed 511730891496
+mobspawn R607 minecraft:strider 9.5 -60 -18.5 reason=load
+dump mob:R607 nbt:R607
+level_seed 514385327257
+mobspawn R608 minecraft:strider 10.5 -60 -18.5 reason=dimension_travel
+dump mob:R608 nbt:R608
+level_seed 517039763018
+mobspawn R609 minecraft:strider 11.5 -60 -18.5 reason=natural
+dump mob:R609 nbt:R609
+level_seed 519694198779
+mobspawn R610 minecraft:strider 12.5 -60 -18.5 reason=spawner
+dump mob:R610 nbt:R610
+level_seed 522348634540
+mobspawn R611 minecraft:warden 13.5 -60 -18.5 reason=command
+dump mob:R611 nbt:R611
+level_seed 525003070301
+mobspawn R612 minecraft:warden 14.5 -60 -18.5 reason=mob_summoned
+dump mob:R612 nbt:R612
+level_seed 527657506062
+mobspawn R613 minecraft:warden 15.5 -60 -18.5 reason=structure
+dump mob:R613 nbt:R613
+level_seed 530311941823
+mobspawn R614 minecraft:warden 16.5 -60 -18.5 reason=conversion
+dump mob:R614 nbt:R614
+level_seed 532966377584
+mobspawn R615 minecraft:warden 17.5 -60 -18.5 reason=jockey
+dump mob:R615 nbt:R615
+level_seed 535620813345
+mobspawn R616 minecraft:warden 18.5 -60 -18.5 reason=event
+dump mob:R616 nbt:R616
+level_seed 538275249106
+mobspawn R617 minecraft:warden 19.5 -60 -18.5 reason=triggered
+dump mob:R617 nbt:R617
+level_seed 540929684867
+mobspawn R618 minecraft:warden 20.5 -60 -18.5 reason=reinforcement
+dump mob:R618 nbt:R618
+level_seed 543584120628
+mobspawn R619 minecraft:warden 21.5 -60 -18.5 reason=chunk_generation
+dump mob:R619 nbt:R619
+level_seed 546238556389
+mobspawn R620 minecraft:warden 22.5 -60 -18.5 reason=trial_spawner
+dump mob:R620 nbt:R620
+level_seed 548892992150
+mobspawn R621 minecraft:warden 23.5 -60 -18.5 reason=dispenser
+dump mob:R621 nbt:R621
+level_seed 551547427911
+mobspawn R622 minecraft:warden 24.5 -60 -18.5 reason=patrol
+dump mob:R622 nbt:R622
+level_seed 554201863672
+mobspawn R623 minecraft:warden 25.5 -60 -18.5 reason=bucket
+dump mob:R623 nbt:R623
+level_seed 556856299433
+mobspawn R624 minecraft:warden 26.5 -60 -18.5 reason=breeding
+dump mob:R624 nbt:R624
+level_seed 559510735194
+mobspawn R625 minecraft:warden 27.5 -60 -18.5 reason=spawn_item_use
+dump mob:R625 nbt:R625
+level_seed 562165170955
+mobspawn R626 minecraft:warden 28.5 -60 -18.5 reason=load
+dump mob:R626 nbt:R626
+level_seed 564819606716
+mobspawn R627 minecraft:warden -28.5 -60 -17.5 reason=dimension_travel
+dump mob:R627 nbt:R627
+level_seed 567474042477
+mobspawn R628 minecraft:warden -27.5 -60 -17.5 reason=natural
+dump mob:R628 nbt:R628
+level_seed 570128478238
+mobspawn R629 minecraft:warden -26.5 -60 -17.5 reason=spawner
+dump mob:R629 nbt:R629
+level_seed 572782913999
+mobspawn R630 minecraft:phantom -25.5 -60 -17.5 reason=command
+dump mob:R630 nbt:R630
+level_seed 575437349760
+mobspawn R631 minecraft:phantom -24.5 -60 -17.5 reason=mob_summoned
+dump mob:R631 nbt:R631
+level_seed 578091785521
+mobspawn R632 minecraft:phantom -23.5 -60 -17.5 reason=structure
+dump mob:R632 nbt:R632
+level_seed 580746221282
+mobspawn R633 minecraft:phantom -22.5 -60 -17.5 reason=conversion
+dump mob:R633 nbt:R633
+level_seed 583400657043
+mobspawn R634 minecraft:phantom -21.5 -60 -17.5 reason=jockey
+dump mob:R634 nbt:R634
+level_seed 586055092804
+mobspawn R635 minecraft:phantom -20.5 -60 -17.5 reason=event
+dump mob:R635 nbt:R635
+level_seed 588709528565
+mobspawn R636 minecraft:phantom -19.5 -60 -17.5 reason=triggered
+dump mob:R636 nbt:R636
+level_seed 591363964326
+mobspawn R637 minecraft:phantom -18.5 -60 -17.5 reason=reinforcement
+dump mob:R637 nbt:R637
+level_seed 594018400087
+mobspawn R638 minecraft:phantom -17.5 -60 -17.5 reason=chunk_generation
+dump mob:R638 nbt:R638
+level_seed 596672835848
+mobspawn R639 minecraft:phantom -16.5 -60 -17.5 reason=trial_spawner
+dump mob:R639 nbt:R639
+level_seed 599327271609
+mobspawn R640 minecraft:phantom -15.5 -60 -17.5 reason=dispenser
+dump mob:R640 nbt:R640
+level_seed 601981707370
+mobspawn R641 minecraft:phantom -14.5 -60 -17.5 reason=patrol
+dump mob:R641 nbt:R641
+level_seed 604636143131
+mobspawn R642 minecraft:phantom -13.5 -60 -17.5 reason=bucket
+dump mob:R642 nbt:R642
+level_seed 607290578892
+mobspawn R643 minecraft:phantom -12.5 -60 -17.5 reason=breeding
+dump mob:R643 nbt:R643
+level_seed 609945014653
+mobspawn R644 minecraft:phantom -11.5 -60 -17.5 reason=spawn_item_use
+dump mob:R644 nbt:R644
+level_seed 612599450414
+mobspawn R645 minecraft:phantom -10.5 -60 -17.5 reason=load
+dump mob:R645 nbt:R645
+level_seed 615253886175
+mobspawn R646 minecraft:phantom -9.5 -60 -17.5 reason=dimension_travel
+dump mob:R646 nbt:R646
+level_seed 617908321936
+mobspawn R647 minecraft:phantom -8.5 -60 -17.5 reason=natural
+dump mob:R647 nbt:R647
+level_seed 620562757697
+mobspawn R648 minecraft:phantom -7.5 -60 -17.5 reason=spawner
+dump mob:R648 nbt:R648
+level_seed 623217193458
+mobspawn R649 minecraft:enderman -6.5 -60 -17.5 reason=command
+dump mob:R649 nbt:R649
+level_seed 625871629219
+mobspawn R650 minecraft:enderman -5.5 -60 -17.5 reason=mob_summoned
+dump mob:R650 nbt:R650
+level_seed 628526064980
+mobspawn R651 minecraft:enderman -4.5 -60 -17.5 reason=structure
+dump mob:R651 nbt:R651
+level_seed 631180500741
+mobspawn R652 minecraft:enderman -3.5 -60 -17.5 reason=conversion
+dump mob:R652 nbt:R652
+level_seed 633834936502
+mobspawn R653 minecraft:enderman -2.5 -60 -17.5 reason=jockey
+dump mob:R653 nbt:R653
+level_seed 636489372263
+mobspawn R654 minecraft:enderman -1.5 -60 -17.5 reason=event
+dump mob:R654 nbt:R654
+level_seed 639143808024
+mobspawn R655 minecraft:enderman 0.5 -60 -17.5 reason=triggered
+dump mob:R655 nbt:R655
+level_seed 641798243785
+mobspawn R656 minecraft:enderman 1.5 -60 -17.5 reason=reinforcement
+dump mob:R656 nbt:R656
+level_seed 644452679546
+mobspawn R657 minecraft:enderman 2.5 -60 -17.5 reason=chunk_generation
+dump mob:R657 nbt:R657
+level_seed 647107115307
+mobspawn R658 minecraft:enderman 3.5 -60 -17.5 reason=trial_spawner
+dump mob:R658 nbt:R658
+level_seed 649761551068
+mobspawn R659 minecraft:enderman 4.5 -60 -17.5 reason=dispenser
+dump mob:R659 nbt:R659
+level_seed 652415986829
+mobspawn R660 minecraft:enderman 5.5 -60 -17.5 reason=patrol
+dump mob:R660 nbt:R660
+level_seed 655070422590
+mobspawn R661 minecraft:enderman 6.5 -60 -17.5 reason=bucket
+dump mob:R661 nbt:R661
+level_seed 657724858351
+mobspawn R662 minecraft:enderman 7.5 -60 -17.5 reason=breeding
+dump mob:R662 nbt:R662
+level_seed 660379294112
+mobspawn R663 minecraft:enderman 8.5 -60 -17.5 reason=spawn_item_use
+dump mob:R663 nbt:R663
+level_seed 663033729873
+mobspawn R664 minecraft:enderman 9.5 -60 -17.5 reason=load
+dump mob:R664 nbt:R664
+level_seed 665688165634
+mobspawn R665 minecraft:enderman 10.5 -60 -17.5 reason=dimension_travel
+dump mob:R665 nbt:R665
+level_seed 668342601395
+mobspawn R666 minecraft:enderman 11.5 -60 -17.5 reason=natural
+dump mob:R666 nbt:R666
+level_seed 670997037156
+mobspawn R667 minecraft:enderman 12.5 -60 -17.5 reason=spawner
+dump mob:R667 nbt:R667
+level_seed 673651472917
+mobspawn R668 minecraft:pillager 13.5 -60 -17.5 reason=command
+dump mob:R668 nbt:R668
+level_seed 676305908678
+mobspawn R669 minecraft:pillager 14.5 -60 -17.5 reason=mob_summoned
+dump mob:R669 nbt:R669
+level_seed 678960344439
+mobspawn R670 minecraft:pillager 15.5 -60 -17.5 reason=structure
+dump mob:R670 nbt:R670
+level_seed 681614780200
+mobspawn R671 minecraft:pillager 16.5 -60 -17.5 reason=conversion
+dump mob:R671 nbt:R671
+level_seed 684269215961
+mobspawn R672 minecraft:pillager 17.5 -60 -17.5 reason=jockey
+dump mob:R672 nbt:R672
+level_seed 686923651722
+mobspawn R673 minecraft:pillager 18.5 -60 -17.5 reason=event
+dump mob:R673 nbt:R673
+level_seed 689578087483
+mobspawn R674 minecraft:pillager 19.5 -60 -17.5 reason=triggered
+dump mob:R674 nbt:R674
+level_seed 692232523244
+mobspawn R675 minecraft:pillager 20.5 -60 -17.5 reason=reinforcement
+dump mob:R675 nbt:R675
+level_seed 694886959005
+mobspawn R676 minecraft:pillager 21.5 -60 -17.5 reason=chunk_generation
+dump mob:R676 nbt:R676
+level_seed 697541394766
+mobspawn R677 minecraft:pillager 22.5 -60 -17.5 reason=trial_spawner
+dump mob:R677 nbt:R677
+level_seed 700195830527
+mobspawn R678 minecraft:pillager 23.5 -60 -17.5 reason=dispenser
+dump mob:R678 nbt:R678
+level_seed 702850266288
+mobspawn R679 minecraft:pillager 24.5 -60 -17.5 reason=patrol
+dump mob:R679 nbt:R679
+level_seed 705504702049
+mobspawn R680 minecraft:pillager 25.5 -60 -17.5 reason=bucket
+dump mob:R680 nbt:R680
+level_seed 708159137810
+mobspawn R681 minecraft:pillager 26.5 -60 -17.5 reason=breeding
+dump mob:R681 nbt:R681
+level_seed 710813573571
+mobspawn R682 minecraft:pillager 27.5 -60 -17.5 reason=spawn_item_use
+dump mob:R682 nbt:R682
+level_seed 713468009332
+mobspawn R683 minecraft:pillager 28.5 -60 -17.5 reason=load
+dump mob:R683 nbt:R683
+level_seed 716122445093
+mobspawn R684 minecraft:pillager -28.5 -60 -16.5 reason=dimension_travel
+dump mob:R684 nbt:R684
+level_seed 718776880854
+mobspawn R685 minecraft:pillager -27.5 -60 -16.5 reason=natural
+dump mob:R685 nbt:R685
+level_seed 721431316615
+mobspawn R686 minecraft:pillager -26.5 -60 -16.5 reason=spawner
+dump mob:R686 nbt:R686
+level_seed 724085752376
+mobspawn R687 minecraft:witch -25.5 -60 -16.5 reason=command
+dump mob:R687 nbt:R687
+level_seed 726740188137
+mobspawn R688 minecraft:witch -24.5 -60 -16.5 reason=mob_summoned
+dump mob:R688 nbt:R688
+level_seed 729394623898
+mobspawn R689 minecraft:witch -23.5 -60 -16.5 reason=structure
+dump mob:R689 nbt:R689
+level_seed 732049059659
+mobspawn R690 minecraft:witch -22.5 -60 -16.5 reason=conversion
+dump mob:R690 nbt:R690
+level_seed 734703495420
+mobspawn R691 minecraft:witch -21.5 -60 -16.5 reason=jockey
+dump mob:R691 nbt:R691
+level_seed 737357931181
+mobspawn R692 minecraft:witch -20.5 -60 -16.5 reason=event
+dump mob:R692 nbt:R692
+level_seed 740012366942
+mobspawn R693 minecraft:witch -19.5 -60 -16.5 reason=triggered
+dump mob:R693 nbt:R693
+level_seed 742666802703
+mobspawn R694 minecraft:witch -18.5 -60 -16.5 reason=reinforcement
+dump mob:R694 nbt:R694
+level_seed 745321238464
+mobspawn R695 minecraft:witch -17.5 -60 -16.5 reason=chunk_generation
+dump mob:R695 nbt:R695
+level_seed 747975674225
+mobspawn R696 minecraft:witch -16.5 -60 -16.5 reason=trial_spawner
+dump mob:R696 nbt:R696
+level_seed 750630109986
+mobspawn R697 minecraft:witch -15.5 -60 -16.5 reason=dispenser
+dump mob:R697 nbt:R697
+level_seed 753284545747
+mobspawn R698 minecraft:witch -14.5 -60 -16.5 reason=patrol
+dump mob:R698 nbt:R698
+level_seed 755938981508
+mobspawn R699 minecraft:witch -13.5 -60 -16.5 reason=bucket
+dump mob:R699 nbt:R699
+level_seed 758593417269
+mobspawn R700 minecraft:witch -12.5 -60 -16.5 reason=breeding
+dump mob:R700 nbt:R700
+level_seed 761247853030
+mobspawn R701 minecraft:witch -11.5 -60 -16.5 reason=spawn_item_use
+dump mob:R701 nbt:R701
+level_seed 763902288791
+mobspawn R702 minecraft:witch -10.5 -60 -16.5 reason=load
+dump mob:R702 nbt:R702
+level_seed 766556724552
+mobspawn R703 minecraft:witch -9.5 -60 -16.5 reason=dimension_travel
+dump mob:R703 nbt:R703
+level_seed 769211160313
+mobspawn R704 minecraft:witch -8.5 -60 -16.5 reason=natural
+dump mob:R704 nbt:R704
+level_seed 771865596074
+mobspawn R705 minecraft:witch -7.5 -60 -16.5 reason=spawner
+dump mob:R705 nbt:R705
+note spawn group data shared by six mobs
+level_seed 774520031835
+mobspawn G706 minecraft:sheep -6.5 -60 -16.5 reason=natural group=g_sheep
+dump mob:G706 nbt:G706
+level_seed 777174467596
+mobspawn G707 minecraft:sheep -5.5 -60 -16.5 reason=natural group=g_sheep
+dump mob:G707 nbt:G707
+level_seed 779828903357
+mobspawn G708 minecraft:sheep -4.5 -60 -16.5 reason=natural group=g_sheep
+dump mob:G708 nbt:G708
+level_seed 782483339118
+mobspawn G709 minecraft:sheep -3.5 -60 -16.5 reason=natural group=g_sheep
+dump mob:G709 nbt:G709
+level_seed 785137774879
+mobspawn G710 minecraft:sheep -2.5 -60 -16.5 reason=natural group=g_sheep
+dump mob:G710 nbt:G710
+level_seed 787792210640
+mobspawn G711 minecraft:sheep -1.5 -60 -16.5 reason=natural group=g_sheep
+dump mob:G711 nbt:G711
+level_seed 790446646401
+mobspawn G712 minecraft:cow 0.5 -60 -16.5 reason=natural group=g_cow
+dump mob:G712 nbt:G712
+level_seed 793101082162
+mobspawn G713 minecraft:cow 1.5 -60 -16.5 reason=natural group=g_cow
+dump mob:G713 nbt:G713
+level_seed 795755517923
+mobspawn G714 minecraft:cow 2.5 -60 -16.5 reason=natural group=g_cow
+dump mob:G714 nbt:G714
+level_seed 798409953684
+mobspawn G715 minecraft:cow 3.5 -60 -16.5 reason=natural group=g_cow
+dump mob:G715 nbt:G715
+level_seed 801064389445
+mobspawn G716 minecraft:cow 4.5 -60 -16.5 reason=natural group=g_cow
+dump mob:G716 nbt:G716
+level_seed 803718825206
+mobspawn G717 minecraft:cow 5.5 -60 -16.5 reason=natural group=g_cow
+dump mob:G717 nbt:G717
+level_seed 806373260967
+mobspawn G718 minecraft:pig 6.5 -60 -16.5 reason=natural group=g_pig
+dump mob:G718 nbt:G718
+level_seed 809027696728
+mobspawn G719 minecraft:pig 7.5 -60 -16.5 reason=natural group=g_pig
+dump mob:G719 nbt:G719
+level_seed 811682132489
+mobspawn G720 minecraft:pig 8.5 -60 -16.5 reason=natural group=g_pig
+dump mob:G720 nbt:G720
+level_seed 814336568250
+mobspawn G721 minecraft:pig 9.5 -60 -16.5 reason=natural group=g_pig
+dump mob:G721 nbt:G721
+level_seed 816991004011
+mobspawn G722 minecraft:pig 10.5 -60 -16.5 reason=natural group=g_pig
+dump mob:G722 nbt:G722
+level_seed 819645439772
+mobspawn G723 minecraft:pig 11.5 -60 -16.5 reason=natural group=g_pig
+dump mob:G723 nbt:G723
+level_seed 822299875533
+mobspawn G724 minecraft:chicken 12.5 -60 -16.5 reason=natural group=g_chicken
+dump mob:G724 nbt:G724
+level_seed 824954311294
+mobspawn G725 minecraft:chicken 13.5 -60 -16.5 reason=natural group=g_chicken
+dump mob:G725 nbt:G725
+level_seed 827608747055
+mobspawn G726 minecraft:chicken 14.5 -60 -16.5 reason=natural group=g_chicken
+dump mob:G726 nbt:G726
+level_seed 830263182816
+mobspawn G727 minecraft:chicken 15.5 -60 -16.5 reason=natural group=g_chicken
+dump mob:G727 nbt:G727
+level_seed 832917618577
+mobspawn G728 minecraft:chicken 16.5 -60 -16.5 reason=natural group=g_chicken
+dump mob:G728 nbt:G728
+level_seed 835572054338
+mobspawn G729 minecraft:chicken 17.5 -60 -16.5 reason=natural group=g_chicken
+dump mob:G729 nbt:G729
+level_seed 838226490099
+mobspawn G730 minecraft:rabbit 18.5 -60 -16.5 reason=natural group=g_rabbit
+dump mob:G730 nbt:G730
+level_seed 840880925860
+mobspawn G731 minecraft:rabbit 19.5 -60 -16.5 reason=natural group=g_rabbit
+dump mob:G731 nbt:G731
+level_seed 843535361621
+mobspawn G732 minecraft:rabbit 20.5 -60 -16.5 reason=natural group=g_rabbit
+dump mob:G732 nbt:G732
+level_seed 846189797382
+mobspawn G733 minecraft:rabbit 21.5 -60 -16.5 reason=natural group=g_rabbit
+dump mob:G733 nbt:G733
+level_seed 848844233143
+mobspawn G734 minecraft:rabbit 22.5 -60 -16.5 reason=natural group=g_rabbit
+dump mob:G734 nbt:G734
+level_seed 851498668904
+mobspawn G735 minecraft:rabbit 23.5 -60 -16.5 reason=natural group=g_rabbit
+dump mob:G735 nbt:G735
+level_seed 854153104665
+mobspawn G736 minecraft:horse 24.5 -60 -16.5 reason=natural group=g_horse
+dump mob:G736 nbt:G736
+level_seed 856807540426
+mobspawn G737 minecraft:horse 25.5 -60 -16.5 reason=natural group=g_horse
+dump mob:G737 nbt:G737
+level_seed 859461976187
+mobspawn G738 minecraft:horse 26.5 -60 -16.5 reason=natural group=g_horse
+dump mob:G738 nbt:G738
+level_seed 862116411948
+mobspawn G739 minecraft:horse 27.5 -60 -16.5 reason=natural group=g_horse
+dump mob:G739 nbt:G739
+level_seed 864770847709
+mobspawn G740 minecraft:horse 28.5 -60 -16.5 reason=natural group=g_horse
+dump mob:G740 nbt:G740
+level_seed 867425283470
+mobspawn G741 minecraft:horse -28.5 -60 -15.5 reason=natural group=g_horse
+dump mob:G741 nbt:G741
+level_seed 870079719231
+mobspawn G742 minecraft:donkey -27.5 -60 -15.5 reason=natural group=g_donkey
+dump mob:G742 nbt:G742
+level_seed 872734154992
+mobspawn G743 minecraft:donkey -26.5 -60 -15.5 reason=natural group=g_donkey
+dump mob:G743 nbt:G743
+level_seed 875388590753
+mobspawn G744 minecraft:donkey -25.5 -60 -15.5 reason=natural group=g_donkey
+dump mob:G744 nbt:G744
+level_seed 878043026514
+mobspawn G745 minecraft:donkey -24.5 -60 -15.5 reason=natural group=g_donkey
+dump mob:G745 nbt:G745
+level_seed 880697462275
+mobspawn G746 minecraft:donkey -23.5 -60 -15.5 reason=natural group=g_donkey
+dump mob:G746 nbt:G746
+level_seed 883351898036
+mobspawn G747 minecraft:donkey -22.5 -60 -15.5 reason=natural group=g_donkey
+dump mob:G747 nbt:G747
+level_seed 886006333797
+mobspawn G748 minecraft:llama -21.5 -60 -15.5 reason=natural group=g_llama
+dump mob:G748 nbt:G748
+level_seed 888660769558
+mobspawn G749 minecraft:llama -20.5 -60 -15.5 reason=natural group=g_llama
+dump mob:G749 nbt:G749
+level_seed 891315205319
+mobspawn G750 minecraft:llama -19.5 -60 -15.5 reason=natural group=g_llama
+dump mob:G750 nbt:G750
+level_seed 893969641080
+mobspawn G751 minecraft:llama -18.5 -60 -15.5 reason=natural group=g_llama
+dump mob:G751 nbt:G751
+level_seed 896624076841
+mobspawn G752 minecraft:llama -17.5 -60 -15.5 reason=natural group=g_llama
+dump mob:G752 nbt:G752
+level_seed 899278512602
+mobspawn G753 minecraft:llama -16.5 -60 -15.5 reason=natural group=g_llama
+dump mob:G753 nbt:G753
+level_seed 901932948363
+mobspawn G754 minecraft:wolf -15.5 -60 -15.5 reason=natural group=g_wolf
+dump mob:G754 nbt:G754
+level_seed 904587384124
+mobspawn G755 minecraft:wolf -14.5 -60 -15.5 reason=natural group=g_wolf
+dump mob:G755 nbt:G755
+level_seed 907241819885
+mobspawn G756 minecraft:wolf -13.5 -60 -15.5 reason=natural group=g_wolf
+dump mob:G756 nbt:G756
+level_seed 909896255646
+mobspawn G757 minecraft:wolf -12.5 -60 -15.5 reason=natural group=g_wolf
+dump mob:G757 nbt:G757
+level_seed 912550691407
+mobspawn G758 minecraft:wolf -11.5 -60 -15.5 reason=natural group=g_wolf
+dump mob:G758 nbt:G758
+level_seed 915205127168
+mobspawn G759 minecraft:wolf -10.5 -60 -15.5 reason=natural group=g_wolf
+dump mob:G759 nbt:G759
+level_seed 917859562929
+mobspawn G760 minecraft:cat -9.5 -60 -15.5 reason=natural group=g_cat
+dump mob:G760 nbt:G760
+level_seed 920513998690
+mobspawn G761 minecraft:cat -8.5 -60 -15.5 reason=natural group=g_cat
+dump mob:G761 nbt:G761
+level_seed 923168434451
+mobspawn G762 minecraft:cat -7.5 -60 -15.5 reason=natural group=g_cat
+dump mob:G762 nbt:G762
+level_seed 925822870212
+mobspawn G763 minecraft:cat -6.5 -60 -15.5 reason=natural group=g_cat
+dump mob:G763 nbt:G763
+level_seed 928477305973
+mobspawn G764 minecraft:cat -5.5 -60 -15.5 reason=natural group=g_cat
+dump mob:G764 nbt:G764
+level_seed 931131741734
+mobspawn G765 minecraft:cat -4.5 -60 -15.5 reason=natural group=g_cat
+dump mob:G765 nbt:G765
+level_seed 933786177495
+mobspawn G766 minecraft:fox -3.5 -60 -15.5 reason=natural group=g_fox
+dump mob:G766 nbt:G766
+level_seed 936440613256
+mobspawn G767 minecraft:fox -2.5 -60 -15.5 reason=natural group=g_fox
+dump mob:G767 nbt:G767
+level_seed 939095049017
+mobspawn G768 minecraft:fox -1.5 -60 -15.5 reason=natural group=g_fox
+dump mob:G768 nbt:G768
+level_seed 941749484778
+mobspawn G769 minecraft:fox 0.5 -60 -15.5 reason=natural group=g_fox
+dump mob:G769 nbt:G769
+level_seed 944403920539
+mobspawn G770 minecraft:fox 1.5 -60 -15.5 reason=natural group=g_fox
+dump mob:G770 nbt:G770
+level_seed 947058356300
+mobspawn G771 minecraft:fox 2.5 -60 -15.5 reason=natural group=g_fox
+dump mob:G771 nbt:G771
+level_seed 949712792061
+mobspawn G772 minecraft:panda 3.5 -60 -15.5 reason=natural group=g_panda
+dump mob:G772 nbt:G772
+level_seed 952367227822
+mobspawn G773 minecraft:panda 4.5 -60 -15.5 reason=natural group=g_panda
+dump mob:G773 nbt:G773
+level_seed 955021663583
+mobspawn G774 minecraft:panda 5.5 -60 -15.5 reason=natural group=g_panda
+dump mob:G774 nbt:G774
+level_seed 957676099344
+mobspawn G775 minecraft:panda 6.5 -60 -15.5 reason=natural group=g_panda
+dump mob:G775 nbt:G775
+level_seed 960330535105
+mobspawn G776 minecraft:panda 7.5 -60 -15.5 reason=natural group=g_panda
+dump mob:G776 nbt:G776
+level_seed 962984970866
+mobspawn G777 minecraft:panda 8.5 -60 -15.5 reason=natural group=g_panda
+dump mob:G777 nbt:G777
+level_seed 965639406627
+mobspawn G778 minecraft:zombie 9.5 -60 -15.5 reason=natural group=g_zombie
+dump mob:G778 nbt:G778
+level_seed 968293842388
+mobspawn G779 minecraft:zombie 10.5 -60 -15.5 reason=natural group=g_zombie
+dump mob:G779 nbt:G779
+level_seed 970948278149
+mobspawn G780 minecraft:zombie 11.5 -60 -15.5 reason=natural group=g_zombie
+dump mob:G780 nbt:G780
+level_seed 973602713910
+mobspawn G781 minecraft:zombie 12.5 -60 -15.5 reason=natural group=g_zombie
+dump mob:G781 nbt:G781
+level_seed 976257149671
+mobspawn G782 minecraft:zombie 13.5 -60 -15.5 reason=natural group=g_zombie
+dump mob:G782 nbt:G782
+level_seed 978911585432
+mobspawn G783 minecraft:zombie 14.5 -60 -15.5 reason=natural group=g_zombie
+dump mob:G783 nbt:G783
+level_seed 981566021193
+mobspawn G784 minecraft:husk 15.5 -60 -15.5 reason=natural group=g_husk
+dump mob:G784 nbt:G784
+level_seed 984220456954
+mobspawn G785 minecraft:husk 16.5 -60 -15.5 reason=natural group=g_husk
+dump mob:G785 nbt:G785
+level_seed 986874892715
+mobspawn G786 minecraft:husk 17.5 -60 -15.5 reason=natural group=g_husk
+dump mob:G786 nbt:G786
+level_seed 989529328476
+mobspawn G787 minecraft:husk 18.5 -60 -15.5 reason=natural group=g_husk
+dump mob:G787 nbt:G787
+level_seed 992183764237
+mobspawn G788 minecraft:husk 19.5 -60 -15.5 reason=natural group=g_husk
+dump mob:G788 nbt:G788
+level_seed 994838199998
+mobspawn G789 minecraft:husk 20.5 -60 -15.5 reason=natural group=g_husk
+dump mob:G789 nbt:G789
+level_seed 997492635759
+mobspawn G790 minecraft:drowned 21.5 -60 -15.5 reason=natural group=g_drowned
+dump mob:G790 nbt:G790
+level_seed 1000147071520
+mobspawn G791 minecraft:drowned 22.5 -60 -15.5 reason=natural group=g_drowned
+dump mob:G791 nbt:G791
+level_seed 1002801507281
+mobspawn G792 minecraft:drowned 23.5 -60 -15.5 reason=natural group=g_drowned
+dump mob:G792 nbt:G792
+level_seed 1005455943042
+mobspawn G793 minecraft:drowned 24.5 -60 -15.5 reason=natural group=g_drowned
+dump mob:G793 nbt:G793
+level_seed 1008110378803
+mobspawn G794 minecraft:drowned 25.5 -60 -15.5 reason=natural group=g_drowned
+dump mob:G794 nbt:G794
+level_seed 1010764814564
+mobspawn G795 minecraft:drowned 26.5 -60 -15.5 reason=natural group=g_drowned
+dump mob:G795 nbt:G795
+level_seed 1013419250325
+mobspawn G796 minecraft:spider 27.5 -60 -15.5 reason=natural group=g_spider
+dump mob:G796 nbt:G796
+level_seed 1016073686086
+mobspawn G797 minecraft:spider 28.5 -60 -15.5 reason=natural group=g_spider
+dump mob:G797 nbt:G797
+level_seed 1018728121847
+mobspawn G798 minecraft:spider -28.5 -60 -14.5 reason=natural group=g_spider
+dump mob:G798 nbt:G798
+level_seed 1021382557608
+mobspawn G799 minecraft:spider -27.5 -60 -14.5 reason=natural group=g_spider
+dump mob:G799 nbt:G799
+level_seed 1024036993369
+mobspawn G800 minecraft:spider -26.5 -60 -14.5 reason=natural group=g_spider
+dump mob:G800 nbt:G800
+level_seed 1026691429130
+mobspawn G801 minecraft:spider -25.5 -60 -14.5 reason=natural group=g_spider
+dump mob:G801 nbt:G801
+level_seed 1029345864891
+mobspawn G802 minecraft:skeleton -24.5 -60 -14.5 reason=natural group=g_skeleton
+dump mob:G802 nbt:G802
+level_seed 1032000300652
+mobspawn G803 minecraft:skeleton -23.5 -60 -14.5 reason=natural group=g_skeleton
+dump mob:G803 nbt:G803
+level_seed 1034654736413
+mobspawn G804 minecraft:skeleton -22.5 -60 -14.5 reason=natural group=g_skeleton
+dump mob:G804 nbt:G804
+level_seed 1037309172174
+mobspawn G805 minecraft:skeleton -21.5 -60 -14.5 reason=natural group=g_skeleton
+dump mob:G805 nbt:G805
+level_seed 1039963607935
+mobspawn G806 minecraft:skeleton -20.5 -60 -14.5 reason=natural group=g_skeleton
+dump mob:G806 nbt:G806
+level_seed 1042618043696
+mobspawn G807 minecraft:skeleton -19.5 -60 -14.5 reason=natural group=g_skeleton
+dump mob:G807 nbt:G807
+level_seed 1045272479457
+mobspawn G808 minecraft:turtle -18.5 -60 -14.5 reason=natural group=g_turtle
+dump mob:G808 nbt:G808
+level_seed 1047926915218
+mobspawn G809 minecraft:turtle -17.5 -60 -14.5 reason=natural group=g_turtle
+dump mob:G809 nbt:G809
+level_seed 1050581350979
+mobspawn G810 minecraft:turtle -16.5 -60 -14.5 reason=natural group=g_turtle
+dump mob:G810 nbt:G810
+level_seed 1053235786740
+mobspawn G811 minecraft:turtle -15.5 -60 -14.5 reason=natural group=g_turtle
+dump mob:G811 nbt:G811
+level_seed 1055890222501
+mobspawn G812 minecraft:turtle -14.5 -60 -14.5 reason=natural group=g_turtle
+dump mob:G812 nbt:G812
+level_seed 1058544658262
+mobspawn G813 minecraft:turtle -13.5 -60 -14.5 reason=natural group=g_turtle
+dump mob:G813 nbt:G813
+level_seed 1061199094023
+mobspawn G814 minecraft:axolotl -12.5 -60 -14.5 reason=natural group=g_axolotl
+dump mob:G814 nbt:G814
+level_seed 1063853529784
+mobspawn G815 minecraft:axolotl -11.5 -60 -14.5 reason=natural group=g_axolotl
+dump mob:G815 nbt:G815
+level_seed 1066507965545
+mobspawn G816 minecraft:axolotl -10.5 -60 -14.5 reason=natural group=g_axolotl
+dump mob:G816 nbt:G816
+level_seed 1069162401306
+mobspawn G817 minecraft:axolotl -9.5 -60 -14.5 reason=natural group=g_axolotl
+dump mob:G817 nbt:G817
+level_seed 1071816837067
+mobspawn G818 minecraft:axolotl -8.5 -60 -14.5 reason=natural group=g_axolotl
+dump mob:G818 nbt:G818
+level_seed 1074471272828
+mobspawn G819 minecraft:axolotl -7.5 -60 -14.5 reason=natural group=g_axolotl
+dump mob:G819 nbt:G819
+level_seed 1077125708589
+mobspawn G820 minecraft:cod -6.5 -60 -14.5 reason=natural group=g_cod
+dump mob:G820 nbt:G820
+level_seed 1079780144350
+mobspawn G821 minecraft:cod -5.5 -60 -14.5 reason=natural group=g_cod
+dump mob:G821 nbt:G821
+level_seed 1082434580111
+mobspawn G822 minecraft:cod -4.5 -60 -14.5 reason=natural group=g_cod
+dump mob:G822 nbt:G822
+level_seed 1085089015872
+mobspawn G823 minecraft:cod -3.5 -60 -14.5 reason=natural group=g_cod
+dump mob:G823 nbt:G823
+level_seed 1087743451633
+mobspawn G824 minecraft:cod -2.5 -60 -14.5 reason=natural group=g_cod
+dump mob:G824 nbt:G824
+level_seed 1090397887394
+mobspawn G825 minecraft:cod -1.5 -60 -14.5 reason=natural group=g_cod
+dump mob:G825 nbt:G825
+level_seed 1093052323155
+mobspawn G826 minecraft:salmon 0.5 -60 -14.5 reason=natural group=g_salmon
+dump mob:G826 nbt:G826
+level_seed 1095706758916
+mobspawn G827 minecraft:salmon 1.5 -60 -14.5 reason=natural group=g_salmon
+dump mob:G827 nbt:G827
+level_seed 1098361194677
+mobspawn G828 minecraft:salmon 2.5 -60 -14.5 reason=natural group=g_salmon
+dump mob:G828 nbt:G828
+level_seed 1504002662
+mobspawn G829 minecraft:salmon 3.5 -60 -14.5 reason=natural group=g_salmon
+dump mob:G829 nbt:G829
+level_seed 4158438423
+mobspawn G830 minecraft:salmon 4.5 -60 -14.5 reason=natural group=g_salmon
+dump mob:G830 nbt:G830
+level_seed 6812874184
+mobspawn G831 minecraft:salmon 5.5 -60 -14.5 reason=natural group=g_salmon
+dump mob:G831 nbt:G831
+level_seed 9467309945
+mobspawn G832 minecraft:tropical_fish 6.5 -60 -14.5 reason=natural group=g_tropical_fish
+dump mob:G832 nbt:G832
+level_seed 12121745706
+mobspawn G833 minecraft:tropical_fish 7.5 -60 -14.5 reason=natural group=g_tropical_fish
+dump mob:G833 nbt:G833
+level_seed 14776181467
+mobspawn G834 minecraft:tropical_fish 8.5 -60 -14.5 reason=natural group=g_tropical_fish
+dump mob:G834 nbt:G834
+level_seed 17430617228
+mobspawn G835 minecraft:tropical_fish 9.5 -60 -14.5 reason=natural group=g_tropical_fish
+dump mob:G835 nbt:G835
+level_seed 20085052989
+mobspawn G836 minecraft:tropical_fish 10.5 -60 -14.5 reason=natural group=g_tropical_fish
+dump mob:G836 nbt:G836
+level_seed 22739488750
+mobspawn G837 minecraft:tropical_fish 11.5 -60 -14.5 reason=natural group=g_tropical_fish
+dump mob:G837 nbt:G837
+level_seed 25393924511
+mobspawn G838 minecraft:polar_bear 12.5 -60 -14.5 reason=natural group=g_polar_bear
+dump mob:G838 nbt:G838
+level_seed 28048360272
+mobspawn G839 minecraft:polar_bear 13.5 -60 -14.5 reason=natural group=g_polar_bear
+dump mob:G839 nbt:G839
+level_seed 30702796033
+mobspawn G840 minecraft:polar_bear 14.5 -60 -14.5 reason=natural group=g_polar_bear
+dump mob:G840 nbt:G840
+level_seed 33357231794
+mobspawn G841 minecraft:polar_bear 15.5 -60 -14.5 reason=natural group=g_polar_bear
+dump mob:G841 nbt:G841
+level_seed 36011667555
+mobspawn G842 minecraft:polar_bear 16.5 -60 -14.5 reason=natural group=g_polar_bear
+dump mob:G842 nbt:G842
+level_seed 38666103316
+mobspawn G843 minecraft:polar_bear 17.5 -60 -14.5 reason=natural group=g_polar_bear
+dump mob:G843 nbt:G843
+level_seed 41320539077
+mobspawn G844 minecraft:bee 18.5 -60 -14.5 reason=natural group=g_bee
+dump mob:G844 nbt:G844
+level_seed 43974974838
+mobspawn G845 minecraft:bee 19.5 -60 -14.5 reason=natural group=g_bee
+dump mob:G845 nbt:G845
+level_seed 46629410599
+mobspawn G846 minecraft:bee 20.5 -60 -14.5 reason=natural group=g_bee
+dump mob:G846 nbt:G846
+level_seed 49283846360
+mobspawn G847 minecraft:bee 21.5 -60 -14.5 reason=natural group=g_bee
+dump mob:G847 nbt:G847
+level_seed 51938282121
+mobspawn G848 minecraft:bee 22.5 -60 -14.5 reason=natural group=g_bee
+dump mob:G848 nbt:G848
+level_seed 54592717882
+mobspawn G849 minecraft:bee 23.5 -60 -14.5 reason=natural group=g_bee
+dump mob:G849 nbt:G849
+level_seed 57247153643
+mobspawn G850 minecraft:frog 24.5 -60 -14.5 reason=natural group=g_frog
+dump mob:G850 nbt:G850
+level_seed 59901589404
+mobspawn G851 minecraft:frog 25.5 -60 -14.5 reason=natural group=g_frog
+dump mob:G851 nbt:G851
+level_seed 62556025165
+mobspawn G852 minecraft:frog 26.5 -60 -14.5 reason=natural group=g_frog
+dump mob:G852 nbt:G852
+level_seed 65210460926
+mobspawn G853 minecraft:frog 27.5 -60 -14.5 reason=natural group=g_frog
+dump mob:G853 nbt:G853
+level_seed 67864896687
+mobspawn G854 minecraft:frog 28.5 -60 -14.5 reason=natural group=g_frog
+dump mob:G854 nbt:G854
+level_seed 70519332448
+mobspawn G855 minecraft:frog -28.5 -60 -13.5 reason=natural group=g_frog
+dump mob:G855 nbt:G855
+level_seed 73173768209
+mobspawn G856 minecraft:ocelot -27.5 -60 -13.5 reason=natural group=g_ocelot
+dump mob:G856 nbt:G856
+level_seed 75828203970
+mobspawn G857 minecraft:ocelot -26.5 -60 -13.5 reason=natural group=g_ocelot
+dump mob:G857 nbt:G857
+level_seed 78482639731
+mobspawn G858 minecraft:ocelot -25.5 -60 -13.5 reason=natural group=g_ocelot
+dump mob:G858 nbt:G858
+level_seed 81137075492
+mobspawn G859 minecraft:ocelot -24.5 -60 -13.5 reason=natural group=g_ocelot
+dump mob:G859 nbt:G859
+level_seed 83791511253
+mobspawn G860 minecraft:ocelot -23.5 -60 -13.5 reason=natural group=g_ocelot
+dump mob:G860 nbt:G860
+level_seed 86445947014
+mobspawn G861 minecraft:ocelot -22.5 -60 -13.5 reason=natural group=g_ocelot
+dump mob:G861 nbt:G861
+level_seed 89100382775
+mobspawn G862 minecraft:goat -21.5 -60 -13.5 reason=natural group=g_goat
+dump mob:G862 nbt:G862
+level_seed 91754818536
+mobspawn G863 minecraft:goat -20.5 -60 -13.5 reason=natural group=g_goat
+dump mob:G863 nbt:G863
+level_seed 94409254297
+mobspawn G864 minecraft:goat -19.5 -60 -13.5 reason=natural group=g_goat
+dump mob:G864 nbt:G864
+level_seed 97063690058
+mobspawn G865 minecraft:goat -18.5 -60 -13.5 reason=natural group=g_goat
+dump mob:G865 nbt:G865
+level_seed 99718125819
+mobspawn G866 minecraft:goat -17.5 -60 -13.5 reason=natural group=g_goat
+dump mob:G866 nbt:G866
+level_seed 102372561580
+mobspawn G867 minecraft:goat -16.5 -60 -13.5 reason=natural group=g_goat
+dump mob:G867 nbt:G867
+level_seed 105026997341
+mobspawn G868 minecraft:camel -15.5 -60 -13.5 reason=natural group=g_camel
+dump mob:G868 nbt:G868
+level_seed 107681433102
+mobspawn G869 minecraft:camel -14.5 -60 -13.5 reason=natural group=g_camel
+dump mob:G869 nbt:G869
+level_seed 110335868863
+mobspawn G870 minecraft:camel -13.5 -60 -13.5 reason=natural group=g_camel
+dump mob:G870 nbt:G870
+level_seed 112990304624
+mobspawn G871 minecraft:camel -12.5 -60 -13.5 reason=natural group=g_camel
+dump mob:G871 nbt:G871
+level_seed 115644740385
+mobspawn G872 minecraft:camel -11.5 -60 -13.5 reason=natural group=g_camel
+dump mob:G872 nbt:G872
+level_seed 118299176146
+mobspawn G873 minecraft:camel -10.5 -60 -13.5 reason=natural group=g_camel
+dump mob:G873 nbt:G873
+level_seed 120953611907
+mobspawn G874 minecraft:hoglin -9.5 -60 -13.5 reason=natural group=g_hoglin
+dump mob:G874 nbt:G874
+level_seed 123608047668
+mobspawn G875 minecraft:hoglin -8.5 -60 -13.5 reason=natural group=g_hoglin
+dump mob:G875 nbt:G875
+level_seed 126262483429
+mobspawn G876 minecraft:hoglin -7.5 -60 -13.5 reason=natural group=g_hoglin
+dump mob:G876 nbt:G876
+level_seed 128916919190
+mobspawn G877 minecraft:hoglin -6.5 -60 -13.5 reason=natural group=g_hoglin
+dump mob:G877 nbt:G877
+level_seed 131571354951
+mobspawn G878 minecraft:hoglin -5.5 -60 -13.5 reason=natural group=g_hoglin
+dump mob:G878 nbt:G878
+level_seed 134225790712
+mobspawn G879 minecraft:hoglin -4.5 -60 -13.5 reason=natural group=g_hoglin
+dump mob:G879 nbt:G879
+level_seed 136880226473
+mobspawn G880 minecraft:strider -3.5 -60 -13.5 reason=natural group=g_strider
+dump mob:G880 nbt:G880
+level_seed 139534662234
+mobspawn G881 minecraft:strider -2.5 -60 -13.5 reason=natural group=g_strider
+dump mob:G881 nbt:G881
+level_seed 142189097995
+mobspawn G882 minecraft:strider -1.5 -60 -13.5 reason=natural group=g_strider
+dump mob:G882 nbt:G882
+level_seed 144843533756
+mobspawn G883 minecraft:strider 0.5 -60 -13.5 reason=natural group=g_strider
+dump mob:G883 nbt:G883
+level_seed 147497969517
+mobspawn G884 minecraft:strider 1.5 -60 -13.5 reason=natural group=g_strider
+dump mob:G884 nbt:G884
+level_seed 150152405278
+mobspawn G885 minecraft:strider 2.5 -60 -13.5 reason=natural group=g_strider
+dump mob:G885 nbt:G885

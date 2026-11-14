@@ -1,0 +1,792 @@
+# Mob.finalizeSpawn through spawn eggs (reason SPAWN_ITEM_USE), mob buckets (BUCKET), the villager variant component of eggs and
+# spawners holding a bare {id} (SPAWNER). Hard difficulty, late world time, the level random seeded before every use; each block dumps
+# the rich E line and the saved NBT of the spawned mob.
+command_env
+level flat
+difficulty hard
+time 3000000
+preload 3
+tick 1
+entity_counter 400
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 2
+dump packets:A:none
+note a spawn egg of every type
+block -28 -60 -28 minecraft:stone
+snap A -28.5 -60 -26.5 0 0
+give A mainhand minecraft:zombie_spawn_egg 1
+level_seed 12345
+use_on A -28 -60 -28 up main
+dump mob:zombie#1 nbt:zombie#1
+block -27 -60 -28 minecraft:stone
+snap A -27.5 -60 -26.5 0 0
+give A mainhand minecraft:husk_spawn_egg 1
+level_seed 2654448106
+use_on A -27 -60 -28 up main
+dump mob:husk#1 nbt:husk#1
+block -26 -60 -28 minecraft:stone
+snap A -26.5 -60 -26.5 0 0
+give A mainhand minecraft:drowned_spawn_egg 1
+level_seed 5308883867
+use_on A -26 -60 -28 up main
+dump mob:drowned#1 nbt:drowned#1
+block -25 -60 -28 minecraft:stone
+snap A -25.5 -60 -26.5 0 0
+give A mainhand minecraft:zombie_villager_spawn_egg 1
+level_seed 7963319628
+use_on A -25 -60 -28 up main
+dump mob:zombie_villager#1 nbt:zombie_villager#1
+block -24 -60 -28 minecraft:stone
+snap A -24.5 -60 -26.5 0 0
+give A mainhand minecraft:skeleton_spawn_egg 1
+level_seed 10617755389
+use_on A -24 -60 -28 up main
+dump mob:skeleton#1 nbt:skeleton#1
+block -23 -60 -28 minecraft:stone
+snap A -23.5 -60 -26.5 0 0
+give A mainhand minecraft:stray_spawn_egg 1
+level_seed 13272191150
+use_on A -23 -60 -28 up main
+dump mob:stray#1 nbt:stray#1
+block -22 -60 -28 minecraft:stone
+snap A -22.5 -60 -26.5 0 0
+give A mainhand minecraft:bogged_spawn_egg 1
+level_seed 15926626911
+use_on A -22 -60 -28 up main
+dump mob:bogged#1 nbt:bogged#1
+block -21 -60 -28 minecraft:stone
+snap A -21.5 -60 -26.5 0 0
+give A mainhand minecraft:wither_skeleton_spawn_egg 1
+level_seed 18581062672
+use_on A -21 -60 -28 up main
+dump mob:wither_skeleton#1 nbt:wither_skeleton#1
+block -20 -60 -28 minecraft:stone
+snap A -20.5 -60 -26.5 0 0
+give A mainhand minecraft:piglin_spawn_egg 1
+level_seed 21235498433
+use_on A -20 -60 -28 up main
+dump mob:piglin#1 nbt:piglin#1
+block -19 -60 -28 minecraft:stone
+snap A -19.5 -60 -26.5 0 0
+give A mainhand minecraft:piglin_brute_spawn_egg 1
+level_seed 23889934194
+use_on A -19 -60 -28 up main
+dump mob:piglin_brute#1 nbt:piglin_brute#1
+block -18 -60 -28 minecraft:stone
+snap A -18.5 -60 -26.5 0 0
+give A mainhand minecraft:zombified_piglin_spawn_egg 1
+level_seed 26544369955
+use_on A -18 -60 -28 up main
+dump mob:zombified_piglin#1 nbt:zombified_piglin#1
+block -17 -60 -28 minecraft:stone
+snap A -17.5 -60 -26.5 0 0
+give A mainhand minecraft:pillager_spawn_egg 1
+level_seed 29198805716
+use_on A -17 -60 -28 up main
+dump mob:pillager#1 nbt:pillager#1
+block -16 -60 -28 minecraft:stone
+snap A -16.5 -60 -26.5 0 0
+give A mainhand minecraft:vindicator_spawn_egg 1
+level_seed 31853241477
+use_on A -16 -60 -28 up main
+dump mob:vindicator#1 nbt:vindicator#1
+block -15 -60 -28 minecraft:stone
+snap A -15.5 -60 -26.5 0 0
+give A mainhand minecraft:evoker_spawn_egg 1
+level_seed 34507677238
+use_on A -15 -60 -28 up main
+dump mob:evoker#1 nbt:evoker#1
+block -14 -60 -28 minecraft:stone
+snap A -14.5 -60 -26.5 0 0
+give A mainhand minecraft:vex_spawn_egg 1
+level_seed 37162112999
+use_on A -14 -60 -28 up main
+dump mob:vex#1 nbt:vex#1
+block -13 -60 -28 minecraft:stone
+snap A -13.5 -60 -26.5 0 0
+give A mainhand minecraft:witch_spawn_egg 1
+level_seed 39816548760
+use_on A -13 -60 -28 up main
+dump mob:witch#1 nbt:witch#1
+block -12 -60 -28 minecraft:stone
+snap A -12.5 -60 -26.5 0 0
+give A mainhand minecraft:spider_spawn_egg 1
+level_seed 42470984521
+use_on A -12 -60 -28 up main
+dump mob:spider#1 nbt:spider#1
+block -11 -60 -28 minecraft:stone
+snap A -11.5 -60 -26.5 0 0
+give A mainhand minecraft:cave_spider_spawn_egg 1
+level_seed 45125420282
+use_on A -11 -60 -28 up main
+dump mob:cave_spider#1 nbt:cave_spider#1
+block -10 -60 -28 minecraft:stone
+snap A -10.5 -60 -26.5 0 0
+give A mainhand minecraft:creeper_spawn_egg 1
+level_seed 47779856043
+use_on A -10 -60 -28 up main
+dump mob:creeper#1 nbt:creeper#1
+block -9 -60 -28 minecraft:stone
+snap A -9.5 -60 -26.5 0 0
+give A mainhand minecraft:slime_spawn_egg 1
+level_seed 50434291804
+use_on A -9 -60 -28 up main
+dump mob:slime#1 nbt:slime#1
+block -8 -60 -28 minecraft:stone
+snap A -8.5 -60 -26.5 0 0
+give A mainhand minecraft:magma_cube_spawn_egg 1
+level_seed 53088727565
+use_on A -8 -60 -28 up main
+dump mob:magma_cube#1 nbt:magma_cube#1
+block -7 -60 -28 minecraft:stone
+snap A -7.5 -60 -26.5 0 0
+give A mainhand minecraft:enderman_spawn_egg 1
+level_seed 55743163326
+use_on A -7 -60 -28 up main
+dump mob:enderman#1 nbt:enderman#1
+block -6 -60 -28 minecraft:stone
+snap A -6.5 -60 -26.5 0 0
+give A mainhand minecraft:silverfish_spawn_egg 1
+level_seed 58397599087
+use_on A -6 -60 -28 up main
+dump mob:silverfish#1 nbt:silverfish#1
+block -5 -60 -28 minecraft:stone
+snap A -5.5 -60 -26.5 0 0
+give A mainhand minecraft:blaze_spawn_egg 1
+level_seed 61052034848
+use_on A -5 -60 -28 up main
+dump mob:blaze#1 nbt:blaze#1
+block -4 -60 -28 minecraft:stone
+snap A -4.5 -60 -26.5 0 0
+give A mainhand minecraft:ghast_spawn_egg 1
+level_seed 63706470609
+use_on A -4 -60 -28 up main
+dump mob:ghast#1 nbt:ghast#1
+block -3 -60 -28 minecraft:stone
+snap A -3.5 -60 -26.5 0 0
+give A mainhand minecraft:phantom_spawn_egg 1
+level_seed 66360906370
+use_on A -3 -60 -28 up main
+dump mob:phantom#1 nbt:phantom#1
+block -2 -60 -28 minecraft:stone
+snap A -2.5 -60 -26.5 0 0
+give A mainhand minecraft:sheep_spawn_egg 1
+level_seed 69015342131
+use_on A -2 -60 -28 up main
+dump mob:sheep#1 nbt:sheep#1
+block -1 -60 -28 minecraft:stone
+snap A -1.5 -60 -26.5 0 0
+give A mainhand minecraft:pig_spawn_egg 1
+level_seed 71669777892
+use_on A -1 -60 -28 up main
+dump mob:pig#1 nbt:pig#1
+block 0 -60 -28 minecraft:stone
+snap A 0.5 -60 -26.5 0 0
+give A mainhand minecraft:cow_spawn_egg 1
+level_seed 74324213653
+use_on A 0 -60 -28 up main
+dump mob:cow#1 nbt:cow#1
+block 1 -60 -28 minecraft:stone
+snap A 1.5 -60 -26.5 0 0
+give A mainhand minecraft:chicken_spawn_egg 1
+level_seed 76978649414
+use_on A 1 -60 -28 up main
+dump mob:chicken#1 nbt:chicken#1
+block 2 -60 -28 minecraft:stone
+snap A 2.5 -60 -26.5 0 0
+give A mainhand minecraft:rabbit_spawn_egg 1
+level_seed 79633085175
+use_on A 2 -60 -28 up main
+dump mob:rabbit#1 nbt:rabbit#1
+block 3 -60 -28 minecraft:stone
+snap A 3.5 -60 -26.5 0 0
+give A mainhand minecraft:horse_spawn_egg 1
+level_seed 82287520936
+use_on A 3 -60 -28 up main
+dump mob:horse#1 nbt:horse#1
+block 4 -60 -28 minecraft:stone
+snap A 4.5 -60 -26.5 0 0
+give A mainhand minecraft:donkey_spawn_egg 1
+level_seed 84941956697
+use_on A 4 -60 -28 up main
+dump mob:donkey#1 nbt:donkey#1
+block 5 -60 -28 minecraft:stone
+snap A 5.5 -60 -26.5 0 0
+give A mainhand minecraft:mule_spawn_egg 1
+level_seed 87596392458
+use_on A 5 -60 -28 up main
+dump mob:mule#1 nbt:mule#1
+block 6 -60 -28 minecraft:stone
+snap A 6.5 -60 -26.5 0 0
+give A mainhand minecraft:llama_spawn_egg 1
+level_seed 90250828219
+use_on A 6 -60 -28 up main
+dump mob:llama#1 nbt:llama#1
+block 7 -60 -28 minecraft:stone
+snap A 7.5 -60 -26.5 0 0
+give A mainhand minecraft:wolf_spawn_egg 1
+level_seed 92905263980
+use_on A 7 -60 -28 up main
+dump mob:wolf#1 nbt:wolf#1
+block 8 -60 -28 minecraft:stone
+snap A 8.5 -60 -26.5 0 0
+give A mainhand minecraft:cat_spawn_egg 1
+level_seed 95559699741
+use_on A 8 -60 -28 up main
+dump mob:cat#1 nbt:cat#1
+block 9 -60 -28 minecraft:stone
+snap A 9.5 -60 -26.5 0 0
+give A mainhand minecraft:fox_spawn_egg 1
+level_seed 98214135502
+use_on A 9 -60 -28 up main
+dump mob:fox#1 nbt:fox#1
+block 10 -60 -28 minecraft:stone
+snap A 10.5 -60 -26.5 0 0
+give A mainhand minecraft:panda_spawn_egg 1
+level_seed 100868571263
+use_on A 10 -60 -28 up main
+dump mob:panda#1 nbt:panda#1
+block 11 -60 -28 minecraft:stone
+snap A 11.5 -60 -26.5 0 0
+give A mainhand minecraft:villager_spawn_egg 1
+level_seed 103523007024
+use_on A 11 -60 -28 up main
+dump mob:villager#1 nbt:villager#1
+block 12 -60 -28 minecraft:stone
+snap A 12.5 -60 -26.5 0 0
+give A mainhand minecraft:turtle_spawn_egg 1
+level_seed 106177442785
+use_on A 12 -60 -28 up main
+dump mob:turtle#1 nbt:turtle#1
+block 13 -60 -28 minecraft:stone
+snap A 13.5 -60 -26.5 0 0
+give A mainhand minecraft:frog_spawn_egg 1
+level_seed 108831878546
+use_on A 13 -60 -28 up main
+dump mob:frog#1 nbt:frog#1
+block 14 -60 -28 minecraft:stone
+snap A 14.5 -60 -26.5 0 0
+give A mainhand minecraft:axolotl_spawn_egg 1
+level_seed 111486314307
+use_on A 14 -60 -28 up main
+dump mob:axolotl#1 nbt:axolotl#1
+block 15 -60 -28 minecraft:stone
+snap A 15.5 -60 -26.5 0 0
+give A mainhand minecraft:goat_spawn_egg 1
+level_seed 114140750068
+use_on A 15 -60 -28 up main
+dump mob:goat#1 nbt:goat#1
+block 16 -60 -28 minecraft:stone
+snap A 16.5 -60 -26.5 0 0
+give A mainhand minecraft:bee_spawn_egg 1
+level_seed 116795185829
+use_on A 16 -60 -28 up main
+dump mob:bee#1 nbt:bee#1
+block 17 -60 -28 minecraft:stone
+snap A 17.5 -60 -26.5 0 0
+give A mainhand minecraft:parrot_spawn_egg 1
+level_seed 119449621590
+use_on A 17 -60 -28 up main
+dump mob:parrot#1 nbt:parrot#1
+block 18 -60 -28 minecraft:stone
+snap A 18.5 -60 -26.5 0 0
+give A mainhand minecraft:ocelot_spawn_egg 1
+level_seed 122104057351
+use_on A 18 -60 -28 up main
+dump mob:ocelot#1 nbt:ocelot#1
+block 19 -60 -28 minecraft:stone
+snap A 19.5 -60 -26.5 0 0
+give A mainhand minecraft:polar_bear_spawn_egg 1
+level_seed 124758493112
+use_on A 19 -60 -28 up main
+dump mob:polar_bear#1 nbt:polar_bear#1
+block 20 -60 -28 minecraft:stone
+snap A 20.5 -60 -26.5 0 0
+give A mainhand minecraft:camel_spawn_egg 1
+level_seed 127412928873
+use_on A 20 -60 -28 up main
+dump mob:camel#1 nbt:camel#1
+block 21 -60 -28 minecraft:stone
+snap A 21.5 -60 -26.5 0 0
+give A mainhand minecraft:sniffer_spawn_egg 1
+level_seed 130067364634
+use_on A 21 -60 -28 up main
+dump mob:sniffer#1 nbt:sniffer#1
+block 22 -60 -28 minecraft:stone
+snap A 22.5 -60 -26.5 0 0
+give A mainhand minecraft:strider_spawn_egg 1
+level_seed 132721800395
+use_on A 22 -60 -28 up main
+dump mob:strider#1 nbt:strider#1
+block 23 -60 -28 minecraft:stone
+snap A 23.5 -60 -26.5 0 0
+give A mainhand minecraft:hoglin_spawn_egg 1
+level_seed 135376236156
+use_on A 23 -60 -28 up main
+dump mob:hoglin#1 nbt:hoglin#1
+block 24 -60 -28 minecraft:stone
+snap A 24.5 -60 -26.5 0 0
+give A mainhand minecraft:zoglin_spawn_egg 1
+level_seed 138030671917
+use_on A 24 -60 -28 up main
+dump mob:zoglin#1 nbt:zoglin#1
+block 25 -60 -28 minecraft:stone
+snap A 25.5 -60 -26.5 0 0
+give A mainhand minecraft:guardian_spawn_egg 1
+level_seed 140685107678
+use_on A 25 -60 -28 up main
+dump mob:guardian#1 nbt:guardian#1
+block 26 -60 -28 minecraft:stone
+snap A 26.5 -60 -26.5 0 0
+give A mainhand minecraft:shulker_spawn_egg 1
+level_seed 143339543439
+use_on A 26 -60 -28 up main
+dump mob:shulker#1 nbt:shulker#1
+block 27 -60 -28 minecraft:stone
+snap A 27.5 -60 -26.5 0 0
+give A mainhand minecraft:mooshroom_spawn_egg 1
+level_seed 145993979200
+use_on A 27 -60 -28 up main
+dump mob:mooshroom#1 nbt:mooshroom#1
+block 28 -60 -28 minecraft:stone
+snap A 28.5 -60 -26.5 0 0
+give A mainhand minecraft:squid_spawn_egg 1
+level_seed 148648414961
+use_on A 28 -60 -28 up main
+dump mob:squid#1 nbt:squid#1
+block -28 -60 -27 minecraft:stone
+snap A -28.5 -60 -25.5 0 0
+give A mainhand minecraft:glow_squid_spawn_egg 1
+level_seed 151302850722
+use_on A -28 -60 -27 up main
+dump mob:glow_squid#1 nbt:glow_squid#1
+block -27 -60 -27 minecraft:stone
+snap A -27.5 -60 -25.5 0 0
+give A mainhand minecraft:dolphin_spawn_egg 1
+level_seed 153957286483
+use_on A -27 -60 -27 up main
+dump mob:dolphin#1 nbt:dolphin#1
+block -26 -60 -27 minecraft:stone
+snap A -26.5 -60 -25.5 0 0
+give A mainhand minecraft:cod_spawn_egg 1
+level_seed 156611722244
+use_on A -26 -60 -27 up main
+dump mob:cod#1 nbt:cod#1
+block -25 -60 -27 minecraft:stone
+snap A -25.5 -60 -25.5 0 0
+give A mainhand minecraft:salmon_spawn_egg 1
+level_seed 159266158005
+use_on A -25 -60 -27 up main
+dump mob:salmon#1 nbt:salmon#1
+block -24 -60 -27 minecraft:stone
+snap A -24.5 -60 -25.5 0 0
+give A mainhand minecraft:pufferfish_spawn_egg 1
+level_seed 161920593766
+use_on A -24 -60 -27 up main
+dump mob:pufferfish#1 nbt:pufferfish#1
+block -23 -60 -27 minecraft:stone
+snap A -23.5 -60 -25.5 0 0
+give A mainhand minecraft:tropical_fish_spawn_egg 1
+level_seed 164575029527
+use_on A -23 -60 -27 up main
+dump mob:tropical_fish#1 nbt:tropical_fish#1
+block -22 -60 -27 minecraft:stone
+snap A -22.5 -60 -25.5 0 0
+give A mainhand minecraft:tadpole_spawn_egg 1
+level_seed 167229465288
+use_on A -22 -60 -27 up main
+dump mob:tadpole#1 nbt:tadpole#1
+block -21 -60 -27 minecraft:stone
+snap A -21.5 -60 -25.5 0 0
+give A mainhand minecraft:skeleton_horse_spawn_egg 1
+level_seed 169883901049
+use_on A -21 -60 -27 up main
+dump mob:skeleton_horse#1 nbt:skeleton_horse#1
+block -20 -60 -27 minecraft:stone
+snap A -20.5 -60 -25.5 0 0
+give A mainhand minecraft:zombie_horse_spawn_egg 1
+level_seed 172538336810
+use_on A -20 -60 -27 up main
+dump mob:zombie_horse#1 nbt:zombie_horse#1
+block -19 -60 -27 minecraft:stone
+snap A -19.5 -60 -25.5 0 0
+give A mainhand minecraft:trader_llama_spawn_egg 1
+level_seed 175192772571
+use_on A -19 -60 -27 up main
+dump mob:trader_llama#1 nbt:trader_llama#1
+block -18 -60 -27 minecraft:stone
+snap A -18.5 -60 -25.5 0 0
+give A mainhand minecraft:endermite_spawn_egg 1
+level_seed 177847208332
+use_on A -18 -60 -27 up main
+dump mob:endermite#1 nbt:endermite#1
+block -17 -60 -27 minecraft:stone
+snap A -17.5 -60 -25.5 0 0
+give A mainhand minecraft:warden_spawn_egg 1
+level_seed 180501644093
+use_on A -17 -60 -27 up main
+dump mob:warden#1 nbt:warden#1
+block -16 -60 -27 minecraft:stone
+snap A -16.5 -60 -25.5 0 0
+give A mainhand minecraft:breeze_spawn_egg 1
+level_seed 183156079854
+use_on A -16 -60 -27 up main
+dump mob:breeze#1 nbt:breeze#1
+block -15 -60 -27 minecraft:stone
+snap A -15.5 -60 -25.5 0 0
+give A mainhand minecraft:creaking_spawn_egg 1
+level_seed 185810515615
+use_on A -15 -60 -27 up main
+dump mob:creaking#1 nbt:creaking#1
+block -14 -60 -27 minecraft:stone
+snap A -14.5 -60 -25.5 0 0
+give A mainhand minecraft:bat_spawn_egg 1
+level_seed 188464951376
+use_on A -14 -60 -27 up main
+dump mob:bat#1 nbt:bat#1
+block -13 -60 -27 minecraft:stone
+snap A -13.5 -60 -25.5 0 0
+give A mainhand minecraft:ravager_spawn_egg 1
+level_seed 191119387137
+use_on A -13 -60 -27 up main
+dump mob:ravager#1 nbt:ravager#1
+block -12 -60 -27 minecraft:stone
+snap A -12.5 -60 -25.5 0 0
+give A mainhand minecraft:wandering_trader_spawn_egg 1
+level_seed 193773822898
+use_on A -12 -60 -27 up main
+dump mob:wandering_trader#1 nbt:wandering_trader#1
+block -11 -60 -27 minecraft:stone
+snap A -11.5 -60 -25.5 0 0
+give A mainhand minecraft:armadillo_spawn_egg 1
+level_seed 196428258659
+use_on A -11 -60 -27 up main
+dump mob:armadillo#1 nbt:armadillo#1
+block -10 -60 -27 minecraft:stone
+snap A -10.5 -60 -25.5 0 0
+give A mainhand minecraft:allay_spawn_egg 1
+level_seed 199082694420
+use_on A -10 -60 -27 up main
+dump mob:allay#1 nbt:allay#1
+note the villager variant component of the villager and zombie villager eggs
+block -9 -60 -27 minecraft:stone
+snap A -9.5 -60 -25.5 0 0
+give A mainhand minecraft:villager_spawn_egg[villager/variant=desert] 1
+level_seed 201737130181
+use_on A -9 -60 -27 up main
+dump mob:villager#2 nbt:villager#2
+block -8 -60 -27 minecraft:stone
+snap A -8.5 -60 -25.5 0 0
+give A mainhand minecraft:zombie_villager_spawn_egg[villager/variant=desert] 1
+level_seed 204391565942
+use_on A -8 -60 -27 up main
+dump mob:zombie_villager#2 nbt:zombie_villager#2
+block -7 -60 -27 minecraft:stone
+snap A -7.5 -60 -25.5 0 0
+give A mainhand minecraft:villager_spawn_egg[villager/variant=jungle] 1
+level_seed 207046001703
+use_on A -7 -60 -27 up main
+dump mob:villager#3 nbt:villager#3
+block -6 -60 -27 minecraft:stone
+snap A -6.5 -60 -25.5 0 0
+give A mainhand minecraft:zombie_villager_spawn_egg[villager/variant=jungle] 1
+level_seed 209700437464
+use_on A -6 -60 -27 up main
+dump mob:zombie_villager#3 nbt:zombie_villager#3
+block -5 -60 -27 minecraft:stone
+snap A -5.5 -60 -25.5 0 0
+give A mainhand minecraft:villager_spawn_egg[villager/variant=savanna] 1
+level_seed 212354873225
+use_on A -5 -60 -27 up main
+dump mob:villager#4 nbt:villager#4
+block -4 -60 -27 minecraft:stone
+snap A -4.5 -60 -25.5 0 0
+give A mainhand minecraft:zombie_villager_spawn_egg[villager/variant=savanna] 1
+level_seed 215009308986
+use_on A -4 -60 -27 up main
+dump mob:zombie_villager#4 nbt:zombie_villager#4
+block -3 -60 -27 minecraft:stone
+snap A -3.5 -60 -25.5 0 0
+give A mainhand minecraft:villager_spawn_egg[villager/variant=snow] 1
+level_seed 217663744747
+use_on A -3 -60 -27 up main
+dump mob:villager#5 nbt:villager#5
+block -2 -60 -27 minecraft:stone
+snap A -2.5 -60 -25.5 0 0
+give A mainhand minecraft:zombie_villager_spawn_egg[villager/variant=snow] 1
+level_seed 220318180508
+use_on A -2 -60 -27 up main
+dump mob:zombie_villager#5 nbt:zombie_villager#5
+block -1 -60 -27 minecraft:stone
+snap A -1.5 -60 -25.5 0 0
+give A mainhand minecraft:villager_spawn_egg[villager/variant=swamp] 1
+level_seed 222972616269
+use_on A -1 -60 -27 up main
+dump mob:villager#6 nbt:villager#6
+block 0 -60 -27 minecraft:stone
+snap A 0.5 -60 -25.5 0 0
+give A mainhand minecraft:zombie_villager_spawn_egg[villager/variant=swamp] 1
+level_seed 225627052030
+use_on A 0 -60 -27 up main
+dump mob:zombie_villager#6 nbt:zombie_villager#6
+block 1 -60 -27 minecraft:stone
+snap A 1.5 -60 -25.5 0 0
+give A mainhand minecraft:villager_spawn_egg[villager/variant=taiga] 1
+level_seed 228281487791
+use_on A 1 -60 -27 up main
+dump mob:villager#7 nbt:villager#7
+block 2 -60 -27 minecraft:stone
+snap A 2.5 -60 -25.5 0 0
+give A mainhand minecraft:zombie_villager_spawn_egg[villager/variant=taiga] 1
+level_seed 230935923552
+use_on A 2 -60 -27 up main
+dump mob:zombie_villager#7 nbt:zombie_villager#7
+note mob buckets
+block 3 -60 -27 minecraft:stone
+snap A 3.5 -60 -30.5 0 45
+give A mainhand minecraft:cod_bucket
+level_seed 233590359313
+use A main cod0
+dump mob:cod#2 nbt:cod#2
+block 4 -60 -27 minecraft:stone
+snap A 4.5 -60 -30.5 0 45
+give A mainhand minecraft:salmon_bucket
+level_seed 236244795074
+use A main salmon0
+dump mob:salmon#2 nbt:salmon#2
+block 5 -60 -27 minecraft:stone
+snap A 5.5 -60 -30.5 0 45
+give A mainhand minecraft:pufferfish_bucket
+level_seed 238899230835
+use A main pufferfish0
+dump mob:pufferfish#2 nbt:pufferfish#2
+block 6 -60 -27 minecraft:stone
+snap A 6.5 -60 -30.5 0 45
+give A mainhand minecraft:tropical_fish_bucket
+level_seed 241553666596
+use A main tropical_fish0
+dump mob:tropical_fish#2 nbt:tropical_fish#2
+block 7 -60 -27 minecraft:stone
+snap A 7.5 -60 -30.5 0 45
+give A mainhand minecraft:axolotl_bucket
+level_seed 244208102357
+use A main axolotl0
+dump mob:axolotl#2 nbt:axolotl#2
+block 8 -60 -27 minecraft:stone
+snap A 8.5 -60 -30.5 0 45
+give A mainhand minecraft:axolotl_bucket[bucket_entity_data={Variant:2,Age:0}]
+level_seed 246862538118
+use A main axolotl38
+dump mob:axolotl#3 nbt:axolotl#3
+block 9 -60 -27 minecraft:stone
+snap A 9.5 -60 -30.5 0 45
+give A mainhand minecraft:tadpole_bucket
+level_seed 249516973879
+use A main tadpole0
+dump mob:tadpole#2 nbt:tadpole#2
+kill zombie#1
+kill husk#1
+kill drowned#1
+kill zombie_villager#1
+kill skeleton#1
+kill stray#1
+kill bogged#1
+kill wither_skeleton#1
+kill piglin#1
+kill piglin_brute#1
+kill zombified_piglin#1
+kill pillager#1
+kill vindicator#1
+kill evoker#1
+kill vex#1
+kill witch#1
+kill spider#1
+kill cave_spider#1
+kill creeper#1
+kill slime#1
+kill magma_cube#1
+kill enderman#1
+kill silverfish#1
+kill blaze#1
+kill ghast#1
+kill phantom#1
+kill sheep#1
+kill pig#1
+kill cow#1
+kill chicken#1
+kill rabbit#1
+kill horse#1
+kill donkey#1
+kill mule#1
+kill llama#1
+kill wolf#1
+kill cat#1
+kill fox#1
+kill panda#1
+kill villager#1
+kill turtle#1
+kill frog#1
+kill axolotl#1
+kill goat#1
+kill bee#1
+kill parrot#1
+kill ocelot#1
+kill polar_bear#1
+kill camel#1
+kill sniffer#1
+kill strider#1
+kill hoglin#1
+kill zoglin#1
+kill guardian#1
+kill shulker#1
+kill mooshroom#1
+kill squid#1
+kill glow_squid#1
+kill dolphin#1
+kill cod#1
+kill salmon#1
+kill pufferfish#1
+kill tropical_fish#1
+kill tadpole#1
+kill skeleton_horse#1
+kill zombie_horse#1
+kill trader_llama#1
+kill endermite#1
+kill warden#1
+kill breeze#1
+kill creaking#1
+kill bat#1
+kill ravager#1
+kill wandering_trader#1
+kill armadillo#1
+kill allay#1
+kill villager#2
+kill zombie_villager#2
+kill villager#3
+kill zombie_villager#3
+kill villager#4
+kill zombie_villager#4
+kill villager#5
+kill zombie_villager#5
+kill villager#6
+kill zombie_villager#6
+kill villager#7
+kill zombie_villager#7
+kill cod#2
+kill salmon#2
+kill pufferfish#2
+kill tropical_fish#2
+kill axolotl#2
+kill axolotl#3
+kill tadpole#2
+fill -40 -57 -40 40 -57 -10 minecraft:stone
+tick 3
+note spawners with a bare {id} under a roof (monsters need darkness): the spawner reason
+block 10 -60 -27 minecraft:spawner
+be_nbt 10 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:zombie"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:zombie"}}}]}
+snap A 10.5 -60 -24.5 0 0
+level_seed 252171409640
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:zombie]
+block 10 -60 -27 minecraft:air
+block 11 -60 -27 minecraft:spawner
+be_nbt 11 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:husk"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:husk"}}}]}
+snap A 11.5 -60 -24.5 0 0
+level_seed 254825845401
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:husk]
+block 11 -60 -27 minecraft:air
+block 12 -60 -27 minecraft:spawner
+be_nbt 12 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:skeleton"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:skeleton"}}}]}
+snap A 12.5 -60 -24.5 0 0
+level_seed 257480281162
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:skeleton]
+block 12 -60 -27 minecraft:air
+block 13 -60 -27 minecraft:spawner
+be_nbt 13 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:spider"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:spider"}}}]}
+snap A 13.5 -60 -24.5 0 0
+level_seed 260134716923
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:spider]
+block 13 -60 -27 minecraft:air
+block 14 -60 -27 minecraft:spawner
+be_nbt 14 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:cave_spider"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:cave_spider"}}}]}
+snap A 14.5 -60 -24.5 0 0
+level_seed 262789152684
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:cave_spider]
+block 14 -60 -27 minecraft:air
+block 15 -60 -27 minecraft:spawner
+be_nbt 15 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:blaze"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:blaze"}}}]}
+snap A 15.5 -60 -24.5 0 0
+level_seed 265443588445
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:blaze]
+block 15 -60 -27 minecraft:air
+block 16 -60 -27 minecraft:spawner
+be_nbt 16 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:slime"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:slime"}}}]}
+snap A 16.5 -60 -24.5 0 0
+level_seed 268098024206
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:slime]
+cmd kill @e[type=minecraft:slime]
+cmd kill @e[type=minecraft:slime]
+block 16 -60 -27 minecraft:air
+block 17 -60 -27 minecraft:spawner
+be_nbt 17 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:magma_cube"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:magma_cube"}}}]}
+snap A 17.5 -60 -24.5 0 0
+level_seed 270752459967
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:magma_cube]
+cmd kill @e[type=minecraft:magma_cube]
+cmd kill @e[type=minecraft:magma_cube]
+block 17 -60 -27 minecraft:air
+block 18 -60 -27 minecraft:spawner
+be_nbt 18 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:silverfish"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:silverfish"}}}]}
+snap A 18.5 -60 -24.5 0 0
+level_seed 273406895728
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:silverfish]
+block 18 -60 -27 minecraft:air
+block 19 -60 -27 minecraft:spawner
+be_nbt 19 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:cow"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:cow"}}}]}
+snap A 19.5 -60 -24.5 0 0
+level_seed 276061331489
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:cow]
+block 19 -60 -27 minecraft:air
+block 20 -60 -27 minecraft:spawner
+be_nbt 20 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:sheep"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:sheep"}}}]}
+snap A 20.5 -60 -24.5 0 0
+level_seed 278715767250
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:sheep]
+block 20 -60 -27 minecraft:air
+block 21 -60 -27 minecraft:spawner
+be_nbt 21 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:pig"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:pig"}}}]}
+snap A 21.5 -60 -24.5 0 0
+level_seed 281370203011
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:pig]
+block 21 -60 -27 minecraft:air
+block 22 -60 -27 minecraft:spawner
+be_nbt 22 -60 -27 {Delay:1,SpawnCount:6,MaxNearbyEntities:50,SpawnRange:2,SpawnData:{entity:{id:"minecraft:chicken"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:chicken"}}}]}
+snap A 22.5 -60 -24.5 0 0
+level_seed 284024638772
+tick 2
+dump mobs
+cmd kill @e[type=minecraft:chicken]
+block 22 -60 -27 minecraft:air

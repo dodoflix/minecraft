@@ -69,8 +69,6 @@ pub fn only_op_can_set_nbt(ty: EntityType) -> bool {
 }
 
 /// `EntityType.createDefaultStackConfig(level, stack, user)` applied to `entity`.
-///
-/// Not implemented: the `villager_variant` component of `Villager` and `ZombieVillager` is not applied from the stack.
 pub fn apply_default_stack_config(
     level: &ServerLevel,
     entity: &mut dyn Entity,

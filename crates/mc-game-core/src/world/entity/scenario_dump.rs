@@ -26,6 +26,7 @@
 //! baby forcedage`), `12` = Animal (`love lovecause`), `13` = TamableAnimal (`tame owner sitting ordered`), `14` = Villager (`vdata vxp`); `20` = `Projectile`
 //! (`owner leftowner shot canbreak`); concrete mob types use `20..30`, every other concrete class `>= 30`.
 
+use super::spawn_group_data::SpawnGroupData;
 use super::{Entity, EntityId};
 use crate::server::level::ServerLevel;
 use linkme::distributed_slice;
@@ -77,15 +78,19 @@ pub type ScenarioFieldsFn =
 #[distributed_slice]
 pub static SCENARIO_DUMP_EXTRA: [ScenarioDumpExtra];
 
-/// `Mob.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), reason, null)` hooks of the `mobspawn` command (called for every entity it
-/// creates, before it is added to the level; a hook ignores entities it does not handle). The mob spine registers the real
-/// `finalize_spawn` pipeline here.
+/// `Mob.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), reason, groupData)` hooks of the `mobspawn` command (called for every
+/// entity it creates, before it is added to the level; a hook ignores entities it does not handle and hands the group data back). The mob
+/// spine registers the real `finalize_spawn` pipeline here.
 #[distributed_slice]
-pub static SCENARIO_FINALIZE_SPAWN: [fn(
+pub static SCENARIO_FINALIZE_SPAWN: [ScenarioFinalizeSpawnFn];
+
+/// One `finalizeSpawn` hook of [`SCENARIO_FINALIZE_SPAWN`].
+pub type ScenarioFinalizeSpawnFn = fn(
     &mut ServerLevel,
     &mut dyn Entity,
     mc_data::enums::EntitySpawnReason,
-)];
+    Option<Box<dyn SpawnGroupData>>,
+) -> Option<Box<dyn SpawnGroupData>>;
 
 // ==== [MobOracle] shared formatters of the oracle's value grammar (driver header, "Rich mob E line") ====
 //

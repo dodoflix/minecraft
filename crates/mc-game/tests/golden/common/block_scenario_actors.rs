@@ -68,6 +68,8 @@ pub struct Actors {
     _inbound: Vec<std::sync::mpsc::Sender<mc_game::server::network::InboundPacket>>,
     /// The server a scenario without `command_env` runs the join teleport's accept against (and the guard that keeps its directory).
     accept_server: Option<(mc_game::server::MinecraftServer, Box<dyn std::any::Any>)>,
+    /// `mobspawn ... group=KEY`: the group data `finalizeSpawn` returned for the previous mob of that key.
+    groups: HashMap<String, Box<dyn mc_game::world::entity::spawn_group_data::SpawnGroupData>>,
     pub registries_loaded: bool,
 }
 
@@ -818,26 +820,30 @@ impl Scenario {
     }
 
     fn spawn(&mut self, a: &[String]) {
-        self.spawn_with(a, mc_data::enums::EntitySpawnReason::Command, false);
+        self.spawn_with(a, mc_data::enums::EntitySpawnReason::Command, false, None);
     }
 
-    /// `mobspawn REF TYPE X Y Z [yaw pitch] [reason=NAME] [nofinalize] [SNBT]`: the entity is created with that spawn reason and,
-    /// unless `nofinalize`, `Mob.finalizeSpawn` runs before it joins the level (`/summon`).
+    /// `mobspawn REF TYPE X Y Z [yaw pitch] [reason=NAME] [group=KEY] [nofinalize] [SNBT]`: the entity is created with that spawn
+    /// reason and, unless `nofinalize`, `Mob.finalizeSpawn` runs before it joins the level (`/summon`); `group=KEY` hands it the
+    /// group data of the previous mob with that key.
     fn mob_spawn(&mut self, a: &[String]) {
         let mut reason = mc_data::enums::EntitySpawnReason::Command;
         let mut finalize = true;
+        let mut group = None;
         let mut rest = Vec::new();
         for t in a {
             if let Some(r) = t.strip_prefix("reason=") {
                 reason = crate::common::entity_scenario::spawn_reason(r)
                     .unwrap_or_else(|| panic!("spawn reason {r}"));
+            } else if let Some(k) = t.strip_prefix("group=") {
+                group = Some(k.to_string());
             } else if t == "nofinalize" {
                 finalize = false;
             } else {
                 rest.push(t.clone());
             }
         }
-        self.spawn_with(&rest, reason, finalize);
+        self.spawn_with(&rest, reason, finalize, group);
     }
 
     fn spawn_with(
@@ -845,6 +851,7 @@ impl Scenario {
         a: &[String],
         reason: mc_data::enums::EntitySpawnReason,
         finalize: bool,
+        group: Option<String>,
     ) {
         let ty = EntityType::by_name(&if a[2].contains(':') {
             a[2].clone()
@@ -856,6 +863,7 @@ impl Scenario {
             reason,
             ignore_checks: true,
         };
+        let mut data = group.as_ref().and_then(|k| self.actors.groups.remove(k));
         let level = self.level();
         let mut e =
             factory::create(ty, level, request).unwrap_or_else(|| panic!("cannot create {}", a[2]));
@@ -885,11 +893,14 @@ impl Scenario {
         }
         if finalize {
             for hook in mc_game::world::entity::scenario_dump::SCENARIO_FINALIZE_SPAWN.iter() {
-                hook(level, e.as_mut(), reason);
+                data = hook(level, e.as_mut(), reason, data);
             }
         }
         let id = e.id();
         level.add_fresh_entity_with_passengers(vec![e]);
+        if let (Some(k), Some(data)) = (group, data) {
+            self.actors.groups.insert(k, data);
+        }
         self.actors.known.insert(id);
         self.actors.refs.push((a[1].clone(), id));
     }

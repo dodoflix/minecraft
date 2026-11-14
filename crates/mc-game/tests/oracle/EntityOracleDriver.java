@@ -166,9 +166,10 @@ import net.minecraft.util.RandomSource;
  *    (`tests/golden/common/mob_verbs.rs`) on both the flat entity tier and the ticking block tier, so a script may use them on either) --
  * difficulty NAME             before the first world command: world option (as above); afterwards: `/difficulty NAME`
  * biome X1 Y1 Z1 X2 Y2 Z2 BIOME   `/fillbiome` (biome overrides; the flat world is plains)       light X Y Z N   minecraft:light[level=N] block
- * mobspawn REF TYPE X Y Z [yaw pitch] [reason=NAME] [nofinalize] [SNBT]
+ * mobspawn REF TYPE X Y Z [yaw pitch] [reason=NAME] [group=KEY] [nofinalize] [SNBT]
  *                             EntityType.create(level, reason) (default reason COMMAND), merge SNBT, then `Mob.finalizeSpawn(level,
- *                             getCurrentDifficultyAt(pos), reason, null)` like /summon, addFreshEntityWithPassengers. `nofinalize` skips it.
+ *                             getCurrentDifficultyAt(pos), reason, groupData)` like /summon, addFreshEntityWithPassengers. `nofinalize` skips it;
+ *                             `group=KEY` passes the group data the previous spawn with that key returned (null for the first).
  * target REF REF2|-           Mob.setTarget            love REF [PLAYER]   Animal.setInLove(player|null)      age REF N   AgeableMob.setAge
  * breed A B                   A.spawnChildFromBreeding(level, B) (the BreedGoal path; baby = `type#n`)        tame REF PLAYER   TamableAnimal.tame / AbstractHorse.tameWithName
  * leash REF HOLDER|-          Leashable.setLeashedTo(holder, true) / removeLeash()
@@ -244,6 +245,7 @@ public final class EntityOracleDriver {
    VanillaLevel v;
    VanillaLevel.Options options = new VanillaLevel.Options();
    final Map<String, Entity> refs = new LinkedHashMap<>();
+   final Map<String, net.minecraft.world.entity.SpawnGroupData> groupData = new HashMap<>();
    final List<String[]> watches = new ArrayList<>();
    final Map<String, Integer> sequence = new HashMap<>();
    final Map<String, Integer> autoCounter = new HashMap<>();
@@ -1503,6 +1505,7 @@ public final class EntityOracleDriver {
       EntitySpawnReason reason = EntitySpawnReason.COMMAND;
       boolean finalize = true;
       String snbt = null;
+      String group = null;
       List<String> rot = new ArrayList<>();
       for (int i = 6; i < a.size(); i++) {
          String t = a.get(i);
@@ -1510,6 +1513,8 @@ public final class EntityOracleDriver {
             snbt = t;
          } else if (t.startsWith("reason=")) {
             reason = EntitySpawnReason.valueOf(t.substring(7).toUpperCase(Locale.ROOT));
+         } else if (t.startsWith("group=")) {
+            group = t.substring(6);
          } else if (t.equals("nofinalize")) {
             finalize = false;
          } else {
@@ -1526,7 +1531,10 @@ public final class EntityOracleDriver {
          mergeSnbt(e, snbt);
       }
       if (finalize && e instanceof Mob mob) {
-         mob.finalizeSpawn(v.level, v.level.getCurrentDifficultyAt(e.blockPosition()), reason, null);
+         net.minecraft.world.entity.SpawnGroupData data = mob.finalizeSpawn(v.level, v.level.getCurrentDifficultyAt(e.blockPosition()), reason, group == null ? null : groupData.get(group));
+         if (group != null) {
+            groupData.put(group, data);
+         }
       }
       v.level.addFreshEntityWithPassengers(e);
       refs.put(name, e);

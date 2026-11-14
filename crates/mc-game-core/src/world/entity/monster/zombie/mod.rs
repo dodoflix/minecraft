@@ -424,6 +424,27 @@ impl Entity for Zombie {
         }
     }
 
+    /// `ZombieVillager.applyImplicitComponents`: the `villager/variant` component sets the type and finalizes the villager data.
+    fn apply_implicit_components(&mut self, stack: &ItemStack) {
+        if matches!(self.kind, ZombieKind::ZombieVillager(_))
+            && let Some(mc_protocol::components::holder::Holder::Reference(id)) =
+                stack.get(&mc_protocol::components::values::entity::VILLAGER_VARIANT)
+            && let Some(ty) = mc_data::VillagerType::by_name(&id.to_string())
+        {
+            let data =
+                crate::world::entity::npc::villager::villager_data::VillagerDataExt::with_type(
+                    zombie_villager::get_villager_data(self),
+                    ty,
+                );
+            zombie_villager::set_villager_data(self, data);
+            zombie_villager::set_villager_data_finalized(self, true);
+        }
+        crate::world::entity::spawn_config::apply_base_implicit_components(
+            self.as_dyn_mut(),
+            stack,
+        );
+    }
+
     fn finalize_spawn(
         &mut self,
         level: &mut dyn ServerLevelAccessor,
