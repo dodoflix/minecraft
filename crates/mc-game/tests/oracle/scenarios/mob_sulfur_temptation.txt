@@ -1,0 +1,35 @@
+# Sulfur cubes following a player: adults follow swallowable blocks in a hand, babies follow slime balls, the temptation range of eight
+# blocks and the cube that loses interest when the player holds something else.
+level flat
+preload 4
+entity_counter 10000
+level_seed 10001
+difficulty normal
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn A minecraft:sulfur_cube 6.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,Size:1}
+mobspawn B minecraft:sulfur_cube 6.5 -60 5.5 90 0 nofinalize {PersistenceRequired:1b,Size:0,Age:-24000}
+mobspawn C minecraft:sulfur_cube 6.5 -60 -5.5 90 0 nofinalize {PersistenceRequired:1b,Size:1}
+entity_seed A 10011
+entity_seed B 10012
+entity_seed C 10013
+note an adult is tempted by planks, a baby is not
+give Steve mainhand minecraft:oak_planks 4
+tick 2
+watch mob:A mob:B mob:C player:Steve
+tick 60
+watch off
+dump mobs
+note the player walks away: the adult follows, the baby is tempted by a slime ball only
+give Steve mainhand minecraft:slime_ball 4
+tp Steve 12.5 -60 2.5
+tick 2
+watch mob:A mob:B
+tick 60
+watch off
+dump mobs
+give Steve mainhand minecraft:stick
+tick 40
+dump mobs

@@ -794,6 +794,7 @@ impl Entity for EnderDragon {
     /// `knockback(..)`: a sitting dragon is not pushed.
     fn knockback(
         &mut self,
+        _level: &mut ServerLevel,
         power: f64,
         xd: f64,
         zd: f64,

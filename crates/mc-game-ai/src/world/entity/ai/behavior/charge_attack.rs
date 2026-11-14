@@ -162,7 +162,9 @@ impl Behavior for ChargeAttack {
                     );
                 }
                 let movement = body.base().delta_movement();
-                body.cause_extra_knockback(target, knockback, movement, &source, damage, false);
+                body.cause_extra_knockback(
+                    level, target, knockback, movement, &source, damage, false,
+                );
             });
             self.stop(level, body, timestamp);
         }

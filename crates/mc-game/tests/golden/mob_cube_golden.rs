@@ -1,5 +1,6 @@
-//! Slimes and magma cubes against vanilla: the chase with the cube move control and touch damage, the split on death with loot and
-//! experience by size, the lava boost of the magma cube and which hostile mobs count as enemies
+//! Slimes, magma cubes and sulfur cubes against vanilla: the chase with the cube move control and touch damage, the split on death
+//! with loot and experience by size, the lava boost of the magma cube, which hostile mobs count as enemies and what sulfur cubes
+//! swallow, give back, ignite and follow
 //! (`tests/oracle/scenarios/mob_*.txt`; fixtures from `scripts/block-oracle.sh NAME`).
 
 use crate::common;
@@ -38,4 +39,40 @@ fn slime_spawn_rules() {
 #[test]
 fn magma_cube_spawn() {
     common::block_scenario::check("mob_magma_cube_spawn");
+}
+
+/// Sulfur cubes that stand idle with and without a block, bounce and are hit.
+#[test]
+fn sulfur_cube_idle() {
+    common::block_scenario::check("mob_sulfur_cube_idle");
+}
+
+/// Sulfur cubes swallowing items and blocks: tempting, picking up, buckets and the pickup timer.
+#[test]
+fn sulfur_absorb() {
+    common::block_scenario::check("mob_sulfur_absorb");
+}
+
+/// Shears taking the swallowed block back, immunities while a block is held and the knockback of a hit.
+#[test]
+fn sulfur_eject() {
+    common::block_scenario::check("mob_sulfur_eject");
+}
+
+/// Sulfur cubes holding TNT: priming, fuse, explosion, redstone and `tnt_explodes`.
+#[test]
+fn sulfur_fuse() {
+    common::block_scenario::check("mob_sulfur_fuse");
+}
+
+/// Sulfur cubes following their tempting items.
+#[test]
+fn sulfur_temptation() {
+    common::block_scenario::check("mob_sulfur_temptation");
+}
+
+/// Sulfur cubes splitting on death.
+#[test]
+fn sulfur_split() {
+    common::block_scenario::check("mob_sulfur_split");
 }

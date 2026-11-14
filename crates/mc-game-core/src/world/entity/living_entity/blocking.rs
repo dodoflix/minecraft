@@ -258,12 +258,20 @@ pub fn block_using_item(
         })
         .is_some();
     if !handled {
-        blocked_by_item(attacker.position, entity, source, damage, fully_blocked);
+        blocked_by_item(
+            level,
+            attacker.position,
+            entity,
+            source,
+            damage,
+            fully_blocked,
+        );
     }
 }
 
 /// `LivingEntity.blockedByItem(defender, source, damage, fullyBlocked)`: `attacker_position` is where the attacker stands.
 pub fn blocked_by_item(
+    level: &mut ServerLevel,
     attacker_position: Vec3,
     defender: &mut dyn Entity,
     source: &DamageSource,
@@ -273,6 +281,7 @@ pub fn blocked_by_item(
     if !fully_blocked {
         let p = defender.position();
         defender.knockback(
+            level,
             0.5,
             p.x - attacker_position.x,
             p.z - attacker_position.z,

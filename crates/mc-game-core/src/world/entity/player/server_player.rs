@@ -1034,6 +1034,7 @@ impl Entity for ServerPlayer {
     }
     fn cause_extra_knockback(
         &mut self,
+        level: &mut ServerLevel,
         target: &mut dyn Entity,
         knockback: f32,
         old_movement: Vec3,
@@ -1042,6 +1043,7 @@ impl Entity for ServerPlayer {
         comes_from_effect: bool,
     ) {
         super::attack::cause_extra_knockback(
+            level,
             self,
             target,
             knockback,

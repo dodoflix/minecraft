@@ -281,7 +281,7 @@ pub fn deal_default_knockback(
         xd = pos.x - entity.position().x;
         zd = pos.z - entity.position().z;
     }
-    entity.knockback(0.4f32 as f64, xd, zd, source, damage, false);
+    entity.knockback(level, 0.4f32 as f64, xd, zd, source, damage, false);
     if !blocked {
         entity.indicate_damage(level, xd, zd);
     }

@@ -192,6 +192,14 @@ final class EntityExtras {
             out.add("jdelay", "-").add("mrot", "-").add("maggr", "-");
          }
       }));
+      ALL.add(new Extra(31, net.minecraft.world.entity.monster.cubemob.SulfurCube.class, (d, e, out) -> {
+         var c = (net.minecraft.world.entity.monster.cubemob.SulfurCube)e;
+         var sc = net.minecraft.world.entity.monster.cubemob.SulfurCube.class;
+         out.add("fuse", c.getFuse()).add("bucket", EntityOracleDriver.bool(c.fromBucket()));
+         out.add("pickup", EntityOracleDriver.priv(e, sc, "pickupTimer")).add("pushcd", EntityOracleDriver.priv(e, sc, "pushSoundCooldown"));
+         out.add("floats", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, sc, "floatsInLiquids")));
+         out.add("explosion", EntityOracleDriver.bool(((java.util.Optional<?>)EntityOracleDriver.priv(e, sc, "explosionData")).isPresent()));
+      }));
       ALL.add(new Extra(30, AbstractHorse.class, (d, e, out) -> {
          var owner = (net.minecraft.world.entity.EntityReference<?>)EntityOracleDriver.priv(e, AbstractHorse.class, "owner");
          out.add("owner", d.uuidName(owner == null ? null : owner.getUUID()));

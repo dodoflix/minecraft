@@ -1,0 +1,45 @@
+# Sulfur cubes giving blocks back: shears take the swallowed block (the pickup timer keeps the cube from taking it again), a cube without
+# one is left alone, damage types a cube with a block is immune to and the knockback of a hit.
+level flat
+preload 4
+entity_counter 9800
+level_seed 9801
+difficulty normal
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn A minecraft:sulfur_cube 2.5 -60 0.5 270 0 nofinalize {PersistenceRequired:1b,Size:1,equipment:{body:{id:"minecraft:oak_planks",count:1}}}
+mobspawn B minecraft:sulfur_cube 0.5 -60 3.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn C minecraft:sulfur_cube 8.5 -60 3.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1,equipment:{body:{id:"minecraft:stone",count:1}}}
+entity_seed A 9811
+entity_seed B 9812
+entity_seed C 9813
+tick 1
+dump mobs attrs:A nbt:A
+note shears on a cube with a block and on one without
+give Steve mainhand minecraft:shears
+interact Steve A main
+interact Steve B main
+tick 1
+dump mobs nbt:A inventory:Steve entities events
+note the cube does not pick the dropped block up for 100 ticks
+watch mob:A
+tick 60
+watch off
+dump mob:A entities events
+tick 60
+dump mob:A entities events
+note immune to arrows, mob and player attacks, cactus and falls while it holds a block (knockback only); fire and others hurt
+hurt C player_attack 3 by=Steve
+hurt C cactus 2
+hurt C fall 2
+hurt C generic 2
+hurt C on_fire 1
+dump mob:C events
+tick 1
+dump mob:C events
+note a hit by the player: the knockback follows the aim of the attacker
+attack Steve C
+tick 5
+dump mob:C events

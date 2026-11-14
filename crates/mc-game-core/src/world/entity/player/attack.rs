@@ -207,6 +207,7 @@ impl ServerPlayer {
                             + if knockback_attack { 0.5 } else { 0.0 };
                     Entity::cause_extra_knockback(
                         self,
+                        level,
                         &mut *entity,
                         knockback,
                         old_movement,
@@ -290,6 +291,7 @@ impl ServerPlayer {
         if deals_knockback {
             Entity::cause_extra_knockback(
                 self,
+                level,
                 &mut *target,
                 0.4,
                 old_movement,
@@ -300,6 +302,7 @@ impl ServerPlayer {
             let knockback = combat::get_knockback(&mut *self, level, &mut *target, &damage_source);
             Entity::cause_extra_knockback(
                 self,
+                level,
                 &mut *target,
                 knockback,
                 old_movement,
@@ -657,6 +660,7 @@ impl ServerPlayer {
                         nearby.hurt_server(level, damage_source, enchanted_damage)
                     }) {
                         nearby.knockback(
+                            level,
                             0.4f32 as f64,
                             sin,
                             cos,
@@ -694,6 +698,7 @@ impl ServerPlayer {
 
 /// `Player.causeExtraKnockback(entity, knockbackAmount, oldMovement, damageSource, damage, comesFromEffect)`.
 pub fn cause_extra_knockback(
+    level: &mut ServerLevel,
     player: &mut ServerPlayer,
     entity: &mut dyn Entity,
     knockback_amount: f32,
@@ -708,6 +713,7 @@ pub fn cause_extra_knockback(
         let cos = mth::cos(f64::from(y_rot * DEG_TO_RAD));
         if entity.living().is_some() {
             entity.knockback(
+                level,
                 f64::from(knockback_amount),
                 f64::from(sin),
                 f64::from(-cos),

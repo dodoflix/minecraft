@@ -1,0 +1,65 @@
+# Sulfur cubes swallowing blocks: right click with a swallowable item (the attributes of its archetype, the replaced item drops, the same
+# item is refused, babies refuse), a dropped item picked up by a cube that walks to it, buckets and the sounds.
+level flat
+preload 4
+entity_counter 9700
+level_seed 9701
+difficulty normal
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn A minecraft:sulfur_cube 2.5 -60 0.5 270 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn B minecraft:sulfur_cube 0.5 -60 2.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn C minecraft:sulfur_cube 0.5 -60 -1.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:0,Age:-24000}
+mobspawn D minecraft:sulfur_cube 2.5 -60 -1.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+entity_seed A 9711
+entity_seed B 9712
+entity_seed C 9713
+entity_seed D 9714
+tick 1
+note planks: the regular archetype; the cube stops its goals and takes the attributes of the archetype
+give Steve mainhand minecraft:oak_planks 8
+interact Steve A main
+tick 1
+dump mob:A attrs:A nbt:A inventory:Steve events
+note birch planks replace the oak planks, which drop; oak planks swallowed again replace them; the same item again is refused
+give Steve mainhand minecraft:birch_planks 8
+interact Steve A main
+tick 1
+dump mob:A attrs:A nbt:A inventory:Steve entities events
+give Steve mainhand minecraft:oak_planks 8
+interact Steve A main
+tick 1
+dump mob:A nbt:A inventory:Steve entities events
+interact Steve A main
+tick 1
+dump mob:A inventory:Steve entities events
+note tnt and magma block, and a stick that nobody takes
+give Steve mainhand minecraft:tnt 4
+interact Steve B main
+tick 1
+dump mob:B attrs:B nbt:B inventory:Steve events
+give Steve mainhand minecraft:magma_block 4
+interact Steve D main
+tick 1
+dump mob:D attrs:D nbt:D inventory:Steve events
+give Steve mainhand minecraft:stick 4
+interact Steve C main
+interact Steve B main
+tick 1
+dump mobs inventory:Steve events
+note a baby: planks are refused, a slime ball ages it
+give Steve mainhand minecraft:oak_planks 4
+interact Steve C main
+tick 1
+dump mob:C nbt:C inventory:Steve events
+give Steve mainhand minecraft:slime_ball 4
+interact Steve C main
+tick 1
+dump mob:C nbt:C inventory:Steve events
+note a bucket picks up a cube, with the swallowed block in the bucket
+give Steve mainhand minecraft:bucket
+interact Steve A main
+tick 1
+dump mobs inventory:Steve entities events

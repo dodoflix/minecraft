@@ -695,6 +695,7 @@ impl Entity for Creaking {
 
     fn knockback(
         &mut self,
+        _level: &mut ServerLevel,
         power: f64,
         xd: f64,
         zd: f64,

@@ -31,6 +31,7 @@ use mc_game_core::world::entity::monster::cubemob::abstract_cube_mob::{
     self as acm, CubeMob, CubeMobData, CubeMobFloatGoal, CubeMobKeepOnJumpingGoal,
     CubeMobMoveControl, CubeMobRandomDirectionGoal, ID_SIZE,
 };
+use mc_game_core::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::sulfur_cube_archetype::{
     self as archetype, ContactDamage, ExplosionData, KnockbackModifiers, SoundSettings,
@@ -70,8 +71,6 @@ pub struct SulfurCube {
     sound_settings: SoundSettings,
     fuse: i32,
     contact_damages: Vec<ContactDamage>,
-    /// Sounds decided by hooks without a level (`knockback`), played at the next tick.
-    pending_sounds: Vec<SoundEvent>,
 }
 
 /// `isSwallowableItem(itemStack)`.
@@ -102,7 +101,6 @@ impl SulfurCube {
             sound_settings: archetype::DEFAULT_SOUND_SETTINGS,
             fuse: -1,
             contact_damages: Vec::new(),
-            pending_sounds: Vec::new(),
         };
         let navigation = StandardPathNavigation::ground(&cube);
         cube.mob.set_navigation(Box::new(navigation));
@@ -500,6 +498,10 @@ struct SulfurCubeTemptGoal {
 }
 
 impl Goal for SulfurCubeTemptGoal {
+    fn name(&self) -> &'static str {
+        "SulfurCube$SulfurCubeTemptGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if self.calm_down > 0 {
             self.calm_down -= 1;
@@ -562,6 +564,10 @@ struct SulfurCubeSearchForItemsGoal {
 }
 
 impl Goal for SulfurCubeSearchForItemsGoal {
+    fn name(&self) -> &'static str {
+        "SulfurCube$SulfurCubeSearchForItemsGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let pickup_timer = mob
             .as_any()
@@ -778,9 +784,6 @@ impl Entity for SulfurCube {
     fn tick(&mut self, level: &mut ServerLevel) {
         self.tick_fuse(level);
         self.prime_when_on_powered_position(level);
-        for sound in std::mem::take(&mut self.pending_sounds) {
-            self.play_sound_default(level, sound);
-        }
         acm::tick(self, level);
     }
     fn before_remove(&mut self, level: &mut ServerLevel, reason: RemovalReason) {
@@ -1145,6 +1148,7 @@ impl Entity for SulfurCube {
     }
     fn knockback(
         &mut self,
+        level: &mut ServerLevel,
         power: f64,
         xd: f64,
         zd: f64,
@@ -1223,7 +1227,7 @@ impl Entity for SulfurCube {
             delta_movement.y + f64::from(vertical_power) * 1.2,
             delta_movement.z - horizontal_knockback.z,
         );
-        self.pending_sounds.push(hit_sound);
+        self.play_sound_default(level, hit_sound);
     }
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
         mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
@@ -1261,6 +1265,30 @@ pub fn check_sulfur_cube_spawn_rules(
 }
 
 mc_game_core::register_spawn_placement!(EntityType::SULFUR_CUBE, check_sulfur_cube_spawn_rules);
+
+/// The scenario dump fields of a sulfur cube: `fuse bucket pickup pushcd floats explosion`.
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static SULFUR_CUBE_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 31,
+    applies: |e| e.get_type() == EntityType::SULFUR_CUBE,
+    fields: |e, _level, _ctx| {
+        let cube = e.as_any().downcast_ref::<SulfurCube>().expect("applies");
+        vec![
+            ("fuse".into(), cube.fuse.to_string()),
+            ("bucket".into(), u8::from(cube.from_bucket()).to_string()),
+            ("pickup".into(), cube.pickup_timer.to_string()),
+            ("pushcd".into(), cube.push_sound_cooldown.to_string()),
+            (
+                "floats".into(),
+                u8::from(cube.floats_in_liquids).to_string(),
+            ),
+            (
+                "explosion".into(),
+                u8::from(cube.explosion_data.is_some()).to_string(),
+            ),
+        ]
+    },
+};
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static SULFUR_CUBE: EntityRegistration = EntityRegistration {

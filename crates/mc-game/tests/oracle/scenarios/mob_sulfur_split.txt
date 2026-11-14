@@ -1,0 +1,38 @@
+# Sulfur cubes dying: an adult splits into two babies of size 1, a primed one does not split, a cube with a block drops it, the experience
+# of adults and babies, and the babies growing up again.
+level flat
+preload 4
+entity_counter 10100
+level_seed 10101
+difficulty normal
+gamerule mob_drops true
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 4 1000000
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+give Steve mainhand minecraft:diamond_sword
+mobspawn A minecraft:sulfur_cube 6.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn B minecraft:sulfur_cube 10.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1,equipment:{body:{id:"minecraft:oak_planks",count:1}}}
+mobspawn C minecraft:sulfur_cube 14.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:0,Age:-24000}
+mobspawn D minecraft:sulfur_cube 18.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1,equipment:{body:{id:"minecraft:tnt",count:1}}}
+entity_seed A 10111
+entity_seed B 10112
+entity_seed C 10113
+entity_seed D 10114
+tick 1
+dump mobs
+note an adult splits into two babies
+hurt A player_attack 100 by=Steve
+tick 25
+dump mobs entities events
+note an adult holding planks splits and drops the block; a baby does not split
+hurt B generic_kill 100
+hurt C player_attack 100 by=Steve
+tick 25
+dump mobs entities events
+note a primed cube (fire damage primes it) that is killed afterwards does not split
+hurt D in_fire 1
+tick 3
+hurt D generic_kill 100
+tick 25
+dump mobs entities events

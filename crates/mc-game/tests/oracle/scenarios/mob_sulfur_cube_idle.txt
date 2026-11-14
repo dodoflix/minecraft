@@ -1,0 +1,30 @@
+# Sulfur cubes standing around: an adult (size 2, not a baby), a baby of size 1 that grows into a size 2 adult when its age boundary is
+# reached, a spawned one (spawn size by the baby state), the jump delays, the neutral sound source, the attributes and the saved form.
+level flat
+preload 4
+entity_counter 9600
+level_seed 9601
+difficulty normal
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 4 1000000
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn A minecraft:sulfur_cube 8.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,Size:1}
+mobspawn B minecraft:sulfur_cube 16.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,Size:0,Age:-60}
+mobspawn C minecraft:sulfur_cube 24.5 -60 8.5 0 0 {PersistenceRequired:1b}
+mobspawn D minecraft:sulfur_cube 32.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,Size:0,Age:-24000}
+entity_seed A 9611
+entity_seed B 9612
+entity_seed C 9613
+entity_seed D 9614
+tick 1
+dump attrs:A attrs:B attrs:C
+dump mobs nbt:A nbt:B nbt:C nbt:D
+watch mob:A mob:B
+tick 80
+watch off
+dump mobs nbt:A nbt:B events
+note the baby that grew up is an adult of size 2 with the full health
+tick 100
+dump mobs nbt:B events

@@ -3164,6 +3164,7 @@ pub trait Entity: Any {
     /// `knockback(power, xd, zd, source, damage, comesFromEffect)`.
     fn knockback(
         &mut self,
+        _level: &mut ServerLevel,
         power: f64,
         xd: f64,
         zd: f64,
@@ -3236,13 +3237,14 @@ pub trait Entity: Any {
     /// default pushes the defender away unless the hit was blocked completely (hoglin, zoglin and ravager override it).
     fn blocked_by_item(
         &mut self,
-        _level: &mut ServerLevel,
+        level: &mut ServerLevel,
         defender: &mut dyn Entity,
         source: &crate::world::damagesource::DamageSource,
         damage: f32,
         fully_blocked: bool,
     ) {
         super::living_entity::blocking::blocked_by_item(
+            level,
             self.position(),
             defender,
             source,
@@ -4763,6 +4765,7 @@ pub trait Entity: Any {
     /// `causeExtraKnockback(target, knockback, oldMovement, damageSource, damage, comesFromEffect)` (`Player` overrides).
     fn cause_extra_knockback(
         &mut self,
+        level: &mut ServerLevel,
         target: &mut dyn Entity,
         knockback: f32,
         _old_movement: Vec3,
@@ -4771,6 +4774,7 @@ pub trait Entity: Any {
         comes_from_effect: bool,
     ) {
         super::living_entity::combat::cause_extra_knockback(
+            level,
             self.as_dyn_mut(),
             target,
             knockback,

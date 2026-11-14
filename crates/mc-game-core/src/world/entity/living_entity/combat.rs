@@ -102,6 +102,7 @@ pub fn get_knockback(
 
 /// `LivingEntity.causeExtraKnockback`.
 pub fn cause_extra_knockback(
+    level: &mut ServerLevel,
     attacker: &mut dyn Entity,
     target: &mut dyn Entity,
     knockback: f32,
@@ -112,6 +113,7 @@ pub fn cause_extra_knockback(
     if knockback > 0.0 && target.living().is_some() {
         let y_rot = attacker.base().y_rot();
         target.knockback(
+            level,
             f64::from(knockback),
             f64::from(mth::sin(f64::from(y_rot * DEG_TO_RAD))),
             f64::from(-mth::cos(f64::from(y_rot * DEG_TO_RAD))),
@@ -163,6 +165,7 @@ pub fn stab_attack(
     let mut affected = deals_knockback || dealt_damage;
     if deals_knockback {
         attacker.cause_extra_knockback(
+            level,
             &mut *target,
             0.4,
             old_movement,
@@ -172,6 +175,7 @@ pub fn stab_attack(
         );
         let knockback = get_knockback(&mut *attacker, level, &mut *target, &damage_source);
         attacker.cause_extra_knockback(
+            level,
             &mut *target,
             knockback,
             old_movement,
@@ -244,6 +248,7 @@ pub fn mob_do_hurt_target(
     if was_hurt {
         let knockback = get_knockback(&mut *attacker, level, &mut *target, &damage_source);
         attacker.cause_extra_knockback(
+            level,
             &mut *target,
             knockback,
             old_movement,

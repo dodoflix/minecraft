@@ -1,0 +1,57 @@
+# Sulfur cubes holding tnt: flint and steel or a fire charge prime them (fuse 120, power 3), fire and explosions prime them too (an
+# explosion with a short random fuse), a redstone signal at their position, the explosion that kills the cube without splitting, and the
+# cube that refuses when tnt does not explode.
+level flat
+preload 4
+entity_counter 9900
+level_seed 9901
+difficulty normal
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 4 1000000
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+fill 10 -61 -2 40 -61 10 minecraft:stone
+fill 10 -60 4 40 -58 4 minecraft:stone
+mobspawn A minecraft:sulfur_cube 2.5 -60 0.5 270 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1,equipment:{body:{id:"minecraft:tnt",count:1}}}
+mobspawn B minecraft:sulfur_cube 12.5 -60 0.5 270 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1,equipment:{body:{id:"minecraft:tnt",count:1}}}
+mobspawn C minecraft:sulfur_cube 22.5 -60 0.5 270 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1,equipment:{body:{id:"minecraft:tnt",count:1}}}
+mobspawn D minecraft:sulfur_cube 32.5 -60 0.5 270 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1,equipment:{body:{id:"minecraft:tnt",count:1}}}
+entity_seed A 9911
+entity_seed B 9912
+entity_seed C 9913
+entity_seed D 9914
+tick 1
+dump mobs
+note flint and steel on the first cube: primed with the full fuse
+give Steve mainhand minecraft:flint_and_steel
+interact Steve A main
+tick 1
+dump mob:A nbt:A inventory:Steve events
+note a primed cube ignores the second try and takes damage as an invulnerable mob
+interact Steve A main
+tick 1
+dump mob:A inventory:Steve events
+note fire damage primes the second cube, an explosion the third with a short random fuse
+hurt B in_fire 1
+hurt C explosion 1
+tick 1
+dump mob:B mob:C events
+note the explosion of the first cube after 120 ticks, no children
+watch mob:A mob:B mob:C
+tick 120
+watch off
+dump mobs entities events
+tick 20
+dump mobs entities events
+note a redstone block under the fourth cube primes it by the signal at its position
+block 32 -61 0 minecraft:redstone_block
+tick 2
+dump mob:D events
+note tnt_explodes false: the player is told and nothing is primed
+gamerule tnt_explodes false
+mobspawn E minecraft:sulfur_cube 2.5 -60 6.5 270 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1,equipment:{body:{id:"minecraft:tnt",count:1}}}
+give Steve mainhand minecraft:fire_charge 2
+interact Steve E main
+tick 1
+dump mob:E inventory:Steve events

@@ -175,6 +175,7 @@ impl Behavior for RamTarget {
                     1.0_f32
                 };
                 target.knockback(
+                    level,
                     f64::from(blocking_factor * speed_factor) * knockback_force,
                     ram_direction.x,
                     ram_direction.z,
