@@ -1,0 +1,47 @@
+# Zombies in the night walk toward the points of interest of a village they are close to (MoveThroughVillageGoal): one in the open, one shut in
+# a room with a wooden door that it may break (the path goes up to the door), one shut in without the flag.
+level flat
+preload 6
+difficulty hard
+entity_counter 400
+level_seed 401
+time 18000
+gamerule mob_drops false
+fill -50 -60 -50 50 -52 50 minecraft:air
+block 0 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 8 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 8 -60 1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -8 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -8 -60 1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 0 -60 10 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 11 minecraft:red_bed[facing=south,part=head,occupied=false]
+fill 24 -60 -18 32 -57 -10 minecraft:stone_bricks
+fill 25 -60 -17 31 -58 -11 minecraft:air
+block 24 -60 -14 minecraft:oak_door[facing=west,half=lower,hinge=left,open=false]
+block 24 -59 -14 minecraft:oak_door[facing=west,half=upper,hinge=left,open=false]
+fill -32 -60 10 -24 -57 18 minecraft:stone_bricks
+fill -31 -60 11 -25 -58 17 minecraft:air
+block -24 -60 14 minecraft:oak_door[facing=east,half=lower,hinge=left,open=false]
+block -24 -59 14 minecraft:oak_door[facing=east,half=upper,hinge=left,open=false]
+spawn_player Steve survival 0.5 -60 80.5 180 0
+set Steve invulnerable true
+tick 30
+poi_take 0 -60 1
+poi_take 8 -60 1
+poi_take -8 -60 1
+poi_take 0 -60 11
+mobspawn Z1 minecraft:zombie 20.5 -60 20.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn Z2 minecraft:zombie 28.5 -60 -14.5 90 0 nofinalize {PersistenceRequired:1b,CanBreakDoors:1b}
+mobspawn Z3 minecraft:zombie -28.5 -60 14.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed Z1 41
+entity_seed Z2 42
+entity_seed Z3 43
+tick 2
+dump mobs goals:Z1
+watch mob:Z1 mob:Z2 mob:Z3
+tick 160
+watch off
+dump mobs blocks:24,-60,-14,24,-59,-14 events
+tick 100
+dump mobs

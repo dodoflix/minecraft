@@ -1,0 +1,96 @@
+# Raiders walk to their village (PathfindToRaidGoal while they stand outside it) and then to the beds in it (RaiderMoveThroughVillageGoal, visited
+# beds remembered), while the player they could attack is far away; raid state and the raiders' goals are dumped every 20 ticks.
+level flat
+preload 6
+difficulty normal
+gamerule raids true
+gamerule mob_drops false
+entity_counter 800
+level_seed 801
+fill -20 -60 -20 20 -52 20 minecraft:air
+block 0 -60 0 minecraft:bell
+block 6 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 6 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -6 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -6 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 0 -60 8 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 7 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+set Steve invulnerable true
+tick 5
+effect Steve minecraft:raid_omen 0 600
+raid_start Steve 0 -60 0
+dump raids
+note the player leaves: nothing is in the raiders' range
+tp Steve 0.5 -60 85.5
+tick 300
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs
+tick 40
+dump raids mobs

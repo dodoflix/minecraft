@@ -57,12 +57,13 @@ impl DoorInteractData {
     }
 
     /// `setOpen(open)`.
-    pub fn set_open(&self, mob: &dyn Entity, level: &mut ServerLevel, open: bool) {
+    pub fn set_open(&self, mob: &mut dyn Entity, level: &mut ServerLevel, open: bool) {
         if self.has_door {
             let state = level.get_block_state(self.door_pos);
             if is_instance_of(state, "DoorBlock") {
-                level.expose(mob, |level| {
-                    door_block::set_open_at(Some(mob.id()), level, state, self.door_pos, open)
+                let id = mob.id();
+                level.lend(mob, |level| {
+                    door_block::set_open_at(Some(id), level, state, self.door_pos, open)
                 });
             }
         }

@@ -1,0 +1,416 @@
+C The difficulty did not change; it is already set to Normal
+C Set minecraft:overworld to 1000 tick(s)
+# V1 meets V2: three villagers slept, five are needed
+T 1236
+BRAIN V1 acts=core;idle
+BM V1 type=interaction_target value=V2 ttl=inf
+BM V1 type=last_slept value=1234 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;V4;V5;V3;Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;V4;V5;V3;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [TradeWithVillager]
+BR V1 RunOne: [DoNothing]
+T 1237
+BRAIN V1 acts=core;idle
+BM V1 type=interaction_target value=V2 ttl=inf
+BM V1 type=last_slept value=1234 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;V4;V5;V3;Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;V4;V5;V3;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [TradeWithVillager]
+BR V1 RunOne: [DoNothing]
+T 1238
+BRAIN V1 acts=core;idle
+BM V1 type=interaction_target value=V2 ttl=inf
+BM V1 type=last_slept value=1234 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;V4;V5;V3;Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;V4;V5;V3;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [TradeWithVillager]
+BR V1 RunOne: [DoNothing]
+T 1239
+BRAIN V1 acts=core;idle
+BM V1 type=interaction_target value=V2 ttl=inf
+BM V1 type=last_slept value=1234 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;V4;V5;V3;Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;V4;V5;V3;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [TradeWithVillager]
+BR V1 RunOne: [DoNothing]
+T 1240
+BRAIN V1 acts=core;idle
+BM V1 type=interaction_target value=V2 ttl=inf
+BM V1 type=last_slept value=1234 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;V4;V5;V3;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;V4;V5;V3;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [TradeWithVillager]
+BR V1 RunOne: [DoNothing]
+T 1241
+BRAIN V1 acts=core;idle
+BM V1 type=interaction_target value=V2 ttl=inf
+BM V1 type=last_slept value=1234 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;V4;V5;V3;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;V4;V5;V3;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [TradeWithVillager]
+BR V1 RunOne: [DoNothing]
+E V1 minecraft:villager pos=-4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-50.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=interaction_target:V2:inf;last_slept:1234:inf;look_target:entity(V2):inf;mobs:(V2;V4;V5;V3;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V2;V4;V5;V3;Steve):inf;walk_target:walk(entity(V2);0.5;2):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=-3.593897427591566,-60.0,0.41670032781551913 delta=-0.03139493244797202,-0.0784000015258789,-0.027851535960553783 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=60.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=interaction_target:V1:inf;last_slept:1234:inf;look_target:entity(V1):inf;mobs:(V3;V1;V5;V4;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V3;V1;V5;V4;Steve):inf;walk_target:walk(entity(V1);0.5;2):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V3 minecraft:villager pos=-2.9392779543690923,-60.0,1.1433292912515944 delta=-0.011632037712813901,-0.0784000015258789,0.04676018511479841 rot=52.766876,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=45.000916 body=52.766876 nav=moving stuck=0 navspeed=0.5 ntarget=-9,-60,9 path=1/10/1/-9,-60,9 nodes=-3,-60,0:WALKABLE:0.0;-4,-60,1:WALKABLE:0.0;-5,-60,2:WALKABLE:0.0;-6,-60,3:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0;-8,-60,5:WALKABLE:0.0;-8,-60,6:WALKABLE:0.0;-8,-60,7:WALKABLE:0.0;-9,-60,8:WALKABLE:0.0;-9,-60,9:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=last_slept:1234:inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;path:path(1;10):inf;walk_target:walk(pos(-9,-60,9);0.5;0):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V4 minecraft:villager pos=-4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=cant_reach_walk_target_since:1232:inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V5 minecraft:villager pos=-3.6252923600395377,-60.0,1.625288338571013 delta=-0.01714163510763868,-0.0784000015258789,0.017141084918097776 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=mobs:(V3;V2;V4;V1;Steve):inf;visible_mobs:(V3;V2;V4;V1;Steve):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+BRAIN V2 acts=core;idle
+BM V2 type=interaction_target value=V1 ttl=inf
+BM V2 type=last_slept value=1234 ttl=inf
+BM V2 type=look_target value=entity(V1) ttl=inf
+BM V2 type=mobs value=(V3;V1;V5;V4;Steve) ttl=inf
+BM V2 type=nearest_players value=(Steve) ttl=inf
+BM V2 type=nearest_visible_player value=Steve ttl=inf
+BM V2 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V2 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V2 type=visible_mobs value=(V3;V1;V5;V4;Steve) ttl=inf
+BM V2 type=walk_target value=walk(entity(V1);0.5;2) ttl=inf
+BR V2 LookAtTargetSink
+BR V2 RunOne: [DoNothing]
+BR V2 GateBehavior: [TradeWithVillager]
+BR V2 RunOne: [DoNothing]
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(1;10) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+# V4 and V5 slept too: V3 meets V4 and five want a golem
+T 1242
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(1;10) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1243
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(1;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1244
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1245
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1246
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1247
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1248
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1249
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1250
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1251
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1252
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1253
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1254
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1255
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1256
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+T 1257
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+E V1 minecraft:villager pos=-4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-99.37499 body=-31.874992 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=interaction_target:V2:inf;last_slept:1234:inf;look_target:entity(V2):inf;mobs:(V2;V4;V3;V5;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V2;V4;V3;V5;Steve):inf;walk_target:walk(entity(V2);0.5;2):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=-3.6569035258819325,-60.0,0.36080542773327046 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=80.625 body=20.625 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=interaction_target:V1:inf;last_slept:1234:inf;look_target:entity(V1):inf;mobs:(V1;V4;V3;V5;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;V4;V3;V5;Steve):inf;walk_target:walk(entity(V1);0.5;2):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V3 minecraft:villager pos=-3.7164333055473424,-60.0,1.9984580861372103 delta=-0.010661997244507851,-0.0784000015258789,0.015761971598215102 rot=57.132706,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=56.76097 body=57.132706 nav=moving stuck=0 navspeed=0.5 ntarget=-9,-60,9 path=2/10/1/-9,-60,9 nodes=-3,-60,0:WALKABLE:0.0;-4,-60,1:WALKABLE:0.0;-5,-60,2:WALKABLE:0.0;-6,-60,3:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0;-8,-60,5:WALKABLE:0.0;-8,-60,6:WALKABLE:0.0;-8,-60,7:WALKABLE:0.0;-9,-60,8:WALKABLE:0.0;-9,-60,9:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=last_slept:1234:inf;mobs:(V5;V2;V4;V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;path:path(2;10):inf;visible_mobs:(V5;V2;V4;V1;Steve):inf;walk_target:walk(pos(-9,-60,9);0.5;0):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V4 minecraft:villager pos=-4.74567330643588,-60.0,1.3429887511922176 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=cant_reach_walk_target_since:1232:inf;last_slept:1234:inf;mobs:(V5;V1;V2;V3;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V5;V1;V2;V3;Steve):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V5 minecraft:villager pos=-4.338348266560335,-60.0,2.2988865922159274 delta=-0.02947728487069045,-0.0784000015258789,0.015421385163080796 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=last_slept:1234:inf;mobs:(V3;V2;V4;V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V3;V2;V4;V1;Steve):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+BRAIN V1 acts=core;idle
+BM V1 type=interaction_target value=V2 ttl=inf
+BM V1 type=last_slept value=1234 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;V4;V3;V5;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;V4;V3;V5;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [TradeWithVillager]
+BR V1 RunOne: [DoNothing]
+BRAIN V2 acts=core;idle
+BM V2 type=interaction_target value=V1 ttl=inf
+BM V2 type=last_slept value=1234 ttl=inf
+BM V2 type=look_target value=entity(V1) ttl=inf
+BM V2 type=mobs value=(V1;V4;V3;V5;Steve) ttl=inf
+BM V2 type=nearest_players value=(Steve) ttl=inf
+BM V2 type=nearest_visible_player value=Steve ttl=inf
+BM V2 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V2 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V2 type=visible_mobs value=(V1;V4;V3;V5;Steve) ttl=inf
+BM V2 type=walk_target value=walk(entity(V1);0.5;2) ttl=inf
+BR V2 LookAtTargetSink
+BR V2 RunOne: [DoNothing]
+BR V2 GateBehavior: [TradeWithVillager]
+BR V2 RunOne: [DoNothing]
+BRAIN V3 acts=core;idle
+BM V3 type=last_slept value=1234 ttl=inf
+BM V3 type=mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=nearest_players value=(Steve) ttl=inf
+BM V3 type=nearest_visible_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V3 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V3 type=path value=path(2;10) ttl=inf
+BM V3 type=visible_mobs value=(V5;V2;V4;V1;Steve) ttl=inf
+BM V3 type=walk_target value=walk(pos(-9,-60,9);0.5;0) ttl=inf
+BR V3 MoveToTargetSink
+BR V3 RunOne: [DoNothing]
+BR V3 RunOne: [DoNothing]
+BRAIN V4 acts=core;idle
+BM V4 type=cant_reach_walk_target_since value=1232 ttl=inf
+BM V4 type=last_slept value=1234 ttl=inf
+BM V4 type=mobs value=(V5;V1;V2;V3;Steve) ttl=inf
+BM V4 type=nearest_players value=(Steve) ttl=inf
+BM V4 type=nearest_visible_player value=Steve ttl=inf
+BM V4 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V4 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V4 type=visible_mobs value=(V5;V1;V2;V3;Steve) ttl=inf
+BR V4 RunOne: [DoNothing]
+BR V4 RunOne: [DoNothing]
+BRAIN V5 acts=core;idle
+BM V5 type=last_slept value=1234 ttl=inf
+BM V5 type=mobs value=(V3;V2;V4;V1;Steve) ttl=inf
+BM V5 type=nearest_players value=(Steve) ttl=inf
+BM V5 type=nearest_visible_player value=Steve ttl=inf
+BM V5 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V5 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V5 type=visible_mobs value=(V3;V2;V4;V1;Steve) ttl=inf
+BR V5 RunOne: [DoNothing]
+BR V5 RunOne: [DoNothing]
+EV sound at=-3.6888420061244083,-60.0,1.6750375212323367 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9373971
+EV sound at=-4.5,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8798644
+EV sound at=-3.438056038935976,-60.0,1.7567632859344322 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.6569035258819325,-60.0,0.36080542773327046 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.96306217
+# the same pair meets again: the gossip cooldown (1200 ticks) holds
+E V1 minecraft:villager pos=-4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-99.37499 body=-99.37499 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=golem_detected_recently:1:590;interaction_target:V2:inf;last_slept:1234:inf;look_target:entity(V2):inf;mobs:(V2;V4;V3;V5;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V2;V4;V3;V5;Steve):inf;walk_target:walk(entity(V2);0.5;2):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=-3.6569035258819325,-60.0,0.36080542773327046 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=80.625 body=80.625 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=golem_detected_recently:1:590;interaction_target:V1:inf;last_slept:1234:inf;look_target:entity(V1):inf;mobs:(V1;V4;V3;V5;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;V4;V3;V5;Steve):inf;walk_target:walk(entity(V1);0.5;2):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V3 minecraft:villager pos=-3.7797345264270468,-60.0,2.0667511011505284 delta=0.0,-0.0784000015258789,0.0 rot=57.37767,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=126.84346 body=57.37767 nav=done stuck=0 navspeed=0.5 ntarget=-9,-60,9 path=- nodes=- goals=- tgoals=- acts=core;idle mem=golem_detected_recently:1:590;interaction_target:V4:inf;last_slept:1234:inf;look_target:entity(V4):inf;mobs:(V5;V4;V2;V1;iron_golem#1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V5;V4;V2;V1;iron_golem#1;Steve):inf;walk_target:walk(entity(V4);0.5;2):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V4 minecraft:villager pos=-4.74567330643588,-60.0,1.3429887511922176 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-53.156548 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=golem_detected_recently:1:589;interaction_target:V3:inf;last_slept:1234:inf;look_target:entity(V3):inf;mobs:(V1;V5;V3;V2;iron_golem#1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;V5;V3;V2;iron_golem#1;Steve):inf;walk_target:walk(entity(V3);0.5;2):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V5 minecraft:villager pos=-4.481688430989657,-60.0,2.3635302680510093 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=golem_detected_recently:1:589;last_slept:1234:inf;mobs:(V3;V4;V1;V2;iron_golem#1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V3;V4;V1;V2;iron_golem#1;Steve):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E iron_golem#1 minecraft:iron_golem pos=-3.5,-60.0,-3.5 delta=0.0,-0.0784000015258789,0.0 rot=25.851109,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=25.851109 body=25.851109 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:15.879386730021018;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0

@@ -55,9 +55,7 @@ pub fn create() -> OneShot {
             let from_state = c.level.get_block_state(from_pos);
             if is_interactable_door(from_state) {
                 if !from_state.get(props::OPEN) {
-                    c.level.expose(&*c.body, |level| {
-                        set_open_at(Some(c.body.id()), level, from_state, from_pos, true)
-                    });
+                    set_open_at(&mut *c.body, c.level, from_state, from_pos, true);
                 }
                 doors = Some(remember_door_to_close(
                     c,
@@ -70,9 +68,7 @@ pub fn create() -> OneShot {
         let to_pos = to_node.as_block_pos();
         let to_state = c.level.get_block_state(to_pos);
         if is_interactable_door(to_state) && !to_state.get(props::OPEN) {
-            c.level.expose(&*c.body, |level| {
-                set_open_at(Some(c.body.id()), level, to_state, to_pos, true)
-            });
+            set_open_at(&mut *c.body, c.level, to_state, to_pos, true);
             doors = Some(remember_door_to_close(
                 c,
                 &doors_memory,
@@ -90,11 +86,9 @@ pub fn create() -> OneShot {
                 &mut door_set,
                 entities.as_deref(),
             );
-            // the set is shared with the memory in vanilla: write the pruned set back
-            if c.body().brain().has_memory_value(DOORS_TO_CLOSE.id()) || !door_set.is_empty() {
-                c.body_mut()
-                    .brain_mut()
-                    .set_memory(&DOORS_TO_CLOSE, door_set);
+            // the set is the memory's own in vanilla: an emptied set stays in the memory
+            if let Some(stored) = c.body_mut().brain_mut().get_memory_mut(&DOORS_TO_CLOSE) {
+                *stored = door_set;
             }
         }
         true
@@ -123,9 +117,7 @@ pub fn close_doors_that_i_have_opened_or_passed_through(
                     && state.get(props::OPEN)
                     && !are_other_mobs_coming_through_door(level, body, door_pos, nearest_entities)
                 {
-                    level.expose(&*body, |level| {
-                        set_open_at(Some(body.id()), level, state, door_pos, false)
-                    });
+                    set_open_at(&mut *body, level, state, door_pos, false);
                 }
             }
             doors.remove(&door_global_pos);
@@ -150,7 +142,9 @@ pub fn close_doors_in_memory(
         &mut doors,
         nearest_entities,
     );
-    body.brain_mut().set_memory(&DOORS_TO_CLOSE, doors);
+    if let Some(stored) = body.brain_mut().get_memory_mut(&DOORS_TO_CLOSE) {
+        *stored = doors;
+    }
 }
 
 fn are_other_mobs_coming_through_door(
@@ -224,13 +218,17 @@ fn remember_door_to_close(
     }
 }
 
-/// `DoorBlock.setOpen(sourceEntity, level, state, pos, shouldOpen)` of the door in `state`.
+/// `DoorBlock.setOpen(body, level, state, pos, shouldOpen)` of the door in `state`: `body` is lent to the level, so its own navigation
+/// is recomputed for the changed door where vanilla does.
 fn set_open_at(
-    source_entity: Option<crate::world::entity::EntityId>,
+    body: &mut dyn Entity,
     level: &mut ServerLevel,
     state: BlockState,
     pos: BlockPos,
     should_open: bool,
 ) {
-    door_block::set_open_at(source_entity, level, state, pos, should_open);
+    let id = body.id();
+    level.lend(body, |level| {
+        door_block::set_open_at(Some(id), level, state, pos, should_open);
+    });
 }

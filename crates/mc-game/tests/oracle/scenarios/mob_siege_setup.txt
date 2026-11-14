@@ -1,0 +1,89 @@
+# VillageSiege (one `custom_spawner` = one spawner tick, seeded level random): a night roll of one in ten, then twenty zombies one every third
+# tick on the ring 32 blocks from the player who stands in the village; a failed roll leaves everything alone (the rng dump after each call shows the draws).
+level flat
+preload 6
+difficulty hard
+entity_counter 300
+level_seed 1
+time 18000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+fill -40 -60 -40 40 -52 40 minecraft:air
+block 0 -60 4 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 5 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 32 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 32 -60 1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -32 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -32 -60 1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 0 -60 32 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 33 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 0 -60 -32 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 -31 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 23 -60 23 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 23 -60 24 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -23 -60 23 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -23 -60 24 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 23 -60 -23 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 23 -60 -22 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -23 -60 -23 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -23 -60 -22 minecraft:red_bed[facing=south,part=head,occupied=false]
+poi_take 0 -60 5
+poi_take 32 -60 1
+poi_take -32 -60 1
+poi_take 0 -60 33
+poi_take 0 -60 -31
+poi_take 23 -60 24
+poi_take -23 -60 24
+poi_take 23 -60 -22
+poi_take -23 -60 -22
+tick 2
+note the roll at the marker fails (nextInt(10) != 0): no siege
+custom_spawner siege 1
+dump rng:level
+note the roll succeeds: the siege is set up and the first zombie spawns at once
+custom_spawner siege 18
+dump rng:level
+time 18001
+note spawner tick 2: a zombie every third tick
+custom_spawner siege 100
+dump rng:level
+note spawner tick 3: a zombie every third tick
+custom_spawner siege 101
+dump rng:level
+note spawner tick 4: a zombie every third tick
+custom_spawner siege 102
+dump rng:level
+note spawner tick 5: a zombie every third tick
+custom_spawner siege 103
+dump rng:level
+note spawner tick 6: a zombie every third tick
+custom_spawner siege 104
+dump rng:level
+note spawner tick 7: a zombie every third tick
+custom_spawner siege 105
+dump rng:level
+note spawner tick 8: a zombie every third tick
+custom_spawner siege 106
+dump rng:level
+note spawner tick 9: a zombie every third tick
+custom_spawner siege 107
+dump rng:level
+note spawner tick 10: a zombie every third tick
+custom_spawner siege 108
+dump rng:level
+note spawner tick 11: a zombie every third tick
+custom_spawner siege 109
+dump rng:level
+note spawner tick 12: a zombie every third tick
+custom_spawner siege 110
+dump rng:level
+note spawner tick 13: a zombie every third tick
+custom_spawner siege 111
+dump rng:level
+note spawner tick 14: a zombie every third tick
+custom_spawner siege 112
+dump rng:level
+note spawner tick 15: a zombie every third tick
+custom_spawner siege 113
+dump rng:level
+tick 60
+dump mobs

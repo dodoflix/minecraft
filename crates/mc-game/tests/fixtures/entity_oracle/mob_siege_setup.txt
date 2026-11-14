@@ -1,0 +1,69 @@
+C Set minecraft:overworld to 18000 tick(s)
+POITAKE 0 -60 5 1
+POITAKE 32 -60 1 1
+POITAKE -32 -60 1 1
+POITAKE 0 -60 33 1
+POITAKE 0 -60 -31 1
+POITAKE 23 -60 24 1
+POITAKE -23 -60 24 1
+POITAKE 23 -60 -22 1
+POITAKE -23 -60 -22 1
+# the roll at the marker fails (nextInt(10) != 0): no siege
+CUSTOMSPAWNER siege seed=1 enemies=1
+RNG level 205723924636679
+# the roll succeeds: the siege is set up and the first zombie spawns at once
+CUSTOMSPAWNER siege seed=18 enemies=1
+E zombie#1 minecraft:zombie pos=23.5,-60.0,-10.5 delta=0.0,0.0,0.0 rot=147.28561,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.0062155 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:32.2729340493948;minecraft:knockback_resistance:0.04017719328283705;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.016846222356774816
+RNG level 115158930293871
+C Set minecraft:overworld to 18001 tick(s)
+# spawner tick 2: a zombie every third tick
+CUSTOMSPAWNER siege seed=100 enemies=1
+RNG level 25214903817
+# spawner tick 3: a zombie every third tick
+CUSTOMSPAWNER siege seed=101 enemies=1
+RNG level 25214903816
+# spawner tick 4: a zombie every third tick
+CUSTOMSPAWNER siege seed=102 enemies=1
+E zombie#2 minecraft:zombie pos=26.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=328.088,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.99224776 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.71323935564763;minecraft:knockback_resistance:0.015432663656713143;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.07189514933832386
+RNG level 256523784262495
+# spawner tick 5: a zombie every third tick
+CUSTOMSPAWNER siege seed=103 enemies=1
+RNG level 25214903818
+# spawner tick 6: a zombie every third tick
+CUSTOMSPAWNER siege seed=104 enemies=1
+RNG level 25214903813
+# spawner tick 7: a zombie every third tick
+CUSTOMSPAWNER siege seed=105 enemies=1
+E zombie#3 minecraft:zombie pos=34.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=303.33133,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.6232142 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_shovel*1 attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:33.65062354215309;minecraft:knockback_resistance:8.803497008940714E-5;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.020358713770332524
+RNG level 237167157657304
+# spawner tick 8: a zombie every third tick
+CUSTOMSPAWNER siege seed=106 enemies=1
+RNG level 25214903815
+# spawner tick 9: a zombie every third tick
+CUSTOMSPAWNER siege seed=107 enemies=1
+RNG level 25214903814
+# spawner tick 10: a zombie every third tick
+CUSTOMSPAWNER siege seed=108 enemies=1
+E zombie#4 minecraft:zombie pos=23.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=25.841839,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.2459316 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:34.6096690648648;minecraft:knockback_resistance:0.0291235623731139;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.08938520024131338
+RNG level 20205095620432
+# spawner tick 11: a zombie every third tick
+CUSTOMSPAWNER siege seed=109 enemies=1
+RNG level 25214903808
+# spawner tick 12: a zombie every third tick
+CUSTOMSPAWNER siege seed=110 enemies=1
+RNG level 25214903811
+# spawner tick 13: a zombie every third tick
+CUSTOMSPAWNER siege seed=111 enemies=1
+E zombie#5 minecraft:zombie pos=34.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=75.939964,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.0467385 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.04218079099361;minecraft:knockback_resistance:0.03196613112919955;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.07708040707677298
+RNG level 59375558260408
+# spawner tick 14: a zombie every third tick
+CUSTOMSPAWNER siege seed=112 enemies=1
+RNG level 25214903837
+# spawner tick 15: a zombie every third tick
+CUSTOMSPAWNER siege seed=113 enemies=1
+RNG level 25214903836
+E zombie#1 minecraft:zombie pos=20.50014804622002,-60.0,-8.5034735078074 delta=-0.0448931646224712,-0.0784000015258789,0.045078624301266135 rot=44.902817,0.3118577 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=65.656265 body=44.902817 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=4/24/1/0,-60,0 nodes=23,-60,-12:WALKABLE:0.0;22,-60,-11:WALKABLE:0.0;21,-60,-10:WALKABLE:0.0;20,-60,-9:WALKABLE:0.0;19,-60,-8:WALKABLE:0.0;18,-60,-7:WALKABLE:0.0;17,-60,-6:WALKABLE:0.0;16,-60,-5:WALKABLE:0.0;15,-60,-4:WALKABLE:0.0;14,-60,-4:WALKABLE:0.0;13,-60,-4:WALKABLE:0.0;12,-60,-3:WALKABLE:0.0;11,-60,-3:WALKABLE:0.0;10,-60,-3:WALKABLE:0.0;9,-60,-3:WALKABLE:0.0;8,-60,-2:WALKABLE:0.0;7,-60,-2:WALKABLE:0.0;6,-60,-2:WALKABLE:0.0;5,-60,-1:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-60,-1:WALKABLE:0.0;2,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=3:ZombieAttackGoal:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:32.2729340493948;minecraft:knockback_resistance:0.04017719328283705;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.016846222356774816
+E zombie#2 minecraft:zombie pos=23.149979951955974,-60.0,-1.4950098369812712 delta=-0.06361836381855103,-0.0784000015258789,-1.993780569101627E-4 rot=90.40039,0.3008161 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=84.992935 body=90.40039 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=5/28/1/0,-60,0 nodes=27,-60,-2:WALKABLE:0.0;26,-60,-2:WALKABLE:0.0;25,-60,-2:WALKABLE:0.0;24,-60,-2:WALKABLE:0.0;23,-60,-2:WALKABLE:0.0;22,-60,-2:WALKABLE:0.0;21,-60,-2:WALKABLE:0.0;20,-60,-2:WALKABLE:0.0;19,-60,-2:WALKABLE:0.0;18,-60,-2:WALKABLE:0.0;17,-60,-2:WALKABLE:0.0;16,-60,-2:WALKABLE:0.0;15,-60,-2:WALKABLE:0.0;14,-60,-2:WALKABLE:0.0;13,-60,-2:WALKABLE:0.0;12,-60,-2:WALKABLE:0.0;11,-60,-2:WALKABLE:0.0;10,-60,-2:WALKABLE:0.0;9,-60,-2:WALKABLE:0.0;8,-60,-2:WALKABLE:0.0;7,-60,-2:WALKABLE:0.0;6,-60,-2:WALKABLE:0.0;5,-60,-1:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-60,-1:WALKABLE:0.0;2,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=3:ZombieAttackGoal:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.71323935564763;minecraft:knockback_resistance:0.015432663656713143;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.07189514933832386
+E zombie#3 minecraft:zombie pos=28.961478248913878,-60.0,-3.503528887959944 delta=-0.0636185684207751,-0.0784000015258789,1.9660896804152503E-4 rot=89.614456,0.23825666 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=82.02452 body=89.614456 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=3/32/1/0,-60,0 nodes=31,-60,-4:WALKABLE:0.0;30,-60,-4:WALKABLE:0.0;29,-60,-4:WALKABLE:0.0;28,-60,-4:WALKABLE:0.0;27,-60,-4:WALKABLE:0.0;26,-60,-4:WALKABLE:0.0;25,-60,-4:WALKABLE:0.0;24,-60,-4:WALKABLE:0.0;23,-60,-4:WALKABLE:0.0;22,-60,-4:WALKABLE:0.0;21,-60,-4:WALKABLE:0.0;20,-60,-4:WALKABLE:0.0;19,-60,-4:WALKABLE:0.0;18,-60,-4:WALKABLE:0.0;17,-60,-4:WALKABLE:0.0;16,-60,-4:WALKABLE:0.0;15,-60,-4:WALKABLE:0.0;14,-60,-4:WALKABLE:0.0;13,-60,-4:WALKABLE:0.0;12,-60,-3:WALKABLE:0.0;11,-60,-3:WALKABLE:0.0;10,-60,-3:WALKABLE:0.0;9,-60,-3:WALKABLE:0.0;8,-60,-2:WALKABLE:0.0;7,-60,-2:WALKABLE:0.0;6,-60,-2:WALKABLE:0.0;5,-60,-1:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-60,-1:WALKABLE:0.0;2,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=3:ZombieAttackGoal:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=mainhand:minecraft:iron_shovel*1 attrs=minecraft:armor:2.0;minecraft:attack_damage:6.5;minecraft:follow_range:33.65062354215309;minecraft:knockback_resistance:8.803497008940714E-5;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.020358713770332524
+E zombie#4 minecraft:zombie pos=20.149979951955974,-60.0,-2.4950098369812705 delta=-0.06361836381855103,-0.0784000015258789,-1.993780569101627E-4 rot=90.40039,0.34406793 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=81.385254 body=90.40039 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=5/25/1/0,-60,0 nodes=24,-60,-3:WALKABLE:0.0;23,-60,-3:WALKABLE:0.0;22,-60,-3:WALKABLE:0.0;21,-60,-3:WALKABLE:0.0;20,-60,-3:WALKABLE:0.0;19,-60,-3:WALKABLE:0.0;18,-60,-3:WALKABLE:0.0;17,-60,-3:WALKABLE:0.0;16,-60,-3:WALKABLE:0.0;15,-60,-3:WALKABLE:0.0;14,-60,-3:WALKABLE:0.0;13,-60,-3:WALKABLE:0.0;12,-60,-3:WALKABLE:0.0;11,-60,-3:WALKABLE:0.0;10,-60,-3:WALKABLE:0.0;9,-60,-3:WALKABLE:0.0;8,-60,-2:WALKABLE:0.0;7,-60,-2:WALKABLE:0.0;6,-60,-2:WALKABLE:0.0;5,-60,-1:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-60,-1:WALKABLE:0.0;2,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=3:ZombieAttackGoal:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:34.6096690648648;minecraft:knockback_resistance:0.0291235623731139;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.08938520024131338
+E zombie#5 minecraft:zombie pos=29.05842399987776,-60.0,-1.5042970308163544 delta=-0.06361845362438912,-0.0784000015258789,2.0214715922868364E-4 rot=89.60373,0.23918557 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=86.000946 body=89.60373 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=5/34/1/0,-60,0 nodes=33,-60,-2:WALKABLE:0.0;32,-60,-2:WALKABLE:0.0;31,-60,-2:WALKABLE:0.0;30,-60,-2:WALKABLE:0.0;29,-60,-2:WALKABLE:0.0;28,-60,-2:WALKABLE:0.0;27,-60,-2:WALKABLE:0.0;26,-60,-2:WALKABLE:0.0;25,-60,-2:WALKABLE:0.0;24,-60,-2:WALKABLE:0.0;23,-60,-2:WALKABLE:0.0;22,-60,-2:WALKABLE:0.0;21,-60,-2:WALKABLE:0.0;20,-60,-2:WALKABLE:0.0;19,-60,-2:WALKABLE:0.0;18,-60,-2:WALKABLE:0.0;17,-60,-2:WALKABLE:0.0;16,-60,-2:WALKABLE:0.0;15,-60,-2:WALKABLE:0.0;14,-60,-2:WALKABLE:0.0;13,-60,-2:WALKABLE:0.0;12,-60,-2:WALKABLE:0.0;11,-60,-2:WALKABLE:0.0;10,-60,-2:WALKABLE:0.0;9,-60,-2:WALKABLE:0.0;8,-60,-2:WALKABLE:0.0;7,-60,-2:WALKABLE:0.0;6,-60,-2:WALKABLE:0.0;5,-60,-1:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-60,-1:WALKABLE:0.0;2,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-60,0:WALKABLE:0.0 goals=3:ZombieAttackGoal:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.04218079099361;minecraft:knockback_resistance:0.03196613112919955;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.07708040707677298

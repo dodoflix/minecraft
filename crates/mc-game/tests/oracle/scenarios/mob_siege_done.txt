@@ -1,0 +1,337 @@
+# VillageSiege end and reset conditions (one `custom_spawner` = one spawner tick): the siege ends after its twentieth zombie, a failed roll at the marker
+# stops it, daylight and disabled enemy spawning reset it (the setup runs again), a player outside the village or in a mushroom biome gets none.
+level flat
+preload 6
+difficulty normal
+entity_counter 700
+level_seed 701
+time 18000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+fill -40 -60 -40 40 -52 40 minecraft:air
+block 0 -60 4 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 5 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 32 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 32 -60 1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -32 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -32 -60 1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 0 -60 32 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 33 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 0 -60 -32 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 -31 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 23 -60 23 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 23 -60 24 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -23 -60 23 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -23 -60 24 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 23 -60 -23 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 23 -60 -22 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -23 -60 -23 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -23 -60 -22 minecraft:red_bed[facing=south,part=head,occupied=false]
+poi_take 0 -60 5
+poi_take 32 -60 1
+poi_take -32 -60 1
+poi_take 0 -60 33
+poi_take 0 -60 -31
+poi_take 23 -60 24
+poi_take -23 -60 24
+poi_take 23 -60 -22
+poi_take -23 -60 -22
+tick 2
+note the roll succeeds and the first zombie spawns
+custom_spawner siege 18
+dump rng:level
+time 18001
+note spawner tick 2
+custom_spawner siege 202
+dump rng:level
+note spawner tick 3
+custom_spawner siege 203
+dump rng:level
+note spawner tick 4
+custom_spawner siege 204
+dump rng:level
+note spawner tick 5
+custom_spawner siege 205
+dump rng:level
+note spawner tick 6
+custom_spawner siege 206
+dump rng:level
+note spawner tick 7
+custom_spawner siege 207
+dump rng:level
+note spawner tick 8
+custom_spawner siege 208
+dump rng:level
+note spawner tick 9
+custom_spawner siege 209
+dump rng:level
+note spawner tick 10
+custom_spawner siege 210
+dump rng:level
+note spawner tick 11
+custom_spawner siege 211
+dump rng:level
+note spawner tick 12
+custom_spawner siege 212
+dump rng:level
+note spawner tick 13
+custom_spawner siege 213
+dump rng:level
+note spawner tick 14
+custom_spawner siege 214
+dump rng:level
+note spawner tick 15
+custom_spawner siege 215
+dump rng:level
+note spawner tick 16
+custom_spawner siege 216
+dump rng:level
+note spawner tick 17
+custom_spawner siege 217
+dump rng:level
+note spawner tick 18
+custom_spawner siege 218
+dump rng:level
+note spawner tick 19
+custom_spawner siege 219
+dump rng:level
+note spawner tick 20
+custom_spawner siege 220
+dump rng:level
+note spawner tick 21
+custom_spawner siege 221
+dump rng:level
+note spawner tick 22
+custom_spawner siege 222
+dump rng:level
+note spawner tick 23
+custom_spawner siege 223
+dump rng:level
+note spawner tick 24
+custom_spawner siege 224
+dump rng:level
+note spawner tick 25
+custom_spawner siege 225
+dump rng:level
+note spawner tick 26
+custom_spawner siege 226
+dump rng:level
+note spawner tick 27
+custom_spawner siege 227
+dump rng:level
+note spawner tick 28
+custom_spawner siege 228
+dump rng:level
+note spawner tick 29
+custom_spawner siege 229
+dump rng:level
+note spawner tick 30
+custom_spawner siege 230
+dump rng:level
+note spawner tick 31
+custom_spawner siege 231
+dump rng:level
+note spawner tick 32
+custom_spawner siege 232
+dump rng:level
+note spawner tick 33
+custom_spawner siege 233
+dump rng:level
+note spawner tick 34
+custom_spawner siege 234
+dump rng:level
+note spawner tick 35
+custom_spawner siege 235
+dump rng:level
+note spawner tick 36
+custom_spawner siege 236
+dump rng:level
+note spawner tick 37
+custom_spawner siege 237
+dump rng:level
+note spawner tick 38
+custom_spawner siege 238
+dump rng:level
+note spawner tick 39
+custom_spawner siege 239
+dump rng:level
+note spawner tick 40
+custom_spawner siege 240
+dump rng:level
+note spawner tick 41
+custom_spawner siege 241
+dump rng:level
+note spawner tick 42
+custom_spawner siege 242
+dump rng:level
+note spawner tick 43
+custom_spawner siege 243
+dump rng:level
+note spawner tick 44
+custom_spawner siege 244
+dump rng:level
+note spawner tick 45
+custom_spawner siege 245
+dump rng:level
+note spawner tick 46
+custom_spawner siege 246
+dump rng:level
+note spawner tick 47
+custom_spawner siege 247
+dump rng:level
+note spawner tick 48
+custom_spawner siege 248
+dump rng:level
+note spawner tick 49
+custom_spawner siege 249
+dump rng:level
+note spawner tick 50
+custom_spawner siege 250
+dump rng:level
+note spawner tick 51
+custom_spawner siege 251
+dump rng:level
+note spawner tick 52
+custom_spawner siege 252
+dump rng:level
+note spawner tick 53
+custom_spawner siege 253
+dump rng:level
+note spawner tick 54
+custom_spawner siege 254
+dump rng:level
+note spawner tick 55
+custom_spawner siege 255
+dump rng:level
+note spawner tick 56
+custom_spawner siege 256
+dump rng:level
+note spawner tick 57
+custom_spawner siege 257
+dump rng:level
+note spawner tick 58
+custom_spawner siege 258
+dump rng:level
+note spawner tick 59
+custom_spawner siege 259
+dump rng:level
+note spawner tick 60
+custom_spawner siege 260
+dump rng:level
+note spawner tick 61
+custom_spawner siege 261
+dump rng:level
+note spawner tick 62
+custom_spawner siege 262
+dump rng:level
+note spawner tick 63
+custom_spawner siege 263
+dump rng:level
+note spawner tick 64
+custom_spawner siege 264
+dump rng:level
+note the siege is over: nothing more spawns
+custom_spawner siege 265
+dump rng:level
+note still nothing
+custom_spawner siege 266
+dump rng:level
+time 18000
+note a new night at the marker: the roll fails, the state stays done
+custom_spawner siege 1
+dump rng:level
+note the roll succeeds again, but the setup of the night before still stands (daylight or no enemy spawning undo it): no zombies are left, the siege ends at once
+custom_spawner siege 18
+dump rng:level
+time 1000
+tick 2
+note daylight: the setup is forgotten
+custom_spawner siege 269
+dump rng:level
+time 18000
+tick 2
+note a second night: a new siege, first zombie
+custom_spawner siege 18
+dump rng:level
+time 18001
+note a zombie is not due yet
+custom_spawner siege 271
+dump rng:level
+note a zombie is not due yet
+custom_spawner siege 272
+dump rng:level
+time 18000
+note the roll at the marker fails in the middle of the siege: it ends
+custom_spawner siege 1
+dump rng:level
+time 18001
+note nothing
+custom_spawner siege 274
+dump rng:level
+note nothing
+custom_spawner siege 275
+dump rng:level
+note nothing
+custom_spawner siege 276
+dump rng:level
+time 18000
+note a later roll succeeds: the unfinished siege goes on with the zombies that are left, no new setup
+custom_spawner siege 18
+dump rng:level
+time 18001
+note a zombie is not due yet
+custom_spawner siege 278
+dump rng:level
+note a zombie is not due yet
+custom_spawner siege 279
+dump rng:level
+note zombie
+custom_spawner siege 280
+dump rng:level
+note enemy spawning off: the siege is reset
+custom_spawner siege 281 enemies=false
+dump rng:level
+note enemy spawning back on but the state is done: nothing
+custom_spawner siege 282
+dump rng:level
+time 18000
+note enemy spawning was off, so the setup is made again: a new siege
+custom_spawner siege 18
+dump rng:level
+time 18001
+note a zombie is not due yet
+custom_spawner siege 284
+dump rng:level
+note the player leaves the village
+tp Steve 90.5 -60 0.5
+tick 2
+note no player stands in a village: no zombie, nothing drawn
+custom_spawner siege 285
+dump rng:level
+tp Steve 0.5 -60 0.5
+tick 2
+note back in the village: the zombie that was due
+custom_spawner siege 286
+dump rng:level
+note a zombie is not due yet
+custom_spawner siege 287
+dump rng:level
+time 1000
+tick 2
+note daylight: the setup is forgotten
+custom_spawner siege 288
+dump rng:level
+note the village is in a mushroom biome: no zombie sieges there
+biome -16 -64 -16 16 -48 16 minecraft:mushroom_fields
+time 18000
+tick 2
+note the roll succeeds but the player's biome has no sieges: nothing
+custom_spawner siege 18
+dump rng:level
+note again
+custom_spawner siege 18
+dump rng:level
+biome -16 -64 -16 16 -48 16 minecraft:plains
+tick 2
+note plains again: the siege is set up
+custom_spawner siege 18
+dump rng:level

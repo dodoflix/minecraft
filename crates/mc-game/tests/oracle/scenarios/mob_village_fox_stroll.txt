@@ -1,0 +1,134 @@
+# A fox at night strolls through a village it is close to (the fox variant of StrollThroughVillageGoal: one chance in 200 per check, a target
+# toward the closest village section, a step of at most 10 blocks at a time), and stays put in daylight.
+level flat
+preload 6
+difficulty normal
+entity_counter 500
+level_seed 501
+time 18000
+gamerule mob_drops false
+fill -50 -60 -50 50 -52 50 minecraft:air
+block 0 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 12 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 12 -60 1 minecraft:red_bed[facing=south,part=head,occupied=false]
+spawn_player Steve survival 0.5 -60 80.5 180 0
+set Steve invulnerable true
+tick 30
+poi_take 0 -60 1
+poi_take 12 -60 1
+mobspawn F1 minecraft:fox 40.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,Type:"red"}
+mobspawn F2 minecraft:fox -40.5 -60 10.5 90 0 nofinalize {PersistenceRequired:1b,Type:"snow"}
+mobspawn F3 minecraft:fox 5.5 -60 40.5 90 0 nofinalize {PersistenceRequired:1b,Type:"red"}
+entity_seed F1 51
+entity_seed F2 52
+entity_seed F3 53
+tick 2
+dump mobs goals:F1
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+tick 10
+dump mobs
+note the day comes: the stroll never starts
+time 1000
+tick 2
+watch mob:F1 mob:F2 mob:F3
+tick 60
+watch off
+dump mobs

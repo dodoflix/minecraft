@@ -1,0 +1,51 @@
+# Villagers that talk to each other call an iron golem (Villager.gossip -> spawnGolemIfNeeded with five villagers): with only three that slept in the
+# last day nothing happens; once five did, a gossiping pair summons the golem (a search for ground that may end on a roof), every villager nearby gets the
+# golem-detected memory and the gossip cooldown keeps the same pair from summoning again.
+level flat
+preload 4
+entity_counter 7700
+level_seed 7701
+difficulty normal
+fill -10 -60 -10 10 -50 10 minecraft:air
+fill -10 -61 -10 10 -61 10 minecraft:grass_block
+fill 0 -56 -10 10 -56 10 minecraft:stone
+time 1000
+spawn_player Steve survival 0.5 -60 14.5 180 0
+tick 30
+# villagers do not gossip during the first 1200 game ticks (the cooldown counts from tick zero)
+tick 1200
+mobspawn V1 minecraft:villager -4.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+mobspawn V2 minecraft:villager -3.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+mobspawn V3 minecraft:villager -2.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+mobspawn V4 minecraft:villager -4.5 -60 1.5 0 0 nofinalize {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+mobspawn V5 minecraft:villager -3.5 -60 1.5 0 0 nofinalize {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+entity_seed V1 11
+entity_seed V2 12
+entity_seed V3 13
+entity_seed V4 14
+entity_seed V5 15
+memory V1 minecraft:last_slept {value:1234L}
+memory V2 minecraft:last_slept {value:1234L}
+memory V3 minecraft:last_slept {value:1234L}
+tick 5
+note V1 meets V2: three villagers slept, five are needed
+memory V1 minecraft:interaction_target entity:V2
+memory V2 minecraft:interaction_target entity:V1
+watch brain:V1
+tick 6
+watch off
+dump mobs brain:V2 brain:V3
+note V4 and V5 slept too: V3 meets V4 and five want a golem
+memory V4 minecraft:last_slept {value:1234L}
+memory V5 minecraft:last_slept {value:1234L}
+memory V3 minecraft:interaction_target entity:V4
+memory V4 minecraft:interaction_target entity:V3
+watch brain:V3
+tick 16
+watch off
+dump mobs brain:V1 brain:V2 brain:V3 brain:V4 brain:V5 events
+note the same pair meets again: the gossip cooldown (1200 ticks) holds
+memory V3 minecraft:interaction_target entity:V4
+memory V4 minecraft:interaction_target entity:V3
+tick 10
+dump mobs

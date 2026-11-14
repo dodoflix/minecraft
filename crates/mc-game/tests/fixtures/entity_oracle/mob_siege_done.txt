@@ -1,0 +1,322 @@
+C Set minecraft:overworld to 18000 tick(s)
+POITAKE 0 -60 5 1
+POITAKE 32 -60 1 1
+POITAKE -32 -60 1 1
+POITAKE 0 -60 33 1
+POITAKE 0 -60 -31 1
+POITAKE 23 -60 24 1
+POITAKE -23 -60 24 1
+POITAKE 23 -60 -22 1
+POITAKE -23 -60 -22 1
+# the roll succeeds and the first zombie spawns
+CUSTOMSPAWNER siege seed=18 enemies=1
+E zombie#1 minecraft:zombie pos=23.5,-60.0,-10.5 delta=0.0,0.0,0.0 rot=147.28561,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.0062155 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:32.2729340493948;minecraft:knockback_resistance:0.04017719328283705;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.016846222356774816
+RNG level 115158930293871
+C Set minecraft:overworld to 18001 tick(s)
+# spawner tick 2
+CUSTOMSPAWNER siege seed=202 enemies=1
+RNG level 25214903975
+# spawner tick 3
+CUSTOMSPAWNER siege seed=203 enemies=1
+RNG level 25214903974
+# spawner tick 4
+CUSTOMSPAWNER siege seed=204 enemies=1
+E zombie#2 minecraft:zombie pos=38.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=307.4085,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.8654436 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:36.91894457168171;minecraft:knockback_resistance:0.04474148967939205;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.09287689493678224
+RNG level 240355016166675
+# spawner tick 5
+CUSTOMSPAWNER siege seed=205 enemies=1
+RNG level 25214903968
+# spawner tick 6
+CUSTOMSPAWNER siege seed=206 enemies=1
+RNG level 25214903971
+# spawner tick 7
+CUSTOMSPAWNER siege seed=207 enemies=1
+E zombie#3 minecraft:zombie pos=29.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=165.06366,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.53218 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:34.63259787638713;minecraft:knockback_resistance:0.028623208143422358;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.07140045070963259
+RNG level 129059137982592
+# spawner tick 8
+CUSTOMSPAWNER siege seed=208 enemies=1
+RNG level 25214903997
+# spawner tick 9
+CUSTOMSPAWNER siege seed=209 enemies=1
+RNG level 25214903996
+# spawner tick 10
+CUSTOMSPAWNER siege seed=210 enemies=1
+E zombie#4 minecraft:zombie pos=30.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=82.486404,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.2545552 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:34.68741185792176;minecraft:knockback_resistance:0.029695051295678038;minecraft:movement_speed:0.3450000062584877;minecraft:spawn_reinforcements:0.07135754124307192
+RNG level 64494061143211
+# spawner tick 11
+CUSTOMSPAWNER siege seed=211 enemies=1
+RNG level 25214903998
+# spawner tick 12
+CUSTOMSPAWNER siege seed=212 enemies=1
+RNG level 25214903993
+# spawner tick 13
+CUSTOMSPAWNER siege seed=213 enemies=1
+E zombie#5 minecraft:zombie pos=34.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=128.89883,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.641767 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:34.94242389592457;minecraft:knockback_resistance:0.04356489043093274;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.05620893888690112
+RNG level 100782768847121
+# spawner tick 14
+CUSTOMSPAWNER siege seed=214 enemies=1
+RNG level 25214903995
+# spawner tick 15
+CUSTOMSPAWNER siege seed=215 enemies=1
+RNG level 25214903994
+# spawner tick 16
+CUSTOMSPAWNER siege seed=216 enemies=1
+E zombie#6 minecraft:zombie pos=24.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=14.039648,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.3914697 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.778480413035496;minecraft:knockback_resistance:0.01120745959552425;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.04585139620422383
+RNG level 10977249811643
+# spawner tick 17
+CUSTOMSPAWNER siege seed=217 enemies=1
+RNG level 25214903988
+# spawner tick 18
+CUSTOMSPAWNER siege seed=218 enemies=1
+RNG level 25214903991
+# spawner tick 19
+CUSTOMSPAWNER siege seed=219 enemies=1
+E zombie#7 minecraft:zombie pos=26.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=32.199726,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.739138 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.97775731027385;minecraft:knockback_resistance:0.035518866263867264;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.07085932866509637
+RNG level 25176162862046
+# spawner tick 20
+CUSTOMSPAWNER siege seed=220 enemies=1
+RNG level 25214903985
+# spawner tick 21
+CUSTOMSPAWNER siege seed=221 enemies=1
+RNG level 25214903984
+# spawner tick 22
+CUSTOMSPAWNER siege seed=222 enemies=1
+E zombie#8 minecraft:zombie pos=35.5,-60.0,-8.5 delta=0.0,0.0,0.0 rot=259.03024,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.53306097 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:32.35182047661069;minecraft:knockback_resistance:0.01944574282047705;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.08566283934256905
+RNG level 202529266208374
+# spawner tick 23
+CUSTOMSPAWNER siege seed=223 enemies=1
+RNG level 25214903986
+# spawner tick 24
+CUSTOMSPAWNER siege seed=224 enemies=1
+RNG level 25214903949
+# spawner tick 25
+CUSTOMSPAWNER siege seed=225 enemies=1
+E zombie#9 minecraft:zombie pos=34.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=136.47672,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.550797 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:37.646770421576576;minecraft:knockback_resistance:0.033447413805092606;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.004014426066356928
+RNG level 106707725030581
+# spawner tick 26
+CUSTOMSPAWNER siege seed=226 enemies=1
+RNG level 25214903951
+# spawner tick 27
+CUSTOMSPAWNER siege seed=227 enemies=1
+RNG level 25214903950
+# spawner tick 28
+CUSTOMSPAWNER siege seed=228 enemies=1
+E zombie#10 minecraft:zombie pos=33.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=20.853424,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.4505835 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:33.95323876466405;minecraft:knockback_resistance:0.02084989819505525;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.0634083543310608
+RNG level 16304785900586
+# spawner tick 29
+CUSTOMSPAWNER siege seed=229 enemies=1
+RNG level 25214903944
+# spawner tick 30
+CUSTOMSPAWNER siege seed=230 enemies=1
+RNG level 25214903947
+# spawner tick 31
+CUSTOMSPAWNER siege seed=231 enemies=1
+E zombie#11 minecraft:zombie pos=36.5,-60.0,-4.5 delta=0.0,0.0,0.0 rot=263.00284,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.8559957 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.84783577443987;minecraft:knockback_resistance:0.0035936685438660377;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.025036249152365533
+RNG level 205635319646577
+# spawner tick 32
+CUSTOMSPAWNER siege seed=232 enemies=1
+RNG level 25214903941
+# spawner tick 33
+CUSTOMSPAWNER siege seed=233 enemies=1
+RNG level 25214903940
+# spawner tick 34
+CUSTOMSPAWNER siege seed=234 enemies=1
+E zombie#12 minecraft:zombie pos=34.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=55.519646,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.222169 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:37.40593479813024;minecraft:knockback_resistance:0.024567795305984304;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.08877613029382471
+RNG level 43409429889916
+# spawner tick 35
+CUSTOMSPAWNER siege seed=235 enemies=1
+RNG level 25214903942
+# spawner tick 36
+CUSTOMSPAWNER siege seed=236 enemies=1
+RNG level 25214903937
+# spawner tick 37
+CUSTOMSPAWNER siege seed=237 enemies=1
+E zombie#13 minecraft:zombie pos=29.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=55.287945,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=6.0445857 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:37.79378636070955;minecraft:knockback_resistance:0.004184053533699605;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.035821265138297795
+RNG level 43228273410378
+# spawner tick 38
+CUSTOMSPAWNER siege seed=238 enemies=1
+RNG level 25214903939
+# spawner tick 39
+CUSTOMSPAWNER siege seed=239 enemies=1
+RNG level 25214903938
+# spawner tick 40
+CUSTOMSPAWNER siege seed=240 enemies=1
+E zombie#14 minecraft:zombie pos=24.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=119.049545,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.4017186 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:34.79778314512151;minecraft:knockback_resistance:0.01382523269985284;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.09237015329325036
+RNG level 93081862628674
+# spawner tick 41
+CUSTOMSPAWNER siege seed=241 enemies=1
+RNG level 25214903964
+# spawner tick 42
+CUSTOMSPAWNER siege seed=242 enemies=1
+RNG level 25214903967
+# spawner tick 43
+CUSTOMSPAWNER siege seed=243 enemies=1
+E zombie#15 minecraft:zombie pos=36.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=255.83302,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.647678 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:33.33566168631736;minecraft:knockback_resistance:0.045582927783863206;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.01156753643294595
+RNG level 200029431248922
+# spawner tick 44
+CUSTOMSPAWNER siege seed=244 enemies=1
+RNG level 25214903961
+# spawner tick 45
+CUSTOMSPAWNER siege seed=245 enemies=1
+RNG level 25214903960
+# spawner tick 46
+CUSTOMSPAWNER siege seed=246 enemies=1
+E zombie#16 minecraft:zombie pos=35.5,-60.0,-4.5 delta=0.0,0.0,0.0 rot=65.20478,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.7606355 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.61627950775835;minecraft:knockback_resistance:0.044623635094265195;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.04713939047629921
+RNG level 50981984732445
+# spawner tick 47
+CUSTOMSPAWNER siege seed=247 enemies=1
+RNG level 25214903962
+# spawner tick 48
+CUSTOMSPAWNER siege seed=248 enemies=1
+RNG level 25214903957
+# spawner tick 49
+CUSTOMSPAWNER siege seed=249 enemies=1
+E zombie#17 minecraft:zombie pos=31.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=321.38147,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.224316 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.88104021926286;minecraft:knockback_resistance:0.013659865287682883;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.0435301603536198
+RNG level 251280126792577
+# spawner tick 50
+CUSTOMSPAWNER siege seed=250 enemies=1
+RNG level 25214903959
+# spawner tick 51
+CUSTOMSPAWNER siege seed=251 enemies=1
+RNG level 25214903958
+# spawner tick 52
+CUSTOMSPAWNER siege seed=252 enemies=1
+E zombie#18 minecraft:zombie pos=28.5,-60.0,-9.5 delta=0.0,0.0,0.0 rot=316.3965,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.5202336 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:37.08944254961099;minecraft:knockback_resistance:0.021924458522997778;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.07858987515520081
+RNG level 247382531533769
+# spawner tick 53
+CUSTOMSPAWNER siege seed=253 enemies=1
+RNG level 25214903952
+# spawner tick 54
+CUSTOMSPAWNER siege seed=254 enemies=1
+RNG level 25214903955
+# spawner tick 55
+CUSTOMSPAWNER siege seed=255 enemies=1
+E zombie#19 minecraft:zombie pos=34.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=233.62517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.5891743 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:34.71997318169198;minecraft:knockback_resistance:0.03442950739241311;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.03794206936613334
+RNG level 182665679199379
+# spawner tick 56
+CUSTOMSPAWNER siege seed=256 enemies=1
+RNG level 25214904173
+# spawner tick 57
+CUSTOMSPAWNER siege seed=257 enemies=1
+RNG level 25214904172
+# spawner tick 58
+CUSTOMSPAWNER siege seed=258 enemies=1
+E zombie#20 minecraft:zombie pos=35.5,-60.0,-4.5 delta=0.0,0.0,0.0 rot=211.92717,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.7174541 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:34.10960774999994;minecraft:knockback_resistance:0.012483265294165505;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.006862202813622537
+RNG level 165700557310212
+# spawner tick 59
+CUSTOMSPAWNER siege seed=259 enemies=1
+RNG level 25214904174
+# spawner tick 60
+CUSTOMSPAWNER siege seed=260 enemies=1
+RNG level 25214904169
+# spawner tick 61
+CUSTOMSPAWNER siege seed=261 enemies=1
+RNG level 25214904168
+# spawner tick 62
+CUSTOMSPAWNER siege seed=262 enemies=1
+RNG level 25214904171
+# spawner tick 63
+CUSTOMSPAWNER siege seed=263 enemies=1
+RNG level 25214904170
+# spawner tick 64
+CUSTOMSPAWNER siege seed=264 enemies=1
+RNG level 25214904165
+# the siege is over: nothing more spawns
+CUSTOMSPAWNER siege seed=265 enemies=1
+RNG level 25214904164
+# still nothing
+CUSTOMSPAWNER siege seed=266 enemies=1
+RNG level 25214904167
+C Set minecraft:overworld to 18000 tick(s)
+# a new night at the marker: the roll fails, the state stays done
+CUSTOMSPAWNER siege seed=1 enemies=1
+RNG level 205723924636679
+# the roll succeeds again, but the setup of the night before still stands (daylight or no enemy spawning undo it): no zombies are left, the siege ends at once
+CUSTOMSPAWNER siege seed=18 enemies=1
+RNG level 206203007811102
+C Set minecraft:overworld to 1000 tick(s)
+# daylight: the setup is forgotten
+CUSTOMSPAWNER siege seed=269 enemies=1
+RNG level 25214904160
+C Set minecraft:overworld to 18000 tick(s)
+# a second night: a new siege, first zombie
+CUSTOMSPAWNER siege seed=18 enemies=1
+RNG level 115158930293871
+C Set minecraft:overworld to 18001 tick(s)
+# a zombie is not due yet
+CUSTOMSPAWNER siege seed=271 enemies=1
+RNG level 25214904162
+# a zombie is not due yet
+CUSTOMSPAWNER siege seed=272 enemies=1
+RNG level 25214904189
+C Set minecraft:overworld to 18000 tick(s)
+# the roll at the marker fails in the middle of the siege: it ends
+CUSTOMSPAWNER siege seed=1 enemies=1
+RNG level 205723924636679
+C Set minecraft:overworld to 18001 tick(s)
+# nothing
+CUSTOMSPAWNER siege seed=274 enemies=1
+RNG level 25214904191
+# nothing
+CUSTOMSPAWNER siege seed=275 enemies=1
+RNG level 25214904190
+# nothing
+CUSTOMSPAWNER siege seed=276 enemies=1
+RNG level 25214904185
+C Set minecraft:overworld to 18000 tick(s)
+# a later roll succeeds: the unfinished siege goes on with the zombies that are left, no new setup
+CUSTOMSPAWNER siege seed=18 enemies=1
+RNG level 212872304083977
+C Set minecraft:overworld to 18001 tick(s)
+# a zombie is not due yet
+CUSTOMSPAWNER siege seed=278 enemies=1
+RNG level 25214904187
+# a zombie is not due yet
+CUSTOMSPAWNER siege seed=279 enemies=1
+RNG level 25214904186
+# zombie
+CUSTOMSPAWNER siege seed=280 enemies=1
+E zombie#21 minecraft:zombie pos=24.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=161.25659,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=6.0275936 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_sword*1 attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:36.35650396964482;minecraft:knockback_resistance:0.01889796160522729;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.007791227950143742
+RNG level 126082499823149
+# enemy spawning off: the siege is reset
+CUSTOMSPAWNER siege seed=281 enemies=0
+RNG level 25214904180
+# enemy spawning back on but the state is done: nothing
+CUSTOMSPAWNER siege seed=282 enemies=1
+RNG level 25214904183
+C Set minecraft:overworld to 18000 tick(s)
+# enemy spawning was off, so the setup is made again: a new siege
+CUSTOMSPAWNER siege seed=18 enemies=1
+RNG level 115158930293871
+C Set minecraft:overworld to 18001 tick(s)
+# a zombie is not due yet
+CUSTOMSPAWNER siege seed=284 enemies=1
+RNG level 25214904177
+# the player leaves the village
+# no player stands in a village: no zombie, nothing drawn
+CUSTOMSPAWNER siege seed=285 enemies=1
+RNG level 25214904176
+# back in the village: the zombie that was due
+CUSTOMSPAWNER siege seed=286 enemies=1
+E zombie#22 minecraft:zombie pos=35.5,-60.0,-5.5 delta=0.0,0.0,0.0 rot=21.576504,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.3607883 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:33.49832629667616;minecraft:knockback_resistance:0.04826286756956664;minecraft:movement_speed:0.3450000062584877;minecraft:spawn_reinforcements:0.04600176416424473
+RNG level 16870135607314
+# a zombie is not due yet
+CUSTOMSPAWNER siege seed=287 enemies=1
+RNG level 25214904178
+C Set minecraft:overworld to 1000 tick(s)
+# daylight: the setup is forgotten
+CUSTOMSPAWNER siege seed=288 enemies=1
+RNG level 25214904141
+# the village is in a mushroom biome: no zombie sieges there
+C 405 biome entry/entries set between -16, -64, -16 and 16, -48, 16
+C Set minecraft:overworld to 18000 tick(s)
+# the roll succeeds but the player's biome has no sieges: nothing
+CUSTOMSPAWNER siege seed=18 enemies=1
+RNG level 206203007811102
+# again
+CUSTOMSPAWNER siege seed=18 enemies=1
+RNG level 206203007811102
+C 405 biome entry/entries set between -16, -64, -16 and 16, -48, 16
+# plains again: the siege is set up
+CUSTOMSPAWNER siege seed=18 enemies=1
+RNG level 115158930293871

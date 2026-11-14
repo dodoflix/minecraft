@@ -119,7 +119,8 @@ impl Goal for BreakDoorGoal {
         if self.break_time == self.get_door_break_time()
             && self.is_valid_difficulty(level.difficulty())
         {
-            level.remove_block(self.base.door_pos, false);
+            let door_pos = self.base.door_pos;
+            level.lend(mob, |level| level.remove_block(door_pos, false));
             level.level_event(None, 1021, self.base.door_pos, 0);
             let state_id = level.get_block_state(self.base.door_pos).id() as i32;
             level.level_event(None, 2001, self.base.door_pos, state_id);

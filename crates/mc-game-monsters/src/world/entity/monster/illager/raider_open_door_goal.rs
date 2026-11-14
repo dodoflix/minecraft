@@ -20,6 +20,10 @@ impl RaiderOpenDoorGoal {
 }
 
 impl Goal for RaiderOpenDoorGoal {
+    fn name(&self) -> &'static str {
+        "AbstractIllager$RaiderOpenDoorGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.open_door.can_use(mob, level) && raider::has_active_raid(mob, level)
     }
