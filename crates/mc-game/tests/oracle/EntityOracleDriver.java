@@ -1491,7 +1491,7 @@ public final class EntityOracleDriver {
    }
 
    /** The saved fields `dump placed` prints (sorted names): the ones that do not depend on the entity's own random seed. */
-   static final String[] PLACED_KEYS = {"Age", "CatType", "Color", "Health", "PersistenceRequired", "RabbitType", "Sheared", "Type", "Variant", "variant"};
+   static final String[] PLACED_KEYS = {"Age", "CatType", "Color", "Health", "PersistenceRequired", "RabbitType", "Sheared", "Type", "Variant", "VillagerData", "variant"};
 
    void nbtDump(String name, Entity e) {
       try (ProblemReporter.ScopedCollector rep = new ProblemReporter.ScopedCollector(e.problemPath(), org.slf4j.LoggerFactory.getLogger("oracle"))) {

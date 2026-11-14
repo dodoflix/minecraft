@@ -1,0 +1,8 @@
+# A snowy village generating while the preload runs: the template entities (villagers, cats, golems) are created with finalizeSpawn while the
+# village pieces are placed and join the level when their chunks are promoted; compared by type, position, rotation and saved variant fields.
+level normal
+structures true
+seed 25
+preload 8
+difficulty normal
+dump placed

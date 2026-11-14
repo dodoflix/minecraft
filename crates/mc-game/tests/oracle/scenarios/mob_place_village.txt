@@ -1,0 +1,9 @@
+# /place jigsaw of a plains village in a live level: the template entities (villagers, cats, golems) are created once each, finalized with the
+# structure spawn reason and added with their passengers; compared by type, position, rotation and saved variant fields.
+level normal
+seed 1
+preload 3
+difficulty normal
+command_env
+cmd place jigsaw minecraft:village/plains/town_centers minecraft:bottom 6 0 70 0
+dump placed

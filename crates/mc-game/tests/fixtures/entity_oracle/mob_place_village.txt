@@ -1,0 +1,8 @@
+C Generated jigsaw at 0, 70, 0
+G minecraft:cat pos=-0.8995760608387542,71.0,-6.617824496849934 rot=227.05533,0.0 Age=0 Health=10.0f PersistenceRequired=1b variant="minecraft:british_shorthair"
+G minecraft:cat pos=0.3598994834620566,71.0,0.10287446715470594 rot=220.67245,0.0 Age=0 Health=10.0f PersistenceRequired=1b variant="minecraft:jellie"
+G minecraft:cat pos=2.8459992136320515,71.0,-6.491924415155637 rot=270.0,0.0 Age=0 Health=10.0f PersistenceRequired=1b variant="minecraft:persian"
+G minecraft:iron_golem pos=2.5599999999999987,71.0,0.5499999999999972 rot=90.0,0.0 Health=100.0f PersistenceRequired=1b
+G minecraft:villager pos=1.368544710101844,71.0,-3.279501380914411 rot=138.82162,0.0 Age=0 Health=20.0f PersistenceRequired=0b VillagerData={level:1,profession:"minecraft:none",type:"minecraft:plains"}
+G minecraft:villager pos=1.720498619085589,71.0,-5.368544710101844 rot=48.821632,0.0 Age=0 Health=20.0f PersistenceRequired=0b VillagerData={level:1,profession:"minecraft:none",type:"minecraft:plains"}
+G minecraft:villager pos=2.631455289898156,71.0,-1.720498619085589 rot=318.82162,0.0 Age=0 Health=20.0f PersistenceRequired=0b VillagerData={level:1,profession:"minecraft:none",type:"minecraft:plains"}

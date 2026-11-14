@@ -156,6 +156,16 @@ fn mob_chunkgen_plains() {
 }
 
 #[test]
+fn mob_chunkgen_village() {
+    block_scenario::check("mob_chunkgen_village");
+}
+
+#[test]
+fn mob_place_village() {
+    block_scenario::check("mob_place_village");
+}
+
+#[test]
 fn mob_chunkgen_snowy() {
     block_scenario::check("mob_chunkgen_snowy");
 }

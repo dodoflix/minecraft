@@ -207,13 +207,9 @@ impl WorldGenLevel for ServerLevel {
         }
     }
 
-    fn finalize_structure_entity(
-        &mut self,
-        tag: &CompoundTag,
-        pos: BlockPos,
-    ) -> Option<CompoundTag> {
-        let difficulty = WorldGenLevel::get_current_difficulty_at(self, pos);
-        crate::world::entity::factory::finalize_structure_entity(tag, self, difficulty)
+    fn add_structure_entity(&mut self, tag: &CompoundTag, pos: BlockPos, finalize: bool) -> bool {
+        let difficulty = finalize.then(|| WorldGenLevel::get_current_difficulty_at(self, pos));
+        crate::world::entity::factory::add_structure_entity(tag, self, difficulty)
     }
 
     /// `addFreshEntityWithPassengers` of the entity `EntityType.create(tag, level, STRUCTURE)` loads.

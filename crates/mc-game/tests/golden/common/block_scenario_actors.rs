@@ -1376,7 +1376,7 @@ impl Scenario {
             }
             // `G type pos rot saved-fields` of every live entity but players, items, falling blocks and orbs, sorted (the driver's `placed`)
             "placed" => {
-                const PLACED_KEYS: [&str; 10] = [
+                const PLACED_KEYS: [&str; 11] = [
                     "Age",
                     "CatType",
                     "Color",
@@ -1386,6 +1386,7 @@ impl Scenario {
                     "Sheared",
                     "Type",
                     "Variant",
+                    "VillagerData",
                     "variant",
                 ];
                 let level = self.level();

@@ -47,13 +47,9 @@ pub trait WorldGenLevel: LevelAccessor {
     fn remove_block_entity_nbt(&mut self, pos: BlockPos);
     /// `addFreshEntity(entity)` for an entity given as saved NBT (`id`, `Pos`, ...): `chunk.addEntity(tag)`.
     fn add_fresh_entity_nbt(&mut self, tag: CompoundTag) -> bool;
-    /// The `finalizeEntities` half of `StructureTemplate.placeEntities`: the entity of `tag` created, finalized
-    /// (`Mob.finalizeSpawn` at `pos`) and saved again; `None` when it cannot be created.
-    fn finalize_structure_entity(
-        &mut self,
-        tag: &CompoundTag,
-        pos: BlockPos,
-    ) -> Option<CompoundTag>;
+    /// The entity half of `StructureTemplate.placeEntities`: the entity of `tag` created, rotated, finalized
+    /// (`Mob.finalizeSpawn` at `pos`) when `finalize` and added with its passengers; false when it cannot be created.
+    fn add_structure_entity(&mut self, tag: &CompoundTag, pos: BlockPos, finalize: bool) -> bool;
     /// Structure starts/references of any chunk within reach (`StructureManager.startsForStructure` source).
     fn structure_data(&self, pos: ChunkPos) -> Option<&StructureData>;
     /// Replaces the raw start of `structure_id` in the chunk `pos` with `tag` (a piece mutated its state while being

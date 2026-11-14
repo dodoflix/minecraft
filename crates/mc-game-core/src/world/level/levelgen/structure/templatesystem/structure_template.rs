@@ -3,7 +3,7 @@
 //!
 //! Differences from the Java object model (no observable effect on generated worlds):
 //! * `placeInWorld` runs on a [`WorldGenLevel`] (what every structure piece places into); block entities are handed to
-//!   the level as raw NBT (`id`/`x`/`y`/`z` added), entities as saved NBT through `add_fresh_entity_nbt`.
+//!   the level as raw NBT (`id`/`x`/`y`/`z` added), entities through `add_structure_entity`.
 //! * The `DataFixer` step of loading is not ported: templates are read as written by the current data version (every
 //!   template of the vanilla pack is). See `StructureTemplateManager`.
 
@@ -21,7 +21,7 @@ use mc_core::mirror::Mirror;
 use mc_core::phys::Vec3;
 use mc_core::phys::shapes::{BitSetDiscreteVoxelShape, DiscreteVoxelShape};
 use mc_core::pos::{BlockPos, Vec3i};
-use mc_core::random::{self, RandomSource};
+use mc_core::random::RandomSource;
 use mc_core::rotation::Rotation;
 use mc_data::BlockEntityType;
 use mc_data::block::{Block, BlockState, block_flags};
@@ -774,29 +774,11 @@ impl StructureTemplate {
             }));
             rotation_tag.push(Tag::Float(x_rot));
             tag.put("Rotation", rotation_tag);
-            if finalize_entities {
-                // the created entity draws its own random UUID; `finalizeSpawn` draws from the level's random and the
-                // saved entity carries its results
-                let Some(finalized) = level
-                    .finalize_structure_entity(&tag, BlockPos::containing(pos.x, pos.y, pos.z))
-                else {
-                    continue;
-                };
-                tag = finalized;
-            } else {
-                // the entity constructor draws a fresh random UUID (`Mth.createInsecureUUID(entity.random)`)
-                let uuid = mth::create_insecure_uuid(&mut random::create_new()).as_u64_pair();
-                tag.put_int_array(
-                    "UUID",
-                    vec![
-                        (uuid.0 >> 32) as i32,
-                        uuid.0 as i32,
-                        (uuid.1 >> 32) as i32,
-                        uuid.1 as i32,
-                    ],
-                );
-            }
-            level.add_fresh_entity_nbt(tag);
+            level.add_structure_entity(
+                &tag,
+                BlockPos::containing(pos.x, pos.y, pos.z),
+                finalize_entities,
+            );
         }
     }
 

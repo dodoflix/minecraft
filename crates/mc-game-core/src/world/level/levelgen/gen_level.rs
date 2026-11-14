@@ -127,7 +127,7 @@ impl<'a> GenLevel<'a> {
         self
     }
 
-    /// Binds the region to the live level values (`getLevel()` reads of mob spawning); also sets the difficulty inputs.
+    /// Binds the region to the live level values (`getLevel()` reads: mob spawning, template entities); also sets the difficulty inputs.
     pub fn with_live_state(
         mut self,
         live: Arc<crate::server::level::gen_live_state::GenLiveState>,
@@ -137,8 +137,15 @@ impl<'a> GenLevel<'a> {
             live.overworld_clock_time(),
             live.moon_brightness(),
         );
-        self.light = live.light().cloned();
         self.live = Some(live);
+        self
+    }
+
+    /// Binds the light engine of the live level (what the spawn step reads: `LIGHT` precedes `SPAWN`). The features step
+    /// leaves it unbound: the engine reads full sky light for sections it has not lit yet where vanilla's decoration sees
+    /// them dark (swamp mushrooms next to a hut), so there light reads stay 0.
+    pub fn with_live_light(mut self) -> GenLevel<'a> {
+        self.light = self.live.as_ref().and_then(|live| live.light().cloned());
         self
     }
 
@@ -673,17 +680,21 @@ impl WorldGenLevel for GenLevel<'_> {
         }
     }
 
-    fn finalize_structure_entity(
-        &mut self,
-        tag: &CompoundTag,
-        pos: BlockPos,
-    ) -> Option<CompoundTag> {
-        // a region bound to no live level has nothing to create the entity in: the saved NBT stays as the template has it
+    fn add_structure_entity(&mut self, tag: &CompoundTag, pos: BlockPos, finalize: bool) -> bool {
         if self.live.is_none() {
-            return Some(tag.clone());
+            // a region bound to no live level has no registries or mob rules to create the entity with: the template's
+            // saved NBT stays as it is, plus the random UUID the constructor would have drawn
+            let mut tag = tag.clone();
+            let (hi, lo) =
+                mth::create_insecure_uuid(&mut mc_core::random::create_new()).as_u64_pair();
+            tag.put_int_array(
+                "UUID",
+                vec![(hi >> 32) as i32, hi as i32, (lo >> 32) as i32, lo as i32],
+            );
+            return self.add_fresh_entity_nbt(tag);
         }
-        let difficulty = WorldGenLevel::get_current_difficulty_at(self, pos);
-        crate::world::entity::factory::finalize_structure_entity(tag, self, difficulty)
+        let difficulty = finalize.then(|| WorldGenLevel::get_current_difficulty_at(self, pos));
+        crate::world::entity::factory::add_structure_entity(tag, self, difficulty)
     }
 
     fn add_fresh_entity_nbt(&mut self, tag: CompoundTag) -> bool {

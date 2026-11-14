@@ -29,7 +29,9 @@ impl OriginalMobSpawner for NaturalOriginalMobs {
         let mut random =
             WorldgenRandom::new(Box::new(LegacyRandomSource::new(generate_unique_seed())));
         random.set_decoration_seed(ctx.seed, center.get_min_block_x(), center.get_min_block_z());
-        let mut level = GenLevel::new(region, env.clone()).with_live_state(ctx.live.clone());
+        let mut level = GenLevel::new(region, env.clone())
+            .with_live_state(ctx.live.clone())
+            .with_live_light();
         natural_spawner::spawn_mobs_for_chunk_generation(
             &mut level,
             source_pos,

@@ -1,0 +1,13 @@
+G minecraft:cat pos=16.59408887908502,82.0,97.77624978289829 rot=157.44612,0.0 Age=0 Health=10.0f PersistenceRequired=1b variant="minecraft:white"
+G minecraft:cat pos=22.382175503150066,82.0,102.89957606083875 rot=137.05533,0.0 Age=0 Health=10.0f PersistenceRequired=1b variant="minecraft:tabby"
+G minecraft:cat pos=7.100423939161246,70.0,139.38217550315005 rot=227.05533,0.0 Age=0 Health=10.0f PersistenceRequired=1b variant="minecraft:red"
+G minecraft:cat pos=7.594088879085021,69.0,134.7762497828983 rot=157.44612,0.0 Age=0 Health=10.0f PersistenceRequired=1b variant="minecraft:british_shorthair"
+G minecraft:chest_minecart pos=96.5,-6.5,-52.5 rot=0.0,0.0
+G minecraft:iron_golem pos=17.56,82.0,96.55 rot=90.0,0.0 Health=100.0f PersistenceRequired=1b
+G minecraft:villager pos=-30.72049861908559,81.0,96.36854471010184 rot=228.82162,0.0 Age=0 Health=20.0f PersistenceRequired=0b VillagerData={level:1,profession:"minecraft:none",type:"minecraft:snow"}
+G minecraft:villager pos=-32.368544710101844,81.0,96.27950138091441 rot=318.82162,0.0 Age=0 Health=20.0f PersistenceRequired=0b VillagerData={level:1,profession:"minecraft:none",type:"minecraft:snow"}
+G minecraft:villager pos=13.720498619085589,73.0,142.63145528989816 rot=48.821632,0.0 Age=0 Health=20.0f PersistenceRequired=0b VillagerData={level:1,profession:"minecraft:none",type:"minecraft:snow"}
+G minecraft:villager pos=17.72049861908559,82.0,101.63145528989816 rot=48.821632,0.0 Age=0 Health=20.0f PersistenceRequired=0b VillagerData={level:1,profession:"minecraft:none",type:"minecraft:snow"}
+G minecraft:villager pos=17.72049861908559,82.0,97.63145528989816 rot=48.821632,0.0 Age=0 Health=20.0f PersistenceRequired=0b VillagerData={level:1,profession:"minecraft:none",type:"minecraft:snow"}
+G minecraft:villager pos=5.368544710101844,76.0,103.72049861908559 rot=138.82162,0.0 Age=0 Health=20.0f PersistenceRequired=0b VillagerData={level:1,profession:"minecraft:none",type:"minecraft:snow"}
+G minecraft:villager pos=51.72049861908559,80.0,90.63145528989816 rot=48.821632,0.0 Age=0 Health=20.0f PersistenceRequired=0b VillagerData={level:1,profession:"minecraft:nitwit",type:"minecraft:snow"}

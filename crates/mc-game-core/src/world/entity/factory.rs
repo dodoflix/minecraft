@@ -85,38 +85,39 @@ pub fn by(tag: &CompoundTag) -> Option<EntityType> {
     EntityType::by_name(&ident.to_string())
 }
 
-/// `StructureTemplate.placeEntities` for a template entity with `finalizeEntities` set: `EntityType.create` from the tag
-/// (`STRUCTURE`), the body and head rotation of the tag, `Mob.finalizeSpawn`, and the saved result `addFreshEntityWithPassengers`
-/// stores in the chunk. `None` when the entity cannot be created (vanilla skips it).
-pub fn finalize_structure_entity(
+/// The entity half of `StructureTemplate.placeEntities`: `EntityType.create(input, level, STRUCTURE)` from the tag (the
+/// constructor draws the id, seed and UUID), the body and head rotation of the tag, `Mob.finalizeSpawn` when `difficulty`
+/// is given, then `addFreshEntityWithPassengers`. False when the entity cannot be created (vanilla skips it).
+pub fn add_structure_entity(
     tag: &CompoundTag,
     level: &mut dyn crate::world::level::server_level_accessor::ServerLevelAccessor,
-    difficulty: crate::world::difficulty_instance::DifficultyInstance,
-) -> Option<CompoundTag> {
-    let ty = by(tag)?;
-    let mut entity = level.create_entity(
+    difficulty: Option<crate::world::difficulty_instance::DifficultyInstance>,
+) -> bool {
+    let Some(ty) = by(tag) else {
+        return false;
+    };
+    let Some(mut entity) = level.create_entity(
         ty,
         EntitySpawnRequest {
             reason: EntitySpawnReason::Structure,
             ignore_checks: false,
         },
-    )?;
-    super::entity::load(entity.as_mut(), level.as_server_level(), tag).ok()?;
+    ) else {
+        return false;
+    };
+    if super::entity::load(entity.as_mut(), level.as_server_level(), tag).is_err() {
+        return false;
+    }
     entity.resolve_registry_refs(level.registry_access());
     let y_rot = entity.base().y_rot();
     if let Some(living) = entity.living_mut() {
         living.y_body_rot = y_rot;
         living.y_head_rot = y_rot;
     }
-    if entity.is_mob() {
+    if let (Some(difficulty), true) = (difficulty, entity.is_mob()) {
         entity.finalize_spawn(level, difficulty, EntitySpawnReason::Structure, None);
     }
-    let pending = entity
-        .mob_mut()
-        .map(|m| std::mem::take(&mut m.pending_passengers))
-        .unwrap_or_default();
-    let lookup = |id| pending.iter().find(|p| p.id() == id).map(|p| &**p);
-    super::entity::save(&*entity, &lookup)
+    level.add_fresh_entity_with_passengers(entity)
 }
 
 /// A loaded entity tree: `entity` first, then every passenger depth-first, with `vehicle`/`passengers` links set.
