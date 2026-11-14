@@ -141,9 +141,8 @@ impl<'a> GenLevel<'a> {
         self
     }
 
-    /// Binds the light engine of the live level (what the spawn step reads: `LIGHT` precedes `SPAWN`). The features step
-    /// leaves it unbound: the engine reads full sky light for sections it has not lit yet where vanilla's decoration sees
-    /// them dark (swamp mushrooms next to a hut), so there light reads stay 0.
+    /// Binds the light engine of the live level (`WorldGenRegion.getLightEngine()`, read by the features and spawn steps).
+    /// Sections not lit yet read full sky light, as in vanilla's `SkyLightSectionStorage`.
     pub fn with_live_light(mut self) -> GenLevel<'a> {
         self.light = self.live.as_ref().and_then(|live| live.light().cloned());
         self
@@ -416,7 +415,7 @@ impl LevelReader for GenLevel<'_> {
         self.env.get_sea_level()
     }
 
-    /// The light engine of the live level, when the region is bound to one (the spawn step); a bare region reads 0.
+    /// The light engine of the live level, when the region is bound to one (the features and spawn steps); a bare region reads 0.
     fn get_brightness(&self, layer: LightLayer, pos: BlockPos) -> i32 {
         let layer = match layer {
             LightLayer::Sky => mc_light::LightLayer::Sky,

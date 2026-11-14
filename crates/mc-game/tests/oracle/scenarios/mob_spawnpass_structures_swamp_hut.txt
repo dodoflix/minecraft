@@ -9,6 +9,8 @@ spawn_player Steve survival -180.5 66 -688.5 0 0
 time 18000
 tick 60
 dump placed
+# a brown mushroom in the hut is placed by decoration only when the hut chunk was lit before a neighbour decorated it, which depends on chunk completion order: removed so the attempts do not depend on it
+block -222 65 -684 minecraft:air
 note spawn attempts
 cmd kill @e[type=minecraft:witch]
 cmd kill @e[type=minecraft:cat]

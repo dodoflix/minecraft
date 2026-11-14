@@ -83,7 +83,9 @@ impl WorldGenHooks for VanillaWorldGenHooks {
     fn apply_biome_decoration(&self, ctx: &WorldGenContext, region: &mut WorldGenRegion) {
         let features = self.features_per_step();
         let input = DecorationInput::from_region(region);
-        let mut level = GenLevel::new(region, self.env.clone()).with_live_state(ctx.live.clone());
+        let mut level = GenLevel::new(region, self.env.clone())
+            .with_live_state(ctx.live.clone())
+            .with_live_light();
         decoration::apply_biome_decoration(&mut level, &self.env, features, &input);
     }
 
