@@ -59,6 +59,7 @@ impl Behavior for GoToPotentialJobSite {
                 if manager.exists(global.pos, &|_| true) {
                     let _ = manager.release(global.pos);
                 }
+                level.debug_update_poi(global.pos);
             }
         }
         body.brain_mut().erase_memory(&POTENTIAL_JOB_SITE);

@@ -59,6 +59,19 @@ impl ChunkMap {
         })
     }
 
+    /// The chunks of the player's tracking view that are not pending to send, in `ChunkTrackingView.forEach` order.
+    pub fn tracked_chunks_not_pending(&self, id: EntityId) -> Vec<ChunkPos> {
+        let mut out = Vec::new();
+        if let Some(p) = self.players.get(&id) {
+            p.view.for_each(|pos| {
+                if !p.info.sink.is_pending(pos.pack()) {
+                    out.push(pos);
+                }
+            });
+        }
+        out
+    }
+
     fn is_chunk_on_tracked_border(&self, id: EntityId, chunk_x: i32, chunk_z: i32) -> bool {
         if !self.is_chunk_tracked(id, chunk_x, chunk_z) {
             return false;

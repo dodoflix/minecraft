@@ -68,6 +68,7 @@ pub fn create(speed_modifier: f32) -> OneShot {
                         &walk_target,
                         WalkTarget::from_block_pos(target_pos, speed_modifier, 1),
                     );
+                    c.level.debug_update_poi(target_pos);
                 }
             }
             None if tried_count < BATCH_SIZE => batch_cache.retain(|_, v| *v >= last_update),

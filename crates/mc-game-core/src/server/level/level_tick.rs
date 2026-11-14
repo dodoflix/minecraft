@@ -935,6 +935,7 @@ impl ServerLevel {
             self.tick_block_entities(env);
         }
         self.tick_entity_management();
+        self.tick_debug_synchronizers();
     }
 
     /// `tickTime()` for levels that own the game time: `serverLevelData.setGameTime(time + 1)` and the scheduled events.

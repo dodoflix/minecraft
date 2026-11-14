@@ -2,6 +2,7 @@
 //! `TimerQueue`). Other slices add their own small helpers here.
 pub mod block_util;
 pub mod codec;
+pub mod debug;
 pub mod file_util;
 pub mod game_modes;
 pub mod java_format;

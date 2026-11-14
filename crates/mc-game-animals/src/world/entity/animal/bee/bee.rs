@@ -1,6 +1,4 @@
 //! `Bee`: flying neutral animal that pollinates flowers, grows crops and lives in hives.
-//!
-//! Not implemented: `registerDebugValues` (the bee debug subscription).
 
 use super::bee_goals::{
     BeeAttackGoal, BeeBecomeAngryTargetGoal, BeeEnterHiveGoal, BeeGoToHiveGoal,
@@ -18,6 +16,7 @@ use mc_data::{Attribute, EntityType, Item, MobEffect, SoundEvent, props};
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::util::debug::{DebugRegistration, DebugValue, EntityDebugGetter, subscriptions};
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::entity::ai::control::{
     FlyingMoveControl, LookControl, LookControlBase, look_control,
@@ -46,6 +45,7 @@ use mc_game_core::world::level::block::BlockStateExt as _;
 use mc_game_core::world::level::pathfinder::PathType;
 use mc_game_core::world::level::{BlockGetter as _, LevelAccessor as _, LevelReader};
 use mc_nbt::CompoundTag;
+use mc_protocol::packets::play::{DebugBeeInfo, DebugSubscriptionEvent};
 use mc_world::level_storage::Difficulty;
 use std::sync::Arc;
 
@@ -77,6 +77,28 @@ pub struct Bee {
     pub(super) pollinating: bool,
     /// `goToHiveGoal.blacklistedTargets` (read by `BeeLocateHiveGoal`).
     pub(super) blacklisted_hives: Vec<BlockPos>,
+}
+
+/// `Bee.registerDebugValues`: the `BEES` value.
+fn bee_debug_info(_level: &ServerLevel, e: &dyn Entity) -> Option<DebugValue> {
+    let b = bee(e);
+    let goals = &b.mob.goal_selector;
+    let travelling_ticks = goals
+        .find_goal::<BeeGoToHiveGoal>()
+        .map_or(0, BeeGoToHiveGoal::travelling_ticks)
+        .max(
+            goals
+                .find_goal::<BeeGoToKnownFlowerGoal>()
+                .map_or(0, BeeGoToKnownFlowerGoal::travelling_ticks),
+        );
+    Some(DebugValue::new(DebugSubscriptionEvent::Bees(
+        DebugBeeInfo {
+            hive_pos: b.hive_pos,
+            flower_pos: b.saved_flower_pos,
+            travel_ticks: travelling_ticks,
+            blacklisted_hives: b.blacklisted_hives.clone(),
+        },
+    )))
 }
 
 pub(super) fn bee(e: &dyn Entity) -> &Bee {
@@ -420,6 +442,11 @@ fn write_pos(out: &mut CompoundTag, key: &str, pos: Option<BlockPos>) {
 
 impl Entity for Bee {
     mc_game_core::mob_entity_accessors!(mob);
+
+    fn register_debug_values(&self, registration: &mut DebugRegistration<EntityDebugGetter>) {
+        mob::debug::register_debug_values(self, registration);
+        registration.register(subscriptions::bees(), bee_debug_info);
+    }
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:bee")

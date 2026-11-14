@@ -350,6 +350,16 @@ impl PathNavigation for WardenNavigation {
 impl Entity for Warden {
     mc_game_core::mob_entity_accessors!(mob);
 
+    fn debug_brain_dump_extras(
+        &self,
+        _level: &ServerLevel,
+    ) -> mc_game_core::util::debug::brain_dump::BrainDumpExtras {
+        mc_game_core::util::debug::brain_dump::BrainDumpExtras {
+            anger_level: self.get_client_anger_level(),
+            ..Default::default()
+        }
+    }
+
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:warden")
     }

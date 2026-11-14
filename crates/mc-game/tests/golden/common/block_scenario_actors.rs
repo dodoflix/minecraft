@@ -39,9 +39,10 @@ use mc_protocol::packets::play::{
     AttributeModifierOperation, ClientboundSetTimePacket, ClientboundUpdateAttributesPacket,
     PositionAndRotation, ServerboundAcceptTeleportationPacket, ServerboundClientTickEndPacket,
     ServerboundContainerButtonClickPacket, ServerboundContainerClosePacket,
-    ServerboundMovePlayerPosPacket, ServerboundMovePlayerPosRotPacket,
-    ServerboundMoveVehiclePacket, ServerboundPaddleBoatPacket, ServerboundPickItemFromBlockPacket,
-    ServerboundPlayPacket as P, ServerboundSetCarriedItemPacket,
+    ServerboundDebugSubscriptionRequestPacket, ServerboundMovePlayerPosPacket,
+    ServerboundMovePlayerPosRotPacket, ServerboundMoveVehiclePacket, ServerboundPaddleBoatPacket,
+    ServerboundPickItemFromBlockPacket, ServerboundPlayPacket as P,
+    ServerboundSetCarriedItemPacket,
 };
 use std::collections::{HashMap, HashSet};
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
@@ -199,6 +200,41 @@ fn chunk_order(sent: Vec<(&'static str, Vec<u8>)>) -> Vec<(&'static str, Vec<u8>
         } else {
             flush(&mut run, &mut result);
             result.push((ty, wire));
+        }
+    }
+    flush(&mut run, &mut result);
+    result
+}
+
+/// `LevelDebugSynchronizers` keeps its synchronizers in a `HashMap` keyed by identity in vanilla, so the debug packets of one tick
+/// are sent in an order that differs per JVM run: the oracle driver (`EntityOracleDriver.debugOrder`) and this replay stably sort every
+/// run of consecutive `debug/*` packets by subscription id.
+fn debug_order(sent: Vec<(&'static str, Vec<u8>)>) -> Vec<(&'static str, Vec<u8>)> {
+    type Sent = (&'static str, Vec<u8>);
+    fn subscription(ty: &str, wire: &[u8]) -> i32 {
+        let mut body = wire;
+        read_varint(&mut body).expect("packet id");
+        match ty {
+            "minecraft:debug/block_value" | "minecraft:debug/chunk_value" => body = &body[8..],
+            "minecraft:debug/entity_value" => {
+                read_varint(&mut body).expect("entity id");
+            }
+            _ => {}
+        }
+        read_varint(&mut body).expect("subscription id")
+    }
+    fn flush(run: &mut Vec<Sent>, result: &mut Vec<Sent>) {
+        run.sort_by_key(|(ty, wire)| subscription(ty, wire));
+        result.append(run);
+    }
+    let mut result = Vec::with_capacity(sent.len());
+    let mut run = Vec::new();
+    for packet in sent {
+        if packet.0.starts_with("minecraft:debug/") {
+            run.push(packet);
+        } else {
+            flush(&mut run, &mut result);
+            result.push(packet);
         }
     }
     flush(&mut run, &mut result);
@@ -483,6 +519,19 @@ impl Scenario {
                     }
                 });
             }
+            // `debug_subscribe PLAYER NAME,..` (`-` = none): `ServerboundDebugSubscriptionRequestPacket`
+            "debug_subscribe" => deliver(self, &a[1], |_, _| {
+                P::DebugSubscriptionRequest(ServerboundDebugSubscriptionRequestPacket {
+                    subscriptions: a[2]
+                        .split(',')
+                        .filter(|name| *name != "-")
+                        .map(|name| {
+                            mc_data::DebugSubscription::by_name(name)
+                                .unwrap_or_else(|| panic!("unknown debug subscription {name}"))
+                        })
+                        .collect(),
+                })
+            }),
             // `pick_block PLAYER X Y Z [true|false]` (include block data)
             "pick_block" => deliver(self, &a[1], |_, _| {
                 P::PickItemFromBlock(ServerboundPickItemFromBlockPacket {
@@ -1399,6 +1448,7 @@ impl Scenario {
                     Entity::chunk_position(&*p),
                     &mut mc_game::server::network::player_chunk_sender::LevelChunkSource {
                         level: &*level,
+                        player: Entity::id(&*p),
                     },
                 );
             });
@@ -1709,7 +1759,7 @@ impl Scenario {
                     .unwrap_or("?");
                     sent.push((ty, p));
                 }
-                for (ty, p) in chunk_order(sent) {
+                for (ty, p) in debug_order(chunk_order(sent)) {
                     if only
                         .as_ref()
                         .is_none_or(|o| o.contains(&ty.trim_start_matches("minecraft:")) != except)

@@ -449,6 +449,15 @@ fn release_occupant(
 impl BlockEntity for BeehiveBlockEntity {
     block_entity_base!();
 
+    fn register_debug_values(
+        &self,
+        registration: &mut crate::util::debug::DebugRegistration<
+            crate::util::debug::BlockEntityDebugGetter,
+        >,
+    ) {
+        registration.register(crate::util::debug::subscriptions::bee_hives(), hive_info);
+    }
+
     fn load_additional(&mut self, tag: &CompoundTag) {
         self.stored.clear();
         if let Some(bees) = read_codec(tag, "bees", &Bees::codec()) {
@@ -531,6 +540,25 @@ static BEEHIVE: BlockEntityRegistration = BlockEntityRegistration {
     ty: BlockEntityType::BEEHIVE,
     create: |pos, state| Box::new(BeehiveBlockEntity::new(pos, state)),
 };
+
+/// `DebugHiveInfo.pack(beehive)`.
+fn hive_info(level: &ServerLevel, pos: BlockPos) -> Option<crate::util::debug::DebugValue> {
+    let hive = level
+        .block_entity_ref(pos)?
+        .as_any()
+        .downcast_ref::<BeehiveBlockEntity>()?;
+    let state = hive.get_block_state();
+    Some(crate::util::debug::DebugValue::new(
+        mc_protocol::packets::play::DebugSubscriptionEvent::BeeHives(
+            mc_protocol::packets::play::DebugHiveInfo {
+                r#type: state.block(),
+                occupant_count: hive.get_occupant_count() as i32,
+                honey_level: BeehiveBlockEntity::get_honey_level(state),
+                sedated: hive.is_sedated(level),
+            },
+        ),
+    ))
+}
 
 #[cfg(test)]
 mod tests {

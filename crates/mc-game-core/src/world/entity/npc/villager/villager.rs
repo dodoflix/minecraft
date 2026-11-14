@@ -882,6 +882,21 @@ impl Merchant for Villager {
 }
 
 impl Entity for Villager {
+    fn debug_brain_dump_extras(
+        &self,
+        level: &ServerLevel,
+    ) -> crate::util::debug::brain_dump::BrainDumpExtras {
+        use crate::util::debug::brain_dump::{gossip_lines, inventory_string};
+        crate::util::debug::brain_dump::BrainDumpExtras {
+            profession: self.get_villager_data().profession.identifier().to_string(),
+            xp: self.villager_xp,
+            inventory: inventory_string(self.get_inventory()),
+            wants_golem: self.wants_to_spawn_golem_at(level, level.game_time()),
+            anger_level: -1,
+            gossips: gossip_lines(self.gossips.get_gossip_entries()),
+        }
+    }
+
     fn get_slot(&self, slot: i32) -> Option<ItemStack> {
         inventory_carrier::get_slot(self, slot)
     }
@@ -1055,6 +1070,7 @@ impl Entity for Villager {
             let ty = manager.get_type(global.pos);
             if ty.is_some_and(|t| poi_memory_matches(&data, memory, t)) {
                 let _ = manager.release(global.pos);
+                poi_level.debug_update_poi(global.pos);
             }
         };
         // another dimension's POI manager is not reachable from a level

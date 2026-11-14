@@ -1,0 +1,35 @@
+# Debug subscriptions (points of interest, village sections): a block that is a point of interest is sent as a `debug/block_value` with its
+# type and free tickets when it appears and cleared when it goes away; the 27 sections around a point of interest that belongs to a village
+# are marked as village sections; a subscriber that starts later is told about every point of interest of the chunks it tracks.
+level flat
+preload 3
+difficulty normal
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+entity_counter 130
+spawn_player Steve creative 8.5 -60 8.5 180 0
+op Steve
+tick 1
+block 3 -60 3 minecraft:composter
+block 5 -60 3 minecraft:red_bed[facing=north,part=foot]
+block 5 -60 2 minecraft:red_bed[facing=north,part=head]
+tick 2
+dump packets:Steve:none
+watch packets:Steve:debug/block_value
+debug_subscribe Steve pois,village_sections
+tick 3
+note a new point of interest: a workstation and a bell
+block 9 -60 9 minecraft:lectern[facing=north,has_book=false,powered=false]
+block 11 -60 9 minecraft:bell[facing=north,attachment=floor]
+tick 2
+note a point of interest that goes away
+block 3 -60 3 minecraft:air
+tick 2
+note a ticket is taken and the entry is not refreshed: only the behaviors that change tickets send it
+poi_take 9 -60 9
+tick 2
+note unsubscribe, resubscribe: every point of interest of the tracked chunks and the village sections around them
+debug_subscribe Steve -
+tick 2
+debug_subscribe Steve pois,village_sections
+tick 3

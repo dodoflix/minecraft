@@ -294,6 +294,7 @@ impl ServerLevel {
                 id,
                 None,
             );
+            level.apply_debug_tracker_events();
         });
     }
 
@@ -622,6 +623,7 @@ impl ServerLevel {
                     &players,
                     id,
                 );
+                self.apply_debug_tracker_events();
                 if let Some(parts) = self
                     .entity_manager
                     .get_mut(id)
@@ -657,6 +659,7 @@ impl ServerLevel {
                     id,
                     player.as_ref(),
                 );
+                self.apply_debug_tracker_events();
                 let part_ids: Vec<EntityId> = self
                     .entity_manager
                     .get_removed(id)
@@ -744,6 +747,7 @@ impl ServerLevel {
             &players,
             &maps,
         );
+        self.apply_debug_tracker_events();
     }
 
     /// `ChunkMap.move(player)` entity half: runs before the chunk map's own `move_player` (vanilla runs the tracker loop
@@ -765,6 +769,7 @@ impl ServerLevel {
                 &players,
                 &record,
             );
+            level.apply_debug_tracker_events();
         });
     }
 

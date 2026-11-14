@@ -18,7 +18,7 @@ pub struct PathFinder {
     max_visited_nodes: i32,
     node_evaluator: Box<dyn NodeEvaluator>,
     open_set: BinaryHeap,
-    /// `captureDebug` (`ServerDebugSubscribers.hasAnySubscriberFor(ENTITY_PATHS)`), set by the owner.
+    /// `captureDebug` (`ServerDebugSubscribers.hasAnySubscriberFor(ENTITY_PATHS)`), set by the navigation before each search.
     pub capture_debug: bool,
     distance: fn(&Node, &Node) -> f32,
 }
@@ -226,8 +226,17 @@ impl PathFinder {
                 .into_iter()
                 .map(|id| nodes[id].clone())
                 .collect();
-            let closed: Vec<Node> = closed_set.into_iter().map(|id| nodes[id].clone()).collect();
-            path.set_debug(open, closed, targets.clone());
+            // `closedSet` is a `HashSet<Node>` (`Node.equals`/`hashCode`), `List.copyOf` walks it in table order
+            let mut seen = std::collections::HashSet::new();
+            closed_set.retain(|id| seen.insert(*id));
+            let hashes: Vec<i32> = closed_set.iter().map(|&id| nodes[id].hash_code()).collect();
+            let closed: Vec<Node> = java_hash_iteration_order(&hashes, 0)
+                .into_iter()
+                .map(|i| nodes[closed_set[i]].clone())
+                .collect();
+            // the targets are the key set of the `targetMap` `HashMap`
+            let target_nodes: Vec<Target> = order.iter().map(|&ti| targets[ti].clone()).collect();
+            path.set_debug(open, closed, target_nodes);
         }
         Some(path)
     }

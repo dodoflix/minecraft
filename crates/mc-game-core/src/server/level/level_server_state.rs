@@ -74,6 +74,8 @@ pub struct LevelServerState {
     pub spawn_protection: SpawnProtection,
     /// `getGameRules()`: shared with the server's `GameRules`, always current.
     pub rules: super::level_rules::LiveRules,
+    /// `MinecraftServer.debugSubscribers()`.
+    pub debug_subscribers: crate::util::debug::DebugSubscribers,
 }
 
 static DEFAULT_BORDER: LazyLock<WorldBorder> = LazyLock::new(WorldBorder::default);

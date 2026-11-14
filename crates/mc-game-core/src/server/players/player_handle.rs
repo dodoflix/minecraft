@@ -53,6 +53,9 @@ pub struct PlayerSharedState {
     pub text_filtering_enabled: bool,
     /// `server.getProfilePermissions(nameAndId)`, kept current by the player list (op, deop, operator level changes).
     pub permissions: LevelBasedPermissionSet,
+    /// `ServerPlayer.requestedDebugSubscriptions`: what the client asked for (`debugSubscriptions()` applies the
+    /// operator check).
+    pub requested_debug_subscriptions: Vec<mc_data::DebugSubscription>,
 }
 
 pub struct PlayerHandle {
@@ -108,6 +111,7 @@ impl PlayerHandle {
                 allows_listing: false,
                 text_filtering_enabled: false,
                 permissions: LevelBasedPermissionSet::ALL,
+                requested_debug_subscriptions: Vec::new(),
             })),
         }
     }

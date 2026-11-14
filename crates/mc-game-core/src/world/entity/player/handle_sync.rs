@@ -2,6 +2,8 @@
 //! another player or the player list reads off a `ServerPlayer` from outside its level.
 
 use super::ServerPlayer;
+use crate::server::level::ServerLevel;
+use crate::world::entity::Entity as _;
 
 /// `PlayerModelPart.HAT.getMask()` (`1 << 6`).
 const HAT_MASK: u8 = 1 << 6;
@@ -19,5 +21,22 @@ impl ServerPlayer {
         state.chat_visibility = self.chat_visibility;
         state.allows_listing = self.allows_listing;
         state.text_filtering_enabled = self.text_filtering_enabled;
+    }
+
+    /// `requestDebugSubscriptions(subscriptions)`.
+    pub fn request_debug_subscriptions(&self, subscriptions: &[mc_data::DebugSubscription]) {
+        if let Some(handle) = &self.handle {
+            handle.shared.lock().requested_debug_subscriptions = subscriptions.to_vec();
+        }
+    }
+
+    /// `debugSubscriptions()`: the requested subscriptions of an operator (`hasRequiredPermissions`), else none.
+    pub fn debug_subscriptions(&self, level: &ServerLevel) -> Vec<mc_data::DebugSubscription> {
+        match &self.handle {
+            Some(handle) if level.is_op_uuid(self.uuid()) => {
+                handle.shared.lock().requested_debug_subscriptions.clone()
+            }
+            _ => Vec::new(),
+        }
     }
 }

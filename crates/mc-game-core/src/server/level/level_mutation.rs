@@ -5,7 +5,7 @@
 use super::FullChunkStatus;
 use super::ServerLevel;
 use crate::world::entity::EntityId;
-use crate::world::entity::ai::village::poi::PoiTypes;
+use crate::world::entity::ai::village::poi::{PoiTypeHolder, PoiTypes};
 use crate::world::entity::mob::navigation;
 use crate::world::level::block::helpers::update_or_destroy_limited;
 use crate::world::level::block::{BlockStateExt, behaviour};
@@ -347,18 +347,33 @@ impl ServerLevel {
         );
         if old_type != new_type {
             if self.shared.runs_tasks_inline() {
-                self.poi_manager()
-                    .apply_block_state_change(pos, old_type, new_type);
+                self.apply_poi_block_state_change(pos, old_type, new_type);
             } else {
                 let dimension = self.dimension.clone();
                 self.shared.execute(move |server| {
                     if let Some(level) = server.level_mut(&dimension) {
-                        level
-                            .poi_manager()
-                            .apply_block_state_change(pos, old_type, new_type);
+                        level.apply_poi_block_state_change(pos, old_type, new_type);
                     }
                 });
             }
+        }
+    }
+
+    /// The two tasks of `updatePOIOnBlockStateChange` (removal, registration) and their debug synchronizer calls.
+    fn apply_poi_block_state_change(
+        &mut self,
+        pos: BlockPos,
+        old_type: Option<PoiTypeHolder>,
+        new_type: Option<PoiTypeHolder>,
+    ) {
+        if old_type.is_some() {
+            self.poi_manager().remove(pos);
+            self.debug_drop_poi(pos);
+        }
+        if let Some(poi_type) = new_type
+            && let Some(record) = self.poi_manager().add(pos, poi_type)
+        {
+            self.debug_register_poi(&record);
         }
     }
 

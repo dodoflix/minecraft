@@ -93,6 +93,9 @@ impl PlayerChunkSender {
             return;
         }
         inner.unacknowledged_batches += 1;
+        inner.batch_quota -= chunks_to_send.len() as f32;
+        // `startTrackingChunk` reads `isPending` of this sender
+        drop(inner);
         self.connection.send(&ClientboundChunkBatchStartPacket);
         for (pos, payload) in &chunks_to_send {
             self.connection.send_payload(payload.clone());
@@ -101,7 +104,6 @@ impl PlayerChunkSender {
         self.connection.send(&ClientboundChunkBatchFinishedPacket {
             batch_size: chunks_to_send.len() as i32,
         });
-        inner.batch_quota -= chunks_to_send.len() as f32;
     }
 
     /// `onChunkBatchReceivedByClient(desiredChunksPerTick)`.
@@ -142,6 +144,8 @@ impl crate::server::level::chunk_send_sink::ChunkSendSink for PlayerChunkSender 
 /// `ChunkMap.getChunkToSend` + `new ClientboundLevelChunkWithLightPacket(chunk, level.getLightEngine(), null, null)`.
 pub struct LevelChunkSource<'a> {
     pub level: &'a crate::server::level::ServerLevel,
+    /// The player the chunks go to.
+    pub player: crate::world::entity::EntityId,
 }
 
 impl ChunkPacketSource for LevelChunkSource<'_> {
@@ -153,6 +157,10 @@ impl ChunkPacketSource for LevelChunkSource<'_> {
             .get_chunk_to_send(pos.pack())?;
         let packet = level_chunk_with_light_packet(self.level, chunk);
         Some(Payload::encode(&packet))
+    }
+
+    fn start_tracking_chunk(&mut self, pos: ChunkPos) {
+        self.level.debug_start_tracking_chunk(self.player, pos);
     }
 }
 

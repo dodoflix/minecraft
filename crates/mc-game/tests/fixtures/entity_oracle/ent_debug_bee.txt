@@ -1,0 +1,27 @@
+C Game rule spawn_mobs is already set to false
+C Game rule random_tick_speed is already set to 0
+T 4
+T 5
+PKT Steve minecraft:debug/entity_value 1c99010101010000000000000fc401000000c000003fc40000
+PKT Steve minecraft:debug/entity_value 1c98010101010000000000000fc401000000c000003fc40000
+PKT Steve minecraft:debug/block_value 1a0000000000000fc40701ea07000000
+T 6
+# the sedating campfire below the hive shows in the next hive value
+T 7
+PKT Steve minecraft:debug/block_value 1a0000000000000fc40701ea07000001
+T 8
+T 9
+# honey level changes
+T 10
+PKT Steve minecraft:debug/block_value 1a0000000000000fc40701ea07000301
+T 11
+T 12
+# the bee in the hive leaves it and is tracked
+T 13
+T 14
+T 15
+# removing the hive clears its value
+T 16
+PKT Steve minecraft:debug/block_value 1a0000000000000fc40700
+T 17
+T 18

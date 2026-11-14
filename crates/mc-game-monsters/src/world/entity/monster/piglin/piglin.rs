@@ -321,6 +321,18 @@ impl InventoryCarrier for Piglin {
 impl Entity for Piglin {
     mc_game_core::mob_entity_accessors!(mob);
 
+    fn debug_brain_dump_extras(
+        &self,
+        _level: &ServerLevel,
+    ) -> mc_game_core::util::debug::brain_dump::BrainDumpExtras {
+        mc_game_core::util::debug::brain_dump::BrainDumpExtras {
+            inventory: mc_game_core::util::debug::brain_dump::inventory_string(
+                self.get_inventory(),
+            ),
+            ..Default::default()
+        }
+    }
+
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:piglin")
     }

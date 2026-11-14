@@ -225,6 +225,11 @@ impl BeeGoToHiveGoal {
         }
     }
 
+    /// `travellingTicks` (read by `Bee.getTravellingTicks`).
+    pub(super) fn travelling_ticks(&self) -> i32 {
+        self.travelling_ticks
+    }
+
     fn can_bee_use(mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let Some(hive_pos) = bee(mob).hive_pos else {
             return false;
@@ -347,6 +352,11 @@ impl BeeGoToKnownFlowerGoal {
         Self {
             travelling_ticks: 0,
         }
+    }
+
+    /// `travellingTicks` (read by `Bee.getTravellingTicks`).
+    pub(super) fn travelling_ticks(&self) -> i32 {
+        self.travelling_ticks
     }
 
     fn can_bee_use(mob: &dyn Entity) -> bool {

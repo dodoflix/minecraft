@@ -60,6 +60,8 @@ pub struct ServerLevel {
     pub players: Vec<EntityId>,
     /// `chunkMap.entityMap`: which players see which entity (see `entity_tracker.rs`).
     pub entity_tracker: super::EntityTracker,
+    /// `debugSynchronizers`; `None` only while its own tick or an event runs (see `level_debug.rs`).
+    pub(super) debug_synchronizers: Option<crate::util::debug::LevelDebugSynchronizers>,
     /// Handles to the server-global state (scoreboard, player roster), installed by the server (see `level_server_state.rs`).
     pub server_state: super::LevelServerState,
     /// Dead players whose entity was removed from the level (`tickDeath` after 20 ticks): vanilla keeps the `ServerPlayer`
@@ -175,6 +177,7 @@ impl ServerLevel {
             entity_manager: PersistentEntitySectionManager::new(None),
             players: Vec::new(),
             entity_tracker: Default::default(),
+            debug_synchronizers: Some(Default::default()),
             server_state: Default::default(),
             dead_players: Default::default(),
             loading_entity: None,
@@ -366,6 +369,7 @@ impl ServerLevel {
                 self.start_ticking_chunk(pos);
                 self.chunk_source.chunk_map.complete_ticking(pos);
                 self.chunk_source.after_chunk_ready_to_send();
+                self.debug_register_chunk(pos);
             }
             ChunkMapEvent::FullStatusChanged(pos, status) => {
                 self.entity_manager
@@ -391,6 +395,7 @@ impl ServerLevel {
         // `clearAllBlockEntities` + `unregisterTickContainerFromLevel`
         self.clear_all_block_entities(&mut chunk);
         ServerLevel::unregister_tick_container_from_level(&mut chunk, &self.tick_state.ticks);
+        self.debug_drop_chunk(chunk.pos());
         drop(chunk);
     }
 

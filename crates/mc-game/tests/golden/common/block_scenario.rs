@@ -146,6 +146,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                 l.split_whitespace().next(),
                 Some(
                     "command_env"
+                        | "debug_subscribe"
                         | "select"
                         | "close_menu"
                         | "menu_button"
@@ -1099,6 +1100,8 @@ impl Scenario {
         level.tick(&mut self.env, &mut || true);
         self.level = Some(level);
         self.tick_players();
+        // `MinecraftServer.tickServer`: the debug subscribers are refreshed after the players
+        self.level().tick_debug_subscribers();
         self.send_chunks();
         self.name_new_entities();
         self.ticks += 1;

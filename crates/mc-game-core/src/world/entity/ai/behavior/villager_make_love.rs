@@ -120,6 +120,7 @@ impl VillagerMakeLove {
                 }
                 None => {
                     let _ = level.poi_manager().release(childs_bed);
+                    level.debug_update_poi(childs_bed);
                 }
             },
         }

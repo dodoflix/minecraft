@@ -275,6 +275,7 @@ impl MinecraftServer {
             loot: self.loot_services(),
             spawn_protection: Default::default(),
             rules: self.game_rules_ref().live(),
+            debug_subscribers: self.debug_subscribers.clone(),
         };
         level.has_ceiling = dimension_type.has_ceiling;
         level.dimension_type = Some(dimension_type.clone());
@@ -688,6 +689,11 @@ impl MinecraftServer {
         self.tick_connection();
         pop_push("players");
         self.player_list.tick();
+        pop_push("debugSubscribers");
+        self.debug_subscribers
+            .tick(self.player_list.players(), |p| {
+                self.player_list.is_op(&p.name_and_id())
+            });
         pop_push("server gui refresh");
         if self.tick_rate_manager.runs_normally() {
             crate::gametest::game_test_ticker::tick(self);

@@ -145,6 +145,9 @@ import net.minecraft.util.RandomSource;
  * track_movement PLAYER      sim player: from now on its known movement (`getKnownMovement`/`getKnownSpeed`, what a client reports with its move packets) is the position change
  *                             of the previous tick, set before each tick (kinetic weapons, sweep attacks and projectile deflection read it); without it a sim player reports none
  * op PLAYER                   PlayerList.op (the server's operator permissions)
+ * debug_subscribe PLAYER NAME,..   ServerboundDebugSubscriptionRequestPacket (subscription names of the debug_subscription registry, `-` = none); the player must be an operator
+ *                             (`op PLAYER`) for the server to produce values. The packets of one tick come from independent synchronizers in an identity-hashed order: `packets:`
+ *                             dumps sort every run of consecutive `debug/*` packets stably by subscription id (the Rust replay does the same).
  * pick_block PLAYER X Y Z [true|false]   ServerboundPickItemFromBlockPacket (the flag = include block data, creative only)
  * move_packet PLAYER X Y Z ONGROUND [yaw pitch]   ServerboundMovePlayerPacket (server-authoritative path)
  * dig PLAYER X Y Z [TICKS]    client-like digging: START_DESTROY_BLOCK, per tick client progress, STOP_DESTROY_BLOCK when the
@@ -677,6 +680,16 @@ public final class EntityOracleDriver {
             world();
             v.server.getPlayerList().op(player(a.get(1)).nameAndId());
          }
+         case "debug_subscribe" -> {
+            world();
+            Set<net.minecraft.util.debug.DebugSubscription<?>> subscriptions = new LinkedHashSet<>();
+            if (!a.get(2).equals("-")) {
+               for (String name : a.get(2).split(",")) {
+                  subscriptions.add(BuiltInRegistries.DEBUG_SUBSCRIPTION.getValue(Identifier.parse(name.contains(":") ? name : "minecraft:" + name)));
+               }
+            }
+            player(a.get(1)).connection.handleDebugSubscriptionRequest(new ServerboundDebugSubscriptionRequestPacket(subscriptions));
+         }
          case "pick_block" -> {
             world();
             ServerPlayer p = player(a.get(1));
@@ -1099,6 +1112,41 @@ public final class EntityOracleDriver {
             yield new long[] {(v >> 38) >> 4, ((v << 26) >> 38) >> 4};
          }
       };
+   }
+
+   /**
+    * The `LevelDebugSynchronizers` keep their synchronizers in a `HashMap` keyed by identity, so the debug packets of one tick are sent in
+    * an order that differs per JVM run: every run of consecutive `debug/*` packets is stably sorted by subscription id.
+    */
+   static List<VanillaLevel.Sent> debugOrder(List<VanillaLevel.Sent> sent) {
+      List<VanillaLevel.Sent> result = new ArrayList<>();
+      List<VanillaLevel.Sent> run = new ArrayList<>();
+      for (VanillaLevel.Sent s : sent) {
+         if (s.type().startsWith("minecraft:debug/")) {
+            run.add(s);
+         } else {
+            run.sort(Comparator.comparingInt(EntityOracleDriver::debugSubscription));
+            result.addAll(run);
+            run.clear();
+            result.add(s);
+         }
+      }
+      run.sort(Comparator.comparingInt(EntityOracleDriver::debugSubscription));
+      result.addAll(run);
+      return result;
+   }
+
+   /** The subscription id of a `debug/*` packet, read from its wire form. */
+   private static int debugSubscription(VanillaLevel.Sent s) {
+      java.nio.ByteBuffer b = java.nio.ByteBuffer.wrap(HexFormat.of().parseHex(s.hex()));
+      skipVarInt(b);
+      switch (s.type()) {
+         case "minecraft:debug/block_value", "minecraft:debug/chunk_value" -> b.getLong();
+         case "minecraft:debug/entity_value" -> skipVarInt(b);
+         default -> {
+         }
+      }
+      return readVarInt(b);
    }
 
    private static int readVarInt(java.nio.ByteBuffer b) {
@@ -2026,7 +2074,7 @@ public final class EntityOracleDriver {
                boolean except = pa.length > 1 && pa[1].startsWith("!"); // packets:NAME:!type,type = everything but those types
                Set<String> only = pa.length > 1 ? new HashSet<>(Arrays.asList(pa[1].substring(except ? 1 : 0).split(","))) : null;
                VanillaLevel.FakePlayer p = v.player(pa[0]);
-               for (VanillaLevel.Sent s : chunkOrder(p.drain())) {
+               for (VanillaLevel.Sent s : debugOrder(chunkOrder(p.drain()))) {
                   if (only == null || only.contains(s.type().replace("minecraft:", "")) != except) {
                      out.println("PKT " + pa[0] + " " + s.type() + " " + s.hex());
                   }

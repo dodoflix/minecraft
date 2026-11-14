@@ -1,0 +1,34 @@
+# Debug subscriptions (bees, hives): the hive's occupants, honey level and sedation as a `debug/block_value`, the hive, flower, travel
+# time and blacklisted hives of every tracked bee as a `debug/entity_value`; a bee that enters or leaves a hive starts and stops
+# being tracked.
+level flat
+preload 3
+difficulty normal
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+entity_counter 150
+spawn_player Steve creative 4.5 -60 8.5 180 0
+op Steve
+tick 1
+block 0 -60 0 minecraft:beehive[facing=south,honey_level=0]
+be_nbt 0 -60 0 {flower_pos:[I;3,-60,3],bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:101,min_ticks_in_hive:100}]}
+block 3 -60 3 minecraft:poppy
+mobspawn B1 minecraft:bee 6.5 -60 0.5 0 0 {PersistenceRequired:1b,hive_pos:[I;0,-60,0],flower_pos:[I;3,-60,3]}
+entity_seed B1 151
+tick 2
+dump packets:Steve:none
+watch packets:Steve:debug/block_value,debug/entity_value
+debug_subscribe Steve bees,bee_hives
+tick 3
+note the sedating campfire below the hive shows in the next hive value
+block 0 -61 0 minecraft:campfire[lit=true]
+tick 3
+note honey level changes
+block 0 -60 0 minecraft:beehive[facing=south,honey_level=3]
+tick 3
+note the bee in the hive leaves it and is tracked
+level_seed 3
+tick 3
+note removing the hive clears its value
+block 0 -60 0 minecraft:air
+tick 3

@@ -57,6 +57,7 @@ pub mod animal;
 pub mod combat;
 pub mod conversion_tracker;
 pub mod convert;
+pub mod debug;
 pub mod drop_chances;
 pub mod equipment;
 pub mod ext;

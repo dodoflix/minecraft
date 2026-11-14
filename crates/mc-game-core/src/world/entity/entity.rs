@@ -3846,6 +3846,24 @@ pub trait Entity: Any {
     fn get_player_reputation(&self, _player: &uuid::Uuid) -> i32 {
         0
     }
+    /// `registerDebugValues(level, registration)`: the values debug-subscribed operators get while they track this entity.
+    /// Every `Mob` registers its path, goal selector and brain (`Mob.registerDebugValues`); the subclasses that override it
+    /// call [`mob::debug::register_debug_values`](super::mob::debug::register_debug_values) first, like `super`.
+    fn register_debug_values(
+        &self,
+        registration: &mut crate::util::debug::DebugRegistration<
+            crate::util::debug::EntityDebugGetter,
+        >,
+    ) {
+        super::mob::debug::register_debug_values(self.as_dyn(), registration);
+    }
+    /// What `DebugBrainDump.takeBrainDump` reads off the entity besides its brain (`Villager`, `Warden`, `InventoryCarrier`).
+    fn debug_brain_dump_extras(
+        &self,
+        _level: &ServerLevel,
+    ) -> crate::util::debug::brain_dump::BrainDumpExtras {
+        Default::default()
+    }
     // ==== mob spine additions (Entity trait methods) ====
     // `Mob` and its generic subclasses. Every default is the vanilla behavior and dispatches on `mob()` (the `MobData`
     // of mob types); concrete mobs override what their Java class overrides and call the `world::entity::mob` function

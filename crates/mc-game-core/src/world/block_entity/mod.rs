@@ -239,6 +239,15 @@ pub trait BlockEntity: Any {
     fn get_block_pos(&self) -> BlockPos {
         self.base().pos
     }
+
+    /// `registerDebugValues(level, registration)`: the values debug-subscribed operators get for this block entity.
+    fn register_debug_values(
+        &self,
+        _registration: &mut crate::util::debug::DebugRegistration<
+            crate::util::debug::BlockEntityDebugGetter,
+        >,
+    ) {
+    }
     fn get_block_state(&self) -> BlockState {
         self.base().block_state
     }

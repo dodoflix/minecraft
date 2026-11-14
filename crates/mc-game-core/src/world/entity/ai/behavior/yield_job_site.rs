@@ -72,7 +72,7 @@ pub fn create(speed_modifier: f32) -> OneShot {
             c.erase(&look_target);
             c.erase(&potential_job);
             let dimension = c.level.dimension.clone();
-            c.level.with_entity(nearby_villager, |_, v| {
+            let set = c.level.with_entity(nearby_villager, |_, v| {
                 if v.brain().get_memory(&JOB_SITE).is_none() {
                     set_walk_and_look_target_memories_pos(v, poi_pos, speed_modifier, 1);
                     v.brain_mut().set_memory(
@@ -82,8 +82,14 @@ pub fn create(speed_modifier: f32) -> OneShot {
                             pos: poi_pos,
                         },
                     );
+                    true
+                } else {
+                    false
                 }
             });
+            if set == Some(true) {
+                c.level.debug_update_poi(poi_pos);
+            }
         }
         true
     })

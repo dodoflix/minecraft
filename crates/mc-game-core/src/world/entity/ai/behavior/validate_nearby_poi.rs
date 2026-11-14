@@ -31,6 +31,7 @@ pub fn create(poi_type: PoiPredicate, memory_type: MemoryModuleType<GlobalPos>) 
                 c.erase(&memory);
                 if !bed_is_occupied_by_villager(c.level, pos) {
                     let _ = c.level.poi_manager().release(pos);
+                    c.level.debug_update_poi(pos);
                 }
             }
             true

@@ -131,6 +131,7 @@ pub fn create_validated(
                         level.broadcast_entity_event(c.body.id(), event);
                     }
                     batch_cache.clear();
+                    level.debug_update_poi(target_pos);
                 }
             }
             None => {

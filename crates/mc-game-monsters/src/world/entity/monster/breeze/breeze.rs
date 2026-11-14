@@ -11,9 +11,13 @@ use mc_data::enums::Pose;
 use mc_data::{EntityType, SoundEvent};
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::util::debug::{DebugRegistration, DebugValue, EntityDebugGetter, subscriptions};
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::entity::ai::brain::{Brain, Provider};
 use mc_game_core::world::entity::ai::memory::BrainPacked;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
+    ATTACK_TARGET, BREEZE_JUMP_TARGET,
+};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::ai::sensing::sensor_type::{
     BREEZE_ATTACK_ENTITY_SENSOR, HURT_BY as HURT_BY_SENSOR, NEAREST_LIVING_ENTITIES,
@@ -26,6 +30,7 @@ use mc_game_core::world::entity::projectile::{Projectile, ProjectileDeflection};
 use mc_game_core::world::entity::schedule::Activity;
 use mc_game_core::world::entity::{Entity, EntityId, MovementEmission};
 use mc_game_core::world::level::pathfinder::PathType;
+use mc_protocol::packets::play::{DebugBreezeInfo, DebugSubscriptionEvent};
 
 const FALL_DISTANCE_SOUND_TRIGGER_THRESHOLD: f64 = 3.0;
 const WHIRL_SOUND_FREQUENCY_MIN: i32 = 1;
@@ -41,6 +46,17 @@ static BRAIN_PROVIDER: Provider = Provider::with_activities(
     ],
     breeze_ai::get_activities,
 );
+
+/// `Breeze.registerDebugValues`: the `BREEZES` value.
+fn breeze_debug_info(_level: &ServerLevel, e: &dyn Entity) -> Option<DebugValue> {
+    let brain = e.brain();
+    Some(DebugValue::new(DebugSubscriptionEvent::Breezes(
+        DebugBreezeInfo {
+            attack_target: brain.get_memory(&ATTACK_TARGET).map(|target| target.0),
+            jump_target: brain.get_memory(&BREEZE_JUMP_TARGET).copied(),
+        },
+    )))
+}
 
 /// `Breeze`.
 pub struct Breeze {
@@ -78,6 +94,11 @@ impl Breeze {
 
 impl Entity for Breeze {
     mc_game_core::mob_entity_accessors!(mob);
+
+    fn register_debug_values(&self, registration: &mut DebugRegistration<EntityDebugGetter>) {
+        mob::debug::register_debug_values(self, registration);
+        registration.register(subscriptions::breezes(), breeze_debug_info);
+    }
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:breeze")

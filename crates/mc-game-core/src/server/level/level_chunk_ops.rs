@@ -175,6 +175,11 @@ impl ServerLevel {
 
     // ------------------------------------------------------------------------------------------- block entities
 
+    /// The live block entity at `pos` as stored in its chunk (no creation, no promotion of pending NBT).
+    pub fn block_entity_ref(&self, pos: BlockPos) -> Option<&dyn BlockEntity> {
+        self.chunk_at(pos)?.block_entities.get(&pos)
+    }
+
     /// Take the block entity at `pos` out of its chunk (pair with `put_back_block_entity`).
     pub fn take_block_entity(&mut self, pos: BlockPos) -> Option<Box<dyn BlockEntity>> {
         self.chunk_at_mut(pos)?.block_entities.take(&pos)
@@ -372,6 +377,7 @@ impl ServerLevel {
         let in_level = self.chunk_at(pos).is_some_and(|c| c.data.is_loaded());
         if in_level {
             self.add_game_event_listener(pos);
+            self.debug_register_block_entity(pos);
             self.update_block_entity_ticker(pos);
         }
     }
@@ -438,6 +444,7 @@ impl ServerLevel {
                 .chunk_at_mut(pos)
                 .and_then(|chunk| chunk.block_entities.remove(&pos));
             if let Some(mut removed) = removed {
+                self.debug_drop_block_entity(pos);
                 removed.set_removed_in_level(self);
             }
         }
@@ -538,6 +545,7 @@ impl ServerLevel {
         let positions: Vec<BlockPos> = chunk.block_entities.keys().copied().collect();
         for p in positions {
             self.add_game_event_listener(p);
+            self.debug_register_block_entity(p);
             self.update_block_entity_ticker(p);
         }
     }

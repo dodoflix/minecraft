@@ -580,8 +580,12 @@ impl ChunkMap {
         self.in_flight_batch = None;
         // the `getServer().execute(...)` tasks of `updatePOIOnBlockStateChange`, in call order
         for (pos, old_type, new_type) in result.poi_changes {
-            self.poi_manager
-                .apply_block_state_change(pos, old_type, new_type);
+            if old_type.is_some() {
+                self.poi_manager.remove(pos);
+            }
+            if let Some(poi_type) = new_type {
+                self.poi_manager.add(pos, poi_type);
+            }
         }
         // the `lightEngine.checkBlock/updateSectionStatus` calls of `ProtoChunk.setBlockState`, in call order
         for event in result.light_events {

@@ -1,0 +1,39 @@
+# Debug subscriptions (brains): an operator that subscribed to `brains` gets the brain dump of every mob it tracks as a
+# `debug/entity_value` packet, once when the subscription starts and again whenever the dump changes; a mob that starts being tracked
+# afterwards is registered with the synchronizer, a player that is not an operator gets nothing, and unsubscribing stops the stream.
+level flat
+preload 3
+difficulty normal
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+entity_counter 70
+spawn_player Steve creative 0.5 -60 8.5 180 0
+spawn_player Alex creative 2.5 -60 8.5 180 0
+op Steve
+tick 1
+mobspawn V1 minecraft:villager 0.5 -60 0.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+entity_seed V1 71
+tick 3
+dump packets:Steve:none packets:Alex:none
+watch packets:Steve:debug/entity_value packets:Alex:debug/entity_value
+note the request is sent now, the server refreshes its subscribers at the end of the tick: the level sees it one tick later
+debug_subscribe Steve brains
+debug_subscribe Alex brains
+tick 3
+note a mob that starts being tracked while subscribed
+mobspawn P1 minecraft:piglin 4.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed P1 72
+tick 3
+note a changed memory is sent with the next update
+memory V1 minecraft:golem_detected_recently {value:1b,ttl:599L}
+tick 2
+activity V1 panic
+tick 2
+note unsubscribing stops the stream
+debug_subscribe Steve -
+tick 3
+memory V1 minecraft:golem_detected_recently -
+tick 2
+note subscribing again sends the last value of every tracked mob
+debug_subscribe Steve brains
+tick 3

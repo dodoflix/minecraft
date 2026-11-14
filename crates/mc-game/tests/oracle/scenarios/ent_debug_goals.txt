@@ -1,0 +1,28 @@
+# Debug subscriptions (goal selectors): every goal of a tracked mob with its priority, its running flag and the class name, sent when the
+# subscription starts and each time a goal starts or stops.
+level flat
+preload 3
+difficulty normal
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+entity_counter 90
+spawn_player Steve creative 0.5 -60 8.5 180 0
+spawn_player Bob survival 6.5 -60 8.5 180 0
+op Steve
+tick 1
+mobspawn Z1 minecraft:zombie 0.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed Z1 91
+mobspawn C1 minecraft:cow 4.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed C1 92
+tick 2
+dump packets:Steve:none
+watch packets:Steve:debug/entity_value
+debug_subscribe Steve goal_selectors
+tick 3
+note the zombie notices the survival player and starts chasing it
+tp Bob 3.5 -60 4.5
+tick 4
+note the cow panics when it is hurt
+hurt C1 generic 1
+tick 3
+tick 20

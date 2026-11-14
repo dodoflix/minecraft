@@ -1,0 +1,32 @@
+# Debug subscriptions (entity paths): while an operator is subscribed to `entity_paths` the path finders capture the search (open and
+# closed set, target nodes) and the path of a navigating mob is sent as a `debug/entity_value` packet each time it changes; a path
+# computed before the subscription carries no search data and is not sent.
+level flat
+difficulty normal
+time 18000
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+entity_counter 110
+spawn_player Steve creative 0.5 -60 14.5 180 0
+op Steve
+fill -4 -60 -4 40 -40 40 minecraft:air
+fill 2 -60 4 2 -59 4 minecraft:stone
+tick 1
+mobspawn Z1 minecraft:zombie 0.5 -60 4.5 0 0 {PersistenceRequired:1b}
+entity_seed Z1 111
+mobspawn C1 minecraft:cow 0.5 -60 10.5 0 0 {PersistenceRequired:1b}
+entity_seed C1 112
+tick 3
+note a path found before the subscription has no search data
+nav C1 4.5 -60 10.5
+tick 2
+dump packets:Steve:none
+watch packets:Steve:debug/entity_value
+debug_subscribe Steve entity_paths
+tick 3
+note the zombie walks around the pillar
+nav Z1 4.5 -60 4.5
+tick 12
+note the cow navigates again with the finder capturing
+nav C1 3.5 -60 12.5
+tick 6

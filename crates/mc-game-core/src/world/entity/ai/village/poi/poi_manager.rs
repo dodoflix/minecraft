@@ -434,21 +434,6 @@ impl PoiManager {
         record
     }
 
-    /// The deferred body of `ServerLevel.updatePOIOnBlockStateChange`: the removal task, then the registration task.
-    pub fn apply_block_state_change(
-        &self,
-        pos: BlockPos,
-        old_type: Option<PoiTypeHolder>,
-        new_type: Option<PoiTypeHolder>,
-    ) {
-        if old_type.is_some() {
-            self.remove(pos);
-        }
-        if let Some(poi_type) = new_type {
-            self.add(pos, poi_type);
-        }
-    }
-
     /// `remove(pos)`.
     pub fn remove(&self, pos: BlockPos) {
         let mut s = self.inner.borrow_mut();

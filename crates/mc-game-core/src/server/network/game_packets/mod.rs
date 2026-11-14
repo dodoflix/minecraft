@@ -187,7 +187,10 @@ pub fn send_next_chunks_all(server: &mut MinecraftServer) {
             let sender = ctx.lis().chunk_sender.clone();
             sender.send_next_chunks(
                 pos,
-                &mut super::player_chunk_sender::LevelChunkSource { level: &*ctx.level },
+                &mut super::player_chunk_sender::LevelChunkSource {
+                    level: &*ctx.level,
+                    player: crate::world::entity::Entity::id(&*ctx.player),
+                },
             );
         });
     }

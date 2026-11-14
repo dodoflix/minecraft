@@ -998,6 +998,11 @@ pub fn create_path_with_finder(
         from_pos.offset(-radius, -radius, -radius),
         from_pos.offset(radius, radius, radius),
     );
+    // `pathFinder.setCaptureDebug(() -> subscribers.hasAnySubscriberFor(ENTITY_PATHS))`
+    d.path_finder.capture_debug = level
+        .server_state
+        .debug_subscribers
+        .has_any_subscriber_for(crate::util::debug::subscriptions::entity_paths());
     let path = d.path_finder.find_path(
         &region,
         mob,
