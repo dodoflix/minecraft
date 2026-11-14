@@ -1,0 +1,41 @@
+# Endermite: an ender pearl landing for a player rolls an endermite (5% from the pearl's own random, monsters spawning, not peaceful; TRIGGERED reason,
+# snapped to the owner's old spot) which then attacks the player; its Lifetime counts up unless persistence is required and it vanishes at 2400.
+level flat
+difficulty normal
+preload 4
+entity_counter 1770
+level_seed 1771
+time 6000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 90
+effect Steve minecraft:resistance 3 100000
+give Steve mainhand minecraft:ender_pearl 16
+mobspawn L minecraft:endermite 6.5 -60 4.5 0 0 nofinalize {Lifetime:2395}
+mobspawn P minecraft:endermite 6.5 -60 -4.5 0 0 nofinalize {Lifetime:2395,PersistenceRequired:1b,NoAI:1b}
+entity_seed L 171
+entity_seed P 172
+tick 1
+dump mob:L nbt:L nbt:P
+watch mobs
+tick 8
+watch off
+dump nbt:P entities
+note a pearl that rolls the endermite (the text of this line seeds the pearl's random)
+tp Steve 0.5 -60 0.5 0 90
+tick 20
+gamerule spawn_mobs true
+gamerule spawn_monsters true
+use Steve main 5
+tick 3
+dump player:Steve entities events
+note the endermite bites the player
+watch mobs
+tick 60
+watch off
+dump player:Steve events
+note a second pearl from a line that does not roll
+tp Steve 0.5 -60 0.5 0 90
+tick 20
+use Steve main 2
+tick 3
+dump player:Steve entities events

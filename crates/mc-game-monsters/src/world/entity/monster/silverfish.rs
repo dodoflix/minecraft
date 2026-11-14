@@ -181,6 +181,10 @@ impl SilverfishMergeWithStoneGoal {
 }
 
 impl Goal for SilverfishMergeWithStoneGoal {
+    fn name(&self) -> &'static str {
+        "Silverfish$SilverfishMergeWithStoneGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if mob::tick::get_target_checked(mob, level).is_some() {
             return false;
@@ -245,6 +249,10 @@ impl Goal for SilverfishMergeWithStoneGoal {
 struct SilverfishWakeUpFriendsGoal;
 
 impl Goal for SilverfishWakeUpFriendsGoal {
+    fn name(&self) -> &'static str {
+        "Silverfish$SilverfishWakeUpFriendsGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         mob.as_any()
             .downcast_ref::<Silverfish>()

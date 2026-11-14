@@ -1,0 +1,48 @@
+# Silverfish: with no target it merges into an adjacent host block (SilverfishMergeWithStoneGoal: one in ten checks picks a random direction;
+# the block becomes its infested form, the mob vanishes with a spawn animation); a hurt silverfish (a damage source with an entity) wakes its
+# friends after 20 ticks: every infested block within 10x5x10 is destroyed (a new silverfish each) until a coin flip stops it; with
+# mob griefing off the blocks turn back into stone instead.
+level flat
+difficulty normal
+preload 4
+entity_counter 1760
+level_seed 1761
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 3 100000
+fill 10 -60 -3 16 -57 3 minecraft:stone
+fill 11 -60 0 15 -60 0 minecraft:air
+mobspawn A minecraft:silverfish 12.5 -60 0.5 0 0 {PersistenceRequired:1b}
+mobspawn B minecraft:silverfish 14.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed A 161
+entity_seed B 162
+watch mobs entities
+tick 100
+watch off
+dump blocks:10,-60,-3,16,-57,3 events
+note a pocket of infested stone and cobblestone, a hurt silverfish wakes them
+fill 24 -60 -4 32 -57 4 minecraft:infested_stone
+fill 24 -60 -4 24 -57 4 minecraft:infested_cobblestone
+fill 25 -60 -1 27 -58 1 minecraft:air
+mobspawn W minecraft:silverfish 26.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed W 163
+tick 2
+hurt W minecraft:player_attack 1 by=Steve direct=Steve
+dump mob:W
+watch mobs entities
+tick 40
+watch off
+dump blocks:24,-60,-4,32,-57,4 events
+note the same with mob griefing off: the infested blocks turn back into their hosts and nothing spawns
+gamerule mob_griefing false
+fill 24 -60 20 32 -57 28 minecraft:infested_stone
+fill 25 -60 23 27 -58 25 minecraft:air
+mobspawn X minecraft:silverfish 26.5 -60 24.5 0 0 {PersistenceRequired:1b}
+entity_seed X 164
+tick 2
+hurt X minecraft:player_attack 1 by=Steve direct=Steve
+watch mobs entities
+tick 40
+watch off
+dump blocks:24,-60,20,32,-57,28 events

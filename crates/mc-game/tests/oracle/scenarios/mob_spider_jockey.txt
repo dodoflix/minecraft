@@ -1,0 +1,302 @@
+# Spider.finalizeSpawn: 1/100 spawns a skeleton jockey (JOCKEY reason, finalized, riding the spider), and a spider without group data
+# draws the effect chance on hard difficulty (0.1 * special multiplier: speed, strength, regeneration or invisibility lasting forever); spiders of
+# one group share the first one's effect. Then a spider carrying a rider does not attack (SpiderAttackGoal.canUse) while the rider shoots.
+level flat
+difficulty hard
+preload 5
+entity_counter 1750
+level_seed 1751
+time 1938000
+gamerule mob_drops false
+spawn_player Steve survival -40.5 -60 0.5 0 0
+effect Steve minecraft:resistance 3 100000
+tick 2
+dump difficulty:30,-60,0
+mobspawn S0 minecraft:spider 20.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S1 minecraft:spider 22.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S2 minecraft:spider 24.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S3 minecraft:spider 26.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S4 minecraft:spider 28.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S5 minecraft:spider 30.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S6 minecraft:spider 32.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S7 minecraft:spider 34.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S8 minecraft:spider 36.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S9 minecraft:spider 38.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S10 minecraft:spider 40.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S11 minecraft:spider 42.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S12 minecraft:spider 44.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S13 minecraft:spider 46.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S14 minecraft:spider 48.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S15 minecraft:spider 50.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+mobspawn S16 minecraft:spider 20.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S17 minecraft:spider 22.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S18 minecraft:spider 24.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S19 minecraft:spider 26.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S20 minecraft:spider 28.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S21 minecraft:spider 30.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S22 minecraft:spider 32.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S23 minecraft:spider 34.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S24 minecraft:spider 36.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S25 minecraft:spider 38.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S26 minecraft:spider 40.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S27 minecraft:spider 42.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S28 minecraft:spider 44.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S29 minecraft:spider 46.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S30 minecraft:spider 48.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S31 minecraft:spider 50.5 -60 -28.5 0 0 {PersistenceRequired:1b}
+mobspawn S32 minecraft:spider 20.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S33 minecraft:spider 22.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S34 minecraft:spider 24.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S35 minecraft:spider 26.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S36 minecraft:spider 28.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S37 minecraft:spider 30.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S38 minecraft:spider 32.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S39 minecraft:spider 34.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S40 minecraft:spider 36.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S41 minecraft:spider 38.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S42 minecraft:spider 40.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S43 minecraft:spider 42.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S44 minecraft:spider 44.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S45 minecraft:spider 46.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S46 minecraft:spider 48.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S47 minecraft:spider 50.5 -60 -26.5 0 0 {PersistenceRequired:1b}
+mobspawn S48 minecraft:spider 20.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S49 minecraft:spider 22.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S50 minecraft:spider 24.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S51 minecraft:spider 26.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S52 minecraft:spider 28.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S53 minecraft:spider 30.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S54 minecraft:spider 32.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S55 minecraft:spider 34.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S56 minecraft:spider 36.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S57 minecraft:spider 38.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S58 minecraft:spider 40.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S59 minecraft:spider 42.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S60 minecraft:spider 44.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S61 minecraft:spider 46.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S62 minecraft:spider 48.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S63 minecraft:spider 50.5 -60 -24.5 0 0 {PersistenceRequired:1b}
+mobspawn S64 minecraft:spider 20.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S65 minecraft:spider 22.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S66 minecraft:spider 24.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S67 minecraft:spider 26.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S68 minecraft:spider 28.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S69 minecraft:spider 30.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S70 minecraft:spider 32.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S71 minecraft:spider 34.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S72 minecraft:spider 36.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S73 minecraft:spider 38.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S74 minecraft:spider 40.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S75 minecraft:spider 42.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S76 minecraft:spider 44.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S77 minecraft:spider 46.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S78 minecraft:spider 48.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S79 minecraft:spider 50.5 -60 -22.5 0 0 {PersistenceRequired:1b}
+mobspawn S80 minecraft:spider 20.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S81 minecraft:spider 22.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S82 minecraft:spider 24.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S83 minecraft:spider 26.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S84 minecraft:spider 28.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S85 minecraft:spider 30.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S86 minecraft:spider 32.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S87 minecraft:spider 34.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S88 minecraft:spider 36.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S89 minecraft:spider 38.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S90 minecraft:spider 40.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S91 minecraft:spider 42.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S92 minecraft:spider 44.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S93 minecraft:spider 46.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S94 minecraft:spider 48.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S95 minecraft:spider 50.5 -60 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn S96 minecraft:spider 20.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S97 minecraft:spider 22.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S98 minecraft:spider 24.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S99 minecraft:spider 26.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S100 minecraft:spider 28.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S101 minecraft:spider 30.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S102 minecraft:spider 32.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S103 minecraft:spider 34.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S104 minecraft:spider 36.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S105 minecraft:spider 38.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S106 minecraft:spider 40.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S107 minecraft:spider 42.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S108 minecraft:spider 44.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S109 minecraft:spider 46.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S110 minecraft:spider 48.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S111 minecraft:spider 50.5 -60 -18.5 0 0 {PersistenceRequired:1b}
+mobspawn S112 minecraft:spider 20.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S113 minecraft:spider 22.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S114 minecraft:spider 24.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S115 minecraft:spider 26.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S116 minecraft:spider 28.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S117 minecraft:spider 30.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S118 minecraft:spider 32.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S119 minecraft:spider 34.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S120 minecraft:spider 36.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S121 minecraft:spider 38.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S122 minecraft:spider 40.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S123 minecraft:spider 42.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S124 minecraft:spider 44.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S125 minecraft:spider 46.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S126 minecraft:spider 48.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S127 minecraft:spider 50.5 -60 -16.5 0 0 {PersistenceRequired:1b}
+mobspawn S128 minecraft:spider 20.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S129 minecraft:spider 22.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S130 minecraft:spider 24.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S131 minecraft:spider 26.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S132 minecraft:spider 28.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S133 minecraft:spider 30.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S134 minecraft:spider 32.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S135 minecraft:spider 34.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S136 minecraft:spider 36.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S137 minecraft:spider 38.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S138 minecraft:spider 40.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S139 minecraft:spider 42.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S140 minecraft:spider 44.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S141 minecraft:spider 46.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S142 minecraft:spider 48.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S143 minecraft:spider 50.5 -60 -14.5 0 0 {PersistenceRequired:1b}
+mobspawn S144 minecraft:spider 20.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S145 minecraft:spider 22.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S146 minecraft:spider 24.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S147 minecraft:spider 26.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S148 minecraft:spider 28.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S149 minecraft:spider 30.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S150 minecraft:spider 32.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S151 minecraft:spider 34.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S152 minecraft:spider 36.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S153 minecraft:spider 38.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S154 minecraft:spider 40.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S155 minecraft:spider 42.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S156 minecraft:spider 44.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S157 minecraft:spider 46.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S158 minecraft:spider 48.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S159 minecraft:spider 50.5 -60 -12.5 0 0 {PersistenceRequired:1b}
+mobspawn S160 minecraft:spider 20.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S161 minecraft:spider 22.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S162 minecraft:spider 24.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S163 minecraft:spider 26.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S164 minecraft:spider 28.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S165 minecraft:spider 30.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S166 minecraft:spider 32.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S167 minecraft:spider 34.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S168 minecraft:spider 36.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S169 minecraft:spider 38.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S170 minecraft:spider 40.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S171 minecraft:spider 42.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S172 minecraft:spider 44.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S173 minecraft:spider 46.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S174 minecraft:spider 48.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S175 minecraft:spider 50.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn S176 minecraft:spider 20.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S177 minecraft:spider 22.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S178 minecraft:spider 24.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S179 minecraft:spider 26.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S180 minecraft:spider 28.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S181 minecraft:spider 30.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S182 minecraft:spider 32.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S183 minecraft:spider 34.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S184 minecraft:spider 36.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S185 minecraft:spider 38.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S186 minecraft:spider 40.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S187 minecraft:spider 42.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S188 minecraft:spider 44.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S189 minecraft:spider 46.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S190 minecraft:spider 48.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S191 minecraft:spider 50.5 -60 -8.5 0 0 {PersistenceRequired:1b}
+mobspawn S192 minecraft:spider 20.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S193 minecraft:spider 22.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S194 minecraft:spider 24.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S195 minecraft:spider 26.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S196 minecraft:spider 28.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S197 minecraft:spider 30.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S198 minecraft:spider 32.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S199 minecraft:spider 34.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S200 minecraft:spider 36.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S201 minecraft:spider 38.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S202 minecraft:spider 40.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S203 minecraft:spider 42.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S204 minecraft:spider 44.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S205 minecraft:spider 46.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S206 minecraft:spider 48.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S207 minecraft:spider 50.5 -60 -6.5 0 0 {PersistenceRequired:1b}
+mobspawn S208 minecraft:spider 20.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S209 minecraft:spider 22.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S210 minecraft:spider 24.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S211 minecraft:spider 26.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S212 minecraft:spider 28.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S213 minecraft:spider 30.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S214 minecraft:spider 32.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S215 minecraft:spider 34.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S216 minecraft:spider 36.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S217 minecraft:spider 38.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S218 minecraft:spider 40.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S219 minecraft:spider 42.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S220 minecraft:spider 44.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S221 minecraft:spider 46.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S222 minecraft:spider 48.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S223 minecraft:spider 50.5 -60 -4.5 0 0 {PersistenceRequired:1b}
+mobspawn S224 minecraft:spider 20.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S225 minecraft:spider 22.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S226 minecraft:spider 24.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S227 minecraft:spider 26.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S228 minecraft:spider 28.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S229 minecraft:spider 30.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S230 minecraft:spider 32.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S231 minecraft:spider 34.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S232 minecraft:spider 36.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S233 minecraft:spider 38.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S234 minecraft:spider 40.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S235 minecraft:spider 42.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S236 minecraft:spider 44.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S237 minecraft:spider 46.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S238 minecraft:spider 48.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S239 minecraft:spider 50.5 -60 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn S240 minecraft:spider 20.5 -60 -0.5 0 0 {PersistenceRequired:1b}
+mobspawn S241 minecraft:spider 22.5 -60 -0.5 0 0 {PersistenceRequired:1b}
+mobspawn S242 minecraft:spider 24.5 -60 -0.5 0 0 {PersistenceRequired:1b}
+mobspawn S243 minecraft:spider 26.5 -60 -0.5 0 0 {PersistenceRequired:1b}
+mobspawn S244 minecraft:spider 28.5 -60 -0.5 0 0 {PersistenceRequired:1b}
+mobspawn S245 minecraft:spider 30.5 -60 -0.5 0 0 {PersistenceRequired:1b}
+mobspawn S246 minecraft:spider 32.5 -60 -0.5 0 0 {PersistenceRequired:1b}
+mobspawn S247 minecraft:spider 34.5 -60 -0.5 0 0 {PersistenceRequired:1b}
+mobspawn S248 minecraft:spider 36.5 -60 -0.5 0 0 {PersistenceRequired:1b}
+mobspawn S249 minecraft:spider 38.5 -60 -0.5 0 0 {PersistenceRequired:1b}
+mobspawn G0 minecraft:spider 20.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G1 minecraft:spider 22.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G2 minecraft:spider 24.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G3 minecraft:spider 26.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G4 minecraft:spider 28.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G5 minecraft:spider 30.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G6 minecraft:spider 32.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G7 minecraft:spider 34.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G8 minecraft:spider 36.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G9 minecraft:spider 38.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G10 minecraft:spider 40.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G11 minecraft:spider 42.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G12 minecraft:spider 44.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G13 minecraft:spider 46.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G14 minecraft:spider 48.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G15 minecraft:spider 50.5 -60 8.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G16 minecraft:spider 20.5 -60 10.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G17 minecraft:spider 22.5 -60 10.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G18 minecraft:spider 24.5 -60 10.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G19 minecraft:spider 26.5 -60 10.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G20 minecraft:spider 28.5 -60 10.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G21 minecraft:spider 30.5 -60 10.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G22 minecraft:spider 32.5 -60 10.5 0 0 group=A {PersistenceRequired:1b}
+mobspawn G23 minecraft:spider 34.5 -60 10.5 0 0 group=A {PersistenceRequired:1b}
+tick 1
+dump mobs
+note a rider pair next to the player: the spider does not attack, the skeleton shoots
+mobspawn R minecraft:spider -33.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn K minecraft:skeleton -33.5 -60 0.5 90 0 {PersistenceRequired:1b}
+entity_seed R 151
+entity_seed K 152
+ride K R
+tick 2
+dump mob:R mob:K
+watch mob:R mob:K
+tick 100
+watch off
+dump player:Steve events entities

@@ -1,0 +1,24 @@
+# A creeper struck by lightning is charged (Entity.thunderHit: fire and 5 damage, then DATA_IS_POWERED); it walks to the player, swells for the
+# fuse and explodes with twice the radius (Explosion with mob damage, block damage by mobGriefing); its active effect leaves a lingering
+# cloud (AreaEffectCloud radius 2.5, wait time 10, duration 300, effect duration scale 0.25).
+level flat
+difficulty normal
+preload 4
+entity_counter 1700
+level_seed 1701
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 3 100000
+mobspawn C minecraft:creeper 9.5 -60 0.5 90 0 {PersistenceRequired:1b}
+entity_seed C 91
+effect C minecraft:speed 0 1000
+tick 2
+note the bolt strikes the creeper
+spawn L minecraft:lightning_bolt 9.5 -60 0.5
+tick 2
+dump mob:C events
+watch mobs entities
+tick 120
+watch off
+dump player:Steve events

@@ -1,0 +1,21 @@
+# An enderman targets the nearest endermite it can see (NearestAttackableTargetGoal(Endermite, mustSee, no reach check)) and hits it; the
+# endermite fights back through HurtByTargetGoal (its alert-others goes to its own kind only).
+level flat
+difficulty normal
+preload 4
+entity_counter 1780
+level_seed 1781
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival -30.5 -60 0.5 0 0
+effect Steve minecraft:resistance 3 100000
+mobspawn E minecraft:enderman 6.5 -60 0.5 90 0 {PersistenceRequired:1b}
+mobspawn M minecraft:endermite 12.5 -60 0.5 90 0 {PersistenceRequired:1b}
+entity_seed E 181
+entity_seed M 182
+tick 2
+dump goals:E goals:M
+watch mobs entities
+tick 120
+watch off
+dump events

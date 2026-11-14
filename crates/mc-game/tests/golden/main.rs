@@ -181,6 +181,7 @@ mod mob_armadillo_golden;
 mod mob_base_golden;
 mod mob_bee_golden;
 mod mob_brain_golden;
+mod mob_creeper_spider_golden;
 mod mob_ctrl_golden;
 mod mob_despawn_golden;
 mod mob_ender_golden;

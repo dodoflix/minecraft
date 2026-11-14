@@ -1,0 +1,33 @@
+# Creeper.mobInteract: flint and steel or a fire charge ignites the creeper (sound pitch from the creeper's own random, the item is damaged or
+# shrunk) and the fuse runs without a target; a creeper spawned with ignited:1b, a short Fuse and a larger ExplosionRadius; the swell
+# also advances by fall damage (causeFallDamage adds fallDistance * 1.5, capped at maxSwell - 5).
+level flat
+difficulty normal
+preload 4
+entity_counter 1710
+level_seed 1711
+time 6000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 3 100000
+mobspawn A minecraft:creeper 4.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn B minecraft:creeper -4.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn D minecraft:creeper 4.5 -60 -6.5 0 0 {NoAI:1b,PersistenceRequired:1b,ignited:1b,Fuse:12,ExplosionRadius:5b}
+mobspawn F minecraft:creeper -4.5 -52 -6.5 0 0 {NoAI:0b,PersistenceRequired:1b}
+entity_seed A 101
+entity_seed B 102
+entity_seed D 103
+entity_seed F 104
+give Steve mainhand minecraft:flint_and_steel
+give Steve offhand minecraft:fire_charge 2
+note flint and steel on A
+interact Steve A main
+dump inventory:Steve events mob:A
+note a fire charge on B
+interact Steve B off
+dump inventory:Steve events mob:B
+note A, B and D (ignited from the start) count down; F falls from height 8
+watch mobs entities
+tick 45
+watch off
+dump player:Steve events

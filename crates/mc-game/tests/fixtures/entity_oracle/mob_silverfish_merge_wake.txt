@@ -1,0 +1,1377 @@
+C Set minecraft:overworld to 18000 tick(s)
+C Game rule mob_drops is now set to false
+EFFECT Steve minecraft:resistance added=true
+T 1
+E A minecraft:silverfish pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.351523810630255;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E A minecraft:silverfish pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:silverfish pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 2
+E A minecraft:silverfish pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.351523810630255;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E A minecraft:silverfish pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:silverfish pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 3
+E A minecraft:silverfish pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.351523810630255;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E A minecraft:silverfish pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:silverfish pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 4
+E A minecraft:silverfish pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.351523810630255;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E A minecraft:silverfish pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:silverfish pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 5
+E A minecraft:silverfish pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.351523810630255;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E A minecraft:silverfish pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:silverfish pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 6
+E B minecraft:silverfish pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 7
+E B minecraft:silverfish pos=14.5625,-60.0,0.5 delta=0.03412500396370888,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=345.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=21,-60,-9 path=1/2/0/21,-60,-9 nodes=14,-60,0:WALKABLE:0.0;15,-60,0:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=14.5625,-60.0,0.5 delta=0.03412500396370888,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 8
+E B minecraft:silverfish pos=14.659125003963709,-60.0,0.5 delta=0.05275725829207922,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=335.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=21,-60,-9 path=1/2/0/21,-60,-9 nodes=14,-60,0:WALKABLE:0.0;15,-60,0:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=14.659125003963709,-60.0,0.5 delta=0.05275725829207922,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 9
+E B minecraft:silverfish pos=14.774382262255788,-60.0,0.5 delta=0.06293047033701474,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=325.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=21,-60,-9 path=1/2/0/21,-60,-9 nodes=14,-60,0:WALKABLE:0.0;15,-60,0:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=14.774382262255788,-60.0,0.5 delta=0.06293047033701474,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 10
+E B minecraft:silverfish pos=14.899812732592803,-60.0,0.5 delta=0.06848504475872795,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=315.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=21,-60,-9 path=1/2/0/21,-60,-9 nodes=14,-60,0:WALKABLE:0.0;15,-60,0:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=14.899812732592803,-60.0,0.5 delta=0.06848504475872795,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 11
+E B minecraft:silverfish pos=15.03079777735153,-60.0,0.5 delta=0.07151784274525082,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=305.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=21,-60,-9 path=1/2/0/21,-60,-9 nodes=14,-60,0:WALKABLE:0.0;15,-60,0:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=15.03079777735153,-60.0,0.5 delta=0.07151784274525082,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 12
+E B minecraft:silverfish pos=15.102315620096782,-60.0,0.5 delta=0.039048746674521476,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=295.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=21,-60,-9 path=2/2/0/21,-60,-9 nodes=14,-60,0:WALKABLE:0.0;15,-60,0:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=15.102315620096782,-60.0,0.5 delta=0.039048746674521476,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 13
+E B minecraft:silverfish pos=15.141364366771302,-60.0,0.5 delta=0.021320618160734547,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=285.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=21,-60,-9 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=15.141364366771302,-60.0,0.5 delta=0.021320618160734547,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 14
+E B minecraft:silverfish pos=15.162684984932037,-60.0,0.5 delta=0.011641058867900638,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=275.0 body=270.0 nav=done stuck=0 navspeed=1.0 ntarget=21,-60,-9 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.19283842662072;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E B minecraft:silverfish pos=15.162684984932037,-60.0,0.5 delta=0.011641058867900638,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+T 31
+T 32
+T 33
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+T 40
+T 41
+T 42
+T 43
+T 44
+T 45
+T 46
+T 47
+T 48
+T 49
+T 50
+T 51
+T 52
+T 53
+T 54
+T 55
+T 56
+T 57
+T 58
+T 59
+T 60
+T 61
+T 62
+T 63
+T 64
+T 65
+T 66
+T 67
+T 68
+T 69
+T 70
+T 71
+T 72
+T 73
+T 74
+T 75
+T 76
+T 77
+T 78
+T 79
+T 80
+T 81
+T 82
+T 83
+T 84
+T 85
+T 86
+T 87
+T 88
+T 89
+T 90
+T 91
+T 92
+T 93
+T 94
+T 95
+T 96
+T 97
+T 98
+T 99
+T 100
+B 10 -60 -3 minecraft:stone
+B 10 -60 -2 minecraft:stone
+B 10 -60 -1 minecraft:stone
+B 10 -60 0 minecraft:stone
+B 10 -60 1 minecraft:stone
+B 10 -60 2 minecraft:stone
+B 10 -60 3 minecraft:stone
+B 10 -59 -3 minecraft:stone
+B 10 -59 -2 minecraft:stone
+B 10 -59 -1 minecraft:stone
+B 10 -59 0 minecraft:stone
+B 10 -59 1 minecraft:stone
+B 10 -59 2 minecraft:stone
+B 10 -59 3 minecraft:stone
+B 10 -58 -3 minecraft:stone
+B 10 -58 -2 minecraft:stone
+B 10 -58 -1 minecraft:stone
+B 10 -58 0 minecraft:stone
+B 10 -58 1 minecraft:stone
+B 10 -58 2 minecraft:stone
+B 10 -58 3 minecraft:stone
+B 10 -57 -3 minecraft:stone
+B 10 -57 -2 minecraft:stone
+B 10 -57 -1 minecraft:stone
+B 10 -57 0 minecraft:stone
+B 10 -57 1 minecraft:stone
+B 10 -57 2 minecraft:stone
+B 10 -57 3 minecraft:stone
+B 11 -60 -3 minecraft:stone
+B 11 -60 -2 minecraft:stone
+B 11 -60 -1 minecraft:stone
+B 11 -60 1 minecraft:stone
+B 11 -60 2 minecraft:stone
+B 11 -60 3 minecraft:stone
+B 11 -59 -3 minecraft:stone
+B 11 -59 -2 minecraft:stone
+B 11 -59 -1 minecraft:stone
+B 11 -59 0 minecraft:stone
+B 11 -59 1 minecraft:stone
+B 11 -59 2 minecraft:stone
+B 11 -59 3 minecraft:stone
+B 11 -58 -3 minecraft:stone
+B 11 -58 -2 minecraft:stone
+B 11 -58 -1 minecraft:stone
+B 11 -58 0 minecraft:stone
+B 11 -58 1 minecraft:stone
+B 11 -58 2 minecraft:stone
+B 11 -58 3 minecraft:stone
+B 11 -57 -3 minecraft:stone
+B 11 -57 -2 minecraft:stone
+B 11 -57 -1 minecraft:stone
+B 11 -57 0 minecraft:stone
+B 11 -57 1 minecraft:stone
+B 11 -57 2 minecraft:stone
+B 11 -57 3 minecraft:stone
+B 12 -60 -3 minecraft:stone
+B 12 -60 -2 minecraft:stone
+B 12 -60 -1 minecraft:infested_stone
+B 12 -60 1 minecraft:stone
+B 12 -60 2 minecraft:stone
+B 12 -60 3 minecraft:stone
+B 12 -59 -3 minecraft:stone
+B 12 -59 -2 minecraft:stone
+B 12 -59 -1 minecraft:stone
+B 12 -59 0 minecraft:stone
+B 12 -59 1 minecraft:stone
+B 12 -59 2 minecraft:stone
+B 12 -59 3 minecraft:stone
+B 12 -58 -3 minecraft:stone
+B 12 -58 -2 minecraft:stone
+B 12 -58 -1 minecraft:stone
+B 12 -58 0 minecraft:stone
+B 12 -58 1 minecraft:stone
+B 12 -58 2 minecraft:stone
+B 12 -58 3 minecraft:stone
+B 12 -57 -3 minecraft:stone
+B 12 -57 -2 minecraft:stone
+B 12 -57 -1 minecraft:stone
+B 12 -57 0 minecraft:stone
+B 12 -57 1 minecraft:stone
+B 12 -57 2 minecraft:stone
+B 12 -57 3 minecraft:stone
+B 13 -60 -3 minecraft:stone
+B 13 -60 -2 minecraft:stone
+B 13 -60 -1 minecraft:stone
+B 13 -60 1 minecraft:stone
+B 13 -60 2 minecraft:stone
+B 13 -60 3 minecraft:stone
+B 13 -59 -3 minecraft:stone
+B 13 -59 -2 minecraft:stone
+B 13 -59 -1 minecraft:stone
+B 13 -59 0 minecraft:stone
+B 13 -59 1 minecraft:stone
+B 13 -59 2 minecraft:stone
+B 13 -59 3 minecraft:stone
+B 13 -58 -3 minecraft:stone
+B 13 -58 -2 minecraft:stone
+B 13 -58 -1 minecraft:stone
+B 13 -58 0 minecraft:stone
+B 13 -58 1 minecraft:stone
+B 13 -58 2 minecraft:stone
+B 13 -58 3 minecraft:stone
+B 13 -57 -3 minecraft:stone
+B 13 -57 -2 minecraft:stone
+B 13 -57 -1 minecraft:stone
+B 13 -57 0 minecraft:stone
+B 13 -57 1 minecraft:stone
+B 13 -57 2 minecraft:stone
+B 13 -57 3 minecraft:stone
+B 14 -60 -3 minecraft:stone
+B 14 -60 -2 minecraft:stone
+B 14 -60 -1 minecraft:stone
+B 14 -60 1 minecraft:stone
+B 14 -60 2 minecraft:stone
+B 14 -60 3 minecraft:stone
+B 14 -59 -3 minecraft:stone
+B 14 -59 -2 minecraft:stone
+B 14 -59 -1 minecraft:stone
+B 14 -59 0 minecraft:stone
+B 14 -59 1 minecraft:stone
+B 14 -59 2 minecraft:stone
+B 14 -59 3 minecraft:stone
+B 14 -58 -3 minecraft:stone
+B 14 -58 -2 minecraft:stone
+B 14 -58 -1 minecraft:stone
+B 14 -58 0 minecraft:stone
+B 14 -58 1 minecraft:stone
+B 14 -58 2 minecraft:stone
+B 14 -58 3 minecraft:stone
+B 14 -57 -3 minecraft:stone
+B 14 -57 -2 minecraft:stone
+B 14 -57 -1 minecraft:stone
+B 14 -57 0 minecraft:stone
+B 14 -57 1 minecraft:stone
+B 14 -57 2 minecraft:stone
+B 14 -57 3 minecraft:stone
+B 15 -60 -3 minecraft:stone
+B 15 -60 -2 minecraft:stone
+B 15 -60 -1 minecraft:stone
+B 15 -60 1 minecraft:stone
+B 15 -60 2 minecraft:stone
+B 15 -60 3 minecraft:stone
+B 15 -59 -3 minecraft:stone
+B 15 -59 -2 minecraft:stone
+B 15 -59 -1 minecraft:stone
+B 15 -59 0 minecraft:stone
+B 15 -59 1 minecraft:stone
+B 15 -59 2 minecraft:stone
+B 15 -59 3 minecraft:stone
+B 15 -58 -3 minecraft:stone
+B 15 -58 -2 minecraft:stone
+B 15 -58 -1 minecraft:stone
+B 15 -58 0 minecraft:stone
+B 15 -58 1 minecraft:stone
+B 15 -58 2 minecraft:stone
+B 15 -58 3 minecraft:stone
+B 15 -57 -3 minecraft:stone
+B 15 -57 -2 minecraft:stone
+B 15 -57 -1 minecraft:stone
+B 15 -57 0 minecraft:stone
+B 15 -57 1 minecraft:stone
+B 15 -57 2 minecraft:stone
+B 15 -57 3 minecraft:stone
+B 16 -60 -3 minecraft:stone
+B 16 -60 -2 minecraft:stone
+B 16 -60 -1 minecraft:stone
+B 16 -60 0 minecraft:infested_stone
+B 16 -60 1 minecraft:stone
+B 16 -60 2 minecraft:stone
+B 16 -60 3 minecraft:stone
+B 16 -59 -3 minecraft:stone
+B 16 -59 -2 minecraft:stone
+B 16 -59 -1 minecraft:stone
+B 16 -59 0 minecraft:stone
+B 16 -59 1 minecraft:stone
+B 16 -59 2 minecraft:stone
+B 16 -59 3 minecraft:stone
+B 16 -58 -3 minecraft:stone
+B 16 -58 -2 minecraft:stone
+B 16 -58 -1 minecraft:stone
+B 16 -58 0 minecraft:stone
+B 16 -58 1 minecraft:stone
+B 16 -58 2 minecraft:stone
+B 16 -58 3 minecraft:stone
+B 16 -57 -3 minecraft:stone
+B 16 -57 -2 minecraft:stone
+B 16 -57 -1 minecraft:stone
+B 16 -57 0 minecraft:stone
+B 16 -57 1 minecraft:stone
+B 16 -57 2 minecraft:stone
+B 16 -57 3 minecraft:stone
+# a pocket of infested stone and cobblestone, a hurt silverfish wakes them
+HURT W minecraft:player_attack 1 -> true
+E W minecraft:silverfish pos=26.5,-60.0,0.5 delta=0.4000000059604645,0.36080000519752503,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=10/20 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+T 103
+E W minecraft:silverfish pos=26.900000005960464,-59.639199994802475,0.5 delta=0.2184000286221508,0.2751840104494096,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=9/19 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=26.900000005960464,-59.639199994802475,0.5 delta=0.2184000286221508,0.2751840104494096,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=9/19 death=0 fx=-
+T 104
+E W minecraft:silverfish pos=27.118400034582614,-59.36401598435307,0.5 delta=0.1987440317739259,0.19128033396326094,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=8/18 death=0 fx=- target=Steve hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=1:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.118400034582614,-59.36401598435307,0.5 delta=0.1987440317739259,0.19128033396326094,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=8/18 death=0 fx=-
+T 105
+E W minecraft:silverfish pos=27.31714406635654,-59.172735650389804,0.5 delta=0.18085707412654226,0.10905472940649964,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=7/17 death=0 fx=- target=Steve hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=1:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.31714406635654,-59.172735650389804,0.5 delta=0.18085707412654226,0.10905472940649964,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=7/17 death=0 fx=-
+T 106
+E W minecraft:silverfish pos=27.498001140483083,-59.0636809209833,0.5 delta=0.16457994219831898,0.02847363537254463,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none;5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.498001140483083,-59.0636809209833,0.5 delta=0.16457994219831898,0.02847363537254463,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=6/16 death=0 fx=-
+T 107
+E W minecraft:silverfish pos=27.662581082681402,-59.03520728561076,0.5 delta=0.14976775171675102,-0.05049583831769367,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=5/15 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none;5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.662581082681402,-59.03520728561076,0.5 delta=0.14976775171675102,-0.05049583831769367,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=5/15 death=0 fx=-
+T 108
+E W minecraft:silverfish pos=27.799999997019768,-59.085703123928454,0.5 delta=-0.0,-0.1278859240403504,0.0 rot=0.0,0.0 og=0 fall=0.05049583688378334 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=4/14 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-59.085703123928454,0.5 delta=-0.0,-0.1278859240403504,0.0 rot=0.0,0.0 og=0 fall=0.05049583688378334 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=4/14 death=0 fx=-
+T 109
+E W minecraft:silverfish pos=27.799999997019768,-59.2135890479688,0.5 delta=0.0,-0.2037282095246527,0.0 rot=0.0,0.0 og=0 fall=0.178381759673357 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=3/13 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-59.2135890479688,0.5 delta=0.0,-0.2037282095246527,0.0 rot=0.0,0.0 og=0 fall=0.178381759673357 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=3/13 death=0 fx=-
+T 110
+E W minecraft:silverfish pos=27.799999997019768,-59.41731725749346,0.5 delta=0.0,-0.2780536507458458,0.0 rot=0.0,0.0 og=0 fall=0.38210997357964516 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=2/12 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-59.41731725749346,0.5 delta=0.0,-0.2780536507458458,0.0 rot=0.0,0.0 og=0 fall=0.38210997357964516 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=2/12 death=0 fx=-
+T 111
+E W minecraft:silverfish pos=27.799999997019768,-59.695370908239305,0.5 delta=0.0,-0.35089258456026035,0.0 rot=0.0,0.0 og=0 fall=0.6601636148989201 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-59.695370908239305,0.5 delta=0.0,-0.35089258456026035,0.0 rot=0.0,0.0 og=0 fall=0.6601636148989201 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=1/11 death=0 fx=-
+T 112
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/10 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/10 death=0 fx=-
+T 113
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/9 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/9 death=0 fx=-
+T 114
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/8 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/8 death=0 fx=-
+T 115
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/7 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/7 death=0 fx=-
+T 116
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/6 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/6 death=0 fx=-
+T 117
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/5 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/5 death=0 fx=-
+T 118
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/4 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/4 death=0 fx=-
+T 119
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/3 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/3 death=0 fx=-
+T 120
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/2 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/2 death=0 fx=-
+T 121
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/1 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/1 death=0 fx=-
+T 122
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.387935 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 123
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 124
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 125
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 126
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 127
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.5625,-60.0,2.5 delta=0.03412500396370888,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=345.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=1/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.5625,-60.0,2.5 delta=0.03412500396370888,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 128
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.59662500396371,-60.0,2.4375 delta=0.018632254328370342,-0.0784000015258789,-0.03412500396370888 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=255.0 body=180.0 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=1/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.59662500396371,-60.0,2.4375 delta=0.018632254328370342,-0.0784000015258789,-0.03412500396370888 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 129
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.608845016684175,-60.0,2.3412047997117043 delta=0.006672127720359552,-0.0784000015258789,-0.05257718546438772 rot=174.11551,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=245.0 body=174.11551 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=1/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.608845016684175,-60.0,2.3412047997117043 delta=0.006672127720359552,-0.0784000015258789,-0.05257718546438772 rot=174.11551,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 130
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.60749195454288,-60.0,2.226644986289257 delta=-7.387720149577536E-4,-0.0784000015258789,-0.06254966539396407 rot=172.62732,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=235.0 body=172.62732 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=1/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.60749195454288,-60.0,2.226644986289257 delta=-7.387720149577536E-4,-0.0784000015258789,-0.06254966539396407 rot=172.62732,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 131
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.598345009923165,-60.0,2.1022682759612588 delta=-0.004994232342457716,-0.0784000015258789,-0.06790969172697628 rot=171.58539,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=225.0 body=171.58539 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=1/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.598345009923165,-60.0,2.1022682759612588 delta=-0.004994232342457716,-0.0784000015258789,-0.06790969172697628 rot=171.58539,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 132
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.583274271517364,-60.0,1.9726762183995694 delta=-0.00822862412534301,-0.0784000015258789,-0.07075727164732536 rot=170.72604,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=215.0 body=170.72604 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=1/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.583274271517364,-60.0,1.9726762183995694 delta=-0.00822862412534301,-0.0784000015258789,-0.07075727164732536 rot=170.72604,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 133
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.517760390708194,-60.0,1.8769259573760568 delta=-0.035770583076653734,-0.0784000015258789,-0.05227964859125648 rot=113.57352,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=188.57352 body=113.57352 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=2/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.517760390708194,-60.0,1.8769259573760568 delta=-0.035770583076653734,-0.0784000015258789,-0.05227964859125648 rot=113.57352,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 134
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.423379025604294,-60.0,1.802943175425249 delta=-0.05153223133233255,-0.0784000015258789,-0.040394603637080466 rot=110.32205,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=178.57352 body=110.32205 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=2/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.423379025604294,-60.0,1.802943175425249 delta=-0.05153223133233255,-0.0784000015258789,-0.040394603637080466 rot=110.32205,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 135
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.31246006407787,-60.0,1.7430686786402232 delta=-0.060561760027835254,-0.0784000015258789,-0.032691479041825316 rot=108.16379,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=168.57352 body=108.16379 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=2/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.31246006407787,-60.0,1.7430686786402232 delta=-0.060561760027835254,-0.0784000015258789,-0.032691479041825316 rot=108.16379,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 136
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.192020398055384,-60.0,1.6924639046423098 delta=-0.06576006528648334,-0.0784000015258789,-0.02763020981218218 rot=106.65582,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=158.57352 body=106.65582 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=2/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.192020398055384,-60.0,1.6924639046423098 delta=-0.06576006528648334,-0.0784000015258789,-0.02763020981218218 rot=106.65582,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 137
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=27.066045150166495,-60.0,1.648089084907957 delta=-0.06878249333660066,-0.0784000015258789,-0.024228654389178508 rot=105.5423,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=148.57352 body=105.5423 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=2/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=27.066045150166495,-60.0,1.648089084907957 delta=-0.06878249333660066,-0.0784000015258789,-0.024228654389178508 rot=105.5423,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 138
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=26.936796195946275,-60.0,1.608047240028771 delta=-0.0705699372011227,-0.0784000015258789,-0.021862849843462963 rot=104.661194,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=138.57352 body=104.661194 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=2/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=26.936796195946275,-60.0,1.608047240028771 delta=-0.0705699372011227,-0.0784000015258789,-0.021862849843462963 rot=104.661194,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 139
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=26.80390183167692,-60.0,1.5815029468554076 delta=-0.07256033131914162,-0.0784000015258789,-0.01449318575607806 rot=94.30054,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=128.57352 body=94.30054 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=3/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=26.80390183167692,-60.0,1.5815029468554076 delta=-0.07256033131914162,-0.0784000015258789,-0.01449318575607806 rot=94.30054,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 140
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=26.66896319441596,-60.0,1.5631114280397056 delta=-0.07367650450220473,-0.0784000015258789,-0.010041770439751258 rot=93.57675,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=118.57352 body=93.57675 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=3/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=26.66896319441596,-60.0,1.5631114280397056 delta=-0.07367650450220473,-0.0784000015258789,-0.010041770439751258 rot=93.57675,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 141
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=26.53287739328194,-60.0,1.5497037195138916 delta=-0.07430285604964568,-0.0784000015258789,-0.007320609705402457 rot=93.09039,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=108.57352 body=93.09039 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=3/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=26.53287739328194,-60.0,1.5497037195138916 delta=-0.07430285604964568,-0.0784000015258789,-0.007320609705402457 rot=93.09039,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 142
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=26.39614662159957,-60.0,1.5393822157127406 delta=-0.07465501000994984,-0.0784000015258789,-0.005635541730011491 rot=92.755005,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=98.57352 body=92.755005 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=3/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=26.39614662159957,-60.0,1.5393822157127406 delta=-0.07465501000994984,-0.0784000015258789,-0.005635541730011491 rot=92.755005,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+B 24 -60 -4 minecraft:infested_cobblestone
+B 24 -60 -3 minecraft:infested_cobblestone
+B 24 -60 -2 minecraft:infested_cobblestone
+B 24 -60 -1 minecraft:infested_cobblestone
+B 24 -60 0 minecraft:infested_cobblestone
+B 24 -60 1 minecraft:infested_cobblestone
+B 24 -60 2 minecraft:infested_cobblestone
+B 24 -60 3 minecraft:infested_cobblestone
+B 24 -60 4 minecraft:infested_cobblestone
+B 24 -59 -4 minecraft:infested_cobblestone
+B 24 -59 -3 minecraft:infested_cobblestone
+B 24 -59 -2 minecraft:infested_cobblestone
+B 24 -59 -1 minecraft:infested_cobblestone
+B 24 -59 0 minecraft:infested_cobblestone
+B 24 -59 1 minecraft:infested_cobblestone
+B 24 -59 2 minecraft:infested_cobblestone
+B 24 -59 3 minecraft:infested_cobblestone
+B 24 -59 4 minecraft:infested_cobblestone
+B 24 -58 -4 minecraft:infested_cobblestone
+B 24 -58 -3 minecraft:infested_cobblestone
+B 24 -58 -2 minecraft:infested_cobblestone
+B 24 -58 -1 minecraft:infested_cobblestone
+B 24 -58 0 minecraft:infested_cobblestone
+B 24 -58 1 minecraft:infested_cobblestone
+B 24 -58 2 minecraft:infested_cobblestone
+B 24 -58 3 minecraft:infested_cobblestone
+B 24 -58 4 minecraft:infested_cobblestone
+B 24 -57 -4 minecraft:infested_cobblestone
+B 24 -57 -3 minecraft:infested_cobblestone
+B 24 -57 -2 minecraft:infested_cobblestone
+B 24 -57 -1 minecraft:infested_cobblestone
+B 24 -57 0 minecraft:infested_cobblestone
+B 24 -57 1 minecraft:infested_cobblestone
+B 24 -57 2 minecraft:infested_cobblestone
+B 24 -57 3 minecraft:infested_cobblestone
+B 24 -57 4 minecraft:infested_cobblestone
+B 25 -60 -4 minecraft:infested_stone
+B 25 -60 -3 minecraft:infested_stone
+B 25 -60 -2 minecraft:infested_stone
+B 25 -60 2 minecraft:infested_stone
+B 25 -60 3 minecraft:infested_stone
+B 25 -60 4 minecraft:infested_stone
+B 25 -59 -4 minecraft:infested_stone
+B 25 -59 -3 minecraft:infested_stone
+B 25 -59 -2 minecraft:infested_stone
+B 25 -59 2 minecraft:infested_stone
+B 25 -59 3 minecraft:infested_stone
+B 25 -59 4 minecraft:infested_stone
+B 25 -58 -4 minecraft:infested_stone
+B 25 -58 -3 minecraft:infested_stone
+B 25 -58 -2 minecraft:infested_stone
+B 25 -58 2 minecraft:infested_stone
+B 25 -58 3 minecraft:infested_stone
+B 25 -58 4 minecraft:infested_stone
+B 25 -57 -4 minecraft:infested_stone
+B 25 -57 -3 minecraft:infested_stone
+B 25 -57 -2 minecraft:infested_stone
+B 25 -57 -1 minecraft:infested_stone
+B 25 -57 0 minecraft:infested_stone
+B 25 -57 1 minecraft:infested_stone
+B 25 -57 2 minecraft:infested_stone
+B 25 -57 3 minecraft:infested_stone
+B 25 -57 4 minecraft:infested_stone
+B 26 -60 -4 minecraft:infested_stone
+B 26 -60 -3 minecraft:infested_stone
+B 26 -60 -2 minecraft:infested_stone
+B 26 -60 2 minecraft:infested_stone
+B 26 -60 3 minecraft:infested_stone
+B 26 -60 4 minecraft:infested_stone
+B 26 -59 -4 minecraft:infested_stone
+B 26 -59 -3 minecraft:infested_stone
+B 26 -59 -2 minecraft:infested_stone
+B 26 -59 2 minecraft:infested_stone
+B 26 -59 3 minecraft:infested_stone
+B 26 -59 4 minecraft:infested_stone
+B 26 -58 -4 minecraft:infested_stone
+B 26 -58 -3 minecraft:infested_stone
+B 26 -58 -2 minecraft:infested_stone
+B 26 -58 2 minecraft:infested_stone
+B 26 -58 3 minecraft:infested_stone
+B 26 -58 4 minecraft:infested_stone
+B 26 -57 -4 minecraft:infested_stone
+B 26 -57 -3 minecraft:infested_stone
+B 26 -57 -2 minecraft:infested_stone
+B 26 -57 -1 minecraft:infested_stone
+B 26 -57 0 minecraft:infested_stone
+B 26 -57 1 minecraft:infested_stone
+B 26 -57 2 minecraft:infested_stone
+B 26 -57 3 minecraft:infested_stone
+B 26 -57 4 minecraft:infested_stone
+B 27 -60 -4 minecraft:infested_stone
+B 27 -60 -3 minecraft:infested_stone
+B 27 -60 -2 minecraft:infested_stone
+B 27 -60 3 minecraft:infested_stone
+B 27 -60 4 minecraft:infested_stone
+B 27 -59 -4 minecraft:infested_stone
+B 27 -59 -3 minecraft:infested_stone
+B 27 -59 -2 minecraft:infested_stone
+B 27 -59 2 minecraft:infested_stone
+B 27 -59 3 minecraft:infested_stone
+B 27 -59 4 minecraft:infested_stone
+B 27 -58 -4 minecraft:infested_stone
+B 27 -58 -3 minecraft:infested_stone
+B 27 -58 -2 minecraft:infested_stone
+B 27 -58 2 minecraft:infested_stone
+B 27 -58 3 minecraft:infested_stone
+B 27 -58 4 minecraft:infested_stone
+B 27 -57 -4 minecraft:infested_stone
+B 27 -57 -3 minecraft:infested_stone
+B 27 -57 -2 minecraft:infested_stone
+B 27 -57 -1 minecraft:infested_stone
+B 27 -57 0 minecraft:infested_stone
+B 27 -57 1 minecraft:infested_stone
+B 27 -57 2 minecraft:infested_stone
+B 27 -57 3 minecraft:infested_stone
+B 27 -57 4 minecraft:infested_stone
+B 28 -60 -4 minecraft:infested_stone
+B 28 -60 -3 minecraft:infested_stone
+B 28 -60 -2 minecraft:infested_stone
+B 28 -60 -1 minecraft:infested_stone
+B 28 -60 0 minecraft:infested_stone
+B 28 -60 1 minecraft:infested_stone
+B 28 -60 2 minecraft:infested_stone
+B 28 -60 3 minecraft:infested_stone
+B 28 -60 4 minecraft:infested_stone
+B 28 -59 -4 minecraft:infested_stone
+B 28 -59 -3 minecraft:infested_stone
+B 28 -59 -2 minecraft:infested_stone
+B 28 -59 -1 minecraft:infested_stone
+B 28 -59 0 minecraft:infested_stone
+B 28 -59 1 minecraft:infested_stone
+B 28 -59 2 minecraft:infested_stone
+B 28 -59 3 minecraft:infested_stone
+B 28 -59 4 minecraft:infested_stone
+B 28 -58 -4 minecraft:infested_stone
+B 28 -58 -3 minecraft:infested_stone
+B 28 -58 -2 minecraft:infested_stone
+B 28 -58 -1 minecraft:infested_stone
+B 28 -58 0 minecraft:infested_stone
+B 28 -58 1 minecraft:infested_stone
+B 28 -58 2 minecraft:infested_stone
+B 28 -58 3 minecraft:infested_stone
+B 28 -58 4 minecraft:infested_stone
+B 28 -57 -4 minecraft:infested_stone
+B 28 -57 -3 minecraft:infested_stone
+B 28 -57 -2 minecraft:infested_stone
+B 28 -57 -1 minecraft:infested_stone
+B 28 -57 0 minecraft:infested_stone
+B 28 -57 1 minecraft:infested_stone
+B 28 -57 2 minecraft:infested_stone
+B 28 -57 3 minecraft:infested_stone
+B 28 -57 4 minecraft:infested_stone
+B 29 -60 -4 minecraft:infested_stone
+B 29 -60 -3 minecraft:infested_stone
+B 29 -60 -2 minecraft:infested_stone
+B 29 -60 -1 minecraft:infested_stone
+B 29 -60 0 minecraft:infested_stone
+B 29 -60 1 minecraft:infested_stone
+B 29 -60 2 minecraft:infested_stone
+B 29 -60 3 minecraft:infested_stone
+B 29 -60 4 minecraft:infested_stone
+B 29 -59 -4 minecraft:infested_stone
+B 29 -59 -3 minecraft:infested_stone
+B 29 -59 -2 minecraft:infested_stone
+B 29 -59 -1 minecraft:infested_stone
+B 29 -59 0 minecraft:infested_stone
+B 29 -59 1 minecraft:infested_stone
+B 29 -59 2 minecraft:infested_stone
+B 29 -59 3 minecraft:infested_stone
+B 29 -59 4 minecraft:infested_stone
+B 29 -58 -4 minecraft:infested_stone
+B 29 -58 -3 minecraft:infested_stone
+B 29 -58 -2 minecraft:infested_stone
+B 29 -58 -1 minecraft:infested_stone
+B 29 -58 0 minecraft:infested_stone
+B 29 -58 1 minecraft:infested_stone
+B 29 -58 2 minecraft:infested_stone
+B 29 -58 3 minecraft:infested_stone
+B 29 -58 4 minecraft:infested_stone
+B 29 -57 -4 minecraft:infested_stone
+B 29 -57 -3 minecraft:infested_stone
+B 29 -57 -2 minecraft:infested_stone
+B 29 -57 -1 minecraft:infested_stone
+B 29 -57 0 minecraft:infested_stone
+B 29 -57 1 minecraft:infested_stone
+B 29 -57 2 minecraft:infested_stone
+B 29 -57 3 minecraft:infested_stone
+B 29 -57 4 minecraft:infested_stone
+B 30 -60 -4 minecraft:infested_stone
+B 30 -60 -3 minecraft:infested_stone
+B 30 -60 -2 minecraft:infested_stone
+B 30 -60 -1 minecraft:infested_stone
+B 30 -60 0 minecraft:infested_stone
+B 30 -60 1 minecraft:infested_stone
+B 30 -60 2 minecraft:infested_stone
+B 30 -60 3 minecraft:infested_stone
+B 30 -60 4 minecraft:infested_stone
+B 30 -59 -4 minecraft:infested_stone
+B 30 -59 -3 minecraft:infested_stone
+B 30 -59 -2 minecraft:infested_stone
+B 30 -59 -1 minecraft:infested_stone
+B 30 -59 0 minecraft:infested_stone
+B 30 -59 1 minecraft:infested_stone
+B 30 -59 2 minecraft:infested_stone
+B 30 -59 3 minecraft:infested_stone
+B 30 -59 4 minecraft:infested_stone
+B 30 -58 -4 minecraft:infested_stone
+B 30 -58 -3 minecraft:infested_stone
+B 30 -58 -2 minecraft:infested_stone
+B 30 -58 -1 minecraft:infested_stone
+B 30 -58 0 minecraft:infested_stone
+B 30 -58 1 minecraft:infested_stone
+B 30 -58 2 minecraft:infested_stone
+B 30 -58 3 minecraft:infested_stone
+B 30 -58 4 minecraft:infested_stone
+B 30 -57 -4 minecraft:infested_stone
+B 30 -57 -3 minecraft:infested_stone
+B 30 -57 -2 minecraft:infested_stone
+B 30 -57 -1 minecraft:infested_stone
+B 30 -57 0 minecraft:infested_stone
+B 30 -57 1 minecraft:infested_stone
+B 30 -57 2 minecraft:infested_stone
+B 30 -57 3 minecraft:infested_stone
+B 30 -57 4 minecraft:infested_stone
+B 31 -60 -4 minecraft:infested_stone
+B 31 -60 -3 minecraft:infested_stone
+B 31 -60 -2 minecraft:infested_stone
+B 31 -60 -1 minecraft:infested_stone
+B 31 -60 0 minecraft:infested_stone
+B 31 -60 1 minecraft:infested_stone
+B 31 -60 2 minecraft:infested_stone
+B 31 -60 3 minecraft:infested_stone
+B 31 -60 4 minecraft:infested_stone
+B 31 -59 -4 minecraft:infested_stone
+B 31 -59 -3 minecraft:infested_stone
+B 31 -59 -2 minecraft:infested_stone
+B 31 -59 -1 minecraft:infested_stone
+B 31 -59 0 minecraft:infested_stone
+B 31 -59 1 minecraft:infested_stone
+B 31 -59 2 minecraft:infested_stone
+B 31 -59 3 minecraft:infested_stone
+B 31 -59 4 minecraft:infested_stone
+B 31 -58 -4 minecraft:infested_stone
+B 31 -58 -3 minecraft:infested_stone
+B 31 -58 -2 minecraft:infested_stone
+B 31 -58 -1 minecraft:infested_stone
+B 31 -58 0 minecraft:infested_stone
+B 31 -58 1 minecraft:infested_stone
+B 31 -58 2 minecraft:infested_stone
+B 31 -58 3 minecraft:infested_stone
+B 31 -58 4 minecraft:infested_stone
+B 31 -57 -4 minecraft:infested_stone
+B 31 -57 -3 minecraft:infested_stone
+B 31 -57 -2 minecraft:infested_stone
+B 31 -57 -1 minecraft:infested_stone
+B 31 -57 0 minecraft:infested_stone
+B 31 -57 1 minecraft:infested_stone
+B 31 -57 2 minecraft:infested_stone
+B 31 -57 3 minecraft:infested_stone
+B 31 -57 4 minecraft:infested_stone
+B 32 -60 -4 minecraft:infested_stone
+B 32 -60 -3 minecraft:infested_stone
+B 32 -60 -2 minecraft:infested_stone
+B 32 -60 -1 minecraft:infested_stone
+B 32 -60 0 minecraft:infested_stone
+B 32 -60 1 minecraft:infested_stone
+B 32 -60 2 minecraft:infested_stone
+B 32 -60 3 minecraft:infested_stone
+B 32 -60 4 minecraft:infested_stone
+B 32 -59 -4 minecraft:infested_stone
+B 32 -59 -3 minecraft:infested_stone
+B 32 -59 -2 minecraft:infested_stone
+B 32 -59 -1 minecraft:infested_stone
+B 32 -59 0 minecraft:infested_stone
+B 32 -59 1 minecraft:infested_stone
+B 32 -59 2 minecraft:infested_stone
+B 32 -59 3 minecraft:infested_stone
+B 32 -59 4 minecraft:infested_stone
+B 32 -58 -4 minecraft:infested_stone
+B 32 -58 -3 minecraft:infested_stone
+B 32 -58 -2 minecraft:infested_stone
+B 32 -58 -1 minecraft:infested_stone
+B 32 -58 0 minecraft:infested_stone
+B 32 -58 1 minecraft:infested_stone
+B 32 -58 2 minecraft:infested_stone
+B 32 -58 3 minecraft:infested_stone
+B 32 -58 4 minecraft:infested_stone
+B 32 -57 -4 minecraft:infested_stone
+B 32 -57 -3 minecraft:infested_stone
+B 32 -57 -2 minecraft:infested_stone
+B 32 -57 -1 minecraft:infested_stone
+B 32 -57 0 minecraft:infested_stone
+B 32 -57 1 minecraft:infested_stone
+B 32 -57 2 minecraft:infested_stone
+B 32 -57 3 minecraft:infested_stone
+B 32 -57 4 minecraft:infested_stone
+EV sound at=26.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.silverfish.hurt source=hostile vol=1.0 pitch=1.007693
+EV level_event r=64.0 ex=0 type=2001 pos=27,-60,2 data=9494 global=0
+# the same with mob griefing off: the infested blocks turn back into their hosts and nothing spawns
+C Game rule mob_griefing is now set to false
+HURT X minecraft:player_attack 1 -> true
+T 145
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.984329100198778,-60.0,1.5175979932598014 delta=-0.0750318098932423,-0.0784000015258789,-0.003431212602980974 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=92.338806 body=92.1998 nav=moving stuck=0 navspeed=1.0 ntarget=24,-56,2 path=3/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=26.793921382230764,-59.639199994802475,24.771312045136092 delta=0.16048109333829835,0.2751840104494096,0.14813639385073696 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=9/19 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.984329100198778,-60.0,1.5175979932598014 delta=-0.0750318098932423,-0.0784000015258789,-0.003431212602980974 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=26.793921382230764,-59.639199994802475,24.771312045136092 delta=0.16048109333829835,0.2751840104494096,0.14813639385073696 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=9/19 death=0 fx=-
+T 146
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.909297290305535,-60.0,1.5141667806568204 delta=-0.040967372960178314,-0.0784000015258789,-0.0018734422988328575 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=4/4/0/24,-56,2 nodes=27,-60,2:WALKABLE:0.0;27,-60,1:WALKABLE:0.0;26,-60,1:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=26.95440247556906,-59.36401598435307,24.91944843898683 delta=0.14603779914663567,0.19128033396326094,0.13480412228920216 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=8/18 death=0 fx=- target=Steve hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=1:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.909297290305535,-60.0,1.5141667806568204 delta=-0.040967372960178314,-0.0784000015258789,-0.0018734422988328575 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=26.95440247556906,-59.36401598435307,24.91944843898683 delta=0.14603779914663567,0.19128033396326094,0.13480412228920216 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=8/18 death=0 fx=-
+T 147
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.868329917345356,-60.0,1.5141667806568204 delta=-0.0223681882343812,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.100440274715698,-59.172735650389804,25.054252561276034 delta=0.13289440105343217,0.10905472940649964,0.12267175481855278 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=7/17 death=0 fx=- target=Steve hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=1:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.799999997019768,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.868329917345356,-60.0,1.5141667806568204 delta=-0.0223681882343812,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.100440274715698,-59.172735650389804,25.054252561276034 delta=0.13289440105343217,0.10905472940649964,0.12267175481855278 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=7/17 death=0 fx=-
+T 148
+E W minecraft:silverfish pos=27.737499997019768,-60.0,0.5 delta=-0.03412500396370888,-0.0784000015258789,4.1791078698612455E-18 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=15.0 body=90.0 nav=moving stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=1/2/0/32,-60,-5 nodes=27,-60,0:WALKABLE:0.0;27,-60,-1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.845961729110975,-60.0,1.5141667806568204 delta=-0.012213032194547915,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.23333467576913,-59.0636809209833,25.176924316094585 delta=0.12093390844391765,0.02847363537254463,0.11163130010207782 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.737499997019768,-60.0,0.5 delta=-0.03412500396370888,-0.0784000015258789,4.1791078698612455E-18 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.845961729110975,-60.0,1.5141667806568204 delta=-0.012213032194547915,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.23333467576913,-59.0636809209833,25.176924316094585 delta=0.12093390844391765,0.02847363537254463,0.11163130010207782 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=6/16 death=0 fx=-
+T 149
+E W minecraft:silverfish pos=27.688928031362593,-60.0,0.43919263780117035 delta=-0.026520296329219428,-0.0784000015258789,-0.03320082361692389 rot=166.6398,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=91.6398 body=166.6398 nav=moving stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=1/2/0/32,-60,-5 nodes=27,-60,0:WALKABLE:0.0;27,-60,-1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.833748696916427,-60.0,1.5141667806568204 delta=-0.006668316352765627,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.354268584213045,-59.03520728561076,25.288555616196664 delta=0.11004985985558302,-0.05049583831769367,0.10158448602053817 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=5/15 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.688928031362593,-60.0,0.43919263780117035 delta=-0.026520296329219428,-0.0784000015258789,-0.03320082361692389 rot=166.6398,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.833748696916427,-60.0,1.5141667806568204 delta=-0.006668316352765627,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.354268584213045,-59.03520728561076,25.288555616196664 delta=0.11004985985558302,-0.05049583831769367,0.10158448602053817 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=5/15 death=0 fx=-
+T 150
+E W minecraft:silverfish pos=27.650079449309448,-60.0,0.34471977044945756 delta=-0.021211328264768174,-0.0784000015258789,-0.05158219156544227 rot=168.62631,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=101.6398 body=168.62631 nav=moving stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=1/2/0/32,-60,-5 nodes=27,-60,0:WALKABLE:0.0;27,-60,-1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.82708038056366,-60.0,1.5141667806568204 delta=-0.003640901151510268,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.464318444068628,-59.085703123928454,25.390140102217202 delta=0.10014537535475299,-0.1278859240403504,0.0924418849428489 rot=0.0,0.0 og=0 fall=0.05049583688378334 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=4/14 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.650079449309448,-60.0,0.34471977044945756 delta=-0.021211328264768174,-0.0784000015258789,-0.05158219156544227 rot=168.62631,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.82708038056366,-60.0,1.5141667806568204 delta=-0.003640901151510268,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.464318444068628,-59.085703123928454,25.390140102217202 delta=0.10014537535475299,-0.1278859240403504,0.0924418849428489 rot=0.0,0.0 og=0 fall=0.05049583688378334 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=4/14 death=0 fx=-
+T 151
+E W minecraft:silverfish pos=27.61792922704105,-60.0,0.23160229868615648 delta=-0.017554023397491174,-0.0784000015258789,-0.061762146756598024 rot=169.92548,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=111.6398 body=169.92548 nav=moving stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=1/2/0/32,-60,-5 nodes=27,-60,0:WALKABLE:0.0;27,-60,-1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=-0.001987932259628162,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.56446381942338,-59.2135890479688,25.482581987160053 delta=0.09113229419924221,-0.2037282095246527,0.08412211772237742 rot=0.0,0.0 og=0 fall=0.178381759673357 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=3/13 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.61792922704105,-60.0,0.23160229868615648 delta=-0.017554023397491174,-0.0784000015258789,-0.061762146756598024 rot=169.92548,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=-0.001987932259628162,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.56446381942338,-59.2135890479688,25.482581987160053 delta=0.09113229419924221,-0.2037282095246527,0.08412211772237742 rot=0.0,0.0 og=0 fall=0.178381759673357 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=3/13 death=0 fx=-
+T 152
+E W minecraft:silverfish pos=27.59042882197034,-60.0,0.10813667114943379 delta=-0.01501522291266416,-0.0784000015258789,-0.06741224046515945 rot=170.84302,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=121.6398 body=170.84302 nav=moving stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=1/2/0/32,-60,-5 nodes=27,-60,0:WALKABLE:0.0;27,-60,-1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.65559611362262,-59.41731725749346,25.56670410488243 delta=0.08293039011134994,-0.2780536507458458,0.07655112933355379 rot=0.0,0.0 og=0 fall=0.38210997357964516 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=2/12 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.59042882197034,-60.0,0.10813667114943379 delta=-0.01501522291266416,-0.0784000015258789,-0.06741224046515945 rot=170.84302,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.65559611362262,-59.41731725749346,25.56670410488243 delta=0.08293039011134994,-0.2780536507458458,0.07655112933355379 rot=0.0,0.0 og=0 fall=0.38210997357964516 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=2/12 death=0 fx=-
+T 153
+E W minecraft:silverfish pos=27.566219236149077,-60.0,-0.021095580901676514 delta=-0.013218435393767197,-0.0784000015258789,-0.07056081781573062 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=131.6398 body=171.54208 nav=moving stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=1/2/0/32,-60,-5 nodes=27,-60,0:WALKABLE:0.0;27,-60,-1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.738526503733972,-59.695370908239305,25.64325523421598 delta=0.07546665717626448,-0.35089258456026035,0.06966152970116721 rot=0.0,0.0 og=0 fall=0.6601636148989201 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.566219236149077,-60.0,-0.021095580901676514 delta=-0.013218435393767197,-0.0784000015258789,-0.07056081781573062 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.738526503733972,-59.695370908239305,25.64325523421598 delta=0.07546665717626448,-0.35089258456026035,0.06966152970116721 rot=0.0,0.0 og=0 fall=0.6601636148989201 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=1/11 death=0 fx=-
+T 154
+E W minecraft:silverfish pos=27.55300080075531,-60.0,-0.09165639871740713 delta=-0.007217266563301365,-0.0784000015258789,-0.03852621100230956 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=141.6398 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=2/2/0/32,-60,-5 nodes=27,-60,0:WALKABLE:0.0;27,-60,-1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.71291676391715 delta=-0.0,-0.0784000015258789,0.06339199385500847 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/10 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.55300080075531,-60.0,-0.09165639871740713 delta=-0.007217266563301365,-0.0784000015258789,-0.03852621100230956 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.71291676391715 delta=-0.0,-0.0784000015258789,0.06339199385500847 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/10 death=0 fx=-
+T 155
+E W minecraft:silverfish pos=27.545783534192008,-60.0,-0.13018260971971668 delta=-0.003940628001276842,-0.0784000015258789,-0.021035313650567974 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=151.6398 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=2/2/0/32,-60,-5 nodes=27,-60,0:WALKABLE:0.0;27,-60,-1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.77630875777216 delta=0.0,-0.0784000015258789,0.03461203266511317 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/9 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.545783534192008,-60.0,-0.13018260971971668 delta=-0.003940628001276842,-0.0784000015258789,-0.021035313650567974 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.77630875777216 delta=0.0,-0.0784000015258789,0.03461203266511317 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/9 death=0 fx=-
+T 156
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.15121792337028467 delta=-0.002151583138609191,-0.0784000015258789,-0.011485282587255865 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=161.6398 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,-0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/8 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.15121792337028467 delta=-0.002151583138609191,-0.0784000015258789,-0.011485282587255865 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,-0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/8 death=0 fx=-
+T 157
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.16270320595754054 delta=0.0,-0.0784000015258789,-0.006270965021030767 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/7 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.16270320595754054 delta=0.0,-0.0784000015258789,-0.006270965021030767 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/7 death=0 fx=-
+T 158
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.16897417097857131 delta=0.0,-0.0784000015258789,-0.0034239472991832746 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=92.1998 body=92.1998 nav=done stuck=0 navspeed=1.0 ntarget=24,-56,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/6 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.16897417097857131 delta=0.0,-0.0784000015258789,-0.0034239472991832746 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.82343947941215,-60.0,1.5141667806568204 delta=0.0,-0.0784000015258789,0.0 rot=92.1998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/6 death=0 fx=-
+T 159
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,-0.0018694754424985528 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.80444418692739,-60.0,1.4546232753458082 delta=-0.010371430901348067,-0.0784000015258789,-0.03251075767602263 rot=162.3114,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=92.1998 body=162.3114 nav=moving stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=1/2/1/25,-60,-1 nodes=25,-60,1:WALKABLE:0.0;25,-60,0:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/5 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,-0.0018694754424985528 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.80444418692739,-60.0,1.4546232753458082 delta=-0.010371430901348067,-0.0784000015258789,-0.03251075767602263 rot=162.3114,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/5 death=0 fx=-
+T 160
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.775077463541283,-60.0,1.3625690123587733 delta=-0.016034232831233435,-0.0784000015258789,-0.05026163342894185 rot=162.31165,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=102.1998 body=162.31165 nav=moving stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=1/2/1/25,-60,-1 nodes=25,-60,1:WALKABLE:0.0;25,-60,0:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/4 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.775077463541283,-60.0,1.3625690123587733 delta=-0.016034232831233435,-0.0784000015258789,-0.05026163342894185 rot=162.31165,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/4 death=0 fx=-
+T 161
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.74005364723267,-60.0,1.2527620556771535 delta=-0.019123005925689173,-0.0784000015258789,-0.05995460531204934 rot=162.31226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=112.1998 body=162.31226 nav=moving stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=1/2/1/25,-60,-1 nodes=25,-60,1:WALKABLE:0.0;25,-60,0:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/3 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.74005364723267,-60.0,1.2527620556771535 delta=-0.019123005925689173,-0.0784000015258789,-0.05995460531204934 rot=162.31226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/3 death=0 fx=-
+T 162
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.701941057829604,-60.0,1.1332621271124261 delta=-0.020809476231149964,-0.0784000015258789,-0.06524696857494793 rot=162.31259,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=122.1998 body=162.31259 nav=moving stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=1/2/1/25,-60,-1 nodes=25,-60,1:WALKABLE:0.0;25,-60,0:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/2 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.701941057829604,-60.0,1.1332621271124261 delta=-0.020809476231149964,-0.0784000015258789,-0.06524696857494793 rot=162.31259,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/2 death=0 fx=-
+T 163
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.662141998121076,-60.0,1.0084698352848003 delta=-0.021730289124886393,-0.0784000015258789,-0.06813659925212875 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=132.1998 body=162.31296 nav=moving stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=1/2/1/25,-60,-1 nodes=25,-60,1:WALKABLE:0.0;25,-60,0:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/1 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.662141998121076,-60.0,1.0084698352848003 delta=-0.021730289124886393,-0.0784000015258789,-0.06813659925212875 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/1 death=0 fx=-
+T 164
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.64041170899619,-60.0,0.9403332360326715 delta=-0.011864739240308609,-0.0784000015258789,-0.03720258751284059 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=142.1998 body=162.31296 nav=done stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=2/2/1/25,-60,-1 nodes=25,-60,1:WALKABLE:0.0;25,-60,0:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.64041170899619,-60.0,0.9403332360326715 delta=-0.011864739240308609,-0.0784000015258789,-0.03720258751284059 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 165
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.62854696975588,-60.0,0.9031306485198309 delta=-0.006478148377662456,-0.0784000015258789,-0.020312615141374585 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=152.1998 body=162.31296 nav=done stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:Silverfish$SilverfishWakeUpFriendsGoal:none tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.62854696975588,-60.0,0.9031306485198309 delta=-0.006478148377662456,-0.0784000015258789,-0.020312615141374585 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 166
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.622068821378218,-60.0,0.8828180333784563 delta=-0.003537069425043609,-0.0784000015258789,-0.01109068915540321 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=162.1998 body=162.31296 nav=done stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.622068821378218,-60.0,0.8828180333784563 delta=-0.003537069425043609,-0.0784000015258789,-0.01109068915540321 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 167
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8717273442230531 delta=-0.0019312401303924263,-0.0784000015258789,-0.006055516982214361 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=162.31296 body=162.31296 nav=done stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8717273442230531 delta=-0.0019312401303924263,-0.0784000015258789,-0.006055516982214361 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 168
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8656718272408387 delta=0.0,-0.0784000015258789,-0.003306312656325944 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=162.31296 body=162.31296 nav=done stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8656718272408387 delta=0.0,-0.0784000015258789,-0.003306312656325944 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 169
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8623655145845127 delta=0.0,-0.0784000015258789,-0.0018052469200381387 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=162.31296 body=162.31296 nav=done stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8623655145845127 delta=0.0,-0.0784000015258789,-0.0018052469200381387 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 170
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8623655145845127 delta=0.0,-0.0784000015258789,0.0 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=162.31296 body=162.31296 nav=done stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8623655145845127 delta=0.0,-0.0784000015258789,0.0 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 171
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8623655145845127 delta=0.0,-0.0784000015258789,0.0 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=162.31296 body=162.31296 nav=done stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8623655145845127 delta=0.0,-0.0784000015258789,0.0 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 172
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8623655145845127 delta=0.0,-0.0784000015258789,0.0 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=162.31296 body=162.31296 nav=done stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8623655145845127 delta=0.0,-0.0784000015258789,0.0 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 173
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8623655145845127 delta=0.0,-0.0784000015258789,0.0 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=162.31296 body=162.31296 nav=done stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8623655145845127 delta=0.0,-0.0784000015258789,0.0 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 174
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8623655145845127 delta=0.0,-0.0784000015258789,0.0 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=162.31296 body=162.31296 nav=done stuck=0 navspeed=1.0 ntarget=25,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.618531751953174,-60.0,0.8623655145845127 delta=0.0,-0.0784000015258789,0.0 rot=162.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 175
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.558986428700496,-60.0,0.8813550980618906 delta=-0.032511750272287365,-0.0784000015258789,0.010368313782955219 rot=72.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=147.31296 body=72.31296 nav=moving stuck=0 navspeed=1.0 ntarget=24,-60,5 path=1/2/0/24,-60,5 nodes=25,-60,0:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.558986428700496,-60.0,0.8813550980618906 delta=-0.032511750272287365,-0.0784000015258789,0.010368313782955219 rot=72.31296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 176
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.52054542489845,-60.0,0.9539415265785418 delta=-0.020988790513819536,-0.0784000015258789,0.039632194573475096 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=80.44646 body=5.446457 nav=moving stuck=0 navspeed=1.0 ntarget=24,-60,5 path=1/2/0/24,-60,5 nodes=25,-60,0:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.52054542489845,-60.0,0.9539415265785418 delta=-0.020988790513819536,-0.0784000015258789,0.039632194573475096 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 177
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.499556634384632,-60.0,0.9935737211520169 delta=-0.011459880951640751,-0.0784000015258789,0.021639180750565108 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=70.44646 body=5.446457 nav=done stuck=0 navspeed=1.0 ntarget=24,-60,5 path=2/2/0/24,-60,5 nodes=25,-60,0:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.499556634384632,-60.0,0.9935737211520169 delta=-0.011459880951640751,-0.0784000015258789,0.021639180750565108 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 178
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.48809675343299,-60.0,1.015212901902582 delta=-0.00625709572637396,-0.0784000015258789,0.011814994062151155 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=60.446457 body=5.446457 nav=done stuck=0 navspeed=1.0 ntarget=24,-60,5 path=2/2/0/24,-60,5 nodes=25,-60,0:WALKABLE:0.0;25,-60,1:WALKABLE:0.0 goals=5:Silverfish$SilverfishMergeWithStoneGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.48809675343299,-60.0,1.015212901902582 delta=-0.00625709572637396,-0.0784000015258789,0.011814994062151155 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 179
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.48183965770662,-60.0,1.0270278959647332 delta=-0.003416374663421076,-0.0784000015258789,0.0064509875072336804 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=50.446457 body=5.446457 nav=done stuck=0 navspeed=1.0 ntarget=24,-60,5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.48183965770662,-60.0,1.0270278959647332 delta=-0.003416374663421076,-0.0784000015258789,0.0064509875072336804 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 180
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.4784232830432,-60.0,1.0334788834719668 delta=-0.001865340782892141,-0.0784000015258789,0.0035222395880669726 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=40.446457 body=5.446457 nav=done stuck=0 navspeed=1.0 ntarget=24,-60,5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.4784232830432,-60.0,1.0334788834719668 delta=-0.001865340782892141,-0.0784000015258789,0.0035222395880669726 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 181
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.4784232830432,-60.0,1.0370011230600338 delta=0.0,-0.0784000015258789,0.0019231430384626842 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=30.446457 body=5.446457 nav=done stuck=0 navspeed=1.0 ntarget=24,-60,5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.4784232830432,-60.0,1.0370011230600338 delta=0.0,-0.0784000015258789,0.0019231430384626842 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 182
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.4784232830432,-60.0,1.0370011230600338 delta=0.0,-0.0784000015258789,0.0 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=20.446457 body=5.446457 nav=done stuck=0 navspeed=1.0 ntarget=24,-60,5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.4784232830432,-60.0,1.0370011230600338 delta=0.0,-0.0784000015258789,0.0 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 183
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.4784232830432,-60.0,1.0370011230600338 delta=0.0,-0.0784000015258789,0.0 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=10.446457 body=5.446457 nav=done stuck=0 navspeed=1.0 ntarget=24,-60,5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.4784232830432,-60.0,1.0370011230600338 delta=0.0,-0.0784000015258789,0.0 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 184
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=171.54208 body=171.54208 nav=done stuck=0 navspeed=1.0 ntarget=32,-60,-5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:17.213455475207354;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E silverfish#1 minecraft:silverfish pos=25.4784232830432,-60.0,1.0370011230600338 delta=0.0,-0.0784000015258789,0.0 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=5.446457 body=5.446457 nav=done stuck=0 navspeed=1.0 ntarget=24,-60,5 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:15.038265942896002;minecraft:max_health:8.0;minecraft:movement_speed:0.25
+E W minecraft:silverfish pos=27.54184290619073,-60.0,-0.1723981182777546 delta=0.0,-0.0784000015258789,0.0 rot=171.54208,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+E silverfish#1 minecraft:silverfish pos=25.4784232830432,-60.0,1.0370011230600338 delta=0.0,-0.0784000015258789,0.0 rot=5.446457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:silverfish pos=27.799999997019768,-60.0,25.799999997019768 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/0 death=0 fx=-
+B 24 -60 20 minecraft:infested_stone
+B 24 -60 21 minecraft:infested_stone
+B 24 -60 22 minecraft:infested_stone
+B 24 -60 23 minecraft:infested_stone
+B 24 -60 24 minecraft:infested_stone
+B 24 -60 25 minecraft:infested_stone
+B 24 -60 26 minecraft:infested_stone
+B 24 -60 27 minecraft:infested_stone
+B 24 -60 28 minecraft:infested_stone
+B 24 -59 20 minecraft:infested_stone
+B 24 -59 21 minecraft:infested_stone
+B 24 -59 22 minecraft:infested_stone
+B 24 -59 23 minecraft:infested_stone
+B 24 -59 24 minecraft:infested_stone
+B 24 -59 25 minecraft:infested_stone
+B 24 -59 26 minecraft:infested_stone
+B 24 -59 27 minecraft:infested_stone
+B 24 -59 28 minecraft:infested_stone
+B 24 -58 20 minecraft:infested_stone
+B 24 -58 21 minecraft:infested_stone
+B 24 -58 22 minecraft:infested_stone
+B 24 -58 23 minecraft:infested_stone
+B 24 -58 24 minecraft:infested_stone
+B 24 -58 25 minecraft:infested_stone
+B 24 -58 26 minecraft:infested_stone
+B 24 -58 27 minecraft:infested_stone
+B 24 -58 28 minecraft:infested_stone
+B 24 -57 20 minecraft:infested_stone
+B 24 -57 21 minecraft:infested_stone
+B 24 -57 22 minecraft:infested_stone
+B 24 -57 23 minecraft:infested_stone
+B 24 -57 24 minecraft:infested_stone
+B 24 -57 25 minecraft:infested_stone
+B 24 -57 26 minecraft:infested_stone
+B 24 -57 27 minecraft:infested_stone
+B 24 -57 28 minecraft:infested_stone
+B 25 -60 20 minecraft:infested_stone
+B 25 -60 21 minecraft:infested_stone
+B 25 -60 22 minecraft:infested_stone
+B 25 -60 26 minecraft:infested_stone
+B 25 -60 27 minecraft:infested_stone
+B 25 -60 28 minecraft:infested_stone
+B 25 -59 20 minecraft:infested_stone
+B 25 -59 21 minecraft:infested_stone
+B 25 -59 22 minecraft:infested_stone
+B 25 -59 26 minecraft:infested_stone
+B 25 -59 27 minecraft:infested_stone
+B 25 -59 28 minecraft:infested_stone
+B 25 -58 20 minecraft:infested_stone
+B 25 -58 21 minecraft:infested_stone
+B 25 -58 22 minecraft:infested_stone
+B 25 -58 26 minecraft:infested_stone
+B 25 -58 27 minecraft:infested_stone
+B 25 -58 28 minecraft:infested_stone
+B 25 -57 20 minecraft:infested_stone
+B 25 -57 21 minecraft:infested_stone
+B 25 -57 22 minecraft:infested_stone
+B 25 -57 23 minecraft:infested_stone
+B 25 -57 24 minecraft:infested_stone
+B 25 -57 25 minecraft:infested_stone
+B 25 -57 26 minecraft:infested_stone
+B 25 -57 27 minecraft:infested_stone
+B 25 -57 28 minecraft:infested_stone
+B 26 -60 20 minecraft:infested_stone
+B 26 -60 21 minecraft:infested_stone
+B 26 -60 22 minecraft:infested_stone
+B 26 -60 26 minecraft:infested_stone
+B 26 -60 27 minecraft:infested_stone
+B 26 -60 28 minecraft:infested_stone
+B 26 -59 20 minecraft:infested_stone
+B 26 -59 21 minecraft:infested_stone
+B 26 -59 22 minecraft:infested_stone
+B 26 -59 26 minecraft:infested_stone
+B 26 -59 27 minecraft:infested_stone
+B 26 -59 28 minecraft:infested_stone
+B 26 -58 20 minecraft:infested_stone
+B 26 -58 21 minecraft:infested_stone
+B 26 -58 22 minecraft:infested_stone
+B 26 -58 26 minecraft:infested_stone
+B 26 -58 27 minecraft:infested_stone
+B 26 -58 28 minecraft:infested_stone
+B 26 -57 20 minecraft:infested_stone
+B 26 -57 21 minecraft:infested_stone
+B 26 -57 22 minecraft:infested_stone
+B 26 -57 23 minecraft:infested_stone
+B 26 -57 24 minecraft:infested_stone
+B 26 -57 25 minecraft:infested_stone
+B 26 -57 26 minecraft:infested_stone
+B 26 -57 27 minecraft:infested_stone
+B 26 -57 28 minecraft:infested_stone
+B 27 -60 20 minecraft:infested_stone
+B 27 -60 21 minecraft:infested_stone
+B 27 -60 22 minecraft:infested_stone
+B 27 -60 26 minecraft:stone
+B 27 -60 27 minecraft:stone
+B 27 -60 28 minecraft:stone
+B 27 -59 20 minecraft:infested_stone
+B 27 -59 21 minecraft:infested_stone
+B 27 -59 22 minecraft:infested_stone
+B 27 -59 26 minecraft:infested_stone
+B 27 -59 27 minecraft:infested_stone
+B 27 -59 28 minecraft:infested_stone
+B 27 -58 20 minecraft:infested_stone
+B 27 -58 21 minecraft:infested_stone
+B 27 -58 22 minecraft:infested_stone
+B 27 -58 26 minecraft:infested_stone
+B 27 -58 27 minecraft:infested_stone
+B 27 -58 28 minecraft:infested_stone
+B 27 -57 20 minecraft:infested_stone
+B 27 -57 21 minecraft:infested_stone
+B 27 -57 22 minecraft:infested_stone
+B 27 -57 23 minecraft:infested_stone
+B 27 -57 24 minecraft:infested_stone
+B 27 -57 25 minecraft:infested_stone
+B 27 -57 26 minecraft:infested_stone
+B 27 -57 27 minecraft:infested_stone
+B 27 -57 28 minecraft:infested_stone
+B 28 -60 20 minecraft:infested_stone
+B 28 -60 21 minecraft:infested_stone
+B 28 -60 22 minecraft:infested_stone
+B 28 -60 23 minecraft:infested_stone
+B 28 -60 24 minecraft:infested_stone
+B 28 -60 25 minecraft:infested_stone
+B 28 -60 26 minecraft:infested_stone
+B 28 -60 27 minecraft:infested_stone
+B 28 -60 28 minecraft:infested_stone
+B 28 -59 20 minecraft:infested_stone
+B 28 -59 21 minecraft:infested_stone
+B 28 -59 22 minecraft:infested_stone
+B 28 -59 23 minecraft:infested_stone
+B 28 -59 24 minecraft:infested_stone
+B 28 -59 25 minecraft:infested_stone
+B 28 -59 26 minecraft:infested_stone
+B 28 -59 27 minecraft:infested_stone
+B 28 -59 28 minecraft:infested_stone
+B 28 -58 20 minecraft:infested_stone
+B 28 -58 21 minecraft:infested_stone
+B 28 -58 22 minecraft:infested_stone
+B 28 -58 23 minecraft:infested_stone
+B 28 -58 24 minecraft:infested_stone
+B 28 -58 25 minecraft:infested_stone
+B 28 -58 26 minecraft:infested_stone
+B 28 -58 27 minecraft:infested_stone
+B 28 -58 28 minecraft:infested_stone
+B 28 -57 20 minecraft:infested_stone
+B 28 -57 21 minecraft:infested_stone
+B 28 -57 22 minecraft:infested_stone
+B 28 -57 23 minecraft:infested_stone
+B 28 -57 24 minecraft:infested_stone
+B 28 -57 25 minecraft:infested_stone
+B 28 -57 26 minecraft:infested_stone
+B 28 -57 27 minecraft:infested_stone
+B 28 -57 28 minecraft:infested_stone
+B 29 -60 20 minecraft:infested_stone
+B 29 -60 21 minecraft:infested_stone
+B 29 -60 22 minecraft:infested_stone
+B 29 -60 23 minecraft:infested_stone
+B 29 -60 24 minecraft:infested_stone
+B 29 -60 25 minecraft:infested_stone
+B 29 -60 26 minecraft:infested_stone
+B 29 -60 27 minecraft:infested_stone
+B 29 -60 28 minecraft:infested_stone
+B 29 -59 20 minecraft:infested_stone
+B 29 -59 21 minecraft:infested_stone
+B 29 -59 22 minecraft:infested_stone
+B 29 -59 23 minecraft:infested_stone
+B 29 -59 24 minecraft:infested_stone
+B 29 -59 25 minecraft:infested_stone
+B 29 -59 26 minecraft:infested_stone
+B 29 -59 27 minecraft:infested_stone
+B 29 -59 28 minecraft:infested_stone
+B 29 -58 20 minecraft:infested_stone
+B 29 -58 21 minecraft:infested_stone
+B 29 -58 22 minecraft:infested_stone
+B 29 -58 23 minecraft:infested_stone
+B 29 -58 24 minecraft:infested_stone
+B 29 -58 25 minecraft:infested_stone
+B 29 -58 26 minecraft:infested_stone
+B 29 -58 27 minecraft:infested_stone
+B 29 -58 28 minecraft:infested_stone
+B 29 -57 20 minecraft:infested_stone
+B 29 -57 21 minecraft:infested_stone
+B 29 -57 22 minecraft:infested_stone
+B 29 -57 23 minecraft:infested_stone
+B 29 -57 24 minecraft:infested_stone
+B 29 -57 25 minecraft:infested_stone
+B 29 -57 26 minecraft:infested_stone
+B 29 -57 27 minecraft:infested_stone
+B 29 -57 28 minecraft:infested_stone
+B 30 -60 20 minecraft:infested_stone
+B 30 -60 21 minecraft:infested_stone
+B 30 -60 22 minecraft:infested_stone
+B 30 -60 23 minecraft:infested_stone
+B 30 -60 24 minecraft:infested_stone
+B 30 -60 25 minecraft:infested_stone
+B 30 -60 26 minecraft:infested_stone
+B 30 -60 27 minecraft:infested_stone
+B 30 -60 28 minecraft:infested_stone
+B 30 -59 20 minecraft:infested_stone
+B 30 -59 21 minecraft:infested_stone
+B 30 -59 22 minecraft:infested_stone
+B 30 -59 23 minecraft:infested_stone
+B 30 -59 24 minecraft:infested_stone
+B 30 -59 25 minecraft:infested_stone
+B 30 -59 26 minecraft:infested_stone
+B 30 -59 27 minecraft:infested_stone
+B 30 -59 28 minecraft:infested_stone
+B 30 -58 20 minecraft:infested_stone
+B 30 -58 21 minecraft:infested_stone
+B 30 -58 22 minecraft:infested_stone
+B 30 -58 23 minecraft:infested_stone
+B 30 -58 24 minecraft:infested_stone
+B 30 -58 25 minecraft:infested_stone
+B 30 -58 26 minecraft:infested_stone
+B 30 -58 27 minecraft:infested_stone
+B 30 -58 28 minecraft:infested_stone
+B 30 -57 20 minecraft:infested_stone
+B 30 -57 21 minecraft:infested_stone
+B 30 -57 22 minecraft:infested_stone
+B 30 -57 23 minecraft:infested_stone
+B 30 -57 24 minecraft:infested_stone
+B 30 -57 25 minecraft:infested_stone
+B 30 -57 26 minecraft:infested_stone
+B 30 -57 27 minecraft:infested_stone
+B 30 -57 28 minecraft:infested_stone
+B 31 -60 20 minecraft:infested_stone
+B 31 -60 21 minecraft:infested_stone
+B 31 -60 22 minecraft:infested_stone
+B 31 -60 23 minecraft:infested_stone
+B 31 -60 24 minecraft:infested_stone
+B 31 -60 25 minecraft:infested_stone
+B 31 -60 26 minecraft:infested_stone
+B 31 -60 27 minecraft:infested_stone
+B 31 -60 28 minecraft:infested_stone
+B 31 -59 20 minecraft:infested_stone
+B 31 -59 21 minecraft:infested_stone
+B 31 -59 22 minecraft:infested_stone
+B 31 -59 23 minecraft:infested_stone
+B 31 -59 24 minecraft:infested_stone
+B 31 -59 25 minecraft:infested_stone
+B 31 -59 26 minecraft:infested_stone
+B 31 -59 27 minecraft:infested_stone
+B 31 -59 28 minecraft:infested_stone
+B 31 -58 20 minecraft:infested_stone
+B 31 -58 21 minecraft:infested_stone
+B 31 -58 22 minecraft:infested_stone
+B 31 -58 23 minecraft:infested_stone
+B 31 -58 24 minecraft:infested_stone
+B 31 -58 25 minecraft:infested_stone
+B 31 -58 26 minecraft:infested_stone
+B 31 -58 27 minecraft:infested_stone
+B 31 -58 28 minecraft:infested_stone
+B 31 -57 20 minecraft:infested_stone
+B 31 -57 21 minecraft:infested_stone
+B 31 -57 22 minecraft:infested_stone
+B 31 -57 23 minecraft:infested_stone
+B 31 -57 24 minecraft:infested_stone
+B 31 -57 25 minecraft:infested_stone
+B 31 -57 26 minecraft:infested_stone
+B 31 -57 27 minecraft:infested_stone
+B 31 -57 28 minecraft:infested_stone
+B 32 -60 20 minecraft:infested_stone
+B 32 -60 21 minecraft:infested_stone
+B 32 -60 22 minecraft:infested_stone
+B 32 -60 23 minecraft:infested_stone
+B 32 -60 24 minecraft:infested_stone
+B 32 -60 25 minecraft:infested_stone
+B 32 -60 26 minecraft:infested_stone
+B 32 -60 27 minecraft:infested_stone
+B 32 -60 28 minecraft:infested_stone
+B 32 -59 20 minecraft:infested_stone
+B 32 -59 21 minecraft:infested_stone
+B 32 -59 22 minecraft:infested_stone
+B 32 -59 23 minecraft:infested_stone
+B 32 -59 24 minecraft:infested_stone
+B 32 -59 25 minecraft:infested_stone
+B 32 -59 26 minecraft:infested_stone
+B 32 -59 27 minecraft:infested_stone
+B 32 -59 28 minecraft:infested_stone
+B 32 -58 20 minecraft:infested_stone
+B 32 -58 21 minecraft:infested_stone
+B 32 -58 22 minecraft:infested_stone
+B 32 -58 23 minecraft:infested_stone
+B 32 -58 24 minecraft:infested_stone
+B 32 -58 25 minecraft:infested_stone
+B 32 -58 26 minecraft:infested_stone
+B 32 -58 27 minecraft:infested_stone
+B 32 -58 28 minecraft:infested_stone
+B 32 -57 20 minecraft:infested_stone
+B 32 -57 21 minecraft:infested_stone
+B 32 -57 22 minecraft:infested_stone
+B 32 -57 23 minecraft:infested_stone
+B 32 -57 24 minecraft:infested_stone
+B 32 -57 25 minecraft:infested_stone
+B 32 -57 26 minecraft:infested_stone
+B 32 -57 27 minecraft:infested_stone
+B 32 -57 28 minecraft:infested_stone
+EV sound at=26.5,-60.0,24.5 r=16.0 ex=0 event=minecraft:entity.silverfish.hurt source=hostile vol=1.0 pitch=0.88534296
+EV sound at=25.64041170899619,-60.0,0.9403332360326715 r=16.0 ex=0 event=minecraft:entity.silverfish.ambient source=hostile vol=1.0 pitch=0.9471269

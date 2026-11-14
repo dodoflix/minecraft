@@ -1,0 +1,33 @@
+# Creeper goals: it flees from a cat and from an ocelot within 6 blocks (AvoidEntityGoal speeds 1.0 / 1.2), never targets a goat
+# (Creeper.setTarget), swells next to the player and keeps the fuse stopped while the player is out of reach (SwellGoal swellDir -1).
+level flat
+difficulty normal
+preload 4
+entity_counter 1730
+level_seed 1731
+time 6000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 3 100000
+mobspawn C minecraft:creeper 12.5 -60 0.5 90 0 {PersistenceRequired:1b}
+mobspawn K minecraft:cat 8.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn O minecraft:ocelot 12.5 -60 6.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn G minecraft:goat 16.5 -60 -4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed C 131
+entity_seed K 132
+entity_seed O 133
+entity_seed G 134
+tick 2
+note the goat is refused as a target
+target C G
+dump mob:C
+note the creeper runs away from the cat and the ocelot while the player is far
+watch mob:C
+tick 60
+watch off
+note Steve walks up: the creeper targets him and swells
+tp Steve 8.5 -60 6.5
+watch mob:C
+tick 100
+watch off
+dump player:Steve events

@@ -1,0 +1,29 @@
+# Spider at night (SpiderTargetGoal needs light below 0.5): targets a player standing on a three-high pillar, the wall climber navigation
+# drives it into the pillar (horizontal collision sets the climbing flag and it climbs), it leaps at the player (LeapAtTargetGoal) and bites;
+# at dawn SpiderAttackGoal drops the target with chance 1/100 per check.
+level flat
+difficulty normal
+preload 4
+entity_counter 1720
+level_seed 1721
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -58 0.5 0 0
+effect Steve minecraft:resistance 3 100000
+fill -1 -60 -1 1 -59 1 minecraft:stone
+mobspawn S minecraft:spider 8.5 -60 0.5 90 0 {PersistenceRequired:1b}
+entity_seed S 111
+mobspawn T minecraft:spider -6.5 -60 4.5 90 0 {PersistenceRequired:1b} nofinalize
+entity_seed T 112
+tick 2
+dump mob:S goals:S
+watch mobs entities
+tick 120
+watch off
+dump player:Steve events nbt:S
+note dawn: the light-dependent value rises over 0.5, the attack goal gives up its target now and then
+time 1000
+watch mobs
+tick 150
+watch off
+dump player:Steve events

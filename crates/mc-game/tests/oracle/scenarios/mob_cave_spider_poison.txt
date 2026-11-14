@@ -1,0 +1,42 @@
+# Cave spider bite: CaveSpider.doHurtTarget adds poison for 7 s on normal and 15 s on hard, none on easy; it is immune to poison itself
+# (Spider.canBeAffected) and its finalizeSpawn skips Mob's. The bites come from direct doHurtTarget calls and from its own chase.
+level flat
+difficulty easy
+preload 4
+entity_counter 1740
+level_seed 1741
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn C minecraft:cave_spider 1.5 -60 0.5 90 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn Z minecraft:zombie 0.5 -60 3.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed C 141
+entity_seed Z 142
+tick 2
+note easy: damage but no poison
+mob_attack C Steve
+dump player:Steve events
+tick 12
+difficulty normal
+note normal: 7 seconds
+mob_attack C Steve
+mob_attack C Z
+dump player:Steve mob:Z events
+tick 12
+difficulty hard
+note hard: 15 seconds replace the weaker poison
+mob_attack C Steve
+mob_attack C Z
+dump player:Steve mob:Z events
+tick 12
+note poison cannot be applied to a cave spider
+effect C minecraft:poison 20 0
+effect C minecraft:speed 20 0
+dump mob:C
+note the real chase on hard
+nbt C {NoAI:0b}
+tick 3
+watch mobs entities
+tick 80
+watch off
+dump player:Steve events
