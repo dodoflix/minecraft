@@ -43,6 +43,16 @@ static ACCESS: std::sync::LazyLock<mc_game::registry::RegistryAccess> =
         stem.registries.composite_access().clone()
     });
 
+/// The vanilla advancement tree of the default data pack; every replayed player gets progress over it (`PlayerAdvancements`), so the
+/// advancements an inventory change completes (the netherite armor set) award their experience as on the vanilla server.
+static ADVANCEMENTS: std::sync::LazyLock<
+    mc_game::advancements::server_advancement_manager::ServerAdvancementManager,
+> = std::sync::LazyLock::new(|| {
+    mc_game::advancements::server_advancement_manager::ServerAdvancementManager::from_registries(
+        &ACCESS,
+    )
+});
+
 struct Replay {
     level: ServerLevel,
     refs: HashMap<String, EntityId>,
@@ -237,6 +247,12 @@ impl Replay {
         let mode =
             GameType::by_serialized_name(&t[2]).unwrap_or_else(|| panic!("game type {}", t[2]));
         p.set_game_mode_for_player(mode, None);
+        p.advancements = mc_game::advancements::SharedAdvancements::new(
+            mc_game::advancements::player_advancements::PlayerAdvancements::new(
+                &ADVANCEMENTS,
+                None,
+            ),
+        );
         p.set_pos(num(&t[3]), num(&t[4]), num(&t[5]));
         let (yaw, pitch) = if t.len() > 7 {
             (num(&t[6]) as f32, num(&t[7]) as f32)
@@ -521,12 +537,22 @@ impl Replay {
                 if e.is_removed() {
                     return;
                 }
+                let start = e.base().position();
                 mc_game::world::entity::entity::common_tick(e);
                 e.tick(level);
                 if let Some(p) = e.as_any_mut().downcast_mut::<ServerPlayer>() {
                     let pos = p.base().position();
                     p.base_mut().set_old_pos(pos);
                     p.do_tick(level);
+                    // `ServerGamePacketListenerImpl.tickPlayer`: the position the client last reported replaces whatever the
+                    // server-side motion of this tick produced (the delta movement stays)
+                    p.abs_snap_to(
+                        start.x,
+                        start.y,
+                        start.z,
+                        p.base().y_rot(),
+                        p.base().x_rot(),
+                    );
                 }
             });
         }

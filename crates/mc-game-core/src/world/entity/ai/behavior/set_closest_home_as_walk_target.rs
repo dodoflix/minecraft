@@ -1,6 +1,7 @@
 //! `SetClosestHomeAsWalkTarget`: walk to the closest bed POI of a homeless villager.
 
 use super::acquire_poi::find_path_to_pois;
+use super::village_util::java_poi_set_order;
 use super::{BehaviorBuilder, OneShot};
 use crate::world::entity::ai::memory::WalkTarget;
 use crate::world::entity::ai::memory::memory_module_type::{HOME, WALK_TARGET};
@@ -57,6 +58,7 @@ pub fn create(speed_modifier: f32) -> OneShot {
             batch_cache.insert(key, last_update + CACHE_TIMEOUT);
             pois.push((ty, pos));
         }
+        let pois = java_poi_set_order(pois);
         let path = find_path_to_pois(c.body, c.level, &pois);
         match path.filter(|p| p.can_reach()) {
             Some(path) => {

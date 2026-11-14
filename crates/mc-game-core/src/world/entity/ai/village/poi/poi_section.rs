@@ -5,15 +5,16 @@
 //! and mutable and the two containers can disagree (a position re-registered with another type leaves the old object in
 //! its type's set), so the records live in a slab referenced from both. Observable orders:
 //! * `pack()` (file content): fastutil *spliterator* order of `records.values()`: the `0` key, then the table ascending;
-//! * `getRecords` (queries): types in registration order (vanilla iterates a `HashMap` keyed by identity hashes, which is
-//!   not reproducible), each type's `HashSet<PoiRecord>` in Java order (`BlockPos.hashCode`, bucket order, insertion order
-//!   inside a bucket, splitting at 0.75 load).
+//! * `getRecords` (queries): types in `HashMap<Holder<PoiType>, _>` order (registry-key hash like the oracle's holders,
+//!   see [`PoiTypeHolder::hash_code`]), each type's `HashSet<PoiRecord>` in Java order (`BlockPos.hashCode`, bucket order,
+//!   insertion order inside a bucket, splitting at 0.75 load).
 //!
 //! shortcut: tree bins are not emulated (Java treeifies a bin of >= 9 colliding positions in a table of >= 64 buckets).
 
 use super::poi_record::PoiRecord;
 use super::poi_type::PoiTypeHolder;
 use crate::server::level::fastutil::LongOpenHashMap;
+use crate::util::java_hash_order::JavaHashCapacity;
 use mc_core::pos::{BlockPos, SectionPos};
 use mc_data::misc::POI_TYPES;
 
@@ -135,6 +136,10 @@ pub struct PoiSection {
     records: LongOpenHashMap<u32>,
     /// `byType`, indexed by the type's registration index.
     by_type: Vec<RecordSet>,
+    /// The registration indexes of the keys of `byType` in insertion order (a key stays when its set empties).
+    type_keys: Vec<usize>,
+    /// Table length of the `byType` map (kept by `clear()`).
+    type_capacity: JavaHashCapacity,
     is_valid: bool,
 }
 
@@ -166,6 +171,8 @@ impl PoiSection {
             free: Vec::new(),
             records: LongOpenHashMap::new_int(),
             by_type: (0..POI_TYPES.len()).map(|_| RecordSet::default()).collect(),
+            type_keys: Vec::new(),
+            type_capacity: JavaHashCapacity::default(),
             is_valid,
         }
     }
@@ -225,10 +232,17 @@ impl PoiSection {
         occupancy: Occupancy,
         f: &mut dyn FnMut(u32, &PoiRecord) -> bool,
     ) {
-        for (index, set) in self.by_type.iter().enumerate() {
-            let Some(holder) = PoiTypeHolder::from_index(index) else {
-                continue;
-            };
+        // `HashMap` order: bucket by the key hash, and `computeIfAbsent` links a new key at the head of its bin
+        let order =
+            self.type_capacity
+                .iteration_order(self.type_keys.iter().rev().copied(), |&index| {
+                    PoiTypeHolder::from_index(index)
+                        .expect("registered type")
+                        .hash_code()
+                });
+        for index in order {
+            let set = &self.by_type[index];
+            let holder = PoiTypeHolder::from_index(index).expect("registered type");
             if set.size == 0 || !predicate(holder) {
                 continue;
             }
@@ -280,6 +294,7 @@ impl PoiSection {
         if let Some(old_id) = self.records.insert(i64::from(key), id) {
             self.dec_ref(old_id);
         }
+        self.compute_type_set_if_absent(poi_type);
         if self.by_type[poi_type.index()].add(SetEntry {
             hash: spread_hash(&pos),
             key,
@@ -288,6 +303,14 @@ impl PoiSection {
             self.inc_ref(id);
         }
         true
+    }
+
+    /// `byType.computeIfAbsent(type, ...)`: a new key resizes the table first when the old size is past the threshold.
+    fn compute_type_set_if_absent(&mut self, poi_type: PoiTypeHolder) {
+        if !self.type_keys.contains(&poi_type.index()) {
+            self.type_capacity.grow_to_fit(self.type_keys.len());
+            self.type_keys.push(poi_type.index());
+        }
     }
 
     /// Public `add(pos, type)`: the new record, `None` if the position already holds this type. The caller marks the
@@ -415,6 +438,7 @@ impl PoiSection {
         if let Some(old_id) = self.records.insert(i64::from(key), id) {
             self.dec_ref(old_id);
         }
+        self.compute_type_set_if_absent(poi_type);
         if self.by_type[poi_type.index()].add(SetEntry {
             hash: spread_hash(&pos),
             key,
@@ -435,6 +459,7 @@ impl PoiSection {
             }
             *set = RecordSet::default();
         }
+        self.type_keys.clear();
         for id in ids {
             self.dec_ref(id);
         }

@@ -4,7 +4,8 @@
 //! the saved list order); it is emulated exactly: bucket index of `UUID.hashCode()` in a table that doubles
 //! on `computeIfAbsent` (resize *before* inserting when `size > threshold`) and never shrinks; inside a bucket the
 //! newest target comes first (`computeIfAbsent` links a new node at the head of its bin). The entries of one target
-//! (`Object2IntOpenHashMap<GossipType>`, enum identity hashes: JVM-random in vanilla) iterate in ordinal order.
+//! (`Object2IntOpenHashMap<GossipType>`, enum identity hashes: a different order per JVM run in vanilla) iterate in ordinal
+//! order, the order of the oracle's shadow `GossipContainer` (`tests/oracle/shadow.patch`).
 
 use super::gossip_type::GossipType;
 use mc_core::random::RandomSource;

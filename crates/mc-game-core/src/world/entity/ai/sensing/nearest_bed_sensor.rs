@@ -3,6 +3,7 @@
 use super::sensor::Sensor;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::behavior::acquire_poi::find_path_to_pois;
+use crate::world::entity::ai::behavior::village_util::java_poi_set_order;
 use crate::world::entity::ai::memory::MemoryTypeId;
 use crate::world::entity::ai::memory::memory_module_type::NEAREST_BED;
 use crate::world::entity::ai::village::poi::{Occupancy, PoiTypes};
@@ -73,6 +74,7 @@ impl Sensor for NearestBedSensor {
                 .insert(key, self.last_update + CACHE_TIMEOUT);
             pois.push((ty, pos));
         }
+        let pois = java_poi_set_order(pois);
         let path = find_path_to_pois(body, level, &pois);
         match path.filter(|p| p.can_reach()) {
             Some(path) => {

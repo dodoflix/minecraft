@@ -1,7 +1,7 @@
 # Curing a zombie villager: a golden apple on a weakened one starts the timer (weakness ends, strength lasts as long as the cure), the
 # conversion back keeps profession, level, type, experience, gossips and offers, the player is thanked with reputation, an advancement
-# and the nausea of the cured villager (the saved gossip list of a thanked player is not compared: vanilla orders the gossip types of
-# one target by identity hash). Iron bars and a bed next to one speed the timer up. A conversion that is saved and loaded resumes.
+# and the nausea of the cured villager (the gossips saved with the thanked player: the gossip types of one target compare in the
+# oracle's order, see shadow.patch). Iron bars and a bed next to one speed the timer up. A conversion that is saved and loaded resumes.
 level flat
 preload 4
 difficulty hard
@@ -24,7 +24,7 @@ note about 3600 to 6000 ticks of the cure
 tick 3000
 dump mob:ZV1 nbt:ZV1
 tick 3100
-dump mobs entities offers:villager#1 trader:villager#1 events rng:level
+dump mobs entities offers:villager#1 trader:villager#1 nbt:villager#1 events rng:level
 dump stats:Steve advancements:Steve
 tick 100
 dump mobs
@@ -45,7 +45,7 @@ dump mob:ZV2 nbt:ZV2
 tick 2400
 dump mob:ZV2
 tick 3700
-dump mobs entities trader:villager#2 events
+dump mobs entities trader:villager#2 nbt:villager#2 events
 note the saved conversion resumes: a zombie villager loaded with a short timer converts at once and an unknown player gets no thanks
 tp Steve 30.5 -60 2.5
 mobspawn ZV3 minecraft:zombie_villager 30.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:mason",level:2},Xp:7,Gossips:[{Target:[I;5,6,7,8],Type:"minor_positive",Value:9},{Target:[I;9,9,9,9],Type:"major_negative",Value:40}],Offers:{Recipes:[{buy:{count:10,id:"minecraft:clay_ball"},maxUses:16,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:emerald"},uses:1,xp:1}]},equipment:{head:{id:"minecraft:leather_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:binding_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1}},drop_chances:{chest:2.0f}}

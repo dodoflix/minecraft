@@ -1,6 +1,8 @@
 //! `PoiType` + `PoiTypes`: the point-of-interest registry (`mc_data::misc::POI_TYPES`, registration order) and the
 //! block state -> type table.
 
+use crate::util::java_hash_order::registry_key_hash;
+use mc_core::ident::Identifier;
 use mc_data::block::BlockState;
 use mc_data::misc::{POI_TYPES, PoiTypeData};
 use std::sync::OnceLock;
@@ -35,6 +37,20 @@ impl PoiTypeHolder {
     /// `holder.getRegisteredName()` (`minecraft:home`).
     pub fn registered_name(self) -> &'static str {
         self.value().name
+    }
+
+    /// `holder.hashCode()` as the vanilla oracle computes it: the registry key hash (see `registry_key_hash`).
+    pub fn hash_code(self) -> i32 {
+        static HASHES: OnceLock<Vec<i32>> = OnceLock::new();
+        HASHES.get_or_init(|| {
+            POI_TYPES
+                .iter()
+                .map(|t| {
+                    let id = Identifier::parse(t.name).expect("valid poi type id");
+                    registry_key_hash("point_of_interest_type", &id)
+                })
+                .collect()
+        })[self.index()]
     }
 
     /// `holder.is(ResourceKey)`: `key` is one of the [`PoiTypes`] names.

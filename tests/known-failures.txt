@@ -1,7 +1,6 @@
 # Tests that currently fail on main, one per line: <package> <test binary> <test name>.
 # Only failures NOT listed here count as regressions. Delete a line when its test passes; fix new failures instead of adding them.
 mc-datafix tests/golden/main.rs core_smoke::read_write_roundtrip
-mc-game tests/golden/main.rs attack_golden::armor_resistance_absorption_thorns
 mc-game tests/golden/main.rs network_login_config::invalid_usernames_and_protocol_errors_disconnect_with_vanilla_text
 mc-game tests/golden/main.rs packs::disabled_missing_and_feature_packs
 mc-protocol tests/golden/main.rs play_debug::string_limits

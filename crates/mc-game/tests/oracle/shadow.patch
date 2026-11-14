@@ -114,3 +114,16 @@
           map.put(key, function.apply(key));
        }
  
+--- a/world/entity/ai/gossip/GossipContainer.java
++++ b/world/entity/ai/gossip/GossipContainer.java
+@@ -174,7 +174,9 @@
+    }
+ 
+    private static class EntityGossips {
+-      private final Object2IntMap<GossipType> entries = new Object2IntOpenHashMap<>();
++      // ORACLE SHADOW (tests/oracle/shadow.patch): vanilla hashes the enum constants by identity, so the gossip types of one target iterate
++      // in a different order per JVM run. A tree map iterates in ordinal order.
++      private final Object2IntMap<GossipType> entries = new it.unimi.dsi.fastutil.objects.Object2IntRBTreeMap<>();
+ 
+       public int weightedValue(final Predicate<GossipType> types) {
+          return this.entries.object2IntEntrySet().stream().filter(e -> types.test(e.getKey())).mapToInt(e -> e.getIntValue() * e.getKey().weight).sum();

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Prints the directory holding the patched vanilla sources the oracle shadows (Holder, ResourceKey, RandomSource, Util, RandomSupport).
+# Prints the directory holding the patched vanilla sources the oracle shadows (Holder, ResourceKey, RandomSource, Util, GossipContainer, RandomSupport).
 #
 #   scripts/oracle-shadow.sh
 #
@@ -16,7 +16,7 @@ need patch sha256sum
 PATCH="$ROOT/crates/mc-game/tests/oracle/shadow.patch"
 SRC="$ROOT/ref/src/net/minecraft"
 BASE="$ROOT/target/entity-oracle-shadow"
-FILES=(core/Holder resources/ResourceKey util/RandomSource util/Util world/level/levelgen/RandomSupport)
+FILES=(core/Holder resources/ResourceKey util/RandomSource util/Util world/entity/ai/gossip/GossipContainer world/level/levelgen/RandomSupport)
 for f in "${FILES[@]}"; do
   [ -f "$SRC/$f.java" ] || die "$SRC/$f.java missing; run scripts/setup-ref.sh --decompile"
 done

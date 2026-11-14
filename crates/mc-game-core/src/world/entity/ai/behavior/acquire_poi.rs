@@ -1,6 +1,6 @@
 //! `AcquirePoi`: find a free point of interest of a type, path to it, take a ticket and remember it.
 
-use super::village_util::{PoiPredicate, ValidPoi, java_block_pos_set_order};
+use super::village_util::{PoiPredicate, ValidPoi, java_block_pos_set_order, java_poi_set_order};
 use super::{BehaviorBuilder, OneShot};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
@@ -103,11 +103,14 @@ pub fn create_validated(
             }
         }
         matches.sort_by(|a, b| a.1.dist_sqr(&body_pos).total_cmp(&b.1.dist_sqr(&body_pos)));
-        let poi_positions: Vec<(PoiTypeHolder, BlockPos)> = matches
-            .into_iter()
-            .take(5)
-            .filter(|(_, pos)| valid_poi(level, *pos))
-            .collect();
+        // `.collect(Collectors.toSet())`: a `HashSet` of pairs, iterated by hash below
+        let poi_positions = java_poi_set_order(
+            matches
+                .into_iter()
+                .take(5)
+                .filter(|(_, pos)| valid_poi(level, *pos))
+                .collect(),
+        );
         let path = find_path_to_pois(c.body, level, &poi_positions);
         match path.filter(|p| p.can_reach()) {
             Some(path) => {

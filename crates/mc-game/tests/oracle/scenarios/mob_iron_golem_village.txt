@@ -19,6 +19,8 @@ block 2 -60 6 minecraft:red_bed[facing=east,part=foot]
 block 3 -60 6 minecraft:red_bed[facing=east,part=head]
 block 6 -60 6 minecraft:red_bed[facing=east,part=foot]
 block 7 -60 6 minecraft:red_bed[facing=east,part=head]
+block 4 -60 0 minecraft:bell
+block 8 -60 4 minecraft:lectern[facing=north]
 tick 30
 mobspawn V1 minecraft:villager 3.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
 mobspawn V2 minecraft:villager 5.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}

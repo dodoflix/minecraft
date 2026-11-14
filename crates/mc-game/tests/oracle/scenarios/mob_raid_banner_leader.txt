@@ -12,6 +12,8 @@ fill -12 -60 -12 12 -52 12 minecraft:air
 block 0 -60 0 minecraft:bell
 block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
 block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
 mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
 spawn_player Steve survival 0.5 -60 6.5 0 0
 set Steve invulnerable true
