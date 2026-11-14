@@ -145,7 +145,8 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
             matches!(
                 l.split_whitespace().next(),
                 Some(
-                    "command_env"
+                    "chunk_batch_received"
+                        | "command_env"
                         | "debug_subscribe"
                         | "select"
                         | "close_menu"

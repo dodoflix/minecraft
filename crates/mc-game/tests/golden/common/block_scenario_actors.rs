@@ -37,12 +37,12 @@ use mc_game::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_protocol::codec::{Decode, Encode, read_varint};
 use mc_protocol::packets::play::{
     AttributeModifierOperation, ClientboundSetTimePacket, ClientboundUpdateAttributesPacket,
-    PositionAndRotation, ServerboundAcceptTeleportationPacket, ServerboundClientTickEndPacket,
-    ServerboundContainerButtonClickPacket, ServerboundContainerClosePacket,
-    ServerboundDebugSubscriptionRequestPacket, ServerboundMovePlayerPosPacket,
-    ServerboundMovePlayerPosRotPacket, ServerboundMoveVehiclePacket, ServerboundPaddleBoatPacket,
-    ServerboundPickItemFromBlockPacket, ServerboundPlayPacket as P,
-    ServerboundSetCarriedItemPacket,
+    PositionAndRotation, ServerboundAcceptTeleportationPacket, ServerboundChunkBatchReceivedPacket,
+    ServerboundClientTickEndPacket, ServerboundContainerButtonClickPacket,
+    ServerboundContainerClosePacket, ServerboundDebugSubscriptionRequestPacket,
+    ServerboundMovePlayerPosPacket, ServerboundMovePlayerPosRotPacket,
+    ServerboundMoveVehiclePacket, ServerboundPaddleBoatPacket, ServerboundPickItemFromBlockPacket,
+    ServerboundPlayPacket as P, ServerboundSetCarriedItemPacket,
 };
 use std::collections::{HashMap, HashSet};
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
@@ -519,6 +519,12 @@ impl Scenario {
                     }
                 });
             }
+            // `chunk_batch_received PLAYER RATE`: `ServerboundChunkBatchReceivedPacket`
+            "chunk_batch_received" => deliver(self, &a[1], |_, _| {
+                P::ChunkBatchReceived(ServerboundChunkBatchReceivedPacket {
+                    desired_chunks_per_tick: a[2].parse().expect("chunks per tick"),
+                })
+            }),
             // `debug_subscribe PLAYER NAME,..` (`-` = none): `ServerboundDebugSubscriptionRequestPacket`
             "debug_subscribe" => deliver(self, &a[1], |_, _| {
                 P::DebugSubscriptionRequest(ServerboundDebugSubscriptionRequestPacket {

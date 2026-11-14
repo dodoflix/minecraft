@@ -1,0 +1,155 @@
+C Game rule spawn_mobs is already set to false
+C Game rule random_tick_speed is already set to 0
+T 4
+T 5
+T 6
+# a block placed: the six neighbors
+T 7
+PKT Steve minecraft:debug/event 1d0e0000020000009fc4
+PKT Steve minecraft:debug/event 1d0e0000028000009fc4
+PKT Steve minecraft:debug/event 1d0e0000024000009fc3
+PKT Steve minecraft:debug/event 1d0e0000024000009fc5
+PKT Steve minecraft:debug/event 1d0e0000024000008fc4
+PKT Steve minecraft:debug/event 1d0e000002400000afc4
+PKT Steve minecraft:debug/event 1d0e0000020000009fc4
+PKT Steve minecraft:debug/event 1d0e0000028000009fc4
+PKT Steve minecraft:debug/event 1d0e0000024000008fc4
+PKT Steve minecraft:debug/event 1d0e000002400000afc4
+PKT Steve minecraft:debug/event 1d0e0000024000009fc3
+PKT Steve minecraft:debug/event 1d0e0000024000009fc5
+T 8
+# a power source next to the wires: the orientations of the wires it powers and the updates they cause
+T 9
+PKT Steve minecraft:debug/block_value 1a000000c000003fc409010c
+PKT Steve minecraft:debug/block_value 1a0000010000003fc409010c
+PKT Steve minecraft:debug/block_value 1a0000014000003fc409010c
+PKT Steve minecraft:debug/event 1d0e0000004000003fc4
+PKT Steve minecraft:debug/event 1d0e000000c000003fc4
+PKT Steve minecraft:debug/event 1d0e0000008000003fc3
+PKT Steve minecraft:debug/event 1d0e0000008000003fc5
+PKT Steve minecraft:debug/event 1d0e0000008000002fc4
+PKT Steve minecraft:debug/event 1d0e0000008000004fc4
+PKT Steve minecraft:debug/event 1d0e0000008000003fc4
+PKT Steve minecraft:debug/event 1d0e0000010000003fc4
+PKT Steve minecraft:debug/event 1d0e000000c000002fc4
+PKT Steve minecraft:debug/event 1d0e000000c000004fc4
+PKT Steve minecraft:debug/event 1d0e000000c000003fc3
+PKT Steve minecraft:debug/event 1d0e000000c000003fc5
+PKT Steve minecraft:debug/event 1d0e000000c000003fc4
+PKT Steve minecraft:debug/event 1d0e0000014000003fc4
+PKT Steve minecraft:debug/event 1d0e0000010000002fc4
+PKT Steve minecraft:debug/event 1d0e0000010000004fc4
+PKT Steve minecraft:debug/event 1d0e0000010000003fc3
+PKT Steve minecraft:debug/event 1d0e0000010000003fc5
+PKT Steve minecraft:debug/event 1d0e0000010000003fc4
+PKT Steve minecraft:debug/event 1d0e0000018000003fc4
+PKT Steve minecraft:debug/event 1d0e0000014000002fc4
+PKT Steve minecraft:debug/event 1d0e0000014000004fc4
+PKT Steve minecraft:debug/event 1d0e0000014000003fc3
+PKT Steve minecraft:debug/event 1d0e0000014000003fc5
+PKT Steve minecraft:debug/event 1d0e0000008000003fc4
+PKT Steve minecraft:debug/event 1d0e0000010000003fc4
+PKT Steve minecraft:debug/event 1d0e000000c000003fc3
+PKT Steve minecraft:debug/event 1d0e0000008000003fc3
+PKT Steve minecraft:debug/event 1d0e0000010000003fc3
+PKT Steve minecraft:debug/event 1d0e000000c000002fc3
+PKT Steve minecraft:debug/event 1d0e000000c000004fc3
+PKT Steve minecraft:debug/event 1d0e000000c000003fc2
+PKT Steve minecraft:debug/event 1d0e000000c000003fc4
+PKT Steve minecraft:debug/event 1d0e0000014000003fc4
+PKT Steve minecraft:debug/event 1d0e0000010000003fc3
+PKT Steve minecraft:debug/event 1d0e000000c000003fc3
+PKT Steve minecraft:debug/event 1d0e0000014000003fc3
+PKT Steve minecraft:debug/event 1d0e0000010000002fc3
+PKT Steve minecraft:debug/event 1d0e0000010000004fc3
+PKT Steve minecraft:debug/event 1d0e0000010000003fc2
+PKT Steve minecraft:debug/event 1d0e0000014000003fc3
+PKT Steve minecraft:debug/event 1d0e0000010000003fc3
+PKT Steve minecraft:debug/event 1d0e0000018000003fc3
+PKT Steve minecraft:debug/event 1d0e0000014000002fc3
+PKT Steve minecraft:debug/event 1d0e0000014000004fc3
+PKT Steve minecraft:debug/event 1d0e0000014000003fc2
+PKT Steve minecraft:debug/event 1d0e0000004000003fc4
+PKT Steve minecraft:debug/event 1d0e000000c000003fc4
+PKT Steve minecraft:debug/event 1d0e0000008000003fc3
+PKT Steve minecraft:debug/event 1d0e0000008000003fc5
+PKT Steve minecraft:debug/event 1d0e0000008000002fc4
+PKT Steve minecraft:debug/event 1d0e0000008000004fc4
+PKT Steve minecraft:debug/event 1d0e0000004000003fc4
+PKT Steve minecraft:debug/event 1d0e000000c000003fc4
+PKT Steve minecraft:debug/event 1d0e0000008000002fc4
+PKT Steve minecraft:debug/event 1d0e0000008000004fc4
+PKT Steve minecraft:debug/event 1d0e0000008000003fc3
+PKT Steve minecraft:debug/event 1d0e0000008000003fc5
+T 10
+T 11
+PKT Steve minecraft:debug/block_value 1a000000c000003fc409010c
+PKT Steve minecraft:debug/block_value 1a0000010000003fc409010c
+PKT Steve minecraft:debug/block_value 1a0000014000003fc409010c
+PKT Steve minecraft:debug/event 1d0e0000004000003fc4
+PKT Steve minecraft:debug/event 1d0e000000c000003fc4
+PKT Steve minecraft:debug/event 1d0e0000008000003fc3
+PKT Steve minecraft:debug/event 1d0e0000008000003fc5
+PKT Steve minecraft:debug/event 1d0e0000008000002fc4
+PKT Steve minecraft:debug/event 1d0e0000008000004fc4
+PKT Steve minecraft:debug/event 1d0e0000008000003fc4
+PKT Steve minecraft:debug/event 1d0e0000010000003fc4
+PKT Steve minecraft:debug/event 1d0e000000c000002fc4
+PKT Steve minecraft:debug/event 1d0e000000c000004fc4
+PKT Steve minecraft:debug/event 1d0e000000c000003fc3
+PKT Steve minecraft:debug/event 1d0e000000c000003fc5
+PKT Steve minecraft:debug/event 1d0e000000c000003fc4
+PKT Steve minecraft:debug/event 1d0e0000014000003fc4
+PKT Steve minecraft:debug/event 1d0e0000010000002fc4
+PKT Steve minecraft:debug/event 1d0e0000010000004fc4
+PKT Steve minecraft:debug/event 1d0e0000010000003fc3
+PKT Steve minecraft:debug/event 1d0e0000010000003fc5
+PKT Steve minecraft:debug/event 1d0e0000010000003fc4
+PKT Steve minecraft:debug/event 1d0e0000018000003fc4
+PKT Steve minecraft:debug/event 1d0e0000014000002fc4
+PKT Steve minecraft:debug/event 1d0e0000014000004fc4
+PKT Steve minecraft:debug/event 1d0e0000014000003fc3
+PKT Steve minecraft:debug/event 1d0e0000014000003fc5
+PKT Steve minecraft:debug/event 1d0e0000008000003fc4
+PKT Steve minecraft:debug/event 1d0e0000010000003fc4
+PKT Steve minecraft:debug/event 1d0e000000c000003fc3
+PKT Steve minecraft:debug/event 1d0e0000008000003fc3
+PKT Steve minecraft:debug/event 1d0e0000010000003fc3
+PKT Steve minecraft:debug/event 1d0e000000c000002fc3
+PKT Steve minecraft:debug/event 1d0e000000c000004fc3
+PKT Steve minecraft:debug/event 1d0e000000c000003fc2
+PKT Steve minecraft:debug/event 1d0e000000c000003fc4
+PKT Steve minecraft:debug/event 1d0e0000014000003fc4
+PKT Steve minecraft:debug/event 1d0e0000010000003fc3
+PKT Steve minecraft:debug/event 1d0e000000c000003fc3
+PKT Steve minecraft:debug/event 1d0e0000014000003fc3
+PKT Steve minecraft:debug/event 1d0e0000010000002fc3
+PKT Steve minecraft:debug/event 1d0e0000010000004fc3
+PKT Steve minecraft:debug/event 1d0e0000010000003fc2
+PKT Steve minecraft:debug/event 1d0e0000014000003fc3
+PKT Steve minecraft:debug/event 1d0e0000010000003fc3
+PKT Steve minecraft:debug/event 1d0e0000018000003fc3
+PKT Steve minecraft:debug/event 1d0e0000014000002fc3
+PKT Steve minecraft:debug/event 1d0e0000014000004fc3
+PKT Steve minecraft:debug/event 1d0e0000014000003fc2
+PKT Steve minecraft:debug/event 1d0e0000004000003fc4
+PKT Steve minecraft:debug/event 1d0e000000c000003fc4
+PKT Steve minecraft:debug/event 1d0e0000008000003fc3
+PKT Steve minecraft:debug/event 1d0e0000008000003fc5
+PKT Steve minecraft:debug/event 1d0e0000008000002fc4
+PKT Steve minecraft:debug/event 1d0e0000008000004fc4
+PKT Steve minecraft:debug/event 1d0e0000004000003fc4
+PKT Steve minecraft:debug/event 1d0e000000c000003fc4
+PKT Steve minecraft:debug/event 1d0e0000008000002fc4
+PKT Steve minecraft:debug/event 1d0e0000008000004fc4
+PKT Steve minecraft:debug/event 1d0e0000008000003fc3
+PKT Steve minecraft:debug/event 1d0e0000008000003fc5
+T 12
+T 13
+# unsubscribe: nothing more
+T 14
+T 15
+T 16
+T 17
+T 18
+T 19

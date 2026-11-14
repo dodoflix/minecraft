@@ -1,0 +1,92 @@
+C Game rule spawn_mobs is already set to false
+C Game rule random_tick_speed is already set to 0
+T 4
+T 5
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 6
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+# an item falls through air into water
+T 7
+PKT Steve minecraft:debug/block_value 1a000002800000afc7060102
+PKT Steve minecraft:debug/block_value 1a000002800000afc6060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 8
+PKT Steve minecraft:debug/block_value 1a000002800000afc7060102
+PKT Steve minecraft:debug/block_value 1a000002800000afc6060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 9
+PKT Steve minecraft:debug/block_value 1a000002800000afc7060102
+PKT Steve minecraft:debug/block_value 1a000002800000afc6060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 10
+PKT Steve minecraft:debug/block_value 1a000002800000afc7060102
+PKT Steve minecraft:debug/block_value 1a000002800000afc6060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 11
+PKT Steve minecraft:debug/block_value 1a000002800000afc6060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 12
+PKT Steve minecraft:debug/block_value 1a000002800000afc6060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 13
+PKT Steve minecraft:debug/block_value 1a000002800000afc6060102
+PKT Steve minecraft:debug/block_value 1a000002800000afc5060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 14
+PKT Steve minecraft:debug/block_value 1a000002800000afc6060102
+PKT Steve minecraft:debug/block_value 1a000002800000afc5060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+# an item inside a cobweb
+T 15
+PKT Steve minecraft:debug/block_value 1a000002800000afc5060102
+PKT Steve minecraft:debug/block_value 1a0000024000009fc4060100
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 16
+PKT Steve minecraft:debug/block_value 1a000002800000afc5060102
+PKT Steve minecraft:debug/block_value 1a000002800000afc4060102
+PKT Steve minecraft:debug/block_value 1a0000024000009fc4060100
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 17
+PKT Steve minecraft:debug/block_value 1a000002800000afc5060102
+PKT Steve minecraft:debug/block_value 1a000002800000afc4060102
+PKT Steve minecraft:debug/block_value 1a0000024000009fc4060100
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 18
+PKT Steve minecraft:debug/block_value 1a000002800000afc4060102
+PKT Steve minecraft:debug/block_value 1a0000024000009fc4060100
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 19
+PKT Steve minecraft:debug/block_value 1a000002800000afc4060102
+PKT Steve minecraft:debug/block_value 1a000002800000afc3060101
+PKT Steve minecraft:debug/block_value 1a0000024000009fc4060100
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 20
+PKT Steve minecraft:debug/block_value 1a000002800000afc3060101
+PKT Steve minecraft:debug/block_value 1a0000024000009fc4060100
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 21
+PKT Steve minecraft:debug/block_value 1a000002800000afc3060101
+PKT Steve minecraft:debug/block_value 1a0000024000009fc4060100
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102
+T 22
+PKT Steve minecraft:debug/block_value 1a000002800000afc3060101
+PKT Steve minecraft:debug/block_value 1a0000024000009fc4060100
+PKT Steve minecraft:debug/block_value 1a0000010000004fc4060102
+PKT Steve minecraft:debug/block_value 1a0000010000004fc5060102

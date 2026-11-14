@@ -2,7 +2,9 @@
 //! tick and send the changes to the subscribed operators that track the entity, chunk or block.
 
 use super::subscriptions;
+use crate::server::level::PlayerRecord;
 use crate::server::level::ServerLevel;
+use crate::server::network::ConnectionSender;
 use crate::world::block_entity::BlockEntity;
 use crate::world::entity::ai::village::poi::{Occupancy, PoiRecord};
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
@@ -114,17 +116,6 @@ impl<G> ValueSource<G> {
     }
 }
 
-/// What `ChunkMap.TrackedEntity` tells the debug synchronizers (applied by the level after every tracker call).
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum TrackerEvent {
-    /// The first player started tracking the entity: `registerEntity(entity)`.
-    Register(EntityId),
-    /// A player started tracking the entity: `startTrackingEntity(player, entity)`.
-    StartTracking { player: EntityId, entity: EntityId },
-    /// The last player stopped tracking the entity, or the entity stopped being tracked: `dropEntity(entity)`.
-    Drop(Uuid),
-}
-
 fn uuid_hash(uuid: &Uuid) -> i32 {
     java_hash_code(uuid)
 }
@@ -233,7 +224,7 @@ trait TrackingSynchronizer {
     fn clear(&mut self) {}
     fn poll_and_send_updates(&mut self, _level: &ServerLevel) {}
     fn send_initial_chunk(&self, _level: &ServerLevel, _player: EntityId, _chunk: ChunkPos) {}
-    fn send_initial_entity(&self, _level: &ServerLevel, _player: EntityId, _entity: EntityId) {}
+    fn send_initial_entity(&self, _connection: &ConnectionSender, _entity: EntityId, _uuid: Uuid) {}
 }
 
 /// `TrackingDebugSynchronizer.tick(level)`.
@@ -255,8 +246,13 @@ fn add_subscriber(sync: &dyn TrackingSynchronizer, level: &ServerLevel, player: 
     {
         sync.send_initial_chunk(level, player, chunk);
     }
+    let Some(connection) = level.player_record(player).and_then(|p| p.connection) else {
+        return;
+    };
     for entity in level.entity_tracker.entities_tracked_by(player) {
-        sync.send_initial_entity(level, player, entity);
+        if let Some(entity_ref) = level.entity_manager.get_any(entity) {
+            sync.send_initial_entity(&connection, entity, entity_ref.uuid());
+        }
     }
 }
 
@@ -271,14 +267,17 @@ fn start_tracking_chunk(
     }
 }
 
+/// `startTrackingEntity(player, entity)` of one synchronizer.
 fn start_tracking_entity(
     sync: &dyn TrackingSynchronizer,
-    level: &ServerLevel,
-    player: EntityId,
+    player: &PlayerRecord,
     entity: EntityId,
+    uuid: Uuid,
 ) {
-    if sync.subscribers().contains_player(level, player) {
-        sync.send_initial_entity(level, player, entity);
+    if sync.subscribers().subscribed.contains(&player.uuid)
+        && let Some(connection) = &player.connection
+    {
+        sync.send_initial_entity(connection, entity, uuid);
     }
 }
 
@@ -442,23 +441,16 @@ impl TrackingSynchronizer for SourceSynchronizer {
         }
     }
 
-    fn send_initial_entity(&self, level: &ServerLevel, player: EntityId, entity: EntityId) {
-        let Some(entity_ref) = level.entity_manager.get_any(entity) else {
-            return;
-        };
+    fn send_initial_entity(&self, connection: &ConnectionSender, entity: EntityId, uuid: Uuid) {
         if let Some(last) = self
             .entity_sources
-            .get(&entity_ref.uuid())
+            .get(&uuid)
             .and_then(|s| s.last_synced.as_ref())
         {
-            send_to_player(
-                level,
-                player,
-                &ClientboundDebugEntityValuePacket {
-                    entity_id: entity,
-                    update: pack_update(self.subscription(), Some(last)),
-                },
-            );
+            connection.send(&ClientboundDebugEntityValuePacket {
+                entity_id: entity,
+                update: pack_update(self.subscription(), Some(last)),
+            });
         }
     }
 }
@@ -821,27 +813,10 @@ impl LevelDebugSynchronizers {
     }
 
     /// `startTrackingEntity(player, entity)`.
-    pub fn start_tracking_entity(&self, level: &ServerLevel, player: EntityId, entity: EntityId) {
+    pub fn start_tracking_entity(&self, player: &PlayerRecord, entity: EntityId, uuid: Uuid) {
         if !self.sleeping {
             for synchronizer in self.all_ref() {
-                start_tracking_entity(synchronizer, level, player, entity);
-            }
-        }
-    }
-
-    /// Applies what the entity tracker recorded since the last call.
-    pub fn apply_tracker_events(&mut self, level: &ServerLevel, events: Vec<TrackerEvent>) {
-        for event in events {
-            match event {
-                TrackerEvent::Register(id) => {
-                    if let Some(entity) = level.entity_manager.get_any(id) {
-                        self.register_entity(entity);
-                    }
-                }
-                TrackerEvent::StartTracking { player, entity } => {
-                    self.start_tracking_entity(level, player, entity)
-                }
-                TrackerEvent::Drop(uuid) => self.drop_entity(uuid),
+                start_tracking_entity(synchronizer, player, entity, uuid);
             }
         }
     }

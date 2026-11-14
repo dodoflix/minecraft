@@ -11,6 +11,7 @@ use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::GameEvent;
 use mc_data::block::BlockState;
+use mc_protocol::packets::play::{DebugGameEventInfo, DebugSubscriptionEvent};
 use uuid::Uuid;
 
 impl ServerLevel {
@@ -131,6 +132,7 @@ impl ServerLevel {
         let section_max_z = (center.z() + radius) >> 4;
         // `ListenerInfo`s of BY_DISTANCE listeners: (squared distance, listener).
         let mut to_handle_by_distance: Vec<(f64, RegisteredListener)> = Vec::new();
+        let mut applicable = false;
         for chunk_x in section_min_x..=section_max_x {
             for chunk_z in section_min_z..=section_max_z {
                 for section in section_min_y..=section_max_y {
@@ -145,6 +147,7 @@ impl ServerLevel {
                             |uuid: Uuid| self.get_entity_by_uuid(uuid).map(|e| e.position());
                         registry.in_range_listeners(position, &entity_position)
                     };
+                    applicable |= !candidates.is_empty();
                     for (listener, listener_position) in candidates {
                         if listener.delivery == DeliveryMode::ByDistance {
                             to_handle_by_distance
@@ -165,6 +168,15 @@ impl ServerLevel {
         to_handle_by_distance.sort_by(|a, b| a.0.total_cmp(&b.0));
         for (_, listener) in to_handle_by_distance {
             self.deliver_game_event(listener.owner, event, context, position);
+        }
+        if applicable {
+            self.debug_broadcast_event_to_tracking(
+                BlockPos::containing_position(&position),
+                DebugSubscriptionEvent::GameEvents(DebugGameEventInfo {
+                    event,
+                    pos: position,
+                }),
+            );
         }
     }
 

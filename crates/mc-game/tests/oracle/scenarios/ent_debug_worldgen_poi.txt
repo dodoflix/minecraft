@@ -1,0 +1,99 @@
+# Debug subscriptions (points of interest placed by world generation): a village that generates while the player travels to it registers its
+# points of interest; the operator that tracks the chunks around them gets the village sections and the points of interest as the chunks are sent, the
+# structure start with its chunk. The client acknowledges every chunk batch (the server sends the next batch only then).
+level normal
+structures true
+seed 25
+preload 2
+difficulty normal
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+entity_counter 210
+spawn_player Steve creative 0.5 150 0.5 0 0
+op Steve
+tick 3
+dump packets:Steve:none
+watch packets:Steve:debug/block_value,debug/chunk_value
+debug_subscribe Steve pois,village_sections,structures
+tick 2
+tp Steve 16.5 150 96.5
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64
+tick 1
+chunk_batch_received Steve 64

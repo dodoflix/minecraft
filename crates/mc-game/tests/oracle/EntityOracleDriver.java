@@ -148,6 +148,8 @@ import net.minecraft.util.RandomSource;
  * debug_subscribe PLAYER NAME,..   ServerboundDebugSubscriptionRequestPacket (subscription names of the debug_subscription registry, `-` = none); the player must be an operator
  *                             (`op PLAYER`) for the server to produce values. The packets of one tick come from independent synchronizers in an identity-hashed order: `packets:`
  *                             dumps sort every run of consecutive `debug/*` packets stably by subscription id (the Rust replay does the same).
+ * chunk_batch_received PLAYER RATE   ServerboundChunkBatchReceivedPacket (the client acknowledges the last chunk batch and asks for RATE chunks per tick; without it the
+ *                             server sends no second batch after the join)
  * pick_block PLAYER X Y Z [true|false]   ServerboundPickItemFromBlockPacket (the flag = include block data, creative only)
  * move_packet PLAYER X Y Z ONGROUND [yaw pitch]   ServerboundMovePlayerPacket (server-authoritative path)
  * dig PLAYER X Y Z [TICKS]    client-like digging: START_DESTROY_BLOCK, per tick client progress, STOP_DESTROY_BLOCK when the
@@ -689,6 +691,10 @@ public final class EntityOracleDriver {
                }
             }
             player(a.get(1)).connection.handleDebugSubscriptionRequest(new ServerboundDebugSubscriptionRequestPacket(subscriptions));
+         }
+         case "chunk_batch_received" -> {
+            world();
+            player(a.get(1)).connection.handleChunkBatchReceived(new net.minecraft.network.protocol.game.ServerboundChunkBatchReceivedPacket(Float.parseFloat(a.get(2))));
          }
          case "pick_block" -> {
             world();

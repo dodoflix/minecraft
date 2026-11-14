@@ -139,6 +139,8 @@ pub struct MinecraftServer {
     pub player_list: PlayerList,
     /// `debugSubscribers`: refreshed at the end of every tick, read by the levels.
     pub debug_subscribers: crate::util::debug::DebugSubscribers,
+    /// `DedicatedServer.tickTimeLogger` and the measurements of `MinecraftServer` that feed it.
+    pub(super) tick_time_logging: super::tick_time_logging::TickTimeLogging,
     /// Players that left their level storage but still have a connection (`ServerPlayer.showEndCredits()` removes the
     /// player with `CHANGED_DIMENSION` and the poem plays until the respawn request), keyed by uuid.
     pub detached_players:
@@ -162,7 +164,7 @@ pub struct MinecraftServer {
 
     // --- tick loop (`runServer`) ---
     next_tick_time_nanos: i64,
-    last_tick_nanos: i64,
+    pub(super) last_tick_nanos: i64,
     last_overload_warning_nanos: i64,
     waiting_for_next_tick: bool,
     delayed_tasks_max_next_tick_time_nanos: i64,
@@ -278,6 +280,7 @@ impl MinecraftServer {
         {
             shared.set_recipe_manager(recipes.clone());
         }
+        let debug_subscribers = crate::util::debug::DebugSubscribers::default();
         let mut server = Self {
             shared,
             tasks: TaskQueue::new(tasks),
@@ -307,7 +310,10 @@ impl MinecraftServer {
             commands,
             functions,
             player_list,
-            debug_subscribers: Default::default(),
+            tick_time_logging: super::tick_time_logging::TickTimeLogging::new(
+                debug_subscribers.clone(),
+            ),
+            debug_subscribers,
             detached_players: std::collections::HashMap::new(),
             notification_manager: init.notification_manager,
             name_to_id_cache: init.name_to_id_cache,
@@ -677,8 +683,13 @@ impl MinecraftServer {
         } else {
             100_000
         };
+        let should_log_time = self.tick_time_logging.enabled();
+        let wait_start = if should_log_time { get_nanos() } else { 0 };
         if wait_nanos > 0 {
             std::thread::park_timeout(Duration::from_nanos(wait_nanos as u64));
+        }
+        if should_log_time {
+            self.tick_time_logging.idle_time_nanos += get_nanos() - wait_start;
         }
     }
 
@@ -796,14 +807,17 @@ impl MinecraftServer {
             self.delayed_tasks_max_next_tick_time_nanos =
                 (get_nanos() + this_tick_nanos).max(self.next_tick_time_nanos);
             self.sync_have_time();
+            self.start_measuring_task_execution_time();
             self.wait_until_next_tick();
+            self.finish_measuring_task_execution_time();
             if sprinting {
                 self.tick_rate_manager.end_tick_work();
             }
             crate::util::profiling::pop();
-            self.last_tick_nanos = get_nanos();
+            self.log_full_tick_time();
             drop(metrics_scope);
             self.end_metrics_recording_tick();
+            self.refresh_tick_time_logging();
 
             self.shared.set_ready();
             crate::util::profiling::jfr::instance()
@@ -931,6 +945,7 @@ impl MinecraftServer {
         let tick_time = get_nanos() - nano;
         self.tick_times.record(self.tick_count, tick_time);
         self.refresh_shared_info();
+        self.log_tick_method_time(nano);
         crate::util::profiling::pop();
     }
 

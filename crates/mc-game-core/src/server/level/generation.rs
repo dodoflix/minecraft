@@ -3,7 +3,7 @@
 //! light engine) and completing the per-status futures.
 
 use super::chunk_holder::{ChunkHolder, ChunkSlot, FutureState, Waiter};
-use super::chunk_map::{ChunkMap, MainTask};
+use super::chunk_map::{ChunkMap, ChunkMapEvent, MainTask};
 use super::chunk_status_tasks::{BatchResult, GenBatch, GenJob, runs_on_worldgen_thread};
 use super::world_gen::{GenChunk, LightEvent};
 use crate::world::level::chunk::status::{
@@ -582,9 +582,12 @@ impl ChunkMap {
         for (pos, old_type, new_type) in result.poi_changes {
             if old_type.is_some() {
                 self.poi_manager.remove(pos);
+                self.events.push(ChunkMapEvent::PoiRemoved(pos));
             }
-            if let Some(poi_type) = new_type {
-                self.poi_manager.add(pos, poi_type);
+            if let Some(poi_type) = new_type
+                && let Some(record) = self.poi_manager.add(pos, poi_type)
+            {
+                self.events.push(ChunkMapEvent::PoiAdded(record));
             }
         }
         // the `lightEngine.checkBlock/updateSectionStatus` calls of `ProtoChunk.setBlockState`, in call order

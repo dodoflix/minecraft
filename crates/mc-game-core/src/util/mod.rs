@@ -3,6 +3,7 @@
 pub mod block_util;
 pub mod codec;
 pub mod debug;
+pub mod debugchart;
 pub mod file_util;
 pub mod game_modes;
 pub mod java_format;

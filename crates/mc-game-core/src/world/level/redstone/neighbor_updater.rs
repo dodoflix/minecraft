@@ -51,6 +51,8 @@ pub trait NeighborUpdateHost {
         front: Option<Direction>,
         up: Option<Direction>,
     ) -> Option<Orientation>;
+    /// The `debugListener` of the updater: told every position a layer of updates is about to update.
+    fn debug_neighbor_update(&mut self, _pos: BlockPos) {}
 }
 
 /// One queued unit of work (`CollectingNeighborUpdater.NeighborUpdates`).
@@ -205,6 +207,8 @@ pub struct CollectingNeighborUpdater {
     stack: Vec<NeighborUpdates>,
     added_this_layer: Vec<NeighborUpdates>,
     count: i32,
+    /// `debugListener != null`: the host's [`NeighborUpdateHost::debug_neighbor_update`] is called.
+    debug_listener: bool,
 }
 
 impl CollectingNeighborUpdater {
@@ -214,7 +218,13 @@ impl CollectingNeighborUpdater {
             stack: Vec::new(),
             added_this_layer: Vec::new(),
             count: 0,
+            debug_listener: false,
         }
+    }
+
+    /// `setDebugListener(listener)`: `true` installs the host's listener, `false` removes it.
+    pub fn set_debug_listener(&mut self, enabled: bool) {
+        self.debug_listener = enabled;
     }
 
     pub fn shape_update<H: NeighborUpdateHost>(
@@ -343,7 +353,11 @@ impl CollectingNeighborUpdater {
             }
             // `added_this_layer` was iterated back to front above and pushed in that order: the first added update
             // ends up on top, like vanilla.
+            let debug_listener = u.debug_listener;
             let Some(mut next) = u.stack.pop() else { break };
+            if debug_listener {
+                next.for_each_updated_pos(|pos| host.debug_neighbor_update(pos));
+            }
             loop {
                 let more = next.run_next(host);
                 if !more {

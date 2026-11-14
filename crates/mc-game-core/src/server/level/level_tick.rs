@@ -935,6 +935,12 @@ impl ServerLevel {
             self.tick_block_entities(env);
         }
         self.tick_entity_management();
+        // `neighborUpdater.setDebugListener(..)`: the listener exists while somebody subscribed to neighbor updates
+        let neighbor_updates = self
+            .debug_has_any_subscriber_for(crate::util::debug::subscriptions::neighbor_updates());
+        self.tick_state
+            .neighbor_updater
+            .set_debug_listener(neighbor_updates);
         self.tick_debug_synchronizers();
     }
 

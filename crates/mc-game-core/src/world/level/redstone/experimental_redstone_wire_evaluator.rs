@@ -10,6 +10,9 @@ use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::RedstoneSide;
 use mc_data::props;
+use mc_protocol::packets::play::{
+    DebugSubscriptionEvent, RedstoneOrientation, RedstoneOrientationSideBias,
+};
 use std::collections::VecDeque;
 
 #[derive(Default)]
@@ -83,6 +86,24 @@ impl ExperimentalRedstoneWireEvaluator {
                         }
                     }
                 }
+            }
+        }
+        if level.debug_has_any_subscriber_for(
+            crate::util::debug::subscriptions::redstone_wire_orientations(),
+        ) {
+            for (&wire_pos, &packed) in &self.updated_wires {
+                let orientation = unpack_orientation(packed);
+                level.debug_send_block_value(
+                    wire_pos,
+                    DebugSubscriptionEvent::RedstoneWireOrientations(RedstoneOrientation {
+                        up: orientation.get_up(),
+                        front: orientation.get_front(),
+                        side_bias: match orientation.get_side_bias() {
+                            SideBias::Left => RedstoneOrientationSideBias::Left,
+                            SideBias::Right => RedstoneOrientationSideBias::Right,
+                        },
+                    }),
+                );
             }
         }
     }

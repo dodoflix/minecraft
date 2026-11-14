@@ -1,0 +1,31 @@
+# Debug subscriptions (game events, game event listeners): a game event that a listener hears is sent as a `debug/event` with the event and
+# its position; a listener that registers is sent with its radius, at its block (a sculk sensor) or on its entity (an allay).
+level flat
+preload 3
+difficulty normal
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+entity_counter 180
+spawn_player Steve creative 8.5 -60 8.5 180 0
+op Steve
+tick 1
+mobspawn A1 minecraft:allay 12.5 -59 12.5 0 0 {PersistenceRequired:1b}
+entity_seed A1 181
+tick 2
+dump packets:Steve:none
+watch packets:Steve:debug/event,debug/block_value,debug/entity_value
+debug_subscribe Steve game_events,game_event_listeners
+tick 3
+note a sculk sensor registers its listener
+block 4 -60 4 minecraft:sculk_sensor
+tick 2
+note a block changes in range of the sensor: the listener hears the event
+block 6 -60 6 minecraft:stone
+tick 2
+note the same change out of range of any listener sends nothing
+block 0 -60 0 minecraft:stone
+tick 2
+note an allay registers its listener when it joins the level
+mobspawn A2 minecraft:allay 6.5 -59 12.5 0 0 {PersistenceRequired:1b}
+entity_seed A2 182
+tick 3

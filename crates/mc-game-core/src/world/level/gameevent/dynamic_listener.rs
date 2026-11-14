@@ -97,6 +97,7 @@ impl DynamicGameEventListener {
                         radius,
                         delivery,
                     });
+                level.debug_send_game_event_listener_info(source, radius);
             }
         }
     }

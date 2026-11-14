@@ -12,6 +12,7 @@ use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::phys::shapes::Shapes;
 use mc_core::pos::BlockPos;
+use mc_protocol::packets::play::{DebugEntityBlockIntersection, DebugSubscriptionEvent};
 use std::collections::HashSet;
 
 /// `InsideBlockEffectType` (declaration order = `StepBasedCollector.APPLY_ORDER`).
@@ -206,6 +207,9 @@ fn check_inside_blocks_step(
         .make_bounding_box(to)
         .deflate_scalar(f64::from(1.0E-5f32));
     let moved_far = from.distance_to_sqr(to) > mth::square_f64(0.9999900000002526);
+    let debug_entity_block_intersections = level.debug_server_has_any_subscriber_for(
+        crate::util::debug::subscriptions::entity_block_intersections(),
+    );
     let mut iterations = 0;
     let target_box = deflated_bounding_box_at_target;
     for_each_block_intersected_between(
@@ -222,6 +226,9 @@ fn check_inside_blocks_step(
             iterations = iteration;
             let state = level.get_block_state(block_intersection);
             if state.is_air() {
+                if debug_entity_block_intersections {
+                    debug_block_intersection(level, block_intersection, false, false);
+                }
                 return true;
             }
             let intersect_shape =
@@ -260,11 +267,34 @@ fn check_inside_blocks_step(
                         collector,
                     );
                 }
+                if debug_entity_block_intersections {
+                    debug_block_intersection(level, block_intersection, inside_block, inside_fluid);
+                }
             }
             true
         },
     );
     iterations + 1
+}
+
+/// `Entity.debugBlockIntersection(level, pos, insideBlock, insideFluid)`.
+fn debug_block_intersection(
+    level: &ServerLevel,
+    pos: BlockPos,
+    inside_block: bool,
+    inside_fluid: bool,
+) {
+    let intersection = if inside_fluid {
+        DebugEntityBlockIntersection::InFluid
+    } else if inside_block {
+        DebugEntityBlockIntersection::InBlock
+    } else {
+        DebugEntityBlockIntersection::InAir
+    };
+    level.debug_send_block_value(
+        pos,
+        DebugSubscriptionEvent::EntityBlockIntersections(intersection),
+    );
 }
 
 /// `AABB.intersects(BlockPos)` (`intersects(x, y, z, x + 1, y + 1, z + 1)`).

@@ -21,13 +21,13 @@ use super::world_gen::WorldGenContext;
 use super::{FullChunkStatus, Ticket, TicketType};
 use crate::server::network::ConnectionSender;
 use crate::world::entity::EntityId;
-use crate::world::entity::ai::village::poi::PoiManager;
+use crate::world::entity::ai::village::poi::{PoiManager, PoiRecord};
 use crate::world::level::DimensionKey;
 use crate::world::level::chunk::LevelChunk;
 use crate::world::level::ticket_storage::TicketStorage;
 use indexmap::{IndexMap, IndexSet};
 use mc_core::phys::Vec3;
-use mc_core::pos::{ChunkPos, SectionPos};
+use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
 use mc_light::ThreadedLevelLightEngine;
 use mc_world::chunk::LevelHeight;
 use mc_world::palette::PalettedContainerFactory;
@@ -163,6 +163,11 @@ pub enum ChunkMapEvent {
     FullStatusChanged(ChunkPos, FullChunkStatus),
     /// `level.unload(chunk)`: the chunk left the map after saving.
     Unload(Box<LevelChunk>),
+    /// `debugSynchronizers.dropPoi(pos)` after the removal task of `updatePOIOnBlockStateChange` ran for generated blocks.
+    PoiRemoved(BlockPos),
+    /// `debugSynchronizers.registerPoi(record)` after the registration task of `updatePOIOnBlockStateChange` ran for
+    /// generated blocks.
+    PoiAdded(PoiRecord),
     /// Legacy entity tags found in a full chunk's NBT (`postLoad` entities).
     LegacyEntities(ChunkPos, Vec<mc_nbt::CompoundTag>),
 }

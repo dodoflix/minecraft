@@ -1,0 +1,34 @@
+C Game rule spawn_mobs is already set to false
+C Game rule random_tick_speed is already set to 0
+T 4
+T 5
+T 6
+PKT Steve minecraft:debug/event 1d0f1840291ceb13f6c16dc04d7fe2824138ef4029000000000000
+# a sculk sensor registers its listener
+T 7
+PKT Steve minecraft:debug/block_value 1a0000010000004fc40d0108
+PKT Steve minecraft:debug/event 1d0f1840292ecbae6ab62cc04d7d70a3d5c28f4029000000000000
+T 8
+PKT Steve minecraft:debug/event 1d0f184029442f1c4a2d7ac04d79ef6b58a74c4029000000000000
+# a block changes in range of the sensor: the listener hears the event
+T 9
+PKT Steve minecraft:debug/event 1d0f1840295cc478a41008c04d757744bbaa1c4029000000000000
+T 10
+PKT Steve minecraft:debug/event 1d0f184029784226552798c04d701e6943cc494029000000000000
+# the same change out of range of any listener sends nothing
+T 11
+PKT Steve minecraft:debug/event 1d0f1840299665284a159ec04d69f9122d53a54029000000000000
+T 12
+PKT Steve minecraft:debug/event 1d0f184029b6f088da121ac04d6319a6c10dc14029000000000000
+# an allay registers its listener when it joins the level
+T 13
+PKT Steve minecraft:debug/entity_value 1cb7010d0110
+PKT Steve minecraft:debug/entity_value 1cb7010d010a
+PKT Steve minecraft:debug/event 1d0f184029d9accede9e26c04d5b90e643d2404029000000000000
+PKT Steve minecraft:debug/event 1d0f18401a000000000000c04d8000000000004029000000000000
+T 14
+PKT Steve minecraft:debug/event 1d0f184029fe677f4ba3a1c04d536e0e1fd3214029000000000000
+PKT Steve minecraft:debug/event 1d0f18401a000000000000c04d8000000000004029000000000000
+T 15
+PKT Steve minecraft:debug/event 1d0f18402a24f2aa27f833c04d4abefc9eb01e4029000000000000
+PKT Steve minecraft:debug/event 1d0f18401a073dd0daa926c04d8147ae151eb84029039ebaed547c

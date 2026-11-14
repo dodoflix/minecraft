@@ -514,12 +514,14 @@ impl ServerLevel {
     fn add_game_event_listener(&mut self, pos: BlockPos) {
         if let Some(registration) = self.game_event_registration(pos) {
             let section_y = pos.y() >> 4;
+            let (source, radius) = (registration.source, registration.radius);
             if let Some(chunk) = self.chunk_at_mut(pos) {
                 chunk
                     .game_event_registries
                     .entry(section_y)
                     .or_default()
                     .register(registration);
+                self.debug_send_game_event_listener_info(source, radius);
             }
         }
     }

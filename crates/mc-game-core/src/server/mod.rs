@@ -30,6 +30,7 @@ pub mod state_glue;
 pub mod status;
 pub mod tick_pacing;
 pub mod tick_rate_manager;
+mod tick_time_logging;
 pub mod watchdog;
 pub mod waypoints;
 pub mod world_dimensions;

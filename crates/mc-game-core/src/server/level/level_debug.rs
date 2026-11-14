@@ -2,21 +2,124 @@
 //! the calls that change them take them out of the level while they run.
 
 use super::ServerLevel;
+use crate::util::debug::subscriptions;
 use crate::world::entity::EntityId;
 use crate::world::entity::ai::village::poi::PoiRecord;
+use crate::world::level::gameevent::PositionSource;
 use mc_core::pos::{BlockPos, ChunkPos};
+use mc_data::DebugSubscription;
+use mc_protocol::packet::Packet;
+use mc_protocol::packets::play::{
+    ClientboundDebugBlockValuePacket, ClientboundDebugEntityValuePacket,
+    ClientboundDebugEventPacket, DebugGameEventListenerInfo, DebugSubscriptionEvent,
+    DebugSubscriptionUpdate,
+};
 
 impl ServerLevel {
-    /// Tells the debug synchronizers what the entity tracker recorded (`registerEntity`, `startTrackingEntity`,
-    /// `dropEntity` of `ChunkMap.TrackedEntity`); called after every tracker call.
-    pub(super) fn apply_debug_tracker_events(&mut self) {
-        let events = self.entity_tracker.take_events();
-        if events.is_empty() {
+    /// `debugSynchronizers.hasAnySubscriberFor(subscription)`.
+    pub fn debug_has_any_subscriber_for(&self, subscription: DebugSubscription) -> bool {
+        self.debug_synchronizers
+            .as_ref()
+            .is_some_and(|s| s.has_any_subscriber_for(subscription))
+    }
+
+    /// `server.debugSubscribers().hasAnySubscriberFor(subscription)`.
+    pub fn debug_server_has_any_subscriber_for(&self, subscription: DebugSubscription) -> bool {
+        self.server_state
+            .debug_subscribers
+            .has_any_subscriber_for(subscription)
+    }
+
+    /// `player.debugSubscriptions().contains(subscription)`.
+    fn debug_player_subscribed(&self, id: EntityId, subscription: DebugSubscription) -> bool {
+        self.player_record(id).is_some_and(|record| {
+            self.is_op_uuid(record.uuid)
+                && self
+                    .server_state
+                    .roster
+                    .requested_debug_subscription(record.uuid, subscription)
+        })
+    }
+
+    /// `broadcastToTracking(trackedChunk, subscription, packet)`.
+    fn debug_broadcast_to_tracking_chunk<P: Packet>(
+        &self,
+        tracked_chunk: ChunkPos,
+        subscription: DebugSubscription,
+        packet: &P,
+    ) {
+        for id in self
+            .chunk_source
+            .chunk_map
+            .get_players(tracked_chunk, false)
+        {
+            if self.debug_player_subscribed(id, subscription)
+                && let Some(connection) = self.player_record(id).and_then(|p| p.connection)
+            {
+                connection.send(packet);
+            }
+        }
+    }
+
+    /// `sendBlockValue(blockPos, subscription, value)`.
+    pub fn debug_send_block_value(&self, pos: BlockPos, value: DebugSubscriptionEvent) {
+        let subscription = value.subscription();
+        if self.debug_has_any_subscriber_for(subscription) {
+            self.debug_broadcast_to_tracking_chunk(
+                ChunkPos::containing(&pos),
+                subscription,
+                &ClientboundDebugBlockValuePacket {
+                    block_pos: pos,
+                    update: DebugSubscriptionUpdate::Value(value),
+                },
+            );
+        }
+    }
+
+    /// `sendEntityValue(entity, subscription, value)`.
+    pub fn debug_send_entity_value(&self, entity: EntityId, value: DebugSubscriptionEvent) {
+        let subscription = value.subscription();
+        if self.debug_has_any_subscriber_for(subscription) {
+            let payload =
+                super::server_entity::encode_payload(&ClientboundDebugEntityValuePacket {
+                    entity_id: entity,
+                    update: DebugSubscriptionUpdate::Value(value),
+                });
+            self.entity_tracker
+                .send_to_tracking_players_filtered(entity, &payload, |id| {
+                    self.debug_player_subscribed(id, subscription)
+                });
+        }
+    }
+
+    /// `EuclideanGameEventListenerRegistry.sendDebugInfo(level, listener)`: a listener was registered.
+    pub fn debug_send_game_event_listener_info(&self, source: PositionSource, radius: i32) {
+        let subscription = subscriptions::game_event_listeners();
+        if !self.debug_has_any_subscriber_for(subscription) {
             return;
         }
-        if let Some(mut synchronizers) = self.debug_synchronizers.take() {
-            synchronizers.apply_tracker_events(self, events);
-            self.debug_synchronizers = Some(synchronizers);
+        let info = DebugSubscriptionEvent::GameEventListeners(DebugGameEventListenerInfo {
+            listener_radius: radius,
+        });
+        match source {
+            PositionSource::Block(pos) => self.debug_send_block_value(pos, info),
+            PositionSource::Entity { uuid, .. } => {
+                if let Some(entity) = self.entity_manager.id_by_uuid(uuid) {
+                    self.debug_send_entity_value(entity, info);
+                }
+            }
+        }
+    }
+
+    /// `broadcastEventToTracking(blockPos, subscription, value)`.
+    pub fn debug_broadcast_event_to_tracking(&self, pos: BlockPos, value: DebugSubscriptionEvent) {
+        let subscription = value.subscription();
+        if self.debug_has_any_subscriber_for(subscription) {
+            self.debug_broadcast_to_tracking_chunk(
+                ChunkPos::containing(&pos),
+                subscription,
+                &ClientboundDebugEventPacket { event: value },
+            );
         }
     }
 

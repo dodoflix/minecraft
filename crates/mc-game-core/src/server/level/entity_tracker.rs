@@ -5,7 +5,7 @@ use super::PlayerRecord;
 use super::fastutil::LongOpenHashMap;
 use super::server_entity::{Payload, ServerEntity, Synchronizer, UpdateInterval, bundle};
 use crate::server::network::ConnectionSender;
-use crate::util::debug::TrackerEvent;
+use crate::util::debug::LevelDebugSynchronizers;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::level::entity::PersistentEntitySectionManager;
 use indexmap::IndexMap;
@@ -143,14 +143,16 @@ impl TrackedEntity {
     fn remove_player(
         &mut self,
         entities: &mut Entities<'_>,
-        events: &mut Vec<TrackerEvent>,
+        debug: &mut Option<LevelDebugSynchronizers>,
         player_id: EntityId,
         player_conn: Option<&ConnectionSender>,
     ) {
         if self.seen_by.shift_remove(&player_id).is_some() {
             self.remove_pairing(entities, player_id, player_conn);
-            if self.seen_by.is_empty() {
-                events.push(TrackerEvent::Drop(self.uuid));
+            if self.seen_by.is_empty()
+                && let Some(debug) = debug
+            {
+                debug.drop_entity(self.uuid);
             }
         }
     }
@@ -165,7 +167,7 @@ impl TrackedEntity {
     fn update_player(
         &mut self,
         entities: &mut Entities<'_>,
-        events: &mut Vec<TrackerEvent>,
+        debug: &mut Option<LevelDebugSynchronizers>,
         env: &dyn TrackingEnv,
         player: &PlayerRecord,
     ) {
@@ -194,16 +196,17 @@ impl TrackedEntity {
             if !self.seen_by.contains_key(&player.id) {
                 self.seen_by.insert(player.id, player.connection.clone());
                 self.add_pairing(entities, player);
-                if self.seen_by.len() == 1 {
-                    events.push(TrackerEvent::Register(self.entity_id));
+                if let Some(debug) = debug {
+                    if self.seen_by.len() == 1
+                        && let Some(entity) = entities.get_any(self.entity_id)
+                    {
+                        debug.register_entity(entity);
+                    }
+                    debug.start_tracking_entity(player, self.entity_id, self.uuid);
                 }
-                events.push(TrackerEvent::StartTracking {
-                    player: player.id,
-                    entity: self.entity_id,
-                });
             }
         } else {
-            self.remove_player(entities, events, player.id, player.connection.as_ref());
+            self.remove_player(entities, debug, player.id, player.connection.as_ref());
         }
     }
 
@@ -251,12 +254,12 @@ impl TrackedEntity {
     fn update_players(
         &mut self,
         entities: &mut Entities<'_>,
-        events: &mut Vec<TrackerEvent>,
+        debug: &mut Option<LevelDebugSynchronizers>,
         env: &dyn TrackingEnv,
         players: &[PlayerRecord],
     ) {
         for p in players {
-            self.update_player(entities, events, env, p);
+            self.update_player(entities, debug, env, p);
         }
     }
 }
@@ -264,26 +267,17 @@ impl TrackedEntity {
 /// `ChunkMap.entityMap` (`Int2ObjectOpenHashMap`: the iteration order of `tick`/`move` is fastutil's).
 pub struct EntityTracker {
     entity_map: LongOpenHashMap<TrackedEntity>,
-    /// What the debug synchronizers must be told (`debugSynchronizers().registerEntity/startTrackingEntity/dropEntity`),
-    /// drained by the level after every tracker call.
-    events: Vec<TrackerEvent>,
 }
 
 impl Default for EntityTracker {
     fn default() -> Self {
         Self {
             entity_map: LongOpenHashMap::new_int(),
-            events: Vec::new(),
         }
     }
 }
 
 impl EntityTracker {
-    /// The debug synchronizer events recorded since the last call.
-    pub fn take_events(&mut self) -> Vec<TrackerEvent> {
-        std::mem::take(&mut self.events)
-    }
-
     pub fn has_entity_with_id(&self, id: EntityId) -> bool {
         self.entity_map.contains_key(i64::from(id))
     }
@@ -292,6 +286,7 @@ impl EntityTracker {
     pub fn add_entity(
         &mut self,
         entities: &mut Entities<'_>,
+        debug: &mut Option<LevelDebugSynchronizers>,
         env: &dyn TrackingEnv,
         players: &[PlayerRecord],
         entity_id: EntityId,
@@ -332,7 +327,7 @@ impl EntityTracker {
         };
         // vanilla: `entityMap.put` first, then `updatePlayers`; the entity is not reachable through the map while we
         // update it here, which only matters for re-entrant lookups (none).
-        tracked.update_players(entities, &mut self.events, env, players);
+        tracked.update_players(entities, debug, env, players);
         self.entity_map.insert(i64::from(entity_id), tracked);
         if let Some(player) = player {
             for id in self.entity_map.keys() {
@@ -340,7 +335,7 @@ impl EntityTracker {
                 if id != entity_id
                     && let Some(t) = self.entity_map.get_mut(i64::from(id))
                 {
-                    t.update_player(entities, &mut self.events, env, &player);
+                    t.update_player(entities, debug, env, &player);
                 }
             }
         }
@@ -350,25 +345,23 @@ impl EntityTracker {
     pub fn remove_entity(
         &mut self,
         entities: &mut Entities<'_>,
+        debug: &mut Option<LevelDebugSynchronizers>,
         entity_id: EntityId,
         player: Option<&PlayerRecord>,
     ) {
         if let Some(player) = player {
             for id in self.entity_map.keys() {
                 if let Some(t) = self.entity_map.get_mut(id) {
-                    t.remove_player(
-                        entities,
-                        &mut self.events,
-                        player.id,
-                        player.connection.as_ref(),
-                    );
+                    t.remove_player(entities, debug, player.id, player.connection.as_ref());
                 }
             }
         }
         if let Some(t) = self.entity_map.remove(i64::from(entity_id)) {
             t.broadcast_removed(entities);
             // `ServerLevel.EntityCallbacks.onTrackingEnd`
-            self.events.push(TrackerEvent::Drop(t.uuid));
+            if let Some(debug) = debug {
+                debug.drop_entity(t.uuid);
+            }
         }
     }
 
@@ -376,6 +369,7 @@ impl EntityTracker {
     pub fn move_player(
         &mut self,
         entities: &mut Entities<'_>,
+        debug: &mut Option<LevelDebugSynchronizers>,
         env: &dyn TrackingEnv,
         all_players: &[PlayerRecord],
         player: &PlayerRecord,
@@ -385,9 +379,9 @@ impl EntityTracker {
                 continue;
             };
             if t.entity_id == player.id {
-                t.update_players(entities, &mut self.events, env, all_players);
+                t.update_players(entities, debug, env, all_players);
             } else {
-                t.update_player(entities, &mut self.events, env, player);
+                t.update_player(entities, debug, env, player);
             }
         }
     }
@@ -396,6 +390,7 @@ impl EntityTracker {
     pub fn tick(
         &mut self,
         entities: &mut Entities<'_>,
+        debug: &mut Option<LevelDebugSynchronizers>,
         env: &dyn TrackingEnv,
         players: &[PlayerRecord],
         maps: &FrameMapEnv<'_>,
@@ -412,7 +407,7 @@ impl EntityTracker {
             let section_changed = t.last_section_pos != new_pos;
             let needs_sync = entity.base().needs_sync;
             if section_changed {
-                t.update_players(entities, &mut self.events, env, players);
+                t.update_players(entities, debug, env, players);
                 if t.is_player
                     && let Some(p) = entities
                         .get_any(t.entity_id)
@@ -447,7 +442,7 @@ impl EntityTracker {
         if !moved_players.is_empty() {
             for id in self.entity_map.keys() {
                 if let Some(t) = self.entity_map.get_mut(id) {
-                    t.update_players(entities, &mut self.events, env, &moved_players);
+                    t.update_players(entities, debug, env, &moved_players);
                 }
             }
         }
@@ -581,6 +576,7 @@ mod tests {
         let mut tracker = EntityTracker::default();
         tracker.add_entity(
             &mut Entities::new(&mut m),
+            &mut None,
             &Env,
             std::slice::from_ref(&tp),
             2,
@@ -611,6 +607,7 @@ mod tests {
             };
             tracker.tick(
                 &mut Entities::new(&mut m),
+                &mut None,
                 &Env,
                 std::slice::from_ref(&tp),
                 &maps,
@@ -620,7 +617,7 @@ mod tests {
         assert!(got.contains(&ClientboundMoveEntityPosPacket::ID), "{got:?}");
         assert!(!got.contains(&ClientboundTeleportEntityPacket::ID));
 
-        tracker.remove_entity(&mut Entities::new(&mut m), 2, None);
+        tracker.remove_entity(&mut Entities::new(&mut m), &mut None, 2, None);
         assert_eq!(ids(&mut rx), vec![ClientboundRemoveEntitiesPacket::ID]);
     }
 
@@ -634,6 +631,7 @@ mod tests {
         let mut tracker = EntityTracker::default();
         tracker.add_entity(
             &mut Entities::new(&mut m),
+            &mut None,
             &Env,
             std::slice::from_ref(&tp),
             2,

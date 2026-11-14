@@ -22,9 +22,13 @@ subscriptions! {
     brains = "minecraft:brains";
     breezes = "minecraft:breezes";
     goal_selectors = "minecraft:goal_selectors";
+    dedicated_server_tick_time = "minecraft:dedicated_server_tick_time";
+    entity_block_intersections = "minecraft:entity_block_intersections";
     entity_paths = "minecraft:entity_paths";
     bee_hives = "minecraft:bee_hives";
+    neighbor_updates = "minecraft:neighbor_updates";
     pois = "minecraft:pois";
+    redstone_wire_orientations = "minecraft:redstone_wire_orientations";
     village_sections = "minecraft:village_sections";
     raids = "minecraft:raids";
     structures = "minecraft:structures";

@@ -649,4 +649,11 @@ impl NeighborUpdateHost for ServerLevel {
     ) -> Option<Orientation> {
         ServerLevel::initial_orientation(self, front, up)
     }
+
+    fn debug_neighbor_update(&mut self, pos: BlockPos) {
+        self.debug_broadcast_event_to_tracking(
+            pos,
+            mc_protocol::packets::play::DebugSubscriptionEvent::NeighborUpdates(pos),
+        );
+    }
 }

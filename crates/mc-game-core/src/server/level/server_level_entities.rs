@@ -301,10 +301,10 @@ impl ServerLevel {
         self.lend(entity, |level| {
             level.entity_tracker.remove_entity(
                 &mut Entities::new(&mut level.entity_manager),
+                &mut level.debug_synchronizers,
                 id,
                 None,
             );
-            level.apply_debug_tracker_events();
         });
     }
 
@@ -629,11 +629,11 @@ impl ServerLevel {
                 let players = self.player_records();
                 self.entity_tracker.add_entity(
                     &mut Entities::new(&mut self.entity_manager),
+                    &mut self.debug_synchronizers,
                     &self.chunk_source.chunk_map,
                     &players,
                     id,
                 );
-                self.apply_debug_tracker_events();
                 if let Some(parts) = self
                     .entity_manager
                     .get_mut(id)
@@ -666,10 +666,10 @@ impl ServerLevel {
                     .map(PlayerRecord::of);
                 self.entity_tracker.remove_entity(
                     &mut Entities::new(&mut self.entity_manager),
+                    &mut self.debug_synchronizers,
                     id,
                     player.as_ref(),
                 );
-                self.apply_debug_tracker_events();
                 let part_ids: Vec<EntityId> = self
                     .entity_manager
                     .get_removed(id)
@@ -753,11 +753,11 @@ impl ServerLevel {
         };
         self.entity_tracker.tick(
             &mut Entities::new(&mut self.entity_manager),
+            &mut self.debug_synchronizers,
             &self.chunk_source.chunk_map,
             &players,
             &maps,
         );
-        self.apply_debug_tracker_events();
     }
 
     /// `ChunkMap.move(player)` entity half: runs before the chunk map's own `move_player` (vanilla runs the tracker loop
@@ -775,11 +775,11 @@ impl ServerLevel {
             }
             level.entity_tracker.move_player(
                 &mut Entities::new(&mut level.entity_manager),
+                &mut level.debug_synchronizers,
                 &level.chunk_source.chunk_map,
                 &players,
                 &record,
             );
-            level.apply_debug_tracker_events();
         });
     }
 

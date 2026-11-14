@@ -1,0 +1,35 @@
+# Debug subscriptions (neighbor updates, redstone wire orientations): every position a layer of neighbor updates is about to update is sent as a
+# `debug/event` to the operators that track its chunk (not for a chunk they do not track); with the experimental redstone wires, each wire an
+# update changed is sent with its orientation as a `debug/block_value`.
+level flat
+features redstone_experiments
+preload 3
+difficulty normal
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+level_seed 31
+entity_counter 170
+spawn_player Steve creative 8.5 -60 8.5 180 0
+op Steve
+tick 1
+block 3 -60 3 minecraft:redstone_wire
+block 4 -60 3 minecraft:redstone_wire
+block 5 -60 3 minecraft:redstone_wire
+tick 2
+dump packets:Steve:none
+watch packets:Steve:debug/event,debug/block_value
+debug_subscribe Steve neighbor_updates,redstone_wire_orientations
+tick 3
+note a block placed: the six neighbors
+block 9 -60 9 minecraft:stone
+tick 2
+note a power source next to the wires: the orientations of the wires it powers and the updates they cause
+block 2 -60 3 minecraft:redstone_block
+tick 2
+block 2 -60 3 minecraft:air
+tick 3
+note unsubscribe: nothing more
+debug_subscribe Steve -
+tick 3
+block 9 -60 9 minecraft:air
+tick 3

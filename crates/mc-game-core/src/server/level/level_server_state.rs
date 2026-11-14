@@ -51,6 +51,21 @@ impl PlayerRoster {
     pub fn players(&self) -> Vec<PlayerHandle> {
         self.0.read().clone()
     }
+
+    /// Whether the player `uuid` asked for `subscription` (`ServerPlayer.requestedDebugSubscriptions`).
+    pub fn requested_debug_subscription(
+        &self,
+        uuid: uuid::Uuid,
+        subscription: mc_data::DebugSubscription,
+    ) -> bool {
+        self.0.read().iter().any(|p| {
+            p.uuid == uuid
+                && p.shared
+                    .lock()
+                    .requested_debug_subscriptions
+                    .contains(&subscription)
+        })
+    }
 }
 
 /// The `DedicatedServer.isUnderSpawnProtection` inputs; the server refreshes them right before it ticks the level

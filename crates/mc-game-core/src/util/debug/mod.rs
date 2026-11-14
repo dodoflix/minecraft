@@ -13,5 +13,5 @@ mod synchronizers;
 pub use subscribers::DebugSubscribers;
 pub use synchronizers::{
     BlockEntityDebugGetter, ChunkDebugGetter, DebugRegistration, DebugValue, EntityDebugGetter,
-    LevelDebugSynchronizers, TrackerEvent,
+    LevelDebugSynchronizers,
 };

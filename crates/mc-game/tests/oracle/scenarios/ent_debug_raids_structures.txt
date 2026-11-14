@@ -1,0 +1,30 @@
+# Debug subscriptions (raids, structures): the structure starts of a chunk (here a snowy village the preload generated) and the centers of the
+# raids in a chunk are sent as a `debug/chunk_value` to an operator that tracks the chunk, when it starts to track it and each time they change.
+command_env
+level normal
+structures true
+seed 25
+preload 8
+difficulty normal
+gamerule raids true
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+entity_counter 200
+level_seed 201
+spawn_player Steve creative 16.5 150 96.5 0 0
+op Steve
+tick 5
+dump packets:Steve:none
+watch packets:Steve:debug/chunk_value
+debug_subscribe Steve raids,structures
+tick 3
+note a raid starts in the village: the chunk of its center
+effect Steve minecraft:raid_omen 0 600
+raid_start Steve 16 150 96
+tick 3
+dump raids
+note unsubscribe, resubscribe: the values of every tracked chunk again
+debug_subscribe Steve -
+tick 2
+debug_subscribe Steve raids,structures
+tick 3
