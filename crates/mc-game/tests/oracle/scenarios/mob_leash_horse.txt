@@ -1,0 +1,52 @@
+# A leashed horse: the elastic pull stops it eating and drifts it after its holder like any mob, past 12 blocks the lead snaps, a ghast
+# holds a horse at four attachment points (a horse supports the quad leash, a llama does not), and the removed holder lets go.
+level flat
+difficulty normal
+preload 4
+entity_counter 700
+level_seed 701
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn Cow minecraft:cow 3.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn H minecraft:horse 3.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Variant:1}
+mobspawn Q minecraft:horse 26.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Variant:2}
+mobspawn Llama minecraft:llama 26.5 -60 6.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Ghast minecraft:ghast 30.5 -58 3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H 7
+tick 30
+note a horse that is eating stops when the elastic pull starts; a cow has nothing to stop
+nbt H {EatingHaystack:1b}
+tick 1
+dump mob:H edata:H
+leash H Steve
+leash Cow Steve
+tick 3
+dump mob:H mob:Cow
+note the holder walks away: the horse is pulled, eating stops, the pose and eating counters follow
+tp Steve 9.5 -60 4.5
+watch mob:H mob:Cow
+tick 6
+watch off
+nbt H {EatingHaystack:1b}
+tick 1
+watch mob:H
+tp Steve 12.5 -60 4.5
+tick 6
+watch off
+dump mob:H edata:H mob:Cow
+note past 12 blocks the lead snaps
+tp Steve 30.5 -60 40.5
+tick 3
+dump mobs entities events
+note quad leash: the ghast holds the horse at four attachment points, the llama at one
+leash Q Ghast
+leash Llama Ghast
+dump mob:Q mob:Llama mob:Ghast
+tick 5
+watch mob:Q mob:Llama
+tick 30
+watch off
+dump mob:Q mob:Llama
+note the holder is removed: both leashes are dropped
+kill Ghast
+tick 3
+dump mobs entities events

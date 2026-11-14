@@ -1,0 +1,47 @@
+# Horse breeding: the foal's attributes blend both parents (AbstractHorse.setOffspringAttributes draws from the level random), a horse
+# and a donkey make a mule, two donkeys a donkey; natural breeding through love needs tamed, healthy,
+# idle parents. The offspring is named by the harness; `dump attrs:` lists every attribute.
+level flat
+difficulty normal
+preload 4
+entity_counter 900
+level_seed 901
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn H1 minecraft:horse 3.5 -60 0.5 0 0 {PersistenceRequired:1b,Tame:1b,Variant:260}
+mobspawn H2 minecraft:horse 3.5 -60 2.5 0 0 {PersistenceRequired:1b,Tame:1b,Variant:3}
+mobspawn D1 minecraft:donkey 3.5 -60 6.5 0 0 {PersistenceRequired:1b,Tame:1b}
+mobspawn D2 minecraft:donkey 3.5 -60 8.5 0 0 {PersistenceRequired:1b,Tame:1b}
+mobspawn M minecraft:mule 3.5 -60 10.5 0 0 {PersistenceRequired:1b,Tame:1b}
+mobspawn H3 minecraft:horse 12.5 -60 0.5 0 0 {PersistenceRequired:1b,Tame:1b}
+mobspawn H4 minecraft:horse 12.5 -60 3.5 0 0 {PersistenceRequired:1b,Tame:1b}
+entity_seed H1 21
+entity_seed H2 22
+entity_seed D1 23
+entity_seed D2 24
+entity_seed M 25
+entity_seed H3 26
+entity_seed H4 27
+tick 30
+dump mob:H1 mob:H2 attrs:H1 attrs:H2 attrs:D1 attrs:D2
+note breeding with the level random seeded: horse x horse, horse x donkey, donkey x donkey
+level_seed 902
+breed H1 H2
+tick 1
+dump mobs attrs:horse#1 nbt:horse#1 rng:level
+level_seed 903
+breed H1 D1
+tick 1
+dump mobs attrs:mule#1 rng:level
+level_seed 904
+breed D1 D2
+tick 1
+dump mobs attrs:donkey#1 rng:level
+note natural breeding: the mule in love finds no partner, the horses in love walk together, the baby appears, the parents age
+love H3 Steve
+love H4 Steve
+love M Steve
+level_seed 905
+watch mob:H3 mob:H4
+tick 80
+watch off
+dump mobs events rng:level

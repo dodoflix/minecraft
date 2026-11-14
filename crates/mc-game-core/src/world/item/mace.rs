@@ -73,7 +73,13 @@ fn knockback(level: &mut ServerLevel, attacker: &mut dyn Entity, entity: &mut dy
         let Some(nearby) = level.get_entity(id) else {
             continue;
         };
-        // `knockbackPredicate`; not implemented: a `TamableAnimal` owned by the attacker is not excluded
+        // `knockbackPredicate`: the clause tests the hit entity (not the attacker) as the owner, as vanilla does
+        let not_tamed_by_target = !(nearby
+            .mob()
+            .is_some_and(|m| m.kind == crate::world::entity::mob::MobKind::TamableAnimal)
+            && entity.living().is_some()
+            && crate::world::entity::mob::tamable::is_tame(nearby)
+            && crate::world::entity::mob::tamable::is_owned_by(nearby, level, &*entity));
         let not_spectator = !nearby.is_spectator();
         let not_player = id != attacker_id && id != target_id;
         let not_allied =
@@ -89,6 +95,7 @@ fn knockback(level: &mut ServerLevel, attacker: &mut dyn Entity, entity: &mut dy
         if !(not_spectator
             && not_player
             && not_allied
+            && not_tamed_by_target
             && not_armor_stand
             && within_range
             && not_flying_in_creative)

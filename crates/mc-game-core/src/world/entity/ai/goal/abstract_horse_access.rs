@@ -37,4 +37,8 @@ pub trait AbstractHorseAccess {
     fn get_inventory_columns(&self) -> i32;
     /// `SkeletonHorse.setTrap(trap)`.
     fn set_trap(&mut self, trap: bool);
+    /// The fields of `AbstractHorse` (the scenario dump reads them).
+    fn horse_data(
+        &self,
+    ) -> &crate::world::entity::animal::equine::abstract_horse::AbstractHorseData;
 }

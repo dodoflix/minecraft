@@ -22,7 +22,6 @@ const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[
 const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[
     // inert placeholders: the dump line stops after the position fields
     "minecraft:allay",
-    "minecraft:bee",
     "minecraft:camel",
     "minecraft:evoker",
     "minecraft:ravager",
@@ -34,8 +33,6 @@ const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[
     "minecraft:enderman",
     // the saved `anger` data holds `suspects:[]` where vanilla saves `{}`
     "minecraft:warden",
-    // the horse data (`Bred`, `EatingHaystack`, `Tame`, `Temper`) is not saved
-    "minecraft:zombie_horse",
     // `yHeadRot` draws after another number of entity randoms; `ConversionTime`, `VillagerData`, `Xp` are not saved
     "minecraft:zombie_villager",
 ];

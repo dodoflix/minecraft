@@ -1417,8 +1417,6 @@ pub enum EntityRelation {
 /// `OwnableEntity.getOwner`, `Leashable.getLeashHolder`, `Targeting.getTarget`, `Attackable.getLastAttacker`,
 /// `getVehicle`, `getControllingPassenger`, `TraceableEntity.getOwner`, `getPassengers`.
 /// `TraceableEntity` covers the projectiles, item entities, primed TNT and area effect clouds that exist so far.
-/// Not implemented: `OwnableEntity` goes through [`Entity::ownable_owner_uuid`], which the tameable and horse classes do
-/// not override, so `/execute on owner` finds no owner for tamed animals and horses.
 pub fn entity_relation(
     server: &MinecraftServer,
     entity: &EntityRef,

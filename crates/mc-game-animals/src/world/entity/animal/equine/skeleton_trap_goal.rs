@@ -19,8 +19,11 @@ use mc_protocol::components::ENCHANTMENTS;
 const LIGHTNING_INVULNERABLE_TICKS: i32 = 60;
 
 /// `SkeletonTrapGoal`. Vanilla adds/removes the goal with the horse's trap flag; here it stays registered and is inert while
-/// the flag is off (the removal would have to run while the selector is ticking this very goal).
-pub struct SkeletonTrapGoal;
+/// the flag is off, and stops right after the tick that springs the trap (where vanilla removes it).
+#[derive(Default)]
+pub struct SkeletonTrapGoal {
+    sprung: bool,
+}
 
 impl SkeletonTrapGoal {
     /// `createHorse(difficulty)`.
@@ -127,6 +130,7 @@ impl Goal for SkeletonTrapGoal {
     }
 
     fn tick(&mut self, horse: &mut dyn Entity, level: &mut ServerLevel) {
+        self.sprung = true;
         let difficulty =
             ServerLevelAccessor::get_current_difficulty_at(&*level, horse.block_position());
         if let Some(h) = horse.as_abstract_horse_mut() {
@@ -170,6 +174,14 @@ impl Goal for SkeletonTrapGoal {
             other_horse.push_xyz(dx, 0.0, dz);
             level.add_fresh_entity_with_passengers(vec![other_horse, other_skeleton]);
         }
+    }
+
+    fn stop(&mut self, _horse: &mut dyn Entity, _level: &mut ServerLevel) {
+        self.sprung = false;
+    }
+
+    fn stop_after_tick(&self) -> bool {
+        self.sprung
     }
 
     fn flags(&self) -> GoalFlags {

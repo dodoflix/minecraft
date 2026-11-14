@@ -1,0 +1,35 @@
+# Llama caravans: a leashed llama is the head, free llamas within reach (LlamaFollowCaravanGoal) line up behind it and trail the
+# leash holder; a llama picked up by the caravan leaves it again when the head is released; spit-free strength and chest data.
+level flat
+difficulty normal
+preload 4
+entity_counter 1200
+level_seed 1201
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn L1 minecraft:llama 3.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed L1 51
+mobspawn L2 minecraft:llama 6.5 -60 2.5 0 0 {PersistenceRequired:1b}
+entity_seed L2 52
+mobspawn L3 minecraft:llama 6.5 -60 5.5 0 0 {PersistenceRequired:1b}
+entity_seed L3 53
+mobspawn T minecraft:trader_llama 9.5 -60 5.5 0 0 {PersistenceRequired:1b}
+entity_seed T 54
+tick 30
+dump mob:L1 mob:L2 mob:L3 mob:T edata:L1 edata:L2
+note the first llama is leashed to the player and the others join the caravan behind it
+leash L1 Steve
+tick 2
+watch mob:L1 mob:L2 mob:L3 mob:T
+tick 60
+watch off
+dump mob:L1 mob:L2 mob:L3 mob:T
+note the player walks away, the caravan follows
+tp Steve 8.5 -60 12.5
+watch mob:L1 mob:L2 mob:L3 mob:T
+tick 80
+watch off
+dump mob:L1 mob:L2 mob:L3 mob:T
+note the lead is removed: the head leaves, the followers leave their head
+leash L1 -
+tick 5
+dump mob:L1 mob:L2 mob:L3 mob:T

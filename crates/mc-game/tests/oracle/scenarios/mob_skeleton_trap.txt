@@ -1,0 +1,26 @@
+# The skeleton trap: a trap horse waits for a player within 10 blocks, then it turns into a normal horse, strikes lightning at its position
+# and spawns a skeleton on it plus three more around it with enchanted weapons and armour drawn from the level and entity randoms.
+# The player is in creative mode: skeletons do not target it.
+level flat
+difficulty hard
+preload 4
+entity_counter 1400
+level_seed 1401
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn Z minecraft:skeleton_horse 25.5 -60 0.5 0 0 {PersistenceRequired:1b,SkeletonTrap:1b,Tame:1b}
+entity_seed Z 71
+mobspawn Y minecraft:skeleton_horse 25.5 -60 25.5 0 0 {PersistenceRequired:1b}
+entity_seed Y 72
+tick 30
+dump mob:Z mob:Y edata:Z nbt:Z
+note out of range the trap keeps counting nothing; the player steps within 10 blocks
+tick 5
+dump mob:Z
+tp Steve 20.5 -60 0.5
+watch mob:Z rng:level rng:Z
+tick 3
+watch off
+dump mobs entities events edata:Z nbt:Z
+note the horse is no longer a trap; the skeletons and the bolt act
+tick 40
+dump mobs entities events player:Steve

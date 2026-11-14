@@ -1104,10 +1104,12 @@ pub trait Entity: Any {
         super::mob::leashable::get_leash_holder(self.as_dyn())
     }
 
-    /// `OwnableEntity.getOwnerReference()`: the owner's UUID for tameable animals, horses and the like (`None` for
-    /// everything else). Not overridden by any entity class: the default is `None`.
+    /// `OwnableEntity.getOwnerReference()`: the owner's UUID for tameable animals (horses and vexes override it),
+    /// `None` for everything else.
     fn ownable_owner_uuid(&self) -> Option<uuid::Uuid> {
-        None
+        self.mob()
+            .filter(|m| m.kind == super::mob::MobKind::TamableAnimal)
+            .and_then(|_| super::mob::tamable::get_owner_reference(self.as_dyn()))
     }
 
     /// `startSeenByPlayer(player)`.

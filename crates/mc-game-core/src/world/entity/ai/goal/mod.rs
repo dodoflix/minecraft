@@ -154,6 +154,11 @@ pub trait Goal: Any {
 
     fn tick(&mut self, _mob: &mut dyn Entity, _level: &mut ServerLevel) {}
 
+    /// The goal took itself out of its selector (`removeGoal(this)`) during `tick`: the selector stops it right after the tick.
+    fn stop_after_tick(&self) -> bool {
+        false
+    }
+
     fn flags(&self) -> GoalFlags;
 
     /// `getClass().getSimpleName()` (debug output, `PanicGoal` checks use downcasting instead).

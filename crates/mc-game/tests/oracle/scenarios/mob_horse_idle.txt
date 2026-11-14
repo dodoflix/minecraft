@@ -1,0 +1,28 @@
+# Free horses idling: random standing, eating grass, rearing, mouth movement and the ambient and eating sounds all draw from the entity
+# random; the rng state of each horse is compared every tick, the full state every 40 ticks.
+level flat
+difficulty normal
+preload 4
+entity_counter 1100
+level_seed 1101
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn H minecraft:horse 5.5 -60 5.5 0 0 {PersistenceRequired:1b}
+entity_seed H 41
+mobspawn D minecraft:donkey 9.5 -60 5.5 0 0 {PersistenceRequired:1b}
+entity_seed D 42
+mobspawn Z minecraft:skeleton_horse 5.5 -60 9.5 0 0 {PersistenceRequired:1b}
+entity_seed Z 43
+tick 30
+dump mob:H mob:D mob:Z edata:H edata:D edata:Z
+watch rng:H rng:D rng:Z
+tick 40
+dump mob:H mob:D mob:Z events
+tick 40
+dump mob:H mob:D mob:Z events
+tick 40
+dump mob:H mob:D mob:Z events
+tick 40
+dump mob:H mob:D mob:Z events
+tick 40
+dump mob:H mob:D mob:Z events edata:H edata:D edata:Z
+watch off

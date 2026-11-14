@@ -1,0 +1,38 @@
+# /execute on owner: the owner of tamed wolves, cats, horses and donkeys (OwnableEntity.getOwner), nothing for untamed mobs, and a pet
+# whose owner is not in the level. Each pet type gives its owner a different effect, so the players' effects show who was found.
+level flat
+difficulty normal
+command_env
+entity_counter 600
+level_seed 601
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 6.5 -60 6.5 0 0
+tick 30
+mobspawn W minecraft:wolf 3.5 -60 0.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn C minecraft:cat 3.5 -60 2.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn H minecraft:horse 3.5 -60 4.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn D minecraft:donkey 3.5 -60 6.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn U minecraft:horse 3.5 -60 8.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn Cow minecraft:cow 3.5 -60 10.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+tame W Steve
+tame C Alex
+tame H Steve
+tame D Alex
+tick 2
+dump mob:W mob:C mob:H mob:D mob:U nbt:H nbt:D
+note the owner of a pet is the player that tamed it; an untamed horse and a cow have none
+cmd execute as @e[type=wolf] on owner run effect give @s minecraft:speed 100
+cmd execute as @e[type=cat] on owner run effect give @s minecraft:jump_boost 100
+cmd execute as @e[type=horse] on owner run effect give @s minecraft:glowing 100
+cmd execute as @e[type=donkey] on owner run effect give @s minecraft:resistance 100
+cmd execute as @e[type=cow] on owner run effect give @s minecraft:levitation 100
+tick 1
+dump player:Steve player:Alex
+note a pet whose owner is not in the level has no owner to find
+nbt W {Owner:[I;1,2,3,4]}
+nbt H {Owner:[I;1,2,3,4]}
+tick 2
+cmd execute as @e[type=wolf] on owner run effect give @s minecraft:slowness 100
+cmd execute as @e[type=horse] on owner run effect give @s minecraft:weakness 100
+tick 1
+dump mob:W mob:H nbt:W nbt:H player:Steve player:Alex

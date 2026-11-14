@@ -1,0 +1,29 @@
+# Llama combat: a llama with a target spits at it from range (RangedAttackGoal 40 ticks, 20 blocks), a wolf near a llama is attacked by it,
+# a llama that is hurt targets its attacker (LlamaHurtByTargetGoal) and its caravan joins; the spit entity and the hit are dumped.
+level flat
+difficulty normal
+preload 4
+entity_counter 1300
+level_seed 1301
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn L minecraft:llama 6.5 -60 8.5 0 0 {PersistenceRequired:1b}
+entity_seed L 61
+mobspawn W minecraft:wolf 8.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed W 62
+mobspawn Cow minecraft:cow 12.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed Cow 63
+tick 30
+note a target in range: the llama walks up and spits
+target L Cow
+watch mob:L entities
+tick 100
+watch off
+dump mob:L mob:Cow mob:W events
+note the nearby wolf is a target of its own accord
+target L -
+tick 60
+dump mob:L mob:W events
+note a hurt llama targets the attacker
+hurt L player_attack 1 by=Steve
+tick 40
+dump mob:L player:Steve events

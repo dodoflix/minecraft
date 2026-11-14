@@ -32,6 +32,7 @@ use mc_game_core::world::entity::factory::{
 };
 use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, leashable};
+use mc_game_core::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
@@ -144,7 +145,7 @@ impl Llama {
         let goals = &mut self.mob.goal_selector;
         goals.add_goal(0, Box::new(float));
         goals.add_goal(1, Box::new(RunAroundLikeCrazyGoal::new(1.2)));
-        goals.add_goal(2, Box::new(LlamaFollowCaravanGoal::new(2.1)));
+        goals.add_goal(2, Box::new(LlamaFollowCaravanGoal::new(f64::from(2.1f32))));
         goals.add_goal(3, Box::new(RangedAttackGoal::new(1.25, 40, 20.0)));
         goals.add_goal(3, Box::new(PanicGoal::new(1.2)));
         goals.add_goal(4, Box::new(breed));
@@ -437,6 +438,9 @@ impl AbstractHorse for Llama {
     fn can_perform_rearing(&self) -> bool {
         false
     }
+    fn horse_supports_quad_leash(&self) -> bool {
+        false
+    }
     fn get_inventory_columns(&self) -> i32 {
         if abstract_chested_horse::has_chest(self) {
             self.get_strength()
@@ -694,10 +698,6 @@ impl Entity for Llama {
         2.0
     }
 
-    fn support_quad_leash(&self) -> bool {
-        false
-    }
-
     fn perform_ranged_attack(&mut self, level: &mut ServerLevel, target: EntityId, _power: f32) {
         self.spit(level, target);
     }
@@ -800,4 +800,19 @@ static LLAMA: EntityRegistration = EntityRegistration {
 static TRADER_LLAMA: EntityRegistration = EntityRegistration {
     entity_type: EntityType::TRADER_LLAMA,
     create: |ty, id, registries| Box::new(Llama::new(ty, id, registries)),
+};
+
+/// The scenario dump fields of a llama: `spat chead ctail`.
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static LLAMA_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 31,
+    applies: |e| e.as_any().is::<Llama>(),
+    fields: |e, _level, ctx| {
+        let llama = e.as_any().downcast_ref::<Llama>().expect("applies");
+        vec![
+            ("spat".into(), u8::from(llama.did_spit()).to_string()),
+            ("chead".into(), ctx.name_opt(llama.caravan_head)),
+            ("ctail".into(), ctx.name_opt(llama.caravan_tail)),
+        ]
+    },
 };

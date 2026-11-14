@@ -20,8 +20,11 @@ use crate::world::entity::living_entity::{
     util::{l, lm},
 };
 use crate::world::entity::mob::{self, ext, navigation};
+use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt as _};
+use linkme::distributed_slice;
+use mc_core::math::java::java_float_to_string;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -170,6 +173,10 @@ pub trait AbstractHorse: Entity {
     fn get_angry_sound(&self) -> Option<SoundEvent> {
         None
     }
+    /// `supportQuadLeash()` (`Llama` overrides it with `false`).
+    fn horse_supports_quad_leash(&self) -> bool {
+        true
+    }
     /// `canPerformRearing()`.
     fn can_perform_rearing(&self) -> bool {
         true
@@ -289,6 +296,9 @@ impl<T: AbstractHorse + ?Sized> crate::world::entity::ai::goal::AbstractHorseAcc
     }
     fn get_temper(&self) -> i32 {
         self.horse().temper
+    }
+    fn horse_data(&self) -> &AbstractHorseData {
+        self.horse()
     }
     fn get_max_temper(&self) -> i32 {
         AbstractHorse::get_max_temper(self)
@@ -1581,6 +1591,21 @@ macro_rules! abstract_horse_entity {
         fn as_abstract_horse_mut(&mut self) -> Option<&mut dyn $crate::world::entity::ai::goal::AbstractHorseAccess> {
             Some(self)
         }
+        fn ownable_owner_uuid(&self) -> Option<::uuid::Uuid> {
+            self.horse().owner
+        }
+        fn support_quad_leash(&self) -> bool {
+            $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse_supports_quad_leash(self)
+        }
+        fn on_elastic_leash_pull(&mut self) {
+            self.check_fall_distance_accumulation();
+            if $crate::world::entity::animal::equine::abstract_horse::is_eating(self) {
+                $crate::world::entity::animal::equine::abstract_horse::set_eating(self, false);
+            }
+        }
+        fn get_equip_sound_override(&self, slot: $crate::world::entity::equipment::EquipmentSlot) -> Option<::mc_data::SoundEvent> {
+            (slot == $crate::world::entity::equipment::EquipmentSlot::Saddle).then_some(::mc_data::SoundEvent::ENTITY_HORSE_SADDLE)
+        }
         fn tick(&mut self, level: &mut $crate::server::level::ServerLevel) {
             $crate::world::entity::animal::equine::abstract_horse::tick(self, level);
         }
@@ -1665,3 +1690,29 @@ macro_rules! abstract_horse_entity {
         fn handle_stop_jump(&mut self) {}
     };
 }
+
+/// The scenario dump fields of an `AbstractHorse`: `owner temper eatc mouthc standc tailc sprintc jscale slide gallopc`.
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static ABSTRACT_HORSE_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 30,
+    applies: |e| e.as_abstract_horse().is_some(),
+    fields: |e, _level, ctx| {
+        let h = e.as_abstract_horse().expect("applies").horse_data();
+        let int = |name: &str, v: i32| (name.to_string(), v.to_string());
+        vec![
+            ("owner".into(), ctx.name_uuid(h.owner)),
+            int("temper", h.temper),
+            int("eatc", h.eating_counter),
+            int("mouthc", h.mouth_counter),
+            int("standc", h.stand_counter),
+            int("tailc", h.tail_counter),
+            int("sprintc", h.sprint_counter),
+            (
+                "jscale".into(),
+                java_float_to_string(h.player_jump_pending_scale),
+            ),
+            ("slide".into(), u8::from(h.allow_stand_sliding).to_string()),
+            int("gallopc", h.gallop_sound_counter),
+        ]
+    },
+};

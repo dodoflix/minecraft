@@ -1,0 +1,38 @@
+# Zombie horses: finalizeSpawn with the natural reason adds an armed zombie jockey, the saved data of the horse, rotten flesh feeds it
+# and tames it by riding like any horse, the attributes of its own generation, and the sun burns it with its rider. The jockey has no AI.
+level flat
+difficulty hard
+preload 4
+entity_counter 1500
+level_seed 1501
+time 6000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn Z1 minecraft:zombie_horse 6.5 -60 2.5 0 0 reason=NATURAL {PersistenceRequired:1b}
+nbt zombie#1 {NoAI:1b}
+mobspawn Z2 minecraft:zombie_horse 6.5 -60 8.5 0 0 {PersistenceRequired:1b}
+mobspawn Z3 minecraft:zombie_horse 6.5 -60 14.5 0 0 {PersistenceRequired:1b}
+entity_seed Z2 82
+entity_seed Z3 83
+tick 30
+dump mobs edata:Z2 nbt:Z2 nbt:Z3 attrs:Z2 attrs:Z3
+note food and a rider: rotten flesh raises the temper
+give Steve mainhand minecraft:rotten_flesh 4
+interact Steve Z2 main
+tick 2
+dump mob:Z2 edata:Z2 events
+interact Steve Z3 main
+tick 2
+dump mob:Z3 edata:Z3 events
+note an empty hand mounts, the bucking taming draws against the temper
+give Steve mainhand minecraft:air
+interact Steve Z2
+accept_teleport Steve
+nbt Z2 {Temper:95}
+watch mob:Z2
+tick 120
+watch off
+dump mob:Z2 edata:Z2 nbt:Z2 player:Steve events
+note the saved data round trip
+nbt Z3 {Tame:1b,Temper:12,Bred:1b,EatingHaystack:1b}
+tick 3
+dump mob:Z3 nbt:Z3

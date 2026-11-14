@@ -21,6 +21,7 @@ use mc_game_core::world::entity::factory::{
     ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
 };
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::spawn_predicates;
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
@@ -67,7 +68,7 @@ impl SkeletonHorse {
         horse
             .mob
             .goal_selector
-            .add_goal(1, Box::new(SkeletonTrapGoal));
+            .add_goal(1, Box::new(SkeletonTrapGoal::default()));
         horse
     }
 
@@ -325,4 +326,18 @@ impl Entity for SkeletonHorse {
 static SKELETON_HORSE: EntityRegistration = EntityRegistration {
     entity_type: EntityType::SKELETON_HORSE,
     create: |ty, id, registries| Box::new(SkeletonHorse::new(ty, id, registries)),
+};
+
+/// The scenario dump fields of a skeleton horse: `trap traptime`.
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static SKELETON_HORSE_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 31,
+    applies: |e| e.as_any().is::<SkeletonHorse>(),
+    fields: |e, _level, _ctx| {
+        let horse = e.as_any().downcast_ref::<SkeletonHorse>().expect("applies");
+        vec![
+            ("trap".into(), u8::from(horse.is_trap()).to_string()),
+            ("traptime".into(), horse.trap_time.to_string()),
+        ]
+    },
 };

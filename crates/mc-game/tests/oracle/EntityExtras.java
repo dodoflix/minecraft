@@ -6,6 +6,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OminousItemSpawner;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.animal.bee.Bee;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import net.minecraft.world.entity.animal.equine.Llama;
+import net.minecraft.world.entity.animal.equine.SkeletonHorse;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.monster.illager.Pillager;
@@ -76,6 +79,18 @@ final class EntityExtras {
          Goat g = (Goat)e;
          out.add("scream", EntityOracleDriver.bool(g.isScreamingGoat()));
          out.add("lhorn", EntityOracleDriver.bool(g.hasLeftHorn())).add("rhorn", EntityOracleDriver.bool(g.hasRightHorn()));
+      }));
+      ALL.add(new Extra(30, AbstractHorse.class, (d, e, out) -> {
+         var owner = (net.minecraft.world.entity.EntityReference<?>)EntityOracleDriver.priv(e, AbstractHorse.class, "owner");
+         out.add("owner", d.uuidName(owner == null ? null : owner.getUUID()));
+         out.add("temper", EntityOracleDriver.priv(e, AbstractHorse.class, "temper"));
+         out.add("eatc", EntityOracleDriver.priv(e, AbstractHorse.class, "eatingCounter"));
+         out.add("mouthc", EntityOracleDriver.priv(e, AbstractHorse.class, "mouthCounter"));
+         out.add("standc", EntityOracleDriver.priv(e, AbstractHorse.class, "standCounter"));
+         out.add("tailc", ((AbstractHorse)e).tailCounter).add("sprintc", ((AbstractHorse)e).sprintCounter);
+         out.add("jscale", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, AbstractHorse.class, "playerJumpPendingScale")));
+         out.add("slide", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, AbstractHorse.class, "allowStandSliding")));
+         out.add("gallopc", EntityOracleDriver.priv(e, AbstractHorse.class, "gallopSoundCounter"));
       }));
       ALL.add(new Extra(30, AbstractMinecart.class, (d, e, out) -> {
          AbstractMinecart c = (AbstractMinecart)e;
@@ -174,6 +189,15 @@ final class EntityExtras {
          out.add("items", items.length() == 0 ? "-" : items.toString());
          out.add("loot", c.getContainerLootTable() == null ? "-" : c.getContainerLootTable().identifier());
          out.add("seed", c.getContainerLootTableSeed());
+      }));
+      ALL.add(new Extra(31, Llama.class, (d, e, out) -> {
+         out.add("spat", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Llama.class, "didSpit")));
+         out.add("chead", d.entName((Entity)EntityOracleDriver.priv(e, Llama.class, "caravanHead")));
+         out.add("ctail", d.entName((Entity)EntityOracleDriver.priv(e, Llama.class, "caravanTail")));
+      }));
+      ALL.add(new Extra(31, SkeletonHorse.class, (d, e, out) -> {
+         out.add("trap", EntityOracleDriver.bool(((SkeletonHorse)e).isTrap()));
+         out.add("traptime", EntityOracleDriver.priv(e, SkeletonHorse.class, "trapTime"));
       }));
       ALL.add(new Extra(31, MinecartFurnace.class, (d, e, out) -> {
          MinecartFurnace c = (MinecartFurnace)e;

@@ -25,6 +25,7 @@ use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_nbt::CompoundTag;
 use std::sync::Arc;
 
 const SPEED_FACTOR: f32 = 42.16;
@@ -319,6 +320,14 @@ impl Entity for ZombieHorse {
         }
         let group_data = abstract_horse::finalize_spawn_prepare(self, level, group_data);
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)
+    }
+
+    fn add_additional_save_data(&self, out: &mut CompoundTag) {
+        abstract_horse::add_additional_save_data(self, out);
+    }
+
+    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+        abstract_horse::read_additional_save_data(self, input);
     }
 }
 

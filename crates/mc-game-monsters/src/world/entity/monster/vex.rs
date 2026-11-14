@@ -163,6 +163,10 @@ impl Vex {
 impl Entity for Vex {
     mc_game_core::mob_entity_accessors!(mob);
 
+    fn ownable_owner_uuid(&self) -> Option<Uuid> {
+        self.owner
+    }
+
     fn is_flapping(&self) -> bool {
         self.base().tick_count % TICKS_PER_FLAP == 0
     }

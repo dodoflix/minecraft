@@ -1,0 +1,43 @@
+# Llama equipment by hand: a carpet goes into the body slot of a tamed llama (equip sound, drop on death), a chest adds strength columns
+# of inventory, food tames and heals by temper like a horse, and a trader llama holds the same slots; `edata:` shows the variant, strength
+# and chest flag.
+level flat
+difficulty normal
+preload 4
+entity_counter 1600
+level_seed 1601
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn L minecraft:llama 3.5 -60 2.5 0 0 {PersistenceRequired:1b}
+entity_seed L 91
+mobspawn T minecraft:trader_llama 3.5 -60 6.5 0 0 {PersistenceRequired:1b}
+entity_seed T 92
+tick 30
+dump mob:L mob:T edata:L edata:T nbt:L
+note an untamed llama refuses the carpet, food raises its temper
+give Steve mainhand minecraft:red_carpet 4
+interact Steve L main
+tick 2
+dump mob:L edata:L events
+give Steve mainhand minecraft:hay_block 4
+interact Steve L main
+tick 2
+dump mob:L edata:L events
+note tamed: carpet and chest go on by hand
+tame L Steve
+tame T Steve
+give Steve mainhand minecraft:blue_carpet 4
+interact Steve L main
+interact Steve T main
+tick 2
+dump mob:L mob:T edata:L nbt:L nbt:T events
+give Steve mainhand minecraft:chest 4
+interact Steve L main
+interact Steve T main
+tick 2
+dump mob:L mob:T edata:L nbt:L events
+note the loot of a killed llama
+level_seed 1602
+hurt L generic_kill 1000
+hurt T player_attack 100 by=Steve
+tick 5
+dump mobs entities events

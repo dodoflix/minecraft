@@ -241,6 +241,9 @@ impl GoalSelector {
         for g in &mut self.available_goals {
             if g.running && (force_tick_all_running_goals || g.goal.requires_update_every_tick()) {
                 g.goal.tick(mob, level);
+                if g.goal.stop_after_tick() {
+                    g.stop(mob, level);
+                }
             }
         }
     }

@@ -1,0 +1,57 @@
+# Taming horses by riding: food raises the temper, a rider is bucked off (RunAroundLikeCrazyGoal draws against the temper) until the horse
+# is tamed and takes the rider as its owner; a tamed donkey takes a chest and a saddle by hand, and its rider opens the mount inventory
+# with the player command.
+level flat
+difficulty normal
+preload 4
+entity_counter 800
+level_seed 801
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 6.5 -60 8.5 0 0
+mobspawn H minecraft:horse 3.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed H 11
+mobspawn D minecraft:donkey 3.5 -60 8.5 0 0 {PersistenceRequired:1b}
+entity_seed D 12
+tick 30
+note food on an untamed horse: temper, healing, growth; a foal part of the stack goes the same way
+give Steve mainhand minecraft:wheat 8
+interact Steve H main
+tick 2
+dump mob:H edata:H events
+give Steve mainhand minecraft:golden_apple 2
+interact Steve H main
+tick 2
+dump mob:H edata:H events
+note an empty hand mounts the horse
+give Steve mainhand minecraft:air
+interact Steve H
+accept_teleport Steve
+tick 1
+dump mob:H player:Steve edata:H
+note a near-maximal temper makes the next bucking attempt tame it
+nbt H {Temper:95}
+watch mob:H
+tick 150
+watch off
+dump mob:H edata:H nbt:H player:Steve events
+note a tamed donkey takes a chest, then a saddle, from its owner
+tame D Alex
+give Alex mainhand minecraft:chest 1
+interact Alex D main
+tick 2
+dump mob:D nbt:D events
+give Alex mainhand minecraft:saddle 1
+interact Alex D main
+tick 2
+dump mob:D nbt:D events
+note riding opens the inventory with the player command
+give Alex mainhand minecraft:air
+interact Alex D
+accept_teleport Alex
+tick 1
+pcommand Alex OPEN_INVENTORY
+tick 1
+dump menu:Alex mob:D events
+close_menu Alex
+tick 1
+dump mob:D
