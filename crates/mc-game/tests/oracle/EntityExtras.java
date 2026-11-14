@@ -7,6 +7,7 @@ import net.minecraft.world.entity.OminousItemSpawner;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.animal.dolphin.Dolphin;
+import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.entity.animal.fish.Pufferfish;
 import net.minecraft.world.entity.animal.fish.Salmon;
 import net.minecraft.world.entity.animal.fish.TropicalFish;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.animal.equine.SkeletonHorse;
 import net.minecraft.world.entity.animal.feline.Cat;
 import net.minecraft.world.entity.animal.feline.Ocelot;
 import net.minecraft.world.entity.animal.goat.Goat;
+import net.minecraft.world.entity.animal.panda.Panda;
 import net.minecraft.world.entity.animal.parrot.Parrot;
 import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.PatrollingMonster;
@@ -269,6 +271,40 @@ final class EntityExtras {
          out.add("lietail", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Cat.class, "lieDownAmountTail")));
          out.add("ontop", EntityOracleDriver.bool(c.isLyingOnTopOfSleepingPlayer()));
          out.add("relax", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Cat.class, "relaxStateOneAmount")));
+      }));
+      ALL.add(new Extra(30, Fox.class, (d, e, out) -> {
+         Fox fox = (Fox)e;
+         @SuppressWarnings("unchecked")
+         var flags = (net.minecraft.network.syncher.EntityDataAccessor<Byte>)EntityOracleDriver.priv(null, Fox.class, "DATA_FLAGS_ID");
+         @SuppressWarnings("unchecked")
+         var trusted0 = (net.minecraft.network.syncher.EntityDataAccessor<java.util.Optional<net.minecraft.world.entity.EntityReference<net.minecraft.world.entity.LivingEntity>>>)EntityOracleDriver.priv(null, Fox.class, "DATA_TRUSTED_ID_0");
+         @SuppressWarnings("unchecked")
+         var trusted1 = (net.minecraft.network.syncher.EntityDataAccessor<java.util.Optional<net.minecraft.world.entity.EntityReference<net.minecraft.world.entity.LivingEntity>>>)EntityOracleDriver.priv(null, Fox.class, "DATA_TRUSTED_ID_1");
+         out.add("flags", e.getEntityData().get(flags));
+         out.add("variant", fox.getVariant().getSerializedName());
+         var t0 = e.getEntityData().get(trusted0);
+         var t1 = e.getEntityData().get(trusted1);
+         out.add("trust0", d.uuidName(t0.map(r -> r.getUUID()).orElse(null)));
+         out.add("trust1", d.uuidName(t1.map(r -> r.getUUID()).orElse(null)));
+         out.add("eaten", EntityOracleDriver.priv(e, Fox.class, "ticksSinceEaten"));
+         out.add("crouch", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Fox.class, "crouchAmount")));
+         out.add("interest", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Fox.class, "interestedAngle")));
+      }));
+      ALL.add(new Extra(30, Panda.class, (d, e, out) -> {
+         Panda p = (Panda)e;
+         @SuppressWarnings("unchecked")
+         var flags = (net.minecraft.network.syncher.EntityDataAccessor<Byte>)EntityOracleDriver.priv(null, Panda.class, "DATA_ID_FLAGS");
+         out.add("flags", e.getEntityData().get(flags));
+         out.add("main", p.getMainGene().getSerializedName());
+         out.add("hidden", p.getHiddenGene().getSerializedName());
+         out.add("unhappy", p.getUnhappyCounter());
+         out.add("sneeze", p.getSneezeCounter());
+         @SuppressWarnings("unchecked")
+         var eat = (net.minecraft.network.syncher.EntityDataAccessor<Integer>)EntityOracleDriver.priv(null, Panda.class, "EAT_COUNTER");
+         out.add("eat", e.getEntityData().get(eat));
+         out.add("rollcount", p.rollCounter);
+         out.add("gotbamboo", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Panda.class, "gotBamboo")));
+         out.add("didbite", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Panda.class, "didBite")));
       }));
       ALL.add(new Extra(31, Ocelot.class, (d, e, out) -> out.add("trusting", EntityOracleDriver.bool(e.getEntityData().get((net.minecraft.network.syncher.EntityDataAccessor<Boolean>)EntityOracleDriver.priv(null, Ocelot.class, "DATA_TRUSTING"))))));
       ALL.add(new Extra(31, Parrot.class, (d, e, out) -> {

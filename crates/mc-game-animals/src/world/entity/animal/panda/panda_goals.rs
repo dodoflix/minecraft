@@ -45,6 +45,10 @@ impl PandaAttackGoal {
 }
 
 impl Goal for PandaAttackGoal {
+    fn name(&self) -> &'static str {
+        "Panda$PandaAttackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         panda(mob).can_perform_action(level) && self.inner.can_use_impl(mob, level)
     }
@@ -100,6 +104,10 @@ impl PandaAvoidGoal {
 }
 
 impl Goal for PandaAvoidGoal {
+    fn name(&self) -> &'static str {
+        "Panda$PandaAvoidGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let p = panda(mob);
         p.is_worried() && p.can_perform_action(level) && self.inner.can_use_impl(mob, level)
@@ -168,6 +176,10 @@ impl PandaBreedGoal {
 }
 
 impl Goal for PandaBreedGoal {
+    fn name(&self) -> &'static str {
+        "Panda$PandaBreedGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if !self.inner.can_use(mob, level) || panda(mob).get_unhappy_counter() != 0 {
             false
@@ -235,6 +247,10 @@ impl Default for PandaHurtByTargetGoal {
 }
 
 impl Goal for PandaHurtByTargetGoal {
+    fn name(&self) -> &'static str {
+        "Panda$PandaHurtByTargetGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.inner.can_use(mob, level)
     }
@@ -280,6 +296,10 @@ impl Default for PandaLieOnBackGoal {
 }
 
 impl Goal for PandaLieOnBackGoal {
+    fn name(&self) -> &'static str {
+        "Panda$PandaLieOnBackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.cooldown < mob.base().tick_count
             && panda(mob).is_lazy()
@@ -346,6 +366,10 @@ impl PandaLookAtPlayerGoal {
 }
 
 impl Goal for PandaLookAtPlayerGoal {
+    fn name(&self) -> &'static str {
+        "Panda$PandaLookAtPlayerGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.sync(mob);
         if mob.base_mut().random.next_float() >= self.inner.probability {
@@ -430,6 +454,10 @@ impl PandaPanicGoal {
 }
 
 impl Goal for PandaPanicGoal {
+    fn name(&self) -> &'static str {
+        "Panda$PandaPanicGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.inner.can_use_impl(mob, level)
     }
@@ -464,6 +492,10 @@ impl Goal for PandaPanicGoal {
 pub struct PandaRollGoal;
 
 impl Goal for PandaRollGoal {
+    fn name(&self) -> &'static str {
+        "Panda$PandaRollGoal"
+    }
+
     #[expect(
         clippy::if_same_then_else,
         reason = "mirrors PandaRollGoal.canUse branch structure (the conditions draw from the random source)"
@@ -559,6 +591,10 @@ impl Default for PandaSitGoal {
 }
 
 impl Goal for PandaSitGoal {
+    fn name(&self) -> &'static str {
+        "Panda$PandaSitGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if self.cooldown > mob.base().tick_count
             || mob.is_baby()
@@ -642,6 +678,10 @@ impl Goal for PandaSitGoal {
 pub struct PandaSneezeGoal;
 
 impl Goal for PandaSneezeGoal {
+    fn name(&self) -> &'static str {
+        "Panda$PandaSneezeGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if mob.is_baby() && panda(mob).can_perform_action(level) {
             if panda(mob).is_weak()

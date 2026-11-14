@@ -1,0 +1,67 @@
+# Panda moods: a playful panda rolls (rolling jumps, the roll counter) when the block ahead is a hole, a baby too, a lazy panda lies on its
+# back (a click makes it stand up again), a panda with an item in its mouth sits and eats, a worried one is scared by thunder (sits, ignores
+# food) and runs from players and monsters.
+command_env
+level flat
+preload 6
+difficulty normal
+entity_counter 10300
+level_seed 10301
+time 6000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex creative 80.5 -60 0.5 0 0
+tick 30
+block 21 -61 30 minecraft:air
+block 41 -61 30 minecraft:air
+mobspawn Y minecraft:panda 20.5 -60 29.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"playful",HiddenGene:"playful"}
+entity_seed Y 10302
+mobspawn Y2 minecraft:panda 40.5 -60 29.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000,MainGene:"normal",HiddenGene:"normal"}
+entity_seed Y2 10303
+tick 2
+dump mobs goals:Y
+watch mob:Y mob:Y2
+tick 80
+watch off
+dump mobs events
+note a lazy panda lies down now and then; a click gets it up
+mobspawn L minecraft:panda 60.5 -60 40.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"lazy",HiddenGene:"lazy"}
+entity_seed L 10304
+mobspawn L2 minecraft:panda 64.5 -60 40.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"lazy",HiddenGene:"lazy"}
+entity_seed L2 10305
+mobspawn L3 minecraft:panda 68.5 -60 40.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"lazy",HiddenGene:"lazy"}
+entity_seed L3 10306
+tick 2
+watch mob:L mob:L2 mob:L3
+tick 500
+watch off
+dump mobs events
+tp Alex 62.5 -60 42.5 0 0
+interact Alex L main
+interact Alex L2 main
+interact Alex L3 main
+tick 2
+dump mobs
+note a worried panda runs from the player and a monster
+mobspawn W minecraft:panda 4.5 -60 -6.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"worried",HiddenGene:"worried"}
+entity_seed W 10307
+mobspawn WZ minecraft:zombie 50.5 -60 -40.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn W2 minecraft:panda 46.5 -60 -40.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"worried",HiddenGene:"worried"}
+entity_seed W2 10308
+mobspawn N1 minecraft:panda 48.5 -60 -36.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"normal",HiddenGene:"normal"}
+entity_seed N1 10309
+tick 2
+watch mob:W mob:W2 mob:N1
+tick 60
+watch off
+dump mobs events
+note thunder: the worried pandas sit down and are not interested in food
+cmd weather thunder 6000
+tp Steve 2.5 -60 4.5 0 0
+tick 120
+watch mob:W mob:W2 mob:N1
+tick 60
+watch off
+dump mobs
+interact Alex W2 main
+dump mobs

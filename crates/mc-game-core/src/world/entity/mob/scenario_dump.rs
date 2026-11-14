@@ -68,7 +68,7 @@ fn mob_fields(
                     .is_some_and(|e| e.living().is_some())
             })),
         ),
-        f("aggr", b(m.is_aggressive())),
+        f("aggr", b(e.is_aggressive())),
         f("noai", b(m.is_no_ai())),
         f("left", b(m.is_left_handed())),
         f("persist", b(e.is_persistence_required())),

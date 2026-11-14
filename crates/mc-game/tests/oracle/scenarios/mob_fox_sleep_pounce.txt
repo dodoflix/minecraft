@@ -1,0 +1,57 @@
+# Fox daytime behaviour: sleeping in a roofed pen (SleepGoal: bright outside, shelter, nobody alertable) and the hit that wakes it, then the prey
+# hunt of a red fox (stalk a chicken from afar, crouch, pounce, bite; a rabbit later), and a pounce that lands in a snow layer (the fox dives
+# nose first into the snow and gets stuck for a while).
+level flat
+preload 6
+difficulty normal
+entity_counter 9600
+level_seed 9601
+time 6000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 0.5 0 0
+fill 6 -60 6 10 -59 10 minecraft:stone
+fill 7 -60 7 9 -59 9 minecraft:air
+fill 6 -58 6 10 -58 10 minecraft:stone
+tick 30
+mobspawn F1 minecraft:fox 8.5 -60 8.5 0 0 {PersistenceRequired:1b}
+entity_seed F1 9602
+tick 2
+dump mob:F1 goals:F1
+watch mob:F1
+tick 220
+watch off
+note a hit wakes the sleeping fox and it panics
+hurt F1 generic 1
+watch mob:F1
+tick 40
+watch off
+dump mobs events
+note a red fox stalks a chicken twenty blocks away and pounces on it
+mobspawn C1 minecraft:chicken 40.5 -60 52.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed C1 9603
+mobspawn F2 minecraft:fox 40.5 -60 38.5 0 0 {PersistenceRequired:1b,Type:"red"}
+entity_seed F2 9604
+tick 2
+dump mobs goals:F2
+watch mob:F2 mob:C1
+tick 160
+watch off
+dump mobs events
+note a rabbit is prey as well
+mobspawn R1 minecraft:rabbit 52.5 -60 38.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed R1 9605
+watch mob:F2 mob:R1
+tick 120
+watch off
+dump mobs events
+note the pounce lands in a snow layer: faceplant
+fill -46 -60 38 -34 -60 56 minecraft:snow[layers=1]
+mobspawn C2 minecraft:chicken -40.5 -60 52.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed C2 9606
+mobspawn F3 minecraft:fox -40.5 -60 38.5 0 0 {PersistenceRequired:1b,Type:"red"}
+entity_seed F3 9607
+tick 2
+watch mob:F3 mob:C2
+tick 160
+watch off
+dump mobs events nbt:F3

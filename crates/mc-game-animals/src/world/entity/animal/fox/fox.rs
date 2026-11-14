@@ -10,6 +10,7 @@ use crate::world::entity::animal::turtle::turtle::Turtle;
 use crate::world::entity::animal::wolf::wolf::Wolf;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
+use mc_core::math::java::java_float_to_string;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -26,10 +27,10 @@ use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
 use mc_game_core::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
 use mc_game_core::world::entity::ai::control::move_control::{self, MoveControl, MoveControlBase};
-use mc_game_core::world::entity::ai::goal::WaterAvoidingRandomStrollGoal;
 use mc_game_core::world::entity::ai::goal::target::{
     NearestAttackableTargetGoal, TargetType, class_of,
 };
+use mc_game_core::world::entity::ai::goal::{Goal, WaterAvoidingRandomStrollGoal};
 use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
 use mc_game_core::world::entity::equipment::EquipmentSlot;
@@ -39,6 +40,7 @@ use mc_game_core::world::entity::factory::{
 use mc_game_core::world::entity::item::ItemEntity;
 use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, ext, tamable};
+use mc_game_core::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::spawn_predicates;
 use mc_game_core::world::entity::{Entity, EntityId};
@@ -184,6 +186,8 @@ pub struct Fox {
     pub crouch_amount: f32,
     pub crouch_amount_o: f32,
     pub ticks_since_eaten: i32,
+    /// Whether `landTargetGoal`, `turtleEggTargetGoal` and `fishTargetGoal` are in the target selector.
+    target_goals_added: [bool; 3],
 }
 
 /// `ItemTags.FOX_FOOD`.
@@ -212,6 +216,7 @@ impl Fox {
             crouch_amount: 0.0,
             crouch_amount_o: 0.0,
             ticks_since_eaten: 0,
+            target_goals_added: [false; 3],
         };
         let navigation = StandardPathNavigation::ground(&fox);
         fox.mob.set_navigation(Box::new(navigation));
@@ -362,15 +367,24 @@ impl Fox {
                 })),
             )
         };
-        let targets = &mut self.mob.target_selector;
-        if self.mob.living.entity.entity_data.get(DATA_TYPE_ID) == FoxVariant::Red.id() {
-            targets.add_goal(4, Box::new(land()));
-            targets.add_goal(4, Box::new(turtle()));
-            targets.add_goal(6, Box::new(fish()));
+        // `addGoal` of a goal instance already in the selector changes nothing (the wrapped goals compare by goal), so the first
+        // call fixes the priority of each of the three goals; the selector keeps the order they were added in
+        let red = self.mob.living.entity.entity_data.get(DATA_TYPE_ID) == FoxVariant::Red.id();
+        let order: [(usize, i32); 3] = if red {
+            [(0, 4), (1, 4), (2, 6)]
         } else {
-            targets.add_goal(4, Box::new(fish()));
-            targets.add_goal(6, Box::new(land()));
-            targets.add_goal(6, Box::new(turtle()));
+            [(2, 4), (0, 6), (1, 6)]
+        };
+        for (which, priority) in order {
+            if !self.target_goals_added[which] {
+                self.target_goals_added[which] = true;
+                let goal: Box<dyn Goal> = match which {
+                    0 => Box::new(land()),
+                    1 => Box::new(turtle()),
+                    _ => Box::new(fish()),
+                };
+                self.mob.target_selector.add_goal(priority, goal);
+            }
         }
     }
 
@@ -933,6 +947,27 @@ impl Entity for Fox {
         mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 }
+
+/// The scenario dump fields of the fox (`flags variant trust0 trust1 eaten crouch interest`).
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static FOX_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 30,
+    applies: |e| e.as_any().is::<Fox>(),
+    fields: |e, _level, ctx| {
+        let fox = e.as_any().downcast_ref::<Fox>().expect("fox");
+        let data = &fox.base().entity_data;
+        let f = |k: &str, v: String| (k.to_string(), v);
+        vec![
+            f("flags", data.get(DATA_FLAGS_ID).to_string()),
+            f("variant", fox.get_variant().name().to_string()),
+            f("trust0", ctx.name_uuid(data.get(DATA_TRUSTED_ID_0))),
+            f("trust1", ctx.name_uuid(data.get(DATA_TRUSTED_ID_1))),
+            f("eaten", fox.ticks_since_eaten.to_string()),
+            f("crouch", java_float_to_string(fox.crouch_amount)),
+            f("interest", java_float_to_string(fox.interested_angle)),
+        ]
+    },
+};
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static FOX: EntityRegistration = EntityRegistration {

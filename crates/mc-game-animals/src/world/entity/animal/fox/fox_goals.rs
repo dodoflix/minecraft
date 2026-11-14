@@ -173,6 +173,10 @@ impl Default for DefendTrustedTargetGoal {
 }
 
 impl Goal for DefendTrustedTargetGoal {
+    fn name(&self) -> &'static str {
+        "Fox$DefendTrustedTargetGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if self.inner.random_interval > 0
             && mob
@@ -249,6 +253,10 @@ impl Default for FaceplantGoal {
 }
 
 impl Goal for FaceplantGoal {
+    fn name(&self) -> &'static str {
+        "Fox$FaceplantGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         fox(mob).is_faceplanted()
     }
@@ -316,6 +324,10 @@ fn fox_breed(animal: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId
 }
 
 impl Goal for FoxBreedGoal {
+    fn name(&self) -> &'static str {
+        "Fox$FoxBreedGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.inner.can_use(mob, level)
     }
@@ -363,6 +375,10 @@ impl FoxFloatGoal {
 }
 
 impl Goal for FoxFloatGoal {
+    fn name(&self) -> &'static str {
+        "Fox$FoxFloatGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         self.inner.can_use_with_threshold(mob, 0.25)
     }
@@ -398,6 +414,10 @@ impl FoxPanicGoal {
 }
 
 impl Goal for FoxPanicGoal {
+    fn name(&self) -> &'static str {
+        "Fox$FoxPanicGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let should_panic = !fox(mob).is_defending() && self.inner.should_panic(mob, level);
         self.inner.can_use_with(mob, level, should_panic, 5)
@@ -535,6 +555,10 @@ impl MoveToBlock for FoxEatBerriesGoal {
 }
 
 impl Goal for FoxEatBerriesGoal {
+    fn name(&self) -> &'static str {
+        "Fox$FoxEatBerriesGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         !mob.is_sleeping() && move_to_block::can_use(self, mob, level)
     }
@@ -562,6 +586,10 @@ impl Goal for FoxEatBerriesGoal {
         move_to_block::tick(self, mob, level);
     }
 
+    fn requires_update_every_tick(&self) -> bool {
+        true
+    }
+
     fn flags(&self) -> GoalFlags {
         GoalFlags::of(&[Flag::Move, Flag::Jump])
     }
@@ -581,6 +609,10 @@ impl FoxFollowParentGoal {
 }
 
 impl Goal for FoxFollowParentGoal {
+    fn name(&self) -> &'static str {
+        "Fox$FoxFollowParentGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         !fox(mob).is_defending() && self.inner.can_use(mob, level)
     }
@@ -621,6 +653,10 @@ impl FoxLookAtPlayerGoal {
 }
 
 impl Goal for FoxLookAtPlayerGoal {
+    fn name(&self) -> &'static str {
+        "Fox$FoxLookAtPlayerGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.inner.can_use(mob, level) && !fox(mob).is_faceplanted() && !fox(mob).is_interested()
     }
@@ -662,6 +698,10 @@ impl FoxMeleeAttackGoal {
 }
 
 impl Goal for FoxMeleeAttackGoal {
+    fn name(&self) -> &'static str {
+        "Fox$FoxMeleeAttackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let f = fox(mob);
         !f.is_sitting()
@@ -709,6 +749,10 @@ impl Goal for FoxMeleeAttackGoal {
 pub struct FoxPounceGoal;
 
 impl Goal for FoxPounceGoal {
+    fn name(&self) -> &'static str {
+        "Fox$FoxPounceGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if !fox(mob).is_fully_crouched() {
             return false;
@@ -869,6 +913,10 @@ fn move_to_first_item(mob: &mut dyn Entity, level: &mut ServerLevel, items: &[En
 }
 
 impl Goal for FoxSearchForItemsGoal {
+    fn name(&self) -> &'static str {
+        "Fox$FoxSearchForItemsGoal"
+    }
+
     #[expect(
         clippy::if_same_then_else,
         reason = "mirrors FoxSearchForItemsGoal.canUse branch structure (the random draw must stay ordered)"
@@ -939,6 +987,10 @@ impl FoxStrollThroughVillageGoal {
 }
 
 impl Goal for FoxStrollThroughVillageGoal {
+    fn name(&self) -> &'static str {
+        "Fox$FoxStrollThroughVillageGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.inner.can_use(mob, level) && Self::can_fox_move(mob, level)
     }
@@ -998,6 +1050,10 @@ impl Default for PerchAndSearchGoal {
 }
 
 impl Goal for PerchAndSearchGoal {
+    fn name(&self) -> &'static str {
+        "Fox$PerchAndSearchGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         combat::get_last_hurt_by_mob(mob, level).is_none()
             && mob.base_mut().random.next_float() < 0.02
@@ -1063,6 +1119,10 @@ impl SeekShelterGoal {
 }
 
 impl Goal for SeekShelterGoal {
+    fn name(&self) -> &'static str {
+        "Fox$SeekShelterGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if !mob.is_sleeping() && target_of(mob, level).is_none() {
             if level.is_thundering() && level.can_see_sky(mob.block_position()) {
@@ -1133,6 +1193,10 @@ impl SleepGoal {
 }
 
 impl Goal for SleepGoal {
+    fn name(&self) -> &'static str {
+        "Fox$SleepGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let moving = mob
             .living()
@@ -1177,6 +1241,10 @@ impl Goal for SleepGoal {
 pub struct StalkPreyGoal;
 
 impl Goal for StalkPreyGoal {
+    fn name(&self) -> &'static str {
+        "Fox$StalkPreyGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if mob.is_sleeping() {
             return false;

@@ -10,8 +10,6 @@ const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[
     // inert placeholders: the dump line stops after the position fields
     "minecraft:camel",
     "minecraft:sniffer",
-    // the `aggr` field is 0 where vanilla shows 1
-    "minecraft:panda",
 ];
 
 /// `mob_finalize_summon` and `mob_spawn_egg_finalize`: inert placeholders and the class-specific differences of single types.

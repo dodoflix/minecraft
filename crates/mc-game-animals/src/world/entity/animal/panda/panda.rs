@@ -29,6 +29,7 @@ use mc_game_core::world::entity::factory::{
 use mc_game_core::world::entity::item::{self, ItemEntity};
 use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, animal, ext, navigation};
+use mc_game_core::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
@@ -870,6 +871,28 @@ impl Entity for Panda {
         );
     }
 }
+
+/// The scenario dump fields of the panda (`flags main hidden unhappy sneeze eat rollcount gotbamboo didbite`).
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static PANDA_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 30,
+    applies: |e| e.as_any().is::<Panda>(),
+    fields: |e, _level, _ctx| {
+        let p = e.as_any().downcast_ref::<Panda>().expect("panda");
+        let f = |k: &str, v: String| (k.to_string(), v);
+        vec![
+            f("flags", p.base().entity_data.get(DATA_ID_FLAGS).to_string()),
+            f("main", p.get_main_gene().name().to_string()),
+            f("hidden", p.get_hidden_gene().name().to_string()),
+            f("unhappy", p.get_unhappy_counter().to_string()),
+            f("sneeze", p.get_sneeze_counter().to_string()),
+            f("eat", p.get_eat_counter().to_string()),
+            f("rollcount", p.roll_counter.to_string()),
+            f("gotbamboo", u8::from(p.got_bamboo).to_string()),
+            f("didbite", u8::from(p.did_bite).to_string()),
+        ]
+    },
+};
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static PANDA: EntityRegistration = EntityRegistration {

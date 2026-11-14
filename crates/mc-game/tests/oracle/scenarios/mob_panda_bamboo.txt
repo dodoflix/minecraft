@@ -1,0 +1,66 @@
+# Panda food: bamboo and cake are picked up from the ground (sitting down to eat, the eating counter and the crumbs it draws), a clicked
+# panda sits and eats a held bamboo and drops what it held, a panda in love is fed bamboo, a baby grows up faster, an aggressive panda
+# fights back when it is hurt and calls the other aggressive pandas, a hit panda stops attacking after it bit or got a bamboo.
+level flat
+preload 6
+difficulty hard
+entity_counter 10400
+level_seed 10401
+time 6000
+gamerule mob_drops false
+spawn_player Steve survival 8.5 -60 6.5 180 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+give Steve mainhand minecraft:bamboo 64
+give Steve offhand minecraft:cake 4
+tick 30
+mobspawn P minecraft:panda 8.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"normal",HiddenGene:"normal"}
+entity_seed P 10402
+mobspawn Q minecraft:panda 40.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"normal",HiddenGene:"normal"}
+entity_seed Q 10403
+mobspawn BB minecraft:panda 20.5 -60 -40.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000,MainGene:"normal",HiddenGene:"normal"}
+entity_seed BB 10404
+tick 2
+note feeding: love first, then the next bamboo is eaten sitting down
+interact Steve P main
+dump mob:P
+tick 2
+interact Steve P main
+dump mob:P
+tick 2
+interact Steve P main
+dump mob:P entities
+watch mob:P
+tick 250
+watch off
+dump entities mobs events
+note a baby ages up with bamboo
+interact Steve BB main
+dump mob:BB
+note items on the ground are picked up and eaten sitting down
+spawn_item I1 minecraft:bamboo 44.5 -60 8.5 0 0 0 2
+spawn_item I2 minecraft:cake 36.5 -60 8.5 0 0 0 1
+watch mob:Q entities
+tick 300
+watch off
+dump entities mobs events
+note an aggressive panda is angry when hit and the others of its kind join in; a bamboo calms it
+mobspawn G1 minecraft:panda -40.5 -60 -40.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"aggressive",HiddenGene:"aggressive"}
+entity_seed G1 10405
+mobspawn G2 minecraft:panda -44.5 -60 -40.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"aggressive",HiddenGene:"aggressive"}
+entity_seed G2 10406
+mobspawn G3 minecraft:panda -42.5 -60 -36.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"normal",HiddenGene:"normal"}
+entity_seed G3 10407
+tp Steve -40.5 -60 -30.5 180 0
+tick 2
+hurt G1 player_attack 1 by=Steve
+dump mobs goals:G1
+watch mob:G1 mob:G2 mob:G3 player:Steve
+tick 100
+watch off
+dump mobs events
+hurt G3 player_attack 1 by=Steve
+watch mob:G1 mob:G2 mob:G3
+tick 60
+watch off
+dump mobs events

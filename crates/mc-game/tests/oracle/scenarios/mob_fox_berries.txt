@@ -1,0 +1,51 @@
+# Fox food: FoxEatBerriesGoal walks to a ripe sweet berry bush or a glowing cave vine and picks it (mouth item plus the berries that pop out),
+# the held food is eaten after six hundred ticks, FoxSearchForItemsGoal picks up dropped items (a stack is split, a held item is spat out when
+# food comes along), and nothing is picked without mob griefing.
+level flat
+preload 6
+difficulty normal
+entity_counter 9700
+level_seed 9701
+time 6000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 0.5 0 0
+block 13 -60 8 minecraft:sweet_berry_bush[age=3]
+block 14 -60 9 minecraft:sweet_berry_bush[age=1]
+fill -42 -58 8 -42 -58 8 minecraft:stone
+block -42 -59 8 minecraft:cave_vines[age=12,berries=true]
+tick 30
+mobspawn FA minecraft:fox 8.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,Type:"red"}
+entity_seed FA 9702
+mobspawn FB minecraft:fox -38.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,Type:"snow"}
+entity_seed FB 9703
+mobspawn FC minecraft:fox 8.5 -60 60.5 0 0 nofinalize {PersistenceRequired:1b,Type:"red"}
+entity_seed FC 9704
+spawn_item I1 minecraft:diamond 14.5 -60 60.5 0 0 0 3
+tick 2
+dump mobs goals:FA
+watch mob:FA mob:FB mob:FC entities
+tick 120
+watch off
+dump mobs events
+note a held diamond is spat out for food; bread is taken and a stack of it is split
+spawn_item I2 minecraft:bread 2.5 -60 60.5 0 0 0 4
+watch mob:FC entities
+tick 120
+watch off
+dump mobs events
+note the food in the mouth is eaten once six hundred ticks have passed since the last meal or pickup
+tick 260
+watch mob:FA mob:FB
+tick 100
+watch off
+dump mobs events
+note without mob griefing the berries stay on the bush
+gamerule mob_griefing false
+block 13 -60 -28 minecraft:sweet_berry_bush[age=2]
+mobspawn FD minecraft:fox 8.5 -60 -28.5 0 0 nofinalize {PersistenceRequired:1b,Type:"red"}
+entity_seed FD 9705
+watch mob:FD
+tick 120
+watch off
+dump mobs events
+dump nbt:FA nbt:FB nbt:FC nbt:FD

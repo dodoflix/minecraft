@@ -1,0 +1,68 @@
+# Fox variants: finalizeSpawn picks snow in the biomes tagged spawns_snow_foxes and red elsewhere, a spawn group shares the variant of its
+# first member and turns later members into kits, the red/snow target goals follow the variant (a snow fox hunts fish, a red fox chickens),
+# the saved type is read back, and the variant component answers entity predicates.
+command_env
+level flat
+preload 6
+difficulty normal
+entity_counter 9800
+level_seed 9801
+time 6000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 0.5 0 0
+biome 16 -64 -16 47 -40 15 minecraft:snowy_taiga
+biome -47 -64 -16 -16 -40 15 minecraft:taiga
+biome -47 -64 24 -16 -40 55 minecraft:desert
+biome 16 -64 24 47 -40 55 minecraft:snowy_plains
+tick 30
+mobspawn P1 minecraft:fox 0.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn S1 minecraft:fox 20.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn T1 minecraft:fox -20.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn D1 minecraft:fox -20.5 -60 28.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn N1 minecraft:fox 20.5 -60 28.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn G1 minecraft:fox 22.5 -60 -8.5 0 0 group=snow {PersistenceRequired:1b,NoAI:1b}
+mobspawn G2 minecraft:fox -22.5 -60 -8.5 0 0 group=snow {PersistenceRequired:1b,NoAI:1b}
+mobspawn G3 minecraft:fox -24.5 -60 -8.5 0 0 group=snow {PersistenceRequired:1b,NoAI:1b}
+mobspawn G4 minecraft:fox -26.5 -60 -8.5 0 0 group=snow {PersistenceRequired:1b,NoAI:1b}
+tick 2
+dump mobs
+dump nbt:P1 nbt:S1 nbt:T1 nbt:D1 nbt:N1 nbt:G1 nbt:G2 nbt:G3 nbt:G4
+note a stored type is read back; an unknown type falls back to red
+mobspawn K1 minecraft:fox 2.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"snow"}
+mobspawn K2 minecraft:fox 4.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"purple"}
+mobspawn K3 minecraft:fox 6.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"snow",Sleeping:1b,Sitting:1b,Crouching:1b}
+mobspawn K4 minecraft:fox 8.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Trusted:[[I;1445453208,-423740383,-1196889821,1142437441],[I;1,2,3,4],[I;5,6,7,8]]}
+tick 2
+dump mobs nbt:K1 nbt:K2 nbt:K3 nbt:K4 attrs:K1
+note the target goals follow the variant: a snow fox hunts fish, a red fox a chicken
+mobspawn CR minecraft:chicken 6.5 -60 22.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn HR minecraft:fox 6.5 -60 12.5 0 0 {PersistenceRequired:1b,Type:"red"}
+entity_seed HR 9810
+mobspawn CS minecraft:chicken 26.5 -60 52.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn HS minecraft:fox 26.5 -60 42.5 0 0 {PersistenceRequired:1b,Type:"snow"}
+entity_seed HS 9811
+tick 2
+dump goals:HR goals:HS
+watch mob:HR mob:HS
+tick 100
+watch off
+dump mobs events
+note the fox/variant component in entity predicates
+tick 1
+cmd execute as @e[type=minecraft:fox,limit=1,sort=nearest,x=2.5,y=-60,z=8.5] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:fox/variant":"snow"}}} run tag @s add hit_snow
+cmd execute as @e[type=minecraft:fox,limit=1,sort=nearest,x=4.5,y=-60,z=8.5] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:fox/variant":"snow"}}} run tag @s add miss_snow
+tick 1
+dump nbt:K1 nbt:K2
+note a snow fox goes for schooling fish and any fox for a baby turtle on land
+fill 36 -62 56 44 -61 62 minecraft:water
+mobspawn CO minecraft:cod 40.5 -61 59.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn FT minecraft:fox 40.5 -60 50.5 0 0 {PersistenceRequired:1b,Type:"snow"}
+entity_seed FT 9812
+mobspawn TU minecraft:turtle 20.5 -60 50.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+mobspawn FU minecraft:fox 20.5 -60 42.5 0 0 {PersistenceRequired:1b,Type:"red"}
+entity_seed FU 9813
+tick 2
+watch mob:FT mob:FU
+tick 100
+watch off
+dump mobs events

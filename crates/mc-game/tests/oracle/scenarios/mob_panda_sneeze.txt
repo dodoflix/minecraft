@@ -1,0 +1,27 @@
+# Panda sneezing: a baby (a weak one far more often) sneezes after a pre-sneeze sound, the sneeze makes grown pandas within ten blocks jump
+# and drops a gift from the panda sneeze loot table.
+level flat
+preload 6
+difficulty normal
+entity_counter 10200
+level_seed 10201
+time 6000
+spawn_player Steve creative 0.5 -60 0.5 0 0
+tick 30
+mobspawn S1 minecraft:panda 20.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000,MainGene:"weak",HiddenGene:"weak"}
+mobspawn S2 minecraft:panda 22.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000,MainGene:"weak",HiddenGene:"weak"}
+mobspawn S3 minecraft:panda 24.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000,MainGene:"weak",HiddenGene:"weak"}
+mobspawn S4 minecraft:panda 26.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000,MainGene:"weak",HiddenGene:"weak"}
+mobspawn A minecraft:panda 23.5 -60 24.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"normal",HiddenGene:"normal"}
+mobspawn A2 minecraft:panda 25.5 -60 24.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Age:-24000,MainGene:"normal",HiddenGene:"normal"}
+entity_seed S1 10210
+entity_seed S2 10211
+entity_seed S3 10212
+entity_seed S4 10213
+entity_seed A 10214
+tick 2
+dump mobs goals:S1
+watch mob:S1 mob:S2 mob:S3 mob:S4 mob:A events
+tick 400
+watch off
+dump mobs entities

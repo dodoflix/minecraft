@@ -1,0 +1,59 @@
+# Fox trust: a kit born of two foxes in love trusts the player and does not run from it, an untrusted fox flees from players, wolves and polar bears, and a
+# trusted fox defends its player against whatever hurt the player (aggro sound, the defending flag, target and bites).
+level flat
+preload 6
+difficulty hard
+entity_counter 10000
+level_seed 10001
+time 6000
+gamerule mob_drops false
+spawn_player Steve survival 60.5 -60 0.5 0 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+tick 30
+mobspawn A minecraft:fox 4.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,Type:"red"}
+entity_seed A 10008
+mobspawn B minecraft:fox 5.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,Type:"red"}
+entity_seed B 10009
+love A Steve
+love B Steve
+tick 200
+dump mobs
+age fox#1 0
+entity_seed fox#1 10002
+tp Steve 0.5 -60 0.5 0 0
+mobspawn U minecraft:fox 12.5 -60 -6.5 0 0 {PersistenceRequired:1b,Type:"red"}
+entity_seed U 10003
+mobspawn Z minecraft:zombie -8.5 -60 -6.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z 10004
+tick 2
+dump mobs goals:fox#1 goals:U nbt:fox#1
+note the trusted fox stays; the untrusted fox runs from the player
+watch mob:fox#1 mob:U
+tick 80
+watch off
+dump mobs events
+note the zombie hurts the player: the trusted fox defends him
+mob_attack Z Steve
+tick 2
+dump mobs
+watch mob:fox#1 mob:Z
+tick 160
+watch off
+dump mobs events
+note an untrusted fox runs from a wild wolf and a polar bear, a tamed wolf does not scare it
+mobspawn U2 minecraft:fox 60.5 -60 40.5 0 0 {PersistenceRequired:1b,Type:"red"}
+entity_seed U2 10005
+mobspawn W1 minecraft:wolf 66.5 -60 40.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn U3 minecraft:fox 60.5 -60 -40.5 0 0 {PersistenceRequired:1b,Type:"red"}
+entity_seed U3 10006
+mobspawn PB minecraft:polar_bear 66.5 -60 -40.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn U4 minecraft:fox -60.5 -60 40.5 0 0 {PersistenceRequired:1b,Type:"red"}
+entity_seed U4 10007
+mobspawn W2 minecraft:wolf -66.5 -60 40.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+tame W2 Steve
+tick 2
+watch mob:U2 mob:U3 mob:U4
+tick 80
+watch off
+dump mobs events

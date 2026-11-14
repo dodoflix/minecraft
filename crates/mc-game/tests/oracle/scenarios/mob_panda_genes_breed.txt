@@ -1,0 +1,91 @@
+# Panda genes: finalizeSpawn rolls the main and the hidden gene from the level random, the personality follows from both (a recessive gene
+# only shows when both match), lazy and weak pandas change their attributes, saved genes are read back (an unknown one is rerolled), the
+# aggressive gene reads as aggressive, breeding needs bamboo within reach (else the unhappy counter runs) and gives the baby genes of its
+# parents with a mutation chance.
+level flat
+preload 6
+difficulty normal
+entity_counter 10100
+level_seed 10101
+time 6000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 0.5 0 0
+tick 30
+level_seed 10110
+mobspawn R1 minecraft:panda 0.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R2 minecraft:panda 2.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R3 minecraft:panda 4.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R4 minecraft:panda 6.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R5 minecraft:panda 8.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R6 minecraft:panda 10.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R7 minecraft:panda 12.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R8 minecraft:panda 14.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R9 minecraft:panda 16.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R10 minecraft:panda 18.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R11 minecraft:panda 20.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R12 minecraft:panda 22.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R13 minecraft:panda 24.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R14 minecraft:panda 26.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R15 minecraft:panda 28.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn R16 minecraft:panda 30.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+tick 2
+dump mobs
+dump nbt:R1 nbt:R2 nbt:R3 nbt:R4 nbt:R5 nbt:R6 nbt:R7 nbt:R8
+note chosen genes, every personality, and an unknown gene
+mobspawn L minecraft:panda 0.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"lazy",HiddenGene:"normal"}
+mobspawn W minecraft:panda 2.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"worried",HiddenGene:"normal"}
+mobspawn Y minecraft:panda 4.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"playful",HiddenGene:"weak"}
+mobspawn G minecraft:panda 6.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"aggressive",HiddenGene:"brown"}
+mobspawn B1 minecraft:panda 8.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"brown",HiddenGene:"brown"}
+mobspawn B2 minecraft:panda 10.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"brown",HiddenGene:"normal"}
+mobspawn K minecraft:panda 12.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"weak",HiddenGene:"weak"}
+mobspawn K2 minecraft:panda 14.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"weak",HiddenGene:"lazy"}
+mobspawn N minecraft:panda 16.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"bogus"}
+tick 2
+dump mobs
+dump nbt:L nbt:W nbt:Y nbt:G nbt:B1 nbt:B2 nbt:K nbt:K2 nbt:N
+dump attrs:L attrs:K attrs:G attrs:N
+note the breeding call: a baby takes genes of both parents, with a mutation chance
+mobspawn M1 minecraft:panda 40.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"lazy",HiddenGene:"brown"}
+mobspawn M2 minecraft:panda 42.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"weak",HiddenGene:"weak"}
+entity_seed M1 10120
+love M1 Steve
+love M2 Steve
+breed M1 M2
+dump mobs
+dump nbt:panda#1
+mobspawn M3 minecraft:panda 44.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"aggressive",HiddenGene:"normal"}
+mobspawn M4 minecraft:panda 46.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"playful",HiddenGene:"playful"}
+entity_seed M3 10121
+love M3 Steve
+love M4 Steve
+breed M3 M4
+dump mobs
+dump nbt:panda#2
+mobspawn M5 minecraft:panda 48.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"brown",HiddenGene:"brown"}
+mobspawn M6 minecraft:panda 50.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"worried",HiddenGene:"brown"}
+entity_seed M5 10122
+love M5 Steve
+love M6 Steve
+breed M5 M6
+dump mobs
+dump nbt:panda#3
+note breeding without bamboo: the unhappy counter runs, with bamboo the pair breeds
+mobspawn A minecraft:panda 20.5 -60 -20.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"lazy",HiddenGene:"brown"}
+mobspawn B minecraft:panda 23.5 -60 -20.5 0 0 nofinalize {PersistenceRequired:1b,MainGene:"weak",HiddenGene:"weak"}
+entity_seed A 10130
+entity_seed B 10131
+tick 3
+love A Steve
+love B Steve
+watch mob:A mob:B
+tick 120
+watch off
+block 22 -60 -20 minecraft:bamboo
+love A Steve
+love B Steve
+watch mob:A mob:B
+tick 160
+watch off
+dump mobs events
+dump nbt:panda#4 nbt:A

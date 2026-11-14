@@ -1,0 +1,71 @@
+# Fox breeding: berries make foxes love-struck, FoxBreedGoal clears their states and spawns a kit at the mother that trusts the players that
+# caused the love (both of them when they differ), takes the variant of either parent, drops experience and sets the breeding cooldowns; the
+# plain breeding call makes a kit that trusts nobody.
+level flat
+preload 6
+difficulty normal
+entity_counter 9900
+level_seed 9901
+time 6000
+spawn_player Steve creative 0.5 -60 0.5 0 0
+spawn_player Alex creative 40.5 -60 0.5 0 0
+give Steve mainhand minecraft:sweet_berries 16
+give Alex mainhand minecraft:glow_berries 16
+tick 30
+mobspawn A minecraft:fox 4.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,Type:"snow"}
+entity_seed A 9902
+mobspawn B minecraft:fox 5.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,Type:"red"}
+entity_seed B 9903
+tick 2
+note feeding berries: only foxes that are fed turn love-struck, a baby is not fed
+tp Steve 4.5 -60 6.5 0 0
+interact Steve A main
+interact Steve B main
+dump mobs
+watch mob:A mob:B
+tick 200
+watch off
+dump mobs events
+dump nbt:fox#1 nbt:A
+note two players cause the love: the kit trusts both
+mobspawn C minecraft:fox 44.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,Type:"red"}
+entity_seed C 9904
+mobspawn D minecraft:fox 45.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,Type:"snow"}
+entity_seed D 9905
+tick 2
+love C Steve
+love D Alex
+dump mobs
+watch mob:C mob:D
+tick 200
+watch off
+dump mobs events
+dump mobs
+dump nbt:fox#2
+note the breed verb (Animal.spawnChildFromBreeding, no berries goal): variants of the parents
+mobspawn E1 minecraft:fox 4.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"snow"}
+mobspawn E2 minecraft:fox 5.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+entity_seed E1 9906
+love E1 Steve
+love E2
+breed E1 E2
+dump mobs
+dump nbt:fox#3
+mobspawn F1 minecraft:fox 14.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"snow"}
+mobspawn F2 minecraft:fox 15.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+entity_seed F1 9907
+love F1
+love F2 Alex
+breed F1 F2
+dump mobs
+dump nbt:fox#4
+mobspawn G1 minecraft:fox 24.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+mobspawn G2 minecraft:fox 25.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"snow"}
+entity_seed G1 9908
+love G1 Steve
+love G2 Steve
+breed G1 G2
+dump mobs
+dump nbt:fox#5
+tick 100
+dump mobs events
