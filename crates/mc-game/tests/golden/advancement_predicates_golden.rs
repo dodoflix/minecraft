@@ -503,7 +503,9 @@ impl World {
                     .last_known_client_movement = Vec3::new(num(&a[2]), num(&a[3]), num(&a[4]));
             }
             "ominous_banner" => {
-                let banner = parse_stack("minecraft:white_banner", 1);
+                let banner = mc_game::world::entity::raid::raid::Raid::get_ominous_banner_instance(
+                    &self.level.registries,
+                );
                 self.entity_mut(&a[1])
                     .living_mut()
                     .expect("living")
