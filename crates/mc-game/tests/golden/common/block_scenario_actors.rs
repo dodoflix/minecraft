@@ -533,6 +533,7 @@ impl Scenario {
                     tag.merge(&extra);
                     e.load(level, &tag)
                         .unwrap_or_else(|er| panic!("entity load: {er}"));
+                    e.read_level_dependent_data(level);
                     e.resolve_registry_refs(&level.registries);
                     // vanilla's `readAdditionalSaveData` rejoins the raid of a raider right here
                     if e.raider().is_some() {

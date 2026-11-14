@@ -219,6 +219,9 @@ fn add_passenger_link(out: &mut LoadedEntities, vehicle_index: usize, passenger_
         vehicle.passengers.push(passenger_id);
         vehicle.passengers.len() == 1
     };
+    if let Some(m) = out[vehicle_index].mob_mut() {
+        m.passengers_loaded = true;
+    }
     if first {
         let (is_mob, controls) = out
             .iter()

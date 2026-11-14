@@ -31,3 +31,9 @@ fn wither_half_health_armour_and_block_breaking() {
 fn wither_boss_bar_events() {
     check("mob_wither_bossbar");
 }
+
+/// The boss bar name carries the team formatting of the moment the wither is named (load, `/data merge`, name tag).
+#[test]
+fn wither_boss_bar_name_team_formatting() {
+    check("mob_wither_bossbar_team");
+}

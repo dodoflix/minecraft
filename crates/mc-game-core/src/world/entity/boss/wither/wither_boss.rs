@@ -38,7 +38,7 @@ use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
-use mc_data::{Attribute, EntityType, Item, MobEffect, SoundEvent};
+use mc_data::{EntityType, Item, MobEffect, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_text::Component;
 use mc_world::level_storage::Difficulty;
@@ -184,11 +184,6 @@ impl WitherBoss {
         }
     }
 
-    /// `getScale()`.
-    fn scale(&self) -> f32 {
-        self.mob.living.get_attribute_value(Attribute::SCALE) as f32
-    }
-
     /// `getHeadX(index)`.
     fn head_x(&self, index: usize) -> f64 {
         if index == 0 {
@@ -197,13 +192,13 @@ impl WitherBoss {
         let head_angle =
             (self.mob.living.y_body_rot + (180 * (index as i32 - 1)) as f32) * mth::DEG_TO_RAD;
         let cos = mth::cos(f64::from(head_angle));
-        self.base().x() + f64::from(cos) * 1.3 * f64::from(self.scale())
+        self.base().x() + f64::from(cos) * 1.3 * f64::from(self.get_scale())
     }
 
     /// `getHeadY(index)`.
     fn head_y(&self, index: usize) -> f64 {
         let height: f32 = if index == 0 { 3.0 } else { 2.2 };
-        self.base().y() + f64::from(height * self.scale())
+        self.base().y() + f64::from(height * self.get_scale())
     }
 
     /// `getHeadZ(index)`.
@@ -214,7 +209,7 @@ impl WitherBoss {
         let head_angle =
             (self.mob.living.y_body_rot + (180 * (index as i32 - 1)) as f32) * mth::DEG_TO_RAD;
         let sin = mth::sin(f64::from(head_angle));
-        self.base().z() + f64::from(sin) * 1.3 * f64::from(self.scale())
+        self.base().z() + f64::from(sin) * 1.3 * f64::from(self.get_scale())
     }
 
     pub fn get_head_y_rots(&self) -> [f32; 2] {
@@ -361,10 +356,9 @@ impl Entity for WitherBoss {
         }
     }
 
-    fn set_custom_name(&mut self, name: Option<Component>) {
+    fn set_custom_name(&mut self, level: Option<&ServerLevel>, name: Option<Component>) {
         self.base_mut().set_custom_name(name);
-        // Not implemented: the team colour of the boss bar name (the level is not at hand here)
-        let name = self.display_name(None);
+        let name = self.display_name(level);
         self.boss_event.set_name(name);
     }
 

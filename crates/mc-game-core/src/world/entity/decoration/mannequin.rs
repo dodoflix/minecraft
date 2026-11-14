@@ -158,8 +158,7 @@ impl Entity for Mannequin {
     }
     /// `getDefaultDimensions(pose)` (`Avatar.POSES`) scaled.
     fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
-        avatar_dimensions(pose)
-            .scale(self.living.get_attribute_value(mc_data::Attribute::SCALE) as f32)
+        avatar_dimensions(pose).scale(self.get_scale())
     }
     fn is_immobile(&self) -> bool {
         self.get_immovable() || self.living.is_dead_or_dying()

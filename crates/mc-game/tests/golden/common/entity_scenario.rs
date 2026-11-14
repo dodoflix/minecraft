@@ -805,6 +805,7 @@ impl Harness {
                     tag.merge(&extra);
                     e.load(level, &tag)
                         .unwrap_or_else(|err| panic!("scenario {label}:{no}: load: {err}"));
+                    e.read_level_dependent_data(level);
                 });
             }
             // ride REF VEHICLE: `startRiding(vehicle, true, true)`

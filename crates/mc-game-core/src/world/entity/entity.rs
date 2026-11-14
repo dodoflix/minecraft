@@ -4433,6 +4433,17 @@ pub trait Entity: Any {
     fn after_ride_tick(&mut self, _level: &ServerLevel) {}
     /// `LivingEntity.setRecordPlayingNearby(jukebox, isPlaying)` (`Parrot` dances to jukebox music).
     fn set_record_playing_nearby(&mut self, _jukebox: BlockPos, _is_playing: bool) {}
+    /// `LivingEntity.sanitizeScale(scale)`: the `scale` attribute as the entity accepts it (`HappyGhast` caps it at 1,
+    /// `Shulker` at 3, `EnderDragon` is always 1).
+    fn sanitize_scale(&self, scale: f32) -> f32 {
+        scale
+    }
+    /// `LivingEntity.getScale()`: the sanitized `scale` attribute; 1 for an entity without attributes.
+    fn get_scale(&self) -> f32 {
+        self.living().map_or(1.0, |l| {
+            self.sanitize_scale(l.get_attribute_value(mc_data::Attribute::SCALE) as f32)
+        })
+    }
     /// `AgeableMob.getAgeScale()` (`Turtle`: 0.3 for babies).
     fn get_age_scale(&self) -> f32 {
         if self.is_baby() { 0.5 } else { 1.0 }
@@ -4652,8 +4663,9 @@ pub trait Entity: Any {
     fn get_celebrate_sound(&self) -> Option<mc_data::SoundEvent> {
         None
     }
-    /// `Entity.setCustomName(name)` (`Vindicator` turns Johnny on for the name "Johnny").
-    fn set_custom_name(&mut self, name: Option<Component>) {
+    /// `Entity.setCustomName(name)` (`Vindicator` turns Johnny on for the name "Johnny", `WitherBoss` renames its boss bar
+    /// after the display name, whose team formatting needs `level`; `None` for an entity that is not in a level yet).
+    fn set_custom_name(&mut self, _level: Option<&ServerLevel>, name: Option<Component>) {
         self.base_mut().set_custom_name(name);
     }
     /// The part of `readAdditionalSaveData` that needs the level mutably (a thrown trident's loyalty comes from its enchantments),
@@ -5236,7 +5248,7 @@ pub fn load<E: Entity + ?Sized>(
     let name = input
         .get("CustomName")
         .and_then(|t| Component::from_nbt(t).ok());
-    entity.set_custom_name(name);
+    entity.set_custom_name(level, name);
     {
         let b = entity.base_mut();
         b.set_custom_name_visible(input.get_boolean_or("CustomNameVisible", false));

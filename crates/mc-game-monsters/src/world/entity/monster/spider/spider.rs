@@ -7,7 +7,7 @@ use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::enums::EntitySpawnReason;
-use mc_data::{Attribute, EntityType, MobEffect, SoundEvent};
+use mc_data::{EntityType, MobEffect, SoundEvent};
 use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, LeapAtTargetGoal};
 use mc_game_core::define_accessor;
 use mc_game_core::impl_spawn_group_data;
@@ -257,7 +257,7 @@ impl Entity for Spider {
 
     fn get_vehicle_attachment_point(&self, vehicle: &dyn Entity) -> Vec3 {
         if vehicle.base().get_bb_width() <= self.base().get_bb_width() {
-            let scale = self.mob.living.get_attribute_value(Attribute::SCALE) as f32;
+            let scale = self.get_scale();
             let y = if self.is_cave_spider() {
                 0.21875
             } else {

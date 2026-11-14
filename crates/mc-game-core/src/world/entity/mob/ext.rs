@@ -440,18 +440,12 @@ pub fn living_dimensions(
     if pose == mc_data::enums::Pose::Sleeping {
         return crate::world::entity::EntityDimensions::fixed(0.2, 0.2).with_eye_height(0.2);
     }
-    let scale = e.living().map_or(1.0, |l| {
-        l.get_attribute_value(mc_data::Attribute::SCALE) as f32
-    });
-    default_dimensions.scale(scale)
+    default_dimensions.scale(e.get_scale())
 }
 
 /// `LivingEntity.getScale()` (`SCALE` attribute) times `getAgeScale()`.
 pub fn get_scale_times_age_scale(e: &dyn Entity) -> f32 {
-    let scale = e.living().map_or(1.0, |l| {
-        l.get_attribute_value(mc_data::Attribute::SCALE) as f32
-    });
-    scale * e.get_age_scale()
+    e.get_scale() * e.get_age_scale()
 }
 
 /// `Entity.distanceTo(entity)` (float math).

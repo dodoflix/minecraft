@@ -289,7 +289,7 @@ impl Entity for Vindicator {
         self.is_johnny = input.get_boolean_or(TAG_JOHNNY, false);
     }
 
-    fn set_custom_name(&mut self, name: Option<Component>) {
+    fn set_custom_name(&mut self, _level: Option<&ServerLevel>, name: Option<Component>) {
         if !self.is_johnny && name.as_ref().is_some_and(|n| n.get_string() == "Johnny") {
             self.is_johnny = true;
         }

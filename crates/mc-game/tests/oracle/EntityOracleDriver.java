@@ -227,7 +227,7 @@ import net.minecraft.util.RandomSource;
  *                             events -> the `EV ...` lines of level events / sounds / block events broadcast since the last dump (see
  *                             VanillaLevel.RecordingPlayerList; also valid in `watch`, printed after each tick)
 
- * dump/watch kinds for mobs: mob:REF (rich E line), mobs (all live Mobs, rich), attrs:REF, goals:REF (`G` lines, every registered goal), brain:REF
+ * dump/watch kinds for mobs: mob:REF (rich E line), mobs (all live Mobs, rich), attrs:REF, size:REF (`SIZE REF scale= size=width,height,eye bb=`), goals:REF (`G` lines, every registered goal), brain:REF
  *   (`BRAIN`/`BM`/`BR` lines), path:REF (`PATH`/`PN`), nbt:REF (`N REF {canonical sorted SNBT, UUID removed}`), offers:REF, trader:REF
  *   (`TRADER REF xp=villagerXp level=villagerLevel|- trading=REF|-`), difficulty:X,Y,Z, light:X,Y,Z, spawn_state (`SPAWNSTATE`), raids,
  *   trader_data (`TRADERDATA delay=.. chance=..`: the trader spawner's saved data).
@@ -2130,6 +2130,12 @@ public final class EntityOracleDriver {
                }
             }
             case "attrs" -> out.println("ATTR " + arg + " " + attributes((LivingEntity)ref(arg), true).replace(';', ' '));
+            case "size" -> {
+               LivingEntity living = (LivingEntity)ref(arg);
+               var bb = living.getBoundingBox();
+               out.println("SIZE " + arg + " scale=" + f(living.getScale()) + " size=" + f(living.getBbWidth()) + "," + f(living.getBbHeight()) + "," + f(living.getEyeHeight())
+                  + " bb=" + vec(bb.minX, bb.minY, bb.minZ) + "," + vec(bb.maxX, bb.maxY, bb.maxZ));
+            }
             case "goals" -> goalsDump(arg, (Mob)ref(arg));
             case "brain" -> brainDump(arg, (LivingEntity)ref(arg));
             case "path" -> {

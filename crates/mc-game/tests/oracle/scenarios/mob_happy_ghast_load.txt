@@ -1,0 +1,54 @@
+# A happy ghast whose saved data is merged or loaded while it lives: crossing age zero swaps its goals, controls and brain (an adult that
+# becomes a ghastling stops the goals it runs, a ghastling that grows up registers them again and forgets its memories), a still timeout set
+# by the data sends the exact position to the trackers, and a mob passenger that is loaded together with the ghast lowers the goggles and
+# resets the timeout like a rider that boards.
+command_env
+level flat
+difficulty normal
+preload 4
+entity_counter 2200
+level_seed 2201
+spawn_player Steve survival 0.5 -60 0.5 0 0
+tick 2
+mobspawn G minecraft:happy_ghast 4.5 -58 4.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed G 81
+tick 5
+dump packets:Steve:none
+dump mob:G goals:G brain:G size:G edata:G nbt:G
+note an adult merged into a ghastling stops the goals it runs and takes the ghastling controls
+nbt G {Age:-24000}
+dump mob:G goals:G brain:G size:G edata:G
+tick 3
+dump mob:G goals:G size:G
+note a ghastling merged into an adult registers the adult goals and forgets its memories
+nbt G {Age:0}
+dump mob:G goals:G brain:G size:G edata:G
+tick 3
+dump mob:G goals:G brain:G
+note a still timeout in the merged data sends the exact position to the trackers
+dump packets:Steve:none
+nbt G {still_timeout:30}
+dump mob:G packets:Steve:entity_position_sync
+tick 1
+dump mob:G packets:Steve:entity_position_sync
+note the same timeout again changes nothing
+nbt G {still_timeout:30}
+dump mob:G packets:Steve:entity_position_sync
+note merging the age across zero together with the timeout: the ghastling setup resets it first, so the position goes out again
+nbt G {Age:-24000,still_timeout:30}
+dump mob:G packets:Steve:entity_position_sync goals:G
+note a ghastling takes the timeout of its data
+nbt G {still_timeout:0}
+dump mob:G
+note a ghastling summoned with a timeout keeps it
+cmd summon minecraft:happy_ghast 12.5 -58 4.5 {Age:-24000,still_timeout:20,PersistenceRequired:1b}
+dump mob:happy_ghast#1 nbt:happy_ghast#1 packets:Steve:none
+note a mob passenger loaded with the ghast: the goggles go down and the timeout is reset
+cmd summon minecraft:happy_ghast 6.5 -58 8.5 {NoAI:1b,PersistenceRequired:1b,still_timeout:30,equipment:{body:{id:"minecraft:white_harness",count:1}},Passengers:[{id:"minecraft:pig",NoAI:1b,PersistenceRequired:1b},{id:"minecraft:cow",NoAI:1b,PersistenceRequired:1b}]}
+dump mob:happy_ghast#2 events nbt:happy_ghast#2
+note a player standing on top keeps the timeout, capped at 10
+tp Steve 30.5 -54 30.5 0 0
+cmd summon minecraft:happy_ghast 30.5 -58 30.5 {NoAI:1b,PersistenceRequired:1b,still_timeout:30,equipment:{body:{id:"minecraft:white_harness",count:1}},Passengers:[{id:"minecraft:pig",NoAI:1b,PersistenceRequired:1b}]}
+dump mob:happy_ghast#3 events nbt:happy_ghast#3
+tick 2
+dump mob:happy_ghast#2 mob:happy_ghast#3

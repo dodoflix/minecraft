@@ -58,6 +58,8 @@ define_accessor!(pub DATA_COLOR_ID: Byte = Shulker);
 
 static COVERED_ARMOR_MODIFIER_ID: LazyLock<Identifier> =
     LazyLock::new(|| Identifier::with_default_namespace("covered").expect("valid id"));
+/// `MAX_SCALE`.
+const MAX_SCALE: f32 = 3.0;
 const NO_COLOR: i8 = 16;
 const PEEK_PER_TICK: f32 = 0.05;
 const DEFAULT_ATTACH_FACE: Direction = Direction::Down;
@@ -168,11 +170,6 @@ impl Shulker {
     /// `isClosed()`.
     fn is_closed(&self) -> bool {
         self.get_raw_peek_amount() == 0
-    }
-
-    /// `getScale()` (sanitized to `MAX_SCALE`).
-    fn get_scale(&self) -> f32 {
-        (self.mob.living.get_attribute_value(Attribute::SCALE) as f32).min(3.0)
     }
 
     /// `getColor()`.
@@ -496,6 +493,10 @@ fn loaded_and_entity_can_stand_on_face(
 
 impl Entity for Shulker {
     mc_game_core::mob_entity_accessors!(mob);
+
+    fn sanitize_scale(&self, scale: f32) -> f32 {
+        scale.min(MAX_SCALE)
+    }
 
     fn get_movement_emission(&self) -> MovementEmission {
         MovementEmission::None

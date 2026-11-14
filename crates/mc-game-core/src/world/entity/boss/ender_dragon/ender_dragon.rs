@@ -659,6 +659,10 @@ impl EnderDragon {
 impl Entity for EnderDragon {
     crate::mob_entity_accessors!(mob);
 
+    fn sanitize_scale(&self, _scale: f32) -> f32 {
+        1.0
+    }
+
     fn allocate_sub_entity_ids(&mut self, next_id: &mut dyn FnMut() -> EntityId) {
         self.part_ids = self
             .pending_parts

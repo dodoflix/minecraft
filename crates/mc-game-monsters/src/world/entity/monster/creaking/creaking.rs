@@ -10,7 +10,7 @@ use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
 use mc_data::enums::CreakingHeartState;
-use mc_data::{Attribute, EntityType, GameEvent, ParticleType, SoundEvent};
+use mc_data::{EntityType, GameEvent, ParticleType, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
@@ -292,7 +292,7 @@ impl Creaking {
                 has_potential_target = true;
                 let eye_y = self.base().get_eye_y();
                 let y = self.base().y();
-                let scale = self.mob.living.get_attribute_value(Attribute::SCALE);
+                let scale = f64::from(self.get_scale());
                 if (!active || mob::ext::player_not_wearing_disguise_item(player))
                     && mob::ext::is_looking_at_me(
                         level,

@@ -22,3 +22,13 @@ fn harnessed_happy_ghast_carries_four_riders_and_stays_still_under_a_player() {
 fn happy_ghast_leash_and_quad_leash() {
     check("mob_happy_ghast_leash");
 }
+
+#[test]
+fn happy_ghast_data_merge_crossing_age_zero_and_loaded_passengers() {
+    check("mob_happy_ghast_load");
+}
+
+#[test]
+fn scale_attribute_is_capped_by_happy_ghast_and_shulker_and_ignored_by_dragon() {
+    check("mob_scale_sanitize");
+}

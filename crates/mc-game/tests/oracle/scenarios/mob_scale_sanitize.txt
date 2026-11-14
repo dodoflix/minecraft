@@ -1,0 +1,35 @@
+# The scale attribute as an entity accepts it: a happy ghast never grows past 1, a shulker past 3, an ender dragon stays at 1 whatever the attribute
+# says; below the cap the attribute is the scale. The size, eye height and bounding box follow getScale().
+level flat
+difficulty normal
+preload 6
+entity_counter 2100
+level_seed 2101
+spawn_player Steve survival 60.5 -60 60.5 0 0
+mobspawn G minecraft:happy_ghast 4.5 -58 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn B minecraft:happy_ghast 4.5 -58 12.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+mobspawn D minecraft:ender_dragon 20.5 -50 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn S minecraft:shulker 8.5 -60 8.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 2
+note the default scale
+dump size:G size:B size:D size:S
+note a scale of 0.5 is below every cap
+attribute G minecraft:scale 0.5
+attribute B minecraft:scale 0.5
+attribute D minecraft:scale 0.5
+attribute S minecraft:scale 0.5
+tick 2
+dump size:G size:B size:D size:S
+note a scale of 2 is capped by the ghast and ignored by the dragon, the shulker keeps it
+attribute G minecraft:scale 2
+attribute B minecraft:scale 2
+attribute D minecraft:scale 2
+attribute S minecraft:scale 2
+tick 2
+dump size:G size:B size:D size:S
+note a scale of 5 is the cap of the shulker too
+attribute G minecraft:scale 5
+attribute D minecraft:scale 5
+attribute S minecraft:scale 5
+tick 2
+dump size:G size:D size:S attrs:G

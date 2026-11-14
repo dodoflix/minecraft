@@ -1,0 +1,20 @@
+# the default scale
+SIZE G scale=1.0 size=4.0,4.0,2.6 bb=2.5,-58.0,2.5,6.5,-54.0,6.5
+SIZE B scale=1.0 size=0.95,0.95,0.46875 bb=4.0250000059604645,-58.0,12.025000005960464,4.9749999940395355,-57.05000001192093,12.974999994039536
+SIZE D scale=1.0 size=16.0,8.0,6.8 bb=12.5,-50.0,12.5,28.5,-42.0,28.5
+SIZE S scale=1.0 size=1.0,1.0,0.5 bb=8.0,-60.0,8.0,9.0,-59.0,9.0
+# a scale of 0.5 is below every cap
+SIZE G scale=0.5 size=2.0,2.0,1.3 bb=3.5,-58.0,3.5,5.5,-56.0,5.5
+SIZE B scale=0.5 size=0.475,0.475,0.234375 bb=4.262500002980232,-58.0,12.262500002980232,4.737499997019768,-57.525000005960464,12.737499997019768
+SIZE D scale=1.0 size=16.0,8.0,6.8 bb=12.5,-50.0,12.5,28.5,-42.0,28.5
+SIZE S scale=0.5 size=0.5,0.5,0.25 bb=8.25,-60.0,8.25,8.75,-59.5,8.75
+# a scale of 2 is capped by the ghast and ignored by the dragon, the shulker keeps it
+SIZE G scale=1.0 size=4.0,4.0,2.6 bb=2.5,-59.0,2.5,6.5,-55.0,6.5
+SIZE B scale=1.0 size=0.95,0.95,0.46875 bb=4.0250000059604645,-58.23749999701977,12.025000005960464,4.9749999940395355,-57.2875000089407,12.974999994039536
+SIZE D scale=1.0 size=16.0,8.0,6.8 bb=12.5,-50.0,12.5,28.5,-42.0,28.5
+SIZE S scale=2.0 size=2.0,2.0,1.0 bb=7.5,-60.0,7.5,9.5,-58.0,9.5
+# a scale of 5 is the cap of the shulker too
+SIZE G scale=1.0 size=4.0,4.0,2.6 bb=2.5,-59.0,2.5,6.5,-55.0,6.5
+SIZE D scale=1.0 size=16.0,8.0,6.8 bb=12.5,-50.0,12.5,28.5,-42.0,28.5
+SIZE S scale=3.0 size=3.0,3.0,1.5 bb=7.0,-60.0,7.0,10.0,-57.0,10.0
+ATTR G minecraft:air_drag_modifier:1.0 minecraft:armor:0.0 minecraft:armor_toughness:0.0 minecraft:attack_knockback:0.0 minecraft:below_name_distance:10.0 minecraft:bounciness:0.0 minecraft:burning_time:1.0 minecraft:camera_distance:8.0 minecraft:entity_interaction_range:3.0 minecraft:explosion_knockback_resistance:0.0 minecraft:fall_damage_multiplier:1.0 minecraft:flying_speed:0.05 minecraft:follow_range:16.0 minecraft:friction_modifier:1.0 minecraft:gravity:0.08 minecraft:jump_strength:0.41999998688697815 minecraft:knockback_resistance:0.0 minecraft:max_absorption:0.0 minecraft:max_health:20.0 minecraft:movement_efficiency:0.0 minecraft:movement_speed:0.05 minecraft:name_tag_distance:64.0 minecraft:oxygen_bonus:0.0 minecraft:safe_fall_distance:3.0 minecraft:scale:5.0 minecraft:step_height:0.6 minecraft:tempt_range:16.0 minecraft:water_movement_efficiency:0.0 minecraft:waypoint_transmit_range:0.0

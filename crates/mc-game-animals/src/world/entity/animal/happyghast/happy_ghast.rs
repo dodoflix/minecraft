@@ -1,10 +1,5 @@
 //! `net.minecraft.world.entity.animal.happyghast.HappyGhast`: a ghastling that floats on a brain and grows into a harnessed
 //! flying mount for up to four riders, which stays still while a player stands on it and holds leashes at four points.
-//!
-//! Not implemented: the `LivingEntity.sanitizeScale` cap of a `scale` attribute above 1; a `/data merge` that changes `Age`
-//! across zero (the ghast keeps its goals and controls, and a baby set up on load does not stop running goals or send the
-//! exact position of a still ghast to its trackers); the harness sound and still timeout reset of a mob passenger that is
-//! loaded together with the ghast.
 
 use super::happy_ghast_ai;
 use linkme::distributed_slice;
@@ -43,6 +38,7 @@ use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, leashabl
 use mc_game_core::world::entity::monster::ghast_movement::{
     GhastMoveControl, RandomFloatAroundGoal, face_movement_direction,
 };
+use mc_game_core::world::entity::movement;
 use mc_game_core::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
@@ -55,6 +51,8 @@ use std::sync::Arc;
 define_accessor!(pub IS_LEASH_HOLDER: Boolean = HappyGhast);
 define_accessor!(pub STAYS_STILL: Boolean = HappyGhast);
 
+/// `MAX_SCALE`.
+const MAX_SCALE: f32 = 1.0;
 /// `BABY_SCALE`.
 const BABY_SCALE: f32 = 0.2375;
 /// `SMALL_RESTRICTION_RADIUS`.
@@ -102,6 +100,15 @@ pub struct HappyGhast {
     server_still_timeout: i32,
     /// `getFirstPassenger() instanceof Player` (kept by `add_passenger` / `on_passenger_removed`).
     first_passenger_is_player: bool,
+    /// What `readAdditionalSaveData` leaves for [`Entity::read_level_dependent_data`] when it ran with a level.
+    pending_load: Option<PendingLoad>,
+}
+
+/// The level-dependent part of `readAdditionalSaveData`: `setAge` crossing zero runs `ageBoundaryReached()` before
+/// `still_timeout` is set.
+struct PendingLoad {
+    age_boundary_crossed: bool,
+    still_timeout: i32,
 }
 
 /// `this::isOnStillTimeout` as the `BooleanSupplier` of the move control.
@@ -123,6 +130,7 @@ impl HappyGhast {
             leash_holder_time: 0,
             server_still_timeout: 0,
             first_passenger_is_player: false,
+            pending_load: None,
         };
         // `LivingEntity.<init>`: `this.brain = this.makeBrain(Brain.Packed.EMPTY)`
         let brain = ghast.make_brain(&BrainPacked::EMPTY);
@@ -233,6 +241,23 @@ impl HappyGhast {
         // `syncStayStillFlag()`
         let stays_still = timeout > 0;
         self.base_mut().entity_data.set(STAYS_STILL, stays_still);
+    }
+
+    /// The level-dependent part of `addPassenger(passenger)`; `first`: the ghast was no vehicle before.
+    fn passenger_added(&mut self, level: &mut ServerLevel, first: bool) {
+        if first {
+            self.play_sound(
+                level,
+                SoundEvent::ENTITY_HAPPY_GHAST_HARNESS_GOGGLES_DOWN,
+                1.0,
+                1.0,
+            );
+        }
+        if !self.scan_player_above_ghast(level) {
+            self.set_server_still_timeout(Some(level), 0);
+        } else if self.server_still_timeout > MAX_STILL_TIMEOUT {
+            self.set_server_still_timeout(Some(level), MAX_STILL_TIMEOUT);
+        }
     }
 
     /// `staysStill()`.
@@ -477,6 +502,10 @@ impl PathNavigation for BabyFlyingPathNavigation {
 impl Entity for HappyGhast {
     mc_game_core::mob_entity_accessors!(mob);
 
+    fn sanitize_scale(&self, scale: f32) -> f32 {
+        scale.min(MAX_SCALE)
+    }
+
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:happy_ghast")
     }
@@ -674,19 +703,8 @@ impl Entity for HappyGhast {
 
     fn on_passenger_added(&mut self, level: &mut ServerLevel) {
         // the harness goggles come down for the first rider (`!isVehicle()` before the passenger joins)
-        if self.base().passengers.len() == 1 {
-            self.play_sound(
-                level,
-                SoundEvent::ENTITY_HAPPY_GHAST_HARNESS_GOGGLES_DOWN,
-                1.0,
-                1.0,
-            );
-        }
-        if !self.scan_player_above_ghast(level) {
-            self.set_server_still_timeout(Some(level), 0);
-        } else if self.server_still_timeout > MAX_STILL_TIMEOUT {
-            self.set_server_still_timeout(Some(level), MAX_STILL_TIMEOUT);
-        }
+        let first = self.base().passengers.len() == 1;
+        self.passenger_added(level, first);
     }
 
     fn on_passenger_removed(&mut self, level: &mut ServerLevel, _passenger: EntityId) {
@@ -875,11 +893,36 @@ impl Entity for HappyGhast {
     fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
         let was_baby = self.is_baby();
         mob::nbt::read_additional_save_data(self, level, input);
+        let age_boundary_crossed = was_baby != self.is_baby();
+        let still_timeout = input.get_int_or("still_timeout", 0);
+        if level.is_some() {
+            // the goals, brain and trackers need the level mutably
+            self.pending_load = Some(PendingLoad {
+                age_boundary_crossed,
+                still_timeout,
+            });
+            return;
+        }
         // `setAge` crossing into the baby range runs `ageBoundaryReached()`
-        if !was_baby && self.is_baby() {
+        if age_boundary_crossed && self.is_baby() {
             self.baby_ghast_setup(None);
         }
-        self.set_server_still_timeout(None, input.get_int_or("still_timeout", 0));
+        self.set_server_still_timeout(None, still_timeout);
+    }
+
+    fn read_level_dependent_data(&mut self, level: &mut ServerLevel) {
+        if let Some(pending) = self.pending_load.take() {
+            if pending.age_boundary_crossed {
+                // `refreshDimensions()` of `setAge` already moved the entity out of the blocks its new size overlaps
+                movement::apply_pending_fudge(self, level);
+                self.age_boundary_reached(level);
+            }
+            self.set_server_still_timeout(Some(&mut *level), pending.still_timeout);
+        }
+        // `addPassenger` of the passengers `loadPassengersRecursive` attached
+        if std::mem::take(&mut self.mob.passengers_loaded) {
+            self.passenger_added(level, true);
+        }
     }
 }
 

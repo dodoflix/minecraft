@@ -206,10 +206,10 @@ pub fn command<H: MobHost>(h: &mut H, a: &[String]) -> bool {
     true
 }
 
-/// The mob dump kinds `goals:REF brain:REF path:REF attrs:REF nbt:REF`; `false` for any other kind.
+/// The mob dump kinds `goals:REF brain:REF path:REF attrs:REF size:REF nbt:REF`; `false` for any other kind.
 pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
     let Some(name) = arg else { return false };
-    if !matches!(kind, "goals" | "brain" | "path" | "attrs" | "nbt") {
+    if !matches!(kind, "goals" | "brain" | "path" | "attrs" | "size" | "nbt") {
         return false;
     }
     let id = h.action_ref(name);
@@ -262,6 +262,27 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
                         Ok(vec![format!("ATTR {name} {value}")])
                     }
                 },
+                // SIZE REF scale=getScale() size=width,height,eye bb=min,max corners
+                "size" => {
+                    use mc_core::math::java::{
+                        java_double_to_string as d, java_float_to_string as f,
+                    };
+                    let b = e.base();
+                    let bb = b.bounding_box();
+                    Ok(vec![format!(
+                        "SIZE {name} scale={} size={},{},{} bb={},{},{},{},{},{}",
+                        f(e.get_scale()),
+                        f(b.get_bb_width()),
+                        f(b.get_bb_height()),
+                        f(b.eye_height),
+                        d(bb.min_x),
+                        d(bb.min_y),
+                        d(bb.min_z),
+                        d(bb.max_x),
+                        d(bb.max_y),
+                        d(bb.max_z)
+                    )])
+                }
                 // N REF {canonical sorted SNBT of saveWithoutId, UUID removed}
                 _ => {
                     let mut tag = CompoundTag::new();

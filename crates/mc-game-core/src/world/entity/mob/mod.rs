@@ -183,6 +183,9 @@ pub struct MobData {
     pub first_passenger_is_mob: bool,
     /// `getFirstPassenger() instanceof Mob && canControlVehicle()` (the `Mob.getControllingPassenger` test).
     pub first_passenger_controls: bool,
+    /// A passenger was attached while this mob was loaded (`EntityType.loadPassengersRecursive`), before it joined a level:
+    /// the level-dependent part of `addPassenger` is still due (`HappyGhast` plays its harness sound).
+    pub passengers_loaded: bool,
     pub ageable: Option<AgeableData>,
     pub animal: Option<AnimalData>,
     pub tamable: Option<TamableData>,
@@ -257,6 +260,7 @@ impl MobData {
             home_radius: -1,
             first_passenger_is_mob: false,
             first_passenger_controls: false,
+            passengers_loaded: false,
             ageable: kind.is_ageable().then(AgeableData::default),
             animal: kind.is_animal().then(AnimalData::default),
             tamable: (kind == MobKind::TamableAnimal).then(TamableData::default),

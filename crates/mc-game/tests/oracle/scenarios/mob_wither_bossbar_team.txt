@@ -1,0 +1,50 @@
+# The wither boss bar name is the display name at the moment the wither is named: a team's colour and prefix are part of it, a team
+# joined later does not rename the bar, and every way to name the wither (load, /data merge, name tag) renames it.
+command_env
+level flat
+preload 6
+difficulty normal
+level_seed 5842
+entity_counter 5850
+gamerule mob_drops false
+spawn_player Steve survival 12.5 -60 0.5 90 0
+set Steve invulnerable true
+tick 2
+dump packets:Steve:none
+cmd team add red
+cmd team modify red color red
+cmd team join red 00000007-0000-0008-0000-00090000000a
+note a wither that is on a coloured team when it is loaded
+mobspawn W minecraft:wither 0.5 -58 0.5 0 0 {PersistenceRequired:1b,UUID:[I;7,8,9,10],CustomName:"Named"}
+entity_seed W 51
+watch packets:Steve:boss_event,add_entity
+tick 3
+watch off
+note a new name through /data merge
+nbt W {CustomName:"Renamed"}
+tick 1
+dump packets:Steve:boss_event
+note a prefix is part of the display name
+cmd team modify red prefix "[R] "
+nbt W {CustomName:"Prefixed"}
+tick 1
+dump packets:Steve:boss_event
+note a wither that is not on the team has the plain bar name
+mobspawn N minecraft:wither 0.5 -58 20.5 0 0 {PersistenceRequired:1b,UUID:[I;11,12,13,14],CustomName:"Loner"}
+entity_seed N 52
+watch packets:Steve:boss_event,add_entity
+tick 3
+watch off
+note joining the team afterwards does not rename the bar
+cmd team join red 0000000b-0000-000c-0000-000d0000000e
+watch packets:Steve:boss_event
+tick 2
+watch off
+note the name tag renames the bar with the team formatting
+tp Steve 0.5 -60 20.5 90 0
+give Steve mainhand minecraft:name_tag[custom_name="Tagged"]
+interact Steve N main
+watch packets:Steve:boss_event
+tick 2
+watch off
+dump nbt:N

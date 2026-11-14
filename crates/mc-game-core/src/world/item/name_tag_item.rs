@@ -11,7 +11,7 @@ pub struct NameTagItem;
 impl ItemBehaviour for NameTagItem {
     fn interact_living_entity(
         &self,
-        _level: &mut ServerLevel,
+        level: &mut ServerLevel,
         stack: &mut ItemStack,
         _player: &mut ServerPlayer,
         target: &mut dyn Entity,
@@ -24,7 +24,7 @@ impl ItemBehaviour for NameTagItem {
             return InteractionResult::PASS;
         }
         if target.is_alive() {
-            target.set_custom_name(Some(custom_name));
+            target.set_custom_name(Some(level), Some(custom_name));
             if target.mob().is_some() {
                 target.set_persistence_required();
             }

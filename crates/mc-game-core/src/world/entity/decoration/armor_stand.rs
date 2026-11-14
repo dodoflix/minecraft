@@ -14,7 +14,7 @@ use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_data::enums::{Pose, PushReaction};
-use mc_data::{Attribute, EntityType, GameEvent, Item, SoundEvent};
+use mc_data::{EntityType, GameEvent, Item, SoundEvent};
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use mc_protocol::components::CUSTOM_NAME;
 use mc_protocol::packets::play::{ParticleOptions, Rotations};
@@ -231,17 +231,12 @@ impl ArmorStand {
             || (slot.get_type() == EquipmentSlotType::Hand && !self.show_arms())
     }
 
-    /// `getScale() * getAgeScale()` (`SCALE` attribute; armor stands are not ageable).
-    fn scale(&self) -> f32 {
-        self.living.get_attribute_value(Attribute::SCALE) as f32
-    }
-
     /// `getClickedSlot(location)`.
     fn get_clicked_slot(&self, location: Vec3) -> EquipmentSlot {
         let mut slot_clicked = EquipmentSlot::MainHand;
         let small = self.is_small();
         // `location.y / (getScale() * getAgeScale())`: float product widened to double
-        let click_y = location.y / f64::from(self.scale() * Entity::get_age_scale(self));
+        let click_y = location.y / f64::from(self.get_scale() * Entity::get_age_scale(self));
         if click_y >= 0.1
             && click_y < 0.1 + if small { 0.8 } else { 0.45 }
             && self.has_item_in_slot(EquipmentSlot::Feet)
@@ -719,7 +714,7 @@ impl Entity for ArmorStand {
     /// `getDefaultDimensions(pose)` scaled by `getScale()`.
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
         let dimensions = self.dimensions_marker(self.is_marker());
-        let scale = self.scale();
+        let scale = self.get_scale();
         dimensions.scale(scale)
     }
 
