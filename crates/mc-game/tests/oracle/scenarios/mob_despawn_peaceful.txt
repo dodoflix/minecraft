@@ -1,0 +1,39 @@
+# Mob.checkDespawn in peaceful difficulty: a mob whose type is not allowed in peaceful is discarded on its tick, persistent or not, near a
+# player or not; the others stay (and still follow the distance rules). Hostile mobs spawn in hard, then the difficulty drops.
+level flat
+difficulty hard
+time 18000
+entity_counter 100
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn zombie minecraft:zombie -13.5 -60 -24.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn skeleton minecraft:skeleton -10.5 -60 -24.5 0 0 nofinalize {NoAI:1b}
+mobspawn creeper minecraft:creeper -7.5 -60 -24.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn spider minecraft:spider -4.5 -60 -24.5 0 0 nofinalize {NoAI:1b}
+mobspawn slime minecraft:slime -1.5 -60 -24.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Size:1}
+mobspawn enderman minecraft:enderman 1.5 -60 -24.5 0 0 nofinalize {NoAI:1b}
+mobspawn zombified_piglin minecraft:zombified_piglin 4.5 -60 -24.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn piglin minecraft:piglin 7.5 -60 -24.5 0 0 nofinalize {NoAI:1b}
+mobspawn hoglin minecraft:hoglin 10.5 -60 -24.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn phantom minecraft:phantom -13.5 -60 -18.5 0 0 nofinalize {NoAI:1b}
+mobspawn guardian minecraft:guardian -10.5 -60 -18.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn drowned minecraft:drowned -4.5 -60 -18.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn husk minecraft:husk -1.5 -60 -18.5 0 0 nofinalize {NoAI:1b}
+mobspawn cow minecraft:cow 1.5 -60 -18.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn iron_golem minecraft:iron_golem 7.5 -60 -18.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn wolf minecraft:wolf 10.5 -60 -18.5 0 0 nofinalize {NoAI:1b}
+mobspawn bat minecraft:bat -13.5 -60 -12.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn polar_bear minecraft:polar_bear -10.5 -60 -12.5 0 0 nofinalize {NoAI:1b}
+mobspawn squid minecraft:squid -7.5 -60 -12.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn pillager minecraft:pillager -4.5 -60 -12.5 0 0 nofinalize {NoAI:1b}
+mobspawn vindicator minecraft:vindicator -1.5 -60 -12.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn blaze minecraft:blaze 1.5 -60 -12.5 0 0 nofinalize {NoAI:1b}
+mobspawn ghast minecraft:ghast 4.5 -60 -12.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn silverfish minecraft:silverfish 7.5 -60 -12.5 0 0 nofinalize {NoAI:1b}
+mobspawn magma_cube minecraft:magma_cube 10.5 -60 -12.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Size:1}
+tick 3
+dump mobs
+difficulty peaceful
+tick 1
+dump mobs entities
+tick 2
+dump mobs

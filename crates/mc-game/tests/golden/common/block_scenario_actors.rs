@@ -1392,7 +1392,7 @@ impl Scenario {
                 } else {
                     let id = self.entity_id(name);
                     self.level()
-                        .get_entity(id)
+                        .get_entity_or_removed(id)
                         .unwrap_or_else(|| panic!("entity {name} is gone"))
                         .base()
                         .random

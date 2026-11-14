@@ -181,6 +181,7 @@ mod mob_base_golden;
 mod mob_bee_golden;
 mod mob_brain_golden;
 mod mob_ctrl_golden;
+mod mob_despawn_golden;
 mod mob_fixtures_golden;
 mod mob_goal_golden;
 mod mob_goat_golden;

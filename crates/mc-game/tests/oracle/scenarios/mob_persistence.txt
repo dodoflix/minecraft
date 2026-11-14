@@ -1,0 +1,46 @@
+# Persistence of a mob far from every player: a name tag, a lead, a vehicle, a picked-up item and a saved flag keep a mob that would
+# be discarded at once (a custom name in the saved data alone does not); class overrides keep a carried block, a bucketed or named
+# fish and a chicken that is not a jockey, but not a zombie horse or a hoglin. The flag is saved, loaded and cleared through NBT.
+level flat
+preload 12
+difficulty normal
+time 18000
+entity_counter 100
+fill 138 -62 -16 150 -58 -12 minecraft:water
+spawn_player Steve survival 140.5 -60 0.5 0 0
+mobspawn Tag minecraft:zombie 142.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+mobspawn NameOnly minecraft:zombie 142.5 -60 4.5 0 0 nofinalize {NoAI:1b,CustomName:'"Bob"'}
+mobspawn Anchor minecraft:cow 138.5 -60 3.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Leashed minecraft:zombie 138.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+spawn Boat minecraft:oak_boat 140.5 -60 -4.5
+mobspawn Rider minecraft:zombie 140.5 -60 -4.5 0 0 nofinalize {NoAI:1b}
+mobspawn Picker minecraft:zombie 143.5 -60 -8.5 0 0 nofinalize {NoAI:1b,CanPickUpLoot:1b}
+spawn_item Sword minecraft:iron_sword 143.5 -60 -8.5 0 0 0
+mobspawn Flag minecraft:zombie 146.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Plain minecraft:zombie 146.5 -60 4.5 0 0 nofinalize {NoAI:1b}
+mobspawn CodBucket minecraft:cod 140.5 -60 -14.5 0 0 nofinalize {NoAI:1b,FromBucket:1b}
+mobspawn CodNamed minecraft:cod 142.5 -60 -14.5 0 0 nofinalize {NoAI:1b,CustomName:'"Fin"'}
+mobspawn CodPlain minecraft:cod 144.5 -60 -14.5 0 0 nofinalize {NoAI:1b}
+mobspawn Carry minecraft:enderman 148.5 -60 -4.5 0 0 nofinalize {NoAI:1b,carriedBlockState:"minecraft:stone"}
+mobspawn EnderPlain minecraft:enderman 148.5 -60 -8.5 0 0 nofinalize {NoAI:1b}
+mobspawn Hen minecraft:chicken 150.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+mobspawn Jockey minecraft:chicken 150.5 -60 4.5 0 0 nofinalize {NoAI:1b,IsChickenJockey:1b}
+mobspawn ZHorse minecraft:zombie_horse 150.5 -60 -4.5 0 0 nofinalize {NoAI:1b}
+mobspawn Hoglin minecraft:hoglin 150.5 -60 -8.5 0 0 nofinalize {NoAI:1b}
+mobspawn Warden minecraft:warden 152.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+ride Rider Boat
+leash Leashed Anchor
+tick 1
+give Steve mainhand minecraft:name_tag[custom_name='"Bob"'] 1
+interact Steve Tag main
+tick 20
+dump nbt:Tag nbt:NameOnly nbt:Leashed nbt:Rider nbt:Picker nbt:Flag nbt:Plain nbt:Carry nbt:CodBucket
+tp Steve 0.5 -60 0.5
+tick 2
+dump mobs entities
+note the saved flag is loaded and cleared: the mob is far from every player, so it goes on its next tick
+tp Steve 140.5 -60 0.5
+nbt Flag {PersistenceRequired:0b}
+tp Steve 0.5 -60 0.5
+tick 1
+dump mobs

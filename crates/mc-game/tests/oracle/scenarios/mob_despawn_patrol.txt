@@ -1,0 +1,38 @@
+# PatrollingMonster.removeWhenFarAway: a patrolling pillager within 128 blocks of the nearest player never despawns at random while
+# one that does not patrol goes on a 0 of nextInt(800) once it has been idle for more than 600 ticks (both draw every tick).
+level flat
+preload 6
+difficulty normal
+time 18000
+entity_counter 100
+spawn_player Steve survival 0.5 -60 0.5 0 0
+block 40 -60 0 minecraft:light[level=15]
+block 40 -59 0 minecraft:light[level=15]
+block 45 -60 0 minecraft:light[level=15]
+block 45 -59 0 minecraft:light[level=15]
+block 50 -60 0 minecraft:light[level=15]
+block 50 -59 0 minecraft:light[level=15]
+block 40 -60 8 minecraft:light[level=15]
+block 40 -59 8 minecraft:light[level=15]
+block 45 -60 8 minecraft:light[level=15]
+block 45 -59 8 minecraft:light[level=15]
+block 50 -60 8 minecraft:light[level=15]
+block 50 -59 8 minecraft:light[level=15]
+mobspawn PA1 minecraft:pillager 40.5 -60 0.5 0 0 nofinalize {NoAI:1b,Patrolling:1b}
+entity_seed PA1 91
+mobspawn PA2 minecraft:pillager 45.5 -60 0.5 0 0 nofinalize {NoAI:1b,Patrolling:1b}
+entity_seed PA2 92
+mobspawn PA3 minecraft:pillager 50.5 -60 0.5 0 0 nofinalize {NoAI:1b,Patrolling:1b}
+entity_seed PA3 93
+mobspawn PN1 minecraft:pillager 40.5 -60 8.5 0 0 nofinalize {NoAI:1b}
+entity_seed PN1 94
+mobspawn PN2 minecraft:pillager 45.5 -60 8.5 0 0 nofinalize {NoAI:1b}
+entity_seed PN2 95
+mobspawn PN3 minecraft:pillager 50.5 -60 8.5 0 0 nofinalize {NoAI:1b}
+entity_seed PN3 96
+tick 190
+dump mobs
+watch rng:PA1 rng:PA2 rng:PA3 rng:PN1 rng:PN2 rng:PN3
+tick 1000
+watch off
+dump mobs

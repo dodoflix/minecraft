@@ -1,0 +1,30 @@
+# Mob.checkDespawn, the instant range: a mob farther than its category's despawn distance (monster, creature, ambient, water creature 128;
+# water ambient 64) from the nearest non-spectator player is discarded on its first tick unless it is persistent or its class keeps it
+# (animals, golems). Distances are exact at the boundary (128.0 stays, 128.1 goes), a spectator does not count, the height counts.
+level flat
+preload 12
+difficulty normal
+time 18000
+entity_counter 100
+fill 138 -62 -2 143 -58 2 minecraft:water
+fill 68 -62 -2 73 -58 2 minecraft:water
+fill 62 -62 -2 66 -58 2 minecraft:water
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn ZEdge minecraft:zombie 128.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+mobspawn ZOut minecraft:zombie -127.6 -60 0.5 0 0 nofinalize {NoAI:1b}
+mobspawn ZHigh minecraft:zombie 100.5 60 0.5 0 0 nofinalize {NoAI:1b,NoGravity:1b}
+mobspawn ZKeep minecraft:zombie 140.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Creeper minecraft:creeper 130.5 -60 6.5 0 0 nofinalize {NoAI:1b}
+mobspawn Skel minecraft:skeleton 129.5 -60 -6.5 0 0 nofinalize {NoAI:1b}
+mobspawn Bat minecraft:bat 140.5 -58 8.5 0 0 nofinalize {NoAI:1b}
+mobspawn Squid minecraft:squid 140.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+mobspawn Cod minecraft:cod 70.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+mobspawn CodEdge minecraft:cod 64.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+mobspawn Cow minecraft:cow 140.5 -60 12.5 0 0 nofinalize {NoAI:1b}
+mobspawn Golem minecraft:iron_golem 140.5 -60 -12.5 0 0 nofinalize {NoAI:1b}
+mobspawn Slime minecraft:slime 135.5 -60 -9.5 0 0 nofinalize {NoAI:1b,Size:1}
+spawn_player Spec spectator 135.5 -60 4.5 0 0
+tick 1
+dump mobs
+tick 1
+dump mobs entities

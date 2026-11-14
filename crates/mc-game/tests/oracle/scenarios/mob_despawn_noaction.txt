@@ -1,0 +1,50 @@
+# Mob.checkDespawn, the random despawn: a mob that has not acted for more than 600 ticks (noActionTime: +1 per AI step, +2 per tick in
+# bright light for monsters, reset by a hit or by a player within 32 blocks) draws nextInt(800) on its own random every tick and is
+# discarded on a 0 when the nearest player is farther than its category's no-despawn distance. A persistent mob and a mob closer than
+# 32 blocks never draw.
+level flat
+preload 6
+difficulty normal
+time 18000
+entity_counter 100
+spawn_player Steve survival 0.5 -60 0.5 0 0
+block 40 -60 0 minecraft:light[level=15]
+block 40 -59 0 minecraft:light[level=15]
+block 45 -60 0 minecraft:light[level=15]
+block 45 -59 0 minecraft:light[level=15]
+block 50 -60 0 minecraft:light[level=15]
+block 50 -59 0 minecraft:light[level=15]
+block 55 -60 0 minecraft:light[level=15]
+block 55 -59 0 minecraft:light[level=15]
+block 20 -60 0 minecraft:light[level=15]
+block 20 -59 0 minecraft:light[level=15]
+block 60 -60 0 minecraft:light[level=15]
+block 60 -59 0 minecraft:light[level=15]
+block 0 -60 60 minecraft:light[level=15]
+block 0 -59 60 minecraft:light[level=15]
+block 5 -60 60 minecraft:light[level=15]
+block 5 -59 60 minecraft:light[level=15]
+mobspawn A1 minecraft:zombie 40.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+entity_seed A1 77
+mobspawn A2 minecraft:zombie 45.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+entity_seed A2 78
+mobspawn A3 minecraft:zombie 50.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+entity_seed A3 79
+mobspawn Keep minecraft:zombie 55.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed Keep 80
+mobspawn Near minecraft:zombie 20.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+entity_seed Near 81
+mobspawn Hurt minecraft:zombie 60.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+entity_seed Hurt 82
+mobspawn B1 minecraft:zombie 0.5 -60 60.5 0 0 nofinalize
+entity_seed B1 83
+mobspawn B2 minecraft:zombie 5.5 -60 60.5 0 0 nofinalize
+entity_seed B2 84
+tick 190
+dump mobs
+watch rng:A1 rng:A2 rng:A3 rng:Keep rng:Near rng:Hurt rng:B1 rng:B2
+tick 110
+hurt Hurt minecraft:generic 1
+tick 790
+watch off
+dump mobs entities

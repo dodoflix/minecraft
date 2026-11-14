@@ -1,0 +1,36 @@
+# Mob.checkDespawn with the class overrides of removeWhenFarAway and requiresCustomPersistence, instant range: a bucketed or named
+# axolotl, a bucketed tadpole, animals, golems and an elder guardian stay; a cat or ocelot only goes after 2400 ticks
+# unless it is tamed or trusting; a pillager beyond 128 blocks goes whether it patrols or not.
+level flat
+preload 12
+difficulty normal
+time 18000
+entity_counter 100
+fill 138 -62 -16 152 -58 -12 minecraft:water
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn PillagerPatrol minecraft:pillager 143.5 -60 0.5 0 0 nofinalize {NoAI:1b,Patrolling:1b}
+mobspawn Pillager minecraft:pillager 143.5 -60 3.5 0 0 nofinalize {NoAI:1b}
+mobspawn Cat minecraft:cat 146.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+mobspawn CatTame minecraft:cat 146.5 -60 3.5 0 0 nofinalize {NoAI:1b}
+mobspawn Ocelot minecraft:ocelot 146.5 -60 6.5 0 0 nofinalize {NoAI:1b}
+mobspawn OcelotTrust minecraft:ocelot 146.5 -60 9.5 0 0 nofinalize {NoAI:1b,Trusting:1b}
+mobspawn TadpoleBucket minecraft:tadpole 140.5 -60 -14.5 0 0 nofinalize {NoAI:1b,FromBucket:1b}
+mobspawn Tadpole minecraft:tadpole 142.5 -60 -14.5 0 0 nofinalize {NoAI:1b}
+mobspawn AxolotlBucket minecraft:axolotl 144.5 -60 -14.5 0 0 nofinalize {NoAI:1b,FromBucket:1b}
+mobspawn AxolotlNamed minecraft:axolotl 146.5 -60 -14.5 0 0 nofinalize {NoAI:1b,CustomName:'"Axo"'}
+mobspawn Axolotl minecraft:axolotl 148.5 -60 -14.5 0 0 nofinalize {NoAI:1b}
+mobspawn GlowSquid minecraft:glow_squid 150.5 -60 -14.5 0 0 nofinalize {NoAI:1b}
+mobspawn SnowGolem minecraft:snow_golem 149.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+mobspawn Shulker minecraft:shulker 149.5 -60 3.5 0 0 nofinalize {NoAI:1b}
+mobspawn Elder minecraft:elder_guardian 150.5 -60 -12.5 0 0 nofinalize {NoAI:1b}
+mobspawn Wolf minecraft:wolf 152.5 -60 0.5 0 0 nofinalize {NoAI:1b}
+mobspawn Strider minecraft:strider 152.5 -60 6.5 0 0 nofinalize {NoAI:1b}
+tame CatTame Steve
+tick 1
+dump mobs
+tick 2399
+dump mobs
+tick 1
+dump mobs
+tick 1
+dump mobs entities
