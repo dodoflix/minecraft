@@ -10,6 +10,7 @@
 use super::vibration_info::{self, VibrationInfo};
 use super::vibration_selector::{self, VibrationSelector};
 use crate::server::level::ServerLevel;
+use crate::world::entity::EntityId;
 use crate::world::level::collision::{BlockGetterExt, ClipBlockStateContext};
 use crate::world::level::gameevent::{GameEventContext, PositionSource, SourceEntityInfo};
 use mc_core::direction::Direction;
@@ -154,6 +155,11 @@ pub trait VibrationSystem {
     fn get_listener_radius(&self) -> i32;
     /// `User.getPositionSource()`.
     fn get_position_source(&self) -> PositionSource;
+    /// The entity that owns this system and the current position of its source, for owners that the level cannot look up
+    /// because they are taken out of their slot while they act (`PositionSource.getPosition(level)` of an entity source).
+    fn owner_entity(&self) -> Option<(EntityId, Vec3)> {
+        None
+    }
     /// `User.canReceiveVibration(level, pos, event, context)`.
     fn can_receive_vibration(
         &mut self,
@@ -246,6 +252,14 @@ pub fn get_position(level: &ServerLevel, source: &PositionSource) -> Option<Vec3
     source.get_position(&|uuid| level.get_entity_by_uuid(uuid).map(|e| e.position()))
 }
 
+/// `user.getPositionSource().getPosition(level)`.
+fn listener_position<S: VibrationSystem>(level: &ServerLevel, system: &S) -> Option<Vec3> {
+    system
+        .owner_entity()
+        .map(|(_, position)| position)
+        .or_else(|| get_position(level, &system.get_position_source()))
+}
+
 /// `VibrationSystem.Listener.handleGameEvent`.
 pub fn handle_game_event<S: VibrationSystem>(
     level: &mut ServerLevel,
@@ -260,7 +274,7 @@ pub fn handle_game_event<S: VibrationSystem>(
     if !system.is_valid_vibration(level, event, context) {
         return false;
     }
-    let Some(destination) = get_position(level, &system.get_position_source()) else {
+    let Some(destination) = listener_position(level, system) else {
         return false;
     };
     if !system.can_receive_vibration(
@@ -286,7 +300,7 @@ pub fn force_schedule_vibration<S: VibrationSystem>(
     context: &GameEventContext,
     origin: Vec3,
 ) {
-    if let Some(destination) = get_position(level, &system.get_position_source()) {
+    if let Some(destination) = listener_position(level, system) {
         schedule_vibration(level, system, event, context, origin, destination);
     }
 }
@@ -374,13 +388,17 @@ pub fn tick<S: VibrationSystem>(level: &mut ServerLevel, system: &mut S) {
 fn vibration_particle(
     level: &ServerLevel,
     source: &PositionSource,
+    owner: Option<EntityId>,
     arrival_in_ticks: i32,
 ) -> Option<ParticleOptions> {
     let destination = match source {
         PositionSource::Block(pos) => mc_protocol::packets::play::PositionSource::Block(*pos),
         PositionSource::Entity { uuid, y_offset } => {
             mc_protocol::packets::play::PositionSource::Entity {
-                source_entity_id: level.get_entity_by_uuid(*uuid)?.id(),
+                source_entity_id: match owner {
+                    Some(id) => id,
+                    None => level.get_entity_by_uuid(*uuid)?.id(),
+                },
                 y_offset: *y_offset,
             }
         }
@@ -404,7 +422,10 @@ fn try_select_and_schedule_vibration<S: VibrationSystem>(level: &mut ServerLevel
         data.current_vibration = Some(context);
         data.travel_time_in_ticks = travel_time;
     });
-    if let Some(particle) = vibration_particle(level, &system.get_position_source(), travel_time) {
+    let owner = system.owner_entity().map(|(id, _)| id);
+    if let Some(particle) =
+        vibration_particle(level, &system.get_position_source(), owner, travel_time)
+    {
         level.send_particles(
             particle, origin.x, origin.y, origin.z, 1, 0.0, 0.0, 0.0, 0.0,
         );
@@ -430,14 +451,15 @@ fn try_reload_vibration_particle<S: VibrationSystem>(level: &mut ServerLevel, sy
     };
     let origin = current.pos;
     let position_source = system.get_position_source();
-    let destination = get_position(level, &position_source).unwrap_or(origin);
+    let destination = listener_position(level, system).unwrap_or(origin);
+    let owner = system.owner_entity().map(|(id, _)| id);
     let initial_travel_time = system.calculate_travel_time_in_ticks(current.distance);
     let alpha = 1.0 - f64::from(travel_time) / f64::from(initial_travel_time);
     let new_initial_x = mth::lerp_f64(alpha, origin.x, destination.x);
     let new_initial_y = mth::lerp_f64(alpha, origin.y, destination.y);
     let new_initial_z = mth::lerp_f64(alpha, origin.z, destination.z);
-    let particle_was_sent =
-        vibration_particle(level, &position_source, travel_time).is_some_and(|particle| {
+    let particle_was_sent = vibration_particle(level, &position_source, owner, travel_time)
+        .is_some_and(|particle| {
             level.send_particles(
                 particle,
                 new_initial_x,
@@ -461,8 +483,8 @@ fn receive_vibration<S: VibrationSystem>(
     current_vibration: &VibrationInfo,
 ) -> bool {
     let origin = BlockPos::containing_position(&current_vibration.pos);
-    let destination = get_position(level, &system.get_position_source())
-        .map_or(origin, |p| BlockPos::containing_position(&p));
+    let destination =
+        listener_position(level, system).map_or(origin, |p| BlockPos::containing_position(&p));
     if system.requires_adjacent_chunks_to_be_ticking()
         && !are_adjacent_chunks_ticking(level, destination)
     {

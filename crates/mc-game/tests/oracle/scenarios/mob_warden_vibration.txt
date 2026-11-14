@@ -1,0 +1,140 @@
+# What a warden hears. W1 listens to a survival player placing blocks (anger 35 per vibration, 40 ticks of cooldown in which further
+# vibrations are ignored, investigate, then angry). W2 hears arrows land: the first arrow of a shooter gives 10 anger, a second one
+# within 100 ticks gives the full 35 and points the warden at the shooter. W3 hears a block break without any entity (a disturbance
+# only). W4 ignores a creative player, W5 has no AI, W6 hears a sprinting player's steps.
+level flat
+preload 7
+entity_counter 8400
+level_seed 8401
+difficulty hard
+gamerule mob_drops false
+spawn_player P1 survival 7.5 -60 0.5 90 0
+spawn_player P2 survival 0.5 -60 50.5 0 0
+spawn_player P7 survival 2.5 -60 50.5 0 0
+spawn_player P3 survival 40.5 -60 100.5 90 0
+spawn_player P4 creative 7.5 -60 150.5 90 0
+spawn_player P5 survival 7.5 -60 200.5 90 0
+spawn_player P6 survival 12.5 -60 250.5 90 0 sim
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+give P1 hotbar0 minecraft:stone 16
+give P4 hotbar0 minecraft:stone 16
+give P5 hotbar0 minecraft:stone 16
+give P2 mainhand minecraft:bow
+give P2 inv9 minecraft:arrow 16
+give P7 mainhand minecraft:bow
+give P7 inv9 minecraft:arrow 16
+block 6 -60 100 minecraft:stone
+mobspawn W1 minecraft:warden 0.5 -60 0.5 270 0 {PersistenceRequired:1b}
+entity_seed W1 841
+mobspawn W2 minecraft:warden 3.5 -60 75.5 270 0 {PersistenceRequired:1b}
+entity_seed W2 842
+mobspawn W3 minecraft:warden 0.5 -60 100.5 270 0 {PersistenceRequired:1b}
+entity_seed W3 843
+mobspawn W4 minecraft:warden 0.5 -60 150.5 270 0 {PersistenceRequired:1b}
+entity_seed W4 844
+mobspawn W5 minecraft:warden 0.5 -60 200.5 270 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed W5 845
+mobspawn W6 minecraft:warden 0.5 -60 250.5 270 0 {PersistenceRequired:1b}
+entity_seed W6 846
+tick 1
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 events
+tick 1
+use_on P1 8 -61 0 up
+use_on P4 8 -61 150 up
+use_on P5 8 -61 200 up
+destroy 6 -60 100
+use P2
+tick 9
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 1
+release P2
+tick 9
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 1
+use_on P1 8 -61 2 up
+tick 9
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 1
+use_on P1 8 -61 4 up
+use P7
+tick 9
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 1
+release P7
+tick 9
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+use_on P1 8 -61 6 up
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+use_on P1 8 -61 -2 up
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+input P6 forward,sprint
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+input P6 none
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events
+tick 10
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:W5 mob:W6 player:P1 player:P2 player:P7 entities events

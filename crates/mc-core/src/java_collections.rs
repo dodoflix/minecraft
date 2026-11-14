@@ -230,6 +230,20 @@ impl<K: PartialEq, V> FastOpenHashMap<K, V> {
         Some(removed)
     }
 
+    /// `remove` through the map's iterator (`MapIterator.remove()`): the same deletion, but the table never shrinks.
+    pub fn remove_during_iteration(&mut self, k: &K) -> Option<V> {
+        let removed = if (self.is_null)(k) {
+            self.null_key.take()?.1
+        } else {
+            let pos = self.find(k)?;
+            let removed = self.slots[pos].take()?.1;
+            self.shift_keys(pos);
+            removed
+        };
+        self.size -= 1;
+        Some(removed)
+    }
+
     /// `shiftKeys(pos)`: refills the hole at `pos` from the probe sequence behind it.
     fn shift_keys(&mut self, mut pos: usize) {
         loop {

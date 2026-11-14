@@ -21,8 +21,6 @@ const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[
     "minecraft:camel",
     "minecraft:sniffer",
     "minecraft:wandering_trader",
-    // the saved `anger` data holds `suspects:[]` where vanilla saves `{}`
-    "minecraft:warden",
 ];
 
 /// Every `mobspawn` block of `mob_finalize_equipment` (208 mobs of about 52 types, each with its own difficulty and spawn reason).

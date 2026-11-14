@@ -27,6 +27,8 @@ import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.monster.Witch;
+import net.minecraft.world.entity.monster.warden.AngerManagement;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.monster.illager.Evoker;
@@ -331,6 +333,24 @@ final class EntityExtras {
       }));
       ALL.add(new Extra(41, Vindicator.class, (d, e, out) -> out.add("johnny", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Vindicator.class, "isJohnny")))));
       ALL.add(new Extra(41, Ravager.class, (d, e, out) -> out.add("attack", EntityOracleDriver.priv(e, Ravager.class, "attackTick")).add("stun", EntityOracleDriver.priv(e, Ravager.class, "stunnedTick")).add("roar", EntityOracleDriver.priv(e, Ravager.class, "roarTick"))));
+      ALL.add(new Extra(41, Warden.class, (d, e, out) -> {
+         Warden w = (Warden)e;
+         AngerManagement m = w.getAngerManagement();
+         StringBuilder suspects = new StringBuilder();
+         for (Entity s : (List<Entity>)EntityOracleDriver.priv(m, AngerManagement.class, "suspects")) {
+            var angerBySuspect = (it.unimi.dsi.fastutil.objects.Object2IntMap<Entity>)EntityOracleDriver.priv(m, AngerManagement.class, "angerBySuspect");
+            suspects.append(suspects.length() > 0 ? ";" : "").append(d.entName(s)).append(':').append(angerBySuspect.getInt(s));
+         }
+         StringBuilder uuids = new StringBuilder();
+         var angerByUuid = (it.unimi.dsi.fastutil.objects.Object2IntMap<java.util.UUID>)EntityOracleDriver.priv(m, AngerManagement.class, "angerByUuid");
+         for (var en : angerByUuid.object2IntEntrySet()) {
+            uuids.append(uuids.length() > 0 ? ";" : "").append(d.uuidName(en.getKey())).append(':').append(en.getIntValue());
+         }
+         out.add("clientanger", w.getClientAngerLevel()).add("angerlevel", w.getAngerLevel().name().toLowerCase(java.util.Locale.ROOT));
+         out.add("highest", EntityOracleDriver.priv(m, AngerManagement.class, "highestAnger"));
+         out.add("angryat", d.entName(w.getEntityAngryAt().orElse(null)));
+         out.add("suspects", suspects.length() == 0 ? "-" : suspects.toString()).add("uuids", uuids.length() == 0 ? "-" : uuids.toString());
+      }));
       ALL.add(new Extra(41, Witch.class, (d, e, out) -> out.add("drinking", EntityOracleDriver.bool(((Witch)e).isDrinkingPotion())).add("usingtime", EntityOracleDriver.priv(e, Witch.class, "usingTime"))));
       ALL.add(new Extra(42, Evoker.class, (d, e, out) -> out.add("wololo", d.entName((Sheep)EntityOracleDriver.priv(e, Evoker.class, "wololoTarget")))));
       ALL.sort(Comparator.comparingInt(Extra::order));

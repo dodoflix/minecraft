@@ -1,0 +1,162 @@
+# A warden's anger management on hard. W is hit by player P1 (anger 100, the attacker becomes the attack target after the roar), P2 hits
+# it too (a second suspect that does not change a player target), a pig hits it (non-player suspect, ordered behind players) and when P1
+# turns creative the target becomes invalid: P1's anger is cleared and the warden roars at the next angry suspect. The saved anger list
+# is dumped, a warden loaded with unresolved suspect UUIDs saves them in hash order and keeps their anger counting down.
+command_env
+level flat
+preload 6
+entity_counter 8300
+level_seed 8301
+difficulty hard
+gamerule mob_drops false
+spawn_player P1 survival 0.5 -60 10.5 180 0
+spawn_player P2 survival 4.5 -60 10.5 180 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+attribute P1 minecraft:max_health 2000
+set P1 health 2000
+attribute P2 minecraft:max_health 2000
+set P2 health 2000
+mobspawn W minecraft:warden 0.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed W 831
+mobspawn G minecraft:pig 8.5 -60 3.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed G 832
+mobspawn H minecraft:warden 60.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H 833
+mobspawn J minecraft:warden 0.5 -60 90.5 0 0 {PersistenceRequired:1b}
+entity_seed J 834
+tick 1
+dump mob:W mob:H nbt:W
+note a warden loaded with suspect uuids it cannot resolve keeps them in hash order
+nbt H {anger:{suspects:[{uuid:[I;11,12,13,14],anger:50},{uuid:[I;21,22,23,24],anger:60},{uuid:[I;-31,32,-33,34],anger:3},{uuid:[I;41,42,43,44],anger:1},{uuid:[I;51,-52,53,-54],anger:150},{uuid:[I;61,62,63,64],anger:7}]}}
+dump mob:H nbt:H
+note a suspect uuid that names a player in the level resolves to that player a few ticks later; the others count down
+nbt J {anger:{suspects:[{uuid:[I;-1711819139,-11912927,-1424468521,-1414857598],anger:50},{uuid:[I;1,2,3,4],anger:30},{uuid:[I;5,6,7,8],anger:2}]}}
+dump mob:J nbt:J
+tick 20
+dump mob:H nbt:H
+tick 100
+dump mob:H nbt:H mob:J nbt:J
+note a hit by P1 raises the anger above angry: roar, then the attacker is the attack target
+hurt W minecraft:player_attack 1 by=P1 direct=P1
+dump mob:W nbt:W events
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+tick 10
+dump mob:W events player:P1
+dump nbt:W brain:W
+note P2 hits it while it fights P1
+hurt W minecraft:player_attack 1 by=P2 direct=P2
+tick 1
+dump mob:W nbt:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+note a pig hits it
+hurt W minecraft:mob_attack 1 by=G direct=G
+tick 1
+dump mob:W nbt:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+note P1 turns creative: the target is no longer valid, P1's anger is cleared
+cmd gamemode creative P1
+tick 1
+dump mob:W nbt:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+dump nbt:W
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+dump nbt:W
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+tick 10
+dump mob:W events
+dump nbt:W brain:W

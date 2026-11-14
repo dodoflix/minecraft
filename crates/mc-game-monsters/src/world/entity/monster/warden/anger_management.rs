@@ -5,12 +5,16 @@
 //! the entity is out of the level). The `filter` predicate of the constructor (`Warden::canTargetEntity`) is passed to the
 //! methods that use it, because the warden owns this object and cannot be borrowed twice.
 //!
-//! shortcut: `Object2IntOpenHashMap` iteration order (hash order) is replaced by insertion order, which only shows in the
-//! order of the saved `suspects` list of not-yet-resolved UUIDs; an entity that vanished from the level is kept by UUID only
-//! when it is a player (vanilla: removal reason `CHANGED_DIMENSION`/`UNLOADED_*`, the reason is not observable here once the
-//! entity is gone); upgrade when the level keeps removal reasons.
+//! `angerByUuid` is an [`FastOpenHashMap`] keyed by the UUID's `hashCode()`, so the saved `suspects` list of not-yet-resolved
+//! UUIDs comes out in vanilla's hash order.
+//!
+//! shortcut: an entity that vanished from the level is kept by UUID only when it is a player (vanilla: removal reason
+//! `CHANGED_DIMENSION`/`UNLOADED_*`, the reason is not observable here once the entity is gone); upgrade when the level keeps
+//! removal reasons. `convertFromUuids` removes from the map while iterating: the order of the entries that fastutil's iterator
+//! revisits after a wrapped backward shift is not modelled.
 
 use crate::world::entity::monster::warden::anger_level::AngerLevel;
+use mc_core::java_collections::FastOpenHashMap;
 use mc_core::math::mth;
 use mc_core::random;
 use mc_core::uuid_util::{uuid_from_int_array, uuid_to_int_array};
@@ -44,6 +48,13 @@ impl Suspect {
     }
 }
 
+/// `UUID.hashCode()`.
+fn uuid_hash(uuid: &Uuid) -> i32 {
+    let (most, least) = uuid.as_u64_pair();
+    let both = most ^ least;
+    ((both >> 32) as i32) ^ (both as i32)
+}
+
 /// `AngerManagement`.
 #[derive(Debug)]
 pub struct AngerManagement {
@@ -54,7 +65,7 @@ pub struct AngerManagement {
     /// `angerBySuspect`.
     pub anger_by_suspect: Vec<(Suspect, i32)>,
     /// `angerByUuid`.
-    pub anger_by_uuid: Vec<(Uuid, i32)>,
+    pub anger_by_uuid: FastOpenHashMap<Uuid, i32>,
 }
 
 impl Default for AngerManagement {
@@ -75,13 +86,9 @@ impl AngerManagement {
 
     /// The constructor with the delay given (tests).
     pub fn with_conversion_delay(anger_by_uuid: Vec<(Uuid, i32)>, conversion_delay: i32) -> Self {
-        let mut by_uuid: Vec<(Uuid, i32)> = Vec::with_capacity(anger_by_uuid.len());
+        let mut by_uuid = FastOpenHashMap::new(anger_by_uuid.len(), uuid_hash);
         for (uuid, anger) in anger_by_uuid {
-            // `Object2IntMap.put`
-            match by_uuid.iter_mut().find(|(u, _)| *u == uuid) {
-                Some(entry) => entry.1 = anger,
-                None => by_uuid.push((uuid, anger)),
-            }
+            by_uuid.put(uuid, anger);
         }
         AngerManagement {
             conversion_delay,
@@ -92,6 +99,11 @@ impl AngerManagement {
         }
     }
 
+    /// `highestAnger`.
+    pub fn highest_anger(&self) -> i32 {
+        self.highest_anger
+    }
+
     fn anger_of(&self, id: EntityId) -> Option<i32> {
         self.anger_by_suspect
             .iter()
@@ -99,25 +111,34 @@ impl AngerManagement {
             .map(|(_, a)| *a)
     }
 
-    /// `createUuidAngerPairs()`.
+    /// `createUuidAngerPairs()`: the stream over `angerByUuid` walks the table from its first slot, the opposite of the map
+    /// iterator that the other methods use.
     fn create_uuid_anger_pairs(&self) -> Vec<(Uuid, i32)> {
+        let mut by_uuid: Vec<(Uuid, i32)> =
+            self.anger_by_uuid.iter().map(|(u, a)| (*u, *a)).collect();
+        by_uuid.reverse();
         self.suspects
             .iter()
             .map(|s| (s.uuid, self.anger_of(s.id).unwrap_or(0)))
-            .chain(self.anger_by_uuid.iter().copied())
+            .chain(by_uuid)
             .collect()
     }
 
     /// `AngerManagement.codec(filter)` (encode).
     pub fn to_nbt(&self) -> CompoundTag {
+        let pairs = self.create_uuid_anger_pairs();
+        let mut tag = CompoundTag::new();
+        // `lenientOptionalFieldOf("suspects", List.of())` leaves the field out while the list is the default
+        if pairs.is_empty() {
+            return tag;
+        }
         let mut list = ListTag::new();
-        for (uuid, anger) in self.create_uuid_anger_pairs() {
+        for (uuid, anger) in pairs {
             let mut pair = CompoundTag::new();
             pair.put("uuid", Tag::IntArray(uuid_to_int_array(&uuid).to_vec()));
             pair.put_int("anger", anger);
             list.push(Tag::Compound(pair));
         }
-        let mut tag = CompoundTag::new();
         tag.put("suspects", Tag::List(list));
         tag
     }
@@ -149,14 +170,15 @@ impl AngerManagement {
             self.convert_from_uuids(level);
             self.conversion_delay = CONVERSION_DELAY;
         }
-        self.anger_by_uuid.retain_mut(|(_, anger)| {
-            if *anger <= 1 {
-                false
-            } else {
-                *anger -= DEFAULT_ANGER_DECREASE;
-                true
+        let keys: Vec<Uuid> = self.anger_by_uuid.iter().map(|(u, _)| *u).collect();
+        for uuid in keys {
+            let anger = self.anger_by_uuid.get(&uuid).copied().unwrap_or(0);
+            if anger <= 1 {
+                self.anger_by_uuid.remove_during_iteration(&uuid);
+            } else if let Some(slot) = self.anger_by_uuid.get_mut(&uuid) {
+                *slot = anger - DEFAULT_ANGER_DECREASE;
             }
-        });
+        }
         let mut i = 0;
         while i < self.anger_by_suspect.len() {
             let (suspect, anger) = self.anger_by_suspect[i];
@@ -170,7 +192,7 @@ impl AngerManagement {
                 self.suspects.retain(|s| s.id != suspect.id);
                 self.anger_by_suspect.remove(i);
                 if anger > 1 && !present && suspect.is_player {
-                    self.anger_by_uuid.push((suspect.uuid, anger - 1));
+                    self.anger_by_uuid.put(suspect.uuid, anger - 1);
                 }
             }
         }
@@ -220,24 +242,20 @@ impl AngerManagement {
 
     /// `convertFromUuids(level)`.
     fn convert_from_uuids(&mut self, level: &ServerLevel) {
-        let mut i = 0;
-        while i < self.anger_by_uuid.len() {
-            let (uuid, anger) = self.anger_by_uuid[i];
-            match level.get_entity_by_uuid(uuid) {
-                Some(entity) => {
-                    let suspect = Suspect::of(entity);
-                    match self
-                        .anger_by_suspect
-                        .iter_mut()
-                        .find(|(s, _)| s.id == suspect.id)
-                    {
-                        Some(e) => e.1 = anger,
-                        None => self.anger_by_suspect.push((suspect, anger)),
-                    }
-                    self.suspects.push(suspect);
-                    self.anger_by_uuid.remove(i);
+        let entries: Vec<(Uuid, i32)> = self.anger_by_uuid.iter().map(|(u, a)| (*u, *a)).collect();
+        for (uuid, anger) in entries {
+            if let Some(entity) = level.get_entity_by_uuid(uuid) {
+                let suspect = Suspect::of(entity);
+                match self
+                    .anger_by_suspect
+                    .iter_mut()
+                    .find(|(s, _)| s.id == suspect.id)
+                {
+                    Some(e) => e.1 = anger,
+                    None => self.anger_by_suspect.push((suspect, anger)),
                 }
-                None => i += 1,
+                self.suspects.push(suspect);
+                self.anger_by_uuid.remove_during_iteration(&uuid);
             }
         }
     }
@@ -262,14 +280,7 @@ impl AngerManagement {
             }
         };
         if new_suspect {
-            let serialized_anger = match self
-                .anger_by_uuid
-                .iter()
-                .position(|(u, _)| *u == suspect.uuid)
-            {
-                Some(i) => self.anger_by_uuid.remove(i).1,
-                None => 0,
-            };
+            let serialized_anger = self.anger_by_uuid.remove(&suspect.uuid).unwrap_or(0);
             current_anger = current_anger.wrapping_add(serialized_anger);
             if let Some(e) = self
                 .anger_by_suspect
@@ -340,7 +351,9 @@ mod tests {
         let management = AngerManagement::with_conversion_delay(vec![(a, 7), (b, 150)], 2);
         let tag = management.to_nbt();
         let read = AngerManagement::from_nbt(&tag);
-        assert_eq!(read.anger_by_uuid, vec![(a, 7), (b, 150)]);
+        let mut read: Vec<_> = read.anger_by_uuid.iter().map(|(u, a)| (*u, *a)).collect();
+        read.sort();
+        assert_eq!(read, vec![(a, 7), (b, 150)]);
     }
 
     #[test]
@@ -353,5 +366,10 @@ mod tests {
         let mut tag = CompoundTag::new();
         tag.put("suspects", Tag::List(list));
         assert!(AngerManagement::from_nbt(&tag).anger_by_uuid.is_empty());
+    }
+
+    #[test]
+    fn empty_anger_saves_no_suspects_field() {
+        assert!(AngerManagement::default().to_nbt().is_empty());
     }
 }

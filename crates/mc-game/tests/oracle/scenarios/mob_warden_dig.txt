@@ -1,0 +1,124 @@
+# Wardens that dig and emerge: D1 loses its dig cooldown and digs away (pose, dig sound, invulnerable, removed after 100 ticks), D2 digs
+# when its spawn cooldown of 1200 ticks runs out, D3 is persistent and never digs. E1 is summoned with the triggered reason: it emerges for
+# 134 ticks, ignores hits and explosions meanwhile and is hurt normally afterwards.
+level flat
+preload 6
+entity_counter 8200
+level_seed 8201
+difficulty hard
+gamerule mob_drops false
+spawn_player P survival 0.5 -60 70.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn D1 minecraft:warden 0.5 -60 0.5 0 0
+entity_seed D1 821
+mobspawn D2 minecraft:warden 20.5 -60 0.5 0 0
+entity_seed D2 822
+mobspawn D3 minecraft:warden 40.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed D3 823
+mobspawn E1 minecraft:warden -20.5 -60 0.5 0 0 reason=TRIGGERED
+entity_seed E1 824
+tick 1
+dump mobs events nbt:D1 nbt:E1
+memory D1 minecraft:dig_cooldown -
+memory D1 minecraft:walk_target -
+tick 1
+dump mobs events
+note hits and explosions do nothing to a digging or emerging warden
+hurt E1 minecraft:generic 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+hurt D1 minecraft:generic 5
+hurt E1 minecraft:generic 5
+explode -20.5 -60 3.5 3 none
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+tick 5
+dump mobs events
+note emerging is over: hits hurt the warden
+hurt E1 minecraft:generic 5
+tick 1
+dump mobs events nbt:E1
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+dump nbt:D3 brain:D3

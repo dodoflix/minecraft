@@ -1,0 +1,142 @@
+# An idle warden next to a player who stands still: it strolls, sniffs (84 ticks, the sniff raises the anger of the nearest
+# player and sets a disturbance location), walks to the disturbance, sniffs again, bumps into the player (touch anger), reaches
+# the angry level, roars at its target (the roar target becomes the attack target) and starts fighting. The darkness pulse
+# reaches the player every 120 ticks.
+level flat
+preload 4
+entity_counter 8000
+level_seed 8001
+difficulty hard
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 12.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn W minecraft:warden 0.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed W 801
+tick 1
+dump mob:W attrs:W nbt:W player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+dump brain:W
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+dump brain:W
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+dump brain:W
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+dump brain:W
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+tick 10
+dump mob:W events player:Steve
+dump nbt:W

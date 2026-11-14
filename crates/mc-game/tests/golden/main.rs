@@ -209,6 +209,7 @@ mod mob_skeleton_golden;
 mod mob_spine_golden;
 mod mob_victim_golden;
 mod mob_villager_golden;
+mod mob_warden_golden;
 mod mob_zombie_golden;
 mod net_common;
 mod nether_fortress_golden;

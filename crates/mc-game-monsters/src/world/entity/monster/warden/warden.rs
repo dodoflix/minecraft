@@ -31,6 +31,7 @@ use mc_game_core::world::entity::dimensions::EntityDimensions;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::living_entity::damage;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::level::gameevent::vibrations::{self, VibrationData, VibrationSystem};
@@ -97,7 +98,8 @@ impl Warden {
         let eye_height = mob.living.entity.eye_height;
         let mut warden = Warden {
             mob,
-            anger_management: AngerManagement::default(),
+            // placeholder: the real one draws its conversion delay from the random sequence after the brain's
+            anger_management: AngerManagement::with_conversion_delay(Vec::new(), 0),
             vibration_data: VibrationData::default(),
             dynamic_game_event_listener: DynamicGameEventListener::new(),
             position_source_y_offset: eye_height,
@@ -105,6 +107,8 @@ impl Warden {
         // `LivingEntity.<init>`: `this.brain = this.makeBrain(Brain.Packed.EMPTY)`
         let brain = warden.make_brain(&BrainPacked::EMPTY);
         warden.mob.living.brain = brain;
+        // `Warden`'s field initializer runs after `LivingEntity.<init>` made the brain (the unseeded randoms draw in this order)
+        warden.anger_management = AngerManagement::default();
         warden.mob.xp_reward = 5;
         let navigation = WardenNavigation::new(&warden);
         warden.mob.set_navigation(Box::new(navigation));
@@ -479,7 +483,11 @@ impl Entity for Warden {
             Warden::apply_darkness_around(level, position, Some(self.as_dyn()), DARKNESS_RADIUS);
         }
         if tick_count % ANGERMANAGEMENT_TICK_DELAY == 0 {
-            let mut management = std::mem::take(&mut self.anger_management);
+            // no `AngerManagement::default()` here: it would draw a seed from the unseeded random sequence
+            let mut management = std::mem::replace(
+                &mut self.anger_management,
+                AngerManagement::with_conversion_delay(Vec::new(), 0),
+            );
             management.tick(level, &|e| self.can_target_entity_ref(level, e));
             self.anger_management = management;
             self.sync_client_anger_level(level);
@@ -637,8 +645,12 @@ impl Entity for Warden {
         if !self.mob.is_no_ai() && !self.brain().has_memory_value(TOUCH_COOLDOWN) {
             self.brain_mut()
                 .set_memory_with_expiry(&TOUCH_COOLDOWN, Unit, TOUCH_COOLDOWN_TICKS);
-            self.increase_anger_at_default(level, Some(other.id()));
-            warden_ai::set_disturbance_location(level, self, other.block_position());
+            let (id, position) = (other.id(), other.block_position());
+            // the pushed entity is out of its slot: the anger code looks it up by id
+            level.expose(&*other, |level| {
+                self.increase_anger_at_default(level, Some(id));
+                warden_ai::set_disturbance_location(level, self, position);
+            });
         }
         mc_game_core::world::entity::living_entity::push::do_push(level, self, other);
     }
@@ -660,6 +672,11 @@ impl GameEventListener for Warden {
         context: &GameEventContext,
         source_position: Vec3,
     ) -> bool {
+        // `isValidVibration` rejects every event whose source dampens vibrations, a warden's own steps and sounds
+        // included; the level cannot show the warden to itself while it is the one that handles the event
+        if context.source_entity == Some(self.id()) {
+            return false;
+        }
         vibrations::handle_game_event(level, self, event, context, source_position)
     }
 }
@@ -679,6 +696,10 @@ impl VibrationSystem for Warden {
 
     fn get_position_source(&self) -> PositionSource {
         self.vibration_position_source()
+    }
+
+    fn owner_entity(&self) -> Option<(EntityId, Vec3)> {
+        Some((self.id(), self.listener_position()))
     }
 
     fn get_listenable_events(&self) -> &'static str {
@@ -780,4 +801,56 @@ impl VibrationSystem for Warden {
 static WARDEN: EntityRegistration = EntityRegistration {
     entity_type: EntityType::WARDEN,
     create: |ty, id, registries| Box::new(Warden::new(ty, id, registries)),
+};
+
+/// Scenario-harness fields of a warden (order 41; the twin of the `Warden` entry of `EntityExtras.java`).
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static WARDEN_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 41,
+    applies: |e| e.as_any().is::<Warden>(),
+    fields: |e, level, ctx| {
+        let warden = e.as_any().downcast_ref::<Warden>().expect("warden");
+        let management = warden.get_anger_management();
+        let list = |entries: Vec<String>| {
+            if entries.is_empty() {
+                "-".to_string()
+            } else {
+                entries.join(";")
+            }
+        };
+        let suspects = management
+            .suspects
+            .iter()
+            .map(|s| {
+                let anger = management
+                    .anger_by_suspect
+                    .iter()
+                    .find(|(k, _)| k.id == s.id)
+                    .map_or(0, |(_, a)| *a);
+                format!("{}:{anger}", ctx.name(s.id))
+            })
+            .collect();
+        let uuids = management
+            .anger_by_uuid
+            .iter()
+            .map(|(uuid, anger)| format!("{}:{anger}", ctx.name_uuid(Some(*uuid))))
+            .collect();
+        let angry_at = warden.get_entity_angry_at(level);
+        let anger_level = match warden.get_anger_level(level) {
+            AngerLevel::Calm => "calm",
+            AngerLevel::Agitated => "agitated",
+            AngerLevel::Angry => "angry",
+        };
+        vec![
+            (
+                "clientanger".into(),
+                warden.get_client_anger_level().to_string(),
+            ),
+            ("angerlevel".into(), anger_level.into()),
+            ("highest".into(), management.highest_anger().to_string()),
+            ("angryat".into(), ctx.name_opt(angry_at)),
+            ("suspects".into(), list(suspects)),
+            ("uuids".into(), list(uuids)),
+        ]
+    },
 };

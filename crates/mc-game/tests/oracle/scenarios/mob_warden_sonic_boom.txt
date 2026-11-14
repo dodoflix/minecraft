@@ -1,0 +1,108 @@
+# A warden's attacks on hard: four wardens each hit once by a player (a direct hit makes the attacker the attack target, the roar and the
+# attack timers follow). Players A and B stand on a pillar the warden cannot climb: after the sonic boom cooldown (200 ticks from the
+# target switch) it fires a sonic boom, which ignores B's diamond armor and raised shield. C and D stand on the ground and are clawed
+# (D with armor and a raised shield); the claw sets the sonic boom cooldown to 40 ticks. The darkness pulse reaches every player.
+level flat
+preload 6
+entity_counter 8100
+level_seed 8101
+difficulty hard
+gamerule mob_drops false
+spawn_player A survival 10.5 -60 0.5 90 0
+spawn_player B survival 10.5 -60 40.5 90 0
+spawn_player C survival 10.5 -60 80.5 90 0
+spawn_player D survival 10.5 -60 120.5 90 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+fill 10 -60 0 10 -57 0 minecraft:stone
+tp A 10.5 -56 0.5
+fill 10 -60 40 10 -57 40 minecraft:stone
+tp B 10.5 -56 40.5
+attribute A minecraft:max_health 2000
+set A health 2000
+attribute B minecraft:max_health 2000
+set B health 2000
+attribute C minecraft:max_health 2000
+set C health 2000
+attribute D minecraft:max_health 2000
+set D health 2000
+give B head minecraft:diamond_helmet
+give B chest minecraft:diamond_chestplate
+give B legs minecraft:diamond_leggings
+give B feet minecraft:diamond_boots
+give B offhand minecraft:shield
+give D head minecraft:diamond_helmet
+give D chest minecraft:diamond_chestplate
+give D legs minecraft:diamond_leggings
+give D feet minecraft:diamond_boots
+give D offhand minecraft:shield
+mobspawn WA minecraft:warden 0.5 -60 0.5 270 0 {PersistenceRequired:1b}
+entity_seed WA 810
+mobspawn WB minecraft:warden 0.5 -60 40.5 270 0 {PersistenceRequired:1b}
+entity_seed WB 811
+mobspawn WC minecraft:warden 0.5 -60 80.5 270 0 {PersistenceRequired:1b}
+entity_seed WC 812
+mobspawn WD minecraft:warden 0.5 -60 120.5 270 0 {PersistenceRequired:1b}
+entity_seed WD 813
+tick 1
+dump mobs player:A player:B player:C player:D packets:A:none packets:B:none packets:C:none packets:D:none events
+use B off
+use D off
+tick 6
+dump use:B use:D
+note one direct hit each makes the attacker the attack target
+hurt WA minecraft:player_attack 1 by=A direct=A
+hurt WB minecraft:player_attack 1 by=B direct=B
+hurt WC minecraft:player_attack 1 by=C direct=C
+hurt WD minecraft:player_attack 1 by=D direct=D
+watch mobs player:A player:B player:C player:D events
+tick 1
+watch off
+tick 20
+dump mobs player:A player:B player:C player:D events
+tick 20
+dump mobs player:A player:B player:C player:D events
+tick 20
+dump mobs player:A player:B player:C player:D events
+tick 20
+dump mobs player:A player:B player:C player:D events
+tick 20
+dump mobs player:A player:B player:C player:D events
+tick 20
+dump mobs player:A player:B player:C player:D events
+tick 20
+dump mobs player:A player:B player:C player:D events
+tick 20
+dump mobs player:A player:B player:C player:D events
+note the claw: damage, knockback, the shield is not disabled by the claw alone
+dump packets:C:set_entity_motion,damage_event,hurt_animation,entity_event packets:D:set_entity_motion,damage_event,hurt_animation,entity_event
+tick 8
+dump mob:WA mob:WB player:A player:B events
+tick 8
+dump mob:WA mob:WB player:A player:B events
+tick 8
+dump mob:WA mob:WB player:A player:B events
+tick 8
+dump mob:WA mob:WB player:A player:B events
+tick 8
+dump mob:WA mob:WB player:A player:B events
+tick 8
+dump mob:WA mob:WB player:A player:B events
+tick 8
+dump mob:WA mob:WB player:A player:B events
+tick 8
+dump mob:WA mob:WB player:A player:B events
+tick 8
+dump mob:WA mob:WB player:A player:B events
+tick 8
+dump mob:WA mob:WB player:A player:B events
+tick 8
+dump mob:WA mob:WB player:A player:B events
+tick 8
+dump mob:WA mob:WB player:A player:B events
+tick 1
+dump packets:A:set_entity_motion,damage_event,hurt_animation,entity_event,level_particles packets:B:set_entity_motion,damage_event,hurt_animation,entity_event,level_particles
+watch mob:WA mob:WB player:A player:B events packets:A:level_particles,damage_event,set_entity_motion packets:B:level_particles,damage_event,set_entity_motion
+tick 90
+watch off
+dump mobs nbt:WA nbt:WB nbt:WC nbt:WD player:A player:B player:C player:D
