@@ -1,0 +1,23 @@
+# Player hits a ghast's fireball: the fireball turns to the player's look direction and the player owns it, so it counts as a reflected
+# fireball and the ghast (immune to every other fireball) dies of it; the deflection advancement is dumped.
+level flat
+preload 4
+difficulty normal
+entity_counter 3800
+level_seed 3801
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 -10 -36
+effect Steve minecraft:resistance 100000 4
+mobspawn G minecraft:ghast 0.5 -57 12.5 180 0 {PersistenceRequired:1b}
+entity_seed G 3811
+tick 2
+watch mob:G entities events
+tick 32
+dump xentity:fireball#1 nbt:fireball#1
+note the fireball is within reach: the attack turns it
+attack Steve fireball#1
+dump xentity:fireball#1 nbt:fireball#1 events
+tick 40
+dump mobs advancements:Steve player:Steve events
+watch off

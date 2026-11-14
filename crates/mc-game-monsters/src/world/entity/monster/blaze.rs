@@ -174,6 +174,10 @@ fn blaze_mut(mob: &mut dyn Entity) -> &mut Blaze {
 }
 
 impl Goal for BlazeAttackGoal {
+    fn name(&self) -> &'static str {
+        "Blaze$BlazeAttackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         mob::tick::get_target_checked(mob, level)
             .and_then(|t| level.get_entity(t))

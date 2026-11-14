@@ -245,6 +245,10 @@ pub fn face_movement_direction(ghast: &mut dyn Entity, level: &ServerLevel) {
 pub struct GhastLookGoal;
 
 impl Goal for GhastLookGoal {
+    fn name(&self) -> &'static str {
+        "Ghast$GhastLookGoal"
+    }
+
     fn can_use(&mut self, _mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         true
     }
@@ -441,6 +445,10 @@ impl GhastTargetGoal {
 }
 
 impl Goal for GhastTargetGoal {
+    fn name(&self) -> &'static str {
+        "NearestAttackableTargetGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.refresh_selector(mob);
         self.inner.can_use(mob, level)
@@ -469,6 +477,10 @@ struct GhastShootFireballGoal {
 }
 
 impl Goal for GhastShootFireballGoal {
+    fn name(&self) -> &'static str {
+        "Ghast$GhastShootFireballGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         mob::tick::get_target_checked(mob, level).is_some()
     }
@@ -625,6 +637,10 @@ impl RandomFloatAroundGoal {
 }
 
 impl Goal for RandomFloatAroundGoal {
+    fn name(&self) -> &'static str {
+        "Ghast$RandomFloatAroundGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         let control = mob
             .mob()

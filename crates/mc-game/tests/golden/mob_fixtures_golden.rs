@@ -208,7 +208,7 @@ fn mob_spawnpass_respawn_point() {
 }
 
 #[test]
-#[ignore = "deviation: the fortress is generated (nether bricks match) but the first attempt on its floor takes the biome's list instead of the fortress monster list (vanilla: wither skeletons at -120.5,66,143.5; here zombified piglins), so the structure lookup of `isInNetherFortressBounds` finds no fortress in the replayed nether"]
+#[ignore = "deviation: the fortress list is found (238 lines match: wither skeletons, blazes, piglins) but the block light of the replayed nether differs from vanilla near the lava inside the fortress (block light 3 here, 10 in vanilla at -68,58,156), so a dark-enough spawn test passes here where vanilla rejects it (SPAWNAT seed=491 at -66,58,154)"]
 fn mob_spawnpass_fortress() {
     block_scenario::check("mob_spawnpass_fortress");
 }

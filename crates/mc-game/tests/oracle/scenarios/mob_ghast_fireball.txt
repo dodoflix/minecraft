@@ -1,0 +1,21 @@
+# Ghast shooting at a player: GhastTargetGoal, the 20 tick charge (isCharging, level events 1015 and 1016), the large fireball with the
+# ghast's ExplosionPower, the facing of the move control and the explosion where the fireball lands; the Steve's resistance keeps him alive.
+level flat
+preload 4
+difficulty normal
+entity_counter 3600
+level_seed 3601
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 100000 4
+mobspawn G minecraft:ghast 0.5 -50 14.5 180 0 {PersistenceRequired:1b}
+mobspawn Big minecraft:ghast 30.5 -50 14.5 180 0 {PersistenceRequired:1b,ExplosionPower:4b}
+entity_seed G 3611
+entity_seed Big 3612
+tick 2
+dump mobs nbt:G nbt:Big goals:G
+watch mob:G mob:Big entities events
+tick 120
+watch off
+dump mobs nbt:G nbt:Big player:Steve events

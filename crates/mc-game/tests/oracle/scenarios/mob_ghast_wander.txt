@@ -1,0 +1,23 @@
+# Ghast with nobody to target: RandomFloatAroundGoal picks flight targets (GhastMoveControl, careful flight, the facing of the body), a
+# ghast boxed in by blocks has to find a position it can reach, and a ghast leashed to a post stays near it.
+level flat
+preload 4
+difficulty normal
+entity_counter 3700
+level_seed 3701
+time 18000
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn Free minecraft:ghast 10.5 -50 10.5 0 0 {PersistenceRequired:1b}
+mobspawn Cage minecraft:ghast -20.5 -56 -20.5 0 0 {PersistenceRequired:1b}
+mobspawn Near minecraft:ghast 12.5 -58 -10.5 0 0 {PersistenceRequired:1b}
+entity_seed Free 3711
+entity_seed Cage 3712
+entity_seed Near 3713
+fill -26 -61 -26 -14 -50 -14 minecraft:stone
+fill -25 -60 -25 -15 -51 -15 minecraft:air
+tick 2
+dump mobs nbt:Free
+watch mob:Free mob:Cage mob:Near
+tick 400
+watch off
+dump mobs nbt:Free

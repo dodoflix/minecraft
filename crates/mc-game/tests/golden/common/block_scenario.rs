@@ -688,6 +688,10 @@ impl Scenario {
         level.scratch_dir = Some(scratch);
         // dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`) and the weather layers; no biome layers
         level.tick_state.attributes = environment_attributes(&dimension_type, self.clocks.clone());
+        // the monster light test and block light limit of the dimension (the nether's limit is 15)
+        level
+            .spawning
+            .install_dimension_type(Arc::new(dimension_type.clone()));
         // the level's own id sequence (starts at 1 like the oracle's `ENTITY_COUNTER`): parallel tests must not share ids
         level.use_private_entity_counter(0);
         level.tick_state.tick_time = true;

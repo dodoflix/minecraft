@@ -1,0 +1,26 @@
+# Blaze attack goal at a player: the triangle-distributed small fireball volleys (attack step 1 charges for 60 ticks, steps 2-4 fire every
+# 6 ticks, 100 ticks of rest), the melee swing below 4 blocks, the hover offset and the fall slowdown, level event 1018, the burning flag;
+# a blaze in a pool takes water damage.
+level flat
+preload 4
+difficulty normal
+entity_counter 3500
+level_seed 3501
+time 18000
+gamerule mob_drops false
+fill 19 -61 -11 25 -57 -5 minecraft:stone
+fill 20 -60 -10 24 -57 -6 minecraft:water[level=0]
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 100000 4
+mobspawn Far minecraft:blaze 0.5 -57 14.5 180 0 {PersistenceRequired:1b}
+mobspawn Near minecraft:blaze 3.5 -60 1.5 90 0 {PersistenceRequired:1b}
+mobspawn Wet minecraft:blaze 22.5 -59 -8.5 0 0 {PersistenceRequired:1b}
+entity_seed Far 3511
+entity_seed Near 3512
+entity_seed Wet 3513
+tick 2
+dump mobs nbt:Far goals:Far
+watch mob:Far mob:Near mob:Wet entities events
+tick 240
+watch off
+dump mobs nbt:Far nbt:Wet player:Steve events
