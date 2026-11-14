@@ -1,0 +1,262 @@
+# The cat variant by the moon phase: the same six level seeds on every phase of the 8-day cycle (a candidate list with or without all_black picks
+# different cats), each phase and the ticks around the day boundaries, natural and spawn-egg reasons.
+level flat
+preload 6
+entity_counter 9400
+level_seed 9401
+difficulty normal
+spawn_player Steve creative 0.5 -60 -10.5 0 0
+note time 0
+time 0
+tick 2
+level_seed 9500
+mobspawn T0K0 minecraft:cat 2.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T0K0 9600
+level_seed 9501
+mobspawn T0K1 minecraft:cat 5.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T0K1 9601
+level_seed 9502
+mobspawn T0K2 minecraft:cat 8.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T0K2 9602
+level_seed 9503
+mobspawn T0K3 minecraft:cat 11.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T0K3 9603
+level_seed 9504
+mobspawn T0K4 minecraft:cat 14.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T0K4 9604
+level_seed 9505
+mobspawn T0K5 minecraft:cat 17.5 -60 2.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed T0K5 9605
+note time 23990
+time 23990
+tick 2
+level_seed 9500
+mobspawn T1K0 minecraft:cat 2.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T1K0 9610
+level_seed 9501
+mobspawn T1K1 minecraft:cat 5.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T1K1 9611
+level_seed 9502
+mobspawn T1K2 minecraft:cat 8.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T1K2 9612
+level_seed 9503
+mobspawn T1K3 minecraft:cat 11.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T1K3 9613
+level_seed 9504
+mobspawn T1K4 minecraft:cat 14.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T1K4 9614
+level_seed 9505
+mobspawn T1K5 minecraft:cat 17.5 -60 5.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed T1K5 9615
+note time 24000
+time 24000
+tick 2
+level_seed 9500
+mobspawn T2K0 minecraft:cat 2.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T2K0 9620
+level_seed 9501
+mobspawn T2K1 minecraft:cat 5.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T2K1 9621
+level_seed 9502
+mobspawn T2K2 minecraft:cat 8.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T2K2 9622
+level_seed 9503
+mobspawn T2K3 minecraft:cat 11.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T2K3 9623
+level_seed 9504
+mobspawn T2K4 minecraft:cat 14.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T2K4 9624
+level_seed 9505
+mobspawn T2K5 minecraft:cat 17.5 -60 8.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed T2K5 9625
+note time 48000
+time 48000
+tick 2
+level_seed 9500
+mobspawn T3K0 minecraft:cat 2.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T3K0 9630
+level_seed 9501
+mobspawn T3K1 minecraft:cat 5.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T3K1 9631
+level_seed 9502
+mobspawn T3K2 minecraft:cat 8.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T3K2 9632
+level_seed 9503
+mobspawn T3K3 minecraft:cat 11.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T3K3 9633
+level_seed 9504
+mobspawn T3K4 minecraft:cat 14.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T3K4 9634
+level_seed 9505
+mobspawn T3K5 minecraft:cat 17.5 -60 11.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed T3K5 9635
+note time 72000
+time 72000
+tick 2
+level_seed 9500
+mobspawn T4K0 minecraft:cat 2.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T4K0 9640
+level_seed 9501
+mobspawn T4K1 minecraft:cat 5.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T4K1 9641
+level_seed 9502
+mobspawn T4K2 minecraft:cat 8.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T4K2 9642
+level_seed 9503
+mobspawn T4K3 minecraft:cat 11.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T4K3 9643
+level_seed 9504
+mobspawn T4K4 minecraft:cat 14.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T4K4 9644
+level_seed 9505
+mobspawn T4K5 minecraft:cat 17.5 -60 14.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed T4K5 9645
+note time 96000
+time 96000
+tick 2
+level_seed 9500
+mobspawn T5K0 minecraft:cat 2.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T5K0 9650
+level_seed 9501
+mobspawn T5K1 minecraft:cat 5.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T5K1 9651
+level_seed 9502
+mobspawn T5K2 minecraft:cat 8.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T5K2 9652
+level_seed 9503
+mobspawn T5K3 minecraft:cat 11.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T5K3 9653
+level_seed 9504
+mobspawn T5K4 minecraft:cat 14.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T5K4 9654
+level_seed 9505
+mobspawn T5K5 minecraft:cat 17.5 -60 17.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed T5K5 9655
+note time 120000
+time 120000
+tick 2
+level_seed 9500
+mobspawn T6K0 minecraft:cat 2.5 -60 20.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T6K0 9660
+level_seed 9501
+mobspawn T6K1 minecraft:cat 5.5 -60 20.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T6K1 9661
+level_seed 9502
+mobspawn T6K2 minecraft:cat 8.5 -60 20.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T6K2 9662
+level_seed 9503
+mobspawn T6K3 minecraft:cat 11.5 -60 20.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T6K3 9663
+level_seed 9504
+mobspawn T6K4 minecraft:cat 14.5 -60 20.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T6K4 9664
+level_seed 9505
+mobspawn T6K5 minecraft:cat 17.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed T6K5 9665
+note time 144000
+time 144000
+tick 2
+level_seed 9500
+mobspawn T7K0 minecraft:cat 2.5 -60 23.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T7K0 9670
+level_seed 9501
+mobspawn T7K1 minecraft:cat 5.5 -60 23.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T7K1 9671
+level_seed 9502
+mobspawn T7K2 minecraft:cat 8.5 -60 23.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T7K2 9672
+level_seed 9503
+mobspawn T7K3 minecraft:cat 11.5 -60 23.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T7K3 9673
+level_seed 9504
+mobspawn T7K4 minecraft:cat 14.5 -60 23.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T7K4 9674
+level_seed 9505
+mobspawn T7K5 minecraft:cat 17.5 -60 23.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed T7K5 9675
+note time 168000
+time 168000
+tick 2
+level_seed 9500
+mobspawn T8K0 minecraft:cat 2.5 -60 26.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T8K0 9680
+level_seed 9501
+mobspawn T8K1 minecraft:cat 5.5 -60 26.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T8K1 9681
+level_seed 9502
+mobspawn T8K2 minecraft:cat 8.5 -60 26.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T8K2 9682
+level_seed 9503
+mobspawn T8K3 minecraft:cat 11.5 -60 26.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T8K3 9683
+level_seed 9504
+mobspawn T8K4 minecraft:cat 14.5 -60 26.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T8K4 9684
+level_seed 9505
+mobspawn T8K5 minecraft:cat 17.5 -60 26.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed T8K5 9685
+note time 191990
+time 191990
+tick 2
+level_seed 9500
+mobspawn T9K0 minecraft:cat 2.5 -60 29.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T9K0 9690
+level_seed 9501
+mobspawn T9K1 minecraft:cat 5.5 -60 29.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T9K1 9691
+level_seed 9502
+mobspawn T9K2 minecraft:cat 8.5 -60 29.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T9K2 9692
+level_seed 9503
+mobspawn T9K3 minecraft:cat 11.5 -60 29.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T9K3 9693
+level_seed 9504
+mobspawn T9K4 minecraft:cat 14.5 -60 29.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T9K4 9694
+level_seed 9505
+mobspawn T9K5 minecraft:cat 17.5 -60 29.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed T9K5 9695
+note time 192000
+time 192000
+tick 2
+level_seed 9500
+mobspawn T10K0 minecraft:cat 2.5 -60 32.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T10K0 9700
+level_seed 9501
+mobspawn T10K1 minecraft:cat 5.5 -60 32.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T10K1 9701
+level_seed 9502
+mobspawn T10K2 minecraft:cat 8.5 -60 32.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T10K2 9702
+level_seed 9503
+mobspawn T10K3 minecraft:cat 11.5 -60 32.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T10K3 9703
+level_seed 9504
+mobspawn T10K4 minecraft:cat 14.5 -60 32.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T10K4 9704
+level_seed 9505
+mobspawn T10K5 minecraft:cat 17.5 -60 32.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed T10K5 9705
+note time 216000
+time 216000
+tick 2
+level_seed 9500
+mobspawn T11K0 minecraft:cat 2.5 -60 35.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T11K0 9710
+level_seed 9501
+mobspawn T11K1 minecraft:cat 5.5 -60 35.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T11K1 9711
+level_seed 9502
+mobspawn T11K2 minecraft:cat 8.5 -60 35.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T11K2 9712
+level_seed 9503
+mobspawn T11K3 minecraft:cat 11.5 -60 35.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T11K3 9713
+level_seed 9504
+mobspawn T11K4 minecraft:cat 14.5 -60 35.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed T11K4 9714
+level_seed 9505
+mobspawn T11K5 minecraft:cat 17.5 -60 35.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed T11K5 9715
+tick 1
+dump mobs

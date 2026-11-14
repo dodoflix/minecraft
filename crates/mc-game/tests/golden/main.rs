@@ -220,6 +220,7 @@ mod mob_shulker_golden;
 mod mob_skeleton_golden;
 mod mob_sniffer_golden;
 mod mob_spine_golden;
+mod mob_variants_golden;
 mod mob_victim_golden;
 mod mob_village_golden;
 mod mob_villager_golden;

@@ -1,0 +1,149 @@
+# The cat variant by structure on a generated swamp hut: a cat on a hut piece (the structure condition outranks the moon) is all black at a new moon,
+# one beside or above the hut is not; spawn-egg and command reasons pick the same way. The hut's generation-time witch and cat are killed first.
+level normal
+structures true
+seed 5
+preload 0
+difficulty normal
+command_env
+entity_counter 9200
+spawn_player Steve survival -180.5 66 -688.5 0 0
+time 96000
+tick 60
+set Steve no_gravity true
+tp Steve -222.5 80 -690.5
+tick 20
+cmd kill @e[type=minecraft:cat]
+cmd kill @e[type=minecraft:witch]
+level_seed 9201
+note a new moon: the hut's pieces decide
+level_seed 9211
+mobspawn H0 minecraft:cat -229.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H0 10211
+level_seed 9212
+mobspawn H1 minecraft:cat -227.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H1 10212
+level_seed 9213
+mobspawn H2 minecraft:cat -225.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H2 10213
+level_seed 9214
+mobspawn H3 minecraft:cat -223.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H3 10214
+level_seed 9215
+mobspawn H4 minecraft:cat -221.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H4 10215
+level_seed 9216
+mobspawn H5 minecraft:cat -219.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H5 10216
+level_seed 9217
+mobspawn H6 minecraft:cat -217.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H6 10217
+level_seed 9218
+mobspawn H7 minecraft:cat -215.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H7 10218
+level_seed 9219
+mobspawn Z0 minecraft:cat -221.5 65 -692.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z0 10219
+level_seed 9220
+mobspawn Z1 minecraft:cat -221.5 65 -690.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z1 10220
+level_seed 9221
+mobspawn Z2 minecraft:cat -221.5 65 -688.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z2 10221
+level_seed 9222
+mobspawn Z3 minecraft:cat -221.5 65 -686.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z3 10222
+level_seed 9223
+mobspawn Z4 minecraft:cat -221.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z4 10223
+level_seed 9224
+mobspawn Z5 minecraft:cat -221.5 65 -682.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z5 10224
+level_seed 9225
+mobspawn Z6 minecraft:cat -221.5 65 -680.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z6 10225
+level_seed 9226
+mobspawn Z7 minecraft:cat -221.5 65 -678.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z7 10226
+level_seed 9227
+mobspawn Y0 minecraft:cat -221.5 60 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y0 10227
+level_seed 9228
+mobspawn Y1 minecraft:cat -221.5 64 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y1 10228
+level_seed 9229
+mobspawn Y2 minecraft:cat -221.5 66 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y2 10229
+level_seed 9230
+mobspawn Y3 minecraft:cat -221.5 68 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y3 10230
+level_seed 9231
+mobspawn Y4 minecraft:cat -221.5 70 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y4 10231
+level_seed 9232
+mobspawn Y5 minecraft:cat -221.5 75 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y5 10232
+level_seed 9233
+mobspawn Y6 minecraft:cat -221.5 90 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y6 10233
+level_seed 9234
+mobspawn E0 minecraft:cat -221.5 65 -684.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed E0 10234
+level_seed 9235
+mobspawn O0 minecraft:cat -221.5 65 -684.5 0 0 reason=command {NoAI:1b,PersistenceRequired:1b}
+entity_seed O0 10235
+tick 1
+dump mobs
+note a full moon: the moon condition adds all_black to the tied candidates, the hut still outranks it
+time 0
+tick 2
+level_seed 9236
+mobspawn F0 minecraft:cat -229.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F0 10236
+level_seed 9237
+mobspawn F1 minecraft:cat -227.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F1 10237
+level_seed 9238
+mobspawn F2 minecraft:cat -225.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F2 10238
+level_seed 9239
+mobspawn F3 minecraft:cat -223.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F3 10239
+level_seed 9240
+mobspawn F4 minecraft:cat -221.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F4 10240
+level_seed 9241
+mobspawn F5 minecraft:cat -219.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F5 10241
+level_seed 9242
+mobspawn F6 minecraft:cat -217.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F6 10242
+level_seed 9243
+mobspawn F7 minecraft:cat -215.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F7 10243
+level_seed 9244
+mobspawn G0 minecraft:cat -150.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed G0 10244
+level_seed 9245
+mobspawn G1 minecraft:cat -153.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed G1 10245
+level_seed 9246
+mobspawn G2 minecraft:cat -156.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed G2 10246
+level_seed 9247
+mobspawn G3 minecraft:cat -159.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed G3 10247
+level_seed 9248
+mobspawn G4 minecraft:cat -162.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed G4 10248
+level_seed 9249
+mobspawn G5 minecraft:cat -165.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed G5 10249
+level_seed 9250
+mobspawn G6 minecraft:cat -168.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed G6 10250
+level_seed 9251
+mobspawn G7 minecraft:cat -171.5 65 -684.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed G7 10251
+tick 1
+dump mobs

@@ -1,0 +1,588 @@
+# Natural-reason spawns pick their variant by the biome at the block: wolf (forest, grove, taigas, jungles, savannas and badlands tags), pig, cow, chicken,
+# frog (temperature tags) and rabbit (snow, desert and the rest), a spawn-egg wolf and cat, and mobs above the filled biome volume.
+level flat
+preload 8
+entity_counter 9300
+level_seed 9301
+difficulty normal
+spawn_player Steve creative 0.5 -60 -10.5 0 0
+biome 0 -64 0 8 -50 24 minecraft:plains
+biome 10 -64 0 18 -50 24 minecraft:forest
+biome 20 -64 0 28 -50 24 minecraft:grove
+biome 30 -64 0 38 -50 24 minecraft:old_growth_pine_taiga
+biome 40 -64 0 48 -50 24 minecraft:snowy_taiga
+biome 50 -64 0 58 -50 24 minecraft:jungle
+biome 60 -64 0 68 -50 24 minecraft:sparse_jungle
+biome 70 -64 0 78 -50 24 minecraft:savanna
+biome 80 -64 0 88 -50 24 minecraft:badlands
+biome 90 -64 0 98 -50 24 minecraft:wooded_badlands
+biome 100 -64 0 108 -50 24 minecraft:old_growth_spruce_taiga
+biome 110 -64 0 118 -50 24 minecraft:desert
+biome 120 -64 0 128 -50 24 minecraft:snowy_plains
+biome 130 -64 0 138 -50 24 minecraft:swamp
+biome 140 -64 0 148 -50 24 minecraft:mangrove_swamp
+biome 150 -64 0 158 -50 24 minecraft:windswept_hills
+tick 3
+level_seed 9311
+mobspawn Wo0 minecraft:wolf 2.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo0 10311
+level_seed 9312
+mobspawn Pi0 minecraft:pig 2.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi0 10312
+level_seed 9313
+mobspawn Co0 minecraft:cow 2.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co0 10313
+level_seed 9314
+mobspawn Ch0 minecraft:chicken 2.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch0 10314
+level_seed 9315
+mobspawn Fr0 minecraft:frog 2.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr0 10315
+level_seed 9316
+mobspawn Ra0 minecraft:rabbit 2.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra0 10316
+level_seed 9317
+mobspawn WE0 minecraft:wolf 2.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE0 10317
+level_seed 9318
+mobspawn CE0 minecraft:cat 2.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE0 10318
+level_seed 9319
+mobspawn WH0 minecraft:wolf 2.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH0 10319
+level_seed 9320
+mobspawn PH0 minecraft:pig 2.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH0 10320
+level_seed 9321
+mobspawn Wo1 minecraft:wolf 12.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo1 10321
+level_seed 9322
+mobspawn Pi1 minecraft:pig 12.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi1 10322
+level_seed 9323
+mobspawn Co1 minecraft:cow 12.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co1 10323
+level_seed 9324
+mobspawn Ch1 minecraft:chicken 12.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch1 10324
+level_seed 9325
+mobspawn Fr1 minecraft:frog 12.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr1 10325
+level_seed 9326
+mobspawn Ra1 minecraft:rabbit 12.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra1 10326
+level_seed 9327
+mobspawn WE1 minecraft:wolf 12.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE1 10327
+level_seed 9328
+mobspawn CE1 minecraft:cat 12.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE1 10328
+level_seed 9329
+mobspawn WH1 minecraft:wolf 12.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH1 10329
+level_seed 9330
+mobspawn PH1 minecraft:pig 12.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH1 10330
+level_seed 9331
+mobspawn Wo2 minecraft:wolf 22.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo2 10331
+level_seed 9332
+mobspawn Pi2 minecraft:pig 22.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi2 10332
+level_seed 9333
+mobspawn Co2 minecraft:cow 22.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co2 10333
+level_seed 9334
+mobspawn Ch2 minecraft:chicken 22.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch2 10334
+level_seed 9335
+mobspawn Fr2 minecraft:frog 22.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr2 10335
+level_seed 9336
+mobspawn Ra2 minecraft:rabbit 22.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra2 10336
+level_seed 9337
+mobspawn WE2 minecraft:wolf 22.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE2 10337
+level_seed 9338
+mobspawn CE2 minecraft:cat 22.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE2 10338
+level_seed 9339
+mobspawn WH2 minecraft:wolf 22.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH2 10339
+level_seed 9340
+mobspawn PH2 minecraft:pig 22.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH2 10340
+level_seed 9341
+mobspawn Wo3 minecraft:wolf 32.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo3 10341
+level_seed 9342
+mobspawn Pi3 minecraft:pig 32.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi3 10342
+level_seed 9343
+mobspawn Co3 minecraft:cow 32.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co3 10343
+level_seed 9344
+mobspawn Ch3 minecraft:chicken 32.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch3 10344
+level_seed 9345
+mobspawn Fr3 minecraft:frog 32.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr3 10345
+level_seed 9346
+mobspawn Ra3 minecraft:rabbit 32.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra3 10346
+level_seed 9347
+mobspawn WE3 minecraft:wolf 32.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE3 10347
+level_seed 9348
+mobspawn CE3 minecraft:cat 32.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE3 10348
+level_seed 9349
+mobspawn WH3 minecraft:wolf 32.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH3 10349
+level_seed 9350
+mobspawn PH3 minecraft:pig 32.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH3 10350
+level_seed 9351
+mobspawn Wo4 minecraft:wolf 42.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo4 10351
+level_seed 9352
+mobspawn Pi4 minecraft:pig 42.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi4 10352
+level_seed 9353
+mobspawn Co4 minecraft:cow 42.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co4 10353
+level_seed 9354
+mobspawn Ch4 minecraft:chicken 42.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch4 10354
+level_seed 9355
+mobspawn Fr4 minecraft:frog 42.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr4 10355
+level_seed 9356
+mobspawn Ra4 minecraft:rabbit 42.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra4 10356
+level_seed 9357
+mobspawn WE4 minecraft:wolf 42.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE4 10357
+level_seed 9358
+mobspawn CE4 minecraft:cat 42.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE4 10358
+level_seed 9359
+mobspawn WH4 minecraft:wolf 42.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH4 10359
+level_seed 9360
+mobspawn PH4 minecraft:pig 42.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH4 10360
+level_seed 9361
+mobspawn Wo5 minecraft:wolf 52.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo5 10361
+level_seed 9362
+mobspawn Pi5 minecraft:pig 52.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi5 10362
+level_seed 9363
+mobspawn Co5 minecraft:cow 52.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co5 10363
+level_seed 9364
+mobspawn Ch5 minecraft:chicken 52.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch5 10364
+level_seed 9365
+mobspawn Fr5 minecraft:frog 52.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr5 10365
+level_seed 9366
+mobspawn Ra5 minecraft:rabbit 52.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra5 10366
+level_seed 9367
+mobspawn WE5 minecraft:wolf 52.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE5 10367
+level_seed 9368
+mobspawn CE5 minecraft:cat 52.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE5 10368
+level_seed 9369
+mobspawn WH5 minecraft:wolf 52.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH5 10369
+level_seed 9370
+mobspawn PH5 minecraft:pig 52.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH5 10370
+level_seed 9371
+mobspawn Wo6 minecraft:wolf 62.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo6 10371
+level_seed 9372
+mobspawn Pi6 minecraft:pig 62.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi6 10372
+level_seed 9373
+mobspawn Co6 minecraft:cow 62.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co6 10373
+level_seed 9374
+mobspawn Ch6 minecraft:chicken 62.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch6 10374
+level_seed 9375
+mobspawn Fr6 minecraft:frog 62.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr6 10375
+level_seed 9376
+mobspawn Ra6 minecraft:rabbit 62.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra6 10376
+level_seed 9377
+mobspawn WE6 minecraft:wolf 62.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE6 10377
+level_seed 9378
+mobspawn CE6 minecraft:cat 62.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE6 10378
+level_seed 9379
+mobspawn WH6 minecraft:wolf 62.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH6 10379
+level_seed 9380
+mobspawn PH6 minecraft:pig 62.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH6 10380
+level_seed 9381
+mobspawn Wo7 minecraft:wolf 72.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo7 10381
+level_seed 9382
+mobspawn Pi7 minecraft:pig 72.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi7 10382
+level_seed 9383
+mobspawn Co7 minecraft:cow 72.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co7 10383
+level_seed 9384
+mobspawn Ch7 minecraft:chicken 72.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch7 10384
+level_seed 9385
+mobspawn Fr7 minecraft:frog 72.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr7 10385
+level_seed 9386
+mobspawn Ra7 minecraft:rabbit 72.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra7 10386
+level_seed 9387
+mobspawn WE7 minecraft:wolf 72.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE7 10387
+level_seed 9388
+mobspawn CE7 minecraft:cat 72.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE7 10388
+level_seed 9389
+mobspawn WH7 minecraft:wolf 72.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH7 10389
+level_seed 9390
+mobspawn PH7 minecraft:pig 72.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH7 10390
+level_seed 9391
+mobspawn Wo8 minecraft:wolf 82.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo8 10391
+level_seed 9392
+mobspawn Pi8 minecraft:pig 82.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi8 10392
+level_seed 9393
+mobspawn Co8 minecraft:cow 82.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co8 10393
+level_seed 9394
+mobspawn Ch8 minecraft:chicken 82.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch8 10394
+level_seed 9395
+mobspawn Fr8 minecraft:frog 82.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr8 10395
+level_seed 9396
+mobspawn Ra8 minecraft:rabbit 82.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra8 10396
+level_seed 9397
+mobspawn WE8 minecraft:wolf 82.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE8 10397
+level_seed 9398
+mobspawn CE8 minecraft:cat 82.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE8 10398
+level_seed 9399
+mobspawn WH8 minecraft:wolf 82.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH8 10399
+level_seed 9400
+mobspawn PH8 minecraft:pig 82.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH8 10400
+level_seed 9401
+mobspawn Wo9 minecraft:wolf 92.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo9 10401
+level_seed 9402
+mobspawn Pi9 minecraft:pig 92.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi9 10402
+level_seed 9403
+mobspawn Co9 minecraft:cow 92.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co9 10403
+level_seed 9404
+mobspawn Ch9 minecraft:chicken 92.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch9 10404
+level_seed 9405
+mobspawn Fr9 minecraft:frog 92.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr9 10405
+level_seed 9406
+mobspawn Ra9 minecraft:rabbit 92.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra9 10406
+level_seed 9407
+mobspawn WE9 minecraft:wolf 92.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE9 10407
+level_seed 9408
+mobspawn CE9 minecraft:cat 92.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE9 10408
+level_seed 9409
+mobspawn WH9 minecraft:wolf 92.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH9 10409
+level_seed 9410
+mobspawn PH9 minecraft:pig 92.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH9 10410
+level_seed 9411
+mobspawn Wo10 minecraft:wolf 102.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo10 10411
+level_seed 9412
+mobspawn Pi10 minecraft:pig 102.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi10 10412
+level_seed 9413
+mobspawn Co10 minecraft:cow 102.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co10 10413
+level_seed 9414
+mobspawn Ch10 minecraft:chicken 102.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch10 10414
+level_seed 9415
+mobspawn Fr10 minecraft:frog 102.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr10 10415
+level_seed 9416
+mobspawn Ra10 minecraft:rabbit 102.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra10 10416
+level_seed 9417
+mobspawn WE10 minecraft:wolf 102.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE10 10417
+level_seed 9418
+mobspawn CE10 minecraft:cat 102.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE10 10418
+level_seed 9419
+mobspawn WH10 minecraft:wolf 102.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH10 10419
+level_seed 9420
+mobspawn PH10 minecraft:pig 102.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH10 10420
+level_seed 9421
+mobspawn Wo11 minecraft:wolf 112.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo11 10421
+level_seed 9422
+mobspawn Pi11 minecraft:pig 112.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi11 10422
+level_seed 9423
+mobspawn Co11 minecraft:cow 112.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co11 10423
+level_seed 9424
+mobspawn Ch11 minecraft:chicken 112.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch11 10424
+level_seed 9425
+mobspawn Fr11 minecraft:frog 112.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr11 10425
+level_seed 9426
+mobspawn Ra11 minecraft:rabbit 112.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra11 10426
+level_seed 9427
+mobspawn WE11 minecraft:wolf 112.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE11 10427
+level_seed 9428
+mobspawn CE11 minecraft:cat 112.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE11 10428
+level_seed 9429
+mobspawn WH11 minecraft:wolf 112.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH11 10429
+level_seed 9430
+mobspawn PH11 minecraft:pig 112.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH11 10430
+level_seed 9431
+mobspawn Wo12 minecraft:wolf 122.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo12 10431
+level_seed 9432
+mobspawn Pi12 minecraft:pig 122.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi12 10432
+level_seed 9433
+mobspawn Co12 minecraft:cow 122.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co12 10433
+level_seed 9434
+mobspawn Ch12 minecraft:chicken 122.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch12 10434
+level_seed 9435
+mobspawn Fr12 minecraft:frog 122.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr12 10435
+level_seed 9436
+mobspawn Ra12 minecraft:rabbit 122.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra12 10436
+level_seed 9437
+mobspawn WE12 minecraft:wolf 122.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE12 10437
+level_seed 9438
+mobspawn CE12 minecraft:cat 122.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE12 10438
+level_seed 9439
+mobspawn WH12 minecraft:wolf 122.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH12 10439
+level_seed 9440
+mobspawn PH12 minecraft:pig 122.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH12 10440
+level_seed 9441
+mobspawn Wo13 minecraft:wolf 132.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo13 10441
+level_seed 9442
+mobspawn Pi13 minecraft:pig 132.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi13 10442
+level_seed 9443
+mobspawn Co13 minecraft:cow 132.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co13 10443
+level_seed 9444
+mobspawn Ch13 minecraft:chicken 132.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch13 10444
+level_seed 9445
+mobspawn Fr13 minecraft:frog 132.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr13 10445
+level_seed 9446
+mobspawn Ra13 minecraft:rabbit 132.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra13 10446
+level_seed 9447
+mobspawn WE13 minecraft:wolf 132.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE13 10447
+level_seed 9448
+mobspawn CE13 minecraft:cat 132.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE13 10448
+level_seed 9449
+mobspawn WH13 minecraft:wolf 132.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH13 10449
+level_seed 9450
+mobspawn PH13 minecraft:pig 132.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH13 10450
+level_seed 9451
+mobspawn Wo14 minecraft:wolf 142.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo14 10451
+level_seed 9452
+mobspawn Pi14 minecraft:pig 142.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi14 10452
+level_seed 9453
+mobspawn Co14 minecraft:cow 142.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co14 10453
+level_seed 9454
+mobspawn Ch14 minecraft:chicken 142.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch14 10454
+level_seed 9455
+mobspawn Fr14 minecraft:frog 142.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr14 10455
+level_seed 9456
+mobspawn Ra14 minecraft:rabbit 142.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra14 10456
+level_seed 9457
+mobspawn WE14 minecraft:wolf 142.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE14 10457
+level_seed 9458
+mobspawn CE14 minecraft:cat 142.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE14 10458
+level_seed 9459
+mobspawn WH14 minecraft:wolf 142.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH14 10459
+level_seed 9460
+mobspawn PH14 minecraft:pig 142.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH14 10460
+level_seed 9461
+mobspawn Wo15 minecraft:wolf 152.5 -60 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Wo15 10461
+level_seed 9462
+mobspawn Pi15 minecraft:pig 152.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pi15 10462
+level_seed 9463
+mobspawn Co15 minecraft:cow 152.5 -60 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Co15 10463
+level_seed 9464
+mobspawn Ch15 minecraft:chicken 152.5 -60 11.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ch15 10464
+level_seed 9465
+mobspawn Fr15 minecraft:frog 152.5 -60 14.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Fr15 10465
+level_seed 9466
+mobspawn Ra15 minecraft:rabbit 152.5 -60 17.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Ra15 10466
+level_seed 9467
+mobspawn WE15 minecraft:wolf 152.5 -60 20.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed WE15 10467
+level_seed 9468
+mobspawn CE15 minecraft:cat 152.5 -60 22.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed CE15 10468
+level_seed 9469
+mobspawn WH15 minecraft:wolf 152.5 -40 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed WH15 10469
+level_seed 9470
+mobspawn PH15 minecraft:pig 152.5 -40 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed PH15 10470
+tick 1
+dump mobs
+note the variants of the farm animals, frogs and rabbits round trip through the entity data
+dump nbt:Pi0
+dump nbt:Co0
+dump nbt:Ch0
+dump nbt:Fr0
+dump nbt:Ra0
+dump nbt:Pi1
+dump nbt:Co1
+dump nbt:Ch1
+dump nbt:Fr1
+dump nbt:Ra1
+dump nbt:Pi2
+dump nbt:Co2
+dump nbt:Ch2
+dump nbt:Fr2
+dump nbt:Ra2
+dump nbt:Pi3
+dump nbt:Co3
+dump nbt:Ch3
+dump nbt:Fr3
+dump nbt:Ra3
+dump nbt:Pi4
+dump nbt:Co4
+dump nbt:Ch4
+dump nbt:Fr4
+dump nbt:Ra4
+dump nbt:Pi5
+dump nbt:Co5
+dump nbt:Ch5
+dump nbt:Fr5
+dump nbt:Ra5
+dump nbt:Pi6
+dump nbt:Co6
+dump nbt:Ch6
+dump nbt:Fr6
+dump nbt:Ra6
+dump nbt:Pi7
+dump nbt:Co7
+dump nbt:Ch7
+dump nbt:Fr7
+dump nbt:Ra7
+dump nbt:Pi8
+dump nbt:Co8
+dump nbt:Ch8
+dump nbt:Fr8
+dump nbt:Ra8
+dump nbt:Pi9
+dump nbt:Co9
+dump nbt:Ch9
+dump nbt:Fr9
+dump nbt:Ra9
+dump nbt:Pi10
+dump nbt:Co10
+dump nbt:Ch10
+dump nbt:Fr10
+dump nbt:Ra10
+dump nbt:Pi11
+dump nbt:Co11
+dump nbt:Ch11
+dump nbt:Fr11
+dump nbt:Ra11
+dump nbt:Pi12
+dump nbt:Co12
+dump nbt:Ch12
+dump nbt:Fr12
+dump nbt:Ra12
+dump nbt:Pi13
+dump nbt:Co13
+dump nbt:Ch13
+dump nbt:Fr13
+dump nbt:Ra13
+dump nbt:Pi14
+dump nbt:Co14
+dump nbt:Ch14
+dump nbt:Fr14
+dump nbt:Ra14
+dump nbt:Pi15
+dump nbt:Co15
+dump nbt:Ch15
+dump nbt:Fr15
+dump nbt:Ra15
