@@ -127,6 +127,9 @@ pub struct ServerLevel {
     // ==== spawn framework additions (ServerLevel field) ====
     /// Natural spawning state: spawn state of the tick, custom spawners, dimension attribute base (see `world::level::spawner`).
     pub spawning: crate::world::level::spawner::LevelSpawnData,
+    /// The throwaway dimension folder of a level that has no world (`detached`, test replays), removed when the level
+    /// drops. Last field: it must outlive the chunk source's files. Real levels use the world folder and keep `None`.
+    pub scratch_dir: Option<tempfile::TempDir>,
 }
 
 impl ServerLevel {
@@ -199,6 +202,7 @@ impl ServerLevel {
             pending_start_references: Default::default(),
             // ==== spawn framework additions (ServerLevel::new initializer) ====
             spawning,
+            scratch_dir: None,
         }
     }
 
@@ -221,22 +225,18 @@ impl ServerLevel {
         level_height: LevelHeight,
         sea_level: i32,
     ) -> Self {
-        static COUNTER: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(0);
-        let dir = std::env::temp_dir().join(format!(
-            "mc-detached-level-{}-{}",
-            std::process::id(),
-            COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)
-        ));
-        // the name repeats when the OS recycles a process id: files a dead process left (point-of-interest regions) must not load
-        let _ = std::fs::remove_dir_all(&dir);
+        let scratch = tempfile::Builder::new()
+            .prefix("mc-detached-level-")
+            .tempdir()
+            .expect("create scratch dir");
         let (shared, _rx) = ServerShared::new();
         shared.bind_game_thread(); // the test thread is the server thread: `execute` runs inline like vanilla
         let biomes = mc_world::palette::BiomeRegistry::new(vec!["minecraft:plains".to_string()]);
-        Self::new(ServerLevelParams {
+        let mut level = Self::new(ServerLevelParams {
             shared,
             dimension,
             level_id: "detached".to_string(),
-            dimension_dir: dir,
+            dimension_dir: scratch.path().to_owned(),
             level_height,
             sea_level,
             has_sky_light: true,
@@ -253,7 +253,9 @@ impl ServerLevel {
             level_data: Box::new(super::level_data::PrimaryServerLevelData(
                 super::level_data::default_world_data(),
             )),
-        })
+        });
+        level.scratch_dir = Some(scratch);
+        level
     }
 
     /// `getPathTypeCache()`.

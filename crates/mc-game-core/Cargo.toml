@@ -44,10 +44,10 @@ libc = { workspace = true }
 sha2 = { workspace = true, features = ["oid"] }
 sha1 = { workspace = true, features = ["oid"] }
 reqwest = { workspace = true, features = ["rustls", "blocking"] }
+tempfile = { workspace = true }
 
 [dev-dependencies]
 mc-testkit = { path = "../mc-testkit" }
-tempfile = { workspace = true }
 tokio = { workspace = true, features = ["test-util"] }
 
 [lints]

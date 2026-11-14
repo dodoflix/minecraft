@@ -181,25 +181,26 @@ pub fn level_entity_ids(
     }
 }
 
-/// The live entity `entity` refers to.
+/// The live entity `entity` refers to; a killed player whose entity already left its level (`tickDeath`) is still found, like
+/// the `ServerPlayer` object vanilla's player list keeps until the respawn.
 pub fn get_entity<'a>(server: &'a MinecraftServer, entity: &EntityRef) -> Option<&'a dyn Entity> {
-    server.level(&entity.dimension)?.get_entity(entity.id)
+    let level = server.level(&entity.dimension)?;
+    level
+        .get_entity(entity.id)
+        .or_else(|| level.get_dead_player(entity.id))
 }
 
-/// `PlayerList.getPlayers()` as entity references, in join order.
-/// The players of every level are listed (dimension order, then level order) rather than read from a
-/// `MinecraftServer.player_list` field.
+/// `PlayerList.getPlayers()` as entity references, in join order (killed players stay listed until they respawn).
 pub fn server_players(server: &MinecraftServer) -> Vec<EntityRef> {
-    let mut out = Vec::new();
-    for dimension in server.level_keys() {
-        if let Some(level) = server.level(&dimension) {
-            out.extend(level.players().iter().map(|&id| EntityRef {
-                dimension: dimension.clone(),
-                id,
-            }));
-        }
-    }
-    out
+    server
+        .player_list
+        .players()
+        .iter()
+        .map(|p| EntityRef {
+            dimension: p.dimension(),
+            id: p.id,
+        })
+        .collect()
 }
 
 /// `PlayerList.getPlayerByName(name)` (case-insensitive).

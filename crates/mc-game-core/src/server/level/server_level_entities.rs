@@ -157,14 +157,17 @@ impl ServerLevel {
         })
     }
 
-    /// [`ServerLevel::get_entity`], or the entity that was removed when [`ServerLevel::removed_entities`] keeps them.
+    /// [`ServerLevel::get_entity`], a killed player that left the level, or the entity that was removed when
+    /// [`ServerLevel::removed_entities`] keeps them.
     pub fn get_entity_or_removed(&self, id: EntityId) -> Option<&dyn Entity> {
-        self.get_entity_or_recently_removed(id).or_else(|| {
-            self.removed_entities
-                .as_ref()
-                .and_then(|kept| kept.get(&id))
-                .map(|e| e.as_ref())
-        })
+        self.get_entity_or_recently_removed(id)
+            .or_else(|| self.get_dead_player(id))
+            .or_else(|| {
+                self.removed_entities
+                    .as_ref()
+                    .and_then(|kept| kept.get(&id))
+                    .map(|e| e.as_ref())
+            })
     }
 
     pub fn get_entity_by_uuid(&self, uuid: Uuid) -> Option<&dyn Entity> {

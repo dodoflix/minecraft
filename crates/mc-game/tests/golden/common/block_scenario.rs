@@ -578,14 +578,10 @@ impl Scenario {
         if self.level.is_some() {
             return;
         }
-        static COUNTER: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(0);
-        let dir = std::env::temp_dir().join(format!(
-            "mc-block-scenario-{}-{}",
-            std::process::id(),
-            COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)
-        ));
-        // the name repeats when the OS recycles a process id: files a dead process left (point-of-interest regions) must not load
-        let _ = std::fs::remove_dir_all(&dir);
+        let scratch = tempfile::Builder::new()
+            .prefix("mc-block-scenario-")
+            .tempdir()
+            .expect("create scratch dir");
         let (shared, _rx) = ServerShared::new();
         // the scenario thread is the server thread: tasks the game submits (point of interest updates) run inline like in vanilla
         shared.bind_game_thread();
@@ -647,7 +643,7 @@ impl Scenario {
             shared,
             dimension: Identifier::parse(&format!("minecraft:{}", self.opts.dimension)).unwrap(),
             level_id: "block_scenario".to_string(),
-            dimension_dir: dir,
+            dimension_dir: scratch.path().to_owned(),
             level_height: LevelHeight {
                 min_y: dimension_type.min_y,
                 height: dimension_type.height,
@@ -689,6 +685,7 @@ impl Scenario {
                 world_data,
             )),
         });
+        level.scratch_dir = Some(scratch);
         // dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`) and the weather layers; no biome layers
         level.tick_state.attributes = environment_attributes(&dimension_type, self.clocks.clone());
         // the level's own id sequence (starts at 1 like the oracle's `ENTITY_COUNTER`): parallel tests must not share ids

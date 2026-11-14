@@ -1,0 +1,24 @@
+HURT A minecraft:generic_kill 1000 -> true
+C Teleported A to 1.500000, -60.000000, 1.500000
+C Teleported A to 2.500000, -60.000000, 2.500000
+C Teleported B to 2.500000, -60.000000, 2.500000
+C Teleported A to 2.500000, -60.000000, 2.500000
+C Teleported B to 2.500000, -60.000000, 2.500000
+C Teleported B to 2.500000, -60.000000, 2.500000
+C Test passed. Count: 1
+C There are 2 of a max of 20 players online: A, B
+P A minecraft:player pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=0/0 death=25 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+C Teleported A to 1.500000, -60.000000, 1.500000
+C Teleported A to 2.500000, -60.000000, 2.500000
+C Teleported B to 2.500000, -60.000000, 2.500000
+C Teleported B to 2.500000, -60.000000, 2.500000
+C Teleported B to 2.500000, -60.000000, 2.500000
+C Test passed. Count: 1
+C There are 2 of a max of 20 players online: A, B
+C Killed 2 entities
+P A minecraft:player pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=0/0 death=27 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=8/18 death=2 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+C Teleported B to 3.500000, -60.000000, 3.500000
+C Teleported A to 3.500000, -60.000000, 3.500000
+C Test passed. Count: 1
+P A minecraft:player pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

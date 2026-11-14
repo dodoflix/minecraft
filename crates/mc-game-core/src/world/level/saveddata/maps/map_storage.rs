@@ -9,11 +9,12 @@ use crate::world::level::saveddata::SavedDataManager;
 use mc_protocol::components::MapId;
 use mc_world::level_storage::SavedDataStorage;
 use parking_lot::Mutex;
-use std::sync::atomic::{AtomicU32, Ordering};
 
 #[derive(Default)]
 pub struct MapStorage {
     inner: Mutex<Option<SavedDataManager>>,
+    /// The throwaway folder of a storage nobody pointed at a server (declared after `inner`: removed after it drops).
+    scratch: Mutex<Option<tempfile::TempDir>>,
 }
 
 impl MapStorage {
@@ -25,20 +26,18 @@ impl MapStorage {
     /// Runs `f` over the storage. Levels created without a server (`ServerLevel::detached`) get a throwaway folder.
     /// Map code must not call back into the storage from `f` (the lock is not re-entrant).
     pub fn with<R>(&self, f: impl FnOnce(&mut SavedDataManager) -> R) -> R {
-        static COUNTER: AtomicU32 = AtomicU32::new(0);
         let mut guard = self
             .inner
             .try_lock()
             .expect("map saved data accessed re-entrantly");
         let manager = guard.get_or_insert_with(|| {
-            let dir = std::env::temp_dir().join(format!(
-                "mc-detached-maps-{}-{}",
-                std::process::id(),
-                COUNTER.fetch_add(1, Ordering::Relaxed)
-            ));
-            // the name repeats when the OS recycles a process id: map files a dead process left must not load
-            let _ = std::fs::remove_dir_all(&dir);
-            SavedDataManager::new(SavedDataStorage::new(dir))
+            let scratch = tempfile::Builder::new()
+                .prefix("mc-detached-maps-")
+                .tempdir()
+                .expect("create scratch dir");
+            let manager = SavedDataManager::new(SavedDataStorage::new(scratch.path().to_owned()));
+            *self.scratch.lock() = Some(scratch);
+            manager
         });
         f(manager)
     }

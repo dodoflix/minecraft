@@ -1,0 +1,31 @@
+# A killed player whose entity left the level after 20 ticks is still on the player list until it respawns: `@a`, `@p`, `@s` of
+# `execute as @a` and `kill @a` still reach it, `@e` and the level-limited selectors do not; a living player sees the same list.
+command_env
+level flat
+preload 2
+spawn_player A survival 3.5 -60 1.5 180 0
+spawn_player B survival 5.5 -60 1.5 180 0
+hurt A minecraft:generic_kill 1000
+tick 5
+cmd tp @p 1.5 -60 1.5
+cmd execute as @a run tp @s 2.5 -60 2.5
+cmd execute as @a[distance=..100] run tp @s 2.5 -60 2.5
+cmd execute as @e[type=player] run tp @s 2.5 -60 2.5
+cmd execute if entity @a[name=A]
+cmd list
+tick 20
+dump player:A packets:B:none
+cmd tp @p 1.5 -60 1.5
+cmd execute as @a run tp @s 2.5 -60 2.5
+cmd execute as @a[distance=..100] run tp @s 2.5 -60 2.5
+cmd execute as @e[type=player] run tp @s 2.5 -60 2.5
+cmd execute if entity @a[name=A]
+cmd list
+cmd kill @a
+tick 2
+dump player:A player:B packets:B:none
+respawn A
+tick 2
+cmd execute as @a run tp @s 3.5 -60 3.5
+cmd execute if entity @a[name=A]
+dump player:A packets:A:none

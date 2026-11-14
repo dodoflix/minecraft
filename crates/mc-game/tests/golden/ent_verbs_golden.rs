@@ -58,3 +58,8 @@ fn tp_resets_motion_and_turns_in_the_entity_replay() {
 fn a_kicked_player_leaves_the_level_and_the_player_list() {
     common::block_scenario::check("blk_disconnect_removes_player");
 }
+
+#[test]
+fn a_killed_player_stays_on_the_player_list_until_it_respawns() {
+    common::block_scenario::check("blk_dead_player_selectors");
+}

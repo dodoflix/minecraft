@@ -59,6 +59,7 @@ fn server_with_players() -> (MinecraftServer, Box<dyn std::any::Any>) {
             mc_game::world::level::entity::Visibility::Ticking,
         );
     }
+    let mut handles = Vec::new();
     for name in ["Dev", "Other"] {
         let id = level.next_entity_id();
         let profile = GameProfile {
@@ -70,8 +71,25 @@ fn server_with_players() -> (MinecraftServer, Box<dyn std::any::Any>) {
         player.set_game_mode_for_player(GameType::Survival, None);
         player.snap_to(0.5, 64.0, 0.5, 0.0, 0.0);
         level.add_player(Box::new(player));
+        handles.push(mc_game::server::players::PlayerHandle::new(
+            id,
+            GameProfile {
+                id: uuid::Uuid::from_u128(u128::from(id.unsigned_abs())),
+                name: name.into(),
+                properties: vec![],
+            },
+            mc_game::server::network::ConnectionSender::new(
+                tokio::sync::mpsc::unbounded_channel().0,
+            ),
+            "<unknown>".to_owned(),
+            overworld(),
+        ));
     }
     server.add_level(level);
+    // `@a` and the player lookups read the player list
+    for handle in handles {
+        server.player_list.add_player(handle);
+    }
     (server, guard)
 }
 
