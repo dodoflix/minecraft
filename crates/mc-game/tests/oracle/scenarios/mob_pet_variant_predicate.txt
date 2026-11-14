@@ -1,0 +1,46 @@
+# Entity predicates over the variant, sound variant and collar components of wolves and cats and the parrot variant: `execute if predicate`
+# (an inline entity_properties components predicate) tags the pet when its own value matches, and a different value must not match.
+command_env
+level flat
+preload 4
+entity_counter 8300
+level_seed 8301
+difficulty normal
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn WOL minecraft:wolf 3.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["wol"],variant:"minecraft:ashen",sound_variant:"minecraft:grumpy",CollarColor:3b}
+entity_seed WOL 8310
+mobspawn CAT minecraft:cat 5.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["cat"],variant:"minecraft:ragdoll",sound_variant:"minecraft:royal",CollarColor:11b}
+entity_seed CAT 8311
+mobspawn PAR minecraft:parrot 7.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["par"],Variant:3}
+entity_seed PAR 8312
+mobspawn WO2 minecraft:wolf 9.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["wo2"]}
+entity_seed WO2 8313
+mobspawn CA2 minecraft:cat 11.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["ca2"]}
+entity_seed CA2 8314
+tick 2
+cmd execute as @e[tag=wol] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:wolf/variant":"minecraft:ashen"}}} run tag @s add hit_wolf_variant
+cmd execute as @e[tag=wol] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:wolf/variant":"minecraft:pale"}}} run tag @s add miss_wolf_variant
+cmd execute as @e[tag=wol] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:wolf/sound_variant":"minecraft:grumpy"}}} run tag @s add hit_wolf_sound_variant
+cmd execute as @e[tag=wol] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:wolf/sound_variant":"minecraft:classic"}}} run tag @s add miss_wolf_sound_variant
+cmd execute as @e[tag=wol] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:wolf/collar":"light_blue"}}} run tag @s add hit_wolf_collar
+cmd execute as @e[tag=wol] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:wolf/collar":"red"}}} run tag @s add miss_wolf_collar
+cmd execute as @e[tag=cat] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cat/variant":"minecraft:ragdoll"}}} run tag @s add hit_cat_variant
+cmd execute as @e[tag=cat] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cat/variant":"minecraft:black"}}} run tag @s add miss_cat_variant
+cmd execute as @e[tag=cat] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cat/sound_variant":"minecraft:royal"}}} run tag @s add hit_cat_sound_variant
+cmd execute as @e[tag=cat] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cat/sound_variant":"minecraft:classic"}}} run tag @s add miss_cat_sound_variant
+cmd execute as @e[tag=cat] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cat/collar":"blue"}}} run tag @s add hit_cat_collar
+cmd execute as @e[tag=cat] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cat/collar":"red"}}} run tag @s add miss_cat_collar
+cmd execute as @e[tag=par] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:parrot/variant":"yellow_blue"}}} run tag @s add hit_parrot_variant
+cmd execute as @e[tag=par] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:parrot/variant":"red_blue"}}} run tag @s add miss_parrot_variant
+cmd execute as @e[tag=wo2] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:wolf/variant":"minecraft:pale"}}} run tag @s add hit_default_wolf_variant
+cmd execute as @e[tag=wo2] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:wolf/sound_variant":"minecraft:classic"}}} run tag @s add hit_default_wolf_sound_variant
+cmd execute as @e[tag=wo2] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:wolf/collar":"red"}}} run tag @s add hit_default_wolf_collar
+cmd execute as @e[tag=ca2] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cat/variant":"minecraft:black"}}} run tag @s add hit_default_cat_variant
+cmd execute as @e[tag=ca2] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cat/sound_variant":"minecraft:classic"}}} run tag @s add hit_default_cat_sound_variant
+cmd execute as @e[tag=ca2] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cat/collar":"red"}}} run tag @s add hit_default_cat_collar
+tick 1
+dump nbt:WOL
+dump nbt:CAT
+dump nbt:PAR
+dump nbt:WO2
+dump nbt:CA2

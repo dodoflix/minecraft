@@ -578,6 +578,7 @@ impl Session {
                 weather: WeatherState::default(),
                 difficulty: Difficulty::Normal,
                 clock: 0,
+                clocks: Default::default(),
             },
             ticks: 0,
             events: false,

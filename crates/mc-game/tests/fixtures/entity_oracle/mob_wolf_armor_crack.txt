@@ -1,0 +1,54 @@
+C The difficulty did not change; it is already set to Normal
+E W minecraft:wolf pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:wolf_armor*1 attrs=minecraft:armor:11.0;minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+E V minecraft:wolf pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:wolf_armor*1 attrs=minecraft:armor:11.0;minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+# absorbed hits, one tick apart: the armour takes the damage, the wolf keeps its health
+HURT W minecraft:generic 6 -> true
+T 5
+EV sound at=2.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.armor.equip_wolf source=neutral vol=1.0 pitch=1.0
+EV sound at=2.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.armor.equip_wolf source=neutral vol=1.0 pitch=1.0
+EV sound at=2.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.wolf_armor.crack source=neutral vol=1.0 pitch=1.0
+EV sound at=2.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.wolf_armor.damage source=neutral vol=0.4 pitch=1.1319975
+HURT W minecraft:generic 6 -> false
+T 6
+HURT W minecraft:generic 6 -> false
+T 7
+HURT W minecraft:generic 6 -> false
+T 8
+HURT W minecraft:generic 6 -> false
+T 9
+E W minecraft:wolf pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=5/15 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:wolf_armor*1/dmg=6{minecraft:damage:6} attrs=minecraft:armor:11.0;minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+HURT W minecraft:generic 6 -> false
+T 10
+HURT W minecraft:generic 6 -> false
+T 11
+HURT W minecraft:generic 6 -> false
+T 12
+HURT W minecraft:generic 6 -> false
+T 13
+E W minecraft:wolf pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:wolf_armor*1/dmg=6{minecraft:damage:6} attrs=minecraft:armor:11.0;minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+HURT W minecraft:generic 6 -> false
+T 14
+HURT W minecraft:generic 6 -> true
+T 15
+EV sound at=2.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.wolf_armor.damage source=neutral vol=0.4 pitch=0.9894386
+HURT W minecraft:generic 6 -> false
+T 16
+E W minecraft:wolf pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=8/18 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:wolf_armor*1/dmg=12{minecraft:damage:12} attrs=minecraft:armor:11.0;minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+E W minecraft:wolf pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=8/18 death=0 fx=-
+E V minecraft:wolf pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+# damage that bypasses wolf armour reaches the wolf; the broken armour no longer absorbs
+HURT W minecraft:magic 3 -> false
+T 17
+E W minecraft:wolf pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=7/17 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:wolf_armor*1/dmg=12{minecraft:damage:12} attrs=minecraft:armor:11.0;minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+HURT W minecraft:generic 4 -> false
+T 18
+E W minecraft:wolf pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=6/16 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:wolf_armor*1/dmg=12{minecraft:damage:12} attrs=minecraft:armor:11.0;minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+# repair: needs a sitting owner-side wolf with damaged armour and a scute; an eighth of the durability per scute
+HURT V minecraft:generic 40 -> true
+E V minecraft:wolf pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=8/18 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:wolf_armor*1/dmg=40{minecraft:damage:40} attrs=minecraft:armor:11.0;minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+E V minecraft:wolf pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=7/17 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:wolf_armor*1/dmg=40{minecraft:damage:40} attrs=minecraft:armor:11.0;minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=0 ordered=1 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+I Steve 0 minecraft:armadillo_scute*8
+E V minecraft:wolf pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=4/14 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:wolf_armor*1/dmg=32{minecraft:damage:32} attrs=minecraft:armor:11.0;minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=1 ordered=1 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+I Steve 0 minecraft:armadillo_scute*7
+E V minecraft:wolf pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=3/13 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:wolf_armor*1/dmg=16{minecraft:damage:16} attrs=minecraft:armor:11.0;minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=1 ordered=1 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+I Steve 0 minecraft:armadillo_scute*5

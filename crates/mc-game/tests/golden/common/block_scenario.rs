@@ -274,6 +274,8 @@ pub struct Env {
     pub difficulty: Difficulty,
     /// `time N`: `getOverworldClockTime()` (regional difficulty); the detached level has no timelines, so sky light ignores it.
     pub clock: i64,
+    /// The `world_clock` totals the attribute timelines read, moved with `clock`.
+    pub clocks: Arc<mc_game::world::clock::ClockTotals>,
 }
 
 impl LevelTickEnv for Env {
@@ -289,7 +291,14 @@ impl LevelTickEnv for Env {
     fn set_weather(&mut self, weather: WeatherState) {
         self.weather = weather;
     }
-    fn wake_up_from_sleep(&mut self) {}
+    /// `moveToTimeMarker(overworld, WAKE_UP_FROM_SLEEP)`: the marker is tick 0 of every 24000-tick day.
+    fn wake_up_from_sleep(&mut self) {
+        self.clock += (24000 - self.clock.rem_euclid(24000)) % 24000;
+        self.clocks.set(
+            &Identifier::parse("minecraft:overworld").unwrap(),
+            self.clock,
+        );
+    }
     fn difficulty(&self) -> Difficulty {
         self.difficulty
     }
@@ -467,8 +476,9 @@ pub struct Scenario {
 impl Scenario {
     pub fn new() -> Self {
         let game_rules = quiet_game_rules(FeatureFlagSet::DEFAULT_FLAGS);
+        let clocks = Arc::<mc_game::world::clock::ClockTotals>::default();
         Scenario {
-            clocks: Arc::default(),
+            clocks: clocks.clone(),
             level: None,
             world_data: None,
             env: Env {
@@ -476,6 +486,7 @@ impl Scenario {
                 weather: WeatherState::default(),
                 difficulty: Difficulty::Normal,
                 clock: 0,
+                clocks,
             },
             out: Vec::new(),
             ticks: 0,

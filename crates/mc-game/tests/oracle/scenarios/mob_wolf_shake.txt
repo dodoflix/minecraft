@@ -1,0 +1,31 @@
+# A wolf that leaves the water stands wet and shakes itself dry: the shake starts once it is on the ground and not path finding, runs
+# 0.05 per tick to 2.0 with a splash sound at the start, is cancelled by water or rain, and dying clears the state.
+level flat
+preload 4
+entity_counter 8460
+level_seed 8461
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+fill 3 -61 -2 7 -61 2 minecraft:water[level=0]
+mobspawn W minecraft:wolf 4.5 -61 0.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn V minecraft:wolf 6.5 -61 -0.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed W 8470
+entity_seed V 8471
+tick 2
+note in the water both wolves are wet
+dump mob:W mob:V
+watch mob:W mob:V events
+tick 10
+note out of the pool onto dry land
+watch off
+nav W 0.5 -60 0.5
+nav V 0.5 -60 1.5
+watch mob:W mob:V events
+tick 45
+note a wolf killed while it shakes loses the state
+hurt V minecraft:generic 100
+tick 3
+dump mob:W mob:V entities
+tick 40
+watch off
+dump mob:W mob:V

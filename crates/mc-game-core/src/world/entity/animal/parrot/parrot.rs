@@ -18,6 +18,7 @@ use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::living_entity::util::broadcast_entity_event;
 use crate::world::entity::mob::spawn::AgeableMobGroupData;
 use crate::world::entity::mob::{self, MobData, MobKind, interact, tamable};
+use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::spawn_predicates;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
@@ -355,6 +356,9 @@ impl ParrotWanderGoal {
 }
 
 impl Goal for ParrotWanderGoal {
+    fn name(&self) -> &'static str {
+        "Parrot$ParrotWanderGoal"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let probability = self.inner.base.probability;
         self.inner
@@ -624,6 +628,20 @@ impl Entity for Parrot {
         }
     }
 
+    /// `Parrot.get(type)`: `PARROT_VARIANT`.
+    fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
+        let base =
+            crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        mc_protocol::components::DataComponentMap::builder()
+            .add_all(&base)
+            .set(
+                mc_protocol::components::PARROT_VARIANT,
+                mc_protocol::components::ParrotVariant::from_id(self.get_variant() as i32)
+                    .expect("variant ids are clamped to the five variants"),
+            )
+            .build()
+    }
+
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
         if let Some(variant) = stack.get(&mc_protocol::components::PARROT_VARIANT) {
             self.set_variant(ParrotVariant::by_id(variant.id()));
@@ -761,6 +779,36 @@ fn check_parrot_spawn_rules(
 }
 
 crate::register_spawn_placement!(EntityType::PARROT, check_parrot_spawn_rules);
+
+/// The scenario dump fields of a parrot: `variant flap flapspeed flapping nextflap party jukebox`.
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static PARROT_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 31,
+    applies: |e| e.as_any().is::<Parrot>(),
+    fields: |e, _level, _ctx| {
+        let parrot = e.as_any().downcast_ref::<Parrot>().expect("applies");
+        let f = |v: f32| mc_core::math::java::java_float_to_string(v);
+        vec![
+            (
+                "variant".into(),
+                mc_protocol::components::ParrotVariant::from_id(parrot.get_variant() as i32)
+                    .map_or("-", |v| v.name())
+                    .to_string(),
+            ),
+            ("flap".into(), f(parrot.flap)),
+            ("flapspeed".into(), f(parrot.flap_speed)),
+            ("flapping".into(), f(parrot.flapping)),
+            ("nextflap".into(), f(parrot.next_flap)),
+            ("party".into(), u8::from(parrot.party_parrot).to_string()),
+            (
+                "jukebox".into(),
+                parrot
+                    .jukebox
+                    .map_or("-".to_string(), |p| format!("{},{},{}", p.x, p.y, p.z)),
+            ),
+        ]
+    },
+};
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static PARROT: EntityRegistration = EntityRegistration {

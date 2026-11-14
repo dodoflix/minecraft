@@ -1,0 +1,34 @@
+# A tamed cat curls up on its sleeping owner's bed: it walks to the foot of the bed, relaxes, lies down, and when the owner has slept
+# long enough and wakes the cat may bring a morning gift (random teleport, a loot table item thrown beside it).
+level flat
+preload 4
+entity_counter 8500
+level_seed 8501
+difficulty normal
+time 14000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+block 2 -61 0 minecraft:red_bed[facing=east,part=foot]
+block 3 -61 0 minecraft:red_bed[facing=east,part=head]
+mobspawn C minecraft:cat 6.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn D minecraft:cat 9.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed C 8510
+entity_seed D 8511
+tick 3
+tame C Steve
+tame D Steve
+tick 2
+dump mob:C mob:D
+note the owner goes to bed (the clock runs, so waking up after the deep sleep sets the morning, when the gift chance applies)
+gamerule advance_time true
+use_on Steve 3 -61 0 up main 0.5 1.0 0.5
+tick 1
+dump player:Steve
+watch mob:C mob:D player:Steve
+tick 60
+dump mob:C mob:D
+tick 50
+note the owner slept long enough and wakes up: the cat may bring a gift
+watch events
+tick 30
+watch off
+dump mob:C mob:D entities player:Steve

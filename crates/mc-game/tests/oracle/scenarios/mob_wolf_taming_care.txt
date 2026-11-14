@@ -1,0 +1,74 @@
+# Caring for a tamed wolf: collar dyes (only the owner, only a new colour), healing food (a full-health wolf falls into love instead), wolf
+# armour on adults only (equip, shears take it off, a baby and a stranger cannot), sitting by hand, and the taming side effects on health.
+level flat
+preload 4
+entity_counter 8400
+level_seed 8401
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 8.5 -60 0.5 0 0
+mobspawn W minecraft:wolf 2.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B minecraft:wolf 2.5 -60 3.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+entity_seed W 8410
+entity_seed B 8411
+tick 3
+note taming: the owner is set, health becomes 40
+tame W Steve
+tame B Steve
+dump mob:W mob:B edata:W nbt:W
+set W health 12
+note collar dyes: a new colour changes it and uses one dye; the same colour sits the wolf down instead; a stranger changes nothing
+give Steve mainhand minecraft:light_blue_dye 4
+interact Steve W
+tick 1
+dump mob:W edata:W inventory:Steve
+interact Steve W
+tick 1
+dump mob:W inventory:Steve
+give Alex mainhand minecraft:red_dye 2
+interact Alex W
+tick 1
+dump mob:W inventory:Alex
+interact Steve B
+tick 1
+dump mob:B inventory:Steve
+note food: healing 2 points per bite while hurt, then a full-health wolf takes food as love
+give Steve mainhand minecraft:cooked_beef 8
+interact Steve W
+tick 1
+dump mob:W inventory:Steve
+interact Steve W
+interact Steve W
+interact Steve W
+interact Steve W
+tick 1
+dump mob:W inventory:Steve
+interact Steve W
+tick 1
+dump mob:W inventory:Steve
+note wolf armour: the owner equips it on an adult, a baby and a stranger cannot, shears take it off again
+give Steve mainhand minecraft:wolf_armor 4
+interact Steve B
+tick 1
+dump mob:B inventory:Steve
+give Alex mainhand minecraft:wolf_armor 4
+interact Alex W
+tick 1
+dump mob:W inventory:Alex
+interact Steve W
+tick 1
+dump mob:W nbt:W inventory:Steve
+interact Steve W
+tick 1
+dump mob:W inventory:Steve
+give Steve mainhand minecraft:shears
+interact Alex W
+tick 1
+interact Steve W
+tick 2
+dump mob:W entities inventory:Steve
+note a stranger's bone does nothing to a tame wolf, the owner's bone makes it sit
+give Alex mainhand minecraft:bone 2
+interact Alex W
+tick 1
+dump mob:W inventory:Alex

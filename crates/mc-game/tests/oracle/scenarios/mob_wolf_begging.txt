@@ -1,0 +1,35 @@
+# BegGoal: a wolf looks at a nearby player holding a bone (wild wolf) or its food (tamed wolf) and tilts its head (interested flag, head
+# roll angle); it stops when the item changes or the player leaves; the tamed wolf ignores a bone.
+level flat
+preload 4
+entity_counter 8480
+level_seed 8481
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 0.5 -60 12.5 0 0
+mobspawn W minecraft:wolf 5.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn T minecraft:wolf 5.5 -60 12.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed W 8490
+entity_seed T 8491
+tick 3
+tame T Alex
+give Steve mainhand minecraft:bone 4
+give Alex mainhand minecraft:bone 4
+tick 1
+watch mob:W mob:T edata:W
+tick 16
+note the wild wolf begs for the bone; the tamed one ignores it
+watch off
+dump mob:W mob:T
+give Steve mainhand minecraft:stick
+give Alex mainhand minecraft:cooked_beef 4
+watch mob:W mob:T
+tick 16
+watch off
+note the owner holding food: the tamed wolf begs
+dump mob:W mob:T
+tp Alex 40.5 -60 12.5
+watch mob:T
+tick 20
+watch off
+dump mob:T

@@ -1,0 +1,41 @@
+# Cats choose a place to rest: a tamed cat lies on a bed or sits on a furnace that is lit or on a chest that nobody has open, a second
+# cat does not take an occupied spot, an open chest is skipped until it is closed, and a cat ordered to sit stays where it is.
+level flat
+preload 4
+entity_counter 8520
+level_seed 8521
+difficulty normal
+spawn_player Steve survival 14.5 -60 6.5 0 0
+block 8 -61 2 minecraft:red_bed[facing=east,part=foot]
+block 9 -61 2 minecraft:red_bed[facing=east,part=head]
+block 14 -60 2 minecraft:chest[facing=south]
+block 20 -60 2 minecraft:furnace[facing=south,lit=true]
+mobspawn A minecraft:cat 6.5 -60 6.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn A2 minecraft:cat 7.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn B minecraft:cat 15.5 -60 6.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn C minecraft:cat 21.5 -60 6.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn D minecraft:cat 13.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed A 8530
+entity_seed A2 8531
+entity_seed B 8532
+entity_seed C 8533
+entity_seed D 8534
+tick 3
+tame A Steve
+tame A2 Steve
+tame B Steve
+tame C Steve
+tame D Steve
+nbt D {Sitting:1b}
+tick 1
+note Steve opens the chest
+use_on Steve 14 -60 2 up main
+watch mob:A mob:A2 mob:B mob:C mob:D
+tick 80
+watch off
+dump mob:A mob:A2 mob:B mob:C mob:D
+close_menu Steve
+watch mob:A mob:A2 mob:B mob:C mob:D
+tick 80
+watch off
+dump mob:A mob:A2 mob:B mob:C mob:D

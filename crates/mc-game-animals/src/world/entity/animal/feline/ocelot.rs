@@ -28,6 +28,7 @@ use mc_game_core::world::entity::factory::{
 use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
 use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, interact};
+use mc_game_core::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
@@ -77,6 +78,9 @@ impl OcelotAvoidEntityGoal {
 }
 
 impl Goal for OcelotAvoidEntityGoal {
+    fn name(&self) -> &'static str {
+        "Ocelot$OcelotAvoidEntityGoal"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         !is_trusting(mob) && self.avoid.can_use_impl(mob, level)
     }
@@ -125,6 +129,9 @@ impl OcelotTemptGoal {
 }
 
 impl Goal for OcelotTemptGoal {
+    fn name(&self) -> &'static str {
+        "Ocelot$OcelotTemptGoal"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.tempt.can_use(mob, level)
     }
@@ -401,6 +408,20 @@ fn check_ocelot_spawn_rules(
 }
 
 mc_game_core::register_spawn_placement!(EntityType::OCELOT, check_ocelot_spawn_rules);
+
+/// The scenario dump field of an ocelot: `trusting`.
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static OCELOT_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 31,
+    applies: |e| e.as_any().is::<Ocelot>(),
+    fields: |e, _level, _ctx| {
+        let ocelot = e.as_any().downcast_ref::<Ocelot>().expect("applies");
+        vec![(
+            "trusting".into(),
+            u8::from(ocelot.is_trusting()).to_string(),
+        )]
+    },
+};
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static OCELOT: EntityRegistration = EntityRegistration {

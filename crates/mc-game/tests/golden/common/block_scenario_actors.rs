@@ -658,6 +658,7 @@ impl Scenario {
                     "air" => e.base_mut().set_air_supply(v.parse().unwrap()),
                     "fire" => e.set_remaining_fire_ticks(v.parse().unwrap()),
                     "fall_distance" => e.base_mut().fall_distance = num(&v),
+                    "invulnerable" => e.base_mut().permanently_invulnerable = v == "true",
                     "tag" => {
                         e.base_mut().add_tag(&v);
                     }

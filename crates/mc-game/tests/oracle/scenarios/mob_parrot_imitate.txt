@@ -1,0 +1,35 @@
+# Parrots draw one random per tick (one in 400) to imitate a nearby mob: a coin flip, a random mob within 20 blocks that is not a parrot and not
+# silent, and its sound at a random pitch; silent parrots and silent mobs make none. A parrot flying about draws its flap state each tick.
+level flat
+preload 4
+entity_counter 8620
+level_seed 8621
+difficulty normal
+time 18000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn P minecraft:parrot 4.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,Variant:0,NoAI:1b}
+mobspawn Q minecraft:parrot 6.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,Variant:3,NoAI:1b}
+mobspawn S minecraft:parrot 8.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,Variant:2,NoAI:1b,Silent:1b}
+mobspawn Z minecraft:zombie 5.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn C minecraft:creeper 7.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn K minecraft:skeleton 9.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn M minecraft:cow 11.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn U minecraft:zombie 13.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed P 8630
+entity_seed Q 8631
+entity_seed S 8632
+entity_seed Z 8633
+entity_seed C 8634
+entity_seed K 8635
+entity_seed M 8636
+entity_seed U 8637
+tick 2
+watch events
+tick 900
+watch off
+dump mobs
+note parrots in the air: the flap state follows the ground contact
+tp P 4.5 -55.0 4.5
+watch mob:P
+tick 30
+watch off

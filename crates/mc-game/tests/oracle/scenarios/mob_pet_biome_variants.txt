@@ -1,0 +1,264 @@
+# finalizeSpawn picks by biome: the wolf variant (and the pack's shared variant), wolf, cat and ocelot sound variants, the cat variant by moon brightness,
+# the parrot's random variant. Level and entity randoms are seeded per mob.
+level flat
+preload 8
+entity_counter 8700
+level_seed 8701
+difficulty normal
+spawn_player Steve creative 0.5 -60 -10.5 0 0
+biome 0 -64 0 8 -50 20 minecraft:plains
+biome 10 -64 0 18 -50 20 minecraft:taiga
+biome 20 -64 0 28 -50 20 minecraft:snowy_taiga
+biome 30 -64 0 38 -50 20 minecraft:grove
+biome 40 -64 0 48 -50 20 minecraft:old_growth_pine_taiga
+biome 50 -64 0 58 -50 20 minecraft:old_growth_spruce_taiga
+biome 60 -64 0 68 -50 20 minecraft:savanna_plateau
+biome 70 -64 0 78 -50 20 minecraft:badlands
+biome 80 -64 0 88 -50 20 minecraft:jungle
+biome 90 -64 0 98 -50 20 minecraft:sparse_jungle
+biome 100 -64 0 108 -50 20 minecraft:forest
+biome 110 -64 0 118 -50 20 minecraft:windswept_hills
+tick 3
+level_seed 8711
+mobspawn W0 minecraft:wolf 2.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W0 8811
+level_seed 8712
+mobspawn X0 minecraft:wolf 2.5 -60 5.5 0 0 group=pack0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed X0 8812
+level_seed 8713
+mobspawn Y0 minecraft:wolf 2.5 -60 7.5 0 0 group=pack0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y0 8813
+level_seed 8714
+mobspawn T0 minecraft:ocelot 2.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T0 8814
+level_seed 8715
+mobspawn P0 minecraft:parrot 2.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed P0 8815
+level_seed 8716
+mobspawn C0 minecraft:cat 2.5 -60 16.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C0 8816
+level_seed 8717
+mobspawn W1 minecraft:wolf 12.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W1 8817
+level_seed 8718
+mobspawn X1 minecraft:wolf 12.5 -60 5.5 0 0 group=pack1 {NoAI:1b,PersistenceRequired:1b}
+entity_seed X1 8818
+level_seed 8719
+mobspawn Y1 minecraft:wolf 12.5 -60 7.5 0 0 group=pack1 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y1 8819
+level_seed 8720
+mobspawn T1 minecraft:ocelot 12.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T1 8820
+level_seed 8721
+mobspawn P1 minecraft:parrot 12.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed P1 8821
+level_seed 8722
+mobspawn C1 minecraft:cat 12.5 -60 16.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C1 8822
+level_seed 8723
+mobspawn W2 minecraft:wolf 22.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W2 8823
+level_seed 8724
+mobspawn X2 minecraft:wolf 22.5 -60 5.5 0 0 group=pack2 {NoAI:1b,PersistenceRequired:1b}
+entity_seed X2 8824
+level_seed 8725
+mobspawn Y2 minecraft:wolf 22.5 -60 7.5 0 0 group=pack2 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y2 8825
+level_seed 8726
+mobspawn T2 minecraft:ocelot 22.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T2 8826
+level_seed 8727
+mobspawn P2 minecraft:parrot 22.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed P2 8827
+level_seed 8728
+mobspawn C2 minecraft:cat 22.5 -60 16.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C2 8828
+level_seed 8729
+mobspawn W3 minecraft:wolf 32.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W3 8829
+level_seed 8730
+mobspawn X3 minecraft:wolf 32.5 -60 5.5 0 0 group=pack3 {NoAI:1b,PersistenceRequired:1b}
+entity_seed X3 8830
+level_seed 8731
+mobspawn Y3 minecraft:wolf 32.5 -60 7.5 0 0 group=pack3 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y3 8831
+level_seed 8732
+mobspawn T3 minecraft:ocelot 32.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T3 8832
+level_seed 8733
+mobspawn P3 minecraft:parrot 32.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed P3 8833
+level_seed 8734
+mobspawn C3 minecraft:cat 32.5 -60 16.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C3 8834
+level_seed 8735
+mobspawn W4 minecraft:wolf 42.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W4 8835
+level_seed 8736
+mobspawn X4 minecraft:wolf 42.5 -60 5.5 0 0 group=pack4 {NoAI:1b,PersistenceRequired:1b}
+entity_seed X4 8836
+level_seed 8737
+mobspawn Y4 minecraft:wolf 42.5 -60 7.5 0 0 group=pack4 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y4 8837
+level_seed 8738
+mobspawn T4 minecraft:ocelot 42.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T4 8838
+level_seed 8739
+mobspawn P4 minecraft:parrot 42.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed P4 8839
+level_seed 8740
+mobspawn C4 minecraft:cat 42.5 -60 16.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C4 8840
+level_seed 8741
+mobspawn W5 minecraft:wolf 52.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W5 8841
+level_seed 8742
+mobspawn X5 minecraft:wolf 52.5 -60 5.5 0 0 group=pack5 {NoAI:1b,PersistenceRequired:1b}
+entity_seed X5 8842
+level_seed 8743
+mobspawn Y5 minecraft:wolf 52.5 -60 7.5 0 0 group=pack5 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y5 8843
+level_seed 8744
+mobspawn T5 minecraft:ocelot 52.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T5 8844
+level_seed 8745
+mobspawn P5 minecraft:parrot 52.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed P5 8845
+level_seed 8746
+mobspawn C5 minecraft:cat 52.5 -60 16.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C5 8846
+level_seed 8747
+mobspawn W6 minecraft:wolf 62.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W6 8847
+level_seed 8748
+mobspawn X6 minecraft:wolf 62.5 -60 5.5 0 0 group=pack6 {NoAI:1b,PersistenceRequired:1b}
+entity_seed X6 8848
+level_seed 8749
+mobspawn Y6 minecraft:wolf 62.5 -60 7.5 0 0 group=pack6 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y6 8849
+level_seed 8750
+mobspawn T6 minecraft:ocelot 62.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T6 8850
+level_seed 8751
+mobspawn P6 minecraft:parrot 62.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed P6 8851
+level_seed 8752
+mobspawn C6 minecraft:cat 62.5 -60 16.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C6 8852
+level_seed 8753
+mobspawn W7 minecraft:wolf 72.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W7 8853
+level_seed 8754
+mobspawn X7 minecraft:wolf 72.5 -60 5.5 0 0 group=pack7 {NoAI:1b,PersistenceRequired:1b}
+entity_seed X7 8854
+level_seed 8755
+mobspawn Y7 minecraft:wolf 72.5 -60 7.5 0 0 group=pack7 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y7 8855
+level_seed 8756
+mobspawn T7 minecraft:ocelot 72.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T7 8856
+level_seed 8757
+mobspawn P7 minecraft:parrot 72.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed P7 8857
+level_seed 8758
+mobspawn C7 minecraft:cat 72.5 -60 16.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C7 8858
+level_seed 8759
+mobspawn W8 minecraft:wolf 82.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W8 8859
+level_seed 8760
+mobspawn X8 minecraft:wolf 82.5 -60 5.5 0 0 group=pack8 {NoAI:1b,PersistenceRequired:1b}
+entity_seed X8 8860
+level_seed 8761
+mobspawn Y8 minecraft:wolf 82.5 -60 7.5 0 0 group=pack8 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y8 8861
+level_seed 8762
+mobspawn T8 minecraft:ocelot 82.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T8 8862
+level_seed 8763
+mobspawn P8 minecraft:parrot 82.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed P8 8863
+level_seed 8764
+mobspawn C8 minecraft:cat 82.5 -60 16.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C8 8864
+level_seed 8765
+mobspawn W9 minecraft:wolf 92.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W9 8865
+level_seed 8766
+mobspawn X9 minecraft:wolf 92.5 -60 5.5 0 0 group=pack9 {NoAI:1b,PersistenceRequired:1b}
+entity_seed X9 8866
+level_seed 8767
+mobspawn Y9 minecraft:wolf 92.5 -60 7.5 0 0 group=pack9 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y9 8867
+level_seed 8768
+mobspawn T9 minecraft:ocelot 92.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T9 8868
+level_seed 8769
+mobspawn P9 minecraft:parrot 92.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed P9 8869
+level_seed 8770
+mobspawn C9 minecraft:cat 92.5 -60 16.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C9 8870
+level_seed 8771
+mobspawn W10 minecraft:wolf 102.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W10 8871
+level_seed 8772
+mobspawn X10 minecraft:wolf 102.5 -60 5.5 0 0 group=pack10 {NoAI:1b,PersistenceRequired:1b}
+entity_seed X10 8872
+level_seed 8773
+mobspawn Y10 minecraft:wolf 102.5 -60 7.5 0 0 group=pack10 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y10 8873
+level_seed 8774
+mobspawn T10 minecraft:ocelot 102.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T10 8874
+level_seed 8775
+mobspawn P10 minecraft:parrot 102.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed P10 8875
+level_seed 8776
+mobspawn C10 minecraft:cat 102.5 -60 16.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C10 8876
+level_seed 8777
+mobspawn W11 minecraft:wolf 112.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W11 8877
+level_seed 8778
+mobspawn X11 minecraft:wolf 112.5 -60 5.5 0 0 group=pack11 {NoAI:1b,PersistenceRequired:1b}
+entity_seed X11 8878
+level_seed 8779
+mobspawn Y11 minecraft:wolf 112.5 -60 7.5 0 0 group=pack11 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y11 8879
+level_seed 8780
+mobspawn T11 minecraft:ocelot 112.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T11 8880
+level_seed 8781
+mobspawn P11 minecraft:parrot 112.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed P11 8881
+level_seed 8782
+mobspawn C11 minecraft:cat 112.5 -60 16.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C11 8882
+tick 2
+dump mobs
+note a full moon: the cat variant condition on the moon brightness
+time 0
+tick 2
+level_seed 8783
+mobspawn M0 minecraft:cat 2.5 -60 -4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M0 8883
+level_seed 8784
+mobspawn M1 minecraft:cat 5.5 -60 -4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M1 8884
+level_seed 8785
+mobspawn M2 minecraft:cat 8.5 -60 -4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M2 8885
+time 96000
+tick 2
+level_seed 8786
+mobspawn N0 minecraft:cat 2.5 -60 -7.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed N0 8886
+level_seed 8787
+mobspawn N1 minecraft:cat 5.5 -60 -7.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed N1 8887
+level_seed 8788
+mobspawn N2 minecraft:cat 8.5 -60 -7.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed N2 8888
+tick 2
+dump mobs

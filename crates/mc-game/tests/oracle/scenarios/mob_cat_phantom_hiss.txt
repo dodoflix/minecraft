@@ -1,0 +1,23 @@
+# A swooping phantom hisses at every cat within sixteen blocks (tamed or not) and gives up the sweep while a cat is near.
+level flat
+preload 4
+entity_counter 8820
+level_seed 8821
+difficulty normal
+time 18000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 4 1000000
+mobspawn H minecraft:phantom 6.5 -52 6.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn T minecraft:cat 8.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn U minecraft:cat 12.5 -60 -8.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed H 8825
+entity_seed T 8826
+entity_seed U 8827
+tick 3
+tame T Steve
+note the phantom attacks Steve; the cats within sixteen blocks hiss and the sweep stops
+target H Steve
+watch mob:H mob:T events
+tick 80
+watch off
+dump mobs

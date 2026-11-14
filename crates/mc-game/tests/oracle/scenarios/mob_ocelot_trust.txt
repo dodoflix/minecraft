@@ -1,0 +1,54 @@
+# Ocelots: an untrusting ocelot keeps away from players and follows one holding raw cod or salmon; feeding it within three blocks may
+# win its trust (one in three, hearts or smoke), after which it no longer flees or follows; trust is saved; an ocelot finalizes with a
+# chance of kittens.
+level flat
+preload 4
+entity_counter 8540
+level_seed 8541
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn O1 minecraft:ocelot 12.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn O2 minecraft:ocelot 3.5 -60 4.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed O1 8550
+entity_seed O2 8551
+tick 3
+note an ocelot flees a player walking up to it
+tp Steve 6.5 -60 0.5
+watch mob:O1
+tick 30
+watch off
+dump mob:O1 nbt:O1
+note tempted by raw cod: follows the player
+give Steve mainhand minecraft:cod 16
+tp Steve 6.5 -60 20.5
+mobspawn O3 minecraft:ocelot 6.5 -60 14.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed O3 8552
+watch mob:O3
+tick 30
+watch off
+note feeding within three blocks: trust one in three
+tp Steve 5.5 -60 4.5
+interact Steve O2
+tick 2
+dump mob:O2 edata:O2
+interact Steve O2
+tick 2
+interact Steve O2
+tick 2
+interact Steve O2
+tick 2
+interact Steve O2
+tick 2
+dump mob:O2 edata:O2 nbt:O2 inventory:Steve
+note a trusting ocelot ignores the player and the food
+tp Steve 8.5 -60 4.5
+watch mob:O2
+tick 30
+watch off
+dump mob:O2
+note a finalized ocelot may come with kittens
+level_seed 8560
+mobspawn K minecraft:ocelot 20.5 -60 20.5 0 0
+entity_seed K 8561
+tick 2
+dump mobs

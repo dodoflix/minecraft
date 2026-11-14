@@ -6,10 +6,15 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OminousItemSpawner;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.animal.bee.Bee;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.animal.equine.Llama;
 import net.minecraft.world.entity.animal.equine.SkeletonHorse;
+import net.minecraft.world.entity.animal.feline.Cat;
+import net.minecraft.world.entity.animal.feline.Ocelot;
 import net.minecraft.world.entity.animal.goat.Goat;
+import net.minecraft.world.entity.animal.parrot.Parrot;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.monster.illager.Pillager;
 import net.minecraft.world.entity.monster.illager.Vindicator;
@@ -199,6 +204,34 @@ final class EntityExtras {
          out.add("trap", EntityOracleDriver.bool(((SkeletonHorse)e).isTrap()));
          out.add("traptime", EntityOracleDriver.priv(e, SkeletonHorse.class, "trapTime"));
       }));
+      ALL.add(new Extra(31, Cat.class, (d, e, out) -> {
+         Cat c = (Cat)e;
+         out.add("variant", holderName(c.get(DataComponents.CAT_VARIANT))).add("svariant", holderName(c.get(DataComponents.CAT_SOUND_VARIANT)));
+         out.add("collar", c.get(DataComponents.CAT_COLLAR).getSerializedName());
+         out.add("lie", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Cat.class, "lieDownAmount")));
+         out.add("lietail", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Cat.class, "lieDownAmountTail")));
+         out.add("ontop", EntityOracleDriver.bool(c.isLyingOnTopOfSleepingPlayer()));
+         out.add("relax", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Cat.class, "relaxStateOneAmount")));
+      }));
+      ALL.add(new Extra(31, Ocelot.class, (d, e, out) -> out.add("trusting", EntityOracleDriver.bool(e.getEntityData().get((net.minecraft.network.syncher.EntityDataAccessor<Boolean>)EntityOracleDriver.priv(null, Ocelot.class, "DATA_TRUSTING"))))));
+      ALL.add(new Extra(31, Parrot.class, (d, e, out) -> {
+         Parrot p = (Parrot)e;
+         var jukebox = (net.minecraft.core.BlockPos)EntityOracleDriver.priv(e, Parrot.class, "jukebox");
+         out.add("variant", p.getVariant().getSerializedName());
+         out.add("flap", EntityOracleDriver.f(p.flap)).add("flapspeed", EntityOracleDriver.f(p.flapSpeed));
+         out.add("flapping", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Parrot.class, "flapping")));
+         out.add("nextflap", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Parrot.class, "nextFlap")));
+         out.add("party", EntityOracleDriver.bool(p.isPartyParrot()));
+         out.add("jukebox", jukebox == null ? "-" : EntityOracleDriver.pos(jukebox));
+      }));
+      ALL.add(new Extra(31, Wolf.class, (d, e, out) -> {
+         out.add("variant", holderName(e.get(DataComponents.WOLF_VARIANT))).add("svariant", holderName(e.get(DataComponents.WOLF_SOUND_VARIANT)));
+         out.add("collar", e.get(DataComponents.WOLF_COLLAR).getSerializedName());
+         out.add("wet", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Wolf.class, "isWet")));
+         out.add("shaking", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Wolf.class, "isShaking")));
+         out.add("shake", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Wolf.class, "shakeAnim")));
+         out.add("interest", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Wolf.class, "interestedAngle")));
+      }));
       ALL.add(new Extra(31, MinecartFurnace.class, (d, e, out) -> {
          MinecartFurnace c = (MinecartFurnace)e;
          out.add("fuel", EntityOracleDriver.priv(e, MinecartFurnace.class, "fuel"));
@@ -235,6 +268,10 @@ final class EntityExtras {
    }
 
    /** Appends the fields of every registered class `e` is an instance of. */
+   static String holderName(net.minecraft.core.Holder<?> h) {
+      return h.unwrapKey().get().identifier().toString();
+   }
+
    static void append(EntityOracleDriver d, StringBuilder b, Entity e) {
       Fields out = new Fields(b);
       for (Extra x : ALL) {

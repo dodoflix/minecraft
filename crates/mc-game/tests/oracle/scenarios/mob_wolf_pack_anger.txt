@@ -1,0 +1,50 @@
+# A wild wolf hurt by a player turns on the attacker and calls the pack (HurtByTargetGoal alerts wolves in range), an angry wolf cannot
+# be leashed and attacks until its persistent anger runs out; a tamed wolf of a third player joins when its owner is attacked, wolves hunt
+# sheep when not tame, and a tamed wolf stays out of a fight with its owner's other pets.
+level flat
+preload 4
+entity_counter 8440
+level_seed 8441
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 0.5 -60 -14.5 0 0
+effect Steve minecraft:resistance 4 1000000
+mobspawn W1 minecraft:wolf 8.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn W2 minecraft:wolf 10.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn W3 minecraft:wolf 12.5 -60 -1.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn W4 minecraft:wolf 2.5 -60 -12.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn S1 minecraft:sheep 10.5 -60 -9.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed W1 8450
+entity_seed W2 8451
+entity_seed W3 8452
+entity_seed W4 8453
+entity_seed S1 8454
+tick 3
+tame W4 Alex
+dump mobs
+note a hit on W1: its target and anger, then the alert for W2 and W3
+hurt W1 minecraft:player_attack 1 by=Steve direct=Steve
+watch mob:W1 mob:W2 mob:W3 mob:W4 mob:S1
+tick 12
+watch off
+dump mobs
+note a lead on an angry wolf is refused
+give Steve mainhand minecraft:lead 2
+interact Steve W1
+tick 1
+dump mob:W1 inventory:Steve
+note the angry wolves chase and bite Steve
+watch mob:W1 mob:W2
+tick 40
+watch off
+dump mobs player:Steve
+note the owner of W4 is attacked by Steve, the tamed wolf answers
+hurt Alex minecraft:player_attack 1 by=Steve direct=Steve
+watch mob:W4
+tick 10
+watch off
+dump mobs
+note the anger runs out far from the player: persistent anger time, forgetting the target
+tp Steve 0.5 -60 30.5
+tick 700
+dump mobs

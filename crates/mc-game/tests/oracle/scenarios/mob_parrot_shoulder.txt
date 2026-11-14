@@ -1,0 +1,51 @@
+# Parrots: seeds tame with one chance in ten (eating sound, hearts or smoke), a tamed parrot lands on its owner's shoulder (the entity leaves the
+# world and is stored in the player's shoulder data), a hurt owner shakes it off 20 ticks later, a standing tamed parrot is told to sit by its
+# owner but not a flying one, and a cookie poisons and kills a parrot whoever it belongs to.
+level flat
+preload 4
+entity_counter 8600
+level_seed 8601
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn P minecraft:parrot 3.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Variant:2}
+mobspawn Q minecraft:parrot 1.0 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,Variant:4}
+mobspawn R minecraft:parrot 9.5 -60 5.5 0 0 nofinalize {PersistenceRequired:1b,Variant:1}
+entity_seed P 8610
+entity_seed Q 8611
+entity_seed R 8612
+tick 3
+give Steve mainhand minecraft:wheat_seeds 32
+note feeding seeds: each bite draws the tame chance
+interact Steve P
+tick 1
+dump mob:P inventory:Steve
+interact Steve P
+interact Steve P
+interact Steve P
+interact Steve P
+tick 1
+dump mob:P inventory:Steve
+tame P Steve
+tame Q Steve
+tick 2
+note a tamed standing parrot sits when its owner clicks it; a flying one does not
+interact Steve P
+tick 2
+dump mob:P
+interact Steve P
+tick 2
+dump mob:P
+note tamed parrots fly to the owner and land on the shoulder
+watch mob:P mob:Q player:Steve
+tick 60
+watch off
+dump mob:P mob:Q entities player:Steve
+note hurt after 20 ticks on the shoulder: the parrots fly off again
+hurt Steve minecraft:generic 1
+tick 3
+dump entities player:Steve
+note a cookie: poison and death
+give Steve mainhand minecraft:cookie 4
+interact Steve R
+tick 2
+dump entities inventory:Steve

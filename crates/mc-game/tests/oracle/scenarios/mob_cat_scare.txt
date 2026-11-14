@@ -1,0 +1,38 @@
+# Cats and ocelots scare monsters: a creeper walks away from a cat or ocelot within six blocks, and untamed cats keep away from players
+# while tamed cats do not.
+level flat
+preload 4
+entity_counter 8800
+level_seed 8801
+difficulty normal
+time 18000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 4 1000000
+mobspawn K minecraft:creeper 20.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn C minecraft:cat 20.5 -60 24.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn O minecraft:ocelot 24.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn K2 minecraft:creeper 40.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn D minecraft:cat 40.5 -60 25.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn T minecraft:cat 8.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn U minecraft:cat 12.5 -60 -8.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed K 8810
+entity_seed C 8811
+entity_seed O 8812
+entity_seed K2 8813
+entity_seed D 8814
+entity_seed T 8816
+entity_seed U 8817
+tick 3
+tame D Steve
+tame T Steve
+note the creeper avoids the cat and the ocelot; the second creeper has only a tamed cat nearby
+watch mob:K mob:K2 mob:C mob:O
+tick 40
+watch off
+dump mobs
+note an untamed cat flees a player walking towards it; the tamed one does not
+tp Steve 12.5 -60 -2.5
+watch mob:U mob:T
+tick 40
+watch off
+dump mob:U mob:T

@@ -1,0 +1,19 @@
+C The difficulty did not change; it is already set to Normal
+C Added tag 'hit_wolf_variant' to Wolf
+C Added tag 'hit_wolf_sound_variant' to Wolf
+C Added tag 'hit_wolf_collar' to Wolf
+C Added tag 'hit_cat_variant' to Cat
+C Added tag 'hit_cat_sound_variant' to Cat
+C Added tag 'hit_cat_collar' to Cat
+C Added tag 'hit_parrot_variant' to Parrot
+C Added tag 'hit_default_wolf_variant' to Wolf
+C Added tag 'hit_default_wolf_sound_variant' to Wolf
+C Added tag 'hit_default_wolf_collar' to Wolf
+C Added tag 'hit_default_cat_variant' to Cat
+C Added tag 'hit_default_cat_sound_variant' to Cat
+C Added tag 'hit_default_cat_collar' to Cat
+N WOL {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:3b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[3.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Sitting:0b,Tags:["wol","hit_wolf_collar","hit_wolf_variant","hit_wolf_sound_variant"],anger_end_time:-1L,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:8.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:grumpy",variant:"minecraft:ashen"}
+N CAT {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:11b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[5.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Sitting:0b,Tags:["hit_cat_collar","cat","hit_cat_variant","hit_cat_sound_variant"],attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:royal",variant:"minecraft:ragdoll"}
+N PAR {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:6.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[7.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Sitting:0b,Tags:["par","hit_parrot_variant"],Variant:3,attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N WO2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[9.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Sitting:0b,Tags:["hit_default_wolf_sound_variant","hit_default_wolf_variant","wo2","hit_default_wolf_collar"],anger_end_time:-1L,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:8.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:pale"}
+N CA2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[11.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Sitting:0b,Tags:["hit_default_cat_sound_variant","ca2","hit_default_cat_variant","hit_default_cat_collar"],attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:black"}

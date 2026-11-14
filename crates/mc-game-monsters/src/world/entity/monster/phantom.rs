@@ -260,6 +260,9 @@ struct PhantomAttackPlayerTargetGoal {
 }
 
 impl Goal for PhantomAttackPlayerTargetGoal {
+    fn name(&self) -> &'static str {
+        "Phantom$PhantomAttackPlayerTargetGoal"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if self.next_scan_tick > 0 {
             self.next_scan_tick -= 1;
@@ -334,6 +337,9 @@ impl PhantomAttackStrategyGoal {
 }
 
 impl Goal for PhantomAttackStrategyGoal {
+    fn name(&self) -> &'static str {
+        "Phantom$PhantomAttackStrategyGoal"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         match mob::tick::get_target_checked(mob, level) {
             Some(target) => level
@@ -402,16 +408,18 @@ impl PhantomCircleAroundAnchorGoal {
         self.angle += self.clockwise * 15.0 * (std::f64::consts::PI / 180.0) as f32;
         let anchor = phantom(mob).anchor_point.expect("anchor");
         let lower_corner = Vec3::at_lower_corner_of(&anchor);
-        let d = f64::from(self.distance);
         phantom_mut(mob).move_target_point = lower_corner.add_xyz(
-            d * f64::from(mth::cos(f64::from(self.angle))),
+            f64::from(self.distance * mth::cos(f64::from(self.angle))),
             f64::from(-4.0 + self.height),
-            d * f64::from(mth::sin(f64::from(self.angle))),
+            f64::from(self.distance * mth::sin(f64::from(self.angle))),
         );
     }
 }
 
 impl Goal for PhantomCircleAroundAnchorGoal {
+    fn name(&self) -> &'static str {
+        "Phantom$PhantomCircleAroundAnchorGoal"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         mob::tick::get_target_checked(mob, level).is_none()
             || phantom(mob).attack_phase == AttackPhase::Circle
@@ -447,7 +455,7 @@ impl Goal for PhantomCircleAroundAnchorGoal {
             self.select_next(mob);
         }
         if phantom(mob).move_target_point.y < mob.base().y()
-            && level
+            && !level
                 .get_block_state(mob.block_position().below_n(1))
                 .is_air()
         {
@@ -455,7 +463,7 @@ impl Goal for PhantomCircleAroundAnchorGoal {
             self.select_next(mob);
         }
         if phantom(mob).move_target_point.y > mob.base().y()
-            && level
+            && !level
                 .get_block_state(mob.block_position().above_n(1))
                 .is_air()
         {
@@ -476,6 +484,9 @@ struct PhantomSweepAttackGoal {
 }
 
 impl Goal for PhantomSweepAttackGoal {
+    fn name(&self) -> &'static str {
+        "Phantom$PhantomSweepAttackGoal"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         mob::tick::get_target_checked(mob, level).is_some()
             && phantom(mob).attack_phase == AttackPhase::Swoop

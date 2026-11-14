@@ -42,6 +42,7 @@ use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
 use mc_game_core::world::entity::mob::neutral::{self, NeutralData};
 use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, interact, tamable};
+use mc_game_core::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::variant::{self, SpawnContext};
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
@@ -51,7 +52,7 @@ use mc_game_core::world::level::pathfinder::PathType;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{
-    DYE, DyeColor, Holder, WOLF_COLLAR, WOLF_SOUND_VARIANT, WOLF_VARIANT,
+    DYE, DataComponentMap, DyeColor, Holder, WOLF_COLLAR, WOLF_SOUND_VARIANT, WOLF_VARIANT,
 };
 use std::sync::Arc;
 
@@ -135,6 +136,9 @@ impl WolfAvoidEntityGoal {
 }
 
 impl Goal for WolfAvoidEntityGoal {
+    fn name(&self) -> &'static str {
+        "Wolf$WolfAvoidEntityGoal"
+    }
     fn can_use(&mut self, wolf: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if !(self.avoid.can_use_impl(wolf, level)
             && self
@@ -509,6 +513,22 @@ impl Entity for Wolf {
         self.pending_sound_variant = input
             .get_string("sound_variant")
             .and_then(Identifier::try_parse);
+    }
+
+    /// `Wolf.get(type)`: `WOLF_VARIANT`, `WOLF_SOUND_VARIANT` and `WOLF_COLLAR`.
+    fn entity_components(&self) -> DataComponentMap {
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(
+            self.base(),
+        );
+        DataComponentMap::builder()
+            .add_all(&base)
+            .set(WOLF_VARIANT, Holder::Reference(self.variant_key.clone()))
+            .set(
+                WOLF_SOUND_VARIANT,
+                Holder::Reference(self.sound_variant_key.clone()),
+            )
+            .set(WOLF_COLLAR, self.get_collar_color())
+            .build()
     }
 
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
@@ -998,6 +1018,26 @@ fn check_wolf_spawn_rules(
 }
 
 mc_game_core::register_spawn_placement!(EntityType::WOLF, check_wolf_spawn_rules);
+
+/// The scenario dump fields of a wolf: `variant svariant collar wet shaking shake interest`.
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static WOLF_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 31,
+    applies: |e| e.as_any().is::<Wolf>(),
+    fields: |e, _level, _ctx| {
+        let wolf = e.as_any().downcast_ref::<Wolf>().expect("applies");
+        let f = |v: f32| mc_core::math::java::java_float_to_string(v);
+        vec![
+            ("variant".into(), wolf.variant_key.to_string()),
+            ("svariant".into(), wolf.sound_variant_key.to_string()),
+            ("collar".into(), wolf.get_collar_color().name().to_string()),
+            ("wet".into(), u8::from(wolf.is_wet).to_string()),
+            ("shaking".into(), u8::from(wolf.is_shaking).to_string()),
+            ("shake".into(), f(wolf.shake_anim)),
+            ("interest".into(), f(wolf.interested_angle)),
+        ]
+    },
+};
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static WOLF: EntityRegistration = EntityRegistration {

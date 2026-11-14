@@ -38,6 +38,7 @@ use mc_game_core::world::entity::factory::{
 use mc_game_core::world::entity::item::ItemEntity;
 use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, ext, interact, leashable, tamable};
+use mc_game_core::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::variant::{self, SpawnContext};
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
@@ -48,7 +49,9 @@ use mc_game_core::world::level::level_access::LevelAccessor as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_game_core::world::level::{BlockGetter as _, LevelReader as _};
 use mc_nbt::CompoundTag;
-use mc_protocol::components::{CAT_COLLAR, CAT_SOUND_VARIANT, CAT_VARIANT, DYE, DyeColor, Holder};
+use mc_protocol::components::{
+    CAT_COLLAR, CAT_SOUND_VARIANT, CAT_VARIANT, DYE, DataComponentMap, DyeColor, Holder,
+};
 use std::any::Any;
 use std::sync::Arc;
 
@@ -96,6 +99,9 @@ impl CatAvoidEntityGoal {
 }
 
 impl Goal for CatAvoidEntityGoal {
+    fn name(&self) -> &'static str {
+        "Cat$CatAvoidEntityGoal"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         !tamable::is_tame(mob) && self.avoid.can_use_impl(mob, level)
     }
@@ -142,6 +148,9 @@ impl CatTemptGoal {
 }
 
 impl Goal for CatTemptGoal {
+    fn name(&self) -> &'static str {
+        "Cat$CatTemptGoal"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.tempt.can_use(mob, level) && !tamable::is_tame(mob)
     }
@@ -224,6 +233,9 @@ impl CatRelaxOnOwnerGoal {
 }
 
 impl Goal for CatRelaxOnOwnerGoal {
+    fn name(&self) -> &'static str {
+        "Cat$CatRelaxOnOwnerGoal"
+    }
     fn can_use(&mut self, cat: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if !tamable::is_tame(cat) || tamable::is_ordered_to_sit(cat) {
             return false;
@@ -841,6 +853,22 @@ impl Entity for Cat {
         self.set_collar_color(collar);
     }
 
+    /// `Cat.get(type)`: `CAT_VARIANT`, `CAT_SOUND_VARIANT` and `CAT_COLLAR`.
+    fn entity_components(&self) -> DataComponentMap {
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(
+            self.base(),
+        );
+        DataComponentMap::builder()
+            .add_all(&base)
+            .set(CAT_VARIANT, Holder::Reference(self.variant_key.clone()))
+            .set(
+                CAT_SOUND_VARIANT,
+                Holder::Reference(self.sound_variant_key.clone()),
+            )
+            .set(CAT_COLLAR, self.get_collar_color())
+            .build()
+    }
+
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
         let registries = self.registries.clone();
         if let Some(Holder::Reference(key)) = stack.get(&CAT_VARIANT)
@@ -1086,6 +1114,29 @@ impl Entity for Cat {
         self.is_crouching() || self.is_shift_key_down()
     }
 }
+
+/// The scenario dump fields of a cat: `variant svariant collar lie lietail ontop relax`.
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static CAT_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 31,
+    applies: |e| e.as_any().is::<Cat>(),
+    fields: |e, _level, _ctx| {
+        let cat = e.as_any().downcast_ref::<Cat>().expect("applies");
+        let f = |v: f32| mc_core::math::java::java_float_to_string(v);
+        vec![
+            ("variant".into(), cat.variant_key.to_string()),
+            ("svariant".into(), cat.sound_variant_key.to_string()),
+            ("collar".into(), cat.get_collar_color().name().to_string()),
+            ("lie".into(), f(cat.lie_down_amount)),
+            ("lietail".into(), f(cat.lie_down_amount_tail)),
+            (
+                "ontop".into(),
+                u8::from(cat.is_lying_on_top_of_sleeping_player).to_string(),
+            ),
+            ("relax".into(), f(cat.relax_state_one_amount)),
+        ]
+    },
+};
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static CAT: EntityRegistration = EntityRegistration {

@@ -1,0 +1,75 @@
+# Wolf armour absorbs damage: every hit costs ceil(damage) durability and no health, cracks play a sound and scute particles at the
+# crackiness thresholds, the armour breaks at its durability, damage that bypasses wolf armour hurts the wolf, and an armadillo scute repairs
+# a sitting wolf's armour by an eighth of its durability.
+level flat
+preload 4
+entity_counter 8420
+level_seed 8421
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn W minecraft:wolf 2.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn V minecraft:wolf 2.5 -60 4.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed W 8430
+entity_seed V 8431
+tick 3
+tame W Steve
+tame V Steve
+give Steve mainhand minecraft:wolf_armor 4
+interact Steve W
+interact Steve V
+tick 1
+dump mob:W mob:V
+watch events
+note absorbed hits, one tick apart: the armour takes the damage, the wolf keeps its health
+hurt W minecraft:generic 6
+tick 1
+hurt W minecraft:generic 6
+tick 1
+hurt W minecraft:generic 6
+tick 1
+hurt W minecraft:generic 6
+tick 1
+hurt W minecraft:generic 6
+tick 1
+dump mob:W
+hurt W minecraft:generic 6
+tick 1
+hurt W minecraft:generic 6
+tick 1
+hurt W minecraft:generic 6
+tick 1
+hurt W minecraft:generic 6
+tick 1
+dump mob:W
+hurt W minecraft:generic 6
+tick 1
+hurt W minecraft:generic 6
+tick 1
+hurt W minecraft:generic 6
+tick 1
+dump mob:W entities
+note damage that bypasses wolf armour reaches the wolf; the broken armour no longer absorbs
+hurt W minecraft:magic 3
+tick 1
+dump mob:W
+hurt W minecraft:generic 4
+tick 1
+dump mob:W
+watch off
+note repair: needs a sitting owner-side wolf with damaged armour and a scute; an eighth of the durability per scute
+hurt V minecraft:generic 40
+tick 2
+dump mob:V
+give Steve mainhand minecraft:armadillo_scute 8
+interact Steve V
+tick 1
+dump mob:V inventory:Steve
+nbt V {Sitting:1b}
+tick 2
+interact Steve V
+tick 1
+dump mob:V inventory:Steve
+interact Steve V
+interact Steve V
+tick 1
+dump mob:V inventory:Steve

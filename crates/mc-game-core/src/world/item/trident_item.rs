@@ -28,20 +28,21 @@ pub struct TridentItem {
     item: mc_data::Item,
 }
 
-/// `Player.startAutoSpinAttack(ticks, dmg, itemStack)`.
-///
-/// Not implemented: `Player.removeEntitiesOnShoulder`, so a parrot sitting on the player's shoulder is not dropped when
-/// a riptide throw starts.
+/// `Player.startAutoSpinAttack(ticks, dmg, itemStack)`: a parrot sitting on the player's shoulder flies off.
 pub fn start_auto_spin_attack(
-    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
     ticks: i32,
     dmg: f32,
     item_stack: ItemStack,
 ) {
-    if let Some(living) = entity.living_mut() {
+    if let Some(living) = player.living_mut() {
         living.auto_spin_attack_ticks = ticks;
         living.auto_spin_attack_dmg = dmg;
         living.auto_spin_attack_item_stack = Some(item_stack);
+    }
+    player.remove_entities_on_shoulder(level);
+    if let Some(living) = player.living_mut() {
         living.set_living_entity_flag(LIVING_ENTITY_FLAG_SPIN_ATTACK, true);
     }
 }
@@ -125,7 +126,7 @@ impl ItemBehaviour for TridentItem {
         yd *= riptide_strength / dist;
         zd *= riptide_strength / dist;
         player.push_xyz(f64::from(xd), f64::from(yd), f64::from(zd));
-        start_auto_spin_attack(player, 20, 8.0, stack.clone());
+        start_auto_spin_attack(level, player, 20, 8.0, stack.clone());
         if player.base().on_ground() {
             player.r#move(
                 level,
