@@ -1,0 +1,37 @@
+# Zombies that may break doors (Hard): BreakDoorGoal takes 240 ticks to break a wooden door (progress, sound, level events) and gives up
+# on an iron door; a zombie without the flag walks around.
+level flat
+preload 4
+difficulty hard
+entity_counter 5800
+level_seed 5801
+time 18000
+gamerule mob_drops false
+fill -2 -61 -12 12 -50 12 minecraft:air
+fill -2 -61 -12 12 -61 12 minecraft:stone
+fill 4 -60 -12 4 -57 12 minecraft:stone_bricks
+fill 4 -60 -3 4 -59 -3 minecraft:air
+fill 4 -60 6 4 -59 6 minecraft:air
+fill 4 -57 -12 12 -57 12 minecraft:stone_bricks
+fill 12 -60 -12 12 -58 12 minecraft:stone_bricks
+fill 4 -60 -12 12 -58 -12 minecraft:stone_bricks
+fill 4 -60 12 12 -58 12 minecraft:stone_bricks
+block 4 -60 -3 minecraft:oak_door[facing=west,half=lower,hinge=left]
+block 4 -59 -3 minecraft:oak_door[facing=west,half=upper,hinge=left]
+block 4 -60 6 minecraft:iron_door[facing=west,half=lower,hinge=left]
+block 4 -59 6 minecraft:iron_door[facing=west,half=upper,hinge=left]
+spawn_player Steve survival 8.5 -60 1.5 90 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+mobspawn Z1 minecraft:zombie 0.5 -60 -3.5 270 0 nofinalize {PersistenceRequired:1b,CanBreakDoors:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1}}}
+mobspawn Z2 minecraft:zombie 0.5 -60 6.5 270 0 nofinalize {PersistenceRequired:1b,CanBreakDoors:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1}}}
+mobspawn Z3 minecraft:zombie 0.5 -60 3.5 270 0 nofinalize {PersistenceRequired:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1}}}
+entity_seed Z1 91
+entity_seed Z2 92
+entity_seed Z3 93
+tick 2
+dump mobs goals:Z1
+watch mob:Z1 mob:Z2 mob:Z3 events
+tick 300
+watch off
+dump mobs blocks:3,-61,-4,5,-58,7 events

@@ -1,0 +1,74 @@
+# A zombie that kills a villager turns it into a zombie villager: on Normal after a coin flip on the zombie's random, always on Hard,
+# never on Easy. The zombie villager keeps profession, level, type, experience, gossips, offers, name, baby age and equipment.
+level flat
+preload 4
+difficulty normal
+entity_counter 5100
+level_seed 5101
+time 18000
+gamerule mob_drops true
+spawn_player Steve creative 60.5 -60 60.5 0 0
+note Normal: the first zombie flips heads, the second tails
+mobspawn V1 minecraft:villager 0.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,CustomName:"Lib",VillagerData:{type:"minecraft:desert",profession:"minecraft:librarian",level:3},Xp:50,Gossips:[{Target:[I;1,2,3,4],Type:"major_positive",Value:30},{Target:[I;5,6,7,8],Type:"minor_negative",Value:12}]}
+mobspawn Z1 minecraft:zombie 1.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn V2 minecraft:villager 0.5 -60 6.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000,VillagerData:{type:"minecraft:snow",profession:"minecraft:none",level:1}}
+mobspawn Z2 minecraft:zombie 1.5 -60 6.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed V1 11
+entity_seed Z1 12
+entity_seed V2 13
+entity_seed Z2 14
+tick 2
+set V1 health 1
+set V2 health 1
+mob_attack Z1 V1
+tick 3
+dump mobs entities rng:level events
+dump nbt:zombie_villager#1
+mob_attack Z2 V2
+tick 3
+dump mobs entities rng:level events
+note Normal, more coin flips
+mobspawn V3 minecraft:villager 0.5 -60 12.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Z3 minecraft:zombie 1.5 -60 12.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn V4 minecraft:villager 0.5 -60 18.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Z4 minecraft:zombie 1.5 -60 18.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z3 15
+entity_seed Z4 16
+entity_seed V3 17
+entity_seed V4 18
+tick 2
+set V3 health 1
+set V4 health 1
+mob_attack Z3 V3
+mob_attack Z4 V4
+tick 3
+dump mobs entities rng:level
+note Hard: always, the zombie's husk and drowned cousins infect too
+difficulty hard
+mobspawn V5 minecraft:villager 0.5 -60 24.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,VillagerData:{type:"minecraft:swamp",profession:"minecraft:farmer",level:2}}
+mobspawn Z5 minecraft:husk 1.5 -60 24.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:iron_axe",count:1}}}
+mobspawn V6 minecraft:villager 0.5 -60 30.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Z6 minecraft:drowned 1.5 -60 30.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed V5 19
+entity_seed Z5 20
+entity_seed V6 21
+entity_seed Z6 22
+tick 2
+set V5 health 1
+set V6 health 1
+mob_attack Z5 V5
+mob_attack Z6 V6
+tick 3
+dump mobs entities rng:level events
+dump nbt:zombie_villager#3 nbt:zombie_villager#4
+note Easy: a villager just dies
+difficulty easy
+mobspawn V7 minecraft:villager 0.5 -60 36.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Z7 minecraft:zombie 1.5 -60 36.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed V7 23
+entity_seed Z7 24
+tick 2
+set V7 health 1
+mob_attack Z7 V7
+tick 3
+dump mobs entities rng:level events

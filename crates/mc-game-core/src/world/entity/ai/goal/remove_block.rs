@@ -19,6 +19,10 @@ pub const WAIT_AFTER_BLOCK_FOUND: i32 = 20;
 
 /// The methods `RemoveBlockGoal` subclasses override.
 pub trait RemoveBlockHooks: Send + Sync {
+    /// The goal's class name (`ZombieAttackTurtleEggGoal` for the subclass of `Zombie`).
+    fn goal_name(&self) -> &'static str {
+        "RemoveBlockGoal"
+    }
     /// `acceptedDistance()`.
     fn accepted_distance(&self) -> f64 {
         1.0
@@ -119,6 +123,10 @@ impl MoveToBlock for RemoveBlockGoal {
 }
 
 impl Goal for RemoveBlockGoal {
+    fn name(&self) -> &'static str {
+        self.hooks.goal_name()
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if !level.mob_griefing() {
             false

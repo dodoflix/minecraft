@@ -1,0 +1,31 @@
+# A zombie that is hurt by a target calls reinforcements on Hard: the new zombie appears 7 to 40 blocks away on a solid spot in the
+# dark, both lose their reinforcement chance, and a zombie with none does not call.
+level flat
+preload 4
+difficulty hard
+entity_counter 5700
+level_seed 5701
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+give Steve mainhand minecraft:diamond_sword
+mobspawn Z1 minecraft:zombie 6.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b}
+attribute Z1 minecraft:spawn_reinforcements 1.0
+mobspawn Z2 minecraft:zombie 6.5 -60 8.5 90 0 nofinalize {PersistenceRequired:1b}
+attribute Z2 minecraft:spawn_reinforcements 0.0
+entity_seed Z1 81
+entity_seed Z2 82
+tick 3
+note a hit with reinforcements 1.0 on Hard
+hurt Z1 player_attack 1 by=Steve
+tick 2
+dump mobs attrs:Z1 rng:level events
+hurt Z1 player_attack 1 by=Steve
+tick 20
+dump mobs attrs:Z1 rng:level
+note no reinforcements
+hurt Z2 player_attack 1 by=Steve
+tick 5
+dump mobs rng:level

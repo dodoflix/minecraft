@@ -322,6 +322,10 @@ impl Goal for DrownedGoToWaterGoal {
         );
     }
 
+    fn name(&self) -> &'static str {
+        "Drowned$DrownedGoToWaterGoal"
+    }
+
     fn flags(&self) -> GoalFlags {
         GoalFlags::of(&[Flag::Move])
     }
@@ -384,6 +388,10 @@ impl Goal for DrownedSwimUpGoal {
 
     fn stop(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) {
         set_searching_for_land(mob, false);
+    }
+
+    fn name(&self) -> &'static str {
+        "Drowned$DrownedSwimUpGoal"
     }
 
     fn flags(&self) -> GoalFlags {

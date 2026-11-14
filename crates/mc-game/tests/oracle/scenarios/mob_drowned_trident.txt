@@ -1,0 +1,35 @@
+# Drowned: a drowned holding a trident throws it at a player on the shore (RangedAttackGoal 40 ticks apart, range 10, aimed
+# by the target's height and a difficulty-dependent inaccuracy); one without a trident swims after a player in the water.
+level flat
+preload 4
+difficulty hard
+entity_counter 5500
+level_seed 5501
+time 18000
+gamerule mob_drops false
+fill 6 -61 -8 30 -50 8 minecraft:stone
+fill 7 -60 -7 29 -52 7 minecraft:air
+fill 7 -60 -7 29 -58 7 minecraft:water
+fill -2 -61 -4 5 -50 4 minecraft:air
+fill -2 -61 -4 5 -61 4 minecraft:grass_block
+spawn_player Steve survival 2.5 -60 0.5 270 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+mobspawn D1 minecraft:drowned 14.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+entity_seed D1 61
+tick 2
+dump mob:D1 goals:D1
+watch mob:D1 player:Steve entities
+tick 140
+watch off
+dump mobs entities goals:D1
+note a drowned without a trident attacks in the water
+kill D1
+tp Steve 8.5 -60 0.5
+mobspawn D2 minecraft:drowned 20.5 -59 0.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed D2 62
+tick 2
+watch mob:D2 player:Steve
+tick 100
+watch off
+dump mobs goals:D2

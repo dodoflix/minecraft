@@ -204,6 +204,9 @@ impl DataItem {
 #[derive(Default)]
 pub struct SynchedEntityDataBuilder {
     items: Vec<Option<DataItem>>,
+    /// The entity's `random` while its `defineSynchedData` runs (a class that draws its initial value, `ZombieVillager`'s
+    /// profession); `EntityData::new` hands it in and takes it back.
+    pub random: Option<mc_core::random::LegacyRandomSource>,
 }
 
 impl SynchedEntityDataBuilder {
@@ -307,21 +310,6 @@ impl SynchedEntityData {
         value: S::Value,
     ) {
         self.items[accessor.id as usize].value = S::wrap(value);
-    }
-
-    /// `define(accessor, value)` of an already built set: replaces both the value and the default it is compared with
-    /// (a constructor whose `defineSynchedData` value depends on the entity's random, `ZombieVillager`'s profession).
-    pub fn redefine_initial<S: Serializer>(
-        &mut self,
-        accessor: EntityDataAccessor<S>,
-        value: S::Value,
-    ) {
-        let item = &mut self.items[accessor.id as usize];
-        let value = S::wrap(value);
-        item.initial_value = value.clone();
-        item.value = value;
-        item.dirty = false;
-        item.replaced_object = false;
     }
 
     pub fn is_dirty(&self) -> bool {

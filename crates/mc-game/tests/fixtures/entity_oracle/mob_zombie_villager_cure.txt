@@ -1,0 +1,210 @@
+C Set minecraft:overworld to 18000 tick(s)
+# a plain apple does nothing; with weakness it starts the cure
+E ZV1 minecraft:zombie_villager pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_sword*1;head:minecraft:iron_helmet*1 attrs=minecraft:armor:4.0;minecraft:attack_damage:8.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+ED ZV1 0:0:00 1:1:ac02 2:6:01080003446f63 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:01 16:8:00 17:1:00 18:8:00 19:8:00 20:18:030404 21:8:01
+N ZV1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,ConversionTime:-1,CustomName:"Doc",DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Gossips:[{Target:[I;1,2,3,4],Type:"trading",Value:7}],Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,Offers:{Recipes:[{buy:{count:24,id:"minecraft:paper"},maxUses:16,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:emerald"},uses:3,xp:2},{buy:{count:1,id:"minecraft:emerald"},demand:2,maxUses:12,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:bookshelf"},uses:5}]},OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],VillagerData:{level:4,profession:"minecraft:cleric",type:"minecraft:savanna"},VillagerDataFinalized:1b,Xp:123,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:3.0d,id:"minecraft:attack_damage"},{base:2.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,drop_chances:{head:2.0f,mainhand:1.0f},equipment:{head:{count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:iron_sword"}},fall_distance:0.0d}
+EFFECT ZV1 minecraft:weakness added=true
+E ZV1 minecraft:zombie_villager pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:strength/0/5221 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_sword*1;head:minecraft:iron_helmet*1 attrs=minecraft:armor:4.0;minecraft:attack_damage:11.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+ED ZV1 0:0:00 1:1:ac02 2:6:01080003446f63 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:011cffffc700 11:8:00 12:1:00 13:1:00 14:11:00 15:0:01 16:8:00 17:1:00 18:8:00 19:8:01 20:18:030404 21:8:01
+N ZV1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,ConversionPlayer:[I;1445453208,-423740383,-1196889821,1142437441],ConversionTime:5221,CustomName:"Doc",DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Gossips:[{Target:[I;1,2,3,4],Type:"trading",Value:7}],Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,Offers:{Recipes:[{buy:{count:24,id:"minecraft:paper"},maxUses:16,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:emerald"},uses:3,xp:2},{buy:{count:1,id:"minecraft:emerald"},demand:2,maxUses:12,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:bookshelf"},uses:5}]},OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],VillagerData:{level:4,profession:"minecraft:cleric",type:"minecraft:savanna"},VillagerDataFinalized:1b,Xp:123,active_effects:[{duration:5221,id:"minecraft:strength",show_icon:1b}],attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:3.0d,id:"minecraft:attack_damage",modifiers:[{amount:3.0d,id:"minecraft:effect.strength",operation:"add_value"}]},{base:2.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,drop_chances:{head:2.0f,mainhand:1.0f},equipment:{head:{count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:iron_sword"}},fall_distance:0.0d}
+P Steve minecraft:player pos=0.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:golden_apple*7
+# about 3600 to 6000 ticks of the cure
+E ZV1 minecraft:zombie_villager pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:strength/0/2221 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_sword*1;head:minecraft:iron_helmet*1 attrs=minecraft:armor:4.0;minecraft:attack_damage:11.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+N ZV1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,ConversionPlayer:[I;1445453208,-423740383,-1196889821,1142437441],ConversionTime:2221,CustomName:"Doc",DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Gossips:[{Target:[I;1,2,3,4],Type:"trading",Value:7}],Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,Offers:{Recipes:[{buy:{count:24,id:"minecraft:paper"},maxUses:16,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:emerald"},uses:3,xp:2},{buy:{count:1,id:"minecraft:emerald"},demand:2,maxUses:12,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:bookshelf"},uses:5}]},OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],VillagerData:{level:4,profession:"minecraft:cleric",type:"minecraft:savanna"},VillagerDataFinalized:1b,Xp:123,active_effects:[{duration:2221,id:"minecraft:strength",show_icon:1b}],attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:3.0d,id:"minecraft:attack_damage",modifiers:[{amount:3.0d,id:"minecraft:effect.strength",operation:"add_value"}]},{base:2.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,drop_chances:{head:2.0f,mainhand:1.0f},equipment:{head:{count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:iron_sword"}},fall_distance:0.0d}
+E villager#1 minecraft:villager pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.995554 body=1.995554 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:15.13887910994686;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:savanna/minecraft:cleric/4 vxp=123
+E villager#1 minecraft:villager pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=-0.28364452435134113,-60.0,0.7701149645952918 delta=-4.436392497699929E-53,-0.12,1.5291831502797206E-53 rot=221.19969,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=879 pickup=0 health=5 owner=- thrower=-
+OFFERS villager#1 count=2
+OFFER villager#1 0 buyA=minecraft:paper*24 buyB=- sell=minecraft:emerald*1 uses=3 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER villager#1 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:bookshelf*1 uses=5 max=12 xp=1 mult=0.05 demand=2 special=0
+TRADER villager#1 xp=123 level=4 trading=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0748547
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.927046
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9747839
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9583721
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0395167
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0810632
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0198115
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.1237403
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.927911
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.99460405
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.8855552
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0379899
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.98028314
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0501745
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0028398
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.1036124
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.93799424
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.1810308
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.056627
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9592422
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0751405
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0044818
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.8954318
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.1391202
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0024015
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0169704
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.1248665
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0023515
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.120296
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.1295593
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.19315
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.896435
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9945167
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.073586
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0066612
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.92849934
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0534053
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0104002
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0128474
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9940904
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.1320356
+EV level_event r=64.0 ex=0 type=1027 pos=0,-60,0 data=0 global=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9902644
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9371405
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8402967
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9649309
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.84635675
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0470016
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.94201916
+RNG level 27201542176411
+STAT Steve minecraft.custom:minecraft.play_time 6102
+STAT Steve minecraft.custom:minecraft.time_since_death 6102
+STAT Steve minecraft.custom:minecraft.time_since_rest 6102
+STAT Steve minecraft.custom:minecraft.total_world_time 6102
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:story/cure_zombie_villager cured_zombie
+E villager#1 minecraft:villager pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.995554 body=1.995554 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:15.13887910994686;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:savanna/minecraft:cleric/4 vxp=123
+# iron bars and beds speed the cure up
+EFFECT ZV2 minecraft:weakness added=true
+E ZV2 minecraft:zombie_villager pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:strength/0/4954 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:6.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+N ZV2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,ConversionPlayer:[I;1445453208,-423740383,-1196889821,1142437441],ConversionTime:4954,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[16.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],VillagerData:{level:1,profession:"minecraft:none",type:"minecraft:jungle"},VillagerDataFinalized:1b,Xp:0,active_effects:[{duration:4954,id:"minecraft:strength",show_icon:1b}],attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:3.0d,id:"minecraft:attack_damage",modifiers:[{amount:3.0d,id:"minecraft:effect.strength",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E ZV2 minecraft:zombie_villager pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:strength/0/2554 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:6.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E villager#1 minecraft:villager pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.995554 body=1.995554 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:15.13887910994686;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:savanna/minecraft:cleric/4 vxp=123
+E villager#2 minecraft:villager pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.3930326 body=4.3930326 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:15.045710221817307;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:jungle/minecraft:none/1 vxp=0
+E villager#1 minecraft:villager pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E villager#2 minecraft:villager pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+TRADER villager#2 xp=0 level=1 trading=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9073019
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0842062
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0117989
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0742086
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.007036
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.93822736
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8629983
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1802658
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0953438
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.8400246
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0508282
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0620689
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0199212
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8768881
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9666083
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0282183
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.8375267
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.924744
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.8484503
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1558286
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.88712114
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.90281945
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.93151534
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1200514
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9905144
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.013755
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0676057
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.98375237
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0398538
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0572907
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9839909
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9837723
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9386748
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9296849
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0305338
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0516607
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9615389
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0326266
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9736147
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0010116
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8795668
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0517778
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0956393
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9048108
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0720441
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9112621
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0252215
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.92904514
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.98445225
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0206894
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.96228683
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.111821
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0053073
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.92171484
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9078786
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1387733
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.105616
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.98541
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.94777197
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1050489
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.097027
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0473529
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.86743927
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0040805
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.1208383
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9607569
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0486019
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8768739
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8353393
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0982302
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9052103
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9561864
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0629812
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9717705
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0485287
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.1161302
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8667291
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.87947303
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9133085
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0058509
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0416424
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=0.9696331
+EV level_event r=64.0 ex=0 type=1027 pos=16,-60,0 data=0 global=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0600234
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0827769
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9647423
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8884953
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0330341
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.93511486
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1118276
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9447107
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0940017
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.030713
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.94259566
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.97623307
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1543878
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.94043463
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0042814
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0140197
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9046153
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.90979385
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9113655
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8299829
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1445081
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0622523
+# the saved conversion resumes: a zombie villager loaded with a short timer converts at once and an unknown player gets no thanks
+EFFECT ZV3 minecraft:weakness added=true
+E ZV3 minecraft:zombie_villager pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:strength/0/4660 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=chest:minecraft:iron_chestplate*1;head:minecraft:leather_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}} attrs=minecraft:armor:9.0;minecraft:attack_damage:6.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+N ZV3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,ConversionPlayer:[I;1,2,3,4],ConversionTime:40,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Gossips:[{Target:[I;9,9,9,9],Type:"major_negative",Value:40},{Target:[I;5,6,7,8],Type:"minor_positive",Value:9}],Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,Offers:{Recipes:[{buy:{count:10,id:"minecraft:clay_ball"},maxUses:16,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:emerald"},uses:1}]},OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[30.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],VillagerData:{level:2,profession:"minecraft:mason",type:"minecraft:plains"},VillagerDataFinalized:1b,Xp:7,active_effects:[{duration:4660,id:"minecraft:strength",show_icon:1b}],attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:3.0d,id:"minecraft:attack_damage",modifiers:[{amount:3.0d,id:"minecraft:effect.strength",operation:"add_value"}]},{base:2.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,drop_chances:{chest:2.0f},equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},head:{components:{minecraft:enchantments:{minecraft:binding_curse:1}},count:1,id:"minecraft:leather_helmet"}},fall_distance:0.0d}
+ED ZV3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:011cffffc700 11:8:00 12:1:00 13:1:00 14:11:00 15:0:01 16:8:00 17:1:00 18:8:00 19:8:01 20:18:020a02 21:8:01
+E ZV3 minecraft:zombie_villager pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:strength/0/4622 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=chest:minecraft:iron_chestplate*1;head:minecraft:leather_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}} attrs=minecraft:armor:9.0;minecraft:attack_damage:6.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E villager#1 minecraft:villager pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.995554 body=1.995554 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:15.13887910994686;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:savanna/minecraft:cleric/4 vxp=123
+E villager#2 minecraft:villager pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.3930326 body=4.3930326 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:15.045710221817307;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:jungle/minecraft:none/1 vxp=0
+E villager#3 minecraft:villager pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:nausea/0/199;minecraft:strength/0/4620 target=- hurtby=- aggr=0 noai=1 left=1 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.9674077 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.149600627784736;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:mason/2 vxp=7
+E villager#1 minecraft:villager pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E villager#2 minecraft:villager pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E villager#3 minecraft:villager pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:nausea/0/199;minecraft:strength/0/4620
+E item#2 minecraft:item pos=30.46094375205934,-59.84,0.5843696863947196 delta=-0.03827512372678577,0.1568000030517578,0.08268229427604934 rot=36.94837,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=1 pickup=9 health=5 owner=- thrower=-
+BRAIN villager#3 acts=core;rest
+N villager#3 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,FoodLevel:0b,ForcedAge:0,Gossips:[{Target:[I;9,9,9,9],Type:"major_negative",Value:40},{Target:[I;5,6,7,8],Type:"minor_positive",Value:9}],Health:20.0f,HurtTime:0s,Inventory:[{components:{minecraft:enchantments:{minecraft:binding_curse:1}},count:1,id:"minecraft:leather_helmet"}],Invulnerable:0b,LastGossipDecay:12345L,LastRestock:0L,LeftHanded:1b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,Offers:{Recipes:[{buy:{count:10,id:"minecraft:clay_ball"},maxUses:16,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:emerald"},uses:1}]},OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[30.5d,-60.0d,0.5d],RestocksToday:0,Rotation:[0.0f,0.0f],VillagerData:{level:2,profession:"minecraft:mason",type:"minecraft:plains"},VillagerDataFinalized:1b,Xp:7,active_effects:[{duration:4620,id:"minecraft:strength",show_icon:1b},{duration:199,id:"minecraft:nausea",show_icon:1b}],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.009350039236545931d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.5d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+EV sound at=30.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0296606
+EV level_event r=64.0 ex=0 type=1027 pos=30,-60,0 data=0 global=0

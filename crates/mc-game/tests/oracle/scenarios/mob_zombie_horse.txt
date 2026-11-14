@@ -1,5 +1,5 @@
 # Zombie horses: finalizeSpawn with the natural reason adds an armed zombie jockey, the saved data of the horse, rotten flesh feeds it
-# and tames it by riding like any horse, the attributes of its own generation, and the sun burns it with its rider. The jockey has no AI.
+# and tames it by riding like any horse, the attributes of its own generation, and the sun burns it with its rider.
 level flat
 difficulty hard
 preload 4
@@ -8,7 +8,6 @@ level_seed 1501
 time 6000
 spawn_player Steve survival 0.5 -60 0.5 0 0
 mobspawn Z1 minecraft:zombie_horse 6.5 -60 2.5 0 0 reason=NATURAL {PersistenceRequired:1b}
-nbt zombie#1 {NoAI:1b}
 mobspawn Z2 minecraft:zombie_horse 6.5 -60 8.5 0 0 {PersistenceRequired:1b}
 mobspawn Z3 minecraft:zombie_horse 6.5 -60 14.5 0 0 {PersistenceRequired:1b}
 entity_seed Z2 82

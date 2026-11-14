@@ -1,7 +1,5 @@
 //! The goal registration of the zombie family (`registerGoals()`'s egg goal and `addBehaviourGoals()` of `Zombie`,
 //! `Drowned`, `ZombifiedPiglin`).
-//!
-//! Not implemented: `SpearUseGoal` exists in `mc-game-ai` but is never added here.
 
 use super::drowned::{self, DrownedGoToWaterGoal, DrownedSwimUpGoal};
 use super::{Zombie, ZombieKind};
@@ -15,7 +13,7 @@ use crate::world::entity::ai::goal::target::{
 use crate::world::entity::ai::goal::{
     BreakDoorGoal, Flag, Goal, GoalFlags, MoveThroughVillageGoal, RandomStrollGoal,
     RangedAttackGoal, RemoveBlockGoal, RemoveBlockHooks, ResetUniversalAngerTargetGoal,
-    WaterAvoidingRandomStrollGoal, ZombieAttackGoal,
+    SpearUseGoal, WaterAvoidingRandomStrollGoal, ZombieAttackGoal,
 };
 use crate::world::entity::ai::targeting::TargetSelector;
 use crate::world::entity::mob::{self, neutral};
@@ -46,6 +44,10 @@ pub fn create_break_door_goal(zombie: &Zombie) -> Box<dyn Goal> {
 struct TurtleEggHooks;
 
 impl RemoveBlockHooks for TurtleEggHooks {
+    fn goal_name(&self) -> &'static str {
+        "Zombie$ZombieAttackTurtleEggGoal"
+    }
+
     fn accepted_distance(&self) -> f64 {
         1.14
     }
@@ -188,7 +190,10 @@ pub fn add_behaviour_goals(zombie: &mut Zombie) {
             );
         }
         ZombieKind::ZombifiedPiglin(_) => {
-            // `SpearUseGoal(1)`: not added
+            zombie
+                .mob
+                .goal_selector
+                .add_goal(1, Box::new(SpearUseGoal::new(1.0, 1.0, 10.0, 2.0)));
             zombie
                 .mob
                 .goal_selector
@@ -212,7 +217,10 @@ pub fn add_behaviour_goals(zombie: &mut Zombie) {
             t.add_goal(3, Box::new(ResetUniversalAngerTargetGoal::new(true)));
         }
         _ => {
-            // `SpearUseGoal(2)`: not added
+            zombie
+                .mob
+                .goal_selector
+                .add_goal(2, Box::new(SpearUseGoal::new(1.0, 1.0, 10.0, 2.0)));
             let can_break_doors: EntityClass =
                 Arc::new(|e: &dyn Entity| e.as_zombie().is_some_and(|z| z.can_break_doors()));
             zombie
@@ -293,6 +301,10 @@ impl Goal for DrownedAttackGoal {
         self.attack.tick(mob, level);
     }
 
+    fn name(&self) -> &'static str {
+        "Drowned$DrownedAttackGoal"
+    }
+
     fn flags(&self) -> GoalFlags {
         self.attack.flags()
     }
@@ -341,6 +353,10 @@ impl Goal for DrownedTridentAttackGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         self.ranged.tick(mob, level);
+    }
+
+    fn name(&self) -> &'static str {
+        "Drowned$DrownedTridentAttackGoal"
     }
 
     fn flags(&self) -> GoalFlags {
@@ -400,6 +416,10 @@ impl Goal for DrownedGoToBeachGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         move_to_block::tick(self, mob, level);
+    }
+
+    fn name(&self) -> &'static str {
+        "Drowned$DrownedGoToBeachGoal"
     }
 
     fn flags(&self) -> GoalFlags {

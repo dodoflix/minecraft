@@ -1,0 +1,61 @@
+# Curing a zombie villager: a golden apple on a weakened one starts the timer (weakness ends, strength lasts as long as the cure), the
+# conversion back keeps profession, level, type, experience, gossips and offers, the player is thanked with reputation, an advancement
+# and the nausea of the cured villager (the saved gossip list of a thanked player is not compared: vanilla orders the gossip types of
+# one target by identity hash). Iron bars and a bed next to one speed the timer up. A conversion that is saved and loaded resumes.
+level flat
+preload 4
+difficulty hard
+entity_counter 5200
+level_seed 5201
+time 18000
+spawn_player Steve survival 0.5 -60 2.5 180 0
+give Steve mainhand minecraft:golden_apple 8
+note a plain apple does nothing; with weakness it starts the cure
+mobspawn ZV1 minecraft:zombie_villager 0.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,CustomName:"Doc",VillagerData:{type:"minecraft:savanna",profession:"minecraft:cleric",level:4},VillagerDataFinalized:1b,Xp:123,Gossips:[{Target:[I;1,2,3,4],Type:"trading",Value:7}],Offers:{Recipes:[{buy:{count:24,id:"minecraft:paper"},maxUses:16,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:emerald"},uses:3,xp:2},{buy:{count:1,id:"minecraft:emerald"},maxUses:12,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:bookshelf"},uses:5,demand:2}]},equipment:{head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:iron_sword",count:1}},drop_chances:{head:2.0f,mainhand:1.0f}}
+entity_seed ZV1 31
+interact Steve ZV1 main
+tick 1
+dump mob:ZV1 edata:ZV1 nbt:ZV1
+effect ZV1 minecraft:weakness 0 600
+interact Steve ZV1 main
+tick 1
+dump mob:ZV1 edata:ZV1 nbt:ZV1 player:Steve events
+note about 3600 to 6000 ticks of the cure
+tick 3000
+dump mob:ZV1 nbt:ZV1
+tick 3100
+dump mobs entities offers:villager#1 trader:villager#1 events rng:level
+dump stats:Steve advancements:Steve
+tick 100
+dump mobs
+note iron bars and beds speed the cure up
+fill 12 -60 -3 20 -56 3 minecraft:air
+block 18 -60 0 minecraft:iron_bars
+block 18 -60 1 minecraft:iron_bars
+block 18 -60 -1 minecraft:iron_bars
+block 19 -60 0 minecraft:red_bed[facing=east,part=foot]
+block 20 -60 0 minecraft:red_bed[facing=east,part=head]
+tp Steve 16.5 -60 2.5
+mobspawn ZV2 minecraft:zombie_villager 16.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000,VillagerData:{type:"minecraft:jungle",profession:"minecraft:none",level:1}}
+entity_seed ZV2 32
+effect ZV2 minecraft:weakness 0 600
+interact Steve ZV2 main
+tick 1
+dump mob:ZV2 nbt:ZV2
+tick 2400
+dump mob:ZV2
+tick 3700
+dump mobs entities trader:villager#2 events
+note the saved conversion resumes: a zombie villager loaded with a short timer converts at once and an unknown player gets no thanks
+tp Steve 30.5 -60 2.5
+mobspawn ZV3 minecraft:zombie_villager 30.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:mason",level:2},Xp:7,Gossips:[{Target:[I;5,6,7,8],Type:"minor_positive",Value:9},{Target:[I;9,9,9,9],Type:"major_negative",Value:40}],Offers:{Recipes:[{buy:{count:10,id:"minecraft:clay_ball"},maxUses:16,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:emerald"},uses:1,xp:1}]},equipment:{head:{id:"minecraft:leather_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:binding_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1}},drop_chances:{chest:2.0f}}
+entity_seed ZV3 33
+effect ZV3 minecraft:weakness 0 600
+interact Steve ZV3 main
+tick 1
+nbt ZV3 {ConversionTime:40,ConversionPlayer:[I;1,2,3,4]}
+dump mob:ZV3 nbt:ZV3 edata:ZV3
+tick 38
+dump mob:ZV3
+tick 3
+dump mobs entities brain:villager#3 nbt:villager#3 events

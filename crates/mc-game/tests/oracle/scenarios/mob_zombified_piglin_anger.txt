@@ -1,0 +1,37 @@
+# Zombified piglins: a hit makes the piglin and the ones around it angry at the player for 20 to 39 seconds (the first anger plays a
+# sound), the anger is passed on to the others within range, ends after its timer and a new hit renews it.
+level flat
+preload 4
+difficulty hard
+entity_counter 5600
+level_seed 5601
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+set Steve invulnerable true
+give Steve mainhand minecraft:diamond_sword
+mobspawn A minecraft:zombified_piglin 10.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:golden_sword",count:1}}}
+mobspawn B minecraft:zombified_piglin 12.5 -60 3.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn C minecraft:zombified_piglin 12.5 -60 -20.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed A 71
+entity_seed B 72
+entity_seed C 73
+tick 3
+dump mobs
+note a hit angers A and, through the alert, B (near) but not C (out of range)
+hurt A player_attack 2 by=Steve
+tick 1
+dump mob:A mob:B mob:C nbt:A nbt:B events
+watch mob:A mob:B player:Steve
+tick 100
+watch off
+dump mobs nbt:A nbt:B events
+note anger ends when the timer runs out
+tick 700
+dump mobs nbt:A nbt:B
+note a second hit on B renews its anger
+hurt B player_attack 2 by=Steve
+tick 40
+dump mobs player:Steve nbt:B events

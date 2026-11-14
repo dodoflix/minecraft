@@ -119,7 +119,6 @@ impl Zombie {
         match zombie.kind {
             ZombieKind::Drowned(_) => drowned::init(&mut zombie),
             ZombieKind::ZombifiedPiglin(_) => zombified_piglin::init(&mut zombie),
-            ZombieKind::ZombieVillager(_) => zombie_villager::init(&mut zombie, registries),
             _ => {}
         }
         zombie.parked_break_door_goal = Some(goals::create_break_door_goal(&zombie));
@@ -424,6 +423,24 @@ impl Entity for Zombie {
         }
     }
 
+    /// `ZombieVillager.get(VILLAGER_VARIANT)`: the type of its villager data.
+    fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
+        let base =
+            crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        if !matches!(self.kind, ZombieKind::ZombieVillager(_)) {
+            return base;
+        }
+        mc_protocol::components::DataComponentMap::builder()
+            .add_all(&base)
+            .set(
+                mc_protocol::components::values::entity::VILLAGER_VARIANT,
+                mc_protocol::components::holder::Holder::Reference(
+                    zombie_villager::get_villager_data(self).r#type.identifier(),
+                ),
+            )
+            .build()
+    }
+
     /// `ZombieVillager.applyImplicitComponents`: the `villager/variant` component sets the type and finalizes the villager data.
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
         if matches!(self.kind, ZombieKind::ZombieVillager(_))
@@ -607,6 +624,12 @@ impl Entity for Zombie {
             && let Some(zombie) = to.as_zombie_mut()
         {
             zombie.set_can_break_doors(true);
+        }
+    }
+
+    fn read_level_dependent_data(&mut self, level: &mut ServerLevel) {
+        if let ZombieKind::ZombieVillager(_) = self.kind {
+            zombie_villager::read_level_dependent_data(self, level);
         }
     }
 

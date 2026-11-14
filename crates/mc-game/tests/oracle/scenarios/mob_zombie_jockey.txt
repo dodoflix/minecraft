@@ -1,0 +1,34 @@
+# Baby zombie jockeys: the level random decides at finalizeSpawn whether a baby zombie rides a chicken that is already near (the first
+# 5%), a chicken that is created for it (the second 5%) or nothing. The chicken becomes a jockey chicken that does not despawn into
+# the dark and the rider keeps its baby size.
+level flat
+preload 4
+difficulty normal
+entity_counter 5900
+time 18000
+gamerule mob_drops false
+spawn_player Steve creative 100.5 -60 100.5 0 0
+note a chicken nearby is taken
+mobspawn C1 minecraft:chicken 3.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn Cfar minecraft:chicken 3.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b}
+level_seed 868
+mobspawn ZB1 minecraft:zombie 3.5 -60 3.5 0 0
+entity_seed C1 91
+entity_seed ZB1 92
+dump mobs entities nbt:ZB1 rng:level
+tick 3
+dump mobs entities rng:level
+note no chicken near: a new one is created
+level_seed 771
+mobspawn ZB2 minecraft:zombie 40.5 -60 3.5 0 0
+entity_seed ZB2 93
+dump mobs entities nbt:ZB2 rng:level
+tick 3
+dump mobs entities rng:level
+note a baby without a mount
+level_seed 11
+mobspawn ZB3 minecraft:zombie 60.5 -60 3.5 0 0
+entity_seed ZB3 94
+dump mobs entities nbt:ZB3 rng:level
+tick 3
+dump mobs rng:level

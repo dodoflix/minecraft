@@ -1,0 +1,31 @@
+# Zombies and zombified piglins holding a spear: SpearUseGoal approaches to 10 blocks, holds the spear up while charging, then backs off.
+# A zombie without a spear fights with its fists; a drowned does not use the goal.
+level flat
+preload 4
+difficulty hard
+entity_counter 5300
+level_seed 5301
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+mobspawn Z minecraft:zombie 20.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:iron_spear",count:1},head:{id:"minecraft:iron_helmet",count:1}}}
+entity_seed Z 51
+tick 2
+dump mob:Z goals:Z
+watch mob:Z player:Steve
+tick 160
+watch off
+dump mobs goals:Z
+note a zombified piglin hates the player and charges with a golden spear
+kill Z
+mobspawn ZP minecraft:zombified_piglin 20.5 -60 6.5 90 0 nofinalize {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:golden_spear",count:1}}}
+entity_seed ZP 52
+tick 2
+target ZP Steve
+dump mob:ZP goals:ZP
+watch mob:ZP player:Steve
+tick 120
+watch off
+dump mobs goals:ZP

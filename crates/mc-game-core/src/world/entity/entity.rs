@@ -206,6 +206,7 @@ impl EntityData {
         let uuid = mth::create_insecure_uuid(&mut random);
         let dimensions = EntityDimensions::of_type(entity_type);
         let mut builder = SynchedEntityDataBuilder::new();
+        builder.random = Some(random);
         builder.define(DATA_SHARED_FLAGS_ID, 0);
         builder.define(DATA_AIR_SUPPLY_ID, max_air_supply);
         builder.define(DATA_CUSTOM_NAME_VISIBLE, false);
@@ -215,6 +216,7 @@ impl EntityData {
         builder.define(DATA_POSE, Pose::Standing);
         builder.define(DATA_TICKS_FROZEN, 0);
         define_synched_data(&mut builder);
+        let random = builder.random.take().expect("the entity random");
         let mut data = Self {
             entity_type,
             requires_precise_position: false,

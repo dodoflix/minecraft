@@ -26,7 +26,7 @@ fn leash_tick() {
 }
 
 #[test]
-#[ignore = "deviation: a zombie that converts to a drowned: vanilla's drowned has already moved once in the conversion tick (line 5: pos=6.481968, goals=DrownedGoToBeachGoal), ours has not been ticked (pos=6.5, goals=DrownedSwimUpGoal)"]
+#[ignore = "deviation: the converted zoglin turns and moves in its first tick where vanilla's stands still (line 22), and the converted piglin's effects list is in another order (vanilla keeps them in a hash map)"]
 fn conversion_common() {
     check("mob_conversion_common");
 }

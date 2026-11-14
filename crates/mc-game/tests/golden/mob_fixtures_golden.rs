@@ -14,8 +14,6 @@ const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[
     "minecraft:witch",
     // the `aggr` field is 0 where vanilla shows 1
     "minecraft:panda",
-    // `yHeadRot` (head=0.49275765 in vanilla, 4.9479904 here) and the saved data differ
-    "minecraft:zombie_villager",
 ];
 
 /// `mob_finalize_summon` and `mob_spawn_egg_finalize`: inert placeholders and the class-specific differences of single types.
@@ -33,8 +31,6 @@ const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[
     "minecraft:enderman",
     // the saved `anger` data holds `suspects:[]` where vanilla saves `{}`
     "minecraft:warden",
-    // `yHeadRot` draws after another number of entity randoms; `ConversionTime`, `VillagerData`, `Xp` are not saved
-    "minecraft:zombie_villager",
 ];
 
 /// Every `mobspawn` block of `mob_finalize_equipment` (208 mobs of about 52 types, each with its own difficulty and spawn reason).

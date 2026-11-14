@@ -328,6 +328,10 @@ impl ServerLevel {
         if e.base().removal_reason().is_none() {
             if reason.should_destroy() {
                 e.before_remove(self, reason);
+                // `LivingEntity.remove`: `triggerOnDeathMobEffects` for KILLED / DISCARDED
+                crate::world::entity::living_entity::effects::trigger_on_death_mob_effects(
+                    e, self, reason,
+                );
             }
             e.base_mut().set_removal_reason(reason);
         }

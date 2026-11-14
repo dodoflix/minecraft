@@ -1,0 +1,35 @@
+# A husk that stays under water for 30 seconds shakes for 15 seconds and becomes a zombie (equipment, name, baby age and the pick-up
+# flag are kept); out of the water the timer starts over. A husk hit feeds the victim with hunger.
+level flat
+preload 4
+difficulty hard
+entity_counter 5400
+level_seed 5401
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 40.5 -60 40.5 0 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+fill 4 -61 -2 9 -56 3 minecraft:stone
+fill 5 -60 -1 8 -57 2 minecraft:water
+mobspawn H minecraft:husk 6.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,CustomName:"Dusty",CanPickUpLoot:1b,equipment:{mainhand:{id:"minecraft:iron_axe",count:1}},InWaterTime:590}
+entity_seed H 53
+tick 5
+dump mob:H nbt:H
+tick 5
+dump mob:H nbt:H
+tick 290
+dump mob:H nbt:H
+tick 12
+dump mobs nbt:zombie#1 events
+note a husk that left the water forgets
+mobspawn H2 minecraft:husk 12.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,InWaterTime:400}
+entity_seed H2 54
+tick 3
+dump mob:H2 nbt:H2
+note a husk hit gives hunger
+mobspawn H3 minecraft:husk 40.5 -60 42.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed H3 55
+mob_attack H3 Steve
+tick 2
+dump player:Steve mob:H3

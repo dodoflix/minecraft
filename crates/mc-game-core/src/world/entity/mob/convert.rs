@@ -68,6 +68,26 @@ pub fn convert_to(
     spawn_reason: EntitySpawnReason,
     after_conversion: impl FnOnce(&mut dyn Entity, &mut ServerLevel),
 ) -> Option<crate::world::entity::EntityId> {
+    convert_to_with_source(
+        from,
+        level,
+        ty,
+        params,
+        spawn_reason,
+        |_, converted, level| after_conversion(converted, level),
+    )
+}
+
+/// [`convert_to`] for an `afterConversion` that also reads the converting mob (`this` of a `ZombieVillager` cure: its
+/// equipment, the trigger arguments).
+pub fn convert_to_with_source(
+    from: &mut dyn Entity,
+    level: &mut ServerLevel,
+    ty: EntityType,
+    params: &ConversionParams,
+    spawn_reason: EntitySpawnReason,
+    after_conversion: impl FnOnce(&mut dyn Entity, &mut dyn Entity, &mut ServerLevel),
+) -> Option<crate::world::entity::EntityId> {
     if from.is_removed() {
         return None;
     }
@@ -83,7 +103,7 @@ pub fn convert_to(
     // inert stand-in cannot take the converted mob's state, so the conversion is skipped.
     new_mob.living()?;
     convert(from, new_mob.as_mut(), level, params);
-    after_conversion(new_mob.as_mut(), level);
+    after_conversion(from, new_mob.as_mut(), level);
     let new_id = new_mob.id();
     level.add_fresh_entity(new_mob);
     if params.ty == ConversionType::Single {
@@ -220,7 +240,7 @@ fn convert_common(
                 .expect("ageable");
             (a.age, a.forced_age, a.forced_age_timer)
         };
-        ageable::set_age(to, age);
+        ageable::set_age_in_level(to, level, age);
         if let Some(a) = to.mob_mut().and_then(|m| m.ageable.as_mut()) {
             a.forced_age = forced_age;
             a.forced_age_timer = forced_age_timer;

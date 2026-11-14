@@ -92,10 +92,6 @@ mod ranged_crossbow_attack;
 
 pub use ranged_crossbow_attack::RangedCrossbowAttackGoal;
 
-mod spear_use;
-
-pub use spear_use::SpearUseGoal;
-
 mod swell;
 
 pub use swell::SwellGoal;
