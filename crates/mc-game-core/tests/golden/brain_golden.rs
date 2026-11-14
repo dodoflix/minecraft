@@ -502,3 +502,67 @@ fn pack_and_load_persistent_memories() {
     let loaded = Brain::construct(&types, &[], vec![], &partial.memories, &mut r);
     assert!(!loaded.has_memory_value(HOME) && loaded.has_memory_value(LAST_SLEPT));
 }
+
+/// A behavior that replaces the body's brain when it starts (`Villager.refreshBrain` from `AssignProfessionFromJobSite`).
+struct Swapper;
+
+impl Behavior for Swapper {
+    fn start(&mut self, _: &mut ServerLevel, body: &mut dyn Entity, _: i64) {
+        log("swap", "start");
+        body.brain_mut().replace_with(Brain::new());
+    }
+    fn can_still_use(&mut self, _: &mut ServerLevel, _: &mut dyn Entity, _: i64) -> bool {
+        true
+    }
+    fn tick(&mut self, _: &mut ServerLevel, _: &mut dyn Entity, _: i64) {
+        log("swap", "tick");
+    }
+}
+
+/// `Brain.tick` iterates the behaviors of the brain object it runs on: after a behavior replaced the body's brain, the rest of the
+/// pass still starts and ticks the old object's behaviors (against the new brain's memories); the next tick runs the new brain.
+#[test]
+fn replaced_brain_finishes_its_pass() {
+    let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
+    let profile = GameProfile {
+        id: uuid::Uuid::from_u128(2),
+        name: "swap".into(),
+        properties: vec![],
+    };
+    let mut body = ServerPlayer::new(
+        1,
+        Identifier::parse("minecraft:overworld").unwrap(),
+        profile,
+        Default::default(),
+    );
+    let activities = vec![ActivityData::create_pairs(
+        Activity::CORE,
+        pairs(vec![
+            (
+                0,
+                Box::new(BehaviorBase::with_duration(vec![], 5, 5, Swapper)),
+            ),
+            (1, fake("after", vec![], 5, 5, 5, 1)),
+        ]),
+    )];
+    let mut random = LegacyRandomSource::new(5);
+    let old = Brain::construct(&[], &[], activities, &MemoryMap::EMPTY, &mut random);
+    let old_id = old.id();
+    body.brain_mut().replace_with(old);
+    LOG.with(|l| l.borrow_mut().clear());
+    Brain::tick(&mut level, &mut body);
+    assert_ne!(body.brain().id(), old_id);
+    let first: Vec<String> = LOG.with(|l| l.borrow().clone());
+    assert_eq!(
+        first,
+        [
+            "0 swap start",
+            "0 after start",
+            "0 swap tick",
+            "0 after tick"
+        ]
+    );
+    LOG.with(|l| l.borrow_mut().clear());
+    Brain::tick(&mut level, &mut body);
+    assert!(LOG.with(|l| l.borrow().is_empty()));
+}

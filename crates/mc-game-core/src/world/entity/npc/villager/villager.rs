@@ -304,7 +304,7 @@ impl Villager {
         Brain::stop_all(level, self);
         let packed = self.brain().pack();
         let brain = BRAIN_PROVIDER.make_brain(self, &packed);
-        *self.brain_mut() = brain;
+        self.brain_mut().replace_with(brain);
         self.register_brain_goals(level);
     }
 

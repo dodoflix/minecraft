@@ -58,7 +58,15 @@ fn mob_fields(
     let f = |k: &str, v: String| (k.to_string(), v);
     let mut out = vec![
         f("target", ctx.name_opt(tick::get_target_checked(e, level))),
-        f("hurtby", ctx.name_uuid(l.last_hurt_by_mob)),
+        // `getLastHurtByMob`: a reference to an entity that is no longer in the level resolves to nothing
+        f(
+            "hurtby",
+            ctx.name_uuid(l.last_hurt_by_mob.filter(|u| {
+                level
+                    .get_entity_by_uuid(*u)
+                    .is_some_and(|e| e.living().is_some())
+            })),
+        ),
         f("aggr", b(m.is_aggressive())),
         f("noai", b(m.is_no_ai())),
         f("left", b(m.is_left_handed())),

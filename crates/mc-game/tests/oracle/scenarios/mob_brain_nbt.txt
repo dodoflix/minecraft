@@ -1,0 +1,40 @@
+# Brain persistence: a villager (bed, workstation, bell) and a piglin (gold on the ground, a creative player in range) run 200 ticks, their
+# memories (with time to live) and saved Brain tag are dumped, and the saved tag is loaded into fresh mobs through `nbt`.
+level flat
+preload 4
+entity_counter 7200
+level_seed 7201
+difficulty normal
+time 1000
+spawn_player Steve creative 0.5 -60 8.5 180 0
+fill -8 -60 -8 8 -52 8 minecraft:air
+fill -6 -61 -6 6 -61 6 minecraft:grass_block
+block 0 -60 -3 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 -4 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 3 -60 3 minecraft:composter
+block -3 -60 3 minecraft:bell
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn V minecraft:villager 0.5 -60 0.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1}}
+entity_seed V 81
+mobspawn P minecraft:piglin -4.5 -60 -1.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b}
+entity_seed P 82
+spawn_item G minecraft:gold_ingot -2.5 -60 -1.5 0 0 0 1 rot=0
+tick 20
+dump brain:V brain:P nbt:P
+tick 60
+dump brain:V brain:P
+tick 120
+memory V minecraft:golem_detected_recently {value:1b,ttl:599L}
+memory V minecraft:last_slept {value:1234L}
+dump brain:V brain:P nbt:V nbt:P
+note the saved Brain tags are loaded into fresh mobs (the brain is rebuilt from the tag, time to live included)
+mobspawn V2 minecraft:villager 4.5 -60 4.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1}}
+entity_seed V2 83
+mobspawn P2 minecraft:piglin -5.5 -60 -5.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b}
+entity_seed P2 84
+nbt V2 {Brain:{memories:{"minecraft:golem_detected_recently":{ttl:599L,value:1b},"minecraft:home":{value:{dimension:"minecraft:overworld",pos:[I;0,-60,-4]}},"minecraft:job_site":{value:{dimension:"minecraft:overworld",pos:[I;3,-60,3]}},"minecraft:last_slept":{value:1234L},"minecraft:meeting_point":{value:{dimension:"minecraft:overworld",pos:[I;-3,-60,3]}}}}}
+nbt P2 {Brain:{memories:{"minecraft:admiring_item":{ttl:111L,value:1b},"minecraft:hunted_recently":{ttl:1537L,value:1b}}}}
+dump brain:V2 brain:P2 nbt:V2 nbt:P2
+tick 3
+dump brain:V2 brain:P2

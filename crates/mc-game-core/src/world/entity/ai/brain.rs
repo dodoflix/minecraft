@@ -259,6 +259,10 @@ pub struct Brain {
     active_activities: Vec<Activity>,
     default_activity: Activity,
     last_schedule_update: i64,
+    /// Number of `tick`/`stop_all` passes running on this object (see [`Brain::replace_with`]).
+    passes: u32,
+    /// The object this one replaced while a pass was still running on it.
+    retired: Option<Box<Brain>>,
 }
 
 impl Default for Brain {
@@ -285,6 +289,8 @@ impl Brain {
             active_activities: Vec::new(),
             default_activity: Activity::IDLE,
             last_schedule_update: -9999,
+            passes: 0,
+            retired: None,
         };
         brain.set_core_activities(vec![Activity::CORE]);
         brain.use_default_activity();
@@ -819,10 +825,13 @@ impl Brain {
 
     /// `tick(level, body)`.
     pub fn tick(level: &mut ServerLevel, body: &mut dyn Entity) {
+        let id = body.brain().id;
+        body.brain_mut().passes += 1;
         body.brain_mut().forget_outdated_memories();
         Self::tick_sensors(level, body);
-        Self::start_each_non_running_behavior(level, body);
-        Self::tick_each_running_behavior(level, body);
+        Self::start_each_non_running_behavior(level, body, id);
+        Self::tick_each_running_behavior(level, body, id);
+        body.brain_mut().end_pass(id);
     }
 
     fn tick_sensors(level: &mut ServerLevel, body: &mut dyn Entity) {
@@ -847,17 +856,15 @@ impl Brain {
         }
     }
 
-    fn start_each_non_running_behavior(level: &mut ServerLevel, body: &mut dyn Entity) {
+    fn start_each_non_running_behavior(level: &mut ServerLevel, body: &mut dyn Entity, id: u64) {
         let time = level.game_time();
-        let id = body.brain().id;
         let priorities: Vec<i32> = body.brain().behaviors.keys().copied().collect();
         for priority in priorities {
             let mut ai = 0;
             loop {
-                let brain = body.brain();
-                if brain.id != id {
+                let Some(brain) = body.brain_mut().pass_brain(id) else {
                     return;
-                }
+                };
                 let Some(entry) = brain.behaviors.get(&priority).and_then(|l| l.get(ai)) else {
                     break;
                 };
@@ -865,10 +872,9 @@ impl Brain {
                 if brain.is_active(activity) {
                     for bi in 0..count {
                         let coordinate = (priority, ai, bi);
-                        let brain = body.brain_mut();
-                        if brain.id != id {
+                        let Some(brain) = body.brain_mut().pass_brain(id) else {
                             return;
-                        }
+                        };
                         if !brain
                             .behaviors
                             .get(&priority)
@@ -883,8 +889,7 @@ impl Brain {
                             continue;
                         };
                         behavior.try_start(level, body, time);
-                        let brain = body.brain_mut();
-                        if brain.id == id {
+                        if let Some(brain) = body.brain_mut().pass_brain(id) {
                             brain.put_back_behavior(coordinate, behavior);
                         }
                     }
@@ -894,20 +899,21 @@ impl Brain {
         }
     }
 
-    fn tick_each_running_behavior(level: &mut ServerLevel, body: &mut dyn Entity) {
+    fn tick_each_running_behavior(level: &mut ServerLevel, body: &mut dyn Entity, id: u64) {
         let timestamp = level.game_time();
-        let id = body.brain().id;
-        for coordinate in body.brain().running_behavior_coordinates() {
-            let brain = body.brain_mut();
-            if brain.id != id {
+        let running = match body.brain_mut().pass_brain(id) {
+            Some(brain) => brain.running_behavior_coordinates(),
+            None => return,
+        };
+        for coordinate in running {
+            let Some(brain) = body.brain_mut().pass_brain(id) else {
                 return;
-            }
+            };
             let Some(mut behavior) = brain.take_behavior(coordinate) else {
                 continue;
             };
             behavior.tick_or_stop(level, body, timestamp);
-            let brain = body.brain_mut();
-            if brain.id == id {
+            if let Some(brain) = body.brain_mut().pass_brain(id) {
                 brain.put_back_behavior(coordinate, behavior);
             }
         }
@@ -917,20 +923,20 @@ impl Brain {
     pub fn stop_all(level: &mut ServerLevel, body: &mut dyn Entity) {
         let timestamp = level.game_time();
         let id = body.brain().id;
+        body.brain_mut().passes += 1;
         for coordinate in body.brain().running_behavior_coordinates() {
-            let brain = body.brain_mut();
-            if brain.id != id {
-                return;
-            }
+            let Some(brain) = body.brain_mut().pass_brain(id) else {
+                break;
+            };
             let Some(mut behavior) = brain.take_behavior(coordinate) else {
                 continue;
             };
             behavior.do_stop(level, body, timestamp);
-            let brain = body.brain_mut();
-            if brain.id == id {
+            if let Some(brain) = body.brain_mut().pass_brain(id) {
                 brain.put_back_behavior(coordinate, behavior);
             }
         }
+        body.brain_mut().end_pass(id);
     }
 }
 
@@ -944,9 +950,40 @@ pub fn read_brain(entity: &mut dyn Entity, input: &mc_nbt::CompoundTag) {
 }
 
 impl Brain {
-    /// Replaces this brain object by `other` (`this.brain = other`).
+    /// Replaces this brain object by `other` (`this.brain = other`). A `tick`/`stopAll` pass that is still running on the replaced
+    /// object goes on iterating its own behaviors in vanilla (the loops belong to the old `Brain`), so the old object stays reachable
+    /// by its id until those passes end.
     pub fn replace_with(&mut self, other: Brain) {
-        *self = other;
+        let old = std::mem::replace(self, other);
+        if old.passes > 0 {
+            self.retired = Some(Box::new(old));
+        }
+    }
+
+    /// The brain object `id` of a running pass: this one, or one it replaced during the pass.
+    fn pass_brain(&mut self, id: u64) -> Option<&mut Brain> {
+        if self.id == id {
+            Some(self)
+        } else {
+            self.retired.as_mut()?.pass_brain(id)
+        }
+    }
+
+    /// Ends a pass on brain object `id` and drops replaced objects without a running pass.
+    fn end_pass(&mut self, id: u64) {
+        if let Some(brain) = self.pass_brain(id) {
+            brain.passes -= 1;
+        }
+        self.drop_finished_retired();
+    }
+
+    fn drop_finished_retired(&mut self) {
+        if let Some(retired) = &mut self.retired {
+            retired.drop_finished_retired();
+            if retired.passes == 0 && retired.retired.is_none() {
+                self.retired = None;
+            }
+        }
     }
 }
 

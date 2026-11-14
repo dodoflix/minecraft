@@ -1,0 +1,36 @@
+# Villager sensors over a grid: a golem, a zombie, a baby villager, a bread item and a player around a villager. Each scan (20-tick cadence,
+# random first delay) writes the nearest-living / visible / player / item / baby / hostile / golem memories; a hit by the zombie fills
+# the hurt-by memories; the zombie dying empties the hostile list on the next scan.
+level flat
+preload 4
+entity_counter 7000
+level_seed 7001
+difficulty normal
+time 6000
+spawn_player Steve survival 0.5 -60 8.5 180 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn V minecraft:villager 0.5 -60 0.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1}}
+entity_seed V 71
+mobspawn B minecraft:villager 2.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+entity_seed B 72
+mobspawn Z minecraft:zombie 5.5 -60 1.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z 73
+mobspawn G minecraft:iron_golem -3.5 -60 0.5 270 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed G 74
+spawn_item I minecraft:bread -2.5 -60 -3.5 0 0 0 3 rot=0
+dump brain:V
+watch brain:V
+tick 45
+watch off
+note the zombie hits the villager: the hurt-by memories appear on the next brain tick, the hostile list on the next scan
+hurt V minecraft:mob_attack 2 by=Z direct=Z
+watch brain:V
+tick 25
+watch off
+kill Z
+note the zombie is gone: the next scan drops the hostile and the visible-mob entries
+watch brain:V
+tick 25
+watch off
+dump mob:V mob:B

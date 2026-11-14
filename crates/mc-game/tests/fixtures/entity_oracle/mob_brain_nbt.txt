@@ -1,0 +1,111 @@
+C The difficulty did not change; it is already set to Normal
+C Set minecraft:overworld to 1000 tick(s)
+BRAIN V acts=core;idle
+BM V type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V type=look_target value=pos(3,-60,3) ttl=inf
+BM V type=mobs value=(P;Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=path value=path(1;4) ttl=inf
+BM V type=potential_job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=visible_mobs value=(P;Steve) ttl=inf
+BM V type=walk_target value=walk(pos(3,-60,3);0.5;1) ttl=inf
+BR V LookAtTargetSink
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V GoToPotentialJobSite
+BRAIN P acts=admire_item;core
+BM P type=admiring_item value=1 ttl=111
+BM P type=hunted_recently value=1 ttl=1537
+BM P type=look_target value=entity(G) ttl=inf
+BM P type=mobs value=(V;Steve) ttl=inf
+BM P type=nearest_players value=(Steve) ttl=inf
+BM P type=nearest_visible_player value=Steve ttl=inf
+BM P type=nearest_visible_wanted_item value=G ttl=inf
+BM P type=visible_adult_hoglin_count value=0 ttl=inf
+BM P type=visible_adult_piglin_count value=0 ttl=inf
+BM P type=visible_mobs value=(V;Steve) ttl=inf
+BR P LookAtTargetSink
+BR P RunOne: [DoNothing]
+BR P RunOne: [DoNothing]
+N P {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{minecraft:admiring_item:{ttl:111L,value:1b},minecraft:hunted_recently:{ttl:1537L,value:1b}}},CanPickUpLoot:1b,CannotHunt:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:16.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,IsBaby:0b,IsImmuneToZombification:1b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-3.4249817870580395d,-60.0d,-1.5d],Rotation:[270.0f,40.0f],TimeInOverworld:0,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.038298595829915065d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.3499999940395355d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{offhand:2.0f},equipment:{mainhand:{count:1,id:"minecraft:crossbow"},offhand:{count:1,id:"minecraft:gold_ingot"}},fall_distance:0.0d}
+BRAIN V acts=core;idle
+BM V type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=meeting_point value=minecraft:overworld@-3,-60,3 ttl=inf
+BM V type=mobs value=(P;Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=path value=path(5;7) ttl=inf
+BM V type=visible_mobs value=(P;Steve) ttl=inf
+BM V type=walk_target value=walk(pos(5,-60,-4);0.5;0) ttl=inf
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BRAIN P acts=admire_item;core
+BM P type=admiring_item value=1 ttl=51
+BM P type=hunted_recently value=1 ttl=1477
+BM P type=mobs value=(V;Steve) ttl=inf
+BM P type=nearest_players value=(Steve) ttl=inf
+BM P type=nearest_visible_player value=Steve ttl=inf
+BM P type=visible_adult_hoglin_count value=0 ttl=inf
+BM P type=visible_adult_piglin_count value=0 ttl=inf
+BM P type=visible_mobs value=(V;Steve) ttl=inf
+BRAIN V acts=core;idle
+BM V type=golem_detected_recently value=1 ttl=599
+BM V type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=last_slept value=1234 ttl=inf
+BM V type=look_target value=entity(Steve) ttl=inf
+BM V type=meeting_point value=minecraft:overworld@-3,-60,3 ttl=inf
+BM V type=mobs value=(Steve;P) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=path value=path(10;11) ttl=inf
+BM V type=visible_mobs value=(Steve;P) ttl=inf
+BM V type=walk_target value=walk(pos(3,-60,6);0.5;0) ttl=inf
+BR V LookAtTargetSink
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BRAIN P acts=core;idle
+BM P type=hunted_recently value=1 ttl=1357
+BM P type=mobs value=(V;Steve) ttl=inf
+BM P type=nearest_players value=(Steve) ttl=inf
+BM P type=nearest_visible_player value=Steve ttl=inf
+BM P type=path value=path(3;9) ttl=inf
+BM P type=visible_adult_hoglin_count value=0 ttl=inf
+BM P type=visible_adult_piglin_count value=0 ttl=inf
+BM P type=visible_mobs value=(V;Steve) ttl=inf
+BM P type=walk_target value=walk(pos(4,-60,-9);0.6;0) ttl=inf
+BR P MoveToTargetSink
+BR P RunOne: [DoNothing]
+BR P RunOne: [DoNothing]
+N V {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{minecraft:golem_detected_recently:{ttl:599L,value:1b},minecraft:home:{value:{dimension:"minecraft:overworld",pos:[I;0,-60,-4]}},minecraft:job_site:{value:{dimension:"minecraft:overworld",pos:[I;3,-60,3]}},minecraft:last_slept:{value:1234L},minecraft:meeting_point:{value:{dimension:"minecraft:overworld",pos:[I;-3,-60,3]}}}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,FoodLevel:0b,ForcedAge:0,Gossips:[],Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastGossipDecay:31L,LastRestock:0L,LeftHanded:0b,Motion:[-0.02076297127185396d,-0.0784000015258789d,0.07101463654362535d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[3.694421299858284d,-60.0d,5.464568793676808d],RestocksToday:0,Rotation:[11.279175f,0.0f],VillagerData:{level:1,profession:"minecraft:farmer",type:"minecraft:plains"},VillagerDataFinalized:1b,Xp:0,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.014331371139032508d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.5d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N P {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{minecraft:hunted_recently:{ttl:1357L,value:1b}}},CanPickUpLoot:1b,CannotHunt:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:16.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,IsBaby:0b,IsImmuneToZombification:1b,LeftHanded:0b,Motion:[0.03739752686518493d,-0.0784000015258789d,-0.03760714111255297d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-1.5513357742797307d,-60.0d,-3.4438834589935468d],Rotation:[224.86786f,0.0f],TimeInOverworld:0,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.038298595829915065d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.3499999940395355d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{offhand:2.0f},equipment:{mainhand:{count:1,id:"minecraft:crossbow"}},fall_distance:0.0d}
+# the saved Brain tags are loaded into fresh mobs (the brain is rebuilt from the tag, time to live included)
+BRAIN V2 acts=core;idle
+BM V2 type=golem_detected_recently value=1 ttl=599
+BM V2 type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V2 type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V2 type=last_slept value=1234 ttl=inf
+BM V2 type=meeting_point value=minecraft:overworld@-3,-60,3 ttl=inf
+BRAIN P2 acts=core;idle
+BM P2 type=admiring_item value=1 ttl=111
+BM P2 type=hunted_recently value=1 ttl=1537
+N V2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{minecraft:golem_detected_recently:{ttl:599L,value:1b},minecraft:home:{value:{dimension:"minecraft:overworld",pos:[I;0,-60,-4]}},minecraft:job_site:{value:{dimension:"minecraft:overworld",pos:[I;3,-60,3]}},minecraft:last_slept:{value:1234L},minecraft:meeting_point:{value:{dimension:"minecraft:overworld",pos:[I;-3,-60,3]}}}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,FoodLevel:0b,ForcedAge:0,Gossips:[],Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastGossipDecay:0L,LastRestock:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,4.5d],RestocksToday:0,Rotation:[0.0f,0.0f],VillagerData:{level:1,profession:"minecraft:farmer",type:"minecraft:plains"},VillagerDataFinalized:1b,Xp:0,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.006732431667142219d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N P2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{minecraft:admiring_item:{ttl:111L,value:1b},minecraft:hunted_recently:{ttl:1537L,value:1b}}},CanPickUpLoot:1b,CannotHunt:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:16.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,IsBaby:0b,IsImmuneToZombification:1b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5.5d,-60.0d,-5.5d],Rotation:[0.0f,0.0f],TimeInOverworld:0,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.010738898841264043d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.3499999940395355d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,equipment:{mainhand:{count:1,id:"minecraft:golden_sword"}},fall_distance:0.0d}
+BRAIN V2 acts=core;idle
+BM V2 type=golem_detected_recently value=1 ttl=596
+BM V2 type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V2 type=last_slept value=1234 ttl=inf
+BM V2 type=meeting_point value=minecraft:overworld@-3,-60,3 ttl=inf
+BM V2 type=nearest_players value=(Steve) ttl=inf
+BM V2 type=nearest_visible_player value=Steve ttl=inf
+BR V2 RunOne: [DoNothing]
+BR V2 RunOne: [DoNothing]
+BRAIN P2 acts=core;idle
+BM P2 type=hunted_recently value=1 ttl=1534
+BR P2 RunOne: [DoNothing]
+BR P2 RunOne: [DoNothing]

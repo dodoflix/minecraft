@@ -1,0 +1,248 @@
+# The attribute supplier of every living entity type (DefaultAttributes): `dump attrs:` prints every attribute of the type's supplier with its value;
+# then attribute base values and modifiers (all three operations, and the modifier of an effect) through `nbt` and the saved tag.
+level flat
+preload 4
+entity_counter 7100
+level_seed 7101
+difficulty normal
+spawn_player Steve survival 0.5 -60 8.5 180 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn T_armadillo minecraft:armadillo 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_armadillo
+kill T_armadillo
+mobspawn T_armor_stand minecraft:armor_stand 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_armor_stand
+kill T_armor_stand
+mobspawn T_axolotl minecraft:axolotl 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_axolotl
+kill T_axolotl
+mobspawn T_bat minecraft:bat 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_bat
+kill T_bat
+mobspawn T_bee minecraft:bee 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_bee
+kill T_bee
+mobspawn T_blaze minecraft:blaze 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_blaze
+kill T_blaze
+mobspawn T_bogged minecraft:bogged 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_bogged
+kill T_bogged
+mobspawn T_cat minecraft:cat 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_cat
+kill T_cat
+mobspawn T_cave_spider minecraft:cave_spider 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_cave_spider
+kill T_cave_spider
+mobspawn T_chicken minecraft:chicken 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_chicken
+kill T_chicken
+mobspawn T_cod minecraft:cod 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_cod
+kill T_cod
+mobspawn T_cow minecraft:cow 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_cow
+kill T_cow
+mobspawn T_creaking minecraft:creaking 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_creaking
+kill T_creaking
+mobspawn T_creeper minecraft:creeper 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_creeper
+kill T_creeper
+mobspawn T_dolphin minecraft:dolphin 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_dolphin
+kill T_dolphin
+mobspawn T_donkey minecraft:donkey 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_donkey
+kill T_donkey
+mobspawn T_drowned minecraft:drowned 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_drowned
+kill T_drowned
+mobspawn T_elder_guardian minecraft:elder_guardian 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_elder_guardian
+kill T_elder_guardian
+mobspawn T_enderman minecraft:enderman 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_enderman
+kill T_enderman
+mobspawn T_endermite minecraft:endermite 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_endermite
+kill T_endermite
+mobspawn T_breeze minecraft:breeze 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_breeze
+kill T_breeze
+mobspawn T_fox minecraft:fox 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_fox
+kill T_fox
+mobspawn T_frog minecraft:frog 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_frog
+kill T_frog
+mobspawn T_ghast minecraft:ghast 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_ghast
+kill T_ghast
+mobspawn T_giant minecraft:giant 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_giant
+kill T_giant
+mobspawn T_glow_squid minecraft:glow_squid 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_glow_squid
+kill T_glow_squid
+mobspawn T_goat minecraft:goat 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_goat
+kill T_goat
+mobspawn T_guardian minecraft:guardian 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_guardian
+kill T_guardian
+mobspawn T_hoglin minecraft:hoglin 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_hoglin
+kill T_hoglin
+mobspawn T_horse minecraft:horse 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_horse
+kill T_horse
+mobspawn T_husk minecraft:husk 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_husk
+kill T_husk
+mobspawn T_iron_golem minecraft:iron_golem 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_iron_golem
+kill T_iron_golem
+mobspawn T_llama minecraft:llama 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_llama
+kill T_llama
+mobspawn T_magma_cube minecraft:magma_cube 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_magma_cube
+kill T_magma_cube
+mobspawn T_sulfur_cube minecraft:sulfur_cube 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_sulfur_cube
+kill T_sulfur_cube
+mobspawn T_mannequin minecraft:mannequin 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_mannequin
+kill T_mannequin
+mobspawn T_mooshroom minecraft:mooshroom 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_mooshroom
+kill T_mooshroom
+mobspawn T_mule minecraft:mule 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_mule
+kill T_mule
+mobspawn T_ocelot minecraft:ocelot 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_ocelot
+kill T_ocelot
+mobspawn T_panda minecraft:panda 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_panda
+kill T_panda
+mobspawn T_parched minecraft:parched 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_parched
+kill T_parched
+mobspawn T_parrot minecraft:parrot 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_parrot
+kill T_parrot
+mobspawn T_phantom minecraft:phantom 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_phantom
+kill T_phantom
+mobspawn T_pig minecraft:pig 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_pig
+kill T_pig
+mobspawn T_piglin minecraft:piglin 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_piglin
+kill T_piglin
+mobspawn T_piglin_brute minecraft:piglin_brute 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_piglin_brute
+kill T_piglin_brute
+mobspawn T_pillager minecraft:pillager 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_pillager
+kill T_pillager
+mobspawn T_polar_bear minecraft:polar_bear 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_polar_bear
+kill T_polar_bear
+mobspawn T_pufferfish minecraft:pufferfish 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_pufferfish
+kill T_pufferfish
+mobspawn T_rabbit minecraft:rabbit 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_rabbit
+kill T_rabbit
+mobspawn T_salmon minecraft:salmon 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_salmon
+kill T_salmon
+mobspawn T_sheep minecraft:sheep 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_sheep
+kill T_sheep
+mobspawn T_shulker minecraft:shulker 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_shulker
+kill T_shulker
+mobspawn T_silverfish minecraft:silverfish 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_silverfish
+kill T_silverfish
+mobspawn T_skeleton minecraft:skeleton 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_skeleton
+kill T_skeleton
+mobspawn T_skeleton_horse minecraft:skeleton_horse 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_skeleton_horse
+kill T_skeleton_horse
+mobspawn T_slime minecraft:slime 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_slime
+kill T_slime
+mobspawn T_snow_golem minecraft:snow_golem 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_snow_golem
+kill T_snow_golem
+mobspawn T_spider minecraft:spider 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_spider
+kill T_spider
+mobspawn T_squid minecraft:squid 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_squid
+kill T_squid
+mobspawn T_stray minecraft:stray 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_stray
+kill T_stray
+mobspawn T_strider minecraft:strider 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_strider
+kill T_strider
+mobspawn T_tadpole minecraft:tadpole 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_tadpole
+kill T_tadpole
+mobspawn T_trader_llama minecraft:trader_llama 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_trader_llama
+kill T_trader_llama
+mobspawn T_tropical_fish minecraft:tropical_fish 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_tropical_fish
+kill T_tropical_fish
+mobspawn T_turtle minecraft:turtle 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_turtle
+kill T_turtle
+mobspawn T_vex minecraft:vex 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_vex
+kill T_vex
+mobspawn T_villager minecraft:villager 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_villager
+kill T_villager
+mobspawn T_vindicator minecraft:vindicator 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_vindicator
+kill T_vindicator
+mobspawn T_warden minecraft:warden 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_warden
+kill T_warden
+mobspawn T_wither_skeleton minecraft:wither_skeleton 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_wither_skeleton
+kill T_wither_skeleton
+mobspawn T_wolf minecraft:wolf 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_wolf
+kill T_wolf
+mobspawn T_zoglin minecraft:zoglin 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_zoglin
+kill T_zoglin
+mobspawn T_zombie minecraft:zombie 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_zombie
+kill T_zombie
+mobspawn T_zombie_horse minecraft:zombie_horse 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_zombie_horse
+kill T_zombie_horse
+mobspawn T_zombie_villager minecraft:zombie_villager 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_zombie_villager
+kill T_zombie_villager
+mobspawn T_zombified_piglin minecraft:zombified_piglin 0.5 -60 0.5 0 0 nofinalize
+dump attrs:T_zombified_piglin
+kill T_zombified_piglin
+note attribute base values and modifiers of all three operations are loaded from the tag; an effect adds its own modifier
+mobspawn C minecraft:cow 0.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+nbt C {attributes:[{id:"minecraft:movement_speed",base:0.4d,modifiers:[{id:"minecraft:ma",amount:0.5d,operation:"add_multiplied_base"},{id:"minecraft:mb",amount:-0.05d,operation:"add_value"},{id:"minecraft:mc",amount:1.0d,operation:"add_multiplied_total"}]},{id:"minecraft:max_health",base:30.0d,modifiers:[{id:"minecraft:md",amount:4.0d,operation:"add_value"}]}]}
+dump attrs:C nbt:C
+effect C minecraft:speed 1 600
+tick 2
+dump attrs:C nbt:C

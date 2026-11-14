@@ -1,0 +1,1348 @@
+C The difficulty did not change; it is already set to Normal
+C Set minecraft:overworld to 6000 tick(s)
+BRAIN V acts=core;idle
+T 31
+BRAIN V acts=core;idle
+T 32
+BRAIN V acts=core;idle
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 33
+BRAIN V acts=core;idle
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 34
+BRAIN V acts=core;idle
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 35
+BRAIN V acts=core;idle
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 36
+BRAIN V acts=core;idle
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 37
+BRAIN V acts=core;idle
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 38
+BRAIN V acts=core;idle
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 39
+BRAIN V acts=core;idle
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 40
+BRAIN V acts=core;idle
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 41
+BRAIN V acts=core;idle
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 42
+BRAIN V acts=core;idle
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 43
+BRAIN V acts=core;idle
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 44
+BRAIN V acts=core;idle
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 45
+BRAIN V acts=core;idle
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 46
+BRAIN V acts=core;idle
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 47
+BRAIN V acts=core;idle
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 48
+BRAIN V acts=core;idle
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 49
+BRAIN V acts=core;idle
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 50
+BRAIN V acts=core;idle
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 51
+BRAIN V acts=core;idle
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 52
+BRAIN V acts=core;idle
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 53
+BRAIN V acts=core;idle
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 54
+BRAIN V acts=core;idle
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 55
+BRAIN V acts=core;idle
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 56
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 57
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(0;12) ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 58
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(1;12) ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 59
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(1;12) ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 60
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(1;12) ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 61
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(1;12) ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 62
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(2;12) ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 63
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(2;12) ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 64
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(2;12) ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 65
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(2;12) ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 66
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(2;12) ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 67
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(3;12) ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 68
+BRAIN V acts=core;panic
+BM V type=mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(3;12) ttl=inf
+BM V type=visible_mobs value=(B;G;Z;Steve) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 69
+BRAIN V acts=core;panic
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(3;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 70
+BRAIN V acts=core;panic
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(3;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 71
+BRAIN V acts=core;panic
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(4;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 72
+BRAIN V acts=core;panic
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(4;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 73
+BRAIN V acts=core;panic
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(4;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 74
+BRAIN V acts=core;panic
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(4;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 75
+BRAIN V acts=core;panic
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_hostile value=Z ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(4;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+# the zombie hits the villager: the hurt-by memories appear on the next brain tick, the hostile list on the next scan
+HURT V minecraft:mob_attack 2 -> true
+T 76
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(5;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 77
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(5;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 78
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(5;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 79
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(5;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 80
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(5;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 81
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(6;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 82
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(6;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 83
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(6;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 84
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(6;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 85
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(6;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 86
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(6;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 87
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(6;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 88
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(7;12) ttl=inf
+BM V type=visible_mobs value=(G;B;Steve;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+T 89
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(7;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 90
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(7;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 91
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(7;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 92
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(8;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 93
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(8;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 94
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(8;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 95
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(8;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 96
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(9;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 97
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(9;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 98
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(9;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 99
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(9;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 100
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(9;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+# the zombie is gone: the next scan drops the hostile and the visible-mob entries
+T 101
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(10;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 102
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(10;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 103
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(10;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 104
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(10;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 105
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(11;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 106
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(11;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 107
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(11;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 108
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(11;12) ttl=inf
+BM V type=visible_mobs value=(G;Steve;B;Z) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 109
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(11;12) ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,11);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 110
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BR V VillagerPanicTrigger
+BR V RunOne: [DoNothing]
+T 111
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BM V type=visible_villager_babies value=(B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,10);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V RunOne: [DoNothing]
+T 112
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(0;2) ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,10);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 113
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(1;2) ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,10);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 114
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(1;2) ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,10);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 115
+BRAIN V acts=core;panic
+BM V type=hurt_by value=damage(mob) ttl=inf
+BM V type=hurt_by_entity value=Z ttl=inf
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=path value=path(1;2) ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BM V type=walk_target value=walk(pos(-11,-60,10);0.75;0) ttl=inf
+BR V VillagerPanicTrigger
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+T 116
+BRAIN V acts=core;idle
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 117
+BRAIN V acts=core;idle
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 118
+BRAIN V acts=core;idle
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 119
+BRAIN V acts=core;idle
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 120
+BRAIN V acts=core;idle
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 121
+BRAIN V acts=core;idle
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 122
+BRAIN V acts=core;idle
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 123
+BRAIN V acts=core;idle
+BM V type=golem_detected_recently value=1 ttl=599
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 124
+BRAIN V acts=core;idle
+BM V type=golem_detected_recently value=1 ttl=598
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+T 125
+BRAIN V acts=core;idle
+BM V type=golem_detected_recently value=1 ttl=597
+BM V type=mobs value=(Steve;G;B) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=I ttl=inf
+BM V type=visible_mobs value=(Steve;G;B) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+E V minecraft:villager pos=-10.608067907106964,-60.0,10.595777286848172 delta=0.0,-0.0784000015258789,0.0 rot=186.3286,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.0 xxa=0.0 yya=0.0 head=186.3286 body=186.3286 nav=done stuck=0 navspeed=0.75 ntarget=-11,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=golem_detected_recently:1:597;mobs:(Steve;G;B):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;nearest_visible_wanted_item:I:inf;visible_mobs:(Steve;G;B):inf equip=- attrs=minecraft:follow_range:15.844688464422884;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E B minecraft:villager pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.51114405887958;minecraft:movement_speed:0.5 age=-23905 baby=1 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0

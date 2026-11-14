@@ -104,9 +104,8 @@ fn mob_skeleton_shoot() {
 }
 
 #[test]
-#[ignore = "deviation: from tick 7 vanilla keeps the `visible_mobs` memory as an empty list (`mem=visible_mobs:():inf`), ours has no memory"]
 fn mob_villager_brain() {
-    run_scenario_test("mob_villager_brain");
+    block_scenario::check("mob_villager_brain");
 }
 
 #[test]
