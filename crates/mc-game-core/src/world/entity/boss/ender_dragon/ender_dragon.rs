@@ -1,27 +1,34 @@
 //! `net.minecraft.world.entity.boss.enderdragon.EnderDragon`: the body of the dragon, its eight hitboxes
-//! ([`EnderDragonPart`]) and what an attack on a hitbox does to it.
+//! ([`EnderDragonPart`]), its flight to the target of the current phase and what an attack on a hitbox does to it.
 //!
 //! The dragon owns the ids of its parts (taken right after its own), the level holds the parts while it tracks the dragon
-//! (`ServerLevel.dragonParts`) and the dragon moves them every tick.
+//! (`ServerLevel.dragonParts`) and the dragon moves them every tick. The behaviour of each phase is in [`super::phases`].
 //!
-//! Not implemented: the phase behaviour (`DragonPhaseInstance`: the flight to the phase's target, `onHurt`, `onCrystalDestroyed`,
-//! `begin`/`end`); the wing knockback and the head/neck contact damage of `aiStep`; the `EnderDragonFight` (`updateDragon`,
-//! `setDragonKilled`, `aliveCrystals`, `onCrystalDestroyed`); `handleKillingBlow` (the dying phase), `tickDeath` (the death
-//! animation, experience and removal), `kill(level)`; the node path finding (`findClosestNode`, `findPath`); the head look vector.
+//! Not implemented: the `EnderDragonFight` the dragon reports to (`updateDragon` each tick, `setDragonKilled`,
+//! `aliveCrystals`, `hasPreviouslyKilledDragon`, the boss bar): the dragon behaves as one without a fight, so no crystal counts
+//! as alive, a kill is worth 500 experience and the level never calls [`EnderDragon::on_crystal_destroyed`] on its own.
 
 use super::flight_history::DragonFlightHistory;
+use super::flight_nodes::DragonNodes;
 use super::part::{BODY, EnderDragonPart, HEAD, NECK, TAIL_1, WING_1, WING_2};
-use super::phase::EnderDragonPhase;
+use super::phases::{self, DragonPhases, EnderDragonPhase};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::damagesource::{DamageSource, DamageTypeTags};
+use crate::world::entity::ai::targeting::TargetingConditions;
 use crate::world::entity::boss::end_crystal::EndCrystal;
+use crate::world::entity::experience_orb::ExperienceOrb;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::living_entity::damage;
+use crate::world::entity::mob::ext::no_creative_or_spectator;
 use crate::world::entity::mob::{self, MobData, MobKind};
 use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
-use crate::world::entity::{Entity, EntityId};
+use crate::world::entity::{Entity, EntityId, MoverType, RemovalReason};
+use crate::world::item::enchantment::actors::Actors;
+use crate::world::item::enchantment_helper;
 use crate::world::level::block::BlockStateExt as _;
+use crate::world::level::pathfinder::node::Node;
+use crate::world::level::pathfinder::path::Path;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
 use mc_core::math::mth;
@@ -29,9 +36,10 @@ use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
-use mc_data::{EntityType, SoundEvent};
+use mc_data::{EntityType, GameEvent, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::SoundSource;
+use mc_world::heightmap::HeightmapType;
 
 define_accessor!(pub DATA_PHASE: Int = EnderDragon);
 
@@ -62,8 +70,14 @@ pub struct EnderDragon {
     nearest_crystal: Option<EntityId>,
     /// The current phase of the phase manager.
     phase: EnderDragonPhase,
+    /// The state of every phase (the instances of the phase manager).
+    pub(super) phases: DragonPhases,
+    /// `fightOrigin`.
+    fight_origin: BlockPos,
     /// `sittingDamageReceived`.
     sitting_damage_received: f32,
+    /// `nodes`, `nodeAdjacency` and `openSet`.
+    nodes: DragonNodes,
 }
 
 impl EnderDragon {
@@ -92,7 +106,10 @@ impl EnderDragon {
             y_rot_a: 0.0,
             nearest_crystal: None,
             phase: EnderDragonPhase::Hovering,
+            phases: DragonPhases::default(),
+            fight_origin: BlockPos::ZERO,
             sitting_damage_received: 0.0,
+            nodes: DragonNodes::default(),
         }
     }
 
@@ -101,21 +118,147 @@ impl EnderDragon {
         self.phase
     }
 
-    /// `getPhaseManager().setPhase(phase)`: a new phase is published through the synched data.
-    pub fn set_phase(&mut self, phase: EnderDragonPhase) {
-        if phase != self.phase {
-            self.phase = phase;
-            self.mob
-                .living
-                .entity
-                .entity_data
-                .set(DATA_PHASE, phase.id());
+    /// `getPhaseManager().setPhase(phase)`: the old phase ends, the new one begins and is published through the synched data.
+    pub fn set_phase(&mut self, level: &mut ServerLevel, phase: EnderDragonPhase) {
+        self.switch_phase(Some(level), phase);
+    }
+
+    /// `setPhase(phase)` where no level is at hand (the phase read from saved data): a flaming dragon's cloud is discarded at its
+    /// next tick.
+    pub fn set_phase_without_level(&mut self, phase: EnderDragonPhase) {
+        self.switch_phase(None, phase);
+    }
+
+    fn switch_phase(&mut self, level: Option<&mut ServerLevel>, target: EnderDragonPhase) {
+        if target == self.phase {
+            return;
         }
+        phases::end(self, level, self.phase);
+        self.phase = target;
+        self.mob
+            .living
+            .entity
+            .entity_data
+            .set(DATA_PHASE, target.id());
+        phases::begin(self, target);
     }
 
     /// The ids of the parts, in `subEntities` order.
     pub fn part_ids(&self) -> &[EntityId] {
         &self.part_ids
+    }
+
+    /// `setFightOrigin(origin)`.
+    pub fn set_fight_origin(&mut self, origin: BlockPos) {
+        self.fight_origin = origin;
+    }
+
+    /// `getFightOrigin()`.
+    pub fn fight_origin(&self) -> BlockPos {
+        self.fight_origin
+    }
+
+    /// `EnderDragonFight.getPodiumLocation(getFightOrigin())`.
+    pub(super) fn podium_location(&self) -> BlockPos {
+        self.fight_origin
+    }
+
+    /// `dragonFight.aliveCrystals()`, `None` while the dragon has no fight (always: the fight is not ported).
+    pub(super) fn alive_crystals(&self) -> Option<i32> {
+        None
+    }
+
+    /// `setHealth(health)`.
+    pub(super) fn set_health(&mut self, health: f32) {
+        self.mob.living.set_health(health);
+    }
+
+    /// `findClosestNode()`.
+    pub(super) fn find_closest_node(&mut self, level: &ServerLevel) -> i32 {
+        self.nodes.ensure_nodes(level);
+        let pos = self.base().position();
+        self.find_closest_node_at(pos.x, pos.y, pos.z)
+    }
+
+    /// `findClosestNode(tX, tY, tZ)`.
+    pub(super) fn find_closest_node_at(&self, x: f64, y: f64, z: f64) -> i32 {
+        self.nodes
+            .find_closest_node(x, y, z, self.alive_crystals().is_none_or(|c| c == 0))
+    }
+
+    /// `findPath(startIndex, endIndex, finalNode)`.
+    pub(super) fn find_path(
+        &mut self,
+        start_index: i32,
+        end_index: i32,
+        final_node: Option<Node>,
+    ) -> Option<Path> {
+        let no_crystals = self.alive_crystals().is_none_or(|c| c == 0);
+        self.nodes
+            .find_path(start_index, end_index, final_node, no_crystals)
+    }
+
+    /// `getHeadLookVector(a)`: a landing or taking off dragon looks down at the podium, a sitting one at 45 degrees.
+    pub(super) fn get_head_look_vector(&mut self, level: &ServerLevel, a: f32) -> Vec3 {
+        let phase = self.phase;
+        let x_rot_old = self.base().x_rot();
+        if matches!(phase, EnderDragonPhase::Landing | EnderDragonPhase::Takeoff) {
+            let egg = level.get_heightmap_pos(
+                HeightmapType::MotionBlockingNoLeaves,
+                self.podium_location(),
+            );
+            let dist =
+                (egg.dist_to_center_sqr(&self.base().position()).sqrt() as f32 / 4.0).max(1.0);
+            let y_offset = 6.0 / dist;
+            self.base_mut().set_x_rot(-y_offset * 1.5 * 5.0);
+        } else if phase.is_sitting() {
+            self.base_mut().set_x_rot(-45.0);
+        } else {
+            return self.get_view_vector(a);
+        }
+        let result = self.get_view_vector(a);
+        self.base_mut().set_x_rot(x_rot_old);
+        result
+    }
+
+    /// `onCrystalDestroyed(level, crystal, pos, source)`: the crystal the dragon heals from hurts its head; the phase reacts.
+    pub fn on_crystal_destroyed(
+        &mut self,
+        level: &mut ServerLevel,
+        crystal: &dyn Entity,
+        pos: BlockPos,
+        source: &DamageSource,
+    ) {
+        let causing_player = source
+            .get_entity()
+            .filter(|id| level.get_entity(*id).is_some_and(|e| e.is_player()));
+        let player = causing_player.or_else(|| {
+            // `CRYSTAL_DESTROY_TARGETING`: `forCombat().range(64.0)`, no source
+            let conditions = TargetingConditions::for_combat().range(64.0);
+            let (x, y, z) = (f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()));
+            let mut best = -1.0;
+            let mut result = None;
+            for &id in level.players() {
+                let Some(candidate) = level.get_entity(id) else {
+                    continue;
+                };
+                if conditions.test(level, None, candidate) {
+                    let dist = candidate.base().distance_to_sqr_xyz(x, y, z);
+                    if best == -1.0 || dist < best {
+                        best = dist;
+                        result = Some(id);
+                    }
+                }
+            }
+            result
+        });
+        if self.nearest_crystal == Some(crystal.id()) {
+            let explosion = level
+                .damage_sources()
+                .explosion(Some(crystal), player.and_then(|id| level.get_entity(id)));
+            self.hurt_part(level, HEAD, &explosion, 10.0);
+        }
+        phases::on_crystal_destroyed(self, level, player);
     }
 
     /// `hurt(level, part, source, damage)` for the part at `part` (an index of [`super::part::DRAGON_PARTS`]).
@@ -129,7 +272,7 @@ impl EnderDragon {
         if self.phase == EnderDragonPhase::Dying {
             return false;
         }
-        // Not implemented: `getCurrentPhase().onHurt(source, damage)` (the sitting phases stop arrows)
+        damage = phases::on_hurt(self, level, source, damage);
         if part != HEAD && part != NECK {
             damage = damage / 4.0 + damage.min(1.0);
         }
@@ -147,7 +290,7 @@ impl EnderDragon {
                 let max_health = self.mob.living.get_max_health();
                 if self.sitting_damage_received > SITTING_ALLOWED_DAMAGE_PERCENTAGE * max_health {
                     self.sitting_damage_received = 0.0;
-                    self.set_phase(EnderDragonPhase::Takeoff);
+                    self.set_phase(level, EnderDragonPhase::Takeoff);
                 }
             }
         }
@@ -210,6 +353,163 @@ impl EnderDragon {
         }
     }
 
+    /// The flight of `aiStep`: the phase ticks (a phase it switches to ticks at once), then the dragon is steered towards the
+    /// phase's target location.
+    fn fly(&mut self, level: &mut ServerLevel) {
+        let current_phase = self.phase;
+        phases::do_server_tick(self, level);
+        if self.phase != current_phase {
+            phases::do_server_tick(self, level);
+        }
+        let Some(target_location) = phases::fly_target_location(self) else {
+            return;
+        };
+        let pos = self.base().position();
+        let xdd = target_location.x - pos.x;
+        let mut ydd = target_location.y - pos.y;
+        let zdd = target_location.z - pos.z;
+        let dist_to_target = xdd * xdd + ydd * ydd + zdd * zdd;
+        let max = phases::fly_speed(self);
+        let horizontal_dist = (xdd * xdd + zdd * zdd).sqrt();
+        if horizontal_dist > 0.0 {
+            ydd = mth::clamp_f64(ydd / horizontal_dist, f64::from(-max), f64::from(max));
+        }
+        let movement = self.base().delta_movement();
+        self.base_mut()
+            .set_delta_movement(movement.add(Vec3::new(0.0, ydd * 0.01, 0.0)));
+        let y_rot = mth::wrap_degrees_f32(self.base().y_rot());
+        self.base_mut().set_y_rot(y_rot);
+        let aim = target_location
+            .subtract_xyz(pos.x, pos.y, pos.z)
+            .normalize();
+        let rotation = y_rot * DEG_TO_RAD;
+        let dir = Vec3::new(
+            f64::from(mth::sin(f64::from(rotation))),
+            self.base().delta_movement().y,
+            f64::from(-mth::cos(f64::from(rotation))),
+        )
+        .normalize();
+        let dot = ((dir.dot(aim) as f32 + 0.5) / 1.5).max(0.0);
+        if xdd.abs() > f64::from(1.0E-5_f32) || zdd.abs() > f64::from(1.0E-5_f32) {
+            let y_rot_d = mth::clamp_f32(
+                mth::wrap_degrees_f32(
+                    180.0 - mth::atan2(xdd, zdd) as f32 * 57.295776 - self.base().y_rot(),
+                ),
+                -50.0,
+                50.0,
+            );
+            self.y_rot_a *= 0.8;
+            self.y_rot_a += y_rot_d * phases::turn_speed(self);
+            let new_y_rot = self.base().y_rot() + self.y_rot_a * 0.1;
+            self.base_mut().set_y_rot(new_y_rot);
+        }
+        let span = (2.0 / (dist_to_target + 1.0)) as f32;
+        self.move_relative(
+            0.06 * (dot * span + (1.0 - span)),
+            Vec3::new(0.0, 0.0, -1.0),
+        );
+        let movement = self.base().delta_movement();
+        if self.in_wall {
+            self.r#move(
+                level,
+                MoverType::SelfMover,
+                movement.scale(f64::from(0.8_f32)),
+            );
+        } else {
+            self.r#move(level, MoverType::SelfMover, movement);
+        }
+        let actual = self.base().delta_movement().normalize();
+        let slide = 0.8 + 0.15 * (actual.dot(dir) + 1.0) / 2.0;
+        let movement = self.base().delta_movement();
+        self.base_mut().set_delta_movement(movement.multiply_xyz(
+            slide,
+            f64::from(0.91_f32),
+            slide,
+        ));
+    }
+
+    /// `knockBack(level, entities)` for the entities around a wing: pushed away from the body, and hurt for 5 unless the dragon
+    /// sits or they were hurt by a mob moments ago.
+    fn knock_back(&mut self, level: &mut ServerLevel, wing: usize) {
+        let Some(wing_box) = level
+            .dragon_part(self.part_ids[wing])
+            .map(|part| part.get_bounding_box())
+        else {
+            return;
+        };
+        let around = wing_box
+            .inflate(4.0, 2.0, 4.0)
+            .move_vec(Vec3::new(0.0, -2.0, 0.0));
+        let entities = level.get_entities(Some(self.id()), &around, no_creative_or_spectator);
+        let Some(body_box) = level
+            .dragon_part(self.part_ids[BODY])
+            .map(|part| part.get_bounding_box())
+        else {
+            return;
+        };
+        let xm = (body_box.min_x + body_box.max_x) / 2.0;
+        let zm = (body_box.min_z + body_box.max_z) / 2.0;
+        for id in entities {
+            level.with_entity(id, |level, entity| {
+                if entity.living().is_none() {
+                    return;
+                }
+                let xd = entity.base().x() - xm;
+                let zd = entity.base().z() - zm;
+                let dd = (xd * xd + zd * zd).max(0.1);
+                entity.push_xyz(xd / dd * 4.0, f64::from(0.2_f32), zd / dd * 4.0);
+                if !self.phase.is_sitting()
+                    && mob::combat::get_last_hurt_by_mob_timestamp(&*entity)
+                        < entity.base().tick_count - 2
+                    && crate::world::entity::team::do_teams_allow_damage(level, &*self, &*entity)
+                {
+                    self.hurt_with_post_attack_effects(level, entity, 5.0);
+                }
+            });
+        }
+    }
+
+    /// `hurt(level, entities)` for the entities around the head or the neck: every living one is hurt for 10.
+    fn hurt_entities(&mut self, level: &mut ServerLevel, part: usize) {
+        let Some(part_box) = level
+            .dragon_part(self.part_ids[part])
+            .map(|part| part.get_bounding_box())
+        else {
+            return;
+        };
+        let around = part_box.inflate_scalar(1.0);
+        let entities = level.get_entities(Some(self.id()), &around, no_creative_or_spectator);
+        for id in entities {
+            level.with_entity(id, |level, target| {
+                if target.living().is_some()
+                    && crate::world::entity::team::do_teams_allow_damage(level, &*self, &*target)
+                {
+                    self.hurt_with_post_attack_effects(level, target, 10.0);
+                }
+            });
+        }
+    }
+
+    /// `target.hurtServer(level, damageSources().mobAttack(this), damage)` and `EnchantmentHelper.doPostAttackEffects`.
+    fn hurt_with_post_attack_effects(
+        &mut self,
+        level: &mut ServerLevel,
+        target: &mut dyn Entity,
+        damage: f32,
+    ) {
+        let damage_source = level.damage_sources().mob_attack(&*self);
+        let target_id = target.id();
+        level.lend(&mut *self, |level| {
+            target.hurt_server(level, &damage_source, damage)
+        });
+        enchantment_helper::do_post_attack_effects(
+            level,
+            &mut Actors::of(&mut *self).and(&mut *target),
+            target_id,
+            &damage_source,
+        );
+    }
+
     /// `checkWalls(level, bb)`: breaks the blocks of the box that are neither transparent nor immune to the dragon (when mobs
     /// may grief) and reports whether a block stopped it.
     fn check_walls(&mut self, level: &mut ServerLevel, bb: &AABB) -> bool {
@@ -248,8 +548,9 @@ impl EnderDragon {
         hit_wall
     }
 
-    /// The part placement of `aiStep` (everything after the flight): the body, wings, neck, head and tail follow the dragon, then
-    /// `xo`/`yo`/`zo` of every part is the position it had before.
+    /// The part placement of `aiStep` (everything after the flight): the body and wings follow the dragon, the wings knock back
+    /// and the head and neck hurt what they touch, then the neck, head and tail follow, then `xo`/`yo`/`zo` of every part is the
+    /// position it had before.
     fn place_parts(&mut self, level: &mut ServerLevel) {
         let old_pos: Vec<Vec3> = self
             .part_ids
@@ -286,7 +587,12 @@ impl EnderDragon {
             2.0,
             f64::from(ss1 * -4.5),
         );
-        // Not implemented: the knockback of the wings and the contact damage of the head and neck (`!wasHurtRecently()`)
+        if !self.was_hurt_recently() {
+            self.knock_back(level, WING_1);
+            self.knock_back(level, WING_2);
+            self.hurt_entities(level, HEAD);
+            self.hurt_entities(level, NECK);
+        }
         let rot2 = y_rot * DEG_TO_RAD - self.y_rot_a * 0.01;
         let ss2 = mth::sin(f64::from(rot2));
         let cc2 = mth::cos(f64::from(rot2));
@@ -342,6 +648,12 @@ impl EnderDragon {
             }
         }
     }
+
+    /// `gameEvent(ENTITY_DIE)` of a dragon that removed itself.
+    fn post_death_event(&mut self, level: &mut ServerLevel) {
+        let position = self.base().position();
+        level.game_event_from_live_entity(self, GameEvent::ENTITY_DIE, position);
+    }
 }
 
 impl Entity for EnderDragon {
@@ -373,6 +685,7 @@ impl Entity for EnderDragon {
     /// `aiStep()`: the dragon does not run `Mob.aiStep`.
     fn ai_step(&mut self, level: &mut ServerLevel) {
         self.process_flapping_movement(level);
+        phases::discard_pending(self, level);
         self.o_flap_time = self.flap_time;
         if self.is_dead_or_dying() {
             // the offsets of the explosion particle (`addParticle` itself is client only)
@@ -400,10 +713,64 @@ impl Entity for EnderDragon {
         } else {
             let (y, y_rot) = (self.base().y(), self.base().y_rot());
             self.flight_history.record(y, y_rot);
-            // Not implemented: the phase tick and the flight to the phase's target location
+            self.fly(level);
             self.apply_effects_from_blocks(level);
             self.mob.living.y_body_rot = self.base().y_rot();
             self.place_parts(level);
+        }
+    }
+
+    /// `handleKillingBlow()`: a flying dragon does not die, it falls to the podium and dies there; a sitting one dies on the spot.
+    fn handle_killing_blow(&mut self) {
+        if !self.phase.is_sitting() {
+            self.mob.living.set_health(1.0);
+            self.set_phase_without_level(EnderDragonPhase::Dying);
+        }
+    }
+
+    /// `kill(level)`: the dragon removes itself (no damage, no death animation).
+    fn kill_in_level(&mut self, level: &mut ServerLevel) {
+        level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Killed);
+        self.post_death_event(level);
+        // Not implemented: `EnderDragonFight.updateDragon(this)` and `setDragonKilled(this)`
+    }
+
+    /// `tickDeath()`: the dragon rises for ten seconds in a rain of experience, then is removed.
+    fn tick_death(&mut self, level: &mut ServerLevel) {
+        // Not implemented: `EnderDragonFight.updateDragon(this)`
+        self.dragon_death_time += 1;
+        if (180..=200).contains(&self.dragon_death_time) {
+            // the offsets of the explosion emitter particle (`addParticle` itself is client only)
+            for _ in 0..3 {
+                self.base_mut().random.next_float();
+            }
+        }
+        // 12000 for the first dragon of a fight (`!hasPreviouslyKilledDragon()`)
+        let xp_count = 500;
+        if self.dragon_death_time > 150 && self.dragon_death_time % 5 == 0 && level.mob_drops() {
+            let position = self.base().position();
+            ExperienceOrb::award(level, &position, mth::floor_f32(xp_count as f32 * 0.08));
+        }
+        if self.dragon_death_time == 1 && !self.base().is_silent() {
+            level.global_level_event(1028, self.base().block_position(), 0);
+        }
+        let death_move = Vec3::new(0.0, f64::from(0.1_f32), 0.0);
+        self.r#move(level, MoverType::SelfMover, death_move);
+        for id in self.part_ids.clone() {
+            if let Some(part) = level.dragon_part_mut(id) {
+                part.base_mut().set_old_pos_and_rot();
+                let moved = part.position().add(death_move);
+                part.set_pos_vec(moved);
+            }
+        }
+        if self.dragon_death_time >= 200 {
+            if level.mob_drops() {
+                let position = self.base().position();
+                ExperienceOrb::award(level, &position, mth::floor_f32(xp_count as f32 * 0.2));
+            }
+            // Not implemented: `EnderDragonFight.setDragonKilled(this)`
+            self.remove(RemovalReason::Killed);
+            self.post_death_event(level);
         }
     }
 
@@ -437,6 +804,11 @@ impl Entity for EnderDragon {
         if !self.phase.is_sitting() {
             damage::knockback(self, power, xd, zd, source, damage, comes_from_effect);
         }
+    }
+
+    /// `EnderDragon implements Enemy`.
+    fn is_enemy(&self) -> bool {
+        true
     }
 
     fn is_pickable(&self) -> bool {
@@ -490,7 +862,7 @@ impl Entity for EnderDragon {
     fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, level, input);
         if let Some(phase) = input.get_int("DragonPhase") {
-            self.set_phase(EnderDragonPhase::by_id(phase));
+            self.set_phase_without_level(EnderDragonPhase::by_id(phase));
         }
         self.dragon_death_time = input.get_int_or("DragonDeathTime", 0);
         self.sitting_damage_received = input.get_float_or("sitting_damage_received", 0.0);

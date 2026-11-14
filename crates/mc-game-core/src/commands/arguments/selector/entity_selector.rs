@@ -389,7 +389,10 @@ impl EntitySelector {
         }
         let ctx = SelectorContext { server, dimension };
         for id in host::level_entity_ids(server, dimension, absolute_aabb) {
-            let Some(entity) = server.level(dimension).and_then(|l| l.get_entity(id)) else {
+            let Some(entity) = server
+                .level(dimension)
+                .and_then(|l| l.get_entity_or_part(id))
+            else {
                 continue;
             };
             if self.entity_type.is_some_and(|t| t != entity.get_type()) {

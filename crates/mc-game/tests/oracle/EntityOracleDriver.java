@@ -109,6 +109,8 @@ import net.minecraft.util.RandomSource;
  * entity_counter N            ServerLevel.ENTITY_COUNTER = N (the next created entity gets id N+1; ids are not printed)
  * partref NAME DRAGON INDEX   NAME = the EnderDragonPart INDEX (0..7: head neck body tail tail tail wing wing) of the dragon DRAGON, usable wherever a REF is
  *                             (`hurt`, `attack`); a part is not an entity of the level, so keep it out of `xentities`
+ * crystal_destroyed DRAGON CRYSTAL DAMAGETYPE [by=REF] [direct=REF] [at=X,Y,Z]   EnderDragon.onCrystalDestroyed(level, crystal, crystal.blockPosition(), source) called directly (what
+ *                             EnderDragonFight.onCrystalDestroyed does when a crystal dies; no fight runs in the scenario level); the source is built as for `hurt`
  * award X Y Z AMOUNT [dx dy dz]   ExperienceOrb.award / awardWithDirection (orb split, merge into existing orbs)
  * rand_value N                Level.randValue = N (the LCG getBlockRandomPos draws from; set it before random ticks)
  * tick_chunk CX CZ SPEED      ServerLevel.tickChunk(chunk, SPEED): random ticks of one chunk (use instead of gamerule random_tick_speed)
@@ -387,6 +389,20 @@ public final class EntityOracleDriver {
          m.put(a.get(i).substring(0, eq), a.get(i).substring(eq + 1));
       }
       return m;
+   }
+
+   /** The damage source of `hurt` and `crystal_destroyed`: TYPE with the options by=REF direct=REF at=X,Y,Z. */
+   DamageSource damageSource(String typeName, Map<String, String> o) throws Exception {
+      Holder<DamageType> type = v.server.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, id(typeName)));
+      Entity by = o.containsKey("by") ? ref(o.get("by")) : null;
+      Entity direct = o.containsKey("direct") ? ref(o.get("direct")) : by;
+      if (o.containsKey("at")) {
+         String[] p = o.get("at").split(",");
+         var ctor = DamageSource.class.getDeclaredConstructor(Holder.class, Entity.class, Entity.class, Vec3.class);
+         ctor.setAccessible(true);
+         return ctor.newInstance(type, direct, by, new Vec3(d(p[0]), d(p[1]), d(p[2])));
+      }
+      return new DamageSource(type, direct, by);
    }
 
    int seq(String player) {
@@ -823,21 +839,15 @@ public final class EntityOracleDriver {
          case "hurt" -> {
             world();
             Entity e = ref(a.get(1));
-            Map<String, String> o = kv(a, 4);
-            Holder<DamageType> type = v.server.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, id(a.get(2))));
-            Entity by = o.containsKey("by") ? ref(o.get("by")) : null;
-            Entity direct = o.containsKey("direct") ? ref(o.get("direct")) : by;
-            DamageSource src;
-            if (o.containsKey("at")) {
-               String[] p = o.get("at").split(",");
-               var ctor = DamageSource.class.getDeclaredConstructor(Holder.class, Entity.class, Entity.class, Vec3.class);
-               ctor.setAccessible(true);
-               src = ctor.newInstance(type, direct, by, new Vec3(d(p[0]), d(p[1]), d(p[2])));
-            } else {
-               src = new DamageSource(type, direct, by);
-            }
+            DamageSource src = damageSource(a.get(2), kv(a, 4));
             boolean r = e.hurtServer(v.level, src, (float)d(a.get(3)));
             out.println("HURT " + a.get(1) + " " + a.get(2) + " " + a.get(3) + " -> " + r);
+         }
+         case "crystal_destroyed" -> {
+            world();
+            var dragon = (net.minecraft.world.entity.boss.enderdragon.EnderDragon)ref(a.get(1));
+            var crystal = (net.minecraft.world.entity.boss.enderdragon.EndCrystal)ref(a.get(2));
+            dragon.onCrystalDestroyed(v.level, crystal, crystal.blockPosition(), damageSource(a.get(3), kv(a, 4)));
          }
          case "explode" -> {
             world();

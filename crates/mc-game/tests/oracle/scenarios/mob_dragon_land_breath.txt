@@ -1,0 +1,195 @@
+# Ender dragon landing: the landing phase flies down to the middle of the podium at 1.5 speed; at less than a block from it the dragon sits and
+# scans for a player within 20 blocks, turns to the player, roars for forty ticks and breathes: ten ticks into the flame a dragon breath cloud
+# (radius 5, instant damage at a quarter of the duration) appears in front of the head and is gone when the phase ends. Arrows are
+# stopped by a sitting dragon.
+command_env
+level flat
+preload 6
+difficulty normal
+level_seed 5501
+entity_counter 5500
+gamerule mob_drops false
+fill -8 -61 -8 8 -61 8 minecraft:bedrock
+spawn_player A survival 15.5 -60 0.5 90 0
+tick 2
+spawn G minecraft:iron_golem 5.5 -60 -1.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed G 43
+mobspawn D minecraft:ender_dragon 3.5 -45 3.5 0 0 {PersistenceRequired:1b}
+entity_seed D 41
+nbt D {DragonPhase:3}
+dump xentity:D nbt:D
+watch xentity:D events
+tick 60
+watch off
+dump parts:D nbt:D
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+dump xentities parts:D
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events

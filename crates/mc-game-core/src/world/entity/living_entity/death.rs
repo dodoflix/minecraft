@@ -100,7 +100,7 @@ pub fn die(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSour
             message.get_string()
         );
     }
-    entity.living_mut().expect("living").dead = true; // handleKillingBlow()
+    entity.handle_killing_blow();
     let proceed = match source.get_entity() {
         None => true,
         Some(source_entity) => {

@@ -3028,6 +3028,13 @@ pub trait Entity: Any {
         super::living_entity::damage::die(self.as_dyn_mut(), level, source);
     }
 
+    /// `handleKillingBlow()` (`LivingEntity.die` calls it once the death is certain): the entity is dead.
+    fn handle_killing_blow(&mut self) {
+        if let Some(living) = self.living_mut() {
+            living.dead = true;
+        }
+    }
+
     /// `causeFallDamage(fallDistance, damageModifier, source)`.
     fn cause_fall_damage(
         &mut self,

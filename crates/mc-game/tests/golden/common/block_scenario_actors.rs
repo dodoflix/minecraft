@@ -279,10 +279,14 @@ impl Scenario {
             .1
     }
 
-    /// `hurt REF DAMAGETYPE AMOUNT [by=REF] [direct=REF] [at=X,Y,Z]`: `entity.hurtServer(level, source, amount)`, prints `HURT ..`.
-    fn hurt(&mut self, a: &[String]) {
+    /// The damage source of `hurt` and `crystal_destroyed`: `TYPE` with the options `by=REF direct=REF at=X,Y,Z`.
+    fn damage_source(
+        &mut self,
+        type_name: &str,
+        options: &[String],
+    ) -> mc_game::world::damagesource::DamageSource {
         let (mut by, mut direct, mut at) = (None, None, None);
-        for t in &a[4..] {
+        for t in options {
             match t.split_once('=') {
                 Some(("by", r)) => by = Some(self.entity_id(r)),
                 Some(("direct", r)) => direct = Some(self.entity_id(r)),
@@ -290,14 +294,14 @@ impl Scenario {
                     let c: Vec<f64> = r.split(',').map(num).collect();
                     at = Some(Vec3::new(c[0], c[1], c[2]));
                 }
-                _ => panic!("hurt option {t} is not replayed (by= direct= at=)"),
+                _ => panic!("damage source option {t} is not replayed (by= direct= at=)"),
             }
         }
         let direct = direct.or(by);
-        let key = Identifier::parse(&if a[2].contains(':') {
-            a[2].clone()
+        let key = Identifier::parse(&if type_name.contains(':') {
+            type_name.to_string()
         } else {
-            format!("minecraft:{}", a[2])
+            format!("minecraft:{type_name}")
         })
         .unwrap();
         let level = self.level();
@@ -306,13 +310,18 @@ impl Scenario {
             .get::<mc_game::registry::typed::damage_type::DamageType>("minecraft:damage_type", &key)
             .unwrap_or_else(|| panic!("unknown damage type {key}"))
             .clone();
-        let source = mc_game::world::damagesource::DamageSource::new(
+        mc_game::world::damagesource::DamageSource::new(
             key,
             std::sync::Arc::new(data),
             direct.and_then(|i| level.get_entity(i)),
             by.and_then(|i| level.get_entity(i)),
             at,
-        );
+        )
+    }
+
+    /// `hurt REF DAMAGETYPE AMOUNT [by=REF] [direct=REF] [at=X,Y,Z]`: `entity.hurtServer(level, source, amount)`, prints `HURT ..`.
+    fn hurt(&mut self, a: &[String]) {
+        let source = self.damage_source(&a[2], &a[4..]);
         let amount = num(&a[3]) as f32;
         let id = self.entity_id(&a[1]);
         let r = self
@@ -321,6 +330,25 @@ impl Scenario {
             .unwrap_or_else(|| panic!("entity {} is gone", a[1]));
         self.out
             .push(format!("HURT {} {} {} -> {r}", a[1], a[2], a[3]));
+    }
+
+    /// `crystal_destroyed DRAGON CRYSTAL DAMAGETYPE [by=REF] [direct=REF] [at=X,Y,Z]`: `EnderDragon.onCrystalDestroyed` of the
+    /// dragon for the crystal, as the dragon fight calls it.
+    fn crystal_destroyed(&mut self, a: &[String]) {
+        let source = self.damage_source(&a[3], &a[4..]);
+        let (dragon, crystal) = (self.entity_id(&a[1]), self.entity_id(&a[2]));
+        self.level()
+            .with_entity(crystal, |level, crystal| {
+                let pos = crystal.base().block_position();
+                level.with_entity(dragon, |level, dragon| {
+                    dragon
+                        .as_any_mut()
+                        .downcast_mut::<mc_game::world::entity::boss::ender_dragon::EnderDragon>()
+                        .expect("crystal_destroyed needs an ender dragon")
+                        .on_crystal_destroyed(level, &*crystal, pos, &source)
+                });
+            })
+            .unwrap_or_else(|| panic!("entity {} is gone", a[2]));
     }
 
     /// Entities created by game logic get stable names `type_path#n` in creation (id) order (twin of `nameNewEntities`).
@@ -514,6 +542,11 @@ impl Scenario {
                         e.after_loaded_to_level(level);
                     }
                 });
+            }
+            "crystal_destroyed" => {
+                self.world();
+                self.load_registries();
+                self.crystal_destroyed(a);
             }
             "hurt" => {
                 self.world();

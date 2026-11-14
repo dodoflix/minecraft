@@ -1,0 +1,328 @@
+# Ender dragon dying: a hit that would kill a flying dragon leaves it at one health in the dying phase, flying to the podium at speed 3; within ten
+# blocks of it its health drops to zero and the death animation runs: it rises for 200 ticks, from tick 150 every fifth tick a rain of experience
+# (500 points of experience in all without a fight) falls from its place, the sound of its death is heard by everyone at tick 1, and at tick 200 the
+# dragon and its parts are gone.
+command_env
+level flat
+preload 6
+difficulty normal
+level_seed 5601
+entity_counter 5600
+gamerule mob_drops true
+fill -8 -61 -8 8 -61 8 minecraft:bedrock
+spawn_player A survival 9.5 -60 0.5 90 0
+tick 2
+mobspawn D minecraft:ender_dragon 12.5 -40 3.5 0 0 {PersistenceRequired:1b,Health:20.0f}
+entity_seed D 51
+nbt D {DragonPhase:0}
+tick 3
+dump xentity:D nbt:D
+note the killing blow
+hurt D player_attack 130 by=A
+dump xentity:D nbt:D events
+watch xentity:D events
+tick 30
+watch off
+dump parts:D
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+dump xentities parts:D
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+tick 2
+dump xentity:D xentities events
+dump counter nbt:A

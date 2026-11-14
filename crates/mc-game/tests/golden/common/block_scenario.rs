@@ -19,7 +19,7 @@
 //! delay=N prio=P`, execution order), `events` (`EV ...` lines of level events / sounds / block events broadcast since the last
 //! dump: [`ServerLevel`]'s `tick_state.broadcast_log` here, `VanillaLevel.RecordingPlayerList` in Java). Everything else panics
 //! with the line number, so a scenario never silently runs half.
-//! Multipart entities: `partref NAME DRAGON INDEX` (the hitbox INDEX of an ender dragon as a REF), dumps `parts:REF` (`PART ..` per hitbox) and `counter` (`COUNTER n`).
+//! Multipart entities: `partref NAME DRAGON INDEX` (the hitbox INDEX of an ender dragon as a REF), dumps `parts:REF` (`PART ..` per hitbox) and `counter` (`COUNTER n`). `crystal_destroyed DRAGON CRYSTAL DAMAGETYPE [by=..]` calls the dragon's crystal reaction directly.
 //!
 //! Notes: the level ticks like `ServerLevel::tick` (scheduled block/fluid ticks, block events, random ticks, block entity
 //! tickers; `random_tick_speed` defaults to 0 like the oracle), game time advances one per tick. Prefer `tick_chunk` + `rand_value` to

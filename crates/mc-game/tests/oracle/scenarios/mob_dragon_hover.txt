@@ -1,0 +1,36 @@
+# Ender dragon hover: a fresh dragon is in the hover phase, sitting for the hurt rules, with its own position as the flight target. It drifts
+# back and forth around that spot while the parts follow with the delayed flight history. Hits of a player that add up to a quarter of its
+# health make it take off, and a taking-off dragon flies along the first path of the island towards the far side before it holds its pattern.
+command_env
+level flat
+preload 6
+difficulty normal
+level_seed 5201
+entity_counter 5200
+gamerule mob_drops false
+spawn_player A survival 40.5 -60 0.5 0 0
+tick 2
+mobspawn D minecraft:ender_dragon 0.5 75 0.5 0 0 {PersistenceRequired:1b}
+entity_seed D 11
+partref Head D 0
+dump counter xentity:D parts:D nbt:D
+watch xentity:D parts:D
+tick 40
+watch off
+note hits inside the invulnerable time count only above the last damage, hits of a player on a sitting dragon add up
+hurt Head player_attack 20 by=A
+tick 1
+dump xentity:D
+tick 24
+hurt Head player_attack 20 by=A
+tick 1
+dump xentity:D
+tick 24
+hurt Head player_attack 20 by=A
+tick 1
+dump xentity:D nbt:D
+note the dragon took off: the takeoff phase finds its path, then the holding pattern follows
+watch xentity:D events
+tick 60
+watch off
+dump parts:D nbt:D

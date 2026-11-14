@@ -1,0 +1,36 @@
+# Ender dragon and end crystals: a hurt dragon finds the nearest crystal within 32 blocks (one chance in ten each tick) and heals one point every
+# ten ticks while the crystal lives; a crystal that is destroyed while it is the nearest hurts the dragon's head for 10 as an explosion of the player
+# and the healing stops; with no crystal in reach the dragon heals nothing.
+command_env
+level flat
+preload 6
+difficulty normal
+level_seed 5301
+entity_counter 5300
+gamerule mob_drops false
+spawn_player A survival 40.5 -60 0.5 0 0
+tick 2
+spawn C1 minecraft:end_crystal 12.5 66 0.5 0 0 {ShowBottom:0b}
+spawn C2 minecraft:end_crystal -20.5 70 3.5 0 0 {ShowBottom:0b}
+spawn C3 minecraft:end_crystal 60.5 70 3.5 0 0 {ShowBottom:0b}
+mobspawn D minecraft:ender_dragon 0.5 75 0.5 0 0 {PersistenceRequired:1b,Health:100.0f}
+entity_seed D 21
+tick 1
+dump xentities
+watch xentity:D
+tick 120
+watch off
+dump counter nbt:D
+note the nearest crystal is destroyed: the head takes 10 as a player's explosion, then the next nearest crystal heals
+crystal_destroyed D C1 player_explosion by=A
+tick 1
+dump xentity:D
+kill C1
+tick 60
+dump xentity:D
+note a crystal out of reach is never found
+kill C2
+watch xentity:D
+tick 60
+watch off
+dump xentities nbt:D

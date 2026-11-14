@@ -1,0 +1,181 @@
+# Ender dragon strafing a player: a holding dragon whose nearest crystal is destroyed by a player turns on that player. It flies a path of the
+# island to a point above the player, charges one point per tick while it sees the player within 64 blocks, and once the charge is five and the
+# dragon faces the player it spits a dragon fireball from behind its head (level event 1017) and goes back to its holding pattern.
+command_env
+level flat
+preload 6
+difficulty normal
+level_seed 5401
+entity_counter 5400
+gamerule mob_drops false
+spawn_player A survival 30.5 62 0.5 90 0
+set A no_gravity true
+attribute A minecraft:max_health 1000
+set A health 1000
+tick 2
+spawn C1 minecraft:end_crystal 12.5 66 0.5 0 0 {ShowBottom:0b}
+mobspawn D minecraft:ender_dragon 0.5 80 0.5 0 0 {PersistenceRequired:1b}
+entity_seed D 31
+nbt D {DragonPhase:0}
+dump xentity:D nbt:D
+watch xentity:D events
+tick 6
+watch off
+dump parts:D
+note the player destroys a crystal: the holding dragon strafes the player
+crystal_destroyed D C1 player_explosion by=A
+dump xentity:D nbt:D
+watch xentity:D events
+tick 60
+watch off
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+tick 4
+dump xentities events
+dump parts:D nbt:D

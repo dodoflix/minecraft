@@ -1,0 +1,182 @@
+# Ender dragon charging: a sitting dragon that finds no player within 20 blocks for five seconds takes off and, when a player is in sight within
+# 150 blocks, charges at the spot where the player stands at 3 speed; ten ticks after reaching it (or hitting something) it holds its pattern.
+command_env
+level flat
+preload 6
+difficulty normal
+level_seed 5701
+entity_counter 5700
+gamerule mob_drops false
+fill -8 -61 -8 8 -61 8 minecraft:bedrock
+spawn_player A survival 50.5 -60 0.5 90 0
+attribute A minecraft:max_health 1000
+set A health 1000
+tick 2
+mobspawn D minecraft:ender_dragon 0.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed D 61
+nbt D {DragonPhase:6}
+dump xentity:D nbt:D
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+tick 2
+dump xentity:D events
+watch xentity:D events
+tick 60
+watch off
+dump parts:D nbt:D
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events
+tick 4
+dump xentity:D events

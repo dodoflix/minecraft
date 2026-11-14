@@ -165,8 +165,8 @@ use crate::commands::arguments::selector::EntityRef;
 use crate::world::entity::EntityId;
 use mc_core::phys::AABB;
 
-/// `level.getEntities(...)` candidates: every entity of the level (lookup order), or those intersecting `aabb` (section
-/// order).
+/// `level.getEntities(type, ...)` candidates: every entity of the level (lookup order), or those intersecting `aabb` (section
+/// order, each multipart entity followed by its hitboxes, whether or not they intersect `aabb`).
 pub fn level_entity_ids(
     server: &MinecraftServer,
     dimension: &DimensionKey,
@@ -176,7 +176,7 @@ pub fn level_entity_ids(
         return Vec::new();
     };
     match aabb {
-        Some(bb) => level.get_entities(None, bb, |_| true),
+        Some(bb) => level.get_entities_of_class(bb, |_| true, |_| true),
         None => level.entity_manager.get_all().map(|e| e.id()).collect(),
     }
 }
@@ -186,7 +186,7 @@ pub fn level_entity_ids(
 pub fn get_entity<'a>(server: &'a MinecraftServer, entity: &EntityRef) -> Option<&'a dyn Entity> {
     let level = server.level(&entity.dimension)?;
     level
-        .get_entity(entity.id)
+        .get_entity_or_part(entity.id)
         .or_else(|| level.get_dead_player(entity.id))
 }
 
