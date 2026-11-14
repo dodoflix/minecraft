@@ -208,6 +208,7 @@ mod mob_happy_ghast_golden;
 mod mob_harness_golden;
 mod mob_hoglin_golden;
 mod mob_illager_golden;
+mod mob_matrix_golden;
 mod mob_nautilus_golden;
 mod mob_nav_golden;
 mod mob_panda_golden;

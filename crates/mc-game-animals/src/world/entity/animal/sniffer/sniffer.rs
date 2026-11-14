@@ -347,14 +347,13 @@ impl Entity for Sniffer {
         SNIFFER_BABY_START_AGE
     }
 
-    fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
+    fn get_default_dimensions(&self, _pose: Pose) -> EntityDimensions {
         let age_scale = self.get_age_scale();
-        let default_dimensions = if self.get_state() == SnifferState::Digging {
+        if self.get_state() == SnifferState::Digging {
             digging_dimensions().scale(age_scale)
         } else {
             EntityDimensions::of_type(self.base().entity_type).scale(age_scale)
-        };
-        mob::ext::living_dimensions(self, pose, default_dimensions)
+        }
     }
 
     fn on_synced_data_updated(&mut self, accessor_id: u8) {

@@ -401,18 +401,17 @@ impl Entity for Goat {
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)
     }
 
-    fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
+    fn get_default_dimensions(&self, pose: Pose) -> EntityDimensions {
         let default_dimensions = if self.is_baby() {
             baby_dimensions()
         } else {
             EntityDimensions::of_type(self.base().entity_type)
         };
-        let default_dimensions = if pose == Pose::LongJumping {
+        if pose == Pose::LongJumping {
             default_dimensions.scale(LONG_JUMPING_DIMENSION_SCALE_FACTOR)
         } else {
             default_dimensions
-        };
-        mob::ext::living_dimensions(self, pose, default_dimensions)
+        }
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {

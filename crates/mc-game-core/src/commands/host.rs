@@ -946,6 +946,7 @@ pub fn entity_load_data(
         .with_entity(entity.id, |level, e| {
             let uuid = e.uuid();
             let result = e.load(level, data);
+            crate::world::entity::mob::leashable::finish_leash_load(e, level);
             e.read_level_dependent_data(level);
             e.base_mut().uuid = uuid;
             e.post_data_manipulated(level);

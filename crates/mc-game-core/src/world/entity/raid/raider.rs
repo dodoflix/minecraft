@@ -37,6 +37,8 @@ pub struct RaiderData {
     pub patrol: PatrolData,
     /// `raid`: the id of the raid in the level's `Raids` (see the module docs of `raid.rs`).
     pub raid: Option<i32>,
+    /// `raid` was removed from the level's `Raids` (it stopped): vanilla's `Raids.getId(raid)` finds nothing to save.
+    raid_ended: bool,
     pub wave: i32,
     pub can_join_raid: bool,
     pub ticks_outside_raid: i32,
@@ -165,7 +167,14 @@ pub fn get_current_raid(e: &dyn Entity) -> Option<i32> {
 
 /// `setCurrentRaid(raid)`.
 pub fn set_current_raid(e: &mut dyn Entity, raid: Option<i32>) {
-    data_mut(e).raid = raid;
+    let d = data_mut(e);
+    d.raid = raid;
+    d.raid_ended = false;
+}
+
+/// The raid of this raider left the level's `Raids`.
+pub fn mark_raid_ended(e: &mut dyn Entity) {
+    data_mut(e).raid_ended = true;
 }
 
 pub fn set_wave(e: &mut dyn Entity, wave: i32) {
@@ -337,7 +346,7 @@ pub fn add_additional_save_data(e: &dyn Entity, out: &mut CompoundTag) {
     let d = data(e);
     out.put_int("Wave", d.wave);
     out.put_boolean("CanJoinRaid", d.can_join_raid);
-    if let Some(id) = d.raid {
+    if let Some(id) = d.raid.filter(|_| !d.raid_ended) {
         out.put_int("RaidId", id);
     }
 }
@@ -368,7 +377,7 @@ pub fn resolve_pending_raid(e: &mut dyn Entity, level: &mut ServerLevel) {
     }
     let wave = data(e).wave;
     let leader = is_patrol_leader(e);
-    data_mut(e).raid = Some(raid_id);
+    set_current_raid(e, Some(raid_id));
     level.with_raid(raid_id, |level, raid| {
         raid.add_wave_mob(level, wave, &*e, false);
         if leader {

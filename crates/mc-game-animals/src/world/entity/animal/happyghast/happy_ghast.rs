@@ -620,13 +620,12 @@ impl Entity for HappyGhast {
         1
     }
 
-    fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
-        let default_dimensions = if self.is_baby() {
+    fn get_default_dimensions(&self, _pose: Pose) -> EntityDimensions {
+        if self.is_baby() {
             baby_dimensions()
         } else {
             EntityDimensions::of_type(self.base().entity_type)
-        };
-        mob::ext::living_dimensions(self, pose, default_dimensions)
+        }
     }
 
     fn get_breed_offspring(

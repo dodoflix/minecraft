@@ -98,3 +98,15 @@ fn pet_biome_variants() {
 fn parrot_cookie() {
     check("mob_parrot_cookie");
 }
+
+/// The owner saved as text (a UUID, a player name, garbage) of a wolf, a cat, a horse and a donkey.
+#[test]
+fn legacy_string_owner_is_converted() {
+    check("mob_legacy_owner");
+}
+
+/// Data without a `leash` tag loaded into a leashed mob removes the leash.
+#[test]
+fn data_without_a_leash_removes_the_leash() {
+    check("mob_leash_data_remove");
+}

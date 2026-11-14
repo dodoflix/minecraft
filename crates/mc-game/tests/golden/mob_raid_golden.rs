@@ -46,3 +46,8 @@ fn bad_omen_in_a_village_becomes_raid_omen_and_starts_a_raid() {
 fn villagers_hide_in_a_raid_and_the_bell_makes_raiders_glow() {
     block_scenario::check("mob_villager_raid_hide");
 }
+
+#[test]
+fn raiders_leaving_together_are_removed_in_hash_set_order() {
+    block_scenario::check("mob_raid_removal_order");
+}

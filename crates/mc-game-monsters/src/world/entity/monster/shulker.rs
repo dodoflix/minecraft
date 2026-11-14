@@ -591,13 +591,13 @@ impl Entity for Shulker {
         Self::get_progress_aabb(self.get_scale(), direction, phys_peek, position)
     }
 
-    fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
+    fn get_default_dimensions(&self, _pose: Pose) -> EntityDimensions {
         let mut dimension = EntityDimensions::of_type(self.mob.living.entity.entity_type);
         if self.get_attach_face() == Direction::Down && self.current_peek_amount > 0.0 {
             let height_scale_factor = 1.0 + self.current_peek_amount;
             dimension = dimension.scale_xy(1.0, height_scale_factor);
         }
-        mob::ext::living_dimensions(self, pose, dimension)
+        dimension
     }
 
     fn before_start_riding(&mut self) {

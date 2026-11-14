@@ -156,7 +156,7 @@ impl Entity for Phantom {
         (self.get_unique_flap_tick_offset() + self.base().tick_count) % TICKS_PER_FLAP == 0
     }
 
-    fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
+    fn get_default_dimensions(&self, _pose: Pose) -> EntityDimensions {
         let size = self.get_phantom_size();
         EntityDimensions::of_type(self.mob.living.entity.entity_type)
             .scale(1.0 + 0.15 * size as f32)

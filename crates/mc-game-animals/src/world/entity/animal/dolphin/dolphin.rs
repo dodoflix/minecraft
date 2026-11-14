@@ -276,7 +276,7 @@ impl Entity for Dolphin {
         crate::world::entity::animal::fish::water_animal::get_base_experience_reward(self)
     }
 
-    fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
+    fn get_default_dimensions(&self, _pose: Pose) -> EntityDimensions {
         if self.is_baby() {
             baby_dimensions()
         } else {

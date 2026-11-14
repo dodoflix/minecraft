@@ -117,11 +117,12 @@ pub fn oozing(level: &mut ServerLevel, mob: &mut dyn Entity) {
         requested
     } else {
         // `NearbySlimes.closeTo(mob).count(cramming)`: the search stops at `cramming` results
+        let mob_id = mob.id();
         let nearby = level
             .get_entities_of_class(
                 &mob.base().bounding_box().inflate_scalar(2.0),
                 |e| e.get_type() == EntityType::SLIME,
-                |_| true,
+                |slime| slime.id() != mob_id,
             )
             .len() as i32;
         mth::clamp_i32(0, cramming - nearby.min(cramming), requested)

@@ -803,3 +803,8 @@ fn armor_stands_item_frames_cows() {
 fn mob_do_hurt_target() {
     check("attack_mob");
 }
+
+#[test]
+fn mace_smash_attack_and_area_knockback() {
+    check("attack_mace");
+}

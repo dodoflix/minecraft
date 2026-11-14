@@ -1,0 +1,201 @@
+# Random despawn (Mob.checkDespawn: noActionTime > 600 and a 1/800 chance each tick while 32-128 blocks from every player) over 1500 ticks for 32 mob
+# classes with their own removeWhenFarAway/requiresCustomPersistence/checkDespawn: fixed entity seeds, so the disappearance tick must match to within the
+# 25-tick dump interval; wandering traders with DespawnDelay, a vex with LifeTicks, a patrolling vindicator.
+command_env
+level flat
+preload 10
+difficulty normal
+time 18000
+entity_counter 3000
+fill -140 -61 -140 140 -45 140 minecraft:air
+fill -140 -62 -140 140 -61 140 minecraft:grass_block
+fill -140 -45 -140 140 -44 140 minecraft:stone
+spawn_player Steve survival 0.5 -60 0.5 0 0
+
+mobspawn D0 minecraft:zombie 45.5 -60 -40.5 0 0 nofinalize 
+entity_seed D0 40
+mobspawn D1 minecraft:zombie_villager 54.5 -60 -40.5 0 0 nofinalize 
+entity_seed D1 41
+mobspawn D2 minecraft:pig 63.5 -60 -40.5 0 0 nofinalize 
+entity_seed D2 42
+mobspawn D3 minecraft:wandering_trader 72.5 -60 -40.5 0 0 nofinalize {DespawnDelay:60}
+entity_seed D3 43
+mobspawn D4 minecraft:wandering_trader 81.5 -60 -40.5 0 0 nofinalize {DespawnDelay:0}
+entity_seed D4 44
+mobspawn D5 minecraft:trader_llama 90.5 -60 -40.5 0 0 nofinalize 
+entity_seed D5 45
+mobspawn D6 minecraft:vex 99.5 -60 -40.5 0 0 nofinalize {LifeTicks:100}
+entity_seed D6 46
+mobspawn D7 minecraft:sulfur_cube 108.5 -60 -40.5 0 0 nofinalize 
+entity_seed D7 47
+mobspawn D8 minecraft:camel_husk 45.5 -60 -31.5 0 0 nofinalize 
+entity_seed D8 48
+mobspawn D9 minecraft:zombie_horse 54.5 -60 -31.5 0 0 nofinalize 
+entity_seed D9 49
+mobspawn D10 minecraft:warden 63.5 -60 -31.5 0 0 nofinalize 
+entity_seed D10 50
+mobspawn D11 minecraft:skeleton 72.5 -60 -31.5 0 0 nofinalize 
+entity_seed D11 51
+mobspawn D12 minecraft:creeper 81.5 -60 -31.5 0 0 nofinalize 
+entity_seed D12 52
+mobspawn D13 minecraft:spider 90.5 -60 -31.5 0 0 nofinalize 
+entity_seed D13 53
+mobspawn D14 minecraft:enderman 99.5 -60 -31.5 0 0 nofinalize 
+entity_seed D14 54
+mobspawn D15 minecraft:witch 108.5 -60 -31.5 0 0 nofinalize 
+entity_seed D15 55
+mobspawn D16 minecraft:pillager 45.5 -60 -22.5 0 0 nofinalize 
+entity_seed D16 56
+mobspawn D17 minecraft:vindicator 54.5 -60 -22.5 0 0 nofinalize {Patrolling:1b}
+entity_seed D17 57
+mobspawn D18 minecraft:evoker 63.5 -60 -22.5 0 0 nofinalize 
+entity_seed D18 58
+mobspawn D19 minecraft:ravager 72.5 -60 -22.5 0 0 nofinalize 
+entity_seed D19 59
+mobspawn D20 minecraft:piglin 81.5 -60 -22.5 0 0 nofinalize 
+entity_seed D20 60
+mobspawn D21 minecraft:hoglin 90.5 -60 -22.5 0 0 nofinalize 
+entity_seed D21 61
+mobspawn D22 minecraft:zombified_piglin 99.5 -60 -22.5 0 0 nofinalize 
+entity_seed D22 62
+mobspawn D23 minecraft:slime 108.5 -60 -22.5 0 0 nofinalize {Size:1}
+entity_seed D23 63
+mobspawn D24 minecraft:phantom 45.5 -60 -13.5 0 0 nofinalize 
+entity_seed D24 64
+mobspawn D25 minecraft:bat 54.5 -60 -13.5 0 0 nofinalize 
+entity_seed D25 65
+mobspawn D26 minecraft:cat 63.5 -60 -13.5 0 0 nofinalize 
+entity_seed D26 66
+mobspawn D27 minecraft:ocelot 72.5 -60 -13.5 0 0 nofinalize 
+entity_seed D27 67
+mobspawn D28 minecraft:fox 81.5 -60 -13.5 0 0 nofinalize 
+entity_seed D28 68
+mobspawn D29 minecraft:parrot 90.5 -60 -13.5 0 0 nofinalize 
+entity_seed D29 69
+mobspawn D30 minecraft:llama 99.5 -60 -13.5 0 0 nofinalize 
+entity_seed D30 70
+mobspawn D31 minecraft:polar_bear 108.5 -60 -13.5 0 0 nofinalize 
+entity_seed D31 71
+tick 5
+dump mobs
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+tick 25
+dump entities
+dump mobs

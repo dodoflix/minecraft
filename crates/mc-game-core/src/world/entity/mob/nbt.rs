@@ -91,7 +91,7 @@ pub fn mob_read_additional_save_data(
     input: &CompoundTag,
 ) {
     e.set_can_pick_up_loot(input.get_boolean_or("CanPickUpLoot", false));
-    leashable::read_leash_data(e, None, input);
+    leashable::read_leash_data(e, input);
     let m = e.mob_mut().expect("mob");
     m.persistence_required = input.get_boolean_or("PersistenceRequired", false);
     m.drop_chances = input

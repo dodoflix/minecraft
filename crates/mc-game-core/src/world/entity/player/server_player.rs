@@ -873,7 +873,7 @@ impl Entity for ServerPlayer {
     fn is_spectator(&self) -> bool {
         self.game_mode.game_mode_for_player == GameType::Spectator
     }
-    fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
+    fn get_default_dimensions(&self, pose: Pose) -> EntityDimensions {
         super::avatar_dimensions(pose)
     }
     /// `getStats().getValue(statType.get(stat))`.

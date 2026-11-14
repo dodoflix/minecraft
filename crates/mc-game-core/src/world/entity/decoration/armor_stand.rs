@@ -711,11 +711,9 @@ impl Entity for ArmorStand {
         false
     }
 
-    /// `getDefaultDimensions(pose)` scaled by `getScale()`.
-    fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        let dimensions = self.dimensions_marker(self.is_marker());
-        let scale = self.get_scale();
-        dimensions.scale(scale)
+    /// `getDefaultDimensions(pose)`.
+    fn get_default_dimensions(&self, _pose: Pose) -> EntityDimensions {
+        self.dimensions_marker(self.is_marker())
     }
 
     fn get_pick_result(&self) -> Option<ItemStack> {

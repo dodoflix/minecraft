@@ -283,7 +283,7 @@ pub fn finalize_spawn(
 }
 
 /// `getDefaultDimensions(pose)`.
-pub fn get_dimensions(e: &dyn Entity, _pose: Pose) -> EntityDimensions {
+pub fn get_default_dimensions(e: &dyn Entity, _pose: Pose) -> EntityDimensions {
     if e.is_baby() {
         baby_dimensions()
     } else {
@@ -352,11 +352,11 @@ macro_rules! squid_entity {
                 self, level, difficulty, reason, group_data,
             )
         }
-        fn get_dimensions(
+        fn get_default_dimensions(
             &self,
             pose: mc_data::enums::Pose,
         ) -> mc_game_core::world::entity::dimensions::EntityDimensions {
-            crate::world::entity::animal::squid::squid::get_dimensions(self, pose)
+            crate::world::entity::animal::squid::squid::get_default_dimensions(self, pose)
         }
     };
 }

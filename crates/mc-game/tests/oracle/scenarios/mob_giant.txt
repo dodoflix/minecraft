@@ -1,0 +1,28 @@
+# The giant: a monster with only attributes (100 health, 50 attack damage, camera distance 16) and no goals; it does not move, spawns
+# finalized like any monster, takes damage with the generic hostile sounds, drops its loot table and the experience of a monster.
+level flat
+difficulty hard
+preload 4
+time 18000
+entity_counter 2500
+level_seed 2501
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn G minecraft:giant 12.5 -60 0.5 90 0
+entity_seed G 2502
+mobspawn G2 minecraft:giant -12.5 -60 0.5 270 0 nofinalize {PersistenceRequired:1b,Health:40.0f}
+entity_seed G2 2503
+tick 2
+dump mob:G nbt:G size:G goals:G attrs:G mob:G2 nbt:G2 size:G2 packets:Steve:none
+note a giant has no goals: it never walks, whatever stands next to it
+tick 60
+dump mob:G goals:G mob:G2 events
+note damage and the hostile hurt sound, a fall the size of a giant
+hurt G minecraft:generic 7
+hurt G2 minecraft:fall 3
+tick 1
+dump mob:G mob:G2 events
+note the kill by the player: death animation, loot and experience
+level_seed 2504
+hurt G2 minecraft:player_attack 1000 by=Steve direct=Steve
+tick 40
+dump mob:G entities events player:Steve

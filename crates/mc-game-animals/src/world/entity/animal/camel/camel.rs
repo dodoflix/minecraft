@@ -591,8 +591,8 @@ impl Entity for Camel {
         BRAIN_PROVIDER.make_brain(self, packed)
     }
 
-    fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
-        let default_dimensions = if pose == Pose::Sitting {
+    fn get_default_dimensions(&self, pose: Pose) -> EntityDimensions {
+        if pose == Pose::Sitting {
             if self.is_baby() {
                 baby_sitting_dimensions()
             } else {
@@ -602,8 +602,7 @@ impl Entity for Camel {
             baby_standing_dimensions()
         } else {
             EntityDimensions::of_type(self.base().entity_type)
-        };
-        mob::ext::living_dimensions(self, pose, default_dimensions)
+        }
     }
 
     fn on_synced_data_updated(&mut self, accessor_id: u8) {

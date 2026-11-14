@@ -80,6 +80,19 @@ fn mob_spawn_egg_finalize() {
     check_finalize_blocks("mob_spawn_egg_finalize", &actual, FINALIZE_SUMMON_DIVERGENT);
 }
 
+/// `/summon`, every spawn reason and the spawn eggs of the types the other finalize scenarios do not reach (block replay).
+#[test]
+fn mob_finalize_rest() {
+    let actual = block_scenario::run_scenario("mob_finalize_rest");
+    check_finalize_blocks("mob_finalize_rest", &actual, FINALIZE_SUMMON_DIVERGENT);
+}
+
+/// The giant: attributes only, no goals, hostile sounds and loot (block replay).
+#[test]
+fn mob_giant() {
+    block_scenario::check("mob_giant");
+}
+
 #[test]
 fn mob_local_difficulty() {
     block_scenario::check("mob_local_difficulty");

@@ -3,7 +3,7 @@
 //! Every `tests/oracle/scenarios/predicates/NAME.txt` is a scenario for the in-process vanilla oracle
 //! (`tests/oracle/PredicateOracle.java`, run through `scripts/predicate-oracle.sh`), whose output is committed as
 //! `tests/fixtures/predicate_oracle/NAME.txt`. Here the same script builds the same world and entities in OUR level
-//! (`ServerLevel`, `ServerPlayer`, a test-only living `TestMob`) and every `pred_*` line is evaluated by our predicates:
+//! (`ServerLevel`, `ServerPlayer`, the real mob classes) and every `pred_*` line is evaluated by our predicates:
 //! `R id true|false|ERR` must equal vanilla's result and `J id json` (the encoding of the decoded predicate) must equal
 //! vanilla's JSON.
 
@@ -20,75 +20,14 @@ use mc_game::server::level::ServerLevel;
 use mc_game::world::entity::effect::MobEffectInstance;
 use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::item::ItemEntity;
-use mc_game::world::entity::living::LivingEntityData;
 use mc_game::world::entity::plain::PlainEntity;
-use mc_game::world::entity::{Entity, EntityData, EntityId, ServerPlayer};
+use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game::world::item::ItemStack;
 use mc_game::world::level::LevelAccessor;
 use mc_protocol::codec::GameProfile;
 use mc_protocol::packets::play::Input;
-use std::any::Any;
 use std::collections::HashMap;
 use uuid::Uuid;
-
-// ---------------------------------------------------------------------------------------------------- test entity
-
-/// A living non-player entity of any type, standing in for the real mobs: carries the state the oracle scripts
-/// set (baby, sheared, cube size, raider flags, target) and answers the predicates' hooks with it.
-struct TestMob {
-    living: LivingEntityData,
-    baby: bool,
-    sheared: Option<bool>,
-    cube_size: Option<i32>,
-    /// `Raider.isPatrolLeader()`; a captain also needs the ominous banner on the head.
-    raider: Option<mc_game::world::entity::raid::raider::RaiderData>,
-    target: Option<EntityId>,
-}
-
-impl Entity for TestMob {
-    fn base(&self) -> &EntityData {
-        &self.living.entity
-    }
-    fn base_mut(&mut self) -> &mut EntityData {
-        &mut self.living.entity
-    }
-    fn as_any(&self) -> &dyn Any {
-        self
-    }
-    fn as_any_mut(&mut self) -> &mut dyn Any {
-        self
-    }
-    fn as_dyn(&self) -> &dyn Entity {
-        self
-    }
-    fn as_dyn_mut(&mut self) -> &mut dyn Entity {
-        self
-    }
-    fn living(&self) -> Option<&LivingEntityData> {
-        Some(&self.living)
-    }
-    fn living_mut(&mut self) -> Option<&mut LivingEntityData> {
-        Some(&mut self.living)
-    }
-    fn is_baby(&self) -> bool {
-        self.baby
-    }
-    fn get_target(&self) -> Option<EntityId> {
-        self.target
-    }
-    fn sheep_sheared(&self) -> Option<bool> {
-        self.sheared
-    }
-    fn cube_mob_size(&self) -> Option<i32> {
-        self.cube_size
-    }
-    fn raider(&self) -> Option<&mc_game::world::entity::raid::raider::RaiderData> {
-        self.raider.as_ref()
-    }
-    fn raider_mut(&mut self) -> Option<&mut mc_game::world::entity::raid::raider::RaiderData> {
-        self.raider.as_mut()
-    }
-}
 
 /// Types the oracle spawns as living entities (everything else is a non-living `PlainEntity`).
 const LIVING: &[&str] = &[
@@ -188,9 +127,26 @@ fn game_type(name: &str) -> GameType {
     GameType::by_serialized_name(name).unwrap_or_else(|| panic!("game type {name}"))
 }
 
+/// The registries of the default world: the real mob classes read their variants and enchantments from them.
+static ACCESS: std::sync::LazyLock<mc_game::registry::RegistryAccess> =
+    std::sync::LazyLock::new(|| {
+        let _serial = crate::common::SERIAL
+            .lock()
+            .unwrap_or_else(|e| e.into_inner());
+        let dir = tempfile::tempdir().unwrap();
+        let (_, stem) = crate::common::load_world(
+            dir.path(),
+            mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+            true,
+        )
+        .expect("default world loads");
+        stem.registries.composite_access().clone()
+    });
+
 impl World {
     fn new() -> World {
         let mut level = ServerLevel::detached(id("overworld"));
+        level.registries = ACCESS.clone();
         level.chunk_source.set_view_distance(4);
         level.chunk_source.set_simulation_distance(4);
         World {
@@ -276,25 +232,23 @@ impl World {
             .unwrap_or_default();
         let numeric = a.len() - 1 - usize::from(a.last().is_some_and(|s| s.starts_with('{')));
         let id_ = self.level.next_entity_id();
-        let mut entity: Box<dyn Entity> = if LIVING
-            .contains(&ty.name().trim_start_matches("minecraft:"))
-        {
-            let age = nbt.get_int_or("Age", 0);
-            Box::new(TestMob {
-                living: LivingEntityData::new(ty, id_, 300, |_| {}),
-                baby: age < 0 || nbt.get_boolean_or("IsBaby", false),
-                sheared: (ty == EntityType::SHEEP).then(|| nbt.get_boolean_or("Sheared", false)),
-                cube_size: (ty == EntityType::SLIME).then(|| nbt.get_int_or("Size", 1)),
-                raider: (ty == EntityType::PILLAGER).then(|| {
-                    let mut data = mc_game::world::entity::raid::raider::RaiderData::default();
-                    data.patrol.patrol_leader = nbt.get_boolean_or("PatrolLeader", false);
-                    data
-                }),
-                target: None,
-            })
-        } else {
-            Box::new(PlainEntity::new(ty, id_))
-        };
+        let mut entity: Box<dyn Entity> =
+            if LIVING.contains(&ty.name().trim_start_matches("minecraft:")) {
+                let mut mob = mc_game::world::entity::factory::create(
+                    ty,
+                    &self.level,
+                    mc_game::world::entity::factory::EntitySpawnRequest {
+                        reason: mc_data::enums::EntitySpawnReason::Command,
+                        ignore_checks: true,
+                    },
+                )
+                .expect("factory entity");
+                // `Age`, `IsBaby`, `Sheared`, `Size` and `PatrolLeader` of the script's tag
+                mob.read_additional_save_data(Some(&self.level), &nbt);
+                mob
+            } else {
+                Box::new(PlainEntity::new(ty, id_))
+            };
         if entity.raider().is_some_and(|r| r.patrol.patrol_leader) {
             // `PatrollingMonster.finalizeSpawn`: a patrol leader wears the ominous banner
             let banner = mc_game::world::entity::raid::raid::Raid::get_ominous_banner_instance(
@@ -463,11 +417,10 @@ impl World {
                             .player()
                             .is_some_and(|p| p.abilities.instabuild));
                 let target = (!invalid).then_some(target);
-                self.entity_mut(&a[1])
-                    .as_any_mut()
-                    .downcast_mut::<TestMob>()
-                    .expect("TestMob")
-                    .target = target;
+                let holder = self.refs[&a[1]];
+                self.level
+                    .with_entity(holder, |level, e| e.set_target(level, target))
+                    .expect("target holder");
             }
             "team_join" => {
                 let name = self.entity(&a[1]).get_scoreboard_name();

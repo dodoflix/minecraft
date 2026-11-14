@@ -126,6 +126,8 @@ pub struct EntityData {
     pub vertical_collision_below: bool,
     pub minor_horizontal_collision: bool,
     pub stuck_speed_multiplier: Vec3,
+    /// The holder of a leash that `readLeashData` removed (`removeLeash()`); its level effects run in `finish_leash_load`.
+    pub leash_removed_on_load: Option<EntityId>,
     removal_reason: Option<RemovalReason>,
     pub move_dist: f32,
     pub fly_dist: f32,
@@ -244,6 +246,7 @@ impl EntityData {
             vertical_collision_below: false,
             minor_horizontal_collision: false,
             stuck_speed_multiplier: Vec3::ZERO,
+            leash_removed_on_load: None,
             removal_reason: None,
             move_dist: 0.0,
             fly_dist: 0.0,
@@ -1160,9 +1163,24 @@ pub trait Entity: Any {
 
     // ---- dimensions ----------------------------------------------------------------------------------------
 
-    /// `getDimensions(pose)`.
-    fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
-        EntityDimensions::of_type(self.base().entity_type)
+    /// `getDimensions(pose)`: `Entity`'s are the type's; a living entity's (`LivingEntity.getDimensions`, final) are its
+    /// [`Entity::get_default_dimensions`] scaled by the `scale` attribute, fixed while sleeping.
+    fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
+        if self.living().is_some() {
+            super::mob::ext::living_dimensions(
+                self.as_dyn(),
+                pose,
+                self.get_default_dimensions(pose),
+            )
+        } else {
+            EntityDimensions::of_type(self.base().entity_type)
+        }
+    }
+
+    /// `LivingEntity.getDefaultDimensions(pose)`: the type's scaled by `getAgeScale()` (classes override it for their
+    /// baby, pose or variant sizes).
+    fn get_default_dimensions(&self, _pose: Pose) -> EntityDimensions {
+        EntityDimensions::of_type(self.base().entity_type).scale(self.get_age_scale())
     }
 
     /// `makeBoundingBox(position)`.
@@ -2317,6 +2335,15 @@ pub trait Entity: Any {
     /// `getPassengerRidingPosition(passenger)`.
     fn get_passenger_riding_position(&self, passenger: &dyn Entity) -> Vec3 {
         let base = self.base();
+        if self.living().is_some() {
+            // `LivingEntity.getPassengerRidingPosition`: the current dimensions and `getScale() * getAgeScale()`
+            let scale = self.get_scale() * self.get_age_scale();
+            return base.position().add(self.get_passenger_attachment_point(
+                passenger,
+                &self.get_dimensions(base.get_pose()),
+                scale,
+            ));
+        }
         base.position()
             .add(self.get_passenger_attachment_point(passenger, &base.dimensions, 1.0))
     }
@@ -5211,6 +5238,20 @@ pub fn read_uuid(tag: Option<&Tag>) -> Option<Uuid> {
     };
     let arr: [i32; 4] = ints.try_into().ok()?;
     Some(mc_core::uuid_util::uuid_from_int_array(arr))
+}
+
+/// `EntityReference.readWithOldOwnerConversion`: a UUID, or a legacy player name.
+pub fn read_owner_with_old_conversion(
+    level: Option<&ServerLevel>,
+    tag: Option<&Tag>,
+) -> Option<Uuid> {
+    if let Some(uuid) = read_uuid(tag) {
+        return Some(uuid);
+    }
+    let Some(Tag::String(name)) = tag else {
+        return None;
+    };
+    level?.convert_old_owner(name)
 }
 
 /// `Entity.load`.

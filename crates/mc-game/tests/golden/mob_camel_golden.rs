@@ -38,3 +38,8 @@ fn husk_jockey_rides_a_camel_husk() {
 fn camels_spawn_on_sand_in_deserts() {
     check("mob_camel_spawn_desert");
 }
+
+#[test]
+fn camel_husk_never_breeds_and_plays_its_own_sounds() {
+    check("mob_camel_husk");
+}

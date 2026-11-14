@@ -1,0 +1,95 @@
+# Villager prices and reputation: the player's Hero of the Village level (0-4), hitting a villager (minor negative gossip), killing a villager next to others
+# (major negative), a golem-killing witness, and the special prices the offers show when a trade screen opens (updateSpecialPrices); offers, trader state, gossips (nbt),
+# memories and the menu packets are compared.
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 4000
+spawn_player I1 survival 0.5 -60 0.5 0 0
+tick 30
+
+mobspawn V0 minecraft:villager -12.5 -60 4.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:2},Xp:20,Offers:{Recipes:[{buy:{id:"minecraft:wheat",count:20},sell:{id:"minecraft:emerald",count:1},uses:0,maxUses:16,xp:2,priceMultiplier:0.05f,demand:0,specialPrice:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},uses:3,maxUses:16,xp:1,priceMultiplier:0.05f,demand:5,specialPrice:0},{buy:{id:"minecraft:emerald",count:9},buyB:{id:"minecraft:stick",count:2},sell:{id:"minecraft:cake",count:1},uses:0,maxUses:12,xp:5,priceMultiplier:0.2f,demand:2,specialPrice:3}]}}
+entity_seed V0 10
+mobspawn V1 minecraft:villager -8.5 -60 4.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:2},Xp:20,Offers:{Recipes:[{buy:{id:"minecraft:wheat",count:20},sell:{id:"minecraft:emerald",count:1},uses:0,maxUses:16,xp:2,priceMultiplier:0.05f,demand:0,specialPrice:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},uses:3,maxUses:16,xp:1,priceMultiplier:0.05f,demand:5,specialPrice:0},{buy:{id:"minecraft:emerald",count:9},buyB:{id:"minecraft:stick",count:2},sell:{id:"minecraft:cake",count:1},uses:0,maxUses:12,xp:5,priceMultiplier:0.2f,demand:2,specialPrice:3}]}}
+entity_seed V1 11
+mobspawn V2 minecraft:villager -4.5 -60 4.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:2},Xp:20,Offers:{Recipes:[{buy:{id:"minecraft:wheat",count:20},sell:{id:"minecraft:emerald",count:1},uses:0,maxUses:16,xp:2,priceMultiplier:0.05f,demand:0,specialPrice:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},uses:3,maxUses:16,xp:1,priceMultiplier:0.05f,demand:5,specialPrice:0},{buy:{id:"minecraft:emerald",count:9},buyB:{id:"minecraft:stick",count:2},sell:{id:"minecraft:cake",count:1},uses:0,maxUses:12,xp:5,priceMultiplier:0.2f,demand:2,specialPrice:3}]}}
+entity_seed V2 12
+mobspawn V3 minecraft:villager 0.5 -60 4.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:2},Xp:20,Offers:{Recipes:[{buy:{id:"minecraft:wheat",count:20},sell:{id:"minecraft:emerald",count:1},uses:0,maxUses:16,xp:2,priceMultiplier:0.05f,demand:0,specialPrice:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},uses:3,maxUses:16,xp:1,priceMultiplier:0.05f,demand:5,specialPrice:0},{buy:{id:"minecraft:emerald",count:9},buyB:{id:"minecraft:stick",count:2},sell:{id:"minecraft:cake",count:1},uses:0,maxUses:12,xp:5,priceMultiplier:0.2f,demand:2,specialPrice:3}]}}
+entity_seed V3 13
+mobspawn V4 minecraft:villager 4.5 -60 4.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:2},Xp:20,Offers:{Recipes:[{buy:{id:"minecraft:wheat",count:20},sell:{id:"minecraft:emerald",count:1},uses:0,maxUses:16,xp:2,priceMultiplier:0.05f,demand:0,specialPrice:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},uses:3,maxUses:16,xp:1,priceMultiplier:0.05f,demand:5,specialPrice:0},{buy:{id:"minecraft:emerald",count:9},buyB:{id:"minecraft:stick",count:2},sell:{id:"minecraft:cake",count:1},uses:0,maxUses:12,xp:5,priceMultiplier:0.2f,demand:2,specialPrice:3}]}}
+entity_seed V4 14
+mobspawn V5 minecraft:villager 8.5 -60 4.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:2},Xp:20,Offers:{Recipes:[{buy:{id:"minecraft:wheat",count:20},sell:{id:"minecraft:emerald",count:1},uses:0,maxUses:16,xp:2,priceMultiplier:0.05f,demand:0,specialPrice:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},uses:3,maxUses:16,xp:1,priceMultiplier:0.05f,demand:5,specialPrice:0},{buy:{id:"minecraft:emerald",count:9},buyB:{id:"minecraft:stick",count:2},sell:{id:"minecraft:cake",count:1},uses:0,maxUses:12,xp:5,priceMultiplier:0.2f,demand:2,specialPrice:3}]}}
+entity_seed V5 15
+mobspawn V6 minecraft:villager 12.5 -60 4.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:2},Xp:20,Offers:{Recipes:[{buy:{id:"minecraft:wheat",count:20},sell:{id:"minecraft:emerald",count:1},uses:0,maxUses:16,xp:2,priceMultiplier:0.05f,demand:0,specialPrice:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},uses:3,maxUses:16,xp:1,priceMultiplier:0.05f,demand:5,specialPrice:0},{buy:{id:"minecraft:emerald",count:9},buyB:{id:"minecraft:stick",count:2},sell:{id:"minecraft:cake",count:1},uses:0,maxUses:12,xp:5,priceMultiplier:0.2f,demand:2,specialPrice:3}]}}
+entity_seed V6 16
+mobspawn V7 minecraft:villager 16.5 -60 4.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:2},Xp:20,Offers:{Recipes:[{buy:{id:"minecraft:wheat",count:20},sell:{id:"minecraft:emerald",count:1},uses:0,maxUses:16,xp:2,priceMultiplier:0.05f,demand:0,specialPrice:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},uses:3,maxUses:16,xp:1,priceMultiplier:0.05f,demand:5,specialPrice:0},{buy:{id:"minecraft:emerald",count:9},buyB:{id:"minecraft:stick",count:2},sell:{id:"minecraft:cake",count:1},uses:0,maxUses:12,xp:5,priceMultiplier:0.2f,demand:2,specialPrice:3}]}}
+entity_seed V7 17
+level_seed 77
+tick 3
+dump packets:I1:none
+effect I1 minecraft:hero_of_the_village 0 1000
+tp I1 -12.5 -60 1.5 0 0
+tick 2
+interact I1 V0 main
+tick 2
+dump offers:V0 trader:V0 nbt:V0
+close_menu I1
+tick 2
+effect I1 minecraft:hero_of_the_village 1 1000
+tp I1 -8.5 -60 1.5 0 0
+tick 2
+interact I1 V1 main
+tick 2
+dump offers:V1 trader:V1 nbt:V1
+close_menu I1
+tick 2
+effect I1 minecraft:hero_of_the_village 2 1000
+tp I1 -4.5 -60 1.5 0 0
+tick 2
+interact I1 V2 main
+tick 2
+dump offers:V2 trader:V2 nbt:V2
+close_menu I1
+tick 2
+effect I1 minecraft:hero_of_the_village 3 1000
+tp I1 0.5 -60 1.5 0 0
+tick 2
+interact I1 V3 main
+tick 2
+dump offers:V3 trader:V3 nbt:V3
+close_menu I1
+tick 2
+effect I1 minecraft:hero_of_the_village 4 1000
+tp I1 4.5 -60 1.5 0 0
+tick 2
+interact I1 V4 main
+tick 2
+dump offers:V4 trader:V4 nbt:V4
+close_menu I1
+tick 2
+effect I1 minecraft:hero_of_the_village 0 1000
+effect I1 minecraft:hero_of_the_village 1 0
+note hit a villager twice and kill one beside two others
+tp I1 8.5 -60 1.5 0 0
+tick 2
+hurt V5 player_attack 0.5 by=I1
+tick 2
+hurt V5 player_attack 0.5 by=I1
+tick 2
+interact I1 V5 main
+tick 2
+dump offers:V5 trader:V5 nbt:V5
+close_menu I1
+tick 2
+hurt V6 player_attack 1000 by=I1
+tick 25
+dump mobs nbt:V7 nbt:V5 offers:V7
+tp I1 8.5 -60 1.5 0 0
+tick 2
+interact I1 V7 main
+tick 2
+dump offers:V7 trader:V7 nbt:V7
+close_menu I1
+tick 40
+dump mobs

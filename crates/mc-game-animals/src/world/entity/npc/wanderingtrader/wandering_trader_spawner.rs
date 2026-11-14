@@ -14,7 +14,6 @@ use mc_game_core::world::entity::mob::leashable::{self, LeashHolder};
 use mc_game_core::world::entity::spawn_config;
 use mc_game_core::world::entity::spawn_placements::{self, SpawnPlacementTypeExt};
 use mc_game_core::world::level::block::BlockStateExt;
-use mc_game_core::world::level::saveddata::wandering_trader_data::WanderingTraderData;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_game_core::world::level::spawner::custom_spawner::{
     CUSTOM_SPAWNERS, CustomSpawner, CustomSpawnerRegistration, delay_option, order,
@@ -43,13 +42,6 @@ impl WanderingTraderSpawner {
             random: create_new(),
             tick_delay: DEFAULT_TICK_DELAY,
         }
-    }
-
-    /// `getTraderData()` (`savedDataStorage.computeIfAbsent(WanderingTraderData.TYPE)`).
-    fn trader_data(level: &mut ServerLevel) -> &mut WanderingTraderData {
-        level
-            .get_data_storage()
-            .compute_if_absent(&WanderingTraderData::type_())
     }
 
     /// `spawn(level)`.
@@ -186,7 +178,8 @@ impl CustomSpawner for WanderingTraderSpawner {
             return 0;
         }
         self.tick_delay = DEFAULT_TICK_DELAY;
-        let data = Self::trader_data(level);
+        // `getTraderData()`: the server store's `WanderingTraderData`, not the dimension's
+        let mut data = level.shared.wandering_trader.lock();
         let spawn_delay = data.spawn_delay() - DEFAULT_TICK_DELAY;
         data.set_spawn_delay(spawn_delay);
         if spawn_delay <= 0 {
@@ -197,8 +190,13 @@ impl CustomSpawner for WanderingTraderSpawner {
                 MIN_SPAWN_CHANCE,
                 MAX_SPAWN_CHANCE,
             ));
+            drop(data);
             if self.random.next_int_bounded(100) <= chance_to_spawn && self.spawn(level) {
-                Self::trader_data(level).set_spawn_chance(MIN_SPAWN_CHANCE);
+                level
+                    .shared
+                    .wandering_trader
+                    .lock()
+                    .set_spawn_chance(MIN_SPAWN_CHANCE);
             }
         }
         0
@@ -216,10 +214,18 @@ impl CustomSpawner for WanderingTraderSpawner {
             self.tick_delay = delay;
         }
         if let Some(spawn_delay) = number("spawn_delay") {
-            Self::trader_data(level).set_spawn_delay(spawn_delay);
+            level
+                .shared
+                .wandering_trader
+                .lock()
+                .set_spawn_delay(spawn_delay);
         }
         if let Some(chance) = number("chance") {
-            Self::trader_data(level).set_spawn_chance(chance);
+            level
+                .shared
+                .wandering_trader
+                .lock()
+                .set_spawn_chance(chance);
         }
     }
 }

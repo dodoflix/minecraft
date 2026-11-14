@@ -624,6 +624,7 @@ impl Session {
             );
             e.load(level, &tag)
                 .unwrap_or_else(|er| panic!("entity load: {er}"));
+            e.read_level_dependent_data(level);
         }
         e.base_mut().random = LegacyRandomSource::new(a[5].parse().unwrap());
         let id = e.id();
@@ -1263,6 +1264,7 @@ impl Session {
                     tag.merge(&extra);
                     e.load(level, &tag)
                         .unwrap_or_else(|er| panic!("entity load: {er}"));
+                    e.read_level_dependent_data(level);
                 });
                 self.dump()
             }

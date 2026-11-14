@@ -276,6 +276,7 @@ impl MinecraftServer {
             spawn_protection: Default::default(),
             rules: self.game_rules_ref().live(),
             debug_subscribers: self.debug_subscribers.clone(),
+            old_owner: Some(self.old_owner_converter()),
         };
         level.has_ceiling = dimension_type.has_ceiling;
         level.dimension_type = Some(dimension_type.clone());
@@ -716,6 +717,21 @@ impl MinecraftServer {
 
     // ------------------------------------------------------------------ saving
 
+    /// `OldUsersConverter.convertMobOwnerIfNecessary(this, name)` for the levels.
+    fn old_owner_converter(&self) -> super::level::level_server_state::OldOwnerConverter {
+        let ctx = crate::server::players::old_users_converter::ConversionContext {
+            dir: Default::default(),
+            uses_authentication: self.player_list.settings.uses_authentication,
+            is_singleplayer: false,
+            profile_lookup: Arc::new(crate::server::players::name_resolver::NoProfileLookup),
+            name_to_id_cache: self.name_to_id_cache.clone(),
+            operator_permissions: self.player_list.settings.operator_user_permissions,
+        };
+        Arc::new(move |name| {
+            crate::server::players::old_users_converter::convert_mob_owner_if_necessary(&ctx, name)
+        })
+    }
+
     /// The server data loot reads, shared with a level when it is created.
     pub(super) fn loot_services(
         &self,
@@ -731,9 +747,17 @@ impl MinecraftServer {
         }
     }
 
-    /// Copies the live random sequences into the saved data entry so that the next save writes them.
-    fn sync_random_sequences_to_saved_data(&mut self) {
+    /// Copies the live random sequences and trader timers into the saved data entries so that the next save writes them.
+    fn sync_shared_data_to_saved_data(&mut self) {
         use crate::world::level::saveddata::SavedData;
+        let mut trader = self.shared.wandering_trader.lock();
+        if trader.is_dirty() {
+            *self
+                .saved_data
+                .compute_if_absent(&self.saved_types.wandering_trader) = trader.clone();
+            trader.set_dirty_to(false);
+        }
+        drop(trader);
         let mut live = self.loot_random_sequences.lock();
         if live.is_dirty() {
             *self
@@ -747,7 +771,7 @@ impl MinecraftServer {
     pub fn save_all_chunks(&mut self, silent: bool, flush: bool, force: bool) -> bool {
         self.flush_scoreboard();
         self.store_scoreboard();
-        self.sync_random_sequences_to_saved_data();
+        self.sync_shared_data_to_saved_data();
         self.notification_manager.server_save_started();
         let level_name = self.world_data.lock().settings.level_name.clone();
         let mut result = false;
@@ -890,7 +914,7 @@ impl MinecraftServer {
         }
 
         self.shared.set_saving(false);
-        self.sync_random_sequences_to_saved_data();
+        self.sync_shared_data_to_saved_data();
         self.saved_data.close();
         self.shared.map_storage.close();
         self.resources.resource_manager.close();

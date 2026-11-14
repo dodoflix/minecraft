@@ -1,6 +1,7 @@
 # Mace smash attack: fall-based bonus damage (fall distance <= 1.5 none, 3, 8, 12 blocks), density/breach, mace_smash source, smash sounds, area knockback of bystanders, fall damage immunity afterwards, fall distance reset.
 level flat
 difficulty normal
+time 18000
 spawn M0 minecraft:zombie 0.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
 entity_seed M0 101
 attribute M0 minecraft:max_health 1000

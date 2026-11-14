@@ -1,5 +1,6 @@
-//! Generic entity for types without an implementation: all base `Entity` state is modelled, everything else the
-//! entity was saved with is kept as raw NBT and written back unchanged (lossless world round trip).
+//! Generic entity for the one type without a registered class (the player, whose entity the login creates itself): all
+//! base `Entity` state is modelled, everything else the entity was saved with is kept as raw NBT and written back
+//! unchanged.
 
 use super::EntityId;
 use super::entity::{self, Entity, EntityData};

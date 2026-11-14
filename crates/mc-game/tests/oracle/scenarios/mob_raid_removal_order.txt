@@ -1,0 +1,40 @@
+# Raiders that leave the raid on the same tick (they stand more than 112 blocks from its centre) are removed in the order of a hash set of the
+# raiders: the boss bar progress follows that order, the health of each raider at its removal differs.
+command_env
+level flat
+difficulty hard
+gamerule raids true
+gamerule mob_drops false
+entity_counter 5909
+level_seed 5911
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+set Steve invulnerable true
+tick 300
+effect Steve minecraft:raid_omen 0 600
+raid_start Steve 0 -60 0
+tick 310
+dump raids mobs
+note the raiders have different health
+set pillager#1 health 3
+set pillager#2 health 6
+set pillager#3 health 9
+set pillager#4 health 12
+set vindicator#1 health 15
+set vindicator#2 health 18
+tick 1
+note they all walk away at once: the raid removes them in one pass
+tp pillager#1 140 -60 0
+tp pillager#2 141 -60 0
+tp pillager#3 142 -60 0
+tp pillager#4 143 -60 0
+tp vindicator#1 144 -60 0
+tp vindicator#2 145 -60 0
+watch packets:Steve:boss_event
+tick 3
+watch off
+dump raids

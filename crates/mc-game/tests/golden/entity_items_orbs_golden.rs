@@ -394,7 +394,7 @@ impl Sim {
             if n > 7 { num(7) as f32 } else { 0.0 },
         );
         if let Some(snbt) = snbt {
-            merge_nbt(&self.level, e.as_mut(), snbt);
+            merge_nbt(&mut self.level, e.as_mut(), snbt);
         }
         let id = e.id();
         self.level.add_fresh_entity_with_passengers(vec![e]);
@@ -635,13 +635,14 @@ impl common::player_actions::ActionHost for Sim {
 }
 
 /// `nbt REF SNBT` / the SNBT of `spawn`: merge into the entity's save data and `load` it again.
-fn merge_nbt(level: &ServerLevel, e: &mut dyn Entity, snbt: &str) {
+fn merge_nbt(level: &mut ServerLevel, e: &mut dyn Entity, snbt: &str) {
     let mut tag = mc_nbt::CompoundTag::new();
     e.save_without_id(&mut tag, &|_| None);
     let patch =
         mc_nbt::snbt::parse_compound(snbt).unwrap_or_else(|err| panic!("snbt {snbt}: {err:?}"));
     tag.merge(&patch);
     e.load(level, &tag).expect("entity load");
+    e.read_level_dependent_data(level);
 }
 
 fn replay(name: &str) -> Vec<String> {

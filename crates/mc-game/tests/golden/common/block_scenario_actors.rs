@@ -582,6 +582,7 @@ impl Scenario {
                     tag.merge(&extra);
                     e.load(level, &tag)
                         .unwrap_or_else(|er| panic!("entity load: {er}"));
+                    mc_game::world::entity::mob::leashable::finish_leash_load(e, level);
                     e.read_level_dependent_data(level);
                     e.resolve_registry_refs(&level.registries);
                     // vanilla's `readAdditionalSaveData` rejoins the raid of a raider right here
@@ -1705,17 +1706,14 @@ impl Scenario {
             }
             // TRADERDATA delay=N chance=N
             "trader_data" => {
-                let data = self
-                    .level()
-                    .get_data_storage()
-                    .compute_if_absent(
-                        &mc_game::world::level::saveddata::wandering_trader_data::WanderingTraderData::type_(),
-                    );
-                let line = format!(
-                    "TRADERDATA delay={} chance={}",
-                    data.spawn_delay(),
-                    data.spawn_chance()
-                );
+                let line = {
+                    let data = self.level().shared.wandering_trader.lock();
+                    format!(
+                        "TRADERDATA delay={} chance={}",
+                        data.spawn_delay(),
+                        data.spawn_chance()
+                    )
+                };
                 self.out.push(line);
             }
             "all_players" => {

@@ -121,7 +121,7 @@ impl Entity for Nautilus {
         Some("minecraft:nautilus")
     }
 
-    fn get_dimensions(&self, _pose: mc_data::enums::Pose) -> EntityDimensions {
+    fn get_default_dimensions(&self, _pose: mc_data::enums::Pose) -> EntityDimensions {
         if self.is_baby() {
             baby_dimensions()
         } else {

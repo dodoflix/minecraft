@@ -162,7 +162,7 @@ impl Entity for SkeletonHorse {
         Some("minecraft:skeleton_horse")
     }
 
-    fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
+    fn get_default_dimensions(&self, _pose: Pose) -> EntityDimensions {
         if self.is_baby() {
             baby_dimensions()
         } else {

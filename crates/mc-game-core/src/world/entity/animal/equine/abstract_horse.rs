@@ -1228,7 +1228,8 @@ pub fn read_additional_save_data(
     set_bred(e, input.get_boolean_or("Bred", false));
     e.horse_mut().temper = input.get_int_or("Temper", 0);
     set_tamed(e, input.get_boolean_or("Tame", false));
-    e.horse_mut().owner = crate::world::entity::entity::read_uuid(input.get("Owner"));
+    e.horse_mut().owner =
+        crate::world::entity::entity::read_owner_with_old_conversion(level, input.get("Owner"));
 }
 
 /// `canParent()`.

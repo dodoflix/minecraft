@@ -64,6 +64,9 @@ pub struct SpawnProtection {
     pub op_players: Vec<uuid::Uuid>,
 }
 
+/// `OldUsersConverter.convertMobOwnerIfNecessary` bound to the server: a legacy `Owner` player name to its UUID.
+pub type OldOwnerConverter = Arc<dyn Fn(&str) -> Option<uuid::Uuid> + Send + Sync>;
+
 /// What the server installs on a level at creation.
 #[derive(Clone, Default)]
 pub struct LevelServerState {
@@ -76,11 +79,24 @@ pub struct LevelServerState {
     pub rules: super::level_rules::LiveRules,
     /// `MinecraftServer.debugSubscribers()`.
     pub debug_subscribers: crate::util::debug::DebugSubscribers,
+    /// `OldUsersConverter.convertMobOwnerIfNecessary(server, name)`; `None` without a server.
+    pub old_owner: Option<OldOwnerConverter>,
 }
 
 static DEFAULT_BORDER: LazyLock<WorldBorder> = LazyLock::new(WorldBorder::default);
 
 impl ServerLevel {
+    /// `OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), name)`: a mob's legacy `Owner` player name.
+    pub fn convert_old_owner(&self, name: &str) -> Option<uuid::Uuid> {
+        match &self.server_state.old_owner {
+            Some(convert) => convert(name),
+            None if name.is_empty() || name.encode_utf16().count() > 16 => {
+                mc_core::uuid_util::uuid_from_string(name).ok()
+            }
+            None => Some(mc_core::uuid_util::create_offline_player_uuid(name)),
+        }
+    }
+
     /// `DedicatedServer.isUnderSpawnProtection(level, pos, player)`.
     pub fn is_under_spawn_protection(
         &self,

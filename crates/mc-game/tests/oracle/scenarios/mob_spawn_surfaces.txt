@@ -1,0 +1,347 @@
+# Natural spawn attempts (spawnat) on 3 surfaces (grass, sand, snow block) in 8 biomes for the monster, creature and ambient categories at night:
+# the biome spawn lists, the placement predicates (light, sky, surface block, biome tags) and the pack draws. The player is far away.
+level flat
+difficulty normal
+preload 6
+spawn_player Steve survival 60.5 -60 60.5 0 0
+time 18000
+
+biome -64 -64 -48 -49 -1 -33 minecraft:desert
+biome -64 -64 -32 -49 -1 -17 minecraft:desert
+biome -64 -64 -16 -49 -1 -1 minecraft:desert
+fill -64 -61 -48 -49 -61 -33 minecraft:grass_block
+fill -64 -61 -32 -49 -61 -17 minecraft:sand
+fill -64 -61 -16 -49 -61 -1 minecraft:snow_block
+biome -48 -64 -48 -33 -1 -33 minecraft:swamp
+biome -48 -64 -32 -33 -1 -17 minecraft:swamp
+biome -48 -64 -16 -33 -1 -1 minecraft:swamp
+fill -48 -61 -48 -33 -61 -33 minecraft:grass_block
+fill -48 -61 -32 -33 -61 -17 minecraft:sand
+fill -48 -61 -16 -33 -61 -1 minecraft:snow_block
+biome -32 -64 -48 -17 -1 -33 minecraft:jungle
+biome -32 -64 -32 -17 -1 -17 minecraft:jungle
+biome -32 -64 -16 -17 -1 -1 minecraft:jungle
+fill -32 -61 -48 -17 -61 -33 minecraft:grass_block
+fill -32 -61 -32 -17 -61 -17 minecraft:sand
+fill -32 -61 -16 -17 -61 -1 minecraft:snow_block
+biome -16 -64 -48 -1 -1 -33 minecraft:snowy_plains
+biome -16 -64 -32 -1 -1 -17 minecraft:snowy_plains
+biome -16 -64 -16 -1 -1 -1 minecraft:snowy_plains
+fill -16 -61 -48 -1 -61 -33 minecraft:grass_block
+fill -16 -61 -32 -1 -61 -17 minecraft:sand
+fill -16 -61 -16 -1 -61 -1 minecraft:snow_block
+biome 0 -64 -48 15 -1 -33 minecraft:mushroom_fields
+biome 0 -64 -32 15 -1 -17 minecraft:mushroom_fields
+biome 0 -64 -16 15 -1 -1 minecraft:mushroom_fields
+fill 0 -61 -48 15 -61 -33 minecraft:grass_block
+fill 0 -61 -32 15 -61 -17 minecraft:sand
+fill 0 -61 -16 15 -61 -1 minecraft:snow_block
+biome 16 -64 -48 31 -1 -33 minecraft:dark_forest
+biome 16 -64 -32 31 -1 -17 minecraft:dark_forest
+biome 16 -64 -16 31 -1 -1 minecraft:dark_forest
+fill 16 -61 -48 31 -61 -33 minecraft:grass_block
+fill 16 -61 -32 31 -61 -17 minecraft:sand
+fill 16 -61 -16 31 -61 -1 minecraft:snow_block
+biome 32 -64 -48 47 -1 -33 minecraft:savanna
+biome 32 -64 -32 47 -1 -17 minecraft:savanna
+biome 32 -64 -16 47 -1 -1 minecraft:savanna
+fill 32 -61 -48 47 -61 -33 minecraft:grass_block
+fill 32 -61 -32 47 -61 -17 minecraft:sand
+fill 32 -61 -16 47 -61 -1 minecraft:snow_block
+biome 48 -64 -48 63 -1 -33 minecraft:cherry_grove
+biome 48 -64 -32 63 -1 -17 minecraft:cherry_grove
+biome 48 -64 -16 63 -1 -1 minecraft:cherry_grove
+fill 48 -61 -48 63 -61 -33 minecraft:grass_block
+fill 48 -61 -32 63 -61 -17 minecraft:sand
+fill 48 -61 -16 63 -61 -1 minecraft:snow_block
+tick 3
+spawnat 507 monster -56 -60 -40
+tick 1
+spawnat 514 monster -56 -60 -37
+tick 1
+spawnat 521 creature -56 -60 -40
+tick 1
+spawnat 528 creature -56 -60 -37
+tick 1
+spawnat 535 ambient -56 -60 -40
+tick 1
+spawnat 542 ambient -56 -60 -37
+tick 1
+spawnat 549 monster -56 -60 -24
+tick 1
+spawnat 556 monster -56 -60 -21
+tick 1
+spawnat 563 creature -56 -60 -24
+tick 1
+spawnat 570 creature -56 -60 -21
+tick 1
+spawnat 577 ambient -56 -60 -24
+tick 1
+spawnat 584 ambient -56 -60 -21
+tick 1
+spawnat 591 monster -56 -60 -8
+tick 1
+spawnat 598 monster -56 -60 -5
+tick 1
+spawnat 605 creature -56 -60 -8
+tick 1
+spawnat 612 creature -56 -60 -5
+tick 1
+spawnat 619 ambient -56 -60 -8
+tick 1
+spawnat 626 ambient -56 -60 -5
+tick 1
+spawnat 633 monster -40 -60 -40
+tick 1
+spawnat 640 monster -40 -60 -37
+tick 1
+spawnat 647 creature -40 -60 -40
+tick 1
+spawnat 654 creature -40 -60 -37
+tick 1
+spawnat 661 ambient -40 -60 -40
+tick 1
+spawnat 668 ambient -40 -60 -37
+tick 1
+spawnat 675 monster -40 -60 -24
+tick 1
+spawnat 682 monster -40 -60 -21
+tick 1
+spawnat 689 creature -40 -60 -24
+tick 1
+spawnat 696 creature -40 -60 -21
+tick 1
+spawnat 703 ambient -40 -60 -24
+tick 1
+spawnat 710 ambient -40 -60 -21
+tick 1
+spawnat 717 monster -40 -60 -8
+tick 1
+spawnat 724 monster -40 -60 -5
+tick 1
+spawnat 731 creature -40 -60 -8
+tick 1
+spawnat 738 creature -40 -60 -5
+tick 1
+spawnat 745 ambient -40 -60 -8
+tick 1
+spawnat 752 ambient -40 -60 -5
+tick 1
+spawnat 759 monster -24 -60 -40
+tick 1
+spawnat 766 monster -24 -60 -37
+tick 1
+spawnat 773 creature -24 -60 -40
+tick 1
+spawnat 780 creature -24 -60 -37
+tick 1
+spawnat 787 ambient -24 -60 -40
+tick 1
+spawnat 794 ambient -24 -60 -37
+tick 1
+spawnat 801 monster -24 -60 -24
+tick 1
+spawnat 808 monster -24 -60 -21
+tick 1
+spawnat 815 creature -24 -60 -24
+tick 1
+spawnat 822 creature -24 -60 -21
+tick 1
+spawnat 829 ambient -24 -60 -24
+tick 1
+spawnat 836 ambient -24 -60 -21
+tick 1
+spawnat 843 monster -24 -60 -8
+tick 1
+spawnat 850 monster -24 -60 -5
+tick 1
+spawnat 857 creature -24 -60 -8
+tick 1
+spawnat 864 creature -24 -60 -5
+tick 1
+spawnat 871 ambient -24 -60 -8
+tick 1
+spawnat 878 ambient -24 -60 -5
+tick 1
+spawnat 885 monster -8 -60 -40
+tick 1
+spawnat 892 monster -8 -60 -37
+tick 1
+spawnat 899 creature -8 -60 -40
+tick 1
+spawnat 906 creature -8 -60 -37
+tick 1
+spawnat 913 ambient -8 -60 -40
+tick 1
+spawnat 920 ambient -8 -60 -37
+tick 1
+spawnat 927 monster -8 -60 -24
+tick 1
+spawnat 934 monster -8 -60 -21
+tick 1
+spawnat 941 creature -8 -60 -24
+tick 1
+spawnat 948 creature -8 -60 -21
+tick 1
+spawnat 955 ambient -8 -60 -24
+tick 1
+spawnat 962 ambient -8 -60 -21
+tick 1
+spawnat 969 monster -8 -60 -8
+tick 1
+spawnat 976 monster -8 -60 -5
+tick 1
+spawnat 983 creature -8 -60 -8
+tick 1
+spawnat 990 creature -8 -60 -5
+tick 1
+spawnat 997 ambient -8 -60 -8
+tick 1
+spawnat 1004 ambient -8 -60 -5
+tick 1
+spawnat 1011 monster 8 -60 -40
+tick 1
+spawnat 1018 monster 8 -60 -37
+tick 1
+spawnat 1025 creature 8 -60 -40
+tick 1
+spawnat 1032 creature 8 -60 -37
+tick 1
+spawnat 1039 ambient 8 -60 -40
+tick 1
+spawnat 1046 ambient 8 -60 -37
+tick 1
+spawnat 1053 monster 8 -60 -24
+tick 1
+spawnat 1060 monster 8 -60 -21
+tick 1
+spawnat 1067 creature 8 -60 -24
+tick 1
+spawnat 1074 creature 8 -60 -21
+tick 1
+spawnat 1081 ambient 8 -60 -24
+tick 1
+spawnat 1088 ambient 8 -60 -21
+tick 1
+spawnat 1095 monster 8 -60 -8
+tick 1
+spawnat 1102 monster 8 -60 -5
+tick 1
+spawnat 1109 creature 8 -60 -8
+tick 1
+spawnat 1116 creature 8 -60 -5
+tick 1
+spawnat 1123 ambient 8 -60 -8
+tick 1
+spawnat 1130 ambient 8 -60 -5
+tick 1
+spawnat 1137 monster 24 -60 -40
+tick 1
+spawnat 1144 monster 24 -60 -37
+tick 1
+spawnat 1151 creature 24 -60 -40
+tick 1
+spawnat 1158 creature 24 -60 -37
+tick 1
+spawnat 1165 ambient 24 -60 -40
+tick 1
+spawnat 1172 ambient 24 -60 -37
+tick 1
+spawnat 1179 monster 24 -60 -24
+tick 1
+spawnat 1186 monster 24 -60 -21
+tick 1
+spawnat 1193 creature 24 -60 -24
+tick 1
+spawnat 1200 creature 24 -60 -21
+tick 1
+spawnat 1207 ambient 24 -60 -24
+tick 1
+spawnat 1214 ambient 24 -60 -21
+tick 1
+spawnat 1221 monster 24 -60 -8
+tick 1
+spawnat 1228 monster 24 -60 -5
+tick 1
+spawnat 1235 creature 24 -60 -8
+tick 1
+spawnat 1242 creature 24 -60 -5
+tick 1
+spawnat 1249 ambient 24 -60 -8
+tick 1
+spawnat 1256 ambient 24 -60 -5
+tick 1
+spawnat 1263 monster 40 -60 -40
+tick 1
+spawnat 1270 monster 40 -60 -37
+tick 1
+spawnat 1277 creature 40 -60 -40
+tick 1
+spawnat 1284 creature 40 -60 -37
+tick 1
+spawnat 1291 ambient 40 -60 -40
+tick 1
+spawnat 1298 ambient 40 -60 -37
+tick 1
+spawnat 1305 monster 40 -60 -24
+tick 1
+spawnat 1312 monster 40 -60 -21
+tick 1
+spawnat 1319 creature 40 -60 -24
+tick 1
+spawnat 1326 creature 40 -60 -21
+tick 1
+spawnat 1333 ambient 40 -60 -24
+tick 1
+spawnat 1340 ambient 40 -60 -21
+tick 1
+spawnat 1347 monster 40 -60 -8
+tick 1
+spawnat 1354 monster 40 -60 -5
+tick 1
+spawnat 1361 creature 40 -60 -8
+tick 1
+spawnat 1368 creature 40 -60 -5
+tick 1
+spawnat 1375 ambient 40 -60 -8
+tick 1
+spawnat 1382 ambient 40 -60 -5
+tick 1
+spawnat 1389 monster 56 -60 -40
+tick 1
+spawnat 1396 monster 56 -60 -37
+tick 1
+spawnat 1403 creature 56 -60 -40
+tick 1
+spawnat 1410 creature 56 -60 -37
+tick 1
+spawnat 1417 ambient 56 -60 -40
+tick 1
+spawnat 1424 ambient 56 -60 -37
+tick 1
+spawnat 1431 monster 56 -60 -24
+tick 1
+spawnat 1438 monster 56 -60 -21
+tick 1
+spawnat 1445 creature 56 -60 -24
+tick 1
+spawnat 1452 creature 56 -60 -21
+tick 1
+spawnat 1459 ambient 56 -60 -24
+tick 1
+spawnat 1466 ambient 56 -60 -21
+tick 1
+spawnat 1473 monster 56 -60 -8
+tick 1
+spawnat 1480 monster 56 -60 -5
+tick 1
+spawnat 1487 creature 56 -60 -8
+tick 1
+spawnat 1494 creature 56 -60 -5
+tick 1
+spawnat 1501 ambient 56 -60 -8
+tick 1
+spawnat 1508 ambient 56 -60 -5
+tick 1
+dump rng:level
+dump mobs

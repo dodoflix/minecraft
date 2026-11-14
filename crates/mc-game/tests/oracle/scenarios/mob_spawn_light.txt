@@ -1,0 +1,216 @@
+# Natural monster spawning versus light and weather: four sealed 16x16 rooms at block light 0, 7, 8 and 15 (daytime, no sky light) and open ground at noon, clear and then under
+# thunder (sky darkening): ONE spawnForChunk pass per chunk with the monster category and many seeds; compares spawned mobs (positions, packs, equipment), the spawn state and the level random after each pass.
+level flat
+difficulty normal
+preload 6
+spawn_player Steve survival 64.5 -60 8.5 0 0
+time 6000
+
+fill 0 -61 -48 15 -57 -33 minecraft:stone
+fill 1 -60 -47 14 -58 -34 minecraft:air
+block 2 -58 -45 minecraft:light[level=0]
+block 2 -58 -41 minecraft:light[level=0]
+block 2 -58 -37 minecraft:light[level=0]
+block 6 -58 -45 minecraft:light[level=0]
+block 6 -58 -41 minecraft:light[level=0]
+block 6 -58 -37 minecraft:light[level=0]
+block 10 -58 -45 minecraft:light[level=0]
+block 10 -58 -41 minecraft:light[level=0]
+block 10 -58 -37 minecraft:light[level=0]
+fill 16 -61 -48 31 -57 -33 minecraft:stone
+fill 17 -60 -47 30 -58 -34 minecraft:air
+block 18 -58 -45 minecraft:light[level=7]
+block 18 -58 -41 minecraft:light[level=7]
+block 18 -58 -37 minecraft:light[level=7]
+block 22 -58 -45 minecraft:light[level=7]
+block 22 -58 -41 minecraft:light[level=7]
+block 22 -58 -37 minecraft:light[level=7]
+block 26 -58 -45 minecraft:light[level=7]
+block 26 -58 -41 minecraft:light[level=7]
+block 26 -58 -37 minecraft:light[level=7]
+fill 32 -61 -48 47 -57 -33 minecraft:stone
+fill 33 -60 -47 46 -58 -34 minecraft:air
+block 34 -58 -45 minecraft:light[level=8]
+block 34 -58 -41 minecraft:light[level=8]
+block 34 -58 -37 minecraft:light[level=8]
+block 38 -58 -45 minecraft:light[level=8]
+block 38 -58 -41 minecraft:light[level=8]
+block 38 -58 -37 minecraft:light[level=8]
+block 42 -58 -45 minecraft:light[level=8]
+block 42 -58 -41 minecraft:light[level=8]
+block 42 -58 -37 minecraft:light[level=8]
+fill 48 -61 -48 63 -57 -33 minecraft:stone
+fill 49 -60 -47 62 -58 -34 minecraft:air
+block 50 -58 -45 minecraft:light[level=15]
+block 50 -58 -41 minecraft:light[level=15]
+block 50 -58 -37 minecraft:light[level=15]
+block 54 -58 -45 minecraft:light[level=15]
+block 54 -58 -41 minecraft:light[level=15]
+block 54 -58 -37 minecraft:light[level=15]
+block 58 -58 -45 minecraft:light[level=15]
+block 58 -58 -41 minecraft:light[level=15]
+block 58 -58 -37 minecraft:light[level=15]
+tick 5
+spawnpass 24 chunk=0,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 37 chunk=1,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 50 chunk=2,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 63 chunk=3,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 76 chunk=0,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 89 chunk=1,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 102 chunk=2,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 115 chunk=3,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 128 chunk=0,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 141 chunk=1,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 154 chunk=2,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 167 chunk=3,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 180 chunk=0,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 193 chunk=1,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 206 chunk=2,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 219 chunk=3,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 232 chunk=0,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 245 chunk=1,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 258 chunk=2,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 271 chunk=3,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 284 chunk=0,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 297 chunk=1,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 310 chunk=2,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 323 chunk=3,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 336 chunk=6,-3 cats=monster
+tick 1
+spawnpass 349 chunk=7,-3 cats=monster
+tick 1
+spawnpass 362 chunk=6,-3 cats=monster
+tick 1
+spawnpass 375 chunk=7,-3 cats=monster
+tick 1
+spawnpass 388 chunk=6,-3 cats=monster
+tick 1
+spawnpass 401 chunk=7,-3 cats=monster
+tick 1
+spawnpass 414 chunk=6,-3 cats=monster
+tick 1
+spawnpass 427 chunk=7,-3 cats=monster
+tick 1
+spawnpass 440 chunk=6,-3 cats=monster
+tick 1
+spawnpass 453 chunk=7,-3 cats=monster
+tick 1
+dump mobs
+cmd weather thunder 6000
+tick 120
+spawnpass 466 chunk=6,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 479 chunk=7,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 492 chunk=6,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 505 chunk=7,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 518 chunk=6,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 531 chunk=7,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 544 chunk=6,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 557 chunk=7,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 570 chunk=6,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 583 chunk=7,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 596 chunk=6,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 609 chunk=7,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 622 chunk=6,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 635 chunk=7,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 648 chunk=6,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 661 chunk=7,-3 cats=monster
+dump rng:level
+tick 1
+dump mobs spawn_state
+cmd weather clear 6000
+tick 200
+spawnpass 674 chunk=6,-3 cats=monster
+tick 1
+spawnpass 687 chunk=7,-3 cats=monster
+tick 1
+spawnpass 700 chunk=6,-3 cats=monster
+tick 1
+spawnpass 713 chunk=7,-3 cats=monster
+tick 1
+spawnpass 726 chunk=6,-3 cats=monster
+tick 1
+spawnpass 739 chunk=7,-3 cats=monster
+tick 1
+spawnpass 752 chunk=6,-3 cats=monster
+tick 1
+spawnpass 765 chunk=7,-3 cats=monster
+tick 1
+dump mobs spawn_state

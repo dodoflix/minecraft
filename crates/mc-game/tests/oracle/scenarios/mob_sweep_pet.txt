@@ -1,0 +1,33 @@
+# Sweep attack (Player.sweepAttack) next to the player's own tamed animals: Entity.isAlliedTo includes TamableAnimal.considersEntityAsAlly, so a tame wolf/cat/parrot beside the
+# target is not hurt and not knocked back; a cow, a wild wolf and a pet of another player beside it are. Also a sword hit on a pet directly.
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 15000
+level_seed 15001
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 40.5 -60 0.5 0 0
+set A invulnerable true
+tick 30
+give A mainhand minecraft:diamond_sword 1
+mobspawn Z1 minecraft:zombie 0.5 -60 3.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn W1 minecraft:wolf 1.3 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn T1 minecraft:cat 0.5 -60 4.3 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn C1 minecraft:cow -0.3 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn W2 minecraft:wolf 0.5 -60 2.7 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn W3 minecraft:wolf 1.3 -60 2.7 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+tame W1 A
+tame T1 A
+tame W3 B
+entity_seed Z1 3
+tick 25
+attack A Z1
+tick 3
+dump mobs
+tick 25
+note a sword hit on the pet itself
+tp A 0.5 -60 0.5 180 0
+attack A W1
+tick 3
+dump mobs

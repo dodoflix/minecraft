@@ -1,0 +1,41 @@
+# Wither boss bar (ServerBossEvent of a mob): packets to a player that tracks the wither (add with name/progress/colour/overlay/flags), progress while it takes damage, the
+# half-health armour change, a second wither (two bars), a player entering and leaving tracking range, the bar removed at death; the spawn charge (Invul), custom name.
+command_env
+level flat
+preload 14
+difficulty normal
+entity_counter 6100
+gamerule mob_drops false
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 220.5 -60 0.5 0 0
+set A invulnerable true
+set B invulnerable true
+tick 30
+dump packets:A:none packets:B:none
+watch packets:A:boss_event packets:B:boss_event
+mobspawn W1 minecraft:wither 12.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,Invul:40}
+entity_seed W1 5
+tick 3
+mobspawn W2 minecraft:wither 20.5 -60 6.5 0 0 nofinalize {PersistenceRequired:1b,Invul:0,CustomName:'"Boss"'}
+entity_seed W2 6
+tick 5
+watch packets:A:boss_event,add_entity packets:B:boss_event
+tick 60
+dump mobs
+watch packets:A:boss_event packets:B:boss_event
+hurt W2 player_attack 25 by=A
+tick 3
+hurt W2 player_attack 100 by=A
+tick 3
+hurt W2 generic 150 
+tick 2
+tp B 40.5 -60 0.5 0 0
+tick 4
+tp B 220.5 -60 0.5 0 0
+tick 4
+hurt W2 generic 1000
+tick 25
+dump mobs
+hurt W1 generic 1000
+tick 25
+dump mobs entities

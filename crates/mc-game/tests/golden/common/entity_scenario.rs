@@ -805,6 +805,7 @@ impl Harness {
                     tag.merge(&extra);
                     e.load(level, &tag)
                         .unwrap_or_else(|err| panic!("scenario {label}:{no}: load: {err}"));
+                    mc_game::world::entity::mob::leashable::finish_leash_load(e, level);
                     e.read_level_dependent_data(level);
                 });
             }

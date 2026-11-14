@@ -135,7 +135,7 @@ impl Entity for Salmon {
         self.get_max_school_size()
     }
 
-    fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
+    fn get_default_dimensions(&self, _pose: Pose) -> EntityDimensions {
         EntityDimensions::of_type(self.get_type()).scale(self.get_salmon_scale())
     }
 

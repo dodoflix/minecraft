@@ -135,8 +135,8 @@ impl Entity for MagmaCube {
     fn cube_mob_size(&self) -> Option<i32> {
         Some(self.get_size())
     }
-    fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
-        acm::get_dimensions(self, pose)
+    fn get_default_dimensions(&self, pose: Pose) -> EntityDimensions {
+        acm::get_default_dimensions(self, pose)
     }
     fn refresh_dimensions(&mut self) {
         acm::refresh_dimensions(self);

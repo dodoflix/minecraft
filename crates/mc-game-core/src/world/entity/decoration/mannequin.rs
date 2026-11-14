@@ -156,9 +156,9 @@ impl Entity for Mannequin {
     fn living_mut(&mut self) -> Option<&mut LivingEntityData> {
         Some(&mut self.living)
     }
-    /// `getDefaultDimensions(pose)` (`Avatar.POSES`) scaled.
-    fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
-        avatar_dimensions(pose).scale(self.get_scale())
+    /// `getDefaultDimensions(pose)` (`Avatar.POSES`).
+    fn get_default_dimensions(&self, pose: Pose) -> EntityDimensions {
+        avatar_dimensions(pose)
     }
     fn is_immobile(&self) -> bool {
         self.get_immovable() || self.living.is_dead_or_dying()

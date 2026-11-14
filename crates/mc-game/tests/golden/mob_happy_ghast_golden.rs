@@ -32,3 +32,8 @@ fn happy_ghast_data_merge_crossing_age_zero_and_loaded_passengers() {
 fn scale_attribute_is_capped_by_happy_ghast_and_shulker_and_ignored_by_dragon() {
     check("mob_scale_sanitize");
 }
+
+#[test]
+fn scale_attribute_resizes_every_living_class_and_moves_the_riders() {
+    check("mob_scale_attribute");
+}

@@ -1,0 +1,30 @@
+# Loading data without a `leash` tag into a leashed mob (/data remove entity ... leash) removes the leash: the holder and the trackers learn it, the
+# lead is not dropped, the home that the leash set stays, and the same data a second time changes nothing.
+command_env
+level flat
+difficulty normal
+preload 4
+entity_counter 6000
+level_seed 6001
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn C minecraft:cow 4.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed C 6002
+mobspawn W minecraft:wolf 4.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed W 6003
+tick 2
+leash C Steve
+leash W Steve
+tick 2
+dump mob:C mob:W nbt:C packets:Steve:set_entity_link
+note removing the leash tag of the cow
+cmd data remove entity @e[type=minecraft:cow,limit=1] leash
+tick 1
+dump mob:C nbt:C entities events packets:Steve:set_entity_link
+note the same again
+cmd data remove entity @e[type=minecraft:cow,limit=1] leash
+tick 1
+dump mob:C entities events packets:Steve:set_entity_link
+note merging other data keeps the leash of the wolf
+cmd data merge entity @e[type=minecraft:wolf,limit=1] {Health:5.0f}
+tick 1
+dump mob:W packets:Steve:set_entity_link

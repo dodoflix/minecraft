@@ -1,0 +1,196 @@
+C Game rule mob_drops is now set to false
+T 31
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8000a080009696e73657274696f6e002462316230396462662d663533342d343934632d613736352d6134303134356638396334640a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650017656e746974792e6d696e6563726166742e77697468657200080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a7769746865720b00047575696400000004b1b09dbff534494ca765a40145f89c4d000800097472616e736c6174650017656e746974792e6d696e6563726166742e776974686572003f800000050001
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f529e41
+T 32
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f53c825
+T 33
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f54f209
+T 34
+PKT A minecraft:boss_event 096bd391be42c2455082da517c394a7e63000a080009696e73657274696f6e002463326631623333362d613865302d346161362d393838652d36323032366465336332623208000474657874000622426f7373220a000b686f7665725f6576656e740800046e616d65000622426f737322080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a7769746865720b00047575696400000004c2f1b336a8e04aa6988e62026de3c2b200003f800000050001
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f561bee
+T 35
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f5745d2
+T 36
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f586fb6
+T 37
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f59999a
+T 38
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f5ac37e
+T 39
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f5bed62
+T 40
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f5d1746
+T 41
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f5e412a
+T 42
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f5f6b0e
+T 43
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f6094f2
+T 44
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f61bed6
+T 45
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f62e8ba
+T 46
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f64129e
+T 47
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f653c82
+T 48
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f666666
+T 49
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f67904a
+T 50
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f68ba2e
+T 51
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f69e413
+T 52
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f6b0df7
+T 53
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f6c37db
+T 54
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f6d61bf
+T 55
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f6e8ba3
+T 56
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f6fb587
+T 57
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f70df6b
+T 58
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f72094f
+T 59
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f733333
+T 60
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f745d17
+T 61
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f7586fb
+T 62
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f76b0df
+T 63
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f77dac4
+T 64
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f7904a8
+T 65
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f7a2e8c
+T 66
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f7b5870
+T 67
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f7c8254
+T 68
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f7dac38
+T 69
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f7ed61c
+T 70
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d8023f800000
+T 71
+T 72
+T 73
+T 74
+T 75
+T 76
+T 77
+T 78
+T 79
+T 80
+T 81
+T 82
+T 83
+T 84
+T 85
+T 86
+T 87
+T 88
+T 89
+T 90
+T 91
+T 92
+T 93
+T 94
+T 95
+T 96
+T 97
+T 98
+E W1 minecraft:wither pos=12.5,-63.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/0.0,0.0/0.0 nhu=70,74 idle=2,2 dbt=0 bossp=1.0
+E W2 minecraft:wither pos=20.942448340492348,-60.0,6.831836255369262 delta=0.0,-0.0784000015258789,0.0 rot=-53.13026,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=66.869736 body=66.869736 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/66.869736,0.0/66.869736 nhu=75,73 idle=5,5 dbt=0 bossp=1.0
+HURT W2 player_attack 25 -> true
+T 99
+PKT A minecraft:boss_event 096bd391be42c2455082da517c394a7e63023f6b596d
+T 100
+T 101
+HURT W2 player_attack 100 -> true
+T 102
+PKT A minecraft:boss_event 096bd391be42c2455082da517c394a7e63023f2d65b7
+T 103
+T 104
+HURT W2 generic 150 -> true
+T 105
+PKT A minecraft:boss_event 096bd391be42c2455082da517c394a7e63023f02bb0c
+T 106
+T 107
+T 108
+T 109
+T 110
+T 111
+T 112
+T 113
+PKT A minecraft:boss_event 096bd391be42c2455082da517c394a7e63023f039580
+T 114
+HURT W2 generic 1000 -> true
+T 115
+T 116
+T 117
+T 118
+T 119
+T 120
+T 121
+T 122
+T 123
+T 124
+T 125
+T 126
+T 127
+T 128
+T 129
+T 130
+T 131
+T 132
+T 133
+T 134
+PKT A minecraft:boss_event 096bd391be42c2455082da517c394a7e6301
+T 135
+T 136
+T 137
+T 138
+T 139
+E W1 minecraft:wither pos=12.5,-63.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/0.0,0.0/0.0 nhu=119,117 idle=5,5 dbt=0 bossp=1.0
+HURT W1 generic 1000 -> true
+T 140
+T 141
+T 142
+T 143
+T 144
+T 145
+T 146
+T 147
+T 148
+T 149
+T 150
+T 151
+T 152
+T 153
+T 154
+T 155
+T 156
+T 157
+T 158
+T 159
+PKT A minecraft:boss_event 0930dacbaefab343219bbabf3b8d5868d801
+T 160
+T 161
+T 162
+T 163
+T 164
+E item#1 minecraft:item pos=12.872425906607596,-62.0,-4.8743815868222455 delta=-1.051364437965186E-7,-0.12,-1.730150997807239E-8 rot=262.38455,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=94 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=9.560790380561302,-63.0,-2.518829411870431 delta=2.0809153308840667E-8,0.0,5.9333149199682125E-8 rot=341.64233,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=94 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=10.27689276087494,-63.0,-3.875 delta=-6.899745969159869E-8,-0.04,0.0 rot=9.805427,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=94 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=10.875,-63.0,4.779861812100661 delta=0.0,-0.08,-1.259838582800207E-7 rot=168.01784,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=94 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=12.17011032747113,-61.0,6.972996237207646 delta=9.350832110240376E-8,-0.12,-8.456997211092389E-8 rot=108.320045,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=94 pickup=0 health=5 owner=- thrower=-

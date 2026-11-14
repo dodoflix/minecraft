@@ -52,3 +52,8 @@ cmd summon minecraft:happy_ghast 30.5 -58 30.5 {NoAI:1b,PersistenceRequired:1b,s
 dump mob:happy_ghast#3 events nbt:happy_ghast#3
 tick 2
 dump mob:happy_ghast#2 mob:happy_ghast#3
+note a summon rejected for a duplicate UUID has loaded its passengers all the same: their goggles sound is played
+cmd summon minecraft:happy_ghast 20.5 -58 20.5 {NoAI:1b,PersistenceRequired:1b,UUID:[I;7,8,9,10]}
+dump events
+cmd summon minecraft:happy_ghast 22.5 -58 20.5 {NoAI:1b,PersistenceRequired:1b,UUID:[I;7,8,9,10],equipment:{body:{id:"minecraft:white_harness",count:1}},Passengers:[{id:"minecraft:pig",NoAI:1b,PersistenceRequired:1b}]}
+dump events entities

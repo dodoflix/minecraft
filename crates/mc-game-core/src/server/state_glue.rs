@@ -136,11 +136,14 @@ impl MinecraftServer {
             .get_data()
             .clone();
         self.scoreboard.write().load(&data);
-        // `this.stopwatches = computeIfAbsent(Stopwatches.TYPE)`; the overworld's `WanderingTraderSpawner` loads its data
+        // `this.stopwatches = computeIfAbsent(Stopwatches.TYPE)`
         self.saved_data
             .compute_if_absent(&self.saved_types.stopwatches);
-        self.saved_data
-            .compute_if_absent(&self.saved_types.wandering_trader);
+        // `new WanderingTraderSpawner(savedDataStorage)`: the overworld's spawner reads this store
+        *self.shared.wandering_trader.lock() = self
+            .saved_data
+            .compute_if_absent(&self.saved_types.wandering_trader)
+            .clone();
     }
 
     /// `scoreboard.storeToSaveDataIfDirty(...)` (first step of `saveAllChunks`).

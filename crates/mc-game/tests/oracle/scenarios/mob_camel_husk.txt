@@ -1,0 +1,59 @@
+# The camel husk on its own: it is never a baby and cannot breed or fall in love, its food is the rabbit foot, it is removed when it
+# is far away and persistent once a player touched it, it can be leashed while no mob drives it, and it plays its own sounds (hurt,
+# death, saddle, dash).
+level flat
+difficulty normal
+preload 4
+entity_counter 2700
+level_seed 2701
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn H minecraft:camel_husk 4.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed H 2702
+mobspawn B minecraft:camel_husk 4.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000}
+entity_seed B 2703
+mobspawn F minecraft:camel_husk 12.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed F 2704
+mobspawn W minecraft:camel_husk 60.5 -60 60.5 0 0 nofinalize
+entity_seed W 2705
+tick 2
+dump mob:H nbt:H brain:H mob:B nbt:B mob:F packets:Steve:none
+note the saved baby age is ignored: a camel husk is never a baby
+nbt H {Age:-24000}
+tick 1
+dump mob:H
+note rabbit feet and love: it does not fall in love, and a pair does not breed
+give Steve mainhand minecraft:rabbit_foot 8
+interact Steve H main
+love H Steve
+love B Steve
+dump mob:H mob:B events
+breed H B
+dump entities events
+note its own hurt, death and saddle sounds
+give Steve mainhand minecraft:saddle 1
+interact Steve H main
+dump mob:H events
+hurt H minecraft:generic 5
+tick 1
+dump mob:H events
+note a lead can be put on it while nothing drives it
+give Steve mainhand minecraft:lead 2
+interact Steve H main
+dump mob:H events
+note far from every player and not persistent it is removed (the wild one)
+tick 40
+dump mob:W entities
+note the dash of a saddled camel husk with the player on it
+ride Steve F
+accept_teleport Steve
+tick 2
+pcommand Steve START_RIDING_JUMP 100
+tick 1
+pcommand Steve STOP_RIDING_JUMP
+tick 10
+dump mob:F edata:F events
+note death
+level_seed 2706
+hurt F minecraft:generic 1000
+tick 40
+dump entities events

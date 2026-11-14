@@ -57,3 +57,25 @@ fn villagers_summon_a_golem() {
 fn raiders_walk_to_their_village() {
     check("mob_raid_pathfind");
 }
+
+/// The wandering trader's timers belong to the server's data storage (`data/minecraft/wandering_trader.dat` of the world): a save writes
+/// what the spawner changed there.
+#[test]
+fn wandering_trader_timers_are_saved_in_the_server_data_store() {
+    use mc_game::world::level::saveddata::SavedDataManager;
+    use mc_game::world::level::saveddata::wandering_trader_data::WanderingTraderData;
+    let (mut server, _keep) = crate::command_common::test_server();
+    {
+        let mut data = server.shared.wandering_trader.lock();
+        data.set_spawn_delay(1234);
+        data.set_spawn_chance(50);
+    }
+    server.save_all_chunks(true, true, true);
+    let path = server
+        .storage_source
+        .get_level_path(mc_world::level_storage::LevelResource::DATA);
+    assert!(path.join("minecraft/wandering_trader.dat").is_file());
+    let mut saved = SavedDataManager::new(mc_world::level_storage::SavedDataStorage::new(path));
+    let data = saved.compute_if_absent(&WanderingTraderData::type_());
+    assert_eq!((data.spawn_delay(), data.spawn_chance()), (1234, 50));
+}

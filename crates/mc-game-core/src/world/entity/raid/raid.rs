@@ -687,7 +687,16 @@ impl Raid {
                 }
             }
         }
-        for (member, wave) in to_remove {
+        // `toRemove` is a `HashSet<Raider>`: each raider once, in entity id bucket order
+        let mut removal_set = RaiderSet::default();
+        for (member, _) in &to_remove {
+            removal_set.add(*member);
+        }
+        for member in removal_set.ordered() {
+            let wave = to_remove
+                .iter()
+                .find(|(r, _)| r.id == member.id)
+                .map_or(0, |(_, wave)| *wave);
             let was_leader = level
                 .get_entity(member.id)
                 .is_some_and(raider::is_patrol_leader);

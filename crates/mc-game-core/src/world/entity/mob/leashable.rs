@@ -228,21 +228,25 @@ fn read_leash_tag(tag: &Tag) -> Option<LeashData> {
     }
 }
 
-/// `readLeashData(input)`.
-pub fn read_leash_data(
-    e: &mut dyn Entity,
-    level_hint: Option<&mut ServerLevel>,
-    input: &CompoundTag,
-) {
+/// `readLeashData(input)`; the level effects of the `removeLeash()` it does are left to [`finish_leash_load`].
+pub fn read_leash_data(e: &mut dyn Entity, input: &CompoundTag) {
     let new_data = input.get("leash").and_then(read_leash_tag);
-    let had = data(e).is_some();
-    if had
-        && new_data.is_none()
-        && let Some(level) = level_hint
+    if new_data.is_none()
+        && let Some(holder) = data(e).and_then(|d| d.leash_holder)
     {
-        remove_leash(e, level);
+        e.set_leash_data(None);
+        e.on_leash_removed();
+        e.base_mut().leash_removed_on_load = Some(holder);
     }
     e.set_leash_data(new_data);
+}
+
+/// The part of `removeLeash()` in `readLeashData` that needs the level: the holder and the trackers learn that the leash is
+/// gone (a load into a live entity, `/data merge entity`).
+pub fn finish_leash_load(e: &mut dyn Entity, level: &mut ServerLevel) {
+    if let Some(holder) = e.base_mut().leash_removed_on_load.take() {
+        leash_removed(e, level, holder, true, false);
+    }
 }
 
 /// `writeLeashData(output, leashData)`: the holder's UUID, the knot position, or the still-delayed info.
@@ -328,6 +332,17 @@ fn drop_leash_impl(
     };
     e.set_leash_data(None);
     e.on_leash_removed();
+    leash_removed(e, level, holder, send_packet, drop_lead);
+}
+
+/// What follows `onLeashRemoved()` in `dropLeash`.
+fn leash_removed(
+    e: &mut dyn Entity,
+    level: &mut ServerLevel,
+    holder: EntityId,
+    send_packet: bool,
+    drop_lead: bool,
+) {
     if drop_lead {
         crate::world::entity::item::spawn_at_location(
             level,

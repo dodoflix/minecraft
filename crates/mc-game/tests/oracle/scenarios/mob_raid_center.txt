@@ -1,0 +1,51 @@
+# Raids that lose their village or their difficulty: a raid whose bell and beds are removed after the first wave (Raid.tick moves the centre to a nearby village or the raid ends),
+# a second raid (another player, another village) and a switch to peaceful while raiders are alive (the raid stops and its raiders leave); raid state, boss bar packets, raiders.
+command_env
+level flat
+difficulty hard
+preload 8
+gamerule raids true
+gamerule mob_drops false
+entity_counter 5800
+level_seed 5801
+fill -12 -60 -12 80 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 60 -60 0 minecraft:bell
+block 63 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 63 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+mobspawn W minecraft:villager 61.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+spawn_player Alex survival 60.5 -60 6.5 0 0
+set Steve invulnerable true
+set Alex invulnerable true
+tick 300
+effect Steve minecraft:raid_omen 2 600
+raid_start Steve 0 -60 0 omen=3
+dump raids
+watch packets:Steve:boss_event packets:Alex:boss_event
+tick 330
+dump raids mobs
+note wave one dies, the village around the bell is dismantled
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+block 0 -60 0 minecraft:air
+fill -4 -60 -2 4 -60 1 minecraft:air
+tick 40
+dump raids mobs
+tick 200
+dump raids mobs
+note a second raid in the other village, then peaceful
+effect Alex minecraft:raid_omen 0 600
+raid_start Alex 60 -60 0 omen=1
+dump raids
+tick 330
+dump raids mobs
+difficulty peaceful
+tick 40
+dump raids mobs
+tick 100
+dump raids mobs entities

@@ -1,8 +1,7 @@
 //! Guard of the entity registrations (reads the vanilla `EntityTypes` source): every vanilla `EntityType` whose class is not a
-//! `Mob` has a Rust factory, or is listed in `EXPECTED_MISSING` until its class lands (until then it is created as an inert
-//! `PlainEntity`). The list only ever shrinks: a type that gains a factory without removing its line fails, and so does a line
-//! that names no vanilla type. Mob types are accounted for by `mob_registration_guards`, and the player type has no factory
-//! in vanilla.
+//! `Mob` has a Rust factory, or is listed in `EXPECTED_MISSING` until its class lands. The list only ever shrinks: a type
+//! that gains a factory without removing its line fails, and so does a line that names no vanilla type. Mob types are
+//! accounted for by `mob_registration_guards`, and the player type has no factory in vanilla.
 //! The boat table is pinned separately: the type -> drop item table, the factories and the dispenser behaviours must all
 //! name the same 22 vanilla boats, a boat missing from one of them fails.
 use mc_data::{EntityType, Item};

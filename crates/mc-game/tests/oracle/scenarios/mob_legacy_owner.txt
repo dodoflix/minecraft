@@ -1,0 +1,22 @@
+# The owner of a tameable or a horse saved as a string (the format before UUIDs): a UUID text is read as a UUID, text that is no UUID and too
+# long for a player name leaves the mob without an owner.
+command_env
+level flat
+difficulty normal
+preload 4
+entity_counter 6100
+level_seed 6101
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn W1 minecraft:wolf 4.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn W2 minecraft:wolf 4.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn C1 minecraft:cat 8.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn H1 minecraft:horse 8.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b}
+tick 2
+note a UUID text
+nbt W1 {Owner:"6c5e8e4a-1b2c-4d3e-8f9a-0b1c2d3e4f5a"}
+nbt C1 {Owner:"6c5e8e4a-1b2c-4d3e-8f9a-0b1c2d3e4f5a"}
+nbt H1 {Tame:1b,Owner:"6c5e8e4a-1b2c-4d3e-8f9a-0b1c2d3e4f5a"}
+dump mob:W1 nbt:W1 mob:C1 nbt:C1 mob:H1 nbt:H1
+note text that is neither a UUID nor a short name
+nbt W2 {Owner:"this is no uuid and far too long for a name"}
+dump mob:W2 nbt:W2

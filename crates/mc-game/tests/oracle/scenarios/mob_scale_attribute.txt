@@ -1,0 +1,63 @@
+# The scale attribute set with /attribute on ten mobs of different classes (a cow, a baby sheep, a zombie, a baby husk, a villager, a wolf,
+# a creeper, a skeleton, a pig, a horse): the size, eye height and bounding box follow getScale() whatever class overrides the default
+# dimensions, a baby multiplies its age scale, and the riders of a horse, a pig and a zombie sit at the attachment point of the vehicle at the
+# scale of the vehicle.
+command_env
+level flat
+difficulty normal
+preload 8
+entity_counter 2300
+level_seed 2301
+spawn_player Steve survival 100.5 -60 100.5 0 0
+mobspawn Cow minecraft:cow 4.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Sheep minecraft:sheep 16.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+mobspawn Zombie minecraft:zombie 28.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Husk minecraft:husk 40.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,IsBaby:1b}
+mobspawn Villager minecraft:villager 52.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Wolf minecraft:wolf 4.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Creeper minecraft:creeper 16.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Skeleton minecraft:skeleton 28.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Pig minecraft:pig 40.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Horse minecraft:horse 52.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn OnHorse minecraft:chicken 52.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn OnPig minecraft:chicken 40.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn OnZombie minecraft:chicken 28.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 2
+ride OnHorse Horse
+ride OnPig Pig
+ride OnZombie Zombie
+tick 1
+note the default scale
+dump size:Cow size:Sheep size:Zombie size:Husk size:Villager size:Wolf size:Creeper size:Skeleton size:Pig size:Horse mob:OnHorse mob:OnPig mob:OnZombie
+note a scale of 0.5
+cmd attribute @e[type=minecraft:cow,limit=1] minecraft:scale base set 0.5
+cmd attribute @e[type=minecraft:sheep,limit=1] minecraft:scale base set 0.5
+cmd attribute @e[type=minecraft:zombie,limit=1] minecraft:scale base set 0.5
+cmd attribute @e[type=minecraft:husk,limit=1] minecraft:scale base set 0.5
+cmd attribute @e[type=minecraft:villager,limit=1] minecraft:scale base set 0.5
+cmd attribute @e[type=minecraft:wolf,limit=1] minecraft:scale base set 0.5
+cmd attribute @e[type=minecraft:creeper,limit=1] minecraft:scale base set 0.5
+cmd attribute @e[type=minecraft:skeleton,limit=1] minecraft:scale base set 0.5
+cmd attribute @e[type=minecraft:pig,limit=1] minecraft:scale base set 0.5
+cmd attribute @e[type=minecraft:horse,limit=1] minecraft:scale base set 0.5
+tick 1
+dump size:Cow size:Sheep size:Zombie size:Husk size:Villager size:Wolf size:Creeper size:Skeleton size:Pig size:Horse mob:OnHorse mob:OnPig mob:OnZombie
+note a scale of 2
+cmd attribute @e[type=minecraft:cow,limit=1] minecraft:scale base set 2
+cmd attribute @e[type=minecraft:sheep,limit=1] minecraft:scale base set 2
+cmd attribute @e[type=minecraft:zombie,limit=1] minecraft:scale base set 2
+cmd attribute @e[type=minecraft:husk,limit=1] minecraft:scale base set 2
+cmd attribute @e[type=minecraft:villager,limit=1] minecraft:scale base set 2
+cmd attribute @e[type=minecraft:wolf,limit=1] minecraft:scale base set 2
+cmd attribute @e[type=minecraft:creeper,limit=1] minecraft:scale base set 2
+cmd attribute @e[type=minecraft:skeleton,limit=1] minecraft:scale base set 2
+cmd attribute @e[type=minecraft:pig,limit=1] minecraft:scale base set 2
+cmd attribute @e[type=minecraft:horse,limit=1] minecraft:scale base set 2
+tick 1
+dump size:Cow size:Sheep size:Zombie size:Husk size:Villager size:Wolf size:Creeper size:Skeleton size:Pig size:Horse mob:OnHorse mob:OnPig mob:OnZombie
+note back to the default
+cmd attribute @e[type=minecraft:cow,limit=1] minecraft:scale base reset
+cmd attribute @e[type=minecraft:horse,limit=1] minecraft:scale base reset
+cmd attribute @e[type=minecraft:zombie,limit=1] minecraft:scale base reset
+tick 1
+dump size:Cow size:Horse size:Zombie mob:OnHorse mob:OnZombie

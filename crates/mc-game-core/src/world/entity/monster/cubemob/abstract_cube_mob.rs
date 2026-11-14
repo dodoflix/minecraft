@@ -480,10 +480,9 @@ impl Goal for CubeMobRandomDirectionGoal {
 
 // ---- Entity overrides (the bodies; concrete classes delegate) -----------------------------------------------------------
 
-/// `getDefaultDimensions(pose)`: `getType().getDimensions().scale(getSize())`, then `LivingEntity.getDimensions`' `scale(getScale())`.
-pub fn get_dimensions<T: CubeMob + ?Sized>(this: &T, pose: Pose) -> EntityDimensions {
-    let default = EntityDimensions::of_type(this.base().entity_type).scale(this.get_size() as f32);
-    mob::ext::living_dimensions(this.as_dyn(), pose, default)
+/// `getDefaultDimensions(pose)`: `getType().getDimensions().scale(getSize())`.
+pub fn get_default_dimensions<T: CubeMob + ?Sized>(this: &T, _pose: Pose) -> EntityDimensions {
+    EntityDimensions::of_type(this.base().entity_type).scale(this.get_size() as f32)
 }
 
 /// `refreshDimensions()`: `super.refreshDimensions()` then `setPos(oldX, oldY, oldZ)`; the position is never moved by the

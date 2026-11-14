@@ -75,6 +75,10 @@ pub struct ServerShared {
     recipe_manager: RwLock<crate::world::item::crafting::RecipeManager>,
     /// The maps of the server (`MinecraftServer.getDataStorage()` map files), reachable from every level.
     pub map_storage: crate::world::level::saveddata::maps::MapStorage,
+    /// `WanderingTraderData` of the server store (`MinecraftServer.getDataStorage()`, handed to the overworld's
+    /// `WanderingTraderSpawner`), loaded by the server and copied back into its saved data when saving.
+    pub wandering_trader:
+        Mutex<crate::world::level::saveddata::wandering_trader_data::WanderingTraderData>,
 }
 
 impl ServerShared {
@@ -97,6 +101,7 @@ impl ServerShared {
             delayed_crash: Mutex::new(None),
             recipe_manager: RwLock::new(crate::world::item::crafting::RecipeManager::empty()),
             map_storage: Default::default(),
+            wandering_trader: Default::default(),
         });
         (shared, rx)
     }

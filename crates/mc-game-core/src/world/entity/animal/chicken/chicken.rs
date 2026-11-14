@@ -226,7 +226,7 @@ impl Entity for Chicken {
         Some("minecraft:chicken")
     }
 
-    fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
+    fn get_default_dimensions(&self, _pose: Pose) -> EntityDimensions {
         if self.is_baby() {
             baby_dimensions()
         } else {

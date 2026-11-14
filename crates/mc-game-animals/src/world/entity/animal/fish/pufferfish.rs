@@ -216,7 +216,7 @@ impl Entity for Pufferfish {
         }
     }
 
-    fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
+    fn get_default_dimensions(&self, _pose: Pose) -> EntityDimensions {
         EntityDimensions::of_type(self.get_type()).scale(Self::get_scale(self.get_puff_state()))
     }
 

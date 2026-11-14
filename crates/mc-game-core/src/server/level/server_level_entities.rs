@@ -115,11 +115,18 @@ impl ServerLevel {
     }
 
     /// `tryAddFreshEntityWithPassengers(entity)`.
-    pub fn try_add_fresh_entity_with_passengers(&mut self, entities: Vec<Box<dyn Entity>>) -> bool {
+    pub fn try_add_fresh_entity_with_passengers(
+        &mut self,
+        mut entities: Vec<Box<dyn Entity>>,
+    ) -> bool {
         if entities
             .iter()
             .any(|e| self.entity_manager.is_loaded(e.uuid()))
         {
+            // the loading of the entities (`readAdditionalSaveData`, `addPassenger` of the loaded passengers) happened already
+            for entity in &mut entities {
+                entity.read_level_dependent_data(self);
+            }
             return false;
         }
         self.add_fresh_entity_with_passengers(entities);

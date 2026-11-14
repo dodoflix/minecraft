@@ -8,9 +8,9 @@
 //! `angerByUuid` is an [`FastOpenHashMap`] keyed by the UUID's `hashCode()`, so the saved `suspects` list of not-yet-resolved
 //! UUIDs comes out in vanilla's hash order.
 //!
-//! shortcut: an entity that vanished from the level is kept by UUID only when it is a player (vanilla: removal reason
-//! `CHANGED_DIMENSION`/`UNLOADED_*`, the reason is not observable here once the entity is gone); upgrade when the level keeps
-//! removal reasons. `convertFromUuids` removes from the map while iterating: the order of the entries that fastutil's iterator
+//! shortcut: an entity that vanished from the level is kept by UUID by its removal reason (`CHANGED_DIMENSION`/`UNLOADED_*`) while the
+//! level still remembers the removed object (twenty ticks); a player the level no longer remembers counts as unloaded (a
+//! player's removal object is not retained outside replays); upgrade when the level keeps removal reasons. `convertFromUuids` removes from the map while iterating: the order of the entries that fastutil's iterator
 //! revisits after a wrapped backward shift is not modelled.
 
 use crate::world::entity::monster::warden::anger_level::AngerLevel;
@@ -19,7 +19,7 @@ use mc_core::math::mth;
 use mc_core::random;
 use mc_core::uuid_util::{uuid_from_int_array, uuid_to_int_array};
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::entity::{Entity, EntityId, RemovalReason};
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use uuid::Uuid;
 
@@ -191,7 +191,24 @@ impl AngerManagement {
             } else {
                 self.suspects.retain(|s| s.id != suspect.id);
                 self.anger_by_suspect.remove(i);
-                if anger > 1 && !present && suspect.is_player {
+                // `removalReason`: the remembered object of an entity that left the level
+                let removal_reason = if present {
+                    None
+                } else {
+                    level
+                        .get_entity_or_removed(suspect.id)
+                        .and_then(|e| e.base().removal_reason())
+                };
+                let kept_by_uuid = match removal_reason {
+                    Some(reason) => matches!(
+                        reason,
+                        RemovalReason::ChangedDimension
+                            | RemovalReason::UnloadedToChunk
+                            | RemovalReason::UnloadedWithPlayer
+                    ),
+                    None => !present && suspect.is_player,
+                };
+                if anger > 1 && kept_by_uuid {
                     self.anger_by_uuid.put(suspect.uuid, anger - 1);
                 }
             }

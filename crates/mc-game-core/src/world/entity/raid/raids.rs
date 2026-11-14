@@ -308,6 +308,10 @@ pub fn tick_raids(level: &mut ServerLevel) {
             let raids = level.get_raids_mut();
             raids.raid_map.remove(i64::from(id));
             raids.set_dirty();
+            // a raider keeps the stopped raid but `Raids.getId` no longer finds it: no `RaidId` when it is saved
+            for raider in raid.get_all_raiders() {
+                level.try_with_entity(raider, |_, e| raider::mark_raid_ended(e));
+            }
         } else {
             let view = level.get_raids_mut().view();
             raid.tick(level, &view);

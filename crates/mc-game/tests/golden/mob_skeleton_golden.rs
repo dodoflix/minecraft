@@ -41,3 +41,8 @@ fn enchanted_bow_sets_arrows_on_fire_and_raises_their_damage() {
 fn sunlight_burns_skeletons_and_wears_their_helmets() {
     check("mob_skeleton_sun_helmet");
 }
+
+#[test]
+fn parched_is_immune_to_weakness_and_has_its_own_sounds() {
+    check("mob_parched");
+}

@@ -60,7 +60,7 @@ crates/
   mc-game-levelgen    features, structures, placement, template processors, /place (leaf over core)
   mc-game-cmds        the vanilla commands, registered via linkme               (leaf over core)
   mc-game-ai          concrete goals/behaviors/sensors                          (leaf over core)
-  mc-game-animals     animals + ambient mobs                                    (over mc-game-ai)
+  mc-game-animals     animals, ambient mobs, golems, the wandering trader       (over mc-game-ai)
   mc-game-monsters    monsters, the zombie horse, creaking heart                (over mc-game-ai)
   mc-game             thin facade: re-exports the crates above so `mc_game::...` is the public API; integration tests, examples
   mc-server           thin binary: parses the command line, sets up logging, `server.properties` and `eula.txt`, then starts mc-game
@@ -95,7 +95,7 @@ Rules:
   `mc-game` depends on them. Cargo rejects a cycle; the sibling rule is checked in review.
 - **Where new gameplay code goes:** into the area crate that owns it (a block behaviour or block entity: `blocks`; a
   feature, structure or placement: `levelgen`; a command: `cmds`; a goal, behaviour or sensor that nothing in `core`
-  names: `ai`; an animal or ambient mob: `animals`; a monster, villager, raid part or creaking heart: `monsters`).
+  names: `ai`; an animal, ambient mob, golem or the wandering trader: `animals`; a monster, raid part or creaking heart: `monsters`; the villager lives in `core`).
   Code that `mc-game-core` itself calls, or that the `Entity` trait or the block base names, must live in `core`: it is
   the spine and cannot depend on the crates above it.
 - **How paths resolve.** An area crate declares only the modules whose files it owns and imports everything else from

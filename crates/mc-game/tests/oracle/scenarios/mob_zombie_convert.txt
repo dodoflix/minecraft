@@ -1,0 +1,201 @@
+# Zombie conversions and reinforcements: a zombie kills a villager (Zombie.killedEntity: easy no, normal a coin flip, hard always; baby, villager with offers/xp/gossips),
+# a zombie hurt on hard summons reinforcements (spawn_reinforcements attribute, level random), zombie/husk in water convert to drowned/zombie after 600 + 300 ticks.
+command_env
+level flat
+preload 6
+difficulty easy
+entity_counter 7500
+fill -20 -61 40 12 -55 52 minecraft:water[level=0]
+spawn_player I1 survival 0.5 -60 0.5 0 0
+tick 30
+
+mobspawn Z0 minecraft:zombie -39.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn V0 minecraft:villager -38.0 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z0 50
+entity_seed V0 70
+mobspawn Z1 minecraft:zombie -31.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn V1 minecraft:villager -30.0 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z1 51
+entity_seed V1 71
+mobspawn Z2 minecraft:zombie -23.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn V2 minecraft:villager -22.0 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z2 52
+entity_seed V2 72
+mobspawn Z3 minecraft:zombie -15.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn V3 minecraft:villager -14.0 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z3 53
+entity_seed V3 73
+mobspawn Z4 minecraft:zombie -7.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn V4 minecraft:villager -6.0 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z4 54
+entity_seed V4 74
+mobspawn Z5 minecraft:zombie 0.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn V5 minecraft:villager 2.0 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+entity_seed Z5 55
+entity_seed V5 75
+mobspawn Z6 minecraft:zombie 8.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn V6 minecraft:villager 10.0 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Xp:25,VillagerData:{type:"minecraft:desert",profession:"minecraft:farmer",level:3},Offers:{Recipes:[{buy:{id:"minecraft:wheat",count:20},sell:{id:"minecraft:emerald",count:1},uses:2,maxUses:16,xp:2,priceMultiplier:0.05f,demand:3,specialPrice:-4}]},Gossips:[{Type:"major_positive",Value:30,Target:[I;1,2,3,4]},{Type:"minor_negative",Value:7,Target:[I;5,6,7,8]}]}
+entity_seed Z6 56
+entity_seed V6 76
+mobspawn Z7 minecraft:zombie 16.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn V7 minecraft:villager 18.0 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Xp:0,VillagerData:{type:"minecraft:plains",profession:"minecraft:nitwit",level:1}}
+entity_seed Z7 57
+entity_seed V7 77
+tick 3
+difficulty easy
+set V0 health 1
+level_seed 9100
+mob_attack Z0 V0
+tick 3
+dump mobs entities events
+difficulty normal
+set V1 health 1
+level_seed 9101
+mob_attack Z1 V1
+tick 3
+dump mobs entities events
+difficulty normal
+set V2 health 1
+level_seed 9102
+mob_attack Z2 V2
+tick 3
+dump mobs entities events
+difficulty normal
+set V3 health 1
+level_seed 9103
+mob_attack Z3 V3
+tick 3
+dump mobs entities events
+difficulty hard
+set V4 health 1
+level_seed 9104
+mob_attack Z4 V4
+tick 3
+dump mobs entities events
+difficulty hard
+set V5 health 1
+level_seed 9105
+mob_attack Z5 V5
+tick 3
+dump mobs entities events
+difficulty hard
+set V6 health 1
+level_seed 9106
+mob_attack Z6 V6
+tick 3
+dump mobs entities events
+difficulty normal
+set V7 health 1
+level_seed 9107
+mob_attack Z7 V7
+tick 3
+dump mobs entities events
+tick 80
+dump mobs
+difficulty hard
+mobspawn R0 minecraft:zombie -39.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed R0 90
+attribute R0 minecraft:spawn_reinforcements 1.0
+target R0 I1
+mobspawn R1 minecraft:zombie -29.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed R1 91
+attribute R1 minecraft:spawn_reinforcements 1.0
+target R1 I1
+mobspawn R2 minecraft:zombie -19.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed R2 92
+attribute R2 minecraft:spawn_reinforcements 1.0
+target R2 I1
+mobspawn R3 minecraft:zombie -9.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed R3 93
+attribute R3 minecraft:spawn_reinforcements 1.0
+target R3 I1
+mobspawn R4 minecraft:zombie 0.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed R4 94
+attribute R4 minecraft:spawn_reinforcements 1.0
+target R4 I1
+mobspawn R5 minecraft:zombie 10.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed R5 95
+attribute R5 minecraft:spawn_reinforcements 1.0
+target R5 I1
+tick 2
+level_seed 9200
+hurt R0 player_attack 1 by=I1
+tick 2
+dump mobs
+level_seed 9201
+hurt R1 player_attack 1 by=I1
+tick 2
+dump mobs
+level_seed 9202
+hurt R2 player_attack 1 by=I1
+tick 2
+dump mobs
+level_seed 9203
+hurt R3 player_attack 1 by=I1
+tick 2
+dump mobs
+level_seed 9204
+hurt R4 player_attack 1 by=I1
+tick 2
+dump mobs
+level_seed 9205
+hurt R5 player_attack 1 by=I1
+tick 2
+dump mobs
+difficulty normal
+mobspawn W0 minecraft:zombie -10.5 -60 45.5 0 0 nofinalize {PersistenceRequired:1b,InWaterTime:590}
+entity_seed W0 120
+mobspawn W1 minecraft:zombie -6.5 -60 45.5 0 0 nofinalize {PersistenceRequired:1b,InWaterTime:593}
+entity_seed W1 121
+mobspawn W2 minecraft:zombie -2.5 -60 45.5 0 0 nofinalize {PersistenceRequired:1b,InWaterTime:596}
+entity_seed W2 122
+mobspawn H0 minecraft:husk -10.5 -60 49.5 0 0 nofinalize {PersistenceRequired:1b,InWaterTime:595}
+entity_seed H0 130
+mobspawn H1 minecraft:husk -6.5 -60 49.5 0 0 nofinalize {PersistenceRequired:1b,InWaterTime:596}
+entity_seed H1 131
+mobspawn H2 minecraft:husk -2.5 -60 49.5 0 0 nofinalize {PersistenceRequired:1b,InWaterTime:597}
+entity_seed H2 132
+mobspawn U0 minecraft:zombie -10.5 -60 47.5 0 0 nofinalize {PersistenceRequired:1b,DrownedConversionTime:30,InWaterTime:-1}
+mobspawn U1 minecraft:husk -6.5 -60 47.5 0 0 nofinalize {PersistenceRequired:1b,DrownedConversionTime:30,InWaterTime:-1}
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 20
+dump mobs
+tick 400
+dump mobs entities

@@ -1,0 +1,380 @@
+# Mob loot matrix: 87 mob types killed by a player holding a looting III sword (the ones listed after `fire` burn while dying: cooked drops),
+# each death preceded by its own `level_seed`. Compares drops, the experience orbs, rare drops (looting) and equipment drops for every class.
+command_env
+level flat
+preload 6
+entity_counter 9000
+difficulty normal
+gamerule mob_drops true
+spawn_player I1 survival 0.5 -60 0.5 0 0
+tick 30
+give I1 mainhand minecraft:diamond_sword[enchantments={"minecraft:looting":3}]
+fill -60 -45 -10 60 -45 80 minecraft:stone
+
+mobspawn M0 minecraft:witch -39.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M0 100
+mobspawn M1 minecraft:ghast -30.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M1 101
+mobspawn M2 minecraft:blaze -21.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M2 102
+mobspawn M3 minecraft:guardian -12.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M3 103
+mobspawn M4 minecraft:elder_guardian -3.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M4 104
+mobspawn M5 minecraft:squid 5.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M5 105
+mobspawn M6 minecraft:glow_squid 14.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M6 106
+mobspawn M7 minecraft:rabbit 23.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M7 107
+mobspawn M8 minecraft:wither_skeleton 32.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M8 108
+mobspawn M9 minecraft:stray -39.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M9 109
+mobspawn M10 minecraft:bogged -30.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M10 110
+mobspawn M11 minecraft:parched -21.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M11 111
+mobspawn M12 minecraft:drowned -12.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M12 112
+mobspawn M13 minecraft:husk -3.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M13 113
+mobspawn M14 minecraft:phantom 5.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M14 114
+mobspawn M15 minecraft:pufferfish 14.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M15 115
+mobspawn M16 minecraft:tropical_fish 23.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M16 116
+mobspawn M17 minecraft:salmon 32.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M17 117
+mobspawn M18 minecraft:cod -39.5 -60 22.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M18 118
+mobspawn M19 minecraft:ravager -30.5 -60 22.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M19 119
+mobspawn M20 minecraft:evoker -21.5 -60 22.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M20 120
+mobspawn M21 minecraft:vindicator -12.5 -60 22.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M21 121
+mobspawn M22 minecraft:pillager -3.5 -60 22.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M22 122
+mobspawn M23 minecraft:piglin 5.5 -60 22.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M23 123
+mobspawn M24 minecraft:piglin_brute 14.5 -60 22.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M24 124
+mobspawn M25 minecraft:hoglin 23.5 -60 22.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M25 125
+mobspawn M26 minecraft:zoglin 32.5 -60 22.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M26 126
+mobspawn M27 minecraft:zombified_piglin -39.5 -60 30.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M27 127
+mobspawn M28 minecraft:strider -30.5 -60 30.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M28 128
+mobspawn M29 minecraft:magma_cube -21.5 -60 30.5 0 0 {PersistenceRequired:1b,NoAI:1b,Size:1}
+entity_seed M29 129
+mobspawn M30 minecraft:slime -12.5 -60 30.5 0 0 {PersistenceRequired:1b,NoAI:1b,Size:1}
+entity_seed M30 130
+mobspawn M31 minecraft:enderman -3.5 -60 30.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M31 131
+mobspawn M32 minecraft:endermite 5.5 -60 30.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M32 132
+mobspawn M33 minecraft:spider 14.5 -60 30.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M33 133
+mobspawn M34 minecraft:cave_spider 23.5 -60 30.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M34 134
+mobspawn M35 minecraft:silverfish 32.5 -60 30.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M35 135
+mobspawn M36 minecraft:shulker -39.5 -60 38.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M36 136
+mobspawn M37 minecraft:iron_golem -30.5 -60 38.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M37 137
+mobspawn M38 minecraft:snow_golem -21.5 -60 38.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M38 138
+mobspawn M39 minecraft:copper_golem -12.5 -60 38.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M39 139
+mobspawn M40 minecraft:llama -3.5 -60 38.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M40 140
+mobspawn M41 minecraft:trader_llama 5.5 -60 38.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M41 141
+mobspawn M42 minecraft:horse 14.5 -60 38.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M42 142
+mobspawn M43 minecraft:donkey 23.5 -60 38.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M43 143
+mobspawn M44 minecraft:mule 32.5 -60 38.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M44 144
+mobspawn M45 minecraft:skeleton_horse -39.5 -60 46.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M45 145
+mobspawn M46 minecraft:zombie_horse -30.5 -60 46.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M46 146
+mobspawn M47 minecraft:polar_bear -21.5 -60 46.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M47 147
+mobspawn M48 minecraft:panda -12.5 -60 46.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M48 148
+mobspawn M49 minecraft:parrot -3.5 -60 46.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M49 149
+mobspawn M50 minecraft:goat 5.5 -60 46.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M50 150
+mobspawn M51 minecraft:camel 14.5 -60 46.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M51 151
+mobspawn M52 minecraft:camel_husk 23.5 -60 46.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M52 152
+mobspawn M53 minecraft:sniffer 32.5 -60 46.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M53 153
+mobspawn M54 minecraft:armadillo -39.5 -60 54.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M54 154
+mobspawn M55 minecraft:villager -30.5 -60 54.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M55 155
+mobspawn M56 minecraft:wandering_trader -21.5 -60 54.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M56 156
+mobspawn M57 minecraft:vex -12.5 -60 54.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M57 157
+mobspawn M58 minecraft:creaking -3.5 -60 54.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M58 158
+mobspawn M59 minecraft:turtle 5.5 -60 54.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M59 159
+mobspawn M60 minecraft:chicken 14.5 -60 54.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M60 160
+mobspawn M61 minecraft:pig 23.5 -60 54.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M61 161
+mobspawn M62 minecraft:cow 32.5 -60 54.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M62 162
+mobspawn M63 minecraft:sheep -39.5 -60 62.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M63 163
+mobspawn M64 minecraft:mooshroom -30.5 -60 62.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M64 164
+mobspawn M65 minecraft:wolf -21.5 -60 62.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M65 165
+mobspawn M66 minecraft:cat -12.5 -60 62.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M66 166
+mobspawn M67 minecraft:ocelot -3.5 -60 62.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M67 167
+mobspawn M68 minecraft:fox 5.5 -60 62.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M68 168
+mobspawn M69 minecraft:frog 14.5 -60 62.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M69 169
+mobspawn M70 minecraft:axolotl 23.5 -60 62.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M70 170
+mobspawn M71 minecraft:dolphin 32.5 -60 62.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M71 171
+mobspawn M72 minecraft:bat -39.5 -60 70.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M72 172
+mobspawn M73 minecraft:bee -30.5 -60 70.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M73 173
+mobspawn M74 minecraft:allay -21.5 -60 70.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M74 174
+mobspawn M75 minecraft:creeper -12.5 -60 70.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M75 175
+mobspawn M76 minecraft:zombie -3.5 -60 70.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M76 176
+mobspawn M77 minecraft:skeleton 5.5 -60 70.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M77 177
+mobspawn M78 minecraft:zombie_villager 14.5 -60 70.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M78 178
+mobspawn M79 minecraft:breeze 23.5 -60 70.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M79 179
+mobspawn M80 minecraft:warden 32.5 -60 70.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M80 180
+mobspawn M81 minecraft:sulfur_cube -39.5 -60 78.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M81 181
+mobspawn M82 minecraft:nautilus -30.5 -60 78.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M82 182
+mobspawn M83 minecraft:zombie_nautilus -21.5 -60 78.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M83 183
+mobspawn M84 minecraft:happy_ghast -12.5 -60 78.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M84 184
+mobspawn M85 minecraft:giant -3.5 -60 78.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M85 185
+mobspawn M86 minecraft:illusioner 5.5 -60 78.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed M86 186
+tick 2
+dump mobs
+level_seed 7000
+hurt M0 player_attack 1000 by=I1
+level_seed 7001
+hurt M1 player_attack 1000 by=I1
+level_seed 7002
+hurt M2 player_attack 1000 by=I1
+level_seed 7003
+hurt M3 player_attack 1000 by=I1
+level_seed 7004
+hurt M4 player_attack 1000 by=I1
+level_seed 7005
+hurt M5 player_attack 1000 by=I1
+level_seed 7006
+hurt M6 player_attack 1000 by=I1
+set M7 fire 200
+level_seed 7007
+hurt M7 player_attack 1000 by=I1
+level_seed 7008
+hurt M8 player_attack 1000 by=I1
+level_seed 7009
+hurt M9 player_attack 1000 by=I1
+level_seed 7010
+hurt M10 player_attack 1000 by=I1
+level_seed 7011
+hurt M11 player_attack 1000 by=I1
+level_seed 7012
+hurt M12 player_attack 1000 by=I1
+level_seed 7013
+hurt M13 player_attack 1000 by=I1
+level_seed 7014
+hurt M14 player_attack 1000 by=I1
+level_seed 7015
+hurt M15 player_attack 1000 by=I1
+level_seed 7016
+hurt M16 player_attack 1000 by=I1
+set M17 fire 200
+level_seed 7017
+hurt M17 player_attack 1000 by=I1
+set M18 fire 200
+level_seed 7018
+hurt M18 player_attack 1000 by=I1
+level_seed 7019
+hurt M19 player_attack 1000 by=I1
+level_seed 7020
+hurt M20 player_attack 1000 by=I1
+level_seed 7021
+hurt M21 player_attack 1000 by=I1
+level_seed 7022
+hurt M22 player_attack 1000 by=I1
+level_seed 7023
+hurt M23 player_attack 1000 by=I1
+level_seed 7024
+hurt M24 player_attack 1000 by=I1
+level_seed 7025
+hurt M25 player_attack 1000 by=I1
+level_seed 7026
+hurt M26 player_attack 1000 by=I1
+level_seed 7027
+hurt M27 player_attack 1000 by=I1
+level_seed 7028
+hurt M28 player_attack 1000 by=I1
+level_seed 7029
+hurt M29 player_attack 1000 by=I1
+level_seed 7030
+hurt M30 player_attack 1000 by=I1
+level_seed 7031
+hurt M31 player_attack 1000 by=I1
+level_seed 7032
+hurt M32 player_attack 1000 by=I1
+level_seed 7033
+hurt M33 player_attack 1000 by=I1
+level_seed 7034
+hurt M34 player_attack 1000 by=I1
+level_seed 7035
+hurt M35 player_attack 1000 by=I1
+level_seed 7036
+hurt M36 player_attack 1000 by=I1
+level_seed 7037
+hurt M37 player_attack 1000 by=I1
+level_seed 7038
+hurt M38 player_attack 1000 by=I1
+level_seed 7039
+hurt M39 player_attack 1000 by=I1
+set M40 fire 200
+level_seed 7040
+hurt M40 player_attack 1000 by=I1
+level_seed 7041
+hurt M41 player_attack 1000 by=I1
+set M42 fire 200
+level_seed 7042
+hurt M42 player_attack 1000 by=I1
+level_seed 7043
+hurt M43 player_attack 1000 by=I1
+level_seed 7044
+hurt M44 player_attack 1000 by=I1
+level_seed 7045
+hurt M45 player_attack 1000 by=I1
+level_seed 7046
+hurt M46 player_attack 1000 by=I1
+level_seed 7047
+hurt M47 player_attack 1000 by=I1
+level_seed 7048
+hurt M48 player_attack 1000 by=I1
+level_seed 7049
+hurt M49 player_attack 1000 by=I1
+set M50 fire 200
+level_seed 7050
+hurt M50 player_attack 1000 by=I1
+level_seed 7051
+hurt M51 player_attack 1000 by=I1
+level_seed 7052
+hurt M52 player_attack 1000 by=I1
+level_seed 7053
+hurt M53 player_attack 1000 by=I1
+level_seed 7054
+hurt M54 player_attack 1000 by=I1
+level_seed 7055
+hurt M55 player_attack 1000 by=I1
+level_seed 7056
+hurt M56 player_attack 1000 by=I1
+level_seed 7057
+hurt M57 player_attack 1000 by=I1
+level_seed 7058
+hurt M58 player_attack 1000 by=I1
+level_seed 7059
+hurt M59 player_attack 1000 by=I1
+set M60 fire 200
+level_seed 7060
+hurt M60 player_attack 1000 by=I1
+set M61 fire 200
+level_seed 7061
+hurt M61 player_attack 1000 by=I1
+set M62 fire 200
+level_seed 7062
+hurt M62 player_attack 1000 by=I1
+set M63 fire 200
+level_seed 7063
+hurt M63 player_attack 1000 by=I1
+set M64 fire 200
+level_seed 7064
+hurt M64 player_attack 1000 by=I1
+level_seed 7065
+hurt M65 player_attack 1000 by=I1
+level_seed 7066
+hurt M66 player_attack 1000 by=I1
+level_seed 7067
+hurt M67 player_attack 1000 by=I1
+level_seed 7068
+hurt M68 player_attack 1000 by=I1
+level_seed 7069
+hurt M69 player_attack 1000 by=I1
+level_seed 7070
+hurt M70 player_attack 1000 by=I1
+level_seed 7071
+hurt M71 player_attack 1000 by=I1
+level_seed 7072
+hurt M72 player_attack 1000 by=I1
+level_seed 7073
+hurt M73 player_attack 1000 by=I1
+level_seed 7074
+hurt M74 player_attack 1000 by=I1
+level_seed 7075
+hurt M75 player_attack 1000 by=I1
+level_seed 7076
+hurt M76 player_attack 1000 by=I1
+level_seed 7077
+hurt M77 player_attack 1000 by=I1
+level_seed 7078
+hurt M78 player_attack 1000 by=I1
+level_seed 7079
+hurt M79 player_attack 1000 by=I1
+level_seed 7080
+hurt M80 player_attack 1000 by=I1
+level_seed 7081
+hurt M81 player_attack 1000 by=I1
+level_seed 7082
+hurt M82 player_attack 1000 by=I1
+level_seed 7083
+hurt M83 player_attack 1000 by=I1
+level_seed 7084
+hurt M84 player_attack 1000 by=I1
+level_seed 7085
+hurt M85 player_attack 1000 by=I1
+level_seed 7086
+hurt M86 player_attack 1000 by=I1
+tick 1
+dump entities events
+tick 30
+dump entities events
+tick 40
+dump entities

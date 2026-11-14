@@ -374,8 +374,8 @@ pub fn refresh_dirty_attributes(entity: &mut dyn Entity, level: &mut ServerLevel
     }
 }
 
-/// `LivingEntity.onAttributeUpdated(attribute)`. shortcut: the waypoint tracking of `WAYPOINT_TRANSMIT_RANGE`
-/// (locator bar) is not modelled.
+/// `LivingEntity.onAttributeUpdated(attribute)`: the waypoint range attributes mark the waypoint state dirty, which
+/// `ServerLevel::process_waypoint_state` applies.
 pub fn on_attribute_updated(
     entity: &mut dyn Entity,
     _level: &mut ServerLevel,

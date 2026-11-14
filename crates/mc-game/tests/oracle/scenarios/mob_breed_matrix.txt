@@ -1,0 +1,545 @@
+# Breeding across species and variants: spawnChildFromBreeding (the BreedGoal path) for parent pairs with fixed variants/colours/genes and several level seeds:
+# wolf/cat/pig/cow/chicken variant inheritance, mooshroom red x brown, sheep colour mixing, horse x donkey (mule), stat inheritance, goat screaming,
+# panda/fox/rabbit/axolotl genetics, llama strength. Compares the babies' saved data (nbt) and the parents' state (love reset, age 6000, experience orbs).
+command_env
+level flat
+preload 6
+difficulty normal
+entity_counter 7000
+spawn_player I1 survival 0.5 -60 0.5 0 0
+tick 30
+
+mobspawn A1 minecraft:wolf -59.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:ashen"}
+mobspawn B1 minecraft:wolf -57.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:pale"}
+entity_seed A1 201
+entity_seed B1 301
+mobspawn A2 minecraft:wolf -49.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:ashen"}
+mobspawn B2 minecraft:wolf -47.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:pale"}
+entity_seed A2 202
+entity_seed B2 302
+mobspawn A3 minecraft:wolf -39.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:black"}
+mobspawn B3 minecraft:wolf -37.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:chestnut"}
+entity_seed A3 203
+entity_seed B3 303
+mobspawn A4 minecraft:wolf -29.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:black"}
+mobspawn B4 minecraft:wolf -27.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:chestnut"}
+entity_seed A4 204
+entity_seed B4 304
+mobspawn A5 minecraft:wolf -19.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:rusty"}
+mobspawn B5 minecraft:wolf -17.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:striped"}
+entity_seed A5 205
+entity_seed B5 305
+mobspawn A6 minecraft:wolf -9.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:rusty"}
+mobspawn B6 minecraft:wolf -7.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:striped"}
+entity_seed A6 206
+entity_seed B6 306
+mobspawn A7 minecraft:wolf 0.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:snowy"}
+mobspawn B7 minecraft:wolf 2.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:woods"}
+entity_seed A7 207
+entity_seed B7 307
+mobspawn A8 minecraft:wolf 10.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:snowy"}
+mobspawn B8 minecraft:wolf 12.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:"minecraft:woods"}
+entity_seed A8 208
+entity_seed B8 308
+mobspawn A9 minecraft:cat 20.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:calico"}
+mobspawn B9 minecraft:cat 22.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:jellie"}
+entity_seed A9 209
+entity_seed B9 309
+mobspawn A10 minecraft:cat 30.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:calico"}
+mobspawn B10 minecraft:cat 32.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:jellie"}
+entity_seed A10 210
+entity_seed B10 310
+mobspawn A11 minecraft:cat -59.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:tabby"}
+mobspawn B11 minecraft:cat -57.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:all_black"}
+entity_seed A11 211
+entity_seed B11 311
+mobspawn A12 minecraft:cat -49.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:tabby"}
+mobspawn B12 minecraft:cat -47.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:all_black"}
+entity_seed A12 212
+entity_seed B12 312
+mobspawn A13 minecraft:cat -39.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:persian"}
+mobspawn B13 minecraft:cat -37.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:ragdoll"}
+entity_seed A13 213
+entity_seed B13 313
+mobspawn A14 minecraft:cat -29.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:persian"}
+mobspawn B14 minecraft:cat -27.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:ragdoll"}
+entity_seed A14 214
+entity_seed B14 314
+mobspawn A15 minecraft:mooshroom -19.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+mobspawn B15 minecraft:mooshroom -17.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"brown"}
+entity_seed A15 215
+entity_seed B15 315
+mobspawn A16 minecraft:mooshroom -9.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+mobspawn B16 minecraft:mooshroom -7.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"brown"}
+entity_seed A16 216
+entity_seed B16 316
+mobspawn A17 minecraft:mooshroom 0.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+mobspawn B17 minecraft:mooshroom 2.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"brown"}
+entity_seed A17 217
+entity_seed B17 317
+mobspawn A18 minecraft:mooshroom 10.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+mobspawn B18 minecraft:mooshroom 12.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+entity_seed A18 218
+entity_seed B18 318
+mobspawn A19 minecraft:mooshroom 20.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+mobspawn B19 minecraft:mooshroom 22.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+entity_seed A19 219
+entity_seed B19 319
+mobspawn A20 minecraft:pig 30.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:cold"}
+mobspawn B20 minecraft:pig 32.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:warm"}
+entity_seed A20 220
+entity_seed B20 320
+mobspawn A21 minecraft:pig -59.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:cold"}
+mobspawn B21 minecraft:pig -57.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:warm"}
+entity_seed A21 221
+entity_seed B21 321
+mobspawn A22 minecraft:cow -49.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:cold"}
+mobspawn B22 minecraft:cow -47.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:warm"}
+entity_seed A22 222
+entity_seed B22 322
+mobspawn A23 minecraft:cow -39.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:cold"}
+mobspawn B23 minecraft:cow -37.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:warm"}
+entity_seed A23 223
+entity_seed B23 323
+mobspawn A24 minecraft:chicken -29.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:cold"}
+mobspawn B24 minecraft:chicken -27.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:warm"}
+entity_seed A24 224
+entity_seed B24 324
+mobspawn A25 minecraft:chicken -19.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:cold"}
+mobspawn B25 minecraft:chicken -17.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:warm"}
+entity_seed A25 225
+entity_seed B25 325
+mobspawn A26 minecraft:sheep -9.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Color:0b}
+mobspawn B26 minecraft:sheep -7.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Color:15b}
+entity_seed A26 226
+entity_seed B26 326
+mobspawn A27 minecraft:sheep 0.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Color:14b}
+mobspawn B27 minecraft:sheep 2.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Color:11b}
+entity_seed A27 227
+entity_seed B27 327
+mobspawn A28 minecraft:sheep 10.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Color:1b}
+mobspawn B28 minecraft:sheep 12.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Color:4b}
+entity_seed A28 228
+entity_seed B28 328
+mobspawn A29 minecraft:sheep 20.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Color:10b}
+mobspawn B29 minecraft:sheep 22.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Color:3b}
+entity_seed A29 229
+entity_seed B29 329
+mobspawn A30 minecraft:sheep 30.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Color:5b}
+mobspawn B30 minecraft:sheep 32.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Color:9b}
+entity_seed A30 230
+entity_seed B30 330
+mobspawn A31 minecraft:sheep -59.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Color:0b}
+mobspawn B31 minecraft:sheep -57.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Color:0b}
+entity_seed A31 231
+entity_seed B31 331
+mobspawn A32 minecraft:horse -49.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B32 minecraft:donkey -47.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A32 232
+entity_seed B32 332
+mobspawn A33 minecraft:horse -39.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B33 minecraft:donkey -37.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A33 233
+entity_seed B33 333
+mobspawn A34 minecraft:donkey -29.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B34 minecraft:horse -27.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A34 234
+entity_seed B34 334
+mobspawn A35 minecraft:donkey -19.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B35 minecraft:horse -17.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A35 235
+entity_seed B35 335
+mobspawn A36 minecraft:horse -9.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B36 minecraft:horse -7.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A36 236
+entity_seed B36 336
+mobspawn A37 minecraft:horse 0.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B37 minecraft:horse 2.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A37 237
+entity_seed B37 337
+mobspawn A38 minecraft:horse 10.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B38 minecraft:horse 12.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A38 238
+entity_seed B38 338
+mobspawn A39 minecraft:mule 20.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B39 minecraft:horse 22.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A39 239
+entity_seed B39 339
+mobspawn A40 minecraft:donkey 30.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B40 minecraft:donkey 32.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A40 240
+entity_seed B40 340
+mobspawn A41 minecraft:donkey -59.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B41 minecraft:donkey -57.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A41 241
+entity_seed B41 341
+mobspawn A42 minecraft:llama -49.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B42 minecraft:llama -47.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A42 242
+entity_seed B42 342
+mobspawn A43 minecraft:llama -39.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B43 minecraft:llama -37.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A43 243
+entity_seed B43 343
+mobspawn A44 minecraft:trader_llama -29.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B44 minecraft:llama -27.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A44 244
+entity_seed B44 344
+mobspawn A45 minecraft:camel -19.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B45 minecraft:camel -17.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A45 245
+entity_seed B45 345
+mobspawn A46 minecraft:goat -9.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,IsScreamingGoat:1b}
+mobspawn B46 minecraft:goat -7.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A46 246
+entity_seed B46 346
+mobspawn A47 minecraft:goat 0.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,IsScreamingGoat:1b}
+mobspawn B47 minecraft:goat 2.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A47 247
+entity_seed B47 347
+mobspawn A48 minecraft:panda 10.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"brown",HiddenGene:"lazy"}
+mobspawn B48 minecraft:panda 12.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"playful",HiddenGene:"worried"}
+entity_seed A48 248
+entity_seed B48 348
+mobspawn A49 minecraft:panda 20.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"brown",HiddenGene:"lazy"}
+mobspawn B49 minecraft:panda 22.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"playful",HiddenGene:"worried"}
+entity_seed A49 249
+entity_seed B49 349
+mobspawn A50 minecraft:panda 30.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"brown",HiddenGene:"lazy"}
+mobspawn B50 minecraft:panda 32.5 -60 42.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,MainGene:"playful",HiddenGene:"worried"}
+entity_seed A50 250
+entity_seed B50 350
+mobspawn A51 minecraft:fox -59.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+mobspawn B51 minecraft:fox -57.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"snow"}
+entity_seed A51 251
+entity_seed B51 351
+mobspawn A52 minecraft:fox -49.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+mobspawn B52 minecraft:fox -47.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"snow"}
+entity_seed A52 252
+entity_seed B52 352
+mobspawn A53 minecraft:fox -39.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+mobspawn B53 minecraft:fox -37.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"snow"}
+entity_seed A53 253
+entity_seed B53 353
+mobspawn A54 minecraft:rabbit -29.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:0}
+mobspawn B54 minecraft:rabbit -27.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:1}
+entity_seed A54 254
+entity_seed B54 354
+mobspawn A55 minecraft:rabbit -19.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:0}
+mobspawn B55 minecraft:rabbit -17.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:1}
+entity_seed A55 255
+entity_seed B55 355
+mobspawn A56 minecraft:rabbit -9.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:99}
+mobspawn B56 minecraft:rabbit -7.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:5}
+entity_seed A56 256
+entity_seed B56 356
+mobspawn A57 minecraft:axolotl 0.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:0}
+mobspawn B57 minecraft:axolotl 2.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:1}
+entity_seed A57 257
+entity_seed B57 357
+mobspawn A58 minecraft:axolotl 10.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:0}
+mobspawn B58 minecraft:axolotl 12.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:1}
+entity_seed A58 258
+entity_seed B58 358
+mobspawn A59 minecraft:axolotl 20.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:0}
+mobspawn B59 minecraft:axolotl 22.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:1}
+entity_seed A59 259
+entity_seed B59 359
+mobspawn A60 minecraft:hoglin 30.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B60 minecraft:hoglin 32.5 -60 50.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A60 260
+entity_seed B60 360
+mobspawn A61 minecraft:strider -59.5 -60 58.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B61 minecraft:strider -57.5 -60 58.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A61 261
+entity_seed B61 361
+mobspawn A62 minecraft:armadillo -49.5 -60 58.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B62 minecraft:armadillo -47.5 -60 58.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A62 262
+entity_seed B62 362
+mobspawn A63 minecraft:ocelot -39.5 -60 58.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B63 minecraft:ocelot -37.5 -60 58.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A63 263
+entity_seed B63 363
+mobspawn A64 minecraft:bee -29.5 -60 58.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B64 minecraft:bee -27.5 -60 58.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A64 264
+entity_seed B64 364
+mobspawn A65 minecraft:turtle -19.5 -60 58.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B65 minecraft:turtle -17.5 -60 58.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A65 265
+entity_seed B65 365
+mobspawn A66 minecraft:sniffer -9.5 -60 58.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B66 minecraft:sniffer -7.5 -60 58.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A66 266
+entity_seed B66 366
+tick 2
+love A1 I1
+love B1 I1
+level_seed 8000
+breed A1 B1
+love A2 I1
+love B2 I1
+level_seed 8003
+breed A2 B2
+love A3 I1
+love B3 I1
+level_seed 8006
+breed A3 B3
+love A4 I1
+love B4 I1
+level_seed 8009
+breed A4 B4
+love A5 I1
+love B5 I1
+level_seed 8012
+breed A5 B5
+love A6 I1
+love B6 I1
+level_seed 8015
+breed A6 B6
+love A7 I1
+love B7 I1
+level_seed 8018
+breed A7 B7
+love A8 I1
+love B8 I1
+level_seed 8021
+breed A8 B8
+love A9 I1
+love B9 I1
+level_seed 8024
+breed A9 B9
+love A10 I1
+love B10 I1
+level_seed 8027
+breed A10 B10
+love A11 I1
+love B11 I1
+level_seed 8030
+breed A11 B11
+love A12 I1
+love B12 I1
+level_seed 8033
+breed A12 B12
+love A13 I1
+love B13 I1
+level_seed 8036
+breed A13 B13
+love A14 I1
+love B14 I1
+level_seed 8039
+breed A14 B14
+love A15 I1
+love B15 I1
+level_seed 8042
+breed A15 B15
+love A16 I1
+love B16 I1
+level_seed 8045
+breed A16 B16
+love A17 I1
+love B17 I1
+level_seed 8048
+breed A17 B17
+love A18 I1
+love B18 I1
+level_seed 8051
+breed A18 B18
+love A19 I1
+love B19 I1
+level_seed 8054
+breed A19 B19
+love A20 I1
+love B20 I1
+level_seed 8057
+breed A20 B20
+love A21 I1
+love B21 I1
+level_seed 8060
+breed A21 B21
+love A22 I1
+love B22 I1
+level_seed 8063
+breed A22 B22
+love A23 I1
+love B23 I1
+level_seed 8066
+breed A23 B23
+love A24 I1
+love B24 I1
+level_seed 8069
+breed A24 B24
+love A25 I1
+love B25 I1
+level_seed 8072
+breed A25 B25
+love A26 I1
+love B26 I1
+level_seed 8075
+breed A26 B26
+love A27 I1
+love B27 I1
+level_seed 8078
+breed A27 B27
+love A28 I1
+love B28 I1
+level_seed 8081
+breed A28 B28
+love A29 I1
+love B29 I1
+level_seed 8084
+breed A29 B29
+love A30 I1
+love B30 I1
+level_seed 8087
+breed A30 B30
+love A31 I1
+love B31 I1
+level_seed 8090
+breed A31 B31
+love A32 I1
+love B32 I1
+level_seed 8093
+breed A32 B32
+love A33 I1
+love B33 I1
+level_seed 8096
+breed A33 B33
+love A34 I1
+love B34 I1
+level_seed 8099
+breed A34 B34
+love A35 I1
+love B35 I1
+level_seed 8102
+breed A35 B35
+love A36 I1
+love B36 I1
+level_seed 8105
+breed A36 B36
+love A37 I1
+love B37 I1
+level_seed 8108
+breed A37 B37
+love A38 I1
+love B38 I1
+level_seed 8111
+breed A38 B38
+love A39 I1
+love B39 I1
+level_seed 8114
+breed A39 B39
+love A40 I1
+love B40 I1
+level_seed 8117
+breed A40 B40
+love A41 I1
+love B41 I1
+level_seed 8120
+breed A41 B41
+love A42 I1
+love B42 I1
+level_seed 8123
+breed A42 B42
+love A43 I1
+love B43 I1
+level_seed 8126
+breed A43 B43
+love A44 I1
+love B44 I1
+level_seed 8129
+breed A44 B44
+love A45 I1
+love B45 I1
+level_seed 8132
+breed A45 B45
+love A46 I1
+love B46 I1
+level_seed 8135
+breed A46 B46
+love A47 I1
+love B47 I1
+level_seed 8138
+breed A47 B47
+love A48 I1
+love B48 I1
+level_seed 8141
+breed A48 B48
+love A49 I1
+love B49 I1
+level_seed 8144
+breed A49 B49
+love A50 I1
+love B50 I1
+level_seed 8147
+breed A50 B50
+love A51 I1
+love B51 I1
+level_seed 8150
+breed A51 B51
+love A52 I1
+love B52 I1
+level_seed 8153
+breed A52 B52
+love A53 I1
+love B53 I1
+level_seed 8156
+breed A53 B53
+love A54 I1
+love B54 I1
+level_seed 8159
+breed A54 B54
+love A55 I1
+love B55 I1
+level_seed 8162
+breed A55 B55
+love A56 I1
+love B56 I1
+level_seed 8165
+breed A56 B56
+love A57 I1
+love B57 I1
+level_seed 8168
+breed A57 B57
+love A58 I1
+love B58 I1
+level_seed 8171
+breed A58 B58
+love A59 I1
+love B59 I1
+level_seed 8174
+breed A59 B59
+love A60 I1
+love B60 I1
+level_seed 8177
+breed A60 B60
+love A61 I1
+love B61 I1
+level_seed 8180
+breed A61 B61
+love A62 I1
+love B62 I1
+level_seed 8183
+breed A62 B62
+love A63 I1
+love B63 I1
+level_seed 8186
+breed A63 B63
+love A64 I1
+love B64 I1
+level_seed 8189
+breed A64 B64
+love A65 I1
+love B65 I1
+level_seed 8192
+breed A65 B65
+love A66 I1
+love B66 I1
+level_seed 8195
+breed A66 B66
+level_seed 8198
+tick 2
+dump mobs
+tick 30
+dump mobs entities

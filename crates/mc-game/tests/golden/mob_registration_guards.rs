@@ -1,7 +1,6 @@
 //! Guard of the mob registrations, the counterpart of `entity_registration_guards` (which pins the non-mob types). Reads the
 //! vanilla `EntityTypes` and class sources and pins, for the 90 vanilla `Mob` types:
-//! * every mob type has a Rust factory, or is listed in `EXPECTED_MISSING` with what is not implemented (until then it is
-//!   created as an inert `PlainEntity` that keeps its NBT);
+//! * every mob type has a Rust factory, or is listed in `EXPECTED_MISSING` with what is not implemented;
 //! * every mob type with a vanilla `SpawnPlacements.register` has its spawn predicate, or is listed in
 //!   `EXPECTED_MISSING_PREDICATE` (its class has to be missing too: a class registers its own predicate);
 //! * every living type has a `DefaultAttributes` supplier.

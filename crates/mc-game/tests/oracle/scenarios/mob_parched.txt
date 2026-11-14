@@ -1,0 +1,32 @@
+# The parched: a skeleton of the desert with 16 health, its own sounds, arrows with weakness, a bow interval of 70 ticks (50 on hard),
+# immunity to weakness; finalized it carries a bow, burns in the daylight and drops like a skeleton.
+level flat
+difficulty hard
+preload 4
+time 6000
+entity_counter 2600
+level_seed 2601
+spawn_player Steve survival 0.5 -60 0.5 0 0
+level_seed 2602
+mobspawn P minecraft:parched 10.5 -60 0.5 90 0
+entity_seed P 2603
+mobspawn Q minecraft:parched 10.5 -60 12.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed Q 2604
+tick 2
+dump mob:P nbt:P goals:P attrs:P mob:Q nbt:Q packets:Steve:none
+note weakness cannot be put on a parched, other effects can
+effect Q minecraft:weakness 0 200
+effect Q minecraft:slowness 0 200
+dump mob:Q
+note hurt, death sounds and the loot
+hurt Q minecraft:generic 3
+tick 1
+dump mob:Q events
+level_seed 2605
+hurt Q minecraft:player_attack 1000 by=Steve direct=Steve
+tick 40
+dump entities events player:Steve
+note it burns in the daylight and shoots weakness arrows at the player
+set Steve invulnerable true
+tick 100
+dump mob:P entities events

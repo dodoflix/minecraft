@@ -460,7 +460,7 @@ impl Entity for Bee {
         Some(self)
     }
 
-    fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
+    fn get_default_dimensions(&self, _pose: Pose) -> EntityDimensions {
         let dims = EntityDimensions::of_type(self.mob.living.entity.entity_type);
         if self.is_baby() {
             dims.scale(0.5)
