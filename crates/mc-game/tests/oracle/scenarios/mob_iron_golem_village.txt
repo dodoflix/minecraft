@@ -1,0 +1,61 @@
+# Iron golems and a village: a golem out of the village walks back toward it (MoveBackToVillageGoal), one inside strolls between points of
+# interest and villagers that want a golem (GolemRandomStrollInVillageGoal), and golems defend the village against a zombie and against a
+# player the villagers have a bad reputation of; a golem is angry at that player only (DefendVillageTargetGoal).
+level flat
+preload 6
+difficulty hard
+entity_counter 9250
+level_seed 9251
+time 4000
+gamerule mob_drops false
+spawn_player Steve survival 40.5 -60 40.5 0 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+block 2 -60 2 minecraft:red_bed[facing=east,part=foot]
+block 3 -60 2 minecraft:red_bed[facing=east,part=head]
+block 6 -60 2 minecraft:red_bed[facing=east,part=foot]
+block 7 -60 2 minecraft:red_bed[facing=east,part=head]
+block 2 -60 6 minecraft:red_bed[facing=east,part=foot]
+block 3 -60 6 minecraft:red_bed[facing=east,part=head]
+block 6 -60 6 minecraft:red_bed[facing=east,part=foot]
+block 7 -60 6 minecraft:red_bed[facing=east,part=head]
+tick 30
+mobspawn V1 minecraft:villager 3.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+mobspawn V2 minecraft:villager 5.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+entity_seed V1 9252
+entity_seed V2 9253
+tick 40
+dump brain:V1 brain:V2
+mobspawn G1 minecraft:iron_golem 4.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn G2 minecraft:iron_golem 60.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed G1 9254
+entity_seed G2 9255
+tick 2
+dump mobs goals:G1 goals:G2
+watch mob:G1 mob:G2
+tick 200
+watch off
+dump mobs events
+note a zombie comes to the village
+mobspawn Z minecraft:zombie 20.5 -60 4.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed Z 9256
+watch mob:G1 mob:G2 mob:Z
+tick 120
+watch off
+dump mobs
+note a player the villagers dislike
+tp Steve 12.5 -60 4.5 90 0
+hurt V1 player_attack 0.5 by=Steve
+tick 30
+hurt V1 player_attack 0.5 by=Steve
+tick 30
+hurt V1 player_attack 0.5 by=Steve
+tick 30
+hurt V1 player_attack 0.5 by=Steve
+tick 30
+hurt V1 player_attack 0.5 by=Steve
+tick 30
+watch mob:G1 mob:G2 player:Steve
+tick 120
+watch off
+dump mobs events

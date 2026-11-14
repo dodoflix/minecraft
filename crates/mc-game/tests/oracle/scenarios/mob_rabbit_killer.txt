@@ -1,0 +1,34 @@
+# Killer bunny: RabbitType 99 attacks players and wolves (nearest attackable target), jumps at its target within four blocks, bites with its
+# own damage and attack sound, is not afraid of anyone, and its pack answers when it is hurt.
+level flat
+preload 4
+difficulty hard
+entity_counter 9300
+level_seed 9301
+time 6000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+attribute Steve minecraft:max_health 200
+set Steve health 200
+tick 30
+mobspawn K1 minecraft:rabbit 8.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,RabbitType:99}
+mobspawn K2 minecraft:rabbit 8.5 -60 6.5 90 0 nofinalize {PersistenceRequired:1b,RabbitType:99}
+mobspawn Wolf minecraft:wolf 20.5 -60 20.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed K1 9302
+entity_seed K2 9303
+entity_seed Wolf 9304
+tick 2
+dump mobs goals:K1
+watch mob:K1 mob:K2 player:Steve
+tick 100
+watch off
+dump mobs events
+note the bunnies are hurt in turn
+set Steve health 200
+hurt K1 player_attack 1 by=Steve
+tick 2
+dump mobs
+watch mob:K1 mob:K2
+tick 60
+watch off
+dump mobs events

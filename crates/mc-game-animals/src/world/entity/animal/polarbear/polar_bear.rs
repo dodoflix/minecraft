@@ -104,6 +104,9 @@ impl Goal for PolarBearMeleeAttackGoal {
                 }
             });
     }
+    fn name(&self) -> &'static str {
+        "PolarBear$PolarBearMeleeAttackGoal"
+    }
     fn flags(&self) -> GoalFlags {
         self.melee.flags()
     }
@@ -144,6 +147,9 @@ impl Goal for PolarBearHurtByTargetGoal {
     }
     fn stop(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         self.hurt.stop(mob, level);
+    }
+    fn name(&self) -> &'static str {
+        "PolarBear$PolarBearHurtByTargetGoal"
     }
     fn flags(&self) -> GoalFlags {
         self.hurt.flags()
@@ -187,6 +193,9 @@ impl Goal for PolarBearAttackPlayersGoal {
     }
     fn stop(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         self.nearest.stop(mob, level);
+    }
+    fn name(&self) -> &'static str {
+        "PolarBear$PolarBearAttackPlayersGoal"
     }
     fn flags(&self) -> GoalFlags {
         self.nearest.flags()

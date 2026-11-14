@@ -1,0 +1,29 @@
+# Entity predicates over the rabbit variant component: `execute if predicate` (an inline entity_properties components predicate) tags the
+# rabbit whose own value matches, and a different value must not match; the killer bunny reports `evil`.
+command_env
+level flat
+preload 4
+entity_counter 9400
+level_seed 9401
+difficulty normal
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn GOL minecraft:rabbit 3.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["gol"],RabbitType:4}
+entity_seed GOL 9410
+mobspawn EVI minecraft:rabbit 5.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["evi"],RabbitType:99}
+entity_seed EVI 9411
+mobspawn BRO minecraft:rabbit 7.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["bro"]}
+entity_seed BRO 9412
+mobspawn COW minecraft:cow 9.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["cow"]}
+entity_seed COW 9413
+tick 2
+cmd execute as @e[tag=gol] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:rabbit/variant":"gold"}}} run tag @s add hit_variant
+cmd execute as @e[tag=gol] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:rabbit/variant":"brown"}}} run tag @s add miss_variant
+cmd execute as @e[tag=evi] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:rabbit/variant":"evil"}}} run tag @s add hit_evil
+cmd execute as @e[tag=evi] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:rabbit/variant":"gold"}}} run tag @s add miss_evil
+cmd execute as @e[tag=bro] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:rabbit/variant":"brown"}}} run tag @s add hit_default
+cmd execute as @e[tag=cow] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:rabbit/variant":"brown"}}} run tag @s add miss_cow
+tick 1
+dump nbt:GOL
+dump nbt:EVI
+dump nbt:BRO
+dump nbt:COW

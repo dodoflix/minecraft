@@ -1,0 +1,27 @@
+# Iron golem offering a flower: on daytime with the one-in-8000 roll a golem with a villager within six blocks looks at it and holds out the
+# poppy for 400 ticks (entity events 11 and 34, the look target), a golem without anyone near starts nothing, and it does not offer at night.
+level flat
+preload 4
+difficulty normal
+entity_counter 9400
+level_seed 9401
+time 6000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 60.5 0 0
+tick 30
+mobspawn G minecraft:iron_golem 0.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,PlayerCreated:1b}
+mobspawn V minecraft:villager 2.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn L minecraft:iron_golem 40.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,PlayerCreated:1b}
+entity_seed G 7770
+entity_seed L 2473
+dump goals:G
+watch mob:G mob:L
+tick 6
+watch off
+dump goals:G goals:L events
+tick 100
+dump mobs
+tick 300
+dump mobs events
+tick 40
+dump mobs goals:G events

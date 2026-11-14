@@ -345,6 +345,7 @@ impl Harness {
         let clocks = std::sync::Arc::<mc_game::world::clock::ClockTotals>::default();
         level.tick_state.attributes = super::block_scenario::environment_attributes(
             &super::block_scenario::load_dimension_type("overworld"),
+            None,
             clocks.clone(),
         );
         Harness {

@@ -62,6 +62,10 @@ impl Goal for RabbitAvoidEntityGoal {
         self.inner.tick(mob, level);
     }
 
+    fn name(&self) -> &'static str {
+        "Rabbit$RabbitAvoidEntityGoal"
+    }
+
     fn flags(&self) -> GoalFlags {
         self.inner.flags()
     }
@@ -102,6 +106,10 @@ impl Goal for RabbitPanicGoal {
         if let Some(rabbit) = mob.as_any_mut().downcast_mut::<Rabbit>() {
             rabbit.set_speed_modifier(level, speed);
         }
+    }
+
+    fn name(&self) -> &'static str {
+        "Rabbit$RabbitPanicGoal"
     }
 
     fn flags(&self) -> GoalFlags {
@@ -224,7 +232,15 @@ impl Goal for RaidGardenGoal {
         }
     }
 
+    fn requires_update_every_tick(&self) -> bool {
+        true
+    }
+
+    fn name(&self) -> &'static str {
+        "Rabbit$RaidGardenGoal"
+    }
+
     fn flags(&self) -> GoalFlags {
-        GoalFlags::of(&[Flag::Move, Flag::Look])
+        GoalFlags::of(&[Flag::Move, Flag::Jump])
     }
 }

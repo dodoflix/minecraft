@@ -1,0 +1,63 @@
+# Polar bears and their cub: an adult attacks a player that comes within ten blocks only while a cub is within eight blocks of it (standing
+# up, the warning sound, the swing), forgets the player when it is far away, and a hurt cub (that panics) alerts the adults around it;
+# adults hit by a player are angry for a persistent time; an adult goes for a fox.
+level flat
+preload 4
+difficulty hard
+entity_counter 9500
+level_seed 9501
+time 6000
+gamerule mob_drops false
+spawn_player Steve survival 18.5 -60 0.5 90 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+tick 30
+mobspawn A minecraft:polar_bear 0.5 -60 0.5 270 0 nofinalize {PersistenceRequired:1b}
+mobspawn C minecraft:polar_bear 4.5 -60 -3.5 270 0 nofinalize {PersistenceRequired:1b,Age:-24000}
+mobspawn B minecraft:polar_bear 0.5 -60 -14.5 270 0 nofinalize {PersistenceRequired:1b}
+entity_seed A 9502
+entity_seed C 9503
+entity_seed B 9504
+tick 2
+dump mobs goals:A goals:C
+watch mob:A mob:C mob:B
+tick 30
+watch off
+note the player comes within ten blocks of the bear that has a cub next to it
+tp Steve 8.5 -60 0.5 90 0
+watch mob:A mob:C player:Steve
+tick 120
+watch off
+dump mobs events
+note the player runs off
+tp Steve 60.5 -60 0.5 90 0
+watch mob:A
+tick 80
+watch off
+tp Steve 18.5 -60 0.5 90 0
+tick 5
+dump mobs
+note the cub is hurt: it panics and the adults that can reach the player attack it
+hurt C player_attack 1 by=Steve
+tick 2
+dump mobs goals:A goals:B goals:C
+watch mob:A mob:B mob:C
+tick 100
+watch off
+dump mobs events
+note an adult hit by the player is angry at it for a persistent time
+tp Steve 60.5 -60 0.5 90 0
+tick 60
+hurt A player_attack 1 by=Steve
+tick 2
+dump mobs nbt:A
+tick 100
+dump nbt:A mobs
+note an adult goes for a fox
+tp Steve 90.5 -60 40.5 90 0
+mobspawn F minecraft:fox 4.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed F 9505
+watch mob:A mob:B mob:F
+tick 120
+watch off
+dump mobs events

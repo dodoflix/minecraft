@@ -432,11 +432,18 @@ pub(super) fn load_dimension_type(
     .expect("dimension type")
 }
 
-/// The dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`) and the weather layers; no biome layers.
+/// The dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`), the weather layers and the
+/// attributes of the biomes of the real registry (none while the level only knows plains).
 pub(super) fn environment_attributes(
     dimension_type: &mc_game::registry::typed::dimension_type::DimensionType,
+    biomes: Option<&mc_worldgen::biome::BiomeRegistry>,
     clocks: Arc<mc_game::world::clock::ClockTotals>,
 ) -> mc_game::world::attribute::EnvironmentAttributeSystem {
+    let mut biome_attributes: Vec<Option<&serde_json::Value>> =
+        vec![None; biomes.map_or(1, |b| b.len())];
+    for id in biomes.iter().flat_map(|b| b.ids()) {
+        biome_attributes[id.0 as usize] = biomes.and_then(|b| b.get(id).attributes.as_ref());
+    }
     let timelines = match &dimension_type.timelines {
         mc_game::registry::typed::HolderSetRef::Tag(tag) => timelines_of_tag(tag.path()),
         mc_game::registry::typed::HolderSetRef::Elements(ids) => {
@@ -445,7 +452,7 @@ pub(super) fn environment_attributes(
     };
     mc_game::world::attribute::EnvironmentAttributeSystem::build(
         &dimension_type.attributes,
-        &vec![None],
+        &biome_attributes,
         &timelines,
         true,
         clocks,
@@ -686,8 +693,12 @@ impl Scenario {
             )),
         });
         level.scratch_dir = Some(scratch);
-        // dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`) and the weather layers; no biome layers
-        level.tick_state.attributes = environment_attributes(&dimension_type, self.clocks.clone());
+        // dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`), the weather layers and the biome layers
+        level.tick_state.attributes = environment_attributes(
+            &dimension_type,
+            worldgen_biomes.as_deref(),
+            self.clocks.clone(),
+        );
         // the monster light test and block light limit of the dimension (the nether's limit is 15)
         level
             .spawning

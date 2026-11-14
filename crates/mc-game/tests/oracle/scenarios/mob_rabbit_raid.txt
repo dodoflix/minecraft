@@ -1,0 +1,40 @@
+# Rabbits raiding a carrot garden: RaidGardenGoal looks for farmland under a fully grown carrot and, standing at it, eats one growth stage
+# (a stage down plays the break particles) and wants no more food for a while; a rabbit that already ate (MoreCarrotTicks) waits, a young
+# carrot is not a target, a rabbit further away starts for the carrot and gives up, and nothing happens with mob griefing off.
+level flat
+preload 4
+difficulty normal
+entity_counter 9100
+level_seed 9101
+time 6000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 40.5 180 0
+fill 6 -61 -2 9 -61 2 minecraft:farmland[moisture=7]
+fill 6 -60 -2 9 -60 -1 minecraft:carrots[age=7]
+fill 6 -60 0 9 -60 0 minecraft:carrots[age=2]
+fill 6 -60 1 9 -60 2 minecraft:carrots[age=7]
+fill 6 -61 14 9 -61 16 minecraft:farmland[moisture=7]
+fill 6 -60 14 9 -60 16 minecraft:carrots[age=7]
+tick 30
+mobspawn R1 minecraft:rabbit 6.5 -60 -1.5 270 0 nofinalize {PersistenceRequired:1b,RabbitType:1}
+mobspawn R2 minecraft:rabbit 8.5 -60 -1.5 270 0 nofinalize {PersistenceRequired:1b,RabbitType:2,MoreCarrotTicks:120}
+mobspawn R4 minecraft:rabbit 7.5 -60 0.5 270 0 nofinalize {PersistenceRequired:1b,RabbitType:3}
+mobspawn R5 minecraft:rabbit 0.5 -60 1.5 270 0 nofinalize {PersistenceRequired:1b,RabbitType:5}
+entity_seed R1 9102
+entity_seed R2 9103
+entity_seed R4 9105
+entity_seed R5 9106
+tick 2
+dump mobs goals:R1
+watch mob:R1 mob:R2 mob:R4 mob:R5
+tick 120
+watch off
+dump mobs blocks:5,-61,-3,10,-60,3 events
+note nothing is raided with mob griefing off
+gamerule mob_griefing false
+mobspawn R3 minecraft:rabbit 7.5 -60 15.5 270 0 nofinalize {PersistenceRequired:1b,RabbitType:0}
+entity_seed R3 9104
+watch mob:R3
+tick 60
+watch off
+dump mobs blocks:5,-61,13,10,-60,17 events

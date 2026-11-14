@@ -1,0 +1,44 @@
+# Iron golem and players: a golem built by a player never attacks players, a village golem does once a player hit it (HurtByTarget and
+# the persistent anger), iron ingots repair it by 25 health (repair sound, one ingot used up) until it is at full health,
+# other items do nothing, and the NBT round trip keeps PlayerCreated and the anger.
+level flat
+preload 4
+difficulty hard
+entity_counter 9800
+level_seed 9801
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 270 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+give Steve mainhand minecraft:iron_ingot 5
+tick 30
+mobspawn P minecraft:iron_golem 8.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,PlayerCreated:1b}
+mobspawn V minecraft:iron_golem 8.5 -60 12.5 90 0 nofinalize {PersistenceRequired:1b}
+entity_seed P 9802
+entity_seed V 9803
+tick 2
+dump mobs goals:P nbt:P nbt:V
+watch mob:P mob:V
+tick 40
+watch off
+note the village golem is hurt by the player, the player-made one is not a target
+hurt P player_attack 20 by=Steve
+hurt V player_attack 20 by=Steve
+tick 2
+dump mobs
+watch mob:P mob:V player:Steve
+tick 100
+watch off
+dump mobs nbt:P nbt:V events
+note repair with iron ingots
+tp Steve 6.5 -60 0.5 270 0
+interact Steve P main
+tick 1
+interact Steve P main
+tick 1
+dump mobs inventory:Steve events
+give Steve mainhand minecraft:stick 1
+interact Steve P main
+tick 1
+dump mobs inventory:Steve events

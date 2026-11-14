@@ -1,0 +1,25 @@
+# Shearing a snow golem: shears take the pumpkin off (shear sound, game event, durability loss, the carved pumpkin drops), a golem without a
+# pumpkin ignores the shears, other items do nothing.
+level flat
+preload 4
+difficulty normal
+entity_counter 9990
+level_seed 9991
+time 6000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+give Steve mainhand minecraft:shears
+tick 30
+mobspawn S minecraft:snow_golem 2.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed S 9992
+tick 2
+interact Steve S main
+tick 2
+dump mobs nbt:S inventory:Steve entities events
+interact Steve S main
+tick 2
+dump mobs nbt:S inventory:Steve entities events
+give Steve mainhand minecraft:stick
+interact Steve S main
+tick 2
+dump mobs inventory:Steve

@@ -1,0 +1,30 @@
+# Snow golem: a trail of snow layers where it walks (four spots around it that are air with a snow-supporting block below), none with mob
+# griefing off, melting hurt in a hot biome with the invulnerability window, water damage, and an NBT round trip with and without a pumpkin.
+level flat
+preload 4
+difficulty normal
+entity_counter 9900
+level_seed 9901
+time 6000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 40.5 0 0
+biome 40 -64 -16 71 -40 15 minecraft:desert
+tick 30
+mobspawn S minecraft:snow_golem 0.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn H minecraft:snow_golem 52.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,Pumpkin:0b}
+entity_seed S 9902
+entity_seed H 9903
+tick 2
+dump mobs goals:S nbt:S nbt:H
+watch mob:S mob:H
+tick 150
+watch off
+dump mobs blocks:-12,-61,-12,12,-60,12 events nbt:S nbt:H
+note no snow with mob griefing off
+gamerule mob_griefing false
+mobspawn S2 minecraft:snow_golem 0.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed S2 9904
+watch mob:S2
+tick 100
+watch off
+dump mobs blocks:-12,-61,8,12,-60,32 events

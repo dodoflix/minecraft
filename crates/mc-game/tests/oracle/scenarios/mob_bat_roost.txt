@@ -1,0 +1,55 @@
+# Bats: a bat hanging under a solid block (resting flag, head turns) wakes when a player comes near (level event 1025), flies around with its
+# random target position, roosts again under a ceiling after a while, wakes when the block above goes away or when hurt, and a spawned bat
+# starts out resting.
+level flat
+preload 4
+difficulty normal
+entity_counter 9600
+level_seed 9601
+time 18000
+gamerule mob_drops false
+fill -4 -57 -4 12 -57 12 minecraft:stone
+fill -3 -56 -3 11 -50 11 minecraft:air
+spawn_player Steve creative 40.5 -60 40.5 0 0
+tick 30
+mobspawn B1 minecraft:bat 0.5 -58 0.5 0 0 {PersistenceRequired:1b}
+mobspawn B2 minecraft:bat 4.5 -58 0.5 0 0 {PersistenceRequired:1b,BatFlags:1b}
+mobspawn B3 minecraft:bat 8.5 -58 0.5 0 0 {PersistenceRequired:1b,BatFlags:0b}
+mobspawn B4 minecraft:bat 0.5 -58 6.5 0 0 {PersistenceRequired:1b,BatFlags:1b,Silent:1b}
+mobspawn B5 minecraft:bat 4.5 -58 6.5 0 0 {PersistenceRequired:1b,BatFlags:1b}
+entity_seed B1 9602
+entity_seed B2 9603
+entity_seed B3 9604
+entity_seed B4 9605
+entity_seed B5 9606
+tick 2
+dump mobs goals:B1
+watch mob:B1 mob:B2 mob:B3 mob:B4 mob:B5
+tick 40
+watch off
+note the ceiling under B5 goes away
+block 4 -57 6 minecraft:air
+block 4 -57 5 minecraft:air
+block 5 -57 6 minecraft:air
+block 4 -57 7 minecraft:air
+block 3 -57 6 minecraft:air
+watch mob:B5
+tick 5
+watch off
+dump events
+note hurt resting bat
+hurt B2 generic 1
+tick 3
+dump mobs
+note a player comes close
+tp Steve 4.5 -60 2.5 0 0
+watch mob:B4 mob:B2
+tick 5
+watch off
+dump events
+note the bats fly around and roost
+tp Steve 40.5 -60 40.5 0 0
+watch mob:B1 mob:B2 mob:B3
+tick 300
+watch off
+dump mobs events

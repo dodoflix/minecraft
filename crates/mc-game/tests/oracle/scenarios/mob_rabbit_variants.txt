@@ -1,0 +1,96 @@
+# Rabbit variants: finalizeSpawn picks the variant from the biome tags (white or splotched in snowy biomes, gold in deserts, brown, salt or
+# black elsewhere), a spawn group shares the variant of its first member, breeding takes a parent's variant (or rolls the biome once in
+# twenty), and RabbitType 99 is the killer bunny (armor 8, attack damage modifier, custom name).
+level flat
+preload 4
+difficulty normal
+entity_counter 9000
+level_seed 9001
+time 6000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 0.5 0 0
+biome 16 -64 -16 47 -40 15 minecraft:snowy_plains
+biome -47 -64 -16 -16 -40 15 minecraft:desert
+tick 30
+level_seed 9010
+mobspawn P1 minecraft:rabbit 0.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9011
+mobspawn P2 minecraft:rabbit 2.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9012
+mobspawn P3 minecraft:rabbit 4.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9013
+mobspawn P4 minecraft:rabbit 6.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9014
+mobspawn P5 minecraft:rabbit 8.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9015
+mobspawn P6 minecraft:rabbit 10.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9020
+mobspawn S1 minecraft:rabbit 20.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9021
+mobspawn S2 minecraft:rabbit 22.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9022
+mobspawn S3 minecraft:rabbit 24.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9023
+mobspawn S4 minecraft:rabbit 26.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9024
+mobspawn S5 minecraft:rabbit 28.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9025
+mobspawn S6 minecraft:rabbit 30.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9030
+mobspawn D1 minecraft:rabbit -20.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9031
+mobspawn D2 minecraft:rabbit -22.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 9040
+mobspawn G1 minecraft:rabbit 20.5 -60 -8.5 0 0 group=snow {PersistenceRequired:1b,NoAI:1b}
+level_seed 9041
+mobspawn G2 minecraft:rabbit 22.5 -60 -8.5 0 0 group=snow {PersistenceRequired:1b,NoAI:1b}
+level_seed 9042
+mobspawn G3 minecraft:rabbit 24.5 -60 -8.5 0 0 group=snow {PersistenceRequired:1b,NoAI:1b}
+level_seed 9050
+mobspawn K minecraft:rabbit 0.5 -60 -8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:99}
+mobspawn KB minecraft:rabbit 2.5 -60 -8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:99,CustomName:"Fluffy"}
+mobspawn B minecraft:rabbit 4.5 -60 -8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:2}
+mobspawn W minecraft:rabbit 6.5 -60 -8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:3,MoreCarrotTicks:17}
+mobspawn Odd minecraft:rabbit 8.5 -60 -8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:42}
+tick 2
+dump mobs
+dump nbt:P1 nbt:P2 nbt:P3 nbt:P4 nbt:P5 nbt:P6
+dump nbt:S1 nbt:S2 nbt:S3 nbt:S4 nbt:S5 nbt:S6
+dump nbt:D1 nbt:D2 nbt:G1 nbt:G2 nbt:G3
+dump nbt:K nbt:KB nbt:B nbt:W nbt:Odd attrs:K attrs:P1
+note breeding: a baby takes a parent's variant, or rolls the biome of the mother once in twenty
+mobspawn M1 minecraft:rabbit 14.5 -60 -16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:2}
+mobspawn F1 minecraft:rabbit 14.5 -60 -18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:4}
+entity_seed M1 9061
+mobspawn M2 minecraft:rabbit 16.5 -60 -16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:2}
+mobspawn F2 minecraft:rabbit 16.5 -60 -18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:4}
+entity_seed M2 9062
+mobspawn M3 minecraft:rabbit 18.5 -60 -16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:2}
+mobspawn F3 minecraft:rabbit 18.5 -60 -18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:4}
+entity_seed M3 9063
+mobspawn M4 minecraft:rabbit 20.5 -60 -16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:2}
+mobspawn F4 minecraft:rabbit 20.5 -60 -18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:4}
+entity_seed M4 9064
+mobspawn M5 minecraft:rabbit 22.5 -60 -16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:2}
+mobspawn F5 minecraft:rabbit 22.5 -60 -18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:4}
+entity_seed M5 9065
+mobspawn M6 minecraft:rabbit 24.5 -60 -16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:2}
+mobspawn F6 minecraft:rabbit 24.5 -60 -18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:4}
+entity_seed M6 9066
+mobspawn M7 minecraft:rabbit 26.5 -60 -16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:2}
+mobspawn F7 minecraft:rabbit 26.5 -60 -18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:4}
+entity_seed M7 9067
+mobspawn M8 minecraft:rabbit 28.5 -60 -16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:2}
+mobspawn F8 minecraft:rabbit 28.5 -60 -18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,RabbitType:4}
+entity_seed M8 9068
+level_seed 9070
+breed M1 F1
+breed M2 F2
+breed M3 F3
+breed M4 F4
+breed M5 F5
+breed M6 F6
+breed M7 F7
+breed M8 F8
+dump mobs
+dump nbt:rabbit#1 nbt:rabbit#2 nbt:rabbit#3 nbt:rabbit#4 nbt:rabbit#5 nbt:rabbit#6 nbt:rabbit#7 nbt:rabbit#8

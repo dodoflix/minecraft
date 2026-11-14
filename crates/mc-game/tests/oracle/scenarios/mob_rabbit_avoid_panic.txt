@@ -1,0 +1,41 @@
+# Rabbit survival moves: hopping with the jump delays, avoiding a nearby survival player, a wolf and a monster (never a creative player), panic
+# when hurt, being tempted by a carrot, and the killer bunny that avoids nothing.
+level flat
+preload 4
+difficulty normal
+entity_counter 9200
+level_seed 9201
+time 6000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex creative 40.5 -60 0.5 0 0
+tick 30
+mobspawn R1 minecraft:rabbit 3.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,RabbitType:1}
+mobspawn R2 minecraft:rabbit 40.5 -60 6.5 0 0 nofinalize {PersistenceRequired:1b,RabbitType:2}
+mobspawn R3 minecraft:rabbit -30.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,RabbitType:5}
+mobspawn Wolf minecraft:wolf -30.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn R4 minecraft:rabbit 60.5 -60 -20.5 0 0 nofinalize {PersistenceRequired:1b,RabbitType:0}
+mobspawn Z minecraft:zombie 60.5 -60 -17.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed R1 9202
+entity_seed R2 9203
+entity_seed R3 9204
+entity_seed Wolf 9205
+entity_seed R4 9206
+entity_seed Z 9207
+tick 2
+dump mobs goals:R1
+watch mob:R1 mob:R2 mob:R3 mob:R4
+tick 80
+watch off
+note the rabbit next to the creative player is not afraid; a hit rabbit panics
+hurt R2 generic 1
+watch mob:R2
+tick 60
+watch off
+note a carrot in hand tempts the rabbit
+give Alex mainhand minecraft:carrot
+tp Alex 42.5 -60 6.5 90 0
+watch mob:R2
+tick 60
+watch off
+dump mobs events

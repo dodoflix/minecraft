@@ -1,0 +1,31 @@
+# Snow golem shooting: RangedAttackGoal (interval 20, range 10) throws snowballs with the aim offset and the 12 degree uncertainty at the
+# nearest monster only (not at a cow or a player), the snowball knocks the zombie back without damage, and a skeleton in reach is shot
+# after the zombie died.
+level flat
+preload 4
+difficulty normal
+entity_counter 9950
+level_seed 9951
+time 18000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 40.5 0 0
+tick 30
+mobspawn S minecraft:snow_golem 6.5 -60 6.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn Z minecraft:zombie 14.5 -60 6.5 270 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn Cow minecraft:cow 6.5 -60 12.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed S 9952
+entity_seed Z 9953
+entity_seed Cow 9954
+tick 2
+dump mobs goals:S
+watch mobs
+tick 100
+watch off
+dump mobs goals:S events
+hurt Z generic 100
+mobspawn Sk minecraft:skeleton 6.5 -60 -2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Sk 9955
+watch mobs
+tick 80
+watch off
+dump mobs events
