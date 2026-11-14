@@ -15,7 +15,7 @@ spawn_player Cid survival 30.5 -60 0.5 0 0
 give Steve hotbar0 minecraft:iron_axe
 give Steve hotbar1 minecraft:iron_axe[enchantments={"minecraft:silk_touch":1}]
 give Cid hotbar0 minecraft:iron_axe
-tick 2
+tick 1
 note a hive with three bees facing the player, a bee nearby without a target, a bee far away, a creative player around
 block 0 -60 2 minecraft:beehive[facing=north,honey_level=2]
 be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:bee",HasNectar:1b,PersistenceRequired:1b},ticks_in_hive:50,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}

@@ -16,6 +16,10 @@ pub struct GenLiveState {
     moon_brightness: AtomicU32,
     registries: OnceLock<RegistryAccess>,
     dimension_type: OnceLock<Arc<DimensionType>>,
+    /// The level's private `ENTITY_COUNTER` (see `ServerLevel::entity_id_counter`), when it has one.
+    entity_counter: OnceLock<Arc<AtomicI32>>,
+    /// The light engine's published data (`getLightEngine()` of the level), installed by the chunk map.
+    light: OnceLock<mc_light::LightReader>,
 }
 
 impl Default for GenLiveState {
@@ -27,6 +31,8 @@ impl Default for GenLiveState {
             moon_brightness: AtomicU32::new(0.0f32.to_bits()),
             registries: OnceLock::new(),
             dimension_type: OnceLock::new(),
+            entity_counter: OnceLock::new(),
+            light: OnceLock::new(),
         }
     }
 }
@@ -53,6 +59,27 @@ impl GenLiveState {
     pub fn install(&self, registries: RegistryAccess, dimension_type: Arc<DimensionType>) {
         let _ = self.registries.set(registries);
         let _ = self.dimension_type.set(dimension_type);
+    }
+
+    /// Installed once by the chunk map.
+    pub fn install_light(&self, light: mc_light::LightReader) {
+        let _ = self.light.set(light);
+    }
+
+    pub fn light(&self) -> Option<&mc_light::LightReader> {
+        self.light.get()
+    }
+
+    /// Makes generation take its entity ids from the level's private counter.
+    pub fn share_entity_counter(&self, counter: Arc<AtomicI32>) {
+        let _ = self.entity_counter.set(counter);
+    }
+
+    /// `ENTITY_COUNTER.incrementAndGet()` of the level's private counter, `None` when the level uses the process wide one.
+    pub fn next_entity_id(&self) -> Option<i32> {
+        self.entity_counter
+            .get()
+            .map(|c| c.fetch_add(1, Ordering::Relaxed).wrapping_add(1))
     }
 
     pub fn difficulty(&self) -> Difficulty {

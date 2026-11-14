@@ -8,7 +8,7 @@ gamerule spawn_mobs false
 gamerule random_tick_speed 0
 entity_counter 40
 spawn_player Steve creative 20.5 -60 20.5 0 0
-tick 2
+tick 1
 note fire below the hive: the data merge releases the bees, with the front blocked and in the night
 block 0 -61 0 minecraft:netherrack
 block 0 -60 0 minecraft:fire[age=0]

@@ -312,6 +312,12 @@ impl ChunkMap {
             result_tx.clone(),
         );
         let worldgen = WorldgenThread::new(result_tx);
+        let light = ThreadedLevelLightEngine::new(
+            level_height,
+            has_sky_light,
+            super::chunk_task_queue::priority_level_count(),
+        );
+        gen_context.live.install_light(light.engine().reader());
         let mut map = Self {
             holders: Holders {
                 updating: IndexMap::new(),
@@ -330,11 +336,7 @@ impl ChunkMap {
             factory,
             gen_context,
             is_known_structure,
-            light: ThreadedLevelLightEngine::new(
-                level_height,
-                has_sky_light,
-                super::chunk_task_queue::priority_level_count(),
-            ),
+            light,
             settings: ChunkMapSettings {
                 spectators_generate_chunks: true,
                 no_save: false,

@@ -282,7 +282,11 @@ pub struct NoWorldGenHooks;
 impl WorldGenHooks for NoWorldGenHooks {
     fn create_structures(&self, _ctx: &WorldGenContext, _chunk: &mut ProtoChunk) {}
     fn create_references(&self, _ctx: &WorldGenContext, _region: &mut WorldGenRegion) {}
-    fn apply_biome_decoration(&self, _ctx: &WorldGenContext, _region: &mut WorldGenRegion) {}
+    fn apply_biome_decoration(&self, _ctx: &WorldGenContext, _region: &mut WorldGenRegion) {
+        // `ChunkGenerator.applyBiomeDecoration` creates its decoration `WorldgenRandom` from a unique seed before it finds
+        // nothing to place; the draw is observable through the seeds of the entities created afterwards
+        mc_core::random::generate_unique_seed();
+    }
     fn spawn_original_mobs(&self, _ctx: &WorldGenContext, _region: &mut WorldGenRegion) {}
 }
 

@@ -94,6 +94,7 @@ import net.minecraft.util.RandomSource;
  * level flat|void|normal      world type (default flat)            seed N              world seed (default 4242)
  * dimension overworld|the_nether|the_end   the level every world command acts on (default overworld; the nether and end keep their real generator)
  * difficulty peaceful|easy|normal|hard (default normal)            preload R           chunk radius kept loaded (6)
+ * bootrule NAME VALUE      game rule set before the preload (the quiet rules stay otherwise), e.g. `bootrule spawn_mobs true` lets chunk generation spawn the original mobs
  * features NAME[,NAME]       extra feature flags besides vanilla, e.g. redstone_experiments       structures true|false   `generate-structures` (default false: a normal world has no structures)
  * -- world --
  * gamerule NAME VALUE         e.g. gamerule keep_inventory true    time N       (game clock stays frozen otherwise)
@@ -221,6 +222,7 @@ import net.minecraft.util.RandomSource;
  *   (`TRADER REF xp=villagerXp level=villagerLevel|- trading=REF|-`), difficulty:X,Y,Z, light:X,Y,Z, spawn_state (`SPAWNSTATE`), raids.
  * dump/watch kinds for every entity: xentity:REF / xentities (all live non-player entities): the normal `E` line + the fields of the classes registered in
  *   EntityExtras.java (`mob:REF` also carries them); edata:REF = `ED REF id:serializer:hex ..` for every synched data item (accessor id, serializer id, wire form of the value);
+ *   placed = `G type pos= rot= KEY=VALUE..` of every live entity except players, items, falling blocks and orbs, sorted (saved Age, CatType, Color, Health, PersistenceRequired, RabbitType, Sheared, Type, Variant, variant).
  *   rng:level / rng:REF = `RNG level|REF STATE` (the 48-bit state of Level.random / of the entity's own random).
  * </pre>
  *
@@ -412,6 +414,7 @@ public final class EntityOracleDriver {
             }
          }
          case "preload" -> options.preloadRadiusChunks = Integer.parseInt(a.get(1));
+         case "bootrule" -> options.bootRules.add(new String[] {a.get(1), a.get(2)});
          case "note" -> out.println("# " + line.substring(4).strip());
          case "gamerule" -> {
             world();
@@ -1487,6 +1490,9 @@ public final class EntityOracleDriver {
       }
    }
 
+   /** The saved fields `dump placed` prints (sorted names): the ones that do not depend on the entity's own random seed. */
+   static final String[] PLACED_KEYS = {"Age", "CatType", "Color", "Health", "PersistenceRequired", "RabbitType", "Sheared", "Type", "Variant", "variant"};
+
    void nbtDump(String name, Entity e) {
       try (ProblemReporter.ScopedCollector rep = new ProblemReporter.ScopedCollector(e.problemPath(), org.slf4j.LoggerFactory.getLogger("oracle"))) {
          net.minecraft.world.level.storage.TagValueOutput o = net.minecraft.world.level.storage.TagValueOutput.createWithContext(rep, v.server.registryAccess());
@@ -1816,6 +1822,30 @@ public final class EntityOracleDriver {
                for (var en : all) {
                   describe(en.getKey(), en.getValue());
                }
+            }
+            case "placed" -> { // every live non-player entity as a `G type pos rot saved-variant-fields` line, sorted (ids and seeds differ with the generation order)
+               List<String> lines = new ArrayList<>();
+               for (Entity e : v.level.getAllEntities()) {
+                  if (e instanceof ServerPlayer || !e.isAlive() || e instanceof ItemEntity || e instanceof net.minecraft.world.entity.item.FallingBlockEntity
+                     || e instanceof net.minecraft.world.entity.ExperienceOrb) {
+                     continue; // block updates and drops, not placed by generation (their timing differs with the chunk order)
+                  }
+                  StringBuilder b = new StringBuilder("G ").append(BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()));
+                  b.append(" pos=").append(vec(e.getX(), e.getY(), e.getZ())).append(" rot=").append(f(e.getYRot())).append(',').append(f(e.getXRot()));
+                  try (ProblemReporter.ScopedCollector rep = new ProblemReporter.ScopedCollector(e.problemPath(), org.slf4j.LoggerFactory.getLogger("oracle"))) {
+                     net.minecraft.world.level.storage.TagValueOutput o = net.minecraft.world.level.storage.TagValueOutput.createWithContext(rep, v.server.registryAccess());
+                     e.saveWithoutId(o);
+                     CompoundTag tag = o.buildResult();
+                     for (String k : PLACED_KEYS) {
+                        if (tag.contains(k)) {
+                           b.append(' ').append(k).append('=').append(canon(tag.get(k)));
+                        }
+                     }
+                  }
+                  lines.add(b.toString());
+               }
+               Collections.sort(lines);
+               lines.forEach(out::println);
             }
             case "xentity" -> describe(arg, ref(arg), true);
             case "xentities" -> {

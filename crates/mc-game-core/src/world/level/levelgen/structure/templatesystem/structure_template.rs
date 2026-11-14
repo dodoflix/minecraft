@@ -6,7 +6,6 @@
 //!   the level as raw NBT (`id`/`x`/`y`/`z` added), entities as saved NBT through `add_fresh_entity_nbt`.
 //! * The `DataFixer` step of loading is not ported: templates are read as written by the current data version (every
 //!   template of the vanilla pack is). See `StructureTemplateManager`.
-//! * `Mob.finalizeSpawn` for `finalizeEntities` settings is not performed (it needs live mob classes).
 
 use super::structure_place_settings::StructurePlaceSettings;
 use crate::world::block_entity::BlockEntity;
@@ -714,6 +713,7 @@ impl StructureTemplate {
                 settings.get_rotation(),
                 settings.get_rotation_pivot(),
                 bounding_box,
+                settings.should_finalize_entities(),
             );
         }
         true
@@ -727,6 +727,7 @@ impl StructureTemplate {
         rotation: Rotation,
         pivot: BlockPos,
         bounding_box: Option<BoundingBox>,
+        finalize_entities: bool,
     ) {
         for entity_info in &self.entity_info_list {
             let block_pos =
@@ -773,17 +774,28 @@ impl StructureTemplate {
             }));
             rotation_tag.push(Tag::Float(x_rot));
             tag.put("Rotation", rotation_tag);
-            // the entity constructor draws a fresh random UUID (`Mth.createInsecureUUID(entity.random)`)
-            let uuid = mth::create_insecure_uuid(&mut random::create_new()).as_u64_pair();
-            tag.put_int_array(
-                "UUID",
-                vec![
-                    (uuid.0 >> 32) as i32,
-                    uuid.0 as i32,
-                    (uuid.1 >> 32) as i32,
-                    uuid.1 as i32,
-                ],
-            );
+            if finalize_entities {
+                // the created entity draws its own random UUID; `finalizeSpawn` draws from the level's random and the
+                // saved entity carries its results
+                let Some(finalized) = level
+                    .finalize_structure_entity(&tag, BlockPos::containing(pos.x, pos.y, pos.z))
+                else {
+                    continue;
+                };
+                tag = finalized;
+            } else {
+                // the entity constructor draws a fresh random UUID (`Mth.createInsecureUUID(entity.random)`)
+                let uuid = mth::create_insecure_uuid(&mut random::create_new()).as_u64_pair();
+                tag.put_int_array(
+                    "UUID",
+                    vec![
+                        (uuid.0 >> 32) as i32,
+                        uuid.0 as i32,
+                        (uuid.1 >> 32) as i32,
+                        uuid.1 as i32,
+                    ],
+                );
+            }
             level.add_fresh_entity_nbt(tag);
         }
     }

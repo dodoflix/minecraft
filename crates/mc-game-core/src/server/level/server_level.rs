@@ -116,7 +116,7 @@ pub struct ServerLevel {
     pub waypoint_manager: crate::server::waypoints::ServerWaypointManager,
     /// A private `ENTITY_COUNTER` for this level (the scenario replay harness gives its level the oracle's id sequence 1, 2, 3, ...
     /// regardless of other levels created by tests running in parallel); `None` = the process wide counter.
-    pub entity_id_counter: Option<std::sync::atomic::AtomicI32>,
+    pub entity_id_counter: Option<Arc<std::sync::atomic::AtomicI32>>,
     /// `navigatingMobs`: the tracked mobs, whose navigation `send_block_updated` recomputes (kept by the tracking callbacks).
     pub navigating_mobs: std::collections::BTreeSet<EntityId>,
     /// `pathTypesByPosCache` (`getPathTypeCache()`), invalidated by `send_block_updated`.
@@ -312,9 +312,11 @@ impl ServerLevel {
                 let Some(slot) = self.chunk_source.chunk_map.take_chunk_for_full(pos) else {
                     return;
                 };
+                let mut world_gen_entities = Vec::new();
                 let chunk = match slot {
-                    ChunkSlot::Proto(proto) => {
-                        // `postLoadProtoChunk`: legacy entity NBT of the proto chunk is loaded with the entity code.
+                    ChunkSlot::Proto(mut proto) => {
+                        // `postLoadProtoChunk`: the entities generation placed (saved NBT) join the level below
+                        world_gen_entities = std::mem::take(&mut proto.entities);
                         let mut chunk = Box::new(LevelChunk::from_proto(*proto, &self.factory));
                         chunk.promote_pending_block_entities();
                         chunk
@@ -338,6 +340,16 @@ impl ServerLevel {
                 self.chunk_source.chunk_map.complete_full_step(pos, chunk);
                 self.register_all_block_entities_after_level_load(pos);
                 self.register_tick_container_in_level(pos);
+                if !world_gen_entities.is_empty() {
+                    let mut entities = crate::world::entity::factory::load_entities_recursive(
+                        &world_gen_entities,
+                        self,
+                        mc_data::enums::EntitySpawnReason::Load,
+                    );
+                    crate::world::entity::factory::read_level_dependent_data(&mut entities, self);
+                    self.entity_manager.add_world_gen_chunk_entities(entities);
+                    self.process_entity_events();
+                }
             }
             ChunkMapEvent::StartTicking(pos) => {
                 // `postProcessGeneration(level)` and `startTickingChunk` belong to the LevelChunk/tick code; the chunk

@@ -8,7 +8,7 @@ gamerule spawn_mobs false
 gamerule random_tick_speed 0
 entity_counter 40
 spawn_player Steve creative 20.5 -60 20.5 0 0
-tick 2
+tick 1
 note nectar delivered into a dry hive that remembers a flower
 block 0 -60 0 minecraft:beehive[facing=south,honey_level=0]
 be_nbt 0 -60 0 {flower_pos:[I;3,-60,3],bees:[{entity_data:{id:"minecraft:bee",HasNectar:1b,PersistenceRequired:1b},ticks_in_hive:101,min_ticks_in_hive:100}]}

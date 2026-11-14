@@ -30,9 +30,17 @@ pub fn next_detached_entity_id() -> EntityId {
 }
 
 impl ServerLevel {
+    /// A private `ENTITY_COUNTER` starting after `start`, shared with chunk generation (the entities it creates take
+    /// ids from the same sequence).
+    pub fn use_private_entity_counter(&mut self, start: i32) {
+        let counter = std::sync::Arc::new(AtomicI32::new(start));
+        self.spawning.gen_live.share_entity_counter(counter.clone());
+        self.entity_id_counter = Some(counter);
+    }
+
     /// `getNextEntityId()`.
     pub fn next_entity_id(&self) -> EntityId {
-        let counter = self.entity_id_counter.as_ref().unwrap_or(&ENTITY_COUNTER);
+        let counter = self.entity_id_counter.as_deref().unwrap_or(&ENTITY_COUNTER);
         let mut id = 0;
         while id == 0 || self.entity_manager.has_entity_with_id(id) {
             id = counter.fetch_add(1, Ordering::Relaxed).wrapping_add(1);

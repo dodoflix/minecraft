@@ -13,7 +13,7 @@ spawn_player Alex survival 30.5 -60 0.5 0 0
 give Steve hotbar0 minecraft:shears
 give Steve hotbar1 minecraft:glass_bottle 8
 give Alex hotbar0 minecraft:shears
-tick 2
+tick 1
 note shears on a full hive without smoke: two bees leave angry, a bee nearby joins them
 block 0 -60 2 minecraft:beehive[facing=north,honey_level=5]
 be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:bee",HasNectar:1b,PersistenceRequired:1b},ticks_in_hive:50,min_ticks_in_hive:2400}]}

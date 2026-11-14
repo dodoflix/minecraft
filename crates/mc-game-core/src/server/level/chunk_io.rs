@@ -283,10 +283,20 @@ impl WorkerPool {
 pub struct WorldgenThread {
     tx: Option<Sender<(Arc<WorldGenContext>, GenBatch)>>,
     thread: Option<JoinHandle<()>>,
+    /// Oracle mode: the batch runs on the submitting thread (the vanilla oracle's direct executors), so the unique
+    /// seeds it draws continue the calling thread's reproducible sequence.
+    inline_results: Option<Sender<WorkerMessage>>,
 }
 
 impl WorldgenThread {
     pub fn new(results: Sender<WorkerMessage>) -> Self {
+        if mc_core::random::oracle_uniquifier_active() {
+            return Self {
+                tx: None,
+                thread: None,
+                inline_results: Some(results),
+            };
+        }
         let (tx, rx) = channel::<(Arc<WorldGenContext>, GenBatch)>();
         let thread = std::thread::Builder::new()
             .name("Worldgen".into())
@@ -305,11 +315,18 @@ impl WorldgenThread {
         Self {
             tx: Some(tx),
             thread: Some(thread),
+            inline_results: None,
         }
     }
 
     pub fn submit(&self, ctx: Arc<WorldGenContext>, batch: GenBatch) {
-        if let Some(tx) = &self.tx {
+        if let Some(results) = &self.inline_results {
+            let message = match run_batch(&ctx, batch) {
+                Ok(result) => WorkerMessage::BatchDone(Box::new(result)),
+                Err(report) => WorkerMessage::BatchFailed(Box::new(report)),
+            };
+            let _ = results.send(message);
+        } else if let Some(tx) = &self.tx {
             let _ = tx.send((ctx, batch));
         }
     }

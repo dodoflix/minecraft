@@ -330,7 +330,7 @@ impl Harness {
             world.clone(),
         ));
         mc_core::random::reseed_uniquifier(8682522807148012);
-        level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(0));
+        level.entity_id_counter = Some(std::sync::Arc::new(std::sync::atomic::AtomicI32::new(0)));
         // `Level.random` is seeded at boot like the oracle (`o.seed ^ 0x5DEECE66DL`, default world seed 4242)
         {
             use mc_core::random::RandomSource as _;

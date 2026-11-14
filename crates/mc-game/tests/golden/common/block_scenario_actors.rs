@@ -252,6 +252,11 @@ pub(super) fn worldgen_biomes() -> std::sync::Arc<mc_worldgen::biome::BiomeRegis
     )
 }
 
+/// The registries of the oracle's server (what the entities of chunk generation read before `load_registries` runs).
+pub(super) fn real_registries() -> mc_game::registry::RegistryAccess {
+    ACCESS.0.clone()
+}
+
 impl Scenario {
     /// Entity creation needs the data pack registries (damage types, enchantments, ...): loaded once per test binary.
     pub(super) fn load_registries(&mut self) {
@@ -1368,6 +1373,62 @@ impl Scenario {
                     let line = self.describe(&name, id, kind == "xentities");
                     self.out.push(line);
                 }
+            }
+            // `G type pos rot saved-fields` of every live entity but players, items, falling blocks and orbs, sorted (the driver's `placed`)
+            "placed" => {
+                const PLACED_KEYS: [&str; 10] = [
+                    "Age",
+                    "CatType",
+                    "Color",
+                    "Health",
+                    "PersistenceRequired",
+                    "RabbitType",
+                    "Sheared",
+                    "Type",
+                    "Variant",
+                    "variant",
+                ];
+                let level = self.level();
+                let mut lines: Vec<String> = level
+                    .entity_manager
+                    .get_all()
+                    .filter(|e| {
+                        e.is_alive()
+                            && e.as_any().downcast_ref::<ServerPlayer>().is_none()
+                            && !matches!(
+                                e.get_type(),
+                                EntityType::ITEM
+                                    | EntityType::FALLING_BLOCK
+                                    | EntityType::EXPERIENCE_ORB
+                            )
+                    })
+                    .map(|e| {
+                        use mc_core::math::java::java_float_to_string as jf;
+                        let (b, p) = (e.base(), e.base().position());
+                        let mut line = format!(
+                            "G {} pos={},{},{} rot={},{}",
+                            e.get_type().name(),
+                            mc_core::math::java::java_double_to_string(p.x),
+                            mc_core::math::java::java_double_to_string(p.y),
+                            mc_core::math::java::java_double_to_string(p.z),
+                            jf(b.y_rot()),
+                            jf(b.x_rot()),
+                        );
+                        let mut tag = mc_nbt::CompoundTag::new();
+                        e.save_without_id(&mut tag, &|i| level.get_entity(i));
+                        for key in PLACED_KEYS {
+                            if let Some(value) = tag.get(key) {
+                                line.push_str(&format!(
+                                    " {key}={}",
+                                    crate::common::entity_scenario::canon(value)
+                                ));
+                            }
+                        }
+                        line
+                    })
+                    .collect();
+                lines.sort();
+                self.out.extend(lines);
             }
             // every live Mob as a rich `E` line (the entity replay's `mobs`)
             "mobs" => {

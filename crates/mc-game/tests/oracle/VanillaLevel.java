@@ -108,6 +108,7 @@ public final class VanillaLevel {
       public int preloadRadiusChunks = 6; // > view distance, so joining a player never waits for async chunk generation
       public int viewDistance = 4;
       public int simulationDistance = 4;
+      public List<String[]> bootRules = new ArrayList<>(); // `gamerule NAME VALUE` pairs applied before the preload (chunk generation reads them)
    }
 
    /** Real DedicatedServer minus network/console/query/rcon/watchdog; used on the calling thread. */
@@ -343,6 +344,9 @@ public final class VanillaLevel {
          v.command("gamerule " + rule + " false");
       }
       v.command("gamerule random_tick_speed 0"); // random ticks consume Level.random in chunk-order dependent ways
+      for (String[] rule : o.bootRules) {
+         v.command("gamerule " + rule[0] + " " + rule[1]);
+      }
       v.commandOutput.clear();
       v.preload(o.preloadRadiusChunks);
       v.level.getRandom().setSeed(o.seed ^ 0x5DEECE66DL); // Level.random: drop offsets, explosion rays, sound seeds; scripts override with `level_seed`

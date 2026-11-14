@@ -207,6 +207,15 @@ impl WorldGenLevel for ServerLevel {
         }
     }
 
+    fn finalize_structure_entity(
+        &mut self,
+        tag: &CompoundTag,
+        pos: BlockPos,
+    ) -> Option<CompoundTag> {
+        let difficulty = WorldGenLevel::get_current_difficulty_at(self, pos);
+        crate::world::entity::factory::finalize_structure_entity(tag, self, difficulty)
+    }
+
     /// `addFreshEntityWithPassengers` of the entity `EntityType.create(tag, level, STRUCTURE)` loads.
     fn add_fresh_entity_nbt(&mut self, tag: CompoundTag) -> bool {
         let mut loaded = Vec::new();

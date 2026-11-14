@@ -68,6 +68,27 @@ pub fn check(name: &str) {
     check_with(name, &Options::default());
 }
 
+/// [`check`] of the lines before the first `# MARKER` note: the part of a scenario whose replay is complete, ahead of behaviour
+/// that is still a placeholder here.
+pub fn check_until(name: &str, marker: &str) {
+    let actual = run_scenario(name);
+    let marker = format!("# {marker}");
+    let cut = |lines: &[String]| -> Vec<String> {
+        lines
+            .iter()
+            .take_while(|l| **l != marker)
+            .cloned()
+            .collect()
+    };
+    let fixture = Fixture::load(name);
+    let mut opts = Options::default();
+    opts.ignore_kinds.push("C");
+    opts.ignore_containing.push("minecraft:light_update");
+    if let Err(report) = compare(&cut(&fixture.lines), &cut(&actual), &opts) {
+        panic!("block oracle scenario `{name}` differs before `{marker}`:\n{report}");
+    }
+}
+
 pub fn check_with(name: &str, opts: &Options) {
     let actual = run_scenario(name);
     // `BLOCK_SCENARIO_ACTUAL=DIR` writes the replay output to DIR/NAME.txt, to diff it against the fixture by hand
@@ -380,6 +401,8 @@ struct Options_ {
     dimension: &'static str,
     /// `seed`: the world seed (loot random sequences, positional randoms of the geysers, ...).
     seed: i64,
+    /// `bootrule NAME VALUE`: game rules set before the preload (chunk generation reads them).
+    boot_rules: Vec<(String, String)>,
 }
 
 /// Accepts every registry reference while decoding the vanilla dimension type JSON.
@@ -501,6 +524,7 @@ impl Scenario {
                 features: mc_world::level_storage::FeatureFlagSet::DEFAULT_FLAGS,
                 dimension: "overworld",
                 seed: 4242,
+                boot_rules: Vec::new(),
             },
             real_biomes: false,
             gen_env: false,
@@ -639,7 +663,10 @@ impl Scenario {
             generate_structures: self.opts.structures && noise_world.is_some(),
             hooks: match &noise_world {
                 Some((env, _)) => Arc::new(
-                    mc_game::world::level::levelgen::hooks::VanillaWorldGenHooks::new(env.clone()),
+                    mc_game::world::level::levelgen::hooks::VanillaWorldGenHooks::new(env.clone())
+                        .with_mob_spawner(Arc::new(
+                            mc_game::world::level::spawner::chunk_gen::NaturalOriginalMobs,
+                        )),
                 ),
                 None => Arc::new(mc_game::server::level::world_gen::NoWorldGenHooks),
             },
@@ -663,7 +690,7 @@ impl Scenario {
         // dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`) and the weather layers; no biome layers
         level.tick_state.attributes = environment_attributes(&dimension_type, self.clocks.clone());
         // the level's own id sequence (starts at 1 like the oracle's `ENTITY_COUNTER`): parallel tests must not share ids
-        level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(0));
+        level.use_private_entity_counter(0);
         level.tick_state.tick_time = true;
         if let Some(biomes) = worldgen_biomes {
             level.tick_state.biomes = Some(biomes);
@@ -686,12 +713,17 @@ impl Scenario {
             && !dimension_type.has_ceiling
             && self.opts.dimension != "the_end";
         level.tick_state.enabled_features = self.opts.features;
+        for (name, value) in &self.opts.boot_rules {
+            set_rule(&mut self.env.game_rules, name, value);
+        }
         level.server_state.rules.refresh(&self.env.game_rules);
         apply_spawn_settings(&mut level, &self.env.game_rules);
         // `MinecraftServer.createLevels`: only the overworld has custom spawners (phantom, patrol, cat, siege, trader)
         if self.opts.dimension == "overworld" {
             level.install_custom_spawners();
         }
+        // chunk generation reads the rules from the values published per tick; the preload generates before the first one
+        level.publish_spawn_environment(&self.env);
         if mc_game::commands::server_access::has_server() {
             // the scoreboard the `team`/`scoreboard` commands edit is the one the level reads
             level.server_state.scoreboard =
@@ -701,6 +733,14 @@ impl Scenario {
         level.server_state.loot.world_seed = self.opts_seed();
         level.tick_state.broadcast_log = Some(self.log.clone());
         self.env.difficulty = self.opts.difficulty;
+        if noise_world.is_some() {
+            // the preload generates mobs and structure entities: they read the registries and the dimension type's attributes
+            level.registries = actors::real_registries();
+            level
+                .spawning
+                .gen_live
+                .install(level.registries.clone(), Arc::new(dimension_type.clone()));
+        }
         let r = self.opts.preload;
         for cx in -r..=r {
             for cz in -r..=r {
@@ -831,6 +871,7 @@ impl Scenario {
                 }
             }
             "preload" => self.opts.preload = int(&a[1]),
+            "bootrule" => self.opts.boot_rules.push((a[1].clone(), a[2].clone())),
             "features" => {
                 use mc_world::level_storage::FeatureFlagSet as F;
                 for name in a[1].split(',').filter(|n| !n.is_empty()) {

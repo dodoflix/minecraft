@@ -68,6 +68,8 @@ pub struct GenLevel<'a> {
     difficulty: (Difficulty, i64, f32),
     /// The live level values mob spawning reads (difficulty, `spawnMobs`, registries, dimension type).
     live: Option<Arc<crate::server::level::gen_live_state::GenLiveState>>,
+    /// `getLightEngine()` of the live level (what the spawn step reads: `LIGHT` precedes `SPAWN`).
+    light: Option<mc_light::LightReader>,
     /// Heightmaps read while missing from their (writable) chunk: `(chunkX, chunkZ, type)`, primed lazily.
     pending_heightmaps: RefCell<Vec<(i32, i32, HeightmapType)>>,
 }
@@ -95,6 +97,7 @@ impl<'a> GenLevel<'a> {
             game_time: 0,
             difficulty: (Difficulty::Normal, 0, 0.0),
             live: None,
+            light: None,
             pending_heightmaps: RefCell::new(Vec::new()),
         }
     }
@@ -134,6 +137,7 @@ impl<'a> GenLevel<'a> {
             live.overworld_clock_time(),
             live.moon_brightness(),
         );
+        self.light = live.light().cloned();
         self.live = Some(live);
         self
     }
@@ -405,21 +409,31 @@ impl LevelReader for GenLevel<'_> {
         self.env.get_sea_level()
     }
 
-    /// The light engine is not touched during generation: light is not computed before `INITIALIZE_LIGHT`.
-    fn get_brightness(&self, _layer: LightLayer, _pos: BlockPos) -> i32 {
-        0
+    /// The light engine of the live level, when the region is bound to one (the spawn step); a bare region reads 0.
+    fn get_brightness(&self, layer: LightLayer, pos: BlockPos) -> i32 {
+        let layer = match layer {
+            LightLayer::Sky => mc_light::LightLayer::Sky,
+            LightLayer::Block => mc_light::LightLayer::Block,
+        };
+        self.light
+            .as_ref()
+            .map_or(0, |l| l.get_light_value(layer, pos))
     }
 
     fn get_sky_darken(&self) -> i32 {
         0
     }
 
-    fn get_raw_brightness(&self, _pos: BlockPos, _sky_darkening: i32) -> i32 {
-        0
+    fn get_raw_brightness(&self, pos: BlockPos, sky_darkening: i32) -> i32 {
+        self.light
+            .as_ref()
+            .map_or(0, |l| l.get_raw_brightness(pos, sky_darkening))
     }
 
-    fn can_see_sky(&self, _pos: BlockPos) -> bool {
-        false
+    fn can_see_sky(&self, pos: BlockPos) -> bool {
+        self.light
+            .as_ref()
+            .is_some_and(|l| l.get_light_value(mc_light::LightLayer::Sky, pos) >= 15)
     }
 }
 
@@ -659,6 +673,19 @@ impl WorldGenLevel for GenLevel<'_> {
         }
     }
 
+    fn finalize_structure_entity(
+        &mut self,
+        tag: &CompoundTag,
+        pos: BlockPos,
+    ) -> Option<CompoundTag> {
+        // a region bound to no live level has nothing to create the entity in: the saved NBT stays as the template has it
+        if self.live.is_none() {
+            return Some(tag.clone());
+        }
+        let difficulty = WorldGenLevel::get_current_difficulty_at(self, pos);
+        crate::world::entity::factory::finalize_structure_entity(tag, self, difficulty)
+    }
+
     fn add_fresh_entity_nbt(&mut self, tag: CompoundTag) -> bool {
         let (x, z) = tag.get_list("Pos").map_or((0.0, 0.0), |pos| {
             (pos.get_double_or(0, 0.0), pos.get_double_or(2, 0.0))
@@ -872,7 +899,10 @@ impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLeve
         }
         Some(crate::world::entity::factory::instantiate(
             ty,
-            crate::server::level::next_detached_entity_id(),
+            self.live
+                .as_ref()
+                .and_then(|l| l.next_entity_id())
+                .unwrap_or_else(crate::server::level::next_detached_entity_id),
             self.registry_access(),
         ))
     }

@@ -89,7 +89,7 @@ pub fn witch_entity_tag(position: BlockPos) -> CompoundTag {
     tag
 }
 
-/// The swamp hut `Cat` (`Animal`/`TamableAnimal` fields; a swamp hut cat spawns as `black`).
+/// The swamp hut `Cat` (`Animal`/`TamableAnimal` fields; a swamp hut cat spawns as `all_black`).
 pub fn cat_entity_tag(position: BlockPos) -> CompoundTag {
     let mut tag = mob_tag("minecraft:cat", position, 10.0);
     tag.put_int("Age", 0);
@@ -98,7 +98,7 @@ pub fn cat_entity_tag(position: BlockPos) -> CompoundTag {
     tag.put_int("InLove", 0);
     tag.put_boolean("Sitting", false);
     tag.put_byte("CollarColor", 14);
-    tag.put_string("variant", "minecraft:black");
+    tag.put_string("variant", "minecraft:all_black");
     tag.put_string("sound_variant", "minecraft:classic");
     tag
 }

@@ -1,0 +1,9 @@
+# Original mob generation at chunk generation (plains): the creatures `NaturalSpawner.spawnMobsForChunkGeneration` places while the preloaded
+# chunks generate (`bootrule spawn_mobs true` lets the preload spawn them), compared by type, position, rotation and saved variant fields.
+level normal
+seed 9999
+preload 3
+difficulty normal
+bootrule spawn_mobs true
+gamerule spawn_mobs false
+dump placed

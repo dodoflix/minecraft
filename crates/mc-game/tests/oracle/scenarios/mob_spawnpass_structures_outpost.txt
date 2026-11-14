@@ -7,6 +7,8 @@ difficulty normal
 spawn_player Steve survival 205.5 70 -300.5 0 0
 time 18000
 tick 60
+dump placed
+note spawn attempts
 spawnat 2 monster 130 68 -319
 tick 1
 spawnat 7 monster 134 66 -319
@@ -295,3 +297,4 @@ spawnat 712 monster 170 65 -275
 tick 1
 spawnat 717 monster 174 65 -275
 tick 1
+dump mobs

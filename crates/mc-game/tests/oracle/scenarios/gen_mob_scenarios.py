@@ -71,7 +71,8 @@ FINALIZE = [
 
 def finalize():
     out = ["# Mob.finalizeSpawn pipeline: attribute bonus, handedness, equipment/armor/enchant rolls (RNG of the entity), variants, baby chances.",
-           "# One block per (type, difficulty, reason): rich E line + the saved NBT (UUID removed).",
+           "# One block per (type, difficulty, reason): rich E line + the saved NBT (UUID removed). `Mob.finalizeSpawn` draws from the level random:",
+           "# each block reseeds it, so one type's divergence never shifts the next block.",
            "level void", "time 30000"]
     n = 0
     for diff in ("easy", "hard"):
@@ -80,6 +81,7 @@ def finalize():
             for reason in ("natural", "spawner"):
                 n += 1
                 name = f"F{n}"
+                out.append(f"level_seed {n * 7919}")
                 out.append(f"mobspawn {name} minecraft:{t} {n % 40}.5 -60 {-6 + (n // 40) * 3}.5 reason={reason}")
                 out.append(f"dump mob:{name} nbt:{name}")
     emit("mob_finalize_equipment", out)
@@ -194,7 +196,7 @@ def respawn_point():
 def structure_world(name, comment, seed, player, body, header=(), tail=()):
     """A seeded normal world with structures; the player stands near the structure (its chunks load around him), the body spawns."""
     out = [comment, "level normal", "structures true", f"seed {seed}", "preload 0", "difficulty normal", *header,
-           f"spawn_player Steve survival {player} 0 0", "time 18000", "tick 60"]
+           f"spawn_player Steve survival {player} 0 0", "time 18000", "tick 60", "dump placed", "note spawn attempts"]
     emit(name, out + body + list(tail))
 
 
@@ -233,7 +235,7 @@ def structures():
         for i, top in enumerate(row):
             body += [f"spawnat {(j * 12 + i) * 5 + 2} monster {130 + i * 4} {top + 1} {-319 + j * 4}", "tick 1"]
     structure_world("mob_spawnpass_structures_outpost", "# Pillager outpost: the pillagers of its spawn override on the outpost's ground.",
-                    9, "205.5 70 -300.5", body)
+                    9, "205.5 70 -300.5", body, tail=["dump mobs"])
 
 
 def fortress():

@@ -216,7 +216,7 @@ impl Replay {
         level.removed_entities = Some(Default::default());
         level.registries = registries();
         // the level's own counter (the shared static drifts with every test in the binary): ids start at 1 like a pinned oracle
-        level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(0));
+        level.entity_id_counter = Some(std::sync::Arc::new(std::sync::atomic::AtomicI32::new(0)));
         let world = mc_game::server::level::level_data::default_world_data();
         level.level_data = Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
             world.clone(),

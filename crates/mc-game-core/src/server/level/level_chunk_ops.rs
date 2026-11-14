@@ -793,7 +793,7 @@ mod tests {
             })
             .expect("the chest has a block entity");
         // an item entity takes one id from the counter
-        level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(100));
+        level.entity_id_counter = Some(std::sync::Arc::new(std::sync::atomic::AtomicI32::new(100)));
         let ids_taken = |level: &ServerLevel| {
             level
                 .entity_id_counter

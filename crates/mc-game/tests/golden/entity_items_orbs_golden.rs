@@ -427,8 +427,9 @@ impl Sim {
                 });
             }
             "entity_counter" => {
-                self.level.entity_id_counter =
-                    Some(std::sync::atomic::AtomicI32::new(t[1].parse().unwrap()))
+                self.level.entity_id_counter = Some(std::sync::Arc::new(
+                    std::sync::atomic::AtomicI32::new(t[1].parse().unwrap()),
+                ))
             }
             "reseed" => mc_core::random::reseed_uniquifier(t[1].parse().unwrap()),
             "level_seed" => self.level.random().set_seed(t[1].parse().unwrap()),

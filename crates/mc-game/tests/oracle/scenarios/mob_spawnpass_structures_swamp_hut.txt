@@ -8,6 +8,8 @@ command_env
 spawn_player Steve survival -180.5 66 -688.5 0 0
 time 18000
 tick 60
+dump placed
+note spawn attempts
 cmd kill @e[type=minecraft:witch]
 cmd kill @e[type=minecraft:cat]
 tick 5
