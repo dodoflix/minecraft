@@ -64,7 +64,7 @@ impl PlayCtx<'_> {
         if id == self.player.id() {
             return Some(TargetInfo::of(&*self.player));
         }
-        self.level.get_entity(id).map(TargetInfo::of)
+        self.level.get_entity_or_part(id).map(TargetInfo::of)
     }
 
     /// `level.getWorldBorder().isWithinBounds(pos)`.

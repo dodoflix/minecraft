@@ -1,0 +1,37 @@
+# Ender dragon parts: summoning a dragon takes eight more entity ids right after its own (head, neck, body, three tail parts, two wings),
+# the parts exist as soon as it is added and sit at the world origin until the AI places them, a NoAI dragon never places them, only the
+# dragon itself is sent to a watching player, a second dragon takes the next nine ids, and the parts are gone with their dragon.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5001
+entity_counter 5000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 0.5 0 0
+tick 2
+dump counter packets:Steve:none
+note a NoAI dragon from /summon: nine ids, the parts at the origin, one add_entity and its data for the dragon only
+cmd summon minecraft:ender_dragon 8.5 -60 8.5 {NoAI:1b,PersistenceRequired:1b}
+dump counter entities
+tick 1
+dump counter parts:ender_dragon#1 xentity:ender_dragon#1 nbt:ender_dragon#1 packets:Steve:add_entity,set_entity_data
+watch parts:ender_dragon#1
+tick 3
+watch off
+note a second dragon from the entity creation path, its parts follow the counter
+mobspawn D2 minecraft:ender_dragon -8.5 -60 8.5 90 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed D2 7
+tick 2
+dump counter parts:D2 xentity:D2 edata:D2 packets:Steve:add_entity,set_entity_data
+note moving the dragon does not move its parts
+snap D2 -8.5 -50 8.5
+tick 2
+dump parts:D2 xentity:D2
+note an entity created after the dragons takes the next id
+cmd summon minecraft:armor_stand 0.5 -60 8.5
+dump counter
+note discarding a dragon removes its parts from the level
+kill D2
+tick 1
+dump counter entities packets:Steve:remove_entities

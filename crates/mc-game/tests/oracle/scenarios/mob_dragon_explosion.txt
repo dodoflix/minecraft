@@ -1,0 +1,33 @@
+# An explosion next to the parts of a NoAI dragon: every part in reach is hurt on its own (an explosion needs no player to reach the health), the
+# damage of each is scaled by the part and the invulnerable time of the dragon decides what the later ones add; a second explosion at the dragon's
+# own position reaches the dragon as its body and the parts that lie in the box around the explosion.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5201
+entity_counter 5200
+gamerule mob_drops false
+spawn_player A creative 20.5 -60 20.5 0 0
+tick 2
+mobspawn D minecraft:ender_dragon 8.5 1 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed D 21
+tick 2
+dump packets:A:none xentity:D
+note the parts sit at the origin, an explosion of power 4 there
+level_seed 7
+explode 0.5 1 0.5 4 none
+tick 1
+dump xentity:D events packets:A:damage_event
+tick 25
+note a bigger one two blocks aside once the invulnerable time is over
+level_seed 8
+explode 2.5 0 0.5 6 none
+tick 1
+dump xentity:D events packets:A:damage_event
+tick 25
+note at the dragon itself, which is not at its parts
+level_seed 9
+explode 8.5 1 8.5 6 none
+tick 1
+dump xentity:D events packets:A:damage_event

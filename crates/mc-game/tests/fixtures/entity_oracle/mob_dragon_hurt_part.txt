@@ -1,0 +1,77 @@
+C Game rule mob_drops is now set to false
+PKT A minecraft:set_entity_data 65ed27050801090341a00000ff
+PKT A minecraft:add_entity 01ee27c212065b09c84eb68cc57607b3e94f032c40210000000000003ff000000000000040210000000000000000000000
+PKT A minecraft:set_entity_data 65ee270903434800000f0001ff
+PKT A minecraft:set_entity_data 65ee270903434800000f0001ff
+PART D 0 head id=+1 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=1.0,1.0 bb=-0.5,0.0,-0.5,0.5,1.0,0.5
+PART D 1 neck id=+2 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=3.0,3.0 bb=-1.5,0.0,-1.5,1.5,3.0,1.5
+PART D 2 body id=+3 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=5.0,3.0 bb=-2.5,0.0,-2.5,2.5,3.0,2.5
+PART D 3 tail id=+4 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART D 4 tail id=+5 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART D 5 tail id=+6 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART D 6 wing id=+7 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+PART D 7 wing id=+8 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=0.0
+COUNTER 5110
+# a hurt that is neither a player's nor of an always-hurts type changes nothing but is accepted
+HURT Head generic 4 -> true
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=0.0
+# the head takes a player's hit in full
+HURT Head player_attack 4 -> true
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=196.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=4.0
+PKT A minecraft:damage_event 19ee2722ee27ee2700
+PKT A minecraft:set_entity_data 65ee27090343440000ff
+# a wing takes a quarter plus one, the neck all of it, the body and a tail a quarter plus one
+HURT Wing player_attack 4 -> true
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=194.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=6.0
+HURT Neck player_attack 4 -> true
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=190.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=10.0
+HURT Body player_attack 4 -> true
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=188.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=12.0
+HURT Tail player_attack 8 -> true
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=185.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=15.0
+# the dragon itself is its body
+HURT D player_attack 4 -> true
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=183.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=17.0
+# under 0.01 after the scaling is refused, an always-hurts type needs no player, a second hit inside the invulnerable time is accepted too
+HURT Wing player_attack 0.004 -> false
+HURT Wing bad_respawn_point 20 -> true
+HURT Head player_attack 3 -> true
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=177.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=23.0
+# the sword of a player standing inside the parts: the head in full, then a wing, and the sword wears on the dragon
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=170.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=30.0
+I A 0 minecraft:diamond_sword*1/dmg=1{minecraft:damage:1}
+PKT A minecraft:damage_event 19ee2722ee27ee2700
+PKT A minecraft:damage_event 19ee2722ee27ee2700
+PKT A minecraft:damage_event 19ee2722ee27ee2700
+PKT A minecraft:damage_event 19ee2722ee27ee2700
+PKT A minecraft:damage_event 19ee2722ee27ee2700
+PKT A minecraft:damage_event 19ee2701000000
+PKT A minecraft:damage_event 19ee2722ee27ee2700
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=167.25 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=32.75
+I A 0 minecraft:diamond_sword*1/dmg=2{minecraft:damage:2}
+P A minecraft:player pos=0.5,1.0,2.2 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=2{minecraft:damage:2}
+# an arrow falling from above hits the head, one flying in from the side the wing
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=163.25 abs=0.0 hurt=10/20 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=36.75
+EV sound at=8.5,1.0,8.5 r=80.0 ex=0 event=minecraft:entity.ender_dragon.hurt source=hostile vol=5.0 pitch=1.0077672
+EV sound at=8.5,1.0,8.5 r=80.0 ex=0 event=minecraft:entity.ender_dragon.hurt source=hostile vol=5.0 pitch=1.0472548
+EV sound at=8.5,1.0,8.5 r=80.0 ex=0 event=minecraft:entity.ender_dragon.hurt source=hostile vol=5.0 pitch=0.98112434
+EV sound at=8.5,1.0,8.5 r=80.0 ex=0 event=minecraft:entity.ender_dragon.hurt source=hostile vol=5.0 pitch=1.04071
+EV sound at=8.5,1.0,8.5 r=80.0 ex=0 event=minecraft:entity.ender_dragon.hurt source=hostile vol=5.0 pitch=0.96955943
+EV sound at=8.5,1.0,8.5 r=80.0 ex=0 event=minecraft:entity.ender_dragon.hurt source=hostile vol=5.0 pitch=1.104335
+EV sound at=8.5,1.0,8.5 r=80.0 ex=0 event=minecraft:entity.ender_dragon.hurt source=hostile vol=5.0 pitch=1.0983744
+EV sound at=8.5,1.0,8.5 r=80.0 ex=0 event=minecraft:entity.ender_dragon.hurt source=hostile vol=5.0 pitch=1.08581
+EV sound at=0.5,1.0,2.2 r=16.0 ex=0 event=minecraft:entity.player.attack.strong source=player vol=1.0 pitch=1.0
+EV sound at=8.5,1.0,8.5 r=80.0 ex=0 event=minecraft:entity.ender_dragon.hurt source=hostile vol=5.0 pitch=1.0488667
+EV sound at=0.5,1.0,2.2 r=16.0 ex=0 event=minecraft:entity.player.attack.strong source=player vol=1.0 pitch=1.0
+EV sound at=8.5,1.0,8.5 r=80.0 ex=0 event=minecraft:entity.ender_dragon.hurt source=hostile vol=5.0 pitch=1.1907907
+EV sound at=0.1,1.0,0.1 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1496339
+PKT A minecraft:damage_event 19ee2722ee27ee2700
+PKT A minecraft:damage_event 19ee2700ee27f82700
+E D minecraft:ender_dragon pos=8.5,1.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=161.25 abs=0.0 hurt=10/20 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.61007700131321;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=38.75
+EV sound at=8.5,1.0,8.5 r=80.0 ex=0 event=minecraft:entity.ender_dragon.hurt source=hostile vol=5.0 pitch=0.974032
+EV sound at=1.0,1.0,0.0 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1495746
+PKT A minecraft:damage_event 19ee2700ee27f92700
+# without its dragon nothing is left to hit
+E a3 minecraft:arrow pos=-3.6402000568389896,0.8504999995231628,0.0 delta=-1.9405980560817724,-0.14850500142097472,0.0 rot=-43.92,-0.81259227 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
+COUNTER 5113

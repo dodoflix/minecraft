@@ -170,6 +170,34 @@ impl ServerLevel {
             })
     }
 
+    /// `getEntityOrPart(id)`: [`ServerLevel::get_entity`], or a hitbox of a tracked multipart entity.
+    pub fn get_entity_or_part(&self, id: EntityId) -> Option<&dyn Entity> {
+        self.get_entity(id).or_else(|| self.dragon_part(id))
+    }
+
+    /// A hitbox of a tracked multipart entity (`dragonParts.get(id)`), unless it is taken out.
+    pub fn dragon_part(&self, id: EntityId) -> Option<&dyn Entity> {
+        self.dragon_parts
+            .get(i64::from(id))
+            .and_then(Option::as_deref)
+    }
+
+    pub fn dragon_part_mut(&mut self, id: EntityId) -> Option<&mut dyn Entity> {
+        self.dragon_parts
+            .get_mut(i64::from(id))
+            .and_then(Option::as_deref_mut)
+    }
+
+    /// `dragonParts()`: the hitboxes in the iteration order of vanilla's `Int2ObjectOpenHashMap`.
+    pub fn dragon_parts(&self) -> impl Iterator<Item = &dyn Entity> {
+        self.dragon_parts.values().filter_map(|p| p.as_deref())
+    }
+
+    /// The multipart entity a hitbox belongs to (`EnderDragonPart.parentMob`).
+    pub fn dragon_part_parent(&self, id: EntityId) -> Option<EntityId> {
+        self.dragon_part(id).and_then(part_parent)
+    }
+
     pub fn get_entity_by_uuid(&self, uuid: Uuid) -> Option<&dyn Entity> {
         self.entity_manager.get_by_uuid(uuid)
     }
@@ -211,10 +239,16 @@ impl ServerLevel {
 
     /// Take an entity out of its slot (lookups return `None` while it is out). Pair with [`ServerLevel::put_back_entity`].
     pub fn take_entity(&mut self, id: EntityId) -> Option<Box<dyn Entity>> {
-        let entity = self
+        let Some(entity) = self
             .entity_manager
             .take(id)
-            .or_else(|| self.dead_players.remove(&id))?;
+            .or_else(|| self.dead_players.remove(&id))
+        else {
+            return self
+                .dragon_parts
+                .get_mut(i64::from(id))
+                .and_then(Option::take);
+        };
         if let Some(p) = entity
             .as_any()
             .downcast_ref::<crate::world::entity::ServerPlayer>()
@@ -226,6 +260,12 @@ impl ServerLevel {
 
     /// Put a taken-out entity back and apply removal / section moves (`EntityInLevelCallback`).
     pub fn put_back_entity(&mut self, id: EntityId, entity: Box<dyn Entity>) {
+        if entity.is_ender_dragon_part() {
+            if let Some(slot) = self.dragon_parts.get_mut(i64::from(id)) {
+                *slot = Some(entity);
+            }
+            return;
+        }
         self.player_records.remove(&id);
         self.entity_manager.put_back(id, entity);
         self.process_entity_events();
@@ -573,6 +613,15 @@ impl ServerLevel {
                     &players,
                     id,
                 );
+                if let Some(parts) = self
+                    .entity_manager
+                    .get_mut(id)
+                    .map(|e| e.take_sub_entities())
+                {
+                    for part in parts {
+                        self.dragon_parts.insert(i64::from(part.id()), Some(part));
+                    }
+                }
                 self.update_dynamic_game_event_listener(id, DynamicListenerAction::Add);
             }
             EntityLevelEvent::TrackingEnd(id) => {
@@ -599,6 +648,20 @@ impl ServerLevel {
                     id,
                     player.as_ref(),
                 );
+                let part_ids: Vec<EntityId> = self
+                    .entity_manager
+                    .get_removed(id)
+                    .or_else(|| self.entity_manager.get_any(id))
+                    .map_or_else(Vec::new, |e| e.sub_entity_ids().to_vec());
+                let parts: Vec<Box<dyn Entity>> = part_ids
+                    .iter()
+                    .filter_map(|part| self.dragon_parts.remove(i64::from(*part)).flatten())
+                    .collect();
+                if !parts.is_empty()
+                    && let Some(entity) = self.entity_manager.get_any_mut(id)
+                {
+                    entity.restore_sub_entities(parts);
+                }
                 self.update_dynamic_game_event_listener(id, DynamicListenerAction::Remove);
             }
             EntityLevelEvent::SectionChange(id) => {
@@ -712,6 +775,15 @@ impl ServerLevel {
             }
             ControlFlow::Continue(())
         });
+        for part in self.dragon_parts() {
+            if Some(part.id()) != except
+                && part_parent(part) != except
+                && selector(part)
+                && bb.intersects_aabb(&part.get_bounding_box())
+            {
+                out.push(part.id());
+            }
+        }
         out
     }
 
@@ -724,8 +796,20 @@ impl ServerLevel {
     ) -> Vec<EntityId> {
         let mut out = Vec::new();
         self.entity_manager.for_each_in_aabb(bb, |id, e| {
-            if test(e) && selector(e) {
-                out.push(id);
+            if test(e) {
+                if selector(e) {
+                    out.push(id);
+                }
+                // the hitboxes of a multipart entity found in the box are tested on their own, wherever they are
+                for part in e
+                    .sub_entity_ids()
+                    .iter()
+                    .filter_map(|p| self.dragon_part(*p))
+                {
+                    if test(part) && selector(part) {
+                        out.push(part.id());
+                    }
+                }
             }
             ControlFlow::Continue(())
         });
@@ -979,5 +1063,48 @@ fn report_unlent_attacker(attacker: &str, victim: &str) {
     {
         let thread = std::thread::current();
         let _ = writeln!(file, "{line} [{}]", thread.name().unwrap_or("?"));
+    }
+}
+
+/// `EnderDragonPart.parentMob` of a hitbox.
+fn part_parent(part: &dyn Entity) -> Option<EntityId> {
+    part.as_any()
+        .downcast_ref::<crate::world::entity::boss::ender_dragon::EnderDragonPart>()
+        .map(|part| part.parent)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::world::entity::factory::{self, EntitySpawnRequest};
+    use mc_data::enums::EntitySpawnReason;
+
+    #[test]
+    fn a_dragon_that_stops_being_tracked_keeps_its_parts_and_their_places() {
+        let mut level = ServerLevel::detached(
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+        );
+        level.use_private_entity_counter(100);
+        level.entity_manager.update_chunk_status(
+            mc_core::pos::chunk_pos::ChunkPos::new(0, 0),
+            crate::world::level::entity::Visibility::Ticking,
+        );
+        let request = EntitySpawnRequest {
+            reason: EntitySpawnReason::Command,
+            ignore_checks: true,
+        };
+        let dragon = factory::create(EntityType::ENDER_DRAGON, &level, request).unwrap();
+        let id = dragon.id();
+        assert!(level.add_fresh_entity(dragon));
+        level.dragon_part_mut(103).unwrap().set_pos(4.0, 5.0, 6.0);
+
+        level.handle_entity_event(EntityLevelEvent::TrackingEnd(id));
+        assert!((102..=109).all(|part| level.dragon_part(part).is_none()));
+        level.handle_entity_event(EntityLevelEvent::TrackingStart(id));
+        assert!((102..=109).all(|part| level.dragon_part(part).is_some()));
+        assert_eq!(
+            level.dragon_part(103).unwrap().position(),
+            mc_core::phys::Vec3::new(4.0, 5.0, 6.0)
+        );
     }
 }

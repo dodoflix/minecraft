@@ -188,6 +188,7 @@ mod mob_brain_golden;
 mod mob_creeper_spider_golden;
 mod mob_ctrl_golden;
 mod mob_despawn_golden;
+mod mob_dragon_golden;
 mod mob_ender_golden;
 mod mob_equine_golden;
 mod mob_fixtures_golden;

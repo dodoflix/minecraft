@@ -910,13 +910,18 @@ impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLeve
         if ty == mc_data::EntityType::PLAYER {
             return None;
         }
-        Some(crate::world::entity::factory::instantiate(
-            ty,
+        let mut next_id = || {
             self.live
                 .as_ref()
                 .and_then(|l| l.next_entity_id())
-                .unwrap_or_else(crate::server::level::next_detached_entity_id),
+                .unwrap_or_else(crate::server::level::next_detached_entity_id)
+        };
+        let id = next_id();
+        Some(crate::world::entity::factory::instantiate_with(
+            ty,
+            id,
             self.registry_access(),
+            &mut next_id,
         ))
     }
 

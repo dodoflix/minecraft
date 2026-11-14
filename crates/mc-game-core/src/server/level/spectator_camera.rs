@@ -40,7 +40,7 @@ impl ServerPlayer {
         let target = if camera == own {
             Some(self.position())
         } else {
-            level.get_entity(camera).map(|e| e.position())
+            level.get_entity_or_part(camera).map(|e| e.position())
         };
         if let Some(pos) = target {
             let (y_rot, x_rot) = (self.base().y_rot(), self.base().x_rot());
@@ -68,7 +68,7 @@ impl ServerPlayer {
             return;
         }
         let snap = level
-            .get_entity(camera)
+            .get_entity_or_part(camera)
             .filter(|e| e.is_alive())
             .map(|e| (e.position(), e.base().y_rot(), e.base().x_rot()));
         match snap {

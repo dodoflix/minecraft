@@ -1,0 +1,80 @@
+C Game rule mob_drops is now set to false
+COUNTER 5001
+# a NoAI dragon from /summon: nine ids, the parts at the origin, one add_entity and its data for the dragon only
+C Summoned new Ender Dragon
+COUNTER 5010
+E ender_dragon#1 minecraft:ender_dragon pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=-
+COUNTER 5010
+PART ender_dragon#1 0 head id=+1 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=1.0,1.0 bb=-0.5,0.0,-0.5,0.5,1.0,0.5
+PART ender_dragon#1 1 neck id=+2 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=3.0,3.0 bb=-1.5,0.0,-1.5,1.5,3.0,1.5
+PART ender_dragon#1 2 body id=+3 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=5.0,3.0 bb=-2.5,0.0,-2.5,2.5,3.0,2.5
+PART ender_dragon#1 3 tail id=+4 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART ender_dragon#1 4 tail id=+5 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART ender_dragon#1 5 tail id=+6 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART ender_dragon#1 6 wing id=+7 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+PART ender_dragon#1 7 wing id=+8 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+E ender_dragon#1 minecraft:ender_dragon pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:16.0;minecraft:max_health:200.0 dphase=10 flap=0.0/0.5 inwall=0 dtime=0 sitdmg=0.0
+N ender_dragon#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,DragonDeathTime:0,DragonPhase:10,FallFlying:0b,Fire:0s,Health:200.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,8.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sitting_damage_received:0.0f}
+PKT Steve minecraft:add_entity 018a275f338a6a72c74bbf91152d5fb51cefda2c4021000000000000c04e00000000000040210000000000000000000000
+PKT Steve minecraft:set_entity_data 658a270903434800000f0001ff
+PKT Steve minecraft:set_entity_data 658a270903434800000f0001ff
+T 4
+PART ender_dragon#1 0 head id=+1 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=1.0,1.0 bb=-0.5,0.0,-0.5,0.5,1.0,0.5
+PART ender_dragon#1 1 neck id=+2 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=3.0,3.0 bb=-1.5,0.0,-1.5,1.5,3.0,1.5
+PART ender_dragon#1 2 body id=+3 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=5.0,3.0 bb=-2.5,0.0,-2.5,2.5,3.0,2.5
+PART ender_dragon#1 3 tail id=+4 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART ender_dragon#1 4 tail id=+5 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART ender_dragon#1 5 tail id=+6 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART ender_dragon#1 6 wing id=+7 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+PART ender_dragon#1 7 wing id=+8 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+T 5
+PART ender_dragon#1 0 head id=+1 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=1.0,1.0 bb=-0.5,0.0,-0.5,0.5,1.0,0.5
+PART ender_dragon#1 1 neck id=+2 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=3.0,3.0 bb=-1.5,0.0,-1.5,1.5,3.0,1.5
+PART ender_dragon#1 2 body id=+3 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=5.0,3.0 bb=-2.5,0.0,-2.5,2.5,3.0,2.5
+PART ender_dragon#1 3 tail id=+4 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART ender_dragon#1 4 tail id=+5 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART ender_dragon#1 5 tail id=+6 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART ender_dragon#1 6 wing id=+7 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+PART ender_dragon#1 7 wing id=+8 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+T 6
+PART ender_dragon#1 0 head id=+1 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=1.0,1.0 bb=-0.5,0.0,-0.5,0.5,1.0,0.5
+PART ender_dragon#1 1 neck id=+2 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=3.0,3.0 bb=-1.5,0.0,-1.5,1.5,3.0,1.5
+PART ender_dragon#1 2 body id=+3 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=5.0,3.0 bb=-2.5,0.0,-2.5,2.5,3.0,2.5
+PART ender_dragon#1 3 tail id=+4 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART ender_dragon#1 4 tail id=+5 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART ender_dragon#1 5 tail id=+6 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART ender_dragon#1 6 wing id=+7 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+PART ender_dragon#1 7 wing id=+8 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+# a second dragon from the entity creation path, its parts follow the counter
+COUNTER 5019
+PART D2 0 head id=+1 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=1.0,1.0 bb=-0.5,0.0,-0.5,0.5,1.0,0.5
+PART D2 1 neck id=+2 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=3.0,3.0 bb=-1.5,0.0,-1.5,1.5,3.0,1.5
+PART D2 2 body id=+3 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=5.0,3.0 bb=-2.5,0.0,-2.5,2.5,3.0,2.5
+PART D2 3 tail id=+4 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART D2 4 tail id=+5 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART D2 5 tail id=+6 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART D2 6 wing id=+7 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+PART D2 7 wing id=+8 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+E D2 minecraft:ender_dragon pos=-8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:17.638180840647344;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=0.0
+ED D2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:43480000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:01 16:1:0a
+PKT Steve minecraft:add_entity 019327cf8840888fd548d49359bf58d73baf6b2cc021000000000000c04e00000000000040210000000000000000404000
+PKT Steve minecraft:set_entity_data 6593270903434800000f0001ff
+PKT Steve minecraft:set_entity_data 6593270903434800000f0001ff
+# moving the dragon does not move its parts
+PART D2 0 head id=+1 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=1.0,1.0 bb=-0.5,0.0,-0.5,0.5,1.0,0.5
+PART D2 1 neck id=+2 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=3.0,3.0 bb=-1.5,0.0,-1.5,1.5,3.0,1.5
+PART D2 2 body id=+3 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=5.0,3.0 bb=-2.5,0.0,-2.5,2.5,3.0,2.5
+PART D2 3 tail id=+4 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART D2 4 tail id=+5 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART D2 5 tail id=+6 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=2.0,2.0 bb=-1.0,0.0,-1.0,1.0,2.0,1.0
+PART D2 6 wing id=+7 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+PART D2 7 wing id=+8 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
+E D2 minecraft:ender_dragon pos=-8.5,-50.0,8.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:17.638180840647344;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=0.0
+# an entity created after the dragons takes the next id
+C Summoned new Armor Stand
+COUNTER 5020
+# discarding a dragon removes its parts from the level
+COUNTER 5020
+E ender_dragon#1 minecraft:ender_dragon pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT Steve minecraft:remove_entities 4e019327

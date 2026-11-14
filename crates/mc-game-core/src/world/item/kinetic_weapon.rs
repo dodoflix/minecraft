@@ -3,7 +3,6 @@
 //!
 //! Not implemented: a target removed by an earlier stab of the same pass (an end crystal or a TNT minecart another one set
 //! off) is skipped, where vanilla still runs `stabAttack` on the removed object (exhaustion, post-attack effects);
-//! `EnderDragonPart` targets are not entities here, so the part-to-dragon redirection of the hit list has no effect;
 //! `onKineticHit` (the local hit sound of the client for entity event 2) is client-only.
 
 use super::piercing_weapon::{can_hit_entity, stab_attack};
@@ -135,7 +134,8 @@ pub fn damage_entities(
     };
     let mut affected = false;
     for hit in hits {
-        let other = hit.entity;
+        // a hit hitbox of the ender dragon stabs the dragon
+        let other = level.dragon_part_parent(hit.entity).unwrap_or(hit.entity);
         if was_recently_stabbed(level, &*entity, other, kinetic.contact_cooldown_ticks) {
             continue;
         }

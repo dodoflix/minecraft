@@ -1101,6 +1101,24 @@ pub trait Entity: Any {
         false
     }
 
+    /// `EnderDragon.getSubEntities()`: the ids of the hitboxes of a multipart entity (empty for every other entity). The level
+    /// keeps the hitboxes while it tracks the entity, they are not in the entity storage.
+    fn sub_entity_ids(&self) -> &[EntityId] {
+        &[]
+    }
+
+    /// Gives each hitbox of a multipart entity the next entity id (the constructor of each part takes one from the level right
+    /// after the entity's own).
+    fn allocate_sub_entity_ids(&mut self, _next_id: &mut dyn FnMut() -> EntityId) {}
+
+    /// Hands the hitboxes of a multipart entity to the level when it starts tracking the entity.
+    fn take_sub_entities(&mut self) -> Vec<Box<dyn Entity>> {
+        Vec::new()
+    }
+
+    /// Takes the hitboxes back from the level when it stops tracking the entity, to hand them over again if it starts again.
+    fn restore_sub_entities(&mut self, _parts: Vec<Box<dyn Entity>>) {}
+
     /// `Leashable.getLeashHolder()` id when the entity is leashed.
     fn leash_holder(&self) -> Option<EntityId> {
         super::mob::leashable::get_leash_holder(self.as_dyn())
@@ -4431,7 +4449,6 @@ pub trait Entity: Any {
         false
     }
     /// `getPickResult()`: the stack of a pick-block on the entity (`None`: nothing); `Mob`'s spawn egg by default.
-    // Not implemented: `getPickResult` of `EnderDragonPart` (its parent's).
     fn get_pick_result(&self) -> Option<crate::world::item::ItemStack> {
         crate::world::item::spawn_egg_item::by_id(self.get_type())
             .map(crate::world::item::ItemStack::new)

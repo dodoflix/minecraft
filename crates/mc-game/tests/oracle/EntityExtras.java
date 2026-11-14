@@ -33,6 +33,7 @@ import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.monster.warden.AngerManagement;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.animal.sheep.Sheep;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.monster.illager.Evoker;
 import net.minecraft.world.entity.monster.illager.Pillager;
@@ -99,6 +100,13 @@ final class EntityExtras {
          out.add("leftowner", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Projectile.class, "leftOwner")));
          out.add("shot", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Projectile.class, "hasBeenShot")));
          out.add("canbreak", EntityOracleDriver.bool(EntityOracleDriver.priv(e, Projectile.class, "canBreak") != null));
+      }));
+      ALL.add(new Extra(22, EnderDragon.class, (d, e, out) -> {
+         EnderDragon g = (EnderDragon)e;
+         out.add("dphase", g.getPhaseManager().getCurrentPhase().getPhase().getId());
+         out.add("flap", EntityOracleDriver.f(g.oFlapTime) + "/" + EntityOracleDriver.f(g.flapTime));
+         out.add("inwall", EntityOracleDriver.bool(g.inWall)).add("dtime", g.dragonDeathTime);
+         out.add("sitdmg", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, EnderDragon.class, "sittingDamageReceived")));
       }));
       ALL.add(new Extra(25, Allay.class, (d, e, out) -> {
          Allay a = (Allay)e;

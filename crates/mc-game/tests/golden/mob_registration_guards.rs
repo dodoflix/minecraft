@@ -27,10 +27,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "CopperGolem: chest item transport, weathering, statue form",
     ),
     (
-        "minecraft:ender_dragon",
-        "EnderDragon: phase brain and multipart body",
-    ),
-    (
         "minecraft:happy_ghast",
         "HappyGhast: rideable harness flyer",
     ),

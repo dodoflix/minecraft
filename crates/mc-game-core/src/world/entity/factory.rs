@@ -60,7 +60,10 @@ pub fn create(
     if !request.ignore_checks && !level.can_spawn_entity_type(ty) {
         return None;
     }
-    Some(instantiate(ty, level.next_entity_id(), &level.registries))
+    let id = level.next_entity_id();
+    Some(instantiate_with(ty, id, &level.registries, &mut || {
+        level.next_entity_id()
+    }))
 }
 
 /// `factory.create(type, level)` with an explicit entity id and the registries: usable without a `ServerLevel`
@@ -70,12 +73,29 @@ pub fn instantiate(
     id: EntityId,
     registries: &crate::registry::RegistryAccess,
 ) -> Box<dyn Entity> {
-    match factories().get(&ty) {
+    instantiate_with(
+        ty,
+        id,
+        registries,
+        &mut crate::server::level::next_detached_entity_id,
+    )
+}
+
+/// [`instantiate`] with the id source of the hitboxes of a multipart entity (the constructors of its parts take the next ids).
+pub fn instantiate_with(
+    ty: EntityType,
+    id: EntityId,
+    registries: &crate::registry::RegistryAccess,
+    next_id: &mut dyn FnMut() -> EntityId,
+) -> Box<dyn Entity> {
+    let mut entity: Box<dyn Entity> = match factories().get(&ty) {
         Some(reg) => (reg.create)(ty, id, registries),
         // Not implemented: every entity type without a registered factory (see the README's entity-type gaps). Vanilla
         // creates the type's own class; this creates an inert placeholder that keeps its NBT.
         None => Box::new(PlainEntity::new(ty, id)),
-    }
+    };
+    entity.allocate_sub_entity_ids(next_id);
+    entity
 }
 
 /// `EntityType.by(input)`: the type named by the `id` tag.

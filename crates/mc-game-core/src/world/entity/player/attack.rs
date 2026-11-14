@@ -552,11 +552,24 @@ impl ServerPlayer {
             }
         };
         let mut stack = attacking;
-        let target_living = entity.living().is_some();
+        // `hurtTarget = enderDragonPart.parentMob`: the weapon wears on the dragon, the post-attack effects run on the part
+        let part_parent = entity
+            .as_any()
+            .downcast_ref::<crate::world::entity::boss::ender_dragon::EnderDragonPart>()
+            .map(|part| part.parent);
+        let target_living = match part_parent {
+            Some(parent) => level
+                .get_entity_or_lent(parent)
+                .is_some_and(|e| e.living().is_some()),
+            None => entity.living().is_some(),
+        };
         let mut item_hurt_enemy = false;
         if target_living {
             item_hurt_enemy =
-                crate::world::item::hurt_enemy(level, &mut stack, &mut *entity, &mut *self);
+                with_hurt_target(level, &mut *entity, part_parent, |level, target| {
+                    crate::world::item::hurt_enemy(level, &mut stack, target, &mut *self)
+                })
+                .unwrap_or(false);
             if item_hurt_enemy {
                 self.award_stat_once(level, crate::stats::Stat::Used(stack.item()));
             }
@@ -578,7 +591,9 @@ impl ServerPlayer {
                     // an enchantment effect may have changed the held stack (`EnchantedItemInUse` write-back)
                     stack = self.get_item_by_slot(hand.as_equipment_slot());
                 }
-                crate::world::item::post_hurt_enemy(&mut stack, level, &mut *entity, &mut *self);
+                with_hurt_target(level, &mut *entity, part_parent, |level, target| {
+                    crate::world::item::post_hurt_enemy(&mut stack, level, target, &mut *self);
+                });
                 self.write_weapon_back(from_slot, hand, &stack);
             }
             if stack.is_empty() {
@@ -723,5 +738,18 @@ pub fn cause_extra_knockback(
         victim.send(&packet);
         victim.base_mut().sync_velocity = false;
         victim.base_mut().set_delta_movement(old_movement);
+    }
+}
+
+/// Runs `f` on the entity that takes the weapon's wear: `entity`, or the multipart entity a hit hitbox belongs to.
+fn with_hurt_target<R>(
+    level: &mut ServerLevel,
+    entity: &mut dyn Entity,
+    part_parent: Option<EntityId>,
+    f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R,
+) -> Option<R> {
+    match part_parent {
+        Some(parent) => level.with_entity(parent, f),
+        None => Some(f(level, entity)),
     }
 }

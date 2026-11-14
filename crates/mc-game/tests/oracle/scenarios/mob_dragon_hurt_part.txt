@@ -1,0 +1,85 @@
+# Ender dragon parts being hurt: the hitboxes of a NoAI dragon stay at the world origin, far from the dragon, and every attack on one of them is the
+# dragon's hurt for that part. Direct hurts (a head and a neck hit counts in full, any other part a quarter plus at most one, nothing under 0.01, only
+# a player or an always-hurts damage type reaches the health), a player's sword on a part (range from the part, the sword wears on the dragon), and
+# arrows from a player that hit the head from above and a wing from the side; an arrow flies through the place of the parts once their dragon is gone.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5101
+entity_counter 5100
+gamerule mob_drops false
+spawn_player A survival 0.5 1 2.2 0 0
+set A no_gravity true
+give A mainhand minecraft:diamond_sword
+tick 2
+mobspawn D minecraft:ender_dragon 8.5 1 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed D 11
+partref Head D 0
+partref Neck D 1
+partref Body D 2
+partref Tail D 3
+partref Wing D 6
+tick 2
+dump packets:A:add_entity,set_entity_data
+tick 23
+dump packets:A:none parts:D xentity:D counter
+note a hurt that is neither a player's nor of an always-hurts type changes nothing but is accepted
+hurt Head generic 4
+tick 1
+dump xentity:D packets:A:damage_event,set_entity_data
+note the head takes a player's hit in full
+hurt Head player_attack 4 by=A
+tick 25
+dump xentity:D packets:A:damage_event,set_entity_data
+note a wing takes a quarter plus one, the neck all of it, the body and a tail a quarter plus one
+hurt Wing player_attack 4 by=A
+tick 25
+dump xentity:D
+hurt Neck player_attack 4 by=A
+tick 25
+dump xentity:D
+hurt Body player_attack 4 by=A
+tick 25
+dump xentity:D
+hurt Tail player_attack 8 by=A
+tick 25
+dump xentity:D
+note the dragon itself is its body
+hurt D player_attack 4 by=A
+tick 25
+dump xentity:D
+note under 0.01 after the scaling is refused, an always-hurts type needs no player, a second hit inside the invulnerable time is accepted too
+hurt Wing player_attack 0.004 by=A
+hurt Wing bad_respawn_point 20
+hurt Head player_attack 3 by=A
+tick 25
+dump xentity:D
+note the sword of a player standing inside the parts: the head in full, then a wing, and the sword wears on the dragon
+attack A Head
+tick 25
+dump xentity:D inventory:A packets:A:damage_event
+attack A Wing
+tick 25
+dump xentity:D inventory:A player:A
+note an arrow falling from above hits the head, one flying in from the side the wing
+spawn a1 minecraft:arrow 0.1 1.5 0.1 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a1 901
+velocity a1 0 -2 0
+tick 1
+dump xentity:D events packets:A:damage_event
+tick 25
+spawn a2 minecraft:arrow 2.3 1 0 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a2 902
+velocity a2 -2 0 0
+tick 1
+dump xentity:D events packets:A:damage_event
+tick 25
+note without its dragon nothing is left to hit
+kill D
+tick 1
+spawn a3 minecraft:arrow 2.3 1 0 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a3 903
+velocity a3 -2 0 0
+tick 3
+dump xentity:a3 events counter

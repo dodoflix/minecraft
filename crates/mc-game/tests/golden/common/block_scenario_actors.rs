@@ -585,6 +585,18 @@ impl Scenario {
                 self.out
                     .push(format!("EFFECT {} {} added={added}", a[1], a[2]));
             }
+            // partref NAME DRAGON INDEX   NAME = the part INDEX of the ender dragon DRAGON, usable as a REF
+            "partref" => {
+                self.world();
+                let dragon = self.entity_id(&a[2]);
+                let index: usize = a[3].parse().expect("part index");
+                let part = self
+                    .level()
+                    .get_entity_or_removed(dragon)
+                    .and_then(|d| d.sub_entity_ids().get(index).copied())
+                    .unwrap_or_else(|| panic!("{} has no part {index}", a[2]));
+                self.actors.refs.push((a[1].clone(), part));
+            }
             "mobspawn" => {
                 self.world();
                 self.load_registries();
@@ -668,6 +680,7 @@ impl Scenario {
                     "fire" => e.set_remaining_fire_ticks(v.parse().unwrap()),
                     "fall_distance" => e.base_mut().fall_distance = num(&v),
                     "invulnerable" => e.base_mut().permanently_invulnerable = v == "true",
+                    "no_gravity" => e.base_mut().set_no_gravity(v == "true"),
                     "tag" => {
                         e.base_mut().add_tag(&v);
                     }
@@ -1472,6 +1485,60 @@ impl Scenario {
                         .state()
                 };
                 self.out.push(format!("RNG {name} {state}"));
+            }
+            // PART REF index name id=+N pos=.. old=.. size=w,h bb=..: the parts of the ender dragon REF
+            "parts" => {
+                use mc_core::math::java::{
+                    java_double_to_string as jd, java_float_to_string as jf,
+                };
+                let name = arg.expect("parts:REF");
+                let id = self.entity_id(name);
+                let level = self.level();
+                let dragon = level
+                    .get_entity_or_removed(id)
+                    .unwrap_or_else(|| panic!("entity {name} is gone"));
+                let part_ids = dragon.sub_entity_ids().to_vec();
+                let mut lines = Vec::new();
+                for (index, part_id) in part_ids.iter().enumerate() {
+                    let part = level
+                        .dragon_part(*part_id)
+                        .unwrap_or_else(|| panic!("{name} has no part {index}"));
+                    let base = part.base();
+                    let (p, bb) = (base.position(), base.bounding_box());
+                    let line = format!(
+                        "PART {name} {index} {} id=+{} pos={},{},{} old={},{},{} size={},{} bb={},{},{},{},{},{}",
+                        part.as_any()
+                            .downcast_ref::<mc_game::world::entity::boss::ender_dragon::EnderDragonPart>()
+                            .map_or("?", |p| p.name),
+                        part_id - id,
+                        jd(p.x),
+                        jd(p.y),
+                        jd(p.z),
+                        jd(base.xo),
+                        jd(base.yo),
+                        jd(base.zo),
+                        jf(base.dimensions.width),
+                        jf(base.dimensions.height),
+                        jd(bb.min_x),
+                        jd(bb.min_y),
+                        jd(bb.min_z),
+                        jd(bb.max_x),
+                        jd(bb.max_y),
+                        jd(bb.max_z),
+                    );
+                    lines.push(line);
+                }
+                self.out.extend(lines);
+            }
+            // COUNTER N: the last entity id handed out
+            "counter" => {
+                let n = self
+                    .level()
+                    .entity_id_counter
+                    .as_ref()
+                    .expect("per-level counter")
+                    .load(std::sync::atomic::Ordering::Relaxed);
+                self.out.push(format!("COUNTER {n}"));
             }
             // ED REF id:serializer:hex ..
             "edata" => {

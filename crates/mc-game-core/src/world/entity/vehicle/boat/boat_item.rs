@@ -93,7 +93,7 @@ impl ItemBehaviour for BoatItem {
         if !entities.is_empty() {
             let from = player.base().get_eye_position();
             for id in entities {
-                if let Some(e) = level.get_entity(id)
+                if let Some(e) = level.get_entity_or_part(id)
                     && e.get_bounding_box()
                         .inflate_scalar(f64::from(e.get_pick_radius()))
                         .contains_vec3(from)

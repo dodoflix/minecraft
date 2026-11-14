@@ -166,7 +166,7 @@ fn get_entity_hit_result(
     let mut nearest = f64::MAX;
     let mut hit = None;
     for id in level.get_entities(Some(source.id()), area, |e| !e.is_spectator()) {
-        let Some(entity) = level.get_entity(id) else {
+        let Some(entity) = level.get_entity_or_part(id) else {
             continue;
         };
         let bb = entity.get_bounding_box().inflate_scalar(margin);

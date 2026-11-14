@@ -107,6 +107,8 @@ import net.minecraft.util.RandomSource;
  * reseed N                    restart the entity random-seed sequence (entities created afterwards: see VanillaLevel header)
  * level_seed N                Level.random.setSeed(N) (explosion rays, drop spread, ... draw from it; LegacyRandomSource)
  * entity_counter N            ServerLevel.ENTITY_COUNTER = N (the next created entity gets id N+1; ids are not printed)
+ * partref NAME DRAGON INDEX   NAME = the EnderDragonPart INDEX (0..7: head neck body tail tail tail wing wing) of the dragon DRAGON, usable wherever a REF is
+ *                             (`hurt`, `attack`); a part is not an entity of the level, so keep it out of `xentities`
  * award X Y Z AMOUNT [dx dy dz]   ExperienceOrb.award / awardWithDirection (orb split, merge into existing orbs)
  * rand_value N                Level.randValue = N (the LCG getBlockRandomPos draws from; set it before random ticks)
  * tick_chunk CX CZ SPEED      ServerLevel.tickChunk(chunk, SPEED): random ticks of one chunk (use instead of gamerule random_tick_speed)
@@ -228,6 +230,8 @@ import net.minecraft.util.RandomSource;
  *   EntityExtras.java (`mob:REF` also carries them); edata:REF = `ED REF id:serializer:hex ..` for every synched data item (accessor id, serializer id, wire form of the value);
  *   placed = `G type pos= rot= KEY=VALUE..` of every live entity except players, items, falling blocks and orbs, sorted (saved Age, CatType, Color, Health, PersistenceRequired, RabbitType, Sheared, Type, Variant, variant).
  *   rng:level / rng:REF = `RNG level|REF STATE` (the 48-bit state of Level.random / of the entity's own random).
+ *   parts:REF = `PART REF index name id=+N pos=x,y,z old=xo,yo,zo size=w,h bb=minx,miny,minz,maxx,maxy,maxz` for each part of the ender dragon REF (`id` = the part's entity id minus the dragon's),
+ *   counter = `COUNTER N` (ServerLevel.ENTITY_COUNTER: the last id handed out).
  * </pre>
  *
  * <p>Output lines: {@code T n} (tick counter header before per-tick dumps), {@code P ...} player, {@code E ...} entity,
@@ -501,6 +505,11 @@ public final class EntityOracleDriver {
          case "entity_counter" -> { // ServerLevel.ENTITY_COUNTER: the next created entity gets N+1 (pins ids, which only the sleeping-item phase and orb merging observe)
             world();
             ((java.util.concurrent.atomic.AtomicInteger)priv(null, net.minecraft.server.level.ServerLevel.class, "ENTITY_COUNTER")).set(Integer.parseInt(a.get(1)));
+         }
+         case "partref" -> {
+            world();
+            var dragon = (net.minecraft.world.entity.boss.enderdragon.EnderDragon)ref(a.get(2));
+            refs.put(a.get(1), dragon.getSubEntities()[Integer.parseInt(a.get(3))]);
          }
          case "award" -> { // award X Y Z AMOUNT [dx dy dz]: ExperienceOrb.award / awardWithDirection
             world();
@@ -1903,6 +1912,17 @@ public final class EntityOracleDriver {
                }
             }
             case "edata" -> entityData(arg, ref(arg));
+            case "parts" -> {
+               var dragon = (net.minecraft.world.entity.boss.enderdragon.EnderDragon)ref(arg);
+               int index = 0;
+               for (var p : dragon.getSubEntities()) {
+                  net.minecraft.world.phys.AABB bb = p.getBoundingBox();
+                  out.println("PART " + arg + " " + index++ + " " + p.name + " id=+" + (p.getId() - dragon.getId()) + " pos=" + vec(p.getX(), p.getY(), p.getZ())
+                     + " old=" + vec(p.xo, p.yo, p.zo) + " size=" + f(p.getBbWidth()) + "," + f(p.getBbHeight())
+                     + " bb=" + vec(bb.minX, bb.minY, bb.minZ) + "," + vec(bb.maxX, bb.maxY, bb.maxZ));
+               }
+            }
+            case "counter" -> out.println("COUNTER " + ((java.util.concurrent.atomic.AtomicInteger)priv(null, net.minecraft.server.level.ServerLevel.class, "ENTITY_COUNTER")).get());
             case "rng" -> {
                // RNG level|REF STATE: the 48-bit state of Level.random or of the entity's own random
                RandomSource random = arg.equals("level") ? v.level.getRandom() : ref(arg).getRandom();

@@ -219,7 +219,7 @@ pub fn get_entity_hit_result_pick(
     let mut hovered = None;
     let except_root = except.get_root_vehicle(level);
     for id in level.get_entities(Some(except.id()), bounds, |e| matching(e)) {
-        let Some(entity) = level.get_entity(id) else {
+        let Some(entity) = level.get_entity_or_part(id) else {
             continue;
         };
         let bb = entity
@@ -295,7 +295,7 @@ pub fn get_entity_hit_result_margin(
     let mut nearest = f64::MAX;
     let mut hit = None;
     for id in level.get_entities(Some(source.id()), target_search_area, |e| matching(e)) {
-        let Some(entity) = level.get_entity(id) else {
+        let Some(entity) = level.get_entity_or_part(id) else {
             continue;
         };
         let bb = entity
@@ -355,7 +355,7 @@ pub fn get_many_entity_hit_result_margin(
 ) -> Vec<EntityHitResult> {
     let mut collector = Vec::new();
     for id in level.get_entities(Some(source.id()), target_search_area, |e| matching(e)) {
-        let Some(entity) = level.get_entity(id) else {
+        let Some(entity) = level.get_entity_or_part(id) else {
             continue;
         };
         let entity_bb = entity.get_bounding_box();

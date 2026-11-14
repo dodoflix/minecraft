@@ -119,6 +119,9 @@ pub struct ServerLevel {
     pub entity_id_counter: Option<Arc<std::sync::atomic::AtomicI32>>,
     /// `navigatingMobs`: the tracked mobs, whose navigation `send_block_updated` recomputes (kept by the tracking callbacks).
     pub navigating_mobs: std::collections::BTreeSet<EntityId>,
+    /// `dragonParts`: the hitboxes of the tracked multipart entities by id (a slot is empty while its part is taken out).
+    pub(super) dragon_parts:
+        super::fastutil::LongOpenHashMap<Option<Box<dyn crate::world::entity::Entity>>>,
     /// `pathTypesByPosCache` (`getPathTypeCache()`), invalidated by `send_block_updated`.
     pub path_type_cache: parking_lot::Mutex<crate::world::level::pathfinder::PathTypeCache>,
     /// `StructureStart.references` increments made through a shared level (exploration maps), by (chunk, structure id):
@@ -198,6 +201,7 @@ impl ServerLevel {
             waypoint_manager: Default::default(),
             entity_id_counter: None,
             navigating_mobs: Default::default(),
+            dragon_parts: super::fastutil::LongOpenHashMap::new_int(),
             path_type_cache: Default::default(),
             pending_start_references: Default::default(),
             // ==== spawn framework additions (ServerLevel::new initializer) ====

@@ -259,7 +259,7 @@ impl<'a> ServerExplosion<'a> {
         );
         let targets = level.get_entities(self.source, &area, |e| !e.is_spectator());
         for id in targets {
-            let Some(entity) = level.get_entity(id) else {
+            let Some(entity) = level.get_entity_or_part(id) else {
                 continue;
             };
             let Some(plan) = self.plan(level, entity, double_radius) else {
