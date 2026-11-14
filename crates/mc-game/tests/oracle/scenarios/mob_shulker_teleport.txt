@@ -1,0 +1,83 @@
+# A shulker that loses its attach block looks for another face (the search runs down, up, north, south, west, east) and teleports
+# when none is left; one with a block placed into its own space leaves; a shulker below half health teleports on a quarter of its hurts; a shulker
+# without AI stays where it is. Stone slabs every third layer give the teleport search surfaces.
+command_env
+level flat
+preload 6
+entity_counter 5500
+level_seed 5501
+difficulty normal
+gamerule mob_drops false
+spawn_player A creative 30.5 -60 30.5 0 0
+fill -12 -58 -12 40 -58 12 minecraft:stone
+fill -12 -55 -12 40 -55 12 minecraft:stone
+fill -12 -52 -12 40 -52 12 minecraft:stone
+fill -12 -49 -12 40 -49 12 minecraft:stone
+fill -12 -46 -12 40 -46 12 minecraft:stone
+fill 11 -57 0 11 -57 0 minecraft:stone
+tick 30
+note S1 sits on grass next to a stone block: the grass goes and it attaches to the stone (east)
+block 1 -60 20 minecraft:stone
+mobspawn S1 minecraft:shulker 0.5 -60 20.5 0 0 {PersistenceRequired:1b}
+entity_seed S1 51
+tick 2
+dump mob:S1
+watch mob:S1 events packets:A:none
+block 0 -61 20 minecraft:air
+tick 3
+watch off
+dump mob:S1 nbt:S1 events
+note S2 on a floor block loses it with no other face around: it teleports (the search draws entity random)
+fill 11 -55 0 11 -55 0 minecraft:air
+mobspawn S2 minecraft:shulker 11.5 -56 0.5 0 0 {PersistenceRequired:1b}
+entity_seed S2 52
+tick 2
+dump mob:S2
+watch mob:S2 events
+block 11 -57 0 minecraft:air
+tick 6
+watch off
+dump mob:S2 nbt:S2 events
+note S3 gets a block placed into its space: the position is blocked, so it leaves
+mobspawn S3 minecraft:shulker 20.5 -56 0.5 0 0 {PersistenceRequired:1b}
+entity_seed S3 53
+tick 2
+dump mob:S3
+watch mob:S3 events
+block 20 -56 0 minecraft:stone
+tick 6
+watch off
+dump mob:S3 nbt:S3 events
+note a shulker without AI cannot teleport: its floor goes and it hangs there
+mobspawn S4 minecraft:shulker 40.5 -60 20.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed S4 54
+tick 2
+block 40 -61 20 minecraft:air
+tick 5
+dump mob:S4 nbt:S4 events
+note S5 below half health: each hurt may teleport it on a quarter of the draws; one hurt per invulnerability window
+mobspawn S5 minecraft:shulker 5.5 -56 5.5 0 0 {PersistenceRequired:1b,Health:10.0f}
+entity_seed S5 55
+tick 2
+hurt S5 minecraft:player_attack 1 by=A direct=A
+tick 21
+hurt S5 minecraft:player_attack 1 by=A direct=A
+tick 21
+hurt S5 minecraft:player_attack 1 by=A direct=A
+tick 21
+hurt S5 minecraft:player_attack 1 by=A direct=A
+tick 21
+hurt S5 minecraft:player_attack 1 by=A direct=A
+tick 21
+hurt S5 minecraft:player_attack 1 by=A direct=A
+tick 2
+dump mob:S5 nbt:S5 events
+note a healthy shulker hurt a few times stays where it is
+mobspawn S6 minecraft:shulker 25.5 -56 5.5 0 0 {PersistenceRequired:1b}
+entity_seed S6 56
+tick 2
+hurt S6 minecraft:player_attack 1 by=A direct=A
+tick 21
+hurt S6 minecraft:player_attack 1 by=A direct=A
+tick 21
+dump mob:S6 events

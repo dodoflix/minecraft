@@ -233,7 +233,7 @@ import net.minecraft.util.RandomSource;
  *   trader_data (`TRADERDATA delay=.. chance=..`: the trader spawner's saved data).
  * dump/watch kinds for every entity: xentity:REF / xentities (all live non-player entities): the normal `E` line + the fields of the classes registered in
  *   EntityExtras.java (`mob:REF` also carries them); edata:REF = `ED REF id:serializer:hex ..` for every synched data item (accessor id, serializer id, wire form of the value);
- *   placed = `G type pos= rot= KEY=VALUE..` of every live entity except players, items, falling blocks and orbs, sorted (saved Age, CatType, Color, Health, PersistenceRequired, RabbitType, Sheared, Type, Variant, variant).
+ *   placed = `G type pos= rot= KEY=VALUE..` of every live entity except players, items, falling blocks and orbs, sorted (`placed:norot` prints `rot=-`; saved Age, CatType, Color, Health, PersistenceRequired, RabbitType, Sheared, Type, Variant, variant).
  *   rng:level / rng:REF = `RNG level|REF STATE` (the 48-bit state of Level.random / of the entity's own random).
  *   parts:REF = `PART REF index name id=+N pos=x,y,z old=xo,yo,zo size=w,h bb=minx,miny,minz,maxx,maxy,maxz` for each part of the ender dragon REF (`id` = the part's entity id minus the dragon's),
  *   counter = `COUNTER N` (ServerLevel.ENTITY_COUNTER: the last id handed out).
@@ -1927,7 +1927,7 @@ public final class EntityOracleDriver {
                   describe(en.getKey(), en.getValue());
                }
             }
-            case "placed" -> { // every live non-player entity as a `G type pos rot saved-variant-fields` line, sorted (ids and seeds differ with the generation order)
+            case "placed" -> { // every live non-player entity as a `G type pos rot saved-variant-fields` line, sorted (ids and seeds differ with the generation order); `placed:norot` prints `rot=-` (a living entity's yaw comes from Math.random())
                List<String> lines = new ArrayList<>();
                for (Entity e : v.level.getAllEntities()) {
                   if (e instanceof ServerPlayer || !e.isAlive() || e instanceof ItemEntity || e instanceof net.minecraft.world.entity.item.FallingBlockEntity
@@ -1935,7 +1935,7 @@ public final class EntityOracleDriver {
                      continue; // block updates and drops, not placed by generation (their timing differs with the chunk order)
                   }
                   StringBuilder b = new StringBuilder("G ").append(BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()));
-                  b.append(" pos=").append(vec(e.getX(), e.getY(), e.getZ())).append(" rot=").append(f(e.getYRot())).append(',').append(f(e.getXRot()));
+                  b.append(" pos=").append(vec(e.getX(), e.getY(), e.getZ())).append(" rot=").append("norot".equals(arg) ? "-" : f(e.getYRot()) + "," + f(e.getXRot()));
                   try (ProblemReporter.ScopedCollector rep = new ProblemReporter.ScopedCollector(e.problemPath(), org.slf4j.LoggerFactory.getLogger("oracle"))) {
                      net.minecraft.world.level.storage.TagValueOutput o = net.minecraft.world.level.storage.TagValueOutput.createWithContext(rep, v.server.registryAccess());
                      e.saveWithoutId(o);

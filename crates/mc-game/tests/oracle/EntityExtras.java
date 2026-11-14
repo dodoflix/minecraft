@@ -31,6 +31,7 @@ import net.minecraft.world.entity.animal.panda.Panda;
 import net.minecraft.world.entity.animal.parrot.Parrot;
 import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.PatrollingMonster;
+import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.monster.warden.AngerManagement;
@@ -304,6 +305,16 @@ final class EntityExtras {
          out.add("tyd", EntityOracleDriver.f((Double)EntityOracleDriver.priv(e, "targetDeltaY")));
          out.add("tzd", EntityOracleDriver.f((Double)EntityOracleDriver.priv(e, "targetDeltaZ")));
          out.add("target", d.uuidName(target == null ? null : target.getUUID()));
+      }));
+      ALL.add(new Extra(30, Shulker.class, (d, e, out) -> {
+         Shulker s = (Shulker)e;
+         var bb = s.getBoundingBox();
+         out.add("face", s.getAttachFace().getSerializedName());
+         out.add("peek", s.getEntityData().get((net.minecraft.network.syncher.EntityDataAccessor<Byte>)EntityOracleDriver.priv(null, Shulker.class, "DATA_PEEK_ID")));
+         out.add("cpeek", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, Shulker.class, "currentPeekAmount")));
+         out.add("color", s.getEntityData().get((net.minecraft.network.syncher.EntityDataAccessor<Byte>)EntityOracleDriver.priv(null, Shulker.class, "DATA_COLOR_ID")));
+         out.add("bb", EntityOracleDriver.f(bb.minX) + "," + EntityOracleDriver.f(bb.minY) + "," + EntityOracleDriver.f(bb.minZ) + ","
+            + EntityOracleDriver.f(bb.maxX) + "," + EntityOracleDriver.f(bb.maxY) + "," + EntityOracleDriver.f(bb.maxZ));
       }));
       ALL.add(new Extra(30, Tadpole.class, (d, e, out) -> {
          Tadpole t = (Tadpole)e;

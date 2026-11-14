@@ -1,0 +1,45 @@
+# The colour of a shulker: a spawn egg carrying the shulker colour component dyes the spawned shulker (the component is applied as an implicit
+# component), a plain egg leaves it without a colour, saved colour data covers every valid byte, 16 and an invalid one (no colour), and
+# `/summon` with a colour. The colour is what the saved data and the synched data show.
+command_env
+level flat
+preload 6
+entity_counter 5800
+level_seed 5801
+difficulty normal
+gamerule mob_drops false
+spawn_player A creative 7.5 -60 8.5 0 0
+tick 30
+reseed 5802
+give A mainhand minecraft:shulker_spawn_egg[minecraft:shulker/color="red"]
+tick 1
+use_on A 5 -61 5 up
+tick 1
+give A mainhand minecraft:shulker_spawn_egg
+tick 1
+use_on A 7 -61 5 up
+tick 1
+give A mainhand minecraft:shulker_spawn_egg[minecraft:shulker/color="light_blue"]
+tick 1
+use_on A 9 -61 5 up
+tick 3
+dump mobs edata:shulker#1 edata:shulker#2 edata:shulker#3 nbt:shulker#1 nbt:shulker#2 nbt:shulker#3
+cmd summon minecraft:shulker 20.5 -60 5.5 {Color:2b,PersistenceRequired:1b}
+cmd summon minecraft:shulker 22.5 -60 5.5 {Color:15b,PersistenceRequired:1b}
+mobspawn M1 minecraft:shulker 24.5 -60 5.5 0 0 {Color:0b,PersistenceRequired:1b}
+mobspawn M2 minecraft:shulker 26.5 -60 5.5 0 0 {Color:16b,PersistenceRequired:1b}
+mobspawn M3 minecraft:shulker 28.5 -60 5.5 0 0 {Color:17b,PersistenceRequired:1b}
+mobspawn M4 minecraft:shulker 30.5 -60 5.5 0 0 {PersistenceRequired:1b}
+entity_seed M1 61
+entity_seed M2 62
+entity_seed M3 63
+entity_seed M4 64
+tick 3
+dump mobs nbt:M1 nbt:M2 nbt:M3 nbt:M4
+cmd execute if entity @e[type=minecraft:shulker,nbt={Color:2b}]
+cmd execute if entity @e[type=minecraft:shulker,nbt={Color:5b}]
+note the colour set through saved data later
+nbt M4 {Color:9b}
+nbt M1 {Color:16b}
+tick 1
+dump mob:M1 mob:M4 nbt:M1 nbt:M4 edata:M4

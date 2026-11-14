@@ -3,6 +3,7 @@
 use linkme::distributed_slice;
 use mc_core::direction::{Axis, Direction};
 use mc_core::ident::Identifier;
+use mc_core::math::java::java_float_to_string;
 use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
@@ -35,6 +36,7 @@ use mc_game_core::world::entity::factory::{
 };
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::projectile::shulker_bullet::ShulkerBullet;
+use mc_game_core::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId, MoverType};
 use mc_game_core::world::item::ItemStack;
@@ -755,6 +757,10 @@ struct ShulkerAttackGoal {
 }
 
 impl Goal for ShulkerAttackGoal {
+    fn name(&self) -> &'static str {
+        "Shulker$ShulkerAttackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let target = mob.get_target().and_then(|id| level.get_entity(id));
         target.is_some_and(|t| t.is_alive()) && level.difficulty() != Difficulty::Peaceful
@@ -847,6 +853,10 @@ impl ShulkerDefenseAttackGoal {
 }
 
 impl Goal for ShulkerDefenseAttackGoal {
+    fn name(&self) -> &'static str {
+        "Shulker$ShulkerDefenseAttackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if mob::combat::get_team_name(level, mob).is_none() {
             false
@@ -987,6 +997,10 @@ impl ShulkerNearestAttackGoal {
 }
 
 impl Goal for ShulkerNearestAttackGoal {
+    fn name(&self) -> &'static str {
+        "Shulker$ShulkerNearestAttackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if level.difficulty() == Difficulty::Peaceful {
             false
@@ -1018,6 +1032,10 @@ struct ShulkerPeekGoal {
 }
 
 impl Goal for ShulkerPeekGoal {
+    fn name(&self) -> &'static str {
+        "Shulker$ShulkerPeekGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         mob.get_target().is_none()
             && mob
@@ -1061,4 +1079,40 @@ impl Goal for ShulkerPeekGoal {
 static SHULKER: EntityRegistration = EntityRegistration {
     entity_type: EntityType::SHULKER,
     create: |ty, id, registries| Box::new(Shulker::new(ty, id, registries)),
+};
+
+/// The scenario dump fields of a shulker: `face peek cpeek color bb`.
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static SHULKER_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 30,
+    applies: |e| e.as_any().is::<Shulker>(),
+    fields: |e, _level, _ctx| {
+        let shulker = e.as_any().downcast_ref::<Shulker>().expect("applies");
+        let bb = shulker.get_bounding_box();
+        let bounds = [bb.min_x, bb.min_y, bb.min_z, bb.max_x, bb.max_y, bb.max_z]
+            .map(mc_core::math::java::java_double_to_string)
+            .join(",");
+        vec![
+            (
+                "face".into(),
+                shulker.get_attach_face().get_serialized_name().into(),
+            ),
+            ("peek".into(), shulker.get_raw_peek_amount().to_string()),
+            (
+                "cpeek".into(),
+                java_float_to_string(shulker.current_peek_amount),
+            ),
+            (
+                "color".into(),
+                shulker
+                    .mob
+                    .living
+                    .entity
+                    .entity_data
+                    .get(DATA_COLOR_ID)
+                    .to_string(),
+            ),
+            ("bb".into(), bounds),
+        ]
+    },
 };

@@ -1,0 +1,63 @@
+# A shulker bullet that hits an open shulker makes it teleport and a copy (same colour) appears where it stood, unless the other shulkers within
+# 8 blocks make the copy fail (chance (count - 1) / 5, level random). A closed shulker does not teleport, a shulker without AI cannot, and a
+# bullet in flight does the same. Stone slabs every third layer give the teleports surfaces.
+command_env
+level flat
+preload 6
+entity_counter 5700
+level_seed 5701
+difficulty normal
+gamerule mob_drops false
+spawn_player A creative 60.5 -60 60.5 0 0
+fill -12 -58 -12 70 -58 12 minecraft:stone
+fill -12 -55 -12 70 -55 12 minecraft:stone
+fill -12 -52 -12 70 -52 12 minecraft:stone
+fill -12 -49 -12 70 -49 12 minecraft:stone
+fill -12 -46 -12 70 -46 12 minecraft:stone
+tick 30
+mobspawn O minecraft:shulker 60.5 -57 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,UUID:[I;5,6,7,8]}
+entity_seed O 50
+note R1: an open lone shulker with a colour: it teleports and leaves a red copy
+mobspawn R1 minecraft:shulker 0.5 -57 0.5 0 0 {PersistenceRequired:1b,Peek:100b,Color:14b}
+entity_seed R1 51
+tick 2
+spawn bl minecraft:shulker_bullet 3.5 -56 0.5 0 0 {Steps:0,Dir:1,TXD:0.0,TYD:0.0,TZD:0.0,Owner:[I;5,6,7,8]}
+entity_seed bl 52
+dump mobs
+hurt R1 minecraft:mob_projectile 4 by=O direct=bl
+tick 2
+dump mobs events
+note R2: an open shulker with three neighbours within 8 blocks (copy fails with chance 0.6)
+mobspawn R2 minecraft:shulker 30.5 -57 0.5 0 0 {PersistenceRequired:1b,Peek:100b,Color:3b}
+entity_seed R2 53
+mobspawn N1 minecraft:shulker 31.5 -57 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn N2 minecraft:shulker 28.5 -57 -2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn N3 minecraft:shulker 33.5 -57 -1.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+tick 2
+spawn bl2 minecraft:shulker_bullet 33.5 -56 0.5 0 0 {Steps:0,Dir:1,TXD:0.0,TYD:0.0,TZD:0.0,Owner:[I;5,6,7,8]}
+entity_seed bl2 54
+hurt R2 minecraft:mob_projectile 4 by=O direct=bl2
+tick 2
+dump mobs events
+note R3: a closed shulker is hurt and neither teleports nor copies; R4: an open one without AI cannot teleport
+mobspawn R3 minecraft:shulker 45.5 -57 0.5 0 0 {PersistenceRequired:1b}
+entity_seed R3 55
+mobspawn R4 minecraft:shulker 49.5 -57 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,Peek:100b}
+entity_seed R4 56
+tick 2
+spawn bl3 minecraft:shulker_bullet 47.5 -56 0.5 0 0 {Steps:0,Dir:1,TXD:0.0,TYD:0.0,TZD:0.0,Owner:[I;5,6,7,8]}
+entity_seed bl3 57
+hurt R3 minecraft:mob_projectile 4 by=O direct=bl3
+hurt R4 minecraft:mob_projectile 4 by=O direct=bl3
+tick 2
+dump mobs events
+note R5: a bullet that flies to an open shulker; its owner is a shulker of the same team of nobody
+mobspawn R5 minecraft:shulker 0.5 -57 8.5 0 0 {PersistenceRequired:1b,Peek:100b,UUID:[I;1,2,3,4]}
+entity_seed R5 58
+tick 2
+spawn bl4 minecraft:shulker_bullet 0.5 -56 4.5 0 0 {Steps:5,Dir:3,TXD:0.0,TYD:0.0,TZD:0.2,Owner:[I;5,6,7,8],Target:[I;1,2,3,4]}
+entity_seed bl4 59
+watch xentities mob:R5 events
+tick 40
+watch off
+dump mobs events

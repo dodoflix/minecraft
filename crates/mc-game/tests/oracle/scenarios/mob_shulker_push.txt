@@ -1,0 +1,68 @@
+# The lid of a shulker as a solid: a player stands on a closed shulker (a full block for collision), the opening lid lifts the player and a pig
+# (push along the opening direction, a wall shulker pushes sideways) and does not push another shulker; the lid of a shulker box under a shulker
+# makes it teleport, and a pig on the box is lifted. All shulkers here have no AI (their lid is driven by saved data).
+command_env
+level flat
+preload 6
+entity_counter 5600
+level_seed 5601
+difficulty normal
+gamerule mob_drops false
+fill -12 -58 -12 40 -58 12 minecraft:stone
+fill -12 -55 -12 40 -55 12 minecraft:stone
+fill -12 -52 -12 40 -52 12 minecraft:stone
+fill -12 -49 -12 40 -49 12 minecraft:stone
+fill -12 -46 -12 40 -46 12 minecraft:stone
+mobspawn S1 minecraft:shulker 0.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed S1 51
+spawn_player A survival 0.5 -59 0.5 0 0 sim
+spawn_player B survival 18.5 -60 3.5 0 0
+attribute A minecraft:max_health 2000
+set A health 2000
+tick 30
+note S1 is closed and A stands on it
+tick 5
+dump mob:S1 player:A
+note the lid opens fully: A is lifted with it
+nbt S1 {Peek:100b}
+watch mob:S1 player:A events
+tick 30
+watch off
+dump mob:S1 player:A
+note the lid closes: A drops with it
+nbt S1 {Peek:0b}
+watch mob:S1 player:A
+tick 25
+watch off
+dump mob:S1 player:A
+note a wall shulker (attached to the stone to its north) opens towards a pig and a shulker standing in the way
+fill 8 -60 -1 8 -57 -1 minecraft:stone
+mobspawn S2 minecraft:shulker 8.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,AttachFace:2b}
+entity_seed S2 52
+spawn pig minecraft:pig 8.5 -60 1.6 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed pig 53
+mobspawn S3 minecraft:shulker 8.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed S3 54
+tick 3
+dump mobs
+nbt S2 {Peek:100b}
+watch mob:S2 mob:S3 entity:pig
+tick 30
+watch off
+dump mobs
+note the lid of a shulker box opens under a shulker and a pig
+block 16 -60 0 minecraft:shulker_box[facing=up]
+mobspawn S4 minecraft:shulker 16.5 -59 0.5 0 0 {PersistenceRequired:1b}
+entity_seed S4 55
+spawn pig2 minecraft:pig 17.5 -59 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed pig2 56
+tick 3
+dump mobs
+use_on B 16 -60 0 east
+watch mob:S4 entity:pig2 events
+tick 25
+watch off
+dump mobs events
+close_menu B
+tick 12
+dump mobs events

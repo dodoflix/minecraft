@@ -1460,13 +1460,16 @@ impl Scenario {
                         use mc_core::math::java::java_float_to_string as jf;
                         let (b, p) = (e.base(), e.base().position());
                         let mut line = format!(
-                            "G {} pos={},{},{} rot={},{}",
+                            "G {} pos={},{},{} rot={}",
                             e.get_type().name(),
                             mc_core::math::java::java_double_to_string(p.x),
                             mc_core::math::java::java_double_to_string(p.y),
                             mc_core::math::java::java_double_to_string(p.z),
-                            jf(b.y_rot()),
-                            jf(b.x_rot()),
+                            if arg == Some("norot") {
+                                "-".to_string()
+                            } else {
+                                format!("{},{}", jf(b.y_rot()), jf(b.x_rot()))
+                            },
                         );
                         let mut tag = mc_nbt::CompoundTag::new();
                         e.save_without_id(&mut tag, &|i| level.get_entity(i));

@@ -11,7 +11,7 @@
 //! ```
 //! Generate the fixture with `scripts/block-oracle.sh blk_redstone_lever_lamp` (runs the REAL vanilla level).
 //!
-//! Supported commands (same text as the Java driver, see its header): `level flat|void|normal` (`normal`: the real noise generator of the overworld and the nether), `structures true|false` (`generate-structures`: placed structures and the structure search), `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
+//! Supported commands (same text as the Java driver, see its header): `level flat|void|normal` (`normal`: the real noise generator of the dimension), `structures true|false` (`generate-structures`: placed structures and the structure search), `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
 //! `command_env` (a real command environment around the whole scenario; `cmd COMMAND...` then runs any other command as the console, its feedback printed as `C` lines; `cmd_quiet COMMAND...` prints none), `jigsaw_generate PLAYER X Y Z LEVELS KEEP`, `menu_button PLAYER N`, `close_menu PLAYER`, `move_packet`, `move_vehicle`, `paddle`, `client_tick_end`, `respawn`, `effect`, `mobspawn` (the actor verbs of `block_scenario_actors.rs`), the mob verbs of `mob_verbs.rs` (`target love age breed tame leash mob_attack nav path_query nav_stop`, dumps `mob:REF mobs goals: brain: path: attrs: nbt:`),
 //! `note`, the spawning verbs of `spawn_verbs.rs` (`spawnpass`, `spawnat`, `custom_spawner`, `raid_start`, `raid_waves`, `rest`, `memory`, `activity`, dumps `difficulty:X,Y,Z spawn_state raids`), `cmd weather rain|clear TICKS`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `biome X1 Y1 Z1 X2 Y2 Z2 BIOME` (`/fillbiome`: loads the real biome registry), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
@@ -392,7 +392,7 @@ impl mc_game::commands::CommandSource for CommandOutput {
 
 struct Options_ {
     flat: bool,
-    /// `level normal`: the real noise generator of the overworld and the nether.
+    /// `level normal`: the real noise generator of the dimension.
     normal: bool,
     /// `structures true`: `generate-structures` (placed structures and the structure search).
     structures: bool,
@@ -597,8 +597,8 @@ impl Scenario {
         let (shared, _rx) = ServerShared::new();
         // the scenario thread is the server thread: tasks the game submits (point of interest updates) run inline like in vanilla
         shared.bind_game_thread();
-        // `level normal`: the real generator of the overworld and the nether (the end keeps the void here)
-        let noise_world = (self.opts.normal && self.opts.dimension != "the_end").then(|| {
+        // `level normal`: the real generator of the dimension
+        let noise_world = self.opts.normal.then(|| {
             super::feature_harness::noise_world(
                 self.opts.seed,
                 self.opts.structures,

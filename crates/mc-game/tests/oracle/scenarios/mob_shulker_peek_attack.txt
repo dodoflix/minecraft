@@ -1,0 +1,67 @@
+# A shulker on the ground: it notices a survival player in range (the attack goal opens it to the full peek and drops the covered armor modifier),
+# shoots bullets with the shoot sound, and closes again when the player leaves (target dropped beyond 20 blocks). A creative player is ignored and
+# an idle shulker peeks open and shut at random (peek goal draws). Arrows bounce off a closed shulker and hurt an open one, and a shulker with a
+# team targets an enemy mob next to it (the defense goal needs a team).
+command_env
+level flat
+preload 6
+entity_counter 5300
+level_seed 5301
+difficulty normal
+gamerule mob_drops false
+spawn_player A survival 12.5 -60 0.5 90 0
+spawn_player B creative -12.5 -60 -39.5 270 0
+tick 30
+attribute A minecraft:max_health 2000
+set A health 2000
+mobspawn S minecraft:shulker 0.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed S 51
+tick 1
+dump mob:S attrs:S nbt:S edata:S
+note the shulker sees A: it opens, shoots, and the bullets fly at A
+watch mob:S xentities player:A events packets:A:sound_entity,update_mob_effect,damage_event,hurt_animation,set_health
+tick 90
+watch off
+dump mob:S attrs:S events
+note A walks away beyond the attack distance: the target is dropped and the lid closes
+tp A 40.5 -60 0.5
+tick 1
+watch mob:S events packets:A:sound_entity
+tick 40
+watch off
+dump mob:S attrs:S nbt:S
+note an idle shulker next to a creative player peeks at random
+mobspawn I minecraft:shulker 0.5 -60 -39.5 0 0 {PersistenceRequired:1b}
+entity_seed I 52
+tick 1
+watch mob:I events packets:B:sound_entity
+tick 160
+watch off
+dump mob:I nbt:I
+note arrows against a closed and an open shulker without AI
+spawn ar minecraft:arrow 20.5 -55 20.5 0 0 {pickup:0b,NoGravity:1b}
+entity_seed ar 53
+mobspawn C minecraft:shulker 20.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed C 54
+mobspawn O minecraft:shulker 24.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,Peek:100b}
+entity_seed O 55
+tick 25
+dump mobs
+hurt C minecraft:arrow 3 by=A direct=ar
+hurt O minecraft:arrow 3 by=A direct=ar
+hurt C minecraft:player_attack 3 by=A direct=A
+hurt O minecraft:player_attack 3 by=A direct=A
+tick 2
+dump mob:C mob:O events
+note a team shulker attacks a no-AI creeper beside it
+mobspawn T minecraft:shulker 0.5 -60 -80.5 0 0 {PersistenceRequired:1b,Tags:["t5"]}
+entity_seed T 56
+mobspawn Z minecraft:creeper 4.5 -60 -80.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z 57
+cmd team add red
+cmd team join red @e[tag=t5]
+tick 1
+watch mob:T mob:Z events
+tick 60
+watch off
+dump mobs

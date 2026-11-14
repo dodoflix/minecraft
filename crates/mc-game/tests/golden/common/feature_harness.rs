@@ -358,7 +358,31 @@ static NETHER_GENERATOR: LazyLock<Arc<NoiseBasedChunkGenerator>> = LazyLock::new
     )
 });
 
-/// A seeded `normal` world's `dimension` (`overworld` or `the_nether`) as the server builds it (`level_lifecycle::create_level`): the
+/// The end's chunk generator (`noise_settings/end`, the end biome source).
+static END_GENERATOR: LazyLock<Arc<NoiseBasedChunkGenerator>> = LazyLock::new(|| {
+    let w = &*WORLD;
+    let settings = w
+        .worldgen
+        .noise_settings(&Identifier::with_default_namespace("end").unwrap())
+        .expect("end noise settings");
+    let source = biome_source_from_json(
+        &serde_json::json!({"type": "minecraft:the_end"}),
+        &w.worldgen,
+        &w.biomes,
+    )
+    .expect("end biome source");
+    Arc::new(
+        NoiseBasedChunkGenerator::new(
+            source,
+            Arc::new(settings),
+            w.worldgen.clone(),
+            w.biomes.clone(),
+        )
+        .expect("end generator"),
+    )
+});
+
+/// A seeded `normal` world's `dimension` (`overworld`, `the_nether` or `the_end`) as the server builds it (`level_lifecycle::create_level`): the
 /// real noise generator behind the chunk source and the generation environment. With `structures` the environment carries the
 /// structure placement state (`generate-structures`), which the structure search needs.
 pub fn noise_world(
@@ -370,6 +394,7 @@ pub fn noise_world(
     let (generator, level_height) = match dimension {
         "overworld" => (w.generator.clone(), level_height()),
         "the_nether" => (NETHER_GENERATOR.clone(), LevelHeight::new(0, 256)),
+        "the_end" => (END_GENERATOR.clone(), LevelHeight::new(0, 256)),
         other => panic!("`level normal` has no generator for the dimension {other}"),
     };
     let random_state = Arc::new(RandomState::create(

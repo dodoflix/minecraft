@@ -1,0 +1,28 @@
+# Shulker bullets: a floor shulker shoots a survival player behind a stone pillar (the homing flight steers around it), a wall shulker shoots
+# along the wall axis, and the bullets hit for 4 damage, apply levitation, are hit away or explode on stone. The bullet owner is the shulker.
+command_env
+level flat
+preload 6
+entity_counter 5400
+level_seed 5401
+difficulty hard
+gamerule mob_drops false
+spawn_player A survival 14.5 -60 0.5 90 0
+spawn_player B survival 10.5 -60 -20.5 90 0
+tick 30
+attribute A minecraft:max_health 2000
+set A health 2000
+attribute B minecraft:max_health 2000
+set B health 2000
+fill 6 -60 -1 6 -57 1 minecraft:stone
+fill -1 -60 -22 -1 -57 -18 minecraft:stone
+mobspawn S minecraft:shulker 0.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed S 51
+mobspawn W minecraft:shulker 0.5 -59 -20.5 0 0 {PersistenceRequired:1b,AttachFace:4b}
+entity_seed W 52
+tick 1
+dump mob:S mob:W attrs:W nbt:W
+watch mob:S mob:W xentities player:A player:B events packets:A:update_mob_effect,damage_event,hurt_animation,set_entity_motion,sound_entity packets:B:update_mob_effect,damage_event,hurt_animation,set_entity_motion,sound_entity
+tick 140
+watch off
+dump mob:S mob:W player:A player:B xentities events

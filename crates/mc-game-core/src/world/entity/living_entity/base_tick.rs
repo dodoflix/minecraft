@@ -159,12 +159,18 @@ pub fn base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
     {
         lm(entity).last_hurt_mob = None;
     }
-    if let Some(uuid) = l(entity).last_hurt_by_mob
-        && let Some(hurt_by) = level
-            .get_entity_by_uuid(uuid)
-            .filter(|e| e.living().is_some())
-    {
-        let hurt_by_alive = hurt_by.is_alive();
+    // the mob being ticked is out of the level's storage, so a mob hurt by itself (its own shulker bullet) resolves through `entity`
+    let hurt_by_alive = l(entity).last_hurt_by_mob.and_then(|uuid| {
+        if uuid == entity.base().uuid {
+            Some(entity.is_alive())
+        } else {
+            level
+                .get_entity_by_uuid(uuid)
+                .filter(|e| e.living().is_some())
+                .map(|e| e.is_alive())
+        }
+    });
+    if let Some(hurt_by_alive) = hurt_by_alive {
         let tick_count = entity.base().tick_count;
         if !hurt_by_alive || tick_count - l(entity).last_hurt_by_mob_timestamp > 100 {
             let living = lm(entity);
