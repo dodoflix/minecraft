@@ -25,7 +25,7 @@ use crate::world::entity::ai::gossip::{GossipContainer, GossipType};
 use crate::world::entity::ai::memory::memory_module_type::{
     self as mem, HOME, JOB_SITE, LAST_SLEPT, LAST_WOKEN, MEETING_POINT, POTENTIAL_JOB_SITE,
 };
-use crate::world::entity::ai::memory::{BrainPacked, MemoryModuleType, MemoryStatus};
+use crate::world::entity::ai::memory::{BrainPacked, MemoryModuleType, MemoryStatus, MemoryTypeId};
 use crate::world::entity::ai::navigation::{PathNavigation, StandardPathNavigation};
 use crate::world::entity::ai::sensing::sensor_type as sensors;
 use crate::world::entity::ai::village::ReputationEventType;
@@ -792,29 +792,10 @@ impl Villager {
 
     /// `releaseAllPois()`.
     pub fn release_all_pois(&mut self, level: &mut ServerLevel) {
-        self.release_poi(level, HOME);
-        self.release_poi(level, JOB_SITE);
-        self.release_poi(level, POTENTIAL_JOB_SITE);
-        self.release_poi(level, MEETING_POINT);
-    }
-
-    /// `releasePoi(memoryType)`.
-    pub fn release_poi(&mut self, level: &mut ServerLevel, memory: MemoryModuleType<GlobalPos>) {
-        let Some(global) = self.brain().get_memory(&memory).cloned() else {
-            return;
-        };
-        let data = self.get_villager_data();
-        let release = |poi_level: &mut ServerLevel| {
-            let manager = poi_level.poi_manager();
-            let ty = manager.get_type(global.pos);
-            if ty.is_some_and(|t| poi_memory_matches(&data, memory, t)) {
-                let _ = manager.release(global.pos);
-            }
-        };
-        // another dimension's POI manager is not reachable from a level
-        if global.dimension == level.dimension {
-            release(level);
-        }
+        self.release_poi(level, HOME.id());
+        self.release_poi(level, JOB_SITE.id());
+        self.release_poi(level, POTENTIAL_JOB_SITE.id());
+        self.release_poi(level, MEETING_POINT.id());
     }
 
     /// `tellWitnessesThatIWasMurdered(murderer)`.
@@ -1088,6 +1069,31 @@ impl Entity for Villager {
 
     fn get_player_reputation(&self, player: &Uuid) -> i32 {
         Villager::get_player_reputation(self, player)
+    }
+
+    /// `Villager.releasePoi(memoryType)`.
+    fn release_poi(&mut self, level: &mut ServerLevel, memory: MemoryTypeId) {
+        let Some(memory) = [HOME, JOB_SITE, POTENTIAL_JOB_SITE, MEETING_POINT]
+            .into_iter()
+            .find(|m| m.id() == memory)
+        else {
+            return;
+        };
+        let Some(global) = self.brain().get_memory(&memory).cloned() else {
+            return;
+        };
+        let data = self.get_villager_data();
+        let release = |poi_level: &mut ServerLevel| {
+            let manager = poi_level.poi_manager();
+            let ty = manager.get_type(global.pos);
+            if ty.is_some_and(|t| poi_memory_matches(&data, memory, t)) {
+                let _ = manager.release(global.pos);
+            }
+        };
+        // another dimension's POI manager is not reachable from a level
+        if global.dimension == level.dimension {
+            release(level);
+        }
     }
 
     fn on_set_last_hurt_by_mob(

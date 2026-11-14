@@ -146,21 +146,6 @@ impl BrewingStandBlockEntity {
         mc_game_core::world::block_entity::set_changed(level, pos, state);
     }
 
-    /// `MenuProvider` of the brewing stand at `pos` (`BaseContainerBlockEntity.createMenu`: lock check, then the menu).
-    pub fn menu_provider(
-        level: &dyn BlockGetter,
-        pos: BlockPos,
-    ) -> Option<BrewingStandMenuProvider> {
-        let be = level
-            .get_block_entity(pos)?
-            .as_any()
-            .downcast_ref::<BrewingStandBlockEntity>()?;
-        Some(BrewingStandMenuProvider {
-            pos,
-            title: be.container.get_name(Self::default_name()),
-        })
-    }
-
     /// `getPotionBits()`.
     fn potion_bits(&self) -> [bool; 3] {
         [
@@ -283,6 +268,14 @@ impl BlockEntity for BrewingStandBlockEntity {
         tag.put_int("Fuel", self.fuel);
         tag.put_int("total_fuel", self.total_fuel);
         tag.put_float("speed_multiplier", self.speed_multiplier);
+    }
+
+    /// `BaseContainerBlockEntity.createMenu`: the menu provider is the block entity itself (lock check, then the menu).
+    fn menu_provider(&self) -> Option<Box<dyn MenuProvider>> {
+        Some(Box::new(BrewingStandMenuProvider {
+            pos: self.base.pos,
+            title: self.container.get_name(Self::default_name()),
+        }))
     }
 
     fn is_ticking(&self) -> bool {

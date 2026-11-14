@@ -45,10 +45,6 @@ impl SkullBlockEntity {
         self.owner.as_ref()
     }
 
-    pub fn get_note_block_sound(&self) -> Option<&Identifier> {
-        self.note_block_sound.as_ref()
-    }
-
     /// `getAnimation(a)`.
     pub fn get_animation(&self, a: f32) -> f32 {
         if self.is_animating {
@@ -95,6 +91,11 @@ impl BlockEntity for SkullBlockEntity {
         self.owner = read_codec(tag, "profile", &ResolvableProfile::codec());
         self.note_block_sound = read_codec(tag, "note_block_sound", &IDENTIFIER);
         self.custom_name = read_codec(tag, "custom_name", &component_codec());
+    }
+
+    /// `SkullBlockEntity.getNoteBlockSound()`.
+    fn get_note_block_sound(&self) -> Option<Identifier> {
+        self.note_block_sound.clone()
     }
 
     /// `saveCustomOnly`.

@@ -533,11 +533,6 @@ impl AbstractBoat {
         }
     }
 
-    /// `hasEnoughSpaceFor(entity)`.
-    pub fn has_enough_space_for(&self, other: &dyn Entity) -> bool {
-        other.base().get_bb_width() < self.base.get_bb_width()
-    }
-
     // ---- passengers ----------------------------------------------------------------------------------------------------
 
     /// `calculatePassengerBodyYRot(passenger)`.
@@ -610,6 +605,10 @@ impl Entity for AbstractBoat {
     }
     fn as_dyn_mut(&mut self) -> &mut dyn Entity {
         self
+    }
+    /// `AbstractBoat.hasEnoughSpaceFor(entity)`.
+    fn has_enough_space_for(&self, _level: &ServerLevel, passenger: &dyn Entity) -> Option<bool> {
+        Some(passenger.base().get_bb_width() < self.base.get_bb_width())
     }
 
     fn get_movement_emission(&self) -> MovementEmission {
@@ -812,7 +811,7 @@ impl Entity for AbstractBoat {
                     if add_new_passengers
                         && self.base.passengers.len() < self.get_max_passengers()
                         && !other.base().is_passenger()
-                        && self.has_enough_space_for(other.as_dyn())
+                        && self.has_enough_space_for(level, other.as_dyn()) == Some(true)
                         && other.living().is_some()
                         && !mc_data::tags::get::<EntityType>("cannot_be_pushed_onto_boats")
                             .is_some_and(|t| t.contains(other.get_type()))

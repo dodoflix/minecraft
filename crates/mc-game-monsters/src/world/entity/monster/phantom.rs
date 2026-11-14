@@ -146,15 +146,15 @@ impl Phantom {
     pub fn get_unique_flap_tick_offset(&self) -> i32 {
         self.id() * 3
     }
-
-    /// `isFlapping()`.
-    pub fn is_flapping(&self) -> bool {
-        (self.get_unique_flap_tick_offset() + self.base().tick_count) % TICKS_PER_FLAP == 0
-    }
 }
 
 impl Entity for Phantom {
     mc_game_core::mob_entity_accessors!(mob);
+
+    /// `isFlapping()`.
+    fn is_flapping(&self) -> bool {
+        (self.get_unique_flap_tick_offset() + self.base().tick_count) % TICKS_PER_FLAP == 0
+    }
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
         let size = self.get_phantom_size();

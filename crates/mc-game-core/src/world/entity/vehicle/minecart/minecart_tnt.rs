@@ -142,14 +142,6 @@ impl MinecartTnt {
         }
     }
 
-    /// `discard()` of the running cart: watchers get `remove_entities` now; a cart that is already removed (it explodes twice in
-    /// one tick when it hits a wall as its fuse runs out) is left as it is.
-    fn discard_in_level(&mut self, level: &mut ServerLevel) {
-        if !self.is_removed() {
-            level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Discarded);
-        }
-    }
-
     /// `primeFuse(source)`.
     pub fn prime_fuse(&mut self, level: &mut ServerLevel, source: Option<&DamageSource>) {
         if level.tnt_explodes() {
@@ -224,6 +216,14 @@ impl VehicleEntity for MinecartTnt {
 
 impl Entity for MinecartTnt {
     minecart_entity_methods!();
+
+    /// `discard()` of the running cart: watchers get `remove_entities` now; a cart that is already removed (it explodes twice in
+    /// one tick when it hits a wall as its fuse runs out) is left as it is.
+    fn discard_in_level(&mut self, level: &mut ServerLevel) {
+        if !self.is_removed() {
+            level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Discarded);
+        }
+    }
 
     fn tick(&mut self, level: &mut ServerLevel) {
         abstract_minecart::tick(self, level);

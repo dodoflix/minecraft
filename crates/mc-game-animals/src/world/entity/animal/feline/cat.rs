@@ -735,12 +735,6 @@ impl Cat {
         self.is_lying_on_top_of_sleeping_player
     }
 
-    /// `hiss()`.
-    pub fn hiss(&mut self, level: &mut ServerLevel) {
-        let sound = self.get_sound_set().hiss_sound;
-        mc_game_core::world::entity::living_entity::damage::make_sound(self, level, sound);
-    }
-
     /// `handleLieDown()`.
     fn handle_lie_down(&mut self, level: &mut ServerLevel) {
         if (self.is_lying() || self.is_relax_state_one()) && self.base().tick_count % 5 == 0 {
@@ -807,6 +801,12 @@ impl Cat {
 
 impl Entity for Cat {
     mc_game_core::mob_entity_accessors!(mob);
+
+    /// `hiss()`.
+    fn hiss(&mut self, level: &mut ServerLevel) {
+        let sound = self.get_sound_set().hiss_sound;
+        mc_game_core::world::entity::living_entity::damage::make_sound(self, level, sound);
+    }
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:cat")

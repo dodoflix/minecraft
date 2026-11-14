@@ -697,7 +697,7 @@ impl Entity for Axolotl {
                 item_stack,
                 &mut mc_game_core::world::entity::player::menu_ctx::PlayerCtx { player, level },
                 ItemStack::new(Item::WATER_BUCKET),
-                false,
+                true,
             );
             player.set_item_in_hand(hand, filled);
         } else {

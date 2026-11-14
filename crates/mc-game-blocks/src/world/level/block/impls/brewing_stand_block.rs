@@ -1,5 +1,4 @@
 //! `net.minecraft.world.level.block.BrewingStandBlock`: opens the brewing menu, drops/updates comparators.
-use crate::world::block_entity::BrewingStandBlockEntity;
 use mc_core::phys::BlockHitResult;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
@@ -11,16 +10,6 @@ use mc_game_core::world::level::block::impls::prelude::*;
 pub struct BrewingStandBlock;
 
 impl BlockBehaviour for BrewingStandBlock {
-    /// `BaseEntityBlock.getMenuProvider`: the brewing stand block entity.
-    fn get_menu_provider(
-        &self,
-        _state: BlockState,
-        level: &ServerLevel,
-        pos: BlockPos,
-    ) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
-        BrewingStandBlockEntity::menu_provider(level, pos)
-            .map(|p| Box::new(p) as Box<dyn mc_game_core::world::inventory::MenuProvider>)
-    }
     /// `useWithoutItem`: `player.openMenu(blockEntity)` + `INTERACT_WITH_BREWINGSTAND`.
     fn use_without_item(
         &self,
@@ -30,8 +19,11 @@ impl BlockBehaviour for BrewingStandBlock {
         player: &mut ServerPlayer,
         _hit: &BlockHitResult,
     ) -> InteractionResult {
-        if let Some(provider) = BrewingStandBlockEntity::menu_provider(level, pos) {
-            player.open_menu(level, &provider);
+        let provider = level
+            .get_block_entity(pos)
+            .and_then(|be| be.menu_provider());
+        if let Some(provider) = provider {
+            player.open_menu(level, &*provider);
             player.award_stat_once(level, Stats::INTERACT_WITH_BREWINGSTAND);
         }
         InteractionResult::SUCCESS
