@@ -99,9 +99,6 @@ pub fn convert_to_with_source(
             ignore_checks: false,
         },
     )?;
-    // Not implemented: converting into an entity type that has no class yet (the witch a struck villager becomes): the
-    // inert stand-in cannot take the converted mob's state, so the conversion is skipped.
-    new_mob.living()?;
     convert(from, new_mob.as_mut(), level, params);
     after_conversion(from, new_mob.as_mut(), level);
     let new_id = new_mob.id();

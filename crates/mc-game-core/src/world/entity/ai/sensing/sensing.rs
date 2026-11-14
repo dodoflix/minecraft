@@ -32,7 +32,7 @@ impl Sensing {
         if self.unseen.borrow().contains(&id) {
             return false;
         }
-        let result = crate::world::entity::mob::ext::has_line_of_sight(level, mob, target);
+        let result = mob.has_line_of_sight(level, target);
         if result {
             self.seen.borrow_mut().insert(id);
         } else {

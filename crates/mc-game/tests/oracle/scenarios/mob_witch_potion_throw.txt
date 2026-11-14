@@ -1,0 +1,120 @@
+# Witches throwing splash potions at their target (Witch.performRangedAttack): slowness against a target 9 blocks away, then poison, then
+# harming; weakness against a target within 3 blocks (a 25% roll on the witch's own random); healing and regeneration when the target
+# is a raider (the target is cleared). Every throw: the potion entity, its power and uncertainty, the throw sound and the effects it applies.
+level flat
+preload 4
+entity_counter 7400
+level_seed 7401
+difficulty hard
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 60.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn WA minecraft:witch 0.5 -60 0.5 -90 0 {PersistenceRequired:1b}
+entity_seed WA 111
+mobspawn CA minecraft:cow 9.5 -60 0.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed CA 112
+mobspawn WB minecraft:witch 0.5 -60 20.5 -90 0 {PersistenceRequired:1b}
+entity_seed WB 113
+mobspawn CB minecraft:cow 2.5 -60 20.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed CB 114
+mobspawn WC minecraft:witch 0.5 -60 40.5 -90 0 {PersistenceRequired:1b}
+entity_seed WC 115
+mobspawn VC minecraft:vindicator 9.5 -60 40.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed VC 116
+mobspawn WD minecraft:witch 0.5 -60 -20.5 -90 0 {PersistenceRequired:1b}
+entity_seed WD 117
+mobspawn VD minecraft:vindicator 9.5 -60 -20.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed VD 118
+attribute CA minecraft:max_health 1000
+set CA health 1000
+attribute CB minecraft:max_health 1000
+set CB health 1000
+set VC health 3
+target WA CA
+target WB CB
+target WC VC
+target WD VD
+tick 1
+dump mobs
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+tick 5
+dump entities events
+dump mobs nbt:WA nbt:WB nbt:WC nbt:WD

@@ -1,0 +1,35 @@
+# A ravager walking into a wall of leaves: with mob griefing it destroys the leaves it collides with (block destruction, drops, events);
+# without it the leaves stay and the ravager only jumps. Leaf lanes are a pathfinding malus of 0, so the ravager walks straight at them.
+level flat
+preload 4
+entity_counter 7600
+level_seed 7601
+difficulty hard
+gamerule mob_drops false
+spawn_player Steve survival 30.5 -60 0.5 90 0
+spawn_player Alex survival 30.5 -60 40.5 90 0
+tick 30
+attribute Steve minecraft:max_health 400
+set Steve health 400
+attribute Alex minecraft:max_health 400
+set Alex health 400
+fill 10 -60 -3 12 -57 3 minecraft:oak_leaves[persistent=true]
+mobspawn RA minecraft:ravager 2.5 -60 0.5 -90 0 {PersistenceRequired:1b}
+entity_seed RA 101
+target RA Steve
+tick 2
+watch mob:RA
+tick 100
+watch off
+dump mob:RA blocks:9,-60,-3,13,-57,3 events
+note the same wall without mob griefing
+gamerule mob_griefing false
+fill 10 -60 37 12 -57 43 minecraft:oak_leaves[persistent=true]
+mobspawn RB minecraft:ravager 2.5 -60 40.5 -90 0 {PersistenceRequired:1b}
+entity_seed RB 102
+target RB Alex
+tick 2
+watch mob:RB
+tick 100
+watch off
+dump mob:RB blocks:9,-60,37,13,-57,43 events

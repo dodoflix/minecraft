@@ -1,0 +1,21 @@
+# A villager struck by lightning becomes a witch (Villager.thunderHit: convertTo WITCH with finalizeSpawn, persistence, the villager's
+# state carried over), the witch keeps the villager's name and stays; on peaceful the villager only burns.
+command_env
+level flat
+preload 3
+difficulty normal
+entity_counter 7800
+level_seed 7801
+spawn_player A survival 0.5 -60 12.5 0 0
+tick 2
+dump packets:A:none
+mobspawn V minecraft:villager 0.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,CustomName:'"Vera"',Health:11f}
+entity_seed V 131
+tick 3
+dump mobs nbt:V
+spawn b1 minecraft:lightning_bolt 0.5 -60 0.5 0 0 {UUID:[I;21,22,23,24]}
+entity_seed b1 132
+tick 1
+dump mobs events packets:A:none nbt:witch#1
+tick 12
+dump mobs xentities

@@ -404,30 +404,6 @@ fn default_attack_reach() -> f64 {
     f64::from(2.04f32).sqrt() - f64::from(0.6f32)
 }
 
-/// `Mob.getAttackBoundingBox(horizontalExpansion)`.
-pub fn get_attack_bounding_box(
-    level: &ServerLevel,
-    mob: &dyn Entity,
-    horizontal_expansion: f64,
-) -> AABB {
-    let own = mob.base().bounding_box();
-    let aabb = match mob.base().vehicle.and_then(|v| level.get_entity(v)) {
-        Some(vehicle) => {
-            let mount = vehicle.base().bounding_box();
-            AABB::new(
-                own.min_x.min(mount.min_x),
-                own.min_y,
-                own.min_z.min(mount.min_z),
-                own.max_x.max(mount.max_x),
-                own.max_y,
-                own.max_z.max(mount.max_z),
-            )
-        }
-        None => own,
-    };
-    aabb.inflate(horizontal_expansion, 0.0, horizontal_expansion)
-}
-
 /// `Mob.isWithinMeleeAttackRange(target)`.
 pub fn is_within_melee_attack_range(
     level: &ServerLevel,
@@ -447,9 +423,12 @@ pub fn is_within_melee_attack_range(
         ),
     };
     let hitbox = target.base().bounding_box();
-    get_attack_bounding_box(level, mob, max_range).intersects_aabb(&hitbox)
+    mob.get_attack_bounding_box(level, max_range)
+        .intersects_aabb(&hitbox)
         && (min_range <= 0.0
-            || !get_attack_bounding_box(level, mob, min_range).intersects_aabb(&hitbox))
+            || !mob
+                .get_attack_bounding_box(level, min_range)
+                .intersects_aabb(&hitbox))
 }
 
 /// `LivingEntity.getDimensions(pose)` (final): `getDefaultDimensions(pose).scale(getScale())`, fixed dimensions while sleeping.

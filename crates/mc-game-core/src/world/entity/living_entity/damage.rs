@@ -531,7 +531,7 @@ pub fn actually_hurt(
         return;
     }
     let mut dmg = get_damage_after_armor_absorb(entity, level, source, dmg);
-    dmg = get_damage_after_magic_absorb(entity, level, source, dmg);
+    dmg = entity.get_damage_after_magic_absorb(level, source, dmg);
     let var10 = (dmg - entity.get_absorption_amount()).max(0.0);
     let absorption = entity.get_absorption_amount();
     entity.set_absorption_amount(absorption - (dmg - var10));

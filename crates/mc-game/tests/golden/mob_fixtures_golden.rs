@@ -11,7 +11,6 @@ const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[
     "minecraft:camel",
     "minecraft:evoker",
     "minecraft:sniffer",
-    "minecraft:witch",
     // the `aggr` field is 0 where vanilla shows 1
     "minecraft:panda",
 ];
@@ -22,10 +21,8 @@ const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[
     "minecraft:allay",
     "minecraft:camel",
     "minecraft:evoker",
-    "minecraft:ravager",
     "minecraft:sniffer",
     "minecraft:wandering_trader",
-    "minecraft:witch",
     // the saved `anger` data holds `suspects:[]` where vanilla saves `{}`
     "minecraft:warden",
 ];
@@ -146,7 +143,6 @@ fn aquatic_squid_swim() {
 }
 
 #[test]
-#[ignore = "deviation: the raid's first wave (tick 170) panics: the raiders are inert placeholder entities (patrolling_monster.rs:35)"]
 fn mob_raid_start() {
     block_scenario::check("mob_raid_start");
 }
@@ -241,7 +237,6 @@ fn mob_spawnpass_structures_swamp_hut() {
 }
 
 #[test]
-#[ignore = "deviation: the spawn override of the hut is found but `Witch` has no entity class yet, so no witch spawns (vanilla: 14 witches inside the hut)"]
 fn mob_spawnpass_structures_swamp_hut_attempts() {
     block_scenario::check("mob_spawnpass_structures_swamp_hut");
 }

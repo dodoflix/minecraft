@@ -3215,6 +3215,36 @@ pub trait Entity: Any {
         );
     }
 
+    /// `LivingEntity.getDamageAfterMagicAbsorb(source, damage)` (`Witch` overrides).
+    fn get_damage_after_magic_absorb(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &crate::world::damagesource::DamageSource,
+        damage: f32,
+    ) -> f32 {
+        super::living_entity::damage::get_damage_after_magic_absorb(
+            self.as_dyn_mut(),
+            level,
+            source,
+            damage,
+        )
+    }
+
+    /// `LivingEntity.hasLineOfSight(target)` (`Ravager` overrides).
+    fn has_line_of_sight(&self, level: &ServerLevel, target: &dyn Entity) -> bool {
+        super::mob::ext::has_line_of_sight(level, self.as_dyn(), target)
+    }
+
+    /// `Mob.getAttackBoundingBox(horizontalExpansion)` (`Ravager` overrides).
+    fn get_attack_bounding_box(&self, level: &ServerLevel, horizontal_expansion: f64) -> AABB {
+        super::mob::combat::get_attack_bounding_box(self.as_dyn(), level, horizontal_expansion)
+    }
+
+    /// `Mob.updateControlFlags()` (`Ravager` overrides).
+    fn update_control_flags(&mut self, level: &mut ServerLevel) {
+        super::mob::tick::update_control_flags(self.as_dyn_mut(), level);
+    }
+
     /// `onEnterCombat()` / `onLeaveCombat()` (`ServerPlayer` sends the combat packets).
     fn on_enter_combat(&mut self, _level: &mut ServerLevel) {}
     fn on_leave_combat(&mut self, _level: &mut ServerLevel) {}

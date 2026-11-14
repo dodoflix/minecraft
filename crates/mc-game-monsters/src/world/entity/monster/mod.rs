@@ -20,6 +20,8 @@ pub mod illager;
 
 pub mod phantom;
 
+pub mod ravager;
+
 pub mod shulker;
 
 pub mod silverfish;
@@ -31,6 +33,8 @@ pub mod spider;
 pub mod strider;
 
 pub mod vex;
+
+pub mod witch;
 
 pub mod hoglin;
 

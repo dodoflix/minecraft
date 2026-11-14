@@ -155,7 +155,7 @@ pub fn actually_hurt(
         return;
     }
     let mut dmg = damage::get_damage_after_armor_absorb(player, level, source, dmg);
-    dmg = damage::get_damage_after_magic_absorb(player, level, source, dmg);
+    dmg = player.get_damage_after_magic_absorb(level, source, dmg);
     let var8 = (dmg - player.get_absorption_amount()).max(0.0);
     let absorption = player.get_absorption_amount();
     player.set_absorption_amount(absorption - (dmg - var8));

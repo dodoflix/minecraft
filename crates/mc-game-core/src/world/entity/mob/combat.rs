@@ -85,9 +85,12 @@ pub fn is_within_melee_attack_range(
         ),
     };
     let hitbox = target.get_bounding_box();
-    get_attack_bounding_box(e, level, max_range).intersects_aabb(&hitbox)
+    e.get_attack_bounding_box(level, max_range)
+        .intersects_aabb(&hitbox)
         && (min_range <= 0.0
-            || !get_attack_bounding_box(e, level, min_range).intersects_aabb(&hitbox))
+            || !e
+                .get_attack_bounding_box(level, min_range)
+                .intersects_aabb(&hitbox))
 }
 
 /// `getModifiedSwingDuration(animation)`.

@@ -17,3 +17,7 @@ pub use owner_hurt_target_goal::OwnerHurtTargetGoal;
 mod nearest_attackable_witch_target_goal;
 
 pub use nearest_attackable_witch_target_goal::NearestAttackableWitchTargetGoal;
+
+mod nearest_healable_raider_target_goal;
+
+pub use nearest_healable_raider_target_goal::NearestHealableRaiderTargetGoal;

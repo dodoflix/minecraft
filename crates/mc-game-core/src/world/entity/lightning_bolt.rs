@@ -305,7 +305,7 @@ impl Entity for LightningBolt {
                 let matches = {
                     let victims: Vec<&dyn Entity> = entities
                         .iter()
-                        .filter_map(|&id| level.get_entity(id))
+                        .filter_map(|&id| level.get_entity_or_recently_removed(id))
                         .collect();
                     level
                         .get_entity(cause)

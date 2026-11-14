@@ -29,7 +29,7 @@ pub fn tick(e: &mut dyn Entity, level: &mut ServerLevel) {
     crate::world::entity::movement::apply_pending_fudge(e, level);
     living_entity::tick::tick(e, level);
     if e.base().tick_count % 5 == 0 {
-        update_control_flags(e, level);
+        e.update_control_flags(level);
     }
 }
 
@@ -40,21 +40,32 @@ fn is_abstract_boat(ty: EntityType) -> bool {
 
 /// `updateControlFlags()`.
 pub fn update_control_flags(e: &mut dyn Entity, level: &mut ServerLevel) {
-    let controller_is_mob = e
+    update_control_flags_with(e, level, |controller| controller.mob().is_some());
+}
+
+/// `updateControlFlags()` where `takes_control(controller)` says whether the controlling passenger takes over the goals' move,
+/// jump and look flags (`Mob`: any mob; `Ravager`: a mob that is not a raider). Returns whether the goals keep control.
+pub fn update_control_flags_with(
+    e: &mut dyn Entity,
+    level: &mut ServerLevel,
+    takes_control: impl Fn(&dyn Entity) -> bool,
+) -> bool {
+    let controller_takes_over = e
         .get_controlling_passenger()
         .and_then(|id| level.get_entity(id))
-        .is_some_and(|p| p.mob().is_some());
+        .is_some_and(takes_control);
     let in_boat = e
         .base()
         .vehicle
         .and_then(|v| level.get_entity(v))
         .is_some_and(|v| is_abstract_boat(v.get_type()));
-    let no_controller = !controller_is_mob;
+    let no_controller = !controller_takes_over;
     let not_in_boat = !in_boat;
     let sel = &mut mm(e).goal_selector;
     sel.set_control_flag(Flag::Move, no_controller);
     sel.set_control_flag(Flag::Jump, no_controller && not_in_boat);
     sel.set_control_flag(Flag::Look, no_controller);
+    no_controller
 }
 
 /// `Mob.baseTick()`.

@@ -1184,25 +1184,27 @@ impl Entity for Villager {
     }
 
     fn thunder_hit(&mut self, level: &mut ServerLevel) {
-        use crate::world::entity::mob::convert::{ConversionParams, convert_to};
+        use crate::world::entity::mob::convert::{ConversionParams, convert_to_with_source};
         if level.difficulty() != mc_world::level_storage::Difficulty::Peaceful {
             log::info!("Villager {} was struck by lightning.", self.uuid());
             let params = ConversionParams::single(self, level, false, false);
-            let converted = convert_to(
+            let converted = convert_to_with_source(
                 self,
                 level,
                 EntityType::WITCH,
                 &params,
                 EntitySpawnReason::Conversion,
-                |witch, level| {
+                |villager, witch, level| {
                     let pos = witch.block_position();
                     let difficulty = ServerLevelAccessor::get_current_difficulty_at(level, pos);
                     witch.finalize_spawn(level, difficulty, EntitySpawnReason::Conversion, None);
                     witch.set_persistence_required();
+                    if let Some(villager) = villager.as_any_mut().downcast_mut::<Villager>() {
+                        villager.release_all_pois(level);
+                    }
                 },
             );
             if converted.is_some() {
-                self.release_all_pois(level);
                 return;
             }
         }

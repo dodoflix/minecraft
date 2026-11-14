@@ -51,20 +51,12 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "Nautilus: swimming mount with armor and saddle",
     ),
     (
-        "minecraft:ravager",
-        "Ravager: stun, roar and charge attack raider mount",
-    ),
-    (
         "minecraft:sniffer",
         "Sniffer: digging, seed finding, egg laying",
     ),
     (
         "minecraft:wandering_trader",
         "WanderingTrader: trade menu, despawn timer, llama companion",
-    ),
-    (
-        "minecraft:witch",
-        "Witch: potion throwing and drinking, raid buffs",
     ),
     (
         "minecraft:wither",

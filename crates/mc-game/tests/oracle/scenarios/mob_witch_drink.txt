@@ -1,0 +1,32 @@
+# Witches drinking potions (Witch.aiStep): water breathing with the eyes under water, fire resistance while burning, healing while hurt
+# and swiftness against a target more than 11 blocks away. Each witch has its own seeded random, so the chained nextFloat
+# branches fire on a fixed tick: the potion in the main hand, the use time, the slowed movement speed, the drink sound and the effect.
+level flat
+preload 4
+entity_counter 7300
+level_seed 7301
+difficulty hard
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 60.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+fill -4 -60 -4 4 -58 4 minecraft:water[level=0]
+mobspawn W1 minecraft:witch 0.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed W1 81
+mobspawn W2 minecraft:witch 0.5 -60 20.5 0 0 {PersistenceRequired:1b}
+entity_seed W2 82
+mobspawn W3 minecraft:witch 0.5 -60 40.5 0 0 {PersistenceRequired:1b}
+entity_seed W3 83
+mobspawn W4 minecraft:witch 0.5 -60 -30.5 0 0 {PersistenceRequired:1b}
+entity_seed W4 84
+mobspawn C minecraft:cow 0.5 -60 -50.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed C 85
+set W2 fire 400
+set W3 health 10
+target W4 C
+tick 1
+dump mobs attrs:W1 attrs:W4
+watch mob:W1 mob:W2 mob:W3 mob:W4 events
+tick 120
+watch off
+dump mobs nbt:W1 nbt:W2 nbt:W3 nbt:W4 attrs:W1 attrs:W4

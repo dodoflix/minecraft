@@ -1,0 +1,31 @@
+# A witch of an active raid looks for a raider to heal (NearestHealableRaiderTargetGoal: every other tick a coin flip, the nearest
+# raider that is not a witch, the 200 tick cooldown after it starts), throws a healing potion at a raider on 4 hearts or less and
+# regeneration at a healthier one, then loses the target. While the cooldown runs the witch does not attack players.
+level flat
+difficulty hard
+gamerule raids true
+gamerule mob_drops false
+entity_counter 7700
+level_seed 7701
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn Vil minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+spawn_player Steve survival 40.5 -60 0.5 90 0
+effect Steve minecraft:resistance 3 100000
+mobspawn W minecraft:witch -6.5 -60 0.5 -90 0 {PersistenceRequired:1b}
+entity_seed W 121
+mobspawn V1 minecraft:vindicator 2.5 -60 8.5 -90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed V1 122
+set V1 health 3
+tick 40
+effect Steve minecraft:raid_omen 2 600
+raid_start Steve 0 -60 0
+dump raids mobs
+watch mob:W mob:V1
+tick 120
+watch off
+dump raids mobs nbt:W

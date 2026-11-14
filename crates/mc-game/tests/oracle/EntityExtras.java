@@ -25,6 +25,8 @@ import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.animal.parrot.Parrot;
 import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.PatrollingMonster;
+import net.minecraft.world.entity.monster.Ravager;
+import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.monster.illager.Pillager;
 import net.minecraft.world.entity.monster.illager.Vindicator;
 import net.minecraft.world.entity.projectile.EvokerFangs;
@@ -313,6 +315,8 @@ final class EntityExtras {
          out.add("charging", EntityOracleDriver.bool(p.isChargingCrossbow())).add("inventory", items.length() == 0 ? "-" : items.toString());
       }));
       ALL.add(new Extra(41, Vindicator.class, (d, e, out) -> out.add("johnny", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Vindicator.class, "isJohnny")))));
+      ALL.add(new Extra(41, Ravager.class, (d, e, out) -> out.add("attack", EntityOracleDriver.priv(e, Ravager.class, "attackTick")).add("stun", EntityOracleDriver.priv(e, Ravager.class, "stunnedTick")).add("roar", EntityOracleDriver.priv(e, Ravager.class, "roarTick"))));
+      ALL.add(new Extra(41, Witch.class, (d, e, out) -> out.add("drinking", EntityOracleDriver.bool(((Witch)e).isDrinkingPotion())).add("usingtime", EntityOracleDriver.priv(e, Witch.class, "usingTime"))));
       ALL.sort(Comparator.comparingInt(Extra::order));
    }
 

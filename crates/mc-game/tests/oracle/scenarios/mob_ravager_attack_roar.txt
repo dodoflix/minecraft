@@ -1,0 +1,88 @@
+# A ravager's attacks and roar on hard: the claw hit with its knockback (no shield), a shield that stuns the ravager or throws the
+# player back (blockedByItem, either way seeded), the roar twenty ticks after the stun that hurts everything within four blocks
+# (illagers are spared) and throws back everything but players, and an armor stand that the roar spares without mob griefing.
+level flat
+preload 4
+entity_counter 7500
+level_seed 7501
+difficulty hard
+gamerule mob_drops false
+spawn_player U survival 0.5 -60 0.5 -90 0
+spawn_player S survival 0.5 -60 20.5 -90 0
+spawn_player T survival 0.5 -60 40.5 -90 0
+spawn_player Q survival 0.5 -60 60.5 -90 0
+give S offhand minecraft:shield
+give T offhand minecraft:shield
+give Q offhand minecraft:shield
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+attribute U minecraft:max_health 400
+set U health 400
+attribute S minecraft:max_health 400
+set S health 400
+attribute T minecraft:max_health 400
+set T health 400
+attribute Q minecraft:max_health 400
+set Q health 400
+mobspawn RA minecraft:ravager 2.5 -60 0.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed RA 91
+mobspawn RB minecraft:ravager 2.5 -60 20.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed RB 92
+mobspawn RC minecraft:ravager 2.5 -60 40.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed RC 93
+mobspawn RD minecraft:ravager 2.5 -60 60.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed RD 98
+mobspawn GB minecraft:iron_golem 2.5 -60 23.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed GB 94
+mobspawn VB minecraft:vindicator 4.5 -60 18.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed VB 95
+mobspawn CB minecraft:cow 0.5 -60 22.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed CB 96
+mobspawn SB minecraft:armor_stand 4.5 -60 22.5 90 0
+mobspawn VC minecraft:vindicator 4.5 -60 38.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed VC 97
+mobspawn SC minecraft:armor_stand 4.5 -60 42.5 90 0
+tick 1
+dump player:U player:S player:T player:Q mobs packets:U:none packets:S:none packets:T:none packets:Q:none events
+use S off
+use T off
+use Q off
+tick 6
+dump use:S use:T use:Q
+note a ravager claws a player without a shield: damage and the attack knockback
+mob_attack RA U
+dump player:U mob:RA events
+tick 2
+dump player:U mob:RA packets:U:set_entity_motion,damage_event,hurt_animation,entity_event
+tick 40
+dump mob:RA nbt:RA
+note a ravager hits a blocking player: the shield stops the damage, the ravager is stunned or throws the player back; a stun ends in the roar
+# the first nextDouble of the ravager's own random decides: below 0.5 it is stunned, else it throws the player back
+entity_seed RB 1000020
+mob_attack RB S
+dump player:S mob:RB events
+tick 2
+dump player:S mob:RB packets:S:set_entity_motion,damage_event,hurt_animation,entity_event
+watch mob:RB
+tick 80
+watch off
+dump player:S mobs events nbt:RB
+note the same without mob griefing: the roar spares the armor stand
+gamerule mob_griefing false
+entity_seed RC 1000020
+mob_attack RC T
+dump player:T mob:RC events
+tick 2
+dump player:T mob:RC packets:T:set_entity_motion,damage_event,hurt_animation,entity_event
+watch mob:RC
+tick 80
+watch off
+dump player:T mobs events nbt:RC
+note a ravager whose draw is 0.5 or more throws the shield bearer back instead of being stunned
+entity_seed RD 17
+mob_attack RD Q
+dump player:Q mob:RD events
+tick 2
+dump player:Q mob:RD packets:Q:set_entity_motion,damage_event,hurt_animation,entity_event
+tick 30
+dump player:Q mobs events nbt:RD
