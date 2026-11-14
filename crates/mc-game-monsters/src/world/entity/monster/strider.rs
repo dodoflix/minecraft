@@ -766,8 +766,16 @@ impl Goal for StriderGoToLavaGoal {
         move_to_block::start(self, mob, level);
     }
 
+    fn requires_update_every_tick(&self) -> bool {
+        true
+    }
+
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         move_to_block::tick(self, mob, level);
+    }
+
+    fn name(&self) -> &'static str {
+        "Strider$StriderGoToLavaGoal"
     }
 
     fn flags(&self) -> GoalFlags {

@@ -1,10 +1,17 @@
-# Hoglin vs a survival player (StartAttacking via NEAREST_VISIBLE_ATTACKABLE_PLAYER, MeleeAttack, throwTarget knockback RNG).
+# Hoglin vs a survival player at night (StartAttacking via NEAREST_VISIBLE_ATTACKABLE_PLAYER, MeleeAttack, the damage roll and the throwTarget
+# knockback draw) on the ticking level.
 level flat
+preload 4
+entity_counter 6800
+level_seed 6801
 difficulty normal
 time 18000
 gamerule mob_drops false
 spawn_player Steve survival 6.5 -60 0.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
 mobspawn H minecraft:hoglin 0.5 -60 0.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b}
+entity_seed H 72
 tick 2
 watch mob:H player:Steve
 tick 160

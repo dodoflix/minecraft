@@ -174,7 +174,8 @@ impl CollisionContext {
     pub fn can_stand_on_fluid(&self, fluid_state_above: FluidState, fluid: FluidState) -> bool {
         match (self.kind, self.can_stand_on_fluid) {
             (ContextKind::Entity, Some(f)) => {
-                f(fluid.fluid()) && fluid_state_above.fluid() != fluid.fluid()
+                f(fluid.fluid())
+                    && !super::material::fluid_is_same(fluid_state_above.fluid(), fluid.fluid())
             }
             _ => false,
         }

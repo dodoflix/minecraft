@@ -1,0 +1,46 @@
+# Strider: walking on lava (canStandOnFluid, floatStrider, the lava navigation and StriderGoToLavaGoal), turning cold off the lava
+# (suffocating: the slower movement speed) and warm again in it, and the three jockey outcomes of finalizeSpawn (a zombified piglin on
+# a saddled strider, a baby strider on an adult, a plain pair), each decided by a pinned level random.
+level flat
+preload 4
+entity_counter 7000
+level_seed 7001
+difficulty normal
+spawn_player Steve creative 0.5 -60 60.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+fill 5 -61 -3 11 -61 3 minecraft:lava
+mobspawn L minecraft:strider 4.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn W minecraft:strider 40.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed L 91
+entity_seed W 92
+tick 2
+watch mob:L mob:W edata:L
+tick 80
+watch off
+dump events
+note the cold strider is carried into the lava, the warm one is pushed out
+tp W 8.5 -60 0.5
+tp L 30.5 -60 0.5
+tick 40
+dump mobs
+note jockeys: a zombified piglin with a warped fungus on a stick riding a saddled strider
+level_seed 7037
+gamerule spawn_mobs true
+gamerule spawn_monsters true
+mobspawn J1 minecraft:strider 60.5 -60 0.5 0 0
+gamerule spawn_mobs false
+tick 1
+dump mobs events
+note a baby strider on an adult
+level_seed 7006
+mobspawn J2 minecraft:strider 70.5 -60 0.5 0 0
+tick 1
+dump mobs events
+note neither
+level_seed 7001
+mobspawn J3 minecraft:strider 80.5 -60 0.5 0 0
+tick 1
+dump mobs events
+tick 30
+dump mobs events

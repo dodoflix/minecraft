@@ -1,0 +1,58 @@
+# A saddled strider steered by a simulated rider holding a warped fungus on a stick: the strider always walks ahead at its ridden speed
+# (cold on land, warm on lava), the boost multiplies it, a baby takes no saddle, an unsaddled or sneaked-on strider is not mounted, and the
+# rider steps off onto the shore (getDismountLocationForPassenger avoids lava).
+level flat
+preload 4
+entity_counter 7100
+level_seed 7101
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0 sim
+spawn_player Alex survival 0.5 -60 20.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+fill -6 -61 3 6 -61 14 minecraft:lava
+mobspawn S minecraft:strider 0.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn U minecraft:strider 4.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B minecraft:strider 4.5 -60 24.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+entity_seed S 51
+entity_seed U 52
+entity_seed B 53
+give Steve mainhand minecraft:warped_fungus_on_a_stick
+give Alex mainhand minecraft:saddle 4
+tick 3
+note a sneaking player does not mount, a plain click does
+interact Steve S main sneak
+tick 1
+dump player:Steve mob:S
+interact Steve S main
+accept_teleport Steve
+tick 2
+dump player:Steve mob:S edata:S
+note the rider steers: the strider walks ahead over the lava
+input Steve forward
+watch player:Steve mob:S
+tick 30
+watch off
+note the stick boosts it
+use Steve main
+watch player:Steve mob:S edata:S
+tick 30
+watch off
+tick 60
+dump player:Steve mob:S inventory:Steve
+note the rider leaves the strider
+input Steve sneak
+tick 3
+dump player:Steve mob:S
+input Steve none
+tick 2
+note saddling: an adult takes the saddle, a baby does not, a saddled strider refuses a second saddle
+interact Alex U main
+tick 1
+dump mob:U inventory:Alex events
+interact Alex B main
+tick 1
+dump mob:B inventory:Alex
+interact Alex U main
+tick 1
+dump mob:U inventory:Alex

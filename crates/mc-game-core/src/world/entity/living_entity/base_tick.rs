@@ -43,8 +43,9 @@ pub fn tick_death(entity: &mut dyn Entity, level: &mut ServerLevel) {
     lm(entity).death_time += 1;
     if l(entity).death_time >= 20 && !entity.is_removed() {
         util::broadcast_entity_event(level, entity.id(), 60);
-        super::effects::trigger_on_death_mob_effects(entity, level, RemovalReason::Killed);
+        // the override of `remove` runs first (a slime splits while its effects are still there), `LivingEntity.remove` last
         entity.before_remove(level, RemovalReason::Killed);
+        super::effects::trigger_on_death_mob_effects(entity, level, RemovalReason::Killed);
         entity.remove(RemovalReason::Killed);
         // `Player.remove`: the removed player's menus are closed (the cursor stack is dropped)
         if let Some(player) = entity.as_any_mut().downcast_mut::<ServerPlayer>() {

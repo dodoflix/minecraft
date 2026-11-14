@@ -41,19 +41,26 @@ pub trait MovementLevel: CollisionGetter + EntityCollisionQuery {
 
 /// `CollisionContext.of(entity)` (`EntityCollisionContext(entity, false, false)`).
 pub fn collision_context(entity: &dyn Entity) -> CollisionContext {
-    CollisionContext::of_entity(
+    let can_stand_on_fluid = entity.can_stand_on_fluid_fn();
+    let context = CollisionContext::of_entity(
         entity.id(),
         entity.is_descending(),
         entity.base().y(),
         entity.held_item_for_collision(),
-        entity.can_stand_on_fluid_fn(),
+        can_stand_on_fluid,
         false,
     )
     .with_entity_state(
         entity.base().fall_distance,
         entity.get_type() == mc_data::EntityType::FALLING_BLOCK,
         can_entity_walk_on_powder_snow(entity),
-    )
+    );
+    // the liquid shape only matters to an entity that can stand on the fluid (`LiquidBlock.getCollisionShape`)
+    if can_stand_on_fluid.is_some() {
+        context.with_liquid_collision_shape(entity.get_liquid_collision_shape())
+    } else {
+        context
+    }
 }
 
 /// `CollisionContext.of(entity)` where the cart context needs the level: a cart under the experimental movement ignores the

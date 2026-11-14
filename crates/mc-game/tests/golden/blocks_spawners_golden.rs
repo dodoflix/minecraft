@@ -10,11 +10,15 @@
 use crate::common::block_scenario::run_scenario;
 use crate::common::entity_oracle::{Fixture, Options, compare};
 
-/// The entries of every `attributes:[{..},{..}]` list sorted: vanilla saves them in the iteration order of a hash map keyed by
-/// identity hash codes, which changes from one JVM run to the next.
+/// The entries of every `attributes:[{..},{..}]` and `active_effects:[{..},{..}]` list sorted: vanilla saves them in the iteration
+/// order of a hash map keyed by identity hash codes, which changes from one JVM run to the next (the oracle's shadow `Holder`
+/// hashes by registry key, an order no real server has).
 pub(crate) fn with_sorted_attributes(line: &str) -> String {
-    const KEY: &str = "attributes:[";
-    let Some(start) = line.find(KEY).map(|i| i + KEY.len()) else {
+    sort_lists(&sort_lists(line, "attributes:["), "active_effects:[")
+}
+
+fn sort_lists(line: &str, key: &str) -> String {
+    let Some(start) = line.find(key).map(|i| i + key.len()) else {
         return line.to_string();
     };
     let (mut depth, mut entries, mut from, mut end) = (0i32, Vec::new(), start, start);
@@ -40,7 +44,7 @@ pub(crate) fn with_sorted_attributes(line: &str) -> String {
         "{}{}{}",
         &line[..start],
         entries.join(","),
-        with_sorted_attributes(&line[end..])
+        sort_lists(&line[end..], key)
     )
 }
 

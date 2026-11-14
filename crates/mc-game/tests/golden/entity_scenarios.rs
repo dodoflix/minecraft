@@ -142,13 +142,6 @@ fn mob_piglin_barter() {
     run_scenario_test("mob_piglin_barter");
 }
 
-/// Hoglin attack and throwTarget knockback against a player.
-#[test]
-#[ignore = "the hoglin's damage roll and throw knockback draw `Level.random`, which the real level also consumes for chunk ticking and the detached replay does not (replayed on the ticking level as `mob_hoglin_attack`)"]
-fn mob_hoglin_vs_player() {
-    run_scenario_test("mob_hoglin_vs_player");
-}
-
 /// Wall climber navigation (spider, cave spider).
 #[test]
 fn mob_path_climb() {

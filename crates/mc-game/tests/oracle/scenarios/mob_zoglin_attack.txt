@@ -1,0 +1,36 @@
+# Zoglin: the fight brain picks the nearest attackable living entity (a survival player, a cow), melee with the throwTarget knockback, the
+# baby's quicker weaker attacks, and the retaliation target after being hurt by a player (the attacker replaces the target unless it is much
+# further away than the current one).
+level flat
+preload 4
+entity_counter 6900
+level_seed 6901
+difficulty hard
+spawn_player Steve survival 6.5 -60 0.5 0 0
+spawn_player Alex survival 6.5 -60 30.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn G minecraft:zoglin 0.5 -60 0.5 0 0 {PersistenceRequired:1b}
+mobspawn B minecraft:zoglin 0.5 -60 30.5 0 0 {PersistenceRequired:1b,IsBaby:1b}
+mobspawn Cow minecraft:cow 14.5 -60 40.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed G 81
+entity_seed B 82
+entity_seed Cow 83
+tick 2
+watch mob:G mob:B player:Steve player:Alex
+tick 90
+watch off
+dump events
+note each zoglin is hurt by the player standing at the other one: far further away than its current target, so the target stays
+hurt B generic 1 by=Steve
+hurt G generic 1 by=Alex
+tick 2
+dump mob:B mob:G brain:G events
+tick 25
+note hurt by the player next to it (after the invulnerability window): the attacker becomes the attack target
+hurt G generic 1 by=Steve
+hurt B generic 1 by=Alex
+tick 2
+dump mob:G mob:B brain:B events
+tick 40
+dump mobs events

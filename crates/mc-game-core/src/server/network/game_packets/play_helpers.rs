@@ -158,13 +158,17 @@ pub(super) fn get_pre_move_collisions(
     old_pos: Vec3,
 ) -> Vec<VoxelShape> {
     let mut shapes = level.entity_collisions(Some(entity), aabb);
-    let context = CollisionContext::with_position(
+    let can_stand_on_fluid = entity.can_stand_on_fluid_fn();
+    let mut context = CollisionContext::with_position(
         entity.id(),
         entity.is_descending(),
         old_pos.y,
         entity.held_item_for_collision(),
-        entity.can_stand_on_fluid_fn(),
+        can_stand_on_fluid,
     );
+    if can_stand_on_fluid.is_some() {
+        context = context.with_liquid_collision_shape(entity.get_liquid_collision_shape());
+    }
     shapes.extend(level.get_block_collisions_from_context(context, *aabb));
     shapes
 }

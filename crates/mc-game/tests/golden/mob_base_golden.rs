@@ -26,7 +26,6 @@ fn leash_tick() {
 }
 
 #[test]
-#[ignore = "deviation: the converted zoglin turns and moves in its first tick where vanilla's stands still (line 22), and the converted piglin's effects list is in another order (vanilla keeps them in a hash map)"]
 fn conversion_common() {
     check("mob_conversion_common");
 }

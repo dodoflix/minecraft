@@ -1,0 +1,24 @@
+# Hoglin.customServerAiStep zombification: TimeInOverworld counts up in the overworld and converts to a zoglin at 301 (Hoglin.finishConversion:
+# ConversionType.SINGLE keeps age, name and effects, the zoglin gets nausea). A baby stays a baby and an immune hoglin never converts. Dumps every
+# tick around the conversion.
+level flat
+preload 4
+entity_counter 6700
+level_seed 6701
+difficulty normal
+spawn_player Steve creative 0.5 -60 30.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn A minecraft:hoglin 0.5 -60 0.5 0 0 {PersistenceRequired:1b,CustomName:"Hog",TimeInOverworld:297,Tags:["a"]}
+mobspawn B minecraft:hoglin 8.5 -60 0.5 0 0 {PersistenceRequired:1b,Age:-4000,TimeInOverworld:299,active_effects:[{id:"minecraft:speed",amplifier:0b,duration:900}]}
+mobspawn C minecraft:hoglin 16.5 -60 0.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,TimeInOverworld:299}
+entity_seed A 71
+entity_seed B 72
+entity_seed C 73
+tick 2
+watch mobs events
+tick 6
+watch off
+dump nbt:zoglin#1 nbt:zoglin#2 nbt:C
+tick 40
+dump mobs

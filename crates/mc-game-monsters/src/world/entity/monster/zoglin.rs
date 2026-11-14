@@ -238,7 +238,9 @@ impl Entity for Zoglin {
     }
 
     fn set_baby(&mut self, baby: bool) {
-        self.base_mut().entity_data.set(DATA_BABY_ID, baby);
+        if self.base_mut().entity_data.set(DATA_BABY_ID, baby) {
+            self.on_synced_data_updated(DATA_BABY_ID.id());
+        }
         if baby {
             self.mob
                 .living
