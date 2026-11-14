@@ -477,6 +477,10 @@ impl HoldGroundAttackGoal {
 }
 
 impl Goal for HoldGroundAttackGoal {
+    fn name(&self) -> &'static str {
+        "Raider$HoldGroundAttackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let last_hurt_by_mob_is_player = mob
             .living()
@@ -587,6 +591,10 @@ impl Default for ObtainRaidLeaderBannerGoal {
 }
 
 impl Goal for ObtainRaidLeaderBannerGoal {
+    fn name(&self) -> &'static str {
+        "Raider$ObtainRaidLeaderBannerGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if self.cannot_pick_up_banner(mob, level) {
             return false;
@@ -685,6 +693,10 @@ impl Default for RaiderCelebration {
 }
 
 impl Goal for RaiderCelebration {
+    fn name(&self) -> &'static str {
+        "Raider$RaiderCelebration"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let current_raid = get_current_raid(mob).and_then(|id| level.get_raid(id));
         mob.is_alive()
@@ -774,6 +786,10 @@ impl RaiderMoveThroughVillageGoal {
 }
 
 impl Goal for RaiderMoveThroughVillageGoal {
+    fn name(&self) -> &'static str {
+        "Raider$RaiderMoveThroughVillageGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.update_visited();
         Self::is_valid_raid(mob, level)

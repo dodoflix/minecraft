@@ -27,6 +27,7 @@ use mc_game_core::world::entity::ai::targeting::TargetingConditions;
 use mc_game_core::world::entity::equipment::EquipmentSlot;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
@@ -141,6 +142,26 @@ impl Vex {
         level
             .get_entity_by_uuid(self.owner?)
             .filter(|e| e.living().is_some())
+    }
+
+    /// `OwnableEntity.getRootOwner()`.
+    ///
+    /// shortcut: an owner without an owner of its own ends the walk on itself (vanilla returns null for an ownable one),
+    /// because `ownable_owner_uuid` cannot tell it from a non-ownable owner; the case needs a vex owned by a pet.
+    pub fn get_root_owner<'l>(&self, level: &'l ServerLevel) -> Option<&'l dyn Entity> {
+        let mut seen = vec![self.id()];
+        let mut owner = self.get_owner(level)?;
+        while let Some(uuid) = owner.ownable_owner_uuid() {
+            let owners_owner = level
+                .get_entity_by_uuid(uuid)
+                .filter(|e| e.living().is_some())?;
+            if seen.contains(&owners_owner.id()) {
+                return None;
+            }
+            seen.push(owner.id());
+            owner = owners_owner;
+        }
+        Some(owner)
     }
 
     /// `getBoundOrigin()`.
@@ -271,6 +292,10 @@ fn vex_mut(mob: &mut dyn Entity) -> &mut Vex {
 }
 
 impl Goal for VexChargeAttackGoal {
+    fn name(&self) -> &'static str {
+        "Vex$VexChargeAttackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let Some(target) =
             mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
@@ -386,6 +411,10 @@ impl VexCopyOwnerTargetGoal {
 }
 
 impl Goal for VexCopyOwnerTargetGoal {
+    fn name(&self) -> &'static str {
+        "Vex$VexCopyOwnerTargetGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let target = Self::owner_target(mob, level);
         target.is_some()
@@ -409,7 +438,7 @@ impl Goal for VexCopyOwnerTargetGoal {
     }
 
     fn flags(&self) -> GoalFlags {
-        GoalFlags::of(&[Flag::Target])
+        GoalFlags::NONE
     }
 }
 
@@ -470,6 +499,10 @@ impl MoveControl for VexMoveControl {
 struct VexRandomMoveGoal;
 
 impl Goal for VexRandomMoveGoal {
+    fn name(&self) -> &'static str {
+        "Vex$VexRandomMoveGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         !mob.mob()
             .and_then(|m| m.move_control.as_deref())
@@ -529,4 +562,34 @@ impl Goal for VexRandomMoveGoal {
 static VEX: EntityRegistration = EntityRegistration {
     entity_type: EntityType::VEX,
     create: |ty, id, registries| Box::new(Vex::new(ty, id, registries)),
+};
+
+/// Scenario-harness fields of a vex (order 41; the twin of the `Vex` entry of `EntityExtras.java`).
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static VEX_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 41,
+    applies: |e| e.as_any().is::<Vex>(),
+    fields: |e, level, ctx| {
+        let vex = e.as_any().downcast_ref::<Vex>().expect("vex");
+        vec![
+            ("charging".into(), u8::from(vex.is_charging()).to_string()),
+            (
+                "owner".into(),
+                ctx.name_opt(vex.get_owner(level).map(|o| o.id())),
+            ),
+            (
+                "bound".into(),
+                vex.bound_origin
+                    .map_or("-".into(), |p| format!("{},{},{}", p.x(), p.y(), p.z())),
+            ),
+            (
+                "life".into(),
+                if vex.has_limited_life {
+                    vex.limited_life_ticks.to_string()
+                } else {
+                    "-".into()
+                },
+            ),
+        ]
+    },
 };

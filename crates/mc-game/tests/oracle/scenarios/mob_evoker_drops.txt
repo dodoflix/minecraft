@@ -1,0 +1,30 @@
+# Evokers killed by a player: the totem of undying and emerald loot, the experience orbs (xpReward 10), a wave captain's banner,
+# and the loot of a kill without a player.
+level flat
+difficulty normal
+gamerule mob_drops true
+entity_counter 100
+level_seed 1
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn E1 minecraft:evoker 3.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn E2 minecraft:evoker 6.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn E3 minecraft:evoker 9.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,PatrolLeader:1b,Patrolling:1b}
+mobspawn E4 minecraft:evoker 12.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+give E3 head minecraft:white_banner
+tick 1
+level_seed 1
+hurt E1 player_attack 100 by=Steve direct=Steve
+tick 25
+dump entities
+level_seed 2
+hurt E2 player_attack 100 by=Steve direct=Steve
+tick 25
+dump entities
+level_seed 3
+hurt E3 player_attack 100 by=Steve direct=Steve
+tick 25
+dump entities
+level_seed 4
+hurt E4 generic 100
+tick 25
+dump entities

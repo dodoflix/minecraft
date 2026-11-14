@@ -213,6 +213,10 @@ impl LongDistancePatrolGoal {
 }
 
 impl Goal for LongDistancePatrolGoal {
+    fn name(&self) -> &'static str {
+        "PatrollingMonster$LongDistancePatrolGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let is_on_cooldown = level.game_time() < self.cooldown_until;
         is_patrolling(mob)

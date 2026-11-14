@@ -30,6 +30,18 @@ impl IllagerSpell {
         self as i32
     }
 
+    /// The constant's name (`SUMMON_VEX`) in lower case.
+    pub fn name(self) -> &'static str {
+        match self {
+            IllagerSpell::None => "none",
+            IllagerSpell::SummonVex => "summon_vex",
+            IllagerSpell::Fangs => "fangs",
+            IllagerSpell::Wololo => "wololo",
+            IllagerSpell::Disappear => "disappear",
+            IllagerSpell::Blindness => "blindness",
+        }
+    }
+
     /// `IllagerSpell.byId(id)` (`ByIdMap.continuous` with `OutOfBoundsStrategy.ZERO`).
     pub fn by_id(id: i32) -> IllagerSpell {
         [
@@ -197,7 +209,134 @@ impl Goal for SpellcasterCastingSpellGoal {
         }
     }
 
+    fn name(&self) -> &'static str {
+        if self.look_at_wololo_target {
+            "Evoker$EvokerCastingSpellGoal"
+        } else {
+            "SpellcasterIllager$SpellcasterCastingSpellGoal"
+        }
+    }
+
     fn flags(&self) -> GoalFlags {
         GoalFlags::of(&[Flag::Move, Flag::Look])
+    }
+}
+
+/// The `attackWarmupDelay`/`nextAttackTickCount` fields of `SpellcasterIllager.SpellcasterUseSpellGoal`.
+#[derive(Default)]
+pub struct UseSpellState {
+    pub attack_warmup_delay: i32,
+    pub next_attack_tick_count: i32,
+}
+
+impl UseSpellState {
+    /// `SpellcasterUseSpellGoal.canUse()`.
+    pub fn can_use(&self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
+        let target = mob::tick::get_target_checked(mob, level);
+        if !target.is_some_and(|t| level.get_entity(t).is_some_and(|t| t.is_alive())) {
+            return false;
+        }
+        !is_casting_spell(mob) && mob.base().tick_count >= self.next_attack_tick_count
+    }
+
+    /// `SpellcasterUseSpellGoal.canContinueToUse()`.
+    pub fn can_continue_to_use(&self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
+        let target = mob::tick::get_target_checked(mob, level);
+        target.is_some_and(|t| level.get_entity(t).is_some_and(|t| t.is_alive()))
+            && self.attack_warmup_delay > 0
+    }
+}
+
+/// The members a subclass of `SpellcasterIllager.SpellcasterUseSpellGoal` overrides. `can_use`, `can_continue_to_use`,
+/// `start` and `stop` default to the superclass behaviour (`start`/`stop` run after it).
+pub trait UseSpell: 'static {
+    /// `getClass().getSimpleName()` with the outer class (`Evoker$EvokerAttackSpellGoal`).
+    fn name(&self) -> &'static str;
+    fn spell(&self) -> IllagerSpell;
+    fn spell_prepare_sound(&self) -> Option<SoundEvent>;
+    fn casting_time(&self) -> i32;
+    fn casting_interval(&self) -> i32;
+    fn cast_warmup_time(&self) -> i32 {
+        20
+    }
+    fn perform_spell_casting(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel);
+
+    fn can_use(
+        &mut self,
+        state: &UseSpellState,
+        mob: &mut dyn Entity,
+        level: &mut ServerLevel,
+    ) -> bool {
+        state.can_use(mob, level)
+    }
+
+    fn can_continue_to_use(
+        &mut self,
+        state: &UseSpellState,
+        mob: &mut dyn Entity,
+        level: &mut ServerLevel,
+    ) -> bool {
+        state.can_continue_to_use(mob, level)
+    }
+
+    fn start(&mut self, _mob: &mut dyn Entity, _level: &mut ServerLevel) {}
+
+    fn stop(&mut self, _mob: &mut dyn Entity, _level: &mut ServerLevel) {}
+}
+
+/// `SpellcasterIllager.SpellcasterUseSpellGoal` around the spell-specific overrides `S`.
+pub struct SpellcasterUseSpellGoal<S: UseSpell> {
+    state: UseSpellState,
+    spell: S,
+}
+
+impl<S: UseSpell> SpellcasterUseSpellGoal<S> {
+    pub fn new(spell: S) -> Self {
+        SpellcasterUseSpellGoal {
+            state: UseSpellState::default(),
+            spell,
+        }
+    }
+}
+
+impl<S: UseSpell> Goal for SpellcasterUseSpellGoal<S> {
+    fn name(&self) -> &'static str {
+        self.spell.name()
+    }
+
+    fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
+        self.spell.can_use(&self.state, mob, level)
+    }
+
+    fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
+        self.spell.can_continue_to_use(&self.state, mob, level)
+    }
+
+    fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
+        self.state.attack_warmup_delay = self.adjusted_tick_delay(self.spell.cast_warmup_time());
+        data_mut(mob).spell_casting_tick_count = self.spell.casting_time();
+        self.state.next_attack_tick_count = mob.base().tick_count + self.spell.casting_interval();
+        if let Some(sound) = self.spell.spell_prepare_sound() {
+            mob.play_sound(level, sound, 1.0, 1.0);
+        }
+        set_is_casting_spell(mob, self.spell.spell());
+        self.spell.start(mob, level);
+    }
+
+    fn stop(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
+        self.spell.stop(mob, level);
+    }
+
+    fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
+        self.state.attack_warmup_delay -= 1;
+        if self.state.attack_warmup_delay == 0 {
+            self.spell.perform_spell_casting(mob, level);
+            let sound = data(mob).casting_sound;
+            mob.play_sound(level, sound, 1.0, 1.0);
+        }
+    }
+
+    fn flags(&self) -> GoalFlags {
+        GoalFlags::NONE
     }
 }

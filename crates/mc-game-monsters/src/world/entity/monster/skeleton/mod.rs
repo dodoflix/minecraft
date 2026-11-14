@@ -3,7 +3,7 @@
 //!
 //! One Rust type ([`AbstractSkeleton`]) with a [`SkeletonKind`], like the zombie family.
 
-mod goals;
+pub(super) mod goals;
 
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;

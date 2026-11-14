@@ -35,16 +35,8 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "EnderDragon: phase brain and multipart body",
     ),
     (
-        "minecraft:evoker",
-        "Evoker: spell casting illager with fangs and vexes",
-    ),
-    (
         "minecraft:happy_ghast",
         "HappyGhast: rideable harness flyer",
-    ),
-    (
-        "minecraft:illusioner",
-        "Illusioner: blinding and mirror image casting illager",
     ),
     (
         "minecraft:nautilus",

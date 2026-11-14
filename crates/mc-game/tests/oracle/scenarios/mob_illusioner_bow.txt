@@ -1,0 +1,19 @@
+# Illusioner shooting a standing player on normal: the bow draw (RangedBowAttackGoal 0.5, 20, 15), strafing, the arrows
+# (uncertainty, speed 1.6, y offset) and the shoot sound. Already invisible (no mirror spell) and below the blindness difficulty,
+# so the bow is the only thing it uses.
+level flat
+difficulty normal
+gamerule mob_drops false
+entity_counter 100
+level_seed 5
+spawn_player Steve survival 0.5 -60 0.5 -90 0
+effect Steve minecraft:resistance 4 100000
+mobspawn I minecraft:illusioner 14.5 -60 0.5 90 0 {PersistenceRequired:1b}
+entity_seed I 6
+effect I minecraft:invisibility 0 100000
+target I Steve
+tick 2
+watch mob:I entities
+tick 160
+watch off
+dump nbt:I goals:I

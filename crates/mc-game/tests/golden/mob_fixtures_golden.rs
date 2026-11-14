@@ -9,7 +9,6 @@ use std::collections::BTreeMap;
 const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[
     // inert placeholders: the dump line stops after the position fields
     "minecraft:camel",
-    "minecraft:evoker",
     "minecraft:sniffer",
     // the `aggr` field is 0 where vanilla shows 1
     "minecraft:panda",
@@ -20,7 +19,6 @@ const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[
     // inert placeholders: the dump line stops after the position fields
     "minecraft:allay",
     "minecraft:camel",
-    "minecraft:evoker",
     "minecraft:sniffer",
     "minecraft:wandering_trader",
     // the saved `anger` data holds `suspects:[]` where vanilla saves `{}`

@@ -27,7 +27,11 @@ import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.monster.Witch;
+import net.minecraft.world.entity.animal.sheep.Sheep;
+import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.world.entity.monster.illager.Evoker;
 import net.minecraft.world.entity.monster.illager.Pillager;
+import net.minecraft.world.entity.monster.illager.SpellcasterIllager;
 import net.minecraft.world.entity.monster.illager.Vindicator;
 import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.entity.projectile.EyeOfEnder;
@@ -314,9 +318,21 @@ final class EntityExtras {
          }
          out.add("charging", EntityOracleDriver.bool(p.isChargingCrossbow())).add("inventory", items.length() == 0 ? "-" : items.toString());
       }));
+      ALL.add(new Extra(41, SpellcasterIllager.class, (d, e, out) -> {
+         out.add("spell", ((Enum<?>)EntityOracleDriver.priv(e, SpellcasterIllager.class, "currentSpell")).name().toLowerCase(java.util.Locale.ROOT));
+         out.add("spellticks", EntityOracleDriver.priv(e, SpellcasterIllager.class, "spellCastingTickCount"));
+      }));
+      ALL.add(new Extra(41, Vex.class, (d, e, out) -> {
+         Vex v = (Vex)e;
+         var bound = v.getBoundOrigin();
+         out.add("charging", EntityOracleDriver.bool(v.isCharging())).add("owner", d.entName(v.getOwner()));
+         out.add("bound", bound == null ? "-" : bound.getX() + "," + bound.getY() + "," + bound.getZ());
+         out.add("life", (Boolean)EntityOracleDriver.priv(e, Vex.class, "hasLimitedLife") ? EntityOracleDriver.priv(e, Vex.class, "limitedLifeTicks") : "-");
+      }));
       ALL.add(new Extra(41, Vindicator.class, (d, e, out) -> out.add("johnny", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Vindicator.class, "isJohnny")))));
       ALL.add(new Extra(41, Ravager.class, (d, e, out) -> out.add("attack", EntityOracleDriver.priv(e, Ravager.class, "attackTick")).add("stun", EntityOracleDriver.priv(e, Ravager.class, "stunnedTick")).add("roar", EntityOracleDriver.priv(e, Ravager.class, "roarTick"))));
       ALL.add(new Extra(41, Witch.class, (d, e, out) -> out.add("drinking", EntityOracleDriver.bool(((Witch)e).isDrinkingPotion())).add("usingtime", EntityOracleDriver.priv(e, Witch.class, "usingTime"))));
+      ALL.add(new Extra(42, Evoker.class, (d, e, out) -> out.add("wololo", d.entName((Sheep)EntityOracleDriver.priv(e, Evoker.class, "wololoTarget")))));
       ALL.sort(Comparator.comparingInt(Extra::order));
    }
 

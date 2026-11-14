@@ -1,0 +1,31 @@
+# Evoker without a target recolouring the blue sheep around it to red (mob_griefing on): the sheep it picked first is removed while
+# the spell warms up (the spell does nothing and the evoker keeps looking at it), the next cast turns another blue sheep red; a blue
+# sheep out of the vertical range and a white sheep are left alone, and so is every sheep with mob_griefing off.
+level flat
+difficulty normal
+gamerule mob_drops false
+gamerule mob_griefing true
+entity_counter 100
+level_seed 21
+mobspawn E minecraft:evoker 0.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed E 5
+mobspawn S1 minecraft:sheep 5.5 -60 0.5 0 0 nofinalize {Color:11b,NoAI:1b,PersistenceRequired:1b}
+mobspawn S2 minecraft:sheep -4.5 -60 3.5 0 0 nofinalize {Color:11b,NoAI:1b,PersistenceRequired:1b}
+mobspawn S3 minecraft:sheep 3.5 -60 -4.5 0 0 nofinalize {Color:0b,NoAI:1b,PersistenceRequired:1b}
+block 4 -52 4 minecraft:stone
+mobspawn S4 minecraft:sheep 4.5 -51 4.5 0 0 nofinalize {Color:11b,NoAI:1b,PersistenceRequired:1b}
+tick 2
+watch mob:E
+tick 8
+kill S2
+tick 60
+watch off
+dump mobs nbt:S1 nbt:S3 nbt:S4
+tick 200
+dump mobs nbt:E nbt:S1 nbt:S3 nbt:S4
+gamerule mob_griefing false
+mobspawn E2 minecraft:evoker 60.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed E2 5
+mobspawn S5 minecraft:sheep 64.5 -60 0.5 0 0 nofinalize {Color:11b,NoAI:1b,PersistenceRequired:1b}
+tick 120
+dump mobs nbt:S5

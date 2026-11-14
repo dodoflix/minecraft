@@ -1,0 +1,26 @@
+# Evoker casting fangs at a player 10 blocks away on hard: eight no-AI vexes inside its summon radius keep it from summoning, so the
+# fang spell is the one it casts (the 16-fang row: positions, delays, owner, the fang damage on the standing player, the 40 tick
+# casting window, the prepare/cast sounds). The player's resistance keeps the player alive.
+level flat
+difficulty hard
+gamerule mob_drops false
+entity_counter 100
+level_seed 5
+spawn_player Steve survival 0.5 -60 0.5 -90 0
+effect Steve minecraft:resistance 3 100000
+mobspawn E minecraft:evoker 10.5 -60 0.5 90 0 {PersistenceRequired:1b}
+entity_seed E 7
+mobspawn V1 minecraft:vex 12.5 -59 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn V2 minecraft:vex 12.5 -59 -1.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn V3 minecraft:vex 13.5 -59 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn V4 minecraft:vex 13.5 -59 -1.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn V5 minecraft:vex 14.5 -59 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn V6 minecraft:vex 14.5 -59 -1.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn V7 minecraft:vex 15.5 -59 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn V8 minecraft:vex 15.5 -59 -1.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+target E Steve
+tick 2
+watch mob:E player:Steve entities events
+tick 70
+watch off
+dump nbt:E goals:E

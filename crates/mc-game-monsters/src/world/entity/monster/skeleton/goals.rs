@@ -351,10 +351,10 @@ fn drop_from_shearing_loot_table(
     }
 }
 
-/// `Monster.getProjectile(heldWeapon)` for a bow: the arrow held in a hand (off hand first), else a plain arrow.
-fn get_mob_projectile(skeleton: &AbstractSkeleton) -> ItemStack {
+/// `Mob.getProjectile(heldWeapon)` for a bow: the arrow held in a hand (off hand first), else a plain arrow.
+pub(in crate::world::entity::monster) fn get_mob_projectile(mob: &dyn Entity) -> ItemStack {
     for slot in [EquipmentSlot::OffHand, EquipmentSlot::MainHand] {
-        let held = skeleton.get_item_by_slot(slot);
+        let held = mob.get_item_by_slot(slot);
         if mc_game_core::world::item::projectile_weapon_item::is_arrow(&held) {
             return held;
         }

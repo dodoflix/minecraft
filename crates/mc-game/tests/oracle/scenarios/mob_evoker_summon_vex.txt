@@ -1,0 +1,18 @@
+# Evoker summoning vexes against a player on hard: the nextInt(8)+1 > nearby vexes check, three vexes at nextInt(5) offsets, bound
+# origin, owner, limited life 20*(30+nextInt(90)), the vexes copying the evoker's target and charging, the summon cooldown.
+level flat
+difficulty hard
+gamerule mob_drops false
+entity_counter 100
+level_seed 11
+spawn_player Steve survival 12.5 -60 0.5 90 0
+effect Steve minecraft:resistance 4 100000
+mobspawn E minecraft:evoker 0.5 -60 0.5 -90 0 {PersistenceRequired:1b}
+entity_seed E 3
+target E Steve
+tick 2
+watch mobs events
+tick 45
+watch off
+tick 120
+dump mobs nbt:E nbt:vex#1 nbt:vex#2 nbt:vex#3

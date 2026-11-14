@@ -1,0 +1,22 @@
+# Illusioner against two players on hard: the mirror image spell (self invisibility for 1200 ticks, cooldown), the blindness spell on
+# each new target (400 ticks, only against a target other than the previous one, only above normal local difficulty), the prepare
+# and cast sounds, and the bow in its main hand from finalizeSpawn. The players' resistance keeps them alive.
+level flat
+difficulty hard
+gamerule mob_drops false
+entity_counter 100
+level_seed 9
+spawn_player Steve survival 0.5 -60 0.5 -90 0
+spawn_player Alex survival 0.5 -60 4.5 -90 0
+effect Steve minecraft:resistance 4 100000
+effect Alex minecraft:resistance 4 100000
+mobspawn I minecraft:illusioner 12.5 -60 0.5 90 0 {PersistenceRequired:1b}
+entity_seed I 4
+target I Steve
+tick 2
+watch mob:I player:Steve player:Alex
+tick 100
+target I Alex
+tick 100
+watch off
+dump mobs nbt:I
