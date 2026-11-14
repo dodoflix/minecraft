@@ -585,3 +585,91 @@ E zk3 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fal
 E as1 minecraft:armor_stand pos=1.5,-60.0,88.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 EV level_event r=64.0 ex=0 type=1000 pos=0,-60,88 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=0,-60,88 data=5 global=0
+# c13 the dispensed skull completes the wither pattern (two skulls beside the middle one): the wither is summoned and the pattern consumed
+BE 0 -60 96 {Items:[{Slot:0b,count:1,id:"minecraft:wither_skeleton_skull"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:96}
+B -1 -63 94 minecraft:dirt
+B -1 -63 95 minecraft:dirt
+B -1 -63 96 minecraft:dirt
+B -1 -63 97 minecraft:dirt
+B -1 -63 98 minecraft:dirt
+B -1 -62 94 minecraft:dirt
+B -1 -62 95 minecraft:dirt
+B -1 -62 96 minecraft:dirt
+B -1 -62 97 minecraft:dirt
+B -1 -62 98 minecraft:dirt
+B -1 -61 94 minecraft:grass_block[snowy=false]
+B -1 -61 95 minecraft:grass_block[snowy=false]
+B -1 -61 96 minecraft:grass_block[snowy=false]
+B -1 -61 97 minecraft:grass_block[snowy=false]
+B -1 -61 98 minecraft:grass_block[snowy=false]
+B 0 -63 94 minecraft:dirt
+B 0 -63 95 minecraft:dirt
+B 0 -63 96 minecraft:dirt
+B 0 -63 97 minecraft:dirt
+B 0 -63 98 minecraft:dirt
+B 0 -62 94 minecraft:dirt
+B 0 -62 95 minecraft:dirt
+B 0 -62 96 minecraft:dirt
+B 0 -62 97 minecraft:dirt
+B 0 -62 98 minecraft:dirt
+B 0 -61 94 minecraft:grass_block[snowy=false]
+B 0 -61 95 minecraft:grass_block[snowy=false]
+B 0 -61 96 minecraft:grass_block[snowy=false]
+B 0 -61 97 minecraft:grass_block[snowy=false]
+B 0 -61 98 minecraft:grass_block[snowy=false]
+B 0 -60 96 minecraft:dispenser[facing=east,triggered=false]
+B 1 -63 94 minecraft:dirt
+B 1 -63 95 minecraft:dirt
+B 1 -63 96 minecraft:dirt
+B 1 -63 97 minecraft:dirt
+B 1 -63 98 minecraft:dirt
+B 1 -62 94 minecraft:dirt
+B 1 -62 98 minecraft:dirt
+B 1 -61 94 minecraft:grass_block[snowy=false]
+B 1 -61 98 minecraft:grass_block[snowy=false]
+B 2 -63 94 minecraft:dirt
+B 2 -63 95 minecraft:dirt
+B 2 -63 96 minecraft:dirt
+B 2 -63 97 minecraft:dirt
+B 2 -63 98 minecraft:dirt
+B 2 -62 94 minecraft:dirt
+B 2 -62 95 minecraft:dirt
+B 2 -62 96 minecraft:dirt
+B 2 -62 97 minecraft:dirt
+B 2 -62 98 minecraft:dirt
+B 2 -61 94 minecraft:grass_block[snowy=false]
+B 2 -61 95 minecraft:grass_block[snowy=false]
+B 2 -61 96 minecraft:grass_block[snowy=false]
+B 2 -61 97 minecraft:grass_block[snowy=false]
+B 2 -61 98 minecraft:grass_block[snowy=false]
+B 3 -63 94 minecraft:dirt
+B 3 -63 95 minecraft:dirt
+B 3 -63 96 minecraft:dirt
+B 3 -63 97 minecraft:dirt
+B 3 -63 98 minecraft:dirt
+B 3 -62 94 minecraft:dirt
+B 3 -62 95 minecraft:dirt
+B 3 -62 96 minecraft:dirt
+B 3 -62 97 minecraft:dirt
+B 3 -62 98 minecraft:dirt
+B 3 -61 94 minecraft:grass_block[snowy=false]
+B 3 -61 95 minecraft:grass_block[snowy=false]
+B 3 -61 96 minecraft:grass_block[snowy=false]
+B 3 -61 97 minecraft:grass_block[snowy=false]
+B 3 -61 98 minecraft:grass_block[snowy=false]
+E zk1 minecraft:zombie pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk2 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk3 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E as1 minecraft:armor_stand pos=1.5,-60.0,88.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wither#1 minecraft:wither pos=1.5,-61.45,96.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,97 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-61,97 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-62,97 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,96 data=12750 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-61,96 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-62,96 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,95 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-61,95 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-62,95 data=0 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,96 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,96 data=5 global=0

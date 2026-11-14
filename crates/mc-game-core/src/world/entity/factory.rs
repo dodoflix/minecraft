@@ -2,8 +2,8 @@
 //! (`EntityType.create`, `loadEntityRecursive`, `loadEntitiesRecursive`).
 //!
 //! Concrete entity classes register a factory through [`ENTITY_FACTORIES`] from the module that implements them.
-//! Types without an implementation yet are created as `PlainEntity`, which keeps the
-//! raw NBT it was loaded from so saved worlds round trip losslessly.
+//! Every entity type but the player has a class registered this way. `PlainEntity` is the fallback for a type without a
+//! registered factory (the player type reaching `instantiate`); it keeps the raw NBT it was loaded from.
 
 use super::plain::PlainEntity;
 use super::{Entity, EntityId};
@@ -43,7 +43,7 @@ pub struct EntitySpawnRequest {
     pub ignore_checks: bool,
 }
 
-/// Whether a concrete implementation (not the [`PlainEntity`] fallback) is registered for `ty`.
+/// Whether a concrete class (not the [`PlainEntity`] fallback) is registered for `ty`.
 pub fn has_factory(ty: EntityType) -> bool {
     factories().contains_key(&ty)
 }
@@ -90,8 +90,7 @@ pub fn instantiate_with(
 ) -> Box<dyn Entity> {
     let mut entity: Box<dyn Entity> = match factories().get(&ty) {
         Some(reg) => (reg.create)(ty, id, registries),
-        // Not implemented: every entity type without a registered factory (see the README's entity-type gaps). Vanilla
-        // creates the type's own class; this creates an inert placeholder that keeps its NBT.
+        // Only the player type has no class (vanilla `createNothing`): an inert entity that keeps its NBT.
         None => Box::new(PlainEntity::new(ty, id)),
     };
     entity.allocate_sub_entity_ids(next_id);

@@ -41,7 +41,7 @@ pub struct Options {
     pub ignore_kinds: Vec<&'static str>,
     /// Field keys (`"fire"`, `"hurt"`, ...) of `P`/`E` lines ignored on both sides (for fields the Rust side does not model yet).
     pub ignore_fields: Vec<&'static str>,
-    /// Lines containing any of these substrings are skipped on both sides (output of mobs whose class is still a placeholder).
+    /// Lines containing any of these substrings are skipped on both sides (output the replay does not produce, such as the equip sound of a driver `give`).
     pub ignore_containing: Vec<&'static str>,
 }
 

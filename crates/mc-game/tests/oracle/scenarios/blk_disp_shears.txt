@@ -171,3 +171,12 @@ leash ls1 lp3
 level_seed 32
 dispense 0 -60 156 c22
 dump be:0,-60,156 nbt:ls1 nbt:lp3 entities events
+note c23 beehive honey 5 with a bee occupant: honeycombs drop, the bee is released by day (a hive keeps its bees at night; NoAI so it stays put), honey level reset
+time 6000
+block 0 -60 164 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 164 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+block 1 -60 164 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 1 -60 164 {bees:[{entity_data:{id:"minecraft:bee",NoAI:1b,Silent:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+level_seed 33
+dispense 0 -60 164 c23
+dump be:0,-60,164 be:1,-60,164 blocks:0,-61,163,1,-60,165 entities events

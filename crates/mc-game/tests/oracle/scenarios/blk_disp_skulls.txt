@@ -2,10 +2,10 @@
 # base, a soul sand T, matches around the position; difficulty is not peaceful) the skull block is placed with the dispenser direction as its rotation segment (BLOCK_PLACE
 # event, WitherSkullBlock.checkSpawn finds no complete pattern here) and one skull is used; otherwise the skull is equipped on the first living entity in front that
 # accepts it (EquipmentDispenseItemBehavior.dispenseEquipment), else nothing happens (failure click 1001, no drop).
-# The wither spawned by a complete pattern is not covered.
+# A complete pattern (the last skull dispensed) summons the wither.
 # Every dispense/spawn line is unique: the replay seeds the entity UUIDs and random from the command line.
 level flat
-preload 3
+preload 7
 time 18000
 note c1 soul sand T below the target: the skull is placed (east: rotation 12), one of 2 used
 block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
@@ -138,3 +138,18 @@ spawn as1 minecraft:armor_stand 1.5 -60 88.5 0 0 {}
 level_seed 12
 dispense 0 -60 88 c12
 dump be:0,-60,88 nbt:as1 entities events
+note c13 the dispensed skull completes the wither pattern (two skulls beside the middle one): the wither is summoned and the pattern consumed
+block 0 -60 96 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 96 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:2}]}
+block 1 -61 95 minecraft:soul_sand
+block 1 -61 96 minecraft:soul_sand
+block 1 -61 97 minecraft:soul_sand
+block 1 -62 96 minecraft:soul_sand
+block 1 -62 95 minecraft:air
+block 1 -62 97 minecraft:air
+block 1 -60 95 minecraft:wither_skeleton_skull[rotation=0]
+block 1 -60 97 minecraft:wither_skeleton_skull[rotation=0]
+level_seed 13
+dispense 0 -60 96 c13
+dump be:0,-60,96 blocks:-1,-63,94,3,-58,98 entities events
+kill wither#1

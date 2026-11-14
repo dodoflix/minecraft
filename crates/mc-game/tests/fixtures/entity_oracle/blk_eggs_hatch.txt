@@ -109,7 +109,7 @@ E turtle#7 minecraft:turtle pos=2.6999999999999997,-60.0,0.3 delta=0.0,0.0,0.0 r
 E turtle#8 minecraft:turtle pos=0.3,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
 E turtle#9 minecraft:turtle pos=6.3,-60.0,3.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
 E turtle#10 minecraft:turtle pos=6.5,-60.0,3.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
-# the baby turtles are placeholders for the mob scope: removed
+# the hatched baby turtles are killed so they stay out of the following cases
 # a player adds eggs to a clutch (canBeReplaced + getStateForPlacement) and breaks eggs one at a time (playerDestroy puts the block back)
 B 11 -61 0 minecraft:sand
 B 11 -61 1 minecraft:sand

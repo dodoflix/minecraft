@@ -1,10 +1,10 @@
 # Dispenser glass bottle (DispenseItemBehavior: OptionalDispenseItemBehavior): a beehive with honey_level >= 5 releases its occupants,
 # resets to 0 and the bottle becomes a honey bottle (FLUID_PICKUP game event); water fluid in front (source, flowing, waterlogged) turns it into a water
 # bottle without removing the water; otherwise the bottle is dropped with the failure click. A stack of 2 puts the filled bottle into the first free
-# slot of the dispenser, or drops it when the dispenser is full. Pigs in a hive never leave it; bees stay inside while a lit campfire is below.
+# slot of the dispenser, or drops it when the dispenser is full. Pigs in a hive never leave it; released bees are NoAI; bees stay inside while a lit campfire is below.
 # Every dispense/spawn line is unique: the replay seeds the entity UUIDs and random from the command line.
 level flat
-preload 3
+preload 6
 time 18000
 note c1 beehive honey 4: not full, the bottle is dropped (1001)
 block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
@@ -95,3 +95,12 @@ be_nbt 1 -60 66 {bees:[]}
 level_seed 12
 dispense 0 -60 66 c12
 dump be:0,-60,66 be:1,-60,66 blocks:0,-61,65,1,-60,67 entities events
+note c13 beehive honey 5 with a bee occupant: the bee is released by day (a hive keeps its bees at night; NoAI so it stays put), honey level reset
+time 6000
+block 0 -60 72 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 72 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1}]}
+block 1 -60 72 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 1 -60 72 {bees:[{entity_data:{id:"minecraft:bee",NoAI:1b,Silent:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+level_seed 13
+dispense 0 -60 72 c13
+dump be:0,-60,72 be:1,-60,72 blocks:0,-61,71,1,-60,73 entities events

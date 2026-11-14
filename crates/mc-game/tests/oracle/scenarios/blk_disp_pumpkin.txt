@@ -2,10 +2,10 @@
 # finds the base of a snow or iron golem the pumpkin block is placed (BLOCK_PLACE event; its onPlace builds the golem) and one is used; otherwise
 # the pumpkin is equipped on the first living entity in front that accepts it (EquipmentDispenseItemBehavior.dispenseEquipment), else nothing happens
 # (failure click 1001, no drop).
-# The golems are not ticked (their goals are covered by the golem goldens); the copper golem pattern is not covered.
+# The golems are not ticked (their goals are covered by the golem goldens).
 # Every dispense/spawn line is unique: the replay seeds the entity UUIDs and random from the command line.
 level flat
-preload 9
+preload 10
 time 18000
 note c1 two snow blocks below the target: the pumpkin completes a snow golem
 block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
@@ -98,3 +98,17 @@ block 0 -63 96 minecraft:snow_block
 level_seed 13
 dispense 0 -60 96 c11
 dump be:0,-60,96 blocks:-1,-64,94,1,-58,98 entities events
+note c12 a copper block below the target (the copper golem pattern): the pumpkin is placed and the block becomes a copper chest
+block 0 -60 104 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 104 {Items:[{Slot:0b,id:"minecraft:carved_pumpkin",count:2}]}
+block 1 -61 104 minecraft:copper_block
+level_seed 14
+dispense 0 -60 104 c12
+dump be:0,-60,104 blocks:-1,-63,102,3,-58,106 entities events
+note c13 a waxed weathered copper block below the target: the golem takes the unwaxed stage
+block 0 -60 112 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 112 {Items:[{Slot:0b,id:"minecraft:carved_pumpkin",count:2}]}
+block 1 -61 112 minecraft:waxed_weathered_copper
+level_seed 15
+dispense 0 -60 112 c13
+dump be:0,-60,112 blocks:-1,-63,110,3,-58,114 entities events

@@ -629,3 +629,190 @@ EV level_event r=64.0 ex=0 type=2001 pos=0,-62,96 data=8598 global=0
 EV level_event r=64.0 ex=0 type=2001 pos=0,-63,96 data=8598 global=0
 EV level_event r=64.0 ex=0 type=1000 pos=0,-60,96 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=0,-60,96 data=0 global=0
+# c12 a copper block below the target (the copper golem pattern): the pumpkin is placed and the block becomes a copper chest
+BE 0 -60 104 {Items:[{Slot:0b,count:1,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:104}
+B -1 -63 102 minecraft:dirt
+B -1 -63 103 minecraft:dirt
+B -1 -63 104 minecraft:dirt
+B -1 -63 105 minecraft:dirt
+B -1 -63 106 minecraft:dirt
+B -1 -62 102 minecraft:dirt
+B -1 -62 103 minecraft:dirt
+B -1 -62 104 minecraft:dirt
+B -1 -62 105 minecraft:dirt
+B -1 -62 106 minecraft:dirt
+B -1 -61 102 minecraft:grass_block[snowy=false]
+B -1 -61 103 minecraft:grass_block[snowy=false]
+B -1 -61 104 minecraft:grass_block[snowy=false]
+B -1 -61 105 minecraft:grass_block[snowy=false]
+B -1 -61 106 minecraft:grass_block[snowy=false]
+B 0 -63 102 minecraft:dirt
+B 0 -63 103 minecraft:dirt
+B 0 -63 104 minecraft:dirt
+B 0 -63 105 minecraft:dirt
+B 0 -63 106 minecraft:dirt
+B 0 -62 102 minecraft:dirt
+B 0 -62 103 minecraft:dirt
+B 0 -62 104 minecraft:dirt
+B 0 -62 105 minecraft:dirt
+B 0 -62 106 minecraft:dirt
+B 0 -61 102 minecraft:grass_block[snowy=false]
+B 0 -61 103 minecraft:grass_block[snowy=false]
+B 0 -61 104 minecraft:grass_block[snowy=false]
+B 0 -61 105 minecraft:grass_block[snowy=false]
+B 0 -61 106 minecraft:grass_block[snowy=false]
+B 0 -60 104 minecraft:dispenser[facing=east,triggered=false]
+B 1 -63 102 minecraft:dirt
+B 1 -63 103 minecraft:dirt
+B 1 -63 104 minecraft:dirt
+B 1 -63 105 minecraft:dirt
+B 1 -63 106 minecraft:dirt
+B 1 -62 102 minecraft:dirt
+B 1 -62 103 minecraft:dirt
+B 1 -62 104 minecraft:dirt
+B 1 -62 105 minecraft:dirt
+B 1 -62 106 minecraft:dirt
+B 1 -61 102 minecraft:grass_block[snowy=false]
+B 1 -61 103 minecraft:grass_block[snowy=false]
+B 1 -61 104 minecraft:copper_chest[facing=north,type=single,waterlogged=false]
+B 1 -61 105 minecraft:grass_block[snowy=false]
+B 1 -61 106 minecraft:grass_block[snowy=false]
+B 2 -63 102 minecraft:dirt
+B 2 -63 103 minecraft:dirt
+B 2 -63 104 minecraft:dirt
+B 2 -63 105 minecraft:dirt
+B 2 -63 106 minecraft:dirt
+B 2 -62 102 minecraft:dirt
+B 2 -62 103 minecraft:dirt
+B 2 -62 104 minecraft:dirt
+B 2 -62 105 minecraft:dirt
+B 2 -62 106 minecraft:dirt
+B 2 -61 102 minecraft:grass_block[snowy=false]
+B 2 -61 103 minecraft:grass_block[snowy=false]
+B 2 -61 104 minecraft:grass_block[snowy=false]
+B 2 -61 105 minecraft:grass_block[snowy=false]
+B 2 -61 106 minecraft:grass_block[snowy=false]
+B 3 -63 102 minecraft:dirt
+B 3 -63 103 minecraft:dirt
+B 3 -63 104 minecraft:dirt
+B 3 -63 105 minecraft:dirt
+B 3 -63 106 minecraft:dirt
+B 3 -62 102 minecraft:dirt
+B 3 -62 103 minecraft:dirt
+B 3 -62 104 minecraft:dirt
+B 3 -62 105 minecraft:dirt
+B 3 -62 106 minecraft:dirt
+B 3 -61 102 minecraft:grass_block[snowy=false]
+B 3 -61 103 minecraft:grass_block[snowy=false]
+B 3 -61 104 minecraft:grass_block[snowy=false]
+B 3 -61 105 minecraft:grass_block[snowy=false]
+B 3 -61 106 minecraft:grass_block[snowy=false]
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=1.5,-61.95,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz1 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz2 minecraft:zombie pos=1.5,-60.0,48.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz3 minecraft:zombie pos=1.5,-60.0,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=1.5,-61.95,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#3 minecraft:snow_golem pos=1.5,-61.95,72.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pa1 minecraft:armor_stand pos=1.5,-60.0,80.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#4 minecraft:snow_golem pos=0.5,-62.95,96.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#1 minecraft:copper_golem pos=1.5,-59.95,104.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,104 data=8689 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-61,104 data=31139 global=0
+EV sound at=1.5,-59.95,104.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,104 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,104 data=5 global=0
+# c13 a waxed weathered copper block below the target: the golem takes the unwaxed stage
+BE 0 -60 112 {Items:[{Slot:0b,count:1,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:112}
+B -1 -63 110 minecraft:dirt
+B -1 -63 111 minecraft:dirt
+B -1 -63 112 minecraft:dirt
+B -1 -63 113 minecraft:dirt
+B -1 -63 114 minecraft:dirt
+B -1 -62 110 minecraft:dirt
+B -1 -62 111 minecraft:dirt
+B -1 -62 112 minecraft:dirt
+B -1 -62 113 minecraft:dirt
+B -1 -62 114 minecraft:dirt
+B -1 -61 110 minecraft:grass_block[snowy=false]
+B -1 -61 111 minecraft:grass_block[snowy=false]
+B -1 -61 112 minecraft:grass_block[snowy=false]
+B -1 -61 113 minecraft:grass_block[snowy=false]
+B -1 -61 114 minecraft:grass_block[snowy=false]
+B 0 -63 110 minecraft:dirt
+B 0 -63 111 minecraft:dirt
+B 0 -63 112 minecraft:dirt
+B 0 -63 113 minecraft:dirt
+B 0 -63 114 minecraft:dirt
+B 0 -62 110 minecraft:dirt
+B 0 -62 111 minecraft:dirt
+B 0 -62 112 minecraft:dirt
+B 0 -62 113 minecraft:dirt
+B 0 -62 114 minecraft:dirt
+B 0 -61 110 minecraft:grass_block[snowy=false]
+B 0 -61 111 minecraft:grass_block[snowy=false]
+B 0 -61 112 minecraft:grass_block[snowy=false]
+B 0 -61 113 minecraft:grass_block[snowy=false]
+B 0 -61 114 minecraft:grass_block[snowy=false]
+B 0 -60 112 minecraft:dispenser[facing=east,triggered=false]
+B 1 -63 110 minecraft:dirt
+B 1 -63 111 minecraft:dirt
+B 1 -63 112 minecraft:dirt
+B 1 -63 113 minecraft:dirt
+B 1 -63 114 minecraft:dirt
+B 1 -62 110 minecraft:dirt
+B 1 -62 111 minecraft:dirt
+B 1 -62 112 minecraft:dirt
+B 1 -62 113 minecraft:dirt
+B 1 -62 114 minecraft:dirt
+B 1 -61 110 minecraft:grass_block[snowy=false]
+B 1 -61 111 minecraft:grass_block[snowy=false]
+B 1 -61 112 minecraft:waxed_weathered_copper_chest[facing=north,type=single,waterlogged=false]
+B 1 -61 113 minecraft:grass_block[snowy=false]
+B 1 -61 114 minecraft:grass_block[snowy=false]
+B 2 -63 110 minecraft:dirt
+B 2 -63 111 minecraft:dirt
+B 2 -63 112 minecraft:dirt
+B 2 -63 113 minecraft:dirt
+B 2 -63 114 minecraft:dirt
+B 2 -62 110 minecraft:dirt
+B 2 -62 111 minecraft:dirt
+B 2 -62 112 minecraft:dirt
+B 2 -62 113 minecraft:dirt
+B 2 -62 114 minecraft:dirt
+B 2 -61 110 minecraft:grass_block[snowy=false]
+B 2 -61 111 minecraft:grass_block[snowy=false]
+B 2 -61 112 minecraft:grass_block[snowy=false]
+B 2 -61 113 minecraft:grass_block[snowy=false]
+B 2 -61 114 minecraft:grass_block[snowy=false]
+B 3 -63 110 minecraft:dirt
+B 3 -63 111 minecraft:dirt
+B 3 -63 112 minecraft:dirt
+B 3 -63 113 minecraft:dirt
+B 3 -63 114 minecraft:dirt
+B 3 -62 110 minecraft:dirt
+B 3 -62 111 minecraft:dirt
+B 3 -62 112 minecraft:dirt
+B 3 -62 113 minecraft:dirt
+B 3 -62 114 minecraft:dirt
+B 3 -61 110 minecraft:grass_block[snowy=false]
+B 3 -61 111 minecraft:grass_block[snowy=false]
+B 3 -61 112 minecraft:grass_block[snowy=false]
+B 3 -61 113 minecraft:grass_block[snowy=false]
+B 3 -61 114 minecraft:grass_block[snowy=false]
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=1.5,-61.95,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz1 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz2 minecraft:zombie pos=1.5,-60.0,48.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz3 minecraft:zombie pos=1.5,-60.0,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=1.5,-61.95,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#3 minecraft:snow_golem pos=1.5,-61.95,72.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pa1 minecraft:armor_stand pos=1.5,-60.0,80.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#4 minecraft:snow_golem pos=0.5,-62.95,96.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#1 minecraft:copper_golem pos=1.5,-59.95,104.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#2 minecraft:copper_golem pos=1.5,-59.95,112.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,112 data=8689 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-61,112 data=31145 global=0
+EV sound at=1.5,-59.95,112.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,112 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,112 data=5 global=0

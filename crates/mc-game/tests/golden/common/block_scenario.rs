@@ -69,8 +69,8 @@ pub fn check(name: &str) {
     check_with(name, &Options::default());
 }
 
-/// [`check`] of the lines before the first `# MARKER` note: the part of a scenario whose replay is complete, ahead of behaviour
-/// that is still a placeholder here.
+/// [`check`] of the lines before the first `# MARKER` note: the leading part of a scenario, checked on its own ahead of a later
+/// section that is also covered by a full [`check`].
 pub fn check_until(name: &str, marker: &str) {
     let actual = run_scenario(name);
     let marker = format!("# {marker}");

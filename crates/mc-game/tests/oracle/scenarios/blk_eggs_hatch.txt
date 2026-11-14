@@ -38,7 +38,7 @@ random_tick 0 -60 0
 random_tick 2 -60 0
 random_tick 6 -60 3
 dump blocks:0,-60,0,9,-60,3 events entities
-note the baby turtles are placeholders for the mob scope: removed
+note the hatched baby turtles are killed so they stay out of the following cases
 kill turtle#1
 kill turtle#2
 kill turtle#3
