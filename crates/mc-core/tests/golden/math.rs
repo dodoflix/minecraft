@@ -143,6 +143,10 @@ fn sin_cos_table_and_lookups() {
 #[test]
 fn atan2_and_inv_sqrt() {
     run("atan2", |a| R::D(atan2(d(a[0]), d(a[1]))));
+    run("m_atan2", |a| R::D(java_atan2(d(a[0]), d(a[1]))));
+    run("m_asin", |a| R::D(java_asin(d(a[0]))));
+    run("m_acos", |a| R::D(java_acos(d(a[0]))));
+    run("m_atan", |a| R::D(java_atan(d(a[0]))));
     run("fastInvSqrt", |a| R::D(fast_inv_sqrt(d(a[0]))));
     run("fastInvCubeRoot", |a| R::F(fast_inv_cube_root(f(a[0]))));
     run("invSqrt_d", |a| R::D(inv_sqrt_f64(d(a[0]))));

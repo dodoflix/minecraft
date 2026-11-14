@@ -58,7 +58,7 @@ fn is_decending(movement: Vec3, shape: RailShape) -> bool {
 
 /// `(float)(Math.atan2(z, x) * 180.0 / Math.PI)`.
 fn atan2_degrees(z: f64, x: f64) -> f32 {
-    (z.atan2(x) * 180.0 / std::f64::consts::PI) as f32
+    (mth::java_atan2(z, x) * 180.0 / std::f64::consts::PI) as f32
 }
 
 /// The state of one `moveAlongTrack` loop (`TrackIteration`).
@@ -272,7 +272,7 @@ pub fn move_along_track<M: AbstractMinecart + ?Sized>(m: &mut M, level: &mut Ser
                     0.0
                 } else {
                     90.0f32
-                        - (step_delta.horizontal_distance().atan2(step_delta.y) * 180.0
+                        - (mth::java_atan2(step_delta.horizontal_distance(), step_delta.y) * 180.0
                             / std::f64::consts::PI) as f32
                 };
                 y_rot += if flipped { 180.0 } else { 0.0 };

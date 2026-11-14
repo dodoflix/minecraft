@@ -812,7 +812,7 @@ impl Goal for FoxPounceGoal {
                         -biased_y
                     };
                     let rotation = signum
-                        * (direction / len).acos()
+                        * mth::java_acos(direction / len)
                         * f64::from(mc_core::math::mth::RAD_TO_DEG);
                     mob.set_x_rot(rotation as f32);
                 }

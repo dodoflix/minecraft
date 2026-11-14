@@ -12,6 +12,7 @@ flate2 = "1.1.10"
 futures-util = { version = "0.3", default-features = false }
 indexmap = "2"
 libc = "0.2"
+libm = "0.2"
 linkme = "0.3"
 log = "0.4"
 # `sha1` and `sha2` stay on `digest` 0.10: `rsa` 0.9 verifies signatures through it. `md-5`, `p12-keystore` and `tungstenite`

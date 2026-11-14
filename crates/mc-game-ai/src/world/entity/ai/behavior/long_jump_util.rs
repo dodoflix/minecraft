@@ -24,7 +24,7 @@ pub fn calculate_jump_vector_for_angle(
     let target_position = target_pos.subtract(direction_vector_plane);
     let direction_vector = target_position.subtract(mob_pos);
     let angrad = angle as f32 * std::f32::consts::PI / 180.0_f32;
-    let xz_ang = direction_vector.z.atan2(direction_vector.x);
+    let xz_ang = mth::java_atan2(direction_vector.z, direction_vector.x);
     let r2 = direction_vector
         .subtract_xyz(0.0, direction_vector.y, 0.0)
         .length_sqr();

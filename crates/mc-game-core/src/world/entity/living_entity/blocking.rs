@@ -122,7 +122,7 @@ pub fn apply_item_blocking(
             );
             let vector_to = source_position.subtract(entity.position());
             let vector_to = Vec3::new(vector_to.x, 0.0, vector_to.z).normalize();
-            vector_to.dot(view_vector).acos()
+            mth::java_acos(vector_to.dot(view_vector))
         }
         None => f64::from(std::f32::consts::PI),
     };

@@ -419,6 +419,38 @@ pub fn ray_intersects_aabb(ray_start: &Vec3, ray_dir: &Vec3, aabb: &AABB) -> boo
     f.abs() < box_extent_x * aw_y + box_extent_y * aw_x
 }
 
+/// `Math.atan2`: HotSpot delegates to `StrictMath` (fdlibm); `f64::atan2` calls the system libm, which can differ by 1 ulp.
+/// `libm` (musl) matches except `x < 0` with `|y / x| > 2^60`, where musl returns `+-pi/2` and fdlibm 5.3 (the JDK port)
+/// still reflects `pi/2 + pi_lo/2` through `pi - (z - pi_lo)`, which rounds to the next double above `pi/2`.
+pub fn java_atan2(y: f64, x: f64) -> f64 {
+    const PI_O_2: f64 = std::f64::consts::FRAC_PI_2;
+    const PI_LO: f64 = 1.224_646_799_147_353_2e-16;
+    let (ix, iy) = (
+        (x.to_bits() >> 32) as i32 & 0x7fff_ffff,
+        (y.to_bits() >> 32) as i32 & 0x7fff_ffff,
+    );
+    if x < 0.0 && y.is_finite() && (iy - ix) >> 20 > 60 {
+        let reflected = std::f64::consts::PI - ((PI_O_2 + 0.5 * PI_LO) - PI_LO);
+        return reflected.copysign(y);
+    }
+    libm::atan2(y, x)
+}
+
+/// `Math.asin` (`StrictMath`, see [`java_atan2`]).
+pub fn java_asin(x: f64) -> f64 {
+    libm::asin(x)
+}
+
+/// `Math.acos` (`StrictMath`, see [`java_atan2`]).
+pub fn java_acos(x: f64) -> f64 {
+    libm::acos(x)
+}
+
+/// `Math.atan` (`StrictMath`, see [`java_atan2`]).
+pub fn java_atan(x: f64) -> f64 {
+    libm::atan(x)
+}
+
 pub fn atan2(mut y: f64, mut x: f64) -> f64 {
     let d2 = x * x + y * y;
     if d2.is_nan() {

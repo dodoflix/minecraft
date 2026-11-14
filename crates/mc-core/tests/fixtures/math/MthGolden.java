@@ -271,6 +271,26 @@ public class MthGolden {
          e("outFromOrigin", Mth.outFromOrigin(origin, lo, hi).toArray(), origin, lo, hi);
          e("outFromOrigin_step", Mth.outFromOrigin(origin, lo, hi, step).toArray(), origin, lo, hi, step);
       }
+      // Math.atan2/asin/acos/atan (StrictMath fdlibm); own generator so the other sections keep their inputs
+      Random m = new Random(0xA7A2L);
+      for (double y : SPECIAL_D) for (double x : SPECIAL_D) e("m_atan2", Math.atan2(y, x), y, x);
+      for (int i = 0; i < 6000; i++) {
+         double y = rd(m), x = rd(m);
+         if (i % 3 == 0) { y = m.nextGaussian(); x = m.nextGaussian(); }
+         if (i % 5 == 0) { y = (m.nextInt(200) - 100) / 10.0; x = (m.nextInt(200) - 100) / 10.0; }
+         e("m_atan2", Math.atan2(y, x), y, x);
+      }
+      for (int i = 0; i < 8000; i++) {
+         double v = i < SPECIAL_D.length ? SPECIAL_D[i] : switch (i % 4) {
+            case 0 -> m.nextDouble() * 2 - 1;
+            case 1 -> (m.nextDouble() * 2 - 1) * (m.nextBoolean() ? 1e-3 : 1.0000001);
+            case 2 -> (m.nextInt(2001) - 1000) / 1000.0;
+            default -> rd(m);
+         };
+         e("m_asin", Math.asin(v), v);
+         e("m_acos", Math.acos(v), v);
+         e("m_atan", Math.atan(v), v);
+      }
       // hsv error case: hue 1.0 -> sector 6
       try { Mth.hsvToRgb(-0.5f, 0.5f, 0.5f); out.append("hsv_err bf000000 = ok\n"); }
       catch (RuntimeException ex) { out.append("hsv_err bf000000 = ").append(ex.getMessage()).append('\n'); }

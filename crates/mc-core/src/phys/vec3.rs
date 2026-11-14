@@ -296,10 +296,11 @@ impl Vec3 {
 
     /// `rotation()`: `(pitch, yaw)` in degrees.
     pub fn rotation(&self) -> Vec2 {
-        let yaw = ((-self.x).atan2(self.z) as f32) * RAD_TO_DEG_F32;
-        let pitch = ((-self.y / (self.x * self.x + self.y * self.y + self.z * self.z).sqrt()).asin()
-            as f32)
-            * RAD_TO_DEG_F32;
+        let yaw = (mth::java_atan2(-self.x, self.z) as f32) * RAD_TO_DEG_F32;
+        let pitch =
+            (mth::java_asin(-self.y / (self.x * self.x + self.y * self.y + self.z * self.z).sqrt())
+                as f32)
+                * RAD_TO_DEG_F32;
         Vec2::new(pitch, yaw)
     }
 
