@@ -227,6 +227,8 @@ impl ServerLevel {
             std::process::id(),
             COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)
         ));
+        // the name repeats when the OS recycles a process id: files a dead process left (point-of-interest regions) must not load
+        let _ = std::fs::remove_dir_all(&dir);
         let (shared, _rx) = ServerShared::new();
         shared.bind_game_thread(); // the test thread is the server thread: `execute` runs inline like vanilla
         let biomes = mc_world::palette::BiomeRegistry::new(vec!["minecraft:plains".to_string()]);

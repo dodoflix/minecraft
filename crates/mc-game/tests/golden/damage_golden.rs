@@ -212,6 +212,12 @@ struct Replay {
 impl Replay {
     fn new() -> Self {
         let mut level = ServerLevel::detached(overworld());
+        // `Level.random` is seeded at boot like the oracle (`seed ^ 0x5DEECE66DL`, default world seed 4242); an unseeded one
+        // made `ExperienceOrb.award`'s merge id (a draw from it) differ from run to run
+        {
+            use mc_core::random::RandomSource as _;
+            level.tick_state.random.set_seed(4242 ^ 0x5DEECE66D);
+        }
         // the oracle's references keep a removed entity
         level.removed_entities = Some(Default::default());
         level.registries = registries();

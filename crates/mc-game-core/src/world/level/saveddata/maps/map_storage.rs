@@ -36,6 +36,8 @@ impl MapStorage {
                 std::process::id(),
                 COUNTER.fetch_add(1, Ordering::Relaxed)
             ));
+            // the name repeats when the OS recycles a process id: map files a dead process left must not load
+            let _ = std::fs::remove_dir_all(&dir);
             SavedDataManager::new(SavedDataStorage::new(dir))
         });
         f(manager)

@@ -584,6 +584,8 @@ impl Scenario {
             std::process::id(),
             COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)
         ));
+        // the name repeats when the OS recycles a process id: files a dead process left (point-of-interest regions) must not load
+        let _ = std::fs::remove_dir_all(&dir);
         let (shared, _rx) = ServerShared::new();
         // the scenario thread is the server thread: tasks the game submits (point of interest updates) run inline like in vanilla
         shared.bind_game_thread();
