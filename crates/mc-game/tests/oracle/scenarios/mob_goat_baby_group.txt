@@ -1,0 +1,190 @@
+# Goats created in one group (finalizeSpawn with the previous goat's group data): later ones are a baby with a 1 in 20 draw, and setAge(-24000)
+# reaches the baby boundary, so a calf has the attack damage of a baby (Goat.ageBoundaryReached = updateAttackDamage).
+level flat
+preload 4
+difficulty normal
+entity_counter 13000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+tick 30
+level_seed 13001
+mobspawn G0 minecraft:goat 2.5 -60 4.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G0 13100
+level_seed 20920
+mobspawn G1 minecraft:goat 4.5 -60 4.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G1 13101
+level_seed 28839
+mobspawn G2 minecraft:goat 6.5 -60 4.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G2 13102
+level_seed 36758
+mobspawn G3 minecraft:goat 8.5 -60 4.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G3 13103
+level_seed 44677
+mobspawn G4 minecraft:goat 10.5 -60 4.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G4 13104
+level_seed 52596
+mobspawn G5 minecraft:goat 12.5 -60 4.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G5 13105
+level_seed 60515
+mobspawn G6 minecraft:goat 14.5 -60 4.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G6 13106
+level_seed 68434
+mobspawn G7 minecraft:goat 16.5 -60 4.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G7 13107
+level_seed 76353
+mobspawn G8 minecraft:goat 18.5 -60 4.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G8 13108
+level_seed 84272
+mobspawn G9 minecraft:goat 20.5 -60 4.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G9 13109
+level_seed 92191
+mobspawn G10 minecraft:goat 2.5 -60 6.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G10 13110
+level_seed 100110
+mobspawn G11 minecraft:goat 4.5 -60 6.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G11 13111
+level_seed 108029
+mobspawn G12 minecraft:goat 6.5 -60 6.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G12 13112
+level_seed 115948
+mobspawn G13 minecraft:goat 8.5 -60 6.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G13 13113
+level_seed 123867
+mobspawn G14 minecraft:goat 10.5 -60 6.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G14 13114
+level_seed 131786
+mobspawn G15 minecraft:goat 12.5 -60 6.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G15 13115
+level_seed 139705
+mobspawn G16 minecraft:goat 14.5 -60 6.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G16 13116
+level_seed 147624
+mobspawn G17 minecraft:goat 16.5 -60 6.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G17 13117
+level_seed 155543
+mobspawn G18 minecraft:goat 18.5 -60 6.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G18 13118
+level_seed 163462
+mobspawn G19 minecraft:goat 20.5 -60 6.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G19 13119
+level_seed 171381
+mobspawn G20 minecraft:goat 2.5 -60 8.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G20 13120
+level_seed 179300
+mobspawn G21 minecraft:goat 4.5 -60 8.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G21 13121
+level_seed 187219
+mobspawn G22 minecraft:goat 6.5 -60 8.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G22 13122
+level_seed 195138
+mobspawn G23 minecraft:goat 8.5 -60 8.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G23 13123
+level_seed 203057
+mobspawn G24 minecraft:goat 10.5 -60 8.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G24 13124
+level_seed 210976
+mobspawn G25 minecraft:goat 12.5 -60 8.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G25 13125
+level_seed 218895
+mobspawn G26 minecraft:goat 14.5 -60 8.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G26 13126
+level_seed 226814
+mobspawn G27 minecraft:goat 16.5 -60 8.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G27 13127
+level_seed 234733
+mobspawn G28 minecraft:goat 18.5 -60 8.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G28 13128
+level_seed 242652
+mobspawn G29 minecraft:goat 20.5 -60 8.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G29 13129
+level_seed 250571
+mobspawn G30 minecraft:goat 2.5 -60 10.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G30 13130
+level_seed 258490
+mobspawn G31 minecraft:goat 4.5 -60 10.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G31 13131
+level_seed 266409
+mobspawn G32 minecraft:goat 6.5 -60 10.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G32 13132
+level_seed 274328
+mobspawn G33 minecraft:goat 8.5 -60 10.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G33 13133
+level_seed 282247
+mobspawn G34 minecraft:goat 10.5 -60 10.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G34 13134
+level_seed 290166
+mobspawn G35 minecraft:goat 12.5 -60 10.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G35 13135
+level_seed 298085
+mobspawn G36 minecraft:goat 14.5 -60 10.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G36 13136
+level_seed 306004
+mobspawn G37 minecraft:goat 16.5 -60 10.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G37 13137
+level_seed 313923
+mobspawn G38 minecraft:goat 18.5 -60 10.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G38 13138
+level_seed 321842
+mobspawn G39 minecraft:goat 20.5 -60 10.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G39 13139
+level_seed 329761
+mobspawn G40 minecraft:goat 2.5 -60 12.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G40 13140
+level_seed 337680
+mobspawn G41 minecraft:goat 4.5 -60 12.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G41 13141
+level_seed 345599
+mobspawn G42 minecraft:goat 6.5 -60 12.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G42 13142
+level_seed 353518
+mobspawn G43 minecraft:goat 8.5 -60 12.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G43 13143
+level_seed 361437
+mobspawn G44 minecraft:goat 10.5 -60 12.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G44 13144
+level_seed 369356
+mobspawn G45 minecraft:goat 12.5 -60 12.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G45 13145
+level_seed 377275
+mobspawn G46 minecraft:goat 14.5 -60 12.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G46 13146
+level_seed 385194
+mobspawn G47 minecraft:goat 16.5 -60 12.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G47 13147
+level_seed 393113
+mobspawn G48 minecraft:goat 18.5 -60 12.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G48 13148
+level_seed 401032
+mobspawn G49 minecraft:goat 20.5 -60 12.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G49 13149
+level_seed 408951
+mobspawn G50 minecraft:goat 2.5 -60 14.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G50 13150
+level_seed 416870
+mobspawn G51 minecraft:goat 4.5 -60 14.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G51 13151
+level_seed 424789
+mobspawn G52 minecraft:goat 6.5 -60 14.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G52 13152
+level_seed 432708
+mobspawn G53 minecraft:goat 8.5 -60 14.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G53 13153
+level_seed 440627
+mobspawn G54 minecraft:goat 10.5 -60 14.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G54 13154
+level_seed 448546
+mobspawn G55 minecraft:goat 12.5 -60 14.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G55 13155
+level_seed 456465
+mobspawn G56 minecraft:goat 14.5 -60 14.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G56 13156
+level_seed 464384
+mobspawn G57 minecraft:goat 16.5 -60 14.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G57 13157
+level_seed 472303
+mobspawn G58 minecraft:goat 18.5 -60 14.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G58 13158
+level_seed 480222
+mobspawn G59 minecraft:goat 20.5 -60 14.5 0 0 group=herd {PersistenceRequired:1b,NoAI:1b}
+entity_seed G59 13159
+tick 2
+dump mobs

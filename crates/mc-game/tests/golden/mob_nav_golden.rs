@@ -13,3 +13,10 @@ fn nav_block_update_matches_vanilla() {
 fn tp_stops_nav_matches_vanilla() {
     check("mob_tp_stops_nav");
 }
+
+/// `createPath` of nine mob classes over thirteen obstacles (doors, fence gates, fluids, cobweb, berries, honey, cactus, trapdoors):
+/// a strider crosses an open door like every walking mob.
+#[test]
+fn path_matrix_matches_vanilla() {
+    check("mob_path_matrix");
+}

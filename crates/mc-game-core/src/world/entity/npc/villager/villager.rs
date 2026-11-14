@@ -1319,12 +1319,15 @@ impl Entity for Villager {
         self.last_restock_game_time = input.get_long_or("LastRestock", 0);
         self.last_gossip_decay_time = input.get_long_or("LastGossipDecay", 0);
         self.number_of_restocks_today = input.get_int_or("RestocksToday", 0);
-        // `refreshBrain(level)` needs the level: the brain is rebuilt from its packed memories at the first AI step
-        // `refreshBrain(level)`: stop_all is a no-op at load; the rebuilt brain consumes the same RNG
+        // `refreshBrain(level)`: stop_all is a no-op at load; the rebuilt brain consumes the same RNG. `registerBrainGoals` runs
+        // now when the level is at hand (a loaded entity command), else when the villager is added to a level
         let packed = self.brain().pack();
         let brain = BRAIN_PROVIDER.make_brain(self, &packed);
         *self.brain_mut() = brain;
         self.schedule_init_pending = true;
+        if let Some(level) = level {
+            self.register_brain_goals(level);
+        }
     }
 }
 

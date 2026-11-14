@@ -1,0 +1,78 @@
+# Hoglins created like /summon (finalizeSpawn, one level draw each): one in five is a baby, whose setBaby reaches the baby boundary (attack damage 0.5 and
+# experience 3 instead of 6.0 and 5); killed by the player they drop that experience.
+level flat
+preload 4
+difficulty normal
+gamerule mob_drops true
+entity_counter 12000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+set Steve invulnerable true
+tick 30
+level_seed 19919
+mobspawn H1 minecraft:hoglin 4.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H1 12101
+level_seed 27838
+mobspawn H2 minecraft:hoglin 6.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H2 12102
+level_seed 35757
+mobspawn H3 minecraft:hoglin 8.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H3 12103
+level_seed 43676
+mobspawn H4 minecraft:hoglin 10.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H4 12104
+level_seed 51595
+mobspawn H5 minecraft:hoglin 12.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H5 12105
+level_seed 59514
+mobspawn H6 minecraft:hoglin 14.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H6 12106
+level_seed 67433
+mobspawn H7 minecraft:hoglin 16.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H7 12107
+level_seed 75352
+mobspawn H8 minecraft:hoglin 18.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H8 12108
+level_seed 83271
+mobspawn H9 minecraft:hoglin 20.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H9 12109
+level_seed 91190
+mobspawn H10 minecraft:hoglin 22.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H10 12110
+level_seed 99109
+mobspawn H11 minecraft:hoglin 24.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H11 12111
+level_seed 107028
+mobspawn H12 minecraft:hoglin 26.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H12 12112
+level_seed 114947
+mobspawn H13 minecraft:hoglin 28.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H13 12113
+level_seed 122866
+mobspawn H14 minecraft:hoglin 30.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H14 12114
+level_seed 130785
+mobspawn H15 minecraft:hoglin 32.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H15 12115
+level_seed 138704
+mobspawn H16 minecraft:hoglin 34.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H16 12116
+tick 2
+dump mobs
+hurt H1 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H2 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H3 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H4 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H5 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H6 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H7 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H8 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H9 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H10 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H11 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H12 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H13 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H14 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H15 minecraft:player_attack 1000 by=Steve direct=Steve
+hurt H16 minecraft:player_attack 1000 by=Steve direct=Steve
+tick 2
+dump entities

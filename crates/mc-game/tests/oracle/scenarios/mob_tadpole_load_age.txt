@@ -1,0 +1,26 @@
+# A tadpole loaded with an Age of at least 24000 (/summon, /data merge) grows into a frog while the data loads (setAge in readAdditionalSaveData),
+# not on its next tick; one below the threshold stays a tadpole until the merged data pushes it over.
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 12900
+level_seed 12901
+fill 20 -61 -10 40 -50 10 minecraft:stone
+fill 21 -60 -9 39 -52 9 minecraft:water[level=0]
+spawn_player Steve survival 25.5 -52 0.5 0 0
+tick 3
+mobspawn T1 minecraft:tadpole 30.5 -58 0.5 0 0 nofinalize {Age:24000}
+entity_seed T1 12911
+mobspawn T2 minecraft:tadpole 32.5 -58 2.5 0 0 nofinalize {Age:30000,AgeLocked:1b}
+entity_seed T2 12912
+mobspawn T3 minecraft:tadpole 28.5 -58 -2.5 0 0 nofinalize {Age:20000}
+entity_seed T3 12913
+dump mobs packets:Steve:none
+watch mobs events
+tick 3
+watch off
+cmd data merge entity @e[type=minecraft:tadpole,limit=1] {Age:24500}
+dump mobs
+tick 2
+dump mobs events

@@ -12,6 +12,7 @@ use mc_data::block::{Block, BlockState};
 use mc_data::{EntityType, GameEvent, Item, SoundEvent, props};
 use mc_game_ai::world::entity::ai::goal::{FleeSunGoal, JUMP_GOAL_FLAGS, StrollThroughVillageGoal};
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::stats::stats::Stats;
 use mc_game_core::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
 use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
 use mc_game_core::world::entity::ai::goal::{
@@ -19,6 +20,7 @@ use mc_game_core::world::entity::ai::goal::{
     MeleeAttackGoal, PanicGoal, reduced_tick_delay,
 };
 use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::experience_orb::ExperienceOrb;
 use mc_game_core::world::entity::item::ItemEntity;
 use mc_game_core::world::entity::mob::{
     self, MobKind, ageable, animal, combat, ext, navigation, tamable, tick,
@@ -300,27 +302,45 @@ fn fox_breed(animal: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId
     let Some(mut offspring) = animal.get_breed_offspring(level, partner) else {
         return;
     };
-    let animal_love_cause = animal::get_love_cause(animal, level)
-        .and_then(|p| level.get_entity(p))
-        .map(|p| p.uuid());
-    let partner_love_cause = level
+    let animal_cause = animal::get_love_cause(animal, level);
+    let partner_cause = level
         .get_entity(partner)
-        .and_then(|p| animal::get_love_cause(p, level))
+        .and_then(|p| animal::get_love_cause(p, level));
+    if let Some(uuid) = animal_cause
         .and_then(|p| level.get_entity(p))
-        .map(|p| p.uuid());
-    if let Some(cause) = animal_love_cause {
-        fox_mut(&mut *offspring).add_trusted_entity(cause);
-    }
-    if let Some(cause) = partner_love_cause
-        && animal_love_cause != Some(cause)
+        .map(|p| p.uuid())
     {
-        fox_mut(&mut *offspring).add_trusted_entity(cause);
+        fox_mut(&mut *offspring).add_trusted_entity(uuid);
     }
-    ageable::set_baby_in_level(&mut *offspring, level, true);
+    if partner_cause != animal_cause
+        && let Some(uuid) = partner_cause
+            .and_then(|p| level.get_entity(p))
+            .map(|p| p.uuid())
+    {
+        fox_mut(&mut *offspring).add_trusted_entity(uuid);
+    }
+    if let Some(cause) = animal_cause.or(partner_cause) {
+        level.with_player(cause, |level, player| {
+            player.award_stat(level, Stats::ANIMALS_BRED, 1);
+        });
+        ext::trigger_bred_animals(level, cause, animal, partner, Some(&*offspring));
+    }
+    ageable::set_age_in_level(animal, level, animal::PARENT_AGE_AFTER_BREEDING);
+    level.with_entity(partner, |level, p| {
+        ageable::set_age_in_level(p, level, animal::PARENT_AGE_AFTER_BREEDING);
+    });
+    animal::reset_love(animal);
+    level.with_entity(partner, |_, p| animal::reset_love(p));
+    ageable::set_age_in_level(&mut *offspring, level, ageable::BABY_START_AGE);
     let p = animal.position();
     offspring.snap_to(p.x, p.y, p.z, 0.0, 0.0);
-    animal::finalize_spawn_child_from_breeding(animal, level, partner, Some(&mut *offspring));
     level.add_fresh_entity_with_passengers(vec![offspring]);
+    level.broadcast_entity_event(animal.id(), 18);
+    if level.mob_drops() {
+        let value = animal.base_mut().random.next_int_bounded(7) + 1;
+        let orb = ExperienceOrb::at(level, p.x, p.y, p.z, value);
+        level.add_fresh_entity(Box::new(orb));
+    }
 }
 
 impl Goal for FoxBreedGoal {

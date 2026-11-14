@@ -783,7 +783,7 @@ impl Goal for StriderGoToLavaGoal {
     }
 }
 
-/// `WalkNodeEvaluator` of `Strider.StriderPathNavigation.createPathFinder` (no `setCanPassDoors(true)`).
+/// `WalkNodeEvaluator` of `Strider.StriderPathNavigation.createPathFinder` (the default `canPassDoors`).
 struct StriderEvaluator(EvaluatorState);
 
 impl NodeEvaluator for StriderEvaluator {
@@ -803,8 +803,7 @@ struct StriderPathNavigation {
 impl StriderPathNavigation {
     fn new(mob: &dyn Entity) -> Self {
         let data = NavigationData::with_path_finder(mob, NavClass::Ground, |max_visited_nodes| {
-            let mut evaluator = StriderEvaluator(EvaluatorState::walk());
-            evaluator.set_can_pass_doors(false);
+            let evaluator = StriderEvaluator(EvaluatorState::walk());
             PathFinder::new(Box::new(evaluator), max_visited_nodes)
         });
         Self { data }

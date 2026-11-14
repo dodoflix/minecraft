@@ -1,0 +1,27 @@
+# Bad Omen and Raid Omen played on a mob (onEffectAdded): the sound is sent from the mob's own sound source (hostile for a zombie, neutral for a cow,
+# players for a player), not always neutral.
+level flat
+preload 4
+entity_counter 12300
+level_seed 12301
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn Z minecraft:zombie 3.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn C minecraft:cow 5.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn S minecraft:skeleton 7.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn V minecraft:villager 9.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+tick 2
+watch events
+effect Z minecraft:bad_omen 0 100000
+tick 1
+effect C minecraft:bad_omen 0 100000
+tick 1
+effect S minecraft:raid_omen 0 600
+tick 1
+effect V minecraft:raid_omen 0 600
+tick 1
+effect Steve minecraft:bad_omen 0 100000
+tick 1
+effect Steve minecraft:raid_omen 0 600
+tick 1
+watch off

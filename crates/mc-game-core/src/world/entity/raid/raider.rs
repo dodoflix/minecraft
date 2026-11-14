@@ -406,7 +406,8 @@ pub fn pick_up_item(e: &mut dyn Entity, level: &mut ServerLevel, item_id: Entity
         if !current.is_empty() && (e.base_mut().random.next_float() - 0.1).max(0.0) < drop_chance {
             crate::world::entity::item::spawn_at_location(level, e, current, Vec3::ZERO);
         }
-        // `onItemPickup(entity)` is empty for mobs; `take(entity, count)`
+        crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*e, item_id);
+        // `take(entity, count)`
         if !level.get_entity(item_id).is_some_and(|x| x.is_removed()) {
             let packet = ClientboundTakeItemEntityPacket {
                 item_id,

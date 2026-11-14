@@ -260,6 +260,8 @@ impl Entity for Hoglin {
     ) -> Option<Box<dyn SpawnGroupData>> {
         if level.random().next_float() < PROBABILITY_OF_SPAWNING_AS_BABY {
             self.set_baby(true);
+            // `setBaby` reaches the baby boundary: attack damage and experience of a baby
+            self.apply_age_stats();
         }
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)
     }

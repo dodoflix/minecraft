@@ -98,8 +98,8 @@ impl Tadpole {
         self.age
     }
 
-    /// `setAge(newAge)` without the conversion check (the conversion needs the level mutably, which a load only holds shared;
-    /// the next `aiStep` converts a tadpole that is past the threshold).
+    /// `setAge(newAge)` without the conversion check (a load holds the level only shared; [`Entity::read_level_dependent_data`]
+    /// converts a tadpole that is past the threshold before it is added).
     fn set_age_raw(&mut self, new_age: i32) {
         self.age = new_age;
     }
@@ -298,6 +298,12 @@ impl Entity for Tadpole {
         abstract_fish::set_from_bucket(self, input.get_boolean_or("FromBucket", false));
         self.set_age_raw(input.get_int_or("Age", 0));
         self.set_age_locked(input.get_boolean_or("AgeLocked", false));
+    }
+
+    fn read_level_dependent_data(&mut self, level: &mut ServerLevel) {
+        if self.age >= TICKS_TO_BE_FROG {
+            self.age_up_to_frog(level);
+        }
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {

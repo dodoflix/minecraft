@@ -8,6 +8,12 @@ fn guardian_beam() {
     check("mob_guardian_beam");
 }
 
+/// A guardian targets a squid and a glow squid alike.
+#[test]
+fn guardian_glow_squid() {
+    check("mob_guardian_glow_squid");
+}
+
 /// Guardians on land flop, a guardian in a shallow puddle, an elder guardian on land.
 #[test]
 fn guardian_flop() {

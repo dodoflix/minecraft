@@ -22,6 +22,12 @@ fn wind_charged_mob_death_bursts_into_a_gust() {
     block_scenario::check("mob_effect_wind_charged");
 }
 
+/// Bad Omen and Raid Omen on a mob are heard from the mob's sound source.
+#[test]
+fn omen_sound_uses_the_mob_sound_source() {
+    block_scenario::check("mob_effect_omen_sound");
+}
+
 #[test]
 fn attributes_sync_and_save_in_hash_order() {
     block_scenario::check("mob_attribute_order");

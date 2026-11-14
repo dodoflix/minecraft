@@ -29,6 +29,12 @@ fn fox_breeds() {
     check("mob_fox_breed");
 }
 
+/// The order of the breeding calls of `FoxBreedGoal`: trigger, cooldowns, kit, heart event, experience orb.
+#[test]
+fn fox_breed_packets() {
+    check("mob_fox_breed_packets");
+}
+
 /// A trusted fox stays and defends its player, untrusted ones run from players, wolves and polar bears.
 #[test]
 fn fox_trusts_and_defends() {

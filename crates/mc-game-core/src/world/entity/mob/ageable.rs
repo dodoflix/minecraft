@@ -26,6 +26,9 @@ pub struct AgeableData {
     pub forced_age: i32,
     pub forced_age_timer: i32,
     pub age_lock_particle_timer: i32,
+    /// `finalizeSpawn` crossed the baby boundary: `ageBoundaryReached()` needs the level and runs when the mob is added to it
+    /// ([`run_pending_age_boundary`]).
+    pub pending_age_boundary: bool,
 }
 
 fn ad(e: &dyn Entity) -> &AgeableData {
@@ -146,6 +149,18 @@ pub fn set_baby_in_level(e: &mut dyn Entity, level: &mut ServerLevel, baby: bool
     }
 }
 
+/// The `ageBoundaryReached()` that `finalizeSpawn`'s `setAge` queued while only a level accessor was at hand.
+pub fn run_pending_age_boundary(e: &mut dyn Entity, level: &mut ServerLevel) {
+    if e.mob()
+        .and_then(|m| m.ageable.as_ref())
+        .is_some_and(|a| a.pending_age_boundary)
+    {
+        adm(e).pending_age_boundary = false;
+        crate::world::entity::movement::apply_pending_fudge(e, level);
+        e.age_boundary_reached(level);
+    }
+}
+
 /// `AgeableMob.finalizeSpawn(...)` up to `super.finalizeSpawn` (which the caller runs next).
 pub fn finalize_spawn(
     e: &mut dyn Entity,
@@ -163,7 +178,7 @@ pub fn finalize_spawn(
             && level.random().next_float() <= data.get_baby_spawn_chance()
         {
             let start = e.get_baby_start_age();
-            set_age(e, start);
+            adm(e).pending_age_boundary |= set_age(e, start);
         }
         data.increase_group_size_by_one();
     }

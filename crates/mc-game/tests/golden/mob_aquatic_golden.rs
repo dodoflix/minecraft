@@ -57,6 +57,18 @@ fn turtle_egg_matches_vanilla() {
     block_scenario::check("mob_turtle_egg");
 }
 
+/// Every kind of zombie falls onto turtle eggs without crushing them; other mobs do.
+#[test]
+fn turtle_egg_zombies_match_vanilla() {
+    block_scenario::check("mob_turtle_egg_zombies");
+}
+
+/// Dolphins avoid guardians of both kinds and do not retaliate against them.
+#[test]
+fn dolphin_elder_guardian_matches_vanilla() {
+    block_scenario::check("mob_dolphin_elder_guardian");
+}
+
 /// A water bucket on every fish picks it up, the filled bucket releases it again.
 #[test]
 fn bucket_all_matches_vanilla() {

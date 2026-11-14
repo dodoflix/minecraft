@@ -21,7 +21,7 @@ use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
 use mc_game_core::world::entity::ai::control::smooth_swimming_look_control::SmoothSwimmingLookControl;
 use mc_game_core::world::entity::ai::control::smooth_swimming_move_control::SmoothSwimmingMoveControl;
-use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, class_of_type};
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, class_of_types};
 use mc_game_core::world::entity::ai::goal::{
     Flag, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal,
 };
@@ -121,7 +121,12 @@ impl Dolphin {
         let find_liquid = TryFindLiquidGoal::new("dolphin_tries_to_find");
         let look_at = LookAtPlayerGoal::new_player(self, 6.0);
         let avoid_guardian = AvoidEntityGoal::new(
-            std::sync::Arc::new(|e| e.get_type() == EntityType::GUARDIAN),
+            std::sync::Arc::new(|e| {
+                matches!(
+                    e.get_type(),
+                    EntityType::GUARDIAN | EntityType::ELDER_GUARDIAN
+                )
+            }),
             8.0,
             1.0,
             1.0,
@@ -156,8 +161,11 @@ impl Dolphin {
         self.mob.target_selector.add_goal(
             1,
             Box::new(
-                HurtByTargetGoal::new(vec![class_of_type(EntityType::GUARDIAN)])
-                    .set_alert_others(vec![]),
+                HurtByTargetGoal::new(vec![class_of_types(&[
+                    EntityType::GUARDIAN,
+                    EntityType::ELDER_GUARDIAN,
+                ])])
+                .set_alert_others(vec![]),
             ),
         );
     }

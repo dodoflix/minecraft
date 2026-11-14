@@ -106,7 +106,7 @@ impl BlockBehaviour for TurtleEggBlock {
         entity: &mut dyn Entity,
         fall_distance: f64,
     ) {
-        if entity.get_type() != EntityType::ZOMBIE {
+        if entity.as_zombie().is_none() {
             destroy_egg(level, state, pos, &*entity, 3);
         }
         // `super.fallOn`

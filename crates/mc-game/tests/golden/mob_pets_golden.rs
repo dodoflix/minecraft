@@ -81,6 +81,12 @@ fn parrot_imitate() {
     check("mob_parrot_imitate");
 }
 
+/// A parrot imitating a happy ghast plays the empty sound.
+#[test]
+fn parrot_imitate_ghast() {
+    check("mob_parrot_imitate_ghast");
+}
+
 /// Wolf, cat, ocelot and parrot variants chosen at spawn.
 #[test]
 fn pet_biome_variants() {

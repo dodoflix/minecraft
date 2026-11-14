@@ -1,0 +1,17 @@
+# A parrot whose only neighbour is a happy ghast imitates it: Parrot.MOB_SOUND_MAP maps the happy ghast to SoundEvents.EMPTY, which is played like any other
+# sound (intentionally_empty, volume 0.7, a random pitch).
+level flat
+preload 4
+entity_counter 12400
+level_seed 12401
+difficulty normal
+time 18000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn P minecraft:parrot 4.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,Variant:0,NoAI:1b}
+mobspawn G minecraft:happy_ghast 8.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed P 12410
+entity_seed G 12411
+tick 2
+watch events
+tick 1500
+watch off

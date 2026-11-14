@@ -1,0 +1,20 @@
+# Guardian target choice in a pool: a player, a squid, a glow squid (Guardian's target filter is instanceof Squid) or an axolotl farther than 3
+# blocks; a guardian next to a glow squid picks it as a target and beams it.
+level flat
+preload 4
+difficulty normal
+entity_counter 12540
+level_seed 12501
+time 18000
+gamerule mob_drops false
+fill -8 -62 -8 12 -49 8 minecraft:stone
+fill -7 -61 -7 11 -51 7 minecraft:water[level=0]
+mobspawn G minecraft:guardian 8.5 -57 0.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn Glow minecraft:glow_squid -3.5 -57 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed G 12511
+entity_seed Glow 12512
+tick 2
+watch mob:G mob:Glow
+tick 120
+watch off
+dump mobs events

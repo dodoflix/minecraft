@@ -1,0 +1,23 @@
+# FoxBreedGoal.breed order: BRED_ANIMALS fires with the kit before it has an age or a position, the parents get their cooldown, then the kit is added,
+# the heart event is sent for the mother and the experience orb is added last; the kit trusts both players that caused the love.
+level flat
+preload 6
+difficulty normal
+entity_counter 12800
+level_seed 12801
+time 6000
+spawn_player Steve creative 0.5 -60 0.5 0 0
+spawn_player Alex creative 12.5 -60 0.5 0 0
+tick 30
+mobspawn C minecraft:fox 14.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,Type:"red"}
+entity_seed C 12802
+mobspawn D minecraft:fox 15.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,Type:"snow"}
+entity_seed D 12803
+tick 2
+love C Steve
+love D Alex
+dump packets:Steve:none packets:Alex:none
+watch mob:C mob:D packets:Alex:add_entity,entity_event,set_entity_data
+tick 200
+watch off
+dump mobs entities events nbt:fox#1 advancements:Steve advancements:Alex stats:Steve stats:Alex

@@ -1,0 +1,19 @@
+C The difficulty did not change; it is already set to Normal
+EFFECT Z minecraft:bad_omen added=true
+T 3
+EV sound at=3.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:event.mob_effect.bad_omen source=hostile vol=1.0 pitch=1.0
+EFFECT C minecraft:bad_omen added=true
+T 4
+EV sound at=5.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:event.mob_effect.bad_omen source=neutral vol=1.0 pitch=1.0
+EFFECT S minecraft:raid_omen added=true
+T 5
+EV sound at=7.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:event.mob_effect.raid_omen source=hostile vol=1.0 pitch=1.0
+EFFECT V minecraft:raid_omen added=true
+T 6
+EV sound at=9.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:event.mob_effect.raid_omen source=neutral vol=1.0 pitch=1.0
+EFFECT Steve minecraft:bad_omen added=true
+T 7
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:event.mob_effect.bad_omen source=player vol=1.0 pitch=1.0
+EFFECT Steve minecraft:raid_omen added=true
+T 8
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:event.mob_effect.raid_omen source=player vol=1.0 pitch=1.0

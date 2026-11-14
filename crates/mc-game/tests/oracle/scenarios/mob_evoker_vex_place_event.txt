@@ -1,0 +1,25 @@
+# Vexes summoned by an evoker (the nextInt(5) offsets around it) are announced with the entity_place game event at the centre of the vex's block
+# (Level.gameEvent(event, BlockPos, context) = Vec3.atCenterOf); sculk sensors around it hear the vibration after a delay of the distance.
+level flat
+preload 4
+difficulty hard
+gamerule mob_drops false
+entity_counter 12700
+level_seed 12701
+spawn_player Steve survival 12.5 -60 0.5 90 0
+effect Steve minecraft:resistance 4 100000
+block 4 -60 -4 minecraft:sculk_sensor
+block -4 -60 4 minecraft:sculk_sensor
+block -4 -60 -4 minecraft:sculk_sensor
+block 0 -60 6 minecraft:sculk_sensor
+block 0 -60 -6 minecraft:sculk_sensor
+block 6 -60 3 minecraft:sculk_sensor
+block -6 -60 0 minecraft:sculk_sensor
+mobspawn E minecraft:evoker 0.5 -60 0.5 -90 0 nofinalize {PersistenceRequired:1b}
+entity_seed E 12703
+target E Steve
+tick 2
+watch mobs be:4,-60,-4 be:-4,-60,4 be:-4,-60,-4 be:0,-60,6 be:0,-60,-6 be:6,-60,3 be:-6,-60,0
+tick 90
+watch off
+dump mobs nbt:E blocks:-6,-60,-6,6,-60,6 events

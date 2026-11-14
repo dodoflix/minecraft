@@ -1,0 +1,1621 @@
+C Set minecraft:overworld to 12500 tick(s)
+# row zombie
+# zombie door_closed
+PATHQ zom0 -90.5,-60.0,-79.5 found=true
+PATH zom0 next=0 count=14 reached=1 target=-91,-60,-80 dist=1.0
+PN zom0 0 pos=-100,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom0 1 pos=-99,-60,-79 type=WALKABLE malus=0.0 walked=6.0
+PN zom0 2 pos=-98,-60,-78 type=WALKABLE malus=0.0 walked=7.4142137
+PN zom0 3 pos=-97,-60,-77 type=WALKABLE malus=0.0 walked=8.828427
+PN zom0 4 pos=-97,-60,-76 type=WALKABLE malus=0.0 walked=11.24264
+PN zom0 5 pos=-97,-60,-75 type=WALKABLE malus=0.0 walked=13.656853
+PN zom0 6 pos=-97,-60,-74 type=WALKABLE malus=0.0 walked=16.071066
+PN zom0 7 pos=-96,-60,-74 type=WALKABLE malus=0.0 walked=17.071066
+PN zom0 8 pos=-95,-60,-74 type=WALKABLE malus=0.0 walked=18.071066
+PN zom0 9 pos=-94,-60,-75 type=WALKABLE malus=0.0 walked=19.48528
+PN zom0 10 pos=-93,-60,-76 type=WALKABLE malus=0.0 walked=20.899492
+PN zom0 11 pos=-92,-60,-77 type=WALKABLE malus=0.0 walked=22.313705
+PN zom0 12 pos=-92,-60,-78 type=WALKABLE malus=0.0 walked=23.313705
+PN zom0 13 pos=-91,-60,-79 type=WALKABLE malus=0.0 walked=24.727919
+# zombie door_open
+PATHQ zom1 -74.5,-60.0,-79.5 found=true
+PATH zom1 next=0 count=9 reached=1 target=-75,-60,-80 dist=1.0
+PN zom1 0 pos=-84,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom1 1 pos=-83,-60,-80 type=WALKABLE malus=0.0 walked=1.0
+PN zom1 2 pos=-82,-60,-80 type=WALKABLE malus=0.0 walked=2.0
+PN zom1 3 pos=-81,-60,-80 type=WALKABLE malus=0.0 walked=3.0
+PN zom1 4 pos=-80,-60,-80 type=DOOR_OPEN malus=0.0 walked=4.0
+PN zom1 5 pos=-79,-60,-80 type=WALKABLE malus=0.0 walked=5.0
+PN zom1 6 pos=-78,-60,-80 type=WALKABLE malus=0.0 walked=6.0
+PN zom1 7 pos=-77,-60,-80 type=WALKABLE malus=0.0 walked=7.0
+PN zom1 8 pos=-76,-60,-80 type=WALKABLE malus=0.0 walked=8.0
+# zombie iron_door
+PATHQ zom2 -58.5,-60.0,-79.5 found=true
+PATH zom2 next=0 count=14 reached=1 target=-59,-60,-80 dist=1.0
+PN zom2 0 pos=-68,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom2 1 pos=-67,-60,-79 type=WALKABLE malus=0.0 walked=6.0
+PN zom2 2 pos=-66,-60,-78 type=WALKABLE malus=0.0 walked=7.4142137
+PN zom2 3 pos=-65,-60,-77 type=WALKABLE malus=0.0 walked=8.828427
+PN zom2 4 pos=-65,-60,-76 type=WALKABLE malus=0.0 walked=11.24264
+PN zom2 5 pos=-65,-60,-75 type=WALKABLE malus=0.0 walked=13.656853
+PN zom2 6 pos=-65,-60,-74 type=WALKABLE malus=0.0 walked=16.071066
+PN zom2 7 pos=-64,-60,-74 type=WALKABLE malus=0.0 walked=17.071066
+PN zom2 8 pos=-63,-60,-74 type=WALKABLE malus=0.0 walked=18.071066
+PN zom2 9 pos=-62,-60,-75 type=WALKABLE malus=0.0 walked=19.48528
+PN zom2 10 pos=-61,-60,-76 type=WALKABLE malus=0.0 walked=20.899492
+PN zom2 11 pos=-60,-60,-77 type=WALKABLE malus=0.0 walked=22.313705
+PN zom2 12 pos=-60,-60,-78 type=WALKABLE malus=0.0 walked=23.313705
+PN zom2 13 pos=-59,-60,-79 type=WALKABLE malus=0.0 walked=24.727919
+# zombie fence_gate
+PATHQ zom3 -42.5,-60.0,-79.5 found=true
+PATH zom3 next=0 count=14 reached=1 target=-43,-60,-80 dist=1.0
+PN zom3 0 pos=-52,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom3 1 pos=-51,-60,-79 type=WALKABLE malus=0.0 walked=6.0
+PN zom3 2 pos=-50,-60,-78 type=WALKABLE malus=0.0 walked=7.4142137
+PN zom3 3 pos=-49,-60,-77 type=WALKABLE malus=0.0 walked=8.828427
+PN zom3 4 pos=-49,-60,-76 type=WALKABLE malus=0.0 walked=11.24264
+PN zom3 5 pos=-49,-60,-75 type=WALKABLE malus=0.0 walked=13.656853
+PN zom3 6 pos=-49,-60,-74 type=WALKABLE malus=0.0 walked=16.071066
+PN zom3 7 pos=-48,-60,-74 type=WALKABLE malus=0.0 walked=17.071066
+PN zom3 8 pos=-47,-60,-74 type=WALKABLE malus=0.0 walked=18.071066
+PN zom3 9 pos=-46,-60,-75 type=WALKABLE malus=0.0 walked=19.48528
+PN zom3 10 pos=-45,-60,-76 type=WALKABLE malus=0.0 walked=20.899492
+PN zom3 11 pos=-44,-60,-77 type=WALKABLE malus=0.0 walked=22.313705
+PN zom3 12 pos=-44,-60,-78 type=WALKABLE malus=0.0 walked=23.313705
+PN zom3 13 pos=-43,-60,-79 type=WALKABLE malus=0.0 walked=24.727919
+# zombie water
+PATHQ zom4 -26.5,-60.0,-79.5 found=true
+PATH zom4 next=0 count=18 reached=1 target=-27,-60,-80 dist=1.0
+PN zom4 0 pos=-36,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom4 1 pos=-35,-60,-81 type=WALKABLE malus=0.0 walked=2.0
+PN zom4 2 pos=-35,-60,-82 type=WALKABLE malus=0.0 walked=4.4142137
+PN zom4 3 pos=-35,-60,-83 type=WALKABLE malus=0.0 walked=6.8284273
+PN zom4 4 pos=-35,-60,-84 type=WALKABLE malus=0.0 walked=9.2426405
+PN zom4 5 pos=-35,-60,-85 type=WALKABLE malus=0.0 walked=11.656854
+PN zom4 6 pos=-35,-60,-86 type=WALKABLE malus=0.0 walked=14.071067
+PN zom4 7 pos=-34,-60,-87 type=WALKABLE malus=0.0 walked=15.48528
+PN zom4 8 pos=-33,-60,-87 type=WALKABLE malus=0.0 walked=16.48528
+PN zom4 9 pos=-32,-60,-87 type=WALKABLE malus=0.0 walked=17.48528
+PN zom4 10 pos=-31,-60,-87 type=WALKABLE malus=0.0 walked=18.48528
+PN zom4 11 pos=-30,-60,-87 type=WALKABLE malus=0.0 walked=19.48528
+PN zom4 12 pos=-29,-60,-86 type=WALKABLE malus=0.0 walked=20.899492
+PN zom4 13 pos=-28,-60,-85 type=WALKABLE malus=0.0 walked=22.313705
+PN zom4 14 pos=-28,-60,-84 type=WALKABLE malus=0.0 walked=23.313705
+PN zom4 15 pos=-28,-60,-83 type=WALKABLE malus=0.0 walked=24.313705
+PN zom4 16 pos=-28,-60,-82 type=WALKABLE malus=0.0 walked=25.313705
+PN zom4 17 pos=-27,-60,-81 type=WALKABLE malus=0.0 walked=26.727919
+# zombie lava
+PATHQ zom5 -10.5,-60.0,-79.5 found=true
+PATH zom5 next=0 count=18 reached=1 target=-11,-60,-80 dist=1.0
+PN zom5 0 pos=-20,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom5 1 pos=-19,-60,-79 type=WALKABLE malus=0.0 walked=2.0
+PN zom5 2 pos=-19,-60,-78 type=WALKABLE malus=0.0 walked=4.4142137
+PN zom5 3 pos=-19,-60,-77 type=WALKABLE malus=0.0 walked=6.8284273
+PN zom5 4 pos=-19,-60,-76 type=WALKABLE malus=0.0 walked=9.2426405
+PN zom5 5 pos=-19,-60,-75 type=WALKABLE malus=0.0 walked=11.656854
+PN zom5 6 pos=-19,-60,-74 type=WALKABLE malus=0.0 walked=14.071067
+PN zom5 7 pos=-18,-60,-73 type=WALKABLE malus=0.0 walked=15.48528
+PN zom5 8 pos=-17,-60,-73 type=WALKABLE malus=0.0 walked=16.48528
+PN zom5 9 pos=-16,-60,-73 type=WALKABLE malus=0.0 walked=17.48528
+PN zom5 10 pos=-15,-60,-73 type=WALKABLE malus=0.0 walked=18.48528
+PN zom5 11 pos=-14,-60,-73 type=WALKABLE malus=0.0 walked=19.48528
+PN zom5 12 pos=-13,-60,-74 type=WALKABLE malus=0.0 walked=20.899492
+PN zom5 13 pos=-12,-60,-75 type=WALKABLE malus=0.0 walked=22.313705
+PN zom5 14 pos=-12,-60,-76 type=WALKABLE malus=0.0 walked=23.313705
+PN zom5 15 pos=-12,-60,-77 type=WALKABLE malus=0.0 walked=24.313705
+PN zom5 16 pos=-12,-60,-78 type=WALKABLE malus=0.0 walked=25.313705
+PN zom5 17 pos=-11,-60,-79 type=WALKABLE malus=0.0 walked=26.727919
+# zombie cobweb
+PATHQ zom6 5.5,-60.0,-79.5 found=true
+PATH zom6 next=0 count=9 reached=1 target=5,-60,-80 dist=1.0
+PN zom6 0 pos=-4,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom6 1 pos=-3,-60,-80 type=WALKABLE malus=0.0 walked=1.0
+PN zom6 2 pos=-2,-60,-80 type=WALKABLE malus=0.0 walked=2.0
+PN zom6 3 pos=-1,-60,-80 type=WALKABLE malus=0.0 walked=3.0
+PN zom6 4 pos=0,-60,-80 type=WALKABLE malus=0.0 walked=4.0
+PN zom6 5 pos=1,-60,-80 type=WALKABLE malus=0.0 walked=5.0
+PN zom6 6 pos=2,-60,-80 type=WALKABLE malus=0.0 walked=6.0
+PN zom6 7 pos=3,-60,-80 type=WALKABLE malus=0.0 walked=7.0
+PN zom6 8 pos=4,-60,-80 type=WALKABLE malus=0.0 walked=8.0
+# zombie berry
+PATHQ zom7 21.5,-60.0,-79.5 found=true
+PATH zom7 next=0 count=18 reached=1 target=21,-60,-80 dist=1.0
+PN zom7 0 pos=12,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom7 1 pos=13,-60,-79 type=WALKABLE malus=0.0 walked=2.0
+PN zom7 2 pos=13,-60,-78 type=WALKABLE malus=0.0 walked=4.4142137
+PN zom7 3 pos=13,-60,-77 type=WALKABLE malus=0.0 walked=6.8284273
+PN zom7 4 pos=13,-60,-76 type=WALKABLE malus=0.0 walked=9.2426405
+PN zom7 5 pos=13,-60,-75 type=WALKABLE malus=0.0 walked=11.656854
+PN zom7 6 pos=13,-60,-74 type=WALKABLE malus=0.0 walked=14.071067
+PN zom7 7 pos=14,-60,-73 type=WALKABLE malus=0.0 walked=15.48528
+PN zom7 8 pos=15,-60,-73 type=WALKABLE malus=0.0 walked=16.48528
+PN zom7 9 pos=16,-60,-73 type=WALKABLE malus=0.0 walked=17.48528
+PN zom7 10 pos=17,-60,-73 type=WALKABLE malus=0.0 walked=18.48528
+PN zom7 11 pos=18,-60,-73 type=WALKABLE malus=0.0 walked=19.48528
+PN zom7 12 pos=19,-60,-74 type=WALKABLE malus=0.0 walked=20.899492
+PN zom7 13 pos=20,-60,-75 type=WALKABLE malus=0.0 walked=22.313705
+PN zom7 14 pos=20,-60,-76 type=WALKABLE malus=0.0 walked=23.313705
+PN zom7 15 pos=20,-60,-77 type=WALKABLE malus=0.0 walked=24.313705
+PN zom7 16 pos=20,-60,-78 type=WALKABLE malus=0.0 walked=25.313705
+PN zom7 17 pos=21,-60,-79 type=WALKABLE malus=0.0 walked=26.727919
+# zombie honey
+PATHQ zom8 37.5,-60.0,-79.5 found=true
+PATH zom8 next=0 count=14 reached=1 target=37,-60,-80 dist=1.0
+PN zom8 0 pos=28,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom8 1 pos=29,-60,-79 type=WALKABLE malus=0.0 walked=4.0
+PN zom8 2 pos=30,-60,-78 type=WALKABLE malus=0.0 walked=5.4142137
+PN zom8 3 pos=30,-60,-77 type=WALKABLE malus=0.0 walked=7.8284273
+PN zom8 4 pos=30,-60,-76 type=WALKABLE malus=0.0 walked=10.2426405
+PN zom8 5 pos=30,-60,-75 type=WALKABLE malus=0.0 walked=12.656854
+PN zom8 6 pos=31,-60,-74 type=WALKABLE malus=0.0 walked=14.071067
+PN zom8 7 pos=32,-60,-74 type=WALKABLE malus=0.0 walked=15.071067
+PN zom8 8 pos=33,-60,-74 type=WALKABLE malus=0.0 walked=16.071068
+PN zom8 9 pos=34,-60,-75 type=WALKABLE malus=0.0 walked=17.485281
+PN zom8 10 pos=35,-60,-76 type=WALKABLE malus=0.0 walked=18.899494
+PN zom8 11 pos=36,-60,-77 type=WALKABLE malus=0.0 walked=20.313707
+PN zom8 12 pos=36,-60,-78 type=WALKABLE malus=0.0 walked=21.313707
+PN zom8 13 pos=37,-60,-79 type=WALKABLE malus=0.0 walked=22.72792
+# zombie powder_snow
+PATHQ zom9 53.5,-60.0,-79.5 found=true
+PATH zom9 next=0 count=9 reached=1 target=53,-60,-80 dist=1.0
+PN zom9 0 pos=44,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom9 1 pos=45,-60,-80 type=WALKABLE malus=0.0 walked=1.0
+PN zom9 2 pos=46,-60,-80 type=WALKABLE malus=0.0 walked=2.0
+PN zom9 3 pos=47,-60,-80 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=3.0
+PN zom9 4 pos=48,-60,-80 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=4.0
+PN zom9 5 pos=49,-60,-80 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=5.0
+PN zom9 6 pos=50,-60,-80 type=WALKABLE malus=0.0 walked=6.0
+PN zom9 7 pos=51,-60,-80 type=WALKABLE malus=0.0 walked=7.0
+PN zom9 8 pos=52,-60,-80 type=WALKABLE malus=0.0 walked=8.0
+# zombie cactus
+PATHQ zom10 69.5,-60.0,-79.5 found=true
+PATH zom10 next=0 count=9 reached=1 target=69,-60,-80 dist=1.0
+PN zom10 0 pos=60,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom10 1 pos=61,-60,-80 type=WALKABLE malus=0.0 walked=1.0
+PN zom10 2 pos=62,-60,-80 type=WALKABLE malus=0.0 walked=2.0
+PN zom10 3 pos=63,-60,-80 type=WALKABLE malus=0.0 walked=3.0
+PN zom10 4 pos=64,-60,-80 type=WALKABLE malus=0.0 walked=4.0
+PN zom10 5 pos=65,-60,-80 type=WALKABLE malus=0.0 walked=5.0
+PN zom10 6 pos=66,-60,-80 type=WALKABLE malus=0.0 walked=6.0
+PN zom10 7 pos=67,-60,-80 type=WALKABLE malus=0.0 walked=7.0
+PN zom10 8 pos=68,-60,-80 type=WALKABLE malus=0.0 walked=8.0
+# zombie magma
+PATHQ zom11 85.5,-60.0,-79.5 found=true
+PATH zom11 next=0 count=18 reached=1 target=85,-60,-80 dist=1.0
+PN zom11 0 pos=76,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom11 1 pos=77,-60,-81 type=WALKABLE malus=0.0 walked=2.0
+PN zom11 2 pos=77,-60,-82 type=WALKABLE malus=0.0 walked=4.4142137
+PN zom11 3 pos=77,-60,-83 type=WALKABLE malus=0.0 walked=6.8284273
+PN zom11 4 pos=77,-60,-84 type=WALKABLE malus=0.0 walked=9.2426405
+PN zom11 5 pos=77,-60,-85 type=WALKABLE malus=0.0 walked=11.656854
+PN zom11 6 pos=77,-60,-86 type=WALKABLE malus=0.0 walked=14.071067
+PN zom11 7 pos=78,-60,-87 type=WALKABLE malus=0.0 walked=15.48528
+PN zom11 8 pos=79,-60,-87 type=WALKABLE malus=0.0 walked=16.48528
+PN zom11 9 pos=80,-60,-87 type=WALKABLE malus=0.0 walked=17.48528
+PN zom11 10 pos=81,-60,-87 type=WALKABLE malus=0.0 walked=18.48528
+PN zom11 11 pos=82,-60,-87 type=WALKABLE malus=0.0 walked=19.48528
+PN zom11 12 pos=83,-60,-86 type=WALKABLE malus=0.0 walked=20.899492
+PN zom11 13 pos=84,-60,-85 type=WALKABLE malus=0.0 walked=22.313705
+PN zom11 14 pos=84,-60,-84 type=WALKABLE malus=0.0 walked=23.313705
+PN zom11 15 pos=84,-60,-83 type=WALKABLE malus=0.0 walked=24.313705
+PN zom11 16 pos=84,-60,-82 type=WALKABLE malus=0.0 walked=25.313705
+PN zom11 17 pos=85,-60,-81 type=WALKABLE malus=0.0 walked=26.727919
+# zombie trapdoor_open
+PATHQ zom12 101.5,-60.0,-79.5 found=true
+PATH zom12 next=0 count=9 reached=1 target=101,-60,-80 dist=1.0
+PN zom12 0 pos=92,-60,-80 type=WALKABLE malus=0.0 walked=0.0
+PN zom12 1 pos=93,-60,-80 type=WALKABLE malus=0.0 walked=1.0
+PN zom12 2 pos=94,-60,-80 type=WALKABLE malus=0.0 walked=2.0
+PN zom12 3 pos=95,-60,-80 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=3.0
+PN zom12 4 pos=96,-60,-80 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=4.0
+PN zom12 5 pos=97,-60,-80 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=5.0
+PN zom12 6 pos=98,-60,-80 type=WALKABLE malus=0.0 walked=6.0
+PN zom12 7 pos=99,-60,-80 type=WALKABLE malus=0.0 walked=7.0
+PN zom12 8 pos=100,-60,-80 type=WALKABLE malus=0.0 walked=8.0
+# row villager
+# villager door_closed
+PATHQ vil0 -90.5,-60.0,-61.5 found=true
+PATH vil0 next=0 count=9 reached=1 target=-91,-60,-62 dist=1.0
+PN vil0 0 pos=-100,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil0 1 pos=-99,-60,-62 type=WALKABLE malus=0.0 walked=1.0
+PN vil0 2 pos=-98,-60,-62 type=WALKABLE malus=0.0 walked=2.0
+PN vil0 3 pos=-97,-60,-62 type=WALKABLE malus=0.0 walked=3.0
+PN vil0 4 pos=-96,-60,-62 type=WALKABLE_DOOR malus=0.0 walked=4.0
+PN vil0 5 pos=-95,-60,-62 type=WALKABLE malus=0.0 walked=5.0
+PN vil0 6 pos=-94,-60,-62 type=WALKABLE malus=0.0 walked=6.0
+PN vil0 7 pos=-93,-60,-62 type=WALKABLE malus=0.0 walked=7.0
+PN vil0 8 pos=-92,-60,-62 type=WALKABLE malus=0.0 walked=8.0
+# villager door_open
+PATHQ vil1 -74.5,-60.0,-61.5 found=true
+PATH vil1 next=0 count=9 reached=1 target=-75,-60,-62 dist=1.0
+PN vil1 0 pos=-84,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil1 1 pos=-83,-60,-62 type=WALKABLE malus=0.0 walked=1.0
+PN vil1 2 pos=-82,-60,-62 type=WALKABLE malus=0.0 walked=2.0
+PN vil1 3 pos=-81,-60,-62 type=WALKABLE malus=0.0 walked=3.0
+PN vil1 4 pos=-80,-60,-62 type=DOOR_OPEN malus=0.0 walked=4.0
+PN vil1 5 pos=-79,-60,-62 type=WALKABLE malus=0.0 walked=5.0
+PN vil1 6 pos=-78,-60,-62 type=WALKABLE malus=0.0 walked=6.0
+PN vil1 7 pos=-77,-60,-62 type=WALKABLE malus=0.0 walked=7.0
+PN vil1 8 pos=-76,-60,-62 type=WALKABLE malus=0.0 walked=8.0
+# villager iron_door
+PATHQ vil2 -58.5,-60.0,-61.5 found=true
+PATH vil2 next=0 count=14 reached=1 target=-59,-60,-62 dist=1.0
+PN vil2 0 pos=-68,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil2 1 pos=-67,-60,-61 type=WALKABLE malus=0.0 walked=6.0
+PN vil2 2 pos=-66,-60,-60 type=WALKABLE malus=0.0 walked=7.4142137
+PN vil2 3 pos=-65,-60,-59 type=WALKABLE malus=0.0 walked=8.828427
+PN vil2 4 pos=-65,-60,-58 type=WALKABLE malus=0.0 walked=11.24264
+PN vil2 5 pos=-65,-60,-57 type=WALKABLE malus=0.0 walked=13.656853
+PN vil2 6 pos=-65,-60,-56 type=WALKABLE malus=0.0 walked=16.071066
+PN vil2 7 pos=-64,-60,-56 type=WALKABLE malus=0.0 walked=17.071066
+PN vil2 8 pos=-63,-60,-56 type=WALKABLE malus=0.0 walked=18.071066
+PN vil2 9 pos=-62,-60,-57 type=WALKABLE malus=0.0 walked=19.48528
+PN vil2 10 pos=-61,-60,-58 type=WALKABLE malus=0.0 walked=20.899492
+PN vil2 11 pos=-60,-60,-59 type=WALKABLE malus=0.0 walked=22.313705
+PN vil2 12 pos=-60,-60,-60 type=WALKABLE malus=0.0 walked=23.313705
+PN vil2 13 pos=-59,-60,-61 type=WALKABLE malus=0.0 walked=24.727919
+# villager fence_gate
+PATHQ vil3 -42.5,-60.0,-61.5 found=true
+PATH vil3 next=0 count=14 reached=1 target=-43,-60,-62 dist=1.0
+PN vil3 0 pos=-52,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil3 1 pos=-51,-60,-61 type=WALKABLE malus=0.0 walked=6.0
+PN vil3 2 pos=-50,-60,-60 type=WALKABLE malus=0.0 walked=7.4142137
+PN vil3 3 pos=-49,-60,-59 type=WALKABLE malus=0.0 walked=8.828427
+PN vil3 4 pos=-49,-60,-58 type=WALKABLE malus=0.0 walked=11.24264
+PN vil3 5 pos=-49,-60,-57 type=WALKABLE malus=0.0 walked=13.656853
+PN vil3 6 pos=-49,-60,-56 type=WALKABLE malus=0.0 walked=16.071066
+PN vil3 7 pos=-48,-60,-56 type=WALKABLE malus=0.0 walked=17.071066
+PN vil3 8 pos=-47,-60,-56 type=WALKABLE malus=0.0 walked=18.071066
+PN vil3 9 pos=-46,-60,-57 type=WALKABLE malus=0.0 walked=19.48528
+PN vil3 10 pos=-45,-60,-58 type=WALKABLE malus=0.0 walked=20.899492
+PN vil3 11 pos=-44,-60,-59 type=WALKABLE malus=0.0 walked=22.313705
+PN vil3 12 pos=-44,-60,-60 type=WALKABLE malus=0.0 walked=23.313705
+PN vil3 13 pos=-43,-60,-61 type=WALKABLE malus=0.0 walked=24.727919
+# villager water
+PATHQ vil4 -26.5,-60.0,-61.5 found=true
+PATH vil4 next=0 count=18 reached=1 target=-27,-60,-62 dist=1.0
+PN vil4 0 pos=-36,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil4 1 pos=-35,-60,-63 type=WALKABLE malus=0.0 walked=2.0
+PN vil4 2 pos=-35,-60,-64 type=WALKABLE malus=0.0 walked=4.4142137
+PN vil4 3 pos=-35,-60,-65 type=WALKABLE malus=0.0 walked=6.8284273
+PN vil4 4 pos=-35,-60,-66 type=WALKABLE malus=0.0 walked=9.2426405
+PN vil4 5 pos=-35,-60,-67 type=WALKABLE malus=0.0 walked=11.656854
+PN vil4 6 pos=-35,-60,-68 type=WALKABLE malus=0.0 walked=14.071067
+PN vil4 7 pos=-34,-60,-69 type=WALKABLE malus=0.0 walked=15.48528
+PN vil4 8 pos=-33,-60,-69 type=WALKABLE malus=0.0 walked=16.48528
+PN vil4 9 pos=-32,-60,-69 type=WALKABLE malus=0.0 walked=17.48528
+PN vil4 10 pos=-31,-60,-69 type=WALKABLE malus=0.0 walked=18.48528
+PN vil4 11 pos=-30,-60,-69 type=WALKABLE malus=0.0 walked=19.48528
+PN vil4 12 pos=-29,-60,-68 type=WALKABLE malus=0.0 walked=20.899492
+PN vil4 13 pos=-28,-60,-67 type=WALKABLE malus=0.0 walked=22.313705
+PN vil4 14 pos=-28,-60,-66 type=WALKABLE malus=0.0 walked=23.313705
+PN vil4 15 pos=-28,-60,-65 type=WALKABLE malus=0.0 walked=24.313705
+PN vil4 16 pos=-28,-60,-64 type=WALKABLE malus=0.0 walked=25.313705
+PN vil4 17 pos=-27,-60,-63 type=WALKABLE malus=0.0 walked=26.727919
+# villager lava
+PATHQ vil5 -10.5,-60.0,-61.5 found=true
+PATH vil5 next=0 count=18 reached=1 target=-11,-60,-62 dist=1.0
+PN vil5 0 pos=-20,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil5 1 pos=-19,-60,-63 type=WALKABLE malus=0.0 walked=2.0
+PN vil5 2 pos=-19,-60,-64 type=WALKABLE malus=0.0 walked=4.4142137
+PN vil5 3 pos=-19,-60,-65 type=WALKABLE malus=0.0 walked=6.8284273
+PN vil5 4 pos=-19,-60,-66 type=WALKABLE malus=0.0 walked=9.2426405
+PN vil5 5 pos=-19,-60,-67 type=WALKABLE malus=0.0 walked=11.656854
+PN vil5 6 pos=-19,-60,-68 type=WALKABLE malus=0.0 walked=14.071067
+PN vil5 7 pos=-18,-60,-69 type=WALKABLE malus=0.0 walked=15.48528
+PN vil5 8 pos=-17,-60,-69 type=WALKABLE malus=0.0 walked=16.48528
+PN vil5 9 pos=-16,-60,-69 type=WALKABLE malus=0.0 walked=17.48528
+PN vil5 10 pos=-15,-60,-69 type=WALKABLE malus=0.0 walked=18.48528
+PN vil5 11 pos=-14,-60,-69 type=WALKABLE malus=0.0 walked=19.48528
+PN vil5 12 pos=-13,-60,-68 type=WALKABLE malus=0.0 walked=20.899492
+PN vil5 13 pos=-12,-60,-67 type=WALKABLE malus=0.0 walked=22.313705
+PN vil5 14 pos=-12,-60,-66 type=WALKABLE malus=0.0 walked=23.313705
+PN vil5 15 pos=-12,-60,-65 type=WALKABLE malus=0.0 walked=24.313705
+PN vil5 16 pos=-12,-60,-64 type=WALKABLE malus=0.0 walked=25.313705
+PN vil5 17 pos=-11,-60,-63 type=WALKABLE malus=0.0 walked=26.727919
+# villager cobweb
+PATHQ vil6 5.5,-60.0,-61.5 found=true
+PATH vil6 next=0 count=9 reached=1 target=5,-60,-62 dist=1.0
+PN vil6 0 pos=-4,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil6 1 pos=-3,-60,-62 type=WALKABLE malus=0.0 walked=1.0
+PN vil6 2 pos=-2,-60,-62 type=WALKABLE malus=0.0 walked=2.0
+PN vil6 3 pos=-1,-60,-62 type=WALKABLE malus=0.0 walked=3.0
+PN vil6 4 pos=0,-60,-62 type=WALKABLE malus=0.0 walked=4.0
+PN vil6 5 pos=1,-60,-62 type=WALKABLE malus=0.0 walked=5.0
+PN vil6 6 pos=2,-60,-62 type=WALKABLE malus=0.0 walked=6.0
+PN vil6 7 pos=3,-60,-62 type=WALKABLE malus=0.0 walked=7.0
+PN vil6 8 pos=4,-60,-62 type=WALKABLE malus=0.0 walked=8.0
+# villager berry
+PATHQ vil7 21.5,-60.0,-61.5 found=true
+PATH vil7 next=0 count=18 reached=1 target=21,-60,-62 dist=1.0
+PN vil7 0 pos=12,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil7 1 pos=13,-60,-61 type=WALKABLE malus=0.0 walked=2.0
+PN vil7 2 pos=13,-60,-60 type=WALKABLE malus=0.0 walked=4.4142137
+PN vil7 3 pos=13,-60,-59 type=WALKABLE malus=0.0 walked=6.8284273
+PN vil7 4 pos=13,-60,-58 type=WALKABLE malus=0.0 walked=9.2426405
+PN vil7 5 pos=13,-60,-57 type=WALKABLE malus=0.0 walked=11.656854
+PN vil7 6 pos=13,-60,-56 type=WALKABLE malus=0.0 walked=14.071067
+PN vil7 7 pos=14,-60,-55 type=WALKABLE malus=0.0 walked=15.48528
+PN vil7 8 pos=15,-60,-55 type=WALKABLE malus=0.0 walked=16.48528
+PN vil7 9 pos=16,-60,-55 type=WALKABLE malus=0.0 walked=17.48528
+PN vil7 10 pos=17,-60,-55 type=WALKABLE malus=0.0 walked=18.48528
+PN vil7 11 pos=18,-60,-55 type=WALKABLE malus=0.0 walked=19.48528
+PN vil7 12 pos=19,-60,-56 type=WALKABLE malus=0.0 walked=20.899492
+PN vil7 13 pos=20,-60,-57 type=WALKABLE malus=0.0 walked=22.313705
+PN vil7 14 pos=20,-60,-58 type=WALKABLE malus=0.0 walked=23.313705
+PN vil7 15 pos=20,-60,-59 type=WALKABLE malus=0.0 walked=24.313705
+PN vil7 16 pos=20,-60,-60 type=WALKABLE malus=0.0 walked=25.313705
+PN vil7 17 pos=21,-60,-61 type=WALKABLE malus=0.0 walked=26.727919
+# villager honey
+PATHQ vil8 37.5,-60.0,-61.5 found=true
+PATH vil8 next=0 count=14 reached=1 target=37,-60,-62 dist=1.0
+PN vil8 0 pos=28,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil8 1 pos=29,-60,-61 type=WALKABLE malus=0.0 walked=4.0
+PN vil8 2 pos=30,-60,-60 type=WALKABLE malus=0.0 walked=5.4142137
+PN vil8 3 pos=30,-60,-59 type=WALKABLE malus=0.0 walked=7.8284273
+PN vil8 4 pos=30,-60,-58 type=WALKABLE malus=0.0 walked=10.2426405
+PN vil8 5 pos=30,-60,-57 type=WALKABLE malus=0.0 walked=12.656854
+PN vil8 6 pos=31,-60,-56 type=WALKABLE malus=0.0 walked=14.071067
+PN vil8 7 pos=32,-60,-56 type=WALKABLE malus=0.0 walked=15.071067
+PN vil8 8 pos=33,-60,-56 type=WALKABLE malus=0.0 walked=16.071068
+PN vil8 9 pos=34,-60,-57 type=WALKABLE malus=0.0 walked=17.485281
+PN vil8 10 pos=35,-60,-58 type=WALKABLE malus=0.0 walked=18.899494
+PN vil8 11 pos=36,-60,-59 type=WALKABLE malus=0.0 walked=20.313707
+PN vil8 12 pos=36,-60,-60 type=WALKABLE malus=0.0 walked=21.313707
+PN vil8 13 pos=37,-60,-61 type=WALKABLE malus=0.0 walked=22.72792
+# villager powder_snow
+PATHQ vil9 53.5,-60.0,-61.5 found=true
+PATH vil9 next=0 count=9 reached=1 target=53,-60,-62 dist=1.0
+PN vil9 0 pos=44,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil9 1 pos=45,-60,-62 type=WALKABLE malus=0.0 walked=1.0
+PN vil9 2 pos=46,-60,-62 type=WALKABLE malus=0.0 walked=2.0
+PN vil9 3 pos=47,-60,-62 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=3.0
+PN vil9 4 pos=48,-60,-62 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=4.0
+PN vil9 5 pos=49,-60,-62 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=5.0
+PN vil9 6 pos=50,-60,-62 type=WALKABLE malus=0.0 walked=6.0
+PN vil9 7 pos=51,-60,-62 type=WALKABLE malus=0.0 walked=7.0
+PN vil9 8 pos=52,-60,-62 type=WALKABLE malus=0.0 walked=8.0
+# villager cactus
+PATHQ vil10 69.5,-60.0,-61.5 found=true
+PATH vil10 next=0 count=9 reached=1 target=69,-60,-62 dist=1.0
+PN vil10 0 pos=60,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil10 1 pos=61,-60,-62 type=WALKABLE malus=0.0 walked=1.0
+PN vil10 2 pos=62,-60,-62 type=WALKABLE malus=0.0 walked=2.0
+PN vil10 3 pos=63,-60,-62 type=WALKABLE malus=0.0 walked=3.0
+PN vil10 4 pos=64,-60,-62 type=WALKABLE malus=0.0 walked=4.0
+PN vil10 5 pos=65,-60,-62 type=WALKABLE malus=0.0 walked=5.0
+PN vil10 6 pos=66,-60,-62 type=WALKABLE malus=0.0 walked=6.0
+PN vil10 7 pos=67,-60,-62 type=WALKABLE malus=0.0 walked=7.0
+PN vil10 8 pos=68,-60,-62 type=WALKABLE malus=0.0 walked=8.0
+# villager magma
+PATHQ vil11 85.5,-60.0,-61.5 found=true
+PATH vil11 next=0 count=18 reached=1 target=85,-60,-62 dist=1.0
+PN vil11 0 pos=76,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil11 1 pos=77,-60,-63 type=WALKABLE malus=0.0 walked=2.0
+PN vil11 2 pos=77,-60,-64 type=WALKABLE malus=0.0 walked=4.4142137
+PN vil11 3 pos=77,-60,-65 type=WALKABLE malus=0.0 walked=6.8284273
+PN vil11 4 pos=77,-60,-66 type=WALKABLE malus=0.0 walked=9.2426405
+PN vil11 5 pos=77,-60,-67 type=WALKABLE malus=0.0 walked=11.656854
+PN vil11 6 pos=77,-60,-68 type=WALKABLE malus=0.0 walked=14.071067
+PN vil11 7 pos=78,-60,-69 type=WALKABLE malus=0.0 walked=15.48528
+PN vil11 8 pos=79,-60,-69 type=WALKABLE malus=0.0 walked=16.48528
+PN vil11 9 pos=80,-60,-69 type=WALKABLE malus=0.0 walked=17.48528
+PN vil11 10 pos=81,-60,-69 type=WALKABLE malus=0.0 walked=18.48528
+PN vil11 11 pos=82,-60,-69 type=WALKABLE malus=0.0 walked=19.48528
+PN vil11 12 pos=83,-60,-68 type=WALKABLE malus=0.0 walked=20.899492
+PN vil11 13 pos=84,-60,-67 type=WALKABLE malus=0.0 walked=22.313705
+PN vil11 14 pos=84,-60,-66 type=WALKABLE malus=0.0 walked=23.313705
+PN vil11 15 pos=84,-60,-65 type=WALKABLE malus=0.0 walked=24.313705
+PN vil11 16 pos=84,-60,-64 type=WALKABLE malus=0.0 walked=25.313705
+PN vil11 17 pos=85,-60,-63 type=WALKABLE malus=0.0 walked=26.727919
+# villager trapdoor_open
+PATHQ vil12 101.5,-60.0,-61.5 found=true
+PATH vil12 next=0 count=9 reached=1 target=101,-60,-62 dist=1.0
+PN vil12 0 pos=92,-60,-62 type=WALKABLE malus=0.0 walked=0.0
+PN vil12 1 pos=93,-60,-62 type=WALKABLE malus=0.0 walked=1.0
+PN vil12 2 pos=94,-60,-62 type=WALKABLE malus=0.0 walked=2.0
+PN vil12 3 pos=95,-60,-62 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=3.0
+PN vil12 4 pos=96,-60,-62 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=4.0
+PN vil12 5 pos=97,-60,-62 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=5.0
+PN vil12 6 pos=98,-60,-62 type=WALKABLE malus=0.0 walked=6.0
+PN vil12 7 pos=99,-60,-62 type=WALKABLE malus=0.0 walked=7.0
+PN vil12 8 pos=100,-60,-62 type=WALKABLE malus=0.0 walked=8.0
+# row cow
+# cow door_closed
+PATHQ cow0 -90.5,-60.0,-43.5 found=true
+PATH cow0 next=0 count=4 reached=0 target=-91,-60,-44 dist=6.0
+PN cow0 0 pos=-100,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow0 1 pos=-99,-60,-44 type=WALKABLE malus=0.0 walked=1.0
+PN cow0 2 pos=-98,-60,-44 type=WALKABLE malus=0.0 walked=2.0
+PN cow0 3 pos=-97,-60,-44 type=WALKABLE malus=0.0 walked=3.0
+# cow door_open
+PATHQ cow1 -74.5,-60.0,-43.5 found=true
+PATH cow1 next=0 count=9 reached=1 target=-75,-60,-44 dist=1.0
+PN cow1 0 pos=-84,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow1 1 pos=-83,-60,-44 type=WALKABLE malus=0.0 walked=1.0
+PN cow1 2 pos=-82,-60,-44 type=WALKABLE malus=0.0 walked=2.0
+PN cow1 3 pos=-81,-60,-44 type=WALKABLE malus=0.0 walked=3.0
+PN cow1 4 pos=-80,-60,-44 type=DOOR_OPEN malus=0.0 walked=4.0
+PN cow1 5 pos=-79,-60,-44 type=WALKABLE malus=0.0 walked=5.0
+PN cow1 6 pos=-78,-60,-44 type=WALKABLE malus=0.0 walked=6.0
+PN cow1 7 pos=-77,-60,-44 type=WALKABLE malus=0.0 walked=7.0
+PN cow1 8 pos=-76,-60,-44 type=WALKABLE malus=0.0 walked=8.0
+# cow iron_door
+PATHQ cow2 -58.5,-60.0,-43.5 found=true
+PATH cow2 next=0 count=4 reached=0 target=-59,-60,-44 dist=6.0
+PN cow2 0 pos=-68,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow2 1 pos=-67,-60,-44 type=WALKABLE malus=0.0 walked=1.0
+PN cow2 2 pos=-66,-60,-44 type=WALKABLE malus=0.0 walked=2.0
+PN cow2 3 pos=-65,-60,-44 type=WALKABLE malus=0.0 walked=3.0
+# cow fence_gate
+PATHQ cow3 -42.5,-60.0,-43.5 found=true
+PATH cow3 next=0 count=4 reached=0 target=-43,-60,-44 dist=6.0
+PN cow3 0 pos=-52,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow3 1 pos=-51,-60,-44 type=WALKABLE malus=0.0 walked=1.0
+PN cow3 2 pos=-50,-60,-44 type=WALKABLE malus=0.0 walked=2.0
+PN cow3 3 pos=-49,-60,-44 type=WALKABLE malus=0.0 walked=3.0
+# cow water
+PATHQ cow4 -26.5,-60.0,-43.5 found=true
+PATH cow4 next=0 count=9 reached=1 target=-27,-60,-44 dist=1.0
+PN cow4 0 pos=-36,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow4 1 pos=-35,-60,-44 type=WALKABLE malus=0.0 walked=1.0
+PN cow4 2 pos=-34,-60,-44 type=WATER_BORDER malus=8.0 walked=3.4142137
+PN cow4 3 pos=-33,-61,-44 type=WATER malus=8.0 walked=6.1462646
+PN cow4 4 pos=-32,-61,-44 type=WATER malus=8.0 walked=8.560478
+PN cow4 5 pos=-31,-61,-44 type=WATER malus=8.0 walked=10.974691
+PN cow4 6 pos=-30,-60,-44 type=WATER_BORDER malus=8.0 walked=12.388905
+PN cow4 7 pos=-29,-60,-44 type=WALKABLE malus=0.0 walked=13.388905
+PN cow4 8 pos=-28,-60,-44 type=WALKABLE malus=0.0 walked=14.388905
+# cow lava
+PATHQ cow5 -10.5,-60.0,-43.5 found=true
+PATH cow5 next=0 count=12 reached=0 target=-11,-60,-44 dist=8.0
+PN cow5 0 pos=-20,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow5 1 pos=-19,-60,-43 type=WALKABLE malus=0.0 walked=2.0
+PN cow5 2 pos=-19,-60,-42 type=WALKABLE malus=0.0 walked=4.4142137
+PN cow5 3 pos=-19,-60,-41 type=WALKABLE malus=0.0 walked=6.8284273
+PN cow5 4 pos=-19,-60,-40 type=WALKABLE malus=0.0 walked=9.2426405
+PN cow5 5 pos=-19,-60,-39 type=WALKABLE malus=0.0 walked=11.656854
+PN cow5 6 pos=-18,-60,-38 type=FIRE_IN_NEIGHBOR malus=16.0 walked=9.414213
+PN cow5 7 pos=-17,-60,-37 type=WALKABLE malus=0.0 walked=10.828426
+PN cow5 8 pos=-16,-60,-37 type=WALKABLE malus=0.0 walked=11.828426
+PN cow5 9 pos=-15,-60,-37 type=WALKABLE malus=0.0 walked=12.828426
+PN cow5 10 pos=-14,-60,-37 type=WALKABLE malus=0.0 walked=13.828426
+PN cow5 11 pos=-13,-60,-38 type=WALKABLE malus=0.0 walked=15.24264
+# cow cobweb
+PATHQ cow6 5.5,-60.0,-43.5 found=true
+PATH cow6 next=0 count=9 reached=1 target=5,-60,-44 dist=1.0
+PN cow6 0 pos=-4,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow6 1 pos=-3,-60,-44 type=WALKABLE malus=0.0 walked=1.0
+PN cow6 2 pos=-2,-60,-44 type=WALKABLE malus=0.0 walked=2.0
+PN cow6 3 pos=-1,-60,-44 type=WALKABLE malus=0.0 walked=3.0
+PN cow6 4 pos=0,-60,-44 type=WALKABLE malus=0.0 walked=4.0
+PN cow6 5 pos=1,-60,-44 type=WALKABLE malus=0.0 walked=5.0
+PN cow6 6 pos=2,-60,-44 type=WALKABLE malus=0.0 walked=6.0
+PN cow6 7 pos=3,-60,-44 type=WALKABLE malus=0.0 walked=7.0
+PN cow6 8 pos=4,-60,-44 type=WALKABLE malus=0.0 walked=8.0
+# cow berry
+PATHQ cow7 21.5,-60.0,-43.5 found=true
+PATH cow7 next=0 count=12 reached=0 target=21,-60,-44 dist=8.0
+PN cow7 0 pos=12,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow7 1 pos=13,-60,-45 type=WALKABLE malus=0.0 walked=2.0
+PN cow7 2 pos=13,-60,-46 type=WALKABLE malus=0.0 walked=4.4142137
+PN cow7 3 pos=13,-60,-47 type=WALKABLE malus=0.0 walked=6.8284273
+PN cow7 4 pos=13,-60,-48 type=WALKABLE malus=0.0 walked=9.2426405
+PN cow7 5 pos=13,-60,-49 type=WALKABLE malus=0.0 walked=11.656854
+PN cow7 6 pos=14,-60,-50 type=DAMAGING_IN_NEIGHBOR malus=8.0 walked=9.414213
+PN cow7 7 pos=15,-60,-51 type=WALKABLE malus=0.0 walked=10.828426
+PN cow7 8 pos=16,-60,-51 type=WALKABLE malus=0.0 walked=11.828426
+PN cow7 9 pos=17,-60,-51 type=WALKABLE malus=0.0 walked=12.828426
+PN cow7 10 pos=18,-60,-51 type=WALKABLE malus=0.0 walked=13.828426
+PN cow7 11 pos=19,-60,-50 type=WALKABLE malus=0.0 walked=15.24264
+# cow honey
+PATHQ cow8 37.5,-60.0,-43.5 found=true
+PATH cow8 next=0 count=9 reached=1 target=37,-60,-44 dist=1.0
+PN cow8 0 pos=28,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow8 1 pos=29,-60,-44 type=WALKABLE malus=0.0 walked=1.0
+PN cow8 2 pos=30,-60,-44 type=WALKABLE malus=0.0 walked=2.0
+PN cow8 3 pos=31,-60,-44 type=STICKY_HONEY malus=8.0 walked=4.4142137
+PN cow8 4 pos=32,-60,-44 type=STICKY_HONEY malus=8.0 walked=6.8284273
+PN cow8 5 pos=33,-60,-44 type=STICKY_HONEY malus=8.0 walked=9.2426405
+PN cow8 6 pos=34,-60,-44 type=WALKABLE malus=0.0 walked=10.2426405
+PN cow8 7 pos=35,-60,-44 type=WALKABLE malus=0.0 walked=11.2426405
+PN cow8 8 pos=36,-60,-44 type=WALKABLE malus=0.0 walked=12.2426405
+# cow powder_snow
+PATHQ cow9 53.5,-60.0,-43.5 found=true
+PATH cow9 next=0 count=9 reached=1 target=53,-60,-44 dist=1.0
+PN cow9 0 pos=44,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow9 1 pos=45,-60,-44 type=WALKABLE malus=0.0 walked=1.0
+PN cow9 2 pos=46,-60,-44 type=WALKABLE malus=0.0 walked=2.0
+PN cow9 3 pos=47,-60,-44 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=3.0
+PN cow9 4 pos=48,-60,-44 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=4.0
+PN cow9 5 pos=49,-60,-44 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=5.0
+PN cow9 6 pos=50,-60,-44 type=WALKABLE malus=0.0 walked=6.0
+PN cow9 7 pos=51,-60,-44 type=WALKABLE malus=0.0 walked=7.0
+PN cow9 8 pos=52,-60,-44 type=WALKABLE malus=0.0 walked=8.0
+# cow cactus
+PATHQ cow10 69.5,-60.0,-43.5 found=true
+PATH cow10 next=0 count=9 reached=1 target=69,-60,-44 dist=1.0
+PN cow10 0 pos=60,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow10 1 pos=61,-60,-44 type=WALKABLE malus=0.0 walked=1.0
+PN cow10 2 pos=62,-60,-44 type=WALKABLE malus=0.0 walked=2.0
+PN cow10 3 pos=63,-60,-44 type=WALKABLE malus=0.0 walked=3.0
+PN cow10 4 pos=64,-60,-44 type=WALKABLE malus=0.0 walked=4.0
+PN cow10 5 pos=65,-60,-44 type=WALKABLE malus=0.0 walked=5.0
+PN cow10 6 pos=66,-60,-44 type=WALKABLE malus=0.0 walked=6.0
+PN cow10 7 pos=67,-60,-44 type=WALKABLE malus=0.0 walked=7.0
+PN cow10 8 pos=68,-60,-44 type=WALKABLE malus=0.0 walked=8.0
+# cow magma
+PATHQ cow11 85.5,-60.0,-43.5 found=true
+PATH cow11 next=0 count=12 reached=0 target=85,-60,-44 dist=8.0
+PN cow11 0 pos=76,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow11 1 pos=77,-60,-43 type=WALKABLE malus=0.0 walked=2.0
+PN cow11 2 pos=77,-60,-42 type=WALKABLE malus=0.0 walked=4.4142137
+PN cow11 3 pos=77,-60,-41 type=WALKABLE malus=0.0 walked=6.8284273
+PN cow11 4 pos=77,-60,-40 type=WALKABLE malus=0.0 walked=9.2426405
+PN cow11 5 pos=77,-60,-39 type=WALKABLE malus=0.0 walked=11.656854
+PN cow11 6 pos=78,-60,-38 type=FIRE_IN_NEIGHBOR malus=16.0 walked=9.414213
+PN cow11 7 pos=79,-60,-37 type=WALKABLE malus=0.0 walked=10.828426
+PN cow11 8 pos=80,-60,-37 type=WALKABLE malus=0.0 walked=11.828426
+PN cow11 9 pos=81,-60,-37 type=WALKABLE malus=0.0 walked=12.828426
+PN cow11 10 pos=82,-60,-37 type=WALKABLE malus=0.0 walked=13.828426
+PN cow11 11 pos=83,-60,-38 type=WALKABLE malus=0.0 walked=15.24264
+# cow trapdoor_open
+PATHQ cow12 101.5,-60.0,-43.5 found=true
+PATH cow12 next=0 count=9 reached=1 target=101,-60,-44 dist=1.0
+PN cow12 0 pos=92,-60,-44 type=WALKABLE malus=0.0 walked=0.0
+PN cow12 1 pos=93,-60,-44 type=WALKABLE malus=0.0 walked=1.0
+PN cow12 2 pos=94,-60,-44 type=WALKABLE malus=0.0 walked=2.0
+PN cow12 3 pos=95,-60,-44 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=3.0
+PN cow12 4 pos=96,-60,-44 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=4.0
+PN cow12 5 pos=97,-60,-44 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=5.0
+PN cow12 6 pos=98,-60,-44 type=WALKABLE malus=0.0 walked=6.0
+PN cow12 7 pos=99,-60,-44 type=WALKABLE malus=0.0 walked=7.0
+PN cow12 8 pos=100,-60,-44 type=WALKABLE malus=0.0 walked=8.0
+# row spider
+# spider door_closed
+PATHQ spi0 -90.5,-60.0,-25.5 found=true
+PATH spi0 next=0 count=3 reached=0 target=-91,-60,-26 dist=7.0
+PN spi0 0 pos=-100,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi0 1 pos=-99,-60,-26 type=WALKABLE malus=0.0 walked=1.0
+PN spi0 2 pos=-98,-60,-26 type=WALKABLE malus=0.0 walked=2.0
+# spider door_open
+PATHQ spi1 -74.5,-60.0,-25.5 found=true
+PATH spi1 next=0 count=3 reached=0 target=-75,-60,-26 dist=7.0
+PN spi1 0 pos=-84,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi1 1 pos=-83,-60,-26 type=WALKABLE malus=0.0 walked=1.0
+PN spi1 2 pos=-82,-60,-26 type=WALKABLE malus=0.0 walked=2.0
+# spider iron_door
+PATHQ spi2 -58.5,-60.0,-25.5 found=true
+PATH spi2 next=0 count=3 reached=0 target=-59,-60,-26 dist=7.0
+PN spi2 0 pos=-68,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi2 1 pos=-67,-60,-26 type=WALKABLE malus=0.0 walked=1.0
+PN spi2 2 pos=-66,-60,-26 type=WALKABLE malus=0.0 walked=2.0
+# spider fence_gate
+PATHQ spi3 -42.5,-60.0,-25.5 found=true
+PATH spi3 next=0 count=3 reached=0 target=-43,-60,-26 dist=7.0
+PN spi3 0 pos=-52,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi3 1 pos=-51,-60,-26 type=WALKABLE malus=0.0 walked=1.0
+PN spi3 2 pos=-50,-60,-26 type=WALKABLE malus=0.0 walked=2.0
+# spider water
+PATHQ spi4 -26.5,-60.0,-25.5 found=true
+PATH spi4 next=0 count=9 reached=1 target=-27,-60,-26 dist=1.0
+PN spi4 0 pos=-36,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi4 1 pos=-35,-60,-26 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=1.0
+PN spi4 2 pos=-34,-60,-26 type=WATER_BORDER malus=8.0 walked=2.0
+PN spi4 3 pos=-33,-61,-26 type=WATER malus=8.0 walked=3.4142137
+PN spi4 4 pos=-32,-61,-26 type=WATER malus=8.0 walked=4.4142137
+PN spi4 5 pos=-31,-60,-26 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=5.8284273
+PN spi4 6 pos=-30,-60,-26 type=WATER_BORDER malus=8.0 walked=6.8284273
+PN spi4 7 pos=-29,-60,-26 type=WALKABLE malus=0.0 walked=7.8284273
+PN spi4 8 pos=-28,-60,-26 type=WALKABLE malus=0.0 walked=8.828427
+# spider lava
+PATHQ spi5 -10.5,-60.0,-25.5 found=true
+PATH spi5 next=0 count=3 reached=0 target=-11,-60,-26 dist=7.0
+PN spi5 0 pos=-20,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi5 1 pos=-19,-60,-26 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=1.0
+PN spi5 2 pos=-18,-60,-26 type=FIRE_IN_NEIGHBOR malus=8.0 walked=2.0
+# spider cobweb
+PATHQ spi6 5.5,-60.0,-25.5 found=true
+PATH spi6 next=0 count=9 reached=1 target=5,-60,-26 dist=1.0
+PN spi6 0 pos=-4,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi6 1 pos=-3,-60,-26 type=WALKABLE malus=0.0 walked=1.0
+PN spi6 2 pos=-2,-60,-26 type=WALKABLE malus=0.0 walked=2.0
+PN spi6 3 pos=-1,-60,-26 type=WALKABLE malus=0.0 walked=3.0
+PN spi6 4 pos=0,-60,-26 type=WALKABLE malus=0.0 walked=4.0
+PN spi6 5 pos=1,-60,-26 type=WALKABLE malus=0.0 walked=5.0
+PN spi6 6 pos=2,-60,-26 type=WALKABLE malus=0.0 walked=6.0
+PN spi6 7 pos=3,-60,-26 type=WALKABLE malus=0.0 walked=7.0
+PN spi6 8 pos=4,-60,-26 type=WALKABLE malus=0.0 walked=8.0
+# spider berry
+PATHQ spi7 21.5,-60.0,-25.5 found=true
+PATH spi7 next=0 count=2 reached=0 target=21,-60,-26 dist=8.0
+PN spi7 0 pos=12,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi7 1 pos=13,-60,-26 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=1.0
+# spider honey
+PATHQ spi8 37.5,-60.0,-25.5 found=true
+PATH spi8 next=0 count=9 reached=1 target=37,-60,-26 dist=1.0
+PN spi8 0 pos=28,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi8 1 pos=29,-60,-26 type=WALKABLE malus=0.0 walked=1.0
+PN spi8 2 pos=30,-60,-26 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=2.0
+PN spi8 3 pos=31,-60,-26 type=STICKY_HONEY malus=8.0 walked=3.0
+PN spi8 4 pos=32,-60,-26 type=STICKY_HONEY malus=8.0 walked=4.0
+PN spi8 5 pos=33,-60,-26 type=STICKY_HONEY malus=8.0 walked=5.0
+PN spi8 6 pos=34,-60,-26 type=WALKABLE malus=0.0 walked=6.0
+PN spi8 7 pos=35,-60,-26 type=WALKABLE malus=0.0 walked=7.0
+PN spi8 8 pos=36,-60,-26 type=WALKABLE malus=0.0 walked=8.0
+# spider powder_snow
+PATHQ spi9 53.5,-60.0,-25.5 found=true
+PATH spi9 next=0 count=9 reached=1 target=53,-60,-26 dist=1.0
+PN spi9 0 pos=44,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi9 1 pos=45,-60,-26 type=WALKABLE malus=0.0 walked=1.0
+PN spi9 2 pos=46,-60,-26 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=2.0
+PN spi9 3 pos=47,-60,-26 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=3.0
+PN spi9 4 pos=48,-60,-26 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=4.0
+PN spi9 5 pos=49,-60,-26 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=5.0
+PN spi9 6 pos=50,-60,-26 type=WALKABLE malus=0.0 walked=6.0
+PN spi9 7 pos=51,-60,-26 type=WALKABLE malus=0.0 walked=7.0
+PN spi9 8 pos=52,-60,-26 type=WALKABLE malus=0.0 walked=8.0
+# spider cactus
+PATHQ spi10 69.5,-60.0,-25.5 found=true
+PATH spi10 next=0 count=9 reached=1 target=69,-60,-26 dist=1.0
+PN spi10 0 pos=60,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi10 1 pos=61,-60,-26 type=WALKABLE malus=0.0 walked=1.0
+PN spi10 2 pos=62,-60,-26 type=WALKABLE malus=0.0 walked=2.0
+PN spi10 3 pos=63,-60,-26 type=WALKABLE malus=0.0 walked=3.0
+PN spi10 4 pos=64,-60,-26 type=WALKABLE malus=0.0 walked=4.0
+PN spi10 5 pos=65,-60,-26 type=WALKABLE malus=0.0 walked=5.0
+PN spi10 6 pos=66,-60,-26 type=WALKABLE malus=0.0 walked=6.0
+PN spi10 7 pos=67,-60,-26 type=WALKABLE malus=0.0 walked=7.0
+PN spi10 8 pos=68,-60,-26 type=WALKABLE malus=0.0 walked=8.0
+# spider magma
+PATHQ spi11 85.5,-60.0,-25.5 found=true
+PATH spi11 next=0 count=9 reached=1 target=85,-60,-26 dist=1.0
+PN spi11 0 pos=76,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi11 1 pos=77,-60,-26 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=1.0
+PN spi11 2 pos=78,-60,-26 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=2.0
+PN spi11 3 pos=79,-60,-26 type=FIRE malus=16.0 walked=3.0
+PN spi11 4 pos=80,-60,-26 type=FIRE malus=16.0 walked=4.0
+PN spi11 5 pos=81,-60,-26 type=FIRE malus=16.0 walked=5.0
+PN spi11 6 pos=82,-60,-26 type=FIRE_IN_NEIGHBOR malus=8.0 walked=6.0
+PN spi11 7 pos=83,-60,-26 type=WALKABLE malus=0.0 walked=7.0
+PN spi11 8 pos=84,-60,-26 type=WALKABLE malus=0.0 walked=8.0
+# spider trapdoor_open
+PATHQ spi12 101.5,-60.0,-25.5 found=true
+PATH spi12 next=0 count=9 reached=1 target=101,-60,-26 dist=1.0
+PN spi12 0 pos=92,-60,-26 type=WALKABLE malus=0.0 walked=0.0
+PN spi12 1 pos=93,-60,-26 type=WALKABLE malus=0.0 walked=1.0
+PN spi12 2 pos=94,-60,-26 type=TRAPDOOR malus=0.0 walked=2.0
+PN spi12 3 pos=95,-60,-26 type=TRAPDOOR malus=0.0 walked=3.0
+PN spi12 4 pos=96,-60,-26 type=TRAPDOOR malus=0.0 walked=4.0
+PN spi12 5 pos=97,-60,-26 type=TRAPDOOR malus=0.0 walked=5.0
+PN spi12 6 pos=98,-60,-26 type=WALKABLE malus=0.0 walked=6.0
+PN spi12 7 pos=99,-60,-26 type=WALKABLE malus=0.0 walked=7.0
+PN spi12 8 pos=100,-60,-26 type=WALKABLE malus=0.0 walked=8.0
+# row skeleton
+# skeleton door_closed
+PATHQ ske0 -90.5,-60.0,-7.5 found=true
+PATH ske0 next=0 count=4 reached=0 target=-91,-60,-8 dist=6.0
+PN ske0 0 pos=-100,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske0 1 pos=-99,-60,-8 type=WALKABLE malus=0.0 walked=1.0
+PN ske0 2 pos=-98,-60,-8 type=WALKABLE malus=0.0 walked=2.0
+PN ske0 3 pos=-97,-60,-8 type=WALKABLE malus=0.0 walked=3.0
+# skeleton door_open
+PATHQ ske1 -74.5,-60.0,-7.5 found=true
+PATH ske1 next=0 count=9 reached=1 target=-75,-60,-8 dist=1.0
+PN ske1 0 pos=-84,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske1 1 pos=-83,-60,-8 type=WALKABLE malus=0.0 walked=1.0
+PN ske1 2 pos=-82,-60,-8 type=WALKABLE malus=0.0 walked=2.0
+PN ske1 3 pos=-81,-60,-8 type=WALKABLE malus=0.0 walked=3.0
+PN ske1 4 pos=-80,-60,-8 type=DOOR_OPEN malus=0.0 walked=4.0
+PN ske1 5 pos=-79,-60,-8 type=WALKABLE malus=0.0 walked=5.0
+PN ske1 6 pos=-78,-60,-8 type=WALKABLE malus=0.0 walked=6.0
+PN ske1 7 pos=-77,-60,-8 type=WALKABLE malus=0.0 walked=7.0
+PN ske1 8 pos=-76,-60,-8 type=WALKABLE malus=0.0 walked=8.0
+# skeleton iron_door
+PATHQ ske2 -58.5,-60.0,-7.5 found=true
+PATH ske2 next=0 count=4 reached=0 target=-59,-60,-8 dist=6.0
+PN ske2 0 pos=-68,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske2 1 pos=-67,-60,-8 type=WALKABLE malus=0.0 walked=1.0
+PN ske2 2 pos=-66,-60,-8 type=WALKABLE malus=0.0 walked=2.0
+PN ske2 3 pos=-65,-60,-8 type=WALKABLE malus=0.0 walked=3.0
+# skeleton fence_gate
+PATHQ ske3 -42.5,-60.0,-7.5 found=true
+PATH ske3 next=0 count=4 reached=0 target=-43,-60,-8 dist=6.0
+PN ske3 0 pos=-52,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske3 1 pos=-51,-60,-8 type=WALKABLE malus=0.0 walked=1.0
+PN ske3 2 pos=-50,-60,-8 type=WALKABLE malus=0.0 walked=2.0
+PN ske3 3 pos=-49,-60,-8 type=WALKABLE malus=0.0 walked=3.0
+# skeleton water
+PATHQ ske4 -26.5,-60.0,-7.5 found=true
+PATH ske4 next=0 count=9 reached=1 target=-27,-60,-8 dist=1.0
+PN ske4 0 pos=-36,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske4 1 pos=-35,-60,-8 type=WALKABLE malus=0.0 walked=1.0
+PN ske4 2 pos=-34,-60,-8 type=WATER_BORDER malus=8.0 walked=3.4142137
+PN ske4 3 pos=-33,-61,-8 type=WATER malus=8.0 walked=6.1462646
+PN ske4 4 pos=-32,-61,-8 type=WATER malus=8.0 walked=8.560478
+PN ske4 5 pos=-31,-61,-8 type=WATER malus=8.0 walked=10.974691
+PN ske4 6 pos=-30,-60,-8 type=WATER_BORDER malus=8.0 walked=12.388905
+PN ske4 7 pos=-29,-60,-8 type=WALKABLE malus=0.0 walked=13.388905
+PN ske4 8 pos=-28,-60,-8 type=WALKABLE malus=0.0 walked=14.388905
+# skeleton lava
+PATHQ ske5 -10.5,-60.0,-7.5 found=true
+PATH ske5 next=0 count=12 reached=0 target=-11,-60,-8 dist=8.0
+PN ske5 0 pos=-20,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske5 1 pos=-19,-60,-9 type=WALKABLE malus=0.0 walked=2.0
+PN ske5 2 pos=-19,-60,-10 type=WALKABLE malus=0.0 walked=4.4142137
+PN ske5 3 pos=-19,-60,-11 type=WALKABLE malus=0.0 walked=6.8284273
+PN ske5 4 pos=-19,-60,-12 type=WALKABLE malus=0.0 walked=9.2426405
+PN ske5 5 pos=-19,-60,-13 type=WALKABLE malus=0.0 walked=11.656854
+PN ske5 6 pos=-18,-60,-14 type=FIRE_IN_NEIGHBOR malus=8.0 walked=9.414213
+PN ske5 7 pos=-17,-60,-15 type=WALKABLE malus=0.0 walked=10.828426
+PN ske5 8 pos=-16,-60,-15 type=WALKABLE malus=0.0 walked=11.828426
+PN ske5 9 pos=-15,-60,-15 type=WALKABLE malus=0.0 walked=12.828426
+PN ske5 10 pos=-14,-60,-15 type=WALKABLE malus=0.0 walked=13.828426
+PN ske5 11 pos=-13,-60,-14 type=WALKABLE malus=0.0 walked=15.24264
+# skeleton cobweb
+PATHQ ske6 5.5,-60.0,-7.5 found=true
+PATH ske6 next=0 count=9 reached=1 target=5,-60,-8 dist=1.0
+PN ske6 0 pos=-4,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske6 1 pos=-3,-60,-8 type=WALKABLE malus=0.0 walked=1.0
+PN ske6 2 pos=-2,-60,-8 type=WALKABLE malus=0.0 walked=2.0
+PN ske6 3 pos=-1,-60,-8 type=WALKABLE malus=0.0 walked=3.0
+PN ske6 4 pos=0,-60,-8 type=WALKABLE malus=0.0 walked=4.0
+PN ske6 5 pos=1,-60,-8 type=WALKABLE malus=0.0 walked=5.0
+PN ske6 6 pos=2,-60,-8 type=WALKABLE malus=0.0 walked=6.0
+PN ske6 7 pos=3,-60,-8 type=WALKABLE malus=0.0 walked=7.0
+PN ske6 8 pos=4,-60,-8 type=WALKABLE malus=0.0 walked=8.0
+# skeleton berry
+PATHQ ske7 21.5,-60.0,-7.5 found=true
+PATH ske7 next=0 count=12 reached=0 target=21,-60,-8 dist=8.0
+PN ske7 0 pos=12,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske7 1 pos=13,-60,-9 type=WALKABLE malus=0.0 walked=2.0
+PN ske7 2 pos=13,-60,-10 type=WALKABLE malus=0.0 walked=4.4142137
+PN ske7 3 pos=13,-60,-11 type=WALKABLE malus=0.0 walked=6.8284273
+PN ske7 4 pos=13,-60,-12 type=WALKABLE malus=0.0 walked=9.2426405
+PN ske7 5 pos=13,-60,-13 type=WALKABLE malus=0.0 walked=11.656854
+PN ske7 6 pos=14,-60,-14 type=DAMAGING_IN_NEIGHBOR malus=8.0 walked=9.414213
+PN ske7 7 pos=15,-60,-15 type=WALKABLE malus=0.0 walked=10.828426
+PN ske7 8 pos=16,-60,-15 type=WALKABLE malus=0.0 walked=11.828426
+PN ske7 9 pos=17,-60,-15 type=WALKABLE malus=0.0 walked=12.828426
+PN ske7 10 pos=18,-60,-15 type=WALKABLE malus=0.0 walked=13.828426
+PN ske7 11 pos=19,-60,-14 type=WALKABLE malus=0.0 walked=15.24264
+# skeleton honey
+PATHQ ske8 37.5,-60.0,-7.5 found=true
+PATH ske8 next=0 count=9 reached=1 target=37,-60,-8 dist=1.0
+PN ske8 0 pos=28,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske8 1 pos=29,-60,-8 type=WALKABLE malus=0.0 walked=1.0
+PN ske8 2 pos=30,-60,-8 type=WALKABLE malus=0.0 walked=2.0
+PN ske8 3 pos=31,-60,-8 type=STICKY_HONEY malus=8.0 walked=4.4142137
+PN ske8 4 pos=32,-60,-8 type=STICKY_HONEY malus=8.0 walked=6.8284273
+PN ske8 5 pos=33,-60,-8 type=STICKY_HONEY malus=8.0 walked=9.2426405
+PN ske8 6 pos=34,-60,-8 type=WALKABLE malus=0.0 walked=10.2426405
+PN ske8 7 pos=35,-60,-8 type=WALKABLE malus=0.0 walked=11.2426405
+PN ske8 8 pos=36,-60,-8 type=WALKABLE malus=0.0 walked=12.2426405
+# skeleton powder_snow
+PATHQ ske9 53.5,-60.0,-7.5 found=true
+PATH ske9 next=0 count=9 reached=1 target=53,-60,-8 dist=1.0
+PN ske9 0 pos=44,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske9 1 pos=45,-60,-8 type=WALKABLE malus=0.0 walked=1.0
+PN ske9 2 pos=46,-60,-8 type=WALKABLE malus=0.0 walked=2.0
+PN ske9 3 pos=47,-60,-8 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=3.0
+PN ske9 4 pos=48,-60,-8 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=4.0
+PN ske9 5 pos=49,-60,-8 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=5.0
+PN ske9 6 pos=50,-60,-8 type=WALKABLE malus=0.0 walked=6.0
+PN ske9 7 pos=51,-60,-8 type=WALKABLE malus=0.0 walked=7.0
+PN ske9 8 pos=52,-60,-8 type=WALKABLE malus=0.0 walked=8.0
+# skeleton cactus
+PATHQ ske10 69.5,-60.0,-7.5 found=true
+PATH ske10 next=0 count=9 reached=1 target=69,-60,-8 dist=1.0
+PN ske10 0 pos=60,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske10 1 pos=61,-60,-8 type=WALKABLE malus=0.0 walked=1.0
+PN ske10 2 pos=62,-60,-8 type=WALKABLE malus=0.0 walked=2.0
+PN ske10 3 pos=63,-60,-8 type=WALKABLE malus=0.0 walked=3.0
+PN ske10 4 pos=64,-60,-8 type=WALKABLE malus=0.0 walked=4.0
+PN ske10 5 pos=65,-60,-8 type=WALKABLE malus=0.0 walked=5.0
+PN ske10 6 pos=66,-60,-8 type=WALKABLE malus=0.0 walked=6.0
+PN ske10 7 pos=67,-60,-8 type=WALKABLE malus=0.0 walked=7.0
+PN ske10 8 pos=68,-60,-8 type=WALKABLE malus=0.0 walked=8.0
+# skeleton magma
+PATHQ ske11 85.5,-60.0,-7.5 found=true
+PATH ske11 next=0 count=9 reached=1 target=85,-60,-8 dist=1.0
+PN ske11 0 pos=76,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske11 1 pos=77,-60,-8 type=WALKABLE malus=0.0 walked=1.0
+PN ske11 2 pos=78,-60,-8 type=FIRE_IN_NEIGHBOR malus=8.0 walked=3.4142137
+PN ske11 3 pos=79,-60,-8 type=FIRE malus=16.0 walked=5.8284273
+PN ske11 4 pos=80,-60,-8 type=FIRE malus=16.0 walked=8.2426405
+PN ske11 5 pos=81,-60,-8 type=FIRE malus=16.0 walked=10.656854
+PN ske11 6 pos=82,-60,-8 type=FIRE_IN_NEIGHBOR malus=8.0 walked=13.071067
+PN ske11 7 pos=83,-60,-8 type=WALKABLE malus=0.0 walked=14.071067
+PN ske11 8 pos=84,-60,-8 type=WALKABLE malus=0.0 walked=15.071067
+# skeleton trapdoor_open
+PATHQ ske12 101.5,-60.0,-7.5 found=true
+PATH ske12 next=0 count=9 reached=1 target=101,-60,-8 dist=1.0
+PN ske12 0 pos=92,-60,-8 type=WALKABLE malus=0.0 walked=0.0
+PN ske12 1 pos=93,-60,-8 type=WALKABLE malus=0.0 walked=1.0
+PN ske12 2 pos=94,-60,-8 type=WALKABLE malus=0.0 walked=2.0
+PN ske12 3 pos=95,-60,-8 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=3.0
+PN ske12 4 pos=96,-60,-8 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=4.0
+PN ske12 5 pos=97,-60,-8 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=5.0
+PN ske12 6 pos=98,-60,-8 type=WALKABLE malus=0.0 walked=6.0
+PN ske12 7 pos=99,-60,-8 type=WALKABLE malus=0.0 walked=7.0
+PN ske12 8 pos=100,-60,-8 type=WALKABLE malus=0.0 walked=8.0
+# row iron_golem
+# iron_golem door_closed
+PATHQ iro0 -90.5,-60.0,10.5 found=true
+PATH iro0 next=0 count=3 reached=0 target=-91,-60,10 dist=7.0
+PN iro0 0 pos=-100,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro0 1 pos=-99,-60,10 type=WALKABLE malus=0.0 walked=1.0
+PN iro0 2 pos=-98,-60,10 type=WALKABLE malus=0.0 walked=2.0
+# iron_golem door_open
+PATHQ iro1 -74.5,-60.0,10.5 found=true
+PATH iro1 next=0 count=3 reached=0 target=-75,-60,10 dist=7.0
+PN iro1 0 pos=-84,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro1 1 pos=-83,-60,10 type=WALKABLE malus=0.0 walked=1.0
+PN iro1 2 pos=-82,-60,10 type=WALKABLE malus=0.0 walked=2.0
+# iron_golem iron_door
+PATHQ iro2 -58.5,-60.0,10.5 found=true
+PATH iro2 next=0 count=3 reached=0 target=-59,-60,10 dist=7.0
+PN iro2 0 pos=-68,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro2 1 pos=-67,-60,10 type=WALKABLE malus=0.0 walked=1.0
+PN iro2 2 pos=-66,-60,10 type=WALKABLE malus=0.0 walked=2.0
+# iron_golem fence_gate
+PATHQ iro3 -42.5,-60.0,10.5 found=true
+PATH iro3 next=0 count=3 reached=0 target=-43,-60,10 dist=7.0
+PN iro3 0 pos=-52,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro3 1 pos=-51,-60,10 type=WALKABLE malus=0.0 walked=1.0
+PN iro3 2 pos=-50,-60,10 type=WALKABLE malus=0.0 walked=2.0
+# iron_golem water
+PATHQ iro4 -26.5,-60.0,10.5 found=true
+PATH iro4 next=0 count=9 reached=1 target=-27,-60,10 dist=1.0
+PN iro4 0 pos=-36,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro4 1 pos=-35,-60,10 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=1.0
+PN iro4 2 pos=-34,-60,10 type=WATER_BORDER malus=8.0 walked=2.0
+PN iro4 3 pos=-33,-61,10 type=WATER malus=8.0 walked=3.4142137
+PN iro4 4 pos=-32,-61,10 type=WATER malus=8.0 walked=4.4142137
+PN iro4 5 pos=-31,-60,10 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=5.8284273
+PN iro4 6 pos=-30,-60,10 type=WATER_BORDER malus=8.0 walked=6.8284273
+PN iro4 7 pos=-29,-60,10 type=WALKABLE malus=0.0 walked=7.8284273
+PN iro4 8 pos=-28,-60,10 type=WALKABLE malus=0.0 walked=8.828427
+# iron_golem lava
+PATHQ iro5 -10.5,-60.0,10.5 found=true
+PATH iro5 next=0 count=3 reached=0 target=-11,-60,10 dist=7.0
+PN iro5 0 pos=-20,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro5 1 pos=-19,-60,10 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=1.0
+PN iro5 2 pos=-18,-60,10 type=FIRE_IN_NEIGHBOR malus=8.0 walked=2.0
+# iron_golem cobweb
+PATHQ iro6 5.5,-60.0,10.5 found=true
+PATH iro6 next=0 count=9 reached=1 target=5,-60,10 dist=1.0
+PN iro6 0 pos=-4,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro6 1 pos=-3,-60,10 type=WALKABLE malus=0.0 walked=1.0
+PN iro6 2 pos=-2,-60,10 type=WALKABLE malus=0.0 walked=2.0
+PN iro6 3 pos=-1,-60,10 type=WALKABLE malus=0.0 walked=3.0
+PN iro6 4 pos=0,-60,10 type=WALKABLE malus=0.0 walked=4.0
+PN iro6 5 pos=1,-60,10 type=WALKABLE malus=0.0 walked=5.0
+PN iro6 6 pos=2,-60,10 type=WALKABLE malus=0.0 walked=6.0
+PN iro6 7 pos=3,-60,10 type=WALKABLE malus=0.0 walked=7.0
+PN iro6 8 pos=4,-60,10 type=WALKABLE malus=0.0 walked=8.0
+# iron_golem berry
+PATHQ iro7 21.5,-60.0,10.5 found=true
+PATH iro7 next=0 count=2 reached=0 target=21,-60,10 dist=8.0
+PN iro7 0 pos=12,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro7 1 pos=13,-60,10 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=1.0
+# iron_golem honey
+PATHQ iro8 37.5,-60.0,10.5 found=true
+PATH iro8 next=0 count=9 reached=1 target=37,-60,10 dist=1.0
+PN iro8 0 pos=28,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro8 1 pos=29,-60,10 type=WALKABLE malus=0.0 walked=1.0
+PN iro8 2 pos=30,-60,10 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=2.0
+PN iro8 3 pos=31,-60,10 type=STICKY_HONEY malus=8.0 walked=3.0
+PN iro8 4 pos=32,-60,10 type=STICKY_HONEY malus=8.0 walked=4.0
+PN iro8 5 pos=33,-60,10 type=STICKY_HONEY malus=8.0 walked=5.0
+PN iro8 6 pos=34,-60,10 type=WALKABLE malus=0.0 walked=6.0
+PN iro8 7 pos=35,-60,10 type=WALKABLE malus=0.0 walked=7.0
+PN iro8 8 pos=36,-60,10 type=WALKABLE malus=0.0 walked=8.0
+# iron_golem powder_snow
+PATHQ iro9 53.5,-60.0,10.5 found=true
+PATH iro9 next=0 count=9 reached=1 target=53,-60,10 dist=1.0
+PN iro9 0 pos=44,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro9 1 pos=45,-60,10 type=WALKABLE malus=0.0 walked=1.0
+PN iro9 2 pos=46,-60,10 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=2.0
+PN iro9 3 pos=47,-60,10 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=3.0
+PN iro9 4 pos=48,-60,10 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=4.0
+PN iro9 5 pos=49,-60,10 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=5.0
+PN iro9 6 pos=50,-60,10 type=WALKABLE malus=0.0 walked=6.0
+PN iro9 7 pos=51,-60,10 type=WALKABLE malus=0.0 walked=7.0
+PN iro9 8 pos=52,-60,10 type=WALKABLE malus=0.0 walked=8.0
+# iron_golem cactus
+PATHQ iro10 69.5,-60.0,10.5 found=true
+PATH iro10 next=0 count=9 reached=1 target=69,-60,10 dist=1.0
+PN iro10 0 pos=60,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro10 1 pos=61,-60,10 type=WALKABLE malus=0.0 walked=1.0
+PN iro10 2 pos=62,-60,10 type=WALKABLE malus=0.0 walked=2.0
+PN iro10 3 pos=63,-60,10 type=WALKABLE malus=0.0 walked=3.0
+PN iro10 4 pos=64,-60,10 type=WALKABLE malus=0.0 walked=4.0
+PN iro10 5 pos=65,-60,10 type=WALKABLE malus=0.0 walked=5.0
+PN iro10 6 pos=66,-60,10 type=WALKABLE malus=0.0 walked=6.0
+PN iro10 7 pos=67,-60,10 type=WALKABLE malus=0.0 walked=7.0
+PN iro10 8 pos=68,-60,10 type=WALKABLE malus=0.0 walked=8.0
+# iron_golem magma
+PATHQ iro11 85.5,-60.0,10.5 found=true
+PATH iro11 next=0 count=9 reached=1 target=85,-60,10 dist=1.0
+PN iro11 0 pos=76,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro11 1 pos=77,-60,10 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=1.0
+PN iro11 2 pos=78,-60,10 type=BIG_MOBS_CLOSE_TO_DANGER malus=4.0 walked=2.0
+PN iro11 3 pos=79,-60,10 type=FIRE malus=16.0 walked=3.0
+PN iro11 4 pos=80,-60,10 type=FIRE malus=16.0 walked=4.0
+PN iro11 5 pos=81,-60,10 type=FIRE malus=16.0 walked=5.0
+PN iro11 6 pos=82,-60,10 type=FIRE_IN_NEIGHBOR malus=8.0 walked=6.0
+PN iro11 7 pos=83,-60,10 type=WALKABLE malus=0.0 walked=7.0
+PN iro11 8 pos=84,-60,10 type=WALKABLE malus=0.0 walked=8.0
+# iron_golem trapdoor_open
+PATHQ iro12 101.5,-60.0,10.5 found=true
+PATH iro12 next=0 count=9 reached=1 target=101,-60,10 dist=1.0
+PN iro12 0 pos=92,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN iro12 1 pos=93,-60,10 type=WALKABLE malus=0.0 walked=1.0
+PN iro12 2 pos=94,-60,10 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=2.0
+PN iro12 3 pos=95,-60,10 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=3.0
+PN iro12 4 pos=96,-60,10 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=4.0
+PN iro12 5 pos=97,-60,10 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=5.0
+PN iro12 6 pos=98,-60,10 type=WALKABLE malus=0.0 walked=6.0
+PN iro12 7 pos=99,-60,10 type=WALKABLE malus=0.0 walked=7.0
+PN iro12 8 pos=100,-60,10 type=WALKABLE malus=0.0 walked=8.0
+# row drowned
+# drowned door_closed
+PATHQ dro0 -90.5,-60.0,28.5 found=true
+PATH dro0 next=0 count=14 reached=1 target=-91,-60,28 dist=1.0
+PN dro0 0 pos=-100,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro0 1 pos=-99,-60,29 type=WALKABLE malus=6.0 walked=2.0
+PN dro0 2 pos=-98,-60,30 type=WALKABLE malus=6.0 walked=5.4142137
+PN dro0 3 pos=-98,-60,31 type=WALKABLE malus=6.0 walked=9.828427
+PN dro0 4 pos=-97,-60,32 type=WALKABLE malus=6.0 walked=11.2426405
+PN dro0 5 pos=-97,-60,33 type=WALKABLE malus=6.0 walked=13.656854
+PN dro0 6 pos=-97,-60,34 type=WALKABLE malus=6.0 walked=16.071068
+PN dro0 7 pos=-96,-60,34 type=WALKABLE malus=6.0 walked=17.071068
+PN dro0 8 pos=-95,-60,34 type=WALKABLE malus=6.0 walked=19.485281
+PN dro0 9 pos=-94,-60,33 type=WALKABLE malus=6.0 walked=20.899494
+PN dro0 10 pos=-93,-60,32 type=WALKABLE malus=6.0 walked=22.313707
+PN dro0 11 pos=-92,-60,31 type=WALKABLE malus=6.0 walked=23.72792
+PN dro0 12 pos=-92,-60,30 type=WALKABLE malus=6.0 walked=26.142134
+PN dro0 13 pos=-91,-60,29 type=WALKABLE malus=6.0 walked=28.142134
+# drowned door_open
+PATHQ dro1 -74.5,-60.0,28.5 found=true
+PATH dro1 next=0 count=9 reached=1 target=-75,-60,28 dist=1.0
+PN dro1 0 pos=-84,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro1 1 pos=-83,-60,28 type=WALKABLE malus=6.0 walked=1.0
+PN dro1 2 pos=-82,-60,28 type=WALKABLE malus=6.0 walked=3.4142137
+PN dro1 3 pos=-81,-60,28 type=WALKABLE malus=6.0 walked=5.8284273
+PN dro1 4 pos=-80,-60,28 type=DOOR_OPEN malus=0.0 walked=6.8284273
+PN dro1 5 pos=-79,-60,28 type=WALKABLE malus=6.0 walked=7.8284273
+PN dro1 6 pos=-78,-60,28 type=WALKABLE malus=6.0 walked=8.828427
+PN dro1 7 pos=-77,-60,28 type=WALKABLE malus=6.0 walked=11.2426405
+PN dro1 8 pos=-76,-60,28 type=WALKABLE malus=6.0 walked=13.656854
+# drowned iron_door
+PATHQ dro2 -58.5,-60.0,28.5 found=true
+PATH dro2 next=0 count=14 reached=1 target=-59,-60,28 dist=1.0
+PN dro2 0 pos=-68,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro2 1 pos=-67,-60,29 type=WALKABLE malus=6.0 walked=2.0
+PN dro2 2 pos=-66,-60,30 type=WALKABLE malus=6.0 walked=5.4142137
+PN dro2 3 pos=-66,-60,31 type=WALKABLE malus=6.0 walked=9.828427
+PN dro2 4 pos=-65,-60,32 type=WALKABLE malus=6.0 walked=11.2426405
+PN dro2 5 pos=-65,-60,33 type=WALKABLE malus=6.0 walked=13.656854
+PN dro2 6 pos=-65,-60,34 type=WALKABLE malus=6.0 walked=16.071068
+PN dro2 7 pos=-64,-60,34 type=WALKABLE malus=6.0 walked=17.071068
+PN dro2 8 pos=-63,-60,34 type=WALKABLE malus=6.0 walked=19.485281
+PN dro2 9 pos=-62,-60,33 type=WALKABLE malus=6.0 walked=20.899494
+PN dro2 10 pos=-61,-60,32 type=WALKABLE malus=6.0 walked=22.313707
+PN dro2 11 pos=-60,-60,31 type=WALKABLE malus=6.0 walked=23.72792
+PN dro2 12 pos=-60,-60,30 type=WALKABLE malus=6.0 walked=26.142134
+PN dro2 13 pos=-59,-60,29 type=WALKABLE malus=6.0 walked=28.142134
+# drowned fence_gate
+PATHQ dro3 -42.5,-60.0,28.5 found=true
+PATH dro3 next=0 count=14 reached=1 target=-43,-60,28 dist=1.0
+PN dro3 0 pos=-52,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro3 1 pos=-51,-60,29 type=WALKABLE malus=6.0 walked=2.0
+PN dro3 2 pos=-50,-60,30 type=WALKABLE malus=6.0 walked=5.4142137
+PN dro3 3 pos=-50,-60,31 type=WALKABLE malus=6.0 walked=9.828427
+PN dro3 4 pos=-49,-60,32 type=WALKABLE malus=6.0 walked=11.2426405
+PN dro3 5 pos=-49,-60,33 type=WALKABLE malus=6.0 walked=13.656854
+PN dro3 6 pos=-49,-60,34 type=WALKABLE malus=6.0 walked=16.071068
+PN dro3 7 pos=-48,-60,34 type=WALKABLE malus=6.0 walked=17.071068
+PN dro3 8 pos=-47,-60,34 type=WALKABLE malus=6.0 walked=19.485281
+PN dro3 9 pos=-46,-60,33 type=WALKABLE malus=6.0 walked=20.899494
+PN dro3 10 pos=-45,-60,32 type=WALKABLE malus=6.0 walked=22.313707
+PN dro3 11 pos=-44,-60,31 type=WALKABLE malus=6.0 walked=23.72792
+PN dro3 12 pos=-44,-60,30 type=WALKABLE malus=6.0 walked=26.142134
+PN dro3 13 pos=-43,-60,29 type=WALKABLE malus=6.0 walked=28.142134
+# drowned water
+PATHQ dro4 -26.5,-60.0,28.5 found=true
+PATH dro4 next=0 count=9 reached=1 target=-27,-60,28 dist=1.0
+PN dro4 0 pos=-36,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro4 1 pos=-35,-60,28 type=WALKABLE malus=6.0 walked=1.0
+PN dro4 2 pos=-34,-60,28 type=WATER_BORDER malus=4.0 walked=3.4142137
+PN dro4 3 pos=-33,-61,28 type=WATER_BORDER malus=4.0 walked=6.1462646
+PN dro4 4 pos=-32,-61,28 type=WATER_BORDER malus=4.0 walked=8.560478
+PN dro4 5 pos=-31,-61,28 type=WATER_BORDER malus=4.0 walked=10.974691
+PN dro4 6 pos=-30,-60,28 type=WATER_BORDER malus=4.0 walked=12.388905
+PN dro4 7 pos=-29,-60,28 type=WALKABLE malus=6.0 walked=14.803118
+PN dro4 8 pos=-28,-60,28 type=WALKABLE malus=6.0 walked=17.21733
+# drowned lava
+PATHQ dro5 -10.5,-60.0,28.5 found=true
+PATH dro5 next=0 count=13 reached=0 target=-11,-60,28 dist=3.0
+PN dro5 0 pos=-20,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro5 1 pos=-19,-60,27 type=WALKABLE malus=6.0 walked=2.0
+PN dro5 2 pos=-19,-60,26 type=WALKABLE malus=6.0 walked=4.4142137
+PN dro5 3 pos=-19,-60,25 type=WALKABLE malus=6.0 walked=6.8284273
+PN dro5 4 pos=-19,-60,24 type=WALKABLE malus=6.0 walked=9.2426405
+PN dro5 5 pos=-18,-60,23 type=FIRE_IN_NEIGHBOR malus=8.0 walked=12.656854
+PN dro5 6 pos=-17,-60,22 type=FIRE_IN_NEIGHBOR malus=8.0 walked=16.071068
+PN dro5 7 pos=-16,-60,21 type=WALKABLE malus=6.0 walked=19.485281
+PN dro5 8 pos=-15,-60,21 type=WALKABLE malus=6.0 walked=21.899494
+PN dro5 9 pos=-14,-60,22 type=FIRE_IN_NEIGHBOR malus=8.0 walked=26.72792
+PN dro5 10 pos=-13,-60,23 type=WALKABLE malus=6.0 walked=30.142134
+PN dro5 11 pos=-12,-60,24 type=WALKABLE malus=6.0 walked=33.556347
+PN dro5 12 pos=-11,-60,25 type=WALKABLE malus=6.0 walked=36.970562
+# drowned cobweb
+PATHQ dro6 5.5,-60.0,28.5 found=true
+PATH dro6 next=0 count=9 reached=1 target=5,-60,28 dist=1.0
+PN dro6 0 pos=-4,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro6 1 pos=-3,-60,28 type=WALKABLE malus=6.0 walked=1.0
+PN dro6 2 pos=-2,-60,28 type=WALKABLE malus=6.0 walked=3.4142137
+PN dro6 3 pos=-1,-60,28 type=WALKABLE malus=6.0 walked=5.8284273
+PN dro6 4 pos=0,-60,28 type=WALKABLE malus=6.0 walked=8.2426405
+PN dro6 5 pos=1,-60,28 type=WALKABLE malus=6.0 walked=10.656854
+PN dro6 6 pos=2,-60,28 type=WALKABLE malus=6.0 walked=13.071067
+PN dro6 7 pos=3,-60,28 type=WALKABLE malus=6.0 walked=15.48528
+PN dro6 8 pos=4,-60,28 type=WALKABLE malus=6.0 walked=17.899492
+# drowned berry
+PATHQ dro7 21.5,-60.0,28.5 found=true
+PATH dro7 next=0 count=15 reached=0 target=21,-60,28 dist=2.0
+PN dro7 0 pos=12,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro7 1 pos=13,-60,29 type=WALKABLE malus=6.0 walked=2.0
+PN dro7 2 pos=13,-60,30 type=WALKABLE malus=6.0 walked=4.4142137
+PN dro7 3 pos=13,-60,31 type=WALKABLE malus=6.0 walked=6.8284273
+PN dro7 4 pos=13,-60,32 type=WALKABLE malus=6.0 walked=9.2426405
+PN dro7 5 pos=13,-60,33 type=WALKABLE malus=6.0 walked=11.656854
+PN dro7 6 pos=14,-60,34 type=DAMAGING_IN_NEIGHBOR malus=8.0 walked=15.071067
+PN dro7 7 pos=15,-60,35 type=WALKABLE malus=6.0 walked=17.071068
+PN dro7 8 pos=16,-60,35 type=WALKABLE malus=6.0 walked=19.485281
+PN dro7 9 pos=17,-60,35 type=WALKABLE malus=6.0 walked=23.313707
+PN dro7 10 pos=18,-60,34 type=DAMAGING_IN_NEIGHBOR malus=8.0 walked=26.72792
+PN dro7 11 pos=19,-60,33 type=WALKABLE malus=6.0 walked=28.72792
+PN dro7 12 pos=20,-60,32 type=WALKABLE malus=6.0 walked=30.72792
+PN dro7 13 pos=20,-60,31 type=WALKABLE malus=6.0 walked=33.142136
+PN dro7 14 pos=21,-60,30 type=WALKABLE malus=6.0 walked=36.55635
+# drowned honey
+PATHQ dro8 37.5,-60.0,28.5 found=true
+PATH dro8 next=0 count=9 reached=1 target=37,-60,28 dist=1.0
+PN dro8 0 pos=28,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro8 1 pos=29,-60,28 type=WALKABLE malus=6.0 walked=1.0
+PN dro8 2 pos=30,-60,28 type=WALKABLE malus=6.0 walked=3.4142137
+PN dro8 3 pos=31,-60,28 type=STICKY_HONEY malus=8.0 walked=5.8284273
+PN dro8 4 pos=32,-60,28 type=STICKY_HONEY malus=8.0 walked=8.2426405
+PN dro8 5 pos=33,-60,28 type=STICKY_HONEY malus=8.0 walked=10.656854
+PN dro8 6 pos=34,-60,28 type=WALKABLE malus=6.0 walked=13.071067
+PN dro8 7 pos=35,-60,28 type=WALKABLE malus=6.0 walked=15.48528
+PN dro8 8 pos=36,-60,28 type=WALKABLE malus=6.0 walked=17.899492
+# drowned powder_snow
+PATHQ dro9 53.5,-60.0,28.5 found=true
+PATH dro9 next=0 count=9 reached=1 target=53,-60,28 dist=1.0
+PN dro9 0 pos=44,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro9 1 pos=45,-60,28 type=WALKABLE malus=6.0 walked=1.0
+PN dro9 2 pos=46,-60,28 type=WALKABLE malus=6.0 walked=3.4142137
+PN dro9 3 pos=47,-60,28 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=4.4142137
+PN dro9 4 pos=48,-60,28 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=5.4142137
+PN dro9 5 pos=49,-60,28 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=6.4142137
+PN dro9 6 pos=50,-60,28 type=WALKABLE malus=6.0 walked=8.828427
+PN dro9 7 pos=51,-60,28 type=WALKABLE malus=6.0 walked=11.2426405
+PN dro9 8 pos=52,-60,28 type=WALKABLE malus=6.0 walked=13.656854
+# drowned cactus
+PATHQ dro10 69.5,-60.0,28.5 found=true
+PATH dro10 next=0 count=9 reached=1 target=69,-60,28 dist=1.0
+PN dro10 0 pos=60,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro10 1 pos=61,-60,28 type=WALKABLE malus=6.0 walked=1.0
+PN dro10 2 pos=62,-60,28 type=WALKABLE malus=6.0 walked=3.4142137
+PN dro10 3 pos=63,-60,28 type=WALKABLE malus=6.0 walked=5.8284273
+PN dro10 4 pos=64,-60,28 type=WALKABLE malus=6.0 walked=8.2426405
+PN dro10 5 pos=65,-60,28 type=WALKABLE malus=6.0 walked=10.656854
+PN dro10 6 pos=66,-60,28 type=WALKABLE malus=6.0 walked=13.071067
+PN dro10 7 pos=67,-60,28 type=WALKABLE malus=6.0 walked=15.48528
+PN dro10 8 pos=68,-60,28 type=WALKABLE malus=6.0 walked=17.899492
+# drowned magma
+PATHQ dro11 85.5,-60.0,28.5 found=true
+PATH dro11 next=0 count=9 reached=1 target=85,-60,28 dist=1.0
+PN dro11 0 pos=76,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro11 1 pos=77,-60,28 type=WALKABLE malus=6.0 walked=1.0
+PN dro11 2 pos=78,-60,28 type=FIRE_IN_NEIGHBOR malus=8.0 walked=3.4142137
+PN dro11 3 pos=79,-60,28 type=FIRE malus=16.0 walked=7.242641
+PN dro11 4 pos=80,-60,28 type=FIRE malus=16.0 walked=9.656855
+PN dro11 5 pos=81,-60,28 type=FIRE malus=16.0 walked=12.071068
+PN dro11 6 pos=82,-60,28 type=FIRE_IN_NEIGHBOR malus=8.0 walked=14.485281
+PN dro11 7 pos=83,-60,28 type=WALKABLE malus=6.0 walked=16.899494
+PN dro11 8 pos=84,-60,28 type=WALKABLE malus=6.0 walked=19.313707
+# drowned trapdoor_open
+PATHQ dro12 101.5,-60.0,28.5 found=true
+PATH dro12 next=0 count=9 reached=1 target=101,-60,28 dist=1.0
+PN dro12 0 pos=92,-60,28 type=WALKABLE malus=6.0 walked=0.0
+PN dro12 1 pos=93,-60,28 type=WALKABLE malus=6.0 walked=1.0
+PN dro12 2 pos=94,-60,28 type=WALKABLE malus=6.0 walked=3.4142137
+PN dro12 3 pos=95,-60,28 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=4.4142137
+PN dro12 4 pos=96,-60,28 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=5.4142137
+PN dro12 5 pos=97,-60,28 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=6.4142137
+PN dro12 6 pos=98,-60,28 type=WALKABLE malus=6.0 walked=8.828427
+PN dro12 7 pos=99,-60,28 type=WALKABLE malus=6.0 walked=11.2426405
+PN dro12 8 pos=100,-60,28 type=WALKABLE malus=6.0 walked=13.656854
+# row strider
+# strider door_closed
+PATHQ str0 -90.5,-60.0,46.5 found=true
+PATH str0 next=0 count=4 reached=0 target=-91,-60,46 dist=6.0
+PN str0 0 pos=-100,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str0 1 pos=-99,-60,46 type=WALKABLE malus=0.0 walked=1.0
+PN str0 2 pos=-98,-60,46 type=WALKABLE malus=0.0 walked=2.0
+PN str0 3 pos=-97,-60,46 type=WALKABLE malus=0.0 walked=3.0
+# strider door_open
+PATHQ str1 -74.5,-60.0,46.5 found=true
+PATH str1 next=0 count=9 reached=1 target=-75,-60,46 dist=1.0
+PN str1 0 pos=-84,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str1 1 pos=-83,-60,46 type=WALKABLE malus=0.0 walked=1.0
+PN str1 2 pos=-82,-60,46 type=WALKABLE malus=0.0 walked=2.0
+PN str1 3 pos=-81,-60,46 type=WALKABLE malus=0.0 walked=3.0
+PN str1 4 pos=-80,-60,46 type=DOOR_OPEN malus=0.0 walked=4.0
+PN str1 5 pos=-79,-60,46 type=WALKABLE malus=0.0 walked=5.0
+PN str1 6 pos=-78,-60,46 type=WALKABLE malus=0.0 walked=6.0
+PN str1 7 pos=-77,-60,46 type=WALKABLE malus=0.0 walked=7.0
+PN str1 8 pos=-76,-60,46 type=WALKABLE malus=0.0 walked=8.0
+# strider iron_door
+PATHQ str2 -58.5,-60.0,46.5 found=true
+PATH str2 next=0 count=4 reached=0 target=-59,-60,46 dist=6.0
+PN str2 0 pos=-68,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str2 1 pos=-67,-60,46 type=WALKABLE malus=0.0 walked=1.0
+PN str2 2 pos=-66,-60,46 type=WALKABLE malus=0.0 walked=2.0
+PN str2 3 pos=-65,-60,46 type=WALKABLE malus=0.0 walked=3.0
+# strider fence_gate
+PATHQ str3 -42.5,-60.0,46.5 found=true
+PATH str3 next=0 count=4 reached=0 target=-43,-60,46 dist=6.0
+PN str3 0 pos=-52,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str3 1 pos=-51,-60,46 type=WALKABLE malus=0.0 walked=1.0
+PN str3 2 pos=-50,-60,46 type=WALKABLE malus=0.0 walked=2.0
+PN str3 3 pos=-49,-60,46 type=WALKABLE malus=0.0 walked=3.0
+# strider water
+PATHQ str4 -26.5,-60.0,46.5 found=true
+PATH str4 next=0 count=12 reached=0 target=-27,-60,46 dist=8.0
+PN str4 0 pos=-36,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str4 1 pos=-35,-60,45 type=WALKABLE malus=0.0 walked=2.0
+PN str4 2 pos=-35,-60,44 type=WALKABLE malus=0.0 walked=4.4142137
+PN str4 3 pos=-35,-60,43 type=WALKABLE malus=0.0 walked=6.8284273
+PN str4 4 pos=-35,-60,42 type=WALKABLE malus=0.0 walked=9.2426405
+PN str4 5 pos=-35,-60,41 type=WALKABLE malus=0.0 walked=11.656854
+PN str4 6 pos=-34,-60,40 type=WATER_BORDER malus=8.0 walked=9.414213
+PN str4 7 pos=-33,-60,39 type=WALKABLE malus=0.0 walked=10.828426
+PN str4 8 pos=-32,-60,39 type=WALKABLE malus=0.0 walked=11.828426
+PN str4 9 pos=-31,-60,39 type=WALKABLE malus=0.0 walked=12.828426
+PN str4 10 pos=-30,-60,39 type=WALKABLE malus=0.0 walked=13.828426
+PN str4 11 pos=-29,-60,40 type=WALKABLE malus=0.0 walked=15.24264
+# strider lava
+PATHQ str5 -10.5,-60.0,46.5 found=true
+PATH str5 next=0 count=9 reached=1 target=-11,-60,46 dist=1.0
+PN str5 0 pos=-20,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str5 1 pos=-19,-60,46 type=WALKABLE malus=0.0 walked=1.0
+PN str5 2 pos=-18,-60,46 type=FIRE_IN_NEIGHBOR malus=0.0 walked=2.0
+PN str5 3 pos=-17,-61,46 type=LAVA malus=0.0 walked=3.4142137
+PN str5 4 pos=-16,-61,46 type=LAVA malus=0.0 walked=4.4142137
+PN str5 5 pos=-15,-61,46 type=LAVA malus=0.0 walked=5.4142137
+PN str5 6 pos=-14,-60,46 type=FIRE_IN_NEIGHBOR malus=0.0 walked=6.8284273
+PN str5 7 pos=-13,-60,46 type=WALKABLE malus=0.0 walked=7.8284273
+PN str5 8 pos=-12,-60,46 type=WALKABLE malus=0.0 walked=8.828427
+# strider cobweb
+PATHQ str6 5.5,-60.0,46.5 found=true
+PATH str6 next=0 count=9 reached=1 target=5,-60,46 dist=1.0
+PN str6 0 pos=-4,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str6 1 pos=-3,-60,46 type=WALKABLE malus=0.0 walked=1.0
+PN str6 2 pos=-2,-60,46 type=WALKABLE malus=0.0 walked=2.0
+PN str6 3 pos=-1,-60,46 type=WALKABLE malus=0.0 walked=3.0
+PN str6 4 pos=0,-60,46 type=WALKABLE malus=0.0 walked=4.0
+PN str6 5 pos=1,-60,46 type=WALKABLE malus=0.0 walked=5.0
+PN str6 6 pos=2,-60,46 type=WALKABLE malus=0.0 walked=6.0
+PN str6 7 pos=3,-60,46 type=WALKABLE malus=0.0 walked=7.0
+PN str6 8 pos=4,-60,46 type=WALKABLE malus=0.0 walked=8.0
+# strider berry
+PATHQ str7 21.5,-60.0,46.5 found=true
+PATH str7 next=0 count=12 reached=0 target=21,-60,46 dist=8.0
+PN str7 0 pos=12,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str7 1 pos=13,-60,45 type=WALKABLE malus=0.0 walked=2.0
+PN str7 2 pos=13,-60,44 type=WALKABLE malus=0.0 walked=4.4142137
+PN str7 3 pos=13,-60,43 type=WALKABLE malus=0.0 walked=6.8284273
+PN str7 4 pos=13,-60,42 type=WALKABLE malus=0.0 walked=9.2426405
+PN str7 5 pos=13,-60,41 type=WALKABLE malus=0.0 walked=11.656854
+PN str7 6 pos=14,-60,40 type=DAMAGING_IN_NEIGHBOR malus=8.0 walked=9.414213
+PN str7 7 pos=15,-60,39 type=WALKABLE malus=0.0 walked=10.828426
+PN str7 8 pos=16,-60,39 type=WALKABLE malus=0.0 walked=11.828426
+PN str7 9 pos=17,-60,39 type=WALKABLE malus=0.0 walked=12.828426
+PN str7 10 pos=18,-60,39 type=WALKABLE malus=0.0 walked=13.828426
+PN str7 11 pos=19,-60,40 type=WALKABLE malus=0.0 walked=15.24264
+# strider honey
+PATHQ str8 37.5,-60.0,46.5 found=true
+PATH str8 next=0 count=9 reached=1 target=37,-60,46 dist=1.0
+PN str8 0 pos=28,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str8 1 pos=29,-60,46 type=WALKABLE malus=0.0 walked=1.0
+PN str8 2 pos=30,-60,46 type=WALKABLE malus=0.0 walked=2.0
+PN str8 3 pos=31,-60,46 type=STICKY_HONEY malus=8.0 walked=4.4142137
+PN str8 4 pos=32,-60,46 type=STICKY_HONEY malus=8.0 walked=6.8284273
+PN str8 5 pos=33,-60,46 type=STICKY_HONEY malus=8.0 walked=9.2426405
+PN str8 6 pos=34,-60,46 type=WALKABLE malus=0.0 walked=10.2426405
+PN str8 7 pos=35,-60,46 type=WALKABLE malus=0.0 walked=11.2426405
+PN str8 8 pos=36,-60,46 type=WALKABLE malus=0.0 walked=12.2426405
+# strider powder_snow
+PATHQ str9 53.5,-60.0,46.5 found=true
+PATH str9 next=0 count=9 reached=1 target=53,-60,46 dist=1.0
+PN str9 0 pos=44,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str9 1 pos=45,-60,46 type=WALKABLE malus=0.0 walked=1.0
+PN str9 2 pos=46,-60,46 type=WALKABLE malus=0.0 walked=2.0
+PN str9 3 pos=47,-60,46 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=3.0
+PN str9 4 pos=48,-60,46 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=4.0
+PN str9 5 pos=49,-60,46 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=5.0
+PN str9 6 pos=50,-60,46 type=WALKABLE malus=0.0 walked=6.0
+PN str9 7 pos=51,-60,46 type=WALKABLE malus=0.0 walked=7.0
+PN str9 8 pos=52,-60,46 type=WALKABLE malus=0.0 walked=8.0
+# strider cactus
+PATHQ str10 69.5,-60.0,46.5 found=true
+PATH str10 next=0 count=9 reached=1 target=69,-60,46 dist=1.0
+PN str10 0 pos=60,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str10 1 pos=61,-60,46 type=WALKABLE malus=0.0 walked=1.0
+PN str10 2 pos=62,-60,46 type=WALKABLE malus=0.0 walked=2.0
+PN str10 3 pos=63,-60,46 type=WALKABLE malus=0.0 walked=3.0
+PN str10 4 pos=64,-60,46 type=WALKABLE malus=0.0 walked=4.0
+PN str10 5 pos=65,-60,46 type=WALKABLE malus=0.0 walked=5.0
+PN str10 6 pos=66,-60,46 type=WALKABLE malus=0.0 walked=6.0
+PN str10 7 pos=67,-60,46 type=WALKABLE malus=0.0 walked=7.0
+PN str10 8 pos=68,-60,46 type=WALKABLE malus=0.0 walked=8.0
+# strider magma
+PATHQ str11 85.5,-60.0,46.5 found=true
+PATH str11 next=0 count=9 reached=1 target=85,-60,46 dist=1.0
+PN str11 0 pos=76,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str11 1 pos=77,-60,46 type=WALKABLE malus=0.0 walked=1.0
+PN str11 2 pos=78,-60,46 type=FIRE_IN_NEIGHBOR malus=0.0 walked=2.0
+PN str11 3 pos=79,-60,46 type=FIRE malus=0.0 walked=3.0
+PN str11 4 pos=80,-60,46 type=FIRE malus=0.0 walked=4.0
+PN str11 5 pos=81,-60,46 type=FIRE malus=0.0 walked=5.0
+PN str11 6 pos=82,-60,46 type=FIRE_IN_NEIGHBOR malus=0.0 walked=6.0
+PN str11 7 pos=83,-60,46 type=WALKABLE malus=0.0 walked=7.0
+PN str11 8 pos=84,-60,46 type=WALKABLE malus=0.0 walked=8.0
+# strider trapdoor_open
+PATHQ str12 101.5,-60.0,46.5 found=true
+PATH str12 next=0 count=9 reached=1 target=101,-60,46 dist=1.0
+PN str12 0 pos=92,-60,46 type=WALKABLE malus=0.0 walked=0.0
+PN str12 1 pos=93,-60,46 type=WALKABLE malus=0.0 walked=1.0
+PN str12 2 pos=94,-60,46 type=WALKABLE malus=0.0 walked=2.0
+PN str12 3 pos=95,-60,46 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=3.0
+PN str12 4 pos=96,-60,46 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=4.0
+PN str12 5 pos=97,-60,46 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=5.0
+PN str12 6 pos=98,-60,46 type=WALKABLE malus=0.0 walked=6.0
+PN str12 7 pos=99,-60,46 type=WALKABLE malus=0.0 walked=7.0
+PN str12 8 pos=100,-60,46 type=WALKABLE malus=0.0 walked=8.0
+# row husk
+# husk door_closed
+PATHQ hus0 -90.5,-60.0,64.5 found=true
+PATH hus0 next=0 count=14 reached=1 target=-91,-60,64 dist=1.0
+PN hus0 0 pos=-100,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus0 1 pos=-99,-60,65 type=WALKABLE malus=0.0 walked=6.0
+PN hus0 2 pos=-98,-60,66 type=WALKABLE malus=0.0 walked=7.4142137
+PN hus0 3 pos=-97,-60,67 type=WALKABLE malus=0.0 walked=8.828427
+PN hus0 4 pos=-97,-60,68 type=WALKABLE malus=0.0 walked=11.24264
+PN hus0 5 pos=-97,-60,69 type=WALKABLE malus=0.0 walked=13.656853
+PN hus0 6 pos=-97,-60,70 type=WALKABLE malus=0.0 walked=16.071066
+PN hus0 7 pos=-96,-60,70 type=WALKABLE malus=0.0 walked=17.071066
+PN hus0 8 pos=-95,-60,70 type=WALKABLE malus=0.0 walked=18.071066
+PN hus0 9 pos=-94,-60,69 type=WALKABLE malus=0.0 walked=19.48528
+PN hus0 10 pos=-93,-60,68 type=WALKABLE malus=0.0 walked=20.899492
+PN hus0 11 pos=-92,-60,67 type=WALKABLE malus=0.0 walked=22.313705
+PN hus0 12 pos=-92,-60,66 type=WALKABLE malus=0.0 walked=23.313705
+PN hus0 13 pos=-91,-60,65 type=WALKABLE malus=0.0 walked=24.727919
+# husk door_open
+PATHQ hus1 -74.5,-60.0,64.5 found=true
+PATH hus1 next=0 count=9 reached=1 target=-75,-60,64 dist=1.0
+PN hus1 0 pos=-84,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus1 1 pos=-83,-60,64 type=WALKABLE malus=0.0 walked=1.0
+PN hus1 2 pos=-82,-60,64 type=WALKABLE malus=0.0 walked=2.0
+PN hus1 3 pos=-81,-60,64 type=WALKABLE malus=0.0 walked=3.0
+PN hus1 4 pos=-80,-60,64 type=DOOR_OPEN malus=0.0 walked=4.0
+PN hus1 5 pos=-79,-60,64 type=WALKABLE malus=0.0 walked=5.0
+PN hus1 6 pos=-78,-60,64 type=WALKABLE malus=0.0 walked=6.0
+PN hus1 7 pos=-77,-60,64 type=WALKABLE malus=0.0 walked=7.0
+PN hus1 8 pos=-76,-60,64 type=WALKABLE malus=0.0 walked=8.0
+# husk iron_door
+PATHQ hus2 -58.5,-60.0,64.5 found=true
+PATH hus2 next=0 count=14 reached=1 target=-59,-60,64 dist=1.0
+PN hus2 0 pos=-68,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus2 1 pos=-67,-60,65 type=WALKABLE malus=0.0 walked=6.0
+PN hus2 2 pos=-66,-60,66 type=WALKABLE malus=0.0 walked=7.4142137
+PN hus2 3 pos=-65,-60,67 type=WALKABLE malus=0.0 walked=8.828427
+PN hus2 4 pos=-65,-60,68 type=WALKABLE malus=0.0 walked=11.24264
+PN hus2 5 pos=-65,-60,69 type=WALKABLE malus=0.0 walked=13.656853
+PN hus2 6 pos=-65,-60,70 type=WALKABLE malus=0.0 walked=16.071066
+PN hus2 7 pos=-64,-60,70 type=WALKABLE malus=0.0 walked=17.071066
+PN hus2 8 pos=-63,-60,70 type=WALKABLE malus=0.0 walked=18.071066
+PN hus2 9 pos=-62,-60,69 type=WALKABLE malus=0.0 walked=19.48528
+PN hus2 10 pos=-61,-60,68 type=WALKABLE malus=0.0 walked=20.899492
+PN hus2 11 pos=-60,-60,67 type=WALKABLE malus=0.0 walked=22.313705
+PN hus2 12 pos=-60,-60,66 type=WALKABLE malus=0.0 walked=23.313705
+PN hus2 13 pos=-59,-60,65 type=WALKABLE malus=0.0 walked=24.727919
+# husk fence_gate
+PATHQ hus3 -42.5,-60.0,64.5 found=true
+PATH hus3 next=0 count=14 reached=1 target=-43,-60,64 dist=1.0
+PN hus3 0 pos=-52,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus3 1 pos=-51,-60,65 type=WALKABLE malus=0.0 walked=6.0
+PN hus3 2 pos=-50,-60,66 type=WALKABLE malus=0.0 walked=7.4142137
+PN hus3 3 pos=-49,-60,67 type=WALKABLE malus=0.0 walked=8.828427
+PN hus3 4 pos=-49,-60,68 type=WALKABLE malus=0.0 walked=11.24264
+PN hus3 5 pos=-49,-60,69 type=WALKABLE malus=0.0 walked=13.656853
+PN hus3 6 pos=-49,-60,70 type=WALKABLE malus=0.0 walked=16.071066
+PN hus3 7 pos=-48,-60,70 type=WALKABLE malus=0.0 walked=17.071066
+PN hus3 8 pos=-47,-60,70 type=WALKABLE malus=0.0 walked=18.071066
+PN hus3 9 pos=-46,-60,69 type=WALKABLE malus=0.0 walked=19.48528
+PN hus3 10 pos=-45,-60,68 type=WALKABLE malus=0.0 walked=20.899492
+PN hus3 11 pos=-44,-60,67 type=WALKABLE malus=0.0 walked=22.313705
+PN hus3 12 pos=-44,-60,66 type=WALKABLE malus=0.0 walked=23.313705
+PN hus3 13 pos=-43,-60,65 type=WALKABLE malus=0.0 walked=24.727919
+# husk water
+PATHQ hus4 -26.5,-60.0,64.5 found=true
+PATH hus4 next=0 count=18 reached=1 target=-27,-60,64 dist=1.0
+PN hus4 0 pos=-36,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus4 1 pos=-35,-60,63 type=WALKABLE malus=0.0 walked=2.0
+PN hus4 2 pos=-35,-60,62 type=WALKABLE malus=0.0 walked=4.4142137
+PN hus4 3 pos=-35,-60,61 type=WALKABLE malus=0.0 walked=6.8284273
+PN hus4 4 pos=-35,-60,60 type=WALKABLE malus=0.0 walked=9.2426405
+PN hus4 5 pos=-35,-60,59 type=WALKABLE malus=0.0 walked=11.656854
+PN hus4 6 pos=-35,-60,58 type=WALKABLE malus=0.0 walked=14.071067
+PN hus4 7 pos=-34,-60,57 type=WALKABLE malus=0.0 walked=15.48528
+PN hus4 8 pos=-33,-60,57 type=WALKABLE malus=0.0 walked=16.48528
+PN hus4 9 pos=-32,-60,57 type=WALKABLE malus=0.0 walked=17.48528
+PN hus4 10 pos=-31,-60,57 type=WALKABLE malus=0.0 walked=18.48528
+PN hus4 11 pos=-30,-60,57 type=WALKABLE malus=0.0 walked=19.48528
+PN hus4 12 pos=-29,-60,58 type=WALKABLE malus=0.0 walked=20.899492
+PN hus4 13 pos=-28,-60,59 type=WALKABLE malus=0.0 walked=22.313705
+PN hus4 14 pos=-28,-60,60 type=WALKABLE malus=0.0 walked=23.313705
+PN hus4 15 pos=-28,-60,61 type=WALKABLE malus=0.0 walked=24.313705
+PN hus4 16 pos=-28,-60,62 type=WALKABLE malus=0.0 walked=25.313705
+PN hus4 17 pos=-27,-60,63 type=WALKABLE malus=0.0 walked=26.727919
+# husk lava
+PATHQ hus5 -10.5,-60.0,64.5 found=true
+PATH hus5 next=0 count=18 reached=1 target=-11,-60,64 dist=1.0
+PN hus5 0 pos=-20,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus5 1 pos=-19,-60,65 type=WALKABLE malus=0.0 walked=2.0
+PN hus5 2 pos=-19,-60,66 type=WALKABLE malus=0.0 walked=4.4142137
+PN hus5 3 pos=-19,-60,67 type=WALKABLE malus=0.0 walked=6.8284273
+PN hus5 4 pos=-19,-60,68 type=WALKABLE malus=0.0 walked=9.2426405
+PN hus5 5 pos=-19,-60,69 type=WALKABLE malus=0.0 walked=11.656854
+PN hus5 6 pos=-19,-60,70 type=WALKABLE malus=0.0 walked=14.071067
+PN hus5 7 pos=-18,-60,71 type=WALKABLE malus=0.0 walked=15.48528
+PN hus5 8 pos=-17,-60,71 type=WALKABLE malus=0.0 walked=16.48528
+PN hus5 9 pos=-16,-60,71 type=WALKABLE malus=0.0 walked=17.48528
+PN hus5 10 pos=-15,-60,71 type=WALKABLE malus=0.0 walked=18.48528
+PN hus5 11 pos=-14,-60,71 type=WALKABLE malus=0.0 walked=19.48528
+PN hus5 12 pos=-13,-60,70 type=WALKABLE malus=0.0 walked=20.899492
+PN hus5 13 pos=-12,-60,69 type=WALKABLE malus=0.0 walked=22.313705
+PN hus5 14 pos=-12,-60,68 type=WALKABLE malus=0.0 walked=23.313705
+PN hus5 15 pos=-12,-60,67 type=WALKABLE malus=0.0 walked=24.313705
+PN hus5 16 pos=-12,-60,66 type=WALKABLE malus=0.0 walked=25.313705
+PN hus5 17 pos=-11,-60,65 type=WALKABLE malus=0.0 walked=26.727919
+# husk cobweb
+PATHQ hus6 5.5,-60.0,64.5 found=true
+PATH hus6 next=0 count=9 reached=1 target=5,-60,64 dist=1.0
+PN hus6 0 pos=-4,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus6 1 pos=-3,-60,64 type=WALKABLE malus=0.0 walked=1.0
+PN hus6 2 pos=-2,-60,64 type=WALKABLE malus=0.0 walked=2.0
+PN hus6 3 pos=-1,-60,64 type=WALKABLE malus=0.0 walked=3.0
+PN hus6 4 pos=0,-60,64 type=WALKABLE malus=0.0 walked=4.0
+PN hus6 5 pos=1,-60,64 type=WALKABLE malus=0.0 walked=5.0
+PN hus6 6 pos=2,-60,64 type=WALKABLE malus=0.0 walked=6.0
+PN hus6 7 pos=3,-60,64 type=WALKABLE malus=0.0 walked=7.0
+PN hus6 8 pos=4,-60,64 type=WALKABLE malus=0.0 walked=8.0
+# husk berry
+PATHQ hus7 21.5,-60.0,64.5 found=true
+PATH hus7 next=0 count=18 reached=1 target=21,-60,64 dist=1.0
+PN hus7 0 pos=12,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus7 1 pos=13,-60,65 type=WALKABLE malus=0.0 walked=2.0
+PN hus7 2 pos=13,-60,66 type=WALKABLE malus=0.0 walked=4.4142137
+PN hus7 3 pos=13,-60,67 type=WALKABLE malus=0.0 walked=6.8284273
+PN hus7 4 pos=13,-60,68 type=WALKABLE malus=0.0 walked=9.2426405
+PN hus7 5 pos=13,-60,69 type=WALKABLE malus=0.0 walked=11.656854
+PN hus7 6 pos=13,-60,70 type=WALKABLE malus=0.0 walked=14.071067
+PN hus7 7 pos=14,-60,71 type=WALKABLE malus=0.0 walked=15.48528
+PN hus7 8 pos=15,-60,71 type=WALKABLE malus=0.0 walked=16.48528
+PN hus7 9 pos=16,-60,71 type=WALKABLE malus=0.0 walked=17.48528
+PN hus7 10 pos=17,-60,71 type=WALKABLE malus=0.0 walked=18.48528
+PN hus7 11 pos=18,-60,71 type=WALKABLE malus=0.0 walked=19.48528
+PN hus7 12 pos=19,-60,70 type=WALKABLE malus=0.0 walked=20.899492
+PN hus7 13 pos=20,-60,69 type=WALKABLE malus=0.0 walked=22.313705
+PN hus7 14 pos=20,-60,68 type=WALKABLE malus=0.0 walked=23.313705
+PN hus7 15 pos=20,-60,67 type=WALKABLE malus=0.0 walked=24.313705
+PN hus7 16 pos=20,-60,66 type=WALKABLE malus=0.0 walked=25.313705
+PN hus7 17 pos=21,-60,65 type=WALKABLE malus=0.0 walked=26.727919
+# husk honey
+PATHQ hus8 37.5,-60.0,64.5 found=true
+PATH hus8 next=0 count=14 reached=1 target=37,-60,64 dist=1.0
+PN hus8 0 pos=28,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus8 1 pos=29,-60,65 type=WALKABLE malus=0.0 walked=4.0
+PN hus8 2 pos=30,-60,66 type=WALKABLE malus=0.0 walked=5.4142137
+PN hus8 3 pos=30,-60,67 type=WALKABLE malus=0.0 walked=7.8284273
+PN hus8 4 pos=30,-60,68 type=WALKABLE malus=0.0 walked=10.2426405
+PN hus8 5 pos=30,-60,69 type=WALKABLE malus=0.0 walked=12.656854
+PN hus8 6 pos=31,-60,70 type=WALKABLE malus=0.0 walked=14.071067
+PN hus8 7 pos=32,-60,70 type=WALKABLE malus=0.0 walked=15.071067
+PN hus8 8 pos=33,-60,70 type=WALKABLE malus=0.0 walked=16.071068
+PN hus8 9 pos=34,-60,69 type=WALKABLE malus=0.0 walked=17.485281
+PN hus8 10 pos=35,-60,68 type=WALKABLE malus=0.0 walked=18.899494
+PN hus8 11 pos=36,-60,67 type=WALKABLE malus=0.0 walked=20.313707
+PN hus8 12 pos=36,-60,66 type=WALKABLE malus=0.0 walked=21.313707
+PN hus8 13 pos=37,-60,65 type=WALKABLE malus=0.0 walked=22.72792
+# husk powder_snow
+PATHQ hus9 53.5,-60.0,64.5 found=true
+PATH hus9 next=0 count=9 reached=1 target=53,-60,64 dist=1.0
+PN hus9 0 pos=44,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus9 1 pos=45,-60,64 type=WALKABLE malus=0.0 walked=1.0
+PN hus9 2 pos=46,-60,64 type=WALKABLE malus=0.0 walked=2.0
+PN hus9 3 pos=47,-60,64 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=3.0
+PN hus9 4 pos=48,-60,64 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=4.0
+PN hus9 5 pos=49,-60,64 type=ON_TOP_OF_POWDER_SNOW malus=0.0 walked=5.0
+PN hus9 6 pos=50,-60,64 type=WALKABLE malus=0.0 walked=6.0
+PN hus9 7 pos=51,-60,64 type=WALKABLE malus=0.0 walked=7.0
+PN hus9 8 pos=52,-60,64 type=WALKABLE malus=0.0 walked=8.0
+# husk cactus
+PATHQ hus10 69.5,-60.0,64.5 found=true
+PATH hus10 next=0 count=9 reached=1 target=69,-60,64 dist=1.0
+PN hus10 0 pos=60,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus10 1 pos=61,-60,64 type=WALKABLE malus=0.0 walked=1.0
+PN hus10 2 pos=62,-60,64 type=WALKABLE malus=0.0 walked=2.0
+PN hus10 3 pos=63,-60,64 type=WALKABLE malus=0.0 walked=3.0
+PN hus10 4 pos=64,-60,64 type=WALKABLE malus=0.0 walked=4.0
+PN hus10 5 pos=65,-60,64 type=WALKABLE malus=0.0 walked=5.0
+PN hus10 6 pos=66,-60,64 type=WALKABLE malus=0.0 walked=6.0
+PN hus10 7 pos=67,-60,64 type=WALKABLE malus=0.0 walked=7.0
+PN hus10 8 pos=68,-60,64 type=WALKABLE malus=0.0 walked=8.0
+# husk magma
+PATHQ hus11 85.5,-60.0,64.5 found=true
+PATH hus11 next=0 count=18 reached=1 target=85,-60,64 dist=1.0
+PN hus11 0 pos=76,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus11 1 pos=77,-60,63 type=WALKABLE malus=0.0 walked=2.0
+PN hus11 2 pos=77,-60,62 type=WALKABLE malus=0.0 walked=4.4142137
+PN hus11 3 pos=77,-60,61 type=WALKABLE malus=0.0 walked=6.8284273
+PN hus11 4 pos=77,-60,60 type=WALKABLE malus=0.0 walked=9.2426405
+PN hus11 5 pos=77,-60,59 type=WALKABLE malus=0.0 walked=11.656854
+PN hus11 6 pos=77,-60,58 type=WALKABLE malus=0.0 walked=14.071067
+PN hus11 7 pos=78,-60,57 type=WALKABLE malus=0.0 walked=15.48528
+PN hus11 8 pos=79,-60,57 type=WALKABLE malus=0.0 walked=16.48528
+PN hus11 9 pos=80,-60,57 type=WALKABLE malus=0.0 walked=17.48528
+PN hus11 10 pos=81,-60,57 type=WALKABLE malus=0.0 walked=18.48528
+PN hus11 11 pos=82,-60,57 type=WALKABLE malus=0.0 walked=19.48528
+PN hus11 12 pos=83,-60,58 type=WALKABLE malus=0.0 walked=20.899492
+PN hus11 13 pos=84,-60,59 type=WALKABLE malus=0.0 walked=22.313705
+PN hus11 14 pos=84,-60,60 type=WALKABLE malus=0.0 walked=23.313705
+PN hus11 15 pos=84,-60,61 type=WALKABLE malus=0.0 walked=24.313705
+PN hus11 16 pos=84,-60,62 type=WALKABLE malus=0.0 walked=25.313705
+PN hus11 17 pos=85,-60,63 type=WALKABLE malus=0.0 walked=26.727919
+# husk trapdoor_open
+PATHQ hus12 101.5,-60.0,64.5 found=true
+PATH hus12 next=0 count=9 reached=1 target=101,-60,64 dist=1.0
+PN hus12 0 pos=92,-60,64 type=WALKABLE malus=0.0 walked=0.0
+PN hus12 1 pos=93,-60,64 type=WALKABLE malus=0.0 walked=1.0
+PN hus12 2 pos=94,-60,64 type=WALKABLE malus=0.0 walked=2.0
+PN hus12 3 pos=95,-60,64 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=3.0
+PN hus12 4 pos=96,-60,64 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=4.0
+PN hus12 5 pos=97,-60,64 type=ON_TOP_OF_TRAPDOOR malus=0.0 walked=5.0
+PN hus12 6 pos=98,-60,64 type=WALKABLE malus=0.0 walked=6.0
+PN hus12 7 pos=99,-60,64 type=WALKABLE malus=0.0 walked=7.0
+PN hus12 8 pos=100,-60,64 type=WALKABLE malus=0.0 walked=8.0
+E zom0 minecraft:zombie pos=-99.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-91,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E zom1 minecraft:zombie pos=-83.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-75,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E zom2 minecraft:zombie pos=-67.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-59,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E zom3 minecraft:zombie pos=-51.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-43,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E zom4 minecraft:zombie pos=-35.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-27,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E zom5 minecraft:zombie pos=-19.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-11,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E zom6 minecraft:zombie pos=-3.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=5,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E zom7 minecraft:zombie pos=12.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=21,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E zom8 minecraft:zombie pos=28.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=37,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E zom9 minecraft:zombie pos=44.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=53,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E zom10 minecraft:zombie pos=60.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=69,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E zom11 minecraft:zombie pos=76.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=85,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E zom12 minecraft:zombie pos=92.5,-60.0,-79.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=101,-60,-80 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E vil0 minecraft:villager pos=-99.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-91,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vil1 minecraft:villager pos=-83.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-75,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vil2 minecraft:villager pos=-67.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-59,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vil3 minecraft:villager pos=-51.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-43,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vil4 minecraft:villager pos=-35.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-27,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vil5 minecraft:villager pos=-19.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-11,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vil6 minecraft:villager pos=-3.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=5,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vil7 minecraft:villager pos=12.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=21,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vil8 minecraft:villager pos=28.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=37,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vil9 minecraft:villager pos=44.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=53,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vil10 minecraft:villager pos=60.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=69,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vil11 minecraft:villager pos=76.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=85,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vil12 minecraft:villager pos=92.5,-60.0,-61.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=101,-60,-62 path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E cow0 minecraft:cow pos=-99.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-91,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow1 minecraft:cow pos=-83.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-75,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow2 minecraft:cow pos=-67.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-59,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow3 minecraft:cow pos=-51.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-43,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow4 minecraft:cow pos=-35.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-27,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow5 minecraft:cow pos=-19.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-11,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow6 minecraft:cow pos=-3.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=5,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow7 minecraft:cow pos=12.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=21,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow8 minecraft:cow pos=28.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=37,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow9 minecraft:cow pos=44.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=53,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow10 minecraft:cow pos=60.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=69,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow11 minecraft:cow pos=76.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=85,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow12 minecraft:cow pos=92.5,-60.0,-43.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=101,-60,-44 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E spi0 minecraft:spider pos=-99.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-91,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spi1 minecraft:spider pos=-83.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-75,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spi2 minecraft:spider pos=-67.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-59,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spi3 minecraft:spider pos=-51.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-43,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spi4 minecraft:spider pos=-35.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-27,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spi5 minecraft:spider pos=-19.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-11,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spi6 minecraft:spider pos=-3.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=5,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spi7 minecraft:spider pos=12.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=21,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spi8 minecraft:spider pos=28.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=37,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spi9 minecraft:spider pos=44.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=53,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spi10 minecraft:spider pos=60.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=69,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spi11 minecraft:spider pos=76.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=85,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spi12 minecraft:spider pos=92.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=101,-60,-26 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E ske0 minecraft:skeleton pos=-99.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-91,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E ske1 minecraft:skeleton pos=-83.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-75,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E ske2 minecraft:skeleton pos=-67.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-59,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E ske3 minecraft:skeleton pos=-51.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-43,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E ske4 minecraft:skeleton pos=-35.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-27,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E ske5 minecraft:skeleton pos=-19.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-11,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E ske6 minecraft:skeleton pos=-3.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=5,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E ske7 minecraft:skeleton pos=12.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=21,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E ske8 minecraft:skeleton pos=28.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=37,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E ske9 minecraft:skeleton pos=44.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=53,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E ske10 minecraft:skeleton pos=60.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=69,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E ske11 minecraft:skeleton pos=76.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=85,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E ske12 minecraft:skeleton pos=92.5,-60.0,-7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=101,-60,-8 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+E iro0 minecraft:iron_golem pos=-99.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-91,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E iro1 minecraft:iron_golem pos=-83.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-75,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E iro2 minecraft:iron_golem pos=-67.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-59,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E iro3 minecraft:iron_golem pos=-51.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-43,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E iro4 minecraft:iron_golem pos=-35.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-27,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E iro5 minecraft:iron_golem pos=-19.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-11,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E iro6 minecraft:iron_golem pos=-3.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=5,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E iro7 minecraft:iron_golem pos=12.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=21,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E iro8 minecraft:iron_golem pos=28.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=37,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E iro9 minecraft:iron_golem pos=44.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=53,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E iro10 minecraft:iron_golem pos=60.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=69,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E iro11 minecraft:iron_golem pos=76.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=85,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E iro12 minecraft:iron_golem pos=92.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=101,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:15.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:1.0;minecraft:max_health:100.0;minecraft:movement_speed:0.25;minecraft:step_height:1.0
+E dro0 minecraft:drowned pos=-99.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-91,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E dro1 minecraft:drowned pos=-83.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-75,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E dro2 minecraft:drowned pos=-67.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-59,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E dro3 minecraft:drowned pos=-51.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-43,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E dro4 minecraft:drowned pos=-35.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-27,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E dro5 minecraft:drowned pos=-19.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-11,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E dro6 minecraft:drowned pos=-3.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=5,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E dro7 minecraft:drowned pos=12.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=21,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E dro8 minecraft:drowned pos=28.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=37,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E dro9 minecraft:drowned pos=44.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=53,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E dro10 minecraft:drowned pos=60.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=69,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E dro11 minecraft:drowned pos=76.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=85,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E dro12 minecraft:drowned pos=92.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=101,-60,28 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
+E str0 minecraft:strider pos=-99.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-91,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E str1 minecraft:strider pos=-83.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-75,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E str2 minecraft:strider pos=-67.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-59,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E str3 minecraft:strider pos=-51.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-43,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E str4 minecraft:strider pos=-35.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-27,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E str5 minecraft:strider pos=-19.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-11,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E str6 minecraft:strider pos=-3.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=5,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E str7 minecraft:strider pos=12.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=21,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E str8 minecraft:strider pos=28.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=37,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E str9 minecraft:strider pos=44.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=53,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E str10 minecraft:strider pos=60.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=69,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E str11 minecraft:strider pos=76.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=85,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E str12 minecraft:strider pos=92.5,-60.0,46.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=101,-60,46 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.17499999701976776 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E hus0 minecraft:husk pos=-99.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-91,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E hus1 minecraft:husk pos=-83.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-75,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E hus2 minecraft:husk pos=-67.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-59,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E hus3 minecraft:husk pos=-51.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-43,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E hus4 minecraft:husk pos=-35.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-27,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E hus5 minecraft:husk pos=-19.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-11,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E hus6 minecraft:husk pos=-3.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=5,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E hus7 minecraft:husk pos=12.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=21,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E hus8 minecraft:husk pos=28.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=37,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E hus9 minecraft:husk pos=44.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=53,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E hus10 minecraft:husk pos=60.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=69,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E hus11 minecraft:husk pos=76.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=85,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E hus12 minecraft:husk pos=92.5,-60.0,64.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=101,-60,64 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513

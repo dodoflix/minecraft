@@ -1,0 +1,32 @@
+# Dolphins and guardians in a pool: the dolphin avoids a guardian (AvoidEntityGoal over Guardian, which includes the elder guardian) and does not
+# retaliate against one that hurt it (HurtByTargetGoal ignoring Guardian damage).
+level flat
+preload 4
+difficulty normal
+entity_counter 12600
+level_seed 12601
+time 18000
+gamerule mob_drops false
+fill -8 -62 -20 40 -49 20 minecraft:stone
+fill -7 -61 -19 39 -51 19 minecraft:water[level=0]
+mobspawn E minecraft:elder_guardian 0.5 -56 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn D1 minecraft:dolphin 4.5 -56 0.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn G minecraft:guardian 24.5 -56 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn D2 minecraft:dolphin 28.5 -56 0.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed E 12611
+entity_seed D1 12612
+entity_seed G 12613
+entity_seed D2 12614
+tick 2
+watch mob:D1 mob:D2
+tick 60
+watch off
+dump mobs
+hurt D1 minecraft:mob_attack 1 by=E direct=E
+hurt D2 minecraft:mob_attack 1 by=G direct=G
+tick 2
+dump mobs
+watch mob:D1 mob:D2
+tick 40
+watch off
+dump mobs

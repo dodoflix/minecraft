@@ -534,7 +534,10 @@ impl Goal for GuardianTargetGoal {
         let position = mob.position();
         let selector = Arc::new(move |target: &dyn Entity, _level: &ServerLevel| {
             (target.is_player()
-                || matches!(target.get_type(), EntityType::SQUID | EntityType::AXOLOTL))
+                || matches!(
+                    target.get_type(),
+                    EntityType::SQUID | EntityType::GLOW_SQUID | EntityType::AXOLOTL
+                ))
                 && target.base().distance_to_sqr_vec(position) > 9.0
         });
         self.inner.target_conditions = TargetingConditions::for_combat().selector(Some(selector));

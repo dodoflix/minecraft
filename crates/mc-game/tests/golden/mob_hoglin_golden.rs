@@ -15,6 +15,12 @@ fn hoglin_zombify() {
     check("mob_hoglin_zombify");
 }
 
+/// Hoglins created with `finalizeSpawn`: a baby has the attack damage and experience of a baby.
+#[test]
+fn hoglin_baby_spawn() {
+    check("mob_hoglin_baby_spawn");
+}
+
 /// Zoglins fighting a player and a cow, the baby's quicker attacks, and the retaliation target after a player hurts them.
 #[test]
 fn zoglin_attack() {

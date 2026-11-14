@@ -44,7 +44,7 @@ define_accessor!(pub DATA_VARIANT_ID: Int = Parrot);
 
 pub const RIDE_COOLDOWN: i32 = 100;
 
-/// `MOB_SOUND_MAP` in declaration order (`None` = `SoundEvents.EMPTY`).
+/// `MOB_SOUND_MAP` in declaration order (`SoundEvents.EMPTY` is the `intentionally_empty` event, played like any other).
 static MOB_SOUND_MAP: &[(EntityType, Option<SoundEvent>)] = &[
     (
         EntityType::BLAZE,
@@ -98,7 +98,10 @@ static MOB_SOUND_MAP: &[(EntityType, Option<SoundEvent>)] = &[
         EntityType::GHAST,
         Some(SoundEvent::ENTITY_PARROT_IMITATE_GHAST),
     ),
-    (EntityType::HAPPY_GHAST, None),
+    (
+        EntityType::HAPPY_GHAST,
+        Some(SoundEvent::INTENTIONALLY_EMPTY),
+    ),
     (
         EntityType::GUARDIAN,
         Some(SoundEvent::ENTITY_PARROT_IMITATE_GUARDIAN),
@@ -210,7 +213,7 @@ static MOB_SOUND_MAP: &[(EntityType, Option<SoundEvent>)] = &[
     ),
 ];
 
-/// `getImitatedSound(type)` (`getOrDefault(type, PARROT_AMBIENT)`); `Some(None)` is `SoundEvents.EMPTY`.
+/// `getImitatedSound(type)` (`getOrDefault(type, PARROT_AMBIENT)`).
 fn get_imitated_sound(ty: EntityType) -> Option<SoundEvent> {
     MOB_SOUND_MAP
         .iter()
@@ -223,7 +226,7 @@ pub fn get_pitch(random: &mut dyn RandomSource) -> f32 {
     (random.next_float() - random.next_float()) * 0.2 + 1.0
 }
 
-/// `Parrot.getAmbient(level, random)`: `None` is `SoundEvents.EMPTY`.
+/// `Parrot.getAmbient(level, random)`.
 pub fn get_ambient(difficulty: Difficulty, random: &mut dyn RandomSource) -> Option<SoundEvent> {
     if difficulty != Difficulty::Peaceful && random.next_int_bounded(1000) == 0 {
         let index = random.next_int_bounded(MOB_SOUND_MAP.len() as i32) as usize;

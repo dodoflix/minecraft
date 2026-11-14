@@ -39,6 +39,12 @@ fn tadpole_grow_matches_vanilla() {
     check("mob_tadpole_grow");
 }
 
+/// A tadpole loaded with an Age of 24000 or more becomes a frog while loading (summon, data merge).
+#[test]
+fn tadpole_load_age_matches_vanilla() {
+    check("mob_tadpole_load_age");
+}
+
 /// A water bucket on every axolotl variant, a baby and the tadpoles picks the mob up, the filled bucket releases it again.
 #[test]
 fn amphibian_bucket_matches_vanilla() {

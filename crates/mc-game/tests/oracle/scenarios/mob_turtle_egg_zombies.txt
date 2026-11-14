@@ -1,0 +1,55 @@
+# Mobs falling onto turtle eggs: every kind of Zombie (zombie, husk, drowned, zombie villager, zombified piglin) leaves the eggs alone
+# (TurtleEggBlock.fallOn: !(entity instanceof Zombie)), a skeleton and a cow crush them with the 1 in 3 draw.
+level flat
+preload 4
+difficulty normal
+time 18000
+entity_counter 12200
+level_seed 12201
+block 0 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M0 minecraft:zombie 0.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M0 12210
+block 3 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M1 minecraft:zombie 3.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M1 12211
+block 6 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M2 minecraft:husk 6.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M2 12212
+block 9 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M3 minecraft:husk 9.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M3 12213
+block 12 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M4 minecraft:drowned 12.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M4 12214
+block 15 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M5 minecraft:drowned 15.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M5 12215
+block 18 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M6 minecraft:zombie_villager 18.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M6 12216
+block 21 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M7 minecraft:zombie_villager 21.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M7 12217
+block 24 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M8 minecraft:zombified_piglin 24.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M8 12218
+block 27 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M9 minecraft:zombified_piglin 27.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M9 12219
+block 30 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M10 minecraft:skeleton 30.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M10 12220
+block 33 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M11 minecraft:skeleton 33.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M11 12221
+block 36 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M12 minecraft:cow 36.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M12 12222
+block 39 -60 10 minecraft:turtle_egg[eggs=4,hatch=0]
+mobspawn M13 minecraft:cow 39.5 -57 10.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b}
+entity_seed M13 12223
+dump blocks:0,-60,10,42,-60,10
+watch mobs
+tick 20
+watch off
+dump blocks:0,-60,10,42,-60,10 mobs events

@@ -69,7 +69,12 @@ impl ServerLevel {
     // ---- adding ---------------------------------------------------------------------------------------------
 
     /// `addFreshEntity(entity)` (= `addEntity`): false if the entity is already marked removed or its UUID exists.
+    /// The level-dependent part of loading and of `finalizeSpawn`'s `setAge` ran in vanilla before this call: it runs first,
+    /// so a tadpole that converted while loading is already removed.
     pub fn add_fresh_entity(&mut self, entity: Box<dyn Entity>) -> bool {
+        let mut entity = entity;
+        entity.read_level_dependent_data(self);
+        crate::world::entity::mob::ageable::run_pending_age_boundary(entity.as_mut(), self);
         if entity.is_removed() {
             log::warn!(
                 "Tried to add entity {} but it was marked as removed already",
@@ -77,8 +82,6 @@ impl ServerLevel {
             );
             return false;
         }
-        let mut entity = entity;
-        entity.read_level_dependent_data(self);
         // `addFreshEntityWithPassengers`: passengers created by `finalizeSpawn` (spider jockey) follow their vehicle
         let passengers = entity
             .mob_mut()

@@ -13,7 +13,7 @@ use crate::world::entity::raid::raids::Raids;
 use crate::world::entity::{Entity, RemovalReason};
 use mc_data::enums::{AttributeModifierOperation as DataOperation, MobEffectCategory};
 use mc_data::{Attribute, MobEffect, ParticleType};
-use mc_protocol::packets::play::{ParticleOptions, SoundSource};
+use mc_protocol::packets::play::ParticleOptions;
 use mc_world::level_storage::Difficulty;
 
 /// `AMBIENT_ALPHA = Mth.floor(38.25F)`.
@@ -351,12 +351,7 @@ impl MobEffectExt for MobEffect {
     fn on_effect_added(self, level: &mut ServerLevel, mob: &mut dyn Entity, _amplifier: i32) {
         if let Some(sound) = self.data().sound_on_added {
             let p = mob.position();
-            let source = if mob.is_player() {
-                SoundSource::Players
-            } else {
-                SoundSource::Neutral
-            };
-            level.play_sound_at(None, p.x, p.y, p.z, sound, source, 1.0, 1.0);
+            level.play_sound_at(None, p.x, p.y, p.z, sound, mob.get_sound_source(), 1.0, 1.0);
         }
     }
 

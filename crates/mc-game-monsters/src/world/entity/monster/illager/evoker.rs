@@ -464,7 +464,7 @@ impl UseSpell for EvokerSummonSpell {
             level.game_event_from_entity_ref(
                 &*mob,
                 GameEvent::ENTITY_PLACE,
-                Vec3::new(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z())),
+                Vec3::at_center_of(&pos),
             );
         }
     }

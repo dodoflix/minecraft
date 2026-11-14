@@ -9,6 +9,12 @@ fn mob_goat_breed_tempt_matches_vanilla() {
     crate::common::block_scenario::check("mob_goat_breed_tempt");
 }
 
+/// Goats spawned in one group: a calf reaches the baby boundary during `finalizeSpawn` and has the attack damage of a baby.
+#[test]
+fn mob_goat_baby_group_matches_vanilla() {
+    check("mob_goat_baby_group");
+}
+
 /// Replayed by the block replay: the vanilla level shuffles its ticking chunks with `Level.random` every tick, which the goats' ram
 /// cooldown draws from.
 #[test]

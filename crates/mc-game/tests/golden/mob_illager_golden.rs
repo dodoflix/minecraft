@@ -44,6 +44,11 @@ fn evoker_summons_vexes() {
 }
 
 #[test]
+fn evoker_vex_place_event_reaches_sculk_sensors() {
+    block_scenario::check("mob_evoker_vex_place_event");
+}
+
+#[test]
 fn evoker_wololo_recolours_blue_sheep() {
     block_scenario::check("mob_evoker_wololo");
 }

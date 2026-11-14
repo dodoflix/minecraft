@@ -1,0 +1,723 @@
+# Path queries (createPath, no movement) of 9 real mob classes over 13 obstacles: a closed/open wooden door and an iron door in a wall, a closed fence gate, a
+# channel of water, lava, cobweb, sweet berry bush, honey block, powder snow, cactus, magma block, and a row of open trapdoors; the target is 8 blocks
+# behind the obstacle. PATHQ/PATH/PN lines: path nodes with node types and maluses (door passability, danger types, breaking doors on hard).
+level flat
+difficulty hard
+preload 12
+fill -110 -60 -90 110 -40 70 minecraft:air
+time 12500
+
+fill -96 -60 -85 -96 -58 -75 minecraft:stone
+block -96 -60 -80 minecraft:oak_door[half=lower,facing=east,open=false]
+block -96 -59 -80 minecraft:oak_door[half=upper,facing=east,open=false]
+block -96 -58 -80 minecraft:air
+mobspawn zom0 minecraft:zombie -99.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -80 -60 -85 -80 -58 -75 minecraft:stone
+block -80 -60 -80 minecraft:oak_door[half=lower,facing=east,open=true]
+block -80 -59 -80 minecraft:oak_door[half=upper,facing=east,open=true]
+block -80 -58 -80 minecraft:air
+mobspawn zom1 minecraft:zombie -83.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -64 -60 -85 -64 -58 -75 minecraft:stone
+block -64 -60 -80 minecraft:iron_door[half=lower,facing=east,open=false]
+block -64 -59 -80 minecraft:iron_door[half=upper,facing=east,open=false]
+block -64 -58 -80 minecraft:air
+mobspawn zom2 minecraft:zombie -67.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -48 -60 -85 -48 -58 -75 minecraft:stone
+fill -48 -60 -80 -48 -60 -80 minecraft:air
+block -48 -60 -80 minecraft:oak_fence_gate[facing=east,open=false]
+fill -48 -59 -80 -48 -59 -80 minecraft:air
+block -48 -59 -80 minecraft:air
+mobspawn zom3 minecraft:zombie -51.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -33 -61 -85 -31 -61 -75 minecraft:water[level=0]
+mobspawn zom4 minecraft:zombie -35.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -17 -61 -85 -15 -61 -75 minecraft:lava[level=0]
+mobspawn zom5 minecraft:zombie -19.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -1 -60 -85 1 -60 -75 minecraft:cobweb
+mobspawn zom6 minecraft:zombie -3.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 15 -60 -85 17 -60 -75 minecraft:sweet_berry_bush[age=3]
+mobspawn zom7 minecraft:zombie 12.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 31 -61 -85 33 -61 -75 minecraft:honey_block
+mobspawn zom8 minecraft:zombie 28.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 47 -61 -85 49 -61 -75 minecraft:powder_snow
+mobspawn zom9 minecraft:zombie 44.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 63 -60 -85 65 -60 -75 minecraft:cactus
+mobspawn zom10 minecraft:zombie 60.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 79 -61 -85 81 -61 -75 minecraft:magma_block
+mobspawn zom11 minecraft:zombie 76.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 95 -60 -85 97 -60 -75 minecraft:oak_trapdoor[facing=east,half=bottom,open=true]
+mobspawn zom12 minecraft:zombie 92.5 -60 -79.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -96 -60 -67 -96 -58 -57 minecraft:stone
+block -96 -60 -62 minecraft:oak_door[half=lower,facing=east,open=false]
+block -96 -59 -62 minecraft:oak_door[half=upper,facing=east,open=false]
+block -96 -58 -62 minecraft:air
+mobspawn vil0 minecraft:villager -99.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -80 -60 -67 -80 -58 -57 minecraft:stone
+block -80 -60 -62 minecraft:oak_door[half=lower,facing=east,open=true]
+block -80 -59 -62 minecraft:oak_door[half=upper,facing=east,open=true]
+block -80 -58 -62 minecraft:air
+mobspawn vil1 minecraft:villager -83.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -64 -60 -67 -64 -58 -57 minecraft:stone
+block -64 -60 -62 minecraft:iron_door[half=lower,facing=east,open=false]
+block -64 -59 -62 minecraft:iron_door[half=upper,facing=east,open=false]
+block -64 -58 -62 minecraft:air
+mobspawn vil2 minecraft:villager -67.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -48 -60 -67 -48 -58 -57 minecraft:stone
+fill -48 -60 -62 -48 -60 -62 minecraft:air
+block -48 -60 -62 minecraft:oak_fence_gate[facing=east,open=false]
+fill -48 -59 -62 -48 -59 -62 minecraft:air
+block -48 -59 -62 minecraft:air
+mobspawn vil3 minecraft:villager -51.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -33 -61 -67 -31 -61 -57 minecraft:water[level=0]
+mobspawn vil4 minecraft:villager -35.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -17 -61 -67 -15 -61 -57 minecraft:lava[level=0]
+mobspawn vil5 minecraft:villager -19.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -1 -60 -67 1 -60 -57 minecraft:cobweb
+mobspawn vil6 minecraft:villager -3.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 15 -60 -67 17 -60 -57 minecraft:sweet_berry_bush[age=3]
+mobspawn vil7 minecraft:villager 12.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 31 -61 -67 33 -61 -57 minecraft:honey_block
+mobspawn vil8 minecraft:villager 28.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 47 -61 -67 49 -61 -57 minecraft:powder_snow
+mobspawn vil9 minecraft:villager 44.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 63 -60 -67 65 -60 -57 minecraft:cactus
+mobspawn vil10 minecraft:villager 60.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 79 -61 -67 81 -61 -57 minecraft:magma_block
+mobspawn vil11 minecraft:villager 76.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 95 -60 -67 97 -60 -57 minecraft:oak_trapdoor[facing=east,half=bottom,open=true]
+mobspawn vil12 minecraft:villager 92.5 -60 -61.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -96 -60 -49 -96 -58 -39 minecraft:stone
+block -96 -60 -44 minecraft:oak_door[half=lower,facing=east,open=false]
+block -96 -59 -44 minecraft:oak_door[half=upper,facing=east,open=false]
+block -96 -58 -44 minecraft:air
+mobspawn cow0 minecraft:cow -99.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -80 -60 -49 -80 -58 -39 minecraft:stone
+block -80 -60 -44 minecraft:oak_door[half=lower,facing=east,open=true]
+block -80 -59 -44 minecraft:oak_door[half=upper,facing=east,open=true]
+block -80 -58 -44 minecraft:air
+mobspawn cow1 minecraft:cow -83.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -64 -60 -49 -64 -58 -39 minecraft:stone
+block -64 -60 -44 minecraft:iron_door[half=lower,facing=east,open=false]
+block -64 -59 -44 minecraft:iron_door[half=upper,facing=east,open=false]
+block -64 -58 -44 minecraft:air
+mobspawn cow2 minecraft:cow -67.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -48 -60 -49 -48 -58 -39 minecraft:stone
+fill -48 -60 -44 -48 -60 -44 minecraft:air
+block -48 -60 -44 minecraft:oak_fence_gate[facing=east,open=false]
+fill -48 -59 -44 -48 -59 -44 minecraft:air
+block -48 -59 -44 minecraft:air
+mobspawn cow3 minecraft:cow -51.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -33 -61 -49 -31 -61 -39 minecraft:water[level=0]
+mobspawn cow4 minecraft:cow -35.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -17 -61 -49 -15 -61 -39 minecraft:lava[level=0]
+mobspawn cow5 minecraft:cow -19.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -1 -60 -49 1 -60 -39 minecraft:cobweb
+mobspawn cow6 minecraft:cow -3.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 15 -60 -49 17 -60 -39 minecraft:sweet_berry_bush[age=3]
+mobspawn cow7 minecraft:cow 12.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 31 -61 -49 33 -61 -39 minecraft:honey_block
+mobspawn cow8 minecraft:cow 28.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 47 -61 -49 49 -61 -39 minecraft:powder_snow
+mobspawn cow9 minecraft:cow 44.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 63 -60 -49 65 -60 -39 minecraft:cactus
+mobspawn cow10 minecraft:cow 60.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 79 -61 -49 81 -61 -39 minecraft:magma_block
+mobspawn cow11 minecraft:cow 76.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 95 -60 -49 97 -60 -39 minecraft:oak_trapdoor[facing=east,half=bottom,open=true]
+mobspawn cow12 minecraft:cow 92.5 -60 -43.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -96 -60 -31 -96 -58 -21 minecraft:stone
+block -96 -60 -26 minecraft:oak_door[half=lower,facing=east,open=false]
+block -96 -59 -26 minecraft:oak_door[half=upper,facing=east,open=false]
+block -96 -58 -26 minecraft:air
+mobspawn spi0 minecraft:spider -99.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -80 -60 -31 -80 -58 -21 minecraft:stone
+block -80 -60 -26 minecraft:oak_door[half=lower,facing=east,open=true]
+block -80 -59 -26 minecraft:oak_door[half=upper,facing=east,open=true]
+block -80 -58 -26 minecraft:air
+mobspawn spi1 minecraft:spider -83.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -64 -60 -31 -64 -58 -21 minecraft:stone
+block -64 -60 -26 minecraft:iron_door[half=lower,facing=east,open=false]
+block -64 -59 -26 minecraft:iron_door[half=upper,facing=east,open=false]
+block -64 -58 -26 minecraft:air
+mobspawn spi2 minecraft:spider -67.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -48 -60 -31 -48 -58 -21 minecraft:stone
+fill -48 -60 -26 -48 -60 -26 minecraft:air
+block -48 -60 -26 minecraft:oak_fence_gate[facing=east,open=false]
+fill -48 -59 -26 -48 -59 -26 minecraft:air
+block -48 -59 -26 minecraft:air
+mobspawn spi3 minecraft:spider -51.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -33 -61 -31 -31 -61 -21 minecraft:water[level=0]
+mobspawn spi4 minecraft:spider -35.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -17 -61 -31 -15 -61 -21 minecraft:lava[level=0]
+mobspawn spi5 minecraft:spider -19.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -1 -60 -31 1 -60 -21 minecraft:cobweb
+mobspawn spi6 minecraft:spider -3.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 15 -60 -31 17 -60 -21 minecraft:sweet_berry_bush[age=3]
+mobspawn spi7 minecraft:spider 12.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 31 -61 -31 33 -61 -21 minecraft:honey_block
+mobspawn spi8 minecraft:spider 28.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 47 -61 -31 49 -61 -21 minecraft:powder_snow
+mobspawn spi9 minecraft:spider 44.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 63 -60 -31 65 -60 -21 minecraft:cactus
+mobspawn spi10 minecraft:spider 60.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 79 -61 -31 81 -61 -21 minecraft:magma_block
+mobspawn spi11 minecraft:spider 76.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 95 -60 -31 97 -60 -21 minecraft:oak_trapdoor[facing=east,half=bottom,open=true]
+mobspawn spi12 minecraft:spider 92.5 -60 -25.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -96 -60 -13 -96 -58 -3 minecraft:stone
+block -96 -60 -8 minecraft:oak_door[half=lower,facing=east,open=false]
+block -96 -59 -8 minecraft:oak_door[half=upper,facing=east,open=false]
+block -96 -58 -8 minecraft:air
+mobspawn ske0 minecraft:skeleton -99.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -80 -60 -13 -80 -58 -3 minecraft:stone
+block -80 -60 -8 minecraft:oak_door[half=lower,facing=east,open=true]
+block -80 -59 -8 minecraft:oak_door[half=upper,facing=east,open=true]
+block -80 -58 -8 minecraft:air
+mobspawn ske1 minecraft:skeleton -83.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -64 -60 -13 -64 -58 -3 minecraft:stone
+block -64 -60 -8 minecraft:iron_door[half=lower,facing=east,open=false]
+block -64 -59 -8 minecraft:iron_door[half=upper,facing=east,open=false]
+block -64 -58 -8 minecraft:air
+mobspawn ske2 minecraft:skeleton -67.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -48 -60 -13 -48 -58 -3 minecraft:stone
+fill -48 -60 -8 -48 -60 -8 minecraft:air
+block -48 -60 -8 minecraft:oak_fence_gate[facing=east,open=false]
+fill -48 -59 -8 -48 -59 -8 minecraft:air
+block -48 -59 -8 minecraft:air
+mobspawn ske3 minecraft:skeleton -51.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -33 -61 -13 -31 -61 -3 minecraft:water[level=0]
+mobspawn ske4 minecraft:skeleton -35.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -17 -61 -13 -15 -61 -3 minecraft:lava[level=0]
+mobspawn ske5 minecraft:skeleton -19.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -1 -60 -13 1 -60 -3 minecraft:cobweb
+mobspawn ske6 minecraft:skeleton -3.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 15 -60 -13 17 -60 -3 minecraft:sweet_berry_bush[age=3]
+mobspawn ske7 minecraft:skeleton 12.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 31 -61 -13 33 -61 -3 minecraft:honey_block
+mobspawn ske8 minecraft:skeleton 28.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 47 -61 -13 49 -61 -3 minecraft:powder_snow
+mobspawn ske9 minecraft:skeleton 44.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 63 -60 -13 65 -60 -3 minecraft:cactus
+mobspawn ske10 minecraft:skeleton 60.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 79 -61 -13 81 -61 -3 minecraft:magma_block
+mobspawn ske11 minecraft:skeleton 76.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 95 -60 -13 97 -60 -3 minecraft:oak_trapdoor[facing=east,half=bottom,open=true]
+mobspawn ske12 minecraft:skeleton 92.5 -60 -7.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -96 -60 5 -96 -58 15 minecraft:stone
+block -96 -60 10 minecraft:oak_door[half=lower,facing=east,open=false]
+block -96 -59 10 minecraft:oak_door[half=upper,facing=east,open=false]
+block -96 -58 10 minecraft:air
+mobspawn iro0 minecraft:iron_golem -99.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -80 -60 5 -80 -58 15 minecraft:stone
+block -80 -60 10 minecraft:oak_door[half=lower,facing=east,open=true]
+block -80 -59 10 minecraft:oak_door[half=upper,facing=east,open=true]
+block -80 -58 10 minecraft:air
+mobspawn iro1 minecraft:iron_golem -83.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -64 -60 5 -64 -58 15 minecraft:stone
+block -64 -60 10 minecraft:iron_door[half=lower,facing=east,open=false]
+block -64 -59 10 minecraft:iron_door[half=upper,facing=east,open=false]
+block -64 -58 10 minecraft:air
+mobspawn iro2 minecraft:iron_golem -67.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -48 -60 5 -48 -58 15 minecraft:stone
+fill -48 -60 10 -48 -60 10 minecraft:air
+block -48 -60 10 minecraft:oak_fence_gate[facing=east,open=false]
+fill -48 -59 10 -48 -59 10 minecraft:air
+block -48 -59 10 minecraft:air
+mobspawn iro3 minecraft:iron_golem -51.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -33 -61 5 -31 -61 15 minecraft:water[level=0]
+mobspawn iro4 minecraft:iron_golem -35.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -17 -61 5 -15 -61 15 minecraft:lava[level=0]
+mobspawn iro5 minecraft:iron_golem -19.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -1 -60 5 1 -60 15 minecraft:cobweb
+mobspawn iro6 minecraft:iron_golem -3.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 15 -60 5 17 -60 15 minecraft:sweet_berry_bush[age=3]
+mobspawn iro7 minecraft:iron_golem 12.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 31 -61 5 33 -61 15 minecraft:honey_block
+mobspawn iro8 minecraft:iron_golem 28.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 47 -61 5 49 -61 15 minecraft:powder_snow
+mobspawn iro9 minecraft:iron_golem 44.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 63 -60 5 65 -60 15 minecraft:cactus
+mobspawn iro10 minecraft:iron_golem 60.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 79 -61 5 81 -61 15 minecraft:magma_block
+mobspawn iro11 minecraft:iron_golem 76.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 95 -60 5 97 -60 15 minecraft:oak_trapdoor[facing=east,half=bottom,open=true]
+mobspawn iro12 minecraft:iron_golem 92.5 -60 10.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -96 -60 23 -96 -58 33 minecraft:stone
+block -96 -60 28 minecraft:oak_door[half=lower,facing=east,open=false]
+block -96 -59 28 minecraft:oak_door[half=upper,facing=east,open=false]
+block -96 -58 28 minecraft:air
+mobspawn dro0 minecraft:drowned -99.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -80 -60 23 -80 -58 33 minecraft:stone
+block -80 -60 28 minecraft:oak_door[half=lower,facing=east,open=true]
+block -80 -59 28 minecraft:oak_door[half=upper,facing=east,open=true]
+block -80 -58 28 minecraft:air
+mobspawn dro1 minecraft:drowned -83.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -64 -60 23 -64 -58 33 minecraft:stone
+block -64 -60 28 minecraft:iron_door[half=lower,facing=east,open=false]
+block -64 -59 28 minecraft:iron_door[half=upper,facing=east,open=false]
+block -64 -58 28 minecraft:air
+mobspawn dro2 minecraft:drowned -67.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -48 -60 23 -48 -58 33 minecraft:stone
+fill -48 -60 28 -48 -60 28 minecraft:air
+block -48 -60 28 minecraft:oak_fence_gate[facing=east,open=false]
+fill -48 -59 28 -48 -59 28 minecraft:air
+block -48 -59 28 minecraft:air
+mobspawn dro3 minecraft:drowned -51.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -33 -61 23 -31 -61 33 minecraft:water[level=0]
+mobspawn dro4 minecraft:drowned -35.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -17 -61 23 -15 -61 33 minecraft:lava[level=0]
+mobspawn dro5 minecraft:drowned -19.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -1 -60 23 1 -60 33 minecraft:cobweb
+mobspawn dro6 minecraft:drowned -3.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 15 -60 23 17 -60 33 minecraft:sweet_berry_bush[age=3]
+mobspawn dro7 minecraft:drowned 12.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 31 -61 23 33 -61 33 minecraft:honey_block
+mobspawn dro8 minecraft:drowned 28.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 47 -61 23 49 -61 33 minecraft:powder_snow
+mobspawn dro9 minecraft:drowned 44.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 63 -60 23 65 -60 33 minecraft:cactus
+mobspawn dro10 minecraft:drowned 60.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 79 -61 23 81 -61 33 minecraft:magma_block
+mobspawn dro11 minecraft:drowned 76.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 95 -60 23 97 -60 33 minecraft:oak_trapdoor[facing=east,half=bottom,open=true]
+mobspawn dro12 minecraft:drowned 92.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -96 -60 41 -96 -58 51 minecraft:stone
+block -96 -60 46 minecraft:oak_door[half=lower,facing=east,open=false]
+block -96 -59 46 minecraft:oak_door[half=upper,facing=east,open=false]
+block -96 -58 46 minecraft:air
+mobspawn str0 minecraft:strider -99.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -80 -60 41 -80 -58 51 minecraft:stone
+block -80 -60 46 minecraft:oak_door[half=lower,facing=east,open=true]
+block -80 -59 46 minecraft:oak_door[half=upper,facing=east,open=true]
+block -80 -58 46 minecraft:air
+mobspawn str1 minecraft:strider -83.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -64 -60 41 -64 -58 51 minecraft:stone
+block -64 -60 46 minecraft:iron_door[half=lower,facing=east,open=false]
+block -64 -59 46 minecraft:iron_door[half=upper,facing=east,open=false]
+block -64 -58 46 minecraft:air
+mobspawn str2 minecraft:strider -67.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -48 -60 41 -48 -58 51 minecraft:stone
+fill -48 -60 46 -48 -60 46 minecraft:air
+block -48 -60 46 minecraft:oak_fence_gate[facing=east,open=false]
+fill -48 -59 46 -48 -59 46 minecraft:air
+block -48 -59 46 minecraft:air
+mobspawn str3 minecraft:strider -51.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -33 -61 41 -31 -61 51 minecraft:water[level=0]
+mobspawn str4 minecraft:strider -35.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -17 -61 41 -15 -61 51 minecraft:lava[level=0]
+mobspawn str5 minecraft:strider -19.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -1 -60 41 1 -60 51 minecraft:cobweb
+mobspawn str6 minecraft:strider -3.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 15 -60 41 17 -60 51 minecraft:sweet_berry_bush[age=3]
+mobspawn str7 minecraft:strider 12.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 31 -61 41 33 -61 51 minecraft:honey_block
+mobspawn str8 minecraft:strider 28.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 47 -61 41 49 -61 51 minecraft:powder_snow
+mobspawn str9 minecraft:strider 44.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 63 -60 41 65 -60 51 minecraft:cactus
+mobspawn str10 minecraft:strider 60.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 79 -61 41 81 -61 51 minecraft:magma_block
+mobspawn str11 minecraft:strider 76.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 95 -60 41 97 -60 51 minecraft:oak_trapdoor[facing=east,half=bottom,open=true]
+mobspawn str12 minecraft:strider 92.5 -60 46.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -96 -60 59 -96 -58 69 minecraft:stone
+block -96 -60 64 minecraft:oak_door[half=lower,facing=east,open=false]
+block -96 -59 64 minecraft:oak_door[half=upper,facing=east,open=false]
+block -96 -58 64 minecraft:air
+mobspawn hus0 minecraft:husk -99.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -80 -60 59 -80 -58 69 minecraft:stone
+block -80 -60 64 minecraft:oak_door[half=lower,facing=east,open=true]
+block -80 -59 64 minecraft:oak_door[half=upper,facing=east,open=true]
+block -80 -58 64 minecraft:air
+mobspawn hus1 minecraft:husk -83.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -64 -60 59 -64 -58 69 minecraft:stone
+block -64 -60 64 minecraft:iron_door[half=lower,facing=east,open=false]
+block -64 -59 64 minecraft:iron_door[half=upper,facing=east,open=false]
+block -64 -58 64 minecraft:air
+mobspawn hus2 minecraft:husk -67.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -48 -60 59 -48 -58 69 minecraft:stone
+fill -48 -60 64 -48 -60 64 minecraft:air
+block -48 -60 64 minecraft:oak_fence_gate[facing=east,open=false]
+fill -48 -59 64 -48 -59 64 minecraft:air
+block -48 -59 64 minecraft:air
+mobspawn hus3 minecraft:husk -51.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -33 -61 59 -31 -61 69 minecraft:water[level=0]
+mobspawn hus4 minecraft:husk -35.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -17 -61 59 -15 -61 69 minecraft:lava[level=0]
+mobspawn hus5 minecraft:husk -19.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill -1 -60 59 1 -60 69 minecraft:cobweb
+mobspawn hus6 minecraft:husk -3.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 15 -60 59 17 -60 69 minecraft:sweet_berry_bush[age=3]
+mobspawn hus7 minecraft:husk 12.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 31 -61 59 33 -61 69 minecraft:honey_block
+mobspawn hus8 minecraft:husk 28.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 47 -61 59 49 -61 69 minecraft:powder_snow
+mobspawn hus9 minecraft:husk 44.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 63 -60 59 65 -60 69 minecraft:cactus
+mobspawn hus10 minecraft:husk 60.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 79 -61 59 81 -61 69 minecraft:magma_block
+mobspawn hus11 minecraft:husk 76.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+fill 95 -60 59 97 -60 69 minecraft:oak_trapdoor[facing=east,half=bottom,open=true]
+mobspawn hus12 minecraft:husk 92.5 -60 64.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 4
+nbt zom0 {OnGround:1b}
+nbt zom1 {OnGround:1b}
+nbt zom2 {OnGround:1b}
+nbt zom3 {OnGround:1b}
+nbt zom4 {OnGround:1b}
+nbt zom5 {OnGround:1b}
+nbt zom6 {OnGround:1b}
+nbt zom7 {OnGround:1b}
+nbt zom8 {OnGround:1b}
+nbt zom9 {OnGround:1b}
+nbt zom10 {OnGround:1b}
+nbt zom11 {OnGround:1b}
+nbt zom12 {OnGround:1b}
+nbt vil0 {OnGround:1b}
+nbt vil1 {OnGround:1b}
+nbt vil2 {OnGround:1b}
+nbt vil3 {OnGround:1b}
+nbt vil4 {OnGround:1b}
+nbt vil5 {OnGround:1b}
+nbt vil6 {OnGround:1b}
+nbt vil7 {OnGround:1b}
+nbt vil8 {OnGround:1b}
+nbt vil9 {OnGround:1b}
+nbt vil10 {OnGround:1b}
+nbt vil11 {OnGround:1b}
+nbt vil12 {OnGround:1b}
+nbt cow0 {OnGround:1b}
+nbt cow1 {OnGround:1b}
+nbt cow2 {OnGround:1b}
+nbt cow3 {OnGround:1b}
+nbt cow4 {OnGround:1b}
+nbt cow5 {OnGround:1b}
+nbt cow6 {OnGround:1b}
+nbt cow7 {OnGround:1b}
+nbt cow8 {OnGround:1b}
+nbt cow9 {OnGround:1b}
+nbt cow10 {OnGround:1b}
+nbt cow11 {OnGround:1b}
+nbt cow12 {OnGround:1b}
+nbt spi0 {OnGround:1b}
+nbt spi1 {OnGround:1b}
+nbt spi2 {OnGround:1b}
+nbt spi3 {OnGround:1b}
+nbt spi4 {OnGround:1b}
+nbt spi5 {OnGround:1b}
+nbt spi6 {OnGround:1b}
+nbt spi7 {OnGround:1b}
+nbt spi8 {OnGround:1b}
+nbt spi9 {OnGround:1b}
+nbt spi10 {OnGround:1b}
+nbt spi11 {OnGround:1b}
+nbt spi12 {OnGround:1b}
+nbt ske0 {OnGround:1b}
+nbt ske1 {OnGround:1b}
+nbt ske2 {OnGround:1b}
+nbt ske3 {OnGround:1b}
+nbt ske4 {OnGround:1b}
+nbt ske5 {OnGround:1b}
+nbt ske6 {OnGround:1b}
+nbt ske7 {OnGround:1b}
+nbt ske8 {OnGround:1b}
+nbt ske9 {OnGround:1b}
+nbt ske10 {OnGround:1b}
+nbt ske11 {OnGround:1b}
+nbt ske12 {OnGround:1b}
+nbt iro0 {OnGround:1b}
+nbt iro1 {OnGround:1b}
+nbt iro2 {OnGround:1b}
+nbt iro3 {OnGround:1b}
+nbt iro4 {OnGround:1b}
+nbt iro5 {OnGround:1b}
+nbt iro6 {OnGround:1b}
+nbt iro7 {OnGround:1b}
+nbt iro8 {OnGround:1b}
+nbt iro9 {OnGround:1b}
+nbt iro10 {OnGround:1b}
+nbt iro11 {OnGround:1b}
+nbt iro12 {OnGround:1b}
+nbt dro0 {OnGround:1b}
+nbt dro1 {OnGround:1b}
+nbt dro2 {OnGround:1b}
+nbt dro3 {OnGround:1b}
+nbt dro4 {OnGround:1b}
+nbt dro5 {OnGround:1b}
+nbt dro6 {OnGround:1b}
+nbt dro7 {OnGround:1b}
+nbt dro8 {OnGround:1b}
+nbt dro9 {OnGround:1b}
+nbt dro10 {OnGround:1b}
+nbt dro11 {OnGround:1b}
+nbt dro12 {OnGround:1b}
+nbt str0 {OnGround:1b}
+nbt str1 {OnGround:1b}
+nbt str2 {OnGround:1b}
+nbt str3 {OnGround:1b}
+nbt str4 {OnGround:1b}
+nbt str5 {OnGround:1b}
+nbt str6 {OnGround:1b}
+nbt str7 {OnGround:1b}
+nbt str8 {OnGround:1b}
+nbt str9 {OnGround:1b}
+nbt str10 {OnGround:1b}
+nbt str11 {OnGround:1b}
+nbt str12 {OnGround:1b}
+nbt hus0 {OnGround:1b}
+nbt hus1 {OnGround:1b}
+nbt hus2 {OnGround:1b}
+nbt hus3 {OnGround:1b}
+nbt hus4 {OnGround:1b}
+nbt hus5 {OnGround:1b}
+nbt hus6 {OnGround:1b}
+nbt hus7 {OnGround:1b}
+nbt hus8 {OnGround:1b}
+nbt hus9 {OnGround:1b}
+nbt hus10 {OnGround:1b}
+nbt hus11 {OnGround:1b}
+nbt hus12 {OnGround:1b}
+note row zombie
+note zombie door_closed
+path_query zom0 -90.5 -60 -79.5 1
+note zombie door_open
+path_query zom1 -74.5 -60 -79.5 1
+note zombie iron_door
+path_query zom2 -58.5 -60 -79.5 1
+note zombie fence_gate
+path_query zom3 -42.5 -60 -79.5 1
+note zombie water
+path_query zom4 -26.5 -60 -79.5 1
+note zombie lava
+path_query zom5 -10.5 -60 -79.5 1
+note zombie cobweb
+path_query zom6 5.5 -60 -79.5 1
+note zombie berry
+path_query zom7 21.5 -60 -79.5 1
+note zombie honey
+path_query zom8 37.5 -60 -79.5 1
+note zombie powder_snow
+path_query zom9 53.5 -60 -79.5 1
+note zombie cactus
+path_query zom10 69.5 -60 -79.5 1
+note zombie magma
+path_query zom11 85.5 -60 -79.5 1
+note zombie trapdoor_open
+path_query zom12 101.5 -60 -79.5 1
+note row villager
+note villager door_closed
+path_query vil0 -90.5 -60 -61.5 1
+note villager door_open
+path_query vil1 -74.5 -60 -61.5 1
+note villager iron_door
+path_query vil2 -58.5 -60 -61.5 1
+note villager fence_gate
+path_query vil3 -42.5 -60 -61.5 1
+note villager water
+path_query vil4 -26.5 -60 -61.5 1
+note villager lava
+path_query vil5 -10.5 -60 -61.5 1
+note villager cobweb
+path_query vil6 5.5 -60 -61.5 1
+note villager berry
+path_query vil7 21.5 -60 -61.5 1
+note villager honey
+path_query vil8 37.5 -60 -61.5 1
+note villager powder_snow
+path_query vil9 53.5 -60 -61.5 1
+note villager cactus
+path_query vil10 69.5 -60 -61.5 1
+note villager magma
+path_query vil11 85.5 -60 -61.5 1
+note villager trapdoor_open
+path_query vil12 101.5 -60 -61.5 1
+note row cow
+note cow door_closed
+path_query cow0 -90.5 -60 -43.5 1
+note cow door_open
+path_query cow1 -74.5 -60 -43.5 1
+note cow iron_door
+path_query cow2 -58.5 -60 -43.5 1
+note cow fence_gate
+path_query cow3 -42.5 -60 -43.5 1
+note cow water
+path_query cow4 -26.5 -60 -43.5 1
+note cow lava
+path_query cow5 -10.5 -60 -43.5 1
+note cow cobweb
+path_query cow6 5.5 -60 -43.5 1
+note cow berry
+path_query cow7 21.5 -60 -43.5 1
+note cow honey
+path_query cow8 37.5 -60 -43.5 1
+note cow powder_snow
+path_query cow9 53.5 -60 -43.5 1
+note cow cactus
+path_query cow10 69.5 -60 -43.5 1
+note cow magma
+path_query cow11 85.5 -60 -43.5 1
+note cow trapdoor_open
+path_query cow12 101.5 -60 -43.5 1
+note row spider
+note spider door_closed
+path_query spi0 -90.5 -60 -25.5 1
+note spider door_open
+path_query spi1 -74.5 -60 -25.5 1
+note spider iron_door
+path_query spi2 -58.5 -60 -25.5 1
+note spider fence_gate
+path_query spi3 -42.5 -60 -25.5 1
+note spider water
+path_query spi4 -26.5 -60 -25.5 1
+note spider lava
+path_query spi5 -10.5 -60 -25.5 1
+note spider cobweb
+path_query spi6 5.5 -60 -25.5 1
+note spider berry
+path_query spi7 21.5 -60 -25.5 1
+note spider honey
+path_query spi8 37.5 -60 -25.5 1
+note spider powder_snow
+path_query spi9 53.5 -60 -25.5 1
+note spider cactus
+path_query spi10 69.5 -60 -25.5 1
+note spider magma
+path_query spi11 85.5 -60 -25.5 1
+note spider trapdoor_open
+path_query spi12 101.5 -60 -25.5 1
+note row skeleton
+note skeleton door_closed
+path_query ske0 -90.5 -60 -7.5 1
+note skeleton door_open
+path_query ske1 -74.5 -60 -7.5 1
+note skeleton iron_door
+path_query ske2 -58.5 -60 -7.5 1
+note skeleton fence_gate
+path_query ske3 -42.5 -60 -7.5 1
+note skeleton water
+path_query ske4 -26.5 -60 -7.5 1
+note skeleton lava
+path_query ske5 -10.5 -60 -7.5 1
+note skeleton cobweb
+path_query ske6 5.5 -60 -7.5 1
+note skeleton berry
+path_query ske7 21.5 -60 -7.5 1
+note skeleton honey
+path_query ske8 37.5 -60 -7.5 1
+note skeleton powder_snow
+path_query ske9 53.5 -60 -7.5 1
+note skeleton cactus
+path_query ske10 69.5 -60 -7.5 1
+note skeleton magma
+path_query ske11 85.5 -60 -7.5 1
+note skeleton trapdoor_open
+path_query ske12 101.5 -60 -7.5 1
+note row iron_golem
+note iron_golem door_closed
+path_query iro0 -90.5 -60 10.5 1
+note iron_golem door_open
+path_query iro1 -74.5 -60 10.5 1
+note iron_golem iron_door
+path_query iro2 -58.5 -60 10.5 1
+note iron_golem fence_gate
+path_query iro3 -42.5 -60 10.5 1
+note iron_golem water
+path_query iro4 -26.5 -60 10.5 1
+note iron_golem lava
+path_query iro5 -10.5 -60 10.5 1
+note iron_golem cobweb
+path_query iro6 5.5 -60 10.5 1
+note iron_golem berry
+path_query iro7 21.5 -60 10.5 1
+note iron_golem honey
+path_query iro8 37.5 -60 10.5 1
+note iron_golem powder_snow
+path_query iro9 53.5 -60 10.5 1
+note iron_golem cactus
+path_query iro10 69.5 -60 10.5 1
+note iron_golem magma
+path_query iro11 85.5 -60 10.5 1
+note iron_golem trapdoor_open
+path_query iro12 101.5 -60 10.5 1
+note row drowned
+note drowned door_closed
+path_query dro0 -90.5 -60 28.5 1
+note drowned door_open
+path_query dro1 -74.5 -60 28.5 1
+note drowned iron_door
+path_query dro2 -58.5 -60 28.5 1
+note drowned fence_gate
+path_query dro3 -42.5 -60 28.5 1
+note drowned water
+path_query dro4 -26.5 -60 28.5 1
+note drowned lava
+path_query dro5 -10.5 -60 28.5 1
+note drowned cobweb
+path_query dro6 5.5 -60 28.5 1
+note drowned berry
+path_query dro7 21.5 -60 28.5 1
+note drowned honey
+path_query dro8 37.5 -60 28.5 1
+note drowned powder_snow
+path_query dro9 53.5 -60 28.5 1
+note drowned cactus
+path_query dro10 69.5 -60 28.5 1
+note drowned magma
+path_query dro11 85.5 -60 28.5 1
+note drowned trapdoor_open
+path_query dro12 101.5 -60 28.5 1
+note row strider
+note strider door_closed
+path_query str0 -90.5 -60 46.5 1
+note strider door_open
+path_query str1 -74.5 -60 46.5 1
+note strider iron_door
+path_query str2 -58.5 -60 46.5 1
+note strider fence_gate
+path_query str3 -42.5 -60 46.5 1
+note strider water
+path_query str4 -26.5 -60 46.5 1
+note strider lava
+path_query str5 -10.5 -60 46.5 1
+note strider cobweb
+path_query str6 5.5 -60 46.5 1
+note strider berry
+path_query str7 21.5 -60 46.5 1
+note strider honey
+path_query str8 37.5 -60 46.5 1
+note strider powder_snow
+path_query str9 53.5 -60 46.5 1
+note strider cactus
+path_query str10 69.5 -60 46.5 1
+note strider magma
+path_query str11 85.5 -60 46.5 1
+note strider trapdoor_open
+path_query str12 101.5 -60 46.5 1
+note row husk
+note husk door_closed
+path_query hus0 -90.5 -60 64.5 1
+note husk door_open
+path_query hus1 -74.5 -60 64.5 1
+note husk iron_door
+path_query hus2 -58.5 -60 64.5 1
+note husk fence_gate
+path_query hus3 -42.5 -60 64.5 1
+note husk water
+path_query hus4 -26.5 -60 64.5 1
+note husk lava
+path_query hus5 -10.5 -60 64.5 1
+note husk cobweb
+path_query hus6 5.5 -60 64.5 1
+note husk berry
+path_query hus7 21.5 -60 64.5 1
+note husk honey
+path_query hus8 37.5 -60 64.5 1
+note husk powder_snow
+path_query hus9 53.5 -60 64.5 1
+note husk cactus
+path_query hus10 69.5 -60 64.5 1
+note husk magma
+path_query hus11 85.5 -60 64.5 1
+note husk trapdoor_open
+path_query hus12 101.5 -60 64.5 1
+tick 2
+dump mobs
