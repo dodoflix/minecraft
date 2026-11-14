@@ -1,0 +1,28 @@
+# Arrow effects of the other bow users: a bogged shoots poison 100, a parched weakness 600, a wither skeleton lights its arrows (100 seconds of fire).
+level flat
+difficulty hard
+preload 4
+entity_counter 1540
+level_seed 1541
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn B minecraft:bogged 10.5 -60 0.5 90 0 {PersistenceRequired:1b} nofinalize
+entity_seed B 86
+mobspawn P minecraft:parched -10.5 -60 0.5 270 0 {PersistenceRequired:1b} nofinalize
+entity_seed P 87
+mobspawn W minecraft:wither_skeleton 0.5 -60 12.5 180 0 {PersistenceRequired:1b} nofinalize
+entity_seed W 88
+give B mainhand minecraft:bow
+give P mainhand minecraft:bow
+give W mainhand minecraft:bow
+give Steve head minecraft:netherite_helmet
+give Steve chest minecraft:netherite_chestplate
+give Steve legs minecraft:netherite_leggings
+give Steve feet minecraft:netherite_boots
+tick 2
+dump goals:B goals:P goals:W
+watch mobs entities
+tick 120
+watch off
+dump nbt:arrow#1 nbt:arrow#2 nbt:arrow#3 player:Steve events

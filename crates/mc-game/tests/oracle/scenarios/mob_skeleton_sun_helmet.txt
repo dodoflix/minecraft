@@ -1,0 +1,24 @@
+# Sunlight: a skeleton burns (Mob.aiStep: isSunBurnTick draws a chance per tick and sets fire for 8 seconds), a helmet takes the damage instead and
+# a skeleton under a roof is left alone.
+level flat
+difficulty normal
+preload 4
+entity_counter 1570
+level_seed 1571
+time 1000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 -20.5 0 0
+fill 20 -58 -4 24 -58 4 minecraft:stone
+mobspawn A minecraft:skeleton 3.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b} nofinalize
+entity_seed A 92
+mobspawn H minecraft:skeleton 3.5 -60 4.5 0 0 {PersistenceRequired:1b,NoAI:1b} nofinalize
+entity_seed H 93
+mobspawn R minecraft:skeleton 22.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b} nofinalize
+entity_seed R 94
+give H head minecraft:iron_helmet
+tick 3
+dump mob:A mob:H mob:R
+watch mob:A mob:H mob:R
+tick 120
+watch off
+dump mob:A mob:H mob:R nbt:H

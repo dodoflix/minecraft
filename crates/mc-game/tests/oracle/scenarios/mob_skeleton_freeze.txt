@@ -1,0 +1,21 @@
+# A skeleton in powder snow accumulates FreezingTime (140), then starts a 300 tick StrayConversionTime (shaking); a skeleton loaded
+# mid-conversion turns into a stray that keeps its equipment and effects.
+level flat
+difficulty normal
+preload 4
+entity_counter 1550
+level_seed 1551
+time 18000
+spawn_player Steve creative 0.5 -60 0.5 0 0
+block 8 -60 8 minecraft:powder_snow
+block 12 -60 8 minecraft:powder_snow
+mobspawn S minecraft:skeleton 8.5 -60 8.5 0 0 {PersistenceRequired:1b,FreezingTime:130,StrayConversionTime:-1}
+entity_seed S 89
+mobspawn T minecraft:skeleton 12.5 -60 8.5 0 0 {PersistenceRequired:1b,FreezingTime:140,StrayConversionTime:30}
+entity_seed T 90
+tick 2
+dump mob:S edata:S nbt:S mob:T edata:T nbt:T
+watch mobs
+tick 40
+watch off
+dump mobs events nbt:S

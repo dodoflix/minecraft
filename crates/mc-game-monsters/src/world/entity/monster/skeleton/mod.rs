@@ -183,8 +183,7 @@ impl Entity for AbstractSkeleton {
     fn tick(&mut self, level: &mut ServerLevel) {
         if self.weapon_goal_dirty {
             self.weapon_goal_dirty = false;
-            let difficulty = level.difficulty();
-            self.reassess_weapon_goal(difficulty);
+            goals::reassess_weapon_goal_in_level(self, level);
         }
         if let SkeletonKind::Skeleton(_) = self.kind {
             self.tick_freezing_tracker(level);
@@ -392,8 +391,7 @@ impl Entity for AbstractSkeleton {
         mc_game_core::world::entity::living_entity::equipment::on_equip_item(
             self, level, slot, old, new,
         );
-        let difficulty = level.difficulty();
-        self.reassess_weapon_goal(difficulty);
+        goals::reassess_weapon_goal_in_level(self, level);
     }
 
     fn is_shearable(&self) -> bool {

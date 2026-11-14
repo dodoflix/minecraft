@@ -123,18 +123,28 @@ impl Goal for RangedBowAttackGoal {
             } else if target_dist_sqr < f64::from(self.attack_radius_sqr * 0.25) {
                 self.strafing_backwards = true;
             }
-            mob.mob_mut().expect("mob").move_control_mut().strafe(
-                if self.strafing_backwards { -0.5 } else { 0.5 },
-                if self.strafing_clockwise { 0.5 } else { -0.5 },
-            );
-            if let Some(vehicle) = navigation::controlled_vehicle(mob, level)
-                .filter(|v| level.get_entity(*v).is_some_and(|e| e.mob().is_some()))
-            {
-                level.with_entity(vehicle, |level, v| {
-                    if let Some(target) = level.get_entity(target_id) {
-                        combat::look_at(v, target, 30.0, 30.0);
-                    }
-                });
+            let forward = if self.strafing_backwards { -0.5 } else { 0.5 };
+            let sideways = if self.strafing_clockwise { 0.5 } else { -0.5 };
+            // `getMoveControl()` of a rider is its vehicle's
+            let vehicle = navigation::controlled_vehicle(mob, level)
+                .filter(|v| level.get_entity(*v).is_some_and(|e| e.mob().is_some()));
+            match vehicle {
+                Some(vehicle) => {
+                    level.with_entity(vehicle, |level, v| {
+                        v.mob_mut()
+                            .expect("mob")
+                            .move_control_mut()
+                            .strafe(forward, sideways);
+                        if let Some(target) = level.get_entity(target_id) {
+                            combat::look_at(v, target, 30.0, 30.0);
+                        }
+                    });
+                }
+                None => mob
+                    .mob_mut()
+                    .expect("mob")
+                    .move_control_mut()
+                    .strafe(forward, sideways),
             }
             if let Some(target) = level.get_entity(target_id) {
                 combat::look_at(mob, target, 30.0, 30.0);

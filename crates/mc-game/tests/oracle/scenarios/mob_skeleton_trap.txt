@@ -1,12 +1,16 @@
 # The skeleton trap: a trap horse waits for a player within 10 blocks, then it turns into a normal horse, strikes lightning at its position
 # and spawns a skeleton on it plus three more around it with enchanted weapons and armour drawn from the level and entity randoms.
-# The player is in creative mode: skeletons do not target it.
+# The player is in survival mode, armoured: the skeletons target it and shoot.
 level flat
 difficulty hard
 preload 4
 entity_counter 1400
 level_seed 1401
-spawn_player Steve creative 0.5 -60 0.5 0 0
+spawn_player Steve survival 0.5 -60 0.5 0 0
+give Steve head minecraft:netherite_helmet
+give Steve chest minecraft:netherite_chestplate
+give Steve legs minecraft:netherite_leggings
+give Steve feet minecraft:netherite_boots
 mobspawn Z minecraft:skeleton_horse 25.5 -60 0.5 0 0 {PersistenceRequired:1b,SkeletonTrap:1b,Tame:1b}
 entity_seed Z 71
 mobspawn Y minecraft:skeleton_horse 25.5 -60 25.5 0 0 {PersistenceRequired:1b}

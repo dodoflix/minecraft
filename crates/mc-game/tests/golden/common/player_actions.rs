@@ -490,11 +490,17 @@ fn teleport(
 /// Run a player action command; `false` when `a[0]` is not one of them.
 pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
     match a[0].as_str() {
-        // give REF SLOT STACK [count]   (players only; the entity replay handles mobs itself)
+        // give REF SLOT STACK [count]   (a mob's slot goes through `setItemSlot`, so `onEquipItem` runs)
         "give" => {
             h.boot();
             let stack = item_stack(&a[3], a.get(4).map_or(1, |c| c.parse().unwrap()));
-            with_player(h, &a[1], |_, p| give(p, &a[2], stack));
+            let id = h.action_ref(&a[1]);
+            h.action_level().with_entity(id, |level, e| {
+                match e.as_any_mut().downcast_mut::<ServerPlayer>() {
+                    Some(p) => give(p, &a[2], stack),
+                    None => e.set_item_slot(level, equipment_slot(&a[2]), stack),
+                }
+            });
         }
         // tp REF X Y Z [YAW PITCH]
         "tp" => {

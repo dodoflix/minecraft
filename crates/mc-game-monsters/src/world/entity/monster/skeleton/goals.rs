@@ -5,6 +5,7 @@ use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::{Item, MobEffect, SoundEvent};
+use mc_game_ai::world::entity::ai::goal::RangedBowAttackGoal;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::ai::goal::{
     Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal,
@@ -87,8 +88,9 @@ pub fn register_goals(skeleton: &mut AbstractSkeleton) {
     );
 }
 
-/// The `bowGoal` / `meleeGoal` field initializers. Not implemented: `bowGoal` (`RangedBowAttackGoal`).
+/// The `bowGoal` / `meleeGoal` field initializers.
 pub fn create_weapon_goals(skeleton: &mut AbstractSkeleton) {
+    skeleton.parked_bow_goal = Some(Box::new(RangedBowAttackGoal::new(1.0, 20, 15.0)));
     skeleton.parked_melee_goal = Some(Box::new(SkeletonMeleeAttackGoal {
         melee: MeleeAttackGoal::new(1.2, false),
     }));
@@ -143,12 +145,18 @@ fn is_melee(goal: &dyn Goal) -> bool {
 }
 
 fn is_bow(goal: &dyn Goal) -> bool {
-    goal.name() == "RangedBowAttackGoal"
+    (goal as &dyn std::any::Any).is::<RangedBowAttackGoal>()
 }
 
-/// `reassessWeaponGoal()` (the level is not needed: no goal is stopped here).
+/// `reassessWeaponGoal()` outside a tick (construction, spawn, NBT load): no goal can be running, so none is stopped.
 pub fn reassess_weapon_goal(skeleton: &mut AbstractSkeleton, difficulty: Difficulty) {
     reassess(skeleton, difficulty, None);
+}
+
+/// `reassessWeaponGoal()` with a level at hand: a running weapon goal is stopped by `removeGoal`.
+pub fn reassess_weapon_goal_in_level(skeleton: &mut AbstractSkeleton, level: &mut ServerLevel) {
+    let difficulty = level.difficulty();
+    reassess(skeleton, difficulty, Some(level));
 }
 
 fn reassess(
@@ -194,7 +202,12 @@ fn reassess(
 }
 
 /// `bowGoal.setMinAttackInterval(interval)`.
-fn set_min_attack_interval(_goal: &mut dyn Goal, _interval: i32) {}
+fn set_min_attack_interval(goal: &mut dyn Goal, interval: i32) {
+    (goal as &mut dyn std::any::Any)
+        .downcast_mut::<RangedBowAttackGoal>()
+        .expect("the parked bow goal is a RangedBowAttackGoal")
+        .set_min_attack_interval(interval);
+}
 
 /// `performRangedAttack(target, power)`.
 pub fn perform_ranged_attack(

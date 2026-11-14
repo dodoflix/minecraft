@@ -138,11 +138,6 @@ fn mob_player_attack() {
 }
 
 #[test]
-fn mob_skeleton_shoot() {
-    run_scenario_test("mob_skeleton_shoot");
-}
-
-#[test]
 fn mob_villager_brain() {
     block_scenario::check("mob_villager_brain");
 }

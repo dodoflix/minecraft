@@ -1,0 +1,22 @@
+# Enchantments of a skeleton's bow reach its arrows (ProjectileUtil.getMobArrow -> EnchantmentHelper.onProjectileSpawned): flame sets them
+# on fire, power raises the damage, punch the knockback; the arrows hit a survival player.
+level flat
+difficulty hard
+preload 4
+entity_counter 1560
+level_seed 1561
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+give Steve head minecraft:netherite_helmet
+give Steve chest minecraft:netherite_chestplate
+give Steve legs minecraft:netherite_leggings
+give Steve feet minecraft:netherite_boots
+mobspawn K minecraft:skeleton 10.5 -60 0.5 90 0 {PersistenceRequired:1b} nofinalize
+entity_seed K 91
+give K mainhand minecraft:bow[enchantments={"minecraft:flame":1,"minecraft:power":3,"minecraft:punch":2}]
+tick 2
+watch mob:K entities
+tick 80
+watch off
+dump nbt:arrow#1 player:Steve events

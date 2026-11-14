@@ -1,0 +1,23 @@
+# A stray shoots arrows with slowness 600 (Stray.getArrow): the arrow entity's saved data and the effect on the player.
+level flat
+difficulty hard
+preload 4
+entity_counter 1530
+level_seed 1531
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn Y minecraft:stray 10.5 -60 0.5 90 0 {PersistenceRequired:1b} nofinalize
+entity_seed Y 85
+give Y mainhand minecraft:bow
+give Steve head minecraft:netherite_helmet
+give Steve chest minecraft:netherite_chestplate
+give Steve legs minecraft:netherite_leggings
+give Steve feet minecraft:netherite_boots
+tick 2
+watch mob:Y entities
+tick 80
+watch off
+dump nbt:arrow#1 player:Steve events
+tick 40
+dump player:Steve mob:Y

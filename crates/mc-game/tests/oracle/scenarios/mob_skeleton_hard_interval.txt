@@ -1,0 +1,33 @@
+# Bow intervals: a skeleton and a bogged shoot at a survival player on hard (20 and 50 ticks) and, after the difficulty drops to normal
+# and the bows are re-equipped, on normal (40 and 70 ticks).
+level flat
+difficulty hard
+preload 4
+entity_counter 1520
+level_seed 1521
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn S minecraft:skeleton 12.5 -60 0.5 90 0 {PersistenceRequired:1b} nofinalize
+entity_seed S 83
+mobspawn B minecraft:bogged -12.5 -60 0.5 270 0 {PersistenceRequired:1b} nofinalize
+entity_seed B 84
+give S mainhand minecraft:bow
+give B mainhand minecraft:bow
+give Steve head minecraft:netherite_helmet
+give Steve chest minecraft:netherite_chestplate
+give Steve legs minecraft:netherite_leggings
+give Steve feet minecraft:netherite_boots
+tick 2
+dump goals:S goals:B
+watch mob:S mob:B entities
+tick 100
+watch off
+difficulty normal
+give S mainhand minecraft:bow
+give B mainhand minecraft:bow
+dump goals:S goals:B
+watch mob:S mob:B entities
+tick 100
+watch off
+dump player:Steve events

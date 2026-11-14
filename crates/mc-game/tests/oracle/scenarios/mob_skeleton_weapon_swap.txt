@@ -1,0 +1,43 @@
+# Weapon reassessment on every equipment change (AbstractSkeleton.onEquipItem): a skeleton without a weapon fights with the melee goal,
+# a bow in either hand swaps it for the bow goal (the running goal is stopped by removeGoal), a sword swaps it back; the bow interval follows the difficulty.
+level flat
+difficulty normal
+preload 4
+entity_counter 1510
+level_seed 1511
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn K minecraft:skeleton 12.5 -60 0.5 90 0 {PersistenceRequired:1b} nofinalize
+entity_seed K 82
+tick 5
+dump goals:K mob:K
+note a bow in the main hand
+give K mainhand minecraft:bow
+dump goals:K
+watch mob:K entities
+tick 70
+watch off
+dump goals:K mob:K
+note an iron sword replaces the bow: the bow goal stops, the melee goal runs
+give K mainhand minecraft:iron_sword
+dump goals:K
+watch mob:K
+tick 40
+watch off
+dump goals:K mob:K
+note a bow in the off hand with a sword in the main hand: getWeaponHoldingHand finds the off hand
+give K offhand minecraft:bow
+dump goals:K
+watch mob:K entities
+tick 50
+watch off
+difficulty hard
+note the same bow on hard: the interval changes only when the goal is reassessed
+give K mainhand minecraft:bow
+give K offhand minecraft:air
+dump goals:K mob:K
+watch mob:K entities
+tick 60
+watch off
+dump player:Steve events
