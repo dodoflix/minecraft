@@ -1,0 +1,30 @@
+# Feeding a foal and a cria: the food call draws its particle position from the animal's own random before the growth, so the
+# idle wandering that follows (RandomStrollGoal draws against the same random) depends on that draw.
+level flat
+difficulty normal
+preload 4
+entity_counter 2200
+level_seed 2201
+spawn_player Steve survival 0.5 -60 3.5 0 0
+mobspawn H minecraft:horse 6.5 -60 1.5 0 0 {PersistenceRequired:1b,Age:-24000}
+entity_seed H 61
+mobspawn L minecraft:llama -6.5 -60 1.5 0 0 {PersistenceRequired:1b,Age:-24000}
+entity_seed L 62
+tick 3
+note wheat ages the foal, the particle arguments draw three doubles
+give Steve mainhand minecraft:wheat 8
+interact Steve H main
+tick 1
+dump mob:H edata:H events
+note the cria takes wheat the same way
+interact Steve L main
+tick 1
+dump mob:L events
+note the next wandering depends on the draws
+give Steve mainhand minecraft:air
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events

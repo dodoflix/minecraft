@@ -57,3 +57,8 @@ fn skeleton_trap_horse_springs_the_trap() {
 fn zombie_horse_matches_vanilla() {
     check("mob_zombie_horse");
 }
+
+#[test]
+fn feeding_a_foal_and_a_cria_draws_the_particle_position() {
+    check("mob_equine_baby_feed");
+}

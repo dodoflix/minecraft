@@ -15,7 +15,10 @@ use mc_data::props;
 use mc_game_core::entry_condition;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::chest_block_entity::ChestBlockEntity;
-use mc_game_core::world::container::{Container, with_block_entity_containers};
+use mc_game_core::world::container::{
+    BlockEntityContainer, CompoundContainer, Container, SimpleContainer,
+    with_block_entity_containers,
+};
 use mc_game_core::world::entity::Entity;
 use mc_game_core::world::entity::ai::behavior::behavior_utils::set_walk_and_look_target_memories_pos;
 use mc_game_core::world::entity::ai::behavior::position_tracker::{
@@ -102,13 +105,48 @@ impl TransportItemTarget {
         })
     }
 
-    /// Runs `f` on the target's `Container`.
+    /// Runs `f` on the target's `Container`. Vanilla's compound container keeps the block entity of a half that was removed
+    /// since the target was made; breaking it dropped its items, so it stands in as an empty chest that swallows what is put in.
     pub fn with_container<R>(
         &self,
         level: &mut ServerLevel,
         f: impl FnOnce(&mut ServerLevel, &mut dyn Container) -> R,
     ) -> Option<R> {
-        with_block_entity_containers(level, self.first, self.second, f)
+        let Some(second) = self.second else {
+            return with_block_entity_containers(level, self.first, None, f);
+        };
+        let (survivor, first_is_gone) = match (
+            level.get_block_entity(self.first).is_some(),
+            level.get_block_entity(second).is_some(),
+        ) {
+            (true, true) => {
+                return with_block_entity_containers(level, self.first, Some(second), f);
+            }
+            (false, true) => (second, true),
+            (true, false) => (self.first, false),
+            (false, false) => return None,
+        };
+        let mut be = level.take_block_entity(survivor)?;
+        be.unpack_loot_table(level, None);
+        if be.as_container().is_none() {
+            level.put_back_block_entity(survivor, be);
+            return None;
+        }
+        let gone = SimpleContainer::new(ChestBlockEntity::CONTAINER_SIZE);
+        let (result, be) = if first_is_gone {
+            let mut compound = CompoundContainer::new(gone, BlockEntityContainer(be));
+            (f(level, &mut compound), compound.container2.0)
+        } else {
+            let mut compound = CompoundContainer::new(BlockEntityContainer(be), gone);
+            (f(level, &mut compound), compound.container1.0)
+        };
+        level.put_back_block_entity(survivor, be);
+        level.with_block_entity(survivor, |level, be| {
+            if be.container_pending() {
+                be.container_accessed(level);
+            }
+        });
+        Some(result)
     }
 
     /// The chest block entities of the container, `container1` first.

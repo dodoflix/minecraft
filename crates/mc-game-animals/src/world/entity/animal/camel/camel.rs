@@ -629,6 +629,7 @@ impl Entity for Camel {
     }
 
     fn ai_step(&mut self, level: &mut ServerLevel) {
+        self.game_time = level.game_time();
         abstract_horse::ai_step(self, level);
     }
 

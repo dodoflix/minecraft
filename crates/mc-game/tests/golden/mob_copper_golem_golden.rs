@@ -28,3 +28,18 @@ fn statue() {
 fn transport_queue() {
     common::block_scenario::check("mob_copper_golem_transport_queue");
 }
+
+#[test]
+fn transport_into_double_chest() {
+    common::block_scenario::check("mob_copper_golem_double_chest");
+}
+
+#[test]
+fn transport_to_double_chest_whose_partner_broke() {
+    common::block_scenario::check("mob_copper_golem_partner_broken");
+}
+
+#[test]
+fn transport_to_double_chest_whose_first_half_broke() {
+    common::block_scenario::check("mob_copper_golem_partner_broken_second");
+}

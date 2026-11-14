@@ -107,7 +107,9 @@ impl Behavior for ChargeAttack {
 
     fn start(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
         self.start_position = body.position();
-        let Some(target) = Self::attack_target(body).and_then(|t| level.get_entity(t)) else {
+        let Some(target) =
+            Self::attack_target(body).and_then(|t| level.get_entity_or_recently_removed(t))
+        else {
             return;
         };
         let direction = target.position().subtract(body.position()).normalize();
@@ -121,7 +123,7 @@ impl Behavior for ChargeAttack {
         let Some(attack_target) = Self::attack_target(body) else {
             return;
         };
-        if let Some(target) = level.get_entity(attack_target) {
+        if let Some(target) = level.get_entity_or_recently_removed(attack_target) {
             combat::look_at(body, target, 360.0, 360.0);
         }
         body.base_mut()

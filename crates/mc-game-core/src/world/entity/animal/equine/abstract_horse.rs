@@ -839,6 +839,11 @@ pub fn handle_eating(
         item_used = true;
     }
     if e.is_baby() && age_up > 0 && !mob::ageable::is_age_locked(e.as_dyn()) {
+        // the particle call's arguments draw from the entity random although the server shows no particle
+        let base = e.base_mut();
+        base.get_random_x(1.0);
+        base.get_random_y();
+        base.get_random_z(1.0);
         mob::ageable::age_up(e.as_dyn_mut(), level, age_up, false);
         item_used = true;
     }

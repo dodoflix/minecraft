@@ -488,6 +488,11 @@ impl AbstractHorse for Llama {
             item_used = true;
         }
         if self.is_baby() && age_up > 0 && !mob::ageable::is_age_locked(self) {
+            // the particle call's arguments draw from the entity random although the server shows no particle
+            let base = self.base_mut();
+            base.get_random_x(1.0);
+            base.get_random_y();
+            base.get_random_z(1.0);
             mob::ageable::age_up(self, level, age_up, false);
             item_used = true;
         }

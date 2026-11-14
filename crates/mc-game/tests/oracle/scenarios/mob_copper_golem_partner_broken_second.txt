@@ -1,0 +1,32 @@
+# The first (right) half of a double chest breaks while a copper golem that comes from the east carries items to the second
+# half: the compound container keeps the emptied broken half as its first container, so the delivery goes into it and is lost.
+level flat
+preload 4
+difficulty normal
+time 6000
+gamerule mob_drops false
+entity_counter 12600
+level_seed 12601
+block 13 -60 0 minecraft:copper_chest[facing=south,type=single]
+be_nbt 13 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:20}]}
+block 6 -60 0 minecraft:chest[facing=south,type=right]
+block 7 -60 0 minecraft:chest[facing=south,type=left]
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:60}]}
+be_nbt 7 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:3}]}
+spawn_player Steve survival 10.5 -60 8.5 0 0
+tick 2
+mobspawn G minecraft:copper_golem 10.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Brain:{memories:{"minecraft:transport_items_cooldown_ticks":{value:5}}}}
+entity_seed G 12602
+tick 120
+dump mob:G brain:G be:13,-60,0 be:6,-60,0 be:7,-60,0 events
+destroy 6 -60 0
+tick 1
+dump mob:G brain:G be:7,-60,0 events
+tick 40
+dump mob:G brain:G be:7,-60,0 events
+tick 40
+dump mob:G brain:G be:7,-60,0 events
+tick 100
+dump mob:G brain:G nbt:G be:13,-60,0 be:7,-60,0 events
+tick 200
+dump mob:G brain:G be:13,-60,0 be:7,-60,0 events
