@@ -34,7 +34,7 @@ HURT G1 lightning_bolt 5 -> false
 P G1 minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=0/0 death=105 fx=- gm=survival food=19 sat=0.0 exh=3.1 xp=0/0/0.0 sel=0 main=empty
 PKT G1 minecraft:damage_event 190112000000
 PKT G1 minecraft:set_entity_data 6501090341880000ff
-PKT G1 minecraft:update_attributes entity=1;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT G1 minecraft:update_attributes entity=1;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT G1 minecraft:set_entity_motion 6701f9ff7ffeebed
 PKT G1 minecraft:set_health 6a418800001440a00000
 PKT G1 minecraft:set_health 6a418eaaab1440a00000
@@ -157,7 +157,7 @@ HURT G2 sweet_berry_bush 1 -> false
 HURT G2 lightning_bolt 5 -> false
 P G2 minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.499998 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=17 sat=0.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 PKT G2 minecraft:set_time 73000000000000015300
-PKT G2 minecraft:update_attributes entity=2;minecraft:block_interaction_range=4.5[minecraft:creative_mode_block_range/0.5/add_value];minecraft:entity_interaction_range=3.0[minecraft:creative_mode_entity_range/2.0/add_value];minecraft:movement_speed=0.10000000149011612[]
+PKT G2 minecraft:update_attributes entity=2;minecraft:entity_interaction_range=3.0[minecraft:creative_mode_entity_range/2.0/add_value];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[minecraft:creative_mode_block_range/0.5/add_value]
 PKT G2 minecraft:damage_event 190220000000
 PKT G2 minecraft:set_time 73000000000000016700
 PKT G2 minecraft:set_entity_data 6502090341880000ff
@@ -243,7 +243,7 @@ HURT G3 thorns 3 -> false
 HURT G3 sweet_berry_bush 1 -> false
 HURT G3 lightning_bolt 5 -> false
 P G3 minecraft:player pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.499998 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=17 sat=0.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-PKT G3 minecraft:update_attributes entity=3;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT G3 minecraft:update_attributes entity=3;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT G3 minecraft:set_time 7300000000000002a700
 PKT G3 minecraft:damage_event 190320000000
 PKT G3 minecraft:set_entity_data 6503090341880000ff
@@ -331,7 +331,7 @@ HURT G4 lightning_bolt 5 -> false
 P G4 minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=0/0 death=105 fx=- gm=adventure food=19 sat=0.0 exh=3.1 xp=0/0/0.0 sel=0 main=empty
 PKT G4 minecraft:damage_event 190412000000
 PKT G4 minecraft:set_entity_data 6504090341880000ff
-PKT G4 minecraft:update_attributes entity=4;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT G4 minecraft:update_attributes entity=4;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT G4 minecraft:set_entity_motion 6704f9ff7ffeebed
 PKT G4 minecraft:set_health 6a418800001440a00000
 PKT G4 minecraft:set_time 7300000000000003fb00
@@ -451,7 +451,7 @@ HURT H drown 3 -> false
 HURT H freeze 3 -> false
 HURT H cactus 3 -> true
 P H minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0999999 xp=0/0/0.0 sel=0 main=empty
-PKT H minecraft:update_attributes entity=5;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT H minecraft:update_attributes entity=5;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT H minecraft:set_time 73000000000000054f00
 PKT H minecraft:set_time 73000000000000056300
 PKT H minecraft:set_time 73000000000000057700

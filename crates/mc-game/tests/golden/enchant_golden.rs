@@ -159,7 +159,6 @@ fn enchantment_helper_equals_vanilla() {
                     eh::enchant_item(&mut random, item, t[3].parse().unwrap(), &registries, None);
                 let mut parts: Vec<String> = eh::get_enchantments_for_crafting(&res)
                     .entries()
-                    .iter()
                     .map(|(h, l)| format!("{}:{}", h.name().unwrap().path(), l))
                     .collect();
                 parts.sort();

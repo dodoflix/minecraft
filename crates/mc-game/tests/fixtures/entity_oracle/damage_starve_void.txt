@@ -16,7 +16,7 @@ PKT S1 minecraft:level_chunk_with_light chunk=-1,-1/len=7260
 PKT S1 minecraft:level_chunk_with_light chunk=-1,1/len=7260
 PKT S1 minecraft:chunk_batch_finished 0b09
 P S1 minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=0 sat=0.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-PKT S1 minecraft:update_attributes entity=1;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT S1 minecraft:update_attributes entity=1;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT S1 minecraft:set_time 73000000000000001300
 PKT S1 minecraft:set_time 73000000000000002700
 PKT S1 minecraft:set_time 73000000000000003b00
@@ -76,7 +76,7 @@ PKT S2 minecraft:level_chunk_with_light chunk=-1,-1/len=7260
 PKT S2 minecraft:level_chunk_with_light chunk=-1,1/len=7260
 PKT S2 minecraft:chunk_batch_finished 0b09
 P S2 minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=0 sat=0.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-PKT S2 minecraft:update_attributes entity=2;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT S2 minecraft:update_attributes entity=2;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT S2 minecraft:set_time 7300000000000001a300
 PKT S2 minecraft:set_time 7300000000000001b700
 PKT S2 minecraft:set_time 7300000000000001cb00
@@ -252,7 +252,7 @@ PKT S3 minecraft:level_chunk_with_light chunk=-1,-1/len=7260
 PKT S3 minecraft:level_chunk_with_light chunk=-1,1/len=7260
 PKT S3 minecraft:chunk_batch_finished 0b09
 P S3 minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=0/0 death=301 fx=- gm=survival food=0 sat=0.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-PKT S3 minecraft:update_attributes entity=3;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT S3 minecraft:update_attributes entity=3;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT S3 minecraft:set_time 73000000000000071b00
 PKT S3 minecraft:set_time 73000000000000072f00
 PKT S3 minecraft:sound 77a40a0700000024fffffe20000000043f8000003f800000df64141eada66804
@@ -462,7 +462,7 @@ PKT S4 minecraft:level_chunk_with_light chunk=0,1/len=7260
 PKT S4 minecraft:level_chunk_with_light chunk=2,-1/len=7260
 PKT S4 minecraft:chunk_batch_finished 0b09
 P S4 minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=13 sat=10.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-PKT S4 minecraft:update_attributes entity=4;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT S4 minecraft:update_attributes entity=4;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT S4 minecraft:set_health 6a40a000000440a00000
 PKT S4 minecraft:set_time 730000000000000e8700
 PKT S4 minecraft:set_health 6a40c000000540c00000
@@ -506,7 +506,7 @@ PKT V1 minecraft:damage_event 190520000000
 PKT V1 minecraft:set_health 6a418000001440a00000
 P V1 minecraft:player pos=100.5,-140.0,0.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 PKT V1 minecraft:set_entity_data 6505090341800000ff
-PKT V1 minecraft:update_attributes entity=5;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V1 minecraft:update_attributes entity=5;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT V1 minecraft:set_entity_motion 6705f9ff7ffed841
 P V1 minecraft:player pos=100.5,-140.0,0.5 delta=0.0,-1.4568789691071928,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=9.500001 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 PKT V1 minecraft:set_health 6a4186aaab1440a00000

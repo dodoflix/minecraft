@@ -23,7 +23,7 @@ HURT D1 magic 4 -> true
 HURT D1 arrow 6 -> false
 HURT D1 mob_attack 1 -> false
 P D1 minecraft:player pos=4.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-PKT D1 minecraft:update_attributes entity=2;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT D1 minecraft:update_attributes entity=2;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT D1 minecraft:set_time 73000000000000001300
 PKT D1 minecraft:set_time 73000000000000002700
 PKT D1 minecraft:damage_event 190212000000
@@ -85,7 +85,7 @@ PKT D2 minecraft:player_combat_enter 44
 PKT D2 minecraft:damage_event 19031c020200
 PKT D2 minecraft:hurt_animation 2b03c2d8deb3
 PKT D2 minecraft:set_entity_data 6503090341880000ff
-PKT D2 minecraft:update_attributes entity=3;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT D2 minecraft:update_attributes entity=3;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT D2 minecraft:set_entity_motion 6703b940b0915c5a
 PKT D2 minecraft:set_health 6a418800001440a00000
 PKT D2 minecraft:set_health 6a418eaaab1440a00000
@@ -165,7 +165,7 @@ PKT D3 minecraft:player_combat_enter 44
 PKT D3 minecraft:damage_event 19041c020200
 PKT D3 minecraft:hurt_animation 2b04c3070000
 PKT D3 minecraft:set_entity_data 6504090341800000ff
-PKT D3 minecraft:update_attributes entity=4;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT D3 minecraft:update_attributes entity=4;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT D3 minecraft:set_entity_motion 6704c990a4335c5a
 PKT D3 minecraft:set_health 6a418000001440a00000
 PKT D3 minecraft:set_time 73000000000000010300
@@ -245,7 +245,7 @@ PKT D4 minecraft:player_combat_enter 44
 PKT D4 minecraft:damage_event 19051c020200
 PKT D4 minecraft:hurt_animation 2b05c3150943
 PKT D4 minecraft:set_entity_data 6505090341600000ff
-PKT D4 minecraft:update_attributes entity=5;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT D4 minecraft:update_attributes entity=5;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT D4 minecraft:set_entity_motion 670591af9a575c5a
 PKT D4 minecraft:set_health 6a416000001440a00000
 PKT D4 minecraft:set_health 6a416d55551440a00000

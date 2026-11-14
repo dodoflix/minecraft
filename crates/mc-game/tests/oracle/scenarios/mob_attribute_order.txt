@@ -1,0 +1,27 @@
+# Attributes iterate in hash order: the update packet of a player whose attributes six effects changed in one tick lists them like the vanilla
+# attributesToSync set, and the attribute list a mob saves follows its attribute map.
+level flat
+preload 4
+difficulty normal
+entity_counter 7700
+level_seed 7701
+time 18000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+tick 30
+effect Steve minecraft:speed 0 2000
+effect Steve minecraft:strength 0 2000
+effect Steve minecraft:haste 0 2000
+effect Steve minecraft:luck 0 2000
+effect Steve minecraft:health_boost 0 2000
+effect Steve minecraft:jump_boost 0 2000
+tick 1
+dump packets:Steve:update_attributes attrs:Steve
+mobspawn Z minecraft:zombie 6.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+tick 3
+effect Z minecraft:speed 0 2000
+effect Z minecraft:strength 0 2000
+effect Z minecraft:luck 0 2000
+effect Z minecraft:health_boost 0 2000
+effect Z minecraft:jump_boost 0 2000
+tick 1
+dump nbt:Z attrs:Z

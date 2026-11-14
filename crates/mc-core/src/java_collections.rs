@@ -187,6 +187,18 @@ impl<K: PartialEq, V> FastOpenHashMap<K, V> {
         None
     }
 
+    /// `putAll(m)` (load factor 0.75): `tryCapacity(size() + m.size())` grows the table before the entries are put in
+    /// the iteration order of `m`.
+    pub fn put_all(&mut self, entries: Vec<(K, V)>) {
+        let needed = Self::array_size(self.size + entries.len());
+        if needed > self.slots.len() {
+            self.rehash(needed);
+        }
+        for (k, v) in entries {
+            self.put(k, v);
+        }
+    }
+
     /// `if (size++ >= maxFill) rehash(arraySize(size + 1, f))`.
     fn grow(&mut self) {
         let old = self.size;

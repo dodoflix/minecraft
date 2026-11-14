@@ -607,17 +607,16 @@ public final class VanillaLevel {
       if (type.equals("minecraft:update_advancements")) {
          text = "-"; // carries Instant.now() timestamps of obtained criteria
       } else if (p instanceof ClientboundUpdateAttributesPacket attrs) {
-         // the snapshot list is a HashSet iteration (identity hashes): canonical order by attribute id and modifier id
+         // readable form of the wire order: the snapshot list is the `attributesToSync` set (hashed by attribute, see shadow.patch), the modifiers of
+         // one snapshot an insertion-ordered set
          List<String> entries = new ArrayList<>();
          for (var snap : attrs.getValues()) {
             List<String> mods = new ArrayList<>();
             for (var m : snap.modifiers()) {
                mods.add(m.id() + "/" + m.amount() + "/" + m.operation().getSerializedName());
             }
-            Collections.sort(mods);
             entries.add(snap.attribute().getRegisteredName() + "=" + snap.base() + "[" + String.join(",", mods) + "]");
          }
-         Collections.sort(entries);
          text = "entity=" + attrs.getEntityId() + ";" + String.join(";", entries);
       } else if (p instanceof net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket recipes) {
          // the property sets are `Set.copyOf` (per JVM salted order) inside a `HashMap`: canonical order by key and item id

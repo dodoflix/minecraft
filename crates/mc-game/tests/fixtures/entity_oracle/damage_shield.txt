@@ -22,7 +22,7 @@ PKT S minecraft:player_combat_enter 44
 PKT S minecraft:damage_event 19031c020200
 PKT S minecraft:hurt_animation 2b0342b40000
 PKT S minecraft:set_entity_data 6503090341600000ff
-PKT S minecraft:update_attributes entity=3;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT S minecraft:update_attributes entity=3;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT S minecraft:set_entity_motion 670331337fff5c59
 PKT S minecraft:set_health 6a416000001440a00000
 PKT S minecraft:set_health 6a416d55551440a00000

@@ -5,11 +5,13 @@
 use super::object_open_hash_map::{JavaHash, ObjectOpenHashMap, identifier_hash};
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
+use mc_core::java_collections::FastOpenHashMap;
 use mc_data::Attribute;
 use mc_data::EntityType;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 pub use mc_protocol::packets::play::{AttributeModifier, AttributeModifierOperation};
 use std::cell::Cell;
+use std::sync::atomic::{AtomicU64, Ordering};
 
 /// `Attribute.sanitizeValue` (`RangedAttribute` clamps, NaN -> minimum).
 pub fn sanitize_value(attribute: Attribute, value: f64) -> f64 {
@@ -38,9 +40,16 @@ pub struct AttributeInstance {
     base_value: f64,
     dirty: Cell<bool>,
     cached_value: Cell<f64>,
-    /// Modified since the map last handed out `attributesToUpdate` / `attributesToSync`.
-    pending_update: bool,
-    pending_sync: bool,
+    /// Modified since the map last handed out `attributesToUpdate` / `attributesToSync`: the [`next_mark`] of the first
+    /// modification (the order the instances were added to those sets).
+    pending_update: Option<u64>,
+    pending_sync: Option<u64>,
+}
+
+/// A counter ordering the modifications of all instances.
+fn next_mark() -> u64 {
+    static MARKS: AtomicU64 = AtomicU64::new(0);
+    MARKS.fetch_add(1, Ordering::Relaxed)
 }
 
 fn operation_index(op: AttributeModifierOperation) -> usize {
@@ -61,8 +70,8 @@ impl AttributeInstance {
             base_value: attribute.data().default_value,
             dirty: Cell::new(true),
             cached_value: Cell::new(0.0),
-            pending_update: false,
-            pending_sync: false,
+            pending_update: None,
+            pending_sync: None,
         }
     }
 
@@ -157,8 +166,8 @@ impl AttributeInstance {
 
     fn set_dirty(&mut self) {
         self.dirty.set(true);
-        self.pending_update = true;
-        self.pending_sync = true;
+        self.pending_update.get_or_insert_with(next_mark);
+        self.pending_sync.get_or_insert_with(next_mark);
     }
 
     pub fn remove_modifier(&mut self, id: &Identifier) -> bool {
@@ -283,13 +292,17 @@ impl JavaHash for Attribute {
     }
 }
 
-/// `AttributeMap`: instances are created lazily from the entity type's default supplier. `attributes` keeps insertion order
-/// (`attributesToUpdate`/`attributesToSync` are identity-hash sets in vanilla); [`AttributeMap::in_map_order`] is the iteration
-/// order of vanilla's `Object2ObjectOpenHashMap`.
+/// `AttributeMap`: instances are created lazily from the entity type's default supplier. `attributes` keeps insertion order;
+/// [`AttributeMap::in_map_order`] is the iteration order of vanilla's `Object2ObjectOpenHashMap`. The instances modified since
+/// the last [`take_attributes_to_update`](AttributeMap::take_attributes_to_update) / `..._to_sync` wait in their own
+/// `pending_*` marks; the two `ObjectOpenHashSet`s of vanilla (hashed by the instance's attribute in the oracle, which pins the
+/// identity hash) are kept for their table size, which survives `clear()`.
 #[derive(Clone, Debug)]
 pub struct AttributeMap {
     supplier: EntityType,
     attributes: IndexMap<Attribute, AttributeInstance>,
+    attributes_to_update: FastOpenHashMap<Attribute, ()>,
+    attributes_to_sync: FastOpenHashMap<Attribute, ()>,
 }
 
 impl AttributeMap {
@@ -298,6 +311,8 @@ impl AttributeMap {
         Self {
             supplier,
             attributes: IndexMap::new(),
+            attributes_to_update: FastOpenHashMap::new(16, |a| a.java_hash()),
+            attributes_to_sync: FastOpenHashMap::new(16, |a| a.java_hash()),
         }
     }
 
@@ -369,26 +384,44 @@ impl AttributeMap {
         }
     }
 
-    /// `getAttributesToUpdate()`: instances modified since the last call (clears the marks).
+    /// `getAttributesToUpdate()` then `clear()`: the instances modified since the last call, in set order.
     pub fn take_attributes_to_update(&mut self) -> Vec<Attribute> {
-        let mut out = Vec::new();
-        for (a, i) in self.attributes.iter_mut() {
-            if std::mem::take(&mut i.pending_update) {
-                out.push(*a);
-            }
-        }
-        out
+        self.take_marked(false)
     }
 
-    /// `getAttributesToSync()`: modified syncable instances (clears the mark of the returned ones).
+    /// `getAttributesToSync()` then `clear()`: the modified syncable instances, in set order.
     pub fn take_attributes_to_sync(&mut self) -> Vec<Attribute> {
-        let mut out = Vec::new();
-        for (a, i) in self.attributes.iter_mut() {
-            if i.attribute.data().syncable && std::mem::take(&mut i.pending_sync) {
-                out.push(*a);
+        self.take_marked(true)
+    }
+
+    /// The marked instances added to their set in the order they were modified, iterated, and the set cleared.
+    fn take_marked(&mut self, sync: bool) -> Vec<Attribute> {
+        let mut marked = Vec::new();
+        for (attribute, instance) in &mut self.attributes {
+            if sync && !attribute.data().syncable {
+                continue;
+            }
+            let mark = if sync {
+                &mut instance.pending_sync
+            } else {
+                &mut instance.pending_update
+            };
+            if let Some(mark) = mark.take() {
+                marked.push((mark, *attribute));
             }
         }
-        out
+        marked.sort_by_key(|(mark, _)| *mark);
+        let set = if sync {
+            &mut self.attributes_to_sync
+        } else {
+            &mut self.attributes_to_update
+        };
+        for (_, attribute) in marked {
+            set.put(attribute, ());
+        }
+        let order = set.iter().map(|(attribute, _)| *attribute).collect();
+        set.clear();
+        order
     }
 
     /// `getSyncableAttributes()`.

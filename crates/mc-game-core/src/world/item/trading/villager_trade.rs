@@ -107,7 +107,6 @@ impl VillagerTrade {
             let ids = holder_set_ids(context.get_resolver(), keys::ENCHANTMENT, set);
             if stored
                 .entries()
-                .iter()
                 .any(|(e, _)| e.name().is_some_and(|n| ids.contains(n)))
             {
                 additional_cost = additional_cost.wrapping_mul(2);

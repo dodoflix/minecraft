@@ -272,8 +272,7 @@ impl EnchantmentPredicate {
         } else if !self.level.is_any() {
             applied
                 .entries()
-                .iter()
-                .any(|(_, level)| self.level.matches(*level))
+                .any(|(_, level)| self.level.matches(level))
         } else {
             !applied.is_empty()
         }

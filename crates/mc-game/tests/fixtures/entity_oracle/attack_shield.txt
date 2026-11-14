@@ -46,7 +46,7 @@ PKT V0 minecraft:level_chunk_with_light chunk=-1,-1/len=7260
 PKT V0 minecraft:level_chunk_with_light chunk=-1,1/len=7260
 PKT V0 minecraft:chunk_batch_finished 0b09
 PKT V0 minecraft:set_entity_data 6501080003ff
-PKT V0 minecraft:update_attributes entity=1;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V0 minecraft:update_attributes entity=1;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT V0 minecraft:block_changed_ack 0401
 PKT V0 minecraft:set_time 73000000000000001300
 PKT V0 minecraft:set_time 73000000000000002700
@@ -99,7 +99,7 @@ PKT V1 minecraft:level_chunk_with_light chunk=1,-1/len=7260
 PKT V1 minecraft:level_chunk_with_light chunk=-1,-1/len=7260
 PKT V1 minecraft:level_chunk_with_light chunk=-1,1/len=7260
 PKT V1 minecraft:chunk_batch_finished 0b09
-PKT V1 minecraft:update_attributes entity=2;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V1 minecraft:update_attributes entity=2;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT V1 minecraft:set_time 73000000000000001300
 PKT V1 minecraft:set_time 73000000000000002700
 PKT V1 minecraft:sound 77b40b0700000004fffffe20000000103f8000003f886590e32d4fcf84a7860e
@@ -163,7 +163,7 @@ PKT V2 minecraft:level_chunk_with_light chunk=1,-1/len=7260
 PKT V2 minecraft:level_chunk_with_light chunk=-1,-1/len=7260
 PKT V2 minecraft:level_chunk_with_light chunk=-1,1/len=7260
 PKT V2 minecraft:chunk_batch_finished 0b09
-PKT V2 minecraft:update_attributes entity=3;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V2 minecraft:update_attributes entity=3;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT V2 minecraft:set_time 73000000000000001300
 PKT V2 minecraft:set_time 73000000000000002700
 PKT V2 minecraft:sound 77b40b0700000004fffffe20000000103f8000003f886590e32d4fcf84a7860e
@@ -228,7 +228,7 @@ PKT V3 minecraft:level_chunk_with_light chunk=1,-1/len=7260
 PKT V3 minecraft:level_chunk_with_light chunk=-1,-1/len=7260
 PKT V3 minecraft:level_chunk_with_light chunk=-1,1/len=7260
 PKT V3 minecraft:chunk_batch_finished 0b09
-PKT V3 minecraft:update_attributes entity=4;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V3 minecraft:update_attributes entity=4;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT V3 minecraft:set_time 73000000000000001300
 PKT V3 minecraft:set_time 73000000000000002700
 PKT V3 minecraft:sound 77b40b0700000004fffffe20000000103f8000003f886590e32d4fcf84a7860e
@@ -295,7 +295,7 @@ PKT V4 minecraft:level_chunk_with_light chunk=0,-1/len=7260
 PKT V4 minecraft:level_chunk_with_light chunk=0,1/len=7260
 PKT V4 minecraft:level_chunk_with_light chunk=2,-1/len=7260
 PKT V4 minecraft:chunk_batch_finished 0b09
-PKT V4 minecraft:update_attributes entity=5;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V4 minecraft:update_attributes entity=5;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT V4 minecraft:set_time 73000000000000001300
 PKT V4 minecraft:set_time 73000000000000002700
 PKT V4 minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000105c4ffffff0f00
@@ -319,7 +319,7 @@ PKT V4 minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e656372
 PKT V4 minecraft:bundle_delimiter 00
 PKT V4 minecraft:add_entity 010ab76d4ad38d013150b33368cfb42577749f01402f000000000000c04e0000000000003fe00000000000000000000000
 PKT V4 minecraft:set_entity_data 650a090341a00000ff
-PKT V4 minecraft:update_attributes entity=10;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V4 minecraft:update_attributes entity=10;minecraft:block_interaction_range=4.5[];minecraft:movement_speed=0.10000000149011612[];minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.0/add_value];minecraft:entity_interaction_range=3.0[]
 PKT V4 minecraft:set_equipment 680a00019d080000
 PKT V4 minecraft:bundle_delimiter 00
 PKT V4 minecraft:set_entity_data 6505080003ff
@@ -375,7 +375,7 @@ PKT V5 minecraft:level_chunk_with_light chunk=0,-1/len=7260
 PKT V5 minecraft:level_chunk_with_light chunk=0,1/len=7260
 PKT V5 minecraft:level_chunk_with_light chunk=2,-1/len=7260
 PKT V5 minecraft:chunk_batch_finished 0b09
-PKT V5 minecraft:update_attributes entity=6;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V5 minecraft:update_attributes entity=6;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT V5 minecraft:set_time 73000000000000001300
 PKT V5 minecraft:set_time 73000000000000002700
 PKT V5 minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000105c4ffffff0f00
@@ -397,7 +397,7 @@ PKT V5 minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e656372
 PKT V5 minecraft:bundle_delimiter 00
 PKT V5 minecraft:add_entity 010ab76d4ad38d013150b33368cfb42577749f01402f000000000000c04e0000000000003fe00000000000000000000000
 PKT V5 minecraft:set_entity_data 650a090341a00000ff
-PKT V5 minecraft:update_attributes entity=10;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V5 minecraft:update_attributes entity=10;minecraft:block_interaction_range=4.5[];minecraft:movement_speed=0.10000000149011612[];minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.0/add_value];minecraft:entity_interaction_range=3.0[]
 PKT V5 minecraft:set_equipment 680a00019d080000
 PKT V5 minecraft:bundle_delimiter 00
 PKT V5 minecraft:move_entity_pos 360a0302500000000000
@@ -459,7 +459,7 @@ PKT V6 minecraft:level_chunk_with_light chunk=0,-1/len=7260
 PKT V6 minecraft:level_chunk_with_light chunk=0,1/len=7260
 PKT V6 minecraft:level_chunk_with_light chunk=2,-1/len=7260
 PKT V6 minecraft:chunk_batch_finished 0b09
-PKT V6 minecraft:update_attributes entity=7;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V6 minecraft:update_attributes entity=7;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT V6 minecraft:set_time 73000000000000001300
 PKT V6 minecraft:set_time 73000000000000002700
 PKT V6 minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000105c4ffffff0f00
@@ -479,7 +479,7 @@ PKT V6 minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e656372
 PKT V6 minecraft:bundle_delimiter 00
 PKT V6 minecraft:add_entity 010ab76d4ad38d013150b33368cfb42577749f01402f000000000000c04e0000000000003fe00000000000000000000000
 PKT V6 minecraft:set_entity_data 650a090341a00000ff
-PKT V6 minecraft:update_attributes entity=10;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V6 minecraft:update_attributes entity=10;minecraft:block_interaction_range=4.5[];minecraft:movement_speed=0.10000000149011612[];minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.0/add_value];minecraft:entity_interaction_range=3.0[]
 PKT V6 minecraft:set_equipment 680a00019d080000
 PKT V6 minecraft:bundle_delimiter 00
 PKT V6 minecraft:move_entity_pos 360a0302500000000000
@@ -548,7 +548,7 @@ PKT V7 minecraft:level_chunk_with_light chunk=1,1/len=7260
 PKT V7 minecraft:level_chunk_with_light chunk=3,-1/len=7260
 PKT V7 minecraft:level_chunk_with_light chunk=3,1/len=7260
 PKT V7 minecraft:chunk_batch_finished 0b09
-PKT V7 minecraft:update_attributes entity=8;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V7 minecraft:update_attributes entity=8;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT V7 minecraft:set_time 73000000000000001300
 PKT V7 minecraft:set_time 73000000000000002700
 PKT V7 minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000105c4ffffff0f00
@@ -564,7 +564,7 @@ PKT V7 minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e656372
 PKT V7 minecraft:bundle_delimiter 00
 PKT V7 minecraft:add_entity 010ab76d4ad38d013150b33368cfb42577749f01402f000000000000c04e0000000000003fe00000000000000000000000
 PKT V7 minecraft:set_entity_data 650a090341a00000ff
-PKT V7 minecraft:update_attributes entity=10;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V7 minecraft:update_attributes entity=10;minecraft:block_interaction_range=4.5[];minecraft:movement_speed=0.10000000149011612[];minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.0/add_value];minecraft:entity_interaction_range=3.0[]
 PKT V7 minecraft:set_equipment 680a00019d080000
 PKT V7 minecraft:bundle_delimiter 00
 PKT V7 minecraft:move_entity_pos 360a0302500000000000
@@ -644,7 +644,7 @@ PKT V8 minecraft:level_chunk_with_light chunk=1,1/len=7260
 PKT V8 minecraft:level_chunk_with_light chunk=3,-1/len=7260
 PKT V8 minecraft:level_chunk_with_light chunk=3,1/len=7260
 PKT V8 minecraft:chunk_batch_finished 0b09
-PKT V8 minecraft:update_attributes entity=9;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V8 minecraft:update_attributes entity=9;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT V8 minecraft:set_time 73000000000000001300
 PKT V8 minecraft:set_time 73000000000000002700
 PKT V8 minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000105c4ffffff0f00
@@ -658,7 +658,7 @@ PKT V8 minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e656372
 PKT V8 minecraft:bundle_delimiter 00
 PKT V8 minecraft:add_entity 010ab76d4ad38d013150b33368cfb42577749f01402f000000000000c04e0000000000003fe00000000000000000000000
 PKT V8 minecraft:set_entity_data 650a090341a00000ff
-PKT V8 minecraft:update_attributes entity=10;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT V8 minecraft:update_attributes entity=10;minecraft:block_interaction_range=4.5[];minecraft:movement_speed=0.10000000149011612[];minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.0/add_value];minecraft:entity_interaction_range=3.0[]
 PKT V8 minecraft:set_equipment 680a00019d080000
 PKT V8 minecraft:bundle_delimiter 00
 PKT V8 minecraft:move_entity_pos 360a0302500000000000

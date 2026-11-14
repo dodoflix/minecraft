@@ -116,9 +116,8 @@ fn vec3(a: f64, b: f64, c: f64) -> String {
 fn num(s: &str) -> f64 {
     s.parse().unwrap_or_else(|_| panic!("not a number: {s}"))
 }
-/// `VanillaLevel.record`: the advancement update carries timestamps of obtained criteria; the attribute snapshots are a `HashSet` in
-/// Java (identity hash order), so they are dumped sorted by attribute and modifier id; the recipe property sets sorted by key and item;
-/// anything else is its hex wire form.
+/// `VanillaLevel.record`: the advancement update carries timestamps of obtained criteria; the attribute snapshots are dumped in wire
+/// order as text; the recipe property sets sorted by key and item; anything else is its hex wire form.
 fn packet_text(ty: &str, wire: &[u8]) -> String {
     match ty {
         "minecraft:update_advancements" => "-".into(),
@@ -127,11 +126,11 @@ fn packet_text(ty: &str, wire: &[u8]) -> String {
             read_varint(&mut body).expect("packet id");
             let p =
                 ClientboundUpdateAttributesPacket::decode(&mut body).expect("update_attributes");
-            let mut entries: Vec<String> = p
+            let entries: Vec<String> = p
                 .attributes
                 .iter()
                 .map(|s| {
-                    let mut mods: Vec<String> = s
+                    let mods: Vec<String> = s
                         .modifiers
                         .iter()
                         .map(|m| {
@@ -147,11 +146,9 @@ fn packet_text(ty: &str, wire: &[u8]) -> String {
                             format!("{}/{}/{op}", m.id, dbl(m.amount))
                         })
                         .collect();
-                    mods.sort();
                     format!("{}={}[{}]", s.attribute.name(), dbl(s.base), mods.join(","))
                 })
                 .collect();
-            entries.sort();
             format!("entity={};{}", p.entity_id, entries.join(";"))
         }
         // the property sets are a `HashMap` of `Set.copyOf` sets in Java (per JVM order): canonical order by key and item id

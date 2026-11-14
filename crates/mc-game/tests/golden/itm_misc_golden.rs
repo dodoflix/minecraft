@@ -34,6 +34,11 @@ fn tools_wear_by_damage_per_block_and_break() {
 }
 
 #[test]
+fn enchantments_are_listed_in_hash_table_order() {
+    common::block_scenario::check("itm_enchantment_order");
+}
+
+#[test]
 fn frost_walker_freezes_water_under_walking_players_and_it_melts() {
     common::block_scenario::check("itm_frost_walker");
 }

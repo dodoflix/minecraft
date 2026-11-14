@@ -334,7 +334,7 @@ impl ItemCombinerMenu for AnvilMenu {
                             continue;
                         };
                         let current = enchantments.get_level(enchantment_holder);
-                        let mut level = *entry_level;
+                        let mut level = entry_level;
                         level = if current == level {
                             level + 1
                         } else {

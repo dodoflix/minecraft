@@ -71,7 +71,7 @@ PKT Steve minecraft:level_chunk_with_light chunk=1,-1/len=7260
 PKT Steve minecraft:level_chunk_with_light chunk=-1,-1/len=7260
 PKT Steve minecraft:level_chunk_with_light chunk=-1,1/len=7260
 PKT Steve minecraft:chunk_batch_finished 0b09
-PKT Steve minecraft:update_attributes entity=1;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT Steve minecraft:update_attributes entity=1;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT Steve minecraft:set_health 6a416d55551440a00000
 PKT Steve minecraft:set_entity_data 65010903416d5555ff
 PKT Steve minecraft:set_time 73000000000000001300

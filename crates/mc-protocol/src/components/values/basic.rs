@@ -12,6 +12,7 @@ use crate::components::common::{
 use crate::components::component::{ComponentDef, ComponentKey};
 use crate::components::holder::{self, Holder, NoDirect};
 use mc_core::ident::Identifier;
+use mc_core::java_collections::FastOpenHashMap;
 use mc_data::{DataComponentType, EntityType, Item};
 use mc_dfu::extra::{
     IDENTIFIER, NON_NEGATIVE_FLOAT, NON_NEGATIVE_INT, POSITIVE_INT, RGB_COLOR_CODEC,
@@ -417,64 +418,110 @@ pub const ENCHANTMENT_REGISTRY: &str = "minecraft:enchantment";
 /// `Holder<Enchantment>` (a reference into the data-driven `enchantment` registry).
 pub type EnchantmentHolder = Holder<NoDirect>;
 
-/// `ItemEnchantments`: enchantment -> level (an `Object2IntOpenHashMap`; equality ignores order).
-#[derive(Clone, Debug, Default)]
+/// The `Object2IntOpenHashMap<Holder<Enchantment>>` an [`ItemEnchantments`] wraps: iterated in fastutil table order.
+pub type EnchantmentMap = FastOpenHashMap<EnchantmentHolder, i32>;
+
+/// `Holder.Reference.hashCode()` as the vanilla oracle pins it (the registry key hash: `registry().hashCode() * 31 +
+/// identifier().hashCode()`, vanilla's identity hash gives every JVM run another order).
+fn enchantment_hash(holder: &EnchantmentHolder) -> i32 {
+    let registry = Identifier::parse(ENCHANTMENT_REGISTRY).expect("registry id");
+    let id = holder.name().expect("enchantment holders are references");
+    registry
+        .java_hash_code()
+        .wrapping_mul(31)
+        .wrapping_add(id.java_hash_code())
+}
+
+/// `new Object2IntOpenHashMap<>(expected)`.
+pub fn enchantment_map(expected: usize) -> EnchantmentMap {
+    EnchantmentMap::new(expected, enchantment_hash)
+}
+
+/// `ItemEnchantments`: enchantment -> level (an `Object2IntOpenHashMap`, kept as such: its table order is the order the
+/// enchantments are encoded, saved, shown and applied in; equality ignores order).
+#[derive(Clone, Debug)]
 pub struct ItemEnchantments {
-    entries: Vec<(EnchantmentHolder, i32)>,
+    map: EnchantmentMap,
+}
+
+impl Default for ItemEnchantments {
+    /// `new Object2IntOpenHashMap<>()`.
+    fn default() -> Self {
+        ItemEnchantments {
+            map: enchantment_map(16),
+        }
+    }
 }
 
 impl PartialEq for ItemEnchantments {
     fn eq(&self, other: &Self) -> bool {
-        self.entries.len() == other.entries.len()
-            && self.entries.iter().all(|e| other.entries.contains(e))
+        self.len() == other.len()
+            && self
+                .map
+                .iter()
+                .all(|(k, level)| other.map.get(k) == Some(level))
     }
 }
 
 impl ItemEnchantments {
+    /// `new Object2IntOpenHashMap<>(map)` of `entries` (put in the given order into a table sized for them).
+    ///
     /// # Panics
     /// On a level outside `0..=255` (vanilla throws `IllegalArgumentException`).
     pub fn new(entries: Vec<(EnchantmentHolder, i32)>) -> ItemEnchantments {
         Self::checked(entries).unwrap_or_else(|e| panic!("{e}"))
     }
     fn checked(entries: Vec<(EnchantmentHolder, i32)>) -> Result<ItemEnchantments, String> {
-        for (k, level) in &entries {
+        let mut map = enchantment_map(entries.len());
+        for (k, level) in entries {
+            map.put(k, level);
+        }
+        Self::from_map(map)
+    }
+    /// The private constructor: wraps `map` itself.
+    pub fn from_map(map: EnchantmentMap) -> Result<ItemEnchantments, String> {
+        for (k, level) in map.iter() {
             if !(0..=255).contains(level) {
                 return Err(format!("Enchantment {k:?} has invalid level {level}"));
             }
         }
-        Ok(ItemEnchantments { entries })
+        Ok(ItemEnchantments { map })
     }
-    pub fn entries(&self) -> &[(EnchantmentHolder, i32)] {
-        &self.entries
+    /// `entrySet()`: the enchantments with their levels in table order.
+    pub fn entries(&self) -> impl Iterator<Item = (&EnchantmentHolder, i32)> {
+        self.map.iter().map(|(k, level)| (k, *level))
     }
     pub fn len(&self) -> usize {
-        self.entries.len()
+        self.map.len()
     }
     pub fn is_empty(&self) -> bool {
-        self.entries.is_empty()
+        self.map.is_empty()
     }
     /// `getLevel(enchantment)`: 0 when absent.
     pub fn get_level(&self, enchantment: &EnchantmentHolder) -> i32 {
-        self.entries
-            .iter()
-            .find(|(k, _)| k == enchantment)
-            .map_or(0, |(_, l)| *l)
+        self.map.get(enchantment).copied().unwrap_or(0)
     }
     pub fn codec() -> Codec<ItemEnchantments> {
         let level = mc_dfu::int_range(1, 255);
         holder::holder_fixed_codec::<NoDirect>(ENCHANTMENT_REGISTRY)
             .unbounded_map(&level)
             .xmap(
-                |entries| ItemEnchantments { entries },
-                |e: &ItemEnchantments| e.entries.clone(),
+                |entries| {
+                    let mut map = enchantment_map(entries.len());
+                    for (k, level) in entries {
+                        map.put(k, level);
+                    }
+                    ItemEnchantments { map }
+                },
+                |e: &ItemEnchantments| e.entries().map(|(k, l)| (k.clone(), l)).collect(),
             )
     }
 }
 
 impl Encode for ItemEnchantments {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_varint(out, self.entries.len() as i32);
-        for (k, level) in &self.entries {
+        write_varint(out, self.map.len() as i32);
+        for (k, level) in self.map.iter() {
             holder::encode_holder_registry(ENCHANTMENT_REGISTRY, k, out)?;
             write_varint(out, *level);
         }
@@ -484,16 +531,13 @@ impl Encode for ItemEnchantments {
 impl Decode for ItemEnchantments {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let count = read_count(input, i32::MAX as usize)?;
-        let mut entries: Vec<(EnchantmentHolder, i32)> = Vec::with_capacity(count.min(65536));
+        let mut map = enchantment_map(count.min(65536));
         for _ in 0..count {
             let key = holder::decode_holder_registry(ENCHANTMENT_REGISTRY, input)?;
             let level = read_varint(input)?;
-            match entries.iter_mut().find(|(k, _)| *k == key) {
-                Some(e) => e.1 = level,
-                None => entries.push((key, level)),
-            }
+            map.put(key, level);
         }
-        Self::checked(entries).map_err(DecodeError::Message)
+        Self::from_map(map).map_err(DecodeError::Message)
     }
 }
 

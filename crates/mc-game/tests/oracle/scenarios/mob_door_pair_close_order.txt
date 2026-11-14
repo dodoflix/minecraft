@@ -1,0 +1,30 @@
+# Two doors in a row (a vestibule) in front of a bed: the villager opens both, and lying down in the bed closes both in the iteration order
+# of its doors to close set: the inner door closes first, although the outer one was remembered first (bucket order of the position hashes).
+level flat
+preload 4
+fill -8 -60 -9 8 -52 8 minecraft:air
+fill -8 -61 -9 8 -61 8 minecraft:grass_block
+entity_counter 7600
+level_seed 7601
+difficulty normal
+fill -4 -60 -9 4 -57 -1 minecraft:stone_bricks
+fill -3 -60 -8 3 -58 -3 minecraft:air
+block 0 -60 -1 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false]
+block 0 -59 -1 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false]
+block 0 -60 -2 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false]
+block 0 -59 -2 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false]
+block -1 -60 -3 minecraft:red_bed[facing=north,part=foot,occupied=false]
+block -1 -60 -4 minecraft:red_bed[facing=north,part=head,occupied=false]
+time 11000
+spawn_player Steve survival 0.5 -60 12.5 180 0
+tick 30
+mobspawn V1 minecraft:villager 0.5 -60 4.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+entity_seed V1 31
+memory V1 minecraft:home {value:{dimension:"minecraft:overworld",pos:[I;-1,-60,-4]}}
+tick 5
+note nightfall: the villager walks to its bed through both doors
+time 12500
+watch mob:V1 events
+tick 140
+watch off
+dump brain:V1 mob:V1 blocks:0,-60,-2,0,-59,-1 events

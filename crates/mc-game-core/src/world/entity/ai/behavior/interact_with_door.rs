@@ -210,8 +210,7 @@ fn remember_door_to_close(
             set
         }
         None => {
-            let mut set = GlobalPosSet::new();
-            set.insert(global_door_pos);
+            let set = GlobalPosSet::singleton(global_door_pos);
             c.set(doors_memory, set.clone());
             set
         }

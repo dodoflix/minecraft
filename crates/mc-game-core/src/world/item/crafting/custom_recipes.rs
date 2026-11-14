@@ -1167,10 +1167,9 @@ impl RepairItemRecipe {
         let curses = &self.curses;
         update_enchantments(&mut stack, |new_enchantments| {
             // `Sets.union(first.keySet(), second.keySet())`: the first set's entries, then the second's others
-            let union = first_enchants.entries().iter().map(|(k, _)| k).chain(
+            let union = first_enchants.entries().map(|(k, _)| k).chain(
                 second_enchants
                     .entries()
-                    .iter()
                     .map(|(k, _)| k)
                     .filter(|k| first_enchants.get_level(k) == 0),
             );

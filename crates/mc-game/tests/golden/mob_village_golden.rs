@@ -15,6 +15,12 @@ fn villagers_open_and_close_doors() {
     check("mob_door_villager");
 }
 
+/// Two doors in a row: a villager closes them behind it in the order of its doors to close set, not the order it opened them in.
+#[test]
+fn villagers_close_a_door_pair_in_set_order() {
+    check("mob_door_pair_close_order");
+}
+
 /// Zombies at night walk toward the points of interest of a village (MoveThroughVillageGoal), up to a door they may break.
 #[test]
 fn zombies_walk_through_a_village() {

@@ -55,8 +55,7 @@ fn enchantments_of(stack: &ItemStack) -> Vec<(Identifier, i32)> {
         .get(&ENCHANTMENTS)
         .map(|e| {
             e.entries()
-                .iter()
-                .filter_map(|(h, l)| key_of(h).map(|k| (k.clone(), *l)))
+                .filter_map(|(h, l)| key_of(h).map(|k| (k.clone(), l)))
                 .collect()
         })
         .unwrap_or_default()

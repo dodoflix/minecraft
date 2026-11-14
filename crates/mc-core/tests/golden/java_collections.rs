@@ -115,6 +115,16 @@ fn matches_java_iteration_order() {
                 });
                 m.into_entries().into_iter().map(|e| e.0).collect()
             }
+            "fastputall" => {
+                let hash = |k: &String| java_string_hash(k);
+                let mut source = FastOpenHashMap::new(16, hash);
+                keys.iter().for_each(|k| {
+                    source.put(k.to_string(), ());
+                });
+                let mut m = FastOpenHashMap::new(cap, hash);
+                m.put_all(source.into_entries());
+                m.into_entries().into_iter().map(|e| e.0).collect()
+            }
             "fastint" => {
                 let mut m = FastOpenHashMap::with_null_key(cap, |k: &i32| *k, |k| *k == 0);
                 keys.iter().for_each(|k| {

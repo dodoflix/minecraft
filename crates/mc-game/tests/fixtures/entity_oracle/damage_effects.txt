@@ -26,7 +26,7 @@ HURT R1 out_of_world 9 -> true
 P R1 minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/0/915 gm=survival food=20 sat=1.0 exh=3.1 xp=0/0/0.0 sel=0 main=empty
 PKT R1 minecraft:damage_event 190112000000
 PKT R1 minecraft:set_entity_data 6501090341400000ff
-PKT R1 minecraft:update_attributes entity=1;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT R1 minecraft:update_attributes entity=1;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value]
 PKT R1 minecraft:set_entity_motion 6701f9ff7ffeebed
 PKT R1 minecraft:set_health 6a414000001440a00000
 PKT R1 minecraft:set_health 6a414d55551440a00000
@@ -39,7 +39,7 @@ PKT R1 minecraft:set_entity_data 65010903416d42c4ff
 PKT R1 minecraft:set_entity_motion 6701f9ff7ffeebed
 PKT R1 minecraft:container_set_slot 140003000601bd0801000302
 PKT R1 minecraft:set_health 6a416d42c41440400000
-PKT R1 minecraft:update_attributes entity=1;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value]
+PKT R1 minecraft:update_attributes entity=1;minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value]
 PKT R1 minecraft:set_health 6a417542c41440400000
 PKT R1 minecraft:set_entity_data 65010903417542c4ff
 PKT R1 minecraft:set_time 73000000000000002700
@@ -91,7 +91,7 @@ HURT R2 out_of_world 9 -> true
 P R2 minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/1/915 gm=survival food=20 sat=1.0 exh=3.1 xp=0/0/0.0 sel=0 main=empty
 PKT R2 minecraft:damage_event 190212000000
 PKT R2 minecraft:set_entity_data 6502090341600000ff
-PKT R2 minecraft:update_attributes entity=2;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT R2 minecraft:update_attributes entity=2;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value]
 PKT R2 minecraft:set_entity_motion 6702f9ff7ffeebed
 PKT R2 minecraft:set_health 6a416000001440a00000
 PKT R2 minecraft:set_health 6a416d55551440a00000
@@ -104,7 +104,7 @@ PKT R2 minecraft:set_entity_data 650209034180f90aff
 PKT R2 minecraft:set_entity_motion 6702f9ff7ffeebed
 PKT R2 minecraft:container_set_slot 140003000601bd0801000302
 PKT R2 minecraft:set_health 6a4180f90a1440400000
-PKT R2 minecraft:update_attributes entity=2;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value]
+PKT R2 minecraft:update_attributes entity=2;minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value]
 PKT R2 minecraft:set_health 6a4184f90a1440400000
 PKT R2 minecraft:set_entity_data 650209034184f90aff
 PKT R2 minecraft:set_time 73000000000000007700
@@ -156,7 +156,7 @@ HURT R3 out_of_world 9 -> true
 P R3 minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/2/915 gm=survival food=20 sat=1.0 exh=3.1 xp=0/0/0.0 sel=0 main=empty
 PKT R3 minecraft:damage_event 190312000000
 PKT R3 minecraft:set_entity_data 6503090341800000ff
-PKT R3 minecraft:update_attributes entity=3;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT R3 minecraft:update_attributes entity=3;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value]
 PKT R3 minecraft:set_entity_motion 6703f9ff7ffeebed
 PKT R3 minecraft:set_health 6a418000001440a00000
 PKT R3 minecraft:set_time 7300000000000000b300
@@ -169,7 +169,7 @@ PKT R3 minecraft:set_entity_data 65030903418b50b1ff
 PKT R3 minecraft:set_entity_motion 6703f9ff7ffeebed
 PKT R3 minecraft:container_set_slot 140003000601bd0801000302
 PKT R3 minecraft:set_health 6a418b50b11440400000
-PKT R3 minecraft:update_attributes entity=3;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value]
+PKT R3 minecraft:update_attributes entity=3;minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value]
 PKT R3 minecraft:set_time 7300000000000000c700
 PKT R3 minecraft:set_health 6a418f50b11440400000
 PKT R3 minecraft:set_entity_data 65030903418f50b1ff
@@ -221,7 +221,7 @@ HURT R4 out_of_world 9 -> true
 P R4 minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/3/915 gm=survival food=20 sat=1.0 exh=3.1 xp=0/0/0.0 sel=0 main=empty
 PKT R4 minecraft:damage_event 190412000000
 PKT R4 minecraft:set_entity_data 6504090341900000ff
-PKT R4 minecraft:update_attributes entity=4;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT R4 minecraft:update_attributes entity=4;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value]
 PKT R4 minecraft:set_entity_motion 6704f9ff7ffeebed
 PKT R4 minecraft:set_health 6a419000001440a00000
 PKT R4 minecraft:set_time 73000000000000010300
@@ -235,7 +235,7 @@ PKT R4 minecraft:set_entity_motion 6704f9ff7ffeebed
 PKT R4 minecraft:container_set_slot 140003000601bd0801000302
 PKT R4 minecraft:set_health 6a4195a8581440400000
 PKT R4 minecraft:set_time 73000000000000011700
-PKT R4 minecraft:update_attributes entity=4;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value]
+PKT R4 minecraft:update_attributes entity=4;minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value]
 PKT R4 minecraft:set_health 6a4199a8581440400000
 PKT R4 minecraft:set_entity_data 650409034199a858ff
 PKT R4 minecraft:set_health 6a419c53031440000000
@@ -287,12 +287,12 @@ HURT R5 out_of_world 9 -> true
 P R5 minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/4/915 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 PKT R5 minecraft:damage_event 190512000000
 PKT R5 minecraft:set_entity_motion 6705f9ff7ffeebed
-PKT R5 minecraft:update_attributes entity=5;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT R5 minecraft:update_attributes entity=5;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value]
 PKT R5 minecraft:set_time 73000000000000016700
 PKT R5 minecraft:damage_event 190515000000
 PKT R5 minecraft:set_entity_motion 6705f9ff7ffeebed
 PKT R5 minecraft:container_set_slot 140003000601bd0801000302
-PKT R5 minecraft:update_attributes entity=5;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value]
+PKT R5 minecraft:update_attributes entity=5;minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value]
 PKT R5 minecraft:set_time 73000000000000017b00
 PKT R5 minecraft:damage_event 19051b000000
 PKT R5 minecraft:set_entity_motion 6705f9ff7ffeebed
@@ -328,7 +328,7 @@ HURT B1 generic 3 -> true
 P B1 minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 PKT B1 minecraft:damage_event 190612000000
 PKT B1 minecraft:set_entity_data 6506090341880000ff
-PKT B1 minecraft:update_attributes entity=6;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT B1 minecraft:update_attributes entity=6;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT B1 minecraft:set_entity_motion 6706f9ff7ffeebed
 PKT B1 minecraft:set_health 6a418800001440a00000
 PKT B1 minecraft:set_health 6a418eaaab1440a00000
@@ -367,7 +367,7 @@ HURT B2 generic 6 -> true
 P B2 minecraft:player pos=28.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=10.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 PKT B2 minecraft:damage_event 190712000000
 PKT B2 minecraft:set_entity_data 6507090341600000ff
-PKT B2 minecraft:update_attributes entity=7;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT B2 minecraft:update_attributes entity=7;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT B2 minecraft:set_entity_motion 6707f9ff7ffeebed
 PKT B2 minecraft:set_health 6a416000001440a00000
 PKT B2 minecraft:set_health 6a416d55551440a00000
@@ -406,7 +406,7 @@ HURT B3 generic 2.5 -> true
 P B3 minecraft:player pos=32.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 PKT B3 minecraft:damage_event 190812000000
 PKT B3 minecraft:set_entity_data 65080903418c0000ff
-PKT B3 minecraft:update_attributes entity=8;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT B3 minecraft:update_attributes entity=8;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT B3 minecraft:set_entity_motion 6708f9ff7ffeebed
 PKT B3 minecraft:set_health 6a418c00001440a00000
 PKT B3 minecraft:set_time 73000000000000020700
@@ -445,7 +445,7 @@ HURT B4 generic 12 -> true
 P B4 minecraft:player pos=36.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=0/0 death=21 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 PKT B4 minecraft:damage_event 190912000000
 PKT B4 minecraft:set_entity_data 6509090341000000ff
-PKT B4 minecraft:update_attributes entity=9;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT B4 minecraft:update_attributes entity=9;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT B4 minecraft:set_entity_motion 6709f9ff7ffeebed
 PKT B4 minecraft:set_health 6a410000001440a00000
 PKT B4 minecraft:set_time 73000000000000022f00
@@ -494,7 +494,7 @@ HURT F1 lava 4 -> false
 HURT F1 generic 4 -> true
 P F1 minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/936 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 PKT F1 minecraft:set_time 73000000000000025700
-PKT F1 minecraft:update_attributes entity=10;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT F1 minecraft:update_attributes entity=10;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT F1 minecraft:player_info_update 47100aa17a4d8adaba35c0b215f37c659a37a600d834dddddf9938b99dd4fb9e2b6a7e8d008a09572e9f223f7b9d631645078453ce00f1c79c64cc71335781664a0851a0835300b5babdb8213b35c58d7eb6d5d85cdf2e00b75f6b135a6f3f6092a9f33030899e550001efce26cb3a36e281faeffc2f0bda9200dfcf468387b03148b9752e61a7cc697d004657700f140f3320a9ce87c19ff3ea5d0027afec9e906e306580bbe62a43e95b1900
 PKT F1 minecraft:set_time 73000000000000026b00
 PKT F1 minecraft:set_time 73000000000000027f00

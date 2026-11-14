@@ -241,8 +241,8 @@ import net.minecraft.util.RandomSource;
  *
  * <p>Output lines: {@code T n} (tick counter header before per-tick dumps), {@code P ...} player, {@code E ...} entity,
  * {@code I ...} inventory slot, {@code PKT player type hex} (hex = id + payload; `update_advancements` prints `-` (timestamps), `level_chunk_with_light` prints
- * `chunk=x,z/len=n` (heightmap map order varies per JVM run), `update_attributes` prints `entity=ID;attr=base[mod/amount/op,..];..` sorted
- * (HashSet order varies per JVM run)), {@code B x y z state}, {@code C text} (command output),
+ * `chunk=x,z/len=n` (heightmap map order varies per JVM run), `update_attributes` prints `entity=ID;attr=base[mod/amount/op,..];..` in wire order),
+ * {@code B x y z state}, {@code C text} (command output),
  * {@code DIG/HURT ...} action results (entities created by game logic are named {@code type_path#n}, n counting per type in
  * creation order, e.g. {@code item#1}, {@code experience_orb#2}; `dump entities` lists all live non-player entities by name), {@code # ...} notes. Numbers use Java's Double/Float.toString (shortest round trip;
  * the Rust comparator parses numeric tokens instead of comparing text). Entity ids are NOT printed (not stable across servers).

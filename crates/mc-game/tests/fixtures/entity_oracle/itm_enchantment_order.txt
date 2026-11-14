@@ -1,0 +1,9 @@
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:5,minecraft:fortune:3,minecraft:mending:1,minecraft:unbreaking:3}}
+I Steve 40 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:fire_aspect:2,minecraft:knockback:2,minecraft:looting:3,minecraft:mending:1,minecraft:sharpness:5,minecraft:unbreaking:3}}
+PKT Steve minecraft:container_set_slot 1400020024019c0801000d040d03170108052803
+PKT Steve minecraft:container_set_slot 140003002d019a0801000d0612031701210511020a022803
+C Diamond Pickaxe cannot support that enchantment
+C Applied enchantment Curse of Vanishing to Steve's item
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:5,minecraft:fortune:3,minecraft:mending:1,minecraft:unbreaking:3,minecraft:vanishing_curse:1}}
+I Steve 40 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:fire_aspect:2,minecraft:knockback:2,minecraft:looting:3,minecraft:mending:1,minecraft:sharpness:5,minecraft:unbreaking:3}}
+PKT Steve minecraft:container_set_slot 1400040024019c0801000d052901170128030d030805

@@ -8,6 +8,7 @@ use mc_nbt::Tag;
 use super::{ClockNetworkState, ClockState, ClockTimeMarker, PackedClockStates};
 use crate::impl_saved_data;
 use crate::util::codec::{DataResult, DecodeResult, map_decoded};
+use crate::util::java_hash_order::{JavaHashCapacity, registry_key_hash};
 use crate::world::level::saveddata::{SavedData, SavedDataType};
 
 /// A thread-safe mirror of every clock's `totalTicks` (what the environment attribute timelines read of
@@ -294,18 +295,23 @@ impl ServerClockManager {
         self.modify_clock(host, clock, |i| i.rate = rate);
     }
 
-    /// `createFullSyncPacket` payload: `(game_time, every clock's network state)`.
+    /// `createFullSyncPacket` payload: `(game_time, every clock's network state)`. `Util.mapValues` copies the `HashMap` of clocks
+    /// into another one, so the clocks are in bucket order of the holder hash (the registry key hash like the oracle's holders).
     pub fn create_full_sync_state(
         &self,
         host: &dyn ClockHost,
     ) -> (i64, Vec<(Identifier, ClockNetworkState)>) {
         let advance_time = host.advance_time();
+        let mut capacity = JavaHashCapacity::default();
+        capacity.grow_to_fit(self.clocks.len());
         (
             host.game_time(),
-            self.clocks
-                .iter()
-                .map(|(id, c)| (id.clone(), c.pack_network_state(advance_time)))
-                .collect(),
+            capacity.iteration_order(
+                self.clocks
+                    .iter()
+                    .map(|(id, c)| (id.clone(), c.pack_network_state(advance_time))),
+                |(id, _)| registry_key_hash("world_clock", id),
+            ),
         )
     }
 
@@ -487,5 +493,23 @@ mod tests {
             )
             .is_err_and(|p| p.value.is_some())
         );
+    }
+
+    /// The full sync lists the clocks in `HashMap` order of their holder hashes (buckets 4 and 6), not in registry order.
+    #[test]
+    fn full_sync_is_in_hash_order() {
+        let mut m = ServerClockManager::default();
+        m.init(
+            &[id("minecraft:the_end"), id("minecraft:overworld")],
+            vec![],
+        );
+        let host = Host {
+            advance: true,
+            sent: vec![],
+            invalidated: 0,
+        };
+        let (_, clocks) = m.create_full_sync_state(&host);
+        let ids: Vec<&str> = clocks.iter().map(|(id, _)| id.path()).collect();
+        assert_eq!(ids, ["overworld", "the_end"]);
     }
 }

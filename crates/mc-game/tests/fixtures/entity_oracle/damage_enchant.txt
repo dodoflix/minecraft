@@ -36,7 +36,7 @@ I E1 38 minecraft:iron_chestplate*1/dmg=4{minecraft:damage:4,minecraft:enchantme
 I E1 39 minecraft:iron_helmet*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:protection:4}}
 PKT E1 minecraft:damage_event 190112000000
 PKT E1 minecraft:set_entity_data 650109034188f5c2ff
-PKT E1 minecraft:update_attributes entity=1;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT E1 minecraft:update_attributes entity=1;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E1 minecraft:set_entity_motion 6701f9ff7ffeebed
 PKT E1 minecraft:set_health 6a4188f5c21440a00000
 PKT E1 minecraft:set_health 6a418fa06d1440a00000
@@ -52,7 +52,7 @@ PKT E1 minecraft:container_set_slot 140007000601b90802000d011c040301
 PKT E1 minecraft:container_set_slot 140008000701ba0802000d011c040301
 PKT E1 minecraft:container_set_slot 140009000801bb0802000d011c040301
 PKT E1 minecraft:set_health 6a419703b01440400000
-PKT E1 minecraft:update_attributes entity=1;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value]
+PKT E1 minecraft:update_attributes entity=1;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E1 minecraft:set_health 6a419b03b01440400000
 PKT E1 minecraft:set_entity_data 65010903419b03b0ff
 PKT E1 minecraft:set_time 73000000000000002700
@@ -66,7 +66,7 @@ PKT E1 minecraft:container_set_slot 14000b000601b90802000d011c040303
 PKT E1 minecraft:container_set_slot 14000c000701ba0802000d011c040303
 PKT E1 minecraft:container_set_slot 14000d000801bb0802000d011c040303
 PKT E1 minecraft:set_health 6a4190f7661440000000
-PKT E1 minecraft:update_attributes entity=1;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value]
+PKT E1 minecraft:update_attributes entity=1;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E1 minecraft:set_health 6a4193a2111440000000
 PKT E1 minecraft:set_entity_data 650109034193a211ff
 PKT E1 minecraft:set_time 73000000000000003b00
@@ -81,7 +81,7 @@ PKT E1 minecraft:container_set_slot 14000f000601b90802000d011c040304
 PKT E1 minecraft:container_set_slot 140010000701ba0802000d011c040304
 PKT E1 minecraft:container_set_slot 140011000801bb0802000d011c040304
 PKT E1 minecraft:set_health 6a41951d15143f800000
-PKT E1 minecraft:update_attributes entity=1;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value]
+PKT E1 minecraft:update_attributes entity=1;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E1 minecraft:set_health 6a4196726a143f800000
 PKT E1 minecraft:set_entity_data 650109034196726aff
 PKT E1 minecraft:set_time 73000000000000004f00
@@ -143,7 +143,7 @@ I E2 38 minecraft:iron_chestplate*1/dmg=4{minecraft:damage:4,minecraft:enchantme
 I E2 39 minecraft:iron_helmet*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:fire_protection:4}}
 PKT E2 minecraft:damage_event 190212000000
 PKT E2 minecraft:set_entity_data 6502090341400000ff
-PKT E2 minecraft:update_attributes entity=2;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/chest/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/feet/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.6000000238418579/add_multiplied_base];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT E2 minecraft:update_attributes entity=2;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/feet/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/chest/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.6000000238418579/add_multiplied_base]
 PKT E2 minecraft:set_entity_motion 6702f9ff7ffeebed
 PKT E2 minecraft:set_health 6a414000001440a00000
 PKT E2 minecraft:set_health 6a414d55551440a00000
@@ -159,7 +159,7 @@ PKT E2 minecraft:container_set_slot 140007000601b90802000d010b040301
 PKT E2 minecraft:container_set_slot 140008000701ba0802000d010b040301
 PKT E2 minecraft:container_set_slot 140009000801bb0802000d010b040301
 PKT E2 minecraft:set_health 6a419b020c1440400000
-PKT E2 minecraft:update_attributes entity=2;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/chest/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/feet/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.6000000238418579/add_multiplied_base]
+PKT E2 minecraft:update_attributes entity=2;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/feet/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/chest/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.6000000238418579/add_multiplied_base]
 PKT E2 minecraft:set_health 6a419f020c1440400000
 PKT E2 minecraft:set_time 7300000000000000b300
 PKT E2 minecraft:set_entity_data 65020903419f020cff
@@ -173,7 +173,7 @@ PKT E2 minecraft:container_set_slot 14000b000601b90802000d010b040303
 PKT E2 minecraft:container_set_slot 14000c000701ba0802000d010b040303
 PKT E2 minecraft:container_set_slot 14000d000801bb0802000d010b040303
 PKT E2 minecraft:set_health 6a416c7ae11440000000
-PKT E2 minecraft:update_attributes entity=2;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/chest/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/feet/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.6000000238418579/add_multiplied_base]
+PKT E2 minecraft:update_attributes entity=2;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/feet/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/chest/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.6000000238418579/add_multiplied_base]
 PKT E2 minecraft:set_time 7300000000000000c700
 PKT E2 minecraft:set_health 6a4171d0361440000000
 PKT E2 minecraft:set_entity_data 650209034171d036ff
@@ -188,7 +188,7 @@ PKT E2 minecraft:container_set_slot 14000f000601b90802000d010b040304
 PKT E2 minecraft:container_set_slot 140010000701ba0802000d010b040304
 PKT E2 minecraft:container_set_slot 140011000801bb0802000d010b040304
 PKT E2 minecraft:set_health 6a4181c290143f800000
-PKT E2 minecraft:update_attributes entity=2;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/chest/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/feet/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.6000000238418579/add_multiplied_base]
+PKT E2 minecraft:update_attributes entity=2;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/feet/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/chest/-0.6000000238418579/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.6000000238418579/add_multiplied_base]
 PKT E2 minecraft:set_time 7300000000000000db00
 PKT E2 minecraft:set_health 6a418317e5143f800000
 PKT E2 minecraft:set_entity_data 65020903418317e5ff
@@ -250,7 +250,7 @@ I E3 38 minecraft:iron_chestplate*1/dmg=4{minecraft:damage:4,minecraft:enchantme
 I E3 39 minecraft:iron_helmet*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:blast_protection:4}}
 PKT E3 minecraft:damage_event 190312000000
 PKT E3 minecraft:set_entity_data 6503090341400000ff
-PKT E3 minecraft:update_attributes entity=3;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:explosion_knockback_resistance=0.0[minecraft:enchantment.blast_protection/chest/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/feet/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/head/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/legs/0.6000000238418579/add_value];minecraft:movement_speed=0.10000000149011612[]
+PKT E3 minecraft:update_attributes entity=3;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:explosion_knockback_resistance=0.0[minecraft:enchantment.blast_protection/feet/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/legs/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/chest/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/head/0.6000000238418579/add_value]
 PKT E3 minecraft:set_entity_motion 6703f9ff7ffeebed
 PKT E3 minecraft:set_health 6a414000001440a00000
 PKT E3 minecraft:set_time 73000000000000012b00
@@ -267,7 +267,7 @@ PKT E3 minecraft:container_set_slot 140008000701ba0802000d0103040301
 PKT E3 minecraft:container_set_slot 140009000801bb0802000d0103040301
 PKT E3 minecraft:set_health 6a41870a3e1440400000
 PKT E3 minecraft:set_time 73000000000000013f00
-PKT E3 minecraft:update_attributes entity=3;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:explosion_knockback_resistance=0.0[minecraft:enchantment.blast_protection/chest/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/feet/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/head/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/legs/0.6000000238418579/add_value]
+PKT E3 minecraft:update_attributes entity=3;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:explosion_knockback_resistance=0.0[minecraft:enchantment.blast_protection/feet/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/legs/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/chest/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/head/0.6000000238418579/add_value]
 PKT E3 minecraft:set_health 6a418b0a3e1440400000
 PKT E3 minecraft:set_entity_data 65030903418b0a3eff
 PKT E3 minecraft:set_health 6a418db4e91440000000
@@ -281,7 +281,7 @@ PKT E3 minecraft:container_set_slot 14000b000601b90802000d0103040303
 PKT E3 minecraft:container_set_slot 14000c000701ba0802000d0103040303
 PKT E3 minecraft:container_set_slot 14000d000801bb0802000d0103040303
 PKT E3 minecraft:set_health 6a4197a5e31440000000
-PKT E3 minecraft:update_attributes entity=3;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:explosion_knockback_resistance=0.0[minecraft:enchantment.blast_protection/chest/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/feet/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/head/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/legs/0.6000000238418579/add_value]
+PKT E3 minecraft:update_attributes entity=3;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:explosion_knockback_resistance=0.0[minecraft:enchantment.blast_protection/feet/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/legs/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/chest/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/head/0.6000000238418579/add_value]
 PKT E3 minecraft:set_health 6a419a508e1440000000
 PKT E3 minecraft:set_entity_data 65030903419a508eff
 PKT E3 minecraft:set_health 6a419ba5e3143f800000
@@ -296,7 +296,7 @@ PKT E3 minecraft:container_set_slot 14000f000601b90802000d0103040304
 PKT E3 minecraft:container_set_slot 140010000701ba0802000d0103040304
 PKT E3 minecraft:container_set_slot 140011000801bb0802000d0103040304
 PKT E3 minecraft:set_health 6a4181c290143f800000
-PKT E3 minecraft:update_attributes entity=3;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:explosion_knockback_resistance=0.0[minecraft:enchantment.blast_protection/chest/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/feet/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/head/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/legs/0.6000000238418579/add_value]
+PKT E3 minecraft:update_attributes entity=3;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:explosion_knockback_resistance=0.0[minecraft:enchantment.blast_protection/feet/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/legs/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/chest/0.6000000238418579/add_value,minecraft:enchantment.blast_protection/head/0.6000000238418579/add_value]
 PKT E3 minecraft:set_health 6a418317e5143f800000
 PKT E3 minecraft:set_entity_data 65030903418317e5ff
 PKT E3 minecraft:set_health 6a41846d3a143f800000
@@ -358,7 +358,7 @@ I E4 38 minecraft:iron_chestplate*1/dmg=4{minecraft:damage:4,minecraft:enchantme
 I E4 39 minecraft:iron_helmet*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:projectile_protection:4}}
 PKT E4 minecraft:damage_event 190412000000
 PKT E4 minecraft:set_entity_data 6504090341400000ff
-PKT E4 minecraft:update_attributes entity=4;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT E4 minecraft:update_attributes entity=4;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E4 minecraft:set_entity_motion 6704f9ff7ffeebed
 PKT E4 minecraft:set_health 6a414000001440a00000
 PKT E4 minecraft:set_health 6a414d55551440a00000
@@ -374,7 +374,7 @@ PKT E4 minecraft:container_set_slot 140007000601b90802000d011b040301
 PKT E4 minecraft:container_set_slot 140008000701ba0802000d011b040301
 PKT E4 minecraft:container_set_slot 140009000801bb0802000d011b040301
 PKT E4 minecraft:set_health 6a41870a3e1440400000
-PKT E4 minecraft:update_attributes entity=4;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value]
+PKT E4 minecraft:update_attributes entity=4;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E4 minecraft:set_health 6a418b0a3e1440400000
 PKT E4 minecraft:set_entity_data 65040903418b0a3eff
 PKT E4 minecraft:set_time 7300000000000001df00
@@ -388,7 +388,7 @@ PKT E4 minecraft:container_set_slot 14000b000601b90802000d011b040303
 PKT E4 minecraft:container_set_slot 14000c000701ba0802000d011b040303
 PKT E4 minecraft:container_set_slot 14000d000801bb0802000d011b040303
 PKT E4 minecraft:set_health 6a416c7ae11440000000
-PKT E4 minecraft:update_attributes entity=4;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value]
+PKT E4 minecraft:update_attributes entity=4;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E4 minecraft:set_health 6a4171d0361440000000
 PKT E4 minecraft:set_entity_data 650409034171d036ff
 PKT E4 minecraft:set_time 7300000000000001f300
@@ -403,7 +403,7 @@ PKT E4 minecraft:container_set_slot 14000f000601b90802000d011b040304
 PKT E4 minecraft:container_set_slot 140010000701ba0802000d011b040304
 PKT E4 minecraft:container_set_slot 140011000801bb0802000d011b040304
 PKT E4 minecraft:set_health 6a4199f3b6143f800000
-PKT E4 minecraft:update_attributes entity=4;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value]
+PKT E4 minecraft:update_attributes entity=4;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E4 minecraft:set_health 6a419b490b143f800000
 PKT E4 minecraft:set_entity_data 65040903419b490bff
 PKT E4 minecraft:set_time 73000000000000020700
@@ -465,7 +465,7 @@ I E5 38 minecraft:iron_chestplate*1/dmg=4{minecraft:damage:4,minecraft:enchantme
 I E5 39 minecraft:iron_helmet*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:feather_falling:4}}
 PKT E5 minecraft:damage_event 190512000000
 PKT E5 minecraft:set_entity_data 6505090341400000ff
-PKT E5 minecraft:update_attributes entity=5;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT E5 minecraft:update_attributes entity=5;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E5 minecraft:set_entity_motion 6705f9ff7ffeebed
 PKT E5 minecraft:set_health 6a414000001440a00000
 PKT E5 minecraft:set_time 73000000000000025700
@@ -482,7 +482,7 @@ PKT E5 minecraft:container_set_slot 140007000601b90802000d0109040301
 PKT E5 minecraft:container_set_slot 140008000701ba0802000d0109040301
 PKT E5 minecraft:container_set_slot 140009000801bb0802000d0109040301
 PKT E5 minecraft:set_health 6a41870a3e1440400000
-PKT E5 minecraft:update_attributes entity=5;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value]
+PKT E5 minecraft:update_attributes entity=5;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E5 minecraft:set_time 73000000000000026b00
 PKT E5 minecraft:set_health 6a418b0a3e1440400000
 PKT E5 minecraft:set_entity_data 65050903418b0a3eff
@@ -496,7 +496,7 @@ PKT E5 minecraft:container_set_slot 14000b000601b90802000d0109040303
 PKT E5 minecraft:container_set_slot 14000c000701ba0802000d0109040303
 PKT E5 minecraft:container_set_slot 14000d000801bb0802000d0109040303
 PKT E5 minecraft:set_health 6a416c7ae11440000000
-PKT E5 minecraft:update_attributes entity=5;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value]
+PKT E5 minecraft:update_attributes entity=5;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E5 minecraft:set_time 73000000000000027f00
 PKT E5 minecraft:set_health 6a4171d0361440000000
 PKT E5 minecraft:set_entity_data 650509034171d036ff
@@ -511,7 +511,7 @@ PKT E5 minecraft:container_set_slot 14000f000601b90802000d0109040304
 PKT E5 minecraft:container_set_slot 140010000701ba0802000d0109040304
 PKT E5 minecraft:container_set_slot 140011000801bb0802000d0109040304
 PKT E5 minecraft:set_health 6a4181c290143f800000
-PKT E5 minecraft:update_attributes entity=5;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value]
+PKT E5 minecraft:update_attributes entity=5;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E5 minecraft:set_time 73000000000000029300
 PKT E5 minecraft:set_health 6a418317e5143f800000
 PKT E5 minecraft:set_entity_data 65050903418317e5ff
@@ -574,7 +574,7 @@ I E6 38 minecraft:iron_chestplate*1/dmg=4{minecraft:damage:4,minecraft:enchantme
 I E6 39 minecraft:iron_helmet*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:protection:2}}
 PKT E6 minecraft:damage_event 190612000000
 PKT E6 minecraft:set_entity_data 650609034168f5c2ff
-PKT E6 minecraft:update_attributes entity=6;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT E6 minecraft:update_attributes entity=6;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E6 minecraft:set_entity_motion 6706f9ff7ffeebed
 PKT E6 minecraft:set_health 6a4168f5c21440a00000
 PKT E6 minecraft:set_health 6a41764b171440a00000
@@ -590,7 +590,7 @@ PKT E6 minecraft:container_set_slot 140007000601b90802000d011c020301
 PKT E6 minecraft:container_set_slot 140008000701ba0802000d011c020301
 PKT E6 minecraft:container_set_slot 140009000801bb0802000d011c020301
 PKT E6 minecraft:set_health 6a418f06f71440400000
-PKT E6 minecraft:update_attributes entity=6;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value]
+PKT E6 minecraft:update_attributes entity=6;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E6 minecraft:set_health 6a419306f71440400000
 PKT E6 minecraft:set_entity_data 65060903419306f7ff
 PKT E6 minecraft:set_time 73000000000000030b00
@@ -604,7 +604,7 @@ PKT E6 minecraft:container_set_slot 14000b000601b90802000d011c020303
 PKT E6 minecraft:container_set_slot 14000c000701ba0802000d011c020303
 PKT E6 minecraft:container_set_slot 14000d000801bb0802000d011c020303
 PKT E6 minecraft:set_health 6a41839a6b1440000000
-PKT E6 minecraft:update_attributes entity=6;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value]
+PKT E6 minecraft:update_attributes entity=6;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E6 minecraft:set_health 6a418645161440000000
 PKT E6 minecraft:set_entity_data 6506090341864516ff
 PKT E6 minecraft:set_time 73000000000000031f00
@@ -619,7 +619,7 @@ PKT E6 minecraft:container_set_slot 14000f000601b90802000d011c020304
 PKT E6 minecraft:container_set_slot 140010000701ba0802000d011c020304
 PKT E6 minecraft:container_set_slot 140011000801bb0802000d011c020304
 PKT E6 minecraft:set_health 6a418b6fd2143f800000
-PKT E6 minecraft:update_attributes entity=6;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value]
+PKT E6 minecraft:update_attributes entity=6;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value]
 PKT E6 minecraft:set_health 6a418cc527143f800000
 PKT E6 minecraft:set_entity_data 65060903418cc527ff
 PKT E6 minecraft:set_time 73000000000000033300
@@ -681,7 +681,7 @@ I E7 38 minecraft:iron_chestplate*1/dmg=4{minecraft:damage:4,minecraft:enchantme
 I E7 39 minecraft:iron_helmet*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:fire_protection:2}}
 PKT E7 minecraft:damage_event 190712000000
 PKT E7 minecraft:set_entity_data 6507090341400000ff
-PKT E7 minecraft:update_attributes entity=7;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/chest/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/feet/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.30000001192092896/add_multiplied_base];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT E7 minecraft:update_attributes entity=7;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/feet/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/chest/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.30000001192092896/add_multiplied_base]
 PKT E7 minecraft:set_entity_motion 6707f9ff7ffeebed
 PKT E7 minecraft:set_health 6a414000001440a00000
 PKT E7 minecraft:set_health 6a414d55551440a00000
@@ -697,7 +697,7 @@ PKT E7 minecraft:container_set_slot 140007000601b90802000d010b020301
 PKT E7 minecraft:container_set_slot 140008000701ba0802000d010b020301
 PKT E7 minecraft:container_set_slot 140009000801bb0802000d010b020301
 PKT E7 minecraft:set_health 6a419703b01440400000
-PKT E7 minecraft:update_attributes entity=7;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/chest/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/feet/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.30000001192092896/add_multiplied_base]
+PKT E7 minecraft:update_attributes entity=7;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/feet/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/chest/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.30000001192092896/add_multiplied_base]
 PKT E7 minecraft:set_health 6a419b03b01440400000
 PKT E7 minecraft:set_time 73000000000000039700
 PKT E7 minecraft:set_entity_data 65070903419b03b0ff
@@ -711,7 +711,7 @@ PKT E7 minecraft:container_set_slot 14000b000601b90802000d010b020303
 PKT E7 minecraft:container_set_slot 14000c000701ba0802000d010b020303
 PKT E7 minecraft:container_set_slot 14000d000801bb0802000d010b020303
 PKT E7 minecraft:set_health 6a416c7ae11440000000
-PKT E7 minecraft:update_attributes entity=7;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/chest/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/feet/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.30000001192092896/add_multiplied_base]
+PKT E7 minecraft:update_attributes entity=7;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/feet/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/chest/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.30000001192092896/add_multiplied_base]
 PKT E7 minecraft:set_health 6a4171d0361440000000
 PKT E7 minecraft:set_time 7300000000000003ab00
 PKT E7 minecraft:set_entity_data 650709034171d036ff
@@ -726,7 +726,7 @@ PKT E7 minecraft:container_set_slot 14000f000601b90802000d010b020304
 PKT E7 minecraft:container_set_slot 140010000701ba0802000d010b020304
 PKT E7 minecraft:container_set_slot 140011000801bb0802000d010b020304
 PKT E7 minecraft:set_health 6a4181c290143f800000
-PKT E7 minecraft:update_attributes entity=7;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/chest/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/feet/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.30000001192092896/add_multiplied_base]
+PKT E7 minecraft:update_attributes entity=7;minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.leggings/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.leggings/5.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:burning_time=1.0[minecraft:enchantment.fire_protection/feet/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/legs/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/chest/-0.30000001192092896/add_multiplied_base,minecraft:enchantment.fire_protection/head/-0.30000001192092896/add_multiplied_base]
 PKT E7 minecraft:set_health 6a418317e5143f800000
 PKT E7 minecraft:set_time 7300000000000003bf00
 PKT E7 minecraft:set_entity_data 65070903418317e5ff

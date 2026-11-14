@@ -1,5 +1,5 @@
 //! Mob effects with consequences for mobs against the vanilla oracle (scenarios in `oracle/scenarios`): oozing, infested,
-//! wind charged and weaving.
+//! wind charged and weaving, and the attributes effects modify.
 use crate::common::block_scenario;
 
 #[test]
@@ -20,4 +20,9 @@ fn weaving_mob_death_spreads_cobwebs() {
 #[test]
 fn wind_charged_mob_death_bursts_into_a_gust() {
     block_scenario::check("mob_effect_wind_charged");
+}
+
+#[test]
+fn attributes_sync_and_save_in_hash_order() {
+    block_scenario::check("mob_attribute_order");
 }

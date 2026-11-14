@@ -114,6 +114,22 @@
           map.put(key, function.apply(key));
        }
  
+--- a/world/entity/ai/attributes/AttributeInstance.java
++++ b/world/entity/ai/attributes/AttributeInstance.java
+@@ -27,6 +27,13 @@
+    private boolean dirty = true;
+    private double cachedValue;
+    private final Consumer<AttributeInstance> onDirty;
++
++   // ORACLE SHADOW (tests/oracle/shadow.patch): vanilla hashes an instance by identity, so the `attributesToUpdate` / `attributesToSync` sets iterate in a
++   // different order per JVM run. The hash of its attribute holder (registry-key based, see Holder above) makes the order reproducible.
++   @Override
++   public int hashCode() {
++      return this.attribute.hashCode();
++   }
+ 
+    public AttributeInstance(final Holder<Attribute> attribute, final Consumer<AttributeInstance> onDirty) {
+       this.attribute = attribute;
 --- a/world/entity/ai/gossip/GossipContainer.java
 +++ b/world/entity/ai/gossip/GossipContainer.java
 @@ -174,7 +174,9 @@

@@ -229,7 +229,7 @@ E experience_orb#12 minecraft:experience_orb pos=96.92058681940031,-60.0,0.49434
 P ObsC minecraft:player pos=52.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/1/0.14285715 sel=0 main=empty
 P ObsD minecraft:player pos=76.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P ObsE minecraft:player pos=100.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=2/17/0.09090913 sel=0 main=empty
-PKT ObsC minecraft:update_attributes entity=6;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT ObsC minecraft:update_attributes entity=6;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT ObsC minecraft:take_item_entity 7f0c0601
 PKT ObsC minecraft:remove_entities 4e010c
 PKT ObsC minecraft:set_experience 693e1249250001
@@ -252,7 +252,7 @@ PKT ObsC minecraft:set_entity_motion 670ab9e1864af849
 PKT ObsC minecraft:move_entity_pos 360a00db6f00f41e78
 PKT ObsC minecraft:set_entity_motion 671081d77967128d
 PKT ObsC minecraft:move_entity_pos 361000cc63012fde59
-PKT ObsD minecraft:update_attributes entity=7;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT ObsD minecraft:update_attributes entity=7;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT ObsD minecraft:remove_entities 4e010b
 PKT ObsD minecraft:remove_entities 4e010a
 PKT ObsD minecraft:take_item_entity 7f0c0601
@@ -271,7 +271,7 @@ PKT ObsD minecraft:set_entity_motion 670d61008008fffe
 PKT ObsD minecraft:entity_position_sync 230d0040527600cf0fc5d9c04e0000000000003ff0567738217d2f43266d3c0000000001
 PKT ObsD minecraft:set_entity_motion 671081d77967128d
 PKT ObsD minecraft:move_entity_pos 361000cc63012fde59
-PKT ObsE minecraft:update_attributes entity=8;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT ObsE minecraft:update_attributes entity=8;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT ObsE minecraft:set_time 73000000000000001300
 PKT ObsE minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
 PKT ObsE minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740000

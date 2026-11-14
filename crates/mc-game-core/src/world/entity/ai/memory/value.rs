@@ -2,10 +2,12 @@
 
 use super::NearestVisibleLivingEntities;
 use super::walk_target::WalkTarget;
+use crate::util::java_hash_order::registry_key_hash;
 use crate::world::damagesource::DamageSource;
 use crate::world::entity::EntityId;
 use crate::world::entity::ai::behavior::position_tracker::PositionTracker;
 use crate::world::level::pathfinder::Path as NavPath;
+use mc_core::java_collections::{JavaHashMap, hash_set_copy_capacity};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_protocol::codec::GlobalPos;
@@ -49,35 +51,52 @@ pub enum SpearStatus {
     Retreat,
 }
 
-/// A `Set<GlobalPos>` (vanilla `HashSet`; `GlobalPos.hashCode` depends on the identity hash of the dimension key, so
-/// its iteration order is not reproducible either way: insertion order is used).
-#[derive(Clone, PartialEq, Eq, Debug, Default)]
-pub struct GlobalPosSet(Vec<GlobalPos>);
+/// A `Set<GlobalPos>`: a `HashSet` iterating in bucket order of `GlobalPos.hashCode()` (the dimension key hashes like the
+/// oracle's, see `registry_key_hash`), insertion order inside a bucket.
+#[derive(Clone, Debug)]
+pub struct GlobalPosSet(JavaHashMap<GlobalPos, ()>);
+
+/// `GlobalPos.hashCode()` (a record): `31 * dimension.hashCode() + pos.hashCode()`.
+fn global_pos_hash(pos: &GlobalPos) -> i32 {
+    registry_key_hash("dimension", &pos.dimension)
+        .wrapping_mul(31)
+        .wrapping_add(pos.pos.hash_code())
+}
+
+impl Default for GlobalPosSet {
+    /// `new HashSet<>()`.
+    fn default() -> Self {
+        GlobalPosSet(JavaHashMap::new(global_pos_hash))
+    }
+}
+
+impl PartialEq for GlobalPosSet {
+    fn eq(&self, other: &Self) -> bool {
+        self.len() == other.len() && self.iter().all(|p| other.contains(p))
+    }
+}
+
+impl Eq for GlobalPosSet {}
 
 impl GlobalPosSet {
     pub fn new() -> Self {
         Self::default()
     }
+    /// `Sets.newHashSet(element)`: a table of 2 that doubles as it fills.
+    pub fn singleton(pos: GlobalPos) -> Self {
+        let mut set = GlobalPosSet(JavaHashMap::with_capacity(2, global_pos_hash));
+        set.insert(pos);
+        set
+    }
     /// `add`: `true` if the element was not yet present.
     pub fn insert(&mut self, pos: GlobalPos) -> bool {
-        if self.0.contains(&pos) {
-            false
-        } else {
-            self.0.push(pos);
-            true
-        }
+        self.0.insert(pos, ()).is_none()
     }
     pub fn remove(&mut self, pos: &GlobalPos) -> bool {
-        match self.0.iter().position(|p| p == pos) {
-            Some(i) => {
-                self.0.remove(i);
-                true
-            }
-            None => false,
-        }
+        self.0.remove(pos).is_some()
     }
     pub fn contains(&self, pos: &GlobalPos) -> bool {
-        self.0.contains(pos)
+        self.0.contains_key(pos)
     }
     pub fn len(&self) -> usize {
         self.0.len()
@@ -85,15 +104,20 @@ impl GlobalPosSet {
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
     }
-    pub fn iter(&self) -> std::slice::Iter<'_, GlobalPos> {
-        self.0.iter()
+    pub fn iter(&self) -> impl Iterator<Item = &GlobalPos> {
+        self.0.keys()
     }
 }
 
+/// `new HashSet<>(collection)`: the table is sized for the collection before its elements are added.
 impl FromIterator<GlobalPos> for GlobalPosSet {
     fn from_iter<T: IntoIterator<Item = GlobalPos>>(iter: T) -> Self {
-        let mut set = GlobalPosSet::new();
-        for p in iter {
+        let elements: Vec<GlobalPos> = iter.into_iter().collect();
+        let mut set = GlobalPosSet(JavaHashMap::with_capacity(
+            hash_set_copy_capacity(elements.len()),
+            global_pos_hash,
+        ));
+        for p in elements {
             set.insert(p);
         }
         set
@@ -245,5 +269,29 @@ impl MemoryData for Void {
     }
     fn from_value_mut(_: &mut MemoryValue) -> Option<&mut Self> {
         None
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use mc_core::ident::Identifier;
+
+    fn door(z: i32) -> GlobalPos {
+        GlobalPos {
+            dimension: Identifier::parse("minecraft:overworld").expect("dimension id"),
+            pos: BlockPos::new(0, -60, z),
+        }
+    }
+
+    /// Two doors of a vestibule in a table of 4: the buckets of their hashes (2 and 3) put the inner door first.
+    #[test]
+    fn door_pair_iterates_in_bucket_order() {
+        let mut set = GlobalPosSet::singleton(door(-1));
+        assert!(set.insert(door(-2)));
+        assert!(!set.insert(door(-2)));
+        assert_eq!(set.iter().collect::<Vec<_>>(), [&door(-2), &door(-1)]);
+        assert!(set.remove(&door(-2)));
+        assert_eq!(set.iter().collect::<Vec<_>>(), [&door(-1)]);
     }
 }

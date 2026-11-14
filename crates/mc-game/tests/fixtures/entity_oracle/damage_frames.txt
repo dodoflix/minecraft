@@ -25,7 +25,7 @@ HURT I1 generic 3 -> true
 P I1 minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=5.5 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 PKT I1 minecraft:damage_event 190112000000
 PKT I1 minecraft:set_entity_data 6501090341700000ff
-PKT I1 minecraft:update_attributes entity=1;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT I1 minecraft:update_attributes entity=1;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT I1 minecraft:set_entity_motion 6701f9ff7ffeebed
 PKT I1 minecraft:set_health 6a417000001440a00000
 PKT I1 minecraft:set_entity_data 6501090341500000ff
@@ -66,7 +66,7 @@ HURT I2 generic 1 -> true
 P I2 minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.4999995 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 PKT I2 minecraft:damage_event 190212000000
 PKT I2 minecraft:set_entity_data 6502090341400000ff
-PKT I2 minecraft:update_attributes entity=2;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT I2 minecraft:update_attributes entity=2;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT I2 minecraft:set_entity_motion 6702f9ff7ffeebed
 PKT I2 minecraft:set_health 6a414000001440a00000
 PKT I2 minecraft:set_health 6a414d55551440a00000
@@ -105,7 +105,7 @@ HURT I3 generic 2 -> false
 P I3 minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=9.000001 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 PKT I3 minecraft:damage_event 190312000000
 PKT I3 minecraft:set_entity_data 6503090341800000ff
-PKT I3 minecraft:update_attributes entity=3;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT I3 minecraft:update_attributes entity=3;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT I3 minecraft:set_entity_motion 6703f9ff7ffeebed
 PKT I3 minecraft:set_health 6a418000001440a00000
 PKT I3 minecraft:set_health 6a4186aaab1440a00000
@@ -167,7 +167,7 @@ HURT C1 lava 4 -> false
 P C1 minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.5 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 PKT C1 minecraft:damage_event 190520000000
 PKT C1 minecraft:set_entity_data 6505090341800000ff
-PKT C1 minecraft:update_attributes entity=5;minecraft:block_interaction_range=4.5[minecraft:creative_mode_block_range/0.5/add_value];minecraft:entity_interaction_range=3.0[minecraft:creative_mode_entity_range/2.0/add_value];minecraft:movement_speed=0.10000000149011612[]
+PKT C1 minecraft:update_attributes entity=5;minecraft:entity_interaction_range=3.0[minecraft:creative_mode_entity_range/2.0/add_value];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[minecraft:creative_mode_block_range/0.5/add_value]
 PKT C1 minecraft:set_entity_motion 6705f9ff7ffeebed
 PKT C1 minecraft:set_health 6a418000001440a00000
 PKT C1 minecraft:set_health 6a4186aaab1440a00000

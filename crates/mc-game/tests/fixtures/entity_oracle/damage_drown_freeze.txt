@@ -31,7 +31,7 @@ P W1 minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 f
 P W1 minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=0 alive=1 pose=standing hp=18.0 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P W1 minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=-1 alive=1 pose=standing hp=18.0 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 PKT W1 minecraft:set_entity_data 65010101ab02ff
-PKT W1 minecraft:update_attributes entity=1;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:oxygen_bonus=0.0[]
+PKT W1 minecraft:update_attributes entity=1;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:oxygen_bonus=0.0[]
 PKT W1 minecraft:update_advancements -
 PKT W1 minecraft:set_entity_data 65010101aa02ff
 PKT W1 minecraft:set_entity_data 65010101a902ff
@@ -504,7 +504,7 @@ PKT F1 minecraft:level_chunk_with_light chunk=3,1/len=7260
 PKT F1 minecraft:chunk_batch_finished 0b09
 P F1 minecraft:player pos=32.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 PKT F1 minecraft:set_entity_data 65020701e607ff
-PKT F1 minecraft:update_attributes entity=2;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[minecraft:powder_snow/-0.05000000074505806/add_value]
+PKT F1 minecraft:update_attributes entity=2;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[minecraft:powder_snow/-0.05000000074505806/add_value];minecraft:block_interaction_range=4.5[]
 PKT F1 minecraft:set_entity_data 65020701e407ff
 PKT F1 minecraft:update_attributes entity=2;minecraft:movement_speed=0.10000000149011612[minecraft:powder_snow/-0.05000000074505806/add_value]
 PKT F1 minecraft:set_entity_data 65020701e207ff

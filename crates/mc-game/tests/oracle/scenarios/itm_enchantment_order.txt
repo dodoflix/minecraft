@@ -1,0 +1,18 @@
+# Enchantments iterate in the table order of their map: the slot update of an item with six enchantments lists them that way, also after
+# /enchant added more to one that was parsed from a command.
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 7800
+level_seed 7801
+spawn_player Steve survival 0.5 -60 0.5 0 0
+tick 5
+give Steve mainhand minecraft:diamond_pickaxe[minecraft:enchantments={"minecraft:efficiency":5,"minecraft:unbreaking":3,"minecraft:fortune":3,"minecraft:mending":1}]
+give Steve offhand minecraft:diamond_sword[minecraft:enchantments={"minecraft:sharpness":5,"minecraft:fire_aspect":2,"minecraft:knockback":2,"minecraft:looting":3,"minecraft:unbreaking":3,"minecraft:mending":1}]
+tick 1
+dump inventory:Steve packets:Steve:container_set_slot
+cmd enchant Steve minecraft:silk_touch 1
+cmd enchant Steve minecraft:vanishing_curse 1
+tick 1
+dump inventory:Steve packets:Steve:container_set_slot

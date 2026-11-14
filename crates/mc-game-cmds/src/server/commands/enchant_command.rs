@@ -118,7 +118,6 @@ fn enchant(
             }
             let keys: Vec<Identifier> = get_enchantments_for_crafting(item)
                 .entries()
-                .iter()
                 .filter_map(|(holder, _)| holder.name().cloned())
                 .collect();
             let can_enchant = definition(&registries, &enchantment)

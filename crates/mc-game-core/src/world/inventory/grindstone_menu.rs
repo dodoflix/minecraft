@@ -61,7 +61,7 @@ fn get_experience_from_item(registries: &RegistryAccess, item: &ItemStack) -> i3
             &enchantment_tags::id(enchantment_tags::CURSE),
         ) && let Some(e) = definition(registries, key)
         {
-            amount += e.get_min_cost(*lvl);
+            amount += e.get_min_cost(lvl);
         }
     }
     amount
@@ -222,7 +222,7 @@ impl GrindstoneMenu {
                     .name()
                     .is_some_and(|k| registries.is_in_tag(ENCHANTMENT_REGISTRY, k, &curse));
                 if !is_curse || new_enchantments.get_level(enchant) == 0 {
-                    new_enchantments.upgrade(enchant, *level);
+                    new_enchantments.upgrade(enchant, level);
                 }
             }
         });

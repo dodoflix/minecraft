@@ -173,7 +173,7 @@ PKT T1 minecraft:update_mob_effect 8701011501640e
 PKT T1 minecraft:update_mob_effect 8701010b00a0060e
 PKT T1 minecraft:entity_event 220000000123
 PKT T1 minecraft:set_entity_data 650109033f8000000a11031cff2552a51cffcd5cab1cffff9900110341000000ff
-PKT T1 minecraft:update_attributes entity=1;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:max_absorption=0.0[minecraft:effect.absorption/8.0/add_value];minecraft:movement_speed=0.10000000149011612[]
+PKT T1 minecraft:update_attributes entity=1;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:max_absorption=0.0[minecraft:effect.absorption/8.0/add_value];minecraft:block_interaction_range=4.5[]
 PKT T1 minecraft:set_entity_motion 6701f9ff7ffeebed
 PKT T1 minecraft:container_set_slot 140003002400
 PKT T1 minecraft:update_advancements -
@@ -190,7 +190,7 @@ PKT T2 minecraft:set_entity_data 6507080701ae0b0000ff
 PKT T2 minecraft:bundle_delimiter 00
 PKT T2 minecraft:entity_event 220000000203
 PKT T2 minecraft:set_entity_data 6502090300000000ff
-PKT T2 minecraft:update_attributes entity=2;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT T2 minecraft:update_attributes entity=2;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT T2 minecraft:set_entity_motion 6702f9ff7ffeebed
 PKT T2 minecraft:move_entity_pos 360700000000000000
 PKT T2 minecraft:set_entity_data 6507080701ae0b0000ff
@@ -205,7 +205,7 @@ PKT T3 minecraft:bundle_delimiter 00
 PKT T3 minecraft:add_entity 01078c355630374344da9b2feb075a49e8c3484021000000000000c04d570a3d8000003fe0000000000000d9859727333100670000
 PKT T3 minecraft:set_entity_data 6507080701ae0b0000ff
 PKT T3 minecraft:bundle_delimiter 00
-PKT T3 minecraft:update_attributes entity=3;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT T3 minecraft:update_attributes entity=3;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT T3 minecraft:move_entity_pos 360700000000000000
 PKT T3 minecraft:set_entity_data 6507080701ae0b0000ff
 PKT T3 minecraft:damage_event 190313000000
@@ -231,7 +231,7 @@ PKT T4 minecraft:bundle_delimiter 00
 PKT T4 minecraft:add_entity 01078c355630374344da9b2feb075a49e8c3484021000000000000c04d570a3d8000003fe0000000000000d9859727333100670000
 PKT T4 minecraft:set_entity_data 6507080701ae0b0000ff
 PKT T4 minecraft:bundle_delimiter 00
-PKT T4 minecraft:update_attributes entity=4;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT T4 minecraft:update_attributes entity=4;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT T4 minecraft:move_entity_pos 360700000000000000
 PKT T4 minecraft:set_entity_data 6507080701ae0b0000ff
 PKT T4 minecraft:sound 77a40a0700000064fffffe20000000043f8000003f8000003dace6703e05bff8
@@ -264,7 +264,7 @@ PKT T5 minecraft:set_entity_data 6507080701ae0b0000ff
 PKT T5 minecraft:bundle_delimiter 00
 PKT T5 minecraft:move_entity_pos 360700000000000000
 PKT T5 minecraft:set_entity_data 6507080701ae0b0000ff
-PKT T5 minecraft:update_attributes entity=5;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT T5 minecraft:update_attributes entity=5;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT T5 minecraft:sound 77a40a0700000064fffffe20000000043f8000003f8000003dace6703e05bff8
 PKT T5 minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f74656c6c2054332000080009696e73657274696f6e0002543308000474657874000254330a000b686f7665725f6576656e740800046e616d6500025433080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004069864dc7f8a3421a422162bd6f07f1600000800097472616e736c617465001864656174682e61747461636b2e67656e657269634b696c6c0000
 PKT T5 minecraft:bundle_delimiter 00
@@ -294,7 +294,7 @@ PKT T6 minecraft:bundle_delimiter 00
 PKT T6 minecraft:add_entity 01078c355630374344da9b2feb075a49e8c3484021000000000000c04d570a3d8000003fe0000000000000d9859727333100670000
 PKT T6 minecraft:set_entity_data 6507080701ae0b0000ff
 PKT T6 minecraft:bundle_delimiter 00
-PKT T6 minecraft:update_attributes entity=6;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT T6 minecraft:update_attributes entity=6;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
 PKT T6 minecraft:move_entity_pos 360700000000000000
 PKT T6 minecraft:set_entity_data 6507080701ae0b0000ff
 PKT T6 minecraft:sound 77a40a0700000064fffffe20000000043f8000003f8000003dace6703e05bff8

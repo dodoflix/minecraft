@@ -2,38 +2,45 @@
 
 use mc_core::ident::Identifier;
 use mc_protocol::components::{
-    ENCHANTMENTS, EnchantmentHolder, Holder, ItemEnchantments, STORED_ENCHANTMENTS,
+    ENCHANTMENTS, EnchantmentHolder, EnchantmentMap, Holder, ItemEnchantments, STORED_ENCHANTMENTS,
+    enchantment_map,
 };
 
 use crate::world::item::ItemStack;
 
-/// `ItemEnchantments.Mutable`.
-#[derive(Clone, Debug, Default)]
+/// `ItemEnchantments.Mutable`: its own `Object2IntOpenHashMap` (a fresh default-size table the enchantments are put into).
+#[derive(Clone, Debug)]
 pub struct ItemEnchantmentsMutable {
-    entries: Vec<(EnchantmentHolder, i32)>,
+    enchantments: EnchantmentMap,
+}
+
+impl Default for ItemEnchantmentsMutable {
+    fn default() -> Self {
+        ItemEnchantmentsMutable {
+            enchantments: enchantment_map(16),
+        }
+    }
 }
 
 impl ItemEnchantmentsMutable {
-    /// `new Mutable(enchantments)`.
+    /// `new Mutable(enchantments)`: `putAll` into the default table.
     pub fn new(enchantments: &ItemEnchantments) -> ItemEnchantmentsMutable {
-        ItemEnchantmentsMutable {
-            entries: enchantments.entries().to_vec(),
-        }
-    }
-
-    fn position(&self, enchantment: &EnchantmentHolder) -> Option<usize> {
-        self.entries.iter().position(|(k, _)| k == enchantment)
+        let mut mutable = ItemEnchantmentsMutable::default();
+        mutable.enchantments.put_all(
+            enchantments
+                .entries()
+                .map(|(k, level)| (k.clone(), level))
+                .collect(),
+        );
+        mutable
     }
 
     /// `set(enchantment, level)`: a level <= 0 removes it, levels are capped at 255.
     pub fn set(&mut self, enchantment: &EnchantmentHolder, level: i32) {
-        match (self.position(enchantment), level <= 0) {
-            (Some(at), true) => {
-                self.entries.remove(at);
-            }
-            (None, true) => {}
-            (Some(at), false) => self.entries[at].1 = level.min(255),
-            (None, false) => self.entries.push((enchantment.clone(), level.min(255))),
+        if level <= 0 {
+            self.enchantments.remove(enchantment);
+        } else {
+            self.enchantments.put(enchantment.clone(), level.min(255));
         }
     }
 
@@ -41,32 +48,33 @@ impl ItemEnchantmentsMutable {
     pub fn upgrade(&mut self, enchantment: &EnchantmentHolder, level: i32) {
         if level > 0 {
             let level = level.min(255);
-            match self.position(enchantment) {
-                Some(at) => self.entries[at].1 = self.entries[at].1.max(level),
-                None => self.entries.push((enchantment.clone(), level)),
-            }
+            let merged = self.get_level(enchantment).max(level);
+            self.enchantments.put(enchantment.clone(), merged);
         }
     }
 
-    /// `removeIf(predicate)` over the enchantments.
+    /// `removeIf(predicate)` over the enchantments (`keySet().removeIf`: the table does not shrink).
     pub fn remove_if(&mut self, mut predicate: impl FnMut(&EnchantmentHolder) -> bool) {
-        self.entries.retain(|(k, _)| !predicate(k));
+        let doomed: Vec<EnchantmentHolder> =
+            self.key_set().filter(|k| predicate(k)).cloned().collect();
+        for k in doomed {
+            self.enchantments.remove_during_iteration(&k);
+        }
     }
 
     /// `getLevel(enchantment)`: 0 when absent.
     pub fn get_level(&self, enchantment: &EnchantmentHolder) -> i32 {
-        self.position(enchantment)
-            .map_or(0, |at| self.entries[at].1)
+        self.enchantments.get(enchantment).copied().unwrap_or(0)
     }
 
-    /// `keySet()`.
+    /// `keySet()` in table order.
     pub fn key_set(&self) -> impl Iterator<Item = &EnchantmentHolder> {
-        self.entries.iter().map(|(k, _)| k)
+        self.enchantments.iter().map(|(k, _)| k)
     }
 
     /// `toImmutable()`.
     pub fn to_immutable(&self) -> ItemEnchantments {
-        ItemEnchantments::new(self.entries.clone())
+        ItemEnchantments::from_map(self.enchantments.clone()).unwrap_or_else(|e| panic!("{e}"))
     }
 }
 

@@ -8,7 +8,7 @@ import net.minecraft.core.BlockPos;
 /**
  * Golden generator for mc_core::java_collections: the real iteration order of java.util.HashMap/HashSet (default
  * capacity, `new HashMap<>(n)`, copy constructors) and fastutil Object2ObjectOpenHashMap / Int2ObjectOpenHashMap after a
- * sequence of puts. Line: kind TAB capacity-or-expected TAB keys (US-separated) TAB iteration order (US-separated).
+ * sequence of puts (and putAll of a default-sized map into an empty one: kind fastputall). Line: kind TAB capacity-or-expected TAB keys (US-separated) TAB iteration order (US-separated).
  * kinds: hashmap (capacity n), hashmap-copy (capacity = that of the source map the copy iterates), hashset-copy, fast (expected n), fastint (expected n),
  * and with BlockPos keys (hashCode (y + z*31)*31 + x) and removals, where the keys column is an operation list ("S+x,y,z" put into the source map
  * that is copied with putAll into the pending map before any P operation, "P+x,y,z"/"P-x,y,z"/"PC" put/remove/clear on a HashMap, "L+"/"L-"/"LC" on an
@@ -126,6 +126,11 @@ public class HashOrderGolden {
          for (int i = 0; i < ks.size() / 3; i++) puts.add(ks.get(r.nextInt(ks.size())));
          for (String k : puts) f.put(k, 0);
          out.append("fast\t").append(expected).append('\t').append(join(puts)).append('\t').append(join(f.keySet())).append('\n');
+         Object2ObjectOpenHashMap<String, Integer> src = new Object2ObjectOpenHashMap<>();
+         for (String k : ks) src.put(k, 0);
+         Object2ObjectOpenHashMap<String, Integer> all = new Object2ObjectOpenHashMap<>(expected);
+         all.putAll(src);
+         out.append("fastputall\t").append(expected).append('\t').append(join(ks)).append('\t').append(join(all.keySet())).append('\n');
          Int2ObjectOpenHashMap<String> fi = new Int2ObjectOpenHashMap<>(expected);
          List<Integer> ints = new ArrayList<>();
          for (int i = 0; i < n; i++) ints.add(round % 2 == 0 ? r.nextInt(60) - 10 : r.nextInt());
