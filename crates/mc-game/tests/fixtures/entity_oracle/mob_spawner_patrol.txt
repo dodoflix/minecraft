@@ -1,0 +1,47 @@
+C Game rule spawn_patrols is now set to true
+C Set minecraft:overworld to 130000 tick(s)
+# a hard patrol (offset 42,40)
+CUSTOMSPAWNER patrol seed=10 enemies=1
+E pillager#1 minecraft:pillager pos=42.0,-60.0,40.0 delta=0.0,0.0,0.0 rot=3.9503639,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.9503639 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1;head:minecraft:white_banner*1{minecraft:banner_patterns:[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],minecraft:item_name:{translate:"block.minecraft.ominous_banner"},minecraft:rarity:"uncommon",minecraft:tooltip_display:{hidden_components:["minecraft:banner_patterns"]}} attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.912979864845557;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=- wave=0 canjoin=1 outside=0 ptarget=307,0,495 leader=1 patrolling=1 celebrating=0 charging=0 inventory=-
+E pillager#2 minecraft:pillager pos=42.0,-60.0,38.0 delta=0.0,0.0,0.0 rot=1.4073907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=1 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.4073907 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.41104076052548;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=- wave=0 canjoin=1 outside=0 ptarget=- leader=0 patrolling=1 celebrating=0 charging=0 inventory=-
+E pillager#3 minecraft:pillager pos=42.0,-60.0,35.0 delta=0.0,0.0,0.0 rot=3.0942547,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.0942547 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.88274009146896;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=- wave=0 canjoin=1 outside=0 ptarget=- leader=0 patrolling=1 celebrating=0 charging=0 inventory=-
+E pillager#4 minecraft:pillager pos=42.0,-60.0,32.0 delta=0.0,0.0,0.0 rot=6.151605,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=6.151605 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:32.35376890494787;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=- wave=0 canjoin=1 outside=0 ptarget=- leader=0 patrolling=1 celebrating=0 charging=0 inventory=-
+RNG level 185121728822464
+# an easy one (offset -29,-32)
+C The difficulty has been set to Easy
+CUSTOMSPAWNER patrol seed=22 enemies=1
+E pillager#5 minecraft:pillager pos=-29.0,-60.0,-32.0 delta=0.0,0.0,0.0 rot=4.244503,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.244503 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1;head:minecraft:white_banner*1{minecraft:banner_patterns:[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],minecraft:item_name:{translate:"block.minecraft.ominous_banner"},minecraft:rarity:"uncommon",minecraft:tooltip_display:{hidden_components:["minecraft:banner_patterns"]}} attrs=minecraft:attack_damage:5.0;minecraft:follow_range:32.43855750237583;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=- wave=0 canjoin=1 outside=0 ptarget=-93,0,-154 leader=1 patrolling=1 celebrating=0 charging=0 inventory=-
+E pillager#6 minecraft:pillager pos=-26.0,-60.0,-34.0 delta=0.0,0.0,0.0 rot=5.7609725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.7609725 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:33.82166502524441;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=- wave=0 canjoin=1 outside=0 ptarget=- leader=0 patrolling=1 celebrating=0 charging=0 inventory=-
+RNG level 162567863396134
+# a normal one (offset 46,-38)
+C The difficulty has been set to Normal
+CUSTOMSPAWNER patrol seed=13 enemies=1
+E pillager#7 minecraft:pillager pos=46.0,-60.0,-38.0 delta=0.0,0.0,0.0 rot=1.341428,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.341428 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1;head:minecraft:white_banner*1{minecraft:banner_patterns:[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],minecraft:item_name:{translate:"block.minecraft.ominous_banner"},minecraft:rarity:"uncommon",minecraft:tooltip_display:{hidden_components:["minecraft:banner_patterns"]}} attrs=minecraft:attack_damage:5.0;minecraft:follow_range:31.665347642421693;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=- wave=0 canjoin=1 outside=0 ptarget=-211,0,228 leader=1 patrolling=1 celebrating=0 charging=0 inventory=-
+E pillager#8 minecraft:pillager pos=44.0,-60.0,-38.0 delta=0.0,0.0,0.0 rot=4.385998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.385998 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:31.606202224062056;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=- wave=0 canjoin=1 outside=0 ptarget=- leader=0 patrolling=1 celebrating=0 charging=0 inventory=-
+E pillager#9 minecraft:pillager pos=42.0,-60.0,-36.0 delta=0.0,0.0,0.0 rot=1.9202998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.9202998 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:33.150054211969156;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=- wave=0 canjoin=1 outside=0 ptarget=- leader=0 patrolling=1 celebrating=0 charging=0 inventory=-
+RNG level 199859749309384
+# the one in five roll fails
+CUSTOMSPAWNER patrol seed=1 enemies=1
+RNG level 28280696119558
+# the timer still runs
+CUSTOMSPAWNER patrol seed=10 enemies=1
+RNG level 25214903911
+# enemy spawning is off
+CUSTOMSPAWNER patrol seed=10 enemies=0
+RNG level 25214903911
+# the rule is off
+C Game rule spawn_patrols is now set to false
+CUSTOMSPAWNER patrol seed=10 enemies=1
+RNG level 25214903911
+C Game rule spawn_patrols is now set to true
+# night: the roll that follows the timer is never made
+C Set minecraft:overworld to 138000 tick(s)
+CUSTOMSPAWNER patrol seed=10 enemies=1
+RNG level 205597850117094
+C Set minecraft:overworld to 130000 tick(s)
+# the player stands in a village: no patrol
+CUSTOMSPAWNER patrol seed=10 enemies=1
+RNG level 110363126408495
+# a spectator is the one picked (a second player, offset -29,-32 from the first)
+CUSTOMSPAWNER patrol seed=22 enemies=1
+RNG level 244014843525684

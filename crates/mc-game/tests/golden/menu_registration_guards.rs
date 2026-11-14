@@ -103,7 +103,7 @@ const MENU_OPENERS: &[(&str, &str, &str, &str)] = &[
         "minecraft:merchant",
         "mc-game-core/src/world/inventory/merchant_menu.rs",
         "MerchantMenu::new",
-        "mc-game-core/src/world/entity/npc/villager/villager.rs",
+        "mc-game-core/src/world/item/trading/merchant.rs",
     ),
     (
         "minecraft:loom",

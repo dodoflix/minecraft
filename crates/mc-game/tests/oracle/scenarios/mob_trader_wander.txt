@@ -1,0 +1,36 @@
+# A wandering trader walks to the spot its spawner picked (WanderToPositionGoal: ten blocks at a time while it is further than that, then the spot
+# itself, then the target is forgotten), keeps counting its despawn delay down (it does not while a player trades) and is gone when it reaches zero.
+level flat
+preload 6
+difficulty normal
+time 6000
+entity_counter 700
+level_seed 7001
+spawn_player Steve survival 0.5 -60 40.5 180 0
+effect Steve minecraft:resistance 100 1000000
+mobspawn T minecraft:wandering_trader 0.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,DespawnDelay:230,wander_target:[I;22,-60,6],home_pos:[I;22,-60,6],home_radius:16}
+entity_seed T 7002
+tick 1
+dump mob:T nbt:T
+tick 20
+dump mob:T
+tick 20
+dump mob:T
+tick 20
+dump mob:T
+tick 20
+dump mob:T
+tick 20
+dump mob:T
+tick 20
+dump mob:T
+tick 20
+dump mob:T nbt:T
+tick 20
+dump mob:T
+tick 20
+dump mob:T
+tick 20
+dump mob:T
+tick 20
+dump mobs

@@ -17,7 +17,7 @@ use mc_game_core::world::entity::movement::MovementLevel;
 use mc_game_core::world::entity::spawn_placements;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_game_core::world::level::spawner::custom_spawner::{
-    CUSTOM_SPAWNERS, CustomSpawner, CustomSpawnerRegistration, order,
+    CUSTOM_SPAWNERS, CustomSpawner, CustomSpawnerRegistration, delay_option, order,
 };
 
 use super::cat::Cat;
@@ -60,6 +60,17 @@ impl CustomSpawner for CatSpawner {
             spawn_in_hut(level, spawn_pos)
         } else {
             0
+        }
+    }
+
+    fn replay_setup(
+        &mut self,
+        _level: &mut ServerLevel,
+        _seed: i64,
+        options: &std::collections::BTreeMap<String, String>,
+    ) {
+        if let Some(delay) = delay_option(options) {
+            self.next_tick = delay;
         }
     }
 }

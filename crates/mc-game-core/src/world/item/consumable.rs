@@ -94,7 +94,10 @@ pub fn emit_particles_and_sounds(
             }
         }
     }
-    if let Some(sound) = holder_sound(&consumable.sound) {
+    let sound = user
+        .override_consume_sound(stack)
+        .or_else(|| holder_sound(&consumable.sound));
+    if let Some(sound) = sound {
         entity_play_sound(level, user, sound, volume, pitch);
     }
 }

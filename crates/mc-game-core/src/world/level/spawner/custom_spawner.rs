@@ -6,6 +6,24 @@ use linkme::distributed_slice;
 /// `CustomSpawner.tick(level, spawnEnemies)`: the spawn count (vanilla returns it, `ServerLevel` ignores it).
 pub trait CustomSpawner: Send {
     fn tick(&mut self, level: &mut ServerLevel, spawn_enemies: bool) -> i32;
+
+    /// Replay setup of spawner state the vanilla oracle sets by reflection: `delay` replaces the tick countdown (a spawner's first tick
+    /// runs at once except the trader's, which counts 1200 ticks), `WanderingTraderSpawner` also replaces its unseeded `RandomSource`
+    /// with `seed` and takes `spawn_delay` and `chance` for its saved data.
+    fn replay_setup(
+        &mut self,
+        _level: &mut ServerLevel,
+        _seed: i64,
+        _options: &std::collections::BTreeMap<String, String>,
+    ) {
+    }
+}
+
+/// The `delay` replay option as a tick countdown.
+pub fn delay_option(options: &std::collections::BTreeMap<String, String>) -> Option<i32> {
+    options
+        .get("delay")
+        .map(|v| v.parse().expect("custom_spawner delay"))
 }
 
 /// Orders of the vanilla spawners in `MinecraftServer.createLevels` (`ImmutableList.of(new PhantomSpawner(), new
@@ -54,6 +72,27 @@ impl ServerLevel {
         let mut spawners = std::mem::take(&mut self.spawning.custom_spawners);
         spawners[index].tick(self, spawn_enemies);
         spawners.append(&mut self.spawning.custom_spawners);
+        self.spawning.custom_spawners = spawners;
+        true
+    }
+
+    /// `CustomSpawner::replay_setup` of one element of `customSpawners` (`order::*`); `false` when this level has no such spawner.
+    pub fn replay_setup_custom_spawner(
+        &mut self,
+        order: i32,
+        seed: i64,
+        options: &std::collections::BTreeMap<String, String>,
+    ) -> bool {
+        let Some(index) = self
+            .spawning
+            .custom_spawner_orders
+            .iter()
+            .position(|&o| o == order)
+        else {
+            return false;
+        };
+        let mut spawners = std::mem::take(&mut self.spawning.custom_spawners);
+        spawners[index].replay_setup(self, seed, options);
         self.spawning.custom_spawners = spawners;
         true
     }

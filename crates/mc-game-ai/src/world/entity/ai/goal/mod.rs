@@ -24,6 +24,14 @@ mod use_item;
 
 pub use use_item::UseItemGoal;
 
+mod look_at_trading_player;
+
+pub use look_at_trading_player::LookAtTradingPlayerGoal;
+
+mod trade_with_player;
+
+pub use trade_with_player::TradeWithPlayerGoal;
+
 mod avoid_entity;
 
 pub use avoid_entity::{AvoidEntityGoal, EntityTest};

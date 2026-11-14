@@ -1,0 +1,50 @@
+# A wandering trader's trading session: talking to it opens its screen (no progress bar, no restock), a trader without offers opens nothing, the
+# trading player holds it still and it faces them, taking a result uses the offer and pays an orb of 3..6 experience (no villager experience), and
+# closing the screen frees it.
+command_env
+level flat
+preload 4
+difficulty normal
+time 6000
+entity_counter 400
+level_seed 4001
+spawn_player A survival 0.5 -60 6.5 180 0
+spawn Tp minecraft:wandering_trader 0.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:6,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]}}
+spawn Tq minecraft:wandering_trader -4.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b,Offers:{Recipes:[]}}
+mobspawn Tr minecraft:wandering_trader 4.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b}
+give A hotbar0 minecraft:emerald 40
+give A hotbar1 minecraft:paper 64
+give A hotbar2 minecraft:paper 64
+entity_seed Tp 41
+entity_seed Tq 42
+entity_seed Tr 43
+tick 1
+dump packets:A:none
+note a trader without offers opens no screen
+interact A Tq main
+dump menu:A packets:A:open_screen,merchant_offers,container_set_content stats:A trader:Tq
+note the screen of the pinned trader: no progress bar, no restock
+interact A Tp main
+dump menu:A packets:A:open_screen,merchant_offers,container_set_content stats:A trader:Tp offers:Tp
+note a trader that is being traded with does not open a second screen
+interact A Tp main
+dump menu:A trader:Tp
+note selecting the first offer, then taking the result: uses, an orb and the statistics
+select_trade A 0
+click A 2 0 PICKUP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item stats:A advancements:A trader:Tp offers:Tp entities events
+note the paper offer: the trade takes 24 paper
+select_trade A 1
+click A 2 0 PICKUP
+dump menu:A inventory:A stats:A trader:Tp offers:Tp entities
+note closing the screen frees the trader
+close_menu A
+dump trader:Tp menu:A
+note a trader with generated offers: the screen opens, it stops and faces the player while they trade, and walks off again after the screen closes
+interact A Tr main
+dump menu:A packets:A:open_screen,merchant_offers,container_set_content trader:Tr offers:Tr mob:Tr
+tick 30
+dump mob:Tr goals:Tr
+close_menu A
+tick 30
+dump trader:Tr mob:Tr

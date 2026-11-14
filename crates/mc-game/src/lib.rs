@@ -73,6 +73,10 @@ pub mod world {
                 pub use mc_game_monsters::world::entity::monster::illager::*;
             }
         }
+        pub mod npc {
+            pub use mc_game_animals::world::entity::npc::*;
+            pub use mc_game_core::world::entity::npc::*;
+        }
     }
     pub mod level {
 

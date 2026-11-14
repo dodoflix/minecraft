@@ -1,0 +1,28 @@
+C Set minecraft:overworld to 6000 tick(s)
+# four occupied homes are not enough
+POITAKE -6 -60 3 1
+POITAKE -3 -60 3 1
+POITAKE 0 -60 3 1
+POITAKE 3 -60 3 1
+CUSTOMSPAWNER cat seed=1 enemies=1
+RNG level 58466533952123
+# the fifth home is occupied: a cat appears (offset -20,27)
+POITAKE 6 -60 3 1
+CUSTOMSPAWNER cat seed=2 enemies=1
+E cat#1 minecraft:cat pos=-19.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.372563 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:17.5093965687483;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:ragdoll svariant=minecraft:classic collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0
+RNG level 127467662416651
+E cat#1 minecraft:cat pos=-19.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.372563 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:17.5093965687483;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:ragdoll svariant=minecraft:classic collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0
+# five cats live within 48 blocks: no cat (offset 28,21)
+CUSTOMSPAWNER cat seed=3 enemies=1
+RNG level 18892603804405
+# two cats die: a cat appears again (offset 12,16)
+CUSTOMSPAWNER cat seed=5 enemies=1
+E cat#2 minecraft:cat pos=12.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.5533705 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.21805860319626;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:british_shorthair svariant=minecraft:royal collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0
+RNG level 211831397247412
+E cat#1 minecraft:cat pos=-19.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.372563 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:17.5093965687483;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:ragdoll svariant=minecraft:classic collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0
+E C3 minecraft:cat pos=10.5,-60.0,-10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:black svariant=minecraft:classic collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0
+E C4 minecraft:cat pos=-10.5,-60.0,-10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:black svariant=minecraft:classic collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0
+E cat#2 minecraft:cat pos=12.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.5533705 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.21805860319626;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:british_shorthair svariant=minecraft:royal collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0
+# the player is far from the village: the spot is not near a village (offset -28,12)
+CUSTOMSPAWNER cat seed=7 enemies=1
+RNG level 98040464099841

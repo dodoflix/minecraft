@@ -352,36 +352,15 @@ impl Villager {
         self.set_trading_player_id(Some(player.base_id()), Some(player.uuid()));
         let title = crate::world::damagesource::display_name::entity_display_name(level, self);
         let merchant_level = self.get_villager_data().level;
-        self.open_trading_screen(level, player, title, merchant_level);
-    }
-
-    /// `Merchant.openTradingScreen(player, title, level)` for a villager that is itself out of the level (the stock helper
-    /// looks the merchant up in the level).
-    fn open_trading_screen(
-        &mut self,
-        level: &mut ServerLevel,
-        player: &mut ServerPlayer,
-        title: mc_text::Component,
-        merchant_level: i32,
-    ) {
-        use crate::world::inventory::{AbstractContainerMenu, MerchantMenu, SimpleMenuProvider};
         let me = self.id();
-        let provider = SimpleMenuProvider::new(title, move |id, _player| {
-            Some(Box::new(MerchantMenu::new(id, me)) as Box<dyn AbstractContainerMenu>)
-        });
-        let Some(container_id) = player.open_menu(level, &provider) else {
-            return;
-        };
-        let (xp, show, restock) = (
-            self.villager_xp,
-            self.show_progress_bar(),
-            self.can_restock(),
+        crate::world::item::trading::open_trading_screen(
+            player,
+            level,
+            me,
+            self,
+            title,
+            merchant_level,
         );
-        let offers = self.get_offers(level);
-        if !offers.is_empty() {
-            let offers = offers.clone();
-            player.send_merchant_offers(container_id, &offers, merchant_level, xp, show, restock);
-        }
     }
 
     // ---- restock / demand --------------------------------------------------------------------------------------------

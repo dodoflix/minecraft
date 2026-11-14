@@ -301,7 +301,10 @@ impl MinecraftServer {
             .spawning
             .gen_live
             .install(level.registries.clone(), dimension_type.clone());
-        level.install_custom_spawners();
+        // `MinecraftServer.createLevels`: only the overworld has custom spawners (the other dimensions get `List.of()`)
+        if level.dimension == super::world_dimensions::overworld_key() {
+            level.install_custom_spawners();
+        }
         level
             .spawning
             .gen_live

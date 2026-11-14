@@ -86,36 +86,31 @@ pub fn notify_trade(player: &mut dyn MenuPlayer, id: EntityId, offer_index: usiz
     }
 }
 
-/// `Merchant.openTradingScreen(player, title, level)`.
-/// Not implemented: the `WanderingTrader` (the entity does not exist yet, so only the villager opens a `MerchantMenu`).
+/// `Merchant.openTradingScreen(player, title, level)`. The merchant is the entity that is calling (it is out of the level while
+/// its `mobInteract` runs, so it cannot be looked up by id).
 pub fn open_trading_screen(
     player: &mut ServerPlayer,
     level: &mut ServerLevel,
-    merchant: EntityId,
+    merchant_id: EntityId,
+    merchant: &mut dyn Merchant,
     title: Component,
     merchant_level: i32,
 ) {
     let provider = SimpleMenuProvider::new(title, move |id, _player| {
-        Some(Box::new(MerchantMenu::new(id, merchant))
+        Some(Box::new(MerchantMenu::new(id, merchant_id))
             as Box<dyn crate::world::inventory::AbstractContainerMenu>)
     });
     let Some(container_id) = player.open_menu(level, &provider) else {
         return;
     };
-    let data = level.with_entity(merchant, |level, e| {
-        let m = e.as_merchant_mut()?;
-        let offers = m.get_offers(level);
-        if offers.is_empty() {
-            return None;
-        }
-        Some((
-            offers.clone(),
-            m.get_villager_xp(),
-            m.show_progress_bar(),
-            m.can_restock(),
-        ))
-    });
-    if let Some(Some((offers, xp, show_progress, can_restock))) = data {
+    let (xp, show_progress, can_restock) = (
+        merchant.get_villager_xp(),
+        merchant.show_progress_bar(),
+        merchant.can_restock(),
+    );
+    let offers = merchant.get_offers(level);
+    if !offers.is_empty() {
+        let offers = offers.clone();
         player.send_merchant_offers(
             container_id,
             &offers,

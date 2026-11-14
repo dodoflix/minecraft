@@ -71,37 +71,10 @@ fn mob_idle_ambient() {
     run_scenario_test("mob_idle_ambient");
 }
 
-/// Trade generation through the real `Villager` (profession x level x seed x type): the 130 villager lines of `mob_trades`.
+/// Trade generation through the real `Villager` (profession x level x seed x type: 130 lines) and `WanderingTrader` (8 seeds): `mob_trades`.
 #[test]
-fn mob_trades_villagers() {
-    let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests");
-    let scenario =
-        std::fs::read_to_string(dir.join("oracle/scenarios/mob_trades.txt")).expect("scenario");
-    let villagers: String = scenario
-        .lines()
-        .take_while(|l| !l.starts_with("mobspawn W"))
-        .map(|l| format!("{l}\n"))
-        .collect();
-    let expected = std::fs::read_to_string(dir.join("fixtures/entity_oracle/mob_trades.txt"))
-        .expect("fixture");
-    let expected: Vec<&str> = expected
-        .lines()
-        .take_while(|l| !l.contains(" W1 "))
-        .collect();
-    let actual = run_scenario_text("mob_trades_villagers", &villagers);
-    let actual: Vec<&str> = actual
-        .iter()
-        .map(String::as_str)
-        .filter(|l| l.starts_with("OFFER"))
-        .collect();
-    let expected: Vec<&str> = expected
-        .into_iter()
-        .filter(|l| l.starts_with("OFFER"))
-        .collect();
-    for (i, (a, e)) in actual.iter().zip(expected.iter()).enumerate() {
-        assert_eq!(a, e, "line {i}");
-    }
-    assert_eq!(actual.len(), expected.len());
+fn mob_trades() {
+    run_scenario_test("mob_trades");
 }
 
 /// Smoke test of the mob command arms (`mobspawn love age breed target nav path_query tame leash interact` + `goals:`/`path:`/`attrs:`/`nbt:`

@@ -11,8 +11,8 @@ use mc_game_core::world::entity::mob::equipment;
 use mc_game_core::world::item::{InteractionHand, ItemStack};
 use std::sync::Arc;
 
-/// `Predicate<? super T> canUseSelector`.
-pub type CanUseSelector = Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>;
+/// `Predicate<? super T> canUseSelector` (the lambdas read the mob's level: `isDarkOutside`, `isBrightOutside`).
+pub type CanUseSelector = Arc<dyn Fn(&dyn Entity, &ServerLevel) -> bool + Send + Sync>;
 
 pub struct UseItemGoal {
     item: ItemStack,
@@ -36,8 +36,8 @@ impl UseItemGoal {
 }
 
 impl Goal for UseItemGoal {
-    fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
-        (self.can_use_selector)(mob)
+    fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
+        (self.can_use_selector)(mob, level)
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {

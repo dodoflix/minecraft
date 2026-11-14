@@ -1,0 +1,24 @@
+# The trader llamas a wandering trader brings: each is leashed to the trader, follows its despawn delay (minus one a tick, not counting while the
+# trader is trading) and disappears with it, leash and all.
+level flat
+preload 6
+difficulty normal
+time 6000
+gamerule spawn_wandering_traders true
+entity_counter 950
+level_seed 9501
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 100 1000000
+tick 2
+custom_spawner trader 10 delay=1 spawn_delay=1 chance=25
+dump nbt:wandering_trader#1 nbt:trader_llama#1 nbt:trader_llama#2
+note the trader's delay is cut short: the llamas follow it
+nbt wandering_trader#1 {DespawnDelay:60}
+tick 20
+dump nbt:wandering_trader#1 nbt:trader_llama#1 nbt:trader_llama#2
+tick 20
+dump nbt:wandering_trader#1 nbt:trader_llama#1 nbt:trader_llama#2
+tick 15
+dump nbt:wandering_trader#1 nbt:trader_llama#1 nbt:trader_llama#2
+tick 10
+dump mobs

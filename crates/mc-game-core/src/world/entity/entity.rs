@@ -3604,6 +3604,13 @@ pub trait Entity: Any {
     fn wandering_trader_despawn_delay(&self) -> Option<i32> {
         None
     }
+    /// `Consumable.OverrideConsumeSound.getConsumeSound(stack)` (`WanderingTrader`); `None` keeps the item's own consume sound.
+    fn override_consume_sound(
+        &self,
+        _stack: &crate::world::item::ItemStack,
+    ) -> Option<mc_data::SoundEvent> {
+        None
+    }
     /// `ItemSteerable.boost()` (`Pig`, `Strider`: the carrot-on-a-stick boost).
     fn boost(&mut self) -> bool {
         false

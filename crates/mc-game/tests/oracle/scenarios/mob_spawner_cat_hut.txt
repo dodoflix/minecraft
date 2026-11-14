@@ -1,0 +1,36 @@
+# CatSpawner at a swamp hut (one tick per `custom_spawner`, seeded level random, the player teleported so that the 8..31 block offset lands inside
+# the hut): no cat while the hut's own cat lives within 16 blocks, a persistent cat once it is gone, none while that one lives, and none at a
+# spot outside every hut piece.
+level normal
+structures true
+seed 5
+preload 0
+difficulty normal
+command_env
+spawn_player Steve survival -180.5 66 -688.5 0 0
+time 18000
+tick 60
+set Steve no_gravity true
+dump placed
+note the hut's cat lives: the spawner finds it within 16 blocks and spawns nothing (offset 12,17 from the player)
+tp Steve -232.5 65 -700.5
+tick 40
+custom_spawner cat 1 delay=1
+dump rng:level
+note the cats die: a persistent cat appears inside the hut (offset 12,16)
+cmd kill @e[type=minecraft:cat]
+tp Steve -231.5 65 -698.5
+tick 3
+custom_spawner cat 5 delay=1
+dump rng:level
+note that cat lives: nothing again (offset -28,12)
+tp Steve -193.5 65 -696.5
+tick 3
+custom_spawner cat 7 delay=1
+dump rng:level
+note the cat dies and the spot is outside every hut piece (offset 28,21): no cat
+cmd kill @e[type=minecraft:cat]
+tp Steve -267.5 65 -704.5
+tick 3
+custom_spawner cat 3 delay=1
+dump rng:level

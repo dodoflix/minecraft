@@ -17,7 +17,6 @@ const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[
     // inert placeholders: the dump line stops after the position fields
     "minecraft:camel",
     "minecraft:sniffer",
-    "minecraft:wandering_trader",
 ];
 
 /// Every `mobspawn` block of `mob_finalize_equipment` (208 mobs of about 52 types, each with its own difficulty and spawn reason).
@@ -251,4 +250,58 @@ fn mob_custom_spawner_phantom() {
 #[test]
 fn mob_brain_isolation() {
     run_scenario_test("mob_brain_isolation");
+}
+
+/// `CatSpawner` in a village: the occupied homes, the five cat cap and the spot that is not near a village (block replay).
+#[test]
+fn mob_spawner_cat_village() {
+    block_scenario::check("mob_spawner_cat_village");
+}
+
+/// `CatSpawner` at a swamp hut: its persistent cat, the cat within 16 blocks and a spot outside the hut pieces (block replay).
+#[test]
+fn mob_spawner_cat_hut() {
+    block_scenario::check("mob_spawner_cat_hut");
+}
+
+/// `PatrolSpawner`: the daylight, one in five, village, spectator, rule and enemy gates and the groups by difficulty (block replay).
+#[test]
+fn mob_spawner_patrol() {
+    block_scenario::check("mob_spawner_patrol");
+}
+
+/// `WanderingTraderSpawner`: the saved delay and chance, the two rolls, the trader with its leashed llamas and the meeting point.
+#[test]
+fn mob_trader_spawner() {
+    block_scenario::check("mob_trader_spawner");
+}
+
+/// Trader llamas follow their trader's despawn delay and vanish with it.
+#[test]
+fn mob_trader_llamas() {
+    block_scenario::check("mob_trader_llamas");
+}
+
+/// The trading session of a wandering trader: screen, offers, a trade, closing it (block replay with a command environment).
+#[test]
+fn mob_trader_session() {
+    block_scenario::check("mob_trader_session");
+}
+
+/// A wandering trader drinks an invisibility potion in the dark and milk in daylight.
+#[test]
+fn mob_trader_drink_invisible() {
+    block_scenario::check("mob_trader_drink_invisible");
+}
+
+/// A wandering trader walks to its wander target and despawns when its delay runs out.
+#[test]
+fn mob_trader_wander() {
+    block_scenario::check("mob_trader_wander");
+}
+
+/// A wandering trader panics when hurt and avoids zombies, pillagers and zoglins.
+#[test]
+fn mob_trader_panic() {
+    block_scenario::check("mob_trader_panic");
 }

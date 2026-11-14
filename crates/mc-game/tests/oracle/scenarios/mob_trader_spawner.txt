@@ -1,0 +1,39 @@
+# WanderingTraderSpawner (one tick per `custom_spawner`, the spawner's own random seeded like the level random, its countdown and saved data set
+# by the options): without a player the spawn "succeeds" and the chance falls back to 25, the saved delay has to run out first, the chance roll
+# (at most the saved chance) and the one in ten roll can fail, a success spawns the trader and two leashed trader llamas around a random player
+# (or around a meeting point within 48 blocks), and the game rule stops it all.
+level flat
+preload 6
+difficulty normal
+time 6000
+gamerule spawn_wandering_traders true
+entity_counter 900
+level_seed 9001
+note no player: getRandomPlayer is null, so spawn() reports success and the chance falls back to 25
+custom_spawner trader 10 delay=1 spawn_delay=1 chance=100
+dump trader_data rng:level
+spawn_player Steve survival 0.5 -60 0.5 0 0
+tick 2
+note the saved delay (24000) has not run out
+custom_spawner trader 10 delay=1 chance=100
+dump trader_data rng:level
+note the chance roll misses (62 against 25)
+custom_spawner trader 4 delay=1 spawn_delay=1 chance=25
+dump trader_data rng:level
+note the roll passes but the one in ten fails (85 against 100, then 8)
+custom_spawner trader 1 delay=1 spawn_delay=1 chance=100
+dump trader_data rng:level
+note a trader and two llamas around the player
+custom_spawner trader 10 delay=1 spawn_delay=1 chance=25
+dump trader_data rng:level mobs
+note a bell 42 blocks away is the meeting point: the trader comes to it and walks there
+block 30 -60 30 minecraft:bell
+custom_spawner trader 3 delay=1 spawn_delay=1 chance=100
+dump trader_data rng:level mobs
+note the countdown has to reach zero first
+custom_spawner trader 3 chance=100
+dump trader_data rng:level
+note the rule is off
+gamerule spawn_wandering_traders false
+custom_spawner trader 3 delay=1 spawn_delay=1 chance=100
+dump trader_data rng:level

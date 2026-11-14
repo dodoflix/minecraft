@@ -1,0 +1,38 @@
+# A wandering trader panics when it is hurt (PanicGoal runs away at 0.5 speed for a while) and keeps its distance from zombies (8 blocks), pillagers
+# (15) and zoglins (10) (AvoidEntityGoal): the goals that run, the speeds and the paths.
+level flat
+preload 6
+difficulty normal
+time 6000
+entity_counter 800
+level_seed 8001
+spawn_player Steve survival 0.5 -60 20.5 180 0
+effect Steve minecraft:resistance 100 1000000
+mobspawn T minecraft:wandering_trader 0.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn U minecraft:wandering_trader 30.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn V minecraft:wandering_trader 60.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn Z minecraft:zombie 34.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1}}}
+mobspawn P minecraft:pillager 68.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed T 8002
+entity_seed U 8003
+entity_seed V 8004
+entity_seed Z 8005
+entity_seed P 8006
+tick 3
+note hurt by the player: the trader panics
+hurt T player_attack 1 by=Steve
+dump mob:T goals:T
+tick 10
+dump mob:T goals:T
+tick 30
+dump mob:T goals:T
+tick 60
+dump mob:T
+note a zombie four blocks away: the trader walks off
+dump goals:U goals:V
+tick 10
+dump mob:U mob:V goals:U goals:V
+tick 30
+dump mob:U mob:V goals:U goals:V
+tick 60
+dump mob:U mob:V

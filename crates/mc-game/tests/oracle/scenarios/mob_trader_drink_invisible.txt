@@ -1,0 +1,30 @@
+# A wandering trader drinks an invisibility potion when it is dark outside and milk once it is bright again: the item in its hand while it drinks,
+# the consume sounds of the trader (not the item's), the potion effect, and the disappear/reappear sounds when it has finished.
+level flat
+preload 4
+difficulty normal
+time 18000
+entity_counter 500
+level_seed 5001
+spawn_player Steve survival 0.5 -60 8.5 180 0
+effect Steve minecraft:resistance 100 1000000
+mobspawn T minecraft:wandering_trader 0.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed T 5002
+tick 2
+note it is dark outside: the trader starts the potion
+dump mob:T
+watch mob:T events
+tick 36
+watch off
+note the potion is drunk: invisible, nothing in the hand
+dump mob:T
+tick 20
+note the sun is up: it drinks milk and shows itself again
+time 6000
+tick 4
+watch mob:T events
+tick 36
+watch off
+dump mob:T
+tick 20
+dump mob:T

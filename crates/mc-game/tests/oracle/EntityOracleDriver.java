@@ -192,8 +192,10 @@ import net.minecraft.util.RandomSource;
  *                             default gameTime%400==0). Spawned mobs are named `type#n` and printed as rich `E` lines, then `SPAWNSTATE`.
  * spawnat SEED CATEGORY X Y Z   Level.random.setSeed(SEED); ONE NaturalSpawner.spawnCategoryForPosition(category, level, X Y Z) (a spawn attempt from a chosen start
  *                             position: no spawn state, so no caps and no spawn costs); prints `SPAWNAT ..` and the spawned entities as rich `E` lines (named `type#n`)
- * custom_spawner NAME SEED [enemies=B]   Level.random.setSeed(SEED); ONE CustomSpawner.tick(level, enemies) of the level's list (NAME = phantom|patrol|cat|siege|trader);
+ * custom_spawner NAME SEED [enemies=B] [delay=N spawn_delay=N chance=N]   Level.random.setSeed(SEED); ONE CustomSpawner.tick(level, enemies) of the level's list (NAME = phantom|patrol|cat|siege|trader);
+ *                             the trader spawner's own random is seeded with SEED too, `delay` sets its tick countdown, `spawn_delay` and `chance` its saved data;
  *                             prints `CUSTOMSPAWNER NAME seed=.. enemies=..` and the entities it spawned as rich `E` lines (named `type#n`)
+ * poi_take X Y Z             PoiManager.take of the point of interest at that block (acquires its ticket: a home counts as occupied); prints `POITAKE X Y Z true|false`
  * memory REF NAME VALUE|-     Brain.setMemory of a LivingEntity (NAME = memory type id; `-` = eraseMemory; VALUE = `entity:REF` for a memory that holds an entity,
  *                             else the SNBT `{value:..,ttl:..}` of the memory type's ExpirableValue codec, `ttl` optional); nothing is printed (dump brain:REF shows it)
  * rest PLAYER TICKS          the player's `time_since_rest` statistic (what PhantomSpawner reads), nothing printed
@@ -227,7 +229,8 @@ import net.minecraft.util.RandomSource;
 
  * dump/watch kinds for mobs: mob:REF (rich E line), mobs (all live Mobs, rich), attrs:REF, goals:REF (`G` lines, every registered goal), brain:REF
  *   (`BRAIN`/`BM`/`BR` lines), path:REF (`PATH`/`PN`), nbt:REF (`N REF {canonical sorted SNBT, UUID removed}`), offers:REF, trader:REF
- *   (`TRADER REF xp=villagerXp level=villagerLevel|- trading=REF|-`), difficulty:X,Y,Z, light:X,Y,Z, spawn_state (`SPAWNSTATE`), raids.
+ *   (`TRADER REF xp=villagerXp level=villagerLevel|- trading=REF|-`), difficulty:X,Y,Z, light:X,Y,Z, spawn_state (`SPAWNSTATE`), raids,
+ *   trader_data (`TRADERDATA delay=.. chance=..`: the trader spawner's saved data).
  * dump/watch kinds for every entity: xentity:REF / xentities (all live non-player entities): the normal `E` line + the fields of the classes registered in
  *   EntityExtras.java (`mob:REF` also carries them); edata:REF = `ED REF id:serializer:hex ..` for every synched data item (accessor id, serializer id, wire form of the value);
  *   placed = `G type pos= rot= KEY=VALUE..` of every live entity except players, items, falling blocks and orbs, sorted (saved Age, CatType, Color, Health, PersistenceRequired, RabbitType, Sheared, Type, Variant, variant).
@@ -974,6 +977,12 @@ public final class EntityOracleDriver {
             world();
             customSpawner(a);
          }
+         case "poi_take" -> {
+            world();
+            var pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
+            boolean taken = v.level.getPoiManager().take(h -> true, (h, p) -> p.equals(pos), pos, 1).isPresent();
+            out.println("POITAKE " + a.get(1) + " " + a.get(2) + " " + a.get(3) + " " + bool(taken));
+         }
          case "memory" -> {
             world();
             memory(a);
@@ -1706,9 +1715,39 @@ public final class EntityOracleDriver {
    }
 
    @SuppressWarnings("unchecked")
+   net.minecraft.world.level.CustomSpawner customSpawnerNamed(String want) {
+      for (net.minecraft.world.level.CustomSpawner spawner : (List<net.minecraft.world.level.CustomSpawner>)priv(v.level, "customSpawners")) {
+         if (spawner.getClass().getSimpleName().equals(want)) {
+            return spawner;
+         }
+      }
+      throw new IllegalStateException("this level has no " + want);
+   }
+
+   net.minecraft.world.level.saveddata.WanderingTraderData traderData() {
+      try {
+         var spawner = customSpawnerNamed("WanderingTraderSpawner");
+         var m = spawner.getClass().getDeclaredMethod("getTraderData");
+         m.setAccessible(true);
+         return (net.minecraft.world.level.saveddata.WanderingTraderData)m.invoke(spawner);
+      } catch (ReflectiveOperationException ex) {
+         throw new IllegalStateException(ex);
+      }
+   }
+
+   /** `dump trader_data`: the saved spawn delay and chance of the wandering trader spawner. */
+   void dumpTraderData() {
+      var data = traderData();
+      out.println("TRADERDATA delay=" + data.spawnDelay() + " chance=" + data.spawnChance());
+   }
+
+   /** `custom_spawner NAME SEED [enemies=B] [delay=N spawn_delay=N chance=N]`: `delay` sets the spawner's tick countdown (`nextTick`, the trader's `tickDelay`: the first
+    *  tick of a spawner runs immediately except the trader's), `spawn_delay` and `chance` the trader spawner's saved data. */
    void customSpawner(List<String> a) throws Exception {
-      v.level.getRandom().setSeed(Long.parseLong(a.get(2)));
-      boolean enemies = Boolean.parseBoolean(kv(a, 3).getOrDefault("enemies", "true"));
+      long seed = Long.parseLong(a.get(2));
+      v.level.getRandom().setSeed(seed);
+      var options = kv(a, 3);
+      boolean enemies = Boolean.parseBoolean(options.getOrDefault("enemies", "true"));
       String want = switch (a.get(1)) {
          case "phantom" -> "PhantomSpawner";
          case "patrol" -> "PatrolSpawner";
@@ -1717,17 +1756,22 @@ public final class EntityOracleDriver {
          case "trader" -> "WanderingTraderSpawner";
          default -> throw new IllegalArgumentException("custom_spawner " + a.get(1));
       };
-      Set<Integer> before = entityIds();
-      boolean found = false;
-      for (net.minecraft.world.level.CustomSpawner spawner : (List<net.minecraft.world.level.CustomSpawner>)priv(v.level, "customSpawners")) {
-         if (spawner.getClass().getSimpleName().equals(want)) {
-            spawner.tick(v.level, enemies);
-            found = true;
+      var spawner = customSpawnerNamed(want);
+      if (options.containsKey("delay")) {
+         priv(spawner, a.get(1).equals("trader") ? "tickDelay" : "nextTick", Integer.parseInt(options.get("delay")));
+      }
+      if (a.get(1).equals("trader")) {
+         // `RandomSource.create()` is unseeded: seed it like the level random
+         ((RandomSource)priv(spawner, "random")).setSeed(seed);
+         if (options.containsKey("spawn_delay")) {
+            traderData().setSpawnDelay(Integer.parseInt(options.get("spawn_delay")));
+         }
+         if (options.containsKey("chance")) {
+            traderData().setSpawnChance(Integer.parseInt(options.get("chance")));
          }
       }
-      if (!found) {
-         throw new IllegalStateException("this level has no " + want);
-      }
+      Set<Integer> before = entityIds();
+      spawner.tick(v.level, enemies);
       out.println("CUSTOMSPAWNER " + a.get(1) + " seed=" + a.get(2) + " enemies=" + bool(enemies));
       printFreshEntities(before);
    }
@@ -2098,6 +2142,7 @@ public final class EntityOracleDriver {
                out.println("TRADER " + arg + " xp=" + trader.getVillagerXp() + " level=" + (trader instanceof net.minecraft.world.entity.npc.villager.Villager vil ? String.valueOf(vil.getVillagerData().level()) : "-")
                   + " trading=" + entName(trader.getTradingPlayer()));
             }
+            case "trader_data" -> dumpTraderData();
             case "difficulty" -> localDifficulty(arg);
             case "light" -> lightDump(arg);
             case "lights" -> lightsDump(arg);

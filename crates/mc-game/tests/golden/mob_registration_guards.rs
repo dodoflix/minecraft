@@ -39,10 +39,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "Sniffer: digging, seed finding, egg laying",
     ),
     (
-        "minecraft:wandering_trader",
-        "WanderingTrader: trade menu, despawn timer, llama companion",
-    ),
-    (
         "minecraft:wither",
         "Wither: boss event, charged state, skull attacks",
     ),

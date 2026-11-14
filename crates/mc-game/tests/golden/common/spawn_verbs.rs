@@ -180,15 +180,15 @@ pub fn spawn_pass(level: &mut ServerLevel, a: &[String]) -> String {
     header
 }
 
-/// `custom_spawner NAME SEED [enemies=B]`: seeds `Level.random` and ticks one custom spawner once. Returns the header line.
+/// `custom_spawner NAME SEED [enemies=B] [delay=N spawn_delay=N chance=N]`: seeds `Level.random` (and the spawner's own random), applies
+/// the trader spawner's state options and ticks one custom spawner once. Returns the header line.
 pub fn custom_spawner(level: &mut ServerLevel, a: &[String]) -> String {
     use mc_core::random::RandomSource as _;
     use mc_game::world::level::spawner::custom_spawner::order;
-    level
-        .tick_state
-        .random
-        .set_seed(a[2].parse().expect("custom_spawner SEED"));
-    let enemies = options(a, 3).get("enemies").is_none_or(|v| v == "true");
+    let seed: i64 = a[2].parse().expect("custom_spawner SEED");
+    level.tick_state.random.set_seed(seed);
+    let options = options(a, 3);
+    let enemies = options.get("enemies").is_none_or(|v| v == "true");
     let order = match a[1].as_str() {
         "phantom" => order::PHANTOM,
         "patrol" => order::PATROL,
@@ -201,6 +201,11 @@ pub fn custom_spawner(level: &mut ServerLevel, a: &[String]) -> String {
     if level.spawning.custom_spawner_orders.is_empty() {
         level.install_custom_spawners();
     }
+    assert!(
+        level.replay_setup_custom_spawner(order, seed, &options),
+        "this level has no {} spawner",
+        a[1]
+    );
     assert!(
         level.tick_custom_spawner(order, enemies),
         "this level has no {} spawner",
@@ -379,6 +384,27 @@ pub fn command<H: SpawnHost>(h: &mut H, a: &[String]) -> bool {
             let ticks = a[2].parse().expect("rest TICKS");
             h.action_level()
                 .with_player(id, |_, p| set_time_since_rest(p, ticks));
+        }
+        // poi_take X Y Z: `PoiManager.take` of the point of interest at that block (its ticket is acquired: the home counts as occupied)
+        "poi_take" if H::TICKING => {
+            h.boot();
+            let pos = BlockPos::new(
+                a[1].parse().expect("x"),
+                a[2].parse().expect("y"),
+                a[3].parse().expect("z"),
+            );
+            let taken = h
+                .action_level()
+                .poi_manager()
+                .take(&|_| true, &|_, p| p == pos, pos, 1)
+                .is_some();
+            h.emit(format!(
+                "POITAKE {} {} {} {}",
+                a[1],
+                a[2],
+                a[3],
+                bool_text(taken)
+            ));
         }
         // spawnat SEED CATEGORY X Y Z: `Level.random.setSeed(SEED)`, then `spawnCategoryForPosition(category, level, pos)` once
         "spawnat" if H::TICKING => {

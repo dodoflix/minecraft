@@ -1652,6 +1652,21 @@ impl Scenario {
                     villager_level.map_or("-".to_owned(), |l| l.to_string())
                 ));
             }
+            // TRADERDATA delay=N chance=N
+            "trader_data" => {
+                let data = self
+                    .level()
+                    .get_data_storage()
+                    .compute_if_absent(
+                        &mc_game::world::level::saveddata::wandering_trader_data::WanderingTraderData::type_(),
+                    );
+                let line = format!(
+                    "TRADERDATA delay={} chance={}",
+                    data.spawn_delay(),
+                    data.spawn_chance()
+                );
+                self.out.push(line);
+            }
             "all_players" => {
                 for name in self.actors.players.clone() {
                     let id = self.entity_id(&name);

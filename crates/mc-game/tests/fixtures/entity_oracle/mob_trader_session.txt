@@ -1,0 +1,141 @@
+C Set minecraft:overworld to 6000 tick(s)
+# a trader without offers opens no screen
+MENU A cid=0 type=inventory state=4 carried=empty
+MS 36 minecraft:emerald*40
+MS 37 minecraft:paper*64
+MS 38 minecraft:paper*64
+STAT A minecraft.custom:minecraft.play_time 1
+STAT A minecraft.custom:minecraft.talked_to_villager 1
+STAT A minecraft.custom:minecraft.time_since_death 1
+STAT A minecraft.custom:minecraft.time_since_rest 1
+STAT A minecraft.custom:minecraft.total_world_time 1
+TRADER Tq xp=0 level=- trading=-
+# the screen of the pinned trader: no progress bar, no restock
+MENU A cid=1 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:emerald*40
+MS 31 minecraft:paper*64
+MS 32 minecraft:paper*64
+PKT A minecraft:open_screen 3c01130a080009696e73657274696f6e002431363835653164632d336532322d346364622d396135352d3437613965396332373631340a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650021656e746974792e6d696e6563726166742e77616e646572696e675f74726164657200080006616374696f6e000b73686f775f656e746974790800026964001a6d696e6563726166743a77616e646572696e675f7472616465720b000475756964000000041685e1dc3e224cdb9a5547a9e9c27614000800097472616e736c6174650021656e746974792e6d696e6563726166742e77616e646572696e675f74726164657200
+PKT A minecraft:container_set_content 1201012700000000000000000000000000000000000000000000000000000000000028f507000040f908000040f908000000000000000000
+PKT A minecraft:merchant_offers 350102f507010006ab0800000000000000060000000c00000001000000003d4ccccd00000000f908180001f50700000000000000000000001000000001000000003d4ccccd0000000001000000
+STAT A minecraft.custom:minecraft.play_time 1
+STAT A minecraft.custom:minecraft.talked_to_villager 2
+STAT A minecraft.custom:minecraft.time_since_death 1
+STAT A minecraft.custom:minecraft.time_since_rest 1
+STAT A minecraft.custom:minecraft.total_world_time 1
+TRADER Tp xp=0 level=- trading=A
+OFFERS Tp count=2
+OFFER Tp 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:bread*6 uses=6 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER Tp 1 buyA=minecraft:paper*24 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=1 mult=0.05 demand=0 special=0
+# a trader that is being traded with does not open a second screen
+MENU A cid=1 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:emerald*40
+MS 31 minecraft:paper*64
+MS 32 minecraft:paper*64
+TRADER Tp xp=0 level=- trading=A
+# selecting the first offer, then taking the result: uses, an orb and the statistics
+MENU A cid=1 type=minecraft:merchant state=4 carried=minecraft:bread*6
+MS 0 minecraft:emerald*39
+MS 2 minecraft:bread*6
+MS 31 minecraft:paper*64
+MS 32 minecraft:paper*64
+I A 1 minecraft:paper*64
+I A 2 minecraft:paper*64
+PKT A minecraft:container_set_slot 140102000027f5070000
+PKT A minecraft:container_set_slot 140103000206ab080000
+PKT A minecraft:container_set_slot 140104001e00
+PKT A minecraft:set_cursor_item 6206ab080000
+STAT A minecraft.crafted:minecraft.bread 6
+STAT A minecraft.custom:minecraft.play_time 1
+STAT A minecraft.custom:minecraft.talked_to_villager 2
+STAT A minecraft.custom:minecraft.time_since_death 1
+STAT A minecraft.custom:minecraft.time_since_rest 1
+STAT A minecraft.custom:minecraft.total_world_time 1
+STAT A minecraft.custom:minecraft.traded_with_villager 1
+ADV A minecraft:adventure/trade traded
+ADV A minecraft:recipes/building_blocks/emerald_block has_emerald
+ADV A minecraft:recipes/decorations/cartography_table has_paper
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/misc/book has_paper
+ADV A minecraft:recipes/tools/name_tag has_paper
+TRADER Tp xp=0 level=- trading=A
+OFFERS Tp count=2
+OFFER Tp 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:bread*6 uses=7 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER Tp 1 buyA=minecraft:paper*24 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=1 mult=0.05 demand=0 special=0
+E Tp minecraft:wandering_trader pos=0.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Tq minecraft:wandering_trader pos=-4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Tr minecraft:wandering_trader pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E experience_orb#1 minecraft:experience_orb pos=0.5,-59.5,4.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=4 count=1 age=0 health=5
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.wandering_trader.yes source=neutral vol=1.0 pitch=1.133981
+# the paper offer: the trade takes 24 paper
+MENU A cid=1 type=minecraft:merchant state=8 carried=minecraft:bread*6
+MS 0 minecraft:paper*64
+MS 2 minecraft:emerald*1
+MS 32 minecraft:paper*64
+MS 38 minecraft:emerald*39
+I A 2 minecraft:paper*64
+I A 8 minecraft:emerald*39
+STAT A minecraft.crafted:minecraft.bread 6
+STAT A minecraft.custom:minecraft.play_time 1
+STAT A minecraft.custom:minecraft.talked_to_villager 2
+STAT A minecraft.custom:minecraft.time_since_death 1
+STAT A minecraft.custom:minecraft.time_since_rest 1
+STAT A minecraft.custom:minecraft.total_world_time 1
+STAT A minecraft.custom:minecraft.traded_with_villager 1
+TRADER Tp xp=0 level=- trading=A
+OFFERS Tp count=2
+OFFER Tp 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:bread*6 uses=7 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER Tp 1 buyA=minecraft:paper*24 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=1 mult=0.05 demand=0 special=0
+E Tp minecraft:wandering_trader pos=0.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Tq minecraft:wandering_trader pos=-4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Tr minecraft:wandering_trader pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E experience_orb#1 minecraft:experience_orb pos=0.5,-59.5,4.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=4 count=1 age=0 health=5
+# closing the screen frees the trader
+TRADER Tp xp=0 level=- trading=-
+MENU A cid=0 type=inventory state=4 carried=empty
+MS 36 minecraft:bread*6
+MS 37 minecraft:paper*64
+MS 38 minecraft:paper*64
+MS 44 minecraft:emerald*39
+# a trader with generated offers: the screen opens, it stops and faces the player while they trade, and walks off again after the screen closes
+MENU A cid=2 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:bread*6
+MS 31 minecraft:paper*64
+MS 32 minecraft:paper*64
+MS 38 minecraft:emerald*39
+PKT A minecraft:open_screen 3c02130a080009696e73657274696f6e002438666666616638332d656164362d343263352d626139372d3562333439303831396564310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650021656e746974792e6d696e6563726166742e77616e646572696e675f74726164657200080006616374696f6e000b73686f775f656e746974790800026964001a6d696e6563726166743a77616e646572696e675f7472616465720b000475756964000000048fffaf83ead642c5ba975b3490819ed1000800097472616e736c6174650021656e746974792e6d696e6563726166742e77616e646572696e675f74726164657200
+PKT A minecraft:container_set_content 1202012700000000000000000000000000000000000000000000000000000000000006ab08000040f908000040f9080000000000000027f507000000
+PKT A minecraft:merchant_offers 350209ee08010002f50700000000000000000000000200000001000000003d4ccccd00000000e40a040001f50700000000000000000000000200000001000000003d4ccccd00000000f507010008a40100000000000000000000000400000001000000003d4ccccd00000000f507010001d50400000000000000000000000600000001000000003d4ccccd00000000f507030001f90500000000000000000000000800000001000000003d4ccccd00000000f507010002d30200000000000000000000000500000001000000003d4ccccd00000000f507020001b90300000000000000000000000500000001000000003d4ccccd00000000f507010003b90900000000000000000000000c00000001000000003d4ccccd00000000f507010003b10900000000000000000000000c00000001000000003d4ccccd0000000001000000
+TRADER Tr xp=0 level=- trading=A
+OFFERS Tr count=9
+OFFER Tr 0 buyA=minecraft:milk_bucket*1 buyB=- sell=minecraft:emerald*2 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER Tr 1 buyA=minecraft:baked_potato*4 buyB=- sell=minecraft:emerald*1 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER Tr 2 buyA=minecraft:emerald*1 buyB=- sell=minecraft:spruce_log*8 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER Tr 3 buyA=minecraft:emerald*1 buyB=- sell=minecraft:packed_ice*1 uses=0 max=6 xp=1 mult=0.05 demand=0 special=0
+OFFER Tr 4 buyA=minecraft:emerald*3 buyB=- sell=minecraft:tube_coral_block*1 uses=0 max=8 xp=1 mult=0.05 demand=0 special=0
+OFFER Tr 5 buyA=minecraft:emerald*1 buyB=- sell=minecraft:small_dripleaf*2 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0
+OFFER Tr 6 buyA=minecraft:emerald*2 buyB=- sell=minecraft:glowstone*1 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0
+OFFER Tr 7 buyA=minecraft:emerald*1 buyB=- sell=minecraft:purple_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER Tr 8 buyA=minecraft:emerald*1 buyB=- sell=minecraft:magenta_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+E Tr minecraft:wandering_trader pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0 age=0 baby=0 forcedage=0
+E Tr minecraft:wandering_trader pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=63.434967 body=63.434967 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=1:LookAtTradingPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0 age=0 baby=0 forcedage=0
+G Tr goal 0 FloatGoal flags=JUMP running=0
+G Tr goal 0 UseItemGoal flags=none running=0
+G Tr goal 0 UseItemGoal flags=none running=0
+G Tr goal 1 TradeWithPlayerGoal flags=MOVE+JUMP running=0
+G Tr goal 1 AvoidEntityGoal flags=MOVE running=0
+G Tr goal 1 AvoidEntityGoal flags=MOVE running=0
+G Tr goal 1 AvoidEntityGoal flags=MOVE running=0
+G Tr goal 1 AvoidEntityGoal flags=MOVE running=0
+G Tr goal 1 AvoidEntityGoal flags=MOVE running=0
+G Tr goal 1 AvoidEntityGoal flags=MOVE running=0
+G Tr goal 1 AvoidEntityGoal flags=MOVE running=0
+G Tr goal 1 PanicGoal flags=MOVE running=0
+G Tr goal 1 LookAtTradingPlayerGoal flags=LOOK running=1
+G Tr goal 2 WanderingTrader$WanderToPositionGoal flags=MOVE running=0
+G Tr goal 4 MoveTowardsRestrictionGoal flags=MOVE running=0
+G Tr goal 8 WaterAvoidingRandomStrollGoal flags=MOVE running=0
+G Tr goal 9 InteractGoal flags=MOVE+LOOK running=0
+G Tr goal 10 LookAtPlayerGoal flags=LOOK running=0
+TRADER Tr xp=0 level=- trading=-
+E Tr minecraft:wandering_trader pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=63.434967 body=63.434967 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0 age=0 baby=0 forcedage=0

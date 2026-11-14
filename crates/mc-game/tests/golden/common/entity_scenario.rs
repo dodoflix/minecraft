@@ -1290,6 +1290,7 @@ impl Harness {
                         self.describe_ref(&n, rich);
                     }
                 }
+                ("offers", Some(name)) => self.offers_dump(name),
                 _ => {
                     if !(super::mob_verbs::dump(self, kind, arg)
                         || super::spawn_verbs::dump(self, kind, arg)

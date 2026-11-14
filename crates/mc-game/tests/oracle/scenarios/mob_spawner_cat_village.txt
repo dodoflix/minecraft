@@ -1,0 +1,48 @@
+# CatSpawner in a village (one tick per `custom_spawner`, seeded level random): no cat while four homes are occupied, a cat 8..31 blocks from the
+# player once five are, none while five cats live within 48 blocks, one again after two of them died, and none at a spot that is neither near a
+# village nor in a swamp hut.
+level flat
+preload 8
+difficulty normal
+time 6000
+entity_counter 100
+block 0 -60 -4 minecraft:bell
+block -6 -60 2 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -6 -60 3 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -3 -60 2 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -3 -60 3 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 0 -60 2 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 3 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 3 -60 2 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 3 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 6 -60 2 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 6 -60 3 minecraft:red_bed[facing=south,part=head,occupied=false]
+spawn_player Steve survival 0.5 -60 0.5 0 0
+tick 2
+note four occupied homes are not enough
+poi_take -6 -60 3
+poi_take -3 -60 3
+poi_take 0 -60 3
+poi_take 3 -60 3
+custom_spawner cat 1 delay=1
+dump rng:level
+note the fifth home is occupied: a cat appears (offset -20,27)
+poi_take 6 -60 3
+custom_spawner cat 2 delay=1
+dump rng:level mobs
+note five cats live within 48 blocks: no cat (offset 28,21)
+mobspawn C1 minecraft:cat 10.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn C2 minecraft:cat -10.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn C3 minecraft:cat 10.5 -60 -10.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn C4 minecraft:cat -10.5 -60 -10.5 0 0 nofinalize {PersistenceRequired:1b}
+custom_spawner cat 3 delay=1
+dump rng:level
+note two cats die: a cat appears again (offset 12,16)
+kill C1
+kill C2
+custom_spawner cat 5 delay=1
+dump rng:level mobs
+note the player is far from the village: the spot is not near a village (offset -28,12)
+tp Steve 100.5 -60 0.5
+custom_spawner cat 7 delay=1
+dump rng:level

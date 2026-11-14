@@ -1,0 +1,57 @@
+# PatrolSpawner (one tick per `custom_spawner`, seeded level random): by day a patrol of pillagers 24..47 blocks from a player that is not in a
+# village, a banner leader first and a group sized by the local difficulty; nothing at night, in a village, for a spectator, on a missed one in
+# five roll, with the spawn_patrols rule off or without enemy spawning (the rng dump after each verb shows how many draws it took).
+level flat
+preload 6
+difficulty hard
+gamerule spawn_patrols true
+time 130000
+entity_counter 200
+spawn_player Steve survival 0.5 -60 0.5 0 0
+tick 2
+note a hard patrol (offset 42,40)
+custom_spawner patrol 10 delay=1
+dump rng:level
+note an easy one (offset -29,-32)
+difficulty easy
+custom_spawner patrol 22 delay=1
+dump rng:level
+note a normal one (offset 46,-38)
+difficulty normal
+custom_spawner patrol 13 delay=1
+dump rng:level
+note the one in five roll fails
+custom_spawner patrol 1 delay=1
+dump rng:level
+note the timer still runs
+custom_spawner patrol 10
+dump rng:level
+note enemy spawning is off
+custom_spawner patrol 10 delay=1 enemies=false
+dump rng:level
+note the rule is off
+gamerule spawn_patrols false
+custom_spawner patrol 10 delay=1
+dump rng:level
+gamerule spawn_patrols true
+note night: the roll that follows the timer is never made
+time 138000
+tick 2
+custom_spawner patrol 10 delay=1
+dump rng:level
+time 130000
+tick 2
+note the player stands in a village: no patrol
+block 0 -60 -4 minecraft:bell
+block -3 -60 2 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -3 -60 3 minecraft:red_bed[facing=south,part=head,occupied=false]
+custom_spawner patrol 10 delay=1
+dump rng:level
+note a spectator is the one picked (a second player, offset -29,-32 from the first)
+block 0 -60 -4 minecraft:air
+block -3 -60 2 minecraft:air
+block -3 -60 3 minecraft:air
+spawn_player Alex spectator 20.5 -60 20.5 0 0
+tick 2
+custom_spawner patrol 22 delay=1
+dump rng:level

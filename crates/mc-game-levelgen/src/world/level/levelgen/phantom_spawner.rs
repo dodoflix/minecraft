@@ -13,7 +13,7 @@ use mc_game_core::world::level::BlockGetter;
 use mc_game_core::world::level::LevelReader;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_game_core::world::level::spawner::custom_spawner::{
-    CUSTOM_SPAWNERS, CustomSpawner, CustomSpawnerRegistration, order,
+    CUSTOM_SPAWNERS, CustomSpawner, CustomSpawnerRegistration, delay_option, order,
 };
 use mc_game_core::world::level::spawner::natural_spawner;
 
@@ -115,6 +115,17 @@ impl CustomSpawner for PhantomSpawner {
             }
         }
         count
+    }
+
+    fn replay_setup(
+        &mut self,
+        _level: &mut ServerLevel,
+        _seed: i64,
+        options: &std::collections::BTreeMap<String, String>,
+    ) {
+        if let Some(delay) = delay_option(options) {
+            self.next_tick = delay;
+        }
     }
 }
 
