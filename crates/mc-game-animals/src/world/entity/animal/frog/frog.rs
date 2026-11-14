@@ -436,8 +436,8 @@ impl Entity for Frog {
         variant::write_variant(out, &self.variant_key);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.pending_variant = variant::read_variant_key(input);
     }
 

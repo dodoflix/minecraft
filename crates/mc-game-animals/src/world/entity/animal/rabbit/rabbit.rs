@@ -635,8 +635,8 @@ impl Entity for Rabbit {
         out.put_int("MoreCarrotTicks", self.more_carrot_ticks);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         let variant = input
             .get_int("RabbitType")
             .map_or(DEFAULT_VARIANT, variant_by_id);

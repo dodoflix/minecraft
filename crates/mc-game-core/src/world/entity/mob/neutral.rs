@@ -81,8 +81,10 @@ pub fn add_persistent_anger_save_data(e: &dyn Entity, out: &mut CompoundTag) {
     }
 }
 
-/// `readPersistentAngerSaveData(level, input)`. The `setTarget` of the reference is resolved later by the next
-/// `updatePersistentAnger` (the referenced entity is not loaded yet while chunks load).
+/// `readPersistentAngerSaveData(level, input)`: the saved target is resolved against the level's loaded entities (a player is
+/// there; a mob of the same chunk list is not yet) and set through the class's own `setTarget`. World generation has no level
+/// (`None`): the target stays unset and the time is relative to 0.
+// shortcut: only this level is searched (vanilla's `getEntityInAnyDimension`), so a target left in another dimension is not set; upgrade when a cross-dimension entity lookup exists.
 pub fn read_persistent_anger_save_data(
     e: &mut dyn Entity,
     level: Option<&ServerLevel>,

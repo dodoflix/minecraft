@@ -99,8 +99,12 @@ pub fn add_additional_save_data(e: &dyn Entity, out: &mut CompoundTag) {
 }
 
 /// `readAdditionalSaveData` of `SpellcasterIllager`.
-pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
-    raider::read_additional_save_data(e, input);
+pub fn read_additional_save_data(
+    e: &mut dyn Entity,
+    level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
+    raider::read_additional_save_data(e, level, input);
     data_mut(e).spell_casting_tick_count = input.get_int_or("SpellTicks", 0);
 }
 

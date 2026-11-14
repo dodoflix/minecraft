@@ -255,8 +255,8 @@ impl Entity for ThrownEnderpearl {
         throwable::add_additional_save_data(self, out);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        throwable::read_additional_save_data(self, input, Item::ENDER_PEARL);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        throwable::read_additional_save_data(self, level, input, Item::ENDER_PEARL);
     }
 }
 

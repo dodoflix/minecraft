@@ -204,8 +204,8 @@ impl Entity for MinecartFurnace {
         out.put_short("Fuel", self.fuel as i16);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        abstract_minecart::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        abstract_minecart::read_additional_save_data(self, level, input);
         let x_push = input.get_double_or("PushX", 0.0);
         let z_push = input.get_double_or("PushZ", 0.0);
         self.push = Vec3::new(x_push, 0.0, z_push);

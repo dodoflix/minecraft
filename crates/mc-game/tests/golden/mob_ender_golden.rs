@@ -1,6 +1,13 @@
-//! Endermen and phantoms against vanilla. Scenarios: `tests/oracle/scenarios/mob_{enderman,phantom}_*.txt`, fixtures:
-//! `tests/fixtures/entity_oracle/` (`scripts/block-oracle.sh`).
+//! Endermen and phantoms against vanilla, and neutral mobs loaded with a saved anger target. Scenarios:
+//! `tests/oracle/scenarios/mob_{enderman,phantom,anger}_*.txt`, fixtures: `tests/fixtures/entity_oracle/`
+//! (`scripts/block-oracle.sh`).
 use crate::common::block_scenario::check;
+
+/// Neutral mobs loaded from saved data (spawn merge, summon) that names the player they are angry at.
+#[test]
+fn anger_load() {
+    check("mob_anger_load");
+}
 
 /// The stare that angers an enderman, the carved pumpkin and the averted gaze.
 #[test]

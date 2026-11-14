@@ -34,6 +34,7 @@ pub fn apply_base_implicit_components(entity: &mut dyn Entity, stack: &ItemStack
 /// `EntityType.updateCustomEntityTag(level, user, entity, entityData)`; `user_is_op` tells whether the spawning user is an
 /// op player (`server.getPlayerList().isOp(player.nameAndId())`).
 pub fn update_custom_entity_tag(
+    level: &ServerLevel,
     entity: &mut dyn Entity,
     entity_data: &mc_protocol::components::TypedEntityData<EntityType>,
     user_is_op: bool,
@@ -42,17 +43,17 @@ pub fn update_custom_entity_tag(
         return;
     }
     if !only_op_can_set_nbt(entity.get_type()) || user_is_op {
-        load_into(entity, &entity_data.tag);
+        load_into(level, entity, &entity_data.tag);
     }
 }
 
 /// `TypedEntityData.loadInto(entity)`: the entity's own save data with the tag merged over it, loaded back (uuid kept).
-pub fn load_into(entity: &mut dyn Entity, tag: &mc_nbt::CompoundTag) {
+pub fn load_into(level: &ServerLevel, entity: &mut dyn Entity, tag: &mc_nbt::CompoundTag) {
     let mut data = mc_nbt::CompoundTag::new();
     entity.save_without_id(&mut data, &|_| None);
     let uuid = entity.uuid();
     data.merge(tag);
-    if let Err(message) = entity.load(&data) {
+    if let Err(message) = entity.load(level, &data) {
         log::warn!("Failed to load entity data: {message}");
     }
     entity.base_mut().uuid = uuid;
@@ -78,7 +79,7 @@ pub fn apply_default_stack_config(
     entity.apply_implicit_components(stack);
     if let Some(entity_data) = stack.get(&ENTITY_DATA) {
         let user_is_op = user.is_some_and(|p| level.is_op_uuid(Entity::uuid(p)));
-        update_custom_entity_tag(entity, entity_data, user_is_op);
+        update_custom_entity_tag(level, entity, entity_data, user_is_op);
     }
 }
 

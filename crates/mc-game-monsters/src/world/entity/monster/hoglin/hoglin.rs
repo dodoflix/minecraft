@@ -314,8 +314,8 @@ impl Entity for Hoglin {
         out.put_boolean("CannotBeHunted", self.cannot_be_hunted);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         if self.is_baby() {
             // `setAge` crossed the baby boundary while the data loaded
             self.apply_age_stats();

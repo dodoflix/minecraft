@@ -349,8 +349,8 @@ impl Entity for Cushion {
         block_attached::add_additional_save_data(self, out);
         out.put_string("color", self.get_color().name());
     }
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        block_attached::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        block_attached::read_additional_save_data(self, level, input);
         let color = input
             .get_string("color")
             .and_then(DyeColor::from_name)

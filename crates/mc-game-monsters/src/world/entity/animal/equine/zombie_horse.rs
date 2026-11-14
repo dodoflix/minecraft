@@ -326,8 +326,8 @@ impl Entity for ZombieHorse {
         abstract_horse::add_additional_save_data(self, out);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        abstract_horse::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        abstract_horse::read_additional_save_data(self, level, input);
     }
 }
 

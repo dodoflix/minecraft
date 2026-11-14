@@ -334,8 +334,8 @@ impl Entity for ItemEntity {
     }
 
     /// `restoreFrom(oldEntity)`: the thrower is copied too.
-    fn restore_from(&mut self, old: &dyn Entity) {
-        entity::restore_from_data(self, old);
+    fn restore_from(&mut self, level: &ServerLevel, old: &dyn Entity) {
+        entity::restore_from_data(self, level, old);
         if let Some(item) = old.as_any().downcast_ref::<ItemEntity>() {
             self.thrower = item.thrower;
         }
@@ -538,7 +538,7 @@ impl Entity for ItemEntity {
         }
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         self.health = i32::from(input.get_short_or("Health", 5));
         self.age = i32::from(input.get_short_or("Age", 0));
         self.pickup_delay = i32::from(input.get_short_or("PickupDelay", 0));

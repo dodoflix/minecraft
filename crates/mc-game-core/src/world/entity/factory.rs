@@ -101,7 +101,7 @@ pub fn finalize_structure_entity(
             ignore_checks: false,
         },
     )?;
-    entity.load(tag).ok()?;
+    super::entity::load(entity.as_mut(), level.as_server_level(), tag).ok()?;
     entity.resolve_registry_refs(level.registry_access());
     let y_rot = entity.base().y_rot();
     if let Some(living) = entity.living_mut() {
@@ -137,7 +137,7 @@ pub fn create_and_load(
         return None;
     };
     let mut entity = create(ty, level, request)?;
-    match entity.load(tag) {
+    match entity.load(level, tag) {
         Ok(()) => {
             entity.resolve_registry_refs(&level.registries);
             Some(entity)

@@ -737,8 +737,8 @@ impl Entity for Parrot {
         out.put_int("Variant", self.get_variant() as i32);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         let variant = if input.contains("Variant") {
             ParrotVariant::by_id(input.get_int_or("Variant", 0))
         } else {

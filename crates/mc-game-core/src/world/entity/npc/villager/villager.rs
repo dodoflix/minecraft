@@ -1304,9 +1304,9 @@ impl Entity for Villager {
         out.put_int("RestocksToday", self.number_of_restocks_today);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
-        abstract_villager::read_additional_save_data(&mut self.av, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
+        abstract_villager::read_additional_save_data(&mut self.av, level, input);
         let data = input.get_compound("VillagerData").map(VillagerData::load);
         if input.get_boolean_or("VillagerDataFinalized", false) || data.is_some() {
             self.set_villager_data_finalized(true);

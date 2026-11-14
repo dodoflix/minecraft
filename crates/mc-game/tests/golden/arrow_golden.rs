@@ -169,7 +169,7 @@ fn replay(scenario: &str) -> Vec<String> {
                 e.snap_to(num(3), num(4), num(5), yaw, pitch);
                 if let Some(snbt) = t.last().filter(|s| s.starts_with('{')) {
                     let tag = mc_nbt::snbt::parse_compound(snbt).expect("snbt");
-                    e.read_additional_save_data(&tag);
+                    e.read_additional_save_data(Some(&level), &tag);
                 }
                 assert!(level.add_fresh_entity(e));
                 refs.push((t[1].to_string(), eid));

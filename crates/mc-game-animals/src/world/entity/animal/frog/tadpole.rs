@@ -98,8 +98,8 @@ impl Tadpole {
         self.age
     }
 
-    /// `setAge(newAge)` without the conversion check (loads from NBT / a bucket have no level; the next `aiStep`
-    /// converts a tadpole that is past the threshold).
+    /// `setAge(newAge)` without the conversion check (the conversion needs the level mutably, which a load only holds shared;
+    /// the next `aiStep` converts a tadpole that is past the threshold).
     fn set_age_raw(&mut self, new_age: i32) {
         self.age = new_age;
     }
@@ -293,8 +293,8 @@ impl Entity for Tadpole {
         out.put_boolean("AgeLocked", self.is_age_locked());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         abstract_fish::set_from_bucket(self, input.get_boolean_or("FromBucket", false));
         self.set_age_raw(input.get_int_or("Age", 0));
         self.set_age_locked(input.get_boolean_or("AgeLocked", false));

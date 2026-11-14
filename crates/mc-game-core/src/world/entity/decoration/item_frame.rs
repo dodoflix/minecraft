@@ -536,8 +536,8 @@ impl Entity for ItemFrame {
         out.put_boolean("Invisible", self.is_invisible_frame());
         out.put_boolean("Fixed", self.fixed);
     }
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        block_attached::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        block_attached::read_additional_save_data(self, level, input);
         let stack = input
             .get("Item")
             .and_then(|t| ItemStack::from_tag(t).into_result().ok())

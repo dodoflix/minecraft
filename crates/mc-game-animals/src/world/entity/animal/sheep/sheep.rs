@@ -320,8 +320,8 @@ impl Entity for Sheep {
         out.put_byte("Color", self.get_color().id() as i8);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.set_sheared(input.get_boolean_or("Sheared", false));
         let color = input
             .get_byte("Color")

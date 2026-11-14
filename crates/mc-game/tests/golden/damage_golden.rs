@@ -591,7 +591,7 @@ impl Replay {
         if let Some(snbt) = snbt {
             let mut tag = CompoundTag::new();
             tag.merge(&mc_nbt::snbt::parse_compound(&snbt).expect("snbt"));
-            mob.read_additional_save_data(&tag);
+            mob.read_additional_save_data(Some(&self.level), &tag);
             mob.resolve_registry_refs(&self.level.registries);
             // `Entity.load`: a string tag is a literal component (`'"Bob"'` is the text `"Bob"` with its quotes)
             if let Some(name) = tag.get("CustomName") {

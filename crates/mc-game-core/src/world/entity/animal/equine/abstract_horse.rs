@@ -1150,8 +1150,12 @@ pub fn add_additional_save_data(e: &(impl AbstractHorse + ?Sized), out: &mut Com
 }
 
 /// `readAdditionalSaveData(input)` of `AbstractHorse`.
-pub fn read_additional_save_data(e: &mut (impl AbstractHorse + ?Sized), input: &CompoundTag) {
-    mob::nbt::read_additional_save_data(e.as_dyn_mut(), input);
+pub fn read_additional_save_data(
+    e: &mut (impl AbstractHorse + ?Sized),
+    level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
+    mob::nbt::read_additional_save_data(e.as_dyn_mut(), level, input);
     set_eating(e, input.get_boolean_or("EatingHaystack", false));
     set_bred(e, input.get_boolean_or("Bred", false));
     e.horse_mut().temper = input.get_int_or("Temper", 0);

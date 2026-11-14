@@ -281,7 +281,7 @@ impl Replay {
             entity.set_rot(num(&t[6]) as f32, num(&t[7]) as f32);
         }
         // `NoAI`, `PersistenceRequired`, `Marker`, `Invisible`, item frame `Facing:2b` (north: the frame hangs on the block at z+1)
-        entity.read_additional_save_data(&nbt);
+        entity.read_additional_save_data(Some(&self.level), &nbt);
         self.place(&t[1], entity);
     }
 

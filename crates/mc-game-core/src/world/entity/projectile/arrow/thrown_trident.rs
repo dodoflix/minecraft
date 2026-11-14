@@ -368,8 +368,8 @@ impl Entity for ThrownTrident {
         out.put_boolean("DealtDamage", self.dealt_damage);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        super::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        super::read_additional_save_data(self, level, input);
         self.dealt_damage = input.get_boolean_or("DealtDamage", false);
         self.loyalty_pending = true;
     }

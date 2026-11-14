@@ -771,14 +771,14 @@ impl Entity for Turtle {
         out.put_boolean("has_egg", self.has_egg());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
         let home = input
             .get_int_array("home_pos")
             .filter(|a| a.len() == 3)
             .map(|a| BlockPos::new(a[0], a[1], a[2]))
             .unwrap_or_else(|| self.block_position());
         self.set_home_pos(home);
-        mob::nbt::read_additional_save_data(self, input);
+        mob::nbt::read_additional_save_data(self, level, input);
         self.set_has_egg(input.get_boolean_or("has_egg", false));
     }
 

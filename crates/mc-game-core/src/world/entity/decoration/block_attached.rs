@@ -191,7 +191,11 @@ pub fn add_additional_save_data<E: BlockAttached + ?Sized>(e: &E, out: &mut Comp
 }
 
 /// `BlockAttachedEntity.readAdditionalSaveData`.
-pub fn read_additional_save_data<E: BlockAttached>(e: &mut E, input: &CompoundTag) {
+pub fn read_additional_save_data<E: BlockAttached>(
+    e: &mut E,
+    _level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
     let stored = input.get("block_pos").and_then(read_block_pos);
     match stored {
         Some(pos) if pos.closer_than(&e.base().block_position(), 16.0) => {

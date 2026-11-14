@@ -127,8 +127,8 @@ macro_rules! raider_entity {
         fn add_additional_save_data(&self, out: &mut mc_nbt::CompoundTag) {
             $crate::world::entity::raid::raider::add_additional_save_data(self, out);
         }
-        fn read_additional_save_data(&mut self, input: &mc_nbt::CompoundTag) {
-            $crate::world::entity::raid::raider::read_additional_save_data(self, input);
+        fn read_additional_save_data(&mut self, level: Option<&$crate::server::level::ServerLevel>, input: &mc_nbt::CompoundTag) {
+            $crate::world::entity::raid::raider::read_additional_save_data(self, level, input);
         }
     };
     (@method after_loaded) => {
@@ -340,9 +340,13 @@ pub fn add_additional_save_data(e: &dyn Entity, out: &mut CompoundTag) {
 }
 
 /// `Raider.readAdditionalSaveData(input)`: the raid is joined by [`resolve_pending_raid`] once the level is at hand.
-pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
-    mob::nbt::read_additional_save_data(e, input);
-    patrolling_monster::read_additional_save_data(e, input);
+pub fn read_additional_save_data(
+    e: &mut dyn Entity,
+    level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
+    mob::nbt::read_additional_save_data(e, level, input);
+    patrolling_monster::read_additional_save_data(e, level, input);
     let d = data_mut(e);
     d.wave = input.get_int_or("Wave", 0);
     d.can_join_raid = input.get_boolean_or("CanJoinRaid", false);

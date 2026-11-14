@@ -233,8 +233,8 @@ impl Entity for Pufferfish {
         out.put_int("PuffState", self.get_puff_state());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        abstract_fish::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        abstract_fish::read_additional_save_data(self, level, input);
         self.set_puff_state(input.get_int_or("PuffState", 0).min(2));
     }
 }

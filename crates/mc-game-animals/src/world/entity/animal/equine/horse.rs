@@ -425,8 +425,8 @@ impl Entity for Horse {
         out.put_int("Variant", self.type_variant());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        abstract_horse::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        abstract_horse::read_additional_save_data(self, level, input);
         let variant = input.get_int_or("Variant", 0);
         self.set_type_variant(variant);
     }

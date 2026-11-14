@@ -329,8 +329,8 @@ impl Entity for TropicalFish {
         out.put_int("Variant", self.get_packed_variant());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        abstract_fish::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        abstract_fish::read_additional_save_data(self, level, input);
         let packed = input.get_int_or("Variant", DEFAULT_VARIANT.get_packed_id());
         self.set_packed_variant(Variant::from_packed(packed).get_packed_id());
     }

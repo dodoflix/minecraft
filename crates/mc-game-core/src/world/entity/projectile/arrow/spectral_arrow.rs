@@ -161,8 +161,8 @@ impl Entity for SpectralArrow {
         out.put_int("Duration", self.duration);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        super::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        super::read_additional_save_data(self, level, input);
         self.duration = input.get_int_or("Duration", DEFAULT_DURATION);
     }
 }

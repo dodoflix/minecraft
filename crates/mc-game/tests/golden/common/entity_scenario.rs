@@ -553,7 +553,7 @@ impl Harness {
         let mut tag = CompoundTag::new();
         e.save_without_id(&mut tag, &|_| None);
         tag.merge(&extra);
-        e.load(&tag)
+        e.load(&self.level, &tag)
             .unwrap_or_else(|err| self.fail(&format!("load: {err}")));
     }
 
@@ -792,7 +792,7 @@ impl Harness {
                 let rest = self.line[self.line.find(&a[2]).expect("snbt token")..].to_string();
                 let line = self.line.clone();
                 let (label, no) = (self.label.clone(), self.line_no);
-                self.with_entity(&a[1], |_, e| {
+                self.with_entity(&a[1], |level, e| {
                     let extra = mc_nbt::snbt::parse_compound(&rest).unwrap_or_else(|err| {
                         panic!(
                             "scenario {label}:{no}: `{line}`: bad SNBT: {}",
@@ -802,7 +802,7 @@ impl Harness {
                     let mut tag = CompoundTag::new();
                     e.save_without_id(&mut tag, &|_| None);
                     tag.merge(&extra);
-                    e.load(&tag)
+                    e.load(level, &tag)
                         .unwrap_or_else(|err| panic!("scenario {label}:{no}: load: {err}"));
                 });
             }

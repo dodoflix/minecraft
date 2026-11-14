@@ -76,8 +76,12 @@ pub fn add_additional_save_data(e: &dyn Entity, time_in_overworld: i32, out: &mu
 }
 
 /// `readAdditionalSaveData(input)` (after `Monster`'s); returns `timeInOverworld`.
-pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) -> i32 {
-    mc_game_core::world::entity::mob::nbt::read_additional_save_data(e, input);
+pub fn read_additional_save_data(
+    e: &mut dyn Entity,
+    level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) -> i32 {
+    mc_game_core::world::entity::mob::nbt::read_additional_save_data(e, level, input);
     e.set_can_pick_up_loot(input.get_boolean_or("CanPickUpLoot", true));
     set_immune_to_zombification(e, input.get_boolean_or("IsImmuneToZombification", false));
     input.get_int_or("TimeInOverworld", 0)

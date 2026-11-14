@@ -172,10 +172,11 @@ pub fn add_additional_save_data(p: &dyn Projectile, out: &mut CompoundTag) {
 /// `ThrowableItemProjectile.readAdditionalSaveData`: `default_item` is `getDefaultItem()`.
 pub fn read_additional_save_data(
     p: &mut dyn Projectile,
+    level: Option<&ServerLevel>,
     input: &CompoundTag,
     default_item: mc_data::Item,
 ) {
-    super::read_additional_save_data(p, input);
+    super::read_additional_save_data(p, level, input);
     let item = input
         .get_compound("Item")
         .and_then(load_item_stack)

@@ -411,8 +411,8 @@ impl Entity for Armadillo {
         out.put_int("scute_time", self.scute_time);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         let state = input
             .get_string("state")
             .and_then(state_by_name)

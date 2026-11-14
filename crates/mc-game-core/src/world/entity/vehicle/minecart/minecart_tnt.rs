@@ -314,8 +314,8 @@ impl Entity for MinecartTnt {
         }
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        abstract_minecart::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        abstract_minecart::read_additional_save_data(self, level, input);
         self.fuse = input.get_int_or("fuse", -1);
         self.explosion_power_base = mth::clamp_f32(
             input.get_float_or("explosion_power", DEFAULT_EXPLOSION_POWER_BASE),

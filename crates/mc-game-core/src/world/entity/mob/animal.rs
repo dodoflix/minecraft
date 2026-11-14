@@ -228,7 +228,11 @@ pub fn add_additional_save_data(e: &dyn Entity, out: &mut CompoundTag) {
 }
 
 /// `Animal.readAdditionalSaveData`.
-pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
+pub fn read_additional_save_data(
+    e: &mut dyn Entity,
+    _level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
     let a = anm(e);
     a.in_love = input.get_int_or("InLove", 0);
     a.love_cause = crate::world::entity::entity::read_uuid(input.get("LoveCause"));

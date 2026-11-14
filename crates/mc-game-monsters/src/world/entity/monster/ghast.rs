@@ -181,8 +181,8 @@ impl Entity for Ghast {
         out.put_byte("ExplosionPower", self.explosion_power as i8);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.explosion_power =
             i32::from(input.get_byte_or("ExplosionPower", DEFAULT_EXPLOSION_POWER as i8));
     }

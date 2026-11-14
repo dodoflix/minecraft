@@ -94,9 +94,10 @@ pub fn add_additional_save_data(e: &(impl AbstractChestedHorse + ?Sized), out: &
 /// `readAdditionalSaveData(input)` of `AbstractChestedHorse`.
 pub fn read_additional_save_data(
     e: &mut (impl AbstractChestedHorse + ?Sized),
+    level: Option<&ServerLevel>,
     input: &CompoundTag,
 ) {
-    abstract_horse::read_additional_save_data(e, input);
+    abstract_horse::read_additional_save_data(e, level, input);
     let chest = input.get_boolean_or("ChestedHorse", false);
     set_chest(e, chest);
     e.create_inventory();

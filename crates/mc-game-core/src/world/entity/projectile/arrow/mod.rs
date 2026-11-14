@@ -988,9 +988,13 @@ fn save_stack(stack: &ItemStack) -> CompoundTag {
 }
 
 /// `AbstractArrow.readAdditionalSaveData`.
-pub fn read_additional_save_data(arrow: &mut dyn AbstractArrow, input: &CompoundTag) {
+pub fn read_additional_save_data(
+    arrow: &mut dyn AbstractArrow,
+    level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
     use crate::world::item::load_item_stack;
-    super::read_additional_save_data(arrow, input);
+    super::read_additional_save_data(arrow, level, input);
     arrow.arrow_data_mut().life = i32::from(input.get_short_or("life", 0));
     arrow.arrow_data_mut().last_state = input.get("inBlockState").and_then(|t| {
         mc_dfu::parse_nbt(

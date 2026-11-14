@@ -83,8 +83,8 @@ impl Entity for Snowball {
         throwable::add_additional_save_data(self, out);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        throwable::read_additional_save_data(self, input, Item::SNOWBALL);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        throwable::read_additional_save_data(self, level, input, Item::SNOWBALL);
     }
 }
 

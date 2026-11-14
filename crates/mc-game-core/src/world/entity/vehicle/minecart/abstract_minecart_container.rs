@@ -64,9 +64,10 @@ pub fn add_additional_save_data<M: AbstractMinecart + ContainerEntity + ?Sized>(
 /// `readAdditionalSaveData(input)`.
 pub fn read_additional_save_data<M: AbstractMinecart + ContainerEntity + ?Sized>(
     m: &mut M,
+    level: Option<&ServerLevel>,
     input: &CompoundTag,
 ) {
-    abstract_minecart::read_additional_save_data(m, input);
+    abstract_minecart::read_additional_save_data(m, level, input);
     m.chest_mut().read_chest_vehicle_save_data(input);
 }
 

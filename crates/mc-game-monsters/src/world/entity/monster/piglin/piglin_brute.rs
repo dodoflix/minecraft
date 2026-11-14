@@ -130,8 +130,8 @@ impl Entity for PiglinBrute {
         abstract_piglin::add_additional_save_data(self, self.time_in_overworld, out);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        self.time_in_overworld = abstract_piglin::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        self.time_in_overworld = abstract_piglin::read_additional_save_data(self, level, input);
     }
 
     fn finalize_spawn(

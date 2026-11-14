@@ -223,7 +223,7 @@ impl Entity for Interaction {
         out.put_boolean("response", self.response());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         self.set_width(input.get_float_or("width", 1.0));
         self.set_height(input.get_float_or("height", 1.0));
         self.attack = PlayerAction::read(input, "attack");
@@ -257,7 +257,10 @@ mod tests {
             timestamp: 77,
         }
         .write(&mut tag, "attack");
-        interaction.read_additional_save_data(&tag);
+        let level = ServerLevel::detached(
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+        );
+        interaction.read_additional_save_data(Some(&level), &tag);
         assert_eq!(
             interaction.attack,
             Some(PlayerAction {

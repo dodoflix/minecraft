@@ -495,7 +495,7 @@ impl Entity for Display {
         }
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         self.read_display_save_data(input);
         match self.kind {
             Kind::Block => {
@@ -646,7 +646,10 @@ mod tests {
         tag.put_boolean("shadow", true);
         tag.put_int("teleport_duration", 100);
         tag.put_int("line_width", 10);
-        display.read_additional_save_data(&tag);
+        let level = ServerLevel::detached(
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+        );
+        display.read_additional_save_data(Some(&level), &tag);
         let out = saved(&display);
         assert_eq!(out.get_int_or("teleport_duration", 0), 59);
         assert_eq!(out.get_string("alignment"), Some("left"));
@@ -655,7 +658,7 @@ mod tests {
         assert_eq!(display.text(), Component::literal("hi"));
         // the second load of the same saved data changes nothing
         let mut again = Display::new_text(EntityType::TEXT_DISPLAY, 2);
-        again.read_additional_save_data(&out);
+        again.read_additional_save_data(Some(&level), &out);
         assert_eq!(saved(&again), out);
     }
 
@@ -665,7 +668,10 @@ mod tests {
         let mut tag = CompoundTag::new();
         tag.put_string("billboard", "bogus");
         tag.put_string("item_display", "bogus");
-        display.read_additional_save_data(&tag);
+        let level = ServerLevel::detached(
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+        );
+        display.read_additional_save_data(Some(&level), &tag);
         let out = saved(&display);
         assert_eq!(out.get_string("billboard"), Some("fixed"));
         assert_eq!(out.get_string("item_display"), Some("none"));

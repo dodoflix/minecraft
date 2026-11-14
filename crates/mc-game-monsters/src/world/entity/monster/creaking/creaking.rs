@@ -641,8 +641,8 @@ impl Entity for Creaking {
             && self.is_alive()
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         if let Some(pos) = input.get_int_array("home_pos").filter(|a| a.len() == 3) {
             self.set_transient(BlockPos::new(pos[0], pos[1], pos[2]));
         }

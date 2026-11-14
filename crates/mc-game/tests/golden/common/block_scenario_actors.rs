@@ -506,7 +506,7 @@ impl Scenario {
                     let mut tag = mc_nbt::CompoundTag::new();
                     e.save_without_id(&mut tag, &|_| None);
                     tag.merge(&extra);
-                    e.load(&tag)
+                    e.load(level, &tag)
                         .unwrap_or_else(|er| panic!("entity load: {er}"));
                     e.resolve_registry_refs(&level.registries);
                 });
@@ -884,7 +884,7 @@ impl Scenario {
                 &mc_nbt::snbt::parse_compound(&snbt)
                     .unwrap_or_else(|er| panic!("bad SNBT {snbt}: {er}")),
             );
-            e.load(&tag)
+            e.load(level, &tag)
                 .unwrap_or_else(|er| panic!("entity load: {er}"));
             e.resolve_registry_refs(&level.registries);
         }

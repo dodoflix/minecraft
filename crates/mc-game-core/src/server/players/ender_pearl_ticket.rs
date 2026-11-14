@@ -171,7 +171,7 @@ mod tests {
             },
         )
         .expect("created");
-        loaded.load(tag).expect("loaded");
+        loaded.load(&fresh, tag).expect("loaded");
         assert_eq!(loaded.uuid(), uuid);
         assert_eq!(loaded.base().x(), 3.5);
         assert_eq!(loaded.base().y(), 70.0);

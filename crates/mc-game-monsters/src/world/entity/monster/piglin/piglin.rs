@@ -377,8 +377,8 @@ impl Entity for Piglin {
         inventory_carrier::write_inventory_to_tag(&self.inventory, out);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        self.time_in_overworld = abstract_piglin::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        self.time_in_overworld = abstract_piglin::read_additional_save_data(self, level, input);
         self.set_baby(input.get_boolean_or("IsBaby", false));
         self.set_cannot_hunt(input.get_boolean_or("CannotHunt", false));
         inventory_carrier::read_inventory_from_tag(&mut self.inventory, input);

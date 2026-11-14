@@ -500,8 +500,8 @@ impl Entity for Pig {
         out.put_string("sound_variant", self.sound_variant_key.to_string());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         if let Some(id) = variant::read_variant_key(input).and_then(|k| {
             self.registries
                 .registry(keys::PIG_VARIANT)

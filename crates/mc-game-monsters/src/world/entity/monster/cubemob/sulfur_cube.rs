@@ -1239,13 +1239,13 @@ impl Entity for SulfurCube {
         out.put_boolean("from_bucket", self.from_bucket());
         out.put_int("fuse", self.fuse);
     }
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
         self.pickup_timer = input.get_int_or("pickup_timer", 0);
         self.set_from_bucket(input.get_boolean_or("from_bucket", false));
         self.fuse = input.get_int_or("fuse", -1);
         let fuse = self.fuse;
         self.mob.living.entity.entity_data.set(MAX_FUSE, fuse);
-        acm::read_additional_save_data(self, input);
+        acm::read_additional_save_data(self, level, input);
     }
 }
 

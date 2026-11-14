@@ -6,6 +6,7 @@ use super::entity::{DATA_POSE, EntityData, FLAG_FALL_FLYING};
 use super::equipment::EntityEquipment;
 use super::synched_data::SynchedEntityDataBuilder;
 use crate::define_accessor;
+use crate::server::level::ServerLevel;
 use indexmap::IndexMap;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
@@ -360,6 +361,7 @@ pub fn read_block_pos(tag: Option<&Tag>) -> Option<BlockPos> {
 /// Returns the absorption amount (set by the caller: players keep it in synched data) and the decoded `equipment`.
 pub fn read_additional_save_data(
     living: &mut LivingEntityData,
+    _level: Option<&ServerLevel>,
     input: &CompoundTag,
 ) -> (f32, EntityEquipment) {
     let absorption = input.get_float_or("AbsorptionAmount", 0.0);

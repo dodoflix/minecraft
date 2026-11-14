@@ -732,7 +732,11 @@ pub fn add_additional_save_data(projectile: &dyn Projectile, out: &mut mc_nbt::C
 }
 
 /// `Projectile.readAdditionalSaveData`.
-pub fn read_additional_save_data(projectile: &mut dyn Projectile, input: &mc_nbt::CompoundTag) {
+pub fn read_additional_save_data(
+    projectile: &mut dyn Projectile,
+    _level: Option<&ServerLevel>,
+    input: &mc_nbt::CompoundTag,
+) {
     let d = projectile.projectile_data_mut();
     d.owner = super::entity::read_uuid(input.get("Owner"));
     d.owner_id = None;

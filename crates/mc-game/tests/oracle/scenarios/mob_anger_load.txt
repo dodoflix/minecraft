@@ -1,0 +1,36 @@
+# Entities loaded from saved data that names a player (`angry_at`): the load resolves the player in the level and sets it as the
+# target, so the mob goes for that player at once, through the spawn merge, `/summon` and a live `/data merge`-style reload.
+# The old relative `AngerTime` counts from the level's game time. A saved target that is not in the level resolves to nothing.
+command_env
+level flat
+preload 7
+difficulty normal
+entity_counter 300
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 40.5 -60 0.5 0 0
+spawn_player Bob survival 80.5 -60 0.5 0 0
+note a zombified piglin and an enderman saved angry at Steve, a second piglin saved angry at an absent player, a wolf saved angry at Alex
+mobspawn Z minecraft:zombified_piglin 0.5 -60 8.5 180 0 {PersistenceRequired:1b,anger_end_time:4000L,angry_at:[I;1445453208,-423740383,-1196889821,1142437441]}
+mobspawn E minecraft:enderman 4.5 -60 8.5 180 0 {PersistenceRequired:1b,anger_end_time:4000L,angry_at:[I;1445453208,-423740383,-1196889821,1142437441]}
+mobspawn Z2 minecraft:zombified_piglin 8.5 -60 8.5 180 0 {PersistenceRequired:1b,anger_end_time:4000L,angry_at:[I;1,2,3,4]}
+mobspawn W minecraft:wolf 40.5 -60 8.5 180 0 {PersistenceRequired:1b,AngerTime:600,angry_at:[I;911420254,-1002291781,-1572026395,1561302938]}
+entity_seed Z 3201
+entity_seed E 3202
+entity_seed Z2 3203
+entity_seed W 3204
+dump mob:Z mob:E mob:Z2 mob:W nbt:Z nbt:E nbt:Z2 nbt:W attrs:Z attrs:E attrs:Z2 attrs:W
+tick 1
+dump mob:Z mob:E mob:Z2 mob:W nbt:Z nbt:E nbt:W
+tick 60
+dump mob:Z mob:E mob:Z2 mob:W player:Steve player:Alex
+note a summon with saved anger: an iron golem angry at Bob, a bee angry at Alex
+cmd summon minecraft:iron_golem 80.5 -60 8.5 {PersistenceRequired:1b,anger_end_time:4000L,angry_at:[I;-89793373,-1009502901,-1373905431,-442414277]}
+cmd summon minecraft:bee 40.5 -58 4.5 {PersistenceRequired:1b,anger_end_time:4000L,angry_at:[I;911420254,-1002291781,-1572026395,1561302938]}
+tick 1
+dump mobs
+tick 40
+dump mobs player:Bob player:Alex
+note a loaded target is dropped like any other once the player is creative
+cmd gamemode creative Steve
+tick 3
+dump mob:Z mob:E nbt:Z nbt:E

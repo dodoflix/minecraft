@@ -1059,7 +1059,7 @@ impl Entity for AbstractBoat {
         }
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         leashable::read_leash_data(self, None, input);
         if let Some(chest) = &mut self.chest {
             chest.read_chest_vehicle_save_data(input);

@@ -333,7 +333,7 @@ impl PrepareSpawn for PrepareSpawnTask {
                 .map(|n| game_type_by_id(n.int_value()));
             let previous = player.game_mode.previous_game_mode_for_player;
             if let Some(tag) = &saved {
-                player.load(tag)?;
+                player.load(level, tag)?;
                 player
                     .recipe_book
                     .retain_known(&server.shared.recipe_manager());

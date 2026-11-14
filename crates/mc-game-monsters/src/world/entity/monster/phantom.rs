@@ -225,8 +225,8 @@ impl Entity for Phantom {
         out.put_int("size", self.get_phantom_size());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.anchor_point = input
             .get_int_array("anchor_pos")
             .filter(|a| a.len() == 3)

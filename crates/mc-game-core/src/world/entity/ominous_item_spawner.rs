@@ -186,7 +186,7 @@ impl Entity for OminousItemSpawner {
         out.put_long("spawn_item_after_ticks", self.spawn_item_after_ticks);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         let item = input
             .get_compound("item")
             .and_then(load_item_stack)

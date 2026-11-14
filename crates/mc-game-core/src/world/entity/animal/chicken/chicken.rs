@@ -435,8 +435,8 @@ impl Entity for Chicken {
         out.put_string("sound_variant", self.sound_variant_key.to_string());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.is_chicken_jockey = input.get_boolean_or("IsChickenJockey", false);
         if input.contains("EggLayTime") {
             self.egg_time = input.get_int_or("EggLayTime", 0);

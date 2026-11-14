@@ -224,6 +224,7 @@ fn run(scenario: &str) {
                 );
                 if let Some(snbt) = snbt {
                     mc_game::world::entity::spawn_config::load_into(
+                        &level,
                         entity.as_mut(),
                         &mc_nbt::snbt::parse_compound(&snbt).unwrap(),
                     );

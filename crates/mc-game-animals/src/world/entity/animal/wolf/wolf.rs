@@ -500,8 +500,8 @@ impl Entity for Wolf {
         out.put_string("sound_variant", self.sound_variant_key.to_string());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.pending_variant = variant::read_variant_key(input);
         let collar = if input.contains("CollarColor") {
             dye_color::by_id(i32::from(input.get_byte_or("CollarColor", 0)))
@@ -509,7 +509,7 @@ impl Entity for Wolf {
             DEFAULT_COLLAR_COLOR
         };
         self.set_collar_color(collar);
-        neutral::read_persistent_anger_save_data(self, None, input);
+        neutral::read_persistent_anger_save_data(self, level, input);
         self.pending_sound_variant = input
             .get_string("sound_variant")
             .and_then(Identifier::try_parse);

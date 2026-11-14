@@ -173,7 +173,7 @@ impl Entity for EvokerFangs {
         }
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         self.warmup_delay_ticks = input.get_int_or("Warmup", 0);
         self.owner = entity::read_uuid(input.get("Owner"));
     }

@@ -93,7 +93,7 @@ fn create_golem(
 ) -> Option<Box<dyn Entity>> {
     let mut golem = pattern_blocks::create_triggered(level, ty)?;
     if let Some(tag) = tag
-        && let Err(message) = golem.load(&tag)
+        && let Err(message) = golem.load(level, &tag)
     {
         log::warn!("Exception configuring summoned {}: {message}", ty.name());
         return None;

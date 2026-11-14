@@ -550,8 +550,8 @@ impl Entity for Shulker {
         );
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         let face = input
             .get_byte("AttachFace")
             .map_or(DEFAULT_ATTACH_FACE, |b| {

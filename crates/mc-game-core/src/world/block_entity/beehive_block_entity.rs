@@ -345,7 +345,7 @@ fn create_entity(
             ignore_checks: false,
         },
     )?;
-    if entity.load(&tag).is_err()
+    if entity.load(level, &tag).is_err()
         || !mc_data::tags::get::<EntityType>("beehive_inhabitors")
             .is_some_and(|t| t.contains(entity.get_type()))
     {

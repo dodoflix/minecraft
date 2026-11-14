@@ -146,8 +146,8 @@ impl Entity for SmallFireball {
         fireball::put_item(out, &self.get_item());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        super::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        super::read_additional_save_data(self, level, input);
         self.set_item(&fireball::read_item(input));
     }
 }

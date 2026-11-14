@@ -1490,10 +1490,12 @@ pub trait Entity: Any {
         }
     }
 
-    /// `readAdditionalSaveData(input)`.
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    /// `readAdditionalSaveData(input)`; `level` is vanilla's `this.level()`, `None` while world generation loads an entity
+    /// (shared: what needs the level mutably or the entity inside it is [`Entity::read_level_dependent_data`] /
+    /// [`Entity::after_loaded_to_level`]).
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
         if self.mob().is_some() {
-            super::mob::nbt::read_additional_save_data(self.as_dyn_mut(), input);
+            super::mob::nbt::read_additional_save_data(self.as_dyn_mut(), level, input);
         }
     }
 
@@ -1505,10 +1507,10 @@ pub trait Entity: Any {
     /// `postDataManipulated()`.
     fn post_data_manipulated(&mut self, _level: &mut ServerLevel) {}
 
-    /// `Entity.load(input)`: errors for a non-finite position/rotation (vanilla throws `IllegalStateException`
-    /// wrapped in a crash report).
-    fn load(&mut self, input: &CompoundTag) -> Result<(), String> {
-        load(self, input)
+    /// `Entity.load(input)` in `level`: errors for a non-finite position/rotation (vanilla throws `IllegalStateException`
+    /// wrapped in a crash report). World generation has no `ServerLevel` and loads through [`load`] with `None`.
+    fn load(&mut self, level: &ServerLevel, input: &CompoundTag) -> Result<(), String> {
+        load(self, Some(level), input)
     }
 
     /// `saveWithoutId(output)`; `lookup` resolves the vehicle (for `Pos`) and the passengers.
@@ -4554,7 +4556,7 @@ pub trait Entity: Any {
     fn set_custom_name(&mut self, name: Option<Component>) {
         self.base_mut().set_custom_name(name);
     }
-    /// The part of `readAdditionalSaveData` that needs the level (a thrown trident's loyalty comes from its enchantments),
+    /// The part of `readAdditionalSaveData` that needs the level mutably (a thrown trident's loyalty comes from its enchantments),
     /// run before the loaded or freshly created entity is added to the level and so before any tracker pairs it.
     fn read_level_dependent_data(&mut self, _level: &mut ServerLevel) {}
     /// The level-dependent part of `readAdditionalSaveData` for an entity that was just loaded into the level (`Raider` joins
@@ -4637,8 +4639,8 @@ pub trait Entity: Any {
     }
     /// `restoreFrom(oldEntity)`: copies the saved data of `old` (without its dimension and passengers) and the portal state;
     /// subclasses copy what the save data does not carry.
-    fn restore_from(&mut self, old: &dyn Entity) {
-        restore_from_data(self, old);
+    fn restore_from(&mut self, level: &ServerLevel, old: &dyn Entity) {
+        restore_from_data(self, level, old);
     }
     /// What an overriding `teleport(transition)` does with the entity that exists afterwards (`ItemEntity`: merge with
     /// the items around it).
@@ -4935,12 +4937,12 @@ fn put_vec3_list(out: &mut CompoundTag, key: &str, v: Vec3) {
 
 /// The body of `Entity.restoreFrom(oldEntity)`: the saved data of `old` without its dimension and passengers, then the portal
 /// state.
-pub fn restore_from_data<E: Entity + ?Sized>(new: &mut E, old: &dyn Entity) {
+pub fn restore_from_data<E: Entity + ?Sized>(new: &mut E, level: &ServerLevel, old: &dyn Entity) {
     let mut tag = CompoundTag::new();
     old.save_without_id(&mut tag, &|_| None);
     tag.remove("Dimension");
     tag.remove("Passengers");
-    let _ = new.load(&tag);
+    let _ = new.load(level, &tag);
     new.base_mut().portal_cooldown = old.base().portal_cooldown;
     new.base_mut().portal_process = old.base().portal_process.clone();
 }
@@ -5069,7 +5071,11 @@ pub fn read_uuid(tag: Option<&Tag>) -> Option<Uuid> {
 }
 
 /// `Entity.load`.
-pub fn load<E: Entity + ?Sized>(entity: &mut E, input: &CompoundTag) -> Result<(), String> {
+pub fn load<E: Entity + ?Sized>(
+    entity: &mut E,
+    level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) -> Result<(), String> {
     let pos = read_vec3(input.get(TAG_POS)).unwrap_or(Vec3::ZERO);
     let motion = read_vec3(input.get(TAG_MOTION)).unwrap_or(Vec3::ZERO);
     let rotation = read_vec2(input.get(TAG_ROTATION)).unwrap_or(Vec2::ZERO);
@@ -5140,7 +5146,15 @@ pub fn load<E: Entity + ?Sized>(entity: &mut E, input: &CompoundTag) -> Result<(
             }
         }
     }
-    entity.read_additional_save_data(input);
+    if let (Some(level), Some(team_name)) = (level, input.get_string("Team")) {
+        let uuid = entity.base().uuid.to_string();
+        if !level.scoreboard_mut().add_player_to_team(&uuid, team_name) {
+            log::warn!(
+                "Unable to add entity to team \"{team_name}\" (that team probably doesn't exist)"
+            );
+        }
+    }
+    entity.read_additional_save_data(level, input);
     if entity.reposition_entity_after_load() {
         entity.reapply_position();
     }

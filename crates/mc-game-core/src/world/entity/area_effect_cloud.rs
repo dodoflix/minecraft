@@ -454,7 +454,7 @@ impl Entity for AreaEffectCloud {
         }
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         self.base.tick_count = input.get_int_or("Age", 0);
         self.duration = input.get_int_or("Duration", -1);
         self.wait_time = input.get_int_or("WaitTime", 20);
@@ -531,7 +531,10 @@ mod tests {
             .into_result()
             .expect("contents encode"),
         );
-        cloud.read_additional_save_data(&tag);
+        let level = ServerLevel::detached(
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+        );
+        cloud.read_additional_save_data(Some(&level), &tag);
         let components = cloud.entity_components();
         assert_eq!(
             components.get(&POTION_CONTENTS),

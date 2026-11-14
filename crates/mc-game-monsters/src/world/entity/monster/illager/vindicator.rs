@@ -284,8 +284,8 @@ impl Entity for Vindicator {
         }
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        raider::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        raider::read_additional_save_data(self, level, input);
         self.is_johnny = input.get_boolean_or(TAG_JOHNNY, false);
     }
 

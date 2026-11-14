@@ -189,9 +189,10 @@ pub fn add_additional_save_data(projectile: &dyn AbstractHurtingProjectile, out:
 /// `AbstractHurtingProjectile.readAdditionalSaveData`.
 pub fn read_additional_save_data(
     projectile: &mut dyn AbstractHurtingProjectile,
+    level: Option<&ServerLevel>,
     input: &CompoundTag,
 ) {
-    super::read_additional_save_data(projectile, input);
+    super::read_additional_save_data(projectile, level, input);
     projectile.hurting_data_mut().acceleration_power =
         input.get_double_or("acceleration_power", INITIAL_ACCELERATION_POWER);
 }

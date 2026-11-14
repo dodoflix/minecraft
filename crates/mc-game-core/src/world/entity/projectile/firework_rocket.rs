@@ -418,8 +418,8 @@ impl Entity for FireworkRocketEntity {
         out.put_boolean("ShotAtAngle", self.base.entity_data.get(DATA_SHOT_AT_ANGLE));
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        super::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        super::read_additional_save_data(self, level, input);
         self.life = input.get_int_or("Life", 0);
         self.lifetime = input.get_int_or("LifeTime", 0);
         let item = input

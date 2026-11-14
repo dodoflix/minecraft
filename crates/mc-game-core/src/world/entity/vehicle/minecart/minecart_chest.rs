@@ -106,8 +106,8 @@ impl Entity for MinecartChest {
         abstract_minecart_container::add_additional_save_data(self, out);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        abstract_minecart_container::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        abstract_minecart_container::read_additional_save_data(self, level, input);
     }
 
     /// `MinecartChest.stopOpen(user)`: `CONTAINER_CLOSE` at the cart (the open event is posted by `interact`).

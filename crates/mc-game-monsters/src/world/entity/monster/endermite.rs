@@ -99,8 +99,8 @@ impl Entity for Endermite {
         self.play_sound(level, SoundEvent::ENTITY_ENDERMITE_STEP, 0.15, 1.0);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.life = input.get_int_or("Lifetime", 0);
     }
 

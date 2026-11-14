@@ -851,8 +851,8 @@ impl Entity for Fox {
         out.put_boolean("Crouching", self.is_crouching());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.clear_trusted();
         if let Some(list) = input.get_list("Trusted") {
             for tag in list.iter() {

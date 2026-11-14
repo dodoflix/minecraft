@@ -622,7 +622,7 @@ impl Session {
             tag.merge(
                 &snbt::parse_compound(snbt).unwrap_or_else(|er| panic!("bad SNBT {snbt}: {er}")),
             );
-            e.load(&tag)
+            e.load(level, &tag)
                 .unwrap_or_else(|er| panic!("entity load: {er}"));
         }
         e.base_mut().random = LegacyRandomSource::new(a[5].parse().unwrap());
@@ -1257,11 +1257,11 @@ impl Session {
                 let extra =
                     snbt::parse_compound(snbt).unwrap_or_else(|e| panic!("bad SNBT {snbt}: {e}"));
                 let id = self.ent(name);
-                self.player.level.with_entity(id, |_, e| {
+                self.player.level.with_entity(id, |level, e| {
                     let mut tag = mc_nbt::CompoundTag::new();
                     e.save_without_id(&mut tag, &|_| None);
                     tag.merge(&extra);
-                    e.load(&tag)
+                    e.load(level, &tag)
                         .unwrap_or_else(|er| panic!("entity load: {er}"));
                 });
                 self.dump()

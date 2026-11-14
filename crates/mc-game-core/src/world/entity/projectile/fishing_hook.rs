@@ -725,7 +725,7 @@ impl Entity for FishingHook {
     // `addAdditionalSaveData` / `readAdditionalSaveData` are empty: the entity type is not saved.
     fn add_additional_save_data(&self, _out: &mut CompoundTag) {}
 
-    fn read_additional_save_data(&mut self, _input: &CompoundTag) {}
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, _input: &CompoundTag) {}
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]

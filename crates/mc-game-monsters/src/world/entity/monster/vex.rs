@@ -190,8 +190,8 @@ impl Entity for Vex {
         }
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.bound_origin = input
             .get("bound_pos")
             .and_then(|t| t.as_int_array())

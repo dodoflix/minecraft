@@ -315,16 +315,18 @@ impl Entity for Enderman {
         neutral::add_persistent_anger_save_data(self, out);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         let carried = input
             .get("carriedBlockState")
             .and_then(decode_block_state)
             .filter(|s| !s.is_air());
         self.set_carried_block(carried);
-        neutral::read_persistent_anger_save_data(self, None, input);
-        // The load has no level to resolve `angry_at`, so the target stays unset: vanilla's `setTarget(null)` runs here.
-        self.clear_target_state();
+        neutral::read_persistent_anger_save_data(self, level, input);
+        if level.is_none() {
+            // no level to resolve `angry_at` while generating: vanilla's `setTarget(null)` runs
+            self.clear_target_state();
+        }
     }
 
     fn ai_step(&mut self, level: &mut ServerLevel) {

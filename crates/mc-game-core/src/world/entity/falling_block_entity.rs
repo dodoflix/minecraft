@@ -448,7 +448,7 @@ impl Entity for FallingBlockEntity {
         out.put_boolean("CancelDrop", self.cancel_drop);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         self.block_state = input
             .get("BlockState")
             .and_then(|t| {

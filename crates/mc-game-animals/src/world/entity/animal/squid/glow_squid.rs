@@ -108,8 +108,8 @@ impl Entity for GlowSquid {
         out.put_int("DarkTicksRemaining", self.get_dark_ticks_remaining());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.set_dark_ticks(input.get_int_or("DarkTicksRemaining", 0));
     }
 

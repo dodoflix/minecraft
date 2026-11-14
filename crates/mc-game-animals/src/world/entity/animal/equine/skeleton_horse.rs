@@ -315,8 +315,8 @@ impl Entity for SkeletonHorse {
         out.put_int("SkeletonTrapTime", self.trap_time);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        abstract_horse::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        abstract_horse::read_additional_save_data(self, level, input);
         self.set_trap(input.get_boolean_or("SkeletonTrap", false));
         self.trap_time = input.get_int_or("SkeletonTrapTime", 0);
     }

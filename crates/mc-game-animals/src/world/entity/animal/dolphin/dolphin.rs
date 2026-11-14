@@ -450,8 +450,8 @@ impl Entity for Dolphin {
         out.put_int("Moistness", self.get_moistness_level());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.set_got_fish(input.get_boolean_or("GotFish", false));
         self.set_moistness_level(input.get_int_or("Moistness", TOTAL_MOISTNESS_LEVEL));
     }

@@ -69,7 +69,11 @@ pub fn add_additional_save_data(data: &AbstractVillagerData, out: &mut CompoundT
 }
 
 /// `AbstractVillager.readAdditionalSaveData` (after `super`).
-pub fn read_additional_save_data(data: &mut AbstractVillagerData, input: &CompoundTag) {
+pub fn read_additional_save_data(
+    data: &mut AbstractVillagerData,
+    _level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
     data.offers = input.get("Offers").and_then(|t| {
         mc_dfu::parse_nbt(&MerchantOffers::codec(), t)
             .into_result()

@@ -248,7 +248,7 @@ fn teleport_cross_dimension(
                     ignore_checks: true,
                 },
             )?;
-            new.restore_from(&*entity);
+            new.restore_from(new_level, &*entity);
             let current = position_move_rotation_of(entity);
             remove_after_changing_dimensions(old_level, entity);
             new.teleport_set_position_from(current, t.position_move_rotation(), t.relatives);

@@ -712,9 +712,13 @@ pub fn add_additional_save_data<T: CubeMob + ?Sized>(this: &T, out: &mut Compoun
 }
 
 /// `readAdditionalSaveData(input)`.
-pub fn read_additional_save_data<T: CubeMob + ?Sized>(this: &mut T, input: &CompoundTag) {
+pub fn read_additional_save_data<T: CubeMob + ?Sized>(
+    this: &mut T,
+    level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
     this.set_size(input.get_int_or("Size", 0).wrapping_add(1), false);
-    mob::nbt::read_additional_save_data(this.as_dyn_mut(), input);
+    mob::nbt::read_additional_save_data(this.as_dyn_mut(), level, input);
     this.cube_mut().was_on_ground = input.get_boolean_or("wasOnGround", false);
 }
 

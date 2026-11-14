@@ -99,7 +99,7 @@ pub fn check_spawn(level: &mut ServerLevel, pos: BlockPos) {
     );
     // `witherBoss.makeInvulnerable()`: `setInvulnerableTicks(220)` (saved as `Invul`)
     tag.put_int("Invul", 220);
-    if let Err(message) = wither.load(&tag) {
+    if let Err(message) = wither.load(level, &tag) {
         log::warn!("Exception configuring summoned wither: {message}");
         return;
     }

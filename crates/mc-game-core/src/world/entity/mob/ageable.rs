@@ -304,7 +304,11 @@ pub fn add_additional_save_data(e: &dyn Entity, out: &mut CompoundTag) {
 }
 
 /// `AgeableMob.readAdditionalSaveData`.
-pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
+pub fn read_additional_save_data(
+    e: &mut dyn Entity,
+    _level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
     if e.can_be_a_baby() {
         set_age(e, input.get_int_or("Age", 0));
         adm(e).forced_age = input.get_int_or("ForcedAge", 0);

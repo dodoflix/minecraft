@@ -437,7 +437,7 @@ impl Entity for ExperienceOrb {
         out.put_int("Count", self.count);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         self.health = i32::from(input.get_short_or("Health", 5));
         self.age = i32::from(input.get_short_or("Age", 0));
         self.set_value(i32::from(input.get_short_or("Value", 0)));

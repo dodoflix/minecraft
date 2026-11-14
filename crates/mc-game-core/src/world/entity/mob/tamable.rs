@@ -137,7 +137,11 @@ pub fn add_additional_save_data(e: &dyn Entity, out: &mut CompoundTag) {
 }
 
 /// `TamableAnimal.readAdditionalSaveData`.
-pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
+pub fn read_additional_save_data(
+    e: &mut dyn Entity,
+    _level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
     let owner = crate::world::entity::entity::read_uuid(input.get("Owner"));
     match owner {
         Some(owner) => {

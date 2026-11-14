@@ -212,10 +212,10 @@ impl Entity for IronGolem {
         neutral::add_persistent_anger_save_data(self, out);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.set_player_created(input.get_boolean_or("PlayerCreated", false));
-        neutral::read_persistent_anger_save_data(self, None, input);
+        neutral::read_persistent_anger_save_data(self, level, input);
     }
 
     fn start_persistent_anger_timer(&mut self, level: &mut ServerLevel) {

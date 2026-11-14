@@ -944,7 +944,7 @@ pub fn entity_load_data(
     let result = level
         .with_entity(entity.id, |level, e| {
             let uuid = e.uuid();
-            let result = e.load(data);
+            let result = e.load(level, data);
             e.read_level_dependent_data(level);
             e.base_mut().uuid = uuid;
             e.post_data_manipulated(level);

@@ -416,8 +416,8 @@ impl Entity for ShulkerBullet {
         out.put_double("TZD", self.target_delta_z);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        super::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        super::read_additional_save_data(self, level, input);
         self.flight_steps = input.get_int_or("Steps", 0);
         self.target_delta_x = input.get_double_or("TXD", 0.0);
         self.target_delta_y = input.get_double_or("TYD", 0.0);

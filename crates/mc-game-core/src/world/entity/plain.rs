@@ -3,6 +3,7 @@
 
 use super::EntityId;
 use super::entity::{self, Entity, EntityData};
+use crate::server::level::ServerLevel;
 use mc_data::EntityType;
 use mc_nbt::CompoundTag;
 use std::any::Any;
@@ -75,7 +76,7 @@ impl Entity for PlainEntity {
         self
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         self.extra = CompoundTag::new();
         for (k, v) in input.iter() {
             if !base_keys().contains(&k.as_str()) {
@@ -96,6 +97,7 @@ mod tests {
     use super::*;
     use crate::server::level::ServerLevel;
     use crate::world::entity::factory;
+    use crate::world::scores::PlayerTeam;
     use mc_nbt::{ListTag, Tag, compound};
 
     fn pig_tag() -> CompoundTag {
@@ -146,6 +148,27 @@ mod tests {
         let none = |_| None;
         let saved = crate::world::entity::entity::save(loaded[0].as_ref(), &none).unwrap();
         assert_eq!(saved, tag);
+    }
+
+    #[test]
+    fn the_team_tag_joins_the_loaded_entity_to_its_team() {
+        let level = ServerLevel::detached(
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+        );
+        level.scoreboard_mut().add_player_team("red");
+        let mut tag = pig_tag();
+        tag.put_string("Team", "red");
+        let loaded = factory::load_entities_recursive(
+            std::slice::from_ref(&tag),
+            &level,
+            mc_data::enums::EntitySpawnReason::Load,
+        );
+        let uuid = loaded[0].uuid().to_string();
+        let scoreboard = level.scoreboard();
+        assert_eq!(
+            scoreboard.get_players_team(&uuid).map(PlayerTeam::get_name),
+            Some("red")
+        );
     }
 
     #[test]

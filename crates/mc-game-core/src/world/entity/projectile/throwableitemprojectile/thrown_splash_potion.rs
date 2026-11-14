@@ -166,8 +166,8 @@ impl Entity for ThrownSplashPotion {
         throwable::add_additional_save_data(self, out);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        throwable::read_additional_save_data(self, input, Item::SPLASH_POTION);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        throwable::read_additional_save_data(self, level, input, Item::SPLASH_POTION);
     }
 }
 

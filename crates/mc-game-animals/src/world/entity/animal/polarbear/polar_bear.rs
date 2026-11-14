@@ -328,9 +328,9 @@ impl Entity for PolarBear {
         false
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
-        neutral::read_persistent_anger_save_data(self, None, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
+        neutral::read_persistent_anger_save_data(self, level, input);
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {

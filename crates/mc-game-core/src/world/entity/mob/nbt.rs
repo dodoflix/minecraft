@@ -4,6 +4,7 @@
 
 use super::drop_chances::DropChances;
 use super::{ageable, animal, leashable, tamable};
+use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::living;
 use mc_core::ident::Identifier;
@@ -58,29 +59,37 @@ pub fn mob_add_additional_save_data(e: &dyn Entity, out: &mut CompoundTag) {
 }
 
 /// `Mob.readAdditionalSaveData` plus the generic subclasses' keys (also `LivingEntity.readAdditionalSaveData`).
-pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
+pub fn read_additional_save_data(
+    e: &mut dyn Entity,
+    level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
     {
         let l = e.living_mut().expect("living");
-        let (absorption, equipment) = living::read_additional_save_data(l, input);
+        let (absorption, equipment) = living::read_additional_save_data(l, level, input);
         l.absorption_amount = absorption;
         l.equipment = equipment;
     }
     // `this.brain = this.makeBrain(packed)` (the Brain step of `LivingEntity.readAdditionalSaveData`)
     crate::world::entity::ai::brain::read_brain(e, input);
-    mob_read_additional_save_data(e, input);
+    mob_read_additional_save_data(e, level, input);
     if e.mob().is_some_and(|m| m.ageable.is_some()) {
-        ageable::read_additional_save_data(e, input);
+        ageable::read_additional_save_data(e, level, input);
     }
     if e.mob().is_some_and(|m| m.animal.is_some()) {
-        animal::read_additional_save_data(e, input);
+        animal::read_additional_save_data(e, level, input);
     }
     if e.mob().is_some_and(|m| m.tamable.is_some()) {
-        tamable::read_additional_save_data(e, input);
+        tamable::read_additional_save_data(e, level, input);
     }
 }
 
 /// `Mob.readAdditionalSaveData` alone (after `LivingEntity`'s).
-pub fn mob_read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
+pub fn mob_read_additional_save_data(
+    e: &mut dyn Entity,
+    _level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
     e.set_can_pick_up_loot(input.get_boolean_or("CanPickUpLoot", false));
     leashable::read_leash_data(e, None, input);
     let m = e.mob_mut().expect("mob");

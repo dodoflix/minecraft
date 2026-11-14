@@ -45,7 +45,10 @@ fn vanilla_player_file_round_trips() {
         },
         Default::default(),
     );
-    player.load(&original).unwrap();
+    let level = mc_game_core::server::level::ServerLevel::detached(
+        Identifier::parse("minecraft:overworld").unwrap(),
+    );
+    player.load(&level, &original).unwrap();
     let none = |_| None;
     let saved = player.save_player_data(&none);
     // Documented differences: `XpSeed` 0 is replaced by a random seed on load (vanilla does the same); the order of

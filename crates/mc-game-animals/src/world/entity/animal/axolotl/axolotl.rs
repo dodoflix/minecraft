@@ -437,8 +437,8 @@ impl Entity for Axolotl {
         out.put_boolean("FromBucket", Bucketable::from_bucket(self));
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.set_variant(variant_by_id(
             input.get_int_or("Variant", DEFAULT_VARIANT.id()),
         ));

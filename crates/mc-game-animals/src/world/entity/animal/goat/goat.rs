@@ -422,8 +422,8 @@ impl Entity for Goat {
         out.put_boolean("HasRightHorn", self.has_right_horn());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.set_screaming_goat(input.get_boolean_or("IsScreamingGoat", false));
         let data = &mut self.base_mut().entity_data;
         data.set(

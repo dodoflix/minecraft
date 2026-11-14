@@ -715,8 +715,12 @@ pub fn add_additional_save_data(zombie: &Zombie, out: &mut CompoundTag) {
 }
 
 /// `readAdditionalSaveData(input)`.
-pub fn read_additional_save_data(zombie: &mut Zombie, input: &CompoundTag) {
-    mob::nbt::read_additional_save_data(zombie, input);
+pub fn read_additional_save_data(
+    zombie: &mut Zombie,
+    level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
+    mob::nbt::read_additional_save_data(zombie, level, input);
     zombie.set_baby(input.get_boolean_or("IsBaby", false));
     zombie.set_can_break_doors(input.get_boolean_or("CanBreakDoors", false));
     zombie
@@ -724,10 +728,10 @@ pub fn read_additional_save_data(zombie: &mut Zombie, input: &CompoundTag) {
         .read_additional_save_data(&mut zombie.mob.living.entity.entity_data, input);
     match &zombie.kind {
         ZombieKind::ZombieVillager(_) => {
-            super::zombie_villager::read_additional_save_data(zombie, input)
+            super::zombie_villager::read_additional_save_data(zombie, level, input)
         }
         ZombieKind::ZombifiedPiglin(_) => {
-            mob::neutral::read_persistent_anger_save_data(zombie, None, input)
+            mob::neutral::read_persistent_anger_save_data(zombie, level, input)
         }
         _ => {}
     }

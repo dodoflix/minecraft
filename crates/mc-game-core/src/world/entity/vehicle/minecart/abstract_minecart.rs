@@ -508,7 +508,11 @@ pub fn add_additional_save_data<M: AbstractMinecart + ?Sized>(m: &M, out: &mut C
 }
 
 /// `readAdditionalSaveData(input)`.
-pub fn read_additional_save_data<M: AbstractMinecart + ?Sized>(m: &mut M, input: &CompoundTag) {
+pub fn read_additional_save_data<M: AbstractMinecart + ?Sized>(
+    m: &mut M,
+    _level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
     let state = input.get("DisplayState").and_then(decode_block_state);
     m.base_mut()
         .entity_data

@@ -1,6 +1,7 @@
 //! `net.minecraft.world.entity.decoration.Mannequin` (an `Avatar`: a living entity wearing a player model).
 
 use crate::define_accessor;
+use crate::server::level::ServerLevel;
 use crate::world::entity::dimensions::EntityDimensions;
 use crate::world::entity::entity::{EntityData, TOTAL_AIR_SUPPLY};
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
@@ -223,8 +224,9 @@ impl Entity for Mannequin {
             None => out.put_boolean("hide_description", true),
         }
     }
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        let (absorption, equipment) = living::read_additional_save_data(&mut self.living, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        let (absorption, equipment) =
+            living::read_additional_save_data(&mut self.living, level, input);
         self.living.absorption_amount = absorption;
         self.living.equipment = equipment;
         if let Some(profile) = input.get("profile").and_then(|t| {

@@ -758,9 +758,9 @@ impl Entity for Llama {
         }
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
         self.set_strength(input.get_int_or("Strength", 0));
-        abstract_chested_horse::read_additional_save_data(self, input);
+        abstract_chested_horse::read_additional_save_data(self, level, input);
         let variant = input
             .get_int("Variant")
             .map_or(LlamaVariant::Creamy, variant_by_id);

@@ -216,8 +216,8 @@ impl Entity for Pillager {
         inventory_carrier::write_inventory_to_tag(&self.inventory, out);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        raider::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        raider::read_additional_save_data(self, level, input);
         inventory_carrier::read_inventory_from_tag(&mut self.inventory, input);
         self.set_can_pick_up_loot(true);
     }

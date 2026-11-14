@@ -468,8 +468,8 @@ impl Entity for Bee {
         neutral::add_persistent_anger_save_data(self, out);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.set_has_nectar(input.get_boolean_or("HasNectar", false));
         self.set_has_stung(input.get_boolean_or("HasStung", false));
         self.ticks_without_nectar_since_exiting_hive = input.get_int_or("TicksSincePollination", 0);
@@ -478,7 +478,7 @@ impl Entity for Bee {
         self.hive_pos = mc_game_core::world::entity::living::read_block_pos(input.get("hive_pos"));
         self.saved_flower_pos =
             mc_game_core::world::entity::living::read_block_pos(input.get("flower_pos"));
-        neutral::read_persistent_anger_save_data(self, None, input);
+        neutral::read_persistent_anger_save_data(self, level, input);
     }
 
     fn start_persistent_anger_timer(&mut self, level: &mut ServerLevel) {

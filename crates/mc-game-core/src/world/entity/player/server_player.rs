@@ -1,6 +1,7 @@
 //! `net.minecraft.server.level.ServerPlayer` data and NBT.
 
 use super::PlayerData;
+use crate::server::level::ServerLevel;
 use crate::server::network::ConnectionSender;
 use crate::world::entity::entity::{self, Entity, EntityData, EntityLookupFn};
 use crate::world::entity::living::{self, LivingEntityData};
@@ -1239,9 +1240,9 @@ impl Entity for ServerPlayer {
         }
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
         let (absorption, equipment) =
-            living::read_additional_save_data(&mut self.player.living, input);
+            living::read_additional_save_data(&mut self.player.living, level, input);
         self.player.inventory.equipment_mut().set_all(&equipment);
         // Player
         if let Some(list) = input.get_list("Inventory") {

@@ -202,8 +202,8 @@ impl Entity for Salmon {
         out.put_string("type", self.get_variant().name());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        abstract_fish::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        abstract_fish::read_additional_save_data(self, level, input);
         let variant = input
             .get_string("type")
             .and_then(SalmonVariant::from_name)

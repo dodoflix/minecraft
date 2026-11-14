@@ -357,8 +357,8 @@ impl Entity for Zoglin {
         out.put_boolean("IsBaby", self.is_baby());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.set_baby(input.get_boolean_or("IsBaby", false));
     }
 }

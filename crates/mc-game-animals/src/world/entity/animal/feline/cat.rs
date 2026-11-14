@@ -839,8 +839,8 @@ impl Entity for Cat {
         out.put_byte("CollarColor", self.get_collar_color().id() as i8);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.pending_variant = variant::read_variant_key(input);
         self.pending_sound_variant = input
             .get_string("sound_variant")

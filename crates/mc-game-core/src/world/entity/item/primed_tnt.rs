@@ -259,7 +259,7 @@ impl Entity for PrimedTnt {
         }
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         self.set_fuse(i32::from(input.get_short_or("fuse", DEFAULT_FUSE_TIME)));
         self.set_block_state(
             input

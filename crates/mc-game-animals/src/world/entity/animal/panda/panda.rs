@@ -854,8 +854,8 @@ impl Entity for Panda {
         out.put_string("HiddenGene", self.get_hidden_gene().name());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        mob::nbt::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        mob::nbt::read_additional_save_data(self, level, input);
         self.set_main_gene(
             input
                 .get_string("MainGene")

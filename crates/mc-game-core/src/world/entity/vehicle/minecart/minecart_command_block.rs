@@ -203,8 +203,8 @@ impl Entity for MinecartCommandBlock {
         self.command_block.save(out);
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        abstract_minecart::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        abstract_minecart::read_additional_save_data(self, level, input);
         self.command_block.load(input);
         self.on_updated();
     }

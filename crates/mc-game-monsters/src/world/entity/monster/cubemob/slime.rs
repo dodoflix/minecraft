@@ -193,8 +193,8 @@ impl Entity for Slime {
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         acm::add_additional_save_data(self, out);
     }
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        acm::read_additional_save_data(self, input);
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        acm::read_additional_save_data(self, level, input);
     }
 }
 

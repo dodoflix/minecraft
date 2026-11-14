@@ -382,14 +382,14 @@ impl Entity for Painting {
             out.put_string("variant", key.to_string());
         }
     }
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
         let direction = input
             .get("facing")
             .and_then(|t| t.as_number())
             .map_or(Direction::South, |n| {
                 Direction::from_2d_data_value(i32::from(n.byte_value()))
             });
-        block_attached::read_additional_save_data(self, input);
+        block_attached::read_additional_save_data(self, level, input);
         self.set_direction(direction);
         self.pending_variant = input.get_string("variant").and_then(Identifier::try_parse);
     }

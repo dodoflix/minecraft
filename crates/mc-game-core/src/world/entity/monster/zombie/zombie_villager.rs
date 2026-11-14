@@ -478,7 +478,11 @@ pub fn add_additional_save_data(zombie: &Zombie, out: &mut CompoundTag) {
 
 /// ZombieVillager part of `readAdditionalSaveData` (the effects of `startConverting` need the level:
 /// [`read_level_dependent_data`]).
-pub fn read_additional_save_data(zombie: &mut Zombie, input: &CompoundTag) {
+pub fn read_additional_save_data(
+    zombie: &mut Zombie,
+    _level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
     let villager_data = input.get_compound("VillagerData").map(VillagerData::load);
     if input.get_boolean_or("VillagerDataFinalized", false) || villager_data.is_some() {
         set_villager_data_finalized(zombie, true);

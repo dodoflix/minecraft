@@ -173,7 +173,7 @@ impl Entity for EndCrystal {
         out.put_boolean("ShowBottom", self.shows_bottom());
     }
 
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+    fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         self.set_beam_target(read_block_pos(input.get("beam_target")));
         self.set_show_bottom(input.get_boolean_or("ShowBottom", DEFAULT_SHOW_BOTTOM));
     }

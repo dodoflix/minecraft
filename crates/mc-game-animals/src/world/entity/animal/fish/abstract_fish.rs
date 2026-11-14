@@ -104,8 +104,12 @@ pub fn add_additional_save_data(e: &dyn Entity, out: &mut CompoundTag) {
 }
 
 /// `readAdditionalSaveData`: `FromBucket`.
-pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
-    mob::nbt::read_additional_save_data(e, input);
+pub fn read_additional_save_data(
+    e: &mut dyn Entity,
+    level: Option<&ServerLevel>,
+    input: &CompoundTag,
+) {
+    mob::nbt::read_additional_save_data(e, level, input);
     set_from_bucket(e, input.get_boolean_or("FromBucket", false));
 }
 
