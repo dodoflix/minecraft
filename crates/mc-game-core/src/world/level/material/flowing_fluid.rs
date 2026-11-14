@@ -14,6 +14,7 @@ use mc_core::phys::shapes::{Shapes, VoxelShape};
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::fluid::{Fluid, FluidState};
+use std::cell::RefCell;
 use std::collections::HashMap;
 use std::sync::LazyLock;
 
@@ -184,25 +185,31 @@ pub fn get_height(fluid_state: FluidState, level: &dyn BlockGetter, pos: BlockPo
     }
 }
 
-/// `getShape(state, level, pos)`, including vanilla's per-state `shapes` memo (the first computed height wins).
+/// `getShape(state, level, pos)`, including vanilla's per-state `shapes` memo: the first height computed for a fluid state
+/// stays (a source block with water above and one without share it, so the answer depends on which position was asked first).
+/// The memo lives per game thread: a server has one game thread, and vanilla's memo is per JVM, so in-process runs that
+/// replay several worlds on separate threads each start with an empty one like a fresh vanilla JVM.
 pub fn get_shape(state: FluidState, level: &dyn BlockGetter, pos: BlockPos) -> VoxelShape {
     if state.amount() == 9 && has_same_above(state, level, pos) {
         return Shapes::block();
     }
-    static SHAPES: LazyLock<Vec<std::sync::OnceLock<VoxelShape>>> =
-        LazyLock::new(|| (0..=u8::MAX).map(|_| std::sync::OnceLock::new()).collect());
-    SHAPES[state.id() as usize]
-        .get_or_init(|| {
-            Shapes::box_(
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                f64::from(state.get_height(level, pos)),
-                1.0,
-            )
-        })
-        .clone()
+    thread_local! {
+        static SHAPES: RefCell<Vec<Option<VoxelShape>>> = RefCell::new(vec![None; usize::from(u8::MAX) + 1]);
+    }
+    let index = state.id() as usize;
+    if let Some(shape) = SHAPES.with_borrow(|shapes| shapes[index].clone()) {
+        return shape;
+    }
+    let shape = Shapes::box_(
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        f64::from(state.get_height(level, pos)),
+        1.0,
+    );
+    SHAPES.with_borrow_mut(|shapes| shapes[index] = Some(shape.clone()));
+    shape
 }
 
 // --------------------------------------------------------------------------------------------- pass-through logic
