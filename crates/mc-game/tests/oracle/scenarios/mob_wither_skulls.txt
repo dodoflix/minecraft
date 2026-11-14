@@ -1,0 +1,35 @@
+# Wither skulls against a player and a mob: the skull of the body head flies at the target, deals 8 damage with the wither effect of the
+# difficulty (10 s normal, 40 s hard) and explodes with power 1; a pig it kills heals the wither by 5 and a wither rose grows where it stood. The
+# player's absorption soaks the damage so the hits stay countable, and the explosions break the blocks they reach.
+command_env
+level flat
+preload 6
+difficulty normal
+level_seed 5821
+entity_counter 5820
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 9.5 180 0
+effect Steve minecraft:absorption 249 100000
+spawn_player Alex creative 5.5 -60 9.5 180 0
+tick 2
+dump packets:Steve:none packets:Alex:none
+mobspawn W minecraft:wither -9.5 -58 -6.5 0 0 {PersistenceRequired:1b}
+entity_seed W 31
+mobspawn P minecraft:pig 9.5 -60 -3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:10.0f}
+entity_seed P 32
+block 0 -60 3 minecraft:dirt
+block 2 -60 3 minecraft:stone
+block 1 -60 4 minecraft:grass_block
+tick 1
+dump counter xentity:W
+note the first skulls and their hits on normal
+watch xentities events packets:Steve:damage_event,update_mob_effect,hurt_animation,entity_event,set_health,explode,sound
+tick 100
+watch off
+dump xentity:W xentity:P nbt:W rng:W rng:level
+note on hard the wither effect lasts 40 seconds
+difficulty hard
+watch xentities events packets:Steve:damage_event,update_mob_effect,hurt_animation,entity_event,explode
+tick 100
+watch off
+dump xentities xentity:W nbt:W rng:W rng:level stats:Steve

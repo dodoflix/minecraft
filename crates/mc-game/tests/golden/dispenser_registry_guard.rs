@@ -107,7 +107,6 @@ const NOT_IMPLEMENTED: &[(&str, &str)] = &[
 /// hand with the commit that completes the behaviour.
 #[rustfmt::skip]
 const INCOMPLETE: &[(&str, &str)] = &[
-    ("minecraft:wither_skeleton_skull", "a skull on a soul sand wither pattern summons a WitherBoss (the block only creates an inert entity)"),
 ];
 
 fn registered() -> BTreeSet<&'static str> {

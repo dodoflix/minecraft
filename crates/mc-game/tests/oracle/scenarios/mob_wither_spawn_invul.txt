@@ -1,0 +1,92 @@
+# The wither summoned from its pattern charges up: invulnerable for 220 ticks with 100 health, the boss bar progress follows the countdown, it heals ten
+# every ten ticks, the heads and goals do nothing, hits that do not bypass invulnerability are refused, and the last tick ends with a blast of power 7
+# at its eye (the level event of the spawn sound included) that breaks the blocks around. Afterwards the heads wake up and look for the player.
+command_env
+level flat
+preload 6
+difficulty normal
+level_seed 5801
+entity_counter 5800
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 4.5 0 0
+set Steve invulnerable true
+give Steve hotbar0 minecraft:wither_skeleton_skull 3
+select Steve 0
+tick 2
+dump packets:Steve:none
+block 6 -60 0 minecraft:stone
+block 6 -59 0 minecraft:bedrock
+block 4 -60 3 minecraft:dirt
+block -5 -59 2 minecraft:oak_planks
+block -7 -60 -2 minecraft:glass
+fill -2 -62 -2 2 -62 2 minecraft:obsidian
+note the pattern: soul sand T along x, two side skulls then the middle one
+fill -1 -59 0 1 -59 0 minecraft:soul_sand
+block 0 -60 0 minecraft:soul_sand
+use_on Steve -1 -59 0 up main 0.5 1.0 0.5
+use_on Steve 1 -59 0 up main 0.5 1.0 0.5
+use_on Steve 0 -59 0 up main 0.5 1.0 0.5
+dump entities xentities counter events packets:Steve:add_entity,set_entity_data,boss_event
+tick 1
+dump xentity:wither#1 events packets:Steve:boss_event,set_entity_data,sound
+note refused hits while charging: a generic hit and a mob attack are not accepted
+hurt wither#1 generic 10
+hurt wither#1 mob_attack 10
+tick 1
+dump xentity:wither#1 packets:Steve:damage_event,boss_event,set_health
+note a hit that bypasses invulnerability goes through
+hurt wither#1 out_of_world 5
+tick 1
+dump xentity:wither#1 nbt:wither#1 packets:Steve:damage_event,boss_event,entity_event
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 10
+dump xentity:wither#1 rng:wither#1 rng:level
+tick 16
+dump xentity:wither#1 rng:wither#1 rng:level packets:Steve:boss_event,set_entity_data
+note the last charging tick: the blast and the spawn sound level event
+watch xentity:wither#1 events packets:Steve:boss_event,sound,explode,level_event,set_entity_data
+tick 3
+watch off
+dump blocks:-8,-63,-4,8,-57,6 entities
+note the heads wake up: the body targets the player and the heads pick targets
+watch xentity:wither#1 events
+tick 20
+watch off
+dump nbt:wither#1 xentities counter

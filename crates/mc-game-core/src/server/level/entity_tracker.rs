@@ -227,8 +227,10 @@ impl TrackedEntity {
                 c.send_payload(p);
             }
         }
-        if let Some(p) = entities.get_any_mut(self.entity_id) {
-            p.start_seen_by_player(player.id);
+        if let Some(connection) = &player.connection
+            && let Some(p) = entities.get_any_mut(self.entity_id)
+        {
+            p.start_seen_by_player(player.id, connection);
         }
     }
 

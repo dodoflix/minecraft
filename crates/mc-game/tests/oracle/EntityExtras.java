@@ -37,6 +37,7 @@ import net.minecraft.world.entity.monster.warden.AngerManagement;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.monster.illager.Evoker;
 import net.minecraft.world.entity.monster.illager.Pillager;
@@ -142,6 +143,20 @@ final class EntityExtras {
          out.add("state", e.getEntityData().get(state).name().toLowerCase(java.util.Locale.ROOT));
          out.add("dropat", e.getEntityData().get(dropAt));
          out.add("size", EntityOracleDriver.f(e.getBbWidth()) + "," + EntityOracleDriver.f(e.getBbHeight()) + "," + EntityOracleDriver.f(e.getEyeHeight()));
+      }));
+      ALL.add(new Extra(25, WitherBoss.class, (d, e, out) -> {
+         WitherBoss w = (WitherBoss)e;
+         float[] xs = w.getHeadXRots();
+         float[] ys = w.getHeadYRots();
+         int[] next = (int[])EntityOracleDriver.priv(e, WitherBoss.class, "nextHeadUpdate");
+         int[] idle = (int[])EntityOracleDriver.priv(e, WitherBoss.class, "idleHeadUpdates");
+         var bar = (net.minecraft.server.level.ServerBossEvent)EntityOracleDriver.priv(e, WitherBoss.class, "bossEvent");
+         out.add("inv", w.getInvulnerableTicks());
+         out.add("tgt", w.getAlternativeTarget(0) + "," + w.getAlternativeTarget(1) + "," + w.getAlternativeTarget(2));
+         out.add("heads", EntityOracleDriver.f(xs[0]) + "/" + EntityOracleDriver.f(ys[0]) + "," + EntityOracleDriver.f(xs[1]) + "/" + EntityOracleDriver.f(ys[1]));
+         out.add("nhu", next[0] + "," + next[1]).add("idle", idle[0] + "," + idle[1]);
+         out.add("dbt", EntityOracleDriver.priv(e, WitherBoss.class, "destroyBlocksTick"));
+         out.add("bossp", EntityOracleDriver.f(bar.getProgress()));
       }));
       ALL.add(new Extra(32, net.minecraft.world.entity.animal.nautilus.AbstractNautilus.class, (d, e, out) -> {
          out.add("dashcd", EntityOracleDriver.priv(e, net.minecraft.world.entity.animal.nautilus.AbstractNautilus.class, "dashCooldown"));

@@ -1,0 +1,879 @@
+C Game rule mob_drops is now set to false
+# the pattern: soul sand T along x, two side skulls then the middle one
+E wither#1 minecraft:wither pos=0.5,-59.45,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wither#1 minecraft:wither pos=0.5,-59.45,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.854769 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=220 tgt=0,0,0 heads=0.0/0.0,0.0/0.0 nhu=0,0 idle=0,0 dbt=0 bossp=0.0
+COUNTER 5802
+EV sound at=-0.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=1,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=-1,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=-1,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=-1,-60,0 data=0 global=0
+EV sound at=0.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+PKT Steve minecraft:add_entity 01aa2d55b28353cbd34c00b434b0f31c77520b95013fe0000000000000c04db9999999999a3fe00000000000000000400400
+PKT Steve minecraft:set_entity_data 65aa2d090342c800001301dc01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32000a080009696e73657274696f6e002435356232383335332d636264332d346330302d623433342d6230663331633737353230620a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650017656e746974792e6d696e6563726166742e77697468657200080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a7769746865720b0004757569640000000455b28353cbd34c00b434b0f31c77520b000800097472616e736c6174650017656e746974792e6d696e6563726166742e7769746865720000000000050001
+E wither#1 minecraft:wither pos=0.5,-59.45,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=15.854769 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=219 tgt=0,0,0 heads=0.0/10.0,0.0/10.0 nhu=0,0 idle=0,0 dbt=0 bossp=0.00454545
+PKT Steve minecraft:set_entity_data 65aa2d090342c800001301dc01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023b94f200
+# refused hits while charging: a generic hit and a mob attack are not accepted
+HURT wither#1 generic 10 -> false
+HURT wither#1 mob_attack 10 -> false
+E wither#1 minecraft:wither pos=0.5,-59.49704000091553,0.5 delta=0.0,-0.12449920332031252,0.0 rot=90.0,0.0 og=0 fall=0.047040000557899475 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=25.854769 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=218 tgt=0,0,0 heads=0.0/20.0,0.0/20.0 nhu=0,0 idle=0,0 dbt=0 bossp=0.0090909
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023c14f200
+# a hit that bypasses invulnerability goes through
+HURT wither#1 out_of_world 5 -> true
+E wither#1 minecraft:wither pos=0.5,-59.57173952290772,0.5 delta=0.0,-0.151605534503003,0.0 rot=90.0,0.0 og=0 fall=0.12173952162265778 fire=0 air=300 alive=1 pose=standing hp=95.0 abs=0.0 hurt=9/19 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=35.854767 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=217 tgt=0,0,0 heads=0.0/30.0,0.0/30.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.013636351
+N wither#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:95.0f,HurtTime:9s,Invul:217,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-0.151605534503003d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[0.5d,-59.57173952290772d,0.5d],Rotation:[90.0f,0.0f],attributes:[{base:0.6000000238418579d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.12173952162265778d}
+PKT Steve minecraft:damage_event 19aa2d20000000
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023c5f6b00
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=105.0 abs=0.0 hurt=0/9 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=207 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.059090912
+RNG wither#1 160535148831508
+RNG level 68479308097255
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=115.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=197 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.104545474
+RNG wither#1 180902956525776
+RNG level 141999943178081
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=125.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=187 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.14999998
+RNG wither#1 268086388366916
+RNG level 58896422944939
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=135.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=177 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.19545454
+RNG wither#1 172817720022164
+RNG level 40858401804613
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=145.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=167 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.2409091
+RNG wither#1 52913949083568
+RNG level 123389433047983
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=155.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=157 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.28636366
+RNG wither#1 191741390125096
+RNG level 111868619570733
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=165.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=147 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.33181816
+RNG wither#1 51040911085444
+RNG level 14643851212873
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=175.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=137 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.37727273
+RNG wither#1 7435981958692
+RNG level 252848511156645
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=185.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=127 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.4227273
+RNG wither#1 44396106554552
+RNG level 159976431670849
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=195.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=117 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.4681818
+RNG wither#1 181589488602160
+RNG level 82089524310557
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=205.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=107 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.51363635
+RNG wither#1 266520196879370
+RNG level 241428361007417
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=215.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=97 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.5590909
+RNG wither#1 158922257461070
+RNG level 205582462562197
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=225.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=87 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.6045455
+RNG wither#1 258207909302074
+RNG level 207855232551217
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=235.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=77 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.65
+RNG wither#1 249636160687758
+RNG level 101918277884429
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=245.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=67 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.69545454
+RNG wither#1 19607695483982
+RNG level 224782231854633
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=255.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=57 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.7409091
+RNG wither#1 230344201826022
+RNG level 248899511423365
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=265.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=47 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.7863636
+RNG wither#1 216362866170494
+RNG level 268557501902881
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=275.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=37 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.83181816
+RNG wither#1 27913152054822
+RNG level 200512164869629
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=285.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=27 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.8772727
+RNG wither#1 254547814580462
+RNG level 216998627467033
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=295.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=17 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.9227273
+RNG wither#1 209575276872102
+RNG level 78490256123765
+E wither#1 minecraft:wither pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=1 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=0.99545455
+RNG wither#1 74824564686282
+RNG level 264100551857621
+PKT Steve minecraft:set_entity_data 65aa2d1301d901ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023c94f200
+PKT Steve minecraft:set_entity_data 65aa2d1301d801ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023cba2e80
+PKT Steve minecraft:set_entity_data 65aa2d1301d701ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023cdf6b00
+PKT Steve minecraft:set_entity_data 65aa2d1301d601ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023d0253d0
+PKT Steve minecraft:set_entity_data 65aa2d1301d501ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023d14f210
+PKT Steve minecraft:set_entity_data 65aa2d1301d401ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023d279050
+PKT Steve minecraft:set_entity_data 65aa2d1301d301ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023d3a2e90
+PKT Steve minecraft:set_entity_data 65aa2d090342d200001301d201ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023d4cccd0
+PKT Steve minecraft:set_entity_data 65aa2d1301d101ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023d5f6b10
+PKT Steve minecraft:set_entity_data 65aa2d1301d001ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023d720950
+PKT Steve minecraft:set_entity_data 65aa2d1301cf01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023d8253c8
+PKT Steve minecraft:set_entity_data 65aa2d1301ce01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023d8ba2e8
+PKT Steve minecraft:set_entity_data 65aa2d1301cd01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023d94f208
+PKT Steve minecraft:set_entity_data 65aa2d1301cc01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023d9e4128
+PKT Steve minecraft:set_entity_data 65aa2d1301cb01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023da79048
+PKT Steve minecraft:set_entity_data 65aa2d1301ca01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023db0df68
+PKT Steve minecraft:set_entity_data 65aa2d1301c901ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023dba2e88
+PKT Steve minecraft:set_entity_data 65aa2d090342e600001301c801ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023dc37db0
+PKT Steve minecraft:set_entity_data 65aa2d1301c701ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023dccccd0
+PKT Steve minecraft:set_entity_data 65aa2d1301c601ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023dd61bf0
+PKT Steve minecraft:set_entity_data 65aa2d1301c501ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ddf6b10
+PKT Steve minecraft:set_entity_data 65aa2d1301c401ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023de8ba30
+PKT Steve minecraft:set_entity_data 65aa2d1301c301ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023df20950
+PKT Steve minecraft:set_entity_data 65aa2d1301c201ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023dfb5870
+PKT Steve minecraft:set_entity_data 65aa2d1301c101ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e0253c8
+PKT Steve minecraft:set_entity_data 65aa2d1301c001ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e06fb58
+PKT Steve minecraft:set_entity_data 65aa2d1301bf01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e0ba2e8
+PKT Steve minecraft:set_entity_data 65aa2d090342fa00001301be01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e104a78
+PKT Steve minecraft:set_entity_data 65aa2d1301bd01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e14f208
+PKT Steve minecraft:set_entity_data 65aa2d1301bc01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e199998
+PKT Steve minecraft:set_entity_data 65aa2d1301bb01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e1e4128
+PKT Steve minecraft:set_entity_data 65aa2d1301ba01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e22e8bc
+PKT Steve minecraft:set_entity_data 65aa2d1301b901ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e27904c
+PKT Steve minecraft:set_entity_data 65aa2d1301b801ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e2c37dc
+PKT Steve minecraft:set_entity_data 65aa2d1301b701ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e30df6c
+PKT Steve minecraft:set_entity_data 65aa2d1301b601ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e3586fc
+PKT Steve minecraft:set_entity_data 65aa2d1301b501ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e3a2e8c
+PKT Steve minecraft:set_entity_data 65aa2d0903430700001301b401ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e3ed61c
+PKT Steve minecraft:set_entity_data 65aa2d1301b301ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e437dac
+PKT Steve minecraft:set_entity_data 65aa2d1301b201ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e48253c
+PKT Steve minecraft:set_entity_data 65aa2d1301b101ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e4ccccc
+PKT Steve minecraft:set_entity_data 65aa2d1301b001ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e51745c
+PKT Steve minecraft:set_entity_data 65aa2d1301af01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e561bec
+PKT Steve minecraft:set_entity_data 65aa2d1301ae01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e5ac37c
+PKT Steve minecraft:set_entity_data 65aa2d1301ad01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e5f6b0c
+PKT Steve minecraft:set_entity_data 65aa2d1301ac01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e6412a0
+PKT Steve minecraft:set_entity_data 65aa2d1301ab01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e68ba30
+PKT Steve minecraft:set_entity_data 65aa2d0903431100001301aa01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e6d61c0
+PKT Steve minecraft:set_entity_data 65aa2d1301a901ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e720950
+PKT Steve minecraft:set_entity_data 65aa2d1301a801ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e76b0e0
+PKT Steve minecraft:set_entity_data 65aa2d1301a701ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e7b5870
+PKT Steve minecraft:set_entity_data 65aa2d1301a601ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e800000
+PKT Steve minecraft:set_entity_data 65aa2d1301a501ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e8253c8
+PKT Steve minecraft:set_entity_data 65aa2d1301a401ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e84a790
+PKT Steve minecraft:set_entity_data 65aa2d1301a301ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e86fb58
+PKT Steve minecraft:set_entity_data 65aa2d1301a201ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e894f20
+PKT Steve minecraft:set_entity_data 65aa2d1301a101ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e8ba2e8
+PKT Steve minecraft:set_entity_data 65aa2d0903431b00001301a001ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e8df6b0
+PKT Steve minecraft:set_entity_data 65aa2d13019f01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e904a7a
+PKT Steve minecraft:set_entity_data 65aa2d13019e01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e929e42
+PKT Steve minecraft:set_entity_data 65aa2d13019d01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e94f20a
+PKT Steve minecraft:set_entity_data 65aa2d13019c01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e9745d2
+PKT Steve minecraft:set_entity_data 65aa2d13019b01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e99999a
+PKT Steve minecraft:set_entity_data 65aa2d13019a01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e9bed62
+PKT Steve minecraft:set_entity_data 65aa2d13019901ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023e9e412a
+PKT Steve minecraft:set_entity_data 65aa2d13019801ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ea094f2
+PKT Steve minecraft:set_entity_data 65aa2d13019701ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ea2e8ba
+PKT Steve minecraft:set_entity_data 65aa2d09034325000013019601ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ea53c82
+PKT Steve minecraft:set_entity_data 65aa2d13019501ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ea7904a
+PKT Steve minecraft:set_entity_data 65aa2d13019401ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ea9e412
+PKT Steve minecraft:set_entity_data 65aa2d13019301ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023eac37da
+PKT Steve minecraft:set_entity_data 65aa2d13019201ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023eae8ba2
+PKT Steve minecraft:set_entity_data 65aa2d13019101ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023eb0df6c
+PKT Steve minecraft:set_entity_data 65aa2d13019001ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023eb33334
+PKT Steve minecraft:set_entity_data 65aa2d13018f01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023eb586fc
+PKT Steve minecraft:set_entity_data 65aa2d13018e01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023eb7dac4
+PKT Steve minecraft:set_entity_data 65aa2d13018d01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023eba2e8c
+PKT Steve minecraft:set_entity_data 65aa2d0903432f000013018c01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ebc8254
+PKT Steve minecraft:set_entity_data 65aa2d13018b01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ebed61c
+PKT Steve minecraft:set_entity_data 65aa2d13018a01ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ec129e4
+PKT Steve minecraft:set_entity_data 65aa2d13018901ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ec37dac
+PKT Steve minecraft:set_entity_data 65aa2d13018801ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ec5d174
+PKT Steve minecraft:set_entity_data 65aa2d13018701ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ec8253c
+PKT Steve minecraft:set_entity_data 65aa2d13018601ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023eca7904
+PKT Steve minecraft:set_entity_data 65aa2d13018501ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ecccccc
+PKT Steve minecraft:set_entity_data 65aa2d13018401ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ecf2094
+PKT Steve minecraft:set_entity_data 65aa2d13018301ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ed1745e
+PKT Steve minecraft:set_entity_data 65aa2d09034339000013018201ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ed3c826
+PKT Steve minecraft:set_entity_data 65aa2d13018101ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ed61bee
+PKT Steve minecraft:set_entity_data 65aa2d13018001ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ed86fb6
+PKT Steve minecraft:set_entity_data 65aa2d13017fff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023edac37e
+PKT Steve minecraft:set_entity_data 65aa2d13017eff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023edd1746
+PKT Steve minecraft:set_entity_data 65aa2d13017dff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023edf6b0e
+PKT Steve minecraft:set_entity_data 65aa2d13017cff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ee1bed6
+PKT Steve minecraft:set_entity_data 65aa2d13017bff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ee4129e
+PKT Steve minecraft:set_entity_data 65aa2d13017aff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ee66666
+PKT Steve minecraft:set_entity_data 65aa2d130179ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ee8ba2e
+PKT Steve minecraft:set_entity_data 65aa2d090343430000130178ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023eeb0df6
+PKT Steve minecraft:set_entity_data 65aa2d130177ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023eed61be
+PKT Steve minecraft:set_entity_data 65aa2d130176ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023eefb586
+PKT Steve minecraft:set_entity_data 65aa2d130175ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ef20950
+PKT Steve minecraft:set_entity_data 65aa2d130174ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ef45d18
+PKT Steve minecraft:set_entity_data 65aa2d130173ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ef6b0e0
+PKT Steve minecraft:set_entity_data 65aa2d130172ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023ef904a8
+PKT Steve minecraft:set_entity_data 65aa2d130171ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023efb5870
+PKT Steve minecraft:set_entity_data 65aa2d130170ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023efdac38
+PKT Steve minecraft:set_entity_data 65aa2d13016fff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f000000
+PKT Steve minecraft:set_entity_data 65aa2d0903434d000013016eff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f0129e4
+PKT Steve minecraft:set_entity_data 65aa2d13016dff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f0253c8
+PKT Steve minecraft:set_entity_data 65aa2d13016cff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f037dac
+PKT Steve minecraft:set_entity_data 65aa2d13016bff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f04a790
+PKT Steve minecraft:set_entity_data 65aa2d13016aff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f05d174
+PKT Steve minecraft:set_entity_data 65aa2d130169ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f06fb58
+PKT Steve minecraft:set_entity_data 65aa2d130168ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f08253c
+PKT Steve minecraft:set_entity_data 65aa2d130167ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f094f20
+PKT Steve minecraft:set_entity_data 65aa2d130166ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f0a7904
+PKT Steve minecraft:set_entity_data 65aa2d130165ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f0ba2e8
+PKT Steve minecraft:set_entity_data 65aa2d090343570000130164ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f0ccccd
+PKT Steve minecraft:set_entity_data 65aa2d130163ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f0df6b1
+PKT Steve minecraft:set_entity_data 65aa2d130162ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f0f2095
+PKT Steve minecraft:set_entity_data 65aa2d130161ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f104a79
+PKT Steve minecraft:set_entity_data 65aa2d130160ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f11745d
+PKT Steve minecraft:set_entity_data 65aa2d13015fff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f129e41
+PKT Steve minecraft:set_entity_data 65aa2d13015eff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f13c825
+PKT Steve minecraft:set_entity_data 65aa2d13015dff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f14f20a
+PKT Steve minecraft:set_entity_data 65aa2d13015cff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f161bee
+PKT Steve minecraft:set_entity_data 65aa2d13015bff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f1745d2
+PKT Steve minecraft:set_entity_data 65aa2d09034361000013015aff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f186fb6
+PKT Steve minecraft:set_entity_data 65aa2d130159ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f19999a
+PKT Steve minecraft:set_entity_data 65aa2d130158ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f1ac37e
+PKT Steve minecraft:set_entity_data 65aa2d130157ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f1bed62
+PKT Steve minecraft:set_entity_data 65aa2d130156ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f1d1746
+PKT Steve minecraft:set_entity_data 65aa2d130155ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f1e412a
+PKT Steve minecraft:set_entity_data 65aa2d130154ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f1f6b0e
+PKT Steve minecraft:set_entity_data 65aa2d130153ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f2094f2
+PKT Steve minecraft:set_entity_data 65aa2d130152ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f21bed6
+PKT Steve minecraft:set_entity_data 65aa2d130151ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f22e8ba
+PKT Steve minecraft:set_entity_data 65aa2d0903436b0000130150ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f24129e
+PKT Steve minecraft:set_entity_data 65aa2d13014fff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f253c82
+PKT Steve minecraft:set_entity_data 65aa2d13014eff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f266666
+PKT Steve minecraft:set_entity_data 65aa2d13014dff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f27904a
+PKT Steve minecraft:set_entity_data 65aa2d13014cff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f28ba2e
+PKT Steve minecraft:set_entity_data 65aa2d13014bff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f29e412
+PKT Steve minecraft:set_entity_data 65aa2d13014aff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f2b0df6
+PKT Steve minecraft:set_entity_data 65aa2d130149ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f2c37db
+PKT Steve minecraft:set_entity_data 65aa2d130148ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f2d61bf
+PKT Steve minecraft:set_entity_data 65aa2d130147ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f2e8ba3
+PKT Steve minecraft:set_entity_data 65aa2d090343750000130146ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f2fb587
+PKT Steve minecraft:set_entity_data 65aa2d130145ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f30df6b
+PKT Steve minecraft:set_entity_data 65aa2d130144ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f32094f
+PKT Steve minecraft:set_entity_data 65aa2d130143ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f333333
+PKT Steve minecraft:set_entity_data 65aa2d130142ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f345d18
+PKT Steve minecraft:set_entity_data 65aa2d130141ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f3586fc
+PKT Steve minecraft:set_entity_data 65aa2d130140ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f36b0e0
+PKT Steve minecraft:set_entity_data 65aa2d13013fff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f37dac4
+PKT Steve minecraft:set_entity_data 65aa2d13013eff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f3904a8
+PKT Steve minecraft:set_entity_data 65aa2d13013dff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f3a2e8c
+PKT Steve minecraft:set_entity_data 65aa2d0903437f000013013cff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f3b5870
+PKT Steve minecraft:set_entity_data 65aa2d13013bff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f3c8254
+PKT Steve minecraft:set_entity_data 65aa2d13013aff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f3dac38
+PKT Steve minecraft:set_entity_data 65aa2d130139ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f3ed61c
+PKT Steve minecraft:set_entity_data 65aa2d130138ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f400000
+PKT Steve minecraft:set_entity_data 65aa2d130137ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f4129e4
+PKT Steve minecraft:set_entity_data 65aa2d130136ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f4253c8
+PKT Steve minecraft:set_entity_data 65aa2d130135ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f437dac
+PKT Steve minecraft:set_entity_data 65aa2d130134ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f44a790
+PKT Steve minecraft:set_entity_data 65aa2d130133ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f45d174
+PKT Steve minecraft:set_entity_data 65aa2d090343848000130132ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f46fb58
+PKT Steve minecraft:set_entity_data 65aa2d130131ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f48253c
+PKT Steve minecraft:set_entity_data 65aa2d130130ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f494f20
+PKT Steve minecraft:set_entity_data 65aa2d13012fff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f4a7905
+PKT Steve minecraft:set_entity_data 65aa2d13012eff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f4ba2e9
+PKT Steve minecraft:set_entity_data 65aa2d13012dff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f4ccccd
+PKT Steve minecraft:set_entity_data 65aa2d13012cff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f4df6b1
+PKT Steve minecraft:set_entity_data 65aa2d13012bff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f4f2095
+PKT Steve minecraft:set_entity_data 65aa2d13012aff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f504a79
+PKT Steve minecraft:set_entity_data 65aa2d130129ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f51745d
+PKT Steve minecraft:set_entity_data 65aa2d090343898000130128ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f529e41
+PKT Steve minecraft:set_entity_data 65aa2d130127ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f53c825
+PKT Steve minecraft:set_entity_data 65aa2d130126ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f54f209
+PKT Steve minecraft:set_entity_data 65aa2d130125ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f561bee
+PKT Steve minecraft:set_entity_data 65aa2d130124ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f5745d2
+PKT Steve minecraft:set_entity_data 65aa2d130123ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f586fb6
+PKT Steve minecraft:set_entity_data 65aa2d130122ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f59999a
+PKT Steve minecraft:set_entity_data 65aa2d130121ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f5ac37e
+PKT Steve minecraft:set_entity_data 65aa2d130120ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f5bed62
+PKT Steve minecraft:set_entity_data 65aa2d13011fff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f5d1746
+PKT Steve minecraft:set_entity_data 65aa2d0903438e800013011eff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f5e412a
+PKT Steve minecraft:set_entity_data 65aa2d13011dff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f5f6b0e
+PKT Steve minecraft:set_entity_data 65aa2d13011cff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f6094f2
+PKT Steve minecraft:set_entity_data 65aa2d13011bff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f61bed6
+PKT Steve minecraft:set_entity_data 65aa2d13011aff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f62e8ba
+PKT Steve minecraft:set_entity_data 65aa2d130119ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f64129e
+PKT Steve minecraft:set_entity_data 65aa2d130118ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f653c82
+PKT Steve minecraft:set_entity_data 65aa2d130117ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f666666
+PKT Steve minecraft:set_entity_data 65aa2d130116ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f67904a
+PKT Steve minecraft:set_entity_data 65aa2d130115ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f68ba2e
+PKT Steve minecraft:set_entity_data 65aa2d090343938000130114ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f69e413
+PKT Steve minecraft:set_entity_data 65aa2d130113ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f6b0df7
+PKT Steve minecraft:set_entity_data 65aa2d130112ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f6c37db
+PKT Steve minecraft:set_entity_data 65aa2d130111ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f6d61bf
+PKT Steve minecraft:set_entity_data 65aa2d130110ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f6e8ba3
+PKT Steve minecraft:set_entity_data 65aa2d13010fff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f6fb587
+PKT Steve minecraft:set_entity_data 65aa2d13010eff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f70df6b
+PKT Steve minecraft:set_entity_data 65aa2d13010dff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f72094f
+PKT Steve minecraft:set_entity_data 65aa2d13010cff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f733333
+PKT Steve minecraft:set_entity_data 65aa2d13010bff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f745d17
+PKT Steve minecraft:set_entity_data 65aa2d09034396000013010aff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f7586fb
+PKT Steve minecraft:set_entity_data 65aa2d130109ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f76b0df
+PKT Steve minecraft:set_entity_data 65aa2d130108ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f77dac4
+PKT Steve minecraft:set_entity_data 65aa2d130107ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f7904a8
+PKT Steve minecraft:set_entity_data 65aa2d130106ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f7a2e8c
+PKT Steve minecraft:set_entity_data 65aa2d130105ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f7b5870
+PKT Steve minecraft:set_entity_data 65aa2d130104ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f7c8254
+PKT Steve minecraft:set_entity_data 65aa2d130103ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f7dac38
+PKT Steve minecraft:set_entity_data 65aa2d130102ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f7ed61c
+# the last charging tick: the blast and the spawn sound level event
+T 222
+E wither#1 minecraft:wither pos=0.5,-60.04704000091553,0.5 delta=0.0,-0.12449920332031252,0.0 rot=90.0,0.0 og=0 fall=0.047040000557899475 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=0,0 idle=3,3 dbt=20 bossp=1.0
+EV sound at=0.5,-59.49704000091553,0.5 r=16.0 ex=0 event=minecraft:entity.wither.hurt source=hostile vol=1.0 pitch=1.033584
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.wither.ambient source=hostile vol=1.0 pitch=0.9606092
+PKT Steve minecraft:set_entity_data 65aa2d130101ff
+PKT Steve minecraft:boss_event 093ad35b16a43e4250851f4226c8d5bb32023f800000
+PKT Steve minecraft:set_entity_data 65ab2d080710370000ff
+PKT Steve minecraft:set_entity_data 65ac2d080710370000ff
+PKT Steve minecraft:set_entity_data 65ad2d08070f370000ff
+PKT Steve minecraft:explode 243fe0000000000000c04c8333320000003fe000000000000040e0000000000cf0010000000000000000bfca71cd69cd11b03fe38429e2fbe7581dc00502453f0000003f80000001483f8000003f8000000101
+PKT Steve minecraft:level_event 2f000003ff0000000000000fc40000000001
+T 223
+E wither#1 minecraft:wither pos=0.5,-60.12173952290772,0.5 delta=0.0,-0.151605534503003,0.0 rot=90.0,0.0 og=0 fall=0.12173952162265778 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:WitherBoss$WitherDoNothingGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=232,240 idle=4,4 dbt=19 bossp=1.0
+PKT Steve minecraft:set_entity_data 65ad2d08070f370000ff
+PKT Steve minecraft:set_entity_data 65ac2d080710370000ff
+PKT Steve minecraft:set_entity_data 65ab2d080710370000ff
+PKT Steve minecraft:set_entity_data 65aa2d130100ff
+T 224
+E wither#1 minecraft:wither pos=0.5,-60.21270284360952,0.5 delta=0.0,-0.1675440575486323,0.0 rot=90.0,0.0 og=0 fall=0.21270284056663513 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=232,240 idle=4,4 dbt=18 bossp=1.0
+B -8 -63 -4 minecraft:dirt
+B -8 -63 -3 minecraft:dirt
+B -8 -63 -2 minecraft:dirt
+B -8 -63 -1 minecraft:dirt
+B -8 -63 0 minecraft:dirt
+B -8 -63 1 minecraft:dirt
+B -8 -63 2 minecraft:dirt
+B -8 -63 3 minecraft:dirt
+B -8 -63 4 minecraft:dirt
+B -8 -63 5 minecraft:dirt
+B -8 -63 6 minecraft:dirt
+B -8 -62 -4 minecraft:dirt
+B -8 -62 -3 minecraft:dirt
+B -8 -62 -2 minecraft:dirt
+B -8 -62 -1 minecraft:dirt
+B -8 -62 0 minecraft:dirt
+B -8 -62 1 minecraft:dirt
+B -8 -62 2 minecraft:dirt
+B -8 -62 3 minecraft:dirt
+B -8 -62 4 minecraft:dirt
+B -8 -62 5 minecraft:dirt
+B -8 -62 6 minecraft:dirt
+B -8 -61 -4 minecraft:grass_block[snowy=false]
+B -8 -61 -3 minecraft:grass_block[snowy=false]
+B -8 -61 -2 minecraft:grass_block[snowy=false]
+B -8 -61 0 minecraft:grass_block[snowy=false]
+B -8 -61 1 minecraft:grass_block[snowy=false]
+B -8 -61 2 minecraft:grass_block[snowy=false]
+B -8 -61 3 minecraft:grass_block[snowy=false]
+B -8 -61 5 minecraft:grass_block[snowy=false]
+B -8 -61 6 minecraft:grass_block[snowy=false]
+B -7 -63 -4 minecraft:dirt
+B -7 -63 -3 minecraft:dirt
+B -7 -63 -2 minecraft:dirt
+B -7 -63 -1 minecraft:dirt
+B -7 -63 0 minecraft:dirt
+B -7 -63 1 minecraft:dirt
+B -7 -63 2 minecraft:dirt
+B -7 -63 3 minecraft:dirt
+B -7 -63 4 minecraft:dirt
+B -7 -63 5 minecraft:dirt
+B -7 -63 6 minecraft:dirt
+B -7 -62 -3 minecraft:dirt
+B -7 -62 -2 minecraft:dirt
+B -7 -62 -1 minecraft:dirt
+B -7 -62 0 minecraft:dirt
+B -7 -62 1 minecraft:dirt
+B -7 -62 2 minecraft:dirt
+B -7 -62 3 minecraft:dirt
+B -7 -62 4 minecraft:dirt
+B -7 -62 5 minecraft:dirt
+B -7 -62 6 minecraft:dirt
+B -7 -61 -4 minecraft:grass_block[snowy=false]
+B -7 -61 -3 minecraft:grass_block[snowy=false]
+B -7 -61 -2 minecraft:grass_block[snowy=false]
+B -7 -61 1 minecraft:grass_block[snowy=false]
+B -7 -61 2 minecraft:grass_block[snowy=false]
+B -6 -63 -4 minecraft:dirt
+B -6 -63 -3 minecraft:dirt
+B -6 -63 -2 minecraft:dirt
+B -6 -63 -1 minecraft:dirt
+B -6 -63 0 minecraft:dirt
+B -6 -63 1 minecraft:dirt
+B -6 -63 2 minecraft:dirt
+B -6 -63 3 minecraft:dirt
+B -6 -63 4 minecraft:dirt
+B -6 -63 5 minecraft:dirt
+B -6 -63 6 minecraft:dirt
+B -6 -62 -4 minecraft:dirt
+B -6 -62 -2 minecraft:dirt
+B -6 -62 -1 minecraft:dirt
+B -6 -62 1 minecraft:dirt
+B -6 -62 2 minecraft:dirt
+B -6 -62 4 minecraft:dirt
+B -6 -62 5 minecraft:dirt
+B -6 -62 6 minecraft:dirt
+B -5 -63 -4 minecraft:dirt
+B -5 -63 -3 minecraft:dirt
+B -5 -63 -1 minecraft:dirt
+B -5 -63 1 minecraft:dirt
+B -5 -63 2 minecraft:dirt
+B -5 -63 3 minecraft:dirt
+B -5 -63 4 minecraft:dirt
+B -5 -63 5 minecraft:dirt
+B -5 -63 6 minecraft:dirt
+B -5 -62 1 minecraft:dirt
+B -5 -62 4 minecraft:dirt
+B -4 -63 -4 minecraft:dirt
+B -4 -63 1 minecraft:dirt
+B -4 -63 2 minecraft:dirt
+B -4 -63 3 minecraft:dirt
+B -4 -63 4 minecraft:dirt
+B -4 -63 5 minecraft:dirt
+B -4 -63 6 minecraft:dirt
+B -4 -62 5 minecraft:dirt
+B -4 -62 6 minecraft:dirt
+B -4 -61 6 minecraft:grass_block[snowy=false]
+B -3 -63 -3 minecraft:dirt
+B -3 -63 -1 minecraft:dirt
+B -3 -63 0 minecraft:dirt
+B -3 -63 1 minecraft:dirt
+B -3 -63 2 minecraft:dirt
+B -3 -63 3 minecraft:dirt
+B -3 -63 4 minecraft:dirt
+B -3 -63 5 minecraft:dirt
+B -3 -63 6 minecraft:dirt
+B -2 -63 -2 minecraft:dirt
+B -2 -63 -1 minecraft:dirt
+B -2 -63 0 minecraft:dirt
+B -2 -63 1 minecraft:dirt
+B -2 -63 2 minecraft:dirt
+B -2 -63 3 minecraft:dirt
+B -2 -63 6 minecraft:dirt
+B -2 -62 -2 minecraft:obsidian
+B -2 -62 -1 minecraft:obsidian
+B -2 -62 0 minecraft:obsidian
+B -2 -62 1 minecraft:obsidian
+B -2 -62 2 minecraft:obsidian
+B -1 -63 -3 minecraft:dirt
+B -1 -63 -2 minecraft:dirt
+B -1 -63 -1 minecraft:dirt
+B -1 -63 0 minecraft:dirt
+B -1 -63 1 minecraft:dirt
+B -1 -63 2 minecraft:dirt
+B -1 -63 3 minecraft:dirt
+B -1 -63 6 minecraft:dirt
+B -1 -62 -2 minecraft:obsidian
+B -1 -62 -1 minecraft:obsidian
+B -1 -62 0 minecraft:obsidian
+B -1 -62 1 minecraft:obsidian
+B -1 -62 2 minecraft:obsidian
+B -1 -62 5 minecraft:dirt
+B -1 -62 6 minecraft:dirt
+B 0 -63 -3 minecraft:dirt
+B 0 -63 -2 minecraft:dirt
+B 0 -63 -1 minecraft:dirt
+B 0 -63 0 minecraft:dirt
+B 0 -63 1 minecraft:dirt
+B 0 -63 2 minecraft:dirt
+B 0 -63 3 minecraft:dirt
+B 0 -63 6 minecraft:dirt
+B 0 -62 -2 minecraft:obsidian
+B 0 -62 -1 minecraft:obsidian
+B 0 -62 0 minecraft:obsidian
+B 0 -62 1 minecraft:obsidian
+B 0 -62 2 minecraft:obsidian
+B 1 -63 -3 minecraft:dirt
+B 1 -63 -2 minecraft:dirt
+B 1 -63 -1 minecraft:dirt
+B 1 -63 0 minecraft:dirt
+B 1 -63 1 minecraft:dirt
+B 1 -63 2 minecraft:dirt
+B 1 -63 3 minecraft:dirt
+B 1 -63 6 minecraft:dirt
+B 1 -62 -2 minecraft:obsidian
+B 1 -62 -1 minecraft:obsidian
+B 1 -62 0 minecraft:obsidian
+B 1 -62 1 minecraft:obsidian
+B 1 -62 2 minecraft:obsidian
+B 1 -62 6 minecraft:dirt
+B 2 -63 -3 minecraft:dirt
+B 2 -63 -2 minecraft:dirt
+B 2 -63 -1 minecraft:dirt
+B 2 -63 0 minecraft:dirt
+B 2 -63 1 minecraft:dirt
+B 2 -63 2 minecraft:dirt
+B 2 -63 6 minecraft:dirt
+B 2 -62 -2 minecraft:obsidian
+B 2 -62 -1 minecraft:obsidian
+B 2 -62 0 minecraft:obsidian
+B 2 -62 1 minecraft:obsidian
+B 2 -62 2 minecraft:obsidian
+B 2 -62 6 minecraft:dirt
+B 3 -63 -3 minecraft:dirt
+B 3 -63 -2 minecraft:dirt
+B 3 -63 -1 minecraft:dirt
+B 3 -63 0 minecraft:dirt
+B 3 -63 1 minecraft:dirt
+B 3 -63 3 minecraft:dirt
+B 3 -63 5 minecraft:dirt
+B 3 -63 6 minecraft:dirt
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 4 -63 -4 minecraft:dirt
+B 4 -63 -3 minecraft:dirt
+B 4 -63 -1 minecraft:dirt
+B 4 -63 4 minecraft:dirt
+B 4 -63 5 minecraft:dirt
+B 4 -63 6 minecraft:dirt
+B 4 -62 -4 minecraft:dirt
+B 4 -62 5 minecraft:dirt
+B 4 -62 6 minecraft:dirt
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 5 -63 -4 minecraft:dirt
+B 5 -63 -3 minecraft:dirt
+B 5 -63 -1 minecraft:dirt
+B 5 -63 2 minecraft:dirt
+B 5 -63 3 minecraft:dirt
+B 5 -63 4 minecraft:dirt
+B 5 -63 5 minecraft:dirt
+B 5 -63 6 minecraft:dirt
+B 5 -62 -4 minecraft:dirt
+B 5 -62 6 minecraft:dirt
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 6 -63 -4 minecraft:dirt
+B 6 -63 -3 minecraft:dirt
+B 6 -63 -2 minecraft:dirt
+B 6 -63 -1 minecraft:dirt
+B 6 -63 0 minecraft:dirt
+B 6 -63 1 minecraft:dirt
+B 6 -63 2 minecraft:dirt
+B 6 -63 3 minecraft:dirt
+B 6 -63 4 minecraft:dirt
+B 6 -63 5 minecraft:dirt
+B 6 -63 6 minecraft:dirt
+B 6 -62 2 minecraft:dirt
+B 6 -62 3 minecraft:dirt
+B 6 -62 4 minecraft:dirt
+B 6 -62 5 minecraft:dirt
+B 6 -62 6 minecraft:dirt
+B 6 -61 -2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 6 -61 6 minecraft:grass_block[snowy=false]
+B 6 -59 0 minecraft:bedrock
+B 7 -63 -4 minecraft:dirt
+B 7 -63 -3 minecraft:dirt
+B 7 -63 -2 minecraft:dirt
+B 7 -63 -1 minecraft:dirt
+B 7 -63 0 minecraft:dirt
+B 7 -63 1 minecraft:dirt
+B 7 -63 2 minecraft:dirt
+B 7 -63 3 minecraft:dirt
+B 7 -63 4 minecraft:dirt
+B 7 -63 5 minecraft:dirt
+B 7 -63 6 minecraft:dirt
+B 7 -62 -4 minecraft:dirt
+B 7 -62 -3 minecraft:dirt
+B 7 -62 -2 minecraft:dirt
+B 7 -62 -1 minecraft:dirt
+B 7 -62 1 minecraft:dirt
+B 7 -62 2 minecraft:dirt
+B 7 -62 3 minecraft:dirt
+B 7 -62 4 minecraft:dirt
+B 7 -62 5 minecraft:dirt
+B 7 -62 6 minecraft:dirt
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 5 minecraft:grass_block[snowy=false]
+B 7 -61 6 minecraft:grass_block[snowy=false]
+B 8 -63 -4 minecraft:dirt
+B 8 -63 -3 minecraft:dirt
+B 8 -63 -2 minecraft:dirt
+B 8 -63 -1 minecraft:dirt
+B 8 -63 0 minecraft:dirt
+B 8 -63 1 minecraft:dirt
+B 8 -63 2 minecraft:dirt
+B 8 -63 3 minecraft:dirt
+B 8 -63 4 minecraft:dirt
+B 8 -63 5 minecraft:dirt
+B 8 -63 6 minecraft:dirt
+B 8 -62 -4 minecraft:dirt
+B 8 -62 -3 minecraft:dirt
+B 8 -62 -2 minecraft:dirt
+B 8 -62 -1 minecraft:dirt
+B 8 -62 0 minecraft:dirt
+B 8 -62 1 minecraft:dirt
+B 8 -62 2 minecraft:dirt
+B 8 -62 3 minecraft:dirt
+B 8 -62 4 minecraft:dirt
+B 8 -62 5 minecraft:dirt
+B 8 -62 6 minecraft:dirt
+B 8 -61 -4 minecraft:grass_block[snowy=false]
+B 8 -61 -2 minecraft:grass_block[snowy=false]
+B 8 -61 -1 minecraft:grass_block[snowy=false]
+B 8 -61 0 minecraft:grass_block[snowy=false]
+B 8 -61 1 minecraft:grass_block[snowy=false]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 3 minecraft:grass_block[snowy=false]
+B 8 -61 6 minecraft:grass_block[snowy=false]
+E wither#1 minecraft:wither pos=0.5,-60.21270284360952,0.5 delta=0.0,-0.1675440575486323,0.0 rot=90.0,0.0 og=0 fall=0.21270284056663513 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.259250251631464,-61.34001135872725,-3.6928354958518295 delta=-0.09088079270811614,0.11446400521850592,-0.06629401916294374 rot=194.3492,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.7908373976595895,-60.5850353618094,-5.414853342034119 delta=0.023704431350757702,0.11446400521850592,0.027368038975572325 rot=329.5811,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-2.2949133580148784,-60.567738439264396,-1.1178513957344602 delta=0.06187314387817944,0.11446400521850592,0.0642239462242045 rot=114.03729,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*15 age=2 pickup=8 health=5 owner=- thrower=-
+# the heads wake up: the body targets the player and the heads pick targets
+T 225
+E wither#1 minecraft:wither pos=0.5,-60.3132292781387,0.5 delta=0.0,-0.17691590928186426,0.0 rot=90.0,0.0 og=0 fall=0.3132292777299881 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=232,240 idle=4,4 dbt=17 bossp=1.0
+T 226
+E wither#1 minecraft:wither pos=0.5,-60.41937882370782,0.5 delta=0.0,-0.182426558208257,0.0 rot=90.0,0.0 og=0 fall=0.419378824532032 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=232,240 idle=4,4 dbt=16 bossp=1.0
+T 227
+E wither#1 minecraft:wither pos=0.5,-60.52883475863277,0.5 delta=0.0,-0.18566681984004033,0.0 rot=90.0,0.0 og=0 fall=0.5288347601890564 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=232,240 idle=4,4 dbt=15 bossp=1.0
+T 228
+E wither#1 minecraft:wither pos=0.5,-60.64023485053679,0.5 delta=0.0,-0.18757209371661074,0.0 rot=90.0,0.0 og=0 fall=0.6402348503470421 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=232,240 idle=4,4 dbt=14 bossp=1.0
+T 229
+E wither#1 minecraft:wither pos=0.5,-60.75277810676676,0.5 delta=0.0,-0.18869239477783828,0.0 rot=90.0,0.0 og=0 fall=0.7527781054377556 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=232,240 idle=4,4 dbt=13 bossp=1.0
+T 230
+E wither#1 minecraft:wither pos=0.5,-60.865993543633465,0.5 delta=0.0,-0.18935113181466087,0.0 rot=90.0,0.0 og=0 fall=0.865993544459343 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=232,240 idle=4,4 dbt=12 bossp=1.0
+T 231
+E wither#1 minecraft:wither pos=0.5,-60.97960422272226,0.5 delta=0.0,-0.18973846919985124,0.0 rot=90.0,0.0 og=0 fall=0.9796042218804359 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=232,240 idle=4,4 dbt=11 bossp=1.0
+T 232
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=232,240 idle=4,4 dbt=10 bossp=1.0
+T 233
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=232,240 idle=4,4 dbt=9 bossp=1.0
+T 234
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=244,240 idle=5,4 dbt=8 bossp=1.0
+T 235
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=244,240 idle=5,4 dbt=7 bossp=1.0
+T 236
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=244,240 idle=5,4 dbt=6 bossp=1.0
+T 237
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=244,240 idle=5,4 dbt=5 bossp=1.0
+T 238
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=244,240 idle=5,4 dbt=4 bossp=1.0
+T 239
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=244,240 idle=5,4 dbt=3 bossp=1.0
+T 240
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=244,240 idle=5,4 dbt=2 bossp=1.0
+T 241
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=244,240 idle=5,4 dbt=1 bossp=1.0
+T 242
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=244,258 idle=5,5 dbt=0 bossp=1.0
+T 243
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=244,258 idle=5,5 dbt=0 bossp=1.0
+T 244
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=80.0 body=80.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=7:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=244,258 idle=5,5 dbt=0 bossp=1.0
+N wither#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:300.0f,HurtTime:0s,Invul:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PersistenceRequired:0b,PortalCooldown:0,Pos:[0.5d,-61.0d,0.5d],Rotation:[90.0f,0.0f],attributes:[{base:0.6000000238418579d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E wither#1 minecraft:wither pos=0.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=80.0 body=80.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=7:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.0;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/90.0,0.0/90.0 nhu=244,258 idle=5,5 dbt=0 bossp=1.0
+E item#1 minecraft:item pos=0.1796605308830476,-63.0,-4.480354392889585 delta=-0.0010398674643471216,-0.04,-7.58543049132024E-4 rot=194.3492,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=22 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.875,-61.0,-5.179112201522112 delta=0.0,-0.08,9.819525158425786E-4 rot=329.5811,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=22 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.758428927157321,-61.0,-0.5609838264162325 delta=7.675447947866141E-4,-0.12,7.967068187467386E-4 rot=114.03729,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*15 age=22 pickup=0 health=5 owner=- thrower=-
+COUNTER 5805

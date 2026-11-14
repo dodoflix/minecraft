@@ -1132,8 +1132,13 @@ pub trait Entity: Any {
             .and_then(|_| super::mob::tamable::get_owner_reference(self.as_dyn()))
     }
 
-    /// `startSeenByPlayer(player)`.
-    fn start_seen_by_player(&mut self, _player_id: EntityId) {}
+    /// `startSeenByPlayer(player)`: the player's entity id and the connection its packets go to.
+    fn start_seen_by_player(
+        &mut self,
+        _player_id: EntityId,
+        _connection: &crate::server::network::ConnectionSender,
+    ) {
+    }
 
     /// `stopSeenByPlayer(player)`.
     fn stop_seen_by_player(&mut self, _player_id: EntityId) {}

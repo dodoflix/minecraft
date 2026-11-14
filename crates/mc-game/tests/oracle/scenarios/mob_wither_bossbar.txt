@@ -1,0 +1,70 @@
+# The wither boss bar: a player who starts tracking the wither gets the bar (purple, progress, darkened screen, the display name the wither had when
+# it was created), progress updates follow the health, a custom name is a name update, a player who joins later gets the bar, the bar is removed
+# for a player that stops tracking, and a dead or discarded wither takes it away from everybody.
+command_env
+level flat
+preload 6
+difficulty normal
+level_seed 5841
+entity_counter 5840
+gamerule mob_drops false
+spawn_player Steve survival 12.5 -60 0.5 90 0
+set Steve invulnerable true
+tick 2
+dump packets:Steve:none
+mobspawn W minecraft:wither 0.5 -58 0.5 0 0 {PersistenceRequired:1b,UUID:[I;7,8,9,10]}
+entity_seed W 51
+watch packets:Steve:boss_event,add_entity,remove_entities
+tick 3
+watch off
+note health follows into the progress
+hurt W player_attack 60 by=Steve
+watch packets:Steve:boss_event
+tick 45
+watch off
+dump xentity:W
+note a custom name: the name update carries the display name with the loaded uuid
+nbt W {CustomName:"Big Bad"}
+tick 1
+dump packets:Steve:boss_event nbt:W
+note a second player joins and starts tracking
+spawn_player Alex survival 22.5 -60 0.5 90 0
+tick 1
+dump packets:Alex:none
+watch packets:Alex:boss_event,add_entity packets:Steve:boss_event
+tick 2
+watch off
+note a player that leaves the tracking range loses the bar and gets it back when it returns
+tp Steve 80.5 -60 0.5 90 0
+watch packets:Steve:boss_event,remove_entities
+tick 2
+watch off
+tp Steve 12.5 -60 0.5 90 0
+watch packets:Steve:boss_event,add_entity
+tick 2
+watch off
+note a wither with a custom name from the start, its bar named after it from the load
+mobspawn N minecraft:wither 0.5 -58 20.5 0 0 {PersistenceRequired:1b,CustomName:"Named",Health:100.0f}
+watch packets:Steve:boss_event,add_entity packets:Alex:boss_event,add_entity
+tick 3
+watch off
+note a discarded wither takes its bar with it
+kill N
+watch packets:Steve:boss_event,remove_entities packets:Alex:boss_event,remove_entities
+tick 2
+watch off
+note a wither that dies: no more progress updates, the bar goes when the entity is removed
+hurt W out_of_world 1000
+watch packets:Steve:boss_event,remove_entities,entity_event,set_entity_data packets:Alex:boss_event,remove_entities xentity:W
+tick 25
+watch off
+dump xentities counter
+note peaceful: the despawn check discards the wither and its bar goes with it
+mobspawn Q minecraft:wither 0.5 -58 -20.5 0 0 {PersistenceRequired:1b}
+tick 2
+dump packets:Steve:none packets:Alex:none
+difficulty peaceful
+watch packets:Steve:boss_event,remove_entities packets:Alex:boss_event,remove_entities
+tick 3
+watch off
+dump xentities counter

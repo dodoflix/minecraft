@@ -1,0 +1,101 @@
+# A wither at half health or less is "powered": arrows (arrow, spectral arrow, trident) and wind charges no longer hurt it, it draws the level
+# random for its particles, and any hit starts a 20 tick countdown after which it breaks every block of its box except the wither-immune ones.
+# Above half health arrows still hurt. Hits by other withers or by undead are refused, and so are the damage types the wither is immune to.
+command_env
+level flat
+preload 6
+difficulty normal
+level_seed 5831
+entity_counter 5830
+gamerule mob_drops false
+spawn_player Steve survival 70.5 -60 0.5 90 0
+set Steve invulnerable true
+tick 2
+dump packets:Steve:none
+mobspawn W minecraft:wither 0.5 -58 0.5 0 0 {PersistenceRequired:1b,Health:200.0f}
+entity_seed W 41
+mobspawn Z minecraft:zombie 12.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn V minecraft:wither 12.5 -58 -8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+spawn arrow minecraft:arrow 4.5 -59 4.5 0 0 {NoGravity:1b}
+spawn spectral minecraft:spectral_arrow 5.5 -59 4.5 0 0 {NoGravity:1b}
+spawn charge minecraft:wind_charge 6.5 -59 4.5 0 0 {NoGravity:1b}
+spawn pearl minecraft:snowball 7.5 -59 4.5 0 0 {NoGravity:1b}
+tick 1
+dump counter mob:W
+note above half health: arrows and wind charges hurt
+hurt W arrow 4 by=Steve direct=arrow
+tick 1
+dump xentity:W
+hurt W arrow 4 by=Steve direct=spectral
+tick 22
+dump xentity:W
+hurt W player_attack 4 by=Steve
+tick 25
+dump xentity:W rng:W rng:level
+note immune: another wither, undead friends, wither damage types
+hurt W mob_attack 4 by=V
+hurt W mob_attack 4 by=Z
+hurt W wither 4
+hurt W wither_skull 4 by=V direct=V
+tick 1
+dump xentity:W
+note exactly half health is powered: arrows and wind charges bounce off, a sword still hurts
+set W health 150
+tick 1
+dump xentity:W rng:W rng:level
+hurt W arrow 4 by=Steve direct=arrow
+hurt W arrow 4 by=Steve direct=spectral
+hurt W wind_charge 1 by=Steve direct=charge
+tick 1
+dump xentity:W
+hurt W thrown 1 by=Steve direct=pearl
+tick 1
+dump xentity:W
+hurt W player_attack 10 by=Steve
+tick 1
+dump xentity:W
+note the countdown ends: the blocks of the wither's box that are not wither-immune go (the wither is boxed in a corridor of walls so the box is known)
+snap W 0.5 -58 0.5 0 0
+velocity W 0 0 0
+fill -1 -58 -1 -1 -55 1 minecraft:stone
+fill 1 -58 -1 1 -55 1 minecraft:dirt
+fill 0 -58 -1 0 -55 -1 minecraft:oak_planks
+fill 0 -58 1 0 -55 1 minecraft:obsidian
+block 0 -58 1 minecraft:bedrock
+block 1 -56 0 minecraft:glass
+hurt W player_attack 10 by=Steve
+watch xentity:W events
+tick 21
+watch off
+dump blocks:-3,-61,-3,3,-54,3 xentity:W rng:W rng:level nbt:W
+note with the gamerule off the countdown runs out and nothing breaks
+gamerule mob_griefing false
+snap W 0.5 -58 0.5 0 0
+velocity W 0 0 0
+fill -1 -58 -1 -1 -55 1 minecraft:stone
+hurt W player_attack 10 by=Steve
+tick 22
+dump blocks:-3,-61,-3,3,-54,3 xentity:W
+gamerule mob_griefing true
+note at a third of the health the bar is nearly empty; the wither dies from the next blow
+set W health 20
+tick 1
+dump xentity:W
+hurt W out_of_world 1000
+tick 1
+watch xentities events
+tick 25
+watch off
+dump xentities counter
+note a wither killed by a player with drops on: the nether star (extended lifetime) and its experience
+gamerule mob_drops true
+gamerule mob_griefing true
+mobspawn K minecraft:wither 0.5 -58 -20.5 0 0 {PersistenceRequired:1b,Health:10.0f}
+entity_seed K 61
+tick 1
+dump xentity:K
+hurt K player_attack 100 by=Steve
+watch xentities events
+tick 25
+watch off
+dump xentities counter

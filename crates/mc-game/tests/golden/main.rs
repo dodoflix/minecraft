@@ -222,6 +222,7 @@ mod mob_victim_golden;
 mod mob_village_golden;
 mod mob_villager_golden;
 mod mob_warden_golden;
+mod mob_wither_golden;
 mod mob_zombie_golden;
 mod net_common;
 mod nether_fortress_golden;

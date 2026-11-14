@@ -1,0 +1,112 @@
+# The three heads of a wither: the body targets what hurt it or the nearest living thing, the side heads each pick a random target of the box around
+# it every 10 to 20 ticks (undead are its friends and never targets), look at them with limited turning, shoot one skull per 40 to 60 ticks and
+# drop a target that is out of sight or range. With nobody to aim at, the idle counters of the heads run up and each shoots a blue skull at a random
+# place around it (normal and hard only).
+command_env
+level flat
+preload 6
+difficulty hard
+level_seed 5811
+entity_counter 5810
+gamerule mob_drops false
+spawn_player Steve survival 70.5 -60 0.5 90 0
+set Steve invulnerable true
+tick 2
+dump packets:Steve:none
+mobspawn A minecraft:sheep 7.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1000.0f,attributes:[{id:"minecraft:max_health",base:1000.0d}]}
+mobspawn B minecraft:sheep -9.5 -60 -6.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1000.0f,attributes:[{id:"minecraft:max_health",base:1000.0d}]}
+mobspawn C minecraft:cow 12.5 -60 -1.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1000.0f,attributes:[{id:"minecraft:max_health",base:1000.0d}]}
+mobspawn Z minecraft:zombie 4.5 -60 -5.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn W minecraft:wither 0.5 -58 0.5 0 0 {PersistenceRequired:1b}
+entity_seed W 21
+tick 1
+dump counter mob:W
+watch xentity:W
+tick 12
+watch off
+note the heads pick their targets and turn, the first skulls fly
+tick 10
+dump xentity:W xentities rng:W rng:level
+tick 10
+dump xentity:W xentities rng:W rng:level
+tick 10
+dump xentity:W xentities rng:W rng:level
+tick 10
+dump xentity:W xentities rng:W rng:level
+tick 10
+dump xentity:W xentities rng:W rng:level
+tick 10
+dump xentity:W xentities rng:W rng:level
+tick 10
+dump xentity:W xentities rng:W rng:level
+tick 10
+dump xentity:W xentities rng:W rng:level
+tick 10
+dump xentity:W xentities rng:W rng:level
+tick 10
+dump xentity:W xentities rng:W rng:level
+tick 10
+dump xentity:W xentities rng:W rng:level
+tick 10
+dump xentity:W xentities rng:W rng:level
+note the targets are gone: the heads idle and then fire blue skulls at random places
+kill A
+kill B
+kill C
+tick 2
+dump xentity:W goals:W
+watch xentities
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+tick 10
+dump xentity:W rng:W rng:level
+watch off
+dump xentities events counter nbt:W

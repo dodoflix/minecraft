@@ -8,6 +8,7 @@ use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::BlockEntity;
 use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::entity::boss::wither::wither_boss::WitherBoss;
 use mc_game_core::world::item::{BlockPlaceContext, ItemStack};
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::block::pattern::{BlockPattern, BlockPatternBuilder};
@@ -79,7 +80,6 @@ pub fn check_spawn(level: &mut ServerLevel, pos: BlockPos) {
     let Some(mut found) = wither_full().find(&*level, pos) else {
         return;
     };
-    // Not implemented: the `WitherBoss` entity has no factory yet, so the summoned wither is an inert `PlainEntity`.
     let Some(mut wither) = pattern_blocks::create_triggered(level, EntityType::WITHER) else {
         return;
     };
@@ -90,21 +90,16 @@ pub fn check_spawn(level: &mut ServerLevel, pos: BlockPos) {
     } else {
         90.0
     };
-    let mut tag = mc_game_core::world::level::block::hatch_spawns::snap_to_tag(
-        spawn_pos.x() as f64 + 0.5,
-        spawn_pos.y() as f64 + 0.55,
-        spawn_pos.z() as f64 + 0.5,
+    wither.snap_to(
+        f64::from(spawn_pos.x()) + 0.5,
+        f64::from(spawn_pos.y()) + 0.55,
+        f64::from(spawn_pos.z()) + 0.5,
         rot,
         0.0,
     );
-    // `witherBoss.makeInvulnerable()`: `setInvulnerableTicks(220)` (saved as `Invul`)
-    tag.put_int("Invul", 220);
-    if let Err(message) = wither.load(level, &tag) {
-        log::warn!("Exception configuring summoned wither: {message}");
-        return;
-    }
-    if let Some(living) = wither.living_mut() {
-        living.y_body_rot = rot;
+    if let Some(boss) = wither.as_any_mut().downcast_mut::<WitherBoss>() {
+        boss.mob.living.y_body_rot = rot;
+        boss.make_invulnerable();
     }
     pattern_blocks::trigger_summoned_entity(level, &*wither, 50.0);
     pattern_blocks::add_fresh_entity(level, wither);

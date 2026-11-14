@@ -31,6 +31,7 @@ pub mod level_tick;
 pub mod level_tick_state;
 pub mod player_map;
 pub mod player_spawn_finder;
+pub mod server_boss_event;
 mod server_chunk_cache;
 mod server_level;
 mod server_level_entities;

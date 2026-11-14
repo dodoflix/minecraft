@@ -1,13 +1,14 @@
-//! `net.minecraft.server.level.ServerBossEvent` (+ `BossEvent`) as raids use it: a boss bar and the online players that see it. Every
-//! visible change is sent to those players like vanilla's `RaidBossBar.broadcast`.
+//! `net.minecraft.server.level.ServerBossEvent` (+ `BossEvent`): a boss bar and the online players that see it. Every
+//! visible change is sent to those players like vanilla's `ServerBossEvent.broadcast`.
 
 use crate::server::bossevents::{BossBarColor, BossBarOverlay, wire_color, wire_overlay};
-use crate::server::players::player_handle::PlayerHandle;
+use crate::server::network::ConnectionSender;
+use crate::world::entity::EntityId;
 use mc_protocol::packets::play as wire;
 use mc_text::Component;
 use uuid::Uuid;
 
-pub struct RaidBossBar {
+pub struct ServerBossEvent {
     id: Uuid,
     name: Component,
     progress: f32,
@@ -16,14 +17,15 @@ pub struct RaidBossBar {
     darken_screen: bool,
     play_boss_music: bool,
     create_world_fog: bool,
-    /// `players` (vanilla `HashSet<ServerPlayer>` by identity; kept in insertion order).
-    players: Vec<PlayerHandle>,
+    /// `players` (vanilla `HashSet<ServerPlayer>`, equal by entity id; kept in insertion order): the player's entity id and the
+    /// connection its packets go to.
+    players: Vec<(EntityId, ConnectionSender)>,
     visible: bool,
 }
 
-impl RaidBossBar {
+impl ServerBossEvent {
     pub fn new(id: Uuid, name: Component, color: BossBarColor, overlay: BossBarOverlay) -> Self {
-        RaidBossBar {
+        ServerBossEvent {
             id,
             name,
             progress: 1.0,
@@ -64,9 +66,9 @@ impl RaidBossBar {
     pub fn is_visible(&self) -> bool {
         self.visible
     }
-    /// `getPlayers()`.
-    pub fn get_players(&self) -> &[PlayerHandle] {
-        &self.players
+    /// `getPlayers()`: the entity ids of the players seeing the bar.
+    pub fn get_players(&self) -> impl Iterator<Item = EntityId> + '_ {
+        self.players.iter().map(|(id, _)| *id)
     }
 
     fn properties(&self) -> wire::BossEventProperties {
@@ -97,8 +99,8 @@ impl RaidBossBar {
                 id: self.id,
                 operation,
             };
-            for player in &self.players {
-                player.connection.send(&packet);
+            for (_, connection) in &self.players {
+                connection.send(&packet);
             }
         }
     }
@@ -168,21 +170,21 @@ impl RaidBossBar {
     }
 
     /// `addPlayer(player)`.
-    pub fn add_player(&mut self, player: &PlayerHandle) {
-        if !self.players.iter().any(|p| p.same_player(player)) {
-            self.players.push(player.clone());
+    pub fn add_player(&mut self, player: EntityId, connection: &ConnectionSender) {
+        if !self.players.iter().any(|(id, _)| *id == player) {
+            self.players.push((player, connection.clone()));
             if self.visible {
-                player.connection.send(&self.create_add_packet());
+                connection.send(&self.create_add_packet());
             }
         }
     }
 
     /// `removePlayer(player)`.
-    pub fn remove_player(&mut self, player: &PlayerHandle) {
-        if let Some(i) = self.players.iter().position(|p| p.same_player(player)) {
-            self.players.remove(i);
+    pub fn remove_player(&mut self, player: EntityId) {
+        if let Some(i) = self.players.iter().position(|(id, _)| *id == player) {
+            let (_, connection) = self.players.remove(i);
             if self.visible {
-                player.connection.send(&wire::ClientboundBossEventPacket {
+                connection.send(&wire::ClientboundBossEventPacket {
                     id: self.id,
                     operation: wire::BossEventOperation::Remove,
                 });
@@ -192,8 +194,9 @@ impl RaidBossBar {
 
     /// `removeAllPlayers()`.
     pub fn remove_all_players(&mut self) {
-        for player in self.players.clone() {
-            self.remove_player(&player);
+        let players: Vec<EntityId> = self.get_players().collect();
+        for player in players {
+            self.remove_player(player);
         }
     }
 
@@ -201,11 +204,11 @@ impl RaidBossBar {
     pub fn set_visible(&mut self, visible: bool) {
         if visible != self.visible {
             self.visible = visible;
-            for player in &self.players {
+            for (_, connection) in &self.players {
                 if visible {
-                    player.connection.send(&self.create_add_packet());
+                    connection.send(&self.create_add_packet());
                 } else {
-                    player.connection.send(&wire::ClientboundBossEventPacket {
+                    connection.send(&wire::ClientboundBossEventPacket {
                         id: self.id,
                         operation: wire::BossEventOperation::Remove,
                     });

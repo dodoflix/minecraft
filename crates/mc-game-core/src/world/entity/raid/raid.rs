@@ -5,13 +5,13 @@
 //! together with the level (`ServerLevel::with_raid`); a raider that is itself taken out of the level (it is ticking) is
 //! passed in explicitly where vanilla would read it through the object reference.
 
-use super::raid_boss_bar::RaidBossBar as ServerBossEvent;
 use super::raid_world;
 use super::raider;
 use crate::advancements::triggers::CriteriaTriggers;
 use crate::server::bossevents::{BossBarColor, BossBarOverlay};
 use crate::server::level::ServerLevel;
-use crate::server::players::PlayerHandle;
+use crate::server::level::server_boss_event::ServerBossEvent;
+use crate::server::network::ConnectionSender;
 use crate::stats::stats::Stats;
 use crate::util::codec::{self, DataResult, DecodeResult};
 use crate::util::java_hash_order::JavaHashCapacity;
@@ -381,8 +381,8 @@ impl Raid {
 
     /// `updatePlayers(level)`.
     fn update_players(&mut self, level: &ServerLevel, view: &[RaidMeta]) {
-        let current: Vec<PlayerHandle> = self.raid_event.get_players().to_vec();
-        let mut new_players: Vec<PlayerHandle> = Vec::new();
+        let current: Vec<EntityId> = self.raid_event.get_players().collect();
+        let mut new_players: Vec<(EntityId, ConnectionSender)> = Vec::new();
         for &pid in level.players() {
             let Some(player) = level.get_entity(pid) else {
                 continue;
@@ -391,18 +391,18 @@ impl Raid {
                 && let Some(handle) = player
                     .as_any()
                     .downcast_ref::<ServerPlayer>()
-                    .and_then(|p| p.handle.clone())
+                    .and_then(|p| p.handle.as_ref())
             {
-                new_players.push(handle);
+                new_players.push((pid, handle.connection.clone()));
             }
         }
-        for player in &new_players {
-            if !current.iter().any(|c| c.same_player(player)) {
-                self.raid_event.add_player(player);
+        for (player, connection) in &new_players {
+            if !current.contains(player) {
+                self.raid_event.add_player(*player, connection);
             }
         }
-        for player in &current {
-            if !new_players.iter().any(|n| n.same_player(player)) {
+        for player in current {
+            if !new_players.iter().any(|(n, _)| *n == player) {
                 self.raid_event.remove_player(player);
             }
         }
@@ -709,7 +709,7 @@ impl Raid {
     fn play_sound(&mut self, level: &ServerLevel, sound_origin: BlockPos) {
         let dist_away = 13.0f32;
         let range = 64;
-        let players_in_raid: Vec<PlayerHandle> = self.raid_event.get_players().to_vec();
+        let players_in_raid: Vec<EntityId> = self.raid_event.get_players().collect();
         let seed = self.random.next_long();
         for &pid in level.players() {
             let Some(player) = level.get_entity(pid) else {
@@ -722,11 +722,7 @@ impl Raid {
                 .sqrt();
             let x3 = player_loc.x + f64::from(dist_away) / dist_btwn * (raid_loc.x - player_loc.x);
             let z3 = player_loc.z + f64::from(dist_away) / dist_btwn * (raid_loc.z - player_loc.z);
-            let in_raid = player
-                .as_any()
-                .downcast_ref::<ServerPlayer>()
-                .and_then(|p| p.handle.as_ref())
-                .is_some_and(|h| players_in_raid.iter().any(|p| p.same_player(h)));
+            let in_raid = players_in_raid.contains(&pid);
             if (dist_btwn <= f64::from(range) || in_raid)
                 && let Some(connection) = player
                     .as_any()
