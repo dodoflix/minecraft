@@ -5,11 +5,11 @@
 use super::chunk_holder::{ChunkHolder, ChunkSlot, FutureState, Waiter};
 use super::chunk_map::{ChunkMap, MainTask};
 use super::chunk_status_tasks::{BatchResult, GenBatch, GenJob, runs_on_worldgen_thread};
-use super::world_gen::GenChunk;
+use super::world_gen::{GenChunk, LightEvent};
 use crate::world::level::chunk::status::{
     ChunkStatusTask, ChunkStep, GENERATION_PYRAMID, LOADING_PYRAMID,
 };
-use mc_core::pos::ChunkPos;
+use mc_core::pos::{ChunkPos, SectionPos};
 use mc_light::LightCompletion;
 use mc_world::chunk::{ProtoChunk, StructureData};
 use mc_world::status::ChunkStatus;
@@ -134,6 +134,8 @@ impl ChunkMap {
     /// Hand the next queued task slice to the "executor" while the worldgen thread is idle.
     pub(crate) fn pump_worldgen(&mut self) {
         while !self.worldgen_busy {
+            // light work waits while a batch has chunks lent out: give it its turn before the next batch starts
+            self.run_light_updates();
             let Some((_, tasks)) = self.worldgen_queue.pop() else {
                 return;
             };
@@ -580,6 +582,15 @@ impl ChunkMap {
         for (pos, old_type, new_type) in result.poi_changes {
             self.poi_manager
                 .apply_block_state_change(pos, old_type, new_type);
+        }
+        // the `lightEngine.checkBlock/updateSectionStatus` calls of `ProtoChunk.setBlockState`, in call order
+        for event in result.light_events {
+            match event {
+                LightEvent::SectionStatus(pos, empty) => self
+                    .light
+                    .update_section_status(SectionPos::of_block_pos(&pos), empty),
+                LightEvent::CheckBlock(pos) => self.light.check_block(pos),
+            }
         }
         for (key, chunk) in result.chunks {
             if let Some(holder) = self.holders.holder_mut(key) {

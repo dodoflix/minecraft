@@ -781,8 +781,10 @@ impl ChunkMap {
         }
     }
 
-    fn run_light_updates(&mut self) {
-        if !self.light.has_pending_work() {
+    pub(super) fn run_light_updates(&mut self) {
+        // the chunks a worldgen batch works on are lent out: the light thread reads them live in vanilla, here a lent chunk
+        // reads as missing (bedrock), which would lose the light of everything it holds, so light waits for the batch
+        if self.worldgen_busy || !self.light.has_pending_work() {
             return;
         }
         let holders = &self.holders;

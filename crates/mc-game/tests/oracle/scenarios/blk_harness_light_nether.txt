@@ -1,0 +1,10 @@
+# Block light of the generated nether (seed 1) around the player: the lava sea.
+level normal
+structures true
+seed 1
+dimension the_nether
+preload 0
+difficulty normal
+spawn_player Steve survival -96.5 70 205.5 0 0
+tick 100
+dump lights:-96,30,196,-80,50,206

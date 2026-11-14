@@ -201,6 +201,7 @@ import net.minecraft.util.RandomSource;
  * trade_select PLAYER N       ServerboundSelectTradePacket
  * click, creative_slot, rename, select_trade, set_beacon, slot_state, place_recipe, recipe_seen, recipe_settings, `dump menu:PLAYER`, `dump recipes:PLAYER`: see MenuVerbs.java
  * local difficulty / light / time of day: `dump difficulty:X,Y,Z` (`DIFFICULTY ..`), `dump light:X,Y,Z` (`LIGHT x y z block=B sky=S`, after ticks),
+ *                             `dump lights:X1,Y1,Z1,X2,Y2,Z2` (the `LIGHT` lines of the box cells with block or sky light above 0),
  *                             `time N` (day time, `/time set`; the sky darkens on the next tick), `gamerule`.
  * -- time --
  * tick [N]                    N real server ticks (default 1); each prints the `watch` dumps after the tick
@@ -1802,6 +1803,27 @@ public final class EntityOracleDriver {
       out.println("LIGHT " + c[0] + " " + c[1] + " " + c[2] + " block=" + v.level.getBrightness(LightLayer.BLOCK, pos) + " sky=" + v.level.getBrightness(LightLayer.SKY, pos));
    }
 
+   /** {@code dump lights:x1,y1,z1,x2,y2,z2}: a {@code LIGHT} line for every cell of the box whose block or sky light is above 0. */
+   void lightsDump(String arg) {
+      String[] c = arg.split(",");
+      int[] n = new int[6];
+      for (int i = 0; i < 6; i++) {
+         n[i] = Integer.parseInt(c[i]);
+      }
+      for (int x = Math.min(n[0], n[3]); x <= Math.max(n[0], n[3]); x++) {
+         for (int y = Math.min(n[1], n[4]); y <= Math.max(n[1], n[4]); y++) {
+            for (int z = Math.min(n[2], n[5]); z <= Math.max(n[2], n[5]); z++) {
+               BlockPos pos = new BlockPos(x, y, z);
+               int block = v.level.getBrightness(LightLayer.BLOCK, pos);
+               int sky = v.level.getBrightness(LightLayer.SKY, pos);
+               if (block > 0 || sky > 0) {
+                  out.println("LIGHT " + x + " " + y + " " + z + " block=" + block + " sky=" + sky);
+               }
+            }
+         }
+      }
+   }
+
    // ------------------------------------------------------------------------------------------------ dumps
 
    void dump(String[] what) {
@@ -2035,6 +2057,7 @@ public final class EntityOracleDriver {
             }
             case "difficulty" -> localDifficulty(arg);
             case "light" -> lightDump(arg);
+            case "lights" -> lightsDump(arg);
             case "spawn_state" -> {
                try {
                   printSpawnState(createSpawnState());

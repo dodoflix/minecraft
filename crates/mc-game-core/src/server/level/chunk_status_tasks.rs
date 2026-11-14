@@ -5,7 +5,7 @@
 //! Steps that run on the game thread instead (`passThrough`, `loadStructureStarts`, `initializeLight`, `light`, `full`)
 //! are handled by the chunk map.
 
-use super::world_gen::{GenChunk, WorldGenContext, WorldGenRegion};
+use super::world_gen::{GenChunk, LightEvent, WorldGenContext, WorldGenRegion};
 use crate::crash_report::CrashReport;
 use crate::world::entity::ai::village::poi::PoiTypeHolder;
 use crate::world::level::chunk::status::{ChunkStatusTask, ChunkStep};
@@ -43,6 +43,8 @@ pub struct BatchResult {
         Option<PoiTypeHolder>,
         Option<PoiTypeHolder>,
     )>,
+    /// Light engine calls of the batch's block writes (see `WorldGenRegion::light_events`), in call order.
+    pub light_events: Vec<LightEvent>,
     /// Structure start rewrites for chunks the batch did not lend (`WorldGenRegion::update_structure_start`).
     pub start_updates: Vec<(ChunkPos, String, mc_nbt::CompoundTag)>,
 }
@@ -59,6 +61,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
     } = batch;
     let mut completed = Vec::with_capacity(jobs.len());
     let mut poi_changes = Vec::new();
+    let mut light_events = Vec::new();
     let mut start_updates = Vec::new();
     for job in &jobs {
         let step = &job.step;
@@ -88,6 +91,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
             return Err(report);
         }
         poi_changes.append(&mut region.poi_changes);
+        light_events.append(&mut region.light_events);
         start_updates.append(&mut region.start_updates);
         chunks = region.into_chunks();
         completed.push((job.pos.pack(), step.target_status));
@@ -104,6 +108,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
         chunks,
         completed,
         poi_changes,
+        light_events,
         start_updates,
     })
 }

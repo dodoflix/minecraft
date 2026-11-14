@@ -7,9 +7,9 @@
 use crate::world::entity::ai::village::poi::PoiTypeHolder;
 use crate::world::level::DimensionKey;
 use mc_core::ident::Identifier;
-use mc_core::pos::ChunkPos;
+use mc_core::pos::{BlockPos, ChunkPos};
 use mc_nbt::CompoundTag;
-use mc_world::chunk::{LevelHeight, ProtoChunk, StructureData};
+use mc_world::chunk::{LevelHeight, LightEngineHook, ProtoChunk, StructureData};
 use mc_world::palette::PalettedContainerFactory;
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -39,6 +39,29 @@ impl GenChunk {
     }
 }
 
+/// A light engine call a worldgen write made (`ProtoChunk.setBlockState` into a chunk that already initialised its light).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum LightEvent {
+    /// `lightEngine.updateSectionStatus(pos, sectionEmpty)`.
+    SectionStatus(BlockPos, bool),
+    /// `lightEngine.checkBlock(pos)`.
+    CheckBlock(BlockPos),
+}
+
+/// Collects the light engine calls of one write: the engine belongs to the game thread, which replays them in call order.
+#[derive(Default)]
+pub struct LightEvents(pub Vec<LightEvent>);
+
+impl LightEngineHook for LightEvents {
+    fn update_section_status(&mut self, pos: BlockPos, section_empty: bool) {
+        self.0.push(LightEvent::SectionStatus(pos, section_empty));
+    }
+
+    fn check_block(&mut self, pos: BlockPos) {
+        self.0.push(LightEvent::CheckBlock(pos));
+    }
+}
+
 /// The neighbourhood of a generation step.
 pub struct WorldGenRegion {
     pub center: ChunkPos,
@@ -57,6 +80,9 @@ pub struct WorldGenRegion {
         Option<PoiTypeHolder>,
         Option<PoiTypeHolder>,
     )>,
+    /// The light engine calls of every `setBlock` into a chunk past `INITIALIZE_LIGHT` (a neighbour's features reach it), in call
+    /// order: the game thread submits them to the light engine when the batch is back.
+    pub light_events: Vec<LightEvent>,
     /// Structure start tags rewritten for chunks this region does not own (see [`Self::update_structure_start`]); the
     /// game thread applies them to the real chunks when the batch is done.
     pub start_updates: Vec<(ChunkPos, String, CompoundTag)>,
@@ -79,6 +105,7 @@ impl WorldGenRegion {
             structure_views,
             level_height,
             poi_changes: Vec::new(),
+            light_events: Vec::new(),
             start_updates: Vec::new(),
         }
     }

@@ -7,7 +7,7 @@
 //!   `Detected unsafe terrain read during worldgen` error (and continue); a chunk the step may not see is the crash
 //!   `Requested chunk unavailable during world generation` (a panic here);
 //! * writes go through `ensureCanWrite` (`Detected setBlock in a far chunk` + dropped outside the write zone, the
-//!   upgrading-chunk height rule), then `ProtoChunk.setBlockState` (heightmaps per the chunk's status, light engine untouched; POI
+//!   upgrading-chunk height rule), then `ProtoChunk.setBlockState` (heightmaps per the chunk's status, light engine calls queued in `WorldGenRegion::light_events`; POI
 //!   type changes are queued in `WorldGenRegion::poi_changes` for the game thread), the `DUMMY` block entity NBT of block-entity states (the real NBT arrives through
 //!   [`WorldGenLevel::set_block_entity_nbt`]) and `getPostProcessPos` post-processing marks (`flags & 16 == 0`);
 //! * chunks the game thread merely lends read-only (`GenChunk::Snapshot`, vanilla `ImposterProtoChunk(allowWrites=false)`)
@@ -21,7 +21,7 @@
 
 use super::env::GenEnv;
 use super::world_gen_level::WorldGenLevel;
-use crate::server::level::world_gen::{GenChunk, WorldGenRegion};
+use crate::server::level::world_gen::{GenChunk, LightEvents, WorldGenRegion};
 use crate::world::block_entity::BlockEntity;
 use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::entity::ai::village::poi::PoiTypes;
@@ -460,8 +460,9 @@ impl LevelAccessor for GenLevel<'_> {
         }
         self.flush_heightmaps();
         let mut old_state_written = None;
+        let mut light = LightEvents::default();
         if let Some(chunk) = self.chunk_for_write(pos) {
-            let old_state = chunk.set_block_state(pos, state, None);
+            let old_state = chunk.set_block_state(pos, state, Some(&mut light));
             old_state_written = Some(old_state);
             if state.has_block_entity() {
                 // A ProtoChunk never has the LEVELCHUNK type: the placeholder the real block entity NBT replaces. A live
@@ -483,6 +484,7 @@ impl LevelAccessor for GenLevel<'_> {
                 chunk.access.remove_block_entity(pos);
             }
         }
+        self.region.light_events.append(&mut light.0);
         if let Some(old_state) = old_state_written {
             // `level.updatePOIOnBlockStateChange(pos, oldState, blockState)`: applied by the game thread with the batch
             let (old_type, new_type) = (PoiTypes::for_state(old_state), PoiTypes::for_state(state));

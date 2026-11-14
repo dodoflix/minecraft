@@ -212,7 +212,7 @@ fn mob_spawnpass_respawn_point() {
 }
 
 #[test]
-#[ignore = "deviation: the fortress list is found (238 lines match: wither skeletons, blazes, piglins) but the block light of the replayed nether differs from vanilla near the lava inside the fortress (block light 3 here, 10 in vanilla at -68,58,156), so a dark-enough spawn test passes here where vanilla rejects it (SPAWNAT seed=491 at -66,58,154)"]
+#[ignore = "deviation: the fortress list is found (238 lines match: wither skeletons, blazes, piglins) but the nether basalt deltas around the fortress do not match the recorded vanilla blocks (basalt, blackstone and netherrack are distributed differently, vanilla has flowing lava the replay lacks; vanilla itself places a few of those blocks differently between runs), so the block light next to the spawn tests is lower here (8 against 11 at -63,58,155; the nether needs raw brightness <= 7) and SPAWNAT seed=491 at -66,58,154 spawns a pack here that vanilla rejects"]
 fn mob_spawnpass_fortress() {
     block_scenario::check("mob_spawnpass_fortress");
 }

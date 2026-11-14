@@ -39,7 +39,7 @@ use mc_game::world::entity::Entity;
 use mc_game::world::level::block::BlockStateExt;
 use mc_game::world::level::gamerules::{AnyGameRule, GameRules};
 use mc_game::world::level::material::FluidStateExt;
-use mc_game::world::level::{BlockGetter, LevelAccessor};
+use mc_game::world::level::{BlockGetter, LevelAccessor, LevelReader, LightLayer};
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::codec::{Decode, read_varint};
 use mc_protocol::packet::Packet;
@@ -1205,12 +1205,48 @@ impl Scenario {
                     let c: Vec<i32> = arg.expect("chunkbes:cx,cz").split(',').map(int).collect();
                     self.dump_chunk_packet_bes(c[0], c[1]);
                 }
+                "light" => {
+                    let c: Vec<i32> = arg.expect("light:x,y,z").split(',').map(int).collect();
+                    let line = self.light_line(BlockPos::new(c[0], c[1], c[2]));
+                    self.out.push(line);
+                }
+                "lights" => {
+                    let c: Vec<i32> = arg
+                        .expect("lights:x1,y1,z1,x2,y2,z2")
+                        .split(',')
+                        .map(int)
+                        .collect();
+                    assert_eq!(c.len(), 6, "lights:x1,y1,z1,x2,y2,z2");
+                    for x in c[0].min(c[3])..=c[0].max(c[3]) {
+                        for y in c[1].min(c[4])..=c[1].max(c[4]) {
+                            for z in c[2].min(c[5])..=c[2].max(c[5]) {
+                                let line = self.light_line(BlockPos::new(x, y, z));
+                                if !line.ends_with("block=0 sky=0") {
+                                    self.out.push(line);
+                                }
+                            }
+                        }
+                    }
+                }
                 "ticks" => self.dump_ticks(arg),
                 _ if self.dump_actor(kind, arg) => {}
                 "events" => self.dump_events(),
                 other => panic!("dump {other} is not supported by tests/common/block_scenario.rs"),
             }
         }
+    }
+
+    /// `LIGHT x y z block=B sky=S`: `getBrightness` of both light layers.
+    fn light_line(&mut self, p: BlockPos) -> String {
+        let level = self.level();
+        let block = level.get_brightness(LightLayer::Block, p);
+        let sky = level.get_brightness(LightLayer::Sky, p);
+        format!(
+            "LIGHT {} {} {} block={block} sky={sky}",
+            p.x(),
+            p.y(),
+            p.z()
+        )
     }
 
     /// `dump chunkbes:cx,cz`: the block entity list of the chunk's `ClientboundLevelChunkPacketData`, in packet order.
