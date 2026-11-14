@@ -349,7 +349,9 @@ impl Entity for Piglin {
 
     /// `setBaby(baby)`.
     fn set_baby(&mut self, baby: bool) {
-        self.base_mut().entity_data.set(DATA_BABY_ID, baby);
+        if self.base_mut().entity_data.set(DATA_BABY_ID, baby) {
+            self.on_synced_data_updated(DATA_BABY_ID.id());
+        }
         let living = &mut self.mob.living;
         if let Some(speed) = living.attributes.get_instance(Attribute::MOVEMENT_SPEED) {
             speed.remove_modifier(&SPEED_MODIFIER_BABY_ID);

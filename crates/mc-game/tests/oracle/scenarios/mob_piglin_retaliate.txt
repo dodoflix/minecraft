@@ -1,0 +1,35 @@
+# A piglin hit by a player gets angry at it, tells the adults it can see (not the baby) and the others take the same target; a hoglin
+# next to them is not a target of that anger. The anger target is forgotten when the player is out of reach for a while.
+level flat
+preload 4
+difficulty hard
+entity_counter 8700
+level_seed 8701
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 4.5 -60 0.5 90 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+give Steve mainhand minecraft:diamond_sword
+mobspawn P1 minecraft:piglin 0.5 -60 0.5 -90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b,equipment:{mainhand:{id:"minecraft:golden_sword",count:1}}}
+mobspawn P2 minecraft:piglin 0.5 -60 6.5 -90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b,equipment:{mainhand:{id:"minecraft:golden_sword",count:1}}}
+mobspawn P3 minecraft:piglin 0.5 -60 -6.5 -90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:1b}
+mobspawn P4 minecraft:piglin 20.5 -60 20.5 -90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b,equipment:{mainhand:{id:"minecraft:golden_sword",count:1}}}
+entity_seed P1 8702
+entity_seed P2 8703
+entity_seed P3 8704
+entity_seed P4 8705
+tick 40
+dump mobs
+hurt P1 player_attack 2 by=Steve
+tick 1
+dump brain:P1 brain:P2 brain:P3 brain:P4 events
+watch mob:P1 mob:P2 mob:P3 mob:P4
+tick 100
+watch off
+dump mobs brain:P1 brain:P2 events
+tp Steve 4.5 -60 60.5
+watch mob:P1 mob:P2
+tick 300
+watch off
+dump mobs brain:P1 brain:P2

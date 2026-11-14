@@ -1,0 +1,29 @@
+# A piglin facing a player in a golden helmet (not hostile) with gold ingots on the floor: it picks one up, admires it (119 ticks), the
+# barter loot (level random) is thrown toward the player, then it picks up the next ingot. A stone and a golden sword on the floor: the
+# stone is ignored, the sword is taken into the hand.
+level flat
+preload 4
+difficulty normal
+entity_counter 8100
+level_seed 8101
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 6.5 -60 0.5 90 0
+give Steve head minecraft:golden_helmet
+mobspawn P minecraft:piglin 0.5 -60 0.5 -90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b,equipment:{mainhand:{id:"minecraft:golden_sword",count:1}}}
+entity_seed P 8102
+spawn_item G minecraft:gold_ingot 1.5 -60 0.5 0 0 0 1 rot=0
+spawn_item S minecraft:stone 0.5 -60 1.5 0 0 0 1 rot=0
+tick 2
+dump brain:P mob:P
+watch mob:P
+tick 200
+watch off
+dump brain:P mob:P entities nbt:P events
+note a second ingot, thrown when the piglin has finished and is idle again
+spawn_item G2 minecraft:gold_ingot 1.5 -60 -0.5 0 0 0 1 rot=0
+level_seed 8103
+watch mob:P
+tick 200
+watch off
+dump brain:P mob:P entities nbt:P events

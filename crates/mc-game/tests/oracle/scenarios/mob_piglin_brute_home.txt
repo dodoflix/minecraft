@@ -1,0 +1,28 @@
+# A piglin brute (axe, home set at its spawn point) next to a player in golden armor (brutes ignore it) and a gold ingot on the floor
+# (not picked up, no barter): it attacks the player, and after the player is gone returns to and stays near its home.
+level flat
+preload 4
+difficulty hard
+entity_counter 8300
+level_seed 8301
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 8.5 -60 0.5 90 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+give Steve head minecraft:golden_helmet
+mobspawn B minecraft:piglin_brute 0.5 -60 0.5 -90 0 {PersistenceRequired:1b}
+entity_seed B 8302
+spawn_item G minecraft:gold_ingot 1.5 -60 1.5 0 0 0 1 rot=0
+tick 2
+dump brain:B mob:B nbt:B
+watch mob:B player:Steve
+tick 120
+watch off
+dump brain:B mob:B nbt:B entities events
+note the player leaves: the brute forgets its target and walks home
+tp Steve 8.5 -60 40.5
+watch mob:B
+tick 400
+watch off
+dump brain:B mob:B nbt:B

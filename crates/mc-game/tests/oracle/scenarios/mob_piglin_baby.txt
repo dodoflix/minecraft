@@ -1,0 +1,34 @@
+# A baby piglin next to a baby hoglin and a zombified piglin: it avoids the zombified piglin, looks around, wanders, and may ride the
+# baby hoglin; a gold ingot on the floor is admired by it as by an adult.
+level flat
+preload 4
+difficulty normal
+entity_counter 8800
+level_seed 8801
+time 18000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 -30.5 0 0
+tick 30
+mobspawn B minecraft:piglin 0.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:1b}
+mobspawn H minecraft:hoglin 3.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,Age:-24000}
+entity_seed B 8802
+entity_seed H 8803
+tick 2
+dump brain:B mob:B mob:H
+watch mob:B mob:H
+tick 150
+watch off
+dump brain:B mobs
+note a zombified piglin arrives
+mobspawn Z minecraft:zombified_piglin 8.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z 8804
+watch mob:B
+tick 80
+watch off
+dump brain:B mobs
+spawn_item G minecraft:gold_ingot -4.5 -60 0.5 0 0 0 1 rot=0
+kill Z
+watch mob:B
+tick 200
+watch off
+dump brain:B mobs entities events

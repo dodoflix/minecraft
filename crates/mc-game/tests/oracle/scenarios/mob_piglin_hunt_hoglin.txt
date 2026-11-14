@@ -1,0 +1,28 @@
+# An adult piglin sees an adult hoglin: it hunts it (the hunt memory), kills it, remembers the kill (celebration spot), dances and
+# does not hunt again for a while; a second hoglin appears after the kill.
+level flat
+preload 4
+difficulty normal
+entity_counter 8200
+level_seed 8201
+time 18000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 -30.5 0 0
+tick 30
+mobspawn P minecraft:piglin 0.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b,equipment:{mainhand:{id:"minecraft:golden_sword",count:1}}}
+mobspawn H minecraft:hoglin 8.5 -60 0.5 90 0 {PersistenceRequired:1b,IsImmuneToZombification:1b}
+entity_seed P 8202
+entity_seed H 8203
+tick 2
+dump brain:P brain:H mob:P mob:H
+watch mob:P mob:H
+tick 250
+watch off
+dump brain:P mobs nbt:P events
+note a second hoglin after the kill: the piglin does not hunt for a while
+mobspawn H2 minecraft:hoglin 6.5 -60 4.5 90 0 {PersistenceRequired:1b,IsImmuneToZombification:1b}
+entity_seed H2 8204
+watch mob:P mob:H2
+tick 120
+watch off
+dump brain:P mobs events

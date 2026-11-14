@@ -1,0 +1,19 @@
+# A piglin with a crossbow charges it, shoots a player 12 blocks away (arrows, sounds), and keeps shooting while the player is in view.
+level flat
+preload 4
+difficulty hard
+entity_counter 8500
+level_seed 8501
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 12.5 -60 0.5 90 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+mobspawn P minecraft:piglin 0.5 -60 0.5 -90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b,equipment:{mainhand:{id:"minecraft:crossbow",count:1}}}
+entity_seed P 8502
+tick 2
+dump brain:P goals:P mob:P
+watch mob:P entities
+tick 160
+watch off
+dump brain:P mob:P entities events nbt:P

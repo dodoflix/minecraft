@@ -1,0 +1,27 @@
+# Piglins in the overworld that are not immune count 300 ticks of conversion and turn into zombified piglins (adult with its sword and
+# effect, baby, and a brute); the immune one stays a piglin.
+level flat
+preload 4
+difficulty normal
+entity_counter 8400
+level_seed 8401
+time 18000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 -30.5 0 0
+tick 30
+mobspawn A minecraft:piglin 0.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,IsBaby:0b,equipment:{mainhand:{id:"minecraft:golden_sword",count:1}}}
+mobspawn B minecraft:piglin 4.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,IsBaby:1b}
+mobspawn C minecraft:piglin_brute 8.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:golden_axe",count:1}}}
+mobspawn D minecraft:piglin 12.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,IsBaby:0b,IsImmuneToZombification:1b}
+entity_seed A 8402
+entity_seed B 8403
+entity_seed C 8404
+entity_seed D 8405
+tick 2
+dump mobs
+watch mob:A mob:B mob:C mob:D
+tick 310
+watch off
+dump mobs events nbt:zombified_piglin#1 nbt:zombified_piglin#2 nbt:zombified_piglin#3
+tick 20
+dump mobs

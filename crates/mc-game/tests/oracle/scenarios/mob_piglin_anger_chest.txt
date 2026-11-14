@@ -1,0 +1,31 @@
+# Piglins with AI near a player that opens a chest: the ones that see the player get angry at it (anger memory,
+# universal anger for the adults around), a baby does not join the attack, a piglin out of range stays calm.
+level flat
+preload 4
+difficulty hard
+entity_counter 8600
+level_seed 8601
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 2.5 -60 4.5 180 0
+attribute Steve minecraft:max_health 400
+set Steve health 400
+give Steve mainhand minecraft:diamond_pickaxe
+block 2 -60 2 minecraft:chest[facing=south]
+mobspawn P1 minecraft:piglin 8.5 -60 4.5 90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b,equipment:{mainhand:{id:"minecraft:golden_sword",count:1}}}
+mobspawn P2 minecraft:piglin 8.5 -60 -6.5 90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b,equipment:{mainhand:{id:"minecraft:golden_sword",count:1}}}
+mobspawn P3 minecraft:piglin 6.5 -60 8.5 90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:1b}
+mobspawn P4 minecraft:piglin 40.5 -60 4.5 90 0 nofinalize {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b,equipment:{mainhand:{id:"minecraft:golden_sword",count:1}}}
+entity_seed P1 8602
+entity_seed P2 8603
+entity_seed P3 8604
+entity_seed P4 8605
+tick 40
+dump mobs
+use_on Steve 2 -60 2 south
+tick 2
+dump mobs nbt:P1 nbt:P2 nbt:P3 nbt:P4 brain:P1 brain:P2 events
+watch mob:P1 mob:P2 mob:P3 mob:P4
+tick 100
+watch off
+dump mobs brain:P1 brain:P2 nbt:P1 events

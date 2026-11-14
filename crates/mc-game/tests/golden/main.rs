@@ -195,6 +195,7 @@ mod mob_hoglin_golden;
 mod mob_illager_golden;
 mod mob_nav_golden;
 mod mob_pets_golden;
+mod mob_piglin_golden;
 mod mob_registration_guards;
 mod mob_skeleton_golden;
 mod mob_spine_golden;
