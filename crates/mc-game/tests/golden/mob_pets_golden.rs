@@ -45,10 +45,8 @@ fn cat_scare() {
     check("mob_cat_scare");
 }
 
-/// A swooping phantom hisses at the cats near it. Ignored: a phantom circling its anchor picks another target height than vanilla from tick 33 on
-/// (same random draws, a different `moveTargetPoint.y` after the second target change).
+/// A swooping phantom hisses at the cats near it.
 #[test]
-#[ignore = "deviation: the phantom's circling flight leaves vanilla's after about 30 ticks (same draws, other target height), so the sweep and the hisses are off"]
 fn cat_phantom_hiss() {
     check("mob_cat_phantom_hiss");
 }

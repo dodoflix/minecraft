@@ -1,0 +1,47 @@
+# An enderman dodges: a snowball and a splash potion make it teleport, a water bottle hurts it, rain and standing in water hurt it, and
+# in daylight an enderman with AI eventually teleports away on its own.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 3301
+entity_counter 3300
+spawn_player Steve survival 0.5 -60 -20.5 0 0
+effect Steve minecraft:resistance 100000 10
+mobspawn S minecraft:enderman 0.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn P minecraft:enderman 10.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn W minecraft:enderman 20.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+fill 30 -61 0 36 -58 8 minecraft:glass
+fill 31 -60 1 35 -58 7 minecraft:air
+fill 31 -60 1 35 -59 7 minecraft:water
+mobspawn I minecraft:enderman 33.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn D minecraft:enderman 50.5 -60 4.5 0 0 {PersistenceRequired:1b}
+entity_seed D 3315
+entity_seed S 3311
+entity_seed P 3312
+entity_seed W 3313
+entity_seed I 3314
+tick 2
+note snowball at S, splash potion (poison) at P, water bottle at W
+spawn sb minecraft:snowball 0.5 -58.5 -1.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed sb 3321
+velocity sb 0 0 1.5
+spawn pp minecraft:splash_potion 10.5 -58.5 -1.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:poison"}}}}
+entity_seed pp 3322
+velocity pp 0 0 1.5
+spawn pw minecraft:splash_potion 20.5 -58.5 -1.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:water"}}}}
+entity_seed pw 3323
+velocity pw 0 0 1.5
+watch mob:S mob:P mob:W mob:I mob:D events
+tick 20
+watch off
+dump mobs
+note rain hurts, the water-standing one takes damage and teleports
+cmd weather rain 400
+tick 40
+dump mobs
+note daylight: D (with AI) teleports away on its own once 600 ticks have passed since its last target change
+cmd weather clear 100
+time 6000
+tick 700
+dump mobs

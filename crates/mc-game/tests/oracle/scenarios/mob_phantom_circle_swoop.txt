@@ -1,0 +1,30 @@
+# Phantoms at night: with no target they circle their anchor; the player on the surface becomes the target (the anchor moves above the
+# player), after ten ticks the phantom swoops, bites (size scales the damage) and returns to circling; saved anchor and size; at dawn the
+# phantoms burn.
+level flat
+preload 4
+entity_counter 3400
+level_seed 3401
+difficulty hard
+time 18000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 100000 2
+mobspawn A minecraft:phantom 8.5 -48 8.5 0 0 nofinalize {PersistenceRequired:1b,size:3,anchor_pos:[I;8,-44,8]}
+mobspawn B minecraft:phantom -8.5 -50 -8.5 0 0 nofinalize {PersistenceRequired:1b,anchor_pos:[I;-8,-46,-8]}
+entity_seed A 3411
+entity_seed B 3412
+tick 2
+dump mobs nbt:A nbt:B goals:A
+note both circle until the target scan finds Steve
+watch mob:A mob:B events
+tick 100
+watch off
+dump mobs nbt:A nbt:B goals:A
+tick 200
+dump mobs nbt:A nbt:B
+tick 200
+dump mobs nbt:A nbt:B
+note dawn: the sun burns the phantoms
+time 1000
+tick 160
+dump mobs

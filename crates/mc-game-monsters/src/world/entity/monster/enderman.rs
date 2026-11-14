@@ -124,6 +124,18 @@ impl Enderman {
             .set(DATA_CARRY_STATE, carrying_block);
     }
 
+    /// The `target == null` half of `setTarget`. The attribute lookup creates the `movement_speed` instance when absent, which
+    /// the saved attribute list then contains.
+    fn clear_target_state(&mut self) {
+        self.target_change_time = 0;
+        let data = &mut self.mob.living.entity.entity_data;
+        data.set(DATA_CREEPY, false);
+        data.set(DATA_STARED_AT, false);
+        if let Some(speed) = lm(self).attributes.get_instance(Attribute::MOVEMENT_SPEED) {
+            speed.remove_modifier(&SPEED_MODIFIER_ATTACKING_ID);
+        }
+    }
+
     /// `getCarriedBlock()`.
     pub fn get_carried_block(&self) -> Option<BlockState> {
         self.mob.living.entity.entity_data.get(DATA_CARRY_STATE)
@@ -277,16 +289,7 @@ impl Entity for Enderman {
         mob::tick::set_target(self, level, target);
         let tick_count = self.base().tick_count;
         if target.is_none() {
-            self.target_change_time = 0;
-            self.mob.living.entity.entity_data.set(DATA_CREEPY, false);
-            self.mob
-                .living
-                .entity
-                .entity_data
-                .set(DATA_STARED_AT, false);
-            if let Some(speed) = lm(self).attributes.get_instance(Attribute::MOVEMENT_SPEED) {
-                speed.remove_modifier(&SPEED_MODIFIER_ATTACKING_ID);
-            }
+            self.clear_target_state();
         } else {
             self.target_change_time = tick_count;
             self.mob.living.entity.entity_data.set(DATA_CREEPY, true);
@@ -320,6 +323,8 @@ impl Entity for Enderman {
             .filter(|s| !s.is_air());
         self.set_carried_block(carried);
         neutral::read_persistent_anger_save_data(self, None, input);
+        // The load has no level to resolve `angry_at`, so the target stays unset: vanilla's `setTarget(null)` runs here.
+        self.clear_target_state();
     }
 
     fn ai_step(&mut self, level: &mut ServerLevel) {
@@ -471,6 +476,9 @@ impl EndermanFreezeWhenLookedAt {
 }
 
 impl Goal for EndermanFreezeWhenLookedAt {
+    fn name(&self) -> &'static str {
+        "Enderman$EndermanFreezeWhenLookedAt"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.target = mob.get_target();
         let Some(target) = self.target.and_then(|id| level.get_entity(id)) else {
@@ -540,6 +548,9 @@ impl EndermanLeaveBlockGoal {
 }
 
 impl Goal for EndermanLeaveBlockGoal {
+    fn name(&self) -> &'static str {
+        "Enderman$EndermanLeaveBlockGoal"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if enderman_mut(mob).get_carried_block().is_none() || !level.mob_griefing() {
             false
@@ -586,6 +597,9 @@ impl Goal for EndermanLeaveBlockGoal {
 struct EndermanTakeBlockGoal;
 
 impl Goal for EndermanTakeBlockGoal {
+    fn name(&self) -> &'static str {
+        "Enderman$EndermanTakeBlockGoal"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if enderman_mut(mob).get_carried_block().is_some() || !level.mob_griefing() {
             false
@@ -675,6 +689,9 @@ impl EndermanLookForPlayerGoal {
 }
 
 impl Goal for EndermanLookForPlayerGoal {
+    fn name(&self) -> &'static str {
+        "Enderman$EndermanLookForPlayerGoal"
+    }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let follow = self.base.target_goal.get_follow_distance(mob);
         let conditions = TargetingConditions::for_combat()

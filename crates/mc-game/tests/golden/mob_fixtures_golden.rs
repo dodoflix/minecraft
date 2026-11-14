@@ -26,9 +26,6 @@ const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[
     "minecraft:sniffer",
     "minecraft:wandering_trader",
     "minecraft:witch",
-    // the entity is loaded from its tag (`/summon`, an egg's `entity_data`) before `finalizeSpawn`; the load ends in
-    // `setTarget(null)`, whose speed attribute lookup creates the saved attribute instance (`movement_speed` without modifiers)
-    "minecraft:enderman",
     // the saved `anger` data holds `suspects:[]` where vanilla saves `{}`
     "minecraft:warden",
 ];
@@ -223,7 +220,6 @@ fn mob_spawnpass_water() {
 
 /// One `PhantomSpawner` tick with the level random seeded (block replay: the spawner runs on the ticking level).
 #[test]
-#[ignore = "deviation: the first PhantomSpawner tick spawns a phantom in vanilla (line 1: `E phantom#1 ... pos=8.5,-40.0,2.5`) and leaves `Level.random` at 155513899567442, here nothing and 205572635213177"]
 fn mob_custom_spawner_phantom() {
     block_scenario::check("mob_custom_spawner_phantom");
 }

@@ -1,0 +1,82 @@
+# An enderman picks up a holdable block next to it (mobGriefing), carries it (saved block state, persistence), puts it down on an
+# empty spot with a floor (at night: in daylight it teleports away) and drops it when killed; with mobGriefing false it keeps what it carries.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 3201
+time 18000
+entity_counter 3200
+spawn_player Steve survival 0.5 -60 30.5 0 0
+effect Steve minecraft:resistance 100000 10
+fill -6 -60 -6 6 -57 6 minecraft:glass
+fill -5 -60 -5 5 -57 5 minecraft:air
+fill -5 -60 -5 5 -60 5 minecraft:grass_block
+block -3 -59 -3 minecraft:grass_block
+block 3 -59 -3 minecraft:grass_block
+block -3 -59 3 minecraft:grass_block
+block 3 -59 3 minecraft:grass_block
+block 0 -59 -4 minecraft:grass_block
+block 0 -59 4 minecraft:grass_block
+block -4 -59 0 minecraft:grass_block
+block 4 -59 0 minecraft:grass_block
+block 2 -59 1 minecraft:grass_block
+block -2 -59 -1 minecraft:grass_block
+fill 24 -60 -6 36 -57 6 minecraft:glass
+fill 25 -60 -5 35 -57 5 minecraft:air
+fill 25 -60 -5 35 -60 5 minecraft:sand
+block 27 -59 -3 minecraft:sand
+block 33 -59 -3 minecraft:sand
+block 27 -59 3 minecraft:sand
+block 33 -59 3 minecraft:sand
+block 30 -59 -4 minecraft:sand
+block 30 -59 4 minecraft:sand
+block 26 -59 0 minecraft:sand
+block 34 -59 0 minecraft:sand
+block 32 -59 1 minecraft:sand
+block 28 -59 -1 minecraft:sand
+fill 54 -60 -6 66 -57 6 minecraft:glass
+fill 55 -60 -5 65 -57 5 minecraft:air
+fill 55 -60 -5 65 -60 5 minecraft:sand
+block 57 -59 -3 minecraft:sand
+block 63 -59 -3 minecraft:sand
+block 57 -59 3 minecraft:sand
+block 63 -59 3 minecraft:sand
+block 60 -59 -4 minecraft:sand
+block 60 -59 4 minecraft:sand
+block 56 -59 0 minecraft:sand
+block 64 -59 0 minecraft:sand
+block 62 -59 1 minecraft:sand
+block 58 -59 -1 minecraft:sand
+mobspawn T minecraft:enderman 0.5 -59 0.5 0 0 {PersistenceRequired:1b}
+mobspawn C minecraft:enderman 30.5 -59 0.5 0 0 {PersistenceRequired:1b,carriedBlockState:"minecraft:stone"}
+mobspawn C2 minecraft:enderman 32.5 -59 2.5 0 0 {PersistenceRequired:1b,carriedBlockState:"minecraft:sand"}
+mobspawn C3 minecraft:enderman 28.5 -59 -2.5 0 0 {PersistenceRequired:1b,carriedBlockState:"minecraft:cobblestone"}
+mobspawn Q minecraft:enderman 60.5 -59 0.5 0 0 {PersistenceRequired:1b,carriedBlockState:"minecraft:gravel"}
+entity_seed T 3211
+entity_seed C 3212
+entity_seed C2 3214
+entity_seed C3 3215
+entity_seed Q 3213
+tick 2
+dump mobs nbt:C nbt:C2 nbt:C3
+note T looks for blocks to take, C, C2 and C3 carry blocks and wait for the 1 in 2000 roll to put them down
+tick 150
+dump mobs nbt:T nbt:C nbt:C2 nbt:C3 blocks:-5,-60,-5,5,-58,5 blocks:25,-60,-5,35,-58,5
+tick 400
+dump mobs nbt:T nbt:C nbt:C2 nbt:C3 blocks:-5,-60,-5,5,-58,5 blocks:25,-60,-5,35,-58,5
+tick 600
+dump mobs nbt:T nbt:C nbt:C2 nbt:C3 blocks:-5,-60,-5,5,-58,5 blocks:25,-60,-5,35,-58,5
+tick 1000
+dump mobs nbt:T nbt:C nbt:C2 nbt:C3 blocks:-5,-60,-5,5,-58,5 blocks:25,-60,-5,35,-58,5
+tick 1500
+dump mobs nbt:T nbt:C nbt:C2 nbt:C3 blocks:-5,-60,-5,5,-58,5 blocks:25,-60,-5,35,-58,5
+note mobGriefing off: the carrier of gravel (Q) keeps it and T takes and places nothing
+gamerule mob_griefing false
+tick 600
+dump mobs nbt:T nbt:Q blocks:-5,-60,-5,5,-58,5 blocks:55,-60,-5,65,-58,5
+note killing a carrier drops the block
+gamerule mob_griefing true
+cmd kill @e[type=minecraft:enderman,distance=..100]
+tick 3
+dump entities

@@ -183,6 +183,7 @@ mod mob_bee_golden;
 mod mob_brain_golden;
 mod mob_ctrl_golden;
 mod mob_despawn_golden;
+mod mob_ender_golden;
 mod mob_equine_golden;
 mod mob_fixtures_golden;
 mod mob_goal_golden;
