@@ -18,9 +18,11 @@ pub fn create() -> OneShot {
         let feel_scared = c.try_get(&hurt_by).is_some()
             || c.try_get(&nearest_hostile).is_some()
             || c.try_get(&hurt_by_entity).is_some_and(|e| {
-                c.level.get_entity(e.0).is_some_and(|entity| {
-                    entity.base().distance_to_sqr_vec(body_pos) <= SAFE_DISTANCE_FROM_DANGER
-                })
+                c.level
+                    .get_entity_or_recently_removed(e.0)
+                    .is_some_and(|entity| {
+                        entity.base().distance_to_sqr_vec(body_pos) <= SAFE_DISTANCE_FROM_DANGER
+                    })
             });
         if !feel_scared {
             c.erase(&hurt_by);

@@ -125,7 +125,7 @@ pub fn update_persistent_anger(
     let previous_target = e.get_target();
     let persistent_target = get_persistent_anger_target(e);
     let previous_dead_mob = previous_target
-        .and_then(|id| level.get_entity(id))
+        .and_then(|id| level.get_entity_or_recently_removed(id))
         .filter(|t| {
             t.is_dead_or_dying() && persistent_target == Some(t.uuid()) && t.mob().is_some()
         })

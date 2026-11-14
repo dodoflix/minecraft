@@ -253,7 +253,7 @@ impl Axolotl {
 
 /// `Axolotl.onStopAttacking(level, body, target)`: the `StopAttackingIfTargetInvalid` callback.
 pub fn on_stop_attacking(level: &mut ServerLevel, body: &mut dyn Entity, target: EntityId) {
-    let Some(target) = level.get_entity(target) else {
+    let Some(target) = level.get_entity_or_recently_removed(target) else {
         return;
     };
     if !target.is_dead_or_dying() {

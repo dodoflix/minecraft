@@ -60,7 +60,7 @@ impl Behavior for SpearRetreat {
             return false;
         };
         let Some(target_pos) = get_target(body)
-            .and_then(|t| level.get_entity(t))
+            .and_then(|t| level.get_entity_or_recently_removed(t))
             .map(|t| t.position())
         else {
             return false;
@@ -114,7 +114,8 @@ impl Behavior for SpearRetreat {
     }
 
     fn tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
-        let Some(target) = get_target(body).and_then(|t| level.get_entity(t)) else {
+        let Some(target) = get_target(body).and_then(|t| level.get_entity_or_recently_removed(t))
+        else {
             return;
         };
         let speed_modifier = root_charge_speed_modifier(level, body);

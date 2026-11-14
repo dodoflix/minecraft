@@ -187,7 +187,7 @@ impl Goal for SpellcasterCastingSpellGoal {
             }
         } else if self.look_at_wololo_target
             && let Some(wololo) = data(mob).wololo_target
-            && let Some(t) = level.get_entity(wololo)
+            && let Some(t) = level.get_entity_or_recently_removed(wololo)
         {
             mob::look_at_entity_full(mob, t, max_y, max_x);
         }

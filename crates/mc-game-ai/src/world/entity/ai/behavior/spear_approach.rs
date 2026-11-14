@@ -65,7 +65,7 @@ pub(super) fn root_charge_speed_modifier(level: &ServerLevel, mob: &dyn Entity) 
 
 /// `mob.distanceToSqr(target.getX(), target.getY(), target.getZ())`.
 pub(super) fn target_distance_sqr(level: &ServerLevel, mob: &dyn Entity) -> Option<f64> {
-    let target = level.get_entity(get_target(mob)?)?;
+    let target = level.get_entity_or_recently_removed(get_target(mob)?)?;
     let p = target.position();
     Some(mob.base().distance_to_sqr_xyz(p.x, p.y, p.z))
 }
@@ -100,7 +100,8 @@ impl Behavior for SpearApproach {
     }
 
     fn tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
-        let Some(target) = get_target(body).and_then(|t| level.get_entity(t)) else {
+        let Some(target) = get_target(body).and_then(|t| level.get_entity_or_recently_removed(t))
+        else {
             return;
         };
         let speed_modifier = root_charge_speed_modifier(level, body);

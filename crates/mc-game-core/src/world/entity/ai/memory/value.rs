@@ -135,6 +135,24 @@ impl MemoryValue {
             _ => false,
         }
     }
+
+    /// The entities this value holds (vanilla: the objects themselves, also through a `DamageSource`). Position trackers
+    /// are left out: they keep the last position they resolved.
+    pub fn collect_entities(&self, out: &mut std::collections::HashSet<EntityId>) {
+        match self {
+            MemoryValue::Entity(e) => {
+                out.insert(e.0);
+            }
+            MemoryValue::EntityList(v) => out.extend(v.iter().map(|e| e.0)),
+            MemoryValue::NearestVisibleLivingEntities(v) => {
+                out.extend(v.nearby_entities().iter().map(|e| e.0));
+            }
+            MemoryValue::DamageSource(s) => {
+                out.extend(s.0.direct_entity.into_iter().chain(s.0.causing_entity));
+            }
+            _ => {}
+        }
+    }
 }
 
 /// `Objects.equals` semantics (identity for Java objects without `equals`: damage sources, paths, the visible

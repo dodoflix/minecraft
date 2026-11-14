@@ -127,7 +127,7 @@ pub fn is_other_target_much_further_away_than_current_attack_target(
     let Some(&EntityRef(current)) = body.brain().get_memory(&ATTACK_TARGET) else {
         return false;
     };
-    let Some(current) = level.get_entity(current) else {
+    let Some(current) = level.get_entity_or_recently_removed(current) else {
         return false;
     };
     let dist_to_current = body.base().distance_to_sqr_vec(current.position());
@@ -226,7 +226,10 @@ pub fn get_nearest_target(
     let Some(target1) = target1 else {
         return target2;
     };
-    match (level.get_entity(target1), level.get_entity(target2)) {
+    match (
+        level.get_entity_or_recently_removed(target1),
+        level.get_entity_or_recently_removed(target2),
+    ) {
         (Some(t1), Some(t2)) => {
             get_target_nearest_me(body, target1, t1.position(), target2, t2.position())
         }
@@ -294,7 +297,7 @@ pub fn is_within_attack_range(
     projectile_attack_range_margin: i32,
 ) -> bool {
     use crate::world::entity::equipment::EquipmentSlot;
-    let Some(target) = level.get_entity(target) else {
+    let Some(target) = level.get_entity_or_recently_removed(target) else {
         return false;
     };
     let main_hand = body.get_item_by_slot(EquipmentSlot::MainHand);

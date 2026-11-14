@@ -29,7 +29,7 @@ pub fn create_with(
         let target = c.get(&attack_target).0;
         let visible = c.get(&nearest_entities).clone();
         let (level, body) = (&mut *c.level, &mut *c.body);
-        let Some(target_entity) = level.get_entity(target) else {
+        let Some(target_entity) = level.get_entity_or_recently_removed(target) else {
             return false;
         };
         let holds_usable_non_melee_weapon = [EquipmentSlot::MainHand, EquipmentSlot::OffHand]

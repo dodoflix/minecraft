@@ -130,7 +130,7 @@ fn resolve_ref(
     if id == hint.id() {
         return Some(Located::of(hint));
     }
-    level.get_entity(id).map(Located::of)
+    level.get_entity_or_recently_removed(id).map(Located::of)
 }
 
 fn item_tag(tag: &str, stack: &ItemStack) -> bool {
@@ -577,10 +577,10 @@ fn remove_one_item_from_item_entity(level: &mut ServerLevel, item_id: EntityId) 
                 .expect("item entity");
             let mut source = item.get_item();
             let removed = source.split(1);
-            if source.is_empty() {
+            let emptied = source.is_empty();
+            item.set_item_in_place(source);
+            if emptied {
                 item.discard_in_level(level);
-            } else {
-                item.set_item_in_place(source);
             }
             removed
         })
@@ -758,7 +758,7 @@ fn is_nearest_valid_attack_target(
 fn is_near_zombified(level: &ServerLevel, body: &dyn Entity) -> bool {
     match body.brain().get_memory(&NEAREST_VISIBLE_ZOMBIFIED) {
         Some(&EntityRef(id)) => level
-            .get_entity(id)
+            .get_entity_or_recently_removed(id)
             .is_some_and(|zombified| closer_than(body, zombified, DESIRED_DISTANCE_FROM_ZOMBIFIED)),
         None => false,
     }
@@ -906,7 +906,9 @@ fn get_avoid_target_type(
     if id == attacker.id() {
         Some(attacker.get_type())
     } else {
-        level.get_entity(id).map(|e| e.get_type())
+        level
+            .get_entity_or_recently_removed(id)
+            .map(|e| e.get_type())
     }
 }
 
@@ -958,7 +960,7 @@ fn get_sound_for_activity(level: &ServerLevel, body: &Piglin, activity: Activity
 fn is_near_avoid_target(level: &ServerLevel, body: &Piglin) -> bool {
     body.brain()
         .get_memory(&AVOID_TARGET)
-        .and_then(|r| level.get_entity(r.0))
+        .and_then(|r| level.get_entity_or_recently_removed(r.0))
         .is_some_and(|avoid| closer_than(avoid, body, 12.0))
 }
 
@@ -1073,7 +1075,7 @@ fn get_anger_target(level: &ServerLevel, body: &dyn Entity, hint: &dyn Entity) -
 pub fn get_avoid_target<'a>(level: &'a ServerLevel, body: &dyn Entity) -> Option<&'a dyn Entity> {
     body.brain()
         .get_memory(&AVOID_TARGET)
-        .and_then(|r| level.get_entity(r.0))
+        .and_then(|r| level.get_entity_or_recently_removed(r.0))
 }
 
 /// `getNearestVisibleTargetablePlayer(body)`.
@@ -1120,7 +1122,7 @@ fn wants_to_stop_fleeing(level: &ServerLevel, body: &dyn Entity) -> bool {
     let Some(&EntityRef(id)) = body.brain().get_memory(&AVOID_TARGET) else {
         return true;
     };
-    let Some(avoided) = level.get_entity(id) else {
+    let Some(avoided) = level.get_entity_or_recently_removed(id) else {
         return false;
     };
     if avoided.get_type() == EntityType::HOGLIN {

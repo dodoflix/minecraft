@@ -164,7 +164,7 @@ fn are_other_mobs_coming_through_door(
     };
     entities
         .iter()
-        .filter_map(|r| level.get_entity(r.0))
+        .filter_map(|r| level.get_entity_or_recently_removed(r.0))
         .filter(|other| other.get_type() == body.get_type())
         .filter(|other| {
             door_pos.closer_to_center_than(

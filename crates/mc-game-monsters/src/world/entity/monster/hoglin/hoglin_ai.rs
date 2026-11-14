@@ -228,7 +228,9 @@ fn resolve(
     if id == hint.id() {
         Some((id, hint.position()))
     } else {
-        level.get_entity(id).map(|e| (id, e.position()))
+        level
+            .get_entity_or_recently_removed(id)
+            .map(|e| (id, e.position()))
     }
 }
 

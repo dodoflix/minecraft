@@ -93,12 +93,19 @@ impl Behavior for AnimalMakeLove {
         body.brain_mut()
             .set_memory(&BREED_TARGET, EntityRef(partner));
         let (speed, close) = (self.speed_modifier, self.close_enough_distance);
-        level.with_entity(partner, |_, partner| {
+        let locked = level.with_entity(partner, |_, partner| {
             partner
                 .brain_mut()
                 .set_memory(&BREED_TARGET, EntityRef(body.id()));
             behavior_utils::lock_gaze_and_walk_to_each_other(body, partner, speed, close);
         });
+        // the partner was removed since the sensor scan: vanilla still sets the body's memories from the object
+        if locked.is_none()
+            && let Some(partner) = level.get_entity_or_recently_removed(partner)
+        {
+            behavior_utils::look_at_entity(body, partner);
+            behavior_utils::set_walk_and_look_target_memories_entity(body, partner, speed, close);
+        }
         let duration = 60 + body.base_mut().random.next_int_bounded(50);
         self.spawn_child_at_time = timestamp + i64::from(duration);
     }

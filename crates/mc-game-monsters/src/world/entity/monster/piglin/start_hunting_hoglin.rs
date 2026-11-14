@@ -17,19 +17,26 @@ pub fn create() -> OneShot {
     i.create(move |c| {
         let piglins: Option<Vec<EntityRef>> = c.try_get(&nearest_piglins).cloned();
         let any_hunted = piglins.as_ref().is_some_and(|p| {
-            p.iter()
-                .any(|r| c.level.get_entity(r.0).is_some_and(has_hunted_recently))
+            p.iter().any(|r| {
+                c.level
+                    .get_entity_or_recently_removed(r.0)
+                    .is_some_and(has_hunted_recently)
+            })
         });
         if c.body.is_baby() || any_hunted {
             return false;
         }
         let hoglin = c.get(&huntable).0;
         let (level, body) = (&mut *c.level, &mut *c.body);
-        level.with_entity(hoglin, |level, hoglin| {
+        // vanilla holds the object: a removed hoglin is not attackable, only the cooldown is set
+        let angered = level.with_entity(hoglin, |level, hoglin| {
             piglin_ai::set_anger_target(level, body, hoglin);
             piglin_ai::dont_kill_any_more_hoglins_for_a_while(level, body);
             piglin_ai::broadcast_anger_target(level, body, hoglin);
         });
+        if angered.is_none() {
+            piglin_ai::dont_kill_any_more_hoglins_for_a_while(level, body);
+        }
         if let Some(piglins) = piglins {
             for EntityRef(id) in piglins {
                 level.with_entity(id, |level, p| {

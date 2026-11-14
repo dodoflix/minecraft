@@ -18,7 +18,7 @@ pub fn create() -> OneShot {
     i.create(move |c| {
         let target = c
             .try_get(&roar_target)
-            .and_then(|r| c.level.get_entity(r.0))
+            .and_then(|r| c.level.get_entity_or_recently_removed(r.0))
             .map(|e| e.block_position())
             .or_else(|| c.try_get(&disturbance).copied());
         let Some(target) = target else { return false };

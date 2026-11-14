@@ -44,7 +44,7 @@ impl Behavior for Roar {
             .get_memory(&ROAR_TARGET)
             .expect("roar target present")
             .0;
-        if let Some(target_entity) = level.get_entity(target) {
+        if let Some(target_entity) = level.get_entity_or_recently_removed(target) {
             behavior_utils::look_at_entity(body, target_entity);
         }
         body.set_pose(Pose::Roaring);

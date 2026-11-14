@@ -110,7 +110,10 @@ fn can_pathfind_to_target(
     body: &mut dyn Entity,
     target: EntityId,
 ) -> bool {
-    let Some(target_pos) = level.get_entity(target).map(|t| t.block_position()) else {
+    let Some(target_pos) = level
+        .get_entity_or_recently_removed(target)
+        .map(|t| t.block_position())
+    else {
         return false;
     };
     let path = navigation::create_path_entity(body, level, target_pos, 0);
@@ -119,7 +122,10 @@ fn can_pathfind_to_target(
 
 /// `addUnreachableTargetToMemory(body, entity)`.
 fn add_unreachable_target_to_memory(level: &ServerLevel, body: &mut dyn Entity, target: EntityId) {
-    let Some(uuid) = level.get_entity(target).map(|t| t.uuid()) else {
+    let Some(uuid) = level
+        .get_entity_or_recently_removed(target)
+        .map(|t| t.uuid())
+    else {
         return;
     };
     let mut unreachable_targets: Vec<Uuid> = body
@@ -159,7 +165,9 @@ impl Behavior for ShootTongue {
         }
         can_pathfind
             && body.base().get_pose() != Pose::Croaking
-            && level.get_entity(target).is_some_and(frog_can_eat)
+            && level
+                .get_entity_or_recently_removed(target)
+                .is_some_and(frog_can_eat)
     }
 
     fn can_still_use(
@@ -177,7 +185,7 @@ impl Behavior for ShootTongue {
         let Some(target) = attack_target(&*body) else {
             return;
         };
-        let Some(target_position) = level.get_entity(target).map(|t| {
+        let Some(target_position) = level.get_entity_or_recently_removed(target).map(|t| {
             behavior_utils::look_at_entity(body, t);
             t.position()
         }) else {
@@ -204,7 +212,7 @@ impl Behavior for ShootTongue {
         match self.state {
             State::MoveToTarget => {
                 let Some((close, target_position)) = level
-                    .get_entity(target)
+                    .get_entity_or_recently_removed(target)
                     .map(|t| (distance_to(t, &*body) < EATING_DISTANCE, t.position()))
                 else {
                     return;

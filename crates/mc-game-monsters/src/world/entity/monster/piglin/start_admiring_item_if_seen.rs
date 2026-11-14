@@ -17,7 +17,7 @@ pub fn create(admire_duration: i32) -> OneShot {
         let item = c.get(&nearest_item).0;
         let loved = c
             .level
-            .get_entity(item)
+            .get_entity_or_recently_removed(item)
             .and_then(|e| e.as_any().downcast_ref::<ItemEntity>())
             .is_some_and(|e| is_loved_item(&e.get_item()));
         if !loved {

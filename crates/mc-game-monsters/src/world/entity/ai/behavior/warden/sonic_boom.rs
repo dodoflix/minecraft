@@ -64,7 +64,7 @@ impl Behavior for SonicBoom {
             .expect("attack target present")
             .0;
         level
-            .get_entity(target)
+            .get_entity_or_recently_removed(target)
             .is_some_and(|t| closer_than_xz_y(body, t, DISTANCE_XZ, DISTANCE_Y))
     }
 
@@ -91,7 +91,9 @@ impl Behavior for SonicBoom {
 
     fn tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
         if let Some(target) = body.brain().get_memory(&ATTACK_TARGET).map(|t| t.0)
-            && let Some(target_position) = level.get_entity(target).map(|t| t.position())
+            && let Some(target_position) = level
+                .get_entity_or_recently_removed(target)
+                .map(|t| t.position())
         {
             mc_game_core::world::entity::mob::look_at_xyz(
                 body,
@@ -113,14 +115,16 @@ impl Behavior for SonicBoom {
                 .get_memory(&ATTACK_TARGET)
                 .map(|t| t.0)
                 .filter(|id| {
-                    level.get_entity(*id).is_some_and(|t| {
+                    level.get_entity_or_recently_removed(*id).is_some_and(|t| {
                         warden(body).can_target_entity_ref(level, t)
                             && closer_than_xz_y(body, t, DISTANCE_XZ, DISTANCE_Y)
                     })
                 });
             let Some(target) = target else { return };
             let (eye_position, knockback_resistance) = {
-                let t = level.get_entity(target).expect("checked above");
+                let t = level
+                    .get_entity_or_recently_removed(target)
+                    .expect("checked above");
                 (
                     t.base().get_eye_position(),
                     t.living().map_or(0.0, |l| {

@@ -1,0 +1,25 @@
+# A piglin avoiding a hoglin that is removed from the level keeps fleeing for as long as the avoid memory lives: the memory holds the
+# removed hoglin, so EraseMemoryIf(wantsToStopFleeing) still sees a hoglin (two other visible hoglins outnumber the piglin) and
+# SetWalkTargetAwayFrom still reads its position, long after a sensor scan.
+level flat
+preload 4
+entity_counter 7700
+level_seed 7701
+difficulty normal
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 -14.5 0 0
+tick 30
+mobspawn H1 minecraft:hoglin 4.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+mobspawn H2 minecraft:hoglin 4.5 -60 4.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+mobspawn H3 minecraft:hoglin 0.5 -60 4.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+mobspawn P minecraft:piglin 0.5 -60 0.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b}
+entity_seed P 73
+tick 25
+memory P avoid_target entity:H1
+tick 3
+dump brain:P mob:P
+kill H1
+watch mob:P
+tick 90
+watch off
+dump brain:P mob:P

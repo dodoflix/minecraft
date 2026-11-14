@@ -108,7 +108,7 @@ impl Behavior for SpearAttack {
         };
         let speed_modifier = f64::from(root_charge_speed_modifier(level, body));
         let mount_distance = if body.base().is_passenger() { 2 } else { 0 };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_recently_removed(target_id) else {
             return;
         };
         let look = PositionTracker::Entity(EntityTracker::new(target, true));

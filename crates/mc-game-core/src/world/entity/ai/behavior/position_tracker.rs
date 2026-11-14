@@ -113,7 +113,7 @@ impl PositionTracker {
     pub fn current_position(&self, level: &ServerLevel) -> Vec3 {
         match self {
             PositionTracker::Block(t) => t.center_position,
-            PositionTracker::Entity(t) => match level.get_entity(t.entity) {
+            PositionTracker::Entity(t) => match level.get_entity_or_recently_removed(t.entity) {
                 Some(e) => t.remember(e).0,
                 None => t.last.get().0,
             },
@@ -124,7 +124,7 @@ impl PositionTracker {
     pub fn current_block_position(&self, level: &ServerLevel) -> BlockPos {
         match self {
             PositionTracker::Block(t) => t.block_pos,
-            PositionTracker::Entity(t) => match level.get_entity(t.entity) {
+            PositionTracker::Entity(t) => match level.get_entity_or_recently_removed(t.entity) {
                 Some(e) => t.remember(e).1,
                 None => t.last.get().1,
             },
@@ -135,7 +135,7 @@ impl PositionTracker {
     pub fn is_visible_by(&self, level: &ServerLevel, body: &dyn Entity) -> bool {
         match self {
             PositionTracker::Block(_) => true,
-            PositionTracker::Entity(t) => match level.get_entity(t.entity) {
+            PositionTracker::Entity(t) => match level.get_entity_or_recently_removed(t.entity) {
                 Some(e) if e.living().is_some() => {
                     if !e.is_alive() {
                         return false;

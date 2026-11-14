@@ -304,7 +304,8 @@ pub fn as_valid_target(
     target: Option<EntityId>,
 ) -> Option<EntityId> {
     let id = target?;
-    let t = level.get_entity(id)?;
+    // vanilla holds the object; `canAttack` rejects a removed target except for a warden (`canTargetEntity`)
+    let t = level.get_entity_or_recently_removed(id)?;
     if t.is_player() && (ext::is_creative_player(t) || t.is_spectator()) {
         return None;
     }

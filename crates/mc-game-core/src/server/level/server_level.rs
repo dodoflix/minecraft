@@ -72,8 +72,8 @@ pub struct ServerLevel {
     /// removed, like the oracle, whose references keep the object).
     pub removed_entities:
         Option<std::collections::HashMap<EntityId, Box<dyn crate::world::entity::Entity>>>,
-    /// Non-player entities removed within the last 20 ticks with their removal game time: a brain memory keeps pointing at
-    /// an entity that is gone until its sensor scans again, and vanilla's reference still gives its position (see
+    /// Non-player entities that were removed, with their removal game time: kept for 20 ticks and after that while a brain
+    /// memory still names them, because vanilla's memory holds the object and still gives its position (see
     /// `ServerLevel::get_entity_or_recently_removed`).
     pub(super) recently_removed: Vec<(i64, EntityId, Box<dyn crate::world::entity::Entity>)>,
     /// The last known [`PlayerRecord`] of every player that is out of the entity storage (its packet or tick is being

@@ -1,0 +1,22 @@
+# A baby hoglin avoiding a zombie keeps walking away from the spot where the zombie stood after the zombie is removed from the level:
+# the avoid memory holds the removed entity for longer than a sensor scan interval and SetWalkTargetAwayFrom still reads its position.
+level flat
+preload 4
+entity_counter 7600
+level_seed 7601
+difficulty normal
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 -9.5 0 0
+tick 30
+mobspawn Z minecraft:zombie 4.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn H minecraft:hoglin 0.5 -60 0.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,Age:-24000}
+entity_seed H 71
+memory H avoid_target entity:Z
+tick 2
+dump brain:H mob:H
+tick 12
+kill Z
+watch mob:H
+tick 90
+watch off
+dump brain:H mob:H

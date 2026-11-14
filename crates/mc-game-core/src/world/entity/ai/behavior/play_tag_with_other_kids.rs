@@ -41,7 +41,7 @@ pub fn create() -> OneShot {
             let chase = find_someone_being_chased(c.level, &friends_nearby)
                 .or_else(|| friends_nearby.first().map(|f| f.0));
             if let Some(kid) = chase
-                && let Some(entity) = c.level.get_entity(kid)
+                && let Some(entity) = c.level.get_entity_or_recently_removed(kid)
             {
                 let look = PositionTracker::Entity(EntityTracker::new(entity, true));
                 let walk = WalkTarget::new(
@@ -101,7 +101,7 @@ fn whom_are_you_chasing(
     friend: EntityId,
 ) -> Option<EntityId> {
     level
-        .get_entity(friend)?
+        .get_entity_or_recently_removed(friend)?
         .brain()
         .get_memory(&INTERACTION_TARGET)
         .map(|r| r.0)

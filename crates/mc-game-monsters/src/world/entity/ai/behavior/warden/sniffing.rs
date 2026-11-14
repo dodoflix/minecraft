@@ -63,12 +63,14 @@ impl Behavior for Sniffing {
             .map(|r| r.0)
             .filter(|id| {
                 level
-                    .get_entity(*id)
+                    .get_entity_or_recently_removed(*id)
                     .is_some_and(|e| warden(body).can_target_entity_ref(level, e))
             });
         if let Some(entity_id) = attackable {
             let (close, block_pos) = {
-                let entity = level.get_entity(entity_id).expect("checked above");
+                let entity = level
+                    .get_entity_or_recently_removed(entity_id)
+                    .expect("checked above");
                 (
                     crate::world::entity::monster::warden::closer_than_xz_y(
                         body,

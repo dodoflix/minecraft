@@ -62,7 +62,7 @@ impl NearestVisibleLivingEntities {
         mut filter: impl FnMut(&dyn Entity) -> bool,
     ) -> Option<EntityRef> {
         for &nearby in self.nearby.iter() {
-            if let Some(e) = level.get_entity(nearby.0)
+            if let Some(e) = level.get_entity_or_recently_removed(nearby.0)
                 && filter(e)
                 && self.line_of_sight(level, body, e)
             {
@@ -84,7 +84,7 @@ impl NearestVisibleLivingEntities {
             .copied()
             .filter(|nearby| {
                 level
-                    .get_entity(nearby.0)
+                    .get_entity_or_recently_removed(nearby.0)
                     .is_some_and(|e| filter(e) && self.line_of_sight(level, body, e))
             })
             .collect()
@@ -94,7 +94,7 @@ impl NearestVisibleLivingEntities {
     pub fn contains(&self, level: &ServerLevel, body: &dyn Entity, target: EntityId) -> bool {
         self.nearby.contains(&EntityRef(target))
             && level
-                .get_entity(target)
+                .get_entity_or_recently_removed(target)
                 .is_some_and(|e| self.line_of_sight(level, body, e))
     }
 

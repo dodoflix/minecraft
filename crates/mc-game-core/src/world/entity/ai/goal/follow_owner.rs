@@ -56,7 +56,10 @@ impl Goal for FollowOwnerGoal {
         if tamable::unable_to_move_to_owner(tamable, level) {
             return false;
         }
-        let Some(owner) = self.owner.and_then(|o| level.get_entity(o)) else {
+        let Some(owner) = self
+            .owner
+            .and_then(|o| level.get_entity_or_recently_removed(o))
+        else {
             return false;
         };
         !(tamable.base().distance_to_sqr_vec(owner.position())
@@ -79,7 +82,10 @@ impl Goal for FollowOwnerGoal {
         let is_owner_far_away = tamable::should_try_teleport_to_owner(tamable, level);
         if !is_owner_far_away {
             let max_x = tamable.get_max_head_x_rot() as f32;
-            if let Some(owner) = self.owner.and_then(|o| level.get_entity(o)) {
+            if let Some(owner) = self
+                .owner
+                .and_then(|o| level.get_entity_or_recently_removed(o))
+            {
                 mob::look_at_entity_full(tamable, owner, 10.0, max_x);
             }
         }
@@ -90,7 +96,7 @@ impl Goal for FollowOwnerGoal {
                 tamable::try_to_teleport_to_owner(tamable, level);
             } else if let Some(pos) = self
                 .owner
-                .and_then(|o| level.get_entity(o))
+                .and_then(|o| level.get_entity_or_recently_removed(o))
                 .map(|o| o.block_position())
             {
                 navigation::move_to_entity(tamable, level, pos, self.speed_modifier);

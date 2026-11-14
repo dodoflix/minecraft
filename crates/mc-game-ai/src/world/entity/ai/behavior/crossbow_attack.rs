@@ -126,7 +126,7 @@ impl Behavior for CrossbowAttack {
             return;
         };
         // `lookAtTarget`: `LOOK_TARGET = new EntityTracker(target, true)`
-        if let Some(t) = level.get_entity(target) {
+        if let Some(t) = level.get_entity_or_recently_removed(target) {
             body.brain_mut().set_memory(
                 &LOOK_TARGET,
                 PositionTracker::Entity(EntityTracker::new(t, true)),

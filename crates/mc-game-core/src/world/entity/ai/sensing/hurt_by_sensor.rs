@@ -32,9 +32,11 @@ impl Sensor for HurtBySensor {
         match source {
             Some(source) => {
                 // `damageSource.getEntity() instanceof LivingEntity`
-                let causing = source
-                    .causing_entity
-                    .filter(|&id| level.get_entity(id).is_some_and(|e| e.living().is_some()));
+                let causing = source.causing_entity.filter(|&id| {
+                    level
+                        .get_entity_or_recently_removed(id)
+                        .is_some_and(|e| e.living().is_some())
+                });
                 let brain = body.brain_mut();
                 brain.set_memory(&HURT_BY, SharedDamageSource(source));
                 if let Some(id) = causing {

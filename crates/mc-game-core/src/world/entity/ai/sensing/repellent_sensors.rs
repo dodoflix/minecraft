@@ -63,7 +63,7 @@ pub fn find_nearby_adult_piglins(level: &ServerLevel, body: &dyn Entity) -> Vec<
         .copied()
         .filter(|r| {
             level
-                .get_entity(r.0)
+                .get_entity_or_recently_removed(r.0)
                 .is_some_and(|e| is_abstract_piglin(e.get_type()) && !e.is_baby())
         })
         .collect()
@@ -131,7 +131,7 @@ impl Sensor for PiglinSpecificSensor {
         let mut visible_adult_piglins: Vec<EntityRef> = Vec::new();
         let visible = visible_entities(&*body);
         for r in visible.find_all(level, &*body, |_| true) {
-            let Some(entity) = level.get_entity(r.0) else {
+            let Some(entity) = level.get_entity_or_recently_removed(r.0) else {
                 continue;
             };
             let t = entity.get_type();
@@ -251,7 +251,10 @@ impl Sensor for HoglinSpecificSensor {
             !e.is_baby() && matches!(e.get_type(), EntityType::PIGLIN | EntityType::HOGLIN)
         });
         for r in matching {
-            match level.get_entity(r.0).map(|e| e.get_type()) {
+            match level
+                .get_entity_or_recently_removed(r.0)
+                .map(|e| e.get_type())
+            {
                 Some(EntityType::PIGLIN) => {
                     adult_piglin_count += 1;
                     adult_piglin.get_or_insert(r);

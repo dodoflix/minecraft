@@ -6,8 +6,9 @@
 //!   type is one of the `MemoryData` implementors (`bool`, `i32`, `i64`, [`Unit`], `GlobalPos`, `BlockPos`, `Vec3`,
 //!   `Uuid`, [`EntityRef`], `Vec<EntityRef>`, `Vec<GlobalPos>`, [`GlobalPosSet`], `Vec<Uuid>`, [`WalkTarget`],
 //!   [`PositionTracker`], [`SharedDamageSource`], `Path`, [`NearestVisibleLivingEntities`], [`SpearStatus`]).
-//!   Entity-valued memories hold an [`EntityRef`] (an entity id), resolved through the level; a reference to a
-//!   removed entity simply fails to resolve.
+//!   Entity-valued memories hold an [`EntityRef`] (an entity id), resolved through the level; a behavior that reads
+//!   a removed entity without vanilla's `isAlive`/`isRemoved` guard resolves it with
+//!   `ServerLevel::get_entity_or_recently_removed`, which keeps the removed entity while a memory names it.
 //! * [`MemorySlot`] — value + time to live (`Long.MAX_VALUE` = never expires), ticked once per brain tick.
 //! * [`ExpirableValue`], [`MemoryMap`] — the persisted form (`Brain.Packed`), codec in [`codec`].
 

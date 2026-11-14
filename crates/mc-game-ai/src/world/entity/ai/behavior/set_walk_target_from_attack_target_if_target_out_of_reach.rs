@@ -39,7 +39,7 @@ pub fn create_with(speed_modifier: impl Fn(&dyn Entity) -> f32 + 'static) -> One
         if within_reach {
             c.erase(&walk_target);
         } else {
-            let Some(target) = c.level.get_entity(to_attack) else {
+            let Some(target) = c.level.get_entity_or_recently_removed(to_attack) else {
                 return true;
             };
             let look = EntityTracker::new(target, true);

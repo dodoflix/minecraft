@@ -299,7 +299,11 @@ impl AngerManagement {
     ) -> Option<EntityId> {
         self.suspects
             .iter()
-            .find(|s| level.get_entity(s.id).is_some_and(filter))
+            .find(|s| {
+                level
+                    .get_entity_or_recently_removed(s.id)
+                    .is_some_and(filter)
+            })
             .map(|s| s.id)
     }
 
@@ -317,8 +321,11 @@ impl AngerManagement {
         level: &ServerLevel,
         filter: &dyn Fn(&dyn Entity) -> bool,
     ) -> Option<EntityId> {
-        self.get_top_suspect(level, filter)
-            .filter(|id| level.get_entity(*id).is_some_and(|e| e.living().is_some()))
+        self.get_top_suspect(level, filter).filter(|id| {
+            level
+                .get_entity_or_recently_removed(*id)
+                .is_some_and(|e| e.living().is_some())
+        })
     }
 }
 

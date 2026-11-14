@@ -13,7 +13,9 @@ use std::ops::ControlFlow;
 use std::sync::atomic::{AtomicI32, Ordering};
 use uuid::Uuid;
 
-/// Sensors scan every 20 ticks, so a brain memory of a removed entity is stale for at most that long.
+/// A removed entity is always readable for this many ticks (a sensor scans every 20 ticks, and goals or behaviours that
+/// hold the object are not looked at); after that it stays only while a brain memory still names it (see
+/// `ServerLevel::expire_recently_removed`).
 const RECENTLY_REMOVED_RETENTION_TICKS: i64 = 20;
 
 /// `ServerLevel.ENTITY_COUNTER` (static: shared by all levels).
@@ -135,9 +137,9 @@ impl ServerLevel {
             .or_else(|| self.entity_manager.lent_including_removed(id))
     }
 
-    /// [`ServerLevel::get_entity`], or a non-player entity that was removed at most [`RECENTLY_REMOVED_RETENTION_TICKS`] ticks
-    /// ago: vanilla's brain memories keep the removed object, so a behavior that does not check `isRemoved` still reads its
-    /// position until the sensor scans again.
+    /// [`ServerLevel::get_entity`], or a removed non-player entity that a brain memory may still hold (removed at most
+    /// [`RECENTLY_REMOVED_RETENTION_TICKS`] ticks ago, or still named by a memory): vanilla's memories keep the removed
+    /// object, so a behavior that does not check `isRemoved` still reads its position until the memory is rewritten.
     pub fn get_entity_or_recently_removed(&self, id: EntityId) -> Option<&dyn Entity> {
         self.get_entity(id).or_else(|| {
             self.recently_removed
@@ -382,6 +384,42 @@ impl ServerLevel {
         self.process_pending_entity_loads();
         self.entity_manager.process_unloads();
         self.process_entity_events();
+        self.expire_recently_removed();
+    }
+
+    /// Every [`RECENTLY_REMOVED_RETENTION_TICKS`] ticks, forgets the removed entities that are older than that and that no
+    /// brain memory holds any more. Vanilla's memories keep the removed object for as long as they live (`AVOID_TARGET`
+    /// up to 400 ticks, `ATTACK_TARGET` of a piglin whose fight behaviours are paused by admiring), so the entity stays
+    /// readable while a memory still names it.
+    fn expire_recently_removed(&mut self) {
+        let now = self.game_time();
+        if now % RECENTLY_REMOVED_RETENTION_TICKS != 0
+            || self
+                .recently_removed
+                .iter()
+                .all(|(removed_at, ..)| now - removed_at <= RECENTLY_REMOVED_RETENTION_TICKS)
+        {
+            return;
+        }
+        let mut held = std::collections::HashSet::new();
+        for entity in self.entity_manager.get_all() {
+            if let Some(living) = entity.living() {
+                living.brain.for_each(|_, value| {
+                    if let Some((value, _)) = value {
+                        value.collect_entities(&mut held);
+                    }
+                });
+            }
+        }
+        let (live, expired): (Vec<_>, Vec<_>) = std::mem::take(&mut self.recently_removed)
+            .into_iter()
+            .partition(|(removed_at, id, _)| {
+                now - removed_at <= RECENTLY_REMOVED_RETENTION_TICKS || held.contains(id)
+            });
+        self.recently_removed = live;
+        if let Some(kept) = self.removed_entities.as_mut() {
+            kept.extend(expired.into_iter().map(|(_, id, e)| (id, e)));
+        }
     }
 
     /// `processPendingLoads()`: instantiate the entities of chunks whose entity data arrived and add them.
@@ -453,13 +491,6 @@ impl ServerLevel {
             }
         }
         let now = self.game_time();
-        let (live, expired): (Vec<_>, Vec<_>) = std::mem::take(&mut self.recently_removed)
-            .into_iter()
-            .partition(|(removed_at, ..)| now - removed_at <= RECENTLY_REMOVED_RETENTION_TICKS);
-        self.recently_removed = live;
-        if let Some(kept) = self.removed_entities.as_mut() {
-            kept.extend(expired.into_iter().map(|(_, id, e)| (id, e)));
-        }
         let limbo = self.entity_manager.drain_limbo();
         let (players, removed): (Vec<_>, Vec<_>) =
             limbo.into_iter().partition(|(_, e)| e.is_player());

@@ -43,7 +43,7 @@ pub fn check_for_nearby_golem(level: &ServerLevel, body: &mut dyn Entity) {
     };
     let golem_present = entities.iter().any(|r| {
         level
-            .get_entity(r.0)
+            .get_entity_or_recently_removed(r.0)
             .is_some_and(|e| e.get_type() == EntityType::IRON_GOLEM)
     });
     if golem_present {

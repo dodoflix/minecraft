@@ -17,7 +17,7 @@ pub fn create(max_distance_to_item: i32) -> OneShot {
         }
         let near_item = c
             .try_get(&nearest)
-            .and_then(|r| c.level.get_entity(r.0))
+            .and_then(|r| c.level.get_entity_or_recently_removed(r.0))
             .is_some_and(|item| closer_than(item, &*c.body, f64::from(max_distance_to_item)));
         if near_item {
             false

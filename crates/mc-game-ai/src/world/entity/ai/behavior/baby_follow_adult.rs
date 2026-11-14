@@ -41,7 +41,10 @@ pub fn create_with(
         if !c.body.is_baby() {
             return false;
         }
-        let Some(adult) = c.level.get_entity(c.get(&nearest_adult).0) else {
+        let Some(adult) = c
+            .level
+            .get_entity_or_recently_removed(c.get(&nearest_adult).0)
+        else {
             return false;
         };
         if closer_than(&*c.body, adult, f64::from(follow_range_max_inclusive + 1))

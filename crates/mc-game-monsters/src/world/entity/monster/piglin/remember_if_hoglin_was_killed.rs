@@ -13,7 +13,7 @@ pub fn create() -> OneShot {
     i.create(move |c| {
         let target = c.get(&attack_target).0;
         if c.level
-            .get_entity(target)
+            .get_entity_or_recently_removed(target)
             .is_some_and(|t| t.get_type() == EntityType::HOGLIN && t.is_dead_or_dying())
         {
             let duration = c

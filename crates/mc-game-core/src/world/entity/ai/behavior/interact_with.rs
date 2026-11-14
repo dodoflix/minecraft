@@ -57,7 +57,7 @@ pub fn of_filtered(
                     && is_target_valid(mob)
             });
             if let Some(EntityRef(id)) = closest
-                && let Some(mob) = c.level.get_entity(id)
+                && let Some(mob) = c.level.get_entity_or_recently_removed(id)
             {
                 let look = PositionTracker::Entity(EntityTracker::new(mob, true));
                 let walk = WalkTarget::new(

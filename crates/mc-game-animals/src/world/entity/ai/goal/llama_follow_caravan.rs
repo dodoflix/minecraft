@@ -37,7 +37,7 @@ impl LlamaFollowCaravanGoal {
         let Some(head) = current.get_caravan_head() else {
             return false;
         };
-        let Some(head_entity) = level.get_entity(head) else {
+        let Some(head_entity) = level.get_entity_or_recently_removed(head) else {
             return false;
         };
         if leashable::is_leashed(head_entity) {

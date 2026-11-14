@@ -38,7 +38,7 @@ pub fn create() -> OneShot {
                 })
             };
             if let Some(EntityRef(mob_id)) = closest
-                && let Some(mob) = c.level.get_entity(mob_id)
+                && let Some(mob) = c.level.get_entity_or_recently_removed(mob_id)
             {
                 let look = PositionTracker::Entity(EntityTracker::new(mob, true));
                 let walk = WalkTarget::new(

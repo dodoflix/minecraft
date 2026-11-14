@@ -169,7 +169,7 @@ impl Warden {
     /// `canTargetEntity(entity)` for an id.
     pub fn can_target_id(&self, level: &ServerLevel, entity: Option<EntityId>) -> bool {
         entity
-            .and_then(|id| level.get_entity(id))
+            .and_then(|id| level.get_entity_or_recently_removed(id))
             .is_some_and(|e| self.can_target_entity_ref(level, e))
     }
 
@@ -243,7 +243,7 @@ impl Warden {
                 .is_some_and(|t| t.is_player());
             let (new_anger, is_player) = {
                 let target = level
-                    .get_entity(entity_id)
+                    .get_entity_or_recently_removed(entity_id)
                     .expect("checked by can_target_id");
                 (
                     self.anger_management.increase_anger(target, amount),

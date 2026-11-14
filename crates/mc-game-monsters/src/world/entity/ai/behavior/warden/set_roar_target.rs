@@ -20,7 +20,7 @@ pub fn create(target_finder_function: fn(&Warden, &ServerLevel) -> Option<Entity
         let body = warden(&*c.body);
         let target = target_finder_function(body, &*c.level).filter(|id| {
             c.level
-                .get_entity(*id)
+                .get_entity_or_recently_removed(*id)
                 .is_some_and(|e| body.can_target_entity_ref(&*c.level, e))
         });
         let Some(target) = target else { return false };

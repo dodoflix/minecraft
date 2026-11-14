@@ -47,7 +47,7 @@ pub fn create_with(predicate: impl Fn(&dyn Entity) -> bool + 'static, max_dist: 
         let Some(target) = target else { return false };
         let Some(tracker) = c
             .level
-            .get_entity(target.0)
+            .get_entity_or_recently_removed(target.0)
             .map(|e| EntityTracker::new(e, true))
         else {
             return false;

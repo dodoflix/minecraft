@@ -23,7 +23,7 @@ pub fn create(speed_modifier: f32) -> OneShot {
             return false;
         }
         let ridable_id = c.get(&ride_target).0;
-        let Some(ridable) = c.level.get_entity(ridable_id) else {
+        let Some(ridable) = c.level.get_entity_or_recently_removed(ridable_id) else {
             return false;
         };
         if closer_than(

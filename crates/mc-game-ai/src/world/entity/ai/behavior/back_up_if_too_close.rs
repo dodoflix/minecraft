@@ -19,7 +19,7 @@ pub fn create(too_close_distance: i32, strafe_speed: f32) -> OneShot {
     let nearest_visible = i.present(&NEAREST_VISIBLE_LIVING_ENTITIES);
     i.create(move |c| {
         let target_id = c.get(&attack_target).0;
-        let Some(target) = c.level.get_entity(target_id) else {
+        let Some(target) = c.level.get_entity_or_recently_removed(target_id) else {
             return false;
         };
         if !(closer_than(target, &*c.body, f64::from(too_close_distance))

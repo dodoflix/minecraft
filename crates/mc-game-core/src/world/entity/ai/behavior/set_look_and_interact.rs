@@ -25,7 +25,7 @@ pub fn create(ty: EntityType, interaction_range: i32) -> OneShot {
         let Some(EntityRef(id)) = closest else {
             return false;
         };
-        let Some(entity) = c.level.get_entity(id) else {
+        let Some(entity) = c.level.get_entity_or_recently_removed(id) else {
             return false;
         };
         let tracker = PositionTracker::Entity(EntityTracker::new(entity, true));

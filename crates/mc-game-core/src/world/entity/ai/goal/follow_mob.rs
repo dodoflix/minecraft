@@ -65,7 +65,10 @@ impl Goal for FollowMobGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(f) = self.following_mob.and_then(|f| level.get_entity(f)) else {
+        let Some(f) = self
+            .following_mob
+            .and_then(|f| level.get_entity_or_recently_removed(f))
+        else {
             return false;
         };
         !navigation::own_is_done(mob)
@@ -96,7 +99,7 @@ impl Goal for FollowMobGoal {
         }
         let max_head_x = mob.get_max_head_x_rot() as f32;
         {
-            let Some(f) = level.get_entity(following) else {
+            let Some(f) = level.get_entity_or_recently_removed(following) else {
                 return;
             };
             mob::look_at_entity_full(mob, f, 10.0, max_head_x);
@@ -104,7 +107,7 @@ impl Goal for FollowMobGoal {
         self.time_to_recalc_path -= 1;
         if self.time_to_recalc_path <= 0 {
             self.time_to_recalc_path = self.adjusted_tick_delay(10);
-            let Some(f) = level.get_entity(following) else {
+            let Some(f) = level.get_entity_or_recently_removed(following) else {
                 return;
             };
             let (fx, fy, fz) = (f.base().x(), f.base().y(), f.base().z());

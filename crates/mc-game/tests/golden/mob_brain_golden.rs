@@ -1,5 +1,5 @@
 //! Sensors, attribute suppliers and brain persistence of living mobs against the vanilla oracle (ticking-level replay).
-//! Scenarios: `tests/oracle/scenarios/mob_{sensor_grid,attrs_all,brain_nbt}.txt`, fixtures: `tests/fixtures/entity_oracle/`
+//! Scenarios: `tests/oracle/scenarios/mob_{sensor_grid,attrs_all,brain_nbt,hoglin_avoid_removed,piglin_avoid_removed}.txt`, fixtures: `tests/fixtures/entity_oracle/`
 //! (`scripts/block-oracle.sh`).
 use crate::common::block_scenario;
 
@@ -19,4 +19,18 @@ fn mob_attrs_all() {
 #[test]
 fn mob_brain_nbt() {
     block_scenario::check("mob_brain_nbt");
+}
+
+/// A baby hoglin avoiding a zombie that is removed from the level keeps walking away from the spot where it stood, well beyond
+/// a sensor scan interval: the avoid memory holds the removed entity.
+#[test]
+fn mob_hoglin_avoid_removed() {
+    block_scenario::check("mob_hoglin_avoid_removed");
+}
+
+/// A piglin avoiding a hoglin that is removed from the level keeps fleeing while hoglins outnumber it: the avoid memory still holds
+/// the removed hoglin's type and position.
+#[test]
+fn mob_piglin_avoid_removed() {
+    block_scenario::check("mob_piglin_avoid_removed");
 }

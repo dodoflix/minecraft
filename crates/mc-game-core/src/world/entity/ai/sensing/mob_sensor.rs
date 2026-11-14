@@ -40,7 +40,7 @@ impl MobSensor {
         let body_ref: &dyn Entity = &*body;
         let present = entities.iter().any(|r| {
             level
-                .get_entity(r.0)
+                .get_entity_or_recently_removed(r.0)
                 .is_some_and(|e| (self.mob_test)(body_ref, e))
         });
         if present {

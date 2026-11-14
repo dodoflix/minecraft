@@ -19,7 +19,10 @@ pub fn create(
     let celebrate_at = i.absent(&CELEBRATE_LOCATION);
     let dancing = i.registered(&DANCING);
     i.create(move |c| {
-        let Some(target) = c.level.get_entity(c.get(&attack_target).0) else {
+        let Some(target) = c
+            .level
+            .get_entity_or_recently_removed(c.get(&attack_target).0)
+        else {
             return false;
         };
         if !target.is_dead_or_dying() {
