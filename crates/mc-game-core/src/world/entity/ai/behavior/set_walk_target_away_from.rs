@@ -37,7 +37,11 @@ pub fn entity(
         speed_modifier,
         desired_distance,
         interrupt_current_walk,
-        |level, e: &EntityRef| level.get_entity(e.0).map(|e| e.position()),
+        |level, e: &EntityRef| {
+            level
+                .get_entity_or_recently_removed(e.0)
+                .map(|e| e.position())
+        },
     )
 }
 

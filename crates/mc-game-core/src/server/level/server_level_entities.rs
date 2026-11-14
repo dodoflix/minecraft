@@ -13,6 +13,9 @@ use std::ops::ControlFlow;
 use std::sync::atomic::{AtomicI32, Ordering};
 use uuid::Uuid;
 
+/// Sensors scan every 20 ticks, so a brain memory of a removed entity is stale for at most that long.
+const RECENTLY_REMOVED_RETENTION_TICKS: i64 = 20;
+
 /// `ServerLevel.ENTITY_COUNTER` (static: shared by all levels).
 static ENTITY_COUNTER: AtomicI32 = AtomicI32::new(0);
 
@@ -132,9 +135,21 @@ impl ServerLevel {
             .or_else(|| self.entity_manager.lent_including_removed(id))
     }
 
+    /// [`ServerLevel::get_entity`], or a non-player entity that was removed at most [`RECENTLY_REMOVED_RETENTION_TICKS`] ticks
+    /// ago: vanilla's brain memories keep the removed object, so a behavior that does not check `isRemoved` still reads its
+    /// position until the sensor scans again.
+    pub fn get_entity_or_recently_removed(&self, id: EntityId) -> Option<&dyn Entity> {
+        self.get_entity(id).or_else(|| {
+            self.recently_removed
+                .iter()
+                .find(|(_, removed, _)| *removed == id)
+                .map(|(_, _, e)| e.as_ref())
+        })
+    }
+
     /// [`ServerLevel::get_entity`], or the entity that was removed when [`ServerLevel::removed_entities`] keeps them.
     pub fn get_entity_or_removed(&self, id: EntityId) -> Option<&dyn Entity> {
-        self.entity_manager.get(id).or_else(|| {
+        self.get_entity_or_recently_removed(id).or_else(|| {
             self.removed_entities
                 .as_ref()
                 .and_then(|kept| kept.get(&id))
@@ -437,10 +452,22 @@ impl ServerLevel {
                 self.dead_players.insert(id, player);
             }
         }
+        let now = self.game_time();
+        let (live, expired): (Vec<_>, Vec<_>) = std::mem::take(&mut self.recently_removed)
+            .into_iter()
+            .partition(|(removed_at, ..)| now - removed_at <= RECENTLY_REMOVED_RETENTION_TICKS);
+        self.recently_removed = live;
         if let Some(kept) = self.removed_entities.as_mut() {
-            kept.extend(self.entity_manager.drain_limbo());
+            kept.extend(expired.into_iter().map(|(_, id, e)| (id, e)));
         }
-        self.entity_manager.clear_limbo();
+        let limbo = self.entity_manager.drain_limbo();
+        let (players, removed): (Vec<_>, Vec<_>) =
+            limbo.into_iter().partition(|(_, e)| e.is_player());
+        if let Some(kept) = self.removed_entities.as_mut() {
+            kept.extend(players);
+        }
+        self.recently_removed
+            .extend(removed.into_iter().map(|(id, e)| (now, id, e)));
     }
 
     /// A killed player that is no longer in the level (see [`ServerLevel::dead_players`]).

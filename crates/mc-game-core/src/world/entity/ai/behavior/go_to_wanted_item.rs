@@ -38,7 +38,10 @@ pub fn create_with(
     let wanted_item = i.present(&NEAREST_VISIBLE_WANTED_ITEM);
     let cooldown = i.registered(&ITEM_PICKUP_COOLDOWN_TICKS);
     i.create(move |c| {
-        let Some(item) = c.level.get_entity(c.get(&wanted_item).0) else {
+        let Some(item) = c
+            .level
+            .get_entity_or_recently_removed(c.get(&wanted_item).0)
+        else {
             return false;
         };
         if c.try_get(&cooldown).is_none()
