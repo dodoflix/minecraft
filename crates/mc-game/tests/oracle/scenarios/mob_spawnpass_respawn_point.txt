@@ -1,0 +1,202 @@
+level flat
+difficulty normal
+command_env
+spawn_player Steve survival 100.5 -60 100.5 0 0
+time 18000
+tick 3
+spawnpass 5 chunk=-2,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 12 chunk=-1,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 19 chunk=0,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 26 chunk=1,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 33 chunk=-2,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 40 chunk=-1,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 47 chunk=0,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 54 chunk=1,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 61 chunk=-2,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 68 chunk=-1,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 75 chunk=0,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 82 chunk=1,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 89 chunk=-2,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 96 chunk=-1,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 103 chunk=0,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 110 chunk=1,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 6 chunk=4,4 cats=monster
+dump rng:level
+tick 1
+spawnpass 13 chunk=5,4 cats=monster
+dump rng:level
+tick 1
+spawnpass 20 chunk=6,4 cats=monster
+dump rng:level
+tick 1
+spawnpass 27 chunk=7,4 cats=monster
+dump rng:level
+tick 1
+spawnpass 34 chunk=4,5 cats=monster
+dump rng:level
+tick 1
+spawnpass 41 chunk=5,5 cats=monster
+dump rng:level
+tick 1
+spawnpass 48 chunk=6,5 cats=monster
+dump rng:level
+tick 1
+spawnpass 55 chunk=7,5 cats=monster
+dump rng:level
+tick 1
+spawnpass 62 chunk=4,6 cats=monster
+dump rng:level
+tick 1
+spawnpass 69 chunk=5,6 cats=monster
+dump rng:level
+tick 1
+spawnpass 76 chunk=6,6 cats=monster
+dump rng:level
+tick 1
+spawnpass 83 chunk=7,6 cats=monster
+dump rng:level
+tick 1
+spawnpass 90 chunk=4,7 cats=monster
+dump rng:level
+tick 1
+spawnpass 97 chunk=5,7 cats=monster
+dump rng:level
+tick 1
+spawnpass 104 chunk=6,7 cats=monster
+dump rng:level
+tick 1
+spawnpass 111 chunk=7,7 cats=monster
+dump rng:level
+tick 1
+cmd setworldspawn 150 -60 150
+tick 1
+spawnpass 7 chunk=6,6 cats=monster
+dump rng:level
+tick 1
+spawnpass 14 chunk=7,6 cats=monster
+dump rng:level
+tick 1
+spawnpass 21 chunk=8,6 cats=monster
+dump rng:level
+tick 1
+spawnpass 28 chunk=9,6 cats=monster
+dump rng:level
+tick 1
+spawnpass 35 chunk=6,7 cats=monster
+dump rng:level
+tick 1
+spawnpass 42 chunk=7,7 cats=monster
+dump rng:level
+tick 1
+spawnpass 49 chunk=8,7 cats=monster
+dump rng:level
+tick 1
+spawnpass 56 chunk=9,7 cats=monster
+dump rng:level
+tick 1
+spawnpass 63 chunk=6,8 cats=monster
+dump rng:level
+tick 1
+spawnpass 70 chunk=7,8 cats=monster
+dump rng:level
+tick 1
+spawnpass 77 chunk=8,8 cats=monster
+dump rng:level
+tick 1
+spawnpass 84 chunk=9,8 cats=monster
+dump rng:level
+tick 1
+spawnpass 91 chunk=6,9 cats=monster
+dump rng:level
+tick 1
+spawnpass 98 chunk=7,9 cats=monster
+dump rng:level
+tick 1
+spawnpass 105 chunk=8,9 cats=monster
+dump rng:level
+tick 1
+spawnpass 112 chunk=9,9 cats=monster
+dump rng:level
+tick 1
+spawnpass 8 chunk=-2,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 15 chunk=-1,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 22 chunk=0,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 29 chunk=1,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 36 chunk=-2,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 43 chunk=-1,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 50 chunk=0,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 57 chunk=1,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 64 chunk=-2,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 71 chunk=-1,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 78 chunk=0,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 85 chunk=1,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 92 chunk=-2,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 99 chunk=-1,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 106 chunk=0,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 113 chunk=1,1 cats=monster
+dump rng:level
+tick 1
+dump spawn_state
+dump mobs

@@ -1,0 +1,517 @@
+C Set minecraft:overworld to 18000 tick(s)
+C 32 biome entry/entries set between -96, -64, -32 and -84, -60, -20
+C 32 biome entry/entries set between -80, -64, -32 and -68, -60, -20
+C 32 biome entry/entries set between -64, -64, -32 and -52, -60, -20
+C 32 biome entry/entries set between -48, -64, -32 and -36, -60, -20
+C 32 biome entry/entries set between -96, -64, -16 and -84, -60, -4
+C 32 biome entry/entries set between -80, -64, -16 and -68, -60, -4
+C 32 biome entry/entries set between -64, -64, -16 and -52, -60, -4
+C 32 biome entry/entries set between -48, -64, -16 and -36, -60, -4
+SPAWNPASS seed=5 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 24842531561669
+SPAWNPASS seed=18 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 53124823551240
+SPAWNPASS seed=31 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 186857767265721
+SPAWNPASS seed=44 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 183704636576972
+SPAWNPASS seed=57 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 93017082611987
+SPAWNPASS seed=70 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 96123136050190
+SPAWNPASS seed=83 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 58862904318739
+SPAWNPASS seed=96 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 2282451396456
+SPAWNPASS seed=109 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 168033137634319
+SPAWNPASS seed=122 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 37542293834242
+SPAWNPASS seed=135 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 13366370026671
+SPAWNPASS seed=148 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 46190894786212
+SPAWNPASS seed=161 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 37666636281721
+SPAWNPASS seed=174 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 215047634462278
+SPAWNPASS seed=187 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 124360080497293
+SPAWNPASS seed=200 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 121206949808544
+SPAWNPASS seed=213 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 30519395843559
+SPAWNPASS seed=226 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 168383205532115
+SPAWNPASS seed=239 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 199376135519625
+SPAWNPASS seed=252 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 38544663798210
+SPAWNPASS seed=265 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 24354366217699
+SPAWNPASS seed=278 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 77533892671518
+SPAWNPASS seed=291 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 26190474746723
+SPAWNPASS seed=304 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 265168184728440
+SPAWNPASS seed=317 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 149443894255647
+SPAWNPASS seed=330 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 152549947693850
+SPAWNPASS seed=343 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 61862393728865
+SPAWNPASS seed=356 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 180587280730348
+SPAWNPASS seed=369 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 249496685785787
+SPAWNPASS seed=382 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 27068502263212
+SPAWNPASS seed=395 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 55697364103005
+SPAWNPASS seed=408 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 102617706429872
+SPAWNPASS seed=421 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 243331656159927
+SPAWNPASS seed=434 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 15036205903090
+SPAWNPASS seed=447 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 180786892140953
+SPAWNPASS seed=460 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 5872234226194
+SPAWNPASS seed=473 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 86946207487219
+SPAWNPASS seed=486 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 220873686406250
+SPAWNPASS seed=499 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 178275757412331
+SPAWNPASS seed=512 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 13304566206030
+SPAWNPASS seed=525 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 43380336056874
+SPAWNPASS seed=538 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 91731671696098
+SPAWNPASS seed=551 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 201340269005821
+SPAWNPASS seed=564 chunk=-3,-2 cats=water_ambient allowed=1
+E tropical_fish#1 minecraft:tropical_fish pos=-39.5,-63.0,-16.5 delta=0.0,0.0,0.0 rot=79.83999,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.7962446 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.672412698604763;minecraft:max_health:3.0
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 277774314252000
+SPAWNPASS seed=577 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 19042646973529
+SPAWNPASS seed=590 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 252226121219622
+SPAWNPASS seed=603 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 161538567254637
+SPAWNPASS seed=616 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 158385436565888
+SPAWNPASS seed=629 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 67697882600903
+SPAWNPASS seed=642 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 1828404671032
+SPAWNPASS seed=655 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 59271016166663
+SPAWNPASS seed=668 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 202293879955644
+SPAWNPASS seed=681 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 61532852975043
+SPAWNPASS seed=694 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 114712379428862
+SPAWNPASS seed=707 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 7566485438531
+SPAWNPASS seed=720 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 162057661756513
+SPAWNPASS seed=733 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 186622381012991
+SPAWNPASS seed=746 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:1;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 189728434451194
+SPAWNPASS seed=759 chunk=-3,-2 cats=water_ambient allowed=1
+E salmon#1 minecraft:salmon pos=-37.5,-63.0,-26.5 delta=0.0,0.0,0.0 rot=236.78525,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.739225 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:17.182272939901935;minecraft:max_health:3.0
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 168396597616249
+SPAWNPASS seed=772 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 14706665149268
+SPAWNPASS seed=785 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 28354641627625
+SPAWNPASS seed=798 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 268420204592119
+SPAWNPASS seed=811 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 268413392374970
+SPAWNPASS seed=824 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 139796193187216
+SPAWNPASS seed=837 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 252677684039289
+SPAWNPASS seed=850 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 52214692660434
+SPAWNPASS seed=863 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 49485382836838
+SPAWNPASS seed=876 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 214812248209548
+SPAWNPASS seed=889 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 124124694244563
+SPAWNPASS seed=902 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 80687320681290
+SPAWNPASS seed=915 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 16878480092627
+SPAWNPASS seed=928 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 233683955091496
+SPAWNPASS seed=941 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 117959664618703
+SPAWNPASS seed=954 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 171139191072522
+SPAWNPASS seed=967 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 30378164091921
+SPAWNPASS seed=980 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 77298506418788
+SPAWNPASS seed=993 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 218012456148843
+SPAWNPASS seed=1006 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 246155246094854
+SPAWNPASS seed=1019 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 155467692129869
+SPAWNPASS seed=1032 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 59209212346022
+SPAWNPASS seed=1045 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 23695284710055
+SPAWNPASS seed=1058 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 26801338148258
+SPAWNPASS seed=1071 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 40647026858471
+SPAWNPASS seed=1084 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 239472366712988
+SPAWNPASS seed=1097 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 64947293113521
+SPAWNPASS seed=1110 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 151890866186206
+SPAWNPASS seed=1123 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 11129839205605
+SPAWNPASS seed=1136 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 249991413822768
+SPAWNPASS seed=1149 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 223800867770335
+SPAWNPASS seed=1162 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 47733050811024
+SPAWNPASS seed=1175 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 55038282595361
+SPAWNPASS seed=1188 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 51885151906612
+SPAWNPASS seed=1201 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 9730652319433
+SPAWNPASS seed=1214 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 62791142256658
+SPAWNPASS seed=1227 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 53471131578523
+SPAWNPASS seed=1240 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 6671215843020
+SPAWNPASS seed=1253 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 99422135761052
+SPAWNPASS seed=1266 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 89393179417778
+SPAWNPASS seed=1279 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 88623276685591
+SPAWNPASS seed=1292 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 170809650318700
+SPAWNPASS seed=1305 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 80122096353715
+SPAWNPASS seed=1318 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 60557155531076
+SPAWNPASS seed=1331 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 274015572537589
+SPAWNPASS seed=1344 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 270862441848840
+SPAWNPASS seed=1357 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 180050046099570
+SPAWNPASS seed=1370 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 46808123371170
+SPAWNPASS seed=1383 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 66295236298575
+SPAWNPASS seed=1396 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 68169088826237
+SPAWNPASS seed=1409 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 174009858257995
+SPAWNPASS seed=1422 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 202152648204006
+SPAWNPASS seed=1435 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 62783126232619
+SPAWNPASS seed=1448 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 271546902177436
+SPAWNPASS seed=1461 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 17624409585287
+SPAWNPASS seed=1474 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 20730463023490
+SPAWNPASS seed=1487 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 174524819444694
+SPAWNPASS seed=1500 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 6846318068594
+SPAWNPASS seed=1513 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 92640464607619
+SPAWNPASS seed=1526 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 224563755626143
+SPAWNPASS seed=1539 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 248602218025413
+SPAWNPASS seed=1552 chunk=-3,-2 cats=water_ambient allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:2;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 14047583641624
+SPAWNPASS seed=34 chunk=-5,-2 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+E tropical_fish#2 minecraft:tropical_fish pos=-65.5,-63.0,-16.5 delta=0.0,0.0,0.0 rot=236.76645,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.5565066 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.59485344318747;minecraft:max_health:3.0
+E tropical_fish#3 minecraft:tropical_fish pos=-66.5,-63.0,-15.5 delta=0.0,0.0,0.0 rot=123.74749,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.0948683 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.215478320371616;minecraft:max_health:3.0
+E tropical_fish#4 minecraft:tropical_fish pos=-68.5,-63.0,-15.5 delta=0.0,0.0,0.0 rot=63.026848,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.571927 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.35537275664148;minecraft:max_health:3.0
+E tropical_fish#5 minecraft:tropical_fish pos=-67.5,-63.0,-16.5 delta=0.0,0.0,0.0 rot=155.75223,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.5571327 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.883916970581748;minecraft:max_health:3.0
+E tropical_fish#6 minecraft:tropical_fish pos=-69.5,-63.0,-14.5 delta=0.0,0.0,0.0 rot=154.35083,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.7457765 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.966656960312475;minecraft:max_health:3.0
+E tropical_fish#7 minecraft:tropical_fish pos=-69.5,-63.0,-19.5 delta=0.0,0.0,0.0 rot=244.04701,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.8028252 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.080662041339718;minecraft:max_health:3.0
+E tropical_fish#8 minecraft:tropical_fish pos=-69.5,-63.0,-22.5 delta=0.0,0.0,0.0 rot=4.070542,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.17168564 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:17.148201089116462;minecraft:max_health:3.0
+E tropical_fish#9 minecraft:tropical_fish pos=-71.5,-63.0,-19.5 delta=0.0,0.0,0.0 rot=166.26082,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.34514531 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.041640144757416;minecraft:max_health:3.0
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:10;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 171325196886435
+SPAWNPASS seed=63 chunk=-5,-1 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:10;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 61032327918560
+SPAWNPASS seed=92 chunk=-3,-1 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:10;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 39074332706451
+SPAWNPASS seed=121 chunk=-4,-2 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+E cod#1 minecraft:cod pos=-50.5,-63.0,-20.5 delta=0.0,0.0,0.0 rot=79.63571,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.4245536 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.172584363077775;minecraft:max_health:3.0
+E cod#2 minecraft:cod pos=-51.5,-63.0,-23.5 delta=0.0,0.0,0.0 rot=54.923874,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.272136 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.009145940565002;minecraft:max_health:3.0
+E cod#3 minecraft:cod pos=-53.5,-63.0,-20.5 delta=0.0,0.0,0.0 rot=253.02612,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.7870085 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.757589337502337;minecraft:max_health:3.0
+E cod#4 minecraft:cod pos=-57.5,-63.0,-23.5 delta=0.0,0.0,0.0 rot=240.03563,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.2501707 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.787681201014188;minecraft:max_health:3.0
+E salmon#2 minecraft:salmon pos=-54.5,-63.0,-21.5 delta=0.0,0.0,0.0 rot=302.87732,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.667076 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.538175421185727;minecraft:max_health:3.0
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:15;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 221911472214554
+SPAWNPASS seed=150 chunk=-6,-2 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:15;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 36693554279661
+SPAWNPASS seed=179 chunk=-4,-1 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:15;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 264468331391905
+SPAWNPASS seed=208 chunk=-6,-1 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:15;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 242207845786043
+SPAWNPASS seed=237 chunk=-5,-2 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:15;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 62715219594267
+SPAWNPASS seed=266 chunk=-5,-1 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:15;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 193198722740950
+SPAWNPASS seed=295 chunk=-3,-1 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:15;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 24977290944568
+SPAWNPASS seed=324 chunk=-4,-2 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+E salmon#3 minecraft:salmon pos=-51.5,-63.0,-24.5 delta=0.0,0.0,0.0 rot=298.16876,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.9675477 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.5247880333949;minecraft:max_health:3.0
+E salmon#4 minecraft:salmon pos=-50.5,-63.0,-25.5 delta=0.0,0.0,0.0 rot=107.10919,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.36956018 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.5007153984726;minecraft:max_health:3.0
+E salmon#5 minecraft:salmon pos=-52.5,-63.0,-26.5 delta=0.0,0.0,0.0 rot=153.81705,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.0552053 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.787103303345502;minecraft:max_health:3.0
+E salmon#6 minecraft:salmon pos=-52.5,-63.0,-27.5 delta=0.0,0.0,0.0 rot=28.436394,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.5118808 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.776846628343508;minecraft:max_health:3.0
+E salmon#7 minecraft:salmon pos=-55.5,-63.0,-27.5 delta=0.0,0.0,0.0 rot=359.47562,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.4989737 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.592476362307979;minecraft:max_health:3.0
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 258556086022105
+SPAWNPASS seed=353 chunk=-6,-2 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 7173339495861
+SPAWNPASS seed=382 chunk=-4,-1 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 446563249931
+SPAWNPASS seed=411 chunk=-6,-1 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 193891717042258
+SPAWNPASS seed=440 chunk=-5,-2 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 139414401309811
+SPAWNPASS seed=469 chunk=-5,-1 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 121606103672478
+SPAWNPASS seed=498 chunk=-3,-1 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+E axolotl#1 minecraft:axolotl pos=-47.5,-63.0,-0.5 delta=0.0,0.0,0.0 rot=322.89056,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.0623305 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.880444793119606;minecraft:max_health:14.0;minecraft:movement_speed:1.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E axolotl#2 minecraft:axolotl pos=-47.5,-63.0,-2.5 delta=0.0,0.0,0.0 rot=113.5504,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.601345 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.25586525071037;minecraft:max_health:14.0;minecraft:movement_speed:1.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=-
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 124620264013426
+SPAWNPASS seed=527 chunk=-4,-2 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 184686054085207
+SPAWNPASS seed=556 chunk=-6,-2 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 204984991421421
+SPAWNPASS seed=585 chunk=-4,-1 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 30550095158829
+SPAWNPASS seed=614 chunk=-6,-1 cats=water_ambient,underground_water_creature,axolotls,monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 12040948760080
+SPAWNPASS seed=643 chunk=-5,-2 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 49550909664643
+SPAWNPASS seed=672 chunk=-5,-1 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:0;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 21163374709282
+SPAWNPASS seed=701 chunk=-6,-2 cats=water_creature allowed=1
+E squid#1 minecraft:squid pos=-82.5,-63.0,-13.5 delta=0.0,0.0,0.0 rot=86.550125,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.5268428 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:17.10488039611486;minecraft:max_health:10.0 age=0 baby=0 forcedage=0
+E squid#2 minecraft:squid pos=-82.5,-63.0,-18.5 delta=0.0,0.0,0.0 rot=270.70712,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.4629219 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.686619713757917;minecraft:max_health:10.0 age=0 baby=0 forcedage=0
+E squid#3 minecraft:squid pos=-80.5,-63.0,-16.5 delta=0.0,0.0,0.0 rot=356.35306,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.0800285 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.085777900992035;minecraft:max_health:10.0 age=0 baby=0 forcedage=0
+E dolphin#1 minecraft:dolphin pos=-86.5,-63.0,-15.5 delta=0.0,0.0,0.0 rot=271.31717,0.0 og=0 fall=0.0 fire=0 air=4800 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.4581957 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:17.063076786399346;minecraft:max_health:10.0;minecraft:movement_speed:1.2000000476837158 age=0 baby=0 forcedage=0
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:4;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 44808598852659
+SPAWNPASS seed=730 chunk=-3,-2 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:4;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 42817703935143
+SPAWNPASS seed=759 chunk=-4,-1 cats=water_creature allowed=1
+E squid#4 minecraft:squid pos=-51.5,-63.0,-7.5 delta=0.0,0.0,0.0 rot=80.94701,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.9623144 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.40814636573374;minecraft:max_health:10.0 age=0 baby=0 forcedage=0
+E squid#5 minecraft:squid pos=-51.5,-63.0,-5.5 delta=0.0,0.0,0.0 rot=171.8048,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.835165 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:17.273943556724568;minecraft:max_health:10.0 age=0 baby=0 forcedage=0
+E squid#6 minecraft:squid pos=-52.5,-63.0,-6.5 delta=0.0,0.0,0.0 rot=334.03632,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=6.14286 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:17.068971895148234;minecraft:max_health:10.0 age=0 baby=0 forcedage=0
+E squid#7 minecraft:squid pos=-54.5,-63.0,-6.5 delta=0.0,0.0,0.0 rot=78.113976,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.4909105 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.350392568498318;minecraft:max_health:10.0 age=0 baby=0 forcedage=0
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 26813487889481
+SPAWNPASS seed=788 chunk=-4,-2 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903673
+SPAWNPASS seed=817 chunk=-5,-2 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903644
+SPAWNPASS seed=846 chunk=-5,-1 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903587
+SPAWNPASS seed=875 chunk=-6,-2 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903558
+SPAWNPASS seed=904 chunk=-3,-2 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903781
+SPAWNPASS seed=933 chunk=-4,-1 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903752
+SPAWNPASS seed=962 chunk=-4,-2 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903727
+SPAWNPASS seed=991 chunk=-5,-2 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903730
+SPAWNPASS seed=1020 chunk=-5,-1 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903697
+SPAWNPASS seed=1049 chunk=-6,-2 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214902900
+SPAWNPASS seed=1078 chunk=-3,-2 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214902875
+SPAWNPASS seed=1107 chunk=-4,-1 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214902846
+SPAWNPASS seed=1136 chunk=-4,-2 cats=water_creature allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214902813
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:2;underground_water_creature:0;water_creature:8;water_ambient:20;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-

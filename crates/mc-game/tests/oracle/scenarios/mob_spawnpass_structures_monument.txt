@@ -1,0 +1,349 @@
+# Ocean monument: the guardians of its spawn override, and the ocean's lists around it.
+level normal
+structures true
+seed 6
+preload 0
+difficulty normal
+spawn_player Steve survival 310.5 62 208.5 0 0
+time 18000
+tick 60
+spawnat 1 monster 232 46 184
+tick 1
+spawnat 8 monster 240 46 184
+tick 1
+spawnat 15 monster 248 46 184
+tick 1
+spawnat 22 monster 256 46 184
+tick 1
+spawnat 29 monster 264 46 184
+tick 1
+spawnat 36 monster 272 46 184
+tick 1
+spawnat 43 monster 280 46 184
+tick 1
+spawnat 50 monster 232 46 192
+tick 1
+spawnat 57 monster 240 46 192
+tick 1
+spawnat 64 monster 248 46 192
+tick 1
+spawnat 71 monster 256 46 192
+tick 1
+spawnat 78 monster 264 46 192
+tick 1
+spawnat 85 monster 272 46 192
+tick 1
+spawnat 92 monster 280 46 192
+tick 1
+spawnat 99 monster 232 46 200
+tick 1
+spawnat 106 monster 240 46 200
+tick 1
+spawnat 113 monster 248 46 200
+tick 1
+spawnat 120 monster 256 46 200
+tick 1
+spawnat 127 monster 264 46 200
+tick 1
+spawnat 134 monster 272 46 200
+tick 1
+spawnat 141 monster 280 46 200
+tick 1
+spawnat 148 monster 232 46 208
+tick 1
+spawnat 155 monster 240 46 208
+tick 1
+spawnat 162 monster 248 46 208
+tick 1
+spawnat 169 monster 256 46 208
+tick 1
+spawnat 176 monster 264 46 208
+tick 1
+spawnat 183 monster 272 46 208
+tick 1
+spawnat 190 monster 280 46 208
+tick 1
+spawnat 197 monster 232 46 216
+tick 1
+spawnat 204 monster 240 46 216
+tick 1
+spawnat 211 monster 248 46 216
+tick 1
+spawnat 218 monster 256 46 216
+tick 1
+spawnat 225 monster 264 46 216
+tick 1
+spawnat 232 monster 272 46 216
+tick 1
+spawnat 239 monster 280 46 216
+tick 1
+spawnat 246 monster 232 46 224
+tick 1
+spawnat 253 monster 240 46 224
+tick 1
+spawnat 260 monster 248 46 224
+tick 1
+spawnat 267 monster 256 46 224
+tick 1
+spawnat 274 monster 264 46 224
+tick 1
+spawnat 281 monster 272 46 224
+tick 1
+spawnat 288 monster 280 46 224
+tick 1
+spawnat 295 monster 232 46 232
+tick 1
+spawnat 302 monster 240 46 232
+tick 1
+spawnat 309 monster 248 46 232
+tick 1
+spawnat 316 monster 256 46 232
+tick 1
+spawnat 323 monster 264 46 232
+tick 1
+spawnat 330 monster 272 46 232
+tick 1
+spawnat 337 monster 280 46 232
+tick 1
+spawnat 344 monster 232 54 184
+tick 1
+spawnat 351 monster 240 54 184
+tick 1
+spawnat 358 monster 248 54 184
+tick 1
+spawnat 365 monster 256 54 184
+tick 1
+spawnat 372 monster 264 54 184
+tick 1
+spawnat 379 monster 272 54 184
+tick 1
+spawnat 386 monster 280 54 184
+tick 1
+spawnat 393 monster 232 54 192
+tick 1
+spawnat 400 monster 240 54 192
+tick 1
+spawnat 407 monster 248 54 192
+tick 1
+spawnat 414 monster 256 54 192
+tick 1
+spawnat 421 monster 264 54 192
+tick 1
+spawnat 428 monster 272 54 192
+tick 1
+spawnat 435 monster 280 54 192
+tick 1
+spawnat 442 monster 232 54 200
+tick 1
+spawnat 449 monster 240 54 200
+tick 1
+spawnat 456 monster 248 54 200
+tick 1
+spawnat 463 monster 256 54 200
+tick 1
+spawnat 470 monster 264 54 200
+tick 1
+spawnat 477 monster 272 54 200
+tick 1
+spawnat 484 monster 280 54 200
+tick 1
+spawnat 491 monster 232 54 208
+tick 1
+spawnat 498 monster 240 54 208
+tick 1
+spawnat 505 monster 248 54 208
+tick 1
+spawnat 512 monster 256 54 208
+tick 1
+spawnat 519 monster 264 54 208
+tick 1
+spawnat 526 monster 272 54 208
+tick 1
+spawnat 533 monster 280 54 208
+tick 1
+spawnat 540 monster 232 54 216
+tick 1
+spawnat 547 monster 240 54 216
+tick 1
+spawnat 554 monster 248 54 216
+tick 1
+spawnat 561 monster 256 54 216
+tick 1
+spawnat 568 monster 264 54 216
+tick 1
+spawnat 575 monster 272 54 216
+tick 1
+spawnat 582 monster 280 54 216
+tick 1
+spawnat 589 monster 232 54 224
+tick 1
+spawnat 596 monster 240 54 224
+tick 1
+spawnat 603 monster 248 54 224
+tick 1
+spawnat 610 monster 256 54 224
+tick 1
+spawnat 617 monster 264 54 224
+tick 1
+spawnat 624 monster 272 54 224
+tick 1
+spawnat 631 monster 280 54 224
+tick 1
+spawnat 638 monster 232 54 232
+tick 1
+spawnat 645 monster 240 54 232
+tick 1
+spawnat 652 monster 248 54 232
+tick 1
+spawnat 659 monster 256 54 232
+tick 1
+spawnat 666 monster 264 54 232
+tick 1
+spawnat 673 monster 272 54 232
+tick 1
+spawnat 680 monster 280 54 232
+tick 1
+spawnpass 2 chunk=14,11 cats=monster
+dump rng:level
+tick 1
+spawnpass 7 chunk=15,11 cats=monster
+dump rng:level
+tick 1
+spawnpass 12 chunk=16,11 cats=monster
+dump rng:level
+tick 1
+spawnpass 17 chunk=17,11 cats=monster
+dump rng:level
+tick 1
+spawnpass 22 chunk=14,12 cats=monster
+dump rng:level
+tick 1
+spawnpass 27 chunk=15,12 cats=monster
+dump rng:level
+tick 1
+spawnpass 32 chunk=16,12 cats=monster
+dump rng:level
+tick 1
+spawnpass 37 chunk=17,12 cats=monster
+dump rng:level
+tick 1
+spawnpass 42 chunk=14,13 cats=monster
+dump rng:level
+tick 1
+spawnpass 47 chunk=15,13 cats=monster
+dump rng:level
+tick 1
+spawnpass 52 chunk=16,13 cats=monster
+dump rng:level
+tick 1
+spawnpass 57 chunk=17,13 cats=monster
+dump rng:level
+tick 1
+spawnpass 62 chunk=14,14 cats=monster
+dump rng:level
+tick 1
+spawnpass 67 chunk=15,14 cats=monster
+dump rng:level
+tick 1
+spawnpass 72 chunk=16,14 cats=monster
+dump rng:level
+tick 1
+spawnpass 77 chunk=17,14 cats=monster
+dump rng:level
+tick 1
+spawnpass 82 chunk=14,11 cats=monster
+dump rng:level
+tick 1
+spawnpass 87 chunk=15,11 cats=monster
+dump rng:level
+tick 1
+spawnpass 92 chunk=16,11 cats=monster
+dump rng:level
+tick 1
+spawnpass 97 chunk=17,11 cats=monster
+dump rng:level
+tick 1
+spawnpass 102 chunk=14,12 cats=monster
+dump rng:level
+tick 1
+spawnpass 107 chunk=15,12 cats=monster
+dump rng:level
+tick 1
+spawnpass 112 chunk=16,12 cats=monster
+dump rng:level
+tick 1
+spawnpass 117 chunk=17,12 cats=monster
+dump rng:level
+tick 1
+spawnpass 122 chunk=14,13 cats=monster
+dump rng:level
+tick 1
+spawnpass 127 chunk=15,13 cats=monster
+dump rng:level
+tick 1
+spawnpass 132 chunk=16,13 cats=monster
+dump rng:level
+tick 1
+spawnpass 137 chunk=17,13 cats=monster
+dump rng:level
+tick 1
+spawnpass 142 chunk=14,14 cats=monster
+dump rng:level
+tick 1
+spawnpass 147 chunk=15,14 cats=monster
+dump rng:level
+tick 1
+spawnpass 152 chunk=16,14 cats=monster
+dump rng:level
+tick 1
+spawnpass 157 chunk=17,14 cats=monster
+dump rng:level
+tick 1
+spawnpass 162 chunk=14,11 cats=monster
+dump rng:level
+tick 1
+spawnpass 167 chunk=15,11 cats=monster
+dump rng:level
+tick 1
+spawnpass 172 chunk=16,11 cats=monster
+dump rng:level
+tick 1
+spawnpass 177 chunk=17,11 cats=monster
+dump rng:level
+tick 1
+spawnpass 182 chunk=14,12 cats=monster
+dump rng:level
+tick 1
+spawnpass 187 chunk=15,12 cats=monster
+dump rng:level
+tick 1
+spawnpass 192 chunk=16,12 cats=monster
+dump rng:level
+tick 1
+spawnpass 197 chunk=17,12 cats=monster
+dump rng:level
+tick 1
+spawnpass 202 chunk=14,13 cats=monster
+dump rng:level
+tick 1
+spawnpass 207 chunk=15,13 cats=monster
+dump rng:level
+tick 1
+spawnpass 212 chunk=16,13 cats=monster
+dump rng:level
+tick 1
+spawnpass 217 chunk=17,13 cats=monster
+dump rng:level
+tick 1
+spawnpass 222 chunk=14,14 cats=monster
+dump rng:level
+tick 1
+spawnpass 227 chunk=15,14 cats=monster
+dump rng:level
+tick 1
+spawnpass 232 chunk=16,14 cats=monster
+dump rng:level
+tick 1
+spawnpass 237 chunk=17,14 cats=monster
+dump rng:level
+tick 1

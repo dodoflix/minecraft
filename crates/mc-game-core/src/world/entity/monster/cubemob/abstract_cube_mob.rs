@@ -289,6 +289,10 @@ impl CubeMobAttackGoal {
 }
 
 impl Goal for CubeMobAttackGoal {
+    fn name(&self) -> &'static str {
+        "AbstractCubeMob$CubeMobAttackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let Some(target) =
             mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
@@ -349,6 +353,10 @@ impl CubeMobFloatGoal {
 }
 
 impl Goal for CubeMobFloatGoal {
+    fn name(&self) -> &'static str {
+        "AbstractCubeMob$CubeMobFloatGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         mob.is_in_liquid() && has_cube_move_control(mob)
     }
@@ -373,6 +381,10 @@ impl Goal for CubeMobFloatGoal {
 pub struct CubeMobKeepOnJumpingGoal;
 
 impl Goal for CubeMobKeepOnJumpingGoal {
+    fn name(&self) -> &'static str {
+        "AbstractCubeMob$CubeMobKeepOnJumpingGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         !mob.base().is_passenger()
     }
@@ -400,6 +412,10 @@ impl CubeMobRandomDirectionGoal {
 }
 
 impl Goal for CubeMobRandomDirectionGoal {
+    fn name(&self) -> &'static str {
+        "AbstractCubeMob$CubeMobRandomDirectionGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         mob::tick::get_target_checked(mob, level).is_none()
             && (mob.base().on_ground()

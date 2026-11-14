@@ -1,0 +1,350 @@
+level flat
+difficulty normal
+spawn_player Steve survival 60.5 -60 60.5 0 0
+spawn_player Alex survival 300.5 -60 60.5 0 0
+time 18000
+mobspawn Z0 minecraft:zombie 30.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Z1 minecraft:zombie 38.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Z2 minecraft:zombie 46.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Z3 minecraft:zombie 54.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Z4 minecraft:zombie 62.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Z5 minecraft:zombie 70.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Z6 minecraft:zombie 78.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Z7 minecraft:zombie 86.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Z8 minecraft:zombie 94.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Z9 minecraft:zombie 102.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Z10 minecraft:zombie 30.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Z11 minecraft:zombie 38.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Z12 minecraft:zombie 46.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Z13 minecraft:zombie 54.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Z14 minecraft:zombie 62.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Z15 minecraft:zombie 70.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Z16 minecraft:zombie 78.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Z17 minecraft:zombie 86.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Z18 minecraft:zombie 94.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Z19 minecraft:zombie 102.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Z20 minecraft:zombie 30.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Z21 minecraft:zombie 38.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Z22 minecraft:zombie 46.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Z23 minecraft:zombie 54.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Z24 minecraft:zombie 62.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Z25 minecraft:zombie 70.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Z26 minecraft:zombie 78.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Z27 minecraft:zombie 86.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Z28 minecraft:zombie 94.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Z29 minecraft:zombie 102.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Z30 minecraft:zombie 30.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Z31 minecraft:zombie 38.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Z32 minecraft:zombie 46.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Z33 minecraft:zombie 54.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Z34 minecraft:zombie 62.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Z35 minecraft:zombie 70.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Z36 minecraft:zombie 78.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Z37 minecraft:zombie 86.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Z38 minecraft:zombie 94.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Z39 minecraft:zombie 102.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Z40 minecraft:zombie 30.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Z41 minecraft:zombie 38.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Z42 minecraft:zombie 46.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Z43 minecraft:zombie 54.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Z44 minecraft:zombie 62.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Z45 minecraft:zombie 70.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Z46 minecraft:zombie 78.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Z47 minecraft:zombie 86.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Z48 minecraft:zombie 94.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Z49 minecraft:zombie 102.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Z50 minecraft:zombie 30.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Z51 minecraft:zombie 38.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Z52 minecraft:zombie 46.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Z53 minecraft:zombie 54.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Z54 minecraft:zombie 62.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Z55 minecraft:zombie 70.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Z56 minecraft:zombie 78.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Z57 minecraft:zombie 86.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Z58 minecraft:zombie 94.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Z59 minecraft:zombie 102.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Z60 minecraft:zombie 30.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Z61 minecraft:zombie 38.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Z62 minecraft:zombie 46.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Z63 minecraft:zombie 54.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Z64 minecraft:zombie 62.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Z65 minecraft:zombie 70.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Z66 minecraft:zombie 78.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Z67 minecraft:zombie 86.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Z68 minecraft:zombie 94.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Z69 minecraft:zombie 102.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn C0 minecraft:cow 36.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn C1 minecraft:cow 44.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn C2 minecraft:cow 52.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn C3 minecraft:cow 60.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn C4 minecraft:cow 68.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn C5 minecraft:cow 76.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn C6 minecraft:cow 84.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn C7 minecraft:cow 92.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn C8 minecraft:cow 100.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn C9 minecraft:cow 108.5 -60 20.5 reason=natural {NoAI:1b}
+tick 3
+spawnpass 1 chunk=2,2
+dump rng:level
+tick 1
+spawnpass 3 chunk=17,1
+dump rng:level
+tick 1
+spawnpass 8 chunk=3,2
+dump rng:level
+tick 1
+spawnpass 10 chunk=18,1
+dump rng:level
+tick 1
+spawnpass 15 chunk=4,2
+dump rng:level
+tick 1
+spawnpass 17 chunk=19,1
+dump rng:level
+tick 1
+spawnpass 22 chunk=5,2
+dump rng:level
+tick 1
+spawnpass 24 chunk=20,1
+dump rng:level
+tick 1
+spawnpass 29 chunk=6,2
+dump rng:level
+tick 1
+spawnpass 31 chunk=17,2
+dump rng:level
+tick 1
+spawnpass 36 chunk=2,3
+dump rng:level
+tick 1
+spawnpass 38 chunk=18,2
+dump rng:level
+tick 1
+spawnpass 43 chunk=3,3
+dump rng:level
+tick 1
+spawnpass 45 chunk=19,2
+dump rng:level
+tick 1
+spawnpass 50 chunk=4,3
+dump rng:level
+tick 1
+spawnpass 52 chunk=20,2
+dump rng:level
+tick 1
+spawnpass 57 chunk=5,3
+dump rng:level
+tick 1
+spawnpass 59 chunk=17,3
+dump rng:level
+tick 1
+spawnpass 64 chunk=6,3
+dump rng:level
+tick 1
+spawnpass 66 chunk=18,3
+dump rng:level
+tick 1
+dump spawn_state
+spawnpass 7 chunk=2,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 17 chunk=17,1 persistent=true
+dump rng:level
+tick 1
+spawnpass 42 chunk=3,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 52 chunk=18,1 persistent=true
+dump rng:level
+tick 1
+spawnpass 77 chunk=4,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 87 chunk=19,1 persistent=true
+dump rng:level
+tick 1
+spawnpass 112 chunk=5,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 122 chunk=20,1 persistent=true
+dump rng:level
+tick 1
+spawnpass 147 chunk=6,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 157 chunk=17,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 182 chunk=2,3 persistent=true
+dump rng:level
+tick 1
+spawnpass 192 chunk=18,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 217 chunk=3,3 persistent=true
+dump rng:level
+tick 1
+spawnpass 227 chunk=19,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 252 chunk=4,3 persistent=true
+dump rng:level
+tick 1
+spawnpass 262 chunk=20,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 287 chunk=5,3 persistent=true
+dump rng:level
+tick 1
+spawnpass 297 chunk=17,3 persistent=true
+dump rng:level
+tick 1
+spawnpass 322 chunk=6,3 persistent=true
+dump rng:level
+tick 1
+spawnpass 332 chunk=18,3 persistent=true
+dump rng:level
+tick 1
+mobspawn Y70 minecraft:zombie 260.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Y71 minecraft:zombie 268.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Y72 minecraft:zombie 276.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Y73 minecraft:zombie 284.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Y74 minecraft:zombie 292.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Y75 minecraft:zombie 300.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Y76 minecraft:zombie 308.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Y77 minecraft:zombie 316.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Y78 minecraft:zombie 324.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Y79 minecraft:zombie 332.5 -60 30.5 reason=natural {NoAI:1b}
+mobspawn Y80 minecraft:zombie 260.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Y81 minecraft:zombie 268.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Y82 minecraft:zombie 276.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Y83 minecraft:zombie 284.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Y84 minecraft:zombie 292.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Y85 minecraft:zombie 300.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Y86 minecraft:zombie 308.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Y87 minecraft:zombie 316.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Y88 minecraft:zombie 324.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Y89 minecraft:zombie 332.5 -60 38.5 reason=natural {NoAI:1b}
+mobspawn Y90 minecraft:zombie 260.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Y91 minecraft:zombie 268.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Y92 minecraft:zombie 276.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Y93 minecraft:zombie 284.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Y94 minecraft:zombie 292.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Y95 minecraft:zombie 300.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Y96 minecraft:zombie 308.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Y97 minecraft:zombie 316.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Y98 minecraft:zombie 324.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Y99 minecraft:zombie 332.5 -60 46.5 reason=natural {NoAI:1b}
+mobspawn Y100 minecraft:zombie 260.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Y101 minecraft:zombie 268.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Y102 minecraft:zombie 276.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Y103 minecraft:zombie 284.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Y104 minecraft:zombie 292.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Y105 minecraft:zombie 300.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Y106 minecraft:zombie 308.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Y107 minecraft:zombie 316.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Y108 minecraft:zombie 324.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Y109 minecraft:zombie 332.5 -60 54.5 reason=natural {NoAI:1b}
+mobspawn Y110 minecraft:zombie 260.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Y111 minecraft:zombie 268.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Y112 minecraft:zombie 276.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Y113 minecraft:zombie 284.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Y114 minecraft:zombie 292.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Y115 minecraft:zombie 300.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Y116 minecraft:zombie 308.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Y117 minecraft:zombie 316.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Y118 minecraft:zombie 324.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Y119 minecraft:zombie 332.5 -60 62.5 reason=natural {NoAI:1b}
+mobspawn Y120 minecraft:zombie 260.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Y121 minecraft:zombie 268.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Y122 minecraft:zombie 276.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Y123 minecraft:zombie 284.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Y124 minecraft:zombie 292.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Y125 minecraft:zombie 300.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Y126 minecraft:zombie 308.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Y127 minecraft:zombie 316.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Y128 minecraft:zombie 324.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Y129 minecraft:zombie 332.5 -60 70.5 reason=natural {NoAI:1b}
+mobspawn Y130 minecraft:zombie 260.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Y131 minecraft:zombie 268.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Y132 minecraft:zombie 276.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Y133 minecraft:zombie 284.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Y134 minecraft:zombie 292.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Y135 minecraft:zombie 300.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Y136 minecraft:zombie 308.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Y137 minecraft:zombie 316.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Y138 minecraft:zombie 324.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn Y139 minecraft:zombie 332.5 -60 78.5 reason=natural {NoAI:1b}
+mobspawn D0 minecraft:cow 260.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn D1 minecraft:cow 268.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn D2 minecraft:cow 276.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn D3 minecraft:cow 284.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn D4 minecraft:cow 292.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn D5 minecraft:cow 300.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn D6 minecraft:cow 308.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn D7 minecraft:cow 316.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn D8 minecraft:cow 324.5 -60 20.5 reason=natural {NoAI:1b}
+mobspawn D9 minecraft:cow 332.5 -60 20.5 reason=natural {NoAI:1b}
+tick 2
+spawnpass 12 chunk=2,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 18 chunk=17,1 persistent=true
+dump rng:level
+tick 1
+spawnpass 33 chunk=3,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 39 chunk=18,1 persistent=true
+dump rng:level
+tick 1
+spawnpass 54 chunk=4,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 60 chunk=19,1 persistent=true
+dump rng:level
+tick 1
+spawnpass 75 chunk=5,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 81 chunk=20,1 persistent=true
+dump rng:level
+tick 1
+spawnpass 96 chunk=6,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 102 chunk=17,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 117 chunk=2,3 persistent=true
+dump rng:level
+tick 1
+spawnpass 123 chunk=18,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 138 chunk=3,3 persistent=true
+dump rng:level
+tick 1
+spawnpass 144 chunk=19,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 159 chunk=4,3 persistent=true
+dump rng:level
+tick 1
+spawnpass 165 chunk=20,2 persistent=true
+dump rng:level
+tick 1
+spawnpass 180 chunk=5,3 persistent=true
+dump rng:level
+tick 1
+spawnpass 186 chunk=17,3 persistent=true
+dump rng:level
+tick 1
+spawnpass 201 chunk=6,3 persistent=true
+dump rng:level
+tick 1
+spawnpass 207 chunk=18,3 persistent=true
+dump rng:level
+tick 1
+dump spawn_state
+dump mobs

@@ -37,7 +37,7 @@ const SEED: i64 = 4242;
 fn open_level(dir: &std::path::Path) -> ServerLevel {
     let w = &*WORLD;
     let dimension = Identifier::parse("minecraft:overworld").unwrap();
-    let (env, backend) = noise_world(SEED, true);
+    let (env, backend) = noise_world(SEED, true, "overworld");
     let (shared, _rx) = ServerShared::new();
     shared.bind_game_thread();
     let structures = w.structures.clone();

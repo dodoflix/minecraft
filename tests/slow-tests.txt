@@ -4,6 +4,8 @@
 mc-game tests/golden/main.rs feat_ores_golden::feat_ores_match_vanilla
 mc-game tests/golden/main.rs jigsaw_structures_golden::jigsaw_structures_match_vanilla
 mc-game tests/golden/main.rs mineshaft_golden::mineshaft_matches_vanilla
+mc-game tests/golden/main.rs mob_fixtures_golden::mob_spawnpass_structures_monument
+mc-game tests/golden/main.rs mob_fixtures_golden::mob_spawnpass_structures_outpost
 mc-game tests/golden/main.rs portal_golden::portal_forcer
 mc-game tests/golden/main.rs scattered_structures_golden::nether_fossil_matches_vanilla
 mc-game tests/golden/main.rs scattered_structures_golden::ocean_ruin_matches_vanilla

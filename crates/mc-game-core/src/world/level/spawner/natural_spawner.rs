@@ -526,10 +526,10 @@ fn is_valid_position_for_mob(
     mob.check_spawn_rules(level, EntitySpawnReason::Natural) && mob.check_spawn_obstruction(level)
 }
 
-/// The tag `REDUCED_WATER_AMBIENT_SPAWNS` of the vanilla data pack, as biome keys.
+/// The tag `REDUCED_WATER_AMBIENT_SPAWNS` (`reduce_water_ambient_spawns`) of the vanilla data pack, as biome keys.
 fn reduced_water_ambient_biomes() -> &'static std::collections::HashSet<String> {
     static BIOMES: LazyLock<std::collections::HashSet<String>> = LazyLock::new(|| {
-        mc_data::tags::names("worldgen/biome", "minecraft:reduced_water_ambient_spawns")
+        mc_data::tags::names("worldgen/biome", "minecraft:reduce_water_ambient_spawns")
             .unwrap_or_default()
             .into_iter()
             .collect()

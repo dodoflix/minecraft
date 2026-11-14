@@ -1,0 +1,154 @@
+level flat
+difficulty hard
+spawn_player Steve survival 60.5 -60 60.5 0 0
+time 18000
+tick 3
+spawnpass 3 chunk=-3,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 14 chunk=-2,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 25 chunk=-1,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 36 chunk=0,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 47 chunk=1,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 58 chunk=2,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 69 chunk=3,-3 cats=monster
+dump rng:level
+tick 1
+spawnpass 80 chunk=-3,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 91 chunk=-2,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 102 chunk=-1,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 113 chunk=0,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 124 chunk=1,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 135 chunk=2,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 146 chunk=3,-2 cats=monster
+dump rng:level
+tick 1
+spawnpass 157 chunk=-3,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 168 chunk=-2,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 179 chunk=-1,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 190 chunk=0,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 201 chunk=1,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 212 chunk=2,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 223 chunk=3,-1 cats=monster
+dump rng:level
+tick 1
+spawnpass 234 chunk=-3,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 245 chunk=-2,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 256 chunk=-1,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 267 chunk=0,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 278 chunk=1,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 289 chunk=2,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 300 chunk=3,0 cats=monster
+dump rng:level
+tick 1
+spawnpass 311 chunk=-3,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 322 chunk=-2,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 333 chunk=-1,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 344 chunk=0,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 355 chunk=1,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 366 chunk=2,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 377 chunk=3,1 cats=monster
+dump rng:level
+tick 1
+spawnpass 388 chunk=-3,2 cats=monster
+dump rng:level
+tick 1
+spawnpass 399 chunk=-2,2 cats=monster
+dump rng:level
+tick 1
+spawnpass 410 chunk=-1,2 cats=monster
+dump rng:level
+tick 1
+spawnpass 421 chunk=0,2 cats=monster
+dump rng:level
+tick 1
+spawnpass 432 chunk=1,2 cats=monster
+dump rng:level
+tick 1
+spawnpass 443 chunk=2,2 cats=monster
+dump rng:level
+tick 1
+spawnpass 454 chunk=3,2 cats=monster
+dump rng:level
+tick 1
+spawnpass 465 chunk=-3,3 cats=monster
+dump rng:level
+tick 1
+spawnpass 476 chunk=-2,3 cats=monster
+dump rng:level
+tick 1
+spawnpass 487 chunk=-1,3 cats=monster
+dump rng:level
+tick 1
+spawnpass 498 chunk=0,3 cats=monster
+dump rng:level
+tick 1
+spawnpass 509 chunk=1,3 cats=monster
+dump rng:level
+tick 1
+spawnpass 520 chunk=2,3 cats=monster
+dump rng:level
+tick 1
+spawnpass 531 chunk=3,3 cats=monster
+dump rng:level
+tick 1
+dump spawn_state
+dump mobs

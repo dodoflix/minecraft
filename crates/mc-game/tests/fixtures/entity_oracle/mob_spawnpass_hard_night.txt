@@ -1,0 +1,169 @@
+C Set minecraft:overworld to 18000 tick(s)
+SPAWNPASS seed=3 chunk=-3,-3 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903918
+SPAWNPASS seed=14 chunk=-2,-3 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903907
+SPAWNPASS seed=25 chunk=-1,-3 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 15122425059649
+SPAWNPASS seed=36 chunk=0,-3 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 96865302810330
+SPAWNPASS seed=47 chunk=1,-3 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 149447861054951
+SPAWNPASS seed=58 chunk=2,-3 cats=monster allowed=1
+E spider#1 minecraft:spider pos=38.5,-60.0,-26.5 delta=0.0,0.0,0.0 rot=158.21439,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.3351755 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.274613149541663;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spider#2 minecraft:spider pos=40.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=274.9636,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.5800076 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.867271405850987;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 23768821985940
+SPAWNPASS seed=69 chunk=3,-3 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 264333084046213
+SPAWNPASS seed=80 chunk=-3,-2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903869
+SPAWNPASS seed=91 chunk=-2,-2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 159167967556971
+SPAWNPASS seed=102 chunk=-1,-2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 240910845307652
+SPAWNPASS seed=113 chunk=0,-2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 274053190548233
+SPAWNPASS seed=124 chunk=1,-2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 236050792056642
+SPAWNPASS seed=135 chunk=2,-2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 13366370026671
+SPAWNPASS seed=146 chunk=3,-2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 137093672003464
+SPAWNPASS seed=157 chunk=-3,-1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 8506316775661
+SPAWNPASS seed=168 chunk=-2,-1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 90249194526342
+SPAWNPASS seed=179 chunk=-1,-1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 23086476528691
+SPAWNPASS seed=190 chunk=0,-1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 18367836273417
+SPAWNPASS seed=201 chunk=1,-1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 257716975762225
+SPAWNPASS seed=212 chunk=2,-1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 99969301028362
+SPAWNPASS seed=223 chunk=3,-1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 152551859272983
+SPAWNPASS seed=234 chunk=-3,0 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 234294737023664
+SPAWNPASS seed=245 chunk=-2,0 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 267437082264245
+SPAWNPASS seed=256 chunk=-1,0 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 235642680208718
+SPAWNPASS seed=267 chunk=0,0 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 6750261742683
+SPAWNPASS seed=278 chunk=1,0 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 130477563719476
+SPAWNPASS seed=289 chunk=2,0 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 121635484733945
+SPAWNPASS seed=300 chunk=3,0 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 83633086242354
+SPAWNPASS seed=311 chunk=-3,1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 16470368244703
+SPAWNPASS seed=322 chunk=-2,1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 98213245995384
+SPAWNPASS seed=333 chunk=-1,1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 251100867478237
+SPAWNPASS seed=344 chunk=0,1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 93353192744374
+SPAWNPASS seed=355 chunk=1,1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:2;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 265681027231267
+SPAWNPASS seed=366 chunk=2,1 cats=monster allowed=1
+E skeleton#1 minecraft:skeleton pos=36.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=58.55022,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.5166097 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:bow*1 attrs=minecraft:follow_range:16.00308523402197;minecraft:movement_speed:0.25
+E slime#1 minecraft:slime pos=48.5,-60.0,23.5 delta=0.0,0.0,0.0 rot=4.250051,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.250051 body=4.250051 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.489539660980515;minecraft:max_health:4.0;minecraft:movement_speed:0.4000000059604645 age=0 baby=0 forcedage=0
+E zombie#1 minecraft:zombie pos=45.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=95.46836,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.0243655 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=feet:minecraft:leather_boots*1;legs:minecraft:leather_leggings*1;chest:minecraft:leather_chestplate*1;head:minecraft:leather_helmet*1 attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:38.43110637342316;minecraft:knockback_resistance:0.04417256535304706;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.03817585400417139
+E zombie#2 minecraft:zombie pos=46.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=328.29712,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.22959192 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.1445721290911;minecraft:knockback_resistance:0.026808907264770095;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.037922113326909805
+SPAWNSTATE chunks=289 counts=monster:6;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 37064253058242
+SPAWNPASS seed=377 chunk=3,1 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:6;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 260820973980257
+SPAWNPASS seed=388 chunk=-3,2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:6;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 229026571924730
+SPAWNPASS seed=399 chunk=-2,2 cats=monster allowed=1
+E creeper#1 minecraft:creeper pos=-23.5,-60.0,43.5 delta=0.0,0.0,0.0 rot=183.80116,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.7033973 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:17.316357560691884;minecraft:movement_speed:0.25
+E creeper#2 minecraft:creeper pos=-25.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=121.73575,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.20358053 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.968318986688443;minecraft:movement_speed:0.25
+SPAWNSTATE chunks=289 counts=monster:8;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 102665271862784
+SPAWNPASS seed=410 chunk=-1,2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:8;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 123861455435488
+SPAWNPASS seed=421 chunk=0,2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:8;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 115019376449957
+SPAWNPASS seed=432 chunk=1,2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:8;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 238746678426750
+SPAWNPASS seed=443 chunk=2,2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:8;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 9854259960715
+SPAWNPASS seed=454 chunk=3,2 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:8;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 91597137711396
+SPAWNPASS seed=465 chunk=-3,3 cats=monster allowed=1
+E zombie#3 minecraft:zombie pos=-37.5,-60.0,57.5 delta=0.0,0.0,0.0 rot=275.82004,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.9642284 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:37.132900534449064;minecraft:knockback_resistance:0.019660144570860717;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.0959921475855103
+E zombie#4 minecraft:zombie pos=-35.5,-60.0,58.5 delta=0.0,0.0,0.0 rot=170.69136,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.9955086 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:37.433290139965564;minecraft:knockback_resistance:0.0021221330749165465;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.09675061420070853
+SPAWNSTATE chunks=289 counts=monster:10;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 116254030653175
+SPAWNPASS seed=476 chunk=-2,3 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:10;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 86737084460386
+SPAWNPASS seed=487 chunk=-1,3 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:10;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 259064918947279
+SPAWNPASS seed=498 chunk=0,3 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:10;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 101317244213416
+SPAWNPASS seed=509 chunk=1,3 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:10;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 254204865696269
+SPAWNPASS seed=520 chunk=2,3 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:10;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 113609629444262
+SPAWNPASS seed=531 chunk=3,3 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:10;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 46446911446611
+SPAWNSTATE chunks=289 counts=monster:10;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+E spider#1 minecraft:spider pos=38.5,-60.0,-26.5 delta=0.0,-0.0784000015258789,0.0 rot=158.21439,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-108.321266 body=-25.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=6:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.274613149541663;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E spider#2 minecraft:spider pos=40.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=274.9636,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-51.20495 body=-51.20495 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.867271405850987;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
+E skeleton#1 minecraft:skeleton pos=36.5,-60.0,21.5 delta=0.0,-0.0784000015258789,0.0 rot=58.55022,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:bow*1 attrs=minecraft:follow_range:16.00308523402197;minecraft:movement_speed:0.25
+E slime#1 minecraft:slime pos=48.054729358021056,-60.0,22.571822045012308 delta=-0.00765895024547268,-0.0784000015258789,-0.014075307632999067 rot=146.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=146.0 body=146.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=4:AbstractCubeMob$CubeMobRandomDirectionGoal:LOOK;5:AbstractCubeMob$CubeMobKeepOnJumpingGoal:MOVE+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.489539660980515;minecraft:max_health:4.0;minecraft:movement_speed:0.4000000059604645 age=0 baby=0 forcedage=0
+E zombie#1 minecraft:zombie pos=45.5,-60.0,21.5 delta=0.0,-0.0784000015258789,0.0 rot=95.46836,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=feet:minecraft:leather_boots*1;legs:minecraft:leather_leggings*1;chest:minecraft:leather_chestplate*1;head:minecraft:leather_helmet*1 attrs=minecraft:armor:9.0;minecraft:attack_damage:3.0;minecraft:follow_range:38.43110637342316;minecraft:knockback_resistance:0.04417256535304706;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.03817585400417139
+E zombie#2 minecraft:zombie pos=46.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=328.29712,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.1445721290911;minecraft:knockback_resistance:0.026808907264770095;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.037922113326909805
+E creeper#1 minecraft:creeper pos=-23.5,-60.0,43.5 delta=0.0,-0.0784000015258789,0.0 rot=183.80116,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:17.316357560691884;minecraft:movement_speed:0.25
+E creeper#2 minecraft:creeper pos=-25.5,-60.0,40.5 delta=0.0,-0.0784000015258789,0.0 rot=121.73575,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.968318986688443;minecraft:movement_speed:0.25
+E zombie#3 minecraft:zombie pos=-37.5,-60.0,57.5 delta=0.0,-0.0784000015258789,0.0 rot=275.82004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:37.132900534449064;minecraft:knockback_resistance:0.019660144570860717;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.0959921475855103
+E zombie#4 minecraft:zombie pos=-35.5,-60.0,58.5 delta=0.0,-0.0784000015258789,0.0 rot=170.69136,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:37.433290139965564;minecraft:knockback_resistance:0.0021221330749165465;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.09675061420070853

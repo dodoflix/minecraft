@@ -1,0 +1,510 @@
+level flat
+difficulty normal
+spawn_player Steve survival -64.5 -60 30.5 0 0
+time 18000
+fill -96 -61 -32 -81 -61 -17 minecraft:air
+fill -96 -64 -32 -81 -62 -17 minecraft:water
+biome -96 -64 -32 -81 -58 -17 minecraft:ocean
+fill -80 -61 -32 -65 -61 -17 minecraft:air
+fill -80 -64 -32 -65 -62 -17 minecraft:water
+biome -80 -64 -32 -65 -58 -17 minecraft:warm_ocean
+fill -64 -61 -32 -49 -61 -17 minecraft:air
+fill -64 -64 -32 -49 -62 -17 minecraft:water
+biome -64 -64 -32 -49 -58 -17 minecraft:cold_ocean
+fill -48 -61 -32 -33 -61 -17 minecraft:air
+fill -48 -64 -32 -33 -62 -17 minecraft:water
+biome -48 -64 -32 -33 -58 -17 minecraft:river
+fill -96 -61 -16 -81 -61 -1 minecraft:air
+fill -96 -64 -16 -81 -62 -1 minecraft:water
+biome -96 -64 -16 -81 -58 -1 minecraft:frozen_river
+fill -80 -61 -16 -65 -61 -1 minecraft:air
+fill -80 -64 -16 -65 -62 -1 minecraft:water
+biome -80 -64 -16 -65 -58 -1 minecraft:lukewarm_ocean
+fill -64 -61 -16 -49 -61 -1 minecraft:air
+fill -64 -64 -16 -49 -62 -1 minecraft:water
+biome -64 -64 -16 -49 -58 -1 minecraft:deep_ocean
+fill -48 -61 -16 -33 -61 -1 minecraft:air
+fill -48 -64 -16 -33 -62 -1 minecraft:water
+biome -48 -64 -16 -33 -58 -1 minecraft:lush_caves
+fill -48 -64 -16 -33 -64 -1 minecraft:clay
+tick 3
+spawnpass 5 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 18 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 31 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 44 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 57 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 70 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 83 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 96 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 109 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 122 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 135 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 148 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 161 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 174 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 187 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 200 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 213 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 226 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 239 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 252 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 265 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 278 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 291 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 304 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 317 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 330 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 343 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 356 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 369 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 382 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 395 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 408 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 421 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 434 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 447 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 460 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 473 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 486 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 499 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 512 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 525 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 538 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 551 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 564 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 577 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 590 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 603 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 616 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 629 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 642 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 655 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 668 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 681 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 694 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 707 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 720 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 733 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 746 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 759 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 772 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 785 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 798 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 811 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 824 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 837 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 850 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 863 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 876 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 889 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 902 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 915 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 928 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 941 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 954 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 967 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 980 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 993 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1006 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1019 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1032 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1045 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1058 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1071 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1084 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1097 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1110 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1123 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1136 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1149 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1162 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1175 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1188 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1201 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1214 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1227 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1240 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1253 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1266 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1279 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1292 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1305 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1318 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1331 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1344 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1357 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1370 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1383 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1396 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1409 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1422 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1435 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1448 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1461 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1474 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1487 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1500 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1513 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1526 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1539 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 1552 chunk=-3,-2 cats=water_ambient
+dump rng:level
+tick 1
+spawnpass 34 chunk=-5,-2 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 63 chunk=-5,-1 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 92 chunk=-3,-1 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 121 chunk=-4,-2 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 150 chunk=-6,-2 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 179 chunk=-4,-1 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 208 chunk=-6,-1 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 237 chunk=-5,-2 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 266 chunk=-5,-1 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 295 chunk=-3,-1 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 324 chunk=-4,-2 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 353 chunk=-6,-2 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 382 chunk=-4,-1 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 411 chunk=-6,-1 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 440 chunk=-5,-2 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 469 chunk=-5,-1 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 498 chunk=-3,-1 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 527 chunk=-4,-2 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 556 chunk=-6,-2 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 585 chunk=-4,-1 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+spawnpass 614 chunk=-6,-1 cats=water_ambient,underground_water_creature,axolotls,monster
+dump rng:level
+tick 1
+tick 2
+spawnpass 643 chunk=-5,-2 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 672 chunk=-5,-1 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 701 chunk=-6,-2 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 730 chunk=-3,-2 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 759 chunk=-4,-1 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 788 chunk=-4,-2 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 817 chunk=-5,-2 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 846 chunk=-5,-1 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 875 chunk=-6,-2 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 904 chunk=-3,-2 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 933 chunk=-4,-1 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 962 chunk=-4,-2 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 991 chunk=-5,-2 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 1020 chunk=-5,-1 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 1049 chunk=-6,-2 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 1078 chunk=-3,-2 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 1107 chunk=-4,-1 cats=water_creature
+dump rng:level
+tick 1
+spawnpass 1136 chunk=-4,-2 cats=water_creature
+dump rng:level
+tick 1
+tick 2
+dump spawn_state

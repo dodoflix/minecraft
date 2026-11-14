@@ -1,5 +1,5 @@
 //! Spawning, raid, difficulty and brain-isolation verbs of the scenario DSL (grammar of `tests/oracle/EntityOracleDriver.java`), shared
-//! by the replays: `spawnpass`, `custom_spawner`, `raid_waves`, `raid_start`, `rest`, `memory`, `activity` and the dumps
+//! by the replays: `spawnpass`, `spawnat`, `custom_spawner`, `raid_waves`, `raid_start`, `rest`, `memory`, `activity` and the dumps
 //! `difficulty:X,Y,Z`, `spawn_state`, `raids`. A replay implements [`SpawnHost`] and forwards unknown commands to [`command`] and
 //! unknown dump kinds to [`dump`]. The verbs that need the ticking level (natural spawning, custom spawners, raids with a village, local
 //! difficulty) are only offered by a host with [`SpawnHost::TICKING`]; the others run in every replay.
@@ -131,7 +131,7 @@ pub fn spawn_state_dump(level: &mut ServerLevel) -> String {
     spawn_state_line(&create_spawn_state(level))
 }
 
-/// `spawnpass SEED [chunk=CX,CZ] [cats=..] [enemies=B] [persistent=B]`: seeds `Level.random`, creates the state and runs one
+/// `spawnpass SEED [chunk=CX,CZ] [cats=..] [enemies=B|flag] [persistent=B]`: seeds `Level.random`, creates the state and runs one
 /// `spawnForChunk`. Returns the `SPAWNPASS` header; the state (after the pass) is `level.spawning.last_spawn_state()`.
 pub fn spawn_pass(level: &mut ServerLevel, a: &[String]) -> String {
     use mc_core::random::RandomSource as _;
@@ -149,7 +149,10 @@ pub fn spawn_pass(level: &mut ServerLevel, a: &[String]) -> String {
         Some(c) => c.split(',').map(category).collect(),
         None => natural_spawner::get_filtered_spawning_categories(
             &state,
-            o.get("enemies").is_none_or(|v| v == "true"),
+            match o.get("enemies").map(String::as_str) {
+                Some("flag") => level.chunk_source().spawn_enemies(),
+                other => other.is_none_or(|v| v == "true"),
+            },
             o.get("persistent")
                 .map_or(level.game_time() % 400 == 0, |v| v == "true"),
         ),
@@ -376,6 +379,35 @@ pub fn command<H: SpawnHost>(h: &mut H, a: &[String]) -> bool {
             let ticks = a[2].parse().expect("rest TICKS");
             h.action_level()
                 .with_player(id, |_, p| set_time_since_rest(p, ticks));
+        }
+        // spawnat SEED CATEGORY X Y Z: `Level.random.setSeed(SEED)`, then `spawnCategoryForPosition(category, level, pos)` once
+        "spawnat" if H::TICKING => {
+            use mc_core::random::RandomSource as _;
+            h.boot();
+            let before = h.all_entity_ids();
+            let level = h.action_level();
+            level
+                .tick_state
+                .random
+                .set_seed(a[1].parse().expect("spawnat SEED"));
+            let category = category(&a[2]);
+            let pos = BlockPos::new(
+                a[3].parse().expect("x"),
+                a[4].parse().expect("y"),
+                a[5].parse().expect("z"),
+            );
+            natural_spawner::spawn_category_for_position_debug(category, level, pos);
+            h.emit(format!(
+                "SPAWNAT seed={} category={} pos={},{},{}",
+                a[1],
+                category.get_name(),
+                a[3],
+                a[4],
+                a[5]
+            ));
+            for line in h.fresh_entity_lines(&before) {
+                h.emit(line);
+            }
         }
         "spawnpass" | "custom_spawner" if H::TICKING => {
             h.boot();

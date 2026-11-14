@@ -11,9 +11,9 @@
 //! ```
 //! Generate the fixture with `scripts/block-oracle.sh blk_redstone_lever_lamp` (runs the REAL vanilla level).
 //!
-//! Supported commands (same text as the Java driver, see its header): `level flat|void|normal` (`normal`: the overworld's real noise generator), `structures true|false` (`generate-structures`: placed structures and the structure search), `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
+//! Supported commands (same text as the Java driver, see its header): `level flat|void|normal` (`normal`: the real noise generator of the overworld and the nether), `structures true|false` (`generate-structures`: placed structures and the structure search), `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
 //! `command_env` (a real command environment around the whole scenario; `cmd COMMAND...` then runs any other command as the console, its feedback printed as `C` lines), `jigsaw_generate PLAYER X Y Z LEVELS KEEP`, `menu_button PLAYER N`, `close_menu PLAYER`, `move_packet`, `move_vehicle`, `paddle`, `client_tick_end`, `respawn`, `effect`, `mobspawn` (the actor verbs of `block_scenario_actors.rs`), the mob verbs of `mob_verbs.rs` (`target love age breed tame leash mob_attack nav path_query nav_stop`, dumps `mob:REF mobs goals: brain: path: attrs: nbt:`),
-//! `note`, the spawning verbs of `spawn_verbs.rs` (`spawnpass`, `custom_spawner`, `raid_start`, `raid_waves`, `rest`, `memory`, `activity`, dumps `difficulty:X,Y,Z spawn_state raids`), `cmd weather rain|clear TICKS`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
+//! `note`, the spawning verbs of `spawn_verbs.rs` (`spawnpass`, `spawnat`, `custom_spawner`, `raid_start`, `raid_waves`, `rest`, `memory`, `activity`, dumps `difficulty:X,Y,Z spawn_state raids`), `cmd weather rain|clear TICKS`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `biome X1 Y1 Z1 X2 Y2 Z2 BIOME` (`/fillbiome`: loads the real biome registry), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
 //! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list), `chunkbes:cx,cz` (`CHUNKBES`/`BEP x y z type`: the block entity list of the chunk packet; `BEM` is the map's iteration order, vanilla's fastutil order), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
 //! delay=N prio=P`, execution order), `events` (`EV ...` lines of level events / sounds / block events broadcast since the last
@@ -103,6 +103,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
             || l.starts_with("bonemeal")
             || l.starts_with("biome ")
             || l.starts_with("spawnpass ")
+            || l.starts_with("spawnat ")
             || l.starts_with("custom_spawner ")
             || l.contains("minecraft:bone_meal")
             || l.contains("advancements:")
@@ -358,7 +359,7 @@ impl mc_game::commands::CommandSource for CommandOutput {
 
 struct Options_ {
     flat: bool,
-    /// `level normal`: the overworld's real noise generator.
+    /// `level normal`: the real noise generator of the overworld and the nether.
     normal: bool,
     /// `structures true`: `generate-structures` (placed structures and the structure search).
     structures: bool,
@@ -550,9 +551,14 @@ impl Scenario {
         let (shared, _rx) = ServerShared::new();
         // the scenario thread is the server thread: tasks the game submits (point of interest updates) run inline like in vanilla
         shared.bind_game_thread();
-        // `level normal`: the overworld's generator (nether and end keep the void here)
-        let noise_world = (self.opts.normal && self.opts.dimension == "overworld")
-            .then(|| super::feature_harness::noise_world(self.opts.seed, self.opts.structures));
+        // `level normal`: the real generator of the overworld and the nether (the end keeps the void here)
+        let noise_world = (self.opts.normal && self.opts.dimension != "the_end").then(|| {
+            super::feature_harness::noise_world(
+                self.opts.seed,
+                self.opts.structures,
+                self.opts.dimension,
+            )
+        });
         let worldgen_biomes = if noise_world.is_some() {
             Some(super::feature_harness::WORLD.biomes.clone())
         } else {
@@ -608,9 +614,10 @@ impl Scenario {
                 min_y: dimension_type.min_y,
                 height: dimension_type.height,
             },
-            // the generator settings' sea levels (the replay has no noise settings)
+            // the generator settings' sea levels (the replay has no noise settings; the flat generator's is -63)
             sea_level: match self.opts.dimension {
-                "overworld" => 63,
+                "overworld" if self.opts.normal => 63,
+                "overworld" => -63,
                 "the_nether" => 32,
                 _ => 0,
             },

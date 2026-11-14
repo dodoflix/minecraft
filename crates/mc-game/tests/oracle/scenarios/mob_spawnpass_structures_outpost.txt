@@ -1,0 +1,297 @@
+# Pillager outpost: the pillagers of its spawn override on the outpost's ground.
+level normal
+structures true
+seed 9
+preload 0
+difficulty normal
+spawn_player Steve survival 205.5 70 -300.5 0 0
+time 18000
+tick 60
+spawnat 2 monster 130 68 -319
+tick 1
+spawnat 7 monster 134 66 -319
+tick 1
+spawnat 12 monster 138 66 -319
+tick 1
+spawnat 17 monster 142 66 -319
+tick 1
+spawnat 22 monster 146 65 -319
+tick 1
+spawnat 27 monster 150 65 -319
+tick 1
+spawnat 32 monster 154 66 -319
+tick 1
+spawnat 37 monster 158 69 -319
+tick 1
+spawnat 42 monster 162 67 -319
+tick 1
+spawnat 47 monster 166 68 -319
+tick 1
+spawnat 52 monster 170 69 -319
+tick 1
+spawnat 57 monster 174 69 -319
+tick 1
+spawnat 62 monster 130 68 -315
+tick 1
+spawnat 67 monster 134 66 -315
+tick 1
+spawnat 72 monster 138 66 -315
+tick 1
+spawnat 77 monster 142 65 -315
+tick 1
+spawnat 82 monster 146 65 -315
+tick 1
+spawnat 87 monster 150 65 -315
+tick 1
+spawnat 92 monster 154 67 -315
+tick 1
+spawnat 97 monster 158 68 -315
+tick 1
+spawnat 102 monster 162 67 -315
+tick 1
+spawnat 107 monster 166 67 -315
+tick 1
+spawnat 112 monster 170 68 -315
+tick 1
+spawnat 117 monster 174 68 -315
+tick 1
+spawnat 122 monster 130 67 -311
+tick 1
+spawnat 127 monster 134 66 -311
+tick 1
+spawnat 132 monster 138 66 -311
+tick 1
+spawnat 137 monster 142 68 -311
+tick 1
+spawnat 142 monster 146 67 -311
+tick 1
+spawnat 147 monster 150 65 -311
+tick 1
+spawnat 152 monster 154 66 -311
+tick 1
+spawnat 157 monster 158 66 -311
+tick 1
+spawnat 162 monster 162 66 -311
+tick 1
+spawnat 167 monster 166 67 -311
+tick 1
+spawnat 172 monster 170 67 -311
+tick 1
+spawnat 177 monster 174 68 -311
+tick 1
+spawnat 182 monster 130 65 -307
+tick 1
+spawnat 187 monster 134 66 -307
+tick 1
+spawnat 192 monster 138 68 -307
+tick 1
+spawnat 197 monster 142 68 -307
+tick 1
+spawnat 202 monster 146 65 -307
+tick 1
+spawnat 207 monster 150 64 -307
+tick 1
+spawnat 212 monster 154 64 -307
+tick 1
+spawnat 217 monster 158 64 -307
+tick 1
+spawnat 222 monster 162 64 -307
+tick 1
+spawnat 227 monster 166 66 -307
+tick 1
+spawnat 232 monster 170 67 -307
+tick 1
+spawnat 237 monster 174 67 -307
+tick 1
+spawnat 242 monster 130 65 -303
+tick 1
+spawnat 247 monster 134 66 -303
+tick 1
+spawnat 252 monster 138 66 -303
+tick 1
+spawnat 257 monster 142 64 -303
+tick 1
+spawnat 262 monster 146 66 -303
+tick 1
+spawnat 267 monster 150 77 -303
+tick 1
+spawnat 272 monster 154 77 -303
+tick 1
+spawnat 277 monster 158 65 -303
+tick 1
+spawnat 282 monster 162 64 -303
+tick 1
+spawnat 287 monster 166 65 -303
+tick 1
+spawnat 292 monster 170 67 -303
+tick 1
+spawnat 297 monster 174 68 -303
+tick 1
+spawnat 302 monster 130 66 -299
+tick 1
+spawnat 307 monster 134 64 -299
+tick 1
+spawnat 312 monster 138 64 -299
+tick 1
+spawnat 317 monster 142 66 -299
+tick 1
+spawnat 322 monster 146 64 -299
+tick 1
+spawnat 327 monster 150 84 -299
+tick 1
+spawnat 332 monster 154 84 -299
+tick 1
+spawnat 337 monster 158 83 -299
+tick 1
+spawnat 342 monster 162 64 -299
+tick 1
+spawnat 347 monster 166 66 -299
+tick 1
+spawnat 352 monster 170 67 -299
+tick 1
+spawnat 357 monster 174 68 -299
+tick 1
+spawnat 362 monster 130 66 -295
+tick 1
+spawnat 367 monster 134 64 -295
+tick 1
+spawnat 372 monster 138 63 -295
+tick 1
+spawnat 377 monster 142 65 -295
+tick 1
+spawnat 382 monster 146 64 -295
+tick 1
+spawnat 387 monster 150 84 -295
+tick 1
+spawnat 392 monster 154 84 -295
+tick 1
+spawnat 397 monster 158 83 -295
+tick 1
+spawnat 402 monster 162 64 -295
+tick 1
+spawnat 407 monster 166 65 -295
+tick 1
+spawnat 412 monster 170 67 -295
+tick 1
+spawnat 417 monster 174 67 -295
+tick 1
+spawnat 422 monster 130 66 -291
+tick 1
+spawnat 427 monster 134 66 -291
+tick 1
+spawnat 432 monster 138 66 -291
+tick 1
+spawnat 437 monster 142 64 -291
+tick 1
+spawnat 442 monster 146 64 -291
+tick 1
+spawnat 447 monster 150 77 -291
+tick 1
+spawnat 452 monster 154 77 -291
+tick 1
+spawnat 457 monster 158 64 -291
+tick 1
+spawnat 462 monster 162 64 -291
+tick 1
+spawnat 467 monster 166 66 -291
+tick 1
+spawnat 472 monster 170 67 -291
+tick 1
+spawnat 477 monster 174 67 -291
+tick 1
+spawnat 482 monster 130 66 -287
+tick 1
+spawnat 487 monster 134 70 -287
+tick 1
+spawnat 492 monster 138 67 -287
+tick 1
+spawnat 497 monster 142 65 -287
+tick 1
+spawnat 502 monster 146 64 -287
+tick 1
+spawnat 507 monster 150 64 -287
+tick 1
+spawnat 512 monster 154 64 -287
+tick 1
+spawnat 517 monster 158 67 -287
+tick 1
+spawnat 522 monster 162 66 -287
+tick 1
+spawnat 527 monster 166 66 -287
+tick 1
+spawnat 532 monster 170 66 -287
+tick 1
+spawnat 537 monster 174 66 -287
+tick 1
+spawnat 542 monster 130 67 -283
+tick 1
+spawnat 547 monster 134 65 -283
+tick 1
+spawnat 552 monster 138 66 -283
+tick 1
+spawnat 557 monster 142 65 -283
+tick 1
+spawnat 562 monster 146 65 -283
+tick 1
+spawnat 567 monster 150 64 -283
+tick 1
+spawnat 572 monster 154 66 -283
+tick 1
+spawnat 577 monster 158 68 -283
+tick 1
+spawnat 582 monster 162 66 -283
+tick 1
+spawnat 587 monster 166 70 -283
+tick 1
+spawnat 592 monster 170 66 -283
+tick 1
+spawnat 597 monster 174 66 -283
+tick 1
+spawnat 602 monster 130 65 -279
+tick 1
+spawnat 607 monster 134 67 -279
+tick 1
+spawnat 612 monster 138 69 -279
+tick 1
+spawnat 617 monster 142 67 -279
+tick 1
+spawnat 622 monster 146 66 -279
+tick 1
+spawnat 627 monster 150 64 -279
+tick 1
+spawnat 632 monster 154 64 -279
+tick 1
+spawnat 637 monster 158 65 -279
+tick 1
+spawnat 642 monster 162 65 -279
+tick 1
+spawnat 647 monster 166 66 -279
+tick 1
+spawnat 652 monster 170 65 -279
+tick 1
+spawnat 657 monster 174 65 -279
+tick 1
+spawnat 662 monster 130 65 -275
+tick 1
+spawnat 667 monster 134 65 -275
+tick 1
+spawnat 672 monster 138 67 -275
+tick 1
+spawnat 677 monster 142 66 -275
+tick 1
+spawnat 682 monster 146 65 -275
+tick 1
+spawnat 687 monster 150 64 -275
+tick 1
+spawnat 692 monster 154 64 -275
+tick 1
+spawnat 697 monster 158 65 -275
+tick 1
+spawnat 702 monster 162 67 -275
+tick 1
+spawnat 707 monster 166 67 -275
+tick 1
+spawnat 712 monster 170 65 -275
+tick 1
+spawnat 717 monster 174 65 -275
+tick 1

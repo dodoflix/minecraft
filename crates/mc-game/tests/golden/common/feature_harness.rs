@@ -334,20 +334,53 @@ pub fn gen_env(seed: i64) -> Arc<GenEnv> {
     })
 }
 
-/// The overworld of a seeded `normal` world as the server builds it (`level_lifecycle::create_level`): the real noise
-/// generator behind the chunk source and the generation environment. With `structures` the environment carries the
-/// structure placement state (`generate-structures`), which the structure search needs.
-pub fn noise_world(seed: i64, structures: bool) -> (Arc<GenEnv>, Arc<NoiseWorldGenerator>) {
+/// The nether's chunk generator (`noise_settings/nether`, the nether multi-noise preset).
+static NETHER_GENERATOR: LazyLock<Arc<NoiseBasedChunkGenerator>> = LazyLock::new(|| {
     let w = &*WORLD;
+    let settings = w
+        .worldgen
+        .noise_settings(&Identifier::with_default_namespace("nether").unwrap())
+        .expect("nether noise settings");
+    let source = biome_source_from_json(
+        &serde_json::json!({"type": "minecraft:multi_noise", "preset": "minecraft:nether"}),
+        &w.worldgen,
+        &w.biomes,
+    )
+    .expect("nether biome source");
+    Arc::new(
+        NoiseBasedChunkGenerator::new(
+            source,
+            Arc::new(settings),
+            w.worldgen.clone(),
+            w.biomes.clone(),
+        )
+        .expect("nether generator"),
+    )
+});
+
+/// A seeded `normal` world's `dimension` (`overworld` or `the_nether`) as the server builds it (`level_lifecycle::create_level`): the
+/// real noise generator behind the chunk source and the generation environment. With `structures` the environment carries the
+/// structure placement state (`generate-structures`), which the structure search needs.
+pub fn noise_world(
+    seed: i64,
+    structures: bool,
+    dimension: &str,
+) -> (Arc<GenEnv>, Arc<NoiseWorldGenerator>) {
+    let w = &*WORLD;
+    let (generator, level_height) = match dimension {
+        "overworld" => (w.generator.clone(), level_height()),
+        "the_nether" => (NETHER_GENERATOR.clone(), LevelHeight::new(0, 256)),
+        other => panic!("`level normal` has no generator for the dimension {other}"),
+    };
     let random_state = Arc::new(RandomState::create(
         w.worldgen.clone(),
         seed,
-        w.generator.settings(),
+        generator.settings(),
     ));
     let structure_state = structures.then(|| {
         create_structure_state(
-            w.generator.as_ref(),
-            w.generator.biome_source_arc().clone(),
+            generator.as_ref(),
+            generator.biome_source_arc().clone(),
             None,
             random_state.clone(),
             seed,
@@ -357,9 +390,9 @@ pub fn noise_world(seed: i64, structures: bool) -> (Arc<GenEnv>, Arc<NoiseWorldG
         .expect("structure state")
     });
     let env = Arc::new(GenEnv {
-        dimension: Identifier::with_default_namespace("overworld").unwrap(),
+        dimension: Identifier::with_default_namespace(dimension).unwrap(),
         seed,
-        generator: w.generator.clone(),
+        generator: generator.clone(),
         random_state: random_state.clone(),
         biomes: w.biomes.clone(),
         registries: w.registries.clone(),
@@ -369,10 +402,10 @@ pub fn noise_world(seed: i64, structures: bool) -> (Arc<GenEnv>, Arc<NoiseWorldG
         structure_state,
         structure_check: StructureCheck::new(Box::new(NoChunkScan)),
         generate_structures: structures,
-        level_height: level_height(),
+        level_height,
     });
     let backend = Arc::new(NoiseWorldGenerator::new(
-        w.generator.clone(),
+        generator,
         random_state,
         seed,
         Identifier::parse("minecraft:noise").ok(),

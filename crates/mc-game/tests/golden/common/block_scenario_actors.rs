@@ -323,16 +323,7 @@ impl Scenario {
         let Some(level) = self.level.as_ref() else {
             return;
         };
-        let r = (self.opts.preload + 1) * 16;
-        let bb = mc_core::phys::AABB::new(
-            f64::from(-r),
-            -64.0,
-            f64::from(-r),
-            f64::from(r),
-            320.0,
-            f64::from(r),
-        );
-        let mut ids = level.get_entities(None, &bb, |_| true);
+        let mut ids: Vec<EntityId> = level.entity_manager.all_visible_ids().into_iter().collect();
         ids.sort_unstable();
         for id in ids {
             if self.actors.known.insert(id) && !self.actors.refs.iter().any(|(_, i)| *i == id) {
@@ -1599,11 +1590,8 @@ impl spawn_verbs::SpawnHost for Scenario {
     }
 
     fn all_entity_ids(&mut self) -> std::collections::BTreeSet<EntityId> {
-        self.level()
-            .entity_manager
-            .all_visible_ids()
-            .into_iter()
-            .collect()
+        self.name_new_entities();
+        self.actors.known.iter().copied().collect()
     }
 
     fn fresh_entity_lines(&mut self, before: &std::collections::BTreeSet<EntityId>) -> Vec<String> {

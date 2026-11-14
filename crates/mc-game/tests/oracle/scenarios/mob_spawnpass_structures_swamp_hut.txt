@@ -1,0 +1,51 @@
+# Swamp hut: the spawn override of its pieces (witch) and the swamp's own monster list around it.
+level normal
+structures true
+seed 5
+preload 0
+difficulty normal
+command_env
+spawn_player Steve survival -180.5 66 -688.5 0 0
+time 18000
+tick 60
+cmd kill @e[type=minecraft:witch]
+cmd kill @e[type=minecraft:cat]
+tick 5
+spawnat 1 monster -226 65 -689
+spawnat 8 monster -224 65 -689
+spawnat 15 monster -222 65 -689
+spawnat 22 monster -220 65 -689
+spawnat 29 monster -218 65 -689
+spawnat 36 monster -216 65 -689
+spawnat 43 monster -226 65 -687
+spawnat 50 monster -224 65 -687
+spawnat 57 monster -222 65 -687
+spawnat 64 monster -220 65 -687
+spawnat 71 monster -218 65 -687
+spawnat 78 monster -216 65 -687
+spawnat 85 monster -226 65 -685
+spawnat 92 monster -224 65 -685
+spawnat 99 monster -222 65 -685
+spawnat 106 monster -220 65 -685
+spawnat 113 monster -218 65 -685
+spawnat 120 monster -216 65 -685
+spawnat 127 monster -226 65 -683
+spawnat 134 monster -224 65 -683
+spawnat 141 monster -222 65 -683
+spawnat 148 monster -220 65 -683
+spawnat 155 monster -218 65 -683
+spawnat 162 monster -216 65 -683
+spawnat 169 monster -226 65 -681
+spawnat 176 monster -224 65 -681
+spawnat 183 monster -222 65 -681
+spawnat 190 monster -220 65 -681
+spawnat 197 monster -218 65 -681
+spawnat 204 monster -216 65 -681
+spawnat 211 monster -226 65 -679
+spawnat 218 monster -224 65 -679
+spawnat 225 monster -222 65 -679
+spawnat 232 monster -220 65 -679
+spawnat 239 monster -218 65 -679
+spawnat 246 monster -216 65 -679
+tick 1
+dump mobs

@@ -1,0 +1,279 @@
+C Set minecraft:overworld to 18000 tick(s)
+SPAWNAT seed=1 category=monster pos=232,46,184
+SPAWNAT seed=8 category=monster pos=240,46,184
+SPAWNAT seed=15 category=monster pos=248,46,184
+SPAWNAT seed=22 category=monster pos=256,46,184
+SPAWNAT seed=29 category=monster pos=264,46,184
+SPAWNAT seed=36 category=monster pos=272,46,184
+SPAWNAT seed=43 category=monster pos=280,46,184
+E guardian#1 minecraft:guardian pos=278.5,46.0,187.5 delta=0.0,0.0,0.0 rot=342.316,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.4239159 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.579431562223224;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=50 category=monster pos=232,46,192
+SPAWNAT seed=57 category=monster pos=240,46,192
+SPAWNAT seed=64 category=monster pos=248,46,192
+SPAWNAT seed=71 category=monster pos=256,46,192
+SPAWNAT seed=78 category=monster pos=264,46,192
+SPAWNAT seed=85 category=monster pos=272,46,192
+SPAWNAT seed=92 category=monster pos=280,46,192
+E guardian#2 minecraft:guardian pos=281.5,46.0,188.5 delta=0.0,0.0,0.0 rot=291.66574,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.6765718 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.520880154615764;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+E guardian#3 minecraft:guardian pos=277.5,46.0,188.5 delta=0.0,0.0,0.0 rot=303.34003,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.8715606 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.665257551698012;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=99 category=monster pos=232,46,200
+SPAWNAT seed=106 category=monster pos=240,46,200
+SPAWNAT seed=113 category=monster pos=248,46,200
+E guardian#4 minecraft:guardian pos=247.5,46.0,203.5 delta=0.0,0.0,0.0 rot=58.37006,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.515143 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.045545378288068;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=120 category=monster pos=256,46,200
+SPAWNAT seed=127 category=monster pos=264,46,200
+E guardian#5 minecraft:guardian pos=263.5,46.0,203.5 delta=0.0,0.0,0.0 rot=103.21632,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.963397 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.349237466362144;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=134 category=monster pos=272,46,200
+SPAWNAT seed=141 category=monster pos=280,46,200
+E guardian#6 minecraft:guardian pos=283.5,46.0,193.5 delta=0.0,0.0,0.0 rot=187.3035,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.3942175 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.971292352063397;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=148 category=monster pos=232,46,208
+E guardian#7 minecraft:guardian pos=233.5,46.0,211.5 delta=0.0,0.0,0.0 rot=60.901077,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.367177 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.035142971401577;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=155 category=monster pos=240,46,208
+E guardian#8 minecraft:guardian pos=241.5,46.0,207.5 delta=0.0,0.0,0.0 rot=316.32837,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.955011 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.121989961949353;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=162 category=monster pos=248,46,208
+SPAWNAT seed=169 category=monster pos=256,46,208
+E guardian#9 minecraft:guardian pos=261.5,46.0,211.5 delta=0.0,0.0,0.0 rot=19.558733,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.3503222 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.595782272293754;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=176 category=monster pos=264,46,208
+E guardian#10 minecraft:guardian pos=263.5,46.0,209.5 delta=0.0,0.0,0.0 rot=119.37332,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.3700757 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.895101994042431;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=183 category=monster pos=272,46,208
+SPAWNAT seed=190 category=monster pos=280,46,208
+E guardian#11 minecraft:guardian pos=279.5,46.0,205.5 delta=0.0,0.0,0.0 rot=264.74435,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.8906575 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.958167140972506;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=197 category=monster pos=232,46,216
+SPAWNAT seed=204 category=monster pos=240,46,216
+SPAWNAT seed=211 category=monster pos=248,46,216
+SPAWNAT seed=218 category=monster pos=256,46,216
+E guardian#12 minecraft:guardian pos=254.5,46.0,221.5 delta=0.0,0.0,0.0 rot=340.40268,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.0929149 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.005374883018522;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=225 category=monster pos=264,46,216
+E guardian#13 minecraft:guardian pos=263.5,46.0,212.5 delta=0.0,0.0,0.0 rot=151.63751,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.1974552 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:14.414773902059203;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=232 category=monster pos=272,46,216
+SPAWNAT seed=239 category=monster pos=280,46,216
+E guardian#14 minecraft:guardian pos=282.5,46.0,213.5 delta=0.0,0.0,0.0 rot=48.83309,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=1 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.32638812 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.879141604412983;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=246 category=monster pos=232,46,224
+E guardian#15 minecraft:guardian pos=232.5,46.0,227.5 delta=0.0,0.0,0.0 rot=169.95241,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.9160727 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:14.719435099289187;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=253 category=monster pos=240,46,224
+SPAWNAT seed=260 category=monster pos=248,46,224
+SPAWNAT seed=267 category=monster pos=256,46,224
+SPAWNAT seed=274 category=monster pos=264,46,224
+E guardian#16 minecraft:guardian pos=263.5,46.0,223.5 delta=0.0,0.0,0.0 rot=309.76056,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.0264406 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.118559975189736;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+E guardian#17 minecraft:guardian pos=267.5,46.0,226.5 delta=0.0,0.0,0.0 rot=281.0248,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.663601 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:14.29074197300718;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+E guardian#18 minecraft:guardian pos=270.5,46.0,230.5 delta=0.0,0.0,0.0 rot=98.69768,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.3542406 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:14.773331449893746;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=281 category=monster pos=272,46,224
+SPAWNAT seed=288 category=monster pos=280,46,224
+E guardian#19 minecraft:guardian pos=279.5,46.0,225.5 delta=0.0,0.0,0.0 rot=241.33163,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=6.1237707 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.959361293457077;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=295 category=monster pos=232,46,232
+SPAWNAT seed=302 category=monster pos=240,46,232
+SPAWNAT seed=309 category=monster pos=248,46,232
+SPAWNAT seed=316 category=monster pos=256,46,232
+SPAWNAT seed=323 category=monster pos=264,46,232
+E guardian#20 minecraft:guardian pos=264.5,46.0,231.5 delta=0.0,0.0,0.0 rot=52.882175,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.1242547 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.78771863258583;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=330 category=monster pos=272,46,232
+E guardian#21 minecraft:guardian pos=271.5,46.0,231.5 delta=0.0,0.0,0.0 rot=344.22055,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.7361048 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.223318780125428;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+E guardian#22 minecraft:guardian pos=271.5,46.0,234.5 delta=0.0,0.0,0.0 rot=163.76839,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.1724005 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.824218873618744;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=337 category=monster pos=280,46,232
+E guardian#23 minecraft:guardian pos=281.5,46.0,232.5 delta=0.0,0.0,0.0 rot=105.127205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.7335787 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.956019238839488;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+E guardian#24 minecraft:guardian pos=278.5,46.0,233.5 delta=0.0,0.0,0.0 rot=223.238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.0448883 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:14.554993004448848;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=344 category=monster pos=232,54,184
+E guardian#25 minecraft:guardian pos=239.5,54.0,188.5 delta=0.0,0.0,0.0 rot=173.56203,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.337959 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.48371222130649;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=351 category=monster pos=240,54,184
+SPAWNAT seed=358 category=monster pos=248,54,184
+SPAWNAT seed=365 category=monster pos=256,54,184
+SPAWNAT seed=372 category=monster pos=264,54,184
+SPAWNAT seed=379 category=monster pos=272,54,184
+E guardian#26 minecraft:guardian pos=274.5,54.0,181.5 delta=0.0,0.0,0.0 rot=11.501978,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.15437143 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:17.077492055544145;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=386 category=monster pos=280,54,184
+E guardian#27 minecraft:guardian pos=277.5,54.0,184.5 delta=0.0,0.0,0.0 rot=197.90121,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.8256023 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.578718683758352;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=393 category=monster pos=232,54,192
+SPAWNAT seed=400 category=monster pos=240,54,192
+SPAWNAT seed=407 category=monster pos=248,54,192
+E guardian#28 minecraft:guardian pos=250.5,54.0,188.5 delta=0.0,0.0,0.0 rot=166.4987,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=6.151279 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.05539425332747;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=414 category=monster pos=256,54,192
+SPAWNAT seed=421 category=monster pos=264,54,192
+SPAWNAT seed=428 category=monster pos=272,54,192
+E guardian#29 minecraft:guardian pos=275.5,54.0,194.5 delta=0.0,0.0,0.0 rot=128.89508,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.1450098 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:14.961007395534223;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=435 category=monster pos=280,54,192
+SPAWNAT seed=442 category=monster pos=232,54,200
+SPAWNAT seed=449 category=monster pos=240,54,200
+SPAWNAT seed=456 category=monster pos=248,54,200
+SPAWNAT seed=463 category=monster pos=256,54,200
+SPAWNAT seed=470 category=monster pos=264,54,200
+SPAWNAT seed=477 category=monster pos=272,54,200
+E guardian#30 minecraft:guardian pos=273.5,54.0,198.5 delta=0.0,0.0,0.0 rot=204.69963,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.84040505 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.441268181879336;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=484 category=monster pos=280,54,200
+SPAWNAT seed=491 category=monster pos=232,54,208
+SPAWNAT seed=498 category=monster pos=240,54,208
+SPAWNAT seed=505 category=monster pos=248,54,208
+SPAWNAT seed=512 category=monster pos=256,54,208
+SPAWNAT seed=519 category=monster pos=264,54,208
+SPAWNAT seed=526 category=monster pos=272,54,208
+SPAWNAT seed=533 category=monster pos=280,54,208
+SPAWNAT seed=540 category=monster pos=232,54,216
+E guardian#31 minecraft:guardian pos=232.5,54.0,212.5 delta=0.0,0.0,0.0 rot=334.69107,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.3799944 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.628295452393754;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=547 category=monster pos=240,54,216
+SPAWNAT seed=554 category=monster pos=248,54,216
+E guardian#32 minecraft:guardian pos=248.5,54.0,215.5 delta=0.0,0.0,0.0 rot=174.242,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.118411 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:17.106995176740305;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=561 category=monster pos=256,54,216
+SPAWNAT seed=568 category=monster pos=264,54,216
+SPAWNAT seed=575 category=monster pos=272,54,216
+SPAWNAT seed=582 category=monster pos=280,54,216
+E guardian#33 minecraft:guardian pos=274.5,54.0,213.5 delta=0.0,0.0,0.0 rot=185.21428,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.3028142 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:17.46692483190806;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+E guardian#34 minecraft:guardian pos=276.5,54.0,217.5 delta=0.0,0.0,0.0 rot=240.08138,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=6.0969944 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.611253372326104;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=589 category=monster pos=232,54,224
+E guardian#35 minecraft:guardian pos=235.5,54.0,226.5 delta=0.0,0.0,0.0 rot=114.40126,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.9176483 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:15.813997525466723;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+E guardian#36 minecraft:guardian pos=236.5,54.0,225.5 delta=0.0,0.0,0.0 rot=238.71294,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=6.188697 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.25117486128701;minecraft:max_health:30.0;minecraft:movement_speed:0.5
+SPAWNAT seed=596 category=monster pos=240,54,224
+SPAWNAT seed=603 category=monster pos=248,54,224
+SPAWNAT seed=610 category=monster pos=256,54,224
+SPAWNAT seed=617 category=monster pos=264,54,224
+SPAWNAT seed=624 category=monster pos=272,54,224
+SPAWNAT seed=631 category=monster pos=280,54,224
+SPAWNAT seed=638 category=monster pos=232,54,232
+SPAWNAT seed=645 category=monster pos=240,54,232
+SPAWNAT seed=652 category=monster pos=248,54,232
+SPAWNAT seed=659 category=monster pos=256,54,232
+SPAWNAT seed=666 category=monster pos=264,54,232
+SPAWNAT seed=673 category=monster pos=272,54,232
+SPAWNAT seed=680 category=monster pos=280,54,232
+SPAWNPASS seed=2 chunk=14,11 cats=monster allowed=0
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903919
+SPAWNPASS seed=7 chunk=15,11 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 130441439971461
+SPAWNPASS seed=12 chunk=16,11 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 77425089806290
+SPAWNPASS seed=17 chunk=17,11 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 196292338532073
+SPAWNPASS seed=22 chunk=14,12 cats=monster allowed=0
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903931
+SPAWNPASS seed=27 chunk=15,12 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 40953506347553
+SPAWNPASS seed=32 chunk=16,12 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 88685217577804
+SPAWNPASS seed=37 chunk=17,12 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 144587807803941
+SPAWNPASS seed=42 chunk=14,13 cats=monster allowed=0
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903879
+SPAWNPASS seed=47 chunk=15,13 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 149447861054951
+SPAWNPASS seed=52 chunk=16,13 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 280672260664552
+SPAWNPASS seed=57 chunk=17,13 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 134867701301921
+SPAWNPASS seed=62 chunk=14,14 cats=monster allowed=0
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903891
+SPAWNPASS seed=67 chunk=15,14 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 14931154669689
+SPAWNPASS seed=72 chunk=16,14 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 126025622316390
+SPAWNPASS seed=77 chunk=17,14 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 83163170573789
+SPAWNPASS seed=82 chunk=14,11 cats=monster allowed=0
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903871
+SPAWNPASS seed=87 chunk=15,11 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 249752924293183
+SPAWNPASS seed=92 chunk=16,11 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 116305515814370
+SPAWNPASS seed=97 chunk=17,11 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 193188340314041
+SPAWNPASS seed=102 chunk=14,12 cats=monster allowed=0
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903819
+SPAWNPASS seed=107 chunk=15,12 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 219399274512497
+SPAWNPASS seed=112 chunk=16,12 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 192984157929691
+SPAWNPASS seed=117 chunk=17,12 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 183468233812021
+SPAWNPASS seed=122 chunk=14,13 cats=monster allowed=0
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903831
+SPAWNPASS seed=127 chunk=15,13 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 188328287063031
+SPAWNPASS seed=132 chunk=16,13 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 61088875020282
+SPAWNPASS seed=137 chunk=17,13 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 18226423277681
+SPAWNPASS seed=142 chunk=14,14 cats=monster allowed=0
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214904035
+SPAWNPASS seed=147 chunk=15,14 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 184816176997075
+SPAWNPASS seed=152 chunk=16,14 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 51368768518262
+SPAWNPASS seed=157 chunk=17,14 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 8506316775661
+SPAWNPASS seed=162 chunk=14,11 cats=monster allowed=0
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214904015
+SPAWNPASS seed=167 chunk=15,11 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 133111646268943
+SPAWNPASS seed=172 chunk=16,11 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 255710107152432
+SPAWNPASS seed=177 chunk=17,11 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 118531486515913
+SPAWNPASS seed=182 chunk=14,12 cats=monster allowed=0
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214904027
+SPAWNPASS seed=187 chunk=15,12 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 123391539766923
+SPAWNPASS seed=192 chunk=16,12 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 109689407530382
+SPAWNPASS seed=197 chunk=17,12 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 66826955787781
+SPAWNPASS seed=202 chunk=14,13 cats=monster allowed=0
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903975
+SPAWNPASS seed=207 chunk=15,13 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 71687009038791
+SPAWNPASS seed=212 chunk=16,13 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 99969301028362
+SPAWNPASS seed=217 chunk=17,13 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 57106849285761
+SPAWNPASS seed=222 chunk=14,14 cats=monster allowed=0
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 25214903987
+SPAWNPASS seed=227 chunk=15,14 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 181712178779043
+SPAWNPASS seed=232 chunk=16,14 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 48264770300230
+SPAWNPASS seed=237 chunk=17,14 cats=monster allowed=1
+SPAWNSTATE chunks=289 counts=monster:36;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
+RNG level 5402318557629

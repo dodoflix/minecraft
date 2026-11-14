@@ -185,6 +185,53 @@ fn mob_spawnpass_biomes() {
     block_scenario::check("mob_spawnpass_biomes");
 }
 
+#[test]
+fn mob_spawnpass_cap() {
+    block_scenario::check("mob_spawnpass_cap");
+}
+
+#[test]
+fn mob_spawnpass_hard_night() {
+    block_scenario::check("mob_spawnpass_hard_night");
+}
+
+#[test]
+fn mob_spawnpass_peaceful() {
+    block_scenario::check("mob_spawnpass_peaceful");
+}
+
+#[test]
+fn mob_spawnpass_respawn_point() {
+    block_scenario::check("mob_spawnpass_respawn_point");
+}
+
+#[test]
+#[ignore = "deviation: the fortress is generated (nether bricks match) but the first attempt on its floor takes the biome's list instead of the fortress monster list (vanilla: wither skeletons at -120.5,66,143.5; here zombified piglins), so the structure lookup of `isInNetherFortressBounds` finds no fortress in the replayed nether"]
+fn mob_spawnpass_fortress() {
+    block_scenario::check("mob_spawnpass_fortress");
+}
+
+#[test]
+fn mob_spawnpass_structures_monument() {
+    block_scenario::check("mob_spawnpass_structures_monument");
+}
+
+#[test]
+fn mob_spawnpass_structures_outpost() {
+    block_scenario::check("mob_spawnpass_structures_outpost");
+}
+
+#[test]
+#[ignore = "deviation: the spawn override of the hut is found but `Witch` has no entity class yet, so no witch spawns (vanilla: 14 witches inside the hut)"]
+fn mob_spawnpass_structures_swamp_hut() {
+    block_scenario::check("mob_spawnpass_structures_swamp_hut");
+}
+
+#[test]
+fn mob_spawnpass_water() {
+    block_scenario::check("mob_spawnpass_water");
+}
+
 /// One `PhantomSpawner` tick with the level random seeded (block replay: the spawner runs on the ticking level).
 #[test]
 #[ignore = "deviation: the first PhantomSpawner tick spawns a phantom in vanilla (line 1: `E phantom#1 ... pos=8.5,-40.0,2.5`) and leaves `Level.random` at 155513899567442, here nothing and 205572635213177"]
