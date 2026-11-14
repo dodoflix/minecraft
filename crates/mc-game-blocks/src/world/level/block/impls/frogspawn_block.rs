@@ -41,7 +41,7 @@ fn spawn_tadpoles(level: &mut ServerLevel, pos: BlockPos) {
         let mut tag =
             hatch_spawns::snap_to_tag(x_pos, f64::from(pos.y()) - 0.5, z_pos, y_rot as f32, 0.0);
         tag.put_boolean("PersistenceRequired", true);
-        hatch_spawns::spawn_breeding(level, EntityType::TADPOLE, &tag);
+        hatch_spawns::spawn_breeding(level, EntityType::TADPOLE, &tag, None);
     }
 }
 

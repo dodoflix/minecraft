@@ -32,10 +32,12 @@ pub fn snap_to_tag(x: f64, y: f64, z: f64, y_rot: f32, x_rot: f32) -> CompoundTa
 }
 
 /// `EntityType.create(level, BREEDING)` + the configuration in `tag` + `level.addFreshEntity(entity)`: the new entity.
+/// `head_rot` is the `setYHeadRot(..)` vanilla calls before `snapTo` (the constructor's random yaw stays otherwise).
 pub fn spawn_breeding(
     level: &mut ServerLevel,
     ty: EntityType,
     tag: &CompoundTag,
+    head_rot: Option<f32>,
 ) -> Option<EntityId> {
     let mut entity = factory::create(
         ty,
@@ -47,7 +49,9 @@ pub fn spawn_breeding(
     )?;
     // the constructor's random yaw stays the head rotation and the body rotation stays unset: vanilla's `snapTo` does not touch
     // them, `load` would reset both to the saved yaw
-    let head_and_body_rot = entity.living().map(|l| (l.y_head_rot, l.y_body_rot));
+    let head_and_body_rot = entity
+        .living()
+        .map(|l| (head_rot.unwrap_or(l.y_head_rot), l.y_body_rot));
     if let Err(message) = entity.load(level, tag) {
         log::warn!("Exception configuring hatched {}: {message}", ty.name());
         return None;

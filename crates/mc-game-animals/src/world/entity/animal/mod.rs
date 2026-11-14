@@ -24,6 +24,8 @@ pub mod goat;
 
 pub mod golem;
 
+pub mod happyghast;
+
 pub mod frog;
 
 pub mod nautilus;

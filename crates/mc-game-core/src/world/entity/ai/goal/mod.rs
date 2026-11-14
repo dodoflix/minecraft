@@ -65,7 +65,7 @@ pub use selector::{GoalSelector, WrappedGoal};
 pub use sit_when_ordered_to::SitWhenOrderedToGoal;
 pub use spear_use::SpearUseGoal;
 pub use tamable_animal_panic::TamableAnimalPanicGoal;
-pub use tempt::TemptGoal;
+pub use tempt::{ItemPredicate, MobItemPredicate, TemptGoal};
 pub use water_avoiding_random_flying::WaterAvoidingRandomFlyingGoal;
 pub use water_avoiding_random_stroll::WaterAvoidingRandomStrollGoal;
 pub use zombie_attack::ZombieAttackGoal;

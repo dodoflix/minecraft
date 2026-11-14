@@ -1,0 +1,76 @@
+# Riding a harnessed happy ghast: up to four riders board (the goggles sound on the first, a fifth player is refused), the first rider
+# steers it with vehicle packets and no floating kick applies to it, a player standing on top of it makes it stay still (the exact
+# position goes to the trackers, nobody controls it), and the goggles go up when the last rider leaves. A bare adult cannot be ridden.
+level flat
+difficulty normal
+preload 5
+entity_counter 1900
+level_seed 1901
+spawn_player Steve survival 3.5 -60 3.5 0 0
+spawn_player Alex survival 1.5 -60 3.5 0 0
+spawn_player Kim survival 5.5 -60 3.5 0 0
+spawn_player Lee survival 4.5 -60 9.5 0 0
+spawn_player Max survival 2.5 -60 9.5 0 0
+spawn_player Obs survival 20.5 -60 20.5 0 0
+mobspawn G minecraft:happy_ghast 3.5 -60 6.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,equipment:{body:{id:"minecraft:white_harness",count:1}}}
+entity_seed G 71
+mobspawn Bare minecraft:happy_ghast 30.5 -60 6.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed Bare 72
+tp Alex 30.5 -60 3.5
+tick 2
+dump mob:G
+note a bare adult cannot be ridden
+interact Alex Bare
+tick 1
+dump mob:Bare player:Alex events
+note the first rider boards: goggles down
+interact Steve G
+accept_teleport Steve
+tick 2
+dump mob:G player:Steve events packets:Obs:set_passengers,sound,entity_position_sync
+note up to four riders
+tp Alex 1.5 -60 3.5
+tick 1
+interact Alex G
+accept_teleport Alex
+interact Kim G
+accept_teleport Kim
+interact Lee G
+accept_teleport Lee
+tick 2
+dump mob:G player:Steve player:Alex player:Kim player:Lee events packets:Obs:set_passengers,sound
+note a fifth is refused
+interact Max G
+tick 2
+dump mob:G player:Max events
+note a rider that leaves at ground level lands on top of the ghast, not beside it
+cmd ride Lee dismount
+tick 2
+dump mob:G player:Lee events packets:Obs:set_passengers,sound
+note the first rider steers: it flies, no floating kick
+move_vehicle Steve 3.5 -59.5 6.5 0 0 false
+tick 1
+dump mob:G player:Steve
+move_vehicle Steve 3.5 -59 6.5 20 -10 false
+tick 1
+dump mob:G player:Steve
+move_vehicle Steve 3.5 -58.5 7 40 -10 false
+tick 20
+dump mob:G player:Steve player:Alex
+note the other riders leave one by one; the goggles go up with the last
+cmd ride Steve dismount
+tick 2
+dump mob:G player:Steve player:Alex events packets:Obs:set_passengers,sound
+cmd ride Alex dismount
+cmd ride Kim dismount
+tick 2
+dump mob:G events packets:Obs:set_passengers,sound
+note a player standing on top of it makes it stay still and shows the exact position
+tp Max 3.5 -54.5 7
+tick 1
+dump mob:G player:Max edata:G packets:Obs:entity_position_sync,sound
+tick 12
+dump mob:G player:Max edata:G
+tp Max 30.5 -60 12.5
+tick 15
+dump mob:G edata:G

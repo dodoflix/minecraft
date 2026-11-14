@@ -1,0 +1,46 @@
+# Leashing around a happy ghast: its own lead stretches 10 blocks and snaps at 16 (the elastic pull stops its move control and it does not
+# walk back to its holder), it holds a horse and a boat at four attachment points and shows it for five ticks (a llama has one and does
+# not), and a leashed one does not move its home. The holder of a leash that is removed lets go.
+level flat
+difficulty normal
+preload 5
+entity_counter 2000
+level_seed 2001
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn G minecraft:happy_ghast 3.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed G 81
+mobspawn H minecraft:happy_ghast 30.5 -58 4.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed H 82
+mobspawn Horse minecraft:horse 24.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Variant:1}
+mobspawn Llama minecraft:llama 24.5 -60 8.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+spawn Boat minecraft:oak_boat 36.5 -60 8.5 0 0
+tick 3
+note its own lead: inside ten blocks nothing pulls
+leash G Steve
+tick 3
+dump mob:G edata:G
+note the holder walks off: the elastic pull stops its move control and pulls it along
+tp Steve 12.5 -60 4.5
+watch mob:G
+tick 8
+watch off
+tp Steve 40.5 -60 4.5
+tick 3
+dump mob:G entities events
+note a ghast holds a horse and a boat at four points, a llama at one
+leash Horse H
+leash Llama H
+leash Boat H
+tick 1
+dump mob:H mob:Horse mob:Llama edata:H xentity:Boat
+tick 5
+dump mob:H edata:H
+tp Steve 24.5 -60 4.5
+watch mob:H mob:Horse mob:Llama xentity:Boat
+tick 30
+watch off
+dump mob:H edata:H mob:Horse mob:Llama xentity:Boat
+note the holder is removed: the leashes are dropped
+kill H
+tick 3
+dump mobs entities events

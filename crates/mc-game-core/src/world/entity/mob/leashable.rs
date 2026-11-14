@@ -658,8 +658,7 @@ pub fn leashable_leashed_to(level: &ServerLevel, holder: &dyn Entity) -> Vec<Ent
 
 /// `Leashable.whenLeashedTo(leashHolder)` (`leashHolder.notifyLeashHolder(this)`).
 pub fn when_leashed_to(e: &dyn Entity, level: &mut ServerLevel, holder: EntityId) {
-    let leashee = e.id();
-    level.with_entity(holder, |_, h| h.notify_leash_holder(leashee));
+    level.with_entity(holder, |_, h| h.notify_leash_holder(e));
 }
 
 /// `Mob.leashTooFarBehaviour()`: `dropLeash()` and the MOVE flag of the goal selector is disabled.

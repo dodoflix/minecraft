@@ -17,6 +17,19 @@ pub const DEFAULT_STOP_DISTANCE: f64 = 2.5;
 /// `Predicate<ItemStack>`.
 pub type ItemPredicate = Arc<dyn Fn(&ItemStack) -> bool + Send + Sync>;
 
+/// A tempt predicate that reads the tempted mob (`this::isWearingBodyArmor` in a lambda): called on every `canUse` with the mob.
+pub type MobItemPredicate = Arc<dyn Fn(&dyn Entity) -> ItemPredicate + Send + Sync>;
+
+type FollowSelector = Arc<dyn Fn(&dyn Entity, &ServerLevel) -> bool + Send + Sync>;
+
+/// `shouldFollow(player)`: main hand or offhand matches.
+fn should_follow_selector(items: ItemPredicate) -> FollowSelector {
+    Arc::new(move |target: &dyn Entity, _level: &ServerLevel| {
+        items(&target.get_item_by_slot(EquipmentSlot::MainHand))
+            || items(&target.get_item_by_slot(EquipmentSlot::OffHand))
+    })
+}
+
 pub struct TemptGoal {
     targeting_conditions: TargetingConditions,
     speed_modifier: f64,
@@ -32,6 +45,8 @@ pub struct TemptGoal {
     stop_distance: f64,
     /// `ForNonPathfinders`: wait/wander through the move control instead of the navigation.
     non_pathfinder: bool,
+    /// The predicate of a goal whose lambda reads the mob: it replaces the selector on every `canUse`.
+    items_for_mob: Option<MobItemPredicate>,
 }
 
 impl TemptGoal {
@@ -60,6 +75,24 @@ impl TemptGoal {
         Self::build(speed_modifier, items, can_scare, stop_distance, true)
     }
 
+    /// `TemptGoal.ForNonPathfinders(mob, speedModifier, items, canScare, stopDistance)` whose `items` lambda reads the mob.
+    pub fn for_non_pathfinders_of_mob(
+        speed_modifier: f64,
+        items: MobItemPredicate,
+        can_scare: bool,
+        stop_distance: f64,
+    ) -> Self {
+        let mut goal = Self::build(
+            speed_modifier,
+            Arc::new(|_| false),
+            can_scare,
+            stop_distance,
+            true,
+        );
+        goal.items_for_mob = Some(items);
+        goal
+    }
+
     fn build(
         speed_modifier: f64,
         items: ItemPredicate,
@@ -67,11 +100,7 @@ impl TemptGoal {
         stop_distance: f64,
         non_pathfinder: bool,
     ) -> Self {
-        // `shouldFollow(player)`: main hand or offhand matches
-        let selector = Arc::new(move |target: &dyn Entity, _level: &ServerLevel| {
-            items(&target.get_item_by_slot(EquipmentSlot::MainHand))
-                || items(&target.get_item_by_slot(EquipmentSlot::OffHand))
-        });
+        let selector = should_follow_selector(items);
         Self {
             targeting_conditions: TargetingConditions::for_non_combat()
                 .ignore_line_of_sight()
@@ -88,6 +117,7 @@ impl TemptGoal {
             can_scare,
             stop_distance,
             non_pathfinder,
+            items_for_mob: None,
         }
     }
 
@@ -168,10 +198,22 @@ impl TemptGoal {
 }
 
 impl Goal for TemptGoal {
+    fn name(&self) -> &'static str {
+        if self.non_pathfinder {
+            "TemptGoal$ForNonPathfinders"
+        } else {
+            "TemptGoal"
+        }
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if self.calm_down > 0 {
             self.calm_down -= 1;
             return false;
+        }
+        if let Some(items) = &self.items_for_mob {
+            let selector = should_follow_selector(items(&*mob));
+            self.targeting_conditions = self.targeting_conditions.clone().selector(Some(selector));
         }
         // `targetingConditions.range(...)` mutates the shared conditions
         self.targeting_conditions = self

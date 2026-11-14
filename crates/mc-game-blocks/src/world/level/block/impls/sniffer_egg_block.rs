@@ -58,7 +58,7 @@ impl BlockBehaviour for SnifferEggBlock {
                 0.0,
             );
             tag.put_int("Age", SNIFFER_BABY_START_AGE);
-            hatch_spawns::spawn_breeding(level, EntityType::SNIFFER, &tag);
+            hatch_spawns::spawn_breeding(level, EntityType::SNIFFER, &tag, None);
         }
     }
     fn on_place(

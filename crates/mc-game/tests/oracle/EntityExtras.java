@@ -159,6 +159,12 @@ final class EntityExtras {
          out.add("dbt", EntityOracleDriver.priv(e, WitherBoss.class, "destroyBlocksTick"));
          out.add("bossp", EntityOracleDriver.f(bar.getProgress()));
       }));
+      ALL.add(new Extra(30, net.minecraft.world.entity.animal.happyghast.HappyGhast.class, (d, e, out) -> {
+         var g = (net.minecraft.world.entity.animal.happyghast.HappyGhast)e;
+         var hg = net.minecraft.world.entity.animal.happyghast.HappyGhast.class;
+         out.add("still", EntityOracleDriver.bool(g.staysStill())).add("stillt", EntityOracleDriver.priv(e, hg, "serverStillTimeout"));
+         out.add("lholder", EntityOracleDriver.bool(g.isLeashHolder())).add("lhtime", EntityOracleDriver.priv(e, hg, "leashHolderTime"));
+      }));
       ALL.add(new Extra(32, net.minecraft.world.entity.animal.nautilus.AbstractNautilus.class, (d, e, out) -> {
          out.add("dashcd", EntityOracleDriver.priv(e, net.minecraft.world.entity.animal.nautilus.AbstractNautilus.class, "dashCooldown"));
          out.add("jscale", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, net.minecraft.world.entity.animal.nautilus.AbstractNautilus.class, "playerJumpPendingScale")));

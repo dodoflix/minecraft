@@ -1,0 +1,44 @@
+# A dried ghast block that holds three levels of water hatches a ghastling on its scheduled tick (the `dispense` verb runs the block's tick): the block goes, the ghastling faces the way the
+# block faced with its head turned to the same angle, and the spawn sound plays. A block with less water takes a level and plays the
+# transition sound, a dry one gives a level back. The ghastlings then float on their brain: wander, and follow a player with a snowball.
+level flat
+difficulty normal
+preload 3
+entity_counter 1700
+level_seed 1701
+rand_value 99
+spawn_player Steve creative 0.5 -60 0.5 0 0
+block 4 -60 6 minecraft:dried_ghast[facing=north,hydration=3,waterlogged=true]
+block 8 -60 6 minecraft:dried_ghast[facing=east,hydration=3,waterlogged=true]
+block 12 -60 6 minecraft:dried_ghast[facing=south,hydration=3,waterlogged=true]
+block 16 -60 6 minecraft:dried_ghast[facing=west,hydration=3,waterlogged=true]
+block 20 -60 6 minecraft:dried_ghast[facing=east,hydration=1,waterlogged=true]
+block 24 -60 6 minecraft:dried_ghast[facing=east,hydration=2,waterlogged=false]
+tick 1
+dump blocks:3,-60,5,25,-60,7 events entities
+note a block with less than three levels of water takes one and plays the transition sound; a dry one dries a level
+dispense 20 -60 6
+dispense 24 -60 6
+dump blocks:19,-60,5,25,-60,7 events entities
+note each of the four facings hatches
+level_seed 1702
+dispense 4 -60 6
+dump blocks:3,-60,5,25,-60,7 events entities mobs
+dispense 8 -60 6
+dump blocks:3,-60,5,25,-60,7 events entities mobs
+dispense 12 -60 6
+dump blocks:3,-60,5,25,-60,7 events entities mobs
+dispense 16 -60 6
+dump blocks:3,-60,5,25,-60,7 events entities mobs events
+note the ghastlings float about on their brain
+watch mobs
+tick 40
+watch off
+dump mobs brain:happy_ghast#1 goals:happy_ghast#1 events
+note a player with a snowball tempts them
+give Steve mainhand minecraft:snowball 16
+tp Steve 10.5 -60 6.5
+watch mobs
+tick 40
+watch off
+dump mobs brain:happy_ghast#2 events

@@ -130,6 +130,12 @@ impl ServerLevel {
                 (v.base().position(), v.base().passengers.clone())
             }
         };
+        match held_vehicle.as_deref_mut() {
+            Some(v) => v.on_passenger_added(self),
+            None => {
+                self.with_entity(vehicle_id, |level, v| v.on_passenger_added(level));
+            }
+        }
         if send_event_and_triggers {
             self.game_event_from_entity_ref(&*rider, GameEvent::ENTITY_MOUNT, position);
             self.trigger_start_riding(rider, held_vehicle.as_deref_mut(), &passengers);

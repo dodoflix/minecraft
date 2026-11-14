@@ -180,7 +180,7 @@ impl BlockBehaviour for TurtleEggBlock {
                     );
                     tag.put_int("Age", hatch_spawns::BABY_AGE);
                     tag.put_int_array("home_pos", vec![pos.x(), pos.y(), pos.z()]);
-                    hatch_spawns::spawn_breeding(level, EntityType::TURTLE, &tag);
+                    hatch_spawns::spawn_breeding(level, EntityType::TURTLE, &tag, None);
                 }
             }
         }

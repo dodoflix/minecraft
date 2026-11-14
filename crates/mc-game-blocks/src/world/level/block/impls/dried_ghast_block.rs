@@ -28,7 +28,9 @@ fn spawn_ghastling(level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
         0.0,
     );
     tag.put_int("Age", hatch_spawns::BABY_AGE);
-    if let Some(ghastling) = hatch_spawns::spawn_breeding(level, EntityType::HAPPY_GHAST, &tag) {
+    if let Some(ghastling) =
+        hatch_spawns::spawn_breeding(level, EntityType::HAPPY_GHAST, &tag, Some(block_rotation))
+    {
         let seed = level.random().next_long();
         level.play_seeded_sound_from_entity(
             None,

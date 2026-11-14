@@ -3575,8 +3575,7 @@ pub trait Entity: Any {
     /// `addPassenger(passenger)`'s effect on the new rider (`AbstractHorse`/`Camel`: `passenger.absSnapRotationTo(...)`).
     fn after_add_passenger(&self, _passenger: &mut dyn Entity) {}
     /// `this instanceof HasCustomInventoryScreen` (`ServerboundPlayerCommandPacket.OPEN_INVENTORY`).
-    /// Not implemented: the `HasCustomInventoryScreen` override of `HappyGhast` (that entity does not exist yet; the horses,
-    /// camels and nautilus return true).
+    /// (The horses, camels and nautilus return true; the happy ghast has no screen.)
     fn has_custom_inventory_screen(&self) -> bool {
         false
     }
@@ -4029,7 +4028,6 @@ pub trait Entity: Any {
     /// `LivingEntity.canDispenserEquipIntoSlot(slot)`: every mob accepts what it can pick up (`Mob`), non-mobs always.
     /// Overriding classes (`Dolphin`, `Fox`, `Panda`, `Pig`, `Strider`, `SulfurCube`, `AbstractHorse`, ...) call
     /// [`super::mob::equipment::can_dispenser_equip_into_slot`] for their `super` part.
-    /// Not implemented: the `HappyGhast` override (that entity does not exist yet).
     fn can_dispenser_equip_into_slot(&self, _slot: super::equipment::EquipmentSlot) -> bool {
         super::mob::equipment::can_dispenser_equip_into_slot(self.as_dyn())
     }
@@ -4351,7 +4349,7 @@ pub trait Entity: Any {
         false
     }
     /// `notifyLeashHolder(leashee)`.
-    fn notify_leash_holder(&mut self, _leashee: EntityId) {}
+    fn notify_leash_holder(&mut self, _leashee: &dyn Entity) {}
     /// `notifyLeasheeRemoved(leashee)`.
     fn notify_leashee_removed(&mut self, _level: &mut ServerLevel, _leashee: EntityId) {}
     /// `LeashFenceKnotEntity.getPos()` for knots.
@@ -4570,6 +4568,9 @@ pub trait Entity: Any {
     }
     /// `removePassenger(passenger)`'s level-dependent part (the passenger list is already updated).
     fn on_passenger_removed(&mut self, _level: &mut ServerLevel, _passenger: EntityId) {}
+    /// `addPassenger(passenger)`'s level-dependent part (the passenger list is already updated; `HappyGhast` plays its
+    /// harness sound and scans for players standing on it).
+    fn on_passenger_added(&mut self, _level: &mut ServerLevel) {}
     /// `this instanceof AbstractMinecart`: every minecart class returns itself.
     fn as_abstract_minecart(&self) -> Option<&dyn super::vehicle::minecart::AbstractMinecart> {
         None

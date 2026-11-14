@@ -1,0 +1,85 @@
+# The harness of a happy ghast and the life of a ghastling: an adult takes a harness from the hand (equip sound) and gives it back to
+# shears, a second harness and a ghastling's harness are refused, the home radius shrinks from 64 to 32 with the harness, the tempt
+# goal follows harnesses and snowballs only while the ghast has none, a ghastling grows from snowballs and into an adult (goals,
+# controls and brain are swapped at the age boundary), and an adult heals one point every 600 ticks (every 20 in the rain).
+level flat
+difficulty normal
+preload 4
+entity_counter 1800
+level_seed 1801
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn G minecraft:happy_ghast 4.5 -58 4.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed G 61
+mobspawn B minecraft:happy_ghast 4.5 -60 12.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000}
+entity_seed B 62
+tick 5
+note a bare adult wanders within 64 blocks of where it stands
+dump mob:G goals:G edata:G nbt:G
+dump mob:B goals:B brain:B edata:B nbt:B
+note a harness in the hand tempts a bare adult
+give Steve mainhand minecraft:white_harness
+tick 3
+dump mob:G goals:G
+note and equips on use
+interact Steve G main
+tick 1
+dump mob:G events inventory:Steve nbt:G
+tick 2
+dump mob:G goals:G
+note a harness in the hand no longer tempts the harnessed adult
+give Steve mainhand minecraft:blue_harness
+tick 3
+dump mob:G goals:G
+note a snowball does
+give Steve mainhand minecraft:snowball 8
+tick 3
+dump mob:G goals:G
+note a ghastling takes no harness
+give Steve mainhand minecraft:white_harness
+interact Steve B main
+tick 1
+dump mob:B events inventory:Steve
+note shears take the harness off
+give Steve mainhand minecraft:shears
+interact Steve G main
+tick 2
+dump mob:G events inventory:Steve entities nbt:G
+note the radius is back to 64
+tick 2
+dump mob:G
+note a ghastling eats snowballs and grows
+give Steve mainhand minecraft:snowball 8
+interact Steve B main
+tick 1
+dump mob:B events inventory:Steve edata:B
+interact Steve B main
+tick 1
+dump mob:B events inventory:Steve edata:B
+note it grows up
+age B -2
+tick 4
+dump mob:B goals:B brain:B edata:B nbt:B events
+tick 3
+dump mob:B goals:B
+note an adult heals 1 point every 600 ticks, in the rain every 20
+hurt G generic 6
+tick 1
+dump mob:G events
+cmd weather rain 100000
+tick 45
+dump mob:G events
+note a dispenser puts a harness on an adult in front of it (the body slot is the only one it fills) and not on a ghastling
+block 0 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 20 {Items:[{Slot:0b,id:"minecraft:red_harness",count:1},{Slot:1b,id:"minecraft:red_harness",count:1}]}
+mobspawn D minecraft:happy_ghast 3.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed D 63
+level_seed 1810
+dispense 0 -60 20 d1
+dump be:0,-60,20 mob:D entities events nbt:D
+block 0 -60 28 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 28 {Items:[{Slot:0b,id:"minecraft:red_harness",count:1}]}
+mobspawn K minecraft:happy_ghast 3.5 -60 28.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+entity_seed K 64
+level_seed 1811
+dispense 0 -60 28 d2
+dump be:0,-60,28 mob:K entities events nbt:K

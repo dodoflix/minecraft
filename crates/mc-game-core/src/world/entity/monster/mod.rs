@@ -1,6 +1,7 @@
 //! `net.minecraft.world.entity.monster.*` (cube mobs, ravager, warden, creaking, breeze; piglin, hoglin, zoglin).
 
 pub mod cubemob;
+pub mod ghast_movement;
 pub mod illager;
 pub mod patrolling_monster;
 pub mod zombie;

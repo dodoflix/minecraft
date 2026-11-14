@@ -13,10 +13,7 @@ use mc_data::EntityType;
 use mc_game::world::entity::spawn_placements::missing_predicates;
 
 /// Mob types without a Rust class (type, what is not implemented). Alphabetical.
-const EXPECTED_MISSING: &[(&str, &str)] = &[(
-    "minecraft:happy_ghast",
-    "HappyGhast: rideable harness flyer",
-)];
+const EXPECTED_MISSING: &[(&str, &str)] = &[];
 
 /// Mob types with a vanilla spawn placement whose predicate is not registered: exactly the types of `EXPECTED_MISSING`
 /// that have one (type, what is not implemented). Alphabetical.
