@@ -1,0 +1,59 @@
+C The difficulty did not change; it is already set to Normal
+C Set minecraft:overworld to 2000 tick(s)
+BRAIN V acts=core;idle
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+E V minecraft:villager pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=job_site:minecraft:overworld@3,-60,3:inf;mobs:(Steve):inf;visible_mobs:(Steve):inf equip=- attrs=minecraft:follow_range:16.24978904785787;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:librarian/1 vxp=0
+OFFERS V count=2
+OFFER V 0 buyA=minecraft:paper*24 buyB=- sell=minecraft:emerald*1 uses=16 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:bookshelf*1 uses=5 max=12 xp=1 mult=0.05 demand=0 special=0
+BRAIN V acts=core;work
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=path value=path(1;9) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BM V type=walk_target value=walk(pos(-7,-60,-3);0.4;1) ttl=inf
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+E V minecraft:villager pos=1.3215740394503355,-60.0,1.4278009376204455 delta=-0.029148526092438124,-0.0784000015258789,-0.02945349304884353 rot=138.29181,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=90.000336 body=138.29181 nav=moving stuck=0 navspeed=0.4000000059604645 ntarget=-7,-60,-3 path=1/9/1/-7,-60,-3 nodes=1,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;-2,-60,-2:WALKABLE:0.0;-3,-60,-2:WALKABLE:0.0;-4,-60,-2:WALKABLE:0.0;-5,-60,-2:WALKABLE:0.0;-6,-60,-3:WALKABLE:0.0;-7,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;work mem=job_site:minecraft:overworld@3,-60,3:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;path:path(1;9):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(-7,-60,-3);0.4;1):inf equip=- attrs=minecraft:follow_range:16.24978904785787;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:librarian/1 vxp=0
+OFFERS V count=2
+OFFER V 0 buyA=minecraft:paper*24 buyB=- sell=minecraft:emerald*1 uses=16 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:bookshelf*1 uses=5 max=12 xp=1 mult=0.05 demand=0 special=0
+BRAIN V acts=core;work
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=path value=path(3;9) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BM V type=walk_target value=walk(pos(-7,-60,-3);0.4;1) ttl=inf
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+E V minecraft:villager pos=-1.1072387029725799,-60.0,-1.104304619675346 delta=-0.033891710690186753,-0.0784000015258789,-0.034139628252366036 rot=135.2128,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=135.21225 body=135.2128 nav=moving stuck=0 navspeed=0.4000000059604645 ntarget=-7,-60,-3 path=3/9/1/-7,-60,-3 nodes=1,-60,1:WALKABLE:0.0;0,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;-2,-60,-2:WALKABLE:0.0;-3,-60,-2:WALKABLE:0.0;-4,-60,-2:WALKABLE:0.0;-5,-60,-2:WALKABLE:0.0;-6,-60,-3:WALKABLE:0.0;-7,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;work mem=job_site:minecraft:overworld@3,-60,3:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;path:path(3;9):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(-7,-60,-3);0.4;1):inf equip=- attrs=minecraft:follow_range:16.24978904785787;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:librarian/1 vxp=0
+OFFERS V count=2
+OFFER V 0 buyA=minecraft:paper*24 buyB=- sell=minecraft:emerald*1 uses=16 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:bookshelf*1 uses=5 max=12 xp=1 mult=0.05 demand=0 special=0
+BRAIN V acts=core;work
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BR V RunOne: [DoNothing]
+E V minecraft:villager pos=2.1610767826430797,-60.0,3.161375063212999 delta=0.001651406983579064,-0.0784000015258789,0.001649819529878379 rot=314.97415,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=314.97415 body=314.97415 nav=done stuck=0 navspeed=0.4000000059604645 ntarget=3,-59,3 path=- nodes=- goals=- tgoals=- acts=core;work mem=job_site:minecraft:overworld@3,-60,3:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(Steve):inf equip=- attrs=minecraft:follow_range:16.24978904785787;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:librarian/1 vxp=0
+OFFERS V count=2
+OFFER V 0 buyA=minecraft:paper*24 buyB=- sell=minecraft:emerald*1 uses=16 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:bookshelf*1 uses=5 max=12 xp=1 mult=0.05 demand=0 special=0
+N V {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{minecraft:job_site:{value:{dimension:"minecraft:overworld",pos:[I;3,-60,3]}}}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,FoodLevel:0b,ForcedAge:0,Gossips:[],Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastGossipDecay:31L,LastRestock:0L,LeftHanded:0b,Motion:[0.001651406983579064d,-0.0784000015258789d,0.001649819529878379d],Offers:{Recipes:[{buy:{count:24,id:"minecraft:paper"},maxUses:16,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:emerald"},uses:16,xp:2},{buy:{count:1,id:"minecraft:emerald"},maxUses:12,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:bookshelf"},uses:5}]},OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.1610767826430797d,-60.0d,3.161375063212999d],RestocksToday:0,Rotation:[314.97415f,0.0f],VillagerData:{level:1,profession:"minecraft:librarian",type:"minecraft:plains"},VillagerDataFinalized:1b,Xp:0,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.015611815491116954d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.5d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}

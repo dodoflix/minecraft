@@ -167,17 +167,10 @@ fn mob_path_fly() {
     );
 }
 
-/// Path queries of the real ground classes. The villager's brain activity right after spawning is `rest` in vanilla and `idle` here,
-/// so `acts` is not compared.
+/// Path queries of the real ground classes.
 #[test]
 fn mob_path_mobs() {
-    run_scenario_test_with(
-        "mob_path_mobs",
-        &Options {
-            ignore_fields: vec!["acts"],
-            ..Default::default()
-        },
-    );
+    run_scenario_test("mob_path_mobs");
 }
 
 /// Water and amphibious navigation in a pool.

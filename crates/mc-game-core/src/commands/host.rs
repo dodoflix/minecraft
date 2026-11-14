@@ -947,7 +947,7 @@ pub fn entity_load_data(
             let result = e.load(data);
             e.read_level_dependent_data(level);
             e.base_mut().uuid = uuid;
-            e.post_data_manipulated();
+            e.post_data_manipulated(level);
             result
         })
         .unwrap_or(Ok(()));

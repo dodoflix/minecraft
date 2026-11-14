@@ -1,0 +1,25 @@
+# Villager restock: a librarian whose trades are used up goes to its lectern at work time and restocks them (uses back to zero, restock counters
+# and the restock time memory).
+level flat
+preload 4
+fill -8 -60 -8 8 -52 8 minecraft:air
+fill -8 -61 -8 8 -61 8 minecraft:grass_block
+entity_counter 7550
+level_seed 7551
+difficulty normal
+block 3 -60 3 minecraft:lectern[facing=north,has_book=false,powered=false]
+time 2000
+spawn_player Steve survival 0.5 -60 12.5 180 0
+tick 30
+mobspawn V minecraft:villager 0.5 -60 0.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:1},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:16,xp:2,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bookshelf",count:1},maxUses:12,uses:5,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]}}
+entity_seed V 61
+memory V minecraft:job_site {value:{dimension:"minecraft:overworld",pos:[I;3,-60,3]}}
+tick 5
+dump brain:V mob:V offers:V
+tick 40
+dump brain:V mob:V offers:V
+tick 40
+dump brain:V mob:V offers:V
+tick 100
+dump brain:V mob:V offers:V
+dump nbt:V

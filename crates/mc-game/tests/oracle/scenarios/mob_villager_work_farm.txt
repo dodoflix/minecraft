@@ -1,0 +1,38 @@
+# Villager farming: a farmer with a composter as workstation, seeds in the inventory and a ring of farmland around it harvests the ripe wheat,
+# plants the seeds again and works at the composter during the workday.
+level flat
+preload 4
+fill -8 -60 -8 8 -52 8 minecraft:air
+fill -8 -61 -8 8 -61 8 minecraft:grass_block
+entity_counter 7520
+level_seed 7521
+difficulty normal
+gamerule random_tick_speed 0
+fill 1 -61 1 5 -61 5 minecraft:farmland[moisture=7]
+fill 1 -60 1 5 -60 5 minecraft:wheat[age=7]
+block 3 -61 3 minecraft:grass_block
+block 3 -60 3 minecraft:composter
+time 2000
+spawn_player Steve survival 0.5 -60 12.5 180 0
+tick 30
+mobspawn V minecraft:villager 3.5 -60 0.5 0 0 {PersistenceRequired:1b,Inventory:[{id:"minecraft:wheat_seeds",count:8}],VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1}}
+entity_seed V 31
+memory V minecraft:job_site {value:{dimension:"minecraft:overworld",pos:[I;3,-60,3]}}
+tick 5
+dump brain:V mob:V
+tick 20
+dump brain:V mob:V
+tick 20
+dump brain:V mob:V
+tick 20
+dump brain:V mob:V
+tick 20
+dump brain:V mob:V
+tick 20
+dump brain:V mob:V
+tick 40
+dump brain:V mob:V blocks:1,-61,1,5,-60,5
+tick 100
+dump brain:V mob:V blocks:1,-61,1,5,-60,5
+tick 200
+dump brain:V mob:V blocks:1,-61,1,5,-60,5

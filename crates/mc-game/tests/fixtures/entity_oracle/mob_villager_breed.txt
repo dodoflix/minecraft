@@ -1,0 +1,184 @@
+C The difficulty did not change; it is already set to Normal
+C Set minecraft:overworld to 6000 tick(s)
+BRAIN V1 acts=core;idle
+BM V1 type=breed_target value=V2 ttl=inf
+BM V1 type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V1 type=mobs value=(V2;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=path value=path(1;9) ttl=inf
+BM V1 type=visible_mobs value=(V2;Steve) ttl=inf
+BM V1 type=walk_target value=walk(pos(8,-60,-1);0.5;0) ttl=inf
+BR V1 MoveToTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 RunOne: [DoNothing]
+E V1 minecraft:villager pos=1.0307977773515309,-60.0,0.5 delta=0.07151784274525082,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=305.0 body=270.0 nav=moving stuck=0 navspeed=0.5 ntarget=8,-60,-1 path=1/9/1/8,-60,-1 nodes=0,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,-1:WALKABLE:0.0;8,-60,-1:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=breed_target:V2:inf;home:minecraft:overworld@0,-60,-4:inf;mobs:(V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;path:path(1;9):inf;visible_mobs:(V2;Steve):inf;walk_target:walk(pos(8,-60,-1);0.5;0):inf equip=- attrs=minecraft:follow_range:14.872185757682125;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V1:inf;cant_reach_walk_target_since:32:inf;home:minecraft:overworld@3,-60,-4:inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;Steve):inf equip=- attrs=minecraft:follow_range:17.008070549975468;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+BRAIN V1 acts=core;idle
+BM V1 type=breed_target value=V2 ttl=inf
+BM V1 type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [VillagerMakeLove]
+BR V1 RunOne: [DoNothing]
+E V1 minecraft:villager pos=1.3217210313946146,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.5 ntarget=8,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V2:inf;home:minecraft:overworld@0,-60,-4:inf;look_target:entity(V2):inf;mobs:(V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V2;Steve):inf;walk_target:walk(entity(V2);0.5;2):inf equip=- attrs=minecraft:follow_range:14.872185757682125;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=89.999985 body=29.999985 nav=done stuck=0 navspeed=0.0 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V1:inf;home:minecraft:overworld@3,-60,-4:inf;interaction_target:V1:inf;look_target:entity(V1):inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;Steve):inf;walk_target:walk(entity(V1);0.5;2):inf equip=- attrs=minecraft:follow_range:17.008070549975468;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+BRAIN V1 acts=core;idle
+BM V1 type=breed_target value=V2 ttl=inf
+BM V1 type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V1 type=interaction_target value=V2 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 GateBehavior: [TradeWithVillager]
+BR V1 GateBehavior: [VillagerMakeLove]
+BR V1 RunOne: [DoNothing]
+E V1 minecraft:villager pos=1.3217210313946146,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.5 ntarget=8,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V2:inf;home:minecraft:overworld@0,-60,-4:inf;interaction_target:V2:inf;look_target:entity(V2):inf;mobs:(V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V2;Steve):inf;walk_target:walk(entity(V2);0.5;2):inf equip=- attrs=minecraft:follow_range:14.872185757682125;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=89.999985 body=89.999985 nav=done stuck=0 navspeed=0.0 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V1:inf;home:minecraft:overworld@3,-60,-4:inf;interaction_target:V1:inf;look_target:entity(V1):inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;Steve):inf;walk_target:walk(entity(V1);0.5;2):inf equip=- attrs=minecraft:follow_range:17.008070549975468;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+BRAIN V1 acts=core;idle
+BM V1 type=breed_target value=V2 ttl=inf
+BM V1 type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V1 type=interaction_target value=V2 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [TradeWithVillager]
+BR V1 GateBehavior: [VillagerMakeLove]
+BR V1 RunOne: [DoNothing]
+E V1 minecraft:villager pos=1.3217210313946146,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.5 ntarget=8,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V2:inf;home:minecraft:overworld@0,-60,-4:inf;interaction_target:V2:inf;look_target:entity(V2):inf;mobs:(V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V2;Steve):inf;walk_target:walk(entity(V2);0.5;2):inf equip=- attrs=minecraft:follow_range:14.872185757682125;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=89.999985 body=89.999985 nav=done stuck=0 navspeed=0.0 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V1:inf;home:minecraft:overworld@3,-60,-4:inf;interaction_target:V1:inf;look_target:entity(V1):inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;Steve):inf;walk_target:walk(entity(V1);0.5;2):inf equip=- attrs=minecraft:follow_range:17.008070549975468;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+BRAIN V1 acts=core;idle
+BM V1 type=breed_target value=V2 ttl=inf
+BM V1 type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V1 type=interaction_target value=V2 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [TradeWithVillager]
+BR V1 GateBehavior: [VillagerMakeLove]
+BR V1 RunOne: [DoNothing]
+E V1 minecraft:villager pos=1.3217210313946146,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.5 ntarget=8,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V2:inf;home:minecraft:overworld@0,-60,-4:inf;interaction_target:V2:inf;look_target:entity(V2):inf;mobs:(V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V2;Steve):inf;walk_target:walk(entity(V2);0.5;2):inf equip=- attrs=minecraft:follow_range:14.872185757682125;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=89.999985 body=89.999985 nav=done stuck=0 navspeed=0.0 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V1:inf;home:minecraft:overworld@3,-60,-4:inf;look_target:entity(V1):inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;Steve):inf;walk_target:walk(entity(V1);0.5;2):inf equip=- attrs=minecraft:follow_range:17.008070549975468;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+BRAIN V1 acts=core;idle
+BM V1 type=breed_target value=V2 ttl=inf
+BM V1 type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [VillagerMakeLove]
+BR V1 RunOne: [DoNothing]
+E V1 minecraft:villager pos=1.3217210313946146,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.5 ntarget=8,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V2:inf;home:minecraft:overworld@0,-60,-4:inf;look_target:entity(V2):inf;mobs:(V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V2;Steve):inf;walk_target:walk(entity(V2);0.5;2):inf equip=- attrs=minecraft:follow_range:14.872185757682125;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=89.999985 body=89.999985 nav=done stuck=0 navspeed=0.0 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V1:inf;home:minecraft:overworld@3,-60,-4:inf;look_target:entity(V1):inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;Steve):inf;walk_target:walk(entity(V1);0.5;2):inf equip=- attrs=minecraft:follow_range:17.008070549975468;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+BRAIN V1 acts=core;idle
+BM V1 type=breed_target value=V2 ttl=inf
+BM V1 type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [VillagerMakeLove]
+BR V1 RunOne: [DoNothing]
+E V1 minecraft:villager pos=1.3217210313946146,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.5 ntarget=8,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V2:inf;home:minecraft:overworld@0,-60,-4:inf;look_target:entity(V2):inf;mobs:(V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V2;Steve):inf;walk_target:walk(entity(V2);0.5;2):inf equip=- attrs=minecraft:follow_range:14.872185757682125;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=89.999985 body=89.999985 nav=done stuck=0 navspeed=0.0 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V1:inf;home:minecraft:overworld@3,-60,-4:inf;look_target:entity(V1):inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;Steve):inf;walk_target:walk(entity(V1);0.5;2):inf equip=- attrs=minecraft:follow_range:17.008070549975468;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+BRAIN V1 acts=core;idle
+BM V1 type=breed_target value=V2 ttl=inf
+BM V1 type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V1 type=look_target value=entity(V2) ttl=inf
+BM V1 type=mobs value=(V2;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=visible_mobs value=(V2;Steve) ttl=inf
+BM V1 type=walk_target value=walk(entity(V2);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 GateBehavior: [VillagerMakeLove]
+BR V1 RunOne: [DoNothing]
+E V1 minecraft:villager pos=1.3217210313946146,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.5 ntarget=8,-60,-1 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V2:inf;home:minecraft:overworld@0,-60,-4:inf;look_target:entity(V2):inf;mobs:(V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V2;Steve):inf;walk_target:walk(entity(V2);0.5;2):inf equip=- attrs=minecraft:follow_range:14.872185757682125;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=89.999985 body=89.999985 nav=done stuck=0 navspeed=0.0 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=breed_target:V1:inf;home:minecraft:overworld@3,-60,-4:inf;interaction_target:V1:inf;look_target:entity(V1):inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;Steve):inf;walk_target:walk(entity(V1);0.5;2):inf equip=- attrs=minecraft:follow_range:17.008070549975468;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+BRAIN V1 acts=core;idle
+BM V1 type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V1 type=interaction_target value=villager#1 ttl=inf
+BM V1 type=look_target value=entity(villager#1) ttl=inf
+BM V1 type=mobs value=(villager#1;V2;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=path value=path(0;3) ttl=inf
+BM V1 type=visible_mobs value=(villager#1;V2;Steve) ttl=inf
+BM V1 type=visible_villager_babies value=(villager#1) ttl=inf
+BM V1 type=walk_target value=walk(entity(villager#1);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 MoveToTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [TradeWithVillager]
+BR V1 RunOne: [DoNothing]
+E V1 minecraft:villager pos=1.3217210313946146,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=270.0,18.664366 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=279.6262 body=279.6262 nav=moving stuck=0 navspeed=0.5 ntarget=-1,-60,2 path=0/3/1/-1,-60,2 nodes=1,-60,0:WALKABLE:0.0;0,-60,1:WALKABLE:0.0;-1,-60,2:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=home:minecraft:overworld@0,-60,-4:inf;interaction_target:villager#1:inf;look_target:entity(villager#1):inf;mobs:(villager#1;V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;path:path(0;3):inf;visible_mobs:(villager#1;V2;Steve):inf;visible_villager_babies:(villager#1):inf;walk_target:walk(entity(villager#1);0.5;2):inf equip=- attrs=minecraft:follow_range:14.872185757682125;minecraft:movement_speed:0.5 age=5968 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=2.7640324969392247,-60.0,0.23596750306077574 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=79.62619 body=72.12619 nav=done stuck=0 navspeed=0.0 ntarget=-3,-59,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=home:minecraft:overworld@3,-60,-4:inf;look_target:entity(V1):inf;mobs:(V1;villager#1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;villager#1;Steve):inf;visible_villager_babies:(villager#1):inf equip=- attrs=minecraft:follow_range:17.008070549975468;minecraft:movement_speed:0.5 age=5967 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E villager#1 minecraft:villager pos=-0.929327177900626,-60.0,2.409152848101078 delta=-0.04274150779113177,-0.0784000015258789,-0.03155461535444303 rot=176.97766,-18.664366 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=1 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=106.655685 body=176.97766 nav=moving stuck=0 navspeed=0.5 ntarget=1,-60,0 path=1/3/1/1,-60,0 nodes=-1,-60,2:WALKABLE:0.0;0,-60,1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=home:minecraft:overworld@-3,-60,-4:inf;look_target:entity(V1):inf;mobs:(V1;V2;Steve):inf;nearest_bed:0,-60,-4:inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;path:path(1;3):inf;visible_mobs:(V1;V2;Steve):inf;walk_target:walk(entity(V1);0.5;2):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=-23968 baby=1 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+BRAIN V1 acts=core;idle
+BM V1 type=home value=minecraft:overworld@0,-60,-4 ttl=inf
+BM V1 type=interaction_target value=villager#1 ttl=inf
+BM V1 type=look_target value=entity(villager#1) ttl=inf
+BM V1 type=mobs value=(villager#1;V2;Steve) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V1 type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V1 type=visible_mobs value=(villager#1;V2;Steve) ttl=inf
+BM V1 type=visible_villager_babies value=(villager#1) ttl=inf
+BM V1 type=walk_target value=walk(entity(villager#1);0.5;2) ttl=inf
+BR V1 LookAtTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 GateBehavior: [TradeWithVillager]
+BR V1 RunOne: [DoNothing]
+E V1 minecraft:villager pos=0.7633511807958728,-60.0,1.2354130344287992 delta=0.0,-0.0784000015258789,0.0 rot=44.188843,37.70548 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=57.02614 body=57.02614 nav=done stuck=0 navspeed=0.5 ntarget=-1,-60,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=home:minecraft:overworld@0,-60,-4:inf;interaction_target:villager#1:inf;look_target:entity(villager#1):inf;mobs:(villager#1;V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(villager#1;V2;Steve):inf;visible_villager_babies:(villager#1):inf;walk_target:walk(entity(villager#1);0.5;2):inf equip=- attrs=minecraft:follow_range:14.872185757682125;minecraft:movement_speed:0.5 age=5868 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=5.32474239185536,-60.0,3.7023474437756163 delta=0.0190752121945364,-0.0784000015258789,0.07217058489718814 rot=347.26215,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=346.78696 body=347.26215 nav=moving stuck=0 navspeed=0.5 ntarget=7,-60,10 path=4/11/1/7,-60,10 nodes=2,-60,0:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;4,-60,2:WALKABLE:0.0;5,-60,3:WALKABLE:0.0;5,-60,4:WALKABLE:0.0;6,-60,5:WALKABLE:0.0;6,-60,6:WALKABLE:0.0;6,-60,7:WALKABLE:0.0;6,-60,8:WALKABLE:0.0;7,-60,9:WALKABLE:0.0;7,-60,10:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=home:minecraft:overworld@3,-60,-4:inf;mobs:(V1;villager#1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;path:path(4;11):inf;visible_mobs:(V1;villager#1;Steve):inf;visible_villager_babies:(villager#1):inf;walk_target:walk(pos(7,-60,10);0.5;0):inf equip=- attrs=minecraft:follow_range:17.008070549975468;minecraft:movement_speed:0.5 age=5867 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E villager#1 minecraft:villager pos=-0.3110037902137923,-60.0,1.9324144310716156 delta=0.0,-0.0784000015258789,0.0 rot=241.5729,-37.70548 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=237.02615 body=237.02615 nav=done stuck=0 navspeed=0.5 ntarget=0,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=home:minecraft:overworld@-3,-60,-4:inf;interaction_target:V1:inf;look_target:entity(V1):inf;mobs:(V1;V2;Steve):inf;nearest_bed:0,-60,-4:inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;V2;Steve):inf;walk_target:walk(entity(V1);0.5;2):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=-23868 baby=1 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V1 minecraft:villager pos=0.7633511807958728,-60.0,1.2354130344287992 delta=0.0,-0.0784000015258789,0.0 rot=44.188843,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=59.60338 body=59.60338 nav=done stuck=0 navspeed=0.5 ntarget=-1,-60,2 path=- nodes=- goals=- tgoals=- acts=core;idle mem=home:minecraft:overworld@0,-60,-4:inf;mobs:(villager#1;V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(villager#1;V2;Steve):inf;visible_villager_babies:(villager#1):inf equip=- attrs=minecraft:follow_range:14.872185757682125;minecraft:movement_speed:0.5 age=5768 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=7.4601016726198575,-60.0,10.274280630329764 delta=0.0,-0.0784000015258789,0.0 rot=350.26733,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=503.46588 body=503.46588 nav=done stuck=0 navspeed=0.5 ntarget=7,-60,10 path=- nodes=- goals=- tgoals=- acts=core;idle mem=home:minecraft:overworld@3,-60,-4:inf;look_target:entity(V1):inf;mobs:(Steve;V1;villager#1):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(Steve;V1;villager#1):inf;visible_villager_babies:(villager#1):inf equip=- attrs=minecraft:follow_range:17.008070549975468;minecraft:movement_speed:0.5 age=5767 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E villager#1 minecraft:villager pos=-0.4857873097533196,-60.0,-0.7827247224241305 delta=-6.150451516333602E-4,-0.0784000015258789,-0.07515217813850396 rot=178.97198,-23.684526 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=1 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=253.97198 body=178.97198 nav=moving stuck=0 navspeed=0.5 ntarget=0,-60,-4 path=3/6/1/0,-59,-4 nodes=-1,-60,1:WALKABLE:0.0;-1,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;-1,-60,-2:WALKABLE:0.0;0,-59,-3:WALKABLE:0.0;0,-59,-4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=home:minecraft:overworld@-3,-60,-4:inf;look_target:entity(V1):inf;mobs:(V1;Steve;V2):inf;nearest_bed:0,-60,-4:inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;path:path(3;6):inf;visible_mobs:(V1;Steve;V2):inf;walk_target:walk(pos(0,-60,-4);0.5;0):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=-23768 baby=1 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0

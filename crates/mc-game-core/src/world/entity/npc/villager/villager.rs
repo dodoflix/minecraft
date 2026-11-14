@@ -1,12 +1,10 @@
 //! `Villager`: the brain mob that trades, works, sleeps, gossips and breeds (`net.minecraft.world.entity.npc.villager.Villager`).
 //!
 //! # Deviations from vanilla worth knowing about
-//! * `getTradingPlayer()` is an entity id. Vanilla's `updateSpecialPrices(player)` touches the player (effects, menu, packet); while
-//!   the player is itself taken out of the level (it is running a menu handler or `mobInteract`) the update cannot reach it, so
-//!   callers without the player set `pending_special_prices`, which `customServerAiStep` applies (the player is in the level
-//!   then). `startTrading` and every call from the villager's own tick use the exact vanilla path.
+//! * `getTradingPlayer()` is an entity id; `updateSpecialPrices(player)` reaches the player through the level.
 //! * The brain's schedule is bound to the level's environment attributes when the brain is made; the constructor has no level, so
-//!   the construction-time `updateActivityFromSchedule` of vanilla runs at the first AI step (`schedule_init_pending`).
+//!   the construction-time `updateActivityFromSchedule` of vanilla runs when the villager is added to a level
+//!   (`read_level_dependent_data`, `schedule_init_pending`).
 
 use super::abstract_villager::{self, AbstractVillagerData, DATA_UNHAPPY_COUNTER};
 use super::villager_data::{self, VillagerData, VillagerDataExt};
@@ -86,7 +84,6 @@ pub struct Villager {
     last_restock_game_time: i64,
     number_of_restocks_today: i32,
     last_restock_check_day: i64,
-    pending_special_prices: bool,
     schedule_init_pending: bool,
 }
 
@@ -211,7 +208,6 @@ impl Villager {
             last_restock_game_time: 0,
             number_of_restocks_today: 0,
             last_restock_check_day: 0,
-            pending_special_prices: false,
             schedule_init_pending: true,
         };
         // `LivingEntity.<init>`: `this.brain = this.makeBrain(Brain.Packed.EMPTY)` (after the yRot roll of `MobData::new`)
@@ -528,25 +524,16 @@ impl Villager {
         }
     }
 
-    /// `updateSpecialPrices(tradingPlayer)` when the trading player is looked up through the level; defers when it cannot be reached.
+    /// `updateSpecialPrices(tradingPlayer)`, the player looked up through the level (a lent player is found too).
     fn request_special_prices_update(&mut self, level: &mut ServerLevel) {
         let Some(player_id) = self.av.trading_player else {
             return;
         };
-        let reached = level
-            .try_with_entity(player_id, |level, e| {
-                match e.as_any_mut().downcast_mut::<ServerPlayer>() {
-                    Some(player) => {
-                        self.update_special_prices(level, player);
-                        true
-                    }
-                    None => false,
-                }
-            })
-            .unwrap_or(false);
-        if !reached {
-            self.pending_special_prices = true;
-        }
+        level.try_with_entity(player_id, |level, e| {
+            if let Some(player) = e.as_any_mut().downcast_mut::<ServerPlayer>() {
+                self.update_special_prices(level, player);
+            }
+        });
     }
 
     // ---- trades --------------------------------------------------------------------------------------------------------
@@ -694,11 +681,14 @@ impl Villager {
             );
             self.last_gossip_time = timestamp;
             target.last_gossip_time = timestamp;
-            self.spawn_golem_if_needed(
-                level,
-                timestamp,
-                HOW_MANY_VILLAGERS_NEED_TO_AGREE_TO_SPAWN_A_GOLEM,
-            );
+            // `target` is out of its slot like `self`: lent, the golem count sees it
+            level.lend(&mut *target, |level| {
+                self.spawn_golem_if_needed(
+                    level,
+                    timestamp,
+                    HOW_MANY_VILLAGERS_NEED_TO_AGREE_TO_SPAWN_A_GOLEM,
+                );
+            });
             if self.av.trading_player.is_some() && new_gossip > 0 {
                 self.request_special_prices_update(level);
             }
@@ -723,31 +713,30 @@ impl Villager {
         timestamp: i64,
         villagers_needed_to_agree: i32,
     ) {
-        if self.wants_to_spawn_golem_at(level, timestamp) {
-            let search_box = self.base().bounding_box().inflate(
-                HOW_FAR_AWAY_TO_TALK_TO_OTHER_VILLAGERS_ABOUT_GOLEMS,
-                HOW_FAR_AWAY_TO_TALK_TO_OTHER_VILLAGERS_ABOUT_GOLEMS,
-                HOW_FAR_AWAY_TO_TALK_TO_OTHER_VILLAGERS_ABOUT_GOLEMS,
-            );
+        if !self.wants_to_spawn_golem_at(level, timestamp) {
+            return;
+        }
+        let search_box = self.base().bounding_box().inflate(
+            HOW_FAR_AWAY_TO_TALK_TO_OTHER_VILLAGERS_ABOUT_GOLEMS,
+            HOW_FAR_AWAY_TO_TALK_TO_OTHER_VILLAGERS_ABOUT_GOLEMS,
+            HOW_FAR_AWAY_TO_TALK_TO_OTHER_VILLAGERS_ABOUT_GOLEMS,
+        );
+        let pos = self.block_position();
+        // `this` is out of its slot while it ticks: lent, the class query and the golem sensor reach it like in vanilla
+        level.lend(self, |level| {
             let nearby = nearby_villagers(level, &search_box);
-            let wanting: Vec<EntityId> = nearby
+            let agreeing = nearby
                 .iter()
-                .copied()
-                .filter(|&v| {
+                .filter(|&&v| {
                     level
                         .get_entity(v)
                         .and_then(|e| e.as_any().downcast_ref::<Villager>())
                         .is_some_and(|v| v.wants_to_spawn_golem_at(level, timestamp))
                 })
                 .take(5)
-                .collect();
-            // `this` is out of the level: it is part of the box but not found there, so it counts itself
-            let me_counts = search_box.intersects_aabb(&self.base().bounding_box())
-                && self.wants_to_spawn_golem_at(level, timestamp);
-            let agreeing = wanting.len() as i32 + i32::from(me_counts && wanting.len() < 5);
-            if agreeing >= villagers_needed_to_agree {
-                let pos = self.block_position();
-                if crate::world::entity::spawn_util::try_spawn_mob(
+                .count();
+            if agreeing as i32 >= villagers_needed_to_agree
+                && crate::world::entity::spawn_util::try_spawn_mob(
                     level,
                     EntityType::IRON_GOLEM,
                     EntitySpawnReason::MobSummoned,
@@ -759,18 +748,14 @@ impl Villager {
                     false,
                 )
                 .is_some()
-                {
-                    for v in nearby {
-                        level.with_entity(v, |_, e| {
-                            crate::world::entity::ai::sensing::golem_sensor::golem_detected(e)
-                        });
-                    }
-                    if me_counts {
-                        crate::world::entity::ai::sensing::golem_sensor::golem_detected(self);
-                    }
+            {
+                for v in nearby {
+                    level.with_entity(v, |_, e| {
+                        crate::world::entity::ai::sensing::golem_sensor::golem_detected(e)
+                    });
                 }
             }
-        }
+        });
     }
 
     /// `wantsToSpawnGolem(timestamp)`.
@@ -860,6 +845,7 @@ impl Merchant for Villager {
         self.av.offers.as_mut().expect("offers")
     }
 
+    /// `AbstractVillager.overrideOffers` is empty and `Villager` does not override it.
     fn override_offers(&mut self, _offers: MerchantOffers) {}
 
     fn notify_trade(&mut self, level: &mut ServerLevel, offer_index: usize) {
@@ -958,13 +944,17 @@ impl Entity for Villager {
         self.refresh_brain(level);
     }
 
-    fn custom_server_ai_step(&mut self, level: &mut ServerLevel) {
+    /// The construction-time `registerBrainGoals` (schedule and its first `updateActivityFromSchedule`): the constructor has no
+    /// level, so it runs when the villager is added to one.
+    fn read_level_dependent_data(&mut self, level: &mut ServerLevel) {
         if self.schedule_init_pending {
             self.register_brain_goals(level);
         }
-        if self.pending_special_prices {
-            self.pending_special_prices = false;
-            self.request_special_prices_update(level);
+    }
+
+    fn custom_server_ai_step(&mut self, level: &mut ServerLevel) {
+        if self.schedule_init_pending {
+            self.register_brain_goals(level);
         }
         Brain::tick(level, self);
         if let Some(_traded) = self.last_traded_player.take() {
@@ -1034,11 +1024,9 @@ impl Entity for Villager {
             && mob::ageable::get_age(self) == 0
     }
 
-    fn post_data_manipulated(&mut self) {
-        // `updateSpecialPrices(tradingPlayer)` (no level here): applied at the next AI step
-        if self.av.trading_player.is_some() {
-            self.pending_special_prices = true;
-        }
+    fn post_data_manipulated(&mut self, level: &mut ServerLevel) {
+        // `updateSpecialPrices(tradingPlayer)`
+        self.request_special_prices_update(level);
     }
 
     fn remove_when_far_away(&self, _dist_sqr: f64) -> bool {

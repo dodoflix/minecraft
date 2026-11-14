@@ -1,0 +1,29 @@
+# Villager panic: a zombie with a helmet (it does not burn in the sun) hunts a villager; the villager flees in the panic activity (faster, away
+# from the hostile), is hit, and calms down once the zombie is dead and out of sight for the cool-down.
+level flat
+preload 4
+fill -8 -60 -8 8 -52 8 minecraft:air
+fill -8 -61 -8 8 -61 8 minecraft:grass_block
+entity_counter 7530
+level_seed 7531
+difficulty normal
+time 6000
+spawn_player Steve survival 0.5 -60 12.5 180 0
+tick 30
+mobspawn V minecraft:villager 0.5 -60 0.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+entity_seed V 41
+mobspawn Z minecraft:zombie 0.5 -60 -6.5 0 0 {PersistenceRequired:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1}}}
+entity_seed Z 42
+tick 5
+dump brain:V mob:V mob:Z
+watch mob:V mob:Z
+tick 60
+watch off
+dump brain:V
+kill Z
+tick 20
+dump brain:V mob:V
+tick 100
+dump brain:V mob:V
+tick 100
+dump brain:V mob:V

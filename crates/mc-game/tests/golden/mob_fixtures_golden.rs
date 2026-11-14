@@ -59,15 +59,6 @@ fn check_finalize_blocks(name: &str, actual: &[String], divergent: &[&str]) {
         ignore_kinds: vec!["C"],
         ..Default::default()
     };
-    // The villager brain applies its schedule at construction (`core;rest` at day time 0), here at the first AI step: the
-    // active activities are the only field skipped, so a villager's type, profession and saved data stay compared.
-    let villager_opts = Options {
-        ignore_fields: vec!["acts"],
-        ..Options {
-            ignore_kinds: vec!["C"],
-            ..Default::default()
-        }
-    };
     // mob name -> (type, expected lines, actual lines)
     let mut blocks: BTreeMap<String, (String, Vec<&String>, Vec<&String>)> = BTreeMap::new();
     for (lines, expected) in [(&fixture.lines[..], true), (actual, false)] {
@@ -89,13 +80,8 @@ fn check_finalize_blocks(name: &str, actual: &[String], divergent: &[&str]) {
     }
     let mut got: BTreeMap<&str, &str> = BTreeMap::new();
     for (mob, (ty, exp, act)) in &blocks {
-        let opts = if ty == "minecraft:villager" {
-            &villager_opts
-        } else {
-            &opts
-        };
         let same =
-            exp.len() == act.len() && exp.iter().zip(act).all(|(e, a)| lines_match(e, a, opts));
+            exp.len() == act.len() && exp.iter().zip(act).all(|(e, a)| lines_match(e, a, &opts));
         if !same {
             got.entry(ty).or_insert(mob);
         }

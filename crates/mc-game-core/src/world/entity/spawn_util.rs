@@ -1,11 +1,8 @@
 //! `net.minecraft.util.SpawnUtil`: spawn a mob near a position by searching a column for a spot its [`Strategy`]
 //! accepts.
 //!
-//! The creation step (`EntityType.create(level, null, pos, reason, false, false)`) is [`create_at`]: it covers the part
-//! of the creation that does not need the mob layer (factory, `snapTo` with the random yaw). `Mob.finalizeSpawn`,
-//! `checkSpawnRules`, `checkSpawnObstruction` and `playAmbientSound` belong to the mob layer and are marked below.
+//! The creation step (`EntityType.create(level, null, pos, reason, false, false)`) is [`create_at`].
 
-use super::factory::{self, EntitySpawnRequest};
 use super::{Entity, EntityId};
 use crate::server::level::ServerLevel;
 use crate::world::level::BlockGetter;
@@ -118,11 +115,14 @@ pub fn try_spawn_mob(
                 ))
             && let Some(mob) = create_at(level, entity_type, search_pos, spawn_reason)
         {
-            // mob layer: `mob.checkSpawnRules(level, spawnReason) && mob.checkSpawnObstruction(level)` (else `mob.discard()`)
-            let id = mob.id();
-            level.add_fresh_entity_with_passengers(vec![mob]);
-            // mob layer: `mob.playAmbientSound()`
-            return Some(id);
+            let valid = mob.check_spawn_rules(&*level, spawn_reason)
+                && mob.check_spawn_obstruction(&*level);
+            if valid {
+                let id = mob.id();
+                level.add_fresh_entity_with_passengers(vec![mob]);
+                level.with_entity(id, |level, mob| mob.play_ambient_sound(level));
+                return Some(id);
+            }
         }
     }
     None
@@ -150,24 +150,15 @@ pub fn create_at(
     spawn_pos: BlockPos,
     spawn_reason: EntitySpawnReason,
 ) -> Option<Box<dyn Entity>> {
-    let mut entity = factory::create(
-        entity_type,
+    super::spawn_config::create_at(
         level,
-        EntitySpawnRequest {
-            reason: spawn_reason,
-            ignore_checks: false,
-        },
-    )?;
-    let y_rot = mth::wrap_degrees_f32(level.random().next_float() * 360.0);
-    entity.snap_to(
-        f64::from(spawn_pos.x()) + 0.5,
-        f64::from(spawn_pos.y()),
-        f64::from(spawn_pos.z()) + 0.5,
-        y_rot,
-        0.0,
-    );
-    // mob layer: `mob.yHeadRot = mob.yBodyRot = yRot; mob.finalizeSpawn(level, difficulty, spawnReason, null)`
-    Some(entity)
+        entity_type,
+        None,
+        spawn_pos,
+        spawn_reason,
+        false,
+        false,
+    )
 }
 
 /// `moveToPossibleSpawnPosition(level, spawnRangeY, searchPos, strategy)`.

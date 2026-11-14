@@ -1,0 +1,46 @@
+# Villager breeding: two villagers with food and free beds around them make love (breed targets after a scan, hearts, the birth after about 300
+# ticks: the bed claimed, a baby with villager data, the parents' age set, food eaten and digested).
+level flat
+preload 4
+fill -8 -60 -8 8 -52 8 minecraft:air
+fill -8 -61 -8 8 -61 8 minecraft:grass_block
+entity_counter 7540
+level_seed 7541
+difficulty normal
+block 0 -60 -3 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 -4 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 3 -60 -3 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -4 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -3 -60 -3 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -3 -60 -4 minecraft:red_bed[facing=south,part=head,occupied=false]
+time 6000
+spawn_player Steve survival 0.5 -60 12.5 180 0
+tick 30
+mobspawn V1 minecraft:villager 0.5 -60 0.5 0 0 {PersistenceRequired:1b,Inventory:[{id:"minecraft:bread",count:6}],VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+entity_seed V1 51
+mobspawn V2 minecraft:villager 2.5 -60 0.5 0 0 {PersistenceRequired:1b,Inventory:[{id:"minecraft:bread",count:6}],VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+entity_seed V2 52
+tick 40
+memory V1 minecraft:breed_target entity:V2
+memory V2 minecraft:breed_target entity:V1
+dump brain:V1 mob:V1 mob:V2
+tick 20
+dump brain:V1 mob:V1 mob:V2
+tick 20
+dump brain:V1 mob:V1 mob:V2
+tick 20
+dump brain:V1 mob:V1 mob:V2
+tick 20
+dump brain:V1 mob:V1 mob:V2
+tick 20
+dump brain:V1 mob:V1 mob:V2
+tick 20
+dump brain:V1 mob:V1 mob:V2
+tick 100
+dump brain:V1 mobs
+tick 100
+dump brain:V1 mobs
+tick 100
+dump brain:V1 mobs
+tick 100
+dump mobs

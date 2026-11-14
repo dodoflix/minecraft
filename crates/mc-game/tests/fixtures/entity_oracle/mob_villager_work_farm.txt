@@ -1,0 +1,282 @@
+C The difficulty did not change; it is already set to Normal
+C Game rule random_tick_speed is already set to 0
+C Set minecraft:overworld to 2000 tick(s)
+BRAIN V acts=core;idle
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+E V minecraft:villager pos=3.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=job_site:minecraft:overworld@3,-60,3:inf;mobs:(Steve):inf;visible_mobs:(Steve):inf equip=- attrs=minecraft:follow_range:16.758215990714227;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
+BRAIN V acts=core;work
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=path value=path(1;2) ttl=inf
+BM V type=secondary_job_site value=(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BM V type=walk_target value=walk(pos(3,-61,1);0.5;1) ttl=inf
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+E V minecraft:villager pos=3.5,-60.0,0.6591250039637089 delta=0.0,-0.0784000015258789,0.05275725829207922 rot=360.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=360.0 body=360.0 nav=moving stuck=0 navspeed=0.5 ntarget=3,-60,1 path=1/2/1/3,-60,1 nodes=3,-60,0:WALKABLE:0.0;3,-60,1:WALKABLE:0.0 goals=- tgoals=- acts=core;work mem=job_site:minecraft:overworld@3,-60,3:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;path:path(1;2):inf;secondary_job_site:(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(3,-61,1);0.5;1):inf equip=- attrs=minecraft:follow_range:16.758215990714227;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
+BRAIN V acts=core;work
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=look_target value=pos(4,-60,1) ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=item#3 ttl=inf
+BM V type=path value=path(1;3) ttl=inf
+BM V type=secondary_job_site value=(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BM V type=walk_target value=walk(pos(4,-60,1);0.5;1) ttl=inf
+BR V LookAtTargetSink
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [HarvestFarmland]
+E V minecraft:villager pos=2.8978454525937343,-60.0625,2.2220162757947692 delta=0.040439315151223676,-0.0784000015258789,-0.029977766744420802 rot=221.0358,29.786388 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=287.96036 body=221.0358 nav=moving stuck=0 navspeed=0.5 ntarget=4,-60,1 path=1/3/1/4,-60,1 nodes=2,-60,2:WALKABLE:0.0;3,-60,1:WALKABLE:0.0;4,-60,1:WALKABLE:0.0 goals=- tgoals=- acts=core;work mem=job_site:minecraft:overworld@3,-60,3:inf;look_target:pos(4,-60,1):inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;nearest_visible_wanted_item:item#3:inf;path:path(1;3):inf;secondary_job_site:(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(4,-60,1);0.5;1):inf equip=- attrs=minecraft:follow_range:16.758215990714227;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
+BRAIN V acts=core;work
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=look_target value=pos(3,-60,2) ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=item#6 ttl=inf
+BM V type=path value=path(1;3) ttl=inf
+BM V type=secondary_job_site value=(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@1,-61,5;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@2,-61,5;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@3,-61,5;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@4,-61,5;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4;minecraft:overworld@5,-61,5) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BM V type=walk_target value=walk(pos(3,-60,2);0.5;1) ttl=inf
+BR V LookAtTargetSink
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [HarvestFarmland]
+E V minecraft:villager pos=3.9375403283668478,-60.0625,2.0594965667565805 delta=-0.048858109135786046,-0.0784000015258789,0.053288563081503156 rot=44.404083,40.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=5.516205 body=44.404083 nav=moving stuck=0 navspeed=0.5 ntarget=2,-60,2 path=1/3/1/2,-60,2 nodes=4,-60,1:WALKABLE:0.0;3,-60,2:WALKABLE:0.0;2,-60,2:WALKABLE:0.0 goals=- tgoals=- acts=core;work mem=job_site:minecraft:overworld@3,-60,3:inf;look_target:pos(3,-60,2):inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;nearest_visible_wanted_item:item#6:inf;path:path(1;3):inf;secondary_job_site:(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@1,-61,5;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@2,-61,5;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@3,-61,5;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@4,-61,5;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4;minecraft:overworld@5,-61,5):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(3,-60,2);0.5;1):inf equip=- attrs=minecraft:follow_range:16.758215990714227;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
+BRAIN V acts=core;work
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=path value=path(1;2) ttl=inf
+BM V type=secondary_job_site value=(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@1,-61,5;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@2,-61,5;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@3,-61,5;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@4,-61,5;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4;minecraft:overworld@5,-61,5) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BM V type=walk_target value=walk(entity(item#6);0.5;0) ttl=inf
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [HarvestFarmland]
+E V minecraft:villager pos=4.904475983757623,-60.0,1.0472247694220576 delta=0.05498786938106074,-0.0784000015258789,-0.05050617365333709 rot=227.42204,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=227.425 body=227.42204 nav=moving stuck=0 navspeed=0.5 ntarget=5,-60,0 path=1/2/1/5,-60,0 nodes=4,-60,1:WALKABLE:0.0;5,-60,0:WALKABLE:0.0 goals=- tgoals=- acts=core;work mem=job_site:minecraft:overworld@3,-60,3:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;path:path(1;2):inf;secondary_job_site:(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@1,-61,5;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@2,-61,5;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@3,-61,5;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@4,-61,5;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4;minecraft:overworld@5,-61,5):inf;visible_mobs:(Steve):inf;walk_target:walk(entity(item#6);0.5;0):inf equip=- attrs=minecraft:follow_range:16.758215990714227;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
+BRAIN V acts=core;work
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=secondary_job_site value=(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [HarvestFarmland]
+E V minecraft:villager pos=5.222415874588827,-60.0,0.7550981063344666 delta=0.0,-0.0784000015258789,0.0 rot=227.41924,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=227.41924 body=227.41924 nav=done stuck=0 navspeed=0.5 ntarget=5,-60,0 path=- nodes=- goals=- tgoals=- acts=core;work mem=job_site:minecraft:overworld@3,-60,3:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;secondary_job_site:(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4):inf;visible_mobs:(Steve):inf equip=- attrs=minecraft:follow_range:16.758215990714227;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
+BRAIN V acts=core;work
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=look_target value=entity(item#8) ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=nearest_visible_wanted_item value=item#8 ttl=inf
+BM V type=secondary_job_site value=(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BM V type=walk_target value=walk(entity(item#8);0.5;0) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [HarvestFarmland]
+E V minecraft:villager pos=5.222415874588827,-60.0,0.7550981063344666 delta=0.0,-0.0784000015258789,0.0 rot=227.41924,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=227.41924 body=227.41924 nav=done stuck=0 navspeed=0.5 ntarget=5,-60,0 path=- nodes=- goals=- tgoals=- acts=core;work mem=job_site:minecraft:overworld@3,-60,3:inf;look_target:entity(item#8):inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;nearest_visible_wanted_item:item#8:inf;secondary_job_site:(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4):inf;visible_mobs:(Steve):inf;walk_target:walk(entity(item#8);0.5;0):inf equip=- attrs=minecraft:follow_range:16.758215990714227;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
+B 1 -61 1 minecraft:farmland[moisture=7]
+B 1 -61 2 minecraft:farmland[moisture=7]
+B 1 -61 3 minecraft:farmland[moisture=7]
+B 1 -61 4 minecraft:farmland[moisture=7]
+B 1 -61 5 minecraft:farmland[moisture=7]
+B 1 -60 1 minecraft:wheat[age=7]
+B 1 -60 2 minecraft:wheat[age=7]
+B 1 -60 3 minecraft:wheat[age=7]
+B 1 -60 4 minecraft:wheat[age=7]
+B 1 -60 5 minecraft:wheat[age=7]
+B 2 -61 1 minecraft:farmland[moisture=7]
+B 2 -61 2 minecraft:farmland[moisture=7]
+B 2 -61 3 minecraft:farmland[moisture=7]
+B 2 -61 4 minecraft:farmland[moisture=7]
+B 2 -61 5 minecraft:farmland[moisture=7]
+B 2 -60 1 minecraft:wheat[age=7]
+B 2 -60 2 minecraft:wheat[age=0]
+B 2 -60 3 minecraft:wheat[age=7]
+B 2 -60 4 minecraft:wheat[age=7]
+B 2 -60 5 minecraft:wheat[age=7]
+B 3 -61 1 minecraft:farmland[moisture=7]
+B 3 -61 2 minecraft:farmland[moisture=7]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:farmland[moisture=7]
+B 3 -61 5 minecraft:farmland[moisture=7]
+B 3 -60 1 minecraft:wheat[age=7]
+B 3 -60 2 minecraft:wheat[age=7]
+B 3 -60 3 minecraft:composter[level=0]
+B 3 -60 4 minecraft:wheat[age=7]
+B 3 -60 5 minecraft:wheat[age=7]
+B 4 -61 1 minecraft:farmland[moisture=7]
+B 4 -61 2 minecraft:farmland[moisture=7]
+B 4 -61 3 minecraft:farmland[moisture=7]
+B 4 -61 4 minecraft:farmland[moisture=7]
+B 4 -61 5 minecraft:farmland[moisture=7]
+B 4 -60 1 minecraft:wheat[age=0]
+B 4 -60 2 minecraft:wheat[age=7]
+B 4 -60 3 minecraft:wheat[age=7]
+B 4 -60 4 minecraft:wheat[age=7]
+B 4 -60 5 minecraft:wheat[age=7]
+B 5 -61 1 minecraft:farmland[moisture=7]
+B 5 -61 2 minecraft:farmland[moisture=7]
+B 5 -61 3 minecraft:farmland[moisture=7]
+B 5 -61 4 minecraft:farmland[moisture=7]
+B 5 -61 5 minecraft:farmland[moisture=7]
+B 5 -60 1 minecraft:wheat[age=0]
+B 5 -60 2 minecraft:wheat[age=7]
+B 5 -60 3 minecraft:wheat[age=7]
+B 5 -60 4 minecraft:wheat[age=7]
+B 5 -60 5 minecraft:wheat[age=7]
+BRAIN V acts=core;work
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=path value=path(1;6) ttl=inf
+BM V type=secondary_job_site value=(minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BM V type=walk_target value=walk(pos(3,-60,3);0.4;1) ttl=inf
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+E V minecraft:villager pos=8.434009661867288,-60.0,0.6269999416319736 delta=-0.03486355354311574,-0.0784000015258789,0.03259267825123098 rot=46.933304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=46.933014 body=46.933304 nav=moving stuck=0 navspeed=0.4000000059604645 ntarget=3,-59,3 path=1/6/1/3,-59,3 nodes=8,-60,0:WALKABLE:0.0;7,-60,1:WALKABLE:0.0;6,-60,2:WALKABLE:0.0;5,-60,2:WALKABLE:0.0;4,-60,3:WALKABLE:0.0;3,-59,3:WALKABLE:0.0 goals=- tgoals=- acts=core;work mem=job_site:minecraft:overworld@3,-60,3:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;path:path(1;6):inf;secondary_job_site:(minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(3,-60,3);0.4;1):inf equip=- attrs=minecraft:follow_range:16.758215990714227;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
+B 1 -61 1 minecraft:farmland[moisture=7]
+B 1 -61 2 minecraft:farmland[moisture=7]
+B 1 -61 3 minecraft:farmland[moisture=7]
+B 1 -61 4 minecraft:farmland[moisture=7]
+B 1 -61 5 minecraft:farmland[moisture=7]
+B 1 -60 1 minecraft:wheat[age=7]
+B 1 -60 2 minecraft:wheat[age=7]
+B 1 -60 3 minecraft:wheat[age=7]
+B 1 -60 4 minecraft:wheat[age=7]
+B 1 -60 5 minecraft:wheat[age=7]
+B 2 -61 1 minecraft:farmland[moisture=7]
+B 2 -61 2 minecraft:farmland[moisture=7]
+B 2 -61 3 minecraft:farmland[moisture=7]
+B 2 -61 4 minecraft:farmland[moisture=7]
+B 2 -61 5 minecraft:farmland[moisture=7]
+B 2 -60 1 minecraft:wheat[age=7]
+B 2 -60 2 minecraft:wheat[age=0]
+B 2 -60 3 minecraft:wheat[age=7]
+B 2 -60 4 minecraft:wheat[age=7]
+B 2 -60 5 minecraft:wheat[age=7]
+B 3 -61 1 minecraft:farmland[moisture=7]
+B 3 -61 2 minecraft:farmland[moisture=7]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:farmland[moisture=7]
+B 3 -61 5 minecraft:farmland[moisture=7]
+B 3 -60 1 minecraft:wheat[age=7]
+B 3 -60 2 minecraft:wheat[age=7]
+B 3 -60 3 minecraft:composter[level=0]
+B 3 -60 4 minecraft:wheat[age=7]
+B 3 -60 5 minecraft:wheat[age=7]
+B 4 -61 1 minecraft:farmland[moisture=7]
+B 4 -61 2 minecraft:farmland[moisture=7]
+B 4 -61 3 minecraft:farmland[moisture=7]
+B 4 -61 4 minecraft:farmland[moisture=7]
+B 4 -61 5 minecraft:farmland[moisture=7]
+B 4 -60 1 minecraft:wheat[age=0]
+B 4 -60 2 minecraft:wheat[age=7]
+B 4 -60 3 minecraft:wheat[age=7]
+B 4 -60 4 minecraft:wheat[age=7]
+B 4 -60 5 minecraft:wheat[age=7]
+B 5 -61 1 minecraft:farmland[moisture=7]
+B 5 -61 2 minecraft:farmland[moisture=7]
+B 5 -61 3 minecraft:farmland[moisture=7]
+B 5 -61 4 minecraft:farmland[moisture=7]
+B 5 -61 5 minecraft:farmland[moisture=7]
+B 5 -60 1 minecraft:wheat[age=0]
+B 5 -60 2 minecraft:wheat[age=7]
+B 5 -60 3 minecraft:wheat[age=7]
+B 5 -60 4 minecraft:wheat[age=7]
+B 5 -60 5 minecraft:wheat[age=7]
+BRAIN V acts=core;work
+BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=nearest_players value=(Steve) ttl=inf
+BM V type=nearest_visible_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_player value=Steve ttl=inf
+BM V type=nearest_visible_targetable_players value=(Steve) ttl=inf
+BM V type=secondary_job_site value=(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@1,-61,5;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@2,-61,5;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@3,-61,5;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@4,-61,5;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4;minecraft:overworld@5,-61,5) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [HarvestFarmland]
+E V minecraft:villager pos=3.784115699736545,-59.0,3.4815962235610534 delta=0.0,-0.0784000015258789,0.0 rot=87.46721,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.2 zza=0.0 xxa=0.0 yya=0.0 head=87.46721 body=87.46721 nav=done stuck=0 navspeed=0.4000000059604645 ntarget=3,-59,3 path=- nodes=- goals=- tgoals=- acts=core;work mem=job_site:minecraft:overworld@3,-60,3:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;secondary_job_site:(minecraft:overworld@1,-61,1;minecraft:overworld@1,-61,2;minecraft:overworld@1,-61,3;minecraft:overworld@1,-61,4;minecraft:overworld@1,-61,5;minecraft:overworld@2,-61,1;minecraft:overworld@2,-61,2;minecraft:overworld@2,-61,3;minecraft:overworld@2,-61,4;minecraft:overworld@2,-61,5;minecraft:overworld@3,-61,1;minecraft:overworld@3,-61,2;minecraft:overworld@3,-61,4;minecraft:overworld@3,-61,5;minecraft:overworld@4,-61,1;minecraft:overworld@4,-61,2;minecraft:overworld@4,-61,3;minecraft:overworld@4,-61,4;minecraft:overworld@4,-61,5;minecraft:overworld@5,-61,1;minecraft:overworld@5,-61,2;minecraft:overworld@5,-61,3;minecraft:overworld@5,-61,4;minecraft:overworld@5,-61,5):inf;visible_mobs:(Steve):inf equip=- attrs=minecraft:follow_range:16.758215990714227;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
+B 1 -61 1 minecraft:farmland[moisture=7]
+B 1 -61 2 minecraft:farmland[moisture=7]
+B 1 -61 3 minecraft:farmland[moisture=7]
+B 1 -61 4 minecraft:farmland[moisture=7]
+B 1 -61 5 minecraft:farmland[moisture=7]
+B 1 -60 1 minecraft:wheat[age=7]
+B 1 -60 2 minecraft:wheat[age=7]
+B 1 -60 3 minecraft:wheat[age=7]
+B 1 -60 4 minecraft:wheat[age=7]
+B 1 -60 5 minecraft:wheat[age=7]
+B 2 -61 1 minecraft:farmland[moisture=7]
+B 2 -61 2 minecraft:farmland[moisture=7]
+B 2 -61 3 minecraft:farmland[moisture=7]
+B 2 -61 4 minecraft:farmland[moisture=7]
+B 2 -61 5 minecraft:farmland[moisture=7]
+B 2 -60 1 minecraft:wheat[age=7]
+B 2 -60 2 minecraft:wheat[age=0]
+B 2 -60 3 minecraft:wheat[age=7]
+B 2 -60 4 minecraft:wheat[age=7]
+B 2 -60 5 minecraft:wheat[age=7]
+B 3 -61 1 minecraft:farmland[moisture=7]
+B 3 -61 2 minecraft:farmland[moisture=7]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:farmland[moisture=7]
+B 3 -61 5 minecraft:farmland[moisture=7]
+B 3 -60 1 minecraft:wheat[age=7]
+B 3 -60 2 minecraft:wheat[age=7]
+B 3 -60 3 minecraft:composter[level=0]
+B 3 -60 4 minecraft:wheat[age=7]
+B 3 -60 5 minecraft:wheat[age=7]
+B 4 -61 1 minecraft:farmland[moisture=7]
+B 4 -61 2 minecraft:farmland[moisture=7]
+B 4 -61 3 minecraft:farmland[moisture=7]
+B 4 -61 4 minecraft:farmland[moisture=7]
+B 4 -61 5 minecraft:farmland[moisture=7]
+B 4 -60 1 minecraft:wheat[age=0]
+B 4 -60 2 minecraft:wheat[age=7]
+B 4 -60 3 minecraft:wheat[age=0]
+B 4 -60 4 minecraft:wheat[age=7]
+B 4 -60 5 minecraft:wheat[age=7]
+B 5 -61 1 minecraft:farmland[moisture=7]
+B 5 -61 2 minecraft:farmland[moisture=7]
+B 5 -61 3 minecraft:farmland[moisture=7]
+B 5 -61 4 minecraft:farmland[moisture=7]
+B 5 -61 5 minecraft:farmland[moisture=7]
+B 5 -60 1 minecraft:wheat[age=0]
+B 5 -60 2 minecraft:wheat[age=0]
+B 5 -60 3 minecraft:wheat[age=7]
+B 5 -60 4 minecraft:wheat[age=7]
+B 5 -60 5 minecraft:wheat[age=7]

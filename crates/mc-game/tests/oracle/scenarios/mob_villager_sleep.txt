@@ -1,0 +1,37 @@
+# Villager sleep: at nightfall a villager with a home walks to its bed and lies down (sleeping pose, bed occupied, last_slept memory), and gets up
+# again when the schedule turns to the day.
+level flat
+preload 4
+fill -8 -60 -8 8 -52 8 minecraft:air
+fill -8 -61 -8 8 -61 8 minecraft:grass_block
+entity_counter 7510
+level_seed 7511
+difficulty normal
+block 0 -60 -3 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 -4 minecraft:red_bed[facing=south,part=head,occupied=false]
+time 11000
+spawn_player Steve survival 0.5 -60 12.5 180 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn V minecraft:villager 0.5 -60 3.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+entity_seed V 21
+memory V minecraft:home {value:{dimension:"minecraft:overworld",pos:[I;0,-60,-4]}}
+tick 5
+dump brain:V mob:V
+note nightfall: the schedule turns to rest and the villager walks to the bed
+time 12500
+watch mob:V
+tick 60
+watch off
+tick 20
+dump brain:V mob:V blocks:0,-60,-4,0,-60,-4
+tick 20
+dump brain:V mob:V blocks:0,-60,-4,0,-60,-4
+tick 60
+dump brain:V mob:V blocks:0,-60,-4,0,-60,-4
+note morning: the villager wakes up
+time 1000
+tick 25
+dump brain:V mob:V blocks:0,-60,-4,0,-60,-4
+tick 25
+dump brain:V mob:V blocks:0,-60,-4,0,-60,-4

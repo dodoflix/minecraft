@@ -64,15 +64,22 @@ pub fn notify_trade(player: &mut dyn MenuPlayer, id: EntityId, offer_index: usiz
     let mut ran = false;
     player.with_server_player(&mut |level, p| {
         ran = true;
-        level.with_entity(id, |level, e| {
-            let result = {
-                let m = e.as_merchant_mut()?;
-                m.notify_trade(level, offer_index);
-                m.get_offers(level).get(offer_index)?.get_result().clone()
-            };
-            crate::advancements::triggers::CriteriaTriggers::TRADE.trigger(level, p, &*e, &result);
-            Some(())
-        });
+        // the villager's level-up refreshes the special prices of the trading player: vanilla reads it from the level
+        let result = level
+            .lend(&mut *p, |level| {
+                level.with_entity(id, |level, e| {
+                    let m = e.as_merchant_mut()?;
+                    m.notify_trade(level, offer_index);
+                    Some(m.get_offers(level).get(offer_index)?.get_result().clone())
+                })
+            })
+            .flatten();
+        if let Some(result) = result {
+            level.with_entity(id, |level, e| {
+                crate::advancements::triggers::CriteriaTriggers::TRADE
+                    .trigger(level, p, &*e, &result);
+            });
+        }
     });
     if !ran {
         with_merchant(player, id, |level, m| m.notify_trade(level, offer_index));

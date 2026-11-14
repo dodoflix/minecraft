@@ -1,0 +1,36 @@
+# Villagers panic and summon an iron golem: three villagers that slept recently agree to a golem on a panic tick (game time % 100 == 0) once one
+# of them was hurt by a zombie; the golem appears near the villager that counted, every villager gets the golem-detected memory (the villager
+# that spawned it is counted among the nearby villagers although its own tick is running).
+level flat
+preload 4
+entity_counter 7500
+level_seed 7501
+difficulty normal
+fill -8 -60 -8 8 -52 8 minecraft:air
+fill -8 -61 -8 8 -61 8 minecraft:grass_block
+block 4 -58 -4 minecraft:stone
+time 6000
+spawn_player Steve survival 0.5 -60 12.5 180 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn V1 minecraft:villager 0.5 -60 0.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1}}
+entity_seed V1 11
+mobspawn V2 minecraft:villager 2.5 -60 1.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1}}
+entity_seed V2 12
+mobspawn V3 minecraft:villager -2.5 -60 1.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1}}
+entity_seed V3 13
+mobspawn Z minecraft:zombie 4.5 -60 -3.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z 14
+memory V1 minecraft:last_slept {value:1234L}
+memory V2 minecraft:last_slept {value:1234L}
+memory V3 minecraft:last_slept {value:1234L}
+tick 40
+dump brain:V1 mobs
+note the zombie hits V1: panic on the next brain tick, the golem check runs on the next game time that is a multiple of 100
+hurt V1 minecraft:mob_attack 2 by=Z direct=Z
+watch brain:V1
+tick 70
+watch off
+dump brain:V1 brain:V2 brain:V3 mobs
+tick 100
+dump brain:V1 mobs

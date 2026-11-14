@@ -1499,7 +1499,7 @@ pub trait Entity: Any {
     }
 
     /// `postDataManipulated()`.
-    fn post_data_manipulated(&mut self) {}
+    fn post_data_manipulated(&mut self, _level: &mut ServerLevel) {}
 
     /// `Entity.load(input)`: errors for a non-finite position/rotation (vanilla throws `IllegalStateException`
     /// wrapped in a crash report).
