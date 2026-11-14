@@ -1,0 +1,11 @@
+# Two scenario names with the same Java hashCode ("FR", "G3") restart the entity seeds at the same value, so both pigs get one UUID: the
+# level refuses the second, and a dump still lists it like the references of the driver (and names the first for the shared UUID).
+level flat
+preload 2
+entity_counter 500
+level_seed 5
+mobspawn FR minecraft:pig 0.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn G3 minecraft:pig 3.5 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 2
+dump mobs entities
+dump nbt:FR nbt:G3

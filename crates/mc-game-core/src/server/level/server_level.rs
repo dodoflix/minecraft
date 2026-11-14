@@ -68,8 +68,8 @@ pub struct ServerLevel {
     /// An entity that is loading and not part of the level yet, but whose own name resolution (`@s` in the text of a text
     /// display) must find it; see `ServerLevel::get_entity`.
     pub loading_entity: Option<Box<dyn crate::world::entity::Entity>>,
-    /// When set, removed entities are kept here instead of being dropped (the scenario replays dump an entity that was
-    /// removed, like the oracle, whose references keep the object).
+    /// When set, removed entities are kept here instead of being dropped, and so are entities the level refused to add (a UUID that
+    /// exists): the scenario replays dump them like the oracle, whose references keep the object.
     pub removed_entities:
         Option<std::collections::HashMap<EntityId, Box<dyn crate::world::entity::Entity>>>,
     /// Non-player entities that were removed, with their removal game time: kept for 20 ticks and after that while a brain

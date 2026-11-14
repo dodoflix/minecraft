@@ -1383,7 +1383,10 @@ impl Scenario {
                 let mut all: Vec<(String, EntityId)> = self.actors.refs.clone();
                 all.retain(|(n, id)| {
                     !self.actors.players.contains(n)
-                        && self.level().get_entity(*id).is_some_and(|e| e.is_alive())
+                        && self
+                            .level()
+                            .get_entity_or_removed(*id)
+                            .is_some_and(|e| e.is_alive())
                 });
                 all.sort_by_key(|(_, id)| *id);
                 for (name, id) in all {
@@ -1454,7 +1457,7 @@ impl Scenario {
                 let mut all: Vec<(String, EntityId)> = self.actors.refs.clone();
                 all.retain(|(n, id)| {
                     !self.actors.players.contains(n)
-                        && self.level().get_entity(*id).is_some_and(|e| {
+                        && self.level().get_entity_or_removed(*id).is_some_and(|e| {
                             e.is_alive() && crate::common::entity_scenario::is_mob(e)
                         })
                 });
@@ -1691,12 +1694,13 @@ impl Scenario {
             .iter()
             .map(|(n, id)| (*id, n.clone()))
             .collect();
-        let uuids = self
-            .actors
-            .refs
-            .iter()
-            .filter_map(|(_, id)| level.get_entity_or_removed(*id).map(|e| (e.uuid(), *id)))
-            .collect();
+        // `uuidName` returns the first reference with the UUID (an entity the level refused for its UUID shares it)
+        let mut uuids = std::collections::BTreeMap::new();
+        for (_, id) in &self.actors.refs {
+            if let Some(e) = level.get_entity_or_removed(*id) {
+                uuids.entry(e.uuid()).or_insert(*id);
+            }
+        }
         (names, uuids)
     }
 

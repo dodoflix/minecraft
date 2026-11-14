@@ -84,7 +84,16 @@ impl ServerLevel {
             .mob_mut()
             .map(|m| std::mem::take(&mut m.pending_passengers))
             .unwrap_or_default();
-        let ok = self.entity_manager.add_new_entity(entity).is_ok();
+        // the vanilla caller keeps the object it could not add (a replay's references dump it): kept where removed entities are
+        let ok = match self.entity_manager.add_new_entity(entity) {
+            Ok(()) => true,
+            Err(rejected) => {
+                if let Some(kept) = self.removed_entities.as_mut() {
+                    kept.insert(rejected.id(), rejected);
+                }
+                false
+            }
+        };
         self.process_entity_events();
         if ok {
             for passenger in passengers {
@@ -158,7 +167,7 @@ impl ServerLevel {
     }
 
     /// [`ServerLevel::get_entity`], a killed player that left the level, or the entity that was removed when
-    /// [`ServerLevel::removed_entities`] keeps them.
+    /// [`ServerLevel::removed_entities`] keeps them (it also keeps the entities the level refused to add).
     pub fn get_entity_or_removed(&self, id: EntityId) -> Option<&dyn Entity> {
         self.get_entity_or_recently_removed(id)
             .or_else(|| self.get_dead_player(id))

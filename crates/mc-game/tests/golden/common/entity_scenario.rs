@@ -486,7 +486,7 @@ impl Harness {
         self.level.add_fresh_entity(e);
         self.refs.insert(name.to_string(), id);
         self.names.insert(id, name.to_string());
-        self.uuids.insert(uuid, id);
+        self.uuids.entry(uuid).or_insert(id);
         self.known.insert(id);
         self.order.push(id);
         id
@@ -515,7 +515,7 @@ impl Harness {
                 let uuid = e.uuid();
                 self.refs.insert(name.clone(), id);
                 self.names.insert(id, name);
-                self.uuids.insert(uuid, id);
+                self.uuids.entry(uuid).or_insert(id);
                 self.order.push(id);
             }
         }
@@ -1052,7 +1052,7 @@ impl Harness {
         self.level.add_player(Box::new(p));
         self.refs.insert(a[1].clone(), id);
         self.names.insert(id, a[1].clone());
-        self.uuids.insert(uuid, id);
+        self.uuids.entry(uuid).or_insert(id);
         self.known.insert(id);
         self.order.push(id);
         self.players.push((a[1].clone(), id));
@@ -1281,7 +1281,7 @@ impl Harness {
                         .collect();
                     all.sort();
                     for (id, n) in all {
-                        let Some(e) = self.level.get_entity(id) else {
+                        let Some(e) = self.level.get_entity_or_removed(id) else {
                             continue;
                         };
                         if !e.is_alive() || (kind == "mobs" && !is_mob(e)) {

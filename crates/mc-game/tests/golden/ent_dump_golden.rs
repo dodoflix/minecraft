@@ -22,3 +22,11 @@ fn level_and_player_random_streams_stay_on_the_vanilla_sequence() {
 fn base_save_data_and_passengers_round_trip_like_vanilla() {
     common::block_scenario::check("ent_passengers_base_nbt");
 }
+
+/// Scenario names with one Java hashCode ("FR", "G3") share the entity seeds and so one UUID: the level refuses the second pig, and
+/// both replays still dump it by its name.
+#[test]
+fn names_with_one_hash_code_both_dump() {
+    common::block_scenario::check("ent_same_hash_names");
+    common::entity_scenario::run_scenario_test("ent_same_hash_names");
+}
