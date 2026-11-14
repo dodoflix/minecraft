@@ -1,0 +1,54 @@
+# Natural magma cube spawning in the nether: the basalt deltas list holds magma cubes (a pack of one to four, the spawn size of each from
+# the local difficulty), and in peaceful difficulty the placement rule refuses them.
+level normal
+seed 4242
+dimension the_nether
+preload 0
+command_env
+difficulty normal
+entity_counter 10200
+level_seed 10201
+spawn_player Steve survival 0.5 80 0.5 0 0
+tick 100
+fill -2 79 -2 2 79 2 minecraft:netherrack
+cmd execute in minecraft:the_nether run fillbiome 28 78 28 52 84 52 minecraft:basalt_deltas
+fill 28 80 28 52 86 52 minecraft:air
+fill 28 79 28 52 79 52 minecraft:netherrack
+tick 5
+note natural attempts on netherrack in the basalt deltas
+spawnat 1 monster 40 80 40
+spawnat 2 monster 40 80 40
+spawnat 3 monster 40 80 40
+spawnat 4 monster 40 80 40
+spawnat 5 monster 40 80 40
+spawnat 6 monster 40 80 40
+spawnat 7 monster 40 80 40
+spawnat 8 monster 40 80 40
+spawnat 9 monster 40 80 40
+spawnat 10 monster 40 80 40
+spawnat 11 monster 40 80 40
+spawnat 12 monster 40 80 40
+spawnat 13 monster 40 80 40
+spawnat 14 monster 40 80 40
+spawnat 15 monster 40 80 40
+spawnat 16 monster 40 80 40
+spawnat 17 monster 40 80 40
+spawnat 18 monster 40 80 40
+spawnat 19 monster 40 80 40
+spawnat 20 monster 40 80 40
+spawnat 21 monster 40 80 40
+spawnat 22 monster 40 80 40
+spawnat 23 monster 40 80 40
+spawnat 24 monster 40 80 40
+difficulty peaceful
+tick 1
+note peaceful: nothing spawns
+spawnat 1 monster 40 80 40
+spawnat 2 monster 40 80 40
+spawnat 3 monster 40 80 40
+spawnat 4 monster 40 80 40
+spawnat 5 monster 40 80 40
+spawnat 6 monster 40 80 40
+spawnat 7 monster 40 80 40
+spawnat 8 monster 40 80 40
+dump mobs

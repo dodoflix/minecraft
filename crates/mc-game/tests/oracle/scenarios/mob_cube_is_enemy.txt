@@ -1,0 +1,64 @@
+# Which hostile non-monsters count as Enemy: iron golems and snow golems pick slimes, magma cubes, ghasts, hoglins and phantoms as targets,
+# a lead does not attach to any of them (a cow does take it).
+level flat
+preload 4
+entity_counter 9400
+level_seed 9401
+difficulty normal
+gamerule mob_drops false
+spawn_player Steve survival -30.5 -60 0.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn G1 minecraft:iron_golem 10.5 -60 10.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn S1 minecraft:slime 10.5 -60 13.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn G2 minecraft:iron_golem 30.5 -60 10.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn M1 minecraft:magma_cube 30.5 -60 13.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn G3 minecraft:iron_golem 50.5 -60 10.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn H1 minecraft:hoglin 50.5 -60 13.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+mobspawn G4 minecraft:iron_golem 70.5 -60 10.5 90 0 nofinalize {PersistenceRequired:1b}
+mobspawn P1 minecraft:phantom 70.5 -59 13.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn Q1 minecraft:snow_golem 10.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn S2 minecraft:slime 10.5 -60 36.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn Q2 minecraft:snow_golem 30.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn M2 minecraft:magma_cube 30.5 -60 36.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn Q3 minecraft:snow_golem 50.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn A1 minecraft:ghast 50.5 -56 36.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn Q4 minecraft:snow_golem 70.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn P2 minecraft:phantom 70.5 -59 36.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed G1 9411
+entity_seed G2 9412
+entity_seed G3 9413
+entity_seed G4 9414
+entity_seed Q1 9415
+entity_seed Q2 9416
+entity_seed Q3 9417
+entity_seed Q4 9418
+tick 2
+tick 8
+dump mob:G1 mob:G2 mob:G3 mob:G4 mob:Q1 mob:Q2 mob:Q3 mob:Q4 events
+tick 8
+dump mob:G1 mob:G2 mob:G3 mob:G4 mob:Q1 mob:Q2 mob:Q3 mob:Q4 events
+tick 8
+dump mob:G1 mob:G2 mob:G3 mob:G4 mob:Q1 mob:Q2 mob:Q3 mob:Q4 events
+tick 8
+dump mob:G1 mob:G2 mob:G3 mob:G4 mob:Q1 mob:Q2 mob:Q3 mob:Q4 events
+tick 8
+dump mob:G1 mob:G2 mob:G3 mob:G4 mob:Q1 mob:Q2 mob:Q3 mob:Q4 events
+tick 8
+dump mob:G1 mob:G2 mob:G3 mob:G4 mob:Q1 mob:Q2 mob:Q3 mob:Q4 events
+note a lead on each of them: only the cow takes it
+mobspawn C1 minecraft:cow -30.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn S3 minecraft:slime -28.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn M3 minecraft:magma_cube -32.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn H2 minecraft:hoglin -30.5 -60 -2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+mobspawn P3 minecraft:phantom -27.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn A2 minecraft:ghast -33.5 -60 -3.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+give Steve mainhand minecraft:lead 8
+interact Steve C1 main
+interact Steve S3 main
+interact Steve M3 main
+interact Steve H2 main
+interact Steve P3 main
+interact Steve A2 main
+tick 1
+dump mobs events

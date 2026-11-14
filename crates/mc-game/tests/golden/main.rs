@@ -191,6 +191,7 @@ mod mob_copper_golem_golden;
 mod mob_creaking_golden;
 mod mob_creeper_spider_golden;
 mod mob_ctrl_golden;
+mod mob_cube_golden;
 mod mob_despawn_golden;
 mod mob_dragon_golden;
 mod mob_effect_golden;

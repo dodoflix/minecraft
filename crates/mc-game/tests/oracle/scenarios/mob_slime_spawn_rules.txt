@@ -1,0 +1,160 @@
+# Natural slime spawning (the same attempts under changed conditions): in a swamp between y 50 and 70 in the dark with the chance of the
+# moon phase (full moon 0.5 down to none at new moon), no surface slimes in plains, the slime chunks below y 40 (a chunk of the
+# world seed one tenth of the time and not the chunk next to it) and no slimes in peaceful difficulty.
+level flat
+seed 4242
+difficulty normal
+preload 6
+entity_counter 9500
+level_seed 9501
+spawn_player Steve survival 0.5 -60 0.5 0 0
+biome 28 48 28 52 56 52 minecraft:swamp
+fill 28 50 28 52 50 52 minecraft:stone
+fill 28 54 28 52 54 52 minecraft:stone
+time 0
+tick 5
+note swamp surface, full moon: chance 0.5 per attempt
+spawnat 6 monster 40 51 40
+spawnat 7 monster 40 51 40
+spawnat 8 monster 40 51 40
+spawnat 9 monster 40 51 40
+spawnat 26 monster 40 51 40
+spawnat 33 monster 40 51 40
+spawnat 37 monster 40 51 40
+spawnat 40 monster 40 51 40
+spawnat 50 monster 40 51 40
+spawnat 84 monster 40 51 40
+spawnat 86 monster 40 51 40
+spawnat 98 monster 40 51 40
+spawnat 323 monster 40 51 40
+spawnat 470 monster 40 51 40
+spawnat 682 monster 40 51 40
+spawnat 1057 monster 40 51 40
+time 24000
+tick 1
+note waning gibbous: chance 0.375
+spawnat 6 monster 40 51 40
+spawnat 7 monster 40 51 40
+spawnat 8 monster 40 51 40
+spawnat 9 monster 40 51 40
+spawnat 26 monster 40 51 40
+spawnat 33 monster 40 51 40
+spawnat 37 monster 40 51 40
+spawnat 40 monster 40 51 40
+spawnat 50 monster 40 51 40
+spawnat 84 monster 40 51 40
+spawnat 86 monster 40 51 40
+spawnat 98 monster 40 51 40
+spawnat 323 monster 40 51 40
+spawnat 470 monster 40 51 40
+spawnat 682 monster 40 51 40
+spawnat 1057 monster 40 51 40
+time 48000
+tick 1
+note third quarter: chance 0.25
+spawnat 6 monster 40 51 40
+spawnat 7 monster 40 51 40
+spawnat 8 monster 40 51 40
+spawnat 9 monster 40 51 40
+spawnat 26 monster 40 51 40
+spawnat 33 monster 40 51 40
+spawnat 37 monster 40 51 40
+spawnat 40 monster 40 51 40
+spawnat 50 monster 40 51 40
+spawnat 84 monster 40 51 40
+spawnat 86 monster 40 51 40
+spawnat 98 monster 40 51 40
+spawnat 323 monster 40 51 40
+spawnat 470 monster 40 51 40
+spawnat 682 monster 40 51 40
+spawnat 1057 monster 40 51 40
+time 72000
+tick 1
+note waning crescent: chance 0.125
+spawnat 6 monster 40 51 40
+spawnat 7 monster 40 51 40
+spawnat 8 monster 40 51 40
+spawnat 9 monster 40 51 40
+spawnat 26 monster 40 51 40
+spawnat 33 monster 40 51 40
+spawnat 37 monster 40 51 40
+spawnat 40 monster 40 51 40
+spawnat 50 monster 40 51 40
+spawnat 84 monster 40 51 40
+spawnat 86 monster 40 51 40
+spawnat 98 monster 40 51 40
+spawnat 323 monster 40 51 40
+spawnat 470 monster 40 51 40
+spawnat 682 monster 40 51 40
+spawnat 1057 monster 40 51 40
+time 96000
+tick 1
+note new moon: no surface slimes
+spawnat 6 monster 40 51 40
+spawnat 7 monster 40 51 40
+spawnat 8 monster 40 51 40
+spawnat 9 monster 40 51 40
+spawnat 26 monster 40 51 40
+spawnat 33 monster 40 51 40
+spawnat 37 monster 40 51 40
+spawnat 40 monster 40 51 40
+spawnat 50 monster 40 51 40
+spawnat 84 monster 40 51 40
+spawnat 86 monster 40 51 40
+spawnat 98 monster 40 51 40
+spawnat 323 monster 40 51 40
+spawnat 470 monster 40 51 40
+spawnat 682 monster 40 51 40
+spawnat 1057 monster 40 51 40
+time 0
+tick 1
+biome 28 48 28 52 56 52 minecraft:plains
+note the same attempts in plains at full moon: the biome does not allow surface slimes
+spawnat 6 monster 40 51 40
+spawnat 7 monster 40 51 40
+spawnat 8 monster 40 51 40
+spawnat 9 monster 40 51 40
+spawnat 26 monster 40 51 40
+spawnat 33 monster 40 51 40
+spawnat 37 monster 40 51 40
+spawnat 40 monster 40 51 40
+spawnat 50 monster 40 51 40
+spawnat 84 monster 40 51 40
+spawnat 86 monster 40 51 40
+spawnat 98 monster 40 51 40
+spawnat 323 monster 40 51 40
+spawnat 470 monster 40 51 40
+spawnat 682 monster 40 51 40
+spawnat 1057 monster 40 51 40
+time 18000
+tick 1
+note a slime chunk (the chunk of 32..47, 16..31) below y 40: one attempt in ten passes; the next chunk is not a slime chunk
+spawnat 11 monster 40 -60 24
+spawnat 17 monster 40 -60 24
+spawnat 21 monster 40 -60 24
+spawnat 23 monster 40 -60 24
+spawnat 25 monster 40 -60 24
+spawnat 43 monster 40 -60 24
+spawnat 48 monster 40 -60 24
+spawnat 49 monster 40 -60 24
+note the chunk 32..47, 32..47 is not a slime chunk
+spawnat 11 monster 40 -60 40
+spawnat 17 monster 40 -60 40
+spawnat 21 monster 40 -60 40
+spawnat 23 monster 40 -60 40
+spawnat 25 monster 40 -60 40
+spawnat 43 monster 40 -60 40
+spawnat 48 monster 40 -60 40
+spawnat 49 monster 40 -60 40
+difficulty peaceful
+note peaceful: no slimes at all
+tick 1
+spawnat 11 monster 40 -60 24
+spawnat 17 monster 40 -60 24
+spawnat 21 monster 40 -60 24
+spawnat 23 monster 40 -60 24
+spawnat 25 monster 40 -60 24
+spawnat 43 monster 40 -60 24
+spawnat 48 monster 40 -60 24
+spawnat 49 monster 40 -60 24
+dump mobs

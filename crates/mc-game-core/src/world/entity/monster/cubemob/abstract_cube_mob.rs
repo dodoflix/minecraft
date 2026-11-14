@@ -12,10 +12,13 @@ use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
 use crate::world::entity::dimensions::EntityDimensions;
 use crate::world::entity::living_entity::util::{l, lm};
 use crate::world::entity::mob::{self, ConversionParams, ConversionType};
+use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::{Entity, EntityId, RemovalReason, ServerPlayer};
 use crate::world::item::enchantment::actors::Actors;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use linkme::distributed_slice;
+use mc_core::math::java::java_float_to_string;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
@@ -250,6 +253,41 @@ pub fn set_direction(mob: &mut dyn Entity, y_rot: f32, is_aggressive: bool) {
 pub fn set_wanted_movement(mob: &mut dyn Entity, speed_modifier: f64) {
     with_cube_move_control(mob, |c| c.set_wanted_movement(speed_modifier));
 }
+
+/// The scenario dump fields of a cube mob: `size squish tsquish osquish wasground jdelay mrot maggr` (the last three are
+/// the fields of its `CubeMobMoveControl`).
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static CUBE_MOB_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 30,
+    applies: |e| e.as_cube_mob().is_some(),
+    fields: |e, _level, _ctx| {
+        let cube = cube(e);
+        let data = cube.cube();
+        let control = e
+            .mob()
+            .and_then(|m| m.move_control.as_deref())
+            .and_then(|c| (c as &dyn std::any::Any).downcast_ref::<CubeMobMoveControl>());
+        vec![
+            ("size".into(), cube.get_size().to_string()),
+            ("squish".into(), java_float_to_string(data.squish)),
+            ("tsquish".into(), java_float_to_string(data.target_squish)),
+            ("osquish".into(), java_float_to_string(data.o_squish)),
+            ("wasground".into(), u8::from(data.was_on_ground).to_string()),
+            (
+                "jdelay".into(),
+                control.map_or_else(|| "-".into(), |c| c.jump_delay.to_string()),
+            ),
+            (
+                "mrot".into(),
+                control.map_or_else(|| "-".into(), |c| java_float_to_string(c.y_rot)),
+            ),
+            (
+                "maggr".into(),
+                control.map_or_else(|| "-".into(), |c| u8::from(c.is_aggressive).to_string()),
+            ),
+        ]
+    },
+};
 
 /// `addTargetingGoals()` of `Slime` / `MagmaCube`.
 pub fn add_slime_targeting_goals(selector: &mut crate::world::entity::ai::goal::GoalSelector) {

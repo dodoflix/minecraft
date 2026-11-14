@@ -1,0 +1,32 @@
+# Magma cubes chase a survival player: the larger jump (size boost), the slower squish decay, the jump delay four times longer, damage
+# by size plus two (tiny ones hurt too), and in lava the cube floats up with a boost by size while the player stays out of reach.
+level flat
+preload 4
+entity_counter 9300
+level_seed 9301
+difficulty normal
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 3 1000000
+# a lava pit away from the player
+fill 20 -61 20 24 -61 24 minecraft:lava
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn M1 minecraft:magma_cube 8.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,Size:0}
+mobspawn M2 minecraft:magma_cube 8.5 -60 6.5 90 0 nofinalize {PersistenceRequired:1b,Size:1}
+mobspawn M3 minecraft:magma_cube 8.5 -60 -6.5 90 0 nofinalize {PersistenceRequired:1b,Size:3}
+mobspawn M4 minecraft:magma_cube 22.5 -60 22.5 0 0 nofinalize {PersistenceRequired:1b,Size:1}
+mobspawn M5 minecraft:magma_cube 12.5 -60 3.5 90 0 {PersistenceRequired:1b}
+entity_seed M1 9311
+entity_seed M2 9312
+entity_seed M3 9313
+entity_seed M4 9314
+entity_seed M5 9315
+tick 1
+dump attrs:M1 attrs:M2 attrs:M3
+dump mobs
+tick 1
+watch mob:M1 mob:M3 mob:M4 player:Steve
+tick 90
+watch off
+dump mobs all_players events

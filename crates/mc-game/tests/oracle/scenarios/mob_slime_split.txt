@@ -1,0 +1,57 @@
+# Slimes and magma cubes dying: the split into two to four smaller cubes at the offsets of the quarter squares, the child size, health
+# and attributes, the experience by size, the loot by size and looting, a team kept by the children and the children's own jumps.
+level flat
+preload 4
+entity_counter 9200
+level_seed 9201
+difficulty normal
+gamerule mob_drops true
+command_env
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 4 1000000
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+give Steve mainhand minecraft:diamond_sword[enchantments={"minecraft:looting":3}]
+cmd team add red
+mobspawn A minecraft:slime 6.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:3}
+mobspawn B minecraft:slime 10.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn C minecraft:slime 14.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:0}
+mobspawn D minecraft:slime 18.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:7}
+mobspawn E minecraft:magma_cube 22.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:2}
+mobspawn F minecraft:magma_cube 26.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:0}
+mobspawn G minecraft:slime 30.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:2}
+entity_seed A 9211
+entity_seed B 9212
+entity_seed C 9213
+entity_seed D 9214
+entity_seed E 9215
+entity_seed F 9216
+entity_seed G 9217
+cmd team join red G
+tick 1
+dump mobs
+dump attrs:A attrs:E
+note a size 4 slime split by the player: children of size 2, loot and experience by size
+hurt A player_attack 100 by=Steve
+dump mob:A entities events
+tick 1
+dump mob:A entities events
+tick 25
+dump mobs entities events
+note size 2 and size 1: a size 2 slime splits into size 1 slimes, a size 1 slime only drops slimeballs
+hurt B player_attack 100 by=Steve
+hurt C player_attack 100 by=Steve
+tick 25
+dump mobs entities events
+note a size 8 slime (outside the natural range) and magma cubes
+hurt D player_attack 100 by=Steve
+hurt E player_attack 100 by=Steve
+hurt F player_attack 100 by=Steve
+tick 25
+dump mobs entities events
+note a slime of a team splits into children of the same team (the attacker is the void: no credit)
+hurt G generic_kill 100
+tick 25
+dump mobs entities events
+tick 60
+dump mobs events

@@ -804,9 +804,9 @@ pub trait Entity: Any {
     fn is_spectator(&self) -> bool {
         false
     }
-    /// `this instanceof Enemy`: every `Monster`; the other hostile classes (slimes, ghasts, ...) override it.
+    /// `this instanceof Enemy`: every `Monster` and the other hostile classes (slimes, ghasts, hoglins, phantoms, ...).
     fn is_enemy(&self) -> bool {
-        super::mob::monster::is_monster(self.as_dyn())
+        self.mob().is_some_and(|m| m.enemy)
     }
     /// `EntityAccess.isAlwaysTicking()`: players tick regardless of chunk status.
     fn is_always_ticking(&self) -> bool {

@@ -165,6 +165,26 @@ final class EntityExtras {
       ALL.add(new Extra(33, net.minecraft.world.entity.animal.nautilus.ZombieNautilus.class, (d, e, out) -> {
          out.add("variant", holderName(((net.minecraft.world.entity.animal.nautilus.ZombieNautilus)e).getVariant()));
       }));
+      ALL.add(new Extra(30, net.minecraft.world.entity.monster.cubemob.AbstractCubeMob.class, (d, e, out) -> {
+         var c = (net.minecraft.world.entity.monster.cubemob.AbstractCubeMob)e;
+         out.add("size", c.getSize());
+         out.add("squish", EntityOracleDriver.f(c.squish)).add("tsquish", EntityOracleDriver.f(c.targetSquish)).add("osquish", EntityOracleDriver.f(c.oSquish));
+         out.add("wasground", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, net.minecraft.world.entity.monster.cubemob.AbstractCubeMob.class, "wasOnGround")));
+         Class<?> control;
+         try {
+            control = Class.forName("net.minecraft.world.entity.monster.cubemob.AbstractCubeMob$CubeMobMoveControl");
+         } catch (ClassNotFoundException ex) {
+            throw new IllegalStateException(ex);
+         }
+         var mc = c.getMoveControl();
+         if (control.isInstance(mc)) {
+            out.add("jdelay", EntityOracleDriver.priv(mc, control, "jumpDelay"));
+            out.add("mrot", EntityOracleDriver.f((Float)EntityOracleDriver.priv(mc, control, "yRot")));
+            out.add("maggr", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(mc, control, "isAggressive")));
+         } else {
+            out.add("jdelay", "-").add("mrot", "-").add("maggr", "-");
+         }
+      }));
       ALL.add(new Extra(30, AbstractHorse.class, (d, e, out) -> {
          var owner = (net.minecraft.world.entity.EntityReference<?>)EntityOracleDriver.priv(e, AbstractHorse.class, "owner");
          out.add("owner", d.uuidName(owner == null ? null : owner.getUUID()));

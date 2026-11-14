@@ -1,0 +1,33 @@
+# Slimes of sizes 1 to 4 and a spawned one chase a survival player on the ticking level: the cube move control (jump delay, aggressive
+# shortening), squish animation, the size based attributes and touch damage (tiny slimes never hurt), the jump and squish sounds.
+level flat
+preload 4
+entity_counter 9100
+level_seed 9101
+difficulty normal
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 3 1000000
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+mobspawn S1 minecraft:slime 8.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,Size:0}
+mobspawn S2 minecraft:slime 8.5 -60 6.5 90 0 nofinalize {PersistenceRequired:1b,Size:1}
+mobspawn S3 minecraft:slime 8.5 -60 -6.5 90 0 nofinalize {PersistenceRequired:1b,Size:3}
+mobspawn S4 minecraft:slime 12.5 -60 3.5 90 0 {PersistenceRequired:1b}
+entity_seed S1 9111
+entity_seed S2 9112
+entity_seed S3 9113
+entity_seed S4 9114
+tick 1
+dump attrs:S1 attrs:S2 attrs:S3 attrs:S4
+dump mobs
+tick 1
+watch mob:S1 mob:S3 player:Steve
+tick 90
+watch off
+dump mobs all_players events
+note a slime hunts the player only within four blocks of height: raised six blocks the player is out of reach
+set Steve no_gravity true
+tp Steve 0.5 -54 0.5
+tick 60
+dump mobs all_players events
