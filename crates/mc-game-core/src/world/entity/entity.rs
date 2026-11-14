@@ -2583,6 +2583,12 @@ pub trait Entity: Any {
         let b = self.base_mut();
         b.x_rot_o = b.x_rot();
         b.y_rot_o = b.y_rot();
+        // `LivingEntity.lookAt`: the body turns with the head at once
+        if let Some(l) = self.living_mut() {
+            l.y_head_rot_o = l.y_head_rot;
+            l.y_body_rot = l.y_head_rot;
+            l.y_body_rot_o = l.y_body_rot;
+        }
     }
     /// `canBeHitByProjectile()`.
     fn can_be_hit_by_projectile(&self) -> bool {

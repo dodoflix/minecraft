@@ -2,9 +2,6 @@
 //!
 //! Client-only parts (animation states, jump trail / ground particles, `playAmbientSound`, `playWhirlSound`'s sound) are
 //! not ported; their random draws that also run on the server are kept (`tick`).
-//!
-//! shortcut: `PROJECTILE_DEFLECTION` plays `BREEZE_DEFLECT` before reversing; `deflection()` has no level to play it with,
-//! so the reversal is returned without the sound; upgrade with a level-aware deflection hook.
 
 use super::breeze_ai;
 use linkme::distributed_slice;
@@ -127,7 +124,7 @@ impl Entity for Breeze {
             if mc_data::tags::get::<EntityType>("deflects_projectiles")
                 .is_some_and(|t| t.contains(self.get_type()))
             {
-                ProjectileDeflection::Reverse
+                ProjectileDeflection::ReverseWithSound(SoundEvent::ENTITY_BREEZE_DEFLECT)
             } else {
                 ProjectileDeflection::None
             }

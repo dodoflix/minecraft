@@ -1,0 +1,64 @@
+# Projectiles against breezes (no AI): an arrow, a snowball and a small fireball are deflected by the BREEZE_DEFLECT sound and a reversal
+# (the owner is dropped), a wind charge and a breeze wind charge are not deflected (a breeze wind charge of another breeze does not hurt
+# it), a mob attack of another breeze is ignored while a pig hurts it, and a thrown egg ends at the hit. The player only listens.
+level flat
+preload 6
+entity_counter 4200
+level_seed 4201
+difficulty normal
+gamerule mob_drops false
+spawn_player A survival 15.5 -60 4.5 180 0
+tick 30
+spawn own minecraft:pig 40.5 -60 20.5 0 0 {NoAI:1b,PersistenceRequired:1b,UUID:[I;81,82,83,84]}
+entity_seed own 40
+mobspawn B1 minecraft:breeze 0.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed B1 41
+mobspawn B2 minecraft:breeze 6.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,UUID:[I;71,72,73,74]}
+entity_seed B2 42
+mobspawn B3 minecraft:breeze 12.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed B3 43
+mobspawn B4 minecraft:breeze 18.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed B4 44
+mobspawn B5 minecraft:breeze 24.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed B5 45
+mobspawn B6 minecraft:breeze 30.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed B6 46
+tick 1
+dump mobs player:A events packets:A:none
+note an arrow shot by the pig at B1, a snowball at B2, a small fireball at B3
+spawn ar minecraft:arrow 0.5 -59.2 8.5 180 0 {NoGravity:1b,pickup:0b,Owner:[I;81,82,83,84]}
+entity_seed ar 50
+velocity ar 0 0 -1.2
+spawn sb minecraft:snowball 6.5 -59.2 8.5 180 0 {Owner:[I;81,82,83,84]}
+entity_seed sb 51
+velocity sb 0 0.0 -1.2
+spawn fb minecraft:small_fireball 12.5 -59.2 8.5 180 0 {Owner:[I;81,82,83,84],acceleration_power:0.1d}
+entity_seed fb 52
+velocity fb 0 0 -0.6
+watch mob:B1 mob:B2 mob:B3 xentities events packets:A:sound_entity,hurt_animation,damage_event
+tick 14
+watch off
+dump mobs xentities events nbt:ar nbt:sb nbt:fb
+tick 40
+dump mobs xentities events
+note a wind charge of the pig at B4, a breeze wind charge of B2 at B5 and one of B2 at B2 itself passing B6
+level_seed 4202
+spawn wc minecraft:wind_charge 18.5 -59.2 8.5 180 0 {Owner:[I;81,82,83,84],acceleration_power:0.0d}
+entity_seed wc 53
+velocity wc 0 0 -0.6
+level_seed 4203
+spawn bw minecraft:breeze_wind_charge 24.5 -59.2 8.5 180 0 {Owner:[I;71,72,73,74],acceleration_power:0.0d}
+entity_seed bw 54
+velocity bw 0 0 -0.6
+spawn eg minecraft:egg 30.5 -59.2 8.5 180 0 {Owner:[I;81,82,83,84]}
+entity_seed eg 55
+velocity eg 0 0 -1.0
+watch mob:B4 mob:B5 mob:B6 xentities events packets:A:sound_entity,hurt_animation,damage_event,explode
+tick 14
+watch off
+dump mobs xentities events
+note direct damage: a breeze's attack is ignored, a pig's goes through
+hurt B1 minecraft:mob_attack 1 by=B2 direct=B2
+hurt B1 minecraft:mob_attack 1 by=own direct=own
+tick 2
+dump mobs events nbt:B1 nbt:B2 packets:A:sound_entity,hurt_animation,damage_event

@@ -1,0 +1,24 @@
+# A breeze against a survival player on hard: it notices the player (start attacking), shoots wind charges (inhale pose, shoot pose,
+# cooldowns), long jumps toward a jump point, and slides toward the player between volleys. The wind charges throw the player and the
+# player's health is watched; a second breeze behind a wall has no line of sight.
+level flat
+preload 6
+entity_counter 4100
+level_seed 4101
+difficulty hard
+gamerule mob_drops false
+spawn_player A survival 0.5 -60 0.5 270 0
+tick 30
+attribute A minecraft:max_health 2000
+set A health 2000
+fill 20 -60 -8 20 -57 8 minecraft:stone
+mobspawn B minecraft:breeze 12.5 -60 0.5 90 0 {PersistenceRequired:1b}
+entity_seed B 41
+mobspawn C minecraft:breeze 28.5 -60 0.5 90 0 {PersistenceRequired:1b}
+entity_seed C 42
+tick 1
+dump mobs player:A events packets:A:none
+watch mob:B mob:C xentities player:A events
+tick 220
+watch off
+dump mobs player:A nbt:B nbt:C

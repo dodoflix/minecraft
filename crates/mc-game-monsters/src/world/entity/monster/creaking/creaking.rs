@@ -556,7 +556,8 @@ impl Entity for Creaking {
                             }
                         });
                     }
-                    // `playHurtSound(source)`
+                    // `playHurtSound(source)`: `Mob.playHurtSound` resets the ambient sound timer first
+                    mob::tick::reset_ambient_before_hurt_sound(self);
                     if let Some(sound) = self.get_hurt_sound(source) {
                         damage::make_sound(self, level, sound);
                     }

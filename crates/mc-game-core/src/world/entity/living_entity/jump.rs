@@ -59,11 +59,12 @@ pub fn go_down_in_water(entity: &mut dyn Entity) {
     entity.base_mut().set_delta_movement(dm);
 }
 
-/// `jumpInLiquid(fluid)`.
+/// `jumpInLiquid(fluid)`: `Mob.jumpInLiquid` pushes a mob whose navigation cannot float up by 0.3.
 pub fn jump_in_liquid(entity: &mut dyn Entity) {
-    let dm = entity
-        .base()
-        .delta_movement()
-        .add_xyz(0.0, f64::from(0.04f32), 0.0);
+    let up = match entity.mob() {
+        Some(mob) if !mob.navigation.as_deref().is_some_and(|n| n.can_float()) => 0.3,
+        _ => f64::from(0.04f32),
+    };
+    let dm = entity.base().delta_movement().add_xyz(0.0, up, 0.0);
     entity.base_mut().set_delta_movement(dm);
 }

@@ -31,8 +31,7 @@ impl Behavior for Swim {
         _level: &mut ServerLevel,
         body: &mut dyn Entity,
     ) -> bool {
-        body.get_fluid_height(self.fluid) > body.base().get_fluid_jump_threshold()
-            || body.is_in_lava()
+        body.get_fluid_height(self.fluid) > body.get_fluid_jump_threshold() || body.is_in_lava()
     }
 
     fn can_still_use(

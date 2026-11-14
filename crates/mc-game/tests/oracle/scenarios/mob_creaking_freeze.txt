@@ -1,0 +1,50 @@
+# A creaking without a heart on hard: it stands still while a player looks at it (activating when the player is within 12 blocks),
+# walks and attacks when the player looks away, freezes again when looked at, and deactivates when the player leaves. Player B
+# wears a carved pumpkin, which does not keep an active creaking frozen. A frozen creaking takes no knockback.
+level flat
+preload 6
+entity_counter 4300
+level_seed 4301
+difficulty hard
+gamerule mob_drops false
+spawn_player A survival 0.5 -60 0.5 270 0
+spawn_player B survival 0.5 -60 60.5 270 0
+tick 30
+attribute A minecraft:max_health 2000
+set A health 2000
+attribute B minecraft:max_health 2000
+set B health 2000
+give B head minecraft:carved_pumpkin
+mobspawn C minecraft:creaking 8.5 -60 0.5 90 0 {PersistenceRequired:1b}
+entity_seed C 43
+mobspawn D minecraft:creaking 8.5 -60 60.5 90 0 {PersistenceRequired:1b}
+entity_seed D 44
+tick 1
+dump mobs player:A player:B events packets:A:none packets:B:none
+note both players look at their creaking
+watch mob:C mob:D player:A player:B events
+tick 40
+watch off
+note a hit while frozen: damage without knockback
+hurt C minecraft:player_attack 0 by=A direct=A
+tick 3
+dump mob:C events
+note A looks away (yaw 90 = west) while B keeps looking: C walks and attacks, D stays frozen only for a player without the pumpkin
+tp A 0.5 -60 0.5 90 0
+tp B 0.5 -60 60.5 90 0
+watch mob:C mob:D player:A player:B events
+tick 60
+watch off
+note A looks back at C
+tp A 0.5 -60 0.5 270 0
+watch mob:C mob:D player:A player:B events
+tick 20
+watch off
+note both players leave: the creaking deactivates
+tp A 0.5 -60 0.5 270 0
+tp A 0.5 -60 -45.5 270 0
+tp B 0.5 -60 120.5 270 0
+watch mob:C mob:D events
+tick 30
+watch off
+dump mobs player:A player:B nbt:C nbt:D events

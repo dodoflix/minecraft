@@ -1,0 +1,28 @@
+# Breezes that cannot jump: one stands in a pool and one levitates (they shoot when stuck, a breeze in water jumps out later), and one far
+# outside the follow range is hit by the player and fights back (the hurt-by memory starts the attack).
+level flat
+preload 6
+entity_counter 4700
+level_seed 4701
+difficulty hard
+gamerule mob_drops false
+spawn_player A survival 0.5 -60 0.5 270 0
+tick 30
+attribute A minecraft:max_health 2000
+set A health 2000
+fill 18 -61 -3 24 -59 3 minecraft:stone
+fill 19 -60 -2 23 -59 2 minecraft:water
+mobspawn H minecraft:breeze 21.5 -60 0.5 90 0 {PersistenceRequired:1b}
+entity_seed H 71
+mobspawn F minecraft:breeze 8.5 -60 -10.5 90 0 {PersistenceRequired:1b}
+entity_seed F 72
+mobspawn G minecraft:breeze -30.5 -60 30.5 90 0 {PersistenceRequired:1b}
+entity_seed G 73
+effect F minecraft:levitation 0 100
+tick 1
+dump mobs player:A events packets:A:none
+hurt G minecraft:player_attack 1 by=A direct=A
+watch mobs xentities player:A events
+tick 160
+watch off
+dump mobs player:A nbt:H nbt:F nbt:G

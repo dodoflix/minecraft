@@ -1,0 +1,71 @@
+# A creaking heart at night spawns its creaking within a few ticks of the 20..24 tick ticker; the creaking is invulnerable to anything
+# but a player or a mob while the heart is its protector, a player's hit relays to the heart (particles, resin clumps, sounds, the
+# comparator) and the heart is its home. The link ends when the day comes, when a player is stuck inside the creaking, and when the
+# creaking is farther than 34 blocks from the heart.
+level flat
+preload 4
+entity_counter 4400
+level_seed 4401
+difficulty normal
+gamerule mob_drops false
+time 15000
+spawn_player P survival 6.5 -60 6.5 0 0
+tick 30
+# nothing spawns naturally on a glass floor; the heart needs both rules
+fill -80 -61 -80 95 -61 95 minecraft:glass
+gamerule spawn_mobs true
+gamerule spawn_monsters true
+level_seed 4400
+attribute P minecraft:max_health 2000
+set P health 2000
+fill -1 -61 -1 1 -57 1 minecraft:pale_oak_log[axis=y]
+block 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=dormant,natural=true]
+block 2 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+tick 1
+dump blocks:-1,-61,-1,3,-57,1 be:0,-60,0 events
+note night: the heart wakes and spawns the creaking
+watch be:0,-60,0 xentities events packets:P:level_particles,entity_event,sound_entity,block_update,block_entity_data
+tick 80
+watch off
+dump mobs blocks:-1,-61,-1,3,-57,1 be:0,-60,0 nbt:creaking#1 events
+note a player hits the creaking: the heart emits particles and resin, a second hit within the invulnerable window does nothing
+hurt creaking#1 minecraft:player_attack 1 by=P direct=P
+watch be:0,-60,0 mobs events packets:P:level_particles,entity_event,sound_entity,block_update
+tick 3
+hurt creaking#1 minecraft:player_attack 1 by=P direct=P
+tick 30
+watch off
+note a hit by a mob relays no particles, a hit with no player or mob behind it does nothing, hits after the heart's particles ran out
+tick 100
+hurt creaking#1 minecraft:mob_attack 1 by=P direct=P
+tick 10
+hurt creaking#1 minecraft:fall 1
+tick 10
+hurt creaking#1 minecraft:player_attack 1 by=P direct=P
+tick 3
+dump mobs blocks:-1,-61,-1,3,-57,1 be:0,-60,0 events
+note the day ends the link: the creaking crumbles
+time 1000
+watch mobs be:0,-60,0 events packets:P:level_particles,entity_event,sound_entity
+tick 40
+watch off
+dump mobs blocks:-1,-61,-1,3,-57,1 be:0,-60,0 events
+note night again: a new creaking is moved into a one block cell with the player; five heart updates with the player's eyes inside it end the link
+fill 9 -60 9 11 -57 11 minecraft:stone
+fill 10 -60 10 10 -58 10 minecraft:air
+time 15000
+tick 60
+dump mobs be:0,-60,0
+tp P 10.5 -60 10.5 0 0
+tp creaking#2 10.5 -60 10.5
+watch mobs be:0,-60,0 events
+tick 130
+watch off
+dump mobs be:0,-60,0 events
+note a creaking pushed beyond 34 blocks from the heart ends the link
+tick 60
+dump mobs be:0,-60,0 events
+nbt creaking#3 {NoAI:1b}
+tp creaking#3 40.5 -60 40.5
+tick 40
+dump mobs be:0,-60,0 events

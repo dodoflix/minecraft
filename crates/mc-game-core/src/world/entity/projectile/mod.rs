@@ -561,6 +561,14 @@ pub fn deflect_base(
             look_angle: e.get_look_angle(),
             known_speed: e.get_known_speed(level),
         });
+    if let (ProjectileDeflection::ReverseWithSound(sound), Some(id)) =
+        (deflection, deflecting_entity)
+        && let Some((position, source)) = level
+            .get_entity(id)
+            .map(|e| (e.position(), e.get_sound_source()))
+    {
+        level.play_sound_from_entity_at(None, id, position, sound, source, 1.0, 1.0);
+    }
     deflect_by(
         projectile, level, deflection, deflector, new_owner, by_attack, power,
     )

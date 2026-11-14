@@ -1,0 +1,29 @@
+# A trial spawner of breezes: two breezes appear in line of sight within the spawn range (no finalize when the entity tag holds data
+# beyond the id, persistence required), take the player as their attack target and start the fight; the spawner state follows the mobs.
+level flat
+preload 4
+difficulty normal
+time 18000
+entity_counter 4600
+level_seed 4601
+spawn_player p survival 8.5 -60 8.5 0 0
+tick 30
+attribute p minecraft:max_health 2000
+set p health 2000
+# nothing spawns naturally on a glass floor; the spawner needs the mob spawning rule
+fill -80 -61 -80 95 -61 95 minecraft:glass
+gamerule spawn_mobs true
+reseed 7
+level_seed 4602
+block 8 -60 16 minecraft:trial_spawner
+be_nbt 8 -60 16 {required_player_range:14,normal_config:{total_mobs:2.0,simultaneous_mobs:2.0,total_mobs_added_per_player:0.0,simultaneous_mobs_added_per_player:0.0,ticks_between_spawn:20,spawn_range:3,spawn_potentials:[{weight:1,data:{entity:{id:"minecraft:breeze"}}}],loot_tables_to_eject:[]}}
+tick 1
+dump blocks:8,-60,16,8,-60,16
+watch events
+tick 12
+watch off
+dump blocks:8,-60,16,8,-60,16 mobs events
+watch mobs xentities events
+tick 80
+watch off
+dump blocks:8,-60,16,8,-60,16 mobs player:p events

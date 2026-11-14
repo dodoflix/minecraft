@@ -1,8 +1,10 @@
-//! `net.minecraft.world.entity.projectile.ProjectileDeflection` (the four vanilla constants).
+//! `net.minecraft.world.entity.projectile.ProjectileDeflection` (the four vanilla constants, and the breeze's own: a sound
+//! before the reversal).
 
 use super::Projectile;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
+use mc_data::SoundEvent;
 
 /// What a deflecting entity contributes (`entity.getLookAngle()` / `entity.getKnownSpeed()`), captured by the caller
 /// because the projectile is mutated while the deflecting entity stays in the level.
@@ -18,6 +20,9 @@ pub enum ProjectileDeflection {
     Reverse,
     AimDeflect,
     MomentumDeflect,
+    /// `Breeze.PROJECTILE_DEFLECTION`: the deflecting entity plays the sound, then `REVERSE` runs
+    /// ([`deflect_base`](super::deflect_base) plays it: this enum has no level).
+    ReverseWithSound(SoundEvent),
 }
 
 impl ProjectileDeflection {
@@ -30,7 +35,7 @@ impl ProjectileDeflection {
     ) {
         match self {
             ProjectileDeflection::None => {}
-            ProjectileDeflection::Reverse => {
+            ProjectileDeflection::Reverse | ProjectileDeflection::ReverseWithSound(_) => {
                 let rotation = 170.0 + projectile.base_mut().random.next_float() * 20.0;
                 let b = projectile.base_mut();
                 b.set_delta_movement(b.delta_movement().multiply_xyz(

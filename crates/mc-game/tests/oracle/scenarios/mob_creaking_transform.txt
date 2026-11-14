@@ -1,0 +1,42 @@
+# How a creaking heart's creaking goes away: a creative player breaks the heart (the creaking twitches and tears down over 45 ticks), an
+# explosion hits another heart, a heart removed with a command crumbles its creaking at once, and a creaking that is saved and loaded
+# keeps its home but dies without its protector.
+level flat
+preload 4
+entity_counter 4500
+level_seed 4501
+difficulty normal
+gamerule mob_drops false
+time 15000
+spawn_player P creative 2.5 -60 2.5 0 0
+spawn_player Q survival 12.5 -60 6.5 0 0
+tick 30
+# nothing spawns naturally on a glass floor; the heart needs both rules
+fill -80 -61 -80 95 -61 95 minecraft:glass
+gamerule spawn_mobs true
+gamerule spawn_monsters true
+level_seed 4400
+fill -1 -61 -1 1 -57 1 minecraft:pale_oak_log[axis=y]
+block 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=dormant,natural=true]
+fill 15 -61 -1 17 -57 1 minecraft:pale_oak_log[axis=y]
+block 16 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=dormant,natural=true]
+fill 31 -61 -1 33 -57 1 minecraft:pale_oak_log[axis=y]
+block 32 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=dormant,natural=true]
+tick 60
+dump mobs be:0,-60,0 be:16,-60,0 be:32,-60,0 events
+note the creative player breaks the first heart
+dig P 0 -60 0
+watch mobs xentities blocks:-1,-61,-1,1,-57,1 events packets:P:level_particles,entity_event,sound_entity,block_update,level_event
+tick 60
+watch off
+dump mobs entities events
+note an explosion at the second heart (block interaction)
+explode 16.5 -59.5 0.5 3 block
+watch mobs entities events packets:Q:level_particles,entity_event,sound_entity,block_update,explode
+tick 60
+watch off
+dump mobs entities events
+note the third heart is removed with air: the creaking crumbles at once
+block 32 -60 0 minecraft:air
+tick 3
+dump mobs entities events

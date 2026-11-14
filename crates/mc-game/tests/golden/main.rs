@@ -185,6 +185,8 @@ mod mob_bat_golden;
 mod mob_bee_golden;
 mod mob_blaze_ghast_golden;
 mod mob_brain_golden;
+mod mob_breeze_golden;
+mod mob_creaking_golden;
 mod mob_creeper_spider_golden;
 mod mob_ctrl_golden;
 mod mob_despawn_golden;

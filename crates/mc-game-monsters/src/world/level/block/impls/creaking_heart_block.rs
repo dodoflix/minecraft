@@ -102,14 +102,17 @@ impl BlockBehaviour for CreakingHeartBlock {
         player: &mut mc_game_core::world::entity::ServerPlayer,
     ) -> BlockState {
         let damage_source = level.damage_sources().player_attack(player);
-        let is_heart = level
-            .with_block_entity(pos, |level, be| {
-                be.as_any_mut()
-                    .downcast_mut::<CreakingHeartBlockEntity>()
-                    .map(|heart| heart.remove_protector(level, Some(&damage_source)))
-                    .is_some()
-            })
-            .unwrap_or(false);
+        // the player is out of its slot while it breaks the block: the creaking resolves it as the responsible player
+        let is_heart = level.lend(&mut *player, |level| {
+            level
+                .with_block_entity(pos, |level, be| {
+                    be.as_any_mut()
+                        .downcast_mut::<CreakingHeartBlockEntity>()
+                        .map(|heart| heart.remove_protector(level, Some(&damage_source)))
+                        .is_some()
+                })
+                .unwrap_or(false)
+        });
         if is_heart {
             try_award_experience(
                 player.prevents_block_drops(),
