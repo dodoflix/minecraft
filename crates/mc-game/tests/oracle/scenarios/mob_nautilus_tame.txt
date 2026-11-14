@@ -1,0 +1,95 @@
+# Taming a nautilus: pufferfish and a pufferfish bucket (the bucket food leaves a water bucket), the one-in-three chance per feeding
+# (hearts or smoke, the eating sound), fish healing a tamed nautilus, a baby that cannot be tamed, a tamed one taken for a ride.
+level flat
+preload 4
+difficulty normal
+entity_counter 0
+fill 4 -61 -10 30 -50 10 minecraft:stone
+fill 5 -60 -9 29 -52 9 minecraft:water[level=0]
+spawn_player Steve survival 12.5 -57 0.5 0 0
+spawn_player Alex creative 12.5 -57 6.5 0 0
+mobspawn N minecraft:nautilus 14.5 -57 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed N 62001
+mobspawn B minecraft:nautilus 14.5 -57 4.5 0 0 {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+entity_seed B 62002
+mobspawn W minecraft:nautilus 16.5 -57 3.5 0 0 {NoAI:1b}
+entity_seed W 62003
+level_seed 6201
+tick 3
+dump mob:N mob:B mob:W edata:N
+note a stick does nothing to a wild nautilus
+give Steve mainhand minecraft:stick 2
+interact Steve N main
+tick 1
+dump mob:N events inventory:Steve
+note pufferfish: each feeding eats one and tames with a chance of one in three; a tamed nautilus no longer takes it as food and its feeder rides it
+give Steve mainhand minecraft:pufferfish 16
+interact Steve N main
+tick 1
+dump mob:N events inventory:Steve edata:N
+interact Steve N main
+tick 1
+dump mob:N events inventory:Steve edata:N
+interact Steve N main
+tick 1
+dump mob:N events inventory:Steve edata:N
+note the rider leaves again
+tp Steve 12.5 -57 0.5
+tick 1
+dump mob:N player:Steve
+note a baby is fed like any animal: it grows, it is never tamed
+give Steve mainhand minecraft:cod 4
+interact Steve B main
+tick 1
+dump mob:B events inventory:Steve
+note the creative player gets the water bucket without losing the pufferfish bucket
+give Alex mainhand minecraft:pufferfish_bucket 1
+interact Alex W main
+tick 1
+dump mob:W events inventory:Alex
+interact Alex W main
+tick 1
+dump mob:W events inventory:Alex
+interact Alex W main
+tick 1
+dump mob:W events inventory:Alex
+interact Alex W main
+tick 1
+dump mob:W events inventory:Alex
+interact Alex W main
+tick 1
+dump mob:W events inventory:Alex
+note the survival player swaps the bucket for a water bucket
+give Steve mainhand minecraft:pufferfish_bucket 2
+interact Steve W main
+tick 1
+dump mob:W events inventory:Steve
+interact Steve W main
+tick 1
+dump mob:W events inventory:Steve
+interact Steve W main
+tick 1
+dump mob:W events inventory:Steve nbt:W
+note fish heal a hurt tamed nautilus (the food heals 2 per point of nutrition, at full health it is a love feeding)
+hurt N minecraft:generic 6
+give Steve mainhand minecraft:cod 4
+interact Steve N main
+tick 1
+dump mob:N events inventory:Steve
+give Steve mainhand minecraft:cod_bucket 2
+interact Steve N main
+tick 1
+dump mob:N events inventory:Steve
+interact Steve N main
+tick 1
+dump mob:N events inventory:Steve nbt:N
+note an empty hand mounts a tamed nautilus, which the owner then rides
+give Steve mainhand minecraft:air
+interact Steve N
+accept_teleport Steve
+tick 2
+dump mob:N player:Steve edata:N events
+note nobody else fits on it
+interact Alex N
+tick 1
+dump mob:N player:Alex events

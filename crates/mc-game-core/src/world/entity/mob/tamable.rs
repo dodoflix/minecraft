@@ -275,7 +275,7 @@ pub fn feed(
     let nutrition = stack
         .get(&mc_protocol::components::FOOD)
         .map(|f| f.nutrition);
-    super::interact::use_player_item(level, player, hand);
+    e.use_player_item(level, player, hand);
     e.heal(
         level,
         nutrition.map_or(default_heal, |n| healing_factor * n as f32),

@@ -100,7 +100,6 @@ impl ServerPlayer {
     }
 
     /// `openNautilusInventory(nautilus, container)`.
-    /// Not implemented: a caller (the `AbstractNautilus` entities do not exist yet).
     pub fn open_nautilus_inventory(
         &mut self,
         level: &mut ServerLevel,

@@ -3570,8 +3570,8 @@ pub trait Entity: Any {
     /// `addPassenger(passenger)`'s effect on the new rider (`AbstractHorse`/`Camel`: `passenger.absSnapRotationTo(...)`).
     fn after_add_passenger(&self, _passenger: &mut dyn Entity) {}
     /// `this instanceof HasCustomInventoryScreen` (`ServerboundPlayerCommandPacket.OPEN_INVENTORY`).
-    /// Not implemented: the `HasCustomInventoryScreen` overrides of `AbstractNautilus` and `HappyGhast` (those entities do not
-    /// exist yet; the horses and camels return true).
+    /// Not implemented: the `HasCustomInventoryScreen` override of `HappyGhast` (that entity does not exist yet; the horses,
+    /// camels and nautilus return true).
     fn has_custom_inventory_screen(&self) -> bool {
         false
     }
@@ -4024,7 +4024,7 @@ pub trait Entity: Any {
     /// `LivingEntity.canDispenserEquipIntoSlot(slot)`: every mob accepts what it can pick up (`Mob`), non-mobs always.
     /// Overriding classes (`Dolphin`, `Fox`, `Panda`, `Pig`, `Strider`, `SulfurCube`, `AbstractHorse`, ...) call
     /// [`super::mob::equipment::can_dispenser_equip_into_slot`] for their `super` part.
-    /// Not implemented: the `HappyGhast` and `AbstractNautilus` overrides (those entities do not exist yet).
+    /// Not implemented: the `HappyGhast` override (that entity does not exist yet).
     fn can_dispenser_equip_into_slot(&self, _slot: super::equipment::EquipmentSlot) -> bool {
         super::mob::equipment::can_dispenser_equip_into_slot(self.as_dyn())
     }
@@ -4580,7 +4580,6 @@ pub trait Entity: Any {
     }
     /// `getEquipSound(slot, stack, equippable)` override (`Strider`: `STRIDER_SADDLE` for the saddle slot); `None` = the
     /// equippable's own sound.
-    /// Not implemented: the `AbstractNautilus` saddle sound (that entity does not exist yet).
     fn get_equip_sound_override(
         &self,
         _slot: super::equipment::EquipmentSlot,

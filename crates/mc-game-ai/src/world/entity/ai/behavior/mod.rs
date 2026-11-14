@@ -8,6 +8,8 @@ pub mod back_up_if_too_close;
 
 pub mod behaviors;
 
+pub mod charge_attack;
+
 pub mod croak;
 
 pub mod crossbow_attack;

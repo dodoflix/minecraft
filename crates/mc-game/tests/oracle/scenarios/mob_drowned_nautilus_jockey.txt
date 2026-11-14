@@ -1,0 +1,52 @@
+# Drowned.finalizeSpawn: an adult drowned that spawns naturally or with a structure and holds a trident rides a zombie nautilus in half of
+# the cases (the level random decides), a structure drowned keeps its mount from despawning, and neither a command spawn, a baby,
+# a drowned without a trident nor one in a river gets a mount.
+level flat
+preload 6
+difficulty normal
+entity_counter 0
+fill 4 -61 -10 40 -50 14 minecraft:stone
+fill 5 -60 -9 39 -52 13 minecraft:water[level=0]
+biome 30 -64 -10 40 -50 14 minecraft:river
+spawn_player Steve creative 0.5 -60 -10.5 0 0
+tick 3
+note natural drowned with a trident, one level seed each
+level_seed 6601
+mobspawn D1 minecraft:drowned 8.5 -57 -6.5 0 0 reason=natural {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+level_seed 6602
+mobspawn D2 minecraft:drowned 10.5 -57 -6.5 0 0 reason=natural {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+level_seed 6603
+mobspawn D3 minecraft:drowned 12.5 -57 -6.5 0 0 reason=natural {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+level_seed 6604
+mobspawn D4 minecraft:drowned 14.5 -57 -6.5 0 0 reason=natural {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+level_seed 6605
+mobspawn D5 minecraft:drowned 16.5 -57 -6.5 0 0 reason=natural {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+level_seed 6606
+mobspawn D6 minecraft:drowned 18.5 -57 -6.5 0 0 reason=natural {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+tick 2
+dump mobs rng:level
+note a structure drowned: the mount is persistent too
+level_seed 6607
+mobspawn S1 minecraft:drowned 8.5 -57 0.5 0 0 reason=structure {equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+level_seed 6608
+mobspawn S2 minecraft:drowned 10.5 -57 0.5 0 0 reason=structure {equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+level_seed 6609
+mobspawn S3 minecraft:drowned 12.5 -57 0.5 0 0 reason=structure {equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+tick 2
+dump mobs rng:level
+note no mount: command spawn, baby, no trident, river
+level_seed 6601
+mobspawn C1 minecraft:drowned 8.5 -57 6.5 0 0 reason=command {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+level_seed 6601
+mobspawn C2 minecraft:drowned 10.5 -57 6.5 0 0 reason=natural {PersistenceRequired:1b,IsBaby:1b,equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+level_seed 6601
+mobspawn C3 minecraft:drowned 12.5 -57 6.5 0 0 reason=natural {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:fishing_rod",count:1}}}
+level_seed 6601
+mobspawn C4 minecraft:drowned 32.5 -57 0.5 0 0 reason=natural {PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:trident",count:1}}}
+tick 2
+dump mobs rng:level
+note the pair rides together: it moves and attacks as one, the rider keeps its target and the mount follows the brain
+tick 40
+dump mobs
+note the saved forms of the riders (the persistence of a structure pair)
+dump nbt:D1 nbt:zombie_nautilus#1 nbt:S3 nbt:zombie_nautilus#4 nbt:D4

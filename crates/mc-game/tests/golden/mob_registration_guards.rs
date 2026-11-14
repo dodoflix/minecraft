@@ -23,10 +23,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "HappyGhast: rideable harness flyer",
     ),
     (
-        "minecraft:nautilus",
-        "Nautilus: swimming mount with armor and saddle",
-    ),
-    (
         "minecraft:sniffer",
         "Sniffer: digging, seed finding, egg laying",
     ),
@@ -34,18 +30,11 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "minecraft:wither",
         "Wither: boss event, charged state, skull attacks",
     ),
-    (
-        "minecraft:zombie_nautilus",
-        "ZombieNautilus: undead Nautilus mount",
-    ),
 ];
 
 /// Mob types with a vanilla spawn placement whose predicate is not registered: exactly the types of `EXPECTED_MISSING`
 /// that have one (type, what is not implemented). Alphabetical.
-const EXPECTED_MISSING_PREDICATE: &[(&str, &str)] = &[(
-    "minecraft:nautilus",
-    "AbstractNautilus.checkNautilusSpawnRules",
-)];
+const EXPECTED_MISSING_PREDICATE: &[(&str, &str)] = &[];
 
 /// `SpawnFrameworkGolden` fixture: its `registered` lines are the `DATA_BY_TYPE` keys of the vanilla `SpawnPlacements`.
 const GOLDEN: &str = include_str!("../fixtures/spawn_framework_golden.txt");

@@ -1,0 +1,106 @@
+# The inventory screen of tamed nautilus: a saddle slot and an armor slot and no chest slots. Opening it by sneaking or from the
+# saddle, what each slot accepts, shift-click in both directions, the screen of a wild or baby one (none), the equipment the nautilus
+# keeps, the zombie nautilus alike, and the screen closing when the nautilus is out of reach or gone.
+command_env
+level flat
+preload 4
+spawn_player A survival 0.5 -60 6.5 180 0
+spawn_player S spectator 12.5 -60 6.5 180 0
+entity_counter 100
+spawn N minecraft:nautilus 0.5 -60 4.5 0 0 {NoAI:1b}
+spawn Z minecraft:zombie_nautilus 3.5 -60 6.5 0 0 {NoAI:1b}
+spawn U minecraft:nautilus 7.5 -60 6.5 0 0 {NoAI:1b}
+spawn B minecraft:nautilus 4.5 -60 9.5 0 0 {NoAI:1b,Age:-24000}
+tame N A
+tame Z A
+tame B A
+give A hotbar0 minecraft:saddle
+give A hotbar1 minecraft:iron_nautilus_armor
+give A hotbar2 minecraft:white_carpet 3
+give A hotbar3 minecraft:stick 5
+give A hotbar4 minecraft:bread 20
+give A inv9 minecraft:saddle
+give A inv10 minecraft:copper_nautilus_armor
+give A inv11 minecraft:apple 30
+give S hotbar0 minecraft:saddle
+tick 1
+dump packets:A:none packets:S:none
+note sneaking at a tamed nautilus opens its screen: the screen packet with the mount entity and the content with the saddle and armor slots
+interact A N main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+note the saddle slot takes a saddle only and one item, the armor slot takes nautilus armor only
+click A 29 0 PICKUP
+click A 0 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item events nbt:N
+click A 0 0 PICKUP
+click A 30 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item events nbt:N
+click A 1 0 PICKUP
+click A 30 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item events nbt:N
+note carpet, a stack of sticks and horse armor do not fit the armor slot; the cursor keeps them
+click A 32 0 PICKUP
+click A 1 0 PICKUP
+click A 33 1 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A
+click A 32 0 PICKUP
+click A 33 0 PICKUP
+note shift-click: a saddle goes to the saddle slot, armor to the armor slot, other items to nowhere (no chest)
+click A 0 0 QUICK_MOVE
+click A 1 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A nbt:N
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+click A 29 0 QUICK_MOVE
+click A 30 0 QUICK_MOVE
+click A 33 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A
+note a second saddle stays in the inventory while the saddle slot is taken
+give A inv9 minecraft:saddle
+give A inv10 minecraft:iron_nautilus_armor
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A
+close_menu A
+note a spectator does not open the screen
+give S hotbar1 minecraft:stick
+interact S N main sneak
+dump menu:S packets:S:mount_screen_open,open_screen,container_set_content
+note without sneaking the player mounts instead; from the saddle the inventory key opens the screen
+interact A N main
+pcommand A OPEN_INVENTORY
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content,container_close
+close_menu A
+note a wild nautilus and a baby have no screen
+interact A U main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+interact A B main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+note the zombie nautilus has the same screen
+give A hotbar0 minecraft:saddle
+give A hotbar1 minecraft:netherite_nautilus_armor
+interact A Z main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+click A 29 0 QUICK_MOVE
+click A 30 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A nbt:Z
+note the screen closes when the player walks out of reach (the interaction range plus 4 blocks)
+tp A 9.5 -60 6.5
+tick 1
+dump menu:A packets:A:container_close,container_set_slot,container_set_content
+tp A 0.5 -60 6.5
+tick 1
+note a nautilus that is gone closes the screen too
+spawn K minecraft:nautilus 0.5 -60 4.5 0 0 {NoAI:1b}
+tame K A
+interact A K main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+kill K
+tick 1
+dump menu:A packets:A:container_close,container_set_slot,container_set_content

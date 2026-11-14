@@ -1,0 +1,61 @@
+# The zombie nautilus brain: it strolls and swims, goes for pufferfish (a hostile of the nautilus) once the attack cooldown is
+# gone, charges at the player that hurt it (the dash, the damage, the knockback and the cooldown), does not breed, and is
+# undead: it burns in daylight on land unless its body armor protects it (and the armor wears).
+level flat
+preload 4
+difficulty normal
+entity_counter 0
+fill 4 -61 -10 30 -50 10 minecraft:stone
+fill 5 -60 -9 29 -52 9 minecraft:water[level=0]
+spawn_player Steve survival 12.5 -57 0.5 0 0
+mobspawn Z minecraft:zombie_nautilus 20.5 -57 0.5 0 0 {PersistenceRequired:1b}
+entity_seed Z 65101
+mobspawn F minecraft:pufferfish 26.5 -57 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed F 65102
+level_seed 6511
+tick 3
+dump mob:Z brain:Z goals:Z
+note idle: it strolls through the water
+watch mob:Z
+tick 40
+watch off
+dump mob:Z brain:Z
+note the cooldown gone, it picks a hostile in the water by chance: once the random says yes it charges at the pufferfish
+memory Z attack_target_cooldown -
+watch mob:Z brain:Z
+tick 30
+watch off
+dump mobs
+memory Z attack_target_cooldown -
+tick 30
+dump mobs brain:Z
+note hurt by the player it is angry for 400 ticks and charges at the player: the dash, the hit, the knockback, the cooldown
+hurt Z minecraft:player_attack 1 by=Steve direct=Steve
+watch mob:Z player:Steve events
+tick 70
+watch off
+dump mob:Z brain:Z player:Steve
+note the cooldown of the charge counts down, then it charges again
+tick 80
+dump mob:Z brain:Z player:Steve events
+note a tamed zombie nautilus does not charge
+tame Z Steve
+hurt Z minecraft:player_attack 1 by=Steve direct=Steve
+tick 40
+dump mob:Z brain:Z player:Steve
+note a zombie nautilus does not breed and is no baby
+love Z Steve
+age Z -24000
+tick 5
+dump mob:Z
+note undead on land: it burns in daylight, its body armor takes the burn instead
+fill 40 -61 -4 60 -61 20 minecraft:stone
+time 1000
+mobspawn L1 minecraft:zombie_nautilus 44.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed L1 65103
+mobspawn L2 minecraft:zombie_nautilus 48.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,equipment:{body:{id:"minecraft:iron_nautilus_armor",count:1}}}
+entity_seed L2 65104
+tick 100
+dump mobs
+tick 100
+dump mobs nbt:L2

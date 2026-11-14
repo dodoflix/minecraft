@@ -1,0 +1,68 @@
+# Breeding nautilus: fed fish a tamed adult falls in love (a wild one only takes the taming items), the brain walks the partners
+# together (AnimalMakeLove) and the baby of a tamed pair is tamed for the same owner with the baby dimensions and sounds; the
+# direct breed path, a wild pair, and the grown-up baby.
+level flat
+preload 4
+difficulty normal
+entity_counter 0
+fill 4 -61 -10 30 -50 10 minecraft:stone
+fill 5 -60 -9 29 -52 9 minecraft:water[level=0]
+spawn_player Steve survival 12.5 -57 0.5 0 0
+mobspawn P1 minecraft:nautilus 14.5 -57 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed P1 62401
+mobspawn P2 minecraft:nautilus 16.5 -57 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed P2 62402
+mobspawn Q1 minecraft:nautilus 22.5 -55 0.5 0 0 {PersistenceRequired:1b}
+entity_seed Q1 62403
+mobspawn Q2 minecraft:nautilus 24.5 -55 2.5 0 0 {PersistenceRequired:1b}
+entity_seed Q2 62404
+mobspawn W1 minecraft:nautilus 15.5 -58 -3.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed W1 62405
+mobspawn W2 minecraft:nautilus 17.5 -58 -3.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed W2 62406
+level_seed 6241
+tick 3
+tame P1 Steve
+tame P2 Steve
+tame Q1 Steve
+tame Q2 Steve
+dump mobs
+note fish put tamed adults in love, a second feeding does nothing
+give Steve mainhand minecraft:cod 16
+interact Steve P1 main
+tick 1
+dump mob:P1 events inventory:Steve
+interact Steve P1 main
+tick 1
+dump mob:P1 events inventory:Steve
+interact Steve P2 main
+tick 1
+dump mob:P2 events inventory:Steve
+note the direct breed path: a tamed baby for the same owner, the parents wait, the experience orb
+level_seed 6242
+breed P1 P2
+dump mobs rng:level
+tick 3
+dump mobs
+note the baby is fed to grow up faster and is not a mount
+give Steve mainhand minecraft:salmon 4
+interact Steve nautilus#1 main
+tick 1
+dump mob:nautilus#1 events inventory:Steve
+note a wild adult takes pufferfish only: it falls in love with nothing else, so cod does not
+give Steve mainhand minecraft:cod 2
+interact Steve W1 main
+tick 1
+dump mob:W1 events
+note the brain: tamed adults in love walk to each other and breed on their own
+give Steve mainhand minecraft:cod_bucket 4
+tp Steve 20.5 -55 3.5
+tick 1
+interact Steve Q1 main
+interact Steve Q2 main
+tick 1
+dump mob:Q1 mob:Q2 events inventory:Steve
+watch mob:Q1 mob:Q2 events
+tick 140
+watch off
+dump mobs

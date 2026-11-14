@@ -1,0 +1,71 @@
+# Riding a nautilus: the rider takes over once it is saddled, the nautilus breathes for the rider (the breath effect and its refresh),
+# the dash of a charged jump from START_RIDING_JUMP to STOP_RIDING_JUMP (sound, game event, the dash flag and its cooldown with the
+# ready sound), the vehicle movement packets of the rider, a jump the unsaddled one ignores, and a dry-out on land.
+level flat
+preload 4
+difficulty normal
+entity_counter 0
+level_seed 6301
+fill 4 -61 -10 30 -50 10 minecraft:stone
+fill 5 -60 -9 29 -52 9 minecraft:water[level=0]
+spawn_player Steve survival 12.5 -57 0.5 0 0
+spawn_player Alex survival 12.5 -57 6.5 0 0
+mobspawn N minecraft:nautilus 14.5 -57 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed N 63001
+mobspawn U minecraft:nautilus 14.5 -57 6.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed U 63002
+tick 3
+tame N Steve
+tame U Alex
+ride Steve N
+accept_teleport Steve
+ride Alex U
+accept_teleport Alex
+tick 2
+dump mob:N edata:N player:Steve events
+note the breath of the nautilus for a rider, again at the refresh tick
+watch player:Steve
+tick 45
+watch off
+dump mob:N player:Steve
+note a full charge: the dash starts with the release, the flag set, sound and game event
+pcommand Steve START_RIDING_JUMP 100
+tick 1
+dump mob:N edata:N events
+pcommand Steve STOP_RIDING_JUMP
+watch mob:N events
+tick 6
+watch off
+note the client moves the nautilus; the server keeps the flags and the cooldown runs out with its sound
+move_vehicle Steve 14.5 -56.8 0.5 0 0 false
+move_vehicle Steve 15.5 -56.5 0.5 0 0 false
+tick 3
+dump mob:N edata:N events player:Steve
+watch mob:N events
+tick 40
+watch off
+note a short charge, then a zero one that does nothing
+pcommand Steve START_RIDING_JUMP 30
+tick 3
+pcommand Steve STOP_RIDING_JUMP
+dump mob:N edata:N events
+tick 45
+pcommand Steve START_RIDING_JUMP 0
+tick 2
+dump mob:N edata:N events
+note without a saddle the rider is not in control and the jump is ignored
+pcommand Alex START_RIDING_JUMP 100
+tick 2
+pcommand Alex STOP_RIDING_JUMP
+dump mob:U edata:U events player:Alex
+note leaving the nautilus ends the breath after its 60 ticks
+
+tp Steve 12.5 -57 -4.5
+tick 70
+dump mob:N player:Steve events
+note on land a nautilus dries out: the air supply runs down and it takes dry-out damage
+mobspawn L minecraft:nautilus 12.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:0b}
+entity_seed L 63003
+fill 4 -61 12 30 -61 20 minecraft:stone
+tick 320
+dump mob:L events

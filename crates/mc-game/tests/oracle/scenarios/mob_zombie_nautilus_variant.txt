@@ -1,0 +1,55 @@
+# ZombieNautilus.finalizeSpawn picks the variant by the biome (temperate by default, the coral one in the warm ocean): plains, warm ocean,
+# lukewarm ocean, ocean and deep ocean, a zombie nautilus created without finalizing, one spawned by an egg, one whose saved variant is
+# set and the variant of the data component.
+level flat
+preload 6
+difficulty normal
+entity_counter 0
+level_seed 6501
+spawn_player Steve creative 12.5 -60 -1.5 0 0
+biome 0 -64 0 8 -50 8 minecraft:plains
+biome 10 -64 0 18 -50 8 minecraft:warm_ocean
+biome 20 -64 0 28 -50 8 minecraft:lukewarm_ocean
+biome 30 -64 0 38 -50 8 minecraft:ocean
+biome 40 -64 0 48 -50 8 minecraft:deep_ocean
+time 18000
+tick 3
+mobspawn Z0 minecraft:zombie_nautilus 2.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z0 65001
+mobspawn Z1 minecraft:zombie_nautilus 12.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z1 65002
+mobspawn Z2 minecraft:zombie_nautilus 22.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z2 65003
+mobspawn Z3 minecraft:zombie_nautilus 32.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z3 65004
+mobspawn Z4 minecraft:zombie_nautilus 42.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z4 65005
+mobspawn Z5 minecraft:zombie_nautilus 12.5 -60 5.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z5 65006
+tick 2
+dump mobs
+dump nbt:Z1 nbt:Z5 edata:Z1
+note the spawn reasons do not change the choice
+mobspawn Z6 minecraft:zombie_nautilus 14.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z6 65007
+mobspawn Z7 minecraft:zombie_nautilus 16.5 -60 5.5 0 0 reason=spawner {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z7 65008
+tick 1
+dump mob:Z6 mob:Z7
+note the saved variant is read back and the variant component answers
+nbt Z0 {variant:"minecraft:warm"}
+tick 1
+dump mob:Z0 nbt:Z0 edata:Z0
+nbt Z1 {variant:"minecraft:temperate"}
+tick 1
+dump mob:Z1 nbt:Z1
+note an egg used on the warm ocean floor
+give Steve mainhand minecraft:zombie_nautilus_spawn_egg 2
+use_on Steve 12 -61 1 up main
+tick 2
+dump mobs
+tp Steve 2.5 -60 -1.5
+tick 1
+use_on Steve 2 -61 1 up main
+tick 2
+dump mobs

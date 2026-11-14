@@ -1,0 +1,225 @@
+# sneaking at a tamed nautilus opens its screen: the screen packet with the mount entity and the content with the saddle and armor slots
+MENU A cid=1 type=none state=1 carried=empty
+MS 2 minecraft:saddle*1
+MS 3 minecraft:copper_nautilus_armor*1
+MS 4 minecraft:apple*30
+MS 29 minecraft:saddle*1
+MS 30 minecraft:iron_nautilus_armor*1
+MS 31 minecraft:white_carpet*3
+MS 32 minecraft:stick*5
+MS 33 minecraft:bread*20
+PKT A minecraft:mount_screen_open 2a010000000065
+PKT A minecraft:container_set_content 12010126000001b507000001d10b00001eef07000000000000000000000000000000000000000000000000000001b507000001cd0b000003c404000005a408000014ab0800000000000000
+# the saddle slot takes a saddle only and one item, the armor slot takes nautilus armor only
+MENU A cid=1 type=none state=3 carried=empty
+MS 0 minecraft:saddle*1
+MS 2 minecraft:saddle*1
+MS 3 minecraft:copper_nautilus_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:iron_nautilus_armor*1
+MS 31 minecraft:white_carpet*3
+MS 32 minecraft:stick*5
+MS 33 minecraft:bread*20
+PKT A minecraft:container_set_slot 140102001d00
+PKT A minecraft:set_cursor_item 6201b5070000
+PKT A minecraft:container_set_slot 140103000001b5070000
+PKT A minecraft:set_cursor_item 6200
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.nautilus_saddle_equip source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.nautilus_saddle_equip source=neutral vol=1.0 pitch=1.0
+N N {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:15.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Sitting:0b,attributes:[{base:1.0d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{saddle:2.0f},equipment:{saddle:{count:1,id:"minecraft:saddle"}},fall_distance:0.0d}
+MENU A cid=1 type=none state=6 carried=empty
+MS 1 minecraft:iron_nautilus_armor*1
+MS 2 minecraft:saddle*1
+MS 3 minecraft:copper_nautilus_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:saddle*1
+MS 31 minecraft:white_carpet*3
+MS 32 minecraft:stick*5
+MS 33 minecraft:bread*20
+PKT A minecraft:container_set_slot 140104000000
+PKT A minecraft:set_cursor_item 6201b5070000
+PKT A minecraft:container_set_slot 140105001e01b5070000
+PKT A minecraft:set_cursor_item 6201cd0b0000
+PKT A minecraft:container_set_slot 140106000101cd0b0000
+PKT A minecraft:set_cursor_item 6200
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.armor.equip_nautilus source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.armor.equip_nautilus source=neutral vol=1.0 pitch=1.0
+N N {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:15.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Sitting:0b,attributes:[{base:1.0d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f,saddle:2.0f},equipment:{body:{count:1,id:"minecraft:iron_nautilus_armor"}},fall_distance:0.0d}
+MENU A cid=1 type=none state=9 carried=minecraft:white_carpet*3
+MS 2 minecraft:saddle*1
+MS 3 minecraft:copper_nautilus_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:iron_nautilus_armor*1
+MS 31 minecraft:saddle*1
+MS 32 minecraft:stick*5
+MS 33 minecraft:bread*20
+PKT A minecraft:container_set_slot 140107000100
+PKT A minecraft:set_cursor_item 6201cd0b0000
+PKT A minecraft:container_set_slot 140108001e01cd0b0000
+PKT A minecraft:set_cursor_item 6201b5070000
+PKT A minecraft:container_set_slot 140109001f01b5070000
+PKT A minecraft:set_cursor_item 6203c4040000
+N N {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:15.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Sitting:0b,attributes:[{base:1.0d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f,saddle:2.0f},fall_distance:0.0d}
+# carpet, a stack of sticks and horse armor do not fit the armor slot; the cursor keeps them
+MENU A cid=1 type=none state=11 carried=minecraft:bread*20
+MS 2 minecraft:saddle*1
+MS 3 minecraft:copper_nautilus_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:iron_nautilus_armor*1
+MS 31 minecraft:saddle*1
+MS 32 minecraft:white_carpet*3
+MS 33 minecraft:stick*5
+PKT A minecraft:container_set_slot 14010a002003c4040000
+PKT A minecraft:set_cursor_item 6205a4080000
+PKT A minecraft:container_set_slot 14010b002105a4080000
+PKT A minecraft:set_cursor_item 6214ab080000
+I A 1 minecraft:iron_nautilus_armor*1
+I A 2 minecraft:saddle*1
+I A 3 minecraft:white_carpet*3
+I A 4 minecraft:stick*5
+I A 9 minecraft:saddle*1
+I A 10 minecraft:copper_nautilus_armor*1
+I A 11 minecraft:apple*30
+# shift-click: a saddle goes to the saddle slot, armor to the armor slot, other items to nowhere (no chest)
+MENU A cid=1 type=none state=13 carried=minecraft:stick*5
+MS 2 minecraft:saddle*1
+MS 3 minecraft:copper_nautilus_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:iron_nautilus_armor*1
+MS 31 minecraft:saddle*1
+MS 32 minecraft:bread*20
+MS 33 minecraft:white_carpet*3
+PKT A minecraft:container_set_slot 14010c002014ab080000
+PKT A minecraft:set_cursor_item 6203c4040000
+PKT A minecraft:container_set_slot 14010d002103c4040000
+PKT A minecraft:set_cursor_item 6205a4080000
+I A 1 minecraft:iron_nautilus_armor*1
+I A 2 minecraft:saddle*1
+I A 3 minecraft:bread*20
+I A 4 minecraft:white_carpet*3
+I A 9 minecraft:saddle*1
+I A 10 minecraft:copper_nautilus_armor*1
+I A 11 minecraft:apple*30
+N N {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:15.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Sitting:0b,attributes:[{base:1.0d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f,saddle:2.0f},fall_distance:0.0d}
+MENU A cid=1 type=none state=25 carried=minecraft:stick*5
+MS 0 minecraft:saddle*1
+MS 1 minecraft:copper_nautilus_armor*1
+MS 2 minecraft:apple*30
+MS 3 minecraft:iron_nautilus_armor*1
+MS 4 minecraft:white_carpet*3
+MS 31 minecraft:saddle*1
+MS 32 minecraft:bread*20
+PKT A minecraft:container_set_slot 14010e000001b5070000
+PKT A minecraft:container_set_slot 14010f000200
+PKT A minecraft:container_set_slot 140110000101d10b0000
+PKT A minecraft:container_set_slot 140111000300
+PKT A minecraft:container_set_slot 140112000400
+PKT A minecraft:container_set_slot 140113001d1eef070000
+PKT A minecraft:container_set_slot 14011400021eef070000
+PKT A minecraft:container_set_slot 140115001d00
+PKT A minecraft:container_set_slot 140116000301cd0b0000
+PKT A minecraft:container_set_slot 140117001e00
+PKT A minecraft:container_set_slot 140118000403c4040000
+PKT A minecraft:container_set_slot 140119002100
+I A 2 minecraft:saddle*1
+I A 3 minecraft:bread*20
+I A 9 minecraft:apple*30
+I A 10 minecraft:iron_nautilus_armor*1
+I A 11 minecraft:white_carpet*3
+# a second saddle stays in the inventory while the saddle slot is taken
+MENU A cid=1 type=none state=29 carried=minecraft:stick*5
+MS 0 minecraft:saddle*1
+MS 1 minecraft:copper_nautilus_armor*1
+MS 4 minecraft:white_carpet*3
+MS 29 minecraft:saddle*1
+MS 30 minecraft:iron_nautilus_armor*1
+MS 31 minecraft:saddle*1
+MS 32 minecraft:bread*20
+PKT A minecraft:container_set_slot 14011a000200
+PKT A minecraft:container_set_slot 14011b001d01b5070000
+PKT A minecraft:container_set_slot 14011c000300
+PKT A minecraft:container_set_slot 14011d001e01cd0b0000
+I A 0 minecraft:saddle*1
+I A 1 minecraft:iron_nautilus_armor*1
+I A 2 minecraft:saddle*1
+I A 3 minecraft:bread*20
+I A 11 minecraft:white_carpet*3
+# a spectator does not open the screen
+MENU S cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:saddle*1
+MS 37 minecraft:stick*1
+# without sneaking the player mounts instead; from the saddle the inventory key opens the screen
+MENU A cid=2 type=none state=1 carried=empty
+MS 0 minecraft:saddle*1
+MS 1 minecraft:copper_nautilus_armor*1
+MS 4 minecraft:white_carpet*3
+MS 29 minecraft:saddle*1
+MS 30 minecraft:iron_nautilus_armor*1
+MS 31 minecraft:saddle*1
+MS 32 minecraft:bread*20
+MS 33 minecraft:stick*5
+PKT A minecraft:mount_screen_open 2a020000000065
+PKT A minecraft:container_set_content 1202012601b507000001d10b0000000003c404000000000000000000000000000000000000000000000000000001b507000001cd0b000001b507000014ab08000005a40800000000000000
+# a wild nautilus and a baby have no screen
+MENU A cid=0 type=inventory state=9 carried=empty
+MS 11 minecraft:white_carpet*3
+MS 36 minecraft:saddle*1
+MS 37 minecraft:iron_nautilus_armor*1
+MS 38 minecraft:saddle*1
+MS 39 minecraft:bread*20
+MS 40 minecraft:stick*5
+MENU A cid=0 type=inventory state=9 carried=empty
+MS 11 minecraft:white_carpet*3
+MS 36 minecraft:saddle*1
+MS 37 minecraft:iron_nautilus_armor*1
+MS 38 minecraft:saddle*1
+MS 39 minecraft:bread*20
+MS 40 minecraft:stick*5
+# the zombie nautilus has the same screen
+MENU A cid=3 type=none state=1 carried=empty
+MS 4 minecraft:white_carpet*3
+MS 29 minecraft:saddle*1
+MS 30 minecraft:netherite_nautilus_armor*1
+MS 31 minecraft:saddle*1
+MS 32 minecraft:bread*20
+MS 33 minecraft:stick*5
+PKT A minecraft:mount_screen_open 2a030000000066
+PKT A minecraft:container_set_content 120301260000000003c404000000000000000000000000000000000000000000000000000001b507000001d00b000001b507000014ab08000005a40800000000000000
+MENU A cid=3 type=none state=5 carried=empty
+MS 0 minecraft:saddle*1
+MS 1 minecraft:netherite_nautilus_armor*1
+MS 4 minecraft:white_carpet*3
+MS 31 minecraft:saddle*1
+MS 32 minecraft:bread*20
+MS 33 minecraft:stick*5
+PKT A minecraft:container_set_slot 140302000001b5070000
+PKT A minecraft:container_set_slot 140303001d00
+PKT A minecraft:container_set_slot 140304000101d00b0000
+PKT A minecraft:container_set_slot 140305001e00
+I A 2 minecraft:saddle*1
+I A 3 minecraft:bread*20
+I A 4 minecraft:stick*5
+I A 11 minecraft:white_carpet*3
+N Z {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:15.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PersistenceRequired:1b,PortalCooldown:0,Pos:[3.5d,-60.0d,6.5d],Rotation:[0.0f,0.0f],Sitting:0b,attributes:[{base:1.100000023841858d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f,saddle:2.0f},equipment:{body:{count:1,id:"minecraft:netherite_nautilus_armor"},saddle:{count:1,id:"minecraft:saddle"}},fall_distance:0.0d,variant:"minecraft:temperate"}
+# the screen closes when the player walks out of reach (the interaction range plus 4 blocks)
+MENU A cid=3 type=none state=5 carried=empty
+MS 0 minecraft:saddle*1
+MS 1 minecraft:netherite_nautilus_armor*1
+MS 4 minecraft:white_carpet*3
+MS 31 minecraft:saddle*1
+MS 32 minecraft:bread*20
+MS 33 minecraft:stick*5
+# a nautilus that is gone closes the screen too
+MENU A cid=4 type=none state=1 carried=empty
+MS 4 minecraft:white_carpet*3
+MS 31 minecraft:saddle*1
+MS 32 minecraft:bread*20
+MS 33 minecraft:stick*5
+PKT A minecraft:mount_screen_open 2a040000000069
+PKT A minecraft:container_set_content 120401260000000003c4040000000000000000000000000000000000000000000000000000000001b507000014ab08000005a40800000000000000
+MENU A cid=0 type=inventory state=9 carried=empty
+MS 11 minecraft:white_carpet*3
+MS 38 minecraft:saddle*1
+MS 39 minecraft:bread*20
+MS 40 minecraft:stick*5
+PKT A minecraft:container_close 1104

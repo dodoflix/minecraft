@@ -1,0 +1,79 @@
+# Saddle and body armor of nautilus: a wild or baby one takes neither, a tamed adult takes a saddle and each kind of armor from the
+# hand (the underwater and the land equip sound), a second saddle is refused, the equipment is saved and dropped when it dies, and
+# a dispenser fits both.
+level flat
+preload 4
+difficulty normal
+entity_counter 0
+fill 4 -61 -10 30 -50 10 minecraft:stone
+fill 5 -60 -9 29 -52 9 minecraft:water[level=0]
+fill 4 -61 12 30 -61 20 minecraft:stone
+spawn_player Steve survival 12.5 -57 0.5 0 0
+mobspawn W minecraft:nautilus 14.5 -57 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed W 62101
+mobspawn B minecraft:nautilus 14.5 -57 4.5 0 0 {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+entity_seed B 62102
+mobspawn T minecraft:nautilus 16.5 -57 3.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed T 62103
+mobspawn L minecraft:nautilus 12.5 -60.2 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed L 62104
+level_seed 6211
+tick 2
+tame T Steve
+tame B Steve
+tame L Steve
+dump mob:W mob:B mob:T mob:L
+note a wild nautilus and a tamed baby refuse the saddle and the armor
+give Steve mainhand minecraft:saddle 4
+interact Steve W main
+tick 1
+dump mob:W events inventory:Steve
+interact Steve B main
+tick 1
+dump mob:B events inventory:Steve
+note the tamed adult takes a saddle; a second one is refused
+interact Steve T main
+tick 1
+dump mob:T events inventory:Steve nbt:T
+interact Steve T main
+tick 1
+dump mob:T events inventory:Steve
+note body armor of every material, one at a time out of the inventory screen's reach: the hand equips only an empty slot
+give Steve mainhand minecraft:copper_nautilus_armor 1
+interact Steve T main
+tick 1
+dump mob:T events inventory:Steve nbt:T
+give Steve mainhand minecraft:iron_nautilus_armor 1
+interact Steve T main
+tick 1
+dump mob:T events inventory:Steve
+note on land the equip sound is the dry one
+give Steve mainhand minecraft:saddle 1
+tp Steve 12.5 -60 13.5
+tick 1
+interact Steve L main
+tick 1
+dump mob:L events inventory:Steve nbt:L
+give Steve mainhand minecraft:diamond_nautilus_armor 1
+interact Steve L main
+tick 1
+dump mob:L events inventory:Steve nbt:L
+note a rider takes the saddle slot into account for the restriction radius and the nautilus drops its equipment when it dies
+nbt T {equipment:{saddle:{id:"minecraft:saddle",count:1},body:{id:"minecraft:golden_nautilus_armor",count:1}}}
+tick 1
+dump mob:T nbt:T
+hurt T minecraft:generic_kill 1000
+tick 3
+dump entities events
+note a dispenser puts saddle and armor on a tamed nautilus in front of it and refuses a wild one
+fill 9 -57 7 9 -57 7 minecraft:dispenser[facing=east]
+be_nbt 9 -57 7 {Items:[{Slot:0b,id:"minecraft:netherite_nautilus_armor",count:1},{Slot:1b,id:"minecraft:saddle",count:1}]}
+mobspawn D minecraft:nautilus 10.5 -57 7.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed D 62105
+tame D Steve
+dispense 9 -57 7
+tick 1
+dump mob:D events nbt:D
+dispense 9 -57 7
+tick 1
+dump mob:D events nbt:D

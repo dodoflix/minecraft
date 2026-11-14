@@ -124,6 +124,13 @@ final class EntityExtras {
          out.add("scream", EntityOracleDriver.bool(g.isScreamingGoat()));
          out.add("lhorn", EntityOracleDriver.bool(g.hasLeftHorn())).add("rhorn", EntityOracleDriver.bool(g.hasRightHorn()));
       }));
+      ALL.add(new Extra(32, net.minecraft.world.entity.animal.nautilus.AbstractNautilus.class, (d, e, out) -> {
+         out.add("dashcd", EntityOracleDriver.priv(e, net.minecraft.world.entity.animal.nautilus.AbstractNautilus.class, "dashCooldown"));
+         out.add("jscale", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, net.minecraft.world.entity.animal.nautilus.AbstractNautilus.class, "playerJumpPendingScale")));
+      }));
+      ALL.add(new Extra(33, net.minecraft.world.entity.animal.nautilus.ZombieNautilus.class, (d, e, out) -> {
+         out.add("variant", holderName(((net.minecraft.world.entity.animal.nautilus.ZombieNautilus)e).getVariant()));
+      }));
       ALL.add(new Extra(30, AbstractHorse.class, (d, e, out) -> {
          var owner = (net.minecraft.world.entity.EntityReference<?>)EntityOracleDriver.priv(e, AbstractHorse.class, "owner");
          out.add("owner", d.uuidName(owner == null ? null : owner.getUUID()));
