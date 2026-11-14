@@ -1,0 +1,26 @@
+# Elder guardian curse: every 1200 ticks (offset by its id) each survival player within 50 blocks gets mining fatigue 3 for 6000 ticks
+# with the appearance game event; a creative player and a distant player stay out; a player that already has the full effect gets neither.
+level flat
+preload 6
+difficulty normal
+entity_counter 3740
+level_seed 3741
+time 18000
+gamerule mob_drops false
+fill -8 -62 -8 12 -49 8 minecraft:stone
+fill -7 -61 -7 11 -51 7 minecraft:water[level=0]
+spawn_player Steve survival 0.5 -61 0.5 0 0
+spawn_player Alex creative 2.5 -61 0.5 0 0
+spawn_player Bob survival 60.5 -60 0.5 0 0
+spawn_player Cara survival 4.5 -61 0.5 0 0
+effect Cara minecraft:mining_fatigue 0 1000
+mobspawn E minecraft:elder_guardian 8.5 -57 0.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed E 3751
+tick 2
+dump mob:E nbt:E edata:E
+watch packets:Steve:game_event,update_mob_effect,remove_mob_effect packets:Cara:game_event,update_mob_effect,remove_mob_effect packets:Alex:game_event,update_mob_effect packets:Bob:game_event,update_mob_effect
+tick 1300
+watch off
+dump player:Steve player:Alex player:Bob player:Cara events
+tick 1300
+dump player:Steve player:Alex player:Bob player:Cara events

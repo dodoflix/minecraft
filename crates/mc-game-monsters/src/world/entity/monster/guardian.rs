@@ -369,6 +369,10 @@ struct GuardianRandomStrollGoal {
 }
 
 impl Goal for GuardianRandomStrollGoal {
+    fn name(&self) -> &'static str {
+        "RandomStrollGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if self.trigger.swap(false, Ordering::Relaxed) {
             self.stroll.trigger();
@@ -407,6 +411,10 @@ struct GuardianAttackGoal {
 }
 
 impl Goal for GuardianAttackGoal {
+    fn name(&self) -> &'static str {
+        "Guardian$GuardianAttackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         mob::tick::get_target_checked(mob, level)
             .and_then(|t| level.get_entity(t))
@@ -518,6 +526,10 @@ impl GuardianTargetGoal {
 }
 
 impl Goal for GuardianTargetGoal {
+    fn name(&self) -> &'static str {
+        "NearestAttackableTargetGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let position = mob.position();
         let selector = Arc::new(move |target: &dyn Entity, _level: &ServerLevel| {

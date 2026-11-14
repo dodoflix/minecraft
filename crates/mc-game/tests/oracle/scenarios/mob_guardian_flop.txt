@@ -1,0 +1,25 @@
+# Guardians out of water: the flop (jump with random yaw and motion, sound), no swimming, random look, the moving flag; one guardian in a
+# shallow puddle and one elder guardian on land.
+level flat
+preload 4
+difficulty normal
+entity_counter 3720
+level_seed 3721
+time 18000
+gamerule mob_drops false
+fill 6 -62 -3 10 -61 3 minecraft:stone
+fill 7 -61 -2 9 -61 2 minecraft:water[level=0]
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 4 100000
+mobspawn Dry minecraft:guardian 0.5 -60 10.5 0 0 {PersistenceRequired:1b}
+mobspawn Elder minecraft:elder_guardian 3.5 -60 -10.5 0 0 {PersistenceRequired:1b}
+mobspawn Wet minecraft:guardian 8.5 -60.5 0.5 0 0 {PersistenceRequired:1b}
+entity_seed Dry 3731
+entity_seed Elder 3732
+entity_seed Wet 3733
+tick 2
+dump mobs nbt:Dry goals:Dry edata:Dry
+watch mob:Dry mob:Elder mob:Wet entities events
+tick 200
+watch off
+dump mobs edata:Dry edata:Elder player:Steve events

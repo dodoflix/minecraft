@@ -101,6 +101,7 @@ import net.minecraft.util.RandomSource;
  * block X Y Z STATE           e.g. block 0 -60 0 minecraft:water[level=0]   (setBlock flags 3, like /setblock)
  * fill X1 Y1 Z1 X2 Y2 Z2 STATE
  * cmd COMMAND...              any vanilla command as the console (output appears as "C ..." lines)
+ * cmd_quiet COMMAND...        the same, its output is dropped (for commands whose feedback varies between runs)
  * note TEXT...                prints "# TEXT"
  * reseed N                    restart the entity random-seed sequence (entities created afterwards: see VanillaLevel header)
  * level_seed N                Level.random.setSeed(N) (explosion rays, drop spread, ... draw from it; LegacyRandomSource)
@@ -427,6 +428,11 @@ public final class EntityOracleDriver {
          case "cmd" -> {
             world();
             command(line.substring(3).strip());
+         }
+         case "cmd_quiet" -> {
+            world();
+            command(line.substring("cmd_quiet".length()).strip());
+            v.commandOutput.clear();
          }
          case "level_seed" -> {
             world();

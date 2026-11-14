@@ -81,4 +81,8 @@ impl<G: crate::world::entity::ai::goal::Goal> crate::world::entity::ai::goal::Go
     fn flags(&self) -> crate::world::entity::ai::goal::GoalFlags {
         self.flags
     }
+
+    fn name(&self) -> &'static str {
+        self.goal.name()
+    }
 }

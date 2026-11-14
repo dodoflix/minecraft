@@ -4,10 +4,28 @@ structures true
 seed 6
 preload 0
 difficulty normal
+command_env
 spawn_player Steve survival 310.5 62 208.5 0 0
 time 18000
 tick 60
 dump placed
+# kelp and seagrass above the spawn positions decide the sky test of the guardian spawn rule: the generated ocean vegetation is not pinned here, so clear it
+cmd_quiet fill 216 47 168 235 62 247 minecraft:water[level=0] replace minecraft:kelp
+cmd_quiet fill 216 47 168 235 62 247 minecraft:water[level=0] replace minecraft:kelp_plant
+cmd_quiet fill 216 47 168 235 62 247 minecraft:water[level=0] replace minecraft:seagrass
+cmd_quiet fill 216 47 168 235 62 247 minecraft:water[level=0] replace minecraft:tall_seagrass
+cmd_quiet fill 236 47 168 255 62 247 minecraft:water[level=0] replace minecraft:kelp
+cmd_quiet fill 236 47 168 255 62 247 minecraft:water[level=0] replace minecraft:kelp_plant
+cmd_quiet fill 236 47 168 255 62 247 minecraft:water[level=0] replace minecraft:seagrass
+cmd_quiet fill 236 47 168 255 62 247 minecraft:water[level=0] replace minecraft:tall_seagrass
+cmd_quiet fill 256 47 168 275 62 247 minecraft:water[level=0] replace minecraft:kelp
+cmd_quiet fill 256 47 168 275 62 247 minecraft:water[level=0] replace minecraft:kelp_plant
+cmd_quiet fill 256 47 168 275 62 247 minecraft:water[level=0] replace minecraft:seagrass
+cmd_quiet fill 256 47 168 275 62 247 minecraft:water[level=0] replace minecraft:tall_seagrass
+cmd_quiet fill 276 47 168 295 62 247 minecraft:water[level=0] replace minecraft:kelp
+cmd_quiet fill 276 47 168 295 62 247 minecraft:water[level=0] replace minecraft:kelp_plant
+cmd_quiet fill 276 47 168 295 62 247 minecraft:water[level=0] replace minecraft:seagrass
+cmd_quiet fill 276 47 168 295 62 247 minecraft:water[level=0] replace minecraft:tall_seagrass
 note spawn attempts
 spawnat 1 monster 232 46 184
 tick 1

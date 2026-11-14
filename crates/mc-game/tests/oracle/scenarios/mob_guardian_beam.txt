@@ -1,0 +1,26 @@
+# Guardian and a player in a water pool: GuardianAttackSelector (distance over 3), the beam charge (attack target id, laser ticks), the magic damage
+# after the attack duration, the guardian's swim and spikes, random strolling, and the thorns of a guardian that is not moving.
+level flat
+preload 4
+difficulty normal
+entity_counter 3700
+level_seed 3701
+time 18000
+gamerule mob_drops false
+fill -8 -62 -8 12 -49 8 minecraft:stone
+fill -7 -61 -7 11 -51 7 minecraft:water[level=0]
+spawn_player Steve survival 0.5 -61 0.5 0 0
+mobspawn G minecraft:guardian 8.5 -57 0.5 90 0 {PersistenceRequired:1b}
+mobspawn Thorny minecraft:guardian -5.5 -57 3.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed G 3711
+entity_seed Thorny 3712
+tick 2
+dump mobs nbt:G goals:G edata:G
+watch mob:G entities events
+tick 200
+watch off
+dump mobs edata:G player:Steve events
+hurt Thorny minecraft:player_attack 1 by=Steve direct=Steve
+hurt Thorny minecraft:arrow 1 by=Steve
+tick 2
+dump mob:Thorny player:Steve events

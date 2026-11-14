@@ -1,0 +1,25 @@
+# Vex with an owner and a limited life: it copies the owner's target, the owner reference is saved, after the life ticks it starves one health
+# every 20 ticks until it dies; a vex without an owner and life keeps living.
+level flat
+preload 4
+difficulty normal
+entity_counter 3780
+level_seed 3781
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+effect Steve minecraft:resistance 4 100000
+mobspawn Boss minecraft:zombie 14.5 -60 6.5 90 0 {PersistenceRequired:1b,NoAI:1b,UUID:[I;1,2,3,4]}
+mobspawn V minecraft:vex 10.5 -58 6.5 90 0 {PersistenceRequired:1b,owner:[I;1,2,3,4],life_ticks:60,bound_pos:[I;10,-58,6]}
+mobspawn Free minecraft:vex -10.5 -58 6.5 90 0 {PersistenceRequired:1b}
+entity_seed V 3791
+entity_seed Free 3792
+tick 2
+dump mobs nbt:V nbt:Free edata:V
+target Boss Steve
+watch mob:V mob:Free entities events
+tick 120
+watch off
+dump mobs nbt:V player:Steve events
+tick 300
+dump mobs nbt:V nbt:Free player:Steve events

@@ -193,6 +193,7 @@ mod mob_fixtures_golden;
 mod mob_goal_golden;
 mod mob_goat_golden;
 mod mob_golem_golden;
+mod mob_guardian_vex_golden;
 mod mob_harness_golden;
 mod mob_hoglin_golden;
 mod mob_illager_golden;

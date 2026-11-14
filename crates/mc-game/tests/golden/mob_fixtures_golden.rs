@@ -219,12 +219,6 @@ fn mob_spawnpass_fortress() {
 
 #[test]
 fn mob_spawnpass_structures_monument() {
-    block_scenario::check_until("mob_spawnpass_structures_monument", "spawn attempts");
-}
-
-#[test]
-#[ignore = "deviation: an attempt inside the monument succeeds here where vanilla's is blocked (SPAWNAT seed=344 at 232,54,184: the guardians of the preceding attempts differ in position), guardian movement"]
-fn mob_spawnpass_structures_monument_attempts() {
     block_scenario::check("mob_spawnpass_structures_monument");
 }
 

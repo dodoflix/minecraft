@@ -12,7 +12,7 @@
 //! Generate the fixture with `scripts/block-oracle.sh blk_redstone_lever_lamp` (runs the REAL vanilla level).
 //!
 //! Supported commands (same text as the Java driver, see its header): `level flat|void|normal` (`normal`: the real noise generator of the overworld and the nether), `structures true|false` (`generate-structures`: placed structures and the structure search), `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
-//! `command_env` (a real command environment around the whole scenario; `cmd COMMAND...` then runs any other command as the console, its feedback printed as `C` lines), `jigsaw_generate PLAYER X Y Z LEVELS KEEP`, `menu_button PLAYER N`, `close_menu PLAYER`, `move_packet`, `move_vehicle`, `paddle`, `client_tick_end`, `respawn`, `effect`, `mobspawn` (the actor verbs of `block_scenario_actors.rs`), the mob verbs of `mob_verbs.rs` (`target love age breed tame leash mob_attack nav path_query nav_stop`, dumps `mob:REF mobs goals: brain: path: attrs: nbt:`),
+//! `command_env` (a real command environment around the whole scenario; `cmd COMMAND...` then runs any other command as the console, its feedback printed as `C` lines; `cmd_quiet COMMAND...` prints none), `jigsaw_generate PLAYER X Y Z LEVELS KEEP`, `menu_button PLAYER N`, `close_menu PLAYER`, `move_packet`, `move_vehicle`, `paddle`, `client_tick_end`, `respawn`, `effect`, `mobspawn` (the actor verbs of `block_scenario_actors.rs`), the mob verbs of `mob_verbs.rs` (`target love age breed tame leash mob_attack nav path_query nav_stop`, dumps `mob:REF mobs goals: brain: path: attrs: nbt:`),
 //! `note`, the spawning verbs of `spawn_verbs.rs` (`spawnpass`, `spawnat`, `custom_spawner`, `raid_start`, `raid_waves`, `rest`, `memory`, `activity`, dumps `difficulty:X,Y,Z spawn_state raids`), `cmd weather rain|clear TICKS`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `biome X1 Y1 Z1 X2 Y2 Z2 BIOME` (`/fillbiome`: loads the real biome registry), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
 //! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list), `chunkbes:cx,cz` (`CHUNKBES`/`BEP x y z type`: the block entity list of the chunk packet; `BEM` is the map's iteration order, vanilla's fastutil order), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
@@ -546,10 +546,11 @@ impl Scenario {
         self.level.as_mut().expect("world not booted")
     }
 
-    /// `cmd COMMAND...`: any command as the console (`VanillaLevel.command`), run through the server `command_env` installs.
-    /// The output is not replayed (the comparison drops `C` lines); the effects on the level are.
-    fn console_command(&mut self) {
-        let command = self.line["cmd".len()..].trim().to_string();
+    /// `cmd COMMAND...` / `cmd_quiet COMMAND...`: any command as the console (`VanillaLevel.command`), run through the server
+    /// `command_env` installs. The output is not replayed by `cmd` (the comparison drops `C` lines) and not printed by `cmd_quiet`;
+    /// the effects on the level are.
+    fn console_command(&mut self, verb: &str, quiet: bool) {
+        let command = self.line[verb.len()..].trim().to_string();
         let level = self.level();
         let respawn = level.level_data.get_respawn_data().pos;
         let output = Arc::new(CommandOutput::default());
@@ -576,8 +577,10 @@ impl Scenario {
             });
         });
         self.handle_disconnections();
-        self.out
-            .extend(output.0.lock().drain(..).map(|line| format!("C {line}")));
+        if !quiet {
+            self.out
+                .extend(output.0.lock().drain(..).map(|line| format!("C {line}")));
+        }
     }
 
     /// `VanillaLevel.boot`: the level with the preloaded chunks forced, ticking, entities loaded.
@@ -929,8 +932,12 @@ impl Scenario {
                         };
                     }
                     (Some("recipe"), Some("give" | "take")) => self.recipe_command(a),
-                    _ => self.console_command(),
+                    _ => self.console_command("cmd", false),
                 }
+            }
+            "cmd_quiet" => {
+                self.world();
+                self.console_command("cmd_quiet", true);
             }
             "note" => self.out.push(format!("# {}", self.line[4..].trim())),
             "gamerule" => {
