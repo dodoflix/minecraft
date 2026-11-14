@@ -1021,7 +1021,11 @@ impl Scenario {
                 })
             });
         }
+        // `VanillaLevel.connect` waits for the spawn chunks' entities (`waitForEntities`) before the player joins; the wait polls the
+        // chunk source, whose task loop runs the distance manager updates. The players that joined earlier are in its trackers before
+        // this one is added: the iteration order of the natural spawn map, hence the shuffled spawning chunks, depends on it.
         let level = self.level();
+        level.run_distance_manager_updates();
         // `PlayerList.placeNewPlayer` registers the player with the chunk map and the entity tracker (`add_player` does, through
         // the listener's chunk sender: the spawning chunks it creates are shuffled with the level random on every tick, which
         // every later spawner draw depends on, and the batches it sends decide which chunks the player tracks entities in)

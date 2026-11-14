@@ -2,6 +2,7 @@
 
 pub mod cat;
 pub mod cat_sound_variant;
+pub mod cat_spawner;
 pub mod cat_variant;
 pub mod ocelot;
 

@@ -12,8 +12,6 @@ give Alice mainhand minecraft:ender_pearl 5
 give Bob mainhand minecraft:ender_pearl 2
 tick 5
 entity_counter 500
-# the level random is pinned: natural spawning (spawn_mobs on) draws from it, and this seed spawns nothing in these ticks
-level_seed 12
 dump packets:Alice:none
 watch events entities player:Alice
 use Alice

@@ -104,6 +104,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
             || l.starts_with("biome ")
             || l.starts_with("spawnpass ")
             || l.starts_with("spawnat ")
+            || l.starts_with("gamerule spawn_mobs true")
             || l.starts_with("custom_spawner ")
             || l.contains("minecraft:bone_meal")
             || l.contains("advancements:")
@@ -687,6 +688,10 @@ impl Scenario {
         level.tick_state.enabled_features = self.opts.features;
         level.server_state.rules.refresh(&self.env.game_rules);
         apply_spawn_settings(&mut level, &self.env.game_rules);
+        // `MinecraftServer.createLevels`: only the overworld has custom spawners (phantom, patrol, cat, siege, trader)
+        if self.opts.dimension == "overworld" {
+            level.install_custom_spawners();
+        }
         if mc_game::commands::server_access::has_server() {
             // the scoreboard the `team`/`scoreboard` commands edit is the one the level reads
             level.server_state.scoreboard =

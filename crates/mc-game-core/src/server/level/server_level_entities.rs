@@ -161,6 +161,24 @@ impl ServerLevel {
         &self.players
     }
 
+    /// `getRandomPlayer()`: one of the living players, drawn with the level random.
+    pub fn get_random_player(&mut self) -> Option<EntityId> {
+        let alive: Vec<EntityId> = self
+            .players
+            .iter()
+            .copied()
+            .filter(|id| self.get_entity(*id).is_some_and(|p| p.is_alive()))
+            .collect();
+        if alive.is_empty() {
+            return None;
+        }
+        let index = mc_core::random::RandomSource::next_int_bounded(
+            &mut self.tick_state.random,
+            alive.len() as i32,
+        );
+        Some(alive[index as usize])
+    }
+
     // ---- take-out / sync --------------------------------------------------------------------------------------
 
     /// Take an entity out of its slot (lookups return `None` while it is out). Pair with [`ServerLevel::put_back_entity`].
