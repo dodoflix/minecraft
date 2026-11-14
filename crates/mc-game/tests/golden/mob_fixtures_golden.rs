@@ -6,16 +6,10 @@ use std::collections::BTreeMap;
 
 /// The mob types whose `finalizeSpawn` block (rich `E` line + saved NBT) differs from vanilla today. The test fails when a type
 /// outside the list diverges and when a listed type no longer does (delete its entry), so the list can only shrink.
-const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[
-    // inert placeholders: the dump line stops after the position fields
-    "minecraft:sniffer",
-];
+const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[];
 
-/// `mob_finalize_summon` and `mob_spawn_egg_finalize`: inert placeholders and the class-specific differences of single types.
-const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[
-    // inert placeholders: the dump line stops after the position fields
-    "minecraft:sniffer",
-];
+/// `mob_finalize_summon` and `mob_spawn_egg_finalize`: the class-specific differences of single types.
+const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[];
 
 /// Every `mobspawn` block of `mob_finalize_equipment` (208 mobs of about 52 types, each with its own difficulty and spawn reason).
 #[test]

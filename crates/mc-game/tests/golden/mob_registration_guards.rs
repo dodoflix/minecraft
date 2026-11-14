@@ -19,10 +19,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "HappyGhast: rideable harness flyer",
     ),
     (
-        "minecraft:sniffer",
-        "Sniffer: digging, seed finding, egg laying",
-    ),
-    (
         "minecraft:wither",
         "Wither: boss event, charged state, skull attacks",
     ),

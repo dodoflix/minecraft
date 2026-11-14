@@ -40,6 +40,8 @@ pub mod squid;
 
 pub mod sheep;
 
+pub mod sniffer;
+
 pub mod turtle;
 
 pub mod wolf;

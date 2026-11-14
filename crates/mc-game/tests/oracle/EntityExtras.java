@@ -15,6 +15,7 @@ import net.minecraft.world.entity.animal.fish.Salmon;
 import net.minecraft.world.entity.animal.fish.TropicalFish;
 import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.animal.frog.Tadpole;
+import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.animal.squid.GlowSquid;
 import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.entity.animal.bee.Bee;
@@ -132,6 +133,15 @@ final class EntityExtras {
          Goat g = (Goat)e;
          out.add("scream", EntityOracleDriver.bool(g.isScreamingGoat()));
          out.add("lhorn", EntityOracleDriver.bool(g.hasLeftHorn())).add("rhorn", EntityOracleDriver.bool(g.hasRightHorn()));
+      }));
+      ALL.add(new Extra(25, Sniffer.class, (d, e, out) -> {
+         @SuppressWarnings("unchecked")
+         var state = (net.minecraft.network.syncher.EntityDataAccessor<Sniffer.State>)EntityOracleDriver.priv(e, Sniffer.class, "DATA_STATE");
+         @SuppressWarnings("unchecked")
+         var dropAt = (net.minecraft.network.syncher.EntityDataAccessor<Integer>)EntityOracleDriver.priv(e, Sniffer.class, "DATA_DROP_SEED_AT_TICK");
+         out.add("state", e.getEntityData().get(state).name().toLowerCase(java.util.Locale.ROOT));
+         out.add("dropat", e.getEntityData().get(dropAt));
+         out.add("size", EntityOracleDriver.f(e.getBbWidth()) + "," + EntityOracleDriver.f(e.getBbHeight()) + "," + EntityOracleDriver.f(e.getEyeHeight()));
       }));
       ALL.add(new Extra(32, net.minecraft.world.entity.animal.nautilus.AbstractNautilus.class, (d, e, out) -> {
          out.add("dashcd", EntityOracleDriver.priv(e, net.minecraft.world.entity.animal.nautilus.AbstractNautilus.class, "dashCooldown"));

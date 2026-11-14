@@ -1,0 +1,57 @@
+# Sniffers with torchflower seeds: feeding plays the eating sound, ages a young sniffer by 240 seconds and sets a grown, healthy one in
+# love; two sniffers in love walk together and breed (an egg item instead of a baby, the plop sound, the parents get their breeding
+# cooldown), and a sniffer follows the seeds in a player's hand.
+level flat
+difficulty normal
+preload 4
+entity_counter 1800
+level_seed 1801
+spawn_player Steve survival 0.5 -60 3.5 0 0
+mobspawn A minecraft:sniffer 3.5 -60 1.5 0 0 {PersistenceRequired:1b}
+entity_seed A 81
+mobspawn B minecraft:sniffer 3.5 -60 4.3 0 0 {PersistenceRequired:1b}
+entity_seed B 82
+mobspawn Y minecraft:sniffer -2.5 -60 3.5 0 0 {PersistenceRequired:1b,Age:-48000}
+entity_seed Y 83
+tick 3
+note wheat seeds are not sniffer food: nothing happens
+give Steve mainhand minecraft:wheat_seeds 4
+interact Steve A main
+tick 1
+dump mob:A events
+note torchflower seeds: a sniffer at full health and of age 0 falls in love, a second seed is not eaten
+give Steve mainhand minecraft:torchflower_seeds 16
+interact Steve A main
+tick 1
+dump mob:A events
+interact Steve A main
+tick 1
+dump mob:A events
+note a young sniffer grows by 240 seconds, a hurt one heals before it falls in love
+interact Steve Y main
+tick 1
+dump mob:Y events
+hurt B minecraft:generic 6
+tick 1
+interact Steve B main
+tick 1
+dump mob:B events
+note the two sniffers in love find each other and breed once both are at full health
+set B health 14
+give Steve mainhand minecraft:air
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+note the breeding itself: an egg item entity next to the mother, the parents set back to age 6000 and out of love
+breed A B
+tick 1
+dump mobs entities events
+dump nbt:A nbt:B
+note the seeds in the hand lead the young sniffer
+tp Steve 14.5 -60 3.5
+give Steve mainhand minecraft:torchflower_seeds 16
+tick 60
+dump mobs events

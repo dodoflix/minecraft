@@ -1,0 +1,183 @@
+TICK block 0 -60 0 minecraft:sniffer_egg delay=4148 prio=0
+TICK block 6 -60 0 minecraft:sniffer_egg delay=8200 prio=0
+B 0 -60 0 minecraft:sniffer_egg[hatch=0]
+B 6 -60 0 minecraft:sniffer_egg[hatch=2]
+EV level_event r=64.0 ex=0 type=3009 pos=0,-60,0 data=0 global=0
+B 0 -60 0 minecraft:sniffer_egg[hatch=0]
+B 6 -60 0 minecraft:sniffer_egg[hatch=2]
+B 0 -60 0 minecraft:sniffer_egg[hatch=1]
+B 6 -60 0 minecraft:sniffer_egg[hatch=2]
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sniffer_egg.crack source=block vol=0.7 pitch=0.98949504
+EV level_event r=64.0 ex=0 type=3009 pos=0,-60,0 data=0 global=0
+TICK block 6 -60 0 minecraft:sniffer_egg delay=4052 prio=0
+TICK block 0 -60 0 minecraft:sniffer_egg delay=4287 prio=0
+# the egg without moss hatches: a baby with the egg's position, a random yaw
+B 0 -60 0 minecraft:sniffer_egg[hatch=1]
+B 6 -60 0 minecraft:sniffer_egg[hatch=2]
+B 0 -60 0 minecraft:sniffer_egg[hatch=1]
+E sniffer#1 minecraft:sniffer pos=6.5,-59.5,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-174.37202,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sniffer_egg.hatch source=block vol=0.7 pitch=0.90565354
+EV level_event r=64.0 ex=0 type=2001 pos=6,-60,0 data=18461 global=0
+E sniffer#1 minecraft:sniffer pos=6.5,-59.5,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-174.37202,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=-47999 baby=1 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=0.95,0.875,0.525
+ED sniffer#1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41600000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:01 17:8:00 18:35:00 19:1:00
+N sniffer#1 {AbsorptionAmount:0.0f,Age:-47999,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:14.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[6.5d,-59.5d,0.5d],Rotation:[-174.37202f,0.0f],attributes:[{base:0.10000000149011612d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+B 0 -60 0 minecraft:sniffer_egg[hatch=1]
+E sniffer#1 minecraft:sniffer pos=3.48159810896707,-60.0,-2.518401891032934 delta=-0.00850397370489759,-0.0784000015258789,-0.00850397370489759 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+B 0 -60 0 minecraft:sniffer_egg[hatch=2]
+E sniffer#1 minecraft:sniffer pos=3.466023067360589,-60.0,-2.533976932639415 delta=-0.00850397370489759,-0.0784000015258789,-0.00850397370489759 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=6.238380124949155,-60.0,0.23838012494915667 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.6133463
+EV sound at=5.319453018531833,-60.0,-0.6805469814681683 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.135749856439274,-60.0,-1.86425014356073 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.793098941096691,-60.0,-2.206901058903313 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.6249013
+EV sound at=3.77752389949021,-60.0,-2.222476100509794 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sniffer_egg.crack source=block vol=0.7 pitch=1.0580373
+EV level_event r=64.0 ex=0 type=3009 pos=0,-60,0 data=0 global=0
+TICK block 0 -60 0 minecraft:sniffer_egg delay=4262 prio=0
+# the boosted egg hatches on its third stage
+B 0 -60 0 minecraft:sniffer_egg[hatch=2]
+E sniffer#1 minecraft:sniffer pos=22.430908151049064,-60.0,5.463588678016601 delta=0.012019799491366823,-0.0784000015258789,1.8370366080632192E-4 rot=271.92896,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sniffer#1 minecraft:sniffer pos=22.452922159650996,-60.0,5.463928964296526 delta=0.012019650092768312,-0.0784000015258789,1.85796330419943E-4 rot=271.95062,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sniffer#2 minecraft:sniffer pos=0.5,-59.5,0.5 delta=0.0,-0.0784000015258789,0.0 rot=36.487785,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=2.956081255683785,-60.0,-3.050410072689512 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.3794818270454092,-60.0,-4.38608856296339 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=2.31123505124294,-60.0,-4.472526242403613 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.4566188
+EV sound at=2.2566375939982604,-60.0,-4.541676366050022 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.7835713491789253,-60.0,-5.532479761304318 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=1.7045745269708545,-60.0,-6.04342776058345 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.7271716536457666,-60.0,-5.205195241048955 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=2.9712334991096094,-60.0,-4.9824943550854295 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.057901684474345,-60.0,-4.88635571045097 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.3509061
+EV sound at=3.7001403055058866,-60.0,-3.5107367376337812 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.973525193594092,-60.0,-3.165300427753776 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=4.27343536778446,-60.0,-2.1149517960348896 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.584365
+EV sound at=4.29132910169996,-60.0,-2.0118339492725896 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.295104503225916,-60.0,-1.9913686290364083 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=4.405301638367323,-60.0,-0.3615325039880474 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.687934824320265,-60.0,0.408222403500772 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=5.165037270995215,-60.0,1.0664698724054125 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.2185598418054315,-60.0,1.4503394949470683 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.5416217
+EV sound at=5.245796829969529,-60.0,1.6624840278916198 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=5.383617378280687,-60.0,1.4064396263538574 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.622192611130045,-60.0,0.6662700339844214 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.3561208
+EV sound at=6.099023693094692,-60.0,0.032705383312205266 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=6.138762646798494,-60.0,-0.020089408316684404 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=6.305207800132757,-60.0,-1.0485190992993365 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=6.305207800132757,-60.0,-1.0485190992993365 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.5888613
+EV sound at=6.305207800132757,-60.0,-1.0485190992993365 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=6.305207800132757,-60.0,-1.0485190992993365 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=6.568331308071955,-60.0,-1.368197441788922 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.3859636
+EV sound at=6.694312266187846,-60.0,-1.5212563006919588 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.145647414953613,-60.0,-2.1120036354006637 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=7.289443022355407,-60.0,-3.015875732957077 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.111112139317493,-60.0,-4.0363001637755085 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=8.20336885835287,-60.0,-4.393433407721449 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.219303973151867,-60.0,-4.520953776433307 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.5795312
+EV sound at=8.333330326929108,-60.0,-5.519883084271789 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=8.381155281403826,-60.0,-6.038174402412685 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.80977915975335,-60.0,-7.579119164680879 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=9.100392402155597,-60.0,-7.966886173831921 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.462939
+EV sound at=9.305922908242575,-60.0,-9.0485360698022 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=9.305922908242575,-60.0,-9.0485360698022 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=9.385307920944099,-60.0,-9.066329339787913 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=10.209972374175777,-60.0,-9.22493341461189 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.5168108
+EV sound at=11.018591629548832,-60.0,-9.323482602944122 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=11.409472784306985,-60.0,-9.348403638410343 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=12.67553349941848,-60.0,-9.420560618661327 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=12.960316482170073,-60.0,-9.434352568672342 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=14.015465729380079,-60.0,-9.46250049312232 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.5110508
+EV sound at=14.345625621554822,-60.0,-9.4670034320002 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=14.741906833512633,-60.0,-9.472712705612969 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=16.019006422958245,-60.0,-9.486696730880377 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=16.51746068165666,-60.0,-9.177344226211908 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=17.47215349789607,-60.0,-8.76149517431484 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=17.514865738809043,-60.0,-8.756537986693331 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.5892972
+EV sound at=18.061813824182835,-60.0,-8.68203382687015 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=18.061813824182835,-60.0,-8.68203382687015 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=18.061813824182835,-60.0,-8.68203382687015 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.5072271
+EV sound at=19.074159371865708,-60.0,-8.59310006474368 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=19.12782102830616,-60.0,-8.556935480700103 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=20.543054763078754,-60.0,-7.7729378405967395 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=20.962231486135373,-60.0,-7.71065271408096 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.570399
+EV sound at=21.003319061679985,-60.0,-7.703289666857779 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=22.167188111504014,-60.0,-7.537975838242867 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=23.036088761859812,-60.0,-6.861422298538111 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=23.60713758757241,-60.0,-6.766856962076342 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=23.64937449203756,-60.0,-6.761095331071482 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.5350999
+EV sound at=25.259192331654518,-60.0,-6.609053501707727 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=26.756777724164568,-60.0,-6.049806690988004 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=26.756777724164568,-60.0,-6.049806690988004 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.3240817
+EV sound at=27.421576858291946,-60.0,-5.7760841743741995 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=28.052592419481783,-60.0,-5.689743379770944 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=28.052592419481783,-60.0,-5.689743379770944 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.4254792
+EV sound at=28.052592419481783,-60.0,-5.689743379770944 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=27.98715696983879,-60.0,-5.41606864021008 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=27.026240811674565,-60.0,-4.081168183722373 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=26.66262509730975,-60.0,-3.697550494055755 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=26.110304164629724,-60.0,-3.1285918703438282 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.3984505
+EV sound at=25.858385368719322,-60.0,-2.926719557634966 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=24.99704251577567,-60.0,-2.6558520864527453 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=24.381043406007127,-60.0,-2.1994538596107693 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=23.736820833727187,-60.0,-1.8170046194457115 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.534393
+EV sound at=23.672812330019035,-60.0,-1.809487601946592 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=22.9403960409787,-60.0,-1.703360293752929 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=22.91958543030258,-60.0,-1.603565656679291 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=22.905179004814393,-60.0,-1.521856162469761 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=22.73849112847996,-60.0,-0.4934870651890165 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.4505366
+EV sound at=22.66937423494658,-60.0,0.03619397527766985 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=22.66937423494658,-60.0,0.057144463997510477 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=22.66937423494658,-60.0,0.057144463997510477 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=22.66937423494658,-60.0,0.057144463997510477 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.559973
+EV sound at=22.66937423494658,-60.0,0.057144463997510477 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=22.66937423494658,-60.0,0.057144463997510477 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.650179
+EV sound at=22.66937423494658,-60.0,0.057144463997510477 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=22.66937423494658,-60.0,0.057144463997510477 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=21.732226927336292,-60.0,1.1907915569081065 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=21.611462215635864,-60.0,1.319112689004939 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=21.400116795736626,-60.0,1.5436683240846005 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.45026
+EV sound at=20.962329786619968,-60.0,2.0088192224062134 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=20.45414097204658,-60.0,2.5284987804770145 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=19.805068594005608,-60.0,3.1876866580687553 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=19.29252360430798,-60.0,3.7030904248260827 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=19.21486521805427,-60.0,3.7811818507133754 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.3677526
+EV sound at=19.059548445546852,-60.0,3.93736470248796 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=18.110508054859405,-60.0,4.888477880844519 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=18.04826166916217,-60.0,4.950831780735527 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=17.957317892448714,-60.0,5.04193263880756 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.3963792
+EV sound at=17.957317892448714,-60.0,5.04193263880756 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=19.281153485973217,-60.0,5.316259991642814 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.4630868
+EV sound at=19.3682665824056,-60.0,5.322308381496303 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=21.02390480915599,-60.0,5.428393179059996 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=22.254787315253143,-60.0,5.460995746642649 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sniffer_egg.hatch source=block vol=0.7 pitch=1.052223
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=18461 global=0
+E sniffer#1 minecraft:sniffer pos=22.452922159650996,-60.0,5.463928964296526 delta=0.012019650092768312,-0.0784000015258789,1.85796330419943E-4 rot=271.95062,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=271.92896 body=271.95062 nav=moving stuck=0 navspeed=1.0 ntarget=26,-60,4 path=6/10/1/26,-60,4 nodes=17,-60,5:WALKABLE:0.0;18,-60,5:WALKABLE:0.0;19,-60,5:WALKABLE:0.0;20,-60,5:WALKABLE:0.0;21,-60,5:WALKABLE:0.0;22,-60,5:WALKABLE:0.0;23,-60,5:WALKABLE:0.0;24,-60,5:WALKABLE:0.0;25,-60,4:WALKABLE:0.0;26,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(6;10):inf;visible_mobs:():inf;walk_target:walk(pos(26,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=-43502 baby=1 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=0.95,0.875,0.525
+E sniffer#2 minecraft:sniffer pos=0.5,-59.5,0.5 delta=0.0,-0.0784000015258789,0.0 rot=36.487785,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=-47999 baby=1 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=0.95,0.875,0.525
+ED sniffer#2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41600000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:01 17:8:00 18:35:00 19:1:00
+N sniffer#2 {AbsorptionAmount:0.0f,Age:-47999,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:14.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[0.5d,-59.5d,0.5d],Rotation:[36.487785f,0.0f],attributes:[{base:0.10000000149011612d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# the two babies scent and idle, they never sniff
+E sniffer#1 minecraft:sniffer pos=24.5513718398914,-60.0,5.151250676460043 delta=0.009914260027320694,-0.0784000015258789,-0.006807538823090263 rot=235.52957,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=235.52948 body=235.52957 nav=moving stuck=0 navspeed=1.0 ntarget=26,-60,4 path=8/10/1/26,-60,4 nodes=17,-60,5:WALKABLE:0.0;18,-60,5:WALKABLE:0.0;19,-60,5:WALKABLE:0.0;20,-60,5:WALKABLE:0.0;21,-60,5:WALKABLE:0.0;22,-60,5:WALKABLE:0.0;23,-60,5:WALKABLE:0.0;24,-60,5:WALKABLE:0.0;25,-60,4:WALKABLE:0.0;26,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(8;10):inf;visible_mobs:():inf;walk_target:walk(pos(26,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=-43402 baby=1 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=0.95,0.875,0.525
+E sniffer#2 minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=36.487785,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=-47899 baby=1 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=0.95,0.875,0.525
+EV sound at=22.695054817428147,-60.0,5.467957634459343 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=23.201282442983768,-60.0,5.47612558981448 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=23.26735048969554,-60.0,5.476680667454598 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.3517714
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.5814933
+EV sound at=24.31531736722706,-60.0,5.313332973217467 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=24.533213856602472,-60.0,5.163718694834359 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+E sniffer#1 minecraft:sniffer pos=26.05933520533501,-60.0,4.675940318814797 delta=0.0,-0.0784000015258789,0.0 rot=249.59048,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.1 zza=0.0 xxa=0.0 yya=0.0 head=249.59048 body=249.59048 nav=done stuck=0 navspeed=1.0 ntarget=26,-60,4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=-43302 baby=1 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=0.95,0.875,0.525
+E sniffer#2 minecraft:sniffer pos=1.948232514598669,-60.0,-0.9421647152159532 delta=0.008456554591271735,-0.0784000015258789,-0.0085511297414014 rot=224.68652,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=224.6864 body=224.68652 nav=moving stuck=0 navspeed=1.0 ntarget=6,-60,-8 path=2/9/1/6,-60,-8 nodes=0,-60,0:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;2,-60,-2:WALKABLE:0.0;3,-60,-3:WALKABLE:0.0;4,-60,-4:WALKABLE:0.0;5,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-7:WALKABLE:0.0;6,-60,-8:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(2;9):inf;visible_mobs:():inf;walk_target:walk(pos(6,-60,-8);1.0;0):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=-47799 baby=1 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=0.95,0.875,0.525
+EV sound at=25.808326789055158,-60.0,4.710941993854378 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.5145630987547045,-60.0,-0.5036452922299459 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=26.049791689842266,-60.0,4.675940318814797 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=1.684933226405721,-60.0,-0.675920779833516 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=26.05933520533501,-60.0,4.675940318814797 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.5136219
+EV sound at=1.7313978066750622,-60.0,-0.722905003724537 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.5785159
+E sniffer#1 minecraft:sniffer pos=26.05933520533501,-60.0,4.675940318814797 delta=0.0,-0.0784000015258789,0.0 rot=249.59048,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.1 zza=0.0 xxa=0.0 yya=0.0 head=249.59048 body=249.59048 nav=done stuck=0 navspeed=1.0 ntarget=26,-60,4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=-43202 baby=1 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=0.95,0.875,0.525
+E sniffer#2 minecraft:sniffer pos=3.5031759835556655,-60.0,-2.5022232080229774 delta=0.00849989531903757,-0.0784000015258789,-0.008508050656172973 rot=224.97266,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=224.97266 body=224.97266 nav=moving stuck=0 navspeed=1.0 ntarget=6,-60,-8 path=4/9/1/6,-60,-8 nodes=0,-60,0:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;2,-60,-2:WALKABLE:0.0;3,-60,-3:WALKABLE:0.0;4,-60,-4:WALKABLE:0.0;5,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-7:WALKABLE:0.0;6,-60,-8:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(4;9):inf;visible_mobs:():inf;walk_target:walk(pos(6,-60,-8);1.0;0):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=-47699 baby=1 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=0.95,0.875,0.525
+EV sound at=26.05933520533501,-60.0,4.675940318814797 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=2.86515318830392,-60.0,-1.8630931903649635 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.958450554146552,-60.0,-1.956696078021682 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+EV sound at=26.05933520533501,-60.0,4.675940318814797 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+N sniffer#1 {AbsorptionAmount:0.0f,Age:-43202,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:14.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PersistenceRequired:0b,PortalCooldown:0,Pos:[26.05933520533501d,-60.0d,4.675940318814797d],Rotation:[249.59048f,0.0f],attributes:[{base:0.10000000149011612d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N sniffer#2 {AbsorptionAmount:0.0f,Age:-47699,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:14.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.00849989531903757d,-0.0784000015258789d,-0.008508050656172973d],OnGround:1b,PersistenceRequired:0b,PortalCooldown:0,Pos:[3.5031759835556655d,-60.0d,-2.5022232080229774d],Rotation:[224.97266f,0.0f],attributes:[{base:0.10000000149011612d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}

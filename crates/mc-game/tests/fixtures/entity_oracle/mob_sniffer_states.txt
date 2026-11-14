@@ -1,0 +1,609 @@
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BR S RunOne: [DoNothing]
+ED S 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41600000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:00 17:8:00 18:35:00 19:1:00
+N S {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:14.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.04241797775720765d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.10000000149011612d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.0013515
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [DoNothing]
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.0367892
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [DoNothing]
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [DoNothing]
+E S minecraft:sniffer pos=0.49050583751517046,-60.0,0.5416462654578572 delta=-0.0017315790283768259,-0.0784000015258789,0.009550650056899736 rot=18.49524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=18.434998 body=18.49524 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=1/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(1;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(1;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [DoNothing]
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.1075343
+E S minecraft:sniffer pos=0.37633039045203975,-60.0,0.9389878023817798 delta=-0.006577913878501981,-0.0784000015258789,0.010022885033547061 rot=33.730644,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=33.723427 body=33.730644 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=2/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(2;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(2;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [DoNothing]
+E S minecraft:sniffer pos=0.13188701656680388,-60.0,1.3053740802832487 delta=-0.006679611379735629,-0.0784000015258789,0.010000896307496506 rot=33.739998,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=33.739998 body=33.739998 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=2/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(2;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(2;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=0.33982027419555594,-60.0,0.9939806642387919 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=-0.11278738581667133,-60.0,1.6717072303581983 delta=-0.006679611998103745,-0.0784000015258789,0.01000089614915599 rot=33.74022,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=33.740204 body=33.74022 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=2/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(2;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(2;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=-0.35746178956218344,-60.0,2.038040380084381 delta=-0.0066796119981071735,-0.0784000015258789,0.010000896149155114 rot=33.740746,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=33.7407 body=33.740746 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=2/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(2;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(2;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=-0.29629318862580356,-60.0,1.9464570926528362 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=-0.6085378152244283,-60.0,2.3994883720389764 delta=-0.007779450976073991,-0.0784000015258789,0.00916125009998477 rot=40.996384,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=40.984116 body=40.996384 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=3/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(3;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(3;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=-0.39416295012401137,-60.0,2.092990352543308 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=-0.8973579466567723,-60.0,2.7321021052784347 delta=-0.007891945410031341,-0.0784000015258789,0.00907481909536837 rot=41.012222,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=41.012222 body=41.012222 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=3/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(3;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(3;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=-1.186440205006505,-60.0,3.064512987775204 delta=-0.007891946643800407,-0.0784000015258789,0.009074818085506179 rot=41.012314,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=41.012314 body=41.012314 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=3/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(3;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(3;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=-0.9118120584763607,-60.0,2.7487226503019224 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=0.9894838
+E S minecraft:sniffer pos=-1.475522466073775,-60.0,3.3969238680476175 delta=-0.007891946643807246,-0.0784000015258789,0.00907481808550058 rot=41.012497,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=41.01248 body=41.012497 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=3/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(3;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(3;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=-1.2008943180598626,-60.0,3.0811335317888298 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.0
+EV sound at=-1.3454354485934972,-60.0,3.2473389719250374 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=-1.8463588799893673,-60.0,3.60780678516316 delta=-0.01138530230016149,-0.0784000015258789,0.003873216915407824 rot=71.22388,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=71.22359 body=71.22388 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=4/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(4;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(4;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=-2.263440796259385,-60.0,3.749607902592296 delta=-0.011386463120126611,-0.0784000015258789,0.003870865922964594 rot=71.22476,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=71.22475 body=71.22476 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=4/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(4;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(4;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=-2.68561327428386,-60.0,3.8589713940749237 delta=-0.01194489522288064,-0.0784000015258789,5.773540893958301E-4 rot=83.93051,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=83.98366 body=83.93051 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=5/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(5;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(5;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+E S minecraft:sniffer pos=-3.123105733695506,-60.0,3.882527733921663 delta=-0.011925733662899332,-0.0784000015258789,7.156140069566162E-4 rot=82.47104,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=82.56856 body=82.47104 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=5/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(5;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(5;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [DoNothing]
+EV sound at=-2.8388526133211602,-60.0,3.8666564384882824 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=-3.558411644490446,-60.0,3.9136995608258354 delta=-0.011825342489312555,-0.0784000015258789,0.00102100415618127 rot=79.22368,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=79.48604 body=79.22368 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=5/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(5;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(5;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [DoNothing]
+E S minecraft:sniffer pos=-3.913126146568536,-60.0,4.165502918319222 delta=-0.009538888088948276,-0.0784000015258789,0.007324234144757596 rot=52.483063,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=52.483047 body=52.483063 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=6/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(6;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(6;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=-3.755884079424314,-60.0,4.044795644998291 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.0
+EV sound at=-3.7908305855403235,-60.0,4.07160858471176 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=0.9687082
+E S minecraft:sniffer pos=-4.262535389714506,-60.0,4.433791380686533 delta=-0.00953887250908557,-0.0784000015258789,0.007324278542870361 rot=52.48369,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=52.483612 body=52.48369 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=6/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(6;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(6;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=-4.619886599243253,-60.0,4.685276426146371 delta=-0.011363796559421102,-0.0784000015258789,0.003455674789828446 rot=77.09233,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=72.485 body=77.09233 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=7/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(7;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(7;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=-4.314946771039027,-60.0,4.474034664710158 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=-5.0471551414120865,-60.0,4.73942935317368 delta=-0.011620611835386473,-0.0784000015258789,0.0014244414215120588 rot=74.8813,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=75.05179 body=74.8813 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=7/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(7;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(7;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [DoNothing]
+E S minecraft:sniffer pos=-5.467881715841119,-60.0,4.799475400445351 delta=-0.011312986498646928,-0.0784000015258789,0.0018900940530482931 rot=69.74684,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=70.12251 body=69.74684 nav=moving stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=7/8/1/-7,-60,4 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,3:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-6,-60,4:WALKABLE:0.0;-7,-60,4:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(7;8):inf;visible_mobs:():inf;walk_target:walk(pos(-7,-60,4);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(7;8) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(-7,-60,4);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [DoNothing]
+E S minecraft:sniffer pos=-5.570871671091109,-60.0,4.814004743529726 delta=0.0,-0.0784000015258789,0.0 rot=68.0276,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.0 xxa=0.0 yya=0.0 head=68.0276 body=68.0276 nav=done stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+E S minecraft:sniffer pos=-5.570871671091109,-60.0,4.814004743529726 delta=0.0,-0.0784000015258789,0.0 rot=68.0276,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.0 xxa=0.0 yya=0.0 head=68.0276 body=68.0276 nav=done stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=sniffing dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Sniffing]
+EV sound at=-5.570871671091109,-60.0,4.814004743529726 r=16.0 ex=0 event=minecraft:entity.sniffer.sniffing source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=-5.570871671091109,-60.0,4.814004743529726 delta=0.0,-0.0784000015258789,0.0 rot=68.0276,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.0 xxa=0.0 yya=0.0 head=68.0276 body=68.0276 nav=done stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=sniffing dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Sniffing]
+E S minecraft:sniffer pos=-5.570871671091109,-60.0,4.814004743529726 delta=0.0,-0.0784000015258789,0.0 rot=68.0276,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.0 xxa=0.0 yya=0.0 head=68.0276 body=68.0276 nav=done stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=sniffing dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Sniffing]
+E S minecraft:sniffer pos=-5.570871671091109,-60.0,4.814004743529726 delta=0.0,-0.0784000015258789,0.0 rot=68.0276,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.0 xxa=0.0 yya=0.0 head=68.0276 body=68.0276 nav=done stuck=0 navspeed=1.0 ntarget=-7,-60,4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=sniffing dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=visible_mobs value=() ttl=inf
+BR S RunOne: [Sniffing]
+EV sound at=-5.570871671091109,-60.0,4.814004743529726 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=0.9587641
+E S minecraft:sniffer pos=-5.521320025853015,-60.0,4.754110709062824 delta=0.013551146635263831,-0.0784000015258789,-0.008325394468790794 rot=243.54509,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=213.11153 body=243.54509 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=1/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(1;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(1;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+E S minecraft:sniffer pos=-4.911345189727422,-60.0,4.449453435167075 delta=0.016853113247757404,-0.0784000015258789,-0.008311744616413383 rot=243.74861,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=243.74855 body=243.74861 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=1/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(1;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(1;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+EV sound at=-5.312492229220581,-60.0,4.6473784138690535 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=-4.359952698655921,-60.0,4.038652900444768 delta=0.014932981500009272,-0.0784000015258789,-0.01140697671408317 rot=232.6295,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=232.62935 body=232.6295 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=2/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(2;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(2;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+E S minecraft:sniffer pos=-3.812927924017323,-60.0,3.620853070677528 delta=0.014934060950266215,-0.0784000015258789,-0.011405566476428338 rot=232.63014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=232.63014 body=232.63014 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=2/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(2;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(2;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+EV sound at=-3.92233494093723,-60.0,3.704410338023665 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=-3.285374885758497,-60.0,3.179806433559606 delta=0.013844868188670182,-0.0784000015258789,-0.012705472884331305 rot=227.45226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=227.45244 body=227.45226 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=3/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(3;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(3;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+E S minecraft:sniffer pos=-2.7782906081518384,-60.0,2.7143410304505493 delta=0.013843308614681903,-0.0784000015258789,-0.012707317916413233 rot=227.45314,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=227.45308 body=227.45314 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=3/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(3;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(3;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+E S minecraft:sniffer pos=-2.2760134886304964,-60.0,2.2437926524689464 delta=0.013459066983845773,-0.0784000015258789,-0.013113510535256008 rot=225.73283,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=225.73329 body=225.73283 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=4/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(4;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(4;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+EV sound at=-2.6768744396502484,-60.0,2.621247137059691 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=-1.7831197224268833,-60.0,1.7633258447776368 delta=0.013455805264093283,-0.0784000015258789,-0.01311695231620533 rot=225.7332,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=225.73308 body=225.7332 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=4/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(4;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(4;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+E S minecraft:sniffer pos=-1.2912858793668034,-60.0,1.2817812373955708 delta=0.013339160587683132,-0.0784000015258789,-0.013235526602539495 rot=225.21187,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=225.21236 body=225.21187 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=5/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(5;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(5;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+EV sound at=-1.4627434442184508,-60.0,1.4510174921596644 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=-0.8027883912926822,-60.0,0.7968452143196538 delta=0.01333577969154322,-0.0784000015258789,-0.013238961496271713 rot=225.21281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=225.21275 body=225.21281 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=5/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(5;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(5;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+E S minecraft:sniffer pos=-0.31452453778257095,-60.0,0.3116744127074261 delta=0.01330319054339393,-0.0784000015258789,-0.013271703676851307 rot=225.06227,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=225.0624 body=225.06227 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=6/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(6;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(6;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+E S minecraft:sniffer pos=0.17271234727932067,-60.0,-0.17452822208580027 delta=0.013301464740489882,-0.0784000015258789,-0.01327343773463779 rot=225.06279,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=225.06273 body=225.06279 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=6/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(6;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(6;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+EV sound at=-0.29016115778342944,-60.0,0.28736582405961175 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=0.6598912579043135,-60.0,-0.6607889269481492 delta=0.013292185263577203,-0.0784000015258789,-0.013282730478183222 rot=225.01921,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=225.01927 body=225.01921 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=7/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(7;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(7;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+E S minecraft:sniffer pos=1.1467532728853544,-60.0,-1.1473669805110884 delta=0.013291280130185728,-0.0784000015258789,-0.013283636905617818 rot=225.0205,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.125 xxa=0.0 yya=0.0 head=225.02037 body=225.0205 nav=moving stuck=0 navspeed=1.25 ntarget=1,-60,-3 path=7/8/1/1,-60,-3 nodes=-6,-60,4:WALKABLE:0.0;-5,-60,3:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-60,-2:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0 goals=- tgoals=- acts=core;sniff mem=path:path(7;8):inf;sniffer_sniffing_target:1,-61,-3:inf;visible_mobs:():inf;walk_target:walk(pos(1,-61,-3);1.25;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=searching dropat=0 size=1.9,1.75,1.05
+BRAIN S acts=core;sniff
+BM S type=path value=path(7;8) ttl=inf
+BM S type=sniffer_sniffing_target value=1,-61,-3 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(1,-61,-3);1.25;0) ttl=inf
+BR S Searching
+BR S MoveToTargetSink
+EV sound at=0.903323257554504,-60.0,-0.9040769601514869 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=1.5851131613990428,-60.0,-1.5854383699001515 delta=0.00216364582840829,-0.0784000015258789,-0.002161990248029699 rot=225.02238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.0 xxa=0.0 yya=0.0 head=225.02238 body=225.02238 nav=done stuck=0 navspeed=1.25 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;dig mem=sniffer_digging:1:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=digging dropat=1222 size=1.9,1.35,0.81
+BRAIN S acts=core;dig
+BM S type=sniffer_digging value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BR S Digging
+BR S RunOne: [DoNothing]
+E S minecraft:sniffer pos=1.5851131613990428,-60.0,-1.5854383699001515 delta=0.0,-0.0784000015258789,0.0 rot=225.02238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.0 xxa=0.0 yya=0.0 head=225.02238 body=225.02238 nav=done stuck=0 navspeed=1.25 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;dig mem=sniffer_digging:1:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=digging dropat=1222 size=1.9,1.35,0.81
+BRAIN S acts=core;dig
+BM S type=sniffer_digging value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BR S Digging
+E S minecraft:sniffer pos=1.5851131613990428,-60.0,-1.5854383699001515 delta=0.0,-0.0784000015258789,0.0 rot=225.02238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.0 xxa=0.0 yya=0.0 head=225.02238 body=225.02238 nav=done stuck=0 navspeed=1.25 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;dig mem=sniffer_digging:1:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=digging dropat=1222 size=1.9,1.35,0.81
+BRAIN S acts=core;dig
+BM S type=sniffer_digging value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BR S Digging
+E S minecraft:sniffer pos=1.5851131613990428,-60.0,-1.5854383699001515 delta=0.0,-0.0784000015258789,0.0 rot=225.02238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.0 xxa=0.0 yya=0.0 head=225.02238 body=225.02238 nav=done stuck=0 navspeed=1.25 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;dig mem=sniffer_digging:1:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=digging dropat=1222 size=1.9,1.35,0.81
+BRAIN S acts=core;dig
+BM S type=sniffer_digging value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BR S Digging
+E S minecraft:sniffer pos=1.5851131613990428,-60.0,-1.5854383699001515 delta=0.0,-0.0784000015258789,0.0 rot=225.02238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.0 xxa=0.0 yya=0.0 head=225.02238 body=225.02238 nav=done stuck=0 navspeed=1.25 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;dig mem=sniffer_digging:1:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=digging dropat=1222 size=1.9,1.35,0.81
+BRAIN S acts=core;dig
+BM S type=sniffer_digging value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BR S Digging
+E S minecraft:sniffer pos=1.5851131613990428,-60.0,-1.5854383699001515 delta=0.0,-0.0784000015258789,0.0 rot=225.02238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.0 xxa=0.0 yya=0.0 head=225.02238 body=225.02238 nav=done stuck=0 navspeed=1.25 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;dig mem=sniffer_digging:1:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=digging dropat=1222 size=1.9,1.35,0.81
+BRAIN S acts=core;dig
+BM S type=sniffer_digging value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BR S Digging
+E S minecraft:sniffer pos=1.5851131613990428,-60.0,-1.5854383699001515 delta=0.0,-0.0784000015258789,0.0 rot=225.02238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.0 xxa=0.0 yya=0.0 head=225.02238 body=225.02238 nav=done stuck=0 navspeed=1.25 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;dig mem=sniffer_digging:1:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=digging dropat=1222 size=1.9,1.35,0.81
+BRAIN S acts=core;dig
+BM S type=sniffer_digging value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BR S Digging
+EV sound at=1.5851131613990428,-60.0,-1.5854383699001515 r=16.0 ex=0 event=minecraft:entity.sniffer.drop_seed source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=1.5851131613990428,-60.0,-1.5854383699001515 delta=0.0,-0.0784000015258789,0.0 rot=225.02238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.0 xxa=0.0 yya=0.0 head=225.02238 body=225.02238 nav=done stuck=0 navspeed=1.25 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;dig mem=sniffer_digging:1:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=digging dropat=1222 size=1.9,1.35,0.81
+BRAIN S acts=core;dig
+BM S type=sniffer_digging value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BR S Digging
+E S minecraft:sniffer pos=1.5851131613990428,-60.0,-1.5854383699001515 delta=0.0,-0.0784000015258789,0.0 rot=225.02238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.0 xxa=0.0 yya=0.0 head=225.02238 body=225.02238 nav=done stuck=0 navspeed=1.25 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;dig mem=sniffer_digging:1:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=digging dropat=1222 size=1.9,1.35,0.81
+BRAIN S acts=core;dig
+BM S type=sniffer_digging value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BR S Digging
+E S minecraft:sniffer pos=1.5851131613990428,-60.0,-1.5854383699001515 delta=0.0,-0.0784000015258789,0.0 rot=225.02238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.0 xxa=0.0 yya=0.0 head=225.02238 body=225.02238 nav=done stuck=0 navspeed=1.25 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;dig mem=sniff_cooldown:INSTANCE:9598;sniffer_digging:1:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=rising dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;dig
+BM S type=sniff_cooldown value=INSTANCE ttl=9598
+BM S type=sniffer_digging value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BR S FinishedDigging
+EV sound at=1.5851131613990428,-60.0,-1.5854383699001515 r=16.0 ex=0 event=minecraft:entity.sniffer.digging_stop source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=1.5851131613990428,-60.0,-1.5854383699001515 delta=0.0,-0.0784000015258789,0.0 rot=225.02238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.0 xxa=0.0 yya=0.0 head=225.02238 body=225.02238 nav=done stuck=0 navspeed=1.25 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;dig mem=sniff_cooldown:INSTANCE:9578;sniffer_digging:1:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=rising dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;dig
+BM S type=sniff_cooldown value=INSTANCE ttl=9578
+BM S type=sniffer_digging value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BR S FinishedDigging
+E S minecraft:sniffer pos=1.5851131613990428,-60.0,-1.5854383699001515 delta=0.0,-0.0784000015258789,0.0 rot=225.02238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.125 zza=0.0 xxa=0.0 yya=0.0 head=225.02238 body=225.02238 nav=done stuck=0 navspeed=1.25 ntarget=3,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=sniff_cooldown:INSTANCE:9558;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;sniffer_happy:1:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=sniff_cooldown value=INSTANCE ttl=9558
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=sniffer_happy value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+E S minecraft:sniffer pos=1.9040090437108943,-60.0,-1.6763515226220678 delta=0.01019845496548088,-0.0784000015258789,-0.002905591984687709 rot=237.85265,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=237.97685 body=237.85265 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=2/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(2;10):inf;sniff_cooldown:INSTANCE:9538;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;sniffer_happy:1:inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=feeling_happy dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(2;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9538
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=sniffer_happy value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S FeelingHappy
+BR S RunOne: [DoNothing]
+EV sound at=1.5851131613990428,-60.0,-1.5854383699001515 r=16.0 ex=0 event=minecraft:entity.sniffer.happy source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=2.2726372447352614,-60.0,-1.8448667655281759 delta=0.009997389274045258,-0.0784000015258789,-0.006676399464543022 rot=236.22871,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=236.22939 body=236.22871 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=2/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(2;10):inf;sniff_cooldown:INSTANCE:9518;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;sniffer_happy:1:inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=feeling_happy dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(2;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9518
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=sniffer_happy value=1 ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S FeelingHappy
+BR S RunOne: [DoNothing]
+EV sound at=2.2177045757440355,-60.0,-1.8082355632819922 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=2.6388256509194012,-60.0,-2.0897391321418533 delta=0.009997051347829479,-0.0784000015258789,-0.006685365528237888 rot=236.22823,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=236.2282 body=236.22823 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=2/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(2;10):inf;sniff_cooldown:INSTANCE:9498;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(2;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9498
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=2.4374218248226853,-60.0,-1.9550494641742722 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=3.005018005087721,-60.0,-2.3346242302159075 delta=0.009997052499207503,-0.0784000015258789,-0.006685363853231786 rot=236.22823,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=236.22823 body=236.22823 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=2/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(2;10):inf;sniff_cooldown:INSTANCE:9478;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(2;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9478
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=2.6388256509194012,-60.0,-2.0897391321418533 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=1.0471189
+E S minecraft:sniffer pos=3.3692711974684073,-60.0,-2.582048460561391 delta=0.009353186598735618,-0.0784000015258789,-0.007528290984800943 rot=229.0143,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=229.05373 body=229.0143 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=3/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(3;10):inf;sniff_cooldown:INSTANCE:9458;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(3;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9458
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=3.7021829638309387,-60.0,-2.8704587400895063 delta=0.009071035689586499,-0.0784000015258789,-0.007896293398193035 rot=228.96562,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=228.96556 body=228.96562 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=3/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(3;10):inf;sniff_cooldown:INSTANCE:9438;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(3;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9438
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [DoNothing]
+EV sound at=3.5858874068513376,-60.0,-2.769224531496729 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=4.034472976920342,-60.0,-3.1596799203169343 delta=0.009071790748119707,-0.0784000015258789,-0.007895426325346984 rot=228.96623,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=228.96623 body=228.96623 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=3/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(3;10):inf;sniff_cooldown:INSTANCE:9418;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(3;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9418
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [DoNothing]
+E S minecraft:sniffer pos=4.366772971179732,-60.0,-3.448889635967704 delta=0.009071790906517645,-0.0784000015258789,-0.007895426143400703 rot=228.96632,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=228.96626 body=228.96632 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=3/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(3;10):inf;sniff_cooldown:INSTANCE:9398;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(3;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9398
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=4.134162974963175,-60.0,-3.2464428352820835 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=4.690810914448626,-60.0,-3.7471521351539594 delta=0.008688768180202023,-0.0784000015258789,-0.008315066069123597 rot=226.25978,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=226.25978 body=226.25978 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=4/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(4;10):inf;sniff_cooldown:INSTANCE:9378;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(4;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9378
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=5.009075505266322,-60.0,-4.0517390363448635 delta=0.008688615136529455,-0.0784000015258789,-0.008315233431268412 rot=226.26033,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=226.26027 body=226.26033 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=4/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(4;10):inf;sniff_cooldown:INSTANCE:9358;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(4;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9358
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=4.834030164270042,-60.0,-3.884216039526081 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=5.327339758985239,-60.0,-4.356326306172862 delta=0.008688615135680923,-0.0784000015258789,-0.008315233432196334 rot=226.26143,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=226.2613 body=226.26143 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=4/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(4;10):inf;sniff_cooldown:INSTANCE:9338;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(4;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9338
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=5.120467994069132,-60.0,-4.158344580783364 r=16.0 ex=0 event=minecraft:entity.sniffer.idle source=neutral vol=1.0 pitch=0.80987805
+EV sound at=5.200034057498419,-60.0,-4.234491398240846 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=5.6786089422429455,-60.0,-4.5896302758767025 delta=0.01179583783873911,-0.0784000015258789,-9.458279231825789E-4 rot=260.02454,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=260.07297 body=260.02454 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=6/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(6;10):inf;sniff_cooldown:INSTANCE:9318;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(6;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9318
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=6.111662204409809,-60.0,-4.626259311845156 delta=0.01180341973462025,-0.0784000015258789,-0.0010538958684023273 rot=258.87265,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=258.9392 body=258.87265 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=6/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(6;10):inf;sniff_cooldown:INSTANCE:9298;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(6;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9298
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [DoNothing]
+E S minecraft:sniffer pos=6.5428095108100965,-60.0,-4.667607022822582 delta=0.011734900699317131,-0.0784000015258789,-0.0012054846863086004 rot=257.24982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=257.3469 body=257.24982 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=6/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(6;10):inf;sniff_cooldown:INSTANCE:9278;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(6;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9278
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [DoNothing]
+EV sound at=6.219675607238002,-60.0,-4.636089967146686 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=6.978262473585806,-60.0,-4.696568882435104 delta=0.011896437759196259,-0.0784000015258789,-8.058084659694085E-4 rot=261.51367,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=261.56207 body=261.51367 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=7/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(7;10):inf;sniff_cooldown:INSTANCE:9258;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(7;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9258
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+E S minecraft:sniffer pos=7.413361767699166,-60.0,-4.728086254164639 delta=0.01185886924275881,-0.0784000015258789,-9.159111522321587E-4 rot=260.34604,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=260.41528 body=260.34604 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=7/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(7;10):inf;sniff_cooldown:INSTANCE:9238;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(7;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9238
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=7.391642229484294,-60.0,-4.726408761406678 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.0
+E S minecraft:sniffer pos=7.820837399691471,-60.0,-4.801266655137612 delta=0.010563011034237683,-0.0784000015258789,-0.002622169618663373 rot=241.30225,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=241.41821 body=241.30225 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=8/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(8;10):inf;sniff_cooldown:INSTANCE:9218;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(8;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9218
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+E S minecraft:sniffer pos=8.202842130978066,-60.0,-4.901306474915811 delta=0.010295105981166426,-0.0784000015258789,-0.002836131397776903 rot=238.70612,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=238.85013 body=238.70612 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=8/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(8;10):inf;sniff_cooldown:INSTANCE:9198;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=scenting dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(8;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9198
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+BR S RunOne: [Scenting]
+EV sound at=7.859464728194795,-60.0,-4.8109254405898225 r=16.0 ex=0 event=minecraft:entity.sniffer.step source=neutral vol=0.15 pitch=1.0
+E S minecraft:sniffer pos=8.57367455232596,-60.0,-5.0483578701343825 delta=0.010006637461055777,-0.0784000015258789,-0.006619299375221985 rot=236.29172,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.0 head=236.2969 body=236.29172 nav=moving stuck=0 navspeed=1.0 ntarget=10,-60,-7 path=8/10/1/10,-60,-7 nodes=1,-60,-2:WALKABLE:0.0;2,-60,-3:WALKABLE:0.0;3,-60,-4:WALKABLE:0.0;4,-60,-5:WALKABLE:0.0;5,-60,-6:WALKABLE:0.0;6,-60,-6:WALKABLE:0.0;7,-60,-6:WALKABLE:0.0;8,-60,-6:WALKABLE:0.0;9,-60,-7:WALKABLE:0.0;10,-60,-7:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=path:path(8;10):inf;sniff_cooldown:INSTANCE:9178;sniffer_explored_positions:(minecraft:overworld@1,-61,-2):inf;visible_mobs:():inf;walk_target:walk(pos(10,-60,-7);1.0;0):inf equip=- attrs=minecraft:follow_range:16.67868764411532;minecraft:max_health:14.0;minecraft:movement_speed:0.10000000149011612 age=0 baby=0 forcedage=0 love=0 lovecause=- state=idling dropat=1222 size=1.9,1.75,1.05
+BRAIN S acts=core;idle
+BM S type=path value=path(8;10) ttl=inf
+BM S type=sniff_cooldown value=INSTANCE ttl=9178
+BM S type=sniffer_explored_positions value=(minecraft:overworld@1,-61,-2) ttl=inf
+BM S type=visible_mobs value=() ttl=inf
+BM S type=walk_target value=walk(pos(10,-60,-7);1.0;0) ttl=inf
+BR S MoveToTargetSink
+N S {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{minecraft:sniff_cooldown:{ttl:9178L,value:{}},minecraft:sniffer_explored_positions:{value:[{dimension:"minecraft:overworld",pos:[I;1,-61,-2]}]}}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:14.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.010006637461055777d,-0.0784000015258789d,-0.006619299375221985d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[8.57367455232596d,-60.0d,-5.0483578701343825d],Rotation:[236.29172f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.04241797775720765d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.10000000149011612d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}

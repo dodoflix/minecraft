@@ -1,0 +1,185 @@
+# A grown sniffer idles on grass: the brain picks scenting, sniffing and looking at random, a finished sniff finds a diggable block
+# 10 to 18 blocks away and walks there (searching), digs (160 to 180 ticks, the seed drops after 120), rises, feels happy and keeps
+# the explored position; the state, its drop tick and the brain memories are dumped around every change.
+level flat
+difficulty normal
+preload 4
+entity_counter 1700
+level_seed 1701
+fill -40 -61 -40 40 -61 40 minecraft:grass_block
+spawn_player Steve survival 60.5 -60 60.5 0 0
+mobspawn S minecraft:sniffer 0.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed S 61
+tick 2
+dump mob:S brain:S edata:S nbt:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+tick 20
+dump mob:S brain:S events
+dump nbt:S

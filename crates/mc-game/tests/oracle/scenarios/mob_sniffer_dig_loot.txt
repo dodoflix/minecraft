@@ -1,0 +1,69 @@
+# A sniffer searching for something to dig: the floor is sand (not diggable) west of x=0 dirt (diggable), so a sniff that ends on sand
+# finds nothing and one that ends on dirt walks there (searching), digs for 160 to 180 ticks, drops a seed from the gift loot
+# table 120 ticks after the dig began (an item entity at the head block, the drop-seed sound), rises, feels happy and keeps the
+# spot in its explored positions. A baby sniffer next to it scents and idles but never sniffs; its drop tick stays 0.
+level flat
+difficulty normal
+preload 4
+entity_counter 1750
+level_seed 1751
+fill -40 -61 -40 40 -61 40 minecraft:sand
+fill -40 -61 -40 -1 -61 40 minecraft:dirt
+spawn_player Steve survival 60.5 -60 60.5 0 0
+mobspawn S minecraft:sniffer 3.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed S 71
+mobspawn B minecraft:sniffer -8.5 -60 -8.5 0 0 {PersistenceRequired:1b,Age:-48000}
+entity_seed B 72
+tick 2
+dump mob:S mob:B edata:S edata:B nbt:S nbt:B events
+tick 98
+dump mob:S mob:B events
+tick 100
+dump mob:S mob:B events
+tick 100
+dump mob:S mob:B events
+tick 100
+dump mob:S mob:B events
+tick 100
+dump mob:S mob:B events
+tick 100
+dump mob:S mob:B events
+note the dig begins around tick 640: the drop tick is 120 ticks later
+tick 38
+dump mob:S brain:S edata:S events
+tick 1
+dump mob:S brain:S events
+tick 1
+dump mob:S brain:S events
+tick 1
+dump mob:S brain:S events
+tick 1
+dump mob:S brain:S events
+tick 1
+dump mob:S brain:S events
+tick 1
+dump mob:S brain:S events
+tick 100
+dump mob:S brain:S events
+tick 14
+dump mob:S edata:S events
+note the seed drops when the tick count reaches the drop tick
+tick 1
+dump entities events
+tick 1
+dump entities events
+tick 1
+dump entities events
+tick 1
+dump entities events
+tick 1
+dump entities events
+tick 1
+dump entities events
+tick 40
+dump mob:S brain:S entities events
+tick 100
+dump mob:S brain:S entities events
+tick 100
+dump mob:S mob:B brain:S entities events
+dump nbt:S nbt:B

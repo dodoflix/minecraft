@@ -14,6 +14,8 @@ pub struct SnifferEggBlock;
 const REGULAR_HATCH_TIME_TICKS: i32 = 24000;
 const BOOSTED_HATCH_TIME_TICKS: i32 = 12000;
 const RANDOM_HATCH_OFFSET_TICKS: i32 = 300;
+/// `Sniffer.getBabyStartAge()`: `setBaby(true)` sets this age.
+const SNIFFER_BABY_START_AGE: i32 = -48000;
 
 /// `SnifferEggBlock.hatchBoost`.
 pub fn hatch_boost(level: &dyn BlockGetter, pos: BlockPos) -> bool {
@@ -55,7 +57,7 @@ impl BlockBehaviour for SnifferEggBlock {
                 yaw,
                 0.0,
             );
-            tag.put_int("Age", hatch_spawns::BABY_AGE);
+            tag.put_int("Age", SNIFFER_BABY_START_AGE);
             hatch_spawns::spawn_breeding(level, EntityType::SNIFFER, &tag);
         }
     }

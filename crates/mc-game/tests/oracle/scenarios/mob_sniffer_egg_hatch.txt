@@ -1,0 +1,40 @@
+# Sniffer eggs: a boosted egg (moss below) goes through its three stages in about 12000 ticks, a last-stage egg without moss waits about 8000;
+# the hatched baby (age -48000, facing a random way, a random head rotation) scents and idles, never sniffs and walks around.
+level flat
+difficulty normal
+preload 4
+entity_counter 1900
+level_seed 1901
+spawn_player Steve survival 40.5 -60 40.5 0 0
+block 0 -61 0 minecraft:moss_block
+block 0 -60 0 minecraft:sniffer_egg
+block 6 -60 0 minecraft:sniffer_egg[hatch=2]
+dump ticks:-1,-60,0,7,-60,0 blocks:-1,-60,0,7,-60,0 events
+tick 4147
+dump blocks:-1,-60,0,7,-60,0 entities
+tick 1
+dump blocks:-1,-60,0,7,-60,0 entities events ticks:-1,-60,0,7,-60,0
+note the egg without moss hatches: a baby with the egg's position, a random yaw
+tick 4051
+dump blocks:-1,-60,0,7,-60,0 entities
+tick 1
+dump blocks:-1,-60,0,7,-60,0 entities events
+dump mob:sniffer#1 edata:sniffer#1 nbt:sniffer#1
+tick 234
+dump blocks:-1,-60,0,7,-60,0 entities
+tick 1
+dump blocks:-1,-60,0,7,-60,0 entities events ticks:-1,-60,0,7,-60,0
+note the boosted egg hatches on its third stage
+tick 4261
+dump blocks:-1,-60,0,7,-60,0 entities
+tick 1
+dump blocks:-1,-60,0,7,-60,0 entities events
+dump mob:sniffer#1 mob:sniffer#2 edata:sniffer#2 nbt:sniffer#2
+note the two babies scent and idle, they never sniff
+tick 100
+dump mob:sniffer#1 mob:sniffer#2 events
+tick 100
+dump mob:sniffer#1 mob:sniffer#2 events
+tick 100
+dump mob:sniffer#1 mob:sniffer#2 events
+dump nbt:sniffer#1 nbt:sniffer#2

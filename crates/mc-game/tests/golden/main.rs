@@ -216,6 +216,7 @@ mod mob_raid_golden;
 mod mob_raider_golden;
 mod mob_registration_guards;
 mod mob_skeleton_golden;
+mod mob_sniffer_golden;
 mod mob_spine_golden;
 mod mob_victim_golden;
 mod mob_villager_golden;

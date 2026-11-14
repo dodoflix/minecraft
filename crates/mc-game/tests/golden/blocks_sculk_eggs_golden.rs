@@ -20,33 +20,11 @@ golden!(
     sculk_shrieker => "blk_sculk_shrieker",
 );
 
-/// Only the hatched sniffer is a placeholder entity (it neither falls on its first tick nor makes its sounds nor has health): its row
-/// is reduced to name, type, position and rotation on both sides and its sounds are dropped on both sides. Every other hatched mob
-/// (turtles, tadpoles, silverfish) is compared with all its fields.
-/// Not implemented: sniffer behaviour (motion, health, sounds).
-fn normalize(line: &str) -> Option<String> {
-    if line.contains("event=minecraft:entity.sniffer.") {
-        return None;
-    }
-    let mut tokens = line.split(' ');
-    match (tokens.next(), tokens.next()) {
-        (Some("E"), Some(name)) if name.starts_with("sniffer#") => Some(
-            line.split(' ')
-                .filter(|t| !t.contains('=') || t.starts_with("pos=") || t.starts_with("rot="))
-                .collect::<Vec<_>>()
-                .join(" "),
-        ),
-        _ => Some(line.to_string()),
-    }
-}
-
 #[test]
 fn eggs_hatch() {
     let name = "blk_eggs_hatch";
-    let normalize_all =
-        |lines: &[String]| -> Vec<String> { lines.iter().filter_map(|l| normalize(l)).collect() };
-    let expected = normalize_all(&Fixture::load(name).lines);
-    let actual = normalize_all(&run_scenario(name));
+    let expected = Fixture::load(name).lines;
+    let actual = run_scenario(name);
     // `C` lines are the command feedback of the driver's `time` verb, which the replay does without a command
     let opts = Options {
         ignore_kinds: vec!["C"],
