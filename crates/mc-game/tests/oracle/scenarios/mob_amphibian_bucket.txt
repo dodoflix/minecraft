@@ -1,0 +1,131 @@
+# Axolotl and tadpole buckets: a water bucket on the mob picks it up (Bucketable.bucketMobPickup: the bucket item with the variant, age and
+# lock data, the mob is gone, a survival and a creative player alike), and using the filled bucket on the floor releases it again
+# (MobBucketItem.spawn: water, from-bucket data, variant/age restored; a bucketed baby axolotl keeps its growing age).
+level flat
+preload 2
+difficulty normal
+entity_counter 0
+spawn_player Steve survival 0.5 -60 0.5 0 90
+spawn_player Cre creative 0.5 -60 40.5 0 90
+tick 1
+dump events
+note CASE 1 axolotl_lucy_Steve
+tp Steve 0.5 -60 0.5 0 90
+mobspawn axolotl_lucy_Steve minecraft:axolotl 0.5 -60 1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Variant:0}
+entity_seed axolotl_lucy_Steve 26001
+give Steve mainhand minecraft:water_bucket 1
+interact Steve axolotl_lucy_Steve
+dump inventory:Steve mobs events
+level_seed 2601
+use Steve main 1
+dump mobs inventory:Steve blocks:0,-61,0,0,-60,0 events
+note CASE 2 axolotl_wild_Steve
+tp Steve 4.5 -60 0.5 0 90
+mobspawn axolotl_wild_Steve minecraft:axolotl 4.5 -60 1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Variant:1}
+entity_seed axolotl_wild_Steve 26002
+give Steve mainhand minecraft:water_bucket 1
+interact Steve axolotl_wild_Steve
+dump inventory:Steve mobs events
+level_seed 2602
+use Steve main 2
+dump mobs inventory:Steve blocks:4,-61,0,4,-60,0 events
+note CASE 3 axolotl_gold_Steve
+tp Steve 8.5 -60 0.5 0 90
+mobspawn axolotl_gold_Steve minecraft:axolotl 8.5 -60 1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Variant:2}
+entity_seed axolotl_gold_Steve 26003
+give Steve mainhand minecraft:water_bucket 1
+interact Steve axolotl_gold_Steve
+dump inventory:Steve mobs events
+level_seed 2603
+use Steve main 3
+dump mobs inventory:Steve blocks:8,-61,0,8,-60,0 events
+note CASE 4 axolotl_cyan_Steve
+tp Steve 12.5 -60 0.5 0 90
+mobspawn axolotl_cyan_Steve minecraft:axolotl 12.5 -60 1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Variant:3}
+entity_seed axolotl_cyan_Steve 26004
+give Steve mainhand minecraft:water_bucket 1
+interact Steve axolotl_cyan_Steve
+dump inventory:Steve mobs events
+level_seed 2604
+use Steve main 4
+dump mobs inventory:Steve blocks:12,-61,0,12,-60,0 events
+note CASE 5 axolotl_cyan_Cre
+tp Cre 12.5 -60 40.5 0 90
+mobspawn axolotl_cyan_Cre minecraft:axolotl 12.5 -60 41.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Variant:3}
+entity_seed axolotl_cyan_Cre 26005
+give Cre mainhand minecraft:water_bucket 1
+interact Cre axolotl_cyan_Cre
+dump inventory:Cre mobs events
+level_seed 2605
+use Cre main 5
+dump mobs inventory:Cre blocks:12,-61,40,12,-60,40 events
+note CASE 6 axolotl_blue_Steve
+tp Steve 16.5 -60 0.5 0 90
+mobspawn axolotl_blue_Steve minecraft:axolotl 16.5 -60 1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Variant:4}
+entity_seed axolotl_blue_Steve 26006
+give Steve mainhand minecraft:water_bucket 1
+interact Steve axolotl_blue_Steve
+dump inventory:Steve mobs events
+level_seed 2606
+use Steve main 6
+dump mobs inventory:Steve blocks:16,-61,0,16,-60,0 events
+note CASE 7 axolotl_baby_Steve
+tp Steve 20.5 -60 0.5 0 90
+mobspawn axolotl_baby_Steve minecraft:axolotl 20.5 -60 1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Variant:2,Age:-12000}
+entity_seed axolotl_baby_Steve 26007
+give Steve mainhand minecraft:water_bucket 1
+interact Steve axolotl_baby_Steve
+dump inventory:Steve mobs events
+level_seed 2607
+use Steve main 7
+dump mobs inventory:Steve blocks:20,-61,0,20,-60,0 events
+note CASE 8 axolotl_baby_Cre
+tp Cre 20.5 -60 40.5 0 90
+mobspawn axolotl_baby_Cre minecraft:axolotl 20.5 -60 41.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Variant:2,Age:-12000}
+entity_seed axolotl_baby_Cre 26008
+give Cre mainhand minecraft:water_bucket 1
+interact Cre axolotl_baby_Cre
+dump inventory:Cre mobs events
+level_seed 2608
+use Cre main 8
+dump mobs inventory:Cre blocks:20,-61,40,20,-60,40 events
+note CASE 9 axolotl_named_Steve
+tp Steve 24.5 -60 0.5 0 90
+mobspawn axolotl_named_Steve minecraft:axolotl 24.5 -60 1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Variant:3,CustomName:'"Bucketed"',Health:5f}
+entity_seed axolotl_named_Steve 26009
+give Steve mainhand minecraft:water_bucket 1
+interact Steve axolotl_named_Steve
+dump inventory:Steve mobs events
+level_seed 2609
+use Steve main 9
+dump mobs inventory:Steve blocks:24,-61,0,24,-60,0 events
+note CASE 10 tadpole_young_Steve
+tp Steve 28.5 -60 0.5 0 90
+mobspawn tadpole_young_Steve minecraft:tadpole 28.5 -60 1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:100}
+entity_seed tadpole_young_Steve 26010
+give Steve mainhand minecraft:water_bucket 1
+interact Steve tadpole_young_Steve
+dump inventory:Steve mobs events
+level_seed 2610
+use Steve main 10
+dump mobs inventory:Steve blocks:28,-61,0,28,-60,0 events
+note CASE 11 tadpole_young_Cre
+tp Cre 28.5 -60 40.5 0 90
+mobspawn tadpole_young_Cre minecraft:tadpole 28.5 -60 41.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:100}
+entity_seed tadpole_young_Cre 26011
+give Cre mainhand minecraft:water_bucket 1
+interact Cre tadpole_young_Cre
+dump inventory:Cre mobs events
+level_seed 2611
+use Cre main 11
+dump mobs inventory:Cre blocks:28,-61,40,28,-60,40 events
+note CASE 12 tadpole_locked_Steve
+tp Steve 32.5 -60 0.5 0 90
+mobspawn tadpole_locked_Steve minecraft:tadpole 32.5 -60 1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:500,AgeLocked:1b}
+entity_seed tadpole_locked_Steve 26012
+give Steve mainhand minecraft:water_bucket 1
+interact Steve tadpole_locked_Steve
+dump inventory:Steve mobs events
+level_seed 2612
+use Steve main 12
+dump mobs inventory:Steve blocks:32,-61,0,32,-60,0 events

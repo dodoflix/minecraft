@@ -1,0 +1,27 @@
+# Frog brain: sensors pick the small slime / magma cube as attack target, ShootTongue walks up, shoots the tongue and eats it
+# (froglight by variant for a magma cube); a size-2 slime is not food.
+level flat
+preload 4
+difficulty normal
+entity_counter 0
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn Frog minecraft:frog 10.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed Frog 25301
+mobspawn Slime minecraft:slime 14.5 -60 10.5 0 0 nofinalize {Size:0,NoAI:1b,PersistenceRequired:1b}
+entity_seed Slime 25302
+mobspawn FrogW minecraft:frog 10.5 -60 20.5 0 0 nofinalize {PersistenceRequired:1b,variant:"minecraft:warm"}
+entity_seed FrogW 25303
+mobspawn MagmaW minecraft:magma_cube 14.5 -60 20.5 0 0 nofinalize {Size:0,NoAI:1b,PersistenceRequired:1b}
+entity_seed MagmaW 25304
+mobspawn FrogC minecraft:frog 10.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b,variant:"minecraft:cold"}
+entity_seed FrogC 25305
+mobspawn MagmaC minecraft:magma_cube 14.5 -60 30.5 0 0 nofinalize {Size:0,NoAI:1b,PersistenceRequired:1b}
+entity_seed MagmaC 25306
+mobspawn FrogT minecraft:frog 10.5 -60 40.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed FrogT 25307
+mobspawn Big minecraft:slime 14.5 -60 40.5 0 0 nofinalize {Size:1,NoAI:1b,PersistenceRequired:1b}
+entity_seed Big 25308
+level_seed 2531
+watch mob:Frog mob:Slime mob:FrogW mob:MagmaW mob:FrogC mob:MagmaC mob:FrogT mob:Big
+tick 400
+dump mobs xentities

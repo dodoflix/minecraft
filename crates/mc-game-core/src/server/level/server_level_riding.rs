@@ -13,6 +13,7 @@ use crate::advancements::triggers::CriteriaTriggers;
 use crate::world::entity::EntityId;
 use crate::world::entity::ServerPlayer;
 use crate::world::entity::entity::{BOARDING_COOLDOWN, Entity};
+use crate::world::entity::movement;
 use crate::world::level::BlockGetter;
 use crate::world::level::collision::CollisionGetter;
 use mc_core::phys::shapes::Shapes;
@@ -351,6 +352,8 @@ impl ServerLevel {
         let Some(mut entity) = self.take_entity(id) else {
             return;
         };
+        // a size change made outside the entity's tick (an interaction, a command) pushes it out of blocks before it ticks
+        movement::apply_pending_fudge(entity.as_mut(), self);
         let player_passengers = self
             .entity_manager
             .count_players_among(&entity.base().passengers) as i32;
@@ -382,6 +385,7 @@ impl ServerLevel {
             entity.refresh_first_passenger_authority(self);
             // a command block minecart runs its command while it ticks, as a rider too
             self.with_command_env(&mut *env, |level| entity.tick(level));
+            movement::apply_pending_fudge(entity.as_mut(), self);
             if self.take_portal_teleport(id) {
                 env.teleport_through_portal(self, entity.as_mut());
             }
@@ -431,6 +435,7 @@ impl ServerLevel {
         } else {
             passenger.base_mut().set_delta_movement(Vec3::ZERO);
             passenger.tick(self);
+            movement::apply_pending_fudge(passenger, self);
             if let Some(vehicle_id) = passenger.base().vehicle
                 && let Some(vehicle) = self.entity_manager.get_any(vehicle_id)
             {

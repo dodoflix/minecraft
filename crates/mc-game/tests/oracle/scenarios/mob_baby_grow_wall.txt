@@ -1,0 +1,22 @@
+# Baby animals that grow up while squeezed against blocks: Entity.refreshDimensions pushes the bigger adult out of the blocks
+# (fudgePositionAfterSizeChange) for a cow under a ceiling, a sheep beside a wall and a pig in a corner. Slimes restore their
+# position after a size change, so they are not part of this scenario.
+level flat
+difficulty normal
+entity_counter 0
+fill -4 -60 -4 40 -40 20 minecraft:air
+fill 4 -61 -10 40 -61 10 minecraft:stone
+fill 9 -60 -1 11 -59 1 minecraft:stone
+fill 10 -60 0 10 -60 0 minecraft:air
+fill 21 -60 -3 21 -58 3 minecraft:stone
+fill 30 -60 -4 33 -58 -4 minecraft:stone
+fill 32 -60 -4 32 -58 3 minecraft:stone
+mobspawn Cow minecraft:cow 10.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,Age:-2}
+entity_seed Cow 41001
+mobspawn Sheep minecraft:sheep 20.75 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,Age:-3}
+entity_seed Sheep 41002
+mobspawn Pig minecraft:pig 31.75 -60 -2.75 0 0 {PersistenceRequired:1b,NoAI:1b,Age:-3}
+entity_seed Pig 41003
+level_seed 4101
+watch mob:Cow mob:Sheep mob:Pig
+tick 8

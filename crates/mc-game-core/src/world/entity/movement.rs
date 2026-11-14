@@ -965,6 +965,13 @@ impl SignumJava for f64 {
         }
     }
 }
+/// Runs the `fudgePositionAfterSizeChange` that `Entity::refresh_dimensions` deferred because it has no level.
+pub fn apply_pending_fudge(e: &mut dyn Entity, level: &ServerLevel) {
+    if let Some(previous) = e.base_mut().pending_fudge_from.take() {
+        fudge_position_after_size_change(e, level, &previous);
+    }
+}
+
 /// `Entity.fudgePositionAfterSizeChange(previousDimensions)`.
 pub fn fudge_position_after_size_change(
     e: &mut dyn Entity,

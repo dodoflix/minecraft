@@ -719,3 +719,22 @@ static AXOLOTL: EntityRegistration = EntityRegistration {
     entity_type: EntityType::AXOLOTL,
     create: |ty, id, _registries| Box::new(Axolotl::new(ty, id)),
 };
+
+/// The scenario dump fields of an axolotl: `variant playdead bucket`.
+#[distributed_slice(mc_game_core::world::entity::scenario_dump::SCENARIO_DUMP_EXTRA)]
+static AXOLOTL_DUMP: mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra =
+    mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra {
+        order: 30,
+        applies: |e| e.as_any().is::<Axolotl>(),
+        fields: |e, _level, _ctx| {
+            let a = e.as_any().downcast_ref::<Axolotl>().expect("applies");
+            vec![
+                ("variant".into(), a.get_variant().name().to_string()),
+                ("playdead".into(), u8::from(a.is_playing_dead()).to_string()),
+                (
+                    "bucket".into(),
+                    u8::from(Bucketable::from_bucket(a)).to_string(),
+                ),
+            ]
+        },
+    };

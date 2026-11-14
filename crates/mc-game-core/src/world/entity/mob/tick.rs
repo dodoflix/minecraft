@@ -25,6 +25,8 @@ fn mm(e: &mut dyn Entity) -> &mut MobData {
 
 /// `Mob.tick()`.
 pub fn tick(e: &mut dyn Entity, level: &mut ServerLevel) {
+    // a size change made earlier in this tick (the pufferfish puff state) pushes the mob out of blocks before it moves
+    crate::world::entity::movement::apply_pending_fudge(e, level);
     living_entity::tick::tick(e, level);
     if e.base().tick_count % 5 == 0 {
         update_control_flags(e, level);

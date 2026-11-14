@@ -1,0 +1,22 @@
+# Axolotl out of water: land strolls at 0.15 speed, the air supply counts down from 6000 and dry-out damage; a baby growing up
+# (ageBoundaryReached: the dimensions); the variants of finalizeSpawn and of the Variant tag.
+level flat
+preload 4
+difficulty normal
+entity_counter 0
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn A minecraft:axolotl 10.5 -60 10.5 0 0 {PersistenceRequired:1b}
+entity_seed A 25101
+mobspawn Baby minecraft:axolotl 14.5 -60 10.5 0 0 {PersistenceRequired:1b,Age:-24000,Variant:3}
+entity_seed Baby 25102
+mobspawn Wild minecraft:axolotl 18.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:1}
+entity_seed Wild 25103
+mobspawn Blue minecraft:axolotl 22.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:4}
+entity_seed Blue 25104
+mobspawn Grow minecraft:axolotl 26.5 -60 10.5 0 0 {PersistenceRequired:1b,Age:-4}
+entity_seed Grow 25105
+level_seed 2511
+set A air 20
+watch mob:A mob:Baby mob:Grow
+tick 80
+dump mobs nbt:A nbt:Baby nbt:Grow

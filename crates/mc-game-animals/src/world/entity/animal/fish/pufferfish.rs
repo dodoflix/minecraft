@@ -84,17 +84,6 @@ impl Pufferfish {
         self.on_synced_data_updated(PUFF_STATE.id());
     }
 
-    /// `setPuffState(state)` on the ticking level: `refreshDimensions` then pushes a grown fish out of blocks
-    /// (`fudgePositionAfterSizeChange`).
-    fn set_puff_state_in_level(&mut self, level: &mut ServerLevel, state: i32) {
-        self.set_puff_state(state);
-        if let Some(previous) = self.base_mut().pending_fudge_from.take() {
-            mc_game_core::world::entity::movement::fudge_position_after_size_change(
-                self, level, &previous,
-            );
-        }
-    }
-
     /// `touch(level, mob)`.
     fn touch(&mut self, level: &mut ServerLevel, target: EntityId) {
         let allowed = level.get_entity(target).is_some_and(|m| {
@@ -176,19 +165,19 @@ impl Entity for Pufferfish {
             if self.inflate_counter > 0 {
                 if self.get_puff_state() == 0 {
                     make_sound(self, level, SoundEvent::ENTITY_PUFFER_FISH_BLOW_UP);
-                    self.set_puff_state_in_level(level, 1);
+                    self.set_puff_state(1);
                 } else if self.inflate_counter > 40 && self.get_puff_state() == 1 {
                     make_sound(self, level, SoundEvent::ENTITY_PUFFER_FISH_BLOW_UP);
-                    self.set_puff_state_in_level(level, 2);
+                    self.set_puff_state(2);
                 }
                 self.inflate_counter += 1;
             } else if self.get_puff_state() != 0 {
                 if self.deflate_timer > 60 && self.get_puff_state() == 2 {
                     make_sound(self, level, SoundEvent::ENTITY_PUFFER_FISH_BLOW_OUT);
-                    self.set_puff_state_in_level(level, 1);
+                    self.set_puff_state(1);
                 } else if self.deflate_timer > 100 && self.get_puff_state() == 1 {
                     make_sound(self, level, SoundEvent::ENTITY_PUFFER_FISH_BLOW_OUT);
-                    self.set_puff_state_in_level(level, 0);
+                    self.set_puff_state(0);
                 }
                 self.deflate_timer += 1;
             }

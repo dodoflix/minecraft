@@ -45,6 +45,8 @@ pub fn spawn_breeding(
             ignore_checks: false,
         },
     )?;
+    // the constructor's random yaw stays the head rotation: vanilla's `snapTo` does not touch it, `load` would reset it
+    let head_rot = entity.living().map(|l| l.y_head_rot);
     if let Err(message) = entity.load(tag) {
         log::warn!("Exception configuring hatched {}: {message}", ty.name());
         return None;
@@ -53,6 +55,9 @@ pub fn spawn_breeding(
     if let (Some(pos), Some(rotation)) = (read_vec3(tag.get("Pos")), read_vec2(tag.get("Rotation")))
     {
         entity.snap_to(pos.x, pos.y, pos.z, rotation.x, rotation.y);
+    }
+    if let (Some(head_rot), Some(living)) = (head_rot, entity.living_mut()) {
+        living.y_head_rot = head_rot;
     }
     let id = entity.id();
     level.add_fresh_entity(entity).then_some(id)

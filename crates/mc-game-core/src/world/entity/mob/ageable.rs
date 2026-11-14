@@ -62,6 +62,7 @@ pub fn set_age(e: &mut dyn Entity, new_age: i32) -> bool {
 /// `setAge(newAge)` including `ageBoundaryReached()`.
 pub fn set_age_in_level(e: &mut dyn Entity, level: &mut ServerLevel, new_age: i32) {
     if set_age(e, new_age) {
+        crate::world::entity::movement::apply_pending_fudge(e, level);
         e.age_boundary_reached(level);
     }
 }

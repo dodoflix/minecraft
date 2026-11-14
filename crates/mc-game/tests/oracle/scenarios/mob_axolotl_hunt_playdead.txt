@@ -1,0 +1,30 @@
+# Axolotl in a pool: the hunting brain (FIGHT activity, melee on a cod, HAS_HUNTING_COOLDOWN, regeneration after a kill), then
+# hurt by a player (PlayDead: PLAY_DEAD_TICKS 200, regeneration, ValidatePlayDead countdown, back to idle).
+level flat
+preload 4
+difficulty normal
+entity_counter 0
+fill 20 -61 -10 40 -50 10 minecraft:stone
+fill 21 -60 -9 39 -52 9 minecraft:water[level=0]
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn A minecraft:axolotl 30.5 -58 0.5 0 0 {PersistenceRequired:1b}
+entity_seed A 25001
+mobspawn Cod minecraft:cod 33.5 -58 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed Cod 25002
+level_seed 2501
+watch mob:A mob:Cod
+tick 150
+dump mobs brain:A
+hurt A mob_attack 2 by=Steve
+tick 11
+hurt A mob_attack 2 by=Steve
+tick 11
+hurt A mob_attack 2 by=Steve
+tick 11
+hurt A mob_attack 2 by=Steve
+tick 11
+hurt A mob_attack 2 by=Steve
+tick 11
+hurt A mob_attack 2 by=Steve
+tick 260
+dump brain:A mobs

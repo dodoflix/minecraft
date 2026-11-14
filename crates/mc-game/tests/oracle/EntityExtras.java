@@ -5,10 +5,13 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OminousItemSpawner;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
+import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.animal.dolphin.Dolphin;
 import net.minecraft.world.entity.animal.fish.Pufferfish;
 import net.minecraft.world.entity.animal.fish.Salmon;
 import net.minecraft.world.entity.animal.fish.TropicalFish;
+import net.minecraft.world.entity.animal.frog.Frog;
+import net.minecraft.world.entity.animal.frog.Tadpole;
 import net.minecraft.world.entity.animal.squid.GlowSquid;
 import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.entity.animal.bee.Bee;
@@ -119,6 +122,11 @@ final class EntityExtras {
          out.add("radius", EntityOracleDriver.f(c.getRadius())).add("waiting", EntityOracleDriver.bool(c.isWaiting()));
          out.add("duration", c.getDuration()).add("age", c.tickCount);
       }));
+      ALL.add(new Extra(30, Axolotl.class, (d, e, out) -> {
+         Axolotl a = (Axolotl)e;
+         out.add("variant", a.getVariant().getName()).add("playdead", EntityOracleDriver.bool(a.isPlayingDead()));
+         out.add("bucket", EntityOracleDriver.bool(a.fromBucket()));
+      }));
       ALL.add(new Extra(30, Bee.class, (d, e, out) -> {
          Bee b = (Bee)e;
          @SuppressWarnings("unchecked")
@@ -175,6 +183,11 @@ final class EntityExtras {
          out.add("out", EntityOracleDriver.priv(e, "outOfWaterTime")).add("hookedin", d.entName(((FishingHook)e).getHookedIn()));
          out.add("luck", EntityOracleDriver.priv(e, "luck")).add("lure", EntityOracleDriver.priv(e, "lureSpeed"));
       }));
+      ALL.add(new Extra(30, Frog.class, (d, e, out) -> {
+         Frog f = (Frog)e;
+         out.add("variant", f.getVariant().unwrapKey().map(k -> k.identifier().toString()).orElse("-"));
+         out.add("tongue", d.entName(f.getTongueTarget().orElse(null)));
+      }));
       ALL.add(new Extra(30, GlowSquid.class, (d, e, out) -> out.add("dark", ((GlowSquid)e).getDarkTicksRemaining())));
       ALL.add(new Extra(30, OminousItemSpawner.class, (d, e, out) -> {
          OminousItemSpawner s = (OminousItemSpawner)e;
@@ -194,6 +207,11 @@ final class EntityExtras {
          out.add("tyd", EntityOracleDriver.f((Double)EntityOracleDriver.priv(e, "targetDeltaY")));
          out.add("tzd", EntityOracleDriver.f((Double)EntityOracleDriver.priv(e, "targetDeltaZ")));
          out.add("target", d.uuidName(target == null ? null : target.getUUID()));
+      }));
+      ALL.add(new Extra(30, Tadpole.class, (d, e, out) -> {
+         Tadpole t = (Tadpole)e;
+         out.add("tage", EntityOracleDriver.priv(e, Tadpole.class, "age")).add("locked", EntityOracleDriver.bool(t.isAgeLocked()));
+         out.add("particle", EntityOracleDriver.priv(e, Tadpole.class, "ageLockParticleTimer"));
       }));
       ALL.add(new Extra(30, TropicalFish.class, (d, e, out) -> {
          TropicalFish f = (TropicalFish)e;

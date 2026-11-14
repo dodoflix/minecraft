@@ -44,7 +44,7 @@ use mc_game_core::world::level::pathfinder::node_evaluator::{
 use mc_game_core::world::level::pathfinder::{NodeId, PathFinder, PathType};
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
-use mc_protocol::components::{FROG_VARIANT, Holder};
+use mc_protocol::components::{DataComponentMap, FROG_VARIANT, Holder};
 
 define_accessor!(pub DATA_VARIANT_ID: FrogVariant = Frog);
 define_accessor!(pub DATA_TONGUE_TARGET_ID: OptionalUnsignedInt = Frog);
@@ -117,6 +117,11 @@ impl Frog {
     /// `getVariant()` (registry id).
     pub fn get_variant(&self) -> i32 {
         self.mob.living.entity.entity_data.get(DATA_VARIANT_ID)
+    }
+
+    /// The registry key of the variant.
+    pub fn variant_key(&self) -> &Identifier {
+        &self.variant_key
     }
 
     /// `setVariant(variant)`.
@@ -436,6 +441,16 @@ impl Entity for Frog {
         self.pending_variant = variant::read_variant_key(input);
     }
 
+    fn entity_components(&self) -> DataComponentMap {
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(
+            self.base(),
+        );
+        DataComponentMap::builder()
+            .add_all(&base)
+            .set(FROG_VARIANT, Holder::Reference(self.variant_key.clone()))
+            .build()
+    }
+
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
         let registries = self.registries.clone();
         if let Some(Holder::Reference(key)) = stack.get(&FROG_VARIANT)
@@ -469,3 +484,18 @@ static FROG: EntityRegistration = EntityRegistration {
 pub fn can_eat(entity: &dyn Entity) -> bool {
     frog_can_eat(entity)
 }
+
+/// The scenario dump fields of a frog: `variant tongue`.
+#[distributed_slice(mc_game_core::world::entity::scenario_dump::SCENARIO_DUMP_EXTRA)]
+static FROG_DUMP: mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra =
+    mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra {
+        order: 30,
+        applies: |e| e.as_any().is::<Frog>(),
+        fields: |e, level, ctx| {
+            let frog = e.as_any().downcast_ref::<Frog>().expect("applies");
+            vec![
+                ("variant".into(), frog.variant_key().to_string()),
+                ("tongue".into(), ctx.name_opt(get_tongue_target(e, level))),
+            ]
+        },
+    };

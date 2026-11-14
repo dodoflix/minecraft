@@ -1,0 +1,36 @@
+# Frog.finalizeSpawn picks the variant by the temperature tags of the biome (temperate default, cold, warm): plains, swamp, desert,
+# jungle, taiga, snowy plains, mangrove swamp and snowy taiga.
+level flat
+preload 6
+difficulty normal
+entity_counter 0
+level_seed 2601
+spawn_player Steve creative 0.5 -60 -10.5 0 0
+biome 0 -64 0 8 -50 8 minecraft:plains
+biome 10 -64 0 18 -50 8 minecraft:swamp
+biome 20 -64 0 28 -50 8 minecraft:desert
+biome 30 -64 0 38 -50 8 minecraft:jungle
+biome 40 -64 0 48 -50 8 minecraft:taiga
+biome 50 -64 0 58 -50 8 minecraft:snowy_plains
+biome 60 -64 0 68 -50 8 minecraft:mangrove_swamp
+biome 70 -64 0 78 -50 8 minecraft:snowy_taiga
+tick 3
+mobspawn F0 minecraft:frog 2.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed F0 26101
+mobspawn F1 minecraft:frog 12.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed F1 26102
+mobspawn F2 minecraft:frog 22.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed F2 26103
+mobspawn F3 minecraft:frog 32.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed F3 26104
+mobspawn F4 minecraft:frog 42.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed F4 26105
+mobspawn F5 minecraft:frog 52.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed F5 26106
+mobspawn F6 minecraft:frog 62.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed F6 26107
+mobspawn F7 minecraft:frog 72.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed F7 26108
+tick 2
+dump mobs
+dump nbt:F1

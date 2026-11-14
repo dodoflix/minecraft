@@ -135,7 +135,10 @@ pub fn stop_sleeping(entity: &mut dyn Entity, level: &mut ServerLevel) {
         }
     }
     let pos = entity.base().position();
+    // `setPos(pos)` after the pose change puts the entity back, so the size-change push-out of `setPose` is dropped
+    let pending_fudge = entity.base_mut().pending_fudge_from.take();
     entity.set_pose(Pose::Standing);
+    entity.base_mut().pending_fudge_from = pending_fudge;
     entity.set_pos(pos.x, pos.y, pos.z);
     lm(entity).clear_sleeping_pos();
 }

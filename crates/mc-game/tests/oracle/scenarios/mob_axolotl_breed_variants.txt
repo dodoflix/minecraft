@@ -1,0 +1,28 @@
+# Axolotls in love breed: the baby's variant comes from either parent (or the rare mutation draw), the parents' cooldown, the xp orb.
+level flat
+preload 4
+difficulty normal
+entity_counter 0
+fill 20 -61 -10 40 -50 10 minecraft:stone
+fill 21 -60 -9 39 -52 9 minecraft:water[level=0]
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn P1 minecraft:axolotl 30.5 -58 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:0}
+entity_seed P1 25201
+mobspawn P2 minecraft:axolotl 31.5 -58 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:2}
+entity_seed P2 25202
+mobspawn P3 minecraft:axolotl 30.5 -58 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:1}
+entity_seed P3 25203
+mobspawn P4 minecraft:axolotl 31.5 -58 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Variant:3}
+entity_seed P4 25204
+tick 3
+love P1 Steve
+love P2 Steve
+love P3 Steve
+love P4 Steve
+level_seed 2521
+breed P1 P2
+level_seed 2522
+breed P3 P4
+dump mobs rng:level
+tick 3
+dump mobs

@@ -30,3 +30,9 @@ fn leash_tick() {
 fn conversion_common() {
     check("mob_conversion_common");
 }
+
+/// A baby grows up squeezed under a ceiling, beside a wall and in a corner: `Entity.refreshDimensions` pushes it out of the blocks.
+#[test]
+fn baby_grows_against_blocks() {
+    check("mob_baby_grow_wall");
+}

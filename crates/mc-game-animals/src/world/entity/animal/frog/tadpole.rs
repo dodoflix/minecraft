@@ -364,3 +364,19 @@ static TADPOLE: EntityRegistration = EntityRegistration {
     entity_type: EntityType::TADPOLE,
     create: |ty, id, _registries| Box::new(Tadpole::new(ty, id)),
 };
+
+/// The scenario dump fields of a tadpole: `tage locked particle`.
+#[distributed_slice(mc_game_core::world::entity::scenario_dump::SCENARIO_DUMP_EXTRA)]
+static TADPOLE_DUMP: mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra =
+    mc_game_core::world::entity::scenario_dump::ScenarioDumpExtra {
+        order: 30,
+        applies: |e| e.as_any().is::<Tadpole>(),
+        fields: |e, _level, _ctx| {
+            let t = e.as_any().downcast_ref::<Tadpole>().expect("applies");
+            vec![
+                ("tage".into(), t.get_age().to_string()),
+                ("locked".into(), u8::from(t.is_age_locked()).to_string()),
+                ("particle".into(), t.age_lock_particle_timer.to_string()),
+            ]
+        },
+    };

@@ -1,0 +1,43 @@
+# Tadpole: swims in a pool, its own age counts up and it converts into a frog (variant of the biome, persistence, grow-up sound, brain)
+# at 24000 ticks; a slimeball speeds it up (feed: ageUp, the remaining time); a golden dandelion locks the age. Pools in plains, desert and
+# snowy plains give the three frog variants.
+level flat
+preload 4
+difficulty normal
+entity_counter 0
+fill 20 -61 -10 40 -50 10 minecraft:stone
+fill 21 -60 -9 39 -52 9 minecraft:water[level=0]
+biome 20 -64 -10 40 -50 10 minecraft:plains
+fill 50 -61 -10 70 -50 10 minecraft:stone
+fill 51 -60 -9 69 -52 9 minecraft:water[level=0]
+biome 50 -64 -10 70 -50 10 minecraft:desert
+fill 80 -61 -10 100 -50 10 minecraft:stone
+fill 81 -60 -9 99 -52 9 minecraft:water[level=0]
+biome 80 -64 -10 100 -50 10 minecraft:snowy_plains
+spawn_player Steve survival 25.5 -52 0.5 0 0
+tick 3
+mobspawn T1 minecraft:tadpole 30.5 -58 0.5 0 0 {Age:23985}
+entity_seed T1 25501
+mobspawn T2 minecraft:tadpole 32.5 -58 2.5 0 0 {Age:100}
+entity_seed T2 25502
+mobspawn T3 minecraft:tadpole 28.5 -58 -2.5 0 0 {Age:23990,AgeLocked:1b}
+entity_seed T3 25503
+mobspawn T4 minecraft:tadpole 60.5 -58 0.5 0 0 {Age:23990}
+entity_seed T4 25504
+mobspawn T5 minecraft:tadpole 90.5 -58 0.5 0 0 {Age:23990}
+entity_seed T5 25505
+level_seed 2551
+watch mob:T1 mob:T2 mob:T3 mob:T4 mob:T5
+tick 40
+dump mobs
+dump nbt:T2
+give Steve mainhand minecraft:slime_ball 3
+level_seed 2552
+interact Steve T2
+dump mobs inventory:Steve
+give Steve mainhand minecraft:golden_dandelion 1
+interact Steve T3
+dump mobs
+level_seed 2553
+tick 5
+dump mobs

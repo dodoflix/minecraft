@@ -16,7 +16,6 @@ fn dolphin_feed_matches_vanilla() {
 }
 
 #[test]
-#[ignore = "deviation: tick 163 (first line `E Dolphin ... rot=344.21878,2.599958`): vanilla has xRot 2.599958 where the dolphin here keeps 0.0 while it glides on the one-block pool"]
 fn dolphin_jump_matches_vanilla() {
     block_scenario::check("mob_dolphin_jump");
 }
@@ -54,7 +53,6 @@ fn fish_predicate_matches_vanilla() {
 }
 
 #[test]
-#[ignore = "deviation: the first difference is after the egg is laid, around fixture line 1439 (`EV level_event type=2001 pos=5,-60,0` of the cracking egg and the turtles that follow); the turtle replay itself is exact up to the lay tick"]
 fn turtle_egg_matches_vanilla() {
     block_scenario::check("mob_turtle_egg");
 }

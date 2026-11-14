@@ -1,0 +1,27 @@
+# Entity predicates over the variant components of frog and axolotl (frog_variant, axolotl_variant): `execute if predicate` tags the
+# mobs whose own variant matches, and a different variant must not match.
+command_env
+level flat
+preload 4
+entity_counter 8300
+level_seed 8301
+difficulty normal
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn FW minecraft:frog 3.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["fw"],variant:"minecraft:warm"}
+entity_seed FW 8310
+mobspawn FC minecraft:frog 5.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["fc"],variant:"minecraft:cold"}
+entity_seed FC 8311
+mobspawn AX minecraft:axolotl 7.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["ax"],Variant:2}
+entity_seed AX 8312
+tick 2
+cmd execute as @e[tag=fw] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:frog/variant":"minecraft:warm"}}} run tag @s add hit_frog_variant
+cmd execute as @e[tag=fw] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:frog/variant":"minecraft:cold"}}} run tag @s add miss_frog_variant
+cmd execute as @e[tag=fc] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:frog/variant":"minecraft:cold"}}} run tag @s add hit_frog_cold
+cmd execute as @e[tag=fc] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:frog/variant":"minecraft:temperate"}}} run tag @s add miss_frog_temperate
+cmd execute as @e[tag=ax] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:axolotl/variant":"gold"}}} run tag @s add hit_axolotl_variant
+cmd execute as @e[tag=ax] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:axolotl/variant":"blue"}}} run tag @s add miss_axolotl_variant
+cmd execute as @e[tag=ax] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:frog/variant":"minecraft:warm"}}} run tag @s add miss_axolotl_frog
+tick 1
+dump nbt:FW
+dump nbt:FC
+dump nbt:AX

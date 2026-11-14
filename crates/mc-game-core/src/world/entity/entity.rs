@@ -1166,7 +1166,7 @@ pub trait Entity: Any {
     }
 
     /// `refreshDimensions()` minus the level-dependent `fudgePositionAfterSizeChange` (recorded in
-    /// `pending_fudge_from` and run by `base_tick`).
+    /// `pending_fudge_from` and run around the entity's tick by `ServerLevel::tick_listed_entity`).
     fn refresh_dimensions(&mut self) {
         let old_dim = self.base().dimensions.clone();
         let pose = self.base().get_pose();
