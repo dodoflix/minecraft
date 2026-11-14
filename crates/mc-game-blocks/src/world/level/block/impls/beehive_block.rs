@@ -1,12 +1,13 @@
 //! `net.minecraft.world.level.block.BeehiveBlock` (`bee_nest`, `beehive`).
 use mc_core::ident::Identifier;
-use mc_core::phys::Vec3;
+use mc_core::phys::{AABB, Vec3};
 use mc_data::{EntityType, GameEvent, Item, SoundEvent};
 use mc_game_core::advancements::triggers::CriteriaTriggers;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::stats::Stat;
 use mc_game_core::world::block_entity::{BeeReleaseStatus, BeehiveBlockEntity, BlockEntity as _};
 use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::entity::mob;
 use mc_game_core::world::entity::{Entity, ServerPlayer};
 use mc_game_core::world::inventory::Prediction;
 use mc_game_core::world::item::enchantment::enchantment_tags::PREVENTS_BEE_SPAWNS_WHEN_MINING;
@@ -40,17 +41,41 @@ pub fn drop_honeycomb(
     }
 }
 
-/// `BeehiveBlock.releaseBeesAndResetHoneyLevel(level, state, pos, player, releaseStatus)`: the `player` is the `Bee`
-/// target (not implemented, see [`BeehiveBlockEntity::empty_all_living_from_hive`]).
+/// `BeehiveBlock.angerNearbyBees(level, pos)`: when players are around, every untargeting bee within 8x6x8 blocks
+/// targets one of them, picked at random.
+pub fn anger_nearby_bees(level: &mut ServerLevel, pos: BlockPos) {
+    let area = AABB::from_block_pos(&pos).inflate(8.0, 6.0, 8.0);
+    let bees = level.get_entities_of_class(&area, |e| e.get_type() == EntityType::BEE, |_| true);
+    if bees.is_empty() {
+        return;
+    }
+    let players = level.get_entities_of_class(&area, |e| e.is_player(), |_| true);
+    if players.is_empty() {
+        return;
+    }
+    for bee in bees {
+        let untargeted = level
+            .get_entity(bee)
+            .is_some_and(|b| mob::tick::get_target_checked(b, level).is_none());
+        if untargeted {
+            let target = players[level.random().next_int_bounded(players.len() as i32) as usize];
+            level.with_entity(bee, |level, b| b.set_target(level, Some(target)));
+        }
+    }
+}
+
+/// `BeehiveBlock.releaseBeesAndResetHoneyLevel(level, state, pos, player, releaseStatus)`: the released bees target
+/// `player` (an entity the level can see) when it is within 4 blocks.
 pub fn release_bees_and_reset_honey_level(
     level: &mut ServerLevel,
     state: BlockState,
     pos: BlockPos,
+    player: Option<&dyn Entity>,
     release_status: BeeReleaseStatus,
 ) {
     reset_honey_level(level, state, pos);
     level.with_typed_block_entity::<BeehiveBlockEntity, _>(pos, |level, hive| {
-        hive.empty_all_living_from_hive(level, state, release_status);
+        hive.empty_all_living_from_hive(level, player, state, release_status);
     });
 }
 
@@ -75,7 +100,12 @@ impl BlockBehaviour for BeehiveBlock {
         ) {
             level.with_block_entity(pos, |level, be| {
                 if let Some(hive) = be.as_any_mut().downcast_mut::<BeehiveBlockEntity>() {
-                    hive.empty_all_living_from_hive(level, state, BeeReleaseStatus::Emergency);
+                    hive.empty_all_living_from_hive(
+                        level,
+                        None,
+                        state,
+                        BeeReleaseStatus::Emergency,
+                    );
                 }
             });
         }
@@ -89,7 +119,7 @@ impl BlockBehaviour for BeehiveBlock {
         on_hit: &mut dyn FnMut(ItemStack, BlockPos),
     ) {
         default_on_explosion_hit(state, level, pos, explosion, on_hit);
-        // Not implemented: `angerNearbyBees(level, pos)` (needs the `Bee` entity).
+        anger_nearby_bees(level, pos);
     }
     fn use_item_on(
         &self,
@@ -175,12 +205,27 @@ impl BlockBehaviour for BeehiveBlock {
         if !hive_emptied {
             return InteractionResult::TRY_WITH_EMPTY_HAND;
         }
-        if CampfireBlock::is_smokey_pos(&*level, pos) {
-            reset_honey_level(level, state, pos);
-        } else {
-            // Not implemented: `angerNearbyBees(level, pos)` when the hive holds bees (needs the `Bee` entity).
-            release_bees_and_reset_honey_level(level, state, pos, BeeReleaseStatus::Emergency);
-        }
+        let acting: &dyn Entity = &*player;
+        level.expose(acting, |level| {
+            if CampfireBlock::is_smokey_pos(&*level, pos) {
+                reset_honey_level(level, state, pos);
+            } else {
+                if level
+                    .get_block_entity(pos)
+                    .and_then(|be| be.as_any().downcast_ref::<BeehiveBlockEntity>())
+                    .is_some_and(|hive| !hive.is_empty())
+                {
+                    anger_nearby_bees(level, pos);
+                }
+                release_bees_and_reset_honey_level(
+                    level,
+                    state,
+                    pos,
+                    Some(acting),
+                    BeeReleaseStatus::Emergency,
+                );
+            }
+        });
         InteractionResult::SUCCESS
     }
     fn player_will_destroy(
@@ -256,9 +301,17 @@ impl BlockBehaviour for BeehiveBlock {
                     bees: hive.get_bees(),
                 });
                 copy.saved_flower_pos = hive.saved_flower_pos;
-                copy.empty_all_living_from_hive(level, state, BeeReleaseStatus::Emergency);
-                level.update_neighbour_for_output_signal(pos, state.block());
-                // Not implemented: `angerNearbyBees(level, pos)` (needs the `Bee` entity).
+                let acting: &dyn Entity = &*player;
+                level.expose(acting, |level| {
+                    copy.empty_all_living_from_hive(
+                        level,
+                        Some(acting),
+                        state,
+                        BeeReleaseStatus::Emergency,
+                    );
+                    level.update_neighbour_for_output_signal(pos, state.block());
+                    anger_nearby_bees(level, pos);
+                });
                 remaining = copy.get_occupant_count();
             }
             CriteriaTriggers::BEE_NEST_DESTROYED.trigger(
@@ -319,8 +372,9 @@ impl BlockBehaviour for BeehiveBlock {
                     if let Some(hive) = be.as_any_mut().downcast_mut::<BeehiveBlockEntity>() {
                         hive.empty_all_living_from_hive(
                             level,
+                            None,
                             state,
-                            mc_game_core::world::block_entity::BeeReleaseStatus::Emergency,
+                            BeeReleaseStatus::Emergency,
                         );
                     }
                 });

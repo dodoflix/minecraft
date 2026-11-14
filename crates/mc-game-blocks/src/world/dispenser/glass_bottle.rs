@@ -43,6 +43,7 @@ impl DispenseTemplate for GlassBottleDispense {
                 source.level,
                 state,
                 target,
+                None,
                 BeeReleaseStatus::BeeReleased,
             );
             self.0.set_success(true);

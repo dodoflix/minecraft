@@ -3732,6 +3732,11 @@ pub trait Entity: Any {
     fn as_bee(&self) -> Option<&dyn crate::world::entity::animal::bee_access::BeeAccess> {
         None
     }
+    fn as_bee_mut(
+        &mut self,
+    ) -> Option<&mut dyn crate::world::entity::animal::bee_access::BeeAccess> {
+        None
+    }
     /// `this instanceof ShoulderRidingEntity` (parrots).
     fn as_shoulder_riding(
         &self,

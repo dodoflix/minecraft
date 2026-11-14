@@ -8,7 +8,6 @@ use std::collections::BTreeMap;
 /// outside the list diverges and when a listed type no longer does (delete its entry), so the list can only shrink.
 const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[
     // inert placeholders: the dump line stops after the position fields
-    "minecraft:bee",
     "minecraft:camel",
     "minecraft:evoker",
     "minecraft:sniffer",
@@ -140,7 +139,7 @@ fn mob_path_climb() {
 }
 
 #[test]
-#[ignore = "deviation: the bee is an inert placeholder, `path_query` finds no flying path where vanilla finds one (line 0: `PATHQ Bee ... found=true`)"]
+#[ignore = "deviation: the allay is an inert placeholder, `path_query` finds no flying path where vanilla finds one (line 50: `PATHQ Allay ... found=true`)"]
 fn mob_path_fly() {
     run_scenario_test("mob_path_fly");
 }

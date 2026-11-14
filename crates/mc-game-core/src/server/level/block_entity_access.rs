@@ -42,7 +42,12 @@ impl ServerLevel {
             self.with_typed_block_entity::<BeehiveBlockEntity, _>(pos, |level, hive| {
                 if hive.is_fire_nearby(&*level) {
                     let state = level.get_block_state(pos);
-                    hive.empty_all_living_from_hive(level, state, BeeReleaseStatus::Emergency);
+                    hive.empty_all_living_from_hive(
+                        level,
+                        None,
+                        state,
+                        BeeReleaseStatus::Emergency,
+                    );
                 }
             });
         }

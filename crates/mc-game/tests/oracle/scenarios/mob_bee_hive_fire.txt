@@ -1,0 +1,39 @@
+# Fire next to a hive (block replay): `BeehiveBlockEntity.setChanged` (`/data merge block`, `be_nbt`) releases every occupant in
+# an emergency when a fire block is within one block of the hive, no player is involved so nobody is targeted; a fire placed
+# next to a hive that already holds bees releases them as well, a hive without fire keeps them.
+level flat
+preload 3
+difficulty normal
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+entity_counter 40
+spawn_player Steve creative 20.5 -60 20.5 0 0
+tick 2
+note fire below the hive: the data merge releases the bees, with the front blocked and in the night
+block 0 -61 0 minecraft:netherrack
+block 0 -60 0 minecraft:fire[age=0]
+block 0 -59 0 minecraft:beehive[facing=south,honey_level=1]
+block 0 -59 1 minecraft:stone
+time 14000
+level_seed 71
+be_nbt 0 -59 0 {bees:[{entity_data:{id:"minecraft:bee",HasNectar:1b,PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:600}]}
+dump mobs be:0,-59,0 blocks:0,-60,0,0,-59,0 events
+tick 2
+dump mobs
+time 1000
+note a hive without fire keeps its bees through the data merge
+block 8 -59 0 minecraft:beehive[facing=south,honey_level=1]
+level_seed 72
+be_nbt 8 -59 0 {bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+dump be:8,-59,0 events
+note fire placed beside the occupied hive afterwards: the bees leave
+block 8 -61 0 minecraft:netherrack
+block 8 -60 0 minecraft:fire[age=0]
+tick 2
+dump mobs be:8,-59,0 blocks:8,-60,0,8,-59,0 events
+note a hive without bees left: a later data merge releases nothing more
+level_seed 73
+be_nbt 8 -59 0 {flower_pos:[I;10,-60,3]}
+dump mobs be:8,-59,0 events
+tick 2
+dump mobs

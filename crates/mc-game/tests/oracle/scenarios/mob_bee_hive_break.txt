@@ -1,0 +1,62 @@
+# A player breaking an occupied hive or nest (block replay): the occupants leave in an emergency, the ones within 4 blocks of the
+# player target it (or stay out of the hive for 400 ticks when a lit campfire smokes it), and every bee within 8x6x8 blocks of the
+# hive that has no target picks one of the players around (a creative player is no valid target). Silk touch keeps the bees in
+# the item and angers nobody. Players keep their position and every case has its own X (the driver seeds new entities from the
+# command line).
+level flat
+preload 3
+difficulty normal
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+entity_counter 40
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex creative 2.5 -60 4.5 0 0
+spawn_player Cid survival 30.5 -60 0.5 0 0
+give Steve hotbar0 minecraft:iron_axe
+give Steve hotbar1 minecraft:iron_axe[enchantments={"minecraft:silk_touch":1}]
+give Cid hotbar0 minecraft:iron_axe
+tick 2
+note a hive with three bees facing the player, a bee nearby without a target, a bee far away, a creative player around
+block 0 -60 2 minecraft:beehive[facing=north,honey_level=2]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:bee",HasNectar:1b,PersistenceRequired:1b},ticks_in_hive:50,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+mobspawn Near minecraft:bee 5.5 -59 3.5 0 0 {PersistenceRequired:1b}
+mobspawn Far minecraft:bee 12.5 -59 3.5 0 0 {PersistenceRequired:1b}
+entity_seed Near 31
+entity_seed Far 32
+select Steve 0
+level_seed 51
+dig Steve 0 -60 2
+dump mobs player:Steve blocks:0,-60,2,0,-60,2 be:0,-60,2 events
+tick 3
+dump mobs
+tick 3
+dump mobs
+kill Near
+kill Far
+kill bee#1
+kill bee#2
+kill bee#3
+note silk touch: the bees stay in the item and nobody is angered
+block 0 -60 2 minecraft:bee_nest[facing=north,honey_level=5]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+mobspawn Near2 minecraft:bee 4.5 -59 3.5 0 0 {PersistenceRequired:1b}
+entity_seed Near2 33
+select Steve 1
+level_seed 52
+dig Steve 0 -60 2
+dump mobs blocks:0,-60,2,0,-60,2 be:0,-60,2 events
+tick 2
+dump mobs
+kill Near2
+note a smoked nest (lit campfire below): the released bee stays out of the nest, the nearby bee still picks a player
+block 30 -61 2 minecraft:campfire[lit=true]
+block 30 -60 2 minecraft:bee_nest[facing=north,honey_level=1]
+be_nbt 30 -60 2 {bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+mobspawn Idle minecraft:bee 33.5 -59 3.5 0 0 {PersistenceRequired:1b}
+entity_seed Idle 34
+select Steve 0
+level_seed 53
+dig Cid 30 -60 2
+dump mobs player:Cid blocks:30,-60,2,30,-60,2 be:30,-60,2 events
+tick 3
+dump mobs

@@ -1,0 +1,90 @@
+# Bees leaving a hive on their own (block replay: the hive ticks its occupants): a bee that carries nectar delivers it and raises
+# the honey level (by 1, by 2 with the 1 in 100 draw, never above 5), the released bee knows its hive, the hive's flower, and
+# has its age and love time reduced by the time spent inside; a blocked front, the night and rain keep the occupants in.
+level flat
+preload 3
+difficulty normal
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+entity_counter 40
+spawn_player Steve creative 20.5 -60 20.5 0 0
+tick 2
+note nectar delivered into a dry hive that remembers a flower
+block 0 -60 0 minecraft:beehive[facing=south,honey_level=0]
+be_nbt 0 -60 0 {flower_pos:[I;3,-60,3],bees:[{entity_data:{id:"minecraft:bee",HasNectar:1b,PersistenceRequired:1b},ticks_in_hive:101,min_ticks_in_hive:100}]}
+level_seed 7
+tick 1
+dump mobs be:0,-60,0 blocks:0,-60,0,0,-60,0 events
+tick 2
+dump mobs
+kill bee#1
+note honey level 3 and the 1 in 100 draw: the level rises by 2
+block 8 -60 0 minecraft:beehive[facing=south,honey_level=3]
+be_nbt 8 -60 0 {bees:[{entity_data:{id:"minecraft:bee",HasNectar:1b,PersistenceRequired:1b},ticks_in_hive:101,min_ticks_in_hive:100}]}
+level_seed 2
+tick 1
+dump mobs be:8,-60,0 blocks:8,-60,0,8,-60,0 events
+kill bee#2
+note honey level 4 and the same draw: the second step is dropped at the cap
+block 16 -60 0 minecraft:bee_nest[facing=south,honey_level=4]
+be_nbt 16 -60 0 {bees:[{entity_data:{id:"minecraft:bee",HasNectar:1b,PersistenceRequired:1b},ticks_in_hive:101,min_ticks_in_hive:100}]}
+level_seed 2
+tick 1
+dump mobs be:16,-60,0 blocks:16,-60,0,16,-60,0 events
+kill bee#3
+note a full hive takes no more honey and draws nothing
+block 24 -60 0 minecraft:beehive[facing=south,honey_level=5]
+be_nbt 24 -60 0 {bees:[{entity_data:{id:"minecraft:bee",HasNectar:1b,PersistenceRequired:1b},ticks_in_hive:101,min_ticks_in_hive:100}]}
+level_seed 2
+tick 1
+dump mobs be:24,-60,0 blocks:24,-60,0,24,-60,0 events
+kill bee#4
+note a bee without nectar leaves the hive; the flower of the hive reaches it with a draw below 0.9
+block 32 -60 0 minecraft:beehive[facing=south,honey_level=2]
+be_nbt 32 -60 0 {flower_pos:[I;35,-60,3],bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:101,min_ticks_in_hive:100}]}
+level_seed 3
+tick 1
+dump mobs be:32,-60,0 blocks:32,-60,0,32,-60,0 events
+kill bee#5
+note a baby grows by the time inside and a bee in love loses love time; a bee with its own flower keeps it
+block 40 -60 0 minecraft:beehive[facing=south,honey_level=0]
+be_nbt 40 -60 0 {flower_pos:[I;43,-60,3],bees:[{entity_data:{id:"minecraft:bee",Age:-6000,InLove:500,flower_pos:[I;45,-60,5],PersistenceRequired:1b},ticks_in_hive:300,min_ticks_in_hive:299},{entity_data:{id:"minecraft:bee",Age:200,PersistenceRequired:1b},ticks_in_hive:300,min_ticks_in_hive:299}]}
+level_seed 4
+tick 1
+dump mobs be:40,-60,0 blocks:40,-60,0,40,-60,0 events
+tick 2
+dump mobs
+kill bee#6
+kill bee#7
+note a solid block in front keeps the occupants in until it goes away
+block 48 -60 0 minecraft:beehive[facing=south,honey_level=1]
+block 48 -60 1 minecraft:stone
+be_nbt 48 -60 0 {bees:[{entity_data:{id:"minecraft:bee",HasNectar:1b,PersistenceRequired:1b},ticks_in_hive:101,min_ticks_in_hive:100}]}
+level_seed 5
+tick 3
+dump mobs be:48,-60,0 blocks:48,-60,0,48,-60,1
+block 48 -60 1 minecraft:air
+level_seed 6
+tick 1
+dump mobs be:48,-60,0 blocks:48,-60,0,48,-60,1 events
+kill bee#8
+note night: bees stay in the hive
+block 56 -60 0 minecraft:beehive[facing=south,honey_level=1]
+be_nbt 56 -60 0 {bees:[{entity_data:{id:"minecraft:bee",HasNectar:1b,PersistenceRequired:1b},ticks_in_hive:101,min_ticks_in_hive:100}]}
+time 14000
+level_seed 8
+tick 4
+dump mobs be:56,-60,0 blocks:56,-60,0,56,-60,0
+note day again: the bee leaves
+time 1000
+level_seed 9
+tick 2
+dump mobs be:56,-60,0 blocks:56,-60,0,56,-60,0 events
+kill bee#9
+note rain: bees stay in the hive
+block 64 -60 0 minecraft:beehive[facing=south,honey_level=1]
+be_nbt 64 -60 0 {bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:101,min_ticks_in_hive:100}]}
+cmd weather rain 100000
+level_seed 10
+tick 4
+dump mobs be:64,-60,0 blocks:64,-60,0,64,-60,0

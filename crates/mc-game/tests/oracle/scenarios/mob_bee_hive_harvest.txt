@@ -1,0 +1,76 @@
+# Harvesting a full hive with shears or a bottle while it holds bees (block replay): without smoke the occupants leave in an
+# emergency (also at night), the ones within 4 blocks of the player target it and the bees around the hive that have no target
+# pick a player; a lit campfire below only resets the honey level and the bees stay. A hive without bees angers nobody. Players
+# keep their position and every case has its own click offset (the driver seeds new entities from the command line).
+level flat
+preload 3
+difficulty normal
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+entity_counter 40
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 30.5 -60 0.5 0 0
+give Steve hotbar0 minecraft:shears
+give Steve hotbar1 minecraft:glass_bottle 8
+give Alex hotbar0 minecraft:shears
+tick 2
+note shears on a full hive without smoke: two bees leave angry, a bee nearby joins them
+block 0 -60 2 minecraft:beehive[facing=north,honey_level=5]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:bee",HasNectar:1b,PersistenceRequired:1b},ticks_in_hive:50,min_ticks_in_hive:2400}]}
+mobspawn Near minecraft:bee 4.5 -59 3.5 0 0 {PersistenceRequired:1b}
+entity_seed Near 41
+select Steve 0
+level_seed 61
+use_on Steve 0 -60 2 up main 0.11 1.0 0.5
+dump mobs player:Steve blocks:0,-60,2,0,-60,2 be:0,-60,2 inventory:Steve events
+tick 3
+dump mobs
+tick 3
+dump mobs
+kill Near
+kill bee#1
+kill bee#2
+note a bottle on a nest facing away: the bees come out behind the nest, out of the player's reach, and the bees around still pick the player
+block 0 -60 2 minecraft:bee_nest[facing=south,honey_level=5]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+mobspawn Near2 minecraft:bee 3.5 -59 3.5 0 0 {PersistenceRequired:1b}
+entity_seed Near2 42
+select Steve 1
+level_seed 62
+use_on Steve 0 -60 2 up main 0.12 1.0 0.5
+dump mobs player:Steve blocks:0,-60,2,0,-60,2 be:0,-60,2 inventory:Steve events
+tick 3
+dump mobs
+kill Near2
+kill bee#3
+note smoked hive (lit campfire below): the honey level resets and the bees stay inside
+block 0 -61 2 minecraft:campfire[lit=true]
+block 0 -60 2 minecraft:beehive[facing=north,honey_level=5]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 0
+level_seed 63
+use_on Steve 0 -60 2 up main 0.13 1.0 0.5
+dump mobs player:Steve blocks:0,-61,2,0,-60,2 be:0,-60,2 inventory:Steve events
+tick 3
+dump mobs be:0,-60,2
+note a full hive without bees angers nobody
+block 0 -61 2 minecraft:grass_block
+block 0 -60 2 minecraft:beehive[facing=north,honey_level=5]
+be_nbt 0 -60 2 {bees:[]}
+mobspawn Idle minecraft:bee 2.5 -59 3.5 0 0 {PersistenceRequired:1b}
+entity_seed Idle 43
+select Steve 0
+level_seed 64
+use_on Steve 0 -60 2 up main 0.14 1.0 0.5
+dump mobs player:Steve blocks:0,-60,2,0,-60,2 be:0,-60,2 inventory:Steve events
+kill Idle
+note night: the shears still release the bees
+block 30 -60 2 minecraft:beehive[facing=north,honey_level=5]
+be_nbt 30 -60 2 {bees:[{entity_data:{id:"minecraft:bee",PersistenceRequired:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+time 14000
+select Alex 0
+level_seed 65
+use_on Alex 30 -60 2 up main 0.15 1.0 0.5
+dump mobs player:Alex blocks:30,-60,2,30,-60,2 be:30,-60,2 inventory:Alex events
+tick 2
+dump mobs

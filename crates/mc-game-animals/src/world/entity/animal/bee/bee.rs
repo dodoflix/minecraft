@@ -393,6 +393,23 @@ impl BeeAccess for Bee {
     fn get_saved_flower_pos(&self) -> Option<BlockPos> {
         self.saved_flower_pos
     }
+
+    fn set_saved_flower_pos(&mut self, pos: BlockPos) {
+        self.saved_flower_pos = Some(pos);
+    }
+
+    fn set_hive_pos(&mut self, pos: BlockPos) {
+        self.hive_pos = Some(pos);
+    }
+
+    fn drop_off_nectar(&mut self) {
+        self.set_has_nectar(false);
+        self.num_crops_grown_since_pollination = 0;
+    }
+
+    fn set_stay_out_of_hive_countdown(&mut self, ticks: i32) {
+        self.stay_out_of_hive_countdown = ticks;
+    }
 }
 
 fn write_pos(out: &mut CompoundTag, key: &str, pos: Option<BlockPos>) {
@@ -409,6 +426,10 @@ impl Entity for Bee {
     }
 
     fn as_bee(&self) -> Option<&dyn BeeAccess> {
+        Some(self)
+    }
+
+    fn as_bee_mut(&mut self) -> Option<&mut dyn BeeAccess> {
         Some(self)
     }
 

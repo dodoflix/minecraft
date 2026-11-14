@@ -36,7 +36,7 @@ fn try_shear_beehive(level: &mut ServerLevel, tool: &ItemStack, pos: BlockPos) -
             1.0,
         );
         drop_honeycomb(level, tool, state, None, pos);
-        release_bees_and_reset_honey_level(level, state, pos, BeeReleaseStatus::BeeReleased);
+        release_bees_and_reset_honey_level(level, state, pos, None, BeeReleaseStatus::BeeReleased);
         level.game_event_at_block(GameEvent::SHEAR, pos, &GameEventContext::of_entity(None));
         return true;
     }

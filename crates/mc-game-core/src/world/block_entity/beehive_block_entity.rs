@@ -8,9 +8,11 @@ use super::{
 };
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
+use crate::world::entity::EntityId;
 use crate::world::entity::entity;
 use crate::world::entity::factory::{self, EntitySpawnRequest};
 use crate::world::entity::mob::leashable;
+use crate::world::entity::mob::{ageable, animal};
 use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor;
 use crate::world::level::block::BlockStateExt;
@@ -220,17 +222,62 @@ impl BeehiveBlockEntity {
         }
     }
 
-    /// `emptyAllLivingFromHive(player, state, releaseReason)`: every occupant that may leave does. Not implemented: the
-    /// `player` argument and the reactions of the released bees within 4 blocks of it (`Bee.setTarget(player)`, or
-    /// `setStayOutOfHiveCountdown(400)` when [`Self::is_sedated`]).
+    /// `emptyAllLivingFromHive(player, state, releaseReason)`: every occupant that may leave does. The released bees
+    /// within 4 blocks of `player` (an entity the level can see) target it, or stay out of the hive for 400 ticks when the
+    /// hive is sedated.
     pub fn empty_all_living_from_hive(
+        &mut self,
+        level: &mut ServerLevel,
+        player: Option<&dyn Entity>,
+        state: BlockState,
+        status: BeeReleaseStatus,
+    ) {
+        let released = self.release_all_occupants(level, state, status);
+        let Some(player) = player else { return };
+        for id in released {
+            let Some(bee_pos) = level.get_entity(id).map(|bee| bee.base().position()) else {
+                continue;
+            };
+            if player.base().distance_to_sqr_vec(bee_pos) > 16.0 {
+                continue;
+            }
+            let sedated = self.is_sedated(&*level);
+            let player_id = player.id();
+            level.with_entity(id, |level, bee| {
+                if !sedated {
+                    bee.set_target(level, Some(player_id));
+                } else if let Some(bee) = bee.as_bee_mut() {
+                    bee.set_stay_out_of_hive_countdown(400);
+                }
+            });
+        }
+    }
+
+    /// `releaseAllOccupants(state, releaseStatus)`: the released bees.
+    fn release_all_occupants(
         &mut self,
         level: &mut ServerLevel,
         state: BlockState,
         status: BeeReleaseStatus,
-    ) {
+    ) -> Vec<EntityId> {
         let pos = self.get_block_pos();
-        self.remove_released(|occupant| release_occupant(level, pos, state, occupant, status));
+        let flower_pos = self.saved_flower_pos;
+        let mut spawned = Vec::new();
+        self.remove_released(|occupant| {
+            release_occupant(
+                level,
+                pos,
+                state,
+                occupant,
+                Some(&mut spawned),
+                status,
+                flower_pos,
+            )
+        });
+        if !spawned.is_empty() {
+            set_changed(level, pos, self.get_block_state());
+        }
+        spawned
     }
 
     /// `tickOccupants(level, pos, state, stored)`.
@@ -244,8 +291,9 @@ impl BeehiveBlockEntity {
                 } else {
                     BeeReleaseStatus::BeeReleased
                 };
+                let flower_pos = self.saved_flower_pos;
                 let occupant = self.stored[i].to_occupant();
-                if release_occupant(level, pos, state, &occupant, status) {
+                if release_occupant(level, pos, state, &occupant, None, status, flower_pos) {
                     changed = true;
                     self.stored.remove(i);
                     continue;
@@ -264,9 +312,27 @@ impl BeehiveBlockEntity {
     }
 }
 
-/// `Occupant.createEntity(level, hivePos)`: the stored bee as a live entity (not yet in the level; the hive position
-/// only matters to a `Bee`).
-fn create_entity(level: &ServerLevel, occupant: &BeeOccupant) -> Option<Box<dyn Entity>> {
+/// `setBeeReleaseData(ticksInHive, bee)`: the time in the hive ages a baby (or rejuvenates a grown-up's breeding cooldown)
+/// and runs down the love time.
+fn set_bee_release_data(level: &mut ServerLevel, ticks_in_hive: i32, bee: &mut dyn Entity) {
+    if !ageable::is_age_locked(bee) {
+        let age = ageable::get_age(bee);
+        if age < 0 {
+            ageable::set_age_in_level(bee, level, 0.min(age.wrapping_add(ticks_in_hive)));
+        } else if age > 0 {
+            ageable::set_age_in_level(bee, level, 0.max(age.wrapping_sub(ticks_in_hive)));
+        }
+    }
+    let love = animal::get_in_love_time(bee);
+    animal::set_in_love_time(bee, 0.max(love.wrapping_sub(ticks_in_hive)));
+}
+
+/// `Occupant.createEntity(level, hivePos)`: the stored bee as a live entity (not yet in the level) that knows its hive.
+fn create_entity(
+    level: &mut ServerLevel,
+    hive_pos: BlockPos,
+    occupant: &BeeOccupant,
+) -> Option<Box<dyn Entity>> {
     let mut tag = occupant.entity_data.tag.clone();
     for ignored in IGNORED_BEE_TAGS {
         tag.remove(ignored);
@@ -286,17 +352,22 @@ fn create_entity(level: &ServerLevel, occupant: &BeeOccupant) -> Option<Box<dyn 
         return None;
     }
     entity.base_mut().set_no_gravity(true);
+    if let Some(bee) = entity.as_bee_mut() {
+        bee.set_hive_pos(hive_pos);
+        set_bee_release_data(level, occupant.ticks_in_hive, &mut *entity);
+    }
     Some(entity)
 }
 
-/// `BeehiveBlockEntity.releaseOccupant`: whether the occupant left the hive. Not implemented: the `Bee`-only part (hive position,
-/// saved flower position, honey delivery, spawn offset, age and love time passed in the hive).
+/// `BeehiveBlockEntity.releaseOccupant`: whether the occupant left the hive. A released bee is added to `spawned`.
 fn release_occupant(
     level: &mut ServerLevel,
     pos: BlockPos,
     state: BlockState,
     occupant: &BeeOccupant,
+    spawned: Option<&mut Vec<EntityId>>,
     release_status: BeeReleaseStatus,
+    saved_flower_pos: Option<BlockPos>,
 ) -> bool {
     if level.attribute_bool(crate::world::attribute::attributes::BEES_STAY_IN_HIVE, pos)
         && release_status != BeeReleaseStatus::Emergency
@@ -312,9 +383,51 @@ fn release_occupant(
     if front_blocked && release_status != BeeReleaseStatus::Emergency {
         return false;
     }
-    let Some(entity) = create_entity(level, occupant) else {
+    let Some(mut entity) = create_entity(level, pos, occupant) else {
         return false;
     };
+    if let Some(bee) = entity.as_bee_mut() {
+        if let Some(flower_pos) = saved_flower_pos
+            && bee.get_saved_flower_pos().is_none()
+            && level.random().next_float() < 0.9
+        {
+            bee.set_saved_flower_pos(flower_pos);
+        }
+        if release_status == BeeReleaseStatus::HoneyDelivered {
+            bee.drop_off_nectar();
+            if state.is_tag("beehives")
+                && let Some(honey_level) = state.try_get(props::LEVEL_HONEY)
+                && honey_level < 5
+            {
+                let mut increase = if level.random().next_int_bounded(100) == 0 {
+                    2
+                } else {
+                    1
+                };
+                if honey_level + increase > 5 {
+                    increase -= 1;
+                }
+                level.set_block_and_update(
+                    pos,
+                    state.set(props::LEVEL_HONEY, honey_level + increase),
+                );
+            }
+        }
+        if let Some(spawned) = spawned {
+            spawned.push(entity.id());
+        }
+        let width = entity.base().get_bb_width();
+        let delta = if front_blocked {
+            0.0
+        } else {
+            0.55 + f64::from(width / 2.0)
+        };
+        let x = f64::from(pos.x()) + 0.5 + delta * f64::from(facing.get_step_x());
+        let y = f64::from(pos.y()) + 0.5 - f64::from(entity.base().get_bb_height() / 2.0);
+        let z = f64::from(pos.z()) + 0.5 + delta * f64::from(facing.get_step_z());
+        let (y_rot, x_rot) = (entity.base().y_rot(), entity.base().x_rot());
+        entity.snap_to(x, y, z, y_rot, x_rot);
+    }
     level.play_sound(
         None,
         pos,
