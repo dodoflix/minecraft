@@ -1,0 +1,25 @@
+# Bad Omen in a village (a bed claimed by a villager) becomes Raid Omen (600 ticks, the position is remembered); when the countdown ends the
+# raid is created around the village center and the first wave follows after the pre-raid countdown. (The tick the two effects overlap is only
+# watched once: vanilla ticks them in hash order, so the dumps after it keep clear of the exact tick.)
+level flat
+difficulty normal
+gamerule raids true
+entity_counter 5400
+level_seed 5401
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+tick 300
+dump mob:V
+effect Steve minecraft:bad_omen 1 100000
+watch player:Steve events
+tick 1
+watch off
+dump nbt:Steve
+tick 640
+dump nbt:Steve raids
+tick 320
+dump raids

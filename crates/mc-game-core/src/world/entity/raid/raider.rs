@@ -273,15 +273,18 @@ pub fn die(e: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource) {
             wave,
             health: e.get_health(),
         };
-        level.with_raid(raid_id, |level, raid| {
+        let removed = level.with_raid(raid_id, |level, raid| {
             if leader {
                 raid.remove_leader(wave);
             }
             if let Some(uuid) = killer_player {
                 raid.add_hero_of_the_village(uuid);
             }
-            raid.remove_from_raid(level, token, false, Some(e));
+            raid.remove_from_raid(level, token, false, Some(&*e))
         });
+        if removed == Some(true) {
+            set_current_raid(e, None);
+        }
     }
     crate::world::entity::living_entity::damage::die(e, level, source);
 }
@@ -437,8 +440,10 @@ pub fn register_goals(mob: &mut MobData) {
         3,
         Box::new(crate::world::entity::ai::goal::PathfindToRaidGoal::new()),
     );
-    mob.goal_selector
-        .add_goal(4, Box::new(RaiderMoveThroughVillageGoal::new(1.05, 1)));
+    mob.goal_selector.add_goal(
+        4,
+        Box::new(RaiderMoveThroughVillageGoal::new(f64::from(1.05_f32), 1)),
+    );
     mob.goal_selector
         .add_goal(5, Box::new(RaiderCelebration::new()));
 }
@@ -654,7 +659,7 @@ impl Goal for ObtainRaidLeaderBannerGoal {
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        navigation::move_to_path(mob, level, self.path_to_banner.clone(), 1.15);
+        navigation::move_to_path(mob, level, self.path_to_banner.clone(), f64::from(1.15_f32));
     }
 
     fn stop(&mut self, _mob: &mut dyn Entity, _level: &mut ServerLevel) {

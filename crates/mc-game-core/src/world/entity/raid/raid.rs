@@ -804,10 +804,11 @@ impl Raid {
                             self.join_raid_fresh(level, group_number, riding_raider, pos)
                     {
                         level.with_entity(rider_id, |level, rider| {
+                            // `snapTo(pos, 0, 0)` = `Vec3.atBottomCenterOf(pos)`
                             rider.snap_to(
-                                f64::from(pos.x()),
+                                f64::from(pos.x()) + 0.5,
                                 f64::from(pos.y()),
-                                f64::from(pos.z()),
+                                f64::from(pos.z()) + 0.5,
                                 0.0,
                                 0.0,
                             );
@@ -833,14 +834,11 @@ impl Raid {
         mut raider: Box<dyn Entity>,
         pos: BlockPos,
     ) -> Option<EntityId> {
-        if raider.raider().is_none() {
-            // Not implemented: raider entity types without a port are inert placeholders; they cannot join a raid.
-            log::warn!(
-                "Skipping raid spawn of {:?}: the entity type is not a raider",
-                raider.get_type()
-            );
-            return None;
-        }
+        assert!(
+            raider.raider().is_some(),
+            "{:?} is not a raider type",
+            raider.get_type()
+        );
         self.add_wave_mob(level, group_number, &*raider, true);
         raider::set_current_raid(&mut *raider, Some(self.id));
         raider::set_wave(&mut *raider, group_number);
@@ -921,26 +919,31 @@ impl Raid {
         self.group_raider_map.values().map(|s| s.len() as i32).sum()
     }
 
-    /// `removeFromRaid(level, raider, removeFromTotalHealth)`; `current` is the raider if it is taken out of the level.
+    /// `removeFromRaid(level, raider, removeFromTotalHealth)`; `current` is the raider if it is taken out of the level (the caller
+    /// then clears its raid itself: the result says whether the raider was in the raid).
     pub fn remove_from_raid(
         &mut self,
         level: &mut ServerLevel,
         raider: RaiderToken,
         remove_from_total_health: bool,
         current: Option<&dyn Entity>,
-    ) {
+    ) -> bool {
         let Some(raiders) = self.group_raider_map.get_mut(&raider.wave) else {
-            return;
+            return false;
         };
-        if raiders.remove(raider.id) {
-            if remove_from_total_health {
-                self.total_health -= raider.health;
-            }
-            // `raider.setCurrentRaid(null)`: the callers that hold the entity clear it; a raider in the level is cleared here
-            level.with_entity(raider.id, |_, r| raider::set_current_raid(r, None));
-            self.update_bossbar(level, current);
-            self.set_dirty(level);
+        if !raiders.remove(raider.id) {
+            return false;
         }
+        if remove_from_total_health {
+            self.total_health -= raider.health;
+        }
+        // `raider.setCurrentRaid(null)`
+        if current.is_none_or(|c| c.id() != raider.id) {
+            level.with_entity(raider.id, |_, r| raider::set_current_raid(r, None));
+        }
+        self.update_bossbar(level, current);
+        self.set_dirty(level);
+        true
     }
 
     fn set_dirty(&self, level: &mut ServerLevel) {

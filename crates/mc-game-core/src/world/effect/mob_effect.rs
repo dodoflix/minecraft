@@ -3,19 +3,21 @@
 //! hurt callbacks, particles and attribute modifier templates.
 //!
 //! Not implemented: `OozingMobEffect` and `InfestedMobEffect` never spawn their `Slime` / `Silverfish` (the entities
-//! exist), and `BadOmenMobEffect` / `RaidOmenMobEffect` do nothing: neither starts a raid (the raid manager and the POI
-//! manager exist, nothing calls them from here).
+//! exist).
 
 use super::reactions;
 use crate::server::level::ServerLevel;
+use crate::world::entity::ServerPlayer;
 use crate::world::entity::attributes::{
     AttributeMap, AttributeModifier, AttributeModifierOperation,
 };
 use crate::world::entity::effect::MobEffectInstance;
+use crate::world::entity::raid::raids::Raids;
 use crate::world::entity::{Entity, RemovalReason};
 use mc_data::enums::{AttributeModifierOperation as DataOperation, MobEffectCategory};
 use mc_data::{Attribute, MobEffect, ParticleType};
 use mc_protocol::packets::play::{ParticleOptions, SoundSource};
+use mc_world::level_storage::Difficulty;
 
 /// `AMBIENT_ALPHA = Mth.floor(38.25F)`.
 const AMBIENT_ALPHA: i32 = 38;
@@ -263,6 +265,39 @@ impl MobEffectExt for MobEffect {
                 true
             }
             "AbsorptionMobEffect" => mob.get_absorption_amount() > 0.0,
+            "BadOmenMobEffect" => {
+                let pos = mob.block_position();
+                if mob.as_any().is::<ServerPlayer>()
+                    && !mob.is_spectator()
+                    && level.difficulty() != Difficulty::Peaceful
+                    && level.is_village(pos)
+                    && level.get_raid_at(pos).is_none_or(|raid| {
+                        raid.get_raid_omen_level() < raid.get_max_raid_omen_level()
+                    })
+                {
+                    mob.add_effect(
+                        level,
+                        MobEffectInstance::of(MobEffect::RAID_OMEN, 600, amplification),
+                        None,
+                    );
+                    if let Some(player) = mob.as_any_mut().downcast_mut::<ServerPlayer>() {
+                        player.raid_omen_position = Some(pos);
+                    }
+                    return false;
+                }
+                true
+            }
+            "RaidOmenMobEffect" => {
+                if !mob.is_spectator()
+                    && let Some(player) = mob.as_any_mut().downcast_mut::<ServerPlayer>()
+                    && let Some(pos) = player.raid_omen_position
+                {
+                    Raids::create_or_extend_raid(level, player, pos);
+                    player.raid_omen_position = None;
+                    return false;
+                }
+                true
+            }
             _ => true,
         }
     }

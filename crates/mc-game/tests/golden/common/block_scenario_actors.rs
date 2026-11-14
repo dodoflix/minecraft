@@ -509,6 +509,10 @@ impl Scenario {
                     e.load(level, &tag)
                         .unwrap_or_else(|er| panic!("entity load: {er}"));
                     e.resolve_registry_refs(&level.registries);
+                    // vanilla's `readAdditionalSaveData` rejoins the raid of a raider right here
+                    if e.raider().is_some() {
+                        e.after_loaded_to_level(level);
+                    }
                 });
             }
             "hurt" => {

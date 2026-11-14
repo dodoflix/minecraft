@@ -1,0 +1,437 @@
+C Game rule raids is now set to true
+C Game rule mob_drops is now set to false
+EFFECT Steve minecraft:raid_omen added=true
+RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=1 groups=0/7 health=0.0 raiders=-
+RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=1 groups=1/7 health=144.0 raiders=pillager#1;pillager#2;pillager#3;pillager#4;vindicator#1;vindicator#2
+E V minecraft:villager pos=3.240693636240421,-60.0,-4.239776770916051 delta=-0.1196719999953648,-0.0784000015258789,0.11950083083700865 rot=45.036713,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=1 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.375 xxa=0.0 yya=0.0 head=45.038727 body=45.036713 nav=moving stuck=0 navspeed=0.75 ntarget=0,-59,0 path=5/10/1/0,-59,0 nodes=7,-60,-9:WALKABLE:0.0;6,-60,-8:WALKABLE:0.0;5,-60,-7:WALKABLE:0.0;4,-60,-6:WALKABLE:0.0;3,-60,-5:WALKABLE:0.0;2,-60,-4:WALKABLE:0.0;1,-60,-3:WALKABLE:0.0;1,-60,-2:WALKABLE:0.0;0,-60,-1:WALKABLE:0.0;0,-59,0:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:560:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:26:inf;last_woken:308:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve):inf;path:path(5;10):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(0,-60,0);0.75;2):inf equip=- attrs=minecraft:follow_range:14.697072048731519;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E vindicator#1 minecraft:vindicator pos=-84.29406601734522,-60.0,-40.704461297282734 delta=-0.11959031610567221,-0.0784000015258789,0.10258149908840106 rot=45.663406,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=43.8265 body=45.663406 nav=moving stuck=0 navspeed=1.0 ntarget=-89,-60,-30 path=2/12/1/-89,-60,-30 nodes=-84,-60,-42:WALKABLE:0.0;-85,-60,-41:WALKABLE:0.0;-86,-60,-40:WALKABLE:0.0;-86,-60,-39:WALKABLE:0.0;-87,-60,-38:WALKABLE:0.0;-87,-60,-37:WALKABLE:0.0;-87,-60,-36:WALKABLE:0.0;-88,-60,-35:WALKABLE:0.0;-88,-60,-34:WALKABLE:0.0;-88,-60,-33:WALKABLE:0.0;-88,-60,-32:WALKABLE:0.0;-89,-60,-31:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1;head:minecraft:white_banner*1{minecraft:banner_patterns:[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],minecraft:item_name:{translate:"block.minecraft.ominous_banner"},minecraft:rarity:"uncommon",minecraft:tooltip_display:{hidden_components:["minecraft:banner_patterns"]}} attrs=minecraft:attack_damage:13.0;minecraft:follow_range:12.528497620836854;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=1 patrolling=1 celebrating=0 johnny=0
+E vindicator#2 minecraft:vindicator pos=-81.36785954755676,-60.0,-42.0826452034244 delta=-0.05044665037358098,-0.0784000015258789,-0.09992259719787513 rot=111.33322,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=161.5166 body=111.33322 nav=moving stuck=0 navspeed=1.0 ntarget=-78,-60,-45 path=1/6/1/-78,-60,-45 nodes=-84,-59,-42:OPEN:0.0;-83,-60,-43:WALKABLE:0.0;-82,-60,-44:WALKABLE:0.0;-81,-60,-44:WALKABLE:0.0;-80,-60,-44:WALKABLE:0.0;-79,-60,-45:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1 attrs=minecraft:attack_damage:13.0;minecraft:follow_range:11.40226556882049;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 johnny=0
+E pillager#1 minecraft:pillager pos=-85.84215001481338,-60.0,-40.56097655563044 delta=0.03616035003501245,-0.0784000015258789,0.12396323029344306 rot=342.4084,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=344.11923 body=342.4084 nav=moving stuck=0 navspeed=1.0 ntarget=-87,-60,-37 path=2/5/1/-87,-60,-37 nodes=-86,-60,-42:WALKABLE:0.0;-86,-60,-41:WALKABLE:0.0;-86,-60,-40:WALKABLE:0.0;-86,-60,-39:WALKABLE:0.0;-87,-60,-38:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.786700027699403;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#2 minecraft:pillager pos=-84.74067640190769,-60.0,-41.489661721978564 delta=0.09089891994862687,-0.0784000015258789,0.0017737028599604087 rot=269.71133,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=338.31815 body=269.71133 nav=moving stuck=0 navspeed=1.0 ntarget=-78,-60,-42 path=1/7/1/-78,-60,-42 nodes=-85,-60,-42:WALKABLE:0.0;-84,-60,-42:WALKABLE:0.0;-83,-60,-42:WALKABLE:0.0;-82,-60,-42:WALKABLE:0.0;-81,-60,-42:WALKABLE:0.0;-80,-60,-42:WALKABLE:0.0;-79,-60,-42:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:32.94927736945724;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#3 minecraft:pillager pos=-82.73717430352104,-60.0,-41.8998877188665 delta=0.05537638997309554,-0.0784000015258789,-0.10152596082040069 rot=203.30402,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=270.32297 body=203.30402 nav=moving stuck=0 navspeed=1.0 ntarget=-72,-60,-50 path=1/12/1/-72,-60,-50 nodes=-84,-60,-42:WALKABLE:0.0;-83,-60,-43:WALKABLE:0.0;-82,-60,-44:WALKABLE:0.0;-81,-60,-45:WALKABLE:0.0;-80,-60,-46:WALKABLE:0.0;-79,-60,-47:WALKABLE:0.0;-78,-60,-48:WALKABLE:0.0;-77,-60,-49:WALKABLE:0.0;-76,-60,-49:WALKABLE:0.0;-75,-60,-49:WALKABLE:0.0;-74,-60,-49:WALKABLE:0.0;-73,-60,-50:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:34.171494227247244;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#4 minecraft:pillager pos=-81.66247889293876,-60.0,-41.90268092870692 delta=0.04762210613591095,-0.0784000015258789,-0.07649425615083853 rot=201.30386,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=274.832 body=201.30386 nav=moving stuck=0 navspeed=1.0 ntarget=-77,-60,-45 path=1/6/1/-77,-60,-45 nodes=-83,-60,-42:WALKABLE:0.0;-82,-60,-43:WALKABLE:0.0;-81,-60,-44:WALKABLE:0.0;-80,-60,-44:WALKABLE:0.0;-79,-60,-44:WALKABLE:0.0;-78,-60,-45:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.366523599940397;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+C Killed Villager
+RAID 2 center=1,-60,-1 started=1 active=1 status=LOSS omen=1 groups=1/7 health=144.0 raiders=pillager#1;pillager#2;pillager#3;pillager#4;vindicator#1;vindicator#2
+RAID 2 center=1,-60,-1 started=1 active=1 status=LOSS omen=1 groups=1/7 health=144.0 raiders=pillager#1;pillager#2;pillager#3;pillager#4;vindicator#1;vindicator#2
+E vindicator#1 minecraft:vindicator pos=-86.38479076183746,-60.0,-36.57006465247731 delta=-0.0385947365510872,-0.0784000015258789,0.13445445350952015 rot=8.038429,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=27.515648 body=8.038429 nav=moving stuck=0 navspeed=1.0 ntarget=-89,-60,-30 path=6/12/1/-89,-60,-30 nodes=-84,-60,-42:WALKABLE:0.0;-85,-60,-41:WALKABLE:0.0;-86,-60,-40:WALKABLE:0.0;-86,-60,-39:WALKABLE:0.0;-87,-60,-38:WALKABLE:0.0;-87,-60,-37:WALKABLE:0.0;-87,-60,-36:WALKABLE:0.0;-88,-60,-35:WALKABLE:0.0;-88,-60,-34:WALKABLE:0.0;-88,-60,-33:WALKABLE:0.0;-88,-60,-32:WALKABLE:0.0;-89,-60,-31:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1;head:minecraft:white_banner*1{minecraft:banner_patterns:[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],minecraft:item_name:{translate:"block.minecraft.ominous_banner"},minecraft:rarity:"uncommon",minecraft:tooltip_display:{hidden_components:["minecraft:banner_patterns"]}} attrs=minecraft:attack_damage:13.0;minecraft:follow_range:12.528497620836854;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=1 patrolling=1 celebrating=1 johnny=0
+E vindicator#2 minecraft:vindicator pos=-80.77402884080762,-60.0,-43.52150464753168 delta=0.14528764071143518,-0.0784000015258789,-0.0042093557587912535 rot=271.46307,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=218.98958 body=271.46307 nav=moving stuck=0 navspeed=1.0 ntarget=-78,-60,-45 path=3/6/1/-78,-60,-45 nodes=-84,-59,-42:OPEN:0.0;-83,-60,-43:WALKABLE:0.0;-82,-60,-44:WALKABLE:0.0;-81,-60,-44:WALKABLE:0.0;-80,-60,-44:WALKABLE:0.0;-79,-60,-45:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1 attrs=minecraft:attack_damage:13.0;minecraft:follow_range:11.40226556882049;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 johnny=0
+E pillager#1 minecraft:pillager pos=-86.99493827478148,-60.0,-37.02490639882906 delta=-0.0037489291710608567,-0.0784000015258789,0.0030720869831029735 rot=35.358192,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=35.358192 body=35.358192 nav=done stuck=0 navspeed=1.0 ntarget=-87,-60,-37 path=5/5/1/-87,-60,-37 nodes=-86,-60,-42:WALKABLE:0.0;-86,-60,-41:WALKABLE:0.0;-86,-60,-40:WALKABLE:0.0;-86,-60,-39:WALKABLE:0.0;-87,-60,-38:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.786700027699403;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 charging=0 inventory=-
+E pillager#2 minecraft:pillager pos=-78.92891626745568,-60.0,-41.49972668018159 delta=0.14732369737413178,-0.0784000015258789,-3.206259737616617E-5 rot=269.97278,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=269.97693 body=269.97278 nav=moving stuck=0 navspeed=1.0 ntarget=-78,-60,-42 path=6/7/1/-78,-60,-42 nodes=-85,-60,-42:WALKABLE:0.0;-84,-60,-42:WALKABLE:0.0;-83,-60,-42:WALKABLE:0.0;-82,-60,-42:WALKABLE:0.0;-81,-60,-42:WALKABLE:0.0;-80,-60,-42:WALKABLE:0.0;-79,-60,-42:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:32.94927736945724;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 charging=0 inventory=-
+E pillager#3 minecraft:pillager pos=-78.79167973181977,-60.0,-46.20455415625201 delta=0.10375379460042657,-0.0784000015258789,-0.10460233278231806 rot=224.68533,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=299.68533 body=224.68533 nav=moving stuck=0 navspeed=1.0 ntarget=-72,-60,-50 path=5/12/1/-72,-60,-50 nodes=-84,-60,-42:WALKABLE:0.0;-83,-60,-43:WALKABLE:0.0;-82,-60,-44:WALKABLE:0.0;-81,-60,-45:WALKABLE:0.0;-80,-60,-46:WALKABLE:0.0;-79,-60,-47:WALKABLE:0.0;-78,-60,-48:WALKABLE:0.0;-77,-60,-49:WALKABLE:0.0;-76,-60,-49:WALKABLE:0.0;-75,-60,-49:WALKABLE:0.0;-74,-60,-49:WALKABLE:0.0;-73,-60,-50:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:34.171494227247244;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 charging=0 inventory=-
+E pillager#4 minecraft:pillager pos=-78.61135567012593,-60.0,-43.79685370469043 delta=0.11563503097544799,-0.0784000015258789,-0.016524950185646904 rot=241.00061,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=301.86008 body=241.00061 nav=moving stuck=0 navspeed=1.0 ntarget=-77,-60,-45 path=5/6/1/-77,-60,-45 nodes=-83,-60,-42:WALKABLE:0.0;-82,-60,-43:WALKABLE:0.0;-81,-60,-44:WALKABLE:0.0;-80,-60,-44:WALKABLE:0.0;-79,-60,-44:WALKABLE:0.0;-78,-60,-45:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.366523599940397;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 charging=0 inventory=-
+T 633
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774000a0800097472616e736c61746500146576656e742e6d696e6563726166742e726169640000000000020200
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023b5a740e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023bda740e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023c23d70a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023c5a740e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023c888889
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ca3d70a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023cbf258c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023cda740e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023cf5c28f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d088889
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d162fc9
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d23d70a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d317e4b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d3f258c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d4ccccd
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d5a740e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d681b4f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d75c28f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d81b4e8
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d888889
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d8f5c29
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d962fc9
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023d9d036a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023da3d70a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023daaaaab
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023db17e4b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023db851ec
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023dbf258c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023dc5f92c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023dcccccd
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023dd3a06d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023dda740e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023de147ae
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023de81b4f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023deeeeef
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023df5c28f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023dfc9630
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e01b4e8
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e051eb8
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e088889
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e0bf259
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e0f5c29
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e12c5f9
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e162fc9
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e19999a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e1d036a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e206d3a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e23d70a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e2740da
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e2aaaab
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e2e147b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e317e4b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e34e81b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e3851ec
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e3bbbbc
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e3f258c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e428f5c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e45f92c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e4962fd
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e4ccccd
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e50369d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e53a06d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e570a3d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e5a740e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e5dddde
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e6147ae
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e64b17e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e681b4f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e6b851f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e6eeeef
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e7258bf
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e75c28f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e792c60
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e7c9630
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e800000
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e81b4e8
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e8369d0
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e851eb8
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e86d3a0
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e888889
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e8a3d71
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e8bf259
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e8da741
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e8f5c29
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e911111
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e92c5f9
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e947ae1
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e962fc9
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e97e4b1
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e99999a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e9b4e82
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e9d036a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e9eb852
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ea06d3a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ea22222
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ea3d70a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ea58bf2
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ea740da
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ea8f5c3
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eaaaaab
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eac5f93
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eae147b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eafc963
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eb17e4b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eb33333
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eb4e81b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eb69d03
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eb851ec
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eba06d4
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ebbbbbc
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ebd70a4
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ebf258c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ec0da74
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ec28f5c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ec44444
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ec5f92c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ec7ae14
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ec962fd
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ecb17e5
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ecccccd
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ece81b5
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ed0369d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ed1eb85
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ed3a06d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ed55555
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ed70a3d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ed8bf26
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eda740e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023edc28f6
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eddddde
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023edf92c6
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ee147ae
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ee2fc96
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ee4b17e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ee66666
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ee81b4f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ee9d037
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eeb851f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eed3a07
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023eeeeeef
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ef0a3d7
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ef258bf
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ef40da7
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ef5c28f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ef77777
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ef92c60
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023efae148
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023efc9630
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023efe4b18
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f000000
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f00da74
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f01b4e8
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f028f5c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f0369d0
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f044444
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f051eb8
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f05f92c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f06d3a0
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f07ae14
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f088889
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f0962fd
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f0a3d71
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f0b17e5
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f0bf259
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f0ccccd
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f0da741
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f0e81b5
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f0f5c29
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f10369d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f111111
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f11eb85
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f12c5f9
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f13a06d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f147ae1
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f155555
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f162fc9
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f170a3d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f17e4b1
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f18bf26
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f19999a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f1a740e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f1b4e82
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f1c28f6
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f1d036a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f1dddde
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f1eb852
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f1f92c6
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f206d3a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f2147ae
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f222222
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f22fc96
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f23d70a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f24b17e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f258bf2
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f266666
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f2740da
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f281b4f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f28f5c3
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f29d037
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f2aaaab
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f2b851f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f2c5f93
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f2d3a07
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f2e147b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f2eeeef
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f2fc963
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f30a3d7
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f317e4b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f3258bf
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f333333
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f340da7
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f34e81b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f35c28f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f369d03
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f377777
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f3851ec
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f392c60
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f3a06d4
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f3ae148
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f3bbbbc
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f3c9630
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f3d70a4
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f3e4b18
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f3f258c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f400000
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f40da74
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f41b4e8
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f428f5c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f4369d0
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f444444
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f451eb8
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f45f92c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f46d3a0
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f47ae14
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f488889
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f4962fd
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f4a3d71
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f4b17e5
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f4bf259
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f4ccccd
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f4da741
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f4e81b5
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f4f5c29
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f50369d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f511111
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f51eb85
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f52c5f9
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f53a06d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f547ae1
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f555555
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f562fc9
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f570a3d
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f57e4b1
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f58bf26
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f59999a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f5a740e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f5b4e82
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f5c28f6
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f5d036a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f5dddde
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f5eb852
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f5f92c6
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f606d3a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f6147ae
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f622222
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f62fc96
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f63d70a
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f64b17e
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f658bf2
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f666666
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f6740da
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f681b4f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f68f5c3
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f69d037
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f6aaaab
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f6b851f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f6c5f93
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f6d3a07
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f6e147b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f6eeeef
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f6fc963
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f70a3d7
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f717e4b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f7258bf
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f733333
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f740da7
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f74e81b
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f75c28f
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f769d03
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f777777
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f7851ec
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f792c60
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f7a06d4
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f7ae148
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f7bbbbc
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f7c9630
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f7d70a4
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f7e4b18
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f7f258c
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f800000
+PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774030a0800097472616e736c61746500206576656e742e6d696e6563726166742e726169642e6465666561742e66756c6c00
+T 634
+T 635
+T 636
+T 637
+T 638
+T 639
+T 640
+T 641
+T 642
+T 643
+T 644
+T 645
+T 646
+T 647
+T 648
+T 649
+T 650
+T 651
+T 652
+T 653
+T 654
+T 655
+T 656
+T 657
+T 658
+T 659
+T 660
+T 661
+T 662
+T 663
+T 664
+T 665
+T 666
+T 667
+T 668
+T 669
+T 670
+T 671
+T 672
+T 673
+T 674
+T 675
+T 676
+T 677
+T 678
+T 679
+T 680
+T 681
+T 682
+T 683
+T 684
+T 685
+T 686
+T 687
+T 688
+T 689
+T 690
+T 691
+T 692
+T 693
+T 694
+T 695
+T 696
+T 697
+T 698
+T 699
+T 700
+T 701
+T 702
+T 703
+T 704
+T 705
+T 706
+T 707
+T 708
+T 709
+T 710
+T 711
+T 712
+T 713
+T 714
+T 715
+T 716
+T 717
+T 718
+T 719
+T 720
+T 721
+T 722
+T 723
+T 724
+T 725
+T 726
+T 727
+T 728
+T 729
+T 730
+T 731
+T 732
+RAID 2 center=1,-60,-1 started=1 active=1 status=LOSS omen=1 groups=1/7 health=144.0 raiders=pillager#1;pillager#2;pillager#3;pillager#4;vindicator#1;vindicator#2
+E vindicator#1 minecraft:vindicator pos=-88.22544331541818,-59.58000001311302,-30.29168263947096 delta=0.0,0.33319999363422365,0.0 rot=88.73074,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=190.33035 body=190.33035 nav=done stuck=0 navspeed=1.0 ntarget=-89,-60,-30 path=12/12/1/-89,-60,-30 nodes=-84,-60,-42:WALKABLE:0.0;-85,-60,-41:WALKABLE:0.0;-86,-60,-40:WALKABLE:0.0;-86,-60,-39:WALKABLE:0.0;-87,-60,-38:WALKABLE:0.0;-87,-60,-37:WALKABLE:0.0;-87,-60,-36:WALKABLE:0.0;-88,-60,-35:WALKABLE:0.0;-88,-60,-34:WALKABLE:0.0;-88,-60,-33:WALKABLE:0.0;-88,-60,-32:WALKABLE:0.0;-89,-60,-31:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1;head:minecraft:white_banner*1{minecraft:banner_patterns:[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],minecraft:item_name:{translate:"block.minecraft.ominous_banner"},minecraft:rarity:"uncommon",minecraft:tooltip_display:{hidden_components:["minecraft:banner_patterns"]}} attrs=minecraft:attack_damage:13.0;minecraft:follow_range:12.528497620836854;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=1 patrolling=1 celebrating=1 johnny=0
+E vindicator#2 minecraft:vindicator pos=-78.6172507084932,-60.0,-44.26620027740626 delta=0.0,-0.0784000015258789,0.0 rot=220.46075,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=253.16583 body=253.16583 nav=done stuck=0 navspeed=1.0 ntarget=-78,-60,-45 path=6/6/1/-78,-60,-45 nodes=-84,-59,-42:OPEN:0.0;-83,-60,-43:WALKABLE:0.0;-82,-60,-44:WALKABLE:0.0;-81,-60,-44:WALKABLE:0.0;-80,-60,-44:WALKABLE:0.0;-79,-60,-45:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1 attrs=minecraft:attack_damage:13.0;minecraft:follow_range:11.40226556882049;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 johnny=0
+E pillager#1 minecraft:pillager pos=-86.99868720395254,-60.0,-37.02183431184596 delta=0.0,-0.0784000015258789,0.0 rot=35.358192,-3.5132914 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=10.330345 body=10.330345 nav=done stuck=0 navspeed=1.0 ntarget=-87,-60,-37 path=5/5/1/-87,-60,-37 nodes=-86,-60,-42:WALKABLE:0.0;-86,-60,-41:WALKABLE:0.0;-86,-60,-40:WALKABLE:0.0;-86,-60,-39:WALKABLE:0.0;-87,-60,-38:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.786700027699403;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 charging=0 inventory=-
+E pillager#2 minecraft:pillager pos=-78.60910893016545,-60.0,-41.49972668018159 delta=0.0,-0.0784000015258789,0.0 rot=269.97278,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=269.97278 body=269.97278 nav=done stuck=0 navspeed=1.0 ntarget=-78,-60,-42 path=7/7/1/-78,-60,-42 nodes=-85,-60,-42:WALKABLE:0.0;-84,-60,-42:WALKABLE:0.0;-83,-60,-42:WALKABLE:0.0;-82,-60,-42:WALKABLE:0.0;-81,-60,-42:WALKABLE:0.0;-80,-60,-42:WALKABLE:0.0;-79,-60,-42:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:32.94927736945724;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 charging=0 inventory=-
+E pillager#3 minecraft:pillager pos=-72.00196217842043,-60.0,-49.83016501175631 delta=0.0,-0.0784000015258789,0.0 rot=220.01395,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=220.01395 body=220.01395 nav=done stuck=0 navspeed=1.0 ntarget=-72,-60,-50 path=12/12/1/-72,-60,-50 nodes=-84,-60,-42:WALKABLE:0.0;-83,-60,-43:WALKABLE:0.0;-82,-60,-44:WALKABLE:0.0;-81,-60,-45:WALKABLE:0.0;-80,-60,-46:WALKABLE:0.0;-79,-60,-47:WALKABLE:0.0;-78,-60,-48:WALKABLE:0.0;-77,-60,-49:WALKABLE:0.0;-76,-60,-49:WALKABLE:0.0;-75,-60,-49:WALKABLE:0.0;-74,-60,-49:WALKABLE:0.0;-73,-60,-50:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:34.171494227247244;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 charging=0 inventory=-
+E pillager#4 minecraft:pillager pos=-77.12003894156041,-60.0,-44.71921116292945 delta=0.0,-0.0784000015258789,0.0 rot=230.82217,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=73.16582 body=73.16582 nav=done stuck=0 navspeed=1.0 ntarget=-77,-60,-45 path=6/6/1/-77,-60,-45 nodes=-83,-60,-42:WALKABLE:0.0;-82,-60,-43:WALKABLE:0.0;-81,-60,-44:WALKABLE:0.0;-80,-60,-44:WALKABLE:0.0;-79,-60,-44:WALKABLE:0.0;-78,-60,-45:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.366523599940397;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 charging=0 inventory=-
+RAID 2 center=1,-60,-1 started=1 active=1 status=LOSS omen=1 groups=1/7 health=144.0 raiders=pillager#1;pillager#2;pillager#3;pillager#4;vindicator#1;vindicator#2
+E vindicator#1 minecraft:vindicator pos=-88.22544331541818,-60.0,-30.29168263947096 delta=0.0,-0.0784000015258789,0.0 rot=88.73074,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=190.33035 body=190.33035 nav=done stuck=0 navspeed=1.0 ntarget=-89,-60,-30 path=12/12/1/-89,-60,-30 nodes=-84,-60,-42:WALKABLE:0.0;-85,-60,-41:WALKABLE:0.0;-86,-60,-40:WALKABLE:0.0;-86,-60,-39:WALKABLE:0.0;-87,-60,-38:WALKABLE:0.0;-87,-60,-37:WALKABLE:0.0;-87,-60,-36:WALKABLE:0.0;-88,-60,-35:WALKABLE:0.0;-88,-60,-34:WALKABLE:0.0;-88,-60,-33:WALKABLE:0.0;-88,-60,-32:WALKABLE:0.0;-89,-60,-31:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1;head:minecraft:white_banner*1{minecraft:banner_patterns:[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],minecraft:item_name:{translate:"block.minecraft.ominous_banner"},minecraft:rarity:"uncommon",minecraft:tooltip_display:{hidden_components:["minecraft:banner_patterns"]}} attrs=minecraft:attack_damage:13.0;minecraft:follow_range:12.528497620836854;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=1 patrolling=1 celebrating=1 johnny=0
+E vindicator#2 minecraft:vindicator pos=-78.6172507084932,-60.0,-44.26620027740626 delta=0.0,-0.0784000015258789,0.0 rot=220.46075,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=253.16583 body=253.16583 nav=done stuck=0 navspeed=1.0 ntarget=-78,-60,-45 path=6/6/1/-78,-60,-45 nodes=-84,-59,-42:OPEN:0.0;-83,-60,-43:WALKABLE:0.0;-82,-60,-44:WALKABLE:0.0;-81,-60,-44:WALKABLE:0.0;-80,-60,-44:WALKABLE:0.0;-79,-60,-45:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1 attrs=minecraft:attack_damage:13.0;minecraft:follow_range:11.40226556882049;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 johnny=0
+E pillager#1 minecraft:pillager pos=-86.99868720395254,-60.0,-37.02183431184596 delta=0.0,-0.0784000015258789,0.0 rot=35.358192,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=10.330345 body=10.330345 nav=done stuck=0 navspeed=1.0 ntarget=-87,-60,-37 path=5/5/1/-87,-60,-37 nodes=-86,-60,-42:WALKABLE:0.0;-86,-60,-41:WALKABLE:0.0;-86,-60,-40:WALKABLE:0.0;-86,-60,-39:WALKABLE:0.0;-87,-60,-38:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.786700027699403;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 charging=0 inventory=-
+E pillager#2 minecraft:pillager pos=-78.60910893016545,-60.0,-41.49972668018159 delta=0.0,-0.0784000015258789,0.0 rot=269.97278,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=179.83136 body=179.83136 nav=done stuck=0 navspeed=1.0 ntarget=-78,-60,-42 path=7/7/1/-78,-60,-42 nodes=-85,-60,-42:WALKABLE:0.0;-84,-60,-42:WALKABLE:0.0;-83,-60,-42:WALKABLE:0.0;-82,-60,-42:WALKABLE:0.0;-81,-60,-42:WALKABLE:0.0;-80,-60,-42:WALKABLE:0.0;-79,-60,-42:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:32.94927736945724;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 charging=0 inventory=-
+E pillager#3 minecraft:pillager pos=-72.00196217842043,-60.0,-49.83016501175631 delta=0.0,-0.0784000015258789,0.0 rot=220.01395,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=45.039886 body=45.039886 nav=done stuck=0 navspeed=1.0 ntarget=-72,-60,-50 path=12/12/1/-72,-60,-50 nodes=-84,-60,-42:WALKABLE:0.0;-83,-60,-43:WALKABLE:0.0;-82,-60,-44:WALKABLE:0.0;-81,-60,-45:WALKABLE:0.0;-80,-60,-46:WALKABLE:0.0;-79,-60,-47:WALKABLE:0.0;-78,-60,-48:WALKABLE:0.0;-77,-60,-49:WALKABLE:0.0;-76,-60,-49:WALKABLE:0.0;-75,-60,-49:WALKABLE:0.0;-74,-60,-49:WALKABLE:0.0;-73,-60,-50:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:34.171494227247244;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 charging=0 inventory=-
+E pillager#4 minecraft:pillager pos=-77.12003894156041,-60.0,-44.71921116292945 delta=0.0,-0.0784000015258789,0.0 rot=230.82217,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=73.16582 body=73.16582 nav=done stuck=0 navspeed=1.0 ntarget=-77,-60,-45 path=6/6/1/-77,-60,-45 nodes=-83,-60,-42:WALKABLE:0.0;-82,-60,-43:WALKABLE:0.0;-81,-60,-44:WALKABLE:0.0;-80,-60,-44:WALKABLE:0.0;-79,-60,-44:WALKABLE:0.0;-78,-60,-45:WALKABLE:0.0 goals=5:Raider$RaiderCelebration:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.366523599940397;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=1 charging=0 inventory=-

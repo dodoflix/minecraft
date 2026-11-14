@@ -1,0 +1,34 @@
+# The village loses its last occupied bed while the first wave is alive: the raid is lost (the villager dies), the boss bar turns to defeat and the
+# raiders celebrate until the raid ends.
+command_env
+level flat
+difficulty hard
+gamerule raids true
+gamerule mob_drops false
+entity_counter 5600
+level_seed 5601
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+set Steve invulnerable true
+tick 300
+effect Steve minecraft:raid_omen 0 600
+raid_start Steve 0 -60 0
+tick 310
+dump raids mobs
+cmd kill @e[type=minecraft:villager]
+tick 2
+dump raids
+tick 20
+dump raids mobs
+watch packets:Steve:boss_event
+tick 100
+watch off
+dump raids mobs
+tick 400
+dump raids mobs
+tick 100
+dump raids

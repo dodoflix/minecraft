@@ -1,0 +1,415 @@
+C Game rule raids is now set to true
+C Game rule mob_drops is now set to false
+EFFECT Steve minecraft:raid_omen added=true
+RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=1 groups=0/5 health=0.0 raiders=-
+RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=1 groups=1/5 health=120.0 raiders=pillager#1;pillager#2;pillager#3;pillager#4;pillager#5
+BRAIN V1 acts=core;raid
+BM V1 type=heard_bell_time value=605 ttl=inf
+BM V1 type=home value=minecraft:overworld@3,-60,-1 ttl=inf
+BM V1 type=last_slept value=20 ttl=inf
+BM V1 type=last_woken value=310 ttl=inf
+BM V1 type=meeting_point value=minecraft:overworld@0,-60,0 ttl=inf
+BM V1 type=mobs value=(Steve;V2) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=path value=path(1;10) ttl=inf
+BM V1 type=visible_mobs value=(Steve;V2) ttl=inf
+BM V1 type=walk_target value=walk(pos(1,-60,10);0.75;0) ttl=inf
+BR V1 MoveToTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 RunOne: [DoNothing]
+BRAIN V2 acts=core;pre_raid
+BM V2 type=heard_bell_time value=605 ttl=inf
+BM V2 type=look_target value=entity(Steve) ttl=inf
+BM V2 type=meeting_point value=minecraft:overworld@0,-60,0 ttl=inf
+BM V2 type=mobs value=(Steve;V1) ttl=inf
+BM V2 type=nearest_players value=(Steve) ttl=inf
+BM V2 type=nearest_visible_player value=Steve ttl=inf
+BM V2 type=path value=path(0;7) ttl=inf
+BM V2 type=visible_mobs value=(Steve;V1) ttl=inf
+BM V2 type=walk_target value=walk(pos(-1,-60,6);0.75;0) ttl=inf
+BR V2 LookAtTargetSink
+BR V2 MoveToTargetSink
+BR V2 RunOne: [DoNothing]
+EV sound at=2.7297020894424144,-59.4375,1.298569948893412 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.7828099176362112,-60.0,3.3066113160085613 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1322688
+EV sound at=-0.21093607364089667,-60.0,2.9763162737199207 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.0149961429433252,-60.0,1.8989011939292453 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.236017488142849,-60.0,0.7979652064701386 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.3144109293645174,-59.4375,0.5333001128938522 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0876192
+EV sound at=0.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:event.mob_effect.raid_omen source=player vol=1.0 pitch=1.0
+EV sound at=2.9177580172934063,-59.4375,0.3412892615983828 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=3.5734347877964145,-59.4375,0.37408923483618 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=3.1065125982948714,-59.4375,0.5960290669669115 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.1065125982948714,-59.4375,0.5960290669669115 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.987727
+EV sound at=3.5450727563996804,-60.0,2.44368899894014 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.5071292627603565,-59.4375,1.4595517909453635 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.405607126935137,-60.0,3.605420784444909 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.6911166170328915,-60.0,2.666489047628466 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.4987399317272967,-60.0,5.100078143524845 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.233082900987084,-60.0,3.5177335326441312 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.4718593676654206,-60.0,6.622879806532888 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.491861462044378,-60.0,4.319016468154154 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.8875785232727031,-60.0,8.228770369101698 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.993136236109928,-60.0,3.87146409130758 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.288287814588767,-60.0,9.586725877041921 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.628806043434356,-60.0,2.712134956173122 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.3034888900701271,-60.0,8.423254099587332 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=6.226403668805788,-60.0,2.212141529458333 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.9316989891633027,-60.0,7.051481148295482 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.6271751839067194,-60.0,1.463723716724238 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.27888072983301,-60.0,6.463731833503025 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.0913007795458745,-60.0,1.4844535276930069 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.627607524638483,-60.0,5.480522925979596 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=1.5315673251234885,-60.0,0.7409525910431414 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.5469063035329396,-60.0,4.095960079106743 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=-0.37162230557924913,-60.0,2.599956824110429 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.279461739700659,-60.0,-0.4873514200507718 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.814463872413214,-60.0,-1.8473413528528038 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.27464120979238826,-60.0,1.255428969330939 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.1065648731804405,-60.0,-3.1477124206180425 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.7582104988546399,-60.0,2.7350401903487134 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV sound at=5.220352501361863,-60.0,-4.22264197172512 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=-1.817470011828108,-60.0,3.8496749572281224 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=6.353300148541866,-60.0,-5.255025745037247 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.1470654609805395,-60.0,5.147186604909996 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.990795493711415,-60.0,-5.966463187546033 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-4.242737128592666,-60.0,6.241717855917208 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=9.365784889571282,-60.0,-6.423818125371003 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.337339750931309,-60.0,7.3373531828972895 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.651438144069729,-60.0,8.651542896827515 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.107765568552999,-60.0,-5.064692320657425 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.88204802395581,-60.0,-4.8558029984576265 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1172335
+EV sound at=6.994689364850536,-60.0,-3.994769355719833 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-7.057685497654446,-60.0,8.774941525159202 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.8988599240065485,-60.0,-2.9007144111289263 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.671036166327544,-60.0,7.667017319143363 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.448210268554884,-60.0,7.453572372492829 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.055881
+EV sound at=4.548112210749425,-60.0,-1.6531352991536543 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-4.571822450126115,-60.0,6.579744990536974 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.0646719770068347,-60.0,-1.4450023748038623 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.480181609531677,-60.0,5.481345493196817 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.5451562423628042,-60.0,-0.6511827350090458 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.1667724366396954,-60.0,4.166477147939405 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.0715837018111336,-60.0,3.0714259531728194 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.3919834869733774,-60.0,0.565949287111333 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.9779542064695703,-60.0,1.9025949927128576 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.2426027719610112,-60.0,1.757324211407966 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=4.229171390275022,-60.0,3.2566845142914373 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.6905536128458982,-60.0,1.4571364911179945 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.336378939723562,-60.0,4.3388298472924784 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.2272886016941578,-60.0,1.5008600869724713 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=6.471034632316281,-60.0,5.363346268414382 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.085125393728284,-60.0,1.500280350155327 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=6.60034877554571,-60.0,1.5911997470290142 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.184688267357001,-60.0,4.921562938750721 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.09699497351025,-60.0,2.495877227543191 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=6.00982903897129,-60.0,4.011456898389843 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.693422279548637,-60.0,2.7057483955326393 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.26171131980533,-60.0,2.5898853062026803 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.5666728418114273,-60.0,1.6712134923976638 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.708315635699376,-60.0,1.8239955064465245 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=1.934169216051229,-60.0,1.0108909725121735 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.288551146404004,-60.0,1.435932951089675 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=2.4712712665257954,-60.0,1.4135035166546912 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=0.5299292158653663,-59.0,0.07323914432420459 r=16.0 ex=0 event=minecraft:block.anvil.step source=neutral vol=0.045 pitch=1.0
+EV sound at=1.4547176792763548,-60.0,1.3368527310092237 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5040219251307855,-60.0,2.805966175238046 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.7927790406407418,-60.0,-0.6076946208960131 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=0.26912692917372244,-60.0,4.49817622607417 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.9617798354280676,-60.0,-1.9337354670466966 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.2192158130049627,-60.0,5.2753592261239755 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9275691
+EV sound at=-0.4496574083143619,-60.0,5.8285694701580795 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.036434251620373,-60.0,-3.0446923106981116 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.5369775078264418,-60.0,7.346752432339672 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-4.6952168526556495,-60.0,-3.576335834629123 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.3083706317992325,-60.0,-3.5381384420180098 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0305455
+EV sound at=-0.9122700226433316,-60.0,9.036848048612907 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.234432242444247,-60.0,-3.498102139254223 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-7.751761830957703,-60.0,-4.37718744185646 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.6999705247104087,-60.0,10.336284768600073 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-8.212242418461855,-60.0,-3.9326890007190176 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.5076397047790993,-60.0,8.623891800785694 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.4896874001509905,-60.0,7.08392861498525 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.81104109313211,-60.0,-2.82074549546481 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.7161318707730215,-60.0,-1.7289544694840255 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.7291021876998635,-60.0,5.522954230293964 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.4425465591956912,-60.0,4.047598347409122 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-4.312012552913737,-60.0,-0.583413111327409 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.802504743079369,-60.0,-0.457075349580041 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.27423352602186013,-60.0,2.2742240282156514 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.0847335424129283,-60.0,-0.11265524984711422 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.6450911145291124,-60.0,1.7024724205917903 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=3
+BRAIN V1 acts=core;raid
+BM V1 type=heard_bell_time value=606 ttl=inf
+BM V1 type=home value=minecraft:overworld@3,-60,-1 ttl=inf
+BM V1 type=last_slept value=20 ttl=inf
+BM V1 type=last_woken value=310 ttl=inf
+BM V1 type=meeting_point value=minecraft:overworld@0,-60,0 ttl=inf
+BM V1 type=mobs value=(Steve;V2) ttl=inf
+BM V1 type=nearest_players value=(Steve) ttl=inf
+BM V1 type=nearest_visible_player value=Steve ttl=inf
+BM V1 type=path value=path(1;10) ttl=inf
+BM V1 type=visible_mobs value=(Steve;V2) ttl=inf
+BM V1 type=walk_target value=walk(pos(1,-60,10);0.75;0) ttl=inf
+BR V1 MoveToTargetSink
+BR V1 RunOne: [DoNothing]
+BR V1 RunOne: [DoNothing]
+BRAIN V2 acts=core;pre_raid
+BM V2 type=heard_bell_time value=606 ttl=inf
+BM V2 type=look_target value=entity(Steve) ttl=inf
+BM V2 type=meeting_point value=minecraft:overworld@0,-60,0 ttl=inf
+BM V2 type=mobs value=(V1;Steve) ttl=inf
+BM V2 type=nearest_players value=(Steve) ttl=inf
+BM V2 type=nearest_visible_player value=Steve ttl=inf
+BM V2 type=path value=path(1;7) ttl=inf
+BM V2 type=visible_mobs value=(V1;Steve) ttl=inf
+BM V2 type=walk_target value=walk(pos(-1,-60,6);0.75;0) ttl=inf
+BR V2 LookAtTargetSink
+BR V2 MoveToTargetSink
+BR V2 RunOne: [DoNothing]
+E V1 minecraft:villager pos=2.5320219776534287,-60.0,3.301992104746184 delta=0.006996764749810988,-0.0784000015258789,-0.1459082643198923 rot=178.97086,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=180.35678 body=178.97086 nav=moving stuck=0 navspeed=0.699999988079071 ntarget=3,-59,-1 path=8/12/1/3,-59,-1 nodes=1,-60,10:WALKABLE:0.0;1,-60,9:WALKABLE:0.0;1,-60,8:WALKABLE:0.0;1,-60,7:WALKABLE:0.0;1,-60,6:WALKABLE:0.0;1,-60,5:WALKABLE:0.0;2,-60,4:WALKABLE:0.0;2,-60,3:WALKABLE:0.0;2,-60,2:WALKABLE:0.0;2,-60,1:WALKABLE:0.0;3,-59,0:WALKABLE:0.0;3,-59,-1:WALKABLE:0.0 goals=- tgoals=- acts=core;raid mem=heard_bell_time:606:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:20:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve;V2):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;path:path(8;12):inf;visible_mobs:(Steve;V2):inf;walk_target:walk(pos(3,-60,-1);0.7;1):inf equip=- attrs=minecraft:follow_range:16.807368153104452;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=3.4577870504885966,-59.4375,0.46969250479581376 delta=0.0,-0.0784000015258789,0.0 rot=231.30988,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=231.30988 body=231.30988 nav=done stuck=0 navspeed=0.699999988079071 ntarget=3,-59,-1 path=- nodes=- goals=- tgoals=- acts=core;raid mem=heard_bell_time:606:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;visible_mobs:(V1;Steve):inf equip=- attrs=minecraft:follow_range:16.60714611442286;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E pillager#1 minecraft:pillager pos=-71.14247654474245,-60.0,-45.85834573048459 delta=0.10412513191712691,-0.0784000015258789,-0.10418509083915635 rot=225.0245,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=225.0109 body=225.0245 nav=moving stuck=0 navspeed=1.0 ntarget=-65,-60,-56 path=3/12/1/-65,-60,-56 nodes=-74,-60,-44:WALKABLE:0.0;-73,-60,-45:WALKABLE:0.0;-72,-60,-46:WALKABLE:0.0;-71,-60,-47:WALKABLE:0.0;-70,-60,-48:WALKABLE:0.0;-69,-60,-49:WALKABLE:0.0;-68,-60,-50:WALKABLE:0.0;-67,-60,-51:WALKABLE:0.0;-66,-60,-52:WALKABLE:0.0;-66,-60,-53:WALKABLE:0.0;-66,-60,-54:WALKABLE:0.0;-65,-60,-55:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1;head:minecraft:white_banner*1{minecraft:banner_patterns:[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],minecraft:item_name:{translate:"block.minecraft.ominous_banner"},minecraft:rarity:"uncommon",minecraft:tooltip_display:{hidden_components:["minecraft:banner_patterns"]}} attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.251820500828366;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=1 patrolling=1 celebrating=0 charging=0 inventory=-
+E pillager#2 minecraft:pillager pos=-73.4961011470149,-60.0,-54.26825632919415 delta=-0.0029847403797342085,-0.0784000015258789,-0.14724330718142725 rot=178.9299,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=113.87186 body=178.9299 nav=moving stuck=0 navspeed=1.0 ntarget=-73,-60,-57 path=13/15/1/-73,-60,-57 nodes=-84,-60,-42:WALKABLE:0.0;-83,-60,-43:WALKABLE:0.0;-82,-60,-44:WALKABLE:0.0;-81,-60,-45:WALKABLE:0.0;-80,-60,-46:WALKABLE:0.0;-79,-60,-47:WALKABLE:0.0;-78,-60,-48:WALKABLE:0.0;-77,-60,-49:WALKABLE:0.0;-76,-60,-50:WALKABLE:0.0;-75,-60,-51:WALKABLE:0.0;-74,-60,-52:WALKABLE:0.0;-74,-60,-53:WALKABLE:0.0;-74,-60,-54:WALKABLE:0.0;-74,-60,-55:WALKABLE:0.0;-73,-60,-56:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:31.77653233785242;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#3 minecraft:pillager pos=-79.71633161772118,-60.0,-39.25836605775607 delta=-0.06837779202554443,-0.0784000015258789,0.12137298778627646 rot=42.82515,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=-32.17485 body=42.82515 nav=moving stuck=0 navspeed=1.0 ntarget=-83,-60,-31 path=6/14/1/-83,-60,-31 nodes=-79,-60,-45:WALKABLE:0.0;-79,-60,-44:WALKABLE:0.0;-80,-60,-43:WALKABLE:0.0;-80,-60,-42:WALKABLE:0.0;-80,-60,-41:WALKABLE:0.0;-80,-60,-40:WALKABLE:0.0;-81,-60,-39:WALKABLE:0.0;-81,-60,-38:WALKABLE:0.0;-81,-60,-37:WALKABLE:0.0;-82,-60,-36:WALKABLE:0.0;-82,-60,-35:WALKABLE:0.0;-82,-60,-34:WALKABLE:0.0;-82,-60,-33:WALKABLE:0.0;-83,-60,-32:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:33.849672454565756;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#4 minecraft:pillager pos=-72.42111829046145,-60.0,-37.42118857606411 delta=0.10417377149719523,-0.0784000015258789,0.104173570650011 rot=315.0018,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=250.00394 body=315.0018 nav=moving stuck=0 navspeed=1.0 ntarget=-68,-60,-33 path=7/12/1/-68,-60,-33 nodes=-79,-60,-44:WALKABLE:0.0;-78,-60,-43:WALKABLE:0.0;-77,-60,-42:WALKABLE:0.0;-76,-60,-41:WALKABLE:0.0;-75,-60,-40:WALKABLE:0.0;-74,-60,-39:WALKABLE:0.0;-73,-60,-38:WALKABLE:0.0;-72,-60,-37:WALKABLE:0.0;-71,-60,-36:WALKABLE:0.0;-70,-60,-35:WALKABLE:0.0;-69,-60,-34:WALKABLE:0.0;-68,-60,-33:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.636490622486086;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#5 minecraft:pillager pos=-72.24061714905554,-60.0,-49.704827858598506 delta=0.07185420966973112,-0.0784000015258789,-0.07723856892988702 rot=222.96024,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=222.95383 body=222.96024 nav=moving stuck=0 navspeed=1.0 ntarget=-61,-60,-56 path=1/12/1/-61,-60,-56 nodes=-73,-60,-50:WALKABLE:0.0;-72,-60,-51:WALKABLE:0.0;-71,-60,-52:WALKABLE:0.0;-70,-60,-53:WALKABLE:0.0;-69,-60,-54:WALKABLE:0.0;-68,-60,-54:WALKABLE:0.0;-67,-60,-54:WALKABLE:0.0;-66,-60,-55:WALKABLE:0.0;-65,-60,-55:WALKABLE:0.0;-64,-60,-55:WALKABLE:0.0;-63,-60,-55:WALKABLE:0.0;-62,-60,-56:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:29.040191592701788;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E V1 minecraft:villager pos=3.013334087865299,-59.4375,0.8754836672939281 delta=0.0,-0.0784000015258789,0.0 rot=232.69122,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=232.69122 body=232.69122 nav=done stuck=0 navspeed=0.699999988079071 ntarget=3,-59,-1 path=- nodes=- goals=- tgoals=- acts=core;raid mem=heard_bell_time:606:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:20:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;visible_mobs:(V2;Steve):inf;walk_target:walk(pos(3,-60,-1);0.7;1):inf equip=- attrs=minecraft:follow_range:16.807368153104452;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=3.9299374518035077,-59.4375,0.03739954996095635 delta=0.0,-0.0784000015258789,0.0 rot=231.30988,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=231.30988 body=231.30988 nav=done stuck=0 navspeed=0.699999988079071 ntarget=3,-59,-1 path=- nodes=- goals=- tgoals=- acts=core;raid mem=heard_bell_time:606:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;visible_mobs:(V1;Steve):inf equip=- attrs=minecraft:follow_range:16.60714611442286;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E pillager#1 minecraft:pillager pos=-61.68972592309293,-60.0,-31.641969562782624 delta=0.028365613729243334,-0.0784000015258789,0.03271264885720534 rot=315.08353,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=390.08353 body=315.08353 nav=done stuck=0 navspeed=1.0 ntarget=-62,-60,-31 path=14/14/1/-62,-60,-31 nodes=-67,-60,-45:WALKABLE:0.0;-66,-60,-44:WALKABLE:0.0;-65,-60,-43:WALKABLE:0.0;-65,-60,-42:WALKABLE:0.0;-65,-60,-41:WALKABLE:0.0;-65,-60,-40:WALKABLE:0.0;-64,-60,-39:WALKABLE:0.0;-64,-60,-38:WALKABLE:0.0;-64,-60,-37:WALKABLE:0.0;-63,-60,-36:WALKABLE:0.0;-63,-60,-35:WALKABLE:0.0;-63,-60,-34:WALKABLE:0.0;-63,-60,-33:WALKABLE:0.0;-62,-60,-32:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1;head:minecraft:white_banner*1{minecraft:banner_patterns:[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],minecraft:item_name:{translate:"block.minecraft.ominous_banner"},minecraft:rarity:"uncommon",minecraft:tooltip_display:{hidden_components:["minecraft:banner_patterns"]}} attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.251820500828366;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=1 patrolling=1 celebrating=0 charging=0 inventory=-
+E pillager#2 minecraft:pillager pos=-73.50463702941288,-60.0,-39.96942594817878 delta=5.065841926528402E-4,-0.0784000015258789,0.14730179915607455 rot=359.56866,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=359.63986 body=359.56866 nav=moving stuck=0 navspeed=1.0 ntarget=-75,-60,-33 path=4/11/1/-75,-60,-33 nodes=-74,-60,-44:WALKABLE:0.0;-74,-60,-43:WALKABLE:0.0;-74,-60,-42:WALKABLE:0.0;-74,-60,-41:WALKABLE:0.0;-74,-60,-40:WALKABLE:0.0;-74,-60,-39:WALKABLE:0.0;-74,-60,-38:WALKABLE:0.0;-74,-60,-37:WALKABLE:0.0;-74,-60,-36:WALKABLE:0.0;-74,-60,-35:WALKABLE:0.0;-75,-60,-34:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:31.77653233785242;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#3 minecraft:pillager pos=-67.06079207305925,-60.0,-25.934018759625108 delta=0.1037523950961295,-0.0784000015258789,-0.10454568308408864 rot=224.74768,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=224.76025 body=224.74768 nav=moving stuck=0 navspeed=1.0 ntarget=-57,-60,-32 path=3/13/1/-57,-60,-32 nodes=-70,-60,-24:WALKABLE:0.0;-69,-60,-25:WALKABLE:0.0;-68,-60,-26:WALKABLE:0.0;-67,-60,-27:WALKABLE:0.0;-66,-60,-28:WALKABLE:0.0;-65,-60,-29:WALKABLE:0.0;-64,-60,-30:WALKABLE:0.0;-63,-60,-30:WALKABLE:0.0;-62,-60,-31:WALKABLE:0.0;-61,-60,-31:WALKABLE:0.0;-60,-60,-31:WALKABLE:0.0;-59,-60,-31:WALKABLE:0.0;-58,-60,-32:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:33.849672454565756;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#4 minecraft:pillager pos=-44.511616996350114,-60.0,-51.43932093798281 delta=0.056022751176591154,-0.0784000015258789,-0.056750032576979095 rot=223.73318,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=164.06876 body=223.73318 nav=moving stuck=0 navspeed=1.0 ntarget=-36,-60,-61 path=1/10/1/-36,-60,-61 nodes=-45,-60,-52:WALKABLE:0.0;-44,-60,-53:WALKABLE:0.0;-43,-60,-54:WALKABLE:0.0;-42,-60,-55:WALKABLE:0.0;-41,-60,-56:WALKABLE:0.0;-40,-60,-57:WALKABLE:0.0;-39,-60,-58:WALKABLE:0.0;-38,-60,-59:WALKABLE:0.0;-37,-60,-60:WALKABLE:0.0;-36,-60,-61:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.636490622486086;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#5 minecraft:pillager pos=-46.67280854167728,-60.0,-58.579875787790186 delta=0.1315982830565802,-0.0784000015258789,-0.055454266016166216 rot=234.14667,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=263.53638 body=234.14667 nav=moving stuck=0 navspeed=1.0 ntarget=-45,-60,-60 path=13/14/1/-45,-60,-60 nodes=-59,-60,-48:WALKABLE:0.0;-58,-60,-49:WALKABLE:0.0;-57,-60,-50:WALKABLE:0.0;-56,-60,-51:WALKABLE:0.0;-55,-60,-52:WALKABLE:0.0;-54,-60,-53:WALKABLE:0.0;-53,-60,-54:WALKABLE:0.0;-52,-60,-55:WALKABLE:0.0;-51,-60,-56:WALKABLE:0.0;-50,-60,-57:WALKABLE:0.0;-49,-60,-58:WALKABLE:0.0;-48,-60,-59:WALKABLE:0.0;-47,-60,-59:WALKABLE:0.0;-46,-60,-60:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:29.040191592701788;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+EV sound at=-0.36993308221533183,-60.0,1.002939985119193 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.510697687636803,-60.0,3.3600111775877552 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-82.09602273575292,-60.0,-42.37281439744417 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-81.81201933516456,-60.0,-41.88351532792505 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-82.24774693643654,-60.0,-42.65664559431781 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-0.5112450167762435,-60.0,2.8029174515967203 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5029099064490281,-60.0,4.913254336914502 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-83.74558074543792,-60.0,-40.37220296301314 r=16.0 ex=0 event=minecraft:entity.pillager.ambient source=hostile vol=1.0 pitch=1.0213526
+EV sound at=-83.64224788146848,-60.0,-40.14597963011964 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-82.0610308938902,-60.0,-41.45678663465613 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-81.14830022765061,-60.0,-43.78720427595241 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-0.5053507433796905,-60.0,4.349945813534986 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-81.23713277541628,-60.0,-43.84802221764525 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-81.23713277541628,-60.0,-43.84802221764525 r=16.0 ex=0 event=minecraft:entity.pillager.ambient source=hostile vol=1.0 pitch=0.89123696
+EV sound at=0.5010358767971836,-60.0,6.7904699687251 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-79.96613247503885,-60.0,-45.03858305601806 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-80.78170901362303,-60.0,-43.11040285134475 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-80.17937204638177,-60.0,-41.4999999772313 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-82.67050571805007,-60.0,-40.23683885098021 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-0.5021285018330811,-60.0,5.898550963022677 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.500388728781624,-60.0,8.339687916241031 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-79.87445676938816,-60.0,-45.131251277781935 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-78.81804939997724,-60.0,-46.183827131022205 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-78.58511754384293,-60.0,-41.57361304974198 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-81.57798934087853,-60.0,-41.404569749555655 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-79.31280095272142,-60.0,-43.520474329389394 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=1.4227027735820554,-60.0,9.816604559767638 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-78.72647075259401,-60.0,-46.27239730574391 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=0.3716645650511561,-60.0,5.737598255592779 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-77.67234315897448,-60.0,-47.32775107108713 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-78.55190191161523,-60.0,-43.518911903442955 r=16.0 ex=0 event=minecraft:entity.pillager.ambient source=hostile vol=1.0 pitch=0.9558909
+EV sound at=-77.28265661653428,-60.0,-42.41484943946216 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-80.25280888567337,-60.0,-42.74947722084662 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-77.73677838938589,-60.0,-42.77188444876821 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-77.58219093563771,-60.0,-47.417637633320254 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=1.4440444131128447,-60.0,4.546757056656672 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.659015977930434,-60.0,9.666575194187011 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-75.69768619133099,-60.0,-42.52943685022573 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-76.3367441840493,-60.0,-48.66327423385197 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-79.10721271488117,-60.0,-43.89339586620907 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-76.14595092433004,-60.0,-48.854069488032415 r=16.0 ex=0 event=minecraft:entity.pillager.ambient source=hostile vol=1.0 pitch=1.0516132
+EV sound at=-76.6168555870402,-60.0,-41.619905944500395 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-76.35325518677602,-60.0,-48.407055033377326 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=2.4304883627133944,-60.0,3.319558989065732 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-75.19198081715298,-60.0,-49.80804187744245 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=1.4923705996314673,-60.0,7.824082882387211 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-73.9888838158734,-60.0,-42.99538003100134 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-78.75885389612425,-60.0,-43.2203794980547 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-75.47423320959396,-60.0,-40.47347647570913 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-74.49951585436204,-60.0,-48.522457388551416 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=2.593754675775851,-60.0,1.49126893161571 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-73.59110672688104,-60.0,-43.35087132267351 r=16.0 ex=0 event=minecraft:entity.pillager.ambient source=hostile vol=1.0 pitch=0.8963975
+EV sound at=-74.04721538830111,-60.0,-50.95280741960331 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=1.4968804619913765,-60.0,6.205942549588365 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-79.47301175198218,-60.0,-41.86747362059818 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-74.3291391184114,-60.0,-39.32905238853882 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-72.83922652071024,-60.0,-44.139630404531005 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-73.02734938985051,-60.0,-48.86434901203086 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-73.47839408421486,-60.0,-52.38650223303105 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=2.1567660297649582,-60.0,4.8247747881648655 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-73.18429754457117,-60.0,-38.18436329474864 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-71.7141218946621,-60.0,-45.28564611813831 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-79.51894934777876,-60.0,-39.992819705548875 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-73.4906345901778,-60.0,-53.9985799737386 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=2.5320219776534287,-60.0,3.301992104746184 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-71.91696807287197,-60.0,-50.052469819981404 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-70.56995933090698,-60.0,-46.430525406576734 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-80.18546653804296,-60.0,-38.63605667254637 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-71.84873536307663,-60.0,-36.84880601906482 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-72.66187921592478,-60.0,-55.414626591601454 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=2.581408040984772,-60.0,1.4459214449790958 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-70.80554647464399,-60.0,-51.192446357824984 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-69.42499179269326,-60.0,-47.575075832818655 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-80.52567621146015,-60.0,-37.093650085349836 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-70.70396984311209,-60.0,-35.70404056920166 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=3.4961193976036635,-59.4375,0.43356195140531784 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.99848306
+EV sound at=3.5517873875689725,-59.4375,0.38236842899229156 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-73.59531728890926,-60.0,-54.35014690492641 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-69.55920435721569,-60.0,-34.559275085162575 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-69.47183017952165,-60.0,-52.528820996583704 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-68.0894184665028,-60.0,-48.910621622724726 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-81.33913052348227,-60.0,-35.51305729352233 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-74.76494258295303,-60.0,-53.239957899535845 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-68.41443887222192,-60.0,-33.41450960021801 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-68.18424446686561,-60.0,-53.41664244876083 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-66.94465278728667,-60.0,-50.055386908462395 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-81.53692157780772,-60.0,-33.95085378767652 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-75.90812805736597,-60.0,-52.09388545329352 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-66.61108392550234,-60.0,-53.598827107637035 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-65.79988729717097,-60.0,-51.20015238815306 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-81.68968618057963,-60.0,-32.39883846709834 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-67.18829502741717,-60.0,-32.93469550353821 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-77.05190941084768,-60.0,-50.948144346226364 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-65.28822535500773,-60.0,-54.41579515887738 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-65.45614084204698,-60.0,-52.71552953389918 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-65.82015051727035,-60.0,-34.15615496144732 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=3.013334087865299,-59.4375,0.8754836672939281 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8167846
+EV sound at=-81.9531589026526,-60.0,-32.22036127417261 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-64.23798019223287,-60.0,-54.54202433135776 r=16.0 ex=0 event=minecraft:entity.pillager.ambient source=hostile vol=1.0 pitch=1.004458
+EV sound at=-77.73986351804697,-60.0,-49.25824258309741 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-63.43200664938245,-60.0,-54.520161614744815 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-64.77098172042221,-60.0,-54.307908712038824 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-64.68623592527125,-60.0,-35.31043195855945 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-80.80487535434649,-60.0,-33.27395616883317 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-78.46256728165811,-60.0,-47.880275463697984 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-61.99150900262765,-60.0,-54.99469774058727 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-63.5433308835802,-60.0,-36.457015815522446 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-80.46511405438135,-60.0,-34.813854256961186 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-64.64363357196223,-60.0,-53.364363235646415 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-78.52194707153262,-60.0,-46.275173631448524 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-62.39848063823804,-60.0,-37.601695444959454 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-80.29042734756291,-60.0,-36.63434916866646 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-60.75524424898362,-60.0,-54.718047573508954 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-65.5060855346602,-60.0,-51.8026194822966 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-79.2378055965498,-60.0,-44.68403600519687 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-61.06284847911563,-60.0,-38.93718277262244 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-79.4285084132049,-60.0,-36.75748672063048 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-60.457577608734574,-60.0,-52.96238334979047 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-65.7211224319595,-60.0,-50.26820471505278 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-59.918081126006804,-60.0,-40.08194639049653 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-78.81369860218557,-60.0,-45.30716507527686 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-79.69572313713189,-60.0,-35.26618386179731 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-59.811315486847,-60.0,-51.61757105986026 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-66.51289259266633,-60.0,-48.96568873758514 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-58.773315591542115,-60.0,-41.22671182599794 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-77.12514812861356,-60.0,-45.88864447792689 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-58.20093284792972,-60.0,-41.79909456735538 r=16.0 ex=0 event=minecraft:entity.pillager.ambient source=hostile vol=1.0 pitch=0.9046328
+EV sound at=-59.47158903895696,-60.0,-50.077445195732246 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-66.51608599960699,-60.0,-47.09698804666119 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-57.686352127180456,-60.0,-42.40391864685228 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-80.09891377354181,-60.0,-34.07752556733739 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-75.67478790126144,-60.0,-46.47801248879142 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-59.28444812836397,-60.0,-48.26588522174272 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-67.19442460144117,-60.0,-45.747413761594764 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-57.46097830791371,-60.0,-43.96254143929723 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-79.18048855609536,-60.0,-33.159982534201845 r=16.0 ex=0 event=minecraft:entity.pillager.ambient source=hostile vol=1.0 pitch=1.1058826
+EV sound at=-78.79503080242087,-60.0,-32.7849175394766 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-73.97109518269882,-60.0,-47.01578649636438 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-57.29503347688317,-60.0,-45.76976301822718 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-58.146921785623555,-60.0,-47.8377415550523 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-77.64557324853716,-60.0,-31.64596482233507 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-66.50953404135736,-60.0,-44.49627206828522 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-72.51752164958691,-60.0,-47.532807827930604 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-57.038013818060946,-60.0,-48.945732621729015 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-76.50081662361988,-60.0,-30.501220400175082 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-56.147189249096876,-60.0,-46.89698940228709 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-65.21730350041139,-60.0,-43.21569972883369 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-70.90513073619952,-60.0,-47.506960121417514 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-65.21730350041139,-60.0,-43.21569972883369 r=16.0 ex=0 event=minecraft:entity.pillager.ambient source=hostile vol=1.0 pitch=0.9827907
+EV sound at=-75.35620482174737,-60.0,-29.356302032479533 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-54.99685038775636,-60.0,-48.001619857163774 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-55.711445099889055,-60.0,-50.28824716703627 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-64.49533398386598,-60.0,-41.855791530207775 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-69.60040446409813,-60.0,-48.34455223219874 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-74.21144649691422,-60.0,-28.211529408579697 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-54.56702124394085,-60.0,-51.433324704847884 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-53.291183039742144,-60.0,-48.542715199833914 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-64.48444407064109,-60.0,-40.24833807681398 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-53.4221425105402,-60.0,-52.57797620246452 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-70.73737414410635,-60.0,-47.35031986984392 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-72.87588695649852,-60.0,-26.87596948463601 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-51.87952826579833,-60.0,-49.04448607706834 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-63.95900455911901,-60.0,-38.851501890836786 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-70.91415031715239,-60.0,-47.14983756573217 r=16.0 ex=0 event=minecraft:entity.pillager.ambient source=hostile vol=1.0 pitch=1.0445927
+EV sound at=-52.27736635344544,-60.0,-53.72273099608513 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-71.73112147427356,-60.0,-25.731203996930663 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-50.449319410772446,-60.0,-49.548120457833285 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-72.02537216689115,-60.0,-45.9771758599388 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-63.449403154709124,-60.0,-37.170172811037226 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-51.13260058572332,-60.0,-54.86749619779212 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-70.58635598937705,-60.0,-24.58643851188896 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-72.61741058728717,-60.0,-44.559170028036796 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-48.79936725627586,-60.0,-50.1822438193463 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-62.813322771404174,-60.0,-35.79062112500095 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-49.797032536490036,-60.0,-56.203047620774925 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-47.27298115247015,-60.0,-50.53621507885498 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-73.37553254038801,-60.0,-43.155235285674465 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-69.35891178750946,-60.0,-23.796709231311482 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=3.013334087865299,-59.4375,0.8754836672939281 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0075012
+EV sound at=3.9299374518035077,-59.4375,0.03739954996095635 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.94714844
+EV sound at=-62.46346575023118,-60.0,-33.99653731725993 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-48.6522573231845,-60.0,-57.34780338595615 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-45.679868590760066,-60.0,-50.57404912300063 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-73.51201241643868,-60.0,-41.58692150688974 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-62.31339140030504,-60.0,-32.44074508425857 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-68.01171073316334,-60.0,-24.979058238983658 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-47.42592035046967,-60.0,-58.34896327113458 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=3
+EV sound at=-73.5034156175185,-60.0,-39.69963024270336 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-66.87082698193323,-60.0,-26.125590993495127 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-44.37104900839595,-60.0,-51.58471831627223 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+E V1 minecraft:villager pos=3.013334087865299,-59.4375,0.8754836672939281 delta=0.0,-0.0784000015258789,0.0 rot=232.69122,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=232.69122 body=232.69122 nav=done stuck=0 navspeed=0.699999988079071 ntarget=3,-59,-1 path=- nodes=- goals=- tgoals=- acts=core;raid mem=heard_bell_time:817:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:20:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;visible_mobs:(V2;Steve):inf;walk_target:walk(pos(3,-60,-1);0.7;1):inf equip=- attrs=minecraft:follow_range:16.807368153104452;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=3.9299374518035077,-59.4375,0.03739954996095635 delta=0.0,-0.0784000015258789,0.0 rot=231.30988,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=231.30988 body=231.30988 nav=done stuck=0 navspeed=0.699999988079071 ntarget=3,-59,-1 path=- nodes=- goals=- tgoals=- acts=core;raid mem=heard_bell_time:817:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;visible_mobs:(V1;Steve):inf equip=- attrs=minecraft:follow_range:16.60714611442286;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E pillager#1 minecraft:pillager pos=-61.57298089471602,-60.0,-31.524431632780537 delta=0.06374279289768602,-0.0784000015258789,0.06417571723531777 rot=313.82654,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=388.82654 body=313.82654 nav=moving stuck=0 navspeed=1.0 ntarget=-58,-60,-24 path=1/8/1/-58,-60,-24 nodes=-62,-60,-32:WALKABLE:0.0;-61,-60,-31:WALKABLE:0.0;-60,-60,-30:WALKABLE:0.0;-59,-60,-29:WALKABLE:0.0;-59,-60,-28:WALKABLE:0.0;-59,-60,-27:WALKABLE:0.0;-59,-60,-26:WALKABLE:0.0;-58,-60,-25:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1;head:minecraft:white_banner*1{minecraft:banner_patterns:[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],minecraft:item_name:{translate:"block.minecraft.ominous_banner"},minecraft:rarity:"uncommon",minecraft:tooltip_display:{hidden_components:["minecraft:banner_patterns"]}} attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.251820500828366;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=1 patrolling=1 celebrating=0 charging=0 inventory=-
+E pillager#2 minecraft:pillager pos=-73.5034156175185,-60.0,-39.69963024270336 delta=6.668909717948279E-4,-0.0784000015258789,0.14730847229984728 rot=359.43402,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=359.56866 body=359.43402 nav=moving stuck=0 navspeed=1.0 ntarget=-75,-60,-33 path=4/11/1/-75,-60,-33 nodes=-74,-60,-44:WALKABLE:0.0;-74,-60,-43:WALKABLE:0.0;-74,-60,-42:WALKABLE:0.0;-74,-60,-41:WALKABLE:0.0;-74,-60,-40:WALKABLE:0.0;-74,-60,-39:WALKABLE:0.0;-74,-60,-38:WALKABLE:0.0;-74,-60,-37:WALKABLE:0.0;-74,-60,-36:WALKABLE:0.0;-74,-60,-35:WALKABLE:0.0;-75,-60,-34:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:31.77653233785242;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#3 minecraft:pillager pos=-66.87082698193323,-60.0,-26.125590993495127 delta=0.10372095180226104,-0.0784000015258789,-0.10459845184241597 rot=224.73602,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=224.74768 body=224.73602 nav=moving stuck=0 navspeed=1.0 ntarget=-57,-60,-32 path=3/13/1/-57,-60,-32 nodes=-70,-60,-24:WALKABLE:0.0;-69,-60,-25:WALKABLE:0.0;-68,-60,-26:WALKABLE:0.0;-67,-60,-27:WALKABLE:0.0;-66,-60,-28:WALKABLE:0.0;-65,-60,-29:WALKABLE:0.0;-64,-60,-30:WALKABLE:0.0;-63,-60,-30:WALKABLE:0.0;-62,-60,-31:WALKABLE:0.0;-61,-60,-31:WALKABLE:0.0;-60,-60,-31:WALKABLE:0.0;-59,-60,-31:WALKABLE:0.0;-58,-60,-32:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:33.849672454565756;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#4 minecraft:pillager pos=-44.37104900839595,-60.0,-51.58471831627223 delta=0.07675013033770127,-0.0784000015258789,-0.07938697776703191 rot=223.64383,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=161.15665 body=223.64383 nav=moving stuck=0 navspeed=1.0 ntarget=-36,-60,-61 path=1/10/1/-36,-60,-61 nodes=-45,-60,-52:WALKABLE:0.0;-44,-60,-53:WALKABLE:0.0;-43,-60,-54:WALKABLE:0.0;-42,-60,-55:WALKABLE:0.0;-41,-60,-56:WALKABLE:0.0;-40,-60,-57:WALKABLE:0.0;-39,-60,-58:WALKABLE:0.0;-38,-60,-59:WALKABLE:0.0;-37,-60,-60:WALKABLE:0.0;-36,-60,-61:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.636490622486086;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#5 minecraft:pillager pos=-46.44483323859381,-60.0,-58.71094565455865 delta=0.12447452994161702,-0.0784000015258789,-0.07156415556794676 rot=231.88412,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=253.53638 body=231.88412 nav=moving stuck=0 navspeed=1.0 ntarget=-45,-60,-60 path=13/14/1/-45,-60,-60 nodes=-59,-60,-48:WALKABLE:0.0;-58,-60,-49:WALKABLE:0.0;-57,-60,-50:WALKABLE:0.0;-56,-60,-51:WALKABLE:0.0;-55,-60,-52:WALKABLE:0.0;-54,-60,-53:WALKABLE:0.0;-53,-60,-54:WALKABLE:0.0;-52,-60,-55:WALKABLE:0.0;-51,-60,-56:WALKABLE:0.0;-50,-60,-57:WALKABLE:0.0;-49,-60,-58:WALKABLE:0.0;-48,-60,-59:WALKABLE:0.0;-47,-60,-59:WALKABLE:0.0;-46,-60,-60:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:29.040191592701788;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=1 groups=1/5 health=120.0 raiders=pillager#1;pillager#2;pillager#3;pillager#4;pillager#5
+E V1 minecraft:villager pos=3.013334087865299,-59.4375,0.8754836672939281 delta=0.0,-0.0784000015258789,0.0 rot=232.69122,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=232.69122 body=232.69122 nav=done stuck=0 navspeed=0.699999988079071 ntarget=3,-59,-1 path=- nodes=- goals=- tgoals=- acts=core;raid mem=heard_bell_time:817:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:20:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(V2;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;visible_mobs:(V2;Steve):inf;walk_target:walk(pos(3,-60,-1);0.7;1):inf equip=- attrs=minecraft:follow_range:16.807368153104452;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E V2 minecraft:villager pos=3.9299374518035077,-59.4375,0.03739954996095635 delta=0.0,-0.0784000015258789,0.0 rot=231.30988,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=241.30988 body=241.30988 nav=done stuck=0 navspeed=0.699999988079071 ntarget=3,-59,-1 path=- nodes=- goals=- tgoals=- acts=core;raid mem=heard_bell_time:817:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;visible_mobs:(V1;Steve):inf equip=- attrs=minecraft:follow_range:16.60714611442286;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E pillager#1 minecraft:pillager pos=-38.20518660366644,-60.0,-18.169414953784337 delta=0.1189170901097358,-0.0784000015258789,0.07801671648079024 rot=311.35043,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=288.8811 body=311.35043 nav=moving stuck=0 navspeed=1.0 ntarget=-37,-60,-18 path=12/13/1/-37,-60,-18 nodes=-50,-60,-24:WALKABLE:0.0;-49,-60,-23:WALKABLE:0.0;-48,-60,-22:WALKABLE:0.0;-47,-60,-21:WALKABLE:0.0;-46,-60,-21:WALKABLE:0.0;-45,-60,-20:WALKABLE:0.0;-44,-60,-20:WALKABLE:0.0;-43,-60,-20:WALKABLE:0.0;-42,-60,-19:WALKABLE:0.0;-41,-60,-19:WALKABLE:0.0;-40,-60,-19:WALKABLE:0.0;-39,-60,-19:WALKABLE:0.0;-38,-60,-18:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1;head:minecraft:white_banner*1{minecraft:banner_patterns:[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],minecraft:item_name:{translate:"block.minecraft.ominous_banner"},minecraft:rarity:"uncommon",minecraft:tooltip_display:{hidden_components:["minecraft:banner_patterns"]}} attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.251820500828366;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=1 patrolling=1 celebrating=0 charging=0 inventory=-
+E pillager#2 minecraft:pillager pos=-58.925383812133504,-60.0,-24.07111704524905 delta=0.10339875942148229,-0.0784000015258789,-0.10471510662993345 rot=224.72589,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=224.68787 body=224.72589 nav=moving stuck=0 navspeed=1.0 ntarget=-48,-60,-29 path=2/13/1/-48,-60,-29 nodes=-61,-60,-23:WALKABLE:0.0;-60,-60,-24:WALKABLE:0.0;-59,-60,-25:WALKABLE:0.0;-58,-60,-26:WALKABLE:0.0;-57,-60,-26:WALKABLE:0.0;-56,-60,-27:WALKABLE:0.0;-55,-60,-27:WALKABLE:0.0;-54,-60,-27:WALKABLE:0.0;-53,-60,-28:WALKABLE:0.0;-52,-60,-28:WALKABLE:0.0;-51,-60,-28:WALKABLE:0.0;-50,-60,-28:WALKABLE:0.0;-49,-60,-29:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:31.77653233785242;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#3 minecraft:pillager pos=-42.21422584091797,-60.0,-25.77935499255665 delta=0.10308436539185137,-0.0784000015258789,-0.1051626416457889 rot=224.67743,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=224.59805 body=224.67743 nav=moving stuck=0 navspeed=1.0 ntarget=-40,-60,-31 path=3/7/1/-40,-60,-31 nodes=-45,-60,-24:WALKABLE:0.0;-44,-60,-25:WALKABLE:0.0;-43,-60,-26:WALKABLE:0.0;-42,-60,-27:WALKABLE:0.0;-41,-60,-28:WALKABLE:0.0;-41,-60,-29:WALKABLE:0.0;-40,-60,-30:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:33.849672454565756;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#4 minecraft:pillager pos=-47.51363679566741,-60.0,-47.222784670352645 delta=0.001051609849944466,-0.0784000015258789,0.1470520730954867 rot=359.1013,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=359.21683 body=359.1013 nav=moving stuck=0 navspeed=1.0 ntarget=-48,-60,-43 path=3/7/1/-48,-60,-43 nodes=-48,-60,-50:WALKABLE:0.0;-48,-60,-49:WALKABLE:0.0;-48,-60,-48:WALKABLE:0.0;-48,-60,-47:WALKABLE:0.0;-48,-60,-46:WALKABLE:0.0;-48,-60,-45:WALKABLE:0.0;-48,-60,-44:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.636490622486086;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E pillager#5 minecraft:pillager pos=-42.20610893899425,-60.0,-41.2059580699931 delta=0.10419219332667613,-0.0784000015258789,0.104153349682456 rot=314.99292,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=239.99292 body=314.99292 nav=moving stuck=0 navspeed=1.0 ntarget=-37,-60,-31 path=4/14/1/-37,-60,-31 nodes=-46,-60,-45:WALKABLE:0.0;-45,-60,-44:WALKABLE:0.0;-44,-60,-43:WALKABLE:0.0;-43,-60,-42:WALKABLE:0.0;-42,-60,-41:WALKABLE:0.0;-41,-60,-40:WALKABLE:0.0;-40,-60,-39:WALKABLE:0.0;-39,-60,-38:WALKABLE:0.0;-39,-60,-37:WALKABLE:0.0;-38,-60,-36:WALKABLE:0.0;-38,-60,-35:WALKABLE:0.0;-38,-60,-34:WALKABLE:0.0;-38,-60,-33:WALKABLE:0.0;-37,-60,-32:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:29.040191592701788;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-

@@ -66,6 +66,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.npc.villager.AbstractVillager;
 import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raids;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
@@ -194,6 +195,7 @@ import net.minecraft.util.RandomSource;
  * rest PLAYER TICKS          the player's `time_since_rest` statistic (what PhantomSpawner reads), nothing printed
  * activity REF NAME           Brain.setActiveActivityIfPossible(Activity NAME), nothing printed
  * raid_waves DIFFICULTY OMEN SEED   composition of every Raid wave (+ bonus wave when omen>1) with Raid's own RNG seeded: `RAID_WAVE` lines
+ * raids_reload             the level's Raids through its saved form (`raids.dat` codec) and back; the new Raids holds no raider until each is loaded again (`nbt REF {}`); `dump raids_nbt` = `RAIDS` + the saved form
  * raid_start PLAYER X Y Z [omen=N]  Raids.createOrExtendRaid (a village = POI blocks (bell, beds) placed by the script; the player needs
  *                             the raid_omen effect to carry an omen level; omen=N overrides)       dump raids   all raids (`RAID` lines)
  * interact PLAYER REF [main|off] [sneak] [center] [at X Y Z]   ServerboundInteractPacket (use the entity: board a boat, open a chest boat, feed, tame); location = entity origin, `center` = bounding box centre relative to the origin, `at X Y Z` = that offset from the origin
@@ -973,6 +975,10 @@ public final class EntityOracleDriver {
          case "raid_start" -> {
             world();
             raidStart(a);
+         }
+         case "raids_reload" -> {
+            world();
+            raidsReload();
          }
          case "trade_select" -> {
             world();
@@ -1773,6 +1779,13 @@ public final class EntityOracleDriver {
       }
    }
 
+   /** The raids as `raids.dat` stores them and back (a raider is rejoined by loading its entity data again, see `nbt`). */
+   void raidsReload() {
+      Tag saved = Raids.CODEC.encodeStart(NbtOps.INSTANCE, v.level.getRaids()).getOrThrow();
+      Raids fresh = Raids.CODEC.parse(NbtOps.INSTANCE, saved).getOrThrow();
+      priv(v.level, net.minecraft.server.level.ServerLevel.class, "raids", fresh);
+   }
+
    void raidStart(List<String> a) {
       ServerPlayer p = player(a.get(1));
       BlockPos pos = new BlockPos(Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)), Integer.parseInt(a.get(4)));
@@ -2066,6 +2079,7 @@ public final class EntityOracleDriver {
                }
             }
             case "raids" -> raidsDump();
+            case "raids_nbt" -> out.println("RAIDS " + canon(Raids.CODEC.encodeStart(NbtOps.INSTANCE, v.level.getRaids()).getOrThrow()));
             case "menu" -> MenuVerbs.dump(this, arg);
             case "recipes" -> MenuVerbs.dumpRecipes(this, arg);
             default -> throw new IllegalArgumentException("dump " + w);

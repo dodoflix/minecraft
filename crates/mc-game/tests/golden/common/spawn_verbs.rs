@@ -1,6 +1,6 @@
 //! Spawning, raid, difficulty and brain-isolation verbs of the scenario DSL (grammar of `tests/oracle/EntityOracleDriver.java`), shared
-//! by the replays: `spawnpass`, `spawnat`, `custom_spawner`, `raid_waves`, `raid_start`, `rest`, `memory`, `activity` and the dumps
-//! `difficulty:X,Y,Z`, `spawn_state`, `raids`. A replay implements [`SpawnHost`] and forwards unknown commands to [`command`] and
+//! by the replays: `spawnpass`, `spawnat`, `custom_spawner`, `raid_waves`, `raid_start`, `raids_reload`, `rest`, `memory`, `activity` and the dumps
+//! `difficulty:X,Y,Z`, `spawn_state`, `raids`, `raids_nbt`. A replay implements [`SpawnHost`] and forwards unknown commands to [`command`] and
 //! unknown dump kinds to [`dump`]. The verbs that need the ticking level (natural spawning, custom spawners, raids with a village, local
 //! difficulty) are only offered by a host with [`SpawnHost::TICKING`]; the others run in every replay.
 use super::player_actions::ActionHost;
@@ -461,6 +461,13 @@ pub fn command<H: SpawnHost>(h: &mut H, a: &[String]) -> bool {
                 }
             }
         }
+        // raids_reload: the raids through their saved form and back (a raider joins again when its entity data is loaded again)
+        "raids_reload" if H::TICKING => {
+            h.boot();
+            h.action_level()
+                .reload_raids_from_save()
+                .expect("raids_reload");
+        }
         _ => return false,
     }
     true
@@ -485,6 +492,16 @@ pub fn dump<H: SpawnHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
             for line in raid_lines(h.action_level(), &name_of) {
                 h.emit(line);
             }
+        }
+        "raids_nbt" => {
+            let saved = h
+                .action_level()
+                .raids_saved_form()
+                .expect("raids saved form");
+            h.emit(format!(
+                "RAIDS {}",
+                mc_game::world::entity::scenario_dump::canon(&saved)
+            ));
         }
         _ => return false,
     }

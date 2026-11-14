@@ -1,0 +1,38 @@
+# A raid saved and loaded in the middle of its first wave: the saved raids (state, cooldown, health, heroes) read back hold no raider until each
+# raider's entity data is loaded again, which rejoins it to its wave (RaidId, as the entity data saved before the restart carries it; the captain takes the leader slot again); the raid then goes on to the next wave.
+command_env
+level flat
+difficulty normal
+gamerule raids true
+gamerule mob_drops false
+entity_counter 6100
+level_seed 6101
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+set Steve invulnerable true
+tick 300
+effect Steve minecraft:raid_omen 0 600
+raid_start Steve 0 -60 0
+tick 310
+hurt pillager#2 minecraft:player_attack 1000 by=Steve
+tick 40
+dump raids raids_nbt mobs
+raids_reload
+dump raids raids_nbt
+nbt pillager#1 {RaidId:2}
+dump raids
+nbt pillager#3 {RaidId:2}
+nbt pillager#4 {RaidId:2}
+nbt pillager#5 {RaidId:2}
+dump raids raids_nbt nbt:pillager#1 nbt:pillager#3
+tick 100
+dump raids mobs
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 40
+dump raids raids_nbt
+tick 320
+dump raids mobs

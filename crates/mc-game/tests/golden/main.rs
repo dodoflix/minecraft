@@ -202,6 +202,7 @@ mod mob_pets_golden;
 mod mob_piglin_golden;
 mod mob_polar_bear_golden;
 mod mob_rabbit_golden;
+mod mob_raid_golden;
 mod mob_raider_golden;
 mod mob_registration_guards;
 mod mob_skeleton_golden;

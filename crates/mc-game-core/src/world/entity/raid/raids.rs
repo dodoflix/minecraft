@@ -326,6 +326,20 @@ impl ServerLevel {
         self.get_raids_mut();
     }
 
+    /// The contents of `raids.dat`: the raids as they are saved.
+    pub fn raids_saved_form(&mut self) -> DataResult<Tag> {
+        self.get_raids_mut().encode()
+    }
+
+    /// Replaces the raids with their saved form read back, as a restart of the server does: the new raids hold no raider until
+    /// each raider is loaded again.
+    pub fn reload_raids_from_save(&mut self) -> DataResult<()> {
+        let saved = self.raids_saved_form()?;
+        let fresh = Raids::decode(&saved).map_err(|partial| partial.error)?;
+        self.chunk_source.data_storage.set(raids_type(), fresh);
+        Ok(())
+    }
+
     /// `getRaids()`.
     pub fn get_raids_mut(&mut self) -> &mut Raids {
         self.chunk_source

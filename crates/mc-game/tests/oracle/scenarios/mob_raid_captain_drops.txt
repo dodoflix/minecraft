@@ -1,0 +1,27 @@
+# A patrol captain (the ominous banner on its head, outside any raid): its death drops the banner and an ominous bottle whoever kills it
+# (the loot table keys on the banner, not on the killer), the sound and the experience of a player kill.
+level flat
+difficulty normal
+gamerule raids true
+gamerule mob_drops true
+entity_counter 5900
+level_seed 5901
+spawn_player Steve survival 0.5 -60 0.5 0 0
+set Steve invulnerable true
+mobspawn P1 minecraft:pillager 8.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,PatrolLeader:1b,equipment:{head:{id:"minecraft:white_banner",count:1,components:{"minecraft:banner_patterns":[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],"minecraft:item_name":{translate:"block.minecraft.ominous_banner"},"minecraft:rarity":"uncommon","minecraft:tooltip_display":{hidden_components:["minecraft:banner_patterns"]}}}}}
+mobspawn P2 minecraft:pillager 8.5 -60 3.5 0 0 {PersistenceRequired:1b,NoAI:1b,PatrolLeader:1b,equipment:{head:{id:"minecraft:white_banner",count:1,components:{"minecraft:banner_patterns":[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],"minecraft:item_name":{translate:"block.minecraft.ominous_banner"},"minecraft:rarity":"uncommon","minecraft:tooltip_display":{hidden_components:["minecraft:banner_patterns"]}}}}}
+mobspawn P3 minecraft:pillager 8.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,PatrolLeader:1b,equipment:{head:{id:"minecraft:white_banner",count:1,components:{"minecraft:banner_patterns":[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],"minecraft:item_name":{translate:"block.minecraft.ominous_banner"},"minecraft:rarity":"uncommon","minecraft:tooltip_display":{hidden_components:["minecraft:banner_patterns"]}}}}}
+mobspawn P4 minecraft:pillager 8.5 -60 9.5 0 0 {PersistenceRequired:1b,NoAI:1b,PatrolLeader:1b,equipment:{head:{id:"minecraft:white_banner",count:1,components:{"minecraft:banner_patterns":[{color:"cyan",pattern:"minecraft:rhombus"},{color:"light_gray",pattern:"minecraft:stripe_bottom"},{color:"gray",pattern:"minecraft:stripe_center"},{color:"light_gray",pattern:"minecraft:border"},{color:"black",pattern:"minecraft:stripe_middle"},{color:"light_gray",pattern:"minecraft:half_horizontal"},{color:"light_gray",pattern:"minecraft:circle"},{color:"black",pattern:"minecraft:border"}],"minecraft:item_name":{translate:"block.minecraft.ominous_banner"},"minecraft:rarity":"uncommon","minecraft:tooltip_display":{hidden_components:["minecraft:banner_patterns"]}}}}}
+dump mobs
+hurt P1 minecraft:generic_kill 1000
+tick 1
+dump  entities
+hurt P2 minecraft:player_attack 1000 by=Steve
+tick 1
+dump  entities
+hurt P3 minecraft:player_attack 1000 by=Steve
+tick 1
+dump 
+hurt P4 minecraft:player_attack 1000 by=Steve
+tick 1
+dump  events

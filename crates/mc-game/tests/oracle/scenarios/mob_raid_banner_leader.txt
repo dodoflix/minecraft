@@ -1,0 +1,29 @@
+# The captain of a wave wears the ominous banner (drop chance 2.0, the wave leader). Killed by the player inside the raid it drops the banner,
+# the raid has no leader until another raider walks to the banner and wears it (the new captain); a captain of a patrol outside any raid
+# gives the killer Bad Omen.
+command_env
+level flat
+difficulty normal
+gamerule raids true
+gamerule mob_drops true
+entity_counter 5800
+level_seed 5801
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+set Steve invulnerable true
+tick 300
+effect Steve minecraft:raid_omen 0 600
+raid_start Steve 0 -60 0
+tick 310
+dump raids mobs
+cmd execute as @e[type=#minecraft:raiders,nbt={PatrolLeader:1b},limit=1] run damage @s 1000 minecraft:player_attack by Steve
+tick 1
+dump raids entities
+tick 100
+dump raids mobs entities
+tick 100
+dump raids mobs entities

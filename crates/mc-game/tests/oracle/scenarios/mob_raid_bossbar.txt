@@ -1,0 +1,54 @@
+# The raid boss bar: the player joins it when the pre-raid countdown starts (progress follows the countdown), the first wave fills it, it
+# follows the health of the raiders and names the last two, and turns to victory text.
+command_env
+level flat
+difficulty normal
+gamerule raids true
+gamerule mob_drops false
+entity_counter 5700
+level_seed 5701
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+set Steve invulnerable true
+tick 300
+effect Steve minecraft:raid_omen 0 600
+dump packets:Steve:none
+raid_start Steve 0 -60 0
+watch packets:Steve:boss_event
+tick 330
+dump raids
+tick 5
+dump mobs
+cmd execute as @e[type=#minecraft:raiders,limit=1] run damage @s 4 minecraft:player_attack by Steve
+tick 10
+cmd execute as @e[type=#minecraft:raiders,limit=1] run damage @s 1000 minecraft:player_attack by Steve
+tick 25
+cmd execute as @e[type=#minecraft:raiders,limit=1] run damage @s 4 minecraft:player_attack by Steve
+tick 10
+cmd execute as @e[type=#minecraft:raiders,limit=1] run damage @s 1000 minecraft:player_attack by Steve
+tick 25
+cmd execute as @e[type=#minecraft:raiders,limit=1] run damage @s 4 minecraft:player_attack by Steve
+tick 10
+cmd execute as @e[type=#minecraft:raiders,limit=1] run damage @s 1000 minecraft:player_attack by Steve
+tick 25
+cmd execute as @e[type=#minecraft:raiders,limit=1] run damage @s 4 minecraft:player_attack by Steve
+tick 10
+cmd execute as @e[type=#minecraft:raiders,limit=1] run damage @s 1000 minecraft:player_attack by Steve
+tick 25
+cmd execute as @e[type=#minecraft:raiders,limit=1] run damage @s 4 minecraft:player_attack by Steve
+tick 10
+cmd execute as @e[type=#minecraft:raiders,limit=1] run damage @s 1000 minecraft:player_attack by Steve
+tick 25
+cmd execute as @e[type=#minecraft:raiders,limit=1] run damage @s 4 minecraft:player_attack by Steve
+tick 10
+cmd execute as @e[type=#minecraft:raiders,limit=1] run damage @s 1000 minecraft:player_attack by Steve
+tick 25
+dump raids
+tick 100
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 40
+dump raids

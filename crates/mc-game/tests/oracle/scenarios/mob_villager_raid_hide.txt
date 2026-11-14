@@ -1,0 +1,34 @@
+# Villagers in a raid: the brain switches to the raid activity once a wave exists, a villager rung out by the bell hides at its bed
+# (hiding place memory), and a bell rung with raiders within 48 blocks makes them glow.
+level flat
+difficulty normal
+gamerule raids true
+gamerule mob_drops false
+entity_counter 6000
+level_seed 6001
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V1 minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+mobspawn V2 minecraft:villager -1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 3.5 0 0
+set Steve invulnerable true
+tick 300
+effect Steve minecraft:raid_omen 0 600
+raid_start Steve 0 -60 0
+tick 305
+dump raids brain:V1 brain:V2
+use_on Steve 0 -60 0 south main 0.5 0.5 1.0
+dump events
+tick 1
+dump events brain:V1 brain:V2
+tick 60
+dump mobs
+tick 150
+dump mobs
+use_on Steve 0 -60 0 south main 0.5 0.5 1.0
+tick 1
+dump events mobs
+tick 120
+dump raids mobs
