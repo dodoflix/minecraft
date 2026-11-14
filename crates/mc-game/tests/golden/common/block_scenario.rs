@@ -115,6 +115,7 @@ pub fn check_with(name: &str, opts: &Options) {
 }
 
 pub fn run_scenario_text(text: &str) -> Vec<String> {
+    mc_game::world::level::material::flowing_fluid::reset_shape_memo_for_scenario();
     let mut s = Scenario::new();
     // precipitation, the bone meal feature lists, the coral bone meal tag and the biome criteria of advancements (adventuring time) read
     // the biome (natural spawning reads the spawn table of the biome): only the weather, `biome`, spawning, bone meal and advancement scenarios pay for the real biome registry

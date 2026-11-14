@@ -16,7 +16,7 @@ use mc_data::block::BlockState;
 use mc_data::fluid::{Fluid, FluidState};
 use std::cell::RefCell;
 use std::collections::HashMap;
-use std::sync::LazyLock;
+use std::sync::{LazyLock, OnceLock};
 
 /// The abstract members of `FlowingFluid` (`WaterFluid` / `LavaFluid` implement them).
 pub trait FlowingFluid: FluidBehaviour {
@@ -185,31 +185,50 @@ pub fn get_height(fluid_state: FluidState, level: &dyn BlockGetter, pos: BlockPo
     }
 }
 
+type ShapeMemo = Vec<OnceLock<VoxelShape>>;
+
+fn new_shape_memo() -> ShapeMemo {
+    (0..=u8::MAX).map(|_| OnceLock::new()).collect()
+}
+
+/// Vanilla's `shapes` map: one per process, shared by every thread.
+static SHAPES: LazyLock<ShapeMemo> = LazyLock::new(new_shape_memo);
+
+thread_local! {
+    /// Per-thread memo that replaces [`SHAPES`] after [`reset_shape_memo_for_scenario`].
+    static SCENARIO_SHAPES: RefCell<Option<ShapeMemo>> = const { RefCell::new(None) };
+}
+
+/// Gives the calling thread a fresh, empty shape memo that stands in for the process-wide one, like the fresh JVM the
+/// oracle starts per scenario. In-process replays of several worlds on parallel test threads then neither see each other's
+/// first-computed shapes nor clear them. The server never calls this, so its threads all share one memo as in vanilla.
+#[doc(hidden)]
+pub fn reset_shape_memo_for_scenario() {
+    SCENARIO_SHAPES.set(Some(new_shape_memo()));
+}
+
 /// `getShape(state, level, pos)`, including vanilla's per-state `shapes` memo: the first height computed for a fluid state
 /// stays (a source block with water above and one without share it, so the answer depends on which position was asked first).
-/// The memo lives per game thread: a server has one game thread, and vanilla's memo is per JVM, so in-process runs that
-/// replay several worlds on separate threads each start with an empty one like a fresh vanilla JVM.
 pub fn get_shape(state: FluidState, level: &dyn BlockGetter, pos: BlockPos) -> VoxelShape {
     if state.amount() == 9 && has_same_above(state, level, pos) {
         return Shapes::block();
     }
-    thread_local! {
-        static SHAPES: RefCell<Vec<Option<VoxelShape>>> = RefCell::new(vec![None; usize::from(u8::MAX) + 1]);
-    }
     let index = state.id() as usize;
-    if let Some(shape) = SHAPES.with_borrow(|shapes| shapes[index].clone()) {
-        return shape;
-    }
-    let shape = Shapes::box_(
-        0.0,
-        0.0,
-        0.0,
-        1.0,
-        f64::from(state.get_height(level, pos)),
-        1.0,
-    );
-    SHAPES.with_borrow_mut(|shapes| shapes[index] = Some(shape.clone()));
-    shape
+    let compute = || {
+        Shapes::box_(
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            f64::from(state.get_height(level, pos)),
+            1.0,
+        )
+    };
+    SCENARIO_SHAPES.with_borrow(|scenario| {
+        scenario.as_ref().unwrap_or(&SHAPES)[index]
+            .get_or_init(compute)
+            .clone()
+    })
 }
 
 // --------------------------------------------------------------------------------------------- pass-through logic
