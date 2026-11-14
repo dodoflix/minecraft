@@ -363,6 +363,7 @@ pub fn resolve_pending_raid(e: &mut dyn Entity, level: &mut ServerLevel) {
         return;
     };
     if !level.get_raids_mut().contains(raid_id) {
+        data_mut(e).raid = None;
         return;
     }
     let wave = data(e).wave;

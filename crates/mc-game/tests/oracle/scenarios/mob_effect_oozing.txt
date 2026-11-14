@@ -1,0 +1,51 @@
+# Oozing: the mob that dies spawns two size 2 slimes at y + 0.5 (the entity cramming limit minus the slimes within 2 blocks caps the
+# number, a limit of 0 does not), the slimes jump and the effect leaves with the dead mob.
+level flat
+preload 4
+difficulty normal
+entity_counter 7100
+level_seed 7101
+gamerule mob_drops false
+spawn_player Steve survival -20.5 -60 0.5 0 0
+tick 30
+mobspawn A minecraft:pig 0.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed A 7111
+effect A minecraft:oozing 0 600
+mobspawn B minecraft:pig 10.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed B 7112
+effect B minecraft:oozing 0 600
+mobspawn B1 minecraft:slime 11.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn B2 minecraft:slime 9.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn C minecraft:pig 20.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed C 7113
+effect C minecraft:oozing 0 600
+mobspawn C1 minecraft:slime 21.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn C2 minecraft:slime 19.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn C3 minecraft:slime 20.5 -60 1.5 0 0 {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn E minecraft:pig 40.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed E 7115
+effect E minecraft:oozing 0 600
+mobspawn F minecraft:pig 50.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed F 7116
+effect F minecraft:oozing 0 600
+tick 1
+dump mobs
+gamerule max_entity_cramming 3
+hurt A minecraft:generic 1000
+hurt B minecraft:generic 1000
+hurt C minecraft:generic 1000
+tick 1
+dump mobs rng:level
+tick 25
+dump mobs rng:level events
+gamerule max_entity_cramming 0
+hurt E minecraft:generic 1000
+tick 25
+dump mobs rng:level events
+gamerule max_entity_cramming 24
+tick 10
+hurt F minecraft:out_of_world 1000
+tick 25
+dump mobs rng:level events
+tick 40
+dump mobs rng:level

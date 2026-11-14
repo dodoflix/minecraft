@@ -18,7 +18,11 @@ fn raid_boss_bar_follows_the_countdown_and_the_raiders() {
 }
 
 #[test]
-#[ignore = "deviation: every wave matches, the player's experience does not (final dump: xp=7/100/0.42857128 in vanilla, 0/0/0.0 here): the experience of the raiders it killed with the damage command never reaches the player"]
+fn omen_effects_send_their_effect_packets_and_particle_data() {
+    block_scenario::check("mob_raid_omen_packets");
+}
+
+#[test]
 fn raid_on_hard_runs_every_wave_to_victory() {
     block_scenario::check("mob_raid_full");
 }
@@ -34,7 +38,6 @@ fn raid_is_lost_when_the_village_is_gone() {
 }
 
 #[test]
-#[ignore = "deviation: a raid started by the omen countdown spawns 4 pillagers in the first wave where vanilla spawns 5 (line 11: health=96.0 vs 120.0): the raid's own random differs when the raid is created that late, the same raid made by `raid_start` (mob_raid_start) matches"]
 fn bad_omen_in_a_village_becomes_raid_omen_and_starts_a_raid() {
     block_scenario::check("mob_raid_omen_effect");
 }

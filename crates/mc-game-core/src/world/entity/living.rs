@@ -37,7 +37,9 @@ pub struct LivingEntityData {
     pub attributes: AttributeMap,
     /// `equipment` (a player's equipment lives in its `Inventory`).
     pub equipment: EntityEquipment,
+    /// Kept in the iteration order of vanilla's `HashMap<Holder<MobEffect>, MobEffectInstance>` (see `effects::put_effect`).
     pub active_effects: IndexMap<MobEffect, MobEffectInstance>,
+    pub active_effects_capacity: crate::util::java_hash_order::JavaHashCapacity,
     pub effects_dirty: bool,
     /// `locatorBarIcon`
     pub locator_bar_icon: crate::world::waypoints::Icon,
@@ -141,6 +143,7 @@ impl LivingEntityData {
             attributes,
             equipment: EntityEquipment::new(),
             active_effects: IndexMap::new(),
+            active_effects_capacity: Default::default(),
             effects_dirty: true,
             locator_bar_icon: Default::default(),
             remove_arrow_time: 0,
@@ -380,7 +383,7 @@ pub fn read_additional_save_data(
     if let Some(list) = input.get_list("active_effects") {
         for tag in list.iter() {
             if let Some(effect) = tag.as_compound().and_then(MobEffectInstance::from_nbt) {
-                living.active_effects.insert(effect.effect, effect);
+                super::living_entity::effects::put_effect(living, effect);
                 living.effects_dirty = true;
             }
         }

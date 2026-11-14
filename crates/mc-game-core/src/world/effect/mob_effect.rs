@@ -1,9 +1,6 @@
 //! `MobEffect` and its subclasses (`MobEffects` anonymous/named classes), dispatched on the extracted class name of
 //! the effect (`MobEffectData.class`): tick actions, tick intervals, instantaneous application, start/added/removed/
 //! hurt callbacks, particles and attribute modifier templates.
-//!
-//! Not implemented: `OozingMobEffect` and `InfestedMobEffect` never spawn their `Slime` / `Silverfish` (the entities
-//! exist).
 
 use super::reactions;
 use crate::server::level::ServerLevel;
@@ -373,9 +370,11 @@ impl MobEffectExt for MobEffect {
         if reason != RemovalReason::Killed {
             return;
         }
-        // `OozingMobEffect`: spawns `Slime` (size 2) offspring. Not implemented.
-        if self.class() == "WeavingMobEffect" {
-            reactions::weaving(level, mob);
+        match self.class() {
+            "OozingMobEffect" => reactions::oozing(level, mob),
+            "WeavingMobEffect" => reactions::weaving(level, mob),
+            "WindChargedMobEffect" => reactions::wind_charged(level, mob),
+            _ => {}
         }
     }
 

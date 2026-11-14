@@ -1,0 +1,147 @@
+# Infested: a hurt mob spawns 1-2 silverfish with a one in ten chance per hurt (the draws come from the mob's own random: chance, count,
+# the angle of the push); each silverfish appears at the mob's mid height with a look-direction velocity and plays its hurt sound.
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 7200
+level_seed 7201
+gamerule mob_drops false
+spawn_player Steve survival -20.5 -60 0.5 0 0
+tick 30
+mobspawn H1 minecraft:cow 0.5 -60 0.5 37 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H1 7211
+effect H1 minecraft:infested 0 600
+mobspawn H2 minecraft:cow 3.5 -60 0.5 74 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H2 7212
+effect H2 minecraft:infested 0 600
+mobspawn H3 minecraft:cow 6.5 -60 0.5 111 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H3 7213
+effect H3 minecraft:infested 0 600
+mobspawn H4 minecraft:cow 9.5 -60 0.5 148 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H4 7214
+effect H4 minecraft:infested 0 600
+mobspawn H5 minecraft:cow 12.5 -60 0.5 185 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H5 7215
+effect H5 minecraft:infested 0 600
+mobspawn H6 minecraft:cow 15.5 -60 0.5 222 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H6 7216
+effect H6 minecraft:infested 0 600
+mobspawn H7 minecraft:cow 18.5 -60 0.5 259 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H7 7217
+effect H7 minecraft:infested 0 600
+mobspawn H8 minecraft:cow 21.5 -60 0.5 296 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H8 7218
+effect H8 minecraft:infested 0 600
+mobspawn H9 minecraft:cow 24.5 -60 0.5 333 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H9 7219
+effect H9 minecraft:infested 0 600
+mobspawn H10 minecraft:cow 27.5 -60 0.5 10 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H10 7220
+effect H10 minecraft:infested 0 600
+mobspawn H11 minecraft:cow 0.5 -60 6.5 47 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H11 7221
+effect H11 minecraft:infested 0 600
+mobspawn H12 minecraft:cow 3.5 -60 6.5 84 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H12 7222
+effect H12 minecraft:infested 0 600
+mobspawn H13 minecraft:cow 6.5 -60 6.5 121 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H13 7223
+effect H13 minecraft:infested 0 600
+mobspawn H14 minecraft:cow 9.5 -60 6.5 158 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H14 7224
+effect H14 minecraft:infested 0 600
+mobspawn H15 minecraft:cow 12.5 -60 6.5 195 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H15 7225
+effect H15 minecraft:infested 0 600
+mobspawn H16 minecraft:cow 15.5 -60 6.5 232 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H16 7226
+effect H16 minecraft:infested 0 600
+mobspawn H17 minecraft:cow 18.5 -60 6.5 269 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H17 7227
+effect H17 minecraft:infested 0 600
+mobspawn H18 minecraft:cow 21.5 -60 6.5 306 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H18 7228
+effect H18 minecraft:infested 0 600
+mobspawn H19 minecraft:cow 24.5 -60 6.5 343 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H19 7229
+effect H19 minecraft:infested 0 600
+mobspawn H20 minecraft:cow 27.5 -60 6.5 20 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H20 7230
+effect H20 minecraft:infested 0 600
+mobspawn H21 minecraft:cow 0.5 -60 12.5 57 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H21 7231
+effect H21 minecraft:infested 0 600
+mobspawn H22 minecraft:cow 3.5 -60 12.5 94 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H22 7232
+effect H22 minecraft:infested 0 600
+mobspawn H23 minecraft:cow 6.5 -60 12.5 131 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H23 7233
+effect H23 minecraft:infested 0 600
+mobspawn H24 minecraft:cow 9.5 -60 12.5 168 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H24 7234
+effect H24 minecraft:infested 0 600
+mobspawn H25 minecraft:cow 12.5 -60 12.5 205 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H25 7235
+effect H25 minecraft:infested 0 600
+mobspawn H26 minecraft:cow 15.5 -60 12.5 242 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H26 7236
+effect H26 minecraft:infested 0 600
+mobspawn H27 minecraft:cow 18.5 -60 12.5 279 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H27 7237
+effect H27 minecraft:infested 0 600
+mobspawn H28 minecraft:cow 21.5 -60 12.5 316 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H28 7238
+effect H28 minecraft:infested 0 600
+mobspawn H29 minecraft:cow 24.5 -60 12.5 353 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H29 7239
+effect H29 minecraft:infested 0 600
+mobspawn H30 minecraft:cow 27.5 -60 12.5 30 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H30 7240
+effect H30 minecraft:infested 0 600
+mobspawn H31 minecraft:cow 0.5 -60 18.5 67 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H31 7241
+effect H31 minecraft:infested 0 600
+mobspawn H32 minecraft:cow 3.5 -60 18.5 104 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H32 7242
+effect H32 minecraft:infested 0 600
+mobspawn H33 minecraft:cow 6.5 -60 18.5 141 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H33 7243
+effect H33 minecraft:infested 0 600
+mobspawn H34 minecraft:cow 9.5 -60 18.5 178 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H34 7244
+effect H34 minecraft:infested 0 600
+mobspawn H35 minecraft:cow 12.5 -60 18.5 215 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H35 7245
+effect H35 minecraft:infested 0 600
+mobspawn H36 minecraft:cow 15.5 -60 18.5 252 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H36 7246
+effect H36 minecraft:infested 0 600
+mobspawn H37 minecraft:cow 18.5 -60 18.5 289 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H37 7247
+effect H37 minecraft:infested 0 600
+mobspawn H38 minecraft:cow 21.5 -60 18.5 326 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H38 7248
+effect H38 minecraft:infested 0 600
+mobspawn H39 minecraft:cow 24.5 -60 18.5 3 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H39 7249
+effect H39 minecraft:infested 0 600
+mobspawn H40 minecraft:cow 27.5 -60 18.5 40 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed H40 7250
+effect H40 minecraft:infested 0 600
+tick 1
+dump mobs
+cmd execute as @e[type=minecraft:cow] run damage @s 1 minecraft:generic
+tick 1
+dump mobs rng:level events
+tick 15
+cmd execute as @e[type=minecraft:cow] run damage @s 1 minecraft:generic
+tick 1
+dump mobs rng:level events
+tick 15
+cmd execute as @e[type=minecraft:cow] run damage @s 1 minecraft:generic
+tick 1
+dump mobs rng:level events
+tick 15
+tick 30
+dump mobs rng:level

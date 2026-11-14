@@ -11,3 +11,5 @@ pub mod mth;
 pub mod octahedral_group;
 pub mod quaternionf;
 pub mod transformation;
+
+pub use joml::rotate_y;

@@ -1,0 +1,34 @@
+# Weaving: the mob that dies (a creature, then a player) scatters 2-3 cobwebs at random cube positions around it on replaceable blocks
+# with a solid floor, with the level event for each; with mob griefing off only a player's death weaves.
+level flat
+preload 4
+difficulty normal
+entity_counter 7400
+level_seed 7401
+gamerule mob_drops false
+spawn_player Steve survival 20.5 -60 20.5 0 0
+spawn_player Alex survival 40.5 -60 20.5 0 0
+tick 30
+mobspawn A minecraft:cow 0.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed A 7411
+effect A minecraft:weaving 0 600
+mobspawn B minecraft:cow 10.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed B 7412
+effect B minecraft:weaving 1 600
+effect Alex minecraft:weaving 0 600
+tick 1
+dump mobs
+hurt A minecraft:generic 1000
+tick 1
+dump mobs rng:level
+tick 25
+dump mobs blocks:-4,-61,-4,4,-57,4 rng:level events
+gamerule mob_griefing false
+hurt B minecraft:generic 1000
+tick 25
+dump mobs blocks:6,-61,-4,14,-57,4 rng:level events
+hurt Alex minecraft:generic 1000
+tick 2
+dump player:Alex events
+tick 25
+dump blocks:36,-61,16,44,-57,24 events

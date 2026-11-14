@@ -8,6 +8,7 @@
 use super::raid_boss_bar::RaidBossBar as ServerBossEvent;
 use super::raid_world;
 use super::raider;
+use crate::advancements::triggers::CriteriaTriggers;
 use crate::server::bossevents::{BossBarColor, BossBarOverlay};
 use crate::server::level::ServerLevel;
 use crate::server::players::PlayerHandle;
@@ -420,7 +421,7 @@ impl Raid {
             mth::clamp_i32(self.raid_omen_level, 0, self.get_max_raid_omen_level());
         if !self.has_first_wave_spawned() {
             player.award_stat_once(level, Stats::RAID_TRIGGER);
-            // CriteriaTriggers::RAID_OMEN.trigger(level, player);
+            CriteriaTriggers::RAID_OMEN.trigger(level, player);
         }
         true
     }
@@ -572,7 +573,7 @@ impl Raid {
                             );
                             if let Some(player) = hero.as_any_mut().downcast_mut::<ServerPlayer>() {
                                 player.award_stat_once(level, Stats::RAID_WIN);
-                                // CriteriaTriggers::RAID_WIN.trigger(level, player);
+                                CriteriaTriggers::RAID_WIN.trigger(level, player);
                             }
                         });
                     }

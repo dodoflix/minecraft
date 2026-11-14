@@ -1,0 +1,52 @@
+C Game rule raids is now set to true
+EFFECT Alex minecraft:bad_omen added=true
+T 301
+PKT Steve minecraft:set_entity_data 65e22b090341a00000ff
+PKT Steve minecraft:sound 77c60e0600000015fffffe250000000a3e19999a3f800000e32d4fcf84a7860e
+PKT Steve minecraft:set_entity_data 65e12b090341a000000f0002140801ff
+PKT Steve minecraft:set_entity_data 65e12b0614020e0b01000000ffffffffc4ff
+PKT Alex minecraft:set_entity_data 65e32b090341a00000ff
+PKT Alex minecraft:update_mob_effect 8701e32b1e00e8070e
+PKT Alex minecraft:sound 77f70e0700000644fffffe20000000343f8000003f8000003dace6703e05bff8
+PKT Alex minecraft:set_entity_data 65e32b0a11011cff0b6138ff
+T 302
+T 303
+EFFECT Steve minecraft:bad_omen added=true
+T 304
+PKT Steve minecraft:update_mob_effect 8701e22b1e02e8070e
+PKT Steve minecraft:sound 77f70e0700000004fffffe20000000343f8000003f8000006fd465a290351d3c
+PKT Steve minecraft:set_entity_data 65e22b0a11011cff0b6138ff
+PKT Steve minecraft:update_mob_effect 8701e22b2202d8040e
+PKT Steve minecraft:sound 77f90e0700000004fffffe20000000343f8000003f8000004b970fd5e0db99e1
+T 305
+PKT Steve minecraft:update_mob_effect 8701e22b2202d80406
+PKT Steve minecraft:remove_mob_effect 4fe22b1e
+T 306
+PKT Steve minecraft:set_entity_data 65e22b0a11017bff
+T 897
+T 898
+T 899
+T 900
+T 901
+T 902
+T 903
+T 904
+T 905
+PKT Steve minecraft:remove_mob_effect 4fe22b22
+T 906
+PKT Steve minecraft:set_entity_data 65e22b0a1100ff
+T 907
+T 908
+T 909
+T 910
+T 911
+T 912
+T 913
+PKT Steve minecraft:set_entity_data 65e12b0614000e0b00ff
+T 914
+T 915
+T 916
+P Steve minecraft:player pos=0.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Alex minecraft:player pos=200.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:bad_omen/0/384 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=3 groups=0/5 health=0.0 raiders=-
+RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=3 groups=0/5 health=0.0 raiders=-

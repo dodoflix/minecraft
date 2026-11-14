@@ -8,6 +8,7 @@
 //! overrides (packets, levitation, advancement trigger).
 
 use crate::server::level::ServerLevel;
+use crate::util::java_hash_order::{JavaHashCapacity, registry_key_hash};
 use crate::world::effect::MobEffectExt;
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::entity::{FLAG_GLOWING, FLAG_INVISIBLE};
@@ -51,14 +52,25 @@ pub fn can_be_affected(
     }
 }
 
-/// `activeEffects.put` (a structural modification only for a new key).
-fn put_effect(
+/// `activeEffects.put` (a structural modification only for a new key). Vanilla's map is a `HashMap` keyed by holders, so
+/// the effects iterate in bucket order; a holder hashes like the oracle's registry-key hash (vanilla's identity hash gives
+/// every order a run can produce).
+pub(crate) fn put_effect(
     living: &mut LivingEntityData,
     effect: MobEffectInstance,
 ) -> Option<MobEffectInstance> {
     let previous = living.active_effects.insert(effect.effect, effect);
     if previous.is_none() {
         living.effects_mod_count = living.effects_mod_count.wrapping_add(1);
+        living
+            .active_effects_capacity
+            .grow_to_fit(living.active_effects.len());
+        let ordered = living
+            .active_effects_capacity
+            .iteration_order(std::mem::take(&mut living.active_effects), |(key, _)| {
+                registry_key_hash("mob_effect", &key.identifier())
+            });
+        living.active_effects = ordered.into_iter().collect();
     }
     previous
 }
@@ -149,8 +161,13 @@ pub fn remove_all_effects(entity: &mut dyn Entity, level: &mut ServerLevel) -> b
     if living.active_effects.is_empty() {
         return false;
     }
-    let removed: Vec<MobEffectInstance> = std::mem::take(&mut living.active_effects)
-        .into_values()
+    // `Maps.newHashMap(activeEffects)`: the copy is a smaller table, so it iterates in its own bucket order
+    let removed: Vec<MobEffectInstance> = JavaHashCapacity::of_copy(living.active_effects.len())
+        .iteration_order(std::mem::take(&mut living.active_effects), |(key, _)| {
+            registry_key_hash("mob_effect", &key.identifier())
+        })
+        .into_iter()
+        .map(|(_, effect)| effect)
         .collect();
     living.effects_mod_count = living.effects_mod_count.wrapping_add(1);
     entity.on_effects_removed(level, &removed);

@@ -1,0 +1,36 @@
+# The packets of the omen effects: Bad Omen outside a village stays, inside it is swapped for Raid Omen (effect packets, the apply sound and
+# the effect particle data of the player), Raid Omen ends with the raid created (remove packet) and a second player in a village without
+# a bed is not converted.
+level flat
+difficulty normal
+gamerule raids true
+entity_counter 5600
+level_seed 5601
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+spawn_player Alex survival 200.5 -60 6.5 0 0
+tick 300
+watch packets:Steve:update_mob_effect,remove_mob_effect,set_entity_data,sound packets:Alex:update_mob_effect,remove_mob_effect,set_entity_data,sound
+effect Alex minecraft:bad_omen 0 1000
+tick 3
+effect Steve minecraft:bad_omen 2 1000
+tick 1
+# the tick both omens exist: the order of the two effect particles of the player is only watched from the tick after
+watch off
+watch packets:Steve:update_mob_effect,remove_mob_effect,sound
+tick 1
+watch off
+watch packets:Steve:update_mob_effect,remove_mob_effect,set_entity_data,sound
+tick 1
+watch off
+tick 590
+watch packets:Steve:update_mob_effect,remove_mob_effect,set_entity_data,sound
+tick 20
+watch off
+dump player:Steve player:Alex raids
+tick 100
+dump raids

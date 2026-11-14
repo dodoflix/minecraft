@@ -61,3 +61,10 @@ pub(super) fn hypot(a: f32, b: f32) -> f32 {
         a.hypot(b) as f32
     }
 }
+
+/// `Vector3f.rotateY(angle)` of `(x, y, z)` (joml 1.10.9: `x' = x * cos + z * sin`, `z' = -x * sin + z * cos`).
+pub fn rotate_y(x: f32, y: f32, z: f32, angle: f32) -> (f32, f32, f32) {
+    let sin = sin(angle);
+    let cos = cos_from_sin(sin, angle);
+    (x * cos + z * sin, y, -x * sin + z * cos)
+}

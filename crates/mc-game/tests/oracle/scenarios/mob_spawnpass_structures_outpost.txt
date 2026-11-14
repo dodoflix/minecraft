@@ -8,6 +8,8 @@ spawn_player Steve survival 205.5 70 -300.5 0 0
 time 18000
 tick 60
 dump placed
+# the outpost's own golem (placed by generation: its entity id and random seed follow the chunk order) leaves before the attempts
+kill iron_golem#1
 note spawn attempts
 spawnat 2 monster 130 68 -319
 tick 1

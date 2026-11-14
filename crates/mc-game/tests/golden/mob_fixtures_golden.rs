@@ -222,7 +222,6 @@ fn mob_spawnpass_structures_outpost() {
 }
 
 #[test]
-#[ignore = "deviation: after the attempts the iron golem and pillagers of the outpost look around in vanilla (line 249: head=-50.837383 vs 0.0): their goal selector phase differs, the entity ids of the structure's own entities are not pinned"]
 fn mob_spawnpass_structures_outpost_attempts() {
     block_scenario::check("mob_spawnpass_structures_outpost");
 }

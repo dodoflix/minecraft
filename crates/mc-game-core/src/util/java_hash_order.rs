@@ -1,6 +1,17 @@
 //! Iteration order of a `java.util.HashMap`/`HashSet` (bucket index, then insertion order within the bucket), for
 //! vanilla code whose observable output iterates one.
 
+/// `hashCode()` of a registry holder as the vanilla oracle computes it (`tests/oracle/shadow.patch`): vanilla's identity hash
+/// gives every JVM run a different `HashMap` order, a hash of the registry key makes one order reproducible.
+pub fn registry_key_hash(registry: &str, id: &mc_core::ident::Identifier) -> i32 {
+    let registry =
+        mc_core::ident::Identifier::new("minecraft", registry).expect("valid registry id");
+    registry
+        .java_hash_code()
+        .wrapping_mul(31)
+        .wrapping_add(id.java_hash_code())
+}
+
 /// `HashMap.table.length` tracker: starts at 16, doubles when `size > 0.75 * capacity`, never shrinks.
 #[derive(Clone, Copy, Debug)]
 pub struct JavaHashCapacity(usize);
@@ -12,6 +23,11 @@ impl Default for JavaHashCapacity {
 }
 
 impl JavaHashCapacity {
+    /// The table of `new HashMap<>(other)` with `size` entries: `tableSizeFor((int) (size / 0.75F + 1.0F))`.
+    pub fn of_copy(size: usize) -> Self {
+        Self(((size as f32 / 0.75 + 1.0) as usize).next_power_of_two())
+    }
+
     /// Call after an insertion with the map's new `size`.
     pub fn grow_to_fit(&mut self, size: usize) {
         while size > self.0 / 4 * 3 {

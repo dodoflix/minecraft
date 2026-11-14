@@ -160,7 +160,7 @@ fn tick(wind_charge: &mut dyn AbstractWindCharge, level: &mut ServerLevel) {
 }
 
 /// `level.explode(this, null, calculator, x, y, z, radius, false, TRIGGER, GUST_EMITTER_SMALL, GUST_EMITTER_LARGE, WeightedList.of(), sound)`.
-fn explode_with(
+pub(crate) fn explode_with(
     wind_charge: &mut dyn Entity,
     level: &mut ServerLevel,
     calculator: &dyn ExplosionDamageCalculator,
