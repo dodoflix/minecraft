@@ -27,7 +27,7 @@ use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log,
 };
 use mc_game_core::world::container::{
-    BlockEntityContainer, CompoundContainer, Container, empty_stack, helper,
+    Container, empty_stack, helper, with_block_entity_containers,
 };
 use mc_game_core::world::entity::item::ItemEntity;
 use mc_game_core::world::entity::{Entity, EntityId};
@@ -736,41 +736,9 @@ pub fn with_container<R>(
     f: impl FnOnce(&mut ServerLevel, &mut dyn Container) -> R,
 ) -> Option<R> {
     match target {
-        ContainerTarget::BlockEntity(pos) => level.with_block_entity(*pos, |level, be| {
-            be.unpack_loot_table(level, None);
-            let result = f(level, be.as_container_mut()?);
-            // the `setChanged()` calls of the operation update the comparators beside the container
-            if be.container_pending() {
-                be.container_accessed(level);
-            }
-            Some(result)
-        })?,
+        ContainerTarget::BlockEntity(pos) => with_block_entity_containers(level, *pos, None, f),
         ContainerTarget::DoubleChest(first, second) => {
-            let mut a = level.take_block_entity(*first)?;
-            let Some(mut b) = level.take_block_entity(*second) else {
-                level.put_back_block_entity(*first, a);
-                return None;
-            };
-            a.unpack_loot_table(level, None);
-            b.unpack_loot_table(level, None);
-            if a.as_container().is_none() || b.as_container().is_none() {
-                level.put_back_block_entity(*first, a);
-                level.put_back_block_entity(*second, b);
-                return None;
-            }
-            let mut compound =
-                CompoundContainer::new(BlockEntityContainer(a), BlockEntityContainer(b));
-            let result = f(level, &mut compound);
-            level.put_back_block_entity(*first, compound.container1.0);
-            level.put_back_block_entity(*second, compound.container2.0);
-            for pos in [*first, *second] {
-                level.with_block_entity(pos, |level, be| {
-                    if be.container_pending() {
-                        be.container_accessed(level);
-                    }
-                });
-            }
-            Some(result)
+            with_block_entity_containers(level, *first, Some(*second), f)
         }
         ContainerTarget::Holder(pos, state) => {
             let behaviour = behaviour(state.block());

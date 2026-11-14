@@ -15,10 +15,6 @@ use mc_game::world::entity::spawn_placements::missing_predicates;
 /// Mob types without a Rust class (type, what is not implemented). Alphabetical.
 const EXPECTED_MISSING: &[(&str, &str)] = &[
     (
-        "minecraft:copper_golem",
-        "CopperGolem: chest item transport, weathering, statue form",
-    ),
-    (
         "minecraft:happy_ghast",
         "HappyGhast: rideable harness flyer",
     ),

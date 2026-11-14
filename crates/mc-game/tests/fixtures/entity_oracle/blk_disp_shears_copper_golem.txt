@@ -1,0 +1,26 @@
+C Set minecraft:overworld to 18000 tick(s)
+# c1 golem with a poppy antenna: sheared
+BE 0 -60 0 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:shears"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+N g1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,next_weather_age:-1L,weather_state:"unaffected"}
+E g1 minecraft:copper_golem pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.5,-58.5,0.5 delta=0.00421402721030964,0.2,-0.03468922465381878 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:poppy*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV packet at=1.5,-60.0,0.5 r=16.0 ex=0 id=minecraft:sound_entity
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+# c2 golem without an antenna item: nothing to shear
+BE 0 -60 6 {Items:[{Slot:0b,count:1,id:"minecraft:shears"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:6}
+N g2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5d,-60.0d,6.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,next_weather_age:-1L,weather_state:"unaffected"}
+E g1 minecraft:copper_golem pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.5,-58.5,0.5 delta=0.00421402721030964,0.2,-0.03468922465381878 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:poppy*1 age=0 pickup=10 health=5 owner=- thrower=-
+E g2 minecraft:copper_golem pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,6 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,6 data=5 global=0
+# c3 another item in the antenna slot is not shearable
+BE 0 -60 12 {Items:[{Slot:0b,count:1,id:"minecraft:shears"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:12}
+N g3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5d,-60.0d,12.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[],current_impulse_context_reset_grace_time:0,equipment:{saddle:{count:1,id:"minecraft:dandelion"}},fall_distance:0.0d,next_weather_age:-1L,weather_state:"unaffected"}
+E g1 minecraft:copper_golem pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.5,-58.5,0.5 delta=0.00421402721030964,0.2,-0.03468922465381878 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:poppy*1 age=0 pickup=10 health=5 owner=- thrower=-
+E g2 minecraft:copper_golem pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E g3 minecraft:copper_golem pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,12 data=5 global=0

@@ -1,14 +1,12 @@
 //! `net.minecraft.world.level.block.CopperGolemStatueBlock` and `WeatheringCopperGolemStatueBlock` (whose `randomTick`
 //! is dispatched by `weathering_copper::random_tick`); the statue's name lives in
-//! `block_entity::copper_golem_statue_block_entity`.
-use crate::world::block_entity::copper_golem_statue_block_entity::{
-    CopperGolemStatueBlockEntity, has_golem_factory,
-};
+//! `CopperGolemStatueBlockEntity`.
 use mc_core::phys::BlockHitResult;
 use mc_data::enums::CopperGolemStatueBlockPose;
 use mc_data::fluid::Fluid;
 use mc_data::{GameEvent, Item, SoundEvent};
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::CopperGolemStatueBlockEntity;
 use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::item::{
     BlockPlaceContext, InteractionHand, InteractionResult, ItemStack, hurt_and_break,
@@ -84,14 +82,15 @@ impl CopperGolemStatueBlock {
             update_pose(level, state, pos, player);
             return InteractionResult::SUCCESS;
         }
-        // Not implemented: without the `CopperGolem` entity nothing can be spawned, so the axe is left undamaged.
-        if weathering_copper::age(state.block()) == Some(WeatherState::Unaffected)
-            && has_golem_factory()
-        {
-            let golem = level
+        if weathering_copper::age(state.block()) == Some(WeatherState::Unaffected) {
+            let mut golem = level
                 .get_block_entity(pos)
                 .and_then(|be| be.as_any().downcast_ref::<CopperGolemStatueBlockEntity>())
                 .and_then(|be| be.remove_statue(&*level, state));
+            // `initCopperGolem` plays the spawn sound before the tool is damaged
+            if let Some(golem) = golem.as_mut() {
+                golem.copper_golem_play_spawn_sound(level);
+            }
             let mut used = stack.clone();
             hurt_and_break(&mut used, 1, level, player, hand.as_equipment_slot());
             player.set_item_in_hand(hand, used);

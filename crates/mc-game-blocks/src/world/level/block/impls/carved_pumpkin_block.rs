@@ -126,29 +126,25 @@ fn try_spawn_golem(level: &mut ServerLevel, top_pos: BlockPos) {
             return;
         }
     }
-    if let Some(mut copper) = COPPER_GOLEM_FULL.find(&*level, top_pos) {
-        // `copperGolem.spawn(weatherState)` is `setWeatherState` + `playSpawnSound`; the state goes in as its saved form.
-        // Not implemented: `CopperGolem.playSpawnSound` (the `CopperGolem` entity does not exist yet).
-        let mut tag = CompoundTag::new();
-        tag.put_string(
-            "weather_state",
-            match weather_state_of(
-                copper
-                    .get_block(0, 1, 0)
-                    .get_state(&*level)
-                    .expect("the copper block was matched")
-                    .block(),
-            ) {
-                WeatherState::Unaffected => "unaffected",
-                WeatherState::Exposed => "exposed",
-                WeatherState::Weathered => "weathered",
-                WeatherState::Oxidized => "oxidized",
-            },
+    if let Some(mut copper) = COPPER_GOLEM_FULL.find(&*level, top_pos)
+        && let Some(golem) = create_golem(level, EntityType::COPPER_GOLEM, None)
+    {
+        let weather_state = weather_state_of(
+            copper
+                .get_block(0, 1, 0)
+                .get_state(&*level)
+                .expect("the copper block was matched")
+                .block(),
         );
-        if let Some(golem) = create_golem(level, EntityType::COPPER_GOLEM, Some(tag)) {
-            let spawn_pos = copper.get_block(0, 0, 0).get_pos();
-            pattern_blocks::spawn_golem_in_world(level, &mut copper, golem, spawn_pos);
-            replace_copper_block_with_chest(level, &mut copper);
+        let spawn_pos = copper.get_block(0, 0, 0).get_pos();
+        let id = pattern_blocks::spawn_golem_in_world(level, &mut copper, golem, spawn_pos);
+        replace_copper_block_with_chest(level, &mut copper);
+        // `copperGolem.spawn(weatherState)`: `setWeatherState`, then `playSpawnSound`
+        if let Some(id) = id {
+            level.with_entity(id, |level, golem| {
+                golem.copper_golem_set_weather_state(weather_state);
+                golem.copper_golem_play_spawn_sound(level);
+            });
         }
     }
 }

@@ -88,7 +88,7 @@ impl ContainerOpenersCounter {
     }
 
     /// `getEntitiesWithContainerOpen(level, pos)` (the entities that are `ContainerUser`s, not spectating and own the
-    /// container).
+    /// container: players through the host, the other users by their own `hasContainerOpen`).
     pub fn get_entities_with_container_open(
         &self,
         host: &dyn OpenersHost,
@@ -98,7 +98,13 @@ impl ContainerOpenersCounter {
         let range = self.max_interaction_range + 4.0;
         let search_box = AABB::from_block_pos(&pos).inflate_scalar(range);
         level.get_entities(None, &search_box, |entity| {
-            entity.is_player() && !entity.is_spectator() && host.is_own_container(entity, pos)
+            if entity.is_spectator() {
+                false
+            } else if entity.is_player() {
+                host.is_own_container(entity, pos)
+            } else {
+                entity.container_user_has_open(level, pos).unwrap_or(false)
+            }
         })
     }
 
@@ -151,7 +157,7 @@ impl ContainerOpenersCounter {
     }
 }
 
-/// `ContainerUser.getContainerInteractionRange()` (`Player.blockInteractionRange()`).
+/// `ContainerUser.getContainerInteractionRange()` (`Player.blockInteractionRange()`, `CopperGolem`: 3).
 pub fn container_interaction_range(entity: &dyn Entity) -> Option<f64> {
     entity
         .as_any()
@@ -161,6 +167,7 @@ pub fn container_interaction_range(entity: &dyn Entity) -> Option<f64> {
                 .living
                 .get_attribute_value(mc_data::Attribute::BLOCK_INTERACTION_RANGE)
         })
+        .or_else(|| entity.container_user_interaction_range())
 }
 
 fn schedule_recheck(level: &mut ServerLevel, pos: BlockPos, state: BlockState) {

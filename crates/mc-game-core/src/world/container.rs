@@ -294,6 +294,52 @@ impl<A: Container, B: Container> Container for CompoundContainer<A, B> {
     }
 }
 
+/// Runs `f` with the container of the block entity at `first` or, with `second`, the `CompoundContainer(first, second)` of
+/// a double chest; the owners are out of the level meanwhile. Their loot tables unpack first (vanilla unpacks inside every
+/// accessor) and the `setChanged()` calls of the operation update the comparators beside them afterwards. `None` when an
+/// owner is gone or is no container.
+pub fn with_block_entity_containers<R>(
+    level: &mut ServerLevel,
+    first: mc_core::pos::BlockPos,
+    second: Option<mc_core::pos::BlockPos>,
+    f: impl FnOnce(&mut ServerLevel, &mut dyn Container) -> R,
+) -> Option<R> {
+    let Some(second) = second else {
+        return level.with_block_entity(first, |level, be| {
+            be.unpack_loot_table(level, None);
+            let result = f(level, be.as_container_mut()?);
+            if be.container_pending() {
+                be.container_accessed(level);
+            }
+            Some(result)
+        })?;
+    };
+    let mut a = level.take_block_entity(first)?;
+    let Some(mut b) = level.take_block_entity(second) else {
+        level.put_back_block_entity(first, a);
+        return None;
+    };
+    a.unpack_loot_table(level, None);
+    b.unpack_loot_table(level, None);
+    if a.as_container().is_none() || b.as_container().is_none() {
+        level.put_back_block_entity(first, a);
+        level.put_back_block_entity(second, b);
+        return None;
+    }
+    let mut compound = CompoundContainer::new(BlockEntityContainer(a), BlockEntityContainer(b));
+    let result = f(level, &mut compound);
+    level.put_back_block_entity(first, compound.container1.0);
+    level.put_back_block_entity(second, compound.container2.0);
+    for pos in [first, second] {
+        level.with_block_entity(pos, |level, be| {
+            if be.container_pending() {
+                be.container_accessed(level);
+            }
+        });
+    }
+    Some(result)
+}
+
 /// `AbstractContainerMenu.getRedstoneSignalFromContainer(container)`.
 pub fn get_redstone_signal_from_container(container: Option<&dyn Container>) -> i32 {
     let Some(container) = container else { return 0 };

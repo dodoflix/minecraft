@@ -1,0 +1,33 @@
+# Copper golem transport: it takes up to 16 items from the first stack of a copper chest, carries them to a chest that holds the
+# same item or nothing, opens and closes the chests while it works (open sounds, container events, the 60 tick interaction)
+# and rests with a cooldown when no chest is left to visit.
+level flat
+preload 4
+difficulty normal
+entity_counter 12100
+level_seed 12101
+time 6000
+gamerule mob_drops false
+block 0 -60 0 minecraft:copper_chest[facing=south,type=single]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:20},{Slot:1b,id:"minecraft:apple",count:3}]}
+block 6 -60 0 minecraft:chest[facing=south,type=single]
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:60}]}
+block 12 -60 0 minecraft:trapped_chest[facing=south,type=single]
+spawn_player Steve survival 3.5 -60 8.5 0 0
+tick 2
+mobspawn G minecraft:copper_golem 3.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Brain:{memories:{"minecraft:transport_items_cooldown_ticks":{value:5}}}}
+entity_seed G 12102
+tick 1
+dump mob:G brain:G nbt:G be:0,-60,0 be:6,-60,0 be:12,-60,0
+tick 40
+dump mob:G brain:G be:0,-60,0 be:6,-60,0 events
+tick 40
+dump mob:G brain:G be:0,-60,0 be:6,-60,0 events
+tick 40
+dump mob:G brain:G be:0,-60,0 be:6,-60,0 events
+tick 80
+dump mob:G brain:G be:0,-60,0 be:6,-60,0 events
+tick 120
+dump mob:G brain:G be:0,-60,0 be:6,-60,0 be:12,-60,0 nbt:G events
+tick 200
+dump mob:G brain:G be:0,-60,0 be:6,-60,0 be:12,-60,0 events

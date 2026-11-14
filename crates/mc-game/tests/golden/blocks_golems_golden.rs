@@ -2,36 +2,24 @@
 //! `SculkBlock` experience: scenarios `tests/oracle/scenarios/blk_*.txt` replayed on the real vanilla level
 //! (`scripts/block-oracle.sh NAME`) vs our ticking level (fixtures `tests/fixtures/entity_oracle/NAME.txt`).
 //!
-//! The wither and the copper golem have no behaviour yet (they are inert placeholders), so for them only what the block
-//! code decides is compared: the entity exists at the right position and rotation, and the copper golem's weather state.
-//! Not implemented: the wither and copper golem entity behaviour (health, motion, sounds, effects); those fields are not compared.
+//! The wither has no behaviour yet (it is an inert placeholder), so for it only what the block code decides is compared:
+//! the entity exists at the right position and rotation.
+//! Not implemented: the wither entity behaviour (health, motion, sounds, effects); those fields are not compared.
 
 use crate::common;
 use crate::common::block_scenario::run_scenario;
 use crate::common::entity_oracle::{Fixture, Options, compare};
 
-/// `E wither#1 ..` / `E copper_golem#1 ..` reduced to name, type, `pos` and `rot`; `N copper_golem#1 ..` to its
-/// `weather_state`; the spawn sound of the copper golem (`playSpawnSound`) dropped.
+/// `E wither#1 ..` reduced to name, type, `pos` and `rot`.
 fn normalize(line: &str) -> Option<String> {
-    if line.contains("event=minecraft:entity.copper_golem.spawn") {
-        return None;
-    }
-    let placeholder = |name: &str| name.starts_with("wither#") || name.starts_with("copper_golem#");
     let mut tokens = line.split(' ');
     match (tokens.next(), tokens.next()) {
-        (Some("E"), Some(name)) if placeholder(name) => Some(
+        (Some("E"), Some(name)) if name.starts_with("wither#") => Some(
             line.split(' ')
                 .filter(|t| !t.contains('=') || t.starts_with("pos=") || t.starts_with("rot="))
                 .collect::<Vec<_>>()
                 .join(" "),
         ),
-        (Some("N"), Some(name)) if placeholder(name) => {
-            let state = line
-                .split_once("weather_state:\"")
-                .and_then(|(_, rest)| rest.split_once('"'))
-                .map_or("-", |(state, _)| state);
-            Some(format!("N {name} weather_state={state}"))
-        }
         _ => Some(line.to_string()),
     }
 }
@@ -57,7 +45,7 @@ fn pumpkin_golems_match_vanilla() {
 
 #[test]
 fn golem_copper_matches_vanilla() {
-    check_placeholders("blk_golem_copper");
+    common::block_scenario::check("blk_golem_copper");
 }
 
 #[test]

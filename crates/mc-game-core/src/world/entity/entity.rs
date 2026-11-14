@@ -3547,7 +3547,7 @@ pub trait Entity: Any {
     }
     /// `Sheep.setColor(color)`; ignored by every other entity.
     fn set_sheep_color(&mut self, _color: mc_protocol::components::DyeColor) {}
-    /// `this instanceof Shearable` (`Sheep`, `MushroomCow`, `SnowGolem`, `Bogged`).
+    /// `this instanceof Shearable` (`Sheep`, `MushroomCow`, `SnowGolem`, `CopperGolem`, `Bogged`).
     fn is_shearable(&self) -> bool {
         false
     }
@@ -4186,6 +4186,23 @@ pub trait Entity: Any {
     fn is_panicking(&self) -> bool {
         self.mob().is_some_and(|m| m.kind.is_pathfinder())
             && super::mob::pathfinder::is_panicking(self.as_dyn())
+    }
+    /// `ContainerUser.hasContainerOpen(counter, pos)` of the container users that are not players (`CopperGolem`);
+    /// `None` for every entity that is not such a user (players are asked through the counter's host).
+    fn container_user_has_open(&self, _level: &ServerLevel, _pos: BlockPos) -> Option<bool> {
+        None
+    }
+    /// `ContainerUser.getContainerInteractionRange()` of the container users that are not players.
+    fn container_user_interaction_range(&self) -> Option<f64> {
+        None
+    }
+    /// `CopperGolem.playSpawnSound()` (ignored by every other entity).
+    fn copper_golem_play_spawn_sound(&mut self, _level: &mut ServerLevel) {}
+    /// `CopperGolem.setWeatherState(state)` (ignored by every other entity).
+    fn copper_golem_set_weather_state(
+        &mut self,
+        _state: crate::world::level::block::weathering_copper::WeatherState,
+    ) {
     }
     /// `RangedAttackMob.performRangedAttack(target, power)` (default: not a ranged-attack mob). `target` is in the level.
     fn perform_ranged_attack(&mut self, _level: &mut ServerLevel, _target: EntityId, _power: f32) {}

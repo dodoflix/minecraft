@@ -1,0 +1,181 @@
+C Set minecraft:overworld to 6000 tick(s)
+C Game rule mob_drops is now set to false
+E G minecraft:copper_golem pos=3.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=visited_block_positions:(minecraft:overworld@0,-60,0):6000 equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:12.0;minecraft:movement_speed:0.20000000298023224;minecraft:step_height:1.0 weather=unaffected state=idle wage=511206 chest=-
+BRAIN G acts=core;idle
+BM G type=visited_block_positions value=(minecraft:overworld@0,-60,0) ttl=6000
+BR G TransportItemsBetweenContainers
+N G {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{minecraft:visited_block_positions:{ttl:6000L,value:[{dimension:"minecraft:overworld",pos:[I;0,-60,0]}]}}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[3.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,next_weather_age:511206L,weather_state:"unaffected"}
+BE 0 -60 0 {Items:[{Slot:0b,count:20,id:"minecraft:iron_ingot"},{Slot:1b,count:3,id:"minecraft:apple"}],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+BE 6 -60 0 {Items:[{Slot:0b,count:60,id:"minecraft:iron_ingot"}],components:{},id:"minecraft:chest",x:6,y:-60,z:0}
+BE 12 -60 0 {Items:[],components:{},id:"minecraft:trapped_chest",x:12,y:-60,z:0}
+E G minecraft:copper_golem pos=1.9671338341951172,-60.0,0.9808507233887014 delta=0.0,-0.0784000015258789,0.0 rot=135.82858,11.442529 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=108.146576 body=135.82858 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=- acts=core;idle mem=cant_reach_walk_target_since:5:inf;look_target:pos(0,-60,0):inf;mobs:(Steve):inf;visible_mobs:(Steve):inf;visited_block_positions:(minecraft:overworld@0,-60,0):5960 equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:12.0;minecraft:movement_speed:0.20000000298023224;minecraft:step_height:1.0 weather=unaffected state=getting_item wage=511206 chest=0,-60,0
+BRAIN G acts=core;idle
+BM G type=cant_reach_walk_target_since value=5 ttl=inf
+BM G type=look_target value=pos(0,-60,0) ttl=inf
+BM G type=mobs value=(Steve) ttl=inf
+BM G type=visible_mobs value=(Steve) ttl=inf
+BM G type=visited_block_positions value=(minecraft:overworld@0,-60,0) ttl=5960
+BR G TransportItemsBetweenContainers
+BR G LookAtTargetSink
+BE 0 -60 0 {Items:[{Slot:0b,count:20,id:"minecraft:iron_ingot"},{Slot:1b,count:3,id:"minecraft:apple"}],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+BE 6 -60 0 {Items:[{Slot:0b,count:60,id:"minecraft:iron_ingot"}],components:{},id:"minecraft:chest",x:6,y:-60,z:0}
+EV sound at=2.274118212628957,-60.0,1.2968028217664316 r=16.0 ex=0 event=minecraft:entity.copper_golem.step source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_chest.open source=block vol=0.5 pitch=0.95322675
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV sound at=1.9671338341951172,-60.0,0.9808507233887014 r=16.0 ex=0 event=minecraft:entity.copper_golem.no_item_get source=neutral vol=1.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+E G minecraft:copper_golem pos=1.9671338341951172,-60.0,0.9808507233887014 delta=0.0,-0.0784000015258789,0.0 rot=135.82858,11.442529 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=108.146576 body=108.146576 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=- nodes=- goals=- tgoals=- acts=core;idle mem=cant_reach_walk_target_since:5:inf;look_target:pos(0,-60,0):inf;mobs:(Steve):inf;visible_mobs:(Steve):inf;visited_block_positions:(minecraft:overworld@0,-60,0):5920 equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:12.0;minecraft:movement_speed:0.20000000298023224;minecraft:step_height:1.0 weather=unaffected state=getting_item wage=511206 chest=0,-60,0
+BRAIN G acts=core;idle
+BM G type=cant_reach_walk_target_since value=5 ttl=inf
+BM G type=look_target value=pos(0,-60,0) ttl=inf
+BM G type=mobs value=(Steve) ttl=inf
+BM G type=visible_mobs value=(Steve) ttl=inf
+BM G type=visited_block_positions value=(minecraft:overworld@0,-60,0) ttl=5920
+BR G TransportItemsBetweenContainers
+BR G LookAtTargetSink
+BE 0 -60 0 {Items:[{Slot:0b,count:20,id:"minecraft:iron_ingot"},{Slot:1b,count:3,id:"minecraft:apple"}],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+BE 6 -60 0 {Items:[{Slot:0b,count:60,id:"minecraft:iron_ingot"}],components:{},id:"minecraft:chest",x:6,y:-60,z:0}
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+E G minecraft:copper_golem pos=4.343917339362561,-60.0,0.524661067540141 delta=0.048076081175544016,-0.0784000015258789,-4.4805975718330363E-4 rot=268.82675,7.9270425 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=269.34946 body=268.82675 nav=moving stuck=0 navspeed=1.0 ntarget=6,-60,0 path=4/5/0/6,-60,0 nodes=1,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=cant_reach_walk_target_since:5:inf;look_target:pos(6,-60,0):inf;mobs:(Steve):inf;path:path(4;5):inf;visible_mobs:(Steve):inf;visited_block_positions:(minecraft:overworld@6,-60,0):5969;walk_target:walk(pos(6,-60,0);1.0;0):inf equip=mainhand:minecraft:iron_ingot*16 attrs=minecraft:follow_range:16.0;minecraft:max_health:12.0;minecraft:movement_speed:0.20000000298023224;minecraft:step_height:1.0 weather=unaffected state=idle wage=511206 chest=-
+BRAIN G acts=core;idle
+BM G type=cant_reach_walk_target_since value=5 ttl=inf
+BM G type=look_target value=pos(6,-60,0) ttl=inf
+BM G type=mobs value=(Steve) ttl=inf
+BM G type=path value=path(4;5) ttl=inf
+BM G type=visible_mobs value=(Steve) ttl=inf
+BM G type=visited_block_positions value=(minecraft:overworld@6,-60,0) ttl=5969
+BM G type=walk_target value=walk(pos(6,-60,0);1.0;0) ttl=inf
+BR G TransportItemsBetweenContainers
+BR G LookAtTargetSink
+BR G MoveToTargetSink
+BE 0 -60 0 {Items:[{Slot:0b,count:4,id:"minecraft:iron_ingot"},{Slot:1b,count:3,id:"minecraft:apple"}],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+BE 6 -60 0 {Items:[{Slot:0b,count:60,id:"minecraft:iron_ingot"}],components:{},id:"minecraft:chest",x:6,y:-60,z:0}
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_chest.close source=block vol=0.5 pitch=0.9065968
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=0
+EV sound at=3.1156010639841556,-60.0,0.6162573362692975 r=16.0 ex=0 event=minecraft:entity.copper_golem.step source=neutral vol=1.0 pitch=1.0
+E G minecraft:copper_golem pos=4.448207645641949,-60.0,0.45388037736108544 delta=-0.04767710689820435,-0.0784000015258789,0.0010109846288332883 rot=87.347626,4.427739 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=93.12872 body=87.347626 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,0 path=2/5/0/0,-60,0 nodes=5,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=cant_reach_walk_target_since:5:inf;look_target:pos(0,-60,0):inf;mobs:(Steve):inf;path:path(2;5):inf;visible_mobs:(Steve):inf;visited_block_positions:(minecraft:overworld@0,-60,0):5989;walk_target:walk(pos(0,-60,0);1.0;0):inf equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:12.0;minecraft:movement_speed:0.20000000298023224;minecraft:step_height:1.0 weather=unaffected state=idle wage=511206 chest=-
+BRAIN G acts=core;idle
+BM G type=cant_reach_walk_target_since value=5 ttl=inf
+BM G type=look_target value=pos(0,-60,0) ttl=inf
+BM G type=mobs value=(Steve) ttl=inf
+BM G type=path value=path(2;5) ttl=inf
+BM G type=visible_mobs value=(Steve) ttl=inf
+BM G type=visited_block_positions value=(minecraft:overworld@0,-60,0) ttl=5989
+BM G type=walk_target value=walk(pos(0,-60,0);1.0;0) ttl=inf
+BR G TransportItemsBetweenContainers
+BR G LookAtTargetSink
+BR G MoveToTargetSink
+BE 0 -60 0 {Items:[{Slot:0b,count:4,id:"minecraft:iron_ingot"},{Slot:1b,count:3,id:"minecraft:apple"}],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+BE 6 -60 0 {Items:[{Slot:0b,count:64,id:"minecraft:iron_ingot"},{Slot:1b,count:12,id:"minecraft:iron_ingot"}],components:{},id:"minecraft:chest",x:6,y:-60,z:0}
+EV sound at=4.784292049871951,-60.0,0.519944520491556 r=16.0 ex=0 event=minecraft:entity.copper_golem.step source=neutral vol=1.0 pitch=1.0
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.open source=block vol=0.5 pitch=0.9917424
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV sound at=5.048502492847001,-60.0,0.5163210486764624 r=16.0 ex=0 event=minecraft:entity.copper_golem.item_drop source=neutral vol=1.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.close source=block vol=0.5 pitch=0.9549621
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=0
+E G minecraft:copper_golem pos=4.343178623894759,-60.0,0.520809368697855 delta=0.04809208225860944,-0.0784000015258789,-3.78973997414131E-4 rot=269.01056,7.9245105 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=269.4512 body=269.01056 nav=moving stuck=0 navspeed=1.0 ntarget=6,-60,0 path=4/5/0/6,-60,0 nodes=1,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=cant_reach_walk_target_since:5:inf;look_target:pos(6,-60,0):inf;mobs:(Steve):inf;path:path(4;5):inf;visible_mobs:(Steve):inf;visited_block_positions:(minecraft:overworld@6,-60,0):5969;walk_target:walk(pos(6,-60,0);1.0;0):inf equip=mainhand:minecraft:iron_ingot*4 attrs=minecraft:follow_range:16.0;minecraft:max_health:12.0;minecraft:movement_speed:0.20000000298023224;minecraft:step_height:1.0 weather=unaffected state=idle wage=511206 chest=-
+BRAIN G acts=core;idle
+BM G type=cant_reach_walk_target_since value=5 ttl=inf
+BM G type=look_target value=pos(6,-60,0) ttl=inf
+BM G type=mobs value=(Steve) ttl=inf
+BM G type=path value=path(4;5) ttl=inf
+BM G type=visible_mobs value=(Steve) ttl=inf
+BM G type=visited_block_positions value=(minecraft:overworld@6,-60,0) ttl=5969
+BM G type=walk_target value=walk(pos(6,-60,0);1.0;0) ttl=inf
+BR G TransportItemsBetweenContainers
+BR G LookAtTargetSink
+BR G MoveToTargetSink
+BE 0 -60 0 {Items:[{Slot:1b,count:3,id:"minecraft:apple"}],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+BE 6 -60 0 {Items:[{Slot:0b,count:64,id:"minecraft:iron_ingot"},{Slot:1b,count:12,id:"minecraft:iron_ingot"}],components:{},id:"minecraft:chest",x:6,y:-60,z:0}
+BE 12 -60 0 {Items:[],components:{},id:"minecraft:trapped_chest",x:12,y:-60,z:0}
+N G {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{minecraft:visited_block_positions:{ttl:5969L,value:[{dimension:"minecraft:overworld",pos:[I;6,-60,0]}]}}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.04809208225860944d,-0.0784000015258789d,-3.78973997414131E-4d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[4.343178623894759d,-60.0d,0.520809368697855d],Rotation:[269.01056f,7.9245105f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{mainhand:2.0f},equipment:{mainhand:{count:4,id:"minecraft:iron_ingot"}},fall_distance:0.0d,next_weather_age:511206L,weather_state:"unaffected"}
+EV sound at=3.745146916713855,-60.0,0.4695112380065841 r=16.0 ex=0 event=minecraft:entity.copper_golem.step source=neutral vol=1.0 pitch=1.0
+EV sound at=2.071705757195829,-60.0,0.48706935644852706 r=16.0 ex=0 event=minecraft:entity.copper_golem.step source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_chest.open source=block vol=0.5 pitch=0.929469
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV sound at=1.9836195008803348,-60.0,0.4879743279111634 r=16.0 ex=0 event=minecraft:entity.copper_golem.no_item_get source=neutral vol=1.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_chest.close source=block vol=0.5 pitch=0.9186521
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=0
+EV sound at=3.550733003948989,-60.0,0.5325414465715641 r=16.0 ex=0 event=minecraft:entity.copper_golem.step source=neutral vol=1.0 pitch=1.0
+E G minecraft:copper_golem pos=4.343028344276558,-60.0,0.5206220135598102 delta=0.04809235164426382,-0.0784000015258789,-3.747868682591451E-4 rot=269.01962,7.9239917 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=269.4562 body=269.01962 nav=moving stuck=0 navspeed=1.0 ntarget=6,-60,0 path=4/5/0/6,-60,0 nodes=1,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=cant_reach_walk_target_since:5:inf;look_target:pos(6,-60,0):inf;mobs:(Steve):inf;path:path(4;5):inf;visible_mobs:(Steve):inf;visited_block_positions:(minecraft:overworld@6,-60,0):5969;walk_target:walk(pos(6,-60,0);1.0;0):inf equip=mainhand:minecraft:apple*3 attrs=minecraft:follow_range:16.0;minecraft:max_health:12.0;minecraft:movement_speed:0.20000000298023224;minecraft:step_height:1.0 weather=unaffected state=idle wage=511206 chest=-
+BRAIN G acts=core;idle
+BM G type=cant_reach_walk_target_since value=5 ttl=inf
+BM G type=look_target value=pos(6,-60,0) ttl=inf
+BM G type=mobs value=(Steve) ttl=inf
+BM G type=path value=path(4;5) ttl=inf
+BM G type=visible_mobs value=(Steve) ttl=inf
+BM G type=visited_block_positions value=(minecraft:overworld@6,-60,0) ttl=5969
+BM G type=walk_target value=walk(pos(6,-60,0);1.0;0) ttl=inf
+BR G TransportItemsBetweenContainers
+BR G LookAtTargetSink
+BR G MoveToTargetSink
+BE 0 -60 0 {Items:[],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+BE 6 -60 0 {Items:[{Slot:0b,count:64,id:"minecraft:iron_ingot"},{Slot:1b,count:16,id:"minecraft:iron_ingot"}],components:{},id:"minecraft:chest",x:6,y:-60,z:0}
+BE 12 -60 0 {Items:[],components:{},id:"minecraft:trapped_chest",x:12,y:-60,z:0}
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.open source=block vol=0.5 pitch=0.9069663
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV sound at=5.047855237920054,-60.0,0.513772833195286 r=16.0 ex=0 event=minecraft:entity.copper_golem.item_drop source=neutral vol=1.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=1
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.close source=block vol=0.5 pitch=0.93887466
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:chest b0=1 b1=0
+EV sound at=4.945105195418438,-60.0,0.4454352233534728 r=16.0 ex=0 event=minecraft:entity.copper_golem.step source=neutral vol=1.0 pitch=1.0
+EV sound at=3.216490562812644,-60.0,0.4750324940357877 r=16.0 ex=0 event=minecraft:entity.copper_golem.step source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_chest.open source=block vol=0.5 pitch=0.9790827
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV sound at=1.983385251229159,-60.0,0.4874293482694357 r=16.0 ex=0 event=minecraft:entity.copper_golem.no_item_get source=neutral vol=1.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=1
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_chest.close source=block vol=0.5 pitch=0.98281664
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:copper_chest b0=1 b1=0
+EV sound at=2.323800573032103,-60.0,0.5584799832717685 r=16.0 ex=0 event=minecraft:entity.copper_golem.step source=neutral vol=1.0 pitch=1.0
+EV sound at=3.990803492299261,-60.0,0.5245328266354364 r=16.0 ex=0 event=minecraft:entity.copper_golem.step source=neutral vol=1.0 pitch=1.0

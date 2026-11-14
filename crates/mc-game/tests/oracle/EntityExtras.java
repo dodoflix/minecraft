@@ -8,6 +8,7 @@ import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.animal.dolphin.Dolphin;
+import net.minecraft.world.entity.animal.golem.CopperGolem;
 import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.entity.animal.fish.Pufferfish;
 import net.minecraft.world.entity.animal.fish.Salmon;
@@ -118,6 +119,14 @@ final class EntityExtras {
          out.add("dupcd", EntityOracleDriver.priv(e, Allay.class, "duplicationCooldown"));
          var jukebox = (net.minecraft.core.BlockPos)EntityOracleDriver.priv(e, Allay.class, "jukeboxPos");
          out.add("jukebox", jukebox == null ? "-" : jukebox.getX() + "," + jukebox.getY() + "," + jukebox.getZ());
+      }));
+      ALL.add(new Extra(25, CopperGolem.class, (d, e, out) -> {
+         CopperGolem g = (CopperGolem)e;
+         out.add("weather", g.getWeatherState().getSerializedName());
+         out.add("state", g.getState().getSerializedName());
+         out.add("wage", EntityOracleDriver.priv(e, CopperGolem.class, "nextWeatheringTick"));
+         var chest = (net.minecraft.core.BlockPos)EntityOracleDriver.priv(e, CopperGolem.class, "openedChestPos");
+         out.add("chest", chest == null ? "-" : chest.getX() + "," + chest.getY() + "," + chest.getZ());
       }));
       ALL.add(new Extra(25, Goat.class, (d, e, out) -> {
          Goat g = (Goat)e;

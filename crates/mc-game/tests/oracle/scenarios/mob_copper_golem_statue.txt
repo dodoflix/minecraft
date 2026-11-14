@@ -1,0 +1,21 @@
+# A fully oxidized named copper golem on air becomes an oxidized statue (random pose, facing its rotation, the name kept in the
+# block entity, the preserved equipment dropped, the become-statue sound) and is revived by an axe on an unaffected statue.
+level flat
+preload 4
+difficulty normal
+entity_counter 12200
+level_seed 12201
+time 6000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 6.5 0 0
+tick 2
+mobspawn A minecraft:copper_golem 2.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b,CustomName:'"Oxi"',weather_state:"oxidized",next_weather_age:0L,equipment:{saddle:{id:"minecraft:poppy",count:1},mainhand:{id:"minecraft:iron_ingot",count:5}}}
+mobspawn B minecraft:copper_golem 6.5 -60 0.5 200 0 nofinalize {PersistenceRequired:1b,NoAI:1b,weather_state:"oxidized",next_weather_age:0L}
+entity_seed A 12202
+entity_seed B 12203
+tick 1
+dump mobs nbt:A nbt:B
+tick 200
+dump mobs xentities blocks:1,-60,-1,8,-60,2 be:2,-60,0 be:6,-60,0 events
+tick 400
+dump mobs xentities blocks:1,-60,-1,8,-60,2 be:2,-60,0 be:6,-60,0 events

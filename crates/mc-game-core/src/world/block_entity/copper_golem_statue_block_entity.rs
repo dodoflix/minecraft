@@ -1,20 +1,19 @@
 //! `CopperGolemStatueBlockEntity`: keeps only the golem's custom name (as a component) and converts back to a golem.
 
+use super::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed,
+};
+use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
+use crate::world::entity::factory::{self, EntitySpawnRequest};
+use crate::world::item::ItemStack;
+use crate::world::level::block::helpers;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::enums::{CopperGolemStatueBlockPose, EntitySpawnReason};
 use mc_data::{BlockEntityType, DataComponentType, EntityType, props};
-use mc_game_core::block_entity_base;
-use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::block_entity::{
-    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed,
-};
-use mc_game_core::world::entity::Entity;
-use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
-use mc_game_core::world::item::ItemStack;
-use mc_game_core::world::level::block::helpers;
 use mc_protocol::components::map::DataComponentGetter as _;
 use mc_protocol::components::{CUSTOM_NAME, DataComponentMap, Value};
 use mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket;
@@ -22,11 +21,6 @@ use mc_text::Component;
 
 pub struct CopperGolemStatueBlockEntity {
     base: BlockEntityData,
-}
-
-/// Whether `removeStatue` can create the golem: the `CopperGolem` entity registers its factory when it exists.
-pub fn has_golem_factory() -> bool {
-    factory::has_factory(EntityType::COPPER_GOLEM)
 }
 
 impl CopperGolemStatueBlockEntity {
@@ -37,7 +31,6 @@ impl CopperGolemStatueBlockEntity {
     }
 
     /// `createStatue(copperGolem)`: stores the golem's custom name, then `BlockEntity.setChanged()`.
-    /// Not implemented: vanilla's caller is `CopperGolem.turnToStatue`; the `CopperGolem` entity does not exist yet.
     pub fn create_statue(&mut self, level: &mut ServerLevel, custom_name: Option<Component>) {
         let mut builder = DataComponentMap::builder().add_all(&self.base.components);
         builder.set_value(DataComponentType::CUSTOM_NAME, custom_name.map(Value::new));
@@ -45,13 +38,10 @@ impl CopperGolemStatueBlockEntity {
         set_changed(level, self.base.pos, self.base.block_state);
     }
 
-    /// `removeStatue(state)`: the golem the statue turns back into (`None` when the entity cannot be created).
+    /// `removeStatue(state)`: the golem the statue turns back into (`None` when the entity cannot be created). The
+    /// caller plays `initCopperGolem`'s `playSpawnSound` through `Entity::copper_golem_play_spawn_sound`, which needs the
+    /// mutable level this block entity borrows from.
     pub fn remove_statue(&self, level: &ServerLevel, state: BlockState) -> Option<Box<dyn Entity>> {
-        // Not implemented: the `CopperGolem` entity and its `playSpawnSound`. Until its factory is registered `create`
-        // would hand out a `PlainEntity` that is not a golem.
-        if !has_golem_factory() {
-            return None;
-        }
         let mut golem = factory::create(
             EntityType::COPPER_GOLEM,
             level,

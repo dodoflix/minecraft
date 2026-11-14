@@ -1,0 +1,37 @@
+# Two copper golems share a copper chest and a double chest: the second queues while the first has a chest open, items that do
+# not match the destination send the golem on to the next chest, a blocked chest (solid block above) is skipped.
+level flat
+preload 4
+difficulty normal
+entity_counter 12300
+level_seed 12301
+time 6000
+gamerule mob_drops false
+block 0 -60 0 minecraft:copper_chest[facing=south,type=single]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:gold_ingot",count:40},{Slot:1b,id:"minecraft:iron_ingot",count:5}]}
+block 0 -60 4 minecraft:copper_chest[facing=south,type=single]
+be_nbt 0 -60 4 {Items:[{Slot:3b,id:"minecraft:iron_ingot",count:50}]}
+block 5 -60 0 minecraft:chest[facing=south,type=right]
+block 6 -60 0 minecraft:chest[facing=south,type=left]
+be_nbt 5 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:3}]}
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:3}]}
+block 11 -60 0 minecraft:chest[facing=south,type=single]
+block 11 -59 0 minecraft:stone
+spawn_player Steve survival 3.5 -60 8.5 0 0
+tick 2
+mobspawn G1 minecraft:copper_golem 2.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Brain:{memories:{"minecraft:transport_items_cooldown_ticks":{value:3}}}}
+mobspawn G2 minecraft:copper_golem 4.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Brain:{memories:{"minecraft:transport_items_cooldown_ticks":{value:3}}}}
+entity_seed G1 12302
+entity_seed G2 12303
+tick 5
+dump mob:G1 mob:G2 brain:G1 brain:G2
+tick 60
+dump mob:G1 mob:G2 brain:G1 brain:G2 be:0,-60,0 be:5,-60,0 be:6,-60,0 events
+tick 60
+dump mob:G1 mob:G2 brain:G1 brain:G2 be:0,-60,0 be:5,-60,0 be:6,-60,0 events
+tick 100
+dump mob:G1 mob:G2 brain:G1 brain:G2 be:0,-60,0 be:5,-60,0 be:6,-60,0 events
+tick 200
+dump mob:G1 mob:G2 be:0,-60,0 be:5,-60,0 be:6,-60,0 be:11,-60,0 events
+tick 300
+dump mob:G1 mob:G2 brain:G1 be:0,-60,0 be:5,-60,0 be:6,-60,0 be:11,-60,0 events

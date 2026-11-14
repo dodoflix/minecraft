@@ -73,13 +73,13 @@ pub fn trigger_summoned_entity(level: &mut ServerLevel, entity: &dyn Entity, ran
     }
 }
 
-/// `CarvedPumpkinBlock.spawnGolemInWorld(level, match, golem, spawnPos)`.
+/// `CarvedPumpkinBlock.spawnGolemInWorld(level, match, golem, spawnPos)`: the id of the added golem.
 pub fn spawn_golem_in_world(
     level: &mut ServerLevel,
     m: &mut BlockPatternMatch,
     mut golem: Box<dyn Entity>,
     spawn_pos: mc_core::pos::BlockPos,
-) {
+) -> Option<EntityId> {
     clear_pattern_blocks(level, m);
     golem.snap_to(
         f64::from(spawn_pos.x()) + 0.5,
@@ -90,6 +90,7 @@ pub fn spawn_golem_in_world(
     );
     // vanilla triggers after `addFreshEntity`; the trigger only reads the entity, so the order is not observable
     trigger_summoned_entity(level, &*golem, 5.0);
-    add_fresh_entity(level, golem);
+    let id = add_fresh_entity(level, golem);
     update_pattern_blocks(level, m);
+    id
 }

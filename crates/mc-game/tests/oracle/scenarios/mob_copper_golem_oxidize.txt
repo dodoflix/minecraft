@@ -1,0 +1,69 @@
+# Copper golem weathering and care: the weathering timer steps the weather state (exposed, weathered, oxidized, then the
+# statue chance per tick), honeycomb waxes (and stops the timer), an axe removes the wax first and then one weather stage,
+# lightning undoes one stage once per bolt, shears take the antenna item.
+level flat
+preload 4
+difficulty normal
+entity_counter 12000
+level_seed 12001
+time 6000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 6.5 0 0
+tick 2
+mobspawn A minecraft:copper_golem 2.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,next_weather_age:5L}
+mobspawn B minecraft:copper_golem 4.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,weather_state:"weathered",next_weather_age:5L}
+mobspawn C minecraft:copper_golem 6.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,weather_state:"exposed"}
+mobspawn D minecraft:copper_golem 8.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,weather_state:"weathered",next_weather_age:900000L}
+entity_seed A 12002
+entity_seed B 12003
+entity_seed C 12004
+entity_seed D 12005
+tick 1
+dump mobs nbt:A nbt:C
+note the timers fire: A exposed, B oxidized (timer 0), C draws its first timer
+tick 10
+dump mobs nbt:A nbt:B nbt:C
+note an oxidized golem on air turns into a statue with the chance 0.0058 per tick
+tick 300
+dump mobs xentities blocks:1,-60,-1,10,-60,2 events
+tick 300
+dump mobs xentities blocks:1,-60,-1,10,-60,2 events
+note honeycomb on D: waxed (timer -2), a second honeycomb is not used; an axe on the waxed golem only removes the wax
+give Steve mainhand minecraft:honeycomb 3
+interact Steve D main
+tick 1
+dump mob:D nbt:D inventory:Steve events
+interact Steve D main
+tick 1
+dump mob:D inventory:Steve events
+give Steve mainhand minecraft:iron_axe
+interact Steve D main
+tick 1
+dump mob:D nbt:D inventory:Steve events
+note an axe on the unwaxed weathered golem steps it back to exposed, then unaffected, then does nothing
+interact Steve D main
+tick 1
+dump mob:D nbt:D inventory:Steve events
+interact Steve D main
+tick 1
+dump mob:D nbt:D inventory:Steve events
+interact Steve D main
+tick 1
+dump mob:D inventory:Steve events
+note lightning on C (exposed): one stage back, the same bolt does not strike twice
+spawn b1 minecraft:lightning_bolt 6.5 -60 0.5 0 0 {UUID:[I;21,22,23,24]}
+entity_seed b1 12006
+tick 2
+dump mob:C nbt:C events
+note a golem with a poppy antenna: shears take it, a hand holding nothing takes the carried item
+spawn E minecraft:copper_golem 10.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,equipment:{saddle:{id:"minecraft:poppy",count:1},mainhand:{id:"minecraft:iron_ingot",count:3}}}
+entity_seed E 12007
+give Steve mainhand minecraft:shears
+tick 1
+interact Steve E main
+tick 1
+dump mob:E nbt:E inventory:Steve entities events
+give Steve mainhand minecraft:air
+interact Steve E main
+tick 1
+dump mob:E nbt:E inventory:Steve entities events

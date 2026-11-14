@@ -1,0 +1,26 @@
+# ShearsDispenseItemBehavior on a copper golem: the antenna item (a poppy) is shearable and drops 1.5 above the feet with the
+# shear sound; a golem without the antenna item or with another item in the antenna slot is ignored (failure click).
+level flat
+preload 4
+time 18000
+note c1 golem with a poppy antenna: sheared
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn g1 minecraft:copper_golem 1.5 -60 0.5 0 0 {NoAI:1b,Silent:1b,equipment:{saddle:{id:"minecraft:poppy",count:1}}}
+level_seed 1
+dispense 0 -60 0 c1
+dump be:0,-60,0 nbt:g1 entities events
+note c2 golem without an antenna item: nothing to shear
+block 0 -60 6 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 6 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn g2 minecraft:copper_golem 1.5 -60 6.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 2
+dispense 0 -60 6 c2
+dump be:0,-60,6 nbt:g2 entities events
+note c3 another item in the antenna slot is not shearable
+block 0 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn g3 minecraft:copper_golem 1.5 -60 12.5 0 0 {NoAI:1b,Silent:1b,equipment:{saddle:{id:"minecraft:dandelion",count:1}}}
+level_seed 3
+dispense 0 -60 12 c3
+dump be:0,-60,12 nbt:g3 entities events

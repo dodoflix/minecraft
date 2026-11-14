@@ -90,3 +90,15 @@ dump blocks:20,-60,0,23,-60,1 be:20,-60,1 be:23,-60,1 events
 block 22 -60 0 minecraft:air
 tick 4
 dump blocks:20,-60,0,23,-60,1 be:22,-60,1
+note an axe on an unaffected statue turns it back into a golem (spawn sound, axe durability, the statue and its block entity go, the name stays); a weathered statue is not touched by the statue code
+spawn_player Eve survival 30.5 -60 -2.5 0 0
+give Eve mainhand minecraft:iron_axe
+block 30 -60 0 minecraft:copper_golem_statue[facing=east,copper_golem_pose=running,waterlogged=false]
+be_nbt 30 -60 0 {components:{"minecraft:custom_name":'"Rusty"'}}
+block 33 -60 0 minecraft:weathered_copper_golem_statue[facing=east,copper_golem_pose=star,waterlogged=false]
+use_on Eve 30 -60 0 north main 0.5 0.5 0.0
+tick 2
+dump blocks:30,-60,0,30,-60,0 be:30,-60,0 mobs inventory:Eve events
+use_on Eve 33 -60 0 north main 0.5 0.5 0.0
+tick 2
+dump blocks:33,-60,0,33,-60,0 be:33,-60,0 mobs inventory:Eve events
