@@ -239,6 +239,68 @@ pub trait AbstractHorse: Entity {
     }
     /// `SkeletonHorse.setTrap(trap)`: only the skeleton horse keeps the flag.
     fn set_trap(&mut self, _trap: bool) {}
+    /// `isTamed()` as overridden by `Camel` (always true); the others read the tame flag.
+    fn always_tamed(&self) -> bool {
+        false
+    }
+    /// What a subclass adds after `AbstractHorse.tick()` (`Camel`: dash, cooldown, sitting).
+    fn horse_tick_post(&mut self, _level: &mut ServerLevel) {}
+    /// `getRiddenRotation(controller)` as `(xRot, yRot)` of the mount (`Camel` keeps its own while it refuses to move).
+    fn horse_ridden_rotation(
+        &self,
+        _level: &ServerLevel,
+        controller_x_rot: f32,
+        controller_y_rot: f32,
+    ) -> (f32, f32) {
+        (controller_x_rot * 0.5, controller_y_rot)
+    }
+    /// `getRiddenInput(controller, selfInput)`.
+    fn horse_ridden_input(
+        &self,
+        level: &ServerLevel,
+        controller: EntityId,
+        self_input: Vec3,
+    ) -> Vec3 {
+        get_ridden_input(self, level, controller, self_input)
+    }
+    /// `getRiddenSpeed(controller)`.
+    fn horse_ridden_speed(&self, _level: &ServerLevel, _controller: EntityId) -> f32 {
+        living_entity::util::l(self.as_dyn()).get_attribute_value(Attribute::MOVEMENT_SPEED) as f32
+    }
+    /// What a subclass adds after `AbstractHorse.tickRidden(controller, riddenInput)`.
+    fn horse_tick_ridden_post(&mut self, _level: &mut ServerLevel, _controller: EntityId) {}
+    /// `executeRidersJump(amount, input)`.
+    fn horse_execute_riders_jump(&mut self, level: &mut ServerLevel, amount: f32, input: Vec3) {
+        execute_riders_jump(self, level, amount, input);
+    }
+    /// `onPlayerJump(jumpAmount)`.
+    fn horse_on_player_jump(&mut self, jump_amount: i32) {
+        on_player_jump(self, jump_amount);
+    }
+    /// `canJump()`.
+    fn horse_can_jump(&self, _level: &ServerLevel) -> bool {
+        is_saddled(self)
+    }
+    /// `handleStartJump(jumpScale)`.
+    fn horse_handle_start_jump(&mut self, level: &mut ServerLevel, _jump_scale: i32) {
+        handle_start_jump(self, level);
+    }
+    /// `handleStopJump()`.
+    fn horse_handle_stop_jump(&mut self) {}
+    /// `openCustomInventoryScreen(player)`.
+    fn horse_open_custom_inventory_screen(
+        &mut self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+    ) {
+        open_custom_inventory_screen(self, level, player);
+    }
+    /// `getEquipSound` of the saddle slot.
+    fn get_saddle_sound(&self) -> SoundEvent {
+        SoundEvent::ENTITY_HORSE_SADDLE
+    }
+    /// What a subclass adds after `AbstractHorse.onElasticLeashPull()` (`Camel` stands up).
+    fn horse_on_elastic_leash_pull_post(&mut self, _level: &mut ServerLevel) {}
 }
 
 impl<T: AbstractHorse + ?Sized> crate::world::inventory::MountInventory for T {
@@ -353,7 +415,7 @@ pub fn set_flag(e: &mut (impl AbstractHorse + ?Sized), flag: i32, value: bool) {
 
 /// `isTamed()`.
 pub fn is_tamed(e: &(impl AbstractHorse + ?Sized)) -> bool {
-    get_flag(e, FLAG_TAME)
+    e.always_tamed() || get_flag(e, FLAG_TAME)
 }
 
 /// `setTamed(flag)`.
@@ -1060,8 +1122,8 @@ pub fn tick_ridden(
     else {
         return;
     };
-    // `getRiddenRotation(controller)`: `Vec2(controller.xRot * 0.5F, controller.yRot)`
-    e.set_rot(y_rot, x_rot * 0.5);
+    let (x_rot, y_rot) = e.horse_ridden_rotation(level, x_rot, y_rot);
+    e.set_rot(y_rot, x_rot);
     let y = e.base().y_rot();
     e.base_mut().y_rot_o = y;
     lm(e.as_dyn_mut()).y_body_rot = y;
@@ -1073,11 +1135,12 @@ pub fn tick_ridden(
         if e.base().on_ground() {
             if e.horse().player_jump_pending_scale > 0.0 && !l(e.as_dyn()).jumping {
                 let scale = e.horse().player_jump_pending_scale;
-                execute_riders_jump(e, level, scale, ridden_input);
+                e.horse_execute_riders_jump(level, scale, ridden_input);
             }
             e.horse_mut().player_jump_pending_scale = 0.0;
         }
     }
+    e.horse_tick_ridden_post(level, controller);
 }
 
 /// `getRiddenInput(controller, selfInput)`.
@@ -1601,17 +1664,19 @@ macro_rules! abstract_horse_entity {
         fn support_quad_leash(&self) -> bool {
             $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse_supports_quad_leash(self)
         }
-        fn on_elastic_leash_pull(&mut self) {
+        fn on_elastic_leash_pull(&mut self, level: &mut $crate::server::level::ServerLevel) {
             self.check_fall_distance_accumulation();
             if $crate::world::entity::animal::equine::abstract_horse::is_eating(self) {
                 $crate::world::entity::animal::equine::abstract_horse::set_eating(self, false);
             }
+            $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse_on_elastic_leash_pull_post(self, level);
         }
         fn get_equip_sound_override(&self, slot: $crate::world::entity::equipment::EquipmentSlot) -> Option<::mc_data::SoundEvent> {
-            (slot == $crate::world::entity::equipment::EquipmentSlot::Saddle).then_some(::mc_data::SoundEvent::ENTITY_HORSE_SADDLE)
+            (slot == $crate::world::entity::equipment::EquipmentSlot::Saddle).then(|| $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::get_saddle_sound(self))
         }
         fn tick(&mut self, level: &mut $crate::server::level::ServerLevel) {
             $crate::world::entity::animal::equine::abstract_horse::tick(self, level);
+            $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse_tick_post(self, level);
         }
         fn hurt_server(&mut self, level: &mut $crate::server::level::ServerLevel, source: &$crate::world::damagesource::DamageSource, damage: f32) -> bool {
             $crate::world::entity::animal::equine::abstract_horse::hurt_server(self, level, source, damage)
@@ -1635,10 +1700,10 @@ macro_rules! abstract_horse_entity {
             $crate::world::entity::animal::equine::abstract_horse::tick_ridden(self, level, controller, ridden_input);
         }
         fn get_ridden_input(&self, level: &$crate::server::level::ServerLevel, controller: $crate::world::entity::EntityId, self_input: ::mc_core::phys::Vec3) -> ::mc_core::phys::Vec3 {
-            $crate::world::entity::animal::equine::abstract_horse::get_ridden_input(self, level, controller, self_input)
+            $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse_ridden_input(self, level, controller, self_input)
         }
-        fn get_ridden_speed(&self, _level: &$crate::server::level::ServerLevel, _controller: $crate::world::entity::EntityId) -> f32 {
-            $crate::world::entity::living_entity::util::l(self).get_attribute_value(::mc_data::Attribute::MOVEMENT_SPEED) as f32
+        fn get_ridden_speed(&self, level: &$crate::server::level::ServerLevel, controller: $crate::world::entity::EntityId) -> f32 {
+            $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse_ridden_speed(self, level, controller)
         }
         fn get_controlling_passenger(&self) -> Option<$crate::world::entity::EntityId> {
             $crate::world::entity::animal::equine::abstract_horse::get_controlling_passenger(self)
@@ -1662,7 +1727,7 @@ macro_rules! abstract_horse_entity {
             $crate::world::entity::animal::equine::abstract_horse::get_dismount_location_for_passenger(self, level, &*passenger)
         }
         fn open_custom_inventory_screen(&mut self, level: &mut $crate::server::level::ServerLevel, player: &mut $crate::world::entity::ServerPlayer) {
-            $crate::world::entity::animal::equine::abstract_horse::open_custom_inventory_screen(self, level, player);
+            $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse_open_custom_inventory_screen(self, level, player);
         }
         fn as_container(&self) -> Option<&dyn $crate::world::container::Container> {
             Some(&self.horse().inventory)
@@ -1683,15 +1748,17 @@ macro_rules! abstract_horse_entity {
             true
         }
         fn on_player_jump(&mut self, jump_amount: i32) {
-            $crate::world::entity::animal::equine::abstract_horse::on_player_jump(self, jump_amount);
+            $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse_on_player_jump(self, jump_amount);
         }
-        fn can_jump(&self) -> bool {
-            $crate::world::entity::animal::equine::abstract_horse::is_saddled(self)
+        fn can_jump(&self, level: &$crate::server::level::ServerLevel) -> bool {
+            $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse_can_jump(self, level)
         }
-        fn handle_start_jump(&mut self, level: &mut $crate::server::level::ServerLevel, _jump_scale: i32) {
-            $crate::world::entity::animal::equine::abstract_horse::handle_start_jump(self, level);
+        fn handle_start_jump(&mut self, level: &mut $crate::server::level::ServerLevel, jump_scale: i32) {
+            $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse_handle_start_jump(self, level, jump_scale);
         }
-        fn handle_stop_jump(&mut self) {}
+        fn handle_stop_jump(&mut self) {
+            $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse_handle_stop_jump(self);
+        }
     };
 }
 

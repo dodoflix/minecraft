@@ -1,0 +1,151 @@
+# sneaking at an untamed camel opens its screen: the mount entity, no chest columns, the saddle and armor slots
+MENU A cid=1 type=none state=1 carried=empty
+MS 2 minecraft:saddle*1
+MS 3 minecraft:leather_horse_armor*1
+MS 4 minecraft:apple*30
+MS 29 minecraft:saddle*1
+MS 30 minecraft:iron_horse_armor*1
+MS 31 minecraft:white_carpet*3
+MS 32 minecraft:stick*5
+MS 33 minecraft:cactus*20
+PKT A minecraft:mount_screen_open 2a010000000065
+PKT A minecraft:container_set_content 12010126000001b507000001830b00001eef07000000000000000000000000000000000000000000000000000001b507000001ff0a000003c404000005a4080000149d0300000000000000
+# the saddle slot takes a saddle only and one item, the armor slot refuses horse armor
+MENU A cid=1 type=none state=3 carried=empty
+MS 0 minecraft:saddle*1
+MS 2 minecraft:saddle*1
+MS 3 minecraft:leather_horse_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:iron_horse_armor*1
+MS 31 minecraft:white_carpet*3
+MS 32 minecraft:stick*5
+MS 33 minecraft:cactus*20
+PKT A minecraft:container_set_slot 140102001d00
+PKT A minecraft:set_cursor_item 6201b5070000
+PKT A minecraft:container_set_slot 140103000001b5070000
+PKT A minecraft:set_cursor_item 6200
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.camel.saddle source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.camel.saddle source=neutral vol=1.0 pitch=1.0
+N C {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:32.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LastPoseTick:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,attributes:[{base:0.09000000357627869d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{saddle:2.0f},equipment:{saddle:{count:1,id:"minecraft:saddle"}},fall_distance:0.0d}
+MENU A cid=1 type=none state=5 carried=minecraft:iron_horse_armor*1
+MS 2 minecraft:saddle*1
+MS 3 minecraft:leather_horse_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:saddle*1
+MS 31 minecraft:white_carpet*3
+MS 32 minecraft:stick*5
+MS 33 minecraft:cactus*20
+PKT A minecraft:container_set_slot 140104000000
+PKT A minecraft:set_cursor_item 6201b5070000
+PKT A minecraft:container_set_slot 140105001e01b5070000
+PKT A minecraft:set_cursor_item 6201ff0a0000
+N C {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:32.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LastPoseTick:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,attributes:[{base:0.09000000357627869d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{saddle:2.0f},fall_distance:0.0d}
+MENU A cid=1 type=none state=7 carried=minecraft:white_carpet*3
+MS 2 minecraft:saddle*1
+MS 3 minecraft:leather_horse_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:iron_horse_armor*1
+MS 31 minecraft:saddle*1
+MS 32 minecraft:stick*5
+MS 33 minecraft:cactus*20
+PKT A minecraft:container_set_slot 140106001e01ff0a0000
+PKT A minecraft:set_cursor_item 6201b5070000
+PKT A minecraft:container_set_slot 140107001f01b5070000
+PKT A minecraft:set_cursor_item 6203c4040000
+I A 1 minecraft:iron_horse_armor*1
+I A 2 minecraft:saddle*1
+I A 3 minecraft:stick*5
+I A 4 minecraft:cactus*20
+I A 9 minecraft:saddle*1
+I A 10 minecraft:leather_horse_armor*1
+I A 11 minecraft:apple*30
+N C {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:32.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LastPoseTick:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,attributes:[{base:0.09000000357627869d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{saddle:2.0f},fall_distance:0.0d}
+# shift-click: a saddle goes to the saddle slot, other items nowhere
+MENU A cid=1 type=none state=17 carried=minecraft:stick*5
+MS 0 minecraft:saddle*1
+MS 4 minecraft:apple*30
+MS 5 minecraft:iron_horse_armor*1
+MS 6 minecraft:cactus*20
+MS 29 minecraft:leather_horse_armor*1
+MS 31 minecraft:white_carpet*3
+MS 32 minecraft:saddle*1
+PKT A minecraft:container_set_slot 140108001f03c4040000
+PKT A minecraft:set_cursor_item 6201b5070000
+PKT A minecraft:container_set_slot 140109002001b5070000
+PKT A minecraft:set_cursor_item 6205a4080000
+PKT A minecraft:container_set_slot 14010a000501ff0a0000
+PKT A minecraft:container_set_slot 14010b001e00
+PKT A minecraft:container_set_slot 14010c0006149d030000
+PKT A minecraft:container_set_slot 14010d002100
+PKT A minecraft:container_set_slot 14010e000001b5070000
+PKT A minecraft:container_set_slot 14010f000200
+PKT A minecraft:container_set_slot 140110000300
+PKT A minecraft:container_set_slot 140111001d01830b0000
+I A 0 minecraft:leather_horse_armor*1
+I A 2 minecraft:white_carpet*3
+I A 3 minecraft:saddle*1
+I A 11 minecraft:apple*30
+I A 12 minecraft:iron_horse_armor*1
+I A 13 minecraft:cactus*20
+N C {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:32.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LastPoseTick:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,attributes:[{base:0.09000000357627869d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{saddle:2.0f},equipment:{saddle:{count:1,id:"minecraft:saddle"}},fall_distance:0.0d}
+MENU A cid=1 type=none state=17 carried=minecraft:stick*5
+MS 0 minecraft:saddle*1
+MS 4 minecraft:apple*30
+MS 5 minecraft:iron_horse_armor*1
+MS 6 minecraft:cactus*20
+MS 29 minecraft:leather_horse_armor*1
+MS 31 minecraft:white_carpet*3
+MS 32 minecraft:saddle*1
+I A 0 minecraft:leather_horse_armor*1
+I A 2 minecraft:white_carpet*3
+I A 3 minecraft:saddle*1
+I A 11 minecraft:apple*30
+I A 12 minecraft:iron_horse_armor*1
+I A 13 minecraft:cactus*20
+N C {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:32.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LastPoseTick:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,attributes:[{base:0.09000000357627869d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{saddle:2.0f},equipment:{saddle:{count:1,id:"minecraft:saddle"}},fall_distance:0.0d}
+# a spectator does not open the screen
+MENU S cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:saddle*1
+MS 37 minecraft:stick*1
+# a young camel has no screen of its own, the player takes the saddle slot with sneaking only for adults
+MENU A cid=0 type=inventory state=9 carried=empty
+MS 11 minecraft:apple*30
+MS 12 minecraft:iron_horse_armor*1
+MS 13 minecraft:cactus*20
+MS 36 minecraft:leather_horse_armor*1
+MS 37 minecraft:stick*5
+MS 38 minecraft:white_carpet*3
+MS 39 minecraft:saddle*1
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.camel.saddle source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.camel.saddle source=neutral vol=1.0 pitch=1.0
+# the camel husk opens its screen like a camel
+MENU A cid=0 type=inventory state=9 carried=empty
+MS 11 minecraft:apple*30
+MS 12 minecraft:iron_horse_armor*1
+MS 13 minecraft:cactus*20
+MS 36 minecraft:leather_horse_armor*1
+MS 37 minecraft:stick*5
+MS 38 minecraft:white_carpet*3
+MS 39 minecraft:saddle*1
+# without sneaking the player mounts, from the saddle the inventory key opens the screen
+MENU A cid=2 type=none state=1 carried=empty
+MS 0 minecraft:saddle*1
+MS 4 minecraft:apple*30
+MS 5 minecraft:iron_horse_armor*1
+MS 6 minecraft:cactus*20
+MS 29 minecraft:leather_horse_armor*1
+MS 30 minecraft:stick*5
+MS 31 minecraft:white_carpet*3
+MS 32 minecraft:saddle*1
+PKT A minecraft:mount_screen_open 2a020000000065
+PKT A minecraft:container_set_content 1202012601b50700000000001eef07000001ff0a0000149d0300000000000000000000000000000000000000000000000001830b000005a408000003c404000001b5070000000000000000
+# a saddle in hand goes on the camel without opening anything
+MENU A cid=0 type=inventory state=9 carried=empty
+MS 11 minecraft:apple*30
+MS 12 minecraft:iron_horse_armor*1
+MS 13 minecraft:cactus*20
+MS 36 minecraft:saddle*1
+MS 37 minecraft:stick*5
+MS 38 minecraft:white_carpet*3
+MS 39 minecraft:saddle*1
+N K {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,Health:32.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LastPoseTick:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[7.5d,-60.0d,6.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,attributes:[{base:0.09000000357627869d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}

@@ -1,0 +1,38 @@
+# Two riders on one camel: the second seat sits behind the first, a third player is refused, the seats move with the sitting
+# animation and a camel that is hit stands up under them.
+level flat
+difficulty normal
+preload 4
+entity_counter 1400
+level_seed 1401
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 0.5 -60 4.5 0 0
+spawn_player Kim survival 0.5 -60 8.5 0 0
+mobspawn C minecraft:camel 3.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed C 41
+tick 60
+note an empty hand boards the first seat
+interact Steve C
+accept_teleport Steve
+tick 2
+dump mob:C player:Steve events
+note the second rider takes the seat behind
+interact Alex C
+accept_teleport Alex
+tick 2
+dump mob:C player:Steve player:Alex events
+note a third player cannot board
+interact Kim C
+tick 2
+dump mob:C player:Kim events
+note the seats move with the camel that sits down
+nbt C {LastPoseTick:-1L}
+tick 1
+dump mob:C player:Steve player:Alex edata:C
+watch mob:C player:Steve player:Alex
+tick 3
+watch off
+note a hit makes the camel stand at once: both riders are lifted back up
+hurt C minecraft:generic 1
+tick 1
+dump mob:C player:Steve player:Alex edata:C events

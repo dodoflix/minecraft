@@ -1,0 +1,41 @@
+# The camel husk jockey of a naturally spawned husk: one husk in ten rides a camel husk with a parched behind it and an iron spear in
+# hand; a spawn that is not natural never brings a camel husk, neither does a husk that joins a group that already rolled. The camel
+# husk is driven by the husk on its back (no panic, no leash), eats rabbit feet and is not persistent until a player touches it.
+level flat
+difficulty hard
+preload 5
+entity_counter 1500
+level_seed 1501
+spawn_player Steve creative 0.5 -60 0.5 0 0
+note natural husks: seeds 3003 and 3011 draw the camel husk roll, seed 3001 does not
+level_seed 3003
+mobspawn H1 minecraft:husk 20.5 -60 20.5 0 0 reason=natural
+level_seed 3011
+mobspawn H2 minecraft:husk 28.5 -60 20.5 0 0 reason=natural
+level_seed 3001
+mobspawn H3 minecraft:husk 36.5 -60 20.5 0 0 reason=natural
+note the same roll without the natural reason, and in a group whose first husk already rolled
+level_seed 3003
+mobspawn H4 minecraft:husk 44.5 -60 20.5 0 0
+level_seed 3001
+mobspawn H5 minecraft:husk 20.5 -60 36.5 0 0 reason=natural group=g1
+level_seed 3003
+mobspawn H6 minecraft:husk 28.5 -60 36.5 0 0 reason=natural group=g1
+tick 1
+dump mobs events
+note a few ticks later: the riders, the camel husk brain and its persistence
+tick 60
+dump mobs events
+note touching the camel husk makes it persistent; a lead cannot be put on a camel husk that a mob drives; its food is the rabbit foot
+give Steve mainhand minecraft:lead
+interact Steve camel_husk#1 main
+dump mob:camel_husk#1 nbt:camel_husk#1 events
+hurt camel_husk#1 minecraft:generic 5
+give Steve mainhand minecraft:rabbit_foot 5
+interact Steve camel_husk#2 main
+interact Steve camel_husk#1 main
+dump mob:camel_husk#1 mob:camel_husk#2 events
+note the camel husk saved and loaded
+nbt camel_husk#2 {}
+tick 2
+dump mob:camel_husk#2 nbt:camel_husk#2 events

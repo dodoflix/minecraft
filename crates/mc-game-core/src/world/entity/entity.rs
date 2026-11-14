@@ -3570,8 +3570,8 @@ pub trait Entity: Any {
     /// `addPassenger(passenger)`'s effect on the new rider (`AbstractHorse`/`Camel`: `passenger.absSnapRotationTo(...)`).
     fn after_add_passenger(&self, _passenger: &mut dyn Entity) {}
     /// `this instanceof HasCustomInventoryScreen` (`ServerboundPlayerCommandPacket.OPEN_INVENTORY`).
-    /// Not implemented: the `HasCustomInventoryScreen` overrides of `AbstractNautilus`, `Camel` and `HappyGhast` (those entities
-    /// do not exist yet; only the horses return true).
+    /// Not implemented: the `HasCustomInventoryScreen` overrides of `AbstractNautilus` and `HappyGhast` (those entities do not
+    /// exist yet; the horses and camels return true).
     fn has_custom_inventory_screen(&self) -> bool {
         false
     }
@@ -3588,8 +3588,8 @@ pub trait Entity: Any {
     }
     /// `PlayerRideableJumping.onPlayerJump(jumpAmount)`.
     fn on_player_jump(&mut self, _jump_amount: i32) {}
-    /// `PlayerRideableJumping.canJump()`.
-    fn can_jump(&self) -> bool {
+    /// `PlayerRideableJumping.canJump()` (`level` for the game time a camel's pose change runs on).
+    fn can_jump(&self, _level: &ServerLevel) -> bool {
         false
     }
     /// `PlayerRideableJumping.handleStartJump(jumpScale)`.
@@ -4311,7 +4311,7 @@ pub trait Entity: Any {
         }
     }
     /// `onElasticLeashPull()`.
-    fn on_elastic_leash_pull(&mut self) {
+    fn on_elastic_leash_pull(&mut self, _level: &mut ServerLevel) {
         self.check_fall_distance_accumulation();
     }
     /// `shouldStayCloseToLeashHolder()`.
@@ -4580,7 +4580,7 @@ pub trait Entity: Any {
     }
     /// `getEquipSound(slot, stack, equippable)` override (`Strider`: `STRIDER_SADDLE` for the saddle slot); `None` = the
     /// equippable's own sound.
-    /// Not implemented: the `Camel` and `AbstractNautilus` saddle sounds (those entities do not exist yet).
+    /// Not implemented: the `AbstractNautilus` saddle sound (that entity does not exist yet).
     fn get_equip_sound_override(
         &self,
         _slot: super::equipment::EquipmentSlot,

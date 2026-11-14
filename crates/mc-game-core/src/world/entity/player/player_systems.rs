@@ -79,7 +79,7 @@ impl PlayerSystems for ServerPlayerSystems {
         ctx.level.with_entity(vehicle, |level, e| {
             if e.get_controlling_passenger() == Some(player_id)
                 && e.is_player_rideable_jumping()
-                && e.can_jump()
+                && e.can_jump(level)
                 && data > 0
             {
                 e.handle_start_jump(level, data);

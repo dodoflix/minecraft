@@ -15,14 +15,6 @@ use mc_game::world::entity::spawn_placements::missing_predicates;
 /// Mob types without a Rust class (type, what is not implemented). Alphabetical.
 const EXPECTED_MISSING: &[(&str, &str)] = &[
     (
-        "minecraft:camel",
-        "Camel: dash and sit state, rider controls, saddle menu",
-    ),
-    (
-        "minecraft:camel_husk",
-        "CamelHusk: Camel subclass with jockey spawning",
-    ),
-    (
         "minecraft:copper_golem",
         "CopperGolem: chest item transport, weathering, statue form",
     ),
@@ -50,13 +42,10 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
 
 /// Mob types with a vanilla spawn placement whose predicate is not registered: exactly the types of `EXPECTED_MISSING`
 /// that have one (type, what is not implemented). Alphabetical.
-const EXPECTED_MISSING_PREDICATE: &[(&str, &str)] = &[
-    ("minecraft:camel", "Camel.checkCamelSpawnRules"),
-    (
-        "minecraft:nautilus",
-        "AbstractNautilus.checkNautilusSpawnRules",
-    ),
-];
+const EXPECTED_MISSING_PREDICATE: &[(&str, &str)] = &[(
+    "minecraft:nautilus",
+    "AbstractNautilus.checkNautilusSpawnRules",
+)];
 
 /// `SpawnFrameworkGolden` fixture: its `registered` lines are the `DATA_BY_TYPE` keys of the vanilla `SpawnPlacements`.
 const GOLDEN: &str = include_str!("../fixtures/spawn_framework_golden.txt");

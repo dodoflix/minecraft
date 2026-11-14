@@ -1,0 +1,19 @@
+# Natural spawning of camels: the desert creature list holds rabbits and camels, a camel needs sand under it and enough light, and
+# the same attempt on grass produces no camel.
+level flat
+difficulty normal
+preload 6
+entity_counter 1700
+spawn_player Steve survival 0.5 -60 0.5 0 0
+biome 2 -64 78 26 -58 102 minecraft:desert
+fill 2 -61 78 26 -61 102 minecraft:sand
+tick 5
+note seed 4016 picks the camel entry of the desert list, seed 4001 the rabbits
+spawnat 4016 creature 14 -60 90
+spawnat 4001 creature 14 -60 90
+tick 2
+dump mobs events
+note the camel entry on grass: the placement rule refuses it
+fill 2 -61 78 26 -61 102 minecraft:grass_block
+spawnat 4016 creature 14 -60 90
+dump mobs

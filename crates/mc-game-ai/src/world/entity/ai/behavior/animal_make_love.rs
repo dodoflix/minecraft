@@ -62,7 +62,7 @@ impl AnimalMakeLove {
             .find_closest(level, body, |entity| {
                 entity.get_type() == self.partner_type
                     && entity.mob().is_some_and(|m| m.animal.is_some())
-                    && animal::can_mate(body, entity)
+                    && body.can_mate(entity)
                     && !entity.is_panicking()
             })
             .map(|e| e.0)
@@ -123,7 +123,7 @@ impl Behavior for AnimalMakeLove {
             return false;
         };
         partner.is_alive()
-            && animal::can_mate(body, partner)
+            && body.can_mate(partner)
             && behavior_utils::entity_is_visible(level, body, partner_id)
             && timestamp <= self.spawn_child_at_time
             && !body.is_panicking()

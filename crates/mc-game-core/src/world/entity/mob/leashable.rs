@@ -400,7 +400,7 @@ pub fn tick_leash(e: &mut dyn Entity, level: &mut ServerLevel) {
         > e.leash_elastic_distance() - f64::from(bb_width) - f64::from(e.base().get_bb_width())
         && check_elastic_interactions(e, level, holder_id)
     {
-        e.on_elastic_leash_pull();
+        e.on_elastic_leash_pull(level);
     } else {
         e.close_range_leash_behaviour(level, holder_id);
     }

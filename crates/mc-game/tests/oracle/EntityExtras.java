@@ -17,6 +17,7 @@ import net.minecraft.world.entity.animal.frog.Tadpole;
 import net.minecraft.world.entity.animal.squid.GlowSquid;
 import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.entity.animal.bee.Bee;
+import net.minecraft.world.entity.animal.camel.Camel;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.animal.equine.Llama;
@@ -134,6 +135,12 @@ final class EntityExtras {
          out.add("jscale", EntityOracleDriver.f((Float)EntityOracleDriver.priv(e, AbstractHorse.class, "playerJumpPendingScale")));
          out.add("slide", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, AbstractHorse.class, "allowStandSliding")));
          out.add("gallopc", EntityOracleDriver.priv(e, AbstractHorse.class, "gallopSoundCounter"));
+      }));
+      ALL.add(new Extra(31, Camel.class, (d, e, out) -> {
+         Camel c = (Camel)e;
+         out.add("dash", EntityOracleDriver.bool(c.isDashing()));
+         out.add("lastpose", c.getEntityData().get(Camel.LAST_POSE_CHANGE_TICK));
+         out.add("dashcd", EntityOracleDriver.priv(e, Camel.class, "dashCooldown"));
       }));
       ALL.add(new Extra(30, AbstractMinecart.class, (d, e, out) -> {
          AbstractMinecart c = (AbstractMinecart)e;

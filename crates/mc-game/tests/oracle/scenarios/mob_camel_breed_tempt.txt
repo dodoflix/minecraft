@@ -1,0 +1,56 @@
+# Camels with cactus: feeding heals, ages a young camel and sets a grown, healthy one in love; two camels in love walk together and
+# breed (the parents get their breeding cooldown, the baby copies nothing), and a camel follows the cactus.
+level flat
+difficulty normal
+preload 4
+entity_counter 1600
+level_seed 1601
+spawn_player Steve survival 0.5 -60 3.5 0 0
+mobspawn A minecraft:camel 3.5 -60 1.5 0 0 {PersistenceRequired:1b}
+entity_seed A 51
+mobspawn B minecraft:camel 3.5 -60 4.3 0 0 {PersistenceRequired:1b}
+entity_seed B 52
+mobspawn Y minecraft:camel -2.5 -60 3.5 0 0 {PersistenceRequired:1b,Age:-24000}
+entity_seed Y 53
+tick 3
+note rabbit feet are the food of a camel husk only: nothing happens
+give Steve mainhand minecraft:rabbit_foot 4
+interact Steve A main
+tick 1
+dump mob:A events
+note cactus: a camel at full health and of age 0 falls in love, a second cactus is not eaten
+give Steve mainhand minecraft:cactus 16
+interact Steve A main
+tick 1
+dump mob:A events
+interact Steve A main
+tick 1
+dump mob:A events
+note a young camel grows by ten seconds, a hurt one heals before it falls in love
+interact Steve Y main
+tick 1
+dump mob:Y events
+hurt B minecraft:generic 6
+tick 1
+interact Steve B main
+tick 1
+dump mob:B events
+note the two camels in love find each other and breed once both are at full health
+set B health 32
+give Steve mainhand minecraft:air
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+tick 100
+dump mobs events
+note the breeding itself: the baby is a camel of age -24000, the parents are set back to age 6000 and out of love
+breed A B
+tick 1
+dump mobs events
+dump nbt:camel#1
+note the cactus in the hand leads the young camel
+tp Steve 14.5 -60 3.5
+give Steve mainhand minecraft:cactus 16
+tick 60
+dump mobs events

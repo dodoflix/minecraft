@@ -1,0 +1,63 @@
+# The sit and stand state machine of a camel: a free camel sits down and stands up after at least 20 seconds in a pose (the brain draws
+# from the entity random), a seated camel told to walk stands up first, a hit or deep water makes it stand at once, a leash pulls it
+# up, the pose changes the dimensions and the saved LastPoseTick.
+level flat
+difficulty normal
+preload 4
+entity_counter 1200
+level_seed 1201
+spawn_player Steve survival -9.5 -60 -9.5 0 0
+mobspawn C minecraft:camel 5.5 -60 5.5 0 0 {PersistenceRequired:1b}
+entity_seed C 21
+note a spawned camel is fully standing, its brain holds the gaze cooldown
+tick 2
+dump mob:C edata:C nbt:C events
+note idle: the pose lasts 400 ticks before the camel may sit down or stand up again
+tick 500
+dump mob:C edata:C events
+tick 150
+dump mob:C edata:C events
+tick 300
+dump mob:C edata:C events
+tick 300
+dump mob:C edata:C events
+tick 300
+dump mob:C edata:C nbt:C events
+note the dimensions of a seated and a standing, grown and young camel
+mobspawn B minecraft:camel 12.5 -60 5.5 0 0 {PersistenceRequired:1b,Age:-24000,NoAI:1b}
+mobspawn BS minecraft:camel 14.5 -60 5.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000,NoAI:1b,LastPoseTick:-1L}
+mobspawn AS minecraft:camel 16.5 -60 5.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,LastPoseTick:-1L}
+tick 2
+dump mob:B mob:BS mob:AS nbt:BS nbt:AS
+note a seated camel told to walk stands up first, then waits out the 52 ticks of the transition
+mobspawn W minecraft:camel 5.5 -60 -5.5 0 0 nofinalize {PersistenceRequired:1b,LastPoseTick:-1L}
+entity_seed W 22
+tick 2
+nav W 9.5 -60 -5.5 1.0
+tick 1
+dump mob:W edata:W events
+tick 30
+dump mob:W events
+tick 40
+dump mob:W events
+note a hit makes a seated camel stand at once
+mobspawn H minecraft:camel 5.5 -60 -9.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,LastPoseTick:-100L}
+tick 1
+dump mob:H edata:H
+hurt H minecraft:generic 1
+tick 1
+dump mob:H edata:H events
+note deep water makes a seated camel stand at once
+fill 20 -61 11 24 -60 15 minecraft:water
+mobspawn D minecraft:camel 22.5 -60 13.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,LastPoseTick:-200L}
+tick 3
+dump mob:D edata:D events
+note a leash that pulls tight stands a seated camel up
+tp Steve 5.5 -60 -21.5
+mobspawn L minecraft:camel 5.5 -60 -15.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,LastPoseTick:-300L}
+tick 2
+leash L Steve
+tick 1
+dump mob:L edata:L events
+tick 3
+dump mob:L edata:L events

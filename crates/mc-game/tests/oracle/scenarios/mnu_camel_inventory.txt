@@ -1,0 +1,74 @@
+# The inventory screen of camels: a camel and a camel husk open it for any sneaking player (they are always tame, unlike a horse), a young
+# camel does not, the saddle slot takes a saddle only, horse armor is refused, shift-click and the inventory key from the saddle, and
+# the screen of a rider.
+command_env
+level flat
+preload 4
+spawn_player A survival 0.5 -60 6.5 180 0
+spawn_player S spectator 12.5 -60 6.5 180 0
+entity_counter 100
+spawn C minecraft:camel 0.5 -60 4.5 0 0 {NoAI:1b}
+spawn B minecraft:camel 3.5 -60 6.5 0 0 {NoAI:1b,Age:-24000}
+spawn K minecraft:camel_husk 7.5 -60 6.5 0 0 {NoAI:1b}
+give A hotbar0 minecraft:saddle
+give A hotbar1 minecraft:iron_horse_armor
+give A hotbar2 minecraft:white_carpet 3
+give A hotbar3 minecraft:stick 5
+give A hotbar4 minecraft:cactus 20
+give A inv9 minecraft:saddle
+give A inv10 minecraft:leather_horse_armor
+give A inv11 minecraft:apple 30
+give S hotbar0 minecraft:saddle
+tick 1
+dump packets:A:none packets:S:none
+note sneaking at an untamed camel opens its screen: the mount entity, no chest columns, the saddle and armor slots
+interact A C main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+note the saddle slot takes a saddle only and one item, the armor slot refuses horse armor
+click A 29 0 PICKUP
+click A 0 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item events nbt:C
+click A 0 0 PICKUP
+click A 30 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item events nbt:C
+click A 1 0 PICKUP
+click A 30 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A nbt:C
+click A 31 0 PICKUP
+click A 32 0 PICKUP
+note shift-click: a saddle goes to the saddle slot, other items nowhere
+click A 0 0 QUICK_MOVE
+click A 30 0 QUICK_MOVE
+click A 33 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A nbt:C
+click A 2 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A nbt:C
+note a spectator does not open the screen
+give S hotbar1 minecraft:stick
+interact S C main sneak
+dump menu:S packets:S:mount_screen_open,open_screen,container_set_content
+note a young camel has no screen of its own, the player takes the saddle slot with sneaking only for adults
+close_menu A
+interact A B main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content events
+note the camel husk opens its screen like a camel
+interact A K main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+close_menu A
+note without sneaking the player mounts, from the saddle the inventory key opens the screen
+interact A C main
+pcommand A OPEN_INVENTORY
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content,container_close events
+close_menu A
+note a saddle in hand goes on the camel without opening anything
+give A mainhand minecraft:air
+give A hotbar0 minecraft:saddle
+select A 0
+interact A K main
+dump menu:A events nbt:K

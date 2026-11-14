@@ -1,0 +1,60 @@
+# The dash of a saddled camel: the riding jump command starts it, the dash flag and the 55 tick cooldown, the ready sound, and a
+# camel that sits or carries no saddle ignores the command.
+level flat
+difficulty normal
+preload 4
+entity_counter 1300
+level_seed 1301
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 0.5 -60 8.5 0 0
+mobspawn C minecraft:camel 3.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed C 31
+mobspawn S minecraft:camel 3.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed S 32
+tick 60
+ride Steve C
+accept_teleport Steve
+tick 2
+dump mob:C edata:C player:Steve events
+note a full charge: the dash starts with the release of the jump, sound and game event
+pcommand Steve START_RIDING_JUMP 100
+tick 1
+dump mob:C edata:C events
+pcommand Steve STOP_RIDING_JUMP
+watch mob:C events
+tick 8
+watch off
+note the client moves the camel up and back down; the dash ends once it stands on the ground below 50 ticks of cooldown
+move_vehicle Steve 3.5 -58.6 0.5 0 0 false
+move_vehicle Steve 3.5 -59.4 0.5 0 0 false
+move_vehicle Steve 3.5 -60.0 0.5 0 0 true
+tick 3
+dump mob:C edata:C events
+tick 40
+dump mob:C edata:C events
+tick 5
+dump mob:C edata:C events
+tick 3
+dump mob:C edata:C events
+note a second dash right after the first one still counts the cooldown that is running
+pcommand Steve START_RIDING_JUMP 50
+tick 1
+dump mob:C edata:C events
+pcommand Steve STOP_RIDING_JUMP
+tick 20
+dump mob:C edata:C events
+tick 40
+dump mob:C edata:C events
+note a seated camel does not dash, the rider cannot jump
+nbt C {LastPoseTick:-10L}
+tick 2
+pcommand Steve START_RIDING_JUMP 100
+tick 1
+dump mob:C edata:C events
+note a rider of a camel without a saddle does not steer it, the command does nothing
+ride Alex S
+accept_teleport Alex
+tick 2
+pcommand Alex START_RIDING_JUMP 100
+tick 1
+dump mob:S edata:S events

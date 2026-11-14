@@ -8,14 +8,12 @@ use std::collections::BTreeMap;
 /// outside the list diverges and when a listed type no longer does (delete its entry), so the list can only shrink.
 const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[
     // inert placeholders: the dump line stops after the position fields
-    "minecraft:camel",
     "minecraft:sniffer",
 ];
 
 /// `mob_finalize_summon` and `mob_spawn_egg_finalize`: inert placeholders and the class-specific differences of single types.
 const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[
     // inert placeholders: the dump line stops after the position fields
-    "minecraft:camel",
     "minecraft:sniffer",
 ];
 
