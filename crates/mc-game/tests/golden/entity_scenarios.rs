@@ -148,18 +148,6 @@ fn mob_path_climb() {
     run_scenario_test("mob_path_climb");
 }
 
-/// Flying navigation: the parrot lanes; bees and allays have no class yet.
-#[test]
-fn mob_path_fly() {
-    run_scenario_test_with(
-        "mob_path_fly",
-        &Options {
-            ignore_containing: vec!["Bee", "Allay"],
-            ..Default::default()
-        },
-    );
-}
-
 /// Path queries of the real ground classes.
 #[test]
 fn mob_path_mobs() {

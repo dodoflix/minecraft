@@ -1,0 +1,113 @@
+C Set minecraft:overworld to 6000 tick(s)
+# nobody is liked yet: a hit by A hurts
+HURT al player_attack 2 -> true
+E al minecraft:allay pos=4.97893936501043,-59.0,0.5 delta=0.3844371207954615,-8.189998093545303E-4,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=9/19 death=0 fx=- target=- hurtby=A aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=-0.1 head=315.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=12,-58,0 path=3/9/1/12,-58,0 nodes=4,-59,0:OPEN:0.0;5,-59,0:OPEN:0.0;6,-59,0:OPEN:0.0;7,-59,0:OPEN:0.0;8,-59,0:OPEN:0.0;9,-59,0:OPEN:0.0;10,-59,0:OPEN:0.0;11,-58,0:OPEN:0.0;12,-58,0:OPEN:0.0 goals=- tgoals=- acts=core;idle mem=path:path(3;9):inf;walk_target:walk(pos(12,-58,0);1.0;0):inf equip=- attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:15.16518206448731;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+BRAIN al acts=core;idle
+BM al type=path value=path(3;9) ttl=inf
+BM al type=walk_target value=walk(pos(12,-58,0);1.0;0) ttl=inf
+BR al MoveToTargetSink
+BR al RunOne: [DoNothing]
+EV sound at=4.556481002685101,-58.99910000023544,0.5 r=16.0 ex=0 event=minecraft:entity.allay.hurt source=neutral vol=0.4 pitch=1.0923297
+E al minecraft:allay pos=10.880917925692147,-58.472863309137736,-0.5278492447518178 delta=-0.185154493106559,0.05005773787314953,0.12401493835531255 rot=53.693604,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=-0.25 head=61.03215 body=53.693604 nav=moving stuck=0 navspeed=2.5 ntarget=7,-60,2 path=1/4/1/7,-60,2 nodes=10,-60,-1:WALKABLE:1.0;9,-59,0:OPEN:0.0;8,-59,1:OPEN:0.0;7,-60,2:WALKABLE:1.0 goals=- tgoals=- acts=core;idle mem=hurt_by:damage(player):inf;hurt_by_entity:A:inf;is_panicking:1:inf;mobs:(A;B):inf;nearest_players:(A;B):inf;nearest_visible_player:A:inf;nearest_visible_targetable_player:A:inf;nearest_visible_targetable_players:(A;B):inf;path:path(1;4):inf;visible_mobs:(A;B):inf;walk_target:walk(pos(7,-60,2);2.5;0):inf equip=- attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:15.16518206448731;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+BRAIN al acts=core;idle
+BM al type=hurt_by value=damage(player) ttl=inf
+BM al type=hurt_by_entity value=A ttl=inf
+BM al type=is_panicking value=1 ttl=inf
+BM al type=mobs value=(A;B) ttl=inf
+BM al type=nearest_players value=(A;B) ttl=inf
+BM al type=nearest_visible_player value=A ttl=inf
+BM al type=nearest_visible_targetable_player value=A ttl=inf
+BM al type=nearest_visible_targetable_players value=(A;B) ttl=inf
+BM al type=path value=path(1;4) ttl=inf
+BM al type=visible_mobs value=(A;B) ttl=inf
+BM al type=walk_target value=walk(pos(7,-60,2);2.5;0) ttl=inf
+BR al AnimalPanic
+BR al MoveToTargetSink
+# A gives the allay an item and becomes the liked player
+E al minecraft:allay pos=10.648184397422662,-58.48530557126459,-0.3633067167773456 delta=-0.21178751682891075,-0.011322458861745238,0.14973370477206926 rot=49.57866,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=-0.25 head=53.693604 body=49.57866 nav=moving stuck=0 navspeed=2.5 ntarget=7,-60,2 path=2/4/1/7,-60,2 nodes=10,-60,-1:WALKABLE:1.0;9,-59,0:OPEN:0.0;8,-59,1:OPEN:0.0;7,-60,2:WALKABLE:1.0 goals=- tgoals=- acts=core;idle mem=hurt_by:damage(player):inf;hurt_by_entity:A:inf;is_panicking:1:inf;mobs:(A;B):inf;nearest_players:(A;B):inf;nearest_visible_player:A:inf;nearest_visible_targetable_player:A:inf;nearest_visible_targetable_players:(A;B):inf;path:path(2;4):inf;visible_mobs:(A;B):inf;walk_target:walk(pos(7,-60,2);2.5;0):inf equip=- attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:15.16518206448731;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+BRAIN al acts=core;idle
+BM al type=hurt_by value=damage(player) ttl=inf
+BM al type=hurt_by_entity value=A ttl=inf
+BM al type=is_panicking value=1 ttl=inf
+BM al type=mobs value=(A;B) ttl=inf
+BM al type=nearest_players value=(A;B) ttl=inf
+BM al type=nearest_visible_player value=A ttl=inf
+BM al type=nearest_visible_targetable_player value=A ttl=inf
+BM al type=nearest_visible_targetable_players value=(A;B) ttl=inf
+BM al type=path value=path(2;4) ttl=inf
+BM al type=visible_mobs value=(A;B) ttl=inf
+BM al type=walk_target value=walk(pos(7,-60,2);2.5;0) ttl=inf
+BR al AnimalPanic
+BR al MoveToTargetSink
+BR al RunOne: [DoNothing]
+# hits by the liked player do nothing, hits by B and other damage hurt
+HURT al player_attack 3 -> true
+E al minecraft:allay pos=10.89363920375852,-58.55912803012634,-0.2813906989431032 delta=0.22336388020293843,-0.0671784395002592,0.07454357837749365 rot=49.062027,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=9/19 death=0 fx=- target=- hurtby=A aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=-0.25 head=49.57866 body=49.062027 nav=moving stuck=0 navspeed=2.5 ntarget=7,-60,2 path=2/4/1/7,-60,2 nodes=10,-60,-1:WALKABLE:1.0;9,-59,0:OPEN:0.0;8,-59,1:OPEN:0.0;7,-60,2:WALKABLE:1.0 goals=- tgoals=- acts=core;idle mem=hurt_by:damage(player):inf;hurt_by_entity:A:inf;is_panicking:1:inf;mobs:(A;B):inf;nearest_players:(A;B):inf;nearest_visible_player:A:inf;nearest_visible_targetable_player:A:inf;nearest_visible_targetable_players:(A;B):inf;path:path(2;4):inf;visible_mobs:(A;B):inf;walk_target:walk(pos(7,-60,2);2.5;0):inf equip=- attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:15.16518206448731;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+EV sound at=10.648184397422662,-58.48530557126459,-0.3633067167773456 r=16.0 ex=0 event=minecraft:entity.allay.hurt source=neutral vol=0.4 pitch=1.0557414
+HURT al player_attack 3 -> false
+E al minecraft:allay pos=11.066866938757153,-58.6888064696266,-0.1695293379251524 delta=0.157637243391834,-0.1180073833461883,0.10179384146001617 rot=53.342636,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=8/18 death=0 fx=- target=- hurtby=A aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=-0.25 head=49.062027 body=53.342636 nav=moving stuck=0 navspeed=2.5 ntarget=7,-60,2 path=2/4/1/7,-60,2 nodes=10,-60,-1:WALKABLE:1.0;9,-59,0:OPEN:0.0;8,-59,1:OPEN:0.0;7,-60,2:WALKABLE:1.0 goals=- tgoals=- acts=core;idle mem=hurt_by:damage(player):inf;hurt_by_entity:A:inf;is_panicking:1:inf;mobs:(A;B):inf;nearest_players:(A;B):inf;nearest_visible_player:A:inf;nearest_visible_targetable_player:A:inf;nearest_visible_targetable_players:(A;B):inf;path:path(2;4):inf;visible_mobs:(A;B):inf;walk_target:walk(pos(7,-60,2);2.5;0):inf equip=- attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:15.16518206448731;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+BRAIN al acts=core;idle
+BM al type=hurt_by value=damage(player) ttl=inf
+BM al type=hurt_by_entity value=A ttl=inf
+BM al type=is_panicking value=1 ttl=inf
+BM al type=mobs value=(A;B) ttl=inf
+BM al type=nearest_players value=(A;B) ttl=inf
+BM al type=nearest_visible_player value=A ttl=inf
+BM al type=nearest_visible_targetable_player value=A ttl=inf
+BM al type=nearest_visible_targetable_players value=(A;B) ttl=inf
+BM al type=path value=path(2;4) ttl=inf
+BM al type=visible_mobs value=(A;B) ttl=inf
+BM al type=walk_target value=walk(pos(7,-60,2);2.5;0) ttl=inf
+BR al AnimalPanic
+BR al MoveToTargetSink
+BR al RunOne: [DoNothing]
+E al minecraft:allay pos=5.972718872224918,-58.65700202849585,3.166579582534248 delta=0.09946499401728258,0.19163021778615041,-0.03886741680319927 rot=254.94293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=-0.25 head=228.03119 body=254.94293 nav=moving stuck=0 navspeed=2.5 ntarget=12,-60,3 path=2/7/1/12,-60,3 nodes=6,-60,2:WALKABLE:1.0;7,-59,2:OPEN:0.0;8,-59,2:OPEN:0.0;9,-59,2:OPEN:0.0;10,-59,2:OPEN:0.0;11,-59,3:OPEN:0.0;12,-60,3:WALKABLE:2.0 goals=- tgoals=- acts=core;idle mem=hurt_by:damage(player):inf;hurt_by_entity:A:inf;is_panicking:1:inf;mobs:(A;B):inf;nearest_players:(A;B):inf;nearest_visible_player:A:inf;nearest_visible_targetable_player:A:inf;nearest_visible_targetable_players:(A;B):inf;path:path(2;7):inf;visible_mobs:(A;B):inf;walk_target:walk(pos(12,-60,3);2.5;0):inf equip=- attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:15.16518206448731;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+BRAIN al acts=core;idle
+BM al type=hurt_by value=damage(player) ttl=inf
+BM al type=hurt_by_entity value=A ttl=inf
+BM al type=is_panicking value=1 ttl=inf
+BM al type=mobs value=(A;B) ttl=inf
+BM al type=nearest_players value=(A;B) ttl=inf
+BM al type=nearest_visible_player value=A ttl=inf
+BM al type=nearest_visible_targetable_player value=A ttl=inf
+BM al type=nearest_visible_targetable_players value=(A;B) ttl=inf
+BM al type=path value=path(2;7) ttl=inf
+BM al type=visible_mobs value=(A;B) ttl=inf
+BM al type=walk_target value=walk(pos(12,-60,3);2.5;0) ttl=inf
+BR al AnimalPanic
+BR al MoveToTargetSink
+BR al RunOne: [DoNothing]
+HURT al magic 1 -> true
+E al minecraft:allay pos=6.132616840491325,-58.527871810709705,3.111771473455286 delta=0.1455071553159216,0.11750850157197161,-0.04987538069925513 rot=255.22461,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=9/19 death=0 fx=- target=- hurtby=A aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=-0.25 head=238.03119 body=255.22461 nav=moving stuck=0 navspeed=2.5 ntarget=12,-60,3 path=2/7/1/12,-60,3 nodes=6,-60,2:WALKABLE:1.0;7,-59,2:OPEN:0.0;8,-59,2:OPEN:0.0;9,-59,2:OPEN:0.0;10,-59,2:OPEN:0.0;11,-59,3:OPEN:0.0;12,-60,3:WALKABLE:2.0 goals=- tgoals=- acts=core;idle mem=hurt_by:damage(player):inf;hurt_by_entity:A:inf;is_panicking:1:inf;mobs:(A;B):inf;nearest_players:(A;B):inf;nearest_visible_player:A:inf;nearest_visible_targetable_player:A:inf;nearest_visible_targetable_players:(A;B):inf;path:path(2;7):inf;visible_mobs:(A;B):inf;walk_target:walk(pos(12,-60,3);2.5;0):inf equip=- attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:15.16518206448731;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+EV sound at=5.972718872224918,-58.65700202849585,3.166579582534248 r=16.0 ex=0 event=minecraft:entity.allay.hurt source=neutral vol=0.4 pitch=0.9865722
+# the allay keeps its distance to the liked player: it comes along when the player walks away
+E al minecraft:allay pos=11.713186469867473,-60.0,0.6420268498647479 delta=-0.018755093933299317,0.0,-0.10982555366808011 rot=314.52686,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=-0.25 head=247.56793 body=314.52686 nav=moving stuck=0 navspeed=2.5 ntarget=13,-60,2 path=1/2/1/13,-60,2 nodes=12,-59,1:OPEN:0.0;13,-60,2:WALKABLE:1.0 goals=- tgoals=- acts=core;idle mem=hurt_by:damage(magic):inf;hurt_by_entity:A:inf;is_panicking:1:inf;mobs:(A;B):inf;nearest_players:(A;B):inf;nearest_visible_player:A:inf;nearest_visible_targetable_player:A:inf;nearest_visible_targetable_players:(A;B):inf;path:path(1;2):inf;visible_mobs:(A;B):inf;walk_target:walk(pos(13,-60,2);2.5;0):inf equip=- attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:15.16518206448731;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+BRAIN al acts=core;idle
+BM al type=hurt_by value=damage(magic) ttl=inf
+BM al type=hurt_by_entity value=A ttl=inf
+BM al type=is_panicking value=1 ttl=inf
+BM al type=mobs value=(A;B) ttl=inf
+BM al type=nearest_players value=(A;B) ttl=inf
+BM al type=nearest_visible_player value=A ttl=inf
+BM al type=nearest_visible_targetable_player value=A ttl=inf
+BM al type=nearest_visible_targetable_players value=(A;B) ttl=inf
+BM al type=path value=path(1;2) ttl=inf
+BM al type=visible_mobs value=(A;B) ttl=inf
+BM al type=walk_target value=walk(pos(13,-60,2);2.5;0) ttl=inf
+BR al AnimalPanic
+BR al MoveToTargetSink
+BR al RunOne: [DoNothing]
+E al minecraft:allay pos=9.686587406389714,-60.0,-1.5924519216069086 delta=-0.0925938730073018,0.0,-0.11721286165353262 rot=151.59772,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=151.59772 body=151.59772 nav=done stuck=0 navspeed=2.5 ntarget=11,-60,0 path=- nodes=- goals=- tgoals=- acts=core;idle mem=hurt_by_entity:A:inf;mobs:(A;B):inf;nearest_players:(A;B):inf;nearest_visible_player:A:inf;nearest_visible_targetable_player:A:inf;nearest_visible_targetable_players:(A;B):inf;visible_mobs:(A;B):inf equip=- attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:15.16518206448731;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+BRAIN al acts=core;idle
+BM al type=hurt_by_entity value=A ttl=inf
+BM al type=mobs value=(A;B) ttl=inf
+BM al type=nearest_players value=(A;B) ttl=inf
+BM al type=nearest_visible_player value=A ttl=inf
+BM al type=nearest_visible_targetable_player value=A ttl=inf
+BM al type=nearest_visible_targetable_players value=(A;B) ttl=inf
+BM al type=visible_mobs value=(A;B) ttl=inf
+BR al RunOne: [DoNothing]
+# a leash: the allay is held at an elastic distance, it does not run after the holder
+E al minecraft:allay pos=8.813781873245768,-60.0,-2.6973202123929743 delta=-0.014041397914582376,0.0,-0.017774744459110786 rot=151.59772,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=151.59772 body=151.59772 nav=done stuck=0 navspeed=2.5 ntarget=11,-60,0 path=- nodes=- goals=- tgoals=- acts=core;idle mem=hurt_by_entity:A:inf;mobs:(A):inf;visible_mobs:(A):inf equip=- attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:15.16518206448731;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+E al minecraft:allay pos=8.689162116533515,-60.0,-2.861905930729816 delta=0.0,0.0,0.0 rot=151.59772,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=151.59772 body=151.59772 nav=done stuck=0 navspeed=2.5 ntarget=11,-60,0 path=- nodes=- goals=- tgoals=- acts=core;idle mem=hurt_by_entity:A:inf;visible_mobs:():inf equip=- attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:15.16518206448731;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+N al {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,DuplicationCooldown:0L,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoGravity:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[8.689162116533515d,-60.0d,-2.861905930729816d],Rotation:[151.59772f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.05217612096954312d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.10000000149011612d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,listener:{event_delay:0,selector:{tick:-1L}}}

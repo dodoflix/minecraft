@@ -1,5 +1,7 @@
 pub mod equine;
 
+pub mod allay;
+
 pub mod armadillo;
 
 pub mod axolotl;

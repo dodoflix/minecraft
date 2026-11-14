@@ -131,8 +131,7 @@ fn collect_equipment_changes(
     for slot in EquipmentSlot::VALUES {
         let previous = entity.living()?.last_equipment_items[slot as usize].clone();
         let current = entity.get_item_by_slot(slot);
-        // `equipmentHasChanged(previous, current)`: `!ItemStack.matches(current, previous)`
-        if !ItemStack::matches(&current, &previous) {
+        if entity.equipment_has_changed(&previous, &current) {
             changed.get_or_insert_with(Vec::new).push((slot, current));
             if !previous.is_empty() {
                 stop_location_based_effects(entity, registries, &previous, slot);

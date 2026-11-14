@@ -1,0 +1,48 @@
+# Allay duplication: a dancing allay (a jukebox plays within 10 blocks) given an amethyst shard (DUPLICATES_ALLAYS) spawns a copy at
+# its position (persistent, both get a 6000 tick cooldown), plays the chime to the other players and consumes the shard (a creative
+# player keeps it); while the cooldown runs, or when the allay does not dance, the shard is handed over as an item instead; the
+# cooldown counts down in aiStep and is saved as DuplicationCooldown.
+level flat
+preload 2
+difficulty normal
+time 6000
+entity_counter 1000
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 0.5 -60 4.5 0 0
+spawn_player C creative 0.5 -60 20.5 0 0
+block 4 -60 0 minecraft:jukebox[has_record=true]
+be_nbt 4 -60 0 {RecordItem:{id:"minecraft:music_disc_13",count:1},ticks_since_song_started:0L}
+mobspawn al minecraft:allay 2.5 -59 0.5 0 0 {PersistenceRequired:1b}
+mobspawn idle minecraft:allay 2.5 -59 20.5 0 0 {PersistenceRequired:1b}
+level_seed 31
+entity_seed al 91
+entity_seed idle 92
+tick 25
+dump mob:al mob:idle events
+note a shard on the dancing allay: a copy appears, hearts event, chime for the other player, one shard consumed
+give A mainhand minecraft:amethyst_shard 3
+interact A al main
+tick 1
+dump mobs entities inventory:A events
+note the cooldown is running: the shard is given to the empty-handed allay instead
+interact A al main
+tick 1
+dump mob:al inventory:A events
+note a non-dancing allay takes the shard as an item too
+give C mainhand minecraft:amethyst_shard 2
+interact C idle main
+tick 1
+dump mob:idle inventory:C events
+note the cooldown is saved and counts down, then the next shard duplicates again (creative: shard kept)
+nbt al {DuplicationCooldown:3}
+dump nbt:al
+tick 2
+dump mob:al
+tick 2
+dump mob:al events
+tp C 2.5 -60 3.5
+give C mainhand minecraft:amethyst_shard 2
+interact C al main
+tick 1
+dump mobs entities inventory:C events
+dump nbt:al

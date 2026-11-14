@@ -10,7 +10,7 @@ use mc_game_core::world::entity::entity::Entity;
 
 /// `create(targetPositionGetter, shouldRunPredicate, closeEnough, tooFar, speedModifier)`.
 pub fn create(
-    target_position_getter: impl Fn(&ServerLevel, &dyn Entity) -> Option<PositionTracker> + 'static,
+    target_position_getter: impl Fn(&ServerLevel, &mut dyn Entity) -> Option<PositionTracker> + 'static,
     should_run_predicate: impl Fn(&dyn Entity) -> bool + 'static,
     close_enough: i32,
     too_far: i32,
@@ -20,7 +20,7 @@ pub fn create(
     let look_target = i.registered(&LOOK_TARGET);
     let walk_target = i.registered(&WALK_TARGET);
     i.create(move |c| {
-        let Some(target) = target_position_getter(&*c.level, &*c.body) else {
+        let Some(target) = target_position_getter(&*c.level, &mut *c.body) else {
             return false;
         };
         if !should_run_predicate(&*c.body) {

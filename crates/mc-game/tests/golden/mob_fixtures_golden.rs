@@ -15,7 +15,6 @@ const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[
 /// `mob_finalize_summon` and `mob_spawn_egg_finalize`: inert placeholders and the class-specific differences of single types.
 const FINALIZE_SUMMON_DIVERGENT: &[&str] = &[
     // inert placeholders: the dump line stops after the position fields
-    "minecraft:allay",
     "minecraft:camel",
     "minecraft:sniffer",
     "minecraft:wandering_trader",
@@ -106,7 +105,6 @@ fn mob_path_climb() {
 }
 
 #[test]
-#[ignore = "deviation: the allay is an inert placeholder, `path_query` finds no flying path where vanilla finds one (line 50: `PATHQ Allay ... found=true`)"]
 fn mob_path_fly() {
     run_scenario_test("mob_path_fly");
 }

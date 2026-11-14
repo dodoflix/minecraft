@@ -1,0 +1,75 @@
+# Allay vibrations and jukebox: a played note block sends a NOTE_BLOCK_PLAY vibration (travel time = distance) to every allay that
+# listens within 16 blocks; the first allay remembers it as the liked note block (600 ticks, renewed by the same block, other blocks
+# are ignored) and then delivers what it carries above the note block instead of to its liked player; a jukebox that plays
+# (every 20 ticks a JUKEBOX_PLAY game event within 10 blocks) makes allays dance until it stops or is out of reach.
+level flat
+preload 2
+difficulty normal
+time 6000
+entity_counter 1000
+spawn_player A survival 0.5 -60 3.5 0 0
+block 0 -60 0 minecraft:note_block[note=0]
+block 12 -60 0 minecraft:note_block[note=5]
+block 24 -60 12 minecraft:jukebox[has_record=false]
+mobspawn al minecraft:allay 4.5 -59 0.5 0 0 {PersistenceRequired:1b}
+mobspawn deaf minecraft:allay 4.5 -59 4.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn far minecraft:allay 20.5 -59 0.5 0 0 {PersistenceRequired:1b}
+mobspawn dj minecraft:allay 22.5 -59 12.5 0 0 {PersistenceRequired:1b}
+mobspawn dj2 minecraft:allay 24.5 -59 24.5 0 0 {PersistenceRequired:1b}
+level_seed 21
+entity_seed al 81
+entity_seed deaf 82
+entity_seed far 83
+entity_seed dj 84
+entity_seed dj2 85
+tick 3
+dump mob:al mob:deaf mob:far brain:al
+note right click on the first note block: vibration (distance 4.x, so 4 ticks), only the awake allay in range hears it
+use_on A 0 -60 0 up main
+tick 1
+dump mob:al nbt:al events
+tick 6
+dump mob:al mob:deaf mob:far brain:al nbt:al events
+note another note block: ignored while the first is remembered
+use_on A 12 -60 0 up main
+tick 20
+dump mob:al brain:al nbt:al events
+note the same block renews the cooldown
+use_on A 0 -60 0 up main
+tick 10
+dump mob:al brain:al events
+note a held item now goes to the note block, not to the player
+give A mainhand minecraft:iron_ingot 2
+interact A al main
+spawn_item i1 minecraft:iron_ingot 6.5 -60 0.5 0 0 0 1
+tick 40
+dump mob:al brain:al entities events
+tick 60
+dump mob:al brain:al entities events
+note the note block is replaced: the memory is dropped and the player gets the items
+block 0 -60 0 minecraft:stone
+spawn_item i2 minecraft:iron_ingot 4.5 -60 0.5 0 0 0 1
+tick 60
+dump mob:al brain:al entities events
+note a jukebox playing a disc: the allay within 10 blocks dances, the one outside does not
+give A mainhand minecraft:music_disc_13
+tp A 22.5 -60 10.5
+tick 2
+use_on A 24 -60 12 up main
+tick 1
+dump mob:dj mob:dj2 events
+tick 25
+dump mob:dj mob:dj2 events
+tick 40
+dump mob:dj mob:dj2 events
+note the dancer is moved out of reach: dancing stops at the next 20 tick check
+tp dj 22.5 -59 40.5
+tick 45
+dump mob:dj mob:dj2 events
+note it returns: the next play event makes it dance again, taking the disc out (empty hand) sends the stop event
+tp dj 22.5 -59 12.5
+tick 25
+dump mob:dj mob:dj2 events
+use_on A 24 -60 12 up main
+tick 3
+dump mob:dj mob:dj2 events nbt:dj

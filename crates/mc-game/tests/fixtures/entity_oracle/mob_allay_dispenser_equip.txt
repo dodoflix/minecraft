@@ -1,0 +1,27 @@
+C Set minecraft:overworld to 18000 tick(s)
+# c1 leather helmet in front of an empty-handed allay: dropped
+BE 0 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E a1 minecraft:allay pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.22747420016396447,0.16272784134823165,0.020855468741498434 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+N a1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,DuplicationCooldown:0L,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,listener:{event_delay:0,selector:{tick:-1L}}}
+# c2 leather helmet in front of an allay holding an item that can pick up loot: still dropped
+BE 0 -60 4 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:4}
+E a1 minecraft:allay pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.22747420016396447,0.16272784134823165,0.020855468741498434 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a2 minecraft:allay pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,4.5 delta=0.2238454859527752,0.17947639371036203,-0.08873760337832882 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,4 data=5 global=0
+N a2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,DuplicationCooldown:0L,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[],current_impulse_context_reset_grace_time:0,equipment:{mainhand:{count:1,id:"minecraft:iron_ingot"}},fall_distance:0.0d,listener:{event_delay:0,selector:{tick:-1L}}}
+# c3 control: a zombie that can pick up loot takes the helmet
+BE 0 -60 8 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:8}
+E a1 minecraft:allay pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.22747420016396447,0.16272784134823165,0.020855468741498434 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a2 minecraft:allay pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,4.5 delta=0.2238454859527752,0.17947639371036203,-0.08873760337832882 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,8 data=5 global=0
+N z3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5d,-60.0d,8.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{head:2.0f},equipment:{head:{count:1,id:"minecraft:leather_helmet"}},fall_distance:0.0d}

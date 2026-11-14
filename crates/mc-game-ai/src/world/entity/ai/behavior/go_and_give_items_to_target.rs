@@ -13,13 +13,14 @@ use std::sync::Arc;
 
 const CLOSE_ENOUGH_DISTANCE_TO_TARGET: f64 = 3.0;
 
-/// `Function<LivingEntity, Optional<PositionTracker>>`.
+/// `Function<LivingEntity, Optional<PositionTracker>>` (the getter may change the brain: `AllayAi.getItemDepositPosition`
+/// forgets a note block that is gone).
 pub type TargetPositionGetter =
-    Arc<dyn Fn(&ServerLevel, &dyn Entity) -> Option<PositionTracker> + Send + Sync>;
+    Arc<dyn Fn(&ServerLevel, &mut dyn Entity) -> Option<PositionTracker> + Send + Sync>;
 /// `ItemThrower.throwItem(level, thrower, targetPos)`.
 pub type ItemThrower = Arc<dyn Fn(&mut ServerLevel, &mut dyn Entity, Vec3) + Send + Sync>;
 /// `Predicate<LivingEntity> hasItemPredicate`.
-type HasItemPredicate = Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>;
+pub type HasItemPredicate = Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>;
 
 pub struct GoAndGiveItemsToTarget {
     target_position_getter: TargetPositionGetter,
@@ -54,7 +55,7 @@ impl GoAndGiveItemsToTarget {
         )
     }
 
-    fn can_throw_item_to_target(&self, level: &ServerLevel, body: &dyn Entity) -> bool {
+    fn can_throw_item_to_target(&self, level: &ServerLevel, body: &mut dyn Entity) -> bool {
         (self.has_item_predicate)(body) && (self.target_position_getter)(level, body).is_some()
     }
 }

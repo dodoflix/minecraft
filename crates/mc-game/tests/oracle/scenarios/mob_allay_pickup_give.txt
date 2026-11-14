@@ -1,0 +1,66 @@
+# Allay item handling: an item handed over becomes the held item and the giver the liked player (given sound, count 1, creative
+# keeps its stack); the allay then fetches only items equal to the held one (same item, same potion contents), carries them in
+# its inventory, brings them to the liked player and throws them with a 60 tick pickup pause; an empty hand takes the held item
+# back (taken sound, inventory thrown, liked player forgotten); mob_griefing off stops the pickup.
+level flat
+preload 2
+difficulty normal
+time 6000
+entity_counter 1000
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 0.5 -60 6.5 0 0
+spawn_player C creative 0.5 -60 12.5 0 0
+mobspawn al minecraft:allay 4.5 -59 0.5 0 0 {PersistenceRequired:1b}
+mobspawn al2 minecraft:allay 4.5 -59 6.5 0 0 {PersistenceRequired:1b}
+mobspawn al3 minecraft:allay 4.5 -59 12.5 0 0 {PersistenceRequired:1b}
+level_seed 11
+entity_seed al 71
+entity_seed al2 72
+entity_seed al3 73
+tick 5
+dump mob:al mob:al2 mob:al3 brain:al
+note an iron ingot from a survival player (one item taken from the stack of 3), a healing potion, a creative stack
+give A mainhand minecraft:iron_ingot 3
+give B mainhand minecraft:potion[potion_contents={potion:"minecraft:healing"}] 1
+give C mainhand minecraft:iron_ingot 3
+interact A al main
+interact B al2 main
+interact C al3 main
+tick 1
+dump mob:al mob:al2 mob:al3 brain:al brain:al2 inventory:A inventory:B inventory:C events
+note a second item is not accepted while the hand is full (the stack stays)
+interact A al main
+tick 1
+dump mob:al inventory:A events
+note items on the ground: equal ones are fetched, other items and other potions are not
+spawn_item i1 minecraft:iron_ingot 6.5 -60 0.5 0 0 0 2
+spawn_item i2 minecraft:gold_ingot 6.5 -60 1.5 0 0 0 2
+spawn_item i3 minecraft:potion[potion_contents={potion:"minecraft:healing"}] 6.5 -60 6.5 0 0 0 1
+spawn_item i4 minecraft:potion[potion_contents={potion:"minecraft:swiftness"}] 6.5 -60 7.5 0 0 0 1
+spawn_item i5 minecraft:iron_ingot 6.5 -60 12.5 0 0 0 1
+tick 20
+dump mob:al mob:al2 mob:al3 brain:al entities events
+tick 20
+dump mob:al mob:al2 mob:al3 brain:al entities events
+tick 20
+dump mob:al mob:al2 mob:al3 brain:al brain:al2 entities events
+tick 40
+dump mob:al mob:al2 mob:al3 entities events inventory:A inventory:B inventory:C
+tick 60
+dump mob:al mob:al2 mob:al3 entities events inventory:A inventory:B inventory:C
+note an empty hand takes the item back: inventory thrown at the allay, liked player erased
+spawn_player D survival 6.5 -60 20.5 0 0
+tp al2 6.5 -59 20.5
+tick 2
+interact D al2 main
+tick 1
+dump mob:al2 brain:al2 entities inventory:D events
+tick 20
+dump mob:al2 entities events
+note saved state: inventory, listener, duplication cooldown and brain memories
+dump nbt:al nbt:al3
+note mob_griefing off: nothing is picked up
+gamerule mob_griefing false
+spawn_item i6 minecraft:iron_ingot 6.5 -60 1.5 0 0 0 1
+tick 40
+dump mob:al entities events

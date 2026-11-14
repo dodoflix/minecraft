@@ -206,6 +206,11 @@ impl ServerLevel {
                     }
                 });
             }
+            ListenerOwner::EntitySecondary(id) => {
+                self.with_entity(id, |level, entity| {
+                    entity.handle_secondary_game_event(level, event, context, position);
+                });
+            }
         }
     }
 }

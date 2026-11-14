@@ -1,0 +1,50 @@
+# Allay liked player: the player an allay was given an item by cannot hurt it and counts as an ally, everyone else can (hurt
+# panics it, it heals one health point every 10 ticks); the allay stays near the liked player and the brain memories are saved;
+# a leash does not make it stay close to its holder.
+level flat
+preload 2
+difficulty normal
+time 6000
+entity_counter 1000
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 0.5 -60 6.5 0 0
+mobspawn al minecraft:allay 4.5 -59 0.5 0 0 {PersistenceRequired:1b}
+level_seed 41
+entity_seed al 101
+tick 5
+note nobody is liked yet: a hit by A hurts
+give A mainhand minecraft:iron_ingot 1
+hurt al player_attack 2 by=A
+tick 1
+dump mob:al brain:al events
+tick 30
+dump mob:al brain:al
+note A gives the allay an item and becomes the liked player
+interact A al main
+tick 1
+dump mob:al brain:al events
+note hits by the liked player do nothing, hits by B and other damage hurt
+hurt al player_attack 3 by=A
+tick 1
+dump mob:al events
+hurt al player_attack 3 by=B
+tick 1
+dump mob:al brain:al events
+tick 25
+dump mob:al brain:al events
+hurt al magic 1
+tick 1
+dump mob:al events
+note the allay keeps its distance to the liked player: it comes along when the player walks away
+tp A 24.5 -60 0.5
+tick 40
+dump mob:al brain:al
+tick 40
+dump mob:al brain:al
+note a leash: the allay is held at an elastic distance, it does not run after the holder
+leash al B
+tp B 4.5 -60 14.5
+tick 20
+dump mob:al
+tick 20
+dump mob:al nbt:al

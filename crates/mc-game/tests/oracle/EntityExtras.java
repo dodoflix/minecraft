@@ -4,6 +4,7 @@ import java.util.List;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OminousItemSpawner;
+import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.animal.dolphin.Dolphin;
@@ -98,6 +99,16 @@ final class EntityExtras {
          out.add("leftowner", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Projectile.class, "leftOwner")));
          out.add("shot", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Projectile.class, "hasBeenShot")));
          out.add("canbreak", EntityOracleDriver.bool(EntityOracleDriver.priv(e, Projectile.class, "canBreak") != null));
+      }));
+      ALL.add(new Extra(25, Allay.class, (d, e, out) -> {
+         Allay a = (Allay)e;
+         @SuppressWarnings("unchecked")
+         var canDuplicate = (net.minecraft.network.syncher.EntityDataAccessor<Boolean>)EntityOracleDriver.priv(e, Allay.class, "DATA_CAN_DUPLICATE");
+         out.add("dance", EntityOracleDriver.bool(a.isDancing()));
+         out.add("candup", EntityOracleDriver.bool(a.getEntityData().get(canDuplicate)));
+         out.add("dupcd", EntityOracleDriver.priv(e, Allay.class, "duplicationCooldown"));
+         var jukebox = (net.minecraft.core.BlockPos)EntityOracleDriver.priv(e, Allay.class, "jukeboxPos");
+         out.add("jukebox", jukebox == null ? "-" : jukebox.getX() + "," + jukebox.getY() + "," + jukebox.getZ());
       }));
       ALL.add(new Extra(25, Goat.class, (d, e, out) -> {
          Goat g = (Goat)e;

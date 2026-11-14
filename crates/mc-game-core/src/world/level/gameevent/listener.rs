@@ -94,6 +94,8 @@ impl PositionSource {
 pub enum ListenerOwner {
     BlockEntity(BlockPos),
     Entity(EntityId),
+    /// The second listener of an entity (`Entity::handle_secondary_game_event`).
+    EntitySecondary(EntityId),
 }
 
 /// `GameEventListener`.

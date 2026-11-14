@@ -176,6 +176,7 @@ mod mnu_mount_golden;
 mod mnu_recipe_golden;
 mod mnu_smithing_golden;
 mod mnu_stonecutter_golden;
+mod mob_allay_golden;
 mod mob_amphibian_golden;
 mod mob_aquatic_golden;
 mod mob_armadillo_golden;

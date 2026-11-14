@@ -3605,6 +3605,15 @@ pub trait Entity: Any {
         _last: &[crate::world::item::ItemStack; 8],
     ) {
     }
+    /// `LivingEntity.equipmentHasChanged(previous, current)` (`Allay` ignores the count and the components that do not
+    /// change what it would pick up).
+    fn equipment_has_changed(
+        &self,
+        previous: &crate::world::item::ItemStack,
+        current: &crate::world::item::ItemStack,
+    ) -> bool {
+        !crate::world::item::ItemStack::matches(current, previous)
+    }
     /// `this instanceof AbstractCubeMob`: the cube-mob view of a slime / magma cube / sulfur cube.
     fn as_cube_mob(&self) -> Option<&dyn super::monster::cubemob::CubeMob> {
         None
@@ -3977,7 +3986,7 @@ pub trait Entity: Any {
     /// `LivingEntity.canDispenserEquipIntoSlot(slot)`: every mob accepts what it can pick up (`Mob`), non-mobs always.
     /// Overriding classes (`Dolphin`, `Fox`, `Panda`, `Pig`, `Strider`, `SulfurCube`, `AbstractHorse`, ...) call
     /// [`super::mob::equipment::can_dispenser_equip_into_slot`] for their `super` part.
-    /// Not implemented: the `Allay`, `HappyGhast` and `AbstractNautilus` overrides (those entities do not exist yet).
+    /// Not implemented: the `HappyGhast` and `AbstractNautilus` overrides (those entities do not exist yet).
     fn can_dispenser_equip_into_slot(&self, _slot: super::equipment::EquipmentSlot) -> bool {
         super::mob::equipment::can_dispenser_equip_into_slot(self.as_dyn())
     }
@@ -4840,6 +4849,17 @@ pub trait Entity: Any {
     /// `Mob.isAggressive()` (virtual: `Panda` reads its gene).
     fn is_aggressive(&self) -> bool {
         self.mob().is_some_and(|m| m.is_aggressive())
+    }
+    /// `handleGameEvent` of the entity's second `DynamicGameEventListener` (`Allay`'s jukebox listener; the first one is
+    /// [`game_event_listener`](Self::game_event_listener)).
+    fn handle_secondary_game_event(
+        &mut self,
+        _level: &mut ServerLevel,
+        _event: mc_data::GameEvent,
+        _context: &crate::world::level::gameevent::GameEventContext,
+        _source_position: Vec3,
+    ) -> bool {
+        false
     }
     /// `Entity.updateDynamicGameEventListener(action)`: run by the level on tracking start (`Add`), tracking end (`Remove`)
     /// and section change (`Move`) of the entity (entities with a `DynamicGameEventListener`: warden, allay).

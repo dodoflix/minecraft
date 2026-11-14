@@ -15,10 +15,6 @@ use mc_game::world::entity::spawn_placements::missing_predicates;
 /// Mob types without a Rust class (type, what is not implemented). Alphabetical.
 const EXPECTED_MISSING: &[(&str, &str)] = &[
     (
-        "minecraft:allay",
-        "Allay: item fetching flyer, brain, duplication",
-    ),
-    (
         "minecraft:camel",
         "Camel: dash and sit state, rider controls, saddle menu",
     ),

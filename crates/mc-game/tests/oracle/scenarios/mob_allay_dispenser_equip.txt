@@ -1,0 +1,27 @@
+# Allay.canDispenserEquipIntoSlot is always false: a dispenser never equips an allay (the helmet is dropped), whether the allay holds
+# an item or not, while a zombie that can pick up loot takes it. Every dispense/spawn line is unique: the replay seeds the entity
+# UUIDs and random from the command line.
+level flat
+preload 2
+time 18000
+note c1 leather helmet in front of an empty-handed allay: dropped
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:leather_helmet",count:1}]}
+mobspawn a1 minecraft:allay 1.5 -60 0.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+level_seed 201
+dispense 0 -60 0 c1
+dump be:0,-60,0 entities events nbt:a1
+note c2 leather helmet in front of an allay holding an item that can pick up loot: still dropped
+block 0 -60 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:leather_helmet",count:1}]}
+mobspawn a2 minecraft:allay 1.5 -60 4.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b,CanPickUpLoot:1b,equipment:{mainhand:{id:"minecraft:iron_ingot",count:1}}}
+level_seed 202
+dispense 0 -60 4 c2
+dump be:0,-60,4 entities events nbt:a2
+note c3 control: a zombie that can pick up loot takes the helmet
+block 0 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:leather_helmet",count:1}]}
+mobspawn z3 minecraft:zombie 1.5 -60 8.5 0 0 nofinalize {NoAI:1b,Silent:1b,CanPickUpLoot:1b}
+level_seed 203
+dispense 0 -60 8 c3
+dump be:0,-60,8 entities events nbt:z3
