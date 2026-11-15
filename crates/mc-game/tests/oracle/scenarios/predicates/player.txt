@@ -1,0 +1,166 @@
+# PlayerPredicate: level, food, gamemode, stats, recipes, advancements, looking_at (entity ray, spectators, line of sight, range) and input
+level void
+fill -16 0 -16 63 0 63 minecraft:stone
+spawn_player Steve survival 0.5 1 0.5 0 0
+spawn_player Alex creative 6.5 1 0.5 90 0
+spawn_player Pat adventure -3.5 1 6.5 180 0
+spawn_player Dan survival 20.5 1 20.5 0 0
+spawn_player Frank survival 30.5 1 20.5 0 0
+spawn_player Ghost spectator 30.5 1 24.5 0 0
+spawn_player Zed survival 10.5 1 40.5 0 0
+spawn_player Eve survival 40.5 1 40.5 0 45
+spawn_player Gus survival 50.5 1 50.5 0 -30
+spawn vil1 minecraft:villager 0.5 1 4.5 0 0
+spawn pill1 minecraft:pillager 0.5 1 8.5 0 0
+spawn_item item1 minecraft:diamond 0.5 1 2.5
+spawn skel1 minecraft:skeleton -3.5 1 2.5 0 0
+spawn zombie1 minecraft:zombie 10.5 1 0.5 0 0
+spawn zombie3 minecraft:zombie 20.5 1 26.5 0 0
+spawn zombie2 minecraft:zombie 30.5 1 28.5 0 0
+spawn pig3 minecraft:pig 50.5 4.5 54.5 0 0
+spawn cow2 minecraft:cow 40.5 1 46.5 0 0
+block 20 1 23 minecraft:stone
+block 20 2 23 minecraft:stone
+block 20 3 23 minecraft:stone
+set Steve xp_level 7
+set Steve food 12
+set Steve saturation 2.5
+set Alex xp_level 0
+set Alex food 20
+set Pat xp_level 30
+set Pat food 3
+set Pat saturation 0
+pinput Steve forward,jump
+pinput Alex sneak,sprint
+pinput Pat back,right,left
+stat Steve minecraft:mined minecraft:stone 5
+stat Steve minecraft:custom minecraft:jump 12
+stat Steve minecraft:killed minecraft:zombie 3
+stat Steve minecraft:killed_by minecraft:creeper 1
+stat Steve minecraft:crafted minecraft:stick 64
+stat Steve minecraft:used minecraft:diamond_sword 9
+stat Steve minecraft:broken minecraft:diamond_sword 2
+stat Steve minecraft:picked_up minecraft:diamond 40
+stat Steve minecraft:dropped minecraft:dirt 6
+stat Alex minecraft:custom minecraft:jump 0
+stat Pat minecraft:custom minecraft:jump 1
+stat Pat minecraft:mined minecraft:stone 100
+recipe Steve minecraft:oak_planks
+recipe Pat minecraft:stick
+recipe Pat minecraft:oak_planks
+# ---- level and food ----------------------------------------------------------------------------------------------
+pred_entity a1 Steve none {"type_specific/player":{"level":7}}
+pred_entity a2 Steve none {"type_specific/player":{"level":{"min":8}}}
+pred_entity a3 Steve none {"type_specific/player":{"level":{"min":3,"max":7}}}
+pred_entity a4 Alex none {"type_specific/player":{"level":0}}
+pred_entity a5 Pat none {"type_specific/player":{"level":{"max":29}}}
+pred_entity a6 Steve none {"type_specific/player":{"level":{"min":1.5}}}
+pred_entity a7 Steve none {"type_specific/player":{"level":{"min":9,"max":3}}}
+pred_entity a8 Steve none {"type_specific/player":{"level":"7"}}
+pred_entity a9 Steve none {"type_specific/player":{"food":{"level":12}}}
+pred_entity a10 Pat none {"type_specific/player":{"food":{"level":{"max":3},"saturation":0}}}
+pred_entity a11 Pat none {"type_specific/player":{"food":{"saturation":{"min":0.5}}}}
+pred_entity a12 Alex none {"type_specific/player":{"food":{"level":20}}}
+pred_entity a13 Steve none {"type_specific/player":{"food":{"level":12,"saturation":2.5},"level":7,"gamemode":["survival"]}}
+pred_entity a14 Steve none {"type_specific/player":{"food":{"level":12,"saturation":2.5},"level":7,"gamemode":["creative"]}}
+# ---- game modes ------------------------------------------------------------------------------------------------------
+pred_entity g1 Steve none {"type_specific/player":{"gamemode":"survival"}}
+pred_entity g2 Alex none {"type_specific/player":{"gamemode":"creative"}}
+pred_entity g3 Pat none {"type_specific/player":{"gamemode":"adventure"}}
+pred_entity g4 Ghost none {"type_specific/player":{"gamemode":"spectator"}}
+pred_entity g5 Ghost none {"type_specific/player":{"gamemode":["survival","creative","adventure"]}}
+pred_entity g6 Steve none {"type_specific/player":{"gamemode":[]}}
+pred_entity g7 Steve none {"type_specific/player":{"gamemode":["survival","survival"]}}
+pred_entity g8 Steve none {"type_specific/player":{"gamemode":"Survival"}}
+pred_entity g9 Steve none {"type_specific/player":{"gamemode":0}}
+pred_entity g10 Steve none {"type_specific/player":{"gamemode":["survival"]}}
+pred_entity g11 Alex none {"type_specific/player":{"gamemode":["creative"]}}
+pred_entity g12 Pat none {"type_specific/player":{"gamemode":["adventure","spectator"]}}
+pred_entity g13 Ghost none {"type_specific/player":{"gamemode":["spectator"]}}
+pred_entity g14 Ghost none {"type_specific/player":{"gamemode":["Spectator"]}}
+# ---- stats -------------------------------------------------------------------------------------------------------------
+pred_entity s1 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:mined","stat":"minecraft:stone","value":5}]}}
+pred_entity s2 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:mined","stat":"minecraft:stone","value":{"min":6}}]}}
+pred_entity s3 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:mined","stat":"minecraft:stone","value":{"max":4}}]}}
+pred_entity s4 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:mined","stat":"minecraft:stone"}]}}
+pred_entity s5 Alex none {"type_specific/player":{"stats":[{"type":"minecraft:mined","stat":"minecraft:stone","value":0}]}}
+pred_entity s6 Alex none {"type_specific/player":{"stats":[{"type":"minecraft:mined","stat":"minecraft:stone","value":{"min":1}}]}}
+pred_entity s7 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:custom","stat":"minecraft:jump","value":{"min":12,"max":12}}]}}
+pred_entity s8 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:killed","stat":"minecraft:zombie","value":3},{"type":"minecraft:killed_by","stat":"minecraft:creeper","value":1}]}}
+pred_entity s9 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:killed","stat":"minecraft:zombie","value":3},{"type":"minecraft:killed_by","stat":"minecraft:creeper","value":2}]}}
+pred_entity s10 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:killed","stat":"minecraft:creeper","value":{"min":1}}]}}
+pred_entity s11 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:killed_by","stat":"minecraft:zombie","value":{"min":1}}]}}
+pred_entity s12 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:crafted","stat":"minecraft:stick","value":{"min":64}}]}}
+pred_entity s13 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:used","stat":"minecraft:diamond_sword","value":9}]}}
+pred_entity s14 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:broken","stat":"minecraft:diamond_sword","value":2}]}}
+pred_entity s15 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:picked_up","stat":"minecraft:diamond","value":40}]}}
+pred_entity s16 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:dropped","stat":"minecraft:dirt","value":6}]}}
+pred_entity s17 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:dropped","stat":"minecraft:diamond","value":6}]}}
+pred_entity s18 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:used","stat":"minecraft:stone","value":{"max":0}}]}}
+pred_entity s19 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:mined","stat":"minecraft:diamond_sword"}]}}
+pred_entity s20 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:custom","stat":"minecraft:nope"}]}}
+pred_entity s21 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:custom","stat":"minecraft:jump","value":{"min":2.5}}]}}
+pred_entity s22 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:custom","value":3}]}}
+pred_entity s23 Steve none {"type_specific/player":{"stats":[{"stat":"minecraft:jump"}]}}
+pred_entity s24 Steve none {"type_specific/player":{"stats":[]}}
+pred_entity s25 Steve none {"type_specific/player":{"stats":{"type":"minecraft:custom","stat":"minecraft:jump"}}}
+pred_entity s26 Steve none {"type_specific/player":{"stats":[{"type":"custom","stat":"jump","value":12}]}}
+pred_entity s27 Pat none {"type_specific/player":{"stats":[{"type":"minecraft:custom","stat":"minecraft:jump","value":1},{"type":"minecraft:mined","stat":"minecraft:stone","value":{"min":100}}]}}
+pred_entity s28 Pat none {"type_specific/player":{"stats":[{"type":"minecraft:custom","stat":"minecraft:jump","value":1},{"type":"minecraft:mined","stat":"minecraft:stone","value":{"min":101}}]}}
+pred_entity s29 vil1 none {"type_specific/player":{"stats":[{"type":"minecraft:custom","stat":"minecraft:jump"}]}}
+pred_entity s30 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:mined","stat":"#minecraft:stone"}]}}
+# ---- recipes -------------------------------------------------------------------------------------------------------------
+pred_entity r1 Steve none {"type_specific/player":{"recipes":{"minecraft:oak_planks":true}}}
+pred_entity r2 Steve none {"type_specific/player":{"recipes":{"minecraft:stick":true}}}
+pred_entity r3 Pat none {"type_specific/player":{"recipes":{"minecraft:stick":true,"minecraft:oak_planks":true}}}
+pred_entity r4 Pat none {"type_specific/player":{"recipes":{"minecraft:stick":true,"minecraft:oak_planks":false}}}
+pred_entity r5 Alex none {"type_specific/player":{"recipes":{"minecraft:stick":false,"minecraft:oak_planks":false}}}
+pred_entity r6 Steve none {"type_specific/player":{"recipes":{"minecraft:no_such_recipe":false}}}
+pred_entity r7 Steve none {"type_specific/player":{"recipes":{"minecraft:no_such_recipe":true}}}
+pred_entity r8 Steve none {"type_specific/player":{"recipes":{"minecraft:stick":"yes"}}}
+pred_entity r9 Steve none {"type_specific/player":{"recipes":{}}}
+# ---- input ---------------------------------------------------------------------------------------------------------------
+pred_entity i1 Steve none {"type_specific/player":{"input":{"forward":true}}}
+pred_entity i2 Steve none {"type_specific/player":{"input":{"forward":true,"jump":true,"backward":false}}}
+pred_entity i3 Steve none {"type_specific/player":{"input":{"backward":true}}}
+pred_entity i4 Pat none {"type_specific/player":{"input":{"backward":true,"right":true,"left":true,"forward":false}}}
+pred_entity i5 Alex none {"type_specific/player":{"input":{"sneak":true,"sprint":true,"jump":false}}}
+pred_entity i6 Alex none {"type_specific/player":{"input":{}}}
+pred_entity i7 Zed none {"type_specific/player":{"input":{"forward":false,"backward":false,"left":false,"right":false,"jump":false,"sneak":false,"sprint":false}}}
+pred_entity i8 Zed none {"type_specific/player":{"input":{"sneak":true}}}
+pred_entity i9 Steve none {"type_specific/player":{"input":{"forward":"yes"}}}
+# ---- looking_at: nearest pickable entity on the view ray ------------------------------------------------------------
+pred_entity k1 Steve none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:villager"}}}
+pred_entity k2 Steve none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:pillager"}}}
+pred_entity k3 Steve none {"type_specific/player":{"looking_at":{}}}
+pred_entity k4 Steve none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:item"}}}
+pred_entity k5 Alex none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:player"}}}
+pred_entity k6 Alex none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:villager"}}}
+pred_entity k7 Pat none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:skeleton"}}}
+pred_entity k8 Dan none {"type_specific/player":{"looking_at":{}}}
+pred_entity k9 Dan none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:zombie"}}}
+pred_entity k10 Frank none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:zombie"}}}
+pred_entity k11 Frank none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:player"}}}
+pred_entity k12 Steve none {"type_specific/player":{"looking_at":{"distance":{"horizontal":{"min":3}}}}}
+pred_entity k13 Steve none {"type_specific/player":{"looking_at":{"distance":{"absolute":{"max":3}}}}}
+pred_entity k14 Steve none {"type_specific/player":{"looking_at":{"distance":{"horizontal":{"min":3,"max":4}}}}}
+pred_entity k15 Zed none {"type_specific/player":{"looking_at":{}}}
+pred_entity k16 Eve none {"type_specific/player":{"looking_at":{}}}
+pred_entity k17 Gus none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:pig"}}}
+pred_entity k18 Steve none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:villager","location":{"position":{"z":{"min":4,"max":5}}}}}}
+pred_entity k19 Steve none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:villager","flags":{"is_baby":true}}}}
+pred_entity k20 Pat none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:skeleton","nbt":{"Health":20.0}}}}
+pred_entity k21 Steve none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:villager"},"level":7,"food":{"level":12}}}
+pred_entity k22 Steve none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:villager"},"level":8}}
+pred_entity k23 Steve none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:villager"},"input":{"forward":true}}}
+pred_entity k24 vil1 none {"type_specific/player":{"looking_at":{}}}
+pred_entity k25 Steve none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:nope"}}}
+note a creative player is looked at like any other entity; the spectator in front of Frank is skipped and a mob behind a wall is not seen
+pred_entity k26 Frank none {"type_specific/player":{"looking_at":{"entity_type":"minecraft:zombie","distance":{"horizontal":{"min":8}}}}}
+pred_entity k27 Alex none {"type_specific/player":{"looking_at":{"gamemode":["x"]}}}
+pred_entity k28 Alex none {"type_specific/player":{"looking_at":{"type_specific/player":{"gamemode":["survival"]}}}}
+pred_entity k29 Alex none {"type_specific/player":{"looking_at":{"type_specific/player":{"gamemode":["creative"]}}}}
+# ---- combined with the other predicate fields ----------------------------------------------------------------------------
+pred_entity c1 Steve none {"entity_type":"minecraft:player","type_specific/player":{"level":7,"stats":[{"type":"minecraft:mined","stat":"minecraft:stone","value":5}],"recipes":{"minecraft:oak_planks":true},"input":{"forward":true},"looking_at":{"entity_type":"minecraft:villager"}}}
+pred_entity c2 Steve none {"entity_type":"minecraft:player","type_specific/player":{"level":7,"stats":[{"type":"minecraft:mined","stat":"minecraft:stone","value":5}],"recipes":{"minecraft:oak_planks":true},"input":{"forward":true},"looking_at":{"entity_type":"minecraft:pillager"}}}
+pred_entity c3 Steve none {"entity_type":"minecraft:zombie","type_specific/player":{"level":7}}

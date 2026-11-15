@@ -30,6 +30,11 @@ fn teams_and_pet_teams_match_vanilla() {
 }
 
 #[test]
+fn pet_teams_follow_owner_chains_through_horses_and_vexes() {
+    common::block_scenario::check("cmd_select_team_owners");
+}
+
+#[test]
 fn player_state_and_rotations_match_vanilla() {
     common::block_scenario::check("cmd_select_player_state");
 }

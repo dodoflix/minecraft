@@ -9,7 +9,7 @@
 
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
+use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::{GameType, Pose};
 use mc_data::{EntityType, MobEffect};
@@ -23,7 +23,7 @@ use mc_game::world::entity::item::ItemEntity;
 use mc_game::world::entity::plain::PlainEntity;
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game::world::item::ItemStack;
-use mc_game::world::level::LevelAccessor;
+use mc_game::world::level::{BlockGetter, LevelAccessor};
 use mc_protocol::codec::GameProfile;
 use mc_protocol::packets::play::Input;
 use std::collections::HashMap;
@@ -158,10 +158,66 @@ impl World {
         level.registries = ACCESS.clone();
         level.chunk_source.set_view_distance(4);
         level.chunk_source.set_simulation_distance(4);
+        // the oracle world: seed 4242 (the biome zoomer's salt) and the vanilla biome registry
+        let worldgen = mc_worldgen::data::WorldgenRegistries::new(std::sync::Arc::new(
+            mc_worldgen::data::McDataSource,
+        ));
+        level.tick_state.biomes = Some(std::sync::Arc::new(
+            mc_worldgen::biome::BiomeRegistry::load(&worldgen).expect("vanilla biomes"),
+        ));
+        level.tick_state.biome_zoom_seed = mc_worldgen::biome::BiomeManager::obfuscate_seed(4242);
         World {
             level,
             refs: HashMap::new(),
             lines: Vec::new(),
+        }
+    }
+
+    /// `/fillbiome from to biome` (`FillBiomeCommand.fill`): quart cells whose block corner is inside the quantized box.
+    fn fill_biome(&mut self, a: &[String]) {
+        let q = |s: &str| (s.parse::<i32>().unwrap() >> 2) << 2;
+        let (x1, y1, z1, x2, y2, z2) = (q(&a[0]), q(&a[1]), q(&a[2]), q(&a[3]), q(&a[4]), q(&a[5]));
+        let (min, max) = (
+            (x1.min(x2), y1.min(y2), z1.min(z2)),
+            (x1.max(x2), y1.max(y2), z1.max(z2)),
+        );
+        let biome = self
+            .level
+            .tick_state
+            .biomes
+            .as_ref()
+            .unwrap()
+            .id_of(&id(&a[6]))
+            .expect("biome");
+        let height = self.level.level_height();
+        for cz in (min.2 >> 4)..=(max.2 >> 4) {
+            for cx in (min.0 >> 4)..=(max.0 >> 4) {
+                self.level.chunk_blocking_mut(cx, cz);
+                let chunk = self.level.chunk_now_mut(cx, cz).expect("loaded");
+                let (qy0, qy1) = (height.min_y >> 2, (height.min_y + height.height) >> 2);
+                let mut old = HashMap::new();
+                for qx in cx * 4..cx * 4 + 4 {
+                    for qz in cz * 4..cz * 4 + 4 {
+                        for qy in qy0..qy1 {
+                            old.insert((qx, qy, qz), chunk.data.access.get_noise_biome(qx, qy, qz));
+                        }
+                    }
+                }
+                chunk
+                    .data
+                    .access
+                    .fill_biomes_from_noise(height, |qx, qy, qz| {
+                        let (bx, by, bz) = (qx << 2, qy << 2, qz << 2);
+                        if (min.0..=max.0).contains(&bx)
+                            && (min.1..=max.1).contains(&by)
+                            && (min.2..=max.2).contains(&bz)
+                        {
+                            biome
+                        } else {
+                            old[&(qx, qy, qz)]
+                        }
+                    });
+            }
         }
     }
 
@@ -181,8 +237,13 @@ impl World {
         self.level.get_entity_mut(id).expect("entity in level")
     }
 
+    /// Loads the chunk and keeps it loaded, like the chunks the vanilla oracle forces around the origin.
     fn load_chunk_at(&mut self, pos: BlockPos) {
-        self.level.chunk_blocking_mut(pos.x() >> 4, pos.z() >> 4);
+        let (x, z) = (pos.x() >> 4, pos.z() >> 4);
+        self.level
+            .chunk_source_mut()
+            .update_chunk_forced(ChunkPos::new(x, z), true);
+        self.level.chunk_blocking_mut(x, z);
     }
 
     fn set_block(&mut self, pos: BlockPos, state: BlockState) {
@@ -489,6 +550,15 @@ impl World {
                     })
                     .expect("player");
             }
+            "stat" => {
+                let stat = mc_game::stats::stat::by_names(&id(&a[2]), &id(&a[3])).expect("stat");
+                let player = self
+                    .entity(&a[1])
+                    .as_any()
+                    .downcast_ref::<ServerPlayer>()
+                    .unwrap();
+                player.stats.lock().set_value(stat, a[4].parse().unwrap());
+            }
             "recipe" => {
                 let p = self
                     .entity_mut(&a[1])
@@ -551,7 +621,7 @@ impl World {
                 });
             }
             "pred_damage" => {
-                let origin = self.origin(&a[3]).expect("origin");
+                let origin = self.origin(&a[3]);
                 let (direct, causing) = self.source_entities(&a[5..]);
                 let ty = id(&a[2]);
                 self.report(&a[1], &DamageSourcePredicate::codec(), &a[4], |w, p| {
@@ -623,6 +693,17 @@ impl World {
                     }
                 }
             }
+            "cmd" if a[1] == "fillbiome" => self.fill_biome(&a[2..]),
+            // game rules only configure the vanilla server
+            "cmd" => assert_eq!(a[1], "gamerule", "only game rules are not replayed"),
+            // chunk loading and light only: entities are not ticked
+            "tick" => {
+                for _ in 0..a.get(1).map_or(1, |n| n.parse().unwrap()) {
+                    self.level.tick_chunk_source(&|| true, false, true);
+                    while self.level.poll_chunk_task() {}
+                    self.level.tick_entity_management();
+                }
+            }
             "spawn_player" => self.spawn_player(a),
             "spawn" => self.spawn(a),
             "spawn_item" => self.spawn_item(a),
@@ -660,6 +741,12 @@ fn run_scenario(name: &str) {
     let fixture = std::fs::read_to_string(format!("{dir}/fixtures/predicate_oracle/{name}.txt"))
         .expect("fixture (run scripts/predicate-oracle.sh)");
     let mut world = World::new();
+    // the oracle level keeps the chunks within 6 of the origin loaded
+    for cx in -6..=6 {
+        for cz in -6..=6 {
+            world.load_chunk_at(BlockPos::new(cx * 16, 0, cz * 16));
+        }
+    }
     for line in script
         .lines()
         .map(str::trim)
@@ -710,6 +797,21 @@ fn run_scenario(name: &str) {
 }
 
 #[test]
+fn damage() {
+    run_scenario("damage");
+}
+
+#[test]
 fn entity_basic() {
     run_scenario("entity_basic");
+}
+
+#[test]
+fn location() {
+    run_scenario("location");
+}
+
+#[test]
+fn player() {
+    run_scenario("player");
 }

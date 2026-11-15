@@ -399,7 +399,9 @@ pub fn die(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSo
     let show_death_message = level.show_death_messages();
     if show_death_message {
         let tracker = std::mem::take(&mut player.player.living.combat_tracker);
-        let death_message = tracker.get_death_message(level, player);
+        // the dying player stays visible: a pet it owns finds its owner's team
+        let death_message =
+            level.expose(&*player, |level| tracker.get_death_message(level, &*player));
         player.player.living.combat_tracker = tracker;
         if let Some(connection) = &player.connection {
             connection.send(&ClientboundPlayerCombatKillPacket {

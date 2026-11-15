@@ -9,11 +9,14 @@ import net.minecraft.advancements.predicates.DamageSourcePredicate;
 import net.minecraft.advancements.predicates.LocationPredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.StatType;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
@@ -40,6 +43,7 @@ import net.minecraft.world.phys.Vec3;
  * onground REF BOOL | pose REF POSE | sprint REF BOOL | swimming REF BOOL | fallflying REF BOOL | flying PLAYER BOOL
  * tickcount REF N | ride PASSENGER VEHICLE | target MOB TARGET | team_join REF TEAM | pinput PLAYER flags | known_movement PLAYER X Y Z
  * recipe PLAYER ID | advancement PLAYER ID CRITERION (awards the criterion) | ominous_banner MOB
+ * stat PLAYER TYPE VALUE N (StatsCounter.setValue: TYPE and VALUE are registry ids, e.g. `minecraft:mined minecraft:stone`)
  * -- evaluations (output: "R id true|false|ERR", "J id canonical-json" when the JSON decoded) --
  * pred_entity ID SUBJECT ORIGIN JSON            ORIGIN: none | x,y,z | @REF (the position of REF)
  * pred_location ID X Y Z JSON
@@ -146,6 +150,13 @@ public final class PredicateOracle {
          case "pinput" -> {
             Set<String> fl = new HashSet<>(Arrays.asList(a.get(2).split(",")));
             ((ServerPlayer)d.ref(a.get(1))).setLastClientInput(new Input(fl.contains("forward"), fl.contains("back"), fl.contains("left"), fl.contains("right"), fl.contains("jump"), fl.contains("sneak"), fl.contains("sprint")));
+         }
+         case "stat" -> {
+            @SuppressWarnings({"unchecked", "rawtypes"})
+            StatType<Object> type = (StatType<Object>)BuiltInRegistries.STAT_TYPE.getValue(EntityOracleDriver.id(a.get(2)));
+            Object value = ((Registry<Object>)type.getRegistry()).getValue(EntityOracleDriver.id(a.get(3)));
+            ServerPlayer player = (ServerPlayer)d.ref(a.get(1));
+            player.getStats().setValue(player, type.get(value), Integer.parseInt(a.get(4)));
          }
          case "known_movement" -> ((ServerPlayer)d.ref(a.get(1))).setKnownMovement(new Vec3(Double.parseDouble(a.get(2)), Double.parseDouble(a.get(3)), Double.parseDouble(a.get(4))));
          case "recipe" -> ((ServerPlayer)d.ref(a.get(1))).getRecipeBook().add(ResourceKey.create(Registries.RECIPE, EntityOracleDriver.id(a.get(2))));

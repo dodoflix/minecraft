@@ -39,7 +39,7 @@ impl DamageSourcePredicate {
     pub fn matches_parts<'a>(
         &self,
         level: &'a ServerLevel,
-        position: Vec3,
+        position: Option<Vec3>,
         damage_type: &Identifier,
         direct_entity: Option<&'a dyn Entity>,
         entity: Option<&'a dyn Entity>,
@@ -51,14 +51,14 @@ impl DamageSourcePredicate {
         if self
             .direct_entity
             .as_ref()
-            .is_some_and(|p| !p.matches_nullable(level, Some(position), direct_entity))
+            .is_some_and(|p| !p.matches_nullable(level, position, direct_entity))
         {
             return false;
         }
         if self
             .source_entity
             .as_ref()
-            .is_some_and(|p| !p.matches_nullable(level, Some(position), entity))
+            .is_some_and(|p| !p.matches_nullable(level, position, entity))
         {
             return false;
         }
@@ -73,7 +73,7 @@ impl DamageSourcePredicate {
         let causing = source.get_entity().and_then(|id| level.get_entity(id));
         self.matches_parts(
             level,
-            position,
+            Some(position),
             &source.damage_type,
             direct,
             causing,

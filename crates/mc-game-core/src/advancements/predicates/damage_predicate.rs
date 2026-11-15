@@ -67,7 +67,7 @@ impl DamagePredicate {
         self.type_.as_ref().is_none_or(|t| {
             t.matches_parts(
                 level,
-                player.position(),
+                Some(player.position()),
                 damage_type,
                 direct_entity,
                 entity,

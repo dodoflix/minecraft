@@ -1,0 +1,215 @@
+# LocationPredicate: position, dimension, biomes, structures, smokey, light, block (+state/nbt), fluid, can_see_sky
+level void
+fill -16 0 -16 16 0 16 minecraft:stone
+cmd gamerule max_block_modifications 10000000
+cmd fillbiome -16 -64 -16 -1 100 15 minecraft:desert
+cmd fillbiome 0 -64 -16 15 100 15 minecraft:plains
+cmd fillbiome 8 -64 -16 15 100 -9 minecraft:deep_ocean
+block 0 1 0 minecraft:campfire[lit=true]
+block 3 1 0 minecraft:campfire[lit=false]
+block 6 1 0 minecraft:soul_campfire[lit=true]
+block 9 2 0 minecraft:campfire[lit=true]
+block 9 3 0 minecraft:oak_slab[type=top]
+block 12 2 0 minecraft:campfire[lit=true]
+block 12 3 0 minecraft:stone
+block -5 1 5 minecraft:campfire[lit=true]
+block -5 2 5 minecraft:hay_block
+block -5 3 5 minecraft:oak_trapdoor[open=false,half=bottom]
+block 1 1 3 minecraft:water[level=0]
+block 2 1 3 minecraft:water[level=3]
+block 3 1 3 minecraft:water[level=8]
+block 4 1 12 minecraft:lava[level=0]
+block 5 1 12 minecraft:lava[level=5]
+block 6 1 3 minecraft:oak_stairs[waterlogged=true,half=bottom,facing=north]
+block 7 1 3 minecraft:kelp[age=4]
+block 8 1 3 minecraft:bubble_column[drag=true]
+block 1 1 6 minecraft:glowstone
+block 3 1 6 minecraft:torch
+block 5 1 6 minecraft:lantern[hanging=false]
+block 7 1 6 minecraft:redstone_lamp[lit=true]
+block -3 1 -3 minecraft:oak_planks
+block -3 2 -3 minecraft:oak_planks
+block -3 3 -3 minecraft:oak_planks
+block -2 1 -2 minecraft:oak_planks
+block -2 2 -2 minecraft:oak_planks
+block -2 3 -2 minecraft:oak_planks
+block 1 1 9 minecraft:oak_log[axis=y]
+block 2 1 9 minecraft:oak_log[axis=x]
+block 3 1 9 minecraft:furnace[lit=true,facing=east]
+block 4 1 9 minecraft:redstone_wire[power=7,north=side]
+block 5 1 9 minecraft:wheat[age=5]
+block 6 1 9 minecraft:chest[type=single,facing=south]
+block 7 1 9 minecraft:sea_pickle[pickles=3,waterlogged=true]
+block 8 1 9 minecraft:cake[bites=2]
+block 9 1 9 minecraft:white_bed[part=head,facing=north,occupied=false]
+block 2 1 13 minecraft:hay_block
+block 2 2 13 minecraft:campfire[lit=true,signal_fire=true]
+tick 3
+# ---- position / dimension --------------------------------------------------------------------------------------
+pred_location l1 0.5 1 0.5 {"position":{"x":{"min":0.0,"max":1.0},"y":1,"z":{"max":0.5}}}
+pred_location l2 0.5 1 0.5 {"position":{"y":{"min":1.5}}}
+pred_location l3 0.5 1 0.5 {"position":{"x":{"min":0.5,"max":0.5}}}
+pred_location l4 0.5 1 0.5 {"dimension":"minecraft:overworld"}
+pred_location l5 0.5 1 0.5 {"dimension":"minecraft:the_nether"}
+pred_location l6 0.5 1 0.5 {"dimension":"minecraft:nope"}
+pred_location l7 0.5 1 0.5 {}
+pred_location l8 0.5 1 0.5 {"position":{"x":{"min":3,"max":1}}}
+# ---- biomes ------------------------------------------------------------------------------------------------------
+pred_location b1 -8.5 1 0.5 {"biomes":"minecraft:desert"}
+pred_location b2 -8.5 1 0.5 {"biomes":["minecraft:desert","minecraft:plains"]}
+pred_location b3 2.5 1 4.5 {"biomes":"minecraft:plains"}
+pred_location b4 2.5 1 4.5 {"biomes":"minecraft:desert"}
+pred_location b5 12.5 1 -12.5 {"biomes":"#minecraft:is_ocean"}
+pred_location b6 2.5 1 4.5 {"biomes":"#minecraft:is_ocean"}
+pred_location b7 -8.5 1 0.5 {"biomes":"#minecraft:is_overworld"}
+pred_location b8 -8.5 1 0.5 {"biomes":"minecraft:nope"}
+pred_location b9 5000.5 1 0.5 {"biomes":"minecraft:desert"}
+pred_location b10 -8.5 80 0.5 {"biomes":"minecraft:desert"}
+pred_location b11 -8.5 -200 0.5 {"biomes":"minecraft:desert"}
+pred_location b12 -0.5 1 0.5 {"biomes":"minecraft:desert"}
+pred_location b13 0.5 1 0.5 {"biomes":"minecraft:desert"}
+# ---- structures: the void level has no structures, so only the negative paths are compared --------------------------------------------------------------------------------------------------
+pred_location s1 0.5 1 0.5 {"structures":"minecraft:village_plains"}
+pred_location s2 0.5 1 0.5 {"structures":"#minecraft:village"}
+pred_location s3 5000.5 1 0.5 {"structures":"minecraft:mineshaft"}
+pred_location s4 0.5 1 0.5 {"structures":"minecraft:nope"}
+# ---- smokey ----------------------------------------------------------------------------------------------------------
+pred_location k1 0.5 1 0.5 {"smokey":true}
+pred_location k2 0.5 2 0.5 {"smokey":true}
+pred_location k3 0.5 5 0.5 {"smokey":true}
+pred_location k4 0.5 6 0.5 {"smokey":true}
+pred_location k5 0.5 7 0.5 {"smokey":true}
+pred_location k6 0.5 7 0.5 {"smokey":false}
+pred_location k7 3.5 2 0.5 {"smokey":true}
+pred_location k8 3.5 2 0.5 {"smokey":false}
+pred_location k9 6.5 3 0.5 {"smokey":true}
+pred_location k10 9.5 3 0.5 {"smokey":true}
+pred_location k11 9.5 4 0.5 {"smokey":true}
+pred_location k12 9.5 6 0.5 {"smokey":true}
+pred_location k13 12.5 4 0.5 {"smokey":true}
+pred_location k14 12.5 5 0.5 {"smokey":true}
+pred_location k15 -4.5 3 5.5 {"smokey":true}
+pred_location k16 -4.5 4 5.5 {"smokey":true}
+pred_location k17 -4.5 5 5.5 {"smokey":true}
+pred_location k18 0.5 1 0.5 {"smokey":false}
+pred_location k19 20.5 1 0.5 {"smokey":true}
+# ---- light -------------------------------------------------------------------------------------------------------------
+pred_location i1 1.5 2 6.5 {"light":{"light":15}}
+pred_location i2 1.5 2 6.5 {"light":{"light":{"min":15}}}
+pred_location i3 1.5 1 6.5 {"light":{"light":{"min":15}}}
+pred_location i4 3.5 2 6.5 {"light":{"light":14}}
+pred_location i5 5.5 2 6.5 {"light":{"light":{"min":14}}}
+pred_location i6 7.5 2 6.5 {"light":{"light":{"min":14}}}
+pred_location i7 -2.5 2 -2.5 {"light":{"light":{"max":0}}}
+pred_location i8 -2.5 4 -2.5 {"light":{"light":{"min":15}}}
+pred_location i9 0.5 2 0.5 {"light":{"light":{"min":15}}}
+pred_location i10 0.5 -10 0.5 {"light":{"light":{"max":0}}}
+pred_location i11 0.5 -10 0.5 {"light":{"light":{"min":15}}}
+pred_location i12 5000.5 1 0.5 {"light":{"light":{"min":0}}}
+pred_location i13 0.5 2 0.5 {"light":{}}
+pred_location i14 0.5 2 0.5 {"light":{"light":{"min":16}}}
+pred_location i15 0.5 2 0.5 {"light":{"light":{"min":3,"max":2}}}
+pred_location i16 2.5 2 6.5 {"light":{"light":{"min":13,"max":14}}}
+pred_location i17 1.5 3 6.5 {"light":{"light":{"min":15}}}
+# ---- blocks --------------------------------------------------------------------------------------------------------------
+pred_location c1 1.5 1 9.5 {"block":{"blocks":"minecraft:oak_log"}}
+pred_location c2 1.5 1 9.5 {"block":{"blocks":"minecraft:oak_log","state":{"axis":"y"}}}
+pred_location c3 1.5 1 9.5 {"block":{"blocks":"minecraft:oak_log","state":{"axis":"x"}}}
+pred_location c4 2.5 1 9.5 {"block":{"blocks":"#minecraft:logs","state":{"axis":["x","z"]}}}
+pred_location c5 2.5 1 9.5 {"block":{"blocks":"#minecraft:logs","state":{"axis":{"min":"x","max":"y"}}}}
+pred_location c6 3.5 1 9.5 {"block":{"state":{"lit":true,"facing":"east"}}}
+pred_location c6q 3.5 1 9.5 {"block":{"state":{"lit":"true","facing":"east"}}}
+pred_location c7 3.5 1 9.5 {"block":{"state":{"lit":false}}}
+pred_location c7q 3.5 1 9.5 {"block":{"state":{"lit":"false"}}}
+pred_location c8 3.5 1 9.5 {"block":{"state":{"nope":true}}}
+pred_location c8q 3.5 1 9.5 {"block":{"state":{"nope":"true"}}}
+pred_location c9 3.5 1 9.5 {"block":{"state":{"facing":{"min":"north"}}}}
+pred_location c10 4.5 1 9.5 {"block":{"state":{"power":{"min":5,"max":7},"north":"side"}}}
+pred_location c10q 4.5 1 9.5 {"block":{"state":{"power":{"min":"5","max":"7"},"north":"side"}}}
+pred_location c11 4.5 1 9.5 {"block":{"state":{"power":{"min":8}}}}
+pred_location c11q 4.5 1 9.5 {"block":{"state":{"power":{"min":"8"}}}}
+pred_location c12 4.5 1 9.5 {"block":{"state":{"power":"7"}}}
+pred_location c13 4.5 1 9.5 {"block":{"state":{"power":"x"}}}
+pred_location c14 5.5 1 9.5 {"block":{"blocks":"minecraft:wheat","state":{"age":{"min":5}}}}
+pred_location c14q 5.5 1 9.5 {"block":{"blocks":"minecraft:wheat","state":{"age":{"min":"5"}}}}
+pred_location c15 5.5 1 9.5 {"block":{"blocks":"#minecraft:crops","state":{"age":{"max":4}}}}
+pred_location c15q 5.5 1 9.5 {"block":{"blocks":"#minecraft:crops","state":{"age":{"max":"4"}}}}
+pred_location c16 6.5 1 9.5 {"block":{"blocks":"minecraft:chest"}}
+pred_location c17 6.5 1 9.5 {"block":{"blocks":"minecraft:chest","nbt":{"id":"minecraft:chest"}}}
+pred_location c18 6.5 1 9.5 {"block":{"nbt":{"x":6}}}
+pred_location c19 6.5 1 9.5 {"block":{"nbt":{"Items":[]}}}
+pred_location c20 1.5 1 9.5 {"block":{"nbt":{"x":1}}}
+pred_location c21 6.5 1 9.5 {"block":{"components":{"minecraft:custom_name":"x"}}}
+pred_location c22 6.5 1 9.5 {"block":{"predicates":{"minecraft:custom_data":{}}}}
+pred_location c23 1.5 1 9.5 {"block":{"predicates":{"minecraft:custom_data":{}}}}
+pred_location c24 7.5 1 9.5 {"block":{"state":{"pickles":3,"waterlogged":true}}}
+pred_location c24q 7.5 1 9.5 {"block":{"state":{"pickles":"3","waterlogged":"true"}}}
+pred_location c25 8.5 1 9.5 {"block":{"blocks":"minecraft:cake","state":{"bites":{"min":3}}}}
+pred_location c25q 8.5 1 9.5 {"block":{"blocks":"minecraft:cake","state":{"bites":{"min":"3"}}}}
+pred_location c26 9.5 1 9.5 {"block":{"blocks":"#minecraft:beds","state":{"part":"head","occupied":false}}}
+pred_location c26q 9.5 1 9.5 {"block":{"blocks":"#minecraft:beds","state":{"part":"head","occupied":"false"}}}
+pred_location c27 9.5 1 9.5 {"block":{"blocks":"#minecraft:beds","nbt":{"id":"minecraft:bed"}}}
+pred_location c28 20.5 1 0.5 {"block":{"blocks":"minecraft:air"}}
+pred_location c29 5000.5 1 0.5 {"block":{"blocks":"minecraft:air"}}
+pred_location c30 0.5 -100 0.5 {"block":{"blocks":"minecraft:air"}}
+pred_location c31 0.5 400 0.5 {"block":{"blocks":"minecraft:void_air"}}
+pred_location c32 0.5 1 0.5 {"block":{"blocks":"minecraft:nope"}}
+pred_location c33 0.5 1 0.5 {"block":{}}
+pred_location c34 0.5 0 0.5 {"block":{"blocks":["minecraft:stone","minecraft:dirt"]}}
+pred_location c35 0.5 1 0.5 {"block":{"blocks":"minecraft:campfire","state":{"lit":true,"waterlogged":false,"signal_fire":false,"facing":"north"}}}
+pred_location c35q 0.5 1 0.5 {"block":{"blocks":"minecraft:campfire","state":{"lit":"true","waterlogged":"false","signal_fire":"false","facing":"north"}}}
+# ---- fluids --------------------------------------------------------------------------------------------------------------
+pred_location u1 1.5 1 3.5 {"fluid":{"fluids":"minecraft:water"}}
+pred_location u2 1.5 1 3.5 {"fluid":{"fluids":"minecraft:water","state":{"falling":false}}}
+pred_location u2q 1.5 1 3.5 {"fluid":{"fluids":"minecraft:water","state":{"falling":"false"}}}
+pred_location u3 1.5 1 3.5 {"fluid":{"fluids":"minecraft:flowing_water"}}
+pred_location u4 2.5 1 3.5 {"fluid":{"fluids":"minecraft:flowing_water","state":{"level":5}}}
+pred_location u4q 2.5 1 3.5 {"fluid":{"fluids":"minecraft:flowing_water","state":{"level":"5"}}}
+pred_location u5 2.5 1 3.5 {"fluid":{"fluids":"#minecraft:water","state":{"level":{"min":4},"falling":false}}}
+pred_location u5q 2.5 1 3.5 {"fluid":{"fluids":"#minecraft:water","state":{"level":{"min":"4"},"falling":"false"}}}
+pred_location u6 2.5 1 3.5 {"fluid":{"state":{"level":{"min":6}}}}
+pred_location u6q 2.5 1 3.5 {"fluid":{"state":{"level":{"min":"6"}}}}
+pred_location u7 3.5 1 3.5 {"fluid":{"state":{"falling":true}}}
+pred_location u7q 3.5 1 3.5 {"fluid":{"state":{"falling":"true"}}}
+pred_location u8 1.5 1 3.5 {"fluid":{"state":{"level":8}}}
+pred_location u8q 1.5 1 3.5 {"fluid":{"state":{"level":"8"}}}
+pred_location u9 1.5 1 3.5 {"fluid":{"state":{"falling":false}}}
+pred_location u9q 1.5 1 3.5 {"fluid":{"state":{"falling":"false"}}}
+pred_location u10 4.5 1 12.5 {"fluid":{"fluids":"minecraft:lava"}}
+pred_location u11 4.5 1 12.5 {"fluid":{"fluids":"#minecraft:lava"}}
+pred_location u12 5.5 1 12.5 {"fluid":{"fluids":"minecraft:flowing_lava","state":{"level":{"max":3}}}}
+pred_location u12q 5.5 1 3.5 {"fluid":{"fluids":"minecraft:flowing_lava","state":{"level":{"max":"3"}}}}
+pred_location u13 5.5 1 12.5 {"fluid":{"fluids":"minecraft:flowing_lava","state":{"level":{"min":3}}}}
+pred_location u13q 5.5 1 3.5 {"fluid":{"fluids":"minecraft:flowing_lava","state":{"level":{"min":"3"}}}}
+pred_location u14 6.5 1 3.5 {"fluid":{"fluids":"minecraft:water"}}
+pred_location u15 7.5 1 3.5 {"fluid":{"fluids":"minecraft:water"}}
+pred_location u16 8.5 1 3.5 {"fluid":{"fluids":"minecraft:water","state":{"falling":false}}}
+pred_location u16q 8.5 1 3.5 {"fluid":{"fluids":"minecraft:water","state":{"falling":"false"}}}
+pred_location u17 0.5 1 3.5 {"fluid":{"fluids":"minecraft:empty"}}
+pred_location u18 0.5 1 3.5 {"fluid":{"fluids":"minecraft:water"}}
+pred_location u19 0.5 1 3.5 {"fluid":{"state":{"falling":false}}}
+pred_location u19q 0.5 1 3.5 {"fluid":{"state":{"falling":"false"}}}
+pred_location u20 5000.5 1 0.5 {"fluid":{"fluids":"minecraft:empty"}}
+pred_location u21 1.5 1 3.5 {"fluid":{"fluids":"minecraft:nope"}}
+pred_location u22 1.5 1 3.5 {"fluid":{}}
+pred_location u23 0.5 1 3.5 {"fluid":{}}
+# ---- can_see_sky ---------------------------------------------------------------------------------------------------------
+pred_location y1 0.5 3 0.5 {"can_see_sky":true}
+pred_location y2 -2.5 2 -2.5 {"can_see_sky":true}
+pred_location y3 -2.5 5 -2.5 {"can_see_sky":true}
+pred_location y4 0.5 -10 0.5 {"can_see_sky":true}
+pred_location y5 0.5 -10 0.5 {"can_see_sky":false}
+pred_location y6 0.5 0 0.5 {"can_see_sky":false}
+pred_location y7 5000.5 1 0.5 {"can_see_sky":true}
+pred_location y8 5000.5 1 0.5 {"can_see_sky":false}
+pred_location y9 -4.5 4 5.5 {"can_see_sky":true}
+pred_location y10 0.5 400 0.5 {"can_see_sky":true}
+# ---- combined / errors ------------------------------------------------------------------------------------------------
+pred_location z1 0.5 1 0.5 {"position":{"y":{"min":1}},"dimension":"minecraft:overworld","biomes":"minecraft:plains","smokey":true,"light":{"light":{"min":10}},"block":{"blocks":"minecraft:campfire"},"fluid":{"fluids":"minecraft:empty"},"can_see_sky":true}
+pred_location z1b 2.5 2 13.5 {"dimension":"minecraft:overworld","biomes":"minecraft:plains","smokey":false,"block":{"blocks":"minecraft:campfire","state":{"lit":"true","signal_fire":"true"}},"fluid":{"fluids":"minecraft:empty"},"can_see_sky":true}
+pred_location z1c 2.5 3 13.5 {"position":{"y":{"min":1}},"dimension":"minecraft:overworld","biomes":"minecraft:plains","smokey":true,"light":{"light":{"min":10}},"block":{"blocks":"minecraft:air"},"fluid":{"fluids":"minecraft:empty"},"can_see_sky":true}
+pred_location z2 0.5 1 0.5 {"position":{"y":{"min":1}},"biomes":"minecraft:plains","block":{"blocks":"minecraft:campfire"},"fluid":{"fluids":"minecraft:water"}}
+pred_location z3 0.5 1 0.5 {"smokey":"yes"}
+pred_location z4 0.5 1 0.5 {"light":{"light":"bright"}}
+pred_location z5 0.5 1 0.5 {"block":{"blocks":5}}
+pred_location z6 0.5 1 0.5 []

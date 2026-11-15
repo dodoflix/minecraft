@@ -1127,12 +1127,18 @@ pub trait Entity: Any {
         super::mob::leashable::get_leash_holder(self.as_dyn())
     }
 
+    /// `this instanceof OwnableEntity`: tameable animals, horses and vexes.
+    fn is_ownable(&self) -> bool {
+        self.mob()
+            .is_some_and(|m| m.kind == super::mob::MobKind::TamableAnimal)
+    }
+
     /// `OwnableEntity.getOwnerReference()`: the owner's UUID for tameable animals (horses and vexes override it),
     /// `None` for everything else.
     fn ownable_owner_uuid(&self) -> Option<uuid::Uuid> {
-        self.mob()
-            .filter(|m| m.kind == super::mob::MobKind::TamableAnimal)
-            .and_then(|_| super::mob::tamable::get_owner_reference(self.as_dyn()))
+        self.is_ownable()
+            .then(|| super::mob::tamable::get_owner_reference(self.as_dyn()))
+            .flatten()
     }
 
     /// `startSeenByPlayer(player)`: the player's entity id and the connection its packets go to.

@@ -1,0 +1,93 @@
+# The team of a tamed pet follows its root owner through every ownable entity: horses and vexes as well as tameable animals. A pet whose
+# owner chain ends on an ownable entity without an owner, or loops, has no team; an owner that is no ownable entity ends the walk.
+command_env
+level flat
+preload 2
+entity_counter 1300
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player Bob survival 4.5 -60 0.5 0 0
+tick 1
+mobspawn H2 minecraft:horse 3.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["h2"],UUID:[I;22,0,0,1]}
+mobspawn H4 minecraft:horse 5.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["h4"],UUID:[I;22,0,0,4]}
+mobspawn H5 minecraft:horse 7.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["h5"],UUID:[I;22,0,0,5]}
+mobspawn E1 minecraft:evoker 9.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["e1"],UUID:[I;22,0,0,6]}
+mobspawn V1 minecraft:vex 11.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["v1"],UUID:[I;22,0,0,7]}
+mobspawn V2 minecraft:vex 13.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["v2"],UUID:[I;22,0,0,8]}
+mobspawn H6 minecraft:horse 15.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["h6"],UUID:[I;22,0,0,15]}
+mobspawn W5 minecraft:wolf 3.5 -60 7.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["w5"],UUID:[I;22,0,0,9]}
+mobspawn W6 minecraft:wolf 5.5 -60 7.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["w6"],UUID:[I;22,0,0,10]}
+mobspawn W7 minecraft:wolf 7.5 -60 7.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["w7"],UUID:[I;22,0,0,11]}
+mobspawn W8 minecraft:wolf 9.5 -60 7.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["w8"],UUID:[I;22,0,0,12]}
+mobspawn W9 minecraft:wolf 11.5 -60 7.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["w9"],UUID:[I;22,0,0,13]}
+mobspawn C3 minecraft:cat 13.5 -60 7.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["c3"],UUID:[I;22,0,0,14]}
+mobspawn W10 minecraft:wolf 15.5 -60 7.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["w10"],UUID:[I;22,0,0,16]}
+mobspawn W11 minecraft:wolf 17.5 -60 7.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["w11"],UUID:[I;22,0,0,17]}
+mobspawn W12 minecraft:wolf 19.5 -60 7.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["w12"],UUID:[I;22,0,0,18]}
+tick 1
+cmd team add red
+cmd team add blue
+cmd team modify red color red
+cmd team modify blue color blue
+cmd team join red A
+cmd team join blue Bob
+tame H2 A
+tame H5 Bob
+note H5 and H4 play for a team of their own; E1 is red, V2 is blue
+cmd team join red @e[tag=h5]
+cmd team join blue @e[tag=h4]
+cmd team join red @e[tag=e1]
+cmd team join blue @e[tag=v2]
+nbt V1 {owner:[I;22,0,0,6]}
+nbt W5 {Owner:[I;22,0,0,1]}
+nbt W6 {Owner:[I;22,0,0,4]}
+nbt W7 {Owner:[I;22,0,0,5]}
+nbt W8 {Owner:[I;22,0,0,7]}
+nbt W9 {Owner:[I;22,0,0,8]}
+nbt C3 {Owner:[I;22,0,0,9]}
+nbt H6 {Owner:[I;22,0,0,16]}
+nbt W10 {Owner:[I;22,0,0,15]}
+nbt W11 {Owner:[I;22,0,0,16]}
+nbt W12 {Owner:[I;22,0,0,6]}
+tick 1
+dump mob:W5 mob:W6 mob:W7 mob:W8 mob:W9 mob:C3 mob:W10 mob:W11 mob:W12 mob:V1 mob:H6
+note W5: horse of A; W6: horse without owner (blue itself); W7: horse of Bob (red itself); W8: vex of the evoker; W9: vex without owner; C3: wolf of a horse of A; W10/W11: loop; W12: the evoker
+dump select:-/0,-60,0/@e[sort=nearest,team=red]
+dump select:-/0,-60,0/@e[sort=nearest,team=blue]
+dump select:-/0,-60,0/@e[sort=nearest,team=]
+dump select:-/0,-60,0/@e[sort=nearest,team=red,type=wolf]
+dump select:-/0,-60,0/@e[sort=nearest,team=blue,type=wolf]
+dump select:-/0,-60,0/@e[sort=nearest,team=,type=wolf]
+dump select:-/0,-60,0/@e[sort=nearest,team=red,type=cat]
+dump select:-/0,-60,0/@e[sort=nearest,team=red,type=vex]
+dump select:-/0,-60,0/@e[sort=nearest,team=blue,type=vex]
+dump select:-/0,-60,0/@e[sort=nearest,team=red,tag=w5]
+dump select:-/0,-60,0/@e[sort=nearest,team=blue,tag=w7]
+dump select:-/0,-60,0/@e[sort=nearest,team=,tag=w6]
+dump select:-/0,-60,0/@e[sort=nearest,team=,tag=w9]
+dump select:-/0,-60,0/@e[sort=nearest,team=,tag=w10]
+dump select:-/0,-60,0/@e[sort=nearest,team=,tag=w11]
+dump select:-/0,-60,0/@e[sort=nearest,team=red,tag=w8]
+dump select:-/0,-60,0/@e[sort=nearest,team=red,tag=c3]
+dump select:-/0,-60,0/@e[sort=nearest,team=red,tag=w12]
+note the owner leaves the team: the pets that end on it follow
+cmd team leave A
+dump select:-/0,-60,0/@e[sort=nearest,team=red]
+dump select:-/0,-60,0/@e[sort=nearest,team=]
+cmd team join blue A
+dump select:-/0,-60,0/@e[sort=nearest,team=blue]
+cmd team join red A
+note feedback names carry the team of the root owner
+dump packets:A:none packets:Bob:none
+cmd_json tellraw A [{"selector":"@e[tag=w5]"},{"selector":"@e[tag=w6]"},{"selector":"@e[tag=w7]"},{"selector":"@e[tag=w8]"},{"selector":"@e[tag=w9]"},{"selector":"@e[tag=c3]"},{"selector":"@e[tag=w10]"},{"selector":"@e[tag=w11]"},{"selector":"@e[tag=w12]"}]
+dump packets:A:system_chat
+note death messages name the attacker with the team of its root owner
+hurt Bob mob_attack 1000 by=W8 direct=W8
+dump packets:Bob:player_combat_kill
+respawn Bob
+tick 1
+hurt Bob mob_attack 1000 by=C3 direct=C3
+dump packets:Bob:player_combat_kill
+respawn Bob
+tick 1
+hurt Bob mob_attack 1000 by=W7 direct=W7
+dump packets:Bob:player_combat_kill

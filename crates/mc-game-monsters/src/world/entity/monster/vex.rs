@@ -145,23 +145,8 @@ impl Vex {
     }
 
     /// `OwnableEntity.getRootOwner()`.
-    ///
-    /// shortcut: an owner without an owner of its own ends the walk on itself (vanilla returns null for an ownable one),
-    /// because `ownable_owner_uuid` cannot tell it from a non-ownable owner; the case needs a vex owned by a pet.
     pub fn get_root_owner<'l>(&self, level: &'l ServerLevel) -> Option<&'l dyn Entity> {
-        let mut seen = vec![self.id()];
-        let mut owner = self.get_owner(level)?;
-        while let Some(uuid) = owner.ownable_owner_uuid() {
-            let owners_owner = level
-                .get_entity_by_uuid(uuid)
-                .filter(|e| e.living().is_some())?;
-            if seen.contains(&owners_owner.id()) {
-                return None;
-            }
-            seen.push(owner.id());
-            owner = owners_owner;
-        }
-        Some(owner)
+        level.get_entity(mob::tamable::get_root_owner(level, self)?)
     }
 
     /// `getBoundOrigin()`.
@@ -183,6 +168,10 @@ impl Vex {
 
 impl Entity for Vex {
     mc_game_core::mob_entity_accessors!(mob);
+
+    fn is_ownable(&self) -> bool {
+        true
+    }
 
     fn ownable_owner_uuid(&self) -> Option<Uuid> {
         self.owner

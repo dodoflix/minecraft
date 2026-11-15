@@ -71,7 +71,7 @@ impl KilledTriggerInstance {
             let direct = killing_blow.get_direct_entity().and_then(find);
             !p.matches_parts(
                 level,
-                player.position(),
+                Some(player.position()),
                 &killing_blow.damage_type,
                 direct,
                 causing,

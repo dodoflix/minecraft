@@ -1663,6 +1663,9 @@ macro_rules! abstract_horse_entity {
         fn as_abstract_horse_mut(&mut self) -> Option<&mut dyn $crate::world::entity::ai::goal::AbstractHorseAccess> {
             Some(self)
         }
+        fn is_ownable(&self) -> bool {
+            true
+        }
         fn ownable_owner_uuid(&self) -> Option<::uuid::Uuid> {
             self.horse().owner
         }

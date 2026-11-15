@@ -76,20 +76,25 @@ pub fn get_owner(e: &dyn Entity, level: &ServerLevel) -> Option<EntityId> {
         .map(|o| o.id())
 }
 
-/// `OwnableEntity.getRootOwner()`.
+/// `OwnableEntity.getOwner()` of any ownable entity (tameable animal, horse, vex).
+fn get_ownable_owner(e: &dyn Entity, level: &ServerLevel) -> Option<EntityId> {
+    level
+        .get_entity_by_uuid(e.ownable_owner_uuid()?)
+        .filter(|o| o.living().is_some())
+        .map(|o| o.id())
+}
+
+/// `OwnableEntity.getRootOwner()`: walks through every ownable owner (tameable animals, horses, vexes); `None` when
+/// the chain loops or ends on an ownable entity without an owner.
 pub fn get_root_owner(level: &ServerLevel, e: &dyn Entity) -> Option<EntityId> {
     let mut seen: Vec<EntityId> = vec![e.id()];
-    let mut owner = get_owner(e, level)?;
+    let mut owner = get_ownable_owner(e, level)?;
     loop {
         let owner_entity = level.get_entity(owner)?;
-        if owner_entity
-            .mob()
-            .and_then(|m| m.tamable.as_ref())
-            .is_none()
-        {
+        if !owner_entity.is_ownable() {
             return Some(owner);
         }
-        let owners_owner = get_owner(owner_entity, level);
+        let owners_owner = get_ownable_owner(owner_entity, level);
         if owners_owner.is_some_and(|o| seen.contains(&o)) {
             return None;
         }

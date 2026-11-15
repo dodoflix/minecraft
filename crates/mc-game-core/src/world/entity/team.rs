@@ -38,7 +38,7 @@ pub fn get_owner_team<'a>(
     let owner = level
         .get_entity_by_uuid(owner)
         .filter(|o| o.living().is_some())?;
-    let root = if owner.mob().and_then(|m| m.tamable.as_ref()).is_some() {
+    let root = if owner.is_ownable() {
         level.get_entity(super::mob::tamable::get_root_owner(level, owner)?)?
     } else {
         owner

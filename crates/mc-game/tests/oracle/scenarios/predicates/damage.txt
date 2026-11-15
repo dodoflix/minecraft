@@ -1,0 +1,875 @@
+# DamageSourcePredicate / DamagePredicate over the real damage types + tags (DamageSource built from `type by= direct=`)
+level void
+fill -16 0 -16 16 0 16 minecraft:stone
+spawn_player Steve survival 0.5 1 0.5 0 0
+spawn_player Alex creative 6.5 1 0.5 0 0
+spawn pig minecraft:pig 2.5 1 4.5
+spawn zombie minecraft:zombie 8.5 1 4.5 0 0 {Tags:["hostile"]}
+spawn skeleton minecraft:skeleton 12.5 1 4.5
+spawn arrow minecraft:arrow 9.5 3 4.5
+spawn fireball minecraft:fireball 3.5 3 8.5
+effect zombie minecraft:speed 1 200
+give skeleton mainhand minecraft:bow
+set Steve food 10
+team_join zombie red
+tickcount Steve 5
+note the players are not ticked in either level: ground contact is set
+onground Steve true
+onground Alex true
+pred_damage d_in_fire_n in_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_in_fire_n in_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_in_fire_b in_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_in_fire_b in_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_in_fire_b in_fire @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_in_fire_d in_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_in_fire_d in_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_in_fire_d in_fire @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_in_fire_bd in_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_in_fire_bd in_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_in_fire_bd in_fire @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_in_fire_s in_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_in_fire_s in_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_campfire_n campfire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_campfire_n campfire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_campfire_b campfire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_campfire_b campfire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_campfire_b campfire @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_campfire_d campfire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_campfire_d campfire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_campfire_d campfire @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_campfire_bd campfire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_campfire_bd campfire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_campfire_bd campfire @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_campfire_s campfire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_campfire_s campfire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_lightning_bolt_n lightning_bolt 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_lightning_bolt_n lightning_bolt 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_lightning_bolt_b lightning_bolt 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_lightning_bolt_b lightning_bolt 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_lightning_bolt_b lightning_bolt @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_lightning_bolt_d lightning_bolt 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_lightning_bolt_d lightning_bolt 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_lightning_bolt_d lightning_bolt @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_lightning_bolt_bd lightning_bolt 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_lightning_bolt_bd lightning_bolt 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_lightning_bolt_bd lightning_bolt @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_lightning_bolt_s lightning_bolt 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_lightning_bolt_s lightning_bolt 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_on_fire_n on_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_on_fire_n on_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_on_fire_b on_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_on_fire_b on_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_on_fire_b on_fire @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_on_fire_d on_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_on_fire_d on_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_on_fire_d on_fire @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_on_fire_bd on_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_on_fire_bd on_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_on_fire_bd on_fire @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_on_fire_s on_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_on_fire_s on_fire 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_lava_n lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_lava_n lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_lava_b lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_lava_b lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_lava_b lava @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_lava_d lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_lava_d lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_lava_d lava @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_lava_bd lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_lava_bd lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_lava_bd lava @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_lava_s lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_lava_s lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_hot_floor_n hot_floor 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_hot_floor_n hot_floor 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_hot_floor_b hot_floor 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_hot_floor_b hot_floor 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_hot_floor_b hot_floor @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_hot_floor_d hot_floor 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_hot_floor_d hot_floor 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_hot_floor_d hot_floor @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_hot_floor_bd hot_floor 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_hot_floor_bd hot_floor 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_hot_floor_bd hot_floor @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_hot_floor_s hot_floor 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_hot_floor_s hot_floor 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_in_wall_n in_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_in_wall_n in_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_in_wall_b in_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_in_wall_b in_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_in_wall_b in_wall @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_in_wall_d in_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_in_wall_d in_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_in_wall_d in_wall @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_in_wall_bd in_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_in_wall_bd in_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_in_wall_bd in_wall @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_in_wall_s in_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_in_wall_s in_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_cramming_n cramming 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_cramming_n cramming 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_cramming_b cramming 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_cramming_b cramming 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_cramming_b cramming @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_cramming_d cramming 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_cramming_d cramming 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_cramming_d cramming @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_cramming_bd cramming 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_cramming_bd cramming 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_cramming_bd cramming @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_cramming_s cramming 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_cramming_s cramming 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_drown_n drown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_drown_n drown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_drown_b drown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_drown_b drown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_drown_b drown @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_drown_d drown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_drown_d drown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_drown_d drown @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_drown_bd drown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_drown_bd drown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_drown_bd drown @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_drown_s drown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_drown_s drown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_starve_n starve 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_starve_n starve 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_starve_b starve 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_starve_b starve 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_starve_b starve @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_starve_d starve 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_starve_d starve 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_starve_d starve @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_starve_bd starve 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_starve_bd starve 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_starve_bd starve @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_starve_s starve 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_starve_s starve 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_cactus_n cactus 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_cactus_n cactus 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_cactus_b cactus 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_cactus_b cactus 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_cactus_b cactus @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_cactus_d cactus 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_cactus_d cactus 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_cactus_d cactus @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_cactus_bd cactus 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_cactus_bd cactus 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_cactus_bd cactus @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_cactus_s cactus 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_cactus_s cactus 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_fall_n fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_fall_n fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_fall_b fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_fall_b fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_fall_b fall @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_fall_d fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_fall_d fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_fall_d fall @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_fall_bd fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_fall_bd fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_fall_bd fall @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_fall_s fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_fall_s fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_fly_into_wall_n fly_into_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_fly_into_wall_n fly_into_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_fly_into_wall_b fly_into_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_fly_into_wall_b fly_into_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_fly_into_wall_b fly_into_wall @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_fly_into_wall_d fly_into_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_fly_into_wall_d fly_into_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_fly_into_wall_d fly_into_wall @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_fly_into_wall_bd fly_into_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_fly_into_wall_bd fly_into_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_fly_into_wall_bd fly_into_wall @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_fly_into_wall_s fly_into_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_fly_into_wall_s fly_into_wall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_generic_n generic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_generic_n generic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_generic_b generic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_generic_b generic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_generic_b generic @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_generic_d generic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_generic_d generic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_generic_d generic @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_generic_bd generic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_generic_bd generic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_generic_bd generic @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_generic_s generic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_generic_s generic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_magic_n magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_magic_n magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_magic_b magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_magic_b magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_magic_b magic @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_magic_d magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_magic_d magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_magic_d magic @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_magic_bd magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_magic_bd magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_magic_bd magic @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_magic_s magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_magic_s magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_wither_n wither 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_wither_n wither 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_wither_b wither 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_wither_b wither 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_wither_b wither @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_wither_d wither 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_wither_d wither 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_wither_d wither @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_wither_bd wither 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_wither_bd wither 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_wither_bd wither @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_wither_s wither 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_wither_s wither 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_dragon_breath_n dragon_breath 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_dragon_breath_n dragon_breath 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_dragon_breath_b dragon_breath 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_dragon_breath_b dragon_breath 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_dragon_breath_b dragon_breath @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_dragon_breath_d dragon_breath 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_dragon_breath_d dragon_breath 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_dragon_breath_d dragon_breath @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_dragon_breath_bd dragon_breath 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_dragon_breath_bd dragon_breath 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_dragon_breath_bd dragon_breath @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_dragon_breath_s dragon_breath 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_dragon_breath_s dragon_breath 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_dry_out_n dry_out 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_dry_out_n dry_out 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_dry_out_b dry_out 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_dry_out_b dry_out 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_dry_out_b dry_out @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_dry_out_d dry_out 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_dry_out_d dry_out 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_dry_out_d dry_out @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_dry_out_bd dry_out 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_dry_out_bd dry_out 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_dry_out_bd dry_out @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_dry_out_s dry_out 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_dry_out_s dry_out 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_sweet_berry_bush_n sweet_berry_bush 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_sweet_berry_bush_n sweet_berry_bush 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_sweet_berry_bush_b sweet_berry_bush 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_sweet_berry_bush_b sweet_berry_bush 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_sweet_berry_bush_b sweet_berry_bush @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_sweet_berry_bush_d sweet_berry_bush 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_sweet_berry_bush_d sweet_berry_bush 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_sweet_berry_bush_d sweet_berry_bush @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_sweet_berry_bush_bd sweet_berry_bush 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_sweet_berry_bush_bd sweet_berry_bush 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_sweet_berry_bush_bd sweet_berry_bush @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_sweet_berry_bush_s sweet_berry_bush 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_sweet_berry_bush_s sweet_berry_bush 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_freeze_n freeze 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_freeze_n freeze 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_freeze_b freeze 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_freeze_b freeze 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_freeze_b freeze @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_freeze_d freeze 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_freeze_d freeze 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_freeze_d freeze @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_freeze_bd freeze 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_freeze_bd freeze 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_freeze_bd freeze @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_freeze_s freeze 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_freeze_s freeze 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_stalagmite_n stalagmite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_stalagmite_n stalagmite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_stalagmite_b stalagmite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_stalagmite_b stalagmite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_stalagmite_b stalagmite @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_stalagmite_d stalagmite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_stalagmite_d stalagmite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_stalagmite_d stalagmite @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_stalagmite_bd stalagmite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_stalagmite_bd stalagmite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_stalagmite_bd stalagmite @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_stalagmite_s stalagmite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_stalagmite_s stalagmite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_generic_kill_n generic_kill 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_generic_kill_n generic_kill 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_generic_kill_b generic_kill 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_generic_kill_b generic_kill 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_generic_kill_b generic_kill @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_generic_kill_d generic_kill 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_generic_kill_d generic_kill 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_generic_kill_d generic_kill @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_generic_kill_bd generic_kill 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_generic_kill_bd generic_kill 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_generic_kill_bd generic_kill @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_generic_kill_s generic_kill 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_generic_kill_s generic_kill 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_out_of_world_n out_of_world 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_out_of_world_n out_of_world 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_out_of_world_b out_of_world 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_out_of_world_b out_of_world 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_out_of_world_b out_of_world @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_out_of_world_d out_of_world 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_out_of_world_d out_of_world 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_out_of_world_d out_of_world @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_out_of_world_bd out_of_world 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_out_of_world_bd out_of_world 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_out_of_world_bd out_of_world @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_out_of_world_s out_of_world 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_out_of_world_s out_of_world 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_falling_block_n falling_block 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_falling_block_n falling_block 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_falling_block_b falling_block 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_falling_block_b falling_block 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_falling_block_b falling_block @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_falling_block_d falling_block 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_falling_block_d falling_block 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_falling_block_d falling_block @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_falling_block_bd falling_block 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_falling_block_bd falling_block 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_falling_block_bd falling_block @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_falling_block_s falling_block 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_falling_block_s falling_block 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_sting_n sting 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_sting_n sting 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_sting_b sting 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_sting_b sting 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_sting_b sting @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_sting_d sting 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_sting_d sting 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_sting_d sting @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_sting_bd sting 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_sting_bd sting 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_sting_bd sting @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_sting_s sting 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_sting_s sting 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_mob_attack_n mob_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_mob_attack_n mob_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_mob_attack_b mob_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_mob_attack_b mob_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_mob_attack_b mob_attack @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_mob_attack_d mob_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_mob_attack_d mob_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_mob_attack_d mob_attack @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_mob_attack_bd mob_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_mob_attack_bd mob_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_mob_attack_bd mob_attack @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_mob_attack_s mob_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_mob_attack_s mob_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_player_attack_n player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_player_attack_n player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_player_attack_b player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_player_attack_b player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_player_attack_b player_attack @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_player_attack_d player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_player_attack_d player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_player_attack_d player_attack @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_player_attack_bd player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_player_attack_bd player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_player_attack_bd player_attack @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_player_attack_s player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_player_attack_s player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_thorns_n thorns 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_thorns_n thorns 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_thorns_b thorns 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_thorns_b thorns 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_thorns_b thorns @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_thorns_d thorns 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_thorns_d thorns 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_thorns_d thorns @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_thorns_bd thorns 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_thorns_bd thorns 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_thorns_bd thorns @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_thorns_s thorns 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_thorns_s thorns 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_sonic_boom_n sonic_boom 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_sonic_boom_n sonic_boom 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_sonic_boom_b sonic_boom 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_sonic_boom_b sonic_boom 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_sonic_boom_b sonic_boom @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_sonic_boom_d sonic_boom 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_sonic_boom_d sonic_boom 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_sonic_boom_d sonic_boom @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_sonic_boom_bd sonic_boom 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_sonic_boom_bd sonic_boom 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_sonic_boom_bd sonic_boom @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_sonic_boom_s sonic_boom 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_sonic_boom_s sonic_boom 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_arrow_n arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_arrow_n arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_arrow_b arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_arrow_b arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_arrow_b arrow @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_arrow_d arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_arrow_d arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_arrow_d arrow @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_arrow_bd arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_arrow_bd arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_arrow_bd arrow @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_arrow_s arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_arrow_s arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_trident_n trident 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_trident_n trident 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_trident_b trident 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_trident_b trident 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_trident_b trident @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_trident_d trident 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_trident_d trident 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_trident_d trident @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_trident_bd trident 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_trident_bd trident 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_trident_bd trident @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_trident_s trident 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_trident_s trident 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_mob_projectile_n mob_projectile 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_mob_projectile_n mob_projectile 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_mob_projectile_b mob_projectile 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_mob_projectile_b mob_projectile 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_mob_projectile_b mob_projectile @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_mob_projectile_d mob_projectile 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_mob_projectile_d mob_projectile 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_mob_projectile_d mob_projectile @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_mob_projectile_bd mob_projectile 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_mob_projectile_bd mob_projectile 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_mob_projectile_bd mob_projectile @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_mob_projectile_s mob_projectile 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_mob_projectile_s mob_projectile 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_spit_n spit 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_spit_n spit 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_spit_b spit 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_spit_b spit 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_spit_b spit @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_spit_d spit 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_spit_d spit 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_spit_d spit @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_spit_bd spit 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_spit_bd spit 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_spit_bd spit @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_spit_s spit 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_spit_s spit 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_wind_charge_n wind_charge 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_wind_charge_n wind_charge 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_wind_charge_b wind_charge 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_wind_charge_b wind_charge 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_wind_charge_b wind_charge @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_wind_charge_d wind_charge 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_wind_charge_d wind_charge 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_wind_charge_d wind_charge @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_wind_charge_bd wind_charge 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_wind_charge_bd wind_charge 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_wind_charge_bd wind_charge @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_wind_charge_s wind_charge 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_wind_charge_s wind_charge 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_fireworks_n fireworks 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_fireworks_n fireworks 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_fireworks_b fireworks 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_fireworks_b fireworks 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_fireworks_b fireworks @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_fireworks_d fireworks 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_fireworks_d fireworks 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_fireworks_d fireworks @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_fireworks_bd fireworks 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_fireworks_bd fireworks 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_fireworks_bd fireworks @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_fireworks_s fireworks 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_fireworks_s fireworks 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_thrown_n thrown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_thrown_n thrown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_thrown_b thrown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_thrown_b thrown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_thrown_b thrown @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_thrown_d thrown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_thrown_d thrown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_thrown_d thrown @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_thrown_bd thrown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_thrown_bd thrown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_thrown_bd thrown @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_thrown_s thrown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_thrown_s thrown 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_indirect_magic_n indirect_magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_indirect_magic_n indirect_magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_indirect_magic_b indirect_magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_indirect_magic_b indirect_magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_indirect_magic_b indirect_magic @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_indirect_magic_d indirect_magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_indirect_magic_d indirect_magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_indirect_magic_d indirect_magic @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_indirect_magic_bd indirect_magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_indirect_magic_bd indirect_magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_indirect_magic_bd indirect_magic @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_indirect_magic_s indirect_magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_indirect_magic_s indirect_magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_fireball_n fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_fireball_n fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_fireball_b fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_fireball_b fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_fireball_b fireball @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_fireball_d fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_fireball_d fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_fireball_d fireball @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_fireball_bd fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_fireball_bd fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_fireball_bd fireball @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_fireball_s fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_fireball_s fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_wither_skull_n wither_skull 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_wither_skull_n wither_skull 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_wither_skull_b wither_skull 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_wither_skull_b wither_skull 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_wither_skull_b wither_skull @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_wither_skull_d wither_skull 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_wither_skull_d wither_skull 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_wither_skull_d wither_skull @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_wither_skull_bd wither_skull 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_wither_skull_bd wither_skull 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_wither_skull_bd wither_skull @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_wither_skull_s wither_skull 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_wither_skull_s wither_skull 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_explosion_n explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_explosion_n explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_explosion_b explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_explosion_b explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_explosion_b explosion @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_explosion_d explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_explosion_d explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_explosion_d explosion @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_explosion_bd explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_explosion_bd explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_explosion_bd explosion @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_explosion_s explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_explosion_s explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_player_explosion_n player_explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_player_explosion_n player_explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_player_explosion_b player_explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_player_explosion_b player_explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_player_explosion_b player_explosion @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_player_explosion_d player_explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_player_explosion_d player_explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_player_explosion_d player_explosion @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_player_explosion_bd player_explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_player_explosion_bd player_explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_player_explosion_bd player_explosion @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_player_explosion_s player_explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_player_explosion_s player_explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_bad_respawn_point_n bad_respawn_point 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_bad_respawn_point_n bad_respawn_point 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_bad_respawn_point_b bad_respawn_point 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_bad_respawn_point_b bad_respawn_point 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_bad_respawn_point_b bad_respawn_point @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_bad_respawn_point_d bad_respawn_point 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_bad_respawn_point_d bad_respawn_point 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_bad_respawn_point_d bad_respawn_point @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_bad_respawn_point_bd bad_respawn_point 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_bad_respawn_point_bd bad_respawn_point 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_bad_respawn_point_bd bad_respawn_point @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_bad_respawn_point_s bad_respawn_point 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_bad_respawn_point_s bad_respawn_point 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_mace_smash_n mace_smash 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_mace_smash_n mace_smash 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_mace_smash_b mace_smash 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_mace_smash_b mace_smash 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_mace_smash_b mace_smash @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_mace_smash_d mace_smash 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_mace_smash_d mace_smash 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_mace_smash_d mace_smash @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_mace_smash_bd mace_smash 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_mace_smash_bd mace_smash 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_mace_smash_bd mace_smash @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_mace_smash_s mace_smash 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_mace_smash_s mace_smash 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_ender_pearl_n ender_pearl 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_ender_pearl_n ender_pearl 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_ender_pearl_b ender_pearl 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_ender_pearl_b ender_pearl 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_ender_pearl_b ender_pearl @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_ender_pearl_d ender_pearl 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_ender_pearl_d ender_pearl 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_ender_pearl_d ender_pearl @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_ender_pearl_bd ender_pearl 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_ender_pearl_bd ender_pearl 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_ender_pearl_bd ender_pearl @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_ender_pearl_s ender_pearl 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_ender_pearl_s ender_pearl 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_unattributed_fireball_n unattributed_fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_unattributed_fireball_n unattributed_fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_unattributed_fireball_b unattributed_fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_unattributed_fireball_b unattributed_fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_unattributed_fireball_b unattributed_fireball @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_unattributed_fireball_d unattributed_fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_unattributed_fireball_d unattributed_fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_unattributed_fireball_d unattributed_fireball @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_unattributed_fireball_bd unattributed_fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_unattributed_fireball_bd unattributed_fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_unattributed_fireball_bd unattributed_fireball @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_unattributed_fireball_s unattributed_fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_unattributed_fireball_s unattributed_fireball 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage d_falling_stalactite_n falling_stalactite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
+pred_damage e_falling_stalactite_n falling_stalactite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false}
+pred_damage d_falling_stalactite_b falling_stalactite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=zombie
+pred_damage e_falling_stalactite_b falling_stalactite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=zombie
+pred_damage f_falling_stalactite_b falling_stalactite @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=zombie
+pred_damage d_falling_stalactite_d falling_stalactite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} direct=arrow
+pred_damage e_falling_stalactite_d falling_stalactite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} direct=arrow
+pred_damage f_falling_stalactite_d falling_stalactite @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} direct=arrow
+pred_damage d_falling_stalactite_bd falling_stalactite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=skeleton direct=arrow
+pred_damage e_falling_stalactite_bd falling_stalactite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=skeleton direct=arrow
+pred_damage f_falling_stalactite_bd falling_stalactite @Steve {"source_entity":{"entity_type":"#minecraft:skeletons"},"direct_entity":{"entity_type":"minecraft:arrow"}} by=skeleton direct=arrow
+pred_damage d_falling_stalactite_s falling_stalactite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage e_falling_stalactite_s falling_stalactite 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}],"is_direct":false} by=Alex direct=Alex
+pred_damage g0_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage g0_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage g0_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage g0_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage g0_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage g0_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":true}]} by=Alex direct=Alex
+pred_damage g0_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":false}]} by=Alex direct=Alex
+pred_damage g0_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":false}]} by=Alex direct=Alex
+pred_damage g0_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":false}]} by=Alex direct=Alex
+pred_damage g0_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":false}]} by=Alex direct=Alex
+pred_damage g0_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":false}]} by=Alex direct=Alex
+pred_damage g0_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fire","expected":false}]} by=Alex direct=Alex
+pred_damage g1_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}]} by=Alex direct=Alex
+pred_damage g1_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}]} by=Alex direct=Alex
+pred_damage g1_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}]} by=Alex direct=Alex
+pred_damage g1_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}]} by=Alex direct=Alex
+pred_damage g1_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}]} by=Alex direct=Alex
+pred_damage g1_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":true}]} by=Alex direct=Alex
+pred_damage g1_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":false}]} by=Alex direct=Alex
+pred_damage g1_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":false}]} by=Alex direct=Alex
+pred_damage g1_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":false}]} by=Alex direct=Alex
+pred_damage g1_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":false}]} by=Alex direct=Alex
+pred_damage g1_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":false}]} by=Alex direct=Alex
+pred_damage g1_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_projectile","expected":false}]} by=Alex direct=Alex
+pred_damage g2_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_explosion","expected":true}]} by=Alex direct=Alex
+pred_damage g2_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_explosion","expected":true}]} by=Alex direct=Alex
+pred_damage g2_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_explosion","expected":true}]} by=Alex direct=Alex
+pred_damage g2_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_explosion","expected":true}]} by=Alex direct=Alex
+pred_damage g2_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_explosion","expected":true}]} by=Alex direct=Alex
+pred_damage g2_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_explosion","expected":true}]} by=Alex direct=Alex
+pred_damage g2_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_explosion","expected":false}]} by=Alex direct=Alex
+pred_damage g2_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_explosion","expected":false}]} by=Alex direct=Alex
+pred_damage g2_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_explosion","expected":false}]} by=Alex direct=Alex
+pred_damage g2_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_explosion","expected":false}]} by=Alex direct=Alex
+pred_damage g2_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_explosion","expected":false}]} by=Alex direct=Alex
+pred_damage g2_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_explosion","expected":false}]} by=Alex direct=Alex
+pred_damage g3_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fall","expected":true}]} by=Alex direct=Alex
+pred_damage g3_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fall","expected":true}]} by=Alex direct=Alex
+pred_damage g3_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fall","expected":true}]} by=Alex direct=Alex
+pred_damage g3_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fall","expected":true}]} by=Alex direct=Alex
+pred_damage g3_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fall","expected":true}]} by=Alex direct=Alex
+pred_damage g3_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fall","expected":true}]} by=Alex direct=Alex
+pred_damage g3_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fall","expected":false}]} by=Alex direct=Alex
+pred_damage g3_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fall","expected":false}]} by=Alex direct=Alex
+pred_damage g3_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fall","expected":false}]} by=Alex direct=Alex
+pred_damage g3_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fall","expected":false}]} by=Alex direct=Alex
+pred_damage g3_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fall","expected":false}]} by=Alex direct=Alex
+pred_damage g3_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_fall","expected":false}]} by=Alex direct=Alex
+pred_damage g4_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_drowning","expected":true}]} by=Alex direct=Alex
+pred_damage g4_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_drowning","expected":true}]} by=Alex direct=Alex
+pred_damage g4_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_drowning","expected":true}]} by=Alex direct=Alex
+pred_damage g4_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_drowning","expected":true}]} by=Alex direct=Alex
+pred_damage g4_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_drowning","expected":true}]} by=Alex direct=Alex
+pred_damage g4_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_drowning","expected":true}]} by=Alex direct=Alex
+pred_damage g4_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_drowning","expected":false}]} by=Alex direct=Alex
+pred_damage g4_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_drowning","expected":false}]} by=Alex direct=Alex
+pred_damage g4_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_drowning","expected":false}]} by=Alex direct=Alex
+pred_damage g4_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_drowning","expected":false}]} by=Alex direct=Alex
+pred_damage g4_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_drowning","expected":false}]} by=Alex direct=Alex
+pred_damage g4_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_drowning","expected":false}]} by=Alex direct=Alex
+pred_damage g5_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_armor","expected":true}]} by=Alex direct=Alex
+pred_damage g5_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_armor","expected":true}]} by=Alex direct=Alex
+pred_damage g5_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_armor","expected":true}]} by=Alex direct=Alex
+pred_damage g5_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_armor","expected":true}]} by=Alex direct=Alex
+pred_damage g5_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_armor","expected":true}]} by=Alex direct=Alex
+pred_damage g5_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_armor","expected":true}]} by=Alex direct=Alex
+pred_damage g5_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_armor","expected":false}]} by=Alex direct=Alex
+pred_damage g5_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_armor","expected":false}]} by=Alex direct=Alex
+pred_damage g5_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_armor","expected":false}]} by=Alex direct=Alex
+pred_damage g5_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_armor","expected":false}]} by=Alex direct=Alex
+pred_damage g5_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_armor","expected":false}]} by=Alex direct=Alex
+pred_damage g5_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_armor","expected":false}]} by=Alex direct=Alex
+pred_damage g6_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_invulnerability","expected":true}]} by=Alex direct=Alex
+pred_damage g6_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_invulnerability","expected":true}]} by=Alex direct=Alex
+pred_damage g6_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_invulnerability","expected":true}]} by=Alex direct=Alex
+pred_damage g6_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_invulnerability","expected":true}]} by=Alex direct=Alex
+pred_damage g6_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_invulnerability","expected":true}]} by=Alex direct=Alex
+pred_damage g6_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_invulnerability","expected":true}]} by=Alex direct=Alex
+pred_damage g6_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_invulnerability","expected":false}]} by=Alex direct=Alex
+pred_damage g6_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_invulnerability","expected":false}]} by=Alex direct=Alex
+pred_damage g6_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_invulnerability","expected":false}]} by=Alex direct=Alex
+pred_damage g6_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_invulnerability","expected":false}]} by=Alex direct=Alex
+pred_damage g6_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_invulnerability","expected":false}]} by=Alex direct=Alex
+pred_damage g6_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:bypasses_invulnerability","expected":false}]} by=Alex direct=Alex
+pred_damage g7_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:no_knockback","expected":true}]} by=Alex direct=Alex
+pred_damage g7_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:no_knockback","expected":true}]} by=Alex direct=Alex
+pred_damage g7_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:no_knockback","expected":true}]} by=Alex direct=Alex
+pred_damage g7_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:no_knockback","expected":true}]} by=Alex direct=Alex
+pred_damage g7_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:no_knockback","expected":true}]} by=Alex direct=Alex
+pred_damage g7_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:no_knockback","expected":true}]} by=Alex direct=Alex
+pred_damage g7_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:no_knockback","expected":false}]} by=Alex direct=Alex
+pred_damage g7_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:no_knockback","expected":false}]} by=Alex direct=Alex
+pred_damage g7_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:no_knockback","expected":false}]} by=Alex direct=Alex
+pred_damage g7_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:no_knockback","expected":false}]} by=Alex direct=Alex
+pred_damage g7_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:no_knockback","expected":false}]} by=Alex direct=Alex
+pred_damage g7_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:no_knockback","expected":false}]} by=Alex direct=Alex
+pred_damage g8_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:always_hurts_ender_dragons","expected":true}]} by=Alex direct=Alex
+pred_damage g8_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:always_hurts_ender_dragons","expected":true}]} by=Alex direct=Alex
+pred_damage g8_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:always_hurts_ender_dragons","expected":true}]} by=Alex direct=Alex
+pred_damage g8_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:always_hurts_ender_dragons","expected":true}]} by=Alex direct=Alex
+pred_damage g8_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:always_hurts_ender_dragons","expected":true}]} by=Alex direct=Alex
+pred_damage g8_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:always_hurts_ender_dragons","expected":true}]} by=Alex direct=Alex
+pred_damage g8_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:always_hurts_ender_dragons","expected":false}]} by=Alex direct=Alex
+pred_damage g8_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:always_hurts_ender_dragons","expected":false}]} by=Alex direct=Alex
+pred_damage g8_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:always_hurts_ender_dragons","expected":false}]} by=Alex direct=Alex
+pred_damage g8_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:always_hurts_ender_dragons","expected":false}]} by=Alex direct=Alex
+pred_damage g8_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:always_hurts_ender_dragons","expected":false}]} by=Alex direct=Alex
+pred_damage g8_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:always_hurts_ender_dragons","expected":false}]} by=Alex direct=Alex
+pred_damage g9_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:witch_resistant_to","expected":true}]} by=Alex direct=Alex
+pred_damage g9_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:witch_resistant_to","expected":true}]} by=Alex direct=Alex
+pred_damage g9_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:witch_resistant_to","expected":true}]} by=Alex direct=Alex
+pred_damage g9_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:witch_resistant_to","expected":true}]} by=Alex direct=Alex
+pred_damage g9_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:witch_resistant_to","expected":true}]} by=Alex direct=Alex
+pred_damage g9_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:witch_resistant_to","expected":true}]} by=Alex direct=Alex
+pred_damage g9_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:witch_resistant_to","expected":false}]} by=Alex direct=Alex
+pred_damage g9_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:witch_resistant_to","expected":false}]} by=Alex direct=Alex
+pred_damage g9_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:witch_resistant_to","expected":false}]} by=Alex direct=Alex
+pred_damage g9_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:witch_resistant_to","expected":false}]} by=Alex direct=Alex
+pred_damage g9_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:witch_resistant_to","expected":false}]} by=Alex direct=Alex
+pred_damage g9_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:witch_resistant_to","expected":false}]} by=Alex direct=Alex
+pred_damage g10_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_player_attack","expected":true}]} by=Alex direct=Alex
+pred_damage g10_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_player_attack","expected":true}]} by=Alex direct=Alex
+pred_damage g10_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_player_attack","expected":true}]} by=Alex direct=Alex
+pred_damage g10_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_player_attack","expected":true}]} by=Alex direct=Alex
+pred_damage g10_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_player_attack","expected":true}]} by=Alex direct=Alex
+pred_damage g10_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_player_attack","expected":true}]} by=Alex direct=Alex
+pred_damage g10_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_player_attack","expected":false}]} by=Alex direct=Alex
+pred_damage g10_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_player_attack","expected":false}]} by=Alex direct=Alex
+pred_damage g10_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_player_attack","expected":false}]} by=Alex direct=Alex
+pred_damage g10_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_player_attack","expected":false}]} by=Alex direct=Alex
+pred_damage g10_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_player_attack","expected":false}]} by=Alex direct=Alex
+pred_damage g10_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_player_attack","expected":false}]} by=Alex direct=Alex
+pred_damage g11_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:avoids_guardian_thorns","expected":true}]} by=Alex direct=Alex
+pred_damage g11_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:avoids_guardian_thorns","expected":true}]} by=Alex direct=Alex
+pred_damage g11_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:avoids_guardian_thorns","expected":true}]} by=Alex direct=Alex
+pred_damage g11_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:avoids_guardian_thorns","expected":true}]} by=Alex direct=Alex
+pred_damage g11_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:avoids_guardian_thorns","expected":true}]} by=Alex direct=Alex
+pred_damage g11_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:avoids_guardian_thorns","expected":true}]} by=Alex direct=Alex
+pred_damage g11_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:avoids_guardian_thorns","expected":false}]} by=Alex direct=Alex
+pred_damage g11_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:avoids_guardian_thorns","expected":false}]} by=Alex direct=Alex
+pred_damage g11_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:avoids_guardian_thorns","expected":false}]} by=Alex direct=Alex
+pred_damage g11_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:avoids_guardian_thorns","expected":false}]} by=Alex direct=Alex
+pred_damage g11_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:avoids_guardian_thorns","expected":false}]} by=Alex direct=Alex
+pred_damage g11_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:avoids_guardian_thorns","expected":false}]} by=Alex direct=Alex
+pred_damage g12_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_lightning","expected":true}]} by=Alex direct=Alex
+pred_damage g12_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_lightning","expected":true}]} by=Alex direct=Alex
+pred_damage g12_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_lightning","expected":true}]} by=Alex direct=Alex
+pred_damage g12_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_lightning","expected":true}]} by=Alex direct=Alex
+pred_damage g12_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_lightning","expected":true}]} by=Alex direct=Alex
+pred_damage g12_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_lightning","expected":true}]} by=Alex direct=Alex
+pred_damage g12_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_lightning","expected":false}]} by=Alex direct=Alex
+pred_damage g12_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_lightning","expected":false}]} by=Alex direct=Alex
+pred_damage g12_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_lightning","expected":false}]} by=Alex direct=Alex
+pred_damage g12_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_lightning","expected":false}]} by=Alex direct=Alex
+pred_damage g12_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_lightning","expected":false}]} by=Alex direct=Alex
+pred_damage g12_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:is_lightning","expected":false}]} by=Alex direct=Alex
+pred_damage g13_true_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:nope","expected":true}]} by=Alex direct=Alex
+pred_damage g13_true_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:nope","expected":true}]} by=Alex direct=Alex
+pred_damage g13_true_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:nope","expected":true}]} by=Alex direct=Alex
+pred_damage g13_true_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:nope","expected":true}]} by=Alex direct=Alex
+pred_damage g13_true_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:nope","expected":true}]} by=Alex direct=Alex
+pred_damage g13_true_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:nope","expected":true}]} by=Alex direct=Alex
+pred_damage g13_false_fall fall 0.5,1,0.5 {"tags":[{"id":"#minecraft:nope","expected":false}]} by=Alex direct=Alex
+pred_damage g13_false_arrow arrow 0.5,1,0.5 {"tags":[{"id":"#minecraft:nope","expected":false}]} by=Alex direct=Alex
+pred_damage g13_false_explosion explosion 0.5,1,0.5 {"tags":[{"id":"#minecraft:nope","expected":false}]} by=Alex direct=Alex
+pred_damage g13_false_lava lava 0.5,1,0.5 {"tags":[{"id":"#minecraft:nope","expected":false}]} by=Alex direct=Alex
+pred_damage g13_false_magic magic 0.5,1,0.5 {"tags":[{"id":"#minecraft:nope","expected":false}]} by=Alex direct=Alex
+pred_damage g13_false_player_attack player_attack 0.5,1,0.5 {"tags":[{"id":"#minecraft:nope","expected":false}]} by=Alex direct=Alex
+pred_damage h1 arrow @Steve {"tags":[{"id":"#minecraft:is_projectile","expected":true},{"id":"#minecraft:is_fire","expected":false}],"source_entity":{"team":"red"},"direct_entity":{"entity_type":"minecraft:arrow"},"is_direct":false} by=zombie direct=arrow
+pred_damage h2 arrow @Steve {"source_entity":{"distance":{"horizontal":{"min":7.0}}}} by=zombie direct=arrow
+pred_damage h3 arrow @Steve {"source_entity":{"distance":{"horizontal":{"min":9.0}}}} by=zombie direct=arrow
+pred_damage h4 arrow @Steve {"direct_entity":{"vehicle":{}}} by=zombie direct=arrow
+pred_damage h5 generic none {"tags":[]} 
+pred_damage h6 generic @Steve {"tags":[{"id":"minecraft:generic","expected":true}]}
+pred_damage h7 generic @Steve {"tags":[{"id":["minecraft:generic","minecraft:fall"],"expected":true}]}
+pred_damage h8 generic @Steve {"tags":[{"id":"minecraft:generic","expected":false}]}
+pred_damage h9 generic @Steve {"tags":[{"id":"#minecraft:nope","expected":true}]}
+pred_damage h10 generic @Steve {"tags":[{"id":"minecraft:nope","expected":true}]}
+pred_damage h11 generic @Steve {"tags":[{"expected":true}]}
+pred_damage h12 generic @Steve {"tags":[{"id":"#minecraft:is_fire"}]}
+pred_damage h13 generic @Steve {"is_direct":"yes"}
+pred_damage h14 generic @Steve {"source_entity":{"entity_type":"minecraft:nope"}}
+pred_damage h15 player_attack @Steve {"source_entity":{"entity_type":"minecraft:player","flags":{"is_on_ground":true}},"is_direct":true} by=Alex direct=Alex
+pred_damage h16 player_attack @Steve {"source_entity":{"distance":{"horizontal":{"max":6.0}}}} by=Alex direct=Alex
+pred_damage h17 player_attack @Steve {"source_entity":{"distance":{"horizontal":{"max":5.9}}}} by=Alex direct=Alex
+pred_damage h18 player_attack @Steve {"direct_entity":{"equipment":{"mainhand":{"items":"minecraft:bow"}}}} by=skeleton direct=skeleton
+pred_damage h19 player_attack none {"source_entity":{"distance":{"horizontal":{"max":5.9}}}} by=Alex direct=Alex
+pred_damage_taken t0_arrow_23 Steve arrow {} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t0_generic_0 Steve generic {} 4.0 3.0 false
+pred_damage_taken t0_mob_attack_24 Steve mob_attack {} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t0_arrow_25 Steve arrow {} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t1_arrow_23 Steve arrow {"dealt":{"min":4.0}} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t1_generic_0 Steve generic {"dealt":{"min":4.0}} 4.0 3.0 false
+pred_damage_taken t1_mob_attack_24 Steve mob_attack {"dealt":{"min":4.0}} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t1_arrow_25 Steve arrow {"dealt":{"min":4.0}} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t2_arrow_23 Steve arrow {"dealt":{"min":4.5}} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t2_generic_0 Steve generic {"dealt":{"min":4.5}} 4.0 3.0 false
+pred_damage_taken t2_mob_attack_24 Steve mob_attack {"dealt":{"min":4.5}} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t2_arrow_25 Steve arrow {"dealt":{"min":4.5}} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t3_arrow_23 Steve arrow {"taken":{"max":3.0}} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t3_generic_0 Steve generic {"taken":{"max":3.0}} 4.0 3.0 false
+pred_damage_taken t3_mob_attack_24 Steve mob_attack {"taken":{"max":3.0}} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t3_arrow_25 Steve arrow {"taken":{"max":3.0}} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t4_arrow_23 Steve arrow {"taken":{"max":2.9}} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t4_generic_0 Steve generic {"taken":{"max":2.9}} 4.0 3.0 false
+pred_damage_taken t4_mob_attack_24 Steve mob_attack {"taken":{"max":2.9}} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t4_arrow_25 Steve arrow {"taken":{"max":2.9}} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t5_arrow_23 Steve arrow {"dealt":4.0,"taken":3.0} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t5_generic_0 Steve generic {"dealt":4.0,"taken":3.0} 4.0 3.0 false
+pred_damage_taken t5_mob_attack_24 Steve mob_attack {"dealt":4.0,"taken":3.0} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t5_arrow_25 Steve arrow {"dealt":4.0,"taken":3.0} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t6_arrow_23 Steve arrow {"dealt":4.0,"taken":3.0} 4.0000005 3.0 false by=zombie direct=arrow
+pred_damage_taken t6_generic_0 Steve generic {"dealt":4.0,"taken":3.0} 4.0000005 3.0 false
+pred_damage_taken t6_mob_attack_24 Steve mob_attack {"dealt":4.0,"taken":3.0} 4.0000005 3.0 false by=zombie direct=zombie
+pred_damage_taken t6_arrow_25 Steve arrow {"dealt":4.0,"taken":3.0} 4.0000005 3.0 false by=skeleton direct=arrow
+pred_damage_taken t7_arrow_23 Steve arrow {"blocked":true} 4.0 0.0 true by=zombie direct=arrow
+pred_damage_taken t7_generic_0 Steve generic {"blocked":true} 4.0 0.0 true
+pred_damage_taken t7_mob_attack_24 Steve mob_attack {"blocked":true} 4.0 0.0 true by=zombie direct=zombie
+pred_damage_taken t7_arrow_25 Steve arrow {"blocked":true} 4.0 0.0 true by=skeleton direct=arrow
+pred_damage_taken t8_arrow_23 Steve arrow {"blocked":true} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t8_generic_0 Steve generic {"blocked":true} 4.0 3.0 false
+pred_damage_taken t8_mob_attack_24 Steve mob_attack {"blocked":true} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t8_arrow_25 Steve arrow {"blocked":true} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t9_arrow_23 Steve arrow {"blocked":false} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t9_generic_0 Steve generic {"blocked":false} 4.0 3.0 false
+pred_damage_taken t9_mob_attack_24 Steve mob_attack {"blocked":false} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t9_arrow_25 Steve arrow {"blocked":false} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t10_arrow_23 Steve arrow {"type":{"tags":[{"id":"#minecraft:is_projectile","expected":true}]}} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t10_generic_0 Steve generic {"type":{"tags":[{"id":"#minecraft:is_projectile","expected":true}]}} 4.0 3.0 false
+pred_damage_taken t10_mob_attack_24 Steve mob_attack {"type":{"tags":[{"id":"#minecraft:is_projectile","expected":true}]}} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t10_arrow_25 Steve arrow {"type":{"tags":[{"id":"#minecraft:is_projectile","expected":true}]}} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t11_arrow_23 Steve arrow {"type":{"direct_entity":{"entity_type":"minecraft:arrow"}}} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t11_generic_0 Steve generic {"type":{"direct_entity":{"entity_type":"minecraft:arrow"}}} 4.0 3.0 false
+pred_damage_taken t11_mob_attack_24 Steve mob_attack {"type":{"direct_entity":{"entity_type":"minecraft:arrow"}}} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t11_arrow_25 Steve arrow {"type":{"direct_entity":{"entity_type":"minecraft:arrow"}}} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t12_arrow_23 Steve arrow {"source_entity":{"entity_type":"#minecraft:skeletons"}} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t12_generic_0 Steve generic {"source_entity":{"entity_type":"#minecraft:skeletons"}} 4.0 3.0 false
+pred_damage_taken t12_mob_attack_24 Steve mob_attack {"source_entity":{"entity_type":"#minecraft:skeletons"}} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t12_arrow_25 Steve arrow {"source_entity":{"entity_type":"#minecraft:skeletons"}} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t13_arrow_23 Steve arrow {"source_entity":{"entity_type":"minecraft:zombie"}} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t13_generic_0 Steve generic {"source_entity":{"entity_type":"minecraft:zombie"}} 4.0 3.0 false
+pred_damage_taken t13_mob_attack_24 Steve mob_attack {"source_entity":{"entity_type":"minecraft:zombie"}} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t13_arrow_25 Steve arrow {"source_entity":{"entity_type":"minecraft:zombie"}} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t14_arrow_23 Steve arrow {"source_entity":{"distance":{"horizontal":{"min":7.9,"max":8.1}}}} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t14_generic_0 Steve generic {"source_entity":{"distance":{"horizontal":{"min":7.9,"max":8.1}}}} 4.0 3.0 false
+pred_damage_taken t14_mob_attack_24 Steve mob_attack {"source_entity":{"distance":{"horizontal":{"min":7.9,"max":8.1}}}} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t14_arrow_25 Steve arrow {"source_entity":{"distance":{"horizontal":{"min":7.9,"max":8.1}}}} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t15_arrow_23 Steve arrow {"dealt":{"min":1.0,"max":0.5}} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t15_generic_0 Steve generic {"dealt":{"min":1.0,"max":0.5}} 4.0 3.0 false
+pred_damage_taken t15_mob_attack_24 Steve mob_attack {"dealt":{"min":1.0,"max":0.5}} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t15_arrow_25 Steve arrow {"dealt":{"min":1.0,"max":0.5}} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t16_arrow_23 Steve arrow {"blocked":1} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t16_generic_0 Steve generic {"blocked":1} 4.0 3.0 false
+pred_damage_taken t16_mob_attack_24 Steve mob_attack {"blocked":1} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t16_arrow_25 Steve arrow {"blocked":1} 4.0 3.0 false by=skeleton direct=arrow
+pred_damage_taken t17_arrow_23 Steve arrow {"dealt":"x"} 4.0 3.0 false by=zombie direct=arrow
+pred_damage_taken t17_generic_0 Steve generic {"dealt":"x"} 4.0 3.0 false
+pred_damage_taken t17_mob_attack_24 Steve mob_attack {"dealt":"x"} 4.0 3.0 false by=zombie direct=zombie
+pred_damage_taken t17_arrow_25 Steve arrow {"dealt":"x"} 4.0 3.0 false by=skeleton direct=arrow
