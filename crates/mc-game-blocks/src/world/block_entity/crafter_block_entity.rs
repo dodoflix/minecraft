@@ -2,9 +2,8 @@
 //! `triggered`, `crafting_ticks_remaining`.
 //!
 //! The menu is [`super::crafter_menu::CrafterMenu`]; it reads `container_data` and the slot states.
-//!
-//! Known difference: a container operation on a crafter that still has a loot table rolls it before the operation, while
-//! vanilla rolls it inside the first `setItem` / `removeItem` (its `getItem`, `isEmpty` and `canPlaceItem` do not unpack).
+//! A pending loot table is rolled by the first write (`Container::unpack_before_write`) or when a player opens the menu: the
+//! crafter's `getItem`, `isEmpty` and `canPlaceItem` do not unpack, unlike the other lootable containers.
 
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
@@ -15,7 +14,7 @@ use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::ComponentReader;
 use mc_game_core::world::block_entity::base_container::BaseContainer;
 use mc_game_core::world::block_entity::randomizable_container::{
-    RandomizableContainerData, unpack_loot_table,
+    RandomizableContainerData, fill_loot_table, unpack_loot_table,
 };
 use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log,
@@ -197,6 +196,13 @@ impl Container for CrafterBlockEntity {
     fn set_changed(&mut self) {
         changed_log::push(self.base.pos);
     }
+    /// `RandomizableContainerBlockEntity.setItem`/`removeItem`: the first write rolls the pending table into the empty slots.
+    fn unpack_before_write(&mut self, level: &ServerLevel) {
+        let pos = self.base.pos;
+        let mut loot = std::mem::take(&mut self.loot);
+        fill_loot_table(level, pos, &mut loot, self, None);
+        self.loot = loot;
+    }
     fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
         mc_game_core::world::container::still_valid_block_entity(self.base.pos, player)
     }
@@ -305,8 +311,9 @@ impl BlockEntity for CrafterBlockEntity {
         self.loot = loot;
     }
 
-    /// Always `false`: `getItem`/`isEmpty` are overridden without `unpackLootTable`, so the comparator signal (the only
-    /// reader of this hook) never rolls the table.
+    /// Always `false`: the hook means "reading a slot unpacks the table", and `getItem`/`isEmpty` are overridden without
+    /// `unpackLootTable`. The comparator signal, the hopper and dropper transfers and the `/item` and `/loot` reads leave
+    /// the table pending; the first write ([`Container::unpack_before_write`]) or a player opening the menu rolls it.
     fn has_loot_table(&self) -> bool {
         false
     }

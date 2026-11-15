@@ -1,0 +1,181 @@
+# Container vehicles (chest minecart, hopper minecart, chest boat) with a pending loot table: `data get entity`, `data merge entity` and the
+# `nbt` selector option read the saved form (no unpack); a `slots` predicate (selector `predicate=`, `execute if predicate`), `execute if
+# items`, `item modify|replace`, `kill` and an explosion unpack through getChestVehicleSlot / getItem / the container drop. Each case has
+# its own vehicles, far apart.
+datapack lazy_unpack
+datapack loot_cmds
+command_env
+level flat
+preload 4
+level_seed 2201
+entity_counter 2200
+spawn_player A survival 0.5 -60 60.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note data get entity keeps the table
+spawn CM0 minecraft:chest_minecart 0.5 -59.9375 0.5 0 0 {Tags:["cm0"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+entity_seed CM0 900
+spawn HM0 minecraft:hopper_minecart 4.5 -59.9375 0.5 0 0 {Tags:["hm0"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+entity_seed HM0 901
+spawn CB0 minecraft:oak_chest_boat 8.5 -59.9375 0.5 0 0 {Tags:["cb0"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+entity_seed CB0 902
+tick 1
+cmd data get entity @e[tag=cm0,limit=1]
+cmd data get entity @e[tag=hm0,limit=1]
+cmd data get entity @e[tag=cb0,limit=1]
+dump xentity:CM0 xentity:HM0 xentity:CB0
+note nbt selector option reads the saved form
+spawn CM1 minecraft:chest_minecart 0.5 -59.9375 10.5 0 0 {Tags:["cm1"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+entity_seed CM1 910
+spawn HM1 minecraft:hopper_minecart 4.5 -59.9375 10.5 0 0 {Tags:["hm1"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+entity_seed HM1 911
+spawn CB1 minecraft:oak_chest_boat 8.5 -59.9375 10.5 0 0 {Tags:["cb1"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+entity_seed CB1 912
+tick 1
+cmd execute if entity @e[tag=cm1,nbt={LootTable:"minecraft:chests/simple_dungeon"}]
+cmd execute if entity @e[tag=hm1,nbt={LootTable:"minecraft:chests/simple_dungeon"}]
+cmd execute if entity @e[tag=cb1,nbt={LootTable:"minecraft:chests/simple_dungeon"}]
+cmd execute if entity @e[tag=cm1,nbt={Items:[]}]
+cmd execute if entity @e[tag=hm1,nbt={Items:[]}]
+cmd execute if entity @e[tag=cb1,nbt={Items:[]}]
+dump xentity:CM1 xentity:HM1 xentity:CB1
+note data merge entity keeps ignoring Items
+spawn CM2 minecraft:chest_minecart 0.5 -59.9375 20.5 0 0 {Tags:["cm2"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+entity_seed CM2 920
+spawn HM2 minecraft:hopper_minecart 4.5 -59.9375 20.5 0 0 {Tags:["hm2"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+entity_seed HM2 921
+spawn CB2 minecraft:oak_chest_boat 8.5 -59.9375 20.5 0 0 {Tags:["cb2"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+entity_seed CB2 922
+tick 1
+cmd data merge entity @e[tag=cm2,limit=1] {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge entity @e[tag=hm2,limit=1] {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge entity @e[tag=cb2,limit=1] {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+dump xentity:CM2 xentity:HM2 xentity:CB2
+note selector predicate slots
+spawn CM3 minecraft:chest_minecart 0.5 -59.9375 30.5 0 0 {Tags:["cm3"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+entity_seed CM3 930
+spawn HM3 minecraft:hopper_minecart 4.5 -59.9375 30.5 0 0 {Tags:["hm3"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+entity_seed HM3 931
+spawn CB3 minecraft:oak_chest_boat 8.5 -59.9375 30.5 0 0 {Tags:["cb3"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+entity_seed CB3 932
+tick 1
+cmd execute if entity @e[tag=cm3,predicate=lu:slot_filled]
+cmd execute if entity @e[tag=hm3,predicate=lu:slot_filled]
+cmd execute if entity @e[tag=cb3,predicate=lu:slot_filled]
+cmd execute if entity @e[tag=cm3,predicate=lu:slot_zero_filled]
+cmd execute if entity @e[tag=hm3,predicate=lu:slot_zero_filled]
+cmd execute if entity @e[tag=cb3,predicate=lu:slot_zero_filled]
+cmd data get entity @e[tag=cm3,limit=1] Items[0]
+cmd data get entity @e[tag=hm3,limit=1] Items[0]
+cmd data get entity @e[tag=cb3,limit=1] Items[0]
+dump xentity:CM3 xentity:HM3 xentity:CB3
+note execute if predicate slots
+spawn CM4 minecraft:chest_minecart 0.5 -59.9375 40.5 0 0 {Tags:["cm4"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+entity_seed CM4 940
+spawn HM4 minecraft:hopper_minecart 4.5 -59.9375 40.5 0 0 {Tags:["hm4"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+entity_seed HM4 941
+spawn CB4 minecraft:oak_chest_boat 8.5 -59.9375 40.5 0 0 {Tags:["cb4"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+entity_seed CB4 942
+tick 1
+cmd execute as @e[tag=cm4] if predicate lu:slot_filled
+cmd execute as @e[tag=hm4] if predicate lu:slot_filled
+cmd execute as @e[tag=cb4] if predicate lu:slot_filled
+cmd execute as @e[tag=cm4] if predicate lu:slot_zero_filled
+cmd execute as @e[tag=hm4] if predicate lu:slot_zero_filled
+cmd execute as @e[tag=cb4] if predicate lu:slot_zero_filled
+dump xentity:CM4 xentity:HM4 xentity:CB4
+note execute if items container.*
+spawn CM5 minecraft:chest_minecart 0.5 -59.9375 50.5 0 0 {Tags:["cm5"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+entity_seed CM5 950
+spawn HM5 minecraft:hopper_minecart 4.5 -59.9375 50.5 0 0 {Tags:["hm5"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+entity_seed HM5 951
+spawn CB5 minecraft:oak_chest_boat 8.5 -59.9375 50.5 0 0 {Tags:["cb5"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+entity_seed CB5 952
+tick 1
+cmd execute if items entity @e[tag=cm5] container.* *
+cmd execute if items entity @e[tag=hm5] container.* *
+cmd execute if items entity @e[tag=cb5] container.* *
+cmd execute if items entity @e[tag=cm5] container.30 *
+cmd execute if items entity @e[tag=hm5] container.30 *
+cmd execute if items entity @e[tag=cb5] container.30 *
+dump xentity:CM5 xentity:HM5 xentity:CB5
+note item modify
+spawn CM6 minecraft:chest_minecart 0.5 -59.9375 60.5 0 0 {Tags:["cm6"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+entity_seed CM6 960
+spawn HM6 minecraft:hopper_minecart 4.5 -59.9375 60.5 0 0 {Tags:["hm6"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+entity_seed HM6 961
+spawn CB6 minecraft:oak_chest_boat 8.5 -59.9375 60.5 0 0 {Tags:["cb6"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:13L}
+entity_seed CB6 962
+tick 1
+cmd item modify entity @e[tag=cm6] container.0 lc:double
+cmd item modify entity @e[tag=hm6] container.0 lc:double
+cmd item modify entity @e[tag=cb6] container.0 lc:double
+dump xentity:CM6 xentity:HM6 xentity:CB6
+note item replace from another slot
+spawn CM7 minecraft:chest_minecart 0.5 -59.9375 70.5 0 0 {Tags:["cm7"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+entity_seed CM7 970
+spawn HM7 minecraft:hopper_minecart 4.5 -59.9375 70.5 0 0 {Tags:["hm7"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:13L}
+entity_seed HM7 971
+spawn CB7 minecraft:oak_chest_boat 8.5 -59.9375 70.5 0 0 {Tags:["cb7"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:14L}
+entity_seed CB7 972
+tick 1
+cmd item replace entity @e[tag=cm7] container.1 from entity @e[tag=cm7] container.0
+cmd item replace entity @e[tag=hm7] container.1 from entity @e[tag=hm7] container.0
+cmd item replace entity @e[tag=cb7] container.1 from entity @e[tag=cb7] container.0
+dump xentity:CM7 xentity:HM7 xentity:CB7
+note item replace out of range keeps the table
+spawn CM8 minecraft:chest_minecart 0.5 -59.9375 80.5 0 0 {Tags:["cm8"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:13L}
+entity_seed CM8 980
+spawn HM8 minecraft:hopper_minecart 4.5 -59.9375 80.5 0 0 {Tags:["hm8"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:14L}
+entity_seed HM8 981
+spawn CB8 minecraft:oak_chest_boat 8.5 -59.9375 80.5 0 0 {Tags:["cb8"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:15L}
+entity_seed CB8 982
+tick 1
+cmd item replace entity @e[tag=cm8] container.40 with minecraft:stick
+cmd item replace entity @e[tag=hm8] container.40 with minecraft:stick
+cmd item replace entity @e[tag=cb8] container.40 with minecraft:stick
+cmd item modify entity @e[tag=cm8] container.40 lc:double
+cmd item modify entity @e[tag=hm8] container.40 lc:double
+cmd item modify entity @e[tag=cb8] container.40 lc:double
+dump xentity:CM8 xentity:HM8 xentity:CB8
+note kill drops the contents
+spawn CM9 minecraft:chest_minecart 0.5 -59.9375 90.5 0 0 {Tags:["cm9"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:14L}
+entity_seed CM9 990
+spawn HM9 minecraft:hopper_minecart 4.5 -59.9375 90.5 0 0 {Tags:["hm9"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:15L}
+entity_seed HM9 991
+spawn CB9 minecraft:oak_chest_boat 8.5 -59.9375 90.5 0 0 {Tags:["cb9"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:16L}
+entity_seed CB9 992
+tick 1
+cmd kill @e[tag=cm9]
+cmd kill @e[tag=hm9]
+cmd kill @e[tag=cb9]
+dump xentity:CM9 xentity:HM9 xentity:CB9
+dump entities
+note an explosion breaks the vehicles
+spawn CMX minecraft:chest_minecart 40.5 -59.9375 0.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:20L}
+entity_seed CMX 990
+spawn HMX minecraft:hopper_minecart 48.5 -59.9375 0.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:21L}
+entity_seed HMX 991
+spawn CBX minecraft:oak_chest_boat 56.5 -59.9375 0.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:22L}
+entity_seed CBX 992
+tick 1
+level_seed 2301
+explode 40.5 -60 0.5 3 tnt
+explode 48.5 -60 0.5 3 tnt
+explode 56.5 -60 0.5 3 tnt
+tick 2
+dump entities xentity:CMX xentity:HMX xentity:CBX
+note a hopper below a chest boat pulls from the pending boat, a hopper above pushes into one
+spawn BP minecraft:oak_chest_boat 60.5 -59 0.5 0 0 {NoGravity:1b,LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:31L}
+entity_seed BP 995
+block 60 -60 0 minecraft:hopper[facing=down,enabled=true]
+block 60 -61 0 minecraft:barrel[facing=up,open=false]
+spawn BU minecraft:oak_chest_boat 64.5 -60 0.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:32L}
+entity_seed BU 996
+block 64 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 64 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:3},{Slot:1b,id:"minecraft:stone",count:2}]}
+tick 20
+dump xentity:BP xentity:BU be:60,-60,0 be:60,-61,0 be:64,-59,0
+tick 30
+dump xentity:BP xentity:BU be:60,-60,0 be:60,-61,0 be:64,-59,0

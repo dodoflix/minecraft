@@ -1,6 +1,8 @@
 //! `net.minecraft.advancements.predicates.SlotsPredicate`.
 
 use crate::commands::arguments::slot_arguments::{SlotRange, SlotRanges};
+use crate::server::level::ServerLevel;
+use crate::world::container::Container;
 use crate::world::entity::Entity;
 use mc_dfu::{Codec, string_resolver};
 use mc_protocol::components::ItemPredicate;
@@ -27,10 +29,16 @@ impl SlotsPredicate {
         C.clone()
     }
 
-    /// `matches(SlotProvider)`: for every range some slot holds a matching stack.
-    pub fn matches(&self, entity: &dyn Entity) -> bool {
+    /// `matches(SlotProvider)`: for every range some slot holds a matching stack. Reading `container.N` of a chest vehicle
+    /// (`getChestVehicleSlot(slot).get()`) unpacks its pending loot table first.
+    pub fn matches(&self, entity: &dyn Entity, level: &ServerLevel) -> bool {
         self.slots.iter().all(|(range, predicate)| {
             range.slots().iter().any(|&slot| {
+                if let Some(chest) = entity.chest_vehicle()
+                    && usize::try_from(slot).is_ok_and(|s| s < chest.get_container_size())
+                {
+                    chest.unpack_shared(level, entity.position());
+                }
                 entity
                     .get_slot(slot)
                     .is_some_and(|stack| predicate.test(&stack))

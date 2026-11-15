@@ -319,8 +319,9 @@ fn block_distribute(
             return Err(not_a_container(pos));
         }
         level.with_block_entity(pos, |level, block_entity| {
-            // the first `getItem` of the distribution unpacks a pending loot table
-            if drops.iter().any(|drop| !drop.is_empty()) {
+            // the first `getItem` of the distribution unpacks a pending loot table (the crafter's does not: its first
+            // `setItem` does)
+            if block_entity.has_loot_table() && drops.iter().any(|drop| !drop.is_empty()) {
                 block_entity.unpack_loot_table(level, None);
             }
             let container = block_entity.as_container_mut().expect("checked above");
@@ -354,6 +355,7 @@ fn distribute_to_container(
         if container.can_place_item_in_level(level, slot, &item_stack) {
             let current_empty = container.get_item(slot).is_empty();
             if current_empty {
+                container.unpack_before_write(level);
                 container.set_item(slot, item_stack.clone());
                 changed = true;
                 break;
@@ -401,12 +403,17 @@ fn block_replace(
         // writes: it is replayed once the block entity is back in its chunk
         let mut failure = None;
         level.with_block_entity(pos, |level, block_entity| {
+            // `canPlaceItem` or the first `setItem` unpacks a pending loot table
+            if slot_count > 0 && block_entity.has_loot_table() {
+                block_entity.unpack_loot_table(level, None);
+            }
             let container = block_entity.as_container_mut().expect("checked above");
             failure = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
                 for i in 0..slot_count {
                     let slot = (start_slot + i) as usize;
                     let to_add = drops.get(i as usize).cloned().unwrap_or_default();
                     if container.can_place_item_in_level(level, slot, &to_add) {
+                        container.unpack_before_write(level);
                         container.set_item(slot, to_add.clone());
                         used.track(&to_add, 1);
                     }

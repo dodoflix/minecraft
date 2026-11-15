@@ -1,0 +1,52 @@
+# The loot-generated criterion trigger fires once per unpacked table when a player opens a trapped chest, both halves of a double chest
+# (two tables, two criteria), a dropper, a hopper minecart and a chest boat, and not again when the player reopens the unpacked chest
+# (`nether/loot_bastion` records the criterion of the table).
+command_env
+level flat
+preload 3
+spawn_player P1 survival 0.5 -60 4.5 180 0
+spawn_player P2 survival 4.5 -60 4.5 180 0
+spawn_player P3 survival 10.5 -60 4.5 180 0
+spawn_player P4 survival 14.5 -60 4.5 180 0
+spawn_player P5 survival 18.5 -60 4.5 180 0
+spawn_player P6 survival 22.5 -60 4.5 180 0
+tick 2
+note P1 opens a trapped chest
+block 0 -60 0 minecraft:trapped_chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 0 {LootTable:"minecraft:chests/bastion_other",LootTableSeed:21L}
+use_on P1 0 -60 0 south main
+tick 2
+dump be:0,-60,0 advancements:P1
+note P2 opens a double chest with two different tables
+block 4 -60 0 minecraft:chest[facing=south,type=right,waterlogged=false]
+block 5 -60 0 minecraft:chest[facing=south,type=left,waterlogged=false]
+be_nbt 4 -60 0 {LootTable:"minecraft:chests/bastion_treasure",LootTableSeed:22L}
+be_nbt 5 -60 0 {LootTable:"minecraft:chests/bastion_bridge",LootTableSeed:23L}
+use_on P2 4 -60 0 south main
+tick 2
+dump be:4,-60,0 be:5,-60,0 advancements:P2
+note P3 opens a dropper
+block 10 -60 0 minecraft:dropper[facing=up,triggered=false]
+be_nbt 10 -60 0 {LootTable:"minecraft:chests/bastion_hoglin_stable",LootTableSeed:24L}
+use_on P3 10 -60 0 south main
+tick 2
+dump be:10,-60,0 advancements:P3
+note P4 opens a hopper minecart, P5 a chest boat
+spawn HM minecraft:hopper_minecart 14.5 -59.9375 0.5 0 0 {LootTable:"minecraft:chests/bastion_other",LootTableSeed:25L}
+entity_seed HM 77
+spawn CB minecraft:oak_chest_boat 18.5 -60 0.5 0 0 {LootTable:"minecraft:chests/bastion_treasure",LootTableSeed:26L}
+entity_seed CB 78
+tick 1
+interact P4 HM
+interact P5 CB main sneak
+tick 2
+dump xentity:HM xentity:CB advancements:P4 advancements:P5
+note P6 opens a chest, closes it and opens it again: the table rolls once
+block 22 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 22 -60 0 {LootTable:"minecraft:chests/bastion_bridge",LootTableSeed:27L}
+use_on P6 22 -60 0 south main
+tick 2
+close_menu P6
+use_on P6 22 -60 0 south main
+tick 2
+dump be:22,-60,0 advancements:P6

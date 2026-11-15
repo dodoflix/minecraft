@@ -32,6 +32,26 @@ pub enum ItemTarget {
     Block(BlockPos),
 }
 
+/// What a command does with the slots it selects: write them (`SlotAccess.set`), count them (`SlotCollection.size()`, which reads
+/// the items only behind a filter) or read their items (`itemCopies()`). A container with a pending loot table unpacks at the first
+/// slot read or write only.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum SlotUse {
+    Write,
+    Count,
+    Items,
+}
+
+impl SlotUse {
+    /// Whether the selection touched a slot of the provider: handed one out for a write, read one for a count or a read.
+    pub fn touched(self, handed_out: bool, read: bool) -> bool {
+        match self {
+            SlotUse::Write => handed_out,
+            SlotUse::Count | SlotUse::Items => read,
+        }
+    }
+}
+
 /// `SlotCollection.size()` and `itemCopies()` of a collection, taken while its target was borrowed.
 pub struct SlotSnapshot {
     size: i32,
@@ -39,10 +59,15 @@ pub struct SlotSnapshot {
 }
 
 impl SlotSnapshot {
-    pub fn of(slots: &SlotCollection<'_>) -> Self {
+    /// `itemCopies()` is only read for [`SlotUse::Items`].
+    pub fn of(slots: &SlotCollection<'_>, use_: SlotUse) -> Self {
         Self {
             size: slots.size(),
-            item_copies: slots.item_copies(),
+            item_copies: if use_ == SlotUse::Items {
+                slots.item_copies()
+            } else {
+                Vec::new()
+            },
         }
     }
 
@@ -84,11 +109,12 @@ pub trait ItemAccessor: Send + Sync {
         function: &mut Setter<'_>,
     ) -> Result<(), CommandSyntaxException>;
 
-    /// `getSlots(source, slotSource)`.
+    /// `getSlots(source, slotSource)`; `use_` is [`SlotUse::Count`] or [`SlotUse::Items`].
     fn get_slots(
         &self,
         source: &CommandSourceStack,
         slot_source: &SlotSourceRef,
+        use_: SlotUse,
     ) -> Result<SlotSnapshot, CommandSyntaxException>;
 
     /// `getReplaceSuccess(source, tracker, knownItem)`.

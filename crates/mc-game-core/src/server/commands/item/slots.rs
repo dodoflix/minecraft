@@ -17,7 +17,7 @@ use crate::world::level::storage::loot::LootContextParamSets;
 use crate::world::level::storage::loot::context::{LootParams, LootParamsBuilder};
 use mc_core::pos::BlockPos;
 use mc_protocol::components::ItemStack;
-use std::cell::RefCell;
+use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 
 /// `LootParams` of `ItemCommands.getSlotsFromProvider`: `ORIGIN`, `CONTAINER`, optional `THIS_ENTITY`, set `COMMAND_SLOT_SOURCE`.
@@ -36,10 +36,13 @@ pub fn slot_params<'a>(
 
 // ---- entities --------------------------------------------------------------------------------------------------------------
 
-/// `Entity.getSlot(slot)` of `entity` with a write overlay.
+/// `Entity.getSlot(slot)` of `entity` with a write overlay. It notes whether a slot was handed out or read, which decides whether a
+/// chest vehicle's pending loot table unpacks first.
 pub struct EntitySlots<'a> {
     entity: &'a dyn Entity,
     writes: RefCell<Vec<(i32, ItemStack)>>,
+    handed_out: Cell<bool>,
+    read: Cell<bool>,
 }
 
 impl<'a> EntitySlots<'a> {
@@ -47,6 +50,8 @@ impl<'a> EntitySlots<'a> {
         Self {
             entity,
             writes: RefCell::new(Vec::new()),
+            handed_out: Cell::new(false),
+            read: Cell::new(false),
         }
     }
 
@@ -55,10 +60,21 @@ impl<'a> EntitySlots<'a> {
         self.writes.into_inner()
     }
 
+    /// Whether `get_slot` returned a slot.
+    pub fn handed_out(&self) -> bool {
+        self.handed_out.get()
+    }
+
+    /// Whether a handed-out slot was read from the entity.
+    pub fn was_read(&self) -> bool {
+        self.read.get()
+    }
+
     fn current(&self, slot: i32) -> Option<ItemStack> {
         if let Some((_, stack)) = self.writes.borrow().iter().rev().find(|(s, _)| *s == slot) {
             return Some(stack.clone());
         }
+        self.read.set(true);
         self.entity.get_slot(slot)
     }
 }
@@ -84,14 +100,15 @@ impl SlotAccess for EntitySlot<'_, '_> {
 
 impl SlotProvider for EntitySlots<'_> {
     fn get_slot(&self, slot: i32) -> Option<Rc<dyn SlotAccess + '_>> {
-        self.entity
-            .get_slot(slot)
-            .map(|_| Rc::new(EntitySlot { owner: self, slot }) as Rc<dyn SlotAccess + '_>)
+        self.entity.get_slot(slot).map(|_| {
+            self.handed_out.set(true);
+            Rc::new(EntitySlot { owner: self, slot }) as Rc<dyn SlotAccess + '_>
+        })
     }
 }
 
 /// `unpackChestVehicleLootTable(null)` of the chest vehicle `id`, which every `getChestVehicleSlot(slot).get()/.set()` does first
-/// (`/item` calls this for each target before it reads or writes `container.N`).
+/// (`/item` calls this for each target that has a selected slot).
 pub fn unpack_chest_vehicle_loot(level: &mut ServerLevel, id: EntityId) {
     level.with_entity(id, |level, entity| {
         let position = entity.position();
@@ -115,10 +132,13 @@ pub fn apply_entity_writes(level: &mut ServerLevel, id: EntityId, writes: Vec<(i
 
 // ---- containers ------------------------------------------------------------------------------------------------------------
 
-/// `Container.getSlot(slot)` with a write overlay.
+/// `Container.getSlot(slot)` with a write overlay. It notes whether a slot was handed out or read, which decides whether a pending
+/// loot table unpacks first.
 pub struct ContainerSlots<'a> {
     container: &'a dyn Container,
     writes: RefCell<Vec<(usize, ItemStack)>>,
+    handed_out: Cell<bool>,
+    read: Cell<bool>,
 }
 
 impl<'a> ContainerSlots<'a> {
@@ -126,6 +146,8 @@ impl<'a> ContainerSlots<'a> {
         Self {
             container,
             writes: RefCell::new(Vec::new()),
+            handed_out: Cell::new(false),
+            read: Cell::new(false),
         }
     }
 
@@ -133,10 +155,21 @@ impl<'a> ContainerSlots<'a> {
         self.writes.into_inner()
     }
 
+    /// Whether `get_slot` returned a slot.
+    pub fn handed_out(&self) -> bool {
+        self.handed_out.get()
+    }
+
+    /// Whether a handed-out slot was read from the container.
+    pub fn was_read(&self) -> bool {
+        self.read.get()
+    }
+
     fn current(&self, slot: usize) -> ItemStack {
         if let Some((_, stack)) = self.writes.borrow().iter().rev().find(|(s, _)| *s == slot) {
             return stack.clone();
         }
+        self.read.set(true);
         self.container.get_item(slot).clone()
     }
 }
@@ -160,6 +193,7 @@ impl SlotAccess for ContainerSlot<'_, '_> {
 impl SlotProvider for ContainerSlots<'_> {
     fn get_slot(&self, slot: i32) -> Option<Rc<dyn SlotAccess + '_>> {
         (slot >= 0 && (slot as usize) < self.container.get_container_size()).then(|| {
+            self.handed_out.set(true);
             Rc::new(ContainerSlot {
                 owner: self,
                 slot: slot as usize,
@@ -168,7 +202,8 @@ impl SlotProvider for ContainerSlots<'_> {
     }
 }
 
-/// `Container.setItem(slot, stack)` for each write on the container block entity at `pos`.
+/// `Container.setItem(slot, stack)` for each write on the container block entity at `pos`; the first `setItem` unpacks a
+/// pending loot table (the crafter's `getItem` does not, so only here does its table roll).
 pub fn apply_container_writes(
     level: &mut ServerLevel,
     pos: BlockPos,
@@ -178,6 +213,7 @@ pub fn apply_container_writes(
         return;
     }
     level.with_block_entity(pos, |level, block_entity| {
+        block_entity.unpack_loot_table(level, None);
         if let Some(container) = block_entity.as_container_mut() {
             for (slot, stack) in writes {
                 container.set_item(slot, stack);
@@ -194,6 +230,24 @@ pub fn container_at(level: &ServerLevel, pos: BlockPos) -> Option<&dyn Container
     use crate::world::level::BlockGetter;
     let block_entity: &dyn BlockEntity = level.get_block_entity(pos)?;
     block_entity.as_container()
+}
+
+/// Whether the block entity at `pos` unpacks a pending loot table when its slots are read (`getItem`; not the crafter's).
+pub fn pending_loot_at(level: &ServerLevel, pos: BlockPos) -> bool {
+    use crate::world::level::BlockGetter;
+    level
+        .get_block_entity(pos)
+        .is_some_and(|block_entity| block_entity.has_loot_table())
+}
+
+/// `unpackLootTable(null)` of the block entity at `pos`, which `getItem` of a selected slot runs first.
+pub fn unpack_block_loot(level: &mut ServerLevel, pos: BlockPos) {
+    level.with_block_entity(pos, |level, block_entity| {
+        block_entity.unpack_loot_table(level, None);
+        if block_entity.container_pending() {
+            block_entity.container_accessed(level);
+        }
+    });
 }
 
 // ---- players ---------------------------------------------------------------------------------------------------------------

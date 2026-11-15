@@ -1,5 +1,5 @@
 //! `EntityItemAccessor`: `/item ... entity <targets>`.
-use super::item_accessor::{ItemAccessor, ItemTarget, Setter, SlotSnapshot, provide_all};
+use super::item_accessor::{ItemAccessor, ItemTarget, Setter, SlotSnapshot, SlotUse, provide_all};
 use crate::server::commands::arg_provider::ArgProvider;
 use crate::server::commands::command_response_tracker::{CommandResponseTracker, ElementType};
 use crate::server::commands::item_commands::{
@@ -49,9 +49,43 @@ fn display_name(source: &CommandSourceStack, target: &ItemTarget) -> Component {
     })
 }
 
-/// `getChestVehicleSlot(slot).get()/.set()` unpack a chest vehicle's loot table before they touch the items.
-fn unpack_chest_vehicles(server: &mut MinecraftServer, entities: &[EntityRef]) {
-    for r in entities {
+/// `getChestVehicleSlot(slot).get()/.set()` unpack a chest vehicle's loot table before they touch the items: for the vehicles
+/// whose selection reads or writes a slot (`container.40` of a chest cart reads nothing, `execute if slots` never reads a slot
+/// of a plain range). The selection is replayed against the packed vehicle to find out.
+fn unpack_chest_vehicles(
+    server: &mut MinecraftServer,
+    source: &CommandSourceStack,
+    slot_source: &SlotSourceRef,
+    entities: &[EntityRef],
+    use_: SlotUse,
+) {
+    let touched: Vec<EntityRef> = {
+        let server = &*server;
+        let Some(level) = server.level(source.get_level()) else {
+            return;
+        };
+        let targets: Vec<(&EntityRef, &dyn Entity)> = entities
+            .iter()
+            .filter_map(|r| entity_in(server, r).map(|e| (r, e)))
+            .filter(|(_, e)| e.chest_vehicle().is_some_and(|c| c.has_loot_table()))
+            .collect();
+        let providers: Vec<EntitySlots<'_>> =
+            targets.iter().map(|(_, e)| EntitySlots::new(*e)).collect();
+        let params: Vec<LootParams<'_>> = providers
+            .iter()
+            .map(|p| slot_params(level, source, p))
+            .collect();
+        for collection in provide_all(&params, slot_source) {
+            SlotSnapshot::of(&collection, use_);
+        }
+        providers
+            .iter()
+            .zip(&targets)
+            .filter(|(p, _)| use_.touched(p.handed_out(), p.was_read()))
+            .map(|(_, (r, _))| (*r).clone())
+            .collect()
+    };
+    for r in touched {
         if let Some(level) = server.level_mut(&r.dimension) {
             unpack_chest_vehicle_loot(level, r.id);
         }
@@ -66,7 +100,7 @@ impl ItemAccessor for EntityItemAccessor {
         function: &mut Setter<'_>,
     ) -> Result<(), CommandSyntaxException> {
         source.with_server(|server| {
-            unpack_chest_vehicles(server, &self.entities);
+            unpack_chest_vehicles(server, source, slot_source, &self.entities, SlotUse::Write);
             let (counts, writes) = {
                 let server = &*server;
                 let Some(level) = server.level(source.get_level()) else {
@@ -119,9 +153,10 @@ impl ItemAccessor for EntityItemAccessor {
         &self,
         source: &CommandSourceStack,
         slot_source: &SlotSourceRef,
+        use_: SlotUse,
     ) -> Result<SlotSnapshot, CommandSyntaxException> {
         Ok(source.with_server(|server| {
-            unpack_chest_vehicles(server, &self.entities);
+            unpack_chest_vehicles(server, source, slot_source, &self.entities, use_);
             let Some(level) = server.level(source.get_level()) else {
                 return SlotSnapshot::empty();
             };
@@ -138,7 +173,7 @@ impl ItemAccessor for EntityItemAccessor {
                 .collect();
             let mut snapshot = SlotSnapshot::empty();
             for collection in provide_all(&params, slot_source) {
-                snapshot.append(SlotSnapshot::of(&collection));
+                snapshot.append(SlotSnapshot::of(&collection, use_));
             }
             snapshot
         }))

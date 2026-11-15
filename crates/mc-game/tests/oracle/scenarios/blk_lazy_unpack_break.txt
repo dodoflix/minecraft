@@ -1,0 +1,220 @@
+# A block entity with a pending loot table when its block goes: `destroy` (Level.destroyBlock, no breaker), an explosion, a replacement by
+# another block, and a survival player digging. Chests, barrels, hoppers, dispensers, droppers, decorated pots read their slots through
+# getItem and unpack first; the crafter's getItem does not, so its table is lost and nothing drops. Hoppers have their drops roll without a tick.
+level flat
+preload 4
+time 6000
+spawn_player Sv survival 0.5 -60 40.5 180 0
+tick 2
+note destroy
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+level_seed 101
+destroy 0 -60 0
+tick 6
+dump entities blocks:0,-60,0,0,-60,0
+block 8 -60 0 minecraft:barrel[facing=up,open=false]
+be_nbt 8 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+level_seed 102
+destroy 8 -60 0
+tick 6
+dump entities blocks:8,-60,0,8,-60,0
+block 16 -60 0 minecraft:hopper[facing=down,enabled=false]
+be_nbt 16 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+level_seed 103
+destroy 16 -60 0
+tick 6
+dump entities blocks:16,-60,0,16,-60,0
+block 24 -60 0 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 24 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+level_seed 104
+destroy 24 -60 0
+tick 6
+dump entities blocks:24,-60,0,24,-60,0
+block 32 -60 0 minecraft:dropper[facing=up,triggered=false]
+be_nbt 32 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+level_seed 105
+destroy 32 -60 0
+tick 6
+dump entities blocks:32,-60,0,32,-60,0
+block 40 -60 0 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 40 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+level_seed 106
+destroy 40 -60 0
+tick 6
+dump entities blocks:40,-60,0,40,-60,0
+block 48 -60 0 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]
+be_nbt 48 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+level_seed 107
+destroy 48 -60 0
+tick 6
+dump entities blocks:48,-60,0,48,-60,0
+block 56 -60 0 minecraft:trapped_chest[facing=south,type=single,waterlogged=false]
+be_nbt 56 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+level_seed 108
+destroy 56 -60 0
+tick 6
+dump entities blocks:56,-60,0,56,-60,0
+note explode
+block 0 -60 10 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+level_seed 109
+explode 0.5 -59.5 10.5 2 tnt
+tick 6
+dump entities blocks:0,-60,10,0,-60,10
+block 8 -60 10 minecraft:barrel[facing=up,open=false]
+be_nbt 8 -60 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+level_seed 110
+explode 8.5 -59.5 10.5 2 tnt
+tick 6
+dump entities blocks:8,-60,10,8,-60,10
+block 16 -60 10 minecraft:hopper[facing=down,enabled=false]
+be_nbt 16 -60 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+level_seed 111
+explode 16.5 -59.5 10.5 2 tnt
+tick 6
+dump entities blocks:16,-60,10,16,-60,10
+block 24 -60 10 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 24 -60 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+level_seed 112
+explode 24.5 -59.5 10.5 2 tnt
+tick 6
+dump entities blocks:24,-60,10,24,-60,10
+block 32 -60 10 minecraft:dropper[facing=up,triggered=false]
+be_nbt 32 -60 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+level_seed 113
+explode 32.5 -59.5 10.5 2 tnt
+tick 6
+dump entities blocks:32,-60,10,32,-60,10
+block 40 -60 10 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 40 -60 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+level_seed 114
+explode 40.5 -59.5 10.5 2 tnt
+tick 6
+dump entities blocks:40,-60,10,40,-60,10
+block 48 -60 10 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]
+be_nbt 48 -60 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+level_seed 115
+explode 48.5 -59.5 10.5 2 tnt
+tick 6
+dump entities blocks:48,-60,10,48,-60,10
+block 56 -60 10 minecraft:trapped_chest[facing=south,type=single,waterlogged=false]
+be_nbt 56 -60 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+level_seed 116
+explode 56.5 -59.5 10.5 2 tnt
+tick 6
+dump entities blocks:56,-60,10,56,-60,10
+note replace
+block 0 -60 20 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+level_seed 117
+block 0 -60 20 minecraft:stone
+tick 6
+dump entities blocks:0,-60,20,0,-60,20
+block 8 -60 20 minecraft:barrel[facing=up,open=false]
+be_nbt 8 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+level_seed 118
+block 8 -60 20 minecraft:stone
+tick 6
+dump entities blocks:8,-60,20,8,-60,20
+block 16 -60 20 minecraft:hopper[facing=down,enabled=false]
+be_nbt 16 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+level_seed 119
+block 16 -60 20 minecraft:stone
+tick 6
+dump entities blocks:16,-60,20,16,-60,20
+block 24 -60 20 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 24 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+level_seed 120
+block 24 -60 20 minecraft:stone
+tick 6
+dump entities blocks:24,-60,20,24,-60,20
+block 32 -60 20 minecraft:dropper[facing=up,triggered=false]
+be_nbt 32 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+level_seed 121
+block 32 -60 20 minecraft:stone
+tick 6
+dump entities blocks:32,-60,20,32,-60,20
+block 40 -60 20 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 40 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+level_seed 122
+block 40 -60 20 minecraft:stone
+tick 6
+dump entities blocks:40,-60,20,40,-60,20
+block 48 -60 20 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]
+be_nbt 48 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+level_seed 123
+block 48 -60 20 minecraft:stone
+tick 6
+dump entities blocks:48,-60,20,48,-60,20
+block 56 -60 20 minecraft:trapped_chest[facing=south,type=single,waterlogged=false]
+be_nbt 56 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+level_seed 124
+block 56 -60 20 minecraft:stone
+tick 6
+dump entities blocks:56,-60,20,56,-60,20
+note dig
+block 0 -60 30 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+level_seed 125
+give Sv mainhand minecraft:netherite_axe
+snap Sv 0.5 -60 32.5
+dig Sv 0 -60 30
+tick 6
+dump entities blocks:0,-60,30,0,-60,30
+block 8 -60 30 minecraft:barrel[facing=up,open=false]
+be_nbt 8 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+level_seed 126
+give Sv mainhand minecraft:netherite_axe
+snap Sv 8.5 -60 32.5
+dig Sv 8 -60 30
+tick 6
+dump entities blocks:8,-60,30,8,-60,30
+block 16 -60 30 minecraft:hopper[facing=down,enabled=false]
+be_nbt 16 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+level_seed 127
+give Sv mainhand minecraft:netherite_axe
+snap Sv 16.5 -60 32.5
+dig Sv 16 -60 30
+tick 6
+dump entities blocks:16,-60,30,16,-60,30
+block 24 -60 30 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 24 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+level_seed 128
+give Sv mainhand minecraft:netherite_axe
+snap Sv 24.5 -60 32.5
+dig Sv 24 -60 30
+tick 6
+dump entities blocks:24,-60,30,24,-60,30
+block 32 -60 30 minecraft:dropper[facing=up,triggered=false]
+be_nbt 32 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+level_seed 129
+give Sv mainhand minecraft:netherite_axe
+snap Sv 32.5 -60 32.5
+dig Sv 32 -60 30
+tick 6
+dump entities blocks:32,-60,30,32,-60,30
+block 40 -60 30 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 40 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+level_seed 130
+give Sv mainhand minecraft:netherite_axe
+snap Sv 40.5 -60 32.5
+dig Sv 40 -60 30
+tick 6
+dump entities blocks:40,-60,30,40,-60,30
+block 48 -60 30 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]
+be_nbt 48 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+level_seed 131
+give Sv mainhand minecraft:netherite_axe
+snap Sv 48.5 -60 32.5
+dig Sv 48 -60 30
+tick 6
+dump entities blocks:48,-60,30,48,-60,30
+block 56 -60 30 minecraft:trapped_chest[facing=south,type=single,waterlogged=false]
+be_nbt 56 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+level_seed 132
+give Sv mainhand minecraft:netherite_axe
+snap Sv 56.5 -60 32.5
+dig Sv 56 -60 30
+tick 6
+dump entities blocks:56,-60,30,56,-60,30

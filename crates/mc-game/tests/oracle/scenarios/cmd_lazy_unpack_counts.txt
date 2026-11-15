@@ -1,0 +1,68 @@
+# Counting slots reads no item: `execute if slots` leaves a pending loot table alone, a `filtered` source over the container reads
+# every slot (and unpacks), and `/loot replace entity` writes a chest vehicle slot through setChestVehicleItem (unpack first). Blocks and
+# vehicles with a pending table; each case has its own targets.
+datapack loot_cmds
+command_env
+level flat
+preload 3
+level_seed 2401
+entity_counter 2400
+spawn_player A survival 0.5 -60 40.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note chest: execute if slots keeps the table, a filtered source unpacks
+cmd setblock 2 -60 2 minecraft:chest{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+cmd execute if slots block 2 -60 2 container.*
+cmd data get block 2 -60 2 LootTable
+cmd execute if items block 2 -60 2 {type:"minecraft:filtered",slot_source:{type:"minecraft:slot_range",source:"container",slots:"container.*"},item_filter:{items:"minecraft:bone"}} *
+cmd data get block 2 -60 2 LootTable
+note barrel: execute if slots keeps the table, a filtered source unpacks
+cmd setblock 2 -60 6 minecraft:barrel[facing=up]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+cmd execute if slots block 2 -60 6 container.*
+cmd data get block 2 -60 6 LootTable
+cmd execute if items block 2 -60 6 {type:"minecraft:filtered",slot_source:{type:"minecraft:slot_range",source:"container",slots:"container.*"},item_filter:{items:"minecraft:bone"}} *
+cmd data get block 2 -60 6 LootTable
+note hopper: execute if slots keeps the table, a filtered source unpacks
+cmd setblock 2 -59 10 minecraft:redstone_block
+cmd setblock 2 -60 10 minecraft:hopper{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+cmd execute if slots block 2 -60 10 container.*
+cmd data get block 2 -60 10 LootTable
+cmd execute if items block 2 -60 10 {type:"minecraft:filtered",slot_source:{type:"minecraft:slot_range",source:"container",slots:"container.*"},item_filter:{items:"minecraft:bone"}} *
+cmd data get block 2 -60 10 LootTable
+note chest vehicles, case 0
+spawn CM0 minecraft:chest_minecart 0.5 -59.9375 20.5 0 0 {Tags:["cm0"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+entity_seed CM0 1900
+spawn HM0 minecraft:hopper_minecart 4.5 -59.9375 20.5 0 0 {Tags:["hm0"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+entity_seed HM0 1901
+spawn CB0 minecraft:oak_chest_boat 8.5 -59.9375 20.5 0 0 {Tags:["cb0"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+entity_seed CB0 1902
+tick 1
+cmd execute if slots entity @e[tag=cm0] container.*
+cmd execute if slots entity @e[tag=hm0] container.*
+cmd execute if slots entity @e[tag=cb0] container.*
+dump xentity:CM0 xentity:HM0 xentity:CB0
+note chest vehicles, case 1
+spawn CM1 minecraft:chest_minecart 0.5 -59.9375 30.5 0 0 {Tags:["cm1"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+entity_seed CM1 1910
+spawn HM1 minecraft:hopper_minecart 4.5 -59.9375 30.5 0 0 {Tags:["hm1"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+entity_seed HM1 1911
+spawn CB1 minecraft:oak_chest_boat 8.5 -59.9375 30.5 0 0 {Tags:["cb1"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+entity_seed CB1 1912
+tick 1
+cmd execute if items entity @e[tag=cm1] {type:"minecraft:filtered",slot_source:{type:"minecraft:slot_range",source:"container",slots:"container.*"},item_filter:{items:"minecraft:bone"}} *
+cmd execute if items entity @e[tag=hm1] {type:"minecraft:filtered",slot_source:{type:"minecraft:slot_range",source:"container",slots:"container.*"},item_filter:{items:"minecraft:bone"}} *
+cmd execute if items entity @e[tag=cb1] {type:"minecraft:filtered",slot_source:{type:"minecraft:slot_range",source:"container",slots:"container.*"},item_filter:{items:"minecraft:bone"}} *
+dump xentity:CM1 xentity:HM1 xentity:CB1
+note chest vehicles, case 2
+spawn CM2 minecraft:chest_minecart 0.5 -59.9375 40.5 0 0 {Tags:["cm2"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+entity_seed CM2 1920
+spawn HM2 minecraft:hopper_minecart 4.5 -59.9375 40.5 0 0 {Tags:["hm2"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+entity_seed HM2 1921
+spawn CB2 minecraft:oak_chest_boat 8.5 -59.9375 40.5 0 0 {Tags:["cb2"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:13L}
+entity_seed CB2 1922
+tick 1
+cmd loot replace entity @e[tag=cm2] container.3 loot lc:five
+cmd loot replace entity @e[tag=hm2] container.3 loot lc:five
+cmd loot replace entity @e[tag=cb2] container.3 loot lc:five
+dump xentity:CM2 xentity:HM2 xentity:CB2

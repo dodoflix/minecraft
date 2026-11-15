@@ -169,6 +169,7 @@ mod itm_spawn_egg_golden;
 mod itm_spear_golden;
 mod jigsaw_codec;
 mod jigsaw_structures_golden;
+mod lazy_unpack_golden;
 mod levelgen_predicates_golden;
 mod lightning_golden;
 mod living_entity_golden;

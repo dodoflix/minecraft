@@ -269,10 +269,10 @@ impl EntitySubPredicateImpl for EntitySlotsPredicate {
     fn matches<'a>(
         &self,
         entity: &'a dyn Entity,
-        _level: &'a ServerLevel,
+        level: &'a ServerLevel,
         _position: Option<Vec3>,
     ) -> bool {
-        self.slots.matches(entity)
+        self.slots.matches(entity, level)
     }
 }
 

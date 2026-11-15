@@ -2,7 +2,7 @@
 use super::arg_provider::{ArgProvider, Factory};
 use super::command_response_tracker::CommandResponseTracker;
 use super::item::item_accessor::{
-    ItemAccessor, ItemTarget, resolve_resource_or_id, slot_source_value,
+    ItemAccessor, ItemTarget, SlotUse, resolve_resource_or_id, slot_source_value,
 };
 use super::item::item_provider::ItemProvider;
 use super::item::{block_item_accessor, entity_item_accessor};
@@ -366,7 +366,7 @@ fn get_items(
     modifier: Option<&ResourceOrId>,
 ) -> Result<Vec<ItemStack>, CommandSyntaxException> {
     let value = slot_source_value(source, slot_source)?;
-    let slots = accessor.get_slots(source, &value)?;
+    let slots = accessor.get_slots(source, &value, SlotUse::Items)?;
     let items: Vec<ItemStack> = match modifier {
         Some(modifier) => {
             let function =

@@ -2,7 +2,7 @@
 use super::arg_provider::ArgProvider;
 use super::data::DataAccessor;
 use super::data_commands::{Accessor, SOURCE_PROVIDERS, TARGET_PROVIDERS};
-use super::item::item_accessor::{ItemAccessor, slot_source_value};
+use super::item::item_accessor::{ItemAccessor, SlotUse, slot_source_value};
 use mc_brigadier::arguments::{DoubleArgumentType, double_arg};
 use mc_brigadier::{
     ArgumentBuilder, CommandContext, CommandNode, CommandSyntaxException, ContextChain,
@@ -698,7 +698,7 @@ fn count_items(
         &SlotSourceArgument::get_slot_source(c, "slots"),
     )?;
     let predicate = ItemPredicateArgument::get_item_predicate(c, "item_predicate");
-    let slots = accessor.get_slots(c.get_source(), &slot_source)?;
+    let slots = accessor.get_slots(c.get_source(), &slot_source, SlotUse::Items)?;
     Ok(slots
         .item_copies()
         .iter()
@@ -716,7 +716,9 @@ fn count_slots(
         c.get_source(),
         &SlotSourceArgument::get_slot_source(c, "slots"),
     )?;
-    Ok(accessor.get_slots(c.get_source(), &slot_source)?.size())
+    Ok(accessor
+        .get_slots(c.get_source(), &slot_source, SlotUse::Count)?
+        .size())
 }
 
 /// `createNumericConditionalHandler(expected, condition)`.

@@ -1,0 +1,33 @@
+# A crafter with a pending loot table: getItem and isEmpty do not unpack, so a comparator reads an empty crafter and a redstone pulse finds
+# nothing to craft; the table rolls when a player opens the menu (with the loot-generated advancement) and at the first setItem (the crafter
+# fills a slot, then the inserted stack overwrites it).
+level flat
+preload 3
+spawn_player Steve survival 0.5 -60 14.5 180 0
+spawn_player Alex survival 4.5 -60 14.5 180 0
+tick 2
+note comparator beside a pending crafter: signal 0, table stays
+block 0 -60 0 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 0 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+block 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 0 minecraft:redstone_lamp
+tick 6
+dump be:0,-60,0 be:1,-60,0 blocks:0,-60,0,2,-60,0
+note a redstone pulse with a pending table
+block 0 -60 4 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 0 -60 4 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+block 1 -60 4 minecraft:redstone_block
+tick 10
+dump be:0,-60,4 blocks:0,-60,4,1,-60,4 events
+note a player opens a pending crafter: the table rolls for the player
+block 0 -60 10 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 0 -60 10 {LootTable:"minecraft:chests/bastion_other",LootTableSeed:7L}
+use_on Steve 0 -60 10 south main
+tick 2
+dump be:0,-60,10 inventory:Steve advancements:Steve
+note the crafter with the table next to a comparator rolls for the player too
+block 4 -60 10 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 4 -60 10 {LootTable:"minecraft:chests/bastion_treasure",LootTableSeed:8L,disabled_slots:[I;1,2]}
+use_on Alex 4 -60 10 south main
+tick 2
+dump be:4,-60,10 advancements:Alex

@@ -1,0 +1,21 @@
+# comparator beside a pending crafter: signal 0, table stays
+BE 0 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L,components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:crafter[crafting=false,orientation=north_up,triggered=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+# a redstone pulse with a pending table
+BE 0 -60 4 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L,components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:4}
+B 0 -60 4 minecraft:crafter[crafting=false,orientation=north_up,triggered=true]
+B 1 -60 4 minecraft:redstone_block
+EV level_event r=64.0 ex=0 type=1050 pos=0,-60,4 data=0 global=0
+# a player opens a pending crafter: the table rolls for the player
+BE 0 -60 10 {Items:[{Slot:0b,count:2,id:"minecraft:string"},{Slot:1b,components:{"minecraft:enchantments":{"minecraft:soul_speed":2}},count:1,id:"minecraft:golden_boots"},{Slot:2b,count:1,id:"minecraft:obsidian"},{Slot:3b,components:{"minecraft:damage":126,"minecraft:enchantments":{"minecraft:vanishing_curse":1}},count:1,id:"minecraft:iron_sword"},{Slot:4b,count:2,id:"minecraft:string"},{Slot:5b,count:1,id:"minecraft:cooked_porkchop"},{Slot:6b,count:1,id:"minecraft:golden_apple"},{Slot:7b,count:4,id:"minecraft:obsidian"},{Slot:8b,count:4,id:"minecraft:obsidian"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:0,y:-60,z:10}
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:nether/loot_bastion loot_bastion_other
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+# the crafter with the table next to a comparator rolls for the player too
+BE 4 -60 10 {Items:[{Slot:0b,count:7,id:"minecraft:quartz"},{Slot:1b,count:1,id:"minecraft:diamond_helmet"},{Slot:2b,count:8,id:"minecraft:magma_cream"},{Slot:3b,count:1,id:"minecraft:diamond_leggings"},{Slot:4b,count:4,id:"minecraft:crying_obsidian"},{Slot:5b,count:5,id:"minecraft:magma_cream"},{Slot:6b,count:1,id:"minecraft:netherite_upgrade_smithing_template"},{Slot:7b,components:{"minecraft:damage":125,"minecraft:enchantments":{"minecraft:smite":3}},count:1,id:"minecraft:diamond_spear"},{Slot:8b,count:12,id:"minecraft:quartz"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:4,y:-60,z:10}
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:nether/loot_bastion loot_bastion_treasure
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away

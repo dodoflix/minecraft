@@ -61,14 +61,22 @@ impl SlotAccess for ValueSlot {
 
 /// One slot of an entity (`Entity.getSlot(slot)`) as a loot context sees it: read-only. The entity is only borrowed shared
 /// while the context holds it, so a write is refused (`set` returns `false`: the command reports no change) instead of
-/// pretending to succeed.
+/// pretending to succeed. Reading a chest vehicle's slot unpacks its pending loot table first, like `getChestVehicleSlot`.
 struct EntitySlotAccess<'a> {
     entity: &'a dyn crate::world::entity::Entity,
     slot: i32,
+    level: &'a crate::server::level::ServerLevel,
 }
 
 impl SlotAccess for EntitySlotAccess<'_> {
     fn get(&self) -> ItemStack {
+        if let Some(chest) = self.entity.chest_vehicle()
+            && usize::try_from(self.slot).is_ok_and(|slot| {
+                slot < crate::world::container::Container::get_container_size(chest)
+            })
+        {
+            chest.unpack_shared(self.level, self.entity.position());
+        }
         self.entity.get_slot(self.slot).unwrap_or_default()
     }
 
@@ -513,6 +521,7 @@ impl SlotSource for RangeSlotSource {
                                 Rc::new(EntitySlotAccess {
                                     entity,
                                     slot: *slot,
+                                    level: params.level(),
                                 }) as SlotRef<'a>
                             })
                             .collect(),

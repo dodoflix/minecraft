@@ -127,11 +127,14 @@ pub fn can_set_equipment_slot(entity: &dyn Entity, slot: i32, stack: &ItemStack)
 /// `getSlot(slot).set(stack)` of the entities that have no slots of their own beyond `get_slot`'s: `ServerPlayer` (carried item,
 /// crafting grid, inventory, ender chest, equipment), other living entities (equipment) and chest vehicles (`container.N`).
 pub fn set_slot(level: &mut ServerLevel, entity: &mut dyn Entity, slot: i32, stack: ItemStack) {
+    let position = entity.position();
     if let Some(chest) = entity.chest_vehicle_mut() {
-        // `setChestVehicleItem(slot, stack)` (the slot was checked against the container size by `getChestVehicleSlot`)
+        // `setChestVehicleItem(slot, stack)` unpacks the loot table first (the slot was checked against the container size by
+        // `getChestVehicleSlot`)
         if let Ok(slot) = usize::try_from(slot)
             && slot < chest.get_container_size()
         {
+            chest.unpack_for_access(level, position);
             chest.set_item(slot, stack);
         }
         return;

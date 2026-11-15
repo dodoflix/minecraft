@@ -1,0 +1,233 @@
+# Commands that touch a block entity with a pending loot table: `data get block` and `clone` read the saved form (no unpack), slot access
+# (`execute if items`, `item replace|modify`, `loot replace|insert`) unpacks before it reads or writes, `data merge` keeps ignoring Items
+# while LootTable is present, `data remove LootTable` ends the pending state. A hopper stays locked by a redstone block so that its own tick
+# does not unpack it. Crafters read and test slots without an unpack, so only a write unpacks them.
+datapack loot_cmds
+command_env
+level flat
+preload 2
+level_seed 1301
+entity_counter 130
+spawn_player A survival 0.5 -60 20.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note data get block: the saved form keeps the table
+cmd setblock 2 -60 2 minecraft:chest[facing=south,type=single,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+cmd setblock 4 -60 2 minecraft:barrel[facing=up,open=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+cmd setblock 6 -60 2 minecraft:shulker_box[facing=up]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+cmd setblock 8 -59 2 minecraft:redstone_block
+cmd setblock 8 -60 2 minecraft:hopper[facing=down,enabled=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+cmd setblock 10 -60 2 minecraft:dispenser[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+cmd setblock 12 -60 2 minecraft:dropper[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+cmd setblock 14 -60 2 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+cmd setblock 16 -60 2 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+cmd data get block 2 -60 2
+cmd data get block 4 -60 2
+cmd data get block 6 -60 2
+cmd data get block 8 -60 2
+cmd data get block 10 -60 2
+cmd data get block 12 -60 2
+cmd data get block 14 -60 2
+cmd data get block 16 -60 2
+dump be:2,-60,2 be:4,-60,2 be:6,-60,2 be:8,-60,2 be:10,-60,2 be:12,-60,2 be:14,-60,2 be:16,-60,2
+note clone copies the block entity data, the table stays
+cmd setblock 2 -60 5 minecraft:chest[facing=south,type=single,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+cmd setblock 4 -60 5 minecraft:barrel[facing=up,open=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+cmd setblock 6 -60 5 minecraft:shulker_box[facing=up]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+cmd setblock 8 -59 5 minecraft:redstone_block
+cmd setblock 8 -60 5 minecraft:hopper[facing=down,enabled=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+cmd setblock 10 -60 5 minecraft:dispenser[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+cmd setblock 12 -60 5 minecraft:dropper[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+cmd setblock 14 -60 5 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+cmd setblock 16 -60 5 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+cmd clone 2 -60 5 2 -60 5 2 -60 6
+cmd clone 4 -60 5 4 -60 5 4 -60 6
+cmd clone 6 -60 5 6 -60 5 6 -60 6
+cmd clone 8 -60 5 8 -60 5 8 -60 6
+cmd clone 10 -60 5 10 -60 5 10 -60 6
+cmd clone 12 -60 5 12 -60 5 12 -60 6
+cmd clone 14 -60 5 14 -60 5 14 -60 6
+cmd clone 16 -60 5 16 -60 5 16 -60 6
+dump be:2,-60,6 be:4,-60,6 be:6,-60,6 be:8,-60,6 be:10,-60,6 be:12,-60,6 be:14,-60,6 be:16,-60,6
+dump be:2,-60,5 be:4,-60,5 be:6,-60,5 be:8,-60,5 be:10,-60,5 be:12,-60,5 be:14,-60,5 be:16,-60,5
+note execute if items reads container.0 through getItem
+cmd setblock 2 -60 8 minecraft:chest[facing=south,type=single,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+cmd setblock 4 -60 8 minecraft:barrel[facing=up,open=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+cmd setblock 6 -60 8 minecraft:shulker_box[facing=up]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+cmd setblock 8 -59 8 minecraft:redstone_block
+cmd setblock 8 -60 8 minecraft:hopper[facing=down,enabled=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+cmd setblock 10 -60 8 minecraft:dispenser[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+cmd setblock 12 -60 8 minecraft:dropper[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+cmd setblock 14 -60 8 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+cmd setblock 16 -60 8 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+cmd execute if items block 2 -60 8 container.0 *
+cmd execute if items block 4 -60 8 container.0 *
+cmd execute if items block 6 -60 8 container.0 *
+cmd execute if items block 8 -60 8 container.0 *
+cmd execute if items block 10 -60 8 container.0 *
+cmd execute if items block 12 -60 8 container.0 *
+cmd execute if items block 14 -60 8 container.0 *
+cmd execute if items block 16 -60 8 container.0 *
+dump be:2,-60,8 be:4,-60,8 be:6,-60,8 be:8,-60,8 be:10,-60,8 be:12,-60,8 be:14,-60,8 be:16,-60,8
+note execute if items on a slot range
+cmd setblock 2 -60 11 minecraft:chest[facing=south,type=single,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+cmd setblock 4 -60 11 minecraft:barrel[facing=up,open=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+cmd setblock 6 -60 11 minecraft:shulker_box[facing=up]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+cmd setblock 8 -59 11 minecraft:redstone_block
+cmd setblock 8 -60 11 minecraft:hopper[facing=down,enabled=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+cmd setblock 10 -60 11 minecraft:dispenser[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+cmd setblock 12 -60 11 minecraft:dropper[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+cmd setblock 14 -60 11 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+cmd setblock 16 -60 11 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+cmd execute if items block 2 -60 11 container.* minecraft:diamond
+cmd execute if items block 4 -60 11 container.* minecraft:diamond
+cmd execute if items block 6 -60 11 container.* minecraft:diamond
+cmd execute if items block 8 -60 11 container.* minecraft:diamond
+cmd execute if items block 10 -60 11 container.* minecraft:diamond
+cmd execute if items block 12 -60 11 container.* minecraft:diamond
+cmd execute if items block 14 -60 11 container.* minecraft:diamond
+cmd execute if items block 16 -60 11 container.* minecraft:diamond
+dump be:2,-60,11 be:4,-60,11 be:6,-60,11 be:8,-60,11 be:10,-60,11 be:12,-60,11 be:14,-60,11 be:16,-60,11
+note item replace writes container.1
+cmd setblock 2 -60 14 minecraft:chest[facing=south,type=single,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+cmd setblock 4 -60 14 minecraft:barrel[facing=up,open=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+cmd setblock 6 -60 14 minecraft:shulker_box[facing=up]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+cmd setblock 8 -59 14 minecraft:redstone_block
+cmd setblock 8 -60 14 minecraft:hopper[facing=down,enabled=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+cmd setblock 10 -60 14 minecraft:dispenser[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+cmd setblock 12 -60 14 minecraft:dropper[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+cmd setblock 14 -60 14 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+cmd setblock 16 -60 14 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+cmd item replace block 2 -60 14 container.1 with minecraft:stick
+cmd item replace block 4 -60 14 container.1 with minecraft:stick
+cmd item replace block 6 -60 14 container.1 with minecraft:stick
+cmd item replace block 8 -60 14 container.1 with minecraft:stick
+cmd item replace block 10 -60 14 container.1 with minecraft:stick
+cmd item replace block 12 -60 14 container.1 with minecraft:stick
+cmd item replace block 14 -60 14 container.1 with minecraft:stick
+cmd item replace block 16 -60 14 container.1 with minecraft:stick
+dump be:2,-60,14 be:4,-60,14 be:6,-60,14 be:8,-60,14 be:10,-60,14 be:12,-60,14 be:14,-60,14 be:16,-60,14
+note item replace from a block copies container.0
+cmd setblock 2 -60 17 minecraft:chest[facing=south,type=single,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+cmd setblock 4 -60 17 minecraft:barrel[facing=up,open=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+cmd setblock 6 -60 17 minecraft:shulker_box[facing=up]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+cmd setblock 8 -59 17 minecraft:redstone_block
+cmd setblock 8 -60 17 minecraft:hopper[facing=down,enabled=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+cmd setblock 10 -60 17 minecraft:dispenser[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+cmd setblock 12 -60 17 minecraft:dropper[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+cmd setblock 14 -60 17 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+cmd setblock 16 -60 17 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+cmd item replace block 2 -60 17 container.2 from block 2 -60 17 container.0
+cmd item replace block 4 -60 17 container.2 from block 4 -60 17 container.0
+cmd item replace block 6 -60 17 container.2 from block 6 -60 17 container.0
+cmd item replace block 8 -60 17 container.2 from block 8 -60 17 container.0
+cmd item replace block 10 -60 17 container.2 from block 10 -60 17 container.0
+cmd item replace block 12 -60 17 container.2 from block 12 -60 17 container.0
+cmd item replace block 14 -60 17 container.2 from block 14 -60 17 container.0
+cmd item replace block 16 -60 17 container.2 from block 16 -60 17 container.0
+dump be:2,-60,17 be:4,-60,17 be:6,-60,17 be:8,-60,17 be:10,-60,17 be:12,-60,17 be:14,-60,17 be:16,-60,17
+note item modify container.0
+cmd setblock 2 -60 20 minecraft:chest[facing=south,type=single,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+cmd setblock 4 -60 20 minecraft:barrel[facing=up,open=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+cmd setblock 6 -60 20 minecraft:shulker_box[facing=up]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+cmd setblock 8 -59 20 minecraft:redstone_block
+cmd setblock 8 -60 20 minecraft:hopper[facing=down,enabled=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+cmd setblock 10 -60 20 minecraft:dispenser[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+cmd setblock 12 -60 20 minecraft:dropper[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+cmd setblock 14 -60 20 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+cmd setblock 16 -60 20 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+cmd item modify block 2 -60 20 container.0 lc:double
+cmd item modify block 4 -60 20 container.0 lc:double
+cmd item modify block 6 -60 20 container.0 lc:double
+cmd item modify block 8 -60 20 container.0 lc:double
+cmd item modify block 10 -60 20 container.0 lc:double
+cmd item modify block 12 -60 20 container.0 lc:double
+cmd item modify block 14 -60 20 container.0 lc:double
+cmd item modify block 16 -60 20 container.0 lc:double
+dump be:2,-60,20 be:4,-60,20 be:6,-60,20 be:8,-60,20 be:10,-60,20 be:12,-60,20 be:14,-60,20 be:16,-60,20
+note loot replace container.2
+cmd setblock 2 -60 23 minecraft:chest[facing=south,type=single,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+cmd setblock 4 -60 23 minecraft:barrel[facing=up,open=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+cmd setblock 6 -60 23 minecraft:shulker_box[facing=up]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+cmd setblock 8 -59 23 minecraft:redstone_block
+cmd setblock 8 -60 23 minecraft:hopper[facing=down,enabled=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+cmd setblock 10 -60 23 minecraft:dispenser[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+cmd setblock 12 -60 23 minecraft:dropper[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+cmd setblock 14 -60 23 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+cmd setblock 16 -60 23 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+cmd loot replace block 2 -60 23 container.2 loot lc:five
+cmd loot replace block 4 -60 23 container.2 loot lc:five
+cmd loot replace block 6 -60 23 container.2 loot lc:five
+cmd loot replace block 8 -60 23 container.2 loot lc:five
+cmd loot replace block 10 -60 23 container.2 loot lc:five
+cmd loot replace block 12 -60 23 container.2 loot lc:five
+cmd loot replace block 14 -60 23 container.2 loot lc:five
+cmd loot replace block 16 -60 23 container.2 loot lc:five
+dump be:2,-60,23 be:4,-60,23 be:6,-60,23 be:8,-60,23 be:10,-60,23 be:12,-60,23 be:14,-60,23 be:16,-60,23
+note loot insert
+cmd setblock 2 -60 26 minecraft:chest[facing=south,type=single,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+cmd setblock 4 -60 26 minecraft:barrel[facing=up,open=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+cmd setblock 6 -60 26 minecraft:shulker_box[facing=up]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+cmd setblock 8 -59 26 minecraft:redstone_block
+cmd setblock 8 -60 26 minecraft:hopper[facing=down,enabled=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+cmd setblock 10 -60 26 minecraft:dispenser[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+cmd setblock 12 -60 26 minecraft:dropper[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+cmd setblock 14 -60 26 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+cmd setblock 16 -60 26 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+cmd loot insert 2 -60 26 loot lc:five
+cmd loot insert 4 -60 26 loot lc:five
+cmd loot insert 6 -60 26 loot lc:five
+cmd loot insert 8 -60 26 loot lc:five
+cmd loot insert 10 -60 26 loot lc:five
+cmd loot insert 12 -60 26 loot lc:five
+cmd loot insert 14 -60 26 loot lc:five
+cmd loot insert 16 -60 26 loot lc:five
+dump be:2,-60,26 be:4,-60,26 be:6,-60,26 be:8,-60,26 be:10,-60,26 be:12,-60,26 be:14,-60,26 be:16,-60,26
+note data merge block with Items keeps the table
+cmd setblock 2 -60 29 minecraft:chest[facing=south,type=single,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+cmd setblock 4 -60 29 minecraft:barrel[facing=up,open=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+cmd setblock 6 -60 29 minecraft:shulker_box[facing=up]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+cmd setblock 8 -59 29 minecraft:redstone_block
+cmd setblock 8 -60 29 minecraft:hopper[facing=down,enabled=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+cmd setblock 10 -60 29 minecraft:dispenser[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+cmd setblock 12 -60 29 minecraft:dropper[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+cmd setblock 14 -60 29 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+cmd setblock 16 -60 29 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+cmd data merge block 2 -60 29 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 4 -60 29 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 6 -60 29 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 8 -60 29 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 10 -60 29 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 12 -60 29 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 14 -60 29 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 16 -60 29 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+dump be:2,-60,29 be:4,-60,29 be:6,-60,29 be:8,-60,29 be:10,-60,29 be:12,-60,29 be:14,-60,29 be:16,-60,29
+note data remove LootTable, then merge Items
+cmd setblock 2 -60 32 minecraft:chest[facing=south,type=single,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+cmd setblock 4 -60 32 minecraft:barrel[facing=up,open=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+cmd setblock 6 -60 32 minecraft:shulker_box[facing=up]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+cmd setblock 8 -59 32 minecraft:redstone_block
+cmd setblock 8 -60 32 minecraft:hopper[facing=down,enabled=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+cmd setblock 10 -60 32 minecraft:dispenser[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+cmd setblock 12 -60 32 minecraft:dropper[facing=up,triggered=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+cmd setblock 14 -60 32 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+cmd setblock 16 -60 32 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]{LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+cmd data remove block 2 -60 32 LootTable
+cmd data remove block 4 -60 32 LootTable
+cmd data remove block 6 -60 32 LootTable
+cmd data remove block 8 -60 32 LootTable
+cmd data remove block 10 -60 32 LootTable
+cmd data remove block 12 -60 32 LootTable
+cmd data remove block 14 -60 32 LootTable
+cmd data remove block 16 -60 32 LootTable
+dump be:2,-60,32 be:4,-60,32 be:6,-60,32 be:8,-60,32 be:10,-60,32 be:12,-60,32 be:14,-60,32 be:16,-60,32
+cmd data merge block 2 -60 32 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 4 -60 32 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 6 -60 32 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 8 -60 32 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 10 -60 32 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 12 -60 32 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 14 -60 32 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+cmd data merge block 16 -60 32 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+dump be:2,-60,32 be:4,-60,32 be:6,-60,32 be:8,-60,32 be:10,-60,32 be:12,-60,32 be:14,-60,32 be:16,-60,32

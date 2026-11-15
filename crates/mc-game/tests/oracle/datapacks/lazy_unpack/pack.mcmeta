@@ -1,0 +1,7 @@
+{
+  "pack": {
+    "description": "predicates over container slots of lootable containers",
+    "min_format": 121,
+    "max_format": 121
+  }
+}

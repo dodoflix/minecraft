@@ -58,6 +58,10 @@ pub trait Container: Any {
     fn clear_content(&mut self);
     fn set_changed(&mut self);
     fn still_valid(&self, player: &dyn MenuPlayer) -> bool;
+    /// The `unpackLootTable(null)` that `setItem`/`removeItem` run first, for a container whose `getItem` does not unpack
+    /// (the crafter): code about to write runs it with the level it holds. Every other lootable container is unpacked
+    /// before it is read (`BlockEntity::unpack_loot_table`), so the default does nothing.
+    fn unpack_before_write(&mut self, _level: &ServerLevel) {}
 
     fn get_max_stack_size(&self) -> i32 {
         99
@@ -296,7 +300,8 @@ impl<A: Container, B: Container> Container for CompoundContainer<A, B> {
 
 /// Runs `f` with the container of the block entity at `first` or, with `second`, the `CompoundContainer(first, second)` of
 /// a double chest; the owners are out of the level meanwhile. Their loot tables unpack first (vanilla unpacks inside every
-/// accessor) and the `setChanged()` calls of the operation update the comparators beside them afterwards. `None` when an
+/// accessor; the crafter's `getItem` does not, so [`Container::unpack_before_write`] unpacks it) and the `setChanged()`
+/// calls of the operation update the comparators beside them afterwards. `None` when an
 /// owner is gone or is no container.
 pub fn with_block_entity_containers<R>(
     level: &mut ServerLevel,
@@ -306,7 +311,9 @@ pub fn with_block_entity_containers<R>(
 ) -> Option<R> {
     let Some(second) = second else {
         return level.with_block_entity(first, |level, be| {
-            be.unpack_loot_table(level, None);
+            if be.has_loot_table() {
+                be.unpack_loot_table(level, None);
+            }
             let result = f(level, be.as_container_mut()?);
             if be.container_pending() {
                 be.container_accessed(level);
@@ -319,8 +326,11 @@ pub fn with_block_entity_containers<R>(
         level.put_back_block_entity(first, a);
         return None;
     };
-    a.unpack_loot_table(level, None);
-    b.unpack_loot_table(level, None);
+    for be in [&mut a, &mut b] {
+        if be.has_loot_table() {
+            be.unpack_loot_table(level, None);
+        }
+    }
     if a.as_container().is_none() || b.as_container().is_none() {
         level.put_back_block_entity(first, a);
         level.put_back_block_entity(second, b);

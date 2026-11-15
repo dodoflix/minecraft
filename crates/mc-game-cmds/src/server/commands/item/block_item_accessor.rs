@@ -1,5 +1,5 @@
 //! `BlockItemAccessor`: `/item ... block <pos>`.
-use super::item_accessor::{ItemAccessor, ItemTarget, Setter, SlotSnapshot, provide_all};
+use super::item_accessor::{ItemAccessor, ItemTarget, Setter, SlotSnapshot, SlotUse, provide_all};
 use crate::server::commands::arg_provider::ArgProvider;
 use crate::server::commands::command_response_tracker::{CommandResponseTracker, ElementType};
 use crate::server::commands::item_commands::{
@@ -10,8 +10,10 @@ use mc_brigadier::{CommandSyntaxException, Dynamic3CommandExceptionType};
 use mc_core::pos::BlockPos;
 use mc_game_core::commands::arguments::coordinates::block_pos_argument::BlockPosArgument;
 use mc_game_core::commands::{CommandSourceStack, argument};
+use mc_game_core::server::MinecraftServer;
 use mc_game_core::server::commands::item::slots::{
-    ContainerSlots, apply_container_writes, container_at, slot_params,
+    ContainerSlots, apply_container_writes, container_at, pending_loot_at, slot_params,
+    unpack_block_loot,
 };
 use mc_game_core::translatable;
 use mc_game_core::world::item::ItemStackExt;
@@ -44,6 +46,30 @@ impl BlockItemAccessor {
     ) -> CommandSyntaxException {
         exception.create(self.pos.x(), self.pos.y(), self.pos.z())
     }
+    /// A pending loot table unpacks at the first `getItem` or `setItem` of a selected slot (a slot the container does not have, or
+    /// one a count never reads, touches nothing). The selection is replayed against the packed container to find out.
+    fn unpack_before_use(
+        &self,
+        server: &mut MinecraftServer,
+        source: &CommandSourceStack,
+        slot_source: &SlotSourceRef,
+        use_: SlotUse,
+    ) {
+        let touched = server.level(source.get_level()).is_some_and(|level| {
+            pending_loot_at(level, self.pos)
+                && container_at(level, self.pos).is_some_and(|container| {
+                    let provider = ContainerSlots::new(container);
+                    let params = vec![slot_params(level, source, &provider)];
+                    for collection in provide_all(&params, slot_source) {
+                        SlotSnapshot::of(&collection, use_);
+                    }
+                    use_.touched(provider.handed_out(), provider.was_read())
+                })
+        });
+        if touched && let Some(level) = server.level_mut(source.get_level()) {
+            unpack_block_loot(level, self.pos);
+        }
+    }
 }
 
 impl ItemAccessor for BlockItemAccessor {
@@ -54,6 +80,7 @@ impl ItemAccessor for BlockItemAccessor {
         function: &mut Setter<'_>,
     ) -> Result<(), CommandSyntaxException> {
         source.with_server(|server| {
+            self.unpack_before_use(server, source, slot_source, SlotUse::Write);
             let writes = {
                 let server = &*server;
                 let level = server
@@ -84,8 +111,10 @@ impl ItemAccessor for BlockItemAccessor {
         &self,
         source: &CommandSourceStack,
         slot_source: &SlotSourceRef,
+        use_: SlotUse,
     ) -> Result<SlotSnapshot, CommandSyntaxException> {
         source.with_server(|server| {
+            self.unpack_before_use(server, source, slot_source, use_);
             let level = server
                 .level(source.get_level())
                 .ok_or_else(|| self.not_a_container(&ERROR_SOURCE_NOT_A_CONTAINER))?;
@@ -95,7 +124,7 @@ impl ItemAccessor for BlockItemAccessor {
             let params: Vec<LootParams<'_>> = vec![slot_params(level, source, &provider)];
             let mut snapshot = SlotSnapshot::empty();
             for collection in provide_all(&params, slot_source) {
-                snapshot.append(SlotSnapshot::of(&collection));
+                snapshot.append(SlotSnapshot::of(&collection, use_));
             }
             Ok(snapshot)
         })

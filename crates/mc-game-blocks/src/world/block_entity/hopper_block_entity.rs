@@ -448,6 +448,7 @@ fn try_take_in_item_from_slot(
     if !stack.is_empty() && can_take_item_from_container(hopper, container, stack, slot, direction)
     {
         let original_count = stack.count();
+        container.unpack_before_write(level);
         let one = container.remove_item(slot, 1);
         hopper.unpack_pending_loot(level);
         let result = add_item(level, Some(&*container), hopper, one, None);
@@ -578,6 +579,7 @@ fn try_move_in_item(
         let mut success = false;
         let was_empty = container.is_empty();
         if container.get_item(slot).is_empty() {
+            container.unpack_before_write(level);
             container.set_item(slot, stack);
             stack = ItemStack::empty();
             success = true;
@@ -728,7 +730,8 @@ fn get_entity_container(
 }
 
 /// Runs `f` with the container of `target` (its owner is out of the level meanwhile). Block entity and entity containers
-/// unpack their loot table first (vanilla unpacks inside every accessor). `None` when the owner disappeared.
+/// unpack their loot table first (vanilla unpacks inside every accessor; not the crafter, see
+/// `Container::unpack_before_write`). `None` when the owner disappeared.
 pub fn with_container<R>(
     level: &mut ServerLevel,
     target: &ContainerTarget,

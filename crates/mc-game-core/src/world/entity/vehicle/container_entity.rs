@@ -4,12 +4,12 @@
 //! plus `Container` (what `ContainerKey::Entity` resolves through [`Entity::as_container_mut`]). [`ContainerEntity`] is the
 //! trait of the entities embedding it; its defaults are the interface's `default` methods that need the entity itself.
 //!
-//! The vanilla getters unpack a pending loot table lazily (`unpackChestVehicleLootTable(null)` on every `getItem`...). A `&self`
+//! The vanilla getters unpack a pending loot table lazily (`unpackChestVehicleLootTable(null)` on every `getItem`...). A `&self` Rust
 //! container cannot do that without the level, so the paths that have it unpack explicitly: opening the menu
 //! ([`ChestVehicleMenuProvider`], with the player), dropping the contents on removal/destruction, a hopper reading or filling the
-//! container, a comparator reading it through a detector rail, `clearContent`, and `/item` before it reads or writes
-//! `container.N` (`getChestVehicleSlot`, answered by `Entity::get_slot` through `chest_vehicle`). Not implemented: a `slots`
-//! predicate that reads `container.N` of a vehicle with a pending loot table sees the table's items as not yet generated.
+//! container, a comparator reading it through a detector rail, `clearContent`, `/item` before it reads or writes
+//! `container.N` (`getChestVehicleSlot`, answered by `Entity::get_slot` through `chest_vehicle`), and a `slots` predicate, which
+//! holds the vehicle by shared reference and unpacks through [`ChestVehicleData::unpack_shared`].
 
 use crate::advancements::triggers::CriteriaTriggers;
 use crate::server::level::ServerLevel;
@@ -30,6 +30,7 @@ use mc_data::GameEvent;
 use mc_nbt::CompoundTag;
 use mc_text::Component;
 use std::any::Any;
+use std::sync::OnceLock;
 
 /// The menu a chest vehicle opens (`createMenu`).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -44,6 +45,9 @@ pub enum ChestVehicleMenu {
 const MINECART_INITIAL_STACKS: usize = 36;
 
 /// `ContainerEntity.getItemStacks()` & the loot table fields of the implementing entity.
+///
+/// A `slots` predicate unpacks the loot table of a vehicle it only holds by shared reference ([`Self::unpack_shared`]): the
+/// rolled stacks wait in `unpacked`, which every reader consults first and every `&mut` method settles into `item_stacks`.
 pub struct ChestVehicleData {
     entity_id: EntityId,
     item_stacks: Vec<ItemStack>,
@@ -51,6 +55,7 @@ pub struct ChestVehicleData {
     menu: ChestVehicleMenu,
     loot_table: Option<Identifier>,
     loot_table_seed: i64,
+    unpacked: OnceLock<Vec<ItemStack>>,
 }
 
 impl ChestVehicleData {
@@ -63,6 +68,7 @@ impl ChestVehicleData {
             menu: ChestVehicleMenu::ThreeRows,
             loot_table: None,
             loot_table_seed: 0,
+            unpacked: OnceLock::new(),
         }
     }
 
@@ -83,14 +89,18 @@ impl ChestVehicleData {
 
     /// Whether a loot table is waiting to be unpacked.
     pub fn has_loot_table(&self) -> bool {
-        self.loot_table.is_some()
+        self.get_container_loot_table().is_some()
     }
 
     pub fn get_container_loot_table(&self) -> Option<&Identifier> {
-        self.loot_table.as_ref()
+        match self.unpacked.get() {
+            Some(_) => None,
+            None => self.loot_table.as_ref(),
+        }
     }
 
     pub fn set_container_loot_table(&mut self, loot_table: Option<Identifier>) {
+        self.settle();
         self.loot_table = loot_table;
     }
 
@@ -103,22 +113,31 @@ impl ChestVehicleData {
     }
 
     pub fn get_item_stacks(&self) -> &[ItemStack] {
-        &self.item_stacks
+        self.unpacked.get().unwrap_or(&self.item_stacks)
+    }
+
+    /// Moves the stacks a shared unpack rolled into the item list.
+    fn settle(&mut self) {
+        if let Some(stacks) = self.unpacked.take() {
+            self.item_stacks = stacks;
+            self.loot_table = None;
+        }
     }
 
     /// `clearItemStacks()`: a fresh list of empty stacks of the container size.
     pub fn clear_item_stacks(&mut self) {
+        self.settle();
         self.item_stacks = vec![ItemStack::empty(); self.container_size];
     }
 
     /// `addChestVehicleSaveData(output)`: the loot table (and its seed when non-zero) replaces the items.
     pub fn add_chest_vehicle_save_data(&self, out: &mut CompoundTag) {
-        if let Some(table) = &self.loot_table {
+        if let Some(table) = self.get_container_loot_table() {
             out.put_string("LootTable", table.to_string());
             if self.loot_table_seed != 0 {
                 out.put_long("LootTableSeed", self.loot_table_seed);
             }
-        } else if let Some(items) = helper::save_all_items(&self.item_stacks, true) {
+        } else if let Some(items) = helper::save_all_items(self.get_item_stacks(), true) {
             out.put("Items", mc_nbt::Tag::List(items));
         }
     }
@@ -143,6 +162,7 @@ impl ChestVehicleData {
         origin: Vec3,
         player: &mut ServerPlayer,
     ) {
+        self.settle();
         if let Some(table) = &self.loot_table {
             CriteriaTriggers::GENERATE_LOOT.trigger(level, player, table);
         }
@@ -151,7 +171,27 @@ impl ChestVehicleData {
 
     /// `unpackChestVehicleLootTable(null)`: the lazy unpack of the container getters.
     pub fn unpack_for_access(&mut self, level: &ServerLevel, origin: Vec3) {
+        self.settle();
         self.fill_from_loot_table(level, origin, None);
+    }
+
+    /// `unpackChestVehicleLootTable(null)` for a vehicle held by shared reference (a `slots` predicate reading `container.N`):
+    /// the roll happens now, on a copy of the item list, and its result becomes the vehicle's state at its next `&mut` access.
+    pub fn unpack_shared(&self, level: &ServerLevel, origin: Vec3) {
+        if !self.has_loot_table() {
+            return;
+        }
+        let mut rolled = Self {
+            item_stacks: self.item_stacks.clone(),
+            loot_table: self.loot_table.clone(),
+            unpacked: OnceLock::new(),
+            ..Self::new(self.entity_id, 0)
+        };
+        rolled.container_size = self.container_size;
+        rolled.menu = self.menu;
+        rolled.loot_table_seed = self.loot_table_seed;
+        rolled.fill_from_loot_table(level, origin, None);
+        let _ = self.unpacked.set(rolled.item_stacks);
     }
 
     fn fill_from_loot_table(
@@ -204,21 +244,27 @@ impl Container for ChestVehicleData {
     }
     /// `isChestVehicleEmpty()`.
     fn is_empty(&self) -> bool {
-        self.item_stacks.iter().all(ItemStack::is_empty)
+        self.get_item_stacks().iter().all(ItemStack::is_empty)
     }
     fn get_item(&self, slot: usize) -> &ItemStack {
-        self.item_stacks.get(slot).unwrap_or_else(|| empty_stack())
+        self.get_item_stacks()
+            .get(slot)
+            .unwrap_or_else(|| empty_stack())
     }
     fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
+        self.settle();
         self.item_stacks.get_mut(slot)
     }
     fn remove_item(&mut self, slot: usize, count: i32) -> ItemStack {
+        self.settle();
         helper::remove_item(&mut self.item_stacks, slot, count)
     }
     fn remove_item_no_update(&mut self, slot: usize) -> ItemStack {
+        self.settle();
         helper::take_item(&mut self.item_stacks, slot)
     }
     fn set_item(&mut self, slot: usize, mut stack: ItemStack) {
+        self.settle();
         stack.limit_size(self.get_max_stack_size_for(&stack));
         if let Some(s) = self.item_stacks.get_mut(slot) {
             *s = stack;
@@ -226,6 +272,7 @@ impl Container for ChestVehicleData {
     }
     /// `clearChestVehicleContent()`.
     fn clear_content(&mut self) {
+        self.settle();
         self.loot_table = None;
         self.item_stacks
             .iter_mut()
@@ -272,7 +319,7 @@ impl MenuProvider for ChestVehicleMenuProvider {
                 .level_ref()
                 .and_then(|l| l.get_entity(id))
                 .and_then(|e| e.chest_vehicle())
-                .map(|c| (c.loot_table.is_some(), c.container_size, c.menu))
+                .map(|c| (c.has_loot_table(), c.container_size, c.menu))
         };
         let (loot_pending, size, menu) = chest(&*player)?;
         if loot_pending && player.is_spectator() {

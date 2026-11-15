@@ -1,0 +1,181 @@
+# Hoppers and droppers against containers with a pending loot table: a hopper above pushes into it, a hopper below pulls from it, a
+# hopper beside it pushes into it, a dropper above dispenses into it. A lootable container unpacks inside the accessor the transfer
+# reads or writes first; the crafter's getItem does not unpack, so a hopper below sees an empty crafter and leaves the table, while an
+# insertion rolls the table inside setItem and then overwrites the slot it picked beforehand.
+level flat
+preload 4
+spawn_player Sv survival 0.5 -60 40.5 180 0
+tick 2
+note a hopper above pushes into the pending container
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+block 0 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 0 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:3},{Slot:1b,id:"minecraft:stone",count:2}]}
+block 4 -60 0 minecraft:barrel[facing=up,open=false]
+be_nbt 4 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+block 4 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 4 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:3},{Slot:1b,id:"minecraft:stone",count:2}]}
+block 8 -60 0 minecraft:shulker_box[facing=up]
+be_nbt 8 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+block 8 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 8 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:3},{Slot:1b,id:"minecraft:stone",count:2}]}
+block 12 -60 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 12 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+block 12 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 12 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:3},{Slot:1b,id:"minecraft:stone",count:2}]}
+block 16 -60 0 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 16 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+block 16 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 16 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:3},{Slot:1b,id:"minecraft:stone",count:2}]}
+block 20 -60 0 minecraft:dropper[facing=up,triggered=false]
+be_nbt 20 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+block 20 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 20 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:3},{Slot:1b,id:"minecraft:stone",count:2}]}
+block 24 -60 0 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 24 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+block 24 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 24 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:3},{Slot:1b,id:"minecraft:stone",count:2}]}
+block 28 -60 0 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]
+be_nbt 28 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+block 28 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 28 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:3},{Slot:1b,id:"minecraft:stone",count:2}]}
+block 32 -60 0 minecraft:trapped_chest[facing=south,type=single,waterlogged=false]
+be_nbt 32 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:13L}
+block 32 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 32 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:3},{Slot:1b,id:"minecraft:stone",count:2}]}
+level_seed 601
+tick 20
+dump be:0,-60,0 be:0,-59,0 be:4,-60,0 be:4,-59,0 be:8,-60,0 be:8,-59,0 be:12,-60,0 be:12,-59,0 be:16,-60,0 be:16,-59,0 be:20,-60,0 be:20,-59,0 be:24,-60,0 be:24,-59,0 be:28,-60,0 be:28,-59,0 be:32,-60,0 be:32,-59,0
+tick 30
+dump be:0,-60,0 be:0,-59,0 be:4,-60,0 be:4,-59,0 be:8,-60,0 be:8,-59,0 be:12,-60,0 be:12,-59,0 be:16,-60,0 be:16,-59,0 be:20,-60,0 be:20,-59,0 be:24,-60,0 be:24,-59,0 be:28,-60,0 be:28,-59,0 be:32,-60,0 be:32,-59,0
+note a hopper below pulls from the pending container
+block 0 -59 10 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -59 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+block 0 -60 10 minecraft:hopper[facing=down,enabled=true]
+block 0 -61 10 minecraft:barrel[facing=up,open=false]
+block 4 -59 10 minecraft:barrel[facing=up,open=false]
+be_nbt 4 -59 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+block 4 -60 10 minecraft:hopper[facing=down,enabled=true]
+block 4 -61 10 minecraft:barrel[facing=up,open=false]
+block 8 -59 10 minecraft:shulker_box[facing=up]
+be_nbt 8 -59 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+block 8 -60 10 minecraft:hopper[facing=down,enabled=true]
+block 8 -61 10 minecraft:barrel[facing=up,open=false]
+block 12 -59 10 minecraft:hopper[facing=down,enabled=true]
+be_nbt 12 -59 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+block 12 -60 10 minecraft:hopper[facing=down,enabled=true]
+block 12 -61 10 minecraft:barrel[facing=up,open=false]
+block 16 -59 10 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 16 -59 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+block 16 -60 10 minecraft:hopper[facing=down,enabled=true]
+block 16 -61 10 minecraft:barrel[facing=up,open=false]
+block 20 -59 10 minecraft:dropper[facing=up,triggered=false]
+be_nbt 20 -59 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+block 20 -60 10 minecraft:hopper[facing=down,enabled=true]
+block 20 -61 10 minecraft:barrel[facing=up,open=false]
+block 24 -59 10 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 24 -59 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+block 24 -60 10 minecraft:hopper[facing=down,enabled=true]
+block 24 -61 10 minecraft:barrel[facing=up,open=false]
+block 28 -59 10 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]
+be_nbt 28 -59 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+block 28 -60 10 minecraft:hopper[facing=down,enabled=true]
+block 28 -61 10 minecraft:barrel[facing=up,open=false]
+block 32 -59 10 minecraft:trapped_chest[facing=south,type=single,waterlogged=false]
+be_nbt 32 -59 10 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:13L}
+block 32 -60 10 minecraft:hopper[facing=down,enabled=true]
+block 32 -61 10 minecraft:barrel[facing=up,open=false]
+level_seed 602
+tick 20
+dump be:0,-59,10 be:0,-60,10 be:0,-61,10 be:4,-59,10 be:4,-60,10 be:4,-61,10 be:8,-59,10 be:8,-60,10 be:8,-61,10 be:12,-59,10 be:12,-60,10 be:12,-61,10 be:16,-59,10 be:16,-60,10 be:16,-61,10 be:20,-59,10 be:20,-60,10 be:20,-61,10 be:24,-59,10 be:24,-60,10 be:24,-61,10 be:28,-59,10 be:28,-60,10 be:28,-61,10 be:32,-59,10 be:32,-60,10 be:32,-61,10
+tick 30
+dump be:0,-59,10 be:0,-60,10 be:0,-61,10 be:4,-59,10 be:4,-60,10 be:4,-61,10 be:8,-59,10 be:8,-60,10 be:8,-61,10 be:12,-59,10 be:12,-60,10 be:12,-61,10 be:16,-59,10 be:16,-60,10 be:16,-61,10 be:20,-59,10 be:20,-60,10 be:20,-61,10 be:24,-59,10 be:24,-60,10 be:24,-61,10 be:28,-59,10 be:28,-60,10 be:28,-61,10 be:32,-59,10 be:32,-60,10 be:32,-61,10
+note a hopper beside pushes into the pending container
+block 0 -60 20 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+block 1 -60 20 minecraft:hopper[facing=west,enabled=true]
+be_nbt 1 -60 20 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 4 -60 20 minecraft:barrel[facing=up,open=false]
+be_nbt 4 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+block 5 -60 20 minecraft:hopper[facing=west,enabled=true]
+be_nbt 5 -60 20 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 8 -60 20 minecraft:shulker_box[facing=up]
+be_nbt 8 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+block 9 -60 20 minecraft:hopper[facing=west,enabled=true]
+be_nbt 9 -60 20 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 12 -60 20 minecraft:hopper[facing=down,enabled=true]
+be_nbt 12 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+block 13 -60 20 minecraft:hopper[facing=west,enabled=true]
+be_nbt 13 -60 20 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 16 -60 20 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 16 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+block 17 -60 20 minecraft:hopper[facing=west,enabled=true]
+be_nbt 17 -60 20 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 20 -60 20 minecraft:dropper[facing=up,triggered=false]
+be_nbt 20 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+block 21 -60 20 minecraft:hopper[facing=west,enabled=true]
+be_nbt 21 -60 20 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 24 -60 20 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 24 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+block 25 -60 20 minecraft:hopper[facing=west,enabled=true]
+be_nbt 25 -60 20 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 28 -60 20 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]
+be_nbt 28 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+block 29 -60 20 minecraft:hopper[facing=west,enabled=true]
+be_nbt 29 -60 20 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 32 -60 20 minecraft:trapped_chest[facing=south,type=single,waterlogged=false]
+be_nbt 32 -60 20 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:13L}
+block 33 -60 20 minecraft:hopper[facing=west,enabled=true]
+be_nbt 33 -60 20 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+level_seed 603
+tick 20
+dump be:0,-60,20 be:1,-60,20 be:4,-60,20 be:5,-60,20 be:8,-60,20 be:9,-60,20 be:12,-60,20 be:13,-60,20 be:16,-60,20 be:17,-60,20 be:20,-60,20 be:21,-60,20 be:24,-60,20 be:25,-60,20 be:28,-60,20 be:29,-60,20 be:32,-60,20 be:33,-60,20
+note a dropper above dispenses into the pending container
+block 0 -60 30 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+block 0 -59 30 minecraft:dropper[facing=down,triggered=false]
+be_nbt 0 -59 30 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 4 -60 30 minecraft:barrel[facing=up,open=false]
+be_nbt 4 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:6L}
+block 4 -59 30 minecraft:dropper[facing=down,triggered=false]
+be_nbt 4 -59 30 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 8 -60 30 minecraft:shulker_box[facing=up]
+be_nbt 8 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+block 8 -59 30 minecraft:dropper[facing=down,triggered=false]
+be_nbt 8 -59 30 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 12 -60 30 minecraft:hopper[facing=down,enabled=true]
+be_nbt 12 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:8L}
+block 12 -59 30 minecraft:dropper[facing=down,triggered=false]
+be_nbt 12 -59 30 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 16 -60 30 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 16 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+block 16 -59 30 minecraft:dropper[facing=down,triggered=false]
+be_nbt 16 -59 30 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 20 -60 30 minecraft:dropper[facing=up,triggered=false]
+be_nbt 20 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+block 20 -59 30 minecraft:dropper[facing=down,triggered=false]
+be_nbt 20 -59 30 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 24 -60 30 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 24 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+block 24 -59 30 minecraft:dropper[facing=down,triggered=false]
+be_nbt 24 -59 30 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 28 -60 30 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]
+be_nbt 28 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+block 28 -59 30 minecraft:dropper[facing=down,triggered=false]
+be_nbt 28 -59 30 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 32 -60 30 minecraft:trapped_chest[facing=south,type=single,waterlogged=false]
+be_nbt 32 -60 30 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:13L}
+block 32 -59 30 minecraft:dropper[facing=down,triggered=false]
+be_nbt 32 -59 30 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+level_seed 604
+dispense 0 -59 30
+dispense 4 -59 30
+dispense 8 -59 30
+dispense 12 -59 30
+dispense 16 -59 30
+dispense 20 -59 30
+dispense 24 -59 30
+dispense 28 -59 30
+dispense 32 -59 30
+tick 2
+dump be:0,-60,30 be:0,-59,30 be:4,-60,30 be:4,-59,30 be:8,-60,30 be:8,-59,30 be:12,-60,30 be:12,-59,30 be:16,-60,30 be:16,-59,30 be:20,-60,30 be:20,-59,30 be:24,-60,30 be:24,-59,30 be:28,-60,30 be:28,-59,30 be:32,-60,30 be:32,-59,30
