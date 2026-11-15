@@ -1,0 +1,203 @@
+### [state_bossbar.txt:3] bossbar
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: bossbar<--[HERE]
+### [state_bossbar.txt:4] bossbar list
+log| System chat: There are no custom bossbars active
+### [state_bossbar.txt:5] bossbar add
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ossbar add<--[HERE]
+### [state_bossbar.txt:6] bossbar add test
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...r add test<--[HERE]
+### [state_bossbar.txt:7] bossbar add test {"text":"Hello"}
+log| System chat: Created custom bossbar [Hello]
+Bot| [system_chat] [Server: Created custom bossbar [Hello]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.create.success","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+### [state_bossbar.txt:8] bossbar add test {"text":"Again"}
+log| System chat: A bossbar already exists with the ID 'minecraft:test'
+### [state_bossbar.txt:9] bossbar add bad:ID! x
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...r add bad:ID! x<--[HERE]
+### [state_bossbar.txt:10] bossbar add second:bar "Second"
+log| System chat: Created custom bossbar [Second]
+Bot| [system_chat] [Server: Created custom bossbar [Second]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.create.success","with":[{"translate":"chat.square_brackets","with":["Second"],"color":"white","hover_event":{"value":"second:bar","action":"show_text"},"insertion":"second:bar"}]}],"color":"gray","italic":true}
+### [state_bossbar.txt:11] bossbar list
+log| System chat: There are 2 custom bossbar(s) active: [Second], [Hello]
+### [state_bossbar.txt:12] bossbar get test value
+log| System chat: Custom bossbar [Hello] has a value of 0
+Bot| [system_chat] [Server: Custom bossbar [Hello] has a value of 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.value","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"},0]}],"color":"gray","italic":true}
+### [state_bossbar.txt:13] bossbar get test max
+log| System chat: Custom bossbar [Hello] has a maximum of 100
+Bot| [system_chat] [Server: Custom bossbar [Hello] has a maximum of 100]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.max","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"},100]}],"color":"gray","italic":true}
+### [state_bossbar.txt:14] bossbar get test visible
+log| System chat: Custom bossbar [Hello] is currently visible
+Bot| [system_chat] [Server: Custom bossbar [Hello] is currently visible]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.visible.visible","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+### [state_bossbar.txt:15] bossbar get test players
+log| System chat: Custom bossbar [Hello] has no players currently online
+Bot| [system_chat] [Server: Custom bossbar [Hello] has no players currently online]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.players.none","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+### [state_bossbar.txt:16] bossbar get nope value
+log| System chat: No bossbar exists with the ID 'minecraft:nope'
+### [state_bossbar.txt:17] bossbar set test players Bot
+log| System chat: Custom bossbar [Hello] now has 1 player(s): Bot
+Bot| [system_chat] [Server: Custom bossbar [Hello] now has 1 player(s): Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.players.success.some","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"},1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: Add { name: Component { contents: Literal("Hello"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, progress: 0.0, color: White, overlay: Progress, properties: BossEventProperties { darken_screen: false, play_music: false, create_world_fog: false } } })
+### [state_bossbar.txt:18] bossbar get test players
+log| System chat: Custom bossbar [Hello] has 1 player(s) currently online: Bot
+Bot| [system_chat] [Server: Custom bossbar [Hello] has 1 player(s) currently online: Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.players.some","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"},1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [state_bossbar.txt:19] bossbar set test players Bot
+log| System chat: Nothing changed. Those players are already on the bossbar with nobody to add or remove
+### [state_bossbar.txt:20] bossbar set test players
+log| System chat: Custom bossbar [Hello] no longer has any players
+Bot| [system_chat] [Server: Custom bossbar [Hello] no longer has any players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.players.success.none","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: Remove })
+### [state_bossbar.txt:21] bossbar get test players
+log| System chat: Custom bossbar [Hello] has no players currently online
+Bot| [system_chat] [Server: Custom bossbar [Hello] has no players currently online]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.players.none","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+### [state_bossbar.txt:22] bossbar set test players Bot
+log| System chat: Custom bossbar [Hello] now has 1 player(s): Bot
+Bot| [system_chat] [Server: Custom bossbar [Hello] now has 1 player(s): Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.players.success.some","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"},1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: Add { name: Component { contents: Literal("Hello"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, progress: 0.0, color: White, overlay: Progress, properties: BossEventProperties { darken_screen: false, play_music: false, create_world_fog: false } } })
+### [state_bossbar.txt:23] bossbar set test players @a
+log| System chat: Custom bossbar [Hello] now has 2 player(s): Bot, Bot0
+Bot| [system_chat] [Server: Custom bossbar [Hello] now has 2 player(s): Bot, Bot0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.players.success.some","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"},2,{"text":"","extra":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"text":", ","color":"gray"},{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}]}]}],"color":"gray","italic":true}
+Bot0| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: Add { name: Component { contents: Literal("Hello"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, progress: 0.0, color: White, overlay: Progress, properties: BossEventProperties { darken_screen: false, play_music: false, create_world_fog: false } } })
+### [state_bossbar.txt:24] bossbar get test players
+log| System chat: Custom bossbar [Hello] has 2 player(s) currently online: Bot, Bot0
+Bot| [system_chat] [Server: Custom bossbar [Hello] has 2 player(s) currently online: Bot, Bot0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.players.some","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"},2,{"text":"","extra":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"text":", ","color":"gray"},{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}]}]}],"color":"gray","italic":true}
+### [state_bossbar.txt:25] bossbar set test value 50
+log| System chat: Custom bossbar [Hello] has changed value to 50
+Bot| [system_chat] [Server: Custom bossbar [Hello] has changed value to 50]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.value.success","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"},50]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateProgress { progress: 0.5 } })
+Bot0| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateProgress { progress: 0.5 } })
+### [state_bossbar.txt:26] bossbar set test value 50
+log| System chat: Nothing changed. That's already the value of this bossbar
+### [state_bossbar.txt:27] bossbar set test value -1
+log| System chat: Integer must not be less than 0: found -1
+log| System chat: ...est value -1<--[HERE]
+### [state_bossbar.txt:28] bossbar set test max 200
+log| System chat: Custom bossbar [Hello] has changed maximum to 200
+Bot| [system_chat] [Server: Custom bossbar [Hello] has changed maximum to 200]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.max.success","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"},200]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateProgress { progress: 0.25 } })
+Bot0| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateProgress { progress: 0.25 } })
+### [state_bossbar.txt:29] bossbar set test max 200
+log| System chat: Nothing changed. That's already the maximum of this bossbar
+### [state_bossbar.txt:30] bossbar set test max 0
+log| System chat: Integer must not be less than 1: found 0
+log| System chat: ... test max 0<--[HERE]
+### [state_bossbar.txt:31] bossbar set test value 100
+log| System chat: Custom bossbar [Hello] has changed value to 100
+Bot| [system_chat] [Server: Custom bossbar [Hello] has changed value to 100]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.value.success","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"},100]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateProgress { progress: 0.5 } })
+Bot0| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateProgress { progress: 0.5 } })
+### [state_bossbar.txt:32] bossbar get test value
+log| System chat: Custom bossbar [Hello] has a value of 100
+Bot| [system_chat] [Server: Custom bossbar [Hello] has a value of 100]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.value","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"white","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"},100]}],"color":"gray","italic":true}
+### [state_bossbar.txt:33] bossbar set test color red
+log| System chat: Custom bossbar [Hello] has changed color
+Bot| [system_chat] [Server: Custom bossbar [Hello] has changed color]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.color.success","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"dark_red","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateStyle { color: Red, overlay: Progress } })
+Bot0| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateStyle { color: Red, overlay: Progress } })
+### [state_bossbar.txt:34] bossbar set test color red
+log| System chat: Nothing changed. That's already the color of this bossbar
+### [state_bossbar.txt:35] bossbar set test color rainbow
+log| System chat: Incorrect argument for command
+log| System chat: ...est color rainbow<--[HERE]
+### [state_bossbar.txt:36] bossbar set test style notched_12
+log| System chat: Custom bossbar [Hello] has changed style
+Bot| [system_chat] [Server: Custom bossbar [Hello] has changed style]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.style.success","with":[{"translate":"chat.square_brackets","with":["Hello"],"color":"dark_red","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateStyle { color: Red, overlay: Notched12 } })
+Bot0| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateStyle { color: Red, overlay: Notched12 } })
+### [state_bossbar.txt:37] bossbar set test style notched_12
+log| System chat: Nothing changed. That's already the style of this bossbar
+### [state_bossbar.txt:38] bossbar set test style nope
+log| System chat: Incorrect argument for command
+log| System chat: ...est style nope<--[HERE]
+### [state_bossbar.txt:39] bossbar set test name {"text":"Renamed","color":"gold"}
+log| System chat: Custom bossbar [Renamed] has been renamed
+Bot| [system_chat] [Server: Custom bossbar [Renamed] has been renamed]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.name.success","with":[{"translate":"chat.square_brackets","with":[{"text":"Renamed","color":"gold"}],"color":"dark_red","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateName { name: Component { contents: Literal("Renamed"), siblings: [], style: Style { color: Some(TextColor { value: 16755200, name: Some("gold") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } } })
+Bot0| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateName { name: Component { contents: Literal("Renamed"), siblings: [], style: Style { color: Some(TextColor { value: 16755200, name: Some("gold") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } } })
+### [state_bossbar.txt:40] bossbar set test name {"text":"Renamed","color":"gold"}
+log| System chat: Nothing changed. That's already the name of this bossbar
+### [state_bossbar.txt:41] bossbar set test visible false
+log| System chat: Custom bossbar [Renamed] is now hidden
+Bot| [system_chat] [Server: Custom bossbar [Renamed] is now hidden]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.visible.success.hidden","with":[{"translate":"chat.square_brackets","with":[{"text":"Renamed","color":"gold"}],"color":"dark_red","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: Remove })
+Bot0| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: Remove })
+### [state_bossbar.txt:42] bossbar set test visible false
+log| System chat: Nothing changed. The bossbar is already hidden
+### [state_bossbar.txt:43] bossbar get test visible
+log| System chat: Custom bossbar [Renamed] is currently hidden
+Bot| [system_chat] [Server: Custom bossbar [Renamed] is currently hidden]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.visible.hidden","with":[{"translate":"chat.square_brackets","with":[{"text":"Renamed","color":"gold"}],"color":"dark_red","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+### [state_bossbar.txt:44] bossbar set test visible true
+log| System chat: Custom bossbar [Renamed] is now visible
+Bot| [system_chat] [Server: Custom bossbar [Renamed] is now visible]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.visible.success.visible","with":[{"translate":"chat.square_brackets","with":[{"text":"Renamed","color":"gold"}],"color":"dark_red","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: Add { name: Component { contents: Literal("Renamed"), siblings: [], style: Style { color: Some(TextColor { value: 16755200, name: Some("gold") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, progress: 0.5, color: Red, overlay: Notched12, properties: BossEventProperties { darken_screen: false, play_music: false, create_world_fog: false } } })
+Bot0| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: Add { name: Component { contents: Literal("Renamed"), siblings: [], style: Style { color: Some(TextColor { value: 16755200, name: Some("gold") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, progress: 0.5, color: Red, overlay: Notched12, properties: BossEventProperties { darken_screen: false, play_music: false, create_world_fog: false } } })
+### [state_bossbar.txt:45] bossbar set test visible true
+log| System chat: Nothing changed. The bossbar is already visible
+### [state_bossbar.txt:46] bossbar set test name {"selector":"@s"}
+log| System chat: Custom bossbar [] has been renamed
+Bot| [system_chat] [Server: Custom bossbar [] has been renamed]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.set.name.success","with":[{"translate":"chat.square_brackets","with":[""],"color":"dark_red","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateName { name: Component { contents: Literal(""), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } } })
+Bot0| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: UpdateName { name: Component { contents: Literal(""), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } } })
+### [state_bossbar.txt:47] bossbar set test name {"score":{"name":"Bot","objective":"nope"}}
+log| System chat: Nothing changed. That's already the name of this bossbar
+### [state_bossbar.txt:48] bossbar list
+log| System chat: There are 2 custom bossbar(s) active: [Second], []
+### [state_bossbar.txt:49] bossbar remove test
+log| System chat: Removed custom bossbar []
+Bot| [system_chat] [Server: Removed custom bossbar []]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.remove.success","with":[{"translate":"chat.square_brackets","with":[""],"color":"dark_red","hover_event":{"value":"minecraft:test","action":"show_text"},"insertion":"minecraft:test"}]}],"color":"gray","italic":true}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: Remove })
+Bot0| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: Remove })
+### [state_bossbar.txt:50] bossbar remove test
+log| System chat: No bossbar exists with the ID 'minecraft:test'
+### [state_bossbar.txt:51] bossbar remove second:bar
+log| System chat: Removed custom bossbar [Second]
+Bot| [system_chat] [Server: Removed custom bossbar [Second]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.remove.success","with":[{"translate":"chat.square_brackets","with":["Second"],"color":"white","hover_event":{"value":"second:bar","action":"show_text"},"insertion":"second:bar"}]}],"color":"gray","italic":true}
+### [state_bossbar.txt:52] bossbar list
+log| System chat: There are no custom bossbars active
+### [state_bossbar.txt:53] @bot0 bossbar list
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] bossbar list<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"bossbar list","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/bossbar list","action":"suggest_command"}}],"color":"red"}
+### [state_bossbar.txt:54] @bot bossbar add bybot Bot
+log| System chat: [Bot: Created custom bossbar [Bot]]
+Bot| [system_chat] Created custom bossbar [Bot]
+Bot|   json {"translate":"commands.bossbar.create.success","with":[{"translate":"chat.square_brackets","with":["Bot"],"color":"white","hover_event":{"value":"minecraft:bybot","action":"show_text"},"insertion":"minecraft:bybot"}]}
+### [state_bossbar.txt:55] @bot bossbar set bybot players @s
+log| System chat: [Bot: Custom bossbar [Bot] now has 1 player(s): Bot]
+Bot| [system_chat] Custom bossbar [Bot] now has 1 player(s): Bot
+Bot|   json {"translate":"commands.bossbar.set.players.success.some","with":[{"translate":"chat.square_brackets","with":["Bot"],"color":"white","hover_event":{"value":"minecraft:bybot","action":"show_text"},"insertion":"minecraft:bybot"},1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: Add { name: Component { contents: Literal("Bot"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, progress: 0.0, color: White, overlay: Progress, properties: BossEventProperties { darken_screen: false, play_music: false, create_world_fog: false } } })
+### [state_bossbar.txt:56] @bot bossbar remove bybot
+log| System chat: [Bot: Removed custom bossbar [Bot]]
+Bot| [system_chat] Removed custom bossbar [Bot]
+Bot|   json {"translate":"commands.bossbar.remove.success","with":[{"translate":"chat.square_brackets","with":["Bot"],"color":"white","hover_event":{"value":"minecraft:bybot","action":"show_text"},"insertion":"minecraft:bybot"}]}
+Bot| packet boss_event BossEvent(ClientboundBossEventPacket { id: <UUID>, operation: Remove })

@@ -17,7 +17,7 @@ use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::EntitySpawnReason;
 use mc_nbt::CompoundTag;
-use mc_world::chunk::{StructureData, pack_offset_coordinates};
+use mc_world::chunk::StructureData;
 use mc_world::palette::BiomeId;
 use mc_worldgen::biome::BiomeManager;
 use std::sync::Arc;
@@ -147,20 +147,15 @@ impl WorldGenLevel for ServerLevel {
             .get_noise_biome(quart_x, quart_y, quart_z)
     }
 
+    /// A server level's chunks are full `LevelChunk`s: `ChunkAccess.markPosForPostProcessing` only warns. The caller
+    /// that reaches it (`StructurePiece.placeBlock` through `/place`) passes a `MutableBlockPos`.
     fn mark_pos_for_post_processing(&mut self, pos: BlockPos) {
-        if let Some(chunk) = self.chunk_now_mut(pos.x() >> 4, pos.z() >> 4)
-            && chunk
-                .data
-                .access
-                .level_height
-                .is_inside_build_height(pos.y())
-        {
-            let index = chunk.data.access.level_height.section_index(pos.y()) as usize;
-            chunk.data.access.post_processing[index]
-                .get_or_insert_with(Vec::new)
-                .push(pack_offset_coordinates(pos));
-            chunk.data.access.mark_unsaved();
-        }
+        log::warn!(
+            "Trying to mark a block for post processing @ MutableBlockPos{{x={}, y={}, z={}}}, but this operation is not supported.",
+            pos.x(),
+            pos.y(),
+            pos.z()
+        );
     }
 
     fn get_block_entity_nbt(&self, pos: BlockPos) -> Option<CompoundTag> {

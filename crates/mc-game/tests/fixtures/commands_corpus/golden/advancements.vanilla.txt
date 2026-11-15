@@ -1,0 +1,591 @@
+### [advancements.txt:10] @bot0 advancement grant Bot only minecraft:story/root
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] advancement grant Bot only minecraft:story/root<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"advancement grant Bot only minecraft:story/root","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/advancement grant Bot only minecraft:story/root","action":"suggest_command"}}],"color":"red"}
+### [advancements.txt:12] advancement
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...dvancement<--[HERE]
+### [advancements.txt:13] advancement grant
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ment grant<--[HERE]
+### [advancements.txt:14] advancement grant Nobody everything
+log| System chat: No player was found
+### [advancements.txt:15] advancement grant Bot
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ... grant Bot<--[HERE]
+### [advancements.txt:16] advancement grant Bot sideways
+log| System chat: Incorrect argument for command
+log| System chat: ...grant Bot sideways<--[HERE]
+### [advancements.txt:17] advancement grant Bot only
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...t Bot only<--[HERE]
+### [advancements.txt:18] advancement grant Bot only minecraft:nope/nothing
+log| System chat: Unknown advancement: minecraft:nope/nothing
+### [advancements.txt:19] advancement grant Bot only story/root nonexistent_criterion
+log| System chat: The advancement [Minecraft] does not contain the criterion 'nonexistent_criterion'
+### [advancements.txt:20] advancement revoke Bot only story/root nonexistent_criterion
+log| System chat: The advancement [Minecraft] does not contain the criterion 'nonexistent_criterion'
+### [advancements.txt:21] advancement grant Bot only minecraft:story/root crafting_table extra
+log| System chat: The advancement [Minecraft] does not contain the criterion 'crafting_table extra'
+### [advancements.txt:23] advancement revoke Bot only minecraft:story/root
+log| System chat: Couldn't revoke advancement [Minecraft] from Bot as they don't have it
+### [advancements.txt:24] advancement revoke Bot everything
+log| System chat: Revoked 1866 advancements from Bot
+Bot| [system_chat] [Server: Revoked 1866 advancements from Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.revoke.many.to.one.success","with":[1866,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:25] advancement revoke Bot from minecraft:story/root
+log| System chat: Couldn't revoke 16 advancements from Bot as they don't have them
+### [advancements.txt:26] advancement revoke @a through minecraft:story/mine_stone
+log| System chat: Couldn't revoke 16 advancements from 2 players as they don't have them
+### [advancements.txt:27] advancement revoke Bot only minecraft:story/mine_stone get_stone
+log| System chat: Couldn't revoke criterion 'get_stone' of advancement [Stone Age] from Bot as they don't have it
+### [advancements.txt:29] advancement grant Bot only minecraft:story/root
+log| System chat: Granted the advancement [Minecraft] to Bot
+Bot| [system_chat] [Server: Granted the advancement [Minecraft] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.one.to.one.success","with":[{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.root.title","hover_event":{"value":{"translate":"advancements.story.root.title","extra":["\n",{"translate":"advancements.story.root.description"}],"color":"green"},"action":"show_text"}}],"color":"green"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:30] advancement grant Bot only minecraft:story/root
+log| System chat: Couldn't grant advancement [Minecraft] to Bot as they already have it
+### [advancements.txt:31] advancement grant Bot only minecraft:story/mine_stone get_stone
+log| System chat: Bot has made the advancement [Stone Age]
+log| System chat: Granted criterion 'get_stone' of advancement [Stone Age] to Bot
+Bot| [system_chat] [Server: Granted criterion 'get_stone' of advancement [Stone Age] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.criterion.to.one.success","with":["get_stone",{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.mine_stone.title","hover_event":{"value":{"translate":"advancements.story.mine_stone.title","extra":["\n",{"translate":"advancements.story.mine_stone.description"}],"color":"green"},"action":"show_text"}}],"color":"green"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:32] advancement grant Bot only minecraft:story/mine_stone get_stone
+log| System chat: Couldn't grant criterion 'get_stone' of advancement [Stone Age] to Bot as they already have it
+### [advancements.txt:33] advancement revoke Bot only minecraft:story/mine_stone get_stone
+log| System chat: Revoked criterion 'get_stone' of advancement [Stone Age] from Bot
+Bot| [system_chat] [Server: Revoked criterion 'get_stone' of advancement [Stone Age] from Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.revoke.criterion.to.one.success","with":["get_stone",{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.mine_stone.title","hover_event":{"value":{"translate":"advancements.story.mine_stone.title","extra":["\n",{"translate":"advancements.story.mine_stone.description"}],"color":"green"},"action":"show_text"}}],"color":"green"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:34] advancement revoke Bot only minecraft:story/mine_stone get_stone
+log| System chat: Couldn't revoke criterion 'get_stone' of advancement [Stone Age] from Bot as they don't have it
+### [advancements.txt:36] advancement grant @a only minecraft:story/root
+log| System chat: Granted the advancement [Minecraft] to Bot0
+Bot| [system_chat] [Server: Granted the advancement [Minecraft] to Bot0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.one.to.one.success","with":[{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.root.title","hover_event":{"value":{"translate":"advancements.story.root.title","extra":["\n",{"translate":"advancements.story.root.description"}],"color":"green"},"action":"show_text"}}],"color":"green"},{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}]}],"color":"gray","italic":true}
+### [advancements.txt:37] advancement grant @a only minecraft:story/root crafting_table
+log| System chat: Couldn't grant criterion 'crafting_table' of advancement [Minecraft] to 2 players as they already have it
+### [advancements.txt:38] advancement revoke @a only minecraft:story/root crafting_table
+log| System chat: Revoked criterion 'crafting_table' of advancement [Minecraft] from 2 players
+Bot| [system_chat] [Server: Revoked criterion 'crafting_table' of advancement [Minecraft] from 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.revoke.criterion.to.many.success","with":["crafting_table",{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.root.title","hover_event":{"value":{"translate":"advancements.story.root.title","extra":["\n",{"translate":"advancements.story.root.description"}],"color":"green"},"action":"show_text"}}],"color":"green"},2]}],"color":"gray","italic":true}
+### [advancements.txt:39] advancement grant @a only minecraft:story/root crafting_table
+log| System chat: Granted criterion 'crafting_table' of advancement [Minecraft] to 2 players
+Bot| [system_chat] [Server: Granted criterion 'crafting_table' of advancement [Minecraft] to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.criterion.to.many.success","with":["crafting_table",{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.root.title","hover_event":{"value":{"translate":"advancements.story.root.title","extra":["\n",{"translate":"advancements.story.root.description"}],"color":"green"},"action":"show_text"}}],"color":"green"},2]}],"color":"gray","italic":true}
+### [advancements.txt:40] advancement revoke @a only minecraft:story/root
+log| System chat: Revoked the advancement [Minecraft] from 2 players
+Bot| [system_chat] [Server: Revoked the advancement [Minecraft] from 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.revoke.one.to.many.success","with":[{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.root.title","hover_event":{"value":{"translate":"advancements.story.root.title","extra":["\n",{"translate":"advancements.story.root.description"}],"color":"green"},"action":"show_text"}}],"color":"green"},2]}],"color":"gray","italic":true}
+### [advancements.txt:41] advancement revoke @a only minecraft:story/root
+log| System chat: Couldn't revoke advancement [Minecraft] from 2 players as they don't have it
+### [advancements.txt:43] advancement grant Bot from minecraft:story/mine_stone
+log| System chat: Bot has made the advancement [Acquire Hardware]
+log| System chat: Bot has made the advancement [Cover Me with Diamonds]
+log| System chat: Bot has made the advancement [Diamonds!]
+log| System chat: Bot has made the advancement [Enchanter]
+log| System chat: Bot has made the advancement [Eye Spy]
+log| System chat: Bot has made the advancement [Getting an Upgrade]
+log| System chat: Bot has made the advancement [Hot Stuff]
+log| System chat: Bot has made the advancement [Ice Bucket Challenge]
+log| System chat: Bot has made the advancement [Isn't It Iron Pick?]
+log| System chat: Bot has made the advancement [Not Today, Thank You]
+log| System chat: Bot has made the advancement [Stone Age]
+log| System chat: Bot has made the advancement [Suit Up]
+log| System chat: Bot has made the advancement [The End?]
+log| System chat: Bot has made the advancement [We Need to Go Deeper]
+log| System chat: Bot has reached the goal [Zombie Doctor]
+log| System chat: Granted 15 advancements to Bot
+Bot| [system_chat] [Server: Granted 15 advancements to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.many.to.one.success","with":[15,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:44] advancement grant Bot from minecraft:story/mine_stone
+log| System chat: Couldn't grant 15 advancements to Bot as they already have them
+### [advancements.txt:45] advancement revoke Bot until minecraft:story/upgrade_tools
+log| System chat: Revoked 3 advancements from Bot
+Bot| [system_chat] [Server: Revoked 3 advancements from Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.revoke.many.to.one.success","with":[3,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:46] advancement revoke Bot until minecraft:story/upgrade_tools
+log| System chat: Couldn't revoke 3 advancements from Bot as they don't have them
+### [advancements.txt:47] advancement grant Bot until minecraft:story/upgrade_tools
+log| System chat: Bot has made the advancement [Getting an Upgrade]
+log| System chat: Bot has made the advancement [Stone Age]
+log| System chat: Granted 3 advancements to Bot
+Bot| [system_chat] [Server: Granted 3 advancements to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.many.to.one.success","with":[3,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:48] advancement grant Bot through minecraft:story/smelt_iron
+log| System chat: Couldn't grant 16 advancements to Bot as they already have them
+### [advancements.txt:49] advancement grant @a through minecraft:story/smelt_iron
+log| System chat: Bot0 has made the advancement [Acquire Hardware]
+log| System chat: Bot0 has made the advancement [Cover Me with Diamonds]
+log| System chat: Bot0 has made the advancement [Diamonds!]
+log| System chat: Bot0 has made the advancement [Enchanter]
+log| System chat: Bot0 has made the advancement [Eye Spy]
+log| System chat: Bot0 has made the advancement [Getting an Upgrade]
+log| System chat: Bot0 has made the advancement [Hot Stuff]
+log| System chat: Bot0 has made the advancement [Ice Bucket Challenge]
+log| System chat: Bot0 has made the advancement [Isn't It Iron Pick?]
+log| System chat: Bot0 has made the advancement [Not Today, Thank You]
+log| System chat: Bot0 has made the advancement [Stone Age]
+log| System chat: Bot0 has made the advancement [Suit Up]
+log| System chat: Bot0 has made the advancement [The End?]
+log| System chat: Bot0 has made the advancement [We Need to Go Deeper]
+log| System chat: Bot0 has reached the goal [Zombie Doctor]
+log| System chat: Granted 16 advancements to Bot0
+Bot| [system_chat] [Server: Granted 16 advancements to Bot0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.many.to.one.success","with":[16,{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}]}],"color":"gray","italic":true}
+### [advancements.txt:50] advancement revoke Bot through minecraft:story/upgrade_tools
+log| System chat: Revoked 16 advancements from Bot
+Bot| [system_chat] [Server: Revoked 16 advancements from Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.revoke.many.to.one.success","with":[16,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:51] advancement revoke @a from minecraft:story/root
+log| System chat: Revoked 16 advancements from Bot0
+Bot| [system_chat] [Server: Revoked 16 advancements from Bot0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.revoke.many.to.one.success","with":[16,{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}]}],"color":"gray","italic":true}
+### [advancements.txt:52] advancement grant @a until minecraft:story/root
+log| System chat: Granted the advancement [Minecraft] to 2 players
+Bot| [system_chat] [Server: Granted the advancement [Minecraft] to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.one.to.many.success","with":[{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.root.title","hover_event":{"value":{"translate":"advancements.story.root.title","extra":["\n",{"translate":"advancements.story.root.description"}],"color":"green"},"action":"show_text"}}],"color":"green"},2]}],"color":"gray","italic":true}
+### [advancements.txt:53] advancement revoke @a only minecraft:story/root
+log| System chat: Revoked the advancement [Minecraft] from 2 players
+Bot| [system_chat] [Server: Revoked the advancement [Minecraft] from 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.revoke.one.to.many.success","with":[{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.root.title","hover_event":{"value":{"translate":"advancements.story.root.title","extra":["\n",{"translate":"advancements.story.root.description"}],"color":"green"},"action":"show_text"}}],"color":"green"},2]}],"color":"gray","italic":true}
+### [advancements.txt:55] execute if entity @a[advancements={minecraft:story/root=true}] run say yes root
+
+### [advancements.txt:56] execute if entity @a[advancements={minecraft:story/root=false}] run say no root
+log| [Not Secure] [Server] no root
+Bot| [disguised_chat] Server: no root
+Bot|   json "no root"
+Bot0| [disguised_chat] Server: no root
+Bot0|   json "no root"
+### [advancements.txt:57] execute if entity @a[advancements={minecraft:story/root={crafting_table=true}}] run say crit
+
+### [advancements.txt:58] execute if entity @a[advancements={minecraft:story/root=true,minecraft:story/mine_stone=false}] run say mixed
+
+### [advancements.txt:59] execute if entity @a[advancements={minecraft:nope/nothing=true}] run say unknown
+
+### [advancements.txt:61] advancement grant Bot everything
+log| System chat: Bot has completed the challenge [A Balanced Diet]
+log| System chat: Bot has completed the challenge [A Complete Catalogue]
+log| System chat: Bot has completed the challenge [A Furious Cocktail]
+log| System chat: Bot has completed the challenge [Adventuring Time]
+log| System chat: Bot has completed the challenge [Arbalistic]
+log| System chat: Bot has completed the challenge [Blowback]
+log| System chat: Bot has completed the challenge [Bullseye]
+log| System chat: Bot has completed the challenge [Cover Me in Debris]
+log| System chat: Bot has completed the challenge [Great View From Up Here]
+log| System chat: Bot has completed the challenge [Hero of the Village]
+log| System chat: Bot has completed the challenge [Hot Tourist Destinations]
+log| System chat: Bot has completed the challenge [How Did We Get Here?]
+log| System chat: Bot has completed the challenge [It Spreads]
+log| System chat: Bot has completed the challenge [Monsters Hunted]
+log| System chat: Bot has completed the challenge [Over-Overkill]
+log| System chat: Bot has completed the challenge [Return to Sender]
+log| System chat: Bot has completed the challenge [Serious Dedication]
+log| System chat: Bot has completed the challenge [Smithing with Style]
+log| System chat: Bot has completed the challenge [Sniper Duel]
+log| System chat: Bot has completed the challenge [Subspace Bubble]
+log| System chat: Bot has completed the challenge [The Whole Pack]
+log| System chat: Bot has completed the challenge [Two Birds, One Arrow]
+log| System chat: Bot has completed the challenge [Two by Two]
+log| System chat: Bot has completed the challenge [Uneasy Alliance]
+log| System chat: Bot has completed the challenge [With Our Powers Combined!]
+log| System chat: Bot has made the advancement [A Seedy Place]
+log| System chat: Bot has made the advancement [A Terrible Fortress]
+log| System chat: Bot has made the advancement [A Throwaway Joke]
+log| System chat: Bot has made the advancement [Acquire Hardware]
+log| System chat: Bot has made the advancement [Bee Our Guest]
+log| System chat: Bot has made the advancement [Best Friends Forever]
+log| System chat: Bot has made the advancement [Birthday Song]
+log| System chat: Bot has made the advancement [Bring Home the Beacon]
+log| System chat: Bot has made the advancement [Bukkit Bukkit]
+log| System chat: Bot has made the advancement [Careful Restoration]
+log| System chat: Bot has made the advancement [Caves & Cliffs]
+log| System chat: Bot has made the advancement [Country Lode, Take Me Home]
+log| System chat: Bot has made the advancement [Cover Me with Diamonds]
+log| System chat: Bot has made the advancement [Crafters Crafting Crafters]
+log| System chat: Bot has made the advancement [Crafting a New Look]
+log| System chat: Bot has made the advancement [Diamonds!]
+log| System chat: Bot has made the advancement [Enchanter]
+log| System chat: Bot has made the advancement [Eye Spy]
+log| System chat: Bot has made the advancement [Feels Like Home]
+log| System chat: Bot has made the advancement [Fishy Business]
+log| System chat: Bot has made the advancement [Free the End]
+log| System chat: Bot has made the advancement [Getting an Upgrade]
+log| System chat: Bot has made the advancement [Glow and Behold!]
+log| System chat: Bot has made the advancement [Good as New]
+log| System chat: Bot has made the advancement [Heart Transplanter]
+log| System chat: Bot has made the advancement [Hidden in the Depths]
+log| System chat: Bot has made the advancement [Hot Stuff]
+log| System chat: Bot has made the advancement [Ice Bucket Challenge]
+log| System chat: Bot has made the advancement [Into Fire]
+log| System chat: Bot has made the advancement [Is It a Balloon?]
+log| System chat: Bot has made the advancement [Is It a Bird?]
+log| System chat: Bot has made the advancement [Is It a Plane?]
+log| System chat: Bot has made the advancement [Isn't It Iron Pick?]
+log| System chat: Bot has made the advancement [Isn't It Scute?]
+log| System chat: Bot has made the advancement [Light as a Rabbit]
+log| System chat: Bot has made the advancement [Lighten Up]
+log| System chat: Bot has made the advancement [Little Sniffs]
+log| System chat: Bot has made the advancement [Local Brewery]
+log| System chat: Bot has made the advancement [Minecraft: Trial(s) Edition]
+log| System chat: Bot has made the advancement [Monster Hunter]
+log| System chat: Bot has made the advancement [Not Quite "Nine" Lives]
+log| System chat: Bot has made the advancement [Not Today, Thank You]
+log| System chat: Bot has made the advancement [Oh Shiny]
+log| System chat: Bot has made the advancement [Ol' Betsy]
+log| System chat: Bot has made the advancement [Planting the Past]
+log| System chat: Bot has made the advancement [Remote Getaway]
+log| System chat: Bot has made the advancement [Respecting the Remnants]
+log| System chat: Bot has made the advancement [Shear Brilliance]
+log| System chat: Bot has made the advancement [Smells Interesting]
+log| System chat: Bot has made the advancement [Sneak 100]
+log| System chat: Bot has made the advancement [Sound of Music]
+log| System chat: Bot has made the advancement [Spooky Scary Skeleton]
+log| System chat: Bot has made the advancement [Star Trader]
+log| System chat: Bot has made the advancement [Stay Hydrated!]
+log| System chat: Bot has made the advancement [Sticky Situation]
+log| System chat: Bot has made the advancement [Stone Age]
+log| System chat: Bot has made the advancement [Suit Up]
+log| System chat: Bot has made the advancement [Surge Protector]
+log| System chat: Bot has made the advancement [Sweet Dreams]
+log| System chat: Bot has made the advancement [Tactical Fishing]
+log| System chat: Bot has made the advancement [Take Aim]
+log| System chat: Bot has made the advancement [The City at the End of the Game]
+log| System chat: Bot has made the advancement [The Cutest Predator]
+log| System chat: Bot has made the advancement [The End?]
+log| System chat: Bot has made the advancement [The Healing Power of Friendship!]
+log| System chat: Bot has made the advancement [The Parrots and the Bats]
+log| System chat: Bot has made the advancement [The Power of Books]
+log| System chat: Bot has made the advancement [This Boat Has Legs]
+log| System chat: Bot has made the advancement [Those Were the Days]
+log| System chat: Bot has made the advancement [Total Beelocation]
+log| System chat: Bot has made the advancement [Uh Oh]
+log| System chat: Bot has made the advancement [Under Lock and Key]
+log| System chat: Bot has made the advancement [Very Very Frightening]
+log| System chat: Bot has made the advancement [Voluntary Exile]
+log| System chat: Bot has made the advancement [War Pigs]
+log| System chat: Bot has made the advancement [Wax Off]
+log| System chat: Bot has made the advancement [Wax On]
+log| System chat: Bot has made the advancement [We Need to Go Deeper]
+log| System chat: Bot has made the advancement [What a Deal!]
+log| System chat: Bot has made the advancement [Whatever Floats Your Goat!]
+log| System chat: Bot has made the advancement [When the Squad Hops into Town]
+log| System chat: Bot has made the advancement [Who Needs Rockets?]
+log| System chat: Bot has made the advancement [Who is Cutting Onions?]
+log| System chat: Bot has made the advancement [Who's the Pillager Now?]
+log| System chat: Bot has made the advancement [Withering Heights]
+log| System chat: Bot has made the advancement [You've Got a Friend in Me]
+log| System chat: Bot has reached the goal [Beaconator]
+log| System chat: Bot has reached the goal [Hired Help]
+log| System chat: Bot has reached the goal [Mob Kabob]
+log| System chat: Bot has reached the goal [Postmortal]
+log| System chat: Bot has reached the goal [Revaulting]
+log| System chat: Bot has reached the goal [Sky's the Limit]
+log| System chat: Bot has reached the goal [The End... Again...]
+log| System chat: Bot has reached the goal [The Next Generation]
+log| System chat: Bot has reached the goal [You Need a Mint]
+log| System chat: Bot has reached the goal [Zombie Doctor]
+log| System chat: Granted 1866 advancements to Bot
+Bot| [system_chat] [Server: Granted 1866 advancements to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.many.to.one.success","with":[1866,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:62] advancement grant Bot everything
+log| System chat: Couldn't grant 1866 advancements to Bot as they already have them
+### [advancements.txt:63] advancement grant @a everything
+log| System chat: Bot0 has completed the challenge [A Balanced Diet]
+log| System chat: Bot0 has completed the challenge [A Complete Catalogue]
+log| System chat: Bot0 has completed the challenge [A Furious Cocktail]
+log| System chat: Bot0 has completed the challenge [Adventuring Time]
+log| System chat: Bot0 has completed the challenge [Arbalistic]
+log| System chat: Bot0 has completed the challenge [Blowback]
+log| System chat: Bot0 has completed the challenge [Bullseye]
+log| System chat: Bot0 has completed the challenge [Cover Me in Debris]
+log| System chat: Bot0 has completed the challenge [Great View From Up Here]
+log| System chat: Bot0 has completed the challenge [Hero of the Village]
+log| System chat: Bot0 has completed the challenge [Hot Tourist Destinations]
+log| System chat: Bot0 has completed the challenge [How Did We Get Here?]
+log| System chat: Bot0 has completed the challenge [It Spreads]
+log| System chat: Bot0 has completed the challenge [Monsters Hunted]
+log| System chat: Bot0 has completed the challenge [Over-Overkill]
+log| System chat: Bot0 has completed the challenge [Return to Sender]
+log| System chat: Bot0 has completed the challenge [Serious Dedication]
+log| System chat: Bot0 has completed the challenge [Smithing with Style]
+log| System chat: Bot0 has completed the challenge [Sniper Duel]
+log| System chat: Bot0 has completed the challenge [Subspace Bubble]
+log| System chat: Bot0 has completed the challenge [The Whole Pack]
+log| System chat: Bot0 has completed the challenge [Two Birds, One Arrow]
+log| System chat: Bot0 has completed the challenge [Two by Two]
+log| System chat: Bot0 has completed the challenge [Uneasy Alliance]
+log| System chat: Bot0 has completed the challenge [With Our Powers Combined!]
+log| System chat: Bot0 has made the advancement [A Seedy Place]
+log| System chat: Bot0 has made the advancement [A Terrible Fortress]
+log| System chat: Bot0 has made the advancement [A Throwaway Joke]
+log| System chat: Bot0 has made the advancement [Acquire Hardware]
+log| System chat: Bot0 has made the advancement [Bee Our Guest]
+log| System chat: Bot0 has made the advancement [Best Friends Forever]
+log| System chat: Bot0 has made the advancement [Birthday Song]
+log| System chat: Bot0 has made the advancement [Bring Home the Beacon]
+log| System chat: Bot0 has made the advancement [Bukkit Bukkit]
+log| System chat: Bot0 has made the advancement [Careful Restoration]
+log| System chat: Bot0 has made the advancement [Caves & Cliffs]
+log| System chat: Bot0 has made the advancement [Country Lode, Take Me Home]
+log| System chat: Bot0 has made the advancement [Cover Me with Diamonds]
+log| System chat: Bot0 has made the advancement [Crafters Crafting Crafters]
+log| System chat: Bot0 has made the advancement [Crafting a New Look]
+log| System chat: Bot0 has made the advancement [Diamonds!]
+log| System chat: Bot0 has made the advancement [Enchanter]
+log| System chat: Bot0 has made the advancement [Eye Spy]
+log| System chat: Bot0 has made the advancement [Feels Like Home]
+log| System chat: Bot0 has made the advancement [Fishy Business]
+log| System chat: Bot0 has made the advancement [Free the End]
+log| System chat: Bot0 has made the advancement [Getting an Upgrade]
+log| System chat: Bot0 has made the advancement [Glow and Behold!]
+log| System chat: Bot0 has made the advancement [Good as New]
+log| System chat: Bot0 has made the advancement [Heart Transplanter]
+log| System chat: Bot0 has made the advancement [Hidden in the Depths]
+log| System chat: Bot0 has made the advancement [Hot Stuff]
+log| System chat: Bot0 has made the advancement [Ice Bucket Challenge]
+log| System chat: Bot0 has made the advancement [Into Fire]
+log| System chat: Bot0 has made the advancement [Is It a Balloon?]
+log| System chat: Bot0 has made the advancement [Is It a Bird?]
+log| System chat: Bot0 has made the advancement [Is It a Plane?]
+log| System chat: Bot0 has made the advancement [Isn't It Iron Pick?]
+log| System chat: Bot0 has made the advancement [Isn't It Scute?]
+log| System chat: Bot0 has made the advancement [Light as a Rabbit]
+log| System chat: Bot0 has made the advancement [Lighten Up]
+log| System chat: Bot0 has made the advancement [Little Sniffs]
+log| System chat: Bot0 has made the advancement [Local Brewery]
+log| System chat: Bot0 has made the advancement [Minecraft: Trial(s) Edition]
+log| System chat: Bot0 has made the advancement [Monster Hunter]
+log| System chat: Bot0 has made the advancement [Not Quite "Nine" Lives]
+log| System chat: Bot0 has made the advancement [Not Today, Thank You]
+log| System chat: Bot0 has made the advancement [Oh Shiny]
+log| System chat: Bot0 has made the advancement [Ol' Betsy]
+log| System chat: Bot0 has made the advancement [Planting the Past]
+log| System chat: Bot0 has made the advancement [Remote Getaway]
+log| System chat: Bot0 has made the advancement [Respecting the Remnants]
+log| System chat: Bot0 has made the advancement [Shear Brilliance]
+log| System chat: Bot0 has made the advancement [Smells Interesting]
+log| System chat: Bot0 has made the advancement [Sneak 100]
+log| System chat: Bot0 has made the advancement [Sound of Music]
+log| System chat: Bot0 has made the advancement [Spooky Scary Skeleton]
+log| System chat: Bot0 has made the advancement [Star Trader]
+log| System chat: Bot0 has made the advancement [Stay Hydrated!]
+log| System chat: Bot0 has made the advancement [Sticky Situation]
+log| System chat: Bot0 has made the advancement [Stone Age]
+log| System chat: Bot0 has made the advancement [Suit Up]
+log| System chat: Bot0 has made the advancement [Surge Protector]
+log| System chat: Bot0 has made the advancement [Sweet Dreams]
+log| System chat: Bot0 has made the advancement [Tactical Fishing]
+log| System chat: Bot0 has made the advancement [Take Aim]
+log| System chat: Bot0 has made the advancement [The City at the End of the Game]
+log| System chat: Bot0 has made the advancement [The Cutest Predator]
+log| System chat: Bot0 has made the advancement [The End?]
+log| System chat: Bot0 has made the advancement [The Healing Power of Friendship!]
+log| System chat: Bot0 has made the advancement [The Parrots and the Bats]
+log| System chat: Bot0 has made the advancement [The Power of Books]
+log| System chat: Bot0 has made the advancement [This Boat Has Legs]
+log| System chat: Bot0 has made the advancement [Those Were the Days]
+log| System chat: Bot0 has made the advancement [Total Beelocation]
+log| System chat: Bot0 has made the advancement [Uh Oh]
+log| System chat: Bot0 has made the advancement [Under Lock and Key]
+log| System chat: Bot0 has made the advancement [Very Very Frightening]
+log| System chat: Bot0 has made the advancement [Voluntary Exile]
+log| System chat: Bot0 has made the advancement [War Pigs]
+log| System chat: Bot0 has made the advancement [Wax Off]
+log| System chat: Bot0 has made the advancement [Wax On]
+log| System chat: Bot0 has made the advancement [We Need to Go Deeper]
+log| System chat: Bot0 has made the advancement [What a Deal!]
+log| System chat: Bot0 has made the advancement [Whatever Floats Your Goat!]
+log| System chat: Bot0 has made the advancement [When the Squad Hops into Town]
+log| System chat: Bot0 has made the advancement [Who Needs Rockets?]
+log| System chat: Bot0 has made the advancement [Who is Cutting Onions?]
+log| System chat: Bot0 has made the advancement [Who's the Pillager Now?]
+log| System chat: Bot0 has made the advancement [Withering Heights]
+log| System chat: Bot0 has made the advancement [You've Got a Friend in Me]
+log| System chat: Bot0 has reached the goal [Beaconator]
+log| System chat: Bot0 has reached the goal [Hired Help]
+log| System chat: Bot0 has reached the goal [Mob Kabob]
+log| System chat: Bot0 has reached the goal [Postmortal]
+log| System chat: Bot0 has reached the goal [Revaulting]
+log| System chat: Bot0 has reached the goal [Sky's the Limit]
+log| System chat: Bot0 has reached the goal [The End... Again...]
+log| System chat: Bot0 has reached the goal [The Next Generation]
+log| System chat: Bot0 has reached the goal [You Need a Mint]
+log| System chat: Bot0 has reached the goal [Zombie Doctor]
+log| System chat: Granted 1866 advancements to Bot0
+Bot| [system_chat] [Server: Granted 1866 advancements to Bot0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.many.to.one.success","with":[1866,{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}]}],"color":"gray","italic":true}
+### [advancements.txt:64] advancement revoke Bot everything
+log| System chat: Revoked 1866 advancements from Bot
+Bot| [system_chat] [Server: Revoked 1866 advancements from Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.revoke.many.to.one.success","with":[1866,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:65] advancement revoke Bot everything
+log| System chat: Revoked 1866 advancements from Bot
+Bot| [system_chat] [Server: Revoked 1866 advancements from Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.revoke.many.to.one.success","with":[1866,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:66] advancement grant Bot everything
+log| System chat: Bot has completed the challenge [A Balanced Diet]
+log| System chat: Bot has completed the challenge [A Complete Catalogue]
+log| System chat: Bot has completed the challenge [A Furious Cocktail]
+log| System chat: Bot has completed the challenge [Adventuring Time]
+log| System chat: Bot has completed the challenge [Arbalistic]
+log| System chat: Bot has completed the challenge [Blowback]
+log| System chat: Bot has completed the challenge [Bullseye]
+log| System chat: Bot has completed the challenge [Cover Me in Debris]
+log| System chat: Bot has completed the challenge [Great View From Up Here]
+log| System chat: Bot has completed the challenge [Hero of the Village]
+log| System chat: Bot has completed the challenge [Hot Tourist Destinations]
+log| System chat: Bot has completed the challenge [How Did We Get Here?]
+log| System chat: Bot has completed the challenge [It Spreads]
+log| System chat: Bot has completed the challenge [Monsters Hunted]
+log| System chat: Bot has completed the challenge [Over-Overkill]
+log| System chat: Bot has completed the challenge [Return to Sender]
+log| System chat: Bot has completed the challenge [Serious Dedication]
+log| System chat: Bot has completed the challenge [Smithing with Style]
+log| System chat: Bot has completed the challenge [Sniper Duel]
+log| System chat: Bot has completed the challenge [Subspace Bubble]
+log| System chat: Bot has completed the challenge [The Whole Pack]
+log| System chat: Bot has completed the challenge [Two Birds, One Arrow]
+log| System chat: Bot has completed the challenge [Two by Two]
+log| System chat: Bot has completed the challenge [Uneasy Alliance]
+log| System chat: Bot has completed the challenge [With Our Powers Combined!]
+log| System chat: Bot has made the advancement [A Seedy Place]
+log| System chat: Bot has made the advancement [A Terrible Fortress]
+log| System chat: Bot has made the advancement [A Throwaway Joke]
+log| System chat: Bot has made the advancement [Acquire Hardware]
+log| System chat: Bot has made the advancement [Bee Our Guest]
+log| System chat: Bot has made the advancement [Best Friends Forever]
+log| System chat: Bot has made the advancement [Birthday Song]
+log| System chat: Bot has made the advancement [Bring Home the Beacon]
+log| System chat: Bot has made the advancement [Bukkit Bukkit]
+log| System chat: Bot has made the advancement [Careful Restoration]
+log| System chat: Bot has made the advancement [Caves & Cliffs]
+log| System chat: Bot has made the advancement [Country Lode, Take Me Home]
+log| System chat: Bot has made the advancement [Cover Me with Diamonds]
+log| System chat: Bot has made the advancement [Crafters Crafting Crafters]
+log| System chat: Bot has made the advancement [Crafting a New Look]
+log| System chat: Bot has made the advancement [Diamonds!]
+log| System chat: Bot has made the advancement [Enchanter]
+log| System chat: Bot has made the advancement [Eye Spy]
+log| System chat: Bot has made the advancement [Feels Like Home]
+log| System chat: Bot has made the advancement [Fishy Business]
+log| System chat: Bot has made the advancement [Free the End]
+log| System chat: Bot has made the advancement [Getting an Upgrade]
+log| System chat: Bot has made the advancement [Glow and Behold!]
+log| System chat: Bot has made the advancement [Good as New]
+log| System chat: Bot has made the advancement [Heart Transplanter]
+log| System chat: Bot has made the advancement [Hidden in the Depths]
+log| System chat: Bot has made the advancement [Hot Stuff]
+log| System chat: Bot has made the advancement [Ice Bucket Challenge]
+log| System chat: Bot has made the advancement [Into Fire]
+log| System chat: Bot has made the advancement [Is It a Balloon?]
+log| System chat: Bot has made the advancement [Is It a Bird?]
+log| System chat: Bot has made the advancement [Is It a Plane?]
+log| System chat: Bot has made the advancement [Isn't It Iron Pick?]
+log| System chat: Bot has made the advancement [Isn't It Scute?]
+log| System chat: Bot has made the advancement [Light as a Rabbit]
+log| System chat: Bot has made the advancement [Lighten Up]
+log| System chat: Bot has made the advancement [Little Sniffs]
+log| System chat: Bot has made the advancement [Local Brewery]
+log| System chat: Bot has made the advancement [Minecraft: Trial(s) Edition]
+log| System chat: Bot has made the advancement [Monster Hunter]
+log| System chat: Bot has made the advancement [Not Quite "Nine" Lives]
+log| System chat: Bot has made the advancement [Not Today, Thank You]
+log| System chat: Bot has made the advancement [Oh Shiny]
+log| System chat: Bot has made the advancement [Ol' Betsy]
+log| System chat: Bot has made the advancement [Planting the Past]
+log| System chat: Bot has made the advancement [Remote Getaway]
+log| System chat: Bot has made the advancement [Respecting the Remnants]
+log| System chat: Bot has made the advancement [Shear Brilliance]
+log| System chat: Bot has made the advancement [Smells Interesting]
+log| System chat: Bot has made the advancement [Sneak 100]
+log| System chat: Bot has made the advancement [Sound of Music]
+log| System chat: Bot has made the advancement [Spooky Scary Skeleton]
+log| System chat: Bot has made the advancement [Star Trader]
+log| System chat: Bot has made the advancement [Stay Hydrated!]
+log| System chat: Bot has made the advancement [Sticky Situation]
+log| System chat: Bot has made the advancement [Stone Age]
+log| System chat: Bot has made the advancement [Suit Up]
+log| System chat: Bot has made the advancement [Surge Protector]
+log| System chat: Bot has made the advancement [Sweet Dreams]
+log| System chat: Bot has made the advancement [Tactical Fishing]
+log| System chat: Bot has made the advancement [Take Aim]
+log| System chat: Bot has made the advancement [The City at the End of the Game]
+log| System chat: Bot has made the advancement [The Cutest Predator]
+log| System chat: Bot has made the advancement [The End?]
+log| System chat: Bot has made the advancement [The Healing Power of Friendship!]
+log| System chat: Bot has made the advancement [The Parrots and the Bats]
+log| System chat: Bot has made the advancement [The Power of Books]
+log| System chat: Bot has made the advancement [This Boat Has Legs]
+log| System chat: Bot has made the advancement [Those Were the Days]
+log| System chat: Bot has made the advancement [Total Beelocation]
+log| System chat: Bot has made the advancement [Uh Oh]
+log| System chat: Bot has made the advancement [Under Lock and Key]
+log| System chat: Bot has made the advancement [Very Very Frightening]
+log| System chat: Bot has made the advancement [Voluntary Exile]
+log| System chat: Bot has made the advancement [War Pigs]
+log| System chat: Bot has made the advancement [Wax Off]
+log| System chat: Bot has made the advancement [Wax On]
+log| System chat: Bot has made the advancement [We Need to Go Deeper]
+log| System chat: Bot has made the advancement [What a Deal!]
+log| System chat: Bot has made the advancement [Whatever Floats Your Goat!]
+log| System chat: Bot has made the advancement [When the Squad Hops into Town]
+log| System chat: Bot has made the advancement [Who Needs Rockets?]
+log| System chat: Bot has made the advancement [Who is Cutting Onions?]
+log| System chat: Bot has made the advancement [Who's the Pillager Now?]
+log| System chat: Bot has made the advancement [Withering Heights]
+log| System chat: Bot has made the advancement [You've Got a Friend in Me]
+log| System chat: Bot has reached the goal [Beaconator]
+log| System chat: Bot has reached the goal [Hired Help]
+log| System chat: Bot has reached the goal [Mob Kabob]
+log| System chat: Bot has reached the goal [Postmortal]
+log| System chat: Bot has reached the goal [Revaulting]
+log| System chat: Bot has reached the goal [Sky's the Limit]
+log| System chat: Bot has reached the goal [The End... Again...]
+log| System chat: Bot has reached the goal [The Next Generation]
+log| System chat: Bot has reached the goal [You Need a Mint]
+log| System chat: Bot has reached the goal [Zombie Doctor]
+log| System chat: Granted 1866 advancements to Bot
+Bot| [system_chat] [Server: Granted 1866 advancements to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.many.to.one.success","with":[1866,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:67] advancement revoke @a everything
+log| System chat: Revoked 1866 advancements from 2 players
+Bot| [system_chat] [Server: Revoked 1866 advancements from 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.revoke.many.to.many.success","with":[1866,2]}],"color":"gray","italic":true}
+### [advancements.txt:69] scoreboard objectives add adv_n dummy
+log| System chat: Created new objective [adv_n]
+Bot| [system_chat] [Server: Created new objective [adv_n]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.scoreboard.objectives.add.success","with":[{"translate":"chat.square_brackets","with":[{"text":"adv_n","hover_event":{"value":"adv_n","action":"show_text"}}]}]}],"color":"gray","italic":true}
+### [advancements.txt:70] execute store result score Bot adv_n run advancement grant Bot only minecraft:story/root
+log| System chat: Granted the advancement [Minecraft] to Bot
+Bot| [system_chat] [Server: Granted the advancement [Minecraft] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.one.to.one.success","with":[{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.root.title","hover_event":{"value":{"translate":"advancements.story.root.title","extra":["\n",{"translate":"advancements.story.root.description"}],"color":"green"},"action":"show_text"}}],"color":"green"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:71] scoreboard players get Bot adv_n
+log| System chat: Bot has 1 [adv_n]
+### [advancements.txt:72] execute store result score Bot adv_n run advancement grant Bot from minecraft:story/root
+log| System chat: Bot has made the advancement [Acquire Hardware]
+log| System chat: Bot has made the advancement [Cover Me with Diamonds]
+log| System chat: Bot has made the advancement [Diamonds!]
+log| System chat: Bot has made the advancement [Enchanter]
+log| System chat: Bot has made the advancement [Eye Spy]
+log| System chat: Bot has made the advancement [Getting an Upgrade]
+log| System chat: Bot has made the advancement [Hot Stuff]
+log| System chat: Bot has made the advancement [Ice Bucket Challenge]
+log| System chat: Bot has made the advancement [Isn't It Iron Pick?]
+log| System chat: Bot has made the advancement [Not Today, Thank You]
+log| System chat: Bot has made the advancement [Stone Age]
+log| System chat: Bot has made the advancement [Suit Up]
+log| System chat: Bot has made the advancement [The End?]
+log| System chat: Bot has made the advancement [We Need to Go Deeper]
+log| System chat: Bot has reached the goal [Zombie Doctor]
+log| System chat: Granted 16 advancements to Bot
+Bot| [system_chat] [Server: Granted 16 advancements to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.many.to.one.success","with":[16,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [advancements.txt:73] scoreboard players get Bot adv_n
+log| System chat: Bot has 15 [adv_n]
+### [advancements.txt:76] execute store result score Bot adv_n run advancement revoke @a everything
+log| System chat: Revoked 1866 advancements from 2 players
+Bot| [system_chat] [Server: Revoked 1866 advancements from 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.revoke.many.to.many.success","with":[1866,2]}],"color":"gray","italic":true}
+### [advancements.txt:77] scoreboard players get Bot adv_n
+log| System chat: Bot has <masked> [adv_n]

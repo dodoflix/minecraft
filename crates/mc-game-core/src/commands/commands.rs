@@ -357,7 +357,10 @@ impl Commands {
                 .map(|s| (*s).to_owned())
                 .or_else(|| payload.downcast_ref::<String>().cloned())
                 .unwrap_or_else(|| "java.lang.RuntimeException".to_owned());
-            log::error!("'/{}' threw an exception: {}", command_string, message);
+            // vanilla logs the exception only with debug logging (or the verbose command error flags, off in release)
+            if log::log_enabled!(log::Level::Debug) {
+                log::error!("Command exception: /{}: {}", command_string, message);
+            }
             let hover = Component::literal(message);
             sender.send_failure(
                 translatable!("command.failed").with_style_fn(|s| {

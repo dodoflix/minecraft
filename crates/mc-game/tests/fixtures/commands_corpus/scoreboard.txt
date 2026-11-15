@@ -1,4 +1,8 @@
 # ScoreboardCommand / TeamCommand / TeamMsgCommand / TriggerCommand / TagCommand: every subcommand, success and error.
+# natural spawning is unseeded in vanilla: pigs appear and vanish between two runs
+gamerule spawn_mobs false
+# vanilla lists the scores of one holder in identity-hash order: sorted here
+!sort ^log\| System chat: \[[^\]]+\]: -?\d+$
 # (the per-holder objective order of `players list <holder>` is an identity hash in vanilla: listed holders have one objective)
 !packets ^(set_objective|set_score|reset_score|set_display_objective|set_player_team)$
 

@@ -1,0 +1,321 @@
+### [items.txt:4] clear Bot
+log| System chat: No items were found on player Bot
+### [items.txt:5] give Bot minecraft:stick 5
+log| System chat: Gave 5 [Stick] to Bot
+Bot| [system_chat] [Server: Gave 5 [Stick] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.single","with":[5,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.stick"}]}],"color":"white","hover_event":{"id":"minecraft:stick","action":"show_item"}},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:6] give Bot minecraft:apple 70
+log| System chat: Gave 70 [Apple] to Bot
+Bot| [system_chat] [Server: Gave 70 [Apple] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.single","with":[70,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.apple"}]}],"color":"white","hover_event":{"id":"minecraft:apple","action":"show_item"}},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:7] give Bot minecraft:diamond_sword 3
+log| System chat: Gave 3 [Diamond Sword] to Bot
+Bot| [system_chat] [Server: Gave 3 [Diamond Sword] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.single","with":[3,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.diamond_sword"}]}],"color":"white","hover_event":{"id":"minecraft:diamond_sword","action":"show_item"}},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:8] give Bot minecraft:stick 1000
+log| System chat: Gave 1000 [Stick] to Bot
+Bot| [system_chat] [Server: Gave 1000 [Stick] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.single","with":[1000,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.stick"}]}],"color":"white","hover_event":{"id":"minecraft:stick","action":"show_item"}},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:9] give Bot minecraft:stick 6400
+log| System chat: Gave 6400 [Stick] to Bot
+Bot| [system_chat] [Server: Gave 6400 [Stick] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.single","with":[6400,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.stick"}]}],"color":"white","hover_event":{"id":"minecraft:stick","action":"show_item"}},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:10] give Bot minecraft:stick 6401
+log| System chat: Can't give more than 6400 of [Stick]
+### [items.txt:11] give @a minecraft:cobblestone 128
+log| System chat: Gave 128 [Cobblestone] to 2 players
+Bot| [system_chat] [Server: Gave 128 [Cobblestone] to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.multiple","with":[128,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},2]}],"color":"gray","italic":true}
+### [items.txt:12] clear Bot minecraft:stick 0
+log| System chat: Found 1984 matching item(s) on player Bot
+Bot| [system_chat] [Server: Found 1984 matching item(s) on player Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clear.test.single","with":[1984,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:13] clear Bot minecraft:stick 3
+log| System chat: Removed 3 item(s) from player Bot
+Bot| [system_chat] [Server: Removed 3 item(s) from player Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clear.success.single","with":[3,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:14] clear Bot minecraft:stick 0
+log| System chat: Found 1981 matching item(s) on player Bot
+Bot| [system_chat] [Server: Found 1981 matching item(s) on player Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clear.test.single","with":[1981,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:15] clear Bot minecraft:stick
+log| System chat: Removed 1981 item(s) from player Bot
+Bot| [system_chat] [Server: Removed 1981 item(s) from player Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clear.success.single","with":[1981,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:16] clear Bot minecraft:stick
+log| System chat: No items were found on player Bot
+### [items.txt:17] clear Bot minecraft:nope
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope<--[HERE]
+### [items.txt:18] clear Bot #minecraft:swords
+log| System chat: Removed 3 item(s) from player Bot
+Bot| [system_chat] [Server: Removed 3 item(s) from player Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clear.success.single","with":[3,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:19] clear Bot *[count=64] 0
+log| System chat: Found 64 matching item(s) on player Bot
+Bot| [system_chat] [Server: Found 64 matching item(s) on player Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clear.test.single","with":[64,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:20] clear Bot *[count=(1..64)] 2
+log| System chat: Expected a valid unquoted string
+log| System chat: ...t *[count=(1..64)] 2<--[HERE]
+### [items.txt:21] clear Bot minecraft:cobblestone[count=64|count=1]
+log| System chat: No items were found on player Bot
+### [items.txt:22] clear @a minecraft:apple 0
+log| System chat: Found 70 matching item(s) on player Bot
+Bot| [system_chat] [Server: Found 70 matching item(s) on player Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clear.test.single","with":[70,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:23] clear @a
+log| System chat: Removed 198 item(s) from 2 players
+Bot| [system_chat] [Server: Removed 198 item(s) from 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clear.success.multiple","with":[198,2]}],"color":"gray","italic":true}
+### [items.txt:24] clear @e[type=minecraft:cow]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: clear @e[type=minecraft:cow]<--[HERE]
+### [items.txt:25] clear @a[name=nobody]
+log| System chat: No player was found
+### [items.txt:26] @bot clear
+Bot| [system_chat] No items were found on player Bot
+Bot|   json {"text":"","extra":[{"translate":"clear.failed.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"red"}
+### [items.txt:27] @bot0 clear
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] clear<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"clear","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/clear","action":"suggest_command"}}],"color":"red"}
+### [items.txt:28] give @a minecraft:stone 2
+log| System chat: Gave 2 [Stone] to 2 players
+Bot| [system_chat] [Server: Gave 2 [Stone] to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.multiple","with":[2,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.stone"}]}],"color":"white","hover_event":{"id":"minecraft:stone","action":"show_item"}},2]}],"color":"gray","italic":true}
+### [items.txt:29] item replace entity Bot weapon.mainhand with minecraft:diamond_sword
+log| System chat: Replaced 1 slot(s) on Bot with [Diamond Sword]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Diamond Sword]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.diamond_sword"}]}],"color":"white","hover_event":{"id":"minecraft:diamond_sword","action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:30] item replace entity Bot weapon.offhand with minecraft:shield
+log| System chat: Replaced 1 slot(s) on Bot with [Shield]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Shield]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.shield"}]}],"color":"white","hover_event":{"id":"minecraft:shield","action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:31] item replace entity Bot hotbar.0 with minecraft:apple 5
+log| System chat: Replaced 1 slot(s) on Bot with [Apple]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Apple]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.apple"}]}],"color":"white","hover_event":{"id":"minecraft:apple","count":5,"action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:32] item replace entity Bot container.3 with minecraft:stick 99
+log| System chat: minecraft:stick can only stack up to 64
+### [items.txt:33] item replace entity Bot armor.head with minecraft:stick
+log| System chat: Replaced 1 slot(s) on Bot with [Stick]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Stick]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.stick"}]}],"color":"white","hover_event":{"id":"minecraft:stick","action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:34] item replace entity Bot armor.head with minecraft:iron_helmet
+log| System chat: Replaced 1 slot(s) on Bot with [Iron Helmet]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Iron Helmet]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.iron_helmet"}]}],"color":"white","hover_event":{"id":"minecraft:iron_helmet","action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:35] item replace entity Bot armor.chest with minecraft:iron_chestplate
+log| System chat: Replaced 1 slot(s) on Bot with [Iron Chestplate]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Iron Chestplate]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.iron_chestplate"}]}],"color":"white","hover_event":{"id":"minecraft:iron_chestplate","action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:36] item replace entity Bot armor.* with minecraft:air
+log| System chat: Replaced 1 slot(s) on Bot with [Air]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Air]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.air"}]}]}]}],"color":"gray","italic":true}
+### [items.txt:37] item replace entity Bot hotbar.* with minecraft:bread 3
+log| System chat: Replaced 1 slot(s) on Bot with [Bread]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Bread]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.bread"}]}],"color":"white","hover_event":{"id":"minecraft:bread","count":3,"action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:38] item replace entity Bot nope.0 with minecraft:stick
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 with minecraft:stick<--[HERE]
+### [items.txt:39] item replace entity Bot container.99 with minecraft:stick
+log| System chat: Can't find element 'minecraft:container.99' in registry 'minecraft:slot_source'
+log| System chat: ...ntainer.99 with minecraft:stick<--[HERE]
+### [items.txt:40] item replace entity Bot enderchest.0 with minecraft:diamond 2
+log| System chat: Replaced 1 slot(s) on Bot with [Diamond]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Diamond]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.diamond"}]}],"color":"white","hover_event":{"id":"minecraft:diamond","count":2,"action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:41] item replace entity Bot player.cursor with minecraft:dirt 4
+log| System chat: Replaced 1 slot(s) on Bot with [Dirt]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Dirt]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.dirt"}]}],"color":"white","hover_event":{"id":"minecraft:dirt","count":4,"action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:42] item replace entity Bot player.crafting.0 with minecraft:oak_planks 4
+log| System chat: Replaced 1 slot(s) on Bot with [Oak Planks]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Oak Planks]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.oak_planks"}]}],"color":"white","hover_event":{"id":"minecraft:oak_planks","count":4,"action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:43] item replace entity Bot container.0 from entity Bot hotbar.0
+log| System chat: Replaced 1 slot(s) on Bot
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:44] item replace entity Bot container.1 from entity Bot hotbar.*
+log| System chat: Replaced 1 slot(s) on Bot
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:45] item replace entity Bot container.2 from entity Bot container.50
+log| System chat: The source does not have slot container.50
+### [items.txt:46] item replace entity @a hotbar.1 with minecraft:carrot
+log| System chat: Replaced slot(s) on 2 entities with [Carrot]
+Bot| [system_chat] [Server: Replaced slot(s) on 2 entities with [Carrot]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.multiple.known_item","with":[2,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.carrot"}]}],"color":"white","hover_event":{"id":"minecraft:carrot","action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:47] item fill entity Bot container.* with minecraft:stick 3
+log| System chat: Replaced 36 slot(s) on Bot with [Stick]
+Bot| [system_chat] [Server: Replaced 36 slot(s) on Bot with [Stick]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[36,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.stick"}]}],"color":"white","hover_event":{"id":"minecraft:stick","count":3,"action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:48] item fill entity Bot hotbar.* from entity Bot weapon.mainhand
+log| System chat: Replaced 9 slot(s) on Bot
+Bot| [system_chat] [Server: Replaced 9 slot(s) on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single","with":[9,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:49] item override entity Bot container.0 from entity Bot hotbar.*
+log| System chat: Replaced 1 slot(s) on Bot
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:50] item replace entity @e[type=minecraft:cow] weapon.mainhand with minecraft:stick
+log| System chat: No entity was found
+### [items.txt:51] item replace entity Bot container.5 with minecraft:stick 100
+log| System chat: Integer must not be more than 99: found 100
+log| System chat: ...aft:stick 100<--[HERE]
+### [items.txt:52] item replace entity Bot container.5 with minecraft:stick 0
+log| System chat: Integer must not be less than 1: found 0
+log| System chat: ...aft:stick 0<--[HERE]
+### [items.txt:53] item replace entity Bot container.5 with minecraft:nope
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...er.5 with minecraft:nope<--[HERE]
+### [items.txt:54] item modify entity Bot hotbar.0 minecraft:nope
+log| System chat: Can't find element 'minecraft:nope' in registry 'minecraft:item_modifier'
+log| System chat: ...craft:nope<--[HERE]
+### [items.txt:55] item modify entity Bot weapon.mainhand {"type":"minecraft:set_count","count":7}
+log| System chat: Modified 1 slot(s) on Bot
+Bot| [system_chat] [Server: Modified 1 slot(s) on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.modify.success.single","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:56] item modify entity Bot hotbar.* {"type":"minecraft:set_count","count":2,"add":true}
+log| System chat: Modified 9 slot(s) on Bot
+Bot| [system_chat] [Server: Modified 9 slot(s) on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.modify.success.single","with":[9,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:57] item modify entity Bot hotbar.0 {"type":"minecraft:set_name","name":{"text":"Hi"},"target":"item_name"}
+log| System chat: Modified 1 slot(s) on Bot
+Bot| [system_chat] [Server: Modified 1 slot(s) on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.modify.success.single","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:58] item modify entity Bot container.20 {"type":"minecraft:set_count","count":2}
+log| System chat: Modified 1 slot(s) on Bot
+Bot| [system_chat] [Server: Modified 1 slot(s) on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.modify.success.single","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:59] item modify entity Bot hotbar.0 {"type":"minecraft:nope"}
+log| System chat: Failed to parse structure: Failed to parse either. First: Unknown registry key in ResourceKey[minecraft:root / minecraft:loot_function_type]: minecraft:nope; Second: Failed to parse either. First: Not a string; Second: Failed to parse either. First: Not a list: {type:"minecraft:nope"}; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:loot_function_type]: minecraft:nope
+log| System chat: ...aft:nope"}<--[HERE]
+### [items.txt:60] item modify entity Bot hotbar.0 {"type":"minecraft:set_count","count":"x"}
+log| System chat: Failed to parse structure: Failed to parse either. First: Failed to get element minecraft:x from registry minecraft:context_int_provider; Second: Failed to parse either. First: Not a string; Second: Failed to parse either. First: Not a list: {count:"x",type:"minecraft:set_count"}; Second: Failed to get element minecraft:x from registry minecraft:context_int_provider
+log| System chat: ...ount":"x"}<--[HERE]
+### [items.txt:61] setblock 0 -60 3 minecraft:dropper
+log| System chat: Changed the block at 0, -60, 3
+Bot| [system_chat] [Server: Changed the block at 0, -60, 3]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-60,3]}],"color":"gray","italic":true}
+### [items.txt:62] setblock 0 -60 5 minecraft:stone
+log| System chat: Changed the block at 0, -60, 5
+Bot| [system_chat] [Server: Changed the block at 0, -60, 5]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-60,5]}],"color":"gray","italic":true}
+### [items.txt:63] item replace block 0 -60 3 container.0 with minecraft:diamond 5
+log| System chat: Replaced 1 slot(s) at 0, -60, 3 with [Diamond]
+Bot| [system_chat] [Server: Replaced 1 slot(s) at 0, -60, 3 with [Diamond]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.block.replace.success.known_item","with":[1,0,-60,3,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.diamond"}]}],"color":"white","hover_event":{"id":"minecraft:diamond","count":5,"action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:64] item replace block 0 -60 3 container.1 from entity Bot hotbar.0
+log| System chat: Replaced 1 slot(s) at 0, -60, 3
+Bot| [system_chat] [Server: Replaced 1 slot(s) at 0, -60, 3]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.block.replace.success","with":[1,0,-60,3]}],"color":"gray","italic":true}
+### [items.txt:65] item replace block 0 -60 3 container.8 with minecraft:emerald
+log| System chat: Replaced 1 slot(s) at 0, -60, 3 with [Emerald]
+Bot| [system_chat] [Server: Replaced 1 slot(s) at 0, -60, 3 with [Emerald]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.block.replace.success.known_item","with":[1,0,-60,3,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.emerald"}]}],"color":"white","hover_event":{"id":"minecraft:emerald","action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:66] item replace block 0 -60 3 container.9 with minecraft:emerald
+log| System chat: The target does not have slot container.9
+### [items.txt:67] item replace block 0 -60 3 container.* with minecraft:gold_ingot 2
+log| System chat: Replaced 1 slot(s) at 0, -60, 3 with [Gold Ingot]
+Bot| [system_chat] [Server: Replaced 1 slot(s) at 0, -60, 3 with [Gold Ingot]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.block.replace.success.known_item","with":[1,0,-60,3,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.gold_ingot"}]}],"color":"white","hover_event":{"id":"minecraft:gold_ingot","count":2,"action":"show_item"}}]}],"color":"gray","italic":true}
+### [items.txt:68] item modify block 0 -60 3 container.0 {"type":"minecraft:set_count","count":9}
+log| System chat: Modified 1 slot(s) at 0, -60, 3
+Bot| [system_chat] [Server: Modified 1 slot(s) at 0, -60, 3]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.block.modify.success","with":[1,0,-60,3]}],"color":"gray","italic":true}
+### [items.txt:69] item modify block 0 -60 3 container.* {"type":"minecraft:set_count","count":3,"add":true}
+log| System chat: Modified 3 slot(s) at 0, -60, 3
+Bot| [system_chat] [Server: Modified 3 slot(s) at 0, -60, 3]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.block.modify.success","with":[3,0,-60,3]}],"color":"gray","italic":true}
+### [items.txt:70] item replace block 0 -60 5 container.0 with minecraft:diamond
+log| System chat: Target position 0, -60, 5 is not a container
+### [items.txt:71] item replace block 0 -60 5 container.0 from block 0 -60 3 container.0
+log| System chat: Target position 0, -60, 5 is not a container
+### [items.txt:72] item replace entity Bot hotbar.2 from block 0 -60 3 container.0
+log| System chat: Replaced 1 slot(s) on Bot
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [items.txt:73] item replace entity Bot hotbar.2 from block 0 -60 5 container.0
+log| System chat: Source position 0, -60, 5 is not a container
+### [items.txt:74] item replace block 0 -60 3 container.0 from block 0 -60 3 container.4
+log| System chat: Replaced 1 slot(s) at 0, -60, 3
+Bot| [system_chat] [Server: Replaced 1 slot(s) at 0, -60, 3]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.block.replace.success","with":[1,0,-60,3]}],"color":"gray","italic":true}
+### [items.txt:75] item replace block 500 -60 3 container.0 with minecraft:stick
+log| System chat: That position is not loaded
+### [items.txt:76] loot give Bot loot minecraft:chests/simple_dungeon
+log| System chat: Dropped 10 items
+### [items.txt:77] loot give Bot loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:diamond","functions":[{"type":"minecraft:set_count","count":3}]}]}]}
+log| System chat: Dropped 1 [Diamond]
+### [items.txt:78] loot give @a loot nope:table
+log| System chat: Can't find element 'nope:table' in registry 'minecraft:loot_table'
+log| System chat: ...nope:table<--[HERE]
+### [items.txt:79] loot give Bot loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]},{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:stick"}]}]}
+log| System chat: Dropped 2 items
+### [items.txt:80] loot give Bot loot {"pools":[]}
+log| System chat: Dropped 0 items
+### [items.txt:81] loot spawn 0 -59 8 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]}]}
+log| System chat: Dropped 1 [Apple]
+### [items.txt:82] loot spawn 0 -59 8 mine 0 -60 5
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [items.txt:83] loot spawn 0 -59 8 mine 0 -60 5 minecraft:diamond_pickaxe
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [items.txt:84] loot spawn 0 -59 8 mine 0 -60 5 mainhand
+log| System chat: An entity is required to run this command here
+### [items.txt:85] @bot loot spawn 0 -59 8 mine 0 -60 5 mainhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [items.txt:86] @bot loot spawn 0 -59 8 mine 0 -60 5 offhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [items.txt:87] loot spawn 0 -59 8 mine 0 -60 3
+log| System chat: Dropped 1 [Dropper] from loot table minecraft:blocks/dropper
+### [items.txt:88] loot insert 0 -60 3 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]}]}
+log| System chat: Dropped 1 [Apple]
+### [items.txt:89] loot insert 0 -60 5 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]}]}
+log| System chat: Target position 0, -60, 5 is not a container
+### [items.txt:90] loot replace block 0 -60 3 container.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 1 [Cookie]
+### [items.txt:91] loot replace block 0 -60 3 container.0 3 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 3 items
+### [items.txt:92] loot replace block 0 -60 3 container.30 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: The target does not have slot 30
+### [items.txt:93] loot replace block 0 -60 5 container.0 loot {"pools":[]}
+log| System chat: Target position 0, -60, 5 is not a container
+### [items.txt:94] loot replace entity Bot hotbar.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 1 [Cookie]
+### [items.txt:95] loot replace entity Bot hotbar.0 4 loot {"pools":[{"rolls":2,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 4 items
+### [items.txt:96] loot replace entity Bot armor.head loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:iron_helmet"}]}]}
+log| System chat: Dropped 1 [Iron Helmet]
+### [items.txt:97] loot replace entity @e[type=minecraft:cow] weapon.mainhand loot {"pools":[]}
+log| System chat: No entity was found
+### [items.txt:98] loot spawn 0 -59 8 kill @e[type=minecraft:cow]
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: loot spawn 0 -59 8 kill @e[type=minecraft:cow]<--[HERE]
+### [items.txt:99] loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]} 0 -60 0
+log| System chat: Dropped 1 [Raw Cod]
+### [items.txt:100] loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]} 0 -60 0 minecraft:fishing_rod
+log| System chat: Dropped 1 [Raw Cod]
+### [items.txt:101] loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]} 0 -60 0 mainhand
+log| System chat: An entity is required to run this command here
+### [items.txt:102] @bot loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]} 0 -60 0 mainhand
+Bot| [system_chat] Dropped 1 [Raw Cod]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cod"}]}],"color":"white","hover_event":{"id":"minecraft:cod","action":"show_item"}}]}
+### [items.txt:103] loot give Bot loot minecraft:chests/nope
+log| System chat: Can't find element 'minecraft:chests/nope' in registry 'minecraft:loot_table'
+log| System chat: ...hests/nope<--[HERE]
+### [items.txt:104] loot give Bot mine 0 -60 5 minecraft:stick
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [items.txt:105] loot give Bot
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...t give Bot<--[HERE]
+### [items.txt:106] loot nope
+log| System chat: Incorrect argument for command
+log| System chat: loot nope<--[HERE]

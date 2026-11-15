@@ -1,0 +1,105 @@
+### [worldedit_normal.txt:5] locate biome minecraft:plains
+log| System chat: The nearest minecraft:plains is at [-288, 145, 352] (543 blocks away)
+log| Locating element minecraft:plains took <N> ms
+### [worldedit_normal.txt:6] locate biome minecraft:forest
+log| System chat: The nearest minecraft:forest is at [-224, 145, 288] (452 blocks away)
+log| Locating element minecraft:forest took <N> ms
+### [worldedit_normal.txt:7] locate biome minecraft:desert
+log| System chat: The nearest minecraft:desert is at [-2208, 145, 640] (2400 blocks away)
+log| Locating element minecraft:desert took <N> ms
+### [worldedit_normal.txt:8] locate biome minecraft:ocean
+log| System chat: The nearest minecraft:ocean is at [64, 145, 0] (45 blocks away)
+log| Locating element minecraft:ocean took <N> ms
+### [worldedit_normal.txt:9] locate biome minecraft:deep_dark
+log| System chat: The nearest minecraft:deep_dark is at [96, -47, -32] (192 blocks away)
+log| Locating element minecraft:deep_dark took <N> ms
+### [worldedit_normal.txt:10] locate biome minecraft:cherry_grove
+log| System chat: The nearest minecraft:cherry_grove is at [-416, 145, 768] (949 blocks away)
+log| Locating element minecraft:cherry_grove took <N> ms
+### [worldedit_normal.txt:11] locate biome minecraft:lush_caves
+log| System chat: The nearest minecraft:lush_caves is at [96, 81, -32] (64 blocks away)
+log| Locating element minecraft:lush_caves took <N> ms
+### [worldedit_normal.txt:12] locate biome #minecraft:is_ocean
+log| System chat: The nearest #minecraft:is_ocean (minecraft:ocean) is at [64, 145, 0] (45 blocks away)
+log| Locating element #minecraft:is_ocean (minecraft:ocean) took <N> ms
+### [worldedit_normal.txt:13] locate biome #minecraft:is_forest
+log| System chat: The nearest #minecraft:is_forest (minecraft:dark_forest) is at [96, 145, -32] (0 blocks away)
+log| Locating element #minecraft:is_forest (minecraft:dark_forest) took <N> ms
+### [worldedit_normal.txt:14] locate biome minecraft:the_void
+log| System chat: Could not find a biome of type "minecraft:the_void" within a reasonable distance
+### [worldedit_normal.txt:15] locate biome minecraft:nether_wastes
+log| System chat: Could not find a biome of type "minecraft:nether_wastes" within a reasonable distance
+### [worldedit_normal.txt:16] locate structure minecraft:village_plains
+log| System chat: The nearest minecraft:village_plains is at [-144, ~, -832] (835 blocks away)
+log| Locating element minecraft:village_plains took <N> ms
+### [worldedit_normal.txt:17] locate structure minecraft:village_desert
+log| System chat: The nearest minecraft:village_desert is at [-2336, ~, 592] (2510 blocks away)
+log| Locating element minecraft:village_desert took <N> ms
+### [worldedit_normal.txt:18] locate structure minecraft:stronghold
+log| System chat: The nearest minecraft:stronghold is at [1760, ~, 368] (1711 blocks away)
+log| Locating element minecraft:stronghold took <N> ms
+### [worldedit_normal.txt:19] locate structure minecraft:ancient_city
+log| System chat: The nearest minecraft:ancient_city is at [176, ~, -176] (164 blocks away)
+log| Locating element minecraft:ancient_city took <N> ms
+### [worldedit_normal.txt:20] locate structure minecraft:mansion
+log| System chat: The nearest minecraft:mansion is at [4656, ~, 7056] (8428 blocks away)
+log| Locating element minecraft:mansion took <N> ms
+### [worldedit_normal.txt:21] locate structure minecraft:monument
+log| System chat: The nearest minecraft:monument is at [608, ~, -1840] (1879 blocks away)
+log| Locating element minecraft:monument took <N> ms
+### [worldedit_normal.txt:22] locate structure minecraft:mineshaft
+log| System chat: The nearest minecraft:mineshaft is at [64, ~, -16] (35 blocks away)
+log| Locating element minecraft:mineshaft took <N> ms
+### [worldedit_normal.txt:23] locate structure minecraft:buried_treasure
+log| System chat: The nearest minecraft:buried_treasure is at [761, ~, 409] (797 blocks away)
+log| Locating element minecraft:buried_treasure took <N> ms
+### [worldedit_normal.txt:24] locate structure minecraft:shipwreck
+log| System chat: The nearest minecraft:shipwreck is at [-128, ~, 32] (232 blocks away)
+log| Locating element minecraft:shipwreck took <N> ms
+### [worldedit_normal.txt:25] locate structure minecraft:pillager_outpost
+log| System chat: The nearest minecraft:pillager_outpost is at [272, ~, -960] (944 blocks away)
+log| Locating element minecraft:pillager_outpost took <N> ms
+### [worldedit_normal.txt:26] locate structure minecraft:trial_chambers
+log| System chat: The nearest minecraft:trial_chambers is at [128, ~, -528] (497 blocks away)
+log| Locating element minecraft:trial_chambers took <N> ms
+### [worldedit_normal.txt:27] locate structure #minecraft:village
+log| System chat: The nearest #minecraft:village (minecraft:village_plains) is at [-144, ~, -832] (835 blocks away)
+log| Locating element #minecraft:village (minecraft:village_plains) took <N> ms
+### [worldedit_normal.txt:28] locate structure #minecraft:ruined_portal
+log| System chat: The nearest #minecraft:ruined_portal (minecraft:ruined_portal) is at [0, ~, -288] (273 blocks away)
+log| Locating element #minecraft:ruined_portal (minecraft:ruined_portal) took <N> ms
+### [worldedit_normal.txt:29] locate structure #minecraft:on_treasure_maps
+log| System chat: The nearest #minecraft:on_treasure_maps (minecraft:buried_treasure) is at [761, ~, 409] (797 blocks away)
+log| Locating element #minecraft:on_treasure_maps (minecraft:buried_treasure) took <N> ms
+### [worldedit_normal.txt:30] locate structure #minecraft:eye_of_ender_located
+log| System chat: The nearest #minecraft:eye_of_ender_located (minecraft:stronghold) is at [1760, ~, 368] (1711 blocks away)
+log| Locating element #minecraft:eye_of_ender_located (minecraft:stronghold) took <N> ms
+### [worldedit_normal.txt:31] locate structure minecraft:fortress
+log| System chat: Could not find a structure of type "minecraft:fortress" nearby
+### [worldedit_normal.txt:32] locate structure minecraft:nothing
+log| System chat: There is no structure with type "minecraft:nothing"
+### [worldedit_normal.txt:33] @bot locate structure minecraft:village_plains
+log| Locating element minecraft:village_plains took <N> ms
+Bot| [system_chat] The nearest minecraft:village_plains is at [160, ~, 880] (894 blocks away)
+Bot|   json {"translate":"commands.locate.structure.success","with":["minecraft:village_plains",{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[160,"~",880]}],"color":"green","click_event":{"command":"/tp @s 160 ~ 880","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},894]}
+### [worldedit_normal.txt:34] @bot locate biome minecraft:forest
+log| Locating element minecraft:forest took <N> ms
+Bot| [system_chat] The nearest minecraft:forest is at [-256, 4, 256] (367 blocks away)
+Bot|   json {"translate":"commands.locate.biome.success","with":["minecraft:forest",{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[-256,"4",256]}],"color":"green","click_event":{"command":"/tp @s -256 4 256","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},367]}
+### [worldedit_normal.txt:35] tp @a 1000 100 -2000
+log| System chat: Teleported 2 entities to 1000.500000, 100.000000, -1999.500000
+Bot| [system_chat] [Server: Teleported 2 entities to 1000.500000, 100.000000, -1999.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.multiple","with":[2,"1000.500000","100.000000","-1999.500000"]}],"color":"gray","italic":true}
+### [worldedit_normal.txt:36] locate biome minecraft:forest
+log| System chat: The nearest minecraft:forest is at [-224, 145, 288] (452 blocks away)
+log| Locating element minecraft:forest took <N> ms
+### [worldedit_normal.txt:37] locate structure minecraft:village_plains
+log| System chat: The nearest minecraft:village_plains is at [-144, ~, -832] (835 blocks away)
+log| Locating element minecraft:village_plains took <N> ms
+### [worldedit_normal.txt:38] locate structure #minecraft:village
+log| System chat: The nearest #minecraft:village (minecraft:village_plains) is at [-144, ~, -832] (835 blocks away)
+log| Locating element #minecraft:village (minecraft:village_plains) took <N> ms
+### [worldedit_normal.txt:39] locate poi minecraft:librarian
+log| System chat: Could not find a point of interest of type "minecraft:librarian" within a reasonable distance
+### [worldedit_normal.txt:40] locate poi #minecraft:acquirable_job_site
+log| System chat: Could not find a point of interest of type "#minecraft:acquirable_job_site" within a reasonable distance

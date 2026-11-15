@@ -1,0 +1,821 @@
+### [entity_commands.txt:10] gamerule send_command_feedback true
+log| System chat: Game rule send_command_feedback is already set to true
+### [entity_commands.txt:11] tp Bot 0.5 -60 0.5
+log| System chat: Teleported Bot to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Bot to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [entity_commands.txt:13] summon minecraft:cow 5 -60 5
+log| System chat: Summoned new Cow
+Bot| [system_chat] [Server: Summoned new Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:14] summon minecraft:cow 7 -60 5 {CustomName:Bob,Rotation:[30.0f,10.0f],NoAI:1b}
+log| System chat: Summoned new Bob
+Bot| [system_chat] [Server: Summoned new Bob]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"text":"Bob","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":"Bob","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:15] data get entity @e[type=minecraft:cow,limit=1,sort=nearest,x=7,y=-60,z=5] Pos
+log| System chat: Bob has the following entity data: [7.5d, -60.0d, 5.5d]
+### [entity_commands.txt:16] data get entity @e[type=minecraft:cow,limit=1,sort=nearest,x=7,y=-60,z=5] Rotation
+log| System chat: Bob has the following entity data: [30.0f, 10.0f]
+### [entity_commands.txt:17] summon minecraft:cow 9 -60 5 {UUID:[I;1,2,3,4],NoAI:1b}
+log| System chat: Summoned new Cow
+Bot| [system_chat] [Server: Summoned new Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:18] summon minecraft:cow 9 -60 5 {UUID:[I;1,2,3,4]}
+log| System chat: Unable to summon entity due to duplicate UUIDs
+### [entity_commands.txt:19] summon minecraft:player
+log| System chat: Can't summon entity of type minecraft:player
+### [entity_commands.txt:20] summon minecraft:nothing
+log| System chat: Can't find element 'minecraft:nothing' of type 'minecraft:entity_type'
+log| System chat: ...ft:nothing<--[HERE]
+### [entity_commands.txt:21] summon minecraft:cow 0 30000000 0
+log| System chat: Invalid position for summon
+### [entity_commands.txt:22] summon minecraft:pig 3 -60 3 {NoAI:1b,Passengers:[{id:"minecraft:chicken",NoAI:1b}]}
+log| System chat: Summoned new Pig
+Bot| [system_chat] [Server: Summoned new Pig]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.pig","hover_event":{"id":"minecraft:pig","uuid":[<UUID>],"name":{"translate":"entity.minecraft.pig"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:23] data get entity @e[type=minecraft:chicken,limit=1] Pos
+log| System chat: Chicken has the following entity data: [3.5d, -59.13125002384186d, 3.5d]
+### [entity_commands.txt:24] summon minecraft:armor_stand 11 -60 5 {NoGravity:1b,Invisible:1b}
+log| System chat: Summoned new Armor Stand
+Bot| [system_chat] [Server: Summoned new Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:25] summon minecraft:zombie 13 -60 5 {NoAI:1b}
+log| System chat: Monsters cannot be summoned in Peaceful difficulty
+### [entity_commands.txt:26] data get entity @e[type=minecraft:zombie,limit=1] Health
+log| System chat: No entity was found
+### [entity_commands.txt:27] @bot0 summon minecraft:cow
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] summon minecraft:cow<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"summon minecraft:cow","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/summon minecraft:cow","action":"suggest_command"}}],"color":"red"}
+### [entity_commands.txt:29] kill @e[type=minecraft:armor_stand]
+log| System chat: Killed Armor Stand
+Bot| [system_chat] [Server: Killed Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:30] kill @e[type=minecraft:armor_stand]
+log| System chat: No entity was found
+### [entity_commands.txt:32] kill @e[type=minecraft:cow,name=Bob]
+log| Named entity Cow['Bob'/4, l='ServerLevel[world]', x=7.50, y=-60.00, z=5.50] died: Bob was killed
+log| System chat: Killed Bob
+Bot| [system_chat] [Server: Killed Bob]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"text":"Bob","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":"Bob","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:33] kill @e[type=minecraft:zombie]
+log| System chat: No entity was found
+### [entity_commands.txt:34] kill @e[type=minecraft:pig]
+log| System chat: Killed Pig
+Bot| [system_chat] [Server: Killed Pig]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"translate":"entity.minecraft.pig","hover_event":{"id":"minecraft:pig","uuid":[<UUID>],"name":{"translate":"entity.minecraft.pig"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:35] kill @e[type=minecraft:chicken]
+log| System chat: Killed Chicken
+Bot| [system_chat] [Server: Killed Chicken]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"translate":"entity.minecraft.chicken","hover_event":{"id":"minecraft:chicken","uuid":[<UUID>],"name":{"translate":"entity.minecraft.chicken"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:36] kill @e[type=minecraft:cow]
+log| System chat: Killed 2 entities
+Bot| [system_chat] [Server: Killed 2 entities]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.multiple","with":[2]}],"color":"gray","italic":true}
+### [entity_commands.txt:37] @bot kill
+log| System chat: Bot was killed
+log| System chat: [Bot: Killed Bot]
+Bot| [system_chat] Bot was killed
+Bot|   json {"translate":"death.attack.genericKill","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+Bot| [system_chat] Killed Bot
+Bot|   json {"translate":"commands.kill.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+Bot0| [system_chat] Bot was killed
+Bot0|   json {"translate":"death.attack.genericKill","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [entity_commands.txt:41] tp Bot 0.5 -60 0.5 0 0
+log| System chat: Teleported Bot to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Bot to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [entity_commands.txt:42] @bot0 kill @e[type=minecraft:cow]
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] kill @e[type=minecraft:cow]<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"kill @e[type=minecraft:cow]","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/kill @e[type=minecraft:cow]","action":"suggest_command"}}],"color":"red"}
+### [entity_commands.txt:44] summon minecraft:zombie 5 -60 8 {NoAI:1b,PersistenceRequired:1b}
+log| System chat: Monsters cannot be summoned in Peaceful difficulty
+### [entity_commands.txt:45] damage @e[type=minecraft:zombie,limit=1] 5
+log| System chat: No entity was found
+### [entity_commands.txt:46] data get entity @e[type=minecraft:zombie,limit=1] Health
+log| System chat: No entity was found
+### [entity_commands.txt:47] damage @e[type=minecraft:zombie,limit=1] 1
+log| System chat: No entity was found
+### [entity_commands.txt:48] damage @e[type=minecraft:zombie,limit=1] 8 minecraft:magic
+log| System chat: No entity was found
+### [entity_commands.txt:49] damage @e[type=minecraft:zombie,limit=1] 1 minecraft:explosion at 5 -60 8
+log| System chat: No entity was found
+### [entity_commands.txt:50] damage @e[type=minecraft:zombie,limit=1] 20 minecraft:player_attack by Bot
+log| System chat: No entity was found
+### [entity_commands.txt:51] damage @e[type=minecraft:zombie,limit=1] 1 minecraft:arrow by Bot from Bot
+log| System chat: No entity was found
+### [entity_commands.txt:52] damage Bot -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...amage Bot -1<--[HERE]
+### [entity_commands.txt:53] damage @e[type=minecraft:zombie,limit=1] 1 minecraft:nothing
+log| System chat: Can't find element 'minecraft:nothing' of type 'minecraft:damage_type'
+log| System chat: ...ft:nothing<--[HERE]
+### [entity_commands.txt:54] summon minecraft:armor_stand 5 -60 10
+log| System chat: Summoned new Armor Stand
+Bot| [system_chat] [Server: Summoned new Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:55] damage @e[type=minecraft:armor_stand,limit=1] 1
+log| System chat: Target is invulnerable to the given damage type
+### [entity_commands.txt:56] kill @e[type=minecraft:armor_stand]
+log| System chat: Killed Armor Stand
+Bot| [system_chat] [Server: Killed Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:57] kill @e[type=minecraft:zombie]
+log| System chat: No entity was found
+### [entity_commands.txt:58] @bot0 damage Bot0 1
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] damage Bot0 1<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"damage Bot0 1","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/damage Bot0 1","action":"suggest_command"}}],"color":"red"}
+### [entity_commands.txt:60] gamemode survival Bot
+log| System chat: Set Bot's game mode to Survival Mode
+Bot| [system_chat] Your game mode has been updated to Survival Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.survival"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Survival Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.survival"}]}],"color":"gray","italic":true}
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+Bot| packet game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 0.0 })
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+### [entity_commands.txt:61] effect give Bot minecraft:speed 10 1
+log| System chat: Applied effect Speed to Bot
+Bot| [system_chat] [Server: Applied effect Speed to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.give.success.single","with":[{"translate":"effect.minecraft.speed"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},10]}],"color":"gray","italic":true}
+Bot| packet update_mob_effect UpdateMobEffect(ClientboundUpdateMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:speed), effect_amplifier: 1, effect_duration_ticks: 200, flags: 14 })
+### [entity_commands.txt:62] effect give Bot minecraft:speed 10 1
+log| System chat: Applied effect Speed to Bot
+Bot| [system_chat] [Server: Applied effect Speed to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.give.success.single","with":[{"translate":"effect.minecraft.speed"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},10]}],"color":"gray","italic":true}
+Bot| packet update_mob_effect UpdateMobEffect(ClientboundUpdateMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:speed), effect_amplifier: 1, effect_duration_ticks: 200, flags: 6 })
+### [entity_commands.txt:63] effect give Bot minecraft:speed
+log| System chat: Unable to apply this effect (target is either immune to effects, or has something stronger)
+### [entity_commands.txt:64] effect give Bot minecraft:slowness 600 2 true
+log| System chat: Applied effect Slowness to Bot
+Bot| [system_chat] [Server: Applied effect Slowness to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.give.success.single","with":[{"translate":"effect.minecraft.slowness"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},600]}],"color":"gray","italic":true}
+Bot| packet update_mob_effect UpdateMobEffect(ClientboundUpdateMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:slowness), effect_amplifier: 2, effect_duration_ticks: 12000, flags: 8 })
+### [entity_commands.txt:65] effect give Bot minecraft:glowing infinite
+log| System chat: Applied effect Glowing to Bot
+Bot| [system_chat] [Server: Applied effect Glowing to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.give.success.single","with":[{"translate":"effect.minecraft.glowing"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},0]}],"color":"gray","italic":true}
+Bot| packet update_mob_effect UpdateMobEffect(ClientboundUpdateMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:glowing), effect_amplifier: 0, effect_duration_ticks: -1, flags: 14 })
+### [entity_commands.txt:66] effect give Bot minecraft:regeneration infinite 3 true
+log| System chat: Applied effect Regeneration to Bot
+Bot| [system_chat] [Server: Applied effect Regeneration to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.give.success.single","with":[{"translate":"effect.minecraft.regeneration"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},0]}],"color":"gray","italic":true}
+Bot| packet update_mob_effect UpdateMobEffect(ClientboundUpdateMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:regeneration), effect_amplifier: 3, effect_duration_ticks: -1, flags: 8 })
+### [entity_commands.txt:67] effect give Bot minecraft:instant_health
+log| System chat: Applied effect Instant Health to Bot
+Bot| [system_chat] [Server: Applied effect Instant Health to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.give.success.single","with":[{"translate":"effect.minecraft.instant_health"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},0]}],"color":"gray","italic":true}
+Bot| packet update_mob_effect UpdateMobEffect(ClientboundUpdateMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:instant_health), effect_amplifier: 0, effect_duration_ticks: 1, flags: 14 })
+### [entity_commands.txt:68] effect give Bot minecraft:speed 1 256
+log| System chat: Integer must not be more than 255: found 256
+log| System chat: ...t:speed 1 256<--[HERE]
+Bot| packet remove_mob_effect RemoveMobEffect(ClientboundRemoveMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:instant_health) })
+### [entity_commands.txt:69] effect give Bot minecraft:speed 0
+log| System chat: Integer must not be less than 1: found 0
+log| System chat: ...aft:speed 0<--[HERE]
+### [entity_commands.txt:70] effect give Bot minecraft:nothing
+log| System chat: Can't find element 'minecraft:nothing' of type 'minecraft:mob_effect'
+log| System chat: ...ft:nothing<--[HERE]
+### [entity_commands.txt:71] data get entity Bot active_effects[{id:"minecraft:glowing"}]
+log| System chat: Bot has the following entity data: {duration: -1, show_icon: 1b, id: "minecraft:glowing"}
+### [entity_commands.txt:72] data get entity Bot active_effects[{id:"minecraft:regeneration"}]
+log| System chat: Bot has the following entity data: {duration: -1, show_icon: 0b, amplifier: 3b, id: "minecraft:regeneration", show_particles: 0b}
+### [entity_commands.txt:73] effect clear Bot minecraft:speed
+log| System chat: Removed effect Speed from Bot
+Bot| [system_chat] [Server: Removed effect Speed from Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.clear.specific.success.single","with":[{"translate":"effect.minecraft.speed"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet remove_mob_effect RemoveMobEffect(ClientboundRemoveMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:speed) })
+### [entity_commands.txt:74] effect clear Bot minecraft:speed
+log| System chat: Target doesn't have the requested effect
+### [entity_commands.txt:75] effect clear Bot
+log| System chat: Removed every effect from Bot
+Bot| [system_chat] [Server: Removed every effect from Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.clear.everything.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet remove_mob_effect RemoveMobEffect(ClientboundRemoveMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:glowing) })
+Bot| packet remove_mob_effect RemoveMobEffect(ClientboundRemoveMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:regeneration) })
+Bot| packet remove_mob_effect RemoveMobEffect(ClientboundRemoveMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:slowness) })
+### [entity_commands.txt:76] effect clear Bot
+log| System chat: Target has no effects to remove
+### [entity_commands.txt:77] effect give @e[type=minecraft:cow] minecraft:speed
+log| System chat: No entity was found
+### [entity_commands.txt:78] effect give @a minecraft:night_vision 30
+log| System chat: Applied effect Night Vision to 2 targets
+Bot| [system_chat] [Server: Applied effect Night Vision to 2 targets]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.give.success.multiple","with":[{"translate":"effect.minecraft.night_vision"},2,30]}],"color":"gray","italic":true}
+Bot0| packet update_mob_effect UpdateMobEffect(ClientboundUpdateMobEffectPacket { entity_id: 2, effect: MobEffect(minecraft:night_vision), effect_amplifier: 0, effect_duration_ticks: 600, flags: 14 })
+Bot| packet update_mob_effect UpdateMobEffect(ClientboundUpdateMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:night_vision), effect_amplifier: 0, effect_duration_ticks: 600, flags: 14 })
+### [entity_commands.txt:79] @bot effect clear
+log| System chat: [Bot: Removed every effect from Bot]
+Bot| [system_chat] Removed every effect from Bot
+Bot|   json {"translate":"commands.effect.clear.everything.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+Bot| packet remove_mob_effect RemoveMobEffect(ClientboundRemoveMobEffectPacket { entity_id: 1, effect: MobEffect(minecraft:night_vision) })
+### [entity_commands.txt:80] @bot0 effect give Bot0 minecraft:speed
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] effect give Bot0 minecraft:speed<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"effect give Bot0 minecraft:speed","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/effect give Bot0 minecraft:speed","action":"suggest_command"}}],"color":"red"}
+### [entity_commands.txt:82] attribute Bot minecraft:max_health get
+log| System chat: The value of attribute Max Health for entity Bot is 20.0
+### [entity_commands.txt:83] attribute Bot minecraft:max_health get 2.5
+log| System chat: The value of attribute Max Health for entity Bot is 20.0
+### [entity_commands.txt:84] attribute Bot minecraft:max_health base get
+log| System chat: The base value of attribute Max Health for entity Bot is 20.0
+### [entity_commands.txt:85] attribute Bot minecraft:max_health base set 30
+log| System chat: The base value for attribute Max Health for entity Bot set to 30.0
+### [entity_commands.txt:86] attribute Bot minecraft:max_health base get
+log| System chat: The base value of attribute Max Health for entity Bot is 30.0
+### [entity_commands.txt:87] attribute Bot minecraft:max_health base reset
+log| System chat: The base value for attribute Max Health for entity Bot reset to default 20.0
+### [entity_commands.txt:88] attribute Bot minecraft:armor modifier add test:a 2 add_value
+log| System chat: Added modifier test:a to attribute Armor for entity Bot
+### [entity_commands.txt:89] attribute Bot minecraft:armor modifier add test:a 2 add_value
+log| System chat: Modifier test:a is already present on attribute Armor for entity Bot
+### [entity_commands.txt:90] attribute Bot minecraft:armor modifier add test:b 0.5 add_multiplied_total
+log| System chat: Added modifier test:b to attribute Armor for entity Bot
+### [entity_commands.txt:91] attribute Bot minecraft:armor modifier add test:c 0.25 add_multiplied_base
+log| System chat: Added modifier test:c to attribute Armor for entity Bot
+### [entity_commands.txt:92] attribute Bot minecraft:armor get
+log| System chat: The value of attribute Armor for entity Bot is 3.75
+### [entity_commands.txt:93] attribute Bot minecraft:armor modifier value get test:b
+log| System chat: The value of modifier test:b on attribute Armor for entity Bot is 0.5
+### [entity_commands.txt:94] attribute Bot minecraft:armor modifier value get test:b 4
+log| System chat: The value of modifier test:b on attribute Armor for entity Bot is 0.5
+### [entity_commands.txt:95] attribute Bot minecraft:armor modifier value get test:zzz
+log| System chat: Attribute Armor for entity Bot has no modifier test:zzz
+### [entity_commands.txt:96] attribute Bot minecraft:armor modifier remove test:a
+log| System chat: Removed modifier test:a from attribute Armor for entity Bot
+### [entity_commands.txt:97] attribute Bot minecraft:armor modifier remove test:a
+log| System chat: Attribute Armor for entity Bot has no modifier test:a
+### [entity_commands.txt:98] attribute Bot minecraft:flying_speed get
+log| System chat: Entity Bot has no attribute Flying Speed
+### [entity_commands.txt:99] attribute Bot minecraft:flying_speed base reset
+log| System chat: Entity Bot has no attribute Flying Speed
+### [entity_commands.txt:100] attribute Bot minecraft:armor base set 1.5
+log| System chat: The base value for attribute Armor for entity Bot set to 1.5
+### [entity_commands.txt:101] data get entity Bot attributes[{id:"minecraft:armor"}]
+log| System chat: Bot has the following entity data: {id: "minecraft:armor", modifiers: [{amount: 0.5d, id: "test:b", operation: "add_multiplied_total"}, {amount: 0.25d, id: "test:c", operation: "add_multiplied_base"}], base: 1.5d}
+### [entity_commands.txt:102] summon minecraft:cow 5 -60 5 {NoAI:1b}
+log| System chat: Summoned new Cow
+Bot| [system_chat] [Server: Summoned new Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:103] attribute @e[type=minecraft:cow,limit=1] minecraft:max_health get
+log| System chat: The value of attribute Max Health for entity Cow is 10.0
+### [entity_commands.txt:104] attribute @e[type=minecraft:cow,limit=1] minecraft:max_health base set 3
+log| System chat: The base value for attribute Max Health for entity Cow set to 3.0
+### [entity_commands.txt:105] attribute @e[type=minecraft:cow,limit=1] minecraft:nothing get
+log| System chat: Can't find element 'minecraft:nothing' of type 'minecraft:attribute'
+log| System chat: ...ft:nothing get<--[HERE]
+### [entity_commands.txt:106] attribute @e[type=minecraft:cow,limit=1] minecraft:attack_damage get
+log| System chat: Entity Cow has no attribute Attack Damage
+### [entity_commands.txt:107] attribute @e[type=minecraft:cow,limit=1] minecraft:max_health modifier add test:x 1 add_value
+log| System chat: Added modifier test:x to attribute Max Health for entity Cow
+### [entity_commands.txt:108] attribute @e[type=minecraft:cow,limit=1] minecraft:max_health modifier remove test:x
+log| System chat: Removed modifier test:x from attribute Max Health for entity Cow
+### [entity_commands.txt:109] kill @e[type=minecraft:cow]
+log| System chat: Killed Cow
+Bot| [system_chat] [Server: Killed Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:110] attribute @e[type=minecraft:cow] minecraft:max_health get
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: attribute @e[type=minecraft:cow] minecraft:max_health get<--[HERE]
+### [entity_commands.txt:111] @bot0 attribute Bot0 minecraft:max_health get
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] attribute Bot0 minecraft:max_health get<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"attribute Bot0 minecraft:max_health get","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/attribute Bot0 minecraft:max_health get","action":"suggest_command"}}],"color":"red"}
+### [entity_commands.txt:113] give Bot minecraft:diamond_sword
+log| System chat: Gave 1 [Diamond Sword] to Bot
+Bot| [system_chat] [Server: Gave 1 [Diamond Sword] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.diamond_sword"}]}],"color":"white","hover_event":{"id":"minecraft:diamond_sword","action":"show_item"}},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:114] item replace entity Bot weapon.mainhand with minecraft:diamond_sword
+log| System chat: Replaced 1 slot(s) on Bot with [Diamond Sword]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Diamond Sword]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.diamond_sword"}]}],"color":"white","hover_event":{"id":"minecraft:diamond_sword","action":"show_item"}}]}],"color":"gray","italic":true}
+### [entity_commands.txt:115] enchant Bot minecraft:sharpness 3
+log| System chat: Applied enchantment Sharpness III to Bot's item
+Bot| [system_chat] [Server: Applied enchantment Sharpness III to Bot's item]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.enchant.success.single","with":[{"translate":"enchantment.minecraft.sharpness","extra":[" ",{"translate":"enchantment.level.3"}],"color":"gray"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:116] enchant Bot minecraft:sharpness
+log| System chat: Diamond Sword cannot support that enchantment
+### [entity_commands.txt:117] enchant Bot minecraft:sharpness 6
+log| System chat: 6 is higher than the maximum level of 5 supported by that enchantment
+### [entity_commands.txt:118] enchant Bot minecraft:smite
+log| System chat: Diamond Sword cannot support that enchantment
+### [entity_commands.txt:119] enchant Bot minecraft:protection
+log| System chat: Diamond Sword cannot support that enchantment
+### [entity_commands.txt:120] enchant Bot minecraft:unbreaking 0
+log| System chat: Applied enchantment Unbreaking enchantment.level.0 to Bot's item
+Bot| [system_chat] [Server: Applied enchantment Unbreaking enchantment.level.0 to Bot's item]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.enchant.success.single","with":[{"translate":"enchantment.minecraft.unbreaking","extra":[" ",{"translate":"enchantment.level.0"}],"color":"gray"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:121] enchant Bot minecraft:nothing
+log| System chat: Can't find element 'minecraft:nothing' of type 'minecraft:enchantment'
+log| System chat: ...ft:nothing<--[HERE]
+### [entity_commands.txt:122] data get entity Bot SelectedItem
+log| System chat: Bot has the following entity data: {components: {"minecraft:enchantments": {"minecraft:sharpness": 3}}, count: 1, id: "minecraft:diamond_sword"}
+### [entity_commands.txt:123] item replace entity Bot weapon.mainhand with minecraft:stone
+log| System chat: Replaced 1 slot(s) on Bot with [Stone]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Stone]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.stone"}]}],"color":"white","hover_event":{"id":"minecraft:stone","action":"show_item"}}]}],"color":"gray","italic":true}
+### [entity_commands.txt:124] enchant Bot minecraft:sharpness
+log| System chat: Stone cannot support that enchantment
+### [entity_commands.txt:125] item replace entity Bot weapon.mainhand with minecraft:air
+log| System chat: Replaced 1 slot(s) on Bot with [Air]
+Bot| [system_chat] [Server: Replaced 1 slot(s) on Bot with [Air]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.item.entity.replace.success.single.known_item","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.air"}]}]}]}],"color":"gray","italic":true}
+### [entity_commands.txt:126] enchant Bot minecraft:sharpness
+log| System chat: Bot is not holding any item
+### [entity_commands.txt:127] enchant @a minecraft:sharpness
+log| System chat: Nothing changed. Targets either have no item in their hands or the enchantment could not be applied
+### [entity_commands.txt:128] summon minecraft:cow 5 -60 5 {NoAI:1b}
+log| System chat: Summoned new Cow
+Bot| [system_chat] [Server: Summoned new Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:129] enchant @e[type=minecraft:cow,limit=1] minecraft:sharpness
+log| System chat: Cow is not holding any item
+### [entity_commands.txt:130] enchant @e[type=minecraft:cow] minecraft:sharpness
+log| System chat: Cow is not holding any item
+### [entity_commands.txt:131] kill @e[type=minecraft:cow]
+log| System chat: Killed Cow
+Bot| [system_chat] [Server: Killed Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:132] @bot0 enchant Bot0 minecraft:sharpness
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] enchant Bot0 minecraft:sharpness<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"enchant Bot0 minecraft:sharpness","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/enchant Bot0 minecraft:sharpness","action":"suggest_command"}}],"color":"red"}
+### [entity_commands.txt:134] experience add Bot 10
+log| System chat: Gave 10 experience points to Bot
+Bot| [system_chat] [Server: Gave 10 experience points to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.add.points.success.single","with":[10,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:135] experience query Bot points
+log| System chat: Bot has 3 experience points
+Bot| packet set_experience SetExperience(ClientboundSetExperiencePacket { experience_progress: 0.33333337, experience_level: 1, total_experience: 10 })
+### [entity_commands.txt:136] experience query Bot levels
+log| System chat: Bot has 1 experience levels
+### [entity_commands.txt:137] xp add Bot 3 levels
+log| System chat: Gave 3 experience levels to Bot
+Bot| [system_chat] [Server: Gave 3 experience levels to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.add.levels.success.single","with":[3,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:138] xp query Bot levels
+log| System chat: Bot has 4 experience levels
+Bot| packet set_experience SetExperience(ClientboundSetExperiencePacket { experience_progress: 0.33333337, experience_level: 4, total_experience: 10 })
+### [entity_commands.txt:139] xp add @a -100 levels
+log| System chat: Gave -100 experience levels to 2 players
+Bot| [system_chat] [Server: Gave -100 experience levels to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.add.levels.success.multiple","with":[-100,2]}],"color":"gray","italic":true}
+### [entity_commands.txt:140] xp query Bot levels
+log| System chat: Bot has 0 experience levels
+Bot| packet set_experience SetExperience(ClientboundSetExperiencePacket { experience_progress: 0.0, experience_level: 0, total_experience: 0 })
+Bot0| packet set_experience SetExperience(ClientboundSetExperiencePacket { experience_progress: 0.0, experience_level: 0, total_experience: 0 })
+### [entity_commands.txt:141] xp set Bot 5 levels
+log| System chat: Set 5 experience levels on Bot
+Bot| [system_chat] [Server: Set 5 experience levels on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.set.levels.success.single","with":[5,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:142] xp set Bot 17 points
+log| System chat: Cannot set experience points above the maximum points for the player's current level
+Bot| packet set_experience SetExperience(ClientboundSetExperiencePacket { experience_progress: 0.0, experience_level: 5, total_experience: 0 })
+### [entity_commands.txt:143] xp set Bot 16 points
+log| System chat: Set 16 experience points on Bot
+Bot| [system_chat] [Server: Set 16 experience points on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.set.points.success.single","with":[16,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:144] xp set Bot 3 points
+log| System chat: Set 3 experience points on Bot
+Bot| [system_chat] [Server: Set 3 experience points on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.set.points.success.single","with":[3,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet set_experience SetExperience(ClientboundSetExperiencePacket { experience_progress: 0.9411765, experience_level: 5, total_experience: 0 })
+### [entity_commands.txt:145] xp set @a 0 levels
+log| System chat: Set 0 experience levels on 2 players
+Bot| [system_chat] [Server: Set 0 experience levels on 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.set.levels.success.multiple","with":[0,2]}],"color":"gray","italic":true}
+Bot| packet set_experience SetExperience(ClientboundSetExperiencePacket { experience_progress: 0.1764706, experience_level: 5, total_experience: 0 })
+### [entity_commands.txt:146] xp set Bot -1 levels
+log| System chat: Integer must not be less than 0: found -1
+log| System chat: ...p set Bot -1 levels<--[HERE]
+Bot| packet set_experience SetExperience(ClientboundSetExperiencePacket { experience_progress: 0.1764706, experience_level: 0, total_experience: 0 })
+### [entity_commands.txt:147] xp add Bot 2147483647 levels
+log| System chat: Gave 2147483647 experience levels to Bot
+Bot| [system_chat] [Server: Gave 2147483647 experience levels to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.add.levels.success.single","with":[2147483647,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:148] xp query @a points
+log| System chat: Only one player is allowed, but the provided selector allows more than one
+log| System chat: xp query @a points<--[HERE]
+Bot| packet set_experience SetExperience(ClientboundSetExperiencePacket { experience_progress: 0.1764706, experience_level: 2147483647, total_experience: 0 })
+### [entity_commands.txt:149] xp query Bot0 levels
+log| System chat: Bot0 has 0 experience levels
+### [entity_commands.txt:150] xp set Bot 0 points
+log| System chat: Set 0 experience points on Bot
+Bot| [system_chat] [Server: Set 0 experience points on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.set.points.success.single","with":[0,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:151] xp add Bot 0 points
+log| System chat: Gave 0 experience points to Bot
+Bot| [system_chat] [Server: Gave 0 experience points to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.add.points.success.single","with":[0,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet set_experience SetExperience(ClientboundSetExperiencePacket { experience_progress: 0.0, experience_level: 2147483647, total_experience: 0 })
+### [entity_commands.txt:152] @bot0 xp query Bot0 levels
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] xp query Bot0 levels<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"xp query Bot0 levels","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/xp query Bot0 levels","action":"suggest_command"}}],"color":"red"}
+### [entity_commands.txt:154] summon minecraft:cow 5 -60 5 {NoAI:1b,CustomName:Cow1}
+log| System chat: Summoned new Cow1
+Bot| [system_chat] [Server: Summoned new Cow1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"text":"Cow1","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":"Cow1","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:155] summon minecraft:pig 7 -60 5 {NoAI:1b,CustomName:Pig1}
+log| System chat: Summoned new Pig1
+Bot| [system_chat] [Server: Summoned new Pig1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"text":"Pig1","hover_event":{"id":"minecraft:pig","uuid":[<UUID>],"name":"Pig1","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:156] ride @e[type=minecraft:pig,limit=1] mount @e[type=minecraft:cow,limit=1]
+log| System chat: Pig1 started riding Cow1
+Bot| [system_chat] [Server: Pig1 started riding Cow1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.ride.mount.success","with":[{"text":"Pig1","hover_event":{"id":"minecraft:pig","uuid":[<UUID>],"name":"Pig1","action":"show_entity"},"insertion":"<UUID>"},{"text":"Cow1","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":"Cow1","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:157] ride @e[type=minecraft:pig,limit=1] mount @e[type=minecraft:cow,limit=1]
+log| System chat: Pig1 is already riding Cow1
+### [entity_commands.txt:158] data get entity @e[type=minecraft:cow,limit=1] Passengers
+log| System chat: Cow1 has the following entity data: [{AgeLocked: 0b, Brain: {memories: {}}, Invulnerable: 0b, FallFlying: 0b, ForcedAge: 0, sound_variant: "minecraft:classic", PortalCooldown: 0, AbsorptionAmount: 0.0f, InLove: 0, DeathTime: 0s, variant: "minecraft:temperate", PersistenceRequired: 0b, id: "minecraft:pig", UUID: [I; <UUID>], Age: 0, Motion: [0.0d, 0.0d, 0.0d], Health: 10.0f, LeftHanded: 0b, fall_distance: 0.0d, Air: 300s, OnGround: 0b, NoAI: 1b, Rotation: [0.0f, 0.0f], current_impulse_context_reset_grace_time: 0, CustomName: "Pig1", Pos: [5.5d, -58.63125002384186d, 5.5d], Fire: 0s, CanPickUpLoot: 0b, attributes: [{id: "minecraft:movement_speed", base: 0.25d}], HurtTime: 0s}]
+### [entity_commands.txt:159] ride @e[type=minecraft:cow,limit=1] mount @e[type=minecraft:pig,limit=1]
+log| System chat: Can't mount entity on itself or any of its passengers
+### [entity_commands.txt:160] ride @e[type=minecraft:cow,limit=1] mount @e[type=minecraft:cow,limit=1]
+log| System chat: Can't mount entity on itself or any of its passengers
+### [entity_commands.txt:161] ride @e[type=minecraft:cow,limit=1] mount Bot
+log| System chat: Players can't be ridden
+### [entity_commands.txt:162] ride Bot mount @e[type=minecraft:cow,limit=1]
+log| System chat: Bot started riding Cow1
+Bot| [system_chat] [Server: Bot started riding Cow1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.ride.mount.success","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"text":"Cow1","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":"Cow1","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:163] ride Bot dismount
+log| System chat: Bot stopped riding Cow1
+Bot| [system_chat] [Server: Bot stopped riding Cow1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.ride.dismount.success","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"text":"Cow1","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":"Cow1","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:164] ride Bot mount @e[type=minecraft:pig,limit=1]
+log| System chat: Bot started riding Pig1
+Bot| [system_chat] [Server: Bot started riding Pig1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.ride.mount.success","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"text":"Pig1","hover_event":{"id":"minecraft:pig","uuid":[<UUID>],"name":"Pig1","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:165] ride Bot dismount
+log| System chat: Bot stopped riding Pig1
+Bot| [system_chat] [Server: Bot stopped riding Pig1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.ride.dismount.success","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"text":"Pig1","hover_event":{"id":"minecraft:pig","uuid":[<UUID>],"name":"Pig1","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:166] ride @e[type=minecraft:pig,limit=1] dismount
+log| System chat: Pig1 stopped riding Cow1
+Bot| [system_chat] [Server: Pig1 stopped riding Cow1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.ride.dismount.success","with":[{"text":"Pig1","hover_event":{"id":"minecraft:pig","uuid":[<UUID>],"name":"Pig1","action":"show_entity"},"insertion":"<UUID>"},{"text":"Cow1","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":"Cow1","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:167] ride @e[type=minecraft:pig,limit=1] dismount
+log| System chat: Pig1 is not riding any vehicle
+### [entity_commands.txt:168] ride Bot dismount
+log| System chat: Bot is not riding any vehicle
+### [entity_commands.txt:170] kill @e[type=minecraft:cow]
+log| Named entity Cow['Cow1'/28, l='ServerLevel[world]', x=5.50, y=-60.00, z=5.50] died: Cow1 was killed
+log| System chat: Killed Cow1
+Bot| [system_chat] [Server: Killed Cow1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"text":"Cow1","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":"Cow1","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:172] kill @e[type=minecraft:pig]
+log| Named entity Pig['Pig1'/29, l='ServerLevel[world]', x=4.50, y=-60.00, z=5.50] died: Pig1 was killed
+log| System chat: Killed Pig1
+Bot| [system_chat] [Server: Killed Pig1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"text":"Pig1","hover_event":{"id":"minecraft:pig","uuid":[<UUID>],"name":"Pig1","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:173] @bot0 ride Bot0 dismount
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] ride Bot0 dismount<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"ride Bot0 dismount","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/ride Bot0 dismount","action":"suggest_command"}}],"color":"red"}
+### [entity_commands.txt:175] summon minecraft:cow 5 -60 5 {NoAI:1b}
+log| System chat: Summoned new Cow
+Bot| [system_chat] [Server: Summoned new Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:176] rotate @e[type=minecraft:cow,limit=1] 90 10
+log| System chat: Rotated Cow
+Bot| [system_chat] [Server: Rotated Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.rotate.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:177] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [90.0f, 10.0f]
+### [entity_commands.txt:178] rotate @e[type=minecraft:cow,limit=1] ~10 ~-20
+log| System chat: Rotated Cow
+Bot| [system_chat] [Server: Rotated Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.rotate.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:179] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [10.0f, -20.0f]
+### [entity_commands.txt:180] rotate @e[type=minecraft:cow,limit=1] 0 91
+log| System chat: Rotated Cow
+Bot| [system_chat] [Server: Rotated Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.rotate.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:181] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [0.0f, 90.0f]
+### [entity_commands.txt:182] rotate @e[type=minecraft:cow,limit=1] facing 5 -55 10
+log| System chat: Rotated Cow
+Bot| [system_chat] [Server: Rotated Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.rotate.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:183] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-7.6293945E-6f, -44.999996f]
+### [entity_commands.txt:184] rotate @e[type=minecraft:cow,limit=1] facing entity Bot
+log| System chat: Rotated Cow
+Bot| [system_chat] [Server: Rotated Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.rotate.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:185] rotate @e[type=minecraft:cow,limit=1] facing entity Bot eyes
+log| System chat: Rotated Cow
+Bot| [system_chat] [Server: Rotated Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.rotate.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:186] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-90.0f, -89.99999f]
+### [entity_commands.txt:187] rotate Bot 45 30
+log| System chat: Rotated Bot
+Bot| [system_chat] [Server: Rotated Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.rotate.success","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet player_rotation PlayerRotation(ClientboundPlayerRotationPacket { y_rot: 45.0, relative_y: false, x_rot: 30.0, relative_x: false })
+### [entity_commands.txt:188] rotate Bot ~ ~
+log| System chat: Rotated Bot
+Bot| [system_chat] [Server: Rotated Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.rotate.success","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet player_rotation PlayerRotation(ClientboundPlayerRotationPacket { y_rot: -45.0, relative_y: true, x_rot: -30.0, relative_x: true })
+### [entity_commands.txt:189] rotate Bot facing entity @e[type=minecraft:cow,limit=1] feet
+log| System chat: Rotated Bot
+Bot| [system_chat] [Server: Rotated Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.rotate.success","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet player_look_at PlayerLookAt(ClientboundPlayerLookAtPacket { from_anchor: Feet, x: 5.5, y: -60.0, z: 5.5, at_entity: Some(PlayerLookAtEntity { entity: 32, to_anchor: Feet }) })
+### [entity_commands.txt:190] rotate Bot facing 10 -60 10
+log| System chat: Rotated Bot
+Bot| [system_chat] [Server: Rotated Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.rotate.success","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet player_look_at PlayerLookAt(ClientboundPlayerLookAtPacket { from_anchor: Feet, x: 10.5, y: -60.0, z: 10.5, at_entity: None })
+### [entity_commands.txt:191] rotate @e[type=minecraft:nothing] 1 1
+log| System chat: Invalid or unknown entity type 'minecraft:nothing'
+log| System chat: ...e @e[type=minecraft:nothing] 1 1<--[HERE]
+### [entity_commands.txt:192] kill @e[type=minecraft:cow]
+log| System chat: Killed Cow
+Bot| [system_chat] [Server: Killed Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:193] @bot0 rotate Bot0 1 1
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] rotate Bot0 1 1<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"rotate Bot0 1 1","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/rotate Bot0 1 1","action":"suggest_command"}}],"color":"red"}
+### [entity_commands.txt:195] spectate
+log| System chat: A player is required to run this command here
+### [entity_commands.txt:196] spectate Bot
+log| System chat: A player is required to run this command here
+### [entity_commands.txt:197] @bot spectate
+Bot| [system_chat] Bot is not in spectator mode
+Bot|   json {"text":"","extra":[{"translate":"commands.spectate.not_spectator","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"red"}
+### [entity_commands.txt:198] @bot spectate Bot
+Bot| [system_chat] Cannot spectate yourself
+Bot|   json {"text":"","extra":[{"translate":"commands.spectate.self"}],"color":"red"}
+### [entity_commands.txt:199] summon minecraft:cow 5 -60 5 {NoAI:1b}
+log| System chat: Summoned new Cow
+Bot| [system_chat] [Server: Summoned new Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:200] spectate @e[type=minecraft:cow,limit=1] Bot
+log| System chat: Bot is not in spectator mode
+### [entity_commands.txt:201] gamemode spectator Bot
+log| System chat: Set Bot's game mode to Spectator Mode
+Bot| [system_chat] Your game mode has been updated to Spectator Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.spectator"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Spectator Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.spectator"}]}],"color":"gray","italic":true}
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: true, can_fly: true, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+Bot| packet game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 3.0 })
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: true, can_fly: true, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+### [entity_commands.txt:202] spectate @e[type=minecraft:cow,limit=1] Bot
+log| System chat: Now spectating Cow
+### [entity_commands.txt:203] spectate Bot0 Bot
+log| System chat: Now spectating Bot0
+### [entity_commands.txt:204] spectate Bot Bot
+log| System chat: Cannot spectate yourself
+### [entity_commands.txt:205] spectate
+log| System chat: A player is required to run this command here
+### [entity_commands.txt:206] spectate @e[type=minecraft:cow,limit=1] @a
+log| System chat: Only one player is allowed, but the provided selector allows more than one
+log| System chat: spectate @e[type=minecraft:cow,limit=1] @a<--[HERE]
+### [entity_commands.txt:207] spectate @e[type=minecraft:cow,limit=1] Bot
+log| System chat: Now spectating Cow
+### [entity_commands.txt:209] spectate
+log| System chat: A player is required to run this command here
+### [entity_commands.txt:211] summon minecraft:area_effect_cloud 5 -60 5
+log| System chat: Summoned new Area Effect Cloud
+Bot| [system_chat] [Server: Summoned new Area Effect Cloud]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.area_effect_cloud","hover_event":{"id":"minecraft:area_effect_cloud","uuid":[<UUID>],"name":{"translate":"entity.minecraft.area_effect_cloud"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:212] spectate @e[type=minecraft:cow,limit=1] Bot
+log| System chat: Now spectating Cow
+### [entity_commands.txt:213] spectate Bot
+log| System chat: A player is required to run this command here
+### [entity_commands.txt:214] kill @e[type=minecraft:area_effect_cloud]
+log| System chat: Killed Area Effect Cloud
+Bot| [system_chat] [Server: Killed Area Effect Cloud]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"translate":"entity.minecraft.area_effect_cloud","hover_event":{"id":"minecraft:area_effect_cloud","uuid":[<UUID>],"name":{"translate":"entity.minecraft.area_effect_cloud"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:215] kill @e[type=minecraft:cow]
+log| System chat: Killed Cow
+Bot| [system_chat] [Server: Killed Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:216] gamemode creative Bot
+log| System chat: Set Bot's game mode to Creative Mode
+Bot| [system_chat] Your game mode has been updated to Creative Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.creative"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Creative Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.creative"}]}],"color":"gray","italic":true}
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: false, can_fly: true, instabuild: true, flying_speed: 0.05, walking_speed: 0.1 })
+Bot| packet game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 1.0 })
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: false, can_fly: true, instabuild: true, flying_speed: 0.05, walking_speed: 0.1 })
+### [entity_commands.txt:217] @bot0 spectate
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] spectate<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"spectate","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/spectate","action":"suggest_command"}}],"color":"red"}
+### [entity_commands.txt:219] swing Bot
+log| System chat: Made Bot swing an arm
+Bot| [system_chat] [Server: Made Bot swing an arm]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:220] swing Bot mainhand
+log| System chat: Made Bot swing an arm
+Bot| [system_chat] [Server: Made Bot swing an arm]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:221] swing Bot offhand stab
+log| System chat: Made Bot swing an arm
+Bot| [system_chat] [Server: Made Bot swing an arm]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:222] swing Bot offhand stab 10
+log| System chat: Made Bot swing an arm
+Bot| [system_chat] [Server: Made Bot swing an arm]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:223] swing Bot mainhand whack 0
+log| System chat: The tick count must not be less than 1: found 0
+log| System chat: ...nd whack 0<--[HERE]
+### [entity_commands.txt:224] swing @a
+log| System chat: Made 2 entities swing their arms
+Bot| [system_chat] [Server: Made 2 entities swing their arms]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.multiple","with":[2]}],"color":"gray","italic":true}
+### [entity_commands.txt:225] swing @e[type=minecraft:cow]
+log| System chat: No entity was found
+### [entity_commands.txt:226] summon minecraft:cow 5 -60 5 {NoAI:1b}
+log| System chat: Summoned new Cow
+Bot| [system_chat] [Server: Summoned new Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:227] swing @e[type=minecraft:cow,limit=1] offhand none 4
+log| System chat: Made Cow swing an arm
+Bot| [system_chat] [Server: Made Cow swing an arm]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:228] kill @e[type=minecraft:cow]
+log| System chat: Killed Cow
+Bot| [system_chat] [Server: Killed Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:229] @bot swing
+log| System chat: [Bot: Made Bot swing an arm]
+Bot| [system_chat] Made Bot swing an arm
+Bot|   json {"translate":"commands.swing.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [entity_commands.txt:230] @bot0 swing Bot0
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] swing Bot0<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"swing Bot0","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/swing Bot0","action":"suggest_command"}}],"color":"red"}
+### [entity_commands.txt:232] tp Bot 10 -60 10
+log| System chat: Teleported Bot to 10.500000, -60.000000, 10.500000
+Bot| [system_chat] [Server: Teleported Bot to 10.500000, -60.000000, 10.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"10.500000","-60.000000","10.500000"]}],"color":"gray","italic":true}
+### [entity_commands.txt:233] tp Bot ~ ~1 ~
+log| System chat: Teleported Bot to 0.000000, -59.000000, 0.000000
+Bot| [system_chat] [Server: Teleported Bot to 0.000000, -59.000000, 0.000000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.000000","-59.000000","0.000000"]}],"color":"gray","italic":true}
+### [entity_commands.txt:234] tp Bot ~ ~ ~ 90 45
+log| System chat: Teleported Bot to 0.000000, -60.000000, 0.000000
+Bot| [system_chat] [Server: Teleported Bot to 0.000000, -60.000000, 0.000000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.000000","-60.000000","0.000000"]}],"color":"gray","italic":true}
+### [entity_commands.txt:235] tp Bot ~ ~ ~ ~10 ~-5
+log| System chat: Teleported Bot to 0.000000, -60.000000, 0.000000
+Bot| [system_chat] [Server: Teleported Bot to 0.000000, -60.000000, 0.000000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.000000","-60.000000","0.000000"]}],"color":"gray","italic":true}
+### [entity_commands.txt:236] tp Bot 0 -60 0 facing 5 -60 5
+log| System chat: Teleported Bot to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Bot to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+Bot| packet player_look_at PlayerLookAt(ClientboundPlayerLookAtPacket { from_anchor: Feet, x: 5.5, y: -60.0, z: 5.5, at_entity: None })
+### [entity_commands.txt:237] summon minecraft:cow 5 -60 5 {NoAI:1b}
+log| System chat: Summoned new Cow
+Bot| [system_chat] [Server: Summoned new Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:238] tp Bot 0 -60 0 facing entity @e[type=minecraft:cow,limit=1]
+log| System chat: Teleported Bot to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Bot to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+Bot| packet player_look_at PlayerLookAt(ClientboundPlayerLookAtPacket { from_anchor: Feet, x: 5.5, y: -60.0, z: 5.5, at_entity: Some(PlayerLookAtEntity { entity: 41, to_anchor: Feet }) })
+### [entity_commands.txt:239] tp Bot 0 -60 0 facing entity @e[type=minecraft:cow,limit=1] eyes
+log| System chat: Teleported Bot to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Bot to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+Bot| packet player_look_at PlayerLookAt(ClientboundPlayerLookAtPacket { from_anchor: Feet, x: 5.5, y: -58.700000047683716, z: 5.5, at_entity: Some(PlayerLookAtEntity { entity: 41, to_anchor: Eyes }) })
+### [entity_commands.txt:240] tp @e[type=minecraft:cow,limit=1] Bot
+log| System chat: Teleported Cow to Bot
+Bot| [system_chat] [Server: Teleported Cow to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.entity.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:241] data get entity @e[type=minecraft:cow,limit=1] Pos
+log| System chat: Cow has the following entity data: [0.5d, -60.0d, 0.5d]
+### [entity_commands.txt:242] tp @e[type=minecraft:cow,limit=1] 20 -60 20 facing 0 -60 0
+log| System chat: Teleported Cow to 20.500000, -60.000000, 20.500000
+Bot| [system_chat] [Server: Teleported Cow to 20.500000, -60.000000, 20.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"20.500000","-60.000000","20.500000"]}],"color":"gray","italic":true}
+### [entity_commands.txt:243] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [135.0f, 0.0f]
+### [entity_commands.txt:244] tp Bot @e[type=minecraft:cow,limit=1]
+log| System chat: Teleported Bot to Cow
+Bot| [system_chat] [Server: Teleported Bot to Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.entity.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:245] tp Bot 0 30000000 0
+log| System chat: Invalid position for teleport
+### [entity_commands.txt:246] tp @e[type=minecraft:cow,limit=1] 1 -60 1 20 0
+log| System chat: Teleported Cow to 1.500000, -60.000000, 1.500000
+Bot| [system_chat] [Server: Teleported Cow to 1.500000, -60.000000, 1.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"1.500000","-60.000000","1.500000"]}],"color":"gray","italic":true}
+### [entity_commands.txt:247] tp @e[type=minecraft:nothing] 1 -60 1
+log| System chat: Incorrect argument for command
+log| System chat: tp @e[type=minecraft:nothing] 1 -60 1<--[HERE]
+### [entity_commands.txt:248] teleport @s 1 -60 1
+log| System chat: No entity was found
+### [entity_commands.txt:249] tp 1 -60 1
+log| System chat: An entity is required to run this command here
+### [entity_commands.txt:250] tp @e[type=minecraft:cow,limit=1]
+log| System chat: An entity is required to run this command here
+### [entity_commands.txt:251] kill @e[type=minecraft:cow]
+log| System chat: Killed Cow
+Bot| [system_chat] [Server: Killed Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [entity_commands.txt:252] tp Bot 0.5 -60 0.5 0 0
+log| System chat: Teleported Bot to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Bot to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [entity_commands.txt:253] @bot0 tp Bot0 1 -60 1
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] tp Bot0 1 -60 1<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"tp Bot0 1 -60 1","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/tp Bot0 1 -60 1","action":"suggest_command"}}],"color":"red"}
+### [entity_commands.txt:255] gamemode survival Bot
+log| System chat: Set Bot's game mode to Survival Mode
+Bot| [system_chat] Your game mode has been updated to Survival Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.survival"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Survival Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.survival"}]}],"color":"gray","italic":true}
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+Bot| packet game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 0.0 })
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+### [entity_commands.txt:256] gamemode survival Bot
+
+### [entity_commands.txt:257] gamemode spectator Bot
+log| System chat: Set Bot's game mode to Spectator Mode
+Bot| [system_chat] Your game mode has been updated to Spectator Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.spectator"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Spectator Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.spectator"}]}],"color":"gray","italic":true}
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: true, can_fly: true, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+Bot| packet game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 3.0 })
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: true, can_fly: true, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+### [entity_commands.txt:258] gamemode creative Bot
+log| System chat: Set Bot's game mode to Creative Mode
+Bot| [system_chat] Your game mode has been updated to Creative Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.creative"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Creative Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.creative"}]}],"color":"gray","italic":true}
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: false, can_fly: true, instabuild: true, flying_speed: 0.05, walking_speed: 0.1 })
+Bot| packet game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 1.0 })
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: false, can_fly: true, instabuild: true, flying_speed: 0.05, walking_speed: 0.1 })
+### [entity_commands.txt:259] gamemode adventure Bot
+log| System chat: Set Bot's game mode to Adventure Mode
+Bot| [system_chat] Your game mode has been updated to Adventure Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.adventure"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Adventure Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.adventure"}]}],"color":"gray","italic":true}
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+Bot| packet game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 2.0 })
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+### [entity_commands.txt:260] gamemode survival @a
+log| System chat: Set Bot0's game mode to Survival Mode
+log| System chat: Set Bot's game mode to Survival Mode
+Bot| [system_chat] [Server: Set Bot0's game mode to Survival Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"},{"translate":"gameMode.survival"}]}],"color":"gray","italic":true}
+Bot| [system_chat] Your game mode has been updated to Survival Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.survival"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Survival Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.survival"}]}],"color":"gray","italic":true}
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+Bot| packet game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 0.0 })
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+Bot0| [system_chat] Your game mode has been updated to Survival Mode
+Bot0|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.survival"}]}
+Bot0| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+Bot0| packet game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 0.0 })
+Bot0| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+### [entity_commands.txt:261] gamemode nothing Bot
+log| System chat: Unknown game mode: nothing
+log| System chat: ...de nothing Bot<--[HERE]
+### [entity_commands.txt:262] gamemode creative Bot
+log| System chat: Set Bot's game mode to Creative Mode
+Bot| [system_chat] Your game mode has been updated to Creative Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.creative"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Creative Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.creative"}]}],"color":"gray","italic":true}
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: false, can_fly: true, instabuild: true, flying_speed: 0.05, walking_speed: 0.1 })
+Bot| packet game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 1.0 })
+Bot| packet player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: false, can_fly: true, instabuild: true, flying_speed: 0.05, walking_speed: 0.1 })
+### [entity_commands.txt:263] @bot0 gamemode creative Bot0
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] gamemode creative Bot0<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"gamemode creative Bot0","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/gamemode creative Bot0","action":"suggest_command"}}],"color":"red"}

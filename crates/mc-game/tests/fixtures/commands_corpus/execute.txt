@@ -1,6 +1,14 @@
 # /execute: every subcommand with success and error cases (flat world, creative, peaceful; Bot = op, Bot0 = level 0).
 # The world is flat: bedrock y=-64, dirt -63..-62, grass block -61, air from -60.
 
+# vanilla lists tracked entities in identity-hash order
+!mask tracked entity/entities: (.*)$
+
+# grass under the stone of the setup dies by a random tick, unseeded in vanilla
+gamerule random_tick_speed 0
+# natural spawning is unseeded in vanilla: cows appear between two runs
+gamerule spawn_mobs false
+
 # ---- setup ----
 scoreboard objectives add o dummy
 scoreboard objectives add p dummy
@@ -368,6 +376,7 @@ execute store result block 0 -60 0 x int 1 run say x
 execute store result block 100000 0 0 x int 1 run say x
 setblock 0 -59 0 minecraft:chest
 execute store result block 0 -59 0 CustomName string 1 run say x
+!known vanilla logs the block entity load problems (`Serialization errors:` with the DFU message and the block entity description), ours logs none
 execute store result block 0 -59 0 lock int 1 run scoreboard players get #a o
 data get block 0 -59 0 lock
 

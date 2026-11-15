@@ -1,0 +1,579 @@
+### [worldedit.txt:6] fill 0 -60 0 3 -58 3 minecraft:stone
+log| System chat: Successfully filled 48 block(s)
+Bot| [system_chat] [Server: Successfully filled 48 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[48]}],"color":"gray","italic":true}
+### [worldedit.txt:7] fill 0 -60 0 3 -58 3 minecraft:stone
+log| System chat: No blocks were filled
+### [worldedit.txt:8] fill 0 -60 0 3 -58 3 minecraft:stone replace
+log| System chat: No blocks were filled
+### [worldedit.txt:9] fill 0 -60 0 3 -58 3 minecraft:dirt replace minecraft:stone
+log| System chat: Successfully filled 48 block(s)
+Bot| [system_chat] [Server: Successfully filled 48 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[48]}],"color":"gray","italic":true}
+### [worldedit.txt:10] fill 0 -60 0 3 -58 3 minecraft:glass hollow
+log| System chat: Successfully filled 48 block(s)
+Bot| [system_chat] [Server: Successfully filled 48 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[48]}],"color":"gray","italic":true}
+### [worldedit.txt:11] fill 0 -60 0 3 -58 3 minecraft:air outline
+log| System chat: Successfully filled 44 block(s)
+Bot| [system_chat] [Server: Successfully filled 44 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[44]}],"color":"gray","italic":true}
+### [worldedit.txt:12] fill 0 -60 0 3 -58 3 minecraft:stone keep
+log| System chat: Successfully filled 48 block(s)
+Bot| [system_chat] [Server: Successfully filled 48 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[48]}],"color":"gray","italic":true}
+### [worldedit.txt:13] fill 0 -60 0 3 -58 3 minecraft:gold_block destroy
+log| System chat: Successfully filled 48 block(s)
+Bot| [system_chat] [Server: Successfully filled 48 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[48]}],"color":"gray","italic":true}
+### [worldedit.txt:14] fill 0 -60 0 3 -58 3 minecraft:stone strict
+log| System chat: Successfully filled 48 block(s)
+Bot| [system_chat] [Server: Successfully filled 48 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[48]}],"color":"gray","italic":true}
+### [worldedit.txt:15] fill 0 -60 0 3 -58 3 minecraft:dirt replace #minecraft:base_stone_overworld
+log| System chat: Successfully filled 48 block(s)
+Bot| [system_chat] [Server: Successfully filled 48 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[48]}],"color":"gray","italic":true}
+### [worldedit.txt:16] fill 0 -60 0 3 -58 3 minecraft:glass replace minecraft:stone hollow
+log| System chat: No blocks were filled
+### [worldedit.txt:17] fill 0 -60 0 3 -58 3 minecraft:glass replace minecraft:stone outline
+log| System chat: No blocks were filled
+### [worldedit.txt:18] fill 0 -60 0 3 -58 3 minecraft:glass replace minecraft:stone destroy
+log| System chat: No blocks were filled
+### [worldedit.txt:19] fill 0 -60 0 3 -58 3 minecraft:glass replace minecraft:stone strict
+log| System chat: No blocks were filled
+### [worldedit.txt:20] fill 0 -60 0 3 -58 3 minecraft:oak_stairs[facing=east,half=top]
+log| System chat: Successfully filled 48 block(s)
+Bot| [system_chat] [Server: Successfully filled 48 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[48]}],"color":"gray","italic":true}
+### [worldedit.txt:21] fill 0 -60 0 3 -58 3 minecraft:oak_stairs[facing=east,half=top] replace minecraft:oak_stairs[facing=east]
+log| System chat: No blocks were filled
+### [worldedit.txt:22] fill 0 -60 0 3 -58 3 minecraft:air
+log| System chat: Successfully filled 48 block(s)
+Bot| [system_chat] [Server: Successfully filled 48 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[48]}],"color":"gray","italic":true}
+### [worldedit.txt:23] fill 0 -60 0 3 -58 3 minecraft:air
+log| System chat: No blocks were filled
+### [worldedit.txt:24] fill 0 -60 0 1 -60 1 minecraft:dispenser[facing=north]{Items:[{Slot:0b,id:"minecraft:stone",count:1}]}
+log| System chat: Successfully filled 4 block(s)
+Bot| [system_chat] [Server: Successfully filled 4 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[4]}],"color":"gray","italic":true}
+### [worldedit.txt:25] data get block 0 -60 0
+log| System chat: 0, -60, 0 has the following block data: {components: {}, x: 0, y: -60, Items: [{count: 1, Slot: 0b, id: "minecraft:stone"}], z: 0, id: "minecraft:dispenser"}
+### [worldedit.txt:26] data get block 1 -60 1
+log| System chat: 1, -60, 1 has the following block data: {components: {}, x: 1, y: -60, Items: [{count: 1, Slot: 0b, id: "minecraft:stone"}], z: 1, id: "minecraft:dispenser"}
+### [worldedit.txt:27] fill 0 -60 0 1 -60 1 minecraft:dispenser[facing=north]{Items:[{Slot:0b,id:"minecraft:stone",count:1}]}
+log| System chat: No blocks were filled
+### [worldedit.txt:28] fill 0 -60 0 1 -60 1 minecraft:dispenser replace minecraft:dispenser{Items:[{Slot:0b,id:"minecraft:stone",count:1}]}
+log| System chat: No blocks were filled
+### [worldedit.txt:29] fill 0 -60 0 1 -60 1 minecraft:dispenser replace minecraft:dispenser{Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+log| System chat: No blocks were filled
+### [worldedit.txt:30] fill 0 -60 0 1 -60 1 minecraft:air destroy
+log| System chat: Successfully filled 4 block(s)
+Bot| [system_chat] [Server: Successfully filled 4 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[4]}],"color":"gray","italic":true}
+### [worldedit.txt:31] data get block 0 -60 0
+log| System chat: The target block is not a block entity
+### [worldedit.txt:32] fill 0 -60 0 7 10 7 minecraft:hopper
+log| System chat: Successfully filled 4544 block(s)
+Bot| [system_chat] [Server: Successfully filled 4544 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[4544]}],"color":"gray","italic":true}
+### [worldedit.txt:33] fill 0 -64 0 40 300 40 minecraft:stone
+log| System chat: Too many blocks in the specified area (maximum 32768, but specified 613565)
+### [worldedit.txt:34] fill 0 0 0 100000 0 0 minecraft:stone
+log| System chat: That position is not loaded
+### [worldedit.txt:35] fill 1000000 0 0 1000001 0 0 minecraft:stone
+log| System chat: That position is not loaded
+### [worldedit.txt:36] fill 0 -60 0 1000000 -60 0 minecraft:stone
+log| System chat: That position is not loaded
+### [worldedit.txt:37] fill 0 400 0 3 401 3 minecraft:stone
+log| System chat: That position is out of this world!
+### [worldedit.txt:38] fill 0 -80 0 3 -70 3 minecraft:stone
+log| System chat: That position is out of this world!
+### [worldedit.txt:39] fill 0 -60 0 31 -60 0 minecraft:stone
+log| System chat: Successfully filled 32 block(s)
+Bot| [system_chat] [Server: Successfully filled 32 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[32]}],"color":"gray","italic":true}
+### [worldedit.txt:40] fill 0 -60 0 3 -58 3 minecraft:notablock
+log| System chat: Unknown block type 'minecraft:notablock'
+log| System chat: ...0 3 -58 3 minecraft:notablock<--[HERE]
+### [worldedit.txt:41] fill 0 -60 0 3 -58 3 minecraft:stone replace minecraft:notablock
+log| System chat: Unknown block type 'minecraft:notablock'
+log| System chat: ...e replace minecraft:notablock<--[HERE]
+### [worldedit.txt:42] fill 0 -60 0 3 -58 3 minecraft:stone sideways
+log| System chat: Incorrect argument for command
+log| System chat: ...aft:stone sideways<--[HERE]
+### [worldedit.txt:43] fill 0 -60 0 3 -58
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...l 0 -60 0 3 -58<--[HERE]
+### [worldedit.txt:44] fill ~ ~ ~ ~ ~ ~ minecraft:stone
+log| System chat: No blocks were filled
+### [worldedit.txt:45] fill 0 -60 0 5 -60 0 minecraft:sand
+log| System chat: Successfully filled 6 block(s)
+Bot| [system_chat] [Server: Successfully filled 6 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[6]}],"color":"gray","italic":true}
+### [worldedit.txt:46] fill 0 -60 0 5 -60 0 minecraft:air destroy
+log| System chat: Successfully filled 6 block(s)
+Bot| [system_chat] [Server: Successfully filled 6 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[6]}],"color":"gray","italic":true}
+### [worldedit.txt:47] fill 0 -61 0 5 -60 0 minecraft:water
+log| System chat: Successfully filled 12 block(s)
+Bot| [system_chat] [Server: Successfully filled 12 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[12]}],"color":"gray","italic":true}
+### [worldedit.txt:48] fill 0 -61 0 5 -60 0 minecraft:grass_block
+log| System chat: Successfully filled 12 block(s)
+Bot| [system_chat] [Server: Successfully filled 12 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[12]}],"color":"gray","italic":true}
+### [worldedit.txt:49] fill 0 -59 0 5 -59 0 minecraft:redstone_lamp
+log| System chat: Successfully filled 6 block(s)
+Bot| [system_chat] [Server: Successfully filled 6 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[6]}],"color":"gray","italic":true}
+### [worldedit.txt:50] fill 0 -58 0 5 -58 0 minecraft:redstone_block
+log| System chat: Successfully filled 6 block(s)
+Bot| [system_chat] [Server: Successfully filled 6 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[6]}],"color":"gray","italic":true}
+### [worldedit.txt:51] fill 0 -58 0 5 -58 0 minecraft:redstone_block strict
+log| System chat: No blocks were filled
+### [worldedit.txt:52] fill 0 -59 0 5 -59 0 minecraft:air
+log| System chat: Successfully filled 6 block(s)
+Bot| [system_chat] [Server: Successfully filled 6 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[6]}],"color":"gray","italic":true}
+### [worldedit.txt:53] fill 0 -58 0 5 -58 0 minecraft:air
+log| System chat: Successfully filled 6 block(s)
+Bot| [system_chat] [Server: Successfully filled 6 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[6]}],"color":"gray","italic":true}
+### [worldedit.txt:54] @bot fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass
+log| System chat: [Bot: Successfully filled 27 block(s)]
+Bot| [system_chat] Successfully filled 27 block(s)
+Bot|   json {"translate":"commands.fill.success","with":[27]}
+### [worldedit.txt:55] @bot fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass
+Bot| [system_chat] No blocks were filled
+Bot|   json {"text":"","extra":[{"translate":"commands.fill.failed"}],"color":"red"}
+### [worldedit.txt:56] @bot0 fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass","action":"suggest_command"}}],"color":"red"}
+### [worldedit.txt:58] fill 10 -60 10 12 -58 12 minecraft:stone
+log| System chat: Successfully filled 27 block(s)
+Bot| [system_chat] [Server: Successfully filled 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:59] setblock 11 -59 11 minecraft:dispenser[facing=east]{Items:[{Slot:3b,id:"minecraft:diamond",count:2}]}
+log| System chat: Changed the block at 11, -59, 11
+Bot| [system_chat] [Server: Changed the block at 11, -59, 11]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[11,-59,11]}],"color":"gray","italic":true}
+### [worldedit.txt:60] setblock 10 -58 10 minecraft:oak_stairs[facing=north]
+log| System chat: Changed the block at 10, -58, 10
+Bot| [system_chat] [Server: Changed the block at 10, -58, 10]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[10,-58,10]}],"color":"gray","italic":true}
+### [worldedit.txt:61] setblock 12 -58 12 minecraft:torch
+log| System chat: Changed the block at 12, -58, 12
+Bot| [system_chat] [Server: Changed the block at 12, -58, 12]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[12,-58,12]}],"color":"gray","italic":true}
+### [worldedit.txt:62] clone 10 -60 10 12 -58 12 20 -60 20
+log| System chat: Successfully cloned 27 block(s)
+Bot| [system_chat] [Server: Successfully cloned 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:63] data get block 21 -59 21
+log| System chat: 21, -59, 21 has the following block data: {components: {}, x: 21, y: -59, Items: [{count: 2, Slot: 3b, id: "minecraft:diamond"}], z: 21, id: "minecraft:dispenser"}
+### [worldedit.txt:64] clone 10 -60 10 12 -58 12 20 -60 20
+log| System chat: Successfully cloned 27 block(s)
+Bot| [system_chat] [Server: Successfully cloned 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:65] clone 10 -60 10 12 -58 12 20 -60 20 replace normal
+log| System chat: Successfully cloned 27 block(s)
+Bot| [system_chat] [Server: Successfully cloned 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:66] clone 10 -60 10 12 -58 12 20 -60 20 masked
+log| System chat: Successfully cloned 27 block(s)
+Bot| [system_chat] [Server: Successfully cloned 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:67] clone 10 -60 10 12 -58 12 20 -60 20 masked force
+log| System chat: Successfully cloned 27 block(s)
+Bot| [system_chat] [Server: Successfully cloned 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:68] clone 10 -60 10 12 -58 12 20 -60 20 filtered minecraft:stone
+log| System chat: Successfully cloned 24 block(s)
+Bot| [system_chat] [Server: Successfully cloned 24 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[24]}],"color":"gray","italic":true}
+### [worldedit.txt:69] clone 10 -60 10 12 -58 12 20 -60 20 filtered minecraft:stone move
+log| System chat: Successfully cloned 24 block(s)
+Bot| [system_chat] [Server: Successfully cloned 24 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[24]}],"color":"gray","italic":true}
+### [worldedit.txt:70] clone 10 -60 10 12 -58 12 20 -60 20 filtered #minecraft:stairs force
+log| System chat: Successfully cloned 1 block(s)
+Bot| [system_chat] [Server: Successfully cloned 1 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[1]}],"color":"gray","italic":true}
+### [worldedit.txt:71] clone 10 -60 10 12 -58 12 20 -60 20 filtered minecraft:dispenser{Items:[{Slot:3b,id:"minecraft:diamond",count:2}]}
+log| System chat: Successfully cloned 1 block(s)
+Bot| [system_chat] [Server: Successfully cloned 1 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[1]}],"color":"gray","italic":true}
+### [worldedit.txt:72] clone 10 -60 10 12 -58 12 11 -60 11
+log| System chat: The source and destination areas cannot overlap
+### [worldedit.txt:73] clone 10 -60 10 12 -58 12 11 -60 11 replace force
+log| System chat: Successfully cloned 27 block(s)
+Bot| [system_chat] [Server: Successfully cloned 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:74] clone 10 -60 10 12 -58 12 11 -60 11 replace move
+log| System chat: Successfully cloned 27 block(s)
+Bot| [system_chat] [Server: Successfully cloned 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:75] clone 10 -60 10 12 -58 12 11 -60 11 replace normal
+log| System chat: The source and destination areas cannot overlap
+### [worldedit.txt:76] clone 20 -60 20 22 -58 22 30 -60 30 strict
+log| System chat: Successfully cloned 27 block(s)
+Bot| [system_chat] [Server: Successfully cloned 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:77] clone 20 -60 20 22 -58 22 30 -60 30 strict move
+log| System chat: Incorrect argument for command
+log| System chat: ...30 strict move<--[HERE]
+### [worldedit.txt:78] clone 20 -60 20 22 -58 22 30 -60 30 masked strict
+log| System chat: Incorrect argument for command
+log| System chat: ...30 masked strict<--[HERE]
+### [worldedit.txt:79] clone 20 -60 20 22 -58 22 30 -60 30 strict masked
+log| System chat: Successfully cloned 27 block(s)
+Bot| [system_chat] [Server: Successfully cloned 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:80] execute if blocks 20 -60 20 22 -58 22 30 -60 30 all
+log| System chat: Test passed. Count: 27
+### [worldedit.txt:81] execute if blocks 20 -60 20 22 -58 22 40 -60 40 all
+log| System chat: Test failed
+### [worldedit.txt:82] data get block 31 -59 31
+log| System chat: 31, -59, 31 has the following block data: {components: {}, x: 31, y: -59, Items: [{count: 2, Slot: 3b, id: "minecraft:diamond"}], z: 31, id: "minecraft:dispenser"}
+### [worldedit.txt:83] clone 0 -60 0 100 100 100 200 0 200
+log| System chat: That position is not loaded
+### [worldedit.txt:84] clone 0 -60 0 300 -50 300 200 0 200
+log| System chat: That position is not loaded
+### [worldedit.txt:85] clone 0 -60 0 31 -60 0 1000000 0 0
+log| System chat: That position is not loaded
+### [worldedit.txt:86] clone 1000000 0 0 1000001 0 0 0 0 0
+log| System chat: That position is not loaded
+### [worldedit.txt:87] clone 0 -64 0 40 300 40 50 -64 50
+log| System chat: Too many blocks in the specified area (maximum 32768, but specified 613565)
+### [worldedit.txt:88] clone 10 -60 10 12 -58 12 20 -60 20 from
+log| System chat: Incorrect argument for command
+log| System chat: ...20 -60 20 from<--[HERE]
+### [worldedit.txt:89] clone 10 -60 10 12 -58 12 20 -60 20 replace sideways
+log| System chat: Incorrect argument for command
+log| System chat: ...0 replace sideways<--[HERE]
+### [worldedit.txt:90] clone from minecraft:overworld 10 -60 10 12 -58 12 to minecraft:overworld 50 -60 50
+log| System chat: Successfully cloned 27 block(s)
+Bot| [system_chat] [Server: Successfully cloned 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:91] clone from minecraft:overworld 10 -60 10 12 -58 12 50 -60 50 masked
+log| System chat: Successfully cloned 2 block(s)
+Bot| [system_chat] [Server: Successfully cloned 2 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[2]}],"color":"gray","italic":true}
+### [worldedit.txt:92] clone from minecraft:overworld 10 -60 10 12 -58 12 to minecraft:overworld 50 -60 50 masked
+log| System chat: Successfully cloned 2 block(s)
+Bot| [system_chat] [Server: Successfully cloned 2 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[2]}],"color":"gray","italic":true}
+### [worldedit.txt:93] clone 10 -60 10 12 -58 12 to minecraft:overworld 60 -60 60 filtered minecraft:stone force
+log| System chat: No blocks were cloned
+### [worldedit.txt:94] clone from minecraft:the_nether 10 -60 10 12 -58 12 50 -60 50
+log| System chat: That position is not loaded
+### [worldedit.txt:95] clone 10 -60 10 12 -58 12 to minecraft:the_nether 50 -60 50
+log| System chat: That position is not loaded
+### [worldedit.txt:96] clone from minecraft:overworld 10 -60 10 12 -58 12 to minecraft:the_nether 50 0 50 move
+log| System chat: Incorrect argument for command
+log| System chat: ...r 50 0 50 move<--[HERE]
+### [worldedit.txt:97] clone from minecraft:foo 10 -60 10 12 -58 12 50 -60 50
+log| System chat: Unknown dimension 'minecraft:foo'
+### [worldedit.txt:98] clone 10 -60 10 12 -58 12 to minecraft:foo 50 -60 50
+log| System chat: Unknown dimension 'minecraft:foo'
+### [worldedit.txt:99] clone 12 -58 12 10 -60 10 70 -60 70
+log| System chat: Successfully cloned 27 block(s)
+Bot| [system_chat] [Server: Successfully cloned 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:100] clone 10 -60 10 12 -58 12 ~ ~ ~
+log| System chat: Successfully cloned 27 block(s)
+Bot| [system_chat] [Server: Successfully cloned 27 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clone.success","with":[27]}],"color":"gray","italic":true}
+### [worldedit.txt:101] @bot clone ~ ~-1 ~ ~2 ~ ~2 ~10 ~-1 ~10
+log| System chat: [Bot: Successfully cloned 18 block(s)]
+Bot| [system_chat] Successfully cloned 18 block(s)
+Bot|   json {"translate":"commands.clone.success","with":[18]}
+### [worldedit.txt:102] @bot0 clone 10 -60 10 12 -58 12 20 -60 20
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] clone 10 -60 10 12 -58 12 20 -60 20<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"clone 10 -60 10 12 -58 12 20 -60 20","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/clone 10 -60 10 12 -58 12 20 -60 20","action":"suggest_command"}}],"color":"red"}
+### [worldedit.txt:104] forceload query
+log| System chat: No force loaded chunks were found in minecraft:overworld
+### [worldedit.txt:105] forceload add 0 0
+log| System chat: Marked chunk [0, 0] in minecraft:overworld to be force loaded
+Bot| [system_chat] [Server: Marked chunk [0, 0] in minecraft:overworld to be force loaded]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.added.single","with":["[0, 0]","minecraft:overworld"]}],"color":"gray","italic":true}
+### [worldedit.txt:106] forceload add 0 0
+log| System chat: No chunks were marked for force loading
+### [worldedit.txt:107] forceload query
+log| System chat: A force loaded chunk was found in minecraft:overworld at: [0, 0]
+### [worldedit.txt:108] forceload query 0 0
+log| System chat: Chunk at [0, 0] in minecraft:overworld is marked for force loading
+### [worldedit.txt:109] forceload query 100 100
+log| System chat: Chunk at [6, 6] in minecraft:overworld is not marked for force loading
+### [worldedit.txt:110] forceload query 15 15
+log| System chat: Chunk at [0, 0] in minecraft:overworld is marked for force loading
+### [worldedit.txt:111] forceload add 32 32 64 64
+log| System chat: Marked 9 chunks in minecraft:overworld from [2, 2] to [4, 4] to be force loaded
+Bot| [system_chat] [Server: Marked 9 chunks in minecraft:overworld from [2, 2] to [4, 4] to be force loaded]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.added.multiple","with":[9,"minecraft:overworld","[2, 2]","[4, 4]"]}],"color":"gray","italic":true}
+### [worldedit.txt:112] forceload query
+log| System chat: 10 force loaded chunks were found in minecraft:overworld at: [0, 0], [2, 2], [3, 2], [4, 2], [2, 3], [3, 3], [4, 3], [2, 4], [3, 4], [4, 4]
+### [worldedit.txt:113] forceload add 32 32 64 64
+log| System chat: No chunks were marked for force loading
+### [worldedit.txt:114] forceload remove 0 0
+log| System chat: Unmarked chunk [0, 0] in minecraft:overworld for force loading
+Bot| [system_chat] [Server: Unmarked chunk [0, 0] in minecraft:overworld for force loading]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.removed.single","with":["[0, 0]","minecraft:overworld"]}],"color":"gray","italic":true}
+### [worldedit.txt:115] forceload remove 0 0
+log| System chat: No chunks were removed from force loading
+### [worldedit.txt:116] forceload query
+log| System chat: 9 force loaded chunks were found in minecraft:overworld at: [2, 2], [3, 2], [4, 2], [2, 3], [3, 3], [4, 3], [2, 4], [3, 4], [4, 4]
+### [worldedit.txt:117] forceload remove 32 32 64 64
+log| System chat: Unmarked 9 chunks in minecraft:overworld from [2, 2] to [4, 4] for force loading
+Bot| [system_chat] [Server: Unmarked 9 chunks in minecraft:overworld from [2, 2] to [4, 4] for force loading]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.removed.multiple","with":[9,"minecraft:overworld","[2, 2]","[4, 4]"]}],"color":"gray","italic":true}
+### [worldedit.txt:118] forceload remove 32 32 64 64
+log| System chat: No chunks were removed from force loading
+### [worldedit.txt:119] forceload query
+log| System chat: No force loaded chunks were found in minecraft:overworld
+### [worldedit.txt:120] forceload add -30000001 0
+log| System chat: That position is out of this world!
+### [worldedit.txt:121] forceload add 0 -30000001
+log| System chat: That position is out of this world!
+### [worldedit.txt:122] forceload add 30000000 0
+log| System chat: That position is out of this world!
+### [worldedit.txt:123] forceload add 29999999 0
+log| System chat: Marked chunk [1874999, 0] in minecraft:overworld to be force loaded
+Bot| [system_chat] [Server: Marked chunk [1874999, 0] in minecraft:overworld to be force loaded]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.added.single","with":["[1874999, 0]","minecraft:overworld"]}],"color":"gray","italic":true}
+### [worldedit.txt:124] forceload remove 29999999 0
+log| System chat: Unmarked chunk [1874999, 0] in minecraft:overworld for force loading
+Bot| [system_chat] [Server: Unmarked chunk [1874999, 0] in minecraft:overworld for force loading]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.removed.single","with":["[1874999, 0]","minecraft:overworld"]}],"color":"gray","italic":true}
+### [worldedit.txt:125] forceload add 0 0 10000 10000
+log| System chat: Too many chunks in the specified area (maximum 256, but specified 391876)
+### [worldedit.txt:126] forceload add 0 0 255 15
+log| System chat: Marked 16 chunks in minecraft:overworld from [0, 0] to [15, 0] to be force loaded
+Bot| [system_chat] [Server: Marked 16 chunks in minecraft:overworld from [0, 0] to [15, 0] to be force loaded]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.added.multiple","with":[16,"minecraft:overworld","[0, 0]","[15, 0]"]}],"color":"gray","italic":true}
+### [worldedit.txt:127] forceload add 0 0 271 15
+log| System chat: Marked chunk [16, 0] in minecraft:overworld to be force loaded
+Bot| [system_chat] [Server: Marked chunk [16, 0] in minecraft:overworld to be force loaded]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.added.single","with":["[16, 0]","minecraft:overworld"]}],"color":"gray","italic":true}
+### [worldedit.txt:128] forceload query
+log| System chat: 17 force loaded chunks were found in minecraft:overworld at: [0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0], [10, 0], [11, 0], [12, 0], [13, 0], [14, 0], [15, 0], [16, 0]
+### [worldedit.txt:129] forceload remove 0 0 271 15
+log| System chat: Unmarked 17 chunks in minecraft:overworld from [0, 0] to [16, 0] for force loading
+Bot| [system_chat] [Server: Unmarked 17 chunks in minecraft:overworld from [0, 0] to [16, 0] for force loading]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.removed.multiple","with":[17,"minecraft:overworld","[0, 0]","[16, 0]"]}],"color":"gray","italic":true}
+### [worldedit.txt:130] forceload add 16 16 -16 -16
+log| System chat: Marked 9 chunks in minecraft:overworld from [-1, -1] to [1, 1] to be force loaded
+Bot| [system_chat] [Server: Marked 9 chunks in minecraft:overworld from [-1, -1] to [1, 1] to be force loaded]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.added.multiple","with":[9,"minecraft:overworld","[-1, -1]","[1, 1]"]}],"color":"gray","italic":true}
+### [worldedit.txt:131] forceload query
+log| System chat: 9 force loaded chunks were found in minecraft:overworld at: [0, -1], [1, -1], [-1, -1], [0, 0], [1, 0], [-1, 0], [0, 1], [1, 1], [-1, 1]
+### [worldedit.txt:132] forceload query -16 -16
+log| System chat: Chunk at [-1, -1] in minecraft:overworld is marked for force loading
+### [worldedit.txt:133] forceload remove all
+log| System chat: Unmarked all force loaded chunks in minecraft:overworld
+Bot| [system_chat] [Server: Unmarked all force loaded chunks in minecraft:overworld]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.removed.all","with":["minecraft:overworld"]}],"color":"gray","italic":true}
+### [worldedit.txt:134] forceload query
+log| System chat: No force loaded chunks were found in minecraft:overworld
+### [worldedit.txt:135] forceload remove all
+log| System chat: Unmarked all force loaded chunks in minecraft:overworld
+Bot| [system_chat] [Server: Unmarked all force loaded chunks in minecraft:overworld]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.removed.all","with":["minecraft:overworld"]}],"color":"gray","italic":true}
+### [worldedit.txt:136] forceload add ~ ~
+log| System chat: Marked chunk [0, 0] in minecraft:overworld to be force loaded
+Bot| [system_chat] [Server: Marked chunk [0, 0] in minecraft:overworld to be force loaded]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.added.single","with":["[0, 0]","minecraft:overworld"]}],"color":"gray","italic":true}
+### [worldedit.txt:137] forceload add ~5 ~
+log| System chat: No chunks were marked for force loading
+### [worldedit.txt:138] forceload query ~ ~
+log| System chat: Chunk at [0, 0] in minecraft:overworld is marked for force loading
+### [worldedit.txt:139] forceload remove all
+log| System chat: Unmarked all force loaded chunks in minecraft:overworld
+Bot| [system_chat] [Server: Unmarked all force loaded chunks in minecraft:overworld]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.removed.all","with":["minecraft:overworld"]}],"color":"gray","italic":true}
+### [worldedit.txt:140] forceload
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: forceload<--[HERE]
+### [worldedit.txt:141] forceload add
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ceload add<--[HERE]
+### [worldedit.txt:142] forceload add 0
+log| System chat: Incomplete (expected 2 coordinates)
+log| System chat: ...eload add 0<--[HERE]
+### [worldedit.txt:143] forceload add a b
+log| System chat: Expected integer
+log| System chat: ...eload add a b<--[HERE]
+### [worldedit.txt:144] forceload query 0 0 0
+log| System chat: Incorrect argument for command
+log| System chat: ...query 0 0 0<--[HERE]
+### [worldedit.txt:145] @bot forceload add ~ ~
+log| System chat: [Bot: Marked chunk [0, 0] in minecraft:overworld to be force loaded]
+Bot| [system_chat] Marked chunk [0, 0] in minecraft:overworld to be force loaded
+Bot|   json {"translate":"commands.forceload.added.single","with":["[0, 0]","minecraft:overworld"]}
+### [worldedit.txt:146] @bot forceload query
+Bot| [system_chat] A force loaded chunk was found in minecraft:overworld at: [0, 0]
+Bot|   json {"translate":"commands.forceload.list.single","with":["minecraft:overworld","[0, 0]"]}
+### [worldedit.txt:147] @bot forceload remove all
+log| System chat: [Bot: Unmarked all force loaded chunks in minecraft:overworld]
+Bot| [system_chat] Unmarked all force loaded chunks in minecraft:overworld
+Bot|   json {"translate":"commands.forceload.removed.all","with":["minecraft:overworld"]}
+### [worldedit.txt:148] @bot0 forceload query
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] forceload query<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"forceload query","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/forceload query","action":"suggest_command"}}],"color":"red"}
+### [worldedit.txt:150] fillbiome 0 -60 0 15 -50 15 minecraft:desert
+log| System chat: 48 biome entry/entries set between 0, -60, 0 and 12, -52, 12
+Bot| [system_chat] [Server: 48 biome entry/entries set between 0, -60, 0 and 12, -52, 12]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fillbiome.success.count","with":[48,0,-60,0,12,-52,12]}],"color":"gray","italic":true}
+### [worldedit.txt:151] fillbiome 0 -60 0 15 -50 15 minecraft:desert
+log| System chat: No biome entries were changed
+### [worldedit.txt:152] fillbiome 0 -60 0 15 -50 15 minecraft:plains replace minecraft:desert
+log| System chat: 48 biome entry/entries set between 0, -60, 0 and 12, -52, 12
+Bot| [system_chat] [Server: 48 biome entry/entries set between 0, -60, 0 and 12, -52, 12]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fillbiome.success.count","with":[48,0,-60,0,12,-52,12]}],"color":"gray","italic":true}
+### [worldedit.txt:153] fillbiome 0 -60 0 15 -50 15 minecraft:plains replace minecraft:desert
+log| System chat: No biome entries were changed
+### [worldedit.txt:154] fillbiome 0 -60 0 15 -50 15 minecraft:desert replace #minecraft:is_forest
+log| System chat: No biome entries were changed
+### [worldedit.txt:155] fillbiome 0 -60 0 15 -50 15 minecraft:desert replace #minecraft:is_overworld
+log| System chat: 48 biome entry/entries set between 0, -60, 0 and 12, -52, 12
+Bot| [system_chat] [Server: 48 biome entry/entries set between 0, -60, 0 and 12, -52, 12]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fillbiome.success.count","with":[48,0,-60,0,12,-52,12]}],"color":"gray","italic":true}
+### [worldedit.txt:156] fillbiome 0 -60 0 15 -50 15 minecraft:plains replace #minecraft:is_overworld
+log| System chat: 48 biome entry/entries set between 0, -60, 0 and 12, -52, 12
+Bot| [system_chat] [Server: 48 biome entry/entries set between 0, -60, 0 and 12, -52, 12]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fillbiome.success.count","with":[48,0,-60,0,12,-52,12]}],"color":"gray","italic":true}
+### [worldedit.txt:157] fillbiome 0 -60 0 3 -60 3 minecraft:plains
+log| System chat: No biome entries were changed
+### [worldedit.txt:158] fillbiome 1 -59 1 2 -58 2 minecraft:badlands
+log| System chat: 1 biome entry/entries set between 0, -60, 0 and 0, -60, 0
+Bot| [system_chat] [Server: 1 biome entry/entries set between 0, -60, 0 and 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fillbiome.success.count","with":[1,0,-60,0,0,-60,0]}],"color":"gray","italic":true}
+### [worldedit.txt:159] fillbiome 0 -60 0 100000 0 0 minecraft:plains
+log| System chat: That position is not loaded
+### [worldedit.txt:160] fillbiome 0 -60 0 1000000 0 0 minecraft:plains
+log| System chat: That position is not loaded
+### [worldedit.txt:161] fillbiome 1000000 0 0 1000001 0 0 minecraft:plains
+log| System chat: That position is not loaded
+### [worldedit.txt:162] fillbiome 0 -60 0 3 -60 3 minecraft:notabiome
+log| System chat: Can't find element 'minecraft:notabiome' of type 'minecraft:worldgen/biome'
+log| System chat: ...:notabiome<--[HERE]
+### [worldedit.txt:163] fillbiome 0 -60 0 3 -60 3 minecraft:plains replace minecraft:notabiome
+log| System chat: Can't find element 'minecraft:notabiome' of type 'minecraft:worldgen/biome'
+log| System chat: ...:notabiome<--[HERE]
+### [worldedit.txt:164] fillbiome 0 -60 0 3 -60 3 minecraft:plains replace #minecraft:nosuchtag
+log| System chat: Can't find tag 'minecraft:nosuchtag' of type 'minecraft:worldgen/biome'
+log| System chat: ...:nosuchtag<--[HERE]
+### [worldedit.txt:165] fillbiome 0 -60 0 3 -60 3 minecraft:plains replace
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ns replace<--[HERE]
+### [worldedit.txt:166] fillbiome 0 -60 0 3 -60 3 minecraft:plains sideways
+log| System chat: Incorrect argument for command
+log| System chat: ...ft:plains sideways<--[HERE]
+### [worldedit.txt:167] fillbiome 0 400 0 3 401 3 minecraft:plains
+log| System chat: That position is out of this world!
+### [worldedit.txt:168] fillbiome 0 -64 0 63 319 63 minecraft:plains
+log| System chat: Too many blocks in the specified volume (maximum 32768, but specified 1417701)
+### [worldedit.txt:169] fillbiome 0 -64 0 31 100 31 minecraft:plains
+log| System chat: Too many blocks in the specified volume (maximum 32768, but specified 138765)
+### [worldedit.txt:170] fillbiome 0 -64 0 31 -50 31 minecraft:mushroom_fields
+log| System chat: 256 biome entry/entries set between 0, -64, 0 and 28, -52, 28
+Bot| [system_chat] [Server: 256 biome entry/entries set between 0, -64, 0 and 28, -52, 28]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fillbiome.success.count","with":[256,0,-64,0,28,-52,28]}],"color":"gray","italic":true}
+### [worldedit.txt:171] fillbiome 0 -64 0 31 -50 31 minecraft:mushroom_fields
+log| System chat: No biome entries were changed
+### [worldedit.txt:172] fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle
+log| System chat: 27 biome entry/entries set between 0, -60, 0 and 8, -52, 8
+Bot| [system_chat] [Server: 27 biome entry/entries set between 0, -60, 0 and 8, -52, 8]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fillbiome.success.count","with":[27,0,-60,0,8,-52,8]}],"color":"gray","italic":true}
+### [worldedit.txt:173] @bot fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle
+Bot| [system_chat] No biome entries were changed
+Bot|   json {"text":"","extra":[{"translate":"commands.fillbiome.no_changes"}],"color":"red"}
+### [worldedit.txt:174] @bot fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle
+Bot| [system_chat] No biome entries were changed
+Bot|   json {"text":"","extra":[{"translate":"commands.fillbiome.no_changes"}],"color":"red"}
+### [worldedit.txt:175] @bot0 fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle","action":"suggest_command"}}],"color":"red"}
+### [worldedit.txt:176] save-all flush
+log| System chat: Saving the game (this may take a moment!)
+log| System chat: Saved the game
+Bot| [system_chat] [Server: Saved the game]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.save.success"}],"color":"gray","italic":true}
+### [worldedit.txt:178] locate biome minecraft:plains
+log| System chat: The nearest minecraft:plains is at [0, -60, 0] (0 blocks away)
+### [worldedit.txt:179] locate biome minecraft:mushroom_fields
+log| System chat: Could not find a biome of type "minecraft:mushroom_fields" within a reasonable distance
+### [worldedit.txt:180] locate biome minecraft:desert
+log| System chat: Could not find a biome of type "minecraft:desert" within a reasonable distance
+### [worldedit.txt:181] locate biome minecraft:badlands
+log| System chat: Could not find a biome of type "minecraft:badlands" within a reasonable distance
+### [worldedit.txt:182] locate biome #minecraft:is_overworld
+log| System chat: The nearest #minecraft:is_overworld (minecraft:plains) is at [0, -60, 0] (0 blocks away)
+### [worldedit.txt:183] locate biome #minecraft:is_forest
+log| System chat: Could not find a biome of type "#minecraft:is_forest" within a reasonable distance
+### [worldedit.txt:184] locate biome #minecraft:nosuchtag
+log| System chat: Can't find tag 'minecraft:nosuchtag' of type 'minecraft:worldgen/biome'
+log| System chat: ...:nosuchtag<--[HERE]
+### [worldedit.txt:185] locate biome minecraft:notabiome
+log| System chat: Can't find element 'minecraft:notabiome' of type 'minecraft:worldgen/biome'
+log| System chat: ...:notabiome<--[HERE]
+### [worldedit.txt:186] locate biome minecraft:jungle
+log| System chat: Could not find a biome of type "minecraft:jungle" within a reasonable distance
+### [worldedit.txt:187] @bot locate biome minecraft:plains
+Bot| [system_chat] The nearest minecraft:plains is at [0, -60, 0] (0 blocks away)
+Bot|   json {"translate":"commands.locate.biome.success","with":["minecraft:plains",{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[0,"-60",0]}],"color":"green","click_event":{"command":"/tp @s 0 -60 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},0]}
+### [worldedit.txt:188] @bot locate biome #minecraft:is_overworld
+Bot| [system_chat] The nearest #minecraft:is_overworld (minecraft:plains) is at [0, -60, 0] (0 blocks away)
+Bot|   json {"translate":"commands.locate.biome.success","with":["#minecraft:is_overworld (minecraft:plains)",{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[0,"-60",0]}],"color":"green","click_event":{"command":"/tp @s 0 -60 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},0]}
+### [worldedit.txt:189] @bot0 locate biome minecraft:plains
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] locate biome minecraft:plains<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"locate biome minecraft:plains","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/locate biome minecraft:plains","action":"suggest_command"}}],"color":"red"}
+### [worldedit.txt:190] locate structure minecraft:village_plains
+log| System chat: Could not find a structure of type "minecraft:village_plains" nearby
+### [worldedit.txt:191] locate structure #minecraft:village
+log| System chat: Could not find a structure of type "#minecraft:village" nearby
+### [worldedit.txt:192] locate structure #minecraft:nosuchtag
+log| System chat: There is no structure with type "#minecraft:nosuchtag"
+### [worldedit.txt:193] locate structure minecraft:notastructure
+log| System chat: There is no structure with type "minecraft:notastructure"
+### [worldedit.txt:194] locate structure foo:bar
+log| System chat: There is no structure with type "foo:bar"
+### [worldedit.txt:195] locate structure
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ... structure<--[HERE]
+### [worldedit.txt:196] locate structure minecraft:stronghold
+log| System chat: Could not find a structure of type "minecraft:stronghold" nearby
+### [worldedit.txt:197] locate poi minecraft:librarian
+log| System chat: Could not find a point of interest of type "minecraft:librarian" within a reasonable distance
+### [worldedit.txt:198] locate poi #minecraft:acquirable_job_site
+log| System chat: Could not find a point of interest of type "#minecraft:acquirable_job_site" within a reasonable distance
+### [worldedit.txt:199] locate poi minecraft:nothing
+log| System chat: Can't find element 'minecraft:nothing' of type 'minecraft:point_of_interest_type'
+log| System chat: ...ft:nothing<--[HERE]
+### [worldedit.txt:200] locate poi #minecraft:nosuchtag
+log| System chat: Can't find tag 'minecraft:nosuchtag' of type 'minecraft:point_of_interest_type'
+log| System chat: ...:nosuchtag<--[HERE]
+### [worldedit.txt:201] locate poi minecraft:nether_portal
+log| System chat: Could not find a point of interest of type "minecraft:nether_portal" within a reasonable distance
+### [worldedit.txt:202] @bot locate poi minecraft:librarian
+Bot| [system_chat] Could not find a point of interest of type "minecraft:librarian" within a reasonable distance
+Bot|   json {"text":"","extra":[{"translate":"commands.locate.poi.not_found","with":["minecraft:librarian"]}],"color":"red"}
+### [worldedit.txt:203] locate
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: locate<--[HERE]
+### [worldedit.txt:204] locate sideways
+log| System chat: Incorrect argument for command
+log| System chat: locate sideways<--[HERE]

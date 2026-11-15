@@ -1,0 +1,242 @@
+### [state_misc.txt:3] stopwatch
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: stopwatch<--[HERE]
+### [state_misc.txt:4] stopwatch create
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...tch create<--[HERE]
+### [state_misc.txt:5] stopwatch create state:a
+log| System chat: Created stopwatch 'state:a'
+Bot| [system_chat] [Server: Created stopwatch 'state:a']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopwatch.create.success","with":["state:a"]}],"color":"gray","italic":true}
+### [state_misc.txt:6] stopwatch create state:a
+log| System chat: Stopwatch 'state:a' already exists
+### [state_misc.txt:7] stopwatch query state:a
+
+### [state_misc.txt:8] stopwatch query state:a 1000
+
+### [state_misc.txt:9] stopwatch query state:nope
+log| System chat: Stopwatch 'state:nope' does not exist
+### [state_misc.txt:10] stopwatch restart state:a
+log| System chat: Restarted stopwatch 'state:a'
+Bot| [system_chat] [Server: Restarted stopwatch 'state:a']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopwatch.restart.success","with":["state:a"]}],"color":"gray","italic":true}
+### [state_misc.txt:11] stopwatch restart state:nope
+log| System chat: Stopwatch 'state:nope' does not exist
+### [state_misc.txt:12] stopwatch remove state:a
+log| System chat: Removed stopwatch 'state:a'
+Bot| [system_chat] [Server: Removed stopwatch 'state:a']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopwatch.remove.success","with":["state:a"]}],"color":"gray","italic":true}
+### [state_misc.txt:13] stopwatch remove state:a
+log| System chat: Stopwatch 'state:a' does not exist
+### [state_misc.txt:14] stopwatch query state:a
+log| System chat: Stopwatch 'state:a' does not exist
+### [state_misc.txt:15] random
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: random<--[HERE]
+### [state_misc.txt:16] random value
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ndom value<--[HERE]
+### [state_misc.txt:17] random value 5..5
+log| System chat: The range of the random value must be at least 1
+### [state_misc.txt:18] random value ..-1
+log| System chat: The range of the random value must be at most 2147483647
+### [state_misc.txt:19] random value 0..2147483647
+log| System chat: The range of the random value must be at most 2147483647
+### [state_misc.txt:20] random value ..
+log| System chat: Expected value or range of values
+log| System chat: ...dom value ..<--[HERE]
+### [state_misc.txt:21] random value 6..1
+log| System chat: Min cannot be bigger than max
+log| System chat: ...dom value 6..1<--[HERE]
+### [state_misc.txt:22] random value 1..100 state:seq
+log| System chat: Randomized value: 42
+### [state_misc.txt:23] random value 1..100 state:seq
+log| System chat: Randomized value: 50
+### [state_misc.txt:24] random roll 1..6 state:seq
+log| System chat: Server rolled 6 (from 1 to 6)
+Bot| [system_chat] Server rolled 6 (from 1 to 6)
+Bot|   json {"translate":"commands.random.roll","with":["Server",6,1,6]}
+Bot0| [system_chat] Server rolled 6 (from 1 to 6)
+Bot0|   json {"translate":"commands.random.roll","with":["Server",6,1,6]}
+### [state_misc.txt:25] random reset
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ndom reset<--[HERE]
+### [state_misc.txt:26] random reset state:seq
+log| System chat: Reset random sequence state:seq
+### [state_misc.txt:27] random reset state:seq 5
+log| System chat: Reset random sequence state:seq
+### [state_misc.txt:28] random reset state:seq 5 false
+log| System chat: Reset random sequence state:seq
+### [state_misc.txt:29] random reset state:seq 5 false false
+log| System chat: Reset random sequence state:seq
+### [state_misc.txt:30] random value 1..100 state:seq
+log| System chat: Randomized value: 61
+### [state_misc.txt:31] random reset *
+log| System chat: Reset 1 random sequence(s)
+### [state_misc.txt:32] random reset * 7
+log| System chat: Reset 0 random sequence(s)
+### [state_misc.txt:33] random reset * 7 false true
+log| System chat: Reset 0 random sequence(s)
+### [state_misc.txt:34] random reset * 7 false true extra
+log| System chat: Incorrect argument for command
+log| System chat: ...alse true extra<--[HERE]
+### [state_misc.txt:35] @bot0 random value 1..6 state:seq
+Bot0| [system_chat] Incorrect argument for command
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.argument"}],"color":"red"}
+Bot0| [system_chat] ...alue 1..6 state:seq<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":["...","alue 1..6 ",{"text":"state:seq","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/random value 1..6 state:seq","action":"suggest_command"}}],"color":"red"}
+### [state_misc.txt:36] @bot0 random reset *
+Bot0| [system_chat] Incorrect argument for command
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.argument"}],"color":"red"}
+Bot0| [system_chat] random reset *<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":["random ",{"text":"reset *","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/random reset *","action":"suggest_command"}}],"color":"red"}
+### [state_misc.txt:37] defaultgamemode
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ltgamemode<--[HERE]
+### [state_misc.txt:38] defaultgamemode creative
+log| System chat: The default game mode is now Creative Mode
+Bot| [system_chat] [Server: The default game mode is now Creative Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.defaultgamemode.success","with":[{"translate":"gameMode.creative"}]}],"color":"gray","italic":true}
+### [state_misc.txt:39] defaultgamemode adventure
+log| System chat: The default game mode is now Adventure Mode
+Bot| [system_chat] [Server: The default game mode is now Adventure Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.defaultgamemode.success","with":[{"translate":"gameMode.adventure"}]}],"color":"gray","italic":true}
+### [state_misc.txt:40] defaultgamemode nope
+log| System chat: Unknown game mode: nope
+log| System chat: ...emode nope<--[HERE]
+### [state_misc.txt:41] defaultgamemode survival
+log| System chat: The default game mode is now Survival Mode
+Bot| [system_chat] [Server: The default game mode is now Survival Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.defaultgamemode.success","with":[{"translate":"gameMode.survival"}]}],"color":"gray","italic":true}
+### [state_misc.txt:42] @bot0 defaultgamemode creative
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] defaultgamemode creative<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"defaultgamemode creative","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/defaultgamemode creative","action":"suggest_command"}}],"color":"red"}
+### [state_misc.txt:43] setidletimeout
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...dletimeout<--[HERE]
+### [state_misc.txt:44] setidletimeout 5
+log| System chat: The player idle timeout is now 5 minute(s)
+Bot| [system_chat] [Server: The player idle timeout is now 5 minute(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setidletimeout.success","with":[5]}],"color":"gray","italic":true}
+### [state_misc.txt:45] setidletimeout 0
+log| System chat: The player idle timeout is now disabled
+Bot| [system_chat] [Server: The player idle timeout is now disabled]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setidletimeout.success.disabled"}],"color":"gray","italic":true}
+### [state_misc.txt:46] setidletimeout -1
+log| System chat: Integer must not be less than 0: found -1
+log| System chat: ...letimeout -1<--[HERE]
+### [state_misc.txt:47] @bot0 setidletimeout 1
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] setidletimeout 1<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"setidletimeout 1","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/setidletimeout 1","action":"suggest_command"}}],"color":"red"}
+### [state_misc.txt:48] version
+log| System chat: Server version info:
+log| System chat: id = 26.3
+log| System chat: name = 26.3
+log| System chat: data = 5023
+log| System chat: series = main
+log| System chat: protocol = 777 (0x309)
+log| System chat: build_time = Tue Sep 15 14:20:48 GMT+03:00 2026
+log| System chat: pack_resource = 97.1
+log| System chat: pack_data = 121.0
+log| System chat: stable = yes
+### [state_misc.txt:49] @bot version
+Bot| [system_chat] Server version info:
+Bot|   json {"translate":"commands.version.header"}
+Bot| [system_chat] id = 26.3
+Bot|   json {"translate":"commands.version.id","with":["26.3"]}
+Bot| [system_chat] name = 26.3
+Bot|   json {"translate":"commands.version.name","with":["26.3"]}
+Bot| [system_chat] data = 5023
+Bot|   json {"translate":"commands.version.data","with":[5023]}
+Bot| [system_chat] series = main
+Bot|   json {"translate":"commands.version.series","with":["main"]}
+Bot| [system_chat] protocol = 777 (0x309)
+Bot|   json {"translate":"commands.version.protocol","with":[777,"0x309"]}
+Bot| [system_chat] build_time = Tue Sep 15 14:20:48 GMT+03:00 2026
+Bot|   json {"translate":"commands.version.build_time","with":["Tue Sep 15 14:20:48 GMT+03:00 2026"]}
+Bot| [system_chat] pack_resource = 97.1
+Bot|   json {"translate":"commands.version.pack.resource","with":["97.1"]}
+Bot| [system_chat] pack_data = 121.0
+Bot|   json {"translate":"commands.version.pack.data","with":["121.0"]}
+Bot| [system_chat] stable = yes
+Bot|   json {"translate":"commands.version.stable.yes"}
+### [state_misc.txt:50] @bot0 version
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] version<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"version","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/version","action":"suggest_command"}}],"color":"red"}
+### [state_misc.txt:51] transfer
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: transfer<--[HERE]
+### [state_misc.txt:52] transfer localhost 0
+log| System chat: Integer must not be less than 1: found 0
+log| System chat: ...localhost 0<--[HERE]
+### [state_misc.txt:53] transfer localhost 65536
+log| System chat: Integer must not be more than 65535: found 65536
+log| System chat: ...localhost 65536<--[HERE]
+### [state_misc.txt:54] transfer localhost 25565 Nobody
+log| System chat: No player was found
+### [state_misc.txt:55] transfer localhost 25565 @e[type=zombie]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: transfer localhost 25565 @e[type=zombie]<--[HERE]
+### [state_misc.txt:56] @bot0 transfer localhost
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] transfer localhost<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"transfer localhost","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/transfer localhost","action":"suggest_command"}}],"color":"red"}
+### [state_misc.txt:57] fetchprofile
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...tchprofile<--[HERE]
+### [state_misc.txt:58] fetchprofile name
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ofile name<--[HERE]
+### [state_misc.txt:59] fetchprofile id notauuid
+log| System chat: Invalid UUID
+log| System chat: ...rofile id notauuid<--[HERE]
+### [state_misc.txt:60] fetchprofile entity
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ile entity<--[HERE]
+### [state_misc.txt:61] fetchprofile entity @e[type=zombie]
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: fetchprofile entity @e[type=zombie]<--[HERE]
+### [state_misc.txt:62] @bot fetchprofile entity @s
+Bot| [system_chat] Resolved profile for entity Bot: [Copy Component] [Give Item] [Summon Mannequin] [Copy [Bot head]]
+Bot|   json {"translate":"commands.fetchprofile.entity.success","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"text":"","extra":[{"translate":"chat.square_brackets","with":[{"translate":"commands.fetchprofile.copy_component","color":"green","click_event":{"value":"{id:[I;-1155928273,798308776,-1951547997,-315148217],name:\"Bot\"}","action":"copy_to_clipboard"}}]}," ",{"translate":"chat.square_brackets","with":[{"translate":"commands.fetchprofile.give_item","color":"green","click_event":{"command":"give @s minecraft:player_head[profile={id:[I;-1155928273,798308776,-1951547997,-315148217],name:\"Bot\"}]","action":"run_command"}}]}," ",{"translate":"chat.square_brackets","with":[{"translate":"commands.fetchprofile.summon_mannequin","color":"green","click_event":{"command":"summon minecraft:mannequin ~ ~ ~ {profile:{id:[I;-1155928273,798308776,-1951547997,-315148217],name:\"Bot\"}}","action":"run_command"}}]}," ",{"translate":"chat.square_brackets","with":[{"translate":"commands.fetchprofile.copy_text","with":[{"player":{"id":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot"},"color":"white"}],"color":"green","click_event":{"value":"{player:{id:[I;-1155928273,798308776,-1951547997,-315148217],name:\"Bot\"}}","action":"copy_to_clipboard"}}]}]}]}
+### [state_misc.txt:63] @bot0 fetchprofile entity @s
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] fetchprofile entity @s<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"fetchprofile entity @s","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/fetchprofile entity @s","action":"suggest_command"}}],"color":"red"}
+### [state_misc.txt:65] perf stop
+log| System chat: The performance profiler hasn't started
+### [state_misc.txt:66] perf start
+log| System chat: Started a 10-second performance profiling run (use '/perf stop' to stop early)
+### [state_misc.txt:67] perf start
+log| System chat: The performance profiler is already started
+### [state_misc.txt:68] perf stop
+
+### [state_misc.txt:70] perf stop
+log| System chat: The performance profiler hasn't started
+### [state_misc.txt:71] @bot0 perf start
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] perf start<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"perf start","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/perf start","action":"suggest_command"}}],"color":"red"}
+### [state_misc.txt:72] jfr stop
+log| System chat: Failed to dump JFR recording: Not currently profiling
+### [state_misc.txt:73] jfr start
+log| System chat: JFR profiling started
+### [state_misc.txt:74] jfr start
+log| WARN: Profiling already in progress
+log| System chat: Failed to start JFR profiling
+### [state_misc.txt:75] jfr stop
+
+### [state_misc.txt:76] @bot0 jfr start
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] jfr start<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"jfr start","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/jfr start","action":"suggest_command"}}],"color":"red"}

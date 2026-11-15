@@ -1,5 +1,8 @@
 # Data pack function system (fixtures/commands_corpus/functions/fnpack), see scripts/command-diff.sh
 !datapack functions/fnpack
+# `/schedule` reports the absolute game time, which depends on how long the server took to start
+!mask at gametime (\d+)
+!mask "commands.schedule.created.(?:function|tag)","with":\["[^"]*",\d+,(\d+)\]
 # load tag ran at the first tick, tick tag keeps running
 !ticks 2
 data get storage fn:state loaded

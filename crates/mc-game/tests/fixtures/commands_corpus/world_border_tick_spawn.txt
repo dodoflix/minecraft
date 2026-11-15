@@ -4,6 +4,8 @@
 worldborder get
 @bot worldborder get
 @bot worldborder set 10 5
+# a lerp advances with the game ticks: wait for it to end so the next command sees a fixed size
+!ticks 8
 @bot worldborder set 10 5
 @bot worldborder set 10
 @bot worldborder get
@@ -12,7 +14,9 @@ worldborder get
 @bot worldborder set 200
 @bot worldborder add 50
 @bot worldborder add -10 3
+!ticks 8
 @bot worldborder add 1000 10
+!ticks 14
 @bot worldborder center 100 -50
 @bot worldborder center 100 -50
 @bot worldborder center 30000000 0

@@ -37,15 +37,20 @@ fn watched_since(bot: &Bot, from: usize) -> (usize, Vec<String>) {
     (lines.len(), out)
 }
 
-/// Timing dependent reports: every digit becomes `#`.
+/// Timing dependent reports: every run of digits becomes one `#` (`9.5` and `10.5` are the same report).
 fn mask(line: &str) -> String {
-    if line.contains("commands.tick.query") || line.contains("commands.tick.sprint.report") {
-        line.chars()
-            .map(|c| if c.is_ascii_digit() { '#' } else { c })
-            .collect()
-    } else {
-        line.to_string()
+    if !(line.contains("commands.tick.query") || line.contains("commands.tick.sprint.report")) {
+        return line.to_string();
     }
+    let mut out = String::new();
+    for c in line.chars() {
+        if !c.is_ascii_digit() {
+            out.push(c);
+        } else if !out.ends_with('#') {
+            out.push('#');
+        }
+    }
+    out
 }
 
 const SCRIPT: &[(&str, u64)] = &[
@@ -108,6 +113,8 @@ const SCRIPT: &[(&str, u64)] = &[
 
 async fn run(bot: &Bot, console: &dyn Fn(&str)) -> Vec<String> {
     console("op Bot");
+    // the join position is random (unseeded in vanilla): `~` arguments need a fixed place
+    console("tp Bot 0.5 -60 0.5 0 0");
     bot.wait_ticks(10).await.expect("op");
     let mut out = Vec::new();
     for (command, ticks) in SCRIPT {

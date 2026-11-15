@@ -1,0 +1,892 @@
+### [operating.txt:5] gamerule advance_time false
+log| System chat: Game rule advance_time is now set to false
+Bot| [system_chat] [Server: Game rule advance_time is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["advance_time","false"]}],"color":"gray","italic":true}
+### [operating.txt:6] gamerule advance_weather false
+log| System chat: Game rule advance_weather is now set to false
+Bot| [system_chat] [Server: Game rule advance_weather is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["advance_weather","false"]}],"color":"gray","italic":true}
+### [operating.txt:21] say hello world
+log| [Not Secure] [Server] hello world
+Bot| [disguised_chat] Server: hello world
+Bot|   json "hello world"
+Bot0| [disguised_chat] Server: hello world
+Bot0|   json "hello world"
+### [operating.txt:22] say
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: say<--[HERE]
+### [operating.txt:23] say @a hi
+log| [Not Secure] [Server] Bot, Bot0 hi
+Bot| [disguised_chat] Server: Bot, Bot0 hi
+Bot|   json {"text":"","extra":[{"text":"","extra":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"text":", ","color":"gray"},{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}]}," hi"]}
+Bot0| [disguised_chat] Server: Bot, Bot0 hi
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"text":", ","color":"gray"},{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}]}," hi"]}
+### [operating.txt:24] say @e[type=player,sort=nearest,limit=1]
+log| [Not Secure] [Server] Bot
+Bot| [disguised_chat] Server: Bot
+Bot|   json {"text":"","extra":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+Bot0| [disguised_chat] Server: Bot
+Bot0|   json {"text":"","extra":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [operating.txt:25] @bot say from the bot
+log| [Not Secure] [Bot] from the bot
+Bot| [disguised_chat] Bot: from the bot
+Bot|   json "from the bot"
+Bot0| [disguised_chat] Bot: from the bot
+Bot0|   json "from the bot"
+### [operating.txt:26] @bot0 say not allowed
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] say not allowed<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"say not allowed","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/say not allowed","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:27] me waves
+log| [Not Secure] * Server waves
+Bot| [disguised_chat] Server: waves
+Bot|   json "waves"
+Bot0| [disguised_chat] Server: waves
+Bot0|   json "waves"
+### [operating.txt:28] @bot me waves
+log| [Not Secure] * Bot waves
+Bot| [disguised_chat] Bot: waves
+Bot|   json "waves"
+Bot0| [disguised_chat] Bot: waves
+Bot0|   json "waves"
+### [operating.txt:29] @bot0 me waves
+log| [Not Secure] * Bot0 waves
+Bot| [disguised_chat] Bot0: waves
+Bot|   json "waves"
+Bot0| [disguised_chat] Bot0: waves
+Bot0|   json "waves"
+### [operating.txt:30] @bot0 me
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] me<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":["me",{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/me","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:31] msg Bot hello
+log| System chat: You whisper to Bot: hello
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+### [operating.txt:32] msg Bot0 hello
+log| System chat: You whisper to Bot0: hello
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+### [operating.txt:33] msg nobody hello
+log| System chat: No player was found
+### [operating.txt:34] msg Bot
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: msg Bot<--[HERE]
+### [operating.txt:35] msg
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: msg<--[HERE]
+### [operating.txt:36] @bot msg Bot0 hi there
+Bot| [disguised_chat] Bot: hi there
+Bot|   json "hi there"
+Bot0| [disguised_chat] Bot: hi there
+Bot0|   json "hi there"
+### [operating.txt:37] @bot0 msg Bot yo
+Bot| [disguised_chat] Bot0: yo
+Bot|   json "yo"
+Bot0| [disguised_chat] Bot0: yo
+Bot0|   json "yo"
+### [operating.txt:38] @bot0 msg @a hey all
+Bot0| [system_chat] Selector not allowed
+Bot0|   json {"text":"","extra":[{"translate":"argument.entity.selector.not_allowed"}],"color":"red"}
+Bot0| [system_chat] msg @a hey all<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":["msg ",{"text":"@a hey all","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/msg @a hey all","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:39] @bot tell Bot0 via tell
+Bot| [disguised_chat] Bot: via tell
+Bot|   json "via tell"
+Bot0| [disguised_chat] Bot: via tell
+Bot0|   json "via tell"
+### [operating.txt:40] @bot w Bot0 via w
+Bot| [disguised_chat] Bot: via w
+Bot|   json "via w"
+Bot0| [disguised_chat] Bot: via w
+Bot0|   json "via w"
+### [operating.txt:41] @bot msg Bot talking to myself
+Bot| [disguised_chat] Bot: talking to myself
+Bot|   json "talking to myself"
+Bot| [disguised_chat] Bot: talking to myself
+Bot|   json "talking to myself"
+### [operating.txt:42] tellraw @a {"text":"raw","color":"red"}
+Bot| [system_chat] raw
+Bot|   json {"text":"raw","color":"red"}
+Bot0| [system_chat] raw
+Bot0|   json {"text":"raw","color":"red"}
+### [operating.txt:43] tellraw @a [{"text":"a"},{"text":"b","bold":true}]
+Bot| [system_chat] ab
+Bot|   json {"text":"a","extra":[{"text":"b","bold":true}]}
+Bot0| [system_chat] ab
+Bot0|   json {"text":"a","extra":[{"text":"b","bold":true}]}
+### [operating.txt:44] tellraw @a {"translate":"commands.give.success.single","with":["1","x","y"]}
+Bot| [system_chat] Gave 1 x to y
+Bot|   json {"translate":"commands.give.success.single","with":["1","x","y"]}
+Bot0| [system_chat] Gave 1 x to y
+Bot0|   json {"translate":"commands.give.success.single","with":["1","x","y"]}
+### [operating.txt:45] tellraw @a {"text":"x"
+log| System chat: Expected literal ,
+log| System chat: ..."text":"x"<--[HERE]
+### [operating.txt:46] tellraw @a nonsense
+Bot| [system_chat] nonsense
+Bot|   json "nonsense"
+Bot0| [system_chat] nonsense
+Bot0|   json "nonsense"
+### [operating.txt:47] tellraw nobody "x"
+log| System chat: No player was found
+### [operating.txt:48] tellraw Bot {"selector":"@s"}
+Bot| [system_chat]
+Bot|   json ""
+### [operating.txt:49] tellraw @a {"score":{"name":"Bot","objective":"nope"}}
+Bot| [system_chat]
+Bot|   json ""
+Bot0| [system_chat]
+Bot0|   json ""
+### [operating.txt:50] @bot0 tellraw @a "no"
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] tellraw @a "no"<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"tellraw @a \"no\"","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/tellraw @a \"no\"","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:53] list
+log| System chat: There are 2 of a max of 20 players online: Bot, Bot0
+### [operating.txt:54] list uuids
+log| System chat: There are 2 of a max of 20 players online: Bot (bb19ef2f-2f95-39a8-8bad-bda3ed373847), Bot0 (ee2337bd-ef1b-3585-94ad-53fcd1977dd2)
+### [operating.txt:55] list bogus
+log| System chat: Incorrect argument for command
+log| System chat: list bogus<--[HERE]
+### [operating.txt:56] @bot0 list
+Bot0| [system_chat] There are 2 of a max of 20 players online: Bot, Bot0
+Bot0|   json {"translate":"commands.list.players","with":[2,20,{"text":"","extra":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"text":", ","color":"gray"},{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}]}]}
+### [operating.txt:59] time set day
+log| System chat: Set minecraft:overworld to time marker minecraft:day
+Bot| [system_chat] [Server: Set minecraft:overworld to time marker minecraft:day]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.time_marker","with":["minecraft:overworld","minecraft:day"]}],"color":"gray","italic":true}
+### [operating.txt:60] time set noon
+log| System chat: Set minecraft:overworld to time marker minecraft:noon
+Bot| [system_chat] [Server: Set minecraft:overworld to time marker minecraft:noon]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.time_marker","with":["minecraft:overworld","minecraft:noon"]}],"color":"gray","italic":true}
+### [operating.txt:61] time set night
+log| System chat: Set minecraft:overworld to time marker minecraft:night
+Bot| [system_chat] [Server: Set minecraft:overworld to time marker minecraft:night]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.time_marker","with":["minecraft:overworld","minecraft:night"]}],"color":"gray","italic":true}
+### [operating.txt:62] time set midnight
+log| System chat: Set minecraft:overworld to time marker minecraft:midnight
+Bot| [system_chat] [Server: Set minecraft:overworld to time marker minecraft:midnight]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.time_marker","with":["minecraft:overworld","minecraft:midnight"]}],"color":"gray","italic":true}
+### [operating.txt:63] time set 1000
+log| System chat: Set minecraft:overworld to 1000 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 1000 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",1000]}],"color":"gray","italic":true}
+### [operating.txt:64] time set 24000
+log| System chat: Set minecraft:overworld to 24000 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 24000 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",24000]}],"color":"gray","italic":true}
+### [operating.txt:65] time set -1
+log| System chat: Time marker minecraft:-1 does not exist for clock minecraft:overworld
+### [operating.txt:66] time set abc
+log| System chat: Time marker minecraft:abc does not exist for clock minecraft:overworld
+### [operating.txt:67] time add 10
+log| System chat: Set minecraft:overworld to 24010 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 24010 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",24010]}],"color":"gray","italic":true}
+### [operating.txt:68] time add -5
+log| System chat: Set minecraft:overworld to 24005 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 24005 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",24005]}],"color":"gray","italic":true}
+### [operating.txt:69] time query daytime
+log| System chat: Can't find element 'minecraft:daytime' of type 'minecraft:timeline'
+log| System chat: ...ry daytime<--[HERE]
+### [operating.txt:70] time query day
+log| System chat: Timeline minecraft:day is at 5 tick(s)
+### [operating.txt:71] time query nothing
+log| System chat: Can't find element 'minecraft:nothing' of type 'minecraft:timeline'
+log| System chat: ...ry nothing<--[HERE]
+### [operating.txt:72] time set 1d
+log| System chat: Set minecraft:overworld to 24000 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 24000 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",24000]}],"color":"gray","italic":true}
+### [operating.txt:73] time set 5s
+log| System chat: Set minecraft:overworld to 100 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 100 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",100]}],"color":"gray","italic":true}
+### [operating.txt:74] time set 3t
+log| System chat: Set minecraft:overworld to 3 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 3 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",3]}],"color":"gray","italic":true}
+### [operating.txt:75] time set 2x
+log| System chat: Time marker minecraft:2x does not exist for clock minecraft:overworld
+### [operating.txt:76] weather clear
+log| System chat: Set the weather to clear
+Bot| [system_chat] [Server: Set the weather to clear]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.weather.set.clear"}],"color":"gray","italic":true}
+### [operating.txt:77] weather rain
+log| System chat: Set the weather to rain
+Bot| [system_chat] [Server: Set the weather to rain]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.weather.set.rain"}],"color":"gray","italic":true}
+### [operating.txt:78] weather thunder
+log| System chat: Set the weather to rain and thunder
+Bot| [system_chat] [Server: Set the weather to rain and thunder]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.weather.set.thunder"}],"color":"gray","italic":true}
+### [operating.txt:79] weather clear 100
+log| System chat: Set the weather to clear
+Bot| [system_chat] [Server: Set the weather to clear]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.weather.set.clear"}],"color":"gray","italic":true}
+### [operating.txt:80] weather rain 0
+log| System chat: The tick count must not be less than 1: found 0
+log| System chat: ...her rain 0<--[HERE]
+### [operating.txt:81] weather rain 1000000
+log| System chat: Set the weather to rain
+Bot| [system_chat] [Server: Set the weather to rain]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.weather.set.rain"}],"color":"gray","italic":true}
+### [operating.txt:82] weather sunny
+log| System chat: Incorrect argument for command
+log| System chat: weather sunny<--[HERE]
+### [operating.txt:83] @bot0 weather clear
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] weather clear<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"weather clear","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/weather clear","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:84] @bot0 time set day
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] time set day<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"time set day","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/time set day","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:85] difficulty
+log| System chat: The difficulty is Peaceful
+### [operating.txt:86] difficulty peaceful
+log| System chat: The difficulty did not change; it is already set to Peaceful
+### [operating.txt:87] difficulty easy
+log| System chat: The difficulty has been set to Easy
+Bot| [system_chat] [Server: The difficulty has been set to Easy]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.difficulty.success","with":[{"translate":"options.difficulty.easy"}]}],"color":"gray","italic":true}
+### [operating.txt:88] difficulty hard
+log| System chat: The difficulty has been set to Hard
+Bot| [system_chat] [Server: The difficulty has been set to Hard]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.difficulty.success","with":[{"translate":"options.difficulty.hard"}]}],"color":"gray","italic":true}
+### [operating.txt:89] difficulty normal
+log| System chat: The difficulty has been set to Normal
+Bot| [system_chat] [Server: The difficulty has been set to Normal]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.difficulty.success","with":[{"translate":"options.difficulty.normal"}]}],"color":"gray","italic":true}
+### [operating.txt:90] difficulty peaceful
+log| System chat: The difficulty has been set to Peaceful
+Bot| [system_chat] [Server: The difficulty has been set to Peaceful]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.difficulty.success","with":[{"translate":"options.difficulty.peaceful"}]}],"color":"gray","italic":true}
+### [operating.txt:91] difficulty hardest
+log| System chat: Incorrect argument for command
+log| System chat: ...ifficulty hardest<--[HERE]
+### [operating.txt:92] @bot0 difficulty hard
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] difficulty hard<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"difficulty hard","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/difficulty hard","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:93] gamemode creative Bot
+
+### [operating.txt:94] gamemode survival Bot
+log| System chat: Set Bot's game mode to Survival Mode
+Bot| [system_chat] Your game mode has been updated to Survival Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.survival"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Survival Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.survival"}]}],"color":"gray","italic":true}
+### [operating.txt:95] gamemode adventure Bot0
+log| System chat: Set Bot0's game mode to Adventure Mode
+Bot| [system_chat] [Server: Set Bot0's game mode to Adventure Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"},{"translate":"gameMode.adventure"}]}],"color":"gray","italic":true}
+Bot0| [system_chat] Your game mode has been updated to Adventure Mode
+Bot0|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.adventure"}]}
+### [operating.txt:96] gamemode spectator Bot
+log| System chat: Set Bot's game mode to Spectator Mode
+Bot| [system_chat] Your game mode has been updated to Spectator Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.spectator"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Spectator Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.spectator"}]}],"color":"gray","italic":true}
+### [operating.txt:97] gamemode creative Bot
+log| System chat: Set Bot's game mode to Creative Mode
+Bot| [system_chat] Your game mode has been updated to Creative Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.creative"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Creative Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.creative"}]}],"color":"gray","italic":true}
+### [operating.txt:98] gamemode creative
+log| System chat: A player is required to run this command here
+### [operating.txt:99] gamemode nope Bot
+log| System chat: Unknown game mode: nope
+log| System chat: ...emode nope Bot<--[HERE]
+### [operating.txt:100] gamemode survival nobody
+log| System chat: No player was found
+### [operating.txt:101] gamemode survival @a
+log| System chat: Set Bot's game mode to Survival Mode
+log| System chat: Set Bot0's game mode to Survival Mode
+Bot| [system_chat] Your game mode has been updated to Survival Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.survival"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Survival Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.survival"}]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Set Bot0's game mode to Survival Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"},{"translate":"gameMode.survival"}]}],"color":"gray","italic":true}
+Bot0| [system_chat] Your game mode has been updated to Survival Mode
+Bot0|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.survival"}]}
+### [operating.txt:102] gamemode creative @a
+log| System chat: Set Bot's game mode to Creative Mode
+log| System chat: Set Bot0's game mode to Creative Mode
+Bot| [system_chat] Your game mode has been updated to Creative Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.creative"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Creative Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.creative"}]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Set Bot0's game mode to Creative Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"},{"translate":"gameMode.creative"}]}],"color":"gray","italic":true}
+Bot0| [system_chat] Your game mode has been updated to Creative Mode
+Bot0|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.creative"}]}
+### [operating.txt:103] @bot gamemode survival
+log| System chat: [Bot: Set own game mode to Survival Mode]
+Bot| [system_chat] Set own game mode to Survival Mode
+Bot|   json {"translate":"commands.gamemode.success.self","with":[{"translate":"gameMode.survival"}]}
+### [operating.txt:104] @bot gamemode creative
+log| System chat: [Bot: Set own game mode to Creative Mode]
+Bot| [system_chat] Set own game mode to Creative Mode
+Bot|   json {"translate":"commands.gamemode.success.self","with":[{"translate":"gameMode.creative"}]}
+### [operating.txt:105] @bot0 gamemode creative
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] gamemode creative<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"gamemode creative","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/gamemode creative","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:106] seed
+log| System chat: Seed: [12345]
+### [operating.txt:107] @bot0 seed
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] seed<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"seed","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/seed","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:110] gamerule advance_time
+log| System chat: Game rule advance_time is currently set to false
+### [operating.txt:111] gamerule advance_time true
+log| System chat: Game rule advance_time is now set to true
+Bot| [system_chat] [Server: Game rule advance_time is now set to true]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["advance_time","true"]}],"color":"gray","italic":true}
+### [operating.txt:112] gamerule advance_time false
+log| System chat: Game rule advance_time is now set to false
+Bot| [system_chat] [Server: Game rule advance_time is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["advance_time","false"]}],"color":"gray","italic":true}
+### [operating.txt:113] gamerule advance_time maybe
+log| System chat: Invalid boolean: expected 'true' or 'false' but found 'maybe'
+log| System chat: ...ance_time maybe<--[HERE]
+### [operating.txt:114] gamerule max_command_sequence_length
+log| System chat: Game rule max_command_sequence_length is currently set to 65536
+### [operating.txt:115] gamerule max_command_sequence_length 1000
+log| System chat: Game rule max_command_sequence_length is now set to 1000
+Bot| [system_chat] [Server: Game rule max_command_sequence_length is now set to 1000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["max_command_sequence_length","1000"]}],"color":"gray","italic":true}
+### [operating.txt:116] gamerule max_command_sequence_length 65536
+log| System chat: Game rule max_command_sequence_length is now set to 65536
+Bot| [system_chat] [Server: Game rule max_command_sequence_length is now set to 65536]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["max_command_sequence_length","65536"]}],"color":"gray","italic":true}
+### [operating.txt:117] gamerule max_command_sequence_length -1
+log| System chat: Integer must not be less than 0: found -1
+log| System chat: ...ce_length -1<--[HERE]
+### [operating.txt:118] gamerule max_command_sequence_length abc
+log| System chat: Expected integer
+log| System chat: ...ce_length abc<--[HERE]
+### [operating.txt:119] gamerule keep_inventory
+log| System chat: Game rule keep_inventory is currently set to false
+### [operating.txt:120] gamerule keep_inventory true
+log| System chat: Game rule keep_inventory is now set to true
+Bot| [system_chat] [Server: Game rule keep_inventory is now set to true]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["keep_inventory","true"]}],"color":"gray","italic":true}
+### [operating.txt:121] gamerule keep_inventory false
+log| System chat: Game rule keep_inventory is now set to false
+Bot| [system_chat] [Server: Game rule keep_inventory is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["keep_inventory","false"]}],"color":"gray","italic":true}
+### [operating.txt:122] gamerule bogus_rule
+log| System chat: Incorrect argument for command
+log| System chat: gamerule bogus_rule<--[HERE]
+### [operating.txt:123] gamerule bogus_rule true
+log| System chat: Incorrect argument for command
+log| System chat: gamerule bogus_rule true<--[HERE]
+### [operating.txt:124] @bot gamerule keep_inventory
+Bot| [system_chat] Game rule keep_inventory is currently set to false
+Bot|   json {"translate":"commands.gamerule.query","with":["keep_inventory","false"]}
+### [operating.txt:125] @bot0 gamerule keep_inventory
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] gamerule keep_inventory<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"gamerule keep_inventory","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/gamerule keep_inventory","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:128] setblock 0 -50 0 stone
+log| System chat: Changed the block at 0, -50, 0
+Bot| [system_chat] [Server: Changed the block at 0, -50, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-50,0]}],"color":"gray","italic":true}
+### [operating.txt:129] setblock 0 -50 0 stone
+log| System chat: Could not set the block
+### [operating.txt:130] setblock 0 -50 0 air
+log| System chat: Changed the block at 0, -50, 0
+Bot| [system_chat] [Server: Changed the block at 0, -50, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-50,0]}],"color":"gray","italic":true}
+### [operating.txt:131] setblock 0 -50 0 oak_stairs[facing=north,half=top]
+log| System chat: Changed the block at 0, -50, 0
+Bot| [system_chat] [Server: Changed the block at 0, -50, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-50,0]}],"color":"gray","italic":true}
+### [operating.txt:132] setblock 0 -50 0 oak_stairs[facing=sideways]
+log| System chat: Block minecraft:oak_stairs does not accept 'sideways' for facing property
+log| System chat: ...rs[facing=sideways]<--[HERE]
+### [operating.txt:133] data get block 0 -51 0
+log| System chat: The target block is not a block entity
+### [operating.txt:134] data modify block 0 -51 0 x set value 1
+log| System chat: The target block is not a block entity
+### [operating.txt:135] setblock 0 -50 0 stone keep
+log| System chat: Could not set the block
+### [operating.txt:136] setblock 0 -50 0 dirt keep
+log| System chat: Could not set the block
+### [operating.txt:137] setblock 0 -50 0 dirt replace
+log| System chat: Changed the block at 0, -50, 0
+Bot| [system_chat] [Server: Changed the block at 0, -50, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-50,0]}],"color":"gray","italic":true}
+### [operating.txt:138] setblock 0 -50 0 grass_block destroy
+log| System chat: Changed the block at 0, -50, 0
+Bot| [system_chat] [Server: Changed the block at 0, -50, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-50,0]}],"color":"gray","italic":true}
+### [operating.txt:139] setblock 0 -50 0 oak_sign[rotation=3] strict
+log| System chat: Changed the block at 0, -50, 0
+Bot| [system_chat] [Server: Changed the block at 0, -50, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-50,0]}],"color":"gray","italic":true}
+### [operating.txt:140] setblock 0 400 0 stone
+log| System chat: That position is out of this world!
+### [operating.txt:141] setblock 0 -2000 0 stone
+log| System chat: That position is out of this world!
+### [operating.txt:142] setblock 30000001 0 0 stone
+log| System chat: That position is not loaded
+### [operating.txt:143] setblock ~ ~ ~ stone
+log| System chat: Changed the block at 0, -60, 0
+Bot| [system_chat] [Server: Changed the block at 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-60,0]}],"color":"gray","italic":true}
+### [operating.txt:144] setblock 1 2
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: setblock 1 2<--[HERE]
+### [operating.txt:145] setblock 0 -50 0 minecraft:nonexistent
+log| System chat: Unknown block type 'minecraft:nonexistent'
+log| System chat: ...k 0 -50 0 minecraft:nonexistent<--[HERE]
+### [operating.txt:146] setblock 0 -50 0 #minecraft:logs
+log| System chat: Tags aren't allowed here; only actual blocks are
+log| System chat: ...k 0 -50 0 #minecraft:logs<--[HERE]
+### [operating.txt:147] @bot setblock 0 -50 1 stone
+log| System chat: [Bot: Changed the block at 0, -50, 1]
+Bot| [system_chat] Changed the block at 0, -50, 1
+Bot|   json {"translate":"commands.setblock.success","with":[0,-50,1]}
+### [operating.txt:148] @bot0 setblock 0 -50 2 stone
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] setblock 0 -50 2 stone<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"setblock 0 -50 2 stone","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/setblock 0 -50 2 stone","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:149] @bot setblock ~ ~-1 ~ gold_block
+log| System chat: [Bot: Changed the block at 0, -61, 0]
+Bot| [system_chat] Changed the block at 0, -61, 0
+Bot|   json {"translate":"commands.setblock.success","with":[0,-61,0]}
+### [operating.txt:150] data get entity Bot Health
+log| System chat: Bot has the following entity data: 20.0f
+### [operating.txt:151] data get entity Bot foodLevel
+log| System chat: Bot has the following entity data: 20
+### [operating.txt:152] data get entity Bot Inventory
+log| System chat: Bot has the following entity data: []
+### [operating.txt:153] data get entity Bot playerGameType
+log| System chat: Bot has the following entity data: 1
+### [operating.txt:154] data get entity Bot0 playerGameType
+log| System chat: Bot0 has the following entity data: 1
+### [operating.txt:155] data get entity nobody Health
+log| System chat: No entity was found
+### [operating.txt:156] data get entity @e[type=player,limit=1,sort=arbitrary] Health
+log| System chat: Bot has the following entity data: 20.0f
+### [operating.txt:157] data get entity @a Health
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: data get entity @a Health<--[HERE]
+### [operating.txt:158] data get storage test:store
+log| System chat: Storage test:store has the following contents: {}
+### [operating.txt:159] data merge storage test:store {a:1,b:[1,2,3],c:{d:"e"}}
+log| System chat: Modified storage test:store
+Bot| [system_chat] [Server: Modified storage test:store]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["test:store"]}],"color":"gray","italic":true}
+### [operating.txt:160] data get storage test:store
+log| System chat: Storage test:store has the following contents: {a: 1, b: [1, 2, 3], c: {d: "e"}}
+### [operating.txt:161] data get storage test:store b[1]
+log| System chat: Storage test:store has the following contents: 2
+### [operating.txt:162] data get storage test:store b 0.5
+log| System chat: Can't get b; only numeric tags are allowed
+### [operating.txt:163] data get storage test:store c.d
+log| System chat: Storage test:store has the following contents: "e"
+### [operating.txt:164] data modify storage test:store b append value 4
+log| System chat: Modified storage test:store
+Bot| [system_chat] [Server: Modified storage test:store]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["test:store"]}],"color":"gray","italic":true}
+### [operating.txt:165] data modify storage test:store b insert 0 value 0
+log| System chat: Modified storage test:store
+Bot| [system_chat] [Server: Modified storage test:store]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["test:store"]}],"color":"gray","italic":true}
+### [operating.txt:166] data modify storage test:store b prepend value -1
+log| System chat: Modified storage test:store
+Bot| [system_chat] [Server: Modified storage test:store]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["test:store"]}],"color":"gray","italic":true}
+### [operating.txt:167] data modify storage test:store b[0] set value 7
+log| System chat: Modified storage test:store
+Bot| [system_chat] [Server: Modified storage test:store]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["test:store"]}],"color":"gray","italic":true}
+### [operating.txt:168] data modify storage test:store b merge value {x:1}
+log| System chat: Expected an object: got [7,0,1,2,3,4]
+### [operating.txt:169] data modify storage test:store c merge value {f:true}
+log| System chat: Modified storage test:store
+Bot| [system_chat] [Server: Modified storage test:store]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["test:store"]}],"color":"gray","italic":true}
+### [operating.txt:170] data modify storage test:store c.d set from storage test:store a
+log| System chat: Modified storage test:store
+Bot| [system_chat] [Server: Modified storage test:store]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["test:store"]}],"color":"gray","italic":true}
+### [operating.txt:171] data modify storage test:store e set string storage test:store c.d 1 3
+log| System chat: Invalid substring indices: 1 to 3
+### [operating.txt:172] data modify storage test:store z set value {broken
+log| System chat: Expected literal :
+log| System chat: ...ue {broken<--[HERE]
+### [operating.txt:173] data remove storage test:store a
+log| System chat: Modified storage test:store
+Bot| [system_chat] [Server: Modified storage test:store]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["test:store"]}],"color":"gray","italic":true}
+### [operating.txt:174] data remove storage test:store a
+log| System chat: Nothing changed. The specified properties already have these values
+### [operating.txt:175] data get storage test:store
+log| System chat: Storage test:store has the following contents: {b: [7, 0, 1, 2, 3, 4], c: {d: 1, f: 1b}}
+### [operating.txt:176] data modify storage test:store b[99] set value 1
+log| System chat: Nothing changed. The specified properties already have these values
+### [operating.txt:177] data modify storage test:store c.d.e set value 1
+log| System chat: Nothing changed. The specified properties already have these values
+### [operating.txt:178] data get entity Bot Pos
+log| System chat: Bot has the following entity data: [0.5d, -60.0d, 0.5d]
+### [operating.txt:179] data get entity Bot Rotation
+log| System chat: Bot has the following entity data: [0.0f, 0.0f]
+### [operating.txt:180] tp Bot 10 -59 10
+log| System chat: Teleported Bot to 10.500000, -59.000000, 10.500000
+Bot| [system_chat] [Server: Teleported Bot to 10.500000, -59.000000, 10.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"10.500000","-59.000000","10.500000"]}],"color":"gray","italic":true}
+### [operating.txt:181] data get entity Bot Pos
+log| System chat: Bot has the following entity data: [10.5d, -59.0d, 10.5d]
+### [operating.txt:182] tp Bot 10.5 -59 10.5 90 0
+log| System chat: Teleported Bot to 10.500000, -59.000000, 10.500000
+Bot| [system_chat] [Server: Teleported Bot to 10.500000, -59.000000, 10.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"10.500000","-59.000000","10.500000"]}],"color":"gray","italic":true}
+### [operating.txt:183] data get entity Bot Rotation
+log| System chat: Bot has the following entity data: [90.0f, 0.0f]
+### [operating.txt:184] tp Bot ~ ~ ~
+log| System chat: Teleported Bot to 0.000000, -60.000000, 0.000000
+Bot| [system_chat] [Server: Teleported Bot to 0.000000, -60.000000, 0.000000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.000000","-60.000000","0.000000"]}],"color":"gray","italic":true}
+### [operating.txt:185] tp Bot ~1 ~ ~-1
+log| System chat: Teleported Bot to 1.000000, -60.000000, -1.000000
+Bot| [system_chat] [Server: Teleported Bot to 1.000000, -60.000000, -1.000000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"1.000000","-60.000000","-1.000000"]}],"color":"gray","italic":true}
+### [operating.txt:186] tp Bot Bot0
+log| System chat: Teleported Bot to Bot0
+Bot| [system_chat] [Server: Teleported Bot to Bot0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.entity.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}]}],"color":"gray","italic":true}
+### [operating.txt:187] tp Bot0 Bot
+log| System chat: Teleported Bot0 to Bot
+Bot| [system_chat] [Server: Teleported Bot0 to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.entity.single","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [operating.txt:188] tp Bot 0 -59 0 facing 5 -59 5
+log| System chat: Teleported Bot to 0.500000, -59.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Bot to 0.500000, -59.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.500000","-59.000000","0.500000"]}],"color":"gray","italic":true}
+### [operating.txt:189] tp Bot 0 -59 0 facing entity Bot0 eyes
+log| System chat: Teleported Bot to 0.500000, -59.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Bot to 0.500000, -59.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.500000","-59.000000","0.500000"]}],"color":"gray","italic":true}
+### [operating.txt:190] tp Bot 0 -59 0 facing entity Bot0 feet
+log| System chat: Teleported Bot to 0.500000, -59.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Bot to 0.500000, -59.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.500000","-59.000000","0.500000"]}],"color":"gray","italic":true}
+### [operating.txt:191] tp nobody 0 0 0
+log| System chat: No entity was found
+### [operating.txt:192] tp 100 200 300
+log| System chat: An entity is required to run this command here
+### [operating.txt:193] tp Bot 0 -59 0 0 0
+log| System chat: Teleported Bot to 0.500000, -59.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Bot to 0.500000, -59.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.500000","-59.000000","0.500000"]}],"color":"gray","italic":true}
+### [operating.txt:194] tp @s 0 -59 0
+log| System chat: No entity was found
+### [operating.txt:195] tp Bot 99999999 0 0
+log| System chat: Invalid position for teleport
+### [operating.txt:196] tp Bot 0 300 0
+log| System chat: Teleported Bot to 0.500000, 300.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Bot to 0.500000, 300.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.500000","300.000000","0.500000"]}],"color":"gray","italic":true}
+### [operating.txt:197] tp Bot 0 -59 0
+log| System chat: Teleported Bot to 0.500000, -59.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Bot to 0.500000, -59.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"0.500000","-59.000000","0.500000"]}],"color":"gray","italic":true}
+### [operating.txt:198] teleport Bot0 Bot
+log| System chat: Teleported Bot0 to Bot
+Bot| [system_chat] [Server: Teleported Bot0 to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.entity.single","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [operating.txt:199] teleport Bot 0 -59 0 rotated 45 45
+log| System chat: Incorrect argument for command
+log| System chat: ...eport Bot 0 -59 0 rotated 45 45<--[HERE]
+### [operating.txt:200] teleport Bot 0 -59 0 rotated as Bot0
+log| System chat: Incorrect argument for command
+log| System chat: ...eport Bot 0 -59 0 rotated as Bot0<--[HERE]
+### [operating.txt:201] @bot tp @s 5 -59 5
+log| System chat: [Bot: Teleported Bot to 5.500000, -59.000000, 5.500000]
+Bot| [system_chat] Teleported Bot to 5.500000, -59.000000, 5.500000
+Bot|   json {"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"5.500000","-59.000000","5.500000"]}
+### [operating.txt:202] @bot tp 6 -59 6
+log| System chat: [Bot: Teleported Bot to 6.500000, -59.000000, 6.500000]
+Bot| [system_chat] Teleported Bot to 6.500000, -59.000000, 6.500000
+Bot|   json {"translate":"commands.teleport.success.location.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},"6.500000","-59.000000","6.500000"]}
+### [operating.txt:203] @bot0 tp @s 5 -59 5
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] tp @s 5 -59 5<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"tp @s 5 -59 5","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/tp @s 5 -59 5","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:204] give Bot stone
+log| System chat: Gave 1 [Stone] to Bot
+Bot| [system_chat] [Server: Gave 1 [Stone] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.stone"}]}],"color":"white","hover_event":{"id":"minecraft:stone","action":"show_item"}},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [operating.txt:205] give Bot stone 64
+log| System chat: Gave 64 [Stone] to Bot
+Bot| [system_chat] [Server: Gave 64 [Stone] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.single","with":[64,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.stone"}]}],"color":"white","hover_event":{"id":"minecraft:stone","action":"show_item"}},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [operating.txt:206] give Bot stone 0
+log| System chat: Integer must not be less than 1: found 0
+log| System chat: ...Bot stone 0<--[HERE]
+### [operating.txt:207] give Bot stone 100000
+log| System chat: Can't give more than 6400 of [Stone]
+### [operating.txt:208] give Bot nonexistent_item
+log| System chat: Unknown item 'minecraft:nonexistent_item'
+log| System chat: give Bot nonexistent_item<--[HERE]
+### [operating.txt:209] give Bot diamond_sword[damage=5]
+log| System chat: Gave 1 [Diamond Sword] to Bot
+Bot| [system_chat] [Server: Gave 1 [Diamond Sword] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.diamond_sword"}]}],"color":"white","hover_event":{"id":"minecraft:diamond_sword","components":{"minecraft:damage":5},"action":"show_item"}},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [operating.txt:210] give Bot diamond_sword[damage=5,unbreakable={}]
+log| System chat: Gave 1 [Diamond Sword] to Bot
+Bot| [system_chat] [Server: Gave 1 [Diamond Sword] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.diamond_sword"}]}],"color":"white","hover_event":{"id":"minecraft:diamond_sword","components":{"minecraft:damage":5,"minecraft:unbreakable":{}},"action":"show_item"}},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [operating.txt:211] give Bot stick[custom_name='{"text":"A"}',lore=['"l1"']]
+log| System chat: Gave 1 [{"text":"A"}] to Bot
+Bot| [system_chat] [Server: Gave 1 [{"text":"A"}] to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":["{\"text\":\"A\"}"],"italic":true}],"color":"white","hover_event":{"id":"minecraft:stick","components":{"minecraft:lore":["\"l1\""],"minecraft:custom_name":"{\"text\":\"A\"}"},"action":"show_item"}},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [operating.txt:212] give Bot stick[bogus=1]
+log| System chat: Unknown item component 'minecraft:bogus'
+log| System chat: ...Bot stick[bogus=1]<--[HERE]
+### [operating.txt:213] give Bot stick[
+log| System chat: Expected ']'
+log| System chat: ...Bot stick[<--[HERE]
+### [operating.txt:214] give nobody stone
+log| System chat: No player was found
+### [operating.txt:215] give @a apple 2
+log| System chat: Gave 2 [Apple] to 2 players
+Bot| [system_chat] [Server: Gave 2 [Apple] to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.multiple","with":[2,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.apple"}]}],"color":"white","hover_event":{"id":"minecraft:apple","action":"show_item"}},2]}],"color":"gray","italic":true}
+### [operating.txt:216] @bot give @s bread 3
+log| System chat: [Bot: Gave 3 [Bread] to Bot]
+Bot| [system_chat] Gave 3 [Bread] to Bot
+Bot|   json {"translate":"commands.give.success.single","with":[3,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.bread"}]}],"color":"white","hover_event":{"id":"minecraft:bread","action":"show_item"}},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [operating.txt:217] @bot0 give @s bread 3
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] give @s bread 3<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"give @s bread 3","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/give @s bread 3","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:220] whitelist list
+log| System chat: There are no whitelisted players
+### [operating.txt:221] whitelist on
+log| System chat: Whitelist is now turned on
+Bot| [system_chat] [Server: Whitelist is now turned on]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.whitelist.enabled"}],"color":"gray","italic":true}
+### [operating.txt:222] whitelist off
+log| System chat: Whitelist is now turned off
+Bot| [system_chat] [Server: Whitelist is now turned off]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.whitelist.disabled"}],"color":"gray","italic":true}
+### [operating.txt:223] whitelist off
+log| System chat: Whitelist is already turned off
+### [operating.txt:224] whitelist add Bot0
+log| System chat: Added Bot0 to the whitelist
+Bot| [system_chat] [Server: Added Bot0 to the whitelist]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.whitelist.add.success","with":["Bot0"]}],"color":"gray","italic":true}
+### [operating.txt:225] whitelist list
+log| System chat: There are 1 whitelisted player(s): Bot0
+### [operating.txt:226] whitelist remove Bot0
+log| System chat: Removed Bot0 from the whitelist
+Bot| [system_chat] [Server: Removed Bot0 from the whitelist]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.whitelist.remove.success","with":["Bot0"]}],"color":"gray","italic":true}
+### [operating.txt:227] whitelist remove Bot0
+log| System chat: Player is not whitelisted
+### [operating.txt:228] whitelist reload
+log| System chat: Reloaded the whitelist
+Bot| [system_chat] [Server: Reloaded the whitelist]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.whitelist.reloaded"}],"color":"gray","italic":true}
+### [operating.txt:229] whitelist
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: whitelist<--[HERE]
+### [operating.txt:230] @bot0 whitelist list
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] whitelist list<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"whitelist list","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/whitelist list","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:231] deop Bot0
+log| System chat: Nothing changed. The player is not an operator
+### [operating.txt:232] deop Bot0
+log| System chat: Nothing changed. The player is not an operator
+### [operating.txt:233] op Bot0
+log| System chat: Made Bot0 a server operator
+Bot| [system_chat] [Server: Made Bot0 a server operator]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.op.success","with":["Bot0"]}],"color":"gray","italic":true}
+Bot0| [system_chat] [Server: Made Bot0 a server operator]
+Bot0|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.op.success","with":["Bot0"]}],"color":"gray","italic":true}
+### [operating.txt:234] op Bot0
+log| System chat: Nothing changed. The player is already an operator
+### [operating.txt:235] op
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: op<--[HERE]
+### [operating.txt:236] @bot0 time set day
+log| System chat: [Bot0: Set minecraft:overworld to time marker minecraft:day]
+Bot| [system_chat] [Bot0: Set minecraft:overworld to time marker minecraft:day]
+Bot|   json {"translate":"chat.type.admin","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"},{"translate":"commands.time.set.time_marker","with":["minecraft:overworld","minecraft:day"]}],"color":"gray","italic":true}
+Bot0| [system_chat] Set minecraft:overworld to time marker minecraft:day
+Bot0|   json {"translate":"commands.time.set.time_marker","with":["minecraft:overworld","minecraft:day"]}
+### [operating.txt:237] deop Bot0
+log| System chat: Made Bot0 no longer a server operator
+Bot| [system_chat] [Server: Made Bot0 no longer a server operator]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.deop.success","with":["Bot0"]}],"color":"gray","italic":true}
+### [operating.txt:238] banlist
+log| System chat: There are no bans
+### [operating.txt:239] banlist players
+log| System chat: There are no bans
+### [operating.txt:240] banlist ips
+log| System chat: There are no bans
+### [operating.txt:241] banlist bogus
+log| System chat: Incorrect argument for command
+log| System chat: banlist bogus<--[HERE]
+### [operating.txt:242] ban Bot0 bad boy
+log| System chat: Banned Bot0: bad boy
+Bot| [system_chat] [Server: Banned Bot0: bad boy]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.ban.success","with":["Bot0","bad boy"]}],"color":"gray","italic":true}
+Bot0| (disconnected: You are banned from this server)
+### [operating.txt:244] banlist players
+log| System chat: There are 1 ban(s):
+log| System chat: Bot0 was banned by Server: bad boy
+### [operating.txt:245] banlist
+log| System chat: There are 1 ban(s):
+log| System chat: Bot0 was banned by Server: bad boy
+### [operating.txt:246] ban Bot0
+log| System chat: Nothing changed. The player is already banned
+### [operating.txt:247] pardon Bot0
+log| System chat: Unbanned Bot0
+Bot| [system_chat] [Server: Unbanned Bot0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.pardon.success","with":["Bot0"]}],"color":"gray","italic":true}
+### [operating.txt:248] pardon Bot0
+log| System chat: Nothing changed. The player isn't banned
+### [operating.txt:249] banlist players
+log| System chat: There are no bans
+### [operating.txt:250] !join Bot0
+log| Bot0[/127.0.0.1:<PORT>] logged in with entity id <ID> at (<POS>)
+log| System chat: Bot0 joined the game
+Bot| [system_chat] Bot0 joined the game
+Bot|   json {"translate":"multiplayer.player.joined","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}],"color":"yellow"}
+### [operating.txt:251] ban-ip 10.9.8.7 reason here
+log| System chat: Banned IP 10.9.8.7: reason here
+Bot| [system_chat] [Server: Banned IP 10.9.8.7: reason here]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.banip.success","with":["10.9.8.7","reason here"]}],"color":"gray","italic":true}
+### [operating.txt:252] ban-ip 10.9.8.7
+log| System chat: Nothing changed. That IP is already banned
+### [operating.txt:253] ban-ip 999.1.1.1
+log| System chat: Invalid IP address or unknown player
+### [operating.txt:254] ban-ip nobody
+log| System chat: Invalid IP address or unknown player
+### [operating.txt:255] pardon-ip 10.9.8.7
+log| System chat: Unbanned IP 10.9.8.7
+Bot| [system_chat] [Server: Unbanned IP 10.9.8.7]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.pardonip.success","with":["10.9.8.7"]}],"color":"gray","italic":true}
+### [operating.txt:256] pardon-ip 10.9.8.7
+log| System chat: Nothing changed. That IP isn't banned
+### [operating.txt:257] pardon-ip not-an-ip
+log| System chat: Invalid IP address
+### [operating.txt:258] banlist ips
+log| System chat: There are no bans
+### [operating.txt:259] kick nobody
+log| System chat: No player was found
+### [operating.txt:260] kick
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: kick<--[HERE]
+### [operating.txt:261] @bot0 kick Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] kick Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"kick Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/kick Bot","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:262] !join Bot0
+log| Bot0[/127.0.0.1:<PORT>] logged in with entity id <ID> at (<POS>)
+log| System chat: Bot0 joined the game
+Bot| [system_chat] Bot0 joined the game
+Bot|   json {"translate":"multiplayer.player.joined","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}],"color":"yellow"}
+### [operating.txt:263] kick Bot0 go away
+log| System chat: Kicked Bot0: go away
+Bot| [system_chat] [Server: Kicked Bot0: go away]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kick.success","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"},"go away"]}],"color":"gray","italic":true}
+Bot0| (disconnected: go away)
+### [operating.txt:265] !join Bot0
+log| Bot0[/127.0.0.1:<PORT>] logged in with entity id <ID> at (<POS>)
+log| System chat: Bot0 joined the game
+Bot| [system_chat] Bot0 joined the game
+Bot|   json {"translate":"multiplayer.player.joined","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}],"color":"yellow"}
+### [operating.txt:266] @bot kick Bot0
+log| System chat: [Bot: Kicked Bot0: Kicked by an operator]
+Bot| [system_chat] Kicked Bot0: Kicked by an operator
+Bot|   json {"translate":"commands.kick.success","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"},{"translate":"multiplayer.disconnect.kicked"}]}
+Bot0| (disconnected: Kicked by an operator)
+### [operating.txt:268] !join Bot0
+log| Bot0[/127.0.0.1:<PORT>] logged in with entity id <ID> at (<POS>)
+log| System chat: Bot0 joined the game
+Bot| [system_chat] Bot0 joined the game
+Bot|   json {"translate":"multiplayer.player.joined","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}],"color":"yellow"}
+### [operating.txt:269] @bot0 kick @a
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] kick @a<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"kick @a","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/kick @a","action":"suggest_command"}}],"color":"red"}
+### [operating.txt:270] !join Bot0
+log| Bot0[/127.0.0.1:<PORT>] logged in with entity id <ID> at (<POS>)
+log| System chat: Bot0 joined the game
+Bot| [system_chat] Bot0 joined the game
+Bot|   json {"translate":"multiplayer.player.joined","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}],"color":"yellow"}
+### [operating.txt:273] help time
+log| System chat: /time set (<time>|<timemarker>)
+log| System chat: /time add <time>
+log| System chat: /time pause
+log| System chat: /time resume
+log| System chat: /time rate <rate>
+log| System chat: /time query (time|<timeline>|gametime)
+log| System chat: /time of <clock> (set|add|pause|resume|rate|query)
+### [operating.txt:274] help nonexistent
+log| System chat: Unknown command or insufficient permissions
+### [operating.txt:275] help give stone
+log| System chat: /give stone <item> [<count>]
+### [operating.txt:276] @bot0 help time
+Bot0| [system_chat] Unknown command or insufficient permissions
+Bot0|   json {"text":"","extra":[{"translate":"commands.help.failed"}],"color":"red"}
+### [operating.txt:277] save-all
+log| System chat: Saving the game (this may take a moment!)
+log| System chat: Saved the game
+Bot| [system_chat] [Server: Saved the game]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.save.success"}],"color":"gray","italic":true}
+### [operating.txt:278] save-all flush
+log| System chat: Saving the game (this may take a moment!)
+log| System chat: Saved the game
+Bot| [system_chat] [Server: Saved the game]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.save.success"}],"color":"gray","italic":true}
+### [operating.txt:279] save-all nonsense
+log| System chat: Incorrect argument for command
+log| System chat: save-all nonsense<--[HERE]
+### [operating.txt:280] save-off
+log| System chat: Automatic saving is now disabled
+Bot| [system_chat] [Server: Automatic saving is now disabled]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.save.disabled"}],"color":"gray","italic":true}
+### [operating.txt:281] save-off
+log| System chat: Saving is already turned off
+### [operating.txt:282] save-on
+log| System chat: Automatic saving is now enabled
+Bot| [system_chat] [Server: Automatic saving is now enabled]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.save.enabled"}],"color":"gray","italic":true}
+### [operating.txt:283] save-on
+log| System chat: Saving is already turned on
+### [operating.txt:284] @bot0 save-all
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] save-all<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"save-all","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/save-all","action":"suggest_command"}}],"color":"red"}

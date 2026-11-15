@@ -1,6 +1,7 @@
 //! Scriptable headless Minecraft 26.3 client for integration/E2E tests.
 pub mod bot;
 pub mod conn;
+pub mod corpus;
 pub mod error;
 pub mod handlers;
 pub mod harness;

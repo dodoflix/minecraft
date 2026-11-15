@@ -1,0 +1,1240 @@
+### [execute.txt:8] gamerule random_tick_speed 0
+log| System chat: Game rule random_tick_speed is now set to 0
+Bot| [system_chat] [Server: Game rule random_tick_speed is now set to 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["random_tick_speed","0"]}],"color":"gray","italic":true}
+### [execute.txt:10] gamerule spawn_mobs false
+log| System chat: Game rule spawn_mobs is now set to false
+Bot| [system_chat] [Server: Game rule spawn_mobs is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["spawn_mobs","false"]}],"color":"gray","italic":true}
+### [execute.txt:13] scoreboard objectives add o dummy
+log| System chat: Created new objective [o]
+Bot| [system_chat] [Server: Created new objective [o]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.scoreboard.objectives.add.success","with":[{"translate":"chat.square_brackets","with":[{"text":"o","hover_event":{"value":"o","action":"show_text"}}]}]}],"color":"gray","italic":true}
+### [execute.txt:14] scoreboard objectives add p dummy
+log| System chat: Created new objective [p]
+Bot| [system_chat] [Server: Created new objective [p]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.scoreboard.objectives.add.success","with":[{"translate":"chat.square_brackets","with":[{"text":"p","hover_event":{"value":"p","action":"show_text"}}]}]}],"color":"gray","italic":true}
+### [execute.txt:15] scoreboard players set #a o 5
+log| System chat: Set [o] for #a to 5
+Bot| [system_chat] [Server: Set [o] for #a to 5]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.scoreboard.players.set.success.single","with":[{"translate":"chat.square_brackets","with":[{"text":"o","hover_event":{"value":"o","action":"show_text"}}]},"#a",5]}],"color":"gray","italic":true}
+### [execute.txt:16] scoreboard players set #b o 9
+log| System chat: Set [o] for #b to 9
+Bot| [system_chat] [Server: Set [o] for #b to 9]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.scoreboard.players.set.success.single","with":[{"translate":"chat.square_brackets","with":[{"text":"o","hover_event":{"value":"o","action":"show_text"}}]},"#b",9]}],"color":"gray","italic":true}
+### [execute.txt:17] scoreboard players set #a p 5
+log| System chat: Set [p] for #a to 5
+Bot| [system_chat] [Server: Set [p] for #a to 5]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.scoreboard.players.set.success.single","with":[{"translate":"chat.square_brackets","with":[{"text":"p","hover_event":{"value":"p","action":"show_text"}}]},"#a",5]}],"color":"gray","italic":true}
+### [execute.txt:18] fill 0 -60 0 2 -60 2 minecraft:stone
+log| System chat: Successfully filled 9 block(s)
+Bot| [system_chat] [Server: Successfully filled 9 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[9]}],"color":"gray","italic":true}
+### [execute.txt:19] fill 10 -60 0 12 -60 2 minecraft:stone
+log| System chat: Successfully filled 9 block(s)
+Bot| [system_chat] [Server: Successfully filled 9 block(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.fill.success","with":[9]}],"color":"gray","italic":true}
+### [execute.txt:20] setblock 20 -60 20 minecraft:air
+log| System chat: Could not set the block
+### [execute.txt:21] summon minecraft:armor_stand 4 -60 4 {NoGravity:1b,CustomName:'"One"'}
+log| System chat: Summoned new "One"
+Bot| [system_chat] [Server: Summoned new "One"]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"text":"\"One\"","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"\"One\"","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [execute.txt:22] summon minecraft:armor_stand 6 -60 4 {NoGravity:1b,CustomName:'"Two"'}
+log| System chat: Summoned new "Two"
+Bot| [system_chat] [Server: Summoned new "Two"]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"text":"\"Two\"","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"\"Two\"","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [execute.txt:23] summon minecraft:armor_stand 8 -60 4 {NoGravity:1b,CustomName:'"Three"'}
+log| System chat: Summoned new "Three"
+Bot| [system_chat] [Server: Summoned new "Three"]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"text":"\"Three\"","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"\"Three\"","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [execute.txt:24] summon minecraft:item 5 -60 8 {Item:{id:"minecraft:stone",count:1},Passengers:[{id:"minecraft:item",Item:{id:"minecraft:dirt",count:1}}]}
+log| System chat: Summoned new Stone
+Bot| [system_chat] [Server: Summoned new Stone]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"block.minecraft.stone","hover_event":{"id":"minecraft:item","uuid":[<UUID>],"name":{"translate":"block.minecraft.stone"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [execute.txt:27] execute
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: execute<--[HERE]
+### [execute.txt:28] execute run
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...xecute run<--[HERE]
+### [execute.txt:29] execute foo
+log| System chat: Incorrect argument for command
+log| System chat: execute foo<--[HERE]
+### [execute.txt:30] execute run say hi
+log| [Not Secure] [Server] hi
+Bot| [disguised_chat] Server: hi
+Bot|   json "hi"
+Bot0| [disguised_chat] Server: hi
+Bot0|   json "hi"
+### [execute.txt:31] execute run execute run say twice
+log| [Not Secure] [Server] twice
+Bot| [disguised_chat] Server: twice
+Bot|   json "twice"
+Bot0| [disguised_chat] Server: twice
+Bot0|   json "twice"
+### [execute.txt:32] @bot execute run say as bot
+log| [Not Secure] [Bot] as bot
+Bot| [disguised_chat] Bot: as bot
+Bot|   json "as bot"
+Bot0| [disguised_chat] Bot: as bot
+Bot0|   json "as bot"
+### [execute.txt:33] @bot0 execute run say denied
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] execute run say denied<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"execute run say denied","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/execute run say denied","action":"suggest_command"}}],"color":"red"}
+### [execute.txt:36] execute as @a run say as
+log| [Not Secure] [Bot] as
+log| [Not Secure] [Bot0] as
+Bot| [disguised_chat] Bot: as
+Bot|   json "as"
+Bot| [disguised_chat] Bot0: as
+Bot|   json "as"
+Bot0| [disguised_chat] Bot: as
+Bot0|   json "as"
+Bot0| [disguised_chat] Bot0: as
+Bot0|   json "as"
+### [execute.txt:37] execute as @e[type=minecraft:armor_stand] run say stand
+log| [Not Secure] ["One"] stand
+log| [Not Secure] ["Two"] stand
+log| [Not Secure] ["Three"] stand
+Bot| [disguised_chat] "One": stand
+Bot|   json "stand"
+Bot| [disguised_chat] "Two": stand
+Bot|   json "stand"
+Bot| [disguised_chat] "Three": stand
+Bot|   json "stand"
+Bot0| [disguised_chat] "One": stand
+Bot0|   json "stand"
+Bot0| [disguised_chat] "Two": stand
+Bot0|   json "stand"
+Bot0| [disguised_chat] "Three": stand
+Bot0|   json "stand"
+### [execute.txt:38] execute as @e[type=minecraft:armor_stand] at @s run summon minecraft:marker ~ ~1 ~
+log| System chat: Summoned new Marker
+log| System chat: Summoned new Marker
+log| System chat: Summoned new Marker
+Bot| [system_chat] ["One": Summoned new Marker]
+Bot|   json {"translate":"chat.type.admin","with":[{"text":"\"One\"","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"\"One\"","action":"show_entity"},"insertion":"<UUID>"},{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.marker","hover_event":{"id":"minecraft:marker","uuid":[<UUID>],"name":{"translate":"entity.minecraft.marker"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+Bot| [system_chat] ["Two": Summoned new Marker]
+Bot|   json {"translate":"chat.type.admin","with":[{"text":"\"Two\"","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"\"Two\"","action":"show_entity"},"insertion":"<UUID>"},{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.marker","hover_event":{"id":"minecraft:marker","uuid":[<UUID>],"name":{"translate":"entity.minecraft.marker"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+Bot| [system_chat] ["Three": Summoned new Marker]
+Bot|   json {"translate":"chat.type.admin","with":[{"text":"\"Three\"","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"\"Three\"","action":"show_entity"},"insertion":"<UUID>"},{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.marker","hover_event":{"id":"minecraft:marker","uuid":[<UUID>],"name":{"translate":"entity.minecraft.marker"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [execute.txt:39] execute as @e[type=minecraft:cow] run say none
+
+### [execute.txt:40] execute as @e[type=minecraft:armor_stand,limit=1] run say limited
+log| [Not Secure] ["One"] limited
+Bot| [disguised_chat] "One": limited
+Bot|   json "limited"
+Bot0| [disguised_chat] "One": limited
+Bot0|   json "limited"
+### [execute.txt:41] execute as nope run say x
+
+### [execute.txt:42] execute as @a[ run say x
+log| System chat: Unknown option 'run'
+log| System chat: ...te as @a[ run say x<--[HERE]
+### [execute.txt:43] execute as @e[type=minecraft:armor_stand] at @s run say at
+log| [Not Secure] ["One"] at
+log| [Not Secure] ["Two"] at
+log| [Not Secure] ["Three"] at
+Bot| [disguised_chat] "One": at
+Bot|   json "at"
+Bot| [disguised_chat] "Two": at
+Bot|   json "at"
+Bot| [disguised_chat] "Three": at
+Bot|   json "at"
+Bot0| [disguised_chat] "One": at
+Bot0|   json "at"
+Bot0| [disguised_chat] "Two": at
+Bot0|   json "at"
+Bot0| [disguised_chat] "Three": at
+Bot0|   json "at"
+### [execute.txt:44] execute at @e[type=minecraft:armor_stand] run setblock ~ ~-1 ~ minecraft:gold_block
+log| System chat: Changed the block at 4, -61, 4
+log| System chat: Changed the block at 6, -61, 4
+log| System chat: Changed the block at 8, -61, 4
+Bot| [system_chat] [Server: Changed the block at 4, -61, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[4,-61,4]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Changed the block at 6, -61, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[6,-61,4]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Changed the block at 8, -61, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[8,-61,4]}],"color":"gray","italic":true}
+### [execute.txt:45] execute positioned 1 2 3 run summon minecraft:marker ~ ~ ~
+log| System chat: Summoned new Marker
+Bot| [system_chat] [Server: Summoned new Marker]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.marker","hover_event":{"id":"minecraft:marker","uuid":[<UUID>],"name":{"translate":"entity.minecraft.marker"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [execute.txt:46] execute positioned 1.5 2 3.25 run summon minecraft:marker ~ ~ ~
+log| System chat: Summoned new Marker
+Bot| [system_chat] [Server: Summoned new Marker]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.marker","hover_event":{"id":"minecraft:marker","uuid":[<UUID>],"name":{"translate":"entity.minecraft.marker"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [execute.txt:47] execute positioned ~ ~1 ~ run say pos
+log| [Not Secure] [Server] pos
+Bot| [disguised_chat] Server: pos
+Bot|   json "pos"
+Bot0| [disguised_chat] Server: pos
+Bot0|   json "pos"
+### [execute.txt:48] execute positioned as @e[type=minecraft:armor_stand,limit=1] run summon minecraft:marker ~ ~ ~
+log| System chat: Summoned new Marker
+Bot| [system_chat] [Server: Summoned new Marker]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.marker","hover_event":{"id":"minecraft:marker","uuid":[<UUID>],"name":{"translate":"entity.minecraft.marker"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [execute.txt:49] execute positioned over world_surface run summon minecraft:marker ~ ~ ~
+log| System chat: Summoned new Marker
+Bot| [system_chat] [Server: Summoned new Marker]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.marker","hover_event":{"id":"minecraft:marker","uuid":[<UUID>],"name":{"translate":"entity.minecraft.marker"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [execute.txt:50] execute positioned 3.5 0 3.5 over motion_blocking run summon minecraft:marker ~ ~ ~
+log| System chat: Incorrect argument for command
+log| System chat: ...3.5 0 3.5 over motion_blocking run summon minecraft:marker ~ ~ ~<--[HERE]
+### [execute.txt:51] execute positioned 3.5 0 3.5 over ocean_floor run summon minecraft:marker ~ ~ ~
+log| System chat: Incorrect argument for command
+log| System chat: ...3.5 0 3.5 over ocean_floor run summon minecraft:marker ~ ~ ~<--[HERE]
+### [execute.txt:52] execute positioned 100000 0 100000 over world_surface run say unloaded
+log| System chat: Incorrect argument for command
+log| System chat: ... 0 100000 over world_surface run say unloaded<--[HERE]
+### [execute.txt:53] execute positioned 0 0 0 over foo run say x
+log| System chat: Incorrect argument for command
+log| System chat: ...ned 0 0 0 over foo run say x<--[HERE]
+### [execute.txt:54] execute positioned 1 2 run say x
+log| System chat: Expected double
+log| System chat: ...ioned 1 2 run say x<--[HERE]
+### [execute.txt:55] execute rotated 90 0 run summon minecraft:armor_stand ~ ~ ~ {NoGravity:1b}
+log| System chat: Summoned new Armor Stand
+Bot| [system_chat] [Server: Summoned new Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [execute.txt:56] execute rotated ~10 ~-5 run say rot
+log| [Not Secure] [Server] rot
+Bot| [disguised_chat] Server: rot
+Bot|   json "rot"
+Bot0| [disguised_chat] Server: rot
+Bot0|   json "rot"
+### [execute.txt:57] execute rotated as @e[type=minecraft:armor_stand,limit=1] run say rotated as
+log| [Not Secure] [Server] rotated as
+Bot| [disguised_chat] Server: rotated as
+Bot|   json "rotated as"
+Bot0| [disguised_chat] Server: rotated as
+Bot0|   json "rotated as"
+### [execute.txt:58] execute rotated 1 run say x
+log| System chat: Expected double
+log| System chat: ...rotated 1 run say x<--[HERE]
+### [execute.txt:59] execute facing 0 0 0 run say facing
+log| [Not Secure] [Server] facing
+Bot| [disguised_chat] Server: facing
+Bot|   json "facing"
+Bot0| [disguised_chat] Server: facing
+Bot0|   json "facing"
+### [execute.txt:60] execute facing entity @e[type=minecraft:armor_stand,limit=1] eyes run say facing entity
+log| [Not Secure] [Server] facing entity
+Bot| [disguised_chat] Server: facing entity
+Bot|   json "facing entity"
+Bot0| [disguised_chat] Server: facing entity
+Bot0|   json "facing entity"
+### [execute.txt:61] execute facing entity @e[type=minecraft:armor_stand,limit=1] feet run say facing entity
+log| [Not Secure] [Server] facing entity
+Bot| [disguised_chat] Server: facing entity
+Bot|   json "facing entity"
+Bot0| [disguised_chat] Server: facing entity
+Bot0|   json "facing entity"
+### [execute.txt:62] execute facing entity @e[type=minecraft:armor_stand,limit=1] nope run say x
+log| System chat: Invalid entity anchor position nope
+log| System chat: ...,limit=1] nope run say x<--[HERE]
+### [execute.txt:63] execute align xyz run say align
+log| [Not Secure] [Server] align
+Bot| [disguised_chat] Server: align
+Bot|   json "align"
+Bot0| [disguised_chat] Server: align
+Bot0|   json "align"
+### [execute.txt:64] execute align x positioned 1.7 2.7 3.7 run summon minecraft:marker ~ ~ ~
+log| System chat: Summoned new Marker
+Bot| [system_chat] [Server: Summoned new Marker]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.marker","hover_event":{"id":"minecraft:marker","uuid":[<UUID>],"name":{"translate":"entity.minecraft.marker"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [execute.txt:65] execute positioned 1.7 2.7 3.7 align xz run summon minecraft:marker ~ ~ ~
+log| System chat: Summoned new Marker
+Bot| [system_chat] [Server: Summoned new Marker]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.marker","hover_event":{"id":"minecraft:marker","uuid":[<UUID>],"name":{"translate":"entity.minecraft.marker"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [execute.txt:66] execute align q run say x
+log| System chat: Invalid swizzle: expected combination of 'x', 'y' and 'z'
+log| System chat: ...te align q run say x<--[HERE]
+### [execute.txt:67] execute anchored eyes run say eyes
+log| [Not Secure] [Server] eyes
+Bot| [disguised_chat] Server: eyes
+Bot|   json "eyes"
+Bot0| [disguised_chat] Server: eyes
+Bot0|   json "eyes"
+### [execute.txt:68] execute anchored feet run say feet
+log| [Not Secure] [Server] feet
+Bot| [disguised_chat] Server: feet
+Bot|   json "feet"
+Bot0| [disguised_chat] Server: feet
+Bot0|   json "feet"
+### [execute.txt:69] execute anchored nope run say x
+log| System chat: Invalid entity anchor position nope
+log| System chat: ... anchored nope run say x<--[HERE]
+### [execute.txt:70] execute in minecraft:overworld run say overworld
+log| [Not Secure] [Server] overworld
+Bot| [disguised_chat] Server: overworld
+Bot|   json "overworld"
+Bot0| [disguised_chat] Server: overworld
+Bot0|   json "overworld"
+### [execute.txt:71] execute in minecraft:the_nether run say nether
+log| [Not Secure] [Server] nether
+Bot| [disguised_chat] Server: nether
+Bot|   json "nether"
+Bot0| [disguised_chat] Server: nether
+Bot0|   json "nether"
+### [execute.txt:72] execute in minecraft:nope run say x
+log| System chat: Unknown dimension 'minecraft:nope'
+### [execute.txt:73] execute in run say x
+log| System chat: Incorrect argument for command
+log| System chat: ...te in run say x<--[HERE]
+### [execute.txt:76] execute summon minecraft:marker run say summoned
+log| [Not Secure] [Marker] summoned
+Bot| [disguised_chat] Marker: summoned
+Bot|   json "summoned"
+Bot0| [disguised_chat] Marker: summoned
+Bot0|   json "summoned"
+### [execute.txt:77] execute summon minecraft:player run say x
+log| System chat: Can't summon entity of type minecraft:player
+### [execute.txt:78] execute summon minecraft:nope run say x
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:entity_type'
+log| System chat: ...craft:nope run say x<--[HERE]
+### [execute.txt:79] execute summon minecraft:armor_stand run say again
+log| [Not Secure] [Armor Stand] again
+Bot| [disguised_chat] Armor Stand: again
+Bot|   json "again"
+Bot0| [disguised_chat] Armor Stand: again
+Bot0|   json "again"
+### [execute.txt:82] execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on passengers run say passenger
+log| [Not Secure] [Dirt] passenger
+Bot| [disguised_chat] Dirt: passenger
+Bot|   json "passenger"
+Bot0| [disguised_chat] Dirt: passenger
+Bot0|   json "passenger"
+### [execute.txt:83] execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:dirt"}},limit=1] on vehicle run say vehicle
+log| [Not Secure] [Stone] vehicle
+Bot| [disguised_chat] Stone: vehicle
+Bot|   json "vehicle"
+Bot0| [disguised_chat] Stone: vehicle
+Bot0|   json "vehicle"
+### [execute.txt:84] execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on vehicle run say none
+
+### [execute.txt:85] execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on controller run say none
+
+### [execute.txt:86] execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on owner run say none
+
+### [execute.txt:87] execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on leasher run say none
+
+### [execute.txt:88] execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on target run say none
+
+### [execute.txt:89] execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on attacker run say none
+
+### [execute.txt:90] execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on origin run say none
+
+### [execute.txt:91] execute on vehicle run say console has no entity
+
+### [execute.txt:92] execute on nope run say x
+log| System chat: Incorrect argument for command
+log| System chat: ...xecute on nope run say x<--[HERE]
+### [execute.txt:93] @bot execute on vehicle run say bot not riding
+
+### [execute.txt:96] execute if score #a o = #a p
+log| System chat: Test passed
+### [execute.txt:97] execute if score #a o = #b o
+log| System chat: Test failed
+### [execute.txt:98] execute unless score #a o = #b o
+log| System chat: Test passed
+### [execute.txt:99] execute if score #a o < #b o
+log| System chat: Test passed
+### [execute.txt:100] execute if score #a o <= #a o
+log| System chat: Test passed
+### [execute.txt:101] execute if score #b o > #a o
+log| System chat: Test passed
+### [execute.txt:102] execute if score #b o >= #b o
+log| System chat: Test passed
+### [execute.txt:103] execute unless score #b o >= #a o
+log| System chat: Test failed
+### [execute.txt:104] execute if score #a o matches 5
+log| System chat: Test passed
+### [execute.txt:105] execute if score #a o matches 1..5
+log| System chat: Test passed
+### [execute.txt:106] execute if score #a o matches ..4
+log| System chat: Test failed
+### [execute.txt:107] execute if score #a o matches 6..
+log| System chat: Test failed
+### [execute.txt:108] execute if score #a o matches -3..2
+log| System chat: Test failed
+### [execute.txt:109] execute unless score #a o matches 6..
+log| System chat: Test passed
+### [execute.txt:110] execute if score #none o matches 0..
+log| System chat: Test failed
+### [execute.txt:111] execute unless score #none o matches 0..
+log| System chat: Test passed
+### [execute.txt:112] execute if score #none o = #a o
+log| System chat: Test failed
+### [execute.txt:113] execute unless score #none o = #a o
+log| System chat: Test passed
+### [execute.txt:114] execute if score #a nope matches 1
+log| System chat: Unknown scoreboard objective 'nope'
+### [execute.txt:115] execute if score #a o matches 5..1
+log| System chat: Min cannot be bigger than max
+log| System chat: ...o matches 5..1<--[HERE]
+### [execute.txt:116] execute if score #a o matches x
+log| System chat: Expected value or range of values
+log| System chat: ...o matches x<--[HERE]
+### [execute.txt:117] execute if score @e[type=minecraft:armor_stand] o = #a o
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: ...mor_stand] o = #a o<--[HERE]
+### [execute.txt:118] execute if score #a o = @e[type=minecraft:armor_stand] o
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: ...mor_stand] o<--[HERE]
+### [execute.txt:119] execute if score #a o ~ #b o
+log| System chat: Incorrect argument for command
+log| System chat: ...core #a o ~ #b o<--[HERE]
+### [execute.txt:120] execute if score #a o matches 1 run say passed
+
+### [execute.txt:121] execute unless score #a o matches 1 run say passed
+log| [Not Secure] [Server] passed
+Bot| [disguised_chat] Server: passed
+Bot|   json "passed"
+Bot0| [disguised_chat] Server: passed
+Bot0|   json "passed"
+### [execute.txt:124] execute if block 0 -61 0 minecraft:grass_block
+log| System chat: Test passed
+### [execute.txt:125] execute if block 0 -61 0 minecraft:stone
+log| System chat: Test failed
+### [execute.txt:126] execute unless block 0 -61 0 minecraft:stone
+log| System chat: Test passed
+### [execute.txt:127] execute if block 0 -60 0 minecraft:stone
+log| System chat: Test passed
+### [execute.txt:128] execute if block 0 -61 0 #minecraft:dirt
+log| System chat: Test failed
+### [execute.txt:129] execute if block 0 -61 0 minecraft:grass_block[snowy=false]
+log| System chat: Test passed
+### [execute.txt:130] execute if block 0 -61 0 minecraft:grass_block[snowy=true]
+log| System chat: Test failed
+### [execute.txt:131] execute if block 0 -61 0 minecraft:grass_block[
+log| System chat: Expected closing ] for block state properties
+log| System chat: ...ass_block[<--[HERE]
+### [execute.txt:132] execute if block 0 -61 0 minecraft:nope
+log| System chat: Unknown block type 'minecraft:nope'
+log| System chat: ...k 0 -61 0 minecraft:nope<--[HERE]
+### [execute.txt:133] execute if block 0 -61 0 #minecraft:nope
+log| System chat: Unknown block tag 'minecraft:nope'
+log| System chat: ...k 0 -61 0 #minecraft:nope<--[HERE]
+### [execute.txt:134] execute if block 100000 0 0 minecraft:stone
+log| System chat: That position is not loaded
+### [execute.txt:135] execute unless block 100000 0 0 minecraft:stone
+log| System chat: That position is not loaded
+### [execute.txt:136] execute if block ~ ~-1 ~ minecraft:grass_block
+log| System chat: Test passed
+### [execute.txt:137] @bot execute if block ~ ~-1 ~ minecraft:grass_block
+Bot| [system_chat] Test passed
+Bot|   json {"translate":"commands.execute.conditional.pass"}
+### [execute.txt:138] @bot execute at @s unless block ~ ~-1 ~ minecraft:air run say standing
+log| [Not Secure] [Bot] standing
+Bot| [disguised_chat] Bot: standing
+Bot|   json "standing"
+Bot0| [disguised_chat] Bot: standing
+Bot0|   json "standing"
+### [execute.txt:139] execute if block 0 -61 0 minecraft:grass_block{}
+log| System chat: Test failed
+### [execute.txt:140] execute if block 1 2 minecraft:stone
+log| System chat: Expected integer
+log| System chat: ...block 1 2 minecraft:stone<--[HERE]
+### [execute.txt:143] execute if blocks 0 -60 0 2 -60 2 10 -60 0 all
+log| System chat: Test passed. Count: 9
+### [execute.txt:144] execute if blocks 0 -60 0 2 -60 2 10 -60 0 masked
+log| System chat: Test passed. Count: 9
+### [execute.txt:145] execute unless blocks 0 -60 0 2 -60 2 10 -60 0 all
+log| System chat: Test failed. Count: 9
+### [execute.txt:146] execute if blocks 0 -60 0 2 -60 2 0 -61 0 all
+log| System chat: Test failed
+### [execute.txt:147] execute unless blocks 0 -60 0 2 -60 2 0 -61 0 all
+log| System chat: Test passed
+### [execute.txt:148] execute if blocks 0 -61 0 2 -60 2 0 -59 0 masked
+log| System chat: Test failed
+### [execute.txt:149] execute unless blocks 0 -61 0 2 -60 2 0 -59 0 masked
+log| System chat: Test passed
+### [execute.txt:150] execute if blocks 0 -60 0 0 -60 0 0 -60 0 all
+log| System chat: Test passed. Count: 1
+### [execute.txt:151] execute if blocks 0 -60 0 40 5 40 0 10 0 all
+log| System chat: Too many blocks in the specified area (maximum 32768, but specified 110946)
+### [execute.txt:152] execute unless blocks 0 -60 0 40 5 40 0 10 0 masked
+log| System chat: Too many blocks in the specified area (maximum 32768, but specified 110946)
+### [execute.txt:153] execute if blocks 0 -60 0 31 -29 31 40 -60 40 all
+log| System chat: Test failed
+### [execute.txt:154] execute if blocks 100000 0 0 0 0 0 0 0 0 all
+log| System chat: That position is not loaded
+### [execute.txt:155] execute if blocks 0 0 0 0 0 0 100000 0 0 all
+log| System chat: That position is not loaded
+### [execute.txt:156] execute if blocks 0 0 0 0 0 0 0 0 0 none
+log| System chat: Incorrect argument for command
+log| System chat: ...0 0 0 0 0 none<--[HERE]
+### [execute.txt:157] execute if blocks 0 0 0 0 0 0 0 0 all
+log| System chat: Expected integer
+log| System chat: ...0 0 0 0 0 all<--[HERE]
+### [execute.txt:160] execute if biome 0 -60 0 minecraft:plains
+log| System chat: Test passed
+### [execute.txt:161] execute if biome 0 -60 0 minecraft:desert
+log| System chat: Test failed
+### [execute.txt:162] execute unless biome 0 -60 0 minecraft:desert
+log| System chat: Test passed
+### [execute.txt:163] execute if biome 0 -60 0 #minecraft:is_overworld
+log| System chat: Test passed
+### [execute.txt:164] execute if biome 0 -60 0 #minecraft:is_nether
+log| System chat: Test failed
+### [execute.txt:165] execute if biome 0 -60 0 minecraft:nope
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:worldgen/biome'
+log| System chat: ...craft:nope<--[HERE]
+### [execute.txt:166] execute if biome 100000 0 0 minecraft:plains
+log| System chat: That position is not loaded
+### [execute.txt:167] execute if loaded 0 0 0
+log| System chat: Test passed
+### [execute.txt:168] execute unless loaded 0 0 0
+log| System chat: Test failed
+### [execute.txt:169] execute if loaded 100000 0 100000
+log| System chat: Test failed
+### [execute.txt:170] execute unless loaded 100000 0 100000
+log| System chat: Test passed
+### [execute.txt:171] execute if dimension minecraft:overworld
+log| System chat: Test passed
+### [execute.txt:172] execute unless dimension minecraft:overworld
+log| System chat: Test failed
+### [execute.txt:173] execute if dimension minecraft:the_nether
+log| System chat: Test failed
+### [execute.txt:174] execute in minecraft:the_nether if dimension minecraft:the_nether
+log| System chat: Test passed
+### [execute.txt:175] execute if dimension minecraft:nope
+log| System chat: Unknown dimension 'minecraft:nope'
+### [execute.txt:176] execute if entity @a
+log| System chat: Test passed. Count: 2
+### [execute.txt:177] execute unless entity @a
+log| System chat: Test failed. Count: 2
+### [execute.txt:178] execute if entity @e[type=minecraft:armor_stand]
+log| System chat: Test passed. Count: 5
+### [execute.txt:179] execute unless entity @e[type=minecraft:armor_stand]
+log| System chat: Test failed. Count: 5
+### [execute.txt:180] execute if entity @e[type=minecraft:armor_stand,limit=1]
+log| System chat: Test passed. Count: 1
+### [execute.txt:181] execute if entity @e[type=minecraft:cow]
+log| System chat: Test failed
+### [execute.txt:182] execute unless entity @e[type=minecraft:cow]
+log| System chat: Test passed
+### [execute.txt:183] execute if entity @s
+log| System chat: Test failed
+### [execute.txt:184] execute unless entity @s
+log| System chat: Test passed
+### [execute.txt:185] @bot execute if entity @s
+Bot| [system_chat] Test passed. Count: 1
+Bot|   json {"translate":"commands.execute.conditional.pass_count","with":[1]}
+### [execute.txt:186] @bot execute unless entity @s
+Bot| [system_chat] Test failed. Count: 1
+Bot|   json {"text":"","extra":[{"translate":"commands.execute.conditional.fail_count","with":[1]}],"color":"red"}
+### [execute.txt:187] execute if entity @e[type=minecraft:armor_stand] run say armor stands
+log| [Not Secure] [Server] armor stands
+Bot| [disguised_chat] Server: armor stands
+Bot|   json "armor stands"
+Bot0| [disguised_chat] Server: armor stands
+Bot0|   json "armor stands"
+### [execute.txt:188] execute unless entity @e[type=minecraft:cow] run say no cows
+log| [Not Secure] [Server] no cows
+Bot| [disguised_chat] Server: no cows
+Bot|   json "no cows"
+Bot0| [disguised_chat] Server: no cows
+Bot0|   json "no cows"
+### [execute.txt:189] execute if entity @e[type=minecraft:cow] run say cows
+
+### [execute.txt:190] execute if entity nope
+log| System chat: Test failed
+### [execute.txt:191] execute if entity @e[
+log| System chat: Expected end of options
+log| System chat: ...entity @e[<--[HERE]
+### [execute.txt:194] data merge storage test:s {x:5,l:[1,2,3],c:{a:1b}}
+log| System chat: Modified storage test:s
+Bot| [system_chat] [Server: Modified storage test:s]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["test:s"]}],"color":"gray","italic":true}
+### [execute.txt:195] execute if data storage test:s x
+log| System chat: Test passed. Count: 1
+### [execute.txt:196] execute unless data storage test:s x
+log| System chat: Test failed. Count: 1
+### [execute.txt:197] execute if data storage test:s l[]
+log| System chat: Test passed. Count: 3
+### [execute.txt:198] execute unless data storage test:s l[]
+log| System chat: Test failed. Count: 3
+### [execute.txt:199] execute if data storage test:s nothing
+log| System chat: Test failed
+### [execute.txt:200] execute unless data storage test:s nothing
+log| System chat: Test passed
+### [execute.txt:201] execute if data storage test:s c.a
+log| System chat: Test passed. Count: 1
+### [execute.txt:202] execute if data storage test:s l[5]
+log| System chat: Test failed
+### [execute.txt:203] execute if data storage test:s l[{}]
+log| System chat: Test failed
+### [execute.txt:204] execute if data entity @e[type=minecraft:armor_stand,limit=1] NoGravity
+log| System chat: Test passed. Count: 1
+### [execute.txt:205] execute if data entity @e[type=minecraft:armor_stand,limit=1] Nope
+log| System chat: Test failed
+### [execute.txt:206] execute unless data entity @e[type=minecraft:armor_stand,limit=1] Invulnerable
+log| System chat: Test failed. Count: 1
+### [execute.txt:207] execute if data entity @e[type=minecraft:armor_stand] NoGravity
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: execute if data entity @e[type=minecraft:armor_stand] NoGravity<--[HERE]
+### [execute.txt:208] execute if data entity @e[type=minecraft:cow] NoGravity
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: execute if data entity @e[type=minecraft:cow] NoGravity<--[HERE]
+### [execute.txt:209] execute if data block 0 -60 0 Items
+log| System chat: The target block is not a block entity
+### [execute.txt:210] execute if data block 0 -61 0 x
+log| System chat: The target block is not a block entity
+### [execute.txt:211] execute if data storage test:s [
+log| System chat: Could not parse command: Index 32 out of bounds for length 32
+log| System chat: ...e test:s [<--[HERE]
+### [execute.txt:212] execute if data storage test:s x run say has x
+log| [Not Secure] [Server] has x
+Bot| [disguised_chat] Server: has x
+Bot|   json "has x"
+Bot0| [disguised_chat] Server: has x
+Bot0|   json "has x"
+### [execute.txt:213] execute unless data storage test:s nothing run say no nothing
+log| [Not Secure] [Server] no nothing
+Bot| [disguised_chat] Server: no nothing
+Bot|   json "no nothing"
+Bot0| [disguised_chat] Server: no nothing
+Bot0|   json "no nothing"
+### [execute.txt:214] execute if data nope
+log| System chat: Incorrect argument for command
+log| System chat: ...e if data nope<--[HERE]
+### [execute.txt:217] execute if predicate {condition:"minecraft:random_chance",chance:1}
+log| System chat: Failed to parse structure: No key type in MapLike[{chance:1,condition:"minecraft:random_chance"}]
+log| System chat: ...,chance:1}<--[HERE]
+### [execute.txt:218] execute if predicate {condition:"minecraft:random_chance",chance:0}
+log| System chat: Failed to parse structure: No key type in MapLike[{chance:0,condition:"minecraft:random_chance"}]
+log| System chat: ...,chance:0}<--[HERE]
+### [execute.txt:219] execute unless predicate {condition:"minecraft:random_chance",chance:0}
+log| System chat: Failed to parse structure: No key type in MapLike[{chance:0,condition:"minecraft:random_chance"}]
+log| System chat: ...,chance:0}<--[HERE]
+### [execute.txt:220] execute if predicate {condition:"minecraft:inverted",term:{condition:"minecraft:random_chance",chance:0}}
+log| System chat: Failed to parse structure: No key type in MapLike[{condition:"minecraft:inverted",term:{chance:0,condition:"minecraft:random_chance"}}]
+log| System chat: ...chance:0}}<--[HERE]
+### [execute.txt:221] execute if predicate {condition:"minecraft:time_check",value:{min:0,max:24000},period:24000}
+log| System chat: Failed to parse structure: No key type in MapLike[{condition:"minecraft:time_check",period:24000,value:{max:24000,min:0}}]
+log| System chat: ...iod:24000}<--[HERE]
+### [execute.txt:222] execute if predicate {condition:"minecraft:nope"}
+log| System chat: Failed to parse structure: No key type in MapLike[{condition:"minecraft:nope"}]
+log| System chat: ...aft:nope"}<--[HERE]
+### [execute.txt:223] execute if predicate {condition:"minecraft:random_chance",chance:5}
+log| System chat: Failed to parse structure: No key type in MapLike[{chance:5,condition:"minecraft:random_chance"}]
+log| System chat: ...,chance:5}<--[HERE]
+### [execute.txt:224] execute if predicate {}
+log| System chat: Failed to parse structure: No key type in MapLike[{}]
+log| System chat: ...edicate {}<--[HERE]
+### [execute.txt:225] execute if predicate foo:bar
+log| System chat: Can't find element 'foo:bar' in registry 'minecraft:predicate'
+log| System chat: ...te foo:bar<--[HERE]
+### [execute.txt:226] execute if predicate 5
+log| System chat: Can't find element 'minecraft:5' in registry 'minecraft:predicate'
+log| System chat: ...redicate 5<--[HERE]
+### [execute.txt:227] @bot execute if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type:"minecraft:player"}}
+Bot| [system_chat] Failed to parse structure: No key type in MapLike[{condition:"minecraft:entity_properties",entity:"this",predicate:{type:"minecraft:player"}}]
+Bot|   json {"text":"","extra":[{"translate":"argument.resource_or_id.failed_to_parse","with":["No key type in MapLike[{condition:\"minecraft:entity_properties\",entity:\"this\",predicate:{type:\"minecraft:player\"}}]"]}],"color":"red"}
+Bot| [system_chat] ...:player"}}<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...",":player\"}}",{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/execute if predicate {condition:\"minecraft:entity_properties\",entity:\"this\",predicate:{type:\"minecraft:player\"}}","action":"suggest_command"}}],"color":"red"}
+### [execute.txt:228] @bot execute unless predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type:"minecraft:player"}}
+Bot| [system_chat] Failed to parse structure: No key type in MapLike[{condition:"minecraft:entity_properties",entity:"this",predicate:{type:"minecraft:player"}}]
+Bot|   json {"text":"","extra":[{"translate":"argument.resource_or_id.failed_to_parse","with":["No key type in MapLike[{condition:\"minecraft:entity_properties\",entity:\"this\",predicate:{type:\"minecraft:player\"}}]"]}],"color":"red"}
+Bot| [system_chat] ...:player"}}<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...",":player\"}}",{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/execute unless predicate {condition:\"minecraft:entity_properties\",entity:\"this\",predicate:{type:\"minecraft:player\"}}","action":"suggest_command"}}],"color":"red"}
+### [execute.txt:229] execute if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type:"minecraft:player"}}
+log| System chat: Failed to parse structure: No key type in MapLike[{condition:"minecraft:entity_properties",entity:"this",predicate:{type:"minecraft:player"}}]
+log| System chat: ...:player"}}<--[HERE]
+### [execute.txt:230] execute as @e[type=minecraft:armor_stand,limit=1] if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type:"minecraft:armor_stand"}} run say stand predicate
+log| System chat: Failed to parse structure: No key type in MapLike[{condition:"minecraft:entity_properties",entity:"this",predicate:{type:"minecraft:armor_stand"}}]
+log| System chat: ...r_stand"}} run say stand predicate<--[HERE]
+### [execute.txt:233] execute if function foo:bar
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...on foo:bar<--[HERE]
+### [execute.txt:234] execute unless function foo:bar
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...on foo:bar<--[HERE]
+### [execute.txt:235] execute if function #foo:bar
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...n #foo:bar<--[HERE]
+### [execute.txt:236] execute if function
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...f function<--[HERE]
+### [execute.txt:237] give @a minecraft:stone 5
+log| System chat: Gave 5 [Stone] to 2 players
+Bot| [system_chat] [Server: Gave 5 [Stone] to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.give.success.multiple","with":[5,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.stone"}]}],"color":"white","hover_event":{"id":"minecraft:stone","action":"show_item"}},2]}],"color":"gray","italic":true}
+### [execute.txt:238] @bot execute if items entity @s container.* minecraft:stone
+Bot| [system_chat] Test passed. Count: 5
+Bot|   json {"translate":"commands.execute.conditional.pass_count","with":[5]}
+### [execute.txt:239] @bot execute unless items entity @s container.* minecraft:stone
+Bot| [system_chat] Test failed. Count: 5
+Bot|   json {"text":"","extra":[{"translate":"commands.execute.conditional.fail_count","with":[5]}],"color":"red"}
+### [execute.txt:240] @bot execute if items entity @s container.* minecraft:diamond
+Bot| [system_chat] Test failed
+Bot|   json {"text":"","extra":[{"translate":"commands.execute.conditional.fail"}],"color":"red"}
+### [execute.txt:241] @bot execute unless items entity @s container.* minecraft:diamond
+Bot| [system_chat] Test passed
+Bot|   json {"translate":"commands.execute.conditional.pass"}
+### [execute.txt:242] @bot execute if items entity @s container.0 *
+Bot| [system_chat] Test passed. Count: 5
+Bot|   json {"translate":"commands.execute.conditional.pass_count","with":[5]}
+### [execute.txt:243] @bot execute if items entity @s weapon.mainhand *
+Bot| [system_chat] Test passed. Count: 5
+Bot|   json {"translate":"commands.execute.conditional.pass_count","with":[5]}
+### [execute.txt:244] @bot execute if items entity @s armor.head *
+Bot| [system_chat] Test failed
+Bot|   json {"text":"","extra":[{"translate":"commands.execute.conditional.fail"}],"color":"red"}
+### [execute.txt:245] @bot execute if items entity @s nope *
+Bot| [system_chat] Can't find element 'minecraft:nope' in registry 'minecraft:slot_source'
+Bot|   json {"text":"","extra":[{"translate":"argument.resource_or_id.no_such_element","with":["minecraft:nope","minecraft:slot_source"]}],"color":"red"}
+Bot| [system_chat] ...ty @s nope *<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...","ty @s nope",{"text":" *","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/execute if items entity @s nope *","action":"suggest_command"}}],"color":"red"}
+### [execute.txt:246] @bot execute if items entity @s container.* minecraft:nope
+Bot| [system_chat] Unknown item 'minecraft:nope'
+Bot|   json {"text":"","extra":[{"translate":"argument.item.id.invalid","with":["minecraft:nope"]}],"color":"red"}
+Bot| [system_chat] ...craft:nope<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...","craft:nope",{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/execute if items entity @s container.* minecraft:nope","action":"suggest_command"}}],"color":"red"}
+### [execute.txt:247] @bot execute if items entity @s container.* #minecraft:logs
+Bot| [system_chat] Test failed
+Bot|   json {"text":"","extra":[{"translate":"commands.execute.conditional.fail"}],"color":"red"}
+### [execute.txt:248] @bot execute if items entity @s container.* minecraft:stone[count=1..]
+Bot| [system_chat] Expected literal |
+Bot|   json {"text":"","extra":[{"translate":"argument.literal.incorrect","with":["|"]}],"color":"red"}
+Bot| [system_chat] ...e[count=1..]<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...","e[count=1.",{"text":".]","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/execute if items entity @s container.* minecraft:stone[count=1..]","action":"suggest_command"}}],"color":"red"}
+### [execute.txt:249] @bot execute if items entity @s container.* minecraft:stone[count=6..]
+Bot| [system_chat] Expected literal |
+Bot|   json {"text":"","extra":[{"translate":"argument.literal.incorrect","with":["|"]}],"color":"red"}
+Bot| [system_chat] ...e[count=6..]<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...","e[count=6.",{"text":".]","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/execute if items entity @s container.* minecraft:stone[count=6..]","action":"suggest_command"}}],"color":"red"}
+### [execute.txt:250] @bot execute if slots entity @s container.*
+Bot| [system_chat] Test passed. Count: 36
+Bot|   json {"translate":"commands.execute.conditional.pass_count","with":[36]}
+### [execute.txt:251] @bot execute unless slots entity @s container.*
+Bot| [system_chat] Test failed. Count: 36
+Bot|   json {"text":"","extra":[{"translate":"commands.execute.conditional.fail_count","with":[36]}],"color":"red"}
+### [execute.txt:252] @bot execute if slots entity @s armor.*
+Bot| [system_chat] Test passed. Count: 5
+Bot|   json {"translate":"commands.execute.conditional.pass_count","with":[5]}
+### [execute.txt:253] @bot execute if items entity @s container.* minecraft:stone run say has stone
+log| [Not Secure] [Bot] has stone
+Bot| [disguised_chat] Bot: has stone
+Bot|   json "has stone"
+Bot0| [disguised_chat] Bot: has stone
+Bot0|   json "has stone"
+### [execute.txt:254] execute if items entity @e[type=minecraft:cow] container.* *
+log| System chat: No entity was found
+### [execute.txt:255] execute if items block 0 -60 0 container.* *
+log| System chat: Source position 0, -60, 0 is not a container
+### [execute.txt:256] execute if slots block 0 -60 0 container.*
+log| System chat: Source position 0, -60, 0 is not a container
+### [execute.txt:257] execute if items block 100000 0 0 container.* *
+log| System chat: That position is not loaded
+### [execute.txt:258] execute if slots entity @e[type=minecraft:armor_stand,limit=1] weapon.mainhand
+log| System chat: Test passed. Count: 1
+### [execute.txt:259] execute if slots entity @e[type=minecraft:armor_stand,limit=1] container.*
+log| System chat: Test failed
+### [execute.txt:260] stopwatch create test:sw
+log| System chat: Created stopwatch 'test:sw'
+Bot| [system_chat] [Server: Created stopwatch 'test:sw']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopwatch.create.success","with":["test:sw"]}],"color":"gray","italic":true}
+### [execute.txt:261] execute if stopwatch test:sw 0..1000
+log| System chat: Test passed
+### [execute.txt:262] execute unless stopwatch test:sw 0..1000
+log| System chat: Test failed
+### [execute.txt:263] execute if stopwatch test:sw 1000..
+log| System chat: Test failed
+### [execute.txt:264] execute if stopwatch test:sw ..0
+log| System chat: Test failed
+### [execute.txt:265] execute if stopwatch test:nope 0..1
+log| System chat: Stopwatch 'test:nope' does not exist
+### [execute.txt:266] execute if stopwatch test:sw x
+log| System chat: Expected value or range of values
+log| System chat: ...h test:sw x<--[HERE]
+### [execute.txt:269] execute store result score #r o run scoreboard players get #a o
+log| System chat: #a has 5 [o]
+### [execute.txt:270] scoreboard players get #r o
+log| System chat: #r has 5 [o]
+### [execute.txt:271] execute store success score #s o run scoreboard players get #a o
+log| System chat: #a has 5 [o]
+### [execute.txt:272] scoreboard players get #s o
+log| System chat: #s has 1 [o]
+### [execute.txt:273] execute store result score #r o run scoreboard players get #none o
+log| System chat: Can't get value of o for #none; none is set
+### [execute.txt:274] scoreboard players get #r o
+log| System chat: #r has 0 [o]
+### [execute.txt:275] execute store success score #s o run scoreboard players get #none o
+log| System chat: Can't get value of o for #none; none is set
+### [execute.txt:276] scoreboard players get #s o
+log| System chat: #s has 0 [o]
+### [execute.txt:277] execute store result score #r o store success score #s o run scoreboard players get #b o
+log| System chat: #b has 9 [o]
+### [execute.txt:278] scoreboard players get #r o
+log| System chat: #r has 9 [o]
+### [execute.txt:279] scoreboard players get #s o
+log| System chat: #s has 1 [o]
+### [execute.txt:280] execute store result score #r o store result score #s o run scoreboard players get #a o
+log| System chat: #a has 5 [o]
+### [execute.txt:281] scoreboard players get #r o
+log| System chat: #r has 5 [o]
+### [execute.txt:282] scoreboard players get #s o
+log| System chat: #s has 5 [o]
+### [execute.txt:283] execute store result score #r o store success score #r o run scoreboard players get #b o
+log| System chat: #b has 9 [o]
+### [execute.txt:284] scoreboard players get #r o
+log| System chat: #r has 1 [o]
+### [execute.txt:285] execute store result score #x o #y o #z o run say x
+log| System chat: Incorrect argument for command
+log| System chat: ...core #x o #y o #z o run say x<--[HERE]
+### [execute.txt:286] execute store result score #x nope run say x
+log| System chat: Unknown scoreboard objective 'nope'
+### [execute.txt:287] execute store result score @e[type=minecraft:armor_stand] o run scoreboard players get #a o
+log| System chat: #a has 5 [o]
+### [execute.txt:288] scoreboard players get @e[type=minecraft:armor_stand,limit=1] o
+log| System chat: "One" has 5 [o]
+### [execute.txt:289] execute store success score #r o run say fine
+log| [Not Secure] [Server] fine
+Bot| [disguised_chat] Server: fine
+Bot|   json "fine"
+Bot0| [disguised_chat] Server: fine
+Bot0|   json "fine"
+### [execute.txt:290] scoreboard players get #r o
+log| System chat: #r has 1 [o]
+### [execute.txt:291] execute store result score #r o run say result
+log| [Not Secure] [Server] result
+Bot| [disguised_chat] Server: result
+Bot|   json "result"
+Bot0| [disguised_chat] Server: result
+Bot0|   json "result"
+### [execute.txt:292] scoreboard players get #r o
+log| System chat: #r has 1 [o]
+### [execute.txt:293] execute store result score #r o as @e[type=minecraft:armor_stand] run scoreboard players get #b o
+log| System chat: #b has 9 [o]
+log| System chat: #b has 9 [o]
+log| System chat: #b has 9 [o]
+log| System chat: #b has 9 [o]
+log| System chat: #b has 9 [o]
+### [execute.txt:294] scoreboard players get #r o
+log| System chat: #r has 9 [o]
+### [execute.txt:295] execute store success score #r o as @e[type=minecraft:cow] run say x
+
+### [execute.txt:296] scoreboard players get #r o
+log| System chat: #r has 9 [o]
+### [execute.txt:297] execute as @e[type=minecraft:armor_stand] store result score @s o run scoreboard players get #b o
+log| System chat: #b has 9 [o]
+log| System chat: #b has 9 [o]
+log| System chat: #b has 9 [o]
+log| System chat: #b has 9 [o]
+log| System chat: #b has 9 [o]
+### [execute.txt:298] scoreboard players get @e[type=minecraft:armor_stand] o
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: ...mor_stand] o<--[HERE]
+### [execute.txt:299] execute store result score * o run scoreboard players get #a o
+log| System chat: #a has 5 [o]
+### [execute.txt:300] scoreboard players list
+log| System chat: There are 9 tracked entity/entities: <masked>
+### [execute.txt:301] execute store result score #r o run
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...e #r o run<--[HERE]
+### [execute.txt:302] execute store
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...cute store<--[HERE]
+### [execute.txt:303] execute store result
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ore result<--[HERE]
+### [execute.txt:304] execute store result score
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...sult score<--[HERE]
+### [execute.txt:305] execute store nope score #r o run say x
+log| System chat: Incorrect argument for command
+log| System chat: ...ute store nope score #r o run say x<--[HERE]
+### [execute.txt:308] bossbar add test:b "B"
+log| System chat: Created custom bossbar [B]
+Bot| [system_chat] [Server: Created custom bossbar [B]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.create.success","with":[{"translate":"chat.square_brackets","with":["B"],"color":"white","hover_event":{"value":"test:b","action":"show_text"},"insertion":"test:b"}]}],"color":"gray","italic":true}
+### [execute.txt:309] execute store result bossbar test:b value run scoreboard players get #a o
+log| System chat: #a has 5 [o]
+### [execute.txt:310] bossbar get test:b value
+log| System chat: Custom bossbar [B] has a value of 5
+Bot| [system_chat] [Server: Custom bossbar [B] has a value of 5]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.value","with":[{"translate":"chat.square_brackets","with":["B"],"color":"white","hover_event":{"value":"test:b","action":"show_text"},"insertion":"test:b"},5]}],"color":"gray","italic":true}
+### [execute.txt:311] execute store result bossbar test:b max run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:312] bossbar get test:b max
+log| System chat: Custom bossbar [B] has a maximum of 5
+Bot| [system_chat] [Server: Custom bossbar [B] has a maximum of 5]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.max","with":[{"translate":"chat.square_brackets","with":["B"],"color":"white","hover_event":{"value":"test:b","action":"show_text"},"insertion":"test:b"},5]}],"color":"gray","italic":true}
+### [execute.txt:313] execute store success bossbar test:b value run say x
+log| [Not Secure] [Server] x
+Bot| [disguised_chat] Server: x
+Bot|   json "x"
+Bot0| [disguised_chat] Server: x
+Bot0|   json "x"
+### [execute.txt:314] bossbar get test:b value
+log| System chat: Custom bossbar [B] has a value of 1
+Bot| [system_chat] [Server: Custom bossbar [B] has a value of 1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.value","with":[{"translate":"chat.square_brackets","with":["B"],"color":"white","hover_event":{"value":"test:b","action":"show_text"},"insertion":"test:b"},1]}],"color":"gray","italic":true}
+### [execute.txt:315] execute store success bossbar test:b max run scoreboard players get #none o
+log| System chat: Can't get value of o for #none; none is set
+### [execute.txt:316] bossbar get test:b max
+log| System chat: Custom bossbar [B] has a maximum of 0
+Bot| [system_chat] [Server: Custom bossbar [B] has a maximum of 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.get.max","with":[{"translate":"chat.square_brackets","with":["B"],"color":"white","hover_event":{"value":"test:b","action":"show_text"},"insertion":"test:b"},0]}],"color":"gray","italic":true}
+### [execute.txt:317] execute store result bossbar test:nope value run say x
+log| System chat: No bossbar exists with the ID 'test:nope'
+### [execute.txt:318] execute store result bossbar test:b nope run say x
+log| System chat: Incorrect argument for command
+log| System chat: ...ar test:b nope run say x<--[HERE]
+### [execute.txt:319] execute store result bossbar test:b run say x
+log| System chat: Incorrect argument for command
+log| System chat: ...ar test:b run say x<--[HERE]
+### [execute.txt:322] execute store result storage test:s i int 1 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:323] data get storage test:s i
+log| System chat: Storage test:s has the following contents: 5
+### [execute.txt:324] execute store result storage test:s i int 2 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:325] data get storage test:s i
+log| System chat: Storage test:s has the following contents: 10
+### [execute.txt:326] execute store result storage test:s i int 0.5 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:327] data get storage test:s i
+log| System chat: Storage test:s has the following contents: 2
+### [execute.txt:328] execute store result storage test:s i int -1 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:329] data get storage test:s i
+log| System chat: Storage test:s has the following contents: -5
+### [execute.txt:330] execute store result storage test:s f float 0.1 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:331] data get storage test:s f
+log| System chat: Storage test:s has the following contents: 0.5f
+### [execute.txt:332] execute store result storage test:s s short 1000 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:333] data get storage test:s s
+log| System chat: Storage test:s has the following contents: 5000s
+### [execute.txt:334] execute store result storage test:s s short 10000 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:335] data get storage test:s s
+log| System chat: Storage test:s has the following contents: -15536s
+### [execute.txt:336] execute store result storage test:s l long 100000000000 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:337] data get storage test:s l
+log| System chat: Storage test:s has the following contents: 500000000000L
+### [execute.txt:338] execute store result storage test:s d double 0.25 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:339] data get storage test:s d
+log| System chat: Storage test:s has the following contents: 1.25d
+### [execute.txt:340] execute store result storage test:s b byte 100 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:341] data get storage test:s b
+log| System chat: Storage test:s has the following contents: -12b
+### [execute.txt:342] execute store result storage test:s b byte 1 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:343] data get storage test:s b
+log| System chat: Storage test:s has the following contents: 5b
+### [execute.txt:344] execute store success storage test:s ok byte 1 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:345] data get storage test:s ok
+log| System chat: Storage test:s has the following contents: 1b
+### [execute.txt:346] execute store success storage test:s ok byte 1 run scoreboard players get #none o
+log| System chat: Can't get value of o for #none; none is set
+### [execute.txt:347] data get storage test:s ok
+log| System chat: Storage test:s has the following contents: 0b
+### [execute.txt:348] execute store result storage test:s new.nested.value int 1 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:349] data get storage test:s new
+log| System chat: Storage test:s has the following contents: {nested: {value: 5}}
+### [execute.txt:350] execute store result storage test:s l[0] int 1 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:351] data get storage test:s l
+log| System chat: Storage test:s has the following contents: 500000000000L
+### [execute.txt:352] execute store result storage test:s c.a int 1 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:353] data get storage test:s c
+log| System chat: Storage test:s has the following contents: {a: 5}
+### [execute.txt:354] execute store result storage test:s x[0] int 1 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:355] data get storage test:s x
+log| System chat: Storage test:s has the following contents: 5
+### [execute.txt:356] execute store result storage test:s l[{}] int 1 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:357] execute store result storage test:s i int nope run say x
+log| System chat: Expected double
+log| System chat: ...t:s i int nope run say x<--[HERE]
+### [execute.txt:358] execute store result storage test:s i nope 1 run say x
+log| System chat: Incorrect argument for command
+log| System chat: ... test:s i nope 1 run say x<--[HERE]
+### [execute.txt:359] execute store result storage test:s i int run say x
+log| System chat: Expected double
+log| System chat: ...t:s i int run say x<--[HERE]
+### [execute.txt:360] execute store result storage test:s [ int 1 run say x
+log| System chat: Expected integer
+log| System chat: ...e test:s [ int 1 run say x<--[HERE]
+### [execute.txt:361] execute store result storage test:s i int 1 run say x
+log| [Not Secure] [Server] x
+Bot| [disguised_chat] Server: x
+Bot|   json "x"
+Bot0| [disguised_chat] Server: x
+Bot0|   json "x"
+### [execute.txt:362] execute store result storage test:s i int 1 as @e[type=minecraft:armor_stand] run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+log| System chat: #b has 5 [o]
+log| System chat: #b has 5 [o]
+log| System chat: #b has 5 [o]
+log| System chat: #b has 5 [o]
+### [execute.txt:363] data get storage test:s i
+log| System chat: Storage test:s has the following contents: 5
+### [execute.txt:364] execute store result entity @e[type=minecraft:armor_stand,limit=1] Pos[1] double 1 run scoreboard players get #b o
+log| System chat: #b has 5 [o]
+### [execute.txt:365] data get entity @e[type=minecraft:armor_stand,limit=1] Pos
+log| System chat: "One" has the following entity data: [4.5d, 5.0d, 4.5d]
+### [execute.txt:366] execute store result entity @e[type=minecraft:armor_stand,limit=1] Invulnerable byte 1 run scoreboard players get #a o
+log| System chat: #a has 5 [o]
+### [execute.txt:367] data get entity @e[type=minecraft:armor_stand,limit=1] Invulnerable
+log| System chat: "One" has the following entity data: 1b
+### [execute.txt:368] execute store success entity @e[type=minecraft:armor_stand,limit=1] NoGravity byte 1 run scoreboard players get #none o
+log| System chat: Can't get value of o for #none; none is set
+### [execute.txt:369] data get entity @e[type=minecraft:armor_stand,limit=1] NoGravity
+log| System chat: Found no elements matching NoGravity
+### [execute.txt:370] execute store result entity @a Health float 1 run scoreboard players get #a o
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: execute store result entity @a Health float 1 run scoreboard players get #a o<--[HERE]
+### [execute.txt:371] execute store result entity @e[type=minecraft:cow] Health float 1 run scoreboard players get #a o
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: execute store result entity @e[type=minecraft:cow] Health float 1 run scoreboard players get #a o<--[HERE]
+### [execute.txt:372] execute store result entity @e[type=minecraft:armor_stand] Health float 1 run scoreboard players get #a o
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: execute store result entity @e[type=minecraft:armor_stand] Health float 1 run scoreboard players get #a o<--[HERE]
+### [execute.txt:373] @bot execute store result entity @s Health float 1 run scoreboard players get #a o
+Bot| [system_chat] #a has 5 [o]
+Bot|   json {"translate":"commands.scoreboard.players.get.success","with":["#a",5,{"translate":"chat.square_brackets","with":[{"text":"o","hover_event":{"value":"o","action":"show_text"}}]}]}
+### [execute.txt:374] execute store result block 0 -60 0 x int 1 run scoreboard players get #a o
+log| System chat: The target block is not a block entity
+### [execute.txt:375] execute store result block 0 -60 0 x int 1 run say x
+log| System chat: The target block is not a block entity
+### [execute.txt:376] execute store result block 100000 0 0 x int 1 run say x
+log| System chat: That position is not loaded
+### [execute.txt:377] setblock 0 -59 0 minecraft:chest
+log| System chat: Changed the block at 0, -59, 0
+Bot| [system_chat] [Server: Changed the block at 0, -59, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-59,0]}],"color":"gray","italic":true}
+### [execute.txt:378] execute store result block 0 -59 0 CustomName string 1 run say x
+log| System chat: Incorrect argument for command
+log| System chat: ...ustomName string 1 run say x<--[HERE]
+### [execute.txt:380] execute store result block 0 -59 0 lock int 1 run scoreboard players get #a o
+log| System chat: #a has 5 [o]
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:chest // net.minecraft.world.level.block.entity.ChestBlockEntity@BlockPos{x=0, y=-59, z=0}: Failed to decode value '5' from field 'lock': Not a map: 5
+### [execute.txt:381] data get block 0 -59 0 lock
+log| System chat: Found no elements matching lock
+### [execute.txt:384] execute as @e[type=minecraft:armor_stand] at @s if block ~ ~-1 ~ minecraft:gold_block run say gold below
+log| [Not Secure] ["Two"] gold below
+log| [Not Secure] ["Three"] gold below
+Bot| [disguised_chat] "Two": gold below
+Bot|   json "gold below"
+Bot| [disguised_chat] "Three": gold below
+Bot|   json "gold below"
+Bot0| [disguised_chat] "Two": gold below
+Bot0|   json "gold below"
+Bot0| [disguised_chat] "Three": gold below
+Bot0|   json "gold below"
+### [execute.txt:385] execute as @e[type=minecraft:armor_stand] at @s unless block ~ ~-1 ~ minecraft:gold_block run say no gold below
+log| [Not Secure] ["One"] no gold below
+log| [Not Secure] [Armor Stand] no gold below
+log| [Not Secure] [Armor Stand] no gold below
+Bot| [disguised_chat] "One": no gold below
+Bot|   json "no gold below"
+Bot| [disguised_chat] Armor Stand: no gold below
+Bot|   json "no gold below"
+Bot| [disguised_chat] Armor Stand: no gold below
+Bot|   json "no gold below"
+Bot0| [disguised_chat] "One": no gold below
+Bot0|   json "no gold below"
+Bot0| [disguised_chat] Armor Stand: no gold below
+Bot0|   json "no gold below"
+Bot0| [disguised_chat] Armor Stand: no gold below
+Bot0|   json "no gold below"
+### [execute.txt:386] execute as @e[type=minecraft:armor_stand] at @s positioned ~ ~-1 ~ if block ~ ~ ~ minecraft:gold_block run say shifted
+log| [Not Secure] ["Two"] shifted
+log| [Not Secure] ["Three"] shifted
+Bot| [disguised_chat] "Two": shifted
+Bot|   json "shifted"
+Bot| [disguised_chat] "Three": shifted
+Bot|   json "shifted"
+Bot0| [disguised_chat] "Two": shifted
+Bot0|   json "shifted"
+Bot0| [disguised_chat] "Three": shifted
+Bot0|   json "shifted"
+### [execute.txt:387] execute as @e[type=minecraft:armor_stand] at @s store result score @s o if block ~ ~-1 ~ minecraft:gold_block
+log| System chat: Test passed
+log| System chat: Test passed
+### [execute.txt:388] scoreboard players get @e[type=minecraft:armor_stand] o
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: ...mor_stand] o<--[HERE]
+### [execute.txt:389] execute as @e[type=minecraft:armor_stand] at @s store success score @s p if block ~ ~-1 ~ minecraft:gold_block
+log| System chat: Test passed
+log| System chat: Test passed
+### [execute.txt:390] scoreboard players get @e[type=minecraft:armor_stand] p
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: ...mor_stand] p<--[HERE]
+### [execute.txt:391] execute if score #a o matches 1.. if score #b o matches 1.. if entity @e[type=minecraft:armor_stand] run say all pass
+log| [Not Secure] [Server] all pass
+Bot| [disguised_chat] Server: all pass
+Bot|   json "all pass"
+Bot0| [disguised_chat] Server: all pass
+Bot0|   json "all pass"
+### [execute.txt:392] execute if score #a o matches 1.. if score #b o matches 100.. if entity @e[type=minecraft:armor_stand] run say never
+
+### [execute.txt:393] execute as @e[type=minecraft:armor_stand] if entity @s[name="Two"] run say two
+
+### [execute.txt:394] execute as @e[type=minecraft:armor_stand] if entity @s[name="Nobody"] run say nobody
+
+### [execute.txt:395] execute as @e[type=minecraft:armor_stand] run execute as @e[type=minecraft:armor_stand] run execute store result score #n o if entity @e[type=minecraft:armor_stand]
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+log| System chat: Test passed. Count: 5
+### [execute.txt:396] scoreboard players get #n o
+log| System chat: #n has 5 [o]
+### [execute.txt:397] execute as @e[type=minecraft:armor_stand] at @s facing entity @e[type=minecraft:armor_stand,limit=1] feet rotated as @s run say rotated
+log| [Not Secure] ["One"] rotated
+log| [Not Secure] ["Two"] rotated
+log| [Not Secure] ["Three"] rotated
+log| [Not Secure] [Armor Stand] rotated
+log| [Not Secure] [Armor Stand] rotated
+Bot| [disguised_chat] "One": rotated
+Bot|   json "rotated"
+Bot| [disguised_chat] "Two": rotated
+Bot|   json "rotated"
+Bot| [disguised_chat] "Three": rotated
+Bot|   json "rotated"
+Bot| [disguised_chat] Armor Stand: rotated
+Bot|   json "rotated"
+Bot| [disguised_chat] Armor Stand: rotated
+Bot|   json "rotated"
+Bot0| [disguised_chat] "One": rotated
+Bot0|   json "rotated"
+Bot0| [disguised_chat] "Two": rotated
+Bot0|   json "rotated"
+Bot0| [disguised_chat] "Three": rotated
+Bot0|   json "rotated"
+Bot0| [disguised_chat] Armor Stand: rotated
+Bot0|   json "rotated"
+Bot0| [disguised_chat] Armor Stand: rotated
+Bot0|   json "rotated"
+### [execute.txt:398] execute in minecraft:the_nether as @a run say nope
+log| [Not Secure] [Bot] nope
+log| [Not Secure] [Bot0] nope
+Bot| [disguised_chat] Bot: nope
+Bot|   json "nope"
+Bot| [disguised_chat] Bot0: nope
+Bot|   json "nope"
+Bot0| [disguised_chat] Bot: nope
+Bot0|   json "nope"
+Bot0| [disguised_chat] Bot0: nope
+Bot0|   json "nope"
+### [execute.txt:399] execute in minecraft:the_nether if entity @a
+log| System chat: Test passed. Count: 2
+### [execute.txt:400] execute as @e[type=minecraft:marker] run say marker
+log| [Not Secure] [Marker] marker
+log| [Not Secure] [Marker] marker
+log| [Not Secure] [Marker] marker
+log| [Not Secure] [Marker] marker
+log| [Not Secure] [Marker] marker
+log| [Not Secure] [Marker] marker
+log| [Not Secure] [Marker] marker
+log| [Not Secure] [Marker] marker
+log| [Not Secure] [Marker] marker
+log| [Not Secure] [Marker] marker
+Bot| [disguised_chat] Marker: marker
+Bot|   json "marker"
+Bot| [disguised_chat] Marker: marker
+Bot|   json "marker"
+Bot| [disguised_chat] Marker: marker
+Bot|   json "marker"
+Bot| [disguised_chat] Marker: marker
+Bot|   json "marker"
+Bot| [disguised_chat] Marker: marker
+Bot|   json "marker"
+Bot| [disguised_chat] Marker: marker
+Bot|   json "marker"
+Bot| [disguised_chat] Marker: marker
+Bot|   json "marker"
+Bot| [disguised_chat] Marker: marker
+Bot|   json "marker"
+Bot| [disguised_chat] Marker: marker
+Bot|   json "marker"
+Bot| [disguised_chat] Marker: marker
+Bot|   json "marker"
+Bot0| [disguised_chat] Marker: marker
+Bot0|   json "marker"
+Bot0| [disguised_chat] Marker: marker
+Bot0|   json "marker"
+Bot0| [disguised_chat] Marker: marker
+Bot0|   json "marker"
+Bot0| [disguised_chat] Marker: marker
+Bot0|   json "marker"
+Bot0| [disguised_chat] Marker: marker
+Bot0|   json "marker"
+Bot0| [disguised_chat] Marker: marker
+Bot0|   json "marker"
+Bot0| [disguised_chat] Marker: marker
+Bot0|   json "marker"
+Bot0| [disguised_chat] Marker: marker
+Bot0|   json "marker"
+Bot0| [disguised_chat] Marker: marker
+Bot0|   json "marker"
+Bot0| [disguised_chat] Marker: marker
+Bot0|   json "marker"
+### [execute.txt:401] kill @e[type=minecraft:marker]
+log| System chat: Killed 10 entities
+Bot| [system_chat] [Server: Killed 10 entities]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.multiple","with":[10]}],"color":"gray","italic":true}
+### [execute.txt:402] execute store result score #cnt o if entity @e[type=minecraft:marker]
+log| System chat: Test failed
+### [execute.txt:403] scoreboard players get #cnt o
+log| System chat: #cnt has 0 [o]
+### [execute.txt:406] kill @e[type=minecraft:armor_stand]
+log| System chat: Killed 5 entities
+Bot| [system_chat] [Server: Killed 5 entities]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.multiple","with":[5]}],"color":"gray","italic":true}
+### [execute.txt:407] kill @e[type=minecraft:item]
+log| System chat: Killed 2 entities
+Bot| [system_chat] [Server: Killed 2 entities]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.kill.success.multiple","with":[2]}],"color":"gray","italic":true}
+### [execute.txt:408] bossbar remove test:b
+log| System chat: Removed custom bossbar [B]
+Bot| [system_chat] [Server: Removed custom bossbar [B]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.bossbar.remove.success","with":[{"translate":"chat.square_brackets","with":["B"],"color":"white","hover_event":{"value":"test:b","action":"show_text"},"insertion":"test:b"}]}],"color":"gray","italic":true}
+### [execute.txt:409] stopwatch remove test:sw
+log| System chat: Removed stopwatch 'test:sw'
+Bot| [system_chat] [Server: Removed stopwatch 'test:sw']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopwatch.remove.success","with":["test:sw"]}],"color":"gray","italic":true}
+### [execute.txt:410] data remove storage test:s x
+log| System chat: Modified storage test:s
+Bot| [system_chat] [Server: Modified storage test:s]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["test:s"]}],"color":"gray","italic":true}

@@ -19,8 +19,9 @@ use crate::server::reloadable_resources::{
 };
 use crate::world::level::storage::loot::holder::with_decode_context;
 
-/// Position in `ReloadableServerResources` (after recipes, which vanilla builds before the advancements).
-pub const ORDER_ADVANCEMENTS: i32 = 100;
+/// Vanilla builds the manager in the constructor of `ReloadableServerResources`, so its `Loaded N advancements` line
+/// precedes everything the listeners (the function library) log while reloading.
+pub const ORDER_ADVANCEMENTS: i32 = -10;
 
 #[derive(Default)]
 pub struct ServerAdvancementManager {

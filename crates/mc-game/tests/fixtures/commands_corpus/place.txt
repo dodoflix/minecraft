@@ -4,8 +4,9 @@
 # `template` placements with an explicit seed (and integrity 1.0) are block-deterministic.
 gamerule advance_time false
 gamerule advance_weather false
-forceload add -48 -48 79 79
-!wait 3000
+# the loaded area has to hold a whole village (up to 80 blocks around its start); the layout is unseeded in vanilla
+forceload add -112 -112 111 111
+!wait 8000
 
 # ---- syntax / permission errors
 place
@@ -28,6 +29,7 @@ place feature minecraft:oak 100000 -60 100000
 place feature minecraft:oak 0 -60
 place feature minecraft:oak 0 100000 0
 place feature minecraft:oak 400 -60 400
+!known DFU `DataResult` error text: vanilla "No key to_place in MapLike[...]", ours "to_place: missing required field"
 place feature {type:"minecraft:simple_block",config:{to_place:{type:"minecraft:simple_state_provider",state:{Name:"minecraft:gold_block"}}}} 2 -60 2
 place feature {type:"minecraft:nope"} 2 -60 2
 place feature {} 2 -60 2

@@ -1,6 +1,12 @@
 # Entity commands: summon, kill, damage, effect, attribute, enchant, experience, ride, rotate, spectate, swing, teleport, gamemode.
 # Observation: data get entity, scoreboard, bot packets. Run: scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/entity_commands.txt
-!packets ^(update_mob_effect|remove_mob_effect|update_attributes|set_experience|set_passengers|set_camera|player_look_at|player_rotation|animate|swing|game_event|player_abilities)$
+# vanilla keeps effects and attributes in identity-hash maps: the order of the effects and attributes in `data get entity` and
+# of the attribute snapshots in update_attributes differs between two vanilla runs, so `data get` reads one element, packets of several effects
+# are sorted and update_attributes is not recorded; set_passengers and set_camera are not recorded either: vanilla sends
+# them from the entity tick, so the command whose output they land in depends on tick timing (compared by the
+# scenarios cmd_ride_spectate_tag and ent_pcommand_ride_verbs)
+!sort packet (update_mob_effect|remove_mob_effect) 
+!packets ^(update_mob_effect|remove_mob_effect|set_experience|player_look_at|player_rotation|animate|swing|game_event|player_abilities)$
 gamerule send_command_feedback true
 tp Bot 0.5 -60 0.5
 # ---- summon
@@ -22,12 +28,17 @@ data get entity @e[type=minecraft:zombie,limit=1] Health
 # ---- kill
 kill @e[type=minecraft:armor_stand]
 kill @e[type=minecraft:armor_stand]
+!known `Entity.toString` in the "Named entity ... died" log line: vanilla prints the Java class name, the level and the position (`Cow['Bob'/4, l='ServerLevel[world]', x=7.50, ...]`), ours the type name and id only
 kill @e[type=minecraft:cow,name=Bob]
 kill @e[type=minecraft:zombie]
 kill @e[type=minecraft:pig]
 kill @e[type=minecraft:chicken]
 kill @e[type=minecraft:cow]
 @bot kill
+# a dead player is not a valid target of the later commands: respawn, then back to the usual place
+!respawn Bot
+!ticks 5
+tp Bot 0.5 -60 0.5 0 0
 @bot0 kill @e[type=minecraft:cow]
 # ---- damage
 summon minecraft:zombie 5 -60 8 {NoAI:1b,PersistenceRequired:1b}
@@ -50,14 +61,15 @@ gamemode survival Bot
 effect give Bot minecraft:speed 10 1
 effect give Bot minecraft:speed 10 1
 effect give Bot minecraft:speed
-effect give Bot minecraft:slowness 5 2 true
+effect give Bot minecraft:slowness 600 2 true
 effect give Bot minecraft:glowing infinite
 effect give Bot minecraft:regeneration infinite 3 true
 effect give Bot minecraft:instant_health
 effect give Bot minecraft:speed 1 256
 effect give Bot minecraft:speed 0
 effect give Bot minecraft:nothing
-data get entity Bot active_effects
+data get entity Bot active_effects[{id:"minecraft:glowing"}]
+data get entity Bot active_effects[{id:"minecraft:regeneration"}]
 effect clear Bot minecraft:speed
 effect clear Bot minecraft:speed
 effect clear Bot
@@ -86,7 +98,7 @@ attribute Bot minecraft:armor modifier remove test:a
 attribute Bot minecraft:flying_speed get
 attribute Bot minecraft:flying_speed base reset
 attribute Bot minecraft:armor base set 1.5
-data get entity Bot attributes
+data get entity Bot attributes[{id:"minecraft:armor"}]
 summon minecraft:cow 5 -60 5 {NoAI:1b}
 attribute @e[type=minecraft:cow,limit=1] minecraft:max_health get
 attribute @e[type=minecraft:cow,limit=1] minecraft:max_health base set 3
@@ -154,7 +166,9 @@ ride Bot dismount
 ride @e[type=minecraft:pig,limit=1] dismount
 ride @e[type=minecraft:pig,limit=1] dismount
 ride Bot dismount
+!known `Entity.toString` in the "Named entity ... died" log line (Java class name, level, position) differs
 kill @e[type=minecraft:cow]
+!known `Entity.toString` in the "Named entity ... died" log line (Java class name, level, position) differs
 kill @e[type=minecraft:pig]
 @bot0 ride Bot0 dismount
 # ---- rotate

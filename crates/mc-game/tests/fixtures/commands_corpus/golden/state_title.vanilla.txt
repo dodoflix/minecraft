@@ -1,0 +1,104 @@
+### [state_title.txt:3] title
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: title<--[HERE]
+### [state_title.txt:4] title Bot
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: title Bot<--[HERE]
+### [state_title.txt:5] title Bot title
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ... Bot title<--[HERE]
+### [state_title.txt:6] title Bot title {"text":"Big"}
+log| System chat: Showing new title for Bot
+Bot| [system_chat] [Server: Showing new title for Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.show.title.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet set_title_text SetTitleText(ClientboundSetTitleTextPacket { text: Component { contents: Literal("Big"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+### [state_title.txt:7] title Bot subtitle {"text":"Small","color":"red"}
+log| System chat: Showing new subtitle for Bot
+Bot| [system_chat] [Server: Showing new subtitle for Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.show.subtitle.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet set_subtitle_text SetSubtitleText(ClientboundSetSubtitleTextPacket { text: Component { contents: Literal("Small"), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+### [state_title.txt:8] title Bot actionbar {"text":"Bar"}
+log| System chat: Showing new actionbar title for Bot
+Bot| [system_chat] [Server: Showing new actionbar title for Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.show.actionbar.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [state_title.txt:9] title Bot times 10 70 20
+log| System chat: Changed title display times for Bot
+Bot| [system_chat] [Server: Changed title display times for Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.times.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet set_titles_animation SetTitlesAnimation(ClientboundSetTitlesAnimationPacket { fade_in: 10, stay: 70, fade_out: 20 })
+### [state_title.txt:10] title Bot times 1s 2s 3s
+log| System chat: Changed title display times for Bot
+Bot| [system_chat] [Server: Changed title display times for Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.times.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet set_titles_animation SetTitlesAnimation(ClientboundSetTitlesAnimationPacket { fade_in: 20, stay: 40, fade_out: 60 })
+### [state_title.txt:11] title Bot times -1 1 1
+log| System chat: The tick count must not be less than 0: found -1
+log| System chat: ...t times -1 1 1<--[HERE]
+### [state_title.txt:12] title Bot times 10 70
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...imes 10 70<--[HERE]
+### [state_title.txt:13] title Bot clear
+log| System chat: Cleared titles for Bot
+Bot| [system_chat] [Server: Cleared titles for Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.cleared.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet clear_titles ClearTitles(ClientboundClearTitlesPacket { reset_times: false })
+### [state_title.txt:14] title Bot reset
+log| System chat: Reset title options for Bot
+Bot| [system_chat] [Server: Reset title options for Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.reset.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet clear_titles ClearTitles(ClientboundClearTitlesPacket { reset_times: true })
+### [state_title.txt:15] title @a title "multiple"
+log| System chat: Showing new title for 2 players
+Bot| [system_chat] [Server: Showing new title for 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.show.title.multiple","with":[2]}],"color":"gray","italic":true}
+Bot| packet set_title_text SetTitleText(ClientboundSetTitleTextPacket { text: Component { contents: Literal("multiple"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+Bot0| packet set_title_text SetTitleText(ClientboundSetTitleTextPacket { text: Component { contents: Literal("multiple"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+### [state_title.txt:16] title @a clear
+log| System chat: Cleared titles for 2 players
+Bot| [system_chat] [Server: Cleared titles for 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.cleared.multiple","with":[2]}],"color":"gray","italic":true}
+Bot| packet clear_titles ClearTitles(ClientboundClearTitlesPacket { reset_times: false })
+Bot0| packet clear_titles ClearTitles(ClientboundClearTitlesPacket { reset_times: false })
+### [state_title.txt:17] title @a reset
+log| System chat: Reset title options for 2 players
+Bot| [system_chat] [Server: Reset title options for 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.reset.multiple","with":[2]}],"color":"gray","italic":true}
+Bot| packet clear_titles ClearTitles(ClientboundClearTitlesPacket { reset_times: true })
+Bot0| packet clear_titles ClearTitles(ClientboundClearTitlesPacket { reset_times: true })
+### [state_title.txt:18] title @a times 0 0 0
+log| System chat: Changed title display times for 2 players
+Bot| [system_chat] [Server: Changed title display times for 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.times.multiple","with":[2]}],"color":"gray","italic":true}
+Bot| packet set_titles_animation SetTitlesAnimation(ClientboundSetTitlesAnimationPacket { fade_in: 0, stay: 0, fade_out: 0 })
+Bot0| packet set_titles_animation SetTitlesAnimation(ClientboundSetTitlesAnimationPacket { fade_in: 0, stay: 0, fade_out: 0 })
+### [state_title.txt:19] title Nobody title "x"
+log| System chat: No player was found
+### [state_title.txt:20] title @e[type=zombie] title "x"
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: title @e[type=zombie] title "x"<--[HERE]
+### [state_title.txt:21] title Bot title {"selector":"@s"}
+log| System chat: Showing new title for Bot
+Bot| [system_chat] [Server: Showing new title for Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.show.title.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet set_title_text SetTitleText(ClientboundSetTitleTextPacket { text: Component { contents: Literal(""), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+### [state_title.txt:22] title Bot title {"score":{"name":"*","objective":"nope"}}
+log| System chat: Showing new title for Bot
+Bot| [system_chat] [Server: Showing new title for Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.title.show.title.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+Bot| packet set_title_text SetTitleText(ClientboundSetTitleTextPacket { text: Component { contents: Literal(""), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+### [state_title.txt:23] title Bot title {"text":"x"
+log| System chat: Expected literal ,
+log| System chat: ..."text":"x"<--[HERE]
+### [state_title.txt:24] title Bot title not json
+log| System chat: Incorrect argument for command
+log| System chat: ...title not json<--[HERE]
+### [state_title.txt:25] @bot title @s title "self"
+log| System chat: [Bot: Showing new title for Bot]
+Bot| [system_chat] Showing new title for Bot
+Bot|   json {"translate":"commands.title.show.title.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+Bot| packet set_title_text SetTitleText(ClientboundSetTitleTextPacket { text: Component { contents: Literal("self"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+### [state_title.txt:26] @bot0 title @s title "denied"
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] title @s title "denied"<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"title @s title \"denied\"","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/title @s title \"denied\"","action":"suggest_command"}}],"color":"red"}

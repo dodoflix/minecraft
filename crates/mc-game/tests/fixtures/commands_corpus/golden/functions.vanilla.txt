@@ -1,0 +1,565 @@
+### [functions.txt:8] data get storage fn:state loaded
+log| System chat: Storage fn:state has the following contents: 1b
+### [functions.txt:9] data get storage fn:state tick_ran
+log| System chat: Storage fn:state has the following contents: 1b
+### [functions.txt:11] function fn:hello
+log| System chat: Running function fn:hello
+log| [Not Secure] [Server] hello
+Bot| [system_chat] [Server: Running function fn:hello]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:hello"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+### [functions.txt:12] function fn:nested
+log| System chat: Running function fn:nested
+log| [Not Secure] [Server] outer-before
+log| [Not Secure] [Server] hello
+log| [Not Secure] [Server] outer-after
+Bot| [system_chat] [Server: Running function fn:nested]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:nested"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: outer-before
+Bot|   json "outer-before"
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+Bot| [disguised_chat] Server: outer-after
+Bot|   json "outer-after"
+Bot0| [disguised_chat] Server: outer-before
+Bot0|   json "outer-before"
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+Bot0| [disguised_chat] Server: outer-after
+Bot0|   json "outer-after"
+### [functions.txt:13] function fn:comment_lines
+log| System chat: Running function fn:comment_lines
+log| [Not Secure] [Server] one
+log| [Not Secure] [Server] two three
+Bot| [system_chat] [Server: Running function fn:comment_lines]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:comment_lines"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: one
+Bot|   json "one"
+Bot| [disguised_chat] Server: two three
+Bot|   json "two three"
+Bot0| [disguised_chat] Server: one
+Bot0|   json "one"
+Bot0| [disguised_chat] Server: two three
+Bot0|   json "two three"
+### [functions.txt:14] function fn:empty
+log| System chat: Running function fn:empty
+Bot| [system_chat] [Server: Running function fn:empty]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:empty"]}],"color":"gray","italic":true}
+### [functions.txt:16] function fn:ret_value
+log| System chat: Running function fn:ret_value
+log| System chat: Function fn:ret_value returned 7
+Bot| [system_chat] [Server: Running function fn:ret_value]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:ret_value"]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Function fn:ret_value returned 7]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.result","with":["fn:ret_value",7]}],"color":"gray","italic":true}
+### [functions.txt:17] function fn:ret_fail
+log| System chat: Running function fn:ret_fail
+log| System chat: Function fn:ret_fail returned 0
+Bot| [system_chat] [Server: Running function fn:ret_fail]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:ret_fail"]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Function fn:ret_fail returned 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.result","with":["fn:ret_fail",0]}],"color":"gray","italic":true}
+### [functions.txt:18] function fn:ret_run
+log| System chat: Running function fn:ret_run
+log| System chat: Function fn:ret_run returned 7
+Bot| [system_chat] [Server: Running function fn:ret_run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:ret_run"]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Function fn:ret_run returned 7]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.result","with":["fn:ret_run",7]}],"color":"gray","italic":true}
+### [functions.txt:19] function fn:ret_run_cmd
+log| System chat: Running function fn:ret_run_cmd
+log| System chat: Function fn:ret_run_cmd returned 1
+Bot| [system_chat] [Server: Running function fn:ret_run_cmd]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:ret_run_cmd"]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Function fn:ret_run_cmd returned 1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.result","with":["fn:ret_run_cmd",1]}],"color":"gray","italic":true}
+### [functions.txt:20] function fn:ret_run_fail
+log| System chat: Running function fn:ret_run_fail
+log| System chat: Function fn:ret_run_fail returned 0
+Bot| [system_chat] [Server: Running function fn:ret_run_fail]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:ret_run_fail"]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Function fn:ret_run_fail returned 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.result","with":["fn:ret_run_fail",0]}],"color":"gray","italic":true}
+### [functions.txt:21] function fn:calls_ret_three
+log| System chat: Running function fn:calls_ret_three
+log| [Not Secure] [Server] first
+log| [Not Secure] [Server] after-ret-three
+log| System chat: Function fn:calls_ret_three returned 9
+Bot| [system_chat] [Server: Running function fn:calls_ret_three]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:calls_ret_three"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: first
+Bot|   json "first"
+Bot| [disguised_chat] Server: after-ret-three
+Bot|   json "after-ret-three"
+Bot| [system_chat] [Server: Function fn:calls_ret_three returned 9]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.result","with":["fn:calls_ret_three",9]}],"color":"gray","italic":true}
+Bot0| [disguised_chat] Server: first
+Bot0|   json "first"
+Bot0| [disguised_chat] Server: after-ret-three
+Bot0|   json "after-ret-three"
+### [functions.txt:22] return 5
+
+### [functions.txt:23] return fail
+
+### [functions.txt:24] return run say hi
+log| [Not Secure] [Server] hi
+Bot| [disguised_chat] Server: hi
+Bot|   json "hi"
+Bot0| [disguised_chat] Server: hi
+Bot0|   json "hi"
+### [functions.txt:25] return run
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: return run<--[HERE]
+### [functions.txt:26] return x
+log| System chat: Expected integer
+log| System chat: return x<--[HERE]
+### [functions.txt:28] function fn:unknown
+log| System chat: Unknown function fn:unknown
+### [functions.txt:29] function fn:bad_syntax
+log| System chat: Unknown function fn:bad_syntax
+### [functions.txt:30] function fn:bad_slash
+log| System chat: Unknown function fn:bad_slash
+### [functions.txt:31] function fn:bad_continuation
+log| System chat: Unknown function fn:bad_continuation
+### [functions.txt:32] function #fn:all
+log| System chat: Running functions fn:hello, fn:nested, fn:ret_value
+log| [Not Secure] [Server] hello
+log| [Not Secure] [Server] outer-before
+log| [Not Secure] [Server] hello
+log| [Not Secure] [Server] outer-after
+log| System chat: Function fn:ret_value returned 7
+Bot| [system_chat] [Server: Running functions fn:hello, fn:nested, fn:ret_value]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.multiple","with":[{"text":"","extra":["fn:hello",{"text":", ","color":"gray"},"fn:nested",{"text":", ","color":"gray"},"fn:ret_value"]}]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+Bot| [disguised_chat] Server: outer-before
+Bot|   json "outer-before"
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+Bot| [disguised_chat] Server: outer-after
+Bot|   json "outer-after"
+Bot| [system_chat] [Server: Function fn:ret_value returned 7]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.result","with":["fn:ret_value",7]}],"color":"gray","italic":true}
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+Bot0| [disguised_chat] Server: outer-before
+Bot0|   json "outer-before"
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+Bot0| [disguised_chat] Server: outer-after
+Bot0|   json "outer-after"
+### [functions.txt:33] function #fn:more
+log| System chat: Running function fn:ret_value
+log| System chat: Function fn:ret_value returned 7
+Bot| [system_chat] [Server: Running function fn:ret_value]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:ret_value"]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Function fn:ret_value returned 7]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.result","with":["fn:ret_value",7]}],"color":"gray","italic":true}
+### [functions.txt:34] function #fn:optional
+log| System chat: Running function fn:hello
+log| [Not Secure] [Server] hello
+Bot| [system_chat] [Server: Running function fn:hello]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:hello"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+### [functions.txt:35] function #fn:nothing
+log| System chat: Can't find any functions for name fn:nothing
+### [functions.txt:36] function #fn:broken
+log| System chat: Can't find any functions for name fn:broken
+### [functions.txt:37] function #fn:missing_tag
+log| System chat: Can't find any functions for name fn:missing_tag
+### [functions.txt:38] function
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: function<--[HERE]
+### [functions.txt:39] function fn:hello {a:1}
+log| System chat: Running function fn:hello
+log| [Not Secure] [Server] hello
+Bot| [system_chat] [Server: Running function fn:hello]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:hello"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+### [functions.txt:40] function fn:hello with storage fn:state
+log| System chat: Running function fn:hello
+log| [Not Secure] [Server] hello
+Bot| [system_chat] [Server: Running function fn:hello]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:hello"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+### [functions.txt:42] function fn:macro
+log| System chat: Running function fn:macro
+log| System chat: Failed to instantiate function fn:macro: Missing arguments to function fn:macro
+Bot| [system_chat] [Server: Running function fn:macro]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:macro"]}],"color":"gray","italic":true}
+### [functions.txt:43] function fn:macro {a:1,b:"x y"}
+log| System chat: Running function fn:macro
+log| [Not Secure] [Server] 1 and x y
+log| [Not Secure] [Server] macro-plain
+Bot| [system_chat] [Server: Running function fn:macro]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:macro"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: 1 and x y
+Bot|   json "1 and x y"
+Bot| [disguised_chat] Server: macro-plain
+Bot|   json "macro-plain"
+Bot0| [disguised_chat] Server: 1 and x y
+Bot0|   json "1 and x y"
+Bot0| [disguised_chat] Server: macro-plain
+Bot0|   json "macro-plain"
+### [functions.txt:44] function fn:macro {a:1}
+log| System chat: Running function fn:macro
+log| System chat: Failed to instantiate function fn:macro: Missing argument b to function fn:macro
+Bot| [system_chat] [Server: Running function fn:macro]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:macro"]}],"color":"gray","italic":true}
+### [functions.txt:45] function fn:macro {a:1.5d,b:2b}
+log| System chat: Running function fn:macro
+log| [Not Secure] [Server] 1.5 and 2
+log| [Not Secure] [Server] macro-plain
+Bot| [system_chat] [Server: Running function fn:macro]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:macro"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: 1.5 and 2
+Bot|   json "1.5 and 2"
+Bot| [disguised_chat] Server: macro-plain
+Bot|   json "macro-plain"
+Bot0| [disguised_chat] Server: 1.5 and 2
+Bot0|   json "1.5 and 2"
+Bot0| [disguised_chat] Server: macro-plain
+Bot0|   json "macro-plain"
+### [functions.txt:46] function fn:macro {a:1.5f,b:123456789012L}
+log| System chat: Running function fn:macro
+log| [Not Secure] [Server] 1.5 and 123456789012
+log| [Not Secure] [Server] macro-plain
+Bot| [system_chat] [Server: Running function fn:macro]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:macro"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: 1.5 and 123456789012
+Bot|   json "1.5 and 123456789012"
+Bot| [disguised_chat] Server: macro-plain
+Bot|   json "macro-plain"
+Bot0| [disguised_chat] Server: 1.5 and 123456789012
+Bot0|   json "1.5 and 123456789012"
+Bot0| [disguised_chat] Server: macro-plain
+Bot0|   json "macro-plain"
+### [functions.txt:47] function fn:macro {a:[1,2],b:{k:"v"}}
+log| System chat: Running function fn:macro
+log| [Not Secure] [Server] [1,2] and {k:"v"}
+log| [Not Secure] [Server] macro-plain
+Bot| [system_chat] [Server: Running function fn:macro]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:macro"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: [1,2] and {k:"v"}
+Bot|   json "[1,2] and {k:\"v\"}"
+Bot| [disguised_chat] Server: macro-plain
+Bot|   json "macro-plain"
+Bot0| [disguised_chat] Server: [1,2] and {k:"v"}
+Bot0|   json "[1,2] and {k:\"v\"}"
+Bot0| [disguised_chat] Server: macro-plain
+Bot0|   json "macro-plain"
+### [functions.txt:48] data merge storage fn:args {a:"q",b:5s}
+log| System chat: Modified storage fn:args
+Bot| [system_chat] [Server: Modified storage fn:args]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["fn:args"]}],"color":"gray","italic":true}
+### [functions.txt:49] function fn:macro with storage fn:args
+log| System chat: Running function fn:macro
+log| [Not Secure] [Server] q and 5
+log| [Not Secure] [Server] macro-plain
+Bot| [system_chat] [Server: Running function fn:macro]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:macro"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: q and 5
+Bot|   json "q and 5"
+Bot| [disguised_chat] Server: macro-plain
+Bot|   json "macro-plain"
+Bot0| [disguised_chat] Server: q and 5
+Bot0|   json "q and 5"
+Bot0| [disguised_chat] Server: macro-plain
+Bot0|   json "macro-plain"
+### [functions.txt:50] function fn:macro with storage fn:args a
+log| System chat: Invalid argument type: STRING. Expected Compound
+### [functions.txt:51] function fn:macro with storage fn:nope
+log| System chat: Running function fn:macro
+log| System chat: Failed to instantiate function fn:macro: Missing argument a to function fn:macro
+Bot| [system_chat] [Server: Running function fn:macro]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:macro"]}],"color":"gray","italic":true}
+### [functions.txt:52] function fn:macro with storage fn:state loaded
+log| System chat: Invalid argument type: BYTE. Expected Compound
+### [functions.txt:53] function fn:macro with storage fn:state hello
+log| System chat: Invalid argument type: BYTE. Expected Compound
+### [functions.txt:54] function fn:macro_parse_error {c:"bogus"}
+log| System chat: Running function fn:macro_parse_error
+log| System chat: Failed to instantiate function fn:macro_parse_error: While instantiating macro fn:macro_parse_error: Command 'bogus' caused error: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+Bot| [system_chat] [Server: Running function fn:macro_parse_error]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:macro_parse_error"]}],"color":"gray","italic":true}
+### [functions.txt:55] function fn:macro_parse_error
+log| System chat: Running function fn:macro_parse_error
+log| System chat: Failed to instantiate function fn:macro_parse_error: Missing arguments to function fn:macro_parse_error
+Bot| [system_chat] [Server: Running function fn:macro_parse_error]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:macro_parse_error"]}],"color":"gray","italic":true}
+### [functions.txt:56] function fn:call_bad_macro
+log| System chat: Running function fn:call_bad_macro
+Bot| [system_chat] [Server: Running function fn:call_bad_macro]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:call_bad_macro"]}],"color":"gray","italic":true}
+### [functions.txt:57] function fn:macro {a:}
+log| System chat: Expected a valid unquoted string
+log| System chat: ...:macro {a:}<--[HERE]
+### [functions.txt:58] function fn:macro_missing
+log| System chat: Unknown function fn:macro_missing
+### [functions.txt:60] schedule function fn:sched 5t
+log| System chat: Scheduled function 'fn:sched' in 5 tick(s) at gametime <masked>
+Bot| [system_chat] [Server: Scheduled function 'fn:sched' in 5 tick(s) at gametime <masked>]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.schedule.created.function","with":["fn:sched",5,<masked>]}],"color":"gray","italic":true}
+### [functions.txt:61] schedule function fn:sched 5t append
+log| System chat: Scheduled function 'fn:sched' in 5 tick(s) at gametime <masked>
+Bot| [system_chat] [Server: Scheduled function 'fn:sched' in 5 tick(s) at gametime <masked>]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.schedule.created.function","with":["fn:sched",5,<masked>]}],"color":"gray","italic":true}
+### [functions.txt:62] schedule function fn:sched 3t replace
+log| System chat: Scheduled function 'fn:sched' in 3 tick(s) at gametime <masked>
+Bot| [system_chat] [Server: Scheduled function 'fn:sched' in 3 tick(s) at gametime <masked>]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.schedule.created.function","with":["fn:sched",3,<masked>]}],"color":"gray","italic":true}
+### [functions.txt:63] schedule function fn:sched 0t
+log| System chat: Can't schedule for current tick
+### [functions.txt:64] schedule function #fn:all 10t
+log| System chat: Scheduled tag 'fn:all' in 10 tick(s) at gametime <masked>
+Bot| [system_chat] [Server: Scheduled tag 'fn:all' in 10 tick(s) at gametime <masked>]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.schedule.created.tag","with":["fn:all",10,<masked>]}],"color":"gray","italic":true}
+### [functions.txt:65] schedule function #fn:nothing 10t
+log| System chat: Scheduled tag 'fn:nothing' in 10 tick(s) at gametime <masked>
+Bot| [system_chat] [Server: Scheduled tag 'fn:nothing' in 10 tick(s) at gametime <masked>]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.schedule.created.tag","with":["fn:nothing",10,<masked>]}],"color":"gray","italic":true}
+### [functions.txt:66] schedule function fn:macro 1t
+log| System chat: Can't schedule a macro
+### [functions.txt:67] schedule function fn:unknown 1t
+log| System chat: Unknown function fn:unknown
+### [functions.txt:68] schedule function fn:sched 1d
+log| System chat: Scheduled function 'fn:sched' in 24000 tick(s) at gametime <masked>
+Bot| [system_chat] [Server: Scheduled function 'fn:sched' in 24000 tick(s) at gametime <masked>]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.schedule.created.function","with":["fn:sched",24000,<masked>]}],"color":"gray","italic":true}
+### [functions.txt:69] schedule clear fn:sched
+log| System chat: Removed 1 schedule(s) with ID fn:sched
+Bot| [system_chat] [Server: Removed 1 schedule(s) with ID fn:sched]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.schedule.cleared.success","with":[1,"fn:sched"]}],"color":"gray","italic":true}
+### [functions.txt:70] schedule clear fn:sched
+log| System chat: No schedules with ID fn:sched
+### [functions.txt:71] schedule clear #fn:all
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...ule clear #fn:all<--[HERE]
+### [functions.txt:72] schedule clear fn:nothing
+log| System chat: No schedules with ID fn:nothing
+### [functions.txt:73] schedule clear
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...dule clear<--[HERE]
+### [functions.txt:75] data get storage fn:state sched
+log| System chat: Storage fn:state has the following contents: 1b
+### [functions.txt:77] execute store result storage fn:r v int 1 run function fn:ret_value
+log| System chat: Running function fn:ret_value
+log| System chat: Function fn:ret_value returned 7
+Bot| [system_chat] [Server: Running function fn:ret_value]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:ret_value"]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Function fn:ret_value returned 7]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.result","with":["fn:ret_value",7]}],"color":"gray","italic":true}
+### [functions.txt:78] data get storage fn:r v
+log| System chat: Storage fn:r has the following contents: 7
+### [functions.txt:79] execute store result storage fn:r f int 1 run function fn:ret_fail
+log| System chat: Running function fn:ret_fail
+log| System chat: Function fn:ret_fail returned 0
+Bot| [system_chat] [Server: Running function fn:ret_fail]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:ret_fail"]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Function fn:ret_fail returned 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.result","with":["fn:ret_fail",0]}],"color":"gray","italic":true}
+### [functions.txt:80] data get storage fn:r f
+log| System chat: Storage fn:r has the following contents: 0
+### [functions.txt:81] execute store result storage fn:r t int 1 run function #fn:more
+log| System chat: Running function fn:ret_value
+log| System chat: Function fn:ret_value returned 7
+Bot| [system_chat] [Server: Running function fn:ret_value]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:ret_value"]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Function fn:ret_value returned 7]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.result","with":["fn:ret_value",7]}],"color":"gray","italic":true}
+### [functions.txt:82] data get storage fn:r t
+log| System chat: Storage fn:r has the following contents: 7
+### [functions.txt:83] execute store result storage fn:r n int 1 run function #fn:nothing
+log| System chat: Can't find any functions for name fn:nothing
+### [functions.txt:84] function fn:loop
+log| System chat: Running function fn:loop
+log| Command execution stopped due to limit (executed 65536 commands)
+Bot| [system_chat] [Server: Running function fn:loop]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:loop"]}],"color":"gray","italic":true}
+### [functions.txt:85] gamerule max_command_sequence_length 10
+log| System chat: Game rule max_command_sequence_length is now set to 10
+Bot| [system_chat] [Server: Game rule max_command_sequence_length is now set to 10]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["max_command_sequence_length","10"]}],"color":"gray","italic":true}
+### [functions.txt:86] function fn:nested
+log| System chat: Running function fn:nested
+log| [Not Secure] [Server] outer-before
+log| [Not Secure] [Server] hello
+log| [Not Secure] [Server] outer-after
+Bot| [system_chat] [Server: Running function fn:nested]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:nested"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: outer-before
+Bot|   json "outer-before"
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+Bot| [disguised_chat] Server: outer-after
+Bot|   json "outer-after"
+Bot0| [disguised_chat] Server: outer-before
+Bot0|   json "outer-before"
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+Bot0| [disguised_chat] Server: outer-after
+Bot0|   json "outer-after"
+### [functions.txt:87] gamerule max_command_sequence_length 65536
+log| System chat: Game rule max_command_sequence_length is now set to 65536
+Bot| [system_chat] [Server: Game rule max_command_sequence_length is now set to 65536]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["max_command_sequence_length","65536"]}],"color":"gray","italic":true}
+### [functions.txt:88] gamerule max_command_forks 1
+log| System chat: Game rule max_command_forks is now set to 1
+Bot| [system_chat] [Server: Game rule max_command_forks is now set to 1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["max_command_forks","1"]}],"color":"gray","italic":true}
+### [functions.txt:89] execute as @a run say forks
+
+### [functions.txt:90] gamerule max_command_forks 65536
+log| System chat: Game rule max_command_forks is now set to 65536
+Bot| [system_chat] [Server: Game rule max_command_forks is now set to 65536]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["max_command_forks","65536"]}],"color":"gray","italic":true}
+### [functions.txt:92] data remove storage fn:state loaded
+log| System chat: Modified storage fn:state
+Bot| [system_chat] [Server: Modified storage fn:state]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["fn:state"]}],"color":"gray","italic":true}
+### [functions.txt:93] reload
+log| System chat: Reloading!
+log| Loaded 1866 advancements
+log| ERROR: Failed to load function fn:bad_continuation
+log| java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file
+log| ERROR: Failed to load function fn:bad_slash
+log| java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '/say hi' on line 1 (did you mean 'say'? Do not use a preceding forwards slash.)
+log| ERROR: Failed to load function fn:bad_comment
+log| java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
+log| ERROR: Failed to load function fn:bad_macro
+log| java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(oops'
+log| ERROR: Failed to load function fn:bad_syntax
+log| java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+log| ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
+Bot| [system_chat] [Server: Reloading!]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.reload.success"}],"color":"gray","italic":true}
+### [functions.txt:95] data get storage fn:state loaded
+log| System chat: Storage fn:state has the following contents: 1b
+### [functions.txt:97] datapack list
+log| System chat: There are 2 data pack(s) enabled: [vanilla (built-in)], [file/fnpack (world)]
+log| System chat: There are no more data packs available
+### [functions.txt:98] datapack list enabled
+log| System chat: There are 2 data pack(s) enabled: [vanilla (built-in)], [file/fnpack (world)]
+### [functions.txt:99] datapack list available
+log| System chat: There are no more data packs available
+### [functions.txt:100] datapack disable "file/fnpack"
+log| System chat: Disabling data pack [file/fnpack (world)]
+log| Loaded 1866 advancements
+Bot| [system_chat] [Server: Disabling data pack [file/fnpack (world)]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.datapack.modify.disable","with":[{"translate":"chat.square_brackets","with":[{"translate":"pack.nameAndSource","with":["file/fnpack",{"translate":"pack.source.world"}],"color":"gray"}],"color":"green","hover_event":{"value":{"text":"","extra":["fnpack","\n","function corpus"]},"action":"show_text"},"insertion":"\"file/fnpack\""}]}],"color":"gray","italic":true}
+### [functions.txt:101] datapack disable "file/fnpack"
+log| System chat: Pack 'file/fnpack' is not enabled!
+### [functions.txt:102] datapack disable nothere
+log| System chat: Unknown data pack 'nothere'
+### [functions.txt:104] function fn:hello
+log| System chat: Unknown function fn:hello
+### [functions.txt:105] datapack enable "file/fnpack"
+log| System chat: Enabling data pack [file/fnpack (world)]
+log| Loaded 1866 advancements
+log| ERROR: Failed to load function fn:bad_continuation
+log| java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file
+log| ERROR: Failed to load function fn:bad_slash
+log| java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '/say hi' on line 1 (did you mean 'say'? Do not use a preceding forwards slash.)
+log| ERROR: Failed to load function fn:bad_comment
+log| java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
+log| ERROR: Failed to load function fn:bad_macro
+log| java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(oops'
+log| ERROR: Failed to load function fn:bad_syntax
+log| java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+log| ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
+Bot| [system_chat] [Server: Enabling data pack [file/fnpack (world)]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.datapack.modify.enable","with":[{"translate":"chat.square_brackets","with":[{"translate":"pack.nameAndSource","with":["file/fnpack",{"translate":"pack.source.world"}],"color":"gray"}],"color":"green","hover_event":{"value":{"text":"","extra":["fnpack","\n","function corpus"]},"action":"show_text"},"insertion":"\"file/fnpack\""}]}],"color":"gray","italic":true}
+### [functions.txt:106] datapack enable "file/fnpack"
+log| System chat: Pack 'file/fnpack' is already enabled!
+### [functions.txt:107] datapack enable "file/fnpack" first
+log| System chat: Pack 'file/fnpack' is already enabled!
+### [functions.txt:108] datapack enable "file/fnpack" last
+log| System chat: Pack 'file/fnpack' is already enabled!
+### [functions.txt:109] datapack enable "file/fnpack" before vanilla
+log| System chat: Pack 'file/fnpack' is already enabled!
+### [functions.txt:110] datapack enable "file/fnpack" after vanilla
+log| System chat: Pack 'file/fnpack' is already enabled!
+### [functions.txt:111] datapack enable bogus
+log| System chat: Unknown data pack 'bogus'
+### [functions.txt:112] datapack enable
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ack enable<--[HERE]
+### [functions.txt:114] function fn:hello
+log| System chat: Running function fn:hello
+log| [Not Secure] [Server] hello
+Bot| [system_chat] [Server: Running function fn:hello]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.function.scheduled.single","with":["fn:hello"]}],"color":"gray","italic":true}
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+### [functions.txt:115] datapack create
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ack create<--[HERE]
+### [functions.txt:116] datapack create "bad!name" {"text":"x"}
+log| System chat: Invalid characters in new pack name 'bad!name'
+### [functions.txt:117] datapack create fnpack {"text":"x"}
+log| System chat: Pack with name 'fnpack' already exists
+### [functions.txt:121] debug stop
+log| System chat: The tick profiler hasn't started
+### [functions.txt:122] debug start
+log| System chat: Started tick profiling
+Bot| [system_chat] [Server: Started tick profiling]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.debug.started"}],"color":"gray","italic":true}
+### [functions.txt:123] debug start
+log| System chat: The tick profiler is already started
+### [functions.txt:124] debug stop
+
+### [functions.txt:125] debug function fn:nested
+log| [Not Secure] [Server] outer-before
+log| [Not Secure] [Server] hello
+log| [Not Secure] [Server] outer-after
+Bot| [disguised_chat] Server: outer-before
+Bot|   json "outer-before"
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+Bot| [disguised_chat] Server: outer-after
+Bot|   json "outer-after"
+Bot0| [disguised_chat] Server: outer-before
+Bot0|   json "outer-before"
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+Bot0| [disguised_chat] Server: outer-after
+Bot0|   json "outer-after"
+### [functions.txt:126] debug function fn:macro
+log| System chat: Missing arguments to function fn:macro
+### [functions.txt:127] debug function fn:unknown
+log| System chat: Unknown function fn:unknown
+### [functions.txt:128] debug function #fn:all
+log| [Not Secure] [Server] hello
+log| [Not Secure] [Server] outer-before
+log| [Not Secure] [Server] hello
+log| [Not Secure] [Server] outer-after
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+Bot| [disguised_chat] Server: outer-before
+Bot|   json "outer-before"
+Bot| [disguised_chat] Server: hello
+Bot|   json "hello"
+Bot| [disguised_chat] Server: outer-after
+Bot|   json "outer-after"
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+Bot0| [disguised_chat] Server: outer-before
+Bot0|   json "outer-before"
+Bot0| [disguised_chat] Server: hello
+Bot0|   json "hello"
+Bot0| [disguised_chat] Server: outer-after
+Bot0|   json "outer-after"

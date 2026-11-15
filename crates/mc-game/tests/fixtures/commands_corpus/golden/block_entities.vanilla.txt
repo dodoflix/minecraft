@@ -1,0 +1,42 @@
+### [block_entities.txt:3] setblock 0 -50 0 chest{Items:[{Slot:0b,id:"minecraft:stone",count:3}]}
+log| System chat: Changed the block at 0, -50, 0
+Bot| [system_chat] [Server: Changed the block at 0, -50, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-50,0]}],"color":"gray","italic":true}
+### [block_entities.txt:4] data get block 0 -50 0
+log| System chat: 0, -50, 0 has the following block data: {components: {}, x: 0, y: -50, Items: [{count: 3, Slot: 0b, id: "minecraft:stone"}], z: 0, id: "minecraft:chest"}
+### [block_entities.txt:5] data get block 0 -50 0 Items
+log| System chat: 0, -50, 0 has the following block data: [{count: 3, Slot: 0b, id: "minecraft:stone"}]
+### [block_entities.txt:6] data get block 0 -50 0 Items[0].count
+log| System chat: 0, -50, 0 has the following block data: 3
+### [block_entities.txt:7] data get block 0 -50 0 Items[0].count 2
+log| System chat: Items[0].count on block 0, -50, 0 after scale factor of 2.00 is 6
+### [block_entities.txt:8] data get block 0 -50 0 nothing
+log| System chat: Found no elements matching nothing
+### [block_entities.txt:9] data modify block 0 -50 0 Items[0].count set value 9
+log| System chat: Modified block data of 0, -50, 0
+Bot| [system_chat] [Server: Modified block data of 0, -50, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-50,0]}],"color":"gray","italic":true}
+### [block_entities.txt:10] data get block 0 -50 0 Items[0].count
+log| System chat: 0, -50, 0 has the following block data: 9
+### [block_entities.txt:11] data modify block 0 -50 0 CustomName set value '{"text":"named"}'
+log| System chat: Modified block data of 0, -50, 0
+Bot| [system_chat] [Server: Modified block data of 0, -50, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-50,0]}],"color":"gray","italic":true}
+### [block_entities.txt:12] data get block 0 -50 0 CustomName
+log| System chat: 0, -50, 0 has the following block data: '{"text":"named"}'
+### [block_entities.txt:13] data merge block 0 -50 0 {Lock:"key"}
+log| System chat: Modified block data of 0, -50, 0
+Bot| [system_chat] [Server: Modified block data of 0, -50, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-50,0]}],"color":"gray","italic":true}
+### [block_entities.txt:14] data get block 0 -50 0 lock
+log| System chat: Found no elements matching lock
+### [block_entities.txt:15] data remove block 0 -50 0 Items[0]
+log| System chat: Modified block data of 0, -50, 0
+Bot| [system_chat] [Server: Modified block data of 0, -50, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-50,0]}],"color":"gray","italic":true}
+### [block_entities.txt:16] data get block 0 -50 0 Items
+log| System chat: 0, -50, 0 has the following block data: []
+### [block_entities.txt:17] setblock 0 -50 0 air
+log| System chat: Changed the block at 0, -50, 0
+Bot| [system_chat] [Server: Changed the block at 0, -50, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-50,0]}],"color":"gray","italic":true}

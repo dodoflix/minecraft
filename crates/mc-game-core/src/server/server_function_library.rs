@@ -13,6 +13,7 @@ use crate::registry::tags::{ElementRef, TagLoader};
 use crate::server::permissions::PermissionSet;
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
+use mc_core::java_collections::JavaHashMap;
 use std::any::Any;
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -71,38 +72,43 @@ impl ServerFunctionLibrary {
     ) -> FunctionLibraryData {
         let lister = FileToIdConverter::new("function", ".mcfunction");
         let compilation_context = Commands::create_compilation_context(permissions.clone());
-        let mut functions: HashMap<Identifier, Arc<dyn CommandFunction>> = HashMap::new();
+        // vanilla compiles into a `java.util.HashMap` and logs the failures while walking it
+        let mut compiled: JavaHashMap<Identifier, Result<Arc<dyn CommandFunction>, String>> =
+            JavaHashMap::new(Identifier::java_hash_code);
         for (resource_id, resource) in lister.list_matching_resources(manager) {
             let id = lister.file_to_id(&resource_id);
-            let lines = match resource.open() {
-                Ok(bytes) => read_lines(&String::from_utf8_lossy(&bytes)),
-                Err(e) => {
-                    log::error!(
-                        "Failed to load function {id}\njava.util.concurrent.CompletionException: java.io.IOException: {e}"
-                    );
-                    continue;
+            let result = match resource.open() {
+                Ok(bytes) => {
+                    let lines = read_lines(&String::from_utf8_lossy(&bytes));
+                    functions::from_lines(
+                        id.clone(),
+                        commands.get_dispatcher(),
+                        &compilation_context,
+                        &lines,
+                    )
+                    .map_err(|message| {
+                        // `CommandFunction.checkCommandLineLength` throws `IllegalStateException`, everything else `IllegalArgumentException`.
+                        let class = if message.starts_with("Command too long: ") {
+                            "java.lang.IllegalStateException"
+                        } else {
+                            "java.lang.IllegalArgumentException"
+                        };
+                        format!("{class}: {message}")
+                    })
                 }
+                Err(e) => Err(format!("java.io.IOException: {e}")),
             };
-            match functions::from_lines(
-                id.clone(),
-                commands.get_dispatcher(),
-                &compilation_context,
-                &lines,
-            ) {
+            compiled.insert(id, result);
+        }
+        let mut functions: HashMap<Identifier, Arc<dyn CommandFunction>> = HashMap::new();
+        for (id, result) in compiled.into_entries() {
+            match result {
                 Ok(function) => {
                     functions.insert(id, function);
                 }
-                Err(message) => {
-                    // `CommandFunction.checkCommandLineLength` throws `IllegalStateException`, everything else `IllegalArgumentException`.
-                    let class = if message.starts_with("Command too long: ") {
-                        "java.lang.IllegalStateException"
-                    } else {
-                        "java.lang.IllegalArgumentException"
-                    };
-                    log::error!(
-                        "Failed to load function {id}\njava.util.concurrent.CompletionException: {class}: {message}"
-                    );
-                }
+                Err(error) => log::error!(
+                    "Failed to load function {id}\njava.util.concurrent.CompletionException: {error}"
+                ),
             }
         }
 

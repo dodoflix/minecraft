@@ -67,6 +67,11 @@ Two cases need care:
 - Tests that need our server binary use `env!("CARGO_BIN_EXE_mc-server")`, which Cargo only defines for the
   integration tests of package `mc-server`. They live in `crates/mc-server/tests/oracle`, which builds the binary
   itself. There is no `MC_SERVER_BIN` variable for tests.
+- The dual-server command corpora (`crates/mc-game/tests/fixtures/commands_corpus/*.txt`, runner
+  `scripts/command-diff.sh`) are committed as vanilla transcripts (`commands_corpus/golden/<corpus>.vanilla.txt`,
+  recorded with `--record`). `crates/mc-server/tests/oracle/command_corpora.rs` runs one corpus per test against our
+  server only (no JVM) and compares it with its transcript; a command whose output is a known difference carries a
+  `!known <reason>` line in the corpus.
 - Tests that read a vanilla-generated world get it from `mc_testkit::worldref()`. The first call starts the vanilla
   server once (seed 12345, 7x7 chunks force-loaded in each dimension, 30 s of game time, clean stop) and leaves the
   world in `run/servers/worldref`; later calls and

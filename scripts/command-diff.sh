@@ -4,9 +4,13 @@
 # Exit status: 0 identical, 1 differences, 2 harness error.
 #
 #   scripts/command-diff.sh CORPUS... [--seed N] [--level-type flat|normal] [--gamemode M] [--keep] [--tree] [--tree-strict]
-#                                     [--out DIR] [--ours-bin PATH] [--no-build]
+#                                     [--out DIR] [--ours-bin PATH] [--no-build] [--record DIR | --golden DIR]
 #   scripts/command-diff.sh --tree                       only compare the live `commands` packets (see below)
 #   e.g.  scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/operating.txt
+#
+# --record DIR   vanilla side only; writes DIR/<corpus>.vanilla.txt (the committed transcripts live in
+#                crates/mc-game/tests/fixtures/commands_corpus/golden; re-record twice and diff before committing)
+# --golden DIR   our side only, compared with DIR/<corpus>.vanilla.txt (the nightly oracle tests do this, one per corpus)
 #
 # Every corpus FILE gets a fresh pair of servers (fresh worlds, so runs are reproducible); both sides run in parallel with
 # the same seed. Defaults: seed 12345, level-type minecraft:flat, gamemode creative, difficulty peaceful, no structures,
@@ -27,9 +31,17 @@
 #   !ticks <n>         wait n game ticks: polls `time query gametime` (and runs `tick step n` first when the corpus did
 #                      `tick freeze`); `tick freeze` / `tick step` are the way to make tick-dependent output exact
 #   !ignore <regex>    drop every normalized output line matching the regex (log, bot chat, packets) for the rest of the file
+#   !sort <regex>      sort every run of consecutive output lines matching the regex (vanilla emits some sets in identity-hash
+#                      order, e.g. the advancements one grant completes); the sort applies to the rest of the file
+#   !mask <regex>      replace the text the regex captures (group 1, else the whole match) by `<masked>` in every output line, for
+#                      values that differ between two runs of vanilla itself (absolute game times, identity-hash order)
 #   !packets <regex>   also record the packets the bots RECEIVE whose name (e.g. set_title_text, level_particles, sound) matches
 #                      (`!packets ^$` switches it off); recorded with the packet's Debug form
+#   !world flat|normal [structures]   world type of both servers for this file (default flat without structures)
+#   !known <reason>    the NEXT command's output differs from vanilla on purpose: the diff is printed with the reason and does
+#                      not fail; once the output is identical the line is reported as stale
 #   !join <Bot|Bot0>   (re)connect that bot (e.g. after `kick Bot`); output = join log + messages
+#   !respawn <Bot|Bot0> a dead bot respawns (client request); output dropped, follow with `!ticks`
 #   !leave <Bot|Bot0>  disconnect that bot
 # Segmentation: each command is followed by a marker (`say @@END n` from the console; `me @@END n` sent by the
 # SAME bot for @bot/@bot0 commands (level 0, so it works for Bot0; same packet type, hence processed right after the command)). The command's output is
@@ -46,6 +58,7 @@
 #   - `/127.0.0.1:<client port>` (connection addresses) -> `/127.0.0.1:<PORT>`
 #   - `logged in with entity id N at (x, y, z)` -> `<ID>`/`<POS>` (vanilla picks the spawn position with an unseeded RNG; after
 #     joining, both bots are teleported to fixed places: Bot 0.5 -60 0.5, Bot0 2.5 -60 0.5, rotation 0 0)
+#   - `Instant(<epoch millis>)` in packet debug forms -> `Instant(<TIME>)`
 #   - trailing whitespace; the marker lines themselves
 #   Entity numeric ids are NOT normalized (they should be equal: same join order, same seed); a corpus that spawns entities
 #   whose ids legitimately depend on timing uses `!ignore`.

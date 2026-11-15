@@ -1,0 +1,215 @@
+### [place.txt:5] gamerule advance_time false
+log| System chat: Game rule advance_time is now set to false
+Bot| [system_chat] [Server: Game rule advance_time is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["advance_time","false"]}],"color":"gray","italic":true}
+### [place.txt:6] gamerule advance_weather false
+log| System chat: Game rule advance_weather is now set to false
+Bot| [system_chat] [Server: Game rule advance_weather is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["advance_weather","false"]}],"color":"gray","italic":true}
+### [place.txt:8] forceload add -112 -112 111 111
+log| System chat: Marked 196 chunks in minecraft:overworld from [-7, -7] to [6, 6] to be force loaded
+Bot| [system_chat] [Server: Marked 196 chunks in minecraft:overworld from [-7, -7] to [6, 6] to be force loaded]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.forceload.added.multiple","with":[196,"minecraft:overworld","[-7, -7]","[6, 6]"]}],"color":"gray","italic":true}
+### [place.txt:12] place
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: place<--[HERE]
+### [place.txt:13] place feature
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ce feature<--[HERE]
+### [place.txt:14] place jigsaw
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ace jigsaw<--[HERE]
+### [place.txt:15] place structure
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ... structure<--[HERE]
+### [place.txt:16] place template
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...e template<--[HERE]
+### [place.txt:17] place bogus
+log| System chat: Incorrect argument for command
+log| System chat: place bogus<--[HERE]
+### [place.txt:18] @bot0 place template minecraft:igloo/top 0 -60 0
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] place template minecraft:igloo/top 0 -60 0<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"place template minecraft:igloo/top 0 -60 0","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/place template minecraft:igloo/top 0 -60 0","action":"suggest_command"}}],"color":"red"}
+### [place.txt:21] place feature minecraft:nope 0 -60 0
+log| System chat: Can't find element 'minecraft:nope' in registry 'minecraft:worldgen/feature'
+log| System chat: ...craft:nope 0 -60 0<--[HERE]
+### [place.txt:22] place feature minecraft:oak 0 -60 0
+log| System chat: Placed "minecraft:oak" at 0, -60, 0
+Bot| [system_chat] [Server: Placed "minecraft:oak" at 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.feature.success","with":["minecraft:oak",0,-60,0]}],"color":"gray","italic":true}
+### [place.txt:23] place feature oak 16 -60 16
+log| System chat: Placed "minecraft:oak" at 16, -60, 16
+Bot| [system_chat] [Server: Placed "minecraft:oak" at 16, -60, 16]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.feature.success","with":["minecraft:oak",16,-60,16]}],"color":"gray","italic":true}
+### [place.txt:24] place feature minecraft:ore_coal 20 -50 20
+log| System chat: Failed to place feature
+### [place.txt:25] place feature minecraft:lake_lava 30 -60 30
+log| System chat: Failed to place feature
+### [place.txt:26] place feature minecraft:spring_water 24 -62 24
+log| System chat: Failed to place feature
+### [place.txt:27] place feature minecraft:forest_rock 40 -60 40
+log| System chat: Placed "minecraft:forest_rock" at 40, -60, 40
+Bot| [system_chat] [Server: Placed "minecraft:forest_rock" at 40, -60, 40]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.feature.success","with":["minecraft:forest_rock",40,-60,40]}],"color":"gray","italic":true}
+### [place.txt:28] place feature minecraft:oak 100000 -60 100000
+log| System chat: That position is not loaded
+### [place.txt:29] place feature minecraft:oak 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...craft:oak 0 -60<--[HERE]
+### [place.txt:30] place feature minecraft:oak 0 100000 0
+log| System chat: That position is out of this world!
+### [place.txt:31] place feature minecraft:oak 400 -60 400
+log| System chat: That position is not loaded
+### [place.txt:33] place feature {type:"minecraft:simple_block",config:{to_place:{type:"minecraft:simple_state_provider",state:{Name:"minecraft:gold_block"}}}} 2 -60 2
+log| System chat: Failed to parse structure: No key to_place in MapLike[{config:{to_place:{state:{Name:"minecraft:gold_block"},type:"minecraft:simple_state_provider"}},type:"minecraft:simple_block"}]
+log| System chat: ...block"}}}} 2 -60 2<--[HERE]
+### [place.txt:34] place feature {type:"minecraft:nope"} 2 -60 2
+log| System chat: Failed to parse structure: Unknown registry key in ResourceKey[minecraft:root / minecraft:worldgen/feature_type]: minecraft:nope
+log| System chat: ...aft:nope"} 2 -60 2<--[HERE]
+### [place.txt:35] place feature {} 2 -60 2
+log| System chat: Failed to parse structure: No key type in MapLike[{}]
+log| System chat: ...feature {} 2 -60 2<--[HERE]
+### [place.txt:36] place feature minecraft:desert_well 50 -60 50
+log| System chat: Placed "minecraft:desert_well" at 50, -60, 50
+Bot| [system_chat] [Server: Placed "minecraft:desert_well" at 50, -60, 50]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.feature.success","with":["minecraft:desert_well",50,-60,50]}],"color":"gray","italic":true}
+### [place.txt:39] place structure minecraft:nope 0 -60 0
+log| System chat: There is no structure with type "minecraft:nope"
+### [place.txt:40] place structure minecraft:desert_pyramid 0 -60 -40
+log| System chat: Generated structure "minecraft:desert_pyramid" at 0, -60, -40
+Bot| [system_chat] [Server: Generated structure "minecraft:desert_pyramid" at 0, -60, -40]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.structure.success","with":["minecraft:desert_pyramid",0,-60,-40]}],"color":"gray","italic":true}
+### [place.txt:41] place structure minecraft:igloo 40 -60 -40
+log| System chat: Generated structure "minecraft:igloo" at 40, -60, -40
+Bot| [system_chat] [Server: Generated structure "minecraft:igloo" at 40, -60, -40]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.structure.success","with":["minecraft:igloo",40,-60,-40]}],"color":"gray","italic":true}
+### [place.txt:42] place structure minecraft:ruined_portal 8 -60 8
+log| System chat: Generated structure "minecraft:ruined_portal" at 8, -60, 8
+Bot| [system_chat] [Server: Generated structure "minecraft:ruined_portal" at 8, -60, 8]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.structure.success","with":["minecraft:ruined_portal",8,-60,8]}],"color":"gray","italic":true}
+### [place.txt:43] place structure minecraft:village_plains 0 -60 0
+log| System chat: Generated structure "minecraft:village_plains" at 0, -60, 0
+Bot| [system_chat] [Server: Generated structure "minecraft:village_plains" at 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.structure.success","with":["minecraft:village_plains",0,-60,0]}],"color":"gray","italic":true}
+### [place.txt:44] place structure minecraft:village_plains 0 -60 100000
+log| System chat: That position is not loaded
+### [place.txt:45] place structure minecraft:monument 0 -60 0
+log| System chat: Failed to place structure
+### [place.txt:46] place structure minecraft:buried_treasure 0 -60 0
+log| System chat: Generated structure "minecraft:buried_treasure" at 0, -60, 0
+Bot| [system_chat] [Server: Generated structure "minecraft:buried_treasure" at 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.structure.success","with":["minecraft:buried_treasure",0,-60,0]}],"color":"gray","italic":true}
+### [place.txt:47] place structure minecraft:swamp_hut 0 -60 0
+log| WARN: Trying to mark a block for post processing @ MutableBlockPos{x=2, y=-56, z=2}, but this operation is not supported.
+log| WARN: Trying to mark a block for post processing @ MutableBlockPos{x=7, y=-56, z=3}, but this operation is not supported.
+log| WARN: Trying to mark a block for post processing @ MutableBlockPos{x=1, y=-57, z=1}, but this operation is not supported.
+log| WARN: Trying to mark a block for post processing @ MutableBlockPos{x=1, y=-57, z=5}, but this operation is not supported.
+log| System chat: Generated structure "minecraft:swamp_hut" at 0, -60, 0
+Bot| [system_chat] [Server: Generated structure "minecraft:swamp_hut" at 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.structure.success","with":["minecraft:swamp_hut",0,-60,0]}],"color":"gray","italic":true}
+### [place.txt:50] place jigsaw minecraft:nope minecraft:bottom 5 0 -60 0
+log| System chat: There is no template pool with type "minecraft:nope"
+### [place.txt:51] place jigsaw minecraft:village/plains/town_centers minecraft:bottom 5 0 -60 0
+log| System chat: Generated jigsaw at 0, -60, 0
+Bot| [system_chat] [Server: Generated jigsaw at 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.jigsaw.success","with":[0,-60,0]}],"color":"gray","italic":true}
+### [place.txt:52] place jigsaw minecraft:village/plains/town_centers minecraft:bottom 0 0 -60 0
+log| System chat: Integer must not be less than 1: found 0
+log| System chat: ...ft:bottom 0 0 -60 0<--[HERE]
+### [place.txt:53] place jigsaw minecraft:village/plains/town_centers minecraft:bottom 21 0 -60 0
+log| System chat: Integer must not be more than 20: found 21
+log| System chat: ...ft:bottom 21 0 -60 0<--[HERE]
+### [place.txt:54] place jigsaw minecraft:village/plains/town_centers minecraft:bottom 5 100000 -60 0
+log| System chat: That position is not loaded
+### [place.txt:55] place jigsaw minecraft:village/plains/town_centers minecraft:nothing 5 0 -60 0
+log| ERROR: No starting jigsaw minecraft:nothing found in start pool minecraft:village/plains/town_centers
+log| System chat: Failed to generate jigsaw
+### [place.txt:56] place jigsaw minecraft:empty minecraft:bottom 5 0 -60 0
+log| System chat: Failed to generate jigsaw
+### [place.txt:59] place template minecraft:nope 0 -60 0
+log| System chat: There is no template with ID "minecraft:nope"
+### [place.txt:60] place template minecraft:empty 0 -60 0
+log| System chat: Loaded template "minecraft:empty" at 0, -60, 0
+Bot| [system_chat] [Server: Loaded template "minecraft:empty" at 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.template.success","with":["minecraft:empty",0,-60,0]}],"color":"gray","italic":true}
+### [place.txt:61] place template minecraft:igloo/top 0 -60 0
+log| System chat: Loaded template "minecraft:igloo/top" at 0, -60, 0
+Bot| [system_chat] [Server: Loaded template "minecraft:igloo/top" at 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.template.success","with":["minecraft:igloo/top",0,-60,0]}],"color":"gray","italic":true}
+### [place.txt:62] place template minecraft:igloo/top 0 -60 0 clockwise_90
+log| System chat: Loaded template "minecraft:igloo/top" at 0, -60, 0
+Bot| [system_chat] [Server: Loaded template "minecraft:igloo/top" at 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.template.success","with":["minecraft:igloo/top",0,-60,0]}],"color":"gray","italic":true}
+### [place.txt:63] place template minecraft:igloo/top 20 -60 0 counterclockwise_90 left_right
+log| System chat: Loaded template "minecraft:igloo/top" at 20, -60, 0
+Bot| [system_chat] [Server: Loaded template "minecraft:igloo/top" at 20, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.template.success","with":["minecraft:igloo/top",20,-60,0]}],"color":"gray","italic":true}
+### [place.txt:64] place template minecraft:igloo/top 40 -60 0 clockwise_180 front_back 0.5 1234
+log| System chat: Invalid value 'clockwise_180'
+log| System chat: ...ckwise_180 front_back 0.5 1234<--[HERE]
+### [place.txt:65] place template minecraft:igloo/top 60 -60 0 none none 0.0 77 strict
+log| System chat: Loaded template "minecraft:igloo/top" at 60, -60, 0
+Bot| [system_chat] [Server: Loaded template "minecraft:igloo/top" at 60, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.template.success","with":["minecraft:igloo/top",60,-60,0]}],"color":"gray","italic":true}
+### [place.txt:66] place template minecraft:igloo/top 0 -60 20 none none 1.0 0 strict
+log| System chat: Loaded template "minecraft:igloo/top" at 0, -60, 20
+Bot| [system_chat] [Server: Loaded template "minecraft:igloo/top" at 0, -60, 20]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.template.success","with":["minecraft:igloo/top",0,-60,20]}],"color":"gray","italic":true}
+### [place.txt:67] place template minecraft:ruined_portal/portal_1 0 -60 40 clockwise_90 none 0.25 99
+log| System chat: Loaded template "minecraft:ruined_portal/portal_1" at 0, -60, 40
+Bot| [system_chat] [Server: Loaded template "minecraft:ruined_portal/portal_1" at 0, -60, 40]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.template.success","with":["minecraft:ruined_portal/portal_1",0,-60,40]}],"color":"gray","italic":true}
+### [place.txt:68] place template minecraft:fossil/skull_1 0 -60 60 none left_right 0.9 -5
+log| System chat: Loaded template "minecraft:fossil/skull_1" at 0, -60, 60
+Bot| [system_chat] [Server: Loaded template "minecraft:fossil/skull_1" at 0, -60, 60]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.template.success","with":["minecraft:fossil/skull_1",0,-60,60]}],"color":"gray","italic":true}
+### [place.txt:69] place template minecraft:shipwreck/with_mast 0 -50 80 clockwise_180
+log| System chat: Invalid value 'clockwise_180'
+log| System chat: ...ckwise_180<--[HERE]
+### [place.txt:70] place template minecraft:village/plains/houses/plains_small_house_1 40 -60 40 counterclockwise_90 front_back
+log| System chat: Loaded template "minecraft:village/plains/houses/plains_small_house_1" at 40, -60, 40
+Bot| [system_chat] [Server: Loaded template "minecraft:village/plains/houses/plains_small_house_1" at 40, -60, 40]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.template.success","with":["minecraft:village/plains/houses/plains_small_house_1",40,-60,40]}],"color":"gray","italic":true}
+### [place.txt:71] place template minecraft:igloo/top 0 -60 0 sideways
+log| System chat: Invalid value 'sideways'
+log| System chat: ...0 sideways<--[HERE]
+### [place.txt:72] place template minecraft:igloo/top 0 -60 0 none upside_down
+log| System chat: Invalid value 'upside_down'
+log| System chat: ...pside_down<--[HERE]
+### [place.txt:73] place template minecraft:igloo/top 0 -60 0 none none 1.5
+log| System chat: Float must not be more than 1.0: found 1.5
+log| System chat: ...none none 1.5<--[HERE]
+### [place.txt:74] place template minecraft:igloo/top 0 -60 0 none none -0.5
+log| System chat: Float must not be less than 0.0: found -0.5
+log| System chat: ...none none -0.5<--[HERE]
+### [place.txt:75] place template minecraft:igloo/top 0 -60 0 none none 0.5 2147483648
+log| System chat: Invalid integer '2147483648'
+log| System chat: ... none 0.5 2147483648<--[HERE]
+### [place.txt:76] place template minecraft:igloo/top 0 -60 0 none none 0.5 1 loose
+log| System chat: Incorrect argument for command
+log| System chat: ...one 0.5 1 loose<--[HERE]
+### [place.txt:77] place template minecraft:igloo/top 1000000 -60 0
+log| System chat: That position is not loaded
+### [place.txt:78] place template minecraft:igloo/top 2000 -60 0
+log| System chat: That position is not loaded
+### [place.txt:79] place template minecraft:igloo/top 0 -60 0 none none 0.5 1 strict extra
+log| System chat: Incorrect argument for command
+log| System chat: ... 1 strict extra<--[HERE]
+### [place.txt:80] place template minecraft:igloo/top ~ ~ ~
+log| System chat: Loaded template "minecraft:igloo/top" at 0, -60, 0
+Bot| [system_chat] [Server: Loaded template "minecraft:igloo/top" at 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.template.success","with":["minecraft:igloo/top",0,-60,0]}],"color":"gray","italic":true}
+### [place.txt:81] place template Minecraft:Igloo/Top 0 -60 0
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ... template Minecraft:Igloo/Top 0 -60 0<--[HERE]
+### [place.txt:82] place template igloo/top 100 -60 100
+log| System chat: Loaded template "minecraft:igloo/top" at 100, -60, 100
+Bot| [system_chat] [Server: Loaded template "minecraft:igloo/top" at 100, -60, 100]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.template.success","with":["minecraft:igloo/top",100,-60,100]}],"color":"gray","italic":true}
+### [place.txt:83] place template minecraft:igloo/top 0 -60 0 none none 1 5
+log| System chat: Loaded template "minecraft:igloo/top" at 0, -60, 0
+Bot| [system_chat] [Server: Loaded template "minecraft:igloo/top" at 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.place.template.success","with":["minecraft:igloo/top",0,-60,0]}],"color":"gray","italic":true}

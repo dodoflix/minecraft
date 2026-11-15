@@ -1,4 +1,5 @@
-# /locate on a normal (noise) world, seed 12345; run with: --level-type normal (structures on)
+# /locate on a normal (noise) world, seed 12345, structures on
+!world normal structures
 !wait 8000
 !ignore Can.t keep up|standing on air|Can.t spawn entity
 locate biome minecraft:plains

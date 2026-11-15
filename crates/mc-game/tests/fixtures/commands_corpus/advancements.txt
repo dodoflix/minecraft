@@ -1,5 +1,11 @@
-# /advancement grant|revoke: every mode, criterion forms, errors, counts. Packets: update_advancements, select_advancement_tab.
-!packets ^(update_advancements|select_advancement_tab)$
+# /advancement grant|revoke: every mode, criterion forms, errors, counts. Packets: select_advancement_tab.
+!packets ^select_advancement_tab$
+# Vanilla visits the advancements of one grant in identity-hash order, and the tree layout (x/y) and the packet's sets
+# follow it, so the run differs between two vanilla runs: the announcements are sorted in the log and not compared in
+# the bots' chat (the same broadcast), and the update_advancements packets are not recorded: their content is covered by the scenarios
+# adv_grant_chain, adv_revoke_visibility, adv_join_packet and the adv_tree layout golden.
+!sort ^log\| System chat: Bot0? has (made|reached|completed) 
+!ignore ^Bot0?\| (\[system_chat\] Bot0? has (made|reached|completed)|  json \{"translate":"chat\.type\.advancement\.)
 # permissions
 @bot0 advancement grant Bot only minecraft:story/root
 # argument errors
@@ -65,5 +71,7 @@ execute store result score Bot adv_n run advancement grant Bot only minecraft:st
 scoreboard players get Bot adv_n
 execute store result score Bot adv_n run advancement grant Bot from minecraft:story/root
 scoreboard players get Bot adv_n
+# the count of revoked advancements includes what the bots earned by themselves meanwhile: it differs between vanilla runs
+!mask Bot has (\d+) \[adv_n\]
 execute store result score Bot adv_n run advancement revoke @a everything
 scoreboard players get Bot adv_n
