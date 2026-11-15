@@ -1,0 +1,10 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:enter_block",
+      "conditions": {
+        "blocks": "minecraft:vine"
+      }
+    }
+  }
+}

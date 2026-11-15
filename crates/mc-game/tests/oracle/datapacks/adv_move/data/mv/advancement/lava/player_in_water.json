@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:ride_entity_in_lava",
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "location": {
+              "fluid": {
+                "fluids": "minecraft:water"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

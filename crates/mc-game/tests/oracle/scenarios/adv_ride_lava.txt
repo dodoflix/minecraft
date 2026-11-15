@@ -1,0 +1,106 @@
+# The ride_entity_in_lava trigger (ServerPlayer.trackEnteredOrExitedLavaOnVehicle: the position the vehicle entered lava at, the distance from it every tick
+# the vehicle stays in lava, the start forgotten when it leaves) against a data pack of distance, start position and player conditions. Fire resistant
+# riders on strider vehicles carried along a lava lake: one for a long way, one that leaves the lava after a short leg and comes back (the start is the new entry).
+datapack adv_move
+level flat
+preload 4
+difficulty normal
+entity_counter 41000
+level_seed 41001
+time 6000
+fill -2 -61 -12 62 -59 12 minecraft:lava
+fill 66 -61 -12 74 -61 12 minecraft:stone
+spawn sA minecraft:strider 0.5 -60 0.5 0 0 {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+spawn sB minecraft:strider 0.5 -60 6.5 0 0 {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+entity_seed sA 5
+entity_seed sB 6
+spawn_player Long survival 0.5 -60 0.5 0 0
+spawn_player Back survival 0.5 -60 6.5 0 0
+effect Long fire_resistance 0 100000
+effect Back fire_resistance 0 100000
+tick 3
+ride Long sA
+ride Back sB
+tick 3
+dump advancements:Long advancements:Back
+tp sA 3.5 -60 0.5
+tp sB 3.5 -60 6.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 6.5 -60 0.5
+tp sB 6.5 -60 6.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 9.5 -60 0.5
+tp sB 9.5 -60 6.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 12.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 15.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 18.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 21.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 24.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 27.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 30.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 33.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 36.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 39.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 42.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 45.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 48.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 51.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+tp sA 54.5 -60 0.5
+tick 1
+dump advancements:Long advancements:Back
+note the second rider leaves the lava (the start position is forgotten) and enters it again 20 blocks further: its distance counts from there
+tp sB 70.5 -60 6.5
+tick 2
+dump advancements:Back
+tp sB 20.5 -60 6.5
+tick 1
+dump advancements:Back
+tp sB 23.5 -60 6.5
+tick 1
+dump advancements:Back
+tp sB 26.5 -60 6.5
+tick 1
+dump advancements:Back
+tp sB 29.5 -60 6.5
+tick 1
+dump advancements:Back
+tp sB 32.5 -60 6.5
+tick 1
+dump advancements:Back
+tp sB 35.5 -60 6.5
+tick 1
+dump advancements:Back
+tick 10
+dump advancements:Long advancements:Back

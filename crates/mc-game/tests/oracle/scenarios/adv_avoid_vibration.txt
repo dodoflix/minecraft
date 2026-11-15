@@ -1,0 +1,85 @@
+# The avoid_vibration trigger (VibrationSystem.Listener.isValidVibration: a sculk sensor in range ignores a player who is stepping carefully and the
+# player is awarded; a player who is not sneaking sets it off and is not, a sneaker out of range is not) against a data pack and the vanilla
+# avoid_vibration advancement. A sneaking player lands beside a sensor, a walking one does, a sneaker lands far from its sensor, a sneaker walks
+# past one and a sneaker jumps next to one.
+datapack adv_move
+level flat
+preload 4
+difficulty normal
+entity_counter 43000
+level_seed 43001
+time 6000
+block 0 -60 0 minecraft:sculk_sensor
+block 12 -60 0 minecraft:sculk_sensor
+block 24 -60 0 minecraft:sculk_sensor
+block 36 -60 0 minecraft:sculk_sensor
+block 48 -60 0 minecraft:sculk_sensor
+spawn_player Sneaker survival 0.5 -54 3.5 0 0 sim
+spawn_player Walker survival 12.5 -54 3.5 0 0 sim
+spawn_player Far survival 24.5 -54 30.5 0 0 sim
+spawn_player Creeper survival 36.5 -60 -6.5 0 0 sim
+spawn_player Jumper survival 48.5 -60 3.5 0 0 sim
+input Sneaker sneak
+input Creeper sneak,forward
+input Jumper sneak,jump
+input Far sneak
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper
+tick 1
+dump advancements:Sneaker advancements:Walker advancements:Far advancements:Creeper advancements:Jumper

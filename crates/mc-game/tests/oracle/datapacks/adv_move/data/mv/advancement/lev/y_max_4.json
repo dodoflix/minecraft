@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:levitation",
+      "conditions": {
+        "distance": {
+          "y": {
+            "max": 4
+          }
+        }
+      }
+    }
+  }
+}

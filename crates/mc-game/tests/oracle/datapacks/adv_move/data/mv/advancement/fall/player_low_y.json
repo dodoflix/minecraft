@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:fall_from_height",
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "location": {
+              "position": {
+                "y": {
+                  "max": -59.5
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

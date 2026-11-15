@@ -1,0 +1,16 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:effects_changed",
+      "conditions": {
+        "effects": {
+          "minecraft:speed": {
+            "duration": {
+              "min": 300
+            }
+          }
+        }
+      }
+    }
+  }
+}

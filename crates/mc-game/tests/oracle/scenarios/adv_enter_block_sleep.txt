@@ -1,0 +1,76 @@
+# The enter_block trigger (ServerPlayer.onInsideBlock: the block states a player's box overlaps each tick, with their properties) against a data pack
+# of block and state conditions, and the slept_in_bed trigger (a bed that sets the spawn, at night, no monster within reach; nothing by day or
+# with a zombie near the bed). Players standing in cobweb, water (source and flowing), lava, fire, soul fire, ripe and young berry bushes, powder snow,
+# a ladder, a vine and a rail.
+datapack adv_move
+level flat
+preload 7
+difficulty normal
+entity_counter 42000
+level_seed 42001
+time 6000
+block 0 -60 0 minecraft:cobweb
+block 6 -60 0 minecraft:water[level=0]
+block 12 -60 0 minecraft:water[level=3]
+block 18 -60 0 minecraft:lava[level=0]
+block 24 -60 0 minecraft:fire[age=0]
+block 30 -61 0 minecraft:soul_soil
+block 30 -60 0 minecraft:soul_fire
+block 36 -60 0 minecraft:sweet_berry_bush[age=3]
+block 42 -60 0 minecraft:sweet_berry_bush[age=1]
+block 48 -60 0 minecraft:powder_snow
+block 54 -60 -1 minecraft:stone
+block 54 -60 0 minecraft:ladder[facing=south]
+block 60 -60 -1 minecraft:stone
+block 60 -60 0 minecraft:vine[north=true]
+block 66 -60 0 minecraft:rail[shape=east_west]
+spawn_player Web survival 0.5 -60 0.5 0 0 sim
+spawn_player Water survival 6.5 -60 0.5 0 0 sim
+spawn_player Flow survival 12.5 -60 0.5 0 0 sim
+spawn_player Lava survival 18.5 -60 0.5 0 0 sim
+spawn_player Fire survival 24.5 -60 0.5 0 0 sim
+spawn_player Soul survival 30.5 -60 0.5 0 0 sim
+spawn_player Berry survival 36.5 -60 0.5 0 0 sim
+spawn_player Young survival 42.5 -60 0.5 0 0 sim
+spawn_player Powder survival 48.5 -60 0.5 0 0 sim
+spawn_player Ladder survival 54.5 -60 0.5 0 0 sim
+spawn_player Vine survival 60.5 -60 0.5 0 0 sim
+spawn_player Rail survival 66.5 -60 0.5 0 0 sim
+spawn_player Air survival 72.5 -60 0.5 0 0 sim
+block 90 -60 4 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 90 -60 5 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 100 -60 4 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 100 -60 5 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 110 -60 4 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 110 -60 5 minecraft:red_bed[facing=south,part=head,occupied=false]
+spawn_player Sleeper survival 90.5 -60 2.5 0 0 sim
+spawn_player Unsafe survival 100.5 -60 2.5 0 0 sim
+spawn_player Day survival 110.5 -60 2.5 0 0 sim
+spawn zu minecraft:zombie 103.5 -60 4.5 0 0 {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+entity_seed zu 4
+tick 1
+dump advancements:Web advancements:Water advancements:Flow advancements:Lava advancements:Fire advancements:Soul advancements:Berry advancements:Young advancements:Powder advancements:Ladder advancements:Vine advancements:Rail advancements:Air advancements:Sleeper advancements:Unsafe advancements:Day
+tick 1
+dump advancements:Web advancements:Water advancements:Flow advancements:Lava advancements:Fire advancements:Soul advancements:Berry advancements:Young advancements:Powder advancements:Ladder advancements:Vine advancements:Rail advancements:Air advancements:Sleeper advancements:Unsafe advancements:Day
+tick 1
+dump advancements:Web advancements:Water advancements:Flow advancements:Lava advancements:Fire advancements:Soul advancements:Berry advancements:Young advancements:Powder advancements:Ladder advancements:Vine advancements:Rail advancements:Air advancements:Sleeper advancements:Unsafe advancements:Day
+tick 1
+dump advancements:Web advancements:Water advancements:Flow advancements:Lava advancements:Fire advancements:Soul advancements:Berry advancements:Young advancements:Powder advancements:Ladder advancements:Vine advancements:Rail advancements:Air advancements:Sleeper advancements:Unsafe advancements:Day
+tick 1
+dump advancements:Web advancements:Water advancements:Flow advancements:Lava advancements:Fire advancements:Soul advancements:Berry advancements:Young advancements:Powder advancements:Ladder advancements:Vine advancements:Rail advancements:Air advancements:Sleeper advancements:Unsafe advancements:Day
+note by day nobody can sleep
+use_on Day 110 -60 5 up
+tick 2
+dump advancements:Day
+time 14000
+tick 1
+note at night: the sleeper sleeps and sets its spawn; a zombie within reach of the bed keeps the other awake
+use_on Sleeper 90 -60 5 up
+use_on Unsafe 100 -60 5 up
+tick 2
+dump advancements:Sleeper advancements:Unsafe
+pcommand Sleeper STOP_SLEEPING
+tick 1
+use_on Day 110 -60 5 up
+tick 2
+dump advancements:Web advancements:Water advancements:Flow advancements:Lava advancements:Fire advancements:Soul advancements:Berry advancements:Young advancements:Powder advancements:Ladder advancements:Vine advancements:Rail advancements:Air advancements:Sleeper advancements:Unsafe advancements:Day

@@ -1,0 +1,23 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "location": {
+              "position": {
+                "y": {
+                  "min": -61,
+                  "max": -59
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

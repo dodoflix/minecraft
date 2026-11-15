@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:ride_entity_in_lava",
+      "conditions": {
+        "distance": {
+          "horizontal": {
+            "min": 5
+          }
+        }
+      }
+    }
+  }
+}

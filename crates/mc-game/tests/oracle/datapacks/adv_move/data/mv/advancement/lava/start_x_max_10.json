@@ -1,0 +1,16 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:ride_entity_in_lava",
+      "conditions": {
+        "start_position": {
+          "position": {
+            "x": {
+              "max": 10
+            }
+          }
+        }
+      }
+    }
+  }
+}

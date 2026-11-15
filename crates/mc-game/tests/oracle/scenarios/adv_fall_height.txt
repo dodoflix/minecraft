@@ -1,0 +1,99 @@
+# The fall_from_height trigger (ServerPlayer.resetFallDistance awards it, with the position the fall started at, at the moment the fall distance is reset)
+# against a data pack of distance, start position and player conditions, and the tick each reset happens in: a landing, entering water, a cobweb, a ladder,
+# the slow falling effect, a boat, an upward movement packet, a dying landing (no award), a creative player and a drift sideways. The advancements are dumped
+# after every tick of the first 28 ticks to see the tick each one is awarded in.
+datapack adv_move
+level flat
+preload 4
+difficulty normal
+entity_counter 36000
+level_seed 36001
+time 6000
+fill 5 -60 -1 7 -56 1 minecraft:water
+block 12 -52 0 minecraft:cobweb
+fill 53 -46 -1 55 -46 1 minecraft:glass
+fill 18 -60 -1 18 -52 -1 minecraft:stone
+fill 18 -60 0 18 -52 0 minecraft:ladder[facing=south]
+spawn_player Plain survival 0.5 -45 0.5 0 0 sim
+spawn_player Water survival 6.5 -45 0.5 0 0 sim
+spawn_player Web survival 12.5 -45 0.5 0 0 sim
+spawn_player Ladder survival 18.5 -45 0.5 0 0 sim
+spawn_player Slow survival 24.5 -45 0.5 0 0 sim
+spawn_player Doomed survival 30.5 0 0.5 0 0 sim
+spawn_player Creative creative 36.5 -45 0.5 0 0 sim
+spawn_player Rider survival 42.5 -45 0.5 0 0 sim
+spawn_player Drift survival 48.5 -45 0.5 0 0 sim
+spawn_player Packet survival 54.5 -45 0.5 0 0
+spawn_player High survival 60.5 250 0.5 0 0 sim
+set High invulnerable true
+spawn boat minecraft:oak_boat 42.5 -60 0.5 0 0
+entity_seed boat 3
+input Drift forward,sprint
+set Packet fall_distance 12
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+note a movement packet that moves the non-simulated player up resets its fall distance
+move_packet Packet 54.5 -44 0.5 false
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+note the rider boards a boat in mid-air: riding resets the fall distance of a living passenger every tick
+ride Rider boat
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+note slow falling in mid-air resets the fall distance every tick
+effect Slow slow_falling 0 1000
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+tick 1
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High
+client_tick_end Packet
+move_packet Packet 54.5 -45 0.5 true
+note the rest of the falls: the lethal landing awards nothing, the high fall is awarded on landing
+tick 100
+dump advancements:Plain advancements:Water advancements:Web advancements:Ladder advancements:Slow advancements:Doomed advancements:Creative advancements:Rider advancements:Drift advancements:Packet advancements:High

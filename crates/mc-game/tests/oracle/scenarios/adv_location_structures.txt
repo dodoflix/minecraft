@@ -1,0 +1,21 @@
+# The location trigger inside and outside a generated structure (LocationPredicate.structures reads the structure starts of the chunk): a swamp hut
+# (seed 5, the hut of the cat spawner scenario), a structure tag, a structure that is not there, and the biome combined with the structure.
+datapack adv_move
+level normal
+structures true
+seed 5
+preload 0
+difficulty normal
+entity_counter 40000
+level_seed 40001
+time 18000
+spawn_player Out survival -180.5 66 -688.5 0 0
+spawn_player In survival -180.5 66 -688.5 0 0
+tick 60
+set Out no_gravity true
+set In no_gravity true
+tp In -221.5 65 -684.5
+tick 41
+dump advancements:Out advancements:In
+tick 20
+dump advancements:Out advancements:In

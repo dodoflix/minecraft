@@ -1,0 +1,139 @@
+# The effects_changed trigger (ServerPlayer.onEffectAdded / onEffectUpdated / onEffectsRemoved: the player's effects after the change and the entity that
+# caused it) against a data pack of effect, amplifier, duration, visibility and source conditions. An effect added, upgraded in place, hidden, an effect
+# removed by /effect clear and one that expires (both fire with the effects left, no source), effects given by a player, by a zombie and by the console.
+datapack adv_move
+command_env
+level flat
+preload 3
+difficulty normal
+entity_counter 38000
+level_seed 38001
+time 6000
+spawn_player Add survival 0.5 -60 0.5 0 0 sim
+spawn_player Hidden survival 6.5 -60 0.5 0 0 sim
+spawn_player Pair survival 12.5 -60 0.5 0 0 sim
+spawn_player Cleared survival 18.5 -60 0.5 0 0 sim
+spawn_player Giver survival 24.5 -60 0.5 0 0 sim
+spawn_player Target survival 24.5 -60 3.5 0 0 sim
+spawn_player ZTarget survival 30.5 -60 0.5 0 0 sim
+spawn_player Console survival 36.5 -60 0.5 0 0 sim
+spawn_player Wipe survival 42.5 -60 0.5 0 0 sim
+spawn z minecraft:zombie 33.5 -60 0.5 0 0 {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+entity_seed z 7
+op Giver
+tick 3
+dump advancements:Add advancements:Hidden advancements:Pair advancements:Cleared advancements:Giver advancements:Target advancements:ZTarget advancements:Console advancements:Wipe
+note a plain add: speed with amplifier 0 and a long duration
+effect Add speed 0 600
+dump advancements:Add
+note the same effect upgraded in place (onEffectUpdated)
+effect Add speed 1 600
+dump advancements:Add
+note an effect added hidden (no particles)
+effect Hidden speed 0 100 hidden
+dump advancements:Hidden
+note strength for 20 ticks, then speed for 100: the pair is complete, then strength expires with the speed duration at 80 or below
+effect Pair strength 0 20
+effect Pair speed 0 100
+dump advancements:Pair
+note Cleared: strength and speed, strength removed by /effect clear 25 ticks later (the speed has 75 ticks left)
+effect Cleared strength 0 600
+effect Cleared speed 0 100
+dump advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+cmd effect clear Cleared minecraft:strength
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+tick 1
+dump advancements:Pair advancements:Cleared
+note a player gives the effect (the source is the executing entity)
+cmd_as Giver effect give Target minecraft:speed 100 0
+dump advancements:Target
+note a zombie gives the effect with execute as
+cmd execute as @e[type=minecraft:zombie,limit=1] run effect give ZTarget minecraft:speed 100 0
+dump advancements:ZTarget
+note the console gives it: no source entity
+cmd effect give Console minecraft:slowness 50 0
+dump advancements:Console
+note several effects cleared at once fire once, with nothing left
+effect Wipe speed 0 600
+effect Wipe strength 0 600
+cmd effect clear Wipe
+dump advancements:Wipe
+tick 20
+dump advancements:Add advancements:Hidden advancements:Pair advancements:Cleared advancements:Giver advancements:Target advancements:ZTarget advancements:Console advancements:Wipe

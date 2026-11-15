@@ -1,0 +1,13 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:enter_block",
+      "conditions": {
+        "blocks": "minecraft:sweet_berry_bush",
+        "state": {
+          "age": "3"
+        }
+      }
+    }
+  }
+}

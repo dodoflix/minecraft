@@ -1,0 +1,10 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:levitation",
+      "conditions": {
+        "duration": 7
+      }
+    }
+  }
+}

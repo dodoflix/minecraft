@@ -1,0 +1,62 @@
+# The location trigger (ServerPlayer.doTick fires it once every 20 ticks) against a data pack of entity location conditions: biome and biome tag,
+# dimension, the block and fluid at the position, sky access, campfire smoke, light, position ranges and the block stepped on or affecting the
+# movement. Players in several biomes (fillbiome), in water, a cobweb and lava, in a closed room, above a lit campfire and on gold and stone.
+# The advancements are dumped around the first tick the trigger runs in.
+datapack adv_move
+command_env
+level flat
+preload 7
+difficulty normal
+entity_counter 39000
+level_seed 39001
+time 6000
+biome 4 -62 -3 7 -57 3 minecraft:desert
+biome 12 -62 -3 15 -57 3 minecraft:swamp
+biome 16 -62 -3 19 -57 3 minecraft:savanna
+fill 22 -60 -2 26 -58 2 minecraft:stone
+fill 23 -60 -1 25 -58 1 minecraft:water
+block 30 -60 0 minecraft:cobweb
+fill 35 -60 -1 37 -57 1 minecraft:stone
+fill 36 -60 0 36 -59 0 minecraft:air
+fill 41 -59 -1 43 -59 1 minecraft:glass
+block 42 -60 0 minecraft:campfire[lit=true]
+fill 46 -60 -2 50 -59 2 minecraft:stone
+fill 47 -60 -1 49 -59 1 minecraft:lava
+block 100 -61 0 minecraft:gold_block
+block 106 -61 0 minecraft:stone
+spawn_player Plains survival 0.5 -60 0.5 0 0 sim
+spawn_player Desert survival 6.5 -60 0.5 0 0 sim
+spawn_player Swamp survival 12.5 -60 0.5 0 0 sim
+spawn_player Savanna survival 18.5 -60 0.5 0 0 sim
+spawn_player Water survival 24.5 -60 0.5 0 0 sim
+spawn_player Web survival 30.5 -60 0.5 0 0 sim
+spawn_player Roofed survival 36.5 -60 0.5 0 0 sim
+spawn_player Smoke survival 42.5 -58 0.5 0 0 sim
+spawn_player Lava survival 48.5 -60 0.5 0 0 sim
+spawn_player Gold survival 100.5 -60 0.5 0 0 sim
+spawn_player Stone survival 106.5 -60 0.5 0 0 sim
+tick 15
+tick 1
+dump advancements:Plains advancements:Desert advancements:Swamp advancements:Savanna advancements:Water advancements:Web advancements:Roofed advancements:Smoke advancements:Lava advancements:Gold advancements:Stone
+tick 1
+dump advancements:Plains advancements:Desert advancements:Swamp advancements:Savanna advancements:Water advancements:Web advancements:Roofed advancements:Smoke advancements:Lava advancements:Gold advancements:Stone
+tick 1
+dump advancements:Plains advancements:Desert advancements:Swamp advancements:Savanna advancements:Water advancements:Web advancements:Roofed advancements:Smoke advancements:Lava advancements:Gold advancements:Stone
+tick 1
+dump advancements:Plains advancements:Desert advancements:Swamp advancements:Savanna advancements:Water advancements:Web advancements:Roofed advancements:Smoke advancements:Lava advancements:Gold advancements:Stone
+tick 1
+dump advancements:Plains advancements:Desert advancements:Swamp advancements:Savanna advancements:Water advancements:Web advancements:Roofed advancements:Smoke advancements:Lava advancements:Gold advancements:Stone
+tick 1
+dump advancements:Plains advancements:Desert advancements:Swamp advancements:Savanna advancements:Water advancements:Web advancements:Roofed advancements:Smoke advancements:Lava advancements:Gold advancements:Stone
+tick 1
+dump advancements:Plains advancements:Desert advancements:Swamp advancements:Savanna advancements:Water advancements:Web advancements:Roofed advancements:Smoke advancements:Lava advancements:Gold advancements:Stone
+tick 1
+dump advancements:Plains advancements:Desert advancements:Swamp advancements:Savanna advancements:Water advancements:Web advancements:Roofed advancements:Smoke advancements:Lava advancements:Gold advancements:Stone
+tick 1
+dump advancements:Plains advancements:Desert advancements:Swamp advancements:Savanna advancements:Water advancements:Web advancements:Roofed advancements:Smoke advancements:Lava advancements:Gold advancements:Stone
+tick 1
+dump advancements:Plains advancements:Desert advancements:Swamp advancements:Savanna advancements:Water advancements:Web advancements:Roofed advancements:Smoke advancements:Lava advancements:Gold advancements:Stone
+tick 1
+dump advancements:Plains advancements:Desert advancements:Swamp advancements:Savanna advancements:Water advancements:Web advancements:Roofed advancements:Smoke advancements:Lava advancements:Gold advancements:Stone
+tick 40
+dump advancements:Plains advancements:Desert advancements:Swamp advancements:Savanna advancements:Water advancements:Web advancements:Roofed advancements:Smoke advancements:Lava advancements:Gold advancements:Stone

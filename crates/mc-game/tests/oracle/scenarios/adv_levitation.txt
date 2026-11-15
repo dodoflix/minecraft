@@ -1,0 +1,172 @@
+# The levitation trigger (ServerPlayer.tick fires it every tick while the player has a levitation start position: set when the effect is added, cleared
+# when it is removed or expires) against a data pack of distance and duration conditions. A long effect, one that expires, one removed by /effect clear,
+# one upgraded in place (the start position stays), one stopped by a roof (the duration grows, the distance does not) and one added late. The advancements
+# are dumped after every tick.
+datapack adv_move
+command_env
+level flat
+preload 3
+difficulty normal
+entity_counter 37000
+level_seed 37001
+fill 23 -56 -1 25 -56 1 minecraft:stone
+spawn_player Lev survival 0.5 -60 0.5 0 0 sim
+spawn_player Short survival 6.5 -60 0.5 0 0 sim
+spawn_player Cleared survival 12.5 -60 0.5 0 0 sim
+spawn_player Updated survival 18.5 -60 0.5 0 0 sim
+spawn_player Roofed survival 24.5 -60 0.5 0 0 sim
+spawn_player Late survival 30.5 -60 0.5 0 0 sim
+tick 3
+effect Lev levitation 19 400
+effect Short levitation 19 8
+effect Cleared levitation 19 400
+effect Updated levitation 9 400
+effect Roofed levitation 19 400
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+note /effect clear removes levitation: the start position goes
+cmd effect clear Cleared minecraft:levitation
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+note a stronger effect over the running one updates it: the start position stays
+effect Updated levitation 19 400
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+note levitation added to a player that has none
+effect Late levitation 19 400
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 1
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
+tick 60
+dump advancements:Lev advancements:Short advancements:Cleared advancements:Updated advancements:Roofed advancements:Late
