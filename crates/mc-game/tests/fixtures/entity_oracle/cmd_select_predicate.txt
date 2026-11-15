@@ -1,0 +1,85 @@
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Sheep
+CF result success 1
+CF msg Gave 1 [Shears] to A
+CF result success 1
+# registered predicates that match no entity in the selector parameter set
+SELECT @e[sort=nearest,predicate=minecraft:tool/can_shear] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=minecraft:block/fast_cooking] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=!minecraft:tool/can_shear] - 0,-60,0 -> A item#1 B pig#1 pig#2 cow#1 sheep#1
+SELECT @e[sort=nearest,predicate=!minecraft:block/fast_cooking] - 0,-60,0 -> A item#1 B pig#1 pig#2 cow#1 sheep#1
+SELECT @e[sort=nearest,type=pig,predicate=!minecraft:tool/can_shear] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,type=!pig,predicate=!minecraft:tool/can_shear] - 0,-60,0 -> A item#1 B cow#1 sheep#1
+SELECT @e[sort=nearest,limit=2,predicate=!minecraft:tool/can_shear] - 0,-60,0 -> A item#1
+SELECT @e[sort=furthest,limit=1,predicate=!minecraft:tool/can_shear] - 0,-60,0 -> sheep#1
+SELECT @e[sort=nearest,predicate=!minecraft:tool/can_shear,predicate=!minecraft:block/fast_cooking] - 0,-60,0 -> A item#1 B pig#1 pig#2 cow#1 sheep#1
+SELECT @e[sort=nearest,predicate=!minecraft:tool/can_shear,predicate=minecraft:block/fast_cooking] - 0,-60,0 ->
+SELECT @a[predicate=!minecraft:tool/can_shear] A 0.5,-60,0.5 -> A B
+SELECT @a[predicate=minecraft:tool/can_shear] A 0.5,-60,0.5 ->
+SELECT @p[predicate=!minecraft:tool/can_shear] A 0.5,-60,0.5 -> A
+SELECT @s[predicate=!minecraft:tool/can_shear] A 0.5,-60,0.5 -> A
+SELECT @s[predicate=minecraft:tool/can_shear] A 0.5,-60,0.5 ->
+SELECT @n[predicate=!minecraft:tool/can_shear] - 0,-60,0 -> A
+SELECT @r[type=pig,predicate=!minecraft:tool/can_shear] - 0,-60,0 ->
+# unknown predicates never select
+SELECT @e[sort=nearest,predicate=minecraft:nothing] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=!minecraft:nothing] - 0,-60,0 ->
+SELECT @a[predicate=!minecraft:nothing] A 0.5,-60,0.5 ->
+SELECT @s[predicate=minecraft:nothing] A 0.5,-60,0.5 ->
+SELECT @e[sort=nearest,predicate=nothing] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=!tool/can_shear] - 0,-60,0 -> A item#1 B pig#1 pig#2 cow#1 sheep#1
+# syntax failures
+SELECT @e[predicate=] - 0,-60,0 ->
+SELECT @e[predicate=!] - 0,-60,0 ->
+SELECT @e[predicate=Bad:Id] - 0,-60,0 -> !Expected end of options
+SELECT @e[predicate=minecraft:tool/can_shear - 0,-60,0 -> !Expected end of options
+# commands that select with the option
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed. Count: 7
+CF result success 7
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Added tag 'pred' to 2 entities
+CF result success 2
+CF result failure 0
+CF fail No entity was found
+CF msg The 2 entities have 1 total tag(s): pred
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Sheep
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF result success 1
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF result failure 0
+CF result failure 0
+CF msg Created new objective [smoke]
+CF result success 1
+CF msg Added 1 to [smoke] for 2 entities
+CF result success 2
+SELECT @e[sort=nearest,type=chicken,predicate=!minecraft:tool/can_shear] - 0,-60,0 -> chicken#4 chicken#1 chicken#2 chicken#3 chicken#5 chicken#6
+SELECT @e[sort=nearest,tag=pred,predicate=!minecraft:tool/can_shear] - 0,-60,0 -> pig#1 pig#2

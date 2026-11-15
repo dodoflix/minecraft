@@ -665,7 +665,8 @@ fn predicate(parser: &mut EntitySelectorParser<'_>) -> Result<(), CommandSyntaxE
     let inverted = parser.should_invert_value();
     let id = read_identifier(parser.get_reader())?;
     parser.add_predicate(Arc::new(move |ctx, e| {
-        inverted ^ host::loot_predicate_matches(ctx.server, ctx.dimension, e, &id)
+        host::loot_predicate_matches(ctx.server, ctx.dimension, e, &id)
+            .is_some_and(|result| inverted ^ result)
     }));
     Ok(())
 }

@@ -1,10 +1,7 @@
 //! `ComputeCommand`.
-//!
-//! Not implemented: evaluating a `ContextIntProvider`/`ContextFloatProvider` needs a `LootContext`, which cannot be
-//! constructed (see `loot_context_sources`). [`evaluate_int`]/[`evaluate_float`] are the two calls
-//! (`provider.value().getIntUnsafe(lootContext)` / `getFloatUnsafe(lootContext)`, `Err` = the `ArithmeticException`
-//! message) that fail for that reason; everything else (tree, `scale`, rounding, result messages and errors) is vanilla's.
-use super::loot_context_sources::{ContextDecorator, LootContext, add_context_sources};
+use super::loot_context_sources::{
+    ContextDecorator, add_context_sources, evaluate_float, evaluate_int,
+};
 use mc_brigadier::arguments::{FloatArgumentType, float_arg};
 use mc_brigadier::{
     ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType,
@@ -93,16 +90,6 @@ register_command!("ComputeCommand", |ctx| {
     ));
 });
 
-/// `provider.value().getIntUnsafe(context)`.
-fn evaluate_int(_provider: &ResourceOrId, context: &LootContext) -> Result<i32, String> {
-    match *context {}
-}
-
-/// `provider.value().getFloatUnsafe(context)`.
-fn evaluate_float(_provider: &ResourceOrId, context: &LootContext) -> Result<f32, String> {
-    match *context {}
-}
-
 /// `Component.translationArg(key.identifier())` of the holder's key, when it has one (`Holder.unwrapKey()`).
 fn provider_name(provider: &ResourceOrId) -> Option<Component> {
     match provider {
@@ -146,13 +133,12 @@ fn compute_as_int(
     decorator: &ContextDecorator,
     provider: &ResourceOrId,
 ) -> Result<i32, CommandSyntaxException> {
-    let loot_context = decorator(context)?;
-    match evaluate_int(provider, &loot_context) {
+    match evaluate_int(context, decorator, provider)? {
         Ok(result) => {
             print_exact_output(context.get_source(), provider, result);
             Ok(result)
         }
-        Err(message) => Err(throw_invalid_value(provider, message)),
+        Err(e) => Err(throw_invalid_value(provider, e.message.into_owned())),
     }
 }
 
@@ -162,9 +148,8 @@ fn compute_as_float(
     provider: &ResourceOrId,
     scale: f32,
 ) -> Result<i32, CommandSyntaxException> {
-    let loot_context = decorator(context)?;
-    let original = evaluate_float(provider, &loot_context)
-        .map_err(|message| throw_invalid_value(provider, message))?;
+    let original = evaluate_float(context, decorator, provider)?
+        .map_err(|e| throw_invalid_value(provider, e.message.into_owned()))?;
     if !original.is_finite() {
         return Err(throw_invalid_value(
             provider,

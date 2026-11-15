@@ -1,0 +1,65 @@
+# `data modify ... compute default | block | entity float | integer`: the provider is evaluated without error handling (an arithmetic
+# failure or a non-finite float stores 0) and the result is stored as an int or float tag through every modification mode.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 1
+cmd scoreboard objectives add smoke dummy
+cmd scoreboard players set A smoke 7
+cmd summon minecraft:pig 8 -60 8 {NoAI:1b,Age:-24000}
+cmd setblock 2 -60 2 minecraft:smoker
+cmd data merge storage smoke:r {list:[1,2],old:5,text:"x"}
+note storage targets
+cmd data modify storage smoke:r a set compute default integer {type:"minecraft:constant",value:5}
+cmd data modify storage smoke:r b set compute default float {type:"minecraft:constant",value:2.5}
+cmd data modify storage smoke:r c set compute default float {type:"minecraft:constant",value:4}
+cmd data modify storage smoke:r d set compute default integer {type:"minecraft:add",inputs:[10,20]}
+cmd data modify storage smoke:r old set compute default integer {type:"minecraft:constant",value:6}
+cmd data modify storage smoke:r list append compute default integer {type:"minecraft:constant",value:3}
+cmd data modify storage smoke:r list prepend compute default float {type:"minecraft:constant",value:0.5}
+cmd data get storage smoke:r list
+cmd data modify storage smoke:r list insert 1 compute default integer {type:"minecraft:constant",value:9}
+cmd data modify storage smoke:r list[0] set compute default integer {type:"minecraft:constant",value:-1}
+cmd data get storage smoke:r list
+cmd data modify storage smoke:r text set compute default integer {type:"minecraft:constant",value:1}
+cmd data modify storage smoke:r nested.deep set compute default float {type:"minecraft:constant",value:-0.25}
+cmd data modify storage smoke:r merge compute default integer {type:"minecraft:constant",value:1}
+cmd data modify storage smoke:r list set compute default integer {type:"minecraft:constant",value:1}
+note failures store zero
+cmd data modify storage smoke:r e set compute default integer {type:"minecraft:div",left:1,right:0}
+cmd data modify storage smoke:r f set compute default integer {type:"minecraft:add",inputs:[2147483647,1]}
+cmd data modify storage smoke:r g set compute default integer {type:"minecraft:from_float",input:{type:"minecraft:sqrt",input:-1.0}}
+cmd data modify storage smoke:r h set compute default float {type:"minecraft:div",left:1.0,right:0.0}
+cmd data modify storage smoke:r i set compute default float {type:"minecraft:sqrt",input:-1.0}
+cmd data modify storage smoke:r j set compute default float {type:"minecraft:div",left:1.0,right:0.0}
+note sources
+cmd data modify storage smoke:r k set compute block 2 -60 2 integer minecraft:cooking/time_bamboo
+cmd data modify storage smoke:r l set compute block 2 -60 2 float minecraft:cooking/speed_default
+cmd data modify storage smoke:r m set compute entity A integer {type:"minecraft:score",target:{type:"minecraft:context",target:"target_entity"},score:"smoke"}
+cmd data modify storage smoke:r n set compute block 100000 -60 0 integer {type:"minecraft:constant",value:1}
+cmd data modify storage smoke:r o set compute entity nobody integer {type:"minecraft:constant",value:1}
+cmd data modify storage smoke:r p set compute entity @a integer {type:"minecraft:constant",value:1}
+cmd data modify storage smoke:r q set compute default integer minecraft:cooking/missing
+cmd data modify storage smoke:r q set compute default integer
+cmd data modify storage smoke:r r set compute default
+cmd data modify storage smoke:r s set compute default double 1
+note stochastic providers
+cmd data modify storage smoke:r u1 set compute default integer {type:"minecraft:uniform",min:0,max:1000}
+cmd data modify storage smoke:r u2 set compute default float {type:"minecraft:uniform",min:0.0,max:1.0}
+cmd data modify storage smoke:r u3 set compute default integer {type:"minecraft:binomial",n:50,p:0.25}
+note entity and block targets
+cmd data modify entity @e[type=pig,limit=1] Age set compute default integer {type:"minecraft:constant",value:100}
+cmd data get entity @e[type=pig,limit=1] Age
+cmd data modify entity @e[type=pig,limit=1] Health set compute default float {type:"minecraft:constant",value:7.5}
+cmd data get entity @e[type=pig,limit=1] Health
+cmd data modify entity @e[type=pig,limit=1] Invulnerable set compute default integer {type:"minecraft:constant",value:1}
+cmd data get entity @e[type=pig,limit=1] Invulnerable
+cmd data modify entity @e[type=pig,limit=1] Fire set compute entity @e[type=pig,limit=1] integer {type:"minecraft:constant",value:5}
+cmd data get entity @e[type=pig,limit=1] Fire
+cmd data modify entity A Health set compute default float {type:"minecraft:constant",value:3}
+cmd data modify block 2 -60 2 x set compute default integer {type:"minecraft:constant",value:1}
+cmd data get storage smoke:r
+dump storage:smoke:r

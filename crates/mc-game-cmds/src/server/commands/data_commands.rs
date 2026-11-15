@@ -1,7 +1,7 @@
 //! `DataCommands`: `/data get|merge|remove|modify` over entity, block entity and command storage NBT.
 use super::arg_provider::ArgProvider;
 use super::data::{DataAccessor, block_data_accessor, entity_data_accessor, storage_data_accessor};
-use super::loot_context_sources::add_context_sources;
+use super::loot_context_sources::{add_context_sources, evaluate_float, evaluate_int};
 use mc_brigadier::arguments::{DoubleArgumentType, IntegerArgumentType, double_arg, integer};
 use mc_brigadier::utf16::{len16, substring};
 use mc_brigadier::{
@@ -333,21 +333,40 @@ fn decorators(
         }));
     }
     let build_context = build_context.clone();
-    rests.push(Box::new(move |_manipulator| {
+    let compute_target = target_provider.clone();
+    rests.push(Box::new(move |manipulator| {
         let build_context = build_context.clone();
-        // Not implemented: vanilla evaluates the providers against a `LootContext` (`getFloatProvider(c, "provider").value().getFloat(lootContext)`
-        // -> `manipulate_data(.., [FloatTag])`, likewise `getInt` -> `[IntTag]`); no context can be created here.
+        let compute_target = compute_target.clone();
         NodeBuilder::Literal(add_context_sources(
             literal("compute"),
             &|decorator, output| {
-                let d_float = decorator.clone();
+                let (float_decorator, float_target, float_manipulator) = (
+                    decorator.clone(),
+                    compute_target.clone(),
+                    manipulator.clone(),
+                );
+                let (int_target, int_manipulator) = (compute_target.clone(), manipulator.clone());
                 output(NodeBuilder::Literal(
                     literal("float").then(
                         argument(
                             "provider",
                             ContextFloatProviderArgument::float_provider(&build_context),
                         )
-                        .executes(move |c| match d_float(c)? {}),
+                        .executes(move |c| {
+                            let provider =
+                                ContextFloatProviderArgument::get_float_provider(c, "provider");
+                            // `getFloat`: 0 for an arithmetic error or a non-finite value
+                            let value = evaluate_float(c, &float_decorator, &provider)?
+                                .ok()
+                                .filter(|value| value.is_finite())
+                                .unwrap_or(0.0);
+                            manipulate_data(
+                                c,
+                                &float_target,
+                                &float_manipulator,
+                                vec![Tag::Float(value)],
+                            )
+                        }),
                     ),
                 ));
                 output(NodeBuilder::Literal(
@@ -356,7 +375,13 @@ fn decorators(
                             "provider",
                             ContextIntProviderArgument::int_provider(&build_context),
                         )
-                        .executes(move |c| match decorator(c)? {}),
+                        .executes(move |c| {
+                            let provider =
+                                ContextIntProviderArgument::get_int_provider(c, "provider");
+                            // `getInt`: 0 for an arithmetic error
+                            let value = evaluate_int(c, &decorator, &provider)?.unwrap_or(0);
+                            manipulate_data(c, &int_target, &int_manipulator, vec![Tag::Int(value)])
+                        }),
                     ),
                 ));
             },

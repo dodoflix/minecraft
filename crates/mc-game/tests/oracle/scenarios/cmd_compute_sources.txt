@@ -1,0 +1,80 @@
+# `compute default | block <pos> | entity <target>`: the parameters each source puts into the loot context (the block state of the
+# loaded position, the target entity, the entity of the running source), the failures of the position and target arguments, and the
+# permission level of the command.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+cmd scoreboard objectives add smoke dummy
+cmd scoreboard players set A smoke 7
+cmd scoreboard players set B smoke -3
+cmd summon minecraft:pig 8 -60 8 {NoAI:1b}
+note block source: the block state at the position
+cmd compute block 2 -60 2 integer {type:"minecraft:conditional",condition:"minecraft:block/fast_cooking",on_true:10,on_false:20}
+cmd setblock 2 -60 2 minecraft:smoker
+cmd compute block 2 -60 2 integer {type:"minecraft:conditional",condition:"minecraft:block/fast_cooking",on_true:10,on_false:20}
+cmd compute block 2 -60 2 integer minecraft:cooking/time_bamboo
+cmd compute block 2 -60 2 float minecraft:cooking/speed_default
+cmd compute block 2 -60 2 float minecraft:cooking/normal_speed_multiplier
+cmd setblock 2 -60 2 minecraft:furnace
+cmd compute block 2 -60 2 integer minecraft:cooking/time_bamboo
+cmd compute block 2 -60 2 float minecraft:cooking/speed_default
+cmd setblock 2 -60 2 minecraft:composter[level=0]
+cmd compute block 2 -60 2 integer minecraft:compostable/low
+cmd compute block 2 -60 2 integer minecraft:compostable/medium
+cmd setblock 2 -60 2 minecraft:composter[level=5]
+cmd compute block 2 -60 2 integer minecraft:compostable/low
+cmd compute block 2 -60 2 integer minecraft:compostable/medium_high
+cmd compute block ~ ~ ~ integer {type:"minecraft:constant",value:3}
+cmd compute block ~1 ~-1 ~ integer {type:"minecraft:constant",value:3}
+cmd compute block 2 -60 2 integer {type:"minecraft:conditional",condition:{type:"minecraft:match_block",blocks:"minecraft:composter",state:{level:"5"}},on_true:1,on_false:2}
+cmd compute block 2 -60 2 float {type:"minecraft:conditional",condition:{type:"minecraft:match_block",blocks:"minecraft:composter",state:{level:"4"}},on_true:1.5,on_false:2.5}
+note block source failures: unloaded position, out of the world, missing argument
+cmd compute block 100000 -60 0 integer {type:"minecraft:constant",value:1}
+cmd compute block 0 400 0 integer {type:"minecraft:constant",value:1}
+cmd compute block 0 -400 0 integer {type:"minecraft:constant",value:1}
+cmd compute block 2 -60 integer 1
+cmd compute block 2 -60 2
+note entity source: the target entity
+cmd compute entity A integer {type:"minecraft:score",target:{type:"minecraft:context",target:"target_entity"},score:"smoke"}
+cmd compute entity B integer {type:"minecraft:score",target:{type:"minecraft:context",target:"target_entity"},score:"smoke"}
+cmd compute entity @a[limit=1,sort=furthest] integer {type:"minecraft:score",target:{type:"minecraft:context",target:"target_entity"},score:"smoke"}
+cmd compute entity A integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:99}
+cmd compute entity @e[type=pig,limit=1] integer {type:"minecraft:score",target:{type:"minecraft:context",target:"target_entity"},score:"smoke",fallback:98}
+cmd compute entity @e[type=pig,limit=1] float {type:"minecraft:score",target:{type:"minecraft:context",target:"target_entity"},score:"smoke",fallback:98}
+cmd compute entity A float {type:"minecraft:constant",value:6.5} 2
+note entity source failures: no entity, several entities, bad selector
+cmd compute entity nobody integer {type:"minecraft:constant",value:1}
+cmd compute entity @e[type=zombie] integer {type:"minecraft:constant",value:1}
+cmd compute entity @a integer {type:"minecraft:constant",value:1}
+cmd compute entity @e[type=pig,limit=1] integer
+cmd compute entity @x integer {type:"minecraft:constant",value:1}
+note the executing entity is THIS_ENTITY
+cmd_as A compute default integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:43}
+cmd_as B compute default integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:43}
+cmd_as A compute entity B integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:43}
+cmd_as A compute entity B integer {type:"minecraft:score",target:{type:"minecraft:context",target:"target_entity"},score:"smoke",fallback:43}
+cmd_as A compute block 2 -60 2 integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:43}
+cmd execute as B run compute default integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:43}
+cmd execute as @e[type=pig] run compute default integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:43}
+cmd execute as B positioned 2 -60 2 run compute default integer {type:"minecraft:conditional",condition:{type:"minecraft:location_check",predicate:{block:{blocks:"minecraft:composter"}}},on_true:1,on_false:2}
+cmd execute store result score B smoke run compute default integer {type:"minecraft:constant",value:61}
+cmd scoreboard players get B smoke
+cmd execute store result storage smoke:r v int 1 run compute default float {type:"minecraft:constant",value:2.5} 4
+cmd data get storage smoke:r v
+note permission levels
+cmd_as -0 compute default integer {type:"minecraft:constant",value:1}
+cmd_as -1 compute default integer {type:"minecraft:constant",value:1}
+cmd_as -2 compute default integer {type:"minecraft:constant",value:1}
+cmd_as -2 compute block 2 -60 2 float {type:"minecraft:constant",value:1.5}
+cmd_as -2 compute entity A integer {type:"minecraft:constant",value:1}
+cmd_as -3 compute default float {type:"minecraft:constant",value:1.5} 2
+cmd_as -4 compute default float {type:"minecraft:constant",value:1.5} 2
+dump scoreboard
+dump storage:smoke:r

@@ -60,6 +60,7 @@ mod books_golden;
 mod brewing_golden;
 mod click_support;
 mod command_common;
+mod command_compute_golden;
 mod command_exceptions;
 mod command_harness_golden;
 mod command_tree_golden;

@@ -1,0 +1,146 @@
+# `compute` with the default context: constants, scale and rounding, every arithmetic failure of the int providers and the
+# non-finite results of the float providers, stochastic providers under a pinned level random, the storage and score providers, and
+# the named providers of the data pack.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 1
+cmd scoreboard objectives add smoke dummy
+cmd scoreboard players set A smoke 7
+cmd data merge storage smoke:s {n:12,f:2.5f,s:"x",l:[3,4],big:3000000000L,d:-1.75d}
+note constants, scale and rounding (a bare number is read as a registry id)
+cmd compute default integer 5
+cmd compute default float 2.5
+cmd compute default integer {type:"minecraft:constant",value:5}
+cmd compute default integer {type:"minecraft:constant",value:-8}
+cmd compute default integer {type:"minecraft:constant",value:2147483647}
+cmd compute default float {type:"minecraft:constant",value:2.5}
+cmd compute default float {type:"minecraft:constant",value:2.5} 2
+cmd compute default float {type:"minecraft:constant",value:4}
+cmd compute default float {type:"minecraft:constant",value:4} 0.5
+cmd compute default float {type:"minecraft:constant",value:2.7} -1
+cmd compute default float {type:"minecraft:constant",value:-0.5}
+cmd compute default float {type:"minecraft:constant",value:1.0E10}
+cmd compute default float {type:"minecraft:constant",value:3.0E38} 1000
+cmd compute default float {type:"minecraft:constant",value:0.1}
+cmd_json compute default float {type:"minecraft:constant",value:2.5}
+cmd_json compute default integer {type:"minecraft:constant",value:3}
+cmd_json compute default integer minecraft:cooking/time_coal
+note int provider arithmetic
+cmd compute default integer {type:"minecraft:add",inputs:[1,2,3]}
+cmd compute default integer {type:"minecraft:add",inputs:[2147483647,1]}
+cmd compute default integer {type:"minecraft:sub",left:5,right:9}
+cmd compute default integer {type:"minecraft:sub",left:-2147483648,right:1}
+cmd compute default integer {type:"minecraft:mul",inputs:[65536,65536]}
+cmd compute default integer {type:"minecraft:mul",inputs:[7,-6]}
+cmd compute default integer {type:"minecraft:div",left:7,right:2}
+cmd compute default integer {type:"minecraft:div",left:-7,right:2}
+cmd compute default integer {type:"minecraft:div",left:1,right:0}
+cmd compute default integer {type:"minecraft:mod",left:-7,right:3}
+cmd compute default integer {type:"minecraft:mod",left:1,right:0}
+cmd compute default integer {type:"minecraft:floor_mod",left:-7,right:3}
+cmd compute default integer {type:"minecraft:floor_mod",left:1,right:0}
+cmd compute default integer {type:"minecraft:floor_div",left:-7,right:2}
+cmd compute default integer {type:"minecraft:floor_div",left:1,right:0}
+cmd compute default integer {type:"minecraft:floor_div",left:-2147483648,right:-1}
+cmd compute default integer {type:"minecraft:pow",base:2,exponent:10}
+cmd compute default integer {type:"minecraft:pow",base:0,exponent:0}
+cmd compute default integer {type:"minecraft:pow",base:2,exponent:-1}
+cmd compute default integer {type:"minecraft:pow",base:2,exponent:31}
+cmd compute default integer {type:"minecraft:pow",base:-2,exponent:31}
+cmd compute default integer {type:"minecraft:abs",input:-9}
+cmd compute default integer {type:"minecraft:abs",input:-2147483648}
+cmd compute default integer {type:"minecraft:negate",input:5}
+cmd compute default integer {type:"minecraft:negate",input:-2147483648}
+cmd compute default integer {type:"minecraft:avg",inputs:[1,2,4]}
+cmd compute default integer {type:"minecraft:avg",inputs:[]}
+cmd compute default integer {type:"minecraft:max",inputs:[3,9,4]}
+cmd compute default integer {type:"minecraft:min",inputs:[3,9,4]}
+cmd compute default integer {type:"minecraft:from_float",input:7.9}
+cmd compute default integer {type:"minecraft:from_float",input:-7.9}
+cmd compute default integer {type:"minecraft:from_float",input:3.0E10}
+cmd compute default integer {type:"minecraft:from_float",input:{type:"minecraft:div",left:1.0,right:0.0}}
+cmd compute default integer {type:"minecraft:from_float",input:{type:"minecraft:sqrt",input:-1.0}}
+cmd compute default integer {type:"minecraft:conditional",condition:{type:"minecraft:random_chance",chance:1.0},on_true:11,on_false:22}
+cmd compute default integer {type:"minecraft:conditional",condition:{type:"minecraft:random_chance",chance:0.0},on_true:11,on_false:22}
+note float provider arithmetic and non-finite results
+cmd compute default float {type:"minecraft:add",inputs:[0.5,0.25]}
+cmd compute default float {type:"minecraft:sub",left:1.0,right:4.5}
+cmd compute default float {type:"minecraft:mul",inputs:[1.5,3]}
+cmd compute default float {type:"minecraft:div",left:1.0,right:0.0}
+cmd compute default float {type:"minecraft:div",left:-1.0,right:0.0}
+cmd compute default float {type:"minecraft:div",left:0.0,right:0.0}
+cmd compute default float {type:"minecraft:mod",left:7.5,right:2.0}
+cmd compute default float {type:"minecraft:pow",base:2.0,exponent:0.5}
+cmd compute default float {type:"minecraft:pow",base:-8.0,exponent:0.5}
+cmd compute default float {type:"minecraft:sqrt",input:2.0}
+cmd compute default float {type:"minecraft:sqrt",input:-2.0}
+cmd compute default float {type:"minecraft:sin",input:1.0}
+cmd compute default float {type:"minecraft:cos",input:1.0}
+cmd compute default float {type:"minecraft:floor",input:-1.5}
+cmd compute default float {type:"minecraft:ceil",input:-1.5}
+cmd compute default float {type:"minecraft:round",input:2.5}
+cmd compute default float {type:"minecraft:round",input:-2.5}
+cmd compute default float {type:"minecraft:truncate",input:-2.5}
+cmd compute default float {type:"minecraft:abs",input:-2.5}
+cmd compute default float {type:"minecraft:negate",input:2.5}
+cmd compute default float {type:"minecraft:max",inputs:[0.5,1.5]}
+cmd compute default float {type:"minecraft:min",inputs:[0.5,1.5]}
+cmd compute default float {type:"minecraft:avg",inputs:[1.0,2.0]}
+cmd compute default float {type:"minecraft:from_int",input:7}
+cmd compute default float {type:"minecraft:length",inputs:[3.0,4.0]}
+cmd compute default float {type:"minecraft:enchantment_level",amount:{type:"minecraft:linear",base:1.0,per_level_above_first:2.0}}
+cmd compute default float {type:"minecraft:enchantment_level",amount:5}
+note stochastic providers under a pinned level random
+cmd compute default integer {type:"minecraft:uniform",min:0,max:100}
+cmd compute default integer {type:"minecraft:uniform",min:0,max:100}
+cmd compute default integer {type:"minecraft:uniform",min:5,max:5}
+cmd compute default integer {type:"minecraft:uniform",min:9,max:2}
+cmd compute default integer {type:"minecraft:binomial",n:20,p:0.5}
+cmd compute default integer {type:"minecraft:weighted_list",distribution:[{data:1,weight:3},{data:100,weight:1}]}
+cmd compute default float {type:"minecraft:uniform",min:0.0,max:1.0}
+cmd compute default float {type:"minecraft:uniform",min:0.0,max:1.0}
+cmd compute default float {type:"minecraft:weighted_list",distribution:[{data:0.5,weight:1},{data:7.25,weight:1}]}
+cmd compute default float {type:"minecraft:uniform",min:2.0,max:2.0}
+note score and storage providers
+cmd compute default integer {type:"minecraft:score",target:{type:"minecraft:fixed",name:"A"},score:"smoke"}
+cmd compute default integer {type:"minecraft:score",target:{type:"minecraft:fixed",name:"nobody"},score:"smoke"}
+cmd compute default integer {type:"minecraft:score",target:{type:"minecraft:fixed",name:"nobody"},score:"smoke",fallback:41}
+cmd compute default integer {type:"minecraft:score",target:{type:"minecraft:fixed",name:"A"},score:"missing",fallback:42}
+cmd compute default integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:43}
+cmd compute default integer {type:"minecraft:storage",storage:"smoke:s",path:"n"}
+cmd compute default integer {type:"minecraft:storage",storage:"smoke:s",path:"f"}
+cmd compute default integer {type:"minecraft:storage",storage:"smoke:s",path:"d"}
+cmd compute default integer {type:"minecraft:storage",storage:"smoke:s",path:"big"}
+cmd compute default integer {type:"minecraft:storage",storage:"smoke:s",path:"s",fallback:44}
+cmd compute default integer {type:"minecraft:storage",storage:"smoke:s",path:"l[1]"}
+cmd compute default integer {type:"minecraft:storage",storage:"smoke:s",path:"l[]",fallback:45}
+cmd compute default integer {type:"minecraft:storage",storage:"smoke:s",path:"nothing",fallback:46}
+cmd compute default integer {type:"minecraft:storage",storage:"smoke:none",path:"n",fallback:47}
+cmd compute default float {type:"minecraft:storage",storage:"smoke:s",path:"f"}
+cmd compute default float {type:"minecraft:storage",storage:"smoke:s",path:"d"}
+cmd compute default float {type:"minecraft:storage",storage:"smoke:s",path:"n"}
+cmd compute default float {type:"minecraft:storage",storage:"smoke:s",path:"s"}
+cmd compute default float {type:"minecraft:storage",storage:"smoke:s",path:"nothing",fallback:3.5}
+note named providers and parse failures
+cmd compute default float minecraft:cooking/speed_default
+cmd compute default float minecraft:cooking/fast_speed_multiplier
+cmd compute default float minecraft:brewing/speed_default
+cmd compute default integer minecraft:brewing/uses_default
+cmd compute default integer minecraft:cooking/time_bamboo
+cmd compute default integer minecraft:cooking/fast_burn_time_reduction_factor
+cmd compute default integer minecraft:compostable/always_add_one
+cmd compute default integer minecraft:compostable/medium
+cmd compute default integer minecraft:cooking/missing
+cmd compute default float minecraft:cooking/time_coal
+cmd compute default integer {type:"minecraft:nothing"}
+cmd compute default integer {type:"minecraft:constant"}
+cmd compute default integer {type:"minecraft:constant",value:"x"}
+cmd compute default integer
+cmd compute default float {type:"minecraft:constant",value:1} x
+cmd compute default float {type:"minecraft:constant",value:1} 2 3
+cmd compute nothing integer 1
+dump storage:smoke:s

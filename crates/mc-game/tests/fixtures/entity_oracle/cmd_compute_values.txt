@@ -1,0 +1,268 @@
+CF msg Created new objective [smoke]
+CF result success 1
+CF msg Set [smoke] for A to 7
+CF result success 7
+CF msg Modified storage smoke:s
+CF result success 1
+# constants, scale and rounding (a bare number is read as a registry id)
+CF fail Can't find element 'minecraft:5' in registry 'minecraft:context_int_provider'
+CF fail ... integer 5<--[HERE]
+CF fail Can't find element 'minecraft:2.5' in registry 'minecraft:context_float_provider'
+CF fail ... float 2.5<--[HERE]
+CF msg Number provider returned value 5
+CF result success 5
+CF msg Number provider returned value -8
+CF result success -8
+CF msg Number provider returned value 2147483647
+CF result success 2147483647
+CF msg Number provider returned value 2.5 (rounded to 2)
+CF result success 2
+CF msg Number provider returned value 2.5 (rounded to 5)
+CF result success 5
+CF msg Number provider returned value 4
+CF result success 4
+CF msg Number provider returned value 4.0 (rounded to 2)
+CF result success 2
+CF msg Number provider returned value 2.7 (rounded to -3)
+CF result success -3
+CF msg Number provider returned value -0.5 (rounded to -1)
+CF result success -1
+CF msg Number provider returned value 1.0E10 (rounded to 2147483647)
+CF result success 2147483647
+CF msg Number provider returned value 3.0E38 (rounded to 2147483647)
+CF result success 2147483647
+CF msg Number provider returned value 0.1 (rounded to 0)
+CF result success 0
+CF msg Number provider returned value 2.5 (rounded to 2)
+CF json {"translate":"command.compute.result.unnamed.rounded","with":[2.5,2]}
+CF result success 2
+CF msg Number provider returned value 3
+CF json {"translate":"command.compute.result.unnamed.exact","with":[3]}
+CF result success 3
+CF msg minecraft:cooking/time_coal returned value 1600
+CF json {"translate":"command.compute.result.named.exact","with":["minecraft:cooking/time_coal",1600]}
+CF result success 1600
+# int provider arithmetic
+CF msg Number provider returned value 6
+CF result success 6
+CF result failure 0
+CF fail Number provider returned invalid value (Value 2147483648 can't be safely converted to int)
+CF msg Number provider returned value -4
+CF result success -4
+CF result failure 0
+CF fail Number provider returned invalid value (integer overflow)
+CF result failure 0
+CF fail Number provider returned invalid value (Value 4294967296 can't be safely converted to int)
+CF msg Number provider returned value -42
+CF result success -42
+CF msg Number provider returned value 3
+CF result success 3
+CF msg Number provider returned value -3
+CF result success -3
+CF result failure 0
+CF fail Number provider returned invalid value (/ by zero)
+CF msg Number provider returned value -1
+CF result success -1
+CF result failure 0
+CF fail Number provider returned invalid value (/ by zero)
+CF msg Number provider returned value 2
+CF result success 2
+CF result failure 0
+CF fail Number provider returned invalid value (/ by zero)
+CF msg Number provider returned value -4
+CF result success -4
+CF result failure 0
+CF fail Number provider returned invalid value (/ by zero)
+CF result failure 0
+CF fail Number provider returned invalid value (integer overflow)
+CF msg Number provider returned value 1024
+CF result success 1024
+CF result failure 0
+CF fail Number provider returned invalid value (Result of 0 to the power of 0 is undefined)
+CF result failure 0
+CF fail Number provider returned invalid value (negative exponent)
+CF result failure 0
+CF fail Number provider returned invalid value (integer overflow)
+CF msg Number provider returned value -2147483648
+CF result success -2147483648
+CF msg Number provider returned value 9
+CF result success 9
+CF result failure 0
+CF fail Number provider returned invalid value (Overflow to represent absolute value of Integer.MIN_VALUE)
+CF msg Number provider returned value -5
+CF result success -5
+CF result failure 0
+CF fail Number provider returned invalid value (integer overflow)
+CF msg Number provider returned value 2
+CF result success 2
+CF result failure 0
+CF fail Number provider returned invalid value (/ by zero)
+CF msg Number provider returned value 9
+CF result success 9
+CF msg Number provider returned value 3
+CF result success 3
+CF msg Number provider returned value 7
+CF result success 7
+CF msg Number provider returned value -7
+CF result success -7
+CF result failure 0
+CF fail Number provider returned invalid value (Value 30000001024 can't be safely converted to int)
+CF result failure 0
+CF fail Number provider returned invalid value (Value Infinity can't be safely converted to int)
+CF result failure 0
+CF fail Number provider returned invalid value (Value NaN can't be safely converted to int)
+CF msg Number provider returned value 11
+CF result success 11
+CF msg Number provider returned value 22
+CF result success 22
+# float provider arithmetic and non-finite results
+CF msg Number provider returned value 0.75 (rounded to 0)
+CF result success 0
+CF msg Number provider returned value -3.5 (rounded to -4)
+CF result success -4
+CF msg Number provider returned value 4.5 (rounded to 4)
+CF result success 4
+CF result failure 0
+CF fail Number provider returned invalid value (Infinity)
+CF result failure 0
+CF fail Number provider returned invalid value (-Infinity)
+CF result failure 0
+CF fail Number provider returned invalid value (NaN)
+CF msg Number provider returned value 1.5 (rounded to 1)
+CF result success 1
+CF msg Number provider returned value 1.4142135 (rounded to 1)
+CF result success 1
+CF result failure 0
+CF fail Number provider returned invalid value (NaN)
+CF msg Number provider returned value 1.4142135 (rounded to 1)
+CF result success 1
+CF result failure 0
+CF fail Number provider returned invalid value (NaN)
+CF msg Number provider returned value 0.8414514 (rounded to 0)
+CF result success 0
+CF msg Number provider returned value 0.54033285 (rounded to 0)
+CF result success 0
+CF msg Number provider returned value -2
+CF result success -2
+CF msg Number provider returned value -1
+CF result success -1
+CF msg Number provider returned value 3
+CF result success 3
+CF msg Number provider returned value -2
+CF result success -2
+CF msg Number provider returned value -2
+CF result success -2
+CF msg Number provider returned value 2.5 (rounded to 2)
+CF result success 2
+CF msg Number provider returned value -2.5 (rounded to -3)
+CF result success -3
+CF msg Number provider returned value 1.5 (rounded to 1)
+CF result success 1
+CF msg Number provider returned value 0.5 (rounded to 0)
+CF result success 0
+CF msg Number provider returned value 1.5 (rounded to 1)
+CF result success 1
+CF msg Number provider returned value 7
+CF result success 7
+CF msg Number provider returned value 5
+CF result success 5
+CF msg Number provider returned value -1
+CF result success -1
+CF msg Number provider returned value 5
+CF result success 5
+# stochastic providers under a pinned level random
+CF msg Number provider returned value 43
+CF result success 43
+CF msg Number provider returned value 10
+CF result success 10
+CF msg Number provider returned value 5
+CF result success 5
+CF msg Number provider returned value 9
+CF result success 9
+CF msg Number provider returned value 12
+CF result success 12
+CF msg Number provider returned value 100
+CF result success 100
+CF msg Number provider returned value 0.30667078 (rounded to 0)
+CF result success 0
+CF msg Number provider returned value 0.28029865 (rounded to 0)
+CF result success 0
+CF msg Number provider returned value 0.5 (rounded to 0)
+CF result success 0
+CF msg Number provider returned value 2
+CF result success 2
+# score and storage providers
+CF msg Number provider returned value 7
+CF result success 7
+CF msg Number provider returned value 0
+CF result success 0
+CF msg Number provider returned value 41
+CF result success 41
+CF msg Number provider returned value 42
+CF result success 42
+CF msg Number provider returned value 43
+CF result success 43
+CF msg Number provider returned value 12
+CF result success 12
+CF msg Number provider returned value 2
+CF result success 2
+CF msg Number provider returned value -1
+CF result success -1
+CF msg Number provider returned value -1294967296
+CF result success -1294967296
+CF msg Number provider returned value 44
+CF result success 44
+CF msg Number provider returned value 4
+CF result success 4
+CF msg Number provider returned value 45
+CF result success 45
+CF msg Number provider returned value 46
+CF result success 46
+CF msg Number provider returned value 47
+CF result success 47
+CF msg Number provider returned value 2.5 (rounded to 2)
+CF result success 2
+CF msg Number provider returned value -1.75 (rounded to -2)
+CF result success -2
+CF msg Number provider returned value 12
+CF result success 12
+CF msg Number provider returned value 0
+CF result success 0
+CF msg Number provider returned value 3.5 (rounded to 3)
+CF result success 3
+# named providers and parse failures
+CF msg minecraft:cooking/speed_default returned value 1
+CF result success 1
+CF msg minecraft:cooking/fast_speed_multiplier returned value 2
+CF result success 2
+CF msg minecraft:brewing/speed_default returned value 1
+CF result success 1
+CF msg minecraft:brewing/uses_default returned value 20
+CF result success 20
+CF msg minecraft:cooking/time_bamboo returned value 50
+CF result success 50
+CF msg minecraft:cooking/fast_burn_time_reduction_factor returned value 2
+CF result success 2
+CF msg minecraft:compostable/always_add_one returned value 1
+CF result success 1
+CF msg minecraft:compostable/medium returned value 0
+CF result success 0
+CF fail Can't find element 'minecraft:cooking/missing' in registry 'minecraft:context_int_provider'
+CF fail ...ng/missing<--[HERE]
+CF fail Can't find element 'minecraft:cooking/time_coal' in registry 'minecraft:context_float_provider'
+CF fail .../time_coal<--[HERE]
+CF fail Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_int_provider_type]: minecraft:nothing
+CF fail ...:nothing"}<--[HERE]
+CF fail Failed to parse structure: Failed to parse either. First: Not a number; Second: No key value in MapLike[{type:"minecraft:constant"}]
+CF fail ...constant"}<--[HERE]
+CF fail Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a number
+CF fail ...value:"x"}<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...lt integer<--[HERE]
+CF fail Expected float
+CF fail ...,value:1} x<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...alue:1} 2 3<--[HERE]
+CF fail Incorrect argument for command
+CF fail compute nothing integer 1<--[HERE]
+STORAGE smoke:s {big:3000000000L,d:-1.75d,f:2.5f,l:[3,4],n:12,s:"x"}

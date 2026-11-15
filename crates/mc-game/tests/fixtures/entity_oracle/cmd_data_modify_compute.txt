@@ -1,0 +1,106 @@
+CF msg Created new objective [smoke]
+CF result success 1
+CF msg Set [smoke] for A to 7
+CF result success 7
+CF msg Summoned new Pig
+CF result success 1
+CF msg Changed the block at 2, -60, 2
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+# storage targets
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Storage smoke:r has the following contents: [0.5f, 1, 2, 3]
+CF result success 4
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Storage smoke:r has the following contents: [-1, 9, 1, 2, 3]
+CF result success 5
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF fail Incorrect argument for command
+CF fail ...e:r merge compute default integer {type:"minecraft:constant",value:1}<--[HERE]
+CF msg Modified storage smoke:r
+CF result success 1
+# failures store zero
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+# sources
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail No entity was found
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data modify storage smoke:r p set compute entity @a integer {type:"minecraft:constant",value:1}<--[HERE]
+CF fail Can't find element 'minecraft:cooking/missing' in registry 'minecraft:context_int_provider'
+CF fail ...ng/missing<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...lt integer<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...te default<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...e default double 1<--[HERE]
+# stochastic providers
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+CF msg Modified storage smoke:r
+CF result success 1
+# entity and block targets
+CF msg Modified entity data of Pig
+CF result success 1
+CF msg Pig has the following entity data: 100
+CF result success 100
+CF msg Modified entity data of Pig
+CF result success 1
+CF msg Pig has the following entity data: 7.5f
+CF result success 7
+CF msg Modified entity data of Pig
+CF result success 1
+CF msg Pig has the following entity data: 1b
+CF result success 1
+CF msg Modified entity data of Pig
+CF result success 1
+CF msg Pig has the following entity data: 5s
+CF result success 5
+CF result failure 0
+CF fail Unable to modify player data
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg Storage smoke:r has the following contents: {a: 5, b: 2.5f, c: 4.0f, d: 30, e: 0, old: 6, f: 0, g: 0, h: 0.0f, i: 0.0f, j: 0.0f, k: 25, list: 1, l: 2.0f, nested: {deep: -0.25f}, m: 7, text: 1, u1: 185, u2: 0.24440318f, u3: 15}
+CF result success 1
+STORAGE smoke:r {a:5,b:2.5f,c:4.0f,d:30,e:0,f:0,g:0,h:0.0f,i:0.0f,j:0.0f,k:25,l:2.0f,list:1,m:7,nested:{deep:-0.25f},old:6,text:1,u1:185,u2:0.24440318f,u3:15}

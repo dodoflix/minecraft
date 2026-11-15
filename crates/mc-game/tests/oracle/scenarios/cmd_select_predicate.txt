@@ -1,0 +1,64 @@
+# The `predicate` selector option: a registered predicate evaluated in the selector parameter set, the inverted form, an unknown
+# predicate (never selects, inverted or not) and the option together with the others.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+tick 1
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b}
+cmd summon minecraft:pig 5 -60 5 {NoAI:1b}
+cmd summon minecraft:cow 7 -60 7 {NoAI:1b}
+cmd summon minecraft:sheep 9 -60 9 {NoAI:1b}
+cmd give A minecraft:shears
+note registered predicates that match no entity in the selector parameter set
+dump select:-/0,-60,0/@e[sort=nearest,predicate=minecraft:tool/can_shear]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=minecraft:block/fast_cooking]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!minecraft:tool/can_shear]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!minecraft:block/fast_cooking]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig,predicate=!minecraft:tool/can_shear]
+dump select:-/0,-60,0/@e[sort=nearest,type=!pig,predicate=!minecraft:tool/can_shear]
+dump select:-/0,-60,0/@e[sort=nearest,limit=2,predicate=!minecraft:tool/can_shear]
+dump select:-/0,-60,0/@e[sort=furthest,limit=1,predicate=!minecraft:tool/can_shear]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!minecraft:tool/can_shear,predicate=!minecraft:block/fast_cooking]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!minecraft:tool/can_shear,predicate=minecraft:block/fast_cooking]
+dump select:A/0.5,-60,0.5/@a[predicate=!minecraft:tool/can_shear]
+dump select:A/0.5,-60,0.5/@a[predicate=minecraft:tool/can_shear]
+dump select:A/0.5,-60,0.5/@p[predicate=!minecraft:tool/can_shear]
+dump select:A/0.5,-60,0.5/@s[predicate=!minecraft:tool/can_shear]
+dump select:A/0.5,-60,0.5/@s[predicate=minecraft:tool/can_shear]
+dump select:-/0,-60,0/@n[predicate=!minecraft:tool/can_shear]
+dump select:-/0,-60,0/@r[type=pig,predicate=!minecraft:tool/can_shear]
+note unknown predicates never select
+dump select:-/0,-60,0/@e[sort=nearest,predicate=minecraft:nothing]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!minecraft:nothing]
+dump select:A/0.5,-60,0.5/@a[predicate=!minecraft:nothing]
+dump select:A/0.5,-60,0.5/@s[predicate=minecraft:nothing]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=nothing]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!tool/can_shear]
+note syntax failures
+dump select:-/0,-60,0/@e[predicate=]
+dump select:-/0,-60,0/@e[predicate=!]
+dump select:-/0,-60,0/@e[predicate=Bad:Id]
+dump select:-/0,-60,0/@e[predicate=minecraft:tool/can_shear
+note commands that select with the option
+cmd execute if entity @e[predicate=minecraft:tool/can_shear]
+cmd execute unless entity @e[predicate=minecraft:tool/can_shear]
+cmd execute if entity @e[predicate=!minecraft:tool/can_shear]
+cmd execute if entity @e[predicate=!minecraft:nothing]
+cmd execute if entity @e[type=pig,predicate=!minecraft:tool/can_shear,limit=1]
+cmd tag @e[type=pig,predicate=!minecraft:tool/can_shear] add pred
+cmd tag @e[predicate=minecraft:tool/can_shear] add never
+cmd tag @e[type=pig] list
+cmd tag @e[type=cow,predicate=!minecraft:nothing] add never
+cmd kill @e[type=sheep,predicate=!minecraft:tool/can_shear]
+cmd kill @e[type=cow,predicate=minecraft:tool/can_shear]
+cmd execute as @e[type=pig,predicate=!minecraft:tool/can_shear] run say pig
+cmd execute as @e[type=!player,predicate=!minecraft:block/fast_cooking] at @s run summon minecraft:chicken ~ ~ ~ {NoAI:1b}
+cmd execute as @e[type=player,predicate=!minecraft:block/fast_cooking] run scoreboard players add @s nothing 1
+cmd scoreboard objectives add smoke dummy
+cmd scoreboard players add @e[type=pig,predicate=!minecraft:tool/can_shear] smoke 1
+dump select:-/0,-60,0/@e[sort=nearest,type=chicken,predicate=!minecraft:tool/can_shear]
+dump select:-/0,-60,0/@e[sort=nearest,tag=pred,predicate=!minecraft:tool/can_shear]

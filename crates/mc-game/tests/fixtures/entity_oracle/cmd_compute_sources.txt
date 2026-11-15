@@ -1,0 +1,130 @@
+C Game rule send_command_feedback is now set to true
+CF msg Created new objective [smoke]
+CF result success 1
+CF msg Set [smoke] for A to 7
+CF result success 7
+CF msg Set [smoke] for B to -3
+CF result success -3
+CF msg Summoned new Pig
+CF result success 1
+# block source: the block state at the position
+CF msg Number provider returned value 20
+CF result success 20
+CF msg Changed the block at 2, -60, 2
+CF result success 1
+CF msg Number provider returned value 10
+CF result success 10
+CF msg minecraft:cooking/time_bamboo returned value 25
+CF result success 25
+CF msg minecraft:cooking/speed_default returned value 2
+CF result success 2
+CF msg minecraft:cooking/normal_speed_multiplier returned value 1
+CF result success 1
+CF msg Changed the block at 2, -60, 2
+CF result success 1
+CF msg minecraft:cooking/time_bamboo returned value 50
+CF result success 50
+CF msg minecraft:cooking/speed_default returned value 1
+CF result success 1
+CF msg Changed the block at 2, -60, 2
+CF result success 1
+CF msg minecraft:compostable/low returned value 1
+CF result success 1
+CF msg minecraft:compostable/medium returned value 1
+CF result success 1
+CF msg Changed the block at 2, -60, 2
+CF result success 1
+CF msg minecraft:compostable/low returned value 0
+CF result success 0
+CF msg minecraft:compostable/medium_high returned value 1
+CF result success 1
+CF msg Number provider returned value 3
+CF result success 3
+CF msg Number provider returned value 3
+CF result success 3
+CF msg Number provider returned value 1
+CF result success 1
+CF msg Number provider returned value 2.5 (rounded to 2)
+CF result success 2
+# block source failures: unloaded position, out of the world, missing argument
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is out of this world!
+CF result failure 0
+CF fail That position is out of this world!
+CF fail Expected integer
+CF fail ...ock 2 -60 integer 1<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ck 2 -60 2<--[HERE]
+# entity source: the target entity
+CF msg Number provider returned value 7
+CF result success 7
+CF msg Number provider returned value -3
+CF result success -3
+CF msg Number provider returned value -3
+CF result success -3
+CF msg Number provider returned value 99
+CF result success 99
+CF msg Number provider returned value 98
+CF result success 98
+CF fail Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:score
+CF fail ...llback:98}<--[HERE]
+CF msg Number provider returned value 6.5 (rounded to 13)
+CF result success 13
+# entity source failures: no entity, several entities, bad selector
+CF result failure 0
+CF fail No entity was found
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail compute entity @e[type=zombie] integer {type:"minecraft:constant",value:1}<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail compute entity @a integer {type:"minecraft:constant",value:1}<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...1] integer<--[HERE]
+CF fail Unknown selector type '@x'
+CF fail ...e entity @x integer {type:"minecraft:constant",value:1}<--[HERE]
+# the executing entity is THIS_ENTITY
+CF msg Number provider returned value 7
+CF result success 7
+CF fail Unknown or incomplete command. See below for error
+CF fail compute default integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:43}<--[HERE]
+CF msg Number provider returned value 7
+CF result success 7
+CF msg Number provider returned value -3
+CF result success -3
+CF msg Number provider returned value 7
+CF result success 7
+CF msg Number provider returned value -3
+CF result success -3
+CF msg Number provider returned value 43
+CF result success 43
+CF msg Number provider returned value 1
+CF result success 1
+CF msg Number provider returned value 61
+CF result success 61
+CF msg B has 61 [smoke]
+CF result success 61
+CF msg Number provider returned value 2.5 (rounded to 10)
+CF result success 10
+CF msg Storage smoke:r has the following contents: 10
+CF result success 10
+# permission levels
+CF fail Unknown or incomplete command. See below for error
+CF fail compute default integer {type:"minecraft:constant",value:1}<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail compute default integer {type:"minecraft:constant",value:1}<--[HERE]
+CF msg Number provider returned value 1
+CF result success 1
+CF msg Number provider returned value 1.5 (rounded to 1)
+CF result success 1
+CF msg Number provider returned value 1
+CF result success 1
+CF msg Number provider returned value 1.5 (rounded to 3)
+CF result success 3
+CF msg Number provider returned value 1.5 (rounded to 3)
+CF result success 3
+OBJ {DisplayName:"smoke",Name:"smoke"}
+SCORE {Locked:1b,Name:"A",Objective:"smoke",Score:7}
+SCORE {Locked:1b,Name:"B",Objective:"smoke",Score:61}
+DISPLAY {}
+STORAGE smoke:r {v:10}

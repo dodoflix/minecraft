@@ -294,15 +294,29 @@ pub enum AdvancementExpectation {
     Criteria(Vec<(String, bool)>),
 }
 
-/// The `predicate` option: evaluates the loot predicate `id` with `THIS_ENTITY = entity`.
-/// Not implemented: the hook is not connected to the loaded predicate registry or to a loot context, so it never matches.
+/// The `predicate` option's test: the loaded loot predicate `id` in `LootContextParamSets.SELECTOR` with
+/// `THIS_ENTITY = entity` and `ORIGIN = entity.position()`. `None` for a predicate that is not registered or a level that
+/// is not a server level: vanilla returns `false` there, whatever the inversion.
 pub fn loot_predicate_matches(
-    _server: &MinecraftServer,
-    _dimension: &DimensionKey,
-    _entity: &dyn Entity,
-    _id: &mc_core::ident::Identifier,
-) -> bool {
-    false
+    server: &MinecraftServer,
+    dimension: &DimensionKey,
+    entity: &dyn Entity,
+    id: &mc_core::ident::Identifier,
+) -> Option<bool> {
+    use crate::registry::keys;
+    use crate::world::level::storage::loot::context::VisitedEntry;
+    use crate::world::level::storage::loot::parameters::LootContextParamSets;
+    use crate::world::level::storage::loot::predicates::ConditionRef;
+    use crate::world::level::storage::loot::{LootContext, LootParams};
+    let level = server.level(dimension)?;
+    let condition = level.registries.get::<ConditionRef>(keys::PREDICATE, id)?;
+    let params = LootParams::builder(level)
+        .this_entity(entity)
+        .origin(entity.position())
+        .create(&LootContextParamSets::SELECTOR);
+    let mut context = LootContext::builder(&params).create(None);
+    context.push_visited_element(VisitedEntry::predicate(condition));
+    Some(condition.test(&mut context))
 }
 
 /// The `SelectedItem` the `nbt` option adds for players (`ItemStack.CODEC` of the selected hotbar item).
