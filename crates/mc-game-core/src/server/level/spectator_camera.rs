@@ -27,7 +27,8 @@ impl ServerPlayer {
     }
 
     /// `setCamera(newCamera)`: `None` (or the player itself) resets the camera. The player is teleported to the camera
-    /// entity (`teleportTo(level, x, y, z, Set.of(), yRot, xRot, false)`), the chunk source follows, and the client is told.
+    /// entity (`teleportTo(level, x, y, z, Set.of(), yRot, xRot, false)`, which dismounts it first), the chunk source follows,
+    /// and the client is told.
     pub fn set_camera(&mut self, level: &mut ServerLevel, new_camera: Option<EntityId>) {
         let own = self.base_id();
         let old_camera = self.get_camera();
@@ -47,6 +48,8 @@ impl ServerPlayer {
             if self.player.living.is_sleeping() {
                 // Not implemented: `ServerPlayer.teleportTo` calls `stopSleepInBed(true, true)` here.
             }
+            // `ServerPlayer.teleport` (a transition that is not a passenger move): `removeVehicle()`
+            level.remove_vehicle(self);
             self.connection_teleport(pos.x, pos.y, pos.z, y_rot, x_rot);
             let head = y_rot;
             self.set_y_head_rot(head);

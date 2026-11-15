@@ -54,7 +54,9 @@ CF msg Stick started riding Pig
 CF result success 1
 CF msg B started riding Oak Boat
 CF result success 1
-CF msg S started riding Horse
+CF msg Horse started riding Oak Boat
+CF result success 1
+CF msg S started riding Oak Boat
 CF result success 1
 CF result failure 0
 CF fail No entity was found
@@ -67,7 +69,7 @@ CF fail ride B mount @a<--[HERE]
 E pig#1 minecraft:pig pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E cow#1 minecraft:cow pos=10.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E horse#1 minecraft:horse pos=12.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
-E oak_boat#1 minecraft:oak_boat pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=B;zombie#1
+E oak_boat#1 minecraft:oak_boat pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=B;zombie#1;horse#1;S
 E armor_stand#1 minecraft:armor_stand pos=16.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E marker#1 minecraft:marker pos=18.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E minecart#1 minecraft:minecart pos=20.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -75,7 +77,7 @@ E zombie#1 minecraft:zombie pos=22.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=
 E item#1 minecraft:item pos=24.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
 P A minecraft:player pos=7.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=14.5,-60.4125,8.700000002980232 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-P S minecraft:player pos=12.5,-59.15624997615814,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P S minecraft:player pos=14.5,-60.4125,7.899999976158142 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 PKT A minecraft:player_position 49024021000000000000c04ddd9999cccccd4021000000000000000000000000000000000000000000000000000000000000000000000000000000000018
 PKT A minecraft:set_passengers 6dfc0a01f90a
 PKT A minecraft:set_passengers 6dfc0a00
@@ -105,7 +107,7 @@ CF fail ride A nonsense<--[HERE]
 E pig#1 minecraft:pig pos=16.5,-58.02499997615814,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E cow#1 minecraft:cow pos=16.5,-57.125,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E horse#1 minecraft:horse pos=12.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
-E oak_boat#1 minecraft:oak_boat pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E oak_boat#1 minecraft:oak_boat pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=horse#1;S
 E armor_stand#1 minecraft:armor_stand pos=16.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E marker#1 minecraft:marker pos=16.5,-57.15625,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E minecart#1 minecraft:minecart pos=20.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -113,7 +115,7 @@ E zombie#1 minecraft:zombie pos=14.5,-60.0,9.772276811962001 delta=0.0,0.0,0.0 r
 E item#1 minecraft:item pos=16.5,-57.15625,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
 P A minecraft:player pos=7.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=14.5,-60.0,9.772276811962001 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-PKT B minecraft:set_passengers 6dff0a00
+PKT B minecraft:set_passengers 6dff0a02fe0afb0a
 PKT B minecraft:player_position 4903402d000000000000c04e00000000000040238b67ddc5ac000000000000000000000000000000000000000000000000000000000000000000000001f8
 # spectate
 CF fail Only one entity is allowed, but the provided selector allows more than one
@@ -153,7 +155,7 @@ CF fail A player is required to run this command here
 CF result failure 0
 CF fail A player is required to run this command here
 P S minecraft:player pos=16.5,-57.15625,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-PKT S minecraft:player_position 49024029000000000000c04d93ffffcccccd4021000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT S minecraft:player_position 4902402d000000000000c04e34cccccccccd401f999998000000000000000000000000000000000000000000000000000000000000000000000000000018
 PKT S minecraft:player_position 49034030800000000000c04d0333330000004021000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 PKT S minecraft:set_camera 5ffc0a
 PKT S minecraft:player_position 49044030800000000000c04c9000000000004021000000000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -191,8 +193,8 @@ CF result failure 0
 CF fail An entity is required to run this command here
 E pig#1 minecraft:pig pos=16.5,-58.02499997615814,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E cow#1 minecraft:cow pos=16.5,-57.125,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E horse#1 minecraft:horse pos=12.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
-E oak_boat#1 minecraft:oak_boat pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E horse#1 minecraft:horse pos=14.5,-59.8125,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E oak_boat#1 minecraft:oak_boat pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=horse#1
 E armor_stand#1 minecraft:armor_stand pos=20.5,-59.8125,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E marker#1 minecraft:marker pos=16.5,-57.15625,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E minecart#1 minecraft:minecart pos=20.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -265,8 +267,8 @@ CF fail Incorrect argument for command
 CF fail ...@e[tag=p] nonsense<--[HERE]
 E pig#1 minecraft:pig pos=16.5,-58.02499997615814,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E cow#1 minecraft:cow pos=16.5,-57.125,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E horse#1 minecraft:horse pos=12.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
-E oak_boat#1 minecraft:oak_boat pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E horse#1 minecraft:horse pos=14.5,-59.8125,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E oak_boat#1 minecraft:oak_boat pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=horse#1
 E armor_stand#1 minecraft:armor_stand pos=20.5,-59.8125,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E marker#1 minecraft:marker pos=16.5,-57.15625,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E minecart#1 minecraft:minecart pos=20.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
