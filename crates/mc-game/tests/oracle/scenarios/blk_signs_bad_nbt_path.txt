@@ -1,0 +1,24 @@
+# A sign line whose NBT path cannot be parsed (`x[` runs off the end of the path): vanilla throws out of SignBlockEntity.loadAdditional, the command
+# fails with the unexpected-error message and the block entity stays with the fields read before the failing line.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Op survival 0.5 -60 0.5 0 0
+op Op
+gamerule send_command_feedback true
+tick 1
+cmd_quiet data merge storage t:s {str:"hi"}
+note a bad path in the second line of the front text
+cmd_as Op setblock 6 -60 4 minecraft:oak_sign[rotation=0]{allow_op_features:1b,is_waxed:1b,front_text:{messages:[{nbt:"str",storage:"t:s"},{nbt:"x[",storage:"t:s"},"third",""]}}
+dump blocks:6,-60,4,6,-60,4 be:6,-60,4
+note the sign can be read and written afterwards
+cmd data get block 6 -60 4 is_waxed
+cmd data get block 6 -60 4 front_text.messages
+cmd data merge block 6 -60 4 {is_waxed:0b}
+dump be:6,-60,4
+note the same through /data merge on a sign that exists
+cmd_as Op setblock 8 -60 4 minecraft:oak_sign[rotation=0]{allow_op_features:1b}
+cmd_as Op data merge block 8 -60 4 {front_text:{messages:["one",{nbt:"x[",storage:"t:s"},"three",""]}}
+dump be:8,-60,4

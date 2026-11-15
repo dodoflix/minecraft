@@ -43,3 +43,8 @@ fn line_resolution_on_data_merge_matches_vanilla() {
 fn line_resolution_on_setblock_fill_and_clone_matches_vanilla() {
     common::block_scenario::check("blk_signs_resolve_commands");
 }
+
+#[test]
+fn sign_line_with_unparsable_nbt_path_keeps_loaded_fields_like_vanilla() {
+    common::block_scenario::check("blk_signs_bad_nbt_path");
+}

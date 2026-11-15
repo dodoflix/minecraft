@@ -212,7 +212,11 @@ impl ServerLevel {
                 pre_remove_state: None,
             });
         crate::world::block_entity::deferred::enter();
-        let result = f(self, block_entity.as_mut());
+        // An exception thrown by vanilla code out of the block entity (a sign line whose NBT path fails to parse) leaves the entity in
+        // its level with the fields read so far: put it back before the panic goes on.
+        let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            f(self, block_entity.as_mut())
+        }));
         if let Some(taken) = self.tick_state.taken_block_entities.pop() {
             if taken.removed {
                 if let Some(old_state) = taken.pre_remove_state {
@@ -232,7 +236,10 @@ impl ServerLevel {
             }
         }
         crate::world::block_entity::deferred::leave(self);
-        Some(result)
+        match result {
+            Ok(result) => Some(result),
+            Err(payload) => std::panic::resume_unwind(payload),
+        }
     }
 
     /// `LevelChunk.getBlockEntity(pos, creationType)` (which may promote pending NBT or create the entity): whether a

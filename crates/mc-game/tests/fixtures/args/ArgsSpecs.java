@@ -268,9 +268,73 @@ final class ArgsSpecs {
       "[I;1b]", "[1,2,3]", "[1,\"a\"]", "[[1],[2]]", "[{a:1},{b:2}]", "[1,]", "[,]", "[I;,]", "[X;1]", "[B;", "[0", "{a:1", "\"abc", "'abc", "0 ", " 0", "0 1", "1.0f", "1.0F", "Infinity", "NaN", "-Infinity", "1e400", "1e-400", "99999999999", "9223372036854775807L", "9223372036854775808L", "-0", "-0.0", "0.1f", "1d", "1D", "1s", "32768s", "\u00e9", "\ud83d\ude00",
       "{a:\"\\ud83d\\ude00\"}", "[;]", "I;1", "@", "#", "{a:[B;1b,2b,3b]}", "{a:[I;1,2],b:[L;1l,2l]}", "{a:true,b:false}", "{a:1.5f,b:2.5d}", "{a:\"x\",b:'y'}", "{a:{}}", "{a:[]}", "[[]]", "[{}]", "{1:2}", "{1.5:2}", "{true:1}", "{a.b:1}", "{a-b:1}", "{a+b:1}", "{a_b:1}"};
 
+   /** The compound every `nbt_path` input is applied to (mirrored by args_common::NBT_PATH_DOC). */
+   static final String NBT_PATH_DOC = "{a:1,b:{c:[1,2,3],d:\"s\"},list:[{x:1,y:2},{x:3},{x:1,y:5}],ints:[I;1,2,3],\"q.t\":1b,nested:[[1,2],[3]],bytes:[B;1b,2b],longs:[L;5l],f:1.5f,mix:{x:{y:1}},s:\"str\",l2:[\"a\",\"b\"],\"a b\":{c:1}}";
+
+   static final String[] NBT_PATH_SEEDS = {"a", "b", "b.c", "b.c[0]", "b.c[1]", "b.c[-1]", "b.c[-3]", "b.c[-4]", "b.c[3]", "b.c[]", "b.d", "b.d[0]", "b.nope", "nope", "nope.x", "nope[0]", "list", "list[]", "list[0]", "list[1].x", "list[-1].y", "list[].x", "list[].y", "list[].z",
+      "list[{x:1}]", "list[{x:1}].y", "list[{x:2}]", "list[{}]", "list[{x:1,y:2}]", "list[{x:3}].x", "list{x:1}", "list[]{x:1}", "ints", "ints[0]", "ints[1]", "ints[-1]", "ints[3]", "ints[]", "ints[0].x", "bytes[1]", "bytes[]", "longs[0]", "longs[2]", "e", "e.x", "e[0]", "e[]", "\"q.t\"", "'q.t'", "\"\"",
+      "\"a b\"", "\"a b\".c", "'a b'.c", "\"a b\"{c:1}", "\"a b\"{c:2}", "nested", "nested[0]", "nested[0][1]", "nested[1][0]", "nested[][0]", "nested[][]", "nested[0][]", "nested[2]", "mix.x.y", "mix.x{y:1}", "mix.x{y:2}", "mix{x:{y:1}}", "mix{x:{}}", "mix{}", "f", "s", "s.x", "l2", "l2[0]", "l2[]", "l2[{}]", "l2[{a:1}]",
+      "{a:1}", "{a:2}", "{}", "{a:1}.b", "{a:1}.b.c", "{b:{d:\"s\"}}", "{a:1}{b:{}}", "a{}", "a{x:1}", "b{c:[1,2,3]}", "b{c:[1]}", "b{d:\"s\"}.c", "b{d:\"t\"}.c", "b{d:'s'}", "b{d:s}", "{a:1b}", "{a:1.0f}", "{ints:[I;1,2,3]}", "{ints:[1,2,3]}", "{list:[{x:1}]}", "{list:[{x:3}]}", "{list:[{x:1},{x:3}]}",
+      "{list:[{y:5}]}", "{nested:[[1]]}", "{b:{c:[1,2]}}", "{l2:[\"a\"]}", "{l2:[\"c\"]}", "{longs:[L;5l]}", "{longs:[L;5]}", "list[0]{x:1}", "list[0]{x:2}", "list[0].x{}", "b.c[0]{}", "b.c[{}]", "b.c[{a:1}]", "[0]", "[]", "[{}]", "a[0]", "a[]", "a.b", "a.", ".a", "a..b", "a.b.", "a b", "a  b", "a[", "a[0", "a[0]b", "a[0]]", "a[]]", "a[-]", "a[-0]", "a[+1]",
+      "a[1.5]", "a[x]", "a[ 0]", "a[0 ]", "a[2147483647]", "a[2147483648]", "a[-2147483648]", "a[-2147483649]", "a[{", "a[{}", "a[{x:1}", "a[{x:1}]x", "a[{x:}]", "a[{,}]", "a[{x:1,}]", "a[{x:1 y:2}]", "a[{}]]", "a[{}{}]", "a{", "a{x", "a{x:1", "a{x:1}{y:1}", "a{x:1}.", "a{x:1}[0]", "a{x:1}[]", "a{x:1}{", "{", "{a", "{a:1", "{a:1}x", "{a:1}{b:2}", "{a:1}.", "{a:1}[0]",
+      "\"", "'", "\"a", "'a", "\"a\"", "'a'", "\"a\".b", "\"a\"b", "\"a\"[0]", "\"a\"{}", "\"a b\".c[0]", "\"\\\"\"", "\"a\\\"b\"", "'a\\'b'", "\"\\u00e9\"", "\"\\n\"", "\"\\q\"", "\"\".a", "''", "\"\"{}", ".", "..", "[", "]", "{}.a", "{}{}", "a{}{}", "a.{}", "a.[0]", "a.[]", ".{}", ".[]", "a[0].", "a[0]{}", "a[0].b", "a[].b", "a[][]", "a[0][0]",
+      "\u00e9", "a\u00e9", "\ud83d\ude00", "a.\ud83d\ude00", "x\u0000y", "a\tb", "a\nb", "a-b", "a_b", "a+b", "a:b", "a,b", "a(b)", "a=b", "a!b", "a@b", "a#b", "a$b", "a%b", "a*b", "a/b", "a\\b", "1", "1.5", "-1", "0.a", "a.0", "a.1.2", "true", "list.x", "list.0", "list[-1]", "list[-2].x", "list[-3].x", "list[-4]", "list[2].y", "list[2]{x:1}", "list[2]{x:5}", "list[3]", "list[1]{x:3}.x",
+      "list[].x{}", "ints[1]{}", "ints{}", "ints[{}]", "e{}", "e{a:1}", "e[]", "f{}", "s{}", "f[0]", "s[0]", "b.c.d", "b.c{}", "b.c[]{}", "b.c[0].x", "a.b", "a[0]", "b[0]", "b[]", "list[0][0]", "list.x[0]"};
+
+   static final java.util.function.Supplier<net.minecraft.nbt.CompoundTag> NBT_PATH_ROOT = () -> {
+      try {
+         // `e` is put by hand: an `{}` read from SNBT is one shared instance, which a getOrCreate on `e.x` would fill for every later read
+         var doc = net.minecraft.nbt.TagParser.parseCompoundFully(NBT_PATH_DOC);
+         doc.put("e", new net.minecraft.nbt.CompoundTag());
+         return doc;
+      } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+         throw new IllegalStateException(e);
+      }
+   };
+
+   /** One operation of `nbt_path`: its outcome, then (when `show`) the document afterwards, which a failing operation may have changed already. */
+   static String pathOp(String name, boolean show, net.minecraft.nbt.CompoundTag doc, java.util.concurrent.Callable<String> f) {
+      String r;
+      try {
+         r = f.call();
+      } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+         r = "!" + e.getMessage();
+      } catch (Throwable t) {
+         r = "!THREW";
+      }
+      return "|" + name + "=" + r + (show ? " " + doc : "");
+   }
+
+   static String tags(java.util.List<net.minecraft.nbt.Tag> l) {
+      return l.stream().map(Object::toString).collect(java.util.stream.Collectors.joining(";"));
+   }
+
+   /** The path, then get/count/set/insert/remove/getOrCreate on a fresh copy of the fixed compound (the Rust replay mirrors every operation). */
+   static String nbtPath(Object v) {
+      var p = (NbtPathArgument.NbtPath) v;
+      var b = new StringBuilder(p.toString());
+      var d = NBT_PATH_ROOT.get();
+      b.append(pathOp("get", false, d, () -> tags(p.get(d))));
+      b.append(pathOp("count", false, d, () -> String.valueOf(p.countMatching(d))));
+      var d1 = NBT_PATH_ROOT.get();
+      b.append(pathOp("set", true, d1, () -> String.valueOf(p.set(d1, net.minecraft.nbt.IntTag.valueOf(7)))));
+      var d2 = NBT_PATH_ROOT.get();
+      b.append(pathOp("setc", true, d2, () -> String.valueOf(p.set(d2, net.minecraft.nbt.TagParser.parseCompoundFully("{z:{w:1}}")))));
+      for (int index : new int[] {0, -1, 5}) {
+         var d3 = NBT_PATH_ROOT.get();
+         b.append(pathOp("insert" + index, true, d3, () -> String.valueOf(p.insert(index, d3, java.util.List.of(net.minecraft.nbt.IntTag.valueOf(100), net.minecraft.nbt.StringTag.valueOf("v"))))));
+      }
+      var d4 = NBT_PATH_ROOT.get();
+      b.append(pathOp("remove", true, d4, () -> String.valueOf(p.remove(d4))));
+      var d5 = NBT_PATH_ROOT.get();
+      b.append(pathOp("create", true, d5, () -> tags(p.getOrCreate(d5, net.minecraft.nbt.CompoundTag::new))));
+      return b.toString();
+   }
+
    static void registerNbt() {
       add("nbt_tag", () -> NbtTagArgument.nbtTag(), Object::toString, NBT_SEEDS);
       add("compound_tag", () -> CompoundTagArgument.compoundTag(), Object::toString, NBT_SEEDS);
+      ArgsGolden.add(new ArgsGolden.Spec("nbt_path", () -> NbtPathArgument.nbtPath(), NBT_PATH_SEEDS).render(ArgsSpecs::nbtPath).target(900));
       add("component", () -> ComponentArgument.textComponent(ArgsGolden.ctx), v -> {
          var json = net.minecraft.network.chat.ComponentSerialization.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE, (net.minecraft.network.chat.Component) v).getOrThrow();
          return canonJson(json);

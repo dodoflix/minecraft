@@ -115,3 +115,10 @@ fn data_tree_matches_vanilla() {
     }
     assert_eq!(checked, 5);
 }
+
+/// Block entity, entity and storage accessors of `/data`, `execute store|if data` and their failures against the real vanilla level
+/// (`tests/oracle/scenarios/cmd_data_accessors.txt`, recorded with `scripts/block-oracle.sh`).
+#[test]
+fn data_accessors_match_vanilla() {
+    crate::common::block_scenario::check("cmd_data_accessors");
+}

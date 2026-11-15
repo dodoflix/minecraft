@@ -1,0 +1,981 @@
+C Game rule send_command_feedback is now set to true
+CF msg Summoned new "Piggy"
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Changed the block at 2, -60, 2
+CF result success 1
+CF msg Changed the block at 3, -60, 2
+CF result success 1
+CF msg Changed the block at 4, -60, 2
+CF result success 1
+CF msg Changed the block at 5, -60, 2
+CF result success 1
+CF msg Changed the block at 6, -60, 2
+CF result success 1
+# block entity: merge the chest content, then every kind of get
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg 2, -60, 2 has the following block data: {components: {}, x: 2, y: -60, Items: [{count: 3, Slot: 0b, id: "minecraft:apple"}, {count: 1, Slot: 1b, id: "minecraft:stick"}, {count: 64, Slot: 5b, id: "minecraft:dirt"}], z: 2, id: "minecraft:chest"}
+CF result success 1
+CF msg 2, -60, 2 has the following block data: [{count: 3, Slot: 0b, id: "minecraft:apple"}, {count: 1, Slot: 1b, id: "minecraft:stick"}, {count: 64, Slot: 5b, id: "minecraft:dirt"}]
+CF result success 3
+CF msg 2, -60, 2 has the following block data: {count: 3, Slot: 0b, id: "minecraft:apple"}
+CF result success 3
+CF msg 2, -60, 2 has the following block data: 3
+CF result success 3
+CF msg Items[0].count on block 2, -60, 2 after scale factor of 2.50 is 7
+CF result success 7
+CF msg Items[0].count on block 2, -60, 2 after scale factor of -0.50 is -2
+CF result success -2
+CF msg 2, -60, 2 has the following block data: 1b
+CF result success 1
+CF msg 2, -60, 2 has the following block data: {count: 1, Slot: 1b, id: "minecraft:stick"}
+CF result success 3
+CF result failure 0
+CF fail This argument accepts a single NBT value
+CF result failure 0
+CF fail Found no elements matching Items[].nothing
+CF result failure 0
+CF fail Found no elements matching Items[5]
+CF msg 2, -60, 2 has the following block data: {count: 64, Slot: 5b, id: "minecraft:dirt"}
+CF result success 3
+CF msg 2, -60, 2 has the following block data: "minecraft:dirt"
+CF result success 14
+CF msg 2, -60, 2 has the following block data: "minecraft:chest"
+CF result success 15
+CF result failure 0
+CF fail Can't get id; only numeric tags are allowed
+CF msg 2, -60, 2 has the following block data: 2
+CF result success 2
+CF result failure 0
+CF fail Found no elements matching nothing
+CF msg 2, -60, 2 has the following block data: {components: {}, x: 2, y: -60, Items: [{count: 3, Slot: 0b, id: "minecraft:apple"}, {count: 1, Slot: 1b, id: "minecraft:stick"}, {count: 64, Slot: 5b, id: "minecraft:dirt"}], z: 2, id: "minecraft:chest"}
+CF result success 6
+CF result failure 0
+CF fail Found no elements matching {id:"minecraft:furnace"}
+CF fail Invalid NBT path element
+CF fail ...2 Items[0]{count:3}<--[HERE]
+CF fail Invalid NBT path element
+CF fail ...2 Items[0]{count:4}<--[HERE]
+CF msg 2, -60, 2 has the following block data: {count: 3, Slot: 0b, id: "minecraft:apple"}
+CF result success 3
+CF msg 2, -60, 2 has the following block data: "minecraft:apple"
+CF result success 15
+# block entity: positions without one, relative, unloaded, out of the world
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is out of this world!
+CF result failure 0
+CF fail That position is out of this world!
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail The target block is not a block entity
+CF fail Incomplete (expected 3 coordinates)
+CF fail ...get block 2 -60<--[HERE]
+CF fail Could not parse command: Index 29 out of bounds for length 29
+CF fail ...0 2 Items[<--[HERE]
+CF fail Expected ']'
+CF fail ... 2 Items[0<--[HERE]
+CF fail Expected '.'
+CF fail ...2 Items[0]]<--[HERE]
+CF fail Invalid NBT path element
+CF fail ...k 2 -60 2 .Items<--[HERE]
+CF fail Invalid NBT path element
+CF fail ...0 2 Items..id<--[HERE]
+CF fail Expected literal "
+CF fail ... 2 -60 2 {<--[HERE]
+CF fail Expected literal "
+CF fail ...0 2 Items{<--[HERE]
+CF fail Expected integer
+CF fail ...get block a -60 2 Items<--[HERE]
+# block entity: sign text and flags
+CF msg 3, -60, 2 has the following block data: {back_text: {has_glowing_text: 0b, color: "black", messages: ["", "", "", ""]}, components: {}, is_waxed: 0b, x: 3, y: -60, z: 2, id: "minecraft:sign", front_text: {has_glowing_text: 0b, color: "black", messages: ["", "", "", ""]}}
+CF result success 1
+CF msg 3, -60, 2 has the following block data: {has_glowing_text: 0b, color: "black", messages: ["", "", "", ""]}
+CF result success 3
+CF msg 3, -60, 2 has the following block data: ["", "", "", ""]
+CF result success 4
+CF msg 3, -60, 2 has the following block data: ""
+CF result success 0
+CF msg 3, -60, 2 has the following block data: "black"
+CF result success 5
+CF msg 3, -60, 2 has the following block data: 0b
+CF result success 0
+CF msg front_text.has_glowing_text on block 3, -60, 2 after scale factor of 100.00 is 0
+CF result success 0
+CF msg 3, -60, 2 has the following block data: 0b
+CF result success 0
+CF msg 3, -60, 2 has the following block data: "black"
+CF result success 5
+CF msg Modified block data of 3, -60, 2
+CF result success 1
+CF msg 3, -60, 2 has the following block data: ['"alpha"', '{"text":"beta","color":"red"}', '""', '""']
+CF result success 4
+CF msg 3, -60, 2 has the following block data: '{"text":"beta","color":"red"}'
+CF result success 29
+CF msg 3, -60, 2 has the following block data: "blue"
+CF result success 4
+CF msg Modified block data of 3, -60, 2
+CF result success 1
+CF msg Modified block data of 3, -60, 2
+CF result success 1
+CF msg Modified block data of 3, -60, 2
+CF result success 1
+CF msg Modified block data of 3, -60, 2
+CF result success 1
+CF msg Modified block data of 3, -60, 2
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified block data of 3, -60, 2
+CF result success 1
+CF msg Modified block data of 3, -60, 2
+CF result success 1
+CF msg Modified block data of 3, -60, 2
+CF result success 1
+CF msg Modified block data of 3, -60, 2
+CF result success 1
+CF msg Modified block data of 3, -60, 2
+CF result success 1
+CF msg Modified block data of 3, -60, 2
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+BE 3 -60 2 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:sign",is_waxed:0b,x:3,y:-60,z:2}
+# block entity: command block and furnace fields
+CF msg 5, -60, 2 has the following block data: ""
+CF result success 0
+CF msg 5, -60, 2 has the following block data: 0
+CF result success 0
+CF msg 5, -60, 2 has the following block data: 1b
+CF result success 1
+CF msg 5, -60, 2 has the following block data: 0b
+CF result success 0
+CF msg Modified block data of 5, -60, 2
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg 5, -60, 2 has the following block data: "say hi"
+CF result success 6
+CF msg Modified block data of 5, -60, 2
+CF result success 1
+CF msg Modified block data of 5, -60, 2
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching LastOutput
+CF msg 5, -60, 2 has the following block data: 0b
+CF result success 0
+CF fail Incorrect argument for command
+CF fail ...2 Command string block 2 -60 2 id 10<--[HERE]
+CF msg 6, -60, 2 has the following block data: 0
+CF result success 0
+CF msg 6, -60, 2 has the following block data: 0
+CF result success 0
+CF msg 6, -60, 2 has the following block data: []
+CF result success 0
+CF msg Modified block data of 6, -60, 2
+CF result success 1
+CF msg 6, -60, 2 has the following block data: 100
+CF result success 100
+CF msg lit_time_remaining on block 6, -60, 2 after scale factor of 0.01 is 1
+CF result success 1
+CF msg 6, -60, 2 has the following block data: "minecraft:cobblestone"
+CF result success 21
+CF msg Modified block data of 6, -60, 2
+CF result success 1
+CF msg Modified block data of 6, -60, 2
+CF result success 1
+CF msg Modified block data of 6, -60, 2
+CF result success 1
+CF msg Modified block data of 6, -60, 2
+CF result success 1
+BE 5 -60 2 {Command:"say hi",CustomName:'"Cmd"',SuccessCount:0,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:5,y:-60,z:2}
+BE 6 -60 2 {Items:[],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:0,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:6,y:-60,z:2}
+# block entity: modify forms on the chest
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF result failure 0
+CF fail Invalid list index: 100
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg Modified block data of 2, -60, 2
+CF result success 3
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF result failure 0
+CF fail Expected an object: got 5
+CF result failure 0
+CF fail Expected an object: got 2
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...pend value<--[HERE]
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg 2, -60, 2 has the following block data: '"Box"'
+CF result success 5
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF fail Incorrect argument for command
+CF fail ...0 2 merge value {CustomName:'"Boxed"'}<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...0 2 merge value {CustomName:'"Boxed"'}<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...0 2 merge value 5<--[HERE]
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail The target block is not a block entity
+CF fail Expected compound tag
+CF fail ... 2 -60 2 5<--[HERE]
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+BE 2 -60 2 {CustomName:'"Box"',Items:[],components:{},id:"minecraft:chest",x:2,y:-60,z:2}
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail That position is not loaded
+BE 2 -60 2 {Items:[],components:{},id:"minecraft:chest",x:2,y:-60,z:2}
+# entity: gets with scaling and every number type
+CF msg "Piggy" has the following entity data: [8.5d, -60.0d, 8.5d]
+CF result success 3
+CF msg "Piggy" has the following entity data: 8.5d
+CF result success 8
+CF msg Pos[0] on "Piggy" after scale factor of 2.00 is 17
+CF result success 17
+CF msg Pos[1] on "Piggy" after scale factor of 0.50 is -30
+CF result success -30
+CF msg Pos[2] on "Piggy" after scale factor of -3.00 is -26
+CF result success -26
+CF msg "Piggy" has the following entity data: 10.0f
+CF result success 10
+CF msg Health on "Piggy" after scale factor of 3.00 is 30
+CF result success 30
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...] Health 1e10<--[HERE]
+CF msg "Piggy" has the following entity data: 0s
+CF result success 0
+CF msg Fire on "Piggy" after scale factor of 7.00 is 0
+CF result success 0
+CF msg Air on "Piggy" after scale factor of 0.50 is 150
+CF result success 150
+CF msg "Piggy" has the following entity data: 1b
+CF result success 1
+CF msg NoAI on "Piggy" after scale factor of 100.00 is 100
+CF result success 100
+CF msg "Piggy" has the following entity data: 0b
+CF result success 0
+CF msg "Piggy" has the following entity data: ["a", "b"]
+CF result success 2
+CF msg "Piggy" has the following entity data: "b"
+CF result success 1
+CF result failure 0
+CF fail Can't get Tags[1]; only numeric tags are allowed
+CF result failure 0
+CF fail This argument accepts a single NBT value
+CF msg "Piggy" has the following entity data: "b"
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching Tags[2]
+CF msg "Piggy" has the following entity data: '"Piggy"'
+CF result success 7
+CF result failure 0
+CF fail Can't get CustomName; only numeric tags are allowed
+CF msg "Piggy" has the following entity data: [0.0d, 0.0d, 0.0d]
+CF result success 3
+CF msg "Piggy" has the following entity data: [0.0f, 0.0f]
+CF result success 2
+CF result failure 0
+CF fail Found no elements matching id
+CF result failure 0
+CF fail Found no elements matching nothing
+CF result failure 0
+CF fail Found no elements matching Pos[3]
+CF msg "Piggy" has the following entity data: {AgeLocked: 0b, Brain: {memories: {}}, Invulnerable: 0b, FallFlying: 0b, ForcedAge: 0, sound_variant: "minecraft:classic", PortalCooldown: 0, AbsorptionAmount: 0.0f, InLove: 0, DeathTime: 0s, variant: "minecraft:temperate", PersistenceRequired: 0b, UUID: [I; -91028686, -1739307049, -1489816900, 1175415391], Tags: ["a", "b"], Age: 0, Motion: [0.0d, 0.0d, 0.0d], Health: 10.0f, LeftHanded: 0b, fall_distance: 0.0d, Air: 300s, OnGround: 0b, NoAI: 1b, Rotation: [0.0f, 0.0f], current_impulse_context_reset_grace_time: 0, CustomName: '"Piggy"', Pos: [8.5d, -60.0d, 8.5d], Fire: 0s, CanPickUpLoot: 0b, attributes: [{id: "minecraft:movement_speed", base: 0.25d}], HurtTime: 0s}
+CF result success 30
+CF result failure 0
+CF fail Found no elements matching {NoAI:0b}
+CF result failure 0
+CF fail Found no elements matching Pos[{}]
+CF msg Armor Stand has the following entity data: 1b
+CF result success 1
+CF msg Armor Stand has the following entity data: {}
+CF result success 0
+CF msg Armor Stand has the following entity data: 0b
+CF result success 0
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data get entity @e[type=!player] Health<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data get entity @e[type=zombie] Health<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF msg "Piggy" has the following entity data: {AgeLocked: 0b, Brain: {memories: {}}, Invulnerable: 0b, FallFlying: 0b, ForcedAge: 0, sound_variant: "minecraft:classic", PortalCooldown: 0, AbsorptionAmount: 0.0f, InLove: 0, DeathTime: 0s, variant: "minecraft:temperate", PersistenceRequired: 0b, UUID: [I; -91028686, -1739307049, -1489816900, 1175415391], Tags: ["a", "b"], Age: 0, Motion: [0.0d, 0.0d, 0.0d], Health: 10.0f, LeftHanded: 0b, fall_distance: 0.0d, Air: 300s, OnGround: 0b, NoAI: 1b, Rotation: [0.0f, 0.0f], current_impulse_context_reset_grace_time: 0, CustomName: '"Piggy"', Pos: [8.5d, -60.0d, 8.5d], Fire: 0s, CanPickUpLoot: 0b, attributes: [{id: "minecraft:movement_speed", base: 0.25d}], HurtTime: 0s}
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...get entity<--[HERE]
+CF fail Unknown selector type '@x'
+CF fail ...t entity @x Health<--[HERE]
+# entity: players can be read but not written
+CF msg Steve has the following entity data: 20.0f
+CF result success 20
+CF msg Health on Steve after scale factor of 2.00 is 40
+CF result success 40
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: [0.5d, -60.0d, 0.5d]
+CF result success 3
+CF msg Pos[1] on Steve after scale factor of 10.00 is -600
+CF result success -600
+CF msg Steve has the following entity data: 0.0f
+CF result success 0
+CF msg Steve has the following entity data: 0
+CF result success 0
+CF msg Steve has the following entity data: 0
+CF result success 0
+CF msg Steve has the following entity data: {invulnerable: 0b, mayfly: 0b, instabuild: 0b, walkSpeed: 0.1f, mayBuild: 1b, flying: 0b, flySpeed: 0.05f}
+CF result success 7
+CF msg Steve has the following entity data: 0b
+CF result success 0
+CF msg Steve has the following entity data: {components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, count: 1, Slot: 0b, id: "minecraft:diamond_sword"}
+CF result success 4
+CF msg Steve has the following entity data: {count: 5, Slot: 1b, id: "minecraft:apple"}
+CF result success 3
+CF msg Steve has the following entity data: 5
+CF result success 5
+CF result failure 0
+CF fail This argument accepts a single NBT value
+CF msg Steve has the following entity data: []
+CF result success 0
+CF msg Steve has the following entity data: 0
+CF result success 0
+CF msg Steve has the following entity data: {components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, count: 1, id: "minecraft:diamond_sword"}
+CF result success 3
+CF msg Steve has the following entity data: "minecraft:diamond_sword"
+CF result success 23
+CF msg Steve has the following entity data: 1
+CF result success 1
+CF msg Steve has the following entity data: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}
+CF result success 3
+CF msg Steve has the following entity data: {"minecraft:sharpness": 3}
+CF result success 1
+CF msg SelectedItem.components."minecraft:damage" on Steve after scale factor of 0.50 is 2
+CF result success 2
+CF result failure 0
+CF fail Found no elements matching nothing
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data get entity @a[name=Alex] SelectedItem<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data get entity @a Health<--[HERE]
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Unable to modify player data
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data merge entity @a {Health:5f}<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Found no elements matching nothing
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data remove entity @a[name=Alex] nothing.deep<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data remove entity @a Health<--[HERE]
+CF msg Steve has the following entity data: 20.0f
+CF result success 20
+CF msg Alex has the following entity data: 20
+CF result success 20
+# entity: merge, modify and remove on a mob
+CF msg Modified entity data of "Piggy"
+CF result success 1
+CF msg Modified entity data of "Piggy"
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified entity data of "Piggy"
+CF result success 1
+CF msg Modified entity data of "Piggy"
+CF result success 1
+CF msg Modified entity data of "Piggy"
+CF result success 1
+CF msg Modified entity data of "Piggy"
+CF result success 1
+CF fail Expected compound tag
+CF fail ...limit=1] 5<--[HERE]
+CF msg Modified entity data of "Hamlet"
+CF result success 1
+CF msg Modified entity data of "Wilbur"
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg "Wilbur" has the following entity data: '"Wilbur"'
+CF result success 8
+CF msg Modified entity data of Pig
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching CustomName
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg Modified entity data of "Back"
+CF result success 1
+CF result failure 0
+CF fail Invalid list index: 50
+CF msg Modified entity data of "Back"
+CF result success 1
+CF result failure 0
+CF fail Expected an object: got "P"
+CF result failure 0
+CF fail Expected an object: got "P"
+CF msg "Back" has the following entity data: ["p", "P", "r", "mid", "end", "o"]
+CF result success 6
+CF msg Modified entity data of "Back"
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg "Back" has the following entity data: ["P", "r", "mid", "end", "o"]
+CF result success 5
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg "Back" has the following entity data: 3.5f
+CF result success 3
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg Health on "Back" after scale factor of 10.00 is 30
+CF result success 30
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg "Back" has the following entity data: [3.0d, -60.0d, 3.0d]
+CF result success 3
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg "Back" has the following entity data: [3.0d, -58.5d, 3.0d]
+CF result success 3
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg "Back" has the following entity data: [90.0f, 10.0f]
+CF result success 2
+CF msg Modified entity data of "Back"
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg "Back" has the following entity data: -100
+CF result success -100
+CF msg Modified entity data of "Back"
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Modified entity data of "Back"
+CF result success 1
+CF msg Modified entity data of Pig
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified entity data of Pig
+CF result success 1
+CF msg Modified entity data of Pig
+CF result success 1
+CF msg Modified entity data of Pig
+CF result success 1
+CF msg Modified entity data of Pig
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data remove entity @e[type=!player] Health<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data remove entity @e[type=zombie] Health<--[HERE]
+CF msg Modified entity data of Armor Stand
+CF result success 1
+CF msg Modified entity data of Armor Stand
+CF result success 1
+CF msg Armor Stand has the following entity data: [10.0f, 20.0f, 30.0f]
+CF result success 3
+CF msg Modified entity data of Armor Stand
+CF result success 1
+CF msg Armor Stand has the following entity data: 1b
+CF result success 1
+E pig#1 minecraft:pig pos=0.0,0.0,0.0 delta=0.0,0.5,0.0 rot=90.0,10.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=10.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+# modify from, string and value forms between the accessors and storage
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching nothing
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching Items[0]
+CF result failure 0
+CF fail Found no elements matching Items[]
+CF result failure 0
+CF fail Found no elements matching nothing
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail That position is not loaded
+CF msg Modified storage t:s
+CF result success 1
+CF result failure 0
+CF fail Expected an object: got 10.0f
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching nothing
+CF result failure 0
+CF fail Expected an object: got ["a"]
+CF result failure 0
+CF fail Found no elements matching CustomName
+CF result failure 0
+CF fail Found no elements matching CustomName
+CF result failure 0
+CF fail Found no elements matching CustomName
+CF result failure 0
+CF fail Found no elements matching CustomName
+CF result failure 0
+CF fail Found no elements matching CustomName
+CF result failure 0
+CF fail Found no elements matching CustomName
+CF result failure 0
+CF fail Found no elements matching CustomName
+CF result failure 0
+CF fail Found no elements matching CustomName
+CF msg Modified storage t:s
+CF result success 1
+CF result failure 0
+CF fail Expected a value: got [0.0d,0.0d,0.0d]
+CF result failure 0
+CF fail Found no elements matching nothing
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Expected an object: got "x"
+CF msg Modified entity data of Pig
+CF result success 1
+CF msg Modified entity data of Pig
+CF result success 1
+CF msg Modified entity data of Pig
+CF result success 1
+CF msg Modified entity data of Pig
+CF result success 1
+CF msg Modified entity data of Armor Stand
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified entity data of Armor Stand
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching CustomName
+CF result failure 0
+CF fail Found no elements matching nothing
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Found no elements matching nothing
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Found no elements matching CustomName
+CF msg Storage t:s has the following contents: {a: 0.0d, b: {components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, count: 1, id: "minecraft:diamond_sword"}, c: [0.0f, 0.0f], e: "0b", obj: {AgeLocked: 0b, Brain: {memories: {}}, components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, has_glowing_text: 0b, color: "black", Invulnerable: 0b, FallFlying: 0b, ForcedAge: 0, sound_variant: "minecraft:classic", PortalCooldown: 0, AbsorptionAmount: 0.0f, InLove: 0, DeathTime: 0s, variant: "minecraft:temperate", PersistenceRequired: 0b, id: "minecraft:diamond_sword", UUID: [I; -91028686, -1739307049, -1489816900, 1175415391], Age: -100, Motion: [0.0d, 0.5d, 0.0d], Health: 10.0f, count: 1, Silent: 1b, LeftHanded: 0b, k: 1, fall_distance: 0.0d, Air: 300s, OnGround: 0b, Rotation: [90.0f, 10.0f], current_impulse_context_reset_grace_time: 0, Pos: [0.0d, 0.0d, 0.0d], Fire: 0s, messages: ["", "", "", ""], CanPickUpLoot: 0b, attributes: [{id: "minecraft:movement_speed", base: 0.25d}], HurtTime: 0s}, tag: "x", long: 5L, tags: ["x", "x", "a", "x"]}
+CF result success 1
+CF msg Storage t:s has the following contents: 0.0d
+CF result success 0
+CF msg Storage t:s has the following contents: {components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, count: 1, id: "minecraft:diamond_sword"}
+CF result success 3
+CF msg Storage t:s has the following contents: [0.0f, 0.0f]
+CF result success 2
+CF result failure 0
+CF fail Found no elements matching d
+CF msg Storage t:s has the following contents: "0b"
+CF result success 2
+CF msg Storage t:s has the following contents: {AgeLocked: 0b, Brain: {memories: {}}, components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, has_glowing_text: 0b, color: "black", Invulnerable: 0b, FallFlying: 0b, ForcedAge: 0, sound_variant: "minecraft:classic", PortalCooldown: 0, AbsorptionAmount: 0.0f, InLove: 0, DeathTime: 0s, variant: "minecraft:temperate", PersistenceRequired: 0b, id: "minecraft:diamond_sword", UUID: [I; -91028686, -1739307049, -1489816900, 1175415391], Age: -100, Motion: [0.0d, 0.5d, 0.0d], Health: 10.0f, count: 1, Silent: 1b, LeftHanded: 0b, k: 1, fall_distance: 0.0d, Air: 300s, OnGround: 0b, Rotation: [90.0f, 10.0f], current_impulse_context_reset_grace_time: 0, Pos: [0.0d, 0.0d, 0.0d], Fire: 0s, messages: ["", "", "", ""], CanPickUpLoot: 0b, attributes: [{id: "minecraft:movement_speed", base: 0.25d}], HurtTime: 0s}
+CF result success 35
+CF msg Storage t:s has the following contents: ["x", "x", "a", "x"]
+CF result success 4
+BE 2 -60 2 {Items:[],components:{},id:"minecraft:chest",x:2,y:-60,z:2}
+BE 3 -60 2 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:sign",is_waxed:0b,x:3,y:-60,z:2}
+STORAGE t:s {a:0.0d,b:{components:{minecraft:custom_name:'"Blade"',minecraft:damage:5,minecraft:enchantments:{minecraft:sharpness:3}},count:1,id:"minecraft:diamond_sword"},c:[0.0f,0.0f],e:"0b",long:5L,obj:{AbsorptionAmount:0.0f,Age:-100,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.5d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[0.0d,0.0d,0.0d],Rotation:[90.0f,10.0f],Silent:1b,UUID:[I;-91028686,-1739307049,-1489816900,1175415391],attributes:[{base:0.25d,id:"minecraft:movement_speed"}],color:"black",components:{minecraft:custom_name:'"Blade"',minecraft:damage:5,minecraft:enchantments:{minecraft:sharpness:3}},count:1,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,has_glowing_text:0b,id:"minecraft:diamond_sword",k:1,messages:["","","",""],sound_variant:"minecraft:classic",variant:"minecraft:temperate"},tag:"x",tags:["x","x","a","x"]}
+E pig#1 minecraft:pig pos=0.0,0.0,0.0 delta=0.0,0.5,0.0 rot=90.0,10.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=10.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+# execute store and execute if data through the accessors
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Pig has the following entity data: [0.0d, 0.0d, 0.0d]
+CF result success 3
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail execute store result entity @e[type=zombie] Health float 1 run data get entity Steve foodLevel<--[HERE]
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF fail The target block is not a block entity
+CF fail That position is not loaded
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF result failure 0
+CF fail Found no elements matching nothing
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Storage t:s has the following contents: {a: 0.0d, st: 20b, b: {components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, count: 1, id: "minecraft:diamond_sword"}, su: 0, deep: {er: []}, c: [0.0f, 0.0f], e: "0b", obj: {AgeLocked: 0b, Brain: {memories: {}}, components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, has_glowing_text: 0b, color: "black", Invulnerable: 0b, FallFlying: 0b, ForcedAge: 0, sound_variant: "minecraft:classic", PortalCooldown: 0, AbsorptionAmount: 0.0f, InLove: 0, DeathTime: 0s, variant: "minecraft:temperate", PersistenceRequired: 0b, id: "minecraft:diamond_sword", UUID: [I; -91028686, -1739307049, -1489816900, 1175415391], Age: -100, Motion: [0.0d, 0.5d, 0.0d], Health: 10.0f, count: 1, Silent: 1b, LeftHanded: 0b, k: 20, fall_distance: 0.0d, Air: 300s, OnGround: 0b, Rotation: [90.0f, 10.0f], current_impulse_context_reset_grace_time: 0, Pos: [0.0d, 0.0d, 0.0d], Fire: 0s, messages: ["", "", "", ""], CanPickUpLoot: 0b, attributes: [{id: "minecraft:movement_speed", base: 0.25d}], HurtTime: 0s}, tag: "x", long: 5L, tags: [20, 20, 20, 20]}
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail execute if data entity @e[type=zombie] x<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail execute if data entity @e[type=!player] Health<--[HERE]
+CF result failure 0
+CF fail Test failed. Count: 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail The target block is not a block entity
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 4
+CF result success 4
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Steve has the following entity data: 20
+CF result success 20
+CF msg Test passed. Count: 4
+CF result success 4
+# the permission level of /data and the `from` sources on a different level
+CF fail Unknown or incomplete command. See below for error
+CF fail data get storage t:s tag<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail data get storage t:s tag<--[HERE]
+CF msg Storage t:s has the following contents: "x"
+CF result success 1
+CF msg Pig has the following entity data: 10.0f
+CF result success 10
+CF msg 2, -60, 2 has the following block data: "minecraft:chest"
+CF result success 15
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF msg Modified storage t:s
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail data merge storage t:s {lvl:1}<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail data modify storage t:s lvl set value 3<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail data remove storage t:s lvl<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail data get entity Alex Health<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail data get storage t:s tag<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail data modify storage t:s lvl set value 3<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail execute store result storage t:s lvl int 1 run data get entity Alex Health<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail execute if data storage t:s tag<--[HERE]
+CF msg Steve has the following entity data: 20.0f
+CF result success 20
+CF msg Pos[0] on Steve after scale factor of 100.00 is 50
+CF result success 50
+CF msg Steve has the following entity data: "minecraft:diamond_sword"
+CF result success 23
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail The target block is not a block entity
+CF msg Modified storage t:s
+CF result success 1
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail The target block is not a block entity
+CF msg Storage t:s has the following contents: "minecraft:diamond_sword"
+CF result success 23
+# the feedback as component JSON: the pretty-printed NBT (colours, separators, numeric suffixes)
+CF msg Storage t:s has the following contents: {a: 0.0d, st: 20b, b: {components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, count: 1, id: "minecraft:diamond_sword"}, su: 0, deep: {er: []}, c: [0.0f, 0.0f], e: "0b", obj: {AgeLocked: 0b, Brain: {memories: {}}, components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, has_glowing_text: 0b, color: "black", Invulnerable: 0b, FallFlying: 0b, ForcedAge: 0, sound_variant: "minecraft:classic", PortalCooldown: 0, AbsorptionAmount: 0.0f, InLove: 0, DeathTime: 0s, variant: "minecraft:temperate", PersistenceRequired: 0b, id: "minecraft:diamond_sword", UUID: [I; -91028686, -1739307049, -1489816900, 1175415391], Age: -100, Motion: [0.0d, 0.5d, 0.0d], Health: 10.0f, count: 1, Silent: 1b, LeftHanded: 0b, k: 20, fall_distance: 0.0d, Air: 300s, OnGround: 0b, Rotation: [90.0f, 10.0f], current_impulse_context_reset_grace_time: 0, Pos: [0.0d, 0.0d, 0.0d], Fire: 0s, messages: ["", "", "", ""], CanPickUpLoot: 0b, attributes: [{id: "minecraft:movement_speed", base: 0.25d}], HurtTime: 0s}, steve: "minecraft:diamond_sword", tag: "x", long: 5L, tags: [20, 20, 20, 20]}
+CF json {"translate":"commands.data.storage.query","with":["t:s",{"extra":["{","",{"color":"aqua","text":"a"},":"," ",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},","," ","",{"color":"aqua","text":"st"},":"," ",{"color":"gold","text":"20"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"b"},":"," ","{","",{"color":"aqua","text":"components"},":"," ","{","",{"extra":[{"color":"aqua","text":"minecraft:enchantments"},"\""],"text":"\""},":"," ","{","",{"extra":[{"color":"aqua","text":"minecraft:sharpness"},"\""],"text":"\""},":"," ",{"color":"gold","text":"3"},"}",","," ","",{"extra":[{"color":"aqua","text":"minecraft:damage"},"\""],"text":"\""},":"," ",{"color":"gold","text":"5"},","," ","",{"extra":[{"color":"aqua","text":"minecraft:custom_name"},"\""],"text":"\""},":"," ","'",{"color":"green","text":"\"Blade\""},"'","}",","," ","",{"color":"aqua","text":"count"},":"," ",{"color":"gold","text":"1"},","," ","",{"color":"aqua","text":"id"},":"," ","\"",{"color":"green","text":"minecraft:diamond_sword"},"\"","}",","," ","",{"color":"aqua","text":"su"},":"," ",{"color":"gold","text":"0"},","," ","",{"color":"aqua","text":"deep"},":"," ","{","",{"color":"aqua","text":"er"},":"," ","[","]","}",","," ","",{"color":"aqua","text":"c"},":"," ","[",{"color":"gold","text":"0.0"},{"color":"red","text":"f"},","," ",{"color":"gold","text":"0.0"},{"color":"red","text":"f"},"]",","," ","",{"color":"aqua","text":"e"},":"," ","\"",{"color":"green","text":"0b"},"\"",","," ","",{"color":"aqua","text":"obj"},":"," ","{","",{"color":"aqua","text":"AgeLocked"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"Brain"},":"," ","{","",{"color":"aqua","text":"memories"},":"," ","{","}","}",","," ","",{"color":"aqua","text":"components"},":"," ","{","",{"extra":[{"color":"aqua","text":"minecraft:enchantments"},"\""],"text":"\""},":"," ","{","",{"extra":[{"color":"aqua","text":"minecraft:sharpness"},"\""],"text":"\""},":"," ",{"color":"gold","text":"3"},"}",","," ","",{"extra":[{"color":"aqua","text":"minecraft:damage"},"\""],"text":"\""},":"," ",{"color":"gold","text":"5"},","," ","",{"extra":[{"color":"aqua","text":"minecraft:custom_name"},"\""],"text":"\""},":"," ","'",{"color":"green","text":"\"Blade\""},"'","}",","," ","",{"color":"aqua","text":"has_glowing_text"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"color"},":"," ","\"",{"color":"green","text":"black"},"\"",","," ","",{"color":"aqua","text":"Invulnerable"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"FallFlying"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"ForcedAge"},":"," ",{"color":"gold","text":"0"},","," ","",{"color":"aqua","text":"sound_variant"},":"," ","\"",{"color":"green","text":"minecraft:classic"},"\"",","," ","",{"color":"aqua","text":"PortalCooldown"},":"," ",{"color":"gold","text":"0"},","," ","",{"color":"aqua","text":"AbsorptionAmount"},":"," ",{"color":"gold","text":"0.0"},{"color":"red","text":"f"},","," ","",{"color":"aqua","text":"InLove"},":"," ",{"color":"gold","text":"0"},","," ","",{"color":"aqua","text":"DeathTime"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"s"},","," ","",{"color":"aqua","text":"variant"},":"," ","\"",{"color":"green","text":"minecraft:temperate"},"\"",","," ","",{"color":"aqua","text":"PersistenceRequired"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"id"},":"," ","\"",{"color":"green","text":"minecraft:diamond_sword"},"\"",","," ","",{"color":"aqua","text":"UUID"},":"," ","[",{"color":"red","text":"I"},";"," ",{"color":"gold","text":"-91028686"},","," ",{"color":"gold","text":"-1739307049"},","," ",{"color":"gold","text":"-1489816900"},","," ",{"color":"gold","text":"1175415391"},"]",","," ","",{"color":"aqua","text":"Age"},":"," ",{"color":"gold","text":"-100"},","," ","",{"color":"aqua","text":"Motion"},":"," ","[",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},","," ",{"color":"gold","text":"0.5"},{"color":"red","text":"d"},","," ",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},"]",","," ","",{"color":"aqua","text":"Health"},":"," ",{"color":"gold","text":"10.0"},{"color":"red","text":"f"},","," ","",{"color":"aqua","text":"count"},":"," ",{"color":"gold","text":"1"},","," ","",{"color":"aqua","text":"Silent"},":"," ",{"color":"gold","text":"1"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"LeftHanded"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"k"},":"," ",{"color":"gold","text":"20"},","," ","",{"color":"aqua","text":"fall_distance"},":"," ",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},","," ","",{"color":"aqua","text":"Air"},":"," ",{"color":"gold","text":"300"},{"color":"red","text":"s"},","," ","",{"color":"aqua","text":"OnGround"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"Rotation"},":"," ","[",{"color":"gold","text":"90.0"},{"color":"red","text":"f"},","," ",{"color":"gold","text":"10.0"},{"color":"red","text":"f"},"]",","," ","",{"color":"aqua","text":"current_impulse_context_reset_grace_time"},":"," ",{"color":"gold","text":"0"},","," ","",{"color":"aqua","text":"Pos"},":"," ","[",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},","," ",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},","," ",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},"]",","," ","",{"color":"aqua","text":"Fire"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"s"},","," ","",{"color":"aqua","text":"messages"},":"," ","[","","\"",{"color":"green","text":""},"\"",","," ","","\"",{"color":"green","text":""},"\"",","," ","","\"",{"color":"green","text":""},"\"",","," ","","\"",{"color":"green","text":""},"\"","]",","," ","",{"color":"aqua","text":"CanPickUpLoot"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"attributes"},":"," ","[","","{","",{"color":"aqua","text":"id"},":"," ","\"",{"color":"green","text":"minecraft:movement_speed"},"\"",","," ","",{"color":"aqua","text":"base"},":"," ",{"color":"gold","text":"0.25"},{"color":"red","text":"d"},"}","]",","," ","",{"color":"aqua","text":"HurtTime"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"s"},"}",","," ","",{"color":"aqua","text":"steve"},":"," ","\"",{"color":"green","text":"minecraft:diamond_sword"},"\"",","," ","",{"color":"aqua","text":"tag"},":"," ","\"",{"color":"green","text":"x"},"\"",","," ","",{"color":"aqua","text":"long"},":"," ",{"color":"gold","text":"5"},{"color":"red","text":"L"},","," ","",{"color":"aqua","text":"tags"},":"," ","[",{"color":"gold","text":"20"},","," ",{"color":"gold","text":"20"},","," ",{"color":"gold","text":"20"},","," ",{"color":"gold","text":"20"},"]","}"],"text":""}]}
+CF result success 1
+CF msg Storage t:s has the following contents: [20, 20, 20, 20]
+CF json {"translate":"commands.data.storage.query","with":["t:s",{"extra":["[",{"color":"gold","text":"20"},","," ",{"color":"gold","text":"20"},","," ",{"color":"gold","text":"20"},","," ",{"color":"gold","text":"20"},"]"],"text":""}]}
+CF result success 4
+CF msg Storage t:s has the following contents: {AgeLocked: 0b, Brain: {memories: {}}, components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, has_glowing_text: 0b, color: "black", Invulnerable: 0b, FallFlying: 0b, ForcedAge: 0, sound_variant: "minecraft:classic", PortalCooldown: 0, AbsorptionAmount: 0.0f, InLove: 0, DeathTime: 0s, variant: "minecraft:temperate", PersistenceRequired: 0b, id: "minecraft:diamond_sword", UUID: [I; -91028686, -1739307049, -1489816900, 1175415391], Age: -100, Motion: [0.0d, 0.5d, 0.0d], Health: 10.0f, count: 1, Silent: 1b, LeftHanded: 0b, k: 20, fall_distance: 0.0d, Air: 300s, OnGround: 0b, Rotation: [90.0f, 10.0f], current_impulse_context_reset_grace_time: 0, Pos: [0.0d, 0.0d, 0.0d], Fire: 0s, messages: ["", "", "", ""], CanPickUpLoot: 0b, attributes: [{id: "minecraft:movement_speed", base: 0.25d}], HurtTime: 0s}
+CF json {"translate":"commands.data.storage.query","with":["t:s",{"extra":["{","",{"color":"aqua","text":"AgeLocked"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"Brain"},":"," ","{","",{"color":"aqua","text":"memories"},":"," ","{","}","}",","," ","",{"color":"aqua","text":"components"},":"," ","{","",{"extra":[{"color":"aqua","text":"minecraft:enchantments"},"\""],"text":"\""},":"," ","{","",{"extra":[{"color":"aqua","text":"minecraft:sharpness"},"\""],"text":"\""},":"," ",{"color":"gold","text":"3"},"}",","," ","",{"extra":[{"color":"aqua","text":"minecraft:damage"},"\""],"text":"\""},":"," ",{"color":"gold","text":"5"},","," ","",{"extra":[{"color":"aqua","text":"minecraft:custom_name"},"\""],"text":"\""},":"," ","'",{"color":"green","text":"\"Blade\""},"'","}",","," ","",{"color":"aqua","text":"has_glowing_text"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"color"},":"," ","\"",{"color":"green","text":"black"},"\"",","," ","",{"color":"aqua","text":"Invulnerable"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"FallFlying"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"ForcedAge"},":"," ",{"color":"gold","text":"0"},","," ","",{"color":"aqua","text":"sound_variant"},":"," ","\"",{"color":"green","text":"minecraft:classic"},"\"",","," ","",{"color":"aqua","text":"PortalCooldown"},":"," ",{"color":"gold","text":"0"},","," ","",{"color":"aqua","text":"AbsorptionAmount"},":"," ",{"color":"gold","text":"0.0"},{"color":"red","text":"f"},","," ","",{"color":"aqua","text":"InLove"},":"," ",{"color":"gold","text":"0"},","," ","",{"color":"aqua","text":"DeathTime"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"s"},","," ","",{"color":"aqua","text":"variant"},":"," ","\"",{"color":"green","text":"minecraft:temperate"},"\"",","," ","",{"color":"aqua","text":"PersistenceRequired"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"id"},":"," ","\"",{"color":"green","text":"minecraft:diamond_sword"},"\"",","," ","",{"color":"aqua","text":"UUID"},":"," ","[",{"color":"red","text":"I"},";"," ",{"color":"gold","text":"-91028686"},","," ",{"color":"gold","text":"-1739307049"},","," ",{"color":"gold","text":"-1489816900"},","," ",{"color":"gold","text":"1175415391"},"]",","," ","",{"color":"aqua","text":"Age"},":"," ",{"color":"gold","text":"-100"},","," ","",{"color":"aqua","text":"Motion"},":"," ","[",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},","," ",{"color":"gold","text":"0.5"},{"color":"red","text":"d"},","," ",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},"]",","," ","",{"color":"aqua","text":"Health"},":"," ",{"color":"gold","text":"10.0"},{"color":"red","text":"f"},","," ","",{"color":"aqua","text":"count"},":"," ",{"color":"gold","text":"1"},","," ","",{"color":"aqua","text":"Silent"},":"," ",{"color":"gold","text":"1"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"LeftHanded"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"k"},":"," ",{"color":"gold","text":"20"},","," ","",{"color":"aqua","text":"fall_distance"},":"," ",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},","," ","",{"color":"aqua","text":"Air"},":"," ",{"color":"gold","text":"300"},{"color":"red","text":"s"},","," ","",{"color":"aqua","text":"OnGround"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"Rotation"},":"," ","[",{"color":"gold","text":"90.0"},{"color":"red","text":"f"},","," ",{"color":"gold","text":"10.0"},{"color":"red","text":"f"},"]",","," ","",{"color":"aqua","text":"current_impulse_context_reset_grace_time"},":"," ",{"color":"gold","text":"0"},","," ","",{"color":"aqua","text":"Pos"},":"," ","[",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},","," ",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},","," ",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},"]",","," ","",{"color":"aqua","text":"Fire"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"s"},","," ","",{"color":"aqua","text":"messages"},":"," ","[","","\"",{"color":"green","text":""},"\"",","," ","","\"",{"color":"green","text":""},"\"",","," ","","\"",{"color":"green","text":""},"\"",","," ","","\"",{"color":"green","text":""},"\"","]",","," ","",{"color":"aqua","text":"CanPickUpLoot"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"attributes"},":"," ","[","","{","",{"color":"aqua","text":"id"},":"," ","\"",{"color":"green","text":"minecraft:movement_speed"},"\"",","," ","",{"color":"aqua","text":"base"},":"," ",{"color":"gold","text":"0.25"},{"color":"red","text":"d"},"}","]",","," ","",{"color":"aqua","text":"HurtTime"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"s"},"}"],"text":""}]}
+CF result success 35
+CF msg Storage t:s has the following contents: 5L
+CF json {"translate":"commands.data.storage.query","with":["t:s",{"extra":[{"color":"gold","text":"5"},{"color":"red","text":"L"}],"text":""}]}
+CF result success 5
+CF msg long in storage t:s after scale factor of 2.00 is 10
+CF json {"translate":"commands.data.storage.get","with":["long","t:s","2.00",10]}
+CF result success 10
+CF msg Storage t:s has the following contents: {components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, count: 1, id: "minecraft:diamond_sword"}
+CF json {"translate":"commands.data.storage.query","with":["t:s",{"extra":["{","",{"color":"aqua","text":"components"},":"," ","{","",{"extra":[{"color":"aqua","text":"minecraft:enchantments"},"\""],"text":"\""},":"," ","{","",{"extra":[{"color":"aqua","text":"minecraft:sharpness"},"\""],"text":"\""},":"," ",{"color":"gold","text":"3"},"}",","," ","",{"extra":[{"color":"aqua","text":"minecraft:damage"},"\""],"text":"\""},":"," ",{"color":"gold","text":"5"},","," ","",{"extra":[{"color":"aqua","text":"minecraft:custom_name"},"\""],"text":"\""},":"," ","'",{"color":"green","text":"\"Blade\""},"'","}",","," ","",{"color":"aqua","text":"count"},":"," ",{"color":"gold","text":"1"},","," ","",{"color":"aqua","text":"id"},":"," ","\"",{"color":"green","text":"minecraft:diamond_sword"},"\"","}"],"text":""}]}
+CF result success 3
+CF msg Pig has the following entity data: [0.0d, 0.0d, 0.0d]
+CF json {"translate":"commands.data.entity.query","with":[{"hover_event":{"action":"show_entity","id":"minecraft:pig","name":{"translate":"entity.minecraft.pig"},"uuid":[-91028686,-1739307049,-1489816900,1175415391]},"insertion":"fa930332-9854-47d7-a733-32bc460f6a5f","translate":"entity.minecraft.pig"},{"extra":["[",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},","," ",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},","," ",{"color":"gold","text":"0.0"},{"color":"red","text":"d"},"]"],"text":""}]}
+CF result success 3
+CF msg Health on Pig after scale factor of 2.00 is 20
+CF json {"translate":"commands.data.entity.get","with":["Health",{"hover_event":{"action":"show_entity","id":"minecraft:pig","name":{"translate":"entity.minecraft.pig"},"uuid":[-91028686,-1739307049,-1489816900,1175415391]},"insertion":"fa930332-9854-47d7-a733-32bc460f6a5f","translate":"entity.minecraft.pig"},"2.00",20]}
+CF result success 20
+CF msg Steve has the following entity data: {components: {"minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, count: 1, id: "minecraft:diamond_sword"}
+CF json {"translate":"commands.data.entity.query","with":[{"click_event":{"action":"suggest_command","command":"/tell Steve "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"Steve","uuid":[1445453208,-423740383,-1196889821,1142437441]},"insertion":"Steve","text":"Steve"},{"extra":["{","",{"color":"aqua","text":"components"},":"," ","{","",{"extra":[{"color":"aqua","text":"minecraft:enchantments"},"\""],"text":"\""},":"," ","{","",{"extra":[{"color":"aqua","text":"minecraft:sharpness"},"\""],"text":"\""},":"," ",{"color":"gold","text":"3"},"}",","," ","",{"extra":[{"color":"aqua","text":"minecraft:damage"},"\""],"text":"\""},":"," ",{"color":"gold","text":"5"},","," ","",{"extra":[{"color":"aqua","text":"minecraft:custom_name"},"\""],"text":"\""},":"," ","'",{"color":"green","text":"\"Blade\""},"'","}",","," ","",{"color":"aqua","text":"count"},":"," ",{"color":"gold","text":"1"},","," ","",{"color":"aqua","text":"id"},":"," ","\"",{"color":"green","text":"minecraft:diamond_sword"},"\"","}"],"text":""}]}
+CF result success 3
+CF msg Steve has the following entity data: {invulnerable: 0b, mayfly: 0b, instabuild: 0b, walkSpeed: 0.1f, mayBuild: 1b, flying: 0b, flySpeed: 0.05f}
+CF json {"translate":"commands.data.entity.query","with":[{"click_event":{"action":"suggest_command","command":"/tell Steve "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"Steve","uuid":[1445453208,-423740383,-1196889821,1142437441]},"insertion":"Steve","text":"Steve"},{"extra":["{","",{"color":"aqua","text":"invulnerable"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"mayfly"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"instabuild"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"walkSpeed"},":"," ",{"color":"gold","text":"0.1"},{"color":"red","text":"f"},","," ","",{"color":"aqua","text":"mayBuild"},":"," ",{"color":"gold","text":"1"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"flying"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"flySpeed"},":"," ",{"color":"gold","text":"0.05"},{"color":"red","text":"f"},"}"],"text":""}]}
+CF result success 7
+CF msg 3, -60, 2 has the following block data: {has_glowing_text: 0b, color: "black", messages: ["", "", "", ""]}
+CF json {"translate":"commands.data.block.query","with":[3,-60,2,{"extra":["{","",{"color":"aqua","text":"has_glowing_text"},":"," ",{"color":"gold","text":"0"},{"color":"red","text":"b"},","," ","",{"color":"aqua","text":"color"},":"," ","\"",{"color":"green","text":"black"},"\"",","," ","",{"color":"aqua","text":"messages"},":"," ","[","","\"",{"color":"green","text":""},"\"",","," ","","\"",{"color":"green","text":""},"\"",","," ","","\"",{"color":"green","text":""},"\"",","," ","","\"",{"color":"green","text":""},"\"","]","}"],"text":""}]}
+CF result success 3
+CF msg front_text.has_glowing_text on block 3, -60, 2 after scale factor of 2.00 is 0
+CF json {"translate":"commands.data.block.get","with":["front_text.has_glowing_text",3,-60,2,"2.00",0]}
+CF result success 0
+CF msg Modified storage t:s
+CF json {"translate":"commands.data.storage.modified","with":["t:s"]}
+CF result success 1
+CF msg Modified storage t:s
+CF json {"translate":"commands.data.storage.modified","with":["t:s"]}
+CF result success 1
+CF msg Modified entity data of Pig
+CF json {"translate":"commands.data.entity.modified","with":[{"hover_event":{"action":"show_entity","id":"minecraft:pig","name":{"translate":"entity.minecraft.pig"},"uuid":[-91028686,-1739307049,-1489816900,1175415391]},"insertion":"fa930332-9854-47d7-a733-32bc460f6a5f","translate":"entity.minecraft.pig"}]}
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF json {"color":"red","extra":[{"translate":"commands.data.merge.failed"}],"text":""}
+CF msg Modified storage t:s
+CF json {"translate":"commands.data.storage.modified","with":["t:s"]}
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF json {"color":"red","extra":[{"translate":"commands.data.merge.failed"}],"text":""}
+CF msg Modified block data of 3, -60, 2
+CF json {"translate":"commands.data.block.modified","with":[3,-60,2]}
+CF result success 1
+CF msg Steve has the following entity data: 20.0f
+CF json {"translate":"commands.data.entity.query","with":[{"click_event":{"action":"suggest_command","command":"/tell Steve "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"Steve","uuid":[1445453208,-423740383,-1196889821,1142437441]},"insertion":"Steve","text":"Steve"},{"extra":[{"color":"gold","text":"20.0"},{"color":"red","text":"f"}],"text":""}]}
+CF result success 20
+CF result failure 0
+CF fail Unable to modify player data
+CF json {"color":"red","extra":[{"translate":"commands.data.entity.invalid"}],"text":""}
+CF result failure 0
+CF fail The target block is not a block entity
+CF json {"color":"red","extra":[{"translate":"commands.data.block.invalid"}],"text":""}
+CF result failure 0
+CF fail No entity was found
+CF json {"color":"red","extra":[{"translate":"argument.entity.notfound.entity"}],"text":""}
+BE 2 -60 2 {Items:[],components:{},id:"minecraft:chest",x:2,y:-60,z:2}
+BE 3 -60 2 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:sign",is_waxed:0b,x:3,y:-60,z:2}
+BE 5 -60 2 {Command:"say hi",CustomName:'"Cmd"',SuccessCount:5,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:5,y:-60,z:2}
+BE 6 -60 2 {Items:[],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:0,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:6,y:-60,z:2}
+STORAGE t:s {a:0.0d,b:{components:{minecraft:custom_name:'"Blade"',minecraft:damage:5,minecraft:enchantments:{minecraft:sharpness:3}},count:1,id:"minecraft:diamond_sword"},c:[0.0f,0.0f],deep:{er:[]},e:"0b",long:5L,obj:{AbsorptionAmount:0.0f,Age:-100,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.5d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[0.0d,0.0d,0.0d],Rotation:[90.0f,10.0f],Silent:1b,UUID:[I;-91028686,-1739307049,-1489816900,1175415391],attributes:[{base:0.25d,id:"minecraft:movement_speed"}],color:"black",components:{minecraft:custom_name:'"Blade"',minecraft:damage:5,minecraft:enchantments:{minecraft:sharpness:3}},count:1,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,has_glowing_text:0b,id:"minecraft:diamond_sword",k:20,messages:["","","",""],sound_variant:"minecraft:classic",variant:"minecraft:temperate"},st:20b,steve:"minecraft:diamond_sword",su:0,tag:"x",tags:[20,20,20,20]}
+E pig#1 minecraft:pig pos=0.0,0.0,0.0 delta=0.0,0.5,0.0 rot=90.0,10.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=10.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-

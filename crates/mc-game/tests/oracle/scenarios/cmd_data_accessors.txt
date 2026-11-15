@@ -1,0 +1,502 @@
+# `/data` on the three accessors (block entity, entity, storage): get with scaling, merge, modify (set/merge/append/prepend/insert from
+# value/from/string), remove and `execute store|if data`, the failures of every accessor (no block entity, unloaded position, player
+# targets, several entities, unchanged merge, expected object/value, substring bounds, multiple tags) and the permission level.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 4.5 -60 0.5 0 0
+op Steve
+gamerule send_command_feedback true
+tick 1
+cmd_quiet scoreboard objectives add nbt_n dummy
+cmd summon minecraft:pig 8 -60 8 {NoAI:1b,Tags:["a","b"],CustomName:'"Piggy"'}
+cmd summon minecraft:armor_stand 10 -60 8 {Invisible:1b,Tags:["stand"]}
+cmd setblock 2 -60 2 minecraft:chest
+cmd setblock 3 -60 2 minecraft:oak_sign
+cmd setblock 4 -60 2 minecraft:stone
+cmd setblock 5 -60 2 minecraft:command_block
+cmd setblock 6 -60 2 minecraft:furnace
+cmd_quiet item replace entity Steve weapon.mainhand with minecraft:diamond_sword[minecraft:custom_name='"Blade"',minecraft:enchantments={"minecraft:sharpness":3},minecraft:damage=5]
+cmd_quiet item replace entity Steve hotbar.1 with minecraft:apple 5
+tick 1
+note block entity: merge the chest content, then every kind of get
+cmd data merge block 2 -60 2 {Items:[{Slot:0b,id:"minecraft:apple",count:3},{Slot:1b,id:"minecraft:stick",count:1},{Slot:5b,id:"minecraft:dirt",count:64}]}
+cmd data merge block 2 -60 2 {Items:[{Slot:0b,id:"minecraft:apple",count:3},{Slot:1b,id:"minecraft:stick",count:1},{Slot:5b,id:"minecraft:dirt",count:64}]}
+cmd data get block 2 -60 2
+cmd data get block 2 -60 2 Items
+cmd data get block 2 -60 2 Items[0]
+cmd data get block 2 -60 2 Items[0].count
+cmd data get block 2 -60 2 Items[0].count 2.5
+cmd data get block 2 -60 2 Items[0].count -0.5
+cmd data get block 2 -60 2 Items[{id:"minecraft:stick"}].Slot
+cmd data get block 2 -60 2 Items[{id:"minecraft:stick"}]
+cmd data get block 2 -60 2 Items[].id
+cmd data get block 2 -60 2 Items[].nothing
+cmd data get block 2 -60 2 Items[5]
+cmd data get block 2 -60 2 Items[-1]
+cmd data get block 2 -60 2 Items[-1].id
+cmd data get block 2 -60 2 id
+cmd data get block 2 -60 2 id 3
+cmd data get block 2 -60 2 x
+cmd data get block 2 -60 2 nothing
+cmd data get block 2 -60 2 {id:"minecraft:chest"}
+cmd data get block 2 -60 2 {id:"minecraft:furnace"}
+cmd data get block 2 -60 2 Items[0]{count:3}
+cmd data get block 2 -60 2 Items[0]{count:4}
+cmd data get block 2 -60 2 "Items"[0]
+cmd data get block 2 -60 2 Items[0]."id"
+note block entity: positions without one, relative, unloaded, out of the world
+cmd data get block 4 -60 2
+cmd data get block 4 -60 2 x
+cmd data get block 4 -61 2
+cmd data get block 100000 -60 0
+cmd data get block 100000 -60 0 x
+cmd data get block 0 400 0
+cmd data get block 0 -400 0
+cmd data get block ~ ~ ~
+cmd data get block ~2 ~ ~
+cmd data get block 2 -60
+cmd data get block 2 -60 2 Items[
+cmd data get block 2 -60 2 Items[0
+cmd data get block 2 -60 2 Items[0]]
+cmd data get block 2 -60 2 .Items
+cmd data get block 2 -60 2 Items..id
+cmd data get block 2 -60 2 {
+cmd data get block 2 -60 2 Items{
+cmd data get block a -60 2 Items
+note block entity: sign text and flags
+cmd data get block 3 -60 2
+cmd data get block 3 -60 2 front_text
+cmd data get block 3 -60 2 front_text.messages
+cmd data get block 3 -60 2 front_text.messages[0]
+cmd data get block 3 -60 2 front_text.color
+cmd data get block 3 -60 2 front_text.has_glowing_text
+cmd data get block 3 -60 2 front_text.has_glowing_text 100
+cmd data get block 3 -60 2 is_waxed
+cmd data get block 3 -60 2 back_text.color
+cmd data merge block 3 -60 2 {front_text:{messages:['"alpha"','{"text":"beta","color":"red"}','""','""'],color:"blue",has_glowing_text:1b}}
+cmd data get block 3 -60 2 front_text.messages
+cmd data get block 3 -60 2 front_text.messages[1]
+cmd data get block 3 -60 2 front_text.color
+cmd data modify block 3 -60 2 front_text.messages[2] set value '"gamma"'
+cmd data modify block 3 -60 2 front_text.messages set value ['"1"','"2"','"3"','"4"']
+cmd data modify block 3 -60 2 front_text.messages[0] set value 5
+cmd data modify block 3 -60 2 back_text.messages[0] set value '"back"'
+cmd data modify block 3 -60 2 is_waxed set value 1b
+cmd data modify block 3 -60 2 is_waxed set value 1b
+cmd data modify block 3 -60 2 front_text.color set value "nonsense"
+cmd data modify block 3 -60 2 front_text.messages append value '"extra"'
+cmd data modify block 3 -60 2 front_text.messages insert 1 value '"inserted"'
+cmd data remove block 3 -60 2 front_text.messages[0]
+cmd data remove block 3 -60 2 back_text
+cmd data remove block 3 -60 2 is_waxed
+cmd data remove block 3 -60 2 front_text.nothing
+dump be:3,-60,2
+note block entity: command block and furnace fields
+cmd data get block 5 -60 2 Command
+cmd data get block 5 -60 2 SuccessCount
+cmd data get block 5 -60 2 TrackOutput
+cmd data get block 5 -60 2 auto
+cmd data modify block 5 -60 2 Command set value "say hi"
+cmd data modify block 5 -60 2 Command set value "say hi"
+cmd data get block 5 -60 2 Command
+cmd data modify block 5 -60 2 CustomName set value '"Cmd"'
+cmd data merge block 5 -60 2 {TrackOutput:0b,LastOutput:'"x"'}
+cmd data get block 5 -60 2 LastOutput
+cmd data get block 5 -60 2 TrackOutput
+cmd data modify block 5 -60 2 Command string block 2 -60 2 id 10
+cmd data get block 6 -60 2 lit_time_remaining
+cmd data get block 6 -60 2 cooking_time_spent
+cmd data get block 6 -60 2 Items
+cmd data merge block 6 -60 2 {lit_time_remaining:100s,Items:[{Slot:0b,id:"minecraft:cobblestone",count:1}]}
+cmd data get block 6 -60 2 lit_time_remaining
+cmd data get block 6 -60 2 lit_time_remaining 0.01
+cmd data get block 6 -60 2 Items[0].id
+cmd data modify block 6 -60 2 lit_time_remaining set value 7
+cmd data modify block 6 -60 2 Items[0].count set value 5b
+cmd data remove block 6 -60 2 Items
+cmd data remove block 6 -60 2 lit_time_remaining
+dump be:5,-60,2 be:6,-60,2
+note block entity: modify forms on the chest
+cmd data modify block 2 -60 2 Items[0].count set value 7
+cmd data modify block 2 -60 2 Items[0].count set value 7
+cmd data modify block 2 -60 2 Items append value {Slot:6b,id:"minecraft:dirt",count:2}
+cmd data modify block 2 -60 2 Items prepend value {Slot:7b,id:"minecraft:stone",count:2}
+cmd data modify block 2 -60 2 Items insert 1 value {Slot:8b,id:"minecraft:gravel",count:2}
+cmd data modify block 2 -60 2 Items insert -1 value {Slot:9b,id:"minecraft:sand",count:2}
+cmd data modify block 2 -60 2 Items insert 100 value {Slot:10b,id:"minecraft:sand",count:2}
+cmd data modify block 2 -60 2 Items[1] merge value {count:9}
+cmd data modify block 2 -60 2 Items[1] merge value {count:9}
+cmd data modify block 2 -60 2 Items[{id:"minecraft:apple"}].count set value 64
+cmd data modify block 2 -60 2 Items[].count set value 2
+cmd data modify block 2 -60 2 Items[0] set value 5
+cmd data modify block 2 -60 2 Items[0] merge value 5
+cmd data modify block 2 -60 2 Items[0].count merge value {x:1}
+cmd data modify block 2 -60 2 Items.count set value 2
+cmd data modify block 2 -60 2 Items append value 5
+cmd data modify block 2 -60 2 Items append value
+cmd data modify block 2 -60 2 CustomName set value '"Box"'
+cmd data get block 2 -60 2 CustomName
+cmd data modify block 2 -60 2 x set value 5
+cmd data modify block 2 -60 2 Lock set value "k"
+cmd data modify block 2 -60 2 nothing.deep.er set value 1b
+cmd data modify block 2 -60 2 merge value {CustomName:'"Boxed"'}
+cmd data modify block 2 -60 2 merge value {CustomName:'"Boxed"'}
+cmd data modify block 2 -60 2 merge value 5
+cmd data modify block 4 -60 2 x set value 5
+cmd data modify block 100000 -60 0 x set value 5
+cmd data merge block 4 -60 2 {x:1}
+cmd data merge block 2 -60 2 5
+cmd data merge block 2 -60 2 {Items:5}
+dump be:2,-60,2
+cmd data remove block 2 -60 2 Items[0]
+cmd data remove block 2 -60 2 Items[{id:"minecraft:gravel"}]
+cmd data remove block 2 -60 2 Items[{id:"minecraft:nothing"}]
+cmd data remove block 2 -60 2 Items[99]
+cmd data remove block 2 -60 2 CustomName
+cmd data remove block 2 -60 2 CustomName
+cmd data remove block 2 -60 2 Items[].count
+cmd data remove block 2 -60 2 Items[]
+cmd data remove block 2 -60 2 Items
+cmd data remove block 2 -60 2 id
+cmd data remove block 2 -60 2 {}
+cmd data remove block 2 -60 2 {id:"minecraft:chest"}
+cmd data remove block 4 -60 2 x
+cmd data remove block 100000 -60 0 x
+dump be:2,-60,2
+note entity: gets with scaling and every number type
+cmd data get entity @e[type=pig,limit=1] Pos
+cmd data get entity @e[type=pig,limit=1] Pos[0]
+cmd data get entity @e[type=pig,limit=1] Pos[0] 2
+cmd data get entity @e[type=pig,limit=1] Pos[1] 0.5
+cmd data get entity @e[type=pig,limit=1] Pos[2] -3
+cmd data get entity @e[type=pig,limit=1] Health
+cmd data get entity @e[type=pig,limit=1] Health 3
+cmd data get entity @e[type=pig,limit=1] Health 1e10
+cmd data get entity @e[type=pig,limit=1] Fire
+cmd data get entity @e[type=pig,limit=1] Fire 7
+cmd data get entity @e[type=pig,limit=1] Air 0.5
+cmd data get entity @e[type=pig,limit=1] NoAI
+cmd data get entity @e[type=pig,limit=1] NoAI 100
+cmd data get entity @e[type=pig,limit=1] OnGround
+cmd data get entity @e[type=pig,limit=1] Tags
+cmd data get entity @e[type=pig,limit=1] Tags[1]
+cmd data get entity @e[type=pig,limit=1] Tags[1] 2
+cmd data get entity @e[type=pig,limit=1] Tags[]
+cmd data get entity @e[type=pig,limit=1] Tags[-1]
+cmd data get entity @e[type=pig,limit=1] Tags[2]
+cmd data get entity @e[type=pig,limit=1] CustomName
+cmd data get entity @e[type=pig,limit=1] CustomName 2
+cmd data get entity @e[type=pig,limit=1] Motion
+cmd data get entity @e[type=pig,limit=1] Rotation
+cmd data get entity @e[type=pig,limit=1] id
+cmd data get entity @e[type=pig,limit=1] nothing
+cmd data get entity @e[type=pig,limit=1] Pos[3]
+cmd data get entity @e[type=pig,limit=1] {NoAI:1b}
+cmd data get entity @e[type=pig,limit=1] {NoAI:0b}
+cmd data get entity @e[type=pig,limit=1] Pos[{}]
+cmd data get entity @e[type=armor_stand,limit=1] Invisible
+cmd data get entity @e[type=armor_stand,limit=1] Pose
+cmd data get entity @e[type=armor_stand,limit=1] ShowArms
+cmd data get entity @e[type=!player] Health
+cmd data get entity @e[type=zombie] Health
+cmd data get entity nobody Health
+cmd data get entity @e[type=pig,limit=1]
+cmd data get entity 
+cmd data get entity @x Health
+note entity: players can be read but not written
+cmd data get entity Steve Health
+cmd data get entity Steve Health 2
+cmd data get entity Steve foodLevel
+cmd data get entity Steve Pos
+cmd data get entity Steve Pos[1] 10
+cmd data get entity Steve Rotation[0]
+cmd data get entity Steve playerGameType
+cmd data get entity Steve XpLevel
+cmd data get entity Steve abilities
+cmd data get entity Steve abilities.flying
+cmd data get entity Steve Inventory[0]
+cmd data get entity Steve Inventory[{Slot:1b}]
+cmd data get entity Steve Inventory[{Slot:1b}].count
+cmd data get entity Steve Inventory[].Slot
+cmd data get entity Steve EnderItems
+cmd data get entity Steve SelectedItemSlot
+cmd data get entity Steve SelectedItem
+cmd data get entity Steve SelectedItem.id
+cmd data get entity Steve SelectedItem.count
+cmd data get entity Steve SelectedItem.components
+cmd data get entity Steve SelectedItem.components."minecraft:enchantments"
+cmd data get entity Steve SelectedItem.components."minecraft:damage" 0.5
+cmd data get entity Steve nothing
+cmd data get entity @a[name=Alex] SelectedItem
+cmd data get entity @a Health
+cmd data merge entity Steve {foodLevel:20}
+cmd data merge entity Steve {foodLevel:3}
+cmd data merge entity Steve {}
+cmd data merge entity Steve {SelectedItemSlot:1}
+cmd data merge entity Steve {SelectedItem:{}}
+cmd data merge entity Alex {Health:5f}
+cmd data merge entity @a {Health:5f}
+cmd data merge entity @s {Health:5f}
+cmd data modify entity Steve Health set value 5f
+cmd data modify entity Steve Health set value 5f
+cmd data modify entity Steve foodLevel set value 3
+cmd data modify entity Steve nothing set value 3
+cmd data modify entity Steve Inventory append value {Slot:3b,id:"minecraft:stone",count:1}
+cmd data modify entity Steve Health set from entity Alex Health
+cmd data modify entity Steve Health set from entity Steve Health
+cmd data modify entity Steve Health set from storage t:s nothing
+cmd data modify entity nobody Health set value 1f
+cmd data remove entity Steve Health
+cmd data remove entity Steve Inventory
+cmd data remove entity Steve nothing
+cmd data remove entity Alex SelectedItem
+cmd data remove entity @a[name=Alex] nothing.deep
+cmd data remove entity @a Health
+cmd data get entity Steve Health
+cmd data get entity Alex foodLevel
+note entity: merge, modify and remove on a mob
+cmd data merge entity @e[type=pig,limit=1] {NoAI:0b}
+cmd data merge entity @e[type=pig,limit=1] {NoAI:0b}
+cmd data merge entity @e[type=pig,limit=1] {}
+cmd data merge entity @e[type=pig,limit=1] {nothing:1b}
+cmd data merge entity @e[type=pig,limit=1] {NoAI:1b,Silent:1b}
+cmd data merge entity @e[type=pig,limit=1] {Tags:["x"]}
+cmd data merge entity @e[type=pig,limit=1] {Tags:5}
+cmd data merge entity @e[type=pig,limit=1] 5
+cmd data merge entity @e[type=pig,limit=1] {CustomName:'"Hamlet"'}
+cmd data modify entity @e[type=pig,limit=1] CustomName set value '"Wilbur"'
+cmd data modify entity @e[type=pig,limit=1] CustomName set value '"Wilbur"'
+cmd data get entity @e[type=pig,limit=1] CustomName
+cmd data modify entity @e[type=pig,limit=1] CustomName set value 5
+cmd data get entity @e[type=pig,limit=1] CustomName
+cmd data modify entity @e[type=pig,limit=1] CustomName set value '"Back"'
+cmd data modify entity @e[type=pig,limit=1] Tags set value ["p","q"]
+cmd data modify entity @e[type=pig,limit=1] Tags append value "r"
+cmd data modify entity @e[type=pig,limit=1] Tags prepend value "o"
+cmd data modify entity @e[type=pig,limit=1] Tags insert 2 value "mid"
+cmd data modify entity @e[type=pig,limit=1] Tags insert -1 value "end"
+cmd data modify entity @e[type=pig,limit=1] Tags insert 50 value "far"
+cmd data modify entity @e[type=pig,limit=1] Tags[1] set value "P"
+cmd data modify entity @e[type=pig,limit=1] Tags[1] merge value "P"
+cmd data modify entity @e[type=pig,limit=1] Tags[1] merge value {a:1}
+cmd data get entity @e[type=pig,limit=1] Tags
+cmd data remove entity @e[type=pig,limit=1] Tags[0]
+cmd data remove entity @e[type=pig,limit=1] Tags[{}]
+cmd data get entity @e[type=pig,limit=1] Tags
+cmd data modify entity @e[type=pig,limit=1] Health set value 3.5f
+cmd data get entity @e[type=pig,limit=1] Health
+cmd data modify entity @e[type=pig,limit=1] Health set value 3
+cmd data get entity @e[type=pig,limit=1] Health 10
+cmd data modify entity @e[type=pig,limit=1] Pos set value [3.0d,-60.0d,3.0d]
+cmd data get entity @e[type=pig,limit=1] Pos
+cmd data modify entity @e[type=pig,limit=1] Pos[1] set value -58.5d
+cmd data get entity @e[type=pig,limit=1] Pos
+cmd data modify entity @e[type=pig,limit=1] Motion set value [0.0d,0.5d,0.0d]
+cmd data modify entity @e[type=pig,limit=1] Rotation set value [90.0f,10.0f]
+cmd data get entity @e[type=pig,limit=1] Rotation
+cmd data modify entity @e[type=pig,limit=1] UUID set value [I;1,2,3,4]
+cmd execute if entity @e[type=pig,nbt={UUID:[I;1,2,3,4]}]
+cmd data modify entity @e[type=pig,limit=1] Age set value -100
+cmd data get entity @e[type=pig,limit=1] Age
+cmd data modify entity @e[type=pig,limit=1] id set value "minecraft:cow"
+cmd execute if entity @e[type=cow]
+cmd execute if entity @e[type=pig]
+cmd data modify entity @e[type=pig,limit=1] nothing.deep.er set value 1b
+cmd data remove entity @e[type=pig,limit=1] CustomName
+cmd data remove entity @e[type=pig,limit=1] CustomName
+cmd data remove entity @e[type=pig,limit=1] Tags
+cmd data remove entity @e[type=pig,limit=1] NoAI
+cmd data remove entity @e[type=pig,limit=1] Pos[0]
+cmd data remove entity @e[type=pig,limit=1] Health
+cmd data remove entity @e[type=pig,limit=1] {}
+cmd data remove entity @e[type=pig,limit=1] {NoAI:0b}
+cmd data remove entity @e[type=!player] Health
+cmd data remove entity @e[type=zombie] Health
+cmd data remove entity @e[type=armor_stand,limit=1] Invisible
+cmd data modify entity @e[type=armor_stand,limit=1] Pose.Head set value [10f,20f,30f]
+cmd data get entity @e[type=armor_stand,limit=1] Pose.Head
+cmd data modify entity @e[type=armor_stand,limit=1] ShowArms set value 1b
+cmd data get entity @e[type=armor_stand,limit=1] ShowArms
+dump entities
+note modify from, string and value forms between the accessors and storage
+cmd data merge storage t:s {tag:"x",tags:["a"],obj:{k:1},long:5L}
+cmd data modify storage t:s a set from entity @e[type=pig,limit=1] Health
+cmd data modify storage t:s a set from entity @e[type=pig,limit=1] Pos
+cmd data modify storage t:s a append from entity @e[type=pig,limit=1] Pos
+cmd data modify storage t:s a set from entity @e[type=pig,limit=1] Pos[]
+cmd data modify storage t:s a set from entity @e[type=pig,limit=1] nothing
+cmd data modify storage t:s b set from entity Steve Inventory[0]
+cmd data modify storage t:s b set from entity Steve SelectedItem
+cmd data modify storage t:s b.components set from entity Steve SelectedItem.components
+cmd data modify storage t:s c set from entity Alex Pos
+cmd data modify storage t:s c set from entity Alex Rotation
+cmd data modify storage t:s d set from block 2 -60 2 Items[0]
+cmd data modify storage t:s d set from block 2 -60 2 Items[].id
+cmd data modify storage t:s d set from block 2 -60 2 nothing
+cmd data modify storage t:s d set from block 4 -60 2 x
+cmd data modify storage t:s d set from block 100000 -60 0 x
+cmd data modify storage t:s obj merge from block 3 -60 2 front_text
+cmd data modify storage t:s obj merge from entity @e[type=pig,limit=1] Health
+cmd data modify storage t:s obj merge from entity @e[type=pig,limit=1] {}
+cmd data modify storage t:s obj merge from storage t:s b
+cmd data modify storage t:s obj merge from storage t:s nothing
+cmd data modify storage t:s obj merge from storage t:s tags
+cmd data modify storage t:s e set string entity @e[type=pig,limit=1] CustomName
+cmd data modify storage t:s e set string entity @e[type=pig,limit=1] CustomName 1
+cmd data modify storage t:s e set string entity @e[type=pig,limit=1] CustomName 1 3
+cmd data modify storage t:s e set string entity @e[type=pig,limit=1] CustomName 0 0
+cmd data modify storage t:s e set string entity @e[type=pig,limit=1] CustomName 3 1
+cmd data modify storage t:s e set string entity @e[type=pig,limit=1] CustomName -1
+cmd data modify storage t:s e set string entity @e[type=pig,limit=1] CustomName 0 100
+cmd data modify storage t:s e set string entity @e[type=pig,limit=1] CustomName 100
+cmd data modify storage t:s e set string entity @e[type=pig,limit=1] Health
+cmd data modify storage t:s e set string entity @e[type=pig,limit=1] Pos
+cmd data modify storage t:s e set string entity @e[type=pig,limit=1] nothing
+cmd data modify storage t:s e set string storage t:s tag
+cmd data modify storage t:s e set string storage t:s tag 1
+cmd data modify storage t:s e set string storage t:s long
+cmd data modify storage t:s e set string block 5 -60 2 Command 1
+cmd data modify storage t:s e set string block 5 -60 2 Command 1 2
+cmd data modify storage t:s e set string block 5 -60 2 TrackOutput
+cmd data modify storage t:s tags append string storage t:s tag
+cmd data modify storage t:s tags prepend string storage t:s tag 0 1
+cmd data modify storage t:s tags insert 1 string storage t:s tag
+cmd data modify storage t:s tags[0] set string storage t:s tag
+cmd data modify storage t:s tags merge string storage t:s tag
+cmd data modify entity @e[type=pig,limit=1] Tags append from storage t:s tag
+cmd data modify entity @e[type=pig,limit=1] Tags append from storage t:s tags[]
+cmd data modify entity @e[type=pig,limit=1] Tags set from storage t:s tags
+cmd data modify entity @e[type=pig,limit=1] Tags[0] set from entity @e[type=armor_stand,limit=1] Tags[0]
+cmd data modify entity @e[type=armor_stand,limit=1] Tags set from entity @e[type=pig,limit=1] Tags
+cmd data modify entity @e[type=armor_stand,limit=1] Tags set from entity @e[type=armor_stand,limit=1] Tags
+cmd data modify entity @e[type=armor_stand,limit=1] Tags set string entity @e[type=pig,limit=1] Tags[0]
+cmd data modify entity @e[type=armor_stand,limit=1] Tags set string entity @e[type=pig,limit=1] CustomName
+cmd data modify block 2 -60 2 Items set from storage t:s nothing
+cmd data modify block 2 -60 2 Items set value []
+cmd data modify block 2 -60 2 Items append from block 2 -60 2 nothing
+cmd data modify block 2 -60 2 Items append from storage t:s b
+cmd data modify block 2 -60 2 Items set from storage t:s b
+cmd data modify block 3 -60 2 front_text set from block 3 -60 2 front_text
+cmd data modify block 3 -60 2 front_text.messages set from block 3 -60 2 front_text.messages
+cmd data modify block 3 -60 2 front_text.messages[0] set from entity @e[type=pig,limit=1] CustomName
+cmd data get storage t:s
+cmd data get storage t:s a
+cmd data get storage t:s b
+cmd data get storage t:s c
+cmd data get storage t:s d
+cmd data get storage t:s e
+cmd data get storage t:s obj
+cmd data get storage t:s tags
+dump be:2,-60,2 be:3,-60,2 storage:t:s
+dump entities
+note execute store and execute if data through the accessors
+cmd execute store result entity @e[type=pig,limit=1] Health float 1 run data get entity Steve foodLevel
+cmd execute store result entity @e[type=pig,limit=1] Health float 0.5 run data get entity Steve foodLevel
+cmd execute store result entity @e[type=pig,limit=1] Tags[0] int 1 run data get entity Steve foodLevel
+cmd execute store success entity @e[type=pig,limit=1] Silent byte 1 run data get entity Steve foodLevel
+cmd execute store result entity @e[type=pig,limit=1] Silent byte 1 run data get entity @e[type=pig,limit=1] Pos
+cmd execute store result entity @e[type=pig,limit=1] nothing.deep byte 1 run data get entity Steve foodLevel
+cmd execute store result entity Steve Health float 1 run data get entity Steve foodLevel
+cmd execute store result entity Alex foodLevel int 1 run data get entity Steve foodLevel
+cmd execute store result entity @e[type=zombie] Health float 1 run data get entity Steve foodLevel
+cmd execute store result block 2 -60 2 CustomName int 1 run data get entity Steve foodLevel
+cmd execute store result block 2 -60 2 x int 1 run data get entity Steve foodLevel
+cmd execute store result block 2 -60 2 Items[0].count byte 1 run data get entity Steve foodLevel
+cmd execute store result block 4 -60 2 x int 1 run data get entity Steve foodLevel
+cmd execute store result block 100000 -60 0 x int 1 run data get entity Steve foodLevel
+cmd execute store result block 5 -60 2 SuccessCount int 1 run data get entity Steve foodLevel
+cmd execute store result block 5 -60 2 SuccessCount short 3 run data get entity Steve foodLevel
+cmd execute store result block 5 -60 2 SuccessCount long 1 run data get entity Steve foodLevel
+cmd execute store result block 5 -60 2 SuccessCount double 0.25 run data get entity Steve foodLevel
+cmd execute store result storage t:s st byte 1 run data get entity Steve foodLevel
+cmd execute store success storage t:s su int 1 run data get entity Steve nothing
+cmd execute store result storage t:s deep.er[0] int 1 run data get entity Steve foodLevel
+cmd execute store result storage t:s tags[1] int 1 run data get entity Steve foodLevel
+cmd execute store result storage t:s tags[5] int 1 run data get entity Steve foodLevel
+cmd execute store result storage t:s tags[] int 1 run data get entity Steve foodLevel
+cmd execute store result storage t:s obj{k:1}.k int 1 run data get entity Steve foodLevel
+cmd execute store result storage t:s obj{k:2}.k int 1 run data get entity Steve foodLevel
+cmd execute store result storage t:s {x:1} int 1 run data get entity Steve foodLevel
+cmd data get storage t:s
+cmd execute if data entity Steve foodLevel
+cmd execute if data entity Steve nothing
+cmd execute if data entity Steve Inventory[{Slot:1b}]
+cmd execute if data entity Steve SelectedItem
+cmd execute if data entity Steve SelectedItem.components.minecraft:damage
+cmd execute if data entity Alex SelectedItem
+cmd execute if data entity @e[type=zombie] x
+cmd execute if data entity @e[type=!player] Health
+cmd execute unless data entity Steve foodLevel
+cmd execute unless data entity Steve nothing
+cmd execute if data block 2 -60 2 x
+cmd execute if data block 2 -60 2 nothing
+cmd execute if data block 4 -60 2 x
+cmd execute if data block 100000 -60 0 x
+cmd execute unless data block 4 -60 2 x
+cmd execute if data storage t:s tags
+cmd execute if data storage t:s tags[]
+cmd execute if data storage t:s tags[5]
+cmd execute if data storage t:s nothing
+cmd execute if data storage t:s obj{k:1}
+cmd execute if data storage t:s {tag:"x"}
+cmd execute if data storage t:s {tag:"y"}
+cmd execute if data storage t:nothing x
+cmd execute store result score Steve nbt_n run data get entity Steve foodLevel
+cmd execute store result score Steve nbt_n if data storage t:s tags[]
+note the permission level of /data and the `from` sources on a different level
+cmd_as -0 data get storage t:s tag
+cmd_as -1 data get storage t:s tag
+cmd_as -2 data get storage t:s tag
+cmd_as -2 data get entity @e[type=pig,limit=1] Health
+cmd_as -2 data get block 2 -60 2 id
+cmd_as -2 data merge storage t:s {lvl:2}
+cmd_as -2 data modify storage t:s lvl set value 3
+cmd_as -2 data remove storage t:s lvl
+cmd_as -1 data merge storage t:s {lvl:1}
+cmd_as -1 data modify storage t:s lvl set value 3
+cmd_as -1 data remove storage t:s lvl
+cmd_as Alex data get entity Alex Health
+cmd_as Alex data get storage t:s tag
+cmd_as Alex data modify storage t:s lvl set value 3
+cmd_as Alex execute store result storage t:s lvl int 1 run data get entity Alex Health
+cmd_as Alex execute if data storage t:s tag
+cmd_as Steve data get entity @s Health
+cmd_as Steve data get entity @s Pos[0] 100
+cmd_as Steve data get entity @s SelectedItem.id
+cmd_as Steve data get block ~ ~ ~
+cmd_as Steve data get block ~1 ~-1 ~2 Items[0].id
+cmd_as Steve data modify storage t:s steve set from entity @s SelectedItem.id
+cmd_as Steve data merge entity @s {Health:2f}
+cmd_as Steve data modify block ~1 ~-1 ~2 Items[0].count set value 33
+cmd_as Steve data remove block ~1 ~-1 ~2 Items[0]
+cmd_as Steve data get storage t:s steve
+note the feedback as component JSON: the pretty-printed NBT (colours, separators, numeric suffixes)
+cmd_json data get storage t:s
+cmd_json data get storage t:s tags
+cmd_json data get storage t:s obj
+cmd_json data get storage t:s long
+cmd_json data get storage t:s long 2
+cmd_json data get storage t:s b
+cmd_json data get entity @e[type=pig,limit=1] Pos
+cmd_json data get entity @e[type=pig,limit=1] Health 2
+cmd_json data get entity Steve SelectedItem
+cmd_json data get entity Steve abilities
+cmd_json data get block 3 -60 2 front_text
+cmd_json data get block 3 -60 2 front_text.has_glowing_text 2
+cmd_json data merge storage t:s {x:1}
+cmd_json data modify storage t:s x set value 2
+cmd_json data modify entity @e[type=pig,limit=1] Silent set value 0b
+cmd_json data modify block 3 -60 2 is_waxed set value 0b
+cmd_json data remove storage t:s x
+cmd_json data remove entity @e[type=pig,limit=1] Silent
+cmd_json data remove block 3 -60 2 is_waxed
+cmd_json data get entity Steve Health
+cmd_json data merge entity Steve {Health:3f}
+cmd_json data get block 4 -60 2
+cmd_json data get entity nobody Health
+dump be:2,-60,2 be:3,-60,2 be:5,-60,2 be:6,-60,2 storage:t:s
+dump entities

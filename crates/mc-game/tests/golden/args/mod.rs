@@ -1164,6 +1164,13 @@ case!(
 );
 
 case!(
+    nbt_path_matches_vanilla,
+    "nbt_path",
+    |_ctx| Arc::new(a::NbtPathArgument::nbt_path()),
+    |v, _src| args_common::render_nbt_path(v.downcast_ref::<a::NbtPath>().expect("path"))
+);
+
+case!(
     nbt_tag_matches_vanilla,
     "nbt_tag",
     |_ctx| Arc::new(a::NbtTagArgument::nbt_tag()),

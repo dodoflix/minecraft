@@ -341,6 +341,96 @@ pub fn replay(
     replay_with(name, fixture, make, render, None)
 }
 
+/// The compound every `nbt_path` input is applied to (`ArgsSpecs.NBT_PATH_DOC`).
+const NBT_PATH_DOC: &str = "{a:1,b:{c:[1,2,3],d:\"s\"},list:[{x:1,y:2},{x:3},{x:1,y:5}],ints:[I;1,2,3],\"q.t\":1b,nested:[[1,2],[3]],bytes:[B;1B,2B],longs:[L;5L],f:1.5f,mix:{x:{y:1}},s:\"str\",l2:[\"a\",\"b\"],\"a b\":{c:1}}";
+
+/// `ArgsSpecs.nbtPath`: the path, then get/count/set/insert/remove/getOrCreate on fresh copies of the fixed compound.
+pub fn render_nbt_path(path: &mc_game::commands::arguments::NbtPath) -> String {
+    use mc_nbt::{CompoundTag, Tag};
+    let root = || {
+        let mut doc = mc_nbt::snbt::parse_compound(NBT_PATH_DOC).expect("fixed document");
+        doc.put("e", Tag::Compound(CompoundTag::new()));
+        doc
+    };
+    let tags = |l: Vec<Tag>| {
+        l.iter()
+            .map(|t| t.to_string())
+            .collect::<Vec<_>>()
+            .join(";")
+    };
+    let op = |name: &str,
+              show: bool,
+              doc: &mut CompoundTag,
+              f: &dyn Fn(
+        &mut CompoundTag,
+    ) -> Result<String, mc_brigadier::CommandSyntaxException>| {
+        let r = match catch_unwind(AssertUnwindSafe(|| f(doc))) {
+            Ok(Ok(r)) => r,
+            Ok(Err(e)) => format!("!{}", e.get_message()),
+            Err(_) => "!THREW".to_owned(),
+        };
+        let shown = if show {
+            format!(" {}", Tag::Compound(doc.clone()))
+        } else {
+            String::new()
+        };
+        format!("|{name}={r}{shown}")
+    };
+    let mut out = path.as_string().to_owned();
+    let mut d = root();
+    out += &op("get", false, &mut d, &|d| {
+        path.get(&Tag::Compound(d.clone())).map(tags)
+    });
+    out += &op("count", false, &mut d, &|d| {
+        Ok(path.count_matching(&Tag::Compound(d.clone())).to_string())
+    });
+    let mut d = root();
+    out += &op("set", true, &mut d, &|d| {
+        let mut t = Tag::Compound(std::mem::take(d));
+        let r = path.set(&mut t, &Tag::Int(7));
+        if let Tag::Compound(c) = t {
+            *d = c;
+        }
+        r.map(|n| n.to_string())
+    });
+    let mut d = root();
+    out += &op("setc", true, &mut d, &|d| {
+        let mut t = Tag::Compound(std::mem::take(d));
+        let value = mc_nbt::snbt::parse("{z:{w:1}}").expect("fixed tag");
+        let r = path.set(&mut t, &value);
+        if let Tag::Compound(c) = t {
+            *d = c;
+        }
+        r.map(|n| n.to_string())
+    });
+    for index in [0, -1, 5] {
+        let mut d = root();
+        out += &op(&format!("insert{index}"), true, &mut d, &|d| {
+            path.insert(index, d, &[Tag::Int(100), Tag::String("v".to_owned())])
+                .map(|n| n.to_string())
+        });
+    }
+    let mut d = root();
+    out += &op("remove", true, &mut d, &|d| {
+        let mut t = Tag::Compound(std::mem::take(d));
+        let n = path.remove(&mut t);
+        if let Tag::Compound(c) = t {
+            *d = c;
+        }
+        Ok(n.to_string())
+    });
+    let mut d = root();
+    out += &op("create", true, &mut d, &|d| {
+        let mut t = Tag::Compound(std::mem::take(d));
+        let r = path.get_or_create(&mut t, &|| Tag::Compound(CompoundTag::new()));
+        if let Tag::Compound(c) = t {
+            *d = c;
+        }
+        r.map(tags)
+    });
+    out
+}
+
 /// The committed golden of argument type `name`: `fixtures/args/<name>_golden.txt`, or `.txt.gz` when it is over 1 MB.
 pub fn golden_text(name: &str) -> String {
     let base = format!(

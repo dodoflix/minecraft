@@ -1,0 +1,18 @@
+C Game rule send_command_feedback is now set to true
+# a bad path in the second line of the front text
+CF fail An unexpected error occurred while trying to execute that command
+B 6 -60 4 minecraft:oak_sign[rotation=0,waterlogged=false]
+BE 6 -60 4 {allow_op_features:1b,back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:sign",is_waxed:0b,x:6,y:-60,z:4}
+# the sign can be read and written afterwards
+CF msg 6, -60, 4 has the following block data: 0b
+CF result success 0
+CF msg 6, -60, 4 has the following block data: ["", "", "", ""]
+CF result success 4
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+BE 6 -60 4 {allow_op_features:1b,back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:sign",is_waxed:0b,x:6,y:-60,z:4}
+# the same through /data merge on a sign that exists
+CF msg Changed the block at 8, -60, 4
+CF result success 1
+CF fail An unexpected error occurred while trying to execute that command
+BE 8 -60 4 {allow_op_features:1b,back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:sign",is_waxed:0b,x:8,y:-60,z:4}
