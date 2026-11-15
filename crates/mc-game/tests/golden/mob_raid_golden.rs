@@ -51,3 +51,8 @@ fn villagers_hide_in_a_raid_and_the_bell_makes_raiders_glow() {
 fn raiders_leaving_together_are_removed_in_hash_set_order() {
     block_scenario::check("mob_raid_removal_order");
 }
+
+#[test]
+fn raid_stopped_by_the_raids_rule_leaves_its_raiders_without_a_raid_id() {
+    block_scenario::check("mob_raid_ended_save");
+}

@@ -1,0 +1,43 @@
+# A raid stopped by the raids game rule: Raids.tick stops it and removes it from the raids on the next tick, so a raider that keeps the stopped
+# raid is saved without RaidId (Raids.getId no longer finds it) and a raider loaded again belongs to no raid; the raid is not in the raids saved data either.
+command_env
+level flat
+difficulty hard
+gamerule raids true
+gamerule mob_drops false
+entity_counter 6300
+level_seed 6301
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+set Steve invulnerable true
+tick 300
+effect Steve minecraft:raid_omen 0 600
+raid_start Steve 0 -60 0
+dump raids
+note the first wave: the raiders are saved with the id of their raid
+tick 310
+dump raids raids_nbt nbt:pillager#1 nbt:vindicator#1
+note the raids rule is turned off: the raid stops and leaves the raids on the next tick, the raiders keep their wave and lose the id
+gamerule raids false
+tick 1
+dump raids raids_nbt mobs nbt:pillager#1 nbt:vindicator#1
+tick 2
+dump raids raids_nbt mobs nbt:pillager#1 nbt:vindicator#1
+note a raider saved and loaded again has no raid
+nbt pillager#1 {CanPickUpLoot:1b}
+dump entity:pillager#1 nbt:pillager#1 raids
+tick 100
+dump raids mobs
+note a second raid stopped by the rule set through the command: the same
+gamerule raids true
+effect Steve minecraft:raid_omen 0 600
+raid_start Steve 0 -60 0
+tick 310
+dump raids raids_nbt
+cmd gamerule raids false
+tick 3
+dump raids raids_nbt mobs

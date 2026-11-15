@@ -1,0 +1,254 @@
+# A spawn egg used on an adult mob (Mob.checkAndHandleImportantInteractions -> SpawnEggItem.spawnOffspringFromSpawnEgg): an ageable mob
+# of the egg's own type spawns its breed offspring as a baby at its position and the egg is consumed; a mob without a baby form
+# (the offspring is not a baby after setBaby) or an egg of another type leaves the stack unchanged.
+level flat
+preload 4
+level_seed 6201
+entity_counter 6200
+spawn_player A survival -40.5 -60 -37.5 0 0
+note an egg on a cow
+mobspawn P0 minecraft:cow -40.5 -60 -30.5 0 0
+tp A -40.5 -60 -28.5
+give A mainhand minecraft:cow_spawn_egg 2
+interact A P0 main
+dump entity:P0 inventory:A entity:cow#1 nbt:cow#1
+note an egg on a mooshroom
+mobspawn P1 minecraft:mooshroom -37.5 -60 -30.5 0 0
+tp A -37.5 -60 -28.5
+give A mainhand minecraft:mooshroom_spawn_egg 2
+interact A P1 main
+dump entity:P1 inventory:A entity:mooshroom#1 nbt:mooshroom#1
+note an egg on a pig
+mobspawn P2 minecraft:pig -34.5 -60 -30.5 0 0
+tp A -34.5 -60 -28.5
+give A mainhand minecraft:pig_spawn_egg 2
+interact A P2 main
+dump entity:P2 inventory:A entity:pig#1 nbt:pig#1
+note an egg on a sheep
+mobspawn P3 minecraft:sheep -31.5 -60 -30.5 0 0
+tp A -31.5 -60 -28.5
+give A mainhand minecraft:sheep_spawn_egg 2
+interact A P3 main
+dump entity:P3 inventory:A entity:sheep#1 nbt:sheep#1
+note an egg on a chicken
+mobspawn P4 minecraft:chicken -28.5 -60 -30.5 0 0
+tp A -28.5 -60 -28.5
+give A mainhand minecraft:chicken_spawn_egg 2
+interact A P4 main
+dump entity:P4 inventory:A entity:chicken#1 nbt:chicken#1
+note an egg on a fox
+mobspawn P5 minecraft:fox -25.5 -60 -30.5 0 0
+tp A -25.5 -60 -28.5
+give A mainhand minecraft:fox_spawn_egg 2
+interact A P5 main
+dump entity:P5 inventory:A entity:fox#1 nbt:fox#1
+note an egg on a wolf
+mobspawn P6 minecraft:wolf -22.5 -60 -30.5 0 0
+tp A -22.5 -60 -28.5
+give A mainhand minecraft:wolf_spawn_egg 2
+interact A P6 main
+dump entity:P6 inventory:A entity:wolf#1 nbt:wolf#1
+note an egg on a cat
+mobspawn P7 minecraft:cat -19.5 -60 -30.5 0 0
+tp A -19.5 -60 -28.5
+give A mainhand minecraft:cat_spawn_egg 2
+interact A P7 main
+dump entity:P7 inventory:A entity:cat#1 nbt:cat#1
+note an egg on a ocelot
+mobspawn P8 minecraft:ocelot -16.5 -60 -30.5 0 0
+tp A -16.5 -60 -28.5
+give A mainhand minecraft:ocelot_spawn_egg 2
+interact A P8 main
+dump entity:P8 inventory:A entity:ocelot#1 nbt:ocelot#1
+note an egg on a horse
+mobspawn P9 minecraft:horse -13.5 -60 -30.5 0 0
+tp A -13.5 -60 -28.5
+give A mainhand minecraft:horse_spawn_egg 2
+interact A P9 main
+dump entity:P9 inventory:A entity:horse#1 nbt:horse#1
+note an egg on a donkey
+mobspawn P10 minecraft:donkey -10.5 -60 -30.5 0 0
+tp A -10.5 -60 -28.5
+give A mainhand minecraft:donkey_spawn_egg 2
+interact A P10 main
+dump entity:P10 inventory:A entity:donkey#1 nbt:donkey#1
+note an egg on a mule
+mobspawn P11 minecraft:mule -7.5 -60 -30.5 0 0
+tp A -7.5 -60 -28.5
+give A mainhand minecraft:mule_spawn_egg 2
+interact A P11 main
+dump entity:P11 inventory:A entity:mule#1 nbt:mule#1
+note an egg on a llama
+mobspawn P12 minecraft:llama -4.5 -60 -30.5 0 0
+tp A -4.5 -60 -28.5
+give A mainhand minecraft:llama_spawn_egg 2
+interact A P12 main
+dump entity:P12 inventory:A entity:llama#1 nbt:llama#1
+note an egg on a rabbit
+mobspawn P13 minecraft:rabbit -1.5 -60 -30.5 0 0
+tp A -1.5 -60 -28.5
+give A mainhand minecraft:rabbit_spawn_egg 2
+interact A P13 main
+dump entity:P13 inventory:A entity:rabbit#1 nbt:rabbit#1
+note an egg on a goat
+mobspawn P14 minecraft:goat 1.5 -60 -30.5 0 0
+tp A 1.5 -60 -28.5
+give A mainhand minecraft:goat_spawn_egg 2
+interact A P14 main
+dump entity:P14 inventory:A entity:goat#1 nbt:goat#1
+note an egg on a strider
+mobspawn P15 minecraft:strider 4.5 -60 -30.5 0 0
+tp A 4.5 -60 -28.5
+give A mainhand minecraft:strider_spawn_egg 2
+interact A P15 main
+dump entity:P15 inventory:A entity:strider#1 nbt:strider#1
+note an egg on a villager
+mobspawn P16 minecraft:villager 7.5 -60 -30.5 0 0
+tp A 7.5 -60 -28.5
+give A mainhand minecraft:villager_spawn_egg 2
+interact A P16 main
+dump entity:P16 inventory:A entity:villager#1 nbt:villager#1
+note an egg on a squid
+mobspawn P17 minecraft:squid 10.5 -60 -30.5 0 0
+tp A 10.5 -60 -28.5
+give A mainhand minecraft:squid_spawn_egg 2
+interact A P17 main
+dump entity:P17 inventory:A entity:squid#1 nbt:squid#1
+note an egg on a dolphin
+mobspawn P18 minecraft:dolphin 13.5 -60 -30.5 0 0
+tp A 13.5 -60 -28.5
+give A mainhand minecraft:dolphin_spawn_egg 2
+interact A P18 main
+dump entity:P18 inventory:A entity:dolphin#1 nbt:dolphin#1
+note an egg on a armadillo
+mobspawn P19 minecraft:armadillo 16.5 -60 -30.5 0 0
+tp A 16.5 -60 -28.5
+give A mainhand minecraft:armadillo_spawn_egg 2
+interact A P19 main
+dump entity:P19 inventory:A entity:armadillo#1 nbt:armadillo#1
+note an egg on a sniffer
+mobspawn P20 minecraft:sniffer -40.5 -60 -38.5 0 0
+tp A -40.5 -60 -36.5
+give A mainhand minecraft:sniffer_spawn_egg 2
+interact A P20 main
+dump entity:P20 inventory:A entity:sniffer#1 nbt:sniffer#1
+note an egg on a happy_ghast
+mobspawn P21 minecraft:happy_ghast -37.5 -60 -38.5 0 0
+tp A -37.5 -60 -36.5
+give A mainhand minecraft:happy_ghast_spawn_egg 2
+interact A P21 main
+dump entity:P21 inventory:A entity:happy_ghast#1 nbt:happy_ghast#1
+note an egg on a nautilus
+mobspawn P22 minecraft:nautilus -34.5 -60 -38.5 0 0
+tp A -34.5 -60 -36.5
+give A mainhand minecraft:nautilus_spawn_egg 2
+interact A P22 main
+dump entity:P22 inventory:A entity:nautilus#1 nbt:nautilus#1
+note an egg on a camel
+mobspawn P23 minecraft:camel -31.5 -60 -38.5 0 0
+tp A -31.5 -60 -36.5
+give A mainhand minecraft:camel_spawn_egg 2
+interact A P23 main
+dump entity:P23 inventory:A entity:camel#1 nbt:camel#1
+note an egg on a turtle
+mobspawn P24 minecraft:turtle -28.5 -60 -38.5 0 0
+tp A -28.5 -60 -36.5
+give A mainhand minecraft:turtle_spawn_egg 2
+interact A P24 main
+dump entity:P24 inventory:A entity:turtle#1 nbt:turtle#1
+note an egg on a panda
+mobspawn P25 minecraft:panda -25.5 -60 -38.5 0 0
+tp A -25.5 -60 -36.5
+give A mainhand minecraft:panda_spawn_egg 2
+interact A P25 main
+dump entity:P25 inventory:A entity:panda#1 nbt:panda#1
+note an egg on a bee
+mobspawn P26 minecraft:bee -22.5 -60 -38.5 0 0
+tp A -22.5 -60 -36.5
+give A mainhand minecraft:bee_spawn_egg 2
+interact A P26 main
+dump entity:P26 inventory:A entity:bee#1 nbt:bee#1
+note an egg on a axolotl
+mobspawn P27 minecraft:axolotl -19.5 -60 -38.5 0 0
+tp A -19.5 -60 -36.5
+give A mainhand minecraft:axolotl_spawn_egg 2
+interact A P27 main
+dump entity:P27 inventory:A entity:axolotl#1 nbt:axolotl#1
+note an egg on a polar_bear
+mobspawn P28 minecraft:polar_bear -16.5 -60 -38.5 0 0
+tp A -16.5 -60 -36.5
+give A mainhand minecraft:polar_bear_spawn_egg 2
+interact A P28 main
+dump entity:P28 inventory:A entity:polar_bear#1 nbt:polar_bear#1
+note an egg on a hoglin
+mobspawn P29 minecraft:hoglin -13.5 -60 -38.5 0 0
+tp A -13.5 -60 -36.5
+give A mainhand minecraft:hoglin_spawn_egg 2
+interact A P29 main
+dump entity:P29 inventory:A entity:hoglin#1 nbt:hoglin#1
+note an egg on a zoglin
+mobspawn P30 minecraft:zoglin -10.5 -60 -38.5 0 0
+tp A -10.5 -60 -36.5
+give A mainhand minecraft:zoglin_spawn_egg 2
+interact A P30 main
+dump entity:P30 inventory:A entity:zoglin#1 nbt:zoglin#1
+note an egg on a zombie
+mobspawn P31 minecraft:zombie -7.5 -60 -38.5 0 0
+tp A -7.5 -60 -36.5
+give A mainhand minecraft:zombie_spawn_egg 2
+interact A P31 main
+dump entity:P31 inventory:A entity:zombie#1 nbt:zombie#1
+note an egg on a husk
+mobspawn P32 minecraft:husk -4.5 -60 -38.5 0 0
+tp A -4.5 -60 -36.5
+give A mainhand minecraft:husk_spawn_egg 2
+interact A P32 main
+dump entity:P32 inventory:A entity:husk#1 nbt:husk#1
+note an egg on a drowned
+mobspawn P33 minecraft:drowned -1.5 -60 -38.5 0 0
+tp A -1.5 -60 -36.5
+give A mainhand minecraft:drowned_spawn_egg 2
+interact A P33 main
+dump entity:P33 inventory:A entity:drowned#1 nbt:drowned#1
+note an egg on a zombie_villager
+mobspawn P34 minecraft:zombie_villager 1.5 -60 -38.5 0 0
+tp A 1.5 -60 -36.5
+give A mainhand minecraft:zombie_villager_spawn_egg 2
+interact A P34 main
+dump entity:P34 inventory:A entity:zombie_villager#1 nbt:zombie_villager#1
+note an egg on a piglin
+mobspawn P35 minecraft:piglin 4.5 -60 -38.5 0 0
+tp A 4.5 -60 -36.5
+give A mainhand minecraft:piglin_spawn_egg 2
+interact A P35 main
+dump entity:P35 inventory:A entity:piglin#1 nbt:piglin#1
+note an egg on a zombified_piglin
+mobspawn P36 minecraft:zombified_piglin 7.5 -60 -38.5 0 0
+tp A 7.5 -60 -36.5
+give A mainhand minecraft:zombified_piglin_spawn_egg 2
+interact A P36 main
+dump entity:P36 inventory:A entity:zombified_piglin#1 nbt:zombified_piglin#1
+note an egg on a camel_husk
+mobspawn P37 minecraft:camel_husk 10.5 -60 -38.5 0 0
+tp A 10.5 -60 -36.5
+give A mainhand minecraft:camel_husk_spawn_egg 2
+interact A P37 main
+dump entity:P37 inventory:A
+note an egg on a skeleton
+mobspawn P38 minecraft:skeleton 13.5 -60 -38.5 0 0
+tp A 13.5 -60 -36.5
+give A mainhand minecraft:skeleton_spawn_egg 2
+interact A P38 main
+dump entity:P38 inventory:A
+note an egg on a creeper
+mobspawn P39 minecraft:creeper 16.5 -60 -38.5 0 0
+tp A 16.5 -60 -36.5
+give A mainhand minecraft:creeper_spawn_egg 2
+interact A P39 main
+dump entity:P39 inventory:A
+note an egg of another type does nothing
+mobspawn Q minecraft:cow 0.5 -60 -10.5 0 0
+tp A 0.5 -60 -8.5
+give A mainhand minecraft:pig_spawn_egg 2
+interact A Q main
+dump entity:Q inventory:A entities

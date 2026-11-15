@@ -688,10 +688,10 @@ impl Entity for Rabbit {
         )?;
         let mut variant = Rabbit::get_random_rabbit_variant(level, self.block_position());
         if self.base_mut().random.next_int_bounded(20) != 0 {
-            let partner_variant = level
-                .get_entity(partner)
-                .and_then(|p| p.as_any().downcast_ref::<Rabbit>())
-                .map(Rabbit::get_variant);
+            let partner_variant =
+                mc_game_core::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
+                    .and_then(|p| p.as_any().downcast_ref::<Rabbit>())
+                    .map(Rabbit::get_variant);
             variant = match partner_variant {
                 Some(partner_variant) if self.base_mut().random.next_boolean() => partner_variant,
                 _ => self.get_variant(),

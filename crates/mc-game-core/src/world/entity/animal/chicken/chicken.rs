@@ -336,10 +336,10 @@ impl Entity for Chicken {
             },
         )?;
         let own_variant = self.get_variant();
-        let partner_variant = level
-            .get_entity(partner)
-            .and_then(|p| p.as_any().downcast_ref::<Chicken>())
-            .map(|p| p.get_variant());
+        let partner_variant =
+            crate::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
+                .and_then(|p| p.as_any().downcast_ref::<Chicken>())
+                .map(|p| p.get_variant());
         if let (Some(partner_variant), Some(chicken)) =
             (partner_variant, baby.as_any_mut().downcast_mut::<Chicken>())
         {

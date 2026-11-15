@@ -318,9 +318,9 @@ impl Entity for Horse {
         level: &mut ServerLevel,
         partner: EntityId,
     ) -> Option<Box<dyn Entity>> {
-        let partner_is_donkey = level
-            .get_entity(partner)
-            .is_some_and(|p| p.get_type() == EntityType::DONKEY);
+        let partner_is_donkey =
+            mc_game_core::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
+                .is_some_and(|p| p.get_type() == EntityType::DONKEY);
         if partner_is_donkey {
             let mut baby = mc_game_core::world::entity::factory::create(
                 EntityType::MULE,
@@ -341,10 +341,10 @@ impl Entity for Horse {
                 ignore_checks: false,
             },
         )?;
-        let (partner_variant, partner_markings) = level
-            .get_entity(partner)
-            .and_then(|p| p.as_any().downcast_ref::<Horse>())
-            .map(|p| (p.get_variant(), p.get_markings()))?;
+        let (partner_variant, partner_markings) =
+            mc_game_core::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
+                .and_then(|p| p.as_any().downcast_ref::<Horse>())
+                .map(|p| (p.get_variant(), p.get_markings()))?;
         let select_skin = self.base_mut().random.next_int_bounded(9);
         let variant = if select_skin < 4 {
             self.get_variant()

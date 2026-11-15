@@ -678,10 +678,10 @@ impl Entity for Llama {
     ) -> Option<Box<dyn Entity>> {
         let mut baby = self.make_new_llama(level)?;
         abstract_horse::set_offspring_attributes(self, level, partner, baby.as_mut());
-        let (other_strength, other_variant) = level
-            .get_entity(partner)
-            .and_then(|p| p.as_any().downcast_ref::<Llama>())
-            .map(|p| (p.get_strength(), p.get_variant()))?;
+        let (other_strength, other_variant) =
+            mc_game_core::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
+                .and_then(|p| p.as_any().downcast_ref::<Llama>())
+                .map(|p| (p.get_strength(), p.get_variant()))?;
         let max_strength = self.get_strength().max(other_strength);
         let mut baby_strength = self.base_mut().random.next_int_bounded(max_strength) + 1;
         if self.base_mut().random.next_float() < 0.03 {

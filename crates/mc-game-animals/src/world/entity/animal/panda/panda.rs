@@ -718,14 +718,16 @@ impl Entity for Panda {
                 ignore_checks: false,
             },
         )?;
-        let partner_is_panda = level
-            .get_entity(partner)
+        let partner_is_panda = animal::partner_entity(&*level, &*self, partner)
             .is_some_and(|p| p.as_any().is::<Panda>());
         if partner_is_panda {
             // `setGeneFromParents(this, partner)`: `this.random` of the baby, `getOneOfGenesRandomly()` on each parent's random
             let baby_panda = baby.as_any_mut().downcast_mut::<Panda>().expect("panda");
             let genes_of = |parent: &mut Panda| parent.get_one_of_genes_randomly();
-            let partner_gene = |level: &mut ServerLevel| {
+            let partner_gene = |level: &mut ServerLevel, me: &mut Panda| {
+                if Entity::id(&*me) == partner {
+                    return Some(me.get_one_of_genes_randomly());
+                }
                 level
                     .with_entity(partner, |_, p| {
                         p.as_any_mut()
@@ -736,11 +738,11 @@ impl Entity for Panda {
             };
             if baby_panda.base_mut().random.next_boolean() {
                 let main = genes_of(self);
-                let hidden = partner_gene(level);
+                let hidden = partner_gene(level, self);
                 baby_panda.set_main_gene(main);
                 baby_panda.set_hidden_gene(hidden.unwrap_or(Gene::Normal));
             } else {
-                let main = partner_gene(level);
+                let main = partner_gene(level, self);
                 let hidden = genes_of(self);
                 baby_panda.set_main_gene(main.unwrap_or(Gene::Normal));
                 baby_panda.set_hidden_gene(hidden);

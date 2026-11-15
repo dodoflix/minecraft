@@ -1288,8 +1288,7 @@ fn set_offspring_attribute(
     max: f64,
 ) {
     let own = l(e.as_dyn()).attributes.get_base_value(attribute);
-    let other = level
-        .get_entity(partner)
+    let other = mob::animal::partner_entity(level, e.as_dyn(), partner)
         .and_then(|p| p.living())
         .map_or(own, |p| p.attributes.get_base_value(attribute));
     let new_value = create_offspring_attribute(own, other, min, max, &mut e.base_mut().random);

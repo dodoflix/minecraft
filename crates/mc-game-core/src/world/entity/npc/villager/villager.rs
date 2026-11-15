@@ -1141,10 +1141,10 @@ impl Entity for Villager {
         partner: EntityId,
     ) -> Option<Box<dyn Entity>> {
         let biome_roll = self.base_mut().random.next_double();
-        let partner_type = level
-            .get_entity(partner)
-            .and_then(|p| p.as_any().downcast_ref::<Villager>())
-            .map(|p| p.get_villager_data().r#type);
+        let partner_type =
+            crate::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
+                .and_then(|p| p.as_any().downcast_ref::<Villager>())
+                .map(|p| p.get_villager_data().r#type);
         let ty = if biome_roll < 0.5 {
             let biome = level
                 .get_biome_id(self.block_position())

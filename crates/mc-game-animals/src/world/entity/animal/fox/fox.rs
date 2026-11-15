@@ -790,10 +790,10 @@ impl Entity for Fox {
                 ignore_checks: false,
             },
         )?;
-        let partner_variant = level
-            .get_entity(partner)
-            .and_then(|p| p.as_any().downcast_ref::<Fox>())
-            .map(Fox::get_variant);
+        let partner_variant =
+            mc_game_core::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
+                .and_then(|p| p.as_any().downcast_ref::<Fox>())
+                .map(Fox::get_variant);
         let variant = match partner_variant {
             Some(partner_variant) if !self.base_mut().random.next_boolean() => partner_variant,
             _ => self.get_variant(),

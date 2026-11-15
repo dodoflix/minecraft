@@ -965,10 +965,10 @@ impl Entity for Wolf {
                 ignore_checks: false,
             },
         )?;
-        let partner_info = level
-            .get_entity(partner)
-            .and_then(|p| p.as_any().downcast_ref::<Wolf>())
-            .map(|p| (p.get_variant(), p.get_collar_color()));
+        let partner_info =
+            mc_game_core::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
+                .and_then(|p| p.as_any().downcast_ref::<Wolf>())
+                .map(|p| (p.get_variant(), p.get_collar_color()));
         if let (Some((partner_variant, partner_collar)), Some(wolf)) =
             (partner_info, baby.as_any_mut().downcast_mut::<Wolf>())
         {

@@ -1,0 +1,275 @@
+# an egg on a cow
+E P0 minecraft:cow pos=-40.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:cow_spawn_egg*1
+E cow#1 minecraft:cow pos=-40.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N cow#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-40.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+# an egg on a mooshroom
+E P1 minecraft:mooshroom pos=-37.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:mooshroom_spawn_egg*1
+E mooshroom#1 minecraft:mooshroom pos=-37.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N mooshroom#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-37.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],Type:"red",attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a pig
+E P2 minecraft:pig pos=-34.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:pig_spawn_egg*1
+E pig#1 minecraft:pig pos=-34.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N pig#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-34.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+# an egg on a sheep
+E P3 minecraft:sheep pos=-31.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:sheep_spawn_egg*1
+E sheep#1 minecraft:sheep pos=-31.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+N sheep#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,Color:6b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-31.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],Sheared:0b,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a chicken
+E P4 minecraft:chicken pos=-28.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:chicken_spawn_egg*1
+E chicken#1 minecraft:chicken pos=-28.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+N chicken#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,EggLayTime:9844,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,InLove:0,Invulnerable:0b,IsChickenJockey:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-28.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+# an egg on a fox
+E P5 minecraft:fox pos=-25.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:fox_spawn_egg*1
+E fox#1 minecraft:fox pos=-25.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N fox#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,Crouching:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-25.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],Sitting:0b,Sleeping:0b,Trusted:[[I;-1217574189,-1929301680,-1288476465,-1272613004]],Type:"red",attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a wolf
+E P6 minecraft:wolf pos=-22.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:wolf_spawn_egg*1
+E wolf#1 minecraft:wolf pos=-22.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+N wolf#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-22.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],Sitting:0b,anger_end_time:-1L,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:angry",variant:"minecraft:pale"}
+# an egg on a cat
+E P7 minecraft:cat pos=-19.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:cat_spawn_egg*1
+E cat#1 minecraft:cat pos=-19.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N cat#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-19.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],Sitting:0b,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:tabby"}
+# an egg on a ocelot
+E P8 minecraft:ocelot pos=-16.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:ocelot_spawn_egg*1
+E ocelot#1 minecraft:ocelot pos=-16.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N ocelot#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-16.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],Trusting:0b,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a horse
+E P9 minecraft:horse pos=-13.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:horse_spawn_egg*1
+E horse#1 minecraft:horse pos=-13.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+N horse#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-13.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],Tame:0b,Temper:0,Variant:2,attributes:[{base:0.6354633449401051d,id:"minecraft:jump_strength"},{base:0.2348516228951756d,id:"minecraft:movement_speed"},{base:18.783600125044064d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a donkey
+E P10 minecraft:donkey pos=-10.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:donkey_spawn_egg*1
+E donkey#1 minecraft:donkey pos=-10.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+N donkey#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-10.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],Tame:0b,Temper:0,attributes:[{base:0.537907521308765d,id:"minecraft:jump_strength"},{base:0.19060412904897844d,id:"minecraft:movement_speed"},{base:20.185254572789443d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a mule
+E P11 minecraft:mule pos=-7.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:mule_spawn_egg*1
+E mule#1 minecraft:mule pos=-7.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+N mule#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-7.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],Tame:0b,Temper:0,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a llama
+E P12 minecraft:llama pos=-4.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:llama_spawn_egg*1
+E llama#1 minecraft:llama pos=-4.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+N llama#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-4.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],Strength:1,Tame:0b,Temper:0,Variant:1,attributes:[{base:0.5413651238470489d,id:"minecraft:jump_strength"},{base:0.16609511102938257d,id:"minecraft:movement_speed"},{base:15.841247563174893d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a rabbit
+E P13 minecraft:rabbit pos=-1.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:rabbit_spawn_egg*1
+E rabbit#1 minecraft:rabbit pos=-1.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+N rabbit#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:3.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,MoreCarrotTicks:0,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-1.5d,-60.0d,-30.5d],RabbitType:0,Rotation:[0.0f,0.0f],attributes:[{base:3.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a goat
+E P14 minecraft:goat pos=1.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:goat_spawn_egg*1
+E goat#1 minecraft:goat pos=1.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N goat#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{minecraft:long_jump_cooling_down:{value:1094},minecraft:ram_cooldown_ticks:{value:2991}}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,HasLeftHorn:1b,HasRightHorn:1b,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,IsScreamingGoat:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],attributes:[{base:1.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a strider
+E P15 minecraft:strider pos=4.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:strider_spawn_egg*1
+E strider#1 minecraft:strider pos=4.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N strider#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:20.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a villager
+E P16 minecraft:villager pos=7.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:villager_spawn_egg*1
+E villager#1 minecraft:villager pos=7.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N villager#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,FoodLevel:0b,ForcedAge:0,Gossips:[],Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastGossipDecay:0L,LastRestock:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[7.5d,-60.0d,-30.5d],RestocksToday:0,Rotation:[0.0f,0.0f],VillagerData:{level:1,profession:"minecraft:none",type:"minecraft:plains"},VillagerDataFinalized:1b,Xp:0,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a squid
+E P17 minecraft:squid pos=10.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:squid_spawn_egg*1
+E squid#1 minecraft:squid pos=10.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N squid#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[10.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a dolphin
+E P18 minecraft:dolphin pos=13.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=4800 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:dolphin_spawn_egg*1
+E dolphin#1 minecraft:dolphin pos=13.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=4800 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N dolphin#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:4800s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,GotFish:0b,Health:10.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Moistness:2400,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[13.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a armadillo
+E P19 minecraft:armadillo pos=16.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:armadillo_spawn_egg*1
+E armadillo#1 minecraft:armadillo pos=16.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+N armadillo#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:12.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[16.5d,-60.0d,-30.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,scute_time:8578,state:"idle"}
+# an egg on a sniffer
+E P20 minecraft:sniffer pos=-40.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:sniffer_spawn_egg*1
+E sniffer#1 minecraft:sniffer pos=-40.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+N sniffer#1 {AbsorptionAmount:0.0f,Age:-48000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:14.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-40.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a happy_ghast
+E P21 minecraft:happy_ghast pos=-37.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:happy_ghast_spawn_egg*1
+E happy_ghast#1 minecraft:happy_ghast pos=-37.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N happy_ghast#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:20.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-37.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,still_timeout:0}
+# an egg on a nautilus
+E P22 minecraft:nautilus pos=-34.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:nautilus_spawn_egg*1
+E nautilus#1 minecraft:nautilus pos=-34.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=-
+N nautilus#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:15.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-34.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],Sitting:0b,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a camel
+E P23 minecraft:camel pos=-31.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=32.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:camel_spawn_egg*1
+E camel#1 minecraft:camel pos=-31.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=32.0 abs=0.0 hurt=0/0 death=0 fx=-
+N camel#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:32.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LastPoseTick:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-31.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a turtle
+E P24 minecraft:turtle pos=-28.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:turtle_spawn_egg*1
+E turtle#1 minecraft:turtle pos=-28.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+N turtle#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:30.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-28.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,has_egg:0b,home_pos:[I;0,0,0]}
+# an egg on a panda
+E P25 minecraft:panda pos=-25.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:panda_spawn_egg*1
+E panda#1 minecraft:panda pos=-25.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N panda#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:20.0f,HiddenGene:"weak",HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,MainGene:"weak",Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-25.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],attributes:[{base:10.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a bee
+E P26 minecraft:bee pos=-22.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:bee_spawn_egg*1
+E bee#1 minecraft:bee pos=-22.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+N bee#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CannotEnterHiveTicks:0,CropsGrownSincePollination:0,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,HasNectar:0b,HasStung:0b,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-22.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],TicksSincePollination:0,anger_end_time:-1L,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a axolotl
+E P27 minecraft:axolotl pos=-19.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:axolotl_spawn_egg*1
+E axolotl#1 minecraft:axolotl pos=-19.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+N axolotl#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:6000s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,FromBucket:0b,Health:14.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-19.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],Variant:3,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a polar_bear
+E P28 minecraft:polar_bear pos=-16.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:polar_bear_spawn_egg*1
+E polar_bear#1 minecraft:polar_bear pos=-16.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+N polar_bear#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:30.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-16.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],anger_end_time:0L,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a hoglin
+E P29 minecraft:hoglin pos=-13.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:hoglin_spawn_egg*1
+E hoglin#1 minecraft:hoglin pos=-13.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+N hoglin#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CannotBeHunted:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:40.0f,HurtTime:0s,InLove:0,Invulnerable:0b,IsImmuneToZombification:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],TimeInOverworld:0,attributes:[{base:0.5d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a zoglin
+E P30 minecraft:zoglin pos=-10.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:zoglin_spawn_egg*1
+E zoglin#1 minecraft:zoglin pos=-10.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+N zoglin#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:40.0f,HurtTime:0s,Invulnerable:0b,IsBaby:1b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-10.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],attributes:[{base:0.5d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a zombie
+E P31 minecraft:zombie pos=-7.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:zombie_spawn_egg*1
+E zombie#1 minecraft:zombie pos=-7.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N zombie#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:1b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-7.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a husk
+E P32 minecraft:husk pos=-4.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:husk_spawn_egg*1
+E husk#1 minecraft:husk pos=-4.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N husk#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:1b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-4.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a drowned
+E P33 minecraft:drowned pos=-1.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:drowned_spawn_egg*1
+E drowned#1 minecraft:drowned pos=-1.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N drowned#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:1b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-1.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a zombie_villager
+E P34 minecraft:zombie_villager pos=1.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:zombie_villager_spawn_egg*1
+E zombie_villager#1 minecraft:zombie_villager pos=1.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N zombie_villager#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,ConversionTime:-1,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:1b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],VillagerData:{level:1,profession:"minecraft:mason",type:"minecraft:plains"},VillagerDataFinalized:0b,Xp:0,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a piglin
+E P35 minecraft:piglin pos=4.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:piglin_spawn_egg*1
+E piglin#1 minecraft:piglin pos=4.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+N piglin#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,CannotHunt:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:16.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,IsBaby:1b,IsImmuneToZombification:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],TimeInOverworld:0,attributes:[{base:0.3499999940395355d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a zombified_piglin
+E P36 minecraft:zombified_piglin pos=7.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:zombified_piglin_spawn_egg*1
+E zombified_piglin#1 minecraft:zombified_piglin pos=7.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N zombified_piglin#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:1b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[7.5d,-60.0d,-38.5d],Rotation:[0.0f,0.0f],anger_end_time:0L,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# an egg on a camel_husk
+E P37 minecraft:camel_husk pos=10.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=32.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:camel_husk_spawn_egg*2
+# an egg on a skeleton
+E P38 minecraft:skeleton pos=13.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:skeleton_spawn_egg*2
+# an egg on a creeper
+E P39 minecraft:creeper pos=16.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:creeper_spawn_egg*2
+# an egg of another type does nothing
+E Q minecraft:cow pos=0.5,-60.0,-10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:pig_spawn_egg*2
+E P0 minecraft:cow pos=-40.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=-40.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P1 minecraft:mooshroom pos=-37.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mooshroom#1 minecraft:mooshroom pos=-37.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P2 minecraft:pig pos=-34.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=-34.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P3 minecraft:sheep pos=-31.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sheep#1 minecraft:sheep pos=-31.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P4 minecraft:chicken pos=-28.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=-28.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P5 minecraft:fox pos=-25.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=-25.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P6 minecraft:wolf pos=-22.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=-22.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P7 minecraft:cat pos=-19.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=-19.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P8 minecraft:ocelot pos=-16.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ocelot#1 minecraft:ocelot pos=-16.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P9 minecraft:horse pos=-13.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=-13.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P10 minecraft:donkey pos=-10.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E donkey#1 minecraft:donkey pos=-10.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P11 minecraft:mule pos=-7.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mule#1 minecraft:mule pos=-7.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P12 minecraft:llama pos=-4.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E llama#1 minecraft:llama pos=-4.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P13 minecraft:rabbit pos=-1.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=-1.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P14 minecraft:goat pos=1.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E goat#1 minecraft:goat pos=1.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P15 minecraft:strider pos=4.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E strider#1 minecraft:strider pos=4.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P16 minecraft:villager pos=7.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E villager#1 minecraft:villager pos=7.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P17 minecraft:squid pos=10.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E squid#1 minecraft:squid pos=10.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P18 minecraft:dolphin pos=13.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=4800 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E dolphin#1 minecraft:dolphin pos=13.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=4800 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P19 minecraft:armadillo pos=16.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armadillo#1 minecraft:armadillo pos=16.5,-60.0,-30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P20 minecraft:sniffer pos=-40.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sniffer#1 minecraft:sniffer pos=-40.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P21 minecraft:happy_ghast pos=-37.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E happy_ghast#1 minecraft:happy_ghast pos=-37.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P22 minecraft:nautilus pos=-34.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=-
+E nautilus#1 minecraft:nautilus pos=-34.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P23 minecraft:camel pos=-31.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=32.0 abs=0.0 hurt=0/0 death=0 fx=-
+E camel#1 minecraft:camel pos=-31.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=32.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P24 minecraft:turtle pos=-28.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#1 minecraft:turtle pos=-28.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P25 minecraft:panda pos=-25.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E panda#1 minecraft:panda pos=-25.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P26 minecraft:bee pos=-22.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bee#1 minecraft:bee pos=-22.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P27 minecraft:axolotl pos=-19.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=-19.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P28 minecraft:polar_bear pos=-16.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E polar_bear#1 minecraft:polar_bear pos=-16.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P29 minecraft:hoglin pos=-13.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+E hoglin#1 minecraft:hoglin pos=-13.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P30 minecraft:zoglin pos=-10.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zoglin#1 minecraft:zoglin pos=-10.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P31 minecraft:zombie pos=-7.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#1 minecraft:zombie pos=-7.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P32 minecraft:husk pos=-4.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E husk#1 minecraft:husk pos=-4.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P33 minecraft:drowned pos=-1.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E drowned#1 minecraft:drowned pos=-1.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P34 minecraft:zombie_villager pos=1.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie_villager#1 minecraft:zombie_villager pos=1.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P35 minecraft:piglin pos=4.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+E piglin#1 minecraft:piglin pos=4.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P36 minecraft:zombified_piglin pos=7.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombified_piglin#1 minecraft:zombified_piglin pos=7.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P37 minecraft:camel_husk pos=10.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=32.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P38 minecraft:skeleton pos=13.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E P39 minecraft:creeper pos=16.5,-60.0,-38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Q minecraft:cow pos=0.5,-60.0,-10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-

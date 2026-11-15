@@ -580,6 +580,10 @@ impl Scenario {
                 commands.perform_prefixed_command(server, source, &command)
             });
         });
+        // the installed server's rules are not the ones the level and the tick environment read: `/gamerule NAME VALUE` is also set there
+        if let ["gamerule", name, value] = command.split_whitespace().collect::<Vec<_>>()[..] {
+            self.gamerule(name, value);
+        }
         self.handle_disconnections();
         if !quiet {
             self.out

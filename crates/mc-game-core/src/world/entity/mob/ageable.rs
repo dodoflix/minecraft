@@ -141,9 +141,12 @@ pub fn set_baby(e: &mut dyn Entity, baby: bool) {
     }
 }
 
-/// `setBaby(baby)` including `ageBoundaryReached()` (a goat calf's attack damage).
+/// `setBaby(baby)` including `ageBoundaryReached()` (a goat calf's attack damage); a mob that is not an `AgeableMob` (zombie, zoglin,
+/// piglin) uses its own `setBaby`.
 pub fn set_baby_in_level(e: &mut dyn Entity, level: &mut ServerLevel, baby: bool) {
-    if e.can_be_a_baby() {
+    if e.mob().is_none_or(|m| m.ageable.is_none()) {
+        e.set_baby(baby);
+    } else if e.can_be_a_baby() {
         let start = if baby { e.get_baby_start_age() } else { 0 };
         set_age_in_level(e, level, start);
     }

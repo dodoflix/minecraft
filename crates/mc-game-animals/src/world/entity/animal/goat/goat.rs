@@ -292,8 +292,7 @@ impl Entity for Goat {
         let selected_screaming = if LevelAccessor::random(level).next_boolean() {
             Some(self.is_screaming_goat())
         } else {
-            level
-                .get_entity(partner)
+            mc_game_core::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
                 .and_then(|p| p.as_any().downcast_ref::<Goat>())
                 .map(Goat::is_screaming_goat)
         };

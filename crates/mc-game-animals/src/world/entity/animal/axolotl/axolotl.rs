@@ -561,8 +561,7 @@ impl Entity for Axolotl {
         } else if self.base_mut().random.next_boolean() {
             own_variant
         } else {
-            level
-                .get_entity(partner)
+            mc_game_core::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
                 .and_then(|p| p.as_any().downcast_ref::<Axolotl>())
                 .map_or(own_variant, Axolotl::get_variant)
         };

@@ -365,10 +365,10 @@ impl Entity for Sheep {
             },
         )?;
         let parent1 = self.get_color();
-        let parent2 = level
-            .get_entity(partner)
-            .and_then(|p| p.as_any().downcast_ref::<Sheep>())
-            .map(|p| p.get_color())?;
+        let parent2 =
+            mc_game_core::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
+                .and_then(|p| p.as_any().downcast_ref::<Sheep>())
+                .map(|p| p.get_color())?;
         let mixed = get_mixed_color(level, parent1, parent2);
         if let Some(sheep) = baby.as_any_mut().downcast_mut::<Sheep>() {
             sheep.set_color(mixed);

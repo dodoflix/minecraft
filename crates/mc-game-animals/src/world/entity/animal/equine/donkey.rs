@@ -197,14 +197,14 @@ impl Entity for Donkey {
         level: &mut ServerLevel,
         partner: EntityId,
     ) -> Option<Box<dyn Entity>> {
-        let baby_type = if level
-            .get_entity(partner)
-            .is_some_and(|p| p.get_type() == EntityType::HORSE)
-        {
-            EntityType::MULE
-        } else {
-            EntityType::DONKEY
-        };
+        let baby_type =
+            if mc_game_core::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
+                .is_some_and(|p| p.get_type() == EntityType::HORSE)
+            {
+                EntityType::MULE
+            } else {
+                EntityType::DONKEY
+            };
         let mut baby = mc_game_core::world::entity::factory::create(
             baby_type,
             level,

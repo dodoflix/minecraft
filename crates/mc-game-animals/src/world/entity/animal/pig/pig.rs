@@ -436,10 +436,10 @@ impl Entity for Pig {
             },
         )?;
         let own = self.get_variant();
-        let partner_variant = level
-            .get_entity(partner)
-            .and_then(|p| p.as_any().downcast_ref::<Pig>())
-            .map(Pig::get_variant);
+        let partner_variant =
+            mc_game_core::world::entity::mob::animal::partner_entity(&*level, &*self, partner)
+                .and_then(|p| p.as_any().downcast_ref::<Pig>())
+                .map(Pig::get_variant);
         if let (Some(partner_variant), Some(pig)) =
             (partner_variant, baby.as_any_mut().downcast_mut::<Pig>())
         {

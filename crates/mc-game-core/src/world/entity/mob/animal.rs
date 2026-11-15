@@ -162,6 +162,20 @@ pub fn mob_interact(
     None
 }
 
+/// The `partner` of a `getBreedOffspring(level, partner)` call: `me` itself when `partner` is its own id (a spawn egg used on an adult
+/// passes the parent as its own partner; the running entity is out of the level, so the lookup alone cannot find it).
+pub fn partner_entity<'a>(
+    level: &'a ServerLevel,
+    me: &'a dyn Entity,
+    partner: EntityId,
+) -> Option<&'a dyn Entity> {
+    if me.id() == partner {
+        Some(me)
+    } else {
+        level.get_entity(partner)
+    }
+}
+
 /// `spawnChildFromBreeding(level, partner)`: the virtual call (`Frog` and `Sniffer` override it).
 pub fn spawn_child_from_breeding(e: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId) {
     e.spawn_child_from_breeding(level, partner);
