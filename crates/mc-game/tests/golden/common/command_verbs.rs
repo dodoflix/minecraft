@@ -441,6 +441,7 @@ pub fn install_command_env(packs: &[String]) -> (MinecraftServer, Box<dyn std::a
     let mut server = crate::command_common::test_server_with_packs(packs);
     mc_game::commands::BrigadierExceptions::install();
     mc_game::commands::install_text_validators();
+    mc_protocol::components::install_text_hooks();
     server.0.world_gen_settings.options.seed = 4242;
     server
 }
