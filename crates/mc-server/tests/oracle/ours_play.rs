@@ -13,10 +13,11 @@ async fn bot_plays_on_our_server() {
 
     let failed = run_suite(&bot, &server).await;
     let _ = bot.write_log(mc_testbot::harness::repo_root().join("run/testbot-ours.jsonl"));
+    let dropped = bot.disconnect_reason();
     bot.disconnect().await;
     assert!(
         failed.is_empty(),
-        "failed scenarios: {failed:?}\nserver log tail:\n{}",
+        "failed scenarios: {failed:?}\ndisconnect reason: {dropped:?}\nserver log tail:\n{}",
         server
             .log()
             .lines()

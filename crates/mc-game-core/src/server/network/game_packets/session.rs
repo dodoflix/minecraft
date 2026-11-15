@@ -218,10 +218,10 @@ impl PlayCtx<'_> {
         _packet: &ServerboundConfigurationAcknowledgedPacket,
     ) {
         if !self.lis().waiting_for_switch_to_config {
-            self.on_packet_error(
-                "ServerboundConfigurationAcknowledgedPacket",
-                "Client acknowledged config, but none was requested".to_owned(),
-            );
+            self.disconnect(crate::server::network::connection::generic_reason(
+                "Internal Exception: java.lang.IllegalStateException: Client acknowledged config, but none was requested"
+                    .to_owned(),
+            ));
             return;
         }
         let cookie = crate::server::network::common_listener::CommonListenerCookie {

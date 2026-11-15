@@ -260,14 +260,10 @@ impl PlayCtx<'_> {
         }
     }
 
-    /// `onPacketError`: vanilla rethrows as a `ReportedException` (server crash). We log the error and disconnect the
-    /// offending player instead (documented deviation: a bad packet must not take the server down).
+    /// `ServerPacketListener.onPacketError`: logs the error and keeps the player; a handler exception (here also a
+    /// caught panic) drops the packet, never the connection.
     fn on_packet_error(&mut self, packet_name: &str, error: String) {
-        log::error!("Failed to handle packet {packet_name}: {error}");
-        self.disconnect(Component::translatable(
-            "disconnect.genericReason",
-            vec![format!("Internal Exception: {error}").into()],
-        ));
+        log::error!("Failed to handle packet {packet_name}, suppressing error: {error}");
     }
 
     /// `ackBlockChangesUpTo`; `false` after reporting a negative sequence as a packet error (the handler stops).
@@ -285,6 +281,7 @@ impl PlayCtx<'_> {
     fn dispatch(&mut self, packet: ServerboundPlayPacket, received_at_ms: i64) {
         use ServerboundPlayPacket as P;
         let name = packet.name();
+        let on_netty_thread = handled_on_netty_thread(&packet);
         let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| match packet {
             // common
             P::KeepAlive(p) => self.handle_keep_alive(&p, received_at_ms),
@@ -341,7 +338,15 @@ impl PlayCtx<'_> {
                 .cloned()
                 .or_else(|| panic.downcast_ref::<&str>().map(|s| s.to_string()))
                 .unwrap_or_default();
-            self.on_packet_error(name, message);
+            // A netty-thread handler never reaches `PacketProcessor`: its exception goes to `exceptionCaught` (kick).
+            if on_netty_thread {
+                log::error!("Failed to handle packet {name}: {message}");
+                self.disconnect(crate::server::network::connection::generic_reason(format!(
+                    "Internal Exception: {message}"
+                )));
+            } else {
+                self.on_packet_error(name, message);
+            }
         }
     }
 }

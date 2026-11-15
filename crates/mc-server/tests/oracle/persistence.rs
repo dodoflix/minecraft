@@ -98,9 +98,10 @@ async fn verify(port: u16, saved: &Saved, what: &str) {
         .await;
     assert!(
         found.is_ok(),
-        "{what}: block at {:?} is {:?}",
+        "{what}: block at {:?} is {:?} (disconnect reason: {:?})",
         saved.block,
-        bot.block_at(saved.block)
+        bot.block_at(saved.block),
+        bot.disconnect_reason()
     );
     bot.disconnect().await;
     println!("PERSIST OK {what}");

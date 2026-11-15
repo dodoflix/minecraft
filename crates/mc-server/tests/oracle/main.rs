@@ -17,6 +17,7 @@ mod join_ours_state;
 mod join_phase;
 mod network_vanilla_diff;
 mod ours_play;
+mod packet_error;
 mod persistence;
 mod play_scenario;
 mod playerdata_diff;
