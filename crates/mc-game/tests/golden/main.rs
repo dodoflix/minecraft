@@ -60,6 +60,7 @@ mod brewing_golden;
 mod click_support;
 mod command_common;
 mod command_exceptions;
+mod command_harness_golden;
 mod command_tree_golden;
 mod commands_advancement_recipe;
 mod commands_data;

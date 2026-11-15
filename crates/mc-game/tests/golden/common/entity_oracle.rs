@@ -230,6 +230,10 @@ fn token_eq(a: &str, b: &str, tol: Option<f64>) -> bool {
 
 /// Do two fixture lines match under `opts` (token based, see the module doc)?
 pub fn lines_match(expected: &str, actual: &str, opts: &Options) -> bool {
+    // command feedback (`CF` lines) is text: no number or separator normalisation (`10.5` is not `10.500000`)
+    if expected.starts_with("CF ") || actual.starts_with("CF ") {
+        return expected == actual;
+    }
     let (e, a) = (normalize(expected, opts), normalize(actual, opts));
     let (te, ta) = (tokens(&e), tokens(&a));
     te.len() == ta.len()

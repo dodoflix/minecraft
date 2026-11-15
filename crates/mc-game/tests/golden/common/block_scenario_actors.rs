@@ -518,6 +518,13 @@ impl Scenario {
                         ops.op_players.push(p.uuid());
                     }
                 });
+                // the installed server's operator list too: `/op`, `/deop` and the permissions of `cmd_as` read it (no permission level packet)
+                if mc_game::commands::server_access::has_server() {
+                    let id = mc_game::server::players::NameAndId::create_offline(&a[1]);
+                    mc_game::commands::server_access::with_server(|server| {
+                        server.player_list.op_entry(id, None, None)
+                    });
+                }
             }
             // `chunk_batch_received PLAYER RATE`: `ServerboundChunkBatchReceivedPacket`
             "chunk_batch_received" => deliver(self, &a[1], |_, _| {
@@ -877,8 +884,10 @@ impl Scenario {
                 self.explode(a);
             }
             _ => {
+                let line = self.line.clone();
                 return crate::common::mob_verbs::command(self, a)
                     || spawn_verbs::command(self, a)
+                    || crate::common::command_verbs::command(self, a, &line)
                     || crate::common::player_actions::command(self, a);
             }
         }
@@ -1085,9 +1094,11 @@ impl Scenario {
             level.dimension.clone(),
         );
         level.server_state.roster.add(handle.clone());
-        // the command environment's own player list: `msg`, `say` and `tellraw` deliver through it
+        // the command environment's own player list and name cache: `msg`, `say`, `tellraw` and `/op` reach the player through them
         if mc_game::commands::server_access::has_server() {
             mc_game::commands::server_access::with_server(|server| {
+                use mc_game::server::players::name_resolver::UserNameToIdResolver as _;
+                server.name_to_id_cache.add(handle.name_and_id());
                 server.player_list.add_player(handle.clone())
             });
         }
@@ -1886,6 +1897,14 @@ impl crate::common::player_actions::ActionHost for Scenario {
     }
     fn emit(&mut self, line: String) {
         self.out.push(line);
+    }
+    fn send_command_feedback(&mut self) -> bool {
+        self.env
+            .game_rules
+            .get(mc_game::world::level::gamerules::GameRules::SEND_COMMAND_FEEDBACK)
+    }
+    fn command_done(&mut self, command: &str, succeeded: bool) {
+        self.after_command(command, succeeded);
     }
 }
 

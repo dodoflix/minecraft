@@ -1,0 +1,32 @@
+# The entity replay's `cmd` verbs: real commands through `command_env` as the console, as a player and with a permission level, and
+# the two commands the replay used to emulate (`effect clear`, `gamemode`) now with their feedback.
+command_env
+level flat
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player Q survival 3.5 -60 0.5 0 0
+spawn Pg minecraft:pig 6.5 -60 0.5 0 0 {NoAI:1b}
+op Q
+gamerule send_command_feedback true
+tick 1
+cmd effect give @e[type=pig] minecraft:speed 30 1
+cmd effect clear @e[type=pig] minecraft:speed
+cmd effect clear @e[type=pig] minecraft:speed
+dump entity:Pg
+cmd gamemode creative P
+cmd_as P gamemode survival P
+cmd_as Q gamemode creative P
+cmd_as -2 gamemode spectator Q
+cmd_as -1 gamemode spectator Q
+tick 2
+dump player:P player:Q entity:Pg
+cmd_json scoreboard objectives add arms dummy
+cmd scoreboard players set P arms 3
+cmd_as Q scoreboard players get P arms
+cmd_as P scoreboard players get P arms
+cmd_as Q tp @e[type=pig] 0 -60 5
+cmd_quiet tp @e[type=pig] 9 -60 9
+cmd_as -2 kill Pg
+cmd_as -0 kill P
+cmd frobnicate
+tick 2
+dump player:P player:Q entity:Pg

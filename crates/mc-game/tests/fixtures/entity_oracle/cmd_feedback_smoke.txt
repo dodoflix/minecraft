@@ -1,0 +1,151 @@
+# scoreboard: success, failure (exists), result (get), failure (no objective)
+CF msg Created new objective [smoke]
+CF result success 1
+CF result failure 0
+CF fail An objective already exists by that name
+CF msg Set [smoke] for A to 5
+CF result success 5
+CF msg A has 5 [smoke]
+CF result success 5
+CF result failure 0
+CF fail Unknown scoreboard objective 'nothing'
+CF msg Added 2 to [smoke] for B (now 2)
+CF result success 2
+CF msg There are 2 tracked entity/entities: A, B
+CF result success 2
+CF msg A has 1 score(s):
+CF msg [smoke]: 5
+CF result success 1
+# data and storage: success, result (get), failure (missing path)
+CF msg Modified storage smoke:s
+CF result success 1
+CF msg Storage smoke:s has the following contents: [1, 2, 3]
+CF result success 3
+CF msg Storage smoke:s has the following contents: 2
+CF result success 2
+CF result failure 0
+CF fail Found no elements matching missing
+CF msg Modified storage smoke:s
+CF result success 1
+CF msg Storage smoke:s has the following contents: {a: 3, b: [1, 2, 3], c: "text"}
+CF result success 1
+CF msg Modified storage smoke:s
+CF result success 1
+# blocks: success, failure (unchanged), result (execute if block)
+CF msg Changed the block at 0, -59, 0
+CF result success 1
+CF result failure 0
+CF fail Could not set the block
+CF msg Successfully filled 9 block(s)
+CF result success 9
+CF result failure 0
+CF fail No blocks were filled
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Successfully cloned 9 block(s)
+CF result success 9
+CF msg Successfully cloned 9 block(s)
+CF result success 9
+# players: gamemode, give, tp, effects
+CF msg Set A's game mode to Creative Mode
+CF result success 1
+CF msg Set A's game mode to Survival Mode
+CF result success 1
+CF msg Gave 3 [Diamond] to A
+CF result success 1
+CF result failure 0
+CF fail No player was found
+CF msg Teleported B to 10.500000, -60.000000, 10.500000
+CF result success 1
+CF fail Incorrect argument for command
+CF fail tp B 20 -60 20 A<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF msg Applied effect Speed to A
+CF result success 1
+CF result failure 0
+CF fail Target doesn't have the requested effect
+CF msg Removed effect Speed from A
+CF result success 1
+CF msg Gave 7 experience points to A
+CF result success 1
+CF msg A has 0 experience points
+CF result success 0
+CF msg A has 1 experience levels
+CF result success 1
+# world state: time, weather, difficulty, seed, list
+CF fail Can't find element 'minecraft:daytime' of type 'minecraft:timeline'
+CF fail ...ry daytime<--[HERE]
+CF msg Set minecraft:overworld to 5 tick(s)
+CF result success 5
+CF msg Set minecraft:overworld to 1000 tick(s)
+CF result success 1000
+CF msg Set the weather to rain
+CF result success 100
+CF msg The difficulty has been set to Hard
+CF result success 0
+CF msg The difficulty is Hard
+CF result success 3
+CF msg Seed: [4242]
+CF result success 4242
+CF msg There are 2 of a max of 20 players online: A, B
+CF result success 2
+CF msg There are 2 of a max of 20 players online: A (b76d4ad3-8d01-3150-b333-68cfb4257774), B (f44cd58d-7902-30e7-8bde-679d783ee631)
+CF result success 2
+# chat: say, tellraw, msg
+CF result success 1
+CF result success 1
+CF msg You whisper to A: hi there
+CF result success 1
+CF result failure 0
+CF fail No player was found
+# entities: summon, kill, tag
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Added tag 'smoke' to 2 entities
+CF result success 2
+CF result failure 0
+CF fail Target either already has the tag or has too many tags
+CF msg The 2 entities have 1 total tag(s): smoke
+CF result success 1
+CF msg Killed Pig
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Killed B
+CF result success 1
+# forks, errors and the component form
+CF result success 1
+CF result success 1
+CF msg Added 1 to [smoke] for A (now 6)
+CF result success 6
+CF msg Added 1 to [smoke] for B (now 3)
+CF result success 3
+CF msg Storage smoke:s has the following contents: 3
+CF result success 3
+CF msg A has 3 [smoke]
+CF result success 3
+CF fail Unknown or incomplete command. See below for error
+CF fail frobnicate<--[HERE]
+CF fail Unknown game mode: flying
+CF fail ...ode flying A<--[HERE]
+CF fail Incomplete (expected 3 coordinates)
+CF fail setblock 0 -59<--[HERE]
+CF fail Invalid string contents
+CF fail ...terminated<--[HERE]
+CF msg A has 3 [smoke]
+CF json {"translate":"commands.scoreboard.players.get.success","with":[{"click_event":{"action":"suggest_command","command":"/tell A "},"hover_event":{"action":"show_text","value":"A"},"insertion":"A","text":"A"},3,{"translate":"chat.square_brackets","with":[{"hover_event":{"action":"show_text","value":"smoke"},"text":"smoke"}]}]}
+CF result success 3
+CF msg There are 2 of a max of 20 players online: A, B
+CF json {"translate":"commands.list.players","with":[2,20,{"extra":[{"click_event":{"action":"suggest_command","command":"/tell A "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"A","uuid":[-1217574189,-1929301680,-1288476465,-1272613004]},"insertion":"A","text":"A"},{"color":"gray","text":", "},{"click_event":{"action":"suggest_command","command":"/tell B "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"B","uuid":[-196291187,2030186727,-1948358755,2017388081]},"insertion":"B","text":"B"}],"text":""}]}
+CF result success 2
+CF msg Killed A
+CF json {"translate":"commands.kill.success.single","with":[{"click_event":{"action":"suggest_command","command":"/tell A "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"A","uuid":[-1217574189,-1929301680,-1288476465,-1272613004]},"insertion":"A","text":"A"}]}
+CF result success 1
+CF msg Storage smoke:s has the following contents: [1, 2, 3]
+CF json {"translate":"commands.data.storage.query","with":["smoke:s",{"extra":["[",{"color":"gold","text":"1"},","," ",{"color":"gold","text":"2"},","," ",{"color":"gold","text":"3"},"]"],"text":""}]}
+CF result success 3

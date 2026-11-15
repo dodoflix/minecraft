@@ -102,8 +102,11 @@ import net.minecraft.util.RandomSource;
  * gamerule NAME VALUE         e.g. gamerule keep_inventory true    time N       (game clock stays frozen otherwise)
  * block X Y Z STATE           e.g. block 0 -60 0 minecraft:water[level=0]   (setBlock flags 3, like /setblock)
  * fill X1 Y1 Z1 X2 Y2 Z2 STATE
- * cmd COMMAND...              any vanilla command as the console (output appears as "C ..." lines)
- * cmd_quiet COMMAND...        the same, its output is dropped (for commands whose feedback varies between runs)
+ * cmd COMMAND...              any vanilla command as the console with owner permissions; its feedback is printed as `CF` lines (see commandAs) and compared by the replays
+ * cmd_quiet COMMAND...        the same, nothing printed (for commands whose feedback varies between runs)
+ * cmd_json COMMAND...         `cmd` plus a `CF json` line (canonical component JSON) after every feedback message
+ * cmd_as WHO COMMAND...       `cmd` as WHO: a player name (that player's position, rotation, entity and permissions: `op` makes it level 4, otherwise 0) or `-N`
+ *                             (the console with permission level N); `cmd_as_json` adds the JSON lines
  * note TEXT...                prints "# TEXT"
  * reseed N                    restart the entity random-seed sequence (entities created afterwards: see VanillaLevel header)
  * level_seed N                Level.random.setSeed(N) (explosion rays, drop spread, ... draw from it; LegacyRandomSource)
@@ -248,7 +251,7 @@ import net.minecraft.util.RandomSource;
  * <p>Output lines: {@code T n} (tick counter header before per-tick dumps), {@code P ...} player, {@code E ...} entity,
  * {@code I ...} inventory slot, {@code PKT player type hex} (hex = id + payload; `update_advancements` prints `-` (timestamps), `level_chunk_with_light` prints
  * `chunk=x,z/len=n` (heightmap map order varies per JVM run), `update_attributes` prints `entity=ID;attr=base[mod/amount/op,..];..` in wire order),
- * {@code B x y z state}, {@code C text} (command output),
+ * {@code B x y z state}, {@code CF msg|fail|json|result ...} (feedback of the `cmd` verbs), {@code C text} (output of the driver's own `time`/`gamerule`/`biome` commands, not compared),
  * {@code DIG/HURT ...} action results (entities created by game logic are named {@code type_path#n}, n counting per type in
  * creation order, e.g. {@code item#1}, {@code experience_orb#2}; `dump entities` lists all live non-player entities by name), {@code # ...} notes. Numbers use Java's Double/Float.toString (shortest round trip;
  * the Rust comparator parses numeric tokens instead of comparing text). Entity ids are NOT printed (not stable across servers).
@@ -458,14 +461,13 @@ public final class EntityOracleDriver {
             world();
             command("time set " + a.get(1));
          }
-         case "cmd" -> {
+         case "cmd", "cmd_quiet", "cmd_json" -> {
             world();
-            command(line.substring(3).strip());
+            commandAs(null, line.substring(cmd.length()).strip(), cmd.equals("cmd_json"), cmd.equals("cmd_quiet"));
          }
-         case "cmd_quiet" -> {
+         case "cmd_as", "cmd_as_json" -> {
             world();
-            command(line.substring("cmd_quiet".length()).strip());
-            v.commandOutput.clear();
+            commandAs(a.get(1), line.substring(cmd.length()).strip().substring(a.get(1).length()).strip(), cmd.equals("cmd_as_json"), false);
          }
          case "level_seed" -> {
             world();
@@ -1047,6 +1049,85 @@ public final class EntityOracleDriver {
       v.command(c);
    }
 
+   /**
+    * `cmd`, `cmd_quiet`, `cmd_json`, `cmd_as`, `cmd_as_json`: runs {@code command} through `performPrefixedCommand` with a recording
+    * sink and prints what it did. {@code who}: null = the console (`server.createCommandSourceStack()`, owner permissions),
+    * `-N` = the console with permission level N, a player name = `player.createCommandSourceStack()` (its position, rotation,
+    * entity and `getProfilePermissions`; the sink accepts success like the player's source does: `send_command_feedback`).
+    * Lines: `CF msg TEXT` per feedback message (`CF fail TEXT` for the red failure form of `sendFailure`; `\` and newlines escaped),
+    * `CF json JSON` after each message with {@code json} (canonical: sorted keys), `CF result success|failure N` for every call of
+    * the source's result callback. Nothing is printed when {@code quiet}. Admins are never informed (the sink says so).
+    */
+   void commandAs(String who, String command, boolean json, boolean quiet) {
+      List<String> lines = new ArrayList<>();
+      ServerPlayer asPlayer = null;
+      net.minecraft.commands.CommandSourceStack base;
+      if (who == null || who.startsWith("-")) {
+         base = v.server.createCommandSourceStack();
+         if (who != null) {
+            base = base.withPermission(net.minecraft.server.permissions.LevelBasedPermissionSet.forLevel(
+               net.minecraft.server.permissions.PermissionLevel.byId(Integer.parseInt(who.substring(1)))));
+         }
+      } else {
+         asPlayer = player(who);
+         base = asPlayer.createCommandSourceStack();
+      }
+      final ServerPlayer owner = asPlayer;
+      net.minecraft.commands.CommandSource sink = new net.minecraft.commands.CommandSource() {
+         @Override
+         public void sendSystemMessage(net.minecraft.network.chat.Component message) {
+            boolean failure = net.minecraft.network.chat.TextColor.fromLegacyFormat(net.minecraft.ChatFormatting.RED).equals(message.getStyle().getColor());
+            lines.add("CF " + (failure ? "fail " : "msg ") + message.getString().replace("\\", "\\\\").replace("\n", "\\n"));
+            if (json) {
+               var ops = RegistryOps.create(com.mojang.serialization.JsonOps.INSTANCE, v.server.registryAccess());
+               lines.add("CF json " + canonJson(net.minecraft.network.chat.ComponentSerialization.CODEC.encodeStart(ops, message).getOrThrow()));
+            }
+         }
+
+         @Override
+         public boolean acceptsSuccess() {
+            return owner == null || owner.level().getGameRules().get(net.minecraft.world.level.gamerules.GameRules.SEND_COMMAND_FEEDBACK);
+         }
+
+         @Override
+         public boolean acceptsFailure() {
+            return true;
+         }
+
+         @Override
+         public boolean shouldInformAdmins() {
+            return false;
+         }
+      };
+      net.minecraft.commands.CommandSourceStack stack = base.withSource(sink)
+         .withCallback((success, result) -> lines.add("CF result " + (success ? "success " : "failure ") + result));
+      v.server.getCommands().performPrefixedCommand(stack, command);
+      if (!quiet) {
+         lines.forEach(out::println);
+      }
+   }
+
+   /** The JSON text of {@code e} with the keys of every object sorted (Gson keeps insertion order, the Rust side sorts too). */
+   static String canonJson(com.google.gson.JsonElement e) {
+      if (e.isJsonObject()) {
+         TreeMap<String, com.google.gson.JsonElement> sorted = new TreeMap<>();
+         e.getAsJsonObject().entrySet().forEach(en -> sorted.put(en.getKey(), en.getValue()));
+         StringBuilder b = new StringBuilder("{");
+         for (var en : sorted.entrySet()) {
+            b.append(b.length() > 1 ? "," : "").append(new com.google.gson.JsonPrimitive(en.getKey())).append(':').append(canonJson(en.getValue()));
+         }
+         return b.append('}').toString();
+      }
+      if (e.isJsonArray()) {
+         StringBuilder b = new StringBuilder("[");
+         for (var item : e.getAsJsonArray()) {
+            b.append(b.length() > 1 ? "," : "").append(canonJson(item));
+         }
+         return b.append(']').toString();
+      }
+      return e.toString();
+   }
+
    /** Entities created by game logic (drops, orbs, falling blocks, ...) get stable names `type_path#n` in creation order. */
    void nameNewEntities() {
       if (v == null) {
@@ -1306,6 +1387,28 @@ public final class EntityOracleDriver {
    static String simple(Class<?> c) {
       String n = c.getName();
       return n.substring(n.lastIndexOf('.') + 1);
+   }
+
+   /** The elements of the list `key` of {@code tag} sorted by canonical text (a saved set is written in hash order). */
+   static CompoundTag sortedStrings(CompoundTag tag, String key) {
+      if (tag.get(key) instanceof ListTag list) {
+         List<Tag> items = new ArrayList<>(list);
+         items.sort(Comparator.comparing(EntityOracleDriver::canon));
+         ListTag sorted = new ListTag();
+         sorted.addAll(items);
+         tag.put(key, sorted);
+      }
+      return tag;
+   }
+
+   /** One `PREFIX canonical-SNBT` line per element of {@code list} (a list of compounds), sorted by line; the `Players` list of an element is sorted too. */
+   void sortedLines(String prefix, ListTag list) {
+      List<String> lines = new ArrayList<>();
+      for (Tag t : list) {
+         lines.add(prefix + " " + canon(t instanceof CompoundTag c ? sortedStrings(c, "Players") : t));
+      }
+      Collections.sort(lines);
+      lines.forEach(out::println);
    }
 
    /** Canonical SNBT: compound keys sorted and printed raw, everything else as Tag.toString. */
@@ -2038,6 +2141,56 @@ public final class EntityOracleDriver {
                      + " old=" + vec(p.xo, p.yo, p.zo) + " size=" + f(p.getBbWidth()) + "," + f(p.getBbHeight())
                      + " bb=" + vec(bb.minX, bb.minY, bb.minZ) + "," + vec(bb.maxX, bb.maxY, bb.maxZ));
                }
+            }
+            case "scoreboard" -> {
+               // OBJ / SCORE / TEAM = the entries of the scoreboard's saved form (`ScoreboardSaveData.Packed`: objectives with criteria, display
+               // name, render type, auto update and number format; scores with their lock, display and format; teams with every option and member),
+               // canonical SNBT, sorted (the saved lists follow hash order); DISPLAY = the display slot map
+               Object packedScoreboard;
+               try {
+                  Method store = net.minecraft.server.ServerScoreboard.class.getDeclaredMethod("store");
+                  store.setAccessible(true);
+                  packedScoreboard = store.invoke(v.server.getScoreboard());
+               } catch (ReflectiveOperationException ex) {
+                  throw new IllegalStateException(ex);
+               }
+               CompoundTag saved = (CompoundTag)net.minecraft.world.scores.ScoreboardSaveData.Packed.CODEC.encodeStart(NbtOps.INSTANCE, (net.minecraft.world.scores.ScoreboardSaveData.Packed)packedScoreboard).getOrThrow();
+               sortedLines("OBJ", saved.getListOrEmpty("Objectives"));
+               sortedLines("SCORE", saved.getListOrEmpty("PlayerScores"));
+               out.println("DISPLAY " + canon(saved.getCompoundOrEmpty("DisplaySlots")));
+               sortedLines("TEAM", saved.getListOrEmpty("Teams"));
+            }
+            case "bossbars" -> {
+               // BOSSBAR ID SNBT: `CustomBossEvent.Packed` of every custom boss bar, sorted by id
+               TreeMap<String, String> bars = new TreeMap<>();
+               for (var bar : v.server.getCustomBossEvents().getEvents()) {
+                  CompoundTag packed = (CompoundTag)net.minecraft.server.bossevents.CustomBossEvent.Packed.CODEC.encodeStart(NbtOps.INSTANCE, bar.pack()).getOrThrow();
+                  bars.put(bar.customId().toString(), canon(sortedStrings(packed, "Players")));
+               }
+               bars.forEach((id, tag) -> out.println("BOSSBAR " + id + " " + tag));
+            }
+            case "storage" -> out.println("STORAGE " + arg + " " + canon(v.server.getCommandStorage().get(Identifier.parse(arg))));
+            case "select" -> {
+               // SELECT SELECTOR EXECUTOR POS -> REF..: `select:EXECUTOR/X,Y,Z/SELECTOR` (EXECUTOR `-` = the console), the entities the selector finds
+               // as an operator at that position, in result order (scenario names; `?` for an entity without one)
+               nameNewEntities();
+               String[] parts = arg.split("/", 3);
+               String[] c = parts[1].split(",");
+               var stack = v.server.createCommandSourceStack();
+               if (!parts[0].equals("-")) {
+                  stack = stack.withEntity(ref(parts[0]));
+               }
+               stack = stack.withPosition(new Vec3(Double.parseDouble(c[0]), Double.parseDouble(c[1]), Double.parseDouble(c[2])));
+               StringBuilder b = new StringBuilder("SELECT " + parts[2] + " " + parts[0] + " " + parts[1] + " ->");
+               try {
+                  var selector = new net.minecraft.commands.arguments.selector.EntitySelectorParser(new StringReader(parts[2]), true).parse();
+                  for (Entity found : selector.findEntities(stack)) {
+                     b.append(' ').append(refs.entrySet().stream().filter(en -> en.getValue() == found).map(Map.Entry::getKey).findFirst().orElse("?"));
+                  }
+               } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+                  b.append(" !").append(e.getRawMessage().getString());
+               }
+               out.println(b);
             }
             case "counter" -> out.println("COUNTER " + ((java.util.concurrent.atomic.AtomicInteger)priv(null, net.minecraft.server.level.ServerLevel.class, "ENTITY_COUNTER")).get());
             case "rng" -> {

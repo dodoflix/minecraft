@@ -1,0 +1,101 @@
+# Permission levels: the level-0 and level-2 forms of restricted commands (denied text and position, or the feedback of the allowed
+# run), the commands only levels 3 and 4 may run, selectors without the permission, and players with and without `op`.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 20
+spawn_player Plain survival 0.5 -60 0.5 0 0
+spawn_player Op survival 4.5 -60 0.5 0 0
+op Op
+gamerule send_command_feedback true
+tick 1
+note level 0 then level 2: gamemode, fill, setblock, tp, give, clear, effect, xp, kill, summon
+cmd_as -0 gamemode creative Plain
+cmd_as -2 gamemode creative Plain
+cmd_as -0 fill 0 -59 0 1 -59 1 minecraft:stone
+cmd_as -2 fill 0 -59 0 1 -59 1 minecraft:stone
+cmd_as -0 setblock 3 -59 3 minecraft:dirt
+cmd_as -2 setblock 3 -59 3 minecraft:dirt
+cmd_as -0 tp Plain 8 -60 8
+cmd_as -2 tp Plain 8 -60 8
+cmd_as -0 give Plain minecraft:apple 2
+cmd_as -2 give Plain minecraft:apple 2
+cmd_as -0 clear Plain minecraft:apple
+cmd_as -2 clear Plain minecraft:apple
+cmd_as -0 effect give Plain minecraft:speed 10
+cmd_as -2 effect give Plain minecraft:speed 10
+cmd_as -0 xp add Plain 3 points
+cmd_as -2 xp add Plain 3 points
+cmd_as -0 summon minecraft:pig 12 -60 12
+cmd_as -2 summon minecraft:pig 12 -60 12 {NoAI:1b}
+cmd_as -0 kill @e[type=pig]
+cmd_as -2 kill @e[type=pig]
+note level 0 then level 2: time, weather, difficulty, gamerule, seed, data, scoreboard, tag, say, tellraw, execute
+cmd_as -0 time set 6000
+cmd_as -2 time set 6000
+cmd_as -0 weather clear 50
+cmd_as -2 weather clear 50
+cmd_as -0 difficulty peaceful
+cmd_as -2 difficulty peaceful
+cmd_as -0 gamerule keep_inventory true
+cmd_as -2 gamerule keep_inventory true
+cmd_as -0 seed
+cmd_as -2 seed
+cmd_as -0 data merge storage perm:s {a:1}
+cmd_as -2 data merge storage perm:s {a:1}
+cmd_as -0 scoreboard objectives add perm dummy
+cmd_as -2 scoreboard objectives add perm dummy
+cmd_as -0 tag Plain add perm
+cmd_as -2 tag Plain add perm
+cmd_as -0 say from level 0
+cmd_as -2 say from level 2
+cmd_as -0 tellraw Plain "x"
+cmd_as -2 tellraw Plain "x"
+cmd_as -0 execute as Plain run tag @s add exec
+cmd_as -2 execute as Plain run tag @s add exec
+note the commands every level may run
+cmd_as -0 list
+cmd_as -0 msg Plain hi
+cmd_as -0 me waves
+cmd_as -0 trigger nothing
+cmd_as -0 help frobnicate
+note level 3 and 4 commands at level 2 (denied) and at 0
+cmd_as -2 op Plain
+cmd_as -0 op Plain
+cmd_as -2 deop Plain
+cmd_as -2 ban Plain
+cmd_as -2 kick Plain
+cmd_as -2 whitelist list
+cmd_as -2 stop
+cmd_as -2 save-all
+cmd_as -3 stop
+cmd_as -0 stop
+note selectors need level 2
+cmd_as -0 msg @a hi
+cmd_as -0 msg @s hi
+cmd_as Plain msg @a hi
+cmd_as -2 msg @a hi
+note players: Plain has no permissions, Op is an operator (level 4)
+cmd_as Plain gamemode creative Plain
+cmd_as Op gamemode creative Op
+cmd_as Plain say hi
+cmd_as Op say hi
+cmd_as Plain msg Op hello
+cmd_as Plain tp Op
+cmd_as Op tp Plain
+cmd_as Plain kill Plain
+cmd_as Plain execute as Op run say hi
+cmd_as Op execute as Plain run tag @s add exec
+cmd_as Plain list
+cmd_as Op list
+cmd_as Plain stop
+cmd_as Plain op Plain
+cmd_as Op deop Plain
+cmd_as Op ban-ip 10.0.0.1
+note an operator made at run time
+cmd_as -2 op Plain
+cmd_as -4 op Plain
+cmd_as Plain gamemode survival Plain
+cmd_as -4 deop Plain
+cmd_as Plain gamemode survival Plain

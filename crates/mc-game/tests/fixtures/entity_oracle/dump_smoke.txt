@@ -1,0 +1,86 @@
+# scoreboard: every criterion kind, a name, a render type and number formats
+OBJ {CriteriaName:"air",DisplayName:"airo",Name:"airo"}
+OBJ {CriteriaName:"armor",DisplayName:"arm",Name:"arm"}
+OBJ {CriteriaName:"deathCount",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"food",DisplayName:"food",Name:"food"}
+OBJ {CriteriaName:"health",DisplayName:"Health",Name:"hp",RenderType:"hearts"}
+OBJ {CriteriaName:"killedByTeam.blue",DisplayName:"kbt",Name:"kbt"}
+OBJ {CriteriaName:"level",DisplayName:"lvl",Name:"lvl",format:{color:"green",italic:1b,type:"minecraft:styled"}}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"jumps",Name:"jumps"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.zombie",DisplayName:"zk",Name:"zk"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"playerKillCount",DisplayName:"pkills",Name:"pkills"}
+OBJ {CriteriaName:"teamkill.red",DisplayName:"tk",Name:"tk"}
+OBJ {CriteriaName:"totalKillCount",DisplayName:"tkills",Name:"tkills"}
+OBJ {CriteriaName:"trigger",DisplayName:"trig",Name:"trig"}
+OBJ {CriteriaName:"xp",DisplayName:"xpo",Name:"xpo"}
+OBJ {DisplayName:"dum",Name:"dum",display_auto_update:1b,format:{type:"minecraft:blank"}}
+OBJ {DisplayName:{bold:1b,color:"gold",text:"Named"},Name:"named",format:{type:"minecraft:fixed",value:{color:"red",text:"fixed"}}}
+SCORE {Locked:1b,Name:"#fake",Objective:"dum",Score:100}
+SCORE {Locked:1b,Name:"A",Objective:"dum",Score:5,display:{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"}}
+SCORE {Locked:1b,Name:"A",Objective:"named",Score:1,display:{color:"aqua",text:"Alpha"},format:{type:"minecraft:fixed",value:"one"}}
+SCORE {Locked:1b,Name:"B",Objective:"dum",Score:-3,display:{click_event:{action:"suggest_command",command:"/tell B "},hover_event:{action:"show_entity",id:"minecraft:player",name:"B",uuid:[I;-196291187,2030186727,-1948358755,2017388081]},insertion:"B",text:"B"},format:{color:"blue",type:"minecraft:styled"}}
+SCORE {Locked:1b,Name:"B",Objective:"trig",Score:4}
+SCORE {Locked:1b,Name:"Near",Objective:"named",Score:7}
+SCORE {Name:"A",Objective:"trig"}
+DISPLAY {below_name:"hp",list:"dum",sidebar:"named",sidebar.team.red:"lvl"}
+# teams: every option, members
+OBJ {CriteriaName:"air",DisplayName:"airo",Name:"airo"}
+OBJ {CriteriaName:"armor",DisplayName:"arm",Name:"arm"}
+OBJ {CriteriaName:"deathCount",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"food",DisplayName:"food",Name:"food"}
+OBJ {CriteriaName:"health",DisplayName:"Health",Name:"hp",RenderType:"hearts"}
+OBJ {CriteriaName:"killedByTeam.blue",DisplayName:"kbt",Name:"kbt"}
+OBJ {CriteriaName:"level",DisplayName:"lvl",Name:"lvl",format:{color:"green",italic:1b,type:"minecraft:styled"}}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"jumps",Name:"jumps"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.zombie",DisplayName:"zk",Name:"zk"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"playerKillCount",DisplayName:"pkills",Name:"pkills"}
+OBJ {CriteriaName:"teamkill.red",DisplayName:"tk",Name:"tk"}
+OBJ {CriteriaName:"totalKillCount",DisplayName:"tkills",Name:"tkills"}
+OBJ {CriteriaName:"trigger",DisplayName:"trig",Name:"trig"}
+OBJ {CriteriaName:"xp",DisplayName:"xpo",Name:"xpo"}
+OBJ {DisplayName:"dum",Name:"dum",display_auto_update:1b,format:{type:"minecraft:blank"}}
+OBJ {DisplayName:{bold:1b,color:"gold",text:"Named"},Name:"named",format:{type:"minecraft:fixed",value:{color:"red",text:"fixed"}}}
+SCORE {Locked:1b,Name:"#fake",Objective:"dum",Score:100}
+SCORE {Locked:1b,Name:"A",Objective:"dum",Score:5,display:{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"}}
+SCORE {Locked:1b,Name:"A",Objective:"named",Score:1,display:{color:"aqua",text:"Alpha"},format:{type:"minecraft:fixed",value:"one"}}
+SCORE {Locked:1b,Name:"B",Objective:"dum",Score:-3,display:{click_event:{action:"suggest_command",command:"/tell B "},hover_event:{action:"show_entity",id:"minecraft:player",name:"B",uuid:[I;-196291187,2030186727,-1948358755,2017388081]},insertion:"B",text:"B"},format:{color:"blue",type:"minecraft:styled"}}
+SCORE {Locked:1b,Name:"B",Objective:"trig",Score:4}
+SCORE {Locked:1b,Name:"Near",Objective:"named",Score:7}
+SCORE {Name:"A",Objective:"trig"}
+DISPLAY {below_name:"hp",list:"dum",sidebar:"named",sidebar.team.red:"lvl"}
+TEAM {AllowFriendlyFire:0b,CollisionRule:"pushOwnTeam",DeathMessageVisibility:"never",DisplayName:"Red Team",MemberNamePrefix:{color:"red",text:"[R] "},MemberNameSuffix:" (r)",Name:"red",Players:["A"],SeeFriendlyInvisibles:0b,TeamColor:"red"}
+TEAM {CollisionRule:"never",DisplayName:{color:"blue",text:"Blue Team"},Name:"blue",Players:["B"],TeamColor:"blue"}
+TEAM {DisplayName:"plain",Name:"plain"}
+# boss bars and command storage
+BOSSBAR other:three {Name:"Three",Visible:1b}
+BOSSBAR smoke:one {Color:"red",Max:60,Name:"One",Overlay:"notched_10",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081]],Value:25}
+BOSSBAR smoke:two {Name:"Second",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Visible:1b}
+STORAGE smoke:s {a:1,b:[1,2,3,4],c:{d:"text",e:1.5d,g:{h:[{i:1},{i:2}]}},f:2b}
+STORAGE other:t {z:1L}
+STORAGE smoke:empty {}
+# selector order: nearest, furthest, limits, type and distance filters, the player selectors, an error
+SELECT @e[sort=nearest] A 0.5,-60,0.5 -> A Near Mid B Far2 Far
+SELECT @e[sort=furthest] A 0.5,-60,0.5 -> Far Far2 B Mid Near A
+SELECT @e[sort=nearest,type=pig] B 6.5,-60,0.5 -> Mid Near Far2
+SELECT @e[sort=nearest,limit=2] - 10,-60,10 -> Far Mid
+SELECT @e[sort=furthest,limit=2,type=pig] - 10,-60,10 -> Near Far2
+SELECT @e[sort=nearest,distance=..6] - 0,-60,0 -> A Near
+SELECT @e[sort=nearest,distance=3..] - 0,-60,0 -> B Mid Far2 Far
+SELECT @e[sort=nearest,type=!pig] - 0,-60,0 -> A B Far
+SELECT @a A 0.5,-60,0.5 -> A B
+SELECT @p A 0.5,-60,0.5 -> A
+SELECT @p B 20,-60,20 -> B
+SELECT @s A 0.5,-60,0.5 -> A
+SELECT @s Near 0.5,-60,0.5 -> Near
+SELECT @n - 0,-60,0 -> A
+SELECT @n[type=pig] - 12,-60,2 -> Far2
+SELECT @e[sort=nearest,team=red] - 0,-60,0 -> A
+SELECT @e[sort=nearest,team=!red] - 0,-60,0 -> Near B Mid Far2 Far
+SELECT @e[sort=nearest,scores={dum=5..}] - 0,-60,0 -> A
+SELECT @e[sort=nearest,tag=nothing] - 0,-60,0 ->
+SELECT @e[sort=banana] - 0,-60,0 -> !Invalid or unknown sort type 'banana'
+SELECT @e[limit=0] - 0,-60,0 -> !Limit must be at least 1
+SELECT Near - 0,-60,0 ->
+SELECT nobody - 0,-60,0 ->

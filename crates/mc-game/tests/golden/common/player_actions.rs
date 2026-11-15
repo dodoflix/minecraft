@@ -36,6 +36,13 @@ pub trait ActionHost {
     fn next_sequence(&mut self, player: &str) -> i32;
     /// One line of the replay output.
     fn emit(&mut self, line: String);
+    /// A `cmd` verb ran `command` (`succeeded`: its result callback reported success): what the replay re-does for its effects outside the command environment (a `gamerule` command sets the
+    /// replay's own rules, a command that kicked a player disconnects it).
+    fn command_done(&mut self, _command: &str, _succeeded: bool) {}
+    /// The `send_command_feedback` rule the replay's level runs with (a player's command source accepts success feedback only while it is on).
+    fn send_command_feedback(&mut self) -> bool {
+        true
+    }
 }
 
 /// The per player packet counters behind [`ActionHost::next_sequence`].

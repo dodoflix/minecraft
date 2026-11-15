@@ -1,0 +1,167 @@
+C Game rule send_command_feedback is now set to true
+# level 0 then level 2: gamemode, fill, setblock, tp, give, clear, effect, xp, kill, summon
+CF fail Unknown or incomplete command. See below for error
+CF fail gamemode creative Plain<--[HERE]
+CF msg Set Plain's game mode to Creative Mode
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail fill 0 -59 0 1 -59 1 minecraft:stone<--[HERE]
+CF msg Successfully filled 4 block(s)
+CF result success 4
+CF fail Unknown or incomplete command. See below for error
+CF fail setblock 3 -59 3 minecraft:dirt<--[HERE]
+CF msg Changed the block at 3, -59, 3
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail tp Plain 8 -60 8<--[HERE]
+CF msg Teleported Plain to 8.500000, -60.000000, 8.500000
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail give Plain minecraft:apple 2<--[HERE]
+CF msg Gave 2 [Apple] to Plain
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail clear Plain minecraft:apple<--[HERE]
+CF msg Removed 2 item(s) from player Plain
+CF result success 2
+CF fail Unknown or incomplete command. See below for error
+CF fail effect give Plain minecraft:speed 10<--[HERE]
+CF msg Applied effect Speed to Plain
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail xp add Plain 3 points<--[HERE]
+CF msg Gave 3 experience points to Plain
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail summon minecraft:pig 12 -60 12<--[HERE]
+CF msg Summoned new Pig
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail kill @e[type=pig]<--[HERE]
+CF msg Killed Pig
+CF result success 1
+# level 0 then level 2: time, weather, difficulty, gamerule, seed, data, scoreboard, tag, say, tellraw, execute
+CF fail Unknown or incomplete command. See below for error
+CF fail time set 6000<--[HERE]
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
+CF fail Unknown or incomplete command. See below for error
+CF fail weather clear 50<--[HERE]
+CF msg Set the weather to clear
+CF result success 50
+CF fail Unknown or incomplete command. See below for error
+CF fail difficulty peaceful<--[HERE]
+CF msg The difficulty has been set to Peaceful
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail gamerule keep_inventory true<--[HERE]
+CF msg Game rule keep_inventory is now set to true
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail seed<--[HERE]
+CF msg Seed: [4242]
+CF result success 4242
+CF fail Unknown or incomplete command. See below for error
+CF fail data merge storage perm:s {a:1}<--[HERE]
+CF msg Modified storage perm:s
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail scoreboard objectives add perm dummy<--[HERE]
+CF msg Created new objective [perm]
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail tag Plain add perm<--[HERE]
+CF msg Added tag 'perm' to Plain
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail say from level 0<--[HERE]
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail tellraw Plain "x"<--[HERE]
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail execute as Plain run tag @s add exec<--[HERE]
+CF msg Added tag 'exec' to Plain
+CF result success 1
+# the commands every level may run
+CF msg There are 2 of a max of 20 players online: Plain, Op
+CF result success 2
+CF msg You whisper to Plain: hi
+CF result success 1
+CF result success 1
+CF result failure 0
+CF fail A player is required to run this command here
+CF result failure 0
+CF fail Unknown command or insufficient permissions
+# level 3 and 4 commands at level 2 (denied) and at 0
+CF fail Unknown or incomplete command. See below for error
+CF fail op Plain<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail op Plain<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail deop Plain<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ban Plain<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail kick Plain<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail whitelist list<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail stop<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail save-all<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail stop<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail stop<--[HERE]
+# selectors need level 2
+CF fail Selector not allowed
+CF fail msg @a hi<--[HERE]
+CF fail Selector not allowed
+CF fail msg @s hi<--[HERE]
+CF fail Selector not allowed
+CF fail msg @a hi<--[HERE]
+CF msg You whisper to Plain: hi
+CF msg You whisper to Op: hi
+CF result success 2
+# players: Plain has no permissions, Op is an operator (level 4)
+CF fail Unknown or incomplete command. See below for error
+CF fail gamemode creative Plain<--[HERE]
+CF msg Set own game mode to Creative Mode
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail say hi<--[HERE]
+CF result success 1
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail tp Op<--[HERE]
+CF msg Teleported Op to Plain
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail kill Plain<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail execute as Op run say hi<--[HERE]
+CF result failure 0
+CF msg There are 2 of a max of 20 players online: Plain, Op
+CF result success 2
+CF msg There are 2 of a max of 20 players online: Plain, Op
+CF result success 2
+CF fail Unknown or incomplete command. See below for error
+CF fail stop<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail op Plain<--[HERE]
+CF result failure 0
+CF fail Nothing changed. The player is not an operator
+CF msg Banned IP 10.0.0.1: Banned by an operator.
+CF result success 0
+# an operator made at run time
+CF fail Unknown or incomplete command. See below for error
+CF fail op Plain<--[HERE]
+CF msg Made Plain a server operator
+CF result success 1
+CF msg Set own game mode to Survival Mode
+CF result success 1
+CF msg Made Plain no longer a server operator
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail gamemode survival Plain<--[HERE]

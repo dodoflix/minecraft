@@ -1,0 +1,88 @@
+# The feedback of console commands (`CF` lines: message, failure message, result callback): from each of six families a command that
+# succeeds, one that fails and one that returns a value, plus a parse error, a forking `execute` and the component JSON form.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+tick 1
+note scoreboard: success, failure (exists), result (get), failure (no objective)
+cmd scoreboard objectives add smoke dummy
+cmd scoreboard objectives add smoke dummy
+cmd scoreboard players set A smoke 5
+cmd scoreboard players get A smoke
+cmd scoreboard players get A nothing
+cmd scoreboard players add B smoke 2
+cmd scoreboard players list
+cmd scoreboard players list A
+note data and storage: success, result (get), failure (missing path)
+cmd data merge storage smoke:s {a:1,b:[1,2,3],c:"text"}
+cmd data get storage smoke:s b
+cmd data get storage smoke:s b[1]
+cmd data get storage smoke:s missing
+cmd data modify storage smoke:s a set value 3
+cmd data get storage smoke:s
+cmd data remove storage smoke:s c
+note blocks: success, failure (unchanged), result (execute if block)
+cmd setblock 0 -59 0 minecraft:stone
+cmd setblock 0 -59 0 minecraft:stone
+cmd fill 0 -59 0 2 -59 2 minecraft:dirt
+cmd fill 0 -59 0 2 -59 2 minecraft:dirt
+cmd execute if block 0 -59 0 minecraft:dirt
+cmd execute unless block 0 -59 0 minecraft:dirt
+cmd clone 0 -59 0 2 -59 2 5 -59 0
+cmd clone 0 -59 0 2 -59 2 5 -59 0 strict
+note players: gamemode, give, tp, effects
+cmd gamemode creative A
+cmd gamemode survival @a
+cmd give A minecraft:diamond 3
+cmd give nobody minecraft:diamond
+cmd tp B 10 -60 10
+cmd tp B 20 -60 20 A
+cmd tp nobody 0 0 0
+cmd effect give A minecraft:speed 30 1
+cmd effect clear A minecraft:slowness
+cmd effect clear A minecraft:speed
+cmd xp add A 7 points
+cmd xp query A points
+cmd xp query A levels
+note world state: time, weather, difficulty, seed, list
+cmd time query daytime
+cmd time add 5
+cmd time set 1000
+cmd weather rain 100
+cmd difficulty hard
+cmd difficulty
+cmd seed
+cmd list
+cmd list uuids
+note chat: say, tellraw, msg
+cmd say hello
+cmd tellraw A {"text":"raw","color":"red"}
+cmd msg A hi there
+cmd msg nobody hi
+note entities: summon, kill, tag
+cmd summon minecraft:pig 8 -60 8
+cmd summon minecraft:pig 8 -60 9 {NoAI:1b}
+cmd tag @e[type=pig] add smoke
+cmd tag @e[type=pig] add smoke
+cmd tag @e[type=pig] list
+cmd kill @e[type=pig,limit=1]
+cmd kill @e[type=cow]
+cmd kill B
+note forks, errors and the component form
+cmd execute as @a run say hi
+cmd execute as @a at @s run scoreboard players add @s smoke 1
+cmd execute store result score A smoke run data get storage smoke:s a
+cmd scoreboard players get A smoke
+cmd frobnicate
+cmd gamemode flying A
+cmd setblock 0 -59
+cmd tellraw A {"text":"unterminated
+cmd_json scoreboard players get A smoke
+cmd_json list
+cmd_json kill A
+cmd_json data get storage smoke:s b
+cmd_quiet say quiet

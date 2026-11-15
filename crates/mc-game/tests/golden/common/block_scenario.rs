@@ -12,7 +12,7 @@
 //! Generate the fixture with `scripts/block-oracle.sh blk_redstone_lever_lamp` (runs the REAL vanilla level).
 //!
 //! Supported commands (same text as the Java driver, see its header): `level flat|void|normal` (`normal`: the real noise generator of the dimension), `structures true|false` (`generate-structures`: placed structures and the structure search), `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `preload_settle` (boot also finishes the chunks two rings beyond the preload), `features NAME,..`,
-//! `command_env` (a real command environment around the whole scenario; `cmd COMMAND...` then runs any other command as the console, its feedback printed as `C` lines; `cmd_quiet COMMAND...` prints none), `jigsaw_generate PLAYER X Y Z LEVELS KEEP`, `menu_button PLAYER N`, `close_menu PLAYER`, `move_packet`, `move_vehicle`, `paddle`, `client_tick_end`, `respawn`, `effect`, `mobspawn` (the actor verbs of `block_scenario_actors.rs`), the mob verbs of `mob_verbs.rs` (`target love age breed tame leash mob_attack nav path_query nav_stop`, dumps `mob:REF mobs goals: brain: path: attrs: nbt:`),
+//! `command_env` (a real command environment around the whole scenario; the command verbs of `command_verbs.rs` then run real commands: `cmd COMMAND...` as the console with its feedback printed as compared `CF` lines, `cmd_quiet`, `cmd_json`, `cmd_as PLAYER|-LEVEL COMMAND...` with a player's or a permission level's permissions; dumps `scoreboard`, `bossbars`, `storage:ID`, `select:EXECUTOR/X,Y,Z/SELECTOR`), `jigsaw_generate PLAYER X Y Z LEVELS KEEP`, `menu_button PLAYER N`, `close_menu PLAYER`, `move_packet`, `move_vehicle`, `paddle`, `client_tick_end`, `respawn`, `effect`, `mobspawn` (the actor verbs of `block_scenario_actors.rs`), the mob verbs of `mob_verbs.rs` (`target love age breed tame leash mob_attack nav path_query nav_stop`, dumps `mob:REF mobs goals: brain: path: attrs: nbt:`),
 //! `note`, the spawning verbs of `spawn_verbs.rs` (`spawnpass`, `spawnat`, `custom_spawner`, `raid_start`, `raid_waves`, `rest`, `memory`, `activity`, dumps `difficulty:X,Y,Z spawn_state raids`), `cmd weather rain|clear TICKS`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `biome X1 Y1 Z1 X2 Y2 Z2 BIOME` (`/fillbiome`: loads the real biome registry), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
 //! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list), `chunkbes:cx,cz` (`CHUNKBES`/`BEP x y z type`: the block entity list of the chunk packet; `BEM` is the map's iteration order, vanilla's fastutil order), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
@@ -56,12 +56,13 @@ use parking_lot::Mutex;
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-/// Replay `tests/oracle/scenarios/NAME.txt` and return the lines the Java driver would print.
+/// Replay `tests/oracle/scenarios/NAME.txt` and return the lines the Java driver would print (`CF` feedback lines of the `cmd` verbs
+/// only when the fixture records them, see [`super::command_verbs::legacy_feedback`]).
 pub fn run_scenario(name: &str) -> Vec<String> {
     let path = scenario_dir().join(format!("{name}.txt"));
     let text = std::fs::read_to_string(&path)
         .unwrap_or_else(|e| panic!("scenario {}: {e}", path.display()));
-    run_scenario_text(&text)
+    super::command_verbs::legacy_feedback(name, run_scenario_text(&text))
 }
 
 /// Replay and compare with `tests/fixtures/entity_oracle/NAME.txt` (panics with the first differences).
@@ -101,8 +102,9 @@ pub fn check_with(name: &str, opts: &Options) {
         .expect("write the replay output");
     }
     let fixture = Fixture::load(name);
-    // `C` lines are the command feedback of the driver's `time`/`gamerule` verbs ("Set minecraft:overworld to N tick(s)"): the
-    // replay changes the same state without a command, so the text is not part of the comparison
+    // `C` lines are the command feedback of the driver's own `time`/`gamerule` verbs ("Set minecraft:overworld to N tick(s)") and of
+    // `cmd` in fixtures recorded before `CF` lines: the replay changes the same state without a command, so the text is not part of
+    // the comparison (the feedback of `cmd` verbs is the `CF` lines, which are compared)
     let mut opts = opts.clone();
     opts.ignore_kinds.push("C");
     // light updates come from the light thread: which tick carries them depends on thread timing in vanilla
@@ -164,12 +166,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                 )
             )
         })
-        .then(|| {
-            let server = crate::command_common::test_server();
-            // the dedicated server installs the parsers the text codec validates selectors and paths with
-            mc_game::commands::install_text_validators();
-            server
-        });
+        .then(super::command_verbs::install_command_env);
     for (i, line) in text.lines().enumerate() {
         let line = line.trim();
         if line.is_empty() || line.starts_with('#') {
@@ -375,25 +372,6 @@ impl LevelTickEnv for Env {
     fn teleport_through_portal(&mut self, _level: &mut ServerLevel, _entity: &mut dyn Entity) {}
 }
 
-/// `VanillaLevel.command`'s sink: the feedback of a console command, printed as `C` lines.
-#[derive(Default)]
-struct CommandOutput(Mutex<Vec<String>>);
-
-impl mc_game::commands::CommandSource for CommandOutput {
-    fn send_system_message(&self, message: &mc_text::Component) {
-        self.0.lock().push(message.get_string());
-    }
-    fn accepts_success(&self) -> bool {
-        true
-    }
-    fn accepts_failure(&self) -> bool {
-        true
-    }
-    fn should_inform_admins(&self) -> bool {
-        false
-    }
-}
-
 struct Options_ {
     flat: bool,
     /// `level normal`: the real noise generator of the dimension.
@@ -563,45 +541,14 @@ impl Scenario {
         self.level.as_mut().expect("world not booted")
     }
 
-    /// `cmd COMMAND...` / `cmd_quiet COMMAND...`: any command as the console (`VanillaLevel.command`), run through the server
-    /// `command_env` installs. The output is not replayed by `cmd` (the comparison drops `C` lines) and not printed by `cmd_quiet`;
-    /// the effects on the level are.
-    fn console_command(&mut self, verb: &str, quiet: bool) {
-        let command = self.line[verb.len()..].trim().to_string();
-        let level = self.level();
-        let respawn = level.level_data.get_respawn_data().pos;
-        let output = Arc::new(CommandOutput::default());
-        let source = mc_game::commands::CommandSourceStack::named(
-            output.clone(),
-            mc_core::phys::Vec3::new(
-                f64::from(respawn.x()),
-                f64::from(respawn.y()),
-                f64::from(respawn.z()),
-            ),
-            mc_core::phys::Vec2::ZERO,
-            level.dimension.clone(),
-            mc_game::server::permissions::LevelBasedPermissionSet::OWNER.into(),
-            mc_text::Component::literal("Server"),
-        );
-        assert!(
-            mc_game::commands::server_access::has_server(),
-            "block_scenario: `cmd {command}` needs the `command_env` verb"
-        );
-        mc_game::commands::server_access::with_server(|server| {
-            let commands = server.commands.clone();
-            server.with_lent_level(level, |server| {
-                commands.perform_prefixed_command(server, source, &command)
-            });
-        });
+    /// `ActionHost::command_done`: what a command changes outside the installed server.
+    fn after_command(&mut self, command: &str, succeeded: bool) {
         // the installed server's rules are not the ones the level and the tick environment read: `/gamerule NAME VALUE` is also set there
-        if let ["gamerule", name, value] = command.split_whitespace().collect::<Vec<_>>()[..] {
+        let words: Vec<&str> = command.split_whitespace().collect();
+        if let (true, ["gamerule", name, value]) = (succeeded, &words[..]) {
             self.gamerule(name, value);
         }
         self.handle_disconnections();
-        if !quiet {
-            self.out
-                .extend(output.0.lock().drain(..).map(|line| format!("C {line}")));
-        }
     }
 
     /// `VanillaLevel.boot`: the level with the preloaded chunks forced, ticking, entities loaded.
@@ -900,7 +847,10 @@ impl Scenario {
                 self.world();
                 mc_core::random::reseed_uniquifier(a[1].parse().expect("reseed N"));
             }
-            "seed" => self.opts.seed = a[1].parse().expect("seed N"),
+            "seed" => {
+                self.opts.seed = a[1].parse().expect("seed N");
+                super::command_verbs::set_world_seed(self.opts.seed);
+            }
             "difficulty" => {
                 self.opts.difficulty = match a[1].as_str() {
                     "peaceful" => Difficulty::Peaceful,
@@ -960,14 +910,24 @@ impl Scenario {
                                 raining: false,
                             }
                         };
+                        // the replay's weather is the tick environment's; the real command (on the installed server's own weather)
+                        // only supplies the feedback lines
+                        if mc_game::commands::server_access::has_server() {
+                            let line = self.line.clone();
+                            super::command_verbs::command(self, a, &line);
+                        }
                     }
                     (Some("recipe"), Some("give" | "take")) => self.recipe_command(a),
-                    _ => self.console_command("cmd", false),
+                    _ => {
+                        let line = self.line.clone();
+                        super::command_verbs::command(self, a, &line);
+                    }
                 }
             }
             "cmd_quiet" => {
                 self.world();
-                self.console_command("cmd_quiet", true);
+                let line = self.line.clone();
+                super::command_verbs::command(self, a, &line);
             }
             "note" => self.out.push(format!("# {}", self.line[4..].trim())),
             "gamerule" => {
@@ -1262,6 +1222,7 @@ impl Scenario {
                 }
                 "ticks" => self.dump_ticks(arg),
                 _ if self.dump_actor(kind, arg) => {}
+                _ if super::command_verbs::dump(self, kind, arg) => {}
                 "events" => self.dump_events(),
                 other => panic!("dump {other} is not supported by tests/common/block_scenario.rs"),
             }

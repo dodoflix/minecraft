@@ -1,0 +1,40 @@
+C Game rule send_command_feedback is now set to true
+CF msg Applied effect Speed to Pig
+CF result success 1
+CF msg Removed effect Speed from Pig
+CF result success 1
+CF result failure 0
+CF fail Target doesn't have the requested effect
+E Pg minecraft:pig pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+CF msg Set P's game mode to Creative Mode
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail gamemode survival P<--[HERE]
+CF result success 0
+CF msg Set Q's game mode to Spectator Mode
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail gamemode spectator Q<--[HERE]
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Q minecraft:player pos=3.5,-60.0,0.5 delta=0.0,-0.028224000549316404,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E Pg minecraft:pig pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+CF msg Created new objective [arms]
+CF json {"translate":"commands.scoreboard.objectives.add.success","with":[{"translate":"chat.square_brackets","with":[{"hover_event":{"action":"show_text","value":"arms"},"text":"arms"}]}]}
+CF result success 1
+CF msg Set [arms] for P to 3
+CF result success 3
+CF msg P has 3 [arms]
+CF result success 3
+CF fail Unknown or incomplete command. See below for error
+CF fail scoreboard players get P arms<--[HERE]
+CF msg Teleported Pig to 0.500000, -60.000000, 5.500000
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF fail Unknown or incomplete command. See below for error
+CF fail kill P<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail frobnicate<--[HERE]
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Q minecraft:player pos=3.5,-60.0,0.5 delta=0.0,-0.010160640197753904,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E Pg minecraft:pig pos=9.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-

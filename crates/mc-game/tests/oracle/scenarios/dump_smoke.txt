@@ -1,0 +1,115 @@
+# The dumps of the scoreboard (every criterion kind, display slots, scores with locks, displays and number formats, teams with all their
+# options), custom boss bars, command storage and the order of selector results.
+command_env
+level flat
+preload 2
+level_seed 9
+entity_counter 10
+spawn_player A creative 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+spawn Near minecraft:pig 2.5 -60 0.5 0 0 {NoAI:1b}
+spawn Mid minecraft:pig 5.5 -60 3.5 0 0 {NoAI:1b}
+spawn Far minecraft:cow 9.5 -60 9.5 0 0 {NoAI:1b}
+spawn Far2 minecraft:pig 12.5 -60 1.5 0 0 {NoAI:1b}
+tick 1
+note scoreboard: every criterion kind, a name, a render type and number formats
+cmd_quiet scoreboard objectives add dum dummy
+cmd_quiet scoreboard objectives add trig trigger
+cmd_quiet scoreboard objectives add deaths deathCount
+cmd_quiet scoreboard objectives add pkills playerKillCount
+cmd_quiet scoreboard objectives add tkills totalKillCount
+cmd_quiet scoreboard objectives add hp health "Health"
+cmd_quiet scoreboard objectives add xpo xp
+cmd_quiet scoreboard objectives add lvl level
+cmd_quiet scoreboard objectives add food food
+cmd_quiet scoreboard objectives add airo air
+cmd_quiet scoreboard objectives add arm armor
+cmd_quiet scoreboard objectives add tk teamkill.red
+cmd_quiet scoreboard objectives add kbt killedByTeam.blue
+cmd_quiet scoreboard objectives add jumps minecraft.custom:minecraft.jump
+cmd_quiet scoreboard objectives add mined minecraft.mined:minecraft.stone
+cmd_quiet scoreboard objectives add zk minecraft.killed:minecraft.zombie
+cmd_quiet scoreboard objectives add named dummy {"text":"Named","color":"gold","bold":true}
+cmd_quiet scoreboard objectives modify hp rendertype hearts
+cmd_quiet scoreboard objectives modify named numberformat fixed {"text":"fixed","color":"red"}
+cmd_quiet scoreboard objectives modify dum numberformat blank
+cmd_quiet scoreboard objectives modify lvl numberformat styled {"color":"green","italic":true}
+cmd_quiet scoreboard objectives modify dum displayautoupdate true
+cmd_quiet scoreboard objectives setdisplay list dum
+cmd_quiet scoreboard objectives setdisplay sidebar named
+cmd_quiet scoreboard objectives setdisplay below_name hp
+cmd_quiet scoreboard objectives setdisplay sidebar.team.red lvl
+cmd_quiet scoreboard players set A dum 5
+cmd_quiet scoreboard players set B dum -3
+cmd_quiet scoreboard players set #fake dum 100
+cmd_quiet scoreboard players set Near named 7
+cmd_quiet scoreboard players set A named 1
+cmd_quiet scoreboard players enable A trig
+cmd_quiet scoreboard players set B trig 4
+cmd_quiet scoreboard players display name A named {"text":"Alpha","color":"aqua"}
+cmd_quiet scoreboard players display numberformat A named fixed {"text":"one"}
+cmd_quiet scoreboard players display numberformat B dum styled {"color":"blue"}
+cmd_quiet scoreboard players add A lvl 2
+dump scoreboard
+note teams: every option, members
+cmd_quiet team add red "Red Team"
+cmd_quiet team add blue
+cmd_quiet team add plain
+cmd_quiet team modify red color red
+cmd_quiet team modify red prefix {"text":"[R] ","color":"red"}
+cmd_quiet team modify red suffix {"text":" (r)"}
+cmd_quiet team modify red friendlyFire false
+cmd_quiet team modify red seeFriendlyInvisibles false
+cmd_quiet team modify red nameTagVisibility hideForOtherTeams
+cmd_quiet team modify red deathMessageVisibility never
+cmd_quiet team modify red collisionRule pushOwnTeam
+cmd_quiet team modify blue color blue
+cmd_quiet team modify blue displayName {"text":"Blue Team","color":"blue"}
+cmd_quiet team modify blue collisionRule never
+cmd_quiet team join red A
+cmd_quiet team join blue B
+cmd_quiet team join blue #fake
+cmd_quiet team leave #fake
+dump scoreboard
+note boss bars and command storage
+cmd_quiet bossbar add smoke:one "One"
+cmd_quiet bossbar add smoke:two {"text":"Two","color":"green"}
+cmd_quiet bossbar set smoke:one color red
+cmd_quiet bossbar set smoke:one style notched_10
+cmd_quiet bossbar set smoke:one max 60
+cmd_quiet bossbar set smoke:one value 25
+cmd_quiet bossbar set smoke:one visible false
+cmd_quiet bossbar set smoke:one players @a
+cmd_quiet bossbar set smoke:two players B
+cmd_quiet bossbar set smoke:two name {"text":"Second"}
+cmd_quiet bossbar add other:three "Three"
+dump bossbars
+cmd_quiet data merge storage smoke:s {a:1,b:[1,2,3],c:{d:"text",e:1.5d},f:2b}
+cmd_quiet data modify storage smoke:s b append value 4
+cmd_quiet data modify storage smoke:s c.g set value {h:[{i:1},{i:2}]}
+cmd_quiet data merge storage other:t {z:1L}
+dump storage:smoke:s storage:other:t storage:smoke:empty
+note selector order: nearest, furthest, limits, type and distance filters, the player selectors, an error
+dump select:A/0.5,-60,0.5/@e[sort=nearest]
+dump select:A/0.5,-60,0.5/@e[sort=furthest]
+dump select:B/6.5,-60,0.5/@e[sort=nearest,type=pig]
+dump select:-/10,-60,10/@e[sort=nearest,limit=2]
+dump select:-/10,-60,10/@e[sort=furthest,limit=2,type=pig]
+dump select:-/0,-60,0/@e[sort=nearest,distance=..6]
+dump select:-/0,-60,0/@e[sort=nearest,distance=3..]
+dump select:-/0,-60,0/@e[sort=nearest,type=!pig]
+dump select:A/0.5,-60,0.5/@a
+dump select:A/0.5,-60,0.5/@p
+dump select:B/20,-60,20/@p
+dump select:A/0.5,-60,0.5/@s
+dump select:Near/0.5,-60,0.5/@s
+dump select:-/0,-60,0/@n
+dump select:-/12,-60,2/@n[type=pig]
+dump select:-/0,-60,0/@e[sort=nearest,team=red]
+dump select:-/0,-60,0/@e[sort=nearest,team=!red]
+dump select:-/0,-60,0/@e[sort=nearest,scores={dum=5..}]
+dump select:-/0,-60,0/@e[sort=nearest,tag=nothing]
+dump select:-/0,-60,0/@e[sort=banana]
+dump select:-/0,-60,0/@e[limit=0]
+dump select:-/0,-60,0/Near
+dump select:-/0,-60,0/nobody

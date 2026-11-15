@@ -76,8 +76,9 @@ pub fn run_scenario_test(name: &str) {
 
 pub fn run_scenario_test_with(name: &str, opts: &Options) {
     let actual = run_scenario(name);
-    // `C` lines are the command feedback of the driver's `time`/`gamerule`/`difficulty`/`cmd` verbs ("Set minecraft:overworld to N
-    // tick(s)"): the replay changes the same state without a command (the block replay compares the same way)
+    // `C` lines are the command feedback of the driver's `time`/`gamerule`/`difficulty` verbs ("Set minecraft:overworld to N
+    // tick(s)"): the replay changes the same state without a command (the block replay compares the same way). The feedback of the
+    // `cmd` verbs is the `CF` lines, which are compared
     let mut opts = opts.clone();
     opts.ignore_kinds.push("C");
     Fixture::load(name).assert_matches(&actual, &opts);
@@ -103,13 +104,24 @@ pub fn run_scenario(name: &str) -> Vec<String> {
 pub fn run_scenario_text(label: &str, text: &str) -> Vec<String> {
     let mut h = Harness::new();
     h.label = label.to_string();
+    // `command_env`: the vanilla server always has its command environment; the replay installs a real `MinecraftServer` (nothing
+    // started) around every line of the scenario, so `cmd`, `cmd_as` and friends run the real commands (`command_verbs.rs`)
+    let mut server = text
+        .lines()
+        .any(|l| l.trim() == "command_env")
+        .then(super::command_verbs::install_command_env);
     for (i, raw) in text.lines().enumerate() {
         h.line_no = i + 1;
         h.line = raw.trim().to_string();
         if h.line.is_empty() || h.line.starts_with('#') {
             continue;
         }
-        h.run();
+        match server.as_mut() {
+            Some((server, _keep)) => {
+                mc_game::commands::server_access::enter_server(server, || h.run())
+            }
+            None => h.run(),
+        }
     }
     h.out
 }
@@ -311,6 +323,8 @@ pub struct Harness {
     game_rules: mc_game::world::level::gamerules::GameRules,
     /// The overworld clock the `time` verb sets (`/time set`): the sky, the sun and the villager schedule follow it.
     clocks: std::sync::Arc<mc_game::world::clock::ClockTotals>,
+    /// The outbound queues of the players that joined the command environment (kept open so sending to them never fails).
+    connections: Vec<tokio::sync::mpsc::UnboundedReceiver<mc_game::server::network::Outbound>>,
     /// The level's recorded broadcasts (sounds, level events) since the last `dump events`.
     broadcast_log: std::sync::Arc<
         parking_lot::Mutex<Vec<mc_game::server::level::level_events::BroadcastRecord>>,
@@ -370,6 +384,7 @@ impl Harness {
             line: String::new(),
             flat: true,
             sequences: Default::default(),
+            connections: Vec::new(),
             broadcast_log,
         }
     }
@@ -616,6 +631,7 @@ impl Harness {
                 use mc_core::random::RandomSource as _;
                 let n = a[1].parse::<i64>().unwrap_or_else(|_| self.fail("seed"));
                 self.level.tick_state.random.set_seed(n ^ 0x5DEECE66D);
+                super::command_verbs::set_world_seed(n);
             }
             "level_seed" => {
                 use mc_core::random::RandomSource as _;
@@ -652,6 +668,12 @@ impl Harness {
                 self.world();
                 super::block_scenario::set_rule(&mut self.game_rules, &a[1], &a[2]);
                 self.level.server_state.rules.refresh(&self.game_rules);
+                // the command environment's server reads its own rules
+                if mc_game::commands::server_access::has_server() {
+                    mc_game::commands::server_access::with_server(|server| {
+                        super::block_scenario::set_rule(server.game_rules(), &a[1], &a[2])
+                    });
+                }
             }
             "time" => {
                 self.world();
@@ -676,6 +698,14 @@ impl Harness {
                 let n = |i: usize| self.int(&a[i]);
                 self.fill([n(1), n(2), n(3)], [n(4), n(5), n(6)], st);
             }
+            // the real command environment (`command_env`): any command through the shared verbs of `command_verbs.rs`; without it only
+            // `effect clear TARGET EFFECT` and `gamemode MODE PLAYER` are replayed (by their effect)
+            "cmd" if mc_game::commands::server_access::has_server() => {
+                self.world();
+                let line = self.line.clone();
+                super::command_verbs::command(self, &a, &line);
+            }
+            "command_env" => {}
             "cmd" => {
                 self.world();
                 // `effect clear TARGET EFFECT`
@@ -696,7 +726,7 @@ impl Harness {
                         p.set_game_mode(level, mode);
                     });
                 } else {
-                    self.fail("only `cmd effect clear TARGET EFFECT` and `cmd gamemode MODE PLAYER` are replayed");
+                    self.fail("only `cmd effect clear TARGET EFFECT` and `cmd gamemode MODE PLAYER` are replayed without `command_env`");
                 }
             }
             "spawn" => {
@@ -893,8 +923,10 @@ impl Harness {
                 self.dump(&what);
             }
             other => {
+                let line = self.line.clone();
                 if !(super::mob_verbs::command(self, &a)
                     || super::spawn_verbs::command(self, &a)
+                    || super::command_verbs::command(self, &a, &line)
                     || super::player_actions::command(self, &a))
                 {
                     self.fail(&format!("unsupported scenario command `{other}` (see the Harness::run doc, mob_verbs.rs and player_actions.rs for the implemented subset)"))
@@ -1024,9 +1056,17 @@ impl Harness {
         let mut p = ServerPlayer::new(
             id,
             Identifier::parse("minecraft:overworld").unwrap(),
-            profile,
+            profile.clone(),
             Default::default(),
         );
+        // a command environment (`command_env`) reaches the player by name and selector through its player list
+        if mc_game::commands::server_access::has_server() {
+            let (handle, sender, rx) =
+                super::command_verbs::join_command_env(&profile, id, self.level.dimension.clone());
+            p.handle = Some(handle);
+            p.connection = Some(sender);
+            self.connections.push(rx);
+        }
         let mode = match a[2].as_str() {
             "creative" => GameType::Creative,
             "spectator" => GameType::Spectator,
@@ -1296,6 +1336,7 @@ impl Harness {
                 _ => {
                     if !(super::mob_verbs::dump(self, kind, arg)
                         || super::spawn_verbs::dump(self, kind, arg)
+                        || super::command_verbs::dump(self, kind, arg)
                         || super::player_actions::dump(self, kind, arg))
                     {
                         self.fail(&format!("unsupported dump kind `{w}` (replayed: player: entity: mob: all_players entities mobs goals: brain: path: attrs: nbt: use: cooldowns: stats: inventory:, see mob_verbs.rs and player_actions.rs)"))
@@ -1375,6 +1416,21 @@ impl super::player_actions::ActionHost for Harness {
     }
     fn emit(&mut self, line: String) {
         self.out.push(line);
+    }
+    fn send_command_feedback(&mut self) -> bool {
+        self.game_rules
+            .get(mc_game::world::level::gamerules::GameRules::SEND_COMMAND_FEEDBACK)
+    }
+    fn command_done(&mut self, command: &str, succeeded: bool) {
+        // the installed server's rules are not the ones the level reads: `/gamerule NAME VALUE` is also set here
+        let words: Vec<&str> = command.split_whitespace().collect();
+        if let (true, ["gamerule", name, value]) = (succeeded, &words[..]) {
+            super::block_scenario::set_rule(&mut self.game_rules, name, value);
+            mc_game::commands::server_access::with_server(|server| {
+                super::block_scenario::set_rule(server.game_rules(), name, value)
+            });
+            self.level.server_state.rules.refresh(&self.game_rules);
+        }
     }
 }
 
