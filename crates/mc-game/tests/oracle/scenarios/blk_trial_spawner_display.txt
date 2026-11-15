@@ -1,0 +1,12 @@
+# The display entity of a trial spawner is loaded like any entity: a tadpole past its age converts into a frog while it loads, so a frog
+# stands at its position after the spawner's first tick (fixed Pos: the oracle level's random is not aligned while natural spawning runs).
+level flat
+time 18000
+gamerule spawn_mobs true
+spawn_player p survival 8.5 -60 8.5 0 0
+tick 10
+block 8 -60 12 minecraft:trial_spawner
+be_nbt 8 -60 12 {required_player_range:14,normal_config:{total_mobs:1.0,simultaneous_mobs:1.0,total_mobs_added_per_player:0.0,simultaneous_mobs_added_per_player:0.0,ticks_between_spawn:1,spawn_range:3,spawn_potentials:[{weight:1,data:{entity:{id:"minecraft:tadpole",Age:24000,Pos:[8.5d,-60.0d,15.5d]}}}]}}
+tick 1
+dump blocks:8,-60,12,8,-60,12
+dump entities events

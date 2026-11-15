@@ -1,8 +1,10 @@
 # Original mob generation at chunk generation (mushroom fields): the creatures `NaturalSpawner.spawnMobsForChunkGeneration` places while the preloaded
-# chunks generate (`bootrule spawn_mobs true` lets the preload spawn them), compared by type, position, rotation and saved variant fields.
+# chunks generate (`bootrule spawn_mobs true` lets the preload spawn them), compared by type, position, rotation and saved variant fields. The chunks
+# beyond the preload that stay loaded hold their mobs only once the promotion of the chunk ran, which `preload_settle` applies at boot.
 level normal
 seed 6147
 preload 3
+preload_settle
 difficulty normal
 bootrule spawn_mobs true
 gamerule spawn_mobs false

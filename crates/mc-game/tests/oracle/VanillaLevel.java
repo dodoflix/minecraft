@@ -106,6 +106,7 @@ public final class VanillaLevel {
       public boolean generateStructures = false; // `generate-structures` of server.properties (a normal world only places structures when true)
       public GameType defaultGameType = GameType.SURVIVAL;
       public int preloadRadiusChunks = 6; // > view distance, so joining a player never waits for async chunk generation
+      public boolean settlePreloadRing = false; // `preload_settle`: boot also waits for the chunks up to two rings beyond the preload
       public int viewDistance = 4;
       public int simulationDistance = 4;
       public List<String[]> bootRules = new ArrayList<>(); // `gamerule NAME VALUE` pairs applied before the preload (chunk generation reads them)
@@ -348,7 +349,7 @@ public final class VanillaLevel {
          v.command("gamerule " + rule[0] + " " + rule[1]);
       }
       v.commandOutput.clear();
-      v.preload(o.preloadRadiusChunks);
+      v.preload(o.preloadRadiusChunks, o.settlePreloadRing);
       v.level.getRandom().setSeed(o.seed ^ 0x5DEECE66DL); // Level.random: drop offsets, explosion rays, sound seeds; scripts override with `level_seed`
       v.server.getPlayerList().setViewDistance(o.viewDistance);
       RandomSupport.reseedUniquifier(8682522807148012L);
@@ -373,17 +374,23 @@ public final class VanillaLevel {
    }
 
    /** Fully load the chunks around the origin and keep them entity-ticking (forced tickets), so ticks are timing independent. */
-   public void preload(int radius) {
+   public void preload(int radius, boolean settleRing) {
       for (int cx = -radius; cx <= radius; cx++) {
          for (int cz = -radius; cz <= radius; cz++) {
             level.setChunkForced(cx, cz, true);
          }
       }
       level.waitForEntities(new ChunkPos(0, 0), radius);
-      for (int cx = -radius; cx <= radius; cx++) {
-         for (int cz = -radius; cz <= radius; cz++) {
+      // the forced chunks keep the chunks two rings beyond them full: wait for them and apply their queued promotions, since the entities
+      // of a chunk are only visible (`getAllEntities`) once its promotion to a full chunk ran
+      int settled = settleRing ? radius + 2 : radius;
+      for (int cx = -settled; cx <= settled; cx++) {
+         for (int cz = -settled; cz <= settled; cz++) {
             level.getChunk(cx, cz);
          }
+      }
+      if (settleRing) {
+         drainChunkTasks();
       }
    }
 

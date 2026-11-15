@@ -317,8 +317,9 @@ impl Entity for Hoglin {
     }
 
     fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        let was_baby = self.is_baby();
         mob::nbt::read_additional_save_data(self, level, input);
-        if self.is_baby() {
+        if was_baby != self.is_baby() {
             // `setAge` crossed the baby boundary while the data loaded
             self.apply_age_stats();
         }

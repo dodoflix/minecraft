@@ -11,7 +11,7 @@
 //! ```
 //! Generate the fixture with `scripts/block-oracle.sh blk_redstone_lever_lamp` (runs the REAL vanilla level).
 //!
-//! Supported commands (same text as the Java driver, see its header): `level flat|void|normal` (`normal`: the real noise generator of the dimension), `structures true|false` (`generate-structures`: placed structures and the structure search), `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
+//! Supported commands (same text as the Java driver, see its header): `level flat|void|normal` (`normal`: the real noise generator of the dimension), `structures true|false` (`generate-structures`: placed structures and the structure search), `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `preload_settle` (boot also finishes the chunks two rings beyond the preload), `features NAME,..`,
 //! `command_env` (a real command environment around the whole scenario; `cmd COMMAND...` then runs any other command as the console, its feedback printed as `C` lines; `cmd_quiet COMMAND...` prints none), `jigsaw_generate PLAYER X Y Z LEVELS KEEP`, `menu_button PLAYER N`, `close_menu PLAYER`, `move_packet`, `move_vehicle`, `paddle`, `client_tick_end`, `respawn`, `effect`, `mobspawn` (the actor verbs of `block_scenario_actors.rs`), the mob verbs of `mob_verbs.rs` (`target love age breed tame leash mob_attack nav path_query nav_stop`, dumps `mob:REF mobs goals: brain: path: attrs: nbt:`),
 //! `note`, the spawning verbs of `spawn_verbs.rs` (`spawnpass`, `spawnat`, `custom_spawner`, `raid_start`, `raid_waves`, `rest`, `memory`, `activity`, dumps `difficulty:X,Y,Z spawn_state raids`), `cmd weather rain|clear TICKS`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `biome X1 Y1 Z1 X2 Y2 Z2 BIOME` (`/fillbiome`: loads the real biome registry), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
@@ -400,6 +400,8 @@ struct Options_ {
     structures: bool,
     difficulty: Difficulty,
     preload: i32,
+    /// `preload_settle`: boot also waits until the chunks two rings beyond the preload are full.
+    settle_preload_ring: bool,
     features: mc_world::level_storage::FeatureFlagSet,
     /// `dimension`: the level every world command acts on.
     dimension: &'static str,
@@ -532,6 +534,7 @@ impl Scenario {
                 structures: false,
                 difficulty: Difficulty::Normal,
                 preload: 6,
+                settle_preload_ring: false,
                 features: mc_world::level_storage::FeatureFlagSet::DEFAULT_FLAGS,
                 dimension: "overworld",
                 seed: 4242,
@@ -784,7 +787,12 @@ impl Scenario {
                     level.is_position_ticking_with_entities_loaded(ChunkPos::pack_xz(cx, cz))
                 })
             });
-            if ready {
+            let ring = r + 2;
+            let settled = !self.opts.settle_preload_ring
+                || (-ring..=ring).all(|cx| {
+                    (-ring..=ring).all(|cz| level.chunk_source().get_chunk_now(cx, cz).is_some())
+                });
+            if ready && settled {
                 break;
             }
             assert!(
@@ -896,6 +904,7 @@ impl Scenario {
                 }
             }
             "preload" => self.opts.preload = int(&a[1]),
+            "preload_settle" => self.opts.settle_preload_ring = true,
             "bootrule" => self.opts.boot_rules.push((a[1].clone(), a[2].clone())),
             "features" => {
                 use mc_world::level_storage::FeatureFlagSet as F;

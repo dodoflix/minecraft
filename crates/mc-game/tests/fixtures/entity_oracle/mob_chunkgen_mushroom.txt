@@ -17,3 +17,5 @@ G minecraft:mooshroom pos=54.0,70.0,-59.0 rot=295.4913,0.0 Age=0 Health=10.0f Pe
 G minecraft:mooshroom pos=54.0,70.0,-59.0 rot=313.98227,0.0 Age=0 Health=10.0f PersistenceRequired=0b Type="red"
 G minecraft:mooshroom pos=54.0,71.0,-56.0 rot=31.368778,0.0 Age=-24000 Health=10.0f PersistenceRequired=0b Type="red"
 G minecraft:mooshroom pos=6.0,71.0,-25.0 rot=258.18066,0.0 Age=0 Health=10.0f PersistenceRequired=0b Type="red"
+G minecraft:mooshroom pos=70.0,72.0,13.0 rot=25.63194,0.0 Age=0 Health=10.0f PersistenceRequired=0b Type="red"
+G minecraft:mooshroom pos=70.0,72.0,15.0 rot=92.34157,0.0 Age=-24000 Health=10.0f PersistenceRequired=0b Type="red"

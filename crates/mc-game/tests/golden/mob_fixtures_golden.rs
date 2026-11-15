@@ -174,7 +174,6 @@ fn mob_chunkgen_snowy() {
 }
 
 #[test]
-#[ignore = "deviation: two mooshrooms at 70,72,13 and 70,72,15 (chunk 4,0, outside the preload) exist here after boot where vanilla's chunk is not yet full"]
 fn mob_chunkgen_mushroom() {
     block_scenario::check("mob_chunkgen_mushroom");
 }

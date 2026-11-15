@@ -95,6 +95,7 @@ import net.minecraft.util.RandomSource;
  * level flat|void|normal      world type (default flat)            seed N              world seed (default 4242)
  * dimension overworld|the_nether|the_end   the level every world command acts on (default overworld; the nether and end keep their real generator)
  * difficulty peaceful|easy|normal|hard (default normal)            preload R           chunk radius kept loaded (6)
+ * preload_settle            also finish the chunks up to two rings beyond the preload at boot (entities of a chunk only show up in `dump placed` once its promotion ran)
  * bootrule NAME VALUE      game rule set before the preload (the quiet rules stay otherwise), e.g. `bootrule spawn_mobs true` lets chunk generation spawn the original mobs
  * features NAME[,NAME]       extra feature flags besides vanilla, e.g. redstone_experiments       structures true|false   `generate-structures` (default false: a normal world has no structures)
  * -- world --
@@ -446,6 +447,7 @@ public final class EntityOracleDriver {
             }
          }
          case "preload" -> options.preloadRadiusChunks = Integer.parseInt(a.get(1));
+         case "preload_settle" -> options.settlePreloadRing = true;
          case "bootrule" -> options.bootRules.add(new String[] {a.get(1), a.get(2)});
          case "note" -> out.println("# " + line.substring(4).strip());
          case "gamerule" -> {

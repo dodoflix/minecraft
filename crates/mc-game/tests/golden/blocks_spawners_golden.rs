@@ -101,6 +101,12 @@ fn trial_spawner_cycle_matches_vanilla() {
     check_normalized_default("blk_trial_spawner_cycle");
 }
 
+/// The display entity loads like any entity: a tadpole past its age converts into a frog while it loads.
+#[test]
+fn trial_spawner_display_matches_vanilla() {
+    check_normalized_default("blk_trial_spawner_display");
+}
+
 #[test]
 fn trial_spawner_mobs_match_vanilla() {
     check_normalized_default("blk_trial_spawner_mobs");

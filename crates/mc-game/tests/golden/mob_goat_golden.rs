@@ -15,6 +15,12 @@ fn mob_goat_baby_group_matches_vanilla() {
     check("mob_goat_baby_group");
 }
 
+/// A goat or hoglin loaded with a negative Age (summon, data merge) gets the attack damage of a calf while the data loads.
+#[test]
+fn mob_summon_age_stats_matches_vanilla() {
+    check("mob_summon_age_stats");
+}
+
 /// Replayed by the block replay: the vanilla level shuffles its ticking chunks with `Level.random` every tick, which the goats' ram
 /// cooldown draws from.
 #[test]

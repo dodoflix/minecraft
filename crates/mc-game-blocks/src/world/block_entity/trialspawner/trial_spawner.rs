@@ -234,6 +234,8 @@ impl TrialSpawner {
                     },
                     &mut out,
                 );
+                // `Entity.load` of the display entity runs the level-dependent part (a tadpole past its age converts)
+                factory::read_level_dependent_data(&mut out, level);
                 self.data.display_entity_created = !out.is_empty();
             }
         }

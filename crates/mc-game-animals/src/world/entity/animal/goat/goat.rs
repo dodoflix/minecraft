@@ -425,7 +425,12 @@ impl Entity for Goat {
     }
 
     fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
+        let was_baby = self.is_baby();
         mob::nbt::read_additional_save_data(self, level, input);
+        // `setAge` crossing the baby boundary while the data loads runs `ageBoundaryReached()`
+        if was_baby != self.is_baby() {
+            self.update_attack_damage();
+        }
         self.set_screaming_goat(input.get_boolean_or("IsScreamingGoat", false));
         let data = &mut self.base_mut().entity_data;
         data.set(
