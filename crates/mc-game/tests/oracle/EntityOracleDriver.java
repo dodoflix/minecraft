@@ -15,6 +15,7 @@ import net.minecraft.nbt.TagParser;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
@@ -94,6 +95,8 @@ import net.minecraft.util.RandomSource;
  * -- options (only before the first world command) --
  * level flat|void|normal      world type (default flat)            seed N              world seed (default 4242)
  * dimension overworld|the_nether|the_end   the level every world command acts on (default overworld; the nether and end keep their real generator)
+ * levels A,B,..            the levels the script holds (dimension names, e.g. `levels overworld,the_nether,the_end`): each is preloaded (`preload R`, `preload_settle`) and ticks with its chunks;
+ *                           the `dimension` level stays the one world verbs act on (default: only the `dimension` level is preloaded; the other levels of the server still exist)
  * difficulty peaceful|easy|normal|hard (default normal)            preload R           chunk radius kept loaded (6)
  * preload_settle            also finish the chunks up to two rings beyond the preload at boot (entities of a chunk only show up in `dump placed` once its promotion ran)
  * bootrule NAME VALUE      game rule set before the preload (the quiet rules stay otherwise), e.g. `bootrule spawn_mobs true` lets chunk generation spawn the original mobs
@@ -133,6 +136,9 @@ import net.minecraft.util.RandomSource;
  *                             through the installed server's tick rate manager, clocks, weather and difficulty (a scenario that runs /tick, /time, /weather, /difficulty or moves the border)
  * jigsaw_generate PLAYER X Y Z LEVELS KEEP   ServerboundJigsawGeneratePacket from an operator in creative mode (`op PLAYER`): JigsawBlockEntity.generate(level, LEVELS, KEEP=true|false)
  * be_nbt X Y Z SNBT           merge SNBT into the block entity (`/data merge block`: saveWithFullMetadata.merge, loadWithComponents, setChanged)
+ * in DIM LINE               runs the world verb LINE with DIM (overworld|the_nether|the_end) as the level world verbs and dumps act on, then switches back (`in the_nether block 0 200 0 minecraft:stone`, `in the_end dump blocks:..`)
+ * tp_dim REF DIM X Y Z [yaw pitch]   REF.teleport(TeleportTransition(level DIM, X Y Z, no motion, yaw pitch, no relatives)): a player changes level (ClientboundRespawn, level info),
+ *                             another entity becomes a NEW entity in DIM and REF names that one from now on
  * -- entities --
  * spawn REF TYPE X Y Z [yaw pitch] [SNBT]        real vanilla entity (EntityType.create + addFreshEntity), random seeded from REF
  * spawn_item REF STACK X Y Z [vx vy vz] [count] [rot=YAW]  ItemEntity (constructor random motion unless vx vy vz given; rot= overrides the random yaw)
@@ -263,6 +269,7 @@ import net.minecraft.util.RandomSource;
  *   rng:level / rng:REF = `RNG level|REF STATE` (the 48-bit state of Level.random / of the entity's own random).
  *   parts:REF = `PART REF index name id=+N pos=x,y,z old=xo,yo,zo size=w,h bb=minx,miny,minz,maxx,maxy,maxz` for each part of the ender dragon REF (`id` = the part's entity id minus the dragon's),
  *   counter = `COUNTER N` (ServerLevel.ENTITY_COUNTER: the last id handed out).
+ *   levels = `LEVEL DIM gametime= forced= players= border=` per level of `levels` (`border` = the world border size); players = `PL NAME dim=DIM` per player (the `P` line is unchanged).
  *   world = `WORLD gametime= difficulty= locked=`, `CLOCK id total= partial= rate= paused=` per world clock, `WEATHER`, `SPAWN dimension x,y,z yaw= pitch=`, `BORDER` (centre, size, lerp target and time, safe zone, damage, warning,
  *   status), `TICKRATE rate= frozen= steps= sprinting=`; forced = `FORCED cx,cz ..` (the forced chunks of the level, sorted as text; the preload's chunks are among them).
  * </pre>
@@ -476,6 +483,21 @@ public final class EntityOracleDriver {
 
    void run(List<String> a) throws Exception {
       String cmd = a.get(0);
+      if (cmd.equals("in")) {
+         // the line runs with `v.level` pointing at DIM; what it prints and the entity names are the line's own
+         world();
+         ServerLevel saved = v.level;
+         String savedLine = line;
+         v.level = v.levelOf(a.get(1));
+         line = line.substring(line.indexOf(a.get(1), 2) + a.get(1).length()).strip();
+         try {
+            run(a.subList(2, a.size()));
+         } finally {
+            v.level = saved;
+            line = savedLine;
+         }
+         return;
+      }
       if (v != null && !cmd.equals("reseed")) {
          VanillaLevel.reseed(hash(line)); // entities created by this command (drops, spawns) draw reproducible seeds
       }
@@ -493,6 +515,7 @@ public final class EntityOracleDriver {
                command("difficulty " + a.get(1));
             }
          }
+         case "levels" -> options.levels = new ArrayList<>(Arrays.asList(a.get(1).split(",")));
          case "preload" -> options.preloadRadiusChunks = Integer.parseInt(a.get(1));
          case "preload_settle" -> options.settlePreloadRing = true;
          case "world_spawn" -> { } // the replay searches the world spawn like setInitialSpawn; the real server did at boot
@@ -746,6 +769,15 @@ public final class EntityOracleDriver {
             world();
             Entity e = ref(a.get(1));
             e.teleportTo(v.level, d(a.get(2)), d(a.get(3)), d(a.get(4)), Set.of(), a.size() > 5 ? (float)d(a.get(5)) : e.getYRot(), a.size() > 6 ? (float)d(a.get(6)) : e.getXRot(), false);
+         }
+         case "tp_dim" -> {
+            world();
+            Entity e = ref(a.get(1));
+            Entity moved = e.teleport(new net.minecraft.world.level.portal.TeleportTransition(v.levelOf(a.get(2)), new Vec3(d(a.get(3)), d(a.get(4)), d(a.get(5))), Vec3.ZERO,
+               a.size() > 6 ? (float)d(a.get(6)) : e.getYRot(), a.size() > 7 ? (float)d(a.get(7)) : e.getXRot(), Set.of(), net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING));
+            if (moved != null && moved != e) {
+               refs.put(a.get(1), moved);
+            }
          }
          case "velocity" -> {
             world();
@@ -1257,8 +1289,10 @@ public final class EntityOracleDriver {
          return;
       }
       List<Entity> all = new ArrayList<>();
-      for (Entity e : v.level.getAllEntities()) {
-         all.add(e);
+      for (net.minecraft.server.level.ServerLevel l : v.scope) {
+         for (Entity e : l.getAllEntities()) {
+            all.add(e);
+         }
       }
       all.sort(Comparator.comparingInt(Entity::getId));
       for (Entity e : all) {
@@ -2384,6 +2418,16 @@ public final class EntityOracleDriver {
                v.level.getForceLoadedChunks().forEach(c -> forced.add(net.minecraft.world.level.ChunkPos.getX(c) + "," + net.minecraft.world.level.ChunkPos.getZ(c)));
                Collections.sort(forced);
                out.println("FORCED " + String.join(" ", forced));
+            }
+            case "levels" -> {
+               for (net.minecraft.server.level.ServerLevel l : v.scope) {
+                  out.println("LEVEL " + l.dimension().identifier() + " gametime=" + l.getGameTime() + " forced=" + l.getForceLoadedChunks().size() + " players=" + l.players().size() + " border=" + l.getWorldBorder().getSize());
+               }
+            }
+            case "players" -> {
+               for (VanillaLevel.FakePlayer p : v.players) {
+                  out.println("PL " + p.name + " dim=" + p.player.level().dimension().identifier());
+               }
             }
             case "counter" -> out.println("COUNTER " + ((java.util.concurrent.atomic.AtomicInteger)priv(null, net.minecraft.server.level.ServerLevel.class, "ENTITY_COUNTER")).get());
             case "rng" -> {

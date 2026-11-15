@@ -458,9 +458,10 @@ impl Scenario {
             self.actors.registries_loaded = true;
             let registries = self.actors.registries().clone();
             let recipes = self.actors.recipes().clone();
-            let level = self.level();
-            level.registries = registries.clone();
-            level.shared.set_recipe_manager(recipes);
+            self.for_each_level(|level| {
+                level.registries = registries.clone();
+                level.shared.set_recipe_manager(recipes.clone());
+            });
             // item behaviour that reads registries without a level (`Item.getUseDuration` of a goat horn)
             mc_game::world::item::set_item_registries(registries);
         }
@@ -552,19 +553,35 @@ impl Scenario {
         let Some(level) = self.level.as_ref() else {
             return;
         };
-        let mut ids: Vec<EntityId> = level.entity_manager.all_visible_ids().into_iter().collect();
-        ids.sort_unstable();
-        for id in ids {
+        // the entities of every level, by id (the ids come from one sequence)
+        let known = &self.actors.known;
+        let mut fresh: Vec<(EntityId, String)> = Vec::new();
+        let mut scan = |level: &ServerLevel| {
+            for id in level.entity_manager.all_visible_ids() {
+                if !known.contains(&id) {
+                    let path = level
+                        .get_entity(id)
+                        .map(|e| {
+                            e.get_type()
+                                .name()
+                                .trim_start_matches("minecraft:")
+                                .to_string()
+                        })
+                        .unwrap_or_default();
+                    fresh.push((id, path));
+                }
+            }
+        };
+        scan(level);
+        if self.multi() {
+            mc_game::commands::server_access::with_server(|server| {
+                server.all_levels().for_each(&mut scan)
+            });
+        }
+        fresh.sort_unstable_by_key(|(id, _)| *id);
+        fresh.dedup_by_key(|(id, _)| *id);
+        for (id, path) in fresh {
             if self.actors.known.insert(id) && !self.actors.refs.iter().any(|(_, i)| *i == id) {
-                let path = level
-                    .get_entity(id)
-                    .map(|e| {
-                        e.get_type()
-                            .name()
-                            .trim_start_matches("minecraft:")
-                            .to_string()
-                    })
-                    .unwrap_or_default();
                 let n = self.actors.auto.entry(path.clone()).or_insert(0);
                 *n += 1;
                 let name = format!("{path}#{n}");
@@ -816,6 +833,47 @@ impl Scenario {
                         .expect("signal targets an eye of ender")
                         .signal_to(target)
                 });
+            }
+            // tp_dim REF DIM X Y Z [yaw pitch]: `Entity.teleport(TeleportTransition(level DIM, X Y Z, no motion, yaw pitch, no relatives))`;
+            // a non-player becomes a new entity in DIM and the name refers to that one from now on
+            "tp_dim" => {
+                use mc_game::server::players::dimension_change::teleport_entity;
+                use mc_game::server::players::teleport_transition::{
+                    PostTeleportTransition, TeleportTransition,
+                };
+                self.world();
+                self.load_registries();
+                let id = self.entity_id(&a[1]);
+                let from = self.level().dimension.clone();
+                let (yaw, pitch) = {
+                    let e = self
+                        .level()
+                        .get_entity(id)
+                        .unwrap_or_else(|| panic!("entity {} is gone", a[1]));
+                    (e.base().y_rot(), e.base().x_rot())
+                };
+                let t = TeleportTransition::new(
+                    super::dimension_key(&a[2]),
+                    Vec3::new(num(&a[3]), num(&a[4]), num(&a[5])),
+                    Vec3::ZERO,
+                    a.get(6).map_or(yaw, |v| num(v) as f32),
+                    a.get(7).map_or(pitch, |v| num(v) as f32),
+                    PostTeleportTransition::DO_NOTHING,
+                );
+                let level = self.level.as_mut().expect("world");
+                let moved = mc_game::commands::server_access::with_server(|server| {
+                    server.with_lent_level(level, |server| teleport_entity(server, &from, id, &t))
+                });
+                if let Some(new_id) = moved
+                    && new_id != id
+                {
+                    for (name, entity) in &mut self.actors.refs {
+                        if *name == a[1] {
+                            *entity = new_id;
+                        }
+                    }
+                    self.actors.known.insert(new_id);
+                }
             }
             "snap" => {
                 self.world();
@@ -1087,14 +1145,23 @@ impl Scenario {
         true
     }
 
+    /// [`Scenario::with_player_named`] for a player that may be gone (kicked or left): `None` then.
+    fn try_with_player<R>(
+        &mut self,
+        name: &str,
+        f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> R,
+    ) -> Option<R> {
+        self.focus_ref(name);
+        let id = self.entity_id(name);
+        self.level().with_player(id, f)
+    }
+
     fn with_player_named<R>(
         &mut self,
         name: &str,
         f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> R,
     ) -> R {
-        let id = self.entity_id(name);
-        self.level()
-            .with_player(id, f)
+        self.try_with_player(name, f)
             .unwrap_or_else(|| panic!("no player {name}"))
     }
 
@@ -1215,6 +1282,8 @@ impl Scenario {
     }
 
     fn spawn_player(&mut self, a: &[String]) {
+        // the player joins the current level (`VanillaLevel.connect` puts it in `v.level`)
+        let spawn_at = self.at;
         let name = a[1].clone();
         let flags = &a[6..];
         let sim = flags.iter().any(|f| f == "sim");
@@ -1250,7 +1319,7 @@ impl Scenario {
         let id = level.next_entity_id();
         let mut p = ServerPlayer::new(
             id,
-            Identifier::parse("minecraft:overworld").unwrap(),
+            level.dimension.clone(),
             profile.clone(),
             Default::default(),
         );
@@ -1335,15 +1404,15 @@ impl Scenario {
         let joined =
             mc_game::server::players::player_list::join_message(p.get_display_name(), None);
         for other in self.actors.players.clone() {
-            let other_id = self.entity_id(&other);
             // a player that left is no longer on the list
-            self.level().with_player(other_id, |_, o| {
+            self.try_with_player(&other, |_, o| {
                 o.send(&mc_protocol::packets::play::ClientboundSystemChatPacket {
                     content: joined.clone(),
                     overlay: false,
                 })
             });
         }
+        self.focus(spawn_at);
         // `VanillaLevel.connect` waits for the spawn chunks' entities (`waitForEntities`) before the player joins; the wait polls the
         // chunk source, whose task loop runs the distance manager updates. The players that joined earlier are in its trackers before
         // this one is added: the iteration order of the natural spawn map, hence the shuffled spawning chunks, depends on it.
@@ -1633,24 +1702,26 @@ impl Scenario {
         if (self.ticks + 1) % 20 != 0 {
             return;
         }
+        let keep = self.at;
         for name in self.actors.players.clone() {
-            let id = self.entity_id(&name);
             // a player the listener disconnected is gone from the level
-            self.level().with_player(id, |level, p| {
+            self.try_with_player(&name, |level, p| {
                 p.send(&ClientboundSetTimePacket {
                     game_time: level.game_time(),
                     clock_updates: Vec::new(),
                 });
             });
         }
+        self.focus(keep);
     }
 
     /// `VanillaLevel.tick`: before the server ticks, a simulated player applies its keyboard input (`SimPlayer.applyInput`).
     pub(super) fn apply_player_inputs(&mut self) {
+        let keep = self.at;
         for name in self.actors.players.clone() {
             let id = self.entity_id(&name);
             let mut tracked = self.actors.tracked_movement.get(&id).copied();
-            self.level().with_player(id, |_, p| {
+            self.try_with_player(&name, |_, p| {
                 if p.simulate_local_player {
                     if let Some(last) = tracked.as_mut() {
                         let pos = p.position();
@@ -1664,14 +1735,15 @@ impl Scenario {
                 self.actors.tracked_movement.insert(id, t);
             }
         }
+        self.focus(keep);
     }
 
     /// `Connection.handleDisconnection` of every player whose connection the server closed outside a packet handler or the tick (a console
     /// command's `kick`): a replay has no socket, so the closed connection is noticed here.
     pub(super) fn handle_disconnections(&mut self) {
+        let keep = self.at;
         for name in self.actors.players.clone() {
-            let id = self.entity_id(&name);
-            self.level().with_player(id, |level, p| {
+            self.try_with_player(&name, |level, p| {
                 mc_game::commands::server_access::with_server(|server| {
                     mc_game::server::network::game_packets::PlayCtx {
                         server,
@@ -1682,16 +1754,17 @@ impl Scenario {
                 });
             });
         }
+        self.focus(keep);
     }
 
     /// The player half of a tick, after `ServerLevel::tick` (which ticked the player entity): `ServerGamePacketListenerImpl.tick` -> `doTick`.
     pub(super) fn tick_players(&mut self) {
+        let keep = self.at;
         for name in self.actors.players.clone() {
             // `tickPlayer`: `resetPosition`, `xo/yo/zo`, `doTick`, then `absSnapTo(firstGood)`: a client-authoritative player
             // keeps the position it had, whatever the server-side tick did to it
             // a player the listener disconnected is gone from the level
-            let id = self.entity_id(&name);
-            self.level().with_player(id, |level, p| {
+            self.try_with_player(&name, |level, p| {
                 if let Some(listener) = p.listener.as_mut() {
                     listener.send_block_changed_ack();
                     listener.tick_throttlers();
@@ -1723,14 +1796,15 @@ impl Scenario {
                 }
             });
         }
+        self.focus(keep);
     }
 
     /// `MinecraftServer.tickChildren` "send chunks", after the players ticked: every player's `chunkSender.sendNextChunks(player)`. The
     /// oracle's connection never acknowledges a batch, so a player gets one batch of chunks and tracks entities in those only.
     pub(super) fn send_chunks(&mut self) {
+        let keep = self.at;
         for name in self.actors.players.clone() {
-            let id = self.entity_id(&name);
-            self.level().with_player(id, |level, p| {
+            self.try_with_player(&name, |level, p| {
                 let sender = p
                     .listener
                     .as_ref()
@@ -1746,6 +1820,7 @@ impl Scenario {
                 );
             });
         }
+        self.focus(keep);
     }
 
     // ------------------------------------------------------------------------------------------------ dumps
@@ -1754,16 +1829,7 @@ impl Scenario {
         match kind {
             "entities" | "xentities" => {
                 self.name_new_entities();
-                let mut all: Vec<(String, EntityId)> = self.actors.refs.clone();
-                all.retain(|(n, id)| {
-                    !self.actors.players.contains(n)
-                        && self
-                            .level()
-                            .get_entity_or_removed(*id)
-                            .is_some_and(|e| e.is_alive())
-                });
-                all.sort_by_key(|(_, id)| *id);
-                for (name, id) in all {
+                for (name, id) in self.live_refs(false) {
                     let line = self.describe(&name, id, kind == "xentities");
                     self.out.push(line);
                 }
@@ -1846,17 +1912,44 @@ impl Scenario {
             // every live Mob as a rich `E` line (the entity replay's `mobs`)
             "mobs" => {
                 self.name_new_entities();
-                let mut all: Vec<(String, EntityId)> = self.actors.refs.clone();
-                all.retain(|(n, id)| {
-                    !self.actors.players.contains(n)
-                        && self.level().get_entity_or_removed(*id).is_some_and(|e| {
-                            e.is_alive() && crate::common::entity_scenario::is_mob(e)
-                        })
-                });
-                all.sort_by_key(|(_, id)| *id);
-                for (name, id) in all {
+                for (name, id) in self.live_refs(true) {
                     let line = self.describe(&name, id, true);
                     self.out.push(line);
+                }
+            }
+            // `LEVEL DIM gametime= forced= players= border=` per level of the replay
+            "levels" => {
+                let dims = if self.multi() {
+                    self.dims.clone()
+                } else {
+                    vec![self.at]
+                };
+                for dimension in dims {
+                    self.focus(dimension);
+                    let level = self.level();
+                    let (forced, players) = (
+                        level.chunk_source().get_force_loaded_chunks().len(),
+                        level.players().len(),
+                    );
+                    let line = format!(
+                        "LEVEL minecraft:{dimension} gametime={} forced={forced} players={players} border={}",
+                        level.game_time(),
+                        mc_core::math::java::java_double_to_string(
+                            level.get_world_border().get_size()
+                        ),
+                    );
+                    self.out.push(line);
+                }
+            }
+            // `PL NAME dim=DIM` per player of the replay
+            "players" => {
+                for name in self.actors.players.clone() {
+                    let id = self.entity_id(&name);
+                    if let Some(d) = self.dimension_of(id) {
+                        self.focus(d);
+                    }
+                    let dimension = self.level().dimension.clone();
+                    self.out.push(format!("PL {name} dim={dimension}"));
                 }
             }
             "entity" | "player" | "xentity" | "mob" => {
@@ -2129,6 +2222,9 @@ impl Scenario {
 
     /// The `P`/`E` line of the driver's `describe` (`rich`: with the fields of the registered classes, `xentity:REF`).
     fn describe(&mut self, name: &str, id: EntityId, rich: bool) -> String {
+        if let Some(d) = self.dimension_of(id) {
+            self.focus(d);
+        }
         let (names, uuids) = self.names_and_uuids();
         let level = self.level();
         let ctx = mc_game::world::entity::scenario_dump::ScenarioDumpCtx {
@@ -2139,6 +2235,24 @@ impl Scenario {
             .get_entity_or_removed(id)
             .unwrap_or_else(|| panic!("entity {name} is gone"));
         super::super::entity_describe::describe(name, e, level, &ctx, rich)
+    }
+
+    /// The refs of the live entities that are no players (only Mobs with `mobs_only`), by id; each is looked up in its own level.
+    fn live_refs(&mut self, mobs_only: bool) -> Vec<(String, EntityId)> {
+        let mut all: Vec<(String, EntityId)> = self.actors.refs.clone();
+        all.retain(|(n, id)| {
+            if self.actors.players.contains(n) {
+                return false;
+            }
+            if let Some(d) = self.dimension_of(*id) {
+                self.focus(d);
+            }
+            self.level().get_entity_or_removed(*id).is_some_and(|e| {
+                e.is_alive() && (!mobs_only || crate::common::entity_scenario::is_mob(e))
+            })
+        });
+        all.sort_by_key(|(_, id)| *id);
+        all
     }
 }
 

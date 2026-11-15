@@ -186,6 +186,9 @@ fn teleport_to_entity(
     }) else {
         return Ok(0);
     };
+    // the name of an entity that changes dimension is read where it stands now: afterwards a player is in another level and any
+    // other entity is a new one
+    let single_name = (entities.len() == 1).then(|| display_name(source, &entities[0]));
     let mut tracked = Vec::new();
     for entity in entities {
         perform_teleport(
@@ -205,9 +208,9 @@ fn teleport_to_entity(
     let (count, only) = track(&tracked);
     let destination_name = display_name(source, &destination);
     let message = match only {
-        Some(entity) => translatable!(
+        Some(_) => translatable!(
             "commands.teleport.success.entity.single",
-            display_name(source, entity),
+            single_name.expect("one entity"),
             destination_name
         ),
         None => translatable!(
@@ -230,6 +233,7 @@ fn teleport_to_pos(
 ) -> Result<i32, CommandSyntaxException> {
     let pos = destination.get_position(source);
     let rot = rotation.as_ref().map(|r| r.get_rotation(source));
+    let single_name = (entities.len() == 1).then(|| display_name(source, &entities[0]));
     let mut tracked = Vec::new();
     for entity in entities {
         let relatives = get_relatives(&destination, rotation.as_ref(), entity.dimension == level);
@@ -272,9 +276,9 @@ fn teleport_to_pos(
         format_double(pos.z),
     );
     let message = match only {
-        Some(entity) => translatable!(
+        Some(_) => translatable!(
             "commands.teleport.success.location.single",
-            display_name(source, entity),
+            single_name.expect("one entity"),
             x,
             y,
             z
@@ -447,11 +451,15 @@ fn perform_teleport(
             new_x_rot,
         )
     });
-    if let Some(victim) = teleported {
+    // the victim the command goes on with is the entity it started with: a non-player that changed dimension is a new entity and
+    // the original is gone, so the look-at, the momentum and the ground flag do not reach the new one
+    if let Some(moved) = teleported
+        && moved.id == victim.id
+    {
         if let Some(look_at) = look_at {
-            look_at.perform(source, &victim);
+            look_at.perform(source, &moved);
         }
-        source.with_server(|server| host::after_teleport(server, &victim));
+        source.with_server(|server| host::after_teleport(server, &moved));
     }
     Ok(())
 }

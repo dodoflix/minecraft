@@ -95,6 +95,7 @@ mod damage_golden;
 mod decoration_common;
 mod default_world;
 mod dig_golden;
+mod dim_golden;
 mod dispenser_registry_guard;
 mod display_math_golden;
 mod enchant_anvil_golden;

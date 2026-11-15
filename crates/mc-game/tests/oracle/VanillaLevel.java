@@ -116,7 +116,10 @@ public final class VanillaLevel {
 
    public final Path dir;
    public final Server server;
-   public final ServerLevel level;
+   /** The level every world verb and dump acts on (`dimension` option; `in DIM` switches it for one line). */
+   public ServerLevel level;
+   /** The levels the replay holds (`levels` option: preloaded and ticked with chunks; default: the `dimension` level only). */
+   public final List<ServerLevel> scope = new ArrayList<>();
    public final List<FakePlayer> players = new ArrayList<>();
    public final List<String> commandOutput = new ArrayList<>();
    public long ticks;
@@ -126,6 +129,7 @@ public final class VanillaLevel {
       public long seed = 4242L;
       public String difficulty = "normal";
       public String dimension = "overworld"; // overworld | the_nether | the_end: the level `v.level` (blocks, ticks, dumps) refers to
+      public List<String> levels = new ArrayList<>(); // `levels A,B`: every listed level is preloaded and kept in `scope` (default: only `dimension`)
       public String features = ""; // comma list of extra feature flags, e.g. redstone_experiments
       public boolean generateStructures = false; // `generate-structures` of server.properties (a normal world only places structures when true)
       public GameType defaultGameType = GameType.SURVIVAL;
@@ -391,7 +395,7 @@ public final class VanillaLevel {
       Files.writeString(dir.resolve("server.properties"),
          generator + "level-seed=" + o.seed + "\nonline-mode=false\nenforce-secure-profile=false\nspawn-protection=0\ndifficulty=" + o.difficulty
             + "\ngamemode=" + o.defaultGameType.getName() + "\ngenerate-structures=" + o.generateStructures + "\nview-distance=" + o.viewDistance
-            + "\nsimulation-distance=" + o.simulationDistance + "\nspawn-monsters=false\nspawn-animals=false\nspawn-npcs=false\nallow-nether=false\n"
+            + "\nsimulation-distance=" + o.simulationDistance + "\n"
             + "pause-when-empty-seconds=0\nmax-tick-time=-1\nenable-jmx-monitoring=false\nlevel-name=world\n"
             // feature packs are not selected automatically: a world only gets a feature's flag from its enabled pack
             + (o.features.isBlank() && o.dataPacks.isEmpty() ? "" : "initial-enabled-packs=vanilla" + (o.features.isBlank() ? "" : "," + o.features.strip())
@@ -425,7 +429,7 @@ public final class VanillaLevel {
       Server server = new Server(Thread.currentThread(), access, packs, stem, settings, services, new NotificationManager());
       server.start();
       REGISTRIES = server.registryAccess();
-      net.minecraft.server.level.ServerLevel level = server.getLevel(net.minecraft.resources.ResourceKey.create(Registries.DIMENSION, net.minecraft.resources.Identifier.withDefaultNamespace(o.dimension)));
+      ServerLevel level = server.getLevel(net.minecraft.resources.ResourceKey.create(Registries.DIMENSION, net.minecraft.resources.Identifier.withDefaultNamespace(o.dimension)));
       if (level == null) {
          throw new IllegalArgumentException("dimension overworld|the_nether|the_end, got " + o.dimension);
       }
@@ -439,8 +443,21 @@ public final class VanillaLevel {
          v.command("gamerule " + rule[0] + " " + rule[1]);
       }
       v.commandOutput.clear();
-      v.preload(o.preloadRadiusChunks, o.settlePreloadRing);
-      v.level.getRandom().setSeed(o.seed ^ 0x5DEECE66DL); // Level.random: drop offsets, explosion rays, sound seeds; scripts override with `level_seed`
+      // the levels in the server's order (`getAllLevels`): dumps list them like that
+      Set<ServerLevel> wanted = new HashSet<>();
+      wanted.add(level);
+      for (String name : o.levels) {
+         wanted.add(v.levelOf(name));
+      }
+      for (ServerLevel l : server.getAllLevels()) {
+         if (wanted.contains(l)) {
+            v.scope.add(l);
+         }
+      }
+      for (ServerLevel l : v.scope) {
+         v.preload(l, o.preloadRadiusChunks, o.settlePreloadRing);
+         l.getRandom().setSeed(o.seed ^ 0x5DEECE66DL); // Level.random: drop offsets, explosion rays, sound seeds; scripts override with `level_seed`
+      }
       v.server.getPlayerList().setViewDistance(o.viewDistance);
       RandomSupport.reseedUniquifier(8682522807148012L);
       return v;
@@ -476,8 +493,17 @@ public final class VanillaLevel {
       }
    }
 
-   /** Fully load the chunks around the origin and keep them entity-ticking (forced tickets), so ticks are timing independent. */
-   public void preload(int radius, boolean settleRing) {
+   /** The level of that dimension name (`overworld`, `the_nether`, `the_end`). */
+   public ServerLevel levelOf(String dimension) {
+      ServerLevel l = server.getLevel(net.minecraft.resources.ResourceKey.create(Registries.DIMENSION, net.minecraft.resources.Identifier.withDefaultNamespace(dimension)));
+      if (l == null) {
+         throw new IllegalArgumentException("dimension overworld|the_nether|the_end, got " + dimension);
+      }
+      return l;
+   }
+
+   /** Fully load the chunks around the origin of `level` and keep them entity-ticking (forced tickets), so ticks are timing independent. */
+   void preload(ServerLevel level, int radius, boolean settleRing) {
       for (int cx = -radius; cx <= radius; cx++) {
          for (int cz = -radius; cz <= radius; cz++) {
             level.setChunkForced(cx, cz, true);

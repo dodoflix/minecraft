@@ -36,7 +36,7 @@ use mc_game::server::level::level_tick::{LevelTickEnv, WeatherState};
 use mc_game::server::level::world_gen::{ChunkGeneratorBackend, WorldGenRegion};
 use mc_game::server::level::{ServerLevel, ServerLevelParams};
 use mc_game::server::shared::ServerShared;
-use mc_game::world::entity::Entity;
+use mc_game::world::entity::{Entity, EntityId};
 use mc_game::world::level::block::BlockStateExt;
 use mc_game::world::level::gamerules::{AnyGameRule, GameRules};
 use mc_game::world::level::material::FluidStateExt;
@@ -192,6 +192,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                         | "teleport_to_entity"
                         | "paddle"
                         | "client_tick_end"
+                        | "levels"
                         | "leave"
                         | "request_stats"
                         | "respawn"
@@ -275,6 +276,21 @@ pub fn parse_state(text: &str) -> BlockState {
     block
         .state_from_properties(props)
         .unwrap_or_else(|| panic!("invalid properties in {text}"))
+}
+
+/// The key of the dimension `overworld`, `the_nether` or `the_end`.
+fn dimension_key(dimension: &str) -> mc_game::world::level::DimensionKey {
+    Identifier::parse(&format!("minecraft:{dimension}")).expect("dimension key")
+}
+
+/// The replay's name of a level's dimension key.
+fn static_dimension(key: &mc_game::world::level::DimensionKey) -> &'static str {
+    match key.path() {
+        "overworld" => "overworld",
+        "the_nether" => "the_nether",
+        "the_end" => "the_end",
+        other => panic!("dimension {other} is not replayed"),
+    }
 }
 
 fn int(s: &str) -> i32 {
@@ -540,6 +556,8 @@ struct Options_ {
     seed: i64,
     /// `bootrule NAME VALUE`: game rules set before the preload (chunk generation reads them).
     boot_rules: Vec<(String, String)>,
+    /// `levels A,B`: the levels the replay holds besides `dimension` (empty: one detached level).
+    levels: Vec<&'static str>,
 }
 
 /// Accepts every registry reference while decoding the vanilla dimension type JSON.
@@ -646,6 +664,14 @@ pub struct Scenario {
     line: String,
     /// The `world_clock` totals the attribute timelines read (`time N` sets the overworld clock).
     clocks: Arc<mc_game::world::clock::ClockTotals>,
+    /// The dimensions of a `levels` replay in the order of the oracle's server (empty: one detached level).
+    dims: Vec<&'static str>,
+    /// The level world verbs act on (the driver's `v.level`): `dimension`, and the `in DIM` level for the length of that line.
+    current: &'static str,
+    /// The dimension of the level in `level`; a `levels` replay keeps every other level in the installed server.
+    at: &'static str,
+    /// The entity id sequence all levels of the replay share.
+    entity_counter: Option<Arc<std::sync::atomic::AtomicI32>>,
 }
 
 impl Scenario {
@@ -678,6 +704,7 @@ impl Scenario {
                 dimension: "overworld",
                 seed: 4242,
                 boot_rules: Vec::new(),
+                levels: Vec::new(),
             },
             real_biomes: false,
             gen_env: false,
@@ -686,6 +713,10 @@ impl Scenario {
             line_no: 0,
             actors: Default::default(),
             line: String::new(),
+            dims: Vec::new(),
+            current: "overworld",
+            at: "overworld",
+            entity_counter: None,
         }
     }
 
@@ -693,11 +724,79 @@ impl Scenario {
         self.level.as_mut().expect("world not booted")
     }
 
+    /// Whether the replay holds several levels (`levels`).
+    fn multi(&self) -> bool {
+        !self.dims.is_empty()
+    }
+
+    /// Makes the level of `dimension` the one `level` holds: the level it held goes back into the installed server (keeping its place
+    /// in the level order), so `execute in`, `/tp` and the player list reach every level while one of them is lent to a command.
+    fn focus(&mut self, dimension: &'static str) {
+        if self.at == dimension {
+            return;
+        }
+        let held = self.level.take().expect("world not booted");
+        self.level = mc_game::commands::server_access::with_server(|server| {
+            server.add_level(held);
+            server.take_level(&dimension_key(dimension))
+        });
+        assert!(
+            self.level.is_some(),
+            "no level `{dimension}` in this replay (`levels`)"
+        );
+        self.at = dimension;
+    }
+
+    /// The dimension of the level the entity `id` is in (`None` without `levels`, or an entity that is in no level).
+    fn dimension_of(&self, id: EntityId) -> Option<&'static str> {
+        if !self.multi() {
+            return None;
+        }
+        // a player that died waits for its respawn out of the entity storage
+        let live = |l: &ServerLevel| l.get_entity(id).is_some() || l.get_dead_player(id).is_some();
+        if self.level.as_ref().is_some_and(live) {
+            return Some(self.at);
+        }
+        mc_game::commands::server_access::with_server(|server| {
+            server
+                .all_levels()
+                .find(|l| live(l))
+                .map(|l| static_dimension(&l.dimension))
+        })
+    }
+
+    /// The level the script name `name` (a player or an entity) lives in: the driver's player verbs act through the player's own
+    /// connection, so a line that names an entity runs in its level.
+    fn focus_ref(&mut self, name: &str) {
+        let id = self
+            .actors
+            .refs
+            .iter()
+            .find(|(n, _)| n == name)
+            .map(|r| r.1);
+        if let Some(dimension) = id.and_then(|id| self.dimension_of(id)) {
+            self.focus(dimension);
+        }
+    }
+
+    /// Runs `f` on every level of the replay in server order (the one level without `levels`); the level held before is held again.
+    fn for_each_level(&mut self, mut f: impl FnMut(&mut ServerLevel)) {
+        if !self.multi() {
+            return f(self.level());
+        }
+        let keep = self.at;
+        for dimension in self.dims.clone() {
+            self.focus(dimension);
+            f(self.level());
+        }
+        self.focus(keep);
+    }
+
     /// `ActionHost::command_done`: what a command changes outside the installed server.
     fn after_command(&mut self, command: &str, succeeded: bool) {
         // the level shares the installed server's rule handle: only the chunk source's spawn flag follows a `/gamerule`
         if succeeded && command.split_whitespace().next() == Some("gamerule") {
-            apply_spawn_settings(self.level.as_mut().expect("world"));
+            self.for_each_level(apply_spawn_settings);
         }
         // a reload (or toggling a pack) swaps the server's registries, recipes and advancements: the replay's entity creation reads the new ones
         if succeeded
@@ -722,27 +821,83 @@ impl Scenario {
                 server.run_pending_functions(level)
             });
         }
+        // the levels the server holds run theirs too
+        if self.multi() {
+            mc_game::commands::server_access::with_server(|server| server.run_reward_functions());
+        }
     }
 
-    /// `VanillaLevel.boot`: the level with the preloaded chunks forced, ticking, entities loaded.
+    /// `VanillaLevel.boot`: the levels (`levels A,B`: all of them, otherwise the one `dimension`) with the preloaded chunks forced,
+    /// ticking, entities loaded. A `levels` scenario hands every level to the installed server except the current one, which
+    /// the scenario holds (see [`Scenario::focus`]).
     fn world(&mut self) {
         if self.level.is_some() {
             return;
         }
+        let (shared, _rx) = ServerShared::new();
+        // the scenario thread is the server thread: tasks the game submits (point of interest updates) run inline like in vanilla
+        shared.bind_game_thread();
+        self.dims = self.level_dims();
+        // the oracle's server creates the overworld first, then the End, then the Nether (see `make_level`)
+        let dimensions = if self.dims.is_empty() {
+            vec![self.opts.dimension]
+        } else {
+            self.dims.clone()
+        };
+        let mut levels: Vec<ServerLevel> = dimensions
+            .into_iter()
+            .map(|dimension| self.make_level(dimension, &shared))
+            .collect();
+        self.current = self.opts.dimension;
+        self.at = self.current;
+        if self.dims.is_empty() {
+            self.level = levels.pop();
+        } else {
+            // one player roster for every level, like the server's player list
+            let roster = levels[0].server_state.roster.clone();
+            for level in &mut levels {
+                level.server_state.roster = roster.clone();
+            }
+            mc_game::commands::server_access::with_server(|server| {
+                for level in levels {
+                    server.add_level(level);
+                }
+                self.level = server.take_level(&dimension_key(self.current));
+            });
+            assert!(
+                self.level.is_some(),
+                "the `dimension` level is a `levels` one"
+            );
+        }
+        // loot tables, damage types, ... (the oracle server has them from the start)
+        self.load_registries();
+        mc_core::random::reseed_uniquifier(8682522807148012);
+    }
+
+    /// The `levels` of the scenario in the order the oracle's server creates (and ticks) them; empty without a `levels` line.
+    fn level_dims(&self) -> Vec<&'static str> {
+        if self.opts.levels.is_empty() {
+            return Vec::new();
+        }
+        assert!(
+            mc_game::commands::server_access::has_server(),
+            "`levels` needs the `command_env` verb"
+        );
+        ["overworld", "the_end", "the_nether"]
+            .into_iter()
+            .filter(|d| *d == self.opts.dimension || self.opts.levels.contains(d))
+            .collect()
+    }
+
+    /// One level of `VanillaLevel.boot` for `dimension`.
+    fn make_level(&mut self, dimension: &'static str, shared: &Arc<ServerShared>) -> ServerLevel {
+        let shared = shared.clone();
         let scratch = tempfile::Builder::new()
             .prefix("mc-block-scenario-")
             .tempdir()
             .expect("create scratch dir");
-        let (shared, _rx) = ServerShared::new();
-        // the scenario thread is the server thread: tasks the game submits (point of interest updates) run inline like in vanilla
-        shared.bind_game_thread();
-        // `level normal`: the real generator of the dimension
         let noise_world = self.opts.normal.then(|| {
-            super::feature_harness::noise_world(
-                self.opts.seed,
-                self.opts.structures,
-                self.opts.dimension,
-            )
+            super::feature_harness::noise_world(self.opts.seed, self.opts.structures, dimension)
         });
         let worldgen_biomes = if noise_world.is_some() {
             Some(super::feature_harness::WORLD.biomes.clone())
@@ -754,11 +909,11 @@ impl Scenario {
                 .as_ref()
                 .map_or_else(|| vec!["minecraft:plains".to_string()], |b| b.names()),
         );
-        let dimension_type = load_dimension_type(self.opts.dimension);
+        let dimension_type = load_dimension_type(dimension);
         // flat only exists in the overworld; the other dimensions are void here (scenarios fill what they dump)
         let generator: Arc<dyn ChunkGeneratorBackend> = if let Some((_, backend)) = &noise_world {
             backend.clone()
-        } else if self.opts.flat && self.opts.dimension == "overworld" {
+        } else if self.opts.flat && dimension == "overworld" {
             Arc::new(FlatGenerator::default_layers())
         } else {
             Arc::new(FlatGenerator { layers: Vec::new() })
@@ -769,8 +924,10 @@ impl Scenario {
         // order changes per run). Every `Level` constructor draws unique seeds (`random`, the sound seed generator, ...): measured
         // against the first sound seed of each dimension in the oracle, the sound seed generator is the 5th (overworld), 18th (end)
         // and 21st (nether) draw (the oracle runs worker tasks on the main thread, so their draws count here). `ServerLevel::new` draws `randValue` (the thread-local instance) and the level's `random` itself before the sound seed generator.
+        // Every `Level` constructor draws unique seeds, so each level starts from the sequence position the oracle had when it created
+        // that level (measured, see above).
         mc_core::random::reseed_uniquifier(8682522807148012);
-        let draws_before_level = match self.opts.dimension {
+        let draws_before_level = match dimension {
             "overworld" => 2,
             "the_end" => 15,
             _ => 18,
@@ -785,6 +942,12 @@ impl Scenario {
             mc_game::server::level::level_data::default_world_data()
         };
         world_data.lock().settings.difficulty_settings.difficulty = self.opts.difficulty;
+        // `flat` and `void` are the oracle's flat generator, which the login and respawn packets report as a flat world
+        world_data.lock().special_world_property = if self.opts.normal {
+            mc_world::level_storage::SpecialWorldProperty::None
+        } else {
+            mc_world::level_storage::SpecialWorldProperty::Flat
+        };
         if self.opts.flat {
             // the vanilla flat world's spawn (natural spawning keeps its distance from it)
             world_data.lock().respawn_data.pos = BlockPos::new(0, -60, 0);
@@ -792,7 +955,7 @@ impl Scenario {
         self.world_data = Some(world_data.clone());
         let mut level = ServerLevel::new(ServerLevelParams {
             shared,
-            dimension: Identifier::parse(&format!("minecraft:{}", self.opts.dimension)).unwrap(),
+            dimension: Identifier::parse(&format!("minecraft:{dimension}")).unwrap(),
             level_id: "block_scenario".to_string(),
             dimension_dir: scratch.path().to_owned(),
             level_height: LevelHeight {
@@ -800,7 +963,7 @@ impl Scenario {
                 height: dimension_type.height,
             },
             // the generator settings' sea levels (the replay has no noise settings; the flat generator's is -63)
-            sea_level: match self.opts.dimension {
+            sea_level: match dimension {
                 "overworld" if self.opts.normal => 63,
                 "overworld" => -63,
                 "the_nether" => 32,
@@ -847,9 +1010,22 @@ impl Scenario {
         level
             .spawning
             .install_dimension_type(Arc::new(dimension_type.clone()));
-        // the level's own id sequence (starts at 1 like the oracle's `ENTITY_COUNTER`): parallel tests must not share ids
-        level.use_private_entity_counter(0);
-        level.tick_state.tick_time = true;
+        // one entity id sequence for every level of the replay (the oracle's `ENTITY_COUNTER` is global; parallel tests must not share ids)
+        match &self.entity_counter {
+            Some(counter) => {
+                level
+                    .spawning
+                    .gen_live
+                    .share_entity_counter(counter.clone());
+                level.entity_id_counter = Some(counter.clone());
+            }
+            None => {
+                level.use_private_entity_counter(0);
+                self.entity_counter = level.entity_id_counter.clone();
+            }
+        }
+        // only the overworld ticks the time (`createLevels`: `tickTime`), the first level of a replay without one
+        level.tick_state.tick_time = self.dims.first().is_none_or(|first| *first == dimension);
         if let Some(biomes) = worldgen_biomes {
             level.tick_state.biomes = Some(biomes);
             level.tick_state.biome_zoom_seed =
@@ -860,13 +1036,17 @@ impl Scenario {
                 });
             // the generation environment bone meal reads (feature lists, biome tags); the grown features never consult the generator
             level.gen_env = Some(super::feature_harness::gen_env(4242));
+        } else {
+            // `ClientboundRespawn` carries it as the hashed seed
+            level.tick_state.biome_zoom_seed =
+                mc_worldgen::biome::BiomeManager::obfuscate_seed(self.opts.seed);
         }
         if let Some((env, _)) = &noise_world {
             level.gen_env = Some(env.clone());
         } else if level.gen_env.is_none() && self.gen_env {
             level.gen_env = Some(super::feature_harness::gen_env(4242));
         }
-        if self.flat_structures && self.opts.flat && self.opts.dimension == "overworld" {
+        if self.flat_structures && self.opts.flat && dimension == "overworld" {
             level.gen_env = Some(super::feature_harness::flat_gen_env(self.opts.seed));
         }
         // `/place feature` with an inline definition decodes it against the worldgen registries of the level
@@ -874,9 +1054,8 @@ impl Scenario {
             level.worldgen_data = Some(super::feature_harness::WORLD.worldgen.clone());
         }
         // `Level.canHaveWeather()`
-        level.tick_state.can_have_weather = dimension_type.has_sky_light
-            && !dimension_type.has_ceiling
-            && self.opts.dimension != "the_end";
+        level.tick_state.can_have_weather =
+            dimension_type.has_sky_light && !dimension_type.has_ceiling && dimension != "the_end";
         level.tick_state.enabled_features = self.opts.features;
         // with a command environment the level reads the installed server's rules, scoreboard and command storage (`/gamerule`,
         // `/team`, `/data` edit the ones the level reads); else the replay keeps its own rules
@@ -895,7 +1074,7 @@ impl Scenario {
         }
         apply_spawn_settings(&mut level);
         // `MinecraftServer.createLevels`: only the overworld has custom spawners (phantom, patrol, cat, siege, trader)
-        if self.opts.dimension == "overworld" {
+        if dimension == "overworld" {
             level.install_custom_spawners();
         }
         // chunk generation reads the rules from the values published per tick; the preload generates before the first one
@@ -958,10 +1137,7 @@ impl Scenario {
             .set_seed(self.opts_seed() ^ 0x5DEECE66D);
         // the oracle's references keep a removed entity: it dumps with `alive=0`
         level.removed_entities = Some(Default::default());
-        self.level = Some(level);
-        // loot tables, damage types, ... (the oracle server has them from the start)
-        self.load_registries();
-        mc_core::random::reseed_uniquifier(8682522807148012);
+        level
     }
 
     fn opts_seed(&self) -> i64 {
@@ -975,6 +1151,25 @@ impl Scenario {
         reason = "test diagnostics: show the scenario context before re-raising the panic"
     )]
     fn run(&mut self, a: &[String]) {
+        // `in DIM LINE`: LINE runs with DIM as the level world verbs act on; its entities and seeds are those of LINE
+        if a[0] == "in" {
+            self.world();
+            let dimension = self
+                .dims
+                .iter()
+                .copied()
+                .find(|d| *d == a[1])
+                .unwrap_or_else(|| {
+                    panic!("`in {}`: no such level in this replay (`levels`)", a[1])
+                });
+            let (outer_line, outer) = (self.line.clone(), self.current);
+            let rest = outer_line.find(a[1].as_str()).expect("dimension") + a[1].len();
+            self.line = outer_line[rest..].trim().to_owned();
+            self.current = dimension;
+            self.run(&a[2..]);
+            (self.line, self.current) = (outer_line, outer);
+            return;
+        }
         let line = self.line.clone();
         let ctx = format!("scenario line {}: {}", self.line_no, line);
         // `EntityOracleDriver.run`: entities a command creates (drops, spawns) draw the seeds of `hash(line)`
@@ -992,6 +1187,17 @@ impl Scenario {
     }
 
     fn run_command(&mut self, a: &[String]) {
+        // a line that names an entity (`give P ..`, `cmd_as P ..`) runs in that entity's level, any other in the current one
+        if self.multi() {
+            let named = a.get(1);
+            match named.and_then(|n| self.actors.refs.iter().find(|(r, _)| r == n).map(|r| r.1)) {
+                Some(id) => {
+                    let dimension = self.dimension_of(id).unwrap_or(self.current);
+                    self.focus(dimension);
+                }
+                None => self.focus(self.current),
+            }
+        }
         use mc_core::random::RandomSource;
         if self.level.is_some() {
             // the oracle driver seeds the entity random sequence from the command line (drops, spawns draw reproducible seeds)
@@ -1057,11 +1263,26 @@ impl Scenario {
                     other => panic!("difficulty {other}"),
                 };
                 // `/difficulty` of a running world
-                if let (Some(data), Some(level)) = (&self.world_data, self.level.as_mut()) {
+                if let Some(data) = &self.world_data {
                     data.lock().settings.difficulty_settings.difficulty = self.opts.difficulty;
                     self.env.difficulty = self.opts.difficulty;
-                    apply_spawn_settings(level);
+                    self.for_each_level(apply_spawn_settings);
                 }
+            }
+            "levels" => {
+                assert!(
+                    self.level.is_none(),
+                    "`levels` only before the first world command"
+                );
+                self.opts.levels = a[1]
+                    .split(',')
+                    .map(|d| match d {
+                        "overworld" => "overworld",
+                        "the_nether" => "the_nether",
+                        "the_end" => "the_end",
+                        other => panic!("level {other}"),
+                    })
+                    .collect();
             }
             "preload" => self.opts.preload = int(&a[1]),
             "preload_settle" => self.opts.settle_preload_ring = true,
@@ -1097,7 +1318,7 @@ impl Scenario {
                     // the installed server's own clock, which the level reads
                     let command = format!("cmd_quiet time set {ticks}");
                     super::command_verbs::command(self, &tokens(&command), &command);
-                    self.level().tick_state.attributes.invalidate_tick_cache();
+                    self.for_each_level(|l| l.tick_state.attributes.invalidate_tick_cache());
                     return;
                 }
                 self.env.clock = ticks;
@@ -1105,7 +1326,7 @@ impl Scenario {
                 // (`modifyClock` then drops the cached attribute values); the sky follows from the next tick (`updateSkyBrightness`)
                 self.clocks
                     .set(&Identifier::parse("minecraft:overworld").unwrap(), ticks);
-                self.level().tick_state.attributes.invalidate_tick_cache();
+                self.for_each_level(|l| l.tick_state.attributes.invalidate_tick_cache());
             }
             "entity_counter" => {
                 self.world();
@@ -1210,7 +1431,6 @@ impl Scenario {
     }
 
     fn gamerule(&mut self, name: &str, value: &str) {
-        let level = self.level.as_mut().expect("world");
         // the level reads the installed server's rules (the editor packet handlers do as well), else its own set
         if mc_game::commands::server_access::has_server() {
             mc_game::commands::server_access::with_server(|server| {
@@ -1218,24 +1438,27 @@ impl Scenario {
             });
         } else {
             set_rule(&mut self.env.game_rules, name, value);
-            level.server_state.rules.refresh(&self.env.game_rules);
+            let rules = self.env.game_rules.clone();
+            self.level().server_state.rules.refresh(&rules);
         }
-        apply_spawn_settings(level);
+        self.for_each_level(apply_spawn_settings);
     }
 
     /// `VanillaLevel.drainChunkTasks`: the vanilla server loop runs the chunk source's queued tasks while it waits for the next tick, so
     /// every chunk step the worker threads have finished is applied when a tick starts. Wait for the workers and drain, so a tick
     /// never depends on thread timing (the chunks `tickChunks` shuffles decide the level random draws).
     fn settle_chunks(&mut self) {
-        let level = self.level();
-        loop {
-            while level.poll_chunk_task() {}
-            let map = &level.chunk_source().chunk_map;
-            if map.pending_task_count() == 0 && map.loading_count() == 0 && !map.worldgen_busy() {
-                return;
+        self.for_each_level(|level| {
+            loop {
+                while level.poll_chunk_task() {}
+                let map = &level.chunk_source().chunk_map;
+                if map.pending_task_count() == 0 && map.loading_count() == 0 && !map.worldgen_busy()
+                {
+                    return;
+                }
+                std::thread::sleep(Duration::from_micros(200));
             }
-            std::thread::sleep(Duration::from_micros(200));
-        }
+        });
     }
 
     /// One real server tick; with `watch`es set the `T n` header and the dumps follow.
@@ -1247,7 +1470,9 @@ impl Scenario {
         self.settle_chunks();
         self.apply_player_inputs();
         // `tickChildren` runs the `#minecraft:load` / `#minecraft:tick` functions first, before the time synchronization and the levels
-        if mc_game::commands::server_access::has_server() {
+        let has_server = mc_game::commands::server_access::has_server();
+        if has_server {
+            self.focus(self.current);
             let mut level = self.level.take().expect("world");
             mc_game::commands::server_access::with_server(|server| {
                 server.with_lent_level(&mut level, |server| server.tick_functions())
@@ -1255,11 +1480,11 @@ impl Scenario {
             self.level = Some(level);
         }
         self.force_game_time_synchronization();
-        let mut level = self.level.take().expect("world");
-        if mc_game::commands::server_access::has_server() {
-            // `tickServer` / `tickChildren` around the level tick: the tick rate manager's step counter, then the clocks while the game runs
+        let mut sprinting = false;
+        if has_server {
+            // `tickServer` / `tickChildren` around the level ticks: the tick rate manager's step counter, then the clocks while the game runs
             // `runServer`: a requested sprint runs its ticks back to back with no time left
-            let sprinting = mc_game::commands::server_access::with_server(|server| {
+            sprinting = mc_game::commands::server_access::with_server(|server| {
                 let sprinting = !server.is_paused()
                     && server.tick_rate_manager.is_sprinting()
                     && server.check_should_sprint_this_tick();
@@ -1269,18 +1494,31 @@ impl Scenario {
                 }
                 sprinting
             });
-            // a rule a command block changed since the last tick reaches the chunk source (`updateMobSpawningFlags`)
-            apply_spawn_settings(&mut level);
-            level.tick(&mut ServerBackedEnv(&mut self.env), &mut || !sprinting);
-            if sprinting {
-                mc_game::commands::server_access::with_server(|server| {
-                    server.tick_rate_manager.end_tick_work()
-                });
-            }
-        } else {
-            level.tick(&mut self.env, &mut || true);
         }
-        self.level = Some(level);
+        // `tickChildren` ticks the levels in the server's order, one after the other
+        let dimensions = if self.multi() {
+            self.dims.clone()
+        } else {
+            vec![self.at]
+        };
+        for dimension in dimensions {
+            self.focus(dimension);
+            let mut level = self.level.take().expect("world");
+            if has_server {
+                // a rule a command block changed since the last tick reaches the chunk source (`updateMobSpawningFlags`)
+                apply_spawn_settings(&mut level);
+                level.tick(&mut ServerBackedEnv(&mut self.env), &mut || !sprinting);
+            } else {
+                level.tick(&mut self.env, &mut || true);
+            }
+            self.level = Some(level);
+        }
+        if sprinting {
+            mc_game::commands::server_access::with_server(|server| {
+                server.tick_rate_manager.end_tick_work()
+            });
+        }
+        self.focus(self.current);
         self.tick_players();
         // vanilla's scoreboard listeners broadcast as they change; the replay sends what the tick queued
         if mc_game::commands::server_access::has_server() {
@@ -1293,7 +1531,7 @@ impl Scenario {
             });
         }
         // `MinecraftServer.tickServer`: the debug subscribers are refreshed after the players
-        self.level().tick_debug_subscribers();
+        self.for_each_level(|level| level.tick_debug_subscribers());
         self.send_chunks();
         self.name_new_entities();
         self.ticks += 1;
@@ -1351,6 +1589,13 @@ impl Scenario {
             let (kind, arg) = w
                 .split_once(':')
                 .map_or((w.as_str(), None), |(k, v)| (k, Some(v)));
+            // a dump of an entity (`entity:REF`, `packets:PLAYER`) reads its own level, any other the current one
+            if self.multi() {
+                match arg.and_then(|a| a.split([':', '/']).next()) {
+                    Some(n) if self.actors.refs.iter().any(|(r, _)| r == n) => self.focus_ref(n),
+                    _ => self.focus(self.current),
+                }
+            }
             match kind {
                 "blocks" => {
                     let c: Vec<i32> = arg

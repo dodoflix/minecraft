@@ -374,6 +374,12 @@ impl MinecraftServer {
             .insert(level.dimension.clone(), Some(Box::new(level)));
     }
 
+    /// Takes the level of `dimension` out of the server for its caller to own: the slot stays (empty), so the level order is kept and
+    /// [`MinecraftServer::add_level`] puts it back in place.
+    pub fn take_level(&mut self, dimension: &DimensionKey) -> Option<ServerLevel> {
+        self.levels.get_mut(dimension)?.take().map(|level| *level)
+    }
+
     pub fn level(&self, dimension: &DimensionKey) -> Option<&ServerLevel> {
         match self.levels.get(dimension)? {
             Some(level) => Some(level),
