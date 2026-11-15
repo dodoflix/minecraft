@@ -6,6 +6,7 @@ use mc_game_core::commands::arguments::blocks::BlockInput;
 use mc_game_core::commands::arguments::blocks::BlockStateArgument;
 use mc_game_core::commands::arguments::coordinates::BlockPosArgument;
 use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::server_access::with_level_installed;
 use mc_game_core::commands::{
     CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal,
 };
@@ -82,27 +83,29 @@ fn set_block(
     strict: bool,
 ) -> Result<i32, CommandSyntaxException> {
     let outcome = source.with_server(|server| {
-        let level = server.level_mut(source.get_level())?;
-        if level.is_debug {
-            return Some(false);
-        }
-        if filter == Filter::EmptyOnly && !level.is_empty_block(pos) {
-            return Some(false);
-        }
-        let place_needed = if mode == Mode::Destroy {
-            level.destroy_block(pos, true, None, 512);
-            !block.get_state().is_air() || !level.get_block_state(pos).is_air()
-        } else {
-            true
-        };
-        let old_state = level.get_block_state(pos);
-        if place_needed && !block.place(level, pos, 2 | if strict { 816 } else { 256 }) {
-            return Some(false);
-        }
-        if !strict {
-            level.update_neighbours_on_block_set(pos, old_state);
-        }
-        Some(true)
+        with_level_installed(server, source.get_level(), |level| {
+            if level.is_debug {
+                return Some(false);
+            }
+            if filter == Filter::EmptyOnly && !level.is_empty_block(pos) {
+                return Some(false);
+            }
+            let place_needed = if mode == Mode::Destroy {
+                level.destroy_block(pos, true, None, 512);
+                !block.get_state().is_air() || !level.get_block_state(pos).is_air()
+            } else {
+                true
+            };
+            let old_state = level.get_block_state(pos);
+            if place_needed && !block.place(level, pos, 2 | if strict { 816 } else { 256 }) {
+                return Some(false);
+            }
+            if !strict {
+                level.update_neighbours_on_block_set(pos, old_state);
+            }
+            Some(true)
+        })
+        .flatten()
     });
     if outcome != Some(true) {
         return Err(ERROR_FAILED.create());

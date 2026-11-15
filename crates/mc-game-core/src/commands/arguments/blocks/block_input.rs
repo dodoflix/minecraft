@@ -79,11 +79,16 @@ impl BlockInput {
         state = self.overwrite_with_defined_properties(state);
         let mut affected = level.set_block(pos, state, flags, 512);
         if let Some(tag) = &self.tag {
-            let changed = level.with_block_entity(pos, |_, entity| {
-                // `saveWithoutMetadata` before/after: the metadata (`id`, `x`, `y`, `z`) cannot differ.
-                let before = entity.save_with_full_metadata();
-                entity.load_with_components(tag);
-                entity.save_with_full_metadata() != before
+            // `saveWithoutMetadata` before/after: the metadata (`id`, `x`, `y`, `z`) cannot differ.
+            let before = level
+                .get_block_entity_immediate(pos)
+                .map(|entity| entity.save_with_full_metadata());
+            // the block entity loads attached to its level (sign lines resolve text, command blocks schedule their tick)
+            let changed = before.map(|before| {
+                level.load_block_entity_in_level(pos, tag);
+                level
+                    .get_block_entity_immediate(pos)
+                    .is_some_and(|entity| entity.save_with_full_metadata() != before)
             });
             if changed == Some(true) {
                 affected = true;

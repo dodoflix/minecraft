@@ -19,6 +19,7 @@ use mc_game_core::commands::arguments::resource_arguments::{LootTableArgument, R
 use mc_game_core::commands::arguments::selector::EntityRef;
 use mc_game_core::commands::arguments::slot_arguments::SlotArgument;
 use mc_game_core::commands::message::message;
+use mc_game_core::commands::server_access::share_server;
 use mc_game_core::commands::{
     CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal,
 };
@@ -33,6 +34,7 @@ use mc_game_core::world::entity::item::ItemEntity;
 use mc_game_core::world::item::ItemStackExt;
 use mc_game_core::world::item::slot::SlotProvider;
 use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::behaviour;
 use mc_game_core::world::level::storage::loot::LootContextParamSets;
 use mc_game_core::world::level::storage::loot::block_drops::state_get_drops;
 use mc_game_core::world::level::storage::loot::context::LootParams;
@@ -583,7 +585,6 @@ fn drop_block_loot(
     let (key, drops) = source.with_server(|server| {
         let level = server.level(source.get_level()).expect("source level");
         let state = level.get_block_state(pos);
-        let block_entity = level.get_block_entity(pos);
         let Some(key) = state
             .block()
             .data()
@@ -595,13 +596,25 @@ fn drop_block_loot(
                 vec![],
             )));
         };
+        // what the block's `getDrops` does to the world before it rolls (a beehive releases its bees for a TNT/creeper source)
+        let this_type = source
+            .get_entity()
+            .and_then(|e| level.get_entity(e.id))
+            .map(|e| e.get_type());
+        let level = server.level_mut(source.get_level()).expect("source level");
+        behaviour(state.block()).before_get_drops(state, level, pos, this_type);
+        let level = server.level(source.get_level()).expect("source level");
+        let block_entity = level.get_block_entity(pos);
         let this_entity = source.get_entity().and_then(|e| level.get_entity(e.id));
         let builder = LootParams::builder(level)
             .origin(Vec3::at_center_of(&pos))
             .block_entity(block_entity)
             .optional_this_entity(this_entity)
             .tool(&tool);
-        Ok((key, state_get_drops(state, builder)))
+        Ok((
+            key,
+            share_server(server, || state_get_drops(state, builder)),
+        ))
     })?;
     let mut used = Tracker::create();
     output(c, &drops, &mut used)?;
@@ -637,7 +650,9 @@ fn drop_kill_loot(
             .this_entity(entity)
             .origin(source.get_position())
             .create(&LootContextParamSets::ENTITY);
-        let drops = get_loot_table(&level.registries, &key).get_random_items(&params);
+        let drops = share_server(server, || {
+            get_loot_table(&level.registries, &key).get_random_items(&params)
+        });
         Ok((key, drops))
     })?;
     let mut used = Tracker::create();
@@ -665,7 +680,7 @@ fn drop_chest_loot(
             .optional_this_entity(this_entity)
             .origin(source.get_position())
             .create(&LootContextParamSets::CHEST);
-        table.get_random_items(&params)
+        share_server(server, || table.get_random_items(&params))
     });
     drop_items(c, drops, output)
 }
@@ -693,7 +708,7 @@ fn drop_fishing_loot(
             .tool(&tool)
             .optional_this_entity(this_entity)
             .create(&LootContextParamSets::FISHING);
-        table.get_random_items(&params)
+        share_server(server, || table.get_random_items(&params))
     });
     drop_items(c, drops, output)
 }

@@ -279,21 +279,28 @@ pub fn canon(tag: &Tag) -> String {
 
 // ------------------------------------------------------------------------------------------------ the harness
 
-static REGISTRIES: std::sync::LazyLock<mc_game::registry::RegistryAccess> =
-    std::sync::LazyLock::new(|| {
-        let _serial = super::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
-        let dir = tempfile::tempdir().unwrap();
-        let (_, stem) = super::load_world(
-            dir.path(),
-            mc_world::level_storage::WorldDataConfiguration::DEFAULT,
-            true,
-        )
-        .expect("default world loads");
-        stem.registries.composite_access().clone()
-    });
+static REGISTRIES: std::sync::LazyLock<(
+    mc_game::registry::RegistryAccess,
+    mc_game::world::item::crafting::RecipeManager,
+)> = std::sync::LazyLock::new(|| {
+    let _serial = super::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+    let dir = tempfile::tempdir().unwrap();
+    let (_, stem) = super::load_world(
+        dir.path(),
+        mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+        true,
+    )
+    .expect("default world loads");
+    let recipes = stem
+        .data_pack_resources
+        .listener::<mc_game::world::item::crafting::RecipeManager>()
+        .expect("recipe manager")
+        .clone();
+    (stem.registries.composite_access().clone(), recipes)
+});
 
 fn registries() -> mc_game::registry::RegistryAccess {
-    REGISTRIES.clone()
+    REGISTRIES.0.clone()
 }
 
 pub struct Harness {
@@ -337,6 +344,8 @@ impl Harness {
         // the oracle's references keep a removed entity: it dumps with `alive=0`
         level.removed_entities = Some(Default::default());
         level.registries = registries();
+        // `furnace_smelt` asks the recipe manager
+        level.shared.set_recipe_manager(REGISTRIES.1.clone());
         // item behaviour that reads registries without a level (`Item.getUseDuration` of a goat horn)
         mc_game::world::item::set_item_registries(level.registries.clone());
         let world = mc_game::server::level::level_data::default_world_data();

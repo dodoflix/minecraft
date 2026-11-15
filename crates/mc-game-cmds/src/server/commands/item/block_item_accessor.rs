@@ -9,6 +9,7 @@ use crate::server::commands::item_commands::{
 use mc_brigadier::{CommandSyntaxException, Dynamic3CommandExceptionType};
 use mc_core::pos::BlockPos;
 use mc_game_core::commands::arguments::coordinates::block_pos_argument::BlockPosArgument;
+use mc_game_core::commands::server_access::share_server;
 use mc_game_core::commands::{CommandSourceStack, argument};
 use mc_game_core::server::MinecraftServer;
 use mc_game_core::server::commands::item::slots::{
@@ -95,7 +96,8 @@ impl ItemAccessor for BlockItemAccessor {
                     .into_iter()
                     .map(|c| (ItemTarget::Block(self.pos), c))
                     .collect();
-                function(level, &pairs);
+                // the modifier may resolve text (set_name) with the server shared beside the level
+                share_server(server, || function(level, &pairs));
                 drop(pairs);
                 drop(params);
                 provider.into_writes()

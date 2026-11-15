@@ -11,6 +11,7 @@ use mc_game_core::commands::arguments::blocks::{BlockPredicate, BlockPredicateAr
 use mc_game_core::commands::arguments::coordinates::BlockPosArgument;
 use mc_game_core::commands::arguments::coordinates::block_pos_argument::ERROR_NOT_LOADED;
 use mc_game_core::commands::message::{message, simple_translatable};
+use mc_game_core::commands::server_access::with_level_installed;
 use mc_game_core::commands::{
     CommandBuildContext, CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal,
 };
@@ -416,19 +417,21 @@ fn clone(
                 count += 1;
             }
         }
-        for info in &block_entities_list {
-            if let Some((tag, components)) = &info.block_entity_info
-                && to_level
-                    .with_block_entity(info.pos, |_, entity| {
-                        entity.load_additional(tag);
+        // the destination level is out of the server while the block entities load, which resolve text (sign lines) through it
+        with_level_installed(server, &to_dimension, |to_level| {
+            for info in &block_entities_list {
+                if let Some((tag, components)) = &info.block_entity_info
+                    && to_level.load_block_entity_additional_in_level(info.pos, tag)
+                {
+                    if let Some(entity) = to_level.get_block_entity_immediate(info.pos) {
                         entity.base_mut().components = components.clone();
-                    })
-                    .is_some()
-            {
-                to_level.block_entity_changed(info.pos);
+                    }
+                    to_level.block_entity_changed(info.pos);
+                }
+                to_level.set_block(info.pos, info.state, default_update_flags, 512);
             }
-            to_level.set_block(info.pos, info.state, default_update_flags, 512);
-        }
+        });
+        let to_level = level!(to_dimension);
         if !strict {
             for info in block_infos.iter().rev() {
                 to_level

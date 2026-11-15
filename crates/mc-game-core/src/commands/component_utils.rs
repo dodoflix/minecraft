@@ -107,7 +107,7 @@ fn find_entities(
 ) -> Result<Vec<EntityRef>, CommandSyntaxException> {
     let mut reader = StringReader::new(selector);
     let parsed = EntitySelectorParser::new(&mut reader, true).parse()?;
-    source.with_server(|server| parsed.find_entities(source, server))
+    source.with_server_ref(|server| parsed.find_entities(source, server))
 }
 
 fn resolve_contents(
@@ -144,7 +144,7 @@ fn resolve_contents(
             let separator = resolve_opt(context, s.separator.as_deref(), depth)?
                 .unwrap_or_else(default_separator);
             let entities = find_entities(source, &s.selector)?;
-            let formatted = source.with_server(|server| {
+            let formatted = source.with_server_ref(|server| {
                 format_list(entities, &separator, |r| {
                     host::get_entity(server, &r)
                         .map_or_else(Component::empty, |e| host::entity_display_name(server, e))
@@ -163,7 +163,7 @@ fn resolve_contents(
                     match entities.len() {
                         0 => super::arguments::scores::ScoreHolder::for_name_only(selector),
                         1 => source
-                            .with_server(|server| host::score_holder_of(server, &entities[0]))
+                            .with_server_ref(|server| host::score_holder_of(server, &entities[0]))
                             .unwrap_or_else(|| {
                                 super::arguments::scores::ScoreHolder::for_name_only(selector)
                             }),
@@ -179,13 +179,13 @@ fn resolve_contents(
                         == super::arguments::scores::ScoreHolder::WILDCARD_NAME =>
                 {
                     source
-                        .with_server(|server| host::score_holder_of(server, entity))
+                        .with_server_ref(|server| host::score_holder_of(server, entity))
                         .unwrap_or(holder)
                 }
                 _ => holder,
             };
             Ok(source
-                .with_server(|server| host::score_component(server, &holder, &score.objective)))
+                .with_server_ref(|server| host::score_component(server, &holder, &score.objective)))
         }
         ComponentContents::Nbt(nbt) => {
             // `source == null` resolves to the empty component
@@ -254,7 +254,7 @@ fn data_source_tags(
     Ok(match data_source {
         DataSource::Entity(selector) => {
             let entities = find_entities(source, selector)?;
-            source.with_server(|server| {
+            source.with_server_ref(|server| {
                 entities
                     .iter()
                     .filter_map(|r| host::entity_data_with_selected_item(server, r))
@@ -275,7 +275,7 @@ fn data_source_tags(
                 Some(c) => {
                     let pos = c.get_block_pos(source);
                     source
-                        .with_server(|server| {
+                        .with_server_ref(|server| {
                             host::block_entity_data(server, source.get_level(), pos)
                         })
                         .into_iter()
@@ -285,8 +285,10 @@ fn data_source_tags(
                 None => Vec::new(),
             }
         }
-        DataSource::Storage(id) => vec![Tag::Compound(
-            source.with_server(|server| host::command_storage_get(server, id)),
-        )],
+        DataSource::Storage(id) => {
+            vec![Tag::Compound(source.with_server_ref(|server| {
+                server.command_storage.view().get(id)
+            }))]
+        }
     })
 }

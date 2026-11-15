@@ -1,0 +1,85 @@
+# set_name and set_lore resolve selector, score and nbt text with the loot context entity as the source (ComponentUtils.resolve with
+# entity.createCommandSourceStackForNameResolution(level) at game master): /item modify on a player hotbar slot, a container and an
+# entity, and /loot give, replace and spawn-less tables with an inline table. Without an entity the text stays as written.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Op survival 0.5 -60 0.5 0 0
+spawn_player Plain survival 4.5 -60 0.5 0 0
+op Op
+gamerule send_command_feedback true
+tick 1
+cmd_quiet scoreboard objectives add o dummy
+cmd_quiet scoreboard players set Op o 7
+cmd_quiet scoreboard players set Plain o 9
+cmd_quiet scoreboard players set Bob o 3
+cmd_quiet data merge storage t:s {str:"hi",num:5,list:[1,2,3],comp:{text:"stored",color:"gold"},sel:{selector:"@s"}}
+cmd_quiet summon minecraft:pig 3 -60 3 {UUID:[I;1,2,3,4],CustomName:"Bob",NoAI:1b,Tags:["t1"]}
+cmd_quiet setblock 0 -60 4 minecraft:oak_sign[rotation=0]
+cmd_quiet data merge block 0 -60 4 {front_text:{messages:["one",{text:"two",color:"red"},"",""]}}
+cmd_quiet setblock 2 -60 4 minecraft:chest
+cmd_quiet item replace entity Op hotbar.0 with minecraft:stick 3
+cmd_quiet item replace entity Op hotbar.1 with minecraft:diamond_sword
+cmd_quiet item replace entity Op hotbar.2 with minecraft:apple 2
+cmd_quiet item replace entity Op hotbar.3 with minecraft:bone
+cmd_quiet item replace entity Op hotbar.4 with minecraft:paper
+cmd_quiet item replace entity Plain hotbar.0 with minecraft:stick 3
+tick 1
+dump packets:Op:none packets:Plain:none
+note set_name with the player as the resolution entity
+cmd_as Op item modify entity Op hotbar.0 {type:"minecraft:set_name",entity:"this",name:{selector:"@s"}}
+cmd_as Op item modify entity Op hotbar.1 {type:"minecraft:set_name",entity:"this",name:{selector:"@e[type=pig]"},target:"item_name"}
+cmd_as Op item modify entity Op hotbar.2 {type:"minecraft:set_name",entity:"this",name:{score:{name:"@s",objective:"o"}}}
+cmd_as Op item modify entity Op hotbar.3 {type:"minecraft:set_name",entity:"this",name:{score:{name:"*",objective:"o"}},target:"item_name"}
+cmd_as Op item modify entity Op hotbar.4 {type:"minecraft:set_name",entity:"this",name:{nbt:"Pos",entity:"@s"}}
+dump inventory:Op
+note score, nbt and selector contents of every kind
+cmd_as Op item modify entity Op hotbar.0 {type:"minecraft:set_name",entity:"this",name:{score:{name:"Plain",objective:"o"}}}
+cmd_as Op item modify entity Op hotbar.1 {type:"minecraft:set_name",entity:"this",name:{nbt:"str",storage:"t:s"}}
+cmd_as Op item modify entity Op hotbar.2 {type:"minecraft:set_name",entity:"this",name:{nbt:"comp",storage:"t:s",interpret:true}}
+cmd_as Op item modify entity Op hotbar.3 {type:"minecraft:set_name",entity:"this",name:{nbt:"sel",storage:"t:s",interpret:true}}
+cmd_as Op item modify entity Op hotbar.4 {type:"minecraft:set_name",entity:"this",name:{nbt:"front_text.messages[]",block:"0 -60 4",interpret:true,separator:" / "}}
+dump inventory:Op
+note the selected item as nbt text, a selector that finds several entities, none or a bad one, nested contents
+cmd_as Op item modify entity Op hotbar.0 {type:"minecraft:set_name",entity:"this",name:{nbt:"SelectedItem.id",entity:"@s"}}
+cmd_as Op item modify entity Op hotbar.1 {type:"minecraft:set_name",entity:"this",name:{selector:"@a",separator:{text:" + ",color:"red"}}}
+cmd_as Op item modify entity Op hotbar.2 {type:"minecraft:set_name",entity:"this",name:{selector:"@e[type=zombie]"}}
+cmd_as Op item modify entity Op hotbar.3 {type:"minecraft:set_name",entity:"this",name:{selector:"@e["}}
+cmd_as Op item modify entity Op hotbar.4 {type:"minecraft:set_name",entity:"this",name:{text:"n=",extra:[{score:{name:"Op",objective:"o"},color:"green"},{translate:"chat.type.text",with:[{selector:"@s"},{keybind:"key.jump"}]}],hover_event:{action:"show_text",value:{selector:"@s"}}}}
+dump inventory:Op
+note without an entity the text stays as written
+cmd_as Op item modify entity Op hotbar.0 {type:"minecraft:set_name",name:{selector:"@s"}}
+cmd_as Op item modify entity Op hotbar.1 {type:"minecraft:set_name",name:{score:{name:"Op",objective:"o"}}}
+cmd_as Op item modify entity Op hotbar.2 {type:"minecraft:set_name",entity:"attacker",name:{selector:"@s"}}
+dump inventory:Op
+cmd_as Op item modify entity Op hotbar.3 {type:"minecraft:set_name",entity:"this",name:{selector:"@s"},target:"bad"}
+note a console source has no entity: the resolution entity of the context is missing
+cmd item modify entity Op hotbar.3 {type:"minecraft:set_name",entity:"this",name:{selector:"@s"}}
+cmd item modify entity Op hotbar.4 {type:"minecraft:set_name",entity:"this",name:{score:{name:"Op",objective:"o"}}}
+dump inventory:Op
+note set_lore appends, replaces and resolves every line with the entity
+cmd_as Op item modify entity Op hotbar.0 {type:"minecraft:set_lore",entity:"this",mode:"append",lore:[{selector:"@s"},{score:{name:"@s",objective:"o"}},{nbt:"str",storage:"t:s"}]}
+cmd_as Op item modify entity Op hotbar.0 {type:"minecraft:set_lore",entity:"this",mode:"append",lore:[{selector:"@e[type=pig]"},"plain"]}
+cmd_as Op item modify entity Op hotbar.1 {type:"minecraft:set_lore",entity:"this",mode:"insert",offset:0,lore:[{nbt:"Pos",entity:"@s"}]}
+cmd_as Op item modify entity Op hotbar.2 {type:"minecraft:set_lore",entity:"this",mode:"replace_all",lore:[{selector:"@s"}]}
+cmd_as Op item modify entity Op hotbar.0 {type:"minecraft:set_lore",entity:"this",mode:"replace_section",offset:1,size:1,lore:[{selector:"@s"},{score:{name:"Plain",objective:"o"}}]}
+cmd_as Op item modify entity Op hotbar.3 {type:"minecraft:set_lore",mode:"replace_all",lore:[{selector:"@s"}]}
+dump inventory:Op
+note the same on another player, a chest and an entity
+cmd_as Op item modify entity Plain hotbar.0 {type:"minecraft:set_name",entity:"this",name:{selector:"@s"}}
+cmd_as Op execute as Plain run item modify entity Plain hotbar.0 {type:"minecraft:set_name",entity:"this",name:{selector:"@s"}}
+cmd_as Op item replace block 2 -60 4 container.0 with minecraft:stick 4
+cmd_as Op item modify block 2 -60 4 container.0 {type:"minecraft:set_name",entity:"this",name:{selector:"@s"}}
+cmd_as Op item modify block 2 -60 4 container.0 {type:"minecraft:set_lore",entity:"this",mode:"append",lore:[{score:{name:"@s",objective:"o"}}]}
+cmd_as Op execute as @e[type=pig] run item modify entity Op hotbar.4 {type:"minecraft:set_name",entity:"this",name:{selector:"@s"}}
+dump inventory:Op inventory:Plain be:2,-60,4
+note /loot with an inline table: the source entity resolves the names of the items it gives or places
+cmd_as Op loot replace entity Op hotbar.5 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:stick",modifier:[{type:"minecraft:set_name",entity:"this",name:{selector:"@s"}}]}]}]}
+cmd_as Op loot replace entity Op hotbar.6 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:stick",modifier:[{type:"minecraft:set_name",entity:"this",name:{score:{name:"@s",objective:"o"}}},{type:"minecraft:set_lore",entity:"this",mode:"append",lore:[{nbt:"SelectedItemSlot",entity:"@s"}]}]}]}]}
+cmd_as Op execute as Plain run loot replace entity Op hotbar.7 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:stick",modifier:[{type:"minecraft:set_name",entity:"this",name:{selector:"@s"}}]}]}]}
+cmd_as Op loot replace block 2 -60 4 container.1 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:stick",modifier:[{type:"minecraft:set_name",entity:"this",name:{selector:"@s"}}]}]}]}
+cmd loot replace entity Op hotbar.8 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:stick",modifier:[{type:"minecraft:set_name",entity:"this",name:{selector:"@s"}}]}]}]}
+cmd_as Op loot give Op fish {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:cod",modifier:[{type:"minecraft:set_name",entity:"this",name:{selector:"@s"}}]}]}]} 0 -60 0 minecraft:fishing_rod
+dump inventory:Op be:2,-60,4

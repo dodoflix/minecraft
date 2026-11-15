@@ -128,3 +128,21 @@ cmd_as Op tellraw Plain {"nbt":"id","block":"bad"}
 dump packets:Plain
 cmd_as Op tellraw Plain {"nbt":"id","block":"0 -60 4","color":"green","bold":true}
 dump packets:Plain
+note SelectedItem, the item of the selected hotbar slot that players add to their entity data
+cmd_as Op tellraw Plain {"nbt":"SelectedItem","entity":"@s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"SelectedItem.id","entity":"Op"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"SelectedItem","entity":"@s","interpret":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"SelectedItem","entity":"@a","separator":";"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"SelectedItem","entity":"@e[type=pig]"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"SelectedItem","entity":"Plain"}
+dump packets:Plain
+cmd_quiet item replace entity Op weapon.mainhand with minecraft:diamond_sword[minecraft:custom_name='"Blade"',minecraft:damage=5]
+cmd_as Op tellraw Plain {"nbt":"SelectedItem.components","entity":"@s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"SelectedItem.components","entity":"@s","plain":true}
+dump packets:Plain

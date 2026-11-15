@@ -1,0 +1,57 @@
+# SignBlockEntity.resolveLines through the commands that place or copy block entity data: /setblock and /fill with a block entity tag, /clone. The sign is the source of the text (@s selects nothing), only signs with allow_op_features resolve.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Op survival 0.5 -60 0.5 0 0
+spawn_player Plain survival 4.5 -60 0.5 0 0
+op Op
+gamerule send_command_feedback true
+tick 1
+cmd_quiet scoreboard objectives add o dummy
+cmd_quiet scoreboard players set Op o 7
+cmd_quiet scoreboard players set Plain o 9
+cmd_quiet scoreboard players set Fake o 3
+cmd_quiet data merge storage t:s {str:"hi",num:5,list:[1,2,3],comp:{text:"stored",color:"gold"},comps:[{text:"a"},{text:"b",bold:1b}],nest:{a:{b:"deep"}},sel:{selector:"@s"},bad:{translate:5},rec:{nbt:"rec",storage:"t:s",interpret:true}}
+cmd_quiet summon minecraft:pig 3 -60 3 {UUID:[I;1,2,3,4],CustomName:"Bob",NoAI:1b,Tags:["t1"]}
+cmd_quiet summon minecraft:cow 5 -60 3 {UUID:[I;1,2,3,5],NoAI:1b}
+cmd_quiet setblock 0 -60 4 minecraft:oak_sign[rotation=0]
+cmd_quiet data merge block 0 -60 4 {front_text:{messages:["one",{text:"two",color:"red"},"",""]}}
+cmd_quiet setblock 2 -60 4 minecraft:chest
+cmd_quiet item replace block 2 -60 4 container.0 with minecraft:diamond 3
+cmd_quiet item replace block 2 -60 4 container.1 with minecraft:stick
+cmd_quiet item replace entity Op weapon.mainhand with minecraft:apple 2
+tick 1
+dump packets:Op:none packets:Plain:none
+note /setblock with a tag: allow_op_features resolves the lines of both sides, the sign is the source
+cmd_as Op setblock 6 -60 4 minecraft:oak_sign[rotation=0]{allow_op_features:1b,front_text:{messages:[{selector:"@e[type=pig]"},{score:{name:"Op",objective:"o"}},{nbt:"str",storage:"t:s"},{translate:"chat.type.text",with:[{selector:"@s"},{keybind:"key.jump"}]}]},back_text:{messages:[{nbt:"Pos",entity:"@e[type=pig]"},{nbt:"comp",storage:"t:s",interpret:true},{score:{name:"*",objective:"o"}},{selector:"@a"}]}}
+dump be:6,-60,4 beu:6,-60,4 packets:Plain
+note without allow_op_features the lines stay as written
+cmd_as Op setblock 8 -60 4 minecraft:oak_sign[rotation=0]{front_text:{messages:[{selector:"@e[type=pig]"},{score:{name:"Op",objective:"o"}},"",""]}}
+dump be:8,-60,4 beu:8,-60,4
+note setblock over an existing sign merges the tag into its saved data and loads it again
+cmd_as Op setblock 6 -60 4 minecraft:oak_sign[rotation=0]{front_text:{messages:[{selector:"@s"},"","",""]}} replace
+dump be:6,-60,4
+cmd_as Op setblock 8 -60 4 minecraft:oak_sign[rotation=0]{allow_op_features:1b} replace
+dump be:8,-60,4
+note a line that cannot resolve stays as written
+cmd_as Op setblock 10 -60 4 minecraft:oak_sign[rotation=0]{allow_op_features:1b,front_text:{messages:[{selector:"@e["},{selector:"@e[type=pig]"},{score:{name:"@e",objective:"o"}},{selector:"@e[type=pig]"}]}}
+dump be:10,-60,4
+note a hanging sign
+cmd_as Op setblock 12 -60 4 minecraft:oak_hanging_sign[rotation=0,attached=false]{allow_op_features:1b,back_text:{messages:[{selector:"@a"},{score:{name:"Plain",objective:"o"}},"",""]}}
+dump be:12,-60,4
+note /fill with a tag loads every sign it places
+cmd_as Op fill 0 -60 8 2 -60 8 minecraft:oak_sign[rotation=0]{allow_op_features:1b,front_text:{messages:[{selector:"@e[type=cow]"},{score:{name:"Op",objective:"o"}},"",""]}}
+dump be:0,-60,8 be:1,-60,8 be:2,-60,8
+cmd_as Op fill 0 -60 10 2 -60 10 minecraft:oak_sign[rotation=0]{front_text:{messages:[{selector:"@e[type=cow]"},"","",""]}} replace
+dump be:0,-60,10 be:2,-60,10
+cmd_as Op fill 0 -60 8 2 -60 8 minecraft:oak_sign[rotation=0]{front_text:{messages:[{nbt:"Pos",entity:"@e[type=pig]"},"","",""]}} replace
+dump be:0,-60,8 be:2,-60,8
+note /clone copies the saved data of a sign and loads it at the destination
+cmd_as Op clone 6 -60 4 6 -60 4 14 -60 4
+dump be:6,-60,4 be:14,-60,4
+cmd_as Op clone 0 -60 8 2 -60 8 0 -60 12
+dump be:0,-60,12 be:1,-60,12 be:2,-60,12
+cmd_as Op clone 8 -60 4 8 -60 4 16 -60 4 replace move
+dump be:8,-60,4 be:16,-60,4

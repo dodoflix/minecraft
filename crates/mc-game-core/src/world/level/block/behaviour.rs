@@ -704,8 +704,8 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     /// What vanilla's `getDrops` overrides do to the world before they roll the loot (`BeehiveBlock.getDrops` releases the
     /// bees when the block is destroyed by TNT, a creeper or a wither). `LootParams` holds the level immutably, so the
     /// callers that own the level mutably (`Block.dropResources`, `Level.destroyBlock`, explosions) run this right before
-    /// `get_drops`; `this_entity` is the type of the `THIS_ENTITY` parameter. Not implemented: `/loot` and the enderman's
-    /// carried block hold the level immutably and skip it.
+    /// `get_drops`; `this_entity` is the type of the `THIS_ENTITY` parameter. `/loot ... mine` runs it too. The enderman's carried block
+    /// has no position in the world and its type never matches the one override, so it skips it.
     fn before_get_drops(
         &self,
         _state: BlockState,

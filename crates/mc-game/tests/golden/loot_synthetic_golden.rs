@@ -144,9 +144,14 @@ fn player(level: &ServerLevel, id: i32, name: &str, x: f64) -> ServerPlayer {
     p
 }
 
-fn world(registries: &mc_game::registry::RegistryAccess) -> World {
+fn world(
+    registries: &mc_game::registry::RegistryAccess,
+    recipes: &mc_game::world::item::crafting::RecipeManager,
+) -> World {
     let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
     level.registries = registries.clone();
+    // `furnace_smelt` asks the recipe manager
+    level.shared.set_recipe_manager(recipes.clone());
     level.chunk_source.set_view_distance(4);
     level.chunk_source.set_simulation_distance(4);
     for x in -1..=1 {
@@ -511,7 +516,11 @@ fn synthetic_loot_definitions_equal_vanilla() {
     let dir = tempfile::tempdir().unwrap();
     let (_config, stem) = common::load_world(dir.path(), WorldDataConfiguration::DEFAULT, true)
         .expect("default world loads");
-    let w = world(stem.registries.composite_access());
+    let recipes = stem
+        .data_pack_resources
+        .listener::<mc_game::world::item::crafting::RecipeManager>()
+        .expect("recipe manager");
+    let w = world(stem.registries.composite_access(), recipes);
     let text = mc_testkit::read_gz(
         std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
             .join("tests/fixtures/loot_synthetic.txt.gz"),

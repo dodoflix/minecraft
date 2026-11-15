@@ -1,0 +1,56 @@
+# /loot ... mine runs the block's getDrops like vanilla: a beehive releases its bees when the source entity is TNT, a creeper, a wither
+# skull, a wither or a TNT minecart (BeehiveBlock.getDrops), so a silk touch drop no longer carries them. Other sources and blocks keep
+# the occupants.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Op survival 0.5 -60 0.5 0 0
+op Op
+gamerule send_command_feedback true
+tick 1
+cmd_quiet scoreboard objectives add o dummy
+cmd_quiet summon minecraft:creeper 10 -60 10 {UUID:[I;1,2,3,10],NoAI:1b,Silent:1b}
+cmd_quiet summon minecraft:tnt 12 -60 10 {UUID:[I;1,2,3,11],fuse:80s}
+cmd_quiet summon minecraft:pig 14 -60 10 {UUID:[I;1,2,3,12],NoAI:1b}
+cmd_quiet setblock 0 -60 4 minecraft:beehive[facing=north,honey_level=3]{bees:[{entity_data:{id:"minecraft:bee",NoAI:1b},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:bee",NoAI:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+cmd_quiet setblock 2 -60 4 minecraft:beehive[facing=north,honey_level=3]{bees:[{entity_data:{id:"minecraft:bee",NoAI:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+cmd_quiet setblock 4 -60 4 minecraft:bee_nest[facing=north,honey_level=1]{bees:[{entity_data:{id:"minecraft:bee",NoAI:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+cmd_quiet setblock 6 -60 4 minecraft:beehive[facing=north,honey_level=5]{bees:[{entity_data:{id:"minecraft:bee",NoAI:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+cmd_quiet setblock 8 -60 4 minecraft:beehive[facing=north,honey_level=2]{bees:[{entity_data:{id:"minecraft:bee",NoAI:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+tick 1
+dump be:0,-60,4 be:2,-60,4 be:4,-60,4 be:6,-60,4 be:8,-60,4 packets:Op:none
+note a player source keeps the bees: the silk touch drop carries them
+cmd_as Op loot give Op mine 0 -60 4 minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+dump be:0,-60,4 inventory:Op
+cmd execute store result score x o if entity @e[type=minecraft:bee]
+cmd scoreboard players get x o
+note a creeper source releases them first: the drop has no bees
+cmd_as Op execute as @e[type=minecraft:creeper] run loot give Op mine 2 -60 4 minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+dump be:2,-60,4 inventory:Op
+cmd execute store result score x o if entity @e[type=minecraft:bee]
+cmd scoreboard players get x o
+note TNT source on a bee nest
+cmd_as Op execute as @e[type=minecraft:tnt] run loot give Op mine 4 -60 4 minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+dump be:4,-60,4 inventory:Op
+cmd execute store result score x o if entity @e[type=minecraft:bee]
+cmd scoreboard players get x o
+note a pig does not release
+cmd_as Op execute as @e[type=minecraft:pig] run loot give Op mine 6 -60 4 minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+dump be:6,-60,4 inventory:Op
+note a console source has no entity
+cmd loot give Op mine 8 -60 4 minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+dump be:8,-60,4
+note loot spawn with a creeper source on a hive: the drop falls as an item and the bees are gone from the hive
+cmd_quiet setblock 0 -60 8 minecraft:beehive[facing=north,honey_level=3]{bees:[{entity_data:{id:"minecraft:bee",NoAI:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+cmd_as Op execute as @e[type=minecraft:creeper] run loot spawn 0 -60 8 mine 0 -60 8 minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+dump be:0,-60,8
+cmd execute store result score x o if entity @e[type=minecraft:bee]
+cmd scoreboard players get x o
+cmd execute store result score x o if entity @e[type=minecraft:item]
+cmd scoreboard players get x o
+note without silk touch the drop is a plain hive whatever the source
+cmd_quiet setblock 2 -60 8 minecraft:beehive[facing=north,honey_level=3]{bees:[{entity_data:{id:"minecraft:bee",NoAI:1b},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+cmd_as Op execute as @e[type=minecraft:creeper] run loot give Op mine 2 -60 8 mainhand
+dump be:2,-60,8 inventory:Op

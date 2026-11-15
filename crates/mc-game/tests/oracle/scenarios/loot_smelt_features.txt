@@ -1,0 +1,68 @@
+# furnace_smelt through the recipe manager: burning cows, chickens, pigs, sheep, rabbits, cod and salmon-like tables drop cooked food,
+# the input count rule (use_input_count) and a stack that no smelting recipe handles stay as rolled. /loot kill and /loot give of a table
+# with the function on items it can and cannot smelt.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Op survival 0.5 -60 0.5 0 0
+op Op
+gamerule send_command_feedback true
+tick 1
+cmd_quiet summon minecraft:cow 2 -60 4 {UUID:[I;1,2,3,20],NoAI:1b,Silent:1b,Fire:200s}
+cmd_quiet summon minecraft:chicken 4 -60 4 {UUID:[I;1,2,3,21],NoAI:1b,Silent:1b,Fire:200s}
+cmd_quiet summon minecraft:pig 6 -60 4 {UUID:[I;1,2,3,22],NoAI:1b,Silent:1b,Fire:200s}
+cmd_quiet summon minecraft:sheep 8 -60 4 {UUID:[I;1,2,3,23],NoAI:1b,Silent:1b,Fire:200s}
+cmd_quiet summon minecraft:rabbit 10 -60 4 {UUID:[I;1,2,3,24],NoAI:1b,Silent:1b,Fire:200s}
+cmd_quiet summon minecraft:cod 12 -60 4 {UUID:[I;1,2,3,25],NoAI:1b,Silent:1b,Fire:200s}
+cmd_quiet summon minecraft:salmon 14 -60 4 {UUID:[I;1,2,3,26],NoAI:1b,Silent:1b,Fire:200s}
+cmd_quiet summon minecraft:cow 2 -60 8 {UUID:[I;1,2,3,27],NoAI:1b,Silent:1b}
+cmd_quiet summon minecraft:chicken 4 -60 8 {UUID:[I;1,2,3,28],NoAI:1b,Silent:1b}
+cmd_quiet summon minecraft:hoglin 16 -60 4 {UUID:[I;1,2,3,29],NoAI:1b,Silent:1b,Fire:200s}
+cmd_quiet summon minecraft:zombie 18 -60 4 {UUID:[I;1,2,3,30],NoAI:1b,Silent:1b,Fire:200s}
+tick 1
+dump packets:Op:none
+note burning mobs drop cooked food, each roll under its own level seed
+level_seed 101
+cmd loot give Op kill @e[type=minecraft:cow,x=2,y=-60,z=4,distance=..1,limit=1]
+level_seed 102
+cmd loot give Op kill @e[type=minecraft:chicken,x=4,y=-60,z=4,distance=..1,limit=1]
+level_seed 103
+cmd loot give Op kill @e[type=minecraft:pig,x=6,y=-60,z=4,distance=..1,limit=1]
+level_seed 104
+cmd loot give Op kill @e[type=minecraft:sheep,x=8,y=-60,z=4,distance=..1,limit=1]
+level_seed 105
+cmd loot give Op kill @e[type=minecraft:rabbit,x=10,y=-60,z=4,distance=..1,limit=1]
+level_seed 106
+cmd loot give Op kill @e[type=minecraft:cod,x=12,y=-60,z=4,distance=..1,limit=1]
+level_seed 107
+cmd loot give Op kill @e[type=minecraft:salmon,x=14,y=-60,z=4,distance=..1,limit=1]
+level_seed 108
+cmd loot give Op kill @e[type=minecraft:hoglin,x=16,y=-60,z=4,distance=..1,limit=1]
+level_seed 109
+cmd loot give Op kill @e[type=minecraft:zombie,x=18,y=-60,z=4,distance=..1,limit=1]
+dump inventory:Op
+note the same mobs without fire drop raw food
+level_seed 110
+cmd loot give Op kill @e[type=minecraft:cow,x=2,y=-60,z=8,distance=..1,limit=1]
+level_seed 111
+cmd loot give Op kill @e[type=minecraft:chicken,x=4,y=-60,z=8,distance=..1,limit=1]
+dump inventory:Op
+note an inline table: smelt with and without use_input_count, items with a smelting recipe, without one, and tag ingredients
+cmd loot replace entity Op hotbar.0 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:beef",modifier:[{type:"minecraft:set_count",count:5},{type:"minecraft:furnace_smelt"}]}]}]}
+cmd loot replace entity Op hotbar.1 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:beef",modifier:[{type:"minecraft:set_count",count:5},{type:"minecraft:furnace_smelt",use_input_count:true}]}]}]}
+cmd loot replace entity Op hotbar.2 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:iron_ore",modifier:[{type:"minecraft:set_count",count:3},{type:"minecraft:furnace_smelt",use_input_count:true}]}]}]}
+cmd loot replace entity Op hotbar.3 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:oak_log",modifier:[{type:"minecraft:set_count",count:2},{type:"minecraft:furnace_smelt",use_input_count:true}]}]}]}
+cmd loot replace entity Op hotbar.4 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:diamond",modifier:[{type:"minecraft:furnace_smelt"}]}]}]}
+cmd loot replace entity Op hotbar.5 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:sand",modifier:[{type:"minecraft:set_count",count:64},{type:"minecraft:furnace_smelt",use_input_count:true}]}]}]}
+cmd loot replace entity Op hotbar.6 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:cobblestone",modifier:[{type:"minecraft:set_count",count:7},{type:"minecraft:furnace_smelt",use_input_count:true}]}]}]}
+cmd loot replace entity Op hotbar.7 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:kelp",modifier:[{type:"minecraft:set_count",count:4},{type:"minecraft:furnace_smelt",use_input_count:true}]}]}]}
+cmd loot replace entity Op hotbar.8 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:chorus_fruit",modifier:[{type:"minecraft:furnace_smelt"}]}]}]}
+dump inventory:Op
+note items with components keep nothing of them: the result is a fresh stack of the recipe result
+cmd loot replace entity Op container.0 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:potato",modifier:[{type:"minecraft:set_components",components:{"minecraft:custom_name":'"x"'}},{type:"minecraft:furnace_smelt"}]}]}]}
+cmd loot replace entity Op container.1 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:wet_sponge",modifier:[{type:"minecraft:furnace_smelt"}]}]}]}
+cmd loot replace entity Op container.2 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:cactus",modifier:[{type:"minecraft:furnace_smelt"}]}]}]}
+cmd loot replace entity Op container.3 loot {pools:[{rolls:1,entries:[{type:"minecraft:item",name:"minecraft:raw_gold",modifier:[{type:"minecraft:set_count",count:3},{type:"minecraft:furnace_smelt",use_input_count:true}]}]}]}
+dump inventory:Op

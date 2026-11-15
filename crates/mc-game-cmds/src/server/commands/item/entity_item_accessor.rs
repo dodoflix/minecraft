@@ -8,6 +8,7 @@ use crate::server::commands::item_commands::{
 use mc_brigadier::CommandSyntaxException;
 use mc_game_core::commands::arguments::EntityArgument;
 use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::server_access::share_server;
 use mc_game_core::commands::{CommandSourceStack, argument, host};
 use mc_game_core::server::MinecraftServer;
 use mc_game_core::server::commands::item::slots::{
@@ -123,7 +124,8 @@ impl ItemAccessor for EntityItemAccessor {
                     .zip(collections)
                     .map(|((r, _), c)| (ItemTarget::Entity((*r).clone()), c))
                     .collect();
-                let counts = function(level, &pairs);
+                // the modifier may resolve text (set_name) with the server shared beside the level
+                let counts = share_server(server, || function(level, &pairs));
                 drop(pairs);
                 drop(params);
                 let refs: Vec<EntityRef> = targets.iter().map(|(r, _)| (*r).clone()).collect();

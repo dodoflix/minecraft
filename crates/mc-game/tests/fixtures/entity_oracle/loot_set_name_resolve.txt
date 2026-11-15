@@ -1,0 +1,135 @@
+C Game rule send_command_feedback is now set to true
+# set_name with the player as the resolution entity
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+I Op 0 minecraft:stick*3{minecraft:custom_name:{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"}}
+I Op 1 minecraft:diamond_sword*1{minecraft:item_name:{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"}}
+I Op 2 minecraft:apple*2{minecraft:custom_name:"7"}
+I Op 3 minecraft:bone*1{minecraft:item_name:"7"}
+I Op 4 minecraft:paper*1{minecraft:custom_name:{extra:["[",{color:"gold",text:"0.5"},{color:"red",text:"d"},","," ",{color:"gold",text:"-60.0"},{color:"red",text:"d"},","," ",{color:"gold",text:"0.5"},{color:"red",text:"d"},"]"],text:""}}
+# score, nbt and selector contents of every kind
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+I Op 0 minecraft:stick*3{minecraft:custom_name:"9"}
+I Op 1 minecraft:diamond_sword*1{minecraft:custom_name:{extra:['"',{color:"green",text:"hi"},'"'],text:""},minecraft:item_name:{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"}}
+I Op 2 minecraft:apple*2{minecraft:custom_name:{color:"gold",text:"stored"}}
+I Op 3 minecraft:bone*1{minecraft:custom_name:{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},minecraft:item_name:"7"}
+I Op 4 minecraft:paper*1{minecraft:custom_name:{extra:[" / ",{color:"red",text:"two"}," / ",""," / ",""],text:"one"}}
+# the selected item as nbt text, a selector that finds several entities, none or a bad one, nested contents
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF fail Failed to parse structure: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {selector:"@e["}; Second: No matching codec found
+CF fail ...or:"@e["}}<--[HERE]
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+I Op 0 minecraft:stick*3{minecraft:custom_name:{extra:['"',{color:"green",text:"minecraft:stick"},'"'],text:""}}
+I Op 1 minecraft:diamond_sword*1{minecraft:custom_name:{extra:[{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},{color:"red",text:" + "},{click_event:{action:"suggest_command",command:"/tell Plain "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Plain",uuid:[I;1299644156,-744407410,-2046252669,1357195973]},insertion:"Plain",text:"Plain"}],text:""},minecraft:item_name:{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"}}
+I Op 2 minecraft:apple*2{minecraft:custom_name:""}
+I Op 3 minecraft:bone*1{minecraft:custom_name:{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},minecraft:item_name:"7"}
+I Op 4 minecraft:paper*1{minecraft:custom_name:{extra:[{color:"green",text:"7"},{translate:"chat.type.text",with:[{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},{keybind:"key.jump"}]}],hover_event:{action:"show_text",value:{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"}},text:"n="}}
+# without an entity the text stays as written
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+I Op 0 minecraft:stick*3{minecraft:custom_name:{selector:"@s"}}
+I Op 1 minecraft:diamond_sword*1{minecraft:custom_name:{score:{name:"Op",objective:"o"}},minecraft:item_name:{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"}}
+I Op 2 minecraft:apple*2{minecraft:custom_name:{selector:"@s"}}
+I Op 3 minecraft:bone*1{minecraft:custom_name:{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},minecraft:item_name:"7"}
+I Op 4 minecraft:paper*1{minecraft:custom_name:{extra:[{color:"green",text:"7"},{translate:"chat.type.text",with:[{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},{keybind:"key.jump"}]}],hover_event:{action:"show_text",value:{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"}},text:"n="}}
+CF fail Failed to parse structure: Unknown element name:bad
+CF fail ...get:"bad"}<--[HERE]
+# a console source has no entity: the resolution entity of the context is missing
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+I Op 0 minecraft:stick*3{minecraft:custom_name:{selector:"@s"}}
+I Op 1 minecraft:diamond_sword*1{minecraft:custom_name:{score:{name:"Op",objective:"o"}},minecraft:item_name:{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"}}
+I Op 2 minecraft:apple*2{minecraft:custom_name:{selector:"@s"}}
+I Op 3 minecraft:bone*1{minecraft:custom_name:{selector:"@s"},minecraft:item_name:"7"}
+I Op 4 minecraft:paper*1{minecraft:custom_name:{score:{name:"Op",objective:"o"}}}
+# set_lore appends, replaces and resolves every line with the entity
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+I Op 0 minecraft:stick*3{minecraft:custom_name:{selector:"@s"},minecraft:lore:[{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},"9",{extra:['"',{color:"green",text:"hi"},'"'],text:""},{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"},"plain"]}
+I Op 1 minecraft:diamond_sword*1{minecraft:custom_name:{score:{name:"Op",objective:"o"}},minecraft:item_name:{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"},minecraft:lore:[{extra:["[",{color:"gold",text:"0.5"},{color:"red",text:"d"},","," ",{color:"gold",text:"-60.0"},{color:"red",text:"d"},","," ",{color:"gold",text:"0.5"},{color:"red",text:"d"},"]"],text:""}]}
+I Op 2 minecraft:apple*2{minecraft:custom_name:{selector:"@s"},minecraft:lore:[{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"}]}
+I Op 3 minecraft:bone*1{minecraft:custom_name:{selector:"@s"},minecraft:item_name:"7",minecraft:lore:[{selector:"@s"}]}
+I Op 4 minecraft:paper*1{minecraft:custom_name:{score:{name:"Op",objective:"o"}}}
+# the same on another player, a chest and an entity
+CF msg Modified 1 slot(s) on Plain
+CF result success 1
+CF msg Modified 1 slot(s) on Plain
+CF result success 1
+CF msg Replaced 1 slot(s) at 2, -60, 4 with [Stick]
+CF result success 1
+CF msg Modified 1 slot(s) at 2, -60, 4
+CF result success 1
+CF msg Modified 1 slot(s) at 2, -60, 4
+CF result success 1
+CF msg Modified 1 slot(s) on Op
+CF result success 1
+I Op 0 minecraft:stick*3{minecraft:custom_name:{selector:"@s"},minecraft:lore:[{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},"9",{extra:['"',{color:"green",text:"hi"},'"'],text:""},{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"},"plain"]}
+I Op 1 minecraft:diamond_sword*1{minecraft:custom_name:{score:{name:"Op",objective:"o"}},minecraft:item_name:{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"},minecraft:lore:[{extra:["[",{color:"gold",text:"0.5"},{color:"red",text:"d"},","," ",{color:"gold",text:"-60.0"},{color:"red",text:"d"},","," ",{color:"gold",text:"0.5"},{color:"red",text:"d"},"]"],text:""}]}
+I Op 2 minecraft:apple*2{minecraft:custom_name:{selector:"@s"},minecraft:lore:[{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"}]}
+I Op 3 minecraft:bone*1{minecraft:custom_name:{selector:"@s"},minecraft:item_name:"7",minecraft:lore:[{selector:"@s"}]}
+I Op 4 minecraft:paper*1{minecraft:custom_name:{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"}}
+I Plain 0 minecraft:stick*3{minecraft:custom_name:{click_event:{action:"suggest_command",command:"/tell Plain "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Plain",uuid:[I;1299644156,-744407410,-2046252669,1357195973]},insertion:"Plain",text:"Plain"}}
+BE 2 -60 4 {Items:[{Slot:0b,components:{"minecraft:custom_name":{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},"minecraft:lore":["7"]},count:4,id:"minecraft:stick"}],components:{},id:"minecraft:chest",x:2,y:-60,z:4}
+# /loot with an inline table: the source entity resolves the names of the items it gives or places
+CF msg Dropped 1 [Op]
+CF result success 1
+CF msg Dropped 1 [7]
+CF result success 1
+CF msg Dropped 1 [Plain]
+CF result success 1
+CF msg Dropped 1 [Op]
+CF result success 1
+CF msg Dropped 1 [@s]
+CF result success 1
+CF msg Dropped 1 [Op]
+CF result success 1
+I Op 0 minecraft:stick*3{minecraft:custom_name:{selector:"@s"},minecraft:lore:[{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},"9",{extra:['"',{color:"green",text:"hi"},'"'],text:""},{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"},"plain"]}
+I Op 1 minecraft:diamond_sword*1{minecraft:custom_name:{score:{name:"Op",objective:"o"}},minecraft:item_name:{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"},minecraft:lore:[{extra:["[",{color:"gold",text:"0.5"},{color:"red",text:"d"},","," ",{color:"gold",text:"-60.0"},{color:"red",text:"d"},","," ",{color:"gold",text:"0.5"},{color:"red",text:"d"},"]"],text:""}]}
+I Op 2 minecraft:apple*2{minecraft:custom_name:{selector:"@s"},minecraft:lore:[{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"}]}
+I Op 3 minecraft:bone*1{minecraft:custom_name:{selector:"@s"},minecraft:item_name:"7",minecraft:lore:[{selector:"@s"}]}
+I Op 4 minecraft:paper*1{minecraft:custom_name:{hover_event:{action:"show_entity",id:"minecraft:pig",name:"Bob",uuid:[I;1,2,3,4]},insertion:"00000001-0000-0002-0000-000300000004",text:"Bob"}}
+I Op 5 minecraft:stick*1{minecraft:custom_name:{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"}}
+I Op 6 minecraft:stick*1{minecraft:custom_name:"7",minecraft:lore:[{extra:[{color:"gold",text:"0"}],text:""}]}
+I Op 7 minecraft:stick*1{minecraft:custom_name:{click_event:{action:"suggest_command",command:"/tell Plain "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Plain",uuid:[I;1299644156,-744407410,-2046252669,1357195973]},insertion:"Plain",text:"Plain"}}
+I Op 8 minecraft:stick*1{minecraft:custom_name:{selector:"@s"}}
+I Op 9 minecraft:cod*1{minecraft:custom_name:{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"}}
+BE 2 -60 4 {Items:[{Slot:0b,components:{"minecraft:custom_name":{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"},"minecraft:lore":["7"]},count:4,id:"minecraft:stick"},{Slot:1b,components:{"minecraft:custom_name":{click_event:{action:"suggest_command",command:"/tell Op "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Op",uuid:[I;-2092627054,2037134771,-2088569628,-405093155]},insertion:"Op",text:"Op"}},count:1,id:"minecraft:stick"}],components:{},id:"minecraft:chest",x:2,y:-60,z:4}

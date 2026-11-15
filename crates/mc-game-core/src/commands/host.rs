@@ -1037,15 +1037,13 @@ pub fn block_entity_load_data(
     use crate::world::level::BlockGetter;
     // the entity loads text lines (sign lines, lectern books) that resolve through the server; the level is out of the server
     // meanwhile and lends itself back where it resolves
-    server.with_level(dimension, |server, level| {
-        crate::commands::server_access::enter_server(server, || {
-            let state = BlockGetter::get_block_state(level, pos);
-            if !level.load_block_entity_in_level(pos, data) {
-                return;
-            }
-            level.block_entity_set_changed(pos, state);
-            level.send_block_updated(pos, state, state, 3);
-        })
+    crate::commands::server_access::with_level_installed(server, dimension, |level| {
+        let state = BlockGetter::get_block_state(level, pos);
+        if !level.load_block_entity_in_level(pos, data) {
+            return;
+        }
+        level.block_entity_set_changed(pos, state);
+        level.send_block_updated(pos, state, state, 3);
     });
 }
 

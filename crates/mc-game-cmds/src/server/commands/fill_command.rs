@@ -11,6 +11,7 @@ use mc_game_core::commands::arguments::blocks::{
 };
 use mc_game_core::commands::arguments::coordinates::BlockPosArgument;
 use mc_game_core::commands::message::{message, simple_translatable};
+use mc_game_core::commands::server_access::with_level_installed;
 use mc_game_core::commands::{
     CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal,
 };
@@ -196,77 +197,79 @@ fn fill_blocks(
     }
     let hollow_core = BlockInput::new(Block::AIR.default_state(), Vec::new(), None);
     let count = source.with_server(|server| {
-        let level = server.level_mut(source.get_level())?;
-        if level.is_debug {
-            return None;
-        }
-        load_chunks_covering(
-            level,
-            region.min_x(),
-            region.min_y(),
-            region.min_z(),
-            region.max_x(),
-            region.max_y(),
-            region.max_z(),
-        );
-        let mut update_positions: Vec<(BlockPos, mc_data::block::BlockState)> = Vec::new();
-        let mut count = 0;
-        for pos in BlockPos::between_closed_xyz(
-            region.min_x(),
-            region.min_y(),
-            region.min_z(),
-            region.max_x(),
-            region.max_y(),
-            region.max_z(),
-        ) {
-            let matches = match filter {
-                Filter::Any => true,
-                Filter::Keep => level.is_empty_block(pos),
-                Filter::Predicate(predicate) => predicate.test(level, pos),
-            };
-            if !matches {
-                continue;
+        with_level_installed(server, source.get_level(), |level| {
+            if level.is_debug {
+                return None;
             }
-            let old_state = level.get_block_state(pos);
-            let mut affected = false;
-            if mode == Mode::Destroy && level.destroy_block(pos, true, None, 512) {
-                affected = true;
-            }
-            let on_edge = pos.x() == region.min_x()
-                || pos.x() == region.max_x()
-                || pos.y() == region.min_y()
-                || pos.y() == region.max_y()
-                || pos.z() == region.min_z()
-                || pos.z() == region.max_z();
-            let block = match mode {
-                Mode::Outline => on_edge.then_some(target),
-                Mode::Hollow => Some(if on_edge { target } else { &hollow_core }),
-                Mode::Replace | Mode::Destroy => Some(target),
-            };
-            match block {
-                None => {
-                    if affected {
-                        count += 1;
-                    }
+            load_chunks_covering(
+                level,
+                region.min_x(),
+                region.min_y(),
+                region.min_z(),
+                region.max_x(),
+                region.max_y(),
+                region.max_z(),
+            );
+            let mut update_positions: Vec<(BlockPos, mc_data::block::BlockState)> = Vec::new();
+            let mut count = 0;
+            for pos in BlockPos::between_closed_xyz(
+                region.min_x(),
+                region.min_y(),
+                region.min_z(),
+                region.max_x(),
+                region.max_y(),
+                region.max_z(),
+            ) {
+                let matches = match filter {
+                    Filter::Any => true,
+                    Filter::Keep => level.is_empty_block(pos),
+                    Filter::Predicate(predicate) => predicate.test(level, pos),
+                };
+                if !matches {
+                    continue;
                 }
-                Some(block) => {
-                    if !block.place(level, pos, 2 | if strict { 816 } else { 256 }) {
+                let old_state = level.get_block_state(pos);
+                let mut affected = false;
+                if mode == Mode::Destroy && level.destroy_block(pos, true, None, 512) {
+                    affected = true;
+                }
+                let on_edge = pos.x() == region.min_x()
+                    || pos.x() == region.max_x()
+                    || pos.y() == region.min_y()
+                    || pos.y() == region.max_y()
+                    || pos.z() == region.min_z()
+                    || pos.z() == region.max_z();
+                let block = match mode {
+                    Mode::Outline => on_edge.then_some(target),
+                    Mode::Hollow => Some(if on_edge { target } else { &hollow_core }),
+                    Mode::Replace | Mode::Destroy => Some(target),
+                };
+                match block {
+                    None => {
                         if affected {
                             count += 1;
                         }
-                    } else {
-                        if !strict {
-                            update_positions.push((pos, old_state));
+                    }
+                    Some(block) => {
+                        if !block.place(level, pos, 2 | if strict { 816 } else { 256 }) {
+                            if affected {
+                                count += 1;
+                            }
+                        } else {
+                            if !strict {
+                                update_positions.push((pos, old_state));
+                            }
+                            count += 1;
                         }
-                        count += 1;
                     }
                 }
             }
-        }
-        for (pos, old_state) in update_positions {
-            level.update_neighbours_on_block_set(pos, old_state);
-        }
-        Some(count)
+            for (pos, old_state) in update_positions {
+                level.update_neighbours_on_block_set(pos, old_state);
+            }
+            Some(count)
+        })
+        .flatten()
     });
     match count {
         Some(count) if count != 0 => {

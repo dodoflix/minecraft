@@ -1,0 +1,95 @@
+C Game rule send_command_feedback is now set to true
+# burning mobs drop cooked food, each roll under its own level seed
+CF msg Dropped 1 [Steak] from loot table minecraft:entities/cow
+CF result success 1
+CF msg Dropped 1 [Cooked Chicken] from loot table minecraft:entities/chicken
+CF result success 1
+CF msg Dropped 3 [Cooked Porkchop] from loot table minecraft:entities/pig
+CF result success 1
+CF msg Dropped 2 items from loot table minecraft:entities/sheep
+CF result success 2
+CF msg Dropped 1 [Cooked Rabbit] from loot table minecraft:entities/rabbit
+CF result success 1
+CF msg Dropped 2 items from loot table minecraft:entities/cod
+CF result success 2
+CF msg Dropped 1 [Cooked Salmon] from loot table minecraft:entities/salmon
+CF result success 1
+CF msg Dropped 3 [Cooked Porkchop] from loot table minecraft:entities/hoglin
+CF result success 1
+CF msg Dropped 0 items from loot table minecraft:entities/zombie
+CF result success 0
+I Op 0 minecraft:cooked_beef*1
+I Op 1 minecraft:cooked_chicken*1
+I Op 2 minecraft:cooked_porkchop*6
+I Op 3 minecraft:cooked_mutton*2
+I Op 4 minecraft:white_wool*1
+I Op 5 minecraft:cooked_rabbit*1
+I Op 6 minecraft:cooked_cod*1
+I Op 7 minecraft:bone_meal*1
+I Op 8 minecraft:cooked_salmon*1
+# the same mobs without fire drop raw food
+CF msg Dropped 2 [Raw Beef] from loot table minecraft:entities/cow
+CF result success 1
+CF msg Dropped 1 [Raw Chicken] from loot table minecraft:entities/chicken
+CF result success 1
+I Op 0 minecraft:cooked_beef*1
+I Op 1 minecraft:cooked_chicken*1
+I Op 2 minecraft:cooked_porkchop*6
+I Op 3 minecraft:cooked_mutton*2
+I Op 4 minecraft:white_wool*1
+I Op 5 minecraft:cooked_rabbit*1
+I Op 6 minecraft:cooked_cod*1
+I Op 7 minecraft:bone_meal*1
+I Op 8 minecraft:cooked_salmon*1
+I Op 9 minecraft:beef*2
+I Op 10 minecraft:chicken*1
+# an inline table: smelt with and without use_input_count, items with a smelting recipe, without one, and tag ingredients
+CF msg Dropped 5 [Steak]
+CF result success 1
+CF msg Dropped 5 [Steak]
+CF result success 1
+CF msg Dropped 3 [Iron Ingot]
+CF result success 1
+CF msg Dropped 2 [Charcoal]
+CF result success 1
+CF msg Dropped 1 [Diamond]
+CF result success 1
+CF msg Dropped 64 [Glass]
+CF result success 1
+CF msg Dropped 7 [Stone]
+CF result success 1
+CF msg Dropped 4 [Dried Kelp]
+CF result success 1
+CF msg Dropped 1 [Popped Chorus Fruit]
+CF result success 1
+I Op 0 minecraft:cooked_beef*5
+I Op 1 minecraft:cooked_beef*5
+I Op 2 minecraft:iron_ingot*3
+I Op 3 minecraft:charcoal*2
+I Op 4 minecraft:diamond*1
+I Op 5 minecraft:glass*64
+I Op 6 minecraft:stone*7
+I Op 7 minecraft:dried_kelp*4
+I Op 8 minecraft:popped_chorus_fruit*1
+I Op 9 minecraft:beef*2
+I Op 10 minecraft:chicken*1
+# items with components keep nothing of them: the result is a fresh stack of the recipe result
+CF msg Dropped 1 [Baked Potato]
+CF result success 1
+CF msg Dropped 1 [Sponge]
+CF result success 1
+CF msg Dropped 1 [Green Dye]
+CF result success 1
+CF msg Dropped 3 [Gold Ingot]
+CF result success 1
+I Op 0 minecraft:baked_potato*1
+I Op 1 minecraft:sponge*1
+I Op 2 minecraft:green_dye*1
+I Op 3 minecraft:gold_ingot*3
+I Op 4 minecraft:diamond*1
+I Op 5 minecraft:glass*64
+I Op 6 minecraft:stone*7
+I Op 7 minecraft:dried_kelp*4
+I Op 8 minecraft:popped_chorus_fruit*1
+I Op 9 minecraft:beef*2
+I Op 10 minecraft:chicken*1

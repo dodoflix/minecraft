@@ -38,3 +38,8 @@ fn click_events_match_vanilla() {
 fn line_resolution_on_data_merge_matches_vanilla() {
     common::block_scenario::check("blk_signs_resolve");
 }
+
+#[test]
+fn line_resolution_on_setblock_fill_and_clone_matches_vanilla() {
+    common::block_scenario::check("blk_signs_resolve_commands");
+}

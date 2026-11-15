@@ -179,6 +179,7 @@ mod loot_all_golden;
 mod loot_call_sites_golden;
 mod loot_golden;
 mod loot_load;
+mod loot_seams_golden;
 mod loot_synthetic_golden;
 mod map_golden;
 mod menu_golden;

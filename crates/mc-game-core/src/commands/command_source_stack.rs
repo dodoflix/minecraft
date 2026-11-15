@@ -403,6 +403,12 @@ impl CommandSourceStack {
         server_access::with_server(f)
     }
 
+    /// Read access to the server for code that only needs `&MinecraftServer` and may run while a loot roll holds the level
+    /// shared (see [`server_access::share_server`]).
+    pub fn with_server_ref<R>(&self, f: impl FnOnce(&MinecraftServer) -> R) -> R {
+        server_access::with_server_ref(f)
+    }
+
     /// `getRelevantCoordinates()` (the server has no hit result, so the default `~ ~ ~`).
     pub fn get_relevant_coordinates(&self) -> Vec<TextCoordinates> {
         vec![TextCoordinates::default_global()]

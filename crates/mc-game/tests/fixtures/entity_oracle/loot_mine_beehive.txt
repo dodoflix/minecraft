@@ -1,0 +1,70 @@
+C Game rule send_command_feedback is now set to true
+BE 0 -60 4 {bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1},{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],components:{},id:"minecraft:beehive",x:0,y:-60,z:4}
+BE 2 -60 4 {bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],components:{},id:"minecraft:beehive",x:2,y:-60,z:4}
+BE 4 -60 4 {bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],components:{},id:"minecraft:beehive",x:4,y:-60,z:4}
+BE 6 -60 4 {bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],components:{},id:"minecraft:beehive",x:6,y:-60,z:4}
+BE 8 -60 4 {bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],components:{},id:"minecraft:beehive",x:8,y:-60,z:4}
+# a player source keeps the bees: the silk touch drop carries them
+CF msg Dropped 1 [Beehive] from loot table minecraft:blocks/beehive
+CF result success 1
+BE 0 -60 4 {bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1},{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],components:{},id:"minecraft:beehive",x:0,y:-60,z:4}
+I Op 0 minecraft:beehive*1{minecraft:bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1},{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],minecraft:block_state:{honey_level:"3"}}
+CF result failure 0
+CF fail Test failed
+CF msg x has 0 [o]
+CF result success 0
+# a creeper source releases them first: the drop has no bees
+CF msg Dropped 1 [Beehive] from loot table minecraft:blocks/beehive
+CF result success 1
+BE 2 -60 4 {bees:[],components:{},id:"minecraft:beehive",x:2,y:-60,z:4}
+I Op 0 minecraft:beehive*1{minecraft:bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1},{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],minecraft:block_state:{honey_level:"3"}}
+I Op 1 minecraft:beehive*1{minecraft:block_state:{honey_level:"3"}}
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg x has 1 [o]
+CF result success 1
+# TNT source on a bee nest
+CF msg Dropped 1 [Bee Nest] from loot table minecraft:blocks/bee_nest
+CF result success 1
+BE 4 -60 4 {bees:[],components:{},id:"minecraft:beehive",x:4,y:-60,z:4}
+I Op 0 minecraft:beehive*1{minecraft:bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1},{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],minecraft:block_state:{honey_level:"3"}}
+I Op 1 minecraft:beehive*1{minecraft:block_state:{honey_level:"3"}}
+I Op 2 minecraft:bee_nest*1{minecraft:block_state:{honey_level:"1"}}
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg x has 2 [o]
+CF result success 2
+# a pig does not release
+CF msg Dropped 1 [Beehive] from loot table minecraft:blocks/beehive
+CF result success 1
+BE 6 -60 4 {bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],components:{},id:"minecraft:beehive",x:6,y:-60,z:4}
+I Op 0 minecraft:beehive*1{minecraft:bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1},{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],minecraft:block_state:{honey_level:"3"}}
+I Op 1 minecraft:beehive*1{minecraft:block_state:{honey_level:"3"}}
+I Op 2 minecraft:bee_nest*1{minecraft:block_state:{honey_level:"1"}}
+I Op 3 minecraft:beehive*1{minecraft:bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],minecraft:block_state:{honey_level:"5"}}
+# a console source has no entity
+CF msg Dropped 1 [Beehive] from loot table minecraft:blocks/beehive
+CF result success 1
+BE 8 -60 4 {bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],components:{},id:"minecraft:beehive",x:8,y:-60,z:4}
+# loot spawn with a creeper source on a hive: the drop falls as an item and the bees are gone from the hive
+CF msg Dropped 1 [Beehive] from loot table minecraft:blocks/beehive
+CF result success 1
+BE 0 -60 8 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:8}
+CF msg Test passed. Count: 3
+CF result success 3
+CF msg x has 3 [o]
+CF result success 3
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg x has 1 [o]
+CF result success 1
+# without silk touch the drop is a plain hive whatever the source
+CF msg Dropped 1 [Beehive] from loot table minecraft:blocks/beehive
+CF result success 1
+BE 2 -60 8 {bees:[],components:{},id:"minecraft:beehive",x:2,y:-60,z:8}
+I Op 0 minecraft:beehive*1{minecraft:bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1},{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],minecraft:block_state:{honey_level:"3"}}
+I Op 1 minecraft:beehive*1{minecraft:block_state:{honey_level:"3"}}
+I Op 2 minecraft:bee_nest*1{minecraft:block_state:{honey_level:"1"}}
+I Op 3 minecraft:beehive*1{minecraft:bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],minecraft:block_state:{honey_level:"5"}}
+I Op 4 minecraft:beehive*1{minecraft:bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],minecraft:block_state:{honey_level:"2"}}
+I Op 5 minecraft:beehive*1

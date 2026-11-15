@@ -15,6 +15,7 @@ use mc_game_core::commands::arguments::item::ItemArgument;
 use mc_game_core::commands::arguments::resource_arguments::{LootModifierArgument, ResourceOrId};
 use mc_game_core::commands::arguments::slot_arguments::{SlotSourceArgument, SlotSourceResult};
 use mc_game_core::commands::message::{dynamic_translatable, message, simple_translatable};
+use mc_game_core::commands::server_access::share_server;
 use mc_game_core::commands::{
     CommandBuildContext, CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal,
 };
@@ -373,12 +374,14 @@ fn get_items(
                 resolve_resource_or_id(source, keys::ITEM_MODIFIER, modifier, function_codec())?;
             source.with_server(|server| {
                 let level = server.level(source.get_level()).expect("source level");
-                with_modifier(level, source, &function, |apply| {
-                    slots
-                        .item_copies()
-                        .iter()
-                        .map(|item| apply(item.copy()))
-                        .collect()
+                share_server(server, || {
+                    with_modifier(level, source, &function, |apply| {
+                        slots
+                            .item_copies()
+                            .iter()
+                            .map(|item| apply(item.copy()))
+                            .collect()
+                    })
                 })
             })
         }
