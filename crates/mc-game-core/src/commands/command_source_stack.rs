@@ -79,7 +79,8 @@ enum NamesProvider {
 pub struct CommandSourceStack {
     source: Arc<dyn CommandSource>,
     world_position: Vec3,
-    level: DimensionKey,
+    /// `None` only for the compilation context (vanilla passes `null`).
+    level: Option<DimensionKey>,
     permissions: PermissionSet,
     names_provider: NamesProvider,
     silent: bool,
@@ -104,7 +105,7 @@ impl CommandSourceStack {
             source,
             position,
             rotation,
-            level,
+            Some(level),
             permissions,
             NamesProvider::ForEntity,
             Some(Arc::new(entity)),
@@ -124,23 +125,24 @@ impl CommandSourceStack {
             source,
             position,
             rotation,
-            level,
+            Some(level),
             permissions,
             NamesProvider::Constant(Box::new(name)),
             None,
         )
     }
 
-    /// `Commands.createCompilationContext`: a null-source stack used where only the permissions matter (tree pruning,
-    /// function compilation). The level is `minecraft:overworld` as a placeholder (vanilla passes `null`).
+    /// `Commands.createCompilationContext`: a null-source, level-less stack used where only the permissions matter (tree
+    /// pruning, function compilation).
     pub fn compilation_context(permissions: PermissionSet) -> Self {
-        Self::named(
+        Self::build(
             super::null_source(),
             Vec3::ZERO,
             Vec2::ZERO,
-            DimensionKey::parse("minecraft:overworld").expect("valid dimension key"),
+            None,
             permissions,
-            Component::empty(),
+            NamesProvider::Constant(Box::new(Component::empty())),
+            None,
         )
     }
 
@@ -148,7 +150,7 @@ impl CommandSourceStack {
         source: Arc<dyn CommandSource>,
         position: Vec3,
         rotation: Vec2,
-        level: DimensionKey,
+        level: Option<DimensionKey>,
         permissions: PermissionSet,
         names_provider: NamesProvider,
         entity: Option<Arc<CommandEntity>>,
@@ -258,7 +260,7 @@ impl CommandSourceStack {
     /// `withLevel(level)` for a level whose coordinate scale relative to the current one is `scale`
     /// (`DimensionType.getTeleportationScale(current, new)`).
     pub fn with_level(&self, level: DimensionKey, scale: f64) -> Self {
-        if level == self.level {
+        if Some(&level) == self.level.as_ref() {
             return self.clone();
         }
         let pos = Vec3::new(
@@ -268,7 +270,7 @@ impl CommandSourceStack {
         );
         Self {
             world_position: pos,
-            level,
+            level: Some(level),
             ..self.clone()
         }
     }
@@ -303,7 +305,7 @@ impl CommandSourceStack {
                 let live = super::server_access::has_server().then(|| {
                     self.with_server(|server| {
                         let entity_ref = super::arguments::selector::EntityRef {
-                            dimension: self.level.clone(),
+                            dimension: self.get_level().clone(),
                             id: entity.id,
                         };
                         super::host::get_entity(server, &entity_ref)
@@ -337,8 +339,11 @@ impl CommandSourceStack {
         self.world_position
     }
 
+    /// `getLevel()`: a null level (the compilation context) never reaches a command that reads it.
     pub fn get_level(&self) -> &DimensionKey {
-        &self.level
+        self.level
+            .as_ref()
+            .expect("a command source without a level has no level to read")
     }
 
     pub fn get_entity(&self) -> Option<&CommandEntity> {
@@ -418,7 +423,7 @@ impl CommandSourceStack {
 
     /// `enabledFeatures()` of the source's level.
     pub fn enabled_features(&self) -> mc_world::level_storage::FeatureFlagSet {
-        let level = self.level.clone();
+        let level = self.get_level().clone();
         self.with_server(|server| super::host::level_enabled_features(server, &level))
     }
 
@@ -493,7 +498,7 @@ impl CommandSourceStack {
         )
         .with_formats(&[ChatFormatting::Gray, ChatFormatting::Italic]);
         let source_kind = self.source.kind();
-        let level = self.level.clone();
+        let level = self.get_level().clone();
         self.with_server(|server| {
             super::host::broadcast_to_admins(server, source_kind, &level, &broadcast)
         });

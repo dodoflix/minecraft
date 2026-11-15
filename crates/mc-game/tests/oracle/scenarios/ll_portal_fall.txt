@@ -1,0 +1,31 @@
+# A falling entity that moves through a portal block: only a player resets its fall distance, through an end portal or end gateway always and
+# through a nether portal only while the default portal delay is 0 (ClipContext.Block.FALLDAMAGE_RESETTING). A portal cooldown keeps the
+# entities from travelling. E80/N80 fall at the default delay (80); S is the control without a block; I0 is an item above an end portal.
+level flat
+preload 4
+entity_counter 100
+block 0 -50 0 minecraft:end_portal
+block 8 -50 0 minecraft:nether_portal[axis=x]
+spawn_player E80 survival 0.5 -20 0.5 0 0 sim
+spawn_player N80 survival 8.5 -20 0.5 0 0 sim
+set E80 portal_cooldown 1000
+set N80 portal_cooldown 1000
+watch player:E80 player:N80
+tick 40
+watch off
+gamerule players_nether_portal_default_delay 0
+block 16 -50 0 minecraft:end_portal
+block 24 -50 0 minecraft:end_gateway
+block 32 -50 0 minecraft:nether_portal[axis=x]
+block 48 -50 0 minecraft:end_portal
+spawn_player E0 survival 16.5 -20 0.5 0 0 sim
+spawn_player G0 survival 24.5 -20 0.5 0 0 sim
+spawn_player N0 survival 32.5 -20 0.5 0 0 sim
+spawn_player S survival 40.5 -20 0.5 0 0 sim
+spawn_item I0 minecraft:stick 48.5 -42 0.5 0 -1.5 0
+set E0 portal_cooldown 1000
+set G0 portal_cooldown 1000
+set N0 portal_cooldown 1000
+set I0 portal_cooldown 1000
+watch player:E0 player:G0 player:N0 player:S entity:I0
+tick 40

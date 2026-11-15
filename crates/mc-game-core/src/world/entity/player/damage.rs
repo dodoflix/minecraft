@@ -47,13 +47,13 @@ impl ServerPlayer {
     /// `ServerPlayer.canHarmPlayer(target)`: `isPvpAllowed() && Player.canHarmPlayer(target)` for `this` hurting `target`;
     /// here `this` is the victim and `attacker` the player that hurts it (`!this.canHarmPlayer(player)` in `hurtServer`).
     fn can_be_harmed_by_player(&self, level: &ServerLevel, attacker: &DamageEntity) -> bool {
-        level.pvp() && self.do_teams_allow_damage(level, &attacker.scoreboard_name)
+        level.is_pvp_allowed() && self.do_teams_allow_damage(level, &attacker.scoreboard_name)
     }
 }
 impl ServerPlayer {
     /// `ServerPlayer.canHarmPlayer(target)` (`this` hurts `target`): `isPvpAllowed() && doTeamsAllowDamage(target)`.
     pub fn can_harm_player(&self, level: &ServerLevel, target_scoreboard_name: &str) -> bool {
-        level.pvp() && self.do_teams_allow_damage(level, target_scoreboard_name)
+        level.is_pvp_allowed() && self.do_teams_allow_damage(level, target_scoreboard_name)
     }
 }
 

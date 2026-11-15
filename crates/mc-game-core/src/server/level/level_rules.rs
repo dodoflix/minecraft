@@ -74,6 +74,13 @@ impl LiveRules {
     }
 }
 
+impl ServerLevel {
+    /// `ServerLevel.isPvpAllowed()`.
+    pub fn is_pvp_allowed(&self) -> bool {
+        self.pvp()
+    }
+}
+
 level_rules! {
     advance_time: bool = ADVANCE_TIME,
     advance_weather: bool = ADVANCE_WEATHER,

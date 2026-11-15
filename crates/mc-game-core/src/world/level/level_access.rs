@@ -42,6 +42,10 @@ pub trait BlockGetter {
     fn get_light_emission(&self, pos: BlockPos) -> i32 {
         i32::from(self.get_block_state(pos).get_light_emission())
     }
+    /// `PLAYERS_NETHER_PORTAL_DEFAULT_DELAY` when `this instanceof ServerLevel`, else `None`.
+    fn server_level_portal_delay(&self) -> Option<i32> {
+        None
+    }
 }
 
 /// `LevelReader` (the part independent of live entities).

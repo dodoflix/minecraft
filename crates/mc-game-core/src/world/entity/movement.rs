@@ -54,7 +54,8 @@ pub fn collision_context(entity: &dyn Entity) -> CollisionContext {
         entity.base().fall_distance,
         entity.get_type() == mc_data::EntityType::FALLING_BLOCK,
         can_entity_walk_on_powder_snow(entity),
-    );
+    )
+    .with_entity_is_player(entity.get_type() == mc_data::EntityType::PLAYER);
     // the liquid shape only matters to an entity that can stand on the fluid (`LiquidBlock.getCollisionShape`)
     if can_stand_on_fluid.is_some() {
         context.with_liquid_collision_shape(entity.get_liquid_collision_shape())

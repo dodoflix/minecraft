@@ -749,6 +749,10 @@ impl ChunkGeneratorBackend for VoidGenerator {
 // ---------------------------------------------------------------------- level access traits
 
 impl BlockGetter for ServerLevel {
+    fn server_level_portal_delay(&self) -> Option<i32> {
+        Some(self.players_nether_portal_default_delay())
+    }
+
     fn get_block_state(&self, pos: BlockPos) -> BlockState {
         if self.is_outside_build_height(pos.y()) {
             return Block::VOID_AIR.default_state();

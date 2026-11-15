@@ -49,6 +49,7 @@ pub struct CollisionContext {
     entity_fall_distance: f64,
     entity_is_falling_block: bool,
     entity_can_walk_on_powder_snow: bool,
+    entity_is_player: bool,
 }
 
 impl CollisionContext {
@@ -67,6 +68,7 @@ impl CollisionContext {
             entity_fall_distance: 0.0,
             entity_is_falling_block: false,
             entity_can_walk_on_powder_snow: false,
+            entity_is_player: false,
         }
     }
 
@@ -223,6 +225,12 @@ impl CollisionContext {
         self.entity_can_walk_on_powder_snow
     }
 
+    /// `entity.is(EntityTypes.PLAYER)` of the context's entity (`ClipContext.Block.FALLDAMAGE_RESETTING`).
+    pub fn with_entity_is_player(mut self, is_player: bool) -> Self {
+        self.entity_is_player = is_player;
+        self
+    }
+
     /// Entity state read by block collision shapes: fall distance, falling block, powder snow walker.
     pub fn with_entity_state(
         mut self,
@@ -360,11 +368,15 @@ impl ClipContext {
             ClipBlock::Outline => state.get_shape_ctx(level, pos, &self.collision_context),
             ClipBlock::Visual => state.get_visual_shape(level, pos, &self.collision_context),
             ClipBlock::FalldamageResetting => {
-                if state.block().is_in_tag("fall_damage_resetting") {
+                let block = state.block();
+                let player_only = self.collision_context.entity_is_player
+                    && (block == Block::END_GATEWAY
+                        || block == Block::END_PORTAL
+                        || (block == Block::NETHER_PORTAL
+                            && level.server_level_portal_delay() == Some(0)));
+                if block.is_in_tag("fall_damage_resetting") || player_only {
                     Shapes::block()
                 } else {
-                    // The player-only portal cases need the entity type and `ServerLevel` rules: handled by
-                    // `BlockGetterExt::clip_with` callers through `CollisionContext::entity`.
                     Shapes::empty()
                 }
             }
