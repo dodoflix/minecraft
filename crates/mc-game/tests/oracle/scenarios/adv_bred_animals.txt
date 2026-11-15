@@ -1,0 +1,284 @@
+# Breeding awards the bred_animals criterion of the love cause: one pair of each animal of the bred_all_animals advancement through
+# spawnChildFromBreeding, the love cause taken from either parent (the first parent's wins), a pair without a player, and the pairs
+# that lay eggs instead of bearing a baby (frog, sniffer, whose trigger carries no offspring). A horse and a donkey bear a mule.
+# Then two cows and two pigs breed on their own (BreedGoal) with two players as love causes, and two turtles do the same without a baby.
+command_env
+level flat
+preload 6
+difficulty normal
+entity_counter 21000
+level_seed 21001
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 4.5 -60 0.5 0 0
+tick 30
+mobspawn A1 minecraft:armadillo -20.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B1 minecraft:armadillo -18.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A1 21101
+entity_seed B1 21201
+mobspawn A2 minecraft:axolotl -12.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B2 minecraft:axolotl -10.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A2 21102
+entity_seed B2 21202
+mobspawn A3 minecraft:bee -4.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B3 minecraft:bee -2.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A3 21103
+entity_seed B3 21203
+mobspawn A4 minecraft:camel 4.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B4 minecraft:camel 6.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A4 21104
+entity_seed B4 21204
+mobspawn A5 minecraft:cat 12.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B5 minecraft:cat 14.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A5 21105
+entity_seed B5 21205
+mobspawn A6 minecraft:chicken 20.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B6 minecraft:chicken 22.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A6 21106
+entity_seed B6 21206
+mobspawn A7 minecraft:cow 28.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B7 minecraft:cow 30.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A7 21107
+entity_seed B7 21207
+mobspawn A8 minecraft:donkey -20.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B8 minecraft:donkey -18.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A8 21108
+entity_seed B8 21208
+mobspawn A9 minecraft:fox -12.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B9 minecraft:fox -10.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A9 21109
+entity_seed B9 21209
+mobspawn A10 minecraft:frog -4.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B10 minecraft:frog -2.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A10 21110
+entity_seed B10 21210
+mobspawn A11 minecraft:goat 4.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B11 minecraft:goat 6.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A11 21111
+entity_seed B11 21211
+mobspawn A12 minecraft:hoglin 12.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B12 minecraft:hoglin 14.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A12 21112
+entity_seed B12 21212
+mobspawn A13 minecraft:horse 20.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B13 minecraft:horse 22.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A13 21113
+entity_seed B13 21213
+mobspawn A14 minecraft:llama 28.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B14 minecraft:llama 30.5 -60 18.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A14 21114
+entity_seed B14 21214
+mobspawn A15 minecraft:mooshroom -20.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B15 minecraft:mooshroom -18.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A15 21115
+entity_seed B15 21215
+mobspawn A16 minecraft:horse -12.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B16 minecraft:donkey -10.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A16 21116
+entity_seed B16 21216
+mobspawn A17 minecraft:nautilus -4.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B17 minecraft:nautilus -2.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A17 21117
+entity_seed B17 21217
+mobspawn A18 minecraft:ocelot 4.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B18 minecraft:ocelot 6.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A18 21118
+entity_seed B18 21218
+mobspawn A19 minecraft:panda 12.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B19 minecraft:panda 14.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A19 21119
+entity_seed B19 21219
+mobspawn A20 minecraft:pig 20.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B20 minecraft:pig 22.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A20 21120
+entity_seed B20 21220
+mobspawn A21 minecraft:rabbit 28.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B21 minecraft:rabbit 30.5 -60 26.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A21 21121
+entity_seed B21 21221
+mobspawn A22 minecraft:sheep -20.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B22 minecraft:sheep -18.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A22 21122
+entity_seed B22 21222
+mobspawn A23 minecraft:sniffer -12.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B23 minecraft:sniffer -10.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A23 21123
+entity_seed B23 21223
+mobspawn A24 minecraft:strider -4.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B24 minecraft:strider -2.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A24 21124
+entity_seed B24 21224
+mobspawn A25 minecraft:turtle 4.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B25 minecraft:turtle 6.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A25 21125
+entity_seed B25 21225
+mobspawn A26 minecraft:wolf 12.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B26 minecraft:wolf 14.5 -60 34.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed A26 21126
+entity_seed B26 21226
+tick 2
+note armadillo
+love A1 Steve
+love B1 Steve
+level_seed 21301
+breed A1 B1
+note axolotl
+love A2 Steve
+love B2 Steve
+level_seed 21302
+breed A2 B2
+note bee
+love A3 Steve
+love B3 Steve
+level_seed 21303
+breed A3 B3
+note camel
+love A4 Steve
+love B4 Steve
+level_seed 21304
+breed A4 B4
+dump advancements:Steve advancements:Alex stats:Steve stats:Alex entities
+note cat
+love A5 Steve
+love B5 Steve
+level_seed 21305
+breed A5 B5
+note chicken
+love A6 Steve
+love B6 Steve
+level_seed 21306
+breed A6 B6
+note cow
+love B7 Alex
+level_seed 21307
+breed A7 B7
+note donkey
+love A8 Steve
+love B8 Steve
+level_seed 21308
+breed A8 B8
+dump advancements:Steve advancements:Alex stats:Steve stats:Alex entities
+note fox
+love A9 Steve
+love B9 Steve
+level_seed 21309
+breed A9 B9
+note frog
+love A10 Steve
+love B10 Steve
+level_seed 21310
+breed A10 B10
+note goat
+love A11 Steve
+love B11 Steve
+level_seed 21311
+breed A11 B11
+note hoglin
+love A12 Steve
+love B12 Steve
+level_seed 21312
+breed A12 B12
+dump advancements:Steve advancements:Alex stats:Steve stats:Alex entities
+note horse
+love A13 Steve
+love B13 Steve
+level_seed 21313
+breed A13 B13
+note llama
+love A14 Steve
+love B14 Steve
+level_seed 21314
+breed A14 B14
+note mooshroom
+love A15 Steve
+love B15 Steve
+level_seed 21315
+breed A15 B15
+note mule
+love A16 Steve
+love B16 Steve
+level_seed 21316
+breed A16 B16
+dump advancements:Steve advancements:Alex stats:Steve stats:Alex entities
+note nautilus
+love A17 Steve
+love B17 Steve
+level_seed 21317
+breed A17 B17
+note ocelot
+love A18 Steve
+love B18 Steve
+level_seed 21318
+breed A18 B18
+note panda
+love A19 Steve
+love B19 Steve
+level_seed 21319
+breed A19 B19
+note pig
+love A20 Alex
+love B20 Steve
+level_seed 21320
+breed A20 B20
+dump advancements:Steve advancements:Alex stats:Steve stats:Alex entities
+note rabbit
+love A21 Steve
+love B21 Steve
+level_seed 21321
+breed A21 B21
+note sheep
+love A22
+love B22
+level_seed 21322
+breed A22 B22
+note sniffer
+love A23 Steve
+love B23 Steve
+level_seed 21323
+breed A23 B23
+note strider
+love A24 Steve
+love B24 Steve
+level_seed 21324
+breed A24 B24
+dump advancements:Steve advancements:Alex stats:Steve stats:Alex entities
+note turtle
+love A25 Steve
+love B25 Steve
+level_seed 21325
+breed A25 B25
+note wolf
+love A26 Steve
+love B26 Steve
+level_seed 21326
+breed A26 B26
+dump advancements:Steve advancements:Alex stats:Steve stats:Alex entities
+tick 5
+dump mobs entities events advancements:Steve advancements:Alex
+note two cows and two pigs breed on their own, each pair with its own love causes; nothing is in range of the other pairs
+tp Steve 60.5 -60 60.5 0 0
+tp Alex 60.5 -60 62.5 0 0
+tick 5
+mobspawn CA minecraft:cow 62.5 -60 60.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn CB minecraft:cow 64.5 -60 60.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed CA 21401
+entity_seed CB 21402
+mobspawn PA minecraft:pig 62.5 -60 72.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn PB minecraft:pig 64.5 -60 72.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed PA 21403
+entity_seed PB 21404
+mobspawn TA minecraft:turtle 62.5 -60 84.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn TB minecraft:turtle 64.5 -60 84.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed TA 21405
+entity_seed TB 21406
+tick 2
+love CA Steve
+love CB Alex
+love PA Alex
+love PB
+love TA Alex
+love TB Steve
+dump packets:Steve:none packets:Alex:none
+tick 120
+dump mobs entities events advancements:Steve advancements:Alex stats:Steve stats:Alex
+tick 200
+dump mobs entities advancements:Steve advancements:Alex stats:Steve stats:Alex

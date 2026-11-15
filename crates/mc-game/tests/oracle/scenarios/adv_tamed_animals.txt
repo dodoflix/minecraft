@@ -1,0 +1,170 @@
+# Taming awards tame_animal to the taming player: cats and wolves of every variant through TamableAnimal.tame (the whole-pack and
+# complete-catalogue advancements read the variant), an untamed horse, donkey and llama through AbstractHorse.tameWithName, a second player
+# taming one more cat, and the food paths: bones on a wolf, a fish on a stray cat, seeds on a parrot (each draw pinned by the entity seed).
+command_env
+level flat
+preload 6
+difficulty normal
+entity_counter 22000
+level_seed 22001
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 4.5 -60 0.5 0 0
+tick 30
+mobspawn C1 minecraft:cat -27.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:all_black"}
+mobspawn C2 minecraft:cat -24.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:black"}
+mobspawn C3 minecraft:cat -21.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:british_shorthair"}
+mobspawn C4 minecraft:cat -18.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:calico"}
+mobspawn C5 minecraft:cat -15.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:jellie"}
+mobspawn C6 minecraft:cat -12.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:persian"}
+mobspawn C7 minecraft:cat -9.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:ragdoll"}
+mobspawn C8 minecraft:cat -6.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:red"}
+mobspawn C9 minecraft:cat -3.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:siamese"}
+mobspawn C10 minecraft:cat 0.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:tabby"}
+mobspawn C11 minecraft:cat 3.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:white"}
+mobspawn W1 minecraft:wolf -27.5 -60 16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:ashen"}
+mobspawn W2 minecraft:wolf -24.5 -60 16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:black"}
+mobspawn W3 minecraft:wolf -21.5 -60 16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:chestnut"}
+mobspawn W4 minecraft:wolf -18.5 -60 16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:pale"}
+mobspawn W5 minecraft:wolf -15.5 -60 16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:rusty"}
+mobspawn W6 minecraft:wolf -12.5 -60 16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:snowy"}
+mobspawn W7 minecraft:wolf -9.5 -60 16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:spotted"}
+mobspawn W8 minecraft:wolf -6.5 -60 16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:striped"}
+mobspawn W9 minecraft:wolf -3.5 -60 16.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,variant:"minecraft:woods"}
+mobspawn H minecraft:horse -30.5 -60 22.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn D minecraft:donkey -26.5 -60 22.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn L minecraft:llama -22.5 -60 22.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn M minecraft:mule -18.5 -60 22.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+tick 2
+dump packets:Steve:none packets:Alex:none
+tame C1 Steve
+dump advancements:Steve stats:Steve
+tame C2 Steve
+tame C3 Steve
+tame C4 Steve
+tame C5 Steve
+dump advancements:Steve stats:Steve
+tame C6 Steve
+tame C7 Steve
+tame C8 Steve
+tame C9 Steve
+tame C10 Steve
+tame C11 Steve
+dump advancements:Steve stats:Steve
+tame W1 Steve
+dump advancements:Steve
+tame W2 Steve
+tame W3 Steve
+tame W4 Steve
+tame W5 Steve
+tame W6 Steve
+tame W7 Steve
+tame W8 Steve
+tame W9 Steve
+dump advancements:Steve
+note a mount tamed by name; a second player tames a cat and gets the criterion for it alone
+tame H Steve
+tame D Alex
+tame L Steve
+tame M Alex
+dump advancements:Steve advancements:Alex mobs events
+note food: a wolf takes bones until one takes (1 in 3), a stray cat a fish, a parrot seeds (1 in 10)
+tp Steve 40.5 -60 40.5 0 0
+tp Alex 44.5 -60 40.5 0 0
+tick 2
+give Steve mainhand minecraft:bone 16
+give Alex mainhand minecraft:cod 16
+mobspawn FW minecraft:wolf 42.5 -60 40.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed FW 4711
+mobspawn FC minecraft:cat 42.5 -60 44.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed FC 4712
+mobspawn FP minecraft:parrot 38.5 -60 42.5 90 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed FP 4713
+tick 2
+interact Steve FW main
+tick 1
+interact Steve FW main
+tick 1
+interact Steve FW main
+tick 1
+interact Steve FW main
+tick 1
+interact Steve FW main
+tick 1
+interact Steve FW main
+tick 1
+dump mob:FW advancements:Steve stats:Steve
+interact Alex FC main
+tick 1
+interact Alex FC main
+tick 1
+interact Alex FC main
+tick 1
+interact Alex FC main
+tick 1
+interact Alex FC main
+tick 1
+interact Alex FC main
+tick 1
+dump mob:FC advancements:Alex
+give Steve mainhand minecraft:wheat_seeds 64
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+interact Steve FP main
+tick 1
+dump mob:FP advancements:Steve stats:Steve events

@@ -1,0 +1,302 @@
+# Winning a raid awards hero_of_the_village (and the raid_win statistic) to every player that fought it, and killing the captain that
+# carries the ominous banner awards voluntary_exile. Easy difficulty and an omen level of one give three waves; one player kills every
+# wave a few ticks after it appears, the other player kills three of the early ones.
+command_env
+level flat
+difficulty easy
+gamerule raids true
+gamerule mob_drops false
+entity_counter 24000
+level_seed 24001
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+spawn_player Alex survival 4.5 -60 6.5 0 0
+set Steve invulnerable true
+set Alex invulnerable true
+tick 300
+effect Steve minecraft:raid_omen 0 600
+raid_start Steve 0 -60 0
+dump raids advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+dump raids mobs advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+dump raids mobs advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Alex
+dump raids mobs advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+dump raids mobs advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+dump raids mobs advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+dump raids mobs advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+dump raids mobs advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+dump raids mobs advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+dump raids mobs advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+dump raids mobs advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+dump raids mobs advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+dump raids mobs advancements:Steve advancements:Alex
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+tick 20
+cmd execute as @e[type=#minecraft:raiders] run damage @s 1000 minecraft:player_attack by Steve
+dump raids mobs advancements:Steve advancements:Alex
+tick 100
+dump raids stats:Steve stats:Alex advancements:Steve advancements:Alex nbt:Steve events
+tick 100
+dump raids advancements:Steve advancements:Alex

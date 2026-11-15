@@ -1,0 +1,578 @@
+C Game rule raids is now set to true
+C Game rule mob_drops is now set to false
+EFFECT Steve minecraft:raid_omen added=true
+RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=1 groups=0/3 health=0.0 raiders=-
+RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=1 groups=0/3 health=0.0 raiders=-
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=1 groups=0/3 health=0.0 raiders=-
+E V minecraft:villager pos=-4.571963552699757,-60.0,-1.6762010415578492 delta=0.13948229952471625,-0.0784000015258789,0.08414655396976506 rot=283.97366,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.375 xxa=0.0 yya=0.0 head=315.26343 body=283.97366 nav=moving stuck=0 navspeed=0.75 ntarget=0,-59,0 path=5/10/1/0,-59,0 nodes=-9,-60,-6:WALKABLE:0.0;-8,-60,-5:WALKABLE:0.0;-7,-60,-4:WALKABLE:0.0;-6,-60,-3:WALKABLE:0.0;-5,-60,-2:WALKABLE:0.0;-4,-60,-2:WALKABLE:0.0;-3,-60,-2:WALKABLE:0.0;-2,-60,-2:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;0,-59,0:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:453:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:31:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve;Alex):inf;nearest_players:(Steve;Alex):inf;nearest_visible_player:Steve:inf;path:path(5;10):inf;visible_mobs:(Steve;Alex):inf;walk_target:walk(pos(0,-60,0);0.75;2):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+C Applied 1000.0 damage to Pillager
+C Applied 1000.0 damage to Pillager
+C Applied 1000.0 damage to Pillager
+C Applied 1000.0 damage to Pillager
+C Applied 1000.0 damage to Pillager
+RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=1 groups=1/3 health=120.0 raiders=-
+E V minecraft:villager pos=-6.661197602338136,-60.0,-1.3323377876788438 delta=-0.15243278043970965,-0.0784000015258789,-0.06248347892503525 rot=104.16188,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.375 xxa=0.0 yya=0.0 head=120.223434 body=104.16188 nav=moving stuck=0 navspeed=0.75 ntarget=-8,-60,-2 path=10/11/1/-8,-60,-2 nodes=2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-59,0:WALKABLE:0.0;-1,-60,0:WALKABLE:0.0;-2,-60,-1:WALKABLE:0.0;-3,-59,-1:WALKABLE:0.0;-4,-60,-1:WALKABLE:0.0;-5,-60,-1:WALKABLE:0.0;-6,-60,-1:WALKABLE:0.0;-7,-60,-2:WALKABLE:0.0;-8,-60,-2:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:664:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:31:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve;Alex):inf;nearest_players:(Steve;Alex):inf;nearest_visible_player:Steve:inf;path:path(10;11):inf;visible_mobs:(Steve;Alex):inf;walk_target:walk(pos(-8,-60,-2);0.75;0):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=1 groups=1/3 health=120.0 raiders=-
+E V minecraft:villager pos=-11.028160275536083,-60.0,4.028079104182466 delta=0.11958707331626031,-0.0784000015258789,-0.11958718002765907 rot=225.00311,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.375 xxa=0.0 yya=0.0 head=225.00241 body=225.00311 nav=moving stuck=0 navspeed=0.75 ntarget=0,-59,0 path=9/21/1/0,-59,0 nodes=-20,-60,12:WALKABLE:0.0;-19,-60,11:WALKABLE:0.0;-18,-60,10:WALKABLE:0.0;-17,-60,9:WALKABLE:0.0;-16,-60,8:WALKABLE:0.0;-15,-60,7:WALKABLE:0.0;-14,-60,6:WALKABLE:0.0;-13,-60,5:WALKABLE:0.0;-12,-60,4:WALKABLE:0.0;-11,-60,3:WALKABLE:0.0;-10,-60,3:WALKABLE:0.0;-9,-60,3:WALKABLE:0.0;-8,-60,2:WALKABLE:0.0;-7,-60,2:WALKABLE:0.0;-6,-60,2:WALKABLE:0.0;-5,-60,1:WALKABLE:0.0;-4,-60,1:WALKABLE:0.0;-3,-60,1:WALKABLE:0.0;-2,-60,1:WALKABLE:0.0;-1,-60,0:WALKABLE:0.0;0,-59,0:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:664:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:31:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;path:path(9;21):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(0,-60,0);0.75;2):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+C Applied 1000.0 damage to Vindicator
+C Applied 1000.0 damage to Vindicator
+C Applied 1000.0 damage to Pillager
+C Applied 1000.0 damage to Pillager
+C Applied 1000.0 damage to Pillager
+RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=1 groups=2/3 health=120.0 raiders=-
+E V minecraft:villager pos=2.9011612399310716,-60.0,8.803393497347438 delta=-0.11014133882822613,-0.0784000015258789,-0.1219182047258952 rot=131.1406,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.375 xxa=0.0 yya=0.0 head=151.07681 body=131.1406 nav=moving stuck=0 navspeed=0.75 ntarget=0,-59,0 path=8/17/1/0,-59,0 nodes=7,-60,16:WALKABLE:0.0;6,-60,15:WALKABLE:0.0;5,-60,14:WALKABLE:0.0;4,-60,13:WALKABLE:0.0;3,-60,12:WALKABLE:0.0;3,-60,11:WALKABLE:0.0;3,-60,10:WALKABLE:0.0;3,-60,9:WALKABLE:0.0;2,-60,8:WALKABLE:0.0;2,-60,7:WALKABLE:0.0;2,-60,6:WALKABLE:0.0;1,-60,5:WALKABLE:0.0;1,-60,4:WALKABLE:0.0;1,-60,3:WALKABLE:0.0;1,-60,2:WALKABLE:0.0;0,-60,1:WALKABLE:0.0;0,-59,0:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:943:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:31:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Alex;Steve):inf;nearest_players:(Alex;Steve):inf;nearest_visible_player:Alex:inf;path:path(8;17):inf;visible_mobs:(Alex;Steve):inf;walk_target:walk(pos(0,-60,0);0.75;2):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:adventure/kill_a_mob minecraft:vindicator
+ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicator
+ADV Alex minecraft:adventure/root killed_something
+ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+C Applied 1000.0 damage to Pillager
+C Applied 1000.0 damage to Pillager
+C Applied 1000.0 damage to Pillager
+C Applied 1000.0 damage to Ravager
+RAID 2 center=1,-60,-1 started=1 active=1 status=VICTORY omen=1 groups=3/3 health=172.0 raiders=-
+E V minecraft:villager pos=-2.488069598820772,-60.0,-2.459114808491996 delta=-0.06202380888590309,-0.0784000015258789,-0.06633809741223909 rot=135.92296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.275 zza=0.275 xxa=0.0 yya=0.0 head=136.09407 body=135.92296 nav=moving stuck=0 navspeed=0.550000011920929 ntarget=-11,-60,-10 path=3/11/1/-11,-60,-10 nodes=-2,-60,-1:WALKABLE:0.0;-2,-60,-2:WALKABLE:0.0;-3,-60,-3:WALKABLE:0.0;-4,-60,-4:WALKABLE:0.0;-5,-60,-5:WALKABLE:0.0;-6,-60,-6:WALKABLE:0.0;-7,-60,-7:WALKABLE:0.0;-8,-60,-8:WALKABLE:0.0;-9,-60,-9:WALKABLE:0.0;-10,-60,-10:WALKABLE:0.0;-11,-60,-10:WALKABLE:0.0 goals=- tgoals=- acts=core;raid mem=heard_bell_time:1151:inf;hiding_place:minecraft:overworld@-3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:31:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve;Alex):inf;nearest_players:(Steve;Alex):inf;nearest_visible_player:Steve:inf;path:path(3;11):inf;visible_mobs:(Steve;Alex):inf;walk_target:walk(pos(-11,-60,-10);0.55;0):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:ravager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Alex minecraft:adventure/kill_a_mob minecraft:vindicator
+ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicator
+ADV Alex minecraft:adventure/root killed_something
+ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+RAID 2 center=1,-60,-1 started=1 active=1 status=VICTORY omen=1 groups=3/3 health=172.0 raiders=-
+E V minecraft:villager pos=-2.391447271634206,-60.0,3.608463325280718 delta=0.06431129994266621,-0.0784000015258789,0.06431130408787761 rot=315.00253,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.275 zza=0.275 xxa=0.0 yya=0.0 head=315.0023 body=315.00253 nav=moving stuck=0 navspeed=0.550000011920929 ntarget=2,-60,5 path=6/11/1/2,-60,5 nodes=-8,-60,-2:WALKABLE:0.0;-7,-60,-1:WALKABLE:0.0;-6,-60,0:WALKABLE:0.0;-5,-60,1:WALKABLE:0.0;-4,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-2,-60,4:WALKABLE:0.0;-1,-60,4:WALKABLE:0.0;0,-60,4:WALKABLE:0.0;1,-60,5:WALKABLE:0.0;2,-60,5:WALKABLE:0.0 goals=- tgoals=- acts=core;raid mem=heard_bell_time:1151:inf;hiding_place:minecraft:overworld@-3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:31:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve;Alex):inf;nearest_players:(Steve;Alex):inf;nearest_visible_player:Steve:inf;path:path(6;11):inf;visible_mobs:(Steve;Alex):inf;walk_target:walk(pos(2,-60,5);0.55;0):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:ravager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Alex minecraft:adventure/kill_a_mob minecraft:vindicator
+ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicator
+ADV Alex minecraft:adventure/root killed_something
+ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+RAID 2 center=1,-60,-1 started=1 active=1 status=VICTORY omen=1 groups=3/3 health=172.0 raiders=-
+E V minecraft:villager pos=-0.19114337521987657,-60.0,21.189294983567994 delta=-0.06413655622157795,-0.0784000015258789,0.0644792856460438 rot=44.950363,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.275 zza=0.275 xxa=0.0 yya=0.0 head=44.819168 body=44.950363 nav=moving stuck=0 navspeed=0.550000011920929 ntarget=-5,-60,25 path=3/7/1/-5,-60,25 nodes=1,-60,19:WALKABLE:0.0;0,-60,20:WALKABLE:0.0;-1,-60,21:WALKABLE:0.0;-2,-60,22:WALKABLE:0.0;-3,-60,23:WALKABLE:0.0;-4,-60,24:WALKABLE:0.0;-5,-60,25:WALKABLE:0.0 goals=- tgoals=- acts=core;raid mem=heard_bell_time:1151:inf;hiding_place:minecraft:overworld@-3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:31:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve;Alex):inf;nearest_players:(Steve;Alex):inf;nearest_visible_player:Steve:inf;path:path(3;7):inf;visible_mobs:(Steve;Alex):inf;walk_target:walk(pos(-5,-60,25);0.55;0):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:ravager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Alex minecraft:adventure/kill_a_mob minecraft:vindicator
+ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicator
+ADV Alex minecraft:adventure/root killed_something
+ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+E V minecraft:villager pos=-1.627274146860915,-60.0,27.627333803621486 delta=-0.06431130201448111,-0.0784000015258789,0.06431130201448229 rot=45.001724,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.275 zza=0.275 xxa=0.0 yya=0.0 head=45.00154 body=45.001724 nav=moving stuck=0 navspeed=0.550000011920929 ntarget=-4,-60,28 path=8/10/1/-4,-60,28 nodes=5,-60,20:WALKABLE:0.0;4,-60,21:WALKABLE:0.0;3,-60,22:WALKABLE:0.0;2,-60,23:WALKABLE:0.0;1,-60,24:WALKABLE:0.0;0,-60,25:WALKABLE:0.0;-1,-60,26:WALKABLE:0.0;-2,-60,27:WALKABLE:0.0;-3,-60,28:WALKABLE:0.0;-4,-60,28:WALKABLE:0.0 goals=- tgoals=- acts=core;rest mem=home:minecraft:overworld@3,-60,-1:inf;last_slept:31:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;path:path(8;10):inf;visible_mobs:():inf;walk_target:walk(pos(-4,-60,28);0.55;0):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:ravager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Alex minecraft:adventure/kill_a_mob minecraft:vindicator
+ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicator
+ADV Alex minecraft:adventure/root killed_something
+ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+E V minecraft:villager pos=2.268958542981929,-60.0,4.659102470710916 delta=0.025948638086914513,-0.0784000015258789,-0.06866177798119634 rot=192.23274,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.25 xxa=0.0 yya=0.0 head=135.14632 body=192.23274 nav=moving stuck=0 navspeed=0.5 ntarget=3,-59,-1 path=25/30/1/3,-59,-1 nodes=-4,-60,28:WALKABLE:0.0;-4,-60,27:WALKABLE:0.0;-4,-60,26:WALKABLE:0.0;-4,-60,25:WALKABLE:0.0;-4,-60,24:WALKABLE:0.0;-4,-60,23:WALKABLE:0.0;-4,-60,22:WALKABLE:0.0;-3,-60,21:WALKABLE:0.0;-3,-60,20:WALKABLE:0.0;-3,-60,19:WALKABLE:0.0;-2,-60,18:WALKABLE:0.0;-2,-60,17:WALKABLE:0.0;-2,-60,16:WALKABLE:0.0;-2,-60,15:WALKABLE:0.0;-1,-60,14:WALKABLE:0.0;-1,-60,13:WALKABLE:0.0;-1,-60,12:WALKABLE:0.0;0,-60,11:WALKABLE:0.0;0,-60,10:WALKABLE:0.0;0,-60,9:WALKABLE:0.0;0,-60,8:WALKABLE:0.0;1,-60,7:WALKABLE:0.0;1,-60,6:WALKABLE:0.0;1,-60,5:WALKABLE:0.0;2,-60,4:WALKABLE:0.0;2,-60,3:WALKABLE:0.0;2,-60,2:WALKABLE:0.0;2,-60,1:WALKABLE:0.0;3,-59,0:WALKABLE:0.0;3,-59,-1:WALKABLE:0.0 goals=- tgoals=- acts=core;rest mem=home:minecraft:overworld@3,-60,-1:inf;last_slept:31:inf;last_woken:310:inf;look_target:entity(Steve):inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve;Alex):inf;nearest_players:(Steve;Alex):inf;nearest_visible_player:Steve:inf;path:path(25;30):inf;visible_mobs:(Steve;Alex):inf;walk_target:walk(pos(3,-60,-1);0.5;1):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:ravager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Alex minecraft:adventure/kill_a_mob minecraft:vindicator
+ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicator
+ADV Alex minecraft:adventure/root killed_something
+ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+E V minecraft:villager pos=3.6645998462068277,-59.4375,-0.36717239133345636 delta=0.0,-0.0784000015258789,0.0 rot=308.9027,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=353.06396 body=353.06396 nav=done stuck=0 navspeed=0.5 ntarget=3,-59,-1 path=- nodes=- goals=- tgoals=- acts=core;rest mem=home:minecraft:overworld@3,-60,-1:inf;last_slept:2127:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Alex;Steve):inf;nearest_players:(Alex;Steve):inf;nearest_visible_player:Alex:inf;visible_mobs:(Alex;Steve):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:ravager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Alex minecraft:adventure/kill_a_mob minecraft:vindicator
+ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicator
+ADV Alex minecraft:adventure/root killed_something
+ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+E V minecraft:villager pos=3.6645998462068277,-59.4375,-0.36717239133345636 delta=0.0,-0.0784000015258789,0.0 rot=308.9027,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=353.06396 body=353.06396 nav=done stuck=0 navspeed=0.5 ntarget=3,-59,-1 path=- nodes=- goals=- tgoals=- acts=core;rest mem=home:minecraft:overworld@3,-60,-1:inf;last_slept:2127:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Alex;Steve):inf;nearest_players:(Alex;Steve):inf;nearest_visible_player:Alex:inf;visible_mobs:(Alex;Steve):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:ravager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Alex minecraft:adventure/kill_a_mob minecraft:vindicator
+ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicator
+ADV Alex minecraft:adventure/root killed_something
+ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+E V minecraft:villager pos=3.6645998462068277,-59.4375,-0.36717239133345636 delta=0.0,-0.0784000015258789,0.0 rot=308.9027,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=353.06396 body=353.06396 nav=done stuck=0 navspeed=0.5 ntarget=3,-59,-1 path=- nodes=- goals=- tgoals=- acts=core;rest mem=home:minecraft:overworld@3,-60,-1:inf;last_slept:2127:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Alex;Steve):inf;nearest_players:(Alex;Steve):inf;nearest_visible_player:Alex:inf;visible_mobs:(Alex;Steve):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:ravager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Alex minecraft:adventure/kill_a_mob minecraft:vindicator
+ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicator
+ADV Alex minecraft:adventure/root killed_something
+ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+E V minecraft:villager pos=3.6645998462068277,-59.4375,-0.36717239133345636 delta=0.0,-0.0784000015258789,0.0 rot=308.9027,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=353.06396 body=353.06396 nav=done stuck=0 navspeed=0.5 ntarget=3,-59,-1 path=- nodes=- goals=- tgoals=- acts=core;rest mem=home:minecraft:overworld@3,-60,-1:inf;last_slept:2127:inf;last_woken:310:inf;look_target:entity(Alex):inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Alex;Steve):inf;nearest_players:(Alex;Steve):inf;nearest_visible_player:Alex:inf;visible_mobs:(Alex;Steve):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:ravager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Alex minecraft:adventure/kill_a_mob minecraft:vindicator
+ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicator
+ADV Alex minecraft:adventure/root killed_something
+ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+STAT Steve minecraft.custom:minecraft.mob_kills 9
+STAT Steve minecraft.custom:minecraft.play_time 3000
+STAT Steve minecraft.custom:minecraft.raid_trigger 1
+STAT Steve minecraft.custom:minecraft.raid_win 1
+STAT Steve minecraft.custom:minecraft.time_since_death 3000
+STAT Steve minecraft.custom:minecraft.time_since_rest 3000
+STAT Steve minecraft.custom:minecraft.total_world_time 3000
+STAT Steve minecraft.killed:minecraft.pillager 8
+STAT Steve minecraft.killed:minecraft.ravager 1
+STAT Alex minecraft.custom:minecraft.mob_kills 5
+STAT Alex minecraft.custom:minecraft.play_time 3000
+STAT Alex minecraft.custom:minecraft.raid_win 1
+STAT Alex minecraft.custom:minecraft.time_since_death 3000
+STAT Alex minecraft.custom:minecraft.time_since_rest 3000
+STAT Alex minecraft.custom:minecraft.total_world_time 3000
+STAT Alex minecraft.killed:minecraft.pillager 3
+STAT Alex minecraft.killed:minecraft.vindicator 2
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:ravager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Alex minecraft:adventure/kill_a_mob minecraft:vindicator
+ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicator
+ADV Alex minecraft:adventure/root killed_something
+ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+N Steve {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:1b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,6.5d],Rotation:[0.0f,0.0f],Score:100,SelectedItemSlot:0,SleepTimer:0s,XpLevel:7,XpP:0.42857128f,XpSeed:0,XpTotal:100,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},active_effects:[{duration:46279,id:"minecraft:hero_of_the_village",show_icon:1b,show_particles:0b}],attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:3000,warning_level:0}}
+EV sound at=2.7297020894424144,-59.4375,1.298569948893412 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,6.5 r=16.0 ex=0 event=minecraft:event.mob_effect.raid_omen source=player vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV sound at=2.2283647321235622,-60.0,0.6284437944970933 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=3.6765788263397914,-59.4375,0.5853529278661952 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.3985626493291985,-60.0,0.4664768945247417 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=6.262636973250618,-60.0,0.7067562936967331 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.558743761142557,-60.0,0.49092311045024933 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.0147633723303997,-59.4375,0.4891303981372039 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.1238431782610843,-59.0,0.4956771372885828 r=16.0 ex=0 event=minecraft:block.anvil.step source=neutral vol=0.045 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=-0.20396903115353793,-59.0,-0.2290002509179028 r=16.0 ex=0 event=minecraft:block.anvil.step source=neutral vol=0.045 pitch=1.0
+EV sound at=-1.5262174888856164,-60.0,-1.4826928277364675 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.6885761872030365,-60.0,-2.416595078863728 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.6885761872030365,-60.0,-2.416595078863728 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9798657
+EV sound at=-4.504665922605167,-60.0,-2.5317425322308544 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.914216677874012,-60.0,-2.8871379736693727 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-7.435996618068251,-60.0,-3.5348234706389094 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.480858169674357,-60.0,-2.372276913246314 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.3387857010473665,-60.0,-1.3406579188990766 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.7776054250436504,-60.0,-0.48940129953975 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.31344140540263,-59.4375,-0.24021614249779177 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV sound at=-1.047207123235351,-60.0,0.38584633996329665 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV sound at=-1.6180051168665937,-60.0,-1.4145859350803378 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=-2.5496342441660866,-60.0,-2.6055025027387186 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.663743176368189,-60.0,-3.6773437346872395 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.230571498958189,-60.0,-4.515462383187154 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.694351410984873,-60.0,-4.755076958686425 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-8.307098110018762,-60.0,-5.5110940075454025 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-7.716774539075566,-60.0,-4.595057901373848 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.350901390790136,-60.0,-3.3719981046664427 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.263230118133125,-60.0,-2.270556347173405 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.7016366780369765,-60.0,-1.4604792992732873 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.1660286802989877,-60.0,-1.4802406951861808 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.856791522646747,-60.0,-1.4903916906126256 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8398746
+EV sound at=-0.6176190839241771,-60.0,-0.704973709216485 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.40001008280638095,-60.0,-1.51355380694282 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=0.05561832868115088,-60.0,-3.1212415753960565 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5453967493108601,-60.0,-4.853837199775941 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5998233317940815,-60.0,-6.371855507729146 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.4250421364699228,-60.0,-7.9578744489574555 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.6264076503328126,-60.0,-7.707727418107585 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.474098909602271,-60.0,-6.2174576529001815 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.4916507729209294,-60.0,-4.362384210472715 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.4969761834723792,-60.0,-2.8138325220565052 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.111694986260646,-60.0,-1.0922735119180706 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV sound at=1.468921933522464,-60.0,-0.3676926320456541 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=2.96203486480224,-59.4375,-0.516383516752057 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.32232161901245,-60.0,-0.5079066182377382 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-83.5,-59.0,-41.5 r=16.0 ex=0 event=minecraft:entity.pillager.death source=hostile vol=1.0 pitch=0.9692752
+EV sound at=-83.5,-59.0,-41.5 r=16.0 ex=0 event=minecraft:entity.pillager.death source=hostile vol=1.0 pitch=0.97684306
+EV sound at=-83.5,-59.0,-41.5 r=16.0 ex=0 event=minecraft:entity.pillager.death source=hostile vol=1.0 pitch=0.9667162
+EV sound at=-83.5,-59.0,-41.5 r=16.0 ex=0 event=minecraft:entity.pillager.death source=hostile vol=1.0 pitch=1.0461441
+EV sound at=-83.5,-59.0,-41.5 r=16.0 ex=0 event=minecraft:entity.pillager.death source=hostile vol=1.0 pitch=0.9088123
+EV sound at=6.485790479325547,-60.0,-0.5903599613236828 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-84.95080681594705,-60.0,-42.32903246625546 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-84.95080681594705,-60.0,-42.32903246625546 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-84.95080681594705,-60.0,-42.32903246625546 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-84.95080681594705,-60.0,-42.32903246625546 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-84.95080681594705,-60.0,-42.32903246625546 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=7.736456747270131,-60.0,-1.3751546918710698 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.897498576930856,-60.0,-1.6651700749577247 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=6.3288737876021885,-60.0,-1.4946607731757764 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.721206575482813,-60.0,-0.7863907848771629 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.3829690027925965,-59.4375,-0.25585298244213456 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=2.148370579258173,-60.0,0.49980240440675566 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0284534
+EV sound at=1.7903393416801539,-60.0,0.4998967801753957 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=0.15071796184924935,-59.0,0.49999690837713756 r=16.0 ex=0 event=minecraft:block.anvil.step source=neutral vol=0.045 pitch=1.0
+EV sound at=-1.5174234070865664,-60.0,0.27999733129601645 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.5129073862948257,-59.4375,-0.6049766254529161 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-4.216664545908999,-60.0,-0.5136061494743517 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.887275117993373,-60.0,-0.8792667291799885 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-7.249289159934987,-60.0,-1.4912350505682057 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.123661184305476,-60.0,-1.521017612375074 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-4.814670108753747,-60.0,-0.8727853315437841 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.0719855186915748,-59.4375,-0.4462052067187542 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.7643247353497642,-59.4375,0.13867691704852914 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.2897040907103623,-59.4375,0.4476150584610667 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.8353269276732394,-59.4375,0.38755709885292 r=16.0 ex=0 event=minecraft:block.wood.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.8422498622725323,-60.0,1.9453391391232886 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.7090035656137497,-60.0,2.7492450254411707 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-4.5996423171752365,-60.0,3.6031707276980045 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.8599016
+EV sound at=-4.820021623539818,-60.0,3.8204947608284066 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.578110792076958,-60.0,5.249408882674476 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-7.16242217249407,-60.0,4.937423243410165 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-8.574992851441086,-60.0,4.463646636217808 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-10.20423506519382,-60.0,3.8659988143760766 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-11.640492699940596,-60.0,3.4521792775204725 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-13.462060250061047,-60.0,3.409825002992898 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-14.723201176976954,-60.0,2.637261570218456 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-16.237991676512216,-60.0,3.0987181499141467 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-17.255617410619553,-60.0,4.234063470684744 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-17.5603083616432,-60.0,5.989349846332611 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-18.296895693990496,-60.0,7.524453506131378 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-18.555093463746484,-60.0,8.997576434993498 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-18.72645499629358,-60.0,10.76609877702994 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-19.46394582285207,-60.0,12.04148533540692 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-18.60822848576134,-60.0,11.739026816454574 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-17.606459521419335,-60.0,10.589111653945846 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-16.508789306819146,-60.0,9.498522075970548 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-15.189728449538421,-60.0,8.189419697676014 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-14.970520241732947,-60.0,7.97058165992981 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1127229
+EV sound at=-14.09432518786887,-60.0,7.0945865261221455 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-12.780337645227023,-60.0,5.780285997493346 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-11.685231719357098,-60.0,4.685151756988726 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-10.552689139875687,-60.0,3.6571458835959207 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=30.63808156408003,-60.0,-88.57029124762695 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=28.814724306108264,-60.0,-89.70375353794257 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=32.180138348487596,-60.0,-89.73278351365771 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-8.762034097713794,-60.0,3.458384805398762 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=30.176973098665236,-60.0,-92.19335413279786 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=30.5882123002449,-60.0,-87.11850245748981 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=27.290648181045274,-60.0,-89.12259874701039 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=30.312512259135996,-60.0,-90.92584052286382 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-7.23109290589434,-60.0,2.6055427848232493 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=32.67490701231863,-60.0,-88.28881716210562 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=29.650960184798972,-60.0,-90.52636091068669 r=16.0 ex=0 event=minecraft:entity.vindicator.ambient source=hostile vol=1.0 pitch=0.9406518
+EV sound at=30.493485840145574,-60.0,-85.46934807562111 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=28.95345019800232,-60.0,-91.01332795321161 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=25.832220838120026,-60.0,-88.51339699882423 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=29.03488713335177,-60.0,-90.01520272699348 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-5.723528329127787,-60.0,2.4634687051995297 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=33.81501663942539,-60.0,-87.1586942355471 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=28.683660538505134,-60.0,-89.58990621276817 r=16.0 ex=0 event=minecraft:entity.vindicator.death source=hostile vol=1.0 pitch=1.045049
+EV sound at=30.49618706499731,-60.0,-84.38934079574273 r=16.0 ex=0 event=minecraft:entity.vindicator.death source=hostile vol=1.0 pitch=1.1078689
+EV sound at=28.184336777267408,-60.0,-90.27974045998943 r=16.0 ex=0 event=minecraft:entity.pillager.death source=hostile vol=1.0 pitch=1.0579975
+EV sound at=25.030022138372814,-60.0,-88.46965559388647 r=16.0 ex=0 event=minecraft:entity.pillager.death source=hostile vol=1.0 pitch=1.0927236
+EV sound at=33.81501663942539,-60.0,-87.1586942355471 r=16.0 ex=0 event=minecraft:entity.pillager.death source=hostile vol=1.0 pitch=1.0563239
+EV sound at=-4.210075983918546,-60.0,1.593437432245728 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.7037951031955276,-60.0,1.4610163345572127 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=28.89855010078337,-60.0,-91.07418808486534 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=30.98849522949145,-60.0,-85.77924358533532 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=28.36577556179415,-60.0,-91.80241703625705 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=25.07719011819769,-60.0,-90.21371826649428 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=34.58668673952569,-60.0,-88.63775867073008 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-1.0039252039486657,-60.0,1.0963857894349414 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=-0.3910637411979347,-60.0,1.1548384698915823 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5110298543792785,-60.0,2.5766310923485407 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.8473023135030648,-60.0,3.8590819513737182 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.501515897177406,-60.0,5.189296205174179 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.920382828516697,-60.0,6.9057867460056155 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.5032722667155003,-60.0,8.28121805023084 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.6525378120823735,-60.0,9.67692532436013 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.093310672997478,-60.0,10.104701426079728 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1152645
+EV sound at=5.753726766287884,-60.0,10.75572705792833 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=6.514166320355615,-60.0,12.020309736900314 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=6.518626474508296,-60.0,13.856399538256351 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.092276848985757,-60.0,15.176597918844744 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.215791061478923,-60.0,16.61449151401039 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.492799441545207,-60.0,16.49799989163418 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.8522944582005345,-60.0,15.910394928466076 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.470410963536273,-60.0,15.444099201897828 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.8729745444929233,-60.0,15.499832515948526 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.04992605651787688,-60.0,15.282796138459966 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.6491772235963358,-60.0,15.510287022831495 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.5023377229793136,-60.0,15.50972523707306 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.050848767826698,-60.0,15.504197591890904 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=6.636976893014816,-60.0,16.321617005493458 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.330934980159766,-60.0,16.078362191944677 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.988212085122274,-60.0,14.9468072517456 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.651731511860794,-60.0,13.660373988033829 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.629540153456235,-60.0,12.524075172581679 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.4470763345972686,-60.0,11.038809502674274 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.278372475944637,-60.0,9.266209152635597 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.278372475944637,-60.0,9.266209152635597 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0660524
+EV sound at=2.4858386794430727,-60.0,7.6826107444617024 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.2352442339549823,-60.0,6.227796516491724 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.4762415968166167,-60.0,4.6385783837991825 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.4849099412942133,-60.0,3.103277879699072 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.7445230829467406,-60.0,1.539075781215056 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.570317822954392,-60.0,1.3976021188664596 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.5301869967517256,-60.0,0.0730780140773945 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=-1.616529906610138,-60.0,-1.4275308486551372 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:bell b0=1 b1=2
+EV sound at=-2.7506980957903515,-60.0,-2.824969655746025 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.8766349360659302,-60.0,-3.8850819497615494 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.195981845285756,-60.0,-5.193745494298444 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.290234709961081,-60.0,-6.289724278734437 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-7.302943256745907,-60.0,-7.49960426187146 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.242496947488048,-60.0,-8.780368542629533 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-4.923312538140905,-60.0,-10.081600388682542 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-4.444581079817516,-60.0,-11.449413397080665 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.2515376011714707,-60.0,-10.313624828160021 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.4738206093918453,-60.0,-8.719819776399223 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.6649413361624963,-60.0,-7.475738182718067 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.4592063412925191,-60.0,-5.6854622023797745 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.6909858628898652,-60.0,-4.462670923505903 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=100.72004394602438,-60.0,23.704144133151193 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=101.35818389418242,-60.0,25.940782691830083 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=103.74207340823217,-60.0,23.288967333825845 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=103.65172491620608,-60.0,25.74510501705519 r=16.0 ex=0 event=minecraft:entity.ravager.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-0.4590087688010154,-60.0,-2.6826068242508994 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.4590087688010154,-60.0,-2.6826068242508994 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0884035
+EV sound at=100.10360593723722,-60.0,26.971125948093533 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=101.43529548691829,-60.0,23.319678195138945 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-0.2727172896915486,-60.0,-1.2225048495705928 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=102.14753248091458,-60.0,23.433230581430724 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=98.61831067816001,-60.0,27.596474143380842 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=102.12225738995043,-60.0,26.08490443473628 r=16.0 ex=0 event=minecraft:entity.ravager.step source=hostile vol=0.15 pitch=1.0
+EV sound at=101.43520501812937,-60.0,21.603709639833085 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=101.43520501812937,-60.0,21.603709639833085 r=16.0 ex=0 event=minecraft:entity.pillager.death source=hostile vol=1.0 pitch=1.0033458
+EV sound at=100.8897142725146,-60.0,23.548318821742495 r=16.0 ex=0 event=minecraft:entity.pillager.death source=hostile vol=1.0 pitch=0.96694046
+EV sound at=97.76394904815096,-60.0,28.22030679846896 r=16.0 ex=0 event=minecraft:entity.pillager.death source=hostile vol=1.0 pitch=0.9947208
+EV sound at=101.64217090081262,-60.0,26.385812327958696 r=16.0 ex=0 event=minecraft:entity.ravager.death source=hostile vol=1.0 pitch=0.89598763
+EV sound at=-0.5827467326319435,-60.0,-0.39461907271347313 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=103.10370353755724,-60.0,21.581164895652847 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=102.32886007502002,-60.0,23.834226957570923 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=99.2635318665838,-60.0,28.825175720617946 r=16.0 ex=0 event=minecraft:block.grass.step source=hostile vol=0.15 pitch=1.0
+EV sound at=-1.351690000530178,-60.0,-0.6827044044122671 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.4091557777591157,-60.0,-0.5060925200482858 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.025773928101165,-60.0,-0.49702186037258206 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.5954828140832267,-60.0,-0.5903927797921593 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,6.5 r=16.0 ex=0 event=minecraft:entity.player.levelup source=player vol=0.125 pitch=1.0
+EV sound at=4.5,-60.0,6.5 r=16.0 ex=0 event=minecraft:entity.player.levelup source=player vol=0.125 pitch=1.0
+EV sound at=-0.26739017455713093,-60.0,-0.4927099164519807 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.6126284980862513,-60.0,-0.6879667489454765 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.2627696750833306,-60.0,-2.2145962668352963 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.4178743605890074,-60.0,-3.4132358926230344 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-4.59371685585232,-60.0,-4.593108003234673 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.771356883998314,-60.0,-5.77119301073858 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.0069086483816845,-60.0,-6.006786278777025 r=16.0 ex=0 event=minecraft:entity.villager.celebrate source=neutral vol=1.0 pitch=0.9659005
+EV sound at=-6.949174782472571,-60.0,-6.949100225279189 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-8.009250876751677,-60.0,-8.00917669856692 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1810153
+EV sound at=-8.127037130123808,-60.0,-8.126962952684325 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-9.353783115943296,-60.0,-9.22184465015953 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-9.67597458914964,-60.0,-9.565877160700063 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-8.023294146363646,-60.0,-9.506012018901075 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.621225848441799,-60.0,-10.26167166966819 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.5095594053359225,-60.0,-9.691832996511497 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.498556974182357,-60.0,-8.032696498270413 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.255112972616775,-60.0,-6.630087128094002 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.49825701786811,-60.0,-4.998217369802261 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.70539702866303,-60.0,-3.4046380327248555 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-7.424860256232786,-60.0,-1.9664669077642665 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.50923000658245,-60.0,-0.5182694755872761 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.335792421954214,-60.0,0.6634970805023093 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.335792421954214,-60.0,0.6634970805023093 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.027194
+EV sound at=-4.158210529365999,-60.0,1.8416389484671951 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.9803784508765507,-60.0,3.019531967008744 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.7834745869887632,-60.0,4.165379304912811 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.17645543694615906,-60.0,4.492491330370141 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.2345412321934566,-60.0,5.201092241442823 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.02440261012774,-60.0,5.9976315366247945 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.0893105367784108,-60.0,6.926900291378152 r=16.0 ex=0 event=minecraft:entity.villager.celebrate source=neutral vol=1.0 pitch=1.1048927
+EV sound at=0.9400603438590316,-60.0,7.23605120871847 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.6030831349816969,-60.0,7.50529801920327 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.27133000646707156,-58.289999995231625,7.508145400148597 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+EV sound at=-2.055364522111842,-60.0,8.109193368789658 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.648329012822163,-60.0,8.485136813992467 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.298442321213083,-60.0,8.543057192241864 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-6.855750031219275,-60.0,9.38630270664581 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-7.2165533621824,-60.0,9.765296525481835 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0686253
+EV sound at=-6.6757508082020856,-60.0,10.344089505181026 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-5.49126979558556,-60.0,11.512286526035478 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-4.311801842387309,-60.0,12.688532186980073 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.133754132407787,-60.0,13.866209538824853 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.9558889439591411,-60.0,15.044069426794655 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.7780264002708874,-60.0,16.22193195800212 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.39983613718987293,-60.0,17.399794495433493 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.350308873656535,-60.0,18.705367011109328 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.8548136287095283,-60.0,20.118302037961463 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.074010905158721,-58.289999995231625,19.873857343086758 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+EV sound at=0.7417515981040631,-60.0,20.239361293444848 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9809542
+EV sound at=-0.30871385498312165,-60.0,21.307290222087012 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.4858978315579425,-60.0,22.48582303814498 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.6637052949205797,-60.0,23.663740667535137 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.8415676180007483,-60.0,24.84160341946363 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.959353871515654,-60.0,24.959389673438064 r=16.0 ex=0 event=minecraft:entity.villager.celebrate source=neutral vol=1.0 pitch=0.9871614
+EV sound at=-3.3337092361634206,-60.0,24.279293056338187 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.9134392253108712,-60.0,23.54855712611492 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.35048982354083275,-60.0,23.21285552546413 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.163934114379313,-60.0,22.795444747397653 r=16.0 ex=0 event=minecraft:entity.villager.celebrate source=neutral vol=1.0 pitch=1.0711273
+EV sound at=1.1056926009890493,-60.0,22.539418059092856 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.4565714693086644,-58.289999995231625,21.722259139540316 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+EV sound at=1.4927380433137256,-60.0,21.063413864374372 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.49440561902749,-60.0,20.56426626907682 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0386263
+EV sound at=1.4969287641031186,-60.0,19.39836731483601 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.498697872536046,-60.0,17.758593094620284 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.8407144159004414,-60.0,18.830513283666285 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.0142231227386755,-60.0,20.012414442265648 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.104327424615814,-60.0,20.761258532432507 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=4.0249499987894275,-60.0,21.972241277876943 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=3.6727147106876696,-60.0,22.32658646559719 r=16.0 ex=0 event=minecraft:entity.villager.celebrate source=neutral vol=1.0 pitch=0.99592954
+EV sound at=2.8485909235927815,-60.0,23.15144396985306 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.6707409283857353,-60.0,24.329318670065817 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.49287842047229485,-60.0,25.507181236150977 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.6849841169042283,-60.0,26.685043773664475 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.8628466543501268,-60.0,27.862906311110702 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.3583227030975227,-60.0,28.419261423185386 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.4941165685651887,-60.0,26.732913646541913 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.496525383196242,-60.0,25.769323224719212 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.011933
+EV sound at=-3.497538048372191,-60.0,25.081002781736803 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-3.499018098473427,-60.0,23.429025049258712 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.9130482000259192,-60.0,21.983499620601737 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.5132230322554183,-60.0,20.283285475281566 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.8280154059739488,-60.0,18.876073829655496 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.5132937026636726,-60.0,17.28235834306322 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.4118264013290192,-60.0,15.661452919193968 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.6294443237179786,-60.0,14.259887886995426 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-0.5558217427314489,-60.0,13.85443839255193 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.1989803
+EV sound at=-0.3448186953393561,-60.0,12.536247689621584 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.3985309113287078,-60.0,11.118241673858346 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.48986627166470476,-60.0,9.473721727560303 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.0691825456596908,-60.0,8.020305962653698 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=1.4805692565399515,-60.0,6.319494708260123 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.1586358629786115,-60.0,4.9033036428859615 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.4821356817934492,-60.0,3.309663548177929 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.5862907581908363,-60.0,1.6879814696933757 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Steve minecraft:adventure/kill_a_mob minecraft:pillager
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:ravager
+ADV Steve minecraft:adventure/root killed_something
+ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:adventure/hero_of_the_village hero_of_the_village
+ADV Alex minecraft:adventure/kill_a_mob minecraft:vindicator
+ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicator
+ADV Alex minecraft:adventure/root killed_something
+ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away

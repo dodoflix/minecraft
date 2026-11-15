@@ -1,0 +1,55 @@
+# Building a golem or a wither with a carved pumpkin or a skull awards summoned_entity: the player who placed the block gets it for the iron
+# golem (a snow golem has no advancement but the call is made), and every player within 50 blocks of the wither (a spectator and a player further away get nothing); a
+# pumpkin or skull set by a command, a pattern built next to nobody or wrong shapes award nothing.
+command_env
+level flat
+preload 8
+level_seed 23001
+entity_counter 23000
+spawn_player Steve survival 0.5 -60 4.5 0 0
+spawn_player Alex survival 40.5 -60 4.5 0 0
+spawn_player Far survival 200.5 -60 4.5 0 0
+spawn_player Spec spectator 10.5 -60 4.5 0 0
+dump packets:Steve:none packets:Alex:none
+give Steve hotbar0 minecraft:carved_pumpkin 8
+give Steve hotbar1 minecraft:wither_skeleton_skull 8
+give Alex hotbar0 minecraft:jack_o_lantern 8
+select Steve 0
+select Alex 0
+note a snow golem: no advancement uses it
+fill 0 -60 0 0 -59 0 minecraft:snow_block
+use_on Steve 0 -59 0 up main 0.5 1.0 0.5
+tick 2
+dump entities events advancements:Steve
+note a pumpkin set by a command builds a golem for nobody
+block 4 -60 0 minecraft:snow_block
+block 4 -59 0 minecraft:snow_block
+block 4 -58 0 minecraft:carved_pumpkin[facing=west]
+tick 2
+dump entities advancements:Steve advancements:Alex
+note an iron golem built by Steve
+fill 8 -59 0 10 -59 0 minecraft:iron_block
+block 9 -60 0 minecraft:iron_block
+snap Steve 9.5 -60 4.5 0 0
+use_on Steve 9 -59 0 up main 0.5 1.0 0.5
+dump entities events advancements:Steve advancements:Alex packets:Steve:system_chat
+tick 2
+dump entities advancements:Steve advancements:Alex
+note an iron golem built by Alex with a jack o'lantern along the other axis
+fill 44 -59 -1 44 -59 1 minecraft:iron_block
+block 44 -60 0 minecraft:iron_block
+use_on Alex 44 -59 0 up main 0.5 1.0 0.5
+dump entities events advancements:Alex
+tick 2
+dump entities advancements:Steve advancements:Alex
+note the wither: Steve and Alex are within 50 blocks, Far is not, Spec is a spectator
+select Steve 1
+snap Steve 16.5 -60 4.5 0 0
+fill 15 -59 0 17 -59 0 minecraft:soul_sand
+block 16 -60 0 minecraft:soul_sand
+use_on Steve 15 -59 0 up main 0.5 1.0 0.5
+use_on Steve 17 -59 0 up main 0.5 1.0 0.5
+use_on Steve 16 -59 0 up main 0.5 1.0 0.5
+dump entities events advancements:Steve advancements:Alex advancements:Far advancements:Spec
+tick 2
+dump entities advancements:Steve advancements:Alex advancements:Far advancements:Spec

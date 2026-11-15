@@ -1,0 +1,73 @@
+# selecting an offer fills the payment slot and awards nothing
+ADV High minecraft:recipes/building_blocks/emerald_block has_emerald
+ADV High minecraft:recipes/decorations/crafting_table unlock_right_away
+TRADER V xp=0 level=1 trading=High
+# taking the result: the trade advancement and the height advancement for the player at the build limit
+ADV High minecraft:adventure/trade traded
+ADV High minecraft:adventure/trade_at_world_height trade_at_world_height
+ADV High minecraft:recipes/building_blocks/emerald_block has_emerald
+ADV High minecraft:recipes/decorations/crafting_table unlock_right_away
+STAT High minecraft.crafted:minecraft.bread 6
+STAT High minecraft.custom:minecraft.play_time 2
+STAT High minecraft.custom:minecraft.talked_to_villager 1
+STAT High minecraft.custom:minecraft.time_since_death 2
+STAT High minecraft.custom:minecraft.time_since_rest 2
+STAT High minecraft.custom:minecraft.total_world_time 2
+STAT High minecraft.custom:minecraft.traded_with_villager 1
+TRADER V xp=1 level=1 trading=High
+OFFERS V count=2
+OFFER V 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:bread*6 uses=1 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER V 1 buyA=minecraft:emerald*2 buyB=- sell=minecraft:cookie*4 uses=0 max=9 xp=1 mult=0.05 demand=0 special=0
+# a player at ground level gets the first only
+ADV Low minecraft:adventure/trade traded
+ADV Low minecraft:recipes/building_blocks/emerald_block has_emerald
+ADV Low minecraft:recipes/decorations/crafting_table unlock_right_away
+STAT Low minecraft.crafted:minecraft.bread 6
+STAT Low minecraft.custom:minecraft.play_time 2
+STAT Low minecraft.custom:minecraft.talked_to_villager 1
+STAT Low minecraft.custom:minecraft.time_since_death 2
+STAT Low minecraft.custom:minecraft.time_since_rest 2
+STAT Low minecraft.custom:minecraft.total_world_time 2
+STAT Low minecraft.custom:minecraft.traded_with_villager 1
+TRADER W xp=1 level=1 trading=Low
+# a creative player trades with the wandering trader at the build limit
+ADV Cre minecraft:adventure/trade traded
+ADV Cre minecraft:adventure/trade_at_world_height trade_at_world_height
+ADV Cre minecraft:recipes/building_blocks/emerald_block has_emerald
+ADV Cre minecraft:recipes/decorations/crafting_table unlock_right_away
+STAT Cre minecraft.crafted:minecraft.bread 6
+STAT Cre minecraft.custom:minecraft.play_time 2
+STAT Cre minecraft.custom:minecraft.talked_to_villager 1
+STAT Cre minecraft.custom:minecraft.time_since_death 2
+STAT Cre minecraft.custom:minecraft.time_since_rest 2
+STAT Cre minecraft.custom:minecraft.total_world_time 2
+STAT Cre minecraft.custom:minecraft.traded_with_villager 1
+TRADER T xp=0 level=- trading=Cre
+OFFERS T count=1
+OFFER T 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:bread*6 uses=1 max=12 xp=1 mult=0.05 demand=0 special=0
+# the second result of the villager and a second take award nothing new
+ADV High minecraft:adventure/trade traded
+ADV High minecraft:adventure/trade_at_world_height trade_at_world_height
+ADV High minecraft:recipes/building_blocks/emerald_block has_emerald
+ADV High minecraft:recipes/decorations/crafting_table unlock_right_away
+STAT High minecraft.crafted:minecraft.bread 12
+STAT High minecraft.custom:minecraft.play_time 2
+STAT High minecraft.custom:minecraft.talked_to_villager 1
+STAT High minecraft.custom:minecraft.time_since_death 2
+STAT High minecraft.custom:minecraft.time_since_rest 2
+STAT High minecraft.custom:minecraft.total_world_time 2
+STAT High minecraft.custom:minecraft.traded_with_villager 2
+OFFERS V count=2
+OFFER V 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:bread*6 uses=2 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER V 1 buyA=minecraft:emerald*2 buyB=- sell=minecraft:cookie*4 uses=0 max=9 xp=1 mult=0.05 demand=0 special=0
+ADV High minecraft:adventure/trade traded
+ADV High minecraft:adventure/trade_at_world_height trade_at_world_height
+ADV High minecraft:recipes/building_blocks/emerald_block has_emerald
+ADV High minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Low minecraft:adventure/trade traded
+ADV Low minecraft:recipes/building_blocks/emerald_block has_emerald
+ADV Low minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Cre minecraft:adventure/trade traded
+ADV Cre minecraft:adventure/trade_at_world_height trade_at_world_height
+ADV Cre minecraft:recipes/building_blocks/emerald_block has_emerald
+ADV Cre minecraft:recipes/decorations/crafting_table unlock_right_away

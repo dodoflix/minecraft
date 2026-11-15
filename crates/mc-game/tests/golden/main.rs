@@ -4,6 +4,7 @@
     reason = "oracle test harness reports skips and progress on stderr"
 )]
 
+mod adv_mob_triggers_golden;
 mod advancement_predicates_golden;
 mod args;
 mod args_common;

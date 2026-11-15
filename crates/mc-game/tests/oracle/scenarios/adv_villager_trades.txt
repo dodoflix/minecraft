@@ -1,0 +1,46 @@
+# Taking the result of a trade awards villager_trade (trade_at_world_height when the player stands at the build limit), for a villager and a
+# wandering trader, to a survival and a creative player; selecting an offer or an out-of-stock result awards nothing.
+command_env
+level flat
+preload 4
+entity_counter 25000
+level_seed 25001
+block 0 318 0 minecraft:stone
+block 8 318 0 minecraft:stone
+block 16 318 0 minecraft:stone
+spawn_player High survival 0.5 319 0.5 0 0
+spawn_player Low survival 16.5 -60 0.5 0 0
+spawn_player Cre creative 8.5 319 0.5 0 0
+give High hotbar0 minecraft:emerald 16
+give Low hotbar0 minecraft:emerald 16
+give Cre hotbar0 minecraft:emerald 16
+spawn V minecraft:villager 0.5 319 2.5 0 0 {NoAI:1b,PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:1},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:2},sell:{id:"minecraft:cookie",count:4},maxUses:9,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]}}
+spawn W minecraft:villager 16.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:1},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]}}
+spawn T minecraft:wandering_trader 8.5 319 2.5 0 0 {NoAI:1b,PersistenceRequired:1b,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]}}
+entity_seed V 31
+entity_seed W 32
+entity_seed T 33
+tick 2
+dump packets:High:none packets:Low:none packets:Cre:none
+note selecting an offer fills the payment slot and awards nothing
+interact High V main
+select_trade High 0
+dump advancements:High trader:V
+note taking the result: the trade advancement and the height advancement for the player at the build limit
+click High 2 0 PICKUP
+dump advancements:High stats:High trader:V offers:V
+note a player at ground level gets the first only
+interact Low W main
+select_trade Low 0
+click Low 2 0 PICKUP
+dump advancements:Low stats:Low trader:W
+note a creative player trades with the wandering trader at the build limit
+interact Cre T main
+select_trade Cre 0
+click Cre 2 0 PICKUP
+dump advancements:Cre stats:Cre trader:T offers:T
+note the second result of the villager and a second take award nothing new
+click High 2 0 PICKUP
+dump advancements:High stats:High offers:V
+tick 5
+dump advancements:High advancements:Low advancements:Cre

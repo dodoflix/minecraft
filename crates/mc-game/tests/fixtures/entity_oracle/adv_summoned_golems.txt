@@ -1,0 +1,132 @@
+# a snow golem: no advancement uses it
+E snow_golem#1 minecraft:snow_golem pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=0,-58,0 data=8689 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-59,0 data=8598 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=8598 global=0
+EV sound at=0.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+ADV Steve minecraft:nether/get_wither_skull wither_skull
+ADV Steve minecraft:recipes/building_blocks/jack_o_lantern has_carved_pumpkin
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:recipes/food/pumpkin_pie has_carved_pumpkin
+ADV Steve minecraft:recipes/misc/skull_banner_pattern has_wither_skeleton_skull
+# a pumpkin set by a command builds a golem for nobody
+E snow_golem#1 minecraft:snow_golem pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+ADV Steve minecraft:nether/get_wither_skull wither_skull
+ADV Steve minecraft:recipes/building_blocks/jack_o_lantern has_carved_pumpkin
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:recipes/food/pumpkin_pie has_carved_pumpkin
+ADV Steve minecraft:recipes/misc/skull_banner_pattern has_wither_skeleton_skull
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+# an iron golem built by Steve
+E snow_golem#1 minecraft:snow_golem pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=9.5,-59.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=4,-58,0 data=8691 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=4,-59,0 data=8598 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=4,-60,0 data=8598 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=10,-58,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=10,-59,0 data=3831 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=10,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=9,-58,0 data=8689 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=9,-59,0 data=3831 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=9,-60,0 data=3831 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-58,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-59,0 data=3831 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-60,0 data=0 global=0
+EV sound at=9.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+ADV Steve minecraft:adventure/summon_iron_golem summoned_golem
+ADV Steve minecraft:nether/get_wither_skull wither_skull
+ADV Steve minecraft:recipes/building_blocks/jack_o_lantern has_carved_pumpkin
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:recipes/food/pumpkin_pie has_carved_pumpkin
+ADV Steve minecraft:recipes/misc/skull_banner_pattern has_wither_skeleton_skull
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+PKT Steve minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000c2f74656c6c2053746576652000080009696e73657274696f6e0005537465766508000474657874000553746576650a000b686f7665725f6576656e740800046e616d6500055374657665080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b000475756964000000045627dd98e6be3c21b8a8e923441836410000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c6174650030616476616e63656d656e74732e6e65746865722e6765745f7769746865725f736b756c6c2e6465736372697074696f6e000800097472616e736c617465002a616476616e63656d656e74732e6e65746865722e6765745f7769746865725f736b756c6c2e7469746c6500000800097472616e736c617465002a616476616e63656d656e74732e6e65746865722e6765745f7769746865725f736b756c6c2e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT Steve minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000c2f74656c6c2053746576652000080009696e73657274696f6e0005537465766508000474657874000553746576650a000b686f7665725f6576656e740800046e616d6500055374657665080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b000475756964000000045627dd98e6be3c21b8a8e923441836410000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c6174650034616476616e63656d656e74732e616476656e747572652e73756d6d6f6e5f69726f6e5f676f6c656d2e6465736372697074696f6e000800097472616e736c617465002e616476616e63656d656e74732e616476656e747572652e73756d6d6f6e5f69726f6e5f676f6c656d2e7469746c6500000800097472616e736c617465002e616476616e63656d656e74732e616476656e747572652e73756d6d6f6e5f69726f6e5f676f6c656d2e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e676f616c0000
+E snow_golem#1 minecraft:snow_golem pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+ADV Steve minecraft:adventure/summon_iron_golem summoned_golem
+ADV Steve minecraft:nether/get_wither_skull wither_skull
+ADV Steve minecraft:recipes/building_blocks/jack_o_lantern has_carved_pumpkin
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:recipes/food/pumpkin_pie has_carved_pumpkin
+ADV Steve minecraft:recipes/misc/skull_banner_pattern has_wither_skeleton_skull
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+# an iron golem built by Alex with a jack o'lantern along the other axis
+E snow_golem#1 minecraft:snow_golem pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#2 minecraft:iron_golem pos=44.5,-59.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=44,-58,1 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=44,-59,1 data=3831 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=44,-60,1 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=44,-58,0 data=8693 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=44,-59,0 data=3831 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=44,-60,0 data=3831 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=44,-58,-1 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=44,-59,-1 data=3831 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=44,-60,-1 data=0 global=0
+EV sound at=44.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+ADV Alex minecraft:adventure/summon_iron_golem summoned_golem
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+E snow_golem#1 minecraft:snow_golem pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,9.578525 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#2 minecraft:iron_golem pos=44.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+ADV Steve minecraft:adventure/summon_iron_golem summoned_golem
+ADV Steve minecraft:nether/get_wither_skull wither_skull
+ADV Steve minecraft:recipes/building_blocks/jack_o_lantern has_carved_pumpkin
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:recipes/food/pumpkin_pie has_carved_pumpkin
+ADV Steve minecraft:recipes/misc/skull_banner_pattern has_wither_skeleton_skull
+ADV Alex minecraft:adventure/summon_iron_golem summoned_golem
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+# the wither: Steve and Alex are within 50 blocks, Far is not, Spec is a spectator
+E snow_golem#1 minecraft:snow_golem pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,9.578525 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#2 minecraft:iron_golem pos=44.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wither#1 minecraft:wither pos=16.5,-59.45,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=15.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=17.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=17,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=17,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=17,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=16,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=16,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=16,-60,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=15,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=15,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=15,-60,0 data=0 global=0
+EV sound at=16.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+ADV Steve minecraft:adventure/summon_iron_golem summoned_golem
+ADV Steve minecraft:nether/get_wither_skull wither_skull
+ADV Steve minecraft:nether/summon_wither summoned
+ADV Steve minecraft:recipes/building_blocks/jack_o_lantern has_carved_pumpkin
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:recipes/food/pumpkin_pie has_carved_pumpkin
+ADV Steve minecraft:recipes/misc/skull_banner_pattern has_wither_skeleton_skull
+ADV Alex minecraft:adventure/summon_iron_golem summoned_golem
+ADV Alex minecraft:nether/summon_wither summoned
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Far minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Spec minecraft:recipes/decorations/crafting_table unlock_right_away
+E snow_golem#1 minecraft:snow_golem pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#2 minecraft:iron_golem pos=44.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wither#1 minecraft:wither pos=16.5,-59.49704000091553,0.5 delta=0.0,-0.12449920332031252,0.0 rot=90.0,0.0 og=0 fall=0.047040000557899475 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+ADV Steve minecraft:adventure/summon_iron_golem summoned_golem
+ADV Steve minecraft:nether/get_wither_skull wither_skull
+ADV Steve minecraft:nether/summon_wither summoned
+ADV Steve minecraft:recipes/building_blocks/jack_o_lantern has_carved_pumpkin
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:recipes/food/pumpkin_pie has_carved_pumpkin
+ADV Steve minecraft:recipes/misc/skull_banner_pattern has_wither_skeleton_skull
+ADV Alex minecraft:adventure/summon_iron_golem summoned_golem
+ADV Alex minecraft:nether/summon_wither summoned
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Far minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Spec minecraft:recipes/decorations/crafting_table unlock_right_away
