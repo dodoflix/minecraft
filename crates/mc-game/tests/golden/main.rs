@@ -163,6 +163,7 @@ mod jigsaw_structures_golden;
 mod levelgen_predicates_golden;
 mod lightning_golden;
 mod living_entity_golden;
+mod loot_all_golden;
 mod loot_golden;
 mod loot_load;
 mod map_golden;

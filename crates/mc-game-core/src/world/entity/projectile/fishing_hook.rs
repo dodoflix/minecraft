@@ -115,6 +115,11 @@ impl FishingHook {
         }
     }
 
+    /// `FishingHook.openWater`: whether the bobber fishes in open water (`tick` recomputes it while the bobber floats).
+    pub fn set_open_water(&mut self, open_water: bool) {
+        self.open_water = open_water;
+    }
+
     /// `FishingHook(player, level, luck, lureSpeed)`: placed in front of the player's eyes and thrown along the view.
     pub fn with_owner(
         level: &ServerLevel,
