@@ -1,0 +1,294 @@
+CF msg Set 10 experience levels on Bob
+CF result success 1
+CF msg Set 30 experience levels on Cee
+CF result success 1
+CF msg Set 5 experience levels on Dee
+CF result success 1
+CF msg Set 0 experience points on A
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+# game modes
+SELECT @a[gamemode=survival] - 0,-60,0 -> A
+SELECT @a[gamemode=creative] - 0,-60,0 -> Bob
+SELECT @a[gamemode=adventure] - 0,-60,0 -> Cee
+SELECT @a[gamemode=spectator] - 0,-60,0 -> Dee
+SELECT @a[gamemode=!survival] - 0,-60,0 -> Bob Cee Dee
+SELECT @a[gamemode=!creative] - 0,-60,0 -> A Cee Dee
+SELECT @a[gamemode=!adventure] - 0,-60,0 -> A Bob Dee
+SELECT @a[gamemode=!spectator] - 0,-60,0 -> A Bob Cee
+SELECT @e[sort=nearest,gamemode=survival] - 0,-60,0 -> A
+SELECT @e[sort=nearest,gamemode=!survival] - 0,-60,0 -> Bob Cee Dee
+SELECT @e[sort=nearest,type=!player,gamemode=!creative] - 0,-60,0 ->
+SELECT @e[sort=nearest,gamemode=creative,type=player] - 0,-60,0 -> Bob
+SELECT @e[sort=nearest,gamemode=creative,type=pig] - 0,-60,0 ->
+SELECT @a[gamemode=!survival,gamemode=!creative] - 0,-60,0 -> Cee Dee
+SELECT @a[gamemode=!survival,gamemode=!creative,gamemode=!adventure] - 0,-60,0 -> Dee
+SELECT @a[gamemode=!survival,gamemode=!creative,gamemode=!adventure,gamemode=!spectator] - 0,-60,0 ->
+SELECT @a[gamemode=!survival,gamemode=!survival] - 0,-60,0 -> Bob Cee Dee
+SELECT @a[gamemode=survival,gamemode=creative] - 0,-60,0 -> !Option 'gamemode' isn't applicable here
+SELECT @a[gamemode=survival,gamemode=!creative] - 0,-60,0 -> !Option 'gamemode' isn't applicable here
+SELECT @a[gamemode=!creative,gamemode=survival] - 0,-60,0 -> !Option 'gamemode' isn't applicable here
+SELECT @a[gamemode=survival,gamemode=survival] - 0,-60,0 -> !Option 'gamemode' isn't applicable here
+SELECT @p[gamemode=creative] - 0,-60,0 -> Bob
+SELECT @p[gamemode=spectator] - 0,-60,0 -> Dee
+SELECT @p[gamemode=!survival] - 0,-60,0 -> Bob
+SELECTSORTED @r[gamemode=adventure] - 0,-60,0 -> Cee
+SELECT @n[gamemode=creative] - 0,-60,0 -> Bob
+SELECT @a[gamemode=creative,limit=1] - 0,-60,0 -> Bob
+SELECT @a[gamemode=!spectator,sort=furthest] - 0,-60,0 -> Cee Bob A
+SELECT @a[gamemode=!spectator,sort=furthest,limit=2] - 0,-60,0 -> Cee Bob
+SELECT @a[gamemode=Survival] - 0,-60,0 -> !Invalid or unknown game mode 'Survival'
+SELECT @a[gamemode=SURVIVAL] - 0,-60,0 -> !Invalid or unknown game mode 'SURVIVAL'
+SELECT @a[gamemode=0] - 0,-60,0 -> !Invalid or unknown game mode '0'
+SELECT @a[gamemode=s] - 0,-60,0 -> !Invalid or unknown game mode 's'
+SELECT @a[gamemode=] - 0,-60,0 -> !Invalid or unknown game mode ''
+SELECT @a[gamemode=!] - 0,-60,0 -> !Invalid or unknown game mode ''
+SELECT @a[gamemode=!bad] - 0,-60,0 -> !Invalid or unknown game mode 'bad'
+SELECT @a[gamemode=survival ] - 0,-60,0 -> A
+SELECT @a[gamemode="survival"] - 0,-60,0 -> !Invalid or unknown game mode ''
+SELECT @a[gamemode=minecraft:survival] - 0,-60,0 -> !Invalid or unknown game mode 'minecraft'
+SELECT @a[gamemode=surviva] - 0,-60,0 -> !Invalid or unknown game mode 'surviva'
+SELECT @a[gamemode=creativee] - 0,-60,0 -> !Invalid or unknown game mode 'creativee'
+SELECT @a[gamemode=spectator,type=player] - 0,-60,0 -> Dee
+SELECT @e[type=player,gamemode=survival] - 0,-60,0 -> A
+SELECT @e[type=!player,gamemode=survival] - 0,-60,0 ->
+SELECT @a[gamemode=survival,type=!player] - 0,-60,0 ->
+SELECT @s[gamemode=survival] A 0.5,-60,0.5 -> A
+SELECT @s[gamemode=creative] A 0.5,-60,0.5 ->
+SELECT @s[gamemode=!creative] A 0.5,-60,0.5 -> A
+SELECT @s[gamemode=creative] Bob 4.5,-60,0.5 -> Bob
+SELECT @s[gamemode=spectator] Dee 12.5,-60,0.5 -> Dee
+# experience levels
+SELECT @a[level=0] - 0,-60,0 -> A
+SELECT @a[level=5] - 0,-60,0 -> Dee
+SELECT @a[level=10] - 0,-60,0 -> Bob
+SELECT @a[level=30] - 0,-60,0 -> Cee
+SELECT @a[level=..5] - 0,-60,0 -> A Dee
+SELECT @a[level=5..] - 0,-60,0 -> Bob Cee Dee
+SELECT @a[level=6..] - 0,-60,0 -> Bob Cee
+SELECT @a[level=..4] - 0,-60,0 -> A
+SELECT @a[level=5..10] - 0,-60,0 -> Bob Dee
+SELECT @a[level=10..30] - 0,-60,0 -> Bob Cee
+SELECT @a[level=11..29] - 0,-60,0 ->
+SELECT @a[level=0..0] - 0,-60,0 -> A
+SELECT @a[level=0..100] - 0,-60,0 -> A Bob Cee Dee
+SELECT @a[level=..2147483647] - 0,-60,0 -> A Bob Cee Dee
+SELECT @a[level=2147483647] - 0,-60,0 ->
+SELECT @a[level=31..] - 0,-60,0 ->
+SELECT @a[level=..-1] - 0,-60,0 -> !Level shouldn't be negative
+SELECT @a[level=-1] - 0,-60,0 -> !Level shouldn't be negative
+SELECT @a[level=-1..5] - 0,-60,0 -> !Level shouldn't be negative
+SELECT @a[level=1.5] - 0,-60,0 -> !Invalid integer '1.5'
+SELECT @a[level=a] - 0,-60,0 -> !Expected value or range of values
+SELECT @a[level=] - 0,-60,0 -> !Expected value or range of values
+SELECT @a[level=..] - 0,-60,0 -> !Expected value or range of values
+SELECT @a[level=5..1] - 0,-60,0 -> !Min cannot be bigger than max
+SELECT @a[level=5,level=6] - 0,-60,0 -> !Option 'level' isn't applicable here
+SELECT @a[level=1..2,level=..3] - 0,-60,0 -> !Option 'level' isn't applicable here
+SELECT @e[sort=nearest,level=5..] - 0,-60,0 -> Bob Cee Dee
+SELECT @e[sort=nearest,level=..100] - 0,-60,0 -> A Bob Cee Dee
+SELECT @e[sort=nearest,level=0] - 0,-60,0 -> A
+SELECT @e[type=!player,level=0..] - 0,-60,0 ->
+SELECT @e[type=pig,level=0..] - 0,-60,0 ->
+SELECT @e[type=player,level=10] - 0,-60,0 -> Bob
+SELECT @p[level=30] - 0,-60,0 -> Cee
+SELECT @p[level=..5] - 0,-60,0 -> A
+SELECTSORTED @r[level=5..,limit=4] - 0,-60,0 -> Bob Cee Dee
+SELECT @n[level=10] - 0,-60,0 -> Bob
+SELECT @a[level=5..,gamemode=creative] - 0,-60,0 -> Bob
+SELECT @a[level=5..,gamemode=!creative] - 0,-60,0 -> Cee Dee
+SELECT @a[level=..5,gamemode=!survival] - 0,-60,0 -> Dee
+SELECT @a[level=10..,sort=furthest] - 0,-60,0 -> Cee Bob
+SELECT @a[level=10..,sort=furthest,limit=1] - 0,-60,0 -> Cee
+SELECT @s[level=0] A 0.5,-60,0.5 -> A
+SELECT @s[level=1..] A 0.5,-60,0.5 ->
+SELECT @s[level=30] Cee 8.5,-60,0.5 -> Cee
+SELECT @s[level=..29] Cee 8.5,-60,0.5 ->
+# rotations: bounds are wrapped to -180..180, a range with min above max wraps around
+SELECT @e[sort=nearest,y_rotation=0] - 0,-60,0 -> A marker#1 marker#12
+SELECT @e[sort=nearest,y_rotation=90] - 0,-60,0 -> pig#1 Bob marker#2
+SELECT @e[sort=nearest,y_rotation=-90] - 0,-60,0 -> cow#1 marker#4 marker#9 Dee
+SELECT @e[sort=nearest,y_rotation=180] - 0,-60,0 -> marker#3 Cee marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=-180] - 0,-60,0 -> marker#3 Cee marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=360] - 0,-60,0 -> A marker#1 marker#12
+SELECT @e[sort=nearest,y_rotation=540] - 0,-60,0 -> marker#3 Cee marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=-540] - 0,-60,0 -> marker#3 Cee marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=720] - 0,-60,0 -> A marker#1 marker#12
+SELECT @e[sort=nearest,y_rotation=359] - 0,-60,0 -> marker#7
+SELECT @e[sort=nearest,y_rotation=-1] - 0,-60,0 -> marker#7
+SELECT @e[sort=nearest,y_rotation=1] - 0,-60,0 ->
+SELECT @e[sort=nearest,y_rotation=..90] - 0,-60,0 -> A pig#1 Bob marker#1 marker#2 marker#8 marker#10 marker#12 marker#15
+SELECT @e[sort=nearest,y_rotation=90..] - 0,-60,0 -> pig#1 Bob cow#1 marker#2 marker#3 marker#4 Cee marker#5 marker#6 marker#7 marker#9 Dee marker#11 marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=0..90] - 0,-60,0 -> A pig#1 Bob marker#1 marker#2 marker#8 marker#10 marker#12 marker#15
+SELECT @e[sort=nearest,y_rotation=-90..90] - 0,-60,0 -> A pig#1 Bob cow#1 marker#1 marker#2 marker#4 marker#7 marker#8 marker#9 Dee marker#10 marker#11 marker#12 marker#15 marker#16
+SELECT @e[sort=nearest,y_rotation=-90..0] - 0,-60,0 -> A cow#1 marker#1 marker#4 marker#7 marker#9 Dee marker#11 marker#12 marker#16
+SELECT @e[sort=nearest,y_rotation=170..-170] - 0,-60,0 -> marker#3 Cee marker#5 marker#6 marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=170..190] - 0,-60,0 -> marker#3 Cee marker#5 marker#6 marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=-190..-170] - 0,-60,0 -> marker#3 Cee marker#5 marker#6 marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=350..10] - 0,-60,0 -> A marker#1 marker#7 marker#8 marker#12 marker#15 marker#16
+SELECT @e[sort=nearest,y_rotation=10..350] - 0,-60,0 -> pig#1 Bob cow#1 marker#2 marker#3 marker#4 Cee marker#5 marker#6 marker#8 marker#9 Dee marker#10 marker#11 marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=-10..10] - 0,-60,0 -> A marker#1 marker#7 marker#8 marker#12 marker#15 marker#16
+SELECT @e[sort=nearest,y_rotation=0..360] - 0,-60,0 -> A marker#1 marker#12
+SELECT @e[sort=nearest,y_rotation=0..359] - 0,-60,0 -> A pig#1 Bob cow#1 marker#1 marker#2 marker#3 marker#4 Cee marker#5 marker#6 marker#7 marker#8 marker#9 Dee marker#10 marker#11 marker#12 marker#13 marker#14 marker#15
+SELECT @e[sort=nearest,y_rotation=1..359] - 0,-60,0 -> pig#1 Bob cow#1 marker#2 marker#3 marker#4 Cee marker#5 marker#6 marker#7 marker#8 marker#9 Dee marker#10 marker#11 marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=..0] - 0,-60,0 -> A marker#1 marker#12
+SELECT @e[sort=nearest,y_rotation=0..] - 0,-60,0 -> A pig#1 Bob cow#1 marker#1 marker#2 marker#3 marker#4 Cee marker#5 marker#6 marker#7 marker#8 marker#9 Dee marker#10 marker#11 marker#12 marker#13 marker#14 marker#15
+SELECT @e[sort=nearest,y_rotation=-180..180] - 0,-60,0 -> marker#3 Cee marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=-180..-180] - 0,-60,0 -> marker#3 Cee marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=180..180] - 0,-60,0 -> marker#3 Cee marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=180..-180] - 0,-60,0 -> marker#3 Cee marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=0.25..0.75] - 0,-60,0 -> marker#15
+SELECT @e[sort=nearest,y_rotation=-0.5..0.5] - 0,-60,0 -> A marker#1 marker#12 marker#15 marker#16
+SELECT @e[sort=nearest,y_rotation=0.5] - 0,-60,0 -> marker#15
+SELECT @e[sort=nearest,y_rotation=-0.5] - 0,-60,0 -> marker#16
+SELECT @e[sort=nearest,y_rotation=45] - 0,-60,0 -> marker#10
+SELECT @e[sort=nearest,y_rotation=270] - 0,-60,0 -> cow#1 marker#4 marker#9 Dee
+SELECT @e[sort=nearest,y_rotation=-270] - 0,-60,0 -> pig#1 Bob marker#2
+SELECT @e[sort=nearest,y_rotation=..-90] - 0,-60,0 -> A pig#1 Bob cow#1 marker#1 marker#2 marker#3 marker#4 Cee marker#5 marker#6 marker#8 marker#9 Dee marker#10 marker#12 marker#13 marker#14 marker#15
+SELECT @e[sort=nearest,y_rotation=-89..89] - 0,-60,0 -> A marker#1 marker#7 marker#8 marker#10 marker#11 marker#12 marker#15 marker#16
+SELECT @e[sort=nearest,y_rotation=90.000001..] - 0,-60,0 -> pig#1 Bob cow#1 marker#2 marker#3 marker#4 Cee marker#5 marker#6 marker#7 marker#9 Dee marker#11 marker#13 marker#14
+SELECT @e[sort=nearest,y_rotation=1e1] - 0,-60,0 -> !Expected end of options
+SELECT @e[sort=nearest,y_rotation=] - 0,-60,0 -> !Expected value or range of values
+SELECT @e[sort=nearest,y_rotation=..] - 0,-60,0 -> !Expected value or range of values
+SELECT @e[sort=nearest,y_rotation=a] - 0,-60,0 -> !Expected value or range of values
+SELECT @e[sort=nearest,y_rotation=1,y_rotation=2] - 0,-60,0 -> !Option 'y_rotation' isn't applicable here
+SELECT @e[sort=nearest,x_rotation=0] - 0,-60,0 -> A pig#1 marker#1 marker#12 marker#13 marker#14
+SELECT @e[sort=nearest,x_rotation=90] - 0,-60,0 -> marker#5 Dee
+SELECT @e[sort=nearest,x_rotation=-90] - 0,-60,0 -> marker#6
+SELECT @e[sort=nearest,x_rotation=45] - 0,-60,0 -> cow#1 marker#3
+SELECT @e[sort=nearest,x_rotation=-45] - 0,-60,0 -> marker#4 Cee
+SELECT @e[sort=nearest,x_rotation=30] - 0,-60,0 -> Bob marker#2
+SELECT @e[sort=nearest,x_rotation=60] - 0,-60,0 -> marker#9
+SELECT @e[sort=nearest,x_rotation=1] - 0,-60,0 -> marker#8
+SELECT @e[sort=nearest,x_rotation=-1] - 0,-60,0 -> marker#7
+SELECT @e[sort=nearest,x_rotation=..0] - 0,-60,0 -> A pig#1 marker#1 marker#12 marker#13 marker#14
+SELECT @e[sort=nearest,x_rotation=0..] - 0,-60,0 -> A pig#1 Bob cow#1 marker#1 marker#2 marker#3 marker#4 Cee marker#5 marker#6 marker#7 marker#8 marker#9 Dee marker#10 marker#11 marker#12 marker#13 marker#14 marker#15
+SELECT @e[sort=nearest,x_rotation=-90..90] - 0,-60,0 -> A pig#1 Bob cow#1 marker#1 marker#2 marker#3 marker#4 Cee marker#5 marker#6 marker#7 marker#8 marker#9 Dee marker#10 marker#11 marker#12 marker#13 marker#14 marker#15 marker#16
+SELECT @e[sort=nearest,x_rotation=-90..-45] - 0,-60,0 -> marker#4 Cee marker#6
+SELECT @e[sort=nearest,x_rotation=45..90] - 0,-60,0 -> cow#1 marker#3 marker#5 marker#9 Dee
+SELECT @e[sort=nearest,x_rotation=60..-60] - 0,-60,0 -> marker#5 marker#6 marker#9 Dee
+SELECT @e[sort=nearest,x_rotation=-60..60] - 0,-60,0 -> A pig#1 Bob cow#1 marker#1 marker#2 marker#3 marker#4 Cee marker#7 marker#8 marker#9 marker#10 marker#11 marker#12 marker#13 marker#14 marker#15 marker#16
+SELECT @e[sort=nearest,x_rotation=100..-100] - 0,-60,0 ->
+SELECT @e[sort=nearest,x_rotation=-0.5..0.5] - 0,-60,0 -> A pig#1 marker#1 marker#12 marker#13 marker#14 marker#15 marker#16
+SELECT @e[sort=nearest,x_rotation=0.5] - 0,-60,0 -> marker#15
+SELECT @e[sort=nearest,x_rotation=-0.5] - 0,-60,0 -> marker#16
+SELECT @e[sort=nearest,x_rotation=180] - 0,-60,0 ->
+SELECT @e[sort=nearest,x_rotation=-180] - 0,-60,0 ->
+SELECT @e[sort=nearest,x_rotation=270] - 0,-60,0 -> marker#6
+SELECT @e[sort=nearest,x_rotation=10..20] - 0,-60,0 -> marker#11
+SELECT @e[sort=nearest,x_rotation=1,x_rotation=2] - 0,-60,0 -> !Option 'x_rotation' isn't applicable here
+SELECT @e[sort=nearest,x_rotation=0..45,y_rotation=0..90] - 0,-60,0 -> A pig#1 Bob marker#1 marker#2 marker#8 marker#12 marker#15
+SELECT @e[sort=nearest,x_rotation=-90..0,y_rotation=-180..-90] - 0,-60,0 -> marker#4 Cee marker#6 marker#13 marker#14
+SELECT @e[sort=nearest,x_rotation=..0,y_rotation=90..] - 0,-60,0 -> pig#1 marker#13 marker#14
+SELECT @e[sort=nearest,x_rotation=30,y_rotation=90] - 0,-60,0 -> Bob marker#2
+SELECT @a[y_rotation=90] - 0,-60,0 -> Bob
+SELECT @a[y_rotation=180] - 0,-60,0 -> Cee
+SELECT @a[y_rotation=-90] - 0,-60,0 -> Dee
+SELECT @a[y_rotation=-180] - 0,-60,0 -> Cee
+SELECT @a[y_rotation=270] - 0,-60,0 -> Dee
+SELECT @a[y_rotation=0] - 0,-60,0 -> A
+SELECT @a[y_rotation=90..180] - 0,-60,0 -> Bob Cee
+SELECT @a[y_rotation=170..-170] - 0,-60,0 -> Cee
+SELECT @a[x_rotation=30] - 0,-60,0 -> Bob
+SELECT @a[x_rotation=90] - 0,-60,0 -> Dee
+SELECT @a[x_rotation=-45] - 0,-60,0 -> Cee
+SELECT @a[x_rotation=..0] - 0,-60,0 -> A
+SELECT @a[x_rotation=0..] - 0,-60,0 -> A Bob Cee Dee
+SELECT @a[x_rotation=-45..30] - 0,-60,0 -> A Bob Cee
+SELECT @a[x_rotation=0,y_rotation=0] - 0,-60,0 -> A
+SELECT @p[y_rotation=90] - 0,-60,0 -> Bob
+SELECT @p[x_rotation=90] - 0,-60,0 -> Dee
+SELECTSORTED @r[y_rotation=-90..90,limit=4] - 0,-60,0 -> A Bob Dee
+SELECT @n[y_rotation=90,type=pig] - 0,-60,0 -> pig#1
+SELECT @n[x_rotation=45,type=cow] - 0,-60,0 -> cow#1
+SELECT @a[y_rotation=90,gamemode=creative] - 0,-60,0 -> Bob
+SELECT @a[x_rotation=..0,level=..5] - 0,-60,0 -> A
+SELECT @s[y_rotation=0] A 0.5,-60,0.5 -> A
+SELECT @s[y_rotation=90] A 0.5,-60,0.5 ->
+SELECT @s[y_rotation=90] Bob 4.5,-60,0.5 -> Bob
+SELECT @s[x_rotation=30] Bob 4.5,-60,0.5 -> Bob
+SELECT @s[x_rotation=-45,y_rotation=180] Cee 8.5,-60,0.5 -> Cee
+# moving a player changes what it matches
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Rotated Dee
+CF result success 1
+CF msg Rotated Bob
+CF result success 1
+SELECT @a[y_rotation=90] - 0,-60,0 -> A
+SELECT @a[x_rotation=30] - 0,-60,0 -> A
+SELECT @a[x_rotation=0,y_rotation=0] - 0,-60,0 -> Dee
+SELECT @a[y_rotation=90,x_rotation=30] - 0,-60,0 -> A
+# commands
+CF msg Added tag 'yaw90' to Marker
+CF result success 1
+CF msg Added tag 'pitchup' to 2 entities
+CF result success 2
+CF msg Test passed. Count: 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF msg Teleported Marker to 0.500000, -50.000000, 0.500000
+CF result success 1
+CF msg Set Bob's game mode to Survival Mode
+CF result success 1
+CF msg Set A's game mode to Creative Mode
+CF msg Set Dee's game mode to Creative Mode
+CF result success 2
+CF result success 0
+CF msg Gave 1 experience levels to 2 players
+CF result success 2
+CF msg Gave 1 experience points to A
+CF result success 1
+CF msg Gave 1 experience points to Bob
+CF result success 1
+CF msg Gave 1 experience points to Cee
+CF result success 1
+CF msg Gave 1 experience points to Dee
+CF result success 1
+CF msg Killed Pig
+CF result success 1
+CF msg Killed 2 entities
+CF result success 2
+SELECT @e[sort=nearest,tag=yaw90] - 0,-60,0 -> marker#2
+SELECT @e[sort=nearest,tag=pitchup] - 0,-60,0 -> marker#4 marker#6
+SELECT @a[gamemode=creative] - 0,-60,0 -> A Dee
+SELECT @a[gamemode=survival] - 0,-60,0 -> Bob
+SELECT @a[level=1..] - 0,-60,0 -> A Bob Cee Dee
+SELECT @a[level=11..] - 0,-60,0 -> Cee

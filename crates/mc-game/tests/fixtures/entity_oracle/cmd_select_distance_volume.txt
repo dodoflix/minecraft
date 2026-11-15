@@ -1,0 +1,208 @@
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Giant
+CF result success 1
+CF msg Summoned new Slime
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+# distance bounds measure the squared distance to the entity position
+SELECT @e[sort=nearest,distance=..5] - 0,-60,0 -> marker#5 A marker#6 marker#1 B cow#1
+SELECT @e[sort=nearest,distance=5..] - 0,-60,0 -> marker#7 marker#2 marker#3 marker#8 marker#9 marker#4 armor_stand#1 slime#1 pig#1 giant#1
+SELECT @e[sort=nearest,distance=2..5] - 0,-60,0 -> marker#1 B cow#1
+SELECT @e[sort=nearest,distance=5] - 0,-60,0 ->
+SELECT @e[sort=nearest,distance=0] - 0,-60,0 ->
+SELECT @e[sort=nearest,distance=..0] - 0,-60,0 ->
+SELECT @e[sort=nearest,distance=0..0] - 0,-60,0 ->
+SELECT @e[sort=nearest,distance=2..2] - 0,-60,0 ->
+SELECT @e[sort=nearest,distance=1.5..4.5] - 0,-60,0 -> marker#1
+SELECT @e[sort=nearest,distance=..5.5] - 0,-60,0 -> marker#5 A marker#6 marker#1 B cow#1 marker#7
+SELECT @e[sort=nearest,distance=5.5..5.5] - 0,-60,0 ->
+SELECT @e[sort=nearest,distance=..4.999999] - 0,-60,0 -> marker#5 A marker#6 marker#1 B cow#1
+SELECT @e[sort=nearest,distance=5.000001..] - 0,-60,0 -> marker#7 marker#2 marker#3 marker#8 marker#9 marker#4 armor_stand#1 slime#1 pig#1 giant#1
+SELECT @e[sort=nearest,distance=..2] - 0,-60,0 -> marker#5 A marker#6
+SELECT @e[sort=nearest,distance=1..] - 0,-60,0 -> marker#6 marker#1 B cow#1 marker#7 marker#2 marker#3 marker#8 marker#9 marker#4 armor_stand#1 slime#1 pig#1 giant#1
+SELECT @e[sort=nearest,distance=100..] - 0,-60,0 ->
+SELECT @e[sort=nearest,distance=0..1000000] - 0,-60,0 -> marker#5 A marker#6 marker#1 B cow#1 marker#7 marker#2 marker#3 marker#8 marker#9 marker#4 armor_stand#1 slime#1 pig#1 giant#1
+SELECT @e[sort=nearest,distance=..1e3] - 0,-60,0 -> !Expected end of options
+SELECT @e[sort=nearest,distance=7..2] - 0,-60,0 -> !Min cannot be bigger than max
+SELECT @e[sort=nearest,distance=..] - 0,-60,0 -> !Expected value or range of values
+SELECT @e[sort=nearest,distance=] - 0,-60,0 -> !Expected value or range of values
+SELECT @e[sort=nearest,distance=a] - 0,-60,0 -> !Expected value or range of values
+SELECT @e[sort=nearest,distance=..5,distance=..6] - 0,-60,0 -> !Option 'distance' isn't applicable here
+SELECT @a[distance=..4] - 0,-60,0 -> A
+SELECT @a[distance=4..] - 0,-60,0 -> B
+SELECT @a[sort=furthest,distance=4] - 0,-60,0 ->
+SELECT @p[distance=1..] - 0,-60,0 -> B
+SELECT @p[distance=..3] - 0,-60,0 -> A
+SELECT @p[distance=5..] - 0,-60,0 ->
+SELECTSORTED @r[distance=..3,limit=5] - 0,-60,0 -> A
+SELECT @s[distance=..0] A 0.5,-60,0.5 -> A
+SELECT @s[distance=1..] A 0.5,-60,0.5 ->
+SELECT @s[distance=..1] A 0.5,-60,0.5 -> A
+SELECT @s[distance=..1] A 10.5,-60,0.5 ->
+SELECT @s[distance=9..11] A 10.5,-60,0.5 -> A
+SELECT @n[distance=3..] A 0.5,-60,0.5 -> B
+SELECT @n[distance=..1,type=!player] A 0.5,-60,0.5 -> marker#6
+SELECT @e[sort=nearest,distance=..3] A 0.5,-60,0.5 -> A marker#5 marker#6 marker#1
+SELECT @e[sort=nearest,distance=..2] B 4.5,-60,0.5 -> B marker#2 marker#3 marker#4
+# distance errors
+SELECT @e[distance=-1] - 0,-60,0 -> !Distance cannot be negative
+SELECT @e[distance=..-1] - 0,-60,0 -> !Distance cannot be negative
+SELECT @e[distance=-1..5] - 0,-60,0 -> !Distance cannot be negative
+SELECT @e[distance=-0.0] - 0,-60,0 ->
+SELECT @e[distance=-1..-5] - 0,-60,0 -> !Min cannot be bigger than max
+# x y z move the origin of the distance and of the box
+SELECT @e[sort=nearest,x=5,distance=..1] - 0,-60,0 -> B marker#2 marker#3
+SELECT @e[sort=nearest,x=5.5,distance=..0.5] - 0,-60,0 -> marker#2 marker#3
+SELECT @e[sort=nearest,x=5,y=-60,z=0,distance=..0] - 0,-60,0 ->
+SELECT @e[sort=nearest,x=0,y=-55,z=0,distance=..0] - 0,-60,0 ->
+SELECT @e[sort=nearest,y=-55,distance=..1] - 0,-60,0 -> marker#7
+SELECT @e[sort=nearest,z=5,distance=..1] - 0,-60,0 -> marker#8
+SELECT @e[sort=nearest,z=5,x=3,y=-57,distance=..0] - 0,-60,0 ->
+SELECT @e[sort=nearest,x=0,y=-60,z=0,distance=..2] - 100,-60,100 -> marker#5 A marker#6
+SELECT @e[sort=nearest,distance=..2] - 100,-60,100 ->
+SELECT @e[sort=nearest,x=1,distance=..2] - 100,-60,100 ->
+SELECT @e[sort=nearest,x=10,y=-60,z=10,limit=1] - 0,-60,0 -> pig#1
+SELECT @e[sort=furthest,x=10,y=-60,z=10,limit=2] - 0,-60,0 -> slime#1 cow#1
+SELECT @e[sort=nearest,x=-1000000] - 0,-60,0 -> marker#5 A marker#6 marker#7 marker#8 slime#1 marker#1 cow#1 marker#9 B marker#2 marker#3 marker#4 armor_stand#1 pig#1 giant#1
+SELECT @e[sort=nearest,x=1e1,y=-60,distance=..1] - 0,-60,0 -> !Expected end of options
+SELECT @e[x=,y=1] - 0,-60,0 -> !Expected double
+SELECT @e[x=a] - 0,-60,0 -> !Expected double
+SELECT @e[x=1,x=2] - 0,-60,0 -> !Option 'x' isn't applicable here
+SELECT @e[x=1..2] - 0,-60,0 -> !Invalid double '1..2'
+SELECT @e[x=~] - 0,-60,0 -> !Expected double
+SELECT @e[x=.5,y=-60.,distance=..9] - 0,-60,0 -> marker#5 A B marker#1 marker#2 marker#3 marker#4 marker#6 marker#7 marker#8 marker#9 armor_stand#1 cow#1
+SELECT @a[x=4.5,distance=..0.1] - 0,-60,0 ->
+SELECT @p[x=4.5] - 0,-60,0 -> B
+SELECT @p[x=-100] - 0,-60,0 -> A
+SELECT @s[x=4.5,distance=..1] A 0.5,-60,0.5 ->
+SELECT @s[x=4.5] A 0.5,-60,0.5 -> A
+# dx dy dz boxes: the box is [0, d+1] per axis from the origin, moved to the origin; negative deltas extend the other way
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dx=0] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dx=4] - 0,-60,0 -> A B
+SELECT @e[sort=nearest,dx=5] - 0,-60,0 -> A B
+SELECT @e[sort=nearest,dx=4.999] - 0,-60,0 -> A B
+SELECT @e[sort=nearest,dx=5.001] - 0,-60,0 -> A B
+SELECT @e[sort=nearest,dx=5,dy=0,dz=0] - 0,-60,0 -> A B
+SELECT @e[sort=nearest,dx=5,dy=5] - 0,-60,0 -> A marker#6 B marker#7
+SELECT @e[sort=nearest,dx=5,dy=5,dz=5] - 0,-60,0 -> A marker#6 B marker#7 marker#9
+SELECT @e[sort=nearest,dx=-3] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dx=-1] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dx=-0.5] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dx=-1,dy=-1,dz=-1] - 0,-60,0 -> marker#5 A
+SELECT @e[sort=nearest,dx=-1,dy=-1,dz=0] - 0,-60,0 -> marker#5 A
+SELECT @e[sort=nearest,dy=5] - 0,-60,0 -> A marker#6 marker#7
+SELECT @e[sort=nearest,dy=0] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dy=-1] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dy=-6] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dy=100] - 0,-60,0 -> A marker#6 marker#7
+SELECT @e[sort=nearest,dz=5] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dz=-5] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dz=0] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dx=0.5,dy=0.5,dz=0.5] - 0,-60,0 -> A marker#6
+SELECT @e[sort=nearest,dx=-0.5,dy=-0.5,dz=-0.5] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dx=10,dy=0,dz=10,type=pig] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,dx=10,dy=0,dz=10,type=!marker] - 0,-60,0 -> A B armor_stand#1 pig#1
+SELECT @e[sort=nearest,dx=20,dy=3,dz=3,type=giant] - 0,-60,0 -> giant#1
+SELECT @e[sort=nearest,dx=1000,dy=1000,dz=1000] - 0,-60,0 -> A marker#6 B marker#7 marker#9 armor_stand#1 pig#1 giant#1
+SELECT @e[sort=nearest,dx=-1000,dy=-1000,dz=-1000] - 0,-60,0 -> marker#5 A slime#1
+SELECT @e[sort=nearest,dx=1e2] - 0,-60,0 -> !Expected end of options
+# boxes against sized entities: a box touching the hitbox from outside does not select it
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand] - 6,-60,0 ->
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand] - 7.5,-60,0 ->
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand] - 7.4,-60,0 ->
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand] - 7.6,-60,0 ->
+SELECT @e[sort=nearest,dx=-1,dy=0,dz=0,type=armor_stand] - 8.3,-60,1 -> armor_stand#1
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand] - 8.4,-60,1 -> armor_stand#1
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand] - 8.5,-60,1 -> armor_stand#1
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand] - 8.2,-60,1 -> armor_stand#1
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=slime] - 0,-60,-9 -> slime#1
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=slime] - 0,-60,-11 -> slime#1
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=slime] - 0,-60,-12.5 ->
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=slime] - 0,-60,-12.6 ->
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=giant] - 20,-50,0 -> giant#1
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=giant] - 20,-49.1,0 -> giant#1
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=giant] - 23,-60,0 ->
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=giant] - 22,-60,0 -> giant#1
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=giant] - 18,-60,0 -> giant#1
+SELECT @e[sort=nearest,dx=0,dy=0,dz=0,type=giant] - 17,-60,0 ->
+# the box and the distance both apply
+SELECT @e[sort=nearest,dx=10,distance=..3] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dx=2,dy=0,dz=0,distance=..5] - 0,-60,0 -> A
+SELECT @e[sort=nearest,dx=0,distance=1..] - 0,-60,0 ->
+SELECT @e[sort=nearest,dx=10,dy=10,dz=10,distance=2..5] - 0,-60,0 -> B
+SELECT @e[sort=nearest,dx=6,distance=5] - 0,-60,0 ->
+SELECT @e[sort=nearest,x=5,dx=0,dy=0,dz=0] - 0,-60,0 ->
+SELECT @e[sort=nearest,x=5,dx=0,dy=0,dz=0,distance=..1] - 0,-60,0 ->
+SELECT @e[sort=nearest,x=4,y=-60,z=4,dx=2,dy=3,dz=2] - 0,-60,0 ->
+SELECT @a[dx=5,dy=0,dz=0] - 0,-60,0 -> A B
+SELECT @a[dx=3,dy=0,dz=0] - 0,-60,0 -> A
+SELECT @a[dx=-1,dy=0,dz=0] - 0,-60,0 -> A
+SELECT @a[x=4,dx=1,dy=0,dz=0] - 0,-60,0 -> B
+SELECT @p[x=5,dx=0,dy=0,dz=0] - 0,-60,0 ->
+SELECT @p[dx=0] - 0,-60,0 -> A
+SELECT @s[dx=0] A 0.5,-60,0.5 -> A
+SELECT @s[dx=-1,dy=-1,dz=-1] A 0.5,-60,0.5 -> A
+SELECT @s[dx=0] A 10.5,-60,0.5 ->
+SELECT @s[dx=-10] A 10.5,-60,0.5 -> A
+SELECT @n[dx=3,dy=3,dz=3] A 0.5,-60,0.5 -> A
+SELECT @n[dx=3,dy=3,dz=3,type=marker] A 0.5,-60,0.5 ->
+# errors
+SELECT @e[dx=a] - 0,-60,0 -> !Expected double
+SELECT @e[dx=] - 0,-60,0 -> !Expected double
+SELECT @e[dx=1,dx=2] - 0,-60,0 -> !Option 'dx' isn't applicable here
+SELECT @e[dx=1..2] - 0,-60,0 -> !Invalid double '1..2'
+SELECT @e[dy=1,dy=2] - 0,-60,0 -> !Option 'dy' isn't applicable here
+SELECT @e[dz=1,dz=2] - 0,-60,0 -> !Option 'dz' isn't applicable here
+SELECT @e[dx=1,dy=2,dz=3,dx=4] - 0,-60,0 -> !Option 'dx' isn't applicable here
+SELECT @e[dx=1e999] - 0,-60,0 -> !Expected end of options
+SELECT @e[dx=NaN] - 0,-60,0 -> !Expected double
+# commands
+CF result failure 0
+CF fail No entity was found
+CF msg Added tag 'found' to Giant
+CF result success 1
+CF msg Added tag 'pig' to Pig
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Added tag 'boxed' to 4 entities
+CF result success 4
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg Test passed. Count: 2
+CF result success 2
+CF result failure 0
+CF result failure 0
+SELECT @e[sort=nearest,tag=pig] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,tag=near] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=boxed] - 0,-60,0 -> A B armor_stand#1 pig#1
+SELECT @e[sort=nearest,tag=found] - 0,-60,0 -> giant#1

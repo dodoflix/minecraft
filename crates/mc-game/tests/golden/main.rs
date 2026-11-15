@@ -67,6 +67,7 @@ mod command_compute_golden;
 mod command_exceptions;
 mod command_harness_golden;
 mod command_loot_item_golden;
+mod command_select_golden;
 mod command_text_golden;
 mod command_tree_golden;
 mod commands_advancement_recipe;

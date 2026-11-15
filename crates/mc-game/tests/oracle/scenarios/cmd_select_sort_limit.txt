@@ -1,0 +1,158 @@
+# Sort and limit rules of the selectors: nearest/furthest/random/arbitrary with and without limits, distance ties (equal squared
+# distances keep the order they were found in), entities spread over several chunks and sections, `@r` (an unseeded shuffle in vanilla: set and count only) and `@n`, the default
+# orders and limits of each selector letter, and the errors of the two options.
+command_env
+level flat
+preload 3
+entity_counter 400
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+spawn_player C survival -4.5 -60 0.5 0 0
+spawn_player D survival 0.5 -60 20.5 0 0
+tick 1
+cmd summon minecraft:pig 3 -60 0 {NoAI:1b}
+cmd summon minecraft:pig -3 -60 0 {NoAI:1b}
+cmd summon minecraft:pig 0 -60 3 {NoAI:1b}
+cmd summon minecraft:pig 0 -60 -3 {NoAI:1b}
+cmd summon minecraft:cow 9 -60 9 {NoAI:1b}
+cmd summon minecraft:cow -9 -60 -9 {NoAI:1b}
+cmd summon minecraft:sheep 20 -60 -20 {NoAI:1b}
+cmd summon minecraft:sheep -20 -60 20 {NoAI:1b}
+cmd summon minecraft:chicken 1 -50 1 {NoAI:1b,NoGravity:1b}
+cmd summon minecraft:chicken 1 20 1 {NoAI:1b,NoGravity:1b}
+cmd summon minecraft:chicken -1 -30 -1 {NoAI:1b,NoGravity:1b}
+cmd summon minecraft:armor_stand 2 -60 2 {NoGravity:1b}
+cmd summon minecraft:armor_stand -2 -60 -2
+cmd summon minecraft:marker 5 -60 5
+tick 1
+note no sort, no limit: the order the level yields entities in
+dump select:-/0,-60,0/@e
+dump select:-/0,-60,0/@e[sort=arbitrary]
+dump select:-/0,-60,0/@e[type=pig]
+dump select:-/0,-60,0/@e[type=!pig]
+dump select:-/0,-60,0/@a
+dump select:-/0,-60,0/@e[type=player]
+dump select:-/0,-60,0/@e[type=!player]
+note a limit without a sort stops the collection early
+dump select:-/0,-60,0/@e[limit=1]
+dump select:-/0,-60,0/@e[limit=3]
+dump select:-/0,-60,0/@e[limit=3,sort=arbitrary]
+dump select:-/0,-60,0/@e[limit=3,type=pig]
+dump select:-/0,-60,0/@e[limit=100]
+dump select:-/0,-60,0/@e[limit=2147483647]
+dump select:-/0,-60,0/@a[limit=2]
+dump select:-/0,-60,0/@a[limit=1]
+note nearest and furthest with ties
+dump select:-/0,-60,0/@e[sort=nearest]
+dump select:-/0,-60,0/@e[sort=furthest]
+dump select:-/0,-60,0/@e[sort=nearest,limit=2]
+dump select:-/0,-60,0/@e[sort=furthest,limit=2]
+dump select:-/0,-60,0/@e[sort=nearest,limit=1]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig]
+dump select:-/0,-60,0/@e[sort=furthest,type=pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig,limit=3]
+dump select:-/0,-60,0/@e[sort=furthest,type=pig,limit=3]
+dump select:-/0,-60,0/@e[sort=nearest,type=chicken]
+dump select:-/0,-60,0/@e[sort=furthest,type=chicken]
+dump select:-/0,-60,0/@e[sort=nearest,type=!pig,limit=4]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:can_breathe_under_water]
+dump select:-/0,-60,0/@e[sort=nearest,tag=]
+dump select:-/10,-60,10/@e[sort=nearest]
+dump select:-/-10,-60,-10/@e[sort=nearest]
+dump select:-/10,-60,10/@e[sort=furthest,limit=3]
+dump select:-/0,-60,0/@a[sort=nearest]
+dump select:-/0,-60,0/@a[sort=furthest]
+dump select:-/0,-60,0/@a[sort=nearest,limit=3]
+dump select:-/0,-60,0/@a[sort=furthest,limit=3]
+dump select:A/0.5,-60,0.5/@a[sort=nearest]
+dump select:A/0.5,-60,0.5/@a[sort=furthest]
+dump select:D/0.5,-60,20.5/@a[sort=nearest]
+dump select:D/0.5,-60,20.5/@e[sort=nearest,limit=5]
+note the letters and their defaults
+dump select:-/0,-60,0/@p
+dump select:-/4.5,-60,0.5/@p
+dump select:-/0,-60,0/@p[limit=2]
+dump select:-/0,-60,0/@p[limit=4]
+dump select:-/0,-60,0/@p[limit=4,sort=furthest]
+dump select:-/0,-60,0/@p[sort=furthest]
+dump select:A/0.5,-60,0.5/@p
+dump select:B/4.5,-60,0.5/@p
+dump select:B/4.5,-60,0.5/@p[distance=1..]
+dump select:-/0,-60,0/@n
+dump select:-/0,-60,0/@n[type=pig]
+dump select:-/0,-60,0/@n[type=pig,limit=2]
+dump select:-/0,-60,0/@n[type=cow]
+dump select:-/0,-60,0/@n[type=!pig,type=!player]
+dump select:-/0,-60,0/@n[sort=furthest]
+dump select:-/0,-60,0/@n[limit=3]
+dump select:A/0.5,-60,0.5/@n
+dump select:A/0.5,-60,0.5/@n[type=!player]
+dump select:A/0.5,-60,0.5/@n[type=player]
+dump select:-/0,-60,0/@n[type=sheep]
+dump select:-/0,-60,0/@n[type=zombie]
+dump select:-/0,-60,0/@s
+dump select:A/0.5,-60,0.5/@s
+dump select:A/0.5,-60,0.5/@s[type=player]
+dump select:A/0.5,-60,0.5/@s[type=pig]
+note random order: vanilla shuffles with an unseeded Random (Collections.shuffle), so only the selected set and the count are compared
+dump selectcount:-/0,-60,0/@r
+dump selectcount:-/0,-60,0/@r[limit=2]
+dump selectsorted:-/0,-60,0/@r[limit=4]
+dump selectsorted:-/0,-60,0/@r[limit=5]
+dump selectsorted:-/0,-60,0/@r[sort=nearest]
+dump selectsorted:-/0,-60,0/@r[sort=furthest,limit=9]
+dump selectsorted:-/0,-60,0/@r[type=pig]
+dump selectcount:-/0,-60,0/@r[type=pig,limit=3]
+dump selectsorted:-/0,-60,0/@r[type=!player]
+dump selectsorted:-/0,-60,0/@e[sort=random]
+dump selectcount:-/0,-60,0/@e[sort=random,limit=3]
+dump selectcount:-/0,-60,0/@e[sort=random,limit=1]
+dump selectsorted:-/0,-60,0/@e[sort=random,type=pig]
+dump selectsorted:-/0,-60,0/@e[sort=random,type=cow]
+dump selectsorted:-/0,-60,0/@e[sort=random,type=marker]
+dump selectsorted:-/0,-60,0/@e[sort=random,type=!pig,type=!player]
+dump selectsorted:-/0,-60,0/@a[sort=random]
+dump selectcount:-/0,-60,0/@a[sort=random,limit=2]
+dump selectcount:A/0.5,-60,0.5/@r
+dump selectsorted:A/0.5,-60,0.5/@r[limit=3,distance=..6]
+dump selectsorted:A/0.5,-60,0.5/@r[name=A]
+dump selectsorted:-/0,-60,0/@r[name=nobody]
+dump selectsorted:-/0,-60,0/@e[sort=random,type=marker,limit=1]
+note errors of the two options
+dump select:-/0,-60,0/@e[limit=0]
+dump select:-/0,-60,0/@e[limit=-1]
+dump select:-/0,-60,0/@e[limit=1.5]
+dump select:-/0,-60,0/@e[limit=a]
+dump select:-/0,-60,0/@e[limit=]
+dump select:-/0,-60,0/@e[limit=1,limit=2]
+dump select:-/0,-60,0/@e[limit=99999999999]
+dump select:-/0,-60,0/@s[limit=1]
+dump select:-/0,-60,0/@s[sort=nearest]
+dump select:-/0,-60,0/@e[sort=bad]
+dump select:-/0,-60,0/@e[sort=]
+dump select:-/0,-60,0/@e[sort=Nearest]
+dump select:-/0,-60,0/@e[sort=nearest,sort=furthest]
+dump select:-/0,-60,0/@e[sort=nearest,sort=nearest]
+dump select:-/0,-60,0/@p[sort=nearest]
+dump select:-/0,-60,0/@r[sort=nearest]
+dump select:-/0,-60,0/@a[sort=random,sort=random]
+dump select:-/0,-60,0/@n[limit=2,limit=3]
+dump select:-/0,-60,0/@p[limit=1,limit=1]
+note commands that take the first of a sorted selection
+cmd tp A @e[sort=nearest,limit=1,type=pig]
+cmd tp A @e[sort=furthest,limit=1,type=cow]
+cmd tp A @e[type=cow]
+cmd tp A @e[type=zombie]
+cmd tp A @p
+cmd tp A @n
+cmd tp @a @n[type=cow]
+cmd teleport @e[type=pig,sort=nearest,limit=1] @e[type=cow,sort=furthest,limit=1]
+cmd execute as @e[type=pig,sort=nearest,limit=2] at @s run summon minecraft:chicken ~ ~1 ~ {NoAI:1b,NoGravity:1b}
+cmd execute as @e[type=pig,sort=furthest] run say here
+cmd tag @e[type=pig,sort=furthest,limit=2] add far
+cmd tag @r[type=chicken,limit=7] add rnd
+cmd tag @n add near
+dump select:-/0,-60,0/@e[tag=far]
+dump selectcount:-/0,-60,0/@e[tag=rnd]
+dump select:-/0,-60,0/@e[tag=near]
+dump select:-/0,-60,0/@e[sort=nearest,tag=!far,type=pig]

@@ -1,0 +1,173 @@
+CF msg Summoned new "Bob"
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new "Bob Jr"
+CF result success 1
+CF msg Summoned new "Bob"
+CF result success 1
+CF msg Summoned new Sheep
+CF result success 1
+CF msg Summoned new {"text":"Bob","color":"red"}
+CF result success 1
+CF msg Summoned new {"translate":"entity.minecraft.pig"}
+CF result success 1
+CF msg Summoned new ""
+CF result success 1
+CF msg Summoned new {"text":"a\\\\b\\"c"}
+CF result success 1
+CF msg Summoned new Item Display
+CF result success 1
+CF msg Added tag 'a' to A
+CF result success 1
+CF msg Added tag 'a' to Bob
+CF result success 1
+CF msg Added tag 'b' to Bob
+CF result success 1
+CF msg Added tag 'Bob' to Cee
+CF result success 1
+# tags
+SELECT @e[sort=nearest,tag=a] - 0,-60,0 -> A item_display#1 Bob pig#1 pig#2
+SELECT @e[sort=nearest,tag=!a] - 0,-60,0 -> Cee cow#1 zombie#1 sheep#1 armor_stand#1 chicken#1 chicken#2 chicken#3
+SELECT @e[sort=nearest,tag=a,tag=b] - 0,-60,0 -> Bob pig#1
+SELECT @e[sort=nearest,tag=a,tag=!b] - 0,-60,0 -> A item_display#1 pig#2
+SELECT @e[sort=nearest,tag=!a,tag=!b] - 0,-60,0 -> Cee cow#1 sheep#1 armor_stand#1 chicken#1 chicken#2 chicken#3
+SELECT @e[sort=nearest,tag=!b,tag=a] - 0,-60,0 -> A item_display#1 pig#2
+SELECT @e[sort=nearest,tag=a,tag=a] - 0,-60,0 -> A item_display#1 Bob pig#1 pig#2
+SELECT @e[sort=nearest,tag=] - 0,-60,0 -> cow#1 armor_stand#1 chicken#1 chicken#2 chicken#3
+SELECT @e[sort=nearest,tag=!] - 0,-60,0 -> A item_display#1 Bob pig#1 pig#2 Cee zombie#1 sheep#1
+SELECT @e[sort=nearest,tag=,tag=a] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=B] - 0,-60,0 -> sheep#1
+SELECT @e[sort=nearest,tag=b] - 0,-60,0 -> Bob pig#1 zombie#1
+SELECT @e[sort=nearest,tag=Bob] - 0,-60,0 -> Cee
+SELECT @e[sort=nearest,tag=a.b] - 0,-60,0 -> sheep#1
+SELECT @e[sort=nearest,tag=a-b] - 0,-60,0 -> sheep#1
+SELECT @e[sort=nearest,tag=a+b] - 0,-60,0 -> sheep#1
+SELECT @e[sort=nearest,tag=_x] - 0,-60,0 -> sheep#1
+SELECT @e[sort=nearest,tag=!_x] - 0,-60,0 -> A item_display#1 Bob pig#1 pig#2 Cee cow#1 zombie#1 armor_stand#1 chicken#1 chicken#2 chicken#3
+SELECT @e[sort=nearest,tag=nothing] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=!nothing,type=player] - 0,-60,0 -> A Bob Cee
+SELECT @e[sort=nearest,tag=a,type=pig] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,tag=a,type=!pig] - 0,-60,0 -> A item_display#1 Bob
+SELECT @a[tag=a] - 0,-60,0 -> A Bob
+SELECT @a[tag=!a] - 0,-60,0 -> Cee
+SELECT @a[tag=] - 0,-60,0 ->
+SELECT @a[tag=a,tag=b] - 0,-60,0 -> Bob
+SELECT @p[tag=Bob] - 0,-60,0 -> Cee
+SELECT @s[tag=a] A 0.5,-60,0.5 -> A
+SELECT @s[tag=!a] A 0.5,-60,0.5 ->
+SELECT @s[tag=] A 0.5,-60,0.5 ->
+SELECT @s[tag=] Cee 8.5,-60,0.5 ->
+SELECT @n[tag=b] - 0,-60,0 -> Bob
+SELECT @e[tag="a"] - 0,-60,0 -> !Expected end of options
+SELECT @e[tag=c d] - 0,-60,0 -> !Expected end of options
+SELECT @e[tag=a b] - 0,-60,0 -> !Expected end of options
+SELECT @e[tag=a;b] - 0,-60,0 -> !Expected end of options
+SELECT @e[tag==a] - 0,-60,0 -> !Expected end of options
+SELECT @e[tag=!!a] - 0,-60,0 -> !Expected end of options
+SELECT @e[tag] - 0,-60,0 -> !Expected value for option 'tag'
+# names: the plain text of the custom name or of the type name
+SELECT @e[sort=nearest,name=Bob] - 0,-60,0 -> Bob
+SELECT @e[sort=nearest,name=!Bob] - 0,-60,0 -> A item_display#1 pig#1 pig#2 Cee cow#1 zombie#1 sheep#1 armor_stand#1 chicken#1 chicken#2 chicken#3
+SELECT @e[sort=nearest,name=bob] - 0,-60,0 ->
+SELECT @e[sort=nearest,name="Bob Jr"] - 0,-60,0 ->
+SELECT @e[sort=nearest,name='Bob Jr'] - 0,-60,0 ->
+SELECT @e[sort=nearest,name=Bob Jr] - 0,-60,0 -> !Expected end of options
+SELECT @e[sort=nearest,name=Pig] - 0,-60,0 -> pig#2
+SELECT @e[sort=nearest,name=Cow] - 0,-60,0 ->
+SELECT @e[sort=nearest,name=Zombie] - 0,-60,0 ->
+SELECT @e[sort=nearest,name=Sheep] - 0,-60,0 -> sheep#1
+SELECT @e[sort=nearest,name="Armor Stand"] - 0,-60,0 ->
+SELECT @e[sort=nearest,name="Item Display"] - 0,-60,0 -> item_display#1
+SELECT @e[sort=nearest,name=Chicken] - 0,-60,0 ->
+SELECT @e[sort=nearest,name=entity.minecraft.pig] - 0,-60,0 ->
+SELECT @e[sort=nearest,name=""] - 0,-60,0 ->
+SELECT @e[sort=nearest,name=!""] - 0,-60,0 -> A item_display#1 Bob pig#1 pig#2 Cee cow#1 zombie#1 sheep#1 armor_stand#1 chicken#1 chicken#2 chicken#3
+SELECT @e[sort=nearest,name="a\\b\"c"] - 0,-60,0 ->
+SELECT @e[sort=nearest,name='a\\b"c'] - 0,-60,0 ->
+SELECT @e[sort=nearest,name=!Pig,name=!Bob,name=!Cow] - 0,-60,0 -> A item_display#1 pig#1 Cee cow#1 zombie#1 sheep#1 armor_stand#1 chicken#1 chicken#2 chicken#3
+SELECT @e[sort=nearest,name=!Pig,name=!Bob,name=!"Bob Jr"] - 0,-60,0 -> A item_display#1 pig#1 Cee cow#1 zombie#1 sheep#1 armor_stand#1 chicken#1 chicken#2 chicken#3
+SELECT @e[sort=nearest,name=Bob,type=pig] - 0,-60,0 ->
+SELECT @e[sort=nearest,name=Bob,type=!pig] - 0,-60,0 -> Bob
+SELECT @e[sort=nearest,name=A] - 0,-60,0 -> A
+SELECT @e[sort=nearest,name=a] - 0,-60,0 ->
+SELECT @e[sort=nearest,name=Cee] - 0,-60,0 -> Cee
+SELECT @a[name=Bob] - 0,-60,0 -> Bob
+SELECT @a[name=!Bob] - 0,-60,0 -> A Cee
+SELECT @a[name=!Bob,name=!A] - 0,-60,0 -> Cee
+SELECT @a[name=!Bob,name=!A,name=!Cee] - 0,-60,0 ->
+SELECT @p[name=Cee] - 0,-60,0 -> Cee
+SELECTSORTED @r[name=A] - 0,-60,0 -> A
+SELECTSORTED @r[name=!A,limit=3] - 0,-60,0 -> Bob Cee
+SELECT @s[name=A] A 0.5,-60,0.5 -> A
+SELECT @s[name=!A] A 0.5,-60,0.5 ->
+SELECT @s[name=Bob] A 0.5,-60,0.5 ->
+SELECT @n[name=Bob] - 0,-60,0 -> Bob
+SELECT @n[name=Bob,type=!player] - 0,-60,0 ->
+SELECT @n[name=Pig] - 0,-60,0 -> pig#2
+# the player-name and UUID forms
+SELECT A - 0,-60,0 -> A
+SELECT a - 0,-60,0 -> A
+SELECT Bob - 0,-60,0 -> Bob
+SELECT BOB - 0,-60,0 -> Bob
+SELECT Nobody - 0,-60,0 ->
+SELECT "Cee" - 0,-60,0 -> Cee
+SELECT 'Cee' - 0,-60,0 -> Cee
+SELECT "A B" - 0,-60,0 ->
+SELECT 0123456789abcdef - 0,-60,0 ->
+SELECT 0123456789abcdefg - 0,-60,0 -> !Invalid name or UUID
+SELECT  - 0,-60,0 -> !Invalid name or UUID
+SELECT "" - 0,-60,0 -> !Invalid name or UUID
+SELECT 00000001-0000-0002-0000-000300000004 - 0,-60,0 -> pig#1
+SELECT 00000001-0000-0002-0000-000300000005 - 0,-60,0 -> pig#2
+SELECT 00000001-0000-0002-0000-000300000007 - 0,-60,0 -> zombie#1
+SELECT 00000001-0000-0002-0000-00030000000D - 0,-60,0 -> item_display#1
+SELECT 00000001-0000-0002-0000-00030000000d - 0,-60,0 -> item_display#1
+SELECT 00000001-0000-0002-0000-000300000063 - 0,-60,0 ->
+SELECT 1-0-2-0-3 - 0,-60,0 ->
+SELECT "00000001-0000-0002-0000-000300000004" - 0,-60,0 -> pig#1
+SELECT 00000001-0000-0002-0000-00030000000 - 0,-60,0 ->
+SELECT 00000001-0000-0002-0000-0003000000040 - 0,-60,0 -> !Invalid name or UUID
+SELECT 1-2-3-4-5 - 0,-60,0 ->
+SELECT 1-2-3-4 - 0,-60,0 ->
+SELECT g0000001-0000-0002-0000-000300000004 - 0,-60,0 -> !Invalid name or UUID
+SELECT 00000001-0000-0002-0000-000300000004 A 0.5,-60,0.5 -> pig#1
+SELECT A A 0.5,-60,0.5 -> A
+SELECT Bob A 0.5,-60,0.5 -> Bob
+# commands taking a name or a UUID
+CF msg Added tag 'named' to Bob
+CF result success 1
+CF msg Added tag 'named' to "Bob"
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF msg Teleported A to Bob
+CF result success 1
+CF msg Teleported A to Pig
+CF result success 1
+CF msg Teleported "Bob Jr" to A
+CF result success 1
+CF msg Applied effect Speed to Cee
+CF result success 1
+CF msg Applied effect Speed to "Bob"
+CF result success 1
+CF msg Killed Sheep
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg "Bob" has the following entity data: '"Bob"'
+CF result success 5
+CF msg Bob has the following entity data: [4.5d, -60.0d, 0.5d]
+CF result success 3
+CF msg Added tag 'ran' to Pig
+CF result success 1
+CF msg Added tag 'ran' to Cee
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+SELECT @e[tag=named] - 0,-60,0 -> Bob pig#1
+SELECT @e[tag=ran] - 0,-60,0 -> Cee pig#2

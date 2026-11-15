@@ -32,6 +32,8 @@ pub struct DamageEntity {
     /// `getName()` (not team-decorated: the scoreboard is applied when the message is built).
     pub name: Component,
     pub scoreboard_name: String,
+    /// `getOwnerReference()` of a tame pet (the team of its root owner is the pet's own when it has none).
+    pub tame_owner: Option<Uuid>,
     /// `instanceof LivingEntity`.
     pub is_living: bool,
     /// `instanceof Player`.
@@ -78,6 +80,7 @@ impl DamageEntity {
             look_angle: entity.get_look_angle(),
             name: crate::commands::host::entity_name(entity),
             scoreboard_name: entity.get_scoreboard_name(),
+            tame_owner: crate::world::entity::team::tame_owner(entity),
             is_living,
             is_player: entity.is_player(),
             instabuild: entity.is_player()

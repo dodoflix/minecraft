@@ -7,7 +7,7 @@ use uuid::Uuid;
 
 use super::damage_source::DamageEntity;
 use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
+use crate::world::entity::{Entity, team};
 use crate::world::scores::PlayerTeam;
 
 /// `Entity.getDisplayName()` / `Player.getDisplayName()` (a player's name also suggests `/tell <name> ` and is its own
@@ -18,11 +18,15 @@ fn decorate(
     entity_type: EntityType,
     uuid: Uuid,
     scoreboard_name: &str,
+    tame_owner: Option<Uuid>,
     is_player: bool,
 ) -> Component {
     let formatted = {
         let scoreboard = level.scoreboard();
-        PlayerTeam::format_name_for_team(scoreboard.get_players_team(scoreboard_name), name)
+        let team = scoreboard.get_players_team(scoreboard_name).or_else(|| {
+            tame_owner.and_then(|owner| team::get_owner_team(level, &scoreboard, owner))
+        });
+        PlayerTeam::format_name_for_team(team, name)
     };
     let hover = HoverEvent::ShowEntity(EntityTooltipInfo {
         entity_type: entity_type.identifier(),
@@ -52,6 +56,7 @@ pub fn entity_display_name(level: &ServerLevel, entity: &dyn Entity) -> Componen
         entity.get_type(),
         entity.uuid(),
         &entity.get_scoreboard_name(),
+        team::tame_owner(entity),
         entity.is_player(),
     )
 }
@@ -65,6 +70,7 @@ impl DamageEntity {
             self.entity_type,
             self.uuid,
             &self.scoreboard_name,
+            self.tame_owner,
             self.is_player,
         )
     }

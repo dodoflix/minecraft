@@ -1,0 +1,272 @@
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Zombie
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+# every letter from the console and from each player, at their own and at another position
+SELECT @a - 0,-60,0 -> A Bob Cee Dee
+SELECT @e - 0,-60,0 -> A Bob Cee Dee pig#1 cow#1 zombie#1 armor_stand#1
+SELECT @p - 0,-60,0 -> A
+SELECTCOUNT @r - 0,-60,0 -> 1
+SELECT @s - 0,-60,0 ->
+SELECT @n - 0,-60,0 -> A
+SELECT @e[limit=1] - 0,-60,0 -> A
+SELECT @e[sort=nearest,limit=2] - 0,-60,0 -> A armor_stand#1
+SELECT @a[sort=furthest] - 0,-60,0 -> Cee Dee Bob A
+SELECT @n[type=!player] - 0,-60,0 -> armor_stand#1
+SELECT @p[gamemode=!spectator] - 0,-60,0 -> A
+SELECT @s[type=player] - 0,-60,0 ->
+SELECT @s[type=pig] - 0,-60,0 ->
+SELECT @a - 100,-60,100 -> A Bob Cee Dee
+SELECT @e - 100,-60,100 -> A Bob Cee Dee pig#1 cow#1 zombie#1 armor_stand#1
+SELECT @p - 100,-60,100 -> Cee
+SELECTCOUNT @r - 100,-60,100 -> 1
+SELECT @s - 100,-60,100 ->
+SELECT @n - 100,-60,100 -> zombie#1
+SELECT @e[limit=1] - 100,-60,100 -> A
+SELECT @e[sort=nearest,limit=2] - 100,-60,100 -> zombie#1 cow#1
+SELECT @a[sort=furthest] - 100,-60,100 -> Dee A Bob Cee
+SELECT @n[type=!player] - 100,-60,100 -> zombie#1
+SELECT @p[gamemode=!spectator] - 100,-60,100 -> Cee
+SELECT @s[type=player] - 100,-60,100 ->
+SELECT @s[type=pig] - 100,-60,100 ->
+SELECT @a - -8,-60,0 -> A Bob Cee Dee
+SELECT @e - -8,-60,0 -> A Bob Cee Dee pig#1 cow#1 zombie#1 armor_stand#1
+SELECT @p - -8,-60,0 -> Dee
+SELECTCOUNT @r - -8,-60,0 -> 1
+SELECT @s - -8,-60,0 ->
+SELECT @n - -8,-60,0 -> Dee
+SELECT @e[limit=1] - -8,-60,0 -> A
+SELECT @e[sort=nearest,limit=2] - -8,-60,0 -> Dee armor_stand#1
+SELECT @a[sort=furthest] - -8,-60,0 -> Cee Bob A Dee
+SELECT @n[type=!player] - -8,-60,0 -> armor_stand#1
+SELECT @p[gamemode=!spectator] - -8,-60,0 -> A
+SELECT @s[type=player] - -8,-60,0 ->
+SELECT @s[type=pig] - -8,-60,0 ->
+SELECT @a A 0.5,-60,0.5 -> A Bob Cee Dee
+SELECT @e A 0.5,-60,0.5 -> A Bob Cee Dee pig#1 cow#1 zombie#1 armor_stand#1
+SELECT @p A 0.5,-60,0.5 -> A
+SELECTCOUNT @r A 0.5,-60,0.5 -> 1
+SELECT @s A 0.5,-60,0.5 -> A
+SELECT @n A 0.5,-60,0.5 -> A
+SELECT @e[limit=1] A 0.5,-60,0.5 -> A
+SELECT @e[sort=nearest,limit=2] A 0.5,-60,0.5 -> A Bob
+SELECT @a[sort=furthest] A 0.5,-60,0.5 -> Dee Cee Bob A
+SELECT @n[type=!player] A 0.5,-60,0.5 -> pig#1
+SELECT @p[gamemode=!spectator] A 0.5,-60,0.5 -> A
+SELECT @s[type=player] A 0.5,-60,0.5 -> A
+SELECT @s[type=pig] A 0.5,-60,0.5 ->
+SELECT @a Bob 4.5,-60,0.5 -> A Bob Cee Dee
+SELECT @e Bob 4.5,-60,0.5 -> A Bob Cee Dee pig#1 cow#1 zombie#1 armor_stand#1
+SELECT @p Bob 4.5,-60,0.5 -> Bob
+SELECTCOUNT @r Bob 4.5,-60,0.5 -> 1
+SELECT @s Bob 4.5,-60,0.5 -> Bob
+SELECT @n Bob 4.5,-60,0.5 -> Bob
+SELECT @e[limit=1] Bob 4.5,-60,0.5 -> A
+SELECT @e[sort=nearest,limit=2] Bob 4.5,-60,0.5 -> Bob pig#1
+SELECT @a[sort=furthest] Bob 4.5,-60,0.5 -> Dee A Cee Bob
+SELECT @n[type=!player] Bob 4.5,-60,0.5 -> pig#1
+SELECT @p[gamemode=!spectator] Bob 4.5,-60,0.5 -> Bob
+SELECT @s[type=player] Bob 4.5,-60,0.5 -> Bob
+SELECT @s[type=pig] Bob 4.5,-60,0.5 ->
+SELECT @a Dee -8.5,-60,0.5 -> A Bob Cee Dee
+SELECT @e Dee -8.5,-60,0.5 -> A Bob Cee Dee pig#1 cow#1 zombie#1 armor_stand#1
+SELECT @p Dee -8.5,-60,0.5 -> Dee
+SELECTCOUNT @r Dee -8.5,-60,0.5 -> 1
+SELECT @s Dee -8.5,-60,0.5 -> Dee
+SELECT @n Dee -8.5,-60,0.5 -> Dee
+SELECT @e[limit=1] Dee -8.5,-60,0.5 -> A
+SELECT @e[sort=nearest,limit=2] Dee -8.5,-60,0.5 -> Dee armor_stand#1
+SELECT @a[sort=furthest] Dee -8.5,-60,0.5 -> Cee Bob A Dee
+SELECT @n[type=!player] Dee -8.5,-60,0.5 -> armor_stand#1
+SELECT @p[gamemode=!spectator] Dee -8.5,-60,0.5 -> A
+SELECT @s[type=player] Dee -8.5,-60,0.5 -> Dee
+SELECT @s[type=pig] Dee -8.5,-60,0.5 ->
+SELECT @a A 100,-60,100 -> A Bob Cee Dee
+SELECT @e A 100,-60,100 -> A Bob Cee Dee pig#1 cow#1 zombie#1 armor_stand#1
+SELECT @p A 100,-60,100 -> Cee
+SELECTCOUNT @r A 100,-60,100 -> 1
+SELECT @s A 100,-60,100 -> A
+SELECT @n A 100,-60,100 -> zombie#1
+SELECT @e[limit=1] A 100,-60,100 -> A
+SELECT @e[sort=nearest,limit=2] A 100,-60,100 -> zombie#1 cow#1
+SELECT @a[sort=furthest] A 100,-60,100 -> Dee A Bob Cee
+SELECT @n[type=!player] A 100,-60,100 -> zombie#1
+SELECT @p[gamemode=!spectator] A 100,-60,100 -> Cee
+SELECT @s[type=player] A 100,-60,100 -> A
+SELECT @s[type=pig] A 100,-60,100 ->
+SELECT @a Cee 0,0,0 -> A Bob Cee Dee
+SELECT @e Cee 0,0,0 -> A Bob Cee Dee pig#1 cow#1 zombie#1 armor_stand#1
+SELECT @p Cee 0,0,0 -> A
+SELECTCOUNT @r Cee 0,0,0 -> 1
+SELECT @s Cee 0,0,0 -> Cee
+SELECT @n Cee 0,0,0 -> A
+SELECT @e[limit=1] Cee 0,0,0 -> A
+SELECT @e[sort=nearest,limit=2] Cee 0,0,0 -> A armor_stand#1
+SELECT @a[sort=furthest] Cee 0,0,0 -> Cee Dee Bob A
+SELECT @n[type=!player] Cee 0,0,0 -> armor_stand#1
+SELECT @p[gamemode=!spectator] Cee 0,0,0 -> A
+SELECT @s[type=player] Cee 0,0,0 -> Cee
+SELECT @s[type=pig] Cee 0,0,0 ->
+# a selector far from every loaded chunk, and the world limit of x y z
+SELECT @e[x=1000,y=-60,z=1000,distance=..10] - 0,-60,0 ->
+SELECT @e[x=1000,y=-60,z=1000,dx=10,dy=10,dz=10] - 0,-60,0 ->
+SELECT @a[x=100000,distance=..1] - 0,-60,0 ->
+SELECT @e[x=-30000000,y=-60,z=-30000000,distance=..1] - 0,-60,0 ->
+SELECT @e[x=1e9,distance=..1] - 0,-60,0 -> !Expected end of options
+SELECT @n[x=1000,y=-60,z=1000,distance=..10] - 0,-60,0 ->
+SELECT @e[distance=..1000] - 0,-60,0 -> Dee armor_stand#1 A Bob Cee pig#1 cow#1 zombie#1
+SELECT @e[distance=..30000000] - 0,-60,0 -> Dee armor_stand#1 A Bob Cee pig#1 cow#1 zombie#1
+SELECT @e[distance=..1.7976931348623157e308] - 0,-60,0 -> !Expected end of options
+SELECT @e[dx=30000000,dy=100,dz=30000000] - 0,-60,0 -> A Bob Cee pig#1 cow#1 zombie#1
+# a killed player stays on the list until it respawns; other players see it as before
+HURT Cee generic_kill 1000 -> true
+SELECT @a - 0,-60,0 -> A Bob Cee Dee
+SELECT @e - 0,-60,0 -> A Bob Dee pig#1 cow#1 zombie#1 armor_stand#1
+SELECT @e[type=player] - 0,-60,0 -> A Bob Dee
+SELECT @p - 0,-60,0 -> A
+SELECT @s - 0,-60,0 ->
+SELECT @n - 0,-60,0 -> A
+SELECT @a[gamemode=adventure] - 0,-60,0 -> Cee
+SELECT @a[level=0..] - 0,-60,0 -> A Bob Cee Dee
+SELECT @a[distance=..10] - 0,-60,0 -> A Bob Cee Dee
+SELECT @a[sort=nearest] - 0,-60,0 -> A Bob Cee Dee
+SELECT @a[name=Cee] - 0,-60,0 -> Cee
+SELECT @e[name=Cee] - 0,-60,0 ->
+SELECT @a[scores={x=1}] - 0,-60,0 ->
+SELECT @a[tag=] - 0,-60,0 -> A Bob Cee Dee
+SELECT @a[team=] - 0,-60,0 -> A Bob Cee Dee
+SELECT @a[nbt={}] - 0,-60,0 -> A Bob Cee Dee
+SELECT @a[predicate=minecraft:nothing] - 0,-60,0 ->
+SELECT @s Cee 8.5,-60,0.5 -> Cee
+SELECT @s[gamemode=adventure] Cee 8.5,-60,0.5 -> Cee
+SELECT @a Cee 8.5,-60,0.5 -> A Bob Cee Dee
+SELECT Cee - 0,-60,0 -> Cee
+SELECT @p Cee 8.5,-60,0.5 -> Cee
+SELECT @a - 0,-60,0 -> A Bob Cee Dee
+SELECT @e - 0,-60,0 -> A Bob Dee pig#1 cow#1 zombie#1 armor_stand#1
+SELECT @e[type=player] - 0,-60,0 -> A Bob Dee
+SELECT @p - 0,-60,0 -> A
+SELECT @s - 0,-60,0 ->
+SELECT @n - 0,-60,0 -> A
+SELECT @a[gamemode=adventure] - 0,-60,0 -> Cee
+SELECT @a[distance=..10] - 0,-60,0 -> A Bob Dee
+SELECT @a[name=Cee] - 0,-60,0 -> Cee
+SELECT @e[name=Cee] - 0,-60,0 ->
+SELECT @a[x=8.5,distance=..1] - 0,-60,0 ->
+SELECT @a[dx=0] - 0,-60,0 -> A
+SELECT @s Cee 8.5,-60,0.5 -> Cee
+SELECT @a Cee 8.5,-60,0.5 -> A Bob Cee Dee
+SELECT @a - 0,-60,0 -> A Bob Dee Cee
+SELECT @e[type=player] - 0,-60,0 -> A Bob Dee Cee
+SELECT @p - 0,-60,0 -> A
+SELECT @a[gamemode=adventure] - 0,-60,0 -> Cee
+SELECT @a[name=Cee] - 0,-60,0 -> Cee
+SELECT @a[level=0] - 0,-60,0 -> A Bob Dee Cee
+# a removed mob leaves the selection; a removed executor selects nothing
+CF msg Killed Cow
+CF result success 1
+CF msg Killed Armor Stand
+CF result success 1
+SELECT @e - 0,-60,0 -> A Bob Dee pig#1 zombie#1 Cee item#1
+SELECT @n - 0,-60,0 -> A
+SELECT @n[type=cow] - 0,-60,0 ->
+SELECT @e[type=armor_stand] - 0,-60,0 ->
+SELECT 00000001-0000-0002-0000-000300000002 - 0,-60,0 ->
+SELECT 00000001-0000-0002-0000-000300000001 - 0,-60,0 ->
+# game modes do not hide players from selectors
+SELECT @a[gamemode=spectator] Dee -8.5,-60,0.5 -> Dee
+SELECT @e[type=player,gamemode=spectator] Dee -8.5,-60,0.5 -> Dee
+SELECT @p[gamemode=spectator] Dee -8.5,-60,0.5 -> Dee
+SELECT @a[distance=..9] Dee -8.5,-60,0.5 -> A Dee Cee
+SELECT @e[distance=..9,sort=nearest] Dee -8.5,-60,0.5 -> Dee Cee A
+# parse errors of selectors and options
+SELECT  - 0,-60,0 -> !Invalid name or UUID
+SELECT @ - 0,-60,0 -> !Missing selector type
+SELECT @x - 0,-60,0 -> !Unknown selector type '@x'
+SELECT @E - 0,-60,0 -> !Unknown selector type '@E'
+SELECT @e[ - 0,-60,0 -> !Expected end of options
+SELECT @e[] - 0,-60,0 -> A Bob Dee pig#1 zombie#1 Cee item#1
+SELECT @e[,] - 0,-60,0 -> !Unknown option ''
+SELECT @e[limit=1,] - 0,-60,0 -> A
+SELECT @e[,limit=1] - 0,-60,0 -> !Unknown option ''
+SELECT @e[limit=1 limit=1] - 0,-60,0 -> !Expected end of options
+SELECT @e[limit=1,,limit=2] - 0,-60,0 -> !Unknown option ''
+SELECT @e[ limit=1 ] - 0,-60,0 -> A
+SELECT @e[limit = 1] - 0,-60,0 -> A
+SELECT @e[limit=1]] - 0,-60,0 -> A
+SELECT @e[limit=1]x - 0,-60,0 -> A
+SELECT @e[foo=1] - 0,-60,0 -> !Unknown option 'foo'
+SELECT @e[Limit=1] - 0,-60,0 -> !Unknown option 'Limit'
+SELECT @e[LIMIT=1] - 0,-60,0 -> !Unknown option 'LIMIT'
+SELECT @e[=1] - 0,-60,0 -> !Unknown option ''
+SELECT @e[limit] - 0,-60,0 -> !Expected value for option 'limit'
+SELECT @e[limit= - 0,-60,0 -> !Expected integer
+SELECT @e[type=pig,type=cow] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @a[type=pig] - 0,-60,0 ->
+SELECT @p[type=pig] - 0,-60,0 ->
+SELECT @r[type=pig] - 0,-60,0 ->
+SELECT @s[type=pig] - 0,-60,0 ->
+SELECT @n[type=player] - 0,-60,0 -> A
+SELECT @a[type=player] - 0,-60,0 -> A Bob Dee Cee
+SELECT @s[limit=2] - 0,-60,0 -> !Option 'limit' isn't applicable here
+SELECT @s[sort=nearest] - 0,-60,0 -> !Option 'sort' isn't applicable here
+SELECT @p[limit=2] - 0,-60,0 -> A Bob
+SELECT @p[sort=furthest] - 0,-60,0 -> Dee
+SELECT @e[distance=..5,distance=..6] - 0,-60,0 -> !Option 'distance' isn't applicable here
+SELECT @e[level=1,level=2] - 0,-60,0 -> !Option 'level' isn't applicable here
+SELECT @e[gamemode=creative,gamemode=survival] - 0,-60,0 -> !Option 'gamemode' isn't applicable here
+SELECT @e[x=1,x=2] - 0,-60,0 -> !Option 'x' isn't applicable here
+SELECT @e[y=1,y=2] - 0,-60,0 -> !Option 'y' isn't applicable here
+SELECT @e[z=1,z=2] - 0,-60,0 -> !Option 'z' isn't applicable here
+SELECT @e[dx=1,dx=2] - 0,-60,0 -> !Option 'dx' isn't applicable here
+SELECT @e[dy=1,dy=2] - 0,-60,0 -> !Option 'dy' isn't applicable here
+SELECT @e[dz=1,dz=2] - 0,-60,0 -> !Option 'dz' isn't applicable here
+SELECT @e[x_rotation=1,x_rotation=2] - 0,-60,0 -> !Option 'x_rotation' isn't applicable here
+SELECT @e[y_rotation=1,y_rotation=2] - 0,-60,0 -> !Option 'y_rotation' isn't applicable here
+SELECT @e[scores={a=1},scores={a=1}] - 0,-60,0 -> !Option 'scores' isn't applicable here
+SELECT @e[advancements={},advancements={}] - 0,-60,0 -> !Option 'advancements' isn't applicable here
+SELECT @e[name=a,name=b] - 0,-60,0 -> !Option 'name' isn't applicable here
+SELECT @e[team=a,team=b] - 0,-60,0 -> !Option 'team' isn't applicable here
+SELECT @e[sort=nearest,sort=nearest] - 0,-60,0 -> !Option 'sort' isn't applicable here
+SELECT @e[limit=1,limit=1] - 0,-60,0 -> !Option 'limit' isn't applicable here
+SELECT @e[advancements={minecraft:story/root=true}] - 0,-60,0 ->
+SELECT @e[advancements={minecraft:story/root=false}] - 0,-60,0 -> A Bob Dee Cee
+SELECT @e[advancements={minecraft:story/root={x=true}}] - 0,-60,0 ->
+SELECT @e[advancements={nothing=true}] - 0,-60,0 ->
+SELECT @e[advancements={}] - 0,-60,0 -> A Bob Dee pig#1 zombie#1 Cee item#1
+SELECT @e[advancements={minecraft:story/root=maybe}] - 0,-60,0 -> !Invalid boolean: expected 'true' or 'false' but found 'maybe'
+SELECT @e[advancements=] - 0,-60,0 -> !Expected '{'
+SELECT @e[advancements={a - 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:story/root=false}] - 0,-60,0 -> A Bob Dee Cee
+SELECT @e[type=player,advancements={minecraft:story/root=false}] - 0,-60,0 -> A Bob Dee Cee
+SELECT @a[advancements={minecraft:story/root={nothing=true}}] - 0,-60,0 ->
+SELECT @a[advancements={minecraft:story/root=true,minecraft:story/root=false}] - 0,-60,0 -> A Bob Dee Cee
+SELECT @e[nbt={}] - 0,-60,0 -> A Bob Dee pig#1 zombie#1 Cee item#1
+SELECT @e[nbt=!{}] - 0,-60,0 ->
+SELECT @e[nbt=!!{}] - 0,-60,0 -> !Expected a valid unquoted string
+SELECT @e[tag=!!] - 0,-60,0 -> !Expected end of options
+SELECT @e[name=!!a] - 0,-60,0 -> !Expected end of options
+SELECT @e[team=!!a] - 0,-60,0 -> !Expected end of options
+SELECT @e[gamemode=!!survival] - 0,-60,0 -> !Invalid or unknown game mode ''
+SELECT @e[type=!!pig] - 0,-60,0 -> !Invalid or unknown entity type 'minecraft:'
+SELECT @e[predicate=!!a:b] - 0,-60,0 -> !Expected end of options
+SELECT a - 0,-60,0 -> A
+SELECT A - 0,-60,0 -> A
+SELECT ä - 0,-60,0 -> !Invalid name or UUID
+SELECT "ä" - 0,-60,0 ->
+SELECT abcdefghijklmnop - 0,-60,0 ->
+SELECT abcdefghijklmnopq - 0,-60,0 -> !Invalid name or UUID
+SELECT "abcdefghijklmnopq" - 0,-60,0 -> !Invalid name or UUID
+SELECT 00000000-0000-0000-0000-000000000000 - 0,-60,0 ->
+SELECT not-a-uuid - 0,-60,0 ->
+SELECT 1-2-3-4-5-6 - 0,-60,0 ->
+SELECT -1-2-3-4-5 - 0,-60,0 ->
+SELECT @e[type=pig,limit=1] - 0,-60,0 -> pig#1
+SELECT @e[type=cow,type=!cow] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @a[type=!player] - 0,-60,0 ->
+SELECT @e[distance=1..2,x=1,y=2,z=3,dx=1,dy=2,dz=3,x_rotation=..0,y_rotation=0..,limit=3,sort=furthest,gamemode=!creative,level=..3,scores={a=1},tag=a,team=b,name=c,type=!pig,nbt={a:1},predicate=a:b] - 0,-60,0 ->
+SELECT @e[distance=1..2,x=1,y=2,z=3,dx=1,dy=2,dz=3,x_rotation=..0,y_rotation=0..,limit=3,sort=furthest,level=..3,scores={a=1},tag=a,team=b,name=c,type=!pig,nbt={a:1},predicate=a:b,advancements={a=true}] - 0,-60,0 ->

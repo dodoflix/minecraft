@@ -98,13 +98,43 @@ pub fn entity_plain_text_name(entity: &dyn Entity) -> String {
 
 /// `Entity.getDisplayName()`: the name formatted for its team, with the hover/insertion vanilla adds.
 pub fn entity_display_name(server: &MinecraftServer, entity: &dyn Entity) -> Component {
+    entity_display_name_in(server, None, entity)
+}
+
+/// [`entity_display_name`] of an entity that may not be in a level yet: a tame pet then looks up its owner in `dimension`.
+pub fn entity_display_name_in(
+    server: &MinecraftServer,
+    dimension: Option<&DimensionKey>,
+    entity: &dyn Entity,
+) -> Component {
     let name = entity_name(entity);
     let scoreboard = server.scoreboard.read();
-    let team = scoreboard.get_players_team(&entity.get_scoreboard_name());
+    let team = entity_team(server, &scoreboard, dimension, entity);
     decorate_display_name(
         crate::world::scores::PlayerTeam::format_name_for_team(team, &name),
         entity,
     )
+}
+
+/// `Entity.getTeam()`: the entity's own team, else for a tame pet the team of its root owner (found in whichever level holds the
+/// pet, or in `dimension` while the pet is not in a level yet).
+fn entity_team<'a>(
+    server: &MinecraftServer,
+    scoreboard: &'a crate::world::scores::Scoreboard,
+    dimension: Option<&DimensionKey>,
+    entity: &dyn Entity,
+) -> Option<&'a crate::world::scores::PlayerTeam> {
+    if let Some(team) = scoreboard.get_players_team(&entity.get_scoreboard_name()) {
+        return Some(team);
+    }
+    if !crate::world::entity::team::is_tame_pet(entity) {
+        return None;
+    }
+    let level = server
+        .all_levels()
+        .find(|l| l.get_entity_or_lent(entity.id()).is_some())
+        .or_else(|| dimension.and_then(|d| server.level(d)))?;
+    crate::world::entity::team::get_team(level, scoreboard, entity)
 }
 
 /// `Entity.decorateDisplayNameComponent` (hover = the entity, insertion = its UUID) and the override of
@@ -132,11 +162,7 @@ pub fn decorate_display_name(name: Component, entity: &dyn Entity) -> Component 
 
 /// `Entity.getTeam().getName()`.
 pub fn entity_team_name(server: &MinecraftServer, entity: &dyn Entity) -> Option<String> {
-    server
-        .scoreboard
-        .read()
-        .get_players_team(&entity.get_scoreboard_name())
-        .map(|t| t.get_name().to_owned())
+    entity_team(server, &server.scoreboard.read(), None, entity).map(|t| t.get_name().to_owned())
 }
 
 /// `ServerPlayer.gameMode()`.
@@ -1404,7 +1430,7 @@ pub fn command_entity_of(
         id: entity.id,
         uuid: e.uuid(),
         is_player: e.is_player(),
-        display_name: entity_display_name(server, e),
+        display_name: entity_display_name_in(server, Some(&entity.dimension), e),
         plain_text_name: entity_plain_text_name(e),
         eye_height: e.base().eye_height,
         player: if e.is_player() {

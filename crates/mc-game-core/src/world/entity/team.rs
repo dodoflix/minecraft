@@ -13,11 +13,37 @@ pub fn get_team<'a>(
     if let Some(team) = scoreboard.get_players_team(&e.get_scoreboard_name()) {
         return Some(team);
     }
-    if e.mob().and_then(|m| m.tamable.as_ref()).is_some() && super::mob::tamable::is_tame(e) {
-        let owner = level.get_entity(super::mob::tamable::get_root_owner(level, e)?)?;
-        return scoreboard.get_players_team(&owner.get_scoreboard_name());
-    }
-    None
+    get_owner_team(level, scoreboard, tame_owner(e)?)
+}
+
+/// `TamableAnimal.isTame()` of an entity that has the tamable state.
+pub fn is_tame_pet(e: &dyn Entity) -> bool {
+    e.mob().and_then(|m| m.tamable.as_ref()).is_some() && super::mob::tamable::is_tame(e)
+}
+
+/// `getOwnerReference()` of a tame pet.
+pub fn tame_owner(e: &dyn Entity) -> Option<uuid::Uuid> {
+    is_tame_pet(e)
+        .then(|| super::mob::tamable::get_owner_reference(e))
+        .flatten()
+}
+
+/// `getRootOwner().getTeam()` of a tame pet whose owner reference is `owner`: the root owner is the owner itself, or the owner's own
+/// root owner when that one is a pet too (`None` while the owner is not in the level or the chain breaks or loops).
+pub fn get_owner_team<'a>(
+    level: &ServerLevel,
+    scoreboard: &'a Scoreboard,
+    owner: uuid::Uuid,
+) -> Option<&'a PlayerTeam> {
+    let owner = level
+        .get_entity_by_uuid(owner)
+        .filter(|o| o.living().is_some())?;
+    let root = if owner.mob().and_then(|m| m.tamable.as_ref()).is_some() {
+        level.get_entity(super::mob::tamable::get_root_owner(level, owner)?)?
+    } else {
+        owner
+    };
+    scoreboard.get_players_team(&root.get_scoreboard_name())
 }
 
 /// `Entity.getTeam().getName()`.

@@ -1,0 +1,166 @@
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Sheep
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Created new objective [kills]
+CF result success 1
+CF msg Created new objective [hp]
+CF result success 2
+CF msg Created new objective [temp]
+CF result success 3
+CF msg Created new objective [fl]
+CF result success 4
+CF msg Set [kills] for A to 5
+CF result success 5
+CF msg Set [kills] for B to -3
+CF result success -3
+CF msg Set [kills] for 0 entities to 0
+CF result success 0
+CF msg Set [hp] for A to 20
+CF result success 20
+CF msg Set [hp] for B to 7
+CF result success 7
+CF msg Set [kills] for Pig to 5
+CF result success 5
+CF msg Set [hp] for Pig to 10
+CF result success 10
+CF msg Set [kills] for Pig to 2147483647
+CF result success 2147483647
+CF msg Set [hp] for Pig to -2147483648
+CF result success -2147483648
+CF msg Set [kills] for Cow to 1
+CF result success 1
+CF msg Set [hp] for Sheep to 3
+CF result success 3
+CF msg Set [temp] for 0 entities to 0
+CF result success 0
+CF msg Set [kills] for Fake to 5
+CF result success 5
+# holders are matched by scoreboard name: a player by name, a mob by UUID, so a fake player named like a player shares its scores
+CF msg Set [temp] for A to 1
+CF result success 1
+SELECT @e[sort=nearest,scores={kills=5}] - 0,-60,0 -> A pig#1
+SELECT @e[sort=nearest,scores={kills=..5}] - 0,-60,0 -> A B pig#1 C cow#1
+SELECT @e[sort=nearest,scores={kills=5..}] - 0,-60,0 -> A pig#1 pig#2
+SELECT @e[sort=nearest,scores={kills=-3..1}] - 0,-60,0 -> B C cow#1
+SELECT @e[sort=nearest,scores={kills=0}] - 0,-60,0 -> C
+SELECT @e[sort=nearest,scores={kills=-3}] - 0,-60,0 -> B
+SELECT @e[sort=nearest,scores={kills=-100..-1}] - 0,-60,0 -> B
+SELECT @e[sort=nearest,scores={kills=2147483647}] - 0,-60,0 -> pig#2
+SELECT @e[sort=nearest,scores={hp=-2147483648}] - 0,-60,0 -> pig#2
+SELECT @e[sort=nearest,scores={hp=..-2147483648}] - 0,-60,0 -> pig#2
+SELECT @e[sort=nearest,scores={kills=1..,hp=..10}] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,scores={kills=1..,hp=10..}] - 0,-60,0 -> A pig#1
+SELECT @e[sort=nearest,scores={kills=0..,hp=7..20,temp=0..}] - 0,-60,0 -> A
+SELECT @e[sort=nearest,scores={temp=0}] - 0,-60,0 -> sheep#1
+SELECT @e[sort=nearest,scores={temp=..5}] - 0,-60,0 -> A sheep#1
+SELECT @e[sort=nearest,scores={temp=1}] - 0,-60,0 -> A
+# an objective with no score for a holder never matches, neither does an unknown objective
+SELECT @e[sort=nearest,scores={fl=0..}] - 0,-60,0 ->
+SELECT @e[sort=nearest,scores={fl=..0}] - 0,-60,0 ->
+SELECT @e[sort=nearest,scores={nothing=0..}] - 0,-60,0 ->
+SELECT @e[sort=nearest,scores={kills=0..,nothing=0..}] - 0,-60,0 ->
+SELECT @e[sort=nearest,scores={Kills=5}] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=noscore,scores={kills=..0}] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=minecraft:armor_stand,scores={hp=..100}] - 0,-60,0 ->
+# players only
+SELECT @a[scores={kills=5}] - 0,-60,0 -> A
+SELECT @a[scores={kills=..0}] - 0,-60,0 -> B C
+SELECT @a[scores={hp=1..}] - 0,-60,0 -> A B
+SELECT @a[scores={hp=7..20,kills=..9}] - 0,-60,0 -> A B
+SELECT @p[scores={kills=..0}] - 0,-60,0 -> B
+SELECT @p[scores={hp=..7}] - 0,-60,0 -> B
+SELECTSORTED @r[scores={kills=5},limit=3] - 0,-60,0 -> A
+SELECT @e[sort=nearest,type=player,scores={kills=0..}] - 0,-60,0 -> A C
+SELECT @e[sort=nearest,type=!player,scores={kills=0..}] - 0,-60,0 -> pig#1 pig#2 cow#1
+SELECT @n[scores={kills=1..},type=!player] - 0,-60,0 -> pig#1
+SELECT @s[scores={kills=5}] A 0.5,-60,0.5 -> A
+SELECT @s[scores={kills=..4}] A 0.5,-60,0.5 ->
+SELECT @s[scores={kills=-3}] B 4.5,-60,0.5 -> B
+SELECT @s[scores={temp=0..}] B 4.5,-60,0.5 ->
+SELECT @s[scores={kills=0,hp=0}] C 8.5,-60,0.5 ->
+# spacing, empty braces, repeated and misspelled forms
+SELECT @a[scores={}] - 0,-60,0 -> A B C
+SELECT @a[scores={ }] - 0,-60,0 -> A B C
+SELECT @a[scores={ kills = 5 }] - 0,-60,0 -> A
+SELECT @a[scores={kills=5,}] - 0,-60,0 -> A
+SELECT @a[scores={,kills=5}] - 0,-60,0 -> !Expected '='
+SELECT @a[scores={kills=5 hp=1}] - 0,-60,0 ->
+SELECT @a[scores={kills=1,kills=5}] - 0,-60,0 -> A
+SELECT @a[scores={kills=5,kills=1}] - 0,-60,0 ->
+SELECT @a[scores={kills=5,hp=20,hp=19}] - 0,-60,0 ->
+SELECT @a[scores={kills=5,,hp=20}] - 0,-60,0 -> !Expected '='
+SELECT @a[scores={kills=5},scores={hp=1}] - 0,-60,0 -> !Option 'scores' isn't applicable here
+SELECT @a[scores={kills=5}, scores={hp=1}] - 0,-60,0 -> !Option 'scores' isn't applicable here
+SELECT @a[scores={kills=5},tag=] - 0,-60,0 -> A
+SELECT @a[scores={kills=1..2147483647}] - 0,-60,0 -> A
+# syntax errors
+SELECT @a[scores=] - 0,-60,0 -> !Expected '{'
+SELECT @a[scores=kills] - 0,-60,0 -> !Expected '{'
+SELECT @a[scores={kills}] - 0,-60,0 -> !Expected '='
+SELECT @a[scores={kills=}] - 0,-60,0 -> !Expected value or range of values
+SELECT @a[scores={kills=a}] - 0,-60,0 -> !Expected value or range of values
+SELECT @a[scores={kills=..}] - 0,-60,0 -> !Expected value or range of values
+SELECT @a[scores={kills=1.5}] - 0,-60,0 -> !Invalid integer '1.5'
+SELECT @a[scores={kills=1..a}] - 0,-60,0 -> !Expected '='
+SELECT @a[scores={kills=5..1}] - 0,-60,0 -> !Min cannot be bigger than max
+SELECT @a[scores={kills=2147483648}] - 0,-60,0 -> !Invalid integer '2147483648'
+SELECT @a[scores={kills=5] - 0,-60,0 -> !Expected '='
+SELECT @a[scores={kills=5 - 0,-60,0 -> !Expected '}'
+SELECT @a[scores={ - 0,-60,0 -> !Expected '}'
+SELECT @a[scores={=5}] - 0,-60,0 ->
+SELECT @a[scores={"kills"=5}] - 0,-60,0 -> !Expected '='
+SELECT @a[scores={kills:5}] - 0,-60,0 -> !Expected '='
+SELECT @a[scores={kills=5}}] - 0,-60,0 -> !Expected end of options
+SELECT @a[scores=1] - 0,-60,0 -> !Expected '{'
+SELECT @s[scores={kills=5}] - 0,-60,0 ->
+# objectives and the commands that read scores
+CF msg Removed objective [temp]
+CF result success 3
+SELECT @e[sort=nearest,scores={temp=0..}] - 0,-60,0 ->
+CF msg Added 1 to [hp] for 3 entities
+CF result success -2147483615
+CF msg Added 100 to [hp] for B (now 107)
+CF result success 107
+CF msg Added 1 to [fl] for Pig (now 1)
+CF result success 1
+CF msg Set [fl] for Pig to 9
+CF result success 9
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed. Count: 1
+CF result success 1
+CF msg Reset all scores for Cow
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Set [kills] for B to 1
+CF result success 1
+CF msg Set [kills] for Pig to -2147483644
+CF result success -2147483644
+OBJ {DisplayName:"fl",Name:"fl"}
+OBJ {DisplayName:"hp",Name:"hp"}
+OBJ {DisplayName:"kills",Name:"kills"}
+SCORE {Locked:1b,Name:"00000009-0000-0000-0000-000000000001",Objective:"fl",Score:1}
+SCORE {Locked:1b,Name:"00000009-0000-0000-0000-000000000001",Objective:"hp",Score:11}
+SCORE {Locked:1b,Name:"00000009-0000-0000-0000-000000000001",Objective:"kills",Score:5}
+SCORE {Locked:1b,Name:"00000009-0000-0000-0000-000000000002",Objective:"fl",Score:9}
+SCORE {Locked:1b,Name:"00000009-0000-0000-0000-000000000002",Objective:"hp",Score:-2147483647}
+SCORE {Locked:1b,Name:"00000009-0000-0000-0000-000000000002",Objective:"kills",Score:-2147483644}
+SCORE {Locked:1b,Name:"00000009-0000-0000-0000-000000000004",Objective:"hp",Score:3}
+SCORE {Locked:1b,Name:"A",Objective:"hp",Score:21}
+SCORE {Locked:1b,Name:"A",Objective:"kills",Score:5}
+SCORE {Locked:1b,Name:"B",Objective:"hp",Score:107}
+SCORE {Locked:1b,Name:"B",Objective:"kills",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"kills"}
+SCORE {Locked:1b,Name:"Fake",Objective:"kills",Score:5}
+DISPLAY {}
+SELECT @e[sort=nearest,scores={fl=1..}] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,scores={kills=1..}] - 0,-60,0 -> A B pig#1

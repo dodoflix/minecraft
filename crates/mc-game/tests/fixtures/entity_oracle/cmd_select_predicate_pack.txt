@@ -1,0 +1,231 @@
+CF msg Summoned new "Bob"
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Zombie
+CF result success 1
+CF msg Summoned new Skeleton
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Sheep
+CF result success 1
+CF msg Created new objective [pts]
+CF result success 1
+CF msg Set [pts] for A to 3
+CF result success 3
+CF msg Set [pts] for Bob to 11
+CF result success 11
+CF msg Set [pts] for 2 entities to 5
+CF result success 10
+CF msg Set [pts] for Cow to 10
+CF result success 10
+CF msg Set [pts] for 0 entities to 0
+CF result success 0
+CF msg Created team [red]
+CF result success 1
+CF msg Added A to team [red]
+CF result success 1
+CF msg Added Cow to team [red]
+CF result success 1
+CF msg Gave 1 [Stick] to A
+CF result success 1
+CF msg Gave 1 [Stone] to Bob
+CF result success 1
+CF msg Reloading!
+CF result success 0
+# the predicates are registered by the pack
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF fail Can't find element 'sel:nothing' in registry 'minecraft:predicate'
+CF fail ...el:nothing<--[HERE]
+# a positive match: entity type predicates
+SELECT @e[sort=nearest,predicate=sel:is_pig] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,predicate=sel:is_pig] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,predicate=!sel:is_pig] - 0,-60,0 -> A armor_stand#1 sheep#1 armor_stand#2 Bob cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:is_undead] - 0,-60,0 -> zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=!sel:is_undead] - 0,-60,0 -> A pig#1 armor_stand#1 sheep#1 armor_stand#2 Bob pig#2 cow#1
+SELECT @e[sort=nearest,predicate=sel:is_player] - 0,-60,0 -> A Bob
+SELECT @e[sort=nearest,predicate=!sel:is_player] - 0,-60,0 -> pig#1 armor_stand#1 sheep#1 armor_stand#2 pig#2 cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:not_pig] - 0,-60,0 -> A armor_stand#1 sheep#1 armor_stand#2 Bob cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=!sel:not_pig] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,predicate=sel:always] - 0,-60,0 -> A pig#1 armor_stand#1 sheep#1 armor_stand#2 Bob pig#2 cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=!sel:always] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=sel:never] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=!sel:never] - 0,-60,0 -> A pig#1 armor_stand#1 sheep#1 armor_stand#2 Bob pig#2 cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:pig_or_undead] - 0,-60,0 -> pig#1 pig#2 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=!sel:pig_or_undead] - 0,-60,0 -> A armor_stand#1 sheep#1 armor_stand#2 Bob cow#1
+SELECT @e[sort=nearest,predicate=sel:named_bob] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,predicate=!sel:named_bob] - 0,-60,0 -> A armor_stand#1 sheep#1 armor_stand#2 Bob pig#2 cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:east] - 0,-60,0 -> armor_stand#2 Bob pig#2 cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=!sel:east] - 0,-60,0 -> A pig#1 armor_stand#1 sheep#1
+SELECT @e[sort=nearest,predicate=sel:has_points] - 0,-60,0 -> A pig#1 pig#2 cow#1
+SELECT @e[sort=nearest,predicate=!sel:has_points] - 0,-60,0 -> armor_stand#1 sheep#1 armor_stand#2 Bob zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:is_baby] - 0,-60,0 -> pig#2
+SELECT @e[sort=nearest,predicate=!sel:is_baby] - 0,-60,0 -> A pig#1 armor_stand#1 sheep#1 armor_stand#2 Bob cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:on_red_team] - 0,-60,0 -> A cow#1
+SELECT @e[sort=nearest,predicate=!sel:on_red_team] - 0,-60,0 -> pig#1 armor_stand#1 sheep#1 armor_stand#2 Bob pig#2 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:holds_stick] - 0,-60,0 -> A
+SELECT @e[sort=nearest,predicate=!sel:holds_stick] - 0,-60,0 -> pig#1 armor_stand#1 sheep#1 armor_stand#2 Bob pig#2 cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:with_tag] - 0,-60,0 -> A pig#1 armor_stand#1 sheep#1 armor_stand#2 Bob pig#2 cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=!sel:with_tag] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=sel:random_one] - 0,-60,0 -> A pig#1 armor_stand#1 sheep#1 armor_stand#2 Bob pig#2 cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=!sel:random_one] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=sel:random_zero] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=!sel:random_zero] - 0,-60,0 -> A pig#1 armor_stand#1 sheep#1 armor_stand#2 Bob pig#2 cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:height] - 0,-60,0 -> A pig#1 armor_stand#1 sheep#1 Bob pig#2 cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=!sel:height] - 0,-60,0 -> armor_stand#2
+SELECT @e[sort=nearest,predicate=sel:solid_below] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=!sel:solid_below] - 0,-60,0 -> A pig#1 armor_stand#1 sheep#1 armor_stand#2 Bob pig#2 cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:missing] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=!sel:missing] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=sel:is_pig] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,predicate=!sel:is_pig] - 0,-60,0 -> A armor_stand#1 sheep#1 armor_stand#2 Bob cow#1 zombie#1 skeleton#1
+# combinations
+SELECT @e[sort=nearest,predicate=sel:is_pig,predicate=sel:is_baby] - 0,-60,0 -> pig#2
+SELECT @e[sort=nearest,predicate=sel:is_pig,predicate=!sel:is_baby] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,predicate=!sel:is_pig,predicate=!sel:is_undead] - 0,-60,0 -> A armor_stand#1 sheep#1 armor_stand#2 Bob cow#1
+SELECT @e[sort=nearest,predicate=sel:pig_or_undead,predicate=sel:with_tag] - 0,-60,0 -> pig#1 pig#2 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:east,predicate=sel:has_points] - 0,-60,0 -> pig#2 cow#1
+SELECT @e[sort=nearest,predicate=sel:east,predicate=!sel:has_points] - 0,-60,0 -> armor_stand#2 Bob zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:is_pig,predicate=sel:is_pig] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,predicate=sel:is_pig,predicate=sel:never] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=!sel:never,predicate=!sel:always] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=sel:always,type=!player] - 0,-60,0 -> pig#1 armor_stand#1 sheep#1 armor_stand#2 pig#2 cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:always,type=player] - 0,-60,0 -> A Bob
+SELECT @e[sort=nearest,predicate=sel:is_pig,name=Bob] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=sel:is_pig,tag=special] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,predicate=sel:is_pig,tag=!special] - 0,-60,0 -> pig#2
+SELECT @e[sort=nearest,predicate=sel:has_points,scores={pts=5}] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,predicate=sel:has_points,scores={pts=..4}] - 0,-60,0 -> A
+SELECT @e[sort=nearest,predicate=sel:on_red_team,team=red] - 0,-60,0 -> A cow#1
+SELECT @e[sort=nearest,predicate=!sel:on_red_team,team=] - 0,-60,0 -> pig#1 armor_stand#1 sheep#1 armor_stand#2 Bob pig#2 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=!sel:on_red_team,team=!red] - 0,-60,0 -> pig#1 armor_stand#1 sheep#1 armor_stand#2 Bob pig#2 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:height,distance=..8] - 0,-60,0 -> A pig#1 armor_stand#1 sheep#1
+SELECT @e[sort=nearest,predicate=sel:height,dx=8,dy=0,dz=8] - 0,-60,0 -> A pig#1 sheep#1 Bob pig#2
+SELECT @e[sort=nearest,predicate=sel:always,limit=2] - 0,-60,0 -> A pig#1
+SELECT @e[sort=nearest,predicate=sel:always,sort=furthest,limit=2] - 0,-60,0 -> !Option 'sort' isn't applicable here
+SELECT @e[sort=nearest,predicate=!sel:never,sort=furthest,limit=3] - 0,-60,0 -> !Option 'sort' isn't applicable here
+SELECT @e[sort=nearest,predicate=sel:always,x=8,distance=..2] - 0,-60,0 -> Bob
+SELECT @e[sort=nearest,predicate=sel:always,x=8,y=-60,z=0,distance=..1] - 0,-60,0 -> Bob
+SELECT @e[sort=nearest,predicate=sel:is_player,gamemode=survival] - 0,-60,0 -> A Bob
+SELECT @e[sort=nearest,predicate=sel:is_player,level=0] - 0,-60,0 -> A Bob
+SELECT @e[sort=nearest,predicate=sel:solid_below,type=!armor_stand] - 0,-60,0 ->
+SELECT @a[predicate=sel:is_player] - 0,-60,0 -> A Bob
+SELECT @a[predicate=!sel:is_player] - 0,-60,0 ->
+SELECT @a[predicate=sel:holds_stick] - 0,-60,0 -> A
+SELECT @a[predicate=!sel:holds_stick] - 0,-60,0 -> Bob
+SELECT @a[predicate=sel:has_points] - 0,-60,0 -> A
+SELECT @a[predicate=sel:on_red_team] - 0,-60,0 -> A
+SELECT @a[predicate=sel:east] - 0,-60,0 -> Bob
+SELECT @a[predicate=!sel:east] - 0,-60,0 -> A
+SELECT @a[predicate=sel:never] - 0,-60,0 ->
+SELECT @a[predicate=!sel:never] - 0,-60,0 -> A Bob
+SELECT @a[predicate=sel:random_one,predicate=sel:random_one] - 0,-60,0 -> A Bob
+SELECT @p[predicate=sel:east] - 0,-60,0 -> Bob
+SELECT @p[predicate=!sel:holds_stick] - 0,-60,0 -> Bob
+SELECTSORTED @r[predicate=sel:holds_stick] - 0,-60,0 -> A
+SELECT @n[predicate=sel:is_baby] - 0,-60,0 -> pig#2
+SELECT @n[predicate=sel:is_undead] - 0,-60,0 -> zombie#1
+SELECT @n[predicate=!sel:is_pig,type=!player] - 0,-60,0 -> armor_stand#1
+SELECT @n[predicate=sel:named_bob] - 0,-60,0 -> pig#1
+SELECT @s[predicate=sel:holds_stick] A 0.5,-60,0.5 -> A
+SELECT @s[predicate=!sel:holds_stick] A 0.5,-60,0.5 ->
+SELECT @s[predicate=sel:holds_stick] Bob 8.5,-60,0.5 ->
+SELECT @s[predicate=sel:east] Bob 8.5,-60,0.5 -> Bob
+SELECT @s[predicate=sel:east] A 0.5,-60,0.5 ->
+SELECT @s[predicate=sel:on_red_team] A 0.5,-60,0.5 -> A
+SELECT @s[predicate=sel:on_red_team] Bob 8.5,-60,0.5 ->
+SELECT @s[predicate=sel:has_points] A 0.5,-60,0.5 -> A
+SELECT @s[predicate=sel:has_points] Bob 8.5,-60,0.5 ->
+# the predicate sees the entity position as the origin: moving an entity changes the match
+CF msg Teleported Cow to 1.500000, -60.000000, 1.500000
+CF result success 1
+CF msg Teleported Bob to 2.500000, -60.000000, 0.500000
+CF result success 1
+SELECT @e[sort=nearest,predicate=sel:east] - 0,-60,0 -> armor_stand#2 pig#2 zombie#1 skeleton#1
+SELECT @a[predicate=sel:east] - 0,-60,0 ->
+SELECT @e[sort=nearest,predicate=sel:height] - 0,-60,0 -> A cow#1 Bob pig#1 armor_stand#1 sheep#1 pig#2 zombie#1 skeleton#1
+CF msg Teleported Armor Stand to 6.500000, -50.000000, -2.500000
+CF result success 1
+SELECT @e[sort=nearest,predicate=sel:height] - 0,-60,0 -> A cow#1 Bob pig#1 armor_stand#1 sheep#1 pig#2 zombie#1 skeleton#1
+# commands
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed. Count: 1
+CF msg Added tag 'pigtag' to 2 entities
+CF result success 2
+CF msg Added tag 'undeadtag' to 2 entities
+CF result success 2
+CF msg Added tag 'other' to 4 entities
+CF result success 4
+CF msg Added tag 'holder' to A
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Killed 11 entities
+CF result success 11
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF msg Added 1 to [pts] for 3 entities
+CF result success 21
+CF msg Added 100 to [pts] for "Bob" (now 106)
+CF result success 106
+CF msg Added 2 members to team [red]
+CF result success 2
+SELECT @e[sort=nearest,tag=pigtag] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,tag=undeadtag] - 0,-60,0 -> zombie#1 skeleton#1
+SELECT @e[sort=nearest,tag=other] - 0,-60,0 -> cow#1 armor_stand#1 sheep#1 armor_stand#2
+SELECT @e[sort=nearest,tag=holder] - 0,-60,0 -> A
+SELECT @e[sort=nearest,tag=m] - 0,-60,0 ->
+SELECT @e[sort=nearest,team=red] - 0,-60,0 -> A cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:on_red_team] - 0,-60,0 -> A cow#1 zombie#1 skeleton#1
+SELECT @e[sort=nearest,predicate=sel:has_points] - 0,-60,0 -> A
+# syntax
+SELECT @e[predicate=] - 0,-60,0 ->
+SELECT @e[predicate=!] - 0,-60,0 ->
+SELECT @e[predicate=Bad:Id] - 0,-60,0 -> !Expected end of options
+SELECT @e[predicate=sel:is_pig - 0,-60,0 -> !Expected end of options
+SELECT @e[predicate=sel:is_pig,] - 0,-60,0 -> pig#1
+SELECT @e[predicate=sel:] - 0,-60,0 ->
+SELECT @e[predicate=:is_pig] - 0,-60,0 ->
+SELECT @e[predicate=sel/is_pig] - 0,-60,0 ->
+SELECT @e[predicate="sel:is_pig"] - 0,-60,0 -> !Expected end of options
+SELECT @e[predicate=!!sel:is_pig] - 0,-60,0 -> !Expected end of options

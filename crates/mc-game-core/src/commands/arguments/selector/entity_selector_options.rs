@@ -555,7 +555,7 @@ fn nbt(parser: &mut EntitySelectorParser<'_>) -> Result<(), CommandSyntaxExcepti
         let mut output = mc_nbt::CompoundTag::new();
         let level = ctx.server.level(ctx.dimension);
         let lookup = |id| level.and_then(|l| l.get_entity(id));
-        crate::world::entity::entity::save_without_id(e, &mut output, &lookup);
+        e.save_without_id(&mut output, &lookup);
         if e.is_player()
             && let Some(selected) = host::player_selected_item_nbt(e)
         {

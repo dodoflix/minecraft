@@ -1,0 +1,181 @@
+# `predicate=` matching entities: registered predicates of a data pack evaluated in the selector parameter set (`this_entity`, `origin`),
+# inverted and repeated, references to other predicates, entity, location, score, team, equipment, tag and flag predicates, a predicate that
+# failed to load (never matches), and the commands that select with it.
+datapack selector_predicates
+command_env
+level flat
+preload 2
+entity_counter 2100
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player Bob survival 8.5 -60 0.5 0 0
+tick 1
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b,Tags:["special"],CustomName:'"Bob"',UUID:[I;41,0,0,1]}
+cmd summon minecraft:pig 7 -60 5 {NoAI:1b,IsBaby:1b,Age:-1000,UUID:[I;41,0,0,2]}
+cmd summon minecraft:cow 9 -60 7 {NoAI:1b,UUID:[I;41,0,0,3]}
+cmd summon minecraft:zombie 11 -60 9 {NoAI:1b,PersistenceRequired:1b,Tags:["special"],UUID:[I;41,0,0,4]}
+cmd summon minecraft:skeleton 13 -60 11 {NoAI:1b,PersistenceRequired:1b,UUID:[I;41,0,0,5]}
+cmd summon minecraft:armor_stand 4 -60 -3 {NoGravity:1b,UUID:[I;41,0,0,6]}
+cmd summon minecraft:armor_stand 6 -57 -3 {NoGravity:1b,UUID:[I;41,0,0,7]}
+cmd summon minecraft:sheep 2 -60 6 {NoAI:1b,UUID:[I;41,0,0,8]}
+tick 1
+cmd scoreboard objectives add pts dummy
+cmd scoreboard players set A pts 3
+cmd scoreboard players set Bob pts 11
+cmd scoreboard players set @e[type=pig] pts 5
+cmd scoreboard players set @e[type=cow] pts 10
+cmd scoreboard players set @e[type=sheep] pts 0
+cmd team add red
+cmd team join red A
+cmd team join red @e[type=cow]
+cmd give A minecraft:stick
+cmd give Bob minecraft:stone
+tick 1
+cmd reload
+tick 5
+note the predicates are registered by the pack
+cmd execute if predicate sel:always
+cmd execute if predicate sel:never
+cmd execute if predicate sel:nothing
+note a positive match: entity type predicates
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_pig]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_pig]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:is_pig]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_undead]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:is_undead]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_player]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:is_player]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:not_pig]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:not_pig]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:always]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:always]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:never]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:never]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:pig_or_undead]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:pig_or_undead]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:named_bob]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:named_bob]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:east]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:east]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:has_points]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:has_points]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_baby]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:is_baby]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:on_red_team]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:on_red_team]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:holds_stick]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:holds_stick]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:with_tag]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:with_tag]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:random_one]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:random_one]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:random_zero]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:random_zero]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:height]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:height]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:solid_below]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:solid_below]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:missing]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:missing]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_pig]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:is_pig]
+note combinations
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_pig,predicate=sel:is_baby]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_pig,predicate=!sel:is_baby]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:is_pig,predicate=!sel:is_undead]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:pig_or_undead,predicate=sel:with_tag]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:east,predicate=sel:has_points]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:east,predicate=!sel:has_points]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_pig,predicate=sel:is_pig]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_pig,predicate=sel:never]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:never,predicate=!sel:always]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:always,type=!player]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:always,type=player]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_pig,name=Bob]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_pig,tag=special]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_pig,tag=!special]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:has_points,scores={pts=5}]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:has_points,scores={pts=..4}]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:on_red_team,team=red]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:on_red_team,team=]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:on_red_team,team=!red]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:height,distance=..8]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:height,dx=8,dy=0,dz=8]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:always,limit=2]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:always,sort=furthest,limit=2]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=!sel:never,sort=furthest,limit=3]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:always,x=8,distance=..2]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:always,x=8,y=-60,z=0,distance=..1]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_player,gamemode=survival]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:is_player,level=0]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:solid_below,type=!armor_stand]
+dump select:-/0,-60,0/@a[predicate=sel:is_player]
+dump select:-/0,-60,0/@a[predicate=!sel:is_player]
+dump select:-/0,-60,0/@a[predicate=sel:holds_stick]
+dump select:-/0,-60,0/@a[predicate=!sel:holds_stick]
+dump select:-/0,-60,0/@a[predicate=sel:has_points]
+dump select:-/0,-60,0/@a[predicate=sel:on_red_team]
+dump select:-/0,-60,0/@a[predicate=sel:east]
+dump select:-/0,-60,0/@a[predicate=!sel:east]
+dump select:-/0,-60,0/@a[predicate=sel:never]
+dump select:-/0,-60,0/@a[predicate=!sel:never]
+dump select:-/0,-60,0/@a[predicate=sel:random_one,predicate=sel:random_one]
+dump select:-/0,-60,0/@p[predicate=sel:east]
+dump select:-/0,-60,0/@p[predicate=!sel:holds_stick]
+dump selectsorted:-/0,-60,0/@r[predicate=sel:holds_stick]
+dump select:-/0,-60,0/@n[predicate=sel:is_baby]
+dump select:-/0,-60,0/@n[predicate=sel:is_undead]
+dump select:-/0,-60,0/@n[predicate=!sel:is_pig,type=!player]
+dump select:-/0,-60,0/@n[predicate=sel:named_bob]
+dump select:A/0.5,-60,0.5/@s[predicate=sel:holds_stick]
+dump select:A/0.5,-60,0.5/@s[predicate=!sel:holds_stick]
+dump select:Bob/8.5,-60,0.5/@s[predicate=sel:holds_stick]
+dump select:Bob/8.5,-60,0.5/@s[predicate=sel:east]
+dump select:A/0.5,-60,0.5/@s[predicate=sel:east]
+dump select:A/0.5,-60,0.5/@s[predicate=sel:on_red_team]
+dump select:Bob/8.5,-60,0.5/@s[predicate=sel:on_red_team]
+dump select:A/0.5,-60,0.5/@s[predicate=sel:has_points]
+dump select:Bob/8.5,-60,0.5/@s[predicate=sel:has_points]
+note the predicate sees the entity position as the origin: moving an entity changes the match
+cmd tp @e[type=cow] 1 -60 1
+cmd tp Bob 2.5 -60 0.5
+tick 1
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:east]
+dump select:-/0,-60,0/@a[predicate=sel:east]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:height]
+cmd tp @e[type=armor_stand,limit=1,sort=furthest] 6 -50 -3
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:height]
+note commands
+cmd execute if entity @e[predicate=sel:is_baby]
+cmd execute unless entity @e[predicate=sel:is_baby]
+cmd tag @e[predicate=sel:is_pig] add pigtag
+cmd tag @e[predicate=sel:is_undead] add undeadtag
+cmd tag @e[predicate=!sel:pig_or_undead,type=!player] add other
+cmd tag @a[predicate=sel:holds_stick] add holder
+cmd execute as @e[predicate=sel:with_tag] run say special
+cmd execute as @e[predicate=sel:with_tag] at @s run summon minecraft:marker ~ ~ ~ {Tags:["m"]}
+cmd kill @e[predicate=sel:is_baby]
+cmd kill @e[predicate=sel:never]
+cmd kill @e[predicate=sel:nothing]
+cmd execute as @a[predicate=sel:east] run say east
+cmd scoreboard players add @e[predicate=sel:has_points] pts 1
+cmd scoreboard players add @e[predicate=sel:has_points,type=!player] pts 100
+cmd team join red @e[predicate=sel:is_undead]
+dump select:-/0,-60,0/@e[sort=nearest,tag=pigtag]
+dump select:-/0,-60,0/@e[sort=nearest,tag=undeadtag]
+dump select:-/0,-60,0/@e[sort=nearest,tag=other]
+dump select:-/0,-60,0/@e[sort=nearest,tag=holder]
+dump select:-/0,-60,0/@e[sort=nearest,tag=m]
+dump select:-/0,-60,0/@e[sort=nearest,team=red]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:on_red_team]
+dump select:-/0,-60,0/@e[sort=nearest,predicate=sel:has_points]
+note syntax
+dump select:-/0,-60,0/@e[predicate=]
+dump select:-/0,-60,0/@e[predicate=!]
+dump select:-/0,-60,0/@e[predicate=Bad:Id]
+dump select:-/0,-60,0/@e[predicate=sel:is_pig
+dump select:-/0,-60,0/@e[predicate=sel:is_pig,]
+dump select:-/0,-60,0/@e[predicate=sel:]
+dump select:-/0,-60,0/@e[predicate=:is_pig]
+dump select:-/0,-60,0/@e[predicate=sel/is_pig]
+dump select:-/0,-60,0/@e[predicate="sel:is_pig"]
+dump select:-/0,-60,0/@e[predicate=!!sel:is_pig]

@@ -2173,9 +2173,10 @@ public final class EntityOracleDriver {
                bars.forEach((id, tag) -> out.println("BOSSBAR " + id + " " + tag));
             }
             case "storage" -> out.println("STORAGE " + arg + " " + canon(v.server.getCommandStorage().get(Identifier.parse(arg))));
-            case "select" -> {
+            case "select", "selectsorted", "selectcount" -> {
                // SELECT SELECTOR EXECUTOR POS -> REF..: `select:EXECUTOR/X,Y,Z/SELECTOR` (EXECUTOR `-` = the console), the entities the selector finds
-               // as an operator at that position, in result order (scenario names; `?` for an entity without one)
+               // as an operator at that position, in result order (scenario names; `?` for an entity without one). `selectsorted:` prints
+               // them sorted by name and `selectcount:` only how many: for `sort=random`, which Collections.shuffle draws from an unseeded Random
                nameNewEntities();
                String[] parts = arg.split("/", 3);
                String[] c = parts[1].split(",");
@@ -2184,11 +2185,20 @@ public final class EntityOracleDriver {
                   stack = stack.withEntity(ref(parts[0]));
                }
                stack = stack.withPosition(new Vec3(Double.parseDouble(c[0]), Double.parseDouble(c[1]), Double.parseDouble(c[2])));
-               StringBuilder b = new StringBuilder("SELECT " + parts[2] + " " + parts[0] + " " + parts[1] + " ->");
+               StringBuilder b = new StringBuilder(kind.toUpperCase() + " " + parts[2] + " " + parts[0] + " " + parts[1] + " ->");
                try {
                   var selector = new net.minecraft.commands.arguments.selector.EntitySelectorParser(new StringReader(parts[2]), true).parse();
+                  List<String> names = new ArrayList<>();
                   for (Entity found : selector.findEntities(stack)) {
-                     b.append(' ').append(refs.entrySet().stream().filter(en -> en.getValue() == found).map(Map.Entry::getKey).findFirst().orElse("?"));
+                     names.add(refs.entrySet().stream().filter(en -> en.getValue() == found).map(Map.Entry::getKey).findFirst().orElse("?"));
+                  }
+                  if (kind.equals("selectcount")) {
+                     b.append(' ').append(names.size());
+                  } else {
+                     if (kind.equals("selectsorted")) {
+                        Collections.sort(names);
+                     }
+                     names.forEach(n -> b.append(' ').append(n));
                   }
                } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
                   b.append(" !").append(e.getRawMessage().getString());

@@ -24,13 +24,7 @@ register_command!("TeamMsgCommand", |ctx| {
                 id: source.get_entity_or_exception()?.id,
             };
             let Some((team, receivers)) = source.with_server(|server| {
-                let scoreboard_name = host::get_entity(server, &entity)?.get_scoreboard_name();
-                let team = server
-                    .scoreboard
-                    .read()
-                    .get_players_team(&scoreboard_name)?
-                    .get_name()
-                    .to_owned();
+                let team = host::entity_team_name(server, host::get_entity(server, &entity)?)?;
                 let receivers: Vec<PlayerHandle> = server
                     .player_list
                     .get_players()

@@ -1190,6 +1190,10 @@ impl Entity for ServerPlayer {
             p.inventory.equipment(),
             out,
         );
+        // `PlayerEquipment.isEmpty` also counts the selected item, which `EntityEquipment.CODEC` leaves out: the key is an empty compound
+        if !out.contains("equipment") && !p.inventory.get_selected_item().is_empty() {
+            out.put("equipment", Tag::Compound(CompoundTag::new()));
+        }
         // Player
         out.put_int(
             "DataVersion",

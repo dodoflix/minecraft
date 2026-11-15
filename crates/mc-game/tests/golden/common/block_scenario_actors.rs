@@ -1281,6 +1281,15 @@ impl Scenario {
             0.0,
             PostTeleportTransition::DO_NOTHING,
         );
+        // `PlayerList.respawn` takes the old player off the list and adds the new one at its end
+        let handle = old.handle.clone();
+        if let Some(handle) = &handle
+            && mc_game::commands::server_access::has_server()
+        {
+            mc_game::commands::server_access::with_server(|server| {
+                server.player_list.remove_from_players(handle);
+            });
+        }
         let mut new = create_respawned_player(old, level, &transition, false, keep_inventory);
         new.send(
             &mc_protocol::packets::play::ClientboundSetExperiencePacket {
@@ -1301,6 +1310,13 @@ impl Scenario {
             listener.restart_client_load_timer_after_respawn();
         }
         level.add_player(Box::new(new));
+        if let Some(handle) = handle
+            && mc_game::commands::server_access::has_server()
+        {
+            mc_game::commands::server_access::with_server(|server| {
+                server.player_list.add_player(handle);
+            });
+        }
         level.with_player(id, |level, p| p.init_inventory_menu(level));
         // a real client reports the new level loaded (`ServerboundPlayerLoadedPacket`)
         deliver(self, name, |_, _| {

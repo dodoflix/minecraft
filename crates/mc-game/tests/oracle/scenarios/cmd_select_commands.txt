@@ -1,0 +1,192 @@
+# Selectors inside commands: the entity/entities/player/players argument types and their error texts, selectors under permission levels 0
+# and 2 and for a non-operator player, `@s` without an executor, `execute as/at/positioned/if` with selectors as origins, and entities
+# of the selection changing between the steps of one command.
+command_env
+level flat
+preload 2
+entity_counter 2300
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player Bob survival 4.5 -60 0.5 0 0
+spawn_player Cee creative 8.5 -60 0.5 0 0
+tick 1
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b,UUID:[I;61,0,0,1]}
+cmd summon minecraft:pig 5 -60 5 {NoAI:1b,UUID:[I;61,0,0,2]}
+cmd summon minecraft:cow 7 -60 7 {NoAI:1b,UUID:[I;61,0,0,3]}
+cmd summon minecraft:armor_stand 9 -60 9 {NoGravity:1b,UUID:[I;61,0,0,4]}
+tick 1
+cmd scoreboard objectives add n dummy
+note argument types: a single entity, several, a single player, several players
+cmd tp A @e[type=pig]
+cmd tp A @e[type=zombie]
+cmd tp A @e[type=pig,limit=1,sort=nearest]
+cmd tp A @a
+cmd tp A @p
+cmd tp A Bob
+cmd tp A Nobody
+cmd tp @e[type=zombie] A
+cmd tp @e[type=pig] 1 -60 1
+cmd tp @s 1 -60 1
+cmd tp @e[type=pig,limit=1] @e[type=cow,limit=1]
+cmd gamemode creative @e[type=pig]
+cmd gamemode creative @e[type=player,name=Bob]
+cmd gamemode survival @e[type=player,name=Bob]
+cmd gamemode creative @a[name=Nobody]
+cmd gamemode creative @s
+cmd gamemode creative Nobody
+cmd spawnpoint @e[type=pig] 0 -60 0
+cmd spawnpoint @a[name=Bob] 0 -60 0
+cmd clear @e[type=pig]
+cmd clear @a[name=Nobody]
+cmd give @e[type=pig] minecraft:stick
+cmd give @a[name=Nobody] minecraft:stick
+cmd give @s minecraft:stick
+cmd xp add @e[type=cow] 1 points
+cmd xp add @a[name=Bob] 1 points
+cmd effect give @e[type=zombie] minecraft:speed 5
+cmd effect give @e[type=cow] minecraft:speed 5
+cmd effect clear @e[type=pig]
+cmd kill @e[type=zombie]
+cmd kill @s
+cmd kill @e[type=armor_stand]
+cmd data get entity @e[type=pig] Pos
+cmd data get entity @e[type=zombie] Pos
+cmd data get entity @e[type=cow] Age
+cmd data get entity @a[name=Bob] Pos
+cmd data get entity @a[name=Nobody] Pos
+cmd data get entity @s Pos
+cmd tag @e[type=zombie] add x
+cmd tag @s add x
+cmd tag @e[type=cow] add x
+cmd team join nothing @e
+cmd scoreboard players set @e[type=zombie] n 1
+cmd scoreboard players set @e[type=cow] n 1
+cmd scoreboard players set @s n 1
+cmd scoreboard players get @e[type=pig] n
+cmd scoreboard players get @e[type=zombie] n
+cmd scoreboard players get @e[type=cow] n
+cmd scoreboard players get @s n
+cmd scoreboard players get Cee n
+cmd scoreboard players list @e[type=pig]
+cmd scoreboard players list @e[type=zombie]
+cmd scoreboard players list @e[type=cow]
+cmd scoreboard players list *
+cmd execute as @e[type=zombie] run say none
+cmd execute if entity @e[type=zombie]
+cmd execute unless entity @e[type=zombie]
+cmd execute if entity @e[type=pig]
+cmd execute if entity @s
+cmd execute unless entity @s
+cmd execute if entity @a[name=Bob]
+cmd execute if entity Bob
+cmd execute if entity Nobody
+cmd execute if entity 00000001-0000-0002-0000-000300000004
+cmd execute if entity 3d000000-0000-0000-0000-000000000001
+cmd msg A @e[type=pig]
+cmd msg A @e[type=zombie]
+cmd msg A @a[name=Bob] hello
+cmd msg @e[type=pig] hello
+cmd msg @a[name=Bob] hello
+cmd msg @a[name=Nobody] hello
+cmd tell A @p[name=Bob] hi
+cmd me waves
+cmd title @e[type=pig] times 1 2 3
+cmd title @a[name=Bob] subtitle {"text":"hi"}
+cmd tellraw @e[type=pig] "x"
+cmd tellraw @s "x"
+cmd tellraw @a[name=Bob] {"selector":"@e[type=pig]"}
+cmd tellraw @a[name=Bob] {"selector":"@e[type=zombie]"}
+cmd tellraw @a[name=Bob] {"selector":"@a"}
+cmd tellraw @a[name=Bob] {"selector":"@e[type=cow,type=pig]"}
+cmd tellraw @a[name=Bob] {"selector":"@e[sort=bad]"}
+cmd tellraw @a[name=Bob] {"selector":"@e[type=player]","separator":", "}
+cmd tellraw @a[name=Bob] {"selector":"Cee"}
+cmd tellraw @a[name=Bob] {"selector":"Nobody"}
+cmd tellraw @a[name=Bob] {"selector":"@s"}
+cmd say @a[type=pig]
+cmd say @e[type=pig] and @p
+note permission levels: a selector needs level 2 (the entity selector permission), a bare name does not
+cmd_as -0 msg Bob hi
+cmd_as -0 msg @a hi
+cmd_as -0 msg @s hi
+cmd_as -0 msg @e hi
+cmd_as -1 msg @p hi
+cmd_as -2 msg @p hi
+cmd_as -2 msg @a hi
+cmd_as -3 msg @a hi
+cmd_as -4 msg @a hi
+cmd_as -0 tell Bob @a[name=Bob]
+cmd_as -0 msg 00000001-0000-0002-0000-000300000004 hi
+cmd_as -0 teammsg @a hi
+cmd_as -0 trigger n
+cmd_as -0 list
+cmd_as A msg @a hi
+cmd_as A msg @s hi
+cmd_as A msg Bob hi
+cmd_as A msg A hi
+cmd_as A tell Nobody hi
+cmd_as A tell @e[type=pig] hi
+cmd_as A tell "@a" hi
+cmd_as A me hello
+cmd_as A say @a hello
+cmd_as A w Bob @p
+cmd_as A msg Bob @a
+cmd op A
+cmd_as A msg @a hi
+cmd_as A msg @s hi
+cmd_as A msg @e hi
+cmd_as A tp @s @e[type=cow]
+cmd_as A tp @e[type=pig] @s
+cmd_as A kill @e[type=cow]
+cmd_as A effect give @s minecraft:speed 5
+cmd deop A
+cmd_as A msg @a hi
+cmd_as A kill @s
+note @s without an executor and with one
+cmd execute as @s run say hi
+cmd execute as @a[name=Bob] run tp @s 1 -60 1
+cmd execute as @a[name=Bob] run tp @s @s
+cmd_as Bob tp @s @s
+cmd_as Bob execute as @s run say hi
+cmd_as -2 tp @s 1 -60 1
+cmd_as A execute as @s run kill @s
+cmd_as -2 execute as @s run kill @s
+note execute as/at/positioned with selectors: the origin of every following selector is the new position
+cmd execute as @e[type=pig] at @s run summon minecraft:chicken ~ ~ ~ {NoAI:1b}
+cmd execute at @e[type=cow] run summon minecraft:chicken ~ ~ ~1 {NoAI:1b}
+cmd execute positioned 3 -60 3 as @e[distance=..1,type=!player] run tag @s add here
+cmd execute positioned 3 -60 3 as @e[distance=..1,type=!player,sort=nearest,limit=1] run tag @s add here2
+cmd execute positioned as @e[type=cow] run tag @e[distance=..0.5,type=chicken] add by_cow
+cmd execute positioned as @e[type=cow] as @e[type=chicken,sort=nearest,limit=1] run tag @s add nearest_chicken
+cmd execute as @e[type=pig] as @e[type=cow] run tag @s add cowfork
+cmd execute as @e[type=pig] at @s as @e[type=chicken,sort=nearest,limit=1] run tag @s add near_pig
+cmd execute as @a at @s run tp @e[type=chicken,sort=nearest,limit=1,tag=!taken] @s
+cmd execute as @e[type=pig,sort=furthest] at @s run tag @e[type=chicken,sort=nearest,limit=1,tag=!claimed] add claimed
+cmd execute at @a[name=Bob] if entity @e[type=pig,distance=..2] run tag @a[name=Bob] add by_pig
+cmd execute as @a[name=Cee] at @s rotated as @e[type=pig,limit=1] run tag @s add rotated
+cmd execute as @e[type=pig,limit=1] facing entity @a[name=Bob] eyes run tag @s add facing
+cmd execute store result score @e[type=pig,limit=1] n if entity @e[type=chicken]
+cmd execute store result score @e[type=cow] n if entity @e[type=chicken,distance=..2]
+cmd execute on vehicle run say none
+cmd execute as @e[type=!player,type=!chicken] if entity @s[type=pig] run tag @s add pigs_only
+cmd execute as @e[type=pig] if entity @e[type=pig,limit=1,sort=nearest,distance=0.1..] run tag @s add has_pig_neighbor
+cmd execute as @e[type=pig] unless entity @e[type=pig,distance=0.1..] run tag @s add alone
+cmd execute as @e[type=chicken] run kill @s
+cmd execute as @e[type=cow] run summon minecraft:chicken ~ ~ ~ {NoAI:1b,Tags:["late"]}
+cmd execute as @e[type=chicken] run tag @s add every_chicken
+dump select:-/0,-60,0/@e[sort=nearest,tag=here]
+dump select:-/0,-60,0/@e[sort=nearest,tag=here2]
+dump select:-/0,-60,0/@e[sort=nearest,tag=by_cow]
+dump select:-/0,-60,0/@e[sort=nearest,tag=nearest_chicken]
+dump select:-/0,-60,0/@e[sort=nearest,tag=cowfork]
+dump select:-/0,-60,0/@e[sort=nearest,tag=near_pig]
+dump select:-/0,-60,0/@e[sort=nearest,tag=claimed]
+dump select:-/0,-60,0/@e[sort=nearest,tag=by_pig]
+dump select:-/0,-60,0/@e[sort=nearest,tag=rotated]
+dump select:-/0,-60,0/@e[sort=nearest,tag=facing]
+dump select:-/0,-60,0/@e[sort=nearest,tag=pigs_only]
+dump select:-/0,-60,0/@e[sort=nearest,tag=has_pig_neighbor]
+dump select:-/0,-60,0/@e[sort=nearest,tag=alone]
+dump select:-/0,-60,0/@e[sort=nearest,tag=every_chicken]
+dump select:-/0,-60,0/@e[sort=nearest,type=chicken]
+dump scoreboard
+cmd scoreboard players list @e[type=pig]

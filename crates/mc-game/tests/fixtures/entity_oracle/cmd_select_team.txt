@@ -1,0 +1,206 @@
+CF msg Created team [red]
+CF result success 1
+CF msg Created team [blue]
+CF result success 2
+CF msg Created team [empty]
+CF result success 3
+CF msg Updated the color for team [red] to red
+CF result success 0
+CF msg Team prefix set to [R] 
+CF result success 1
+CF msg Updated the color for team [blue] to blue
+CF result success 0
+CF msg Added [R] A to team [red]
+CF result success 1
+CF msg Added Bob to team [blue]
+CF result success 1
+CF msg Added [R] Pig to team [red]
+CF result success 1
+CF msg Added Pig to team [blue]
+CF result success 1
+# W2 also joins red itself: its own team wins over its owner's blue; C2 is tamed through a pet owner, W4 has an unknown owner, W3 is untamed
+CF msg Added [R] Wolf to team [red]
+CF result success 1
+E W1 minecraft:wolf pos=7.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:15.95522344559732;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=A sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:sad collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+E W2 minecraft:wolf pos=9.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:17.17161869974736;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Bob sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+E W3 minecraft:wolf pos=11.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:15.503145483266033;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:angry collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+E W4 minecraft:wolf pos=13.5,-60.0,13.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:14.377527959917831;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=00000001-0000-0002-0000-000300000004 sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:cute collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+E C1 minecraft:cat pos=15.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:14.593875633442789;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=A sitting=0 ordered=0 variant=minecraft:red svariant=minecraft:classic collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0
+E C2 minecraft:cat pos=17.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.173760273514542;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=W1 sitting=0 ordered=0 variant=minecraft:red svariant=minecraft:classic collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0
+E Pa minecraft:parrot pos=19.5,-60.0,19.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:flying_speed:0.4000000059604645;minecraft:follow_range:15.404607741373654;minecraft:max_health:6.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Cee sitting=0 ordered=0 variant=green flap=5.3999996 flapspeed=1.0 flapping=0.9 nextflap=1.0 party=0 jukebox=-
+E H1 minecraft:horse pos=21.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:fall_damage_multiplier:0.5;minecraft:follow_range:16.251519941387944;minecraft:jump_strength:0.5394900063924674;minecraft:movement_speed:0.2939023785430773;minecraft:safe_fall_distance:6.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- owner=A temper=0 eatc=0 mouthc=0 standc=0 tailc=0 sprintc=0 jscale=0.0 slide=0 gallopc=0
+# team lists and the option
+SELECT @e[sort=nearest,team=red] - 0,-60,0 -> A P1 W1 W2 C1 C2
+SELECT @e[sort=nearest,team=blue] - 0,-60,0 -> Bob P2
+SELECT @e[sort=nearest,team=empty] - 0,-60,0 ->
+SELECT @e[sort=nearest,team=] - 0,-60,0 -> Cee W3 W4 Pa H1 Obs Z1
+SELECT @e[sort=nearest,team=!red] - 0,-60,0 -> Bob P2 Cee W3 W4 Pa H1 Obs Z1
+SELECT @e[sort=nearest,team=!blue] - 0,-60,0 -> A P1 Cee W1 W2 W3 W4 C1 C2 Pa H1 Obs Z1
+SELECT @e[sort=nearest,team=!] - 0,-60,0 -> A Bob P1 P2 W1 W2 C1 C2
+SELECT @e[sort=nearest,team=!red,team=!blue] - 0,-60,0 -> Cee W3 W4 Pa H1 Obs Z1
+SELECT @e[sort=nearest,team=!red,team=!blue,team=!empty] - 0,-60,0 -> Cee W3 W4 Pa H1 Obs Z1
+SELECT @e[sort=nearest,team=nothing] - 0,-60,0 ->
+SELECT @e[sort=nearest,team=!nothing,type=!player] - 0,-60,0 -> P1 P2 W1 W2 W3 W4 C1 C2 Pa H1 Z1
+SELECT @e[sort=nearest,team=Red] - 0,-60,0 ->
+SELECT @e[sort=nearest,team=red,type=wolf] - 0,-60,0 -> W1 W2
+SELECT @e[sort=nearest,team=blue,type=wolf] - 0,-60,0 ->
+SELECT @e[sort=nearest,team=red,type=cat] - 0,-60,0 -> C1 C2
+SELECT @e[sort=nearest,team=red,type=parrot] - 0,-60,0 ->
+SELECT @e[sort=nearest,team=blue,type=parrot] - 0,-60,0 ->
+SELECT @e[sort=nearest,team=,type=wolf] - 0,-60,0 -> W3 W4
+SELECT @e[sort=nearest,team=,type=horse] - 0,-60,0 -> H1
+SELECT @a[team=red] - 0,-60,0 -> A
+SELECT @a[team=blue] - 0,-60,0 -> Bob
+SELECT @a[team=] - 0,-60,0 -> Cee Obs
+SELECT @a[team=!red] - 0,-60,0 -> Bob Cee Obs
+SELECT @p[team=blue] - 0,-60,0 -> Bob
+SELECTSORTED @r[team=red] - 0,-60,0 -> A
+SELECT @s[team=red] A 0.5,-60,0.5 -> A
+SELECT @s[team=blue] A 0.5,-60,0.5 ->
+SELECT @s[team=!red] A 0.5,-60,0.5 ->
+SELECT @s[team=] Cee 8.5,-60,0.5 -> Cee
+SELECT @n[team=red,type=wolf] - 0,-60,0 -> W1
+SELECT @n[team=blue,type=!player] - 0,-60,0 -> P2
+SELECT @e[team=red,team=blue] - 0,-60,0 -> !Option 'team' isn't applicable here
+SELECT @e[team=red,team=red] - 0,-60,0 -> !Option 'team' isn't applicable here
+SELECT @e[team=!red,team=red] - 0,-60,0 -> !Option 'team' isn't applicable here
+SELECT @e[team=red,team=!red] - 0,-60,0 -> !Option 'team' isn't applicable here
+SELECT @e[team=!red,team=!red] - 0,-60,0 -> Bob Cee Obs P2 W3 W4 Pa H1 Z1
+SELECT @e[team=,team=] - 0,-60,0 -> !Option 'team' isn't applicable here
+SELECT @e[team=!,team=!] - 0,-60,0 -> A Bob P1 P2 W1 W2 C1 C2
+SELECT @e[team=red,tag=w2] - 0,-60,0 -> W2
+# commands that select by team
+CF msg Added tag 'redteam' to 5 entities
+CF result success 5
+CF msg Added tag 'blueteam' to Pig
+CF result success 1
+CF msg Added tag 'loners' to 2 entities
+CF result success 2
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Added tag 'redwolf' to [R] Wolf
+CF result success 1
+CF msg Added tag 'redwolf' to [R] Wolf
+CF result success 1
+CF msg Team [red] has 3 member(s): 00000015-0000-0000-0000-000000000001, 00000015-0000-0000-0000-000000000004, A
+CF result success 3
+CF msg Team [blue] has 2 member(s): 00000015-0000-0000-0000-000000000002, Bob
+CF result success 2
+CF msg Removed Pig from any team
+CF result success 1
+SELECT @e[sort=nearest,tag=redteam] - 0,-60,0 -> P1 W1 W2 C1 C2
+SELECT @e[sort=nearest,tag=blueteam] - 0,-60,0 -> P2
+SELECT @e[sort=nearest,tag=loners] - 0,-60,0 -> W3 W4
+SELECT @e[sort=nearest,tag=redwolf] - 0,-60,0 -> W1 W2
+SELECT @e[sort=nearest,team=red] - 0,-60,0 -> A W1 W2 C1 C2
+CF msg Added [R] Pig to team [red]
+CF result success 1
+# the owner leaves the team: the pets follow
+CF msg Removed A from any team
+CF result success 1
+SELECT @e[sort=nearest,team=red] - 0,-60,0 -> P1 W2
+SELECT @e[sort=nearest,team=] - 0,-60,0 -> A Cee W1 W3 W4 C1 C2 Pa H1 Obs Z1
+CF msg Added A to team [blue]
+CF result success 1
+SELECT @e[sort=nearest,team=blue] - 0,-60,0 -> A Bob P2 W1 C1 C2
+CF msg Added [R] A to team [red]
+CF result success 1
+# the feedback names of a pet carry the team of its owner: prefix, colour and hover
+CF msg Added tag 'x' to [R] Wolf
+CF json {"translate":"commands.tag.add.success.single","with":["x",{"color":"red","extra":[{"color":"gold","text":"[R] "},{"translate":"entity.minecraft.wolf"},""],"hover_event":{"action":"show_entity","id":"minecraft:wolf","name":{"translate":"entity.minecraft.wolf"},"uuid":[21,0,0,3]},"insertion":"00000015-0000-0000-0000-000000000003","text":""}]}
+CF result success 1
+CF msg Added tag 'x' to [R] Wolf
+CF json {"translate":"commands.tag.add.success.single","with":["x",{"color":"red","extra":[{"color":"gold","text":"[R] "},{"translate":"entity.minecraft.wolf"},""],"hover_event":{"action":"show_entity","id":"minecraft:wolf","name":{"translate":"entity.minecraft.wolf"},"uuid":[21,0,0,4]},"insertion":"00000015-0000-0000-0000-000000000004","text":""}]}
+CF result success 1
+CF msg Added tag 'x' to Wolf
+CF json {"translate":"commands.tag.add.success.single","with":["x",{"hover_event":{"action":"show_entity","id":"minecraft:wolf","name":{"translate":"entity.minecraft.wolf"},"uuid":[21,0,0,5]},"insertion":"00000015-0000-0000-0000-000000000005","translate":"entity.minecraft.wolf"}]}
+CF result success 1
+CF msg Added tag 'x' to Wolf
+CF json {"translate":"commands.tag.add.success.single","with":["x",{"hover_event":{"action":"show_entity","id":"minecraft:wolf","name":{"translate":"entity.minecraft.wolf"},"uuid":[21,0,0,6]},"insertion":"00000015-0000-0000-0000-000000000006","translate":"entity.minecraft.wolf"}]}
+CF result success 1
+CF msg Added tag 'x' to [R] Cat
+CF json {"translate":"commands.tag.add.success.single","with":["x",{"color":"red","extra":[{"color":"gold","text":"[R] "},{"translate":"entity.minecraft.cat"},""],"hover_event":{"action":"show_entity","id":"minecraft:cat","name":{"translate":"entity.minecraft.cat"},"uuid":[21,0,0,7]},"insertion":"00000015-0000-0000-0000-000000000007","text":""}]}
+CF result success 1
+CF msg Added tag 'x' to [R] Cat
+CF json {"translate":"commands.tag.add.success.single","with":["x",{"color":"red","extra":[{"color":"gold","text":"[R] "},{"translate":"entity.minecraft.cat"},""],"hover_event":{"action":"show_entity","id":"minecraft:cat","name":{"translate":"entity.minecraft.cat"},"uuid":[21,0,0,8]},"insertion":"00000015-0000-0000-0000-000000000008","text":""}]}
+CF result success 1
+CF msg Added tag 'x' to Parrot
+CF json {"translate":"commands.tag.add.success.single","with":["x",{"hover_event":{"action":"show_entity","id":"minecraft:parrot","name":{"translate":"entity.minecraft.parrot"},"uuid":[21,0,0,9]},"insertion":"00000015-0000-0000-0000-000000000009","translate":"entity.minecraft.parrot"}]}
+CF result success 1
+CF msg Added tag 'x' to Horse
+CF json {"translate":"commands.tag.add.success.single","with":["x",{"hover_event":{"action":"show_entity","id":"minecraft:horse","name":{"translate":"entity.minecraft.horse"},"uuid":[21,0,0,10]},"insertion":"00000015-0000-0000-0000-00000000000a","translate":"entity.minecraft.horse"}]}
+CF result success 1
+CF msg Added tag 'x' to [R] Pig
+CF json {"translate":"commands.tag.add.success.single","with":["x",{"color":"red","extra":[{"color":"gold","text":"[R] "},{"translate":"entity.minecraft.pig"},""],"hover_event":{"action":"show_entity","id":"minecraft:pig","name":{"translate":"entity.minecraft.pig"},"uuid":[21,0,0,1]},"insertion":"00000015-0000-0000-0000-000000000001","text":""}]}
+CF result success 1
+CF msg Added tag 'x' to Zombie
+CF json {"translate":"commands.tag.add.success.single","with":["x",{"hover_event":{"action":"show_entity","id":"minecraft:zombie","name":{"translate":"entity.minecraft.zombie"},"uuid":[21,0,0,11]},"insertion":"00000015-0000-0000-0000-00000000000b","translate":"entity.minecraft.zombie"}]}
+CF result success 1
+CF msg Applied effect Speed to [R] Wolf
+CF json {"translate":"commands.effect.give.success.single","with":[{"translate":"effect.minecraft.speed"},{"color":"red","extra":[{"color":"gold","text":"[R] "},{"translate":"entity.minecraft.wolf"},""],"hover_event":{"action":"show_entity","id":"minecraft:wolf","name":{"translate":"entity.minecraft.wolf"},"uuid":[21,0,0,3]},"insertion":"00000015-0000-0000-0000-000000000003","text":""},5]}
+CF result success 1
+CF msg Teleported [R] Cat to [R] A
+CF json {"translate":"commands.teleport.success.entity.single","with":[{"color":"red","extra":[{"color":"gold","text":"[R] "},{"translate":"entity.minecraft.cat"},""],"hover_event":{"action":"show_entity","id":"minecraft:cat","name":{"translate":"entity.minecraft.cat"},"uuid":[21,0,0,7]},"insertion":"00000015-0000-0000-0000-000000000007","text":""},{"click_event":{"action":"suggest_command","command":"/tell A "},"color":"red","extra":[{"color":"gold","text":"[R] "},"A",""],"hover_event":{"action":"show_entity","id":"minecraft:player","name":"A","uuid":[-1217574189,-1929301680,-1288476465,-1272613004]},"insertion":"A","text":""}]}
+CF result success 1
+CF fail Incorrect argument for command
+CF json {"color":"red","extra":[{"translate":"command.unknown.argument"}],"text":""}
+CF fail tp A @e[tag=w1]<--[HERE]
+CF json {"color":"red","extra":[{"click_event":{"action":"suggest_command","command":"/tp A @e[tag=w1]"},"color":"gray","extra":["tp A ",{"color":"red","text":"@e[tag=w1]","underlined":true},{"color":"red","italic":true,"translate":"command.context.here"}],"text":""}],"text":""}
+CF msg [R] Cat has the following entity data: 0
+CF json {"translate":"commands.data.entity.query","with":[{"color":"red","extra":[{"color":"gold","text":"[R] "},{"translate":"entity.minecraft.cat"},""],"hover_event":{"action":"show_entity","id":"minecraft:cat","name":{"translate":"entity.minecraft.cat"},"uuid":[21,0,0,7]},"insertion":"00000015-0000-0000-0000-000000000007","text":""},{"extra":[{"color":"gold","text":"0"}],"text":""}]}
+CF result success 0
+CF msg Added Parrot to team [blue]
+CF json {"translate":"commands.team.join.success.single","with":[{"color":"blue","extra":["",{"translate":"entity.minecraft.parrot"},""],"hover_event":{"action":"show_text","value":"00000015-0000-0000-0000-000000000009"},"insertion":"00000015-0000-0000-0000-000000000009","text":""},{"color":"blue","translate":"chat.square_brackets","with":[{"hover_event":{"action":"show_text","value":"blue"},"insertion":"blue","text":"blue"}]}]}
+CF result success 1
+CF msg Added tag 'y' to Parrot
+CF json {"translate":"commands.tag.add.success.single","with":["y",{"color":"blue","extra":["",{"translate":"entity.minecraft.parrot"},""],"hover_event":{"action":"show_entity","id":"minecraft:parrot","name":{"translate":"entity.minecraft.parrot"},"uuid":[21,0,0,9]},"insertion":"00000015-0000-0000-0000-000000000009","text":""}]}
+CF result success 1
+CF msg [R] Wolf has 4 tag(s): redteam, redwolf, w1, x
+CF json {"translate":"commands.tag.list.single.success","with":[{"color":"red","extra":[{"color":"gold","text":"[R] "},{"translate":"entity.minecraft.wolf"},""],"hover_event":{"action":"show_entity","id":"minecraft:wolf","name":{"translate":"entity.minecraft.wolf"},"uuid":[21,0,0,3]},"insertion":"00000015-0000-0000-0000-000000000003","text":""},4,{"extra":[{"color":"green","text":"redteam"},{"color":"gray","text":", "},{"color":"green","text":"redwolf"},{"color":"gray","text":", "},{"color":"green","text":"w1"},{"color":"gray","text":", "},{"color":"green","text":"x"}],"text":""}]}
+CF result success 4
+CF msg Killed Zombie
+CF json {"translate":"commands.kill.success.single","with":[{"hover_event":{"action":"show_entity","id":"minecraft:zombie","name":{"translate":"entity.minecraft.zombie"},"uuid":[21,0,0,11]},"insertion":"00000015-0000-0000-0000-00000000000b","translate":"entity.minecraft.zombie"}]}
+CF result success 1
+CF msg You whisper to [R] A: [R] Wolf
+CF json {"color":"gray","italic":true,"translate":"commands.message.display.outgoing","with":[{"click_event":{"action":"suggest_command","command":"/tell A "},"color":"red","extra":[{"color":"gold","text":"[R] "},"A",""],"hover_event":{"action":"show_entity","id":"minecraft:player","name":"A","uuid":[-1217574189,-1929301680,-1288476465,-1272613004]},"insertion":"A","text":""},{"extra":[{"color":"red","extra":[{"color":"gold","text":"[R] "},{"translate":"entity.minecraft.wolf"},""],"hover_event":{"action":"show_entity","id":"minecraft:wolf","name":{"translate":"entity.minecraft.wolf"},"uuid":[21,0,0,3]},"insertion":"00000015-0000-0000-0000-000000000003","text":""}],"text":""}]}
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF msg Added Cee to team [empty]
+CF json {"translate":"commands.team.join.success.single","with":[{"click_event":{"action":"suggest_command","command":"/tell Cee "},"extra":["","Cee",""],"hover_event":{"action":"show_text","value":"Cee"},"insertion":"Cee","text":""},{"translate":"chat.square_brackets","with":[{"hover_event":{"action":"show_text","value":"empty"},"insertion":"empty","text":"empty"}]}]}
+CF result success 1
+CF result success 1
+# a pet summoned with an owner names itself with the owner's team, and a pet speaks to the team of its owner
+CF msg Summoned new [R] Wolf
+CF json {"translate":"commands.summon.success","with":[{"color":"red","extra":[{"color":"gold","text":"[R] "},{"translate":"entity.minecraft.wolf"},""],"hover_event":{"action":"show_entity","id":"minecraft:wolf","name":{"translate":"entity.minecraft.wolf"},"uuid":[21,0,0,12]},"insertion":"00000015-0000-0000-0000-00000000000c","text":""}]}
+CF result success 1
+CF result success 1
+CF result failure 0
+CF result success 1
+CF result success 1
+CF result success 1
+PKT A minecraft:disguised_chat 2108000568656c6c6f060a080005636f6c6f72000372656409000565787472610a00000003080005636f6c6f720004676f6c640800047465787400045b525d20000800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c6600080000000000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030330800047465787400000a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c6600080006616374696f6e000b73686f775f656e746974790800026964000e6d696e6563726166743a776f6c660b00047575696400000004000000150000000000000000000000030000010a090004776974680a00000001080009696e73657274696f6e00037265640800047465787400037265640a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c7565000372656400000a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f7465616d6d73672000080005636f6c6f7200037265640a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c75650800097472616e736c6174650014636861742e747970652e7465616d2e686f76657200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300
+PKT A minecraft:disguised_chat 2108000568656c6c6f060a080005636f6c6f72000372656409000565787472610a00000003080005636f6c6f720004676f6c640800047465787400045b525d20000800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c6600080000000000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030340800047465787400000a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c6600080006616374696f6e000b73686f775f656e746974790800026964000e6d696e6563726166743a776f6c660b00047575696400000004000000150000000000000000000000040000010a090004776974680a00000001080009696e73657274696f6e00037265640800047465787400037265640a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c7565000372656400000a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f7465616d6d73672000080005636f6c6f7200037265640a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c75650800097472616e736c6174650014636861742e747970652e7465616d2e686f76657200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300
+PKT A minecraft:disguised_chat 2108000568656c6c6f060a080005636f6c6f72000372656409000565787472610a00000003080005636f6c6f720004676f6c640800047465787400045b525d20000800097472616e736c6174650014656e746974792e6d696e6563726166742e63617400080000000000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030380800047465787400000a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e63617400080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a6361740b00047575696400000004000000150000000000000000000000080000010a090004776974680a00000001080009696e73657274696f6e00037265640800047465787400037265640a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c7565000372656400000a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f7465616d6d73672000080005636f6c6f7200037265640a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c75650800097472616e736c6174650014636861742e747970652e7465616d2e686f76657200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300
+# death messages name the attacker with its team
+HURT Bob mob_attack 1000 -> true
+PKT Bob minecraft:player_combat_kill 45960a0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000a2f74656c6c20426f622000080005636f6c6f720004626c75650900056578747261080000000300000003426f620000080009696e73657274696f6e0003426f620800047465787400000a000b686f7665725f6576656e740800046e616d650003426f62080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004faa5dca3c3d4354bae1bdde9e5a14b3b0000080005636f6c6f72000372656409000565787472610a00000003080005636f6c6f720004676f6c640800047465787400045b525d20000800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c6600080000000000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030330800047465787400000a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c6600080006616374696f6e000b73686f775f656e746974790800026964000e6d696e6563726166743a776f6c660b000475756964000000040000001500000000000000000000000300000800097472616e736c617465001064656174682e61747461636b2e6d6f6200
+PKT Obs minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000a2f74656c6c20426f622000080005636f6c6f720004626c75650900056578747261080000000300000003426f620000080009696e73657274696f6e0003426f620800047465787400000a000b686f7665725f6576656e740800046e616d650003426f62080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004faa5dca3c3d4354bae1bdde9e5a14b3b0000080005636f6c6f72000372656409000565787472610a00000003080005636f6c6f720004676f6c640800047465787400045b525d20000800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c6600080000000000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030330800047465787400000a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c6600080006616374696f6e000b73686f775f656e746974790800026964000e6d696e6563726166743a776f6c660b000475756964000000040000001500000000000000000000000300000800097472616e736c617465001064656174682e61747461636b2e6d6f620000
+HURT Bob mob_attack 1000 -> true
+PKT Bob minecraft:player_combat_kill 45960a0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000a2f74656c6c20426f622000080005636f6c6f720004626c75650900056578747261080000000300000003426f620000080009696e73657274696f6e0003426f620800047465787400000a000b686f7665725f6576656e740800046e616d650003426f62080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004faa5dca3c3d4354bae1bdde9e5a14b3b0000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030350a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c6600080006616374696f6e000b73686f775f656e746974790800026964000e6d696e6563726166743a776f6c660b0004757569640000000400000015000000000000000000000005000800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c66000800097472616e736c617465001064656174682e61747461636b2e6d6f6200
+PKT Obs minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000a2f74656c6c20426f622000080005636f6c6f720004626c75650900056578747261080000000300000003426f620000080009696e73657274696f6e0003426f620800047465787400000a000b686f7665725f6576656e740800046e616d650003426f62080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004faa5dca3c3d4354bae1bdde9e5a14b3b0000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030350a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c6600080006616374696f6e000b73686f775f656e746974790800026964000e6d696e6563726166743a776f6c660b0004757569640000000400000015000000000000000000000005000800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c66000800097472616e736c617465001064656174682e61747461636b2e6d6f620000
+HURT Bob mob_attack 1000 -> true
+PKT Bob minecraft:player_combat_kill 45960a0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000a2f74656c6c20426f622000080005636f6c6f720004626c75650900056578747261080000000300000003426f620000080009696e73657274696f6e0003426f620800047465787400000a000b686f7665725f6576656e740800046e616d650003426f62080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004faa5dca3c3d4354bae1bdde9e5a14b3b0000080005636f6c6f72000372656409000565787472610a00000003080005636f6c6f720004676f6c640800047465787400045b525d20000800097472616e736c6174650014656e746974792e6d696e6563726166742e63617400080000000000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030370800047465787400000a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e63617400080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a6361740b000475756964000000040000001500000000000000000000000700000800097472616e736c617465001064656174682e61747461636b2e6d6f6200
+PKT Obs minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000a2f74656c6c20426f622000080005636f6c6f720004626c75650900056578747261080000000300000003426f620000080009696e73657274696f6e0003426f620800047465787400000a000b686f7665725f6576656e740800046e616d650003426f62080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004faa5dca3c3d4354bae1bdde9e5a14b3b0000080005636f6c6f72000372656409000565787472610a00000003080005636f6c6f720004676f6c640800047465787400045b525d20000800097472616e736c6174650014656e746974792e6d696e6563726166742e63617400080000000000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030370800047465787400000a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e63617400080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a6361740b000475756964000000040000001500000000000000000000000700000800097472616e736c617465001064656174682e61747461636b2e6d6f620000
+HURT Bob mob_attack 1000 -> true
+PKT Bob minecraft:player_combat_kill 45960a0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000a2f74656c6c20426f622000080005636f6c6f720004626c75650900056578747261080000000300000003426f620000080009696e73657274696f6e0003426f620800047465787400000a000b686f7665725f6576656e740800046e616d650003426f62080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004faa5dca3c3d4354bae1bdde9e5a14b3b0000080005636f6c6f72000372656409000565787472610a00000003080005636f6c6f720004676f6c640800047465787400045b525d20000800097472616e736c6174650014656e746974792e6d696e6563726166742e63617400080000000000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030380800047465787400000a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e63617400080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a6361740b000475756964000000040000001500000000000000000000000800000800097472616e736c617465001064656174682e61747461636b2e6d6f6200
+PKT Obs minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000a2f74656c6c20426f622000080005636f6c6f720004626c75650900056578747261080000000300000003426f620000080009696e73657274696f6e0003426f620800047465787400000a000b686f7665725f6576656e740800046e616d650003426f62080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004faa5dca3c3d4354bae1bdde9e5a14b3b0000080005636f6c6f72000372656409000565787472610a00000003080005636f6c6f720004676f6c640800047465787400045b525d20000800097472616e736c6174650014656e746974792e6d696e6563726166742e63617400080000000000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030380800047465787400000a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e63617400080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a6361740b000475756964000000040000001500000000000000000000000800000800097472616e736c617465001064656174682e61747461636b2e6d6f620000
+HURT Cee mob_attack 1000 -> true
+PKT Cee minecraft:player_combat_kill 45970a0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000a2f74656c6c20436565200009000565787472610800000003000000034365650000080009696e73657274696f6e00034365650800047465787400000a000b686f7665725f6576656e740800046e616d650003436565080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000483a642696f9734718f1c3b33b2c637620000080005636f6c6f720004626c756509000565787472610a000000030800000000000800097472616e736c6174650017656e746974792e6d696e6563726166742e706172726f7400080000000000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030390800047465787400000a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650017656e746974792e6d696e6563726166742e706172726f7400080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706172726f740b000475756964000000040000001500000000000000000000000900000800097472616e736c617465001064656174682e61747461636b2e6d6f6200
+PKT Obs minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000a2f74656c6c20436565200009000565787472610800000003000000034365650000080009696e73657274696f6e00034365650800047465787400000a000b686f7665725f6576656e740800046e616d650003436565080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000483a642696f9734718f1c3b33b2c637620000080005636f6c6f720004626c756509000565787472610a000000030800000000000800097472616e736c6174650017656e746974792e6d696e6563726166742e706172726f7400080000000000080009696e73657274696f6e002430303030303031352d303030302d303030302d303030302d3030303030303030303030390800047465787400000a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650017656e746974792e6d696e6563726166742e706172726f7400080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706172726f740b000475756964000000040000001500000000000000000000000900000800097472616e736c617465001064656174682e61747461636b2e6d6f620000

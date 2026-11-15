@@ -1,0 +1,170 @@
+# The `team` option and the team of entities: members by name, no team, inverted and repeated forms, and tamed pets that play for the
+# team of their root owner (a pet with a team of its own keeps it; an untamed pet, a pet whose owner is gone and a pet owned by a pet are
+# covered). The team of a pet also colours its name in command feedback and in death messages.
+command_env
+level flat
+preload 2
+entity_counter 1300
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player Bob survival 4.5 -60 0.5 0 0
+spawn_player Cee survival 8.5 -60 0.5 0 0
+spawn_player Obs survival 30.5 -60 0.5 0 0
+tick 1
+mobspawn P1 minecraft:pig 3.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["t1"],UUID:[I;21,0,0,1]}
+mobspawn P2 minecraft:pig 5.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["t2"],UUID:[I;21,0,0,2]}
+mobspawn W1 minecraft:wolf 7.5 -60 7.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["w1"],UUID:[I;21,0,0,3]}
+mobspawn W2 minecraft:wolf 9.5 -60 9.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["w2"],UUID:[I;21,0,0,4]}
+mobspawn W3 minecraft:wolf 11.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["w3"],UUID:[I;21,0,0,5]}
+mobspawn W4 minecraft:wolf 13.5 -60 13.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["w4"],UUID:[I;21,0,0,6]}
+mobspawn C1 minecraft:cat 15.5 -60 15.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["c1"],UUID:[I;21,0,0,7]}
+mobspawn C2 minecraft:cat 17.5 -60 17.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["c2"],UUID:[I;21,0,0,8]}
+mobspawn Pa minecraft:parrot 19.5 -60 19.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["pa"],UUID:[I;21,0,0,9]}
+mobspawn H1 minecraft:horse 21.5 -60 21.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["h1"],UUID:[I;21,0,0,10]}
+mobspawn Z1 minecraft:zombie 23.5 -60 23.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["z1"],UUID:[I;21,0,0,11]}
+tick 1
+cmd team add red
+cmd team add blue
+cmd team add empty
+cmd team modify red color red
+cmd team modify red prefix {"text":"[R] ","color":"gold"}
+cmd team modify blue color blue
+cmd team join red A
+cmd team join blue Bob
+cmd team join red @e[tag=t1]
+cmd team join blue @e[tag=t2]
+tame W1 A
+tame W2 Bob
+tame C1 A
+tame Pa Cee
+tame H1 A
+tick 1
+note W2 also joins red itself: its own team wins over its owner's blue; C2 is tamed through a pet owner, W4 has an unknown owner, W3 is untamed
+cmd team join red @e[tag=w2]
+nbt W4 {Owner:[I;1,2,3,4],Sitting:0b}
+nbt C2 {Owner:[I;21,0,0,3]}
+tick 1
+dump mob:W1 mob:W2 mob:W3 mob:W4 mob:C1 mob:C2 mob:Pa mob:H1
+note team lists and the option
+dump select:-/0,-60,0/@e[sort=nearest,team=red]
+dump select:-/0,-60,0/@e[sort=nearest,team=blue]
+dump select:-/0,-60,0/@e[sort=nearest,team=empty]
+dump select:-/0,-60,0/@e[sort=nearest,team=]
+dump select:-/0,-60,0/@e[sort=nearest,team=!red]
+dump select:-/0,-60,0/@e[sort=nearest,team=!blue]
+dump select:-/0,-60,0/@e[sort=nearest,team=!]
+dump select:-/0,-60,0/@e[sort=nearest,team=!red,team=!blue]
+dump select:-/0,-60,0/@e[sort=nearest,team=!red,team=!blue,team=!empty]
+dump select:-/0,-60,0/@e[sort=nearest,team=nothing]
+dump select:-/0,-60,0/@e[sort=nearest,team=!nothing,type=!player]
+dump select:-/0,-60,0/@e[sort=nearest,team=Red]
+dump select:-/0,-60,0/@e[sort=nearest,team=red,type=wolf]
+dump select:-/0,-60,0/@e[sort=nearest,team=blue,type=wolf]
+dump select:-/0,-60,0/@e[sort=nearest,team=red,type=cat]
+dump select:-/0,-60,0/@e[sort=nearest,team=red,type=parrot]
+dump select:-/0,-60,0/@e[sort=nearest,team=blue,type=parrot]
+dump select:-/0,-60,0/@e[sort=nearest,team=,type=wolf]
+dump select:-/0,-60,0/@e[sort=nearest,team=,type=horse]
+dump select:-/0,-60,0/@a[team=red]
+dump select:-/0,-60,0/@a[team=blue]
+dump select:-/0,-60,0/@a[team=]
+dump select:-/0,-60,0/@a[team=!red]
+dump select:-/0,-60,0/@p[team=blue]
+dump selectsorted:-/0,-60,0/@r[team=red]
+dump select:A/0.5,-60,0.5/@s[team=red]
+dump select:A/0.5,-60,0.5/@s[team=blue]
+dump select:A/0.5,-60,0.5/@s[team=!red]
+dump select:Cee/8.5,-60,0.5/@s[team=]
+dump select:-/0,-60,0/@n[team=red,type=wolf]
+dump select:-/0,-60,0/@n[team=blue,type=!player]
+dump select:-/0,-60,0/@e[team=red,team=blue]
+dump select:-/0,-60,0/@e[team=red,team=red]
+dump select:-/0,-60,0/@e[team=!red,team=red]
+dump select:-/0,-60,0/@e[team=red,team=!red]
+dump select:-/0,-60,0/@e[team=!red,team=!red]
+dump select:-/0,-60,0/@e[team=,team=]
+dump select:-/0,-60,0/@e[team=!,team=!]
+dump select:-/0,-60,0/@e[team=red,tag=w2]
+note commands that select by team
+cmd tag @e[team=red,type=!player] add redteam
+cmd tag @e[team=blue,type=!player] add blueteam
+cmd tag @e[team=,type=wolf] add loners
+cmd execute if entity @e[team=blue,type=wolf]
+cmd execute if entity @e[team=empty]
+cmd execute as @e[team=red,type=wolf] run tag @s add redwolf
+cmd team list red
+cmd team list blue
+cmd team leave @e[tag=t1]
+dump select:-/0,-60,0/@e[sort=nearest,tag=redteam]
+dump select:-/0,-60,0/@e[sort=nearest,tag=blueteam]
+dump select:-/0,-60,0/@e[sort=nearest,tag=loners]
+dump select:-/0,-60,0/@e[sort=nearest,tag=redwolf]
+dump select:-/0,-60,0/@e[sort=nearest,team=red]
+cmd team join red @e[tag=t1]
+note the owner leaves the team: the pets follow
+cmd team leave A
+dump select:-/0,-60,0/@e[sort=nearest,team=red]
+dump select:-/0,-60,0/@e[sort=nearest,team=]
+cmd team join blue A
+dump select:-/0,-60,0/@e[sort=nearest,team=blue]
+cmd team join red A
+note the feedback names of a pet carry the team of its owner: prefix, colour and hover
+cmd_json tag @e[tag=w1] add x
+cmd_json tag @e[tag=w2] add x
+cmd_json tag @e[tag=w3] add x
+cmd_json tag @e[tag=w4] add x
+cmd_json tag @e[tag=c1] add x
+cmd_json tag @e[tag=c2] add x
+cmd_json tag @e[tag=pa] add x
+cmd_json tag @e[tag=h1] add x
+cmd_json tag @e[tag=t1] add x
+cmd_json tag @e[tag=z1] add x
+cmd_json effect give @e[tag=w1] minecraft:speed 5
+cmd_json tp @e[tag=c1] A
+cmd_json tp A @e[tag=w1]
+cmd_json data get entity @e[tag=c1,limit=1] Age
+cmd_json team join blue @e[tag=pa]
+cmd_json tag @e[tag=pa] add y
+cmd_json tag @e[tag=w1] list
+cmd_json kill @e[tag=z1]
+cmd_json msg A @e[tag=w1]
+cmd_json tellraw A [{"selector":"@e[tag=w1]"},{"selector":"@e[tag=w2]"},{"selector":"@e[tag=c2]"},{"selector":"@e[tag=w3]"}]
+cmd_json tellraw A {"selector":"@e[tag=w1]","separator":" / "}
+cmd_json tellraw A {"selector":"@e[type=wolf]"}
+cmd_json tellraw A {"selector":"@e[type=cat]"}
+cmd_json tellraw A {"selector":"@e[type=parrot]"}
+cmd_json execute as @e[tag=w1] run tellraw A {"selector":"@s"}
+cmd_json team join empty Cee
+cmd_json tellraw A {"selector":"@e[tag=pa]"}
+note a pet summoned with an owner names itself with the owner's team, and a pet speaks to the team of its owner
+cmd_json summon minecraft:wolf 25.5 -60 25.5 {NoAI:1b,PersistenceRequired:1b,Owner:[I;21,0,0,3],UUID:[I;21,0,0,12]}
+dump packets:A:none packets:Bob:none
+cmd execute as @e[tag=w1] run teammsg hello
+cmd execute as @e[tag=w3] run teammsg hello
+cmd execute as @e[tag=w2] run teammsg hello
+cmd execute as @e[tag=c2] run teammsg hello
+cmd execute as Cee run teammsg hello
+dump packets:A:disguised_chat packets:Bob:disguised_chat
+note death messages name the attacker with its team
+dump packets:A:none packets:Bob:none packets:Obs:none
+hurt Bob mob_attack 1000 by=W1 direct=W1
+dump packets:Bob:player_combat_kill packets:Obs:system_chat
+respawn Bob
+tick 1
+dump packets:Bob:none packets:Obs:none
+hurt Bob mob_attack 1000 by=W3 direct=W3
+dump packets:Bob:player_combat_kill packets:Obs:system_chat
+respawn Bob
+tick 1
+dump packets:Bob:none packets:Obs:none
+hurt Bob mob_attack 1000 by=C1 direct=C1
+dump packets:Bob:player_combat_kill packets:Obs:system_chat
+respawn Bob
+tick 1
+dump packets:Bob:none packets:Obs:none
+hurt Bob mob_attack 1000 by=C2 direct=C2
+dump packets:Bob:player_combat_kill packets:Obs:system_chat
+respawn Bob
+tick 1
+dump packets:Bob:none packets:Obs:none
+hurt Cee mob_attack 1000 by=Pa direct=Pa
+dump packets:Cee:player_combat_kill packets:Obs:system_chat

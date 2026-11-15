@@ -1,0 +1,216 @@
+# The `type` option: entity types, inverted types, entity type tags (several, inverted, unknown), the player type that limits a selector
+# to players, the letters' own type limits (`@a @p @r` players, `@s @n` and `@e` any), repeated and conflicting forms, and the errors.
+command_env
+level flat
+preload 2
+entity_counter 1700
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player Bob survival 4.5 -60 0.5 0 0
+tick 1
+cmd summon minecraft:zombie 2 -60 4 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:husk 4 -60 6 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:drowned 6 -60 8 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:skeleton 8 -60 4 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:stray 10 -60 6 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:wither_skeleton 12 -60 8 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:creeper 14 -60 4 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:pig 16 -60 6 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:cow 18 -60 8 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:chicken 20 -60 4 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:villager 22 -60 6 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:iron_golem 24 -60 8 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:zombie_villager 26 -60 4 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:pillager 28 -60 6 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:vindicator 30 -60 8 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:cod 32 -60 4 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:squid 34 -60 6 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:bat 36 -60 8 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:salmon 38 -60 4 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:pufferfish 40 -60 6 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd summon minecraft:armor_stand 2 -58 -8 {NoGravity:1b}
+cmd summon minecraft:marker 4 -58 -8
+cmd summon minecraft:item_display 6 -58 -8
+cmd summon minecraft:text_display 8 -58 -8
+cmd summon minecraft:interaction 10 -58 -8
+cmd summon minecraft:block_display 12 -58 -8
+cmd summon minecraft:item_frame 14 -58 -8
+cmd summon minecraft:painting 16 -58 -8
+cmd summon minecraft:item 3 -60 12 {Item:{id:"minecraft:stick",count:1},Age:-32768}
+cmd summon minecraft:experience_orb 5 -60 12 {Age:-32768}
+cmd summon minecraft:oak_boat 8 -60 14
+cmd summon minecraft:minecart 10 -60 14
+cmd summon minecraft:tnt 12 -60 14 {fuse:32767s}
+cmd summon minecraft:snowball 14 -55 14 {NoGravity:1b}
+cmd summon minecraft:arrow 16 -55 14 {NoGravity:1b,inGround:1b}
+tick 1
+note single types and the player type
+dump select:-/0,-60,0/@e[sort=nearest,type=pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=minecraft:pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=zombie]
+dump select:-/0,-60,0/@e[sort=nearest,type=player]
+dump select:-/0,-60,0/@e[sort=nearest,type=minecraft:player]
+dump select:-/0,-60,0/@e[sort=nearest,type=armor_stand]
+dump select:-/0,-60,0/@e[sort=nearest,type=marker]
+dump select:-/0,-60,0/@e[sort=nearest,type=item]
+dump select:-/0,-60,0/@e[sort=nearest,type=experience_orb]
+dump select:-/0,-60,0/@e[sort=nearest,type=oak_boat]
+dump select:-/0,-60,0/@e[sort=nearest,type=tnt]
+dump select:-/0,-60,0/@e[sort=nearest,type=arrow]
+dump select:-/0,-60,0/@e[sort=nearest,type=snowball]
+dump select:-/0,-60,0/@e[sort=nearest,type=wither]
+dump select:-/0,-60,0/@e[sort=nearest,type=zombie_villager]
+dump select:-/0,-60,0/@e[sort=nearest,type=!pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=!player]
+dump select:-/0,-60,0/@e[sort=nearest,type=!minecraft:player]
+dump select:-/0,-60,0/@e[sort=nearest,type=!zombie]
+dump select:-/0,-60,0/@e[sort=nearest,type=!pig,type=!cow]
+dump select:-/0,-60,0/@e[sort=nearest,type=!pig,type=!cow,type=!player]
+dump select:-/0,-60,0/@e[sort=nearest,type=!zombie,type=!husk,type=!drowned,type=!zombie_villager,type=!player]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:skeletons]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:zombies]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:undead]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:raiders]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:arrows]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:boats]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:aquatic]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:can_breathe_under_water]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:impact_projectiles]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:illager_friends]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:fall_damage_immune]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:not_scary_for_pufferfish]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:freeze_immune_entity_types]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:powder_snow_walkable_mobs]
+dump select:-/0,-60,0/@e[sort=nearest,type=!#minecraft:skeletons]
+dump select:-/0,-60,0/@e[sort=nearest,type=!#minecraft:undead]
+dump select:-/0,-60,0/@e[sort=nearest,type=!#minecraft:undead,type=!#minecraft:aquatic]
+dump select:-/0,-60,0/@e[sort=nearest,type=!#minecraft:undead,type=!#minecraft:undead]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:skeletons,type=#minecraft:undead]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:undead,type=#minecraft:zombies]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:undead,type=!#minecraft:skeletons]
+dump select:-/0,-60,0/@e[sort=nearest,type=!#minecraft:skeletons,type=#minecraft:undead]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:undead,type=!zombie]
+dump select:-/0,-60,0/@e[sort=nearest,type=!zombie,type=#minecraft:undead]
+dump select:-/0,-60,0/@e[sort=nearest,type=!zombie,type=!#minecraft:skeletons,type=#minecraft:undead]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:undead,type=zombie]
+dump select:-/0,-60,0/@e[sort=nearest,type=zombie,type=#minecraft:undead]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:undead,type=#minecraft:undead]
+dump select:-/0,-60,0/@e[sort=nearest,type=!#minecraft:undead,type=zombie]
+dump select:-/0,-60,0/@e[sort=nearest,type=#nothing]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:nothing]
+dump select:-/0,-60,0/@e[sort=nearest,type=!#minecraft:nothing]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:nothing,type=!pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:nothing,type=#minecraft:undead]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig,type=cow]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig,type=pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=!pig,type=pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig,type=!pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=player,type=!pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=!player,type=player]
+dump select:-/0,-60,0/@e[sort=nearest,type=!player,type=!player]
+dump select:-/0,-60,0/@e[sort=nearest,type=PIG]
+dump select:-/0,-60,0/@e[sort=nearest,type=minecraft:Pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=nothing]
+dump select:-/0,-60,0/@e[sort=nearest,type=minecraft:nothing]
+dump select:-/0,-60,0/@e[sort=nearest,type=bad:pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=]
+dump select:-/0,-60,0/@e[sort=nearest,type=!]
+dump select:-/0,-60,0/@e[sort=nearest,type=#]
+dump select:-/0,-60,0/@e[sort=nearest,type=!#]
+dump select:-/0,-60,0/@e[sort=nearest,type=minecraft:]
+dump select:-/0,-60,0/@e[sort=nearest,type=:pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig,]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig type=cow]
+dump select:-/0,-60,0/@e[sort=nearest,type="pig"]
+dump select:-/0,-60,0/@e[sort=nearest,type=Pig]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig,tag=]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig,limit=1]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig,sort=furthest,limit=2]
+dump select:-/0,-60,0/@e[sort=nearest,type=!pig,sort=furthest,limit=3]
+dump select:-/0,-60,0/@e[sort=nearest,type=#minecraft:undead,sort=furthest,limit=3]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig,distance=..5]
+dump select:-/0,-60,0/@e[sort=nearest,type=!pig,distance=..5]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig,dx=4,dy=4,dz=4]
+dump select:-/0,-60,0/@e[sort=nearest,type=zombie,name=Zombie]
+dump select:-/0,-60,0/@e[sort=nearest,type=zombie,name=!Zombie]
+dump select:-/0,-60,0/@e[sort=nearest,type=pig,scores={a=1}]
+dump select:-/0,-60,0/@e[sort=nearest,type=player,name=A]
+dump select:-/0,-60,0/@e[sort=nearest,type=player,name=!A]
+dump select:-/0,-60,0/@e[sort=nearest,type=!player,name=A]
+dump select:-/0,-60,0/@e[sort=nearest,type=wither]
+dump select:-/0,-60,0/@e[sort=nearest,type=ender_dragon]
+dump select:-/0,-60,0/@e[sort=nearest,type=giant]
+dump select:-/0,-60,0/@e[sort=nearest,type=lightning_bolt]
+dump select:-/0,-60,0/@e[sort=nearest,type=wind_charge]
+dump select:-/0,-60,0/@e[sort=nearest,type=player,type=player]
+note the letters
+dump select:-/0,-60,0/@a[type=player]
+dump select:-/0,-60,0/@a[type=!player]
+dump select:-/0,-60,0/@a[type=pig]
+dump select:-/0,-60,0/@a[type=!pig]
+dump select:-/0,-60,0/@a[type=#minecraft:undead]
+dump select:-/0,-60,0/@a[type=!#minecraft:undead]
+dump select:-/0,-60,0/@a[type=#minecraft:nothing]
+dump select:-/0,-60,0/@a[type=player,type=pig]
+dump select:-/0,-60,0/@a[type=!pig,type=player]
+dump select:-/0,-60,0/@a[type=!pig,type=!cow]
+dump select:-/0,-60,0/@a[type=minecraft:player]
+dump select:-/0,-60,0/@p[type=player]
+dump select:-/0,-60,0/@p[type=pig]
+dump select:-/0,-60,0/@p[type=!player]
+dump select:-/0,-60,0/@p[type=!pig]
+dump select:-/0,-60,0/@p[type=#minecraft:undead]
+dump selectcount:-/0,-60,0/@r[type=player]
+dump selectcount:-/0,-60,0/@r[type=pig]
+dump selectsorted:-/0,-60,0/@r[type=!player]
+dump selectsorted:-/0,-60,0/@r[type=!pig,limit=2]
+dump select:-/0,-60,0/@n[type=pig]
+dump select:-/0,-60,0/@n[type=!pig]
+dump select:-/0,-60,0/@n[type=!pig,type=!player]
+dump select:-/0,-60,0/@n[type=player]
+dump select:-/0,-60,0/@n[type=#minecraft:undead]
+dump select:-/0,-60,0/@n[type=zombie,type=husk]
+dump select:-/0,-60,0/@n
+dump select:-/0,-60,0/@n[type=item]
+dump select:-/0,-60,0/@n[type=experience_orb]
+dump select:-/0,-60,0/@n[type=!#minecraft:undead,type=!player]
+dump select:-/0,-60,0/@s
+dump select:-/0,-60,0/@s[type=pig]
+dump select:-/0,-60,0/@s[type=player]
+dump select:-/0,-60,0/@s[type=!player]
+dump select:-/0,-60,0/@s[type=#minecraft:undead]
+dump select:A/0.5,-60,0.5/@s[type=player]
+dump select:A/0.5,-60,0.5/@s[type=pig]
+dump select:A/0.5,-60,0.5/@s[type=!player]
+dump select:A/0.5,-60,0.5/@s[type=!pig]
+dump select:A/0.5,-60,0.5/@s[type=#minecraft:undead]
+dump select:A/0.5,-60,0.5/@a[type=player]
+dump select:A/0.5,-60,0.5/@n[type=!player]
+dump select:A/0.5,-60,0.5/@n
+dump select:A/0.5,-60,0.5/@n[type=pig]
+dump select:A/0.5,-60,0.5/@e[type=player,sort=furthest]
+note commands
+cmd tag @e[type=zombie] add z
+cmd tag @e[type=#minecraft:undead] add undead
+cmd tag @e[type=!#minecraft:undead,type=!player,type=!marker,type=!armor_stand,distance=..8] add living
+cmd execute if entity @e[type=zombie,tag=z]
+cmd execute as @e[type=#minecraft:skeletons] run say bones
+cmd kill @e[type=item]
+cmd kill @e[type=experience_orb]
+cmd kill @e[type=#minecraft:boats]
+cmd kill @e[type=minecart]
+cmd kill @e[type=tnt]
+cmd kill @e[type=#minecraft:arrows]
+cmd tag @e[type=wither] add never
+cmd kill @e[type=!player,type=!pig,type=!cow,type=!chicken,limit=4,sort=nearest]
+cmd execute as @e[type=!player,limit=2,sort=furthest] run tag @s add far
+cmd tag @n[type=cow] add n
+cmd tag @n[type=!player] add n2
+cmd kill @e[type=player,name=Nobody]
+cmd kill @e[type=player,name=Bob]
+dump select:-/0,-60,0/@e[sort=nearest,tag=z]
+dump select:-/0,-60,0/@e[sort=nearest,tag=undead]
+dump select:-/0,-60,0/@e[sort=nearest,tag=living]
+dump select:-/0,-60,0/@e[sort=nearest,tag=far]
+dump select:-/0,-60,0/@e[sort=nearest,tag=n]
+dump select:-/0,-60,0/@e[sort=nearest,tag=n2]
+dump select:-/0,-60,0/@e[sort=nearest]

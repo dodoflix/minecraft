@@ -1,0 +1,194 @@
+# Distance ranges and volumes: `distance` with open/closed/exact/fractional bounds, `x y z` as the origin, `dx dy dz` boxes (negative,
+# zero, fractional, only some axes), the box and the distance together, boxes against entities of different sizes and entities exactly on
+# a box edge, the player selectors with a volume, and the errors of the options.
+command_env
+level flat
+preload 3
+entity_counter 800
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+tick 1
+cmd summon minecraft:marker 2 -60 0
+cmd summon minecraft:marker 5 -60 0
+cmd summon minecraft:marker 5.5 -60 0
+cmd summon minecraft:marker 6 -60 0
+cmd summon minecraft:marker -1 -60 0
+cmd summon minecraft:marker 0 -59 0
+cmd summon minecraft:marker 0 -55 0
+cmd summon minecraft:marker 0 -60 5
+cmd summon minecraft:marker 3 -57 4
+cmd summon minecraft:pig 10 -60 10 {NoAI:1b}
+cmd summon minecraft:cow 3 -60 -4 {NoAI:1b}
+cmd summon minecraft:giant 20 -60 0 {NoAI:1b}
+cmd summon minecraft:slime 0 -60 -10 {NoAI:1b,Size:3}
+cmd summon minecraft:armor_stand 8 -60 1 {NoGravity:1b,Small:1b}
+tick 1
+note distance bounds measure the squared distance to the entity position
+dump select:-/0,-60,0/@e[sort=nearest,distance=..5]
+dump select:-/0,-60,0/@e[sort=nearest,distance=5..]
+dump select:-/0,-60,0/@e[sort=nearest,distance=2..5]
+dump select:-/0,-60,0/@e[sort=nearest,distance=5]
+dump select:-/0,-60,0/@e[sort=nearest,distance=0]
+dump select:-/0,-60,0/@e[sort=nearest,distance=..0]
+dump select:-/0,-60,0/@e[sort=nearest,distance=0..0]
+dump select:-/0,-60,0/@e[sort=nearest,distance=2..2]
+dump select:-/0,-60,0/@e[sort=nearest,distance=1.5..4.5]
+dump select:-/0,-60,0/@e[sort=nearest,distance=..5.5]
+dump select:-/0,-60,0/@e[sort=nearest,distance=5.5..5.5]
+dump select:-/0,-60,0/@e[sort=nearest,distance=..4.999999]
+dump select:-/0,-60,0/@e[sort=nearest,distance=5.000001..]
+dump select:-/0,-60,0/@e[sort=nearest,distance=..2]
+dump select:-/0,-60,0/@e[sort=nearest,distance=1..]
+dump select:-/0,-60,0/@e[sort=nearest,distance=100..]
+dump select:-/0,-60,0/@e[sort=nearest,distance=0..1000000]
+dump select:-/0,-60,0/@e[sort=nearest,distance=..1e3]
+dump select:-/0,-60,0/@e[sort=nearest,distance=7..2]
+dump select:-/0,-60,0/@e[sort=nearest,distance=..]
+dump select:-/0,-60,0/@e[sort=nearest,distance=]
+dump select:-/0,-60,0/@e[sort=nearest,distance=a]
+dump select:-/0,-60,0/@e[sort=nearest,distance=..5,distance=..6]
+dump select:-/0,-60,0/@a[distance=..4]
+dump select:-/0,-60,0/@a[distance=4..]
+dump select:-/0,-60,0/@a[sort=furthest,distance=4]
+dump select:-/0,-60,0/@p[distance=1..]
+dump select:-/0,-60,0/@p[distance=..3]
+dump select:-/0,-60,0/@p[distance=5..]
+dump selectsorted:-/0,-60,0/@r[distance=..3,limit=5]
+dump select:A/0.5,-60,0.5/@s[distance=..0]
+dump select:A/0.5,-60,0.5/@s[distance=1..]
+dump select:A/0.5,-60,0.5/@s[distance=..1]
+dump select:A/10.5,-60,0.5/@s[distance=..1]
+dump select:A/10.5,-60,0.5/@s[distance=9..11]
+dump select:A/0.5,-60,0.5/@n[distance=3..]
+dump select:A/0.5,-60,0.5/@n[distance=..1,type=!player]
+dump select:A/0.5,-60,0.5/@e[sort=nearest,distance=..3]
+dump select:B/4.5,-60,0.5/@e[sort=nearest,distance=..2]
+note distance errors
+dump select:-/0,-60,0/@e[distance=-1]
+dump select:-/0,-60,0/@e[distance=..-1]
+dump select:-/0,-60,0/@e[distance=-1..5]
+dump select:-/0,-60,0/@e[distance=-0.0]
+dump select:-/0,-60,0/@e[distance=-1..-5]
+note x y z move the origin of the distance and of the box
+dump select:-/0,-60,0/@e[sort=nearest,x=5,distance=..1]
+dump select:-/0,-60,0/@e[sort=nearest,x=5.5,distance=..0.5]
+dump select:-/0,-60,0/@e[sort=nearest,x=5,y=-60,z=0,distance=..0]
+dump select:-/0,-60,0/@e[sort=nearest,x=0,y=-55,z=0,distance=..0]
+dump select:-/0,-60,0/@e[sort=nearest,y=-55,distance=..1]
+dump select:-/0,-60,0/@e[sort=nearest,z=5,distance=..1]
+dump select:-/0,-60,0/@e[sort=nearest,z=5,x=3,y=-57,distance=..0]
+dump select:-/100,-60,100/@e[sort=nearest,x=0,y=-60,z=0,distance=..2]
+dump select:-/100,-60,100/@e[sort=nearest,distance=..2]
+dump select:-/100,-60,100/@e[sort=nearest,x=1,distance=..2]
+dump select:-/0,-60,0/@e[sort=nearest,x=10,y=-60,z=10,limit=1]
+dump select:-/0,-60,0/@e[sort=furthest,x=10,y=-60,z=10,limit=2]
+dump select:-/0,-60,0/@e[sort=nearest,x=-1000000]
+dump select:-/0,-60,0/@e[sort=nearest,x=1e1,y=-60,distance=..1]
+dump select:-/0,-60,0/@e[x=,y=1]
+dump select:-/0,-60,0/@e[x=a]
+dump select:-/0,-60,0/@e[x=1,x=2]
+dump select:-/0,-60,0/@e[x=1..2]
+dump select:-/0,-60,0/@e[x=~]
+dump select:-/0,-60,0/@e[x=.5,y=-60.,distance=..9]
+dump select:-/0,-60,0/@a[x=4.5,distance=..0.1]
+dump select:-/0,-60,0/@p[x=4.5]
+dump select:-/0,-60,0/@p[x=-100]
+dump select:A/0.5,-60,0.5/@s[x=4.5,distance=..1]
+dump select:A/0.5,-60,0.5/@s[x=4.5]
+note dx dy dz boxes: the box is [0, d+1] per axis from the origin, moved to the origin; negative deltas extend the other way
+dump select:-/0,-60,0/@e[sort=nearest,dx=0,dy=0,dz=0]
+dump select:-/0,-60,0/@e[sort=nearest,dx=0]
+dump select:-/0,-60,0/@e[sort=nearest,dx=4]
+dump select:-/0,-60,0/@e[sort=nearest,dx=5]
+dump select:-/0,-60,0/@e[sort=nearest,dx=4.999]
+dump select:-/0,-60,0/@e[sort=nearest,dx=5.001]
+dump select:-/0,-60,0/@e[sort=nearest,dx=5,dy=0,dz=0]
+dump select:-/0,-60,0/@e[sort=nearest,dx=5,dy=5]
+dump select:-/0,-60,0/@e[sort=nearest,dx=5,dy=5,dz=5]
+dump select:-/0,-60,0/@e[sort=nearest,dx=-3]
+dump select:-/0,-60,0/@e[sort=nearest,dx=-1]
+dump select:-/0,-60,0/@e[sort=nearest,dx=-0.5]
+dump select:-/0,-60,0/@e[sort=nearest,dx=-1,dy=-1,dz=-1]
+dump select:-/0,-60,0/@e[sort=nearest,dx=-1,dy=-1,dz=0]
+dump select:-/0,-60,0/@e[sort=nearest,dy=5]
+dump select:-/0,-60,0/@e[sort=nearest,dy=0]
+dump select:-/0,-60,0/@e[sort=nearest,dy=-1]
+dump select:-/0,-60,0/@e[sort=nearest,dy=-6]
+dump select:-/0,-60,0/@e[sort=nearest,dy=100]
+dump select:-/0,-60,0/@e[sort=nearest,dz=5]
+dump select:-/0,-60,0/@e[sort=nearest,dz=-5]
+dump select:-/0,-60,0/@e[sort=nearest,dz=0]
+dump select:-/0,-60,0/@e[sort=nearest,dx=0.5,dy=0.5,dz=0.5]
+dump select:-/0,-60,0/@e[sort=nearest,dx=-0.5,dy=-0.5,dz=-0.5]
+dump select:-/0,-60,0/@e[sort=nearest,dx=10,dy=0,dz=10,type=pig]
+dump select:-/0,-60,0/@e[sort=nearest,dx=10,dy=0,dz=10,type=!marker]
+dump select:-/0,-60,0/@e[sort=nearest,dx=20,dy=3,dz=3,type=giant]
+dump select:-/0,-60,0/@e[sort=nearest,dx=1000,dy=1000,dz=1000]
+dump select:-/0,-60,0/@e[sort=nearest,dx=-1000,dy=-1000,dz=-1000]
+dump select:-/0,-60,0/@e[sort=nearest,dx=1e2]
+note boxes against sized entities: a box touching the hitbox from outside does not select it
+dump select:-/6,-60,0/@e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand]
+dump select:-/7.5,-60,0/@e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand]
+dump select:-/7.4,-60,0/@e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand]
+dump select:-/7.6,-60,0/@e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand]
+dump select:-/8.3,-60,1/@e[sort=nearest,dx=-1,dy=0,dz=0,type=armor_stand]
+dump select:-/8.4,-60,1/@e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand]
+dump select:-/8.5,-60,1/@e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand]
+dump select:-/8.2,-60,1/@e[sort=nearest,dx=0,dy=0,dz=0,type=armor_stand]
+dump select:-/0,-60,-9/@e[sort=nearest,dx=0,dy=0,dz=0,type=slime]
+dump select:-/0,-60,-11/@e[sort=nearest,dx=0,dy=0,dz=0,type=slime]
+dump select:-/0,-60,-12.5/@e[sort=nearest,dx=0,dy=0,dz=0,type=slime]
+dump select:-/0,-60,-12.6/@e[sort=nearest,dx=0,dy=0,dz=0,type=slime]
+dump select:-/20,-50,0/@e[sort=nearest,dx=0,dy=0,dz=0,type=giant]
+dump select:-/20,-49.1,0/@e[sort=nearest,dx=0,dy=0,dz=0,type=giant]
+dump select:-/23,-60,0/@e[sort=nearest,dx=0,dy=0,dz=0,type=giant]
+dump select:-/22,-60,0/@e[sort=nearest,dx=0,dy=0,dz=0,type=giant]
+dump select:-/18,-60,0/@e[sort=nearest,dx=0,dy=0,dz=0,type=giant]
+dump select:-/17,-60,0/@e[sort=nearest,dx=0,dy=0,dz=0,type=giant]
+note the box and the distance both apply
+dump select:-/0,-60,0/@e[sort=nearest,dx=10,distance=..3]
+dump select:-/0,-60,0/@e[sort=nearest,dx=2,dy=0,dz=0,distance=..5]
+dump select:-/0,-60,0/@e[sort=nearest,dx=0,distance=1..]
+dump select:-/0,-60,0/@e[sort=nearest,dx=10,dy=10,dz=10,distance=2..5]
+dump select:-/0,-60,0/@e[sort=nearest,dx=6,distance=5]
+dump select:-/0,-60,0/@e[sort=nearest,x=5,dx=0,dy=0,dz=0]
+dump select:-/0,-60,0/@e[sort=nearest,x=5,dx=0,dy=0,dz=0,distance=..1]
+dump select:-/0,-60,0/@e[sort=nearest,x=4,y=-60,z=4,dx=2,dy=3,dz=2]
+dump select:-/0,-60,0/@a[dx=5,dy=0,dz=0]
+dump select:-/0,-60,0/@a[dx=3,dy=0,dz=0]
+dump select:-/0,-60,0/@a[dx=-1,dy=0,dz=0]
+dump select:-/0,-60,0/@a[x=4,dx=1,dy=0,dz=0]
+dump select:-/0,-60,0/@p[x=5,dx=0,dy=0,dz=0]
+dump select:-/0,-60,0/@p[dx=0]
+dump select:A/0.5,-60,0.5/@s[dx=0]
+dump select:A/0.5,-60,0.5/@s[dx=-1,dy=-1,dz=-1]
+dump select:A/10.5,-60,0.5/@s[dx=0]
+dump select:A/10.5,-60,0.5/@s[dx=-10]
+dump select:A/0.5,-60,0.5/@n[dx=3,dy=3,dz=3]
+dump select:A/0.5,-60,0.5/@n[dx=3,dy=3,dz=3,type=marker]
+note errors
+dump select:-/0,-60,0/@e[dx=a]
+dump select:-/0,-60,0/@e[dx=]
+dump select:-/0,-60,0/@e[dx=1,dx=2]
+dump select:-/0,-60,0/@e[dx=1..2]
+dump select:-/0,-60,0/@e[dy=1,dy=2]
+dump select:-/0,-60,0/@e[dz=1,dz=2]
+dump select:-/0,-60,0/@e[dx=1,dy=2,dz=3,dx=4]
+dump select:-/0,-60,0/@e[dx=1e999]
+dump select:-/0,-60,0/@e[dx=NaN]
+note commands
+cmd execute as @e[type=marker,dx=5,dy=0,dz=0] run say marker
+cmd kill @e[type=marker,x=5,dx=0,dy=0,dz=0]
+cmd execute positioned 20 -60 0 as @e[type=giant,distance=..1] run tag @s add found
+cmd tag @e[type=pig,distance=..15] add pig
+cmd tag @e[type=pig,distance=..14] add near
+cmd tag @e[dx=10,dy=3,dz=10,type=!marker] add boxed
+cmd execute if entity @e[distance=..0.5]
+cmd execute unless entity @e[type=pig,distance=..5]
+cmd execute if entity @e[type=cow,dx=3,dz=-4]
+cmd execute as @a at @s if entity @e[type=marker,distance=..1.5]
+cmd execute as @a at @s if entity @e[type=marker,dx=0,dy=0,dz=0]
+dump select:-/0,-60,0/@e[sort=nearest,tag=pig]
+dump select:-/0,-60,0/@e[sort=nearest,tag=near]
+dump select:-/0,-60,0/@e[sort=nearest,tag=boxed]
+dump select:-/0,-60,0/@e[sort=nearest,tag=found]

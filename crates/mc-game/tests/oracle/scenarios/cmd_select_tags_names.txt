@@ -1,0 +1,153 @@
+# Tags, names and the name/UUID selector forms: `tag` (positive, inverted, empty, case, several), `name` (custom names, default type names,
+# quoted names, inverted, repeated), player names (bare and with options), UUIDs, and the syntax errors of these options.
+command_env
+level flat
+preload 2
+entity_counter 1100
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player Bob survival 4.5 -60 0.5 0 0
+spawn_player Cee survival 8.5 -60 0.5 0 0
+tick 1
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b,Tags:["a","b"],CustomName:'"Bob"',UUID:[I;1,2,3,4]}
+cmd summon minecraft:pig 5 -60 5 {NoAI:1b,Tags:["a"],UUID:[I;1,2,3,5]}
+cmd summon minecraft:cow 7 -60 7 {NoAI:1b,CustomName:'"Bob Jr"',UUID:[I;1,2,3,6]}
+cmd summon minecraft:zombie 9 -60 9 {NoAI:1b,PersistenceRequired:1b,CustomName:'"Bob"',Tags:["b","c d"],UUID:[I;1,2,3,7]}
+cmd summon minecraft:sheep 11 -60 11 {NoAI:1b,Tags:["B","a.b","a-b","a+b","_x"],UUID:[I;1,2,3,8]}
+cmd summon minecraft:armor_stand 13 -60 13 {NoGravity:1b,CustomName:'{"text":"Bob","color":"red"}',UUID:[I;1,2,3,9]}
+cmd summon minecraft:chicken 15 -60 15 {NoAI:1b,CustomName:'{"translate":"entity.minecraft.pig"}',UUID:[I;1,2,3,10]}
+cmd summon minecraft:chicken 17 -60 17 {NoAI:1b,CustomName:'""',UUID:[I;1,2,3,11]}
+cmd summon minecraft:chicken 19 -60 19 {NoAI:1b,CustomName:'{"text":"a\\\\b\\"c"}',UUID:[I;1,2,3,12]}
+cmd summon minecraft:item_display 1 -58 1 {Tags:["a"],UUID:[I;1,2,3,13]}
+cmd tag A add a
+cmd tag Bob add a
+cmd tag Bob add b
+cmd tag Cee add Bob
+tick 1
+note tags
+dump select:-/0,-60,0/@e[sort=nearest,tag=a]
+dump select:-/0,-60,0/@e[sort=nearest,tag=!a]
+dump select:-/0,-60,0/@e[sort=nearest,tag=a,tag=b]
+dump select:-/0,-60,0/@e[sort=nearest,tag=a,tag=!b]
+dump select:-/0,-60,0/@e[sort=nearest,tag=!a,tag=!b]
+dump select:-/0,-60,0/@e[sort=nearest,tag=!b,tag=a]
+dump select:-/0,-60,0/@e[sort=nearest,tag=a,tag=a]
+dump select:-/0,-60,0/@e[sort=nearest,tag=]
+dump select:-/0,-60,0/@e[sort=nearest,tag=!]
+dump select:-/0,-60,0/@e[sort=nearest,tag=,tag=a]
+dump select:-/0,-60,0/@e[sort=nearest,tag=B]
+dump select:-/0,-60,0/@e[sort=nearest,tag=b]
+dump select:-/0,-60,0/@e[sort=nearest,tag=Bob]
+dump select:-/0,-60,0/@e[sort=nearest,tag=a.b]
+dump select:-/0,-60,0/@e[sort=nearest,tag=a-b]
+dump select:-/0,-60,0/@e[sort=nearest,tag=a+b]
+dump select:-/0,-60,0/@e[sort=nearest,tag=_x]
+dump select:-/0,-60,0/@e[sort=nearest,tag=!_x]
+dump select:-/0,-60,0/@e[sort=nearest,tag=nothing]
+dump select:-/0,-60,0/@e[sort=nearest,tag=!nothing,type=player]
+dump select:-/0,-60,0/@e[sort=nearest,tag=a,type=pig]
+dump select:-/0,-60,0/@e[sort=nearest,tag=a,type=!pig]
+dump select:-/0,-60,0/@a[tag=a]
+dump select:-/0,-60,0/@a[tag=!a]
+dump select:-/0,-60,0/@a[tag=]
+dump select:-/0,-60,0/@a[tag=a,tag=b]
+dump select:-/0,-60,0/@p[tag=Bob]
+dump select:A/0.5,-60,0.5/@s[tag=a]
+dump select:A/0.5,-60,0.5/@s[tag=!a]
+dump select:A/0.5,-60,0.5/@s[tag=]
+dump select:Cee/8.5,-60,0.5/@s[tag=]
+dump select:-/0,-60,0/@n[tag=b]
+dump select:-/0,-60,0/@e[tag="a"]
+dump select:-/0,-60,0/@e[tag=c d]
+dump select:-/0,-60,0/@e[tag=a b]
+dump select:-/0,-60,0/@e[tag=a;b]
+dump select:-/0,-60,0/@e[tag==a]
+dump select:-/0,-60,0/@e[tag=!!a]
+dump select:-/0,-60,0/@e[tag]
+note names: the plain text of the custom name or of the type name
+dump select:-/0,-60,0/@e[sort=nearest,name=Bob]
+dump select:-/0,-60,0/@e[sort=nearest,name=!Bob]
+dump select:-/0,-60,0/@e[sort=nearest,name=bob]
+dump select:-/0,-60,0/@e[sort=nearest,name="Bob Jr"]
+dump select:-/0,-60,0/@e[sort=nearest,name='Bob Jr']
+dump select:-/0,-60,0/@e[sort=nearest,name=Bob Jr]
+dump select:-/0,-60,0/@e[sort=nearest,name=Pig]
+dump select:-/0,-60,0/@e[sort=nearest,name=Cow]
+dump select:-/0,-60,0/@e[sort=nearest,name=Zombie]
+dump select:-/0,-60,0/@e[sort=nearest,name=Sheep]
+dump select:-/0,-60,0/@e[sort=nearest,name="Armor Stand"]
+dump select:-/0,-60,0/@e[sort=nearest,name="Item Display"]
+dump select:-/0,-60,0/@e[sort=nearest,name=Chicken]
+dump select:-/0,-60,0/@e[sort=nearest,name=entity.minecraft.pig]
+dump select:-/0,-60,0/@e[sort=nearest,name=""]
+dump select:-/0,-60,0/@e[sort=nearest,name=!""]
+dump select:-/0,-60,0/@e[sort=nearest,name="a\\b\"c"]
+dump select:-/0,-60,0/@e[sort=nearest,name='a\\b"c']
+dump select:-/0,-60,0/@e[sort=nearest,name=!Pig,name=!Bob,name=!Cow]
+dump select:-/0,-60,0/@e[sort=nearest,name=!Pig,name=!Bob,name=!"Bob Jr"]
+dump select:-/0,-60,0/@e[sort=nearest,name=Bob,type=pig]
+dump select:-/0,-60,0/@e[sort=nearest,name=Bob,type=!pig]
+dump select:-/0,-60,0/@e[sort=nearest,name=A]
+dump select:-/0,-60,0/@e[sort=nearest,name=a]
+dump select:-/0,-60,0/@e[sort=nearest,name=Cee]
+dump select:-/0,-60,0/@a[name=Bob]
+dump select:-/0,-60,0/@a[name=!Bob]
+dump select:-/0,-60,0/@a[name=!Bob,name=!A]
+dump select:-/0,-60,0/@a[name=!Bob,name=!A,name=!Cee]
+dump select:-/0,-60,0/@p[name=Cee]
+dump selectsorted:-/0,-60,0/@r[name=A]
+dump selectsorted:-/0,-60,0/@r[name=!A,limit=3]
+dump select:A/0.5,-60,0.5/@s[name=A]
+dump select:A/0.5,-60,0.5/@s[name=!A]
+dump select:A/0.5,-60,0.5/@s[name=Bob]
+dump select:-/0,-60,0/@n[name=Bob]
+dump select:-/0,-60,0/@n[name=Bob,type=!player]
+dump select:-/0,-60,0/@n[name=Pig]
+note the player-name and UUID forms
+dump select:-/0,-60,0/A
+dump select:-/0,-60,0/a
+dump select:-/0,-60,0/Bob
+dump select:-/0,-60,0/BOB
+dump select:-/0,-60,0/Nobody
+dump select:-/0,-60,0/"Cee"
+dump select:-/0,-60,0/'Cee'
+dump select:-/0,-60,0/"A B"
+dump select:-/0,-60,0/0123456789abcdef
+dump select:-/0,-60,0/0123456789abcdefg
+dump select:-/0,-60,0/
+dump select:-/0,-60,0/""
+dump select:-/0,-60,0/00000001-0000-0002-0000-000300000004
+dump select:-/0,-60,0/00000001-0000-0002-0000-000300000005
+dump select:-/0,-60,0/00000001-0000-0002-0000-000300000007
+dump select:-/0,-60,0/00000001-0000-0002-0000-00030000000D
+dump select:-/0,-60,0/00000001-0000-0002-0000-00030000000d
+dump select:-/0,-60,0/00000001-0000-0002-0000-000300000063
+dump select:-/0,-60,0/1-0-2-0-3
+dump select:-/0,-60,0/"00000001-0000-0002-0000-000300000004"
+dump select:-/0,-60,0/00000001-0000-0002-0000-00030000000
+dump select:-/0,-60,0/00000001-0000-0002-0000-0003000000040
+dump select:-/0,-60,0/1-2-3-4-5
+dump select:-/0,-60,0/1-2-3-4
+dump select:-/0,-60,0/g0000001-0000-0002-0000-000300000004
+dump select:A/0.5,-60,0.5/00000001-0000-0002-0000-000300000004
+dump select:A/0.5,-60,0.5/A
+dump select:A/0.5,-60,0.5/Bob
+note commands taking a name or a UUID
+cmd tag Bob add named
+cmd tag 00000001-0000-0002-0000-000300000004 add named
+cmd tag 00000001-0000-0002-0000-000300000063 add named
+cmd tag Nobody add named
+cmd tp A Bob
+cmd tp A 00000001-0000-0002-0000-000300000005
+cmd tp 00000001-0000-0002-0000-000300000006 A
+cmd effect give Cee minecraft:speed 5
+cmd effect give 00000001-0000-0002-0000-000300000004 minecraft:speed 5
+cmd kill 00000001-0000-0002-0000-000300000008
+cmd kill Nobody
+cmd data get entity 00000001-0000-0002-0000-000300000004 CustomName
+cmd data get entity Bob Pos
+cmd execute as 00000001-0000-0002-0000-000300000005 run tag @s add ran
+cmd execute as Cee run tag @s add ran
+cmd execute if entity 00000001-0000-0002-0000-00030000000a
+cmd execute if entity Nobody
+dump select:-/0,-60,0/@e[tag=named]
+dump select:-/0,-60,0/@e[tag=ran]

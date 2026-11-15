@@ -314,7 +314,8 @@ fn sorted_lines(prefix: &str, list: Option<&Tag>) -> Vec<String> {
 
 /// The dump kinds of this module (`EntityOracleDriver.dump`): `scoreboard` (`OBJ`/`SCORE`/`TEAM` entries of the scoreboard's saved form,
 /// sorted, and `DISPLAY` slots), `bossbars` (`BOSSBAR ID SNBT` per custom boss bar), `storage:ID` (`STORAGE ID SNBT`) and
-/// `select:EXECUTOR/X,Y,Z/SELECTOR` (`SELECT SELECTOR EXECUTOR POS -> REF..`: what the selector finds for an operator in result order).
+/// `select:EXECUTOR/X,Y,Z/SELECTOR` (`SELECT SELECTOR EXECUTOR POS -> REF..`: what the selector finds for an operator in result order;
+/// `selectsorted:` and `selectcount:` give the sorted names and the count).
 /// `false` for any other kind.
 pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
     let lines = match (kind, arg) {
@@ -367,14 +368,14 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
             });
             vec![format!("STORAGE {id} {}", canon(&Tag::Compound(tag)))]
         }
-        ("select", Some(arg)) => {
+        ("select" | "selectsorted" | "selectcount", Some(arg)) => {
             let mut parts = arg.splitn(3, '/');
             let (Some(executor), Some(position), Some(selector)) =
                 (parts.next(), parts.next(), parts.next())
             else {
                 panic!("select:EXECUTOR/X,Y,Z/SELECTOR")
             };
-            vec![select_line(h, executor, position, selector)]
+            vec![select_line(h, kind, executor, position, selector)]
         }
         _ => return false,
     };
@@ -384,8 +385,15 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
     true
 }
 
-/// `dump select:EXECUTOR/X,Y,Z/SELECTOR`.
-fn select_line<H: MobHost>(h: &mut H, executor: &str, position: &str, selector: &str) -> String {
+/// `dump select:EXECUTOR/X,Y,Z/SELECTOR`; `selectsorted:` lists the names sorted and `selectcount:` only counts them (`sort=random` shuffles
+/// with an unseeded generator in vanilla).
+fn select_line<H: MobHost>(
+    h: &mut H,
+    kind: &str,
+    executor: &str,
+    position: &str,
+    selector: &str,
+) -> String {
     h.boot();
     let c: Vec<f64> = position
         .split(',')
@@ -416,12 +424,23 @@ fn select_line<H: MobHost>(h: &mut H, executor: &str, position: &str, selector: 
             parsed.find_entities(&stack, server)
         })
     });
-    let mut line = format!("SELECT {selector} {executor} {position} ->");
+    let mut line = format!(
+        "{} {selector} {executor} {position} ->",
+        kind.to_uppercase()
+    );
     match found {
+        Ok(found) if kind == "selectcount" => line.push_str(&format!(" {}", found.len())),
         Ok(found) => {
-            for entity in found {
+            let mut listed: Vec<&str> = found
+                .iter()
+                .map(|entity| names.get(&entity.id).map_or("?", String::as_str))
+                .collect();
+            if kind == "selectsorted" {
+                listed.sort_unstable();
+            }
+            for name in listed {
                 line.push(' ');
-                line.push_str(names.get(&entity.id).map_or("?", String::as_str));
+                line.push_str(name);
             }
         }
         Err(e) => {

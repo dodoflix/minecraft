@@ -1,0 +1,310 @@
+CF msg Summoned new "Piggy"
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Sheep
+CF result success 1
+CF msg Summoned new {"text":"Mooo","color":"red"}
+CF result success 1
+CF msg Summoned new Stick
+CF result success 1
+CF msg Summoned new Diamond Sword
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Zombie
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Gave 4 [Stick] to A
+CF result success 1
+CF msg Gave 2 [Diamond] to Bob
+CF result success 1
+CF msg Replaced 1 slot(s) on Bob with [Stone Sword]
+CF result success 1
+# compounds and numeric types
+# scalars: a tag of another numeric type does not equal
+SELECT @e[sort=nearest,nbt={}] - 0,-60,0 -> A marker#1 Bob pig#1 pig#2 sheep#1 cow#1 item#1 item#2 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={NoAI:1b}] - 0,-60,0 -> pig#1 pig#2 sheep#1 cow#1 zombie#1
+SELECT @e[sort=nearest,nbt={NoAI:0b}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={NoAI:1}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={NoAI:1s}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={NoAI:true}] - 0,-60,0 -> pig#1 pig#2 sheep#1 cow#1 zombie#1
+SELECT @e[sort=nearest,nbt={NoAI:false}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Health:10f}] - 0,-60,0 -> pig#1 pig#2 cow#1
+SELECT @e[sort=nearest,nbt={Health:10}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Health:10.0d}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Health:10.0f}] - 0,-60,0 -> pig#1 pig#2 cow#1
+SELECT @e[sort=nearest,nbt={Health:10.5f}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Health:20f}] - 0,-60,0 -> A Bob armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={Invulnerable:1b}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={Invulnerable:0b}] - 0,-60,0 -> A marker#1 Bob pig#2 sheep#1 cow#1 item#1 item#2 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={OnGround:1b}] - 0,-60,0 -> A Bob item#1 item#2
+SELECT @e[sort=nearest,nbt={OnGround:0b}] - 0,-60,0 -> marker#1 pig#1 pig#2 sheep#1 cow#1 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={Age:-24000}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Age:-24000L}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Age:0}] - 0,-60,0 -> pig#1 sheep#1 cow#1
+SELECT @e[sort=nearest,nbt={Age:0,Tags:["a"]}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={Color:3b}] - 0,-60,0 -> sheep#1
+SELECT @e[sort=nearest,nbt={Color:3}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Sheared:1b}] - 0,-60,0 -> sheep#1
+SELECT @e[sort=nearest,nbt={Sheared:0b}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={UUID:[I;51,0,0,1]}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={UUID:[I;51,0,0,2]}] - 0,-60,0 -> pig#2
+SELECT @e[sort=nearest,nbt={UUID:[I;51,0,0]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={UUID:[I;51,0,0,1,1]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={UUID:[L;1L]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={id:"minecraft:pig"}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Brain:{}}] - 0,-60,0 -> A Bob pig#1 pig#2 sheep#1 cow#1 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={Motion:[0.0d,0.0d,0.0d]}] - 0,-60,0 -> A marker#1 Bob pig#1 pig#2 sheep#1 cow#1 item#1 item#2 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={Motion:[0.0d]}] - 0,-60,0 -> A marker#1 Bob pig#1 pig#2 sheep#1 cow#1 item#1 item#2 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={Pos:[3.0d,-60.0d,3.0d]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Pos:[3.0d]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Pos:[-60.0d]}] - 0,-60,0 -> A Bob pig#1 pig#2 sheep#1 cow#1 item#1 item#2 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={Pos:[3.0d,-60.0d]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Pos:[3,-60,3]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Pos:[3.0f,-60.0f,3.0f]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Rotation:[90f,0f]}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={Rotation:[90f]}] - 0,-60,0 -> Bob pig#1
+SELECT @e[sort=nearest,nbt={Rotation:[0f,90f]}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={Rotation:[0f]}] - 0,-60,0 -> A marker#1 pig#1 pig#2 sheep#1 cow#1 item#1 item#2 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={CustomName:"Piggy"}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={CustomName:'"Piggy"'}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={CustomName:{text:"Piggy"}}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={CustomName:"Mooo"}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={CustomName:{text:"Mooo",color:"red"}}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={CustomName:{color:"red",text:"Mooo"}}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={CustomNameVisible:1b}] - 0,-60,0 -> cow#1
+SELECT @e[sort=nearest,nbt={CustomNameVisible:0b}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Tags:["a"]}] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,nbt={Tags:["a","b"]}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={Tags:["b","a"]}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={Tags:["b"]}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={Tags:["c"]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Tags:[]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Tags:["a","c"]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Tags:["a","a"]}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={Tags:[1]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Tags:[""]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Tags:["a"],NoAI:1b}] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,nbt={Tags:["a"],NoAI:0b}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Item:{id:"minecraft:stick"}}] - 0,-60,0 -> item#1
+SELECT @e[sort=nearest,nbt={Item:{count:3}}] - 0,-60,0 -> item#1
+SELECT @e[sort=nearest,nbt={Item:{count:3b}}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Item:{id:"minecraft:stick",count:3}}] - 0,-60,0 -> item#1
+SELECT @e[sort=nearest,nbt={Item:{id:"minecraft:diamond_sword"}}] - 0,-60,0 -> item#2
+SELECT @e[sort=nearest,nbt={Item:{components:{"minecraft:damage":5}}}] - 0,-60,0 -> item#2
+SELECT @e[sort=nearest,nbt={Item:{components:{"minecraft:damage":5b}}}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Item:{components:{"minecraft:enchantments":{"minecraft:sharpness":2}}}}] - 0,-60,0 -> item#2
+SELECT @e[sort=nearest,nbt={Item:{components:{"minecraft:enchantments":{"minecraft:sharpness":1}}}}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Item:{components:{}}}] - 0,-60,0 -> item#2
+SELECT @e[sort=nearest,nbt={Item:{}}] - 0,-60,0 -> item#1 item#2
+SELECT @e[sort=nearest,nbt={Item:5}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={PickupDelay:32767s}] - 0,-60,0 -> item#1 item#2
+SELECT @e[sort=nearest,nbt={PickupDelay:32767}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Age:-32768s}] - 0,-60,0 -> item#1 item#2
+SELECT @e[sort=nearest,nbt={Age:-32768}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Age:5s}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Pose:{Head:[10f,20f,30f]}}] - 0,-60,0 -> armor_stand#1
+SELECT @e[sort=nearest,nbt={Pose:{Head:[10f]}}] - 0,-60,0 -> armor_stand#1
+SELECT @e[sort=nearest,nbt={Pose:{Head:[20f]}}] - 0,-60,0 -> armor_stand#1
+SELECT @e[sort=nearest,nbt={Pose:{}}] - 0,-60,0 -> armor_stand#1
+SELECT @e[sort=nearest,nbt={ShowArms:1b}] - 0,-60,0 -> armor_stand#1
+SELECT @e[sort=nearest,nbt={equipment:{mainhand:{id:"minecraft:stick"}}}] - 0,-60,0 -> armor_stand#1
+SELECT @e[sort=nearest,nbt={equipment:{mainhand:{id:"minecraft:stick",count:1}}}] - 0,-60,0 -> armor_stand#1
+SELECT @e[sort=nearest,nbt={equipment:{head:{id:"minecraft:iron_helmet"}}}] - 0,-60,0 -> zombie#1
+SELECT @e[sort=nearest,nbt={equipment:{head:{}}}] - 0,-60,0 -> zombie#1
+SELECT @e[sort=nearest,nbt={equipment:{}}] - 0,-60,0 -> A Bob armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={active_effects:[{id:"minecraft:speed"}]}] - 0,-60,0 -> zombie#1
+SELECT @e[sort=nearest,nbt={active_effects:[{id:"minecraft:speed",amplifier:1b}]}] - 0,-60,0 -> zombie#1
+SELECT @e[sort=nearest,nbt={active_effects:[{id:"minecraft:speed",amplifier:0b}]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={active_effects:[{amplifier:1b}]}] - 0,-60,0 -> zombie#1
+SELECT @e[sort=nearest,nbt={active_effects:[{}]}] - 0,-60,0 -> zombie#1
+SELECT @e[sort=nearest,nbt={active_effects:[]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={data:{x:1}}] - 0,-60,0 -> marker#1
+SELECT @e[sort=nearest,nbt={data:{x:1b}}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={data:{list:[1]}}] - 0,-60,0 -> marker#1
+SELECT @e[sort=nearest,nbt={data:{list:[1,2,3]}}] - 0,-60,0 -> marker#1
+SELECT @e[sort=nearest,nbt={data:{list:[3,2,1]}}] - 0,-60,0 -> marker#1
+SELECT @e[sort=nearest,nbt={data:{list:[4]}}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={data:{list:[]}}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={data:{c:{y:"z"}}}] - 0,-60,0 -> marker#1
+SELECT @e[sort=nearest,nbt={data:{c:{}}}] - 0,-60,0 -> marker#1
+SELECT @e[sort=nearest,nbt={data:{c:{y:"w"}}}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={data:{}}] - 0,-60,0 -> marker#1
+SELECT @e[sort=nearest,nbt={data:[]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={attributes:[{id:"minecraft:max_health"}]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={attributes:[{id:"minecraft:max_health",base:10.0d}]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={attributes:[{id:"minecraft:max_health",base:20.0d}]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={attributes:[{id:"minecraft:scale"}]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={attributes:[]}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={FallDistance:0.0d}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={FallDistance:0f}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Fire:-1s}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Fire:-1}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Air:300s}] - 0,-60,0 -> A marker#1 Bob pig#1 pig#2 sheep#1 cow#1 item#1 item#2 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={PortalCooldown:0}] - 0,-60,0 -> A marker#1 Bob pig#1 pig#2 sheep#1 cow#1 item#1 item#2 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={HurtTime:0s}] - 0,-60,0 -> A Bob pig#1 pig#2 sheep#1 cow#1 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={DeathTime:0s}] - 0,-60,0 -> A Bob pig#1 pig#2 sheep#1 cow#1 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={AbsorptionAmount:0.0f}] - 0,-60,0 -> A Bob pig#1 pig#2 sheep#1 cow#1 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={LeftHanded:0b}] - 0,-60,0 -> pig#1 pig#2 sheep#1 cow#1 zombie#1
+SELECT @e[sort=nearest,nbt={CanPickUpLoot:0b}] - 0,-60,0 -> pig#1 pig#2 sheep#1 cow#1 zombie#1
+SELECT @e[sort=nearest,nbt={PersistenceRequired:0b}] - 0,-60,0 -> pig#1 pig#2 sheep#1 cow#1
+SELECT @e[sort=nearest,nbt={NoGravity:0b}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Glowing:0b}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Silent:0b}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={HasVisualFire:0b}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={TicksFrozen:0}] - 0,-60,0 ->
+# inversion and repeated options
+SELECT @e[sort=nearest,nbt=!{NoAI:1b}] - 0,-60,0 -> A marker#1 Bob item#1 item#2 armor_stand#1
+SELECT @e[sort=nearest,nbt=!{Tags:["a"]}] - 0,-60,0 -> A marker#1 Bob sheep#1 cow#1 item#1 item#2 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt=!{}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt=!{id:"minecraft:pig"}] - 0,-60,0 -> A marker#1 Bob pig#1 pig#2 sheep#1 cow#1 item#1 item#2 armor_stand#1 zombie#1
+SELECT @e[sort=nearest,nbt={NoAI:1b},nbt=!{Tags:["a"]}] - 0,-60,0 -> sheep#1 cow#1 zombie#1
+SELECT @e[sort=nearest,nbt=!{NoAI:1b},nbt=!{Tags:["a"]}] - 0,-60,0 -> A marker#1 Bob item#1 item#2 armor_stand#1
+SELECT @e[sort=nearest,nbt={Tags:["a"]},nbt={Tags:["b"]}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={Tags:["a"]},nbt=!{Tags:["b"]}] - 0,-60,0 -> pig#2
+SELECT @e[sort=nearest,nbt={NoAI:1b},nbt={NoAI:1b}] - 0,-60,0 -> pig#1 pig#2 sheep#1 cow#1 zombie#1
+SELECT @e[sort=nearest,nbt={NoAI:1b,Tags:["a"]},tag=b] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={NoAI:1b},type=pig] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,nbt={NoAI:1b},type=!pig] - 0,-60,0 -> sheep#1 cow#1 zombie#1
+SELECT @e[sort=nearest,nbt=!{NoAI:1b},type=pig] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt=!{NoAI:1b},type=player] - 0,-60,0 -> A Bob
+SELECT @e[sort=nearest,nbt={NoAI:1b},limit=2] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,nbt={NoAI:1b},sort=furthest,limit=1] - 0,-60,0 -> !Option 'sort' isn't applicable here
+SELECT @e[sort=nearest,nbt={Tags:["a"]},distance=..4] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={},type=marker] - 0,-60,0 -> marker#1
+# players: the saved form plus the selected item
+SELECT @a[nbt={playerGameType:0}] - 0,-60,0 -> A
+SELECT @a[nbt={playerGameType:1}] - 0,-60,0 -> Bob
+SELECT @a[nbt={playerGameType:0b}] - 0,-60,0 ->
+SELECT @a[nbt={XpLevel:0}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={XpLevel:0b}] - 0,-60,0 ->
+SELECT @a[nbt={XpTotal:0}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={foodLevel:20}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={foodLevel:20b}] - 0,-60,0 ->
+SELECT @a[nbt={foodSaturationLevel:5.0f}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={Health:20.0f}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={Health:20}] - 0,-60,0 ->
+SELECT @a[nbt={Score:0}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={SelectedItemSlot:0}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={SelectedItemSlot:0b}] - 0,-60,0 ->
+SELECT @a[nbt={SelectedItemSlot:1}] - 0,-60,0 ->
+SELECT @a[nbt={abilities:{flying:0b}}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={abilities:{mayfly:1b}}] - 0,-60,0 -> Bob
+SELECT @a[nbt={abilities:{mayfly:0b}}] - 0,-60,0 -> A
+SELECT @a[nbt={abilities:{instabuild:1b}}] - 0,-60,0 -> Bob
+SELECT @a[nbt={abilities:{invulnerable:1b}}] - 0,-60,0 -> Bob
+SELECT @a[nbt={abilities:{flySpeed:0.05f}}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={Dimension:"minecraft:overworld"}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={Dimension:"minecraft:the_nether"}] - 0,-60,0 ->
+SELECT @a[nbt={Inventory:[{Slot:0b,id:"minecraft:stick"}]}] - 0,-60,0 -> A
+SELECT @a[nbt={Inventory:[{Slot:0b}]}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={Inventory:[{Slot:0b,id:"minecraft:stick",count:4}]}] - 0,-60,0 -> A
+SELECT @a[nbt={Inventory:[{id:"minecraft:stick"}]}] - 0,-60,0 -> A
+SELECT @a[nbt={Inventory:[{id:"minecraft:diamond"}]}] - 0,-60,0 ->
+SELECT @a[nbt={Inventory:[{id:"minecraft:stick"},{id:"minecraft:diamond"}]}] - 0,-60,0 ->
+SELECT @a[nbt={Inventory:[{Slot:0b,id:"minecraft:stone_sword"}]}] - 0,-60,0 -> Bob
+SELECT @a[nbt={Inventory:[{id:"minecraft:stone_sword",components:{"minecraft:damage":7}}]}] - 0,-60,0 -> Bob
+SELECT @a[nbt={Inventory:[]}] - 0,-60,0 ->
+SELECT @a[nbt={Inventory:[{}]}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={SelectedItem:{id:"minecraft:stick"}}] - 0,-60,0 -> A
+SELECT @a[nbt={SelectedItem:{id:"minecraft:stick",count:4}}] - 0,-60,0 -> A
+SELECT @a[nbt={SelectedItem:{count:4}}] - 0,-60,0 -> A
+SELECT @a[nbt={SelectedItem:{id:"minecraft:diamond"}}] - 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:stone_sword"}}] - 0,-60,0 -> Bob
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:damage":7}}}] - 0,-60,0 -> Bob
+SELECT @a[nbt={SelectedItem:{}}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={SelectedItem:{id:"minecraft:air"}}] - 0,-60,0 ->
+SELECT @a[nbt={EnderItems:[]}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={EnderItems:[{}]}] - 0,-60,0 ->
+SELECT @a[nbt={seenCredits:0b}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={Pos:[0.5d,-60.0d,0.5d]}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={Pos:[4.5d]}] - 0,-60,0 -> Bob
+SELECT @a[nbt={Rotation:[90f,30f]}] - 0,-60,0 -> Bob
+SELECT @a[nbt={Rotation:[0f,0f]}] - 0,-60,0 -> A
+SELECT @a[nbt={LastDeathLocation:{}}] - 0,-60,0 ->
+SELECT @a[nbt={current_explosion_impact_pos:[0.0d]}] - 0,-60,0 ->
+SELECT @a[nbt={recipeBook:{}}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={warden_spawn_tracker:{}}] - 0,-60,0 -> A Bob
+SELECT @a[nbt={SelectedItem:{id:"minecraft:stick"}}] - 0,-60,0 -> A
+SELECT @a[nbt=!{SelectedItem:{id:"minecraft:stick"}}] - 0,-60,0 -> Bob
+SELECT @e[type=player,nbt={SelectedItem:{count:4}}] - 0,-60,0 -> A
+SELECT @p[nbt={playerGameType:1}] - 0,-60,0 -> Bob
+SELECT @r[nbt={playerGameType:1}] - 0,-60,0 -> Bob
+SELECT @n[nbt={Tags:["a"]},type=pig] - 0,-60,0 -> pig#1
+SELECT @n[nbt={playerGameType:0}] - 0,-60,0 -> A
+SELECT @a[nbt={playerGameType:0},nbt={XpLevel:0}] - 0,-60,0 -> A
+SELECT @s[nbt={SelectedItem:{id:"minecraft:stick"}}] A 0.5,-60,0.5 -> A
+SELECT @s[nbt={playerGameType:1}] Bob 4.5,-60,0.5 -> Bob
+SELECT @s[nbt={SelectedItem:{id:"minecraft:stone_sword"}}] Bob 4.5,-60,0.5 -> Bob
+SELECT @s[nbt={NoAI:1b}] A 0.5,-60,0.5 ->
+# values change with /data merge and commands
+CF msg Modified entity data of "Piggy"
+CF result success 1
+CF msg Modified entity data of Sheep
+CF result success 1
+CF msg Modified entity data of Marker
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond]
+CF result success 1
+CF msg Applied effect Glowing to {"text":"Mooo","color":"red"}
+CF result success 1
+CF msg The base value for attribute Scale for entity "Piggy" set to 2.0
+CF result success 1
+SELECT @e[sort=nearest,nbt={NoAI:1b}] - 0,-60,0 -> pig#2 sheep#1 cow#1 zombie#1
+SELECT @e[sort=nearest,nbt={NoAI:0b}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={Health:5f}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={Tags:["z"]}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={Color:5b}] - 0,-60,0 -> sheep#1
+SELECT @e[sort=nearest,nbt={Sheared:0b}] - 0,-60,0 -> sheep#1
+SELECT @e[sort=nearest,nbt={data:{x:2}}] - 0,-60,0 -> marker#1
+SELECT @e[sort=nearest,nbt={data:{list:[9]}}] - 0,-60,0 -> marker#1
+SELECT @e[sort=nearest,nbt={data:{list:[1,2,3,9]}}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={SelectedItem:{id:"minecraft:diamond"}}] - 0,-60,0 -> A
+SELECT @e[sort=nearest,nbt={SelectedItem:{id:"minecraft:stick"}}] - 0,-60,0 ->
+SELECT @e[sort=nearest,nbt={active_effects:[{id:"minecraft:glowing"}]}] - 0,-60,0 -> cow#1
+SELECT @e[sort=nearest,nbt={attributes:[{id:"minecraft:scale",base:2.0d}]}] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,nbt={Glowing:1b}] - 0,-60,0 ->
+CF msg Test passed. Count: 4
+CF result success 4
+CF msg Test passed
+CF result success 1
+CF msg Added tag 'withA' to Pig
+CF result success 1
+CF msg Killed Stick
+CF result success 1
+CF result success 1
+CF msg Sheep has the following entity data: 5b
+CF result success 5
+SELECT @e[sort=nearest,tag=withA] - 0,-60,0 -> pig#2
+SELECT @e[sort=nearest,type=item] - 0,-60,0 -> item#2
+# syntax
+SELECT @e[nbt=] - 0,-60,0 -> !Expected a valid unquoted string
+SELECT @e[nbt=!] - 0,-60,0 -> !Expected a valid unquoted string
+SELECT @e[nbt=1] - 0,-60,0 -> !Expected compound tag
+SELECT @e[nbt=[]] - 0,-60,0 -> !Expected compound tag
+SELECT @e[nbt={] - 0,-60,0 -> !Expected literal "
+SELECT @e[nbt={a:}] - 0,-60,0 -> !Expected a valid unquoted string
+SELECT @e[nbt={a:1,}] - 0,-60,0 ->
+SELECT @e[nbt={a:1} - 0,-60,0 -> !Expected end of options
+SELECT @e[nbt={a:1 b:2}] - 0,-60,0 -> !Expected literal ,
+SELECT @e[nbt={"a":1}] - 0,-60,0 ->
+SELECT @e[nbt={a:1},] - 0,-60,0 ->
+SELECT @e[nbt={a:[1,2}] - 0,-60,0 -> !Expected literal .
+SELECT @e[nbt={a:"x}] - 0,-60,0 -> !Invalid string contents
+SELECT @e[nbt={a:1b}] - 0,-60,0 ->
+SELECT @e[nbt={a:{b:{c:1}}}] - 0,-60,0 ->
+SELECT @e[nbt={a:[B;1b]}] - 0,-60,0 ->
+SELECT @e[nbt={a:[I;1,2]}] - 0,-60,0 ->
+SELECT @e[nbt={a:[L;1L]}] - 0,-60,0 ->
+SELECT @e[nbt={ a : 1 }] - 0,-60,0 ->
+SELECT @e[nbt=! {a:1}] - 0,-60,0 -> A Bob pig#1 pig#2 sheep#1 cow#1 item#2 armor_stand#1 zombie#1 marker#1
+SELECT @e[nbt={a:1}{b:2}] - 0,-60,0 -> !Expected end of options
+SELECT @e[nbt={a:1e5}] - 0,-60,0 ->
+SELECT @e[nbt={a:0x10}] - 0,-60,0 ->
+SELECT @e[nbt={a:1.5.5}] - 0,-60,0 -> !Expected literal e|E
+SELECT @e[nbt={a:@}] - 0,-60,0 -> !Expected a valid unquoted string
+SELECT @e[nbt={a:true}] - 0,-60,0 ->
+SELECT @e[nbt={a:"\\"}] - 0,-60,0 ->
+SELECT @e[nbt={Tags:["\\u00e9"]}] - 0,-60,0 ->

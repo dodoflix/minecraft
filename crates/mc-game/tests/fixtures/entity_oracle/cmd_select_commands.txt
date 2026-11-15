@@ -1,0 +1,315 @@
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Created new objective [n]
+CF result success 1
+# argument types: a single entity, several, a single player, several players
+CF fail Incorrect argument for command
+CF fail tp A @e[type=pig]<--[HERE]
+CF fail Incorrect argument for command
+CF fail tp A @e[type=zombie]<--[HERE]
+CF msg Teleported A to Pig
+CF result success 1
+CF fail Incorrect argument for command
+CF fail tp A @a<--[HERE]
+CF msg Teleported A to Bob
+CF result success 1
+CF msg Teleported A to Bob
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF msg Teleported 2 entities to 1.500000, -60.000000, 1.500000
+CF result success 2
+CF result failure 0
+CF fail No entity was found
+CF msg Teleported Pig to Cow
+CF result success 1
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail gamemode creative @e[type=pig]<--[HERE]
+CF msg Set Bob's game mode to Creative Mode
+CF result success 1
+CF msg Set Bob's game mode to Survival Mode
+CF result success 1
+CF result failure 0
+CF fail No player was found
+CF result failure 0
+CF fail No player was found
+CF result failure 0
+CF fail No player was found
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail spawnpoint @e[type=pig] 0 -60 0<--[HERE]
+CF msg Set spawn point to 0, -60, 0 [0.0, 0.0] in minecraft:overworld for Bob
+CF result success 1
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail clear @e[type=pig]<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail give @e[type=pig] minecraft:stick<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF result failure 0
+CF fail No player was found
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail xp add @e[type=cow] 1 points<--[HERE]
+CF msg Gave 1 experience points to Bob
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Applied effect Speed to Cow
+CF result success 1
+CF result failure 0
+CF fail Target has no effects to remove
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data get entity @e[type=pig] Pos<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data get entity @e[type=zombie] Pos<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data get entity @e[type=cow] Age<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data get entity @a[name=Bob] Pos<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data get entity @a[name=Nobody] Pos<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF msg Added tag 'x' to Cow
+CF result success 1
+CF result failure 0
+CF fail Unknown team 'nothing'
+CF result failure 0
+CF fail No entity was found
+CF msg Set [n] for Cow to 1
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ...[type=pig] n<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ...pe=zombie] n<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ...[type=cow] n<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail Can't get value of n for Cee; none is set
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ...[type=pig]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ...pe=zombie]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ...[type=cow]<--[HERE]
+CF result failure 0
+CF fail No relevant score holders could be found
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed. Count: 2
+CF result success 2
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg You whisper to A: Pig, Pig
+CF result success 1
+CF msg You whisper to A: 
+CF result success 1
+CF msg You whisper to A: Bob hello
+CF result success 1
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail msg @e[type=pig] hello<--[HERE]
+CF msg You whisper to Bob: hello
+CF result success 1
+CF result failure 0
+CF fail No player was found
+CF msg You whisper to A: Bob hi
+CF result success 1
+CF result success 1
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail title @e[type=pig] times 1 2 3<--[HERE]
+CF msg Showing new subtitle for Bob
+CF result success 1
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail tellraw @e[type=pig] "x"<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF result success 1
+CF result success 1
+CF result success 1
+CF fail Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {selector:"@e[type=cow,type=pig]"}; Second: No matching codec found
+CF fail ...name=Bob] {"selector":"@e[type=cow,type=pig]"}<--[HERE]
+CF fail Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {selector:"@e[sort=bad]"}; Second: No matching codec found
+CF fail ...name=Bob] {"selector":"@e[sort=bad]"}<--[HERE]
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+# permission levels: a selector needs level 2 (the entity selector permission), a bare name does not
+CF msg You whisper to Bob: hi
+CF result success 1
+CF fail Selector not allowed
+CF fail msg @a hi<--[HERE]
+CF fail Selector not allowed
+CF fail msg @s hi<--[HERE]
+CF fail Selector not allowed
+CF fail msg @e hi<--[HERE]
+CF fail Selector not allowed
+CF fail msg @p hi<--[HERE]
+CF msg You whisper to A: hi
+CF result success 1
+CF msg You whisper to A: hi
+CF msg You whisper to Bob: hi
+CF msg You whisper to Cee: hi
+CF result success 3
+CF msg You whisper to A: hi
+CF msg You whisper to Bob: hi
+CF msg You whisper to Cee: hi
+CF result success 3
+CF msg You whisper to A: hi
+CF msg You whisper to Bob: hi
+CF msg You whisper to Cee: hi
+CF result success 3
+CF msg You whisper to Bob: @a[name=Bob]
+CF result success 1
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail msg 00000001-0000-0002-0000-000300000004 hi<--[HERE]
+CF result failure 0
+CF fail An entity is required to run this command here
+CF result failure 0
+CF fail A player is required to run this command here
+CF msg There are 3 of a max of 20 players online: A, Bob, Cee
+CF result success 3
+CF fail Selector not allowed
+CF fail msg @a hi<--[HERE]
+CF fail Selector not allowed
+CF fail msg @s hi<--[HERE]
+CF result success 1
+CF result success 1
+CF result failure 0
+CF fail No player was found
+CF fail Selector not allowed
+CF fail tell @e[type=pig] hi<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail say @a hello<--[HERE]
+CF result success 1
+CF result success 1
+CF msg Made A a server operator
+CF result success 1
+CF result success 3
+CF result success 1
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail msg @e hi<--[HERE]
+CF fail Incorrect argument for command
+CF fail tp @s @e[type=cow]<--[HERE]
+CF result success 2
+CF result success 1
+CF result success 1
+CF msg Made A no longer a server operator
+CF result success 1
+CF fail Selector not allowed
+CF fail msg @a hi<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail kill @s<--[HERE]
+# @s without an executor and with one
+CF msg Teleported Bob to 1.500000, -60.000000, 1.500000
+CF result success 1
+CF msg Teleported Bob to Bob
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail tp @s @s<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail execute as @s run say hi<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF fail Unknown or incomplete command. See below for error
+CF fail execute as @s run kill @s<--[HERE]
+# execute as/at/positioned with selectors: the origin of every following selector is the new position
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Added tag 'near_pig' to Chicken
+CF result success 1
+CF result failure 0
+CF msg Teleported Chicken to A
+CF result success 1
+CF msg Teleported Chicken to Bob
+CF result success 1
+CF msg Teleported Chicken to Cee
+CF result success 1
+CF msg Added tag 'claimed' to Chicken
+CF result success 1
+CF msg Added tag 'claimed' to Chicken
+CF result success 1
+CF msg Added tag 'rotated' to Cee
+CF result success 1
+CF msg Added tag 'facing' to Pig
+CF result success 1
+CF msg Test passed. Count: 2
+CF result success 2
+CF fail No entity was found
+CF msg Added tag 'pigs_only' to Pig
+CF result success 1
+CF msg Added tag 'pigs_only' to Pig
+CF result success 1
+CF msg Added tag 'has_pig_neighbor' to Pig
+CF result success 1
+CF msg Added tag 'has_pig_neighbor' to Pig
+CF result success 1
+CF msg Killed Chicken
+CF result success 1
+CF msg Killed Chicken
+CF result success 1
+SELECT @e[sort=nearest,tag=here] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=here2] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=by_cow] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=nearest_chicken] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=cowfork] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=near_pig] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=claimed] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=by_pig] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=rotated] - 0,-60,0 -> Cee
+SELECT @e[sort=nearest,tag=facing] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,tag=pigs_only] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,tag=has_pig_neighbor] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[sort=nearest,tag=alone] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=every_chicken] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=chicken] - 0,-60,0 ->
+OBJ {DisplayName:"n",Name:"n"}
+SCORE {Locked:1b,Name:"0000003d-0000-0000-0000-000000000001",Objective:"n",Score:2}
+SCORE {Locked:1b,Name:"0000003d-0000-0000-0000-000000000003",Objective:"n",Score:1}
+DISPLAY {}
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ...[type=pig]<--[HERE]

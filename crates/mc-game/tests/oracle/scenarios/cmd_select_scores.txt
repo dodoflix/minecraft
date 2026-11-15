@@ -1,0 +1,128 @@
+# The `scores` option: closed, open and exact ranges, several objectives, an objective that does not exist, a holder without a score,
+# negative values, spacing and empty braces, repeated objective names, scores of players, mobs and `@s`, and the syntax errors.
+command_env
+level flat
+preload 2
+entity_counter 900
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+spawn_player C survival 8.5 -60 0.5 0 0
+tick 1
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b,Tags:["p1"],UUID:[I;9,0,0,1]}
+cmd summon minecraft:pig 5 -60 5 {NoAI:1b,Tags:["p2"],UUID:[I;9,0,0,2]}
+cmd summon minecraft:cow 7 -60 7 {NoAI:1b,Tags:["c1"],UUID:[I;9,0,0,3]}
+cmd summon minecraft:sheep 9 -60 9 {NoAI:1b,Tags:["s1"],UUID:[I;9,0,0,4]}
+cmd summon minecraft:armor_stand 11 -60 11 {NoGravity:1b,Tags:["noscore"]}
+tick 1
+cmd scoreboard objectives add kills dummy
+cmd scoreboard objectives add hp dummy
+cmd scoreboard objectives add temp dummy
+cmd scoreboard objectives add fl dummy
+cmd scoreboard players set A kills 5
+cmd scoreboard players set B kills -3
+cmd scoreboard players set C kills 0
+cmd scoreboard players set A hp 20
+cmd scoreboard players set B hp 7
+cmd scoreboard players set @e[tag=p1] kills 5
+cmd scoreboard players set @e[tag=p1] hp 10
+cmd scoreboard players set @e[tag=p2] kills 2147483647
+cmd scoreboard players set @e[tag=p2] hp -2147483648
+cmd scoreboard players set @e[tag=c1] kills 1
+cmd scoreboard players set @e[tag=s1] hp 3
+cmd scoreboard players set @e[tag=s1] temp 0
+cmd scoreboard players set Fake kills 5
+note holders are matched by scoreboard name: a player by name, a mob by UUID, so a fake player named like a player shares its scores
+cmd scoreboard players set A temp 1
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=5}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=..5}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=5..}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=-3..1}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=0}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=-3}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=-100..-1}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=2147483647}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={hp=-2147483648}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={hp=..-2147483648}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=1..,hp=..10}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=1..,hp=10..}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=0..,hp=7..20,temp=0..}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={temp=0}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={temp=..5}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={temp=1}]
+note an objective with no score for a holder never matches, neither does an unknown objective
+dump select:-/0,-60,0/@e[sort=nearest,scores={fl=0..}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={fl=..0}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={nothing=0..}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=0..,nothing=0..}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={Kills=5}]
+dump select:-/0,-60,0/@e[sort=nearest,tag=noscore,scores={kills=..0}]
+dump select:-/0,-60,0/@e[sort=nearest,type=minecraft:armor_stand,scores={hp=..100}]
+note players only
+dump select:-/0,-60,0/@a[scores={kills=5}]
+dump select:-/0,-60,0/@a[scores={kills=..0}]
+dump select:-/0,-60,0/@a[scores={hp=1..}]
+dump select:-/0,-60,0/@a[scores={hp=7..20,kills=..9}]
+dump select:-/0,-60,0/@p[scores={kills=..0}]
+dump select:-/0,-60,0/@p[scores={hp=..7}]
+dump selectsorted:-/0,-60,0/@r[scores={kills=5},limit=3]
+dump select:-/0,-60,0/@e[sort=nearest,type=player,scores={kills=0..}]
+dump select:-/0,-60,0/@e[sort=nearest,type=!player,scores={kills=0..}]
+dump select:-/0,-60,0/@n[scores={kills=1..},type=!player]
+dump select:A/0.5,-60,0.5/@s[scores={kills=5}]
+dump select:A/0.5,-60,0.5/@s[scores={kills=..4}]
+dump select:B/4.5,-60,0.5/@s[scores={kills=-3}]
+dump select:B/4.5,-60,0.5/@s[scores={temp=0..}]
+dump select:C/8.5,-60,0.5/@s[scores={kills=0,hp=0}]
+note spacing, empty braces, repeated and misspelled forms
+dump select:-/0,-60,0/@a[scores={}]
+dump select:-/0,-60,0/@a[scores={ }]
+dump select:-/0,-60,0/@a[scores={ kills = 5 }]
+dump select:-/0,-60,0/@a[scores={kills=5,}]
+dump select:-/0,-60,0/@a[scores={,kills=5}]
+dump select:-/0,-60,0/@a[scores={kills=5 hp=1}]
+dump select:-/0,-60,0/@a[scores={kills=1,kills=5}]
+dump select:-/0,-60,0/@a[scores={kills=5,kills=1}]
+dump select:-/0,-60,0/@a[scores={kills=5,hp=20,hp=19}]
+dump select:-/0,-60,0/@a[scores={kills=5,,hp=20}]
+dump select:-/0,-60,0/@a[scores={kills=5},scores={hp=1}]
+dump select:-/0,-60,0/@a[scores={kills=5}, scores={hp=1}]
+dump select:-/0,-60,0/@a[scores={kills=5},tag=]
+dump select:-/0,-60,0/@a[scores={kills=1..2147483647}]
+note syntax errors
+dump select:-/0,-60,0/@a[scores=]
+dump select:-/0,-60,0/@a[scores=kills]
+dump select:-/0,-60,0/@a[scores={kills}]
+dump select:-/0,-60,0/@a[scores={kills=}]
+dump select:-/0,-60,0/@a[scores={kills=a}]
+dump select:-/0,-60,0/@a[scores={kills=..}]
+dump select:-/0,-60,0/@a[scores={kills=1.5}]
+dump select:-/0,-60,0/@a[scores={kills=1..a}]
+dump select:-/0,-60,0/@a[scores={kills=5..1}]
+dump select:-/0,-60,0/@a[scores={kills=2147483648}]
+dump select:-/0,-60,0/@a[scores={kills=5]
+dump select:-/0,-60,0/@a[scores={kills=5
+dump select:-/0,-60,0/@a[scores={
+dump select:-/0,-60,0/@a[scores={=5}]
+dump select:-/0,-60,0/@a[scores={"kills"=5}]
+dump select:-/0,-60,0/@a[scores={kills:5}]
+dump select:-/0,-60,0/@a[scores={kills=5}}]
+dump select:-/0,-60,0/@a[scores=1]
+dump select:-/0,-60,0/@s[scores={kills=5}]
+note objectives and the commands that read scores
+cmd scoreboard objectives remove temp
+dump select:-/0,-60,0/@e[sort=nearest,scores={temp=0..}]
+cmd scoreboard players add @e[scores={kills=5..}] hp 1
+cmd scoreboard players add @a[scores={kills=..-1}] hp 100
+cmd scoreboard players add @e[scores={kills=5,hp=11}] fl 1
+cmd execute as @e[scores={kills=2147483647}] run scoreboard players set @s fl 9
+cmd execute if entity @e[scores={kills=1,hp=0..}]
+cmd execute unless entity @e[scores={kills=1..},type=player]
+cmd execute as @a[scores={kills=0}] run say zero
+cmd execute as @a[scores={kills=..4,hp=..7}] run say low
+cmd scoreboard players reset @e[scores={kills=1}]
+cmd scoreboard players set @e[scores={nothing=1}] kills 1
+cmd scoreboard players set @e[scores={kills=..-1}] kills 1
+cmd scoreboard players operation @e[scores={fl=9}] kills += A kills
+dump scoreboard
+dump select:-/0,-60,0/@e[sort=nearest,scores={fl=1..}]
+dump select:-/0,-60,0/@e[sort=nearest,scores={kills=1..}]

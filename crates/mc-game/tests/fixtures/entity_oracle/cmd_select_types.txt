@@ -1,0 +1,262 @@
+CF msg Summoned new Zombie
+CF result success 1
+CF msg Summoned new Husk
+CF result success 1
+CF msg Summoned new Drowned
+CF result success 1
+CF msg Summoned new Skeleton
+CF result success 1
+CF msg Summoned new Stray
+CF result success 1
+CF msg Summoned new Wither Skeleton
+CF result success 1
+CF msg Summoned new Creeper
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Summoned new Villager
+CF result success 1
+CF msg Summoned new Iron Golem
+CF result success 1
+CF msg Summoned new Zombie Villager
+CF result success 1
+CF msg Summoned new Pillager
+CF result success 1
+CF msg Summoned new Vindicator
+CF result success 1
+CF msg Summoned new Cod
+CF result success 1
+CF msg Summoned new Squid
+CF result success 1
+CF msg Summoned new Bat
+CF result success 1
+CF msg Summoned new Salmon
+CF result success 1
+CF msg Summoned new Pufferfish
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Item Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Interaction
+CF result success 1
+CF msg Summoned new Block Display
+CF result success 1
+CF msg Summoned new Item Frame
+CF result success 1
+CF msg Summoned new Painting
+CF result success 1
+CF msg Summoned new Stick
+CF result success 1
+CF msg Summoned new Experience Orb
+CF result success 1
+CF msg Summoned new Oak Boat
+CF result success 1
+CF msg Summoned new Minecart
+CF result success 1
+CF msg Summoned new Primed TNT
+CF result success 1
+CF msg Summoned new Snowball
+CF result success 1
+CF msg Summoned new Arrow
+CF result success 1
+# single types and the player type
+SELECT @e[sort=nearest,type=pig] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,type=minecraft:pig] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,type=zombie] - 0,-60,0 -> zombie#1
+SELECT @e[sort=nearest,type=player] - 0,-60,0 -> A Bob
+SELECT @e[sort=nearest,type=minecraft:player] - 0,-60,0 -> A Bob
+SELECT @e[sort=nearest,type=armor_stand] - 0,-60,0 -> armor_stand#1
+SELECT @e[sort=nearest,type=marker] - 0,-60,0 -> marker#1
+SELECT @e[sort=nearest,type=item] - 0,-60,0 -> item#1
+SELECT @e[sort=nearest,type=experience_orb] - 0,-60,0 -> experience_orb#1
+SELECT @e[sort=nearest,type=oak_boat] - 0,-60,0 -> oak_boat#1
+SELECT @e[sort=nearest,type=tnt] - 0,-60,0 -> tnt#1
+SELECT @e[sort=nearest,type=arrow] - 0,-60,0 -> arrow#1
+SELECT @e[sort=nearest,type=snowball] - 0,-60,0 -> snowball#1
+SELECT @e[sort=nearest,type=wither] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=zombie_villager] - 0,-60,0 -> zombie_villager#1
+SELECT @e[sort=nearest,type=!pig] - 0,-60,0 -> A Bob zombie#1 husk#1 armor_stand#1 marker#1 skeleton#1 item_display#1 drowned#1 text_display#1 stray#1 item#1 interaction#1 experience_orb#1 block_display#1 wither_skeleton#1 creeper#1 item_frame#1 oak_boat#1 minecart#1 painting#1 tnt#1 cow#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 zombie_villager#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=!player] - 0,-60,0 -> zombie#1 husk#1 armor_stand#1 marker#1 skeleton#1 item_display#1 drowned#1 text_display#1 stray#1 item#1 interaction#1 experience_orb#1 block_display#1 wither_skeleton#1 creeper#1 item_frame#1 oak_boat#1 pig#1 minecart#1 painting#1 tnt#1 cow#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 zombie_villager#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=!minecraft:player] - 0,-60,0 -> zombie#1 husk#1 armor_stand#1 marker#1 skeleton#1 item_display#1 drowned#1 text_display#1 stray#1 item#1 interaction#1 experience_orb#1 block_display#1 wither_skeleton#1 creeper#1 item_frame#1 oak_boat#1 pig#1 minecart#1 painting#1 tnt#1 cow#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 zombie_villager#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=!zombie] - 0,-60,0 -> A Bob husk#1 armor_stand#1 marker#1 skeleton#1 item_display#1 drowned#1 text_display#1 stray#1 item#1 interaction#1 experience_orb#1 block_display#1 wither_skeleton#1 creeper#1 item_frame#1 oak_boat#1 pig#1 minecart#1 painting#1 tnt#1 cow#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 zombie_villager#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=!pig,type=!cow] - 0,-60,0 -> A Bob zombie#1 husk#1 armor_stand#1 marker#1 skeleton#1 item_display#1 drowned#1 text_display#1 stray#1 item#1 interaction#1 experience_orb#1 block_display#1 wither_skeleton#1 creeper#1 item_frame#1 oak_boat#1 minecart#1 painting#1 tnt#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 zombie_villager#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=!pig,type=!cow,type=!player] - 0,-60,0 -> zombie#1 husk#1 armor_stand#1 marker#1 skeleton#1 item_display#1 drowned#1 text_display#1 stray#1 item#1 interaction#1 experience_orb#1 block_display#1 wither_skeleton#1 creeper#1 item_frame#1 oak_boat#1 minecart#1 painting#1 tnt#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 zombie_villager#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=!zombie,type=!husk,type=!drowned,type=!zombie_villager,type=!player] - 0,-60,0 -> armor_stand#1 marker#1 skeleton#1 item_display#1 text_display#1 stray#1 item#1 interaction#1 experience_orb#1 block_display#1 wither_skeleton#1 creeper#1 item_frame#1 oak_boat#1 pig#1 minecart#1 painting#1 tnt#1 cow#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=#minecraft:skeletons] - 0,-60,0 -> skeleton#1 stray#1 wither_skeleton#1
+SELECT @e[sort=nearest,type=#minecraft:zombies] - 0,-60,0 -> zombie#1 husk#1 drowned#1 zombie_villager#1
+SELECT @e[sort=nearest,type=#minecraft:undead] - 0,-60,0 -> zombie#1 husk#1 skeleton#1 drowned#1 stray#1 wither_skeleton#1 zombie_villager#1
+SELECT @e[sort=nearest,type=#minecraft:raiders] - 0,-60,0 -> pillager#1 vindicator#1
+SELECT @e[sort=nearest,type=#minecraft:arrows] - 0,-60,0 -> arrow#1
+SELECT @e[sort=nearest,type=#minecraft:boats] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=#minecraft:aquatic] - 0,-60,0 -> cod#1 squid#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=#minecraft:can_breathe_under_water] - 0,-60,0 -> zombie#1 husk#1 armor_stand#1 skeleton#1 drowned#1 stray#1 wither_skeleton#1 zombie_villager#1 cod#1 squid#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=#minecraft:impact_projectiles] - 0,-60,0 -> snowball#1 arrow#1
+SELECT @e[sort=nearest,type=#minecraft:illager_friends] - 0,-60,0 -> pillager#1 vindicator#1
+SELECT @e[sort=nearest,type=#minecraft:fall_damage_immune] - 0,-60,0 -> chicken#1 iron_golem#1 bat#1
+SELECT @e[sort=nearest,type=#minecraft:not_scary_for_pufferfish] - 0,-60,0 -> cod#1 squid#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=#minecraft:freeze_immune_entity_types] - 0,-60,0 -> stray#1
+SELECT @e[sort=nearest,type=#minecraft:powder_snow_walkable_mobs] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=!#minecraft:skeletons] - 0,-60,0 -> A Bob zombie#1 husk#1 armor_stand#1 marker#1 item_display#1 drowned#1 text_display#1 item#1 interaction#1 experience_orb#1 block_display#1 creeper#1 item_frame#1 oak_boat#1 pig#1 minecart#1 painting#1 tnt#1 cow#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 zombie_villager#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=!#minecraft:undead] - 0,-60,0 -> A Bob armor_stand#1 marker#1 item_display#1 text_display#1 item#1 interaction#1 experience_orb#1 block_display#1 creeper#1 item_frame#1 oak_boat#1 pig#1 minecart#1 painting#1 tnt#1 cow#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=!#minecraft:undead,type=!#minecraft:aquatic] - 0,-60,0 -> A Bob armor_stand#1 marker#1 item_display#1 text_display#1 item#1 interaction#1 experience_orb#1 block_display#1 creeper#1 item_frame#1 oak_boat#1 pig#1 minecart#1 painting#1 tnt#1 cow#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 pillager#1 vindicator#1 bat#1
+SELECT @e[sort=nearest,type=!#minecraft:undead,type=!#minecraft:undead] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @e[sort=nearest,type=#minecraft:skeletons,type=#minecraft:undead] - 0,-60,0 -> skeleton#1 stray#1 wither_skeleton#1
+SELECT @e[sort=nearest,type=#minecraft:undead,type=#minecraft:zombies] - 0,-60,0 -> zombie#1 husk#1 drowned#1 zombie_villager#1
+SELECT @e[sort=nearest,type=#minecraft:undead,type=!#minecraft:skeletons] - 0,-60,0 -> zombie#1 husk#1 drowned#1 zombie_villager#1
+SELECT @e[sort=nearest,type=!#minecraft:skeletons,type=#minecraft:undead] - 0,-60,0 -> zombie#1 husk#1 drowned#1 zombie_villager#1
+SELECT @e[sort=nearest,type=#minecraft:undead,type=!zombie] - 0,-60,0 -> husk#1 skeleton#1 drowned#1 stray#1 wither_skeleton#1 zombie_villager#1
+SELECT @e[sort=nearest,type=!zombie,type=#minecraft:undead] - 0,-60,0 -> husk#1 skeleton#1 drowned#1 stray#1 wither_skeleton#1 zombie_villager#1
+SELECT @e[sort=nearest,type=!zombie,type=!#minecraft:skeletons,type=#minecraft:undead] - 0,-60,0 -> husk#1 drowned#1 zombie_villager#1
+SELECT @e[sort=nearest,type=#minecraft:undead,type=zombie] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @e[sort=nearest,type=zombie,type=#minecraft:undead] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @e[sort=nearest,type=#minecraft:undead,type=#minecraft:undead] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @e[sort=nearest,type=!#minecraft:undead,type=zombie] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @e[sort=nearest,type=#nothing] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=#minecraft:nothing] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=!#minecraft:nothing] - 0,-60,0 -> A Bob zombie#1 husk#1 armor_stand#1 marker#1 skeleton#1 item_display#1 drowned#1 text_display#1 stray#1 item#1 interaction#1 experience_orb#1 block_display#1 wither_skeleton#1 creeper#1 item_frame#1 oak_boat#1 pig#1 minecart#1 painting#1 tnt#1 cow#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 zombie_villager#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=#minecraft:nothing,type=!pig] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=#minecraft:nothing,type=#minecraft:undead] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=pig,type=cow] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @e[sort=nearest,type=pig,type=pig] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @e[sort=nearest,type=!pig,type=pig] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @e[sort=nearest,type=pig,type=!pig] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @e[sort=nearest,type=player,type=!pig] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @e[sort=nearest,type=!player,type=player] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @e[sort=nearest,type=!player,type=!player] - 0,-60,0 -> zombie#1 husk#1 armor_stand#1 marker#1 skeleton#1 item_display#1 drowned#1 text_display#1 stray#1 item#1 interaction#1 experience_orb#1 block_display#1 wither_skeleton#1 creeper#1 item_frame#1 oak_boat#1 pig#1 minecart#1 painting#1 tnt#1 cow#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 zombie_villager#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=PIG] - 0,-60,0 -> !Invalid or unknown entity type 'minecraft:'
+SELECT @e[sort=nearest,type=minecraft:Pig] - 0,-60,0 -> !Invalid or unknown entity type 'minecraft:'
+SELECT @e[sort=nearest,type=nothing] - 0,-60,0 -> !Invalid or unknown entity type 'minecraft:nothing'
+SELECT @e[sort=nearest,type=minecraft:nothing] - 0,-60,0 -> !Invalid or unknown entity type 'minecraft:nothing'
+SELECT @e[sort=nearest,type=bad:pig] - 0,-60,0 -> !Invalid or unknown entity type 'bad:pig'
+SELECT @e[sort=nearest,type=] - 0,-60,0 -> !Invalid or unknown entity type 'minecraft:'
+SELECT @e[sort=nearest,type=!] - 0,-60,0 -> !Invalid or unknown entity type 'minecraft:'
+SELECT @e[sort=nearest,type=#] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=!#] - 0,-60,0 -> A Bob zombie#1 husk#1 armor_stand#1 marker#1 skeleton#1 item_display#1 drowned#1 text_display#1 stray#1 item#1 interaction#1 experience_orb#1 block_display#1 wither_skeleton#1 creeper#1 item_frame#1 oak_boat#1 pig#1 minecart#1 painting#1 tnt#1 cow#1 chicken#1 snowball#1 arrow#1 villager#1 iron_golem#1 zombie_villager#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1
+SELECT @e[sort=nearest,type=minecraft:] - 0,-60,0 -> !Invalid or unknown entity type 'minecraft:'
+SELECT @e[sort=nearest,type=:pig] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,type=pig,] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,type=pig type=cow] - 0,-60,0 -> !Expected end of options
+SELECT @e[sort=nearest,type="pig"] - 0,-60,0 -> !Invalid or unknown entity type 'minecraft:'
+SELECT @e[sort=nearest,type=Pig] - 0,-60,0 -> !Invalid or unknown entity type 'minecraft:'
+SELECT @e[sort=nearest,type=pig,tag=] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,type=pig,limit=1] - 0,-60,0 -> pig#1
+SELECT @e[sort=nearest,type=pig,sort=furthest,limit=2] - 0,-60,0 -> !Option 'sort' isn't applicable here
+SELECT @e[sort=nearest,type=!pig,sort=furthest,limit=3] - 0,-60,0 -> !Option 'sort' isn't applicable here
+SELECT @e[sort=nearest,type=#minecraft:undead,sort=furthest,limit=3] - 0,-60,0 -> !Option 'sort' isn't applicable here
+SELECT @e[sort=nearest,type=pig,distance=..5] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=!pig,distance=..5] - 0,-60,0 -> A Bob
+SELECT @e[sort=nearest,type=pig,dx=4,dy=4,dz=4] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=zombie,name=Zombie] - 0,-60,0 -> zombie#1
+SELECT @e[sort=nearest,type=zombie,name=!Zombie] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=pig,scores={a=1}] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=player,name=A] - 0,-60,0 -> A
+SELECT @e[sort=nearest,type=player,name=!A] - 0,-60,0 -> Bob
+SELECT @e[sort=nearest,type=!player,name=A] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=wither] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=ender_dragon] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=giant] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=lightning_bolt] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=wind_charge] - 0,-60,0 ->
+SELECT @e[sort=nearest,type=player,type=player] - 0,-60,0 -> !Option 'type' isn't applicable here
+# the letters
+SELECT @a[type=player] - 0,-60,0 -> A Bob
+SELECT @a[type=!player] - 0,-60,0 ->
+SELECT @a[type=pig] - 0,-60,0 ->
+SELECT @a[type=!pig] - 0,-60,0 -> A Bob
+SELECT @a[type=#minecraft:undead] - 0,-60,0 ->
+SELECT @a[type=!#minecraft:undead] - 0,-60,0 -> A Bob
+SELECT @a[type=#minecraft:nothing] - 0,-60,0 ->
+SELECT @a[type=player,type=pig] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @a[type=!pig,type=player] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @a[type=!pig,type=!cow] - 0,-60,0 -> A Bob
+SELECT @a[type=minecraft:player] - 0,-60,0 -> A Bob
+SELECT @p[type=player] - 0,-60,0 -> A
+SELECT @p[type=pig] - 0,-60,0 ->
+SELECT @p[type=!player] - 0,-60,0 ->
+SELECT @p[type=!pig] - 0,-60,0 -> A
+SELECT @p[type=#minecraft:undead] - 0,-60,0 ->
+SELECTCOUNT @r[type=player] - 0,-60,0 -> 1
+SELECTCOUNT @r[type=pig] - 0,-60,0 -> 0
+SELECTSORTED @r[type=!player] - 0,-60,0 ->
+SELECTSORTED @r[type=!pig,limit=2] - 0,-60,0 -> A Bob
+SELECT @n[type=pig] - 0,-60,0 -> pig#1
+SELECT @n[type=!pig] - 0,-60,0 -> A
+SELECT @n[type=!pig,type=!player] - 0,-60,0 -> zombie#1
+SELECT @n[type=player] - 0,-60,0 -> A
+SELECT @n[type=#minecraft:undead] - 0,-60,0 -> zombie#1
+SELECT @n[type=zombie,type=husk] - 0,-60,0 -> !Option 'type' isn't applicable here
+SELECT @n - 0,-60,0 -> A
+SELECT @n[type=item] - 0,-60,0 -> item#1
+SELECT @n[type=experience_orb] - 0,-60,0 -> experience_orb#1
+SELECT @n[type=!#minecraft:undead,type=!player] - 0,-60,0 -> armor_stand#1
+SELECT @s - 0,-60,0 ->
+SELECT @s[type=pig] - 0,-60,0 ->
+SELECT @s[type=player] - 0,-60,0 ->
+SELECT @s[type=!player] - 0,-60,0 ->
+SELECT @s[type=#minecraft:undead] - 0,-60,0 ->
+SELECT @s[type=player] A 0.5,-60,0.5 -> A
+SELECT @s[type=pig] A 0.5,-60,0.5 ->
+SELECT @s[type=!player] A 0.5,-60,0.5 ->
+SELECT @s[type=!pig] A 0.5,-60,0.5 -> A
+SELECT @s[type=#minecraft:undead] A 0.5,-60,0.5 ->
+SELECT @a[type=player] A 0.5,-60,0.5 -> A Bob
+SELECT @n[type=!player] A 0.5,-60,0.5 -> zombie#1
+SELECT @n A 0.5,-60,0.5 -> A
+SELECT @n[type=pig] A 0.5,-60,0.5 -> pig#1
+SELECT @e[type=player,sort=furthest] A 0.5,-60,0.5 -> Bob A
+# commands
+CF msg Added tag 'z' to Zombie
+CF result success 1
+CF msg Added tag 'undead' to 7 entities
+CF result success 7
+CF result failure 0
+CF fail No entity was found
+CF msg Test passed. Count: 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF msg Killed Stick
+CF result success 1
+CF msg Killed Experience Orb
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Minecart
+CF result success 1
+CF msg Killed Primed TNT
+CF result success 1
+CF msg Killed Arrow
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Killed 4 entities
+CF result success 4
+CF msg Added tag 'far' to Pufferfish
+CF result success 1
+CF msg Added tag 'far' to Salmon
+CF result success 1
+CF msg Added tag 'n' to Cow
+CF result success 1
+CF msg Added tag 'n2' to Skeleton
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Bob
+CF result success 1
+SELECT @e[sort=nearest,tag=z] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=undead] - 0,-60,0 -> skeleton#1 drowned#1 stray#1 wither_skeleton#1 zombie_villager#1
+SELECT @e[sort=nearest,tag=living] - 0,-60,0 ->
+SELECT @e[sort=nearest,tag=far] - 0,-60,0 -> salmon#1 pufferfish#1
+SELECT @e[sort=nearest,tag=n] - 0,-60,0 -> cow#1
+SELECT @e[sort=nearest,tag=n2] - 0,-60,0 -> skeleton#1
+SELECT @e[sort=nearest] - 0,-60,0 -> A skeleton#1 item_display#1 drowned#1 text_display#1 stray#1 interaction#1 block_display#1 wither_skeleton#1 creeper#1 item_frame#1 oak_boat#1 pig#1 painting#1 cow#1 chicken#1 snowball#1 villager#1 iron_golem#1 zombie_villager#1 pillager#1 vindicator#1 cod#1 squid#1 bat#1 salmon#1 pufferfish#1

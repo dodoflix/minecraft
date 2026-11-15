@@ -1,0 +1,176 @@
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Sheep
+CF result success 1
+CF msg Summoned new Sheep
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+# no sort, no limit: the order the level yields entities in
+SELECT @e - 0,-60,0 -> A B C D pig#1 pig#2 pig#3 pig#4 cow#1 cow#2 sheep#1 sheep#2 chicken#1 chicken#2 chicken#3 armor_stand#1 armor_stand#2 marker#1
+SELECT @e[sort=arbitrary] - 0,-60,0 -> A B C D pig#1 pig#2 pig#3 pig#4 cow#1 cow#2 sheep#1 sheep#2 chicken#1 chicken#2 chicken#3 armor_stand#1 armor_stand#2 marker#1
+SELECT @e[type=pig] - 0,-60,0 -> pig#1 pig#2 pig#3 pig#4
+SELECT @e[type=!pig] - 0,-60,0 -> A B C D cow#1 cow#2 sheep#1 sheep#2 chicken#1 chicken#2 chicken#3 armor_stand#1 armor_stand#2 marker#1
+SELECT @a - 0,-60,0 -> A B C D
+SELECT @e[type=player] - 0,-60,0 -> A B C D
+SELECT @e[type=!player] - 0,-60,0 -> pig#1 pig#2 pig#3 pig#4 cow#1 cow#2 sheep#1 sheep#2 chicken#1 chicken#2 chicken#3 armor_stand#1 armor_stand#2 marker#1
+# a limit without a sort stops the collection early
+SELECT @e[limit=1] - 0,-60,0 -> A
+SELECT @e[limit=3] - 0,-60,0 -> A B C
+SELECT @e[limit=3,sort=arbitrary] - 0,-60,0 -> A B C
+SELECT @e[limit=3,type=pig] - 0,-60,0 -> pig#1 pig#2 pig#3
+SELECT @e[limit=100] - 0,-60,0 -> A B C D pig#1 pig#2 pig#3 pig#4 cow#1 cow#2 sheep#1 sheep#2 chicken#1 chicken#2 chicken#3 armor_stand#1 armor_stand#2 marker#1
+SELECT @e[limit=2147483647] - 0,-60,0 -> A B C D pig#1 pig#2 pig#3 pig#4 cow#1 cow#2 sheep#1 sheep#2 chicken#1 chicken#2 chicken#3 armor_stand#1 armor_stand#2 marker#1
+SELECT @a[limit=2] - 0,-60,0 -> A B
+SELECT @a[limit=1] - 0,-60,0 -> A
+# nearest and furthest with ties
+SELECT @e[sort=nearest] - 0,-60,0 -> A armor_stand#2 pig#2 pig#4 pig#1 pig#3 armor_stand#1 B C marker#1 chicken#1 cow#2 cow#1 D sheep#1 sheep#2 chicken#3 chicken#2
+SELECT @e[sort=furthest] - 0,-60,0 -> chicken#2 chicken#3 sheep#1 sheep#2 D cow#1 cow#2 chicken#1 marker#1 B C pig#1 pig#3 armor_stand#1 pig#2 pig#4 armor_stand#2 A
+SELECT @e[sort=nearest,limit=2] - 0,-60,0 -> A armor_stand#2
+SELECT @e[sort=furthest,limit=2] - 0,-60,0 -> chicken#2 chicken#3
+SELECT @e[sort=nearest,limit=1] - 0,-60,0 -> A
+SELECT @e[sort=nearest,type=pig] - 0,-60,0 -> pig#2 pig#4 pig#1 pig#3
+SELECT @e[sort=furthest,type=pig] - 0,-60,0 -> pig#1 pig#3 pig#2 pig#4
+SELECT @e[sort=nearest,type=pig,limit=3] - 0,-60,0 -> pig#2 pig#4 pig#1
+SELECT @e[sort=furthest,type=pig,limit=3] - 0,-60,0 -> pig#1 pig#3 pig#2
+SELECT @e[sort=nearest,type=chicken] - 0,-60,0 -> chicken#1 chicken#3 chicken#2
+SELECT @e[sort=furthest,type=chicken] - 0,-60,0 -> chicken#2 chicken#3 chicken#1
+SELECT @e[sort=nearest,type=!pig,limit=4] - 0,-60,0 -> A armor_stand#2 armor_stand#1 B
+SELECT @e[sort=nearest,type=#minecraft:can_breathe_under_water] - 0,-60,0 -> armor_stand#2 armor_stand#1
+SELECT @e[sort=nearest,tag=] - 0,-60,0 -> A armor_stand#2 pig#2 pig#4 pig#1 pig#3 armor_stand#1 B C marker#1 chicken#1 cow#2 cow#1 D sheep#1 sheep#2 chicken#3 chicken#2
+SELECT @e[sort=nearest] - 10,-60,10 -> cow#1 marker#1 armor_stand#1 B pig#1 pig#3 A D chicken#1 pig#2 pig#4 armor_stand#2 C cow#2 sheep#1 sheep#2 chicken#3 chicken#2
+SELECT @e[sort=nearest] - -10,-60,-10 -> cow#2 C armor_stand#2 pig#2 pig#4 A pig#1 pig#3 armor_stand#1 B chicken#1 marker#1 cow#1 sheep#1 sheep#2 D chicken#3 chicken#2
+SELECT @e[sort=furthest,limit=3] - 10,-60,10 -> chicken#2 chicken#3 sheep#1
+SELECT @a[sort=nearest] - 0,-60,0 -> A B C D
+SELECT @a[sort=furthest] - 0,-60,0 -> D B C A
+SELECT @a[sort=nearest,limit=3] - 0,-60,0 -> A B C
+SELECT @a[sort=furthest,limit=3] - 0,-60,0 -> D B C
+SELECT @a[sort=nearest] A 0.5,-60,0.5 -> A B C D
+SELECT @a[sort=furthest] A 0.5,-60,0.5 -> D C B A
+SELECT @a[sort=nearest] D 0.5,-60,20.5 -> D A B C
+SELECT @e[sort=nearest,limit=5] D 0.5,-60,20.5 -> D cow#1 marker#1 pig#3 armor_stand#1
+# the letters and their defaults
+SELECT @p - 0,-60,0 -> A
+SELECT @p - 4.5,-60,0.5 -> B
+SELECT @p[limit=2] - 0,-60,0 -> A B
+SELECT @p[limit=4] - 0,-60,0 -> A B C D
+SELECT @p[limit=4,sort=furthest] - 0,-60,0 -> D B C A
+SELECT @p[sort=furthest] - 0,-60,0 -> D
+SELECT @p A 0.5,-60,0.5 -> A
+SELECT @p B 4.5,-60,0.5 -> B
+SELECT @p[distance=1..] B 4.5,-60,0.5 -> A
+SELECT @n - 0,-60,0 -> A
+SELECT @n[type=pig] - 0,-60,0 -> pig#2
+SELECT @n[type=pig,limit=2] - 0,-60,0 -> pig#2 pig#4
+SELECT @n[type=cow] - 0,-60,0 -> cow#2
+SELECT @n[type=!pig,type=!player] - 0,-60,0 -> armor_stand#2
+SELECT @n[sort=furthest] - 0,-60,0 -> chicken#2
+SELECT @n[limit=3] - 0,-60,0 -> A armor_stand#2 pig#2
+SELECT @n A 0.5,-60,0.5 -> A
+SELECT @n[type=!player] A 0.5,-60,0.5 -> armor_stand#1
+SELECT @n[type=player] A 0.5,-60,0.5 -> A
+SELECT @n[type=sheep] - 0,-60,0 -> sheep#1
+SELECT @n[type=zombie] - 0,-60,0 ->
+SELECT @s - 0,-60,0 ->
+SELECT @s A 0.5,-60,0.5 -> A
+SELECT @s[type=player] A 0.5,-60,0.5 -> A
+SELECT @s[type=pig] A 0.5,-60,0.5 ->
+# random order: vanilla shuffles with an unseeded Random (Collections.shuffle), so only the selected set and the count are compared
+SELECTCOUNT @r - 0,-60,0 -> 1
+SELECTCOUNT @r[limit=2] - 0,-60,0 -> 2
+SELECTSORTED @r[limit=4] - 0,-60,0 -> A B C D
+SELECTSORTED @r[limit=5] - 0,-60,0 -> A B C D
+SELECTSORTED @r[sort=nearest] - 0,-60,0 -> A
+SELECTSORTED @r[sort=furthest,limit=9] - 0,-60,0 -> A B C D
+SELECTSORTED @r[type=pig] - 0,-60,0 ->
+SELECTCOUNT @r[type=pig,limit=3] - 0,-60,0 -> 0
+SELECTSORTED @r[type=!player] - 0,-60,0 ->
+SELECTSORTED @e[sort=random] - 0,-60,0 -> A B C D armor_stand#1 armor_stand#2 chicken#1 chicken#2 chicken#3 cow#1 cow#2 marker#1 pig#1 pig#2 pig#3 pig#4 sheep#1 sheep#2
+SELECTCOUNT @e[sort=random,limit=3] - 0,-60,0 -> 3
+SELECTCOUNT @e[sort=random,limit=1] - 0,-60,0 -> 1
+SELECTSORTED @e[sort=random,type=pig] - 0,-60,0 -> pig#1 pig#2 pig#3 pig#4
+SELECTSORTED @e[sort=random,type=cow] - 0,-60,0 -> cow#1 cow#2
+SELECTSORTED @e[sort=random,type=marker] - 0,-60,0 -> marker#1
+SELECTSORTED @e[sort=random,type=!pig,type=!player] - 0,-60,0 -> armor_stand#1 armor_stand#2 chicken#1 chicken#2 chicken#3 cow#1 cow#2 marker#1 sheep#1 sheep#2
+SELECTSORTED @a[sort=random] - 0,-60,0 -> A B C D
+SELECTCOUNT @a[sort=random,limit=2] - 0,-60,0 -> 2
+SELECTCOUNT @r A 0.5,-60,0.5 -> 1
+SELECTSORTED @r[limit=3,distance=..6] A 0.5,-60,0.5 -> A B C
+SELECTSORTED @r[name=A] A 0.5,-60,0.5 -> A
+SELECTSORTED @r[name=nobody] - 0,-60,0 ->
+SELECTSORTED @e[sort=random,type=marker,limit=1] - 0,-60,0 -> marker#1
+# errors of the two options
+SELECT @e[limit=0] - 0,-60,0 -> !Limit must be at least 1
+SELECT @e[limit=-1] - 0,-60,0 -> !Limit must be at least 1
+SELECT @e[limit=1.5] - 0,-60,0 -> !Invalid integer '1.5'
+SELECT @e[limit=a] - 0,-60,0 -> !Expected integer
+SELECT @e[limit=] - 0,-60,0 -> !Expected integer
+SELECT @e[limit=1,limit=2] - 0,-60,0 -> !Option 'limit' isn't applicable here
+SELECT @e[limit=99999999999] - 0,-60,0 -> !Invalid integer '99999999999'
+SELECT @s[limit=1] - 0,-60,0 -> !Option 'limit' isn't applicable here
+SELECT @s[sort=nearest] - 0,-60,0 -> !Option 'sort' isn't applicable here
+SELECT @e[sort=bad] - 0,-60,0 -> !Invalid or unknown sort type 'bad'
+SELECT @e[sort=] - 0,-60,0 -> !Invalid or unknown sort type ''
+SELECT @e[sort=Nearest] - 0,-60,0 -> !Invalid or unknown sort type 'Nearest'
+SELECT @e[sort=nearest,sort=furthest] - 0,-60,0 -> !Option 'sort' isn't applicable here
+SELECT @e[sort=nearest,sort=nearest] - 0,-60,0 -> !Option 'sort' isn't applicable here
+SELECT @p[sort=nearest] - 0,-60,0 -> A
+SELECT @r[sort=nearest] - 0,-60,0 -> A
+SELECT @a[sort=random,sort=random] - 0,-60,0 -> !Option 'sort' isn't applicable here
+SELECT @n[limit=2,limit=3] - 0,-60,0 -> !Option 'limit' isn't applicable here
+SELECT @p[limit=1,limit=1] - 0,-60,0 -> !Option 'limit' isn't applicable here
+# commands that take the first of a sorted selection
+CF msg Teleported A to Pig
+CF result success 1
+CF msg Teleported A to Cow
+CF result success 1
+CF fail Incorrect argument for command
+CF fail tp A @e[type=cow]<--[HERE]
+CF fail Incorrect argument for command
+CF fail tp A @e[type=zombie]<--[HERE]
+CF msg Teleported A to B
+CF result success 1
+CF msg Teleported A to Armor Stand
+CF result success 1
+CF msg Teleported 4 entities to Cow
+CF result success 4
+CF msg Teleported Pig to Cow
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF msg Added tag 'far' to 2 entities
+CF result success 2
+CF result failure 0
+CF fail No entity was found
+CF msg Added tag 'near' to Armor Stand
+CF result success 1
+SELECT @e[tag=far] - 0,-60,0 -> pig#1 pig#2
+SELECTCOUNT @e[tag=rnd] - 0,-60,0 -> 0
+SELECT @e[tag=near] - 0,-60,0 -> armor_stand#2
+SELECT @e[sort=nearest,tag=!far,type=pig] - 0,-60,0 -> pig#4 pig#3
