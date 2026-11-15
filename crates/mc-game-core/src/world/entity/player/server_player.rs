@@ -360,6 +360,10 @@ fn game_type_by_id(id: i32) -> GameType {
 use crate::world::entity::living_entity::effects::remove_effect_particles as living_effects_remove_particles;
 
 impl Entity for ServerPlayer {
+    /// `Player.shouldBeSaved()`: a player is saved in its own file, never with the chunk.
+    fn should_be_saved_ignoring_riding(&self) -> bool {
+        false
+    }
     fn base(&self) -> &EntityData {
         &self.player.living.entity
     }
@@ -1459,7 +1463,7 @@ impl ServerPlayer {
             root_id = parent;
         }
         let Some(root) = lookup(root_id) else { return };
-        if root_id == self.base().id || count_players(root, lookup) != 1 {
+        if root_id == self.base().id || count_players(root, self.base().id, lookup) != 1 {
             return;
         }
         let Some(vehicle) = lookup(vehicle_id) else {
@@ -1477,14 +1481,17 @@ impl ServerPlayer {
     }
 }
 
-/// Number of players among `e` and its indirect passengers (`countPlayerPassengers` + self).
-fn count_players(e: &dyn Entity, lookup: &EntityLookupFn<'_>) -> usize {
+/// Number of players among `e` and its indirect passengers (`hasExactlyOnePlayerPassenger` counts the player being
+/// saved, which the level does not hold while its own packet or tick runs: it is `own`).
+fn count_players(e: &dyn Entity, own: EntityId, lookup: &EntityLookupFn<'_>) -> usize {
     usize::from(e.is_player())
         + e.base()
             .passengers
             .iter()
-            .filter_map(|&p| lookup(p))
-            .map(|p| count_players(p, lookup))
+            .map(|&p| match lookup(p) {
+                Some(p) => count_players(p, own, lookup),
+                None => usize::from(p == own),
+            })
             .sum::<usize>()
 }
 
@@ -1551,5 +1558,45 @@ mod tests {
         p.player.food_data.food_level = 10;
         p.do_tick(&mut level);
         assert!(matches!(rx.try_recv(), Ok(Outbound::Payload(_))));
+    }
+
+    /// The level does not hold the player whose packet or tick is running; its `RootVehicle` is still saved.
+    #[test]
+    fn root_vehicle_is_saved_while_the_player_is_out_of_its_level() {
+        use crate::world::entity::factory::{EntitySpawnRequest, create_and_load};
+        let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
+        level.entity_manager.update_chunk_status(
+            mc_core::pos::ChunkPos::new(0, 0),
+            crate::world::level::entity::Visibility::Ticking,
+        );
+        let tag = mc_nbt::snbt::parse_compound(
+            "{id:\"minecraft:oak_boat\",UUID:[I;7,7,7,7],Pos:[0.5d,64.0d,0.5d]}",
+        )
+        .unwrap();
+        let request = EntitySpawnRequest {
+            reason: mc_data::enums::EntitySpawnReason::Load,
+            ignore_checks: false,
+        };
+        let boat = create_and_load(&tag, &level, request).expect("boat");
+        let boat_id = boat.id();
+        assert!(level.add_fresh_entity(boat));
+        let mut p = ServerPlayer::new(
+            9999,
+            Identifier::parse("minecraft:overworld").unwrap(),
+            GameProfile {
+                id: uuid::Uuid::from_u128(1),
+                name: "A".into(),
+                properties: vec![],
+            },
+            Default::default(),
+        );
+        assert!(level.start_riding(&mut p, boat_id, true, false));
+        let saved = p.save_player_data(&|id| level.get_entity(id));
+        let root = saved.get_compound("RootVehicle").expect("RootVehicle");
+        assert_eq!(root.get_int_array("Attach"), Some(&[7, 7, 7, 7][..]));
+        assert_eq!(
+            root.get_compound("Entity").and_then(|e| e.get_string("id")),
+            Some("minecraft:oak_boat")
+        );
     }
 }

@@ -13,6 +13,7 @@ mod net_support;
 mod command_corpora;
 mod common;
 mod entity_dual;
+mod entity_persistence;
 mod join_ours;
 mod join_ours_state;
 mod join_phase;

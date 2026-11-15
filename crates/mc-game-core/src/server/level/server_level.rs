@@ -132,6 +132,9 @@ pub struct ServerLevel {
     // ==== spawn framework additions (ServerLevel field) ====
     /// Natural spawning state: spawn state of the tick, custom spawners, dimension attribute base (see `world::level::spawner`).
     pub spawning: crate::world::level::spawner::LevelSpawnData,
+    /// The IO thread of the last non-flushing `saveLevelData`: the next save waits for it, so an older snapshot never
+    /// lands after a newer one.
+    pub(super) level_data_writer: Option<std::thread::JoinHandle<()>>,
     /// The throwaway dimension folder of a level that has no world (`detached`, test replays), removed when the level
     /// drops. Last field: it must outlive the chunk source's files. Real levels use the world folder and keep `None`.
     pub scratch_dir: Option<tempfile::TempDir>,
@@ -143,6 +146,17 @@ impl ServerLevel {
         let region_dir = params.dimension_dir.join("region");
         let poi_dir = params.dimension_dir.join("poi");
         let data_dir = params.dimension_dir.join("data");
+        let entity_storage = mc_world::region::entity_storage::EntityStorage::new(
+            mc_world::region::simple_region_storage::SimpleRegionStorage::new(
+                mc_world::region::region_storage_info::RegionStorageInfo::new(
+                    params.level_id.clone(),
+                    params.dimension.clone(),
+                    "entities",
+                ),
+                params.dimension_dir.join("entities"),
+                params.sync_writes,
+            ),
+        );
         let spawning = crate::world::level::spawner::LevelSpawnData::default();
         let gen_context = Arc::new(WorldGenContext {
             dimension: params.dimension.clone(),
@@ -174,7 +188,7 @@ impl ServerLevel {
         chunk_source.chunk_map.tick_containers = Some(tick_state.ticks.clone());
         Self {
             dimension: params.dimension,
-            entity_manager: PersistentEntitySectionManager::new(None),
+            entity_manager: PersistentEntitySectionManager::new(Some(entity_storage)),
             players: Vec::new(),
             entity_tracker: Default::default(),
             debug_synchronizers: Some(Default::default()),
@@ -209,6 +223,7 @@ impl ServerLevel {
             pending_start_references: Default::default(),
             // ==== spawn framework additions (ServerLevel::new initializer) ====
             spawning,
+            level_data_writer: None,
             scratch_dir: None,
         }
     }
@@ -716,7 +731,51 @@ impl ServerLevel {
         } else {
             self.chunk_source.chunk_map.save_all_chunks_periodic();
         }
+    }
+
+    /// `ServerLevel.save(null, flush, false)`: the saved data, the chunks, then the entities.
+    pub fn save(&mut self, flush: bool) {
+        self.save_level_data(flush);
+        self.save_chunks(flush);
+        if flush {
+            self.save_all_entities();
+        } else {
+            self.entity_manager.auto_save();
+            self.process_entity_events();
+        }
+    }
+
+    /// `saveLevelData(sync)`: the dimension's saved data (tickets, raids, border, ...) is written now or by the
+    /// IO thread.
+    fn save_level_data(&mut self, sync: bool) {
         self.chunk_source.sync_tickets_to_data_storage();
+        if let Some(writer) = self.level_data_writer.take() {
+            let _ = writer.join();
+        }
+        if sync {
+            self.chunk_source.data_storage.save_and_join();
+        } else {
+            let pending = self.chunk_source.data_storage.schedule_save();
+            if !pending.is_empty() {
+                self.level_data_writer = std::thread::Builder::new()
+                    .name("IO-Worker".to_owned())
+                    .spawn(move || pending.write())
+                    .ok();
+            }
+        }
+    }
+
+    /// `PersistentEntitySectionManager.saveAll()`: the manager's loop with the level instantiating the entities of
+    /// chunks whose entity data arrived in between.
+    fn save_all_entities(&mut self) {
+        let mut chunks_to_save = self.entity_manager.chunks_to_save_all();
+        while !chunks_to_save.is_empty() {
+            self.entity_manager.flush_storage(false);
+            self.process_pending_entity_loads();
+            self.entity_manager.save_all_round(&mut chunks_to_save);
+        }
+        self.entity_manager.flush_storage(true);
+        self.process_entity_events();
     }
 
     /// `getDataStorage()`: the dimension's saved data storage (`<dimension>/data`).
@@ -724,11 +783,16 @@ impl ServerLevel {
         &mut self.chunk_source.data_storage
     }
 
-    /// `ServerChunkCache.close()` / `ServerLevel.close()`.
+    /// `ServerLevel.close()`: the chunk source (`ServerChunkCache.close()`), then the entity manager.
     pub fn close(&mut self) {
         self.save_chunks(true);
+        if let Some(writer) = self.level_data_writer.take() {
+            let _ = writer.join();
+        }
         self.chunk_source.close_data_storage();
         self.chunk_source.chunk_map.close();
+        self.save_all_entities();
+        self.entity_manager.close();
     }
 }
 

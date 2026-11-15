@@ -23,6 +23,11 @@ use mc_core::pos::{BlockPos, ChunkPos, SectionPos, quart_pos};
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::{Fluid, FluidState};
 use mc_nbt::{CompoundTag, Tag};
+use std::sync::{Arc, Mutex};
+
+/// `LevelChunk.UnsavedListener` of one chunk map: the packed positions of the full chunks that became unsaved, in
+/// order (`ChunkMap.chunksToEagerlySave`).
+pub type UnsavedSink = Arc<Mutex<IndexSet<i64>>>;
 
 /// `LevelHeightAccessor` for a dimension (or `BelowZeroRetrogen.UPGRADE_HEIGHT_ACCESSOR`).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -223,6 +228,8 @@ pub struct ChunkAccess {
     pub sky_light_sources: ChunkSkyLightSources,
     inhabited_time: i64,
     unsaved: bool,
+    /// `LevelChunk.unsavedListener`: set on full chunks only (a proto chunk does not report).
+    unsaved_listener: Option<UnsavedSink>,
     light_correct: bool,
 }
 
@@ -267,6 +274,7 @@ impl ChunkAccess {
             sky_light_sources: ChunkSkyLightSources::new(level_height.min_y, level_height.height),
             inhabited_time,
             unsaved: false,
+            unsaved_listener: None,
             light_correct: false,
         }
     }
@@ -416,7 +424,27 @@ impl ChunkAccess {
     }
 
     pub fn mark_unsaved(&mut self) {
-        self.unsaved = true;
+        let was_unsaved = std::mem::replace(&mut self.unsaved, true);
+        if !was_unsaved {
+            self.notify_unsaved();
+        }
+    }
+
+    /// `LevelChunk.setUnsavedListener`: an already unsaved chunk reports at once.
+    pub fn set_unsaved_listener(&mut self, listener: UnsavedSink) {
+        self.unsaved_listener = Some(listener);
+        if self.unsaved {
+            self.notify_unsaved();
+        }
+    }
+
+    fn notify_unsaved(&self) {
+        if let Some(listener) = &self.unsaved_listener {
+            listener
+                .lock()
+                .unwrap_or_else(|e| e.into_inner())
+                .insert(self.pos.pack());
+        }
     }
 
     /// `tryMarkSaved()`.

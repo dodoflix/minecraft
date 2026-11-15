@@ -786,7 +786,7 @@ impl MinecraftServer {
                 );
             }
             if !(level.no_save && !force) {
-                level.save_chunks(flush);
+                level.save(flush);
             }
             result = true;
         }

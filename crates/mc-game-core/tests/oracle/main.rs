@@ -4,6 +4,7 @@ extern crate mc_game_core as mc_game;
 mod chunk_generation;
 mod chunk_world;
 mod entity_roundtrip;
+mod entity_storage_worldref;
 mod saved_data_worldref;
 #[path = "../golden/scoreboard_build.rs"]
 mod scoreboard_build;

@@ -136,19 +136,28 @@ impl EntityStorage {
 
     /// `storeEntities(chunk)`: empty chunks are written once (as removal); others as a full tag.
     pub fn store_entities(&mut self, chunk: &ChunkEntities) {
-        let pos = chunk.get_pos();
-        if chunk.is_empty() {
+        self.store(chunk.get_pos(), chunk.is_empty(), chunk.get_entities());
+    }
+
+    /// `storeEntities(chunk)` for a chunk whose entities all refuse to serialize (lightning bolts, say): vanilla's
+    /// `isEmpty` looks at the entity objects, so the chunk is written with an empty `Entities` list.
+    pub fn store_unserializable_entities(&mut self, pos: ChunkPos) {
+        self.store(pos, false, &[]);
+    }
+
+    fn store(&mut self, pos: ChunkPos, empty: bool, entities: &[CompoundTag]) {
+        if empty {
             if self.empty_chunks.insert(pos.pack()) {
                 self.storage.write(&pos, None);
             }
         } else {
-            let mut entities = ListTag::new();
-            for e in chunk.get_entities() {
-                entities.push(e.clone());
+            let mut list = ListTag::new();
+            for e in entities {
+                list.push(e.clone());
             }
             let mut chunk_tag = CompoundTag::new();
             chunk_tag.put_int("DataVersion", CURRENT_DATA_VERSION);
-            chunk_tag.put(ENTITIES_TAG, entities);
+            chunk_tag.put(ENTITIES_TAG, list);
             chunk_tag.put_int_array(POSITION_TAG, vec![pos.x, pos.z]);
             self.storage.write(&pos, Some(chunk_tag));
             self.empty_chunks.remove(&pos.pack());

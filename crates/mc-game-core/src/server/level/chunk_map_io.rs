@@ -161,6 +161,10 @@ impl ChunkMap {
             return;
         };
         chunk.full_status = holder.get_full_status();
+        chunk
+            .data
+            .access
+            .set_unsaved_listener(self.chunks_to_eagerly_save.clone());
         holder.slot = ChunkSlot::Level(chunk);
         self.complete_step(key, ChunkStatus::Full);
     }
@@ -286,7 +290,7 @@ impl ChunkMap {
     fn save_chunks_eagerly(&mut self, have_time: &dyn Fn() -> bool) {
         let now = millis();
         let mut eagerly_saved_count = 0;
-        let keys: Vec<i64> = self.chunks_to_eagerly_save.iter().copied().collect();
+        let keys: Vec<i64> = self.eager_save_queue().iter().copied().collect();
         for key in keys {
             if !(eagerly_saved_count < CHUNK_SAVED_EAGERLY_PER_TICK
                 && self.active_chunk_writes.load(Ordering::Acquire) < MAX_ACTIVE_CHUNK_WRITES
@@ -307,17 +311,19 @@ impl ChunkMap {
                     _ => None,
                 });
             if unsaved != Some(true) {
-                self.chunks_to_eagerly_save.shift_remove(&key);
+                self.eager_save_queue().shift_remove(&key);
             } else if self.save_chunk_if_needed(key, now) {
                 eagerly_saved_count += 1;
-                self.chunks_to_eagerly_save.shift_remove(&key);
+                self.eager_save_queue().shift_remove(&key);
             }
         }
     }
 
-    /// `setChunkUnsaved(pos)` (`WorldGenContext.unsavedListener`).
-    pub fn set_chunk_unsaved(&mut self, pos: ChunkPos) {
-        self.chunks_to_eagerly_save.insert(pos.pack());
+    /// `chunksToEagerlySave`, fed by the unsaved listener of every full chunk.
+    fn eager_save_queue(&self) -> std::sync::MutexGuard<'_, indexmap::IndexSet<i64>> {
+        self.chunks_to_eagerly_save
+            .lock()
+            .unwrap_or_else(|e| e.into_inner())
     }
 
     // ------------------------------------------------------------------ saving

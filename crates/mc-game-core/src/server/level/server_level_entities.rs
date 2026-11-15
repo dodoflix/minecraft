@@ -18,6 +18,9 @@ use uuid::Uuid;
 /// `ServerLevel::expire_recently_removed`).
 const RECENTLY_REMOVED_RETENTION_TICKS: i64 = 20;
 
+/// Entity chunks the storage writes to disk per tick: vanilla's IO thread works through the queue between the saves.
+const ENTITY_CHUNKS_STORED_PER_TICK: usize = 16;
+
 /// `ServerLevel.ENTITY_COUNTER` (static: shared by all levels).
 static ENTITY_COUNTER: AtomicI32 = AtomicI32::new(0);
 
@@ -455,6 +458,8 @@ impl ServerLevel {
     pub fn tick_entity_management(&mut self) {
         self.process_pending_entity_loads();
         self.entity_manager.process_unloads();
+        self.entity_manager
+            .store_pending_chunks(ENTITY_CHUNKS_STORED_PER_TICK);
         self.process_entity_events();
         self.expire_recently_removed();
     }

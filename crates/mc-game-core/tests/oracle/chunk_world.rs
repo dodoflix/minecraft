@@ -14,13 +14,13 @@ use mc_world::serial::SerializableChunkData;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
 
-fn world_dimension_dir() -> PathBuf {
+pub(crate) fn world_dimension_dir() -> PathBuf {
     mc_testkit::worldref()
         .expect("reference world")
         .join("dimensions/minecraft/overworld")
 }
 
-fn factory() -> Arc<PalettedContainerFactory> {
+pub(crate) fn factory() -> Arc<PalettedContainerFactory> {
     let dir = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../../ref/generated/data/minecraft/worldgen/biome");
     let mut names: Vec<String> = std::fs::read_dir(dir)
@@ -40,7 +40,7 @@ fn factory() -> Arc<PalettedContainerFactory> {
     Arc::new(PalettedContainerFactory::create(BiomeRegistry::new(names)).unwrap())
 }
 
-fn copy_dir(from: &Path, to: &Path) {
+pub(crate) fn copy_dir(from: &Path, to: &Path) {
     std::fs::create_dir_all(to).unwrap();
     for e in std::fs::read_dir(from).unwrap() {
         let e = e.unwrap();
@@ -87,7 +87,7 @@ fn read_all(folder: &Path) -> Vec<(ChunkPos, CompoundTag)> {
     out
 }
 
-fn open_level(dir: &Path) -> ServerLevel {
+pub(crate) fn open_level(dir: &Path) -> ServerLevel {
     let (shared, _rx) = ServerShared::new();
     ServerLevel::new(ServerLevelParams {
         shared,
@@ -117,7 +117,7 @@ fn open_level(dir: &Path) -> ServerLevel {
 }
 
 /// Chunks that must be generated (neighbours of the world edge) come out empty.
-struct VoidGenerator;
+pub(crate) struct VoidGenerator;
 
 impl mc_game::server::level::world_gen::ChunkGeneratorBackend for VoidGenerator {
     fn type_name_for_data_fixer(&self) -> Option<Identifier> {

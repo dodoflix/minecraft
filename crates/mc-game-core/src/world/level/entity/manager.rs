@@ -415,7 +415,22 @@ impl PersistentEntitySectionManager {
     }
 
     fn lookup<'a>(&'a self) -> impl Fn(EntityId) -> Option<&'a dyn Entity> + 'a {
-        |id| self.entities.get(&id).and_then(|s| s.entity.as_deref())
+        |id| self.get_any(id)
+    }
+
+    /// Whether an entity of the chunk is out of its slot with nobody lending it (its own code runs, or a re-entry holds
+    /// it): it cannot be saved now, so the chunk must not be rewritten without it.
+    fn has_entity_out_of_reach(&self, chunk_key: i64) -> bool {
+        self.section_storage
+            .existing_section_positions_in_chunk(chunk_key)
+            .into_iter()
+            .filter_map(|section_key| self.section_storage.get_section(section_key))
+            .any(|section| {
+                section
+                    .entities()
+                    .iter()
+                    .any(|&id| self.get_any(id).is_none())
+            })
     }
 
     /// `storeChunkSections`: false if the chunk can't be stored yet (load pending / fresh with entities).
@@ -423,6 +438,10 @@ impl PersistentEntitySectionManager {
         let status = self.chunk_load_status(chunk_key);
         if status == ChunkLoadStatus::Pending {
             return false;
+        }
+        if self.has_entity_out_of_reach(chunk_key) {
+            // saved by the next save; an unload retries next tick
+            return !unload_saved;
         }
         let roots = self.root_entities_to_save(chunk_key);
         let pos = ChunkPos::unpack(chunk_key);
@@ -446,7 +465,11 @@ impl PersistentEntitySectionManager {
                 .collect()
         };
         if let Some(storage) = self.permanent_storage.as_mut() {
-            storage.store_entities(&ChunkEntities::new(pos, tags));
+            if tags.is_empty() {
+                storage.store_unserializable_entities(pos);
+            } else {
+                storage.store_entities(&ChunkEntities::new(pos, tags));
+            }
         }
         if unload_saved {
             for root in roots {
@@ -525,37 +548,53 @@ impl PersistentEntitySectionManager {
         }
     }
 
-    /// `saveAll()` minus the pending-load instantiation: `load_pending` is called between rounds (the level
-    /// instantiates `take_loaded_chunks()` there) so fresh chunks can finish loading before they are stored.
-    pub fn save_all(&mut self, mut load_pending: impl FnMut(&mut Self)) {
-        let mut chunks_to_save = self.all_chunks_to_save();
-        while !chunks_to_save.is_empty() {
-            if let Some(storage) = self.permanent_storage.as_mut()
-                && let Err(e) = storage.flush(false)
-            {
-                log::error!("Failed to flush entity storage: {e}");
-            }
-            load_pending(self);
-            let keys: Vec<i64> = chunks_to_save.iter().copied().collect();
-            for chunk_key in keys {
-                let should_unload = self
-                    .chunk_visibility
-                    .get(&chunk_key)
-                    .copied()
-                    .unwrap_or_default()
-                    == Visibility::Hidden;
-                let done = if should_unload {
-                    self.process_chunk_unload(chunk_key)
-                } else {
-                    self.store_chunk_sections(chunk_key, false)
-                };
-                if done {
-                    chunks_to_save.shift_remove(&chunk_key);
-                }
+    /// `getAllChunksToSave()`: the chunks `saveAll` has to store (the level drives the rounds, see
+    /// [`Self::save_all_round`], because instantiating the loaded entities needs the level).
+    pub fn chunks_to_save_all(&self) -> IndexSet<i64> {
+        self.all_chunks_to_save()
+    }
+
+    /// One iteration of `saveAll()`'s loop body after `processPendingLoads()`: stores (or unloads) every chunk of
+    /// `chunks_to_save` that can be stored now and removes it from the set.
+    pub fn save_all_round(&mut self, chunks_to_save: &mut IndexSet<i64>) {
+        let keys: Vec<i64> = chunks_to_save.iter().copied().collect();
+        for chunk_key in keys {
+            let should_unload = self
+                .chunk_visibility
+                .get(&chunk_key)
+                .copied()
+                .unwrap_or_default()
+                == Visibility::Hidden;
+            let done = if should_unload {
+                self.process_chunk_unload(chunk_key)
+            } else {
+                self.store_chunk_sections(chunk_key, false)
+            };
+            if done {
+                chunks_to_save.shift_remove(&chunk_key);
             }
         }
+    }
+
+    /// What the `IOWorker` thread does between the saves: writes up to `max` of the chunks queued by unloads and
+    /// autosaves.
+    pub fn store_pending_chunks(&mut self, max: usize) {
+        let Some(storage) = self.permanent_storage.as_mut() else {
+            return;
+        };
+        for _ in 0..max {
+            match storage.simple_region_storage().store_pending_chunk() {
+                Ok(true) => {}
+                Ok(false) => return,
+                Err(e) => log::error!("Failed to store entity chunk: {e}"),
+            }
+        }
+    }
+
+    /// `permanentStorage.flush(flushStorage)`.
+    pub fn flush_storage(&mut self, flush_storage: bool) {
         if let Some(storage) = self.permanent_storage.as_mut()
-            && let Err(e) = storage.flush(true)
+            && let Err(e) = storage.flush(flush_storage)
         {
             log::error!("Failed to flush entity storage: {e}");
         }

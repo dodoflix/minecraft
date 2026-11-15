@@ -26,6 +26,7 @@ mod distance_golden;
 mod effects_golden;
 mod entity_base_golden;
 mod entity_oracle_fixtures;
+mod entity_persistence;
 mod food_golden;
 mod gamerule_golden;
 mod gametest_golden;

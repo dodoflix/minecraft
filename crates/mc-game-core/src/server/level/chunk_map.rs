@@ -271,7 +271,7 @@ pub struct ChunkMap {
     // saving
     pub(crate) chunk_type_cache: HashMap<i64, i8>,
     pub(crate) next_chunk_save_time: HashMap<i64, i64>,
-    pub(crate) chunks_to_eagerly_save: IndexSet<i64>,
+    pub(crate) chunks_to_eagerly_save: mc_world::chunk::UnsavedSink,
     pub(crate) unload_queue: VecDeque<(i64, u64)>,
     pub(crate) unload_wanted: HashMap<i64, u64>,
     pub(crate) active_chunk_writes: Arc<AtomicI32>,
@@ -369,7 +369,7 @@ impl ChunkMap {
             light_barrier_pending: std::collections::HashSet::new(),
             chunk_type_cache: HashMap::new(),
             next_chunk_save_time: HashMap::new(),
-            chunks_to_eagerly_save: IndexSet::new(),
+            chunks_to_eagerly_save: Default::default(),
             unload_queue: VecDeque::new(),
             unload_wanted: HashMap::new(),
             active_chunk_writes: Arc::new(AtomicI32::new(0)),
