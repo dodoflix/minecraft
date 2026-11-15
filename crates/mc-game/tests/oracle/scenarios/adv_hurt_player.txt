@@ -1,0 +1,112 @@
+# The entity_hurt_player trigger (LivingEntity.hurtServer of a player), read by a data pack of damage conditions next to the vanilla deflect_arrow
+# advancement: a zombie's bite, a projectile deflected by a shield and one that hits, fire and explosions without a source entity, the
+# invulnerability window, armor and absorption (both damage numbers of the trigger are taken before armor and absorption), a creative player
+# (invulnerable: no trigger, except to damage that bypasses invulnerability) and a sneaking player. Every case has its own player.
+datapack adv_combat
+command_env
+level flat
+preload 3
+difficulty normal
+entity_counter 31000
+level_seed 31001
+time 18000
+spawn_player Zombie survival 0.5 -60 0.5 0 0
+spawn_player Deflect survival 6.5 -60 0.5 0 0
+spawn_player Shot survival 12.5 -60 0.5 0 0
+spawn_player Fire survival 18.5 -60 0.5 0 0
+spawn_player Blast survival 24.5 -60 0.5 0 0
+spawn_player Window survival 30.5 -60 0.5 0 0
+spawn_player Armor survival 36.5 -60 0.5 0 0
+spawn_player Absorb survival 42.5 -60 0.5 0 0
+spawn_player Creative creative 48.5 -60 0.5 0 0
+spawn_player Sneak survival 54.5 -60 0.5 0 0
+spawn_player Void creative 60.5 -60 0.5 0 0
+give Deflect hotbar0 minecraft:shield
+give Armor chest minecraft:diamond_chestplate
+give Armor head minecraft:diamond_helmet
+attribute Absorb minecraft:max_absorption 20
+set Absorb absorption 8
+tick 40
+dump advancements:Zombie advancements:Deflect advancements:Shot advancements:Fire advancements:Blast advancements:Window advancements:Armor advancements:Absorb advancements:Creative advancements:Sneak advancements:Void
+note Zombie: a zombie bites (3 damage on normal difficulty, a direct mob attack)
+mobspawn zomb minecraft:zombie 0.5 -60 1.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed zomb 1
+tick 2
+level_seed 31011
+mob_attack zomb Zombie
+tick 1
+dump advancements:Zombie
+note Deflect: an arrow hits a player blocking with a shield (the vanilla deflect_arrow criterion)
+spawn arrD minecraft:arrow 6.5 -59.5 2.5 180 0 {Owner:[I;0,0,0,0]}
+entity_seed arrD 2
+use Deflect main 1
+tick 8
+level_seed 31012
+hurt Deflect arrow 6 direct=arrD
+tick 1
+dump advancements:Deflect
+note Shot: an arrow of a skeleton (direct entity arrow, indirect damage) hits a player without a shield
+mobspawn skel minecraft:skeleton 12.5 -60 4.5 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed skel 3
+spawn arrS minecraft:arrow 12.5 -59.5 2.5 180 0 {Owner:[I;0,0,0,0]}
+entity_seed arrS 4
+tick 2
+level_seed 31013
+hurt Shot arrow 6 by=skel direct=arrS
+tick 1
+dump advancements:Shot
+note Fire: fire without a source entity
+tick 2
+level_seed 31014
+hurt Fire in_fire 2
+tick 1
+dump advancements:Fire
+note Blast: an explosion of 8 (not fire, not direct)
+level_seed 31015
+hurt Blast explosion 8
+tick 1
+dump advancements:Blast
+note Window: 4 damage, then 9 inside the invulnerability window (fires with 9), then 3 (no trigger)
+level_seed 31016
+hurt Window generic 4
+tick 1
+dump advancements:Window
+level_seed 31017
+hurt Window generic 9
+tick 1
+dump advancements:Window
+level_seed 31018
+hurt Window generic 3
+tick 1
+dump advancements:Window
+note Armor: 8 damage against diamond armor: both numbers stay 8, armor reduces only the health taken
+level_seed 31019
+hurt Armor generic 8
+tick 1
+dump advancements:Armor
+note Absorb: 6 damage taken by absorption hearts
+level_seed 31020
+hurt Absorb generic 6
+tick 1
+dump advancements:Absorb
+note Creative: invulnerable, nothing fires; out_of_world bypasses the invulnerability and fires
+level_seed 31021
+hurt Creative generic 6
+tick 1
+dump advancements:Creative
+level_seed 31022
+hurt Creative out_of_world 6
+tick 1
+dump advancements:Creative
+note Sneak: the player condition
+input Sneak sneak
+tick 2
+level_seed 31023
+hurt Sneak generic 2
+tick 1
+dump advancements:Sneak
+note Void: a creative player takes damage 0 from a source that bypasses invulnerability (the trigger sees 0)
+level_seed 31024
+hurt Void out_of_world 0
+tick 1
+dump advancements:Void

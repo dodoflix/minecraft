@@ -1,0 +1,12 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:fall_after_explosion",
+      "conditions": {
+        "start_position": {
+          "biomes": "minecraft:plains"
+        }
+      }
+    }
+  }
+}

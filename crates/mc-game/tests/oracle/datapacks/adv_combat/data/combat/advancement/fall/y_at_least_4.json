@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:fall_after_explosion",
+      "conditions": {
+        "distance": {
+          "y": {
+            "min": 4
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:shot_crossbow",
+      "conditions": {
+        "item": {
+          "items": "minecraft:crossbow",
+          "components": {
+            "minecraft:charged_projectiles": []
+          }
+        }
+      }
+    }
+  }
+}

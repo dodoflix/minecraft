@@ -1,0 +1,12 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:killed_by_arrow",
+      "conditions": {
+        "fired_from_weapon": {
+          "items": "minecraft:bow"
+        }
+      }
+    }
+  }
+}

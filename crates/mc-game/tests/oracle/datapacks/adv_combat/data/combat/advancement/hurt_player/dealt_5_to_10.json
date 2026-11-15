@@ -1,0 +1,15 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:entity_hurt_player",
+      "conditions": {
+        "damage": {
+          "dealt": {
+            "min": 5,
+            "max": 10
+          }
+        }
+      }
+    }
+  }
+}

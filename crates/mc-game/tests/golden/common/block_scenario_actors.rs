@@ -832,6 +832,7 @@ impl Scenario {
                         .living_mut()
                         .expect("living entity")
                         .set_health(v.parse().unwrap()),
+                    "absorption" => e.set_absorption_amount(v.parse().unwrap()),
                     "xp_level" | "enchant_seed" => {
                         let player = e
                             .as_any_mut()

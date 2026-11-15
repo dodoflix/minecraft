@@ -1,0 +1,16 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:fall_after_explosion",
+      "conditions": {
+        "cause": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:tnt"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+# The kill_mob_near_sculk_catalyst trigger (SculkCatalystBlockEntity: the entity_die game event within 8 blocks of a catalyst, with experience to
+# award, credited to the mob's last attacker with its last damage source), read by the vanilla advancement and a data pack of victim and killing
+# blow conditions. The experience-less bat, a kill with no player behind it, a kill out of range and a player victim with experience levels.
+datapack adv_combat
+command_env
+level flat
+preload 5
+difficulty normal
+entity_counter 33000
+level_seed 33001
+time 18000
+spawn_player Near survival 0.5 -60 0.5 0 0
+block 4 -60 0 minecraft:sculk_catalyst
+spawn_player Bat survival 24.5 -60 0.5 0 0
+block 28 -60 0 minecraft:sculk_catalyst
+spawn_player Burn survival 48.5 -60 0.5 0 0
+block 52 -60 0 minecraft:sculk_catalyst
+spawn_player Arrow survival 0.5 -60 24.5 0 0
+block 4 -60 24 minecraft:sculk_catalyst
+spawn_player Nobody survival 24.5 -60 24.5 0 0
+block 28 -60 24 minecraft:sculk_catalyst
+spawn_player Far survival 48.5 -60 24.5 0 0
+block 52 -60 24 minecraft:sculk_catalyst
+spawn_player Prey survival 0.5 -60 48.5 0 0
+block 4 -60 48 minecraft:sculk_catalyst
+spawn_player Killer survival 24.5 -60 48.5 0 0
+set Prey xp_level 5
+tick 40
+dump advancements:Near advancements:Bat advancements:Burn advancements:Arrow advancements:Nobody advancements:Far advancements:Prey advancements:Killer
+note Near: a zombie killed two blocks from a catalyst by the player
+mobspawn zNear minecraft:zombie 3.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed zNear 22
+tick 2
+level_seed 33011
+hurt zNear player_attack 100 by=Near direct=Near
+tick 1
+dump advancements:Near
+note Bat: a bat has no experience to award: the catalyst blooms, nothing fires
+mobspawn bat minecraft:bat 27.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:6f}
+entity_seed bat 30
+tick 2
+level_seed 33012
+hurt bat player_attack 100 by=Bat direct=Bat
+tick 1
+dump advancements:Bat
+note Burn: hit by the player, then dying of fire: the last damage source is fire
+mobspawn zBurn minecraft:zombie 51.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed zBurn 38
+tick 2
+level_seed 33013
+hurt zBurn player_attack 1 by=Burn direct=Burn
+tick 1
+level_seed 33014
+hurt zBurn in_fire 100
+tick 1
+dump advancements:Burn
+note Arrow: a skeleton shot dead
+mobspawn sArrow minecraft:skeleton 3.5 -60 24.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed sArrow 49
+spawn arr minecraft:arrow 0.5 -59.5 26.5 0 0 {Owner:[I;0,0,0,0]}
+entity_seed arr 9
+tick 2
+level_seed 33015
+hurt sArrow arrow 100 by=Arrow direct=arr
+tick 1
+dump advancements:Arrow
+note Nobody: a zombie dies of fire nobody lit: no player to credit
+mobspawn zNobody minecraft:zombie 27.5 -60 24.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed zNobody 59
+tick 2
+level_seed 33016
+hurt zNobody in_fire 100
+tick 1
+dump advancements:Nobody
+note Far: the zombie dies 10 blocks away from the catalyst, out of its range
+mobspawn zFar minecraft:zombie 42.5 -60 24.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed zFar 67
+tick 2
+level_seed 33017
+hurt zFar player_attack 100 by=Far direct=Far
+tick 1
+dump advancements:Far
+note Prey/Killer: a player with experience levels killed by a player next to a catalyst
+tp Prey 3.5 -60 48.5 0 0
+tp Killer 0.5 -60 48.5 0 0
+tick 2
+level_seed 33018
+hurt Prey generic 1000 by=Killer direct=Killer
+tick 1
+dump advancements:Prey advancements:Killer

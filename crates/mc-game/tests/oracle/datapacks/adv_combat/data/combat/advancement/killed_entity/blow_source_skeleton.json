@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "killing_blow": {
+          "source_entity": {
+            "minecraft:entity_type": "minecraft:skeleton"
+          }
+        }
+      }
+    }
+  }
+}

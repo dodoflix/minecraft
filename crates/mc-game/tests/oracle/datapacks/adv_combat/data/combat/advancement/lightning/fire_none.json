@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:lightning_strike",
+      "conditions": {
+        "lightning": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:type_specific/lightning": {
+              "blocks_set_on_fire": {
+                "max": 0
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

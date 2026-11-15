@@ -1,0 +1,12 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "killing_blow": {
+          "is_direct": false
+        }
+      }
+    }
+  }
+}

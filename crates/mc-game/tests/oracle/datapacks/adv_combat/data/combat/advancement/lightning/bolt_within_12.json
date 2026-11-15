@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:lightning_strike",
+      "conditions": {
+        "lightning": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:distance": {
+              "absolute": {
+                "max": 12
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

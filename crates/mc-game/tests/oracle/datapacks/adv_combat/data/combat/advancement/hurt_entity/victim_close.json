@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:distance": {
+              "absolute": {
+                "max": 2.5
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

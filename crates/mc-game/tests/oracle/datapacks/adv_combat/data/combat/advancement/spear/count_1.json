@@ -1,0 +1,10 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:spear_mobs",
+      "conditions": {
+        "count": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:shot_crossbow",
+      "conditions": {
+        "item": {
+          "predicates": {
+            "minecraft:damage": {
+              "damage": {
+                "min": 1,
+                "max": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

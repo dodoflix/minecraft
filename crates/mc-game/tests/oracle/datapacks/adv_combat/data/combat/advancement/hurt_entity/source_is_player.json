@@ -1,0 +1,16 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "damage": {
+          "type": {
+            "source_entity": {
+              "minecraft:entity_type": "minecraft:player"
+            }
+          }
+        }
+      }
+    }
+  }
+}

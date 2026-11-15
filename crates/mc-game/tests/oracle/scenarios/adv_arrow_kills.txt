@@ -1,0 +1,172 @@
+# The killed_by_arrow and shot_crossbow triggers (AbstractArrow.onHitEntity, CrossbowItem.performShooting), read by the vanilla ol_betsy, arbalistic,
+# two_birds_one_arrow and whos_the_pillager_now advancements and a data pack of weapon, victim and unique-type conditions. A plain arrow fires
+# only for a kill; a piercing arrow fires for every living entity it hits with the victims killed so far (an empty list when the first one
+# survives); the weapon is the crossbow after the load is spent (its charged projectiles empty, wear already applied); multishot arrows
+# fire one by one; a bow shot and an arrow shot by a command (no weapon) are told apart by the weapon condition; rockets only fire shot_crossbow.
+datapack adv_combat
+command_env
+level flat
+preload 7
+difficulty normal
+entity_counter 34000
+level_seed 34001
+time 18000
+spawn_player Plain survival 0.5 -60 0.5 0 0
+spawn_player Bow survival 12.5 -60 0.5 0 0
+spawn_player Pierce survival 24.5 -60 0.5 0 0
+spawn_player Birds survival 36.5 -60 0.5 0 0
+spawn_player Survivor survival 48.5 -60 0.5 0 0
+spawn_player Blunt survival 60.5 -60 0.5 0 0
+spawn_player Multi survival 72.5 -60 0.5 0 0
+spawn_player Rocket survival 84.5 -60 0.5 0 0
+spawn_player Loose survival 96.5 -60 0.5 0 0
+spawn_player Sneak survival 108.5 -60 0.5 0 0
+give Plain hotbar0 minecraft:crossbow
+give Plain hotbar1 minecraft:arrow 10
+give Bow hotbar0 minecraft:bow
+give Bow hotbar1 minecraft:arrow 10
+give Pierce hotbar0 minecraft:crossbow[enchantments={"minecraft:piercing":4}]
+give Pierce hotbar1 minecraft:arrow 10
+give Birds hotbar0 minecraft:crossbow[enchantments={"minecraft:piercing":1}]
+give Birds hotbar1 minecraft:arrow 10
+give Survivor hotbar0 minecraft:crossbow[enchantments={"minecraft:piercing":2}]
+give Survivor hotbar1 minecraft:arrow 10
+give Blunt hotbar0 minecraft:crossbow
+give Blunt hotbar1 minecraft:arrow 10
+give Multi hotbar0 minecraft:crossbow[enchantments={"minecraft:multishot":1}]
+give Multi hotbar1 minecraft:arrow 10
+give Rocket hotbar0 minecraft:crossbow
+give Rocket offhand minecraft:firework_rocket 3
+give Sneak hotbar0 minecraft:crossbow
+give Sneak hotbar1 minecraft:arrow 10
+tick 3
+dump advancements:Plain advancements:Bow advancements:Pierce advancements:Birds advancements:Survivor advancements:Blunt advancements:Multi advancements:Rocket advancements:Loose advancements:Sneak
+note Plain: one arrow from a crossbow kills a zombie: killed_by_arrow for the kill, shot_crossbow for the shot
+mobspawn zPlain minecraft:zombie 0.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed zPlain 25
+tick 2
+level_seed 34011
+use Plain main 1
+tick 26
+release Plain
+level_seed 34012
+use Plain main 2
+tick 8
+dump advancements:Plain
+note Bow: a bow arrow kills a zombie
+mobspawn zBow minecraft:zombie 12.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed zBow 37
+tick 2
+level_seed 34013
+use Bow main 3
+tick 22
+level_seed 34014
+release Bow
+tick 8
+dump advancements:Bow
+note Pierce: a piercing 4 arrow through zombie, skeleton, pillager, creeper and husk (five types: arbalistic; who's the pillager now)
+mobspawn pzombie minecraft:zombie 24.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed pzombie 48
+mobspawn pskeleton minecraft:skeleton 24.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed pskeleton 50
+mobspawn ppillager minecraft:pillager 24.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed ppillager 52
+mobspawn pcreeper minecraft:creeper 24.5 -60 14.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed pcreeper 54
+mobspawn phusk minecraft:husk 24.5 -60 17.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed phusk 56
+tick 2
+level_seed 34015
+use Pierce main 4
+tick 26
+release Pierce
+level_seed 34016
+use Pierce main 5
+tick 12
+dump advancements:Pierce
+note Birds: piercing 1 through two phantoms (two birds with one arrow)
+mobspawn ph0 minecraft:phantom 36.5 -58.8 5.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f,NoGravity:1b}
+entity_seed ph0 68
+mobspawn ph1 minecraft:phantom 36.5 -58.8 8.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f,NoGravity:1b}
+entity_seed ph1 70
+tick 2
+level_seed 34017
+use Birds main 6
+tick 26
+release Birds
+level_seed 34018
+use Birds main 7
+tick 10
+dump advancements:Birds
+note Survivor: a piercing arrow hits a zombie that survives (fires with no victims), then a second zombie behind it that dies
+mobspawn zLive minecraft:zombie 48.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed zLive 82
+mobspawn zDead minecraft:zombie 48.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed zDead 84
+tick 2
+level_seed 34019
+use Survivor main 8
+tick 26
+release Survivor
+level_seed 34020
+use Survivor main 9
+tick 10
+dump advancements:Survivor
+note Blunt: a plain arrow hits a zombie that survives (nothing fires)
+mobspawn zBlunt minecraft:zombie 60.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed zBlunt 96
+tick 2
+level_seed 34021
+use Blunt main 10
+tick 26
+release Blunt
+level_seed 34022
+use Blunt main 11
+tick 8
+dump advancements:Blunt
+note Multi: multishot, three arrows, each kills the zombie in its lane
+mobspawn zC minecraft:zombie 72.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed zC 108
+mobspawn zL minecraft:zombie 71.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed zL 110
+mobspawn zR minecraft:zombie 73.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed zR 112
+tick 2
+level_seed 34023
+use Multi main 12
+tick 26
+release Multi
+level_seed 34024
+use Multi main 13
+tick 10
+dump advancements:Multi
+note Rocket: a firework rocket only fires shot_crossbow
+level_seed 34025
+use Rocket main 14
+tick 26
+release Rocket
+level_seed 34026
+use Rocket main 15
+tick 3
+dump advancements:Rocket
+note Loose: an arrow made by a command with the player as owner and no weapon fires killed_by_arrow without the weapon conditions
+mobspawn zLoose minecraft:zombie 96.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed zLoose 133
+spawn arrL minecraft:arrow 96.5 -59.5 0.5 0 0 {Owner:[I;1415726493,-509001985,-1936010632,-193674596],pickup:1b}
+entity_seed arrL 40
+velocity arrL 0 0 2.5
+tick 8
+dump advancements:Loose
+note Sneak: the player condition of both triggers
+mobspawn zSneak minecraft:zombie 108.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed zSneak 141
+input Sneak sneak
+tick 2
+level_seed 34027
+use Sneak main 16
+tick 26
+release Sneak
+level_seed 34028
+use Sneak main 17
+tick 8
+dump advancements:Sneak

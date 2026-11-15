@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:fall_after_explosion",
+      "conditions": {
+        "distance": {
+          "horizontal": {
+            "max": 1
+          }
+        }
+      }
+    }
+  }
+}

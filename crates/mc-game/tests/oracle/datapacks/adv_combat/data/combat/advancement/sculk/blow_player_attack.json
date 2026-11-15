@@ -1,0 +1,17 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:kill_mob_near_sculk_catalyst",
+      "conditions": {
+        "killing_blow": {
+          "tags": [
+            {
+              "id": "#minecraft:is_player_attack",
+              "expected": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

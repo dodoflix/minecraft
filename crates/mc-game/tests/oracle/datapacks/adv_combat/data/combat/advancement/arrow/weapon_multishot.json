@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:killed_by_arrow",
+      "conditions": {
+        "fired_from_weapon": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "minecraft:multishot"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

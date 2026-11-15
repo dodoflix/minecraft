@@ -1,0 +1,17 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "killing_blow": {
+          "tags": [
+            {
+              "id": "#minecraft:is_projectile",
+              "expected": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

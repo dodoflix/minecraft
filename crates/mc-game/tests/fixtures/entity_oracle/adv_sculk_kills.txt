@@ -1,0 +1,164 @@
+C Set minecraft:overworld to 18000 tick(s)
+ADV Near minecraft:adventure/adventuring_time minecraft:plains
+ADV Near minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Bat minecraft:adventure/adventuring_time minecraft:plains
+ADV Bat minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Burn minecraft:adventure/adventuring_time minecraft:plains
+ADV Burn minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Arrow minecraft:adventure/adventuring_time minecraft:plains
+ADV Arrow minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Nobody minecraft:adventure/adventuring_time minecraft:plains
+ADV Nobody minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Far minecraft:adventure/adventuring_time minecraft:plains
+ADV Far minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Prey minecraft:adventure/adventuring_time minecraft:plains
+ADV Prey minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Killer minecraft:adventure/adventuring_time minecraft:plains
+ADV Killer minecraft:recipes/decorations/crafting_table unlock_right_away
+# Near: a zombie killed two blocks from a catalyst by the player
+HURT zNear player_attack 100 -> true
+ADV Near combat:hurt_entity/any c
+ADV Near combat:hurt_entity/dealt_over_12 c
+ADV Near combat:hurt_entity/direct c
+ADV Near combat:hurt_entity/not_blocked c
+ADV Near combat:hurt_entity/not_projectile c
+ADV Near combat:hurt_entity/player_attack c
+ADV Near combat:hurt_entity/source_is_player c
+ADV Near combat:killed_entity/any c
+ADV Near combat:killed_entity/blow_direct c
+ADV Near combat:killed_entity/blow_not_projectile c
+ADV Near combat:killed_entity/blow_player_attack c
+ADV Near combat:killed_entity/blow_source_player c
+ADV Near combat:killed_entity/entity_zombie c
+ADV Near combat:sculk/any c
+ADV Near combat:sculk/blow_player_attack c
+ADV Near combat:sculk/entity_zombie c
+ADV Near minecraft:adventure/adventuring_time minecraft:plains
+ADV Near minecraft:adventure/kill_a_mob minecraft:zombie
+ADV Near minecraft:adventure/kill_all_mobs minecraft:zombie
+ADV Near minecraft:adventure/kill_mob_near_sculk_catalyst kill_mob_near_sculk_catalyst
+ADV Near minecraft:adventure/root killed_something
+ADV Near minecraft:recipes/decorations/crafting_table unlock_right_away
+# Bat: a bat has no experience to award: the catalyst blooms, nothing fires
+HURT bat player_attack 100 -> true
+ADV Bat combat:hurt_entity/any c
+ADV Bat combat:hurt_entity/dealt_over_12 c
+ADV Bat combat:hurt_entity/direct c
+ADV Bat combat:hurt_entity/not_blocked c
+ADV Bat combat:hurt_entity/not_projectile c
+ADV Bat combat:hurt_entity/player_attack c
+ADV Bat combat:hurt_entity/source_is_player c
+ADV Bat combat:killed_entity/any c
+ADV Bat combat:killed_entity/blow_direct c
+ADV Bat combat:killed_entity/blow_not_projectile c
+ADV Bat combat:killed_entity/blow_player_attack c
+ADV Bat combat:killed_entity/blow_source_player c
+ADV Bat minecraft:adventure/adventuring_time minecraft:plains
+ADV Bat minecraft:adventure/root killed_something
+ADV Bat minecraft:recipes/decorations/crafting_table unlock_right_away
+# Burn: hit by the player, then dying of fire: the last damage source is fire
+HURT zBurn player_attack 1 -> true
+HURT zBurn in_fire 100 -> true
+ADV Burn combat:hurt_entity/any c
+ADV Burn combat:hurt_entity/direct c
+ADV Burn combat:hurt_entity/not_blocked c
+ADV Burn combat:hurt_entity/not_projectile c
+ADV Burn combat:hurt_entity/player_attack c
+ADV Burn combat:hurt_entity/source_is_player c
+ADV Burn combat:hurt_entity/taken_up_to_3 c
+ADV Burn combat:killed_entity/any c
+ADV Burn combat:killed_entity/blow_direct c
+ADV Burn combat:killed_entity/blow_fire c
+ADV Burn combat:killed_entity/blow_not_projectile c
+ADV Burn combat:killed_entity/entity_zombie c
+ADV Burn combat:sculk/any c
+ADV Burn combat:sculk/blow_player_attack c
+ADV Burn combat:sculk/entity_zombie c
+ADV Burn minecraft:adventure/adventuring_time minecraft:plains
+ADV Burn minecraft:adventure/kill_a_mob minecraft:zombie
+ADV Burn minecraft:adventure/kill_all_mobs minecraft:zombie
+ADV Burn minecraft:adventure/kill_mob_near_sculk_catalyst kill_mob_near_sculk_catalyst
+ADV Burn minecraft:adventure/root killed_something
+ADV Burn minecraft:recipes/decorations/crafting_table unlock_right_away
+# Arrow: a skeleton shot dead
+HURT sArrow arrow 100 -> true
+ADV Arrow combat:hurt_entity/any c
+ADV Arrow combat:hurt_entity/dealt_over_12 c
+ADV Arrow combat:hurt_entity/direct_arrow c
+ADV Arrow combat:hurt_entity/indirect c
+ADV Arrow combat:hurt_entity/not_blocked c
+ADV Arrow combat:hurt_entity/projectile c
+ADV Arrow combat:hurt_entity/source_is_player c
+ADV Arrow combat:killed_entity/any c
+ADV Arrow combat:killed_entity/blow_direct_arrow c
+ADV Arrow combat:killed_entity/blow_indirect c
+ADV Arrow combat:killed_entity/blow_projectile c
+ADV Arrow combat:killed_entity/blow_source_player c
+ADV Arrow combat:killed_entity/entity_skeleton c
+ADV Arrow combat:sculk/any c
+ADV Arrow combat:sculk/blow_player_attack c
+ADV Arrow minecraft:adventure/adventuring_time minecraft:plains
+ADV Arrow minecraft:adventure/kill_a_mob minecraft:skeleton
+ADV Arrow minecraft:adventure/kill_all_mobs minecraft:skeleton
+ADV Arrow minecraft:adventure/kill_mob_near_sculk_catalyst kill_mob_near_sculk_catalyst
+ADV Arrow minecraft:adventure/root killed_something
+ADV Arrow minecraft:adventure/shoot_arrow shot_arrow
+ADV Arrow minecraft:recipes/decorations/crafting_table unlock_right_away
+# Nobody: a zombie dies of fire nobody lit: no player to credit
+HURT zNobody in_fire 100 -> true
+ADV Nobody minecraft:adventure/adventuring_time minecraft:plains
+ADV Nobody minecraft:recipes/decorations/crafting_table unlock_right_away
+# Far: the zombie dies 10 blocks away from the catalyst, out of its range
+HURT zFar player_attack 100 -> true
+ADV Far combat:hurt_entity/any c
+ADV Far combat:hurt_entity/dealt_over_12 c
+ADV Far combat:hurt_entity/direct c
+ADV Far combat:hurt_entity/not_blocked c
+ADV Far combat:hurt_entity/not_projectile c
+ADV Far combat:hurt_entity/player_attack c
+ADV Far combat:hurt_entity/source_is_player c
+ADV Far combat:killed_entity/any c
+ADV Far combat:killed_entity/blow_direct c
+ADV Far combat:killed_entity/blow_not_projectile c
+ADV Far combat:killed_entity/blow_player_attack c
+ADV Far combat:killed_entity/blow_source_player c
+ADV Far combat:killed_entity/entity_zombie c
+ADV Far minecraft:adventure/adventuring_time minecraft:plains
+ADV Far minecraft:adventure/kill_a_mob minecraft:zombie
+ADV Far minecraft:adventure/kill_all_mobs minecraft:zombie
+ADV Far minecraft:adventure/root killed_something
+ADV Far minecraft:recipes/decorations/crafting_table unlock_right_away
+# Prey/Killer: a player with experience levels killed by a player next to a catalyst
+HURT Prey generic 1000 -> true
+ADV Prey combat:hurt_player/any c
+ADV Prey combat:hurt_player/dealt_over_12 c
+ADV Prey combat:hurt_player/direct c
+ADV Prey combat:hurt_player/not_blocked c
+ADV Prey combat:hurt_player/taken_over_6 c
+ADV Prey combat:killed_player/any c
+ADV Prey combat:killed_player/blow_direct c
+ADV Prey combat:killed_player/blow_not_projectile c
+ADV Prey combat:killed_player/blow_source_player c
+ADV Prey combat:killed_player/entity_player c
+ADV Prey minecraft:adventure/adventuring_time minecraft:plains
+ADV Prey minecraft:adventure/root killed_by_something
+ADV Prey minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Killer combat:hurt_entity/any c
+ADV Killer combat:hurt_entity/dealt_over_12 c
+ADV Killer combat:hurt_entity/direct c
+ADV Killer combat:hurt_entity/not_blocked c
+ADV Killer combat:hurt_entity/not_projectile c
+ADV Killer combat:hurt_entity/source_is_player c
+ADV Killer combat:hurt_entity/victim_player c
+ADV Killer combat:killed_entity/any c
+ADV Killer combat:killed_entity/blow_direct c
+ADV Killer combat:killed_entity/blow_not_projectile c
+ADV Killer combat:killed_entity/blow_source_player c
+ADV Killer combat:killed_entity/entity_player c
+ADV Killer combat:sculk/any c
+ADV Killer combat:sculk/blow_player_attack c
+ADV Killer combat:sculk/entity_player c
+ADV Killer minecraft:adventure/adventuring_time minecraft:plains
+ADV Killer minecraft:adventure/kill_mob_near_sculk_catalyst kill_mob_near_sculk_catalyst
+ADV Killer minecraft:adventure/root killed_something
+ADV Killer minecraft:recipes/decorations/crafting_table unlock_right_away

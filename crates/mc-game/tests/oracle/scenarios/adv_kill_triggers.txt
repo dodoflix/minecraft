@@ -1,0 +1,168 @@
+# The player_killed_entity and entity_killed_player triggers (ServerPlayer.awardKillScore from LivingEntity.die and ServerPlayer.die, the kill credit
+# of the last attacker within 100 ticks), read by a data pack of victim, killing blow (damage type tags, direct and source entity, is_direct) and
+# player conditions next to the vanilla adventure root. Every case has its own player: melee, arrows, a kill credited to the earlier attacker
+# when the blow itself is fire or a fall, explosions, baby and burning victims, player against player, mobs killing players, a totem that
+# saves the player from the first lethal blow, and a player that is its own killer (no trigger).
+datapack adv_combat
+command_env
+level flat
+preload 5
+difficulty normal
+entity_counter 32000
+level_seed 32001
+time 18000
+spawn_player Melee survival 0.5 -60 0.5 0 0
+spawn_player Arrow survival 6.5 -60 0.5 0 0
+spawn_player Credit survival 12.5 -60 0.5 0 0
+spawn_player Blast survival 18.5 -60 0.5 0 0
+spawn_player Baby survival 24.5 -60 0.5 0 0
+spawn_player Burning survival 30.5 -60 0.5 0 0
+spawn_player Creative creative 36.5 -60 0.5 0 0
+spawn_player Sneak survival 42.5 -60 0.5 0 0
+spawn_player Pvp survival 48.5 -60 0.5 0 0
+spawn_player Prey survival 54.5 -60 0.5 0 0
+spawn_player MobVictim survival 60.5 -60 0.5 0 0
+spawn_player ShotVictim survival 66.5 -60 0.5 0 0
+spawn_player Totem survival 72.5 -60 0.5 0 0
+spawn_player Suicide survival 78.5 -60 0.5 0 0
+spawn_player FallVictim survival 84.5 -60 0.5 0 0
+spawn_player FallLate survival 90.5 -60 0.5 0 0
+give Melee hotbar0 minecraft:iron_sword
+give Creative hotbar0 minecraft:iron_sword
+give Totem mainhand minecraft:totem_of_undying
+tick 40
+dump advancements:Melee advancements:Arrow advancements:Credit advancements:Blast advancements:Baby advancements:Burning advancements:Creative advancements:Sneak advancements:Pvp advancements:Prey advancements:MobVictim advancements:ShotVictim advancements:Totem advancements:Suicide advancements:FallVictim advancements:FallLate
+note Melee: an iron sword kills a zombie (player attack, direct, source entity the player)
+mobspawn zMelee minecraft:zombie 0.5 -60 2.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed zMelee 24
+tick 2
+level_seed 32011
+attack Melee zMelee
+tick 1
+dump advancements:Melee
+note Arrow: an arrow kills a skeleton (projectile, direct entity an arrow, not direct)
+mobspawn sArrow minecraft:skeleton 6.5 -60 2.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed sArrow 32
+spawn arrA minecraft:arrow 6.5 -59.5 2.5 0 0 {Owner:[I;0,0,0,0]}
+entity_seed arrA 34
+tick 2
+level_seed 32012
+hurt sArrow arrow 30 by=Arrow direct=arrA
+tick 1
+dump advancements:Arrow
+note Credit: the cow is hit by the player, then burns to death: the kill is credited to the player, the blow is fire without a source entity
+mobspawn cowCredit minecraft:cow 12.5 -60 2.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:40f}
+entity_seed cowCredit 42
+tick 2
+level_seed 32013
+hurt cowCredit generic 1 by=Credit
+tick 1
+level_seed 32014
+hurt cowCredit in_fire 100
+tick 1
+dump advancements:Credit
+note Blast: an explosion that names the player as its cause
+mobspawn cowBlast minecraft:cow 18.5 -60 2.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed cowBlast 53
+tick 2
+level_seed 32015
+hurt cowBlast explosion 100 by=Blast
+tick 1
+dump advancements:Blast
+note Baby: a baby cow dies
+mobspawn cowBaby minecraft:cow 24.5 -60 2.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f,Age:-24000}
+entity_seed cowBaby 61
+tick 2
+level_seed 32016
+hurt cowBaby generic 100 by=Baby direct=Baby
+tick 1
+dump advancements:Baby
+note Burning: a burning cow dies
+mobspawn cowBurn minecraft:cow 30.5 -60 2.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f,Fire:200s}
+entity_seed cowBurn 69
+tick 2
+level_seed 32017
+hurt cowBurn generic 100 by=Burning direct=Burning
+tick 1
+dump advancements:Burning
+note Creative: a creative player kills a zombie with a sword
+mobspawn zCreative minecraft:zombie 36.5 -60 2.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed zCreative 77
+tick 2
+level_seed 32018
+attack Creative zCreative
+tick 1
+dump advancements:Creative
+note Sneak: the player condition
+mobspawn cowSneak minecraft:cow 42.5 -60 2.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed cowSneak 85
+input Sneak sneak
+tick 2
+level_seed 32019
+hurt cowSneak generic 100 by=Sneak direct=Sneak
+tick 1
+dump advancements:Sneak
+note Pvp/Prey: a player kills a player: Pvp fires player_killed_entity (victim a player), Prey fires entity_killed_player (killer a player)
+tick 2
+level_seed 32020
+hurt Prey generic 1000 by=Pvp direct=Pvp
+tick 1
+dump advancements:Pvp advancements:Prey
+note MobVictim: a zombie kills a player
+mobspawn zKiller minecraft:zombie 60.5 -60 2.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed zKiller 100
+tick 2
+level_seed 32021
+hurt MobVictim generic 1000 by=zKiller direct=zKiller
+tick 1
+dump advancements:MobVictim
+note ShotVictim: a skeleton's arrow kills a player
+mobspawn sKiller minecraft:skeleton 66.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed sKiller 108
+spawn arrS minecraft:arrow 66.5 -59.5 2.5 0 0 {Owner:[I;0,0,0,0]}
+entity_seed arrS 110
+tick 2
+level_seed 32022
+hurt ShotVictim arrow 1000 by=sKiller direct=arrS
+tick 1
+dump advancements:ShotVictim
+note Totem: the first lethal blow is stopped by the totem (no entity_killed_player), the blow after the invulnerability window kills
+mobspawn zTotem minecraft:zombie 72.5 -60 2.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed zTotem 118
+tick 2
+level_seed 32023
+hurt Totem generic 1000 by=zTotem direct=zTotem
+tick 1
+dump advancements:Totem
+tick 30
+level_seed 32024
+hurt Totem generic 1000 by=zTotem direct=zTotem
+tick 1
+dump advancements:Totem
+note Suicide: a player named as the cause of its own death is not credited
+tick 2
+level_seed 32025
+hurt Suicide generic 1000 by=Suicide direct=Suicide
+tick 1
+dump advancements:Suicide
+note FallVictim: a zombie hurts the player, a fall inside the invulnerability window kills it; FallLate: the fall comes 40 ticks later
+mobspawn zFall minecraft:zombie 84.5 -60 2.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed zFall 136
+tick 2
+level_seed 32026
+hurt FallVictim generic 1 by=zFall direct=zFall
+tick 1
+level_seed 32027
+hurt FallVictim fall 1000
+tick 1
+dump advancements:FallVictim
+mobspawn zFall2 minecraft:zombie 90.5 -60 2.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed zFall2 150
+tick 2
+level_seed 32031
+hurt FallLate generic 1 by=zFall2 direct=zFall2
+tick 40
+level_seed 32032
+hurt FallLate fall 1000
+tick 1
+dump advancements:FallLate

@@ -1,0 +1,109 @@
+# The spear_mobs trigger (KineticWeapon.damageEntities: every tick of a charge that affects something, with the number of living entities stabbed so
+# far during the use), read by the vanilla spear_many_mobs advancement (five) and a data pack of counts. Sprinting players charge through a line of cows
+# with plenty of health, through two cows, and through five cows that die on contact; a STAB action (the piercing attack, not a charge) fires nothing.
+datapack adv_combat
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 36000
+level_seed 36001
+time 18000
+spawn_player Many survival 0.5 -60 0.5 0 10 sim
+give Many mainhand minecraft:iron_spear
+track_movement Many
+spawn_player Few survival 12.5 -60 0.5 0 10 sim
+give Few mainhand minecraft:iron_spear
+track_movement Few
+spawn_player Frail survival 24.5 -60 0.5 0 10 sim
+give Frail mainhand minecraft:iron_spear
+track_movement Frail
+spawn_player Stabber survival 36.5 -60 0.5 0 10 sim
+give Stabber mainhand minecraft:iron_spear
+track_movement Stabber
+spawn cow1 minecraft:cow 0.5 -60 7.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow1 11
+attribute cow1 minecraft:max_health 1000
+set cow1 health 1000
+spawn cow2 minecraft:cow 0.5 -60 10.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow2 12
+attribute cow2 minecraft:max_health 1000
+set cow2 health 1000
+spawn cow3 minecraft:cow 0.5 -60 13.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow3 13
+attribute cow3 minecraft:max_health 1000
+set cow3 health 1000
+spawn cow4 minecraft:cow 0.5 -60 16.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow4 14
+attribute cow4 minecraft:max_health 1000
+set cow4 health 1000
+spawn cow5 minecraft:cow 0.5 -60 19.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow5 15
+attribute cow5 minecraft:max_health 1000
+set cow5 health 1000
+spawn cow6 minecraft:cow 0.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow6 16
+attribute cow6 minecraft:max_health 1000
+set cow6 health 1000
+spawn cow7 minecraft:cow 12.5 -60 7.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow7 17
+attribute cow7 minecraft:max_health 1000
+set cow7 health 1000
+spawn cow8 minecraft:cow 12.5 -60 10.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow8 18
+attribute cow8 minecraft:max_health 1000
+set cow8 health 1000
+spawn cow9 minecraft:cow 24.5 -60 7.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow9 19
+set cow9 health 1
+spawn cow10 minecraft:cow 24.5 -60 10.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow10 20
+set cow10 health 1
+spawn cow11 minecraft:cow 24.5 -60 13.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow11 21
+set cow11 health 1
+spawn cow12 minecraft:cow 24.5 -60 16.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow12 22
+set cow12 health 1
+spawn cow13 minecraft:cow 24.5 -60 19.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow13 23
+set cow13 health 1
+spawn cow14 minecraft:cow 36.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow14 24
+attribute cow14 minecraft:max_health 1000
+set cow14 health 1000
+spawn cow15 minecraft:cow 36.5 -60 3.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow15 25
+attribute cow15 minecraft:max_health 1000
+set cow15 health 1000
+tick 40
+dump advancements:Many advancements:Few advancements:Frail advancements:Stabber
+note Many, Few and Frail raise the spear and sprint; the counts are read every 25 ticks
+input Many forward,sprint
+use Many
+input Few forward,sprint
+use Few
+input Frail forward,sprint
+use Frail
+tick 25
+dump advancements:Many advancements:Few advancements:Frail
+tick 25
+dump advancements:Many advancements:Few advancements:Frail
+tick 25
+dump advancements:Many advancements:Few advancements:Frail
+tick 25
+dump advancements:Many advancements:Few advancements:Frail
+tick 25
+dump advancements:Many advancements:Few advancements:Frail
+input Many none
+release Many
+input Few none
+release Few
+input Frail none
+release Frail
+tick 2
+dump advancements:Many advancements:Few advancements:Frail
+note Stabber: the STAB action hits both cows and fires nothing
+stab Stabber
+tick 2
+dump advancements:Stabber

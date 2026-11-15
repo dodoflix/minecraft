@@ -1,0 +1,109 @@
+C Set minecraft:overworld to 18000 tick(s)
+ADV Main minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Off minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Bypass minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Spared minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Wind minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV NoSource minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Tnt minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Air minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Sideways minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Boost minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Burst minecraft:recipes/decorations/crafting_table unlock_right_away
+# Main: totems in both hands: the main hand stack of two is used, the trigger sees both of them
+HURT Main generic 1000 -> true
+ADV Main combat:hurt_player/any c
+ADV Main combat:hurt_player/dealt_over_12 c
+ADV Main combat:hurt_player/direct c
+ADV Main combat:hurt_player/not_blocked c
+ADV Main combat:hurt_player/taken_over_6 c
+ADV Main combat:totem/any c
+ADV Main combat:totem/count_2 c
+ADV Main combat:totem/item_totem c
+ADV Main combat:totem/marked_main c
+ADV Main minecraft:adventure/totem_of_undying used_totem
+ADV Main minecraft:recipes/decorations/crafting_table unlock_right_away
+# Off: only the off hand holds a totem
+HURT Off generic 1000 -> true
+ADV Off combat:hurt_player/any c
+ADV Off combat:hurt_player/dealt_over_12 c
+ADV Off combat:hurt_player/direct c
+ADV Off combat:hurt_player/not_blocked c
+ADV Off combat:hurt_player/taken_over_6 c
+ADV Off combat:totem/any c
+ADV Off combat:totem/count_1 c
+ADV Off combat:totem/item_totem c
+ADV Off combat:totem/marked_off c
+ADV Off minecraft:adventure/totem_of_undying used_totem
+ADV Off minecraft:recipes/decorations/crafting_table unlock_right_away
+# Bypass: damage that bypasses invulnerability ignores the totem and kills
+HURT Bypass out_of_world 1000 -> true
+ADV Bypass combat:hurt_player/any c
+ADV Bypass combat:hurt_player/dealt_over_12 c
+ADV Bypass combat:hurt_player/direct c
+ADV Bypass combat:hurt_player/not_blocked c
+ADV Bypass combat:hurt_player/taken_over_6 c
+ADV Bypass minecraft:recipes/decorations/crafting_table unlock_right_away
+# Spared: a creative player is not hurt, no totem
+HURT Spared generic 1000 -> false
+ADV Spared minecraft:recipes/decorations/crafting_table unlock_right_away
+# Wind: a wind charge bursts on the ground next to a creative player and throws it up: the fall starts at the apex (fires, the cause is the wind charge)
+ADV Wind combat:fall/any c
+ADV Wind combat:fall/cause_any_entity c
+ADV Wind combat:fall/cause_wind_charge c
+ADV Wind combat:fall/start_above_floor c
+ADV Wind combat:fall/start_in_plains c
+ADV Wind combat:fall/y_at_least_1 c
+ADV Wind minecraft:adventure/adventuring_time minecraft:plains
+ADV Wind minecraft:recipes/decorations/crafting_table unlock_right_away
+# NoSource: the same explosion with no entity behind it (no cause)
+ADV NoSource combat:fall/any c
+ADV NoSource combat:fall/start_above_floor c
+ADV NoSource combat:fall/start_in_plains c
+ADV NoSource combat:fall/y_at_least_1 c
+ADV NoSource minecraft:adventure/adventuring_time minecraft:plains
+ADV NoSource minecraft:recipes/decorations/crafting_table unlock_right_away
+# Tnt: a primed tnt as the source of the explosion
+ADV Tnt combat:fall/any c
+ADV Tnt combat:fall/cause_any_entity c
+ADV Tnt combat:fall/cause_tnt c
+ADV Tnt combat:fall/start_above_floor c
+ADV Tnt combat:fall/start_in_plains c
+ADV Tnt combat:fall/y_at_least_1 c
+ADV Tnt minecraft:adventure/adventuring_time minecraft:plains
+ADV Tnt minecraft:recipes/decorations/crafting_table unlock_right_away
+# Air: already falling when the explosion hits: the fall started before it, nothing fires
+ADV Air minecraft:adventure/adventuring_time minecraft:plains
+ADV Air minecraft:recipes/decorations/crafting_table unlock_right_away
+# Sideways: pushed along the ground: the fall never starts
+ADV Sideways combat:fall/any c
+ADV Sideways combat:fall/start_above_floor c
+ADV Sideways combat:fall/start_in_plains c
+ADV Sideways minecraft:adventure/adventuring_time minecraft:plains
+ADV Sideways minecraft:recipes/decorations/crafting_table unlock_right_away
+# Boost and Burst: two and three wind charges bursting on the ground in the same tick add their impulses: the fall starts far above the impact (the vanilla who_needs_rockets needs 7 blocks)
+ADV Boost combat:fall/any c
+ADV Boost combat:fall/cause_any_entity c
+ADV Boost combat:fall/cause_wind_charge c
+ADV Boost combat:fall/horizontal_at_most_1 c
+ADV Boost combat:fall/start_above_floor c
+ADV Boost combat:fall/start_in_plains c
+ADV Boost combat:fall/who_needs_rockets c
+ADV Boost combat:fall/y_at_least_1 c
+ADV Boost combat:fall/y_at_least_4 c
+ADV Boost minecraft:adventure/adventuring_time minecraft:plains
+ADV Boost minecraft:adventure/who_needs_rockets who_needs_rockets
+ADV Boost minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Burst combat:fall/any c
+ADV Burst combat:fall/cause_any_entity c
+ADV Burst combat:fall/cause_wind_charge c
+ADV Burst combat:fall/horizontal_at_most_1 c
+ADV Burst combat:fall/start_above_floor c
+ADV Burst combat:fall/start_in_plains c
+ADV Burst combat:fall/who_needs_rockets c
+ADV Burst combat:fall/y_at_least_1 c
+ADV Burst combat:fall/y_at_least_4 c
+ADV Burst combat:fall/y_at_least_40 c
+ADV Burst minecraft:adventure/adventuring_time minecraft:plains
+ADV Burst minecraft:adventure/who_needs_rockets who_needs_rockets
+ADV Burst minecraft:recipes/decorations/crafting_table unlock_right_away

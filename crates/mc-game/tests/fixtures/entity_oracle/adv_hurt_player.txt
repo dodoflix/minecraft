@@ -1,0 +1,144 @@
+C Set minecraft:overworld to 18000 tick(s)
+ADV Zombie minecraft:adventure/adventuring_time minecraft:plains
+ADV Zombie minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Deflect minecraft:adventure/adventuring_time minecraft:plains
+ADV Deflect minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Shot minecraft:adventure/adventuring_time minecraft:plains
+ADV Shot minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Fire minecraft:adventure/adventuring_time minecraft:plains
+ADV Fire minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Blast minecraft:adventure/adventuring_time minecraft:plains
+ADV Blast minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Window minecraft:adventure/adventuring_time minecraft:plains
+ADV Window minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Armor minecraft:adventure/adventuring_time minecraft:plains
+ADV Armor minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Armor minecraft:story/shiny_gear diamond_helmet
+ADV Absorb minecraft:adventure/adventuring_time minecraft:plains
+ADV Absorb minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Creative minecraft:adventure/adventuring_time minecraft:plains
+ADV Creative minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Sneak minecraft:adventure/adventuring_time minecraft:plains
+ADV Sneak minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Void minecraft:adventure/adventuring_time minecraft:plains
+ADV Void minecraft:recipes/decorations/crafting_table unlock_right_away
+# Zombie: a zombie bites (3 damage on normal difficulty, a direct mob attack)
+MOBATTACK zomb Zombie -> true
+ADV Zombie combat:hurt_player/any c
+ADV Zombie combat:hurt_player/direct c
+ADV Zombie combat:hurt_player/not_blocked c
+ADV Zombie combat:hurt_player/source_entity_zombie_type c
+ADV Zombie combat:hurt_player/source_zombie c
+ADV Zombie combat:hurt_player/taken_up_to_3 c
+ADV Zombie minecraft:adventure/adventuring_time minecraft:plains
+ADV Zombie minecraft:recipes/decorations/crafting_table unlock_right_away
+# Deflect: an arrow hits a player blocking with a shield (the vanilla deflect_arrow criterion)
+HURT Deflect arrow 6 -> false
+ADV Deflect combat:hurt_player/any c
+ADV Deflect combat:hurt_player/blocked c
+ADV Deflect combat:hurt_player/dealt_5_to_10 c
+ADV Deflect combat:hurt_player/deflected_projectile c
+ADV Deflect combat:hurt_player/direct_arrow c
+ADV Deflect combat:hurt_player/indirect c
+ADV Deflect combat:hurt_player/projectile c
+ADV Deflect combat:hurt_player/taken_up_to_3 c
+ADV Deflect minecraft:adventure/adventuring_time minecraft:plains
+ADV Deflect minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Deflect minecraft:story/deflect_arrow deflected_projectile
+# Shot: an arrow of a skeleton (direct entity arrow, indirect damage) hits a player without a shield
+HURT Shot arrow 6 -> true
+ADV Shot combat:hurt_player/any c
+ADV Shot combat:hurt_player/dealt_5_to_10 c
+ADV Shot combat:hurt_player/direct_arrow c
+ADV Shot combat:hurt_player/indirect c
+ADV Shot combat:hurt_player/not_blocked c
+ADV Shot combat:hurt_player/projectile c
+ADV Shot combat:hurt_player/taken_over_6 c
+ADV Shot minecraft:adventure/adventuring_time minecraft:plains
+ADV Shot minecraft:recipes/decorations/crafting_table unlock_right_away
+# Fire: fire without a source entity
+HURT Fire in_fire 2 -> true
+ADV Fire combat:hurt_player/any c
+ADV Fire combat:hurt_player/direct c
+ADV Fire combat:hurt_player/fire c
+ADV Fire combat:hurt_player/not_blocked c
+ADV Fire combat:hurt_player/taken_up_to_3 c
+ADV Fire minecraft:adventure/adventuring_time minecraft:plains
+ADV Fire minecraft:recipes/decorations/crafting_table unlock_right_away
+# Blast: an explosion of 8 (not fire, not direct)
+HURT Blast explosion 8 -> true
+ADV Blast combat:hurt_player/any c
+ADV Blast combat:hurt_player/dealt_5_to_10 c
+ADV Blast combat:hurt_player/direct c
+ADV Blast combat:hurt_player/explosion c
+ADV Blast combat:hurt_player/not_blocked c
+ADV Blast combat:hurt_player/taken_over_6 c
+ADV Blast minecraft:adventure/adventuring_time minecraft:plains
+ADV Blast minecraft:recipes/decorations/crafting_table unlock_right_away
+# Window: 4 damage, then 9 inside the invulnerability window (fires with 9), then 3 (no trigger)
+HURT Window generic 4 -> true
+ADV Window combat:hurt_player/any c
+ADV Window combat:hurt_player/direct c
+ADV Window combat:hurt_player/not_blocked c
+ADV Window minecraft:adventure/adventuring_time minecraft:plains
+ADV Window minecraft:recipes/decorations/crafting_table unlock_right_away
+HURT Window generic 9 -> true
+ADV Window combat:hurt_player/any c
+ADV Window combat:hurt_player/dealt_5_to_10 c
+ADV Window combat:hurt_player/direct c
+ADV Window combat:hurt_player/not_blocked c
+ADV Window combat:hurt_player/taken_over_6 c
+ADV Window minecraft:adventure/adventuring_time minecraft:plains
+ADV Window minecraft:recipes/decorations/crafting_table unlock_right_away
+HURT Window generic 3 -> false
+ADV Window combat:hurt_player/any c
+ADV Window combat:hurt_player/dealt_5_to_10 c
+ADV Window combat:hurt_player/direct c
+ADV Window combat:hurt_player/not_blocked c
+ADV Window combat:hurt_player/taken_over_6 c
+ADV Window minecraft:adventure/adventuring_time minecraft:plains
+ADV Window minecraft:recipes/decorations/crafting_table unlock_right_away
+# Armor: 8 damage against diamond armor: both numbers stay 8, armor reduces only the health taken
+HURT Armor generic 8 -> true
+ADV Armor combat:hurt_player/any c
+ADV Armor combat:hurt_player/dealt_5_to_10 c
+ADV Armor combat:hurt_player/direct c
+ADV Armor combat:hurt_player/not_blocked c
+ADV Armor combat:hurt_player/taken_over_6 c
+ADV Armor minecraft:adventure/adventuring_time minecraft:plains
+ADV Armor minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Armor minecraft:story/shiny_gear diamond_helmet
+# Absorb: 6 damage taken by absorption hearts
+HURT Absorb generic 6 -> true
+ADV Absorb combat:hurt_player/any c
+ADV Absorb combat:hurt_player/dealt_5_to_10 c
+ADV Absorb combat:hurt_player/direct c
+ADV Absorb combat:hurt_player/not_blocked c
+ADV Absorb combat:hurt_player/taken_over_6 c
+ADV Absorb minecraft:adventure/adventuring_time minecraft:plains
+ADV Absorb minecraft:recipes/decorations/crafting_table unlock_right_away
+# Creative: invulnerable, nothing fires; out_of_world bypasses the invulnerability and fires
+HURT Creative generic 6 -> false
+ADV Creative minecraft:adventure/adventuring_time minecraft:plains
+ADV Creative minecraft:recipes/decorations/crafting_table unlock_right_away
+HURT Creative out_of_world 6 -> true
+ADV Creative combat:hurt_player/any c
+ADV Creative combat:hurt_player/dealt_5_to_10 c
+ADV Creative combat:hurt_player/direct c
+ADV Creative combat:hurt_player/not_blocked c
+ADV Creative combat:hurt_player/taken_over_6 c
+ADV Creative minecraft:adventure/adventuring_time minecraft:plains
+ADV Creative minecraft:recipes/decorations/crafting_table unlock_right_away
+# Sneak: the player condition
+HURT Sneak generic 2 -> true
+ADV Sneak combat:hurt_player/any c
+ADV Sneak combat:hurt_player/direct c
+ADV Sneak combat:hurt_player/not_blocked c
+ADV Sneak combat:hurt_player/taken_up_to_3 c
+ADV Sneak combat:hurt_player/victim_sneaking c
+ADV Sneak minecraft:adventure/adventuring_time minecraft:plains
+ADV Sneak minecraft:recipes/decorations/crafting_table unlock_right_away
+# Void: a creative player takes damage 0 from a source that bypasses invulnerability (the trigger sees 0)
+HURT Void out_of_world 0 -> false
+ADV Void minecraft:adventure/adventuring_time minecraft:plains
+ADV Void minecraft:recipes/decorations/crafting_table unlock_right_away

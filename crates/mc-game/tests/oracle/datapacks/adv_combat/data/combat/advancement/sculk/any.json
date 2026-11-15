@@ -1,0 +1,7 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:kill_mob_near_sculk_catalyst"
+    }
+  }
+}

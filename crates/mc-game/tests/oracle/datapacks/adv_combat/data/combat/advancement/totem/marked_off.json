@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:used_totem",
+      "conditions": {
+        "item": {
+          "predicates": {
+            "minecraft:custom_data": "{slot:\"off\"}"
+          }
+        }
+      }
+    }
+  }
+}

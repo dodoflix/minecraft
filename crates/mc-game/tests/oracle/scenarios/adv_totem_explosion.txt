@@ -1,0 +1,103 @@
+# The used_totem trigger (LivingEntity.checkTotemDeathProtection: the stack as it was before one totem is used up, main hand first, nothing for
+# damage that bypasses invulnerability) and the fall_after_explosion trigger (ServerPlayer.onExplosionHit remembers where and by what the player was
+# hit; the trigger fires when the player starts to fall, only when the fall starts at or above that point), read by the vanilla totem_of_undying and
+# who_needs_rockets advancements and a data pack of item, cause, distance and start position conditions.
+datapack adv_combat
+command_env
+level flat
+preload 5
+difficulty normal
+entity_counter 35000
+level_seed 35001
+time 18000
+spawn_player Main survival 0.5 -60 0.5 0 0 sim
+spawn_player Off survival 12.5 -60 0.5 0 0 sim
+spawn_player Bypass survival 24.5 -60 0.5 0 0 sim
+spawn_player Spared creative 36.5 -60 0.5 0 0 sim
+spawn_player Wind creative 48.5 -60 0.5 0 0 sim
+spawn_player NoSource creative 60.5 -60 0.5 0 0 sim
+spawn_player Tnt creative 72.5 -60 0.5 0 0 sim
+spawn_player Air creative 84.5 -60 0.5 0 0 sim
+spawn_player Sideways creative 96.5 -60 0.5 0 0 sim
+spawn_player Boost creative 108.5 -60 0.5 0 0 sim
+spawn_player Burst creative 120.5 -60 0.5 0 0 sim
+give Main mainhand minecraft:totem_of_undying[custom_data={slot:"main"}] 2
+give Main offhand minecraft:totem_of_undying[custom_data={slot:"off"}] 1
+give Off offhand minecraft:totem_of_undying[custom_data={slot:"off"}] 1
+give Bypass mainhand minecraft:totem_of_undying[custom_data={slot:"main"}] 1
+tick 3
+dump advancements:Main advancements:Off advancements:Bypass advancements:Spared advancements:Wind advancements:NoSource advancements:Tnt advancements:Air advancements:Sideways advancements:Boost advancements:Burst
+note Main: totems in both hands: the main hand stack of two is used, the trigger sees both of them
+level_seed 35011
+hurt Main generic 1000
+tick 2
+dump advancements:Main
+note Off: only the off hand holds a totem
+level_seed 35012
+hurt Off generic 1000
+tick 2
+dump advancements:Off
+note Bypass: damage that bypasses invulnerability ignores the totem and kills
+level_seed 35013
+hurt Bypass out_of_world 1000
+tick 2
+dump advancements:Bypass
+note Spared: a creative player is not hurt, no totem
+level_seed 35014
+hurt Spared generic 1000
+tick 2
+dump advancements:Spared
+note Wind: a wind charge bursts on the ground next to a creative player and throws it up: the fall starts at the apex (fires, the cause is the wind charge)
+spawn wc minecraft:wind_charge 48.5 -59.5 1.4 0 0
+entity_seed wc 5
+velocity wc 0 -0.5 0
+tick 2
+level_seed 35015
+tick 60
+dump advancements:Wind
+note NoSource: the same explosion with no entity behind it (no cause)
+tick 2
+level_seed 35016
+explode 60.5 -59.9 1.5 6 none trigger
+tick 60
+dump advancements:NoSource
+note Tnt: a primed tnt as the source of the explosion
+spawn tnt minecraft:tnt 72.5 -57 8.5 0 0 {fuse:400s}
+entity_seed tnt 6
+tick 2
+level_seed 35017
+explode 72.5 -59.9 1.5 6 none trigger source=tnt
+tick 60
+dump advancements:Tnt
+note Air: already falling when the explosion hits: the fall started before it, nothing fires
+tp Air 84.5 -30 0.5 0 0
+tick 1
+level_seed 35018
+explode 84.5 -28 0.5 6 none trigger
+tick 60
+dump advancements:Air
+note Sideways: pushed along the ground: the fall never starts
+tick 2
+level_seed 35019
+explode 96.5 -59.9 -3.5 6 none trigger
+tick 40
+dump advancements:Sideways
+note Boost and Burst: two and three wind charges bursting on the ground in the same tick add their impulses: the fall starts far above the impact (the vanilla who_needs_rockets needs 7 blocks)
+spawn wbBoost0 minecraft:wind_charge 108.5 -59.5 0.5 0 0
+entity_seed wbBoost0 70
+velocity wbBoost0 0 -0.5 0
+spawn wbBoost1 minecraft:wind_charge 108.5 -59.5 0.5 0 0
+entity_seed wbBoost1 71
+velocity wbBoost1 0 -0.5 0
+spawn wbBurst0 minecraft:wind_charge 120.5 -59.5 0.5 0 0
+entity_seed wbBurst0 72
+velocity wbBurst0 0 -0.5 0
+spawn wbBurst1 minecraft:wind_charge 120.5 -59.5 0.5 0 0
+entity_seed wbBurst1 73
+velocity wbBurst1 0 -0.5 0
+spawn wbBurst2 minecraft:wind_charge 120.5 -59.5 0.5 0 0
+entity_seed wbBurst2 74
+velocity wbBurst2 0 -0.5 0
+level_seed 35090
+tick 100
+dump advancements:Boost advancements:Burst

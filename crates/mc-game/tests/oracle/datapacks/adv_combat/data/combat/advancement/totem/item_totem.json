@@ -1,0 +1,12 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:used_totem",
+      "conditions": {
+        "item": {
+          "items": "minecraft:totem_of_undying"
+        }
+      }
+    }
+  }
+}

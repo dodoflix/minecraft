@@ -1,0 +1,164 @@
+C Set minecraft:overworld to 18000 tick(s)
+# Sword: iron sword at full strength on a cow (6 damage, a direct player attack)
+ADV Sword combat:hurt_entity/any c
+ADV Sword combat:hurt_entity/dealt_5_to_10 c
+ADV Sword combat:hurt_entity/direct c
+ADV Sword combat:hurt_entity/not_blocked c
+ADV Sword combat:hurt_entity/not_projectile c
+ADV Sword combat:hurt_entity/player_attack c
+ADV Sword combat:hurt_entity/source_is_player c
+ADV Sword combat:hurt_entity/source_with_sword c
+ADV Sword combat:hurt_entity/victim_close c
+ADV Sword combat:hurt_entity/victim_cow c
+ADV Sword minecraft:adventure/adventuring_time minecraft:plains
+ADV Sword minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Sword minecraft:recipes/misc/iron_nugget_from_blasting has_iron_sword
+ADV Sword minecraft:recipes/misc/iron_nugget_from_smelting has_iron_sword
+# Fist: bare hand on a baby cow
+ADV Fist combat:hurt_entity/any c
+ADV Fist combat:hurt_entity/direct c
+ADV Fist combat:hurt_entity/not_blocked c
+ADV Fist combat:hurt_entity/not_projectile c
+ADV Fist combat:hurt_entity/player_attack c
+ADV Fist combat:hurt_entity/source_is_player c
+ADV Fist combat:hurt_entity/taken_up_to_3 c
+ADV Fist combat:hurt_entity/victim_baby c
+ADV Fist combat:hurt_entity/victim_close c
+ADV Fist combat:hurt_entity/victim_cow c
+ADV Fist minecraft:adventure/adventuring_time minecraft:plains
+ADV Fist minecraft:recipes/decorations/crafting_table unlock_right_away
+# Window: 4 damage, then 9 inside the invulnerability window (fires with 9), then 3 (not higher than the last hit: no trigger)
+HURT cowW player_attack 4 -> true
+ADV Window combat:hurt_entity/any c
+ADV Window combat:hurt_entity/direct c
+ADV Window combat:hurt_entity/not_blocked c
+ADV Window combat:hurt_entity/not_projectile c
+ADV Window combat:hurt_entity/player_attack c
+ADV Window combat:hurt_entity/source_is_player c
+ADV Window combat:hurt_entity/victim_close c
+ADV Window combat:hurt_entity/victim_cow c
+ADV Window minecraft:adventure/adventuring_time minecraft:plains
+ADV Window minecraft:recipes/decorations/crafting_table unlock_right_away
+HURT cowW player_attack 9 -> true
+ADV Window combat:hurt_entity/any c
+ADV Window combat:hurt_entity/dealt_5_to_10 c
+ADV Window combat:hurt_entity/direct c
+ADV Window combat:hurt_entity/not_blocked c
+ADV Window combat:hurt_entity/not_projectile c
+ADV Window combat:hurt_entity/player_attack c
+ADV Window combat:hurt_entity/source_is_player c
+ADV Window combat:hurt_entity/victim_close c
+ADV Window combat:hurt_entity/victim_cow c
+ADV Window minecraft:adventure/adventuring_time minecraft:plains
+ADV Window minecraft:recipes/decorations/crafting_table unlock_right_away
+HURT cowW player_attack 3 -> false
+ADV Window combat:hurt_entity/any c
+ADV Window combat:hurt_entity/dealt_5_to_10 c
+ADV Window combat:hurt_entity/direct c
+ADV Window combat:hurt_entity/not_blocked c
+ADV Window combat:hurt_entity/not_projectile c
+ADV Window combat:hurt_entity/player_attack c
+ADV Window combat:hurt_entity/source_is_player c
+ADV Window combat:hurt_entity/victim_close c
+ADV Window combat:hurt_entity/victim_cow c
+ADV Window minecraft:adventure/adventuring_time minecraft:plains
+ADV Window minecraft:recipes/decorations/crafting_table unlock_right_away
+# Arrow: an arrow of the player (direct entity), then a fire source, a kill with a fire source on a cow with plenty of health
+HURT cowA arrow 5 -> true
+ADV Arrow combat:hurt_entity/any c
+ADV Arrow combat:hurt_entity/dealt_5_to_10 c
+ADV Arrow combat:hurt_entity/direct_arrow c
+ADV Arrow combat:hurt_entity/indirect c
+ADV Arrow combat:hurt_entity/not_blocked c
+ADV Arrow combat:hurt_entity/projectile c
+ADV Arrow combat:hurt_entity/source_is_player c
+ADV Arrow combat:hurt_entity/victim_close c
+ADV Arrow combat:hurt_entity/victim_cow c
+ADV Arrow minecraft:adventure/adventuring_time minecraft:plains
+ADV Arrow minecraft:adventure/shoot_arrow shot_arrow
+ADV Arrow minecraft:recipes/decorations/crafting_table unlock_right_away
+# Fire: damage from a fire without a direct entity, 15 damage kills a cow
+HURT cowF in_fire 2 -> true
+HURT cowF generic 15 -> true
+ADV Fire combat:hurt_entity/any c
+ADV Fire combat:hurt_entity/dealt_over_12 c
+ADV Fire combat:hurt_entity/direct c
+ADV Fire combat:hurt_entity/fire c
+ADV Fire combat:hurt_entity/not_blocked c
+ADV Fire combat:hurt_entity/not_projectile c
+ADV Fire combat:hurt_entity/source_is_player c
+ADV Fire combat:hurt_entity/taken_up_to_3 c
+ADV Fire combat:hurt_entity/victim_close c
+ADV Fire combat:hurt_entity/victim_cow c
+ADV Fire combat:killed_entity/any c
+ADV Fire combat:killed_entity/blow_direct c
+ADV Fire combat:killed_entity/blow_not_projectile c
+ADV Fire combat:killed_entity/blow_source_player c
+ADV Fire minecraft:adventure/adventuring_time minecraft:plains
+ADV Fire minecraft:adventure/root killed_something
+ADV Fire minecraft:recipes/decorations/crafting_table unlock_right_away
+# Shield/Victim: an attack on a blocking player is fully blocked (blocked=true, damage 0 after the shield); the victim fires entity_hurt_player
+ADV Shield combat:hurt_entity/any c
+ADV Shield combat:hurt_entity/blocked c
+ADV Shield combat:hurt_entity/dealt_5_to_10 c
+ADV Shield combat:hurt_entity/direct c
+ADV Shield combat:hurt_entity/not_projectile c
+ADV Shield combat:hurt_entity/player_attack c
+ADV Shield combat:hurt_entity/source_is_player c
+ADV Shield combat:hurt_entity/source_with_sword c
+ADV Shield combat:hurt_entity/taken_up_to_3 c
+ADV Shield combat:hurt_entity/victim_close c
+ADV Shield combat:hurt_entity/victim_player c
+ADV Shield minecraft:adventure/adventuring_time minecraft:plains
+ADV Shield minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Shield minecraft:recipes/misc/iron_nugget_from_blasting has_iron_sword
+ADV Shield minecraft:recipes/misc/iron_nugget_from_smelting has_iron_sword
+ADV Victim combat:hurt_player/any c
+ADV Victim combat:hurt_player/blocked c
+ADV Victim combat:hurt_player/dealt_5_to_10 c
+ADV Victim combat:hurt_player/direct c
+ADV Victim combat:hurt_player/taken_up_to_3 c
+ADV Victim minecraft:adventure/adventuring_time minecraft:plains
+ADV Victim minecraft:recipes/decorations/crafting_table unlock_right_away
+# Creative: creative attack on a cow, then on an interaction entity (trigger fires from skipAttackInteraction with a generic source)
+ADV Creative combat:hurt_entity/any c
+ADV Creative combat:hurt_entity/direct c
+ADV Creative combat:hurt_entity/not_blocked c
+ADV Creative combat:hurt_entity/not_projectile c
+ADV Creative combat:hurt_entity/taken_up_to_3 c
+ADV Creative combat:hurt_entity/victim_baby c
+ADV Creative combat:hurt_entity/victim_interaction c
+ADV Creative minecraft:adventure/adventuring_time minecraft:plains
+ADV Creative minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Creative combat:hurt_entity/any c
+ADV Creative combat:hurt_entity/direct c
+ADV Creative combat:hurt_entity/not_blocked c
+ADV Creative combat:hurt_entity/not_projectile c
+ADV Creative combat:hurt_entity/player_attack c
+ADV Creative combat:hurt_entity/source_is_player c
+ADV Creative combat:hurt_entity/taken_up_to_3 c
+ADV Creative combat:hurt_entity/victim_baby c
+ADV Creative combat:hurt_entity/victim_close c
+ADV Creative combat:hurt_entity/victim_cow c
+ADV Creative combat:hurt_entity/victim_interaction c
+ADV Creative minecraft:adventure/adventuring_time minecraft:plains
+ADV Creative minecraft:recipes/decorations/crafting_table unlock_right_away
+# Stand: a survival player hits an armor stand (no trigger: ArmorStand overrides hurtServer)
+ADV Stand minecraft:adventure/adventuring_time minecraft:plains
+ADV Stand minecraft:recipes/decorations/crafting_table unlock_right_away
+# Spared: an invulnerable cow is not hurt, nothing fires
+ADV Spared minecraft:adventure/adventuring_time minecraft:plains
+ADV Spared minecraft:recipes/decorations/crafting_table unlock_right_away
+# Sneak: the player condition (sneaking attacker)
+ADV Sneak combat:hurt_entity/any c
+ADV Sneak combat:hurt_entity/attacker_sneaking c
+ADV Sneak combat:hurt_entity/direct c
+ADV Sneak combat:hurt_entity/not_blocked c
+ADV Sneak combat:hurt_entity/not_projectile c
+ADV Sneak combat:hurt_entity/player_attack c
+ADV Sneak combat:hurt_entity/source_is_player c
+ADV Sneak combat:hurt_entity/taken_up_to_3 c
+ADV Sneak combat:hurt_entity/victim_close c
+ADV Sneak combat:hurt_entity/victim_cow c
+ADV Sneak minecraft:adventure/adventuring_time minecraft:plains
+ADV Sneak minecraft:recipes/decorations/crafting_table unlock_right_away

@@ -1,0 +1,16 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:lightning_strike",
+      "conditions": {
+        "bystander": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:cow"
+          }
+        }
+      }
+    }
+  }
+}

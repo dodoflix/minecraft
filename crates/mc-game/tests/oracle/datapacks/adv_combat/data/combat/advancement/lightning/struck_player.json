@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:lightning_strike",
+      "conditions": {
+        "lightning": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:type_specific/lightning": {
+              "entity_struck": {
+                "minecraft:entity_type": "minecraft:player"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

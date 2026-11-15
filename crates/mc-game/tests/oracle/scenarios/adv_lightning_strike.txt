@@ -1,0 +1,43 @@
+# The lightning_strike trigger (LightningBolt.tick when the bolt ends: every player within 256 blocks gets it, with the living entities in the
+# 15-block box around the bolt that the bolt did not hit as bystanders), read by the vanilla villager advancement and a data pack of conditions on the
+# bolt (distance, blocks set on fire, the entity it struck) and on the bystanders. Players and cows at several distances, a zombie, a sneaking
+# bystander, and a second bolt that strikes nothing but a bystander of the first.
+datapack adv_combat
+command_env
+level flat
+preload 5
+difficulty normal
+entity_counter 37000
+level_seed 37001
+time 18000
+spawn_player Hit survival 1.5 -60 0.5 0 0
+spawn_player Near survival 10.5 -60 0.5 0 0
+spawn_player Sneak survival 5.5 -60 10.5 0 0
+spawn_player Far survival 40.5 -60 0.5 0 0
+input Sneak sneak
+mobspawn cowHit minecraft:cow 3.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed cowHit 9
+mobspawn cowSide minecraft:cow 8.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed cowSide 11
+mobspawn zSide minecraft:zombie -8.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed zSide 13
+mobspawn cowOut minecraft:cow -30.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed cowOut 15
+tick 3
+dump advancements:Hit advancements:Near advancements:Sneak advancements:Far
+note bolt 1 on the ground at the origin: Hit and cowHit are struck, the rest of the near box are bystanders; Far is out of the box but within 256 blocks
+level_seed 37002
+spawn bolt1 minecraft:lightning_bolt 0.5 -60 0.5
+entity_seed bolt1 5
+tick 40
+dump advancements:Hit advancements:Near advancements:Sneak advancements:Far
+note bolt 2 beside a player and a cow that came later: Away is struck, the cow is a bystander
+spawn_player Away survival -60.5 -60 0.5 0 0
+mobspawn cowAway minecraft:cow -60.5 -60 6.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:20f}
+entity_seed cowAway 17
+tick 3
+level_seed 37003
+spawn bolt2 minecraft:lightning_bolt -60.5 -60 0.5
+entity_seed bolt2 6
+tick 40
+dump advancements:Hit advancements:Near advancements:Sneak advancements:Far advancements:Away
