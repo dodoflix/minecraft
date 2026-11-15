@@ -747,6 +747,10 @@ impl Scenario {
             // the scoreboard the `team`/`scoreboard` commands edit is the one the level reads
             level.server_state.scoreboard =
                 mc_game::commands::server_access::with_server(|s| s.scoreboard.clone());
+            // the storage `/data` edits is the one loot number and NBT providers read
+            let storage =
+                mc_game::commands::server_access::with_server(|s| s.command_storage.view());
+            level.server_state.loot.command_storage = Arc::new(move |id| storage.get(id));
         }
         // loot random sequences are seeded from the world seed (`VanillaLevel.Options.seed`)
         level.server_state.loot.world_seed = self.opts_seed();
