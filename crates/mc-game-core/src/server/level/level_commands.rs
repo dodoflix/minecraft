@@ -14,31 +14,6 @@ use mc_core::phys::{Vec2, Vec3};
 use std::panic::{self, AssertUnwindSafe};
 use std::ptr::NonNull;
 
-/// The game rules command blocks read, live from the server (`level.getGameRules()` in vanilla).
-#[derive(Clone, Copy, Debug)]
-pub struct CommandRules {
-    /// `COMMAND_BLOCKS_WORK` (`ServerLevel.isCommandBlockEnabled()`).
-    pub command_blocks_work: bool,
-    /// `COMMAND_BLOCK_OUTPUT`.
-    pub command_block_output: bool,
-    /// `SEND_COMMAND_FEEDBACK`.
-    pub send_command_feedback: bool,
-    /// `MAX_COMMAND_SEQUENCE_LENGTH`.
-    pub max_command_sequence_length: i32,
-}
-
-impl Default for CommandRules {
-    /// The vanilla defaults.
-    fn default() -> Self {
-        Self {
-            command_blocks_work: true,
-            command_block_output: true,
-            send_command_feedback: true,
-            max_command_sequence_length: 65536,
-        }
-    }
-}
-
 /// An advancement reward function (`AdvancementRewards.function`). Vanilla runs it inside `grant`, but the awarded player is
 /// out of its level then and the commands could not select it (`@s`): the function waits in the level's queue until the player
 /// is back and the server can run it ([`MinecraftServer::run_pending_functions`](crate::server::MinecraftServer)). The
@@ -89,16 +64,6 @@ impl ServerLevel {
         match result {
             Ok(r) => r,
             Err(payload) => panic::resume_unwind(payload),
-        }
-    }
-
-    /// The command block game rules: live from the server while this level runs its scheduled block ticks, otherwise the
-    /// snapshot of the start of the level's last tick.
-    pub fn command_rules(&self) -> CommandRules {
-        match &self.tick_state.command_env {
-            // SAFETY: see `with_command_env`; a shared read of the environment.
-            Some(env) => unsafe { env.0.as_ref() }.command_rules(),
-            None => self.tick_state.command_rules,
         }
     }
 

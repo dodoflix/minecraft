@@ -1,0 +1,536 @@
+C Game rule send_command_feedback is now set to true
+CF msg Created new objective [cb]
+CF result success 1
+# a: impulse block, conditional chain: the second run of `setblock` changes nothing, so the conditional blocks stay idle
+T 31
+T 32
+T 33
+PKT Op minecraft:system_chat 7c0a090004776974680a000000020800000001400009000477697468030000000300000005ffffffc5000000000800097472616e736c6174650019636f6d6d616e64732e736574626c6f636b2e7375636365737300080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b657473000800000004236869740003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000423616c6c0003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000523636f6e640003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+T 34
+T 35
+T 36
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 -1 minecraft:redstone_block
+B 0 -60 0 minecraft:command_block[conditional=false,facing=east]
+B 0 -60 1 minecraft:comparator[facing=north,mode=compare,powered=true]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:chain_command_block[conditional=true,facing=east]
+B 1 -60 1 minecraft:comparator[facing=north,mode=compare,powered=true]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:chain_command_block[conditional=false,facing=east]
+B 2 -60 1 minecraft:comparator[facing=north,mode=compare,powered=true]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -60 0 minecraft:chain_command_block[conditional=true,facing=east]
+B 3 -60 1 minecraft:comparator[facing=north,mode=compare,powered=true]
+B 4 -61 -1 minecraft:grass_block[snowy=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 -1 minecraft:grass_block[snowy=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -59 0 minecraft:gold_block
+B 6 -61 -1 minecraft:grass_block[snowy=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+BE 0 -60 0 {Command:"execute store success score #set cb run setblock 5 -59 0 minecraft:gold_block",LastExecution:33L,LastOutput:{extra:[{translate:"commands.setblock.success",with:[5,-59,0]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:0}
+BE 1 -60 0 {Command:"scoreboard players add #hit cb 1",LastExecution:33L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#hit",1]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:1,y:-60,z:0}
+BE 2 -60 0 {Command:"scoreboard players add #all cb 1",LastExecution:33L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#all",1]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:2,y:-60,z:0}
+BE 3 -60 0 {Command:"scoreboard players add #cond cb 1",LastExecution:33L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#cond",1]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:3,y:-60,z:0}
+BE 0 -60 1 {OutputSignal:1,components:{},id:"minecraft:comparator",x:0,y:-60,z:1}
+BE 1 -60 1 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:1}
+BE 2 -60 1 {OutputSignal:1,components:{},id:"minecraft:comparator",x:2,y:-60,z:1}
+BE 3 -60 1 {OutputSignal:1,components:{},id:"minecraft:comparator",x:3,y:-60,z:1}
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#set",Objective:"cb",Score:1}
+DISPLAY {}
+T 37
+T 38
+T 39
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000423616c6c0003000000000002000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000523636f6e640003000000000002000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+T 40
+T 41
+T 42
+BE 0 -60 0 {Command:"execute store success score #set cb run setblock 5 -59 0 minecraft:gold_block",LastExecution:39L,LastOutput:{extra:[{color:"red",extra:[{translate:"commands.setblock.failed"}],text:""}],text:"[HH:MM:SS] "},SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:0}
+BE 1 -60 0 {Command:"scoreboard players add #hit cb 1",LastExecution:33L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#hit",1]}],text:"[HH:MM:SS] "},SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:1,y:-60,z:0}
+BE 2 -60 0 {Command:"scoreboard players add #all cb 1",LastExecution:39L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#all",2]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:2,y:-60,z:0}
+BE 3 -60 0 {Command:"scoreboard players add #cond cb 1",LastExecution:39L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#cond",2]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:3,y:-60,z:0}
+BE 0 -60 1 {OutputSignal:0,components:{},id:"minecraft:comparator",x:0,y:-60,z:1}
+BE 1 -60 1 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:1}
+BE 2 -60 1 {OutputSignal:1,components:{},id:"minecraft:comparator",x:2,y:-60,z:1}
+BE 3 -60 1 {OutputSignal:1,components:{},id:"minecraft:comparator",x:3,y:-60,z:1}
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#set",Objective:"cb"}
+DISPLAY {}
+# b: a forking `execute` counts one success per entity (comparators read the count): three armor stands and the two players
+T 43
+T 44
+T 45
+PKT Op minecraft:system_chat 7c0a090004776974680a00000002080009696e73657274696f6e002463626231383961392d306662332d343337372d383438382d6434326134323738363431610a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400080006616374696f6e000b73686f775f656e74697479080002696400156d696e6563726166743a61726d6f725f7374616e640b00047575696400000004cbb189a90fb343778488d42a4278641a000800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e64000900047769746803000000030000000affffffc6000000080800097472616e736c6174650019636f6d6d616e64732e736574626c6f636b2e7375636365737300080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a00000002080009696e73657274696f6e002434343938623936642d303835622d343531612d393333332d3764386263333437653131380a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400080006616374696f6e000b73686f775f656e74697479080002696400156d696e6563726166743a61726d6f725f7374616e640b000475756964000000044498b96d085b451a93337d8bc347e118000800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e64000900047769746803000000030000000cffffffc6000000080800097472616e736c6174650019636f6d6d616e64732e736574626c6f636b2e7375636365737300080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a00000002080009696e73657274696f6e002439356137333262332d383934302d343236302d616563382d3237356264626432373434620a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400080006616374696f6e000b73686f775f656e74697479080002696400156d696e6563726166743a61726d6f725f7374616e640b0004757569640000000495a732b389404260aec8275bdbd2744b000800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e64000900047769746803000000030000000effffffc6000000080800097472616e736c6174650019636f6d6d616e64732e736574626c6f636b2e7375636365737300080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a00000002080009696e73657274696f6e002463626231383961392d306662332d343337372d383438382d6434326134323738363431610a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400080006616374696f6e000b73686f775f656e74697479080002696400156d696e6563726166743a61726d6f725f7374616e640b00047575696400000004cbb189a90fb343778488d42a4278641a000800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400090004776974680a0000000208000000047365656e00080009696e73657274696f6e002463626231383961392d306662332d343337372d383438382d6434326134323738363431610a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400080006616374696f6e000b73686f775f656e74697479080002696400156d696e6563726166743a61726d6f725f7374616e640b00047575696400000004cbb189a90fb343778488d42a4278641a000800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e64000800097472616e736c617465001f636f6d6d616e64732e7461672e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a00000002080009696e73657274696f6e002434343938623936642d303835622d343531612d393333332d3764386263333437653131380a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400080006616374696f6e000b73686f775f656e74697479080002696400156d696e6563726166743a61726d6f725f7374616e640b000475756964000000044498b96d085b451a93337d8bc347e118000800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400090004776974680a0000000208000000047365656e00080009696e73657274696f6e002434343938623936642d303835622d343531612d393333332d3764386263333437653131380a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400080006616374696f6e000b73686f775f656e74697479080002696400156d696e6563726166743a61726d6f725f7374616e640b000475756964000000044498b96d085b451a93337d8bc347e118000800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e64000800097472616e736c617465001f636f6d6d616e64732e7461672e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a00000002080009696e73657274696f6e002439356137333262332d383934302d343236302d616563382d3237356264626432373434620a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400080006616374696f6e000b73686f775f656e74697479080002696400156d696e6563726166743a61726d6f725f7374616e640b0004757569640000000495a732b389404260aec8275bdbd2744b000800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400090004776974680a0000000208000000047365656e00080009696e73657274696f6e002439356137333262332d383934302d343236302d616563382d3237356264626432373434620a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400080006616374696f6e000b73686f775f656e74697479080002696400156d696e6563726166743a61726d6f725f7374616e640b0004757569640000000495a732b389404260aec8275bdbd2744b000800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e64000800097472616e736c617465001f636f6d6d616e64732e7461672e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f74656c6c204f702000080009696e73657274696f6e00024f700800047465787400024f700a000b686f7665725f6576656e740800046e616d6500024f70080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000483450b92796c35b38382f4e4e7dac4dd000009000477697468030000000300000005ffffffc30000001f0800097472616e736c6174650019636f6d6d616e64732e736574626c6f636b2e7375636365737300080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000c2f74656c6c20506c61696e2000080009696e73657274696f6e0005506c61696e080004746578740005506c61696e0a000b686f7665725f6576656e740800046e616d650005506c61696e080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b000475756964000000044d76fefcd3a13e8e8608a98350e52ac5000009000477697468030000000300000007ffffffc30000001f0800097472616e736c6174650019636f6d6d616e64732e736574626c6f636b2e7375636365737300080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+T 46
+T 47
+T 48
+B -1 -61 7 minecraft:grass_block[snowy=false]
+B -1 -61 8 minecraft:grass_block[snowy=false]
+B -1 -61 9 minecraft:grass_block[snowy=false]
+B -1 -61 10 minecraft:grass_block[snowy=false]
+B 0 -61 7 minecraft:grass_block[snowy=false]
+B 0 -61 8 minecraft:grass_block[snowy=false]
+B 0 -61 9 minecraft:grass_block[snowy=false]
+B 0 -61 10 minecraft:grass_block[snowy=false]
+B 0 -60 7 minecraft:redstone_block
+B 0 -60 8 minecraft:command_block[conditional=false,facing=east]
+B 0 -60 9 minecraft:comparator[facing=north,mode=compare,powered=true]
+B 1 -61 7 minecraft:grass_block[snowy=false]
+B 1 -61 8 minecraft:grass_block[snowy=false]
+B 1 -61 9 minecraft:grass_block[snowy=false]
+B 1 -61 10 minecraft:grass_block[snowy=false]
+B 1 -60 8 minecraft:chain_command_block[conditional=true,facing=east]
+B 1 -60 9 minecraft:comparator[facing=north,mode=compare,powered=true]
+B 2 -61 7 minecraft:grass_block[snowy=false]
+B 2 -61 8 minecraft:grass_block[snowy=false]
+B 2 -61 9 minecraft:grass_block[snowy=false]
+B 2 -61 10 minecraft:grass_block[snowy=false]
+B 2 -60 8 minecraft:chain_command_block[conditional=false,facing=east]
+B 2 -60 9 minecraft:comparator[facing=north,mode=compare,powered=true]
+B 3 -61 7 minecraft:grass_block[snowy=false]
+B 3 -61 8 minecraft:grass_block[snowy=false]
+B 3 -61 9 minecraft:grass_block[snowy=false]
+B 3 -61 10 minecraft:grass_block[snowy=false]
+B 3 -60 8 minecraft:chain_command_block[conditional=false,facing=east]
+B 3 -60 9 minecraft:comparator[facing=north,mode=compare,powered=false]
+B 4 -61 7 minecraft:grass_block[snowy=false]
+B 4 -61 8 minecraft:grass_block[snowy=false]
+B 4 -61 9 minecraft:grass_block[snowy=false]
+B 4 -61 10 minecraft:grass_block[snowy=false]
+B 5 -61 7 minecraft:grass_block[snowy=false]
+B 5 -61 8 minecraft:grass_block[snowy=false]
+B 5 -61 9 minecraft:grass_block[snowy=false]
+B 5 -61 10 minecraft:grass_block[snowy=false]
+B 6 -61 7 minecraft:grass_block[snowy=false]
+B 6 -61 8 minecraft:grass_block[snowy=false]
+B 6 -61 9 minecraft:grass_block[snowy=false]
+B 6 -61 10 minecraft:grass_block[snowy=false]
+BE 0 -60 8 {Command:"execute as @e[type=minecraft:armor_stand] at @s run setblock ~ ~2 ~ minecraft:gold_block",LastExecution:45L,LastOutput:{extra:[{translate:"commands.setblock.success",with:[14,-58,8]}],text:"[HH:MM:SS] "},SuccessCount:3,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:8}
+BE 1 -60 8 {Command:"execute as @e[type=minecraft:armor_stand] run tag @s add seen",LastExecution:45L,LastOutput:{extra:[{translate:"commands.tag.add.success.single",with:["seen",{hover_event:{action:"show_entity",id:"minecraft:armor_stand",name:{translate:"entity.minecraft.armor_stand"},uuid:[I;-1784204621,-1992277408,-1362614437,-606964661]},insertion:"95a732b3-8940-4260-aec8-275bdbd2744b",translate:"entity.minecraft.armor_stand"}]}],text:"[HH:MM:SS] "},SuccessCount:3,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:1,y:-60,z:8}
+BE 2 -60 8 {Command:"execute as @a at @s run setblock ~ ~-1 ~ minecraft:emerald_block",LastExecution:45L,LastOutput:{extra:[{translate:"commands.setblock.success",with:[7,-61,31]}],text:"[HH:MM:SS] "},SuccessCount:2,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:2,y:-60,z:8}
+BE 3 -60 8 {Command:"execute as @e[type=minecraft:cow] run say nobody",LastExecution:45L,SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:3,y:-60,z:8}
+BE 0 -60 9 {OutputSignal:3,components:{},id:"minecraft:comparator",x:0,y:-60,z:9}
+BE 1 -60 9 {OutputSignal:3,components:{},id:"minecraft:comparator",x:1,y:-60,z:9}
+BE 2 -60 9 {OutputSignal:2,components:{},id:"minecraft:comparator",x:2,y:-60,z:9}
+BE 3 -60 9 {OutputSignal:0,components:{},id:"minecraft:comparator",x:3,y:-60,z:9}
+N s1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[10.5d,-60.0d,8.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["seen"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N s3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[14.5d,-60.0d,8.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["seen"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c: the last output of single commands (one impulse block each, powered by a redstone block): success, query, failure, parse error, forbidden command, no output
+CF msg Set [cb] for #all to 7
+CF result success 7
+C Game rule max_block_modifications is now set to 10
+T 49
+T 50
+T 51
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000c2f74656c6c20506c61696e2000080009696e73657274696f6e0005506c61696e080004746578740005506c61696e0a000b686f7665725f6576656e740800046e616d650005506c61696e080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b000475756964000000044d76fefcd3a13e8e8608a98350e52ac500000800097472616e736c617465001167616d654d6f64652e6372656174697665000800097472616e736c617465001f636f6d6d616e64732e67616d656d6f64652e737563636573732e6f7468657200080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a080005636f6c6f7200037265640800047465787400037261770000
+PKT Plain minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e6372656174697665000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT Plain minecraft:system_chat 7c0a080005636f6c6f7200037265640800047465787400037261770000
+T 52
+T 53
+T 54
+BE 0 -60 12 {Command:"time query gametime",LastExecution:51L,LastOutput:{extra:[{translate:"commands.time.query.gametime",with:[51L]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:12}
+BE 1 -60 12 {Command:"scoreboard players get #all cb",LastExecution:51L,LastOutput:{extra:[{translate:"commands.scoreboard.players.get.success",with:["#all",7,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]}]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:1,y:-60,z:12}
+BE 2 -60 12 {Command:"nosuchcommand foo",LastExecution:51L,LastOutput:{extra:[{color:"red",extra:[{click_event:{action:"suggest_command",command:"/nosuchcommand foo"},color:"gray",extra:[{color:"red",text:"nosuchcommand foo",underlined:1b},{color:"red",italic:1b,translate:"command.context.here"}],text:""}],text:""}],text:"[HH:MM:SS] "},SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:2,y:-60,z:12}
+BE 3 -60 12 {Command:"fill 0 -50 40 9 -40 49 minecraft:stone",LastExecution:51L,LastOutput:{extra:[{color:"red",extra:[{translate:"commands.fill.toobig",with:[10,1100L]}],text:""}],text:"[HH:MM:SS] "},SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:3,y:-60,z:12}
+BE 4 -60 12 {Command:"op Plain",LastExecution:51L,LastOutput:{extra:[{color:"red",extra:[{click_event:{action:"suggest_command",command:"/op Plain"},color:"gray",extra:[{color:"red",text:"op Plain",underlined:1b},{color:"red",italic:1b,translate:"command.context.here"}],text:""}],text:""}],text:"[HH:MM:SS] "},SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:4,y:-60,z:12}
+BE 5 -60 12 {Command:"gamemode creative Plain",LastExecution:51L,LastOutput:{extra:[{translate:"commands.gamemode.success.other",with:[{click_event:{action:"suggest_command",command:"/tell Plain "},hover_event:{action:"show_entity",id:"minecraft:player",name:"Plain",uuid:[I;1299644156,-744407410,-2046252669,1357195973]},insertion:"Plain",text:"Plain"},{translate:"gameMode.creative"}]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:5,y:-60,z:12}
+BE 6 -60 12 {Command:'tellraw @a {"text":"raw","color":"red"}',LastExecution:51L,SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:6,y:-60,z:12}
+# d: a second run replaces the last output; an output of the previous run is cleared by a run without output
+T 55
+T 56
+T 57
+PKT Op minecraft:system_chat 7c08000372617700
+PKT Op minecraft:system_chat 7c0a080005636f6c6f7200037265640800047465787400037261770000
+PKT Plain minecraft:system_chat 7c08000372617700
+PKT Plain minecraft:system_chat 7c0a080005636f6c6f7200037265640800047465787400037261770000
+T 58
+T 59
+T 60
+BE 0 -60 12 {Command:'tellraw @a {"text":"raw"}',LastExecution:57L,SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:12}
+BE 2 -60 12 {Command:"scoreboard players get #all cb",LastExecution:57L,LastOutput:{extra:[{translate:"commands.scoreboard.players.get.success",with:["#all",7,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]}]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:2,y:-60,z:12}
+# e: TrackOutput off (no last output, no admin message), command_block_output off (last output, no admin message), send_command_feedback off (only failures reach the last output)
+C Game rule command_block_output is now set to false
+T 61
+T 62
+T 63
+T 64
+T 65
+T 66
+BE 0 -60 12 {Command:"scoreboard players add #e cb 1",LastExecution:63L,SuccessCount:1,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:12}
+BE 1 -60 12 {Command:"scoreboard players add #e cb 1",LastExecution:63L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#e",2]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:1,y:-60,z:12}
+BE 2 -60 12 {Command:"scoreboard players add #e cb 1",LastExecution:63L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#e",3]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:2,y:-60,z:12}
+BE 3 -60 12 {Command:"nosuchcommand bar",LastExecution:63L,SuccessCount:0,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:3,y:-60,z:12}
+BE 4 -60 12 {Command:"scoreboard players get #nope cb",LastExecution:63L,LastOutput:{extra:[{color:"red",extra:[{translate:"commands.scoreboard.players.get.null",with:["cb","#nope"]}],text:""}],text:"[HH:MM:SS] "},SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:4,y:-60,z:12}
+BE 5 -60 12 {Command:"",LastExecution:57L,SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:5,y:-60,z:12}
+BE 6 -60 12 {Command:"scoreboard players get #all cb",LastExecution:63L,LastOutput:{extra:[{translate:"commands.scoreboard.players.get.success",with:["#all",7,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]}]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:6,y:-60,z:12}
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:7}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:3}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#set",Objective:"cb"}
+DISPLAY {}
+C Game rule command_block_output is now set to true
+C Game rule send_command_feedback is now set to false
+T 67
+T 68
+T 69
+T 70
+T 71
+T 72
+BE 0 -60 12 {Command:"scoreboard players add #e cb 1",LastExecution:69L,SuccessCount:1,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:12}
+BE 1 -60 12 {Command:"scoreboard players add #e cb 1",LastExecution:69L,SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:1,y:-60,z:12}
+BE 2 -60 12 {Command:"scoreboard players add #e cb 1",LastExecution:69L,SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:2,y:-60,z:12}
+BE 3 -60 12 {Command:"nosuchcommand bar",LastExecution:69L,SuccessCount:0,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:3,y:-60,z:12}
+BE 4 -60 12 {Command:"scoreboard players get #nope cb",LastExecution:69L,LastOutput:{extra:[{color:"red",extra:[{translate:"commands.scoreboard.players.get.null",with:["cb","#nope"]}],text:""}],text:"[HH:MM:SS] "},SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:4,y:-60,z:12}
+BE 5 -60 12 {Command:"",LastExecution:57L,SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:5,y:-60,z:12}
+BE 6 -60 12 {Command:"scoreboard players get #all cb",LastExecution:69L,SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:6,y:-60,z:12}
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:7}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:6}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#set",Objective:"cb"}
+DISPLAY {}
+C Game rule send_command_feedback is now set to true
+# f: command_blocks_work false: the command does not run, the block counts as executed; true again, and the old last output stays when the command is empty
+C Game rule command_blocks_work is now set to false
+T 73
+T 74
+T 75
+T 76
+T 77
+T 78
+BE 0 -60 12 {Command:"scoreboard players add #f cb 1",LastExecution:75L,SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:12}
+BE 1 -60 12 {Command:"scoreboard players add #e cb 1",LastExecution:75L,SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:1,y:-60,z:12}
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:7}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:6}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#set",Objective:"cb"}
+DISPLAY {}
+C Game rule command_blocks_work is now set to true
+# g: a repeating block with a conditional chain behind it: the counter passes the limit, the failure of the repeating block stops the conditional block
+CF msg Set [cb] for 0 entities to 0
+CF result success 0
+T 79
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b657473000800000004237265700003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000623636861696e0003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000523667265650003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+BE 0 -60 16 {Command:"execute if score #rep cb matches ..3 run scoreboard players add #rep cb 1",LastExecution:79L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#rep",1]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:16}
+BE 1 -60 16 {Command:"scoreboard players add #chain cb 1",LastExecution:79L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#chain",1]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:1,y:-60,z:16}
+BE 2 -60 16 {Command:"scoreboard players add #free cb 1",LastExecution:79L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#free",1]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:2,y:-60,z:16}
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:7}
+SCORE {Locked:1b,Name:"#chain",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:6}
+SCORE {Locked:1b,Name:"#free",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#rep",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#set",Objective:"cb"}
+DISPLAY {}
+TICK block 0 -60 16 minecraft:repeating_command_block delay=1 prio=0
+TICK block 1 -60 17 minecraft:comparator delay=2 prio=0
+TICK block 2 -60 17 minecraft:comparator delay=2 prio=0
+TICK block 0 -60 17 minecraft:comparator delay=2 prio=0
+T 80
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b657473000800000004237265700003000000000002000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000623636861696e0003000000000002000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000523667265650003000000000002000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+BE 0 -60 16 {Command:"execute if score #rep cb matches ..3 run scoreboard players add #rep cb 1",LastExecution:80L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#rep",2]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:16}
+BE 1 -60 16 {Command:"scoreboard players add #chain cb 1",LastExecution:80L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#chain",2]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:1,y:-60,z:16}
+BE 2 -60 16 {Command:"scoreboard players add #free cb 1",LastExecution:80L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#free",2]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:2,y:-60,z:16}
+BE 0 -60 17 {OutputSignal:0,components:{},id:"minecraft:comparator",x:0,y:-60,z:17}
+BE 1 -60 17 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:17}
+BE 2 -60 17 {OutputSignal:0,components:{},id:"minecraft:comparator",x:2,y:-60,z:17}
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:7}
+SCORE {Locked:1b,Name:"#chain",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:6}
+SCORE {Locked:1b,Name:"#free",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#rep",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#set",Objective:"cb"}
+DISPLAY {}
+TICK block 1 -60 17 minecraft:comparator delay=1 prio=0
+TICK block 2 -60 17 minecraft:comparator delay=1 prio=0
+TICK block 0 -60 17 minecraft:comparator delay=1 prio=0
+TICK block 0 -60 16 minecraft:repeating_command_block delay=1 prio=0
+T 81
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b657473000800000004237265700003000000000003000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000623636861696e0003000000000003000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000523667265650003000000000003000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+T 82
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b657473000800000004237265700003000000000004000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000623636861696e0003000000000004000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000523667265650003000000000004000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+T 83
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000523667265650003000000000005000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+T 84
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000523667265650003000000000006000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+BE 0 -60 16 {Command:"execute if score #rep cb matches ..3 run scoreboard players add #rep cb 1",LastExecution:84L,SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:16}
+BE 1 -60 16 {Command:"scoreboard players add #chain cb 1",LastExecution:82L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#chain",4]}],text:"[HH:MM:SS] "},SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:1,y:-60,z:16}
+BE 2 -60 16 {Command:"scoreboard players add #free cb 1",LastExecution:84L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#free",6]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:2,y:-60,z:16}
+BE 0 -60 17 {OutputSignal:1,components:{},id:"minecraft:comparator",x:0,y:-60,z:17}
+BE 1 -60 17 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:17}
+BE 2 -60 17 {OutputSignal:1,components:{},id:"minecraft:comparator",x:2,y:-60,z:17}
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:7}
+SCORE {Locked:1b,Name:"#chain",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:6}
+SCORE {Locked:1b,Name:"#free",Objective:"cb",Score:6}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#rep",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#set",Objective:"cb"}
+DISPLAY {}
+TICK block 0 -60 17 minecraft:comparator delay=1 prio=0
+TICK block 0 -60 16 minecraft:repeating_command_block delay=1 prio=0
+T 85
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000523667265650003000000000007000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+T 86
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000523667265650003000000000008000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+T 87
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000523667265650003000000000009000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+BE 0 -60 16 {Command:"execute if score #rep cb matches ..3 run scoreboard players add #rep cb 1",LastExecution:87L,SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:16}
+BE 1 -60 16 {Command:"scoreboard players add #chain cb 1",LastExecution:82L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#chain",4]}],text:"[HH:MM:SS] "},SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:1,y:-60,z:16}
+BE 2 -60 16 {Command:"scoreboard players add #free cb 1",LastExecution:87L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#free",9]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:2,y:-60,z:16}
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:7}
+SCORE {Locked:1b,Name:"#chain",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:6}
+SCORE {Locked:1b,Name:"#free",Objective:"cb",Score:9}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#rep",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#set",Objective:"cb"}
+DISPLAY {}
+# h: two chain blocks that point at each other: the loop runs once per game tick, with UpdateLastExecution off until max_command_sequence_length
+T 88
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000223680003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000223610003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000223620003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+T 89
+T 90
+T 91
+BE 0 -60 20 {Command:"scoreboard players add #h cb 1",LastExecution:88L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#h",1]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:20}
+BE 0 -60 21 {Command:"scoreboard players add #a cb 1",LastExecution:88L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#a",1]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:21}
+BE 1 -60 21 {Command:"scoreboard players add #b cb 1",LastExecution:88L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#b",1]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:1,y:-60,z:21}
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#a",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:7}
+SCORE {Locked:1b,Name:"#b",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#chain",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:6}
+SCORE {Locked:1b,Name:"#free",Objective:"cb",Score:9}
+SCORE {Locked:1b,Name:"#h",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#rep",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#set",Objective:"cb"}
+DISPLAY {}
+T 92
+T 93
+C Game rule max_command_sequence_length is now set to 5
+T 94
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000223680003000000000002000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000223610003000000000002000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000223620003000000000002000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000223610003000000000003000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000223620003000000000003000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000223610003000000000004000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+T 95
+T 96
+T 97
+BE 0 -60 20 {Command:"scoreboard players add #h cb 1",LastExecution:94L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#h",2]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:20}
+BE 0 -60 21 {Command:"scoreboard players add #a cb 1",LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#a",4]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:0b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:21}
+BE 1 -60 21 {Command:"scoreboard players add #b cb 1",LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]},"#b",3]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:0b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:1,y:-60,z:21}
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#a",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:7}
+SCORE {Locked:1b,Name:"#b",Objective:"cb",Score:3}
+SCORE {Locked:1b,Name:"#chain",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:6}
+SCORE {Locked:1b,Name:"#free",Objective:"cb",Score:9}
+SCORE {Locked:1b,Name:"#h",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#rep",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#set",Objective:"cb"}
+DISPLAY {}
+# max_command_sequence_length 3 cuts a chain of five blocks of real commands
+C Game rule max_command_sequence_length is now set to 3
+T 98
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b6574730008000000032373300003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b6574730008000000032373310003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b6574730008000000032373320003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b6574730008000000032373330003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+T 99
+T 100
+T 101
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#a",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:7}
+SCORE {Locked:1b,Name:"#b",Objective:"cb",Score:3}
+SCORE {Locked:1b,Name:"#chain",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:6}
+SCORE {Locked:1b,Name:"#free",Objective:"cb",Score:9}
+SCORE {Locked:1b,Name:"#h",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#rep",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#s0",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#s1",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#s2",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#s3",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#set",Objective:"cb"}
+DISPLAY {}
+C Game rule max_command_sequence_length is now set to 65536
+# i: the source of a command block has permission level 2, the centre of the block as position and no rotation
+T 102
+PKT Op minecraft:system_chat 7c0a090004776974680a000000020800000007224e616d65642200090004776974680a00000004080009696e73657274696f6e002463626231383961392d306662332d343337372d383438382d6434326134323738363431610a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400080006616374696f6e000b73686f775f656e74697479080002696400156d696e6563726166743a61726d6f725f7374616e640b00047575696400000004cbb189a90fb343778488d42a4278641a000800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e64000800000008382e35303030303000080000000a2d35392e35303030303000080000000932342e353030303030000800097472616e736c6174650029636f6d6d616e64732e74656c65706f72742e737563636573732e6c6f636174696f6e2e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
+T 103
+T 104
+T 105
+BE 8 -60 24 {Command:"tp @e[type=minecraft:armor_stand,limit=1,sort=nearest] ~ ~ ~",CustomName:'"Named"',LastExecution:102L,LastOutput:{extra:[{translate:"commands.teleport.success.location.single",with:[{hover_event:{action:"show_entity",id:"minecraft:armor_stand",name:{translate:"entity.minecraft.armor_stand"},uuid:[I;-877557335,263406455,-2071407574,1115186202]},insertion:"cbb189a9-0fb3-4377-8488-d42a4278641a",translate:"entity.minecraft.armor_stand"},"8.500000","-59.500000","24.500000"]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:8,y:-60,z:24}
+N s1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.30431682745754424d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[8.5d,-59.96415937495544d,24.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["seen"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.46415936946868896d}
+# j: the editor packet: an operator changes the command, mode, condition and automatic flag (the block keeps its facing); a player without the permission is told off; a plain block is ignored
+T 106
+T 107
+B 0 -60 28 minecraft:command_block[conditional=false,facing=up]
+B 0 -60 29 minecraft:stone
+BE 0 -60 28 {Command:"scoreboard players add #j cb 1",SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:28}
+PKT Op minecraft:system_chat 7c0a090004776974680800000001001e73636f7265626f61726420706c61796572732061646420236a20636220310800097472616e736c617465001a6164764d6f64652e736574436f6d6d616e642e737563636573730000
+B 0 -60 28 minecraft:chain_command_block[conditional=true,facing=up]
+B 0 -60 29 minecraft:stone
+BE 0 -60 28 {Command:"scoreboard players add #j cb 1",SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:28}
+PKT Op minecraft:system_chat 7c0a090004776974680800000001001e73636f7265626f61726420706c61796572732061646420236a20636220310800097472616e736c617465001a6164764d6f64652e736574436f6d6d616e642e737563636573730000
+B 0 -60 28 minecraft:repeating_command_block[conditional=false,facing=up]
+B 0 -60 29 minecraft:stone
+BE 0 -60 28 {Command:"scoreboard players add #j cb 1",SuccessCount:0,TrackOutput:0b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:28}
+PKT Op minecraft:system_chat 7c0a090004776974680800000001001e73636f7265626f61726420706c61796572732061646420236a20636220310800097472616e736c617465001a6164764d6f64652e736574436f6d6d616e642e737563636573730000
+T 108
+T 109
+T 110
+T 111
+B 0 -60 28 minecraft:repeating_command_block[conditional=false,facing=up]
+B 0 -60 29 minecraft:stone
+BE 0 -60 28 {Command:"scoreboard players add #j cb 1",LastExecution:111L,SuccessCount:1,TrackOutput:0b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:28}
+OBJ {DisplayName:"cb",Name:"cb"}
+SCORE {Locked:1b,Name:"#a",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#all",Objective:"cb",Score:7}
+SCORE {Locked:1b,Name:"#b",Objective:"cb",Score:3}
+SCORE {Locked:1b,Name:"#chain",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#cond",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:6}
+SCORE {Locked:1b,Name:"#free",Objective:"cb",Score:9}
+SCORE {Locked:1b,Name:"#h",Objective:"cb",Score:2}
+SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#j",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#rep",Objective:"cb",Score:4}
+SCORE {Locked:1b,Name:"#s0",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#s1",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#s2",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#s3",Objective:"cb",Score:1}
+SCORE {Locked:1b,Name:"#set",Objective:"cb"}
+DISPLAY {}
+TICK block 0 -60 28 minecraft:repeating_command_block delay=1 prio=0
+B 0 -60 28 minecraft:command_block[conditional=false,facing=up]
+B 0 -60 29 minecraft:stone
+BE 0 -60 28 {Command:"",LastExecution:111L,SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:28}
+PKT Plain minecraft:system_chat 7c0a0800097472616e736c61746500126164764d6f64652e6e6f74416c6c6f7765640000
+C Game rule command_blocks_work is now set to false
+BE 0 -60 28 {Command:"say off",LastExecution:111L,SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:28}
+PKT Op minecraft:system_chat 7c0a0900047769746808000000010007736179206f66660800097472616e736c617465001b6164764d6f64652e736574436f6d6d616e642e64697361626c65640000
+C Game rule command_blocks_work is now set to true
+# k: a command block placed by a player tracks the output when send_command_feedback is on (and does not when it is off); the chain block placed by a player is automatic
+T 112
+T 113
+T 114
+T 115
+B 3 -61 27 minecraft:grass_block[snowy=false]
+B 3 -61 28 minecraft:grass_block[snowy=false]
+B 3 -61 29 minecraft:grass_block[snowy=false]
+B 4 -61 27 minecraft:grass_block[snowy=false]
+B 4 -61 28 minecraft:grass_block[snowy=false]
+B 4 -61 29 minecraft:grass_block[snowy=false]
+B 4 -60 28 minecraft:command_block[conditional=false,facing=north]
+B 5 -61 27 minecraft:grass_block[snowy=false]
+B 5 -61 28 minecraft:grass_block[snowy=false]
+B 5 -61 29 minecraft:grass_block[snowy=false]
+BE 4 -60 28 {Command:"",SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:4,y:-60,z:28}
+C Game rule send_command_feedback is now set to false
+T 116
+T 117
+T 118
+B 5 -61 27 minecraft:grass_block[snowy=false]
+B 5 -61 28 minecraft:grass_block[snowy=false]
+B 5 -61 29 minecraft:grass_block[snowy=false]
+B 6 -61 27 minecraft:grass_block[snowy=false]
+B 6 -61 28 minecraft:grass_block[snowy=false]
+B 6 -61 29 minecraft:grass_block[snowy=false]
+B 6 -60 28 minecraft:command_block[conditional=false,facing=north]
+B 7 -61 27 minecraft:grass_block[snowy=false]
+B 7 -61 28 minecraft:grass_block[snowy=false]
+B 7 -61 29 minecraft:grass_block[snowy=false]
+BE 6 -60 28 {Command:"",SuccessCount:0,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:6,y:-60,z:28}
+C Game rule send_command_feedback is now set to true
+T 119
+T 120
+T 121
+B 7 -61 27 minecraft:grass_block[snowy=false]
+B 7 -61 28 minecraft:grass_block[snowy=false]
+B 7 -61 29 minecraft:grass_block[snowy=false]
+B 8 -61 27 minecraft:grass_block[snowy=false]
+B 8 -61 28 minecraft:grass_block[snowy=false]
+B 8 -61 29 minecraft:grass_block[snowy=false]
+B 8 -60 28 minecraft:chain_command_block[conditional=false,facing=north]
+B 9 -61 27 minecraft:grass_block[snowy=false]
+B 9 -61 28 minecraft:grass_block[snowy=false]
+B 9 -61 29 minecraft:grass_block[snowy=false]
+BE 8 -60 28 {Command:"",SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:1b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:8,y:-60,z:28}

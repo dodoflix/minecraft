@@ -10,7 +10,6 @@ use crate::server::level::ServerLevel;
 use crate::server::level::level_tick::{LevelTickEnv, WeatherState};
 use crate::world::entity::Entity;
 use crate::world::level::DimensionKey;
-use crate::world::level::gamerules::GameRules;
 use crate::world::level::saveddata::weather_data::WeatherData;
 use mc_protocol::packets::play::ClientboundGameEventPacket;
 use mc_world::level_storage::Difficulty;
@@ -93,16 +92,6 @@ impl LevelTickEnv for ServerTickEnv<'_> {
 
     fn run_pending_functions(&mut self, level: &mut ServerLevel) {
         self.server.run_pending_functions(level);
-    }
-
-    fn command_rules(&self) -> crate::server::level::level_commands::CommandRules {
-        let rules = self.server.game_rules_ref();
-        crate::server::level::level_commands::CommandRules {
-            command_blocks_work: rules.get(GameRules::COMMAND_BLOCKS_WORK),
-            command_block_output: rules.get(GameRules::COMMAND_BLOCK_OUTPUT),
-            send_command_feedback: rules.get(GameRules::SEND_COMMAND_FEEDBACK),
-            max_command_sequence_length: rules.get(GameRules::MAX_COMMAND_SEQUENCE_LENGTH),
-        }
     }
 
     fn set_game_time(&mut self, game_time: i64) {

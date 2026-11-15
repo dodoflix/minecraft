@@ -15,7 +15,8 @@
 //! oracle world runs the quiet set), so `gamerule` commands read different old values; a player's `send_command_feedback` is read when the
 //! command starts (vanilla reads it on every message); the entity replay shares no difficulty, scoreboard or respawn position with the
 //! installed server; the emulated `cmd weather|recipe` arms and the entity replay's `cmd` without `command_env` print no `CF` lines;
-//! the console source always acts in the replay's dimension.
+//! the console source always acts in the replay's dimension; a command that changes a game rule from inside a command block changes the
+//! installed server's rules only (the level and the tick environment follow `gamerule` verbs).
 use super::entity_scenario::canon;
 use super::mob_verbs::MobHost;
 use super::player_actions::ActionHost;
@@ -222,6 +223,53 @@ fn player_stack<H: ActionHost>(
             )
         })
         .unwrap_or_else(|| panic!("`{name}` is not a player"))
+}
+
+/// Every `[dd:dd:dd]` (the wall-clock stamp a command block puts before its last output) as `[HH:MM:SS]`, in text and inside a hex dump of
+/// packet or synched data bytes, like the oracle driver prints it.
+pub fn normalize_clock_stamps(line: &str) -> String {
+    const STAMP: &[u8] = b"[dd:dd:dd]";
+    const HEX: &[u8; 16] = b"0123456789abcdef";
+    let bytes = line.as_bytes();
+    let text_stamp = |at: usize| {
+        STAMP.iter().enumerate().all(|(i, &t)| {
+            bytes.get(at + i).is_some_and(|&b| {
+                if t == b'd' {
+                    b.is_ascii_digit()
+                } else {
+                    b == t
+                }
+            })
+        })
+    };
+    let hex_stamp = |at: usize| {
+        STAMP.iter().enumerate().all(|(i, &t)| {
+            let pair = (bytes.get(at + 2 * i), bytes.get(at + 2 * i + 1));
+            match (pair, t) {
+                ((Some(&hi), Some(&lo)), b'd') => hi == b'3' && lo.is_ascii_digit(),
+                ((Some(&hi), Some(&lo)), t) => {
+                    hi == HEX[usize::from(t >> 4)] && lo == HEX[usize::from(t & 15)]
+                }
+                _ => false,
+            }
+        })
+    };
+    let mut out = String::with_capacity(line.len());
+    let mut i = 0;
+    while i < line.len() {
+        if text_stamp(i) {
+            out.push_str("[HH:MM:SS]");
+            i += 10;
+        } else if hex_stamp(i) {
+            out.push_str("5b48483a4d4d3a53535d");
+            i += 20;
+        } else {
+            let c = line[i..].chars().next().expect("a char boundary");
+            out.push(c);
+            i += c.len_utf8();
+        }
+    }
+    out
 }
 
 /// A fixture recorded before feedback lines existed has no `CF` line: the replay of its scenario prints the console feedback the way the

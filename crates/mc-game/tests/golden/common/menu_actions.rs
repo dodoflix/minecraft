@@ -1,4 +1,4 @@
-//! Menu verbs of the scenario DSL: `click`, `button`, `creative_slot`, `pick_entity`, `rename`, `select_trade`, `set_beacon`, `set_command_minecart`, `slot_state`, `place_recipe`,
+//! Menu verbs of the scenario DSL: `click`, `button`, `creative_slot`, `pick_entity`, `rename`, `select_trade`, `set_beacon`, `set_command_block`, `set_command_minecart`, `slot_state`, `place_recipe`,
 //! `recipe_seen`, `recipe_settings`, `bundle_select`, `edit_book` and the dump kinds `menu:REF`, `recipes:REF` (the grammar of the Java driver's
 //! `MenuVerbs.java`, which lists every verb and option). The block replay builds `select`, `close_menu`, `menu_button` and `pick_block` the same way.
 //!
@@ -9,6 +9,7 @@
 //! `close_menu`, `menu_button` and `pick_block`).
 use super::entity_scenario::item_full;
 use super::player_actions::{ActionHost, item_stack, with_player};
+use mc_core::pos::BlockPos;
 use mc_game::server::level::ServerLevel;
 use mc_game::server::network::game_packets::PlayCtx;
 use mc_game::world::entity::ServerPlayer;
@@ -18,13 +19,14 @@ use mc_game::world::item::ItemStack;
 use mc_protocol::components::HashedStack;
 use mc_protocol::components::hashed::component_hash;
 use mc_protocol::packets::play::{
-    ContainerInput, RecipeBookType, ServerboundContainerButtonClickPacket,
+    CommandBlockEntityMode, ContainerInput, RecipeBookType, ServerboundContainerButtonClickPacket,
     ServerboundContainerClickPacket, ServerboundContainerSlotStateChangedPacket,
     ServerboundEditBookPacket, ServerboundPickItemFromEntityPacket, ServerboundPlaceRecipePacket,
     ServerboundPlayPacket, ServerboundRecipeBookChangeSettingsPacket,
     ServerboundRecipeBookSeenRecipePacket, ServerboundRenameItemPacket,
     ServerboundSelectBundleItemPacket, ServerboundSelectTradePacket, ServerboundSetBeaconPacket,
-    ServerboundSetCommandMinecartPacket, ServerboundSetCreativeModeSlotPacket,
+    ServerboundSetCommandBlockPacket, ServerboundSetCommandMinecartPacket,
+    ServerboundSetCreativeModeSlotPacket,
 };
 
 /// `ITEM[components][*COUNT]`, `-` = empty.
@@ -205,6 +207,31 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
                 })
             });
         }
+        // set_command_block PLAYER X Y Z COMMAND sequence|auto|redstone [track] [conditional] [auto]
+        "set_command_block" => deliver(h, &a[1], |_, _| {
+            let flag = |i: usize, default: bool| a.get(i).map_or(default, |t| t == "true");
+            P::SetCommandBlock(ServerboundSetCommandBlockPacket {
+                pos: BlockPos::new(
+                    a[2].parse().expect("x"),
+                    a[3].parse().expect("y"),
+                    a[4].parse().expect("z"),
+                ),
+                command: a[5]
+                    .strip_prefix('"')
+                    .and_then(|t| t.strip_suffix('"'))
+                    .unwrap_or(&a[5])
+                    .to_owned(),
+                mode: match a[6].as_str() {
+                    "sequence" => CommandBlockEntityMode::Sequence,
+                    "auto" => CommandBlockEntityMode::Auto,
+                    "redstone" => CommandBlockEntityMode::Redstone,
+                    other => panic!("command block mode `{other}`"),
+                },
+                track_output: flag(7, true),
+                conditional: flag(8, false),
+                automatic: flag(9, false),
+            })
+        }),
         "rename" => deliver(h, &a[1], |_, _| {
             let text = &a[2];
             P::RenameItem(ServerboundRenameItemPacket {

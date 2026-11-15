@@ -65,7 +65,7 @@ fn reset_success_count_if_conditional(level: &mut ServerLevel, pos: BlockPos) {
 /// `CommandBlock.executeChain(level, blockPos, direction)`.
 fn execute_chain(level: &mut ServerLevel, block_pos: BlockPos, mut direction: Direction) {
     let mut pos = block_pos;
-    let rule = level.command_rules().max_command_sequence_length;
+    let rule = level.max_command_sequence_length();
     let mut max_iterations = rule;
     // `while (maxIterations-- > 0)`
     while {
@@ -228,7 +228,7 @@ impl BlockBehaviour for CommandBlock {
             .get(&mc_protocol::components::BLOCK_ENTITY_DATA)
             .is_none()
         {
-            let send_feedback = level.command_rules().send_command_feedback;
+            let send_feedback = level.send_command_feedback();
             level.with_typed_block_entity::<CommandBlockEntity, _>(pos, |level, be| {
                 be.get_command_block_mut().set_track_output(send_feedback);
                 be.set_automatic(Some(level), self.automatic);

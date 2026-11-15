@@ -69,8 +69,6 @@ pub trait LevelTickEnv {
     /// Runs the advancement reward functions queued on `level` (`MinecraftServer::run_pending_functions`; the ticking level
     /// is lent back to the server meanwhile).
     fn run_pending_functions(&mut self, level: &mut ServerLevel);
-    /// The command block game rules, read live (`level.getGameRules()` inside command block code).
-    fn command_rules(&self) -> super::level_commands::CommandRules;
     /// `PlayerList.broadcastAll(packet)`: every player of every dimension.
     fn broadcast_game_event_to_all(&mut self, packet: &ClientboundGameEventPacket);
     /// `setGameTime(time)` on the level data (`tickTime` levels only; also stores it for `getGameTime`).
@@ -872,7 +870,6 @@ impl ServerLevel {
         self.tick_state.handling_tick = true;
         self.tick_state.attributes.invalidate_tick_cache();
         let runs = env.runs_normally();
-        self.tick_state.command_rules = env.command_rules();
         self.tick_state.runs_normally = runs;
         if runs {
             self.get_world_border().tick();

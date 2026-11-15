@@ -7,10 +7,9 @@
 //! [`BaseCommandBlock::begin_perform`] (borrowing itself), runs the returned [`PendingCommand`] with the level, and
 //! finishes with [`BaseCommandBlock::finish_perform`].
 
-use crate::commands::server_access::{has_server, with_server};
 use crate::commands::{CommandResultCallback, CommandSource, CommandSourceStack, null_source};
 use crate::server::level::ServerLevel;
-use crate::world::level::gamerules::GameRules;
+use crate::server::level::level_rules::LiveRules;
 use mc_nbt::{CompoundTag, Tag};
 use mc_text::Component;
 use parking_lot::Mutex;
@@ -70,17 +69,8 @@ impl Default for BaseCommandBlock {
 struct CloseableCommandBlockSource {
     shared: Arc<Shared>,
     closed: AtomicBool,
-    /// The rules at creation, used when the server is not reachable (it is borrowed by the running command handler).
-    send_command_feedback: bool,
-    command_block_output: bool,
-}
-
-fn live_rule(rule: crate::world::level::gamerules::GameRule<bool>, snapshot: bool) -> bool {
-    if has_server() {
-        with_server(|server| server.game_rules_ref().get(rule))
-    } else {
-        snapshot
-    }
+    /// The shared rule values (`level.getGameRules()`), read when the command asks.
+    rules: LiveRules,
 }
 
 impl CommandSource for CloseableCommandBlockSource {
@@ -94,8 +84,7 @@ impl CommandSource for CloseableCommandBlockSource {
     }
 
     fn accepts_success(&self) -> bool {
-        !self.closed.load(Ordering::Relaxed)
-            && live_rule(GameRules::SEND_COMMAND_FEEDBACK, self.send_command_feedback)
+        !self.closed.load(Ordering::Relaxed) && self.rules.get().send_command_feedback
     }
 
     fn accepts_failure(&self) -> bool {
@@ -103,8 +92,7 @@ impl CommandSource for CloseableCommandBlockSource {
     }
 
     fn should_inform_admins(&self) -> bool {
-        !self.closed.load(Ordering::Relaxed)
-            && live_rule(GameRules::COMMAND_BLOCK_OUTPUT, self.command_block_output)
+        !self.closed.load(Ordering::Relaxed) && self.rules.get().command_block_output
     }
 }
 
@@ -254,15 +242,13 @@ impl BaseCommandBlock {
             return Begin::Done(true);
         }
         self.set_success_count(0);
-        let rules = level.command_rules();
-        if rules.command_blocks_work && !self.command.is_empty() {
+        if level.command_blocks_work() && !self.command.is_empty() {
             *self.shared.last_output.lock() = None;
             let source = self.track_output.then(|| {
                 Arc::new(CloseableCommandBlockSource {
                     shared: self.shared.clone(),
                     closed: AtomicBool::new(false),
-                    send_command_feedback: rules.send_command_feedback,
-                    command_block_output: rules.command_block_output,
+                    rules: level.server_state.rules.clone(),
                 })
             });
             let effective: Arc<dyn CommandSource> = match &source {

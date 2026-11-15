@@ -124,6 +124,9 @@ pub fn run_scenario_text(label: &str, text: &str) -> Vec<String> {
         }
     }
     h.out
+        .iter()
+        .map(|l| super::command_verbs::normalize_clock_stamps(l))
+        .collect()
 }
 
 // ------------------------------------------------------------------------------------------------ small helpers

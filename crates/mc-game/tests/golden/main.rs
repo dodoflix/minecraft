@@ -65,6 +65,7 @@ mod boat_golden;
 mod books_golden;
 mod brewing_golden;
 mod click_support;
+mod command_blocks_golden;
 mod command_common;
 mod command_compute_golden;
 mod command_entity_golden;

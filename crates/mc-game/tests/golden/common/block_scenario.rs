@@ -171,6 +171,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                         | "leave"
                         | "request_stats"
                         | "respawn"
+                        | "set_command_block"
                         | "set_command_minecart"
                 )
             )
@@ -197,6 +198,9 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
         }
     }
     s.out
+        .iter()
+        .map(|l| super::command_verbs::normalize_clock_stamps(l))
+        .collect()
 }
 
 /// Java `EntityOracleDriver.tokens`: whitespace separated, `[..]`, `{..}` and quotes keep their spaces.
@@ -380,15 +384,6 @@ impl LevelTickEnv for Env {
             mc_game::commands::server_access::with_server(|server| {
                 server.run_pending_functions(level)
             });
-        }
-    }
-    fn command_rules(&self) -> mc_game::server::level::level_commands::CommandRules {
-        let rules = &self.game_rules;
-        mc_game::server::level::level_commands::CommandRules {
-            command_blocks_work: rules.get(GameRules::COMMAND_BLOCKS_WORK),
-            command_block_output: rules.get(GameRules::COMMAND_BLOCK_OUTPUT),
-            send_command_feedback: rules.get(GameRules::SEND_COMMAND_FEEDBACK),
-            max_command_sequence_length: rules.get(GameRules::MAX_COMMAND_SEQUENCE_LENGTH),
         }
     }
     fn teleport_through_portal(&mut self, _level: &mut ServerLevel, _entity: &mut dyn Entity) {}
@@ -1085,7 +1080,7 @@ impl Scenario {
 
     fn gamerule(&mut self, name: &str, value: &str) {
         set_rule(&mut self.env.game_rules, name, value);
-        // the command source of a command block reads the rules of the installed server
+        // the editor packet handlers read the rules of the installed server
         if mc_game::commands::server_access::has_server() {
             mc_game::commands::server_access::with_server(|server| {
                 set_rule(server.game_rules(), name, value)

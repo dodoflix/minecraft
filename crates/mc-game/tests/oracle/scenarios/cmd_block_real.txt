@@ -1,0 +1,206 @@
+# Command blocks running real commands: an impulse block whose success drives a conditional chain (`execute store success`), the number of successes of a forking
+# `execute` (success count, comparator output), the last output with its time stamp (normalised to [HH:MM:SS] on both sides: success, failure, parse error, a
+# forbidden command, no output at all), output tracking off, command_block_output and send_command_feedback (who is told: the last output, the operators in chat),
+# a repeating block with a conditional chain, UpdateLastExecution off in a chain loop, max_command_sequence_length, command_blocks_work, max_block_modifications and
+# the editor packet of an operator and of a player without the permission.
+level flat
+preload 2
+command_env
+level_seed 5
+entity_counter 100
+gamerule send_command_feedback true
+spawn_player Op creative 5.5 -60 31.5 0 0
+spawn_player Plain survival 7.5 -60 31.5 0 0
+tick 30
+op Op
+dump packets:Op:none packets:Plain:none
+watch packets:Op:system_chat packets:Plain:system_chat
+cmd scoreboard objectives add cb dummy
+note a: impulse block, conditional chain: the second run of `setblock` changes nothing, so the conditional blocks stay idle
+block 0 -60 0 minecraft:command_block[facing=east,conditional=false]
+block 1 -60 0 minecraft:chain_command_block[facing=east,conditional=true]
+block 2 -60 0 minecraft:chain_command_block[facing=east,conditional=false]
+block 3 -60 0 minecraft:chain_command_block[facing=east,conditional=true]
+fill 0 -60 1 3 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+be_nbt 0 -60 0 {Command:"execute store success score #set cb run setblock 5 -59 0 minecraft:gold_block"}
+be_nbt 1 -60 0 {Command:"scoreboard players add #hit cb 1",auto:1b}
+be_nbt 2 -60 0 {Command:"scoreboard players add #all cb 1",auto:1b}
+be_nbt 3 -60 0 {Command:"scoreboard players add #cond cb 1",auto:1b}
+tick 2
+block 0 -60 -1 minecraft:redstone_block
+tick 4
+dump blocks:-1,-61,-1,6,-59,2 be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:0,-60,1 be:1,-60,1 be:2,-60,1 be:3,-60,1 scoreboard ticks
+block 0 -60 -1 minecraft:air
+tick 2
+block 0 -60 -1 minecraft:redstone_block
+tick 4
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:0,-60,1 be:1,-60,1 be:2,-60,1 be:3,-60,1 scoreboard ticks packets:Op:system_chat
+note b: a forking `execute` counts one success per entity (comparators read the count): three armor stands and the two players
+spawn s1 minecraft:armor_stand 10.5 -60 8.5 0 0
+entity_seed s1 11
+spawn s2 minecraft:armor_stand 12.5 -60 8.5 0 0
+entity_seed s2 12
+spawn s3 minecraft:armor_stand 14.5 -60 8.5 0 0
+entity_seed s3 13
+block 0 -60 8 minecraft:command_block[facing=east,conditional=false]
+block 1 -60 8 minecraft:chain_command_block[facing=east,conditional=true]
+block 2 -60 8 minecraft:chain_command_block[facing=east,conditional=false]
+block 3 -60 8 minecraft:chain_command_block[facing=east,conditional=false]
+fill 0 -60 9 3 -60 9 minecraft:comparator[facing=north,mode=compare,powered=false]
+be_nbt 0 -60 8 {Command:"execute as @e[type=minecraft:armor_stand] at @s run setblock ~ ~2 ~ minecraft:gold_block"}
+be_nbt 1 -60 8 {Command:"execute as @e[type=minecraft:armor_stand] run tag @s add seen",auto:1b}
+be_nbt 2 -60 8 {Command:"execute as @a at @s run setblock ~ ~-1 ~ minecraft:emerald_block",auto:1b}
+be_nbt 3 -60 8 {Command:"execute as @e[type=minecraft:cow] run say nobody",auto:1b}
+tick 2
+block 0 -60 7 minecraft:redstone_block
+tick 4
+dump blocks:-1,-61,7,6,-57,10 be:0,-60,8 be:1,-60,8 be:2,-60,8 be:3,-60,8 be:0,-60,9 be:1,-60,9 be:2,-60,9 be:3,-60,9 nbt:s1 nbt:s3 packets:Op:system_chat
+note c: the last output of single commands (one impulse block each, powered by a redstone block): success, query, failure, parse error, forbidden command, no output
+cmd scoreboard players set #all cb 7
+gamerule max_block_modifications 10
+fill 0 -60 12 6 -60 12 minecraft:command_block[facing=east,conditional=false]
+fill 0 -60 11 6 -60 11 minecraft:air
+be_nbt 0 -60 12 {Command:"time query gametime"}
+be_nbt 1 -60 12 {Command:"scoreboard players get #all cb"}
+be_nbt 2 -60 12 {Command:"nosuchcommand foo"}
+be_nbt 3 -60 12 {Command:"fill 0 -50 40 9 -40 49 minecraft:stone"}
+be_nbt 4 -60 12 {Command:"op Plain"}
+be_nbt 5 -60 12 {Command:"gamemode creative Plain"}
+be_nbt 6 -60 12 {Command:'tellraw @a {"text":"raw","color":"red"}'}
+tick 2
+fill 0 -60 11 6 -60 11 minecraft:redstone_block
+tick 4
+dump be:0,-60,12 be:1,-60,12 be:2,-60,12 be:3,-60,12 be:4,-60,12 be:5,-60,12 be:6,-60,12 inventory:Plain packets:Op:system_chat packets:Plain:system_chat
+note d: a second run replaces the last output; an output of the previous run is cleared by a run without output
+fill 0 -60 11 6 -60 11 minecraft:air
+be_nbt 0 -60 12 {Command:'tellraw @a {"text":"raw"}'}
+be_nbt 2 -60 12 {Command:"scoreboard players get #all cb"}
+tick 2
+fill 0 -60 11 6 -60 11 minecraft:redstone_block
+tick 4
+dump be:0,-60,12 be:2,-60,12 packets:Op:system_chat
+note e: TrackOutput off (no last output, no admin message), command_block_output off (last output, no admin message), send_command_feedback off (only failures reach the last output)
+fill 0 -60 11 6 -60 11 minecraft:air
+be_nbt 0 -60 12 {Command:"scoreboard players add #e cb 1",TrackOutput:0b}
+be_nbt 1 -60 12 {Command:"scoreboard players add #e cb 1",TrackOutput:1b}
+be_nbt 2 -60 12 {Command:"scoreboard players add #e cb 1",TrackOutput:1b}
+be_nbt 3 -60 12 {Command:"nosuchcommand bar",TrackOutput:0b}
+be_nbt 4 -60 12 {Command:"scoreboard players get #nope cb",TrackOutput:1b}
+be_nbt 5 -60 12 {Command:"",TrackOutput:1b}
+be_nbt 6 -60 12 {Command:"scoreboard players get #all cb",TrackOutput:1b}
+gamerule command_block_output false
+tick 2
+fill 0 -60 11 6 -60 11 minecraft:redstone_block
+tick 4
+dump be:0,-60,12 be:1,-60,12 be:2,-60,12 be:3,-60,12 be:4,-60,12 be:5,-60,12 be:6,-60,12 scoreboard packets:Op:system_chat
+gamerule command_block_output true
+gamerule send_command_feedback false
+fill 0 -60 11 6 -60 11 minecraft:air
+tick 2
+fill 0 -60 11 6 -60 11 minecraft:redstone_block
+tick 4
+dump be:0,-60,12 be:1,-60,12 be:2,-60,12 be:3,-60,12 be:4,-60,12 be:5,-60,12 be:6,-60,12 scoreboard packets:Op:system_chat
+gamerule send_command_feedback true
+note f: command_blocks_work false: the command does not run, the block counts as executed; true again, and the old last output stays when the command is empty
+gamerule command_blocks_work false
+fill 0 -60 11 6 -60 11 minecraft:air
+be_nbt 0 -60 12 {Command:"scoreboard players add #f cb 1",TrackOutput:1b}
+tick 2
+fill 0 -60 11 6 -60 11 minecraft:redstone_block
+tick 4
+dump be:0,-60,12 be:1,-60,12 scoreboard
+gamerule command_blocks_work true
+note g: a repeating block with a conditional chain behind it: the counter passes the limit, the failure of the repeating block stops the conditional block
+block 0 -60 16 minecraft:repeating_command_block[facing=east,conditional=false]
+block 1 -60 16 minecraft:chain_command_block[facing=east,conditional=true]
+block 2 -60 16 minecraft:chain_command_block[facing=east,conditional=false]
+fill 0 -60 17 2 -60 17 minecraft:comparator[facing=north,mode=compare,powered=false]
+be_nbt 0 -60 16 {Command:"execute if score #rep cb matches ..3 run scoreboard players add #rep cb 1",auto:1b}
+be_nbt 1 -60 16 {Command:"scoreboard players add #chain cb 1",auto:1b}
+be_nbt 2 -60 16 {Command:"scoreboard players add #free cb 1",auto:1b}
+cmd scoreboard players set #rep cb 0
+tick 1
+dump be:0,-60,16 be:1,-60,16 be:2,-60,16 scoreboard ticks
+tick 1
+dump be:0,-60,16 be:1,-60,16 be:2,-60,16 be:0,-60,17 be:1,-60,17 be:2,-60,17 scoreboard ticks
+tick 4
+dump be:0,-60,16 be:1,-60,16 be:2,-60,16 be:0,-60,17 be:1,-60,17 be:2,-60,17 scoreboard ticks
+tick 3
+dump be:0,-60,16 be:1,-60,16 be:2,-60,16 scoreboard
+block 0 -60 16 minecraft:air
+note h: two chain blocks that point at each other: the loop runs once per game tick, with UpdateLastExecution off until max_command_sequence_length
+block 0 -60 20 minecraft:command_block[facing=south,conditional=false]
+block 0 -60 21 minecraft:chain_command_block[facing=east,conditional=false]
+block 1 -60 21 minecraft:chain_command_block[facing=west,conditional=false]
+be_nbt 0 -60 20 {Command:"scoreboard players add #h cb 1"}
+be_nbt 0 -60 21 {Command:"scoreboard players add #a cb 1",auto:1b}
+be_nbt 1 -60 21 {Command:"scoreboard players add #b cb 1",auto:1b}
+block 0 -60 19 minecraft:redstone_block
+tick 4
+dump be:0,-60,20 be:0,-60,21 be:1,-60,21 scoreboard
+block 0 -60 19 minecraft:air
+tick 2
+gamerule max_command_sequence_length 5
+be_nbt 0 -60 21 {UpdateLastExecution:0b}
+be_nbt 1 -60 21 {UpdateLastExecution:0b}
+block 0 -60 19 minecraft:redstone_block
+tick 4
+dump be:0,-60,20 be:0,-60,21 be:1,-60,21 scoreboard
+block 0 -60 19 minecraft:air
+note max_command_sequence_length 3 cuts a chain of five blocks of real commands
+gamerule max_command_sequence_length 3
+block 0 -60 24 minecraft:command_block[facing=east,conditional=false]
+fill 1 -60 24 5 -60 24 minecraft:chain_command_block[facing=east,conditional=false]
+be_nbt 0 -60 24 {Command:"scoreboard players add #s0 cb 1"}
+be_nbt 1 -60 24 {Command:"scoreboard players add #s1 cb 1",auto:1b}
+be_nbt 2 -60 24 {Command:"scoreboard players add #s2 cb 1",auto:1b}
+be_nbt 3 -60 24 {Command:"scoreboard players add #s3 cb 1",auto:1b}
+be_nbt 4 -60 24 {Command:"scoreboard players add #s4 cb 1",auto:1b}
+be_nbt 5 -60 24 {Command:"scoreboard players add #s5 cb 1",auto:1b}
+block 0 -60 23 minecraft:redstone_block
+tick 4
+dump scoreboard
+gamerule max_command_sequence_length 65536
+note i: the source of a command block has permission level 2, the centre of the block as position and no rotation
+block 8 -60 24 minecraft:command_block[facing=east,conditional=false]
+be_nbt 8 -60 24 {Command:"tp @e[type=minecraft:armor_stand,limit=1,sort=nearest] ~ ~ ~",CustomName:'"Named"'}
+block 8 -60 23 minecraft:redstone_block
+tick 4
+dump be:8,-60,24 nbt:s1 packets:Op:system_chat
+note j: the editor packet: an operator changes the command, mode, condition and automatic flag (the block keeps its facing); a player without the permission is told off; a plain block is ignored
+block 0 -60 28 minecraft:command_block[facing=up,conditional=false]
+block 0 -60 29 minecraft:stone
+tick 2
+set_command_block Op 0 -60 28 "scoreboard players add #j cb 1" redstone true false false
+dump blocks:0,-60,28,0,-60,29 be:0,-60,28 packets:Op:system_chat
+set_command_block Op 0 -60 28 "scoreboard players add #j cb 1" sequence true true true
+dump blocks:0,-60,28,0,-60,29 be:0,-60,28 packets:Op:system_chat
+set_command_block Op 0 -60 28 "scoreboard players add #j cb 1" auto false false true
+dump blocks:0,-60,28,0,-60,29 be:0,-60,28 packets:Op:system_chat
+tick 4
+dump blocks:0,-60,28,0,-60,29 be:0,-60,28 scoreboard ticks
+set_command_block Op 0 -60 28 "" redstone true false false
+set_command_block Plain 0 -60 28 "scoreboard players add #j cb 100" redstone true false false
+set_command_block Op 0 -60 29 "scoreboard players add #j cb 100" redstone true false false
+dump blocks:0,-60,28,0,-60,29 be:0,-60,28 packets:Op:system_chat packets:Plain:system_chat
+gamerule command_blocks_work false
+set_command_block Op 0 -60 28 "say off" redstone true false false
+dump be:0,-60,28 packets:Op:system_chat
+gamerule command_blocks_work true
+note k: a command block placed by a player tracks the output when send_command_feedback is on (and does not when it is off); the chain block placed by a player is automatic
+give Op hotbar0 minecraft:command_block 4
+give Op hotbar1 minecraft:chain_command_block 4
+tick 1
+select Op 0
+use_on Op 4 -61 28 up
+tick 3
+dump blocks:3,-61,27,5,-60,29 be:4,-60,28
+gamerule send_command_feedback false
+use_on Op 6 -61 28 up
+tick 3
+dump blocks:5,-61,27,7,-60,29 be:6,-60,28
+gamerule send_command_feedback true
+select Op 1
+use_on Op 8 -61 28 up
+tick 3
+dump blocks:7,-61,27,9,-60,29 be:8,-60,28

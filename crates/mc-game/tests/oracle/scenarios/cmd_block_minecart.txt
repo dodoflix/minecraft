@@ -1,0 +1,108 @@
+# Command block minecarts running real commands: a cart on a powered activator rail runs its command (at most every fourth tick) as a game master source at
+# the cart, the last output with its time stamp (normalised to [HH:MM:SS] on both sides) in the saved data, the synched data and the update packet, a forking
+# command whose success count a comparator on a detector rail reads, output tracking and the editor packet (operator, without permission, command_blocks_work off,
+# a cart of another kind, a failing command) with the chat answers.
+level flat
+preload 3
+command_env
+entity_counter 2000
+level_seed 7
+gamerule send_command_feedback true
+fill -4 -60 -6 40 -40 30 minecraft:air
+spawn_player Op creative 3.5 -60 2.5 0 0
+spawn_player Plain survival 12.5 -60 2.5 0 0
+tick 3
+op Op
+cmd scoreboard objectives add mc dummy
+dump packets:Op:none packets:Plain:none
+watch packets:Op:system_chat packets:Plain:system_chat
+note a: a cart on a powered activator rail runs its command on the first tick and then every fourth tick, the last output is replaced by each run
+fill 0 -60 0 20 -60 0 minecraft:rail[shape=east_west]
+block 6 -61 0 minecraft:redstone_block
+block 6 -60 0 minecraft:activator_rail[powered=true,shape=east_west]
+spawn act minecraft:command_block_minecart 6.5 -59.9375 0.5 0 0 {Command:"scoreboard players add #act mc 1"}
+entity_seed act 71
+tick 1
+dump nbt:act edata:act scoreboard
+tick 8
+dump nbt:act edata:act scoreboard packets:Op:system_chat
+note a failing command writes its error as the last output and the success count stays 0
+set_command_minecart Op act "nosuchcommand foo" true
+dump packets:Op:system_chat nbt:act
+tick 5
+dump nbt:act edata:act
+note a command that fails by its arguments, then a query
+set_command_minecart Op act "scoreboard players get #nope mc" true
+tick 5
+dump nbt:act
+set_command_minecart Op act "scoreboard players get #act mc" true
+tick 5
+dump nbt:act scoreboard
+note the output tracking off clears the last output and the cart stays silent for operators too; on again tracks the next run
+set_command_minecart Op act "scoreboard players add #act mc 1" false
+dump packets:Op:system_chat nbt:act edata:act
+tick 5
+dump nbt:act edata:act scoreboard packets:Op:system_chat
+set_command_minecart Op act "scoreboard players add #act mc 1" true
+tick 5
+dump nbt:act scoreboard packets:Op:system_chat
+note command_block_output off: the last output is still stored, the operators are not told; send_command_feedback off: only a failure is stored
+gamerule command_block_output false
+tick 5
+dump nbt:act packets:Op:system_chat
+gamerule command_block_output true
+gamerule send_command_feedback false
+set_command_minecart Op act "scoreboard players add #act mc 1" true
+tick 5
+dump nbt:act scoreboard packets:Op:system_chat
+set_command_minecart Op act "scoreboard players get #nope mc" true
+tick 5
+dump nbt:act packets:Op:system_chat
+gamerule send_command_feedback true
+note the editor packet: not allowed without the permission, command_blocks_work off, a cart of another kind is ignored
+spawn plainCart minecraft:minecart 10.5 -59.9375 4.5 0 0
+entity_seed plainCart 72
+set_command_minecart Plain act "scoreboard players add #plain mc 1" true
+set_command_minecart Op plainCart "scoreboard players add #plain mc 1" true
+dump packets:Op:system_chat packets:Plain:system_chat nbt:act nbt:plainCart
+gamerule command_blocks_work false
+set_command_minecart Op act "scoreboard players add #off mc 1" true
+dump packets:Op:system_chat nbt:act edata:act
+tick 5
+dump nbt:act scoreboard
+gamerule command_blocks_work true
+note a forking command: the success count is the number of entities; a detector rail with a comparator reads the success count of the cart on it (an empty command keeps a saved count)
+fill 0 -60 6 20 -60 6 minecraft:rail[shape=east_west]
+block 8 -61 6 minecraft:redstone_block
+block 8 -60 6 minecraft:activator_rail[powered=true,shape=east_west]
+block 11 -60 6 minecraft:detector_rail[shape=east_west]
+block 11 -60 7 minecraft:comparator[facing=north,mode=compare,powered=false]
+spawn st1 minecraft:armor_stand 14.5 -60 10.5 0 0
+entity_seed st1 73
+spawn st2 minecraft:armor_stand 15.5 -60 10.5 0 0
+entity_seed st2 74
+spawn st3 minecraft:armor_stand 16.5 -60 10.5 0 0
+entity_seed st3 75
+spawn fork minecraft:command_block_minecart 8.5 -59.9375 6.5 0 0 {Command:"execute as @e[type=minecraft:armor_stand] run tag @s add seen"}
+entity_seed fork 76
+spawn ro minecraft:command_block_minecart 11.5 -59.9375 6.5 0 0 {Command:"",SuccessCount:6}
+entity_seed ro 79
+tick 6
+dump nbt:fork nbt:ro blocks:11,-60,6,11,-60,7 be:11,-60,7 nbt:st1
+note the position and name of the source: relative coordinates are the cart's, the cart's custom name names the source
+fill 0 -60 14 20 -60 14 minecraft:rail[shape=east_west]
+block 12 -61 14 minecraft:redstone_block
+block 12 -60 14 minecraft:activator_rail[powered=true,shape=east_west]
+spawn at minecraft:command_block_minecart 12.5 -59.9375 14.5 0 0 {Command:"setblock ~ ~3 ~ minecraft:gold_block",CustomName:'"Named"'}
+entity_seed at 77
+tick 4
+dump nbt:at blocks:11,-58,13,13,-56,15 packets:Op:system_chat
+note a cart that moves onto the rail runs once when it crosses it
+fill 0 -60 18 20 -60 18 minecraft:rail[shape=east_west]
+block 10 -61 18 minecraft:redstone_block
+block 10 -60 18 minecraft:activator_rail[powered=true,shape=east_west]
+spawn mov minecraft:command_block_minecart 12.5 -59.9375 18.5 0 0 {Command:"scoreboard players add #mov mc 1"}
+entity_seed mov 78
+velocity mov -0.3 0 0
+tick 12
+dump nbt:mov scoreboard

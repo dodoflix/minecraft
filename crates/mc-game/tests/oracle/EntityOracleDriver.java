@@ -219,6 +219,7 @@ import net.minecraft.util.RandomSource;
  *                             the raid_omen effect to carry an omen level; omen=N overrides)       dump raids   all raids (`RAID` lines)
  * interact PLAYER REF [main|off] [sneak] [center] [at X Y Z]   ServerboundInteractPacket (use the entity: board a boat, open a chest boat, feed, tame); location = entity origin, `center` = bounding box centre relative to the origin, `at X Y Z` = that offset from the origin
  * set_command_minecart PLAYER REF COMMAND [true|false]   ServerboundSetCommandMinecartPacket (the editor of a command block minecart; "quote" COMMAND to keep spaces; the flag = track output, default true)
+ * set_command_block PLAYER X Y Z COMMAND sequence|auto|redstone [track] [conditional] [auto]   ServerboundSetCommandBlockPacket (the editor of a command block; "quote" COMMAND to keep spaces; flags default true false false)
  * trade_select PLAYER N       ServerboundSelectTradePacket
  * click, creative_slot, rename, select_trade, set_beacon, slot_state, place_recipe, recipe_seen, recipe_settings, `dump menu:PLAYER`, `dump recipes:PLAYER`: see MenuVerbs.java
  * local difficulty / light / time of day: `dump difficulty:X,Y,Z` (`DIFFICULTY ..`), `dump light:X,Y,Z` (`LIGHT x y z block=B sky=S`, after ticks),
@@ -274,7 +275,22 @@ import net.minecraft.util.RandomSource;
  * {@code attrs=id:value;..} the attributes of the mob's supplier whose final value differs from the attribute default, sorted by id (`dump attrs:REF` prints all: `ATTR REF id:value ..`). Unmodelled values print `-`.
  */
 public final class EntityOracleDriver {
-   final PrintStream out = VanillaLevel.OUT;
+   private static final java.util.regex.Pattern CLOCK_STAMP = java.util.regex.Pattern.compile("\\[\\d\\d:\\d\\d:\\d\\d\\]|5b3\\d3\\d3a3\\d3\\d3a3\\d3\\d5d");
+   /**
+    * The stdout of the fixture; the wall-clock stamp command blocks put before their last output is printed as {@code [HH:MM:SS]}, in text and
+    * inside the hex dump of packets and synched data.
+    */
+   final PrintStream out = new PrintStream(VanillaLevel.OUT, false) {
+      @Override
+      public void println(String x) {
+         super.println(x == null ? null : CLOCK_STAMP.matcher(x).replaceAll(m -> m.group().startsWith("[") ? "[HH:MM:SS]" : "5b48483a4d4d3a53535d"));
+      }
+
+      @Override
+      public void println(Object x) {
+         println(String.valueOf(x));
+      }
+   };
    VanillaLevel v;
    VanillaLevel.Options options = new VanillaLevel.Options();
    final Map<String, Entity> refs = new LinkedHashMap<>();
@@ -838,6 +854,17 @@ public final class EntityOracleDriver {
             }
             player(a.get(1)).connection.handleSetCommandMinecart(new ServerboundSetCommandMinecartPacket(
                ref(a.get(2)).getId(), command, a.size() < 5 || Boolean.parseBoolean(a.get(4))));
+         }
+         case "set_command_block" -> {
+            world();
+            String command = a.get(5);
+            if (command.length() >= 2 && command.startsWith("\"") && command.endsWith("\"")) {
+               command = command.substring(1, command.length() - 1);
+            }
+            player(a.get(1)).connection.handleSetCommandBlock(new ServerboundSetCommandBlockPacket(
+               new BlockPos(Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)), Integer.parseInt(a.get(4))), command,
+               net.minecraft.world.level.block.entity.CommandBlockEntity.Mode.valueOf(a.get(6).toUpperCase(java.util.Locale.ROOT)),
+               a.size() < 8 || Boolean.parseBoolean(a.get(7)), a.size() > 8 && Boolean.parseBoolean(a.get(8)), a.size() > 9 && Boolean.parseBoolean(a.get(9))));
          }
          case "paddle" -> {
             world();
