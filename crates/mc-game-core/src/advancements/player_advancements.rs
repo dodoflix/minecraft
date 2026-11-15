@@ -457,6 +457,11 @@ impl PlayerAdvancements {
         self.progress.get(advancement)
     }
 
+    /// The holder of a tracked advancement by id (every advancement of the manager is tracked, whether or not the tree has it).
+    pub fn holder(&self, id: &Identifier) -> Option<&AdvancementHolder> {
+        self.progress.get_key_value(id).map(|(holder, _)| holder)
+    }
+
     pub fn tree(&self) -> &Arc<AdvancementTree> {
         &self.tree
     }

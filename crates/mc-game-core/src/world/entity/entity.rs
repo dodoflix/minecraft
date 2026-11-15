@@ -3717,7 +3717,7 @@ pub trait Entity: Any {
         0
     }
     /// `PlayerAdvancements.getOrStartProgress(advancement)` as data; `None` when the advancement does not exist.
-    /// Not implemented: always `None`.
+    /// Overridden by the `ServerPlayer`.
     fn advancement_progress(
         &self,
         _advancement: &mc_core::ident::Identifier,

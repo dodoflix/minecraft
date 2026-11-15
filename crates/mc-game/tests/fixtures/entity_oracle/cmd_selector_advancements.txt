@@ -1,0 +1,155 @@
+C Game rule send_command_feedback is now set to true
+# Steve: root done, kill_all_mobs partly (cave_spider); Alex: kill_a_mob through zombie, root only crafting_table revoked
+ADV Steve minecraft:husbandry/balanced_diet apple,bread
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:story/root crafting_table
+ADV Alex minecraft:adventure/kill_a_mob minecraft:zombie
+ADV Alex minecraft:husbandry/plant_seed wheat
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+# selectors from Steve and from the console: the entities each form finds
+SELECT @a[advancements={minecraft:story/root=true}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root=false}] Steve 0,-60,0 -> Alex
+SELECT @a[advancements={story/root=true}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root={crafting_table=true}}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root={crafting_table=false}}] Steve 0,-60,0 -> Alex
+SELECT @a[advancements={minecraft:story/root=true,minecraft:story/mine_stone=false}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root=true,minecraft:story/mine_stone=true}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:story/root=false,minecraft:story/mine_stone=false}] Steve 0,-60,0 -> Alex
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={apple=true}}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={apple=true,bread=true}}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={apple=true,beef=true}}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={apple=true,beef=false}}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={beef=false}}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={beef=true}}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={apple=false}}] Steve 0,-60,0 -> Alex
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={nope=false}}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={nope=true}}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={}}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[advancements={minecraft:husbandry/balanced_diet=true}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:husbandry/balanced_diet=false}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[advancements={minecraft:husbandry/plant_seed=true}] Steve 0,-60,0 -> Alex
+SELECT @a[advancements={minecraft:husbandry/plant_seed={wheat=true}}] Steve 0,-60,0 -> Alex
+SELECT @a[advancements={minecraft:husbandry/plant_seed={wheat=true,melon_stem=false}}] Steve 0,-60,0 -> Alex
+SELECT @a[advancements={minecraft:husbandry/plant_seed={melon_stem=true}}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:husbandry/plant_seed={wheat=true},minecraft:husbandry/balanced_diet={apple=true}}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={apple=true},minecraft:story/root=true}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={"apple"=true}}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={Apple=true}}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:husbandry/balanced_diet={apple=true;bread=true}}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:adventure/kill_all_mobs={minecraft:cave_spider=true}}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:adventure/kill_all_mobs={minecraft:cave_spider=true,minecraft:zombie=false}}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:adventure/kill_all_mobs={minecraft:cave_spider=true,minecraft:zombie=true}}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:adventure/kill_all_mobs={minecraft:cave_spider=false}}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:adventure/kill_all_mobs=true}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:adventure/kill_all_mobs=false}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[advancements={minecraft:adventure/kill_a_mob=true}] Steve 0,-60,0 -> Alex
+SELECT @a[advancements={minecraft:adventure/kill_a_mob={minecraft:zombie=true}}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:adventure/kill_a_mob={minecraft:zombie=true,minecraft:skeleton=false}}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:adventure/kill_all_mobs={minecraft:nope=true}}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:adventure/kill_all_mobs={minecraft:nope=false}}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:nope/nothing=true}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:nope/nothing=false}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:story/root=true,minecraft:nope/nothing=false}] Steve 0,-60,0 ->
+SELECT @a[advancements={}] Steve 0,-60,0 -> Steve Alex
+SELECT @e[advancements={}] Steve 0,-60,0 -> Steve Alex Near Far
+SELECT @e[advancements={minecraft:story/root=true}] Steve 0,-60,0 -> Steve
+SELECT @e[advancements={minecraft:story/root=false}] Steve 0,-60,0 -> Alex
+SELECT @e[advancements={minecraft:story/root=true},type=pig] Steve 0,-60,0 ->
+SELECT @e[type=pig,advancements={minecraft:story/root=true}] Steve 0,-60,0 ->
+SELECT @e[type=player,advancements={minecraft:story/root=true}] Steve 0,-60,0 -> Steve
+SELECT @e[type=!player,advancements={minecraft:story/root=false}] Steve 0,-60,0 ->
+SELECT @p[advancements={minecraft:story/root=false}] Steve 0,-60,0 -> Alex
+SELECT @r[advancements={minecraft:story/root=true}] Steve 0,-60,0 -> Steve
+SELECT @s[advancements={minecraft:story/root=true}] Steve 0,-60,0 -> Steve
+SELECT @s[advancements={minecraft:story/root=false}] Steve 0,-60,0 ->
+SELECT @a[advancements={ minecraft:story/root = true }] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root=true,}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root=true,,}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:story/root={crafting_table=true,}}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root={ crafting_table = true }}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root={crafting_table=true,crafting_table=false}}] Steve 0,-60,0 -> Alex
+SELECT @a[advancements={minecraft:story/root=true,minecraft:story/root=false}] Steve 0,-60,0 -> Alex
+SELECT @a[advancements={minecraft:story/root=true},advancements={minecraft:story/root=false}] Steve 0,-60,0 -> !Option 'advancements' isn't applicable here
+SELECT @a[advancements={minecraft:story/root=true},limit=1,sort=furthest] Steve 0,-60,0 -> Steve
+SELECT @a[sort=furthest,limit=1,advancements={minecraft:story/root=true}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root=maybe}] Steve 0,-60,0 -> !Invalid boolean: expected 'true' or 'false' but found 'maybe'
+SELECT @a[advancements={minecraft:story/root=}] Steve 0,-60,0 -> !Expected boolean
+SELECT @a[advancements={minecraft:story/root}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:story/root={crafting_table=maybe}}] Steve 0,-60,0 -> !Invalid boolean: expected 'true' or 'false' but found 'maybe'
+SELECT @a[advancements={minecraft:story/root={crafting_table}}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:story/root={crafting_table=true}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:story/root=true] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={minecraft:story/root=true Steve 0,-60,0 -> !Expected '}'
+SELECT @a[advancements={ Steve 0,-60,0 -> !Expected '}'
+SELECT @a[advancements= Steve 0,-60,0 -> !Expected '{'
+SELECT @a[advancements] Steve 0,-60,0 -> !Expected value for option 'advancements'
+SELECT @a[advancements=true] Steve 0,-60,0 -> !Expected '{'
+SELECT @a[advancements=!{minecraft:story/root=true}] Steve 0,-60,0 -> !Expected '{'
+SELECT @a[advancements={bad id=true}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={Minecraft:story/root=true}] Steve 0,-60,0 -> !Expected '='
+SELECT @a[advancements={=true}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:story/root=1}] Steve 0,-60,0 -> !Invalid boolean: expected 'true' or 'false' but found '1'
+SELECT @a[advancements={minecraft:story/root=True}] Steve 0,-60,0 -> !Invalid boolean: expected 'true' or 'false' but found 'True'
+# the same options at the console, and as Alex
+SELECT @a[advancements={minecraft:story/root=true}] - 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root=true}] Alex 4.5,-60,0.5 -> Steve
+SELECT @a[advancements={minecraft:story/root=false}] - 0,-60,0 -> Alex
+SELECT @a[advancements={minecraft:story/root=false}] Alex 4.5,-60,0.5 -> Alex
+SELECT @a[advancements={story/root=true}] - 0,-60,0 -> Steve
+SELECT @a[advancements={story/root=true}] Alex 4.5,-60,0.5 -> Steve
+SELECT @a[advancements={minecraft:story/root={crafting_table=true}}] - 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root={crafting_table=true}}] Alex 4.5,-60,0.5 -> Steve
+SELECT @a[advancements={minecraft:story/root={crafting_table=false}}] - 0,-60,0 -> Alex
+SELECT @a[advancements={minecraft:story/root={crafting_table=false}}] Alex 4.5,-60,0.5 -> Alex
+SELECT @a[advancements={minecraft:story/root=true,minecraft:story/mine_stone=false}] - 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root=true,minecraft:story/mine_stone=false}] Alex 4.5,-60,0.5 -> Steve
+# through execute: feedback and the result of the selector
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed. Count: 4
+CF result success 4
+CF result failure 0
+CF fail Test failed. Count: 4
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...tory/root=maybe}]<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...tory/root=maybe}]<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...tory/root=maybe}] run say hi<--[HERE]
+CF fail Expected '{'
+CF fail ...ancements=!{minecraft:story/root=true}]<--[HERE]
+CF fail Expected '{'
+CF fail ...ancements=!{minecraft:story/root=true}]<--[HERE]
+CF fail Expected '{'
+CF fail ...ancements=!{minecraft:story/root=true}] run say hi<--[HERE]
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg There are 2 tracked entity/entities: Steve, Alex
+CF result success 2
+# the options follow the progress: revoke then grant
+SELECT @a[advancements={minecraft:story/root=true}] Steve 0,-60,0 ->
+SELECT @a[advancements={minecraft:story/root=false}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[advancements={minecraft:story/root=true}] Steve 0,-60,0 -> Steve
+SELECT @a[advancements={minecraft:story/root={crafting_table=true}}] Steve 0,-60,0 -> Steve
+ADV Steve minecraft:story/root crafting_table
+ADV Alex minecraft:adventure/kill_a_mob minecraft:zombie
+ADV Alex minecraft:husbandry/plant_seed wheat
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away

@@ -1,0 +1,468 @@
+C Game rule send_command_feedback is now set to true
+# an empty hand: the tag is absent
+SELECT @a[nbt={SelectedItem:{}}] Steve 0,-60,0 ->
+SELECT @a[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:air"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{count:1}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{count:5}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{Slot:0b}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItemSlot:0}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItemSlot:1}] Steve 0,-60,0 ->
+SELECT @a[nbt={Inventory:[{Slot:0b}]}] Steve 0,-60,0 ->
+SELECT @a[nbt={Inventory:[{id:"minecraft:apple"}]}] Steve 0,-60,0 ->
+SELECT @e[nbt={SelectedItem:{}}] Steve 0,-60,0 ->
+SELECT @e[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Steve Alex Near
+SELECT @e[type=pig,nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Near
+SELECT @s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 ->
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF msg Steve has the following entity data: 0
+CF result success 0
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+PKT Steve minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000b2f74656c6c20416c65782000080009696e73657274696f6e0004416c6578080004746578740004416c65780a000b686f7665725f6576656e740800046e616d650004416c6578080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000436532b5ec4423dbba24cc7e55d0f979a0000080005636f6c6f72000679656c6c6f770800097472616e736c61746500196d756c7469706c617965722e706c617965722e6a6f696e65640000
+PKT Steve minecraft:system_chat 7c08000000
+PKT Steve minecraft:system_chat 7c08000000
+PKT Steve minecraft:system_chat 7c08000000
+PKT Alex minecraft:system_chat 7c08000000
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF result failure 0
+CF result failure 0
+CF result failure 0
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+# a diamond sword with a name, enchantments, damage and custom data in the selected slot
+# selected slot 0: the sword
+SELECT @a[nbt={SelectedItem:{}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 -> Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:air"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{count:1}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={SelectedItem:{count:5}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={SelectedItem:{components:{}}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{Slot:0b}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItemSlot:0}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItemSlot:1}] Steve 0,-60,0 ->
+SELECT @a[nbt={Inventory:[{Slot:0b}]}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={Inventory:[{id:"minecraft:apple"}]}] Steve 0,-60,0 -> Steve
+SELECT @e[nbt={SelectedItem:{}}] Steve 0,-60,0 -> Steve
+SELECT @e[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Alex Near
+SELECT @e[type=pig,nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Near
+SELECT @s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 -> Steve
+CF msg Steve has the following entity data: {components: {"minecraft:lore": ['"first"'], "minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"', "minecraft:custom_data": {tag: 1b}}, count: 1, id: "minecraft:diamond_sword"}
+CF result success 3
+CF msg Steve has the following entity data: "minecraft:diamond_sword"
+CF result success 23
+CF msg Steve has the following entity data: 1
+CF result success 1
+CF msg SelectedItem.count on Steve after scale factor of 2.00 is 2
+CF result success 2
+CF msg Steve has the following entity data: {"minecraft:lore": ['"first"'], "minecraft:enchantments": {"minecraft:sharpness": 3}, "minecraft:damage": 5, "minecraft:custom_name": '"Blade"', "minecraft:custom_data": {tag: 1b}}
+CF result success 5
+CF msg Steve has the following entity data: 5
+CF result success 5
+CF msg Steve has the following entity data: {"minecraft:sharpness": 3}
+CF result success 1
+CF msg Steve has the following entity data: 0
+CF result success 0
+CF result failure 0
+CF fail Found no elements matching SelectedItem.nothing
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+PKT Steve minecraft:system_chat 7c0a09000565787472610a0000004d08000000017b00080000000000080005636f6c6f7200046171756108000474657874000a636f6d706f6e656e74730008000000013a000800000001200008000000017b0008000000000009000565787472610a00000002080005636f6c6f7200046171756108000474657874000e6d696e6563726166743a6c6f72650008000000012200080004746578740001220008000000013a000800000001200008000000015b0008000000000008000000012700080005636f6c6f720005677265656e08000474657874000722666972737422000800000001270008000000015d0008000000012c000800000001200008000000000009000565787472610a00000002080005636f6c6f720004617175610800047465787400166d696e6563726166743a656e6368616e746d656e74730008000000012200080004746578740001220008000000013a000800000001200008000000017b0008000000000009000565787472610a00000002080005636f6c6f720004617175610800047465787400136d696e6563726166743a73686172706e6573730008000000012200080004746578740001220008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001330008000000017d0008000000012c000800000001200008000000000009000565787472610a00000002080005636f6c6f720004617175610800047465787400106d696e6563726166743a64616d6167650008000000012200080004746578740001220008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001350008000000012c000800000001200008000000000009000565787472610a00000002080005636f6c6f720004617175610800047465787400156d696e6563726166743a637573746f6d5f6e616d650008000000012200080004746578740001220008000000013a000800000001200008000000012700080005636f6c6f720005677265656e08000474657874000722426c61646522000800000001270008000000012c000800000001200008000000000009000565787472610a00000002080005636f6c6f720004617175610800047465787400156d696e6563726166743a637573746f6d5f646174610008000000012200080004746578740001220008000000013a000800000001200008000000017b00080000000000080005636f6c6f720004617175610800047465787400037461670008000000013a0008000000012000080005636f6c6f720004676f6c640800047465787400013100080005636f6c6f720003726564080004746578740001620008000000017d0008000000017d0008000000012c0008000000012000080000000000080005636f6c6f72000461717561080004746578740005636f756e740008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001310008000000012c0008000000012000080000000000080005636f6c6f7200046171756108000474657874000269640008000000013a000800000001200008000000012200080005636f6c6f720005677265656e0800047465787400176d696e6563726166743a6469616d6f6e645f73776f7264000800000001220008000000017d000800047465787400000000
+PKT Steve minecraft:system_chat 7c0a09000565787472610a0000000308000000012200080005636f6c6f720005677265656e0800047465787400176d696e6563726166743a6469616d6f6e645f73776f726400080000000122000800047465787400000000
+PKT Steve minecraft:system_chat 7c08000000
+PKT Alex minecraft:system_chat 7c0a09000565787472610a0000004d08000000017b00080000000000080005636f6c6f7200046171756108000474657874000a636f6d706f6e656e74730008000000013a000800000001200008000000017b0008000000000009000565787472610a00000002080005636f6c6f7200046171756108000474657874000e6d696e6563726166743a6c6f72650008000000012200080004746578740001220008000000013a000800000001200008000000015b0008000000000008000000012700080005636f6c6f720005677265656e08000474657874000722666972737422000800000001270008000000015d0008000000012c000800000001200008000000000009000565787472610a00000002080005636f6c6f720004617175610800047465787400166d696e6563726166743a656e6368616e746d656e74730008000000012200080004746578740001220008000000013a000800000001200008000000017b0008000000000009000565787472610a00000002080005636f6c6f720004617175610800047465787400136d696e6563726166743a73686172706e6573730008000000012200080004746578740001220008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001330008000000017d0008000000012c000800000001200008000000000009000565787472610a00000002080005636f6c6f720004617175610800047465787400106d696e6563726166743a64616d6167650008000000012200080004746578740001220008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001350008000000012c000800000001200008000000000009000565787472610a00000002080005636f6c6f720004617175610800047465787400156d696e6563726166743a637573746f6d5f6e616d650008000000012200080004746578740001220008000000013a000800000001200008000000012700080005636f6c6f720005677265656e08000474657874000722426c61646522000800000001270008000000012c000800000001200008000000000009000565787472610a00000002080005636f6c6f720004617175610800047465787400156d696e6563726166743a637573746f6d5f646174610008000000012200080004746578740001220008000000013a000800000001200008000000017b00080000000000080005636f6c6f720004617175610800047465787400037461670008000000013a0008000000012000080005636f6c6f720004676f6c640800047465787400013100080005636f6c6f720003726564080004746578740001620008000000017d0008000000017d0008000000012c0008000000012000080000000000080005636f6c6f72000461717561080004746578740005636f756e740008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001310008000000012c0008000000012000080000000000080005636f6c6f7200046171756108000474657874000269640008000000013a000800000001200008000000012200080005636f6c6f720005677265656e0800047465787400176d696e6563726166743a6469616d6f6e645f73776f7264000800000001220008000000017d000800047465787400000000
+CF msg Steve has the following entity data: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+# selected slot 1: five apples
+SELECT @a[nbt={SelectedItem:{}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple"}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={SelectedItem:{id:"minecraft:air"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{count:1}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{count:5}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{Slot:0b}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItemSlot:0}] Steve 0,-60,0 -> Alex
+SELECT @a[nbt={SelectedItemSlot:1}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={Inventory:[{Slot:0b}]}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={Inventory:[{id:"minecraft:apple"}]}] Steve 0,-60,0 -> Steve
+SELECT @e[nbt={SelectedItem:{}}] Steve 0,-60,0 -> Steve
+SELECT @e[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Alex Near
+SELECT @e[type=pig,nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Near
+SELECT @s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 ->
+CF msg Steve has the following entity data: {count: 5, id: "minecraft:apple"}
+CF result success 2
+CF msg Steve has the following entity data: "minecraft:apple"
+CF result success 15
+CF msg Steve has the following entity data: 5
+CF result success 5
+CF msg SelectedItem.count on Steve after scale factor of 2.00 is 10
+CF result success 10
+CF result failure 0
+CF fail Found no elements matching SelectedItem.components
+CF result failure 0
+CF fail Found no elements matching SelectedItem.components
+CF result failure 0
+CF fail Found no elements matching SelectedItem.components
+CF msg Steve has the following entity data: 1
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching SelectedItem.nothing
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+PKT Steve minecraft:system_chat 7c0a09000565787472610a0000001008000000017b00080000000000080005636f6c6f72000461717561080004746578740005636f756e740008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001350008000000012c0008000000012000080000000000080005636f6c6f7200046171756108000474657874000269640008000000013a000800000001200008000000012200080005636f6c6f720005677265656e08000474657874000f6d696e6563726166743a6170706c65000800000001220008000000017d000800047465787400000000
+PKT Steve minecraft:system_chat 7c0a09000565787472610a0000000308000000012200080005636f6c6f720005677265656e08000474657874000f6d696e6563726166743a6170706c6500080000000122000800047465787400000000
+PKT Steve minecraft:system_chat 7c08000000
+PKT Alex minecraft:system_chat 7c0a09000565787472610a0000001008000000017b00080000000000080005636f6c6f72000461717561080004746578740005636f756e740008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001350008000000012c0008000000012000080000000000080005636f6c6f7200046171756108000474657874000269640008000000013a000800000001200008000000012200080005636f6c6f720005677265656e08000474657874000f6d696e6563726166743a6170706c65000800000001220008000000017d000800047465787400000000
+CF msg Steve has the following entity data: 5
+CF result success 5
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF msg Test passed. Count: 1
+CF result success 1
+# selected slot 2: three potions with a component
+SELECT @a[nbt={SelectedItem:{}}] Steve 0,-60,0 ->
+SELECT @a[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:air"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{count:1}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{count:5}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{Slot:0b}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItemSlot:0}] Steve 0,-60,0 -> Alex
+SELECT @a[nbt={SelectedItemSlot:1}] Steve 0,-60,0 ->
+SELECT @a[nbt={Inventory:[{Slot:0b}]}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={Inventory:[{id:"minecraft:apple"}]}] Steve 0,-60,0 -> Steve
+SELECT @e[nbt={SelectedItem:{}}] Steve 0,-60,0 ->
+SELECT @e[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Steve Alex Near
+SELECT @e[type=pig,nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Near
+SELECT @s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 ->
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF msg Steve has the following entity data: 2
+CF result success 2
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+PKT Steve minecraft:system_chat 7c08000000
+PKT Steve minecraft:system_chat 7c08000000
+PKT Steve minecraft:system_chat 7c08000000
+PKT Alex minecraft:system_chat 7c08000000
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF result failure 0
+CF result failure 0
+CF result failure 0
+# selected slot 3: a shulker box with contents
+SELECT @a[nbt={SelectedItem:{}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:air"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{count:1}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={SelectedItem:{count:5}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{}}}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{Slot:0b}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItemSlot:0}] Steve 0,-60,0 -> Alex
+SELECT @a[nbt={SelectedItemSlot:1}] Steve 0,-60,0 ->
+SELECT @a[nbt={Inventory:[{Slot:0b}]}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={Inventory:[{id:"minecraft:apple"}]}] Steve 0,-60,0 -> Steve
+SELECT @e[nbt={SelectedItem:{}}] Steve 0,-60,0 -> Steve
+SELECT @e[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Alex Near
+SELECT @e[type=pig,nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Near
+SELECT @s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 ->
+CF msg Steve has the following entity data: {components: {"minecraft:container": [{item: {count: 2, id: "minecraft:stone"}, slot: 0}]}, count: 1, id: "minecraft:white_shulker_box"}
+CF result success 3
+CF msg Steve has the following entity data: "minecraft:white_shulker_box"
+CF result success 27
+CF msg Steve has the following entity data: 1
+CF result success 1
+CF msg SelectedItem.count on Steve after scale factor of 2.00 is 2
+CF result success 2
+CF msg Steve has the following entity data: {"minecraft:container": [{item: {count: 2, id: "minecraft:stone"}, slot: 0}]}
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching SelectedItem.components."minecraft:damage"
+CF result failure 0
+CF fail Found no elements matching SelectedItem.components."minecraft:enchantments"
+CF msg Steve has the following entity data: 3
+CF result success 3
+CF result failure 0
+CF fail Found no elements matching SelectedItem.nothing
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+PKT Steve minecraft:system_chat 7c0a09000565787472610a0000003c08000000017b00080000000000080005636f6c6f7200046171756108000474657874000a636f6d706f6e656e74730008000000013a000800000001200008000000017b0008000000000009000565787472610a00000002080005636f6c6f720004617175610800047465787400136d696e6563726166743a636f6e7461696e65720008000000012200080004746578740001220008000000013a000800000001200008000000015b0008000000000008000000017b00080000000000080005636f6c6f720004617175610800047465787400046974656d0008000000013a000800000001200008000000017b00080000000000080005636f6c6f72000461717561080004746578740005636f756e740008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001320008000000012c0008000000012000080000000000080005636f6c6f7200046171756108000474657874000269640008000000013a000800000001200008000000012200080005636f6c6f720005677265656e08000474657874000f6d696e6563726166743a73746f6e65000800000001220008000000017d0008000000012c0008000000012000080000000000080005636f6c6f72000461717561080004746578740004736c6f740008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001300008000000017d0008000000015d0008000000017d0008000000012c0008000000012000080000000000080005636f6c6f72000461717561080004746578740005636f756e740008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001310008000000012c0008000000012000080000000000080005636f6c6f7200046171756108000474657874000269640008000000013a000800000001200008000000012200080005636f6c6f720005677265656e08000474657874001b6d696e6563726166743a77686974655f7368756c6b65725f626f78000800000001220008000000017d000800047465787400000000
+PKT Steve minecraft:system_chat 7c0a09000565787472610a0000000308000000012200080005636f6c6f720005677265656e08000474657874001b6d696e6563726166743a77686974655f7368756c6b65725f626f7800080000000122000800047465787400000000
+PKT Steve minecraft:system_chat 7c08000000
+PKT Alex minecraft:system_chat 7c0a09000565787472610a0000003c08000000017b00080000000000080005636f6c6f7200046171756108000474657874000a636f6d706f6e656e74730008000000013a000800000001200008000000017b0008000000000009000565787472610a00000002080005636f6c6f720004617175610800047465787400136d696e6563726166743a636f6e7461696e65720008000000012200080004746578740001220008000000013a000800000001200008000000015b0008000000000008000000017b00080000000000080005636f6c6f720004617175610800047465787400046974656d0008000000013a000800000001200008000000017b00080000000000080005636f6c6f72000461717561080004746578740005636f756e740008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001320008000000012c0008000000012000080000000000080005636f6c6f7200046171756108000474657874000269640008000000013a000800000001200008000000012200080005636f6c6f720005677265656e08000474657874000f6d696e6563726166743a73746f6e65000800000001220008000000017d0008000000012c0008000000012000080000000000080005636f6c6f72000461717561080004746578740004736c6f740008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001300008000000017d0008000000015d0008000000017d0008000000012c0008000000012000080000000000080005636f6c6f72000461717561080004746578740005636f756e740008000000013a0008000000012000080005636f6c6f720004676f6c64080004746578740001310008000000012c0008000000012000080000000000080005636f6c6f7200046171756108000474657874000269640008000000013a000800000001200008000000012200080005636f6c6f720005677265656e08000474657874001b6d696e6563726166743a77686974655f7368756c6b65725f626f78000800000001220008000000017d000800047465787400000000
+CF msg Steve has the following entity data: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+# selected slot 4: empty again
+SELECT @a[nbt={SelectedItem:{}}] Steve 0,-60,0 ->
+SELECT @a[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:air"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{count:1}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{count:5}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{Slot:0b}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItemSlot:0}] Steve 0,-60,0 -> Alex
+SELECT @a[nbt={SelectedItemSlot:1}] Steve 0,-60,0 ->
+SELECT @a[nbt={Inventory:[{Slot:0b}]}] Steve 0,-60,0 -> Steve
+SELECT @a[nbt={Inventory:[{id:"minecraft:apple"}]}] Steve 0,-60,0 -> Steve
+SELECT @e[nbt={SelectedItem:{}}] Steve 0,-60,0 ->
+SELECT @e[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Steve Alex Near
+SELECT @e[type=pig,nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Near
+SELECT @s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 ->
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF msg Steve has the following entity data: 4
+CF result success 4
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+PKT Steve minecraft:system_chat 7c08000000
+PKT Steve minecraft:system_chat 7c08000000
+PKT Steve minecraft:system_chat 7c08000000
+PKT Alex minecraft:system_chat 7c08000000
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF result failure 0
+CF result failure 0
+CF result failure 0
+# everything cleared
+SELECT @a[nbt={SelectedItem:{}}] Steve 0,-60,0 ->
+SELECT @a[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:air"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{count:1}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{count:5}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{components:{}}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{id:"diamond_sword"}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItem:{Slot:0b}}] Steve 0,-60,0 ->
+SELECT @a[nbt={SelectedItemSlot:0}] Steve 0,-60,0 -> Steve Alex
+SELECT @a[nbt={SelectedItemSlot:1}] Steve 0,-60,0 ->
+SELECT @a[nbt={Inventory:[{Slot:0b}]}] Steve 0,-60,0 ->
+SELECT @a[nbt={Inventory:[{id:"minecraft:apple"}]}] Steve 0,-60,0 ->
+SELECT @e[nbt={SelectedItem:{}}] Steve 0,-60,0 ->
+SELECT @e[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Steve Alex Near
+SELECT @e[type=pig,nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Near
+SELECT @s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}] Steve 0,-60,0 ->
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF msg Steve has the following entity data: 0
+CF result success 0
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+PKT Steve minecraft:system_chat 7c08000000
+PKT Steve minecraft:system_chat 7c08000000
+PKT Steve minecraft:system_chat 7c08000000
+PKT Alex minecraft:system_chat 7c08000000
+CF result failure 0
+CF fail Found no elements matching SelectedItem
+CF result failure 0
+CF result failure 0
+CF result failure 0
+CF result failure 0

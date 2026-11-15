@@ -1,0 +1,375 @@
+# `SelectedItem`, the tag the selector `nbt` option, `data get entity` and the `nbt` text component add for players: the selected hotbar
+# item as ItemStack.CODEC NBT (absent when the hand is empty), for several stacks and components, and after the selection moves.
+command_env
+level flat
+preload 2
+level_seed 7
+entity_counter 50
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 4.5 -60 0.5 0 0
+spawn Near minecraft:pig 2.5 -60 0.5 0 0 {NoAI:1b}
+gamerule send_command_feedback true
+tick 2
+cmd_quiet scoreboard objectives add nbt_n dummy
+note an empty hand: the tag is absent
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:air"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:1}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{Slot:0b}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:0}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:1}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{Slot:0b}]}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{id:"minecraft:apple"}]}]
+dump select:Steve/0,-60,0/@e[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[type=pig,nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+cmd data get entity Steve SelectedItem
+cmd data get entity Steve SelectedItem.id
+cmd data get entity Steve SelectedItem.count
+cmd data get entity Steve SelectedItem.count 2
+cmd data get entity Steve SelectedItem.components
+cmd data get entity Steve SelectedItem.components."minecraft:damage"
+cmd data get entity Steve SelectedItem.components."minecraft:enchantments"
+cmd data get entity Steve SelectedItemSlot
+cmd data get entity Steve SelectedItem.nothing
+cmd data get entity Alex SelectedItem
+cmd data get entity @a[limit=1,sort=furthest] SelectedItem.id
+cmd data get entity @e[type=pig,limit=1] SelectedItem
+cmd tellraw Steve {"nbt":"SelectedItem","entity":"Steve"}
+cmd tellraw Steve {"nbt":"SelectedItem.id","entity":"Steve","interpret":false}
+cmd tellraw Steve {"nbt":"SelectedItem.components","entity":"@s","interpret":false,"separator":" | "}
+cmd tellraw Alex {"nbt":"SelectedItem","entity":"@a","separator":";"}
+tick 1
+dump packets:Steve:system_chat packets:Alex:system_chat
+cmd execute store result score Steve nbt_n run data get entity Steve SelectedItem.count
+cmd_as -2 execute as Steve if entity @s[nbt={SelectedItem:{}}]
+cmd_as -2 execute as Steve if data entity @s SelectedItem
+cmd_as -2 execute as Steve if data entity @s SelectedItem.components
+cmd_as -2 execute as Steve if data entity @s SelectedItem.id
+cmd data modify entity Steve SelectedItem set value {id:"minecraft:stone",count:1}
+cmd data merge entity Steve {SelectedItem:{}}
+cmd data remove entity Steve SelectedItem
+note a diamond sword with a name, enchantments, damage and custom data in the selected slot
+cmd_quiet item replace entity Steve weapon.mainhand with minecraft:diamond_sword[minecraft:custom_name='"Blade"',minecraft:enchantments={"minecraft:sharpness":3},minecraft:damage=5,minecraft:custom_data={tag:1b},minecraft:lore=['"first"']]
+cmd_quiet item replace entity Steve hotbar.1 with minecraft:apple 5
+cmd_quiet item replace entity Steve hotbar.2 with minecraft:potion[minecraft:potion_contents={potion:"minecraft:swiftness"}] 3
+cmd_quiet item replace entity Steve hotbar.3 with minecraft:white_shulker_box[minecraft:container=[{slot:0,item:{id:"minecraft:stone",count:2}}]]
+note selected slot 0: the sword
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:air"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:1}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{Slot:0b}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:0}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:1}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{Slot:0b}]}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{id:"minecraft:apple"}]}]
+dump select:Steve/0,-60,0/@e[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[type=pig,nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+cmd data get entity Steve SelectedItem
+cmd data get entity Steve SelectedItem.id
+cmd data get entity Steve SelectedItem.count
+cmd data get entity Steve SelectedItem.count 2
+cmd data get entity Steve SelectedItem.components
+cmd data get entity Steve SelectedItem.components."minecraft:damage"
+cmd data get entity Steve SelectedItem.components."minecraft:enchantments"
+cmd data get entity Steve SelectedItemSlot
+cmd data get entity Steve SelectedItem.nothing
+cmd data get entity Alex SelectedItem
+cmd data get entity @a[limit=1,sort=furthest] SelectedItem.id
+cmd data get entity @e[type=pig,limit=1] SelectedItem
+cmd tellraw Steve {"nbt":"SelectedItem","entity":"Steve"}
+cmd tellraw Steve {"nbt":"SelectedItem.id","entity":"Steve","interpret":false}
+cmd tellraw Steve {"nbt":"SelectedItem.components","entity":"@s","interpret":false,"separator":" | "}
+cmd tellraw Alex {"nbt":"SelectedItem","entity":"@a","separator":";"}
+tick 1
+dump packets:Steve:system_chat packets:Alex:system_chat
+cmd execute store result score Steve nbt_n run data get entity Steve SelectedItem.count
+cmd_as -2 execute as Steve if entity @s[nbt={SelectedItem:{}}]
+cmd_as -2 execute as Steve if data entity @s SelectedItem
+cmd_as -2 execute as Steve if data entity @s SelectedItem.components
+cmd_as -2 execute as Steve if data entity @s SelectedItem.id
+select Steve 1
+tick 1
+note selected slot 1: five apples
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:air"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:1}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{Slot:0b}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:0}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:1}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{Slot:0b}]}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{id:"minecraft:apple"}]}]
+dump select:Steve/0,-60,0/@e[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[type=pig,nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+cmd data get entity Steve SelectedItem
+cmd data get entity Steve SelectedItem.id
+cmd data get entity Steve SelectedItem.count
+cmd data get entity Steve SelectedItem.count 2
+cmd data get entity Steve SelectedItem.components
+cmd data get entity Steve SelectedItem.components."minecraft:damage"
+cmd data get entity Steve SelectedItem.components."minecraft:enchantments"
+cmd data get entity Steve SelectedItemSlot
+cmd data get entity Steve SelectedItem.nothing
+cmd data get entity Alex SelectedItem
+cmd data get entity @a[limit=1,sort=furthest] SelectedItem.id
+cmd data get entity @e[type=pig,limit=1] SelectedItem
+cmd tellraw Steve {"nbt":"SelectedItem","entity":"Steve"}
+cmd tellraw Steve {"nbt":"SelectedItem.id","entity":"Steve","interpret":false}
+cmd tellraw Steve {"nbt":"SelectedItem.components","entity":"@s","interpret":false,"separator":" | "}
+cmd tellraw Alex {"nbt":"SelectedItem","entity":"@a","separator":";"}
+tick 1
+dump packets:Steve:system_chat packets:Alex:system_chat
+cmd execute store result score Steve nbt_n run data get entity Steve SelectedItem.count
+cmd_as -2 execute as Steve if entity @s[nbt={SelectedItem:{}}]
+cmd_as -2 execute as Steve if data entity @s SelectedItem
+cmd_as -2 execute as Steve if data entity @s SelectedItem.components
+cmd_as -2 execute as Steve if data entity @s SelectedItem.id
+select Steve 2
+tick 1
+note selected slot 2: three potions with a component
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:air"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:1}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{Slot:0b}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:0}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:1}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{Slot:0b}]}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{id:"minecraft:apple"}]}]
+dump select:Steve/0,-60,0/@e[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[type=pig,nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+cmd data get entity Steve SelectedItem
+cmd data get entity Steve SelectedItem.id
+cmd data get entity Steve SelectedItem.count
+cmd data get entity Steve SelectedItem.count 2
+cmd data get entity Steve SelectedItem.components
+cmd data get entity Steve SelectedItem.components."minecraft:damage"
+cmd data get entity Steve SelectedItem.components."minecraft:enchantments"
+cmd data get entity Steve SelectedItemSlot
+cmd data get entity Steve SelectedItem.nothing
+cmd data get entity Alex SelectedItem
+cmd data get entity @a[limit=1,sort=furthest] SelectedItem.id
+cmd data get entity @e[type=pig,limit=1] SelectedItem
+cmd tellraw Steve {"nbt":"SelectedItem","entity":"Steve"}
+cmd tellraw Steve {"nbt":"SelectedItem.id","entity":"Steve","interpret":false}
+cmd tellraw Steve {"nbt":"SelectedItem.components","entity":"@s","interpret":false,"separator":" | "}
+cmd tellraw Alex {"nbt":"SelectedItem","entity":"@a","separator":";"}
+tick 1
+dump packets:Steve:system_chat packets:Alex:system_chat
+cmd execute store result score Steve nbt_n run data get entity Steve SelectedItem.count
+cmd_as -2 execute as Steve if entity @s[nbt={SelectedItem:{}}]
+cmd_as -2 execute as Steve if data entity @s SelectedItem
+cmd_as -2 execute as Steve if data entity @s SelectedItem.components
+cmd_as -2 execute as Steve if data entity @s SelectedItem.id
+select Steve 3
+tick 1
+note selected slot 3: a shulker box with contents
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:air"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:1}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{Slot:0b}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:0}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:1}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{Slot:0b}]}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{id:"minecraft:apple"}]}]
+dump select:Steve/0,-60,0/@e[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[type=pig,nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+cmd data get entity Steve SelectedItem
+cmd data get entity Steve SelectedItem.id
+cmd data get entity Steve SelectedItem.count
+cmd data get entity Steve SelectedItem.count 2
+cmd data get entity Steve SelectedItem.components
+cmd data get entity Steve SelectedItem.components."minecraft:damage"
+cmd data get entity Steve SelectedItem.components."minecraft:enchantments"
+cmd data get entity Steve SelectedItemSlot
+cmd data get entity Steve SelectedItem.nothing
+cmd data get entity Alex SelectedItem
+cmd data get entity @a[limit=1,sort=furthest] SelectedItem.id
+cmd data get entity @e[type=pig,limit=1] SelectedItem
+cmd tellraw Steve {"nbt":"SelectedItem","entity":"Steve"}
+cmd tellraw Steve {"nbt":"SelectedItem.id","entity":"Steve","interpret":false}
+cmd tellraw Steve {"nbt":"SelectedItem.components","entity":"@s","interpret":false,"separator":" | "}
+cmd tellraw Alex {"nbt":"SelectedItem","entity":"@a","separator":";"}
+tick 1
+dump packets:Steve:system_chat packets:Alex:system_chat
+cmd execute store result score Steve nbt_n run data get entity Steve SelectedItem.count
+cmd_as -2 execute as Steve if entity @s[nbt={SelectedItem:{}}]
+cmd_as -2 execute as Steve if data entity @s SelectedItem
+cmd_as -2 execute as Steve if data entity @s SelectedItem.components
+cmd_as -2 execute as Steve if data entity @s SelectedItem.id
+select Steve 4
+tick 1
+note selected slot 4: empty again
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:air"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:1}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{Slot:0b}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:0}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:1}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{Slot:0b}]}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{id:"minecraft:apple"}]}]
+dump select:Steve/0,-60,0/@e[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[type=pig,nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+cmd data get entity Steve SelectedItem
+cmd data get entity Steve SelectedItem.id
+cmd data get entity Steve SelectedItem.count
+cmd data get entity Steve SelectedItem.count 2
+cmd data get entity Steve SelectedItem.components
+cmd data get entity Steve SelectedItem.components."minecraft:damage"
+cmd data get entity Steve SelectedItem.components."minecraft:enchantments"
+cmd data get entity Steve SelectedItemSlot
+cmd data get entity Steve SelectedItem.nothing
+cmd data get entity Alex SelectedItem
+cmd data get entity @a[limit=1,sort=furthest] SelectedItem.id
+cmd data get entity @e[type=pig,limit=1] SelectedItem
+cmd tellraw Steve {"nbt":"SelectedItem","entity":"Steve"}
+cmd tellraw Steve {"nbt":"SelectedItem.id","entity":"Steve","interpret":false}
+cmd tellraw Steve {"nbt":"SelectedItem.components","entity":"@s","interpret":false,"separator":" | "}
+cmd tellraw Alex {"nbt":"SelectedItem","entity":"@a","separator":";"}
+tick 1
+dump packets:Steve:system_chat packets:Alex:system_chat
+cmd execute store result score Steve nbt_n run data get entity Steve SelectedItem.count
+cmd_as -2 execute as Steve if entity @s[nbt={SelectedItem:{}}]
+cmd_as -2 execute as Steve if data entity @s SelectedItem
+cmd_as -2 execute as Steve if data entity @s SelectedItem.components
+cmd_as -2 execute as Steve if data entity @s SelectedItem.id
+cmd_quiet clear Steve
+select Steve 0
+tick 1
+note everything cleared
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt=!{SelectedItem:{id:"minecraft:diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:air"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:1}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:damage":5}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:enchantments":{"minecraft:sharpness":3}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_name":'"Blade"'}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{"minecraft:custom_data":{tag:1b}}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{components:{}}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:5}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"minecraft:apple",count:6}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{id:"diamond_sword"}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItem:{Slot:0b}}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:0}]
+dump select:Steve/0,-60,0/@a[nbt={SelectedItemSlot:1}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{Slot:0b}]}]
+dump select:Steve/0,-60,0/@a[nbt={Inventory:[{id:"minecraft:apple"}]}]
+dump select:Steve/0,-60,0/@e[nbt={SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@e[type=pig,nbt=!{SelectedItem:{}}]
+dump select:Steve/0,-60,0/@s[nbt={SelectedItem:{id:"minecraft:diamond_sword"}}]
+cmd data get entity Steve SelectedItem
+cmd data get entity Steve SelectedItem.id
+cmd data get entity Steve SelectedItem.count
+cmd data get entity Steve SelectedItem.count 2
+cmd data get entity Steve SelectedItem.components
+cmd data get entity Steve SelectedItem.components."minecraft:damage"
+cmd data get entity Steve SelectedItem.components."minecraft:enchantments"
+cmd data get entity Steve SelectedItemSlot
+cmd data get entity Steve SelectedItem.nothing
+cmd data get entity Alex SelectedItem
+cmd data get entity @a[limit=1,sort=furthest] SelectedItem.id
+cmd data get entity @e[type=pig,limit=1] SelectedItem
+cmd tellraw Steve {"nbt":"SelectedItem","entity":"Steve"}
+cmd tellraw Steve {"nbt":"SelectedItem.id","entity":"Steve","interpret":false}
+cmd tellraw Steve {"nbt":"SelectedItem.components","entity":"@s","interpret":false,"separator":" | "}
+cmd tellraw Alex {"nbt":"SelectedItem","entity":"@a","separator":";"}
+tick 1
+dump packets:Steve:system_chat packets:Alex:system_chat
+cmd execute store result score Steve nbt_n run data get entity Steve SelectedItem.count
+cmd_as -2 execute as Steve if entity @s[nbt={SelectedItem:{}}]
+cmd_as -2 execute as Steve if data entity @s SelectedItem
+cmd_as -2 execute as Steve if data entity @s SelectedItem.components
+cmd_as -2 execute as Steve if data entity @s SelectedItem.id

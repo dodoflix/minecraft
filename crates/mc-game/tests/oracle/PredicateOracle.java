@@ -39,7 +39,7 @@ import net.minecraft.world.phys.Vec3;
  * -- state setters (besides the driver commands) --
  * onground REF BOOL | pose REF POSE | sprint REF BOOL | swimming REF BOOL | fallflying REF BOOL | flying PLAYER BOOL
  * tickcount REF N | ride PASSENGER VEHICLE | target MOB TARGET | team_join REF TEAM | pinput PLAYER flags | known_movement PLAYER X Y Z
- * recipe PLAYER ID | ominous_banner MOB
+ * recipe PLAYER ID | advancement PLAYER ID CRITERION (awards the criterion) | ominous_banner MOB
  * -- evaluations (output: "R id true|false|ERR", "J id canonical-json" when the JSON decoded) --
  * pred_entity ID SUBJECT ORIGIN JSON            ORIGIN: none | x,y,z | @REF (the position of REF)
  * pred_location ID X Y Z JSON
@@ -149,6 +149,10 @@ public final class PredicateOracle {
          }
          case "known_movement" -> ((ServerPlayer)d.ref(a.get(1))).setKnownMovement(new Vec3(Double.parseDouble(a.get(2)), Double.parseDouble(a.get(3)), Double.parseDouble(a.get(4))));
          case "recipe" -> ((ServerPlayer)d.ref(a.get(1))).getRecipeBook().add(ResourceKey.create(Registries.RECIPE, EntityOracleDriver.id(a.get(2))));
+         case "advancement" -> {
+            d.world();
+            ((ServerPlayer)d.ref(a.get(1))).getAdvancements().award(d.v.server.getAdvancements().get(EntityOracleDriver.id(a.get(2))), a.get(3));
+         }
          case "pred_entity" -> {
             d.world();
             EntityPredicate p = parse(a.get(1), EntityPredicate.CODEC, a.get(4));

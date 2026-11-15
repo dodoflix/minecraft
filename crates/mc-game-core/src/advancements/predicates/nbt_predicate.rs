@@ -9,17 +9,21 @@ use mc_protocol::components::NbtPredicate;
 /// `NbtPredicate.SELECTED_ITEM_TAG`.
 pub const SELECTED_ITEM_TAG: &str = "SelectedItem";
 
+/// The `SelectedItem` of `getEntityTagToCompare`: a player's non-empty selected item as `ItemStack.CODEC` NBT.
+pub fn selected_item_tag(entity: &dyn Entity) -> Option<Tag> {
+    let selected = entity.player()?.inventory.get_selected_item();
+    if selected.is_empty() {
+        return None;
+    }
+    selected.to_tag().into_result().ok()
+}
+
 /// `NbtPredicate.getEntityTagToCompare(entity)`: `saveWithoutId` plus the selected item of a player.
 pub fn get_entity_tag_to_compare(level: &ServerLevel, entity: &dyn Entity) -> CompoundTag {
     let mut out = CompoundTag::new();
     entity.save_without_id(&mut out, &|id| level.get_entity(id));
-    if let Some(player) = entity.player() {
-        let selected = player.inventory.get_selected_item();
-        if !selected.is_empty()
-            && let Ok(tag) = selected.to_tag().into_result()
-        {
-            out.put(SELECTED_ITEM_TAG, tag);
-        }
+    if let Some(selected) = selected_item_tag(entity) {
+        out.put(SELECTED_ITEM_TAG, selected);
     }
     out
 }

@@ -1,0 +1,126 @@
+# /advancement grant|revoke with every mode (only, from, through, until, everything), the criterion forms, the argument errors, the
+# permission denial, one and many targets and the result values: feedback lines, the completed criteria of both players and the
+# update_advancements/select_advancement_tab packets (content printed as `-`: it carries timestamps) after each group.
+command_env
+level flat
+preload 2
+level_seed 5
+entity_counter 30
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 4.5 -60 0.5 0 0
+op Alex
+gamerule send_command_feedback true
+tick 2
+note the first update
+dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+note argument errors
+cmd_as -4 advancement
+cmd_as -4 advancement grant
+cmd_as -4 advancement grant Nobody everything
+cmd_as -4 advancement grant Steve
+cmd_as -4 advancement grant Steve sideways
+cmd_as -4 advancement grant Steve only
+cmd_as -4 advancement grant Steve only minecraft:nope/nothing
+cmd_as -4 advancement grant Steve only minecraft:story/root nonexistent_criterion
+cmd_as -4 advancement revoke Steve only minecraft:story/root nonexistent_criterion
+cmd_as -4 advancement grant Steve only minecraft:story/root crafting_table extra
+cmd_as -4 advancement grant @e[type=pig] everything
+cmd_as -4 advancement grant Steve from
+cmd_as -4 advancement grant Steve everything extra
+cmd_as Steve advancement grant Steve only minecraft:story/root
+cmd_as -2 advancement grant Steve only minecraft:story/root
+cmd_as -1 advancement grant Steve only minecraft:story/root
+tick 1
+dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+note revoke before anything is granted: every failure form
+cmd_as -4 advancement revoke Steve only minecraft:story/root
+cmd_as -4 advancement revoke Steve everything
+cmd_as -4 advancement revoke Steve from minecraft:story/root
+cmd_as -4 advancement revoke @a through minecraft:story/mine_stone
+cmd_as -4 advancement revoke Steve only minecraft:story/mine_stone get_stone
+cmd_as -4 advancement revoke @a until minecraft:story/mine_stone
+cmd_as -4 advancement revoke @a only minecraft:story/root crafting_table
+tick 1
+dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+note single advancement, one player, then the same again
+cmd_as -4 advancement grant Steve only minecraft:story/root
+cmd_as -4 advancement grant Steve only minecraft:story/root
+cmd_as -4 advancement grant Steve only minecraft:story/mine_stone get_stone
+cmd_as -4 advancement grant Steve only minecraft:story/mine_stone get_stone
+cmd_as -4 advancement revoke Steve only minecraft:story/mine_stone get_stone
+cmd_as -4 advancement revoke Steve only minecraft:story/mine_stone get_stone
+tick 1
+dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+note many players: one succeeds, both succeed, both fail
+cmd_as -4 advancement grant @a only minecraft:story/root
+cmd_as -4 advancement grant @a only minecraft:story/root crafting_table
+cmd_as -4 advancement revoke @a only minecraft:story/root crafting_table
+cmd_as -4 advancement grant @a only minecraft:story/root crafting_table
+cmd_as -4 advancement revoke @a only minecraft:story/root
+cmd_as -4 advancement revoke @a only minecraft:story/root
+cmd_as Alex advancement grant Alex only minecraft:story/root
+cmd_as Alex advancement revoke Alex only minecraft:story/root
+tick 1
+dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+note a criterion of an advancement with several criteria, an advancement with alternatives
+cmd_as -4 advancement grant Steve only minecraft:adventure/kill_a_mob
+cmd_as -4 advancement grant Steve only minecraft:adventure/kill_a_mob minecraft:zombie
+cmd_as -4 advancement grant Steve only minecraft:adventure/kill_a_mob minecraft:zombie
+cmd_as -4 advancement grant Steve only minecraft:adventure/kill_a_mob minecraft:skeleton
+cmd_as -4 advancement revoke Steve only minecraft:adventure/kill_a_mob minecraft:zombie
+cmd_as -4 advancement revoke Steve only minecraft:adventure/kill_a_mob
+cmd_as -4 advancement revoke Steve only minecraft:adventure/kill_a_mob
+cmd_as -4 advancement grant Steve only minecraft:adventure/kill_all_mobs minecraft:cave_spider
+cmd_as -4 advancement grant Steve only minecraft:adventure/kill_all_mobs
+cmd_as -4 advancement revoke Steve only minecraft:adventure/kill_all_mobs
+tick 1
+dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+note modes on a chain: root, mine_stone, upgrade_tools, smelt_iron, iron_tools
+cmd_as -4 advancement grant Steve from minecraft:story/mine_stone
+cmd_as -4 advancement grant Steve from minecraft:story/mine_stone
+cmd_as -4 advancement revoke Steve until minecraft:story/upgrade_tools
+cmd_as -4 advancement revoke Steve until minecraft:story/upgrade_tools
+cmd_as -4 advancement grant Steve until minecraft:story/upgrade_tools
+cmd_as -4 advancement grant Steve through minecraft:story/smelt_iron
+cmd_as -4 advancement grant @a through minecraft:story/smelt_iron
+cmd_as -4 advancement revoke Steve through minecraft:story/upgrade_tools
+cmd_as -4 advancement revoke @a from minecraft:story/root
+cmd_as -4 advancement grant @a until minecraft:story/root
+cmd_as -4 advancement revoke @a only minecraft:story/root
+cmd_as -4 advancement grant Alex from minecraft:story/root
+cmd_as -4 advancement revoke Alex from minecraft:story/root
+tick 1
+dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+note rewards: experience, recipes (the default recipe advancements), the announcement of a challenge
+cmd_as -4 advancement grant Steve only minecraft:adventure/bullseye
+cmd_as -4 advancement grant Steve only minecraft:recipes/tools/shears
+cmd_as -4 advancement grant Alex only minecraft:recipes/tools/shears
+cmd_as -4 advancement grant @a only minecraft:adventure/kill_all_mobs
+cmd_as -4 advancement grant Alex only minecraft:adventure/adventuring_time
+tick 1
+dump player:Steve player:Alex recipes:Steve recipes:Alex packets:Steve:system_chat packets:Alex:system_chat
+cmd_as -4 advancement revoke @a only minecraft:adventure/bullseye
+cmd_as -4 advancement revoke @a only minecraft:recipes/tools/shears
+tick 1
+dump player:Steve recipes:Steve recipes:Alex
+dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+note everything: grant hides the toasts (show_advancements false), revoke shows them
+cmd_as -4 advancement grant Steve everything
+cmd_as -4 advancement grant Steve everything
+dump advancements:Steve player:Steve recipes:Steve
+cmd_as -4 advancement grant @a everything
+cmd_as -4 advancement revoke Steve everything
+cmd_as -4 advancement revoke Steve everything
+cmd_as -4 advancement grant Steve everything
+cmd_as -4 advancement revoke @a everything
+tick 1
+dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+note result values through execute store and the console
+cmd_quiet scoreboard objectives add adv_n dummy
+cmd execute store result score Steve adv_n run advancement grant Steve only minecraft:story/root
+cmd execute store result score Steve adv_n run advancement grant Steve from minecraft:story/root
+cmd execute store success score Alex adv_n run advancement revoke @a everything
+cmd execute store result score Steve adv_n run advancement revoke @a everything
+dump scoreboard
+tick 1
+dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab

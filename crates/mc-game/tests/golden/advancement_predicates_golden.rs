@@ -143,6 +143,15 @@ static ACCESS: std::sync::LazyLock<mc_game::registry::RegistryAccess> =
         stem.registries.composite_access().clone()
     });
 
+/// Every advancement of the default data pack, which the spawned players track.
+static ADVANCEMENTS: std::sync::LazyLock<
+    mc_game::advancements::server_advancement_manager::ServerAdvancementManager,
+> = std::sync::LazyLock::new(|| {
+    mc_game::advancements::server_advancement_manager::ServerAdvancementManager::from_registries(
+        &ACCESS,
+    )
+});
+
 impl World {
     fn new() -> World {
         let mut level = ServerLevel::detached(id("overworld"));
@@ -203,6 +212,12 @@ impl World {
             Default::default(),
         );
         p.set_game_mode_for_player(game_type(&a[2]), None);
+        p.advancements = mc_game::advancements::SharedAdvancements::new(
+            mc_game::advancements::player_advancements::PlayerAdvancements::new(
+                &ADVANCEMENTS,
+                None,
+            ),
+        );
         p.set_pos(num(&a[3]), num(&a[4]), num(&a[5]));
         let (yaw, pitch) = (
             a.get(6).map_or(0.0, |s| num(s) as f32),
@@ -464,6 +479,15 @@ impl World {
                     .expect("living")
                     .equipment
                     .set(EquipmentSlot::Head, banner);
+            }
+            "advancement" => {
+                let holder = ADVANCEMENTS.get(&id(&a[2])).expect("advancement").clone();
+                let player = self.refs[&a[1]];
+                self.level
+                    .with_player(player, |level, p| {
+                        p.advancements.clone().award(level, p, &holder, &a[3]);
+                    })
+                    .expect("player");
             }
             "recipe" => {
                 let p = self

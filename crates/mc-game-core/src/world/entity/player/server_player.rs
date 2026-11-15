@@ -884,6 +884,31 @@ impl Entity for ServerPlayer {
     ) -> i32 {
         crate::stats::stat::by_names(stat_type, stat).map_or(0, |s| self.stats.lock().get_value(&s))
     }
+    /// `getAdvancements().getOrStartProgress(advancement)` for a tracked advancement.
+    fn advancement_progress(
+        &self,
+        advancement: &mc_core::ident::Identifier,
+    ) -> Option<crate::advancements::predicates::entity::support::AdvancementProgressSnapshot> {
+        let holder = self.advancements.lock().holder(advancement)?.clone();
+        let progress = self.advancements.get_or_start_progress(&holder);
+        let mut criteria: Vec<(String, bool)> = progress
+            .get_completed_criteria()
+            .into_iter()
+            .map(|c| (c, true))
+            .collect();
+        criteria.extend(
+            progress
+                .get_remaining_criteria()
+                .into_iter()
+                .map(|c| (c, false)),
+        );
+        Some(
+            crate::advancements::predicates::entity::support::AdvancementProgressSnapshot {
+                done: progress.is_done(),
+                criteria,
+            },
+        )
+    }
     /// `Player.isSwimming()`.
     fn is_swimming(&self) -> bool {
         !self.player.abilities.flying

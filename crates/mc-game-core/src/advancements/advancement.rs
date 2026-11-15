@@ -230,6 +230,13 @@ impl PartialEq for AdvancementHolder {
 
 impl Eq for AdvancementHolder {}
 
+/// Lets a map keyed by holders be queried by id (the hash is the id's).
+impl indexmap::Equivalent<AdvancementHolder> for Identifier {
+    fn equivalent(&self, key: &AdvancementHolder) -> bool {
+        *self == key.id
+    }
+}
+
 impl Hash for AdvancementHolder {
     fn hash<H: Hasher>(&self, state: &mut H) {
         self.id.hash(state);

@@ -231,6 +231,31 @@ pred_entity y19 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:
 pred_entity y20 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:mined","stat":"minecraft:stone"}]}}
 pred_entity y21 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:mined","stat":"minecraft:nope"}]}}
 pred_entity y22 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:nope","stat":"minecraft:stone"}]}}
+advancement Steve minecraft:story/root crafting_table
+advancement Steve minecraft:adventure/kill_all_mobs minecraft:cave_spider
+advancement Steve minecraft:husbandry/balanced_diet apple
+advancement Alex minecraft:story/root crafting_table
+advancement Alex minecraft:story/mine_stone get_stone
+pred_entity y23 Steve none {"type_specific/player":{"advancements":{"minecraft:story/root":true}}}
+pred_entity y24 Steve none {"type_specific/player":{"advancements":{"minecraft:story/root":false}}}
+pred_entity y25 Steve none {"type_specific/player":{"advancements":{"minecraft:story/root":{"crafting_table":true}}}}
+pred_entity y26 Steve none {"type_specific/player":{"advancements":{"minecraft:story/root":{"crafting_table":false}}}}
+pred_entity y27 Steve none {"type_specific/player":{"advancements":{"minecraft:story/mine_stone":true}}}
+pred_entity y28 Steve none {"type_specific/player":{"advancements":{"minecraft:story/mine_stone":false}}}
+pred_entity y29 Alex none {"type_specific/player":{"advancements":{"minecraft:story/mine_stone":true}}}
+pred_entity y30 Alex none {"type_specific/player":{"advancements":{"minecraft:story/root":true,"minecraft:story/mine_stone":{"get_stone":true}}}}
+pred_entity y31 Steve none {"type_specific/player":{"advancements":{"minecraft:story/root":true,"minecraft:story/mine_stone":{"get_stone":true}}}}
+pred_entity y32 Steve none {"type_specific/player":{"advancements":{"minecraft:adventure/kill_all_mobs":{"minecraft:cave_spider":true,"minecraft:zombie":false}}}}
+pred_entity y33 Steve none {"type_specific/player":{"advancements":{"minecraft:adventure/kill_all_mobs":{"minecraft:cave_spider":true,"minecraft:zombie":true}}}}
+pred_entity y34 Steve none {"type_specific/player":{"advancements":{"minecraft:adventure/kill_all_mobs":false}}}
+pred_entity y35 Steve none {"type_specific/player":{"advancements":{"minecraft:husbandry/balanced_diet":{"apple":true,"bread":false}}}}
+pred_entity y36 Steve none {"type_specific/player":{"advancements":{"minecraft:husbandry/balanced_diet":{"nope":false}}}}
+pred_entity y37 Alex none {"type_specific/player":{"advancements":{"minecraft:husbandry/balanced_diet":{"apple":false}}}}
+pred_entity y38 Alex none {"type_specific/player":{"advancements":{"minecraft:husbandry/balanced_diet":false}}}
+pred_entity y39 Steve none {"type_specific/player":{"advancements":{"minecraft:story/root":true,"minecraft:story/nope":false}}}
+pred_entity y40 Pat none {"type_specific/player":{"advancements":{"minecraft:story/root":false}}}
+pred_entity y41 Pat none {"type_specific/player":{"advancements":{"minecraft:story/root":{"crafting_table":false}}}}
+pred_entity y42 pig1 none {"type_specific/player":{"advancements":{"minecraft:story/root":true}}}
 # ---- combined, ordering and errors ------------------------------------------------------------------------------
 pred_entity c1 Steve @Alex {"entity_type":"minecraft:player","distance":{"horizontal":{"min":4}},"flags":{"is_sneaking":true},"nbt":{"XpLevel":7},"vehicle":{}}
 pred_entity c2 Steve @Alex {"entity_type":"minecraft:player","distance":{"horizontal":{"min":4}},"flags":{"is_sneaking":true},"nbt":{"XpLevel":7},"team":"red"}

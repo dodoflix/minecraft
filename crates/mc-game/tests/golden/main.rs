@@ -6,6 +6,7 @@
 
 mod adv_mob_triggers_golden;
 mod adv_rewards_golden;
+mod advancement_command_golden;
 mod advancement_predicates_golden;
 mod args;
 mod args_common;

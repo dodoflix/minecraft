@@ -1,0 +1,151 @@
+# The `advancements` selector option: the true/false form per advancement, the per-criterion form, several entries, unknown
+# advancements and criteria, entities that are not players, `@s`, the parse errors, the same through `execute if entity` (feedback).
+command_env
+level flat
+preload 2
+level_seed 6
+entity_counter 40
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 4.5 -60 0.5 0 0
+spawn Near minecraft:pig 2.5 -60 0.5 0 0 {NoAI:1b}
+spawn Far minecraft:cow 9.5 -60 9.5 0 0 {NoAI:1b}
+gamerule send_command_feedback true
+tick 2
+note Steve: root done, kill_all_mobs partly (cave_spider); Alex: kill_a_mob through zombie, root only crafting_table revoked
+cmd_quiet advancement grant Steve only minecraft:story/root
+cmd_quiet advancement grant Steve only minecraft:husbandry/balanced_diet apple
+cmd_quiet advancement grant Steve only minecraft:husbandry/balanced_diet bread
+cmd_quiet advancement grant Alex only minecraft:husbandry/plant_seed wheat
+cmd_quiet advancement grant Alex only minecraft:adventure/kill_a_mob minecraft:zombie
+cmd_quiet advancement grant Alex only minecraft:story/root
+cmd_quiet advancement revoke Alex only minecraft:story/root crafting_table
+tick 1
+dump advancements:Steve advancements:Alex
+note selectors from Steve and from the console: the entities each form finds
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=false}]
+dump select:Steve/0,-60,0/@a[advancements={story/root=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root={crafting_table=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root={crafting_table=false}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true,minecraft:story/mine_stone=false}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true,minecraft:story/mine_stone=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=false,minecraft:story/mine_stone=false}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={apple=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={apple=true,bread=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={apple=true,beef=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={apple=true,beef=false}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={beef=false}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={beef=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={apple=false}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={nope=false}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={nope=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet=false}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/plant_seed=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/plant_seed={wheat=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/plant_seed={wheat=true,melon_stem=false}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/plant_seed={melon_stem=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/plant_seed={wheat=true},minecraft:husbandry/balanced_diet={apple=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={apple=true},minecraft:story/root=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={"apple"=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={Apple=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:husbandry/balanced_diet={apple=true;bread=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:adventure/kill_all_mobs={minecraft:cave_spider=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:adventure/kill_all_mobs={minecraft:cave_spider=true,minecraft:zombie=false}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:adventure/kill_all_mobs={minecraft:cave_spider=true,minecraft:zombie=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:adventure/kill_all_mobs={minecraft:cave_spider=false}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:adventure/kill_all_mobs=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:adventure/kill_all_mobs=false}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:adventure/kill_a_mob=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:adventure/kill_a_mob={minecraft:zombie=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:adventure/kill_a_mob={minecraft:zombie=true,minecraft:skeleton=false}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:adventure/kill_all_mobs={minecraft:nope=true}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:adventure/kill_all_mobs={minecraft:nope=false}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:nope/nothing=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:nope/nothing=false}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true,minecraft:nope/nothing=false}]
+dump select:Steve/0,-60,0/@a[advancements={}]
+dump select:Steve/0,-60,0/@e[advancements={}]
+dump select:Steve/0,-60,0/@e[advancements={minecraft:story/root=true}]
+dump select:Steve/0,-60,0/@e[advancements={minecraft:story/root=false}]
+dump select:Steve/0,-60,0/@e[advancements={minecraft:story/root=true},type=pig]
+dump select:Steve/0,-60,0/@e[type=pig,advancements={minecraft:story/root=true}]
+dump select:Steve/0,-60,0/@e[type=player,advancements={minecraft:story/root=true}]
+dump select:Steve/0,-60,0/@e[type=!player,advancements={minecraft:story/root=false}]
+dump select:Steve/0,-60,0/@p[advancements={minecraft:story/root=false}]
+dump select:Steve/0,-60,0/@r[advancements={minecraft:story/root=true}]
+dump select:Steve/0,-60,0/@s[advancements={minecraft:story/root=true}]
+dump select:Steve/0,-60,0/@s[advancements={minecraft:story/root=false}]
+dump select:Steve/0,-60,0/@a[advancements={ minecraft:story/root = true }]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true,}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true,,}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root={crafting_table=true,}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root={ crafting_table = true }}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root={crafting_table=true,crafting_table=false}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true,minecraft:story/root=false}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true},advancements={minecraft:story/root=false}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true},limit=1,sort=furthest]
+dump select:Steve/0,-60,0/@a[sort=furthest,limit=1,advancements={minecraft:story/root=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=maybe}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root={crafting_table=maybe}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root={crafting_table}}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root={crafting_table=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true
+dump select:Steve/0,-60,0/@a[advancements={
+dump select:Steve/0,-60,0/@a[advancements=
+dump select:Steve/0,-60,0/@a[advancements]
+dump select:Steve/0,-60,0/@a[advancements=true]
+dump select:Steve/0,-60,0/@a[advancements=!{minecraft:story/root=true}]
+dump select:Steve/0,-60,0/@a[advancements={bad id=true}]
+dump select:Steve/0,-60,0/@a[advancements={Minecraft:story/root=true}]
+dump select:Steve/0,-60,0/@a[advancements={=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=1}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=True}]
+note the same options at the console, and as Alex
+dump select:-/0,-60,0/@a[advancements={minecraft:story/root=true}]
+dump select:Alex/4.5,-60,0.5/@a[advancements={minecraft:story/root=true}]
+dump select:-/0,-60,0/@a[advancements={minecraft:story/root=false}]
+dump select:Alex/4.5,-60,0.5/@a[advancements={minecraft:story/root=false}]
+dump select:-/0,-60,0/@a[advancements={story/root=true}]
+dump select:Alex/4.5,-60,0.5/@a[advancements={story/root=true}]
+dump select:-/0,-60,0/@a[advancements={minecraft:story/root={crafting_table=true}}]
+dump select:Alex/4.5,-60,0.5/@a[advancements={minecraft:story/root={crafting_table=true}}]
+dump select:-/0,-60,0/@a[advancements={minecraft:story/root={crafting_table=false}}]
+dump select:Alex/4.5,-60,0.5/@a[advancements={minecraft:story/root={crafting_table=false}}]
+dump select:-/0,-60,0/@a[advancements={minecraft:story/root=true,minecraft:story/mine_stone=false}]
+dump select:Alex/4.5,-60,0.5/@a[advancements={minecraft:story/root=true,minecraft:story/mine_stone=false}]
+note through execute: feedback and the result of the selector
+cmd execute if entity @a[advancements={minecraft:story/root=true}]
+cmd execute unless entity @a[advancements={minecraft:story/root=true}]
+cmd execute as @a[advancements={minecraft:story/root=true}] run say hi
+cmd execute if entity @a[advancements={minecraft:story/root=false}]
+cmd execute unless entity @a[advancements={minecraft:story/root=false}]
+cmd execute as @a[advancements={minecraft:story/root=false}] run say hi
+cmd execute if entity @a[advancements={minecraft:nope/nothing=true}]
+cmd execute unless entity @a[advancements={minecraft:nope/nothing=true}]
+cmd execute as @a[advancements={minecraft:nope/nothing=true}] run say hi
+cmd execute if entity @e[advancements={}]
+cmd execute unless entity @e[advancements={}]
+cmd execute as @e[advancements={}] run say hi
+cmd execute if entity @a[advancements={minecraft:story/root=maybe}]
+cmd execute unless entity @a[advancements={minecraft:story/root=maybe}]
+cmd execute as @a[advancements={minecraft:story/root=maybe}] run say hi
+cmd execute if entity @a[advancements=!{minecraft:story/root=true}]
+cmd execute unless entity @a[advancements=!{minecraft:story/root=true}]
+cmd execute as @a[advancements=!{minecraft:story/root=true}] run say hi
+cmd_quiet scoreboard objectives add adv_sel dummy
+cmd execute store result score Steve adv_sel if entity @a[advancements={minecraft:story/root=true}]
+cmd execute store result score Alex adv_sel if entity @a[advancements={minecraft:story/root={crafting_table=false}}]
+cmd scoreboard players list
+note the options follow the progress: revoke then grant
+cmd_quiet advancement revoke Steve everything
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=false}]
+cmd_quiet advancement grant Steve only minecraft:story/root crafting_table
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root=true}]
+dump select:Steve/0,-60,0/@a[advancements={minecraft:story/root={crafting_table=true}}]
+dump advancements:Steve advancements:Alex

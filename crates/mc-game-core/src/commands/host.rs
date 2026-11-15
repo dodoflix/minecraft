@@ -271,20 +271,33 @@ pub fn entity_scores_match(
 }
 
 /// The `advancements` option: for a player, every `(advancement, criteria)` expectation holds
-/// (`criteria: None` = the advancement `done == value`).
-/// Not implemented: the option is not connected to the `ServerAdvancementManager` (the server loads it, but this hook
-/// does not look advancements up), so a known advancement is never found; vanilla's `getOrStartProgress` is skipped for
-/// unknown ones (`advancement == null` -> no match).
+/// (`criteria: None` = the advancement `done == value`). An unknown advancement never matches.
 pub fn advancements_match(
-    _server: &MinecraftServer,
+    server: &MinecraftServer,
     entity: &dyn Entity,
     expected: &[(mc_core::ident::Identifier, AdvancementExpectation)],
 ) -> bool {
-    entity
+    let Some(player) = entity
         .as_any()
         .downcast_ref::<crate::world::entity::ServerPlayer>()
-        .is_some()
-        && expected.is_empty()
+    else {
+        return false;
+    };
+    let manager = server.advancements();
+    expected.iter().all(|(id, expectation)| {
+        let Some(holder) = manager.get(id) else {
+            return false;
+        };
+        let progress = player.advancements.get_or_start_progress(holder);
+        match expectation {
+            AdvancementExpectation::Done(done) => progress.is_done() == *done,
+            AdvancementExpectation::Criteria(criteria) => criteria.iter().all(|(name, done)| {
+                progress
+                    .get_criterion(name)
+                    .is_some_and(|c| c.is_done() == *done)
+            }),
+        }
+    })
 }
 
 /// What an `advancements={...}` entry expects.
@@ -319,10 +332,9 @@ pub fn loot_predicate_matches(
     Some(condition.test(&mut context))
 }
 
-/// The `SelectedItem` the `nbt` option adds for players (`ItemStack.CODEC` of the selected hotbar item).
-/// Not implemented: always `None`; vanilla writes the item as `ItemStack.CODEC` NBT.
-pub fn player_selected_item_nbt(_entity: &dyn Entity) -> Option<mc_nbt::Tag> {
-    None
+/// The `SelectedItem` the `nbt` option adds for players (`ItemStack.CODEC` of the selected hotbar item; none when empty).
+pub fn player_selected_item_nbt(entity: &dyn Entity) -> Option<mc_nbt::Tag> {
+    crate::advancements::predicates::nbt_predicate::selected_item_tag(entity)
 }
 
 // ---- names of players (suggestions, profiles) ----
@@ -1033,69 +1045,131 @@ pub struct AdvancementProgressRef {
     pub completed: Vec<String>,
 }
 
-/// `server.getAdvancements().get(id)`.
-/// Not implemented: not connected to the `ServerAdvancementManager` (the server loads it, this hook does not read it), so
-/// nothing is found.
-pub fn advancement_get(_server: &MinecraftServer, _id: &Identifier) -> Option<AdvancementRef> {
-    None
-}
-
-/// `server.getAdvancements().getAllAdvancements()`.
-/// Not implemented: always empty (not connected to the `ServerAdvancementManager`).
-pub fn advancement_all(_server: &MinecraftServer) -> Vec<AdvancementRef> {
-    Vec::new()
-}
-
-/// `server.getAdvancements().tree().get(holder)`.
-/// Not implemented: always `None` (not connected to the `ServerAdvancementManager`).
-pub fn advancement_node(_server: &MinecraftServer, _id: &Identifier) -> Option<AdvancementNodeRef> {
-    None
-}
-
-/// `player.getAdvancements().getOrStartProgress(holder)`.
-/// Not implemented: not connected to the player's `PlayerAdvancements`, the result is "nothing done".
-pub fn player_advancement_progress(
-    _server: &mut MinecraftServer,
-    _player: &EntityRef,
-    _id: &Identifier,
-) -> AdvancementProgressRef {
-    AdvancementProgressRef {
-        done: false,
-        has_progress: false,
-        remaining: Vec::new(),
-        completed: Vec::new(),
+fn advancement_ref(holder: &crate::advancements::AdvancementHolder) -> AdvancementRef {
+    AdvancementRef {
+        id: holder.id.clone(),
+        name: crate::advancements::advancement::name(holder),
+        criteria: holder
+            .value()
+            .criteria
+            .iter()
+            .map(|(name, _)| name.clone())
+            .collect(),
     }
 }
 
+/// `server.getAdvancements().get(id)`.
+pub fn advancement_get(server: &MinecraftServer, id: &Identifier) -> Option<AdvancementRef> {
+    server.advancements().get(id).map(advancement_ref)
+}
+
+/// `server.getAdvancements().getAllAdvancements()`.
+pub fn advancement_all(server: &MinecraftServer) -> Vec<AdvancementRef> {
+    server
+        .advancements()
+        .get_all_advancements()
+        .iter()
+        .map(advancement_ref)
+        .collect()
+}
+
+/// `server.getAdvancements().tree().get(holder)`.
+pub fn advancement_node(server: &MinecraftServer, id: &Identifier) -> Option<AdvancementNodeRef> {
+    let tree = server.advancements().tree();
+    let node = tree.node(tree.get(id)?);
+    Some(AdvancementNodeRef {
+        parent: node.parent.map(|p| advancement_ref(&tree.node(p).holder)),
+        children: node
+            .children
+            .iter()
+            .map(|c| advancement_ref(&tree.node(*c).holder))
+            .collect(),
+    })
+}
+
+/// The shared advancements of `player` and the holder of `id` (`None` for a non-player or an unknown advancement).
+fn player_advancements_of(
+    server: &MinecraftServer,
+    player: &EntityRef,
+    id: &Identifier,
+) -> Option<(
+    crate::advancements::SharedAdvancements,
+    crate::advancements::AdvancementHolder,
+)> {
+    let holder = server.advancements().get(id)?.clone();
+    let player = get_entity(server, player)?
+        .as_any()
+        .downcast_ref::<crate::world::entity::ServerPlayer>()?;
+    Some((player.advancements.clone(), holder))
+}
+
+/// `player.getAdvancements().getOrStartProgress(holder)`.
+pub fn player_advancement_progress(
+    server: &mut MinecraftServer,
+    player: &EntityRef,
+    id: &Identifier,
+) -> AdvancementProgressRef {
+    let progress = player_advancements_of(server, player, id)
+        .map(|(advancements, holder)| advancements.get_or_start_progress(&holder));
+    progress.map_or(
+        AdvancementProgressRef {
+            done: false,
+            has_progress: false,
+            remaining: Vec::new(),
+            completed: Vec::new(),
+        },
+        |p| AdvancementProgressRef {
+            done: p.is_done(),
+            has_progress: p.has_progress(),
+            remaining: p.get_remaining_criteria(),
+            completed: p.get_completed_criteria(),
+        },
+    )
+}
+
 /// `player.getAdvancements().award(holder, criterion)`.
-/// Not implemented: awards nothing and returns `false`.
 pub fn player_advancement_award(
-    _server: &mut MinecraftServer,
-    _player: &EntityRef,
-    _id: &Identifier,
-    _criterion: &str,
+    server: &mut MinecraftServer,
+    player: &EntityRef,
+    id: &Identifier,
+    criterion: &str,
 ) -> bool {
-    false
+    let Some((advancements, holder)) = player_advancements_of(server, player, id) else {
+        return false;
+    };
+    server
+        .level_mut(&player.dimension)
+        .and_then(|level| {
+            level.with_player(player.id, |level, p| {
+                advancements.award(level, p, &holder, criterion)
+            })
+        })
+        .unwrap_or(false)
 }
 
 /// `player.getAdvancements().revoke(holder, criterion)`.
-/// Not implemented: revokes nothing and returns `false`.
 pub fn player_advancement_revoke(
-    _server: &mut MinecraftServer,
-    _player: &EntityRef,
-    _id: &Identifier,
-    _criterion: &str,
+    server: &mut MinecraftServer,
+    player: &EntityRef,
+    id: &Identifier,
+    criterion: &str,
 ) -> bool {
-    false
+    player_advancements_of(server, player, id)
+        .is_some_and(|(advancements, holder)| advancements.revoke(&holder, criterion))
 }
 
 /// `player.getAdvancements().flushDirty(player, showAdvancements)`.
-/// Not implemented: does nothing.
 pub fn player_advancements_flush_dirty(
-    _server: &mut MinecraftServer,
-    _player: &EntityRef,
-    _show_advancements: bool,
+    server: &mut MinecraftServer,
+    player: &EntityRef,
+    show_advancements: bool,
 ) {
+    if let Some(p) = get_entity(server, player).and_then(|e| {
+        e.as_any()
+            .downcast_ref::<crate::world::entity::ServerPlayer>()
+    }) {
+        p.advancements.flush_dirty(p, show_advancements);
+    }
 }
 
 /// `server.getRecipeManager().byKey(key)` filtered by `!recipe.isSpecial()`.
