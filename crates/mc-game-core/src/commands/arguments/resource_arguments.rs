@@ -932,6 +932,17 @@ fn check_inline(context: &CommandBuildContext, registry: &str, tag: &Tag) -> Res
             tag,
         ),
         "minecraft:slot_source" => run(crate::world::item::slot::slot_source_codec(), tag),
+        "minecraft:context_float_provider" => run(
+            crate::world::level::storage::loot::providers::number::float_provider_codec(),
+            tag,
+        ),
+        "minecraft:context_int_provider" => run(
+            crate::world::level::storage::loot::providers::number::int_provider_codec(),
+            tag,
+        ),
+        "minecraft:worldgen/feature" => {
+            crate::world::level::levelgen::feature::check_direct_definition(tag)
+        }
         "minecraft:dialog" => mc_protocol::dialog::Dialog::from_inline_tag(tag).map(|_| ()),
         _ => Ok(()),
     })

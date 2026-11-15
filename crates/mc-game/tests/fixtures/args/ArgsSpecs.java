@@ -4,6 +4,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.*;
 import net.minecraft.commands.arguments.blocks.*;
 import net.minecraft.commands.arguments.coordinates.*;
+import net.minecraft.commands.arguments.item.FunctionArgument;
 import net.minecraft.commands.arguments.item.ItemArgument;
 import net.minecraft.server.permissions.PermissionSet;
 import net.minecraft.util.StringRepresentable;
@@ -442,6 +443,9 @@ final class ArgsSpecs {
       add("team_color", () -> TeamColorArgument.teamColor(), ArgsSpecs::ser,
          "black", "dark_blue", "dark_green", "dark_aqua", "dark_red", "dark_purple", "gold", "gray", "dark_gray", "blue", "green", "aqua", "red", "light_purple", "yellow", "white", "reset", "bold", "Red", "pink", "", "re", "dark_");
       add("swing_animation", () -> SwingAnimationArgument.swingAnimationType(), ArgsSpecs::ser, "none", "whack", "stab", "Whack", "slash", "", "w", "stab ");
+      // The tag form is the first anonymous `FunctionArgument.Result`, the function form the second; both capture `id`.
+      add("function", () -> FunctionArgument.functions(), v -> (v.getClass().getName().endsWith("$1") ? "tag " : "function ") + field(v, "val$id"),
+         "foo", "foo:bar", "#foo", "#foo:bar", "#", "", " ", "#:", "minecraft:foo", "foo/bar/baz", "foo.bar_baz-1", "Foo", "foo:Bar", "a b", "#a b", "##foo", "foo:", ":foo", "#foo:", "\u00e9", "#\u00e9", "foo bar", "foo\tbar", "a%b", "#minecraft:tick", "#minecraft:load", "foo:bar:baz");
       add("entity_anchor", () -> EntityAnchorArgument.anchor(), v -> ((Enum<?>) v).name(), "feet", "eyes", "Feet", "head", "", "e", "feet ", "eyes_");
       add("uuid", () -> UuidArgument.uuid(), Object::toString,
          "dd12be42-52a9-4a91-a8a1-11c01849e498", "00000000-0000-0000-0000-000000000000", "DD12BE42-52A9-4A91-A8A1-11C01849E498", "dd12be42-52a9-4a91-a8a1-11c01849e49", "dd12be42-52a9-4a91-a8a1-11c01849e4980",

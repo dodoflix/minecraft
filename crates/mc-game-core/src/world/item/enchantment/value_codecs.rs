@@ -807,6 +807,13 @@ fn with_gen_ctx<R>(
     })
 }
 
+/// The vanilla worldgen registries and biomes the levelgen loaders decode with, built once per thread.
+pub(crate) fn with_gen_registries<R>(
+    f: impl FnOnce(&mc_worldgen::data::WorldgenRegistries, &mc_worldgen::biome::BiomeRegistry) -> R,
+) -> R {
+    with_gen_ctx(|ctx| f(ctx.worldgen, ctx.biomes))
+}
+
 fn vec3i_offset_schema(max: i32, _required: bool) -> Schema {
     Schema::custom(move |v, _| {
         let list = v.as_array().ok_or_else(|| format!("Not a list: {v}"))?;

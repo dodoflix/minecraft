@@ -209,7 +209,7 @@ pub fn holder_codec<T: ?Sized + Send + Sync + 'static>(
 fn hashed_tag_codec() -> Codec<Identifier> {
     STRING.comap_flat_map(
         |s| match s.strip_prefix('#') {
-            None => DataResult::error(move || format!("Not a tag id: {s}")),
+            None => DataResult::error(|| "Not a tag id".to_owned()),
             Some(rest) => match Identifier::read(rest) {
                 Ok(id) => DataResult::success(id),
                 Err(e) => DataResult::error(move || e.clone()),

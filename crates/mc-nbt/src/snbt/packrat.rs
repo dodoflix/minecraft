@@ -260,10 +260,17 @@ impl ErrorCollector {
     }
 
     fn store(&mut self, cursor: usize, reason: Reason) {
+        self.store_suggesting(cursor, reason, &[]);
+    }
+
+    /// `store(cursor, suggestions, reason)` for a supplier that is a fixed value list.
+    fn store_suggesting(&mut self, cursor: usize, reason: Reason, values: &[&str]) {
         let cursor = cursor as i64;
         self.discard_shorter(cursor);
         if cursor == self.last_cursor {
             self.entries += 1;
+            self.suggestions
+                .extend(values.iter().map(|v| (*v).to_owned()));
             // `TerminalCharacters`: one suggestion per accepted character (the error text joins them with `|`)
             if let Reason::Literal(text) = &reason {
                 self.suggestions
@@ -399,6 +406,11 @@ impl<'g> Ps<'g> {
     /// Stores `reason` at the current cursor (`errorCollector().store(state.mark(), reason)`).
     pub fn store_here(&mut self, reason: Reason) {
         self.err.store(self.cursor, reason);
+    }
+
+    /// `errorCollector().store(state.mark(), suggestions, reason)` with a fixed list of suggested values.
+    pub fn store_here_suggesting(&mut self, reason: Reason, values: &[&str]) {
+        self.err.store_suggesting(self.cursor, reason, values);
     }
 
     pub fn skip_whitespace(&mut self) {

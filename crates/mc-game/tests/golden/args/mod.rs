@@ -1134,6 +1134,19 @@ case!(
 );
 
 case!(
+    function_matches_vanilla,
+    "function",
+    |_| Arc::new(a::function_argument::FunctionArgument::functions()),
+    |v, _| match v
+        .downcast_ref::<a::function_argument::FunctionResult>()
+        .expect("function result")
+    {
+        a::function_argument::FunctionResult::Tag(id) => format!("tag {id}"),
+        a::function_argument::FunctionResult::Function(id) => format!("function {id}"),
+    }
+);
+
+case!(
     #[ignore = "deviation: codec error text of the item argument prints NBT values as JSON (#10)"]
     item_matches_vanilla,
     "item",
@@ -1153,7 +1166,6 @@ case!(
 );
 
 case!(
-    #[ignore = "deviation: SNBT suggestions miss the word terminals (#9)"]
     nbt_tag_matches_vanilla,
     "nbt_tag",
     |_ctx| Arc::new(a::NbtTagArgument::nbt_tag()),
@@ -1161,7 +1173,6 @@ case!(
 );
 
 case!(
-    #[ignore = "deviation: slot source suggestions miss the slot ranges and registry elements (#9)"]
     slot_source_matches_vanilla,
     "slot_source",
     |ctx| Arc::new(a::slot_arguments::SlotSourceArgument::slot_source(ctx)),
@@ -1216,19 +1227,16 @@ resource_or_id_case!(
     |ctx| Arc::new(a::resource_arguments::DialogArgument::dialog(ctx))
 );
 resource_or_id_case!(
-    #[ignore = "deviation: inline feature definitions are read differently from vanilla (#11)"]
     resource_or_id_feature_matches_vanilla,
     "resource_or_id_feature",
     |ctx| Arc::new(a::resource_arguments::FeatureArgument::feature(ctx))
 );
 resource_or_id_case!(
-    #[ignore = "deviation: inline float provider definitions are read differently from vanilla (#11)"]
     resource_or_id_float_provider_matches_vanilla,
     "resource_or_id_float_provider",
     |ctx| Arc::new(a::resource_arguments::ContextFloatProviderArgument::float_provider(ctx))
 );
 resource_or_id_case!(
-    #[ignore = "deviation: inline int provider definitions are read differently from vanilla (#11)"]
     resource_or_id_int_provider_matches_vanilla,
     "resource_or_id_int_provider",
     |ctx| Arc::new(a::resource_arguments::ContextIntProviderArgument::int_provider(ctx))

@@ -493,7 +493,11 @@ fn a_unquoted_string_or_builtin(ps: &mut Ps<'_>) -> Option<Val> {
             Some(Val::Tag(Tag::String(name)))
         }
     } else {
-        ps.store_here(msg("snbt.parser.invalid_unquoted_start"));
+        // `SnbtOperations.BUILTIN_IDS`
+        ps.store_here_suggesting(
+            msg("snbt.parser.invalid_unquoted_start"),
+            &["bool", "false", "true", "uuid"],
+        );
         None
     }
 }

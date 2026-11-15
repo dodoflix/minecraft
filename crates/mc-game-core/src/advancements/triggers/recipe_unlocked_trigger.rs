@@ -79,7 +79,7 @@ pub fn recipe_set_codec() -> Codec<RecipeSet> {
     static C: std::sync::LazyLock<Codec<RecipeSet>> = std::sync::LazyLock::new(|| {
         let tag = STRING.comap_flat_map(
             |s: String| match s.strip_prefix('#') {
-                None => DataResult::error(move || format!("Not a tag id: {s}")),
+                None => DataResult::error(|| "Not a tag id".to_owned()),
                 Some(rest) => match Identifier::read(rest) {
                     Ok(id) => DataResult::success(id),
                     Err(e) => DataResult::error(move || e.clone()),

@@ -1,0 +1,1740 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S -2--2 0 0 
+@ all foo
+R 3
+A 0-3 function minecraft:foo
+E ok
+S -2--2 0 0 
+@ all foo:bar
+R 7
+A 0-7 function foo:bar
+E ok
+S -2--2 0 0 
+@ all #foo
+R 4
+A 0-4 tag minecraft:foo
+E ok
+S -2--2 0 0 
+@ all #foo:bar
+R 8
+A 0-8 tag foo:bar
+E ok
+S -2--2 0 0 
+@ all #
+R 1
+A 0-1 tag minecraft:
+E ok
+S -2--2 0 0 
+@ all  
+R 0
+A 0-0 function minecraft:
+E Incorrect argument for command at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #:
+R 2
+A 0-2 tag minecraft:
+E ok
+S -2--2 0 0 
+@ all minecraft:foo
+R 13
+A 0-13 function minecraft:foo
+E ok
+S -2--2 0 0 
+@ all foo/bar/baz
+R 11
+A 0-11 function minecraft:foo/bar/baz
+E ok
+S -2--2 0 0 
+@ all foo.bar_baz-1
+R 13
+A 0-13 function minecraft:foo.bar_baz-1
+E ok
+S -2--2 0 0 
+@ all Foo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:Bar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all a b
+R 2
+A 0-1 function minecraft:a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all #a b
+R 3
+A 0-2 tag minecraft:a
+E Incorrect argument for command at position 5: t #a <--[HERE]@3
+S -2--2 0 0 
+@ all ##foo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all foo:
+R 4
+A 0-4 function foo:
+E ok
+S -2--2 0 0 
+@ all :foo
+R 4
+A 0-4 function minecraft:foo
+E ok
+S -2--2 0 0 
+@ all #foo:
+R 5
+A 0-5 tag foo:
+E ok
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all foo bar
+R 4
+A 0-3 function minecraft:foo
+E Incorrect argument for command at position 6: t foo <--[HERE]@4
+S -2--2 0 0 
+@ all foo\u0009bar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all a%b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all #minecraft:tick
+R 15
+A 0-15 tag minecraft:tick
+E ok
+S -2--2 0 0 
+@ all #minecraft:load
+R 15
+A 0-15 tag minecraft:load
+E ok
+S -2--2 0 0 
+@ all foo:bar:baz
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f
+R 1
+A 0-1 function minecraft:f
+E ok
+S -2--2 0 0 
+@ all fo
+R 2
+A 0-2 function minecraft:fo
+E ok
+S -2--2 0 0 
+@ all foo:b
+R 5
+A 0-5 function foo:b
+E ok
+S -2--2 0 0 
+@ all foo:ba
+R 6
+A 0-6 function foo:ba
+E ok
+S -2--2 0 0 
+@ all #f
+R 2
+A 0-2 tag minecraft:f
+E ok
+S -2--2 0 0 
+@ all #fo
+R 3
+A 0-3 tag minecraft:fo
+E ok
+S -2--2 0 0 
+@ all #foo:b
+R 6
+A 0-6 tag foo:b
+E ok
+S -2--2 0 0 
+@ all #foo:ba
+R 7
+A 0-7 tag foo:ba
+E ok
+S -2--2 0 0 
+@ all m
+R 1
+A 0-1 function minecraft:m
+E ok
+S -2--2 0 0 
+@ all mi
+R 2
+A 0-2 function minecraft:mi
+E ok
+S -2--2 0 0 
+@ all min
+R 3
+A 0-3 function minecraft:min
+E ok
+S -2--2 0 0 
+@ all mine
+R 4
+A 0-4 function minecraft:mine
+E ok
+S -2--2 0 0 
+@ all minec
+R 5
+A 0-5 function minecraft:minec
+E ok
+S -2--2 0 0 
+@ all minecr
+R 6
+A 0-6 function minecraft:minecr
+E ok
+S -2--2 0 0 
+@ all minecra
+R 7
+A 0-7 function minecraft:minecra
+E ok
+S -2--2 0 0 
+@ all minecraf
+R 8
+A 0-8 function minecraft:minecraf
+E ok
+S -2--2 0 0 
+@ all minecraft
+R 9
+A 0-9 function minecraft:minecraft
+E ok
+S -2--2 0 0 
+@ all minecraft:
+R 10
+A 0-10 function minecraft:
+E ok
+S -2--2 0 0 
+@ all minecraft:f
+R 11
+A 0-11 function minecraft:f
+E ok
+S -2--2 0 0 
+@ all minecraft:fo
+R 12
+A 0-12 function minecraft:fo
+E ok
+S -2--2 0 0 
+@ all foo/
+R 4
+A 0-4 function minecraft:foo/
+E ok
+S -2--2 0 0 
+@ all foo/b
+R 5
+A 0-5 function minecraft:foo/b
+E ok
+S -2--2 0 0 
+@ all foo/ba
+R 6
+A 0-6 function minecraft:foo/ba
+E ok
+S -2--2 0 0 
+@ all foo/bar
+R 7
+A 0-7 function minecraft:foo/bar
+E ok
+S -2--2 0 0 
+@ all foo/bar/
+R 8
+A 0-8 function minecraft:foo/bar/
+E ok
+S -2--2 0 0 
+@ all foo/bar/b
+R 9
+A 0-9 function minecraft:foo/bar/b
+E ok
+S -2--2 0 0 
+@ all foo/bar/ba
+R 10
+A 0-10 function minecraft:foo/bar/ba
+E ok
+S -2--2 0 0 
+@ all foo.
+R 4
+A 0-4 function minecraft:foo.
+E ok
+S -2--2 0 0 
+@ all foo.b
+R 5
+A 0-5 function minecraft:foo.b
+E ok
+S -2--2 0 0 
+@ all foo.ba
+R 6
+A 0-6 function minecraft:foo.ba
+E ok
+S -2--2 0 0 
+@ all foo.bar
+R 7
+A 0-7 function minecraft:foo.bar
+E ok
+S -2--2 0 0 
+@ all foo.bar_
+R 8
+A 0-8 function minecraft:foo.bar_
+E ok
+S -2--2 0 0 
+@ all foo.bar_b
+R 9
+A 0-9 function minecraft:foo.bar_b
+E ok
+S -2--2 0 0 
+@ all foo.bar_ba
+R 10
+A 0-10 function minecraft:foo.bar_ba
+E ok
+S -2--2 0 0 
+@ all foo.bar_baz
+R 11
+A 0-11 function minecraft:foo.bar_baz
+E ok
+S -2--2 0 0 
+@ all foo.bar_baz-
+R 12
+A 0-12 function minecraft:foo.bar_baz-
+E ok
+S -2--2 0 0 
+@ all F
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:B
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all foo:Ba
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all a
+R 1
+A 0-1 function minecraft:a
+E ok
+S -2--2 0 0 
+@ all a 
+R 1
+A 0-1 function minecraft:a
+E Incorrect argument for command at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all #a
+R 2
+A 0-2 tag minecraft:a
+E ok
+S -2--2 0 0 
+@ all #a 
+R 2
+A 0-2 tag minecraft:a
+E Incorrect argument for command at position 4: t #a<--[HERE]@2
+S -2--2 0 0 
+@ all ##
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all ##f
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all ##fo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all :
+R 1
+A 0-1 function minecraft:
+E ok
+S -2--2 0 0 
+@ all :f
+R 2
+A 0-2 function minecraft:f
+E ok
+S -2--2 0 0 
+@ all :fo
+R 3
+A 0-3 function minecraft:fo
+E ok
+S -2--2 0 0 
+@ all foo 
+R 3
+A 0-3 function minecraft:foo
+E Incorrect argument for command at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo b
+R 4
+A 0-3 function minecraft:foo
+E Incorrect argument for command at position 6: t foo <--[HERE]@4
+S -2--2 0 0 
+@ all foo ba
+R 4
+A 0-3 function minecraft:foo
+E Incorrect argument for command at position 6: t foo <--[HERE]@4
+S -2--2 0 0 
+@ all foo\u0009
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo\u0009b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo\u0009ba
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all a%
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all #m
+R 2
+A 0-2 tag minecraft:m
+E ok
+S -2--2 0 0 
+@ all #mi
+R 3
+A 0-3 tag minecraft:mi
+E ok
+S -2--2 0 0 
+@ all #min
+R 4
+A 0-4 tag minecraft:min
+E ok
+S -2--2 0 0 
+@ all #mine
+R 5
+A 0-5 tag minecraft:mine
+E ok
+S -2--2 0 0 
+@ all #minec
+R 6
+A 0-6 tag minecraft:minec
+E ok
+S -2--2 0 0 
+@ all #minecr
+R 7
+A 0-7 tag minecraft:minecr
+E ok
+S -2--2 0 0 
+@ all #minecra
+R 8
+A 0-8 tag minecraft:minecra
+E ok
+S -2--2 0 0 
+@ all #minecraf
+R 9
+A 0-9 tag minecraft:minecraf
+E ok
+S -2--2 0 0 
+@ all #minecraft
+R 10
+A 0-10 tag minecraft:minecraft
+E ok
+S -2--2 0 0 
+@ all #minecraft:
+R 11
+A 0-11 tag minecraft:
+E ok
+S -2--2 0 0 
+@ all #minecraft:t
+R 12
+A 0-12 tag minecraft:t
+E ok
+S -2--2 0 0 
+@ all #minecraft:ti
+R 13
+A 0-13 tag minecraft:ti
+E ok
+S -2--2 0 0 
+@ all #minecraft:tic
+R 14
+A 0-14 tag minecraft:tic
+E ok
+S -2--2 0 0 
+@ all #minecraft:l
+R 12
+A 0-12 tag minecraft:l
+E ok
+S -2--2 0 0 
+@ all #minecraft:lo
+R 13
+A 0-13 tag minecraft:lo
+E ok
+S -2--2 0 0 
+@ all #minecraft:loa
+R 14
+A 0-14 tag minecraft:loa
+E ok
+S -2--2 0 0 
+@ all foo:bar:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:bar:b
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:bar:ba
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :f[o4
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t :f<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t :f<--[HERE]@2
+S -2--2 0 0 
+@ all ~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all +
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #foo: ar
+R 6
+A 0-5 tag foo:
+E Incorrect argument for command at position 8: t #foo: <--[HERE]@6
+S -2--2 0 0 
+@ all a b#b
+R 2
+A 0-1 function minecraft:a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all {{
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fo\u000aoo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t fo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all o
+R 1
+A 0-1 function minecraft:o
+E ok
+S -2--2 0 0 
+@ all foo\u0009b dr
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all 中
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a/o
+R 3
+A 0-3 function minecraft:a/o
+E ok
+S -2--2 0 0 
+@ all aa%]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t aa<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t aa<--[HERE]@2
+S -2--2 0 0 
+@ all #:>
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t #:<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t #:<--[HERE]@2
+S -2--2 0 0 
+@ all Foo~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f~ooo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all #fo::
+R 0
+A -
+X Invalid ID at position 3: t #<--[HERE]@1
+E Invalid ID at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all baz
+R 3
+A 0-3 function minecraft:baz
+E ok
+S -2--2 0 0 
+@ all baz(-1
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t baz<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t baz<--[HERE]@3
+S -2--2 0 0 
+@ all ##foof
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all r
+R 1
+A 0-1 function minecraft:r
+E ok
+S -2--2 0 0 
+@ all raft:loada
+R 10
+A 0-10 function raft:loada
+E ok
+S -2--2 0 0 
+@ all 1oo:
+R 4
+A 0-4 function 1oo:
+E ok
+S -2--2 0 0 
+@ all a ba 
+R 2
+A 0-1 function minecraft:a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all ééé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #a ba
+R 3
+A 0-2 tag minecraft:a
+E Incorrect argument for command at position 5: t #a <--[HERE]@3
+S -2--2 0 0 
+@ all {
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #foo::
+R 0
+A -
+X Invalid ID at position 3: t #<--[HERE]@1
+E Invalid ID at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all food:bar:baz
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Ainecraft:foo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:B<r
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all +foo\u0009bar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:loadf
+R 16
+A 0-16 tag minecraft:loadf
+E ok
+S -2--2 0 0 
+@ all   
+R 1
+A 0-0 function minecraft:
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all #Xo:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all  7#foo
+R 1
+A 0-0 function minecraft:
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all oo:
+R 3
+A 0-3 function oo:
+E ok
+S -2--2 0 0 
+@ all #@#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all foo:ar:ba,z
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :/o
+R 3
+A 0-3 function minecraft:/o
+E ok
+S -2--2 0 0 
+@ all fo bar
+R 3
+A 0-2 function minecraft:fo
+E Incorrect argument for command at position 5: t fo <--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:fooi
+R 14
+A 0-14 function minecraft:fooi
+E ok
+S -2--2 0 0 
+@ all o\u0000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t o<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t o<--[HERE]@1
+S -2--2 0 0 
+@ all éé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f[oo.bar_baz-1
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all F^oo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fooo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecrafttickc
+R 15
+A 0-15 tag minecraft:minecrafttickc
+E ok
+S -2--2 0 0 
+@ all x
+R 1
+A 0-1 function minecraft:x
+E ok
+S -2--2 0 0 
+@ all  bb
+R 1
+A 0-0 function minecraft:
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all aft:foo(
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t aft:foo<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t aft:foo<--[HERE]@7
+S -2--2 0 0 
+@ all foo:Baro
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all é11
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #é#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all #a😀
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t #a<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t #a<--[HERE]@2
+S -2--2 0 0 
+@ all 9b
+R 2
+A 0-2 function minecraft:9b
+E ok
+S -2--2 0 0 
+@ all a2*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t a2<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t a2<--[HERE]@2
+S -2--2 0 0 
+@ all foo:bar:ba\u0009f
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:xload
+R 16
+A 0-16 tag minecraft:xload
+E ok
+S -2--2 0 0 
+@ all 2
+R 1
+A 0-1 function minecraft:2
+E ok
+S -2--2 0 0 
+@ all minecraft:fooa
+R 14
+A 0-14 function minecraft:fooa
+E ok
+S -2--2 0 0 
+@ all foo.bar_baz->
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 14: ...o.bar_baz-<--[HERE]@12
+E Expected whitespace to end one argument, but found trailing data at position 14: ...o.bar_baz-<--[HERE]@12
+S -2--2 0 0 
+@ all yoo barr
+R 4
+A 0-3 function minecraft:yoo
+E Incorrect argument for command at position 6: t yoo <--[HERE]@4
+S -2--2 0 0 
+@ all fo"o:o
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t fo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all oo
+R 2
+A 0-2 function minecraft:oo
+E ok
+S -2--2 0 0 
+@ all fo:bara
+R 7
+A 0-7 function fo:bara
+E ok
+S -2--2 0 0 
+@ all 5foo
+R 4
+A 0-4 function minecraft:5foo
+E ok
+S -2--2 0 0 
+@ all ick
+R 3
+A 0-3 function minecraft:ick
+E ok
+S -2--2 0 0 
+@ all \u000a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all [
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^oo\u0009bar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ,%b%
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fbo:bar
+R 7
+A 0-7 function fbo:bar
+E ok
+S -2--2 0 0 
+@ all #f<ood
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t #f<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t #f<--[HERE]@2
+S -2--2 0 0 
+@ all #7é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t #7<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t #7<--[HERE]@2
+S -2--2 0 0 
+@ all #minecraft:loaé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...ecraft:loa<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...ecraft:loa<--[HERE]@14
+S -2--2 0 0 
+@ all fcoo:o
+R 6
+A 0-6 function fcoo:o
+E ok
+S -2--2 0 0 
+@ all @#foo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #foo\u0009
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t #foo<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t #foo<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:foor
+R 14
+A 0-14 function minecraft:foor
+E ok
+S -2--2 0 0 
+@ all foo baİ
+R 4
+A 0-3 function minecraft:foo
+E Incorrect argument for command at position 6: t foo <--[HERE]@4
+S -2--2 0 0 
+@ all o:8
+R 3
+A 0-3 function o:8
+E ok
+S -2--2 0 0 
+@ all fo:bar
+R 6
+A 0-6 function fo:bar
+E ok
+S -2--2 0 0 
+@ all foo/bar/baz/
+R 12
+A 0-12 function minecraft:foo/bar/baz/
+E ok
+S -2--2 0 0 
+@ all foo:baa
+R 7
+A 0-7 function foo:baa
+E ok
+S -2--2 0 0 
+@ all mine:craft:foo
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ft:foo
+R 6
+A 0-6 function ft:foo
+E ok
+S -2--2 0 0 
+@ all oo/bar/bazo
+R 11
+A 0-11 function minecraft:oo/bar/bazo
+E ok
+S -2--2 0 0 
+@ all #minecraft:loa(i
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...ecraft:loa<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...ecraft:loa<--[HERE]@14
+S -2--2 0 0 
+@ all >oo.bar_baz1
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ar
+R 2
+A 0-2 function minecraft:ar
+E ok
+S -2--2 0 0 
+@ all fo:bar:baza
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all /bar/ba😀z
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t /bar/ba<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t /bar/ba<--[HERE]@7
+S -2--2 0 0 
+@ all minecraf':foom
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all 中:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:%ar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:f$ot
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:f<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:f<--[HERE]@11
+S -2--2 0 0 
+@ all ck
+R 2
+A 0-2 function minecraft:ck
+E ok
+S -2--2 0 0 
+@ all f😀o
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all 1oo@bar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1oo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1oo<--[HERE]@3
+S -2--2 0 0 
+@ all d,
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t d<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t d<--[HERE]@1
+S -2--2 0 0 
+@ all fof
+R 3
+A 0-3 function minecraft:fof
+E ok
+S -2--2 0 0 
+@ all foo.bar_"baz-1
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t foo.bar_<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t foo.bar_<--[HERE]@8
+S -2--2 0 0 
+@ all #foo:5bar
+R 9
+A 0-9 tag foo:5bar
+E ok
+S -2--2 0 0 
+@ all foo:b<ar:baz
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t foo:b<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t foo:b<--[HERE]@5
+S -2--2 0 0 
+@ all _baz-1
+R 6
+A 0-6 function minecraft:_baz-1
+E ok
+S -2--2 0 0 
+@ all oo￿
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t oo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t oo<--[HERE]@2
+S -2--2 0 0 
+@ all  "
+R 1
+A 0-0 function minecraft:
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all bb
+R 2
+A 0-2 function minecraft:bb
+E ok
+S -2--2 0 0 
+@ all :f_of
+R 5
+A 0-5 function minecraft:f_of
+E ok
+S -2--2 0 0 
+@ all ##f\u0000oo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all #中
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all a a
+R 2
+A 0-1 function minecraft:a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all FZo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:ear
+R 7
+A 0-7 function foo:ear
+E ok
+S -2--2 0 0 
+@ all *foo:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:bar:bazf
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all İ b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ##f]^o
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all foo:B!r
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all foo barr
+R 4
+A 0-3 function minecraft:foo
+E Incorrect argument for command at position 6: t foo <--[HERE]@4
+S -2--2 0 0 
+@ all :fooo
+R 5
+A 0-5 function minecraft:fooo
+E ok
+S -2--2 0 0 
+@ all foo/bar/8az
+R 11
+A 0-11 function minecraft:foo/bar/8az
+E ok
+S -2--2 0 0 
+@ all a +
+R 2
+A 0-1 function minecraft:a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all #1
+R 2
+A 0-2 tag minecraft:1
+E ok
+S -2--2 0 0 
+@ all foo/bar/baz4b
+R 13
+A 0-13 function minecraft:foo/bar/baz4b
+E ok
+S -2--2 0 0 
+@ all r=
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all foo[/bar/\u0000baz
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:bar:[bazo
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 6#minecra*t:load
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 6<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 6<--[HERE]@1
+S -2--2 0 0 
+@ all min5ecraft:foo
+R 14
+A 0-14 function min5ecraft:foo
+E ok
+S -2--2 0 0 
+@ all o:'bar:baz
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t o:<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t o:<--[HERE]@2
+S -2--2 0 0 
+@ all a5b0
+R 4
+A 0-4 function minecraft:a5b0
+E ok
+S -2--2 0 0 
+@ all foo\u0009bar\u0009
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo.bar_baz-1.
+R 14
+A 0-14 function minecraft:foo.bar_baz-1.
+E ok
+S -2--2 0 0 
+@ all foo:Br
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all z'é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t z<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all #_:
+R 3
+A 0-3 tag _:
+E ok
+S -2--2 0 0 
+@ all \u000a#'
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  \\)
+R 1
+A 0-0 function minecraft:
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all ab
+R 2
+A 0-2 function minecraft:ab
+E ok
+S -2--2 0 0 
+@ all #(
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all o:
+R 2
+A 0-2 function o:
+E ok
+S -2--2 0 0 
+@ all inecraft:fooc
+R 13
+A 0-13 function inecraft:fooc
+E ok
+S -2--2 0 0 
+@ all f5o/bar/az
+R 10
+A 0-10 function minecraft:f5o/bar/az
+E ok
+S -2--2 0 0 
+@ all  b
+R 1
+A 0-0 function minecraft:
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all fooo
+R 4
+A 0-4 function minecraft:fooo
+E ok
+S -2--2 0 0 
+@ all foo/ba+=baz
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t foo/ba<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t foo/ba<--[HERE]@6
+S -2--2 0 0 
+@ all z-1Z
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t z-1<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t z-1<--[HERE]@3
+S -2--2 0 0 
+@ all 8#$
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 8<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 8<--[HERE]@1
+S -2--2 0 0 
+@ all foo:bar:baz:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all İ##
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:ba+:baz
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t foo:ba<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t foo:ba<--[HERE]@6
+S -2--2 0 0 
+@ all Fdo+
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:br:baz
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #ffoo:bar
+R 9
+A 0-9 tag ffoo:bar
+E ok
+S -2--2 0 0 
+@ all a~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all r_baz-1
+R 7
+A 0-7 function minecraft:r_baz-1
+E ok
+S -2--2 0 0 
+@ all #}a b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all oo:bar
+R 6
+A 0-6 function oo:bar
+E ok
+S -2--2 0 0 
+@ all minecrat:f\u0009o
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...minecrat:f<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...minecrat:f<--[HERE]@10
+S -2--2 0 0 
+@ all oo barb
+R 3
+A 0-2 function minecraft:oo
+E Incorrect argument for command at position 5: t oo <--[HERE]@3
+S -2--2 0 0 
+@ all r:bazz
+R 6
+A 0-6 function r:bazz
+E ok
+S -2--2 0 0 
+@ all a%bb
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all foo:Bar_
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all foo:barbaz
+R 10
+A 0-10 function foo:barbaz
+E ok
+S -2--2 0 0 
+@ all foo/far/bazb
+R 12
+A 0-12 function minecraft:foo/far/bazb
+E ok
+S -2--2 0 0 
+@ all #{#foC
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all Y%b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a b^ 
+R 2
+A 0-1 function minecraft:a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all #fo\u000a:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t #fo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t #fo<--[HERE]@3
+S -2--2 0 0 
+@ all f:o \u0009bar
+R 4
+A 0-3 function f:o
+E Incorrect argument for command at position 6: t f:o <--[HERE]@4
+S -2--2 0 0 
+@ all ro
+R 2
+A 0-2 function minecraft:ro
+E ok
+S -2--2 0 0 
+@ all #a b 
+R 3
+A 0-2 tag minecraft:a
+E Incorrect argument for command at position 5: t #a <--[HERE]@3
+S -2--2 0 0 
+@ all #foo:br
+R 7
+A 0-7 tag foo:br
+E ok
+S -2--2 0 0 
+@ all #foo:bara
+R 9
+A 0-9 tag foo:bara
+E ok
+S -2--2 0 0 
+@ all foo.bar_baz-X1
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 14: ...o.bar_baz-<--[HERE]@12
+E Expected whitespace to end one argument, but found trailing data at position 14: ...o.bar_baz-<--[HERE]@12
+S -2--2 0 0 
+@ all a%b%
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all oo:o
+R 4
+A 0-4 function oo:o
+E ok
+S -2--2 0 0 
+@ all .a b 
+R 3
+A 0-2 function minecraft:.a
+E Incorrect argument for command at position 5: t .a <--[HERE]@3
+S -2--2 0 0 
+@ all Zfoo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fo@bar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t fo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all fox
+R 3
+A 0-3 function minecraft:fox
+E ok
+S -2--2 0 0 
+@ all 5
+R 1
+A 0-1 function minecraft:5
+E ok
+S -2--2 0 0 
+@ all #éé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all #7minecraft:tick
+R 16
+A 0-16 tag 7minecraft:tick
+E ok
+S -2--2 0 0 
+@ all #minecraft:loadn
+R 16
+A 0-16 tag minecraft:loadn
+E ok
+S -2--2 0 0 
+@ all foo:ar
+R 6
+A 0-6 function foo:ar
+E ok
+S -2--2 0 0 
+@ all #+necraft:load
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all ##foo#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all >#a b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #a dbb
+R 3
+A 0-2 tag minecraft:a
+E Incorrect argument for command at position 5: t #a <--[HERE]@3
+S -2--2 0 0 
+@ all foo:$Bar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all foo barb
+R 4
+A 0-3 function minecraft:foo
+E Incorrect argument for command at position 6: t foo <--[HERE]@4
+S -2--2 0 0 
+@ all foo:0a
+R 6
+A 0-6 function foo:0a
+E ok
+S -2--2 0 0 
+@ all #min\u0009craft:load:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t #min<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t #min<--[HERE]@4
+S -2--2 0 0 
+@ all :fo\\o
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t :fo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t :fo<--[HERE]@3
+S -2--2 0 0 
+@ all o^\u0009bar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t o<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t o<--[HERE]@1
+S -2--2 0 0 
+@ all #!
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all #foo:zbar
+R 9
+A 0-9 tag foo:zbar
+E ok
+S -2--2 0 0 
+@ all :\u0009az
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t :<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all #a \u0009b#
+R 3
+A 0-2 tag minecraft:a
+E Incorrect argument for command at position 5: t #a <--[HERE]@3
+S -2--2 0 0 
+@ all ]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #e
+R 2
+A 0-2 tag minecraft:e
+E ok
+S -2--2 0 0 
+@ all /bar/baz
+R 8
+A 0-8 function minecraft:/bar/baz
+E ok
+S -2--2 0 0 
+@ all c
+R 1
+A 0-1 function minecraft:c
+E ok
+S -2--2 0 0 
+@ all B
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo/bar/b\u00092z
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... foo/bar/b<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... foo/bar/b<--[HERE]@9
+S -2--2 0 0 
+@ all arr
+R 3
+A 0-3 function minecraft:arr
+E ok
+S -2--2 0 0 
+@ all \u0000#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:fo\u0000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 14: ...necraft:fo<--[HERE]@12
+E Expected whitespace to end one argument, but found trailing data at position 14: ...necraft:fo<--[HERE]@12
+S -2--2 0 0 
+@ all b
+R 1
+A 0-1 function minecraft:b
+E ok
+S -2--2 0 0 
+@ all foooo
+R 5
+A 0-5 function minecraft:foooo
+E ok
+S -2--2 0 0 
+@ all :f0o
+R 4
+A 0-4 function minecraft:f0o
+E ok
+S -2--2 0 0 
+@ all foobr
+R 5
+A 0-5 function minecraft:foobr
+E ok
+S -2--2 0 0 
+@ all :foZ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t :fo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t :fo<--[HERE]@3
+S -2--2 0 0 
+@ all foo.bar_baz-中
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 14: ...o.bar_baz-<--[HERE]@12
+E Expected whitespace to end one argument, but found trailing data at position 14: ...o.bar_baz-<--[HERE]@12
+S -2--2 0 0 

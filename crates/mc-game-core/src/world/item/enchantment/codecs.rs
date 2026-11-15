@@ -154,7 +154,7 @@ pub fn holder_set_codec<T: Clone + Send + Sync + 'static>(
     let direct = mc_dfu::extra::compact_list_codec_with(&element, &element.list_of());
     let tag = mc_dfu::STRING.comap_flat_map(
         |s| match s.strip_prefix('#') {
-            None => DataResult::error(move || format!("Not a tag id: {s}")),
+            None => DataResult::error(|| "Not a tag id".to_owned()),
             Some(rest) => match Identifier::read(rest) {
                 Ok(id) => DataResult::success(id),
                 Err(e) => DataResult::error(move || e.clone()),

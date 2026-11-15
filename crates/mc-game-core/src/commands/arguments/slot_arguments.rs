@@ -274,7 +274,7 @@ impl ArgumentType<CommandSourceStack> for SlotSourceArgument {
         }
 
         context.get_source().suggest_registry_elements(
-            "slot_source",
+            "minecraft:slot_source",
             crate::commands::shared_suggestion_provider::ElementSuggestionType::Elements,
             builder,
             None,
