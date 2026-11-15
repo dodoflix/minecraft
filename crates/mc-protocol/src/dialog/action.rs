@@ -44,6 +44,15 @@ fn static_click_action(t: DialogActionType) -> Option<ClickAction> {
         .find(|a| static_type(*a) == Some(t))
 }
 
+/// The map as the click event codec prints it in an error (`JsonOps` / `NbtOps` text).
+fn render(kind: OpsKind, map: &Dyn) -> Option<String> {
+    match kind {
+        OpsKind::Json => Some(dyn_to_serde(map).to_string()),
+        OpsKind::Nbt => map.to_tag().ok().map(|t| t.to_string()),
+        OpsKind::Hash => None,
+    }
+}
+
 impl Action {
     /// `Action.codec()`'s registry key.
     fn action_type(&self) -> DataResult<DialogActionType> {
@@ -95,6 +104,7 @@ impl Action {
                 }
             },
             move |ops, m| {
+                let original = Dyn::Map(m.entries().to_vec());
                 let mut entries = vec![(Dyn::str("action"), Dyn::str(action.serialized_name()))];
                 entries.extend(
                     m.entries()
@@ -114,7 +124,15 @@ impl Action {
                 };
                 match decoded {
                     Ok(event) => DataResult::success(Action::Static(event)),
-                    Err(e) => DataResult::error(move || e.clone()),
+                    // the click event codec prints the map it was handed (with the `action` key added above); vanilla's
+                    // codec reads the dialog action's own map
+                    Err(e) => {
+                        let e = match (render(ops.kind(), &map), render(ops.kind(), &original)) {
+                            (Some(added), Some(own)) => e.replace(&added, &own),
+                            _ => e,
+                        };
+                        DataResult::error(move || e.clone())
+                    }
                 }
             },
             Vec::new,

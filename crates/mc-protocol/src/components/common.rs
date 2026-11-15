@@ -89,7 +89,12 @@ pub fn dyn_to_serde(d: &Dyn) -> serde_json::Value {
         Dyn::Short(v) => Value::from(*v as i64),
         Dyn::Int(v) => Value::from(*v as i64),
         Dyn::Long(v) => Value::from(*v),
-        Dyn::Float(v) => Number::from_f64(*v as f64)
+        // Gson prints a float by its own shortest decimal form, not its widened double value
+        Dyn::Float(v) => v
+            .to_string()
+            .parse::<f64>()
+            .ok()
+            .and_then(Number::from_f64)
             .map(Value::Number)
             .unwrap_or(Value::Null),
         Dyn::Double(v) => Number::from_f64(*v)

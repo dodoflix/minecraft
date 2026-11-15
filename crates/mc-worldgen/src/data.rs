@@ -45,6 +45,16 @@ impl LoadError {
         }
     }
 
+    /// The field path of the failure (`to_place.state`, `[0].x`), empty at the decoded value itself.
+    pub fn path(&self) -> &str {
+        &self.path
+    }
+
+    /// The failure text without the entry and the field path.
+    pub fn message(&self) -> &str {
+        &self.message
+    }
+
     /// Prefixes the field path with the object field `name`.
     pub fn at(mut self, name: &str) -> LoadError {
         self.path = if self.path.is_empty() || self.path.starts_with('[') {

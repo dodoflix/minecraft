@@ -96,11 +96,23 @@ fn to_json(kind: PayloadKind, t: &Tag) -> Result<serde_json::Value, String> {
     }
 }
 
+/// The stored payload as a context-free `NbtOps` writes it: a dialog reference becomes the dialog (see `Dialog::codec`).
+fn expand(kind: PayloadKind, t: &Tag) -> Result<Tag, String> {
+    match kind {
+        PayloadKind::ItemComponents => Ok(t.clone()),
+        PayloadKind::Dialog => {
+            let holder = mc_dfu::parse_nbt(&Dialog::codec(), t).into_result()?;
+            mc_dfu::encode_nbt(&Dialog::codec(), &holder).into_result()
+        }
+    }
+}
+
 /// Install the hooks into `mc_text` (call once at startup, like `mc_text::set_validators`).
 pub fn install_text_hooks() {
     mc_text::set_payload_hooks(PayloadHooks {
         from_json,
         from_nbt,
         to_json,
+        expand,
     });
 }

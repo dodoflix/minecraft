@@ -374,7 +374,7 @@ pub fn refresh_dirty_attributes(entity: &mut dyn Entity, level: &mut ServerLevel
     }
 }
 
-/// `LivingEntity.onAttributeUpdated(attribute)`: the waypoint range attributes mark the waypoint state dirty, which
+/// `LivingEntity.onAttributeUpdated(attribute)`: the waypoint range attributes queue the update that
 /// `ServerLevel::process_waypoint_state` applies.
 pub fn on_attribute_updated(
     entity: &mut dyn Entity,
@@ -397,7 +397,7 @@ pub fn on_attribute_updated(
     } else if attribute == Attribute::WAYPOINT_TRANSMIT_RANGE
         || attribute == Attribute::WAYPOINT_RECEIVE_RANGE
     {
-        entity.base_mut().waypoint_attribute_dirty = true;
+        entity.base_mut().waypoint_attribute_updates.push(attribute);
     } else if attribute == Attribute::SCALE {
         entity.refresh_dimensions();
     }

@@ -58,3 +58,8 @@ fn place_commands_match_vanilla() {
 fn locate_on_a_noise_level_matches_vanilla() {
     common::block_scenario::check("cmd_locate_normal");
 }
+
+#[test]
+fn locate_from_the_world_spawn_matches_vanilla() {
+    common::block_scenario::check("cmd_locate_spawn");
+}

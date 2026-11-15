@@ -9,8 +9,12 @@ spawn_player A survival 0.5 -60 0.5 0 0 joinburst
 spawn_player B survival 6.5 -60 0.5 0 0 joinburst
 op A
 gamerule send_command_feedback true
-tick 3
-dump packets:A:none packets:B:none
+note the locator bar of the join and the first ticks: each player's track packet is sent once
+dump packets:A:waypoint packets:B:waypoint
+tick 1
+dump packets:A:waypoint packets:B:waypoint
+tick 2
+dump packets:A:waypoint packets:B:waypoint
 note list: two player waypoints, the feedback text and its click event
 cmd waypoint list
 cmd_json waypoint list
@@ -84,5 +88,15 @@ cmd waypoint modify B style set minecraft:bowtie
 tick 1
 dump packets:A:waypoint packets:B:waypoint
 cmd tp B 40.5 -60 0.5
+tick 2
+dump packets:A:waypoint packets:B:waypoint
+note a spectator receives every waypoint: the tracked pig reaches the spectator, whose own waypoint disconnects
+cmd tp B 8.5 -60 0.5
+tick 2
+dump packets:A:waypoint packets:B:waypoint
+cmd gamemode spectator B
+tick 2
+dump packets:A:waypoint packets:B:waypoint
+cmd tp B 400.5 -60 0.5
 tick 2
 dump packets:A:waypoint packets:B:waypoint

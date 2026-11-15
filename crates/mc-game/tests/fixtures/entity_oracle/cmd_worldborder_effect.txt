@@ -1,4 +1,15 @@
 C Game rule send_command_feedback is now set to true
+# the join sends the border, the world spawn, the clocks and the ticking state
+PKT A minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT A minecraft:set_time 730000000000000000020000000000000000000001000000000000000000
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000fc40000000000000000
+PKT A minecraft:ticking_state 820141a0000000
+PKT A minecraft:ticking_step 830100
+PKT B minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT B minecraft:set_time 730000000000000000020000000000000000000001000000000000000000
+PKT B minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000fc40000000000000000
+PKT B minecraft:ticking_state 820141a0000000
+PKT B minecraft:ticking_step 830100
 # the border state at the start
 WORLD gametime=1 difficulty=normal locked=false
 CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false

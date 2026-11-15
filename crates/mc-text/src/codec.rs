@@ -223,6 +223,9 @@ pub struct PayloadHooks {
     pub from_json: fn(PayloadKind, &serde_json::Value) -> Result<Tag, String>,
     pub from_nbt: fn(PayloadKind, &Tag) -> Result<Tag, String>,
     pub to_json: fn(PayloadKind, &Tag) -> Result<serde_json::Value, String>,
+    /// The stored NBT as written by a *context-free* NbtOps (no registry access: a registry reference is encoded as the
+    /// referenced element itself, see [`with_context_free`]).
+    pub expand: fn(PayloadKind, &Tag) -> Result<Tag, String>,
 }
 
 impl Default for PayloadHooks {
@@ -231,8 +234,32 @@ impl Default for PayloadHooks {
             from_json: |_, v| Ok(<serde_json::Value as Ops>::to_tag(v)),
             from_nbt: |_, t| Ok(t.clone()),
             to_json: |_, t| Ok(<serde_json::Value as Ops>::from_tag(t)),
+            expand: |_, t| Ok(t.clone()),
         }
     }
+}
+
+thread_local! {
+    static CONTEXT_FREE: std::cell::Cell<bool> = const { std::cell::Cell::new(false) };
+}
+
+/// Whether NBT is currently being written by a context-free `NbtOps`
+/// (`ComponentSerialization.TRUSTED_CONTEXT_FREE_STREAM_CODEC`, `Dialog.CONTEXT_FREE_STREAM_CODEC`): such ops have no
+/// registry, so `RegistryFileCodec` writes the element of a reference.
+pub fn is_context_free() -> bool {
+    CONTEXT_FREE.with(std::cell::Cell::get)
+}
+
+/// Runs `f` with [`is_context_free`] set on this thread.
+pub fn with_context_free<R>(f: impl FnOnce() -> R) -> R {
+    struct Reset(bool);
+    impl Drop for Reset {
+        fn drop(&mut self) {
+            CONTEXT_FREE.with(|c| c.set(self.0));
+        }
+    }
+    let _reset = Reset(CONTEXT_FREE.with(|c| c.replace(true)));
+    f()
 }
 
 static PAYLOAD_HOOKS: RwLock<Option<PayloadHooks>> = RwLock::new(None);

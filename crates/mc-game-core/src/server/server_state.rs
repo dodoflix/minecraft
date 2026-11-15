@@ -257,7 +257,7 @@ impl MinecraftServer {
         result
     }
 
-    pub(super) fn check_should_sprint_this_tick(&mut self) -> bool {
+    pub fn check_should_sprint_this_tick(&mut self) -> bool {
         self.with_tick_rate_manager(|manager, host| manager.check_should_sprint_this_tick(host))
     }
 

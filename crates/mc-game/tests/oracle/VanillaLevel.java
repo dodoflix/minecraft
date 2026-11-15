@@ -155,9 +155,17 @@ public final class VanillaLevel {
          return this.getProperties().gameMode.get();
       }
 
-      /** One vanilla server tick (tickServer: level ticks, connection ticks, player list, ...). */
+      /**
+       * One iteration of the vanilla server loop (runServer): a requested tick sprint runs its ticks back to back without time left
+       * (`checkShouldSprintThisTick`), otherwise one tick with time to spare; tickServer covers level ticks, connection ticks, player list, ...
+       */
       public void tickOnce() {
-         this.tickServer(() -> true);
+         var rate = this.tickRateManager();
+         boolean sprinting = !this.isPaused() && rate.isSprinting() && rate.checkShouldSprintThisTick();
+         this.tickServer(sprinting ? () -> false : () -> true);
+         if (sprinting) {
+            rate.endTickWork();
+         }
       }
 
       @Override

@@ -228,7 +228,11 @@ pub fn loggable_address(remote: Option<&std::net::SocketAddr>, log_ips: bool) ->
 
 /// `sendLevelInfo(player, level)`.
 pub fn send_level_info(host: &dyn JoinHost, info: &LevelJoinInfo, player: &PlayerHandle) {
-    let c = &player.connection;
+    send_level_info_to(host, info, &player.connection);
+}
+
+/// `sendLevelInfo` for a connection that has no [`PlayerHandle`].
+pub fn send_level_info_to(host: &dyn JoinHost, info: &LevelJoinInfo, c: &ConnectionSender) {
     c.send(&info.border);
     c.send(&host.clock_sync_packet());
     c.send(&ClientboundSetDefaultSpawnPositionPacket {

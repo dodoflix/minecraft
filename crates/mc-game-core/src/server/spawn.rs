@@ -4,6 +4,7 @@ use super::MinecraftServer;
 use super::level_load_listener::Stage;
 use super::spawn_search::spawn_spiral;
 use crate::server::level::ServerLevel;
+use crate::server::level::level_data::SharedWorldData;
 use crate::server::level::player_spawn_finder::{SpawnSearchLevel, get_spawn_pos_in_chunk};
 use crate::world::level::{BlockGetter, LevelReader};
 use mc_core::pos::{BlockPos, ChunkPos};
@@ -55,52 +56,7 @@ impl MinecraftServer {
         self.level_load_listener.start(Stage::PrepareGlobalSpawn, 0);
         self.level_load_listener
             .update_focus(&dimension, spawn_chunk);
-        let mut height = level
-            .chunk_source
-            .generator()
-            .get_spawn_height(level.level_height());
-        if height < level.get_min_y() {
-            let world_position = BlockPos::new(
-                spawn_chunk.get_min_block_x(),
-                0,
-                spawn_chunk.get_min_block_z(),
-            );
-            level.chunk_blocking_mut(world_position.x() >> 4, world_position.z() >> 4);
-            height = level.get_height_at(
-                HeightmapType::WorldSurface,
-                world_position.x() + 8,
-                world_position.z() + 8,
-            );
-        }
-        let origin_pos = BlockPos::new(
-            spawn_chunk.get_min_block_x() + 8,
-            height,
-            spawn_chunk.get_min_block_z() + 8,
-        );
-        self.world_data.lock().respawn_data = RespawnData {
-            dimension: dimension.clone(),
-            pos: origin_pos,
-            yaw: 0.0,
-            pitch: 0.0,
-        };
-
-        for (x_chunk_offset, z_chunk_offset) in spawn_spiral() {
-            let chunk_pos = ChunkPos::new(
-                spawn_chunk.x + x_chunk_offset,
-                spawn_chunk.z + z_chunk_offset,
-            );
-            level.chunk_blocking_mut(chunk_pos.x, chunk_pos.z);
-            if let Some(tested_pos) = get_spawn_pos_in_chunk(level, chunk_pos) {
-                self.world_data.lock().respawn_data = RespawnData {
-                    dimension: dimension.clone(),
-                    pos: tested_pos,
-                    yaw: 0.0,
-                    pitch: 0.0,
-                };
-                break;
-            }
-        }
-
+        find_initial_spawn(&self.world_data, level);
         if spawn_bonus_chest {
             // `MiscOverworldFeatures.BONUS_CHEST` placement is not implemented: configured feature placement lives in
             // `mc-game-levelgen`, which `mc-game-core` cannot call.
@@ -109,5 +65,57 @@ impl MinecraftServer {
             );
         }
         self.level_load_listener.finish(Stage::PrepareGlobalSpawn);
+    }
+}
+
+/// The world spawn search of `setInitialSpawn` (not debug): the generator's origin column first, then the first chunk of the
+/// spiral around it that has a safe spot. Writes the result to `world_data`.
+pub fn find_initial_spawn(world_data: &SharedWorldData, level: &mut ServerLevel) {
+    let dimension = level.dimension.clone();
+    let spawn_chunk = level.chunk_source.generator().get_origin();
+    let mut height = level
+        .chunk_source
+        .generator()
+        .get_spawn_height(level.level_height());
+    if height < level.get_min_y() {
+        let world_position = BlockPos::new(
+            spawn_chunk.get_min_block_x(),
+            0,
+            spawn_chunk.get_min_block_z(),
+        );
+        level.chunk_blocking_mut(world_position.x() >> 4, world_position.z() >> 4);
+        height = level.get_height_at(
+            HeightmapType::WorldSurface,
+            world_position.x() + 8,
+            world_position.z() + 8,
+        );
+    }
+    let origin_pos = BlockPos::new(
+        spawn_chunk.get_min_block_x() + 8,
+        height,
+        spawn_chunk.get_min_block_z() + 8,
+    );
+    world_data.lock().respawn_data = RespawnData {
+        dimension: dimension.clone(),
+        pos: origin_pos,
+        yaw: 0.0,
+        pitch: 0.0,
+    };
+
+    for (x_chunk_offset, z_chunk_offset) in spawn_spiral() {
+        let chunk_pos = ChunkPos::new(
+            spawn_chunk.x + x_chunk_offset,
+            spawn_chunk.z + z_chunk_offset,
+        );
+        level.chunk_blocking_mut(chunk_pos.x, chunk_pos.z);
+        if let Some(tested_pos) = get_spawn_pos_in_chunk(level, chunk_pos) {
+            world_data.lock().respawn_data = RespawnData {
+                dimension: dimension.clone(),
+                pos: tested_pos,
+                yaw: 0.0,
+                pitch: 0.0,
+            };
+            break;
+        }
     }
 }

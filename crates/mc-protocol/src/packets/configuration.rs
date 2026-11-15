@@ -56,10 +56,16 @@ pub struct ClientboundSelectKnownPacks {
 }
 
 /// `ClientboundShowDialogPacket.CONTEXT_FREE_STREAM_CODEC`: the dialog's NBT, no holder id.
-#[derive(Debug, Clone, PartialEq, Encode, Decode, Packet)]
+#[derive(Debug, Clone, PartialEq, Decode, Packet)]
 #[packet(state = configuration, flow = clientbound, name = "show_dialog")]
 pub struct ClientboundShowDialogPacket {
     pub dialog: crate::dialog::Dialog,
+}
+
+impl Encode for ClientboundShowDialogPacket {
+    fn encode(&self, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
+        self.dialog.encode_context_free(out)
+    }
 }
 
 /// `ClientboundUpdateEnabledFeaturesPacket` (`Set<Identifier>`: `HashSet`, repeated features collapse on decode).

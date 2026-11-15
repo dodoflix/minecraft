@@ -8,7 +8,7 @@
 //! the typed `mc_data` ids. Codec-backed NBT payloads whose Rust model lives in a later layer are raw [`mc_nbt::Tag`]s.
 
 use super::common::{common_packets, cookie_packets};
-use crate::codec::Holder;
+use crate::codec::{DecodeError, DecodeResult, Holder};
 use crate::{Decode, Encode, Packet, packet_enum};
 
 pub mod chat;
@@ -55,10 +55,23 @@ pub struct ServerboundPingRequestPacket {
 
 /// `ClientboundShowDialogPacket.STREAM_CODEC`: `Holder<Dialog>` — registry id + 1, or `0` + the dialog's NBT
 /// (`ByteBufCodecs.holder` with the trusted NBT codec). A reference is the raw registry id.
-#[derive(Debug, Clone, PartialEq, Encode, Decode, Packet)]
+#[derive(Debug, Clone, PartialEq, Encode, Packet)]
 #[packet(state = play, flow = clientbound, name = "show_dialog")]
 pub struct ClientboundShowDialogPacket {
     pub dialog: Holder<crate::dialog::Dialog>,
+}
+
+impl Decode for ClientboundShowDialogPacket {
+    fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
+        let dialog = Holder::<crate::dialog::Dialog>::decode(input)?;
+        // `IdMap.byIdOrThrow`
+        if let Holder::Reference(id) = &dialog
+            && crate::registry_context::registry_name(crate::dialog::REGISTRY, *id).is_none()
+        {
+            return Err(DecodeError::Message(format!("No value with id {id}")));
+        }
+        Ok(ClientboundShowDialogPacket { dialog })
+    }
 }
 
 packet_enum! {

@@ -495,6 +495,7 @@ public final class EntityOracleDriver {
          }
          case "preload" -> options.preloadRadiusChunks = Integer.parseInt(a.get(1));
          case "preload_settle" -> options.settlePreloadRing = true;
+         case "world_spawn" -> { } // the replay searches the world spawn like setInitialSpawn; the real server did at boot
          case "bootrule" -> options.bootRules.add(new String[] {a.get(1), a.get(2)});
          case "note" -> out.println("# " + line.substring(4).strip());
          case "pack_file" -> {

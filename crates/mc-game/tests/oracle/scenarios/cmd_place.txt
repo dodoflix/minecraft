@@ -81,6 +81,14 @@ level_seed 121
 cmd place feature {} 2 -60 2
 tick 1
 dump blocks:-12,-62,-12,16,-30,16
+level_seed 410
+cmd place feature {type:"minecraft:simple_block",to_place:{Name:"minecraft:gold_block"}} 2 -60 2
+tick 1
+dump blocks:-12,-62,-12,16,-30,16
+level_seed 412
+cmd place feature {type:"minecraft:simple_block",to_place:{id:"minecraft:gold_block"}} 2 -60 2
+tick 1
+dump blocks:-12,-62,-12,16,-30,16
 level_seed 122
 cmd place feature minecraft:desert_well 50 -60 50
 tick 1

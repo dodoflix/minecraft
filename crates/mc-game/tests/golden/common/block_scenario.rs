@@ -527,6 +527,8 @@ struct Options_ {
     normal: bool,
     /// `structures true`: `generate-structures` (placed structures and the structure search).
     structures: bool,
+    /// `world_spawn`: the world spawn is searched like `MinecraftServer.setInitialSpawn` does (the oracle server did it at boot).
+    find_world_spawn: bool,
     difficulty: Difficulty,
     preload: i32,
     /// `preload_settle`: boot also waits until the chunks two rings beyond the preload are full.
@@ -668,6 +670,7 @@ impl Scenario {
                 flat: true,
                 normal: false,
                 structures: false,
+                find_world_spawn: false,
                 difficulty: Difficulty::Normal,
                 preload: 6,
                 settle_preload_ring: false,
@@ -866,6 +869,10 @@ impl Scenario {
         if self.flat_structures && self.opts.flat && self.opts.dimension == "overworld" {
             level.gen_env = Some(super::feature_harness::flat_gen_env(self.opts.seed));
         }
+        // `/place feature` with an inline definition decodes it against the worldgen registries of the level
+        if level.gen_env.is_some() {
+            level.worldgen_data = Some(super::feature_harness::WORLD.worldgen.clone());
+        }
         // `Level.canHaveWeather()`
         level.tick_state.can_have_weather = dimension_type.has_sky_light
             && !dimension_type.has_ceiling
@@ -940,6 +947,10 @@ impl Scenario {
             );
             std::thread::sleep(Duration::from_millis(1));
         }
+        if self.opts.find_world_spawn {
+            let data = self.world_data.as_ref().expect("world data");
+            mc_game::server::spawn::find_initial_spawn(data, &mut level);
+        }
         use mc_core::random::RandomSource;
         level
             .tick_state
@@ -1009,6 +1020,13 @@ impl Scenario {
                     "`structures` only before the first world command"
                 );
                 self.opts.structures = a[1].parse().expect("structures true|false");
+            }
+            "world_spawn" => {
+                assert!(
+                    self.level.is_none(),
+                    "`world_spawn` only before the first world command"
+                );
+                self.opts.find_world_spawn = true;
             }
             "dimension" => {
                 assert!(
@@ -1240,15 +1258,25 @@ impl Scenario {
         let mut level = self.level.take().expect("world");
         if mc_game::commands::server_access::has_server() {
             // `tickServer` / `tickChildren` around the level tick: the tick rate manager's step counter, then the clocks while the game runs
-            mc_game::commands::server_access::with_server(|server| {
+            // `runServer`: a requested sprint runs its ticks back to back with no time left
+            let sprinting = mc_game::commands::server_access::with_server(|server| {
+                let sprinting = !server.is_paused()
+                    && server.tick_rate_manager.is_sprinting()
+                    && server.check_should_sprint_this_tick();
                 server.tick_rate_manager.tick();
                 if server.tick_rate_manager.runs_normally() {
                     server.tick_clocks();
                 }
+                sprinting
             });
             // a rule a command block changed since the last tick reaches the chunk source (`updateMobSpawningFlags`)
             apply_spawn_settings(&mut level);
-            level.tick(&mut ServerBackedEnv(&mut self.env), &mut || true);
+            level.tick(&mut ServerBackedEnv(&mut self.env), &mut || !sprinting);
+            if sprinting {
+                mc_game::commands::server_access::with_server(|server| {
+                    server.tick_rate_manager.end_tick_work()
+                });
+            }
         } else {
             level.tick(&mut self.env, &mut || true);
         }

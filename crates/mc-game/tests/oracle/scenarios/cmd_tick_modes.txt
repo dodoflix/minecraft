@@ -5,8 +5,10 @@ level flat
 preload 2
 level_seed 3
 entity_counter 20
-spawn_player A survival 0.5 -60 0.5 0 0
-spawn_player B survival 4.5 -60 0.5 0 0
+spawn_player A survival 0.5 -60 0.5 0 0 joinburst
+spawn_player B survival 4.5 -60 0.5 0 0 joinburst
+note the join sends the ticking state, the world spawn, the border and the clocks
+dump packets:A:ticking_state,ticking_step,set_default_spawn_position,initialize_border,set_time packets:B:ticking_state,ticking_step,set_default_spawn_position,initialize_border,set_time
 op A
 gamerule send_command_feedback true
 gamerule advance_time true
@@ -66,12 +68,20 @@ cmd tick freeze
 cmd_quiet execute store result storage t:q rate int 1 run tick query
 cmd data get storage t:q rate
 cmd tick unfreeze
-note sprint
+note sprint: the requested ticks run back to back (the report text holds measured times: only the ticking state, the clock and the game time are compared)
 cmd tick sprint 20
 cmd tick sprint 5
+dump packets:A:ticking_state,ticking_step
 dump world
+tick 3
+dump world entity:it
+tick 5
+dump packets:A:ticking_state,ticking_step
+dump world entity:it
+cmd tick sprint 6
 cmd tick sprint stop
 cmd tick sprint stop
+dump packets:A:ticking_state,ticking_step
 dump world
 cmd tick sprint 0
 cmd tick sprint -1
@@ -81,6 +91,12 @@ cmd tick freeze
 cmd tick sprint 10
 dump packets:A:ticking_state,ticking_step
 dump world
+tick 4
+dump world entity:it
+tick 8
+dump packets:A:ticking_state,ticking_step
+dump world entity:it
+cmd tick sprint 10
 cmd tick sprint stop
 cmd tick step stop
 dump packets:A:ticking_state,ticking_step

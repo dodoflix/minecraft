@@ -149,8 +149,9 @@ pub struct EntityData {
     pub first_tick: bool,
     /// `setPosRaw` moved the entity since the level last updated its waypoint connections (`WaypointManager.updateWaypoint/updatePlayer`).
     pub waypoint_dirty: bool,
-    /// `WAYPOINT_TRANSMIT_RANGE` / `WAYPOINT_RECEIVE_RANGE` changed (`onAttributeUpdated`): the level re-tracks at put-back.
-    pub waypoint_attribute_dirty: bool,
+    /// `WAYPOINT_TRANSMIT_RANGE` / `WAYPOINT_RECEIVE_RANGE` instances `refreshDirtyAttributes` visited (`onAttributeUpdated`), in
+    /// visiting order: the level applies them at put-back.
+    pub waypoint_attribute_updates: Vec<mc_data::Attribute>,
     pub entity_data: SynchedEntityData,
     pub packet_position_codec: VecDeltaCodec,
     /// `getInterpolation().interpolationTracker()` (server side).
@@ -266,7 +267,7 @@ impl EntityData {
             invulnerable_time: 0,
             first_tick: true,
             waypoint_dirty: false,
-            waypoint_attribute_dirty: false,
+            waypoint_attribute_updates: Vec::new(),
             entity_data: builder.build(),
             packet_position_codec: VecDeltaCodec::default(),
             interpolation_tracker: Default::default(),

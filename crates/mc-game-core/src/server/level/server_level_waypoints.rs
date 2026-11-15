@@ -138,39 +138,46 @@ impl ServerLevel {
         });
     }
 
-    /// Applies what entity code changed since the entity was last in storage: a transmit/receive range that crossed zero
-    /// (`onAttributeUpdated`) and a position change (`setPosRaw`). shortcut: a range change that stays above zero does not
-    /// re-send the track packets like vanilla's `trackWaypoint` does.
+    /// Applies what entity code changed since the entity was last in storage: the waypoint range attributes that
+    /// `refreshDirtyAttributes` visited (`onAttributeUpdated`, each one alone like vanilla runs it) and a position change
+    /// (`setPosRaw`). Like vanilla, nothing else tracks or untracks: a `/waypoint modify` keeps a tracked entity that does not
+    /// transmit.
     pub fn process_waypoint_state(&mut self, id: EntityId) {
         let Some(e) = self.get_entity(id) else { return };
         if e.living().is_none() {
             return;
         }
         let dirty = e.base().waypoint_dirty;
-        let attribute_dirty = e.base().waypoint_attribute_dirty;
+        let attribute_updates = e.base().waypoint_attribute_updates.clone();
         let has_connection = e
             .as_any()
             .downcast_ref::<ServerPlayer>()
             .is_some_and(|p| p.connection.is_some());
         let (transmitting, receiving) = self.waypoint_roles(id);
-        if (dirty || attribute_dirty)
+        if (dirty || !attribute_updates.is_empty())
             && let Some(e) = self.get_entity_mut(id)
         {
             e.base_mut().waypoint_dirty = false;
-            e.base_mut().waypoint_attribute_dirty = false;
+            e.base_mut().waypoint_attribute_updates.clear();
         }
         self.with_waypoint_manager(|m, ctx| {
-            // `onAttributeUpdated`: a changed range re-tracks (TRACK packets again) or untracks, even above zero both times
-            if receiving && (attribute_dirty || !m.has_player(id)) {
-                m.add_player(ctx, id, transmitting);
-            } else if !receiving && m.has_player(id) {
-                m.remove_player(ctx, id);
+            for attribute in attribute_updates {
+                if attribute == Attribute::WAYPOINT_RECEIVE_RANGE {
+                    // `ServerPlayer.onAttributeUpdated`: a positive range adds the player again (TRACK packets again)
+                    if receiving {
+                        m.add_player(ctx, id, transmitting);
+                    } else {
+                        m.remove_player(ctx, id);
+                    }
+                } else if transmitting {
+                    // `LivingEntity.onAttributeUpdated`
+                    m.track_waypoint(ctx, id);
+                } else {
+                    m.untrack_waypoint(ctx, id);
+                }
             }
-            if transmitting && (attribute_dirty || !m.is_tracked(id)) {
-                m.track_waypoint(ctx, id);
-            } else if !transmitting && m.is_tracked(id) {
-                m.untrack_waypoint(ctx, id);
-            } else if dirty && transmitting {
+            // `setPosRaw`
+            if dirty && transmitting {
                 m.update_waypoint(ctx, id);
             }
             if dirty && receiving && has_connection {

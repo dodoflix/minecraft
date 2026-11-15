@@ -5,11 +5,13 @@ level flat
 preload 2
 level_seed 3
 entity_counter 20
-spawn_player A survival 0.5 -60 0.5 0 0
-spawn_player B survival 20.5 -60 0.5 0 0
+spawn_player A survival 0.5 -60 0.5 0 0 joinburst
+spawn_player B survival 20.5 -60 0.5 0 0 joinburst
 op A
 gamerule send_command_feedback true
 tick 1
+note the join sends the border, the world spawn, the clocks and the ticking state
+dump packets:A:initialize_border,set_default_spawn_position,set_time,ticking_state,ticking_step packets:B:initialize_border,set_default_spawn_position,set_time,ticking_state,ticking_step
 note the border state at the start
 dump world
 note get, set (instant, timed, same value, limits), add

@@ -1,0 +1,34 @@
+C Game rule send_command_feedback is now set to true
+WORLD gametime=1 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld -128,71,16 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg The nearest minecraft:plains is at [-1088, 71, 976] (1357 blocks away)
+CF result success 1357
+CF msg The nearest minecraft:forest is at [-864, 71, 592] (934 blocks away)
+CF result success 934
+CF msg The nearest minecraft:desert is at [-1888, 71, 1776] (2489 blocks away)
+CF result success 2489
+CF msg The nearest #minecraft:is_ocean (minecraft:frozen_ocean) is at [-64, 71, -16] (71 blocks away)
+CF result success 71
+CF result failure 0
+CF fail Could not find a biome of type "minecraft:nether_wastes" within a reasonable distance
+CF msg The nearest minecraft:village_plains is at [288, ~, 1152] (1209 blocks away)
+CF result success 1209
+CF msg The nearest #minecraft:village (minecraft:village_snowy) is at [-464, ~, 16] (336 blocks away)
+CF result success 336
+CF msg The nearest minecraft:stronghold is at [-1248, ~, 960] (1464 blocks away)
+CF result success 1464
+CF result failure 0
+CF fail Could not find a structure of type "minecraft:fortress" nearby
+CF result failure 0
+CF fail Could not find a point of interest of type "minecraft:librarian" within a reasonable distance
+CF msg Teleported A to 1000.500000, 100.000000, -1999.500000
+CF result success 1
+CF msg The nearest minecraft:forest is at [-864, 71, 592] (934 blocks away)
+CF result success 934
+CF msg The nearest #minecraft:village (minecraft:village_snowy) is at [-464, ~, 16] (336 blocks away)
+CF result success 336

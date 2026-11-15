@@ -1,0 +1,28 @@
+# /locate as the console, which stands at the world spawn the server searched when it created the world (the first chunk of the spiral around the
+# generator origin with a standable column), on a normal (noise) level with structures, seed 4: the nearest element and the failure texts.
+command_env
+level normal
+seed 4
+structures true
+preload 2
+world_spawn
+level_seed 3
+entity_counter 20
+spawn_player A survival 0.5 100 0.5 0 0
+gamerule send_command_feedback true
+tick 1
+dump world
+cmd locate biome minecraft:plains
+cmd locate biome minecraft:forest
+cmd locate biome minecraft:desert
+cmd locate biome #minecraft:is_ocean
+cmd locate biome minecraft:nether_wastes
+cmd locate structure minecraft:village_plains
+cmd locate structure #minecraft:village
+cmd locate structure minecraft:stronghold
+cmd locate structure minecraft:fortress
+cmd locate poi minecraft:librarian
+cmd tp @a 1000 100 -2000
+tick 2
+cmd locate biome minecraft:forest
+cmd locate structure #minecraft:village

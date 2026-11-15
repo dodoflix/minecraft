@@ -5,6 +5,7 @@ mod codec_golden;
 mod common;
 mod components_golden;
 mod derive;
+mod dialog_golden;
 mod golden;
 mod item_defaults;
 mod net;

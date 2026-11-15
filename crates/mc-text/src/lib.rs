@@ -23,7 +23,8 @@ pub mod value;
 
 pub use chat_formatting::ChatFormatting;
 pub use codec::{
-    CodecError, Partial, PayloadHooks, PayloadKind, Validators, set_payload_hooks, set_validators,
+    CodecError, Partial, PayloadHooks, PayloadKind, Validators, is_context_free, set_payload_hooks,
+    set_validators, with_context_free,
 };
 pub use component::{
     Component, ComponentContents, DataSource, NbtContents, ObjectContents, ObjectInfo,
@@ -77,6 +78,12 @@ impl Component {
     /// `ComponentSerialization.CODEC.encodeStart(NbtOps.INSTANCE, self)`.
     pub fn to_nbt(&self) -> Result<Tag, CodecError> {
         codec::encode_component::<Tag>(self)
+    }
+
+    /// `ComponentSerialization.TRUSTED_CONTEXT_FREE_STREAM_CODEC`'s encoding: [`Component::to_nbt`] by a registry-less
+    /// `NbtOps`.
+    pub fn to_nbt_context_free(&self) -> Result<Tag, CodecError> {
+        with_context_free(|| self.to_nbt())
     }
 
     /// Parses JSON text (as `/tellraw` etc. would) and decodes it.

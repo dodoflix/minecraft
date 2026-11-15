@@ -1390,6 +1390,24 @@ impl Scenario {
                     &recipes,
                 ));
                 mc_game::server::players::join::send_initial_recipe_book(p, &recipes);
+                // `sendLevelInfo`: the border, the clock, the world spawn, the weather and the ticking state of the server
+                if mc_game::commands::server_access::has_server() {
+                    let connection = p.connection.clone().expect("player connection");
+                    mc_game::commands::server_access::with_server(|server| {
+                        let info = mc_game::server::players::server_join_host::level_join_info(
+                            server, level,
+                        );
+                        let host = mc_game::server::players::server_join_host::ServerJoinHost {
+                            server,
+                            level,
+                        };
+                        mc_game::server::players::join::send_level_info_to(
+                            &host,
+                            &info,
+                            &connection,
+                        );
+                    });
+                }
             }
             // `PlayerList.placeNewPlayer`: the custom boss bars the player is stored on are added once it is in the level
             if mc_game::commands::server_access::has_server() {

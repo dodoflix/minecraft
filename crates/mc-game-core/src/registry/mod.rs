@@ -116,11 +116,19 @@ impl RegistryAccess {
         for registry in self.registries().filter(|r| r.is_dynamic()) {
             context = context.with_registry(registry.key(), registry.names());
         }
-        let access = self.clone();
-        let context = context.with_tag_lookup(Box::new(move |registry, tag| {
-            access.tag(registry, tag).is_some()
-        }));
+        let (exists, entries) = (self.clone(), self.clone());
+        let context = context
+            .with_tag_lookup(Box::new(move |registry, tag| {
+                exists.tag(registry, tag).is_some()
+            }))
+            .with_tag_entries(Box::new(move |registry, tag| {
+                let ids = entries.tag(registry, tag)?;
+                let registry = entries.registry(registry)?;
+                Some(ids.iter().filter_map(|id| registry.name_of(*id)).collect())
+            }));
         let _ = mc_protocol::registry_context::set(context);
+        let dialogs = self.clone();
+        let _ = mc_protocol::dialog::set_lookup(Box::new(move |id| dialogs.dialog(id).cloned()));
     }
 
     /// Typed `dimension` (level stem) entry of a baked `dimension` registry.

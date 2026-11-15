@@ -60,10 +60,10 @@ pub fn decode_direct(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn F
     decode_dispatch(value, ctx, &FEATURE_TYPES)
 }
 
-/// `Feature.setBlock(level, pos, state)`.
 /// `Feature.DIRECT_CODEC` as a check of an inline NBT definition (`/place feature`, `ResourceOrIdArgument`): the `type`
 /// dispatch fails with the DFU texts (not a map, no `type`, unknown type), the feature is then decoded by the
-/// levelgen loader, whose text for a bad config differs from DFU's.
+/// levelgen loader, whose failure is worded like DFU's by [`dfu_message`] (a missing key reads as DFU's does; other texts of
+/// a bad config of a known feature type are the loader's own).
 pub fn check_direct_definition(tag: &mc_nbt::Tag) -> Result<(), String> {
     use mc_dfu::{Codec, DataResult, MapCodec};
     let key: Codec<String> = mc_dfu::extra::IDENTIFIER.flat_xmap(
@@ -82,9 +82,10 @@ pub fn check_direct_definition(tag: &mc_nbt::Tag) -> Result<(), String> {
             DataResult::success(mc_core::ident::Identifier::read(name).expect("a checked type id"))
         },
     );
+    let root = tag.clone();
     let config = MapCodec::<()>::from_fns(
         |_, _, _| {},
-        |_, map| {
+        move |_, map| {
             let mut object = serde_json::Map::new();
             for (k, v) in map.entries() {
                 let parsed = k
@@ -99,7 +100,7 @@ pub fn check_direct_definition(tag: &mc_nbt::Tag) -> Result<(), String> {
             }) {
                 Ok(_) => DataResult::success(()),
                 Err(e) => {
-                    let text = e.to_string();
+                    let text = dfu_message(&e, &root);
                     DataResult::error(move || text.clone())
                 }
             }
@@ -110,6 +111,49 @@ pub fn check_direct_definition(tag: &mc_nbt::Tag) -> Result<(), String> {
     mc_dfu::parse_nbt(&codec, tag).into_result().map(|_| ())
 }
 
+/// A loader failure as DFU words it: no entry or field path, and a `MapLike` that names no contents prints the compound the
+/// failing field path leads to (`NbtOps` map text), like `No key type in MapLike[{Name:"minecraft:gold_block"}]`.
+fn dfu_message(error: &mc_worldgen::data::LoadError, root: &mc_nbt::Tag) -> String {
+    let mut at = Some(root);
+    for segment in error.path().split('.').filter(|s| !s.is_empty()) {
+        let (name, mut indexes) = match segment.split_once('[') {
+            Some((name, rest)) => (name, Some(rest)),
+            None => (segment, None),
+        };
+        if !name.is_empty() {
+            at = at.and_then(|t| match t {
+                mc_nbt::Tag::Compound(c) => c.get(name),
+                _ => None,
+            });
+        }
+        while let Some(rest) = indexes {
+            let (index, tail) = rest.split_once(']').unwrap_or((rest, ""));
+            at = at.and_then(|t| match (t, index.parse::<usize>()) {
+                (mc_nbt::Tag::List(l), Ok(i)) => l.get(i),
+                _ => None,
+            });
+            indexes = tail.strip_prefix('[');
+        }
+    }
+    let message = error.message();
+    let Some(at) = at else {
+        return message.to_owned();
+    };
+    let mut out = String::new();
+    let mut rest = message;
+    while let Some(i) = rest.find("MapLike") {
+        let (head, tail) = rest.split_at(i + "MapLike".len());
+        out.push_str(head);
+        if !tail.starts_with('[') {
+            out.push_str(&format!("[{at}]"));
+        }
+        rest = tail;
+    }
+    out.push_str(rest);
+    out
+}
+
+/// `Feature.setBlock(level, pos, state)`.
 pub fn set_block(level: &mut dyn WorldGenLevel, pos: BlockPos, state: BlockState) {
     level.set_block_and_update(pos, state);
 }

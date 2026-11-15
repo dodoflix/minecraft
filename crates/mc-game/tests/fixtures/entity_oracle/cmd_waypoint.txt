@@ -1,4 +1,7 @@
 C Game rule send_command_feedback is now set to true
+# the locator bar of the join and the first ticks: each player's track packet is sent once
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c74000106c4ffffff0f00
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000100c4ffffff0f00
 # list: two player waypoints, the feedback text and its click event
 CF msg 2 waypoint(s) in minecraft:overworld: A, B
 CF result success 2
@@ -166,3 +169,13 @@ PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631106d696e6563726
 CF msg Teleported B to 40.500000, -60.000000, 0.500000
 CF result success 1
 PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631106d696e6563726166743a626f77746965015555ff0128c4ffffff0f00
+# a spectator receives every waypoint: the tracked pig reaches the spectator, whose own waypoint disconnects
+CF msg Teleported B to 8.500000, -60.000000, 0.500000
+CF result success 1
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631106d696e6563726166743a626f77746965015555ff0108c4ffffff0f00
+CF msg Set B's game mode to Spectator Mode
+CF result success 1
+PKT A minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001d6f9a5e74e8d499eb653b1fc0e376def0a666f6f3a637573746f6d01ff55550103c4ffffff0f03
+CF msg Teleported B to 400.500000, -60.000000, 0.500000
+CF result success 1

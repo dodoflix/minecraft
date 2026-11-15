@@ -60,9 +60,13 @@ impl RegistryTable {
 /// Tag contents of a registry, for the codecs that must check a `#tag` exists (`HolderSetCodec`, "Missing tag").
 pub type TagLookup = Box<dyn Fn(&str, &Identifier) -> bool + Send + Sync>;
 
+/// Entries of a tag (`HolderSet.Named` expanded), for the codecs that write a named set as its elements.
+pub type TagEntries = Box<dyn Fn(&str, &Identifier) -> Option<Vec<Identifier>> + Send + Sync>;
+
 pub struct RegistryContext {
     registries: HashMap<String, RegistryTable>,
     tag_exists: Option<TagLookup>,
+    tag_entries: Option<TagEntries>,
 }
 
 impl RegistryContext {
@@ -70,6 +74,7 @@ impl RegistryContext {
         RegistryContext {
             registries: HashMap::new(),
             tag_exists: None,
+            tag_entries: None,
         }
     }
     /// Add a data-driven registry (`key` like `minecraft:enchantment`) with its entries in protocol-id order.
@@ -83,9 +88,31 @@ impl RegistryContext {
         self.tag_exists = Some(f);
         self
     }
+    /// Install the function listing a tag's entries (default: tags of the embedded vanilla data pack).
+    pub fn with_tag_entries(mut self, f: TagEntries) -> Self {
+        self.tag_entries = Some(f);
+        self
+    }
     /// The table of `key`; a bare data pack directory name (`damage_type`) is the `minecraft:` registry.
     pub fn registry(&self, key: &str) -> Option<&RegistryTable> {
         self.registries.get(qualified_registry(key).as_ref())
+    }
+    pub fn tag_entries(&self, registry: &str, tag: &Identifier) -> Option<Vec<Identifier>> {
+        match &self.tag_entries {
+            Some(f) => f(registry, tag),
+            None => {
+                let dir = registry.strip_prefix("minecraft:").unwrap_or(registry);
+                let dir = mc_data::registry::by_name(registry)
+                    .map(|r| r.tag_dir())
+                    .unwrap_or(dir);
+                mc_data::tags::names(dir, &tag.to_string()).map(|names| {
+                    names
+                        .iter()
+                        .filter_map(|n| Identifier::parse(n).ok())
+                        .collect()
+                })
+            }
+        }
     }
     pub fn tag_exists(&self, registry: &str, tag: &Identifier) -> bool {
         match &self.tag_exists {

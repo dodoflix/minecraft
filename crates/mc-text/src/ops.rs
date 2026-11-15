@@ -287,7 +287,11 @@ impl Ops for Tag {
         (crate::codec::payload_hooks().from_nbt)(kind, self)
     }
 
-    fn payload_from_tag(_kind: crate::codec::PayloadKind, tag: &Tag) -> crate::codec::R<Self> {
+    fn payload_from_tag(kind: crate::codec::PayloadKind, tag: &Tag) -> crate::codec::R<Self> {
+        if crate::codec::is_context_free() {
+            return (crate::codec::payload_hooks().expand)(kind, tag)
+                .map_err(crate::codec::CodecError);
+        }
         Ok(tag.clone())
     }
 

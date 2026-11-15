@@ -313,20 +313,103 @@ impl Dialog {
         CODEC.clone()
     }
 
-    /// `Dialog.CODEC`: `RegistryCodecs.holder(DIALOG, DIRECT_CODEC)` (a registry id or an inline dialog).
+    /// `Dialog.CODEC`: `RegistryCodecs.holder(DIALOG, DIRECT_CODEC)` (a registry id or an inline dialog). Written by a
+    /// context-free `NbtOps` ([`mc_text::is_context_free`]) a reference becomes the referenced dialog itself.
     pub fn codec() -> Codec<Holder<Dialog>> {
         static CODEC: LazyLock<Codec<Holder<Dialog>>> = LazyLock::new(|| {
-            holder::holder_file_codec(REGISTRY, &Codec::lazy(Dialog::direct_codec), true)
+            let file =
+                holder::holder_file_codec(REGISTRY, &Codec::lazy(Dialog::direct_codec), true);
+            let decode = file.clone();
+            Codec::from_fns(
+                move |ops, input: &Holder<Dialog>, prefix| match input {
+                    Holder::Reference(name) if mc_text::is_context_free() && ops.is_nbt() => {
+                        match resolve(name) {
+                            Some(dialog) => Dialog::direct_codec().encode(ops, &dialog, prefix),
+                            None => {
+                                let name = name.clone();
+                                DataResult::error(move || format!("Unregistered dialog {name}"))
+                            }
+                        }
+                    }
+                    _ => file.encode(ops, input, prefix),
+                },
+                move |ops, input| decode.decode(ops, input),
+            )
         });
         CODEC.clone()
     }
 
-    /// `Dialog.LIST_CODEC`: `RegistryCodecs.holderSet(DIALOG, DIRECT_CODEC)`.
+    /// `Dialog.LIST_CODEC`: `RegistryCodecs.holderSet(DIALOG, DIRECT_CODEC)`. A named set is written as its elements by a
+    /// context-free `NbtOps` (`HolderSetCodec.encode` without a `RegistryOps`).
     pub fn list_codec() -> Codec<HolderSet<Dialog>> {
-        static CODEC: LazyLock<Codec<HolderSet<Dialog>>> =
-            LazyLock::new(|| holder::holder_set_codec(REGISTRY, &Dialog::codec(), false));
+        static CODEC: LazyLock<Codec<HolderSet<Dialog>>> = LazyLock::new(|| {
+            let set = holder::holder_set_codec(REGISTRY, &Dialog::codec(), false);
+            let decode = set.clone();
+            Codec::from_fns(
+                move |ops, input: &HolderSet<Dialog>, prefix| match input {
+                    HolderSet::Named(tag) if mc_text::is_context_free() && ops.is_nbt() => {
+                        let entries = crate::registry_context::get()
+                            .tag_entries(REGISTRY, tag)
+                            .unwrap_or_default();
+                        set.encode(
+                            ops,
+                            &HolderSet::Direct(
+                                entries.into_iter().map(Holder::Reference).collect(),
+                            ),
+                            prefix,
+                        )
+                    }
+                    _ => set.encode(ops, input, prefix),
+                },
+                move |ops, input| decode.decode(ops, input),
+            )
+        });
         CODEC.clone()
     }
+}
+
+/// Where registered dialogs come from when a reference must be written as its element (see [`Dialog::codec`]).
+pub type DialogLookup = Box<dyn Fn(&mc_core::ident::Identifier) -> Option<Dialog> + Send + Sync>;
+
+static LOOKUP: std::sync::OnceLock<DialogLookup> = std::sync::OnceLock::new();
+
+/// Installs the process-wide dialog lookup (the server's loaded `dialog` registry); fixed once like the registry context.
+pub fn set_lookup(lookup: DialogLookup) -> Result<(), DialogLookup> {
+    LOOKUP.set(lookup)
+}
+
+/// The registered dialog `name`: the installed lookup, else the vanilla data pack's dialogs.
+fn resolve(name: &mc_core::ident::Identifier) -> Option<Dialog> {
+    if let Some(lookup) = LOOKUP.get() {
+        return lookup(name);
+    }
+    static VANILLA: LazyLock<std::collections::HashMap<String, Dialog>> = LazyLock::new(|| {
+        let mut dialogs = std::collections::HashMap::new();
+        for path in mc_data::datapack::list("data/minecraft/dialog/") {
+            let Some(id) = path
+                .strip_prefix("data/minecraft/dialog/")
+                .and_then(|p| p.strip_suffix(".json"))
+            else {
+                continue;
+            };
+            let Some(json) = mc_data::datapack::read(path)
+                .and_then(|b| serde_json::from_slice::<serde_json::Value>(&b).ok())
+            else {
+                continue;
+            };
+            if let Ok(dialog) = Dialog::direct_codec()
+                .parse(
+                    &mc_dfu::JSON,
+                    &crate::components::common::serde_to_dyn(&json),
+                )
+                .into_result()
+            {
+                dialogs.insert(format!("minecraft:{id}"), dialog);
+            }
+        }
+        dialogs
+    });
+    VANILLA.get(&name.to_string()).cloned()
 }
 
 impl Dialog {
@@ -351,19 +434,13 @@ impl Dialog {
     }
 }
 
-/// `Dialog.CONTEXT_FREE_STREAM_CODEC` (`ByteBufCodecs.fromCodecTrusted(DIRECT_CODEC)`); also the direct branch of
-/// `Dialog.STREAM_CODEC` (`fromCodecWithRegistriesTrusted`): the dialog as a network NBT root, read with an unlimited quota.
+/// The direct branch of `Dialog.STREAM_CODEC` (`ByteBufCodecs.fromCodecWithRegistriesTrusted(DIRECT_CODEC)`): the dialog as a
+/// network NBT root through a `RegistryOps`, read with an unlimited quota. References stay references.
 ///
 /// Encoding fails (`EncoderException`) when the dialog cannot be encoded.
 impl Encode for Dialog {
     fn encode(&self, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
-        match mc_dfu::encode_nbt(&Self::direct_codec(), self) {
-            DataResult::Success(tag) => encode_tag(&tag, out),
-            e => Err(crate::codec::EncodeError(format!(
-                "Failed to encode: {} {self:?}",
-                e.error_message().unwrap_or_default()
-            ))),
-        }
+        self.encode_with(false, out)
     }
 }
 
@@ -378,5 +455,28 @@ impl Decode for Dialog {
                 e.error_message().unwrap_or_default()
             ))),
         }
+    }
+}
+
+impl Dialog {
+    fn encode_with(&self, context_free: bool, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
+        let encode = || mc_dfu::encode_nbt(&Self::direct_codec(), self);
+        match if context_free {
+            mc_text::with_context_free(encode)
+        } else {
+            encode()
+        } {
+            DataResult::Success(tag) => encode_tag(&tag, out),
+            e => Err(crate::codec::EncodeError(format!(
+                "Failed to encode: {} {self:?}",
+                e.error_message().unwrap_or_default()
+            ))),
+        }
+    }
+
+    /// `Dialog.CONTEXT_FREE_STREAM_CODEC` encode (`ByteBufCodecs.fromCodecTrusted(DIRECT_CODEC)`, a plain `NbtOps`):
+    /// registry references inside the dialog are written as the referenced elements.
+    pub fn encode_context_free(&self, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
+        self.encode_with(true, out)
     }
 }

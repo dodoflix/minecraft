@@ -240,6 +240,10 @@ fn restore_from(
     new.shoulder_entity_left = std::mem::take(&mut old.shoulder_entity_left);
     new.shoulder_entity_right = std::mem::take(&mut old.shoulder_entity_right);
     new.player.last_death_location = old.player.last_death_location.take();
+    new.player
+        .living
+        .locator_bar_icon
+        .copy_from(&old.player.living.locator_bar_icon);
     effects
 }
 
