@@ -1121,7 +1121,6 @@ macro_rules! resource_or_id_case {
 }
 
 case!(
-    #[ignore = "deviation: SNBT suggestions miss the word terminals (#9)"]
     component_matches_vanilla,
     "component",
     |_ctx| Arc::new(a::ComponentArgument::text_component()),
@@ -1192,7 +1191,6 @@ case!(
 );
 
 case!(
-    #[ignore = "deviation: SNBT suggestions miss the word terminals (#9)"]
     style_matches_vanilla,
     "style",
     |_ctx| Arc::new(a::StyleArgument::style()),
