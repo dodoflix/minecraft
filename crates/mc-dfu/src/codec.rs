@@ -431,7 +431,7 @@ impl<A: 'static> Codec<A> {
                     }
                     result = result.apply2(step, |_, _| ());
                 }
-                let errors = ops.create_map(failed);
+                let errors = ops.show(&ops.create_map(failed));
                 match result {
                     DataResult::Success(()) => DataResult::success(read),
                     DataResult::Error { message, .. } => DataResult::error_msg(

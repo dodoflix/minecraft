@@ -8,8 +8,8 @@
 
 use crate::component::*;
 use crate::events::*;
-use crate::java_util::{java_uuid_from_string, validate_chat_string, validate_untrusted_uri};
-use crate::ops::{MapView, Ops, map_get};
+use crate::java_util::{validate_chat_string, validate_untrusted_uri};
+use crate::ops::{MapView, Ops, Prim, map_get};
 use crate::style::{FontDescription, Style};
 use crate::text_color::TextColor;
 use mc_core::ident::Identifier;
@@ -90,8 +90,8 @@ impl<T> IntoP for P<T> {
     }
 }
 
-/// `DataResult.ap` over the fields of a record: errors are joined, and the result keeps a partial value only
-/// when every field has a value or a partial value.
+/// `DataResult.ap` over the fields of a record: errors are joined (the last field's first, the way the applicative
+/// builder nests them), and the result keeps a partial value only when every field has a value or a partial value.
 #[derive(Default)]
 struct Record {
     error: Option<String>,
@@ -104,7 +104,7 @@ impl Record {
             Ok(v) => Some(v),
             Err(p) => {
                 self.error = Some(match self.error.take() {
-                    Some(e) => format!("{e}; {}", p.error.0),
+                    Some(e) => format!("{}; {e}", p.error.0),
                     None => p.error.0,
                 });
                 self.lost |= p.value.is_none();
@@ -128,9 +128,7 @@ impl Record {
 /// `ListCodec.decode`: elements that fail without a partial value are dropped, the others (including partial
 /// ones) are kept, and any failure makes the whole list a partial result.
 fn decode_list_partial<O: Ops, E>(v: &O, f: impl Fn(&O) -> P<E>) -> P<Vec<E>> {
-    let items = v
-        .get_list()
-        .ok_or_else(|| CodecError("Not a list".into()))?;
+    let items = v.get_list().ok_or_else(|| v.not_a(Prim::List))?;
     let mut elements = Vec::with_capacity(items.len());
     let mut error: Option<String> = None;
     for item in &items {
@@ -138,7 +136,7 @@ fn decode_list_partial<O: Ops, E>(v: &O, f: impl Fn(&O) -> P<E>) -> P<Vec<E>> {
             Ok(e) => Some(e),
             Err(p) => {
                 error = Some(match error.take() {
-                    Some(e) => format!("{e}; {}", p.error.0),
+                    Some(e) => format!("{}; {e}", p.error.0),
                     None => p.error.0,
                 });
                 p.value
@@ -253,7 +251,8 @@ pub(crate) fn payload_hooks() -> PayloadHooks {
 // ------------------------------------------------------------------------------------------
 
 pub(crate) fn req<'a, O: Ops>(map: &MapView<'a, O>, key: &str) -> R<&'a O> {
-    map_get(map, key).ok_or_else(|| CodecError(format!("No key {key} in MapLike")))
+    map_get(map, key)
+        .ok_or_else(|| CodecError(format!("No key {key} in MapLike[{}]", map.owner().render())))
 }
 
 /// `optionalFieldOf`: absent -> `None`; present but invalid -> error.
@@ -297,21 +296,19 @@ fn lenient<'a, O: Ops, T>(
 }
 
 pub(crate) fn string<O: Ops>(v: &O) -> R<String> {
-    v.get_string()
-        .ok_or_else(|| CodecError("Not a string".into()))
+    v.get_string().ok_or_else(|| v.not_a(Prim::String))
 }
 fn boolean<O: Ops>(v: &O) -> R<bool> {
-    v.get_bool()
-        .ok_or_else(|| CodecError("Not a boolean".into()))
+    v.get_bool().ok_or_else(|| v.not_a(Prim::Boolean))
 }
 fn int<O: Ops>(v: &O) -> R<i32> {
-    v.get_int().ok_or_else(|| CodecError("Not a number".into()))
+    v.get_int().ok_or_else(|| v.not_a(Prim::Number))
 }
 pub(crate) fn identifier<O: Ops>(v: &O) -> R<Identifier> {
     Identifier::read(&string(v)?).map_err(CodecError)
 }
 pub(crate) fn map_of<O: Ops>(v: &O) -> R<MapView<'_, O>> {
-    v.get_map().ok_or_else(|| CodecError("Not a map".into()))
+    v.get_map().ok_or_else(|| v.not_a(Prim::Map))
 }
 
 // ------------------------------------------------------------------------------------------
@@ -329,24 +326,45 @@ pub fn decode_component_partial<O: Ops>(v: &O) -> P<Component> {
     if let Some(s) = v.get_string() {
         return Ok(Component::literal(s));
     }
-    let list = v.get_list().is_some().then(|| decode_component_list(v));
-    if let Some(Ok(list)) = list {
-        return Ok(create_from_list(list));
-    }
-    decode_full(v).map_err(|full| match list {
-        Some(Err(p)) if p.value.is_some() => Box::new(Partial {
-            error: p.error,
-            value: p.value.map(create_from_list),
-        }),
-        _ => full,
+    let not_string = v.not_a(Prim::String);
+    let list = match decode_component_list(v) {
+        Ok(list) => return Ok(create_from_list(list)),
+        Err(p) => p,
+    };
+    decode_full(v).map_err(|full| {
+        if list.value.is_some() {
+            // `Either` keeps the first side's partial result (its error is the list's alone)
+            Box::new(Partial {
+                error: list.error.clone(),
+                value: list.value.clone().map(create_from_list),
+            })
+        } else if full.value.is_some() {
+            full
+        } else {
+            let inner = either_error(&not_string, &list.error);
+            Box::new(Partial {
+                error: either_error(&inner, &full.error),
+                value: None,
+            })
+        }
     })
+}
+
+/// `Codec.either` decode when neither side parsed and neither has a partial result.
+fn either_error(first: &CodecError, second: &CodecError) -> CodecError {
+    CodecError(format!(
+        "Failed to parse either. First: {first}; Second: {second}"
+    ))
 }
 
 /// `ExtraCodecs.nonEmptyList(topSerializer.listOf())`.
 fn decode_component_list<O: Ops>(v: &O) -> P<Vec<Component>> {
     match decode_list_partial(v, decode_component_partial) {
         Ok(list) if list.is_empty() => Err(CodecError("List must have contents".into()).into()),
-        Err(p) if p.value.as_ref().is_some_and(Vec::is_empty) => Err(p.error.into()),
+        // `validate` runs on the partial value too and appends its own message
+        Err(p) if p.value.as_ref().is_some_and(Vec::is_empty) => {
+            Err(CodecError(format!("{}; List must have contents", p.error)).into())
+        }
         r => r,
     }
 }
@@ -362,7 +380,7 @@ fn create_from_list(list: Vec<Component>) -> Component {
 }
 
 fn decode_full<O: Ops>(v: &O) -> P<Component> {
-    let map = v.get_map().ok_or_else(|| CodecError("Not a map".into()))?;
+    let map = v.get_map().ok_or_else(|| v.not_a(Prim::Map))?;
     let mut record = Record::default();
     let contents = record.take(decode_contents(&map));
     let siblings = record
@@ -422,9 +440,9 @@ fn decode_contents_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> P<Componen
         "text" => ComponentContents::Literal(string(req(map, "text")?)?),
         "translatable" => return decode_translatable(map),
         "keybind" => ComponentContents::Keybind(string(req(map, "keybind")?)?),
-        "score" => decode_score(map)?,
+        "score" => return decode_score(map),
         "selector" => return decode_selector(map),
-        "nbt" => decode_nbt(map)?,
+        "nbt" => return decode_nbt(map),
         "object" => return decode_object(map),
         _ => return Err(CodecError(format!("Unknown element id: {ty}")).into()),
     })
@@ -443,16 +461,16 @@ fn decode_contents<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
 }
 
 fn decode_translatable<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
-    let key = string(req(map, "translate")?)?;
-    let fallback = lenient(map, "fallback", string);
     let mut record = Record::default();
+    let key = record.take(req(map, "translate").and_then(string));
+    let fallback = lenient(map, "fallback", string);
     let args = record
         .take(opt_p(map, "with", |w| decode_list_partial(w, decode_arg)))
         .flatten()
         .unwrap_or_default();
     record.finish(|| {
         Some(ComponentContents::Translatable(TranslatableContents {
-            key,
+            key: key?,
             fallback,
             args,
         }))
@@ -477,28 +495,37 @@ fn decode_selector_string(s: String) -> R<String> {
     Ok(s)
 }
 
-fn decode_score<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
+fn decode_score<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
     let inner = map_of(req(map, "score")?)?;
-    let name = string(req(&inner, "name")?)?;
-    let objective = string(req(&inner, "objective")?)?;
-    // Either<CompilableString<EntitySelector>, String>: a valid selector wins.
-    let name = match (validators().entity_selector)(&name) {
-        Ok(()) => ScoreName::Selector(name),
-        Err(_) => ScoreName::Name(name),
-    };
-    Ok(ComponentContents::Score(ScoreContents { name, objective }))
+    let mut record = Record::default();
+    // Either<CompilableString<EntitySelector>, String>: a valid selector wins; a non-string fails both sides.
+    let name = record.take(req(&inner, "name").and_then(|v| match string(v) {
+        Ok(name) => Ok(match (validators().entity_selector)(&name) {
+            Ok(()) => ScoreName::Selector(name),
+            Err(_) => ScoreName::Name(name),
+        }),
+        Err(e) => Err(either_error(&e, &e)),
+    }));
+    let objective = record.take(req(&inner, "objective").and_then(string));
+    record.finish(|| {
+        Some(ComponentContents::Score(ScoreContents {
+            name: name?,
+            objective: objective?,
+        }))
+    })
 }
 
 fn decode_selector<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
-    let selector = decode_selector_string(string(req(map, "selector")?)?)?;
     let mut record = Record::default();
+    let selector =
+        record.take(req(map, "selector").and_then(|v| decode_selector_string(string(v)?)));
     let separator = record
         .take(opt_p(map, "separator", decode_component_partial))
         .flatten()
         .map(Box::new);
     record.finish(|| {
         Some(ComponentContents::Selector(SelectorContents {
-            selector,
+            selector: selector?,
             separator,
         }))
     })
@@ -531,23 +558,30 @@ fn decode_data_source<O: Ops>(map: &MapView<'_, O>) -> R<DataSource> {
     err("No matching codec found")
 }
 
-fn decode_nbt<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
-    let nbt_path = string(req(map, "nbt")?)?;
-    (validators().nbt_path)(&nbt_path).map_err(CodecError)?;
+fn decode_nbt<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
+    let mut record = Record::default();
+    let nbt_path = record.take(req(map, "nbt").and_then(|v| {
+        let path = string(v)?;
+        (validators().nbt_path)(&path).map_err(CodecError)?;
+        Ok(path)
+    }));
     let interpreting = lenient(map, "interpret", boolean).unwrap_or(false);
     let plain = lenient(map, "plain", boolean).unwrap_or(false);
     let separator = lenient(map, "separator", |v| decode_component(v)).map(Box::new);
-    let data_source = decode_data_source(map)?;
+    let data_source = record.take(decode_data_source(map));
+    let contents = record.finish(|| {
+        Some(ComponentContents::Nbt(NbtContents {
+            nbt_path: nbt_path?,
+            interpreting,
+            plain,
+            separator,
+            data_source: data_source?,
+        }))
+    })?;
     if interpreting && plain {
-        return err("'interpret' and 'plain' flags can't be both on");
+        return Err(CodecError("'interpret' and 'plain' flags can't be both on".into()).into());
     }
-    Ok(ComponentContents::Nbt(NbtContents {
-        nbt_path,
-        interpreting,
-        plain,
-        separator,
-        data_source,
-    }))
+    Ok(contents)
 }
 
 fn decode_object_info_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> P<ObjectInfo> {
@@ -557,20 +591,24 @@ fn decode_object_info_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> P<Objec
             let atlas = record
                 .take(opt_p(map, "atlas", |v| identifier(v)))
                 .flatten();
-            let sprite = identifier(req(map, "sprite")?)?;
+            let sprite = record.take(req(map, "sprite").and_then(identifier));
             record.finish(|| {
                 Some(ObjectInfo::AtlasSprite {
                     atlas: atlas.unwrap_or_else(ObjectInfo::default_atlas),
-                    sprite,
+                    sprite: sprite?,
                 })
             })
         }
         "player" => {
-            let player = Box::new(crate::profile::decode_profile(req(map, "player")?)?);
+            let player = record.take(
+                req(map, "player")
+                    .and_then(|v| crate::profile::decode_profile(v))
+                    .map(Box::new),
+            );
             let hat = record.take(opt_p(map, "hat", boolean)).flatten();
             record.finish(|| {
                 Some(ObjectInfo::PlayerSprite {
-                    player,
+                    player: player?,
                     hat: hat.unwrap_or(true),
                 })
             })
@@ -581,14 +619,16 @@ fn decode_object_info_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> P<Objec
 
 fn decode_object<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
     let mut record = Record::default();
-    let contents = if let Some(ty) = map_get(map, "object") {
-        record.take(decode_object_info_of_type(&string(ty)?, map))
-    } else {
-        let found = ["atlas", "player"]
+    let info = match map_get(map, "object") {
+        Some(ty) => string(ty)
+            .map_err(Box::from)
+            .and_then(|ty| decode_object_info_of_type(&ty, map)),
+        None => ["atlas", "player"]
             .into_iter()
-            .find_map(|ty| decode_object_info_of_type(ty, map).ok());
-        Some(found.ok_or_else(|| CodecError("No matching codec found".into()))?)
+            .find_map(|ty| decode_object_info_of_type(ty, map).ok())
+            .ok_or_else(|| CodecError("No matching codec found".into()).into()),
     };
+    let contents = record.take(info);
     let fallback = record
         .take(opt_p(map, "fallback", decode_component_partial))
         .flatten()
@@ -691,21 +731,22 @@ fn encode_arg<O: Ops>(arg: &TranslatableArg) -> R<O> {
 
 /// `ExtraCodecs.ARGB_COLOR_CODEC`: an int, or a 4 float list `[r, g, b, a]`.
 fn decode_argb<O: Ops>(v: &O) -> R<i32> {
+    // `Codec.withAlternative(Codec.INT, VECTOR4F, ..)`: an `Either`
     if let Some(i) = v.get_int() {
         return Ok(i);
     }
-    let items = v
-        .get_list()
-        .ok_or_else(|| CodecError("Not a list".into()))?;
+    let first = v.not_a(Prim::Number);
+    decode_argb_list(v).map_err(|second| either_error(&first, &second))
+}
+
+fn decode_argb_list<O: Ops>(v: &O) -> R<i32> {
+    let items = v.get_list().ok_or_else(|| v.not_a(Prim::List))?;
     if items.len() != 4 {
         return err("Input is not a list of 4 elements");
     }
     let f: Vec<f32> = items
         .iter()
-        .map(|i| {
-            i.get_float()
-                .ok_or_else(|| CodecError("Not a number".into()))
-        })
+        .map(|i| i.get_float().ok_or_else(|| i.not_a(Prim::Number)))
         .collect::<R<_>>()?;
     let ch = |v: f32| (mc_floor(v * 255.0f32) & 0xFF) as u32;
     Ok(((ch(f[3]) << 24) | (ch(f[0]) << 16) | (ch(f[1]) << 8) | ch(f[2])) as i32)
@@ -908,12 +949,18 @@ pub(crate) fn encode_click_event<O: Ops>(c: &ClickEvent) -> R<O> {
 }
 
 fn decode_uuid<O: Ops>(v: &O) -> R<u128> {
-    // UUIDUtil.LENIENT_CODEC: int stream of 4, else a UUID string.
-    if let Ok(u) = crate::profile::uuid_from_ints(v) {
-        return Ok(u);
-    }
-    let s = string(v).map_err(|_| CodecError("Not a UUID".into()))?;
-    java_uuid_from_string(&s).ok_or_else(|| CodecError(format!("Invalid UUID {s}")))
+    // UUIDUtil.LENIENT_CODEC: `Codec.withAlternative(CODEC, STRING_CODEC)`, an int stream of 4 or a UUID string
+    let first = match crate::profile::uuid_from_ints(v) {
+        Ok(u) => return Ok(u),
+        Err(e) => e,
+    };
+    string(v)
+        .and_then(|s| {
+            mc_core::uuid_util::uuid_from_string(&s)
+                .map(|u| u.as_u128())
+                .map_err(|e| CodecError(format!("Invalid UUID {s}: {e}")))
+        })
+        .map_err(|second| either_error(&first, &second))
 }
 
 fn decode_hover_event<O: Ops>(v: &O) -> P<HoverEvent> {
@@ -924,14 +971,16 @@ fn decode_hover_event<O: Ops>(v: &O) -> P<HoverEvent> {
             HoverEvent::ShowText(Box::new(c))
         }),
         "show_item" => {
-            let id = identifier(req(&map, "id")?)?;
-            if !(validators().item_exists)(&id) {
-                return Err(CodecError(format!(
-                    "Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: {id}"
-                ))
-                .into());
-            }
             let mut record = Record::default();
+            let id = record.take(req(&map, "id").and_then(|v| {
+                let id = identifier(v)?;
+                if !(validators().item_exists)(&id) {
+                    return err(format!(
+                        "Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: {id}"
+                    ));
+                }
+                Ok(id)
+            }));
             let count = record
                 .take(opt_p(&map, "count", |v| match int(v)? {
                     c if (1..=99).contains(&c) => Ok(c),
@@ -943,7 +992,7 @@ fn decode_hover_event<O: Ops>(v: &O) -> P<HoverEvent> {
             let components = record
                 .take(opt_p(&map, "components", |c| {
                     if c.get_map().is_none() {
-                        return err("Not a map");
+                        return Err(c.not_a(Prim::Map));
                     }
                     c.normalize_payload(PayloadKind::ItemComponents)
                         .map_err(CodecError)
@@ -952,30 +1001,32 @@ fn decode_hover_event<O: Ops>(v: &O) -> P<HoverEvent> {
                 .filter(|t| !matches!(t, Tag::Compound(c) if c.is_empty()));
             record.finish(|| {
                 Some(HoverEvent::ShowItem(ItemStackTemplate {
-                    id,
+                    id: id?,
                     count,
                     components,
                 }))
             })
         }
         "show_entity" => {
-            let entity_type = identifier(req(&map, "id")?)?;
-            if !(validators().entity_type_exists)(&entity_type) {
-                return Err(CodecError(format!(
-                    "Unknown registry key in ResourceKey[minecraft:root / minecraft:entity_type]: {entity_type}"
-                ))
-                .into());
-            }
-            let uuid = decode_uuid(req(&map, "uuid")?)?;
             let mut record = Record::default();
+            let entity_type = record.take(req(&map, "id").and_then(|v| {
+                let id = identifier(v)?;
+                if !(validators().entity_type_exists)(&id) {
+                    return err(format!(
+                        "Unknown registry key in ResourceKey[minecraft:root / minecraft:entity_type]: {id}"
+                    ));
+                }
+                Ok(id)
+            }));
+            let uuid = record.take(req(&map, "uuid").and_then(decode_uuid));
             let name = record
                 .take(opt_p(&map, "name", decode_component_partial))
                 .flatten()
                 .map(Box::new);
             record.finish(|| {
                 Some(HoverEvent::ShowEntity(EntityTooltipInfo {
-                    entity_type,
-                    uuid,
+                    entity_type: entity_type?,
+                    uuid: uuid?,
                     name,
                 }))
             })

@@ -13,12 +13,45 @@ use mc_nbt::{CompoundTag, ListTag, Tag};
 use serde_json::{Map, Number, Value};
 use std::borrow::Cow;
 
-/// A map as seen through `DynamicOps.getMap` (keys are always strings here).
-pub type MapView<'a, O> = Vec<(&'a str, &'a O)>;
+/// A map as seen through `DynamicOps.getMap` (keys are always strings here); `owner` is the value it was read from
+/// (the `MapLike` that error messages print).
+pub struct MapView<'a, O> {
+    entries: Vec<(&'a str, &'a O)>,
+    owner: &'a O,
+}
+
+impl<'a, O> MapView<'a, O> {
+    pub fn new(owner: &'a O, entries: Vec<(&'a str, &'a O)>) -> Self {
+        MapView { entries, owner }
+    }
+
+    pub fn owner(&self) -> &'a O {
+        self.owner
+    }
+}
+
+impl<'a, O> std::ops::Deref for MapView<'a, O> {
+    type Target = Vec<(&'a str, &'a O)>;
+    fn deref(&self) -> &Self::Target {
+        &self.entries
+    }
+}
 
 /// Looks `key` up in a [`MapView`].
 pub fn map_get<'a, O>(map: &MapView<'a, O>, key: &str) -> Option<&'a O> {
     map.iter().find(|(k, _)| *k == key).map(|(_, v)| *v)
+}
+
+/// What a `DynamicOps` getter was asked for when it rejected a value.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Prim {
+    String,
+    Number,
+    Boolean,
+    List,
+    /// `getStream` / `getIntStream` (`Codec.INT_STREAM`), which words its error differently from `getList`.
+    Stream,
+    Map,
 }
 
 pub trait Ops: Clone + Sized {
@@ -33,6 +66,10 @@ pub trait Ops: Clone + Sized {
     fn get_map(&self) -> Option<MapView<'_, Self>>;
     /// `ExtraCodecs.JAVA` + `filterAllowedArguments`: a Number/Boolean/String value.
     fn get_primitive_arg(&self) -> Option<TranslatableArg>;
+    /// The value as vanilla prints it into `DataResult` messages (`JsonElement.toString` / the SNBT of `Tag.toString`).
+    fn render(&self) -> String;
+    /// The `DataResult.error` message of the getter for `what` failing on this value.
+    fn not_a(&self, what: Prim) -> crate::codec::CodecError;
 
     fn create_string(s: &str) -> Self;
     fn create_bool(b: bool) -> Self;
@@ -76,6 +113,21 @@ impl Ops for Value {
         (crate::codec::payload_hooks().to_json)(kind, tag).map_err(crate::codec::CodecError)
     }
 
+    fn render(&self) -> String {
+        self.to_string()
+    }
+
+    fn not_a(&self, what: Prim) -> crate::codec::CodecError {
+        let text = match what {
+            Prim::String => "Not a string",
+            Prim::Number => "Not a number",
+            Prim::Boolean => "Not a boolean",
+            Prim::List | Prim::Stream => "Not a json array",
+            Prim::Map => "Not a JSON object",
+        };
+        crate::codec::CodecError(format!("{text}: {self}"))
+    }
+
     fn get_string(&self) -> Option<String> {
         self.as_str().map(str::to_owned)
     }
@@ -104,10 +156,13 @@ impl Ops for Value {
     fn get_map(&self) -> Option<MapView<'_, Self>> {
         // JsonOps' MapLike hides JsonNull values.
         self.as_object().map(|o| {
-            o.iter()
-                .filter(|(_, v)| !v.is_null())
-                .map(|(k, v)| (k.as_str(), v))
-                .collect()
+            MapView::new(
+                self,
+                o.iter()
+                    .filter(|(_, v)| !v.is_null())
+                    .map(|(k, v)| (k.as_str(), v))
+                    .collect(),
+            )
         })
     }
 
@@ -236,6 +291,20 @@ impl Ops for Tag {
         Ok(tag.clone())
     }
 
+    fn render(&self) -> String {
+        self.to_string()
+    }
+
+    fn not_a(&self, what: Prim) -> crate::codec::CodecError {
+        crate::codec::CodecError(match what {
+            Prim::String => "Not a string".to_owned(),
+            Prim::Number | Prim::Boolean => "Not a number".to_owned(),
+            Prim::List => format!("Not a list: {self}"),
+            Prim::Stream => "Not a list".to_owned(),
+            Prim::Map => format!("Not a map: {self}"),
+        })
+    }
+
     fn get_string(&self) -> Option<String> {
         self.as_string().map(str::to_owned)
     }
@@ -272,7 +341,7 @@ impl Ops for Tag {
 
     fn get_map(&self) -> Option<MapView<'_, Self>> {
         self.as_compound()
-            .map(|c| c.iter().map(|(k, v)| (k.as_str(), v)).collect())
+            .map(|c| MapView::new(self, c.iter().map(|(k, v)| (k.as_str(), v)).collect()))
     }
 
     fn get_primitive_arg(&self) -> Option<TranslatableArg> {

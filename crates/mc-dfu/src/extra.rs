@@ -252,7 +252,7 @@ pub fn dispatched_map<K: PartialEq + 'static, V: 'static>(
                 }
                 result = result.apply2(step, |_, _| ());
             }
-            let errors = ops.create_map(failed);
+            let errors = ops.show(&ops.create_map(failed));
             let pair = (entries, input.clone());
             match result {
                 DataResult::Success(()) => DataResult::success(pair),

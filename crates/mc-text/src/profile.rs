@@ -3,7 +3,7 @@
 
 use crate::codec::{CodecError, Fields, R, err, identifier, map_of, opt, req, string};
 use crate::java_util::is_valid_player_name;
-use crate::ops::{MapView, Ops};
+use crate::ops::{MapView, Ops, Prim};
 use mc_core::ident::Identifier;
 
 /// A GameProfile property (`name`, `value`, optional `signature`).
@@ -83,12 +83,10 @@ fn player_name<O: Ops>(v: &O) -> R<String> {
 
 /// `UUIDUtil.CODEC`: exactly four ints (`[I;..]` or a list of numbers).
 pub(crate) fn uuid_from_ints<O: Ops>(v: &O) -> R<u128> {
-    let items = v
-        .get_list()
-        .ok_or_else(|| CodecError("Not a list".into()))?;
+    let items = v.get_list().ok_or_else(|| v.not_a(Prim::Stream))?;
     let ints: Vec<i32> = items
         .iter()
-        .map(|i| i.get_int().ok_or_else(|| CodecError("Not a number".into())))
+        .map(|i| i.get_int().ok_or_else(|| i.not_a(Prim::Number)))
         .collect::<R<_>>()?;
     let [a, b, c, d]: [i32; 4] = ints
         .try_into()
@@ -155,10 +153,8 @@ fn decode_property_map<O: Ops>(v: &O) -> R<Vec<ProfileProperty>> {
             ));
         }
         let mut out = Vec::new();
-        for (name, values) in m {
-            let items = values
-                .get_list()
-                .ok_or_else(|| CodecError("Not a list".into()))?;
+        for &(name, values) in m.iter() {
+            let items = values.get_list().ok_or_else(|| values.not_a(Prim::List))?;
             for item in items {
                 out.push(ProfileProperty {
                     name: name.to_owned(),
@@ -172,9 +168,7 @@ fn decode_property_map<O: Ops>(v: &O) -> R<Vec<ProfileProperty>> {
     if let Ok(p) = from_map() {
         return Ok(group_by_name(p));
     }
-    let items = v
-        .get_list()
-        .ok_or_else(|| CodecError("Not a list".into()))?;
+    let items = v.get_list().ok_or_else(|| v.not_a(Prim::List))?;
     if items.len() > 16 {
         return err(format!(
             "List is too long: {}, expected range [0-16]",

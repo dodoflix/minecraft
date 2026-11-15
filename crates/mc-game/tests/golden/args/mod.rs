@@ -1121,7 +1121,7 @@ macro_rules! resource_or_id_case {
 }
 
 case!(
-    #[ignore = "deviation: codec error text of the component argument differs (#10)"]
+    #[ignore = "deviation: SNBT suggestions miss the word terminals (#9)"]
     component_matches_vanilla,
     "component",
     |_ctx| Arc::new(a::ComponentArgument::text_component()),
@@ -1147,7 +1147,6 @@ case!(
 );
 
 case!(
-    #[ignore = "deviation: codec error text of the item argument prints NBT values as JSON (#10)"]
     item_matches_vanilla,
     "item",
     |ctx| Arc::new(a::item::item_argument::ItemArgument::item(ctx)),
@@ -1193,7 +1192,7 @@ case!(
 );
 
 case!(
-    #[ignore = "deviation: codec error text of the style argument differs (#10)"]
+    #[ignore = "deviation: SNBT suggestions miss the word terminals (#9)"]
     style_matches_vanilla,
     "style",
     |_ctx| Arc::new(a::StyleArgument::style()),
@@ -1242,7 +1241,6 @@ resource_or_id_case!(
     |ctx| Arc::new(a::resource_arguments::ContextIntProviderArgument::int_provider(ctx))
 );
 resource_or_id_case!(
-    #[ignore = "deviation: codec error text of the loot modifier argument differs (#10)"]
     resource_or_id_loot_modifier_matches_vanilla,
     "resource_or_id_loot_modifier",
     |ctx| Arc::new(a::resource_arguments::LootModifierArgument::loot_modifier(

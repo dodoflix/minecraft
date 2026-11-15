@@ -67,8 +67,15 @@ fn hover_item_components_match_vanilla() {
                 ));
                 continue;
             }
-            (Err(_), false) => {
+            (Err(e), false) => {
                 err_cases += 1;
+                let expected = rec["err"].as_str().unwrap();
+                // vanilla throws (not a `DataResult` message) for some inputs; only the rejection is comparable
+                if rec.get("exception").is_none() && e.to_string() != expected {
+                    failures.push(format!(
+                        "{src}\n   error expected {expected}\n   got            {e}"
+                    ));
+                }
                 continue;
             }
             (Ok(c), true) => c,
