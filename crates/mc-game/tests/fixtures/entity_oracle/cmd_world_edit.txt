@@ -1,0 +1,1030 @@
+C Game rule send_command_feedback is now set to true
+# fill: modes replace destroy keep hollow outline strict, filters
+CF msg Successfully filled 48 block(s)
+CF result success 48
+CF result failure 0
+CF fail No blocks were filled
+CF result failure 0
+CF fail No blocks were filled
+CF msg Successfully filled 48 block(s)
+CF result success 48
+B 0 -60 0 minecraft:dirt
+B 0 -60 1 minecraft:dirt
+B 0 -60 2 minecraft:dirt
+B 0 -60 3 minecraft:dirt
+B 0 -59 0 minecraft:dirt
+B 0 -59 1 minecraft:dirt
+B 0 -59 2 minecraft:dirt
+B 0 -59 3 minecraft:dirt
+B 0 -58 0 minecraft:dirt
+B 0 -58 1 minecraft:dirt
+B 0 -58 2 minecraft:dirt
+B 0 -58 3 minecraft:dirt
+B 1 -60 0 minecraft:dirt
+B 1 -60 1 minecraft:dirt
+B 1 -60 2 minecraft:dirt
+B 1 -60 3 minecraft:dirt
+B 1 -59 0 minecraft:dirt
+B 1 -59 1 minecraft:dirt
+B 1 -59 2 minecraft:dirt
+B 1 -59 3 minecraft:dirt
+B 1 -58 0 minecraft:dirt
+B 1 -58 1 minecraft:dirt
+B 1 -58 2 minecraft:dirt
+B 1 -58 3 minecraft:dirt
+B 2 -60 0 minecraft:dirt
+B 2 -60 1 minecraft:dirt
+B 2 -60 2 minecraft:dirt
+B 2 -60 3 minecraft:dirt
+B 2 -59 0 minecraft:dirt
+B 2 -59 1 minecraft:dirt
+B 2 -59 2 minecraft:dirt
+B 2 -59 3 minecraft:dirt
+B 2 -58 0 minecraft:dirt
+B 2 -58 1 minecraft:dirt
+B 2 -58 2 minecraft:dirt
+B 2 -58 3 minecraft:dirt
+B 3 -60 0 minecraft:dirt
+B 3 -60 1 minecraft:dirt
+B 3 -60 2 minecraft:dirt
+B 3 -60 3 minecraft:dirt
+B 3 -59 0 minecraft:dirt
+B 3 -59 1 minecraft:dirt
+B 3 -59 2 minecraft:dirt
+B 3 -59 3 minecraft:dirt
+B 3 -58 0 minecraft:dirt
+B 3 -58 1 minecraft:dirt
+B 3 -58 2 minecraft:dirt
+B 3 -58 3 minecraft:dirt
+CF msg Successfully filled 48 block(s)
+CF result success 48
+B 0 -60 0 minecraft:glass
+B 0 -60 1 minecraft:glass
+B 0 -60 2 minecraft:glass
+B 0 -60 3 minecraft:glass
+B 0 -59 0 minecraft:glass
+B 0 -59 1 minecraft:glass
+B 0 -59 2 minecraft:glass
+B 0 -59 3 minecraft:glass
+B 0 -58 0 minecraft:glass
+B 0 -58 1 minecraft:glass
+B 0 -58 2 minecraft:glass
+B 0 -58 3 minecraft:glass
+B 1 -60 0 minecraft:glass
+B 1 -60 1 minecraft:glass
+B 1 -60 2 minecraft:glass
+B 1 -60 3 minecraft:glass
+B 1 -59 0 minecraft:glass
+B 1 -59 3 minecraft:glass
+B 1 -58 0 minecraft:glass
+B 1 -58 1 minecraft:glass
+B 1 -58 2 minecraft:glass
+B 1 -58 3 minecraft:glass
+B 2 -60 0 minecraft:glass
+B 2 -60 1 minecraft:glass
+B 2 -60 2 minecraft:glass
+B 2 -60 3 minecraft:glass
+B 2 -59 0 minecraft:glass
+B 2 -59 3 minecraft:glass
+B 2 -58 0 minecraft:glass
+B 2 -58 1 minecraft:glass
+B 2 -58 2 minecraft:glass
+B 2 -58 3 minecraft:glass
+B 3 -60 0 minecraft:glass
+B 3 -60 1 minecraft:glass
+B 3 -60 2 minecraft:glass
+B 3 -60 3 minecraft:glass
+B 3 -59 0 minecraft:glass
+B 3 -59 1 minecraft:glass
+B 3 -59 2 minecraft:glass
+B 3 -59 3 minecraft:glass
+B 3 -58 0 minecraft:glass
+B 3 -58 1 minecraft:glass
+B 3 -58 2 minecraft:glass
+B 3 -58 3 minecraft:glass
+CF msg Successfully filled 44 block(s)
+CF result success 44
+CF msg Successfully filled 48 block(s)
+CF result success 48
+CF msg Successfully filled 48 block(s)
+CF result success 48
+CF msg Successfully filled 48 block(s)
+CF result success 48
+CF msg Successfully filled 48 block(s)
+CF result success 48
+CF result failure 0
+CF fail No blocks were filled
+CF result failure 0
+CF fail No blocks were filled
+CF result failure 0
+CF fail No blocks were filled
+CF result failure 0
+CF fail No blocks were filled
+CF msg Successfully filled 48 block(s)
+CF result success 48
+CF result failure 0
+CF fail No blocks were filled
+B 0 -60 0 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 0 -60 1 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 0 -60 2 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 0 -60 3 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 0 -59 0 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 0 -59 1 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 0 -59 2 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 0 -59 3 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 0 -58 0 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 0 -58 1 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 0 -58 2 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 0 -58 3 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 1 -60 0 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 1 -60 1 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 1 -60 2 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 1 -60 3 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 1 -59 0 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 1 -59 1 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 1 -59 2 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 1 -59 3 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 1 -58 0 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 1 -58 1 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 1 -58 2 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 1 -58 3 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 2 -60 0 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 2 -60 1 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 2 -60 2 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 2 -60 3 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 2 -59 0 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 2 -59 1 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 2 -59 2 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 2 -59 3 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 2 -58 0 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 2 -58 1 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 2 -58 2 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 2 -58 3 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 3 -60 0 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 3 -60 1 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 3 -60 2 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 3 -60 3 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 3 -59 0 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 3 -59 1 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 3 -59 2 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 3 -59 3 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 3 -58 0 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 3 -58 1 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 3 -58 2 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+B 3 -58 3 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+CF msg Successfully filled 48 block(s)
+CF result success 48
+CF result failure 0
+CF fail No blocks were filled
+# fill: block entities
+CF msg Successfully filled 4 block(s)
+CF result success 4
+CF msg 0, -60, 0 has the following block data: {components: {}, x: 0, y: -60, Items: [{count: 1, Slot: 0b, id: "minecraft:stone"}], z: 0, id: "minecraft:dispenser"}
+CF result success 1
+CF msg 1, -60, 1 has the following block data: {components: {}, x: 1, y: -60, Items: [{count: 1, Slot: 0b, id: "minecraft:stone"}], z: 1, id: "minecraft:dispenser"}
+CF result success 1
+CF result failure 0
+CF fail No blocks were filled
+CF result failure 0
+CF fail No blocks were filled
+CF result failure 0
+CF fail No blocks were filled
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:stone"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+BE 1 -60 1 {Items:[{Slot:0b,count:1,id:"minecraft:stone"}],components:{},id:"minecraft:dispenser",x:1,y:-60,z:1}
+CF msg Successfully filled 4 block(s)
+CF result success 4
+CF result failure 0
+CF fail The target block is not a block entity
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-59,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-59,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-59,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-59,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-58,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-58,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-58,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-58,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,1 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,1 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-60,1 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-60,1 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-59,1 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-59,1 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-59,1 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-59,1 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-58,1 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-58,1 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-58,1 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-58,1 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-59,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-59,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-59,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-59,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-58,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-58,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-58,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-58,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-59,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-59,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-59,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-59,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-58,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-58,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-58,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-58,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=666 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,0 data=666 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,1 data=666 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,1 data=666 global=0
+# fill: limits and errors
+CF msg Successfully filled 4544 block(s)
+CF result success 4544
+CF result failure 0
+CF fail Too many blocks in the specified area (maximum 32768, but specified 613565)
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is out of this world!
+CF result failure 0
+CF fail That position is out of this world!
+CF msg Successfully filled 32 block(s)
+CF result success 32
+CF fail Unknown block type 'minecraft:notablock'
+CF fail ...0 3 -58 3 minecraft:notablock<--[HERE]
+CF fail Unknown block type 'minecraft:notablock'
+CF fail ...e replace minecraft:notablock<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...aft:stone sideways<--[HERE]
+CF fail Incomplete (expected 3 coordinates)
+CF fail ...l 0 -60 0 3 -58<--[HERE]
+CF result failure 0
+CF fail No blocks were filled
+C Game rule max_block_modifications is now set to 10
+CF result failure 0
+CF fail Too many blocks in the specified area (maximum 10, but specified 16)
+CF msg Successfully filled 6 block(s)
+CF result success 6
+C Game rule max_block_modifications is now set to 32768
+# fill: falling blocks, fluids, neighbour updates
+CF msg Successfully filled 6 block(s)
+CF result success 6
+CF msg Successfully filled 6 block(s)
+CF result success 6
+CF msg Successfully filled 12 block(s)
+CF result success 12
+CF msg Successfully filled 12 block(s)
+CF result success 12
+CF msg Successfully filled 6 block(s)
+CF result success 6
+CF msg Successfully filled 6 block(s)
+CF result success 6
+CF result failure 0
+CF fail No blocks were filled
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:grass_block[snowy=false]
+B 0 -59 0 minecraft:redstone_lamp[lit=true]
+B 0 -58 0 minecraft:redstone_block
+B 0 -57 0 minecraft:hopper[enabled=false,facing=down]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:grass_block[snowy=false]
+B 1 -59 0 minecraft:redstone_lamp[lit=true]
+B 1 -58 0 minecraft:redstone_block
+B 1 -57 0 minecraft:hopper[enabled=false,facing=down]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:grass_block[snowy=false]
+B 2 -59 0 minecraft:redstone_lamp[lit=true]
+B 2 -58 0 minecraft:redstone_block
+B 2 -57 0 minecraft:hopper[enabled=false,facing=down]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -60 0 minecraft:grass_block[snowy=false]
+B 3 -59 0 minecraft:redstone_lamp[lit=true]
+B 3 -58 0 minecraft:redstone_block
+B 3 -57 0 minecraft:hopper[enabled=false,facing=down]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -60 0 minecraft:grass_block[snowy=false]
+B 4 -59 0 minecraft:redstone_lamp[lit=true]
+B 4 -58 0 minecraft:redstone_block
+B 4 -57 0 minecraft:hopper[enabled=false,facing=down]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -60 0 minecraft:grass_block[snowy=false]
+B 5 -59 0 minecraft:redstone_lamp[lit=true]
+B 5 -58 0 minecraft:redstone_block
+B 5 -57 0 minecraft:hopper[enabled=false,facing=down]
+CF msg Successfully filled 6 block(s)
+CF result success 6
+CF msg Successfully filled 6 block(s)
+CF result success 6
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:grass_block[snowy=false]
+B 0 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:grass_block[snowy=false]
+B 1 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:grass_block[snowy=false]
+B 2 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -60 0 minecraft:grass_block[snowy=false]
+B 3 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -60 0 minecraft:grass_block[snowy=false]
+B 4 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -60 0 minecraft:grass_block[snowy=false]
+B 5 -57 0 minecraft:hopper[enabled=true,facing=down]
+E item#1 minecraft:item pos=-0.7515621688639627,-58.552395951166716,0.4833047313537619 delta=-0.1575313270816052,0.13651983653138233,-0.02669531851427331 rot=346.045,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*2 age=5 pickup=4 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.5424459898303116,-59.72661089349791,-0.9787637248653998 delta=-0.17590396139107703,-0.09955021668383093,-0.18126936886845565 rot=126.00194,0.0 og=0 fall=0.18772518821060658 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.2474299518710175,-59.449022753241536,-0.5151879944602433 delta=-0.014599810881118938,-0.08255970390435022,-0.2666794837926641 rot=12.381463,0.0 og=0 fall=0.08424459397792816 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=0.5696770316662944,-57.6644890163622,-0.6225701071753302 delta=-0.022671556734136553,0.09445363543817072,-0.12902136363083255 rot=265.4763,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=1.1057598300247313,-58.85320867723227,-0.5376100339969845 delta=-0.02055829700162869,-0.10347858362699369,-0.13565822618999276 rot=262.22925,0.0 og=0 fall=0.1999978944659233 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=3.88502722693228,-57.66051285521244,-0.8518016683065099 delta=0.03297869714708622,0.08845980351036827,-0.17381486667259763 rot=183.70589,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=-0.5348709803427733,-57.74906746320823,-0.563343878317747 delta=-0.11470405698032289,-0.10347858362699369,-0.23698785736497557 rot=337.0914,0.0 og=0 fall=0.1999978944659233 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=1.4374887019062441,-57.61669165144689,-0.5570446525927216 delta=-0.035488291600445164,-0.10347858362699369,-0.1883647729863314 rot=322.51205,0.0 og=0 fall=0.1999978944659233 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#14 minecraft:item pos=1.516515700768085,-58.82035029179928,2.125 delta=0.013327195666854462,-0.008847171832263918,0.0 rot=44.412273,0.0 og=0 fall=0.009027726016938686 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*2 age=5 pickup=4 health=5 owner=- thrower=-
+E item#17 minecraft:item pos=0.9752943770527458,-58.53296741934738,1.4353826125884865 delta=-0.1491684579079191,-0.06191977792826266,0.004549910176556974 rot=175.24472,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*2 age=5 pickup=4 health=5 owner=- thrower=-
+E item#18 minecraft:item pos=2.0679855122619064,-58.4962301282037,1.453750794427581 delta=0.17432607274787415,-0.06191977792826266,0.0011031999823468489 rot=66.72731,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#19 minecraft:item pos=3.125,-58.8147074969024,1.5094368066448132 delta=0.0,-0.09701293828482047,-0.004220316035266234 rot=286.49182,0.0 og=0 fall=0.15918951854109764 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*3 age=6 pickup=5 health=5 owner=- thrower=-
+E item#21 minecraft:item pos=0.3516048358989984,-57.84669720067631,1.875 delta=-0.013474250890884996,-0.09701293828482047,0.0 rot=251.8824,0.0 og=0 fall=0.15918951854109764 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*2 age=5 pickup=4 health=5 owner=- thrower=-
+E item#26 minecraft:item pos=0.875,-58.665,2.5012099357362194 delta=0.0,-0.03920000076293945,0.020466496415731575 rot=315.24216,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*2 age=5 pickup=4 health=5 owner=- thrower=-
+E item#28 minecraft:item pos=2.9538260878715104,-58.68780509406159,2.299863311025629 delta=0.12259625166841914,0.022398862755699862,-0.013372964690715606 rot=151.08917,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*3 age=6 pickup=4 health=5 owner=- thrower=-
+E item#31 minecraft:item pos=2.0576682150081944,-58.59380659327061,2.4519932834523184 delta=-0.21771973616434082,-0.06191977792826266,-0.012632225135940799 rot=207.74028,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#36 minecraft:item pos=3.3174850454745233,-58.0,1.875 delta=-0.018530278417526313,0.0,0.0 rot=164.07416,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#37 minecraft:item pos=-1.132571020026738,-59.642611159193365,3.112539691491607 delta=-0.221337159907935,-0.09955021668383093,-0.0459837653816648 rot=310.8379,0.0 og=0 fall=0.18772518821060658 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*2 age=6 pickup=4 health=5 owner=- thrower=-
+E item#39 minecraft:item pos=3.125,-59.858114377027825,3.7428507780270097 delta=0.0,-0.09955021668383093,0.013525807067552142 rot=122.66793,0.0 og=0 fall=0.18772518821060658 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*2 age=6 pickup=4 health=5 owner=- thrower=-
+E item#40 minecraft:item pos=4.046400232418147,-59.44574676991772,3.5266525037900567 delta=0.20605866296794773,-0.06191977792826266,0.008129851487403663 rot=217.42375,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#44 minecraft:item pos=3.874962509304167,-58.55582591804173,3.211234748871954 delta=-0.1976885530085184,-0.06191977792826266,-0.014761183020611676 rot=136.28351,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#46 minecraft:item pos=1.5883885178618757,-57.618231187318365,2.819389070389639 delta=0.01177783334104094,-0.06191977792826266,-0.23046751649705755 rot=276.58984,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*6 age=5 pickup=4 health=5 owner=- thrower=-
+E item#48 minecraft:item pos=4.125,-56.988681286186086,2.2050330770734887 delta=-0.0,-0.00372682613129337,-0.10342850872871567 rot=208.31488,0.0 og=0 fall=0.0038028836715966463 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*4 age=6 pickup=4 health=5 owner=- thrower=-
+E item#49 minecraft:item pos=0.6950862960327463,-59.42061153300295,-1.2532867419419973 delta=0.0198943343259885,-0.09955021668383093,-0.24736984859357705 rot=74.73632,0.0 og=0 fall=0.18772518821060658 fire=0 air=300 alive=1 pose=standing item=minecraft:dispenser*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#51 minecraft:item pos=1.2623911085510624,-59.01543603134562,-0.8073096717637382 delta=-0.02880388393303017,0.042525843949241283,-0.1763529594658047 rot=349.00635,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dispenser*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#53 minecraft:item pos=0.009232021785964717,-58.68104858651218,1.4489175129330818 delta=-0.15019121790182766,0.08820378554203832,0.0016615386395440767 rot=319.69733,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dispenser*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#55 minecraft:item pos=1.0108229534972457,-59.0269712157498,1.3990974930853426 delta=0.18240617898471356,-0.01998936713518618,-0.004632933019336474 rot=354.0534,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dispenser*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#57 minecraft:item pos=0.4772994208138369,-59.052114776150184,-0.6769145430123071 delta=-0.016995882441697915,0.10296373300328417,-0.19481404482313425 rot=234.19376,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#58 minecraft:item pos=2.1977362745146083,-59.61984752867424,-0.3421068566519298 delta=0.11822819128664533,-0.09701293828482047,-0.07444240285216477 rot=278.01144,0.0 og=0 fall=0.15918951854109764 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#59 minecraft:item pos=3.007912130554079,-59.73195461291196,-0.7997480708739741 delta=0.035590696442065896,-0.10347858362699369,-0.1968718706748508 rot=104.90575,0.0 og=0 fall=0.1999978944659233 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#60 minecraft:item pos=3.1526627098897313,-58.640392037436385,1.7228445050908476 delta=-0.10844921323132439,0.08241605065112331,0.08575122111759456 rot=145.54555,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#61 minecraft:item pos=4.434386242206108,-59.50553628229363,-1.223752907079364 delta=-0.037025130887741974,-0.09955021668383093,-0.2457555863948396 rot=4.541774,0.0 og=0 fall=0.18772518821060658 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#62 minecraft:item pos=5.5103364903806895,-58.997116430133744,0.6248346823069486 delta=-0.009718983514602058,-0.0049757011807512914,-0.2319058594494295 rot=313.56442,0.0 og=0 fall=0.005077246110886335 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=6 pickup=4 health=5 owner=- thrower=-
+# fill as a player
+CF msg Successfully filled 27 block(s)
+CF result success 27
+CF result failure 0
+CF fail No blocks were filled
+CF fail Unknown or incomplete command. See below for error
+CF fail fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass<--[HERE]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:glass
+B 0 -60 1 minecraft:glass
+B 0 -60 2 minecraft:glass
+B 0 -60 3 minecraft:hopper[enabled=true,facing=down]
+B 0 -60 4 minecraft:hopper[enabled=true,facing=down]
+B 0 -59 0 minecraft:glass
+B 0 -59 1 minecraft:glass
+B 0 -59 2 minecraft:glass
+B 0 -59 3 minecraft:hopper[enabled=true,facing=down]
+B 0 -59 4 minecraft:hopper[enabled=true,facing=down]
+B 0 -58 0 minecraft:glass
+B 0 -58 1 minecraft:glass
+B 0 -58 2 minecraft:glass
+B 0 -58 3 minecraft:hopper[enabled=true,facing=down]
+B 0 -58 4 minecraft:hopper[enabled=true,facing=down]
+B 0 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 0 -57 1 minecraft:hopper[enabled=true,facing=down]
+B 0 -57 2 minecraft:hopper[enabled=true,facing=down]
+B 0 -57 3 minecraft:hopper[enabled=true,facing=down]
+B 0 -57 4 minecraft:hopper[enabled=true,facing=down]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:glass
+B 1 -60 1 minecraft:glass
+B 1 -60 2 minecraft:glass
+B 1 -60 3 minecraft:hopper[enabled=true,facing=down]
+B 1 -60 4 minecraft:hopper[enabled=true,facing=down]
+B 1 -59 0 minecraft:glass
+B 1 -59 1 minecraft:glass
+B 1 -59 2 minecraft:glass
+B 1 -59 3 minecraft:hopper[enabled=true,facing=down]
+B 1 -59 4 minecraft:hopper[enabled=true,facing=down]
+B 1 -58 0 minecraft:glass
+B 1 -58 1 minecraft:glass
+B 1 -58 2 minecraft:glass
+B 1 -58 3 minecraft:hopper[enabled=true,facing=down]
+B 1 -58 4 minecraft:hopper[enabled=true,facing=down]
+B 1 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 1 -57 1 minecraft:hopper[enabled=true,facing=down]
+B 1 -57 2 minecraft:hopper[enabled=true,facing=down]
+B 1 -57 3 minecraft:hopper[enabled=true,facing=down]
+B 1 -57 4 minecraft:hopper[enabled=true,facing=down]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:glass
+B 2 -60 1 minecraft:glass
+B 2 -60 2 minecraft:glass
+B 2 -60 3 minecraft:hopper[enabled=true,facing=down]
+B 2 -60 4 minecraft:hopper[enabled=true,facing=down]
+B 2 -59 0 minecraft:glass
+B 2 -59 1 minecraft:glass
+B 2 -59 2 minecraft:glass
+B 2 -59 3 minecraft:hopper[enabled=true,facing=down]
+B 2 -59 4 minecraft:hopper[enabled=true,facing=down]
+B 2 -58 0 minecraft:glass
+B 2 -58 1 minecraft:glass
+B 2 -58 2 minecraft:glass
+B 2 -58 3 minecraft:hopper[enabled=true,facing=down]
+B 2 -58 4 minecraft:hopper[enabled=true,facing=down]
+B 2 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 2 -57 1 minecraft:hopper[enabled=true,facing=down]
+B 2 -57 2 minecraft:hopper[enabled=true,facing=down]
+B 2 -57 3 minecraft:hopper[enabled=true,facing=down]
+B 2 -57 4 minecraft:hopper[enabled=true,facing=down]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -60 0 minecraft:grass_block[snowy=false]
+B 3 -60 1 minecraft:hopper[enabled=true,facing=down]
+B 3 -60 2 minecraft:hopper[enabled=true,facing=down]
+B 3 -60 3 minecraft:hopper[enabled=true,facing=down]
+B 3 -60 4 minecraft:hopper[enabled=true,facing=down]
+B 3 -59 1 minecraft:hopper[enabled=true,facing=down]
+B 3 -59 2 minecraft:hopper[enabled=true,facing=down]
+B 3 -59 3 minecraft:hopper[enabled=true,facing=down]
+B 3 -59 4 minecraft:hopper[enabled=true,facing=down]
+B 3 -58 1 minecraft:hopper[enabled=true,facing=down]
+B 3 -58 2 minecraft:hopper[enabled=true,facing=down]
+B 3 -58 3 minecraft:hopper[enabled=true,facing=down]
+B 3 -58 4 minecraft:hopper[enabled=true,facing=down]
+B 3 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 3 -57 1 minecraft:hopper[enabled=true,facing=down]
+B 3 -57 2 minecraft:hopper[enabled=true,facing=down]
+B 3 -57 3 minecraft:hopper[enabled=true,facing=down]
+B 3 -57 4 minecraft:hopper[enabled=true,facing=down]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -60 0 minecraft:grass_block[snowy=false]
+B 4 -60 1 minecraft:hopper[enabled=true,facing=down]
+B 4 -60 2 minecraft:hopper[enabled=true,facing=down]
+B 4 -60 3 minecraft:hopper[enabled=true,facing=down]
+B 4 -60 4 minecraft:hopper[enabled=true,facing=down]
+B 4 -59 1 minecraft:hopper[enabled=true,facing=down]
+B 4 -59 2 minecraft:hopper[enabled=true,facing=down]
+B 4 -59 3 minecraft:hopper[enabled=true,facing=down]
+B 4 -59 4 minecraft:hopper[enabled=true,facing=down]
+B 4 -58 1 minecraft:hopper[enabled=true,facing=down]
+B 4 -58 2 minecraft:hopper[enabled=true,facing=down]
+B 4 -58 3 minecraft:hopper[enabled=true,facing=down]
+B 4 -58 4 minecraft:hopper[enabled=true,facing=down]
+B 4 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 4 -57 1 minecraft:hopper[enabled=true,facing=down]
+B 4 -57 2 minecraft:hopper[enabled=true,facing=down]
+B 4 -57 3 minecraft:hopper[enabled=true,facing=down]
+B 4 -57 4 minecraft:hopper[enabled=true,facing=down]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -60 0 minecraft:grass_block[snowy=false]
+B 5 -60 1 minecraft:hopper[enabled=true,facing=down]
+B 5 -60 2 minecraft:hopper[enabled=true,facing=down]
+B 5 -60 3 minecraft:hopper[enabled=true,facing=down]
+B 5 -60 4 minecraft:hopper[enabled=true,facing=down]
+B 5 -59 1 minecraft:hopper[enabled=true,facing=down]
+B 5 -59 2 minecraft:hopper[enabled=true,facing=down]
+B 5 -59 3 minecraft:hopper[enabled=true,facing=down]
+B 5 -59 4 minecraft:hopper[enabled=true,facing=down]
+B 5 -58 1 minecraft:hopper[enabled=true,facing=down]
+B 5 -58 2 minecraft:hopper[enabled=true,facing=down]
+B 5 -58 3 minecraft:hopper[enabled=true,facing=down]
+B 5 -58 4 minecraft:hopper[enabled=true,facing=down]
+B 5 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 5 -57 1 minecraft:hopper[enabled=true,facing=down]
+B 5 -57 2 minecraft:hopper[enabled=true,facing=down]
+B 5 -57 3 minecraft:hopper[enabled=true,facing=down]
+B 5 -57 4 minecraft:hopper[enabled=true,facing=down]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -60 0 minecraft:stone
+B 6 -60 1 minecraft:hopper[enabled=true,facing=down]
+B 6 -60 2 minecraft:hopper[enabled=true,facing=down]
+B 6 -60 3 minecraft:hopper[enabled=true,facing=down]
+B 6 -60 4 minecraft:hopper[enabled=true,facing=down]
+B 6 -59 0 minecraft:hopper[enabled=true,facing=down]
+B 6 -59 1 minecraft:hopper[enabled=true,facing=down]
+B 6 -59 2 minecraft:hopper[enabled=true,facing=down]
+B 6 -59 3 minecraft:hopper[enabled=true,facing=down]
+B 6 -59 4 minecraft:hopper[enabled=true,facing=down]
+B 6 -58 0 minecraft:hopper[enabled=true,facing=down]
+B 6 -58 1 minecraft:hopper[enabled=true,facing=down]
+B 6 -58 2 minecraft:hopper[enabled=true,facing=down]
+B 6 -58 3 minecraft:hopper[enabled=true,facing=down]
+B 6 -58 4 minecraft:hopper[enabled=true,facing=down]
+B 6 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 6 -57 1 minecraft:hopper[enabled=true,facing=down]
+B 6 -57 2 minecraft:hopper[enabled=true,facing=down]
+B 6 -57 3 minecraft:hopper[enabled=true,facing=down]
+B 6 -57 4 minecraft:hopper[enabled=true,facing=down]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 1 minecraft:grass_block[snowy=false]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 3 minecraft:grass_block[snowy=false]
+B 7 -61 4 minecraft:grass_block[snowy=false]
+B 7 -60 0 minecraft:stone
+B 7 -60 1 minecraft:hopper[enabled=true,facing=down]
+B 7 -60 2 minecraft:hopper[enabled=true,facing=down]
+B 7 -60 3 minecraft:hopper[enabled=true,facing=down]
+B 7 -60 4 minecraft:hopper[enabled=true,facing=down]
+B 7 -59 0 minecraft:hopper[enabled=true,facing=down]
+B 7 -59 1 minecraft:hopper[enabled=true,facing=down]
+B 7 -59 2 minecraft:hopper[enabled=true,facing=down]
+B 7 -59 3 minecraft:hopper[enabled=true,facing=down]
+B 7 -59 4 minecraft:hopper[enabled=true,facing=down]
+B 7 -58 0 minecraft:hopper[enabled=true,facing=down]
+B 7 -58 1 minecraft:hopper[enabled=true,facing=down]
+B 7 -58 2 minecraft:hopper[enabled=true,facing=down]
+B 7 -58 3 minecraft:hopper[enabled=true,facing=down]
+B 7 -58 4 minecraft:hopper[enabled=true,facing=down]
+B 7 -57 0 minecraft:hopper[enabled=true,facing=down]
+B 7 -57 1 minecraft:hopper[enabled=true,facing=down]
+B 7 -57 2 minecraft:hopper[enabled=true,facing=down]
+B 7 -57 3 minecraft:hopper[enabled=true,facing=down]
+B 7 -57 4 minecraft:hopper[enabled=true,facing=down]
+B 8 -61 0 minecraft:grass_block[snowy=false]
+B 8 -61 1 minecraft:grass_block[snowy=false]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 3 minecraft:grass_block[snowy=false]
+B 8 -61 4 minecraft:grass_block[snowy=false]
+B 8 -60 0 minecraft:stone
+B 9 -61 0 minecraft:grass_block[snowy=false]
+B 9 -61 1 minecraft:grass_block[snowy=false]
+B 9 -61 2 minecraft:grass_block[snowy=false]
+B 9 -61 3 minecraft:grass_block[snowy=false]
+B 9 -61 4 minecraft:grass_block[snowy=false]
+B 9 -60 0 minecraft:stone
+B 10 -61 0 minecraft:grass_block[snowy=false]
+B 10 -61 1 minecraft:grass_block[snowy=false]
+B 10 -61 2 minecraft:grass_block[snowy=false]
+B 10 -61 3 minecraft:grass_block[snowy=false]
+B 10 -61 4 minecraft:grass_block[snowy=false]
+B 10 -60 0 minecraft:stone
+# setblock
+CF msg Changed the block at 12, -60, 12
+CF result success 1
+CF result failure 0
+CF fail Could not set the block
+CF result failure 0
+CF fail Could not set the block
+CF result failure 0
+CF fail Could not set the block
+CF result failure 0
+CF fail Could not set the block
+CF msg Changed the block at 12, -60, 12
+CF result success 1
+CF result failure 0
+CF fail Could not set the block
+CF msg Changed the block at 12, -60, 12
+CF result success 1
+CF result failure 0
+CF fail Could not set the block
+BE 12 -60 12 {Items:[{Slot:1b,count:3,id:"minecraft:apple"}],components:{},id:"minecraft:chest",x:12,y:-60,z:12}
+CF msg Changed the block at 12, -60, 12
+CF result success 1
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is out of this world!
+CF fail Unknown block type 'minecraft:notablock'
+CF fail ...k 0 -60 0 minecraft:notablock<--[HERE]
+CF fail Block minecraft:stone does not have property 'bogus'
+CF fail ...aft:stone[bogus=1]<--[HERE]
+CF fail Expected literal :
+CF fail ...:stone{bad<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail setblock 14 -60 14 minecraft:stone<--[HERE]
+CF msg Changed the block at 0, -60, 0
+CF result success 1
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=121 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,0 data=121 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-60,0 data=121 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-60,0 data=121 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=4,-60,0 data=121 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=5,-60,0 data=121 global=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=2001 pos=12,-60,12 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=12,-60,12 data=5556 global=0
+# clone: modes, filters, overlap, block entities
+CF msg Successfully filled 27 block(s)
+CF result success 27
+CF msg Changed the block at 11, -59, 11
+CF result success 1
+CF msg Changed the block at 10, -58, 10
+CF result success 1
+CF msg Changed the block at 12, -58, 12
+CF result success 1
+CF msg Successfully cloned 27 block(s)
+CF result success 27
+CF msg 21, -59, 21 has the following block data: {components: {}, x: 21, y: -59, Items: [{count: 2, Slot: 3b, id: "minecraft:diamond"}], z: 21, id: "minecraft:dispenser"}
+CF result success 1
+B 10 -60 10 minecraft:stone
+B 10 -60 11 minecraft:stone
+B 10 -60 12 minecraft:stone
+B 10 -59 10 minecraft:stone
+B 10 -59 11 minecraft:stone
+B 10 -59 12 minecraft:stone
+B 10 -58 10 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 10 -58 11 minecraft:stone
+B 10 -58 12 minecraft:stone
+B 11 -60 10 minecraft:stone
+B 11 -60 11 minecraft:stone
+B 11 -60 12 minecraft:stone
+B 11 -59 10 minecraft:stone
+B 11 -59 11 minecraft:dispenser[facing=east,triggered=false]
+B 11 -59 12 minecraft:stone
+B 11 -58 10 minecraft:stone
+B 11 -58 11 minecraft:stone
+B 11 -58 12 minecraft:stone
+B 12 -60 10 minecraft:stone
+B 12 -60 11 minecraft:stone
+B 12 -60 12 minecraft:stone
+B 12 -59 10 minecraft:stone
+B 12 -59 11 minecraft:stone
+B 12 -59 12 minecraft:stone
+B 12 -58 10 minecraft:stone
+B 12 -58 11 minecraft:stone
+B 12 -58 12 minecraft:torch
+B 20 -60 20 minecraft:stone
+B 20 -60 21 minecraft:stone
+B 20 -60 22 minecraft:stone
+B 20 -59 20 minecraft:stone
+B 20 -59 21 minecraft:stone
+B 20 -59 22 minecraft:stone
+B 20 -58 20 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 20 -58 21 minecraft:stone
+B 20 -58 22 minecraft:stone
+B 21 -60 20 minecraft:stone
+B 21 -60 21 minecraft:stone
+B 21 -60 22 minecraft:stone
+B 21 -59 20 minecraft:stone
+B 21 -59 21 minecraft:dispenser[facing=east,triggered=false]
+B 21 -59 22 minecraft:stone
+B 21 -58 20 minecraft:stone
+B 21 -58 21 minecraft:stone
+B 21 -58 22 minecraft:stone
+B 22 -60 20 minecraft:stone
+B 22 -60 21 minecraft:stone
+B 22 -60 22 minecraft:stone
+B 22 -59 20 minecraft:stone
+B 22 -59 21 minecraft:stone
+B 22 -59 22 minecraft:stone
+B 22 -58 20 minecraft:stone
+B 22 -58 21 minecraft:stone
+B 22 -58 22 minecraft:torch
+BE 21 -59 21 {Items:[{Slot:3b,count:2,id:"minecraft:diamond"}],components:{},id:"minecraft:dispenser",x:21,y:-59,z:21}
+CF msg Successfully cloned 27 block(s)
+CF result success 27
+CF msg Successfully cloned 27 block(s)
+CF result success 27
+CF msg Successfully cloned 27 block(s)
+CF result success 27
+CF msg Successfully cloned 27 block(s)
+CF result success 27
+CF msg Successfully cloned 24 block(s)
+CF result success 24
+CF msg Successfully cloned 24 block(s)
+CF result success 24
+B 10 -58 10 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 11 -59 11 minecraft:dispenser[facing=east,triggered=false]
+B 20 -60 20 minecraft:stone
+B 20 -60 21 minecraft:stone
+B 20 -60 22 minecraft:stone
+B 20 -59 20 minecraft:stone
+B 20 -59 21 minecraft:stone
+B 20 -59 22 minecraft:stone
+B 20 -58 20 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 20 -58 21 minecraft:stone
+B 20 -58 22 minecraft:stone
+B 21 -60 20 minecraft:stone
+B 21 -60 21 minecraft:stone
+B 21 -60 22 minecraft:stone
+B 21 -59 20 minecraft:stone
+B 21 -59 21 minecraft:dispenser[facing=east,triggered=false]
+B 21 -59 22 minecraft:stone
+B 21 -58 20 minecraft:stone
+B 21 -58 21 minecraft:stone
+B 21 -58 22 minecraft:stone
+B 22 -60 20 minecraft:stone
+B 22 -60 21 minecraft:stone
+B 22 -60 22 minecraft:stone
+B 22 -59 20 minecraft:stone
+B 22 -59 21 minecraft:stone
+B 22 -59 22 minecraft:stone
+B 22 -58 20 minecraft:stone
+B 22 -58 21 minecraft:stone
+B 22 -58 22 minecraft:torch
+CF msg Successfully cloned 1 block(s)
+CF result success 1
+CF msg Successfully cloned 1 block(s)
+CF result success 1
+CF result failure 0
+CF fail The source and destination areas cannot overlap
+CF msg Successfully cloned 27 block(s)
+CF result success 27
+CF msg Successfully cloned 27 block(s)
+CF result success 27
+CF result failure 0
+CF fail The source and destination areas cannot overlap
+B 11 -58 11 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 12 -58 12 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 13 -59 13 minecraft:dispenser[facing=east,triggered=false]
+B 20 -60 20 minecraft:stone
+B 20 -60 21 minecraft:stone
+B 20 -60 22 minecraft:stone
+B 20 -59 20 minecraft:stone
+B 20 -59 21 minecraft:stone
+B 20 -59 22 minecraft:stone
+B 20 -58 20 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 20 -58 21 minecraft:stone
+B 20 -58 22 minecraft:stone
+B 21 -60 20 minecraft:stone
+B 21 -60 21 minecraft:stone
+B 21 -60 22 minecraft:stone
+B 21 -59 20 minecraft:stone
+B 21 -59 21 minecraft:dispenser[facing=east,triggered=false]
+B 21 -59 22 minecraft:stone
+B 21 -58 20 minecraft:stone
+B 21 -58 21 minecraft:stone
+B 21 -58 22 minecraft:stone
+B 22 -60 20 minecraft:stone
+B 22 -60 21 minecraft:stone
+B 22 -60 22 minecraft:stone
+B 22 -59 20 minecraft:stone
+B 22 -59 21 minecraft:stone
+B 22 -59 22 minecraft:stone
+B 22 -58 20 minecraft:stone
+B 22 -58 21 minecraft:stone
+B 22 -58 22 minecraft:torch
+CF msg Successfully cloned 27 block(s)
+CF result success 27
+CF fail Incorrect argument for command
+CF fail ...30 strict move<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...30 masked strict<--[HERE]
+CF msg Successfully cloned 27 block(s)
+CF result success 27
+CF msg Test passed. Count: 27
+CF result success 27
+CF result failure 0
+CF fail Test failed
+CF msg 31, -59, 31 has the following block data: {components: {}, x: 31, y: -59, Items: [{count: 2, Slot: 3b, id: "minecraft:diamond"}], z: 31, id: "minecraft:dispenser"}
+CF result success 1
+B 20 -60 20 minecraft:stone
+B 20 -60 21 minecraft:stone
+B 20 -60 22 minecraft:stone
+B 20 -59 20 minecraft:stone
+B 20 -59 21 minecraft:stone
+B 20 -59 22 minecraft:stone
+B 20 -58 20 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 20 -58 21 minecraft:stone
+B 20 -58 22 minecraft:stone
+B 21 -60 20 minecraft:stone
+B 21 -60 21 minecraft:stone
+B 21 -60 22 minecraft:stone
+B 21 -59 20 minecraft:stone
+B 21 -59 21 minecraft:dispenser[facing=east,triggered=false]
+B 21 -59 22 minecraft:stone
+B 21 -58 20 minecraft:stone
+B 21 -58 21 minecraft:stone
+B 21 -58 22 minecraft:stone
+B 22 -60 20 minecraft:stone
+B 22 -60 21 minecraft:stone
+B 22 -60 22 minecraft:stone
+B 22 -59 20 minecraft:stone
+B 22 -59 21 minecraft:stone
+B 22 -59 22 minecraft:stone
+B 22 -58 20 minecraft:stone
+B 22 -58 21 minecraft:stone
+B 22 -58 22 minecraft:torch
+B 30 -60 30 minecraft:stone
+B 30 -60 31 minecraft:stone
+B 30 -60 32 minecraft:stone
+B 30 -59 30 minecraft:stone
+B 30 -59 31 minecraft:stone
+B 30 -59 32 minecraft:stone
+B 30 -58 30 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 30 -58 31 minecraft:stone
+B 30 -58 32 minecraft:stone
+B 31 -60 30 minecraft:stone
+B 31 -60 31 minecraft:stone
+B 31 -60 32 minecraft:stone
+B 31 -59 30 minecraft:stone
+B 31 -59 31 minecraft:dispenser[facing=east,triggered=false]
+B 31 -59 32 minecraft:stone
+B 31 -58 30 minecraft:stone
+B 31 -58 31 minecraft:stone
+B 31 -58 32 minecraft:stone
+B 32 -60 30 minecraft:stone
+B 32 -60 31 minecraft:stone
+B 32 -60 32 minecraft:stone
+B 32 -59 30 minecraft:stone
+B 32 -59 31 minecraft:stone
+B 32 -59 32 minecraft:stone
+B 32 -58 30 minecraft:stone
+B 32 -58 31 minecraft:stone
+B 32 -58 32 minecraft:torch
+BE 31 -59 31 {Items:[{Slot:3b,count:2,id:"minecraft:diamond"}],components:{},id:"minecraft:dispenser",x:31,y:-59,z:31}
+# clone: errors, dimension parts, as a player
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail Too many blocks in the specified area (maximum 32768, but specified 613565)
+CF fail Incorrect argument for command
+CF fail ...20 -60 20 from<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...0 replace sideways<--[HERE]
+CF msg Successfully cloned 27 block(s)
+CF result success 27
+CF msg Successfully cloned 2 block(s)
+CF result success 2
+CF msg Successfully cloned 2 block(s)
+CF result success 2
+CF result failure 0
+CF fail No blocks were cloned
+CF result failure 0
+CF fail Unknown dimension 'minecraft:foo'
+CF result failure 0
+CF fail Unknown dimension 'minecraft:foo'
+CF msg Successfully cloned 27 block(s)
+CF result success 27
+CF msg Successfully cloned 27 block(s)
+CF result success 27
+CF msg Successfully cloned 18 block(s)
+CF result success 18
+CF fail Unknown or incomplete command. See below for error
+CF fail clone 10 -60 10 12 -58 12 20 -60 20<--[HERE]
+B 11 -58 11 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 12 -58 12 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 13 -59 13 minecraft:dispenser[facing=east,triggered=false]
+B 20 -60 20 minecraft:stone
+B 20 -60 21 minecraft:stone
+B 20 -60 22 minecraft:stone
+B 20 -59 20 minecraft:stone
+B 20 -59 21 minecraft:stone
+B 20 -59 22 minecraft:stone
+B 20 -58 20 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 20 -58 21 minecraft:stone
+B 20 -58 22 minecraft:stone
+B 21 -60 20 minecraft:stone
+B 21 -60 21 minecraft:stone
+B 21 -60 22 minecraft:stone
+B 21 -59 20 minecraft:stone
+B 21 -59 21 minecraft:dispenser[facing=east,triggered=false]
+B 21 -59 22 minecraft:stone
+B 21 -58 20 minecraft:stone
+B 21 -58 21 minecraft:stone
+B 21 -58 22 minecraft:stone
+B 22 -60 20 minecraft:stone
+B 22 -60 21 minecraft:stone
+B 22 -60 22 minecraft:stone
+B 22 -59 20 minecraft:stone
+B 22 -59 21 minecraft:stone
+B 22 -59 22 minecraft:stone
+B 22 -58 20 minecraft:stone
+B 22 -58 21 minecraft:stone
+B 22 -58 22 minecraft:torch
+B 30 -60 30 minecraft:stone
+B 30 -60 31 minecraft:stone
+B 30 -60 32 minecraft:stone
+B 30 -59 30 minecraft:stone
+B 30 -59 31 minecraft:stone
+B 30 -59 32 minecraft:stone
+B 30 -58 30 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 30 -58 31 minecraft:stone
+B 30 -58 32 minecraft:stone
+B 31 -60 30 minecraft:stone
+B 31 -60 31 minecraft:stone
+B 31 -60 32 minecraft:stone
+B 31 -59 30 minecraft:stone
+B 31 -59 31 minecraft:dispenser[facing=east,triggered=false]
+B 31 -59 32 minecraft:stone
+B 31 -58 30 minecraft:stone
+B 31 -58 31 minecraft:stone
+B 31 -58 32 minecraft:stone
+B 32 -60 30 minecraft:stone
+B 32 -60 31 minecraft:stone
+B 32 -60 32 minecraft:stone
+B 32 -59 30 minecraft:stone
+B 32 -59 31 minecraft:stone
+B 32 -59 32 minecraft:stone
+B 32 -58 30 minecraft:stone
+B 32 -58 31 minecraft:stone
+B 32 -58 32 minecraft:torch
+B 51 -58 51 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 52 -58 52 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 71 -58 71 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+B 72 -58 72 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+# fillbiome: replace filters, limits, errors
+CF msg 48 biome entry/entries set between 0, -60, 0 and 12, -52, 12
+CF result success 48
+CF result failure 0
+CF fail No biome entries were changed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg 48 biome entry/entries set between 0, -60, 0 and 12, -52, 12
+CF result success 48
+CF result failure 0
+CF fail No biome entries were changed
+CF result failure 0
+CF fail No biome entries were changed
+CF msg 48 biome entry/entries set between 0, -60, 0 and 12, -52, 12
+CF result success 48
+CF msg 48 biome entry/entries set between 0, -60, 0 and 12, -52, 12
+CF result success 48
+CF result failure 0
+CF fail No biome entries were changed
+CF msg 1 biome entry/entries set between 0, -60, 0 and 0, -60, 0
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is not loaded
+CF fail Can't find element 'minecraft:notabiome' of type 'minecraft:worldgen/biome'
+CF fail ...:notabiome<--[HERE]
+CF fail Can't find element 'minecraft:notabiome' of type 'minecraft:worldgen/biome'
+CF fail ...:notabiome<--[HERE]
+CF fail Can't find tag 'minecraft:nosuchtag' of type 'minecraft:worldgen/biome'
+CF fail ...:nosuchtag<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ns replace<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...ft:plains sideways<--[HERE]
+CF result failure 0
+CF fail That position is out of this world!
+CF result failure 0
+CF fail Too many blocks in the specified volume (maximum 32768, but specified 1417701)
+CF result failure 0
+CF fail Too many blocks in the specified volume (maximum 32768, but specified 138765)
+CF msg 256 biome entry/entries set between 0, -64, 0 and 28, -52, 28
+CF result success 256
+CF result failure 0
+CF fail No biome entries were changed
+CF msg 27 biome entry/entries set between 0, -60, 0 and 8, -52, 8
+CF result success 27
+CF result failure 0
+CF fail No biome entries were changed
+CF result failure 0
+CF fail No biome entries were changed
+CF fail Unknown or incomplete command. See below for error
+CF fail fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle<--[HERE]
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+EV level_event r=64.0 ex=0 type=2001 pos=12,-58,12 data=4926 global=0

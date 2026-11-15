@@ -1,0 +1,144 @@
+# /worldborder: every subcommand with its feedback, the border packets a player receives, the border moving with the tick loop (set with
+# a duration, add) and its effect on a player outside (damage amount, buffer, warning), as the console, an operator and a plain player.
+command_env
+server_env
+level flat
+preload 2
+level_seed 3
+entity_counter 20
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 20.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note the border state at the start
+dump world
+note get, set (instant, timed, same value, limits), add
+cmd worldborder get
+cmd_as A worldborder get
+cmd worldborder set 10 5
+dump packets:A:initialize_border,set_border_size,set_border_lerp_size,set_border_center,set_border_warning_delay,set_border_warning_distance
+cmd worldborder set 10 5
+cmd worldborder set 10
+cmd worldborder get
+dump packets:A:initialize_border,set_border_size,set_border_lerp_size,set_border_center,set_border_warning_delay,set_border_warning_distance
+dump world
+cmd worldborder set 0
+cmd worldborder set 100000000
+cmd worldborder set 200
+cmd worldborder add 50
+cmd worldborder add -10 3
+cmd worldborder add 1000 10
+cmd worldborder get
+dump packets:A:initialize_border,set_border_size,set_border_lerp_size,set_border_center,set_border_warning_delay,set_border_warning_distance
+dump world
+cmd worldborder set 5 0
+cmd worldborder set 5 -1
+cmd worldborder set 5 3.5
+cmd worldborder set 5 1000000
+cmd worldborder set abc
+cmd worldborder set 59999970
+cmd worldborder get
+cmd worldborder set 59999968
+cmd worldborder set 59999969
+note center and relative coordinates
+cmd worldborder center 100 -50
+cmd worldborder center 100 -50
+cmd worldborder center 30000000 0
+cmd worldborder center 29999984 0
+cmd worldborder center ~ ~
+cmd_as A worldborder center ~ ~
+cmd_as A worldborder center ~3 ~-4
+cmd worldborder center 1.5 2.5
+dump packets:A:initialize_border,set_border_size,set_border_lerp_size,set_border_center,set_border_warning_delay,set_border_warning_distance
+dump world
+note damage and warning
+cmd worldborder damage amount 0.5
+cmd worldborder damage amount 0.5
+cmd worldborder damage amount -1
+cmd worldborder damage amount 0
+cmd worldborder damage buffer 3
+cmd worldborder damage buffer 3.25
+cmd worldborder damage buffer -1
+cmd worldborder damage buffer 0
+cmd worldborder warning distance 7
+cmd worldborder warning distance 7
+cmd worldborder warning distance -1
+cmd worldborder warning distance 1000000
+cmd worldborder warning time 20
+cmd worldborder warning time 5s
+cmd worldborder warning time 5s
+cmd worldborder warning time -1
+cmd worldborder warning time 1d
+cmd worldborder warning time 0
+cmd worldborder warning
+cmd worldborder damage
+cmd worldborder
+cmd worldborder sideways
+cmd_json worldborder get
+dump packets:A:initialize_border,set_border_size,set_border_lerp_size,set_border_center,set_border_warning_delay,set_border_warning_distance
+dump world
+note permissions
+cmd_as B worldborder get
+cmd_as B worldborder set 100
+cmd_as -2 worldborder get
+cmd_as -1 worldborder get
+cmd_as -2 worldborder set 100
+cmd_as A worldborder set 100
+note the border moving: a timed set runs with the tick loop
+cmd worldborder center 0 0
+cmd worldborder damage amount 0.2
+cmd worldborder damage buffer 5
+cmd worldborder warning distance 5
+cmd worldborder warning time 15
+cmd worldborder set 1000
+cmd worldborder set 100 2
+dump packets:A:initialize_border,set_border_size,set_border_lerp_size,set_border_center,set_border_warning_delay,set_border_warning_distance
+dump world
+tick 10
+dump world
+tick 10
+dump world
+tick 20
+dump world
+tick 1
+dump world
+cmd worldborder get
+cmd worldborder add 40 1
+tick 10
+dump world
+cmd worldborder add -20 1
+tick 25
+cmd worldborder get
+dump world
+note a player outside the border: damage by distance, the buffer and the safe zone
+cmd worldborder set 1000
+cmd worldborder damage amount 1
+cmd worldborder damage buffer 0
+cmd worldborder set 10
+cmd tp B 8.5 -60 0.5
+tick 2
+dump player:B
+cmd tp B 20.5 -60 0.5
+tick 2
+dump player:B
+cmd worldborder damage buffer 20
+tick 2
+dump player:B
+cmd worldborder damage amount 0
+cmd worldborder damage buffer 0
+tick 2
+dump player:B
+cmd tp B 3.5 -60 0.5
+cmd worldborder set 4
+tick 2
+dump player:B player:A
+cmd tp A 100.5 -60 100.5
+cmd worldborder damage amount 0.5
+tick 3
+dump player:A
+dump packets:A:initialize_border,set_border_size,set_border_lerp_size,set_border_center,set_border_warning_delay,set_border_warning_distance
+cmd worldborder center 100 100
+cmd worldborder set 1000
+tick 1
+dump player:A world

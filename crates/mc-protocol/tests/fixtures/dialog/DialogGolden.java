@@ -90,7 +90,7 @@ public class DialogGolden {
                             Tag t = TagParser.create(NbtOps.INSTANCE).parseFully(body);
                             ByteArrayOutputStream bos = new ByteArrayOutputStream();
                             if (kind == 'S') bos.write(0);
-                            NbtIo.writeUnnamedTag(t, new DataOutputStream(bos));
+                            NbtIo.writeAnyTag(t, new DataOutputStream(bos));
                             bytes = bos.toByteArray();
                         }
                         rec.addProperty("input", HexFormat.of().formatHex(bytes));

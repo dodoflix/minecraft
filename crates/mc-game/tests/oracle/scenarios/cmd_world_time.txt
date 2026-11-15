@@ -1,0 +1,189 @@
+# /time /weather /difficulty /setworldspawn /spawnpoint /seed /defaultgamemode /gamerule advance_time: feedback, results and the level state
+# (`dump world`), the clock advancing with the tick loop, the packets of a spawn change, as the console, an operator and a plain player.
+command_env
+server_env
+level flat
+preload 2
+level_seed 3
+entity_counter 20
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+dump world
+note time: queries, set (number, marker, errors), add, pause, rate, with advance_time on
+cmd time query time
+cmd time query gametime
+cmd time query minecraft:day
+cmd time query minecraft:day repetition
+cmd time query minecraft:moon
+cmd time query minecraft:daytime
+cmd time set 1000
+cmd time set 1000
+cmd time set day
+cmd time set noon
+cmd time set night
+cmd time set midnight
+cmd time set minecraft:midnight
+cmd time set minecraft:nothing
+cmd time set 1d
+cmd time set 2s
+cmd time set 1.5d
+cmd time set -5
+cmd time set 18000t
+cmd time add 5
+cmd time add -3
+cmd time add -100000
+cmd time add 10d
+cmd time of minecraft:overworld query time
+cmd time of minecraft:overworld set 7
+cmd time of minecraft:the_end query time
+cmd time of minecraft:nothing query time
+cmd time pause
+cmd time pause
+cmd time resume
+cmd time resume
+cmd time rate 2
+cmd time rate 2
+cmd time rate 0
+cmd time rate 1001
+cmd time rate 0.5
+cmd time rate 1
+dump world
+gamerule advance_time true
+cmd time set 100
+tick 5
+dump world
+cmd time pause
+tick 3
+dump world
+cmd time resume
+cmd time rate 2.5
+tick 4
+dump world
+cmd time rate 1
+gamerule advance_time false
+tick 2
+dump world
+cmd time query time
+cmd time frobnicate
+cmd time set
+cmd time add
+cmd_json time query gametime
+cmd_as A time set 500
+cmd_as B time set 500
+cmd_as -2 time set 600
+cmd_as -1 time query time
+cmd_as B time query gametime
+note weather: clear rain thunder with and without a duration (the default draws from the level random), as a player
+cmd weather clear
+dump world
+cmd weather rain
+dump world
+cmd weather thunder
+dump world
+cmd weather clear 100
+cmd weather rain 200
+cmd weather thunder 300
+dump world
+cmd weather rain 0
+cmd weather rain 1
+cmd weather snow
+cmd weather rain -5
+cmd weather rain 5t
+cmd weather rain 2s
+cmd weather rain 1d
+dump world
+cmd weather clear 40
+tick 30
+dump world
+cmd_as A weather clear 10
+cmd_as B weather clear 10
+cmd weather
+cmd_json weather rain 20
+cmd weather clear 100
+note difficulty: set, same, query, the packet and the locked difficulty
+watch packets:A:change_difficulty,set_time,game_event
+cmd difficulty
+cmd difficulty hard
+cmd difficulty hard
+cmd difficulty peaceful
+cmd difficulty easy
+cmd difficulty normal
+cmd difficulty h
+cmd difficulty 2
+cmd difficulty nope
+cmd_as A difficulty hard
+cmd_as B difficulty easy
+cmd_as B difficulty
+dump world
+watch off
+note world spawn: positions, rotation, relative coordinates, the packet to every player, errors
+watch packets:A:set_default_spawn_position
+watch packets:B:set_default_spawn_position
+cmd setworldspawn 10 70 10
+tick 1
+cmd setworldspawn 10 70 10
+tick 1
+cmd setworldspawn 3 4 5 45 30
+tick 1
+dump world
+cmd setworldspawn ~ ~ ~
+tick 1
+cmd setworldspawn ~ ~ ~ ~ ~
+cmd setworldspawn 0 0 0 200 0
+cmd setworldspawn 0 0 0 0 100
+cmd setworldspawn 0 400 0
+cmd setworldspawn 100000000 0 0
+cmd setworldspawn 1 2
+cmd_as A setworldspawn
+tick 1
+cmd_as A setworldspawn ~ ~2 ~ 90 -10
+tick 1
+cmd_as B setworldspawn
+cmd_as -2 setworldspawn
+dump world
+watch off
+note player spawn point: self, targets, position, rotation, forced, dimension, errors
+cmd spawnpoint
+cmd spawnpoint A
+cmd spawnpoint A 1 2 3
+cmd spawnpoint A 1 2 3 90 -10
+cmd spawnpoint A 1 2 3 90 -10
+cmd spawnpoint @a 7 8 9
+cmd spawnpoint @a[name=B] 7 8 9 180 45
+cmd spawnpoint @e[type=pig] 7 8 9
+cmd spawnpoint nobody
+cmd spawnpoint A 0 400 0
+cmd spawnpoint A 0 0 0 190
+cmd spawnpoint A 100000000 0 0
+cmd spawnpoint A ~ ~ ~
+cmd spawnpoint A ~ ~ ~ ~ ~
+cmd_as A spawnpoint
+cmd_as A spawnpoint @a
+cmd_as B spawnpoint
+cmd_as B spawnpoint B 1 2 3
+cmd_as -2 spawnpoint A 4 5 6
+dump nbt:A nbt:B
+note seed, defaultgamemode, setidletimeout, list
+cmd seed
+cmd_as A seed
+cmd_as B seed
+cmd defaultgamemode creative
+cmd defaultgamemode creative
+cmd defaultgamemode survival
+cmd defaultgamemode spectator
+cmd defaultgamemode adventure
+cmd defaultgamemode nope
+cmd defaultgamemode
+cmd_as B defaultgamemode survival
+cmd list
+cmd list uuids
+cmd_as B list
+cmd setidletimeout 10
+cmd setidletimeout 0
+cmd setidletimeout -1
+cmd setidletimeout
+cmd_as B setidletimeout 5
+dump world

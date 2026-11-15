@@ -1,0 +1,113 @@
+# /tick freeze, step, unfreeze, rate, sprint and query: the feedback, the ticking state packets, and what a frozen or stepping game does to
+# the clock, the game time and a falling item (`tick query` prints measured times: its result is read through `execute store`).
+command_env
+server_env
+level flat
+preload 2
+level_seed 3
+entity_counter 20
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+gamerule advance_time true
+spawn_item it minecraft:stone 8.5 -45 8.5 0 0 0
+tick 1
+dump world entity:it
+note freeze, a frozen game, step
+cmd tick freeze
+cmd tick freeze
+dump packets:A:ticking_state,ticking_step
+tick 3
+dump world entity:it
+cmd tick step
+dump packets:A:ticking_state,ticking_step
+tick 1
+dump world entity:it
+tick 2
+dump world entity:it
+cmd tick step 3
+tick 1
+dump packets:A:ticking_state,ticking_step
+dump world entity:it
+cmd tick step stop
+cmd tick step stop
+dump packets:A:ticking_state,ticking_step
+tick 2
+dump world entity:it
+cmd tick step 40
+cmd tick step 1s
+cmd tick step 0
+cmd tick step -1
+cmd tick step 1d
+cmd tick step stop
+cmd tick step frobnicate
+note unfreeze and rate
+cmd tick unfreeze
+cmd tick unfreeze
+dump packets:A:ticking_state,ticking_step
+tick 2
+dump world entity:it
+cmd tick step
+cmd tick rate 10
+cmd tick rate 10
+cmd tick rate 10.5
+cmd tick rate 20
+cmd tick rate 0.5
+cmd tick rate 10000
+cmd tick rate 10001
+cmd tick rate abc
+cmd tick rate
+dump packets:A:ticking_state,ticking_step
+dump world
+note query
+cmd_quiet execute store result storage t:q rate int 1 run tick query
+cmd data get storage t:q rate
+cmd tick freeze
+cmd_quiet execute store result storage t:q rate int 1 run tick query
+cmd data get storage t:q rate
+cmd tick unfreeze
+note sprint
+cmd tick sprint 20
+cmd tick sprint 5
+dump world
+cmd tick sprint stop
+cmd tick sprint stop
+dump world
+cmd tick sprint 0
+cmd tick sprint -1
+cmd tick sprint 1d
+cmd tick sprint frobnicate
+cmd tick freeze
+cmd tick sprint 10
+dump packets:A:ticking_state,ticking_step
+dump world
+cmd tick sprint stop
+cmd tick step stop
+dump packets:A:ticking_state,ticking_step
+dump world
+note freeze while stepping and sprinting, permissions
+cmd tick freeze
+cmd tick step 10
+cmd tick freeze
+dump world
+cmd tick unfreeze
+cmd tick sprint 10
+cmd tick freeze
+dump world
+cmd tick unfreeze
+cmd tick
+cmd tick sideways
+cmd_json tick freeze
+cmd tick unfreeze
+cmd_as A tick freeze
+cmd_as A tick unfreeze
+cmd_as B tick freeze
+cmd_as B tick rate 20
+cmd_as -2 tick freeze
+cmd_as -3 tick freeze
+cmd_as -3 tick unfreeze
+cmd_as -3 tick step
+tick 1
+dump packets:A:ticking_state,ticking_step
+dump world entity:it

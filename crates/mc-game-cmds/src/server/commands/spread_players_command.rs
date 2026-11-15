@@ -154,8 +154,10 @@ impl Position {
     fn get_spawn_y(&self, level: &mut ServerLevel, max_height: i32) -> i32 {
         // `new BlockPos.MutableBlockPos(x, maxHeight + 1, z)`
         let mut pos = BlockPos::containing(self.x, f64::from(max_height + 1), self.z);
-        // vanilla loads the chunk synchronously on the first read
-        level.chunk_blocking_mut(pos.x() >> 4, pos.z() >> 4);
+        // vanilla loads the chunk synchronously on the first read (a column outside the world reads void air without a chunk)
+        if mc_core::pos::ChunkPos::is_valid_xz(pos.x() >> 4, pos.z() >> 4) {
+            level.chunk_blocking_mut(pos.x() >> 4, pos.z() >> 4);
+        }
         let mut air_2_above = level.get_block_state(pos).is_air();
         pos = pos.relative(Direction::Down);
         let mut air_1_above = level.get_block_state(pos).is_air();

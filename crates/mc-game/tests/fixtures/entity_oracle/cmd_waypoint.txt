@@ -1,0 +1,168 @@
+C Game rule send_command_feedback is now set to true
+# list: two player waypoints, the feedback text and its click event
+CF msg 2 waypoint(s) in minecraft:overworld: A, B
+CF result success 2
+CF msg 2 waypoint(s) in minecraft:overworld: A, B
+CF json {"translate":"commands.waypoint.list.success","with":[2,"minecraft:overworld",{"extra":[{"click_event":{"action":"suggest_command","command":"/execute in minecraft:overworld run tp @s 0 -60 0"},"color":"#FFFFFF","hover_event":{"action":"show_text","value":{"translate":"chat.coordinates.tooltip"}},"insertion":"A","text":"A"},{"color":"gray","text":", "},{"click_event":{"action":"suggest_command","command":"/execute in minecraft:overworld run tp @s 6 -60 0"},"color":"#FFFFFF","hover_event":{"action":"show_text","value":{"translate":"chat.coordinates.tooltip"}},"insertion":"B","text":"B"}],"text":""}]}
+CF result success 2
+CF msg 2 waypoint(s) in minecraft:overworld: A, B
+CF result success 2
+# modify the colour: team colours, hex, reset
+CF msg Waypoint color is now red
+CF result success 0
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c7401ff55550100c4ffffff0f00
+CF msg Waypoint color is now red
+CF result success 0
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c7401ff55550100c4ffffff0f00
+CF msg Waypoint color is now blue
+CF result success 0
+CF msg Waypoint color is now dark_green
+CF result success 0
+CF msg Waypoint color is now FF8800
+CF result success 0
+CF msg Waypoint color is now 00FF00
+CF result success 0
+CF msg Waypoint color is now AABBCC
+CF result success 0
+CF fail Could not parse command: Error at index 0 in: "GG"
+CF fail ...hex GGGGGG<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ... color hex<--[HERE]
+CF msg Reset waypoint color
+CF result success 0
+CF msg Reset waypoint color
+CF result success 0
+CF fail Unknown color 'nocolor'
+CF fail ...or nocolor<--[HERE]
+CF msg Waypoint color is now white
+CF result success 0
+CF msg Reset waypoint color
+CF result success 0
+CF msg Waypoint color is now 123456
+CF json {"translate":"commands.waypoint.modify.color","with":[{"color":"#123456","text":"123456"}]}
+CF result success 0
+PKT A minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740000
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c74015555ff0106c4ffffff0f00
+PKT A minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740000
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740100aa000106c4ffffff0f00
+PKT A minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740000
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c74011234560106c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c7401ff88000100c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740100ff000100c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c7401aabbcc0100c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000100c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000100c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c7401ffffff0100c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000100c4ffffff0f00
+CF msg 2 waypoint(s) in minecraft:overworld: A, B
+CF result success 2
+CF msg 2 waypoint(s) in minecraft:overworld: A, B
+CF json {"translate":"commands.waypoint.list.success","with":[2,"minecraft:overworld",{"extra":[{"click_event":{"action":"suggest_command","command":"/execute in minecraft:overworld run tp @s 0 -60 0"},"color":"#FFFFFF","hover_event":{"action":"show_text","value":{"translate":"chat.coordinates.tooltip"}},"insertion":"A","text":"A"},{"color":"gray","text":", "},{"click_event":{"action":"suggest_command","command":"/execute in minecraft:overworld run tp @s 6 -60 0"},"color":"#123456","hover_event":{"action":"show_text","value":{"translate":"chat.coordinates.tooltip"}},"insertion":"B","text":"B"}],"text":""}]}
+CF result success 2
+# modify the style
+CF msg Waypoint style changed
+CF result success 0
+CF msg Waypoint style changed
+CF result success 0
+CF msg Waypoint style changed
+CF result success 0
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...style set Bad:Name<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ... style set<--[HERE]
+CF msg Waypoint style changed
+CF result success 0
+CF msg Waypoint style changed
+CF result success 0
+CF msg Waypoint style changed
+CF result success 0
+PKT A minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740000
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee6310a666f6f3a637573746f6d011234560106c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774106d696e6563726166743a626f77746965000100c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000100c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb42577740a666f6f3a637573746f6d000100c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000100c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000100c4ffffff0f00
+# targets: selectors, other entities and errors
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail waypoint modify @a color red<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail waypoint modify @e[type=pig] color red<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF fail Unknown or incomplete command. See below for error
+CF fail ...int modify<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail waypoint<--[HERE]
+CF fail Incorrect argument for command
+CF fail waypoint sideways<--[HERE]
+CF msg Summoned new Pig
+CF result success 1
+CF msg Waypoint color is now red
+CF result success 0
+CF msg Waypoint style changed
+CF result success 0
+CF msg 3 waypoint(s) in minecraft:overworld: A, B, Pig
+CF result success 3
+CF msg Waypoint color is now blue
+CF result success 0
+CF msg Waypoint color is now red
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail waypoint modify B color red<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail waypoint list<--[HERE]
+CF msg 3 waypoint(s) in minecraft:overworld: A, B, Pig
+CF result success 3
+CF msg Waypoint color is now red
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail waypoint modify A color red<--[HERE]
+PKT A minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740000
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee6310a666f6f3a637573746f6d01ff55550106c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74015555ff0100c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c7401ff55550100c4ffffff0f00
+# movement: a player that leaves the range and returns, a waypoint change at distance
+CF msg Waypoint color is now red
+CF result success 0
+CF msg Waypoint color is now green
+CF result success 0
+PKT A minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740000
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee6310a666f6f3a637573746f6d0155ff550106c4ffffff0f00
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c7401ff55550100c4ffffff0f00
+CF msg Teleported B to 500.500000, -60.000000, 0.500000
+CF result success 1
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee6310a666f6f3a637573746f6d0155ff5503bfc90fdb
+CF msg Waypoint color is now blue
+CF result success 0
+PKT A minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740000
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee6310a666f6f3a637573746f6d015555ff03bfc90fdb
+CF msg Teleported B to 8.500000, -60.000000, 0.500000
+CF result success 1
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee6310a666f6f3a637573746f6d015555ff0108c4ffffff0f00
+CF msg Waypoint style changed
+CF result success 0
+PKT A minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740000
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631106d696e6563726166743a626f77746965015555ff0108c4ffffff0f00
+CF msg Teleported B to 40.500000, -60.000000, 0.500000
+CF result success 1
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631106d696e6563726166743a626f77746965015555ff0128c4ffffff0f00

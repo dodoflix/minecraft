@@ -176,7 +176,7 @@ impl MinecraftServer {
     }
 
     /// `clockManager.tick()` (only while the tick rate manager runs game elements).
-    pub(super) fn tick_clocks(&mut self) {
+    pub fn tick_clocks(&mut self) {
         let advance_time = self.game_rules_ref().get(GameRules::ADVANCE_TIME);
         self.saved_data
             .compute_if_absent(&self.saved_types.clocks)
@@ -227,7 +227,7 @@ impl MinecraftServer {
     }
 
     /// `server.clockManager().moveToTimeMarker(defaultClock, WAKE_UP_FROM_SLEEP)` for `dimension`'s default clock.
-    pub(super) fn wake_up_from_sleep(&mut self, dimension: &DimensionKey) {
+    pub fn wake_up_from_sleep(&mut self, dimension: &DimensionKey) {
         let Some(clock) = self.default_clock_of(dimension) else {
             return;
         };

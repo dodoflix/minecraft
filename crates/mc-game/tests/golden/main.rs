@@ -76,6 +76,7 @@ mod command_loot_item_golden;
 mod command_select_golden;
 mod command_text_golden;
 mod command_tree_golden;
+mod command_world_golden;
 mod commands_advancement_recipe;
 mod commands_data;
 mod commands_entity;

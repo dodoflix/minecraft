@@ -1,0 +1,97 @@
+# /spreadplayers: the spread of players and mobs around a centre (the random generator is reseeded before each command), `under` a height,
+# with teams kept together, the failure texts for too many entities, as the console, an operator and a plain player.
+command_env
+level flat
+preload 4
+level_seed 3
+entity_counter 20
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 3.5 -60 0.5 0 0
+spawn_player C survival -3.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note one target, several players
+reseed 7
+cmd spreadplayers 0 0 5 20 false A
+dump player:A
+reseed 7
+cmd spreadplayers 0 0 5 20 false @a
+dump all_players
+reseed 8
+cmd spreadplayers 10 10 8 12 false @a
+dump all_players
+cmd_json spreadplayers 10 10 8 12 false B
+dump player:B
+note mobs, players and the vertical placement
+cmd summon minecraft:pig 0 -60 0 {NoAI:1b,Tags:["s"]}
+cmd summon minecraft:pig 1 -60 0 {NoAI:1b,Tags:["s"]}
+cmd summon minecraft:cow 2 -60 0 {NoAI:1b,Tags:["s"]}
+reseed 9
+cmd spreadplayers 0 0 3 30 false @e[tag=s]
+dump placed
+reseed 9
+cmd spreadplayers ~ ~ 3 30 false @e[tag=s]
+dump placed
+note under a height: with a ceiling
+cmd fill -20 -50 -20 20 -50 20 minecraft:stone
+cmd fill -20 -49 -20 20 -49 20 minecraft:stone
+reseed 10
+cmd spreadplayers 0 0 5 20 under -55 false @a
+dump all_players
+reseed 10
+cmd spreadplayers 0 0 5 20 under -62 false A
+reseed 10
+cmd spreadplayers 0 0 5 20 under 100 false A
+dump player:A
+cmd fill -20 -50 -20 20 -49 20 minecraft:air
+note teams: respectTeams keeps a team together
+cmd team add red
+cmd team add blue
+cmd team join red A B
+cmd team join blue C
+cmd summon minecraft:pig 0 -60 0 {NoAI:1b,Tags:["t"]}
+reseed 11
+cmd spreadplayers 0 0 6 30 true @a
+dump all_players
+reseed 11
+cmd spreadplayers 0 0 6 30 true @e[tag=t]
+reseed 11
+cmd spreadplayers 0 0 6 30 true @e[tag=s]
+dump placed
+reseed 12
+cmd spreadplayers 0 0 6 30 false @a
+dump all_players
+note distance and range limits
+reseed 13
+cmd spreadplayers 0 0 100 1 false A
+cmd spreadplayers 0 0 100 1 false @a
+cmd spreadplayers 0 0 10 2 false @a
+cmd spreadplayers 0 0 0 2 false @a
+cmd spreadplayers 0 0 0 1 false A
+cmd spreadplayers 0 0 -1 10 false A
+cmd spreadplayers 0 0 5 0.5 false A
+cmd spreadplayers 0 0 5 0 false A
+cmd spreadplayers 0 0 5 300 false A
+cmd spreadplayers 100000000 0 5 20 false A
+cmd spreadplayers 0 0 5 20 false nobody
+cmd spreadplayers 0 0 5 20 false @e[type=zombie]
+cmd spreadplayers 0 0 5 20
+cmd spreadplayers 0 0 5
+cmd spreadplayers 0 0
+cmd spreadplayers
+cmd spreadplayers 0 0 5 20 maybe A
+cmd spreadplayers 0 0 5 20 under false A
+cmd spreadplayers 0 0 5 20 under abc false A
+cmd spreadplayers ~ ~ 5 20 false A
+cmd spreadplayers ~5 ~-5 5 20 false A
+dump all_players
+note permissions
+reseed 14
+cmd_as A spreadplayers 0 0 5 20 false A
+cmd_as A spreadplayers ~ ~ 5 20 false @s
+cmd_as B spreadplayers 0 0 5 20 false B
+cmd_as -2 spreadplayers 0 0 5 20 false B
+cmd_as -2 spreadplayers 0 0 5 20 false C
+cmd_as -3 spreadplayers 0 0 5 20 false C
+dump all_players

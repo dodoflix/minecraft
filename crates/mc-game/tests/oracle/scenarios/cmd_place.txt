@@ -1,0 +1,219 @@
+# /place feature, jigsaw, structure and template on a flat level: syntax and permission errors, unknown or invalid definitions, placements with a
+# pinned level random (the blocks they leave are dumped for the template and feature placements), as the console, an operator and a plain player.
+command_env
+level flat
+preload 5
+level_seed 3
+entity_counter 20
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 30.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note syntax / permission errors
+level_seed 101
+cmd place
+level_seed 102
+cmd place feature
+tick 1
+level_seed 103
+cmd place jigsaw
+level_seed 104
+cmd place structure
+level_seed 105
+cmd place template
+tick 1
+level_seed 106
+cmd place bogus
+level_seed 107
+cmd_as B place template minecraft:igloo/top 0 -60 0
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+note feature
+level_seed 108
+cmd place feature minecraft:nope 0 -60 0
+tick 1
+dump blocks:-14,-62,-14,14,-30,14
+level_seed 109
+cmd place feature minecraft:oak 0 -60 0
+tick 1
+dump blocks:-14,-62,-14,14,-30,14
+level_seed 110
+cmd place feature oak 16 -60 16
+tick 1
+dump blocks:2,-62,2,30,-30,30
+level_seed 111
+cmd place feature minecraft:ore_coal 20 -50 20
+tick 1
+dump blocks:6,-62,6,34,-30,34
+level_seed 112
+cmd place feature minecraft:lake_lava 30 -60 30
+tick 1
+dump blocks:16,-62,16,44,-30,44
+level_seed 113
+cmd place feature minecraft:spring_water 24 -62 24
+tick 1
+dump blocks:10,-62,10,38,-30,38
+level_seed 114
+cmd place feature minecraft:forest_rock 40 -60 40
+tick 1
+dump blocks:26,-62,26,54,-30,54
+level_seed 115
+cmd place feature minecraft:oak 100000 -60 100000
+tick 1
+level_seed 116
+cmd place feature minecraft:oak 0 -60
+tick 1
+level_seed 117
+cmd place feature minecraft:oak 0 100000 0
+tick 1
+dump blocks:-14,-62,-14,14,-30,14
+level_seed 118
+cmd place feature minecraft:oak 400 -60 400
+tick 1
+tick 1
+dump blocks:-12,-62,-12,16,-30,16
+level_seed 120
+cmd place feature {type:"minecraft:nope"} 2 -60 2
+tick 1
+dump blocks:-12,-62,-12,16,-30,16
+level_seed 121
+cmd place feature {} 2 -60 2
+tick 1
+dump blocks:-12,-62,-12,16,-30,16
+level_seed 122
+cmd place feature minecraft:desert_well 50 -60 50
+tick 1
+dump blocks:36,-62,36,64,-30,64
+note structure
+level_seed 123
+cmd place structure minecraft:nope 0 -60 0
+level_seed 124
+cmd place structure minecraft:desert_pyramid 0 -60 -40
+level_seed 125
+cmd place structure minecraft:igloo 40 -60 -40
+level_seed 126
+cmd place structure minecraft:ruined_portal 8 -60 8
+level_seed 127
+cmd place structure minecraft:village_plains 0 -60 0
+level_seed 128
+cmd place structure minecraft:village_plains 0 -60 100000
+level_seed 129
+cmd place structure minecraft:monument 0 -60 0
+level_seed 130
+cmd place structure minecraft:buried_treasure 0 -60 0
+level_seed 131
+cmd place structure minecraft:swamp_hut 0 -60 0
+note jigsaw
+level_seed 132
+cmd place jigsaw minecraft:nope minecraft:bottom 5 0 -60 0
+level_seed 133
+cmd place jigsaw minecraft:village/plains/town_centers minecraft:bottom 5 0 -60 0
+level_seed 134
+cmd place jigsaw minecraft:village/plains/town_centers minecraft:bottom 0 0 -60 0
+level_seed 135
+cmd place jigsaw minecraft:village/plains/town_centers minecraft:bottom 21 0 -60 0
+level_seed 136
+cmd place jigsaw minecraft:village/plains/town_centers minecraft:bottom 5 100000 -60 0
+level_seed 137
+cmd place jigsaw minecraft:village/plains/town_centers minecraft:nothing 5 0 -60 0
+level_seed 138
+cmd place jigsaw minecraft:empty minecraft:bottom 5 0 -60 0
+note template
+level_seed 139
+cmd place template minecraft:nope 0 -60 0
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+level_seed 140
+cmd place template minecraft:empty 0 -60 0
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+level_seed 141
+cmd place template minecraft:igloo/top 0 -60 0
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+level_seed 142
+cmd place template minecraft:igloo/top 0 -60 0 clockwise_90
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+level_seed 143
+cmd place template minecraft:igloo/top 20 -60 0 counterclockwise_90 left_right
+tick 1
+dump blocks:-20,-60,-40,60,-30,40
+level_seed 144
+cmd place template minecraft:igloo/top 40 -60 0 clockwise_180 front_back 0.5 1234
+tick 1
+dump blocks:0,-60,-40,80,-30,40
+level_seed 145
+cmd place template minecraft:igloo/top 60 -60 0 none none 0.0 77 strict
+tick 1
+dump blocks:20,-60,-40,100,-30,40
+level_seed 146
+cmd place template minecraft:igloo/top 0 -60 20 none none 1.0 0 strict
+tick 1
+dump blocks:-40,-60,-20,40,-30,60
+level_seed 147
+cmd place template minecraft:ruined_portal/portal_1 0 -60 40 clockwise_90 none 0.25 99
+tick 1
+dump blocks:-40,-60,0,40,-30,80
+level_seed 148
+cmd place template minecraft:fossil/skull_1 0 -60 60 none left_right 0.9 -5
+tick 1
+dump blocks:-40,-60,20,40,-30,100
+level_seed 149
+cmd place template minecraft:shipwreck/with_mast 0 -50 80 clockwise_180
+tick 1
+dump blocks:-40,-60,40,40,-30,120
+level_seed 150
+cmd place template minecraft:village/plains/houses/plains_small_house_1 40 -60 40 counterclockwise_90 front_back
+tick 1
+dump blocks:0,-60,0,80,-30,80
+level_seed 151
+cmd place template minecraft:igloo/top 0 -60 0 sideways
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+level_seed 152
+cmd place template minecraft:igloo/top 0 -60 0 none upside_down
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+level_seed 153
+cmd place template minecraft:igloo/top 0 -60 0 none none 1.5
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+level_seed 154
+cmd place template minecraft:igloo/top 0 -60 0 none none -0.5
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+level_seed 155
+cmd place template minecraft:igloo/top 0 -60 0 none none 0.5 2147483648
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+level_seed 156
+cmd place template minecraft:igloo/top 0 -60 0 none none 0.5 1 loose
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+level_seed 157
+cmd place template minecraft:igloo/top 1000000 -60 0
+tick 1
+level_seed 158
+cmd place template minecraft:igloo/top 2000 -60 0
+tick 1
+level_seed 159
+cmd place template minecraft:igloo/top 0 -60 0 none none 0.5 1 strict extra
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+level_seed 160
+cmd place template minecraft:igloo/top ~ ~ ~
+tick 1
+level_seed 161
+cmd place template Minecraft:Igloo/Top 0 -60 0
+tick 1
+dump blocks:-40,-60,-40,40,-30,40
+level_seed 162
+cmd place template igloo/top 100 -60 100
+tick 1
+dump blocks:60,-60,60,140,-30,140
+level_seed 163
+cmd place template minecraft:igloo/top 0 -60 0 none none 1 5
+tick 1
+dump blocks:-40,-60,-40,40,-30,40

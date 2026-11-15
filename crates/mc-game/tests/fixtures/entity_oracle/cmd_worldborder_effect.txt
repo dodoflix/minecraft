@@ -1,0 +1,310 @@
+C Game rule send_command_feedback is now set to true
+# the border state at the start
+WORLD gametime=1 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+# get, set (instant, timed, same value, limits), add
+CF msg The world border is currently 59999968 block(s) wide
+CF result success 59999968
+CF msg The world border is currently 59999968 block(s) wide
+CF result success 59999968
+CF msg Shrinking the world border to 10.0 block(s) wide over 0.25 second(s)
+CF result success -59999958
+PKT A minecraft:set_border_lerp_size 5b418c9c3700000000402400000000000005
+CF msg Shrinking the world border to 10.0 block(s) wide over 0.25 second(s)
+CF result success -59999958
+CF msg Set the world border to 10.0 block(s) wide
+CF result success -59999958
+CF msg The world border is currently 10 block(s) wide
+CF result success 10
+PKT A minecraft:set_border_lerp_size 5b418c9c3700000000402400000000000005
+PKT A minecraft:set_border_size 5c4024000000000000
+WORLD gametime=1 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=10.0 target=10.0 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF result failure 0
+CF fail World border cannot be smaller than 1 block wide
+CF fail Double must not be more than 5.9999968E7: found 1.0E8
+CF fail ...order set 100000000<--[HERE]
+CF msg Set the world border to 200.0 block(s) wide
+CF result success 190
+CF msg Set the world border to 250.0 block(s) wide
+CF result success 50
+CF msg Shrinking the world border to 240.0 block(s) wide over 0.15 second(s)
+CF result success -10
+CF msg Growing the world border to 1250.0 block(s) wide over 0.65 second(s)
+CF result success 1000
+CF msg The world border is currently 250 block(s) wide
+CF result success 250
+PKT A minecraft:set_border_size 5c4069000000000000
+PKT A minecraft:set_border_size 5c406f400000000000
+PKT A minecraft:set_border_lerp_size 5b406f400000000000406e00000000000003
+PKT A minecraft:set_border_lerp_size 5b406f40000000000040938800000000000d
+WORLD gametime=1 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=250.0 target=1250.0 lerp=13 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=GROWING
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Set the world border to 5.0 block(s) wide
+CF result success -245
+CF fail The tick count must not be less than 0: found -1
+CF fail ...r set 5 -1<--[HERE]
+CF result failure 0
+CF fail Nothing changed. The world border is already that size
+CF result failure 0
+CF fail Nothing changed. The world border is already that size
+CF fail Expected double
+CF fail ...order set abc<--[HERE]
+CF fail Double must not be more than 5.9999968E7: found 5.999997E7
+CF fail ...order set 59999970<--[HERE]
+CF msg The world border is currently 5 block(s) wide
+CF result success 5
+CF msg Set the world border to 59999968.0 block(s) wide
+CF result success 59999963
+CF fail Double must not be more than 5.9999968E7: found 5.9999969E7
+CF fail ...order set 59999969<--[HERE]
+# center and relative coordinates
+CF msg Set the center of the world border to 100.50, -49.50
+CF result success 0
+CF result failure 0
+CF fail Nothing changed. The world border is already centered there
+CF result failure 0
+CF fail World border cannot be further out than 2.9999984E7 blocks
+CF msg Set the center of the world border to 29999984.00, 0.50
+CF result success 0
+CF msg Set the center of the world border to 0.00, 0.00
+CF result success 0
+CF msg Set the center of the world border to 0.50, 0.50
+CF result success 0
+CF msg Set the center of the world border to 3.50, -3.50
+CF result success 0
+CF msg Set the center of the world border to 1.50, 2.50
+CF result success 0
+PKT A minecraft:set_border_size 5c4014000000000000
+PKT A minecraft:set_border_size 5c418c9c3700000000
+PKT A minecraft:set_border_center 5a4059200000000000c048c00000000000
+PKT A minecraft:set_border_center 5a417c9c37000000003fe0000000000000
+PKT A minecraft:set_border_center 5a00000000000000000000000000000000
+PKT A minecraft:set_border_center 5a3fe00000000000003fe0000000000000
+PKT A minecraft:set_border_center 5a400c000000000000c00c000000000000
+PKT A minecraft:set_border_center 5a3ff80000000000004004000000000000
+WORLD gametime=1 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=1.5,2.5 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+# damage and warning
+CF msg Set the world border damage to 0.50 per block each second
+CF result success 0
+CF result failure 0
+CF fail Nothing changed. The world border damage is already that amount
+CF fail Float must not be less than 0.0: found -1.0
+CF fail ...ge amount -1<--[HERE]
+CF msg Set the world border damage to 0.00 per block each second
+CF result success 0
+CF msg Set the world border damage buffer to 3.00 block(s)
+CF result success 3
+CF msg Set the world border damage buffer to 3.25 block(s)
+CF result success 3
+CF fail Float must not be less than 0.0: found -1.0
+CF fail ...ge buffer -1<--[HERE]
+CF msg Set the world border damage buffer to 0.00 block(s)
+CF result success 0
+CF msg Set the world border warning distance to 7 block(s)
+CF result success 7
+CF result failure 0
+CF fail Nothing changed. The world border warning is already that distance
+CF fail Integer must not be less than 0: found -1
+CF fail ... distance -1<--[HERE]
+CF msg Set the world border warning distance to 1000000 block(s)
+CF result success 1000000
+CF msg Set the world border warning time to 1.00 second(s)
+CF result success 20
+CF msg Set the world border warning time to 5.00 second(s)
+CF result success 100
+CF result failure 0
+CF fail Nothing changed. The world border warning is already that amount of time
+CF fail The tick count must not be less than 0: found -1
+CF fail ...ng time -1<--[HERE]
+CF msg Set the world border warning time to 1200.00 second(s)
+CF result success 24000
+CF msg Set the world border warning time to 0.00 second(s)
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail ...er warning<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...der damage<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...orldborder<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...rldborder sideways<--[HERE]
+CF msg The world border is currently 59999968 block(s) wide
+CF json {"translate":"commands.worldborder.get","with":["59999968"]}
+CF result success 59999968
+PKT A minecraft:set_border_warning_distance 5e07
+PKT A minecraft:set_border_warning_distance 5ec0843d
+PKT A minecraft:set_border_warning_delay 5d14
+PKT A minecraft:set_border_warning_delay 5d64
+PKT A minecraft:set_border_warning_delay 5dc0bb01
+PKT A minecraft:set_border_warning_delay 5d00
+WORLD gametime=1 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=1.5,2.5 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=0.0 damage=0.0 warn_blocks=1000000 warn_time=0 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+# permissions
+CF fail Unknown or incomplete command. See below for error
+CF fail worldborder get<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail worldborder set 100<--[HERE]
+CF msg The world border is currently 59999968 block(s) wide
+CF result success 59999968
+CF fail Unknown or incomplete command. See below for error
+CF fail worldborder get<--[HERE]
+CF msg Set the world border to 100.0 block(s) wide
+CF result success -59999868
+CF result failure 0
+CF fail Nothing changed. The world border is already that size
+# the border moving: a timed set runs with the tick loop
+CF msg Set the center of the world border to 0.50, 0.50
+CF result success 0
+CF msg Set the world border damage to 0.20 per block each second
+CF result success 0
+CF msg Set the world border damage buffer to 5.00 block(s)
+CF result success 5
+CF msg Set the world border warning distance to 5 block(s)
+CF result success 5
+CF msg Set the world border warning time to 0.75 second(s)
+CF result success 15
+CF msg Set the world border to 1000.0 block(s) wide
+CF result success 900
+CF msg Shrinking the world border to 100.0 block(s) wide over 0.10 second(s)
+CF result success -900
+PKT A minecraft:set_border_size 5c4059000000000000
+PKT A minecraft:set_border_center 5a3fe00000000000003fe0000000000000
+PKT A minecraft:set_border_warning_distance 5e05
+PKT A minecraft:set_border_warning_delay 5d0f
+PKT A minecraft:set_border_size 5c408f400000000000
+PKT A minecraft:set_border_lerp_size 5b408f400000000000405900000000000002
+WORLD gametime=1 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.5,0.5 size=1000.0 target=100.0 lerp=2 safe=5.0 damage=0.20000000298023224 warn_blocks=5 warn_time=15 status=SHRINKING
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+WORLD gametime=11 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.5,0.5 size=100.0 target=100.0 lerp=0 safe=5.0 damage=0.20000000298023224 warn_blocks=5 warn_time=15 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+WORLD gametime=21 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.5,0.5 size=100.0 target=100.0 lerp=0 safe=5.0 damage=0.20000000298023224 warn_blocks=5 warn_time=15 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+WORLD gametime=41 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.5,0.5 size=100.0 target=100.0 lerp=0 safe=5.0 damage=0.20000000298023224 warn_blocks=5 warn_time=15 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+WORLD gametime=42 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.5,0.5 size=100.0 target=100.0 lerp=0 safe=5.0 damage=0.20000000298023224 warn_blocks=5 warn_time=15 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg The world border is currently 100 block(s) wide
+CF result success 100
+CF msg Growing the world border to 140.0 block(s) wide over 0.05 second(s)
+CF result success 40
+WORLD gametime=52 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.5,0.5 size=140.0 target=140.0 lerp=0 safe=5.0 damage=0.20000000298023224 warn_blocks=5 warn_time=15 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Shrinking the world border to 120.0 block(s) wide over 0.05 second(s)
+CF result success -20
+CF msg The world border is currently 120 block(s) wide
+CF result success 120
+WORLD gametime=77 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.5,0.5 size=120.0 target=120.0 lerp=0 safe=5.0 damage=0.20000000298023224 warn_blocks=5 warn_time=15 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+# a player outside the border: damage by distance, the buffer and the safe zone
+CF msg Set the world border to 1000.0 block(s) wide
+CF result success 880
+CF msg Set the world border damage to 1.00 per block each second
+CF result success 1
+CF msg Set the world border damage buffer to 0.00 block(s)
+CF result success 0
+CF msg Set the world border to 10.0 block(s) wide
+CF result success -990
+CF msg Teleported B to 8.500000, -60.000000, 0.500000
+CF result success 1
+P B minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Teleported B to 20.500000, -60.000000, 0.500000
+CF result success 1
+P B minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=6/17 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Set the world border damage buffer to 20.00 block(s)
+CF result success 20
+P B minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=4/15 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Set the world border damage to 0.00 per block each second
+CF result success 0
+CF msg Set the world border damage buffer to 0.00 block(s)
+CF result success 0
+P B minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=2/13 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Teleported B to 3.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Set the world border to 4.0 block(s) wide
+CF result success -6
+P B minecraft:player pos=3.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=5.8333335 abs=0.0 hurt=0/11 death=0 fx=- gm=survival food=20 sat=5.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Teleported A to 100.500000, -60.000000, 100.500000
+CF result success 1
+CF msg Set the world border damage to 0.50 per block each second
+CF result success 0
+P A minecraft:player pos=100.5,-60.0,100.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=7/18 death=3 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT A minecraft:set_border_lerp_size 5b4059000000000000406180000000000001
+PKT A minecraft:set_border_lerp_size 5b4061800000000000405e00000000000001
+PKT A minecraft:set_border_size 5c408f400000000000
+PKT A minecraft:set_border_size 5c4024000000000000
+PKT A minecraft:set_border_size 5c4010000000000000
+CF msg Set the center of the world border to 100.50, 100.50
+CF result success 0
+CF msg Set the world border to 1000.0 block(s) wide
+CF result success 996
+P A minecraft:player pos=100.5,-60.0,100.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=6/17 death=4 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+WORLD gametime=91 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=100.5,100.5 size=1000.0 target=1000.0 lerp=0 safe=0.0 damage=0.5 warn_blocks=5 warn_time=15 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false

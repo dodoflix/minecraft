@@ -1,0 +1,263 @@
+# /forceload (add, remove, query, ranges, limits), /locate on a flat level without structures, /random, /stopwatch, /help and /list: feedback and the
+# forced chunks (`dump forced`), as the console, an operator and a plain player.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 20
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+dump forced
+note forceload
+cmd forceload query
+cmd forceload add 0 0
+tick 1
+dump forced
+cmd forceload add 0 0
+tick 1
+dump forced
+cmd forceload query
+cmd forceload query 0 0
+cmd forceload query 100 100
+cmd forceload query 15 15
+cmd forceload add 32 32 64 64
+tick 1
+dump forced
+cmd forceload query
+cmd forceload add 32 32 64 64
+tick 1
+dump forced
+cmd forceload remove 0 0
+tick 1
+dump forced
+cmd forceload remove 0 0
+tick 1
+dump forced
+cmd forceload query
+cmd forceload remove 32 32 64 64
+tick 1
+dump forced
+cmd forceload remove 32 32 64 64
+tick 1
+dump forced
+cmd forceload query
+cmd forceload add -30000001 0
+tick 1
+dump forced
+cmd forceload add 0 -30000001
+tick 1
+dump forced
+cmd forceload add 30000000 0
+tick 1
+dump forced
+cmd forceload add 29999999 0
+tick 1
+dump forced
+cmd forceload remove 29999999 0
+tick 1
+dump forced
+cmd forceload add 0 0 10000 10000
+tick 1
+dump forced
+cmd forceload add 0 0 255 15
+tick 1
+dump forced
+cmd forceload add 0 0 271 15
+tick 1
+dump forced
+cmd forceload query
+cmd forceload remove 0 0 271 15
+tick 1
+dump forced
+cmd forceload add 16 16 -16 -16
+tick 1
+dump forced
+cmd forceload query
+cmd forceload query -16 -16
+cmd forceload remove all
+tick 1
+dump forced
+cmd forceload query
+cmd forceload remove all
+tick 1
+dump forced
+cmd forceload add ~ ~
+tick 1
+dump forced
+cmd forceload add ~5 ~
+tick 1
+dump forced
+cmd forceload query ~ ~
+cmd forceload remove all
+tick 1
+dump forced
+cmd forceload
+cmd forceload add
+tick 1
+dump forced
+cmd forceload add 0
+tick 1
+dump forced
+cmd forceload add a b
+tick 1
+dump forced
+cmd forceload query 0 0 0
+cmd_as A forceload add ~ ~
+tick 1
+dump forced
+cmd_as A forceload query
+cmd_as A forceload remove all
+tick 1
+dump forced
+cmd_as B forceload query
+note forceload outside the preloaded chunks
+cmd forceload query
+cmd forceload add 320 320
+tick 1
+dump forced
+cmd forceload add 320 320
+cmd forceload query
+cmd forceload query 320 320
+cmd forceload query 400 400
+cmd forceload query 335 335
+cmd forceload add 352 352 416 416
+tick 1
+dump forced
+cmd forceload add 352 352 416 416
+cmd forceload remove 320 320
+cmd forceload remove 320 320
+cmd forceload query
+cmd forceload remove 352 352 416 416
+cmd forceload remove 352 352 416 416
+tick 1
+dump forced
+cmd forceload add 320 320 575 335
+cmd forceload add 320 320 591 335
+cmd forceload query
+cmd forceload remove 320 320 591 335
+cmd forceload add 336 336 304 304
+cmd forceload query 304 304
+cmd forceload remove all
+cmd forceload remove all
+cmd forceload add ~ ~
+cmd forceload add ~5 ~
+cmd forceload query ~ ~
+cmd forceload remove all
+cmd_as A forceload add ~100 ~100
+cmd_as A forceload query
+cmd_as A forceload remove all
+cmd_as B forceload query
+tick 1
+dump forced
+note locate (the level is flat plains without structures)
+cmd locate biome minecraft:plains
+cmd locate biome minecraft:mushroom_fields
+cmd locate biome minecraft:desert
+cmd locate biome minecraft:badlands
+cmd locate biome #minecraft:is_overworld
+cmd locate biome #minecraft:is_forest
+cmd locate biome #minecraft:nosuchtag
+cmd locate biome minecraft:notabiome
+cmd locate biome minecraft:jungle
+cmd_as A locate biome minecraft:plains
+cmd_as A locate biome #minecraft:is_overworld
+cmd_as B locate biome minecraft:plains
+cmd locate structure minecraft:village_plains
+cmd locate structure #minecraft:village
+cmd locate structure #minecraft:nosuchtag
+cmd locate structure minecraft:notastructure
+cmd locate structure foo:bar
+cmd locate structure
+cmd locate structure minecraft:stronghold
+cmd locate poi minecraft:librarian
+cmd locate poi #minecraft:acquirable_job_site
+cmd locate poi minecraft:nothing
+cmd locate poi #minecraft:nosuchtag
+cmd locate poi minecraft:nether_portal
+cmd_as A locate poi minecraft:librarian
+cmd locate
+cmd locate sideways
+note random: value and roll, ranges, sequences, reset
+cmd random value 1..6
+cmd random value 1..6
+cmd random value 5
+cmd random value 1..1
+cmd random value 6..1
+cmd random value ..5
+cmd random value 3..
+cmd random value 1..6 minecraft:test
+cmd random value 1..6 minecraft:test
+cmd random roll 1..6
+cmd random roll 1..6 minecraft:test
+cmd random roll 1..6 minecraft:other
+cmd random value 1..2147483647
+cmd random value 0..2147483647
+cmd random value -5..5
+cmd random value nope
+cmd random reset *
+cmd random reset * 5
+cmd random reset * 5 true
+cmd random reset * 5 true false
+cmd random reset minecraft:test
+cmd random reset minecraft:test 5
+cmd random reset minecraft:test 5 false true
+cmd random reset minecraft:test 5 true true
+cmd random reset minecraft:nothing 1
+cmd random value 1..6 minecraft:test
+cmd random value 1..6 minecraft:test
+cmd random reset minecraft:test 5 false false
+cmd random value 1..6 minecraft:test
+cmd random reset minecraft:test 5 false false
+cmd random value 1..6 minecraft:test
+cmd random
+cmd random sideways
+cmd_json random value 1..6
+cmd_as A random value 1..6
+cmd_as B random value 1..6
+cmd_as B random roll 1..6
+cmd_as A random reset *
+cmd_as B random reset *
+cmd_as -2 random value 1..6
+note stopwatch: create, query with a scale, restart, remove, errors
+cmd stopwatch create minecraft:a
+cmd stopwatch create minecraft:a
+tick 5
+cmd_quiet stopwatch query minecraft:a
+cmd_quiet stopwatch query minecraft:a 2
+cmd_quiet stopwatch query minecraft:a 0.5
+cmd stopwatch query minecraft:nothing
+cmd stopwatch restart minecraft:a
+cmd_quiet stopwatch query minecraft:a
+tick 3
+cmd_quiet stopwatch query minecraft:a
+cmd stopwatch restart minecraft:nothing
+cmd stopwatch remove minecraft:a
+cmd stopwatch remove minecraft:a
+cmd stopwatch query minecraft:a
+cmd stopwatch create Bad:Name
+cmd stopwatch
+cmd_json stopwatch create minecraft:b
+cmd_quiet stopwatch query minecraft:b
+cmd_as A stopwatch create minecraft:c
+cmd_as B stopwatch create minecraft:d
+cmd_as B stopwatch query minecraft:c
+cmd_quiet stopwatch query minecraft:c
+note help and list
+cmd help time
+cmd help tick
+cmd help execute
+cmd help execute if
+cmd help nothing
+cmd help fill
+cmd_as B help time
+cmd_as B help msg
+cmd list
+cmd list uuids
+cmd list nothing
+cmd_json list
+cmd_as B list
+cmd_as -1 list
+dump forced

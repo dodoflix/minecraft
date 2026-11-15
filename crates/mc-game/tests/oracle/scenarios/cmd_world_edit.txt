@@ -1,0 +1,187 @@
+# /setblock /fill /clone /fillbiome: every mode and option, block entities, overlap and the failure texts (not loaded, too many blocks, out of
+# the world, unknown block, bad syntax), as the console, an operator and a player without permission.
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 40
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note fill: modes replace destroy keep hollow outline strict, filters
+cmd fill 0 -60 0 3 -58 3 minecraft:stone
+cmd fill 0 -60 0 3 -58 3 minecraft:stone
+cmd fill 0 -60 0 3 -58 3 minecraft:stone replace
+cmd fill 0 -60 0 3 -58 3 minecraft:dirt replace minecraft:stone
+dump blocks:0,-60,0,3,-58,3
+cmd fill 0 -60 0 3 -58 3 minecraft:glass hollow
+dump blocks:0,-60,0,3,-58,3
+cmd fill 0 -60 0 3 -58 3 minecraft:air outline
+dump blocks:0,-60,0,3,-58,3
+cmd fill 0 -60 0 3 -58 3 minecraft:stone keep
+cmd fill 0 -60 0 3 -58 3 minecraft:gold_block destroy
+cmd fill 0 -60 0 3 -58 3 minecraft:stone strict
+cmd fill 0 -60 0 3 -58 3 minecraft:dirt replace #minecraft:base_stone_overworld
+cmd fill 0 -60 0 3 -58 3 minecraft:glass replace minecraft:stone hollow
+cmd fill 0 -60 0 3 -58 3 minecraft:glass replace minecraft:stone outline
+cmd fill 0 -60 0 3 -58 3 minecraft:glass replace minecraft:stone destroy
+cmd fill 0 -60 0 3 -58 3 minecraft:glass replace minecraft:stone strict
+cmd fill 0 -60 0 3 -58 3 minecraft:oak_stairs[facing=east,half=top]
+cmd fill 0 -60 0 3 -58 3 minecraft:oak_stairs[facing=east,half=top] replace minecraft:oak_stairs[facing=east]
+dump blocks:0,-60,0,3,-58,3
+cmd fill 0 -60 0 3 -58 3 minecraft:air
+cmd fill 0 -60 0 3 -58 3 minecraft:air
+note fill: block entities
+cmd fill 0 -60 0 1 -60 1 minecraft:dispenser[facing=north]{Items:[{Slot:0b,id:"minecraft:stone",count:1}]}
+cmd data get block 0 -60 0
+cmd data get block 1 -60 1
+cmd fill 0 -60 0 1 -60 1 minecraft:dispenser[facing=north]{Items:[{Slot:0b,id:"minecraft:stone",count:1}]}
+cmd fill 0 -60 0 1 -60 1 minecraft:dispenser replace minecraft:dispenser{Items:[{Slot:0b,id:"minecraft:stone",count:1}]}
+cmd fill 0 -60 0 1 -60 1 minecraft:dispenser replace minecraft:dispenser{Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+dump be:0,-60,0 be:1,-60,1
+cmd fill 0 -60 0 1 -60 1 minecraft:air destroy
+cmd data get block 0 -60 0
+dump events
+note fill: limits and errors
+cmd fill 0 -60 0 7 10 7 minecraft:hopper
+cmd fill 0 -64 0 40 300 40 minecraft:stone
+cmd fill 0 0 0 100000 0 0 minecraft:stone
+cmd fill 1000000 0 0 1000001 0 0 minecraft:stone
+cmd fill 0 -60 0 1000000 -60 0 minecraft:stone
+cmd fill 0 400 0 3 401 3 minecraft:stone
+cmd fill 0 -80 0 3 -70 3 minecraft:stone
+cmd fill 0 -60 0 31 -60 0 minecraft:stone
+cmd fill 0 -60 0 3 -58 3 minecraft:notablock
+cmd fill 0 -60 0 3 -58 3 minecraft:stone replace minecraft:notablock
+cmd fill 0 -60 0 3 -58 3 minecraft:stone sideways
+cmd fill 0 -60 0 3 -58
+cmd fill ~ ~ ~ ~ ~ ~ minecraft:stone
+gamerule max_block_modifications 10
+cmd fill 0 -60 0 3 -60 3 minecraft:stone
+cmd fill 0 -60 0 2 -60 2 minecraft:stone
+gamerule max_block_modifications 32768
+note fill: falling blocks, fluids, neighbour updates
+cmd fill 0 -60 0 5 -60 0 minecraft:sand
+cmd fill 0 -60 0 5 -60 0 minecraft:air destroy
+cmd fill 0 -61 0 5 -60 0 minecraft:water
+cmd fill 0 -61 0 5 -60 0 minecraft:grass_block
+cmd fill 0 -59 0 5 -59 0 minecraft:redstone_lamp
+cmd fill 0 -58 0 5 -58 0 minecraft:redstone_block
+cmd fill 0 -58 0 5 -58 0 minecraft:redstone_block strict
+tick 3
+dump blocks:0,-61,0,5,-57,0
+cmd fill 0 -59 0 5 -59 0 minecraft:air
+cmd fill 0 -58 0 5 -58 0 minecraft:air
+tick 3
+dump blocks:0,-61,0,5,-57,0 entities
+note fill as a player
+cmd_as A fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass
+cmd_as A fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass
+cmd_as B fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass
+dump blocks:0,-61,0,10,-57,4
+note setblock
+cmd setblock 12 -60 12 minecraft:stone
+cmd setblock 12 -60 12 minecraft:stone
+cmd setblock 12 -60 12 minecraft:stone replace
+cmd setblock 12 -60 12 minecraft:stone keep
+cmd setblock 12 -60 12 minecraft:dirt keep
+cmd setblock 12 -60 12 minecraft:dirt destroy
+cmd setblock 12 -60 12 minecraft:dirt strict
+cmd setblock 12 -60 12 minecraft:chest[facing=west]{Items:[{Slot:1b,id:"minecraft:apple",count:3}]}
+cmd setblock 12 -60 12 minecraft:chest[facing=west]{Items:[{Slot:1b,id:"minecraft:apple",count:3}]} strict
+dump be:12,-60,12
+cmd setblock 12 -60 12 minecraft:air destroy
+cmd setblock 100000 -60 0 minecraft:stone
+cmd setblock 0 400 0 minecraft:stone
+cmd setblock 0 -60 0 minecraft:notablock
+cmd setblock 0 -60 0 minecraft:stone[bogus=1]
+cmd setblock 0 -60 0 minecraft:stone{bad
+cmd_as B setblock 14 -60 14 minecraft:stone
+cmd_as A setblock ~ ~ ~ minecraft:stone
+dump events
+note clone: modes, filters, overlap, block entities
+cmd fill 10 -60 10 12 -58 12 minecraft:stone
+cmd setblock 11 -59 11 minecraft:dispenser[facing=east]{Items:[{Slot:3b,id:"minecraft:diamond",count:2}]}
+cmd setblock 10 -58 10 minecraft:oak_stairs[facing=north]
+cmd setblock 12 -58 12 minecraft:torch
+cmd clone 10 -60 10 12 -58 12 20 -60 20
+cmd data get block 21 -59 21
+dump blocks:10,-60,10,24,-57,24 be:21,-59,21
+cmd clone 10 -60 10 12 -58 12 20 -60 20
+cmd clone 10 -60 10 12 -58 12 20 -60 20 replace normal
+cmd clone 10 -60 10 12 -58 12 20 -60 20 masked
+cmd clone 10 -60 10 12 -58 12 20 -60 20 masked force
+cmd clone 10 -60 10 12 -58 12 20 -60 20 filtered minecraft:stone
+cmd clone 10 -60 10 12 -58 12 20 -60 20 filtered minecraft:stone move
+dump blocks:10,-60,10,24,-57,24
+cmd clone 10 -60 10 12 -58 12 20 -60 20 filtered #minecraft:stairs force
+cmd clone 10 -60 10 12 -58 12 20 -60 20 filtered minecraft:dispenser{Items:[{Slot:3b,id:"minecraft:diamond",count:2}]}
+cmd clone 10 -60 10 12 -58 12 11 -60 11
+cmd clone 10 -60 10 12 -58 12 11 -60 11 replace force
+cmd clone 10 -60 10 12 -58 12 11 -60 11 replace move
+cmd clone 10 -60 10 12 -58 12 11 -60 11 replace normal
+dump blocks:10,-60,10,24,-57,24
+cmd clone 20 -60 20 22 -58 22 30 -60 30 strict
+cmd clone 20 -60 20 22 -58 22 30 -60 30 strict move
+cmd clone 20 -60 20 22 -58 22 30 -60 30 masked strict
+cmd clone 20 -60 20 22 -58 22 30 -60 30 strict masked
+cmd execute if blocks 20 -60 20 22 -58 22 30 -60 30 all
+cmd execute if blocks 20 -60 20 22 -58 22 40 -60 40 all
+cmd data get block 31 -59 31
+dump blocks:20,-60,20,34,-57,34 be:31,-59,31
+note clone: errors, dimension parts, as a player
+cmd clone 0 -60 0 100 100 100 200 0 200
+cmd clone 0 -60 0 300 -50 300 200 0 200
+cmd clone 0 -60 0 31 -60 0 1000000 0 0
+cmd clone 1000000 0 0 1000001 0 0 0 0 0
+cmd clone 0 -64 0 40 300 40 50 -64 50
+cmd clone 10 -60 10 12 -58 12 20 -60 20 from
+cmd clone 10 -60 10 12 -58 12 20 -60 20 replace sideways
+cmd clone from minecraft:overworld 10 -60 10 12 -58 12 to minecraft:overworld 50 -60 50
+cmd clone from minecraft:overworld 10 -60 10 12 -58 12 50 -60 50 masked
+cmd clone from minecraft:overworld 10 -60 10 12 -58 12 to minecraft:overworld 50 -60 50 masked
+cmd clone 10 -60 10 12 -58 12 to minecraft:overworld 60 -60 60 filtered minecraft:stone force
+cmd clone from minecraft:foo 10 -60 10 12 -58 12 50 -60 50
+cmd clone 10 -60 10 12 -58 12 to minecraft:foo 50 -60 50
+cmd clone 12 -58 12 10 -60 10 70 -60 70
+cmd clone 10 -60 10 12 -58 12 ~ ~ ~
+cmd_as A clone ~ ~-1 ~ ~2 ~ ~2 ~10 ~-1 ~10
+cmd_as B clone 10 -60 10 12 -58 12 20 -60 20
+dump blocks:10,-60,10,80,-57,80
+note fillbiome: replace filters, limits, errors
+cmd fillbiome 0 -60 0 15 -50 15 minecraft:desert
+cmd fillbiome 0 -60 0 15 -50 15 minecraft:desert
+cmd execute if biome 3 -60 3 minecraft:desert
+cmd execute if biome 3 -40 3 minecraft:desert
+cmd fillbiome 0 -60 0 15 -50 15 minecraft:plains replace minecraft:desert
+cmd fillbiome 0 -60 0 15 -50 15 minecraft:plains replace minecraft:desert
+cmd fillbiome 0 -60 0 15 -50 15 minecraft:desert replace #minecraft:is_forest
+cmd fillbiome 0 -60 0 15 -50 15 minecraft:desert replace #minecraft:is_overworld
+cmd fillbiome 0 -60 0 15 -50 15 minecraft:plains replace #minecraft:is_overworld
+cmd fillbiome 0 -60 0 3 -60 3 minecraft:plains
+cmd fillbiome 1 -59 1 2 -58 2 minecraft:badlands
+cmd execute if biome 1 -59 1 minecraft:badlands
+cmd execute if biome 4 -59 1 minecraft:badlands
+cmd execute if biome 0 -60 0 minecraft:badlands
+cmd fillbiome 0 -60 0 100000 0 0 minecraft:plains
+cmd fillbiome 0 -60 0 1000000 0 0 minecraft:plains
+cmd fillbiome 1000000 0 0 1000001 0 0 minecraft:plains
+cmd fillbiome 0 -60 0 3 -60 3 minecraft:notabiome
+cmd fillbiome 0 -60 0 3 -60 3 minecraft:plains replace minecraft:notabiome
+cmd fillbiome 0 -60 0 3 -60 3 minecraft:plains replace #minecraft:nosuchtag
+cmd fillbiome 0 -60 0 3 -60 3 minecraft:plains replace
+cmd fillbiome 0 -60 0 3 -60 3 minecraft:plains sideways
+cmd fillbiome 0 400 0 3 401 3 minecraft:plains
+cmd fillbiome 0 -64 0 63 319 63 minecraft:plains
+cmd fillbiome 0 -64 0 31 100 31 minecraft:plains
+cmd fillbiome 0 -64 0 31 -50 31 minecraft:mushroom_fields
+cmd fillbiome 0 -64 0 31 -50 31 minecraft:mushroom_fields
+cmd fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle
+cmd_as A fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle
+cmd_as A fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle
+cmd_as B fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle
+cmd execute if biome 3 -60 3 minecraft:jungle
+cmd execute if biome 3 -60 3 minecraft:mushroom_fields
+dump events

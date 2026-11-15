@@ -1,0 +1,283 @@
+C Game rule send_command_feedback is now set to true
+C Game rule advance_time is now set to true
+WORLD gametime=1 difficulty=normal locked=false
+CLOCK minecraft:overworld total=1 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=1 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+E it minecraft:item pos=8.5,-45.04,8.5 delta=0.0,-0.03920000076293945,0.0 rot=82.788895,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=0 health=5 owner=- thrower=-
+# freeze, a frozen game, step
+CF msg The game is frozen
+CF result success 1
+CF msg The game is frozen
+CF result success 1
+PKT A minecraft:ticking_state 820141a0000001
+PKT A minecraft:ticking_state 820141a0000001
+WORLD gametime=1 difficulty=normal locked=false
+CLOCK minecraft:overworld total=1 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=1 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=true steps=0 sprinting=false
+E it minecraft:item pos=8.5,-45.04,8.5 delta=0.0,-0.03920000076293945,0.0 rot=82.788895,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=0 health=5 owner=- thrower=-
+CF msg Stepping 1 tick(s)
+CF result success 1
+PKT A minecraft:ticking_step 830101
+WORLD gametime=2 difficulty=normal locked=false
+CLOCK minecraft:overworld total=2 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=2 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=true steps=0 sprinting=false
+E it minecraft:item pos=8.5,-45.11920000076294,8.5 delta=0.0,-0.0776160022583008,0.0 rot=82.788895,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=2 pickup=0 health=5 owner=- thrower=-
+WORLD gametime=2 difficulty=normal locked=false
+CLOCK minecraft:overworld total=2 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=2 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=true steps=0 sprinting=false
+E it minecraft:item pos=8.5,-45.11920000076294,8.5 delta=0.0,-0.0776160022583008,0.0 rot=82.788895,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=2 pickup=0 health=5 owner=- thrower=-
+CF msg Stepping 3 tick(s)
+CF result success 1
+PKT A minecraft:ticking_step 830103
+WORLD gametime=3 difficulty=normal locked=false
+CLOCK minecraft:overworld total=3 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=3 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=true steps=2 sprinting=false
+E it minecraft:item pos=8.5,-45.23681600302124,8.5 delta=0.0,-0.115263684456482,0.0 rot=82.788895,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=0 health=5 owner=- thrower=-
+CF msg Interrupted the current tick step
+CF result success 1
+CF result failure 0
+CF fail No tick step in progress
+PKT A minecraft:ticking_step 830100
+WORLD gametime=3 difficulty=normal locked=false
+CLOCK minecraft:overworld total=3 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=3 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=true steps=0 sprinting=false
+E it minecraft:item pos=8.5,-45.23681600302124,8.5 delta=0.0,-0.115263684456482,0.0 rot=82.788895,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=0 health=5 owner=- thrower=-
+CF msg Stepping 40 tick(s)
+CF result success 1
+CF msg Stepping 20 tick(s)
+CF result success 1
+CF fail The tick count must not be less than 1: found 0
+CF fail ...ick step 0<--[HERE]
+CF fail The tick count must not be less than 1: found -1
+CF fail ...ck step -1<--[HERE]
+CF msg Stepping 24000 tick(s)
+CF result success 1
+CF msg Interrupted the current tick step
+CF result success 1
+CF fail Expected float
+CF fail tick step frobnicate<--[HERE]
+# unfreeze and rate
+CF msg The game is running normally
+CF result success 0
+CF msg The game is running normally
+CF result success 0
+PKT A minecraft:ticking_step 830128
+PKT A minecraft:ticking_step 830114
+PKT A minecraft:ticking_step 8301c0bb01
+PKT A minecraft:ticking_step 830100
+PKT A minecraft:ticking_state 820141a0000000
+PKT A minecraft:ticking_state 820141a0000000
+WORLD gametime=5 difficulty=normal locked=false
+CLOCK minecraft:overworld total=5 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=5 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+E it minecraft:item pos=8.5,-45.58423810120649,8.5 delta=0.0,-0.18831524911932757,0.0 rot=82.788895,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=5 pickup=0 health=5 owner=- thrower=-
+CF result failure 0
+CF fail Unable to step the game - the game must be frozen first
+CF msg Set the target tick rate to 10.0 per second
+CF result success 10
+CF msg Set the target tick rate to 10.0 per second
+CF result success 10
+CF msg Set the target tick rate to 10.5 per second
+CF result success 10
+CF msg Set the target tick rate to 20.0 per second
+CF result success 20
+CF fail Float must not be less than 1.0: found 0.5
+CF fail tick rate 0.5<--[HERE]
+CF msg Set the target tick rate to 10000.0 per second
+CF result success 10000
+CF fail Float must not be more than 10000.0: found 10001.0
+CF fail tick rate 10001<--[HERE]
+CF fail Expected float
+CF fail tick rate abc<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail tick rate<--[HERE]
+PKT A minecraft:ticking_state 82014120000000
+PKT A minecraft:ticking_state 82014120000000
+PKT A minecraft:ticking_state 82014128000000
+PKT A minecraft:ticking_state 820141a0000000
+PKT A minecraft:ticking_state 8201461c400000
+WORLD gametime=5 difficulty=normal locked=false
+CLOCK minecraft:overworld total=5 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=5 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=10000.0 frozen=false steps=0 sprinting=false
+# query
+CF msg Storage t:q has the following contents: 10000
+CF result success 10000
+CF msg The game is frozen
+CF result success 1
+CF msg Storage t:q has the following contents: 10000
+CF result success 10000
+CF msg The game is running normally
+CF result success 0
+# sprint
+CF msg The game is sprinting
+CF result success 1
+CF msg Interrupted the current tick sprint
+CF msg The game is sprinting
+CF result success 1
+WORLD gametime=5 difficulty=normal locked=false
+CLOCK minecraft:overworld total=5 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=5 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=10000.0 frozen=false steps=0 sprinting=true
+CF msg Interrupted the current tick sprint
+CF result success 1
+CF result failure 0
+CF fail No tick sprint in progress
+WORLD gametime=5 difficulty=normal locked=false
+CLOCK minecraft:overworld total=5 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=5 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=10000.0 frozen=false steps=0 sprinting=false
+CF fail The tick count must not be less than 1: found 0
+CF fail ...k sprint 0<--[HERE]
+CF fail The tick count must not be less than 1: found -1
+CF fail ... sprint -1<--[HERE]
+CF msg The game is sprinting
+CF result success 1
+CF fail Expected float
+CF fail ...ck sprint frobnicate<--[HERE]
+CF msg The game is frozen
+CF result success 1
+CF msg The game is sprinting
+CF result success 1
+PKT A minecraft:ticking_state 8201461c400001
+PKT A minecraft:ticking_state 8201461c400000
+PKT A minecraft:ticking_state 8201461c400000
+PKT A minecraft:ticking_state 8201461c400000
+PKT A minecraft:ticking_state 8201461c400000
+PKT A minecraft:ticking_state 8201461c400000
+PKT A minecraft:ticking_state 8201461c400000
+PKT A minecraft:ticking_state 8201461c400001
+PKT A minecraft:ticking_state 8201461c400000
+WORLD gametime=5 difficulty=normal locked=false
+CLOCK minecraft:overworld total=5 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=5 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=10000.0 frozen=false steps=0 sprinting=true
+CF msg Interrupted the current tick sprint
+CF result success 1
+CF result failure 0
+CF fail No tick step in progress
+PKT A minecraft:ticking_state 8201461c400001
+WORLD gametime=5 difficulty=normal locked=false
+CLOCK minecraft:overworld total=5 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=5 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=10000.0 frozen=true steps=0 sprinting=false
+# freeze while stepping and sprinting, permissions
+CF msg The game is frozen
+CF result success 1
+CF msg Stepping 10 tick(s)
+CF result success 1
+CF msg The game is frozen
+CF result success 1
+WORLD gametime=5 difficulty=normal locked=false
+CLOCK minecraft:overworld total=5 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=5 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=10000.0 frozen=true steps=0 sprinting=false
+CF msg The game is running normally
+CF result success 0
+CF msg The game is sprinting
+CF result success 1
+CF msg The game is frozen
+CF result success 1
+WORLD gametime=5 difficulty=normal locked=false
+CLOCK minecraft:overworld total=5 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=5 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=10000.0 frozen=true steps=0 sprinting=false
+CF msg The game is running normally
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail tick<--[HERE]
+CF fail Incorrect argument for command
+CF fail tick sideways<--[HERE]
+CF msg The game is frozen
+CF json {"translate":"commands.tick.status.frozen"}
+CF result success 1
+CF msg The game is running normally
+CF result success 0
+CF msg The game is frozen
+CF result success 1
+CF msg The game is running normally
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail tick freeze<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail tick rate 20<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail tick freeze<--[HERE]
+CF msg The game is frozen
+CF result success 1
+CF msg The game is running normally
+CF result success 0
+CF result failure 0
+CF fail Unable to step the game - the game must be frozen first
+PKT A minecraft:ticking_state 8201461c400001
+PKT A minecraft:ticking_step 83010a
+PKT A minecraft:ticking_step 830100
+PKT A minecraft:ticking_state 8201461c400001
+PKT A minecraft:ticking_state 8201461c400000
+PKT A minecraft:ticking_state 8201461c400000
+PKT A minecraft:ticking_state 8201461c400000
+PKT A minecraft:ticking_state 8201461c400001
+PKT A minecraft:ticking_state 8201461c400000
+PKT A minecraft:ticking_state 8201461c400001
+PKT A minecraft:ticking_state 8201461c400000
+PKT A minecraft:ticking_state 8201461c400001
+PKT A minecraft:ticking_state 8201461c400000
+PKT A minecraft:ticking_state 8201461c400001
+PKT A minecraft:ticking_state 8201461c400000
+WORLD gametime=6 difficulty=normal locked=false
+CLOCK minecraft:overworld total=6 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=6 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=10000.0 frozen=false steps=0 sprinting=false
+E it minecraft:item pos=8.5,-45.812553350325814,8.5 delta=0.0,-0.22374894849170882,0.0 rot=82.788895,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=6 pickup=0 health=5 owner=- thrower=-

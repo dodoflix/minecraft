@@ -1,0 +1,144 @@
+C Game rule send_command_feedback is now set to true
+# one target, several players
+CF msg Spread 1 entity/entities around 0.5, 0.5 with an average distance of 0.00 block(s) apart
+CF result success 1
+P A minecraft:player pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Spread 3 entity/entities around 0.5, 0.5 with an average distance of 5.95 block(s) apart
+CF result success 3
+P A minecraft:player pos=-4.5,-60.0,-14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=-1.5,-60.0,-8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=-9.5,-60.0,-14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Spread 3 entity/entities around 10.5, 10.5 with an average distance of 8.52 block(s) apart
+CF result success 3
+P A minecraft:player pos=11.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=14.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=6.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Spread 1 entity/entities around 10.5, 10.5 with an average distance of 0.00 block(s) apart
+CF json {"translate":"commands.spreadplayers.success.entities","with":[1,10.5,10.5,"0.00"]}
+CF result success 1
+P B minecraft:player pos=14.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# mobs, players and the vertical placement
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Spread 3 entity/entities around 0.5, 0.5 with an average distance of 24.97 block(s) apart
+CF result success 3
+G minecraft:cow pos=-12.5,-60.0,-25.5 rot=0.0,0.0 Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=-10.5,-60.0,25.5 rot=0.0,0.0 Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=0.5,-60.0,-17.5 rot=0.0,0.0 Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+CF msg Spread 3 entity/entities around 0.0, 0.0 with an average distance of 11.57 block(s) apart
+CF result success 3
+G minecraft:cow pos=7.5,-60.0,25.5 rot=0.0,0.0 Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=-12.5,-60.0,4.5 rot=0.0,0.0 Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=7.5,-60.0,21.5 rot=0.0,0.0 Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+# under a height: with a ceiling
+CF msg Successfully filled 1681 block(s)
+CF result success 1681
+CF msg Successfully filled 1681 block(s)
+CF result success 1681
+CF msg Spread 3 entity/entities around 0.5, 0.5 with an average distance of 17.68 block(s) apart
+CF result success 3
+P A minecraft:player pos=18.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=-13.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF result failure 0
+CF fail Could not spread 1 entity/entities around 0.5, 0.5 (too many entities for space - try using spread of at most 0.00)
+CF msg Spread 1 entity/entities around 0.5, 0.5 with an average distance of 0.00 block(s) apart
+CF result success 1
+P A minecraft:player pos=17.5,-48.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Successfully filled 3362 block(s)
+CF result success 3362
+# teams: respectTeams keeps a team together
+CF msg Created team [red]
+CF result success 1
+CF msg Created team [blue]
+CF result success 2
+CF fail Incorrect argument for command
+CF fail ...oin red A B<--[HERE]
+CF msg Added C to team [blue]
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Spread 2 team(s) around 0.5, 0.5 with an average distance of 34.16 block(s) apart
+CF result success 2
+P A minecraft:player pos=10.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=10.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=-3.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Spread 1 team(s) around 0.5, 0.5 with an average distance of 0.00 block(s) apart
+CF result success 1
+CF msg Spread 1 team(s) around 0.5, 0.5 with an average distance of Infinity block(s) apart
+CF result success 1
+G minecraft:cow pos=-16.5,-60.0,-11.5 rot=0.0,0.0 Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=-16.5,-60.0,-11.5 rot=0.0,0.0 Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=-16.5,-60.0,-11.5 rot=0.0,0.0 Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=14.5,-60.0,-14.5 rot=0.0,0.0 Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+CF msg Spread 3 entity/entities around 0.5, 0.5 with an average distance of 46.21 block(s) apart
+CF result success 3
+P A minecraft:player pos=-15.5,-60.0,-12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=30.5,-60.0,-18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=14.5,-60.0,25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# distance and range limits
+CF msg Spread 1 entity/entities around 0.5, 0.5 with an average distance of 0.00 block(s) apart
+CF result success 1
+CF result failure 0
+CF fail Could not spread 3 entity/entities around 0.5, 0.5 (too many entities for space - try using spread of at most 2.00)
+CF result failure 0
+CF fail Could not spread 3 entity/entities around 0.5, 0.5 (too many entities for space - try using spread of at most 0.00)
+CF msg Spread 3 entity/entities around 0.5, 0.5 with an average distance of 1.60 block(s) apart
+CF result success 3
+CF msg Spread 1 entity/entities around 0.5, 0.5 with an average distance of 0.00 block(s) apart
+CF result success 1
+CF fail Float must not be less than 0.0: found -1.0
+CF fail ...ayers 0 0 -1 10 false A<--[HERE]
+CF fail Float must not be less than 1.0: found 0.5
+CF fail ...ers 0 0 5 0.5 false A<--[HERE]
+CF fail Float must not be less than 1.0: found 0.0
+CF fail ...ers 0 0 5 0 false A<--[HERE]
+CF msg Spread 1 entity/entities around 0.5, 0.5 with an average distance of 0.00 block(s) apart
+CF result success 1
+CF result failure 0
+CF fail Could not spread 1 entity/entities around 1.0E8, 0.5 (too many entities for space - try using spread of at most 0.00)
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF fail Unknown or incomplete command. See below for error
+CF fail ...s 0 0 5 20<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...yers 0 0 5<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...layers 0 0<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...eadplayers<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ... 0 0 5 20 maybe A<--[HERE]
+CF fail Expected integer
+CF fail ... 20 under false A<--[HERE]
+CF fail Expected integer
+CF fail ... 20 under abc false A<--[HERE]
+CF msg Spread 1 entity/entities around 0.0, 0.0 with an average distance of 0.00 block(s) apart
+CF result success 1
+CF msg Spread 1 entity/entities around 5.0, -5.0 with an average distance of 0.00 block(s) apart
+CF result success 1
+P A minecraft:player pos=7.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=-1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# permissions
+CF msg Spread 1 entity/entities around 0.5, 0.5 with an average distance of 0.00 block(s) apart
+CF result success 1
+CF msg Spread 1 entity/entities around -19.5, -13.5 with an average distance of 0.00 block(s) apart
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail spreadplayers 0 0 5 20 false B<--[HERE]
+CF msg Spread 1 entity/entities around 0.5, 0.5 with an average distance of 0.00 block(s) apart
+CF result success 1
+CF msg Spread 1 entity/entities around 0.5, 0.5 with an average distance of 0.00 block(s) apart
+CF result success 1
+CF msg Spread 1 entity/entities around 0.5, 0.5 with an average distance of 0.00 block(s) apart
+CF result success 1
+P A minecraft:player pos=-32.5,-60.0,-25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=-19.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=3.5,-60.0,-9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

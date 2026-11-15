@@ -22,6 +22,7 @@
 use super::entity_scenario::canon;
 use super::mob_verbs::MobHost;
 use super::player_actions::ActionHost;
+use mc_core::math::java::{java_double_to_string as jd, java_float_to_string as jf};
 use mc_core::phys::{Vec2, Vec3};
 use mc_core::pos::BlockPos;
 use mc_game::commands::arguments::selector::{EntityRef, EntitySelectorParser};
@@ -35,10 +36,12 @@ use mc_game::server::network::{ConnectionSender, Outbound};
 use mc_game::server::permissions::{LevelBasedPermissionSet, PermissionLevel};
 use mc_game::server::players::name_resolver::UserNameToIdResolver as _;
 use mc_game::server::players::{NameAndId, PlayerHandle};
+use mc_game::world::clock::ClockInstance as _;
 use mc_game::world::entity::Entity;
 use mc_game::world::entity::EntityId;
 use mc_game::world::level::DimensionKey;
 use mc_game::world::level::gamerules::GameRules;
+use mc_game::world::level::saveddata::world_border::BorderStatus;
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::codec::GameProfile;
 use mc_text::{Component, TextColor};
@@ -449,7 +452,8 @@ fn sorted_lines(prefix: &str, list: Option<&Tag>) -> Vec<String> {
 /// sorted, and `DISPLAY` slots), `bossbars` (`BOSSBAR ID SNBT` per custom boss bar), `saved:ID` (the data file the storage writes, see
 /// [`saved_lines`]), `storage:ID` (`STORAGE ID SNBT`) and
 /// `select:EXECUTOR/X,Y,Z/SELECTOR` (`SELECT SELECTOR EXECUTOR POS -> REF..`: what the selector finds for an operator in result order;
-/// `selectsorted:` and `selectcount:` give the sorted names and the count).
+/// `selectsorted:` and `selectcount:` give the sorted names and the count), `world` (the level state lines: game time, difficulty, clocks, weather,
+/// world spawn, border, tick rate manager) and `forced` (`FORCED cx,cz ..`).
 /// `false` for any other kind.
 pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
     let lines = match (kind, arg) {
@@ -516,6 +520,19 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
             });
             vec![format!("STORAGE {id} {}", canon(&Tag::Compound(tag)))]
         }
+        ("world", None) => world_lines(h),
+        ("forced", None) => {
+            h.boot();
+            let mut chunks: Vec<String> = h
+                .action_level()
+                .chunk_source()
+                .get_force_loaded_chunks()
+                .iter()
+                .map(|c| format!("{},{}", c as i32, (c >> 32) as i32))
+                .collect();
+            chunks.sort();
+            vec![format!("FORCED {}", chunks.join(" "))]
+        }
         ("select" | "selectsorted" | "selectcount", Some(arg)) => {
             let mut parts = arg.splitn(3, '/');
             let (Some(executor), Some(position), Some(selector)) =
@@ -566,6 +583,84 @@ fn saved_lines(id: &str) -> Vec<String> {
         }
     }
     lines
+}
+
+/// `dump world`: the `WORLD`, `CLOCK`, `WEATHER`, `SPAWN`, `BORDER` and `TICKRATE` lines of `EntityOracleDriver.dump`.
+fn world_lines<H: MobHost>(h: &mut H) -> Vec<String> {
+    h.boot();
+    let level = h.action_level();
+    let game_time = level.game_time();
+    let border = level.get_world_border();
+    let status = match border.get_status() {
+        BorderStatus::Growing => "GROWING",
+        BorderStatus::Shrinking => "SHRINKING",
+        BorderStatus::Stationary => "STATIONARY",
+    };
+    let border = format!(
+        "BORDER center={},{} size={} target={} lerp={} safe={} damage={} warn_blocks={} warn_time={} status={status}",
+        jd(border.get_center_x()),
+        jd(border.get_center_z()),
+        jd(border.get_size()),
+        jd(border.get_lerp_target()),
+        border.get_lerp_time(),
+        jd(border.get_safe_zone()),
+        jd(border.get_damage_per_block()),
+        border.get_warning_blocks(),
+        border.get_warning_time(),
+    );
+    server_access::with_server(|server| {
+        let (difficulty, locked) = {
+            let data = server.world_data.lock();
+            let settings = data.settings.difficulty_settings;
+            (settings.difficulty, settings.locked)
+        };
+        let mut lines = vec![format!(
+            "WORLD gametime={game_time} difficulty={} locked={locked}",
+            difficulty.get_serialized_name()
+        )];
+        let clocks = server.clock_manager();
+        let mut ids: Vec<String> = clocks.clock_ids().map(ToString::to_string).collect();
+        ids.sort();
+        for id in ids {
+            let instance = clocks.get_instance(&mc_core::ident::Identifier::parse(&id).unwrap());
+            lines.push(format!(
+                "CLOCK {id} total={} partial={} rate={} paused={}",
+                instance.total_ticks(),
+                jf(instance.partial_tick()),
+                jf(instance.rate()),
+                instance.is_paused()
+            ));
+        }
+        let weather = server.weather_data_ref();
+        lines.push(format!(
+            "WEATHER raining={} thundering={} clear={} rain={} thunder={}",
+            weather.is_raining(),
+            weather.is_thundering(),
+            weather.get_clear_weather_time(),
+            weather.get_rain_time(),
+            weather.get_thunder_time()
+        ));
+        let spawn = server.get_respawn_data();
+        lines.push(format!(
+            "SPAWN {} {},{},{} yaw={} pitch={}",
+            spawn.dimension,
+            spawn.pos.x(),
+            spawn.pos.y(),
+            spawn.pos.z(),
+            jf(spawn.yaw),
+            jf(spawn.pitch)
+        ));
+        lines.push(border);
+        let rate = &server.tick_rate_manager;
+        lines.push(format!(
+            "TICKRATE rate={} frozen={} steps={} sprinting={}",
+            jf(rate.tickrate()),
+            rate.is_frozen(),
+            rate.frozen_ticks_to_run(),
+            rate.is_sprinting()
+        ));
+        lines
+    })
 }
 
 /// `dump select:EXECUTOR/X,Y,Z/SELECTOR`; `selectsorted:` lists the names sorted and `selectcount:` only counts them (`sort=random` shuffles

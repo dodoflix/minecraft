@@ -1,0 +1,400 @@
+C Game rule send_command_feedback is now set to true
+PKT A minecraft:post_effects 5300
+# playsound: sources, targets, positions, volume, pitch and the minimum volume
+CF msg Played sound minecraft:entity.pig.ambient to A
+CF result success 1
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000000fffffe20000000003f8000003f800000b6b825dc9529ca6e
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000004fffffe20000000043f8000003f8000003f1529e28d71505f
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000004fffffe20000000043f8000003f8000003f1529e28d71505f
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF msg Played sound minecraft:entity.pig.ambient to 3 players
+CF result success 3
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000004fffffe20000000043f8000003f8000000d967c4f45960864
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000004fffffe20000000043f8000003f800000510616d810dbd439
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000004fffffe20000000043f8000003f8000000d967c4f45960864
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000004fffffe20000000043f8000003f800000510616d810dbd439
+PKT C minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000314fffffe20000000043f0000003f800000510616d810dbd439
+CF msg Played sound minecraft:entity.pig.ambient to 3 players
+CF result success 3
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000004fffffe200000000442c800003f00000028c4af346f481a0d
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000004fffffe200000000442c800003f00000028c4af346f481a0d
+PKT C minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000004fffffe200000000442c800003f00000028c4af346f481a0d
+CF result failure 0
+CF fail The sound is too far away to be heard
+CF result failure 0
+CF fail The sound is too far away to be heard
+CF msg Played sound minecraft:entity.pig.ambient to C
+CF result success 1
+CF result failure 0
+CF fail The sound is too far away to be heard
+CF msg Played sound minecraft:entity.pig.ambient to C
+CF result success 1
+PKT C minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000314fffffe20000000043f8000003f8000008fb6d37139bab9a0
+PKT C minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000314fffffe20000000043e8000003f800000010a92deca009428
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000100000000fffffe20000000003f8000003f80000002c8f4f3e97f28c8
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000200000000fffffe20000000003f8000003f80000068264556340a6f44
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000300000000fffffe20000000003f8000003f800000fbf420a71fc5f83a
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000400000000fffffe20000000003f8000003f8000009291c59eaf9430e6
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000500000000fffffe20000000003f8000003f8000007dca5d06e407a7ab
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000600000000fffffe20000000003f8000003f800000cc9c1ae65be19d9c
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000700000000fffffe20000000003f8000003f800000a0dcdbbeebe6e41d
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000800000000fffffe20000000003f8000003f800000296ed1d0c8733e15
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000900000000fffffe20000000003f8000003f800000e50c49b58eb40e4b
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000a00000000fffffe20000000003f8000003f80000015d552d3f8e598e3
+CF msg Played sound minecraft:entity.pig.ambient to B
+CF result success 1
+CF msg Played sound foo:custom to B
+CF result success 1
+CF msg Played sound foo:custom to B
+CF result success 1
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000100000000fffffe20000000003f8000003f80000002c8f4f3e97f28c8
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000200000000fffffe20000000003f8000003f80000068264556340a6f44
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000300000000fffffe20000000003f8000003f800000fbf420a71fc5f83a
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000400000000fffffe20000000003f8000003f8000009291c59eaf9430e6
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000500000000fffffe20000000003f8000003f8000007dca5d06e407a7ab
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000600000000fffffe20000000003f8000003f800000cc9c1ae65be19d9c
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000700000000fffffe20000000003f8000003f800000a0dcdbbeebe6e41d
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000800000000fffffe20000000003f8000003f800000296ed1d0c8733e15
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000900000000fffffe20000000003f8000003f800000e50c49b58eb40e4b
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000a00000000fffffe20000000003f8000003f80000015d552d3f8e598e3
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000000fffffe20000000003f0000003fc000009e2a7f7f8dbd9411
+PKT B minecraft:sound 77000a666f6f3a637573746f6d000000000000fffffe2000000000408000003f000000f2f2c9c286e3c481
+PKT B minecraft:sound 77000a666f6f3a637573746f6d000000000000fffffe200000000040800000400000006b2245180c01fc0a
+CF result failure 0
+CF fail No player was found
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail playsound minecraft:entity.pig.ambient master @e[type=pig]<--[HERE]
+CF fail Float must not be less than 0.0: found -1.0
+CF fail ...a 0 -60 0 -1<--[HERE]
+CF fail Float must not be more than 2.0: found 2.5
+CF fail ...0 -60 0 1 2.5<--[HERE]
+CF fail Float must not be more than 1.0: found 1.5
+CF fail ...-60 0 1 1 1.5<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...g.ambient bogus @a<--[HERE]
+CF result failure 0
+CF fail The sound is too far away to be heard
+CF fail Unknown or incomplete command. See below for error
+CF fail playsound<--[HERE]
+CF fail Incomplete (expected 3 coordinates)
+CF fail ...master @a 0 -60<--[HERE]
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF msg Played sound minecraft:entity.pig.ambient to B
+CF json {"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"click_event":{"action":"suggest_command","command":"/tell B "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"B","uuid":[-196291187,2030186727,-1948358755,2017388081]},"insertion":"B","text":"B"}]}
+CF result success 1
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000008fffffe30ffffffe83f8000003f800000302b1ccc4f84877a
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000008fffffe30ffffffe83f8000003f800000302b1ccc4f84877a
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000000fffffe20000000003f8000003f800000fc875fd5d1e9ed7d
+CF msg Played sound minecraft:entity.pig.ambient to A
+CF result success 1
+CF msg Played sound minecraft:entity.pig.ambient to A
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail playsound minecraft:entity.pig.ambient master B<--[HERE]
+CF msg Played sound minecraft:entity.pig.ambient to B
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail playsound minecraft:entity.pig.ambient master B<--[HERE]
+CF msg Played sound minecraft:entity.pig.ambient to B
+CF result success 1
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000004fffffe20000000043f8000003f8000003a7a4977cf2f8e6e
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000004fffffe20000000043f8000003f800000f69e0d3e1805ecfe
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000000fffffe20000000003f8000003f8000008d4183f5b13dfa22
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e7400000000002cfffffe200000002c3f8000003f8000001113550062520f5e
+# stopsound: all, by source, by sound, both, errors
+CF msg Stopped all sounds
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...psound B *<--[HERE]
+CF msg Stopped all 'master' sounds
+CF result success 1
+CF msg Stopped sound 'minecraft:entity.pig.ambient'
+CF result success 1
+CF msg Stopped sound 'minecraft:entity.pig.ambient' on source 'master'
+CF result success 1
+CF msg Stopped all 'music' sounds
+CF result success 3
+CF msg Stopped sound 'minecraft:ui.button.click' on source 'ui'
+CF result success 3
+CF fail Unknown or incomplete command. See below for error
+CF fail ...sound @a *<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF fail Incorrect argument for command
+CF fail ...opsound B bogus<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail stopsound<--[HERE]
+CF msg Stopped sound 'foo:custom' on source 'master'
+CF result success 1
+CF msg Stopped all sounds
+CF json {"translate":"commands.stopsound.success.sourceless.any"}
+CF result success 1
+PKT A minecraft:stop_sound 790101
+PKT A minecraft:stop_sound 79030a196d696e6563726166743a75692e627574746f6e2e636c69636b
+PKT B minecraft:stop_sound 7900
+PKT B minecraft:stop_sound 790100
+PKT B minecraft:stop_sound 79021c6d696e6563726166743a656e746974792e7069672e616d6269656e74
+PKT B minecraft:stop_sound 7903001c6d696e6563726166743a656e746974792e7069672e616d6269656e74
+PKT B minecraft:stop_sound 790101
+PKT B minecraft:stop_sound 79030a196d696e6563726166743a75692e627574746f6e2e636c69636b
+PKT B minecraft:stop_sound 7900
+PKT C minecraft:stop_sound 790101
+PKT C minecraft:stop_sound 79030a196d696e6563726166743a75692e627574746f6e2e636c69636b
+PKT C minecraft:stop_sound 7903000a666f6f3a637573746f6d
+CF fail Unknown or incomplete command. See below for error
+CF fail stopsound B<--[HERE]
+CF msg Stopped all sounds
+CF result success 1
+CF msg Stopped all sounds
+CF result success 3
+PKT A minecraft:stop_sound 7900
+PKT B minecraft:stop_sound 7900
+PKT B minecraft:stop_sound 7900
+PKT C minecraft:stop_sound 7900
+# particle: names, options, positions, delta, speed, count, force and normal modes, viewers
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF msg Displaying particle minecraft:flame
+CF result success 3
+CF msg Displaying particle minecraft:flame
+CF result success 1
+CF msg Displaying particle minecraft:flame
+CF result success 1
+CF msg Displaying particle minecraft:flame
+CF result success 3
+CF msg Displaying particle minecraft:flame
+CF result success 1
+CF msg Displaying particle minecraft:flame
+CF result success 3
+CF msg Displaying particle minecraft:flame
+CF result success 1
+CF msg Displaying particle minecraft:flame
+CF result success 1
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF msg Displaying particle minecraft:flame
+CF result success 2
+PKT A minecraft:level_particles 302700000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:level_particles 302700003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:level_particles 302700003fe0000000000000c04d8000000000003fe00000000000003f0000003f0000003f0000003dcccccd3dcccccd3dcccccd0a00
+PKT A minecraft:level_particles 302700003fe0000000000000c04d8000000000003fe00000000000003f0000003f0000003f0000003dcccccd3dcccccd3dcccccd0a00
+PKT A minecraft:level_particles 302701003fe0000000000000c04d8000000000003fe00000000000003f0000003f0000003f0000003dcccccd3dcccccd3dcccccd0a00
+PKT A minecraft:level_particles 302701003fe0000000000000c04d8000000000003fe00000000000003f0000003f0000003f0000003dcccccd3dcccccd3dcccccd0a00
+PKT A minecraft:level_particles 302701004059200000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 302700000000000000000000c04d80000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:level_particles 302700000000000000000000c04d80000000000000000000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 302700000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:level_particles 302700003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:level_particles 302700003fe0000000000000c04d8000000000003fe00000000000003f0000003f0000003f0000003dcccccd3dcccccd3dcccccd0a00
+PKT B minecraft:level_particles 302700003fe0000000000000c04d8000000000003fe00000000000003f0000003f0000003f0000003dcccccd3dcccccd3dcccccd0a00
+PKT B minecraft:level_particles 302701003fe0000000000000c04d8000000000003fe00000000000003f0000003f0000003f0000003dcccccd3dcccccd3dcccccd0a00
+PKT B minecraft:level_particles 302700003fe0000000000000c04d8000000000003fe00000000000003f0000003f0000003f0000003dcccccd3dcccccd3dcccccd0a00
+PKT B minecraft:level_particles 302701003fe0000000000000c04d8000000000003fe00000000000003f0000003f0000003f0000003dcccccd3dcccccd3dcccccd0a00
+PKT B minecraft:level_particles 302701003fe0000000000000c04d8000000000003fe00000000000003f0000003f0000003f0000003dcccccd3dcccccd3dcccccd0a00
+PKT B minecraft:level_particles 302701004059200000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 302700000000000000000000c04d80000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:level_particles 302700000000000000000000c04d80000000000000000000000000000000000000000000000000000000000000000000000000000100
+PKT C minecraft:level_particles 302701003fe0000000000000c04d8000000000003fe00000000000003f0000003f0000003f0000003dcccccd3dcccccd3dcccccd0a00
+PKT C minecraft:level_particles 302701003fe0000000000000c04d8000000000003fe00000000000003f0000003f0000003f0000003dcccccd3dcccccd3dcccccd0a00
+PKT C minecraft:level_particles 302700004059200000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT C minecraft:level_particles 302701004059200000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT C minecraft:level_particles 302701004059200000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT C minecraft:level_particles 302700004059200000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000000
+CF msg Displaying particle minecraft:dust
+CF result success 3
+CF msg Displaying particle minecraft:dust_color_transition
+CF result success 3
+CF msg Displaying particle minecraft:block
+CF result success 3
+CF fail Can't parse particle options: Failed to parse either. First: Failed to parse either. First: Not a string; Second: No key id in MapLike[{Name:"minecraft:oak_stairs",Properties:{facing:"east"}}]; Second: Not a string
+CF msg Displaying particle minecraft:item
+CF result success 3
+CF msg Displaying particle minecraft:entity_effect
+CF result success 3
+CF msg Displaying particle minecraft:sculk_charge
+CF result success 3
+CF msg Displaying particle minecraft:shriek
+CF result success 3
+CF msg Displaying particle minecraft:vibration
+CF result success 3
+CF msg Displaying particle minecraft:trail
+CF result success 3
+CF msg Displaying particle minecraft:flash
+CF result success 3
+CF msg Displaying particle minecraft:dragon_breath
+CF result success 3
+CF msg Displaying particle minecraft:dust_pillar
+CF result success 3
+CF fail Can't parse particle options: Failed to parse either. First: Not a number; Second: Input is not a list of 4 elements
+CF fail Can't parse particle options: Input is not a list of 3 elements
+CF fail Can't parse particle options: Input is not a list of 3 elements
+CF msg Displaying particle minecraft:explosion
+CF result success 3
+CF msg Displaying particle minecraft:poof
+CF result success 3
+CF msg Displaying particle minecraft:heart
+CF result success 3
+PKT A minecraft:level_particles 3015ffff00004000000001003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 3016ffff0000ff0000ff3f80000001003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 30010101003fe0000000000000c04d8000000000003fe00000000000003dcccccd3dcccccd3dcccccd0000000000000000000000000500
+PKT A minecraft:level_particles 3039f40701000001003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 301cffff7f3f01003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 30303fc0000001003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 30730501003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 303a0000000040000030021401003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 303b3ff000000000000040000000000000004008000000000000ffffffff1401003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 3034ffffffff01003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 300f3fc0000001003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 30790a01003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 301e01003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 304501003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 303701003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+CF fail Unknown particle: minecraft:nonexistent
+CF fail ...onexistent<--[HERE]
+CF fail Unknown particle: foo:bar
+CF fail ...le foo:bar<--[HERE]
+CF fail Float must not be less than 0.0: found -1.0
+CF fail ...9 0 0 0 0 -1 1<--[HERE]
+CF fail Integer must not be less than 0: found -1
+CF fail ...0 0 0 0 0 -1<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...0 0 0 0 1 sideways<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF fail Can't parse particle options: No key block_state in MapLike[{}]
+CF fail Can't parse particle options: Failed to parse either. First: Failed to parse either. First: Unknown registry key in ResourceKey[minecraft:root / minecraft:block]: minecraft:nope; Second: Not a map: "minecraft:nope"; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:block]: minecraft:nope
+CF fail Can't parse particle options: No key scale in MapLike[{}]; No key color in MapLike[{}]
+CF fail Can't parse particle options: No key scale in MapLike[{color:[1.0d,0.0d]}]; Failed to parse either. First: Not a number; Second: Input is not a list of 3 elements
+CF fail Unknown or incomplete command. See below for error
+CF fail particle<--[HERE]
+CF msg Displaying particle minecraft:flame
+CF json {"translate":"commands.particle.success","with":["minecraft:flame"]}
+CF result success 3
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF fail Unknown or incomplete command. See below for error
+CF fail particle minecraft:flame<--[HERE]
+CF msg Displaying particle minecraft:flame
+CF result success 3
+CF fail Unknown or incomplete command. See below for error
+CF fail particle minecraft:flame<--[HERE]
+PKT A minecraft:level_particles 302700003fe0000000000000c04d8000000000003fe0000000000000bf800000bf800000bf8000000000000000000000000000000100
+PKT A minecraft:level_particles 302700003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:level_particles 302701003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 302700003fe0000000000000c04e0000000000003fe00000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:level_particles 302701003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 3015ffff00004000000001003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 3016ffff0000ff0000ff3f80000001003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 30010101003fe0000000000000c04d8000000000003fe00000000000003dcccccd3dcccccd3dcccccd0000000000000000000000000500
+PKT B minecraft:level_particles 3039f40701000001003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 301cffff7f3f01003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 30303fc0000001003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 30730501003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 303a0000000040000030021401003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 303b3ff000000000000040000000000000004008000000000000ffffffff1401003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 3034ffffffff01003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 300f3fc0000001003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 30790a01003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 301e01003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 304501003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 303701003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 302700003fe0000000000000c04d8000000000003fe0000000000000bf800000bf800000bf8000000000000000000000000000000100
+PKT B minecraft:level_particles 302700003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:level_particles 302701003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 302700003fe0000000000000c04e0000000000003fe00000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:level_particles 302701003fe0000000000000c04d8000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+# posteffect: add, list, remove, clear, errors, the packet with the full list
+CF msg Player B does not have any post effects
+CF result success 0
+CF msg Added post effect minecraft:invert to B
+CF result success 1
+CF result failure 0
+CF fail Player already has the specified post effect
+CF msg Added post effect minecraft:blur to B
+CF result success 1
+CF msg Added post effect minecraft:creeper to 3 players
+CF result success 3
+CF result failure 0
+CF fail Player already has the specified post effect
+CF msg Player B has 3 post effects: minecraft:invert, minecraft:blur, minecraft:creeper
+CF result success 3
+CF msg Player A has 1 post effects: minecraft:creeper
+CF result success 1
+CF msg Removed post effect minecraft:invert from B
+CF result success 1
+CF result failure 0
+CF fail Player does not have the specified post effect
+CF msg Removed post effect minecraft:creeper from 3 players
+CF result success 3
+CF result failure 0
+CF fail No player was found
+CF msg Player B has 1 post effects: minecraft:blur
+CF result success 1
+CF msg Removed all post effects from B
+CF result success 1
+CF result failure 0
+CF fail Player does not have any post effects to remove
+CF result failure 0
+CF fail Player does not have any post effects to remove
+CF result failure 0
+CF fail No player was found
+CF fail Unknown or incomplete command. See below for error
+CF fail ...fect add B<--[HERE]
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...ect add B Bad:Name<--[HERE]
+CF msg Added post effect minecraft:nothing to B
+CF result success 1
+CF fail Only one player is allowed, but the provided selector allows more than one
+CF fail posteffect list @a<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF fail Unknown or incomplete command. See below for error
+CF fail posteffect<--[HERE]
+CF msg Added post effect minecraft:invert to B
+CF json {"translate":"commands.posteffect.add.success.single","with":["minecraft:invert",{"click_event":{"action":"suggest_command","command":"/tell B "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"B","uuid":[-196291187,2030186727,-1948358755,2017388081]},"insertion":"B","text":"B"}]}
+CF result success 1
+CF msg Player B has 2 post effects: minecraft:nothing, minecraft:invert
+CF json {"translate":"commands.posteffect.list.success","with":[{"click_event":{"action":"suggest_command","command":"/tell B "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"B","uuid":[-196291187,2030186727,-1948358755,2017388081]},"insertion":"B","text":"B"},2,"minecraft:nothing, minecraft:invert"]}
+CF result success 2
+CF msg Added post effect minecraft:blur to A
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail posteffect add B minecraft:blur<--[HERE]
+CF msg Removed all post effects from B
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail posteffect list B<--[HERE]

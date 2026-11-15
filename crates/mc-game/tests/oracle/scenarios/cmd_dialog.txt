@@ -1,0 +1,56 @@
+# /dialog show and clear: registered dialogs, inline dialogs of every type, errors and the packets players receive, as the console, an operator and
+# a plain player.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 20
+spawn_player A survival 0.5 -60 0.5 0 0 joinburst
+spawn_player B survival 6.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+dump packets:A:show_dialog,clear_dialog
+note show: registered dialogs, inline dialogs
+cmd dialog show A minecraft:custom_options
+dump packets:A:show_dialog,clear_dialog
+cmd dialog show @a minecraft:server_links
+cmd dialog show B minecraft:quick_actions
+dump packets:A:show_dialog,clear_dialog packets:B:show_dialog,clear_dialog
+cmd dialog show A {type:"minecraft:notice",title:"Hello"}
+cmd dialog show A {type:"minecraft:notice",title:{text:"Rich",color:"red"},body:{type:"minecraft:plain_message",contents:"Body text"}}
+cmd dialog show A {type:"minecraft:confirmation",title:"Sure?",yes:{label:"Yes"},no:{label:"No"}}
+cmd dialog show A {type:"minecraft:multi_action",title:"Pick",actions:[{label:"One"},{label:"Two",action:{type:"minecraft:run_command",command:"say two"}}]}
+cmd dialog show A {type:"minecraft:dialog_list",title:"List",dialogs:["minecraft:server_links"]}
+cmd dialog show A {type:"minecraft:server_links",title:"Links"}
+cmd dialog show A {type:"minecraft:multi_action",title:"Inputs",inputs:[{type:"minecraft:text",key:"name",label:"Name"},{type:"minecraft:boolean",key:"flag",label:"Flag"},{type:"minecraft:number_range",key:"n",label:"N",start:0,end:10},{type:"minecraft:single_option",key:"o",label:"O",options:[{id:"a"},{id:"b"}]}],actions:[{label:"Go"}]}
+dump packets:A:show_dialog,clear_dialog
+note show: errors
+cmd dialog show A minecraft:nothing
+cmd dialog show A {type:"minecraft:nope"}
+cmd dialog show A {}
+cmd dialog show A {type:"minecraft:notice"}
+cmd dialog show A {type:"minecraft:notice",title:"x"
+cmd dialog show A
+cmd dialog show nobody minecraft:server_links
+cmd dialog show @e[type=pig] minecraft:server_links
+cmd dialog show
+cmd dialog
+cmd dialog sideways
+cmd_json dialog show A minecraft:server_links
+dump packets:A:show_dialog,clear_dialog
+note clear
+cmd dialog clear A
+cmd dialog clear @a
+cmd dialog clear nobody
+cmd dialog clear
+cmd_json dialog clear B
+dump packets:A:show_dialog,clear_dialog packets:B:show_dialog,clear_dialog
+note permissions
+cmd_as A dialog show A minecraft:server_links
+cmd_as B dialog show B minecraft:server_links
+cmd_as B dialog clear B
+cmd_as -2 dialog show B minecraft:server_links
+cmd_as -1 dialog clear B
+cmd_as -2 dialog clear B
+dump packets:A:show_dialog,clear_dialog packets:B:show_dialog,clear_dialog

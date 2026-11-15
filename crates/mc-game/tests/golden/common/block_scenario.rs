@@ -132,6 +132,9 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
     s.real_biomes = text.lines().any(|l| {
         let l = l.trim_start();
         l.starts_with("cmd weather")
+            || l.contains("fillbiome ")
+            || l.contains(" if biome ")
+            || l.contains("locate biome ")
             || l.starts_with("bonemeal")
             || l.starts_with("biome ")
             || l.contains(" fillbiome ")
@@ -147,7 +150,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
         || text.contains("jigsaw_generate")
         || ["_axe", "_shovel", "_hoe"].iter().any(|t| text.contains(t));
     // `/place structure` on a flat level generates with the flat chunk generator (the first free height of the layers), not the noise one
-    s.flat_structures = text.contains("place structure");
+    s.flat_structures = text.contains("place structure") || text.contains("locate ");
     // `command_env`: the vanilla server always has its command environment (lecterns resolve written book pages through it);
     // the replay installs a real `MinecraftServer` (nothing started) around every command of the scenario. The verbs that
     // deliver a packet to the player's listener (`select`, `close_menu`, `menu_button`, `pick_block`) need it as well.
@@ -196,6 +199,17 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
         && !packs.is_empty()
     {
         s.actors.use_server_data(server);
+    }
+    // `server_env` (needs the command environment): the clocks the sky reads are the installed server's, and `tick` runs the
+    // server's own per-tick work around the level tick
+    if let Some((server, _)) = &mut server
+        && text.lines().any(|l| l.trim() == "server_env")
+    {
+        s.server_env = true;
+        s.clocks = server.clock_manager().totals();
+        s.env.clocks = s.clocks.clone();
+        // the oracle world runs the frozen, quiet rule set from boot: the installed server's rules start there too
+        *server.game_rules() = quiet_game_rules(FeatureFlagSet::DEFAULT_FLAGS);
     }
     for (i, line) in text.lines().enumerate() {
         let line = line.trim();
@@ -410,6 +424,96 @@ impl LevelTickEnv for Env {
     fn teleport_through_portal(&mut self, _level: &mut ServerLevel, _entity: &mut dyn Entity) {}
 }
 
+/// [`Env`] of a `server_env` scenario: what `ServerTickEnv` reads from the server (tick rate manager, weather, difficulty, clocks) comes from
+/// the installed server, so the commands that change them (`/tick`, `/weather`, `/difficulty`, `/time`) act on the level's tick; the rest
+/// stays the replay's.
+struct ServerBackedEnv<'a>(&'a mut Env);
+
+impl LevelTickEnv for ServerBackedEnv<'_> {
+    fn runs_normally(&self) -> bool {
+        mc_game::commands::server_access::with_server(|server| {
+            server.tick_rate_manager.runs_normally()
+        })
+    }
+    fn is_entity_frozen(&self, entity: &dyn Entity, count_player_passengers: i32) -> bool {
+        mc_game::commands::server_access::with_server(|server| {
+            server
+                .tick_rate_manager
+                .is_entity_frozen(entity.is_player(), count_player_passengers)
+        })
+    }
+    fn weather(&self) -> WeatherState {
+        mc_game::commands::server_access::with_server(|server| {
+            let weather = server.weather_data_ref();
+            WeatherState {
+                clear_weather_time: weather.get_clear_weather_time(),
+                thunder_time: weather.get_thunder_time(),
+                rain_time: weather.get_rain_time(),
+                thundering: weather.is_thundering(),
+                raining: weather.is_raining(),
+            }
+        })
+    }
+    fn set_weather(&mut self, weather: WeatherState) {
+        mc_game::commands::server_access::with_server(|server| {
+            let data = server.weather_data();
+            data.set_clear_weather_time(weather.clear_weather_time);
+            data.set_thunder_time(weather.thunder_time);
+            data.set_rain_time(weather.rain_time);
+            data.set_thundering(weather.thundering);
+            data.set_raining(weather.raining);
+        })
+    }
+    fn wake_up_from_sleep(&mut self) {
+        mc_game::commands::server_access::with_server(|server| {
+            server.wake_up_from_sleep(&Identifier::parse("minecraft:overworld").unwrap())
+        })
+    }
+    fn difficulty(&self) -> Difficulty {
+        mc_game::commands::server_access::with_server(|server| {
+            server
+                .world_data
+                .lock()
+                .settings
+                .difficulty_settings
+                .difficulty
+        })
+    }
+    fn overworld_clock_time(&self) -> i64 {
+        mc_game::commands::server_access::with_server(|server| server.overworld_clock_time())
+    }
+    fn tick_scheduled_events(&mut self, game_time: i64, level: &mut ServerLevel) {
+        self.0.tick_scheduled_events(game_time, level)
+    }
+    fn broadcast_game_event_to_all(
+        &mut self,
+        packet: &mc_protocol::packets::play::ClientboundGameEventPacket,
+    ) {
+        mc_game::commands::server_access::with_server(|server| {
+            server.player_list.broadcast_all(packet)
+        })
+    }
+    fn set_game_time(&mut self, game_time: i64) {
+        mc_game::commands::server_access::with_server(|server| {
+            server.world_data.lock().game_time = game_time
+        })
+    }
+    fn perform_prefixed_command(
+        &mut self,
+        level: &mut ServerLevel,
+        source: mc_game::commands::CommandSourceStack,
+        command: &str,
+    ) {
+        self.0.perform_prefixed_command(level, source, command)
+    }
+    fn run_pending_functions(&mut self, level: &mut ServerLevel) {
+        self.0.run_pending_functions(level)
+    }
+    fn teleport_through_portal(&mut self, level: &mut ServerLevel, entity: &mut dyn Entity) {
+        self.0.teleport_through_portal(level, entity)
+    }
+}
+
 struct Options_ {
     flat: bool,
     /// `level normal`: the real noise generator of the dimension.
@@ -533,6 +637,8 @@ pub struct Scenario {
     line: String,
     /// The `world_clock` totals the attribute timelines read (`time N` sets the overworld clock).
     clocks: Arc<mc_game::world::clock::ClockTotals>,
+    /// `server_env`: the level ticks through the installed server's tick rate manager, clocks, weather and difficulty ([`ServerBackedEnv`]).
+    server_env: bool,
 }
 
 impl Scenario {
@@ -572,6 +678,7 @@ impl Scenario {
             line_no: 0,
             actors: Default::default(),
             line: String::new(),
+            server_env: false,
         }
     }
 
@@ -781,6 +888,9 @@ impl Scenario {
                 mc_game::commands::server_access::with_server(|s| s.command_storage.view());
             level.server_state.loot.command_storage = Arc::new(move |id| storage.get(id));
         }
+        // the border applies its saved settings when the level first reads it (the server does so while it creates the levels, before
+        // any player listens): the change events of that first read are not player-visible
+        level.get_world_border().take_events();
         // loot random sequences are seeded from the world seed (`VanillaLevel.Options.seed`)
         level.server_state.loot.world_seed = self.opts_seed();
         level.tick_state.broadcast_log = Some(self.log.clone());
@@ -952,7 +1062,9 @@ impl Scenario {
             "cmd" => {
                 self.world();
                 match (a.get(1).map(String::as_str), a.get(2).map(String::as_str)) {
-                    (Some("weather"), Some(kind @ ("rain" | "thunder" | "clear"))) => {
+                    (Some("weather"), Some(kind @ ("rain" | "thunder" | "clear")))
+                        if !self.server_env =>
+                    {
                         let ticks: i32 = a
                             .get(3)
                             .and_then(|d| d.parse().ok())
@@ -1001,6 +1113,13 @@ impl Scenario {
             "time" => {
                 self.world();
                 let ticks: i64 = a[1].parse().unwrap_or_else(|_| panic!("time {}", a[1]));
+                if self.server_env {
+                    // the installed server's own clock, which the level reads
+                    let command = format!("cmd_quiet time set {ticks}");
+                    super::command_verbs::command(self, &tokens(&command), &command);
+                    self.level().tick_state.attributes.invalidate_tick_cache();
+                    return;
+                }
                 self.env.clock = ticks;
                 // `/time set` runs from the overworld command source: it moves the overworld clock whatever `dimension` is
                 // (`modifyClock` then drops the cached attribute values); the sky follows from the next tick (`updateSkyBrightness`)
@@ -1075,7 +1194,7 @@ impl Scenario {
                 self.world();
                 self.random_tick(pos(a, 1));
             }
-            "command_env" | "datapack" => {}
+            "command_env" | "datapack" | "server_env" => {}
             "be_nbt" => {
                 self.world();
                 let snbt = self.line[self.line.find(a[4].as_str()).expect("snbt")..].to_string();
@@ -1148,12 +1267,29 @@ impl Scenario {
         self.apply_player_inputs();
         self.force_game_time_synchronization();
         let mut level = self.level.take().expect("world");
-        level.tick(&mut self.env, &mut || true);
+        if self.server_env {
+            // `tickServer` / `tickChildren` around the level tick: the tick rate manager's step counter, then the clocks while the game runs
+            mc_game::commands::server_access::with_server(|server| {
+                server.tick_rate_manager.tick();
+                if server.tick_rate_manager.runs_normally() {
+                    server.tick_clocks();
+                }
+            });
+            level.tick(&mut ServerBackedEnv(&mut self.env), &mut || true);
+        } else {
+            level.tick(&mut self.env, &mut || true);
+        }
         self.level = Some(level);
         self.tick_players();
         // vanilla's scoreboard listeners broadcast as they change; the replay sends what the tick queued
         if mc_game::commands::server_access::has_server() {
             mc_game::commands::server_access::with_server(|server| server.flush_scoreboard());
+        }
+        if self.server_env {
+            let level = self.level.as_mut().expect("world");
+            mc_game::commands::server_access::with_server(|server| {
+                server.with_lent_level(level, |server| server.flush_world_border_events())
+            });
         }
         // `MinecraftServer.tickServer`: the debug subscribers are refreshed after the players
         self.level().tick_debug_subscribers();

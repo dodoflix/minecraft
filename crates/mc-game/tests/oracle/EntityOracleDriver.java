@@ -129,6 +129,8 @@ import net.minecraft.util.RandomSource;
  * bonemeal X Y Z            BoneMealItem.growCrop without a player; prints `BONEMEAL true|false` (true = the block was a valid target)
  * destroy X Y Z              Level.destroyBlock(pos, true) (no breaker: destroy particles event, drops, BLOCK_DESTROY); prints `DESTROY true|false`
  * command_env               (before the first world command) no-op here, the Rust replay installs a command environment (server access) for the scenario
+ * server_env               (before the first world command, with `command_env`) no-op here: the Rust replay ticks its level through the installed server's tick rate manager,
+ *                             clocks, weather and difficulty (a scenario that runs /tick, /time, /weather, /difficulty or moves the border)
  * jigsaw_generate PLAYER X Y Z LEVELS KEEP   ServerboundJigsawGeneratePacket from an operator in creative mode (`op PLAYER`): JigsawBlockEntity.generate(level, LEVELS, KEEP=true|false)
  * be_nbt X Y Z SNBT           merge SNBT into the block entity (`/data merge block`: saveWithFullMetadata.merge, loadWithComponents, setChanged)
  * -- entities --
@@ -259,6 +261,8 @@ import net.minecraft.util.RandomSource;
  *   rng:level / rng:REF = `RNG level|REF STATE` (the 48-bit state of Level.random / of the entity's own random).
  *   parts:REF = `PART REF index name id=+N pos=x,y,z old=xo,yo,zo size=w,h bb=minx,miny,minz,maxx,maxy,maxz` for each part of the ender dragon REF (`id` = the part's entity id minus the dragon's),
  *   counter = `COUNTER N` (ServerLevel.ENTITY_COUNTER: the last id handed out).
+ *   world = `WORLD gametime= difficulty= locked=`, `CLOCK id total= partial= rate= paused=` per world clock, `WEATHER`, `SPAWN dimension x,y,z yaw= pitch=`, `BORDER` (centre, size, lerp target and time, safe zone, damage, warning,
+ *   status), `TICKRATE rate= frozen= steps= sprinting=`; forced = `FORCED cx,cz ..` (the forced chunks of the level, sorted as text; the preload's chunks are among them).
  * </pre>
  *
  * <p>Output lines: {@code T n} (tick counter header before per-tick dumps), {@code P ...} player, {@code E ...} entity,
@@ -572,6 +576,9 @@ public final class EntityOracleDriver {
             world();
             BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
             out.println("BONEMEAL " + net.minecraft.world.item.BoneMealItem.growCrop(new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 64), v.level, pos));
+         }
+         case "server_env" -> {
+            // see the header: the real server always ticks through its own state
          }
          case "command_env" -> {
             // the real server always has its command environment; the Rust replay installs one for the whole scenario
@@ -2323,6 +2330,34 @@ public final class EntityOracleDriver {
                   b.append(" !").append(e.getRawMessage().getString());
                }
                out.println(b);
+            }
+            case "world" -> {
+               // WORLD / CLOCK / WEATHER / SPAWN / BORDER / TICKRATE: the level state the world commands change (time, weather,
+               // difficulty, the world spawn, the border, the tick rate manager and the forced chunks of the level)
+               var l = v.level;
+               var wd = v.server.getWorldData();
+               out.println("WORLD gametime=" + l.getGameTime() + " difficulty=" + wd.getDifficulty().getSerializedName() + " locked=" + wd.isDifficultyLocked());
+               TreeMap<String, String> clocks = new TreeMap<>();
+               v.server.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.WORLD_CLOCK).listElements().forEach(h -> {
+                  var inst = v.server.clockManager().getInstance(h);
+                  clocks.put(h.key().identifier().toString(), "total=" + inst.totalTicks() + " partial=" + f(inst.partialTick()) + " rate=" + f(inst.rate()) + " paused=" + inst.isPaused());
+               });
+               clocks.forEach((id, st) -> out.println("CLOCK " + id + " " + st));
+               var wx = l.getWeatherData();
+               out.println("WEATHER raining=" + wx.isRaining() + " thundering=" + wx.isThundering() + " clear=" + wx.getClearWeatherTime() + " rain=" + wx.getRainTime() + " thunder=" + wx.getThunderTime());
+               var rs = l.getRespawnData();
+               out.println("SPAWN " + rs.dimension().identifier() + " " + rs.pos().getX() + "," + rs.pos().getY() + "," + rs.pos().getZ() + " yaw=" + f(rs.yaw()) + " pitch=" + f(rs.pitch()));
+               var b = l.getWorldBorder();
+               out.println("BORDER center=" + b.getCenterX() + "," + b.getCenterZ() + " size=" + b.getSize() + " target=" + b.getLerpTarget() + " lerp=" + b.getLerpTime() + " safe=" + b.getSafeZone() + " damage=" + b.getDamagePerBlock()
+                  + " warn_blocks=" + b.getWarningBlocks() + " warn_time=" + b.getWarningTime() + " status=" + b.getStatus());
+               var rm = v.server.tickRateManager();
+               out.println("TICKRATE rate=" + f(rm.tickrate()) + " frozen=" + rm.isFrozen() + " steps=" + rm.frozenTicksToRun() + " sprinting=" + v.server.tickRateManager().isSprinting());
+            }
+            case "forced" -> {
+               List<String> forced = new ArrayList<>();
+               v.level.getForceLoadedChunks().forEach(c -> forced.add(net.minecraft.world.level.ChunkPos.getX(c) + "," + net.minecraft.world.level.ChunkPos.getZ(c)));
+               Collections.sort(forced);
+               out.println("FORCED " + String.join(" ", forced));
             }
             case "counter" -> out.println("COUNTER " + ((java.util.concurrent.atomic.AtomicInteger)priv(null, net.minecraft.server.level.ServerLevel.class, "ENTITY_COUNTER")).get());
             case "rng" -> {

@@ -1,0 +1,417 @@
+C Game rule send_command_feedback is now set to true
+WORLD gametime=1 difficulty=normal locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+# time: queries, set (number, marker, errors), add, pause, rate, with advance_time on
+CF msg Clock minecraft:overworld is at 0 tick(s)
+CF result success 0
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg Timeline minecraft:day is at 0 tick(s)
+CF result success 0
+CF msg Timeline minecraft:day has passed 0 repetition(s)
+CF result success 0
+CF msg Timeline minecraft:moon is at 0 tick(s)
+CF result success 0
+CF fail Can't find element 'minecraft:daytime' of type 'minecraft:timeline'
+CF fail ...ft:daytime<--[HERE]
+CF msg Set minecraft:overworld to 1000 tick(s)
+CF result success 1000
+CF result failure 0
+CF fail Clock minecraft:overworld is already set to 1000 tick(s)
+CF result failure 0
+CF fail Clock minecraft:overworld is already at time marker minecraft:day
+CF msg Set minecraft:overworld to time marker minecraft:noon
+CF result success 6000
+CF msg Set minecraft:overworld to time marker minecraft:night
+CF result success 13000
+CF msg Set minecraft:overworld to time marker minecraft:midnight
+CF result success 18000
+CF result failure 0
+CF fail Clock minecraft:overworld is already at time marker minecraft:midnight
+CF result failure 0
+CF fail Time marker minecraft:nothing does not exist for clock minecraft:overworld
+CF msg Set minecraft:overworld to 24000 tick(s)
+CF result success 24000
+CF msg Set minecraft:overworld to 40 tick(s)
+CF result success 40
+CF msg Set minecraft:overworld to 36000 tick(s)
+CF result success 36000
+CF result failure 0
+CF fail Time marker minecraft:-5 does not exist for clock minecraft:overworld
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Set minecraft:overworld to 18005 tick(s)
+CF result success 18005
+CF msg Set minecraft:overworld to 18002 tick(s)
+CF result success 18002
+CF msg Set minecraft:overworld to 0 tick(s)
+CF result success 0
+CF msg Set minecraft:overworld to 240000 tick(s)
+CF result success 240000
+CF msg Clock minecraft:overworld is at 240000 tick(s)
+CF result success 240000
+CF msg Set minecraft:overworld to 7 tick(s)
+CF result success 7
+CF msg Clock minecraft:the_end is at 0 tick(s)
+CF result success 0
+CF fail Can't find element 'minecraft:nothing' of type 'minecraft:world_clock'
+CF fail ...ft:nothing query time<--[HERE]
+CF msg Paused clock minecraft:overworld
+CF result success 1
+CF result failure 0
+CF fail Clock minecraft:overworld is already paused
+CF msg Resumed clock minecraft:overworld
+CF result success 1
+CF result failure 0
+CF fail Clock minecraft:overworld is already running
+CF msg Clock minecraft:overworld will now advance at 2.0x normal rate
+CF result success 1
+CF result failure 0
+CF fail Clock minecraft:overworld is already advancing at 2.0x normal rate
+CF fail Float must not be less than 1.0E-5: found 0.0
+CF fail time rate 0<--[HERE]
+CF fail Float must not be more than 1000.0: found 1001.0
+CF fail time rate 1001<--[HERE]
+CF msg Clock minecraft:overworld will now advance at 0.5x normal rate
+CF result success 1
+CF msg Clock minecraft:overworld will now advance at 1.0x normal rate
+CF result success 1
+WORLD gametime=1 difficulty=normal locked=false
+CLOCK minecraft:overworld total=7 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+C Game rule advance_time is now set to true
+CF msg Set minecraft:overworld to 100 tick(s)
+CF result success 100
+WORLD gametime=6 difficulty=normal locked=false
+CLOCK minecraft:overworld total=105 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=5 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Paused clock minecraft:overworld
+CF result success 1
+WORLD gametime=9 difficulty=normal locked=false
+CLOCK minecraft:overworld total=105 partial=0.0 rate=1.0 paused=true
+CLOCK minecraft:the_end total=8 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Resumed clock minecraft:overworld
+CF result success 1
+CF msg Clock minecraft:overworld will now advance at 2.5x normal rate
+CF result success 1
+WORLD gametime=13 difficulty=normal locked=false
+CLOCK minecraft:overworld total=115 partial=0.0 rate=2.5 paused=false
+CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Clock minecraft:overworld will now advance at 1.0x normal rate
+CF result success 1
+C Game rule advance_time is now set to false
+WORLD gametime=15 difficulty=normal locked=false
+CLOCK minecraft:overworld total=115 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Clock minecraft:overworld is at 115 tick(s)
+CF result success 115
+CF fail Incorrect argument for command
+CF fail time frobnicate<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail time set<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail time add<--[HERE]
+CF msg The game time is 15 tick(s)
+CF json {"translate":"commands.time.query.gametime","with":[15]}
+CF result success 15
+CF msg Set minecraft:overworld to 500 tick(s)
+CF result success 500
+CF fail Unknown or incomplete command. See below for error
+CF fail time set 500<--[HERE]
+CF msg Set minecraft:overworld to 600 tick(s)
+CF result success 600
+CF fail Unknown or incomplete command. See below for error
+CF fail time query time<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail time query gametime<--[HERE]
+# weather: clear rain thunder with and without a duration (the default draws from the level random), as a player
+CF msg Set the weather to clear
+CF result success -1
+WORLD gametime=15 difficulty=normal locked=false
+CLOCK minecraft:overworld total=600 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=138842 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Set the weather to rain
+CF result success -1
+WORLD gametime=15 difficulty=normal locked=false
+CLOCK minecraft:overworld total=600 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false
+WEATHER raining=true thundering=false clear=0 rain=16157 thunder=16157
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Set the weather to rain and thunder
+CF result success -1
+WORLD gametime=15 difficulty=normal locked=false
+CLOCK minecraft:overworld total=600 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false
+WEATHER raining=true thundering=true clear=0 rain=4368 thunder=4368
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Set the weather to clear
+CF result success 100
+CF msg Set the weather to rain
+CF result success 200
+CF msg Set the weather to rain and thunder
+CF result success 300
+WORLD gametime=15 difficulty=normal locked=false
+CLOCK minecraft:overworld total=600 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false
+WEATHER raining=true thundering=true clear=0 rain=300 thunder=300
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF fail The tick count must not be less than 1: found 0
+CF fail ...her rain 0<--[HERE]
+CF msg Set the weather to rain
+CF result success 1
+CF fail Incorrect argument for command
+CF fail weather snow<--[HERE]
+CF fail The tick count must not be less than 1: found -5
+CF fail ...er rain -5<--[HERE]
+CF msg Set the weather to rain
+CF result success 5
+CF msg Set the weather to rain
+CF result success 40
+CF msg Set the weather to rain
+CF result success 24000
+WORLD gametime=15 difficulty=normal locked=false
+CLOCK minecraft:overworld total=600 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false
+WEATHER raining=true thundering=false clear=0 rain=24000 thunder=24000
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Set the weather to clear
+CF result success 40
+WORLD gametime=45 difficulty=normal locked=false
+CLOCK minecraft:overworld total=600 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=40 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Set the weather to clear
+CF result success 10
+CF fail Unknown or incomplete command. See below for error
+CF fail weather clear 10<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail weather<--[HERE]
+CF msg Set the weather to rain
+CF json {"translate":"commands.weather.set.rain"}
+CF result success 20
+CF msg Set the weather to clear
+CF result success 100
+# difficulty: set, same, query, the packet and the locked difficulty
+CF msg The difficulty is Normal
+CF result success 2
+CF msg The difficulty has been set to Hard
+CF result success 0
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Hard
+CF msg The difficulty has been set to Peaceful
+CF result success 0
+CF msg The difficulty has been set to Easy
+CF result success 0
+CF msg The difficulty has been set to Normal
+CF result success 0
+CF fail Incorrect argument for command
+CF fail ...ifficulty h<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...ifficulty 2<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...ifficulty nope<--[HERE]
+CF msg The difficulty has been set to Hard
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail difficulty easy<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail difficulty<--[HERE]
+WORLD gametime=45 difficulty=hard locked=false
+CLOCK minecraft:overworld total=600 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=100 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+# world spawn: positions, rotation, relative coordinates, the packet to every player, errors
+CF msg Set the world spawn point to 10, 70, 10 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+T 46
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c64000002800000a0460000000000000000
+PKT B minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c64000002800000a0460000000000000000
+CF msg Set the world spawn point to 10, 70, 10 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+T 47
+CF msg Set the world spawn point to 3, 4, 5 [45.0, 30.0] in minecraft:overworld
+CF result success 1
+T 48
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c64000000c0000050044234000041f00000
+PKT B minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c64000000c0000050044234000041f00000
+WORLD gametime=48 difficulty=hard locked=false
+CLOCK minecraft:overworld total=600 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=100 rain=0 thunder=0
+SPAWN minecraft:overworld 3,4,5 yaw=45.0 pitch=30.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Set the world spawn point to 3, 4, 5 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+T 49
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c64000000c0000050040000000000000000
+PKT B minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c64000000c0000050040000000000000000
+CF msg Set the world spawn point to 3, 4, 5 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+CF msg Set the world spawn point to 0, 0, 0 [-160.0, 0.0] in minecraft:overworld
+CF result success 1
+CF msg Set the world spawn point to 0, 0, 0 [0.0, 90.0] in minecraft:overworld
+CF result success 1
+CF msg Set the world spawn point to 0, 400, 0 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+CF result failure 0
+CF fail That position is outside the allowed boundaries
+CF fail Incomplete (expected 3 coordinates)
+CF fail ...orldspawn 1 2<--[HERE]
+CF msg Set the world spawn point to 0, -60, 0 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+T 50
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000000c320000000000000
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c6400000000000000000000000042b40000
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c6400000000000001900000000000000000
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000fc40000000000000000
+PKT B minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000000c320000000000000
+PKT B minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c6400000000000000000000000042b40000
+PKT B minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c6400000000000001900000000000000000
+PKT B minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000fc40000000000000000
+CF msg Set the world spawn point to 0, -58, 0 [90.0, -10.0] in minecraft:overworld
+CF result success 1
+T 51
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000fc642b40000c1200000
+PKT B minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000fc642b40000c1200000
+CF fail Unknown or incomplete command. See below for error
+CF fail setworldspawn<--[HERE]
+CF msg Set the world spawn point to 0, -58, 0 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+WORLD gametime=51 difficulty=hard locked=false
+CLOCK minecraft:overworld total=600 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=100 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-58,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+# player spawn point: self, targets, position, rotation, forced, dimension, errors
+CF result failure 0
+CF fail A player is required to run this command here
+CF msg Set spawn point to 0, -58, 0 [0.0, 0.0] in minecraft:overworld for A
+CF result success 1
+CF msg Set spawn point to 1, 2, 3 [0.0, 0.0] in minecraft:overworld for A
+CF result success 1
+CF msg Set spawn point to 1, 2, 3 [90.0, -10.0] in minecraft:overworld for A
+CF result success 1
+CF msg Set spawn point to 1, 2, 3 [90.0, -10.0] in minecraft:overworld for A
+CF result success 1
+CF msg Set spawn point to 7, 8, 9 [0.0, 0.0] in minecraft:overworld for 2 players
+CF result success 2
+CF msg Set spawn point to 7, 8, 9 [-180.0, 45.0] in minecraft:overworld for B
+CF result success 1
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail spawnpoint @e[type=pig] 7 8 9<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF msg Set spawn point to 0, 400, 0 [0.0, 0.0] in minecraft:overworld for A
+CF result success 1
+CF fail Incomplete (expected 2 coordinates)
+CF fail ...t A 0 0 0 190<--[HERE]
+CF result failure 0
+CF fail That position is outside the allowed boundaries
+CF msg Set spawn point to 0, -58, 0 [0.0, 0.0] in minecraft:overworld for A
+CF result success 1
+CF msg Set spawn point to 0, -58, 0 [0.0, 0.0] in minecraft:overworld for A
+CF result success 1
+CF msg Set spawn point to 0, -60, 0 [0.0, 0.0] in minecraft:overworld for A
+CF result success 1
+CF msg Set spawn point to 0, -60, 0 [0.0, 0.0] in minecraft:overworld for 2 players
+CF result success 2
+CF fail Unknown or incomplete command. See below for error
+CF fail spawnpoint<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail spawnpoint B 1 2 3<--[HERE]
+CF msg Set spawn point to 4, 5, 6 [0.0, 0.0] in minecraft:overworld for A
+CF result success 1
+N A {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},respawn:{dimension:"minecraft:overworld",forced:1b,pitch:0.0f,pos:[I;4,5,6],yaw:0.0f},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:51,warning_level:0}}
+N B {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[6.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},respawn:{dimension:"minecraft:overworld",forced:1b,pitch:0.0f,pos:[I;0,-60,0],yaw:0.0f},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:51,warning_level:0}}
+# seed, defaultgamemode, setidletimeout, list
+CF msg Seed: [4242]
+CF result success 4242
+CF msg Seed: [4242]
+CF result success 4242
+CF fail Unknown or incomplete command. See below for error
+CF fail seed<--[HERE]
+CF msg The default game mode is now Creative Mode
+CF result success 0
+CF msg The default game mode is now Creative Mode
+CF result success 0
+CF msg The default game mode is now Survival Mode
+CF result success 0
+CF msg The default game mode is now Spectator Mode
+CF result success 0
+CF msg The default game mode is now Adventure Mode
+CF result success 0
+CF fail Unknown game mode: nope
+CF fail ...emode nope<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ltgamemode<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail defaultgamemode survival<--[HERE]
+CF msg There are 2 of a max of 20 players online: A, B
+CF result success 2
+CF msg There are 2 of a max of 20 players online: A (b76d4ad3-8d01-3150-b333-68cfb4257774), B (f44cd58d-7902-30e7-8bde-679d783ee631)
+CF result success 2
+CF msg There are 2 of a max of 20 players online: A, B
+CF result success 2
+CF msg The player idle timeout is now 10 minute(s)
+CF result success 10
+CF msg The player idle timeout is now disabled
+CF result success 0
+CF fail Integer must not be less than 0: found -1
+CF fail ...letimeout -1<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...dletimeout<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail setidletimeout 5<--[HERE]
+WORLD gametime=51 difficulty=hard locked=false
+CLOCK minecraft:overworld total=600 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=100 rain=0 thunder=0
+SPAWN minecraft:overworld 0,-58,0 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false

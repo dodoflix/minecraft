@@ -192,6 +192,11 @@ impl ServerClockManager {
         self.sync_totals();
     }
 
+    /// The ids of the initialized clocks.
+    pub fn clock_ids(&self) -> impl Iterator<Item = &Identifier> {
+        self.clocks.keys()
+    }
+
     /// The shared mirror of the clocks' total ticks (see [`ClockTotals`]).
     pub fn totals(&self) -> std::sync::Arc<ClockTotals> {
         self.totals.clone()

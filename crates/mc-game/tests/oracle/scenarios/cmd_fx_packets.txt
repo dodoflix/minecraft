@@ -1,0 +1,173 @@
+# /playsound /stopsound /particle /posteffect: the feedback and the packets each player receives (`sound`, `sound_entity`, `stop_sound`,
+# `level_particles`, `post_effects`): sources, ranges, minimum volume, viewers, force mode, filters, as the console, an operator and a plain player.
+command_env
+level flat
+preload 2
+level_seed 11
+entity_counter 20
+spawn_player A survival 0.5 -60 0.5 0 0 joinburst
+spawn_player B survival 6.5 -60 0.5 0 0
+spawn_player C survival 100.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+dump packets:A:sound,sound_entity,stop_sound,level_particles,post_effects
+note playsound: sources, targets, positions, volume, pitch and the minimum volume
+cmd playsound minecraft:entity.pig.ambient master A
+dump packets:A:sound,sound_entity,stop_sound,level_particles
+cmd playsound minecraft:entity.pig.ambient master @a 0 -60 0 1 1
+dump packets:A:sound,sound_entity,stop_sound,level_particles packets:B:sound,sound_entity,stop_sound,level_particles packets:C:sound,sound_entity,stop_sound,level_particles
+cmd playsound minecraft:entity.pig.ambient master @a 0 -60 0 1 1 0
+cmd playsound minecraft:entity.pig.ambient master @a 0 -60 0 1 1 0.5
+dump packets:A:sound,sound_entity,stop_sound,level_particles packets:B:sound,sound_entity,stop_sound,level_particles packets:C:sound,sound_entity,stop_sound,level_particles
+cmd playsound minecraft:entity.pig.ambient master @a 0 -60 0 100 0.5 0.5
+dump packets:A:sound,sound_entity,stop_sound,level_particles packets:B:sound,sound_entity,stop_sound,level_particles packets:C:sound,sound_entity,stop_sound,level_particles
+cmd playsound minecraft:entity.pig.ambient master C 0 -60 0 1
+dump packets:C:sound,sound_entity,stop_sound,level_particles
+cmd playsound minecraft:entity.pig.ambient master C 0 -60 0 1 1 0
+dump packets:C:sound,sound_entity,stop_sound,level_particles
+cmd playsound minecraft:entity.pig.ambient master C 0 -60 0 1 1 1
+cmd playsound minecraft:entity.pig.ambient master C 0 -60 0 0 1 0
+cmd playsound minecraft:entity.pig.ambient master C 0 -60 0 0 1 0.25
+dump packets:C:sound,sound_entity,stop_sound,level_particles
+cmd playsound minecraft:entity.pig.ambient music @a
+cmd playsound minecraft:entity.pig.ambient record @a
+cmd playsound minecraft:entity.pig.ambient weather @a
+cmd playsound minecraft:entity.pig.ambient block @a
+cmd playsound minecraft:entity.pig.ambient hostile @a
+cmd playsound minecraft:entity.pig.ambient neutral @a
+cmd playsound minecraft:entity.pig.ambient player @a
+cmd playsound minecraft:entity.pig.ambient ambient @a
+cmd playsound minecraft:entity.pig.ambient voice @a
+cmd playsound minecraft:entity.pig.ambient ui @a
+dump packets:A:sound,sound_entity,stop_sound,level_particles
+cmd playsound entity.pig.ambient master B ~ ~ ~ 0.5 1.5
+cmd playsound foo:custom master B ~ ~ ~ 4 0.5
+cmd playsound foo:custom master B ~ ~ ~ 4 2 1
+dump packets:B:sound,sound_entity,stop_sound,level_particles
+cmd playsound minecraft:entity.pig.ambient master nobody
+cmd playsound minecraft:entity.pig.ambient master @e[type=pig]
+cmd playsound minecraft:entity.pig.ambient master @a 0 -60 0 -1
+cmd playsound minecraft:entity.pig.ambient master @a 0 -60 0 1 2.5
+cmd playsound minecraft:entity.pig.ambient master @a 0 -60 0 1 1 1.5
+cmd playsound minecraft:entity.pig.ambient bogus @a
+cmd playsound minecraft:entity.pig.ambient
+cmd playsound
+cmd playsound minecraft:entity.pig.ambient master @a 0 -60
+cmd playsound minecraft:entity.pig.ambient master @a ~1 ~2 ~-3 1 1 0
+cmd_json playsound minecraft:entity.pig.ambient master B
+dump packets:A:sound,sound_entity,stop_sound,level_particles packets:B:sound,sound_entity,stop_sound,level_particles packets:C:sound,sound_entity,stop_sound,level_particles
+cmd_as A playsound minecraft:entity.pig.ambient master A
+cmd_as A playsound minecraft:entity.pig.ambient master @s ~ ~ ~ 1 1
+cmd_as B playsound minecraft:entity.pig.ambient master B
+cmd_as -2 playsound minecraft:entity.pig.ambient master B
+cmd_as -1 playsound minecraft:entity.pig.ambient master B
+cmd_as -2 playsound minecraft:entity.pig.ambient master B 5 -60 5
+dump packets:A:sound,sound_entity,stop_sound,level_particles packets:B:sound,sound_entity,stop_sound,level_particles
+note stopsound: all, by source, by sound, both, errors
+cmd stopsound B
+cmd stopsound B *
+cmd stopsound B master
+cmd stopsound B * minecraft:entity.pig.ambient
+cmd stopsound B master minecraft:entity.pig.ambient
+cmd stopsound @a music
+cmd stopsound @a ui minecraft:ui.button.click
+cmd stopsound @a *
+cmd stopsound nobody
+cmd stopsound B bogus
+cmd stopsound
+cmd stopsound C master foo:custom
+cmd_json stopsound B
+dump packets:A:sound,sound_entity,stop_sound,level_particles packets:B:sound,sound_entity,stop_sound,level_particles packets:C:sound,sound_entity,stop_sound,level_particles
+cmd_as B stopsound B
+cmd_as -2 stopsound B
+cmd_as A stopsound @a
+dump packets:A:stop_sound packets:B:stop_sound packets:C:stop_sound
+note particle: names, options, positions, delta, speed, count, force and normal modes, viewers
+cmd particle minecraft:flame
+cmd particle minecraft:flame 0 -59 0
+cmd particle minecraft:flame 0 -59 0 0.5 0.5 0.5 0.1 10
+cmd particle minecraft:flame 0 -59 0 0.5 0.5 0.5 0.1 10 normal
+cmd particle minecraft:flame 0 -59 0 0.5 0.5 0.5 0.1 10 force
+cmd particle minecraft:flame 0 -59 0 0.5 0.5 0.5 0.1 10 normal B
+cmd particle minecraft:flame 0 -59 0 0.5 0.5 0.5 0.1 10 force B
+cmd particle minecraft:flame 0 -59 0 0.5 0.5 0.5 0.1 10 force @a
+cmd particle minecraft:flame 100 -59 0 0 0 0 0 1
+cmd particle minecraft:flame 100 -59 0 0 0 0 0 1 force
+cmd particle minecraft:flame 100 -59 0 0 0 0 0 1 force C
+cmd particle minecraft:flame 100 -59 0 0 0 0 0 0
+cmd particle minecraft:flame ~ ~1 ~
+cmd particle minecraft:flame ~ ~1 ~ 0 0 0 0 1 normal @a
+dump packets:A:sound,sound_entity,stop_sound,level_particles packets:B:sound,sound_entity,stop_sound,level_particles packets:C:sound,sound_entity,stop_sound,level_particles
+cmd particle minecraft:dust{color:[1.0,0.0,0.0],scale:2.0} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:dust_color_transition{from_color:[1.0,0.0,0.0],to_color:[0.0,0.0,1.0],scale:1.0} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:block{block_state:"minecraft:stone"} 0 -59 0 0.1 0.1 0.1 0 5 force
+cmd particle minecraft:block{block_state:{Name:"minecraft:oak_stairs",Properties:{facing:"east"}}} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:item{item:{id:"minecraft:diamond",count:1}} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:entity_effect{color:[1.0,0.5,0.25,1.0]} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:sculk_charge{roll:1.5} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:shriek{delay:5} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:vibration{destination:{type:"minecraft:block",pos:[1,2,3]},arrival_in_ticks:20} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:trail{target:[1.0,2.0,3.0],color:[1.0,1.0,1.0],duration:20} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:flash{color:[1.0,1.0,1.0,1.0]} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:dragon_breath{power:1.5} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:dust_pillar{block_state:"minecraft:dirt"} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:tinted_leaves{color:[0.5,0.5,0.5]} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:effect{color:[0.5,0.5,0.5,1.0],power:2.0} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:instant_effect{color:[0.5,0.5,0.5,1.0],power:2.0} 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:explosion 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:poof 0 -59 0 0 0 0 0 1 force
+cmd particle minecraft:heart 0 -59 0 0 0 0 0 1 force
+dump packets:A:sound,sound_entity,stop_sound,level_particles
+cmd particle nonexistent
+cmd particle foo:bar
+cmd particle minecraft:flame 0 -59 0 0 0 0 -1 1
+cmd particle minecraft:flame 0 -59 0 0 0 0 0 -1
+cmd particle minecraft:flame 0 -59 0 0 0 0 0 1 sideways
+cmd particle minecraft:flame 0 -59 0 0 0 0 0 1 force nobody
+cmd particle minecraft:flame 0 -59 0 -1 -1 -1 0 1
+cmd particle minecraft:flame{} 0 -59 0
+cmd particle minecraft:block 0 -59 0
+cmd particle minecraft:block{block_state:"minecraft:nope"} 0 -59 0
+cmd particle minecraft:dust 0 -59 0
+cmd particle minecraft:dust{color:[1.0,0.0]} 0 -59 0
+cmd particle
+cmd_json particle minecraft:flame 0 -59 0 0 0 0 0 1 force
+cmd_as A particle minecraft:flame
+cmd_as B particle minecraft:flame
+cmd_as -2 particle minecraft:flame 0 -59 0 0 0 0 0 1 force
+cmd_as -1 particle minecraft:flame
+dump packets:A:sound,sound_entity,stop_sound,level_particles packets:B:sound,sound_entity,stop_sound,level_particles
+note posteffect: add, list, remove, clear, errors, the packet with the full list
+cmd posteffect list B
+cmd posteffect add B minecraft:invert
+cmd posteffect add B minecraft:invert
+cmd posteffect add B minecraft:blur
+cmd posteffect add @a minecraft:creeper
+cmd posteffect add @a minecraft:creeper
+cmd posteffect list B
+cmd posteffect list A
+dump packets:A:post_effects packets:B:post_effects packets:C:post_effects
+cmd posteffect remove B minecraft:invert
+cmd posteffect remove B minecraft:invert
+cmd posteffect remove @a minecraft:creeper
+cmd posteffect remove nobody minecraft:creeper
+cmd posteffect list B
+dump packets:A:post_effects packets:B:post_effects packets:C:post_effects
+cmd posteffect clear B
+cmd posteffect clear B
+cmd posteffect clear @a
+cmd posteffect add nobody minecraft:invert
+cmd posteffect add B
+cmd posteffect add B Bad:Name
+cmd posteffect add B minecraft:nothing
+cmd posteffect list @a
+cmd posteffect list nobody
+cmd posteffect
+cmd_json posteffect add B minecraft:invert
+cmd_json posteffect list B
+cmd_as A posteffect add A minecraft:blur
+cmd_as B posteffect add B minecraft:blur
+cmd_as -2 posteffect clear B
+cmd_as -1 posteffect list B
+dump packets:A:post_effects packets:B:post_effects packets:C:post_effects

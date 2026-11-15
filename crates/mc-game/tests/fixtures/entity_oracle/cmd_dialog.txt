@@ -1,0 +1,92 @@
+C Game rule send_command_feedback is now set to true
+# show: registered dialogs, inline dialogs
+CF msg Displayed dialog to A
+CF result success 1
+PKT A minecraft:show_dialog 8f0101
+CF msg Displayed dialog to 2 players
+CF result success 2
+CF msg Displayed dialog to B
+CF result success 1
+PKT A minecraft:show_dialog 8f0103
+PKT B minecraft:show_dialog 8f0103
+PKT B minecraft:show_dialog 8f0102
+CF msg Displayed dialog to A
+CF result success 1
+CF msg Displayed dialog to A
+CF result success 1
+CF msg Displayed dialog to A
+CF result success 1
+CF msg Displayed dialog to A
+CF result success 1
+CF msg Displayed dialog to A
+CF result success 1
+CF msg Displayed dialog to A
+CF result success 1
+CF msg Displayed dialog to A
+CF result success 1
+PKT A minecraft:show_dialog 8f01000a0800057469746c65000548656c6c6f0800047479706500106d696e6563726166743a6e6f7469636500
+PKT A minecraft:show_dialog 8f01000a0a00057469746c65080005636f6c6f72000372656408000474657874000452696368000a0004626f6479080008636f6e74656e74730009426f647920746578740800047479706500176d696e6563726166743a706c61696e5f6d657373616765000800047479706500106d696e6563726166743a6e6f7469636500
+PKT A minecraft:show_dialog 8f01000a0a00026e6f0800056c6162656c00024e6f000a00037965730800056c6162656c0003596573000800057469746c650005537572653f0800047479706500166d696e6563726166743a636f6e6669726d6174696f6e00
+PKT A minecraft:show_dialog 8f01000a0800057469746c6500045069636b0800047479706500166d696e6563726166743a6d756c74695f616374696f6e090007616374696f6e730a000000020800056c6162656c00034f6e65000a0006616374696f6e0800047479706500156d696e6563726166743a72756e5f636f6d6d616e64080007636f6d6d616e6400077361792074776f000800056c6162656c000354776f0000
+PKT A minecraft:show_dialog 8f01000a0800057469746c6500044c6973740800047479706500156d696e6563726166743a6469616c6f675f6c6973740800076469616c6f677300166d696e6563726166743a7365727665725f6c696e6b7300
+PKT A minecraft:show_dialog 8f01000a0800057469746c6500054c696e6b730800047479706500166d696e6563726166743a7365727665725f6c696e6b7300
+PKT A minecraft:show_dialog 8f01000a090006696e707574730a000000040800056c6162656c00044e616d6508000474797065000e6d696e6563726166743a746578740800036b657900046e616d65000800056c6162656c0004466c61670800047479706500116d696e6563726166743a626f6f6c65616e0800036b65790004666c616700050005737461727400000000050003656e64412000000800056c6162656c00014e0800047479706500166d696e6563726166743a6e756d6265725f72616e67650800036b657900016e000900076f7074696f6e730a000000020800026964000161000800026964000162000800056c6162656c00014f0800047479706500176d696e6563726166743a73696e676c655f6f7074696f6e0800036b657900016f000800057469746c650006496e707574730800047479706500166d696e6563726166743a6d756c74695f616374696f6e090007616374696f6e730a000000010800056c6162656c0002476f0000
+# show: errors
+CF fail Can't find element 'minecraft:nothing' in registry 'minecraft:dialog'
+CF fail ...ft:nothing<--[HERE]
+CF fail Failed to parse structure: Unknown registry key in ResourceKey[minecraft:root / minecraft:dialog_type]: minecraft:nope
+CF fail ...aft:nope"}<--[HERE]
+CF fail Failed to parse structure: No key type in MapLike[{}]
+CF fail ... show A {}<--[HERE]
+CF fail Failed to parse structure: No key title in MapLike[{type:"minecraft:notice"}]
+CF fail ...t:notice"}<--[HERE]
+CF fail Expected literal ,
+CF fail ...,title:"x"<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...log show A<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail dialog show @e[type=pig] minecraft:server_links<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ialog show<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail dialog<--[HERE]
+CF fail Incorrect argument for command
+CF fail dialog sideways<--[HERE]
+CF msg Displayed dialog to A
+CF json {"translate":"commands.dialog.show.single","with":[{"click_event":{"action":"suggest_command","command":"/tell A "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"A","uuid":[-1217574189,-1929301680,-1288476465,-1272613004]},"insertion":"A","text":"A"}]}
+CF result success 1
+PKT A minecraft:show_dialog 8f0103
+# clear
+CF msg Cleared dialog for A
+CF result success 1
+CF msg Cleared dialog for 2 players
+CF result success 2
+CF result failure 0
+CF fail No player was found
+CF fail Unknown or incomplete command. See below for error
+CF fail ...alog clear<--[HERE]
+CF msg Cleared dialog for B
+CF json {"translate":"commands.dialog.clear.single","with":[{"click_event":{"action":"suggest_command","command":"/tell B "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"B","uuid":[-196291187,2030186727,-1948358755,2017388081]},"insertion":"B","text":"B"}]}
+CF result success 1
+PKT A minecraft:clear_dialog 8e01
+PKT A minecraft:clear_dialog 8e01
+PKT B minecraft:clear_dialog 8e01
+PKT B minecraft:clear_dialog 8e01
+# permissions
+CF msg Displayed dialog to A
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail dialog show B minecraft:server_links<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail dialog clear B<--[HERE]
+CF msg Displayed dialog to B
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail dialog clear B<--[HERE]
+CF msg Cleared dialog for B
+CF result success 1
+PKT A minecraft:show_dialog 8f0103
+PKT B minecraft:show_dialog 8f0103
+PKT B minecraft:clear_dialog 8e01

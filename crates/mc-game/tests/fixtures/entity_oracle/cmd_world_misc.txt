@@ -1,0 +1,416 @@
+C Game rule send_command_feedback is now set to true
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,0 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1 2,2
+# forceload
+CF msg 25 force loaded chunks were found in minecraft:overworld at: [0, -2], [1, -2], [2, -2], [-2, -2], [-1, -2], [0, -1], [1, -1], [2, -1], [-2, -1], [-1, -1], [0, 0], [1, 0], [2, 0], [-2, 0], [-1, 0], [0, 1], [1, 1], [2, 1], [-2, 1], [-1, 1], [0, 2], [1, 2], [2, 2], [-2, 2], [-1, 2]
+CF result success 25
+CF result failure 0
+CF fail No chunks were marked for force loading
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,0 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1 2,2
+CF result failure 0
+CF fail No chunks were marked for force loading
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,0 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1 2,2
+CF msg 25 force loaded chunks were found in minecraft:overworld at: [0, -2], [1, -2], [2, -2], [-2, -2], [-1, -2], [0, -1], [1, -1], [2, -1], [-2, -1], [-1, -1], [0, 0], [1, 0], [2, 0], [-2, 0], [-1, 0], [0, 1], [1, 1], [2, 1], [-2, 1], [-1, 1], [0, 2], [1, 2], [2, 2], [-2, 2], [-1, 2]
+CF result success 25
+CF msg Chunk at [0, 0] in minecraft:overworld is marked for force loading
+CF result success 1
+CF result failure 0
+CF fail Chunk at [6, 6] in minecraft:overworld is not marked for force loading
+CF msg Chunk at [0, 0] in minecraft:overworld is marked for force loading
+CF result success 1
+CF msg Marked 8 chunks in minecraft:overworld from [2, 2] to [4, 4] to be force loaded
+CF result success 8
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,0 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1 2,2 2,3 2,4 3,2 3,3 3,4 4,2 4,3 4,4
+CF msg 33 force loaded chunks were found in minecraft:overworld at: [0, -2], [1, -2], [2, -2], [-2, -2], [-1, -2], [0, -1], [1, -1], [2, -1], [-2, -1], [-1, -1], [0, 0], [1, 0], [2, 0], [-2, 0], [-1, 0], [0, 1], [1, 1], [2, 1], [-2, 1], [-1, 1], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [-2, 2], [-1, 2], [2, 3], [3, 3], [4, 3], [2, 4], [3, 4], [4, 4]
+CF result success 33
+CF result failure 0
+CF fail No chunks were marked for force loading
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,0 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1 2,2 2,3 2,4 3,2 3,3 3,4 4,2 4,3 4,4
+CF msg Unmarked chunk [0, 0] in minecraft:overworld for force loading
+CF result success 1
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1 2,2 2,3 2,4 3,2 3,3 3,4 4,2 4,3 4,4
+CF result failure 0
+CF fail No chunks were removed from force loading
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1 2,2 2,3 2,4 3,2 3,3 3,4 4,2 4,3 4,4
+CF msg 32 force loaded chunks were found in minecraft:overworld at: [0, -2], [1, -2], [2, -2], [-2, -2], [-1, -2], [0, -1], [1, -1], [2, -1], [-2, -1], [-1, -1], [1, 0], [2, 0], [-2, 0], [-1, 0], [0, 1], [1, 1], [2, 1], [-2, 1], [-1, 1], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [-2, 2], [-1, 2], [2, 3], [3, 3], [4, 3], [2, 4], [3, 4], [4, 4]
+CF result success 32
+CF msg Unmarked 9 chunks in minecraft:overworld from [2, 2] to [4, 4] for force loading
+CF result success 9
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1
+CF result failure 0
+CF fail No chunks were removed from force loading
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1
+CF msg 23 force loaded chunks were found in minecraft:overworld at: [0, -2], [1, -2], [2, -2], [-2, -2], [-1, -2], [0, -1], [1, -1], [2, -1], [-2, -1], [-1, -1], [1, 0], [2, 0], [-2, 0], [-1, 0], [0, 1], [1, 1], [2, 1], [-2, 1], [-1, 1], [0, 2], [1, 2], [-2, 2], [-1, 2]
+CF result success 23
+CF result failure 0
+CF fail That position is out of this world!
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1
+CF result failure 0
+CF fail That position is out of this world!
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1
+CF result failure 0
+CF fail That position is out of this world!
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1
+CF msg Marked chunk [1874999, 0] in minecraft:overworld to be force loaded
+CF result success 1
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 1874999,0 2,-1 2,-2 2,0 2,1
+CF msg Unmarked chunk [1874999, 0] in minecraft:overworld for force loading
+CF result success 1
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1
+CF result failure 0
+CF fail Too many chunks in the specified area (maximum 256, but specified 391876)
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,0 2,1
+CF msg Marked 14 chunks in minecraft:overworld from [0, 0] to [15, 0] to be force loaded
+CF result success 14
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,0 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 10,0 11,0 12,0 13,0 14,0 15,0 2,-1 2,-2 2,0 2,1 3,0 4,0 5,0 6,0 7,0 8,0 9,0
+CF msg Marked chunk [16, 0] in minecraft:overworld to be force loaded
+CF result success 1
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,0 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 10,0 11,0 12,0 13,0 14,0 15,0 16,0 2,-1 2,-2 2,0 2,1 3,0 4,0 5,0 6,0 7,0 8,0 9,0
+CF msg 38 force loaded chunks were found in minecraft:overworld at: [0, -2], [1, -2], [2, -2], [-2, -2], [-1, -2], [0, -1], [1, -1], [2, -1], [-2, -1], [-1, -1], [0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0], [10, 0], [11, 0], [12, 0], [13, 0], [14, 0], [15, 0], [16, 0], [-2, 0], [-1, 0], [0, 1], [1, 1], [2, 1], [-2, 1], [-1, 1], [0, 2], [1, 2], [-2, 2], [-1, 2]
+CF result success 38
+CF msg Unmarked 17 chunks in minecraft:overworld from [0, 0] to [16, 0] for force loading
+CF result success 17
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,1 0,2 1,-1 1,-2 1,1 1,2 2,-1 2,-2 2,1
+CF msg Marked 2 chunks in minecraft:overworld from [-1, -1] to [1, 1] to be force loaded
+CF result success 2
+FORCED -1,-1 -1,-2 -1,0 -1,1 -1,2 -2,-1 -2,-2 -2,0 -2,1 -2,2 0,-1 0,-2 0,0 0,1 0,2 1,-1 1,-2 1,0 1,1 1,2 2,-1 2,-2 2,1
+CF msg 23 force loaded chunks were found in minecraft:overworld at: [0, -2], [1, -2], [2, -2], [-2, -2], [-1, -2], [0, -1], [1, -1], [2, -1], [-2, -1], [-1, -1], [0, 0], [1, 0], [-2, 0], [-1, 0], [0, 1], [1, 1], [2, 1], [-2, 1], [-1, 1], [0, 2], [1, 2], [-2, 2], [-1, 2]
+CF result success 23
+CF msg Chunk at [-1, -1] in minecraft:overworld is marked for force loading
+CF result success 1
+CF msg Unmarked all force loaded chunks in minecraft:overworld
+CF result success 0
+FORCED 
+CF fail No force loaded chunks were found in minecraft:overworld
+CF result success 0
+CF msg Unmarked all force loaded chunks in minecraft:overworld
+CF result success 0
+FORCED 
+CF msg Marked chunk [0, 0] in minecraft:overworld to be force loaded
+CF result success 1
+FORCED 0,0
+CF result failure 0
+CF fail No chunks were marked for force loading
+FORCED 0,0
+CF msg Chunk at [0, 0] in minecraft:overworld is marked for force loading
+CF result success 1
+CF msg Unmarked all force loaded chunks in minecraft:overworld
+CF result success 0
+FORCED 
+CF fail Unknown or incomplete command. See below for error
+CF fail forceload<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ceload add<--[HERE]
+FORCED 
+CF fail Incomplete (expected 2 coordinates)
+CF fail ...eload add 0<--[HERE]
+FORCED 
+CF fail Expected integer
+CF fail ...eload add a b<--[HERE]
+FORCED 
+CF fail Incorrect argument for command
+CF fail ...query 0 0 0<--[HERE]
+CF msg Marked chunk [0, 0] in minecraft:overworld to be force loaded
+CF result success 1
+FORCED 0,0
+CF msg A force loaded chunk was found in minecraft:overworld at: [0, 0]
+CF result success 1
+CF msg Unmarked all force loaded chunks in minecraft:overworld
+CF result success 0
+FORCED 
+CF fail Unknown or incomplete command. See below for error
+CF fail forceload query<--[HERE]
+# forceload outside the preloaded chunks
+CF fail No force loaded chunks were found in minecraft:overworld
+CF result success 0
+CF msg Marked chunk [20, 20] in minecraft:overworld to be force loaded
+CF result success 1
+FORCED 20,20
+CF result failure 0
+CF fail No chunks were marked for force loading
+CF msg A force loaded chunk was found in minecraft:overworld at: [20, 20]
+CF result success 1
+CF msg Chunk at [20, 20] in minecraft:overworld is marked for force loading
+CF result success 1
+CF result failure 0
+CF fail Chunk at [25, 25] in minecraft:overworld is not marked for force loading
+CF msg Chunk at [20, 20] in minecraft:overworld is marked for force loading
+CF result success 1
+CF msg Marked 25 chunks in minecraft:overworld from [22, 22] to [26, 26] to be force loaded
+CF result success 25
+FORCED 20,20 22,22 22,23 22,24 22,25 22,26 23,22 23,23 23,24 23,25 23,26 24,22 24,23 24,24 24,25 24,26 25,22 25,23 25,24 25,25 25,26 26,22 26,23 26,24 26,25 26,26
+CF result failure 0
+CF fail No chunks were marked for force loading
+CF msg Unmarked chunk [20, 20] in minecraft:overworld for force loading
+CF result success 1
+CF result failure 0
+CF fail No chunks were removed from force loading
+CF msg 25 force loaded chunks were found in minecraft:overworld at: [22, 22], [23, 22], [24, 22], [25, 22], [26, 22], [22, 23], [23, 23], [24, 23], [25, 23], [26, 23], [22, 24], [23, 24], [24, 24], [25, 24], [26, 24], [22, 25], [23, 25], [24, 25], [25, 25], [26, 25], [22, 26], [23, 26], [24, 26], [25, 26], [26, 26]
+CF result success 25
+CF msg Unmarked 25 chunks in minecraft:overworld from [22, 22] to [26, 26] for force loading
+CF result success 25
+CF result failure 0
+CF fail No chunks were removed from force loading
+FORCED 
+CF msg Marked 16 chunks in minecraft:overworld from [20, 20] to [35, 20] to be force loaded
+CF result success 16
+CF msg Marked chunk [36, 20] in minecraft:overworld to be force loaded
+CF result success 1
+CF msg 17 force loaded chunks were found in minecraft:overworld at: [20, 20], [21, 20], [22, 20], [23, 20], [24, 20], [25, 20], [26, 20], [27, 20], [28, 20], [29, 20], [30, 20], [31, 20], [32, 20], [33, 20], [34, 20], [35, 20], [36, 20]
+CF result success 17
+CF msg Unmarked 17 chunks in minecraft:overworld from [20, 20] to [36, 20] for force loading
+CF result success 17
+CF msg Marked 9 chunks in minecraft:overworld from [19, 19] to [21, 21] to be force loaded
+CF result success 9
+CF msg Chunk at [19, 19] in minecraft:overworld is marked for force loading
+CF result success 1
+CF msg Unmarked all force loaded chunks in minecraft:overworld
+CF result success 0
+CF msg Unmarked all force loaded chunks in minecraft:overworld
+CF result success 0
+CF msg Marked chunk [0, 0] in minecraft:overworld to be force loaded
+CF result success 1
+CF result failure 0
+CF fail No chunks were marked for force loading
+CF msg Chunk at [0, 0] in minecraft:overworld is marked for force loading
+CF result success 1
+CF msg Unmarked all force loaded chunks in minecraft:overworld
+CF result success 0
+CF msg Marked chunk [6, 6] in minecraft:overworld to be force loaded
+CF result success 1
+CF msg A force loaded chunk was found in minecraft:overworld at: [6, 6]
+CF result success 1
+CF msg Unmarked all force loaded chunks in minecraft:overworld
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail forceload query<--[HERE]
+FORCED 
+# locate (the level is flat plains without structures)
+CF msg The nearest minecraft:plains is at [0, -60, 0] (0 blocks away)
+CF result success 0
+CF result failure 0
+CF fail Could not find a biome of type "minecraft:mushroom_fields" within a reasonable distance
+CF result failure 0
+CF fail Could not find a biome of type "minecraft:desert" within a reasonable distance
+CF result failure 0
+CF fail Could not find a biome of type "minecraft:badlands" within a reasonable distance
+CF msg The nearest #minecraft:is_overworld (minecraft:plains) is at [0, -60, 0] (0 blocks away)
+CF result success 0
+CF result failure 0
+CF fail Could not find a biome of type "#minecraft:is_forest" within a reasonable distance
+CF fail Can't find tag 'minecraft:nosuchtag' of type 'minecraft:worldgen/biome'
+CF fail ...:nosuchtag<--[HERE]
+CF fail Can't find element 'minecraft:notabiome' of type 'minecraft:worldgen/biome'
+CF fail ...:notabiome<--[HERE]
+CF result failure 0
+CF fail Could not find a biome of type "minecraft:jungle" within a reasonable distance
+CF msg The nearest minecraft:plains is at [0, -60, 0] (0 blocks away)
+CF result success 0
+CF msg The nearest #minecraft:is_overworld (minecraft:plains) is at [0, -60, 0] (0 blocks away)
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail locate biome minecraft:plains<--[HERE]
+CF result failure 0
+CF fail Could not find a structure of type "minecraft:village_plains" nearby
+CF result failure 0
+CF fail Could not find a structure of type "#minecraft:village" nearby
+CF result failure 0
+CF fail There is no structure with type "#minecraft:nosuchtag"
+CF result failure 0
+CF fail There is no structure with type "minecraft:notastructure"
+CF result failure 0
+CF fail There is no structure with type "foo:bar"
+CF fail Unknown or incomplete command. See below for error
+CF fail ... structure<--[HERE]
+CF result failure 0
+CF fail Could not find a structure of type "minecraft:stronghold" nearby
+CF result failure 0
+CF fail Could not find a point of interest of type "minecraft:librarian" within a reasonable distance
+CF result failure 0
+CF fail Could not find a point of interest of type "#minecraft:acquirable_job_site" within a reasonable distance
+CF fail Can't find element 'minecraft:nothing' of type 'minecraft:point_of_interest_type'
+CF fail ...ft:nothing<--[HERE]
+CF fail Can't find tag 'minecraft:nosuchtag' of type 'minecraft:point_of_interest_type'
+CF fail ...:nosuchtag<--[HERE]
+CF result failure 0
+CF fail Could not find a point of interest of type "minecraft:nether_portal" within a reasonable distance
+CF result failure 0
+CF fail Could not find a point of interest of type "minecraft:librarian" within a reasonable distance
+CF fail Unknown or incomplete command. See below for error
+CF fail locate<--[HERE]
+CF fail Incorrect argument for command
+CF fail locate sideways<--[HERE]
+# random: value and roll, ranges, sequences, reset
+CF msg Randomized value: 3
+CF result success 3
+CF msg Randomized value: 4
+CF result success 4
+CF result failure 0
+CF fail The range of the random value must be at least 1
+CF result failure 0
+CF fail The range of the random value must be at least 1
+CF fail Min cannot be bigger than max
+CF fail ...dom value 6..1<--[HERE]
+CF result failure 0
+CF fail The range of the random value must be at most 2147483647
+CF msg Randomized value: 1976887974
+CF result success 1976887974
+CF msg Randomized value: 5
+CF result success 5
+CF msg Randomized value: 5
+CF result success 5
+CF result success 2
+CF result success 3
+CF result success 1
+CF msg Randomized value: 1819387219
+CF result success 1819387219
+CF result failure 0
+CF fail The range of the random value must be at most 2147483647
+CF msg Randomized value: 5
+CF result success 5
+CF fail Expected value or range of values
+CF fail ...dom value nope<--[HERE]
+CF msg Reset 2 random sequence(s)
+CF result success 2
+CF msg Reset 0 random sequence(s)
+CF result success 0
+CF msg Reset 0 random sequence(s)
+CF result success 0
+CF msg Reset 0 random sequence(s)
+CF result success 0
+CF msg Reset random sequence minecraft:test
+CF result success 1
+CF msg Reset random sequence minecraft:test
+CF result success 1
+CF msg Reset random sequence minecraft:test
+CF result success 1
+CF msg Reset random sequence minecraft:test
+CF result success 1
+CF msg Reset random sequence minecraft:nothing
+CF result success 1
+CF msg Randomized value: 3
+CF result success 3
+CF msg Randomized value: 6
+CF result success 6
+CF msg Reset random sequence minecraft:test
+CF result success 1
+CF msg Randomized value: 4
+CF result success 4
+CF msg Reset random sequence minecraft:test
+CF result success 1
+CF msg Randomized value: 4
+CF result success 4
+CF fail Unknown or incomplete command. See below for error
+CF fail random<--[HERE]
+CF fail Incorrect argument for command
+CF fail random sideways<--[HERE]
+CF msg Randomized value: 5
+CF json {"translate":"commands.random.sample.success","with":[5]}
+CF result success 5
+CF msg Randomized value: 5
+CF result success 5
+CF msg Randomized value: 2
+CF result success 2
+CF result success 5
+CF msg Reset 2 random sequence(s)
+CF result success 2
+CF fail Incorrect argument for command
+CF fail random reset *<--[HERE]
+CF msg Randomized value: 3
+CF result success 3
+# stopwatch: create, query with a scale, restart, remove, errors
+CF msg Created stopwatch 'minecraft:a'
+CF result success 1
+CF result failure 0
+CF fail Stopwatch 'minecraft:a' already exists
+CF result failure 0
+CF fail Stopwatch 'minecraft:nothing' does not exist
+CF msg Restarted stopwatch 'minecraft:a'
+CF result success 1
+CF result failure 0
+CF fail Stopwatch 'minecraft:nothing' does not exist
+CF msg Removed stopwatch 'minecraft:a'
+CF result success 1
+CF result failure 0
+CF fail Stopwatch 'minecraft:a' does not exist
+CF result failure 0
+CF fail Stopwatch 'minecraft:a' does not exist
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...ch create Bad:Name<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail stopwatch<--[HERE]
+CF msg Created stopwatch 'minecraft:b'
+CF json {"translate":"commands.stopwatch.create.success","with":["minecraft:b"]}
+CF result success 1
+CF msg Created stopwatch 'minecraft:c'
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail stopwatch create minecraft:d<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail stopwatch query minecraft:c<--[HERE]
+# help and list
+CF msg /time set (<time>|<timemarker>)
+CF msg /time add <time>
+CF msg /time pause
+CF msg /time resume
+CF msg /time rate <rate>
+CF msg /time query (time|<timeline>|gametime)
+CF msg /time of <clock> (set|add|pause|resume|rate|query)
+CF result success 7
+CF msg /tick query
+CF msg /tick rate <rate>
+CF msg /tick step [stop|<time>]
+CF msg /tick sprint (stop|<time>)
+CF msg /tick unfreeze
+CF msg /tick freeze
+CF result success 6
+CF msg /execute run ...
+CF msg /execute if (block|biome|loaded|dimension|score|blocks|entity|predicate|function|stopwatch|data|items|slots)
+CF msg /execute unless (block|biome|loaded|dimension|score|blocks|entity|predicate|function|stopwatch|data|items|slots)
+CF msg /execute as <targets> -> execute
+CF msg /execute at <targets> -> execute
+CF msg /execute store (result|success)
+CF msg /execute positioned (<pos>|as|over)
+CF msg /execute rotated (<rot>|as)
+CF msg /execute facing (entity|<pos>)
+CF msg /execute align <axes> -> execute
+CF msg /execute anchored <anchor> -> execute
+CF msg /execute in <dimension> -> execute
+CF msg /execute summon <entity> -> execute
+CF msg /execute on (owner|leasher|target|attacker|vehicle|controller|origin|passengers)
+CF result success 14
+CF msg /execute if block <pos> <block> -> execute
+CF msg /execute if biome <pos> <biome> -> execute
+CF msg /execute if loaded <pos> -> execute
+CF msg /execute if dimension <dimension> -> execute
+CF msg /execute if score <target> <targetObjective> (=|<|<=|>|>=|matches)
+CF msg /execute if blocks <start> <end> <destination> (all|masked)
+CF msg /execute if entity <entities> -> execute
+CF msg /execute if predicate <predicate> -> execute
+CF msg /execute if function <name> -> execute
+CF msg /execute if stopwatch <id> <range> -> execute
+CF msg /execute if data (entity|block|storage)
+CF msg /execute if items (entity|block)
+CF msg /execute if slots (entity|block)
+CF result success 13
+CF result failure 0
+CF fail Unknown command or insufficient permissions
+CF msg /fill <from> <to> <block> [outline|hollow|destroy|strict|replace|keep]
+CF result success 1
+CF result failure 0
+CF fail Unknown command or insufficient permissions
+CF msg /msg <targets> <message>
+CF result success 1
+CF msg There are 2 of a max of 20 players online: A, B
+CF result success 2
+CF msg There are 2 of a max of 20 players online: A (b76d4ad3-8d01-3150-b333-68cfb4257774), B (f44cd58d-7902-30e7-8bde-679d783ee631)
+CF result success 2
+CF fail Incorrect argument for command
+CF fail list nothing<--[HERE]
+CF msg There are 2 of a max of 20 players online: A, B
+CF json {"translate":"commands.list.players","with":[2,20,{"extra":[{"click_event":{"action":"suggest_command","command":"/tell A "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"A","uuid":[-1217574189,-1929301680,-1288476465,-1272613004]},"insertion":"A","text":"A"},{"color":"gray","text":", "},{"click_event":{"action":"suggest_command","command":"/tell B "},"hover_event":{"action":"show_entity","id":"minecraft:player","name":"B","uuid":[-196291187,2030186727,-1948358755,2017388081]},"insertion":"B","text":"B"}],"text":""}]}
+CF result success 2
+CF msg There are 2 of a max of 20 players online: A, B
+CF result success 2
+CF msg There are 2 of a max of 20 players online: A, B
+CF result success 2
+FORCED 

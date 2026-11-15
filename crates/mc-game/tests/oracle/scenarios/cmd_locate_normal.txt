@@ -1,0 +1,50 @@
+# /locate biome and structure on a normal (noise) level with structures, seed 12345: the nearest element, its distance and the failure texts, as the
+# console and an operator.
+command_env
+level normal
+seed 12345
+structures true
+preload 3
+level_seed 3
+entity_counter 20
+spawn_player A survival 0.5 100 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+cmd_as A locate biome minecraft:plains
+cmd_as A locate biome minecraft:forest
+cmd_as A locate biome minecraft:desert
+cmd_as A locate biome minecraft:ocean
+cmd_as A locate biome minecraft:deep_dark
+cmd_as A locate biome minecraft:cherry_grove
+cmd_as A locate biome minecraft:lush_caves
+cmd_as A locate biome #minecraft:is_ocean
+cmd_as A locate biome #minecraft:is_forest
+cmd_as A locate biome minecraft:the_void
+cmd_as A locate biome minecraft:nether_wastes
+cmd_as A locate structure minecraft:village_plains
+cmd_as A locate structure minecraft:village_desert
+cmd_as A locate structure minecraft:stronghold
+cmd_as A locate structure minecraft:ancient_city
+cmd_as A locate structure minecraft:mansion
+cmd_as A locate structure minecraft:monument
+cmd_as A locate structure minecraft:mineshaft
+cmd_as A locate structure minecraft:buried_treasure
+cmd_as A locate structure minecraft:shipwreck
+cmd_as A locate structure minecraft:pillager_outpost
+cmd_as A locate structure minecraft:trial_chambers
+cmd_as A locate structure #minecraft:village
+cmd_as A locate structure #minecraft:ruined_portal
+cmd_as A locate structure #minecraft:on_treasure_maps
+cmd_as A locate structure #minecraft:eye_of_ender_located
+cmd_as A locate structure minecraft:fortress
+cmd_as A locate structure minecraft:nothing
+cmd_as A locate structure minecraft:village_plains
+cmd_as A locate biome minecraft:forest
+cmd tp @a 1000 100 -2000
+tick 5
+cmd_as A locate biome minecraft:forest
+cmd_as A locate structure minecraft:village_plains
+cmd_as A locate structure #minecraft:village
+cmd_as A locate poi minecraft:librarian
+cmd_as A locate poi #minecraft:acquirable_job_site

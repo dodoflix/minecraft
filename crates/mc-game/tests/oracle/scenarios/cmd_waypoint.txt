@@ -1,0 +1,88 @@
+# /waypoint list and modify (colour by team colour, hex, reset, icon style) and the locator bar packets two players receive when a waypoint changes
+# or when players move apart, as the console, an operator and a plain player.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 20
+spawn_player A survival 0.5 -60 0.5 0 0 joinburst
+spawn_player B survival 6.5 -60 0.5 0 0 joinburst
+op A
+gamerule send_command_feedback true
+tick 3
+dump packets:A:none packets:B:none
+note list: two player waypoints, the feedback text and its click event
+cmd waypoint list
+cmd_json waypoint list
+cmd_as A waypoint list
+note modify the colour: team colours, hex, reset
+cmd waypoint modify A color red
+dump packets:A:waypoint packets:B:waypoint
+cmd waypoint modify A color red
+dump packets:A:waypoint packets:B:waypoint
+cmd waypoint modify B color blue
+cmd waypoint modify B color dark_green
+cmd waypoint modify A color hex FF8800
+cmd waypoint modify A color hex 00ff00
+cmd waypoint modify A color hex ABC
+cmd waypoint modify A color hex GGGGGG
+cmd waypoint modify A color hex
+cmd waypoint modify A color reset
+cmd waypoint modify A color reset
+cmd waypoint modify A color nocolor
+cmd waypoint modify A color white
+cmd waypoint modify A color reset
+cmd_json waypoint modify B color hex 123456
+dump packets:A:waypoint packets:B:waypoint
+cmd waypoint list
+cmd_json waypoint list
+note modify the style
+cmd waypoint modify A style set minecraft:bowtie
+cmd waypoint modify A style set minecraft:default
+cmd waypoint modify A style set foo:custom
+cmd waypoint modify A style set Bad:Name
+cmd waypoint modify A style set
+cmd waypoint modify A style reset
+cmd waypoint modify A style reset
+cmd waypoint modify B style set foo:custom
+dump packets:A:waypoint packets:B:waypoint
+note targets: selectors, other entities and errors
+cmd waypoint modify @a color red
+cmd waypoint modify @s color red
+cmd waypoint modify @e[type=pig] color red
+cmd waypoint modify nobody color red
+cmd waypoint modify
+cmd waypoint
+cmd waypoint sideways
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b}
+cmd waypoint modify @e[type=pig,limit=1] color red
+cmd waypoint modify @e[type=pig,limit=1] style set foo:custom
+cmd waypoint list
+dump packets:A:waypoint packets:B:waypoint
+cmd_as A waypoint modify @s color blue
+cmd_as A waypoint modify B color red
+cmd_as B waypoint modify B color red
+cmd_as B waypoint list
+cmd_as -2 waypoint list
+cmd_as -2 waypoint modify A color red
+cmd_as -1 waypoint modify A color red
+dump packets:A:waypoint packets:B:waypoint
+note movement: a player that leaves the range and returns, a waypoint change at distance
+cmd waypoint modify A color red
+cmd waypoint modify B color green
+dump packets:A:waypoint packets:B:waypoint
+cmd tp B 500.5 -60 0.5
+tick 3
+dump packets:A:waypoint packets:B:waypoint
+cmd waypoint modify B color blue
+tick 1
+dump packets:A:waypoint packets:B:waypoint
+cmd tp B 8.5 -60 0.5
+tick 3
+dump packets:A:waypoint packets:B:waypoint
+cmd waypoint modify B style set minecraft:bowtie
+tick 1
+dump packets:A:waypoint packets:B:waypoint
+cmd tp B 40.5 -60 0.5
+tick 2
+dump packets:A:waypoint packets:B:waypoint
