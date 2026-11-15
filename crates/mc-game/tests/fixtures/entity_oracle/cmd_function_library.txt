@@ -1,0 +1,128 @@
+# boot: the library has already logged the functions and tags that failed to load
+LOG ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
+LOG ERROR: Failed to load function fn:bad_comment\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
+LOG ERROR: Failed to load function fn:bad_continuation\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file
+LOG ERROR: Failed to load function fn:bad_macro\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(oops'
+LOG ERROR: Failed to load function fn:bad_slash\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '/say hi' on line 1 (did you mean 'say'? Do not use a preceding forwards slash.)
+LOG ERROR: Failed to load function fn:bad_syntax\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+LOG ERROR: Failed to load function fn:macro_bad_key\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a-b)'
+LOG ERROR: Failed to load function fn:macro_no_vars\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say no variables here'
+LOG ERROR: Failed to load function fn:macro_only_dollar\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: ''
+LOG ERROR: Failed to load function fn:macro_unclosed\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a'
+STORAGE fn:state {}
+CF result failure 0
+CF fail Unknown scoreboard objective 'fn'
+# the first tick runs the load tag in order, then the tick tag
+STORAGE fn:state {loads:["a","b","c"],ticks:["a","b"]}
+OBJ {DisplayName:"fn",Name:"fn"}
+SCORE {Locked:1b,Name:"#tick",Objective:"fn",Score:1}
+DISPLAY {}
+STORAGE fn:state {loads:["a","b","c"],ticks:["a","b","a","b","a","b"]}
+CF msg #tick has 3 [fn]
+CF result success 3
+STORAGE fn:state {loads:["a","b","c"],ticks:["a","b","a","b","a","b"]}
+CF msg #tick has 6 [fn]
+CF result success 6
+# a reload loads the library again: the same load errors, the load tag once more at the next tick
+CF msg Reloading!
+CF result success 0
+LOG ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
+LOG ERROR: Failed to load function fn:bad_comment\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
+LOG ERROR: Failed to load function fn:bad_continuation\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file
+LOG ERROR: Failed to load function fn:bad_macro\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(oops'
+LOG ERROR: Failed to load function fn:bad_slash\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '/say hi' on line 1 (did you mean 'say'? Do not use a preceding forwards slash.)
+LOG ERROR: Failed to load function fn:bad_syntax\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+LOG ERROR: Failed to load function fn:macro_bad_key\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a-b)'
+LOG ERROR: Failed to load function fn:macro_no_vars\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say no variables here'
+LOG ERROR: Failed to load function fn:macro_only_dollar\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: ''
+LOG ERROR: Failed to load function fn:macro_unclosed\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a'
+STORAGE fn:state {loads:["a","b","c"],ticks:["a","b","a","b","a","b"]}
+STORAGE fn:state {loads:["a","b","c","a","b","c"],ticks:["a","b","a","b","a","b"]}
+STORAGE fn:state {loads:["a","b","c","a","b","c"],ticks:["a","b","a","b","a","b"]}
+CF msg #tick has 9 [fn]
+CF result success 9
+# function names that do not exist, tags that failed to load or are empty
+CF fail Unknown function fn:unknown
+CF result failure 0
+CF fail Can't find any functions for name fn:missing_tag
+CF result failure 0
+CF fail Can't find any functions for name fn:broken
+CF result failure 0
+CF fail Can't find any functions for name fn:nothing
+CF result failure 0
+CF msg Running function fn:hello
+CF fail Unknown function fn:bad_syntax
+CF result failure 0
+CF fail Unknown function fn:bad_slash
+CF result failure 0
+CF fail Unknown function fn:bad_comment
+CF result failure 0
+CF fail Unknown function fn:bad_continuation
+CF result failure 0
+CF fail Unknown function fn:bad_macro
+CF result failure 0
+CF msg Running function fn:macro_parse_error
+CF fail Failed to instantiate function fn:macro_parse_error: Missing arguments to function fn:macro_parse_error
+CF result failure 0
+CF msg Running functions fn:load_a, fn:load_b, fn:load_c
+CF msg Running functions fn:tick_a, fn:tick_b
+CF msg Running function fn:load_b
+# the pack in the datapack commands
+CF msg There are 2 data pack(s) enabled: [vanilla (built-in)], [file/fnpack (world)]
+CF msg There are no more data packs available
+CF result success 2
+CF msg There are 2 data pack(s) enabled: [vanilla (built-in)], [file/fnpack (world)]
+CF result success 2
+CF msg There are no more data packs available
+CF result success 0
+CF msg Disabling data pack [file/fnpack (world)]
+CF result success 1
+CF fail Unknown function fn:hello
+CF result failure 0
+CF fail Can't find any functions for name minecraft:tick
+CF result failure 0
+STORAGE fn:state {hello:1b,loads:["a","b","c","a","b","c","a","b","c","b"],ticks:["a","b","a","b","a","b"]}
+CF msg #tick has 10 [fn]
+CF result success 10
+CF msg Enabling data pack [file/fnpack (world)]
+CF result success 2
+LOG ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
+LOG ERROR: Failed to load function fn:bad_comment\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
+LOG ERROR: Failed to load function fn:bad_continuation\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file
+LOG ERROR: Failed to load function fn:bad_macro\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(oops'
+LOG ERROR: Failed to load function fn:bad_slash\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '/say hi' on line 1 (did you mean 'say'? Do not use a preceding forwards slash.)
+LOG ERROR: Failed to load function fn:bad_syntax\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+LOG ERROR: Failed to load function fn:macro_bad_key\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a-b)'
+LOG ERROR: Failed to load function fn:macro_no_vars\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say no variables here'
+LOG ERROR: Failed to load function fn:macro_only_dollar\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: ''
+LOG ERROR: Failed to load function fn:macro_unclosed\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a'
+STORAGE fn:state {hello:1b,loads:["a","b","c","a","b","c","a","b","c","b","a","b","c"],ticks:["a","b","a","b","a","b"]}
+CF msg #tick has 13 [fn]
+CF result success 13
+CF msg Running function fn:hello
+CF msg Disabling data pack [file/fnpack (world)]
+CF result success 1
+CF result failure 0
+CF fail Pack 'file/fnpack' is not enabled!
+CF result failure 0
+CF fail Unknown data pack 'bogus'
+CF msg Enabling data pack [file/fnpack (world)]
+CF result success 2
+CF result failure 0
+CF fail Pack 'file/fnpack' is already enabled!
+CF result failure 0
+CF fail Pack 'file/fnpack' is already enabled!
+CF result failure 0
+CF fail Pack 'file/fnpack' is already enabled!
+CF result failure 0
+CF fail Pack 'file/fnpack' is already enabled!
+LOG ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
+LOG ERROR: Failed to load function fn:bad_comment\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
+LOG ERROR: Failed to load function fn:bad_continuation\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file
+LOG ERROR: Failed to load function fn:bad_macro\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(oops'
+LOG ERROR: Failed to load function fn:bad_slash\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '/say hi' on line 1 (did you mean 'say'? Do not use a preceding forwards slash.)
+LOG ERROR: Failed to load function fn:bad_syntax\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+LOG ERROR: Failed to load function fn:macro_bad_key\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a-b)'
+LOG ERROR: Failed to load function fn:macro_no_vars\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say no variables here'
+LOG ERROR: Failed to load function fn:macro_only_dollar\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: ''
+LOG ERROR: Failed to load function fn:macro_unclosed\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a'

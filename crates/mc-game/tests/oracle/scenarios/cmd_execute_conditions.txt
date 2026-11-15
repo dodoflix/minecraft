@@ -1,0 +1,394 @@
+# `execute if|unless` in every form and its feedback: block, blocks (all, masked), biome, loaded, dimension, entity, score (every
+# comparison and `matches` range), predicate, function, data (block, entity, storage), items and slots (entity, block), stopwatch, with the
+# `Test passed` / `Test failed` / count texts, the numeric results and the errors of unloaded or malformed arguments.
+datapack fnpack
+command_env
+level flat
+preload 2
+entity_counter 3600
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+tick 1
+fill 0 -60 4 6 -60 4 minecraft:stone
+fill 0 -60 8 3 -59 9 minecraft:stone
+fill 10 -60 4 12 -60 4 minecraft:stone
+block 1 -60 6 minecraft:chest[facing=north]
+block 3 -60 6 minecraft:oak_sign[rotation=0]
+block 5 -60 6 minecraft:oak_log[axis=y]
+block 6 -60 6 minecraft:birch_log[axis=x]
+block 7 -60 6 minecraft:lever[face=floor,facing=north,powered=true]
+block 8 -60 6 minecraft:water[level=0]
+tick 1
+cmd data merge block 1 -60 6 {Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:5b,id:"minecraft:stick",count:12},{Slot:26b,id:"minecraft:apple",count:1}]}
+cmd data merge block 3 -60 6 {front_text:{messages:['"one"','"two"','"three"','"four"']}}
+cmd summon minecraft:pig 3 -60 2 {NoAI:1b,Tags:["farm","a"],CustomName:'"Pig"',Health:7.5f,UUID:[I;61,0,0,1]}
+cmd summon minecraft:pig 5 -60 2 {NoAI:1b,Tags:["farm"],IsBaby:1b,UUID:[I;61,0,0,2]}
+cmd summon minecraft:cow 7 -60 2 {NoAI:1b,UUID:[I;61,0,0,3]}
+cmd summon minecraft:armor_stand 9 -60 2 {NoGravity:1b,UUID:[I;61,0,0,4],ArmorItems:[{},{},{id:"minecraft:iron_chestplate",count:1},{}]}
+cmd item replace entity A weapon.mainhand with minecraft:diamond_sword
+cmd item replace entity A hotbar.3 with minecraft:apple 5
+cmd item replace entity A inventory.0 with minecraft:cobblestone 64
+cmd item replace entity A armor.head with minecraft:iron_helmet
+cmd item replace entity @e[type=pig,limit=1] weapon.mainhand with minecraft:stick
+cmd scoreboard objectives add pts dummy
+cmd scoreboard players set A pts 5
+cmd scoreboard players set B pts 5
+cmd scoreboard players set #lo pts -3
+cmd scoreboard players set #hi pts 100
+cmd data merge storage fn:cond {n:5,s:"text",l:[1,2,3],c:{a:1,b:{c:[{d:1},{d:2}]}},e:[],z:0b}
+tick 1
+dump packets:A:none
+note block
+cmd execute if block 1 -60 4 minecraft:stone
+cmd execute unless block 1 -60 4 minecraft:stone
+cmd execute if block 1 -60 4 minecraft:dirt
+cmd execute unless block 1 -60 4 minecraft:dirt
+cmd execute if block 1 -60 6 minecraft:chest
+cmd execute if block 1 -60 6 minecraft:chest[facing=north]
+cmd execute if block 1 -60 6 minecraft:chest[facing=south]
+cmd execute if block 1 -60 6 minecraft:chest[type=single]
+cmd execute if block 1 -60 6 minecraft:chest{Items:[{id:"minecraft:diamond"}]}
+cmd execute if block 1 -60 6 minecraft:chest{Items:[{id:"minecraft:emerald"}]}
+cmd execute if block 1 -60 6 minecraft:chest{Items:[{id:"minecraft:diamond",count:3}]}
+cmd execute if block 5 -60 6 #minecraft:logs
+cmd execute if block 6 -60 6 #minecraft:logs
+cmd execute if block 6 -60 6 #minecraft:logs[axis=x]
+cmd execute if block 6 -60 6 #minecraft:logs[axis=y]
+cmd execute if block 7 -60 6 minecraft:lever[powered=true]
+cmd execute if block 7 -60 6 minecraft:lever[powered=false]
+cmd execute if block 8 -60 6 minecraft:water
+cmd execute if block 8 -60 6 minecraft:water[level=0]
+cmd execute if block 8 -60 6 minecraft:water[level=1]
+cmd execute if block 2 -60 7 minecraft:air
+cmd execute unless block 2 -60 7 minecraft:air
+cmd execute if block ~ ~-1 ~ minecraft:grass_block
+cmd execute if block 0 -61 0 minecraft:grass_block
+cmd execute if block 0 -64 0 minecraft:bedrock
+cmd execute if block 0 -65 0 minecraft:air
+cmd execute if block 0 400 0 minecraft:air
+cmd execute if block 1000 -60 1000 minecraft:air
+cmd execute unless block 1000 -60 1000 minecraft:air
+cmd execute if block 0 -60 0 minecraft:nothing
+cmd execute if block 0 -60 0 minecraft:stone[bogus=1]
+cmd execute if block 0 -60 0 minecraft:stone[
+cmd execute if block 0 -60 0 minecraft:stone{
+cmd execute if block 0 -60 0
+cmd execute if block 0 -60
+cmd execute if block ~ ~ ~ #minecraft:nothing
+cmd execute if block ~ ~ ~ air run say yes
+cmd execute store result score #r pts if block 1 -60 4 minecraft:stone
+cmd scoreboard players get #r pts
+cmd execute store result score #r pts unless block 1 -60 4 minecraft:stone
+cmd scoreboard players get #r pts
+cmd execute store success score #r pts if block 1 -60 4 minecraft:stone
+cmd scoreboard players get #r pts
+note blocks
+cmd execute if blocks 0 -60 4 6 -60 4 0 -60 8 all
+cmd execute if blocks 0 -60 4 6 -60 4 0 -60 4 all
+cmd execute if blocks 0 -60 4 6 -60 4 4 -60 4 all
+cmd execute if blocks 0 -60 4 3 -60 4 4 -60 4 all
+cmd execute unless blocks 0 -60 4 6 -60 4 0 -60 8 all
+cmd execute if blocks 0 -60 4 6 -60 4 0 -60 8 masked
+cmd execute if blocks 0 -60 4 6 -60 4 10 -60 4 all
+cmd execute if blocks 0 -60 4 6 -60 4 10 -60 4 masked
+cmd execute if blocks 0 -60 4 2 -60 4 10 -60 4 all
+cmd execute if blocks 0 -60 5 6 -60 5 0 -60 8 all
+cmd execute if blocks 0 -60 5 6 -60 5 0 -60 8 masked
+cmd execute if blocks 0 -60 8 3 -59 9 0 -60 4 all
+cmd execute if blocks 0 -60 4 6 -60 6 0 -60 4 all
+cmd execute if blocks 1000 -60 1000 1001 -60 1000 0 -60 4 all
+cmd execute if blocks 0 -60 4 6 -60 4 1000 -60 1000 all
+cmd execute if blocks 0 -60 0 100 20 100 0 30 0 all
+cmd execute if blocks 0 -60 0 0 -60 0 5 -60 5 all
+cmd execute if blocks 0 -60 4 6 -60 4 0 -60 8 bogus
+cmd execute if blocks 0 -60 4 6 -60 4 0 -60 8
+cmd execute store result score #r pts if blocks 0 -60 4 6 -60 4 0 -60 8 all
+cmd scoreboard players get #r pts
+note biome, loaded, dimension
+cmd execute if biome 0 -60 0 minecraft:plains
+cmd execute if biome 0 -60 0 minecraft:desert
+cmd execute if biome 0 -60 0 #minecraft:is_overworld
+cmd execute if biome 0 -60 0 #minecraft:is_nether
+cmd execute if biome 0 -60 0 minecraft:nothing
+cmd execute if biome 1000 -60 1000 minecraft:plains
+cmd execute if biome 0 400 0 minecraft:plains
+cmd execute if loaded 0 -60 0
+cmd execute if loaded 1000 -60 1000
+cmd execute unless loaded 1000 -60 1000
+cmd execute if loaded 0 5000 0
+cmd execute if loaded ~ ~ ~
+cmd execute if loaded 31 -60 31
+cmd execute if loaded 40 -60 40
+cmd execute if loaded 8 -60 8
+cmd execute if dimension minecraft:overworld
+cmd execute unless dimension minecraft:overworld
+cmd execute if dimension overworld
+cmd execute if dimension nowhere:land
+cmd execute in minecraft:overworld if dimension minecraft:overworld
+note entity
+cmd execute if entity @e[type=pig]
+cmd execute unless entity @e[type=pig]
+cmd execute if entity @e[type=cow]
+cmd execute if entity @e[type=sheep]
+cmd execute unless entity @e[type=sheep]
+cmd execute if entity @a
+cmd execute if entity @a[name=A]
+cmd execute if entity @a[name=Nobody]
+cmd execute if entity @e[tag=farm]
+cmd execute if entity @e[tag=farm,limit=1]
+cmd execute if entity @e[tag=farm,nbt={IsBaby:1b}]
+cmd execute if entity @s
+cmd execute as A if entity @s
+cmd execute as @e[type=cow] if entity @s[type=pig]
+cmd execute if entity @e[distance=..3]
+cmd execute if entity @e[x=3,y=-60,z=2,distance=..0.5]
+cmd execute if entity @e[type=pig,y_rotation=0..]
+cmd execute if entity @e[bogus=1]
+cmd execute if entity @e[
+cmd execute if entity
+cmd execute if entity A
+cmd execute if entity @e[type=pig] run say pigs
+cmd execute store result score #r pts if entity @e[tag=farm]
+cmd scoreboard players get #r pts
+cmd execute store result score #r pts unless entity @e[tag=farm]
+cmd scoreboard players get #r pts
+cmd execute store success score #r pts if entity @e[tag=farm]
+cmd scoreboard players get #r pts
+cmd execute store result score #r pts if entity @e[type=sheep]
+cmd scoreboard players get #r pts
+note score
+cmd execute if score A pts = B pts
+cmd execute unless score A pts = B pts
+cmd execute if score A pts < B pts
+cmd execute if score A pts <= B pts
+cmd execute if score A pts > B pts
+cmd execute if score A pts >= B pts
+cmd execute if score #lo pts < #hi pts
+cmd execute if score #lo pts > #hi pts
+cmd execute if score A pts matches 5
+cmd execute if score A pts matches 4
+cmd execute if score A pts matches 4..6
+cmd execute if score A pts matches ..4
+cmd execute if score A pts matches 6..
+cmd execute if score A pts matches ..5
+cmd execute if score A pts matches 5..5
+cmd execute if score A pts matches 6..4
+cmd execute if score A pts matches -2147483648..2147483647
+cmd execute if score A pts matches 2147483648
+cmd execute if score A pts matches 1.5
+cmd execute if score A pts matches ..
+cmd execute if score A pts matches x
+cmd execute if score #lo pts matches -5..-1
+cmd execute unless score #lo pts matches -5..-1
+cmd execute if score #nobody pts matches 0
+cmd execute unless score #nobody pts matches 0
+cmd execute if score #nobody pts = A pts
+cmd execute if score A pts = #nobody pts
+cmd execute if score A nope = B pts
+cmd execute if score A pts = B nope
+cmd execute if score @e[type=pig] pts matches 0
+cmd execute if score @a pts = B pts
+cmd execute if score * pts = A pts
+cmd execute if score A pts ~ B pts
+cmd execute if score A pts
+cmd execute if score A pts matches
+cmd execute store result score #r pts if score A pts matches 5
+cmd scoreboard players get #r pts
+note predicate
+cmd execute if predicate fn:always
+cmd execute unless predicate fn:always
+cmd execute if predicate fn:never
+cmd execute unless predicate fn:never
+cmd execute as @e[type=pig] if predicate fn:pig
+cmd execute as @e[type=cow] if predicate fn:pig
+cmd execute as A if predicate fn:pig
+cmd execute if predicate fn:missing
+cmd execute if predicate fn:pig
+cmd execute if predicate {"type":"minecraft:all_of","terms":[]}
+cmd execute if predicate {"type":"minecraft:any_of","terms":[]}
+cmd execute if predicate {"type":"minecraft:bogus"}
+cmd execute if predicate [{"type":"minecraft:all_of","terms":[]},{"type":"minecraft:any_of","terms":[]}]
+cmd execute if predicate
+cmd execute if predicate #fn:always
+note function
+cmd execute if function fn:ret_value
+cmd execute unless function fn:ret_value
+cmd execute if function fn:ret_fail
+cmd execute unless function fn:ret_fail
+cmd execute if function fn:hello
+cmd execute if function fn:empty
+cmd execute if function fn:ret_three
+cmd execute if function #fn:more
+cmd execute unless function #fn:more
+cmd execute if function #fn:all
+cmd execute if function #fn:nothing
+cmd execute unless function #fn:nothing
+cmd execute if function fn:unknown
+cmd execute if function #fn:missing_tag
+cmd execute if function fn:macro {a:1,b:2}
+cmd execute if function fn:macro_return {v:5}
+cmd execute if function fn:macro_return {v:0}
+cmd execute if function fn:macro
+cmd execute if function
+cmd execute store result score #r pts if function fn:ret_value
+cmd scoreboard players get #r pts
+cmd execute store result score #r pts if function #fn:more
+cmd scoreboard players get #r pts
+cmd execute store result score #r pts unless function fn:ret_fail
+cmd scoreboard players get #r pts
+cmd execute store success score #r pts if function fn:ret_value
+cmd scoreboard players get #r pts
+cmd execute if function fn:ret_value run say ran
+cmd execute if function #fn:more run say ran-more
+dump packets:A:disguised_chat,system_chat
+note data
+cmd execute if data storage fn:cond n
+cmd execute if data storage fn:cond nothing
+cmd execute unless data storage fn:cond nothing
+cmd execute if data storage fn:cond l
+cmd execute if data storage fn:cond l[]
+cmd execute if data storage fn:cond l[1]
+cmd execute if data storage fn:cond l[5]
+cmd execute if data storage fn:cond l[-1]
+cmd execute if data storage fn:cond l[{}]
+cmd execute if data storage fn:cond e[]
+cmd execute if data storage fn:cond e
+cmd execute if data storage fn:cond c.b.c[]
+cmd execute if data storage fn:cond c.b.c[{d:2}]
+cmd execute if data storage fn:cond c.b.c[{d:3}]
+cmd execute if data storage fn:cond c.b.c[].d
+cmd execute if data storage fn:cond c{a:1}
+cmd execute if data storage fn:cond c{a:2}
+cmd execute if data storage fn:cond {n:5}
+cmd execute if data storage fn:cond z
+cmd execute if data storage fn:cond s
+cmd execute if data storage fn:cond
+cmd execute if data storage fn:nothing n
+cmd execute if data storage fn:cond c.
+cmd execute if data storage fn:cond [
+cmd execute if data storage fn:cond n.x
+cmd execute if data storage bogus
+cmd execute if data entity @e[type=pig,limit=1] Health
+cmd execute if data entity @e[type=pig,limit=1] Nothing
+cmd execute if data entity @e[tag=farm,limit=1,sort=nearest] CustomName
+cmd execute if data entity @e[type=pig] Health
+cmd execute if data entity @e[type=sheep] Health
+cmd execute if data entity A Inventory[{id:"minecraft:apple"}]
+cmd execute if data entity A Inventory[{id:"minecraft:emerald"}]
+cmd execute if data entity A SelectedItemSlot
+cmd execute if data entity A abilities.flying
+cmd execute if data entity @e[tag=farm] Tags[]
+cmd execute if data block 1 -60 6 Items[]
+cmd execute if data block 1 -60 6 Items[{Slot:5b}]
+cmd execute if data block 1 -60 6 Items[{Slot:6b}]
+cmd execute if data block 1 -60 6 lock
+cmd execute if data block 3 -60 6 front_text.messages[0]
+cmd execute if data block 3 -60 6 front_text.messages
+cmd execute if data block 3 -60 6 back_text.messages[]
+cmd execute if data block 1 -60 4 Items
+cmd execute if data block 1000 -60 1000 Items
+cmd execute if data block ~ ~ ~ x
+cmd execute store result score #r pts if data storage fn:cond c.b.c[]
+cmd scoreboard players get #r pts
+cmd execute store result score #r pts if data storage fn:cond l[]
+cmd scoreboard players get #r pts
+cmd execute store success score #r pts if data storage fn:cond l[]
+cmd scoreboard players get #r pts
+cmd execute store result score #r pts unless data storage fn:cond nothing
+cmd scoreboard players get #r pts
+note items and slots
+cmd execute if items entity A weapon.mainhand minecraft:diamond_sword
+cmd execute if items entity A weapon.mainhand minecraft:stick
+cmd execute unless items entity A weapon.mainhand minecraft:stick
+cmd execute if items entity A weapon.mainhand *
+cmd execute if items entity A weapon.offhand *
+cmd execute if items entity A hotbar.* minecraft:apple
+cmd execute if items entity A hotbar.* *
+cmd execute if items entity A inventory.* minecraft:cobblestone
+cmd execute if items entity A container.* minecraft:cobblestone
+cmd execute if items entity A container.* *
+cmd execute if items entity A armor.* *
+cmd execute if items entity A armor.head minecraft:iron_helmet
+cmd execute if items entity A armor.head minecraft:iron_helmet[minecraft:damage=0]
+cmd execute if items entity A armor.head minecraft:iron_helmet[minecraft:damage=5]
+cmd execute if items entity A armor.head #minecraft:head_armor
+cmd execute if items entity A armor.head *[minecraft:max_damage]
+cmd execute if items entity A weapon.* *
+cmd execute if items entity A player.crafting.* *
+cmd execute if items entity A enderchest.* *
+cmd execute if items entity A bogus.slot *
+cmd execute if items entity A hotbar.99 *
+cmd execute if items entity A hotbar.3 minecraft:apple
+cmd execute if items entity @e[type=pig,limit=1] weapon.mainhand minecraft:stick
+cmd execute if items entity @e[type=pig] weapon.mainhand minecraft:stick
+cmd execute if items entity @e[type=armor_stand] armor.chest minecraft:iron_chestplate
+cmd execute if items entity @e[type=sheep] weapon.mainhand *
+cmd execute if items entity @e[type=cow] container.0 *
+cmd execute if items block 1 -60 6 container.0 minecraft:diamond
+cmd execute if items block 1 -60 6 container.* minecraft:diamond
+cmd execute if items block 1 -60 6 container.* minecraft:stick
+cmd execute if items block 1 -60 6 container.* *
+cmd execute if items block 1 -60 6 container.5 minecraft:stick
+cmd execute if items block 1 -60 6 container.4 *
+cmd execute if items block 1 -60 6 container.26 minecraft:apple
+cmd execute if items block 1 -60 6 container.27 *
+cmd execute if items block 1 -60 6 hotbar.0 *
+cmd execute if items block 1 -60 4 container.0 *
+cmd execute if items block 3 -60 6 container.0 *
+cmd execute if items block 1000 -60 1000 container.0 *
+cmd execute if items block 1 -60 6 container.* minecraft:diamond[minecraft:enchantments={}]
+cmd execute if items block 1 -60 6 container.* diamond
+cmd execute if items entity A weapon.mainhand
+cmd execute if items entity A
+cmd execute if slots entity A weapon.mainhand
+cmd execute if slots entity A weapon.offhand
+cmd execute if slots entity A hotbar.*
+cmd execute if slots entity A container.*
+cmd execute if slots entity A armor.*
+cmd execute if slots entity A weapon.*
+cmd execute if slots entity A bogus
+cmd execute if slots entity @e[type=pig,limit=1] weapon.mainhand
+cmd execute if slots entity @e[type=cow] container.*
+cmd execute if slots entity @e[type=sheep] container.*
+cmd execute if slots block 1 -60 6 container.*
+cmd execute if slots block 1 -60 6 container.5
+cmd execute if slots block 1 -60 6 container.30
+cmd execute if slots block 1 -60 4 container.*
+cmd execute if slots block 3 -60 6 container.*
+cmd execute store result score #r pts if items entity A hotbar.* minecraft:apple
+cmd scoreboard players get #r pts
+cmd execute store result score #r pts if items block 1 -60 6 container.* *
+cmd scoreboard players get #r pts
+cmd execute store result score #r pts if slots block 1 -60 6 container.*
+cmd scoreboard players get #r pts
+note stopwatch
+cmd stopwatch create fn:sw
+cmd execute if stopwatch fn:sw 0..
+cmd execute if stopwatch fn:sw 1000000..
+cmd execute unless stopwatch fn:sw 1000000..
+cmd execute if stopwatch fn:none 0..
+cmd execute if stopwatch fn:sw
+cmd execute if stopwatch fn:sw bogus
+cmd execute if stopwatch fn:sw 5..1
+cmd stopwatch remove fn:sw
+cmd execute if stopwatch fn:sw 0..
+note chained conditions and stores
+cmd execute if entity @e[type=pig] if score A pts matches 5 if block 1 -60 4 minecraft:stone
+cmd execute if entity @e[type=pig] if score A pts matches 6 if block 1 -60 4 minecraft:stone
+cmd execute if entity @e[type=pig] unless score A pts matches 6 unless block 1 -60 4 minecraft:dirt
+cmd execute if entity @e[type=pig] unless score A pts matches 5 unless block 1 -60 4 minecraft:dirt
+cmd execute store result score #r pts if entity @e[type=pig] if score A pts matches 5
+cmd scoreboard players get #r pts
+cmd execute store result score #r pts if entity @e[type=pig] if score A pts matches 6
+cmd scoreboard players get #r pts
+cmd execute store result score #r pts store success score #s pts if entity @e[type=pig]
+cmd scoreboard players get #r pts
+cmd scoreboard players get #s pts
+cmd execute if entity @e[type=pig] run execute if entity @e[type=cow] run execute if entity @e[type=sheep] run say none
+cmd execute as @e[type=pig] if entity @s[tag=a] run say tagged
+dump packets:A:disguised_chat,system_chat
+note permissions
+cmd_as A execute if entity @s
+cmd_as -1 execute if entity @s
+cmd_as -2 execute if entity @s
+cmd_as -2 execute if block 0 -60 4 minecraft:stone

@@ -1,0 +1,165 @@
+# `/schedule`: function and tag targets, append and replace, delays in every unit, clear, events of the same time and their order,
+# a scheduled function that schedules itself, scheduled work surviving `/reload`, results and failure texts.
+datapack fnpack
+command_env
+level flat
+preload 2
+entity_counter 3500
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 1
+dump packets:A:none
+gamerule send_command_feedback true
+note basic scheduling: nothing runs before the time
+cmd schedule function fn:sched_a 3t
+dump storage:fn:state
+tick 2
+dump storage:fn:state
+tick 1
+dump storage:fn:state
+tick 2
+dump storage:fn:state
+note replace by default, the later time wins, an append keeps both
+cmd schedule function fn:sched_b 5t
+cmd schedule function fn:sched_b 2t
+tick 2
+dump storage:fn:state
+tick 4
+dump storage:fn:state
+cmd schedule function fn:sched_c 2t append
+cmd schedule function fn:sched_c 2t append
+cmd schedule function fn:sched_c 4t append
+tick 1
+dump storage:fn:state
+tick 1
+dump storage:fn:state
+tick 2
+dump storage:fn:state
+note replace removes the earlier events of the function
+cmd schedule function fn:sched_a 2t append
+cmd schedule function fn:sched_a 3t append
+cmd schedule function fn:sched_a 4t replace
+tick 3
+dump storage:fn:state
+tick 1
+dump storage:fn:state
+tick 3
+dump storage:fn:state
+note the units of the delay
+cmd schedule function fn:sched_a 1
+cmd schedule function fn:sched_b 1t
+cmd schedule function fn:sched_c 0t
+cmd schedule function fn:sched_a 1s
+cmd schedule function fn:sched_b 2d
+cmd schedule function fn:sched_c 0s
+cmd schedule function fn:sched_a 0.5s
+cmd schedule function fn:sched_a 1.5t
+cmd schedule function fn:sched_a -1t
+cmd schedule function fn:sched_a 1x
+cmd schedule function fn:sched_a t
+cmd schedule function fn:sched_a
+cmd schedule function
+cmd schedule
+cmd schedule function fn:sched_a 2147483647t
+cmd schedule function fn:sched_a 2147483648t
+cmd schedule function fn:sched_a 99999999d
+cmd schedule function fn:sched_a 1t bogus
+cmd schedule function fn:sched_a 1t append extra
+tick 1
+dump storage:fn:state
+note tags: every function of a nested tag, in the tag's order, with replace and append
+cmd schedule clear fn:sched_a
+cmd schedule clear fn:sched_b
+cmd schedule clear fn:sched_c
+cmd schedule function #fn:sched_pair 2t
+cmd schedule function #fn:sched_nested 3t append
+cmd schedule function #fn:nothing 1t
+cmd schedule function #fn:missing_tag 1t
+cmd schedule function #fn:sched_pair 4t replace
+tick 3
+dump storage:fn:state
+tick 2
+dump storage:fn:state
+cmd scoreboard players get #sched fn
+tick 3
+dump storage:fn:state
+cmd scoreboard players get #sched fn
+note clear: function, tag, nothing scheduled, unknown
+cmd schedule function fn:sched_a 5t
+cmd schedule function fn:sched_b 5t
+cmd schedule function fn:sched_c 5t
+cmd schedule clear fn:sched_a
+cmd schedule clear fn:sched_a
+cmd schedule clear fn:unknown
+cmd schedule clear #fn:sched_pair
+cmd schedule clear fn:
+cmd schedule clear
+cmd schedule clear #fn:sched_nested
+tick 6
+dump storage:fn:state
+cmd scoreboard players get #sched fn
+note unknown functions, unknown tags, broken functions
+cmd schedule function fn:unknown 1t
+cmd schedule function fn:bad_syntax 1t
+cmd schedule function #fn:broken 1t
+cmd schedule function fn:hello 1t
+cmd schedule function fn:ret_value 1t
+cmd schedule function fn:loop 1t
+tick 3
+dump storage:fn:state
+dump logs
+note the scheduled function runs with the game loop's source (permission 2, no output)
+cmd schedule function fn:hello 1t
+cmd schedule function fn:say_four 1t append
+tick 1
+dump packets:A:disguised_chat,system_chat
+note a scheduled function that schedules again
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b,UUID:[I;55,0,0,1]}
+cmd schedule function fn:fork_add 2t
+tick 2
+cmd scoreboard players get @e[type=pig,limit=1] fn
+note the schedule at the game time of different ticks (the time argument counts from the tick it was issued in)
+tick 3
+cmd schedule function fn:sched_a 1t
+tick 1
+dump storage:fn:state
+cmd schedule function fn:sched_b 1t
+cmd schedule function fn:sched_c 1t append
+cmd schedule function fn:sched_a 1t append
+tick 1
+dump storage:fn:state
+note the tick tag runs before the scheduled events of the same tick
+cmd data remove storage fn:state ticks
+cmd scoreboard players set #tick fn 0
+cmd schedule function fn:sched_mark 2t
+cmd schedule function fn:sched_mark 3t append
+tick 4
+dump storage:fn:state
+note scheduled events survive a reload, a disabled pack leaves them without a function
+cmd schedule function fn:sched_a 3t
+cmd schedule function fn:sched_b 3t append
+cmd reload
+tick 1
+cmd datapack disable "file/fnpack"
+tick 1
+cmd datapack enable "file/fnpack"
+tick 3
+dump storage:fn:state
+dump logs
+note permissions and the results
+cmd_as A schedule function fn:sched_a 1t
+cmd_as -2 schedule function fn:sched_a 1t
+cmd_as -2 schedule clear fn:sched_a
+cmd execute store result score #r fn run schedule function fn:sched_a 5t
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run schedule function fn:sched_a 5t append
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run schedule function #fn:sched_pair 5t
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run schedule clear fn:sched_a
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run schedule clear fn:sched_a
+cmd scoreboard players get #r fn
+cmd execute store success score #r fn run schedule clear fn:sched_b
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run schedule clear fn:sched_c
+cmd scoreboard players get #r fn

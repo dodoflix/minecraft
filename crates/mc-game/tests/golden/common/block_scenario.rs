@@ -142,6 +142,8 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
             || l.starts_with("spawnat ")
             || l.starts_with("gamerule spawn_mobs true")
             || l.starts_with("custom_spawner ")
+            || l.contains("if biome ")
+            || l.contains("unless biome ")
             || l.contains("minecraft:bone_meal")
             || l.contains("advancements:")
     });
@@ -167,6 +169,9 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
         .map(|name| name.trim().trim_start_matches("minecraft:").to_owned())
         .filter(|name| !name.is_empty())
         .collect();
+    if text.lines().any(|l| l.trim() == "dump logs") {
+        super::init_logger();
+    }
     let mut server = text
         .lines()
         .any(|l| {
@@ -380,9 +385,15 @@ impl LevelTickEnv for Env {
     }
     fn tick_scheduled_events(
         &mut self,
-        _game_time: i64,
-        _level: &mut mc_game::server::level::ServerLevel,
+        game_time: i64,
+        level: &mut mc_game::server::level::ServerLevel,
     ) {
+        // `/schedule function` events of the installed server's timer queue
+        if mc_game::commands::server_access::has_server() {
+            mc_game::commands::server_access::with_server(|server| {
+                server.tick_scheduled_events(game_time, level)
+            });
+        }
     }
     fn broadcast_game_event_to_all(
         &mut self,
@@ -697,6 +708,17 @@ impl Scenario {
             let level = self.level.as_mut().expect("world");
             level.server_state.rules.refresh(&self.env.game_rules);
             apply_spawn_settings(level, &self.env.game_rules);
+        }
+        // a reload (or toggling a pack) swaps the server's registries, recipes and advancements: the replay's entity creation reads the new ones
+        if succeeded
+            && matches!(
+                command.split_whitespace().next(),
+                Some("reload" | "datapack")
+            )
+        {
+            mc_game::commands::server_access::with_server(|server| {
+                self.actors.refresh_server_data(server)
+            });
         }
         self.handle_disconnections();
     }
@@ -1265,6 +1287,14 @@ impl Scenario {
         );
         self.settle_chunks();
         self.apply_player_inputs();
+        // `tickChildren` runs the `#minecraft:load` / `#minecraft:tick` functions first, before the time synchronization and the levels
+        if mc_game::commands::server_access::has_server() {
+            let mut level = self.level.take().expect("world");
+            mc_game::commands::server_access::with_server(|server| {
+                server.with_lent_level(&mut level, |server| server.tick_functions())
+            });
+            self.level = Some(level);
+        }
         self.force_game_time_synchronization();
         let mut level = self.level.take().expect("world");
         if self.server_env {

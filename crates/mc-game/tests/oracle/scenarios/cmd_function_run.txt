@@ -1,0 +1,123 @@
+# `/function` of a data pack in every form: plain, nested, comments and line continuation, empty, tags (nested, duplicate entries, unknown),
+# macro arguments given to a plain function, arguments of a function that takes none, the feedback and result lines (`Ran function`,
+# `Ran N functions`, result counts through `execute store`), permission levels, and the chat the functions send.
+datapack fnpack
+command_env
+level flat
+preload 2
+entity_counter 3200
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+op B
+tick 1
+dump packets:A:none
+gamerule send_command_feedback true
+note plain functions
+cmd function fn:hello
+cmd function fn:nested
+cmd function fn:comment_lines
+cmd function fn:empty
+cmd function fn:say_four
+dump packets:A:disguised_chat,system_chat
+dump storage:fn:state
+note tags: several functions, nested tags, a repeated function
+cmd function #fn:all
+cmd function #fn:more
+cmd function #fn:sched_pair
+cmd function #fn:sched_nested
+cmd function #fn:optional
+dump storage:fn:state
+dump packets:A:disguised_chat,system_chat
+note the result of a function and of a tag as `execute store` sees it
+cmd execute store result score #r fn run function fn:hello
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_value
+cmd scoreboard players get #r fn
+cmd execute store success score #s fn run function fn:ret_fail
+cmd scoreboard players get #s fn
+cmd execute store result score #r fn run function #fn:more
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function #fn:all
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function #fn:nothing
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:empty
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:calls_ret_three
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_three
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function #fn:sched_pair
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:unknown
+cmd scoreboard players get #r fn
+note arguments: a plain function with arguments, a macro function without, with storage / entity / block sources
+cmd function fn:hello {a:1}
+cmd function fn:hello with storage fn:state
+cmd function fn:hello with storage fn:nope
+cmd function #fn:all {a:1}
+cmd function #fn:all with storage fn:state
+cmd function fn:macro
+cmd function fn:macro {a:1,b:2}
+cmd function fn:macro with storage fn:nope
+cmd function fn:macro {}
+cmd function fn:macro {a:1}
+cmd function fn:macro 5
+cmd function fn:macro {a:1,b:2
+cmd function fn:macro {a:1,b:2} extra
+cmd function fn:macro with
+cmd function fn:macro with storage
+cmd function fn:macro with nowhere fn:state
+note syntax errors
+cmd function
+cmd function fn:
+cmd function :hello
+cmd function fn:Hello
+cmd function fn:hel lo
+cmd function #
+cmd function #fn:
+cmd function fn:hello fn:hello
+cmd function minecraft:hello
+cmd function hello
+cmd function fn:hello/
+cmd function fn/hello
+note permissions
+cmd_as A function fn:hello
+cmd_as B function fn:hello
+cmd_as -0 function fn:hello
+cmd_as -1 function fn:hello
+cmd_as -2 function fn:hello
+cmd_as -3 function fn:hello
+cmd_as -4 function fn:hello
+cmd_as B function #fn:all
+cmd_as B return 1
+cmd_as A return 1
+cmd_as -1 return 1
+cmd_as -2 return 1
+cmd_as A schedule function fn:sched_a 1t
+cmd_as B schedule function fn:sched_a 1t
+cmd_as B schedule clear fn:sched_a
+cmd_as A reload
+cmd_as -2 reload
+cmd_as -3 reload
+note as an operator with feedback on and off
+cmd_as B function fn:hello
+cmd_as B function #fn:all
+gamerule send_command_feedback false
+cmd_as B function fn:hello
+cmd_as B function #fn:all
+cmd_as B function fn:unknown
+cmd_as B execute store result score #r fn run function fn:ret_three
+gamerule send_command_feedback true
+note the functions of the pack are run by an entity: `@s` and the position follow the command
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b,UUID:[I;51,0,0,1]}
+cmd execute as @e[type=pig] run function fn:hello
+cmd execute as @e[type=pig] at @s run function fn:fork_add
+cmd execute as @e[type=pig] run function #fn:all
+cmd scoreboard players get @e[type=pig,limit=1] fn
+cmd execute as A run function fn:hello
+cmd execute as @e[type=cow] run function fn:hello
+cmd execute as @e[type=pig] store result score #r fn run function fn:ret_three
+cmd scoreboard players get #r fn
+dump storage:fn:state
+dump packets:A:disguised_chat,system_chat

@@ -1,0 +1,252 @@
+C Game rule send_command_feedback is now set to true
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Set [fn] for 0 entities to 0
+CF result success 0
+# the default limits: a loop that never ends, a recursion that does
+CF msg Set [fn] for 0 entities to 0
+CF result success 0
+CF msg Running function fn:depth
+CF msg #d has 31 [fn]
+CF result success 31
+CF msg Running function fn:depth
+CF result failure 0
+CF fail Can't get value of fn for #r; none is set
+CF msg Set [fn] for 0 entities to 0
+CF result success 0
+CF msg Running function fn:loop
+CF msg Running function fn:loop
+CF result failure 0
+CF fail Can't get value of fn for #r; none is set
+CF msg Running function fn:loop
+CF result failure 0
+CF fail Can't get value of fn for #r; none is set
+# a short chain
+CF msg Game rule max_command_sequence_length is now set to 10
+CF result success 10
+CF msg Set [fn] for 0 entities to 0
+CF result success 0
+CF msg Running function fn:depth
+CF msg #d has 3 [fn]
+CF result success 3
+CF msg Set [fn] for 0 entities to 0
+CF result success 0
+CF msg Running function fn:depth
+CF result failure 0
+CF fail Can't get value of fn for #r; none is set
+CF msg #d has 3 [fn]
+CF result success 3
+CF msg Running function fn:say_four
+CF msg Running function fn:nested
+CF msg Running functions fn:hello, fn:nested, fn:ret_value
+CF msg Running function fn:hello
+CF msg Running function fn:hello
+CF msg Running function fn:hello
+CF msg Running function fn:hello
+CF msg Running function fn:hello
+CF msg Running function fn:hello
+CF msg Game rule max_command_sequence_length is now set to 3
+CF result success 3
+CF msg Running function fn:say_four
+CF msg Running function fn:nested
+CF msg Running function fn:hello
+CF msg Running functions fn:hello, fn:nested, fn:ret_value
+CF msg Added 1 to [fn] for Pig (now 1)
+CF result success 1
+CF msg Added 1 to [fn] for Pig (now 1)
+CF result success 1
+CF msg Pig has 1 [fn]
+CF result success 1
+CF msg Game rule max_command_sequence_length is now set to 1
+CF result success 1
+CF msg Running function fn:hello
+CF msg Running function fn:say_four
+CF msg Game rule max_command_sequence_length is now set to 0
+CF result success 0
+CF msg Running function fn:hello
+CF result success 1
+CF result success 1
+CF msg Game rule max_command_sequence_length is now set to 2
+CF result success 2
+CF msg Running function fn:hello
+CF msg Running function fn:say_four
+CF msg Running function fn:hello
+CF msg Running function fn:hello
+PKT A minecraft:disguised_chat 210800036f6e650508000653657276657200
+PKT A minecraft:disguised_chat 2108000374776f0508000653657276657200
+PKT A minecraft:disguised_chat 2108000574687265650508000653657276657200
+PKT A minecraft:disguised_chat 21080004666f75720508000653657276657200
+PKT A minecraft:disguised_chat 2108000c6f757465722d6265666f72650508000653657276657200
+PKT A minecraft:disguised_chat 2108000568656c6c6f0508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6f757465722d61667465720508000653657276657200
+PKT A minecraft:disguised_chat 2108000568656c6c6f0508000653657276657200
+PKT A minecraft:disguised_chat 2108000c6f757465722d6265666f72650508000653657276657200
+PKT A minecraft:disguised_chat 2108000568656c6c6f0508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6f757465722d61667465720508000653657276657200
+PKT A minecraft:disguised_chat 2108000568656c6c6f050a080009696e73657274696f6e002430303030303034302d303030302d303030302d303030302d3030303030303030303030310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b0004757569640000000400000040000000000000000000000001000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 2108000568656c6c6f050a080009696e73657274696f6e002430303030303034302d303030302d303030302d303030302d3030303030303030303030320a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b0004757569640000000400000040000000000000000000000002000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 2108000568656c6c6f050a080009696e73657274696f6e002430303030303034302d303030302d303030302d303030302d3030303030303030303030330a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b0004757569640000000400000040000000000000000000000003000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 210800036f6e650508000653657276657200
+PKT A minecraft:disguised_chat 2108000374776f0508000653657276657200
+PKT A minecraft:disguised_chat 2108000c6f757465722d6265666f72650508000653657276657200
+PKT A minecraft:disguised_chat 2108000568656c6c6f0508000653657276657200
+PKT A minecraft:disguised_chat 2108000568656c6c6f0508000653657276657200
+PKT A minecraft:disguised_chat 210800066469726563740508000653657276657200
+PKT A minecraft:disguised_chat 2108000372756e0508000653657276657200
+PKT A minecraft:disguised_chat 210800036f6e650508000653657276657200
+CF msg Game rule max_command_sequence_length is now set to 65536
+CF result success 65536
+CF msg Set [fn] for 0 entities to 0
+CF result success 0
+CF msg Running function fn:depth
+CF msg #d has 31 [fn]
+CF result success 31
+LOG ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
+LOG ERROR: Failed to load function fn:bad_comment\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
+LOG ERROR: Failed to load function fn:bad_continuation\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file
+LOG ERROR: Failed to load function fn:bad_macro\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(oops'
+LOG ERROR: Failed to load function fn:bad_slash\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '/say hi' on line 1 (did you mean 'say'? Do not use a preceding forwards slash.)
+LOG ERROR: Failed to load function fn:bad_syntax\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+LOG ERROR: Failed to load function fn:macro_bad_key\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a-b)'
+LOG ERROR: Failed to load function fn:macro_no_vars\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say no variables here'
+LOG ERROR: Failed to load function fn:macro_only_dollar\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: ''
+LOG ERROR: Failed to load function fn:macro_unclosed\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a'
+# the chain limit through the stack: nested calls and returns inside
+CF msg Game rule max_command_sequence_length is now set to 50
+CF result success 50
+CF msg Set [fn] for 0 entities to 0
+CF result success 0
+CF msg Running function fn:depth
+CF msg #d has 17 [fn]
+CF result success 17
+CF msg Set [fn] for 0 entities to 0
+CF result success 0
+CF msg Running function fn:depth
+CF msg #d has 16 [fn]
+CF result success 16
+CF result failure 0
+CF fail Can't get value of fn for #r; none is set
+CF msg Set [fn] for 0 entities to 0
+CF result success 0
+CF msg Running function fn:depth
+CF msg Running function fn:depth
+CF msg Running function fn:depth
+CF msg Running function fn:depth
+CF msg Running function fn:depth
+CF msg Running function fn:depth
+CF msg #d has 16 [fn]
+CF result success 16
+CF msg Game rule max_command_sequence_length is now set to 65536
+CF result success 65536
+# forks
+CF result failure 0
+CF fail Game rule max_command_forks is already set to 65536
+CF msg Added 1 to [fn] for Pig (now 2)
+CF result success 2
+CF msg Added 1 to [fn] for Pig (now 2)
+CF result success 2
+CF msg Added 1 to [fn] for Pig (now 1)
+CF result success 1
+CF msg Added 1 to [fn] for Pig (now 1)
+CF result success 1
+CF msg Added 1 to [fn] for Cow (now 1)
+CF result success 1
+CF msg Added 1 to [fn] for Cow (now 1)
+CF result success 1
+CF msg Pig has 2 [fn]
+CF result success 2
+CF msg Game rule max_command_forks is now set to 3
+CF result success 3
+CF msg Set [fn] for 0 entities to 0
+CF result success 0
+CF msg Pig has 1 score(s):
+CF msg [fn]: 0
+CF result success 1
+CF msg Pig has 0 [fn]
+CF result success 0
+CF msg Running function fn:fork_add
+CF msg Running function fn:fork_nested
+CF msg Game rule max_command_forks is now set to 2
+CF result success 2
+CF result failure 0
+CF fail Can't get value of fn for #r; none is set
+CF msg Game rule max_command_forks is now set to 1
+CF result success 1
+CF result success 1
+CF msg Running functions fn:hello, fn:nested, fn:ret_value
+CF msg Function fn:ret_value returned 7
+CF result success 7
+CF msg Running functions fn:sched_a, fn:sched_b
+CF msg Game rule max_command_forks is now set to 0
+CF result success 0
+CF result success 1
+CF fail Integer must not be less than 0: found -1
+CF fail ...and_forks -1<--[HERE]
+CF msg Game rule max_command_forks is now set to 4
+CF result success 4
+PKT A minecraft:disguised_chat 21080010666f726b312d696666756e6374696f6e0508000653657276657200
+PKT A minecraft:disguised_chat 2108000568656c6c6f0508000653657276657200
+PKT A minecraft:disguised_chat 2108000c6f757465722d6265666f72650508000653657276657200
+PKT A minecraft:disguised_chat 2108000568656c6c6f0508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6f757465722d61667465720508000653657276657200
+PKT A minecraft:disguised_chat 21080009666f726b302d72756e0508000653657276657200
+CF msg Game rule max_command_forks is now set to 65536
+CF result success 65536
+# the counters are reset by the next command
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF msg Set [fn] for 0 entities to 0
+CF result success 0
+CF msg Added 1 to [fn] for Pig (now 1)
+CF result success 1
+CF msg Added 1 to [fn] for Pig (now 1)
+CF result success 1
+CF msg Added 1 to [fn] for Pig (now 1)
+CF result success 1
+CF msg Added 1 to [fn] for Pig (now 1)
+CF result success 1
+CF msg Added 1 to [fn] for Cow (now 1)
+CF result success 1
+CF msg Added 1 to [fn] for Cow (now 1)
+CF result success 1
+CF msg Pig has 1 [fn]
+CF result success 1
+CF msg Cow has 1 score(s):
+CF msg [fn]: 1
+CF result success 1
+PKT A minecraft:disguised_chat 210800056166746572050a080009696e73657274696f6e002430303030303034302d303030302d303030302d303030302d3030303030303030303030310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b0004757569640000000400000040000000000000000000000001000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 210800056166746572050a080009696e73657274696f6e002430303030303034302d303030302d303030302d303030302d3030303030303030303030320a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b0004757569640000000400000040000000000000000000000002000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 210800056166746572050a080009696e73657274696f6e002430303030303034302d303030302d303030302d303030302d3030303030303030303030330a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b0004757569640000000400000040000000000000000000000003000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 210800056166746572050a080009696e73657274696f6e002430303030303034302d303030302d303030302d303030302d3030303030303030303030340a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b0004757569640000000400000040000000000000000000000004000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 210800056166746572050a080009696e73657274696f6e002430303030303034302d303030302d303030302d303030302d3030303030303030303030350a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e636f7700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a636f770b0004757569640000000400000040000000000000000000000005000800097472616e736c6174650014656e746974792e6d696e6563726166742e636f770000
+PKT A minecraft:disguised_chat 210800056166746572050a080009696e73657274696f6e002430303030303034302d303030302d303030302d303030302d3030303030303030303030360a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e636f7700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a636f770b0004757569640000000400000040000000000000000000000006000800097472616e736c6174650014656e746974792e6d696e6563726166742e636f770000
+# the limits as a player or console of another permission level
+CF msg Game rule max_command_sequence_length is now set to 5
+CF result success 5
+CF msg Running function fn:say_four
+CF msg Running function fn:depth
+CF msg Running function fn:depth
+CF msg Game rule max_command_sequence_length is now set to 65536
+CF result success 65536
+CF msg Game rule max_command_forks is now set to 2
+CF result success 2
+CF msg Game rule max_command_forks is now set to 65536
+CF result success 65536
+PKT A minecraft:disguised_chat 210800036f6e650508000653657276657200
+PKT A minecraft:disguised_chat 2108000374776f0508000653657276657200
+PKT A minecraft:disguised_chat 2108000574687265650508000653657276657200
+PKT A minecraft:disguised_chat 21080004666f75720508000653657276657200

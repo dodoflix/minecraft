@@ -426,6 +426,14 @@ impl Actors {
         });
     }
 
+    /// The server reloaded its data packs: a scenario that uses their data takes the new registries, recipes and advancements.
+    pub(super) fn refresh_server_data(&mut self, server: &mc_game::server::MinecraftServer) {
+        if self.pack.is_some() {
+            self.use_server_data(server);
+            self.registries_loaded = false;
+        }
+    }
+
     fn registries(&self) -> &mc_game::registry::RegistryAccess {
         self.pack.as_ref().map_or(&ACCESS.0, |p| &p.registries)
     }

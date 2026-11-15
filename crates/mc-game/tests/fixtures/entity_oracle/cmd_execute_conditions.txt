@@ -1,0 +1,718 @@
+CF msg Modified block data of 1, -60, 6
+CF result success 1
+CF msg Modified block data of 3, -60, 6
+CF result success 1
+CF msg Summoned new "Pig"
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Apple]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Cobblestone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Iron Helmet]
+CF result success 1
+CF msg Replaced 1 slot(s) on "Pig" with [Stick]
+CF result success 1
+CF msg Created new objective [pts]
+CF result success 2
+CF msg Set [pts] for A to 5
+CF result success 5
+CF msg Set [pts] for B to 5
+CF result success 5
+CF msg Set [pts] for #lo to -3
+CF result success -3
+CF msg Set [pts] for #hi to 100
+CF result success 100
+CF msg Modified storage fn:cond
+CF result success 1
+# block
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail That position is out of this world!
+CF result failure 0
+CF fail That position is out of this world!
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is not loaded
+CF fail Unknown block type 'minecraft:nothing'
+CF fail ...k 0 -60 0 minecraft:nothing<--[HERE]
+CF fail Block minecraft:stone does not have property 'bogus'
+CF fail ...aft:stone[bogus=1]<--[HERE]
+CF fail Expected closing ] for block state properties
+CF fail ...aft:stone[<--[HERE]
+CF fail Expected literal "
+CF fail ...aft:stone{<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ck 0 -60 0<--[HERE]
+CF fail Incomplete (expected 3 coordinates)
+CF fail ... if block 0 -60<--[HERE]
+CF fail Unknown block tag 'minecraft:nothing'
+CF fail ...ock ~ ~ ~ #minecraft:nothing<--[HERE]
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg #r has 1 [pts]
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg #r has 0 [pts]
+CF result success 0
+CF msg Test passed
+CF result success 1
+CF msg #r has 1 [pts]
+CF result success 1
+# blocks
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 7
+CF result success 7
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 3
+CF result success 3
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 0
+CF result success 0
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 21
+CF result success 21
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail Too many blocks in the specified area (maximum 32768, but specified 826281)
+CF msg Test passed. Count: 1
+CF result success 1
+CF fail Incorrect argument for command
+CF fail ...4 0 -60 8 bogus<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ... 4 0 -60 8<--[HERE]
+CF result failure 0
+CF fail Test failed
+CF msg #r has 0 [pts]
+CF result success 0
+# biome, loaded, dimension
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF fail Can't find element 'minecraft:nothing' of type 'minecraft:worldgen/biome'
+CF fail ...ft:nothing<--[HERE]
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is out of this world!
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Unknown dimension 'nowhere:land'
+CF msg Test passed
+CF result success 1
+# entity
+CF msg Test passed. Count: 2
+CF result success 2
+CF result failure 0
+CF fail Test failed. Count: 2
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 2
+CF result success 2
+CF fail Unknown option 'bogus'
+CF fail ...entity @e[bogus=1]<--[HERE]
+CF fail Expected end of options
+CF fail ...entity @e[<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ... if entity<--[HERE]
+CF msg Test passed. Count: 1
+CF result success 1
+CF result success 1
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg #r has 2 [pts]
+CF result success 2
+CF result failure 0
+CF fail Test failed. Count: 2
+CF msg #r has 0 [pts]
+CF result success 0
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg #r has 1 [pts]
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg #r has 0 [pts]
+CF result success 0
+# score
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF fail Min cannot be bigger than max
+CF fail ...s matches 6..4<--[HERE]
+CF msg Test passed
+CF result success 1
+CF fail Invalid integer '2147483648'
+CF fail ...s matches 2147483648<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...s matches 1.5<--[HERE]
+CF fail Expected value or range of values
+CF fail ...s matches ..<--[HERE]
+CF fail Expected value or range of values
+CF fail ...s matches x<--[HERE]
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Unknown scoreboard objective 'nope'
+CF result failure 0
+CF fail Unknown scoreboard objective 'nope'
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ...[type=pig] pts matches 0<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ...f score @a pts = B pts<--[HERE]
+CF result failure 0
+CF fail No relevant score holders could be found
+CF fail Incorrect argument for command
+CF fail ...ore A pts ~ B pts<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...core A pts<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ts matches<--[HERE]
+CF msg Test passed
+CF result success 1
+CF msg #r has 1 [pts]
+CF result success 1
+# predicate
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF result failure 0
+CF fail Can't find element 'fn:missing' in registry 'minecraft:predicate'
+CF fail ...fn:missing<--[HERE]
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF fail Failed to parse structure: Unknown registry key in ResourceKey[minecraft:root / minecraft:loot_condition_type]: minecraft:bogus
+CF fail ...ft:bogus"}<--[HERE]
+CF fail Failed to parse structure: Not a map: [{terms:[],type:"minecraft:all_of"},{terms:[],type:"minecraft:any_of"}]
+CF fail ...erms":[]}]<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ... predicate<--[HERE]
+CF fail Expected a valid unquoted string
+CF fail ...predicate #fn:always<--[HERE]
+# function
+CF fail Unknown or incomplete command. See below for error
+CF fail ...:ret_value<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...:ret_value<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...n:ret_fail<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...n:ret_fail<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...n fn:hello<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...n fn:empty<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...:ret_three<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...n #fn:more<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...n #fn:more<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...on #fn:all<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...fn:nothing<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...fn:nothing<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...fn:unknown<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...issing_tag<--[HERE]
+CF fail Incorrect argument for command
+CF fail ... fn:macro {a:1,b:2}<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...ro_return {v:5}<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...ro_return {v:0}<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...n fn:macro<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...f function<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...:ret_value<--[HERE]
+CF msg #r has 1 [pts]
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...n #fn:more<--[HERE]
+CF msg #r has 1 [pts]
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...n:ret_fail<--[HERE]
+CF msg #r has 1 [pts]
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...:ret_value<--[HERE]
+CF msg #r has 1 [pts]
+CF result success 1
+CF result success 1
+CF result success 1
+PKT A minecraft:disguised_chat 210800037965730508000653657276657200
+PKT A minecraft:disguised_chat 21080004706967730508000653657276657200
+PKT A minecraft:disguised_chat 2108000372616e0508000653657276657200
+PKT A minecraft:disguised_chat 2108000872616e2d6d6f72650508000653657276657200
+# data
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 3
+CF result success 3
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ge fn:cond<--[HERE]
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF fail Could not parse command: Index 33 out of bounds for length 33
+CF fail ... fn:cond [<--[HERE]
+CF result failure 0
+CF fail Test failed
+CF fail Unknown or incomplete command. See below for error
+CF fail ...rage bogus<--[HERE]
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail execute if data entity @e[type=pig] Health<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail execute if data entity @e[type=sheep] Health<--[HERE]
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail execute if data entity @e[tag=farm] Tags[]<--[HERE]
+CF msg Test passed. Count: 3
+CF result success 3
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 4
+CF result success 4
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail The target block is not a block entity
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg #r has 2 [pts]
+CF result success 2
+CF msg Test passed. Count: 3
+CF result success 3
+CF msg #r has 3 [pts]
+CF result success 3
+CF msg Test passed. Count: 3
+CF result success 3
+CF msg #r has 1 [pts]
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg #r has 1 [pts]
+CF result success 1
+# items and slots
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 5
+CF result success 5
+CF msg Test passed. Count: 6
+CF result success 6
+CF msg Test passed. Count: 64
+CF result success 64
+CF msg Test passed. Count: 64
+CF result success 64
+CF msg Test passed. Count: 70
+CF result success 70
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF fail Can't find element 'minecraft:bogus.slot' in registry 'minecraft:slot_source'
+CF fail ...bogus.slot *<--[HERE]
+CF fail Can't find element 'minecraft:hotbar.99' in registry 'minecraft:slot_source'
+CF fail ... hotbar.99 *<--[HERE]
+CF msg Test passed. Count: 5
+CF result success 5
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 3
+CF result success 3
+CF msg Test passed. Count: 3
+CF result success 3
+CF msg Test passed. Count: 12
+CF result success 12
+CF msg Test passed. Count: 16
+CF result success 16
+CF msg Test passed. Count: 12
+CF result success 12
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 3
+CF result success 3
+CF result failure 0
+CF fail Source position 1, -60, 4 is not a container
+CF result failure 0
+CF fail Source position 3, -60, 6 is not a container
+CF result failure 0
+CF fail That position is not loaded
+CF msg Test passed. Count: 3
+CF result success 3
+CF msg Test passed. Count: 3
+CF result success 3
+CF fail Unknown or incomplete command. See below for error
+CF fail ...n.mainhand<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...s entity A<--[HERE]
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 9
+CF result success 9
+CF msg Test passed. Count: 36
+CF result success 36
+CF msg Test passed. Count: 5
+CF result success 5
+CF msg Test passed. Count: 2
+CF result success 2
+CF fail Can't find element 'minecraft:bogus' in registry 'minecraft:slot_source'
+CF fail ...ty A bogus<--[HERE]
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail No entity was found
+CF msg Test passed. Count: 27
+CF result success 27
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Source position 1, -60, 4 is not a container
+CF result failure 0
+CF fail Source position 3, -60, 6 is not a container
+CF msg Test passed. Count: 5
+CF result success 5
+CF msg #r has 5 [pts]
+CF result success 5
+CF msg Test passed. Count: 16
+CF result success 16
+CF msg #r has 16 [pts]
+CF result success 16
+CF msg Test passed. Count: 27
+CF result success 27
+CF msg #r has 27 [pts]
+CF result success 27
+# stopwatch
+CF msg Created stopwatch 'fn:sw'
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Stopwatch 'fn:none' does not exist
+CF fail Unknown or incomplete command. See below for error
+CF fail ...atch fn:sw<--[HERE]
+CF fail Expected value or range of values
+CF fail ...tch fn:sw bogus<--[HERE]
+CF fail Min cannot be bigger than max
+CF fail ...tch fn:sw 5..1<--[HERE]
+CF msg Removed stopwatch 'fn:sw'
+CF result success 1
+CF result failure 0
+CF fail Stopwatch 'fn:sw' does not exist
+# chained conditions and stores
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg #r has 1 [pts]
+CF result success 1
+CF result failure 0
+CF msg #r has 0 [pts]
+CF result success 0
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg #r has 2 [pts]
+CF result success 2
+CF msg #s has 1 [pts]
+CF result success 1
+CF result success 1
+PKT A minecraft:disguised_chat 21080006746167676564050a080009696e73657274696f6e002430303030303033642d303030302d303030302d303030302d30303030303030303030303108000474657874000522506967220a000b686f7665725f6576656e740800046e616d6500052250696722080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b000475756964000000040000003d000000000000000000000001000000
+# permissions
+CF fail Unknown or incomplete command. See below for error
+CF fail execute if entity @s<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail execute if entity @s<--[HERE]
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1

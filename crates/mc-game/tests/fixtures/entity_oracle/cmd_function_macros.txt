@@ -1,0 +1,308 @@
+# argument types
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+STORAGE fn:out {m:"2"}
+# missing and bad arguments
+CF msg Running function fn:macro
+CF fail Failed to instantiate function fn:macro: Missing argument b to function fn:macro
+CF result failure 0
+CF msg Running function fn:macro
+CF fail Failed to instantiate function fn:macro: Missing argument a to function fn:macro
+CF result failure 0
+CF msg Running function fn:macro
+CF fail Failed to instantiate function fn:macro: Missing argument a to function fn:macro
+CF result failure 0
+CF msg Running function fn:macro
+CF fail Failed to instantiate function fn:macro: Missing argument a to function fn:macro
+CF result failure 0
+CF msg Running function fn:macro
+CF fail Failed to instantiate function fn:macro: Missing arguments to function fn:macro
+CF result failure 0
+CF fail Expected a valid unquoted string
+CF fail ...:macro {a:,b:1}<--[HERE]
+CF fail Expected a valid unquoted string
+CF fail ...ro {a:1,b:}<--[HERE]
+CF fail Expected literal .
+CF fail ...o {a:1,b:2<--[HERE]
+CF msg Running function fn:macro
+CF fail Expected literal (
+CF fail ...:unquoted text}<--[HERE]
+CF fail Expected literal B
+CF fail ...o {a:1,b:[}<--[HERE]
+CF msg Running function fn:macro_dup
+CF msg Running function fn:macro_dup
+CF fail Failed to instantiate function fn:macro_dup: Missing argument b to function fn:macro_dup
+CF result failure 0
+CF msg Running function fn:macro_empty_arg
+CF msg Running function fn:macro_empty_arg
+CF msg Running function fn:macro_key_chars
+CF msg Running function fn:macro_key_chars
+CF fail Failed to instantiate function fn:macro_key_chars: Missing argument _ to function fn:macro_key_chars
+CF result failure 0
+CF fail Unknown function fn:macro_no_vars
+CF result failure 0
+CF fail Unknown function fn:macro_no_vars
+CF result failure 0
+CF msg Running function fn:macro_bad_result
+CF fail Failed to instantiate function fn:macro_bad_result: While instantiating macro fn:macro_bad_result: Command 'bogus x' caused error: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+CF result failure 0
+CF msg Running function fn:macro_bad_result
+CF fail Failed to instantiate function fn:macro_bad_result: While instantiating macro fn:macro_bad_result: Command 'bogus ' caused error: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+CF result failure 0
+CF msg Running function fn:macro_cont
+CF msg Running function fn:macro_two_lines
+CF msg Running function fn:macro_two_lines
+CF fail Failed to instantiate function fn:macro_two_lines: Missing argument b to function fn:macro_two_lines
+CF result failure 0
+CF msg Running function fn:macro_two_lines
+CF fail Failed to instantiate function fn:macro_two_lines: Missing argument a to function fn:macro_two_lines
+CF result failure 0
+CF msg Running function fn:macro_nest
+CF msg Running function fn:macro_nest
+CF fail Failed to instantiate function fn:macro_nest: Missing argument x to function fn:macro_nest
+CF result failure 0
+CF msg Running function fn:macro_nbt
+CF msg Running function fn:macro_nbt
+CF msg Running function fn:macro_nbt
+CF msg Running function fn:macro_nbt
+CF msg Running function fn:macro_nbt
+STORAGE fn:out {m:"quoted"}
+PKT A minecraft:disguised_chat 210800073120616e6420320508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 2108000978207920616e64207a0508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800073120616e6420320508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800123120616e64203132333435363738393031320508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 21080009312e3520616e6420320508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800113120616e642031303030303030303030300508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800172e31303030303030303134393031313620616e64202e310508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 2108001b2e30303030303939393939393937343720616e64202e30303030310508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800073120616e6420300508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800115b312c325d20616e64207b6b3a2276227d0508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800155b493b312c325d20616e64205b423b31422c32425d0508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800185b4c3b314c5d20616e64205b7b783a317d2c7b793a327d5d0508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 2108001273696e676c6520616e6420646f7522626c650508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800176261636b5c736c61736820616e64206e65770a6c696e650508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 2108000520616e64200508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800073020616e6420300508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 2108004131303030303030303030303030303030303030303020616e64203334303238323334363633383532383836303030303030303030303030303030303030303030300508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800097b7d20616e64205b5d0508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 2108001f7b6e65737465643a7b646565703a5b312c7b7a3a327d5d7d7d20616e6420310508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 21080013c3a920c3bc20e697a5e69cac20616e6420c3a90508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800073120616e6420320508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800073220616e6420310508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800073220616e6420330508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800073120616e6420320508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 2108000478782d790508000653657276657200
+PKT A minecraft:disguised_chat 210800025b5d0508000653657276657200
+PKT A minecraft:disguised_chat 210800045b5b5d5d0508000653657276657200
+PKT A minecraft:disguised_chat 2108000531203220330508000653657276657200
+PKT A minecraft:disguised_chat 210800073120616e6420320508000653657276657200
+PKT A minecraft:disguised_chat 21080005706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800066265666f72650508000653657276657200
+PKT A minecraft:disguised_chat 21080001310508000653657276657200
+PKT A minecraft:disguised_chat 21080001320508000653657276657200
+PKT A minecraft:disguised_chat 2108000561667465720508000653657276657200
+PKT A minecraft:disguised_chat 210800106f7574657220616e64206e65737465640508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+# the same arguments by compound, the same function twice and through tags
+CF msg Running function fn:macro_range
+CF msg Running function fn:macro_range
+CF msg Running function fn:macro_range
+CF msg Running function fn:macro_range
+CF fail Failed to instantiate function fn:macro_range: While instantiating macro fn:macro_range: Command 'execute if score #tick fn matches 1..x run say in range #tick' caused error: Expected whitespace to end one argument, but found trailing data at position 37: ...atches 1..<--[HERE]
+CF result failure 0
+CF msg Running function fn:macro_range
+CF fail Failed to instantiate function fn:macro_range: Missing argument hi to function fn:macro_range
+CF result failure 0
+PKT A minecraft:disguised_chat 2108000e696e2072616e676520237469636b0508000653657276657200
+PKT A minecraft:disguised_chat 210800126f7574206f662072616e676520237469636b0508000653657276657200
+PKT A minecraft:disguised_chat 210800126f7574206f662072616e676520236e6f6e650508000653657276657200
+# macro sources
+CF msg Modified storage fn:args
+CF result success 1
+CF msg Running function fn:macro
+CF fail Invalid argument type: STRING. Expected Compound
+CF result failure 0
+CF fail Invalid argument type: INT. Expected Compound
+CF result failure 0
+CF fail Found no elements matching c
+CF result failure 0
+CF fail Found no elements matching [0]
+CF result failure 0
+CF fail Found no elements matching {a:1}
+CF result failure 0
+CF fail Found no elements matching a.b
+CF result failure 0
+CF msg Running function fn:macro
+CF fail Failed to instantiate function fn:macro: Missing argument a to function fn:macro
+CF result failure 0
+CF msg Modified storage fn:args
+CF result success 1
+CF msg Running function fn:macro
+CF msg Running function fn:macro
+CF fail Invalid argument type: INT. Expected Compound
+CF result failure 0
+CF fail Found no elements matching list[5]
+CF result failure 0
+CF fail Invalid argument type: STRING. Expected Compound
+CF result failure 0
+CF fail Invalid argument type: LIST. Expected Compound
+CF result failure 0
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Running function fn:macro_marker
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail function fn:macro_marker with entity @e[type=marker] data<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail function fn:macro_marker with entity @e[type=cow] data<--[HERE]
+CF fail Invalid argument type: LIST. Expected Compound
+CF result failure 0
+CF fail Invalid argument type: STRING. Expected Compound
+CF result failure 0
+CF fail Found no elements matching data
+CF result failure 0
+CF fail Invalid argument type: LIST. Expected Compound
+CF result failure 0
+CF msg Running function fn:macro_marker
+CF fail Failed to instantiate function fn:macro_marker: Missing argument a to function fn:macro_marker
+CF result failure 0
+CF fail Found no elements matching data.c
+CF result failure 0
+CF msg Running function fn:macro_sign
+CF msg Running function fn:macro_sign
+CF fail Invalid argument type: LIST. Expected Compound
+CF result failure 0
+CF fail Invalid argument type: BYTE. Expected Compound
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF msg Running function fn:macro_sign
+CF fail Failed to instantiate function fn:macro_sign: Missing argument color to function fn:macro_sign
+CF result failure 0
+CF fail Found no elements matching nothing
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail Incorrect argument for command
+CF fail ...ront_text {a:1}<--[HERE]
+PKT A minecraft:disguised_chat 2108001266726f6d2073746f7261676520616e6420370508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800073120616e6420320508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 210800073320616e6420340508000653657276657200
+PKT A minecraft:disguised_chat 2108000b6d6163726f2d706c61696e0508000653657276657200
+PKT A minecraft:disguised_chat 2108000d66726f6d206d61726b657220330508000653657276657200
+PKT A minecraft:disguised_chat 21080007626c61636b20300508000653657276657200
+PKT A minecraft:disguised_chat 21080007626c61636b20300508000653657276657200
+# macro results: values, `return run`, `execute store`
+CF msg Running function fn:macro_return
+CF msg Function fn:macro_return returned 5
+CF result success 5
+CF msg Running function fn:macro_return
+CF msg Function fn:macro_return returned -3
+CF result success -3
+CF msg Running function fn:macro_return
+CF msg Function fn:macro_return returned 0
+CF result success 0
+CF msg Running function fn:macro_return
+CF msg Function fn:macro_return returned 7
+CF result success 7
+CF msg Running function fn:macro_return
+CF fail Failed to instantiate function fn:macro_return: While instantiating macro fn:macro_return: Command 'return 1.5' caused error: Invalid integer '1.5' at position 7: return <--[HERE]
+CF result failure 0
+CF msg Running function fn:macro_return
+CF fail Failed to instantiate function fn:macro_return: While instantiating macro fn:macro_return: Command 'return x' caused error: Expected integer at position 7: return <--[HERE]
+CF result failure 0
+CF msg Running function fn:macro_return
+CF msg Function fn:macro_return returned 0
+CF result failure 0
+CF msg Running function fn:macro_return
+CF msg Function fn:macro_return returned 1
+CF result success 1
+CF msg Running function fn:macro_return
+CF msg Function fn:macro_return returned 42
+CF result success 42
+CF msg #r has 42 [fn]
+CF result success 42
+CF msg Running function fn:macro_return
+CF msg Function fn:macro_return returned 0
+CF result failure 0
+CF msg #r has 0 [fn]
+CF result success 0
+CF msg Running function fn:macro_return
+CF msg Function fn:macro_return returned 0
+CF result success 0
+CF msg #r has 1 [fn]
+CF result success 1
+CF msg Running function fn:macro_return_run
+CF msg Function fn:macro_return_run returned 1
+CF result success 1
+CF msg Running function fn:macro_return_run
+CF msg Function fn:macro_return_run returned 1
+CF result success 1
+CF msg #r has 1 [fn]
+CF result success 1
+PKT A minecraft:disguised_chat 2108000268690508000653657276657200
+PKT A minecraft:disguised_chat 2108000372756e0508000653657276657200
+PKT A minecraft:disguised_chat 2108000568656c6c6f0508000653657276657200
+# scheduling a macro function
+CF result failure 0
+CF fail Can't schedule a macro
+CF result failure 0
+CF fail Can't schedule a macro
+LOG ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
+LOG ERROR: Failed to load function fn:bad_comment\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
+LOG ERROR: Failed to load function fn:bad_continuation\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file
+LOG ERROR: Failed to load function fn:bad_macro\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(oops'
+LOG ERROR: Failed to load function fn:bad_slash\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '/say hi' on line 1 (did you mean 'say'? Do not use a preceding forwards slash.)
+LOG ERROR: Failed to load function fn:bad_syntax\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+LOG ERROR: Failed to load function fn:macro_bad_key\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a-b)'
+LOG ERROR: Failed to load function fn:macro_no_vars\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say no variables here'
+LOG ERROR: Failed to load function fn:macro_only_dollar\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: ''
+LOG ERROR: Failed to load function fn:macro_unclosed\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a'

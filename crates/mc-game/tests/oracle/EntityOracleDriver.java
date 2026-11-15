@@ -115,6 +115,7 @@ import net.minecraft.util.RandomSource;
  * bossbars_load [SNBT]        the custom boss bars through their saved codec and back (a restart without the join: every bar keeps its stored players, none is sent to anybody),
  *                             or replaced by the bars of SNBT (`{ID:{Name:..,Visible:..,..}}`, the saved form); the loaded bars get the ids `b055b000-0000-0000-0000-00000000000N` (N by custom id, vanilla draws random ones); a player that joins afterwards gets the bars it is stored on
  * note TEXT...                prints "# TEXT"
+ * pack_file PACK PATH TEXT... writes TEXT (`\n` = line break) to PATH inside the world's data pack PACK (a later `cmd reload` reads it); pack_remove PACK PATH deletes the file
  * reseed N                    restart the entity random-seed sequence (entities created afterwards: see VanillaLevel header)
  * level_seed N                Level.random.setSeed(N) (explosion rays, drop spread, ... draw from it; LegacyRandomSource)
  * entity_counter N            ServerLevel.ENTITY_COUNTER = N (the next created entity gets id N+1; ids are not printed)
@@ -251,6 +252,7 @@ import net.minecraft.util.RandomSource;
  *                             events -> the `EV ...` lines of level events / sounds / block events broadcast since the last dump (see
  *                             VanillaLevel.RecordingPlayerList; also valid in `watch`, printed after each tick)
 
+ * `dump logs` = `LOG LEVEL: message[\nexception]` for every WARN or ERROR line the vanilla loggers wrote since the last `dump logs` (the data pack load errors), sorted.
  * dump/watch kinds for mobs: mob:REF (rich E line), mobs (all live Mobs, rich), attrs:REF, size:REF (`SIZE REF scale= size=width,height,eye bb=`), goals:REF (`G` lines, every registered goal), brain:REF
  *   (`BRAIN`/`BM`/`BR` lines), path:REF (`PATH`/`PN`), nbt:REF (`N REF {canonical sorted SNBT, UUID removed}`), offers:REF, trader:REF
  *   (`TRADER REF xp=villagerXp level=villagerLevel|- trading=REF|-`), difficulty:X,Y,Z, light:X,Y,Z, spawn_state (`SPAWNSTATE`), raids,
@@ -495,6 +497,18 @@ public final class EntityOracleDriver {
          case "preload_settle" -> options.settlePreloadRing = true;
          case "bootrule" -> options.bootRules.add(new String[] {a.get(1), a.get(2)});
          case "note" -> out.println("# " + line.substring(4).strip());
+         case "pack_file" -> {
+            // the rest of the line is the file text, `\n` = a line break (a `/reload` then reads it)
+            world();
+            int start = line.indexOf(a.get(2), line.indexOf(a.get(1), a.get(0).length()) + a.get(1).length()) + a.get(2).length();
+            java.nio.file.Path target = v.dir.resolve("world/datapacks").resolve(a.get(1)).resolve(a.get(2));
+            Files.createDirectories(target.getParent());
+            Files.writeString(target, line.substring(start).strip().replace("\\n", "\n"));
+         }
+         case "pack_remove" -> {
+            world();
+            Files.delete(v.dir.resolve("world/datapacks").resolve(a.get(1)).resolve(a.get(2)));
+         }
          case "gamerule" -> {
             world();
             command("gamerule " + a.get(1) + " " + a.get(2));
@@ -2298,6 +2312,16 @@ public final class EntityOracleDriver {
                      out.println("SAVEDBAR " + id + " " + canon(sortedStrings(data.getCompoundOrEmpty(id), "Players")));
                   }
                }
+            }
+            case "logs" -> {
+               // LOG LEVEL: message[\nexception] per WARN or ERROR event of the vanilla loggers since the last `dump logs`, sorted (newlines and backslashes escaped)
+               List<String> logs;
+               synchronized (VanillaLevel.LOGS) {
+                  logs = new ArrayList<>(VanillaLevel.LOGS);
+                  VanillaLevel.LOGS.clear();
+               }
+               Collections.sort(logs); // a library logs its broken functions in the hash order of their ids (and of the file listing)
+               logs.forEach(l -> out.println("LOG " + l.replace("\\", "\\\\").replace("\n", "\\n")));
             }
             case "select", "selectsorted", "selectcount" -> {
                // SELECT SELECTOR EXECUTOR POS -> REF..: `select:EXECUTOR/X,Y,Z/SELECTOR` (EXECUTOR `-` = the console), the entities the selector finds

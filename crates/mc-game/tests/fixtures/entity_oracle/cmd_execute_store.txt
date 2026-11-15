@@ -1,0 +1,507 @@
+C Game rule send_command_feedback is already set to false
+CF msg Modified block data of 1, -60, 6
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Created new objective [pts]
+CF result success 2
+CF msg Set [pts] for A to 11
+CF result success 11
+CF msg Set [pts] for #src to 40
+CF result success 40
+CF msg Created custom bossbar [Bar]
+CF result success 1
+CF msg Custom bossbar [Bar] has changed maximum to 50
+CF result success 50
+CF msg Modified storage fn:s
+CF result success 1
+# score targets
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #t has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #t has 1 [pts]
+CF result success 1
+CF result failure 0
+CF fail Can't get value of pts for #missing; none is set
+CF msg #t has 0 [pts]
+CF result success 0
+CF result failure 0
+CF fail Can't get value of pts for #missing; none is set
+CF msg #t has 0 [pts]
+CF result success 0
+CF msg Added 5 to [pts] for A (now 16)
+CF result success 16
+CF msg A has 16 [pts]
+CF result success 16
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg A has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg Pig has 40 [pts]
+CF result success 40
+CF msg Pig has 1 score(s):
+CF msg [pts]: 40
+CF result success 1
+CF fail No entity was found
+CF result success 1
+CF msg #new has 1 [pts]
+CF result success 1
+CF fail Unknown scoreboard objective 'nope'
+CF fail Unknown or incomplete command. See below for error
+CF fail ... #new3 pts<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ... score pts<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ore result<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...ute store bogus score #t pts run say hi<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...#t pts run<--[HERE]
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #t has 40 [pts]
+CF result success 40
+CF msg #u has 1 [pts]
+CF result success 1
+CF result failure 0
+CF fail Can't get value of pts for #missing; none is set
+CF msg #t has 0 [pts]
+CF result success 0
+CF msg #u has 0 [pts]
+CF result success 0
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #t has 40 [pts]
+CF result success 40
+# values larger than a score holds
+CF msg Set [pts] for #big to 2147483647
+CF result success 2147483647
+CF msg #big has 2147483647 [pts]
+CF result success 2147483647
+CF msg #t has 2147483647 [pts]
+CF result success 2147483647
+CF msg Set [pts] for #neg to -2147483648
+CF result success -2147483648
+CF msg #neg has -2147483648 [pts]
+CF result success -2147483648
+CF msg #t has -2147483648 [pts]
+CF result success -2147483648
+# bossbar targets
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg Custom bossbar [Bar] has a value of 40
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg Custom bossbar [Bar] has a maximum of 40
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg Custom bossbar [Bar] has a value of 1
+CF result success 1
+CF result failure 0
+CF fail Can't get value of pts for #missing; none is set
+CF msg Custom bossbar [Bar] has a value of 0
+CF result success 0
+CF msg Set [pts] for 0 entities to 0
+CF result success 0
+CF msg Custom bossbar [Bar] has a maximum of 0
+CF result success 0
+CF msg Set [pts] for #src to -5
+CF result success -5
+CF msg Custom bossbar [Bar] has a maximum of -5
+CF result success -5
+CF msg Set [pts] for #src to 999
+CF result success 999
+CF msg Custom bossbar [Bar] has a value of 999
+CF result success 999
+CF msg Set [pts] for #src to 40
+CF result success 40
+CF fail No bossbar exists with the ID 'fn:none'
+CF fail Incorrect argument for command
+CF fail ...ar fn:bar bogus run say hi<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...ar fn:bar run say hi<--[HERE]
+BOSSBAR fn:bar {Max:-5,Name:"Bar",Value:999,Visible:1b}
+# storage targets, every type and scale
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...3 double 1e10 run scoreboard players get #src pts<--[HERE]
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF result failure 0
+CF fail Can't get value of pts for #missing; none is set
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #neg has -2147483648 [pts]
+CF result success -2147483648
+CF msg #big has 2147483647 [pts]
+CF result success 2147483647
+CF result failure 0
+CF fail Can't get value of pts for #missing; none is set
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+STORAGE fn:out {arr:[],b:40b,b2:-112b,b3:20b,b4:-40b,big:2147483647,d:40.0d,d2:0.04d,f:40.0f,f2:4.0f,f3:60.0f,f4:4.0E9f,fail:0,i:40,i2:80,i3:20,i4:-40,i5:13,l:40L,l2:4000000000L,l3:60L,neg:-2147483648,nested:{deep:{value:40}},s:40s,s2:-25536s,s3:14464s,su:1b,su2:0,su3:0.5d}
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+STORAGE fn:s {c:{a:40,b:{d:40b}},l:[40,40,40],n:5}
+CF fail Expected double
+CF fail ...out x int run say hi<--[HERE]
+CF fail Incorrect argument for command
+CF fail ... fn:out x bogus 1 run say hi<--[HERE]
+CF fail Expected double
+CF fail ...out x int x run say hi<--[HERE]
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...ut x int 1e400 run say hi<--[HERE]
+CF fail Expected double
+CF fail ...out x int NaN run say hi<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...age fn:out<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...lt storage<--[HERE]
+CF result success 1
+CF fail Invalid NBT path element
+CF fail ...ge fn:out . int 1 run say hi<--[HERE]
+CF fail Expected integer
+CF fail ...e fn:out [ int 1 run say hi<--[HERE]
+CF result success 1
+STORAGE fn:new {a:1}
+# entity targets
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg Pig has the following entity data: 10.0f
+CF result success 10
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg Pig has the following entity data: 10.0f
+CF result success 10
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg Pig has the following entity data: 40s
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg Pig has the following entity data: 40s
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg Pig has the following entity data: 1b
+CF result success 1
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg Pig has the following entity data: [5.5d, -60.0d, 2.5d]
+CF result success 3
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail execute store result entity @e[type=pig] Air short 1 run scoreboard players get #src pts<--[HERE]
+CF msg Pig has the following entity data: 40s
+CF result success 40
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail execute store result entity @e[type=marker] data.n int 3 run scoreboard players get #src pts<--[HERE]
+CF msg Marker has the following entity data: {l: [1, 2, 3], n: 1}
+CF result success 2
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail execute store result entity @e[type=marker] data.l[1] int 1 run scoreboard players get #src pts<--[HERE]
+CF msg Marker has the following entity data: {l: [1, 2, 3], n: 1}
+CF result success 2
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail execute store success entity @e[type=marker] data.ok byte 1 run say hi<--[HERE]
+CF msg Marker has the following entity data: {l: [1, 2, 3], n: 1}
+CF result success 2
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail execute store result entity @e[type=sheep] Air short 1 run say hi<--[HERE]
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg A has the following entity data: 300s
+CF result success 300
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg A has the following entity data: 20
+CF result success 20
+CF msg #src has 40 [pts]
+CF result success 40
+CF result success 1
+CF result success 1
+CF fail Incorrect argument for command
+CF fail ...mit=1] id string 1 run say hi<--[HERE]
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ult entity<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...g,limit=1]<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...mit=1] Air<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ... Air short<--[HERE]
+# block targets
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg 3, -60, 6 has the following block data: 1b
+CF result success 1
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg 1, -60, 6 has the following block data: [{count: 40, Slot: 0b, id: "minecraft:diamond"}]
+CF result success 1
+CF msg Set [pts] for #src to 70
+CF result success 70
+CF msg 1, -60, 6 has the following block data: 70
+CF result success 70
+CF msg Set [pts] for #src to 40
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg 1, -60, 6 has the following block data: []
+CF result success 0
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg 3, -60, 6 has the following block data: 1b
+CF result success 1
+CF result failure 0
+CF fail Can't get value of pts for #missing; none is set
+CF msg 3, -60, 6 has the following block data: 0b
+CF result success 0
+CF fail Incorrect argument for command
+CF fail ...ustomName string 1 run say hi<--[HERE]
+CF fail The target block is not a block entity
+CF fail That position is not loaded
+CF fail The target block is not a block entity
+CF result success 1
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ck 1 -60 6<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...60 6 Items<--[HERE]
+CF fail Incomplete (expected 3 coordinates)
+CF fail ...ult block 1 -60<--[HERE]
+# stores through other contexts
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg Pig has 1 score(s):
+CF msg [pts]: 40
+CF result success 1
+CF msg #src has 40 [pts]
+CF result success 40
+CF msg #src has 40 [pts]
+CF result success 40
+CF result success 1
+CF result success 1
+STORAGE fn:out {arr:[],b:40b,b2:-112b,b3:20b,b4:-40b,big:2147483647,d:40.0d,d2:0.04d,each:40,each2:1,f:40.0f,f2:4.0f,f3:60.0f,f4:4.0E9f,fail:0,i:40,i2:80,i3:20,i4:-40,i5:13,l:40L,l2:4000000000L,l3:60L,neg:-2147483648,nested:{deep:{value:40}},s:40s,s2:-25536s,s3:14464s,su:1b,su2:0,su3:0.5d}
+CF msg Running function fn:ret_three
+CF msg Function fn:ret_three returned 3
+CF result success 3
+CF msg #t has 3 [pts]
+CF result success 3
+CF msg Running function fn:hello
+CF msg #t has 3 [pts]
+CF result success 3
+CF msg Running function fn:ret_value
+CF msg Function fn:ret_value returned 7
+CF result success 7
+CF msg #t has 7 [pts]
+CF result success 7
+CF msg Storage fn:s has the following contents: 5
+CF result success 5
+CF msg #t has 5 [pts]
+CF result success 5
+CF msg n in storage fn:s after scale factor of 10.00 is 50
+CF result success 50
+CF msg #t has 50 [pts]
+CF result success 50
+CF msg Storage fn:s has the following contents: [40, 40, 40]
+CF result success 3
+CF msg #t has 3 [pts]
+CF result success 3
+CF result failure 0
+CF fail Found no elements matching nothing
+CF msg #t has 0 [pts]
+CF result success 0
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF msg Summoned new Marker
+CF result success 1
+CF msg Added tag 'x' to 2 entities
+CF result success 2
+CF msg #t has 2 [pts]
+CF result success 2
+CF result failure 0
+CF fail Target either already has the tag or has too many tags
+CF msg #t has 0 [pts]
+CF result success 0
+CF msg Gave 3 [Apple] to A
+CF result success 1
+CF msg #t has 1 [pts]
+CF result success 1
+CF msg The game time is 2 tick(s)
+CF result success 2
+CF msg Set the weather to clear
+CF result success -1
+CF msg There are 1 of a max of 20 players online: A
+CF result success 1
+CF msg #t has 1 [pts]
+CF result success 1
+CF msg Seed: [4242]
+CF result success 4242
+CF msg Changed the block at 0, -60, 0
+CF result success 1
+CF result failure 0
+CF fail Could not set the block
+CF msg #t has 0 [pts]
+CF result success 0
+CF msg Successfully filled 8 block(s)
+CF result success 8
+CF msg #t has 8 [pts]
+CF result success 8
+CF result failure 0
+CF fail No blocks were filled
+CF msg #t has 0 [pts]
+CF result success 0
+CF msg Successfully cloned 9 block(s)
+CF result success 9
+CF msg #t has 9 [pts]
+CF result success 9
+CF msg Gave 5 experience points to A
+CF result success 1
+CF msg A has 5 experience points
+CF result success 5
+CF msg #t has 5 [pts]
+CF result success 5
+CF msg Removed 3 item(s) from player A
+CF result success 3
+CF msg #t has 3 [pts]
+CF result success 3
+CF result failure 0
+CF fail No items were found on player A
+CF msg #t has 0 [pts]
+CF result success 0
+CF msg Applied effect Speed to A
+CF result success 1
+CF msg #t has 1 [pts]
+CF result success 1
+CF msg The value of attribute Max Health for entity A is 20.0
+CF result success 20
+CF msg #t has 20 [pts]
+CF result success 20
+CF msg The value of attribute Max Health for entity A is 20.0
+CF result success 200
+CF msg #t has 200 [pts]
+CF result success 200
+CF msg Set A's game mode to Creative Mode
+CF result success 1
+CF msg #t has 1 [pts]
+CF result success 1
+CF result success 0
+CF msg #t has 0 [pts]
+CF result success 0
+CF msg The difficulty is Normal
+CF result success 2
+CF msg Game rule max_command_sequence_length is currently set to 65536
+CF result success 65536
+CF msg #t has 65536 [pts]
+CF result success 65536
+CF msg The world border is currently 59999968 block(s) wide
+CF result success 59999968
+CF msg #t has 59999968 [pts]
+CF result success 59999968
+CF msg Custom bossbar [Bar] has a maximum of -5
+CF result success -5
+CF msg #t has -5 [pts]
+CF result success -5
+CF msg There are 2 objective(s): [pts], [fn]
+CF result success 2
+CF msg #t has 2 [pts]
+CF result success 2
+CF msg Set [pts] for #t to 42
+CF result success 42
+CF msg #t has 42 [pts]
+CF result success 42
+CF result failure 0
+CF fail The range of the random value must be at least 1
+CF msg #t has 0 [pts]
+CF result success 0
+CF result success 1
+CF msg #t has 1 [pts]
+CF result success 1
+PKT A minecraft:disguised_chat 2108000268690508000653657276657200
+PKT A minecraft:disguised_chat 2108000268690508000653657276657200
+PKT A minecraft:disguised_chat 2108000268690508000653657276657200
+PKT A minecraft:disguised_chat 2108000268690508000653657276657200
+PKT A minecraft:disguised_chat 2108000268690508000653657276657200
+PKT A minecraft:disguised_chat 2108000268690508000653657276657200
+PKT A minecraft:disguised_chat 2108000268690508000653657276657200
+PKT A minecraft:disguised_chat 2108000268690508000653657276657200
+PKT A minecraft:disguised_chat 210800026869050a080009696e73657274696f6e002430303030303033652d303030302d303030302d303030302d3030303030303030303030310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b000475756964000000040000003e000000000000000000000001000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 210800026869050a080009696e73657274696f6e002430303030303033652d303030302d303030302d303030302d3030303030303030303030320a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b000475756964000000040000003e000000000000000000000002000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 2108000566697273740508000653657276657200
+PKT A minecraft:disguised_chat 2108000568656c6c6f0508000653657276657200
+PKT A minecraft:system_chat 7c0800017800

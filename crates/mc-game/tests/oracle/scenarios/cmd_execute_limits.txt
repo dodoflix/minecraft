@@ -1,0 +1,150 @@
+# The limits of one command chain and one fork: `max_command_sequence_length` stopping a recursive function (the error text, what ran
+# before the stop, the result), `max_command_forks` trimming the forks of `execute as|at|on` and selectors, the limits changed between
+# runs, forks inside functions and `return`, and the counters after the limit hit.
+datapack fnpack
+command_env
+level flat
+preload 2
+entity_counter 3900
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 1
+dump packets:A:none
+gamerule send_command_feedback true
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b,Tags:["f"],UUID:[I;64,0,0,1]}
+cmd summon minecraft:pig 4 -60 3 {NoAI:1b,Tags:["f"],UUID:[I;64,0,0,2]}
+cmd summon minecraft:pig 5 -60 3 {NoAI:1b,Tags:["f"],UUID:[I;64,0,0,3]}
+cmd summon minecraft:pig 6 -60 3 {NoAI:1b,Tags:["f"],UUID:[I;64,0,0,4]}
+cmd summon minecraft:cow 7 -60 3 {NoAI:1b,Tags:["f","c"],UUID:[I;64,0,0,5]}
+cmd summon minecraft:cow 8 -60 3 {NoAI:1b,Tags:["f","c"],UUID:[I;64,0,0,6]}
+tick 1
+cmd scoreboard players set #d fn 0
+note the default limits: a loop that never ends, a recursion that does
+cmd scoreboard players set #d fn 0
+cmd function fn:depth
+cmd scoreboard players get #d fn
+cmd execute store result score #r fn run function fn:depth
+cmd scoreboard players get #r fn
+cmd scoreboard players set #d fn 0
+cmd function fn:loop
+cmd execute store result score #r fn run function fn:loop
+cmd scoreboard players get #r fn
+cmd execute store success score #r fn run function fn:loop
+cmd scoreboard players get #r fn
+note a short chain
+cmd gamerule max_command_sequence_length 10
+cmd scoreboard players set #d fn 0
+cmd function fn:depth
+cmd scoreboard players get #d fn
+cmd scoreboard players set #d fn 0
+cmd execute store result score #r fn run function fn:depth
+cmd scoreboard players get #r fn
+cmd scoreboard players get #d fn
+cmd function fn:say_four
+cmd function fn:nested
+cmd function #fn:all
+cmd execute as @e[tag=f] run function fn:hello
+cmd gamerule max_command_sequence_length 3
+cmd function fn:say_four
+cmd function fn:nested
+cmd function fn:hello
+cmd function #fn:all
+cmd execute as @e[tag=f] run scoreboard players add @s fn 1
+cmd scoreboard players get @e[tag=f,sort=nearest,limit=1] fn
+cmd gamerule max_command_sequence_length 1
+cmd function fn:hello
+cmd function fn:say_four
+cmd execute if entity @s run say x
+cmd execute as @e[tag=f] run say x
+cmd gamerule max_command_sequence_length 0
+cmd function fn:hello
+cmd say direct
+cmd execute run say run
+cmd gamerule max_command_sequence_length 2
+cmd function fn:hello
+cmd function fn:say_four
+cmd execute run function fn:hello
+cmd execute run execute run function fn:hello
+dump packets:A:disguised_chat,system_chat
+cmd gamerule max_command_sequence_length 65536
+cmd scoreboard players set #d fn 0
+cmd function fn:depth
+cmd scoreboard players get #d fn
+dump logs
+note the chain limit through the stack: nested calls and returns inside
+cmd gamerule max_command_sequence_length 50
+cmd scoreboard players set #d fn 0
+cmd function fn:depth
+cmd scoreboard players get #d fn
+cmd scoreboard players set #d fn 0
+cmd execute store result score #r fn run function fn:depth
+cmd scoreboard players get #d fn
+cmd scoreboard players get #r fn
+cmd scoreboard players set #d fn 0
+cmd execute as @e[tag=f] run function fn:depth
+cmd scoreboard players get #d fn
+cmd gamerule max_command_sequence_length 65536
+note forks
+cmd gamerule max_command_forks 65536
+cmd execute as @e[tag=f] run scoreboard players add @s fn 1
+cmd scoreboard players get @e[tag=f,sort=nearest,limit=1] fn
+cmd gamerule max_command_forks 3
+cmd scoreboard players set @e[tag=f] fn 0
+cmd execute as @e[tag=f] run scoreboard players add @s fn 1
+cmd scoreboard players list @e[tag=f,sort=nearest,limit=1]
+cmd scoreboard players get @e[tag=f,sort=nearest,limit=1] fn
+cmd execute as @e[type=pig] run scoreboard players add @s fn 10
+cmd execute as @e[tag=f] at @s run scoreboard players add @s fn 100
+cmd execute as @e[tag=f] at @s as @e[tag=c] run scoreboard players add @s fn 1000
+cmd execute as @e[tag=f] store result score @s fn run say fork
+cmd function fn:fork_add
+cmd function fn:fork_nested
+cmd gamerule max_command_forks 2
+cmd execute as @e[tag=f] run say fork2
+cmd execute as @e[tag=f] if entity @s run say fork2-if
+cmd execute as @e[tag=c] run say fork2-cows
+cmd execute store result score #r fn as @e[tag=f] run say fork2
+cmd scoreboard players get #r fn
+cmd execute as @e[tag=f] run function fn:hello
+cmd execute as @e[tag=f] run return 1
+cmd execute as @e[tag=f] run return run say x
+cmd gamerule max_command_forks 1
+cmd execute as @e[tag=f] run say fork1
+cmd execute as @e[tag=c] run say fork1-cows
+cmd execute as @a run say fork1-a
+cmd execute as A at @s run say fork1-single
+cmd execute as @e[tag=f] as @e[tag=f] run say fork1-nested
+cmd execute positioned as @e[tag=f] run say fork1-positioned
+cmd execute rotated as @e[tag=f] run say fork1-rotated
+cmd execute facing entity @e[tag=f] feet run say fork1-facing
+cmd execute if function #fn:more run say fork1-iffunction
+cmd function #fn:all
+cmd function #fn:sched_pair
+cmd gamerule max_command_forks 0
+cmd execute as @e[tag=f] run say fork0
+cmd execute as A run say fork0-single
+cmd execute run say fork0-run
+cmd gamerule max_command_forks -1
+cmd gamerule max_command_forks 4
+cmd execute as @e[tag=f] run say fork4
+cmd execute as @e[tag=f] at @s run say fork4-at
+cmd execute as @e[tag=f] at @s as @e[tag=f] run say fork4-nested
+dump packets:A:disguised_chat,system_chat
+cmd gamerule max_command_forks 65536
+dump logs
+note the counters are reset by the next command
+cmd execute as @e[tag=f] run say after
+cmd scoreboard players set @e[tag=f] fn 0
+cmd execute as @e[tag=f] run scoreboard players add @s fn 1
+cmd scoreboard players get @e[tag=f,sort=nearest,limit=1] fn
+cmd scoreboard players list @e[tag=f,sort=furthest,limit=1]
+dump packets:A:disguised_chat,system_chat
+note the limits as a player or console of another permission level
+cmd gamerule max_command_sequence_length 5
+cmd_as -2 function fn:say_four
+cmd_as -2 function fn:depth
+cmd_as -4 function fn:depth
+cmd gamerule max_command_sequence_length 65536
+cmd gamerule max_command_forks 2
+cmd_as -2 execute as @e[tag=f] run say limited
+cmd gamerule max_command_forks 65536
+dump packets:A:disguised_chat,system_chat

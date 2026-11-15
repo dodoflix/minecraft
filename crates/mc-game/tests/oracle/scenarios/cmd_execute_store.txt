@@ -1,0 +1,274 @@
+# `execute store result|success` into every target (score, bossbar value and max, storage, entity data, block data) with every
+# numeric type and scale, what is stored when the command fails or succeeds with a value, several stores in one chain, and the errors of
+# stores to targets that do not exist or hold nothing.
+datapack fnpack
+command_env
+level flat
+preload 2
+entity_counter 3700
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 1
+gamerule send_command_feedback false
+block 1 -60 6 minecraft:chest[facing=north]
+block 3 -60 6 minecraft:oak_sign[rotation=0]
+block 5 -60 6 minecraft:barrel[facing=up]
+tick 1
+cmd data merge block 1 -60 6 {Items:[{Slot:0b,id:"minecraft:diamond",count:3}]}
+cmd summon minecraft:pig 3 -60 2 {NoAI:1b,Health:7.5f,UUID:[I;62,0,0,1],Tags:["p"]}
+cmd summon minecraft:pig 5 -60 2 {NoAI:1b,UUID:[I;62,0,0,2],Tags:["p"]}
+cmd summon minecraft:marker 7 -60 2 {UUID:[I;62,0,0,3],data:{n:1,l:[1,2,3]}}
+cmd scoreboard objectives add pts dummy
+cmd scoreboard players set A pts 11
+cmd scoreboard players set #src pts 40
+cmd bossbar add fn:bar "Bar"
+cmd bossbar set fn:bar max 50
+cmd data merge storage fn:s {n:5,l:[1,2,3],c:{a:1}}
+dump packets:A:none
+note score targets
+cmd execute store result score #t pts run scoreboard players get #src pts
+cmd scoreboard players get #t pts
+cmd execute store success score #t pts run scoreboard players get #src pts
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run scoreboard players get #missing pts
+cmd scoreboard players get #t pts
+cmd execute store success score #t pts run scoreboard players get #missing pts
+cmd scoreboard players get #t pts
+cmd execute store result score A pts run scoreboard players add A pts 5
+cmd scoreboard players get A pts
+cmd execute store result score @a pts run scoreboard players get #src pts
+cmd scoreboard players get A pts
+cmd execute store result score @e[type=pig] pts run scoreboard players get #src pts
+cmd scoreboard players get @e[type=pig,sort=nearest,limit=1] pts
+cmd scoreboard players list @e[type=pig,sort=nearest,limit=1]
+cmd execute store result score @e[type=sheep] pts run scoreboard players get #src pts
+cmd execute store result score #new pts run say hi
+cmd scoreboard players get #new pts
+cmd execute store result score #new2 nope run say hi
+cmd execute store result score #new3 pts
+cmd execute store result score pts
+cmd execute store result
+cmd execute store bogus score #t pts run say hi
+cmd execute store result score #t pts run
+cmd execute store result score #t pts store success score #u pts run scoreboard players get #src pts
+cmd scoreboard players get #t pts
+cmd scoreboard players get #u pts
+cmd execute store success score #t pts store result score #u pts run scoreboard players get #missing pts
+cmd scoreboard players get #t pts
+cmd scoreboard players get #u pts
+cmd execute store result score #t pts store result score #t pts run scoreboard players get #src pts
+cmd scoreboard players get #t pts
+note values larger than a score holds
+cmd scoreboard players set #big pts 2147483647
+cmd execute store result score #t pts run scoreboard players get #big pts
+cmd scoreboard players get #t pts
+cmd scoreboard players set #neg pts -2147483648
+cmd execute store result score #t pts run scoreboard players get #neg pts
+cmd scoreboard players get #t pts
+note bossbar targets
+cmd execute store result bossbar fn:bar value run scoreboard players get #src pts
+cmd bossbar get fn:bar value
+cmd execute store result bossbar fn:bar max run scoreboard players get #src pts
+cmd bossbar get fn:bar max
+cmd execute store success bossbar fn:bar value run scoreboard players get #src pts
+cmd bossbar get fn:bar value
+cmd execute store result bossbar fn:bar value run scoreboard players get #missing pts
+cmd bossbar get fn:bar value
+cmd execute store result bossbar fn:bar max run scoreboard players set #src pts 0
+cmd bossbar get fn:bar max
+cmd execute store result bossbar fn:bar max run scoreboard players set #src pts -5
+cmd bossbar get fn:bar max
+cmd execute store result bossbar fn:bar value run scoreboard players set #src pts 999
+cmd bossbar get fn:bar value
+cmd scoreboard players set #src pts 40
+cmd execute store result bossbar fn:none value run say hi
+cmd execute store result bossbar fn:bar bogus run say hi
+cmd execute store result bossbar fn:bar run say hi
+dump bossbars
+note storage targets, every type and scale
+cmd execute store result storage fn:out i int 1 run scoreboard players get #src pts
+cmd execute store result storage fn:out i2 int 2 run scoreboard players get #src pts
+cmd execute store result storage fn:out i3 int 0.5 run scoreboard players get #src pts
+cmd execute store result storage fn:out i4 int -1 run scoreboard players get #src pts
+cmd execute store result storage fn:out i5 int 0.3333 run scoreboard players get #src pts
+cmd execute store result storage fn:out f float 1 run scoreboard players get #src pts
+cmd execute store result storage fn:out f2 float 0.1 run scoreboard players get #src pts
+cmd execute store result storage fn:out f3 float 1.5 run scoreboard players get #src pts
+cmd execute store result storage fn:out f4 float 100000000 run scoreboard players get #src pts
+cmd execute store result storage fn:out s short 1 run scoreboard players get #src pts
+cmd execute store result storage fn:out s2 short 1000 run scoreboard players get #src pts
+cmd execute store result storage fn:out s3 short 2000 run scoreboard players get #src pts
+cmd execute store result storage fn:out l long 1 run scoreboard players get #src pts
+cmd execute store result storage fn:out l2 long 100000000 run scoreboard players get #src pts
+cmd execute store result storage fn:out l3 long 1.5 run scoreboard players get #src pts
+cmd execute store result storage fn:out d double 1 run scoreboard players get #src pts
+cmd execute store result storage fn:out d2 double 0.001 run scoreboard players get #src pts
+cmd execute store result storage fn:out d3 double 1e10 run scoreboard players get #src pts
+cmd execute store result storage fn:out b byte 1 run scoreboard players get #src pts
+cmd execute store result storage fn:out b2 byte 10 run scoreboard players get #src pts
+cmd execute store result storage fn:out b3 byte 0.5 run scoreboard players get #src pts
+cmd execute store result storage fn:out b4 byte -1 run scoreboard players get #src pts
+cmd execute store success storage fn:out su byte 1 run scoreboard players get #src pts
+cmd execute store success storage fn:out su2 int 7 run scoreboard players get #missing pts
+cmd execute store success storage fn:out su3 double 0.5 run scoreboard players get #src pts
+cmd execute store result storage fn:out neg int 1 run scoreboard players get #neg pts
+cmd execute store result storage fn:out big int 1 run scoreboard players get #big pts
+cmd execute store result storage fn:out fail int 1 run scoreboard players get #missing pts
+cmd execute store result storage fn:out nested.deep.value int 1 run scoreboard players get #src pts
+cmd execute store result storage fn:out arr[0] int 1 run scoreboard players get #src pts
+dump storage:fn:out
+cmd execute store result storage fn:s l[1] int 1 run scoreboard players get #src pts
+cmd execute store result storage fn:s l[5] int 1 run scoreboard players get #src pts
+cmd execute store result storage fn:s l[-1] int 9 run scoreboard players get #src pts
+cmd execute store result storage fn:s c.a long 1 run scoreboard players get #src pts
+cmd execute store result storage fn:s c.b.d byte 1 run scoreboard players get #src pts
+cmd execute store result storage fn:s n.x int 1 run scoreboard players get #src pts
+cmd execute store result storage fn:s l[{}] int 1 run scoreboard players get #src pts
+cmd execute store result storage fn:s l[] int 1 run scoreboard players get #src pts
+cmd execute store result storage fn:s c.a int 1 run scoreboard players get #src pts
+dump storage:fn:s
+cmd execute store result storage fn:out x int run say hi
+cmd execute store result storage fn:out x bogus 1 run say hi
+cmd execute store result storage fn:out x int x run say hi
+cmd execute store result storage fn:out x int 1e400 run say hi
+cmd execute store result storage fn:out x int NaN run say hi
+cmd execute store result storage fn:out
+cmd execute store result storage
+cmd execute store result storage bogus x int 1 run say hi
+cmd execute store result storage fn:out . int 1 run say hi
+cmd execute store result storage fn:out [ int 1 run say hi
+cmd execute store result storage fn:new a int 1 run say hi
+dump storage:fn:new
+note entity targets
+cmd execute store result entity @e[type=pig,sort=nearest,limit=1] Health float 1 run scoreboard players get #src pts
+cmd data get entity @e[type=pig,sort=nearest,limit=1] Health
+cmd execute store result entity @e[type=pig,sort=nearest,limit=1] Health float 0.5 run scoreboard players get #src pts
+cmd data get entity @e[type=pig,sort=nearest,limit=1] Health
+cmd execute store result entity @e[type=pig,sort=nearest,limit=1] Air short 1 run scoreboard players get #src pts
+cmd data get entity @e[type=pig,sort=nearest,limit=1] Air
+cmd execute store result entity @e[type=pig,sort=nearest,limit=1] Fire short 1 run scoreboard players get #src pts
+cmd data get entity @e[type=pig,sort=nearest,limit=1] Fire
+cmd execute store result entity @e[type=pig,sort=nearest,limit=1] Invulnerable byte 1 run scoreboard players get #src pts
+cmd data get entity @e[type=pig,sort=nearest,limit=1] Invulnerable
+cmd execute store result entity @e[type=pig,sort=nearest,limit=1] Pos[1] double 1 run scoreboard players get #src pts
+cmd data get entity @e[type=pig,sort=nearest,limit=1] Pos
+cmd execute store result entity @e[type=pig] Air short 1 run scoreboard players get #src pts
+cmd data get entity @e[type=pig,sort=furthest,limit=1] Air
+cmd execute store result entity @e[type=marker] data.n int 3 run scoreboard players get #src pts
+cmd data get entity @e[type=marker,limit=1] data
+cmd execute store result entity @e[type=marker] data.l[1] int 1 run scoreboard players get #src pts
+cmd data get entity @e[type=marker,limit=1] data
+cmd execute store success entity @e[type=marker] data.ok byte 1 run say hi
+cmd data get entity @e[type=marker,limit=1] data
+cmd execute store result entity @e[type=sheep] Air short 1 run say hi
+cmd execute store result entity A Air short 1 run scoreboard players get #src pts
+cmd data get entity A Air
+cmd execute store result entity A foodLevel int 1 run scoreboard players get #src pts
+cmd data get entity A foodLevel
+cmd execute store result entity A Pos[0] double 1 run scoreboard players get #src pts
+cmd execute store result entity A Nothing int 1 run say hi
+cmd execute store result entity @e[type=pig,limit=1] Nothing int 1 run say hi
+cmd execute store result entity @e[type=pig,limit=1] id string 1 run say hi
+cmd execute store result entity @e[type=pig,limit=1] UUID int 1 run say hi
+cmd execute store result entity
+cmd execute store result entity @e[type=pig,limit=1]
+cmd execute store result entity @e[type=pig,limit=1] Air
+cmd execute store result entity @e[type=pig,limit=1] Air short
+note block targets
+cmd execute store result block 3 -60 6 front_text.has_glowing_text byte 1 run scoreboard players get #src pts
+cmd data get block 3 -60 6 front_text.has_glowing_text
+cmd execute store result block 1 -60 6 Items[0].count int 1 run scoreboard players get #src pts
+cmd data get block 1 -60 6 Items
+cmd execute store result block 1 -60 6 Items[0].count int 1 run scoreboard players set #src pts 70
+cmd data get block 1 -60 6 Items[0].count
+cmd scoreboard players set #src pts 40
+cmd execute store result block 1 -60 6 Items[0].Slot byte 1 run scoreboard players get #src pts
+cmd data get block 1 -60 6 Items
+cmd execute store success block 3 -60 6 is_waxed byte 1 run scoreboard players get #src pts
+cmd data get block 3 -60 6 is_waxed
+cmd execute store result block 3 -60 6 is_waxed byte 1 run scoreboard players get #missing pts
+cmd data get block 3 -60 6 is_waxed
+cmd execute store result block 5 -60 6 CustomName string 1 run say hi
+cmd execute store result block 1 -60 4 Items int 1 run say hi
+cmd execute store result block 1000 -60 1000 Items int 1 run say hi
+cmd execute store result block ~ ~ ~ Items int 1 run say hi
+cmd execute store result block 1 -60 6 Items[9] int 1 run say hi
+cmd execute store result block 1 -60 6 Nothing int 1 run say hi
+cmd execute store result block 1 -60 6
+cmd execute store result block 1 -60 6 Items
+cmd execute store result block 1 -60
+note stores through other contexts
+cmd execute as @e[type=pig] store result score @s pts run scoreboard players get #src pts
+cmd scoreboard players list @e[type=pig,sort=nearest,limit=1]
+cmd execute as @e[type=pig] store result storage fn:out each int 1 run scoreboard players get #src pts
+cmd execute as @e[type=pig] store success storage fn:out each2 int 1 run say hi
+dump storage:fn:out
+cmd execute store result score #t pts run function fn:ret_three
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run function fn:hello
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run function #fn:more
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run data get storage fn:s n
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run data get storage fn:s n 10
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run data get storage fn:s l
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run data get storage fn:s nothing
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run kill @e[type=sheep]
+cmd execute store result score #t pts run kill @e[type=armor_stand]
+cmd execute store result score #t pts run summon minecraft:marker 0 -60 0
+cmd execute store result score #t pts run tag @e[type=pig] add x
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run tag @e[type=pig] add x
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run give A minecraft:apple 3
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run time query gametime
+cmd execute store result score #t pts run weather clear
+cmd execute store result score #t pts run list
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run seed
+cmd execute store result score #t pts run setblock 0 -60 0 minecraft:stone
+cmd execute store result score #t pts run setblock 0 -60 0 minecraft:stone
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run fill 0 -60 0 2 -60 2 minecraft:stone
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run fill 0 -60 0 2 -60 2 minecraft:stone
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run clone 0 -60 0 2 -60 2 10 -60 0
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run experience add A 5 points
+cmd execute store result score #t pts run experience query A points
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run clear A minecraft:apple
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run clear A minecraft:apple
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run effect give A minecraft:speed 5
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run attribute A minecraft:max_health get
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run attribute A minecraft:max_health get 10
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run gamemode creative A
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run gamemode creative A
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run difficulty
+cmd execute store result score #t pts run gamerule max_command_sequence_length
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run worldborder get
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run bossbar get fn:bar max
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run scoreboard objectives list
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run scoreboard players operation #t pts += #src pts
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run random value 1..1
+cmd scoreboard players get #t pts
+cmd execute store result score #t pts run tellraw A "x"
+cmd scoreboard players get #t pts
+dump packets:A:disguised_chat,system_chat

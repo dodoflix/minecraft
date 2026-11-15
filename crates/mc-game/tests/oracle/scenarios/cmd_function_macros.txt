@@ -1,0 +1,143 @@
+# Macro functions (`$` lines): the argument tags a call may pass (every NBT type, nested, long numbers, escapes), arguments from storage,
+# an entity and a block, missing and surplus arguments, macros calling macros, a macro line that expands to a bad command, and the
+# lines of a function that are not macros.
+datapack fnpack
+command_env
+level flat
+preload 2
+entity_counter 3300
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 1
+dump packets:A:none
+note argument types
+cmd function fn:macro {a:1,b:2}
+cmd function fn:macro {a:"x y",b:"z"}
+cmd function fn:macro {a:1b,b:2s}
+cmd function fn:macro {a:1L,b:123456789012L}
+cmd function fn:macro {a:1.5f,b:2.0d}
+cmd function fn:macro {a:1.0f,b:1e10d}
+cmd function fn:macro {a:0.1f,b:0.1d}
+cmd function fn:macro {a:1.0E-5f,b:1.0E-5d}
+cmd function fn:macro {a:true,b:false}
+cmd function fn:macro {a:[1,2],b:{k:"v"}}
+cmd function fn:macro {a:[I;1,2],b:[B;1b,2b]}
+cmd function fn:macro {a:[L;1L],b:[{x:1},{y:2}]}
+cmd function fn:macro {a:'single',b:"dou\"ble"}
+cmd function fn:macro {a:"back\\slash",b:"new\nline"}
+cmd function fn:macro {a:"",b:""}
+cmd function fn:macro {a:-0.0f,b:-0}
+cmd function fn:macro {a:100000000000000000000.0d,b:3.4028235E38f}
+cmd function fn:macro {a:{},b:[]}
+cmd function fn:macro {a:{nested:{deep:[1,{z:2}]}},b:1}
+cmd function fn:macro {a:"é ü 日本",b:"\u00e9"}
+cmd function fn:macro {a:1,b:2,c:3}
+cmd function fn:macro {b:1,a:2}
+cmd function fn:macro {a:1,a:2,b:3}
+dump storage:fn:out
+note missing and bad arguments
+cmd function fn:macro {a:1}
+cmd function fn:macro {b:2}
+cmd function fn:macro {}
+cmd function fn:macro {c:1,d:2}
+cmd function fn:macro
+cmd function fn:macro {a:,b:1}
+cmd function fn:macro {a:1,b:}
+cmd function fn:macro {a:1,b:2
+cmd function fn:macro {"a":1,"b":2}
+cmd function fn:macro {a:1,b:unquoted text}
+cmd function fn:macro {a:1,b:[}
+cmd function fn:macro_dup {a:"x",b:"y"}
+cmd function fn:macro_dup {a:"x"}
+cmd function fn:macro_empty_arg {a:""}
+cmd function fn:macro_empty_arg {a:[]}
+cmd function fn:macro_key_chars {a_b:1,A1:2,_:3}
+cmd function fn:macro_key_chars {a_b:1,A1:2}
+cmd function fn:macro_no_vars
+cmd function fn:macro_no_vars {a:1}
+cmd function fn:macro_bad_result {a:"x"}
+cmd function fn:macro_bad_result {a:""}
+cmd function fn:macro_cont {a:1,b:2}
+cmd function fn:macro_two_lines {a:1,b:2}
+cmd function fn:macro_two_lines {a:1}
+cmd function fn:macro_two_lines {b:2}
+cmd function fn:macro_nest {x:"outer"}
+cmd function fn:macro_nest {y:"outer"}
+cmd function fn:macro_nbt {v:1b}
+cmd function fn:macro_nbt {v:[1,2]}
+cmd function fn:macro_nbt {v:{a:1}}
+cmd function fn:macro_nbt {v:"text"}
+cmd function fn:macro_nbt {v:"\"quoted\""}
+dump storage:fn:out
+dump packets:A:disguised_chat,system_chat
+note the same arguments by compound, the same function twice and through tags
+cmd function fn:macro_range {name:"#tick",lo:1,hi:100}
+cmd function fn:macro_range {name:"#tick",lo:100,hi:200}
+cmd function fn:macro_range {name:"#none",lo:0,hi:0}
+cmd function fn:macro_range {name:"#tick",lo:"1",hi:"x"}
+cmd function fn:macro_range {name:"#tick",lo:1}
+dump packets:A:disguised_chat,system_chat
+note macro sources
+cmd data merge storage fn:args {a:"from storage",b:7}
+cmd function fn:macro with storage fn:args
+cmd function fn:macro with storage fn:args a
+cmd function fn:macro with storage fn:args b
+cmd function fn:macro with storage fn:args c
+cmd function fn:macro with storage fn:args [0]
+cmd function fn:macro with storage fn:args {a:1}
+cmd function fn:macro with storage fn:args a.b
+cmd function fn:macro with storage fn:none
+cmd data merge storage fn:args {list:[{a:1,b:2},{a:3,b:4},5],text:"s"}
+cmd function fn:macro with storage fn:args list[0]
+cmd function fn:macro with storage fn:args list[1]
+cmd function fn:macro with storage fn:args list[2]
+cmd function fn:macro with storage fn:args list[5]
+cmd function fn:macro with storage fn:args text
+cmd function fn:macro with storage fn:args list
+cmd summon minecraft:marker 2 -60 2 {data:{a:"from marker",b:3},UUID:[I;53,0,0,1]}
+cmd summon minecraft:marker 3 -60 2 {data:{a:"second",b:4},UUID:[I;53,0,0,2]}
+cmd function fn:macro_marker with entity @e[type=marker,sort=nearest,limit=1] data
+cmd function fn:macro_marker with entity @e[type=marker] data
+cmd function fn:macro_marker with entity @e[type=cow] data
+cmd function fn:macro_marker with entity @e[type=marker,limit=1] Pos
+cmd function fn:macro_marker with entity @e[type=marker,limit=1] data.a
+cmd function fn:macro_marker with entity A data
+cmd function fn:macro_marker with entity A Inventory
+cmd function fn:macro_marker with entity @e[type=marker,limit=1]
+cmd function fn:macro_marker with entity @e[type=marker,limit=1] data.c
+block 1 -60 0 minecraft:oak_sign[rotation=0]
+tick 1
+cmd function fn:macro_sign with block 1 -60 0 front_text
+cmd function fn:macro_sign with block 1 -60 0 back_text
+cmd function fn:macro_sign with block 1 -60 0 front_text.messages
+cmd function fn:macro_sign with block 1 -60 0 is_waxed
+cmd function fn:macro_sign with block 5 -60 0 front_text
+cmd function fn:macro_sign with block 1 -60 0
+cmd function fn:macro_sign with block 1 -60 0 nothing
+cmd function fn:macro_sign with block ~ ~ ~ front_text
+cmd function fn:macro_sign with block 1 -60 0 front_text {a:1}
+dump packets:A:disguised_chat,system_chat
+note macro results: values, `return run`, `execute store`
+cmd function fn:macro_return {v:5}
+cmd function fn:macro_return {v:-3}
+cmd function fn:macro_return {v:0}
+cmd function fn:macro_return {v:"7"}
+cmd function fn:macro_return {v:1.5}
+cmd function fn:macro_return {v:"x"}
+cmd function fn:macro_return {v:"fail"}
+cmd function fn:macro_return {v:"run say hi"}
+cmd execute store result score #r fn run function fn:macro_return {v:42}
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:macro_return {v:"fail"}
+cmd scoreboard players get #r fn
+cmd execute store success score #r fn run function fn:macro_return {v:0}
+cmd scoreboard players get #r fn
+cmd function fn:macro_return_run {x:"run"}
+cmd execute store result score #r fn run function fn:macro_return_run {x:"hello"}
+cmd scoreboard players get #r fn
+dump packets:A:disguised_chat,system_chat
+note scheduling a macro function
+cmd schedule function fn:macro 1t
+cmd schedule function fn:macro_dup 1t
+tick 2
+dump packets:A:disguised_chat,system_chat
+dump logs

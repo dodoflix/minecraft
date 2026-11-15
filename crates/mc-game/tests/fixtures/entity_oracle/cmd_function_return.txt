@@ -1,0 +1,288 @@
+C Game rule send_command_feedback is now set to true
+# outside a function
+CF result success 5
+CF result success 0
+CF result success -7
+CF result success 2147483647
+CF result success -2147483648
+CF fail Invalid integer '2147483648'
+CF fail return 2147483648<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail return 1.5<--[HERE]
+CF result failure 0
+CF result success 1
+CF msg Storage fn:state has the following contents: ["a", "b", "c"]
+CF result success 3
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg #tick has 1 [fn]
+CF result success 1
+CF result failure 0
+CF fail Can't get value of fn for #nobody; none is set
+CF msg Running function fn:ret_value
+CF msg Function fn:ret_value returned 7
+CF result success 7
+CF msg Running function fn:ret_fail
+CF msg Function fn:ret_fail returned 0
+CF result failure 0
+CF result success 6
+CF result failure 0
+CF fail Unknown or incomplete command. See below for error
+CF fail return run<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail return<--[HERE]
+CF fail Expected integer
+CF fail return x<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...eturn run bogus<--[HERE]
+CF fail Incorrect argument for command
+CF fail return 5 6<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...turn fail now<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...eturn run run say x<--[HERE]
+PKT A minecraft:disguised_chat 2108000268690508000653657276657200
+# the stored result of a return outside a function
+CF result success 9
+CF msg #r has 9 [fn]
+CF result success 9
+CF result success 0
+CF msg #r has 1 [fn]
+CF result success 1
+CF result success 3
+CF msg #r has 1 [fn]
+CF result success 1
+CF result failure 0
+CF msg #r has 0 [fn]
+CF result success 0
+CF result failure 0
+CF msg #r has 0 [fn]
+CF result success 0
+CF result success 4
+CF msg #r has 4 [fn]
+CF result success 4
+# functions that return
+CF msg Running function fn:ret_value
+CF msg Function fn:ret_value returned 7
+CF result success 7
+CF msg Running function fn:ret_fail
+CF msg Function fn:ret_fail returned 0
+CF result failure 0
+CF msg Running function fn:ret_three
+CF msg Function fn:ret_three returned 3
+CF result success 3
+CF msg Running function fn:ret_run
+CF msg Function fn:ret_run returned 7
+CF result success 7
+CF msg Running function fn:ret_run_cmd
+CF msg Function fn:ret_run_cmd returned 0
+CF result failure 0
+CF msg Running function fn:ret_run_fail
+CF msg Function fn:ret_run_fail returned 0
+CF result failure 0
+CF msg Running function fn:calls_ret_three
+CF msg Function fn:calls_ret_three returned 9
+CF result success 9
+CF msg Running function fn:ret_big
+CF msg Function fn:ret_big returned 2147483647
+CF result success 2147483647
+CF msg Running function fn:ret_neg
+CF msg Function fn:ret_neg returned -5
+CF result success -5
+CF msg Running function fn:ret_inner
+CF msg Function fn:ret_inner returned 3
+CF result success 3
+CF msg Running function fn:ret_store
+CF msg Function fn:ret_store returned 3
+CF result success 3
+CF msg Running function fn:ret_in_exec
+CF msg Running function fn:ret_fork_as
+CF msg Running function fn:ret_nested_run
+CF msg Function fn:ret_nested_run returned 8
+CF result success 8
+CF msg Running function fn:ret_run_if
+CF msg Function fn:ret_run_if returned 1
+CF result success 1
+CF msg Running function fn:ret_run_say
+CF msg Function fn:ret_run_say returned 1
+CF result success 1
+PKT A minecraft:disguised_chat 2108000566697273740508000653657276657200
+PKT A minecraft:disguised_chat 2108000566697273740508000653657276657200
+PKT A minecraft:disguised_chat 2108000f61667465722d7265742d74687265650508000653657276657200
+PKT A minecraft:disguised_chat 2108000b61667465722d696e6e65720508000653657276657200
+PKT A minecraft:disguised_chat 2108000566697273740508000653657276657200
+PKT A minecraft:disguised_chat 2108000566697273740508000653657276657200
+PKT A minecraft:disguised_chat 2108000a61667465722d666f726b0508000653657276657200
+PKT A minecraft:disguised_chat 2108000a61667465722d666f726b0508000653657276657200
+PKT A minecraft:disguised_chat 2108000268690508000653657276657200
+# the same through execute store: result and success
+CF msg Running function fn:ret_value
+CF msg Function fn:ret_value returned 7
+CF result success 7
+CF msg #r has 7 [fn]
+CF result success 7
+CF msg Running function fn:ret_fail
+CF msg Function fn:ret_fail returned 0
+CF result failure 0
+CF msg #r has 0 [fn]
+CF result success 0
+CF msg Running function fn:ret_three
+CF msg Function fn:ret_three returned 3
+CF result success 3
+CF msg #r has 3 [fn]
+CF result success 3
+CF msg Running function fn:ret_run
+CF msg Function fn:ret_run returned 7
+CF result success 7
+CF msg #r has 7 [fn]
+CF result success 7
+CF msg Running function fn:ret_run_cmd
+CF msg Function fn:ret_run_cmd returned 0
+CF result failure 0
+CF msg #r has 0 [fn]
+CF result success 0
+CF msg Running function fn:ret_run_fail
+CF msg Function fn:ret_run_fail returned 0
+CF result failure 0
+CF msg #r has 0 [fn]
+CF result success 0
+CF msg Running function fn:calls_ret_three
+CF msg Function fn:calls_ret_three returned 9
+CF result success 9
+CF msg #r has 9 [fn]
+CF result success 9
+CF msg Running function fn:ret_big
+CF msg Function fn:ret_big returned 2147483647
+CF result success 2147483647
+CF msg #r has 2147483647 [fn]
+CF result success 2147483647
+CF msg Running function fn:ret_neg
+CF msg Function fn:ret_neg returned -5
+CF result success -5
+CF msg #r has -5 [fn]
+CF result success -5
+CF msg Running function fn:ret_inner
+CF msg Function fn:ret_inner returned 3
+CF result success 3
+CF msg #r has 3 [fn]
+CF result success 3
+CF msg Running function fn:ret_store
+CF msg Function fn:ret_store returned 3
+CF result success 3
+CF msg #r has 3 [fn]
+CF result success 3
+CF msg Running function fn:ret_nested_run
+CF msg Function fn:ret_nested_run returned 8
+CF result success 8
+CF msg #r has 8 [fn]
+CF result success 8
+CF msg Running function fn:ret_run_if
+CF msg Function fn:ret_run_if returned 1
+CF result success 1
+CF msg #r has 1 [fn]
+CF result success 1
+CF msg Running function fn:ret_run_say
+CF msg Function fn:ret_run_say returned 1
+CF result success 1
+CF msg #r has 1 [fn]
+CF result success 1
+CF msg Running function fn:ret_value
+CF msg Function fn:ret_value returned 7
+CF result success 7
+CF msg #s has 1 [fn]
+CF result success 1
+CF msg Running function fn:ret_fail
+CF msg Function fn:ret_fail returned 0
+CF result failure 0
+CF msg #s has 0 [fn]
+CF result success 0
+CF msg Running function fn:ret_run_fail
+CF msg Function fn:ret_run_fail returned 0
+CF result failure 0
+CF msg #s has 0 [fn]
+CF result success 0
+CF msg Running function fn:calls_ret_three
+CF msg Function fn:calls_ret_three returned 9
+CF result success 9
+CF msg #s has 1 [fn]
+CF result success 1
+CF msg Running function fn:empty
+CF msg #s has 1 [fn]
+CF result success 1
+# returns inside execute forks (the first entity that returns stops the whole function)
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Running function fn:ret_in_exec
+CF msg Function fn:ret_in_exec returned 4
+CF result success 4
+CF msg Function fn:ret_in_exec returned 4
+CF result success 4
+CF msg Function fn:ret_in_exec returned 4
+CF result success 4
+CF msg #r has 4 [fn]
+CF result success 4
+CF msg Running function fn:ret_fork_as
+CF msg Function fn:ret_fork_as returned 1
+CF result success 1
+CF msg #r has 1 [fn]
+CF result success 1
+CF result success 3
+CF result success 3
+CF result success 3
+CF result success 1
+CF result success 12
+CF result success 12
+CF result success 12
+CF msg Pig has 12 [fn]
+CF result success 12
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 2
+CF result success 15
+CF msg #r has 15 [fn]
+CF result success 15
+PKT A minecraft:disguised_chat 2108000566697273740508000653657276657200
+PKT A minecraft:disguised_chat 2108000566697273740508000653657276657200
+PKT A minecraft:disguised_chat 2108000f61667465722d7265742d74687265650508000653657276657200
+PKT A minecraft:disguised_chat 2108000b61667465722d696e6e65720508000653657276657200
+PKT A minecraft:disguised_chat 2108000566697273740508000653657276657200
+PKT A minecraft:disguised_chat 2108000566697273740508000653657276657200
+PKT A minecraft:disguised_chat 2108000268690508000653657276657200
+PKT A minecraft:disguised_chat 2108000566697273740508000653657276657200
+PKT A minecraft:disguised_chat 2108000f61667465722d7265742d74687265650508000653657276657200
+PKT A minecraft:disguised_chat 21080006666f726b6564050a080009696e73657274696f6e002430303030303033362d303030302d303030302d303030302d3030303030303030303030310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b0004757569640000000400000036000000000000000000000001000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 21080003706967050a080009696e73657274696f6e002430303030303033362d303030302d303030302d303030302d3030303030303030303030310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b0004757569640000000400000036000000000000000000000001000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+# return when feedback is off and as other sources
+C Game rule send_command_feedback is now set to false
+CF result success 5
+CF msg Running function fn:ret_three
+CF msg Function fn:ret_three returned 3
+CF result success 3
+CF msg Running function fn:ret_fail
+CF msg Function fn:ret_fail returned 0
+CF result failure 0
+C Game rule send_command_feedback is now set to true
+CF result success 4
+CF msg Running function fn:ret_three
+CF msg Function fn:ret_three returned 3
+CF result success 3
+CF msg Running function fn:ret_three
+CF msg Function fn:ret_three returned 3
+CF result success 3
+LOG ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
+LOG ERROR: Failed to load function fn:bad_comment\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
+LOG ERROR: Failed to load function fn:bad_continuation\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file
+LOG ERROR: Failed to load function fn:bad_macro\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(oops'
+LOG ERROR: Failed to load function fn:bad_slash\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '/say hi' on line 1 (did you mean 'say'? Do not use a preceding forwards slash.)
+LOG ERROR: Failed to load function fn:bad_syntax\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+LOG ERROR: Failed to load function fn:macro_bad_key\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a-b)'
+LOG ERROR: Failed to load function fn:macro_no_vars\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say no variables here'
+LOG ERROR: Failed to load function fn:macro_only_dollar\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: ''
+LOG ERROR: Failed to load function fn:macro_unclosed\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a'

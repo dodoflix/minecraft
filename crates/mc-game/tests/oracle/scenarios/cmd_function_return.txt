@@ -1,0 +1,137 @@
+# `/return` in every form (value, fail, run), at the top level and inside functions, inside `execute` forks, the values `execute store`
+# receives, the frames that stop and the commands that still run after a return.
+datapack fnpack
+command_env
+level flat
+preload 2
+entity_counter 3400
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 1
+dump packets:A:none
+gamerule send_command_feedback true
+note outside a function
+cmd return 5
+cmd return 0
+cmd return -7
+cmd return 2147483647
+cmd return -2147483648
+cmd return 2147483648
+cmd return 1.5
+cmd return fail
+cmd return run say hi
+cmd return run data get storage fn:state loads
+cmd return run execute if score #tick fn matches 1..
+cmd return run execute if score #tick fn matches 1000..
+cmd return run scoreboard players get #tick fn
+cmd return run scoreboard players get #nobody fn
+cmd return run function fn:ret_value
+cmd return run function fn:ret_fail
+cmd return run return 6
+cmd return run return fail
+cmd return run
+cmd return
+cmd return x
+cmd return run bogus
+cmd return 5 6
+cmd return fail now
+cmd return run run say x
+dump packets:A:disguised_chat,system_chat
+note the stored result of a return outside a function
+cmd execute store result score #r fn run return 9
+cmd scoreboard players get #r fn
+cmd execute store success score #r fn run return 0
+cmd scoreboard players get #r fn
+cmd execute store success score #r fn run return 3
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run return fail
+cmd scoreboard players get #r fn
+cmd execute store success score #r fn run return fail
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run return run return 4
+cmd scoreboard players get #r fn
+note functions that return
+cmd function fn:ret_value
+cmd function fn:ret_fail
+cmd function fn:ret_three
+cmd function fn:ret_run
+cmd function fn:ret_run_cmd
+cmd function fn:ret_run_fail
+cmd function fn:calls_ret_three
+cmd function fn:ret_big
+cmd function fn:ret_neg
+cmd function fn:ret_inner
+cmd function fn:ret_store
+cmd function fn:ret_in_exec
+cmd function fn:ret_fork_as
+cmd function fn:ret_nested_run
+cmd function fn:ret_run_if
+cmd function fn:ret_run_say
+dump packets:A:disguised_chat,system_chat
+note the same through execute store: result and success
+cmd execute store result score #r fn run function fn:ret_value
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_fail
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_three
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_run
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_run_cmd
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_run_fail
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:calls_ret_three
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_big
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_neg
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_inner
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_store
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_nested_run
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_run_if
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_run_say
+cmd scoreboard players get #r fn
+cmd execute store success score #s fn run function fn:ret_value
+cmd scoreboard players get #s fn
+cmd execute store success score #s fn run function fn:ret_fail
+cmd scoreboard players get #s fn
+cmd execute store success score #s fn run function fn:ret_run_fail
+cmd scoreboard players get #s fn
+cmd execute store success score #s fn run function fn:calls_ret_three
+cmd scoreboard players get #s fn
+cmd execute store success score #s fn run function fn:empty
+cmd scoreboard players get #s fn
+note returns inside execute forks (the first entity that returns stops the whole function)
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b,UUID:[I;54,0,0,1]}
+cmd summon minecraft:pig 5 -60 3 {NoAI:1b,UUID:[I;54,0,0,2]}
+cmd summon minecraft:pig 7 -60 3 {NoAI:1b,UUID:[I;54,0,0,3]}
+cmd execute store result score #r fn run function fn:ret_in_exec
+cmd scoreboard players get #r fn
+cmd execute store result score #r fn run function fn:ret_fork_as
+cmd scoreboard players get #r fn
+cmd execute as @e[type=pig] run return 3
+cmd execute as @e[type=pig] run return run say pig
+cmd execute as @e[type=pig] store result score @s fn run return 12
+cmd scoreboard players get @e[type=pig,sort=nearest,limit=1] fn
+cmd execute as @e[type=pig] if entity @s run return 1
+cmd execute as @e[type=cow] run return 1
+cmd execute if entity @e[type=pig] run return 2
+cmd execute unless entity @e[type=pig] run return 2
+cmd execute store result score #r fn if entity @e[type=pig] run return 15
+cmd scoreboard players get #r fn
+dump packets:A:disguised_chat,system_chat
+note return when feedback is off and as other sources
+gamerule send_command_feedback false
+cmd return 5
+cmd function fn:ret_three
+cmd function fn:ret_fail
+gamerule send_command_feedback true
+cmd_as -2 return 4
+cmd_as -2 function fn:ret_three
+cmd_as -2 return run function fn:ret_three
+dump logs

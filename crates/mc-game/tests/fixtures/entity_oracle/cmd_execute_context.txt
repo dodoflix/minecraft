@@ -1,0 +1,463 @@
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Horse
+CF result success 1
+CF msg Summoned new Wolf
+CF result success 1
+CF msg Summoned new Zombie
+CF result success 1
+CF msg Summoned new Item Display
+CF result success 1
+C Game rule send_command_feedback is now set to true
+# as: the executor changes, position and rotation stay
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [0.0d, -60.0d, 0.0d]
+CF result success 3
+CF msg Marker has the following entity data: [0.0f, 0.0f]
+CF result success 2
+CF result success 1
+CF msg Set [fn] for Pig to 3
+CF result success 3
+CF msg Set [fn] for Pig to 3
+CF result success 3
+CF msg Pig has 3 [fn]
+CF result success 3
+CF msg Pig has 3 [fn]
+CF result success 3
+CF result failure 0
+CF fail Can't get value of fn for #r; none is set
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF fail Incorrect argument for command
+CF fail ...te as run say x<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail execute as<--[HERE]
+CF fail Expected end of options
+CF fail ...ute as @e[<--[HERE]
+CF result success 1
+# at: position and rotation of the entity
+CF msg Teleported Marker to 3.500000, -60.000000, 3.250000
+CF result success 1
+CF msg Marker has the following entity data: [3.5d, -60.0d, 3.25d]
+CF result success 3
+CF msg Marker has the following entity data: [90.0f, 5.0f]
+CF result success 2
+CF msg Teleported Marker to 8.500000, -58.000000, 6.500000
+CF result success 1
+CF msg Marker has the following entity data: [8.5d, -58.0d, 6.5d]
+CF result success 3
+CF msg Marker has the following entity data: [180.0f, -30.0f]
+CF result success 2
+CF msg Teleported Marker to 9.500000, -60.000000, 10.000000
+CF result success 1
+CF msg Marker has the following entity data: [9.5d, -60.0d, 10.0d]
+CF result success 3
+CF msg Marker has the following entity data: [190.0f, -35.0f]
+CF result success 2
+CF msg Teleported Marker to 7.500000, -57.000055, 4.767917
+CF result success 1
+CF msg Marker has the following entity data: [7.500000044401442d, -57.000055372714996d, 4.767917275428772d]
+CF result success 3
+CF msg Teleported Marker to 2.416582, -59.090946, 3.250000
+CF result success 1
+CF msg Marker has the following entity data: [2.4165817499160767d, -59.09094629436731d, 3.25d]
+CF result success 3
+CF msg Teleported Marker to -0.977116, -60.520819, 3.058629
+CF result success 1
+CF msg Marker has the following entity data: [-0.9771159291267395d, -60.520818650722504d, 3.058628737926483d]
+CF result success 3
+CF msg Teleported Marker to 7.007942, -59.402218, 0.179515
+CF result success 1
+CF msg Marker has the following entity data: [7.007941773046163d, -59.40221831202507d, 0.17951471556315113d]
+CF result success 3
+CF msg Teleported Marker to 3.500000, -59.000000, 3.250000
+CF result success 1
+CF msg Teleported Marker to 5.500000, -59.000000, 3.750000
+CF result success 1
+CF msg Marker has the following entity data: [5.5d, -59.0d, 3.75d]
+CF result success 3
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Marker has the following entity data: [3.5d, -58.0d, 3.25d]
+CF result success 3
+CF result success 1
+CF result success 1
+CF msg Killed 2 entities
+CF result success 2
+# positioned
+CF msg Teleported Marker to 1.500000, 2.000000, 3.500000
+CF result success 1
+CF msg Marker has the following entity data: [1.5d, 2.0d, 3.5d]
+CF result success 3
+CF msg Teleported Marker to 0.000000, -59.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [0.0d, -59.0d, 0.0d]
+CF result success 3
+CF msg Teleported Marker to 1.000000, -59.000000, 1.000000
+CF result success 1
+CF msg Marker has the following entity data: [1.0d, -59.0d, 1.0d]
+CF result success 3
+CF msg Teleported Marker to 1.500000, -60.000000, 2.500000
+CF result success 1
+CF msg Marker has the following entity data: [1.5d, -60.0d, 2.5d]
+CF result success 3
+CF msg Teleported Marker to 1.500000, -60.000000, 2.500000
+CF result success 1
+CF msg Marker has the following entity data: [360.0f, 0.0f]
+CF result success 2
+CF msg Teleported Marker to 0.000000, -60.000000, 1.000000
+CF result success 1
+CF msg Marker has the following entity data: [2.220446049250313E-16d, -60.0d, 1.0d]
+CF result success 3
+CF msg Teleported Marker to 0.000000, -60.000000, 1.000000
+CF result success 1
+CF msg Marker has the following entity data: [1.2246468525851679E-16d, -60.0d, 1.0d]
+CF result success 3
+CF msg Teleported Marker to 0.007628, -60.173606, 1.352876
+CF result success 1
+CF msg Marker has the following entity data: [0.007628023624420166d, -60.1736062169075d, 1.3528762459754944d]
+CF result success 3
+CF msg Teleported Marker to 5.500000, -60.000000, 3.750000
+CF result success 1
+CF msg Marker has the following entity data: [5.5d, -60.0d, 3.75d]
+CF result success 3
+CF msg Marker has the following entity data: [360.0f, 0.0f]
+CF result success 2
+CF msg Teleported Marker to 8.500000, -58.000000, 6.500000
+CF result success 1
+CF msg Marker has the following entity data: [8.5d, -58.0d, 6.5d]
+CF result success 3
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [0.0d, -60.0d, 0.0d]
+CF result success 3
+CF fail Incorrect argument for command
+CF fail ...5 100 3.5 over world_surface run tp @e[tag=probe] ~ ~ ~<--[HERE]
+CF msg Marker has the following entity data: [0.0d, -60.0d, 0.0d]
+CF result success 3
+CF fail Incorrect argument for command
+CF fail ...5 100 3.5 over motion_blocking run tp @e[tag=probe] ~ ~ ~<--[HERE]
+CF msg Marker has the following entity data: [0.0d, -60.0d, 0.0d]
+CF result success 3
+CF fail Incorrect argument for command
+CF fail ...5 100 3.5 over ocean_floor run tp @e[tag=probe] ~ ~ ~<--[HERE]
+CF msg Marker has the following entity data: [0.0d, -60.0d, 0.0d]
+CF result success 3
+CF fail Incorrect argument for command
+CF fail ...5 100 3.5 over motion_blocking_no_leaves run tp @e[tag=probe] ~ ~ ~<--[HERE]
+CF msg Marker has the following entity data: [0.0d, -60.0d, 0.0d]
+CF result success 3
+CF fail Incorrect argument for command
+CF fail ... 100 1000 over world_surface run tp @e[tag=probe] ~ ~ ~<--[HERE]
+CF msg Marker has the following entity data: [0.0d, -60.0d, 0.0d]
+CF result success 3
+CF fail Invalid value 'bogus'
+CF fail ...over bogus run say x<--[HERE]
+CF fail Expected double
+CF fail ...ioned 1 2 run say x<--[HERE]
+CF fail Expected double
+CF fail ...ioned ~ ~ run say x<--[HERE]
+CF fail Cannot mix world and local coordinates (everything must either use ^ or not)
+CF fail ...ositioned ^1 ~ ~ run say x<--[HERE]
+CF fail Expected double
+CF fail ...ositioned a b c run say x<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...ned 1 2 3 4 run say x<--[HERE]
+# rotated
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [450.0f, 0.0f]
+CF result success 2
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [360.0f, 90.0f]
+CF result success 2
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [450.0f, 90.0f]
+CF result success 2
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [370.0f, -5.0f]
+CF result success 2
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [370.0f, -5.0f]
+CF result success 2
+CF msg Teleported Marker to -0.780561, -60.174269, 2.026344
+CF result success 1
+CF msg Marker has the following entity data: [-0.780561089515686d, -60.174269035458565d, 2.026344418525696d]
+CF result success 3
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [390.0f, 10.0f]
+CF result success 2
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [540.0f, -30.0f]
+CF result success 2
+CF fail Expected double
+CF fail ...rotated 1 run say x<--[HERE]
+CF fail Expected double
+CF fail ...e rotated a b run say x<--[HERE]
+CF fail Cannot mix world and local coordinates (everything must either use ^ or not)
+CF fail ...e rotated ^ ^ run say x<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...tated 1 2 3 run say x<--[HERE]
+# facing
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [360.0f, 0.0f]
+CF result success 2
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [270.0f, 0.0f]
+CF result success 2
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [270.0f, -89.99999f]
+CF result success 2
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [270.0f, 89.99999f]
+CF result success 2
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [323.13037f, -30.963806f]
+CF result success 2
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [270.0f, 0.0f]
+CF result success 2
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [360.0f, 0.0f]
+CF result success 2
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [306.86963f, -11.309856f]
+CF result success 2
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [306.86963f, -18.262814f]
+CF result success 2
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [270.0f, -90.0f]
+CF result success 2
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [303.0237f, 0.0f]
+CF result success 2
+CF fail Invalid entity anchor position bogus
+CF fail ...[tag=cow] bogus run say x<--[HERE]
+CF fail Invalid entity anchor position run
+CF fail ...[tag=cow] run say x<--[HERE]
+CF fail Expected double
+CF fail ... 0 facing bogus run say x<--[HERE]
+CF fail Expected double
+CF fail ...acing 1 2 run say x<--[HERE]
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [291.03754f, -13.09517f]
+CF result success 2
+CF msg Teleported Marker to 3.257159, -59.255725, 1.418765
+CF result success 1
+CF msg Marker has the following entity data: [3.257158875465393d, -59.25572454929352d, 1.418765127658844d]
+CF result success 3
+# align
+CF msg Teleported Marker to 1.000000, -60.000000, 3.000000
+CF result success 1
+CF msg Marker has the following entity data: [1.0d, -60.0d, 3.0d]
+CF result success 3
+CF msg Teleported Marker to 1.000000, -59.200000, 3.900000
+CF result success 1
+CF msg Marker has the following entity data: [1.0d, -59.2d, 3.9d]
+CF result success 3
+CF msg Teleported Marker to 1.700000, -60.000000, 3.900000
+CF result success 1
+CF msg Marker has the following entity data: [1.7d, -60.0d, 3.9d]
+CF result success 3
+CF msg Teleported Marker to 1.700000, -59.200000, 3.000000
+CF result success 1
+CF msg Marker has the following entity data: [1.7d, -59.2d, 3.0d]
+CF result success 3
+CF msg Teleported Marker to 1.000000, -59.200000, 3.000000
+CF result success 1
+CF msg Marker has the following entity data: [1.0d, -59.2d, 3.0d]
+CF result success 3
+CF msg Teleported Marker to 1.000000, -60.000000, 3.000000
+CF result success 1
+CF msg Marker has the following entity data: [1.0d, -60.0d, 3.0d]
+CF result success 3
+CF msg Teleported Marker to -2.000000, -60.000000, -4.000000
+CF result success 1
+CF msg Marker has the following entity data: [-2.0d, -60.0d, -4.0d]
+CF result success 3
+CF msg Teleported Marker to 0.000000, -59.000000, -1.000000
+CF result success 1
+CF msg Marker has the following entity data: [0.0d, -59.0d, -1.0d]
+CF result success 3
+CF fail Invalid swizzle: expected combination of 'x', 'y' and 'z'
+CF fail ...9 align xx run tp @e[tag=probe] ~ ~ ~<--[HERE]
+CF fail Invalid swizzle: expected combination of 'x', 'y' and 'z'
+CF fail ...9 align xa run tp @e[tag=probe] ~ ~ ~<--[HERE]
+CF fail Invalid swizzle: expected combination of 'x', 'y' and 'z'
+CF fail ....9 align run say x<--[HERE]
+CF fail Invalid swizzle: expected combination of 'x', 'y' and 'z'
+CF fail ....9 align XYZ run say x<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ... align xyz<--[HERE]
+# anchored
+CF msg Teleported Marker to 0.000000, -58.380000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [0.0d, -58.37999999523163d, 0.0d]
+CF result success 3
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [0.0d, -60.0d, 0.0d]
+CF result success 3
+CF msg Teleported Marker to 0.500000, -58.380000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [0.5d, -58.37999999523163d, 0.5d]
+CF result success 3
+CF msg Teleported Marker to -0.484744, -58.727212, 2.205752
+CF result success 1
+CF msg Marker has the following entity data: [-0.48474395275115967d, -58.72721242904663d, 2.2057524919509888d]
+CF result success 3
+CF msg Teleported Marker to 0.500000, -58.380000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [0.5d, -58.37999999523163d, 0.5d]
+CF result success 3
+CF msg Teleported Marker to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [0.5d, -60.0d, 0.5d]
+CF result success 3
+CF msg Teleported Marker to 8.500000, -56.700000, 6.500000
+CF result success 1
+CF msg Marker has the following entity data: [8.5d, -56.700000047683716d, 6.5d]
+CF result success 3
+CF msg Teleported Marker to 0.500000, -59.380000, 0.500000
+CF result success 1
+CF msg Marker has the following entity data: [0.5d, -59.37999999523163d, 0.5d]
+CF result success 3
+CF result success 1
+CF fail Invalid entity anchor position bogus
+CF fail ... anchored bogus run say x<--[HERE]
+CF fail Invalid entity anchor position run
+CF fail ... anchored run say x<--[HERE]
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [291.03754f, 0.0f]
+CF result success 2
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Marker has the following entity data: [291.03754f, -13.09517f]
+CF result success 2
+# in
+CF msg Marker has the following entity data: [0.0d, -60.0d, 0.0d]
+CF result success 3
+CF msg Teleported Marker to 1.500000, -60.000000, 1.500000
+CF result success 1
+CF msg Marker has the following entity data: [1.5d, -60.0d, 1.5d]
+CF result success 3
+CF result success 1
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF result failure 0
+CF fail Can't get value of fn for #n; none is set
+CF fail Unknown dimension 'minecraft:nowhere'
+CF result success 1
+CF fail Incorrect argument for command
+CF fail ...te in run say x<--[HERE]
+# summon
+CF msg Teleported Marker to 2.500000, -60.000000, 2.500000
+CF result success 1
+CF result success 1
+CF msg Cow has the following entity data: [2.5d, -60.0d, 2.5d]
+CF result success 3
+CF msg Cow has the following entity data: [2.5d, -60.0d, 2.5d]
+CF result success 3
+CF msg Cow has the following entity data: [0.0f, 0.0f]
+CF result success 2
+CF msg Cow has the following entity data: [0.0f, 0.0f]
+CF result success 2
+CF msg Cow has the following entity data: [0.5d, -60.0d, 0.5d]
+CF result success 3
+CF fail Can't find element 'minecraft:bogus' of type 'minecraft:entity_type'
+CF fail ...raft:bogus run say x<--[HERE]
+CF fail Can't summon entity of type minecraft:player
+CF result success 1
+CF fail Can't find element 'minecraft:run' of type 'minecraft:entity_type'
+CF fail ...summon run say x<--[HERE]
+CF result success 1
+CF msg #n has 1 [fn]
+CF result success 1
+CF msg Modified entity data of Marker
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Killed Marker
+CF result success 1
+CF msg Killed 5 entities
+CF result success 5
+# on: every relation
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ride @e[tag=zombie] mount @e[tag=horse]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ride A mount @e[tag=horse]<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...g=pig] on bogus run say none<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...g=pig] on run say none<--[HERE]
+CF msg #n has 1 [fn]
+CF result success 1
+CF result failure 0
+CF fail Test failed
+PKT A minecraft:disguised_chat 210800026173050a080009696e73657274696f6e002430303030303033662d303030302d303030302d303030302d3030303030303030303030320a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b000475756964000000040000003f000000000000000000000002000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 2108000461732d41050a0a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20412000080009696e73657274696f6e000141080004746578740001410a000b686f7665725f6576656e740800046e616d65000141080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b76d4ad38d013150b33368cfb4257774000000
+PKT A minecraft:disguised_chat 2108000461732d61050a0a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20412000080009696e73657274696f6e000141080004746578740001410a000b686f7665725f6576656e740800046e616d65000141080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b76d4ad38d013150b33368cfb4257774000000
+PKT A minecraft:disguised_chat 2108000461732d61050a0a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20422000080009696e73657274696f6e000142080004746578740001420a000b686f7665725f6576656e740800046e616d65000142080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f44cd58d790230e78bde679d783ee631000000
+PKT A minecraft:disguised_chat 2108000465616368050a080009696e73657274696f6e002430303030303033662d303030302d303030302d303030302d3030303030303030303030310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b000475756964000000040000003f000000000000000000000001000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 2108000465616368050a080009696e73657274696f6e002430303030303033662d303030302d303030302d303030302d3030303030303030303030320a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b000475756964000000040000003f000000000000000000000002000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 2108000475756964050a080009696e73657274696f6e002430303030303033662d303030302d303030302d303030302d3030303030303030303030310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b000475756964000000040000003f000000000000000000000001000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 210800016d050a080009696e73657274696f6e002434356366623936642d326166642d346537662d623864392d3837393536653261646166660a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650017656e746974792e6d696e6563726166742e6d61726b657200080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a6d61726b65720b0004757569640000000445cfb96d2afd4e7fb8d987956e2adaff000800097472616e736c6174650017656e746974792e6d696e6563726166742e6d61726b65720000
+PKT A minecraft:disguised_chat 210800016d050a080009696e73657274696f6e002461623236393539302d303636332d343065332d396464352d3930613765333433343537370a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650017656e746974792e6d696e6563726166742e6d61726b657200080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a6d61726b65720b00047575696400000004ab269590066340e39dd590a7e3434577000800097472616e736c6174650017656e746974792e6d696e6563726166742e6d61726b65720000
+PKT A minecraft:disguised_chat 21080001780508000653657276657200
+PKT A minecraft:disguised_chat 2108000c696e2d6f766572776f726c64050a080009696e73657274696f6e002430303030303033662d303030302d303030302d303030302d3030303030303030303030310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b000475756964000000040000003f000000000000000000000001000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 2108000c696e2d6f766572776f726c64050a080009696e73657274696f6e002430303030303033662d303030302d303030302d303030302d3030303030303030303030320a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b000475756964000000040000003f000000000000000000000002000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 21080001780508000653657276657200
+PKT A minecraft:disguised_chat 2108000873756d6d6f6e6564050a080009696e73657274696f6e002435346335323566352d613861382d346336302d613138632d3235613635323139393163330a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650014656e746974792e6d696e6563726166742e70696700080006616374696f6e000b73686f775f656e746974790800026964000d6d696e6563726166743a7069670b0004757569640000000454c525f5a8a84c60a18c25a6521991c3000800097472616e736c6174650014656e746974792e6d696e6563726166742e7069670000
+PKT A minecraft:disguised_chat 2108000178050a080009696e73657274696f6e002466336465366530332d666130352d343331372d613866662d3832303536383832623236610a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650013626c6f636b2e6d696e6563726166742e61697200080006616374696f6e000b73686f775f656e746974790800026964000e6d696e6563726166743a6974656d0b00047575696400000004f3de6e03fa054317a8ff82056882b26a000800097472616e736c6174650013626c6f636b2e6d696e6563726166742e6169720000
+PKT A minecraft:disguised_chat 2108000178050a080009696e73657274696f6e002462633766303837372d656463392d343863642d623234392d3536306435313962396565370a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650017656e746974792e6d696e6563726166742e6d61726b657200080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a6d61726b65720b00047575696400000004bc7f0877edc948cdb249560d519b9ee7000800097472616e736c6174650017656e746974792e6d696e6563726166742e6d61726b65720000
+CF msg Horse has the following entity data: ["horse"]
+CF result success 1
+CF msg Zombie has the following entity data: ["zombie"]
+CF result success 1
+CF msg Wolf has the following entity data: ["wolf"]
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching Tags
+CF msg Pig has the following entity data: ["p1", "pig"]
+CF result success 2

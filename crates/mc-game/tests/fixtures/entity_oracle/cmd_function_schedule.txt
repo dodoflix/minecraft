@@ -1,0 +1,252 @@
+C Game rule send_command_feedback is now set to true
+# basic scheduling: nothing runs before the time
+CF msg Scheduled function 'fn:sched_a' in 3 tick(s) at gametime 4
+CF result success 4
+STORAGE fn:state {loads:["a","b","c"],ticks:["a","b"]}
+STORAGE fn:state {loads:["a","b","c"],ticks:["a","b","a","b","a","b"]}
+STORAGE fn:state {loads:["a","b","c"],sched:["a"],ticks:["a","b","a","b","a","b"]}
+STORAGE fn:state {loads:["a","b","c"],sched:["a"],ticks:["a","b","a","b","a","b"]}
+# replace by default, the later time wins, an append keeps both
+CF msg Scheduled function 'fn:sched_b' in 5 tick(s) at gametime 11
+CF result success 11
+CF msg Scheduled function 'fn:sched_b' in 2 tick(s) at gametime 8
+CF result success 8
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b"],ticks:["a","b","a","b","a","b"]}
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b"],ticks:["a","b","a","b","a","b"]}
+CF msg Scheduled function 'fn:sched_c' in 2 tick(s) at gametime 14
+CF result success 14
+CF msg Scheduled function 'fn:sched_c' in 2 tick(s) at gametime 14
+CF result success 14
+CF msg Scheduled function 'fn:sched_c' in 4 tick(s) at gametime 16
+CF result success 16
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b"],ticks:["a","b","a","b","a","b"]}
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b","c"],ticks:["a","b","a","b","a","b"]}
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b","c","c"],ticks:["a","b","a","b","a","b"]}
+# replace removes the earlier events of the function
+CF msg Scheduled function 'fn:sched_a' in 2 tick(s) at gametime 18
+CF result success 18
+CF msg Scheduled function 'fn:sched_a' in 3 tick(s) at gametime 19
+CF result success 19
+CF msg Scheduled function 'fn:sched_a' in 4 tick(s) at gametime 20
+CF result success 20
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b","c","c"],ticks:["a","b","a","b","a","b"]}
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b","c","c","a"],ticks:["a","b","a","b","a","b"]}
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b","c","c","a"],ticks:["a","b","a","b","a","b"]}
+# the units of the delay
+CF msg Scheduled function 'fn:sched_a' in 1 tick(s) at gametime 24
+CF result success 24
+CF msg Scheduled function 'fn:sched_b' in 1 tick(s) at gametime 24
+CF result success 24
+CF result failure 0
+CF fail Can't schedule for current tick
+CF msg Scheduled function 'fn:sched_a' in 20 tick(s) at gametime 43
+CF result success 43
+CF msg Scheduled function 'fn:sched_b' in 48000 tick(s) at gametime 48023
+CF result success 48023
+CF result failure 0
+CF fail Can't schedule for current tick
+CF msg Scheduled function 'fn:sched_a' in 10 tick(s) at gametime 33
+CF result success 33
+CF msg Scheduled function 'fn:sched_a' in 2 tick(s) at gametime 25
+CF result success 25
+CF fail The tick count must not be less than 0: found -1
+CF fail ...ched_a -1t<--[HERE]
+CF fail Invalid unit
+CF fail ...sched_a 1x<--[HERE]
+CF fail Expected float
+CF fail ...n:sched_a t<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...fn:sched_a<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...e function<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail schedule<--[HERE]
+CF msg Scheduled function 'fn:sched_a' in 2147483647 tick(s) at gametime 2147483670
+CF result success 23
+CF msg Scheduled function 'fn:sched_a' in 2147483647 tick(s) at gametime 2147483670
+CF result success 23
+CF msg Scheduled function 'fn:sched_a' in 2147483647 tick(s) at gametime 2147483670
+CF result success 23
+CF fail Incorrect argument for command
+CF fail ...ched_a 1t bogus<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...1t append extra<--[HERE]
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b","c","c","a"],ticks:["a","b","a","b","a","b"]}
+# tags: every function of a nested tag, in the tag's order, with replace and append
+CF msg Removed 1 schedule(s) with ID fn:sched_a
+CF result success 1
+CF msg Removed 1 schedule(s) with ID fn:sched_b
+CF result success 1
+CF result failure 0
+CF fail No schedules with ID fn:sched_c
+CF msg Scheduled tag 'fn:sched_pair' in 2 tick(s) at gametime 26
+CF result success 26
+CF msg Scheduled tag 'fn:sched_nested' in 3 tick(s) at gametime 27
+CF result success 27
+CF msg Scheduled tag 'fn:nothing' in 1 tick(s) at gametime 25
+CF result success 25
+CF msg Scheduled tag 'fn:missing_tag' in 1 tick(s) at gametime 25
+CF result success 25
+CF msg Scheduled tag 'fn:sched_pair' in 4 tick(s) at gametime 28
+CF result success 28
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b","c","c","a","a","b","c"],ticks:["a","b","a","b","a","b"]}
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b","c","c","a","a","b","c","a","b"],ticks:["a","b","a","b","a","b"]}
+CF msg #sched has 10 [fn]
+CF result success 10
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b","c","c","a","a","b","c","a","b"],ticks:["a","b","a","b","a","b"]}
+CF msg #sched has 10 [fn]
+CF result success 10
+# clear: function, tag, nothing scheduled, unknown
+CF msg Scheduled function 'fn:sched_a' in 5 tick(s) at gametime 37
+CF result success 37
+CF msg Scheduled function 'fn:sched_b' in 5 tick(s) at gametime 37
+CF result success 37
+CF msg Scheduled function 'fn:sched_c' in 5 tick(s) at gametime 37
+CF result success 37
+CF msg Removed 1 schedule(s) with ID fn:sched_a
+CF result success 1
+CF result failure 0
+CF fail No schedules with ID fn:sched_a
+CF result failure 0
+CF fail No schedules with ID fn:unknown
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...ule clear #fn:sched_pair<--[HERE]
+CF result failure 0
+CF fail No schedules with ID fn:
+CF fail Unknown or incomplete command. See below for error
+CF fail ...dule clear<--[HERE]
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...ule clear #fn:sched_nested<--[HERE]
+STORAGE fn:state {loads:["a","b","c"],sched:["a","b","c","c","a","a","b","c","a","b","b","c"],ticks:["a","b","a","b","a","b"]}
+CF msg #sched has 12 [fn]
+CF result success 12
+# unknown functions, unknown tags, broken functions
+CF result failure 0
+CF fail Unknown function fn:unknown
+CF result failure 0
+CF fail Unknown function fn:bad_syntax
+CF msg Scheduled tag 'fn:broken' in 1 tick(s) at gametime 39
+CF result success 39
+CF msg Scheduled function 'fn:hello' in 1 tick(s) at gametime 39
+CF result success 39
+CF msg Scheduled function 'fn:ret_value' in 1 tick(s) at gametime 39
+CF result success 39
+CF msg Scheduled function 'fn:loop' in 1 tick(s) at gametime 39
+CF result success 39
+STORAGE fn:state {hello:1b,loads:["a","b","c"],sched:["a","b","c","c","a","a","b","c","a","b","b","c"],ticks:["a","b","a","b","a","b"]}
+LOG ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
+LOG ERROR: Failed to load function fn:bad_comment\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
+LOG ERROR: Failed to load function fn:bad_continuation\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file
+LOG ERROR: Failed to load function fn:bad_macro\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(oops'
+LOG ERROR: Failed to load function fn:bad_slash\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '/say hi' on line 1 (did you mean 'say'? Do not use a preceding forwards slash.)
+LOG ERROR: Failed to load function fn:bad_syntax\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+LOG ERROR: Failed to load function fn:macro_bad_key\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a-b)'
+LOG ERROR: Failed to load function fn:macro_no_vars\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say no variables here'
+LOG ERROR: Failed to load function fn:macro_only_dollar\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: ''
+LOG ERROR: Failed to load function fn:macro_unclosed\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a'
+# the scheduled function runs with the game loop's source (permission 2, no output)
+CF msg Scheduled function 'fn:hello' in 1 tick(s) at gametime 42
+CF result success 42
+CF msg Scheduled function 'fn:say_four' in 1 tick(s) at gametime 42
+CF result success 42
+PKT A minecraft:disguised_chat 2108000568656c6c6f0508000653657276657200
+PKT A minecraft:disguised_chat 2108000568656c6c6f0508000653657276657200
+PKT A minecraft:disguised_chat 210800036f6e650508000653657276657200
+PKT A minecraft:disguised_chat 2108000374776f0508000653657276657200
+PKT A minecraft:disguised_chat 2108000574687265650508000653657276657200
+PKT A minecraft:disguised_chat 21080004666f75720508000653657276657200
+# a scheduled function that schedules again
+CF msg Summoned new Pig
+CF result success 1
+CF msg Scheduled function 'fn:fork_add' in 2 tick(s) at gametime 44
+CF result success 44
+CF msg Pig has 1 [fn]
+CF result success 1
+# the schedule at the game time of different ticks (the time argument counts from the tick it was issued in)
+CF msg Scheduled function 'fn:sched_a' in 1 tick(s) at gametime 48
+CF result success 48
+STORAGE fn:state {hello:1b,loads:["a","b","c"],sched:["a","b","c","c","a","a","b","c","a","b","b","c","a"],ticks:["a","b","a","b","a","b"]}
+CF msg Scheduled function 'fn:sched_b' in 1 tick(s) at gametime 49
+CF result success 49
+CF msg Scheduled function 'fn:sched_c' in 1 tick(s) at gametime 49
+CF result success 49
+CF msg Scheduled function 'fn:sched_a' in 1 tick(s) at gametime 49
+CF result success 49
+STORAGE fn:state {hello:1b,loads:["a","b","c"],sched:["a","b","c","c","a","a","b","c","a","b","b","c","a","b","c","a"],ticks:["a","b","a","b","a","b"]}
+# the tick tag runs before the scheduled events of the same tick
+CF msg Modified storage fn:state
+CF result success 1
+CF msg Set [fn] for 0 entities to 0
+CF result success 0
+CF msg Scheduled function 'fn:sched_mark' in 2 tick(s) at gametime 51
+CF result success 51
+CF msg Scheduled function 'fn:sched_mark' in 3 tick(s) at gametime 52
+CF result success 52
+STORAGE fn:state {hello:1b,loads:["a","b","c"],sched:["a","b","c","c","a","a","b","c","a","b","b","c","a","b","c","a"],ticks:["a","b","a","b","S","a","b","S"]}
+# scheduled events survive a reload, a disabled pack leaves them without a function
+CF msg Scheduled function 'fn:sched_a' in 3 tick(s) at gametime 56
+CF result success 56
+CF msg Scheduled function 'fn:sched_b' in 3 tick(s) at gametime 56
+CF result success 56
+CF msg Reloading!
+CF result success 0
+CF msg Disabling data pack [file/fnpack (world)]
+CF result success 1
+CF msg Enabling data pack [file/fnpack (world)]
+CF result success 2
+STORAGE fn:state {hello:1b,loads:["a","b","c","a","b","c","a","b","c"],sched:["a","b","c","c","a","a","b","c","a","b","b","c","a","b","c","a","a","b"],ticks:["a","b","a","b","S","a","b","S"]}
+LOG ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
+LOG ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
+LOG ERROR: Failed to load function fn:bad_comment\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
+LOG ERROR: Failed to load function fn:bad_comment\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
+LOG ERROR: Failed to load function fn:bad_continuation\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file
+LOG ERROR: Failed to load function fn:bad_continuation\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file
+LOG ERROR: Failed to load function fn:bad_macro\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(oops'
+LOG ERROR: Failed to load function fn:bad_macro\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(oops'
+LOG ERROR: Failed to load function fn:bad_slash\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '/say hi' on line 1 (did you mean 'say'? Do not use a preceding forwards slash.)
+LOG ERROR: Failed to load function fn:bad_slash\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '/say hi' on line 1 (did you mean 'say'? Do not use a preceding forwards slash.)
+LOG ERROR: Failed to load function fn:bad_syntax\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+LOG ERROR: Failed to load function fn:bad_syntax\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+LOG ERROR: Failed to load function fn:macro_bad_key\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a-b)'
+LOG ERROR: Failed to load function fn:macro_bad_key\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a-b)'
+LOG ERROR: Failed to load function fn:macro_no_vars\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say no variables here'
+LOG ERROR: Failed to load function fn:macro_no_vars\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say no variables here'
+LOG ERROR: Failed to load function fn:macro_only_dollar\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: ''
+LOG ERROR: Failed to load function fn:macro_only_dollar\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: ''
+LOG ERROR: Failed to load function fn:macro_unclosed\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a'
+LOG ERROR: Failed to load function fn:macro_unclosed\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Can't parse function line 1: 'say $(a'
+# permissions and the results
+CF fail Unknown or incomplete command. See below for error
+CF fail schedule function fn:sched_a 1t<--[HERE]
+CF msg Scheduled function 'fn:sched_a' in 1 tick(s) at gametime 59
+CF result success 59
+CF msg Removed 1 schedule(s) with ID fn:sched_a
+CF result success 1
+CF msg Scheduled function 'fn:sched_a' in 5 tick(s) at gametime 63
+CF result success 63
+CF msg #r has 63 [fn]
+CF result success 63
+CF msg Scheduled function 'fn:sched_a' in 5 tick(s) at gametime 63
+CF result success 63
+CF msg #r has 63 [fn]
+CF result success 63
+CF msg Scheduled tag 'fn:sched_pair' in 5 tick(s) at gametime 63
+CF result success 63
+CF msg #r has 63 [fn]
+CF result success 63
+CF msg Removed 1 schedule(s) with ID fn:sched_a
+CF result success 1
+CF msg #r has 1 [fn]
+CF result success 1
+CF result failure 0
+CF fail No schedules with ID fn:sched_a
+CF msg #r has 0 [fn]
+CF result success 0
+CF result failure 0
+CF fail No schedules with ID fn:sched_b
+CF msg #r has 0 [fn]
+CF result success 0
+CF result failure 0
+CF fail No schedules with ID fn:sched_c
+CF msg #r has 0 [fn]
+CF result success 0

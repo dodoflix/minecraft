@@ -1,0 +1,75 @@
+# The function library of a data pack: what loading logs for broken functions and tags, the `#minecraft:load` and `#minecraft:tick` tags
+# (order, nested and optional entries), `/reload` running the load tag once more and logging the same errors, `/datapack` listing and
+# disabling the pack (its functions disappear, the tags are rebuilt), and the commands naming a function that does not exist.
+datapack fnpack
+command_env
+level flat
+preload 2
+entity_counter 3100
+spawn_player A survival 0.5 -60 0.5 0 0
+note boot: the library has already logged the functions and tags that failed to load
+dump logs
+dump storage:fn:state
+cmd scoreboard players get #tick fn
+tick 1
+note the first tick runs the load tag in order, then the tick tag
+dump storage:fn:state
+dump scoreboard
+tick 2
+dump storage:fn:state
+cmd scoreboard players get #tick fn
+tick 3
+dump storage:fn:state
+cmd scoreboard players get #tick fn
+dump logs
+note a reload loads the library again: the same load errors, the load tag once more at the next tick
+cmd reload
+dump logs
+dump storage:fn:state
+tick 1
+dump storage:fn:state
+tick 2
+dump storage:fn:state
+cmd scoreboard players get #tick fn
+note function names that do not exist, tags that failed to load or are empty
+cmd function fn:unknown
+cmd function #fn:missing_tag
+cmd function #fn:broken
+cmd function #fn:nothing
+cmd function #fn:optional
+cmd function fn:bad_syntax
+cmd function fn:bad_slash
+cmd function fn:bad_comment
+cmd function fn:bad_continuation
+cmd function fn:bad_macro
+cmd function fn:macro_parse_error
+cmd function #minecraft:load
+cmd function #minecraft:tick
+cmd function #fn:load_group
+note the pack in the datapack commands
+cmd datapack list
+cmd datapack list enabled
+cmd datapack list available
+cmd datapack disable "file/fnpack"
+dump logs
+cmd function fn:hello
+cmd function #minecraft:tick
+tick 2
+dump storage:fn:state
+cmd scoreboard players get #tick fn
+cmd datapack enable "file/fnpack"
+dump logs
+tick 3
+dump storage:fn:state
+cmd scoreboard players get #tick fn
+cmd function fn:hello
+cmd datapack disable "file/fnpack"
+cmd datapack disable "file/fnpack"
+cmd datapack disable bogus
+cmd datapack enable "file/fnpack" first
+cmd datapack enable "file/fnpack"
+cmd datapack enable "file/fnpack" last
+cmd datapack enable "file/fnpack" before vanilla
+cmd datapack enable "file/fnpack" after vanilla
+tick 2
+dump logs

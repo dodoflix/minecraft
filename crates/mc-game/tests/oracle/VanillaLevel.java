@@ -90,6 +90,30 @@ public final class VanillaLevel {
    public static final PrintStream OUT = System.out;
    public static final PrintStream ERR = System.err;
 
+   /** The WARN and ERROR log events since the last `dump logs`: `LEVEL: message` plus a newline and the exception's `toString` when there is one. */
+   public static final List<String> LOGS = Collections.synchronizedList(new ArrayList<>());
+
+   /** Appends every WARN or ERROR event of the vanilla loggers to {@link #LOGS} (vanilla logs data pack load errors; stderr stays as it is). */
+   static void captureLogs() {
+      var context = (org.apache.logging.log4j.core.LoggerContext) org.apache.logging.log4j.LogManager.getContext(MinecraftServer.class.getClassLoader(), false);
+      var appender = new org.apache.logging.log4j.core.appender.AbstractAppender("oracle-capture", null, null, true, org.apache.logging.log4j.core.config.Property.EMPTY_ARRAY) {
+         @Override
+         public void append(org.apache.logging.log4j.core.LogEvent event) {
+            // not about the game: the oracle's flat world boots from empty `generator-settings` (an error), and the services lookup needs the network
+            String message = event.getMessage().getFormattedMessage();
+            if (event.getLevel().isMoreSpecificThan(org.apache.logging.log4j.Level.WARN) && !message.startsWith("No key layers in MapLike")
+               && !message.startsWith("Failed to request Minecraft Services public key") && !message.startsWith("Services are unavailable")
+               && !event.getLoggerName().startsWith("com.mojang.authlib") && !(event.getThrown() != null && event.getThrown().getClass().getName().startsWith("com.mojang.authlib"))) {
+               Throwable thrown = event.getThrown();
+               LOGS.add(event.getLevel().name() + ": " + message + (thrown == null ? "" : "\n" + thrown));
+            }
+         }
+      };
+      appender.start();
+      context.getConfiguration().getRootLogger().addAppender(appender, null, null);
+      context.updateLoggers();
+   }
+
    public final Path dir;
    public final Server server;
    public final ServerLevel level;
@@ -342,6 +366,7 @@ public final class VanillaLevel {
    // ------------------------------------------------------------------------------------------------ boot
 
    public static VanillaLevel boot(Options o) throws Exception {
+      captureLogs();
       SharedConstants.tryDetectVersion();
       Bootstrap.bootStrap();
       Bootstrap.validate();

@@ -1,0 +1,146 @@
+# `/reload` with a real data pack that changes between reloads: an edited function, a new one, a removed one, a function that stops
+# parsing and one that is fixed again, edited load and tick tags (the load tag runs once per reload, before the tick tag), tags that
+# reference functions that appear later, scheduled events across a reload, the feedback and the logs of every reload.
+datapack fnpack
+command_env
+level flat
+preload 2
+entity_counter 4000
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 1
+dump packets:A:none
+gamerule send_command_feedback true
+dump logs
+note the library as loaded
+cmd function fn:hello
+cmd function fn:fresh
+dump storage:fn:state
+note an edited function is read at the next reload only
+pack_file fnpack data/fn/function/hello.mcfunction data modify storage fn:state hello set value 2b\nsay hello-edited
+cmd function fn:hello
+dump storage:fn:state
+cmd reload
+tick 1
+cmd function fn:hello
+dump storage:fn:state
+dump logs
+note new functions, tags and predicates appear
+pack_file fnpack data/fn/function/fresh.mcfunction data modify storage fn:state fresh set value 1b\nreturn 11
+pack_file fnpack data/fn/tags/function/fresh_tag.json {"values":["fn:fresh","fn:hello"]}
+pack_file fnpack data/fn/predicate/fresh.json {"type":"minecraft:all_of","terms":[]}
+cmd function fn:fresh
+cmd function #fn:fresh_tag
+cmd execute if predicate fn:fresh
+cmd reload
+tick 1
+cmd function fn:fresh
+cmd execute store result score #r fn run function fn:fresh
+cmd scoreboard players get #r fn
+cmd function #fn:fresh_tag
+cmd execute if predicate fn:fresh
+dump storage:fn:state
+note a removed function and a tag that lost its function
+pack_remove fnpack data/fn/function/fresh.mcfunction
+cmd function fn:fresh
+cmd reload
+tick 1
+cmd function fn:fresh
+cmd function #fn:fresh_tag
+dump logs
+note a tag that names a function that does not exist yet fails to load as a whole, and loads when the function appears
+pack_file fnpack data/fn/tags/function/late.json {"values":["fn:late_a","fn:late_b"]}
+pack_file fnpack data/fn/function/late_a.mcfunction say late-a
+cmd reload
+tick 1
+cmd function #fn:late
+dump logs
+pack_file fnpack data/fn/function/late_b.mcfunction say late-b
+cmd reload
+tick 1
+cmd function #fn:late
+dump logs
+note a function that stops parsing is dropped with an error log, and returns when fixed
+pack_file fnpack data/fn/function/hello.mcfunction say broken\nthis is not a command
+cmd reload
+tick 1
+cmd function fn:hello
+dump logs
+cmd function #fn:fresh_tag
+pack_file fnpack data/fn/function/hello.mcfunction say fixed
+cmd reload
+tick 1
+cmd function fn:hello
+dump logs
+note an empty file, comments only, and a macro that cannot parse
+pack_file fnpack data/fn/function/only_comments.mcfunction # nothing here\n\n   # nor here
+pack_file fnpack data/fn/function/blank.mcfunction  
+pack_file fnpack data/fn/function/bad_macro_new.mcfunction $say $(a
+cmd reload
+tick 1
+cmd function fn:only_comments
+cmd function fn:blank
+cmd function fn:bad_macro_new
+dump logs
+note the load tag runs once per reload (before the tick tag), a function added to it runs at the next reload
+pack_file fnpack data/minecraft/tags/function/load.json {"values":["fn:load_a","#fn:load_group","fn:load_c","fn:load_d"]}
+pack_file fnpack data/fn/function/load_d.mcfunction data modify storage fn:state loads append value "d"
+cmd data remove storage fn:state loads
+cmd data remove storage fn:state ticks
+cmd scoreboard players set #tick fn 0
+cmd reload
+dump storage:fn:state
+tick 1
+dump storage:fn:state
+tick 2
+dump storage:fn:state
+cmd reload
+cmd reload
+tick 1
+dump storage:fn:state
+note an edited tick tag takes effect at the reload, a removed load tag runs nothing
+pack_file fnpack data/minecraft/tags/function/tick.json {"values":["fn:tick_b","fn:tick_a"]}
+cmd data remove storage fn:state ticks
+cmd scoreboard players set #tick fn 0
+cmd reload
+tick 2
+dump storage:fn:state
+pack_file fnpack data/minecraft/tags/function/tick.json {"values":["fn:tick_a","#fn:missing_tick_tag"]}
+cmd reload
+dump logs
+tick 1
+cmd scoreboard players get #tick fn
+pack_file fnpack data/minecraft/tags/function/tick.json {"values":["fn:tick_a",{"id":"fn:missing","required":false}]}
+pack_remove fnpack data/minecraft/tags/function/load.json
+cmd data remove storage fn:state loads
+cmd reload
+tick 2
+dump storage:fn:state
+dump logs
+cmd scoreboard players get #tick fn
+note scheduled events keep their function id across a reload: the new definition runs
+cmd schedule function fn:hello 3t
+pack_file fnpack data/fn/function/hello.mcfunction data modify storage fn:state hello set value 3b\nscoreboard players add #sched fn 100
+cmd reload
+tick 1
+dump storage:fn:state
+tick 3
+dump storage:fn:state
+cmd scoreboard players get #sched fn
+note a scheduled function that is removed before it runs
+cmd schedule function fn:sched_a 2t
+pack_remove fnpack data/fn/function/sched_a.mcfunction
+cmd reload
+tick 4
+dump storage:fn:state
+dump logs
+note the pack disabled and enabled again reads the files again
+pack_file fnpack data/fn/function/sched_a.mcfunction data modify storage fn:state sched append value "a2"
+cmd datapack disable "file/fnpack"
+cmd function fn:sched_a
+cmd datapack enable "file/fnpack"
+cmd function fn:sched_a
+dump storage:fn:state
+dump logs
+cmd_as -2 reload
+cmd_as -3 reload
+tick 2

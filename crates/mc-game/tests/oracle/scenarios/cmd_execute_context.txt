@@ -1,0 +1,285 @@
+# The context modifiers of `execute`: as, at, positioned (position, as, over), rotated (rotation, as), facing (position, entity), align,
+# anchored, in, summon and on (every relation), chained in any order, with the position and rotation they leave read back from a probe
+# marker, forks over several entities, and the failure texts of every modifier.
+datapack fnpack
+command_env
+level flat
+preload 2
+entity_counter 3800
+spawn_player A survival 0.5 -60 0.5 30 10
+spawn_player B survival 6.5 -60 2.5 -45 -20
+tick 1
+cmd summon minecraft:marker 0 -60 0 {Tags:["probe"],UUID:[I;63,0,0,9]}
+cmd summon minecraft:pig 3.5 -60 3.25 {NoAI:1b,Tags:["pig","p1"],Rotation:[90f,5f],UUID:[I;63,0,0,1]}
+cmd summon minecraft:pig 5.5 -60 3.75 {NoAI:1b,Tags:["pig","p2"],Rotation:[-90f,0f],UUID:[I;63,0,0,2]}
+cmd summon minecraft:cow 8.5 -58 6.5 {NoAI:1b,Tags:["cow"],Rotation:[180f,-30f],UUID:[I;63,0,0,3]}
+cmd summon minecraft:armor_stand 2.5 -60 8.5 {NoGravity:1b,Tags:["stand"],UUID:[I;63,0,0,4]}
+cmd summon minecraft:horse 10.5 -60 10.5 {NoAI:1b,Tags:["horse"],Tame:1b,Owner:[I;7,0,0,1],UUID:[I;63,0,0,5]}
+cmd summon minecraft:wolf 12.5 -60 3.5 {NoAI:1b,Tags:["wolf"],Owner:[I;7,0,0,1],UUID:[I;63,0,0,6]}
+cmd summon minecraft:zombie 14.5 -60 3.5 {NoAI:1b,Tags:["zombie"],UUID:[I;63,0,0,7]}
+cmd summon minecraft:item_display 1.5 -60 12.5 {Tags:["display"],UUID:[I;63,0,0,8]}
+tick 2
+dump packets:A:none
+gamerule send_command_feedback true
+note as: the executor changes, position and rotation stay
+cmd execute as @e[tag=pig] run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute as @e[tag=pig,tag=p2] run say as
+cmd execute as @e[tag=pig] run scoreboard players set @s fn 3
+cmd scoreboard players get @e[tag=p1,limit=1] fn
+cmd scoreboard players get @e[tag=p2,limit=1] fn
+cmd execute as @e[tag=nobody] run say never
+cmd execute as @e[tag=nobody] store success score #r fn run say never
+cmd scoreboard players get #r fn
+cmd execute as @s run say as-console
+cmd execute as A run say as-A
+cmd execute as @a run say as-a
+cmd execute as @e[type=!player,tag=pig] run say each
+cmd execute as bogus run say x
+cmd execute as run say x
+cmd execute as
+cmd execute as @e[
+cmd execute as 0-0-0-0-0 run say x
+cmd execute as 00000000-0000-0000-0000-000000000000 run say x
+cmd execute as 0000003f-0000-0000-0000-000000000001 run say uuid
+note at: position and rotation of the entity
+cmd execute at @e[tag=p1] run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute at @e[tag=cow] run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute at @e[tag=cow] run tp @e[tag=probe] ~1 ~-2 ~3.5 ~10 ~-5
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute at @e[tag=cow] run tp @e[tag=probe] ^1 ^ ^2
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute at @e[tag=p1] run tp @e[tag=probe] ^ ^1 ^1
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute at A run tp @e[tag=probe] ^ ^ ^3
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute at B run tp @e[tag=probe] ^2 ^1 ^-1
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute at @e[tag=nobody] run say never
+cmd execute as @e[tag=pig] at @s run tp @e[tag=probe] ~ ~1 ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute as @e[tag=pig] at @s run summon minecraft:marker ~ ~2 ~ {Tags:["m"]}
+cmd data get entity @e[tag=m,sort=nearest,limit=1] Pos
+cmd execute as @e[tag=m,tag=!probe] run say m
+cmd kill @e[tag=m]
+note positioned
+cmd execute positioned 1 2 3 run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned ~ ~1 ~ run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned ~ ~ ~ positioned ~1 ~1 ~1 run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 1.5 -60 2.5 run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 1.5 -60 2.5 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned ^ ^ ^1 run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute as A positioned ^ ^ ^1 run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute as A at @s positioned ^ ^ ^1 run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned as @e[tag=p2] run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned as @e[tag=cow] run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned as @e[tag=nobody] run say never
+cmd execute positioned over world_surface run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 3.5 100 3.5 over world_surface run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 3.5 100 3.5 over motion_blocking run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 3.5 100 3.5 over ocean_floor run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 3.5 100 3.5 over motion_blocking_no_leaves run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 1000 100 1000 over world_surface run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned over bogus run say x
+cmd execute positioned 1 2 run say x
+cmd execute positioned ~ ~ run say x
+cmd execute positioned ^1 ~ ~ run say x
+cmd execute positioned a b c run say x
+cmd execute positioned 1 2 3 4 run say x
+note rotated
+cmd execute rotated 90 0 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute rotated 0 90 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute rotated 450 -100 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute rotated ~10 ~-5 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute as A rotated ~10 ~-5 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute as A at @s rotated ~10 ~-5 positioned ^ ^ ^2 run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute rotated as A run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute rotated as @e[tag=cow] run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute rotated as @e[tag=nobody] run say never
+cmd execute rotated 1 run say x
+cmd execute rotated a b run say x
+cmd execute rotated ^ ^ run say x
+cmd execute rotated 1 2 3 run say x
+note facing
+cmd execute positioned 0 -60 0 facing 0 -60 5 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned 0 -60 0 facing 5 -60 0 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned 0 -60 0 facing 0 -50 0 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned 0 -60 0 facing 0 -70 0 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned 0 -60 0 facing 3 -57 4 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned 0 -60 0 facing 0 -60 0 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned 0 -60 0 facing ~ ~ ~5 run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned 0 -60 0 facing entity @e[tag=cow] feet run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned 0 -60 0 facing entity @e[tag=cow] eyes run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned 0 -60 0 facing entity A eyes run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned 0 -60 0 facing entity @e[tag=pig] feet run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute positioned 0 -60 0 facing entity @e[tag=nobody] feet run say never
+cmd execute positioned 0 -60 0 facing entity @e[tag=cow] bogus run say x
+cmd execute positioned 0 -60 0 facing entity @e[tag=cow] run say x
+cmd execute positioned 0 -60 0 facing bogus run say x
+cmd execute positioned 0 -60 0 facing 1 2 run say x
+cmd execute as A facing entity B eyes run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute as A at @s facing entity B eyes positioned ^ ^ ^3 run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+note align
+cmd execute positioned 1.7 -59.2 3.9 align xyz run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 1.7 -59.2 3.9 align x run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 1.7 -59.2 3.9 align y run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 1.7 -59.2 3.9 align z run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 1.7 -59.2 3.9 align xz run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 1.7 -59.2 3.9 align zyx run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned -1.7 -59.2 -3.9 align xyz run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned -0.0 -59.0 -0.5 align xyz run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute positioned 1.7 -59.2 3.9 align xx run tp @e[tag=probe] ~ ~ ~
+cmd execute positioned 1.7 -59.2 3.9 align xa run tp @e[tag=probe] ~ ~ ~
+cmd execute positioned 1.7 -59.2 3.9 align run say x
+cmd execute positioned 1.7 -59.2 3.9 align XYZ run say x
+cmd execute positioned 1.7 -59.2 3.9 align xyz
+note anchored
+cmd execute as A anchored eyes run tp @e[tag=probe] ^ ^ ^
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute as A anchored feet run tp @e[tag=probe] ^ ^ ^
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute as A at @s anchored eyes run tp @e[tag=probe] ^ ^ ^
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute as A at @s anchored eyes positioned ^ ^ ^2 run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute as A at @s anchored eyes positioned ^ ^ ^ run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute as A at @s anchored feet positioned ^ ^ ^ run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute as @e[tag=cow] at @s anchored eyes positioned ^ ^ ^ run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute as A at @s anchored eyes facing 0 -60 0 positioned ^ ^ ^1 run tp @e[tag=probe] ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute anchored eyes run say x
+cmd execute anchored bogus run say x
+cmd execute anchored run say x
+cmd execute as A anchored eyes facing entity B eyes run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+cmd execute as A anchored feet facing entity B eyes run tp @e[tag=probe] ~ ~ ~ ~ ~
+cmd data get entity @e[tag=probe,limit=1] Rotation
+note in
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute in minecraft:overworld run tp @e[tag=probe] 1 -60 1
+cmd data get entity @e[tag=probe,limit=1] Pos
+cmd execute in minecraft:overworld as @e[tag=pig] run say in-overworld
+cmd execute in minecraft:overworld positioned 1 -60 1 if block ~ ~-1 ~ minecraft:grass_block
+cmd execute in minecraft:overworld in minecraft:overworld run tp @e[tag=probe] ~ ~ ~
+cmd scoreboard players get #n fn
+cmd execute in minecraft:nowhere run say x
+cmd execute in overworld run say x
+cmd execute in run say x
+note summon
+cmd execute positioned 2 -60 2 summon minecraft:marker run tp @s ~ ~ ~
+cmd execute positioned 2 -60 2 summon minecraft:pig run say summoned
+cmd execute positioned 2 -60 2 summon minecraft:cow run data get entity @s Pos
+cmd execute positioned 2.5 -60 2.5 summon minecraft:cow run data get entity @s Pos
+cmd execute positioned 2.5 -60 2.5 summon minecraft:cow run data get entity @s Rotation
+cmd execute at A summon minecraft:cow run data get entity @s Rotation
+cmd execute at A summon minecraft:cow run data get entity @s Pos
+cmd execute positioned 2 -60 2 summon minecraft:bogus run say x
+cmd execute positioned 2 -60 2 summon minecraft:player run say x
+cmd execute positioned 2 -60 2 summon minecraft:item run say x
+cmd execute positioned 2 -60 2 summon run say x
+cmd execute store result score #n fn positioned 2 -60 2 summon minecraft:marker run say x
+cmd scoreboard players get #n fn
+cmd execute positioned 2 -60 2 summon minecraft:marker run data merge entity @s {Tags:["from_summon"]}
+cmd execute if entity @e[tag=from_summon]
+cmd kill @e[tag=from_summon]
+cmd kill @e[type=cow,tag=!cow]
+note on: every relation
+cmd ride @e[tag=zombie] mount @e[tag=horse]
+cmd ride A mount @e[tag=horse]
+tick 1
+cmd execute as @e[tag=zombie] on vehicle run say vehicle
+cmd execute as @e[tag=zombie] on vehicle run tag @s add is_vehicle
+cmd execute as @e[tag=horse] on passengers run tag @s add is_passenger
+cmd execute as @e[tag=horse] on controller run tag @s add is_controller
+cmd execute as @e[tag=horse] on vehicle run tag @s add is_vehicle2
+cmd execute as @e[tag=zombie] on passengers run tag @s add is_passenger2
+cmd execute as @e[tag=horse] on origin run tag @s add is_origin
+cmd execute as A on vehicle run tag @s add on_a_vehicle
+cmd execute as A on controller run say controller
+cmd execute as @e[tag=horse] on owner run tag @s add is_owner
+cmd execute as @e[tag=wolf] on owner run tag @s add is_owner
+cmd execute as @e[tag=wolf] on leasher run tag @s add is_leasher
+cmd execute as @e[tag=wolf] on target run tag @s add is_target
+cmd execute as @e[tag=wolf] on attacker run tag @s add is_attacker
+cmd execute as @e[tag=zombie] on target run tag @s add is_target
+cmd execute as @e[tag=zombie] on attacker run tag @s add is_attacker
+cmd execute as @e[tag=zombie] on leasher run tag @s add is_leasher
+cmd execute as @e[tag=zombie] on owner run tag @s add is_owner
+cmd execute as @e[tag=pig] on vehicle run say none
+cmd execute as @e[tag=pig] on passengers run say none
+cmd execute as @e[tag=pig] on owner run say none
+cmd execute as @e[tag=pig] on bogus run say none
+cmd execute as @e[tag=pig] on run say none
+cmd execute on vehicle run say none
+cmd execute as @e[tag=horse] on passengers store result score #n fn run say x
+cmd scoreboard players get #n fn
+cmd execute as @e[tag=horse] on passengers if entity @s[type=minecraft:zombie] run say z
+cmd execute as @e[tag=horse] on passengers if entity @s[type=minecraft:player] run say p
+cmd execute as @e[tag=horse] on passengers as @s at @s run summon minecraft:marker ~ ~1 ~ {Tags:["rider"]}
+cmd execute if entity @e[tag=rider]
+cmd execute as @e[tag=is_vehicle] run say tagged-vehicle
+cmd execute as @e[tag=is_passenger] run say tagged-passenger
+cmd execute as @e[tag=is_controller] run say tagged-controller
+cmd execute as @e[tag=is_owner] run say tagged-owner
+cmd execute as @e[tag=on_a_vehicle] run say tagged-a
+dump packets:A:disguised_chat,system_chat
+cmd data get entity @e[tag=horse,limit=1] Tags
+cmd data get entity @e[tag=zombie,limit=1] Tags
+cmd data get entity @e[tag=wolf,limit=1] Tags
+cmd data get entity A Tags
+cmd data get entity @e[tag=pig,limit=1] Tags

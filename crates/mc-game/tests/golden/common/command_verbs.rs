@@ -212,6 +212,36 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String], line: &str) -> bool {
                     .set(&server.saved_types.custom_boss_events, loaded);
             });
         }
+        // `pack_file PACK PATH TEXT...`: a file inside the world's data pack PACK (`\n` = line break); the server runs in the world's folder
+        "pack_file" => {
+            h.boot();
+            assert!(
+                server_access::has_server(),
+                "`pack_file` needs the `command_env` verb"
+            );
+            let after_pack =
+                a[0].len() + line[a[0].len()..].find(a[1].as_str()).expect("pack") + a[1].len();
+            let start =
+                after_pack + line[after_pack..].find(a[2].as_str()).expect("path") + a[2].len();
+            let target = std::path::Path::new("world/datapacks")
+                .join(&a[1])
+                .join(&a[2]);
+            std::fs::create_dir_all(target.parent().expect("pack path")).expect("pack folder");
+            std::fs::write(target, line[start..].trim().replace("\\n", "\n")).expect("pack file");
+        }
+        "pack_remove" => {
+            h.boot();
+            assert!(
+                server_access::has_server(),
+                "`pack_remove` needs the `command_env` verb"
+            );
+            std::fs::remove_file(
+                std::path::Path::new("world/datapacks")
+                    .join(&a[1])
+                    .join(&a[2]),
+            )
+            .expect("pack file");
+        }
         _ => return false,
     }
     true
@@ -453,7 +483,8 @@ fn sorted_lines(prefix: &str, list: Option<&Tag>) -> Vec<String> {
 /// [`saved_lines`]), `storage:ID` (`STORAGE ID SNBT`) and
 /// `select:EXECUTOR/X,Y,Z/SELECTOR` (`SELECT SELECTOR EXECUTOR POS -> REF..`: what the selector finds for an operator in result order;
 /// `selectsorted:` and `selectcount:` give the sorted names and the count), `world` (the level state lines: game time, difficulty, clocks, weather,
-/// world spawn, border, tick rate manager) and `forced` (`FORCED cx,cz ..`).
+/// world spawn, border, tick rate manager), `forced` (`FORCED cx,cz ..`) and `logs` (`LOG LEVEL: message` per WARN or ERROR log line since the last
+/// `logs`, sorted: a library logs its broken functions in a hash order; a newline of the message is written `\n`).
 /// `false` for any other kind.
 pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
     let lines = match (kind, arg) {
@@ -541,6 +572,17 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
                 panic!("select:EXECUTOR/X,Y,Z/SELECTOR")
             };
             vec![select_line(h, kind, executor, position, selector)]
+        }
+        ("logs", None) => {
+            h.boot();
+            let mut logs: Vec<String> = super::take_logs()
+                .into_iter()
+                .filter(|l| l.starts_with("WARN: ") || l.starts_with("ERROR: "))
+                .collect();
+            logs.sort();
+            logs.iter()
+                .map(|l| format!("LOG {}", l.replace('\\', "\\\\").replace('\n', "\\n")))
+                .collect()
         }
         _ => return false,
     };
