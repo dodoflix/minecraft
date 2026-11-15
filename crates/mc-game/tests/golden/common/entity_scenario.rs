@@ -571,6 +571,8 @@ impl Harness {
         tag.merge(&extra);
         e.load(&self.level, &tag)
             .unwrap_or_else(|err| self.fail(&format!("load: {err}")));
+        // vanilla's codecs resolve registry holders (variants) while reading
+        e.resolve_registry_refs(&self.level.registries);
     }
 
     fn with_entity<R>(
@@ -837,6 +839,7 @@ impl Harness {
                         .unwrap_or_else(|err| panic!("scenario {label}:{no}: load: {err}"));
                     mc_game::world::entity::mob::leashable::finish_leash_load(e, level);
                     e.read_level_dependent_data(level);
+                    e.resolve_registry_refs(&level.registries);
                 });
             }
             // ride REF VEHICLE: `startRiding(vehicle, true, true)`
