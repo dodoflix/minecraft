@@ -1,0 +1,27 @@
+# global_sound_events: the wither spawn (level event 1023) is played to every player of the level when the rule is on, only to the players
+# within 64 blocks when it is off.
+level flat
+preload 6
+level_seed 31337
+spawn_player Steve survival 0.5 -60 4.5 0 0
+spawn_player Far survival 0.5 -60 120.5 0 0
+give Steve hotbar0 minecraft:wither_skeleton_skull 16
+select Steve 0
+dump packets:Steve:none packets:Far:none
+note rule on (the default)
+fill -1 -59 0 1 -59 0 minecraft:soul_sand
+block 0 -60 0 minecraft:soul_sand
+use_on Steve -1 -59 0 up main 0.5 1.0 0.5
+use_on Steve 1 -59 0 up main 0.5 1.0 0.5
+use_on Steve 0 -59 0 up main 0.5 1.0 0.5
+dump events packets:Far:level_event
+kill wither#1
+note rule off
+gamerule global_sound_events false
+snap Steve 8.5 -60 4.5 0 0
+fill 7 -59 0 9 -59 0 minecraft:soul_sand
+block 8 -60 0 minecraft:soul_sand
+use_on Steve 7 -59 0 up main 0.5 1.0 0.5
+use_on Steve 9 -59 0 up main 0.5 1.0 0.5
+use_on Steve 8 -59 0 up main 0.5 1.0 0.5
+dump events packets:Far:level_event

@@ -1,0 +1,10 @@
+FINDSPAWN 0 -60 0 times=8 within=true spread=true y=-60.0
+CF msg Game rule respawn_radius is now set to 0
+CF result success 0
+FINDSPAWN 0 -60 0 times=8 within=true spread=false y=-60.0
+CF msg Game rule respawn_radius is now set to 3
+CF result success 3
+FINDSPAWN 0 -60 0 times=8 within=true spread=true y=-60.0
+CF msg Game rule respawn_radius is now set to 1
+CF result success 1
+FINDSPAWN 20 -60 20 times=8 within=true spread=true y=-60.0

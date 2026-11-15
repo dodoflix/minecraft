@@ -1,0 +1,56 @@
+# max_snow_accumulation_height: snowfall in a snowy biome adds layers up to the rule (default 1, at most 8) at the random column of each
+# precipitation tick; the chunk is ticked with a fixed speed and the level random fixed.
+command_env
+level flat
+preload 3
+level_seed 77
+rand_value 11
+biome -16 -64 -16 31 -50 31 minecraft:snowy_plains
+cmd weather rain 100000
+tick 2
+note the default of one layer
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+dump blocks:0,-61,0,15,-59,15
+gamerule max_snow_accumulation_height 4
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+dump blocks:0,-61,0,15,-59,15
+gamerule max_snow_accumulation_height 0
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+tick_chunk 0 0 3
+dump blocks:0,-61,0,15,-59,15

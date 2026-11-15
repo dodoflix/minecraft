@@ -1,0 +1,61 @@
+# reduced_debug_info: true then false, then the unchanged value
+CF msg Game rule reduced_debug_info is now set to true
+CF result success 1
+PKT A minecraft:entity_event 220000003316
+PKT B minecraft:entity_event 220000003416
+CF msg Game rule reduced_debug_info is now set to false
+CF result success 0
+PKT A minecraft:entity_event 220000003317
+PKT B minecraft:entity_event 220000003417
+CF result failure 0
+CF fail Game rule reduced_debug_info is already set to false
+# limited_crafting and immediate_respawn: the game event with parameter 1 or 0
+CF msg Game rule limited_crafting is now set to true
+CF result success 1
+PKT A minecraft:game_event 270c3f800000
+PKT B minecraft:game_event 270c3f800000
+CF msg Game rule limited_crafting is now set to false
+CF result success 0
+PKT A minecraft:game_event 270c00000000
+PKT B minecraft:game_event 270c00000000
+CF msg Game rule immediate_respawn is now set to true
+CF result success 1
+PKT A minecraft:game_event 270b3f800000
+PKT B minecraft:game_event 270b3f800000
+CF msg Game rule immediate_respawn is now set to false
+CF result success 0
+PKT A minecraft:game_event 270b00000000
+PKT B minecraft:game_event 270b00000000
+# advance_time: the clock sync
+CF msg Game rule advance_time is now set to true
+CF result success 1
+PKT A minecraft:set_time 730000000000000001020000000000003f8000000100000000003f800000
+PKT B minecraft:set_time 730000000000000001020000000000003f8000000100000000003f800000
+CF msg Game rule advance_time is now set to false
+CF result success 0
+PKT A minecraft:set_time 730000000000000001020000000000000000000001000000000000000000
+PKT B minecraft:set_time 730000000000000001020000000000000000000001000000000000000000
+# locator_bar: off then on
+CF msg Game rule locator_bar is now set to false
+CF result success 0
+PKT A minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740000
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+PKT A minecraft:update_attributes entity=51;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
+PKT B minecraft:update_attributes entity=52;minecraft:entity_interaction_range=3.0[minecraft:creative_mode_entity_range/2.0/add_value];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[minecraft:creative_mode_block_range/0.5/add_value]
+CF msg Game rule locator_bar is now set to true
+CF result success 1
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c74000104c4ffffff0f00
+PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000100c4ffffff0f00
+# spawn_monsters and a rule without a hook send nothing
+CF msg Game rule spawn_monsters is now set to true
+CF result success 1
+CF msg Game rule keep_inventory is now set to true
+CF result success 1
+# a player that joins afterwards sees the stored values
+CF msg Game rule reduced_debug_info is now set to true
+CF result success 1
+CF msg Game rule limited_crafting is now set to true
+CF result success 1
+CF msg Game rule immediate_respawn is now set to true
+CF result success 1
+PKT C minecraft:login reduced_debug_info=true show_death_screen=false limited_crafting=true

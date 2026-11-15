@@ -1,0 +1,30 @@
+# pvp: a player's attack (melee, through the damage source) on another player does nothing while it is off; a mob attack and a
+# non-player source still hurt.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 1.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword
+spawn Z minecraft:zombie 8.5 -60 8.5 0 0 {NoAI:1b}
+tick 1
+dump packets:A:none packets:B:none
+attack A B
+tick 1
+dump player:B packets:A:none packets:B
+tick 25
+cmd gamerule pvp false
+hurt B minecraft:player_attack 3 by=A direct=A
+attack A B
+hurt B minecraft:mob_attack 3 by=Z direct=Z
+hurt B minecraft:generic 2
+tick 1
+dump player:B packets:B
+cmd gamerule pvp true
+tick 25
+attack A B
+hurt B minecraft:player_attack 3 by=A direct=A
+tick 1
+dump player:B packets:B

@@ -1,0 +1,31 @@
+# log_admin_commands and the admin message: a command an operator (or the console) runs is announced to the other operators while
+# send_command_feedback is on, and logged to the console while log_admin_commands is on (not for the console's own commands).
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Op survival 0.5 -60 0.5 0 0
+spawn_player Op2 survival 4.5 -60 0.5 0 0
+spawn_player Plain survival 8.5 -60 0.5 0 0
+op Op
+op Op2
+tick 1
+dump packets:Op:none packets:Op2:none packets:Plain:none console
+cmd gamerule send_command_feedback true
+note log_admin_commands off, send_command_feedback on
+cmd_inform Op time set 100
+dump packets:Op:system_chat packets:Op2:system_chat packets:Plain:system_chat console
+note both on, the console and an operator run a command
+cmd gamerule log_admin_commands true
+cmd_inform Op time set 200
+cmd_inform -4 time set 300
+dump packets:Op:system_chat packets:Op2:system_chat packets:Plain:system_chat console
+note send_command_feedback off: no operator hears it, the log keeps it
+cmd gamerule send_command_feedback false
+cmd_inform Op time set 400
+dump packets:Op:system_chat packets:Op2:system_chat packets:Plain:system_chat console
+note log_admin_commands off again
+cmd gamerule log_admin_commands false
+cmd_inform Op time set 500
+dump packets:Op:system_chat packets:Op2:system_chat packets:Plain:system_chat console

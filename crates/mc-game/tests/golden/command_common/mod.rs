@@ -65,19 +65,21 @@ pub static CWD_LOCK: std::sync::Mutex<()> = std::sync::Mutex::new(());
 /// The user lists (`ops.json`, ...) live in the working directory like vanilla's: the process switches into the temp
 /// directory, so tests holding a server are serialized (the second value keeps the lock and the directory alive).
 pub fn test_server() -> (mc_game::server::MinecraftServer, Box<dyn std::any::Any>) {
-    test_server_with_packs(&[])
+    test_server_with_packs(&[], &[])
 }
 
 /// [`test_server`] with the data packs `tests/oracle/datapacks/NAME` copied into the world's `datapacks` folder and enabled
-/// (`initial-enabled-packs`), like the oracle's `datapack NAME` option.
+/// (`initial-enabled-packs`), like the oracle's `datapack NAME` option; `features` are the built-in feature packs to enable
+/// (`minecart_improvements`, ...), like its `features` option.
 pub fn test_server_with_packs(
     packs: &[String],
+    features: &[String],
 ) -> (mc_game::server::MinecraftServer, Box<dyn std::any::Any>) {
     let guard = CWD_LOCK.lock().unwrap_or_else(|e| e.into_inner());
     use mc_game::server::dedicated::options::ServerOptions;
     use mc_game::server::dedicated::properties::DedicatedServerSettings;
     let dir = tempfile::tempdir().expect("temp dir");
-    if !packs.is_empty() {
+    if !packs.is_empty() || !features.is_empty() {
         let source =
             std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/oracle/datapacks");
         for pack in packs {
@@ -86,7 +88,11 @@ pub fn test_server_with_packs(
                 &dir.path().join("world/datapacks").join(pack),
             );
         }
-        let enabled: String = packs.iter().map(|p| format!(",file/{p}")).collect();
+        let enabled: String = packs
+            .iter()
+            .map(|p| format!(",file/{p}"))
+            .chain(features.iter().map(|f| format!(",{f}")))
+            .collect();
         std::fs::write(
             dir.path().join("server.properties"),
             format!("initial-enabled-packs=vanilla{enabled}\n"),

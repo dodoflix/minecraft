@@ -1,0 +1,57 @@
+CF msg Game rule max_block_modifications is now set to 8
+CF result success 8
+CF msg Successfully filled 8 block(s)
+CF result success 8
+CF result failure 0
+CF fail Too many blocks in the specified area (maximum 8, but specified 12)
+CF msg Successfully filled 8 block(s)
+CF result success 8
+CF msg Successfully cloned 8 block(s)
+CF result success 8
+CF result failure 0
+CF fail Too many blocks in the specified area (maximum 8, but specified 12)
+CF msg 1 biome entry/entries set between 0, -60, 0 and 0, -60, 0
+CF result success 1
+CF result failure 0
+CF fail No biome entries were changed
+CF msg Game rule max_block_modifications is now set to 1
+CF result success 1
+CF msg Changed the block at 9, -60, 9
+CF result success 1
+CF msg Successfully filled 1 block(s)
+CF result success 1
+CF result failure 0
+CF fail Too many blocks in the specified area (maximum 1, but specified 2)
+CF msg Game rule max_block_modifications is now set to 32768
+CF result success 32768
+CF msg Successfully filled 5 block(s)
+CF result success 5
+# forks: one entity per fork
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Game rule max_command_forks is now set to 2
+CF result success 2
+CF msg Game rule max_command_forks is now set to 3
+CF result success 3
+CF msg Game rule max_command_forks is now set to 0
+CF result success 0
+CF msg Game rule max_command_forks is now set to 65536
+CF result success 65536
+CF msg Added tag 'twice' to Pig
+CF result success 1
+CF msg Added tag 'twice' to Pig
+CF result success 1
+CF msg Added tag 'twice' to Pig
+CF result success 1
+CF result failure 0
+CF result failure 0
+CF result failure 0
+CF result failure 0
+CF result failure 0
+CF result failure 0
+CF msg Pig has 1 tag(s): twice
+CF result success 1

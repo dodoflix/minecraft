@@ -109,7 +109,10 @@ pub fn run_scenario_text(label: &str, text: &str) -> Vec<String> {
     let mut server = text
         .lines()
         .any(|l| l.trim() == "command_env")
-        .then(|| super::command_verbs::install_command_env(&[]));
+        .then(|| super::command_verbs::install_command_env(&[], &[]));
+    if let Some((server, _)) = server.as_mut() {
+        super::command_verbs::sync_rules(&h.game_rules, server.game_rules());
+    }
     for (i, raw) in text.lines().enumerate() {
         h.line_no = i + 1;
         h.line = raw.trim().to_string();
@@ -1432,17 +1435,12 @@ impl super::player_actions::ActionHost for Harness {
     fn emit(&mut self, line: String) {
         self.out.push(line);
     }
-    fn send_command_feedback(&mut self) -> bool {
-        self.game_rules
-            .get(mc_game::world::level::gamerules::GameRules::SEND_COMMAND_FEEDBACK)
-    }
     fn command_done(&mut self, command: &str, succeeded: bool) {
-        // the installed server's rules are not the ones the level reads: `/gamerule NAME VALUE` is also set here
-        let words: Vec<&str> = command.split_whitespace().collect();
-        if let (true, ["gamerule", name, value]) = (succeeded, &words[..]) {
-            super::block_scenario::set_rule(&mut self.game_rules, name, value);
+        // the level reads its own copy of the rules the installed server's `/gamerule` just changed
+        if succeeded && command.split_whitespace().next() == Some("gamerule") {
+            let rules = &mut self.game_rules;
             mc_game::commands::server_access::with_server(|server| {
-                super::block_scenario::set_rule(server.game_rules(), name, value)
+                super::command_verbs::sync_rules(server.game_rules(), rules)
             });
             self.level.server_state.rules.refresh(&self.game_rules);
         }

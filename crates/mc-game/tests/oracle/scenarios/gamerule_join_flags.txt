@@ -1,0 +1,16 @@
+# The rules a joining player is told about in the login packet: reduced_debug_info, immediate_respawn (show death screen) and limited_crafting.
+command_env
+bootrule reduced_debug_info true
+bootrule immediate_respawn true
+bootrule limited_crafting true
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player A survival 0.5 -60 0.5 0 0 joinburst
+dump packets:A:login
+cmd gamerule reduced_debug_info false
+cmd gamerule immediate_respawn false
+cmd gamerule limited_crafting false
+spawn_player B survival 4.5 -60 0.5 0 0 joinburst
+dump packets:B:login

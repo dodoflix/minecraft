@@ -1,0 +1,33 @@
+# command_block_output: a command block's output goes to the operators (the "[@: ..]" admin message) only while the rule is on, and then only
+# while send_command_feedback is on too; the block tracks no output in its own record.
+level flat
+preload 2
+command_env
+level_seed 3
+entity_counter 50
+spawn_player Op creative 0.5 -60 4.5 0 0
+spawn_player Plain survival 4.5 -60 4.5 0 0
+op Op
+tick 2
+dump packets:Op:none packets:Plain:none
+cmd gamerule send_command_feedback true
+block 0 -60 0 minecraft:command_block[facing=east,conditional=false]
+be_nbt 0 -60 0 {Command:"time query daytime",TrackOutput:0b}
+block 0 -60 -1 minecraft:redstone_block
+tick 3
+dump packets:Op:system_chat packets:Plain:system_chat be:0,-60,0
+note rule off
+cmd gamerule command_block_output false
+block 0 -60 -1 minecraft:air
+tick 2
+block 0 -60 -1 minecraft:redstone_block
+tick 3
+dump packets:Op:system_chat packets:Plain:system_chat be:0,-60,0
+note rule on, send_command_feedback off
+cmd gamerule command_block_output true
+cmd gamerule send_command_feedback false
+block 0 -60 -1 minecraft:air
+tick 2
+block 0 -60 -1 minecraft:redstone_block
+tick 3
+dump packets:Op:system_chat packets:Plain:system_chat be:0,-60,0

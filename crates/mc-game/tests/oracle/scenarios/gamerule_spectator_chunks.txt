@@ -1,0 +1,26 @@
+# spectators_generate_chunks: a spectator keeps chunk tickets only while the rule is on, so one that flies far away gets freshly generated
+# chunks sent (rule on) or only the chunks that are already loaded (rule off); a survival player always generates them.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Spec spectator 0.5 -60 0.5 0 0
+spawn_player Surv survival 4.5 -60 0.5 0 0
+tick 3
+dump packets:Spec:none packets:Surv:none
+note rule on (the default): the spectator flies 160 blocks away
+tp Spec 160.5 -60 0.5
+tick 120
+dump packets:Spec:level_chunk_with_light,forget_level_chunk,set_chunk_cache_center
+note rule off: a second spectator at the same place gets no new chunks, a survival player does
+cmd gamerule spectators_generate_chunks false
+tp Spec 0.5 -60 0.5
+tick 5
+dump packets:Spec:none
+tp Spec -160.5 -60 0.5
+tick 120
+dump packets:Spec:level_chunk_with_light,forget_level_chunk,set_chunk_cache_center
+tp Surv -160.5 -60 0.5
+tick 120
+dump packets:Surv:level_chunk_with_light,forget_level_chunk,set_chunk_cache_center

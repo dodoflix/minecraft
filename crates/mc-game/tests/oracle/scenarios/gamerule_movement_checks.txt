@@ -1,0 +1,46 @@
+# player_movement_check and elytra_movement_check: a movement packet that covers more than the speed limit allows (100 squared blocks, 300
+# while gliding) is rejected with a teleport back while the check is on and accepted while it is off; the elytra limit has its own switch.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player G survival 0.5 -30 40.5 0 0
+give G chest minecraft:elytra
+tick 1
+dump packets:A:none packets:G:none
+pcommand G START_FALL_FLYING
+tick 1
+client_tick_end A
+client_tick_end G
+dump player:G packets:G:none
+note walking: 20 blocks in one packet, checked then unchecked
+move_packet A 20.5 -60 0.5 true
+tick 1
+client_tick_end A
+dump player:A packets:A:player_position,move_entity_pos,teleport_entity,disconnect
+accept_teleport A
+cmd gamerule player_movement_check false
+move_packet A 20.5 -60 0.5 true
+tick 1
+client_tick_end A
+dump player:A packets:A:player_position,move_entity_pos,teleport_entity,disconnect
+note gliding: 20 blocks exceed the elytra limit, then the elytra check alone is off, then the movement check as well
+cmd gamerule player_movement_check true
+move_packet G 20.5 -30 40.5 false
+tick 1
+client_tick_end G
+dump player:G packets:G:player_position,disconnect
+accept_teleport G
+cmd gamerule elytra_movement_check false
+move_packet G 20.5 -30 40.5 false
+tick 1
+client_tick_end G
+dump player:G packets:G:player_position,disconnect
+cmd gamerule elytra_movement_check true
+cmd gamerule player_movement_check false
+move_packet G 40.5 -30 40.5 false
+tick 1
+client_tick_end G
+dump player:G packets:G:player_position,disconnect

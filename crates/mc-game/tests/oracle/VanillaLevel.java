@@ -140,7 +140,19 @@ public final class VanillaLevel {
       public boolean isDedicatedServer() {
          return true;
       }
+
+      @Override
+      public void sendSystemMessage(net.minecraft.network.chat.Component message) {
+         // the join broadcast of a player (the replays place their players without it) is not part of the console record
+         if (!(message.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t && t.getKey().startsWith("multiplayer.player."))) {
+            CONSOLE.add(message.getString());
+         }
+         super.sendSystemMessage(message);
+      }
    }
+
+   /** The messages the server console received (`MinecraftServer.sendSystemMessage`): `dump console`. */
+   public static final List<String> CONSOLE = new ArrayList<>();
 
    /** Event log (block-oracle): the `EV ...` lines of every PlayerList.broadcast the level made since the last `dump events`. */
    public static final List<String> EVENTS = new ArrayList<>();
@@ -673,6 +685,9 @@ public final class VanillaLevel {
       if (p instanceof net.minecraft.network.protocol.game.ClientboundUpdateAdvancementsPacket advancements) {
          text = "-"; // carries Instant.now() timestamps of obtained criteria: `advpackets:` dumps print `detail` instead
          detail = advancementDetail(advancements);
+      } else if (p instanceof net.minecraft.network.protocol.game.ClientboundLoginPacket login) {
+         // the three rule flags (the levels, view distances and spawn info of the join are not reproducible without a whole server)
+         text = "reduced_debug_info=" + login.reducedDebugInfo() + " show_death_screen=" + login.showDeathScreen() + " limited_crafting=" + login.doLimitedCrafting();
       } else if (p instanceof ClientboundUpdateAttributesPacket attrs) {
          // readable form of the wire order: the snapshot list is the `attributesToSync` set (hashed by attribute, see shadow.patch), the modifiers of
          // one snapshot an insertion-ordered set

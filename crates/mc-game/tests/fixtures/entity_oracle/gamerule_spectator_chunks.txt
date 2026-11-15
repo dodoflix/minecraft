@@ -1,0 +1,25 @@
+# rule on (the default): the spectator flies 160 blocks away
+PKT Spec minecraft:set_chunk_cache_center 600a00
+PKT Spec minecraft:forget_level_chunk 26ffffffffffffffff
+PKT Spec minecraft:forget_level_chunk 2600000000ffffffff
+PKT Spec minecraft:forget_level_chunk 2600000001ffffffff
+PKT Spec minecraft:forget_level_chunk 26ffffffff00000000
+PKT Spec minecraft:forget_level_chunk 260000000000000000
+PKT Spec minecraft:forget_level_chunk 260000000100000000
+PKT Spec minecraft:forget_level_chunk 26ffffffff00000001
+PKT Spec minecraft:forget_level_chunk 260000000000000001
+PKT Spec minecraft:forget_level_chunk 260000000100000001
+# rule off: a second spectator at the same place gets no new chunks, a survival player does
+CF msg Game rule spectators_generate_chunks is now set to false
+CF result success 0
+PKT Spec minecraft:set_chunk_cache_center 60f5ffffff0f00
+PKT Surv minecraft:set_chunk_cache_center 60f5ffffff0f00
+PKT Surv minecraft:forget_level_chunk 26ffffffffffffffff
+PKT Surv minecraft:forget_level_chunk 2600000000ffffffff
+PKT Surv minecraft:forget_level_chunk 2600000001ffffffff
+PKT Surv minecraft:forget_level_chunk 26ffffffff00000000
+PKT Surv minecraft:forget_level_chunk 260000000000000000
+PKT Surv minecraft:forget_level_chunk 260000000100000000
+PKT Surv minecraft:forget_level_chunk 26ffffffff00000001
+PKT Surv minecraft:forget_level_chunk 260000000000000001
+PKT Surv minecraft:forget_level_chunk 260000000100000001

@@ -142,6 +142,7 @@ mod feature_registries_load;
 mod fluid_waterlogged;
 mod fluids_golden;
 mod functions_system;
+mod gamerule_matrix_golden;
 mod goals_combat_golden;
 mod gossip_golden;
 mod instrument_jukebox;

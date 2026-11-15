@@ -1,0 +1,40 @@
+# players_sleeping_percentage: the night is skipped when the share of players who sleep (long enough) reaches the rule; advance_time
+# must be on for the skip. Dumped: the sleepers (a sleeper stands next to the bed after waking).
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+spawn_player C survival 8.5 -60 0.5 0 0
+spawn_player D survival 12.5 -60 0.5 0 0
+block 0 -60 2 minecraft:red_bed[facing=north,part=foot]
+block 0 -60 1 minecraft:red_bed[facing=north,part=head]
+block 4 -60 2 minecraft:red_bed[facing=north,part=foot]
+block 4 -60 1 minecraft:red_bed[facing=north,part=head]
+block 8 -60 2 minecraft:red_bed[facing=north,part=foot]
+block 8 -60 1 minecraft:red_bed[facing=north,part=head]
+tick 1
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+cmd gamerule advance_time true
+time 13000
+tick 2
+note 100 percent: two of four sleep, the night stays
+use_on A 0 -60 1 up main 0.5 0.5 0.5
+use_on B 4 -60 1 up main 0.5 0.5 0.5
+tick 105
+dump player:A player:B
+note 50 percent: two of four is enough
+cmd gamerule players_sleeping_percentage 50
+tick 3
+dump player:A player:B
+note 50 percent with one sleeper of four is too few, 0 percent lets one sleeper skip the night
+time 13000
+tick 2
+use_on C 8 -60 1 up main 0.5 0.5 0.5
+tick 105
+dump player:C
+cmd gamerule players_sleeping_percentage 0
+tick 3
+dump player:C

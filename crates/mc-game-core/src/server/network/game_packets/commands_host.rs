@@ -4,6 +4,7 @@ use super::PlayCtx;
 use crate::commands::command_source::{CommandSource, CommandSourceKind};
 use crate::commands::command_source_stack::{CommandEntity, CommandSourceStack};
 use crate::server::MinecraftServer;
+use crate::server::level::level_rules::LiveRules;
 use crate::server::permissions::PermissionSet;
 use crate::server::players::PlayerHandle;
 use crate::world::entity::Entity;
@@ -16,7 +17,8 @@ use std::sync::Arc;
 /// `ServerPlayer.commandSource()`.
 struct PlayerCommandSource {
     handle: PlayerHandle,
-    accepts_success: bool,
+    /// `acceptsSuccess` reads `send_command_feedback` on every message, so a command that turns it off is itself not reported.
+    rules: LiveRules,
 }
 
 impl CommandSource for PlayerCommandSource {
@@ -24,7 +26,7 @@ impl CommandSource for PlayerCommandSource {
         self.handle.send_system_message(message, false);
     }
     fn accepts_success(&self) -> bool {
-        self.accepts_success
+        self.rules.get().send_command_feedback
     }
     fn accepts_failure(&self) -> bool {
         true
@@ -61,13 +63,11 @@ pub(crate) fn player_command_source_stack(
     rotation: Vec2,
 ) -> Option<CommandSourceStack> {
     let handle = player.handle.clone()?;
-    let accepts_success =
-        server.game_rule(crate::world::level::gamerules::GameRules::SEND_COMMAND_FEEDBACK);
     let id = player.name_and_id();
     let permissions: PermissionSet = server.player_list.get_profile_permissions(&id).into();
     let source = Arc::new(PlayerCommandSource {
         handle: handle.clone(),
-        accepts_success,
+        rules: server.game_rules().live(),
     });
     let entity = CommandEntity {
         id: player.id(),

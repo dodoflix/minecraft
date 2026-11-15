@@ -1,0 +1,38 @@
+# max_block_modifications (fill, clone, fillbiome) and max_command_forks (execute as): the limit is inclusive, the messages carry both numbers.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 1
+cmd gamerule max_block_modifications 8
+cmd fill 0 -60 0 1 -60 3 minecraft:stone
+cmd fill 0 -60 0 2 -60 3 minecraft:dirt
+cmd fill 0 -60 0 1 -60 3 minecraft:dirt replace stone
+cmd clone 0 -60 0 1 -60 3 4 -60 0
+cmd clone 0 -60 0 2 -60 3 4 -60 0
+cmd fillbiome 0 -60 0 1 -60 3 minecraft:desert
+cmd fillbiome 0 -60 0 3 -60 3 minecraft:desert
+cmd gamerule max_block_modifications 1
+cmd setblock 9 -60 9 minecraft:stone
+cmd fill 0 -60 0 0 -60 0 minecraft:glass
+cmd fill 0 -60 0 1 -60 0 minecraft:glass
+cmd gamerule max_block_modifications 32768
+cmd fill 0 -60 0 2 -60 3 minecraft:dirt
+note forks: one entity per fork
+cmd summon minecraft:pig 8 -60 8 {NoAI:1b}
+cmd summon minecraft:pig 8 -60 9 {NoAI:1b}
+cmd summon minecraft:pig 8 -60 10 {NoAI:1b}
+cmd gamerule max_command_forks 2
+cmd execute as @e[type=pig] run say fork
+cmd execute as @e[type=pig] run scoreboard players add forks nothing 1
+cmd gamerule max_command_forks 3
+cmd execute as @e[type=pig] run tag @s add forked
+cmd execute as @e[type=pig] at @s as @e[type=pig] run tag @s add twice
+cmd gamerule max_command_forks 0
+cmd execute as @e[type=pig] run tag @s add zero
+cmd execute as @s run tag @s add none
+cmd gamerule max_command_forks 65536
+cmd execute as @e[type=pig] at @s as @e[type=pig] run tag @s add twice
+cmd tag @e[type=pig,limit=1] list

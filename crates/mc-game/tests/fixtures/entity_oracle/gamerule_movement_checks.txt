@@ -1,0 +1,20 @@
+P G minecraft:player pos=0.5,-30.0,40.5 delta=0.0,-0.08678880303497317,0.00876744022041321 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=fall_flying hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# walking: 20 blocks in one packet, checked then unchecked
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT A minecraft:player_position 49023fe0000000000000c04e0000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+CF msg Game rule player_movement_check is now set to false
+CF result success 0
+P A minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# gliding: 20 blocks exceed the elytra limit, then the elytra check alone is off, then the movement check as well
+CF msg Game rule player_movement_check is now set to true
+CF result success 1
+P G minecraft:player pos=0.5,-30.0,40.5 delta=0.0,-0.017640000343322755,0.0017820000171661376 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=fall_flying hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT G minecraft:player_position 49023fe0000000000000c03e0000000000004044400000000000000000000000000000000000000000000000000000000000000000000000000000000000
+CF msg Game rule elytra_movement_check is now set to false
+CF result success 0
+P G minecraft:player pos=20.5,-30.0,40.5 delta=0.0,-0.03319848094894409,0.003353724062896729 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=fall_flying hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Game rule elytra_movement_check is now set to true
+CF result success 1
+CF msg Game rule player_movement_check is now set to false
+CF result success 0
+P G minecraft:player pos=40.5,-30.0,40.5 delta=0.0,-0.046921061110181135,0.008060171552462907 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=fall_flying hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

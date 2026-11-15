@@ -1,0 +1,55 @@
+C Game rule allow_entering_nether_using_portals is now set to false
+C Game rule players_nether_portal_default_delay is now set to 6
+C Game rule players_nether_portal_creative_delay is now set to 2
+T 1
+PORTAL S cooldown=0 time=0
+PORTAL C cooldown=0 time=0
+T 2
+PORTAL S cooldown=0 time=1
+PORTAL C cooldown=0 time=1
+T 3
+PORTAL S cooldown=0 time=2
+PORTAL C cooldown=0 time=2
+T 4
+PORTAL S cooldown=0 time=3
+PORTAL C cooldown=10 time=3
+T 5
+PORTAL S cooldown=0 time=4
+PORTAL C cooldown=10 time=-
+T 6
+PORTAL S cooldown=0 time=5
+PORTAL C cooldown=10 time=-
+T 7
+PORTAL S cooldown=0 time=6
+PORTAL C cooldown=10 time=-
+T 8
+PORTAL S cooldown=10 time=7
+PORTAL C cooldown=10 time=-
+T 9
+PORTAL S cooldown=10 time=3
+PORTAL C cooldown=10 time=-
+T 10
+PORTAL S cooldown=10 time=-
+PORTAL C cooldown=10 time=-
+T 11
+PORTAL S cooldown=10 time=-
+PORTAL C cooldown=10 time=-
+T 12
+PORTAL S cooldown=10 time=-
+PORTAL C cooldown=10 time=-
+T 13
+PORTAL S cooldown=10 time=-
+PORTAL C cooldown=10 time=-
+T 14
+PORTAL S cooldown=10 time=-
+PORTAL C cooldown=10 time=-
+C Game rule players_nether_portal_default_delay is now set to 0
+C Game rule players_nether_portal_creative_delay is now set to 0
+T 15
+PORTAL Z cooldown=0 time=0
+T 16
+PORTAL Z cooldown=10 time=1
+T 17
+PORTAL Z cooldown=10 time=-
+T 18
+PORTAL Z cooldown=10 time=-

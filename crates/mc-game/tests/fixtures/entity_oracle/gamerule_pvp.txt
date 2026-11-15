@@ -1,0 +1,45 @@
+P B minecraft:player pos=1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.59104 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:player_combat_enter 44
+PKT B minecraft:damage_event 193422343400
+PKT B minecraft:hurt_animation 2b344333ffff
+PKT B minecraft:set_entity_motion 6734c1cc7fff5c5a
+PKT B minecraft:sound 77a00a0700000004fffffe20000000043f8000003f8000003dace6703e05bff8
+PKT B minecraft:set_entity_data 653409034194ba73ff
+PKT B minecraft:update_attributes entity=52;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
+PKT B minecraft:set_health 6a4194ba731440a00000
+CF msg Game rule pvp is now set to false
+CF result success 0
+HURT B minecraft:player_attack 3 -> false
+HURT B minecraft:mob_attack 3 -> true
+HURT B minecraft:generic 2 -> false
+P B minecraft:player pos=1.5,-60.0,0.5 delta=-0.14381742520630253,0.2751840104494096,-0.16436277166434574 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.1999999 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_health 6a419b651e1440a00000
+PKT B minecraft:set_entity_data 65340903419b651eff
+PKT B minecraft:sound 77de0e0500000044fffffe20000000443f8000003f8930cf6fd465a290351d3c
+PKT B minecraft:set_time 73000000000000001300
+PKT B minecraft:set_health 6a41a000001440800000
+PKT B minecraft:set_entity_data 6534090341a00000ff
+PKT B minecraft:sound 779d0a0700000004fffffe20000000043f8000003f8000004b970fd5e0db99e1
+PKT B minecraft:damage_event 19341c363600
+PKT B minecraft:hurt_animation 2b34424341d8
+PKT B minecraft:set_entity_data 6534090341880000ff
+PKT B minecraft:set_entity_motion 6734217959775c59
+PKT B minecraft:set_health 6a418800001440400000
+CF msg Game rule pvp is now set to true
+CF result success 1
+HURT B minecraft:player_attack 3 -> false
+P B minecraft:player pos=1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=10.833334 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.2999997 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_health 6a418c00001440400000
+PKT B minecraft:set_entity_data 65340903418c0000ff
+PKT B minecraft:sound 77de0e0500000044fffffe20000000443f8000003f8dfec9a3981763e0103683
+PKT B minecraft:set_time 73000000000000002700
+PKT B minecraft:set_health 6a418eaaab1440000000
+PKT B minecraft:set_entity_data 65340903418eaaabff
+PKT B minecraft:damage_event 193422343400
+PKT B minecraft:hurt_animation 2b344333ffff
+PKT B minecraft:set_entity_motion 6734c1cc7fff5c5a
+PKT B minecraft:sound 779f0a0700000004fffffe20000000043f8000003f80000029a8e9b76b35b192
+PKT B minecraft:level_particles 304d00003fe0000000000000c04d8ccccd0000003ff800000000000080000000000000003f8000000000000000000000000000000000
+PKT B minecraft:level_particles 300e00003ff8000000000000c04d8ccccd0000003fe00000000000003dcccccd000000003dcccccd3e4ccccd3e4ccccd3e4ccccd0300
+PKT B minecraft:set_entity_data 65340903412d5556ff
+PKT B minecraft:set_health 6a412d55561440000000

@@ -1,0 +1,1152 @@
+# advance_time
+CF msg Game rule advance_time is currently set to false
+CF result success 0
+CF msg Game rule advance_time is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule advance_time is already set to true
+CF msg Game rule advance_time is now set to false
+CF result success 0
+CF msg Game rule advance_time is currently set to false
+CF result success 0
+CF msg Game rule advance_time is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ance_time maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ance_time 1<--[HERE]
+CF msg Game rule advance_time is currently set to true
+CF result success 1
+# advance_weather
+CF msg Game rule advance_weather is currently set to false
+CF result success 0
+CF msg Game rule advance_weather is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule advance_weather is already set to true
+CF msg Game rule advance_weather is now set to false
+CF result success 0
+CF msg Game rule advance_weather is currently set to false
+CF result success 0
+CF msg Game rule advance_weather is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...e_weather maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...e_weather 1<--[HERE]
+CF msg Game rule advance_weather is currently set to true
+CF result success 1
+# allow_entering_nether_using_portals
+CF msg Game rule allow_entering_nether_using_portals is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule allow_entering_nether_using_portals is already set to true
+CF result failure 0
+CF fail Game rule allow_entering_nether_using_portals is already set to true
+CF msg Game rule allow_entering_nether_using_portals is now set to false
+CF result success 0
+CF msg Game rule allow_entering_nether_using_portals is currently set to false
+CF result success 0
+CF msg Game rule allow_entering_nether_using_portals is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...g_portals maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...g_portals 1<--[HERE]
+CF msg Game rule allow_entering_nether_using_portals is currently set to true
+CF result success 1
+# block_drops
+CF msg Game rule block_drops is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule block_drops is already set to true
+CF result failure 0
+CF fail Game rule block_drops is already set to true
+CF msg Game rule block_drops is now set to false
+CF result success 0
+CF msg Game rule block_drops is currently set to false
+CF result success 0
+CF msg Game rule block_drops is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ock_drops maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ock_drops 1<--[HERE]
+CF msg Game rule block_drops is currently set to true
+CF result success 1
+# block_explosion_drop_decay
+CF msg Game rule block_explosion_drop_decay is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule block_explosion_drop_decay is already set to true
+CF result failure 0
+CF fail Game rule block_explosion_drop_decay is already set to true
+CF msg Game rule block_explosion_drop_decay is now set to false
+CF result success 0
+CF msg Game rule block_explosion_drop_decay is currently set to false
+CF result success 0
+CF msg Game rule block_explosion_drop_decay is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...rop_decay maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...rop_decay 1<--[HERE]
+CF msg Game rule block_explosion_drop_decay is currently set to true
+CF result success 1
+# command_block_output
+CF msg Game rule command_block_output is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule command_block_output is already set to true
+CF result failure 0
+CF fail Game rule command_block_output is already set to true
+CF msg Game rule command_block_output is now set to false
+CF result success 0
+CF msg Game rule command_block_output is currently set to false
+CF result success 0
+CF msg Game rule command_block_output is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ck_output maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ck_output 1<--[HERE]
+CF msg Game rule command_block_output is currently set to true
+CF result success 1
+# command_blocks_work
+CF msg Game rule command_blocks_work is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule command_blocks_work is already set to true
+CF result failure 0
+CF fail Game rule command_blocks_work is already set to true
+CF msg Game rule command_blocks_work is now set to false
+CF result success 0
+CF msg Game rule command_blocks_work is currently set to false
+CF result success 0
+CF msg Game rule command_blocks_work is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ocks_work maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ocks_work 1<--[HERE]
+CF msg Game rule command_blocks_work is currently set to true
+CF result success 1
+# drowning_damage
+CF msg Game rule drowning_damage is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule drowning_damage is already set to true
+CF result failure 0
+CF fail Game rule drowning_damage is already set to true
+CF msg Game rule drowning_damage is now set to false
+CF result success 0
+CF msg Game rule drowning_damage is currently set to false
+CF result success 0
+CF msg Game rule drowning_damage is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ng_damage maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ng_damage 1<--[HERE]
+CF msg Game rule drowning_damage is currently set to true
+CF result success 1
+# elytra_movement_check
+CF msg Game rule elytra_movement_check is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule elytra_movement_check is already set to true
+CF result failure 0
+CF fail Game rule elytra_movement_check is already set to true
+CF msg Game rule elytra_movement_check is now set to false
+CF result success 0
+CF msg Game rule elytra_movement_check is currently set to false
+CF result success 0
+CF msg Game rule elytra_movement_check is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ent_check maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ent_check 1<--[HERE]
+CF msg Game rule elytra_movement_check is currently set to true
+CF result success 1
+# ender_pearls_vanish_on_death
+CF msg Game rule ender_pearls_vanish_on_death is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule ender_pearls_vanish_on_death is already set to true
+CF result failure 0
+CF fail Game rule ender_pearls_vanish_on_death is already set to true
+CF msg Game rule ender_pearls_vanish_on_death is now set to false
+CF result success 0
+CF msg Game rule ender_pearls_vanish_on_death is currently set to false
+CF result success 0
+CF msg Game rule ender_pearls_vanish_on_death is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ..._on_death maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ..._on_death 1<--[HERE]
+CF msg Game rule ender_pearls_vanish_on_death is currently set to true
+CF result success 1
+# entity_drops
+CF msg Game rule entity_drops is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule entity_drops is already set to true
+CF result failure 0
+CF fail Game rule entity_drops is already set to true
+CF msg Game rule entity_drops is now set to false
+CF result success 0
+CF msg Game rule entity_drops is currently set to false
+CF result success 0
+CF msg Game rule entity_drops is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ity_drops maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ity_drops 1<--[HERE]
+CF msg Game rule entity_drops is currently set to true
+CF result success 1
+# fall_damage
+CF msg Game rule fall_damage is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule fall_damage is already set to true
+CF result failure 0
+CF fail Game rule fall_damage is already set to true
+CF msg Game rule fall_damage is now set to false
+CF result success 0
+CF msg Game rule fall_damage is currently set to false
+CF result success 0
+CF msg Game rule fall_damage is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ll_damage maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ll_damage 1<--[HERE]
+CF msg Game rule fall_damage is currently set to true
+CF result success 1
+# fire_damage
+CF msg Game rule fire_damage is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule fire_damage is already set to true
+CF result failure 0
+CF fail Game rule fire_damage is already set to true
+CF msg Game rule fire_damage is now set to false
+CF result success 0
+CF msg Game rule fire_damage is currently set to false
+CF result success 0
+CF msg Game rule fire_damage is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...re_damage maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...re_damage 1<--[HERE]
+CF msg Game rule fire_damage is currently set to true
+CF result success 1
+# fire_spread_radius_around_player
+CF msg Game rule fire_spread_radius_around_player is currently set to 128
+CF result success 128
+CF msg Game rule fire_spread_radius_around_player is now set to 5
+CF result success 5
+CF result failure 0
+CF fail Game rule fire_spread_radius_around_player is already set to 5
+CF msg Game rule fire_spread_radius_around_player is now set to 6
+CF result success 6
+CF fail Integer must not be less than -1: found -2
+CF fail ...nd_player -2<--[HERE]
+CF fail Invalid integer '2147483648'
+CF fail ...nd_player 2147483648<--[HERE]
+CF fail Expected integer
+CF fail ...nd_player abc<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...nd_player 1.5<--[HERE]
+CF msg Game rule fire_spread_radius_around_player is currently set to 6
+CF result success 6
+# forgive_dead_players
+CF msg Game rule forgive_dead_players is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule forgive_dead_players is already set to true
+CF result failure 0
+CF fail Game rule forgive_dead_players is already set to true
+CF msg Game rule forgive_dead_players is now set to false
+CF result success 0
+CF msg Game rule forgive_dead_players is currently set to false
+CF result success 0
+CF msg Game rule forgive_dead_players is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...d_players maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...d_players 1<--[HERE]
+CF msg Game rule forgive_dead_players is currently set to true
+CF result success 1
+# freeze_damage
+CF msg Game rule freeze_damage is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule freeze_damage is already set to true
+CF result failure 0
+CF fail Game rule freeze_damage is already set to true
+CF msg Game rule freeze_damage is now set to false
+CF result success 0
+CF msg Game rule freeze_damage is currently set to false
+CF result success 0
+CF msg Game rule freeze_damage is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ze_damage maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ze_damage 1<--[HERE]
+CF msg Game rule freeze_damage is currently set to true
+CF result success 1
+# global_sound_events
+CF msg Game rule global_sound_events is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule global_sound_events is already set to true
+CF result failure 0
+CF fail Game rule global_sound_events is already set to true
+CF msg Game rule global_sound_events is now set to false
+CF result success 0
+CF msg Game rule global_sound_events is currently set to false
+CF result success 0
+CF msg Game rule global_sound_events is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...nd_events maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...nd_events 1<--[HERE]
+CF msg Game rule global_sound_events is currently set to true
+CF result success 1
+# immediate_respawn
+CF msg Game rule immediate_respawn is currently set to false
+CF result success 0
+CF msg Game rule immediate_respawn is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule immediate_respawn is already set to true
+CF msg Game rule immediate_respawn is now set to false
+CF result success 0
+CF msg Game rule immediate_respawn is currently set to false
+CF result success 0
+CF msg Game rule immediate_respawn is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...e_respawn maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...e_respawn 1<--[HERE]
+CF msg Game rule immediate_respawn is currently set to true
+CF result success 1
+# keep_inventory
+CF msg Game rule keep_inventory is currently set to false
+CF result success 0
+CF msg Game rule keep_inventory is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule keep_inventory is already set to true
+CF msg Game rule keep_inventory is now set to false
+CF result success 0
+CF msg Game rule keep_inventory is currently set to false
+CF result success 0
+CF msg Game rule keep_inventory is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...inventory maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...inventory 1<--[HERE]
+CF msg Game rule keep_inventory is currently set to true
+CF result success 1
+# lava_source_conversion
+CF msg Game rule lava_source_conversion is currently set to false
+CF result success 0
+CF msg Game rule lava_source_conversion is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule lava_source_conversion is already set to true
+CF msg Game rule lava_source_conversion is now set to false
+CF result success 0
+CF msg Game rule lava_source_conversion is currently set to false
+CF result success 0
+CF msg Game rule lava_source_conversion is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...onversion maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...onversion 1<--[HERE]
+CF msg Game rule lava_source_conversion is currently set to true
+CF result success 1
+# limited_crafting
+CF msg Game rule limited_crafting is currently set to false
+CF result success 0
+CF msg Game rule limited_crafting is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule limited_crafting is already set to true
+CF msg Game rule limited_crafting is now set to false
+CF result success 0
+CF msg Game rule limited_crafting is currently set to false
+CF result success 0
+CF msg Game rule limited_crafting is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ..._crafting maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ..._crafting 1<--[HERE]
+CF msg Game rule limited_crafting is currently set to true
+CF result success 1
+# locator_bar
+CF msg Game rule locator_bar is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule locator_bar is already set to true
+CF result failure 0
+CF fail Game rule locator_bar is already set to true
+CF msg Game rule locator_bar is now set to false
+CF result success 0
+CF msg Game rule locator_bar is currently set to false
+CF result success 0
+CF msg Game rule locator_bar is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...cator_bar maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...cator_bar 1<--[HERE]
+CF msg Game rule locator_bar is currently set to true
+CF result success 1
+# log_admin_commands
+CF msg Game rule log_admin_commands is currently set to false
+CF result success 0
+CF msg Game rule log_admin_commands is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule log_admin_commands is already set to true
+CF msg Game rule log_admin_commands is now set to false
+CF result success 0
+CF msg Game rule log_admin_commands is currently set to false
+CF result success 0
+CF msg Game rule log_admin_commands is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ..._commands maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ..._commands 1<--[HERE]
+CF msg Game rule log_admin_commands is currently set to true
+CF result success 1
+# max_block_modifications
+CF msg Game rule max_block_modifications is currently set to 32768
+CF result success 32768
+CF msg Game rule max_block_modifications is now set to 5
+CF result success 5
+CF result failure 0
+CF fail Game rule max_block_modifications is already set to 5
+CF msg Game rule max_block_modifications is now set to 6
+CF result success 6
+CF fail Integer must not be less than 1: found 0
+CF fail ...fications 0<--[HERE]
+CF fail Invalid integer '2147483648'
+CF fail ...fications 2147483648<--[HERE]
+CF fail Expected integer
+CF fail ...fications abc<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...fications 1.5<--[HERE]
+CF msg Game rule max_block_modifications is currently set to 6
+CF result success 6
+# max_command_forks
+CF msg Game rule max_command_forks is currently set to 65536
+CF result success 65536
+CF msg Game rule max_command_forks is now set to 5
+CF result success 5
+CF result failure 0
+CF fail Game rule max_command_forks is already set to 5
+CF msg Game rule max_command_forks is now set to 6
+CF result success 6
+CF fail Integer must not be less than 0: found -1
+CF fail ...and_forks -1<--[HERE]
+CF fail Invalid integer '2147483648'
+CF fail ...and_forks 2147483648<--[HERE]
+CF fail Expected integer
+CF fail ...and_forks abc<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...and_forks 1.5<--[HERE]
+CF msg Game rule max_command_forks is currently set to 6
+CF result success 6
+# max_command_sequence_length
+CF msg Game rule max_command_sequence_length is currently set to 65536
+CF result success 65536
+CF msg Game rule max_command_sequence_length is now set to 5
+CF result success 5
+CF result failure 0
+CF fail Game rule max_command_sequence_length is already set to 5
+CF msg Game rule max_command_sequence_length is now set to 6
+CF result success 6
+CF fail Integer must not be less than 0: found -1
+CF fail ...ce_length -1<--[HERE]
+CF fail Invalid integer '2147483648'
+CF fail ...ce_length 2147483648<--[HERE]
+CF fail Expected integer
+CF fail ...ce_length abc<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...ce_length 1.5<--[HERE]
+CF msg Game rule max_command_sequence_length is currently set to 6
+CF result success 6
+# max_entity_cramming
+CF msg Game rule max_entity_cramming is currently set to 24
+CF result success 24
+CF msg Game rule max_entity_cramming is now set to 5
+CF result success 5
+CF result failure 0
+CF fail Game rule max_entity_cramming is already set to 5
+CF msg Game rule max_entity_cramming is now set to 6
+CF result success 6
+CF fail Integer must not be less than 0: found -1
+CF fail ..._cramming -1<--[HERE]
+CF fail Invalid integer '2147483648'
+CF fail ..._cramming 2147483648<--[HERE]
+CF fail Expected integer
+CF fail ..._cramming abc<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ..._cramming 1.5<--[HERE]
+CF msg Game rule max_entity_cramming is currently set to 6
+CF result success 6
+# max_minecart_speed
+CF msg Game rule max_minecart_speed is currently set to 8
+CF result success 8
+CF msg Game rule max_minecart_speed is now set to 5
+CF result success 5
+CF result failure 0
+CF fail Game rule max_minecart_speed is already set to 5
+CF msg Game rule max_minecart_speed is now set to 6
+CF result success 6
+CF fail Integer must not be less than 1: found 0
+CF fail ...art_speed 0<--[HERE]
+CF fail Integer must not be more than 1000: found 1001
+CF fail ...art_speed 1001<--[HERE]
+CF fail Expected integer
+CF fail ...art_speed abc<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...art_speed 1.5<--[HERE]
+CF msg Game rule max_minecart_speed is currently set to 6
+CF result success 6
+# max_snow_accumulation_height
+CF msg Game rule max_snow_accumulation_height is currently set to 1
+CF result success 1
+CF msg Game rule max_snow_accumulation_height is now set to 5
+CF result success 5
+CF result failure 0
+CF fail Game rule max_snow_accumulation_height is already set to 5
+CF msg Game rule max_snow_accumulation_height is now set to 6
+CF result success 6
+CF fail Integer must not be less than 0: found -1
+CF fail ...on_height -1<--[HERE]
+CF fail Integer must not be more than 8: found 9
+CF fail ...on_height 9<--[HERE]
+CF fail Expected integer
+CF fail ...on_height abc<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...on_height 1.5<--[HERE]
+CF msg Game rule max_snow_accumulation_height is currently set to 6
+CF result success 6
+# mob_drops
+CF msg Game rule mob_drops is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule mob_drops is already set to true
+CF result failure 0
+CF fail Game rule mob_drops is already set to true
+CF msg Game rule mob_drops is now set to false
+CF result success 0
+CF msg Game rule mob_drops is currently set to false
+CF result success 0
+CF msg Game rule mob_drops is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...mob_drops maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...mob_drops 1<--[HERE]
+CF msg Game rule mob_drops is currently set to true
+CF result success 1
+# mob_explosion_drop_decay
+CF msg Game rule mob_explosion_drop_decay is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule mob_explosion_drop_decay is already set to true
+CF result failure 0
+CF fail Game rule mob_explosion_drop_decay is already set to true
+CF msg Game rule mob_explosion_drop_decay is now set to false
+CF result success 0
+CF msg Game rule mob_explosion_drop_decay is currently set to false
+CF result success 0
+CF msg Game rule mob_explosion_drop_decay is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...rop_decay maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...rop_decay 1<--[HERE]
+CF msg Game rule mob_explosion_drop_decay is currently set to true
+CF result success 1
+# mob_griefing
+CF msg Game rule mob_griefing is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule mob_griefing is already set to true
+CF result failure 0
+CF fail Game rule mob_griefing is already set to true
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
+CF msg Game rule mob_griefing is currently set to false
+CF result success 0
+CF msg Game rule mob_griefing is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ..._griefing maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ..._griefing 1<--[HERE]
+CF msg Game rule mob_griefing is currently set to true
+CF result success 1
+# natural_health_regeneration
+CF msg Game rule natural_health_regeneration is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule natural_health_regeneration is already set to true
+CF result failure 0
+CF fail Game rule natural_health_regeneration is already set to true
+CF msg Game rule natural_health_regeneration is now set to false
+CF result success 0
+CF msg Game rule natural_health_regeneration is currently set to false
+CF result success 0
+CF msg Game rule natural_health_regeneration is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...eneration maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...eneration 1<--[HERE]
+CF msg Game rule natural_health_regeneration is currently set to true
+CF result success 1
+# player_movement_check
+CF msg Game rule player_movement_check is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule player_movement_check is already set to true
+CF result failure 0
+CF fail Game rule player_movement_check is already set to true
+CF msg Game rule player_movement_check is now set to false
+CF result success 0
+CF msg Game rule player_movement_check is currently set to false
+CF result success 0
+CF msg Game rule player_movement_check is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ent_check maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ent_check 1<--[HERE]
+CF msg Game rule player_movement_check is currently set to true
+CF result success 1
+# players_nether_portal_creative_delay
+CF msg Game rule players_nether_portal_creative_delay is currently set to 0
+CF result success 0
+CF msg Game rule players_nether_portal_creative_delay is now set to 5
+CF result success 5
+CF result failure 0
+CF fail Game rule players_nether_portal_creative_delay is already set to 5
+CF msg Game rule players_nether_portal_creative_delay is now set to 6
+CF result success 6
+CF fail Integer must not be less than 0: found -1
+CF fail ...ive_delay -1<--[HERE]
+CF fail Invalid integer '2147483648'
+CF fail ...ive_delay 2147483648<--[HERE]
+CF fail Expected integer
+CF fail ...ive_delay abc<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...ive_delay 1.5<--[HERE]
+CF msg Game rule players_nether_portal_creative_delay is currently set to 6
+CF result success 6
+# players_nether_portal_default_delay
+CF msg Game rule players_nether_portal_default_delay is currently set to 80
+CF result success 80
+CF msg Game rule players_nether_portal_default_delay is now set to 5
+CF result success 5
+CF result failure 0
+CF fail Game rule players_nether_portal_default_delay is already set to 5
+CF msg Game rule players_nether_portal_default_delay is now set to 6
+CF result success 6
+CF fail Integer must not be less than 0: found -1
+CF fail ...ult_delay -1<--[HERE]
+CF fail Invalid integer '2147483648'
+CF fail ...ult_delay 2147483648<--[HERE]
+CF fail Expected integer
+CF fail ...ult_delay abc<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...ult_delay 1.5<--[HERE]
+CF msg Game rule players_nether_portal_default_delay is currently set to 6
+CF result success 6
+# players_sleeping_percentage
+CF msg Game rule players_sleeping_percentage is currently set to 100
+CF result success 100
+CF msg Game rule players_sleeping_percentage is now set to 5
+CF result success 5
+CF result failure 0
+CF fail Game rule players_sleeping_percentage is already set to 5
+CF msg Game rule players_sleeping_percentage is now set to 6
+CF result success 6
+CF fail Integer must not be less than 0: found -1
+CF fail ...ercentage -1<--[HERE]
+CF fail Invalid integer '2147483648'
+CF fail ...ercentage 2147483648<--[HERE]
+CF fail Expected integer
+CF fail ...ercentage abc<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...ercentage 1.5<--[HERE]
+CF msg Game rule players_sleeping_percentage is currently set to 6
+CF result success 6
+# projectiles_can_break_blocks
+CF msg Game rule projectiles_can_break_blocks is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule projectiles_can_break_blocks is already set to true
+CF result failure 0
+CF fail Game rule projectiles_can_break_blocks is already set to true
+CF msg Game rule projectiles_can_break_blocks is now set to false
+CF result success 0
+CF msg Game rule projectiles_can_break_blocks is currently set to false
+CF result success 0
+CF msg Game rule projectiles_can_break_blocks is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ak_blocks maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ak_blocks 1<--[HERE]
+CF msg Game rule projectiles_can_break_blocks is currently set to true
+CF result success 1
+# pvp
+CF msg Game rule pvp is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule pvp is already set to true
+CF result failure 0
+CF fail Game rule pvp is already set to true
+CF msg Game rule pvp is now set to false
+CF result success 0
+CF msg Game rule pvp is currently set to false
+CF result success 0
+CF msg Game rule pvp is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...erule pvp maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...erule pvp 1<--[HERE]
+CF msg Game rule pvp is currently set to true
+CF result success 1
+# raids
+CF msg Game rule raids is currently set to false
+CF result success 0
+CF msg Game rule raids is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule raids is already set to true
+CF msg Game rule raids is now set to false
+CF result success 0
+CF msg Game rule raids is currently set to false
+CF result success 0
+CF msg Game rule raids is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ule raids maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ule raids 1<--[HERE]
+CF msg Game rule raids is currently set to true
+CF result success 1
+# random_tick_speed
+CF msg Game rule random_tick_speed is currently set to 0
+CF result success 0
+CF msg Game rule random_tick_speed is now set to 5
+CF result success 5
+CF result failure 0
+CF fail Game rule random_tick_speed is already set to 5
+CF msg Game rule random_tick_speed is now set to 6
+CF result success 6
+CF fail Integer must not be less than 0: found -1
+CF fail ...ick_speed -1<--[HERE]
+CF fail Invalid integer '2147483648'
+CF fail ...ick_speed 2147483648<--[HERE]
+CF fail Expected integer
+CF fail ...ick_speed abc<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...ick_speed 1.5<--[HERE]
+CF msg Game rule random_tick_speed is currently set to 6
+CF result success 6
+# reduced_debug_info
+CF msg Game rule reduced_debug_info is currently set to false
+CF result success 0
+CF msg Game rule reduced_debug_info is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule reduced_debug_info is already set to true
+CF msg Game rule reduced_debug_info is now set to false
+CF result success 0
+CF msg Game rule reduced_debug_info is currently set to false
+CF result success 0
+CF msg Game rule reduced_debug_info is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ebug_info maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ebug_info 1<--[HERE]
+CF msg Game rule reduced_debug_info is currently set to true
+CF result success 1
+# respawn_radius
+CF msg Game rule respawn_radius is currently set to 10
+CF result success 10
+CF msg Game rule respawn_radius is now set to 5
+CF result success 5
+CF result failure 0
+CF fail Game rule respawn_radius is already set to 5
+CF msg Game rule respawn_radius is now set to 6
+CF result success 6
+CF fail Integer must not be less than 0: found -1
+CF fail ...wn_radius -1<--[HERE]
+CF fail Invalid integer '2147483648'
+CF fail ...wn_radius 2147483648<--[HERE]
+CF fail Expected integer
+CF fail ...wn_radius abc<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...wn_radius 1.5<--[HERE]
+CF msg Game rule respawn_radius is currently set to 6
+CF result success 6
+# send_command_feedback
+CF msg Game rule send_command_feedback is currently set to false
+CF result success 0
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule send_command_feedback is already set to true
+CF msg Game rule send_command_feedback is now set to false
+CF result success 0
+CF msg Game rule send_command_feedback is currently set to false
+CF result success 0
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ..._feedback maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ..._feedback 1<--[HERE]
+CF msg Game rule send_command_feedback is currently set to true
+CF result success 1
+# show_advancement_messages
+CF msg Game rule show_advancement_messages is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule show_advancement_messages is already set to true
+CF result failure 0
+CF fail Game rule show_advancement_messages is already set to true
+CF msg Game rule show_advancement_messages is now set to false
+CF result success 0
+CF msg Game rule show_advancement_messages is currently set to false
+CF result success 0
+CF msg Game rule show_advancement_messages is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ..._messages maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ..._messages 1<--[HERE]
+CF msg Game rule show_advancement_messages is currently set to true
+CF result success 1
+# show_death_messages
+CF msg Game rule show_death_messages is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule show_death_messages is already set to true
+CF result failure 0
+CF fail Game rule show_death_messages is already set to true
+CF msg Game rule show_death_messages is now set to false
+CF result success 0
+CF msg Game rule show_death_messages is currently set to false
+CF result success 0
+CF msg Game rule show_death_messages is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ..._messages maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ..._messages 1<--[HERE]
+CF msg Game rule show_death_messages is currently set to true
+CF result success 1
+# spawn_mobs
+CF msg Game rule spawn_mobs is currently set to false
+CF result success 0
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule spawn_mobs is already set to true
+CF msg Game rule spawn_mobs is now set to false
+CF result success 0
+CF msg Game rule spawn_mobs is currently set to false
+CF result success 0
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...pawn_mobs maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...pawn_mobs 1<--[HERE]
+CF msg Game rule spawn_mobs is currently set to true
+CF result success 1
+# spawn_monsters
+CF msg Game rule spawn_monsters is currently set to false
+CF result success 0
+CF msg Game rule spawn_monsters is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule spawn_monsters is already set to true
+CF msg Game rule spawn_monsters is now set to false
+CF result success 0
+CF msg Game rule spawn_monsters is currently set to false
+CF result success 0
+CF msg Game rule spawn_monsters is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ..._monsters maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ..._monsters 1<--[HERE]
+CF msg Game rule spawn_monsters is currently set to true
+CF result success 1
+# spawn_patrols
+CF msg Game rule spawn_patrols is currently set to false
+CF result success 0
+CF msg Game rule spawn_patrols is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule spawn_patrols is already set to true
+CF msg Game rule spawn_patrols is now set to false
+CF result success 0
+CF msg Game rule spawn_patrols is currently set to false
+CF result success 0
+CF msg Game rule spawn_patrols is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...n_patrols maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...n_patrols 1<--[HERE]
+CF msg Game rule spawn_patrols is currently set to true
+CF result success 1
+# spawn_phantoms
+CF msg Game rule spawn_phantoms is currently set to false
+CF result success 0
+CF msg Game rule spawn_phantoms is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule spawn_phantoms is already set to true
+CF msg Game rule spawn_phantoms is now set to false
+CF result success 0
+CF msg Game rule spawn_phantoms is currently set to false
+CF result success 0
+CF msg Game rule spawn_phantoms is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ..._phantoms maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ..._phantoms 1<--[HERE]
+CF msg Game rule spawn_phantoms is currently set to true
+CF result success 1
+# spawn_wandering_traders
+CF msg Game rule spawn_wandering_traders is currently set to false
+CF result success 0
+CF msg Game rule spawn_wandering_traders is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule spawn_wandering_traders is already set to true
+CF msg Game rule spawn_wandering_traders is now set to false
+CF result success 0
+CF msg Game rule spawn_wandering_traders is currently set to false
+CF result success 0
+CF msg Game rule spawn_wandering_traders is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...g_traders maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...g_traders 1<--[HERE]
+CF msg Game rule spawn_wandering_traders is currently set to true
+CF result success 1
+# spawn_wardens
+CF msg Game rule spawn_wardens is currently set to false
+CF result success 0
+CF msg Game rule spawn_wardens is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule spawn_wardens is already set to true
+CF msg Game rule spawn_wardens is now set to false
+CF result success 0
+CF msg Game rule spawn_wardens is currently set to false
+CF result success 0
+CF msg Game rule spawn_wardens is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...n_wardens maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...n_wardens 1<--[HERE]
+CF msg Game rule spawn_wardens is currently set to true
+CF result success 1
+# spawner_blocks_work
+CF msg Game rule spawner_blocks_work is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule spawner_blocks_work is already set to true
+CF result failure 0
+CF fail Game rule spawner_blocks_work is already set to true
+CF msg Game rule spawner_blocks_work is now set to false
+CF result success 0
+CF msg Game rule spawner_blocks_work is currently set to false
+CF result success 0
+CF msg Game rule spawner_blocks_work is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ocks_work maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ocks_work 1<--[HERE]
+CF msg Game rule spawner_blocks_work is currently set to true
+CF result success 1
+# spectators_generate_chunks
+CF msg Game rule spectators_generate_chunks is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule spectators_generate_chunks is already set to true
+CF result failure 0
+CF fail Game rule spectators_generate_chunks is already set to true
+CF msg Game rule spectators_generate_chunks is now set to false
+CF result success 0
+CF msg Game rule spectators_generate_chunks is currently set to false
+CF result success 0
+CF msg Game rule spectators_generate_chunks is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...te_chunks maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...te_chunks 1<--[HERE]
+CF msg Game rule spectators_generate_chunks is currently set to true
+CF result success 1
+# spread_vines
+CF msg Game rule spread_vines is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule spread_vines is already set to true
+CF result failure 0
+CF fail Game rule spread_vines is already set to true
+CF msg Game rule spread_vines is now set to false
+CF result success 0
+CF msg Game rule spread_vines is currently set to false
+CF result success 0
+CF msg Game rule spread_vines is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...ead_vines maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...ead_vines 1<--[HERE]
+CF msg Game rule spread_vines is currently set to true
+CF result success 1
+# tnt_explodes
+CF msg Game rule tnt_explodes is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule tnt_explodes is already set to true
+CF result failure 0
+CF fail Game rule tnt_explodes is already set to true
+CF msg Game rule tnt_explodes is now set to false
+CF result success 0
+CF msg Game rule tnt_explodes is currently set to false
+CF result success 0
+CF msg Game rule tnt_explodes is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ..._explodes maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ..._explodes 1<--[HERE]
+CF msg Game rule tnt_explodes is currently set to true
+CF result success 1
+# tnt_explosion_drop_decay
+CF msg Game rule tnt_explosion_drop_decay is currently set to false
+CF result success 0
+CF msg Game rule tnt_explosion_drop_decay is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule tnt_explosion_drop_decay is already set to true
+CF msg Game rule tnt_explosion_drop_decay is now set to false
+CF result success 0
+CF msg Game rule tnt_explosion_drop_decay is currently set to false
+CF result success 0
+CF msg Game rule tnt_explosion_drop_decay is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...rop_decay maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...rop_decay 1<--[HERE]
+CF msg Game rule tnt_explosion_drop_decay is currently set to true
+CF result success 1
+# universal_anger
+CF msg Game rule universal_anger is currently set to false
+CF result success 0
+CF msg Game rule universal_anger is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule universal_anger is already set to true
+CF msg Game rule universal_anger is now set to false
+CF result success 0
+CF msg Game rule universal_anger is currently set to false
+CF result success 0
+CF msg Game rule universal_anger is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...sal_anger maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...sal_anger 1<--[HERE]
+CF msg Game rule universal_anger is currently set to true
+CF result success 1
+# water_source_conversion
+CF msg Game rule water_source_conversion is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule water_source_conversion is already set to true
+CF result failure 0
+CF fail Game rule water_source_conversion is already set to true
+CF msg Game rule water_source_conversion is now set to false
+CF result success 0
+CF msg Game rule water_source_conversion is currently set to false
+CF result success 0
+CF msg Game rule water_source_conversion is now set to true
+CF result success 1
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...onversion maybe<--[HERE]
+CF fail Invalid boolean: expected 'true' or 'false' but found '1'
+CF fail ...onversion 1<--[HERE]
+CF msg Game rule water_source_conversion is currently set to true
+CF result success 1
+# unknown rule and incomplete forms
+CF fail Unknown or incomplete command. See below for error
+CF fail gamerule<--[HERE]
+CF fail Incorrect argument for command
+CF fail gamerule nope<--[HERE]
+CF fail Incorrect argument for command
+CF fail gamerule nope true<--[HERE]
+CF fail Incorrect argument for command
+CF fail gamerule DoFireTick<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...tory true false<--[HERE]
+# players: level 0 is denied, an operator may set and query; the feedback of a player source follows send_command_feedback on every message
+CF fail Unknown or incomplete command. See below for error
+CF fail gamerule keep_inventory true<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail gamerule keep_inventory<--[HERE]
+CF result failure 0
+CF fail Game rule keep_inventory is already set to true
+CF msg Game rule keep_inventory is currently set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule send_command_feedback is already set to true
+CF msg Game rule keep_inventory is now set to false
+CF result success 0
+CF result success 0
+CF result success 1
+CF result success 1
+CF msg Game rule keep_inventory is now set to false
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail gamerule keep_inventory false<--[HERE]

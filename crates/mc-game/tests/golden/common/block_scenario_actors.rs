@@ -133,6 +133,17 @@ fn num(s: &str) -> f64 {
 fn packet_text(ty: &str, wire: &[u8]) -> String {
     match ty {
         "minecraft:update_advancements" => "-".into(),
+        // the three rule flags (the replay builds the rest of the packet from nothing)
+        "minecraft:login" => {
+            let mut body = wire;
+            read_varint(&mut body).expect("packet id");
+            let p = mc_protocol::packets::play::ClientboundLoginPacket::decode(&mut body)
+                .expect("login");
+            format!(
+                "reduced_debug_info={} show_death_screen={} limited_crafting={}",
+                p.reduced_debug_info, p.show_death_screen, p.do_limited_crafting
+            )
+        }
         "minecraft:update_attributes" => {
             let mut body = wire;
             read_varint(&mut body).expect("packet id");
@@ -1333,6 +1344,32 @@ impl Scenario {
         level.add_player(Box::new(p));
         level.with_player(id, |level, p| {
             if joinburst {
+                // `placeNewPlayer`: the login packet first. Only its three rule flags are compared (`packet_text`): they come from the
+                // level facts the join reads; the rest of the packet needs the whole server (levels, player list, view distances)
+                if mc_game::commands::server_access::has_server() {
+                    let info = mc_game::commands::server_access::with_server(|server| {
+                        mc_game::server::players::server_join_host::level_join_info(server, level)
+                    });
+                    p.send(&mc_protocol::packets::play::ClientboundLoginPacket {
+                        player_id: id,
+                        hardcore: info.hardcore,
+                        levels: Vec::new(),
+                        max_players: 0,
+                        chunk_radius: 0,
+                        simulation_distance: 0,
+                        reduced_debug_info: info.reduced_debug_info,
+                        show_death_screen: !info.immediate_respawn,
+                        do_limited_crafting: info.limited_crafting,
+                        common_player_spawn_info:
+                            mc_game::server::players::join::create_common_spawn_info(
+                                p,
+                                &info,
+                                &level.dimension,
+                            ),
+                        online_mode: false,
+                        enforces_secure_chat: false,
+                    });
+                }
                 // `placeNewPlayer`: the held slot, the recipe properties and the recipe book come before the inventory menu
                 p.send(&mc_protocol::packets::play::ClientboundSetHeldSlotPacket {
                     slot: p.player.inventory.get_selected_slot(),
@@ -2117,11 +2154,6 @@ impl crate::common::player_actions::ActionHost for Scenario {
     }
     fn emit(&mut self, line: String) {
         self.out.push(line);
-    }
-    fn send_command_feedback(&mut self) -> bool {
-        self.env
-            .game_rules
-            .get(mc_game::world::level::gamerules::GameRules::SEND_COMMAND_FEEDBACK)
     }
     fn command_done(&mut self, command: &str, succeeded: bool) {
         self.after_command(command, succeeded);

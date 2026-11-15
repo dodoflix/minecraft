@@ -1,0 +1,36 @@
+# The portal delay rules: a survival player must stand in a nether portal for players_nether_portal_default_delay ticks, a creative one for
+# players_nether_portal_creative_delay; once the delay is over the portal cooldown starts and allow_entering_nether_using_portals false
+# keeps the player where it is (this level has no nether to arrive in). Dumped after every tick: the portal cooldown and the ticks spent
+# in the portal. A third portal runs with a delay of 0.
+level flat
+preload 3
+level_seed 3
+entity_counter 50
+gamerule allow_entering_nether_using_portals false
+gamerule players_nether_portal_default_delay 6
+gamerule players_nether_portal_creative_delay 2
+fill 0 -61 0 1 -61 0 minecraft:obsidian
+fill 0 -57 0 1 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 8 -61 0 9 -61 0 minecraft:obsidian
+fill 8 -57 0 9 -57 0 minecraft:obsidian
+fill 7 -60 0 7 -58 0 minecraft:obsidian
+fill 10 -60 0 10 -58 0 minecraft:obsidian
+fill 8 -60 0 9 -58 0 minecraft:nether_portal[axis=x]
+spawn_player S survival 0.5 -60 0.5 0 0 sim
+spawn_player C creative 8.5 -60 0.5 0 0 sim
+watch portal:S portal:C
+tick 14
+watch off
+gamerule players_nether_portal_default_delay 0
+gamerule players_nether_portal_creative_delay 0
+fill 16 -61 0 17 -61 0 minecraft:obsidian
+fill 16 -57 0 17 -57 0 minecraft:obsidian
+fill 15 -60 0 15 -58 0 minecraft:obsidian
+fill 18 -60 0 18 -58 0 minecraft:obsidian
+fill 16 -60 0 17 -58 0 minecraft:nether_portal[axis=x]
+spawn_player Z survival 16.5 -60 0.5 0 0 sim
+watch portal:Z
+tick 4

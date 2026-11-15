@@ -1,0 +1,621 @@
+# The `/gamerule` feedback of every rule: the query, a set to each value (and a second set to the same value, which fails), the namespaced
+# literal, and the invalid values of its type (not a value, out of range). The rules are the 59 rules vanilla registers; `max_minecart_speed`
+# exists with the minecart_improvements feature (`gamerule_feature_gate` runs without it). Players: a level 0 player, an operator.
+command_env
+features minecart_improvements
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Plain survival 0.5 -60 0.5 0 0
+spawn_player Op survival 4.5 -60 0.5 0 0
+op Op
+tick 1
+note advance_time
+cmd gamerule advance_time
+cmd gamerule advance_time true
+cmd gamerule advance_time true
+cmd gamerule advance_time false
+cmd gamerule minecraft:advance_time
+cmd gamerule minecraft:advance_time true
+cmd gamerule advance_time maybe
+cmd gamerule advance_time 1
+cmd gamerule advance_time
+note advance_weather
+cmd gamerule advance_weather
+cmd gamerule advance_weather true
+cmd gamerule advance_weather true
+cmd gamerule advance_weather false
+cmd gamerule minecraft:advance_weather
+cmd gamerule minecraft:advance_weather true
+cmd gamerule advance_weather maybe
+cmd gamerule advance_weather 1
+cmd gamerule advance_weather
+note allow_entering_nether_using_portals
+cmd gamerule allow_entering_nether_using_portals
+cmd gamerule allow_entering_nether_using_portals true
+cmd gamerule allow_entering_nether_using_portals true
+cmd gamerule allow_entering_nether_using_portals false
+cmd gamerule minecraft:allow_entering_nether_using_portals
+cmd gamerule minecraft:allow_entering_nether_using_portals true
+cmd gamerule allow_entering_nether_using_portals maybe
+cmd gamerule allow_entering_nether_using_portals 1
+cmd gamerule allow_entering_nether_using_portals
+note block_drops
+cmd gamerule block_drops
+cmd gamerule block_drops true
+cmd gamerule block_drops true
+cmd gamerule block_drops false
+cmd gamerule minecraft:block_drops
+cmd gamerule minecraft:block_drops true
+cmd gamerule block_drops maybe
+cmd gamerule block_drops 1
+cmd gamerule block_drops
+note block_explosion_drop_decay
+cmd gamerule block_explosion_drop_decay
+cmd gamerule block_explosion_drop_decay true
+cmd gamerule block_explosion_drop_decay true
+cmd gamerule block_explosion_drop_decay false
+cmd gamerule minecraft:block_explosion_drop_decay
+cmd gamerule minecraft:block_explosion_drop_decay true
+cmd gamerule block_explosion_drop_decay maybe
+cmd gamerule block_explosion_drop_decay 1
+cmd gamerule block_explosion_drop_decay
+note command_block_output
+cmd gamerule command_block_output
+cmd gamerule command_block_output true
+cmd gamerule command_block_output true
+cmd gamerule command_block_output false
+cmd gamerule minecraft:command_block_output
+cmd gamerule minecraft:command_block_output true
+cmd gamerule command_block_output maybe
+cmd gamerule command_block_output 1
+cmd gamerule command_block_output
+note command_blocks_work
+cmd gamerule command_blocks_work
+cmd gamerule command_blocks_work true
+cmd gamerule command_blocks_work true
+cmd gamerule command_blocks_work false
+cmd gamerule minecraft:command_blocks_work
+cmd gamerule minecraft:command_blocks_work true
+cmd gamerule command_blocks_work maybe
+cmd gamerule command_blocks_work 1
+cmd gamerule command_blocks_work
+note drowning_damage
+cmd gamerule drowning_damage
+cmd gamerule drowning_damage true
+cmd gamerule drowning_damage true
+cmd gamerule drowning_damage false
+cmd gamerule minecraft:drowning_damage
+cmd gamerule minecraft:drowning_damage true
+cmd gamerule drowning_damage maybe
+cmd gamerule drowning_damage 1
+cmd gamerule drowning_damage
+note elytra_movement_check
+cmd gamerule elytra_movement_check
+cmd gamerule elytra_movement_check true
+cmd gamerule elytra_movement_check true
+cmd gamerule elytra_movement_check false
+cmd gamerule minecraft:elytra_movement_check
+cmd gamerule minecraft:elytra_movement_check true
+cmd gamerule elytra_movement_check maybe
+cmd gamerule elytra_movement_check 1
+cmd gamerule elytra_movement_check
+note ender_pearls_vanish_on_death
+cmd gamerule ender_pearls_vanish_on_death
+cmd gamerule ender_pearls_vanish_on_death true
+cmd gamerule ender_pearls_vanish_on_death true
+cmd gamerule ender_pearls_vanish_on_death false
+cmd gamerule minecraft:ender_pearls_vanish_on_death
+cmd gamerule minecraft:ender_pearls_vanish_on_death true
+cmd gamerule ender_pearls_vanish_on_death maybe
+cmd gamerule ender_pearls_vanish_on_death 1
+cmd gamerule ender_pearls_vanish_on_death
+note entity_drops
+cmd gamerule entity_drops
+cmd gamerule entity_drops true
+cmd gamerule entity_drops true
+cmd gamerule entity_drops false
+cmd gamerule minecraft:entity_drops
+cmd gamerule minecraft:entity_drops true
+cmd gamerule entity_drops maybe
+cmd gamerule entity_drops 1
+cmd gamerule entity_drops
+note fall_damage
+cmd gamerule fall_damage
+cmd gamerule fall_damage true
+cmd gamerule fall_damage true
+cmd gamerule fall_damage false
+cmd gamerule minecraft:fall_damage
+cmd gamerule minecraft:fall_damage true
+cmd gamerule fall_damage maybe
+cmd gamerule fall_damage 1
+cmd gamerule fall_damage
+note fire_damage
+cmd gamerule fire_damage
+cmd gamerule fire_damage true
+cmd gamerule fire_damage true
+cmd gamerule fire_damage false
+cmd gamerule minecraft:fire_damage
+cmd gamerule minecraft:fire_damage true
+cmd gamerule fire_damage maybe
+cmd gamerule fire_damage 1
+cmd gamerule fire_damage
+note fire_spread_radius_around_player
+cmd gamerule fire_spread_radius_around_player
+cmd gamerule fire_spread_radius_around_player 5
+cmd gamerule fire_spread_radius_around_player 5
+cmd gamerule minecraft:fire_spread_radius_around_player 6
+cmd gamerule fire_spread_radius_around_player -2
+cmd gamerule fire_spread_radius_around_player 2147483648
+cmd gamerule fire_spread_radius_around_player abc
+cmd gamerule fire_spread_radius_around_player 1.5
+cmd gamerule fire_spread_radius_around_player
+note forgive_dead_players
+cmd gamerule forgive_dead_players
+cmd gamerule forgive_dead_players true
+cmd gamerule forgive_dead_players true
+cmd gamerule forgive_dead_players false
+cmd gamerule minecraft:forgive_dead_players
+cmd gamerule minecraft:forgive_dead_players true
+cmd gamerule forgive_dead_players maybe
+cmd gamerule forgive_dead_players 1
+cmd gamerule forgive_dead_players
+note freeze_damage
+cmd gamerule freeze_damage
+cmd gamerule freeze_damage true
+cmd gamerule freeze_damage true
+cmd gamerule freeze_damage false
+cmd gamerule minecraft:freeze_damage
+cmd gamerule minecraft:freeze_damage true
+cmd gamerule freeze_damage maybe
+cmd gamerule freeze_damage 1
+cmd gamerule freeze_damage
+note global_sound_events
+cmd gamerule global_sound_events
+cmd gamerule global_sound_events true
+cmd gamerule global_sound_events true
+cmd gamerule global_sound_events false
+cmd gamerule minecraft:global_sound_events
+cmd gamerule minecraft:global_sound_events true
+cmd gamerule global_sound_events maybe
+cmd gamerule global_sound_events 1
+cmd gamerule global_sound_events
+note immediate_respawn
+cmd gamerule immediate_respawn
+cmd gamerule immediate_respawn true
+cmd gamerule immediate_respawn true
+cmd gamerule immediate_respawn false
+cmd gamerule minecraft:immediate_respawn
+cmd gamerule minecraft:immediate_respawn true
+cmd gamerule immediate_respawn maybe
+cmd gamerule immediate_respawn 1
+cmd gamerule immediate_respawn
+note keep_inventory
+cmd gamerule keep_inventory
+cmd gamerule keep_inventory true
+cmd gamerule keep_inventory true
+cmd gamerule keep_inventory false
+cmd gamerule minecraft:keep_inventory
+cmd gamerule minecraft:keep_inventory true
+cmd gamerule keep_inventory maybe
+cmd gamerule keep_inventory 1
+cmd gamerule keep_inventory
+note lava_source_conversion
+cmd gamerule lava_source_conversion
+cmd gamerule lava_source_conversion true
+cmd gamerule lava_source_conversion true
+cmd gamerule lava_source_conversion false
+cmd gamerule minecraft:lava_source_conversion
+cmd gamerule minecraft:lava_source_conversion true
+cmd gamerule lava_source_conversion maybe
+cmd gamerule lava_source_conversion 1
+cmd gamerule lava_source_conversion
+note limited_crafting
+cmd gamerule limited_crafting
+cmd gamerule limited_crafting true
+cmd gamerule limited_crafting true
+cmd gamerule limited_crafting false
+cmd gamerule minecraft:limited_crafting
+cmd gamerule minecraft:limited_crafting true
+cmd gamerule limited_crafting maybe
+cmd gamerule limited_crafting 1
+cmd gamerule limited_crafting
+note locator_bar
+cmd gamerule locator_bar
+cmd gamerule locator_bar true
+cmd gamerule locator_bar true
+cmd gamerule locator_bar false
+cmd gamerule minecraft:locator_bar
+cmd gamerule minecraft:locator_bar true
+cmd gamerule locator_bar maybe
+cmd gamerule locator_bar 1
+cmd gamerule locator_bar
+note log_admin_commands
+cmd gamerule log_admin_commands
+cmd gamerule log_admin_commands true
+cmd gamerule log_admin_commands true
+cmd gamerule log_admin_commands false
+cmd gamerule minecraft:log_admin_commands
+cmd gamerule minecraft:log_admin_commands true
+cmd gamerule log_admin_commands maybe
+cmd gamerule log_admin_commands 1
+cmd gamerule log_admin_commands
+note max_block_modifications
+cmd gamerule max_block_modifications
+cmd gamerule max_block_modifications 5
+cmd gamerule max_block_modifications 5
+cmd gamerule minecraft:max_block_modifications 6
+cmd gamerule max_block_modifications 0
+cmd gamerule max_block_modifications 2147483648
+cmd gamerule max_block_modifications abc
+cmd gamerule max_block_modifications 1.5
+cmd gamerule max_block_modifications
+note max_command_forks
+cmd gamerule max_command_forks
+cmd gamerule max_command_forks 5
+cmd gamerule max_command_forks 5
+cmd gamerule minecraft:max_command_forks 6
+cmd gamerule max_command_forks -1
+cmd gamerule max_command_forks 2147483648
+cmd gamerule max_command_forks abc
+cmd gamerule max_command_forks 1.5
+cmd gamerule max_command_forks
+note max_command_sequence_length
+cmd gamerule max_command_sequence_length
+cmd gamerule max_command_sequence_length 5
+cmd gamerule max_command_sequence_length 5
+cmd gamerule minecraft:max_command_sequence_length 6
+cmd gamerule max_command_sequence_length -1
+cmd gamerule max_command_sequence_length 2147483648
+cmd gamerule max_command_sequence_length abc
+cmd gamerule max_command_sequence_length 1.5
+cmd gamerule max_command_sequence_length
+note max_entity_cramming
+cmd gamerule max_entity_cramming
+cmd gamerule max_entity_cramming 5
+cmd gamerule max_entity_cramming 5
+cmd gamerule minecraft:max_entity_cramming 6
+cmd gamerule max_entity_cramming -1
+cmd gamerule max_entity_cramming 2147483648
+cmd gamerule max_entity_cramming abc
+cmd gamerule max_entity_cramming 1.5
+cmd gamerule max_entity_cramming
+note max_minecart_speed
+cmd gamerule max_minecart_speed
+cmd gamerule max_minecart_speed 5
+cmd gamerule max_minecart_speed 5
+cmd gamerule minecraft:max_minecart_speed 6
+cmd gamerule max_minecart_speed 0
+cmd gamerule max_minecart_speed 1001
+cmd gamerule max_minecart_speed abc
+cmd gamerule max_minecart_speed 1.5
+cmd gamerule max_minecart_speed
+note max_snow_accumulation_height
+cmd gamerule max_snow_accumulation_height
+cmd gamerule max_snow_accumulation_height 5
+cmd gamerule max_snow_accumulation_height 5
+cmd gamerule minecraft:max_snow_accumulation_height 6
+cmd gamerule max_snow_accumulation_height -1
+cmd gamerule max_snow_accumulation_height 9
+cmd gamerule max_snow_accumulation_height abc
+cmd gamerule max_snow_accumulation_height 1.5
+cmd gamerule max_snow_accumulation_height
+note mob_drops
+cmd gamerule mob_drops
+cmd gamerule mob_drops true
+cmd gamerule mob_drops true
+cmd gamerule mob_drops false
+cmd gamerule minecraft:mob_drops
+cmd gamerule minecraft:mob_drops true
+cmd gamerule mob_drops maybe
+cmd gamerule mob_drops 1
+cmd gamerule mob_drops
+note mob_explosion_drop_decay
+cmd gamerule mob_explosion_drop_decay
+cmd gamerule mob_explosion_drop_decay true
+cmd gamerule mob_explosion_drop_decay true
+cmd gamerule mob_explosion_drop_decay false
+cmd gamerule minecraft:mob_explosion_drop_decay
+cmd gamerule minecraft:mob_explosion_drop_decay true
+cmd gamerule mob_explosion_drop_decay maybe
+cmd gamerule mob_explosion_drop_decay 1
+cmd gamerule mob_explosion_drop_decay
+note mob_griefing
+cmd gamerule mob_griefing
+cmd gamerule mob_griefing true
+cmd gamerule mob_griefing true
+cmd gamerule mob_griefing false
+cmd gamerule minecraft:mob_griefing
+cmd gamerule minecraft:mob_griefing true
+cmd gamerule mob_griefing maybe
+cmd gamerule mob_griefing 1
+cmd gamerule mob_griefing
+note natural_health_regeneration
+cmd gamerule natural_health_regeneration
+cmd gamerule natural_health_regeneration true
+cmd gamerule natural_health_regeneration true
+cmd gamerule natural_health_regeneration false
+cmd gamerule minecraft:natural_health_regeneration
+cmd gamerule minecraft:natural_health_regeneration true
+cmd gamerule natural_health_regeneration maybe
+cmd gamerule natural_health_regeneration 1
+cmd gamerule natural_health_regeneration
+note player_movement_check
+cmd gamerule player_movement_check
+cmd gamerule player_movement_check true
+cmd gamerule player_movement_check true
+cmd gamerule player_movement_check false
+cmd gamerule minecraft:player_movement_check
+cmd gamerule minecraft:player_movement_check true
+cmd gamerule player_movement_check maybe
+cmd gamerule player_movement_check 1
+cmd gamerule player_movement_check
+note players_nether_portal_creative_delay
+cmd gamerule players_nether_portal_creative_delay
+cmd gamerule players_nether_portal_creative_delay 5
+cmd gamerule players_nether_portal_creative_delay 5
+cmd gamerule minecraft:players_nether_portal_creative_delay 6
+cmd gamerule players_nether_portal_creative_delay -1
+cmd gamerule players_nether_portal_creative_delay 2147483648
+cmd gamerule players_nether_portal_creative_delay abc
+cmd gamerule players_nether_portal_creative_delay 1.5
+cmd gamerule players_nether_portal_creative_delay
+note players_nether_portal_default_delay
+cmd gamerule players_nether_portal_default_delay
+cmd gamerule players_nether_portal_default_delay 5
+cmd gamerule players_nether_portal_default_delay 5
+cmd gamerule minecraft:players_nether_portal_default_delay 6
+cmd gamerule players_nether_portal_default_delay -1
+cmd gamerule players_nether_portal_default_delay 2147483648
+cmd gamerule players_nether_portal_default_delay abc
+cmd gamerule players_nether_portal_default_delay 1.5
+cmd gamerule players_nether_portal_default_delay
+note players_sleeping_percentage
+cmd gamerule players_sleeping_percentage
+cmd gamerule players_sleeping_percentage 5
+cmd gamerule players_sleeping_percentage 5
+cmd gamerule minecraft:players_sleeping_percentage 6
+cmd gamerule players_sleeping_percentage -1
+cmd gamerule players_sleeping_percentage 2147483648
+cmd gamerule players_sleeping_percentage abc
+cmd gamerule players_sleeping_percentage 1.5
+cmd gamerule players_sleeping_percentage
+note projectiles_can_break_blocks
+cmd gamerule projectiles_can_break_blocks
+cmd gamerule projectiles_can_break_blocks true
+cmd gamerule projectiles_can_break_blocks true
+cmd gamerule projectiles_can_break_blocks false
+cmd gamerule minecraft:projectiles_can_break_blocks
+cmd gamerule minecraft:projectiles_can_break_blocks true
+cmd gamerule projectiles_can_break_blocks maybe
+cmd gamerule projectiles_can_break_blocks 1
+cmd gamerule projectiles_can_break_blocks
+note pvp
+cmd gamerule pvp
+cmd gamerule pvp true
+cmd gamerule pvp true
+cmd gamerule pvp false
+cmd gamerule minecraft:pvp
+cmd gamerule minecraft:pvp true
+cmd gamerule pvp maybe
+cmd gamerule pvp 1
+cmd gamerule pvp
+note raids
+cmd gamerule raids
+cmd gamerule raids true
+cmd gamerule raids true
+cmd gamerule raids false
+cmd gamerule minecraft:raids
+cmd gamerule minecraft:raids true
+cmd gamerule raids maybe
+cmd gamerule raids 1
+cmd gamerule raids
+note random_tick_speed
+cmd gamerule random_tick_speed
+cmd gamerule random_tick_speed 5
+cmd gamerule random_tick_speed 5
+cmd gamerule minecraft:random_tick_speed 6
+cmd gamerule random_tick_speed -1
+cmd gamerule random_tick_speed 2147483648
+cmd gamerule random_tick_speed abc
+cmd gamerule random_tick_speed 1.5
+cmd gamerule random_tick_speed
+note reduced_debug_info
+cmd gamerule reduced_debug_info
+cmd gamerule reduced_debug_info true
+cmd gamerule reduced_debug_info true
+cmd gamerule reduced_debug_info false
+cmd gamerule minecraft:reduced_debug_info
+cmd gamerule minecraft:reduced_debug_info true
+cmd gamerule reduced_debug_info maybe
+cmd gamerule reduced_debug_info 1
+cmd gamerule reduced_debug_info
+note respawn_radius
+cmd gamerule respawn_radius
+cmd gamerule respawn_radius 5
+cmd gamerule respawn_radius 5
+cmd gamerule minecraft:respawn_radius 6
+cmd gamerule respawn_radius -1
+cmd gamerule respawn_radius 2147483648
+cmd gamerule respawn_radius abc
+cmd gamerule respawn_radius 1.5
+cmd gamerule respawn_radius
+note send_command_feedback
+cmd gamerule send_command_feedback
+cmd gamerule send_command_feedback true
+cmd gamerule send_command_feedback true
+cmd gamerule send_command_feedback false
+cmd gamerule minecraft:send_command_feedback
+cmd gamerule minecraft:send_command_feedback true
+cmd gamerule send_command_feedback maybe
+cmd gamerule send_command_feedback 1
+cmd gamerule send_command_feedback
+note show_advancement_messages
+cmd gamerule show_advancement_messages
+cmd gamerule show_advancement_messages true
+cmd gamerule show_advancement_messages true
+cmd gamerule show_advancement_messages false
+cmd gamerule minecraft:show_advancement_messages
+cmd gamerule minecraft:show_advancement_messages true
+cmd gamerule show_advancement_messages maybe
+cmd gamerule show_advancement_messages 1
+cmd gamerule show_advancement_messages
+note show_death_messages
+cmd gamerule show_death_messages
+cmd gamerule show_death_messages true
+cmd gamerule show_death_messages true
+cmd gamerule show_death_messages false
+cmd gamerule minecraft:show_death_messages
+cmd gamerule minecraft:show_death_messages true
+cmd gamerule show_death_messages maybe
+cmd gamerule show_death_messages 1
+cmd gamerule show_death_messages
+note spawn_mobs
+cmd gamerule spawn_mobs
+cmd gamerule spawn_mobs true
+cmd gamerule spawn_mobs true
+cmd gamerule spawn_mobs false
+cmd gamerule minecraft:spawn_mobs
+cmd gamerule minecraft:spawn_mobs true
+cmd gamerule spawn_mobs maybe
+cmd gamerule spawn_mobs 1
+cmd gamerule spawn_mobs
+note spawn_monsters
+cmd gamerule spawn_monsters
+cmd gamerule spawn_monsters true
+cmd gamerule spawn_monsters true
+cmd gamerule spawn_monsters false
+cmd gamerule minecraft:spawn_monsters
+cmd gamerule minecraft:spawn_monsters true
+cmd gamerule spawn_monsters maybe
+cmd gamerule spawn_monsters 1
+cmd gamerule spawn_monsters
+note spawn_patrols
+cmd gamerule spawn_patrols
+cmd gamerule spawn_patrols true
+cmd gamerule spawn_patrols true
+cmd gamerule spawn_patrols false
+cmd gamerule minecraft:spawn_patrols
+cmd gamerule minecraft:spawn_patrols true
+cmd gamerule spawn_patrols maybe
+cmd gamerule spawn_patrols 1
+cmd gamerule spawn_patrols
+note spawn_phantoms
+cmd gamerule spawn_phantoms
+cmd gamerule spawn_phantoms true
+cmd gamerule spawn_phantoms true
+cmd gamerule spawn_phantoms false
+cmd gamerule minecraft:spawn_phantoms
+cmd gamerule minecraft:spawn_phantoms true
+cmd gamerule spawn_phantoms maybe
+cmd gamerule spawn_phantoms 1
+cmd gamerule spawn_phantoms
+note spawn_wandering_traders
+cmd gamerule spawn_wandering_traders
+cmd gamerule spawn_wandering_traders true
+cmd gamerule spawn_wandering_traders true
+cmd gamerule spawn_wandering_traders false
+cmd gamerule minecraft:spawn_wandering_traders
+cmd gamerule minecraft:spawn_wandering_traders true
+cmd gamerule spawn_wandering_traders maybe
+cmd gamerule spawn_wandering_traders 1
+cmd gamerule spawn_wandering_traders
+note spawn_wardens
+cmd gamerule spawn_wardens
+cmd gamerule spawn_wardens true
+cmd gamerule spawn_wardens true
+cmd gamerule spawn_wardens false
+cmd gamerule minecraft:spawn_wardens
+cmd gamerule minecraft:spawn_wardens true
+cmd gamerule spawn_wardens maybe
+cmd gamerule spawn_wardens 1
+cmd gamerule spawn_wardens
+note spawner_blocks_work
+cmd gamerule spawner_blocks_work
+cmd gamerule spawner_blocks_work true
+cmd gamerule spawner_blocks_work true
+cmd gamerule spawner_blocks_work false
+cmd gamerule minecraft:spawner_blocks_work
+cmd gamerule minecraft:spawner_blocks_work true
+cmd gamerule spawner_blocks_work maybe
+cmd gamerule spawner_blocks_work 1
+cmd gamerule spawner_blocks_work
+note spectators_generate_chunks
+cmd gamerule spectators_generate_chunks
+cmd gamerule spectators_generate_chunks true
+cmd gamerule spectators_generate_chunks true
+cmd gamerule spectators_generate_chunks false
+cmd gamerule minecraft:spectators_generate_chunks
+cmd gamerule minecraft:spectators_generate_chunks true
+cmd gamerule spectators_generate_chunks maybe
+cmd gamerule spectators_generate_chunks 1
+cmd gamerule spectators_generate_chunks
+note spread_vines
+cmd gamerule spread_vines
+cmd gamerule spread_vines true
+cmd gamerule spread_vines true
+cmd gamerule spread_vines false
+cmd gamerule minecraft:spread_vines
+cmd gamerule minecraft:spread_vines true
+cmd gamerule spread_vines maybe
+cmd gamerule spread_vines 1
+cmd gamerule spread_vines
+note tnt_explodes
+cmd gamerule tnt_explodes
+cmd gamerule tnt_explodes true
+cmd gamerule tnt_explodes true
+cmd gamerule tnt_explodes false
+cmd gamerule minecraft:tnt_explodes
+cmd gamerule minecraft:tnt_explodes true
+cmd gamerule tnt_explodes maybe
+cmd gamerule tnt_explodes 1
+cmd gamerule tnt_explodes
+note tnt_explosion_drop_decay
+cmd gamerule tnt_explosion_drop_decay
+cmd gamerule tnt_explosion_drop_decay true
+cmd gamerule tnt_explosion_drop_decay true
+cmd gamerule tnt_explosion_drop_decay false
+cmd gamerule minecraft:tnt_explosion_drop_decay
+cmd gamerule minecraft:tnt_explosion_drop_decay true
+cmd gamerule tnt_explosion_drop_decay maybe
+cmd gamerule tnt_explosion_drop_decay 1
+cmd gamerule tnt_explosion_drop_decay
+note universal_anger
+cmd gamerule universal_anger
+cmd gamerule universal_anger true
+cmd gamerule universal_anger true
+cmd gamerule universal_anger false
+cmd gamerule minecraft:universal_anger
+cmd gamerule minecraft:universal_anger true
+cmd gamerule universal_anger maybe
+cmd gamerule universal_anger 1
+cmd gamerule universal_anger
+note water_source_conversion
+cmd gamerule water_source_conversion
+cmd gamerule water_source_conversion true
+cmd gamerule water_source_conversion true
+cmd gamerule water_source_conversion false
+cmd gamerule minecraft:water_source_conversion
+cmd gamerule minecraft:water_source_conversion true
+cmd gamerule water_source_conversion maybe
+cmd gamerule water_source_conversion 1
+cmd gamerule water_source_conversion
+note unknown rule and incomplete forms
+cmd gamerule
+cmd gamerule nope
+cmd gamerule nope true
+cmd gamerule DoFireTick
+cmd gamerule keep_inventory true false
+note players: level 0 is denied, an operator may set and query; the feedback of a player source follows send_command_feedback on every message
+cmd_as Plain gamerule keep_inventory true
+cmd_as Plain gamerule keep_inventory
+cmd_as Op gamerule keep_inventory true
+cmd_as Op gamerule keep_inventory
+cmd_as Op gamerule send_command_feedback true
+cmd_as Op gamerule keep_inventory false
+cmd_as Op gamerule send_command_feedback false
+cmd_as Op gamerule keep_inventory true
+cmd_as Op gamerule keep_inventory
+cmd_as -2 gamerule keep_inventory false
+cmd_as -1 gamerule keep_inventory false

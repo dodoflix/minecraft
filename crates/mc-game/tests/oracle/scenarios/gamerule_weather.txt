@@ -1,0 +1,28 @@
+# advance_weather: with the rule on the rain countdown runs and the weather ends (game events), with it off the weather stays as set;
+# the clear and rain commands themselves do not depend on it.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 1
+dump packets:A:none
+cmd weather rain 40
+tick 1
+dump packets:A:game_event
+tick 60
+dump packets:A:game_event
+cmd gamerule advance_weather true
+tick 60
+dump packets:A:game_event
+cmd weather rain 20
+cmd weather thunder 20
+tick 1
+dump packets:A:game_event
+cmd gamerule advance_weather true
+tick 40
+dump packets:A:game_event
+cmd weather clear 100
+tick 1
+dump packets:A:game_event

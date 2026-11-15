@@ -1,0 +1,52 @@
+# What a rule change does besides storing the value (`onGameRuleChanged`): entity events 22/23 for reduced_debug_info, game events for
+# limited_crafting and immediate_respawn, the clock sync for advance_time, the waypoint packets of locator_bar, and nothing for a set
+# to the value a rule already has or for a rule without a hook.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B creative 4.5 -60 0.5 0 0
+tick 1
+dump packets:A:none packets:B:none
+note reduced_debug_info: true then false, then the unchanged value
+cmd gamerule reduced_debug_info true
+dump packets:A packets:B
+cmd gamerule reduced_debug_info false
+dump packets:A packets:B
+cmd gamerule reduced_debug_info false
+dump packets:A packets:B
+note limited_crafting and immediate_respawn: the game event with parameter 1 or 0
+cmd gamerule limited_crafting true
+dump packets:A packets:B
+cmd gamerule limited_crafting false
+dump packets:A packets:B
+cmd gamerule immediate_respawn true
+dump packets:A packets:B
+cmd gamerule immediate_respawn false
+dump packets:A packets:B
+note advance_time: the clock sync
+cmd gamerule advance_time true
+dump packets:A packets:B
+cmd gamerule advance_time false
+dump packets:A packets:B
+note locator_bar: off then on
+cmd gamerule locator_bar false
+dump packets:A packets:B
+tick 2
+dump packets:A packets:B
+cmd gamerule locator_bar true
+dump packets:A packets:B
+tick 2
+dump packets:A packets:B
+note spawn_monsters and a rule without a hook send nothing
+cmd gamerule spawn_monsters true
+cmd gamerule keep_inventory true
+dump packets:A packets:B
+note a player that joins afterwards sees the stored values
+cmd gamerule reduced_debug_info true
+cmd gamerule limited_crafting true
+cmd gamerule immediate_respawn true
+spawn_player C survival 8.5 -60 0.5 0 0 joinburst
+dump packets:C:login

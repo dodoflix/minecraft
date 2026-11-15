@@ -1,0 +1,13 @@
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
+BE 0 -60 0 {Command:"time query daytime",LastExecution:3L,SuccessCount:0,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:0}
+# rule off
+CF msg Game rule command_block_output is now set to false
+CF result success 0
+BE 0 -60 0 {Command:"time query daytime",LastExecution:8L,SuccessCount:0,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:0}
+# rule on, send_command_feedback off
+CF msg Game rule command_block_output is now set to true
+CF result success 1
+CF msg Game rule send_command_feedback is now set to false
+CF result success 0
+BE 0 -60 0 {Command:"time query daytime",LastExecution:13L,SuccessCount:0,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:0}

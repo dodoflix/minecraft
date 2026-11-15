@@ -39,10 +39,6 @@ pub trait ActionHost {
     /// A `cmd` verb ran `command` (`succeeded`: its result callback reported success): what the replay re-does for its effects outside the command environment (a `gamerule` command sets the
     /// replay's own rules, a command that kicked a player disconnects it).
     fn command_done(&mut self, _command: &str, _succeeded: bool) {}
-    /// The `send_command_feedback` rule the replay's level runs with (a player's command source accepts success feedback only while it is on).
-    fn send_command_feedback(&mut self) -> bool {
-        true
-    }
 }
 
 /// The per player packet counters behind [`ActionHost::next_sequence`].
@@ -698,7 +694,7 @@ pub fn dump<H: ActionHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
     if matches!(kind, "menu" | "recipes") {
         return super::menu_actions::dump(h, kind, arg);
     }
-    let (Some(name), "use" | "cooldowns" | "stats" | "inventory") = (arg, kind) else {
+    let (Some(name), "use" | "cooldowns" | "portal" | "stats" | "inventory") = (arg, kind) else {
         return false;
     };
     let lines: Vec<String> = with_player(h, name, |_, p| match kind {
@@ -727,6 +723,17 @@ pub fn dump<H: ActionHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
             .into_iter()
             .map(|(group, remaining)| format!("CD {name} group={group} remaining={remaining}"))
             .collect(),
+        // PORTAL REF cooldown=N time=N|-: the portal cooldown and the portal process's time inside the portal
+        "portal" => vec![format!(
+            "PORTAL {name} cooldown={} time={}",
+            p.base().portal_cooldown,
+            p.base()
+                .portal_process
+                .as_ref()
+                .map_or("-".to_owned(), |process| process
+                    .get_portal_time()
+                    .to_string())
+        )],
         // STAT REF type.name:value.name N, sorted by name
         "stats" => stat_lines(name, &p.stats.lock()),
         // I REF SLOT ITEM: `Inventory.getItem(i)`, the 36 slots, then the equipment slots (feet, legs, chest, head, offhand, body, saddle)

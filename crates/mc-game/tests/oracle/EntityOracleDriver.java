@@ -106,6 +106,10 @@ import net.minecraft.util.RandomSource;
  * cmd COMMAND...              any vanilla command as the console with owner permissions; its feedback is printed as `CF` lines (see commandAs) and compared by the replays
  * cmd_quiet COMMAND...        the same, nothing printed (for commands whose feedback varies between runs)
  * cmd_json COMMAND...         `cmd` plus a `CF json` line (canonical component JSON) after every feedback message
+ * find_spawn X Y Z TIMES     PlayerSpawnFinder.findSpawn(level, X Y Z) TIMES times (its candidate order is random): prints `FINDSPAWN X Y Z times=T within=B spread=B y=Y`, within = every result is
+ *                             inside the respawn_radius square around X Z, spread = some result is not the suggested column, y = the height of the last result
+ * cmd_inform WHO COMMAND...   `cmd_as` whose source informs the other operators (the "[WHO: ...]" admin message) and logs it to the console like a real player's or the
+ *                             server's command source; `dump console` prints the console messages since the last dump (`CON TEXT`)
  * cmd_as WHO COMMAND...       `cmd` as WHO: a player name (that player's position, rotation, entity and permissions: `op` makes it level 4, otherwise 0) or `-N`
  *                             (the console with permission level N); `cmd_as_json` adds the JSON lines
  * note TEXT...                prints "# TEXT"
@@ -233,7 +237,7 @@ import net.minecraft.util.RandomSource;
  * dump WHAT...                same WHATs immediately (`stats:PLAYER` = `STAT PLAYER type.name:value.name N` per earned statistic, sorted; `advancements:PLAYER` = `ADV PLAYER id criterion,..` per advancement with completed criteria, sorted;
  *                             `advpackets:PLAYER[:filter]` = `packets:` with the `update_advancements` content decoded (see VanillaLevel.advancementDetail); `advfile:PLAYER` = `ADVFILE PLAYER LINE` per line of the progress file
  *                             `PlayerAdvancements.save()` writes, the obtained times replaced by `T`;
- *                             `use:PLAYER` = `USE PLAYER hand=main|off item=ID*COUNT remaining=useItemRemaining ticks=getTicksUsingItem kinetic=recentKineticEnemies.size`; `cooldowns:PLAYER` = `CD PLAYER group=ID remaining=endTime-tickCount` per running cooldown, sorted by group), plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
+ *                             `use:PLAYER` = `USE PLAYER hand=main|off item=ID*COUNT remaining=useItemRemaining ticks=getTicksUsingItem kinetic=recentKineticEnemies.size`; `cooldowns:PLAYER` = `CD PLAYER group=ID remaining=endTime-tickCount` per running cooldown, sorted by group; `portal:REF` = `PORTAL REF cooldown=getPortalCooldown time=portalProcess.getPortalTime|-`), plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
  *                             block oracle extras: be:X,Y,Z -> `BE x y z SNBT` (saveWithFullMetadata, sorted keys; `-` = none),
  *                             beu:X,Y,Z -> `BEU x y z TYPE SNBT` (getUpdatePacket tag; `-` = none),
  *                             bes:CX,CZ -> `BES cx cz`, `BEM x y z type` per block entity in map iteration order, then `BET x y z` / `BETP x y z`
@@ -493,13 +497,36 @@ public final class EntityOracleDriver {
             world();
             command("time set " + a.get(1));
          }
+         case "find_spawn" -> {
+            world();
+            BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
+            int times = Integer.parseInt(a.get(4));
+            int radius = Math.max(0, v.level.getGameRules().get(net.minecraft.world.level.gamerules.GameRules.RESPAWN_RADIUS));
+            boolean within = true;
+            boolean spread = false;
+            double y = 0;
+            for (int i = 0; i < times; i++) {
+               var found = net.minecraft.server.level.PlayerSpawnFinder.findSpawn(v.level, pos);
+               v.server.managedBlock(found::isDone);
+               Vec3 r = found.join();
+               int dist = Math.max(Math.abs(net.minecraft.util.Mth.floor(r.x) - pos.getX()), Math.abs(net.minecraft.util.Mth.floor(r.z) - pos.getZ()));
+               within &= dist <= radius;
+               spread |= dist > 0;
+               y = r.y;
+            }
+            out.println("FINDSPAWN " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " times=" + times + " within=" + within + " spread=" + spread + " y=" + y);
+         }
+         case "cmd_inform" -> {
+            world();
+            commandAs(a.get(1), line.substring(cmd.length()).strip().substring(a.get(1).length()).strip(), false, false, true);
+         }
          case "cmd", "cmd_quiet", "cmd_json" -> {
             world();
-            commandAs(null, line.substring(cmd.length()).strip(), cmd.equals("cmd_json"), cmd.equals("cmd_quiet"));
+            commandAs(null, line.substring(cmd.length()).strip(), cmd.equals("cmd_json"), cmd.equals("cmd_quiet"), false);
          }
          case "cmd_as", "cmd_as_json" -> {
             world();
-            commandAs(a.get(1), line.substring(cmd.length()).strip().substring(a.get(1).length()).strip(), cmd.equals("cmd_as_json"), false);
+            commandAs(a.get(1), line.substring(cmd.length()).strip().substring(a.get(1).length()).strip(), cmd.equals("cmd_as_json"), false, false);
          }
          case "level_seed" -> {
             world();
@@ -1113,9 +1140,9 @@ public final class EntityOracleDriver {
     * entity and `getProfilePermissions`; the sink accepts success like the player's source does: `send_command_feedback`).
     * Lines: `CF msg TEXT` per feedback message (`CF fail TEXT` for the red failure form of `sendFailure`; `\` and newlines escaped),
     * `CF json JSON` after each message with {@code json} (canonical: sorted keys), `CF result success|failure N` for every call of
-    * the source's result callback. Nothing is printed when {@code quiet}. Admins are never informed (the sink says so).
+    * the source's result callback. Nothing is printed when {@code quiet}. Admins are informed only for `cmd_inform` (the sink says so).
     */
-   void commandAs(String who, String command, boolean json, boolean quiet) {
+   void commandAs(String who, String command, boolean json, boolean quiet, boolean inform) {
       List<String> lines = new ArrayList<>();
       ServerPlayer asPlayer = null;
       net.minecraft.commands.CommandSourceStack base;
@@ -1153,7 +1180,7 @@ public final class EntityOracleDriver {
 
          @Override
          public boolean shouldInformAdmins() {
-            return false;
+            return inform;
          }
       };
       net.minecraft.commands.CommandSourceStack stack = base.withSource(sink)
@@ -2273,6 +2300,10 @@ public final class EntityOracleDriver {
                out.println("USE " + arg + " hand=" + (p.getUsedItemHand() == InteractionHand.MAIN_HAND ? "main" : "off") + " item=" + item(p.getUseItem()) + " remaining=" + p.getUseItemRemainingTicks()
                   + " ticks=" + p.getTicksUsingItem() + " kinetic=" + (kinetic == null ? 0 : ((Map<?, ?>)kinetic).size()));
             }
+            case "portal" -> {
+               Entity e = ref(arg);
+               out.println("PORTAL " + arg + " cooldown=" + e.getPortalCooldown() + " time=" + (e.portalProcess == null ? "-" : e.portalProcess.getPortalTime()));
+            }
             case "cooldowns" -> {
                // CD PLAYER group=ID remaining=N, sorted by group: the running cooldowns (endTime - tickCount)
                net.minecraft.world.item.ItemCooldowns cooldowns = ((ServerPlayer)ref(arg)).getCooldowns();
@@ -2322,6 +2353,12 @@ public final class EntityOracleDriver {
                      out.println("PKT " + pa[0] + " " + s.type() + " " + (kind.equals("advpackets") && s.detail() != null ? s.detail() : s.hex()));
                   }
                }
+            }
+            case "console" -> {
+               for (String m : VanillaLevel.CONSOLE) {
+                  out.println("CON " + m.replace("\\", "\\\\").replace("\n", "\\n"));
+               }
+               VanillaLevel.CONSOLE.clear();
             }
             case "events" -> {
                for (String e : VanillaLevel.EVENTS) {

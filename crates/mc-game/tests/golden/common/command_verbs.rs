@@ -1,5 +1,5 @@
 //! The command verbs of the scenario DSL, replayed the same way by the block replay (`block_scenario.rs`) and the entity replay
-//! (`entity_scenario.rs`): `cmd`, `cmd_quiet`, `cmd_json`, `cmd_as WHO`, `cmd_as_json WHO` (and `op` for a replay whose players
+//! (`entity_scenario.rs`): `cmd`, `cmd_quiet`, `cmd_json`, `cmd_as WHO`, `cmd_as_json WHO`, `cmd_inform WHO` (and `op` for a replay whose players
 //! have no player list entry). The grammar and the printed lines are those of `EntityOracleDriver.commandAs`:
 //!
 //! * `CF msg TEXT` per feedback message, `CF fail TEXT` for the red failure form of `sendFailure` (`\` and newlines escaped),
@@ -8,25 +8,29 @@
 //!
 //! WHO is a player name (that player's position, rotation, entity and permissions: `op` makes it level 4, otherwise level 0) or `-N`
 //! (the console with permission level N). The command runs through the server `command_env` installs, so a scenario that uses
-//! these verbs starts with `command_env`. Like the driver's sink, the source never informs admins; a player's source accepts
-//! success feedback only while `send_command_feedback` is on (the quiet oracle world turns it off: `gamerule send_command_feedback true`).
+//! these verbs starts with `command_env`. The source of `cmd` and `cmd_as` never informs admins (`cmd_inform` does: the other operators get the
+//! admin message and the console logs it, `dump console` prints `CON TEXT` per console message since the last dump); a player's source accepts
+//! success feedback only while `send_command_feedback` is on, read on every message (the quiet oracle world turns it off: `gamerule send_command_feedback true`).
+//! `find_spawn X Y Z TIMES` runs the spawn search of a first join TIMES times and prints what does not depend on its random order.
 //!
-//! Limits of the replay (a scenario that needs one of them adds it here): the installed server keeps vanilla's default game rules (the
-//! oracle world runs the quiet set), so `gamerule` commands read different old values; a player's `send_command_feedback` is read when the
-//! command starts (vanilla reads it on every message); the entity replay shares no difficulty, scoreboard or respawn position with the
-//! installed server; the emulated `cmd weather|recipe` arms and the entity replay's `cmd` without `command_env` print no `CF` lines;
-//! the console source always acts in the replay's dimension; a command that changes a game rule from inside a command block changes the
-//! installed server's rules only (the level and the tick environment follow `gamerule` verbs).
+//! The installed server holds the oracle world's quiet game rules ([`sync_rules`]), so `/gamerule` reads and compares the same old values.
+//!
+//! Limits of the replay (a scenario that needs one of them adds it here): the entity replay shares no difficulty, scoreboard or respawn
+//! position with the installed server; the emulated `cmd weather|recipe` arms and the entity replay's `cmd` without `command_env` print
+//! no `CF` lines; the console source always acts in the replay's dimension; a command that changes a game rule from inside a command
+//! block reaches the level's live rules, but the tick environment's copy (the command block rules) follows `gamerule` commands and verbs only.
 use super::entity_scenario::canon;
 use super::mob_verbs::MobHost;
 use super::player_actions::ActionHost;
 use mc_core::phys::{Vec2, Vec3};
+use mc_core::pos::BlockPos;
 use mc_game::commands::arguments::selector::{EntityRef, EntitySelectorParser};
 use mc_game::commands::{
     CommandEntity, CommandResultCallback, CommandSource, CommandSourceStack, server_access,
 };
 use mc_game::server::MinecraftServer;
 use mc_game::server::level::ServerLevel;
+use mc_game::server::level::level_rules::LiveRules;
 use mc_game::server::network::{ConnectionSender, Outbound};
 use mc_game::server::permissions::{LevelBasedPermissionSet, PermissionLevel};
 use mc_game::server::players::name_resolver::UserNameToIdResolver as _;
@@ -34,6 +38,7 @@ use mc_game::server::players::{NameAndId, PlayerHandle};
 use mc_game::world::entity::Entity;
 use mc_game::world::entity::EntityId;
 use mc_game::world::level::DimensionKey;
+use mc_game::world::level::gamerules::GameRules;
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::codec::GameProfile;
 use mc_text::{Component, TextColor};
@@ -53,8 +58,10 @@ enum Who {
 struct Feedback {
     lines: Mutex<Vec<String>>,
     json: bool,
-    /// The player's `acceptsSuccess` (`send_command_feedback`, read when the command starts); the console always accepts.
-    player_feedback: Option<bool>,
+    /// The player's `acceptsSuccess`: `send_command_feedback`, read on every message; the console always accepts.
+    player_feedback: Option<LiveRules>,
+    /// `shouldInformAdmins` (`cmd_inform`): the other operators get the admin message and the console logs it.
+    inform: bool,
 }
 
 impl CommandSource for Feedback {
@@ -75,13 +82,15 @@ impl CommandSource for Feedback {
         }
     }
     fn accepts_success(&self) -> bool {
-        self.player_feedback.unwrap_or(true)
+        self.player_feedback
+            .as_ref()
+            .is_none_or(|rules| rules.get().send_command_feedback)
     }
     fn accepts_failure(&self) -> bool {
         true
     }
     fn should_inform_admins(&self) -> bool {
-        false
+        self.inform
     }
 }
 
@@ -109,16 +118,52 @@ fn canonical_json(value: &Value) -> String {
 pub fn command<H: ActionHost>(h: &mut H, a: &[String], line: &str) -> bool {
     let rest = line[a[0].len()..].trim();
     match a[0].as_str() {
-        "cmd" => run(h, Who::Console(None), rest, false, false),
-        "cmd_quiet" => run(h, Who::Console(None), rest, false, true),
-        "cmd_json" => run(h, Who::Console(None), rest, true, false),
-        "cmd_as" | "cmd_as_json" => {
+        "cmd" => run(h, Who::Console(None), rest, false, false, false),
+        "cmd_quiet" => run(h, Who::Console(None), rest, false, true, false),
+        "cmd_json" => run(h, Who::Console(None), rest, true, false, false),
+        "cmd_as" | "cmd_as_json" | "cmd_inform" => {
             let who = match a[1].strip_prefix('-') {
                 Some(level) => Who::Console(Some(level.parse().expect("cmd_as -LEVEL"))),
                 None => Who::Player(a[1].clone()),
             };
             let command = rest[a[1].len()..].trim();
-            run(h, who, command, a[0] == "cmd_as_json", false);
+            run(
+                h,
+                who,
+                command,
+                a[0] == "cmd_as_json",
+                false,
+                a[0] == "cmd_inform",
+            );
+        }
+        // `PlayerSpawnFinder.findSpawn` TIMES times: whether every result stays inside the `respawn_radius` square, whether any is off the
+        // suggested column, and the height of the last (the candidate order is random, so only these are comparable)
+        "find_spawn" => {
+            h.boot();
+            let [x, y, z, times] =
+                [1, 2, 3, 4].map(|i| a[i].parse::<i32>().expect("find_spawn X Y Z TIMES"));
+            let radius = server_access::with_server(|server| {
+                server.game_rule(GameRules::RESPAWN_RADIUS).max(0)
+            });
+            let level = h.action_level();
+            let (mut within, mut spread, mut last_y) = (true, false, 0.0);
+            for _ in 0..times {
+                let found = mc_game::server::players::respawn::find_spawn_position(
+                    level,
+                    false,
+                    radius,
+                    BlockPos::new(x, y, z),
+                );
+                let dist = ((found.x.floor() as i32) - x)
+                    .abs()
+                    .max(((found.z.floor() as i32) - z).abs());
+                within &= dist <= radius;
+                spread |= dist > 0;
+                last_y = found.y;
+            }
+            h.emit(format!(
+                "FINDSPAWN {x} {y} {z} times={times} within={within} spread={spread} y={last_y:?}"
+            ));
         }
         // `PlayerList.op` for a replay whose players have no player list entry (the block replay sets the entry's permissions itself)
         "op" => {
@@ -131,17 +176,19 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String], line: &str) -> bool {
     true
 }
 
-fn run<H: ActionHost>(h: &mut H, who: Who, command: &str, json: bool, quiet: bool) {
+fn run<H: ActionHost>(h: &mut H, who: Who, command: &str, json: bool, quiet: bool, inform: bool) {
     h.boot();
     assert!(
         server_access::has_server(),
         "`cmd {command}` needs the `command_env` verb"
     );
-    let player_feedback = matches!(who, Who::Player(_)).then(|| h.send_command_feedback());
+    let player_feedback = matches!(who, Who::Player(_))
+        .then(|| server_access::with_server(|server| server.game_rules().live()));
     let feedback = Arc::new(Feedback {
         lines: Mutex::default(),
         json,
         player_feedback,
+        inform,
     });
     let source: Arc<dyn CommandSource> = feedback.clone();
     let stack = match who {
@@ -367,6 +414,16 @@ fn sorted_lines(prefix: &str, list: Option<&Tag>) -> Vec<String> {
 /// `false` for any other kind.
 pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
     let lines = match (kind, arg) {
+        // `CON TEXT`: what the server console logged since the last dump (the capturing logger is installed by the scenario's first
+        // `dump console`, so the scenario puts one before the command that logs)
+        ("console", None) => {
+            super::init_logger();
+            super::take_logs()
+                .into_iter()
+                .filter_map(|l| l.strip_prefix("INFO: System chat: ").map(str::to_owned))
+                .map(|text| format!("CON {}", text.replace('\\', "\\\\").replace('\n', "\\n")))
+                .collect()
+        }
         ("scoreboard", None) => {
             h.boot();
             let saved =
@@ -503,14 +560,32 @@ fn select_line<H: MobHost>(
 
 /// The command environment of a replay (`command_env`): a real `MinecraftServer` (nothing started) with the parsers the dedicated server
 /// installs, whose world seed is the oracle's default (`seed N` changes both through [`set_world_seed`]). `packs`: the data packs
-/// of the scenario's `datapack` lines.
-pub fn install_command_env(packs: &[String]) -> (MinecraftServer, Box<dyn std::any::Any>) {
-    let mut server = crate::command_common::test_server_with_packs(packs);
+/// of the scenario's `datapack` lines, `features` the feature packs of its `features` lines.
+pub fn install_command_env(
+    packs: &[String],
+    features: &[String],
+) -> (MinecraftServer, Box<dyn std::any::Any>) {
+    let mut server = crate::command_common::test_server_with_packs(packs, features);
     mc_game::commands::BrigadierExceptions::install();
     mc_game::commands::install_text_validators();
     mc_protocol::components::install_text_hooks();
     server.0.world_gen_settings.options.seed = 4242;
     server
+}
+
+/// The installed server takes over the rules of the replayed level (the oracle world's quiet set plus the boot rules), or the other way
+/// round after a `/gamerule` command: the rules both sets have, since the feature flags may enable more on one side.
+pub fn sync_rules(from: &GameRules, to: &mut GameRules) {
+    for rule in from.available_rules() {
+        to.try_set_value(rule, from.get_value(rule));
+    }
+}
+
+/// [`sync_rules`] into the installed server's rules (a replay without `command_env` has none).
+pub fn sync_server_rules(rules: &GameRules) {
+    if server_access::has_server() {
+        server_access::with_server(|server| sync_rules(rules, server.game_rules()));
+    }
 }
 
 /// The installed server's world seed (`/seed`), when a command environment is installed.

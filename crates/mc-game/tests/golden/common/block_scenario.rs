@@ -119,6 +119,13 @@ pub fn check_with(name: &str, opts: &Options) {
 
 pub fn run_scenario_text(text: &str) -> Vec<String> {
     mc_game::world::level::material::flowing_fluid::reset_shape_memo_for_scenario();
+    // `dump console` reads the log: the capture must be installed before the first line that logs (a player joining)
+    if text
+        .lines()
+        .any(|l| l.starts_with("dump ") && l.split_whitespace().any(|w| w == "console"))
+    {
+        super::init_logger();
+    }
     let mut s = Scenario::new();
     // precipitation, the bone meal feature lists, the coral bone meal tag and the biome criteria of advancements (adventuring time) read
     // the biome (natural spawning reads the spawn table of the biome): only the weather, `biome`, spawning, bone meal and advancement scenarios pay for the real biome registry
@@ -127,6 +134,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
         l.starts_with("cmd weather")
             || l.starts_with("bonemeal")
             || l.starts_with("biome ")
+            || l.contains(" fillbiome ")
             || l.starts_with("spawnpass ")
             || l.starts_with("spawnat ")
             || l.starts_with("gamerule spawn_mobs true")
@@ -148,6 +156,13 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
         .lines()
         .filter_map(|l| l.trim().strip_prefix("datapack "))
         .map(|name| name.trim().to_owned())
+        .collect();
+    let features: Vec<String> = text
+        .lines()
+        .filter_map(|l| l.trim().strip_prefix("features "))
+        .flat_map(|names| names.split(','))
+        .map(|name| name.trim().trim_start_matches("minecraft:").to_owned())
+        .filter(|name| !name.is_empty())
         .collect();
     let mut server = text
         .lines()
@@ -176,7 +191,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                 )
             )
         })
-        .then(|| super::command_verbs::install_command_env(&packs));
+        .then(|| super::command_verbs::install_command_env(&packs, &features));
     if let Some((server, _)) = &server
         && !packs.is_empty()
     {
@@ -357,8 +372,14 @@ impl LevelTickEnv for Env {
     }
     fn broadcast_game_event_to_all(
         &mut self,
-        _packet: &mc_protocol::packets::play::ClientboundGameEventPacket,
+        packet: &mc_protocol::packets::play::ClientboundGameEventPacket,
     ) {
+        // a replay with a command environment has a player list: the weather events reach its players
+        if mc_game::commands::server_access::has_server() {
+            mc_game::commands::server_access::with_server(|server| {
+                server.player_list.broadcast_all(packet)
+            });
+        }
     }
     fn set_game_time(&mut self, _game_time: i64) {}
     fn perform_prefixed_command(
@@ -560,10 +581,15 @@ impl Scenario {
 
     /// `ActionHost::command_done`: what a command changes outside the installed server.
     fn after_command(&mut self, command: &str, succeeded: bool) {
-        // the installed server's rules are not the ones the level and the tick environment read: `/gamerule NAME VALUE` is also set there
-        let words: Vec<&str> = command.split_whitespace().collect();
-        if let (true, ["gamerule", name, value]) = (succeeded, &words[..]) {
-            self.gamerule(name, value);
+        // the level and the tick environment read their own copy of the rules the installed server's `/gamerule` just changed
+        if succeeded && command.split_whitespace().next() == Some("gamerule") {
+            let rules = &mut self.env.game_rules;
+            mc_game::commands::server_access::with_server(|server| {
+                super::command_verbs::sync_rules(server.game_rules(), rules)
+            });
+            let level = self.level.as_mut().expect("world");
+            level.server_state.rules.refresh(&self.env.game_rules);
+            apply_spawn_settings(level, &self.env.game_rules);
         }
         self.handle_disconnections();
     }
@@ -733,6 +759,12 @@ impl Scenario {
             set_rule(&mut self.env.game_rules, name, value);
         }
         level.server_state.rules.refresh(&self.env.game_rules);
+        super::command_verbs::sync_server_rules(&self.env.game_rules);
+        // the levels of a real server read the live values of its rules: a rule a command changes is seen by the code that command runs
+        if mc_game::commands::server_access::has_server() {
+            level.server_state.rules =
+                mc_game::commands::server_access::with_server(|server| server.game_rules().live());
+        }
         apply_spawn_settings(&mut level, &self.env.game_rules);
         // `MinecraftServer.createLevels`: only the overworld has custom spawners (phantom, patrol, cat, siege, trader)
         if self.opts.dimension == "overworld" {

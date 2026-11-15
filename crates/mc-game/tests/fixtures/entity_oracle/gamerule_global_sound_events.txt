@@ -1,0 +1,27 @@
+# rule on (the default)
+EV sound at=-0.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=1,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=-1,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=-1,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=-1,-60,0 data=0 global=0
+EV sound at=0.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+# rule off
+C Game rule global_sound_events is now set to false
+EV sound at=7.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=9.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=9,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=9,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=9,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-60,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=7,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=7,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=7,-60,0 data=0 global=0
+EV sound at=8.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8

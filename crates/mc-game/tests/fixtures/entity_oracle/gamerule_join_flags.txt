@@ -1,0 +1,8 @@
+PKT A minecraft:login reduced_debug_info=true show_death_screen=false limited_crafting=true
+CF msg Game rule reduced_debug_info is now set to false
+CF result success 0
+CF msg Game rule immediate_respawn is now set to false
+CF result success 0
+CF msg Game rule limited_crafting is now set to false
+CF result success 0
+PKT B minecraft:login reduced_debug_info=false show_death_screen=true limited_crafting=false
