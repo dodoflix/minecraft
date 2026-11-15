@@ -12,6 +12,7 @@ mod adv_rewards_golden;
 mod adv_tree_golden;
 mod adv_use_triggers_golden;
 mod advancement_command_golden;
+mod advancement_loot_guards;
 mod advancement_predicates_golden;
 mod args;
 mod args_common;
