@@ -37,6 +37,15 @@ impl MinecraftServer {
         };
         self.world_data.lock().settings.data_configuration = new_config;
         self.registries = self.resources.managers.registry_layers().clone();
+        // the loot tables, predicates and item modifiers of the reloaded packs are what the levels look up from now on
+        let composite = self.registries.composite_access().clone();
+        for dimension in self.level_keys() {
+            if let Some(level) = self.level_mut(&dimension) {
+                level.registries = composite.clone();
+                level.refresh_poi_village_tag();
+            }
+        }
+        crate::world::item::set_item_registries(composite);
         self.commands = self.resources.managers.commands().clone();
         crate::server::players::player_ops::save_all(self);
         crate::server::players::player_ops::reload_resources(self);

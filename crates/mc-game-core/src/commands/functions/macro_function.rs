@@ -134,12 +134,14 @@ fn format_decimal(value: f64) -> String {
         frac_digits.pop();
     }
     let int_s: String = int_digits.iter().map(|d| (b'0' + d) as char).collect();
-    let int_s = match int_s.trim_start_matches('0') {
-        "" => "0".to_owned(),
-        t => t.to_owned(),
-    };
+    // the pattern `#` has no integer digit to print for a value below one: `0.5` is `.5`, and only a value with no digit at all is `0`
+    let int_s = int_s.trim_start_matches('0').to_owned();
     let body = if frac_digits.is_empty() {
-        int_s
+        if int_s.is_empty() {
+            "0".to_owned()
+        } else {
+            int_s
+        }
     } else {
         format!(
             "{int_s}.{}",
@@ -258,7 +260,8 @@ mod tests {
     fn decimal_format_matches_java() {
         assert_eq!(format_decimal(1.0), "1");
         assert_eq!(format_decimal(1.5), "1.5");
-        assert_eq!(format_decimal(0.1_f32 as f64), "0.100000001490116");
+        assert_eq!(format_decimal(0.1_f32 as f64), ".100000001490116");
+        assert_eq!(format_decimal(-0.5), "-.5");
         assert_eq!(format_decimal(-2.25), "-2.25");
         assert_eq!(format_decimal(1e21), "1000000000000000000000");
         assert_eq!(format_decimal(0.0), "0");

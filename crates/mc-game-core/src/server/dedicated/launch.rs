@@ -114,6 +114,10 @@ fn prepare(
     settings: DedicatedServerSettings,
     lookup: Arc<dyn ProfileLookup>,
 ) -> Result<Option<Prepared>, String> {
+    // vanilla installs the command parser's messages and the text hooks in `SharedConstants`' static initialiser: the data packs load with them
+    crate::commands::BrigadierExceptions::install();
+    crate::commands::install_text_validators();
+    mc_protocol::components::install_text_hooks();
     let universe = PathBuf::from(&options.universe);
     let name_to_id_cache = Arc::new(CachedUserNameToIdResolver::new(
         lookup.clone(),

@@ -127,9 +127,6 @@ impl MinecraftServer {
     /// `DedicatedServer.initServer`: everything between the thread start and the first tick. `Ok(false)` = failed to
     /// initialize (vanilla: `IllegalStateException("Failed to initialize server")`).
     pub(in crate::server) fn init_server(&mut self) -> io::Result<bool> {
-        crate::commands::BrigadierExceptions::install();
-        crate::commands::install_text_validators();
-        mc_protocol::components::install_text_hooks();
         if properties_management_enabled(self.properties()) {
             let api = Arc::new(crate::server::management_api::ServerManagementApi::new(
                 self.shared.clone(),

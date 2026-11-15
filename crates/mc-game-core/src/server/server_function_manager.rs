@@ -224,7 +224,7 @@ impl MinecraftServer {
     /// `getScheduledEvents().tick(this, gameTime)` as `ServerLevel.tickTime` calls it: the events run functions that act on the
     /// ticking level itself, so it is lent back to the server meanwhile. The queue cannot be lent to `handle` (it lives in the
     /// server), and the built-in callbacks never touch it; the queue reachable by commands is the real one.
-    pub(super) fn tick_scheduled_events(
+    pub fn tick_scheduled_events(
         &mut self,
         game_time: i64,
         level: &mut crate::server::level::ServerLevel,
