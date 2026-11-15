@@ -8,7 +8,7 @@
 //!   [`PositionTracker`], [`SharedDamageSource`], `Path`, [`NearestVisibleLivingEntities`], [`SpearStatus`]).
 //!   Entity-valued memories hold an [`EntityRef`] (an entity id), resolved through the level; a behavior that reads
 //!   a removed entity without vanilla's `isAlive`/`isRemoved` guard resolves it with
-//!   `ServerLevel::get_entity_or_recently_removed`, which keeps the removed entity while a memory names it.
+//!   `ServerLevel::get_entity_or_recently_removed`, which keeps the removed entity while a memory (or a player's explosion cause) names it.
 //! * [`MemorySlot`] — value + time to live (`Long.MAX_VALUE` = never expires), ticked once per brain tick.
 //! * [`ExpirableValue`], [`MemoryMap`] — the persisted form (`Brain.Packed`), codec in [`codec`].
 

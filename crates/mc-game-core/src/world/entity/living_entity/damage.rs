@@ -109,6 +109,8 @@ pub fn hurt_server(
     if damage < 0.0 {
         damage = 0.0;
     }
+    // the hurt triggers report the damage before the shield and the helmet as `originalDamage`
+    let original_damage = damage;
 
     let item_in_use = entity.living().expect("living").use_item.clone();
     let damage_blocked = super::blocking::apply_item_blocking(entity, level, source, damage);
@@ -214,8 +216,14 @@ pub fn hurt_server(
     }
 
     if let Some(player) = as_server_player(entity) {
-        crate::advancements::triggers::CriteriaTriggers::ENTITY_HURT_PLAYER
-            .trigger(level, player, source, damage, damage, blocked);
+        crate::advancements::triggers::CriteriaTriggers::ENTITY_HURT_PLAYER.trigger(
+            level,
+            player,
+            source,
+            original_damage,
+            damage,
+            blocked,
+        );
         if damage_blocked > 0.0 && damage_blocked < STAT_DAMAGE_LIMIT {
             player.award_stat(
                 level,
@@ -229,8 +237,15 @@ pub fn hurt_server(
         let matcher = move |level: &ServerLevel,
                             player: &crate::world::entity::ServerPlayer,
                             victim: &dyn Entity| {
-            crate::advancements::triggers::CriteriaTriggers::PLAYER_HURT_ENTITY
-                .matches(level, player, victim, &source, damage, damage, blocked)
+            crate::advancements::triggers::CriteriaTriggers::PLAYER_HURT_ENTITY.matches(
+                level,
+                player,
+                victim,
+                &source,
+                original_damage,
+                damage,
+                blocked,
+            )
         };
         if source_player == entity.id() {
             // the player hurts itself (its own arrow, a cloud it owns): it is the victim in hand

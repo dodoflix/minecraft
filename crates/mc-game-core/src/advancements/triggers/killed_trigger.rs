@@ -47,19 +47,37 @@ crate::register_triggers!(KilledTriggerInstance {
 });
 
 impl KilledTriggerInstance {
-    /// `matches(player, entity, killingBlow)`.
+    /// `matches(player, entity, killingBlow)`. `player` and `victim` (the entity of the context: the killer for `entity_killed_player`)
+    /// are both running code's entities, out of the level's storage: when the killing blow names one of them it is taken from here.
     pub fn matches(
         &self,
         level: &ServerLevel,
         player: &ServerPlayer,
+        victim: &dyn Entity,
         entity: &mut LootContext,
         killing_blow: &DamageSource,
     ) -> bool {
-        if self
-            .killing_blow
-            .as_ref()
-            .is_some_and(|p| !p.matches(level, player.position(), killing_blow))
-        {
+        if self.killing_blow.as_ref().is_some_and(|p| {
+            let find = |id| {
+                if id == player.id() {
+                    Some(player as &dyn Entity)
+                } else if id == victim.id() {
+                    Some(victim)
+                } else {
+                    level.get_entity(id)
+                }
+            };
+            let causing = killing_blow.get_entity().and_then(find);
+            let direct = killing_blow.get_direct_entity().and_then(find);
+            !p.matches_parts(
+                level,
+                player.position(),
+                &killing_blow.damage_type,
+                direct,
+                causing,
+                killing_blow.is_direct(),
+            )
+        }) {
             return false;
         }
         holder_matches(&self.entity, entity)
@@ -90,7 +108,7 @@ impl Trigger<KilledTriggerInstance> {
         let params = entity_params(level, player.position(), entity);
         let mut context = new_context(&params);
         self.collect(level, player, |t| {
-            t.matches(level, player, &mut context, killing_blow)
+            t.matches(level, player, entity, &mut context, killing_blow)
         })
     }
 }

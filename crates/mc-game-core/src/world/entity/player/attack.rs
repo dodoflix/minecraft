@@ -351,9 +351,8 @@ impl ServerPlayer {
     }
 
     /// `Player.cannotAttack(entity)`.
-    fn cannot_attack(&self, level: &mut ServerLevel, entity: &mut dyn Entity) -> bool {
-        !entity.is_attackable()
-            || level.expose(self, |level| entity.skip_attack_interaction(level, self))
+    fn cannot_attack(&mut self, level: &mut ServerLevel, entity: &mut dyn Entity) -> bool {
+        !entity.is_attackable() || entity.skip_attack_interaction(level, self)
     }
 
     /// `ServerPlayer.getEnchantedDamage(entity, dmg, damageSource)`.

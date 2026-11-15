@@ -4542,7 +4542,11 @@ pub trait Entity: Any {
         }
     }
     /// `skipAttackInteraction(source)`: the attack on this entity is fully handled (`Player.attack` stops).
-    fn skip_attack_interaction(&mut self, _level: &mut ServerLevel, _source: &dyn Entity) -> bool {
+    fn skip_attack_interaction(
+        &mut self,
+        _level: &mut ServerLevel,
+        _source: &mut dyn Entity,
+    ) -> bool {
         false
     }
     /// `getPickResult()`: the stack of a pick-block on the entity (`None`: nothing); `Mob`'s spawn egg by default.

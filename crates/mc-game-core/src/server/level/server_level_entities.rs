@@ -14,7 +14,7 @@ use std::sync::atomic::{AtomicI32, Ordering};
 use uuid::Uuid;
 
 /// A removed entity is always readable for this many ticks (a sensor scans every 20 ticks, and goals or behaviours that
-/// hold the object are not looked at); after that it stays only while a brain memory still names it (see
+/// hold the object are not looked at); after that it stays only while a brain memory or a player's last explosion cause still names it (see
 /// `ServerLevel::expire_recently_removed`).
 const RECENTLY_REMOVED_RETENTION_TICKS: i64 = 20;
 
@@ -165,8 +165,9 @@ impl ServerLevel {
     }
 
     /// [`ServerLevel::get_entity`], or a removed non-player entity that a brain memory may still hold (removed at most
-    /// [`RECENTLY_REMOVED_RETENTION_TICKS`] ticks ago, or still named by a memory): vanilla's memories keep the removed
-    /// object, so a behavior that does not check `isRemoved` still reads its position until the memory is rewritten.
+    /// [`RECENTLY_REMOVED_RETENTION_TICKS`] ticks ago, or still named by a memory or by a player's last explosion cause):
+    /// vanilla's memories keep the removed object, so a behavior that does not check `isRemoved` still reads its position
+    /// until the memory is rewritten.
     pub fn get_entity_or_recently_removed(&self, id: EntityId) -> Option<&dyn Entity> {
         self.get_entity(id).or_else(|| {
             self.recently_removed
@@ -461,7 +462,8 @@ impl ServerLevel {
     /// Every [`RECENTLY_REMOVED_RETENTION_TICKS`] ticks, forgets the removed entities that are older than that and that no
     /// brain memory holds any more. Vanilla's memories keep the removed object for as long as they live (`AVOID_TARGET`
     /// up to 400 ticks, `ATTACK_TARGET` of a piglin whose fight behaviours are paused by admiring), so the entity stays
-    /// readable while a memory still names it.
+    /// readable while a memory still names it; a player's `currentExplosionCause` holds its entity the same way until the
+    /// player starts to fall.
     fn expire_recently_removed(&mut self) {
         let now = self.game_time();
         if now % RECENTLY_REMOVED_RETENTION_TICKS != 0
@@ -480,6 +482,21 @@ impl ServerLevel {
                         value.collect_entities(&mut held);
                     }
                 });
+            }
+            // a player that was hit by an explosion keeps naming its cause until it starts to fall
+            if let Some(player) = entity
+                .as_any()
+                .downcast_ref::<crate::world::entity::ServerPlayer>()
+            {
+                held.extend(player.current_explosion_cause);
+            }
+        }
+        for dead in self.dead_players.values() {
+            if let Some(player) = dead
+                .as_any()
+                .downcast_ref::<crate::world::entity::ServerPlayer>()
+            {
+                held.extend(player.current_explosion_cause);
             }
         }
         let (live, expired): (Vec<_>, Vec<_>) = std::mem::take(&mut self.recently_removed)

@@ -93,16 +93,18 @@ pub fn tick<E: BlockAttached>(e: &mut E, level: &mut ServerLevel) {
 pub fn skip_attack_interaction<E: BlockAttached>(
     e: &mut E,
     level: &mut ServerLevel,
-    source: &dyn Entity,
+    source: &mut dyn Entity,
 ) -> bool {
     if !source.is_player() {
         return false;
     }
-    if !level.may_interact_player_uuid(source.uuid(), e.attached().pos) {
-        return true;
-    }
-    let damage = level.damage_sources().player_attack(source);
-    e.hurt_server(level, &damage, 0.0)
+    level.expose(&*source, |level| {
+        if !level.may_interact_player_uuid(source.uuid(), e.attached().pos) {
+            return true;
+        }
+        let damage = level.damage_sources().player_attack(&*source);
+        e.hurt_server(level, &damage, 0.0)
+    })
 }
 
 /// `BlockAttachedEntity.kill(level)` (`kill(level, this)`).

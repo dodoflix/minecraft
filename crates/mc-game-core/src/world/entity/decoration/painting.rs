@@ -301,7 +301,11 @@ impl Entity for Painting {
     fn kill_in_level(&mut self, level: &mut ServerLevel) {
         block_attached::kill_self(self, level);
     }
-    fn skip_attack_interaction(&mut self, level: &mut ServerLevel, source: &dyn Entity) -> bool {
+    fn skip_attack_interaction(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &mut dyn Entity,
+    ) -> bool {
         block_attached::skip_attack_interaction(self, level, source)
     }
     fn ignore_explosion_in_level(

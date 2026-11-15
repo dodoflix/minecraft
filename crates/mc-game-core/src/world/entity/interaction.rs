@@ -5,7 +5,7 @@
 use super::dimensions::EntityDimensions;
 use super::factory::{ENTITY_FACTORIES, EntityRegistration};
 use super::{Entity, EntityData, EntityId, entity};
-use crate::advancements::triggers::{CriteriaTriggers, fire_with_entity};
+use crate::advancements::triggers::{CriteriaTriggers, fire_for_player};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::item::{InteractionHand, InteractionResult};
@@ -162,16 +162,20 @@ impl Entity for Interaction {
 
     /// `skipAttackInteraction(source)`: a player's attack is recorded and fires `player_hurt_entity`; the attack is handled
     /// (no damage) unless the interaction answers it.
-    fn skip_attack_interaction(&mut self, level: &mut ServerLevel, source: &dyn Entity) -> bool {
-        if !source.is_player() {
+    fn skip_attack_interaction(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &mut dyn Entity,
+    ) -> bool {
+        let Some(player) = source.as_any_mut().downcast_mut::<super::ServerPlayer>() else {
             return false;
-        }
+        };
         self.attack = Some(PlayerAction {
-            player: source.uuid(),
+            player: player.uuid(),
             timestamp: level.game_time(),
         });
         let damage = level.damage_sources().generic();
-        fire_with_entity(level, source.id(), &*self, move |level, player, victim| {
+        fire_for_player(level, player, &*self, move |level, player, victim| {
             CriteriaTriggers::PLAYER_HURT_ENTITY
                 .matches(level, player, victim, &damage, 1.0, 1.0, false)
         });

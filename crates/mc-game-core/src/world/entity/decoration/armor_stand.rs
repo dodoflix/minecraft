@@ -673,9 +673,15 @@ impl Entity for ArmorStand {
         !self.is_removed() && !self.is_marker()
     }
 
-    fn skip_attack_interaction(&mut self, level: &mut ServerLevel, source: &dyn Entity) -> bool {
+    fn skip_attack_interaction(
+        &mut self,
+        level: &mut ServerLevel,
+        source: &mut dyn Entity,
+    ) -> bool {
         source.is_player()
-            && !level.may_interact_player_uuid(source.uuid(), self.data().block_position())
+            && !level.expose(&*source, |level| {
+                level.may_interact_player_uuid(source.uuid(), self.data().block_position())
+            })
     }
 
     fn get_fall_sounds(&self) -> (SoundEvent, SoundEvent) {

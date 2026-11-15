@@ -183,9 +183,10 @@ impl ServerPlayer {
                 .current_explosion_impact_pos
                 .filter(|p| p.y <= position.y)
             {
+                // the cause may have removed itself in the explosion (a wind charge)
                 let cause = self
                     .current_explosion_cause
-                    .and_then(|id| level.get_entity(id));
+                    .and_then(|id| level.get_entity_or_recently_removed(id));
                 let matches =
                     CriteriaTriggers::FALL_AFTER_EXPLOSION.matches(&*level, &*self, impact, cause);
                 matches.award(level, self);
