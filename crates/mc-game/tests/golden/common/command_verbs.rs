@@ -168,6 +168,7 @@ fn run<H: ActionHost>(h: &mut H, who: Who, command: &str, json: bool, quiet: boo
         server.with_lent_level(level, |server| {
             commands.perform_prefixed_command(server, stack, command)
         });
+        server.flush_scoreboard();
     });
     let succeeded = feedback
         .lines

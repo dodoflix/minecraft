@@ -80,9 +80,7 @@ impl ServerLevel {
     fn transmitter_view(&self, id: EntityId) -> Option<TransmitterView> {
         let e = self.get_entity(id)?;
         let living = e.living()?;
-        let team_color = self
-            .scoreboard()
-            .get_players_team(&e.get_scoreboard_name())
+        let team_color = crate::world::entity::team::get_team(self, &self.scoreboard(), e)
             .and_then(|team| team.get_color())
             .map(|color| {
                 if color == crate::world::scores::TeamColor::Black {

@@ -1,0 +1,274 @@
+CF msg Created new objective [pk]
+CF result success 1
+CF msg Created new objective [tk]
+CF result success 2
+CF msg Created new objective [dc]
+CF result success 3
+CF msg Created new objective [tkr]
+CF result success 4
+CF msg Created new objective [tkb]
+CF result success 5
+CF msg Created new objective [kbr]
+CF result success 6
+CF msg Created new objective [kbb]
+CF result success 7
+CF msg Created new objective [zk]
+CF result success 8
+CF msg Created new objective [pigk]
+CF result success 9
+CF msg Created new objective [pkc]
+CF result success 10
+CF msg Created new objective [mkc]
+CF result success 11
+CF msg Created new objective [dcc]
+CF result success 12
+CF msg Created new objective [lg]
+CF result success 13
+CF msg Created new objective [kb]
+CF result success 14
+CF msg Set display slot list to show objective pk
+CF result success 0
+CF msg Set display slot sidebar to show objective tk
+CF result success 0
+CF msg Set display slot below_name to show objective dc
+CF result success 0
+CF msg Set display slot sidebar.team.red to show objective tkr
+CF result success 0
+CF msg Set display slot sidebar.team.blue to show objective tkb
+CF result success 0
+CF msg Set display slot sidebar.team.green to show objective kbr
+CF result success 0
+CF msg Set display slot sidebar.team.yellow to show objective kbb
+CF result success 0
+CF msg Set display slot sidebar.team.aqua to show objective zk
+CF result success 0
+CF msg Set display slot sidebar.team.gold to show objective pigk
+CF result success 0
+CF msg Set display slot sidebar.team.white to show objective pkc
+CF result success 0
+CF msg Set display slot sidebar.team.gray to show objective mkc
+CF result success 0
+CF msg Set display slot sidebar.team.black to show objective dcc
+CF result success 0
+CF msg Set display slot sidebar.team.dark_red to show objective lg
+CF result success 0
+CF msg Set display slot sidebar.team.dark_blue to show objective kb
+CF result success 0
+CF msg Created team [red]
+CF result success 1
+CF msg Created team [blue]
+CF result success 2
+CF msg Updated the color for team [red] to red
+CF result success 0
+CF msg Updated the color for team [blue] to blue
+CF result success 0
+CF msg Added A to team [red]
+CF result success 1
+CF msg Added B to team [blue]
+CF result success 1
+# a mob kill by A (zombie, pig), by an unteamed player C, and a kill of a zombie by nothing
+HURT Z minecraft:player_attack 1000 -> true
+PKT C minecraft:set_score 70014102746b010000
+PKT C minecraft:set_score 700141036d6b63010000
+PKT C minecraft:set_score 702437363831333061362d663662392d343236392d613830342d663163646466613164333862036b6272010000
+PKT C minecraft:set_score 700141027a6b010000
+HURT P minecraft:player_attack 1000 -> true
+PKT C minecraft:set_score 70014102746b020000
+PKT C minecraft:set_score 700141036d6b63020000
+PKT C minecraft:set_score 702434653262313732312d653562612d343364322d383731652d643938393633323637666666036b6272010000
+PKT C minecraft:set_score 700141047069676b010000
+HURT Z2 minecraft:player_attack 1000 -> true
+PKT C minecraft:set_score 70014302746b010000
+PKT C minecraft:set_score 700143036d6b63010000
+PKT C minecraft:set_score 700143027a6b010000
+OBJ {CriteriaName:"deathCount",DisplayName:"dc",Name:"dc"}
+OBJ {CriteriaName:"killedByTeam.blue",DisplayName:"kbb",Name:"kbb"}
+OBJ {CriteriaName:"killedByTeam.red",DisplayName:"kbr",Name:"kbr"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.deaths",DisplayName:"dcc",Name:"dcc"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.leave_game",DisplayName:"lg",Name:"lg"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.mob_kills",DisplayName:"mkc",Name:"mkc"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.player_kills",DisplayName:"pkc",Name:"pkc"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.pig",DisplayName:"pigk",Name:"pigk"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.zombie",DisplayName:"zk",Name:"zk"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.zombie",DisplayName:"kb",Name:"kb"}
+OBJ {CriteriaName:"playerKillCount",DisplayName:"pk",Name:"pk"}
+OBJ {CriteriaName:"teamkill.blue",DisplayName:"tkb",Name:"tkb"}
+OBJ {CriteriaName:"teamkill.red",DisplayName:"tkr",Name:"tkr"}
+OBJ {CriteriaName:"totalKillCount",DisplayName:"tk",Name:"tk"}
+SCORE {Locked:1b,Name:"4e2b1721-e5ba-43d2-871e-d98963267fff",Objective:"kbr",Score:1}
+SCORE {Locked:1b,Name:"768130a6-f6b9-4269-a804-f1cddfa1d38b",Objective:"kbr",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"mkc",Score:2}
+SCORE {Locked:1b,Name:"A",Objective:"pigk",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"tk",Score:2}
+SCORE {Locked:1b,Name:"A",Objective:"zk",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"mkc",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"tk",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"zk",Score:1}
+DISPLAY {below_name:"dc",list:"pk",sidebar:"tk",sidebar.team.aqua:"zk",sidebar.team.black:"dcc",sidebar.team.blue:"tkb",sidebar.team.dark_blue:"kb",sidebar.team.dark_red:"lg",sidebar.team.gold:"pigk",sidebar.team.gray:"mkc",sidebar.team.green:"kbr",sidebar.team.red:"tkr",sidebar.team.white:"pkc",sidebar.team.yellow:"kbb"}
+TEAM {DisplayName:"blue",Name:"blue",Players:["B"],TeamColor:"blue"}
+TEAM {DisplayName:"red",Name:"red",Players:["A"],TeamColor:"red"}
+STAT A minecraft.custom:minecraft.mob_kills 2
+STAT A minecraft.custom:minecraft.play_time 4
+STAT A minecraft.custom:minecraft.time_since_death 4
+STAT A minecraft.custom:minecraft.time_since_rest 4
+STAT A minecraft.custom:minecraft.total_world_time 4
+STAT A minecraft.killed:minecraft.pig 1
+STAT A minecraft.killed:minecraft.zombie 1
+STAT C minecraft.custom:minecraft.mob_kills 1
+STAT C minecraft.custom:minecraft.play_time 4
+STAT C minecraft.custom:minecraft.time_since_death 4
+STAT C minecraft.custom:minecraft.time_since_rest 4
+STAT C minecraft.custom:minecraft.total_world_time 4
+STAT C minecraft.killed:minecraft.zombie 1
+# player kills: A (red) kills B (blue), B respawns and kills A, C (no team) kills A
+HURT B minecraft:player_attack 1000 -> true
+PKT C minecraft:set_score 700142026463010000
+PKT C minecraft:set_score 70014102746b030000
+PKT C minecraft:set_score 70014103706b63010000
+PKT C minecraft:set_score 70014102706b010000
+PKT C minecraft:set_score 70014103746b62010000
+PKT C minecraft:set_score 700142036b6272010000
+PKT C minecraft:set_score 70014203646363010000
+HURT A minecraft:player_attack 1000 -> true
+PKT C minecraft:set_score 700141026463010000
+PKT C minecraft:set_score 70014202746b010000
+PKT C minecraft:set_score 70014203706b63010000
+PKT C minecraft:set_score 70014202706b010000
+PKT C minecraft:set_score 70014203746b72010000
+PKT C minecraft:set_score 700141036b6262010000
+PKT C minecraft:set_score 70014103646363010000
+HURT A minecraft:player_attack 1000 -> true
+PKT C minecraft:set_score 700141026463020000
+PKT C minecraft:set_score 70014302746b020000
+PKT C minecraft:set_score 70014303706b63010000
+PKT C minecraft:set_score 70014302706b010000
+PKT C minecraft:set_score 70014303746b72010000
+PKT C minecraft:set_score 70014103646363020000
+OBJ {CriteriaName:"deathCount",DisplayName:"dc",Name:"dc"}
+OBJ {CriteriaName:"killedByTeam.blue",DisplayName:"kbb",Name:"kbb"}
+OBJ {CriteriaName:"killedByTeam.red",DisplayName:"kbr",Name:"kbr"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.deaths",DisplayName:"dcc",Name:"dcc"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.leave_game",DisplayName:"lg",Name:"lg"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.mob_kills",DisplayName:"mkc",Name:"mkc"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.player_kills",DisplayName:"pkc",Name:"pkc"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.pig",DisplayName:"pigk",Name:"pigk"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.zombie",DisplayName:"zk",Name:"zk"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.zombie",DisplayName:"kb",Name:"kb"}
+OBJ {CriteriaName:"playerKillCount",DisplayName:"pk",Name:"pk"}
+OBJ {CriteriaName:"teamkill.blue",DisplayName:"tkb",Name:"tkb"}
+OBJ {CriteriaName:"teamkill.red",DisplayName:"tkr",Name:"tkr"}
+OBJ {CriteriaName:"totalKillCount",DisplayName:"tk",Name:"tk"}
+SCORE {Locked:1b,Name:"4e2b1721-e5ba-43d2-871e-d98963267fff",Objective:"kbr",Score:1}
+SCORE {Locked:1b,Name:"768130a6-f6b9-4269-a804-f1cddfa1d38b",Objective:"kbr",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"dc",Score:2}
+SCORE {Locked:1b,Name:"A",Objective:"dcc",Score:2}
+SCORE {Locked:1b,Name:"A",Objective:"kbb",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"mkc",Score:2}
+SCORE {Locked:1b,Name:"A",Objective:"pigk",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"pk",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"pkc",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"tk",Score:3}
+SCORE {Locked:1b,Name:"A",Objective:"tkb",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"zk",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"dc",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"dcc",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"kbr",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"pk",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"pkc",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"tk",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"tkr",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"mkc",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"pk",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"pkc",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"tk",Score:2}
+SCORE {Locked:1b,Name:"C",Objective:"tkr",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"zk",Score:1}
+DISPLAY {below_name:"dc",list:"pk",sidebar:"tk",sidebar.team.aqua:"zk",sidebar.team.black:"dcc",sidebar.team.blue:"tkb",sidebar.team.dark_blue:"kb",sidebar.team.dark_red:"lg",sidebar.team.gold:"pigk",sidebar.team.gray:"mkc",sidebar.team.green:"kbr",sidebar.team.red:"tkr",sidebar.team.white:"pkc",sidebar.team.yellow:"kbb"}
+TEAM {DisplayName:"blue",Name:"blue",Players:["B"],TeamColor:"blue"}
+TEAM {DisplayName:"red",Name:"red",Players:["A"],TeamColor:"red"}
+STAT A minecraft.custom:minecraft.damage_taken 20000
+STAT A minecraft.custom:minecraft.deaths 2
+STAT A minecraft.custom:minecraft.mob_kills 2
+STAT A minecraft.custom:minecraft.play_time 10
+STAT A minecraft.custom:minecraft.player_kills 1
+STAT A minecraft.custom:minecraft.time_since_death 1
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 10
+STAT A minecraft.killed:minecraft.pig 1
+STAT A minecraft.killed:minecraft.zombie 1
+STAT A minecraft.killed_by:minecraft.player 2
+STAT B minecraft.custom:minecraft.damage_taken 10000
+STAT B minecraft.custom:minecraft.deaths 1
+STAT B minecraft.custom:minecraft.play_time 10
+STAT B minecraft.custom:minecraft.player_kills 1
+STAT B minecraft.custom:minecraft.time_since_death 5
+STAT B minecraft.custom:minecraft.time_since_rest 6
+STAT B minecraft.custom:minecraft.total_world_time 10
+STAT B minecraft.killed_by:minecraft.player 1
+STAT C minecraft.custom:minecraft.mob_kills 1
+STAT C minecraft.custom:minecraft.play_time 10
+STAT C minecraft.custom:minecraft.player_kills 1
+STAT C minecraft.custom:minecraft.time_since_death 10
+STAT C minecraft.custom:minecraft.time_since_rest 10
+STAT C minecraft.custom:minecraft.total_world_time 10
+STAT C minecraft.killed:minecraft.zombie 1
+# a player is killed by a zombie, then disconnects
+HURT A minecraft:mob_attack 1000 -> true
+PKT C minecraft:set_score 700141026463030000
+PKT C minecraft:set_score 700141026b62010000
+PKT C minecraft:set_score 70014103646363030000
+CF msg Kicked B: Kicked by an operator
+CF result success 1
+PKT C minecraft:set_score 700142026c67010000
+CF msg B has 1 [lg]
+CF result success 1
+CF msg B has 1 [dcc]
+CF result success 1
+CF msg A has 3 [dcc]
+CF result success 3
+CF msg A has 1 [kb]
+CF result success 1
+OBJ {CriteriaName:"deathCount",DisplayName:"dc",Name:"dc"}
+OBJ {CriteriaName:"killedByTeam.blue",DisplayName:"kbb",Name:"kbb"}
+OBJ {CriteriaName:"killedByTeam.red",DisplayName:"kbr",Name:"kbr"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.deaths",DisplayName:"dcc",Name:"dcc"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.leave_game",DisplayName:"lg",Name:"lg"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.mob_kills",DisplayName:"mkc",Name:"mkc"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.player_kills",DisplayName:"pkc",Name:"pkc"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.pig",DisplayName:"pigk",Name:"pigk"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.zombie",DisplayName:"zk",Name:"zk"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.zombie",DisplayName:"kb",Name:"kb"}
+OBJ {CriteriaName:"playerKillCount",DisplayName:"pk",Name:"pk"}
+OBJ {CriteriaName:"teamkill.blue",DisplayName:"tkb",Name:"tkb"}
+OBJ {CriteriaName:"teamkill.red",DisplayName:"tkr",Name:"tkr"}
+OBJ {CriteriaName:"totalKillCount",DisplayName:"tk",Name:"tk"}
+SCORE {Locked:1b,Name:"4e2b1721-e5ba-43d2-871e-d98963267fff",Objective:"kbr",Score:1}
+SCORE {Locked:1b,Name:"768130a6-f6b9-4269-a804-f1cddfa1d38b",Objective:"kbr",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"dc",Score:3}
+SCORE {Locked:1b,Name:"A",Objective:"dcc",Score:3}
+SCORE {Locked:1b,Name:"A",Objective:"kb",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"kbb",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"mkc",Score:2}
+SCORE {Locked:1b,Name:"A",Objective:"pigk",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"pk",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"pkc",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"tk",Score:3}
+SCORE {Locked:1b,Name:"A",Objective:"tkb",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"zk",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"dc",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"dcc",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"kbr",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"lg",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"pk",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"pkc",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"tk",Score:1}
+SCORE {Locked:1b,Name:"B",Objective:"tkr",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"mkc",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"pk",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"pkc",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"tk",Score:2}
+SCORE {Locked:1b,Name:"C",Objective:"tkr",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"zk",Score:1}
+DISPLAY {below_name:"dc",list:"pk",sidebar:"tk",sidebar.team.aqua:"zk",sidebar.team.black:"dcc",sidebar.team.blue:"tkb",sidebar.team.dark_blue:"kb",sidebar.team.dark_red:"lg",sidebar.team.gold:"pigk",sidebar.team.gray:"mkc",sidebar.team.green:"kbr",sidebar.team.red:"tkr",sidebar.team.white:"pkc",sidebar.team.yellow:"kbb"}
+TEAM {DisplayName:"blue",Name:"blue",Players:["B"],TeamColor:"blue"}
+TEAM {DisplayName:"red",Name:"red",Players:["A"],TeamColor:"red"}

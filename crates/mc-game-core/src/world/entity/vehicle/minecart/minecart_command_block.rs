@@ -78,7 +78,7 @@ impl MinecartCommandBlock {
         let name = entity_name(self);
         let display_name = {
             let scoreboard = level.scoreboard();
-            let team = scoreboard.get_players_team(&self.get_scoreboard_name());
+            let team = crate::world::entity::team::get_team(level, &scoreboard, self);
             decorate_display_name(PlayerTeam::format_name_for_team(team, &name), self)
         };
         CommandEntity {

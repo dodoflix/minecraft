@@ -1,0 +1,86 @@
+# What a team changes for its members: who sees a member's death message (always, never, only the team, everybody but the team),
+# whether team mates can hurt each other (friendlyFire), and whether overlapping mobs push each other (collisionRule).
+command_env
+level flat
+preload 2
+level_seed 13
+entity_counter 400
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 2.5 -60 0.5 0 0
+spawn_player C survival 4.5 -60 0.5 0 0
+spawn_player D survival 6.5 -60 0.5 0 0
+spawn_player E survival 8.5 -60 0.5 0 0
+spawn_player F survival 10.5 -60 0.5 0 0
+tick 1
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none packets:F:none
+cmd team add always
+cmd team add never
+cmd team add own
+cmd team add other
+cmd team modify always deathMessageVisibility always
+cmd team modify never deathMessageVisibility never
+cmd team modify own deathMessageVisibility hideForOtherTeams
+cmd team modify other deathMessageVisibility hideForOwnTeam
+cmd team modify own friendlyFire false
+cmd team join always A
+cmd team join never B
+cmd team join own C
+cmd team join own F
+cmd team join other D
+note every team's member dies: the packets of the other players
+hurt A minecraft:generic 1000
+tick 1
+dump packets:B:system_chat packets:C:system_chat packets:D:system_chat packets:E:system_chat packets:F:system_chat
+hurt B minecraft:generic 1000
+tick 1
+dump packets:A:system_chat packets:C:system_chat packets:D:system_chat packets:E:system_chat packets:F:system_chat
+hurt C minecraft:generic 1000
+tick 1
+dump packets:A:system_chat packets:B:system_chat packets:D:system_chat packets:E:system_chat packets:F:system_chat
+hurt D minecraft:generic 1000
+tick 1
+dump packets:A:system_chat packets:B:system_chat packets:C:system_chat packets:E:system_chat packets:F:system_chat
+hurt E minecraft:generic 1000
+tick 1
+dump packets:A:system_chat packets:B:system_chat packets:C:system_chat packets:D:system_chat packets:F:system_chat
+respawn A
+respawn B
+respawn C
+respawn D
+respawn E
+tick 1
+note the same with a killer: the death message names the killer's display name with its team prefix
+cmd team modify other prefix {"text":"[o] ","color":"gold"}
+cmd team modify other color gold
+hurt C minecraft:player_attack 1000 by=D direct=D
+tick 1
+dump packets:A:system_chat packets:B:system_chat packets:D:system_chat packets:E:system_chat packets:F:system_chat
+respawn C
+tick 1
+note friendly fire: players of one team, of two allied teams (own = no friendly fire), a hit from outside
+hurt F minecraft:player_attack 3 by=C direct=C
+hurt F minecraft:player_attack 3 by=E direct=E
+hurt C minecraft:player_attack 3 by=D direct=D
+hurt A minecraft:player_attack 3 by=B direct=B
+cmd team modify own friendlyFire true
+hurt F minecraft:player_attack 3 by=C direct=C
+note collision rules: two pigs inside each other for every rule, teams and no team
+spawn P1 minecraft:pig 30.5 -60 30.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn P2 minecraft:pig 30.7 -60 30.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn P3 minecraft:pig 40.5 -60 30.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn P4 minecraft:pig 40.7 -60 30.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn P5 minecraft:pig 50.5 -60 30.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn P6 minecraft:pig 50.7 -60 30.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn P7 minecraft:pig 60.5 -60 30.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn P8 minecraft:pig 60.7 -60 30.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+cmd team add cnever
+cmd team add cown
+cmd team add cother
+cmd team modify cnever collisionRule never
+cmd team modify cown collisionRule pushOwnTeam
+cmd team modify cother collisionRule pushOtherTeams
+cmd team join cnever @e[type=pig,x=30,y=-60,z=30,distance=..3]
+cmd team join cown @e[type=pig,x=40,y=-60,z=30,distance=..3]
+cmd team join cother @e[type=pig,x=50,y=-60,z=30,distance=..3]
+tick 10
+dump xentities

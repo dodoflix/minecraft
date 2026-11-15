@@ -1,0 +1,71 @@
+# The objectives that follow a player's state, updated every tick: health (damage, regeneration), food (eating), air (drowning),
+# armor (wearing and removing armour), xp and level (xp command, orbs), with the score packets a watching player receives.
+command_env
+level flat
+preload 2
+level_seed 11
+entity_counter 300
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 20.5 -60 0.5 0 0
+tick 1
+dump packets:A:none packets:B:none
+cmd scoreboard objectives add hp health
+cmd scoreboard objectives add food food
+cmd scoreboard objectives add air air
+cmd scoreboard objectives add arm armor
+cmd scoreboard objectives add xpo xp
+cmd scoreboard objectives add lvl level
+cmd scoreboard objectives setdisplay list hp
+cmd scoreboard objectives setdisplay sidebar food
+cmd scoreboard objectives setdisplay below_name air
+cmd scoreboard objectives setdisplay sidebar.team.red arm
+cmd scoreboard objectives setdisplay sidebar.team.blue xpo
+cmd scoreboard objectives setdisplay sidebar.team.green lvl
+tick 2
+dump packets:B:set_score,reset_score
+dump scoreboard
+note damage and regeneration
+hurt A minecraft:generic 5
+tick 1
+dump packets:B:set_score,reset_score
+set A food 20
+set A saturation 20
+tick 5
+dump packets:B:set_score,reset_score
+note armour
+give A chest minecraft:iron_chestplate
+give A head minecraft:diamond_helmet
+tick 1
+dump packets:B:set_score,reset_score
+give A chest minecraft:air
+tick 1
+dump packets:B:set_score,reset_score
+note eating
+set A food 6
+tick 1
+dump packets:B:set_score,reset_score
+give A mainhand minecraft:cooked_beef
+use A
+tick 40
+dump packets:B:set_score,reset_score
+note experience
+cmd xp add A 7 points
+tick 1
+dump packets:B:set_score,reset_score
+cmd xp add A 20 levels
+tick 1
+dump packets:B:set_score,reset_score
+cmd xp set A 0 levels
+tick 1
+dump packets:B:set_score,reset_score
+note drowning
+fill -2 -61 -2 2 -55 2 minecraft:water
+tp A 0.5 -60 0.5
+set A air 40
+tick 25
+dump packets:B:set_score,reset_score
+tick 40
+dump packets:B:set_score,reset_score
+dump scoreboard
+cmd scoreboard players get A air
+cmd scoreboard players get A hp

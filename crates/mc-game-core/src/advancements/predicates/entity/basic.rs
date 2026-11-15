@@ -247,7 +247,8 @@ impl EntitySubPredicateImpl for TeamPredicate {
         level: &'a ServerLevel,
         _position: Option<Vec3>,
     ) -> bool {
-        support::get_team_name(level, entity).is_some_and(|name| name == self.team)
+        crate::world::entity::team::get_team_name(level, entity)
+            .is_some_and(|name| name == self.team)
     }
 }
 

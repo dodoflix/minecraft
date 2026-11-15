@@ -643,8 +643,10 @@ impl ServerPlayer {
                 f64::from(-mth::cos(f64::from(y_rot * DEG_TO_RAD))),
             );
             level.with_entity(nearby_id, |level, nearby| {
-                let allied =
-                    crate::world::effect::mob_effect_util::is_allied_to(level, &*self, &*nearby);
+                // the attacker is out of its slot: expose it so a tamed pet finds its owner
+                let allied = level.expose(&*self, |level| {
+                    crate::world::entity::mob::ext::is_allied_to(level, &*self, &*nearby)
+                });
                 let marker_stand = nearby
                     .as_any()
                     .downcast_ref::<ArmorStand>()

@@ -55,11 +55,7 @@ pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mu
     let Some(handle) = player.handle.clone() else {
         return;
     };
-    server
-        .player_list
-        .get_player_stats(&handle)
-        .lock()
-        .increment(crate::stats::stats::Stats::LEAVE_GAME, 1);
+    player.award_stat_once(level, crate::stats::stats::Stats::LEAVE_GAME);
     save_player(server, level, player);
     if let Some(vehicle) = player.base().vehicle {
         // root vehicle with exactly one player passenger (this one): it goes down with the player

@@ -170,16 +170,6 @@ pub fn do_hurt_target(e: &mut dyn Entity, level: &mut ServerLevel, target: Entit
         .unwrap_or(false)
 }
 
-/// `Entity.getTeam()` as the team's name (`Team` identity): the team of the scoreboard member `e` plays for (a tamed pet's
-/// root owner's, like `ext::is_allied_to`).
-pub fn get_team_name(level: &ServerLevel, e: &dyn Entity) -> Option<String> {
-    let member = super::ext::team_member_name(level, e)?;
-    level
-        .scoreboard()
-        .get_players_team(&member)
-        .map(|t| t.get_name().to_string())
-}
-
 /// `Mob.lookAt(entity, yMax, xMax)`: turns the mob's own rotation towards `entity` (not the look control).
 pub fn look_at(e: &mut dyn Entity, entity: &dyn Entity, y_max: f32, x_max: f32) {
     use mc_core::math::mth;

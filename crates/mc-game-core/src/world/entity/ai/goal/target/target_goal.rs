@@ -7,7 +7,7 @@
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::goal::reduced_tick_delay;
 use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::mob::{combat, navigation, tick};
+use crate::world::entity::mob::{navigation, tick};
 use crate::world::entity::{Entity, EntityId};
 use mc_core::random::RandomSource;
 use mc_data::Attribute;
@@ -75,8 +75,10 @@ impl TargetGoal {
         if !mob.can_attack(level, target) {
             return false;
         }
-        let mob_team = combat::get_team_name(level, mob);
-        if mob_team.is_some() && combat::get_team_name(level, target) == mob_team {
+        let mob_team = crate::world::entity::team::get_team_name(level, mob);
+        if mob_team.is_some()
+            && crate::world::entity::team::get_team_name(level, target) == mob_team
+        {
             return false;
         }
         let within = self.get_follow_distance(mob);

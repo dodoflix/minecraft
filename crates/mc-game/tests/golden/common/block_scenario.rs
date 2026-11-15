@@ -1122,6 +1122,10 @@ impl Scenario {
         level.tick(&mut self.env, &mut || true);
         self.level = Some(level);
         self.tick_players();
+        // vanilla's scoreboard listeners broadcast as they change; the replay sends what the tick queued
+        if mc_game::commands::server_access::has_server() {
+            mc_game::commands::server_access::with_server(|server| server.flush_scoreboard());
+        }
         // `MinecraftServer.tickServer`: the debug subscribers are refreshed after the players
         self.level().tick_debug_subscribers();
         self.send_chunks();

@@ -223,12 +223,9 @@ fn summon_entity(
         .owner
         .is_some_and(|o| actors.get(level, o).is_some_and(|o| o.is_player()));
     let team = if e.join_team {
-        actors.get(level, entity).and_then(|t| {
-            level
-                .scoreboard()
-                .get_players_team(&t.get_scoreboard_name())
-                .map(|t| t.get_name().to_string())
-        })
+        actors
+            .get(level, entity)
+            .and_then(|t| crate::world::entity::team::get_team_name(level, t))
     } else {
         None
     };

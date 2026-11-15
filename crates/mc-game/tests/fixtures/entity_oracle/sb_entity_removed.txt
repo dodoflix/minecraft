@@ -1,0 +1,114 @@
+CF msg Created new objective [dum]
+CF result success 1
+CF msg Created new objective [other]
+CF result success 2
+CF msg Set display slot sidebar to show objective dum
+CF result success 0
+CF msg Set display slot list to show objective other
+CF result success 0
+CF msg Created team [red]
+CF result success 1
+CF msg Updated the color for team [red] to red
+CF result success 0
+CF msg Set [dum] for A to 1
+CF result success 1
+CF msg Set [other] for A to 2
+CF result success 2
+CF msg Set [dum] for Zombie to 7
+CF result success 7
+CF msg Set [other] for Zombie to 8
+CF result success 8
+CF msg Set [dum] for Pig to 3
+CF result success 3
+CF msg Set [dum] for Cow to 4
+CF result success 4
+CF msg Added A to team [red]
+CF result success 1
+CF msg Added Zombie to team [red]
+CF result success 1
+CF msg Added Pig to team [red]
+CF result success 1
+CF msg Added Cow to team [red]
+CF result success 1
+CF msg There are 4 tracked entity/entities: 4e2b1721-e5ba-43d2-871e-d98963267fff, 768130a6-f6b9-4269-a804-f1cddfa1d38b, A, 345d5446-9ea9-41c4-ab32-825df225fec8
+CF result success 4
+CF msg There are 1 team(s): [red]
+CF result success 1
+CF msg Team [red] has 4 member(s): 345d5446-9ea9-41c4-ab32-825df225fec8, 4e2b1721-e5ba-43d2-871e-d98963267fff, 768130a6-f6b9-4269-a804-f1cddfa1d38b, A
+CF result success 4
+OBJ {DisplayName:"dum",Name:"dum"}
+OBJ {DisplayName:"other",Name:"other"}
+SCORE {Locked:1b,Name:"345d5446-9ea9-41c4-ab32-825df225fec8",Objective:"dum",Score:4}
+SCORE {Locked:1b,Name:"4e2b1721-e5ba-43d2-871e-d98963267fff",Objective:"dum",Score:3}
+SCORE {Locked:1b,Name:"768130a6-f6b9-4269-a804-f1cddfa1d38b",Objective:"dum",Score:7}
+SCORE {Locked:1b,Name:"768130a6-f6b9-4269-a804-f1cddfa1d38b",Objective:"other",Score:8}
+SCORE {Locked:1b,Name:"A",Objective:"dum",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"other",Score:2}
+DISPLAY {list:"other",sidebar:"dum"}
+TEAM {DisplayName:"red",Name:"red",Players:["345d5446-9ea9-41c4-ab32-825df225fec8","4e2b1721-e5ba-43d2-871e-d98963267fff","768130a6-f6b9-4269-a804-f1cddfa1d38b","A"],TeamColor:"red"}
+PKT A minecraft:set_player_team 6f03726564000800037265640800000800000000000300
+PKT A minecraft:set_player_team 6f037265640208000372656408000008000000000003
+PKT A minecraft:set_player_team 6f03726564020800037265640800000800000000010c03
+PKT A minecraft:set_score 7001410364756d010000
+PKT A minecraft:set_score 700141056f74686572020000
+PKT A minecraft:set_score 702437363831333061362d663662392d343236392d613830342d6631636464666131643338620364756d070000
+PKT A minecraft:set_score 702437363831333061362d663662392d343236392d613830342d663163646466613164333862056f74686572080000
+PKT A minecraft:set_score 702434653262313732312d653562612d343364322d383731652d6439383936333236376666660364756d030000
+PKT A minecraft:set_score 702433343564353434362d396561392d343163342d616233322d3832356466323235666563380364756d040000
+PKT A minecraft:set_player_team 6f0372656403010141
+PKT A minecraft:set_player_team 6f0372656403012437363831333061362d663662392d343236392d613830342d663163646466613164333862
+PKT A minecraft:set_player_team 6f0372656403012434653262313732312d653562612d343364322d383731652d643938393633323637666666
+PKT A minecraft:set_player_team 6f0372656403012433343564353434362d396561392d343163342d616233322d383235646632323566656338
+# a zombie dies (removed after its death animation)
+HURT Z minecraft:generic 1000 -> true
+CF msg There are 4 tracked entity/entities: 4e2b1721-e5ba-43d2-871e-d98963267fff, 768130a6-f6b9-4269-a804-f1cddfa1d38b, A, 345d5446-9ea9-41c4-ab32-825df225fec8
+CF result success 4
+CF msg There are 3 tracked entity/entities: 4e2b1721-e5ba-43d2-871e-d98963267fff, 345d5446-9ea9-41c4-ab32-825df225fec8, A
+CF result success 3
+CF msg Team [red] has 3 member(s): 345d5446-9ea9-41c4-ab32-825df225fec8, 4e2b1721-e5ba-43d2-871e-d98963267fff, A
+CF result success 3
+OBJ {DisplayName:"dum",Name:"dum"}
+OBJ {DisplayName:"other",Name:"other"}
+SCORE {Locked:1b,Name:"345d5446-9ea9-41c4-ab32-825df225fec8",Objective:"dum",Score:4}
+SCORE {Locked:1b,Name:"4e2b1721-e5ba-43d2-871e-d98963267fff",Objective:"dum",Score:3}
+SCORE {Locked:1b,Name:"A",Objective:"dum",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"other",Score:2}
+DISPLAY {list:"other",sidebar:"dum"}
+TEAM {DisplayName:"red",Name:"red",Players:["345d5446-9ea9-41c4-ab32-825df225fec8","4e2b1721-e5ba-43d2-871e-d98963267fff","A"],TeamColor:"red"}
+PKT A minecraft:reset_score 502437363831333061362d663662392d343236392d613830342d66316364646661316433386200
+PKT A minecraft:set_player_team 6f0372656404012437363831333061362d663662392d343236392d613830342d663163646466613164333862
+# a pig is killed by the command, a cow is discarded
+CF msg Killed Pig
+CF result success 1
+CF msg There are 2 tracked entity/entities: 345d5446-9ea9-41c4-ab32-825df225fec8, A
+CF result success 2
+CF msg Team [red] has 2 member(s): 345d5446-9ea9-41c4-ab32-825df225fec8, A
+CF result success 2
+PKT A minecraft:reset_score 502434653262313732312d653562612d343364322d383731652d64393839363332363766666600
+PKT A minecraft:set_player_team 6f0372656404012434653262313732312d653562612d343364322d383731652d643938393633323637666666
+CF msg There are 1 tracked entity/entities: A
+CF result success 1
+CF msg Team [red] has 1 member(s): A
+CF result success 1
+CF msg There are 1 team(s): [red]
+CF result success 1
+OBJ {DisplayName:"dum",Name:"dum"}
+OBJ {DisplayName:"other",Name:"other"}
+SCORE {Locked:1b,Name:"A",Objective:"dum",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"other",Score:2}
+DISPLAY {list:"other",sidebar:"dum"}
+TEAM {DisplayName:"red",Name:"red",Players:["A"],TeamColor:"red"}
+PKT A minecraft:reset_score 502433343564353434362d396561392d343163342d616233322d38323564663232356665633800
+PKT A minecraft:set_player_team 6f0372656404012433343564353434362d396561392d343163342d616233322d383235646632323566656338
+# the player stays
+HURT A minecraft:generic 1000 -> true
+CF msg There are 1 tracked entity/entities: A
+CF result success 1
+CF msg Team [red] has 1 member(s): A
+CF result success 1
+OBJ {DisplayName:"dum",Name:"dum"}
+OBJ {DisplayName:"other",Name:"other"}
+SCORE {Locked:1b,Name:"A",Objective:"dum",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"other",Score:2}
+DISPLAY {list:"other",sidebar:"dum"}
+TEAM {DisplayName:"red",Name:"red",Players:["A"],TeamColor:"red"}

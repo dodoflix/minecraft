@@ -61,22 +61,6 @@ pub fn should_effects_refill_air_supply(mob: &dyn Entity) -> bool {
         || mob.has_effect(MobEffect::CONDUIT_POWER)
 }
 
-/// `Entity.isAlliedTo(other)` for the base team logic (`getTeam().isAlliedTo(other.getTeam())`).
-pub fn is_allied_to(level: &ServerLevel, source: &dyn Entity, other: &dyn Entity) -> bool {
-    if source.id() == other.id() {
-        return true;
-    }
-    let scoreboard = level.scoreboard();
-    let allied = |a: &dyn Entity, b: &dyn Entity| {
-        scoreboard
-            .get_players_team(&a.get_scoreboard_name())
-            .is_some_and(|team| {
-                team.is_allied_to(scoreboard.get_players_team(&b.get_scoreboard_name()))
-            })
-    };
-    allied(source, other) || allied(other, source)
-}
-
 /// `addEffectToPlayersAround(level, source, position, radius, effectInstance, displayEffectLimit)`.
 pub fn add_effect_to_players_around(
     level: &mut ServerLevel,
@@ -94,7 +78,7 @@ pub fn add_effect_to_players_around(
         .filter(|id| {
             let Some(player) = level.get_entity(*id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()) else { return false };
             matches!(player.game_mode.game_mode_for_player, GameType::Survival | GameType::Adventure) // `GameType.isSurvival`
-                && source.is_none_or(|s| !is_allied_to(level, s, player))
+                && source.is_none_or(|s| !crate::world::entity::mob::ext::is_allied_to(level, s, player))
                 && position.distance_to_sqr(player.position()) < radius * radius
                 && player.get_effect(effect).is_none_or(|e| e.amplifier < effect_instance.amplifier || e.ends_within(display_effect_limit - 1))
         })

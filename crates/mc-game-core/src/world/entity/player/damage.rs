@@ -338,18 +338,16 @@ pub fn award_kill_score(
         scoreboard.for_all_objectives(&ObjectiveCriteria::KILL_COUNT_ALL, &*player, |score| {
             let _ = score.increment();
         });
-        if victim.is_player {
-            scoreboard.for_all_objectives(
-                &ObjectiveCriteria::KILL_COUNT_PLAYERS,
-                &*player,
-                |score| {
-                    let _ = score.increment();
-                },
-            );
-        }
     }
     if victim.is_player {
         player.award_stat(level, Stats::PLAYER_KILLS, 1);
+        level.scoreboard_mut().for_all_objectives(
+            &crate::world::scores::ObjectiveCriteria::KILL_COUNT_PLAYERS,
+            &*player,
+            |score| {
+                let _ = score.increment();
+            },
+        );
     } else {
         player.award_stat(level, Stats::MOB_KILLS, 1);
     }

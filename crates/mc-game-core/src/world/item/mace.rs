@@ -70,6 +70,12 @@ fn knockback(level: &mut ServerLevel, attacker: &mut dyn Entity, entity: &mut dy
     let (attacker_id, target_id) = (attacker.id(), entity.id());
     let nearby_ids: Vec<EntityId> = level.get_entities(None, &area, |e| e.living().is_some());
     for id in nearby_ids {
+        // the attacker is out of its slot: expose it so a tamed pet finds its owner
+        let not_allied = level.expose(&*attacker, |level| {
+            level.get_entity(id).is_none_or(|nearby| {
+                !crate::world::entity::mob::ext::is_allied_to(level, &*attacker, nearby)
+            })
+        });
         let Some(nearby) = level.get_entity(id) else {
             continue;
         };
@@ -82,8 +88,6 @@ fn knockback(level: &mut ServerLevel, attacker: &mut dyn Entity, entity: &mut dy
             && crate::world::entity::mob::tamable::is_owned_by(nearby, level, &*entity));
         let not_spectator = !nearby.is_spectator();
         let not_player = id != attacker_id && id != target_id;
-        let not_allied =
-            !crate::world::effect::mob_effect_util::is_allied_to(level, &*attacker, nearby);
         let not_armor_stand = !nearby
             .as_any()
             .downcast_ref::<ArmorStand>()

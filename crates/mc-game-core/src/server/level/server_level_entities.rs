@@ -689,9 +689,23 @@ impl ServerLevel {
             EntityLevelEvent::SectionChange(id) => {
                 self.update_dynamic_game_event_listener(id, DynamicListenerAction::Move)
             }
+            // `onDestroyed` -> `Scoreboard.entityRemoved` (the waypoint half runs in `process_entity_events`)
+            EntityLevelEvent::Destroyed(id) => {
+                if let Some((name, is_player, is_alive)) = self
+                    .entity_manager
+                    .get_removed(id)
+                    .or_else(|| self.entity_manager.get_any(id))
+                    .map(|e| (e.get_scoreboard_name(), e.is_player(), e.is_alive()))
+                {
+                    self.scoreboard_mut().entity_removed(
+                        &crate::world::scores::score::NameOnlyHolder(name),
+                        is_player,
+                        is_alive,
+                    );
+                }
+            }
             // tick list is maintained by the manager; the other callbacks have no state of their own yet
             EntityLevelEvent::Created(_)
-            | EntityLevelEvent::Destroyed(_)
             | EntityLevelEvent::TickingStart(_)
             | EntityLevelEvent::TickingEnd(_) => {}
         }

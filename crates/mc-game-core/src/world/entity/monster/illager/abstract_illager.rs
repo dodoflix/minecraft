@@ -43,15 +43,9 @@ pub fn considers_entity_as_ally(e: &dyn Entity, level: &ServerLevel, other: &dyn
     {
         false
     } else {
-        team_of(level, e).is_none() && team_of(level, other).is_none()
+        crate::world::entity::team::get_team_name(level, e).is_none()
+            && crate::world::entity::team::get_team_name(level, other).is_none()
     }
-}
-
-fn team_of(level: &ServerLevel, e: &dyn Entity) -> Option<String> {
-    level
-        .scoreboard()
-        .get_players_team(&e.get_scoreboard_name())
-        .map(|t| t.get_name().to_string())
 }
 
 /// `isHolding`-style helper used by the pillager/illusioner arm poses: `getArmPose()` of the abstract class.

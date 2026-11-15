@@ -1,0 +1,64 @@
+# A mob that dies or is discarded leaves the scoreboard: its scores and its team go with it (`Scoreboard.entityRemoved` when the entity is
+# destroyed), a player keeps both. Scores and team of a zombie, a pig and a cow, the killed ones one by one, then the listings, the
+# scoreboard dump and the set_score/reset_score/team packets a watching player receives.
+command_env
+level flat
+preload 2
+level_seed 5
+entity_counter 100
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn Z minecraft:zombie 6.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn P minecraft:pig 9.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn C minecraft:cow 12.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+tick 1
+dump packets:A:none
+cmd scoreboard objectives add dum dummy
+cmd scoreboard objectives add other dummy
+cmd scoreboard objectives setdisplay sidebar dum
+cmd scoreboard objectives setdisplay list other
+cmd team add red
+cmd team modify red color red
+cmd scoreboard players set A dum 1
+cmd scoreboard players set A other 2
+cmd scoreboard players set @e[type=zombie] dum 7
+cmd scoreboard players set @e[type=zombie] other 8
+cmd scoreboard players set @e[type=pig] dum 3
+cmd scoreboard players set @e[type=cow] dum 4
+cmd team join red A
+cmd team join red @e[type=zombie]
+cmd team join red @e[type=pig]
+cmd team join red @e[type=cow]
+cmd scoreboard players list
+cmd team list
+cmd team list red
+dump scoreboard
+dump packets:A:set_score,reset_score,set_player_team
+note a zombie dies (removed after its death animation)
+hurt Z minecraft:generic 1000
+tick 5
+cmd scoreboard players list
+dump packets:A:set_score,reset_score,set_player_team
+tick 20
+cmd scoreboard players list
+cmd team list red
+dump scoreboard
+dump packets:A:set_score,reset_score,set_player_team
+note a pig is killed by the command, a cow is discarded
+cmd kill @e[type=pig]
+tick 25
+cmd scoreboard players list
+cmd team list red
+dump packets:A:set_score,reset_score,set_player_team
+kill C
+tick 1
+cmd scoreboard players list
+cmd team list red
+cmd team list
+dump scoreboard
+dump packets:A:set_score,reset_score,set_player_team
+note the player stays
+hurt A minecraft:generic 1000
+tick 3
+cmd scoreboard players list
+cmd team list red
+dump scoreboard

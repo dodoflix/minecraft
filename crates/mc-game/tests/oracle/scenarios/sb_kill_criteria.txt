@@ -1,0 +1,98 @@
+# The scoreboard criteria a kill, a death and a disconnect move: killCount-style objectives of the killer (player kills, total kills),
+# the death count, teamkill.* of the killer and killedByTeam.* of the victim (keyed by the team colours), the per-type killed
+# statistic and the custom player_kills / mob_kills / deaths / leave_game statistics, with the order of the score packets a watching
+# player receives (the statistic is awarded before the kill-count objective).
+command_env
+level flat
+preload 2
+level_seed 7
+entity_counter 200
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 2.5 -60 0.5 0 0
+spawn_player C survival 4.5 -60 0.5 0 0
+spawn Z minecraft:zombie 8.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn Z2 minecraft:zombie 10.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn P minecraft:pig 12.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+tick 1
+dump packets:A:none packets:B:none packets:C:none
+cmd scoreboard objectives add pk playerKillCount
+cmd scoreboard objectives add tk totalKillCount
+cmd scoreboard objectives add dc deathCount
+cmd scoreboard objectives add tkr teamkill.red
+cmd scoreboard objectives add tkb teamkill.blue
+cmd scoreboard objectives add kbr killedByTeam.red
+cmd scoreboard objectives add kbb killedByTeam.blue
+cmd scoreboard objectives add zk minecraft.killed:minecraft.zombie
+cmd scoreboard objectives add pigk minecraft.killed:minecraft.pig
+cmd scoreboard objectives add pkc minecraft.custom:minecraft.player_kills
+cmd scoreboard objectives add mkc minecraft.custom:minecraft.mob_kills
+cmd scoreboard objectives add dcc minecraft.custom:minecraft.deaths
+cmd scoreboard objectives add lg minecraft.custom:minecraft.leave_game
+cmd scoreboard objectives add kb minecraft.killed_by:minecraft.zombie
+cmd scoreboard objectives setdisplay list pk
+cmd scoreboard objectives setdisplay sidebar tk
+cmd scoreboard objectives setdisplay below_name dc
+cmd scoreboard objectives setdisplay sidebar.team.red tkr
+cmd scoreboard objectives setdisplay sidebar.team.blue tkb
+cmd scoreboard objectives setdisplay sidebar.team.green kbr
+cmd scoreboard objectives setdisplay sidebar.team.yellow kbb
+cmd scoreboard objectives setdisplay sidebar.team.aqua zk
+cmd scoreboard objectives setdisplay sidebar.team.gold pigk
+cmd scoreboard objectives setdisplay sidebar.team.white pkc
+cmd scoreboard objectives setdisplay sidebar.team.gray mkc
+cmd scoreboard objectives setdisplay sidebar.team.black dcc
+cmd scoreboard objectives setdisplay sidebar.team.dark_red lg
+cmd scoreboard objectives setdisplay sidebar.team.dark_blue kb
+cmd team add red
+cmd team add blue
+cmd team modify red color red
+cmd team modify blue color blue
+cmd team join red A
+cmd team join blue B
+dump packets:A:none packets:B:none packets:C:none
+note a mob kill by A (zombie, pig), by an unteamed player C, and a kill of a zombie by nothing
+hurt Z minecraft:player_attack 1000 by=A direct=A
+tick 1
+dump packets:C:set_score,reset_score
+hurt P minecraft:player_attack 1000 by=A direct=A
+tick 1
+dump packets:C:set_score,reset_score
+hurt Z2 minecraft:player_attack 1000 by=C direct=C
+tick 1
+dump packets:C:set_score,reset_score
+dump scoreboard stats:A stats:C
+note player kills: A (red) kills B (blue), B respawns and kills A, C (no team) kills A
+hurt B minecraft:player_attack 1000 by=A direct=A
+tick 1
+dump packets:C:set_score,reset_score
+respawn B
+tick 1
+dump packets:C:set_score,reset_score
+hurt A minecraft:player_attack 1000 by=B direct=B
+tick 1
+dump packets:C:set_score,reset_score
+respawn A
+tick 1
+dump packets:C:set_score,reset_score
+hurt A minecraft:player_attack 1000 by=C direct=C
+tick 1
+dump packets:C:set_score,reset_score
+respawn A
+tick 1
+dump packets:C:set_score,reset_score
+dump scoreboard stats:A stats:B stats:C
+note a player is killed by a zombie, then disconnects
+hurt A minecraft:mob_attack 1000 by=Z direct=Z
+tick 1
+dump packets:C:set_score,reset_score
+respawn A
+tick 1
+dump packets:C:set_score,reset_score
+cmd kick B
+tick 1
+dump packets:C:set_score,reset_score
+cmd scoreboard players get B lg
+cmd scoreboard players get B dcc
+cmd scoreboard players get A dcc
+cmd scoreboard players get A kb
+dump scoreboard

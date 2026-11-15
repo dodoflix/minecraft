@@ -218,11 +218,3 @@ pub fn get_block_pos_below_that_affects_my_movement(
 ) -> mc_core::pos::BlockPos {
     movement::get_block_pos_below_that_affects_my_movement(entity, level)
 }
-
-/// `Entity.getTeam().getName()`: the scoreboard team of the entity's scoreboard name.
-pub fn get_team_name(level: &ServerLevel, entity: &dyn Entity) -> Option<String> {
-    level
-        .scoreboard()
-        .get_players_team(&entity.get_scoreboard_name())
-        .map(|t| t.get_name().to_owned())
-}

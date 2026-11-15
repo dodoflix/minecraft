@@ -45,17 +45,9 @@ impl ConversionParams {
             ty: ConversionType::Single,
             keep_equipment,
             preserve_can_pick_up_loot,
-            team: team_of(level, mob),
+            team: crate::world::entity::team::get_team_name(level, mob),
         }
     }
-}
-
-/// `Entity.getTeam()` as the team name.
-fn team_of(level: &ServerLevel, e: &dyn Entity) -> Option<String> {
-    let scoreboard = level.scoreboard();
-    scoreboard
-        .get_players_team(&e.get_scoreboard_name())
-        .map(|t| t.get_name().to_string())
 }
 
 /// `Mob.convertTo(type, params, spawnReason, afterConversion)`: the converted mob's id (already added to the level).
@@ -290,7 +282,7 @@ fn convert_common(
         to.base_mut().custom_data = from.base().custom_data.clone();
     }
     if let Some(team) = &params.team {
-        let from_team = team_of(level, from);
+        let from_team = crate::world::entity::team::get_team_name(level, from);
         let to_name = to.get_scoreboard_name();
         let from_name = from.get_scoreboard_name();
         let mut scoreboard = level.scoreboard_mut();

@@ -1,0 +1,135 @@
+CF msg Created new objective [hp]
+CF result success 1
+CF msg Created new objective [food]
+CF result success 2
+CF msg Created new objective [air]
+CF result success 3
+CF msg Created new objective [arm]
+CF result success 4
+CF msg Created new objective [xpo]
+CF result success 5
+CF msg Created new objective [lvl]
+CF result success 6
+CF msg Set display slot list to show objective hp
+CF result success 0
+CF msg Set display slot sidebar to show objective food
+CF result success 0
+CF msg Set display slot below_name to show objective air
+CF result success 0
+CF msg Set display slot sidebar.team.red to show objective arm
+CF result success 0
+CF msg Set display slot sidebar.team.blue to show objective xpo
+CF result success 0
+CF msg Set display slot sidebar.team.green to show objective lvl
+CF result success 0
+OBJ {CriteriaName:"air",DisplayName:"air",Name:"air"}
+OBJ {CriteriaName:"armor",DisplayName:"arm",Name:"arm"}
+OBJ {CriteriaName:"food",DisplayName:"food",Name:"food"}
+OBJ {CriteriaName:"health",DisplayName:"hp",Name:"hp",RenderType:"hearts"}
+OBJ {CriteriaName:"level",DisplayName:"lvl",Name:"lvl"}
+OBJ {CriteriaName:"xp",DisplayName:"xpo",Name:"xpo"}
+DISPLAY {below_name:"air",list:"hp",sidebar:"food",sidebar.team.blue:"xpo",sidebar.team.green:"lvl",sidebar.team.red:"arm"}
+# damage and regeneration
+HURT A minecraft:generic 5 -> true
+PKT B minecraft:set_score 7001410268700f0000
+# armour
+PKT B minecraft:set_score 7001410361726d090000
+PKT B minecraft:set_score 7001410361726d030000
+# eating
+PKT B minecraft:set_score 70014104666f6f64060000
+PKT B minecraft:set_score 70014104666f6f640e0000
+# experience
+CF msg Gave 7 experience points to A
+CF result success 1
+PKT B minecraft:set_score 7001410378706f070000
+PKT B minecraft:set_score 700141036c766c010000
+CF msg Gave 20 experience levels to A
+CF result success 1
+PKT B minecraft:set_score 700141036c766c150000
+CF msg Set 0 experience levels on A
+CF result success 1
+PKT B minecraft:set_score 700141036c766c000000
+# drowning
+PKT B minecraft:set_score 70014103616972270000
+PKT B minecraft:set_score 70014103616972260000
+PKT B minecraft:set_score 70014103616972250000
+PKT B minecraft:set_score 70014103616972240000
+PKT B minecraft:set_score 70014103616972230000
+PKT B minecraft:set_score 70014103616972220000
+PKT B minecraft:set_score 70014103616972210000
+PKT B minecraft:set_score 70014103616972200000
+PKT B minecraft:set_score 700141036169721f0000
+PKT B minecraft:set_score 700141036169721e0000
+PKT B minecraft:set_score 700141036169721d0000
+PKT B minecraft:set_score 700141036169721c0000
+PKT B minecraft:set_score 700141036169721b0000
+PKT B minecraft:set_score 700141036169721a0000
+PKT B minecraft:set_score 70014103616972190000
+PKT B minecraft:set_score 70014103616972180000
+PKT B minecraft:set_score 70014103616972170000
+PKT B minecraft:set_score 70014103616972160000
+PKT B minecraft:set_score 70014103616972150000
+PKT B minecraft:set_score 70014103616972140000
+PKT B minecraft:set_score 70014103616972130000
+PKT B minecraft:set_score 70014103616972120000
+PKT B minecraft:set_score 70014103616972110000
+PKT B minecraft:set_score 70014103616972100000
+PKT B minecraft:set_score 700141036169720f0000
+PKT B minecraft:set_score 700141036169720e0000
+PKT B minecraft:set_score 700141036169720d0000
+PKT B minecraft:set_score 700141036169720c0000
+PKT B minecraft:set_score 700141036169720b0000
+PKT B minecraft:set_score 700141036169720a0000
+PKT B minecraft:set_score 70014103616972090000
+PKT B minecraft:set_score 70014103616972080000
+PKT B minecraft:set_score 70014103616972070000
+PKT B minecraft:set_score 70014103616972060000
+PKT B minecraft:set_score 70014103616972050000
+PKT B minecraft:set_score 70014103616972040000
+PKT B minecraft:set_score 70014103616972030000
+PKT B minecraft:set_score 70014103616972020000
+PKT B minecraft:set_score 70014103616972010000
+PKT B minecraft:set_score 70014103616972000000
+PKT B minecraft:set_score 70014103616972ffffffff0f0000
+PKT B minecraft:set_score 70014103616972feffffff0f0000
+PKT B minecraft:set_score 70014103616972fdffffff0f0000
+PKT B minecraft:set_score 70014103616972fcffffff0f0000
+PKT B minecraft:set_score 70014103616972fbffffff0f0000
+PKT B minecraft:set_score 70014103616972faffffff0f0000
+PKT B minecraft:set_score 70014103616972f9ffffff0f0000
+PKT B minecraft:set_score 70014103616972f8ffffff0f0000
+PKT B minecraft:set_score 70014103616972f7ffffff0f0000
+PKT B minecraft:set_score 70014103616972f6ffffff0f0000
+PKT B minecraft:set_score 70014103616972f5ffffff0f0000
+PKT B minecraft:set_score 70014103616972f4ffffff0f0000
+PKT B minecraft:set_score 70014103616972f3ffffff0f0000
+PKT B minecraft:set_score 70014103616972f2ffffff0f0000
+PKT B minecraft:set_score 70014103616972f1ffffff0f0000
+PKT B minecraft:set_score 70014103616972f0ffffff0f0000
+PKT B minecraft:set_score 70014103616972efffffff0f0000
+PKT B minecraft:set_score 70014103616972eeffffff0f0000
+PKT B minecraft:set_score 70014103616972edffffff0f0000
+PKT B minecraft:set_score 7001410268700d0000
+PKT B minecraft:set_score 70014103616972000000
+PKT B minecraft:set_score 70014103616972ffffffff0f0000
+PKT B minecraft:set_score 70014103616972feffffff0f0000
+PKT B minecraft:set_score 70014103616972fdffffff0f0000
+PKT B minecraft:set_score 70014103616972fcffffff0f0000
+PKT B minecraft:set_score 70014103616972fbffffff0f0000
+OBJ {CriteriaName:"air",DisplayName:"air",Name:"air"}
+OBJ {CriteriaName:"armor",DisplayName:"arm",Name:"arm"}
+OBJ {CriteriaName:"food",DisplayName:"food",Name:"food"}
+OBJ {CriteriaName:"health",DisplayName:"hp",Name:"hp",RenderType:"hearts"}
+OBJ {CriteriaName:"level",DisplayName:"lvl",Name:"lvl"}
+OBJ {CriteriaName:"xp",DisplayName:"xpo",Name:"xpo"}
+SCORE {Locked:1b,Name:"A",Objective:"air",Score:-5}
+SCORE {Locked:1b,Name:"A",Objective:"arm",Score:3}
+SCORE {Locked:1b,Name:"A",Objective:"food",Score:14}
+SCORE {Locked:1b,Name:"A",Objective:"hp",Score:13}
+SCORE {Locked:1b,Name:"A",Objective:"lvl"}
+SCORE {Locked:1b,Name:"A",Objective:"xpo",Score:7}
+DISPLAY {below_name:"air",list:"hp",sidebar:"food",sidebar.team.blue:"xpo",sidebar.team.green:"lvl",sidebar.team.red:"arm"}
+CF msg A has -5 [air]
+CF result success -5
+CF msg A has 13 [hp]
+CF result success 13

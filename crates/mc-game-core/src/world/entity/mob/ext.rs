@@ -4,6 +4,7 @@
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::targeting::TargetingConditions;
 use crate::world::entity::equipment::EquipmentSlot;
+use crate::world::entity::team;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid};
 use crate::world::level::storage::loot::{LootContextParamSets, LootParams, loading};
@@ -61,28 +62,6 @@ pub fn is_allied_to(level: &ServerLevel, source: &dyn Entity, other: &dyn Entity
         || other.considers_entity_as_ally(level, source)
 }
 
-/// The scoreboard name of the team entity `e` plays for (`Entity.getTeam()`, tamed pets: their root owner's).
-pub fn team_member_name(level: &ServerLevel, e: &dyn Entity) -> Option<String> {
-    let scoreboard = level.scoreboard();
-    if scoreboard
-        .get_players_team(&e.get_scoreboard_name())
-        .is_some()
-    {
-        return Some(e.get_scoreboard_name());
-    }
-    if e.mob().and_then(|m| m.tamable.as_ref()).is_some() && super::tamable::is_tame(e) {
-        let owner = super::tamable::get_root_owner(level, e)?;
-        let owner = level.get_entity(owner)?;
-        if scoreboard
-            .get_players_team(&owner.get_scoreboard_name())
-            .is_some()
-        {
-            return Some(owner.get_scoreboard_name());
-        }
-    }
-    None
-}
-
 /// `Entity.considersEntityAsAlly(other)`: `isAlliedTo(other.getTeam())`, tamed pets: the root owner is an ally and
 /// delegates to the owner's own rule.
 pub fn considers_entity_as_ally_default(
@@ -102,17 +81,8 @@ pub fn considers_entity_as_ally_default(
         }
     }
     let scoreboard = level.scoreboard();
-    let (Some(own), other_name) = (team_member_name(level, e), team_member_name(level, other))
-    else {
-        return false;
-    };
-    scoreboard.get_players_team(&own).is_some_and(|team| {
-        team.is_allied_to(
-            other_name
-                .as_deref()
-                .and_then(|n| scoreboard.get_players_team(n)),
-        )
-    })
+    team::get_team(level, &scoreboard, e)
+        .is_some_and(|team| team.is_allied_to(team::get_team(level, &scoreboard, other)))
 }
 
 /// `RegistrySet<EntityType>.contains(type)`.

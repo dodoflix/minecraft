@@ -859,7 +859,7 @@ impl Goal for ShulkerDefenseAttackGoal {
     }
 
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if mob::combat::get_team_name(level, mob).is_none() {
+        if mc_game_core::world::entity::team::get_team_name(level, mob).is_none() {
             false
         } else {
             self.target.can_use_impl(mob, level)
