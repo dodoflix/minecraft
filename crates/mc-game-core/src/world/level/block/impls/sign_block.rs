@@ -3,7 +3,9 @@
 use super::prelude::*;
 use crate::server::level::ServerLevel;
 use crate::world::block_entity::BlockEntity;
-use crate::world::block_entity::sign_block_entity::{SignBlockEntity, SignTextExt, SignTextSlot};
+use crate::world::block_entity::sign_block_entity::{
+    ClickActions, SignBlockEntity, SignTextExt, SignTextSlot,
+};
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::item::{
     InteractionHand, InteractionResult, ItemStack, ItemStackExt, behaviour as item_behaviour,
@@ -78,7 +80,12 @@ pub fn use_item_on(
     player: &mut ServerPlayer,
     hand: InteractionHand,
 ) -> InteractionResult {
-    let result = level.with_block_entity(pos, |level, be| {
+    /// The applied item's click events (run with the sign back in its chunk) and the sign's state for the game event.
+    enum Step {
+        Done(InteractionResult),
+        Applied(ClickActions, BlockState),
+    }
+    let step = level.with_block_entity(pos, |level, be| {
         let sign = be.as_any_mut().downcast_mut::<SignBlockEntity>()?;
         let applicator = item_behaviour(stack.item()).as_sign_applicator();
         Some(match applicator {
@@ -91,26 +98,32 @@ pub fn use_item_on(
                 if applicator.can_apply_to_sign(sign.get_text(slot), stack, player)
                     && applicator.try_apply_to_sign(level, sign, slot, stack, player)
                 {
-                    sign.execute_click_commands_if_present(level, player, pos, slot);
-                    player.award_stat_once(level, crate::stats::Stat::Used(stack.item()));
-                    level.game_event_from_entity_ref_in_state(
-                        &*player,
-                        Some(sign.get_block_state()),
-                        GameEvent::BLOCK_CHANGE,
-                        mc_core::phys::Vec3::at_center_of(&sign.get_block_pos()),
-                    );
-                    let mut held = stack.clone();
-                    held.consume(1, player.player.abilities.instabuild);
-                    player.set_item_in_hand(hand, held);
-                    InteractionResult::SUCCESS
+                    Step::Applied(sign.click_actions(slot, player), sign.get_block_state())
                 } else {
-                    InteractionResult::TRY_WITH_EMPTY_HAND
+                    Step::Done(InteractionResult::TRY_WITH_EMPTY_HAND)
                 }
             }
-            _ => InteractionResult::TRY_WITH_EMPTY_HAND,
+            _ => Step::Done(InteractionResult::TRY_WITH_EMPTY_HAND),
         })
     });
-    result.flatten().unwrap_or(InteractionResult::PASS)
+    match step.flatten() {
+        None => InteractionResult::PASS,
+        Some(Step::Done(result)) => result,
+        Some(Step::Applied(actions, state)) => {
+            actions.run(level, player, pos);
+            player.award_stat_once(level, crate::stats::Stat::Used(stack.item()));
+            level.game_event_from_entity_ref_in_state(
+                &*player,
+                Some(state),
+                GameEvent::BLOCK_CHANGE,
+                mc_core::phys::Vec3::at_center_of(&pos),
+            );
+            let mut held = stack.clone();
+            held.consume(1, player.player.abilities.instabuild);
+            player.set_item_in_hand(hand, held);
+            InteractionResult::SUCCESS
+        }
+    }
 }
 
 /// `SignBlock.useWithoutItem`.
@@ -119,11 +132,23 @@ pub fn use_without_item(
     pos: BlockPos,
     player: &mut ServerPlayer,
 ) -> InteractionResult {
-    let result = level.with_block_entity(pos, |level, be| {
+    // the click commands run with the sign in its chunk, so a command can read or change the sign it was clicked on
+    let clicked = level.with_block_entity(pos, |_, be| {
         let sign = be.as_any_mut().downcast_mut::<SignBlockEntity>()?;
         let slot = sign.get_slot_player_is_facing(player.base().x(), player.base().z());
-        let executed_click_command =
-            sign.execute_click_commands_if_present(level, player, pos, slot);
+        Some((
+            slot,
+            sign.click_actions(slot, player),
+            sign.is_waxed(),
+            sign.get_sign_interaction_failed_sound_event(),
+        ))
+    });
+    let Some((slot, actions, waxed_before, failed_sound)) = clicked.flatten() else {
+        return InteractionResult::PASS;
+    };
+    actions.run(level, player, pos);
+    let result = level.with_block_entity(pos, |level, be| {
+        let sign = be.as_any_mut().downcast_mut::<SignBlockEntity>()?;
         Some(if sign.is_waxed() {
             level.play_sound(
                 None,
@@ -134,7 +159,7 @@ pub fn use_without_item(
                 1.0,
             );
             InteractionResult::SUCCESS_SERVER
-        } else if executed_click_command {
+        } else if actions.any {
             InteractionResult::SUCCESS_SERVER
         } else if !other_player_is_editing_sign(player, sign)
             && player.player.abilities.may_build
@@ -148,7 +173,16 @@ pub fn use_without_item(
             InteractionResult::PASS
         })
     });
-    result.flatten().unwrap_or(InteractionResult::PASS)
+    match result.flatten() {
+        Some(result) => result,
+        // a command removed the sign: vanilla goes on with the block entity it already holds
+        None if waxed_before => {
+            level.play_sound(None, pos, failed_sound, SoundSource::Blocks, 1.0, 1.0);
+            InteractionResult::SUCCESS_SERVER
+        }
+        None if actions.any => InteractionResult::SUCCESS_SERVER,
+        None => InteractionResult::PASS,
+    }
 }
 
 /// `SignBlock.setPlacedBy`: a freshly placed, editable sign opens its front side editor for the placing player.

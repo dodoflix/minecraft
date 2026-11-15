@@ -1,0 +1,33 @@
+# ComponentUtils.resolve: the resolved nbt component limit (65536) and the depth limit through self-referencing interpreted nbt.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Op survival 0.5 -60 0.5 0 0
+spawn_player Plain survival 4.5 -60 0.5 0 0
+op Op
+gamerule send_command_feedback true
+tick 1
+cmd_quiet scoreboard objectives add o dummy
+cmd_quiet scoreboard players set Op o 7
+cmd_quiet scoreboard players set Plain o 9
+cmd_quiet scoreboard players set Fake o 3
+cmd_quiet data merge storage t:s {str:"hi",num:5,list:[1,2,3],comp:{text:"stored",color:"gold"},comps:[{text:"a"},{text:"b",bold:1b}],nest:{a:{b:"deep"}},sel:{selector:"@s"},bad:{translate:5},rec:{nbt:"rec",storage:"t:s",interpret:true}}
+cmd_quiet summon minecraft:pig 3 -60 3 {UUID:[I;1,2,3,4],CustomName:"Bob",NoAI:1b,Tags:["t1"]}
+cmd_quiet summon minecraft:cow 5 -60 3 {UUID:[I;1,2,3,5],NoAI:1b}
+cmd_quiet setblock 0 -60 4 minecraft:oak_sign[rotation=0]
+cmd_quiet data merge block 0 -60 4 {front_text:{messages:["one",{text:"two",color:"red"},"",""]}}
+cmd_quiet setblock 2 -60 4 minecraft:chest
+cmd_quiet item replace block 2 -60 4 container.0 with minecraft:diamond 3
+cmd_quiet item replace block 2 -60 4 container.1 with minecraft:stick
+cmd_quiet item replace entity Op weapon.mainhand with minecraft:apple 2
+tick 1
+dump packets:Op:none packets:Plain:none
+cmd_quiet data merge storage t:lim {lim:[{nbt:"lim[]",storage:"t:lim",interpret:true},{nbt:"lim[]",storage:"t:lim",interpret:true}],one:[{nbt:"one[]",storage:"t:lim",interpret:true,separator:"."}]}
+note a binary tree of interpreted nbt components: resolution stops producing text after 65536 nbt resolutions
+cmd_as Op tellraw Plain {"nbt":"lim[]","storage":"t:lim","interpret":true}
+dump packets:Plain
+note a chain only ends at the depth limit
+cmd_as Op tellraw Plain {"nbt":"one[]","storage":"t:lim","interpret":true}
+dump packets:Plain

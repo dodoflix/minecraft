@@ -90,17 +90,14 @@ impl LecternBlockEntity {
 
     /// `resolveBook(book, null)`: resolves the components of a written book (`WrittenBookContent.resolveForItem`) with
     /// a game-master "Lectern" source at the lectern. Vanilla only does it for a block entity that has a level; here the
-    /// server must be installed (`enter_server`), which block use from a player packet guarantees, while chunk loading
-    /// (no level yet in vanilla either) does not resolve.
-    fn resolve_book(&self, level: &ServerLevel, book: &mut ItemStack) {
+    /// server must be reachable (`enter_server`, which block use from a player packet and `/data` guarantee) and gets the
+    /// level lent for the resolution, while chunk loading (no level yet in vanilla either) does not resolve.
+    fn resolve_book(&self, level: &mut ServerLevel, book: &mut ItemStack) {
         use mc_core::phys::{Vec2, Vec3};
         use mc_game_core::commands::command_source::null_source;
         use mc_game_core::commands::command_source_stack::CommandSourceStack;
         use mc_game_core::commands::component_utils::ResolutionContext;
         use mc_game_core::server::permissions::{LevelBasedPermissionSet, PermissionSet};
-        if !mc_game_core::commands::server_access::has_server() {
-            return;
-        }
         let permissions: PermissionSet = LevelBasedPermissionSet::GAMEMASTER.into();
         let source = CommandSourceStack::named(
             null_source(),
@@ -110,7 +107,9 @@ impl LecternBlockEntity {
             permissions,
             mc_text::Component::literal("Lectern"),
         );
-        mc_game_core::world::item::resolve_for_item(book, &ResolutionContext::create(&source));
+        mc_game_core::commands::server_access::with_level_lent(level, || {
+            mc_game_core::world::item::resolve_for_item(book, &ResolutionContext::create(&source))
+        });
     }
 
     /// `getPage()`.

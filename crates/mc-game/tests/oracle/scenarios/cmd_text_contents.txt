@@ -1,0 +1,146 @@
+# Text component resolution through /tellraw: selector (several, none, separators, bad), score (selector, wildcard, missing), keybind, object, translatable arguments, hover text.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Op survival 0.5 -60 0.5 0 0
+spawn_player Plain survival 4.5 -60 0.5 0 0
+op Op
+gamerule send_command_feedback true
+tick 1
+cmd_quiet scoreboard objectives add o dummy
+cmd_quiet scoreboard players set Op o 7
+cmd_quiet scoreboard players set Plain o 9
+cmd_quiet scoreboard players set Fake o 3
+cmd_quiet data merge storage t:s {str:"hi",num:5,list:[1,2,3],comp:{text:"stored",color:"gold"},comps:[{text:"a"},{text:"b",bold:1b}],nest:{a:{b:"deep"}},sel:{selector:"@s"},bad:{translate:5},rec:{nbt:"rec",storage:"t:s",interpret:true}}
+cmd_quiet summon minecraft:pig 3 -60 3 {UUID:[I;1,2,3,4],CustomName:"Bob",NoAI:1b,Tags:["t1"]}
+cmd_quiet summon minecraft:cow 5 -60 3 {UUID:[I;1,2,3,5],NoAI:1b}
+cmd_quiet setblock 0 -60 4 minecraft:oak_sign[rotation=0]
+cmd_quiet data merge block 0 -60 4 {front_text:{messages:["one",{text:"two",color:"red"},"",""]}}
+cmd_quiet setblock 2 -60 4 minecraft:chest
+cmd_quiet item replace block 2 -60 4 container.0 with minecraft:diamond 3
+cmd_quiet item replace block 2 -60 4 container.1 with minecraft:stick
+cmd_quiet item replace entity Op weapon.mainhand with minecraft:apple 2
+tick 1
+dump packets:Op:none packets:Plain:none
+note selector
+cmd_as Op tellraw Plain {"selector":"@e[type=pig]"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"selector":"@e[type=!player,sort=nearest]"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"selector":"@e[type=!player,sort=nearest]","separator":{"text":" | ","color":"red"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"selector":"@e[type=!player,sort=nearest]","separator":{"selector":"@e[type=pig]"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"selector":"@e[type=zombie]"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"selector":"@s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"selector":"Plain"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"selector":"@a"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"selector":"@p"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"selector":"@n[type=cow]"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"selector":"@e[type=pig","color":"red"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"selector":"@e[distance=..bad]"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"selector":"@e[type=pig]","color":"green","bold":true,"extra":[{"text":" after"}]}
+dump packets:Plain
+cmd_as Op tellraw Plain [{"selector":"@e[type=pig]"},{"selector":"@e[type=cow]"}]
+dump packets:Plain
+cmd_as Op tellraw Plain {"text":"x","hover_event":{"action":"show_text","value":{"selector":"@e[type=pig]"}}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"text":"x","hover_event":{"action":"show_text","value":{"text":"h","hover_event":{"action":"show_text","value":{"selector":"@s"}}}}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"text":"x","extra":[{"selector":"@e[type=pig]","hover_event":{"action":"show_text","value":{"selector":"@e[type=cow]"}}}]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"text":"x","click_event":{"action":"run_command","command":"say @e"},"insertion":"@s"}
+dump packets:Plain
+note score
+cmd_as Op tellraw Plain {"score":{"name":"Op","objective":"o"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"score":{"name":"@s","objective":"o"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"score":{"name":"*","objective":"o"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"score":{"name":"@a","objective":"o"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"score":{"name":"@e[type=pig]","objective":"o"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"score":{"name":"Fake","objective":"o"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"score":{"name":"nobody","objective":"o"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"score":{"name":"Op","objective":"missing"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"score":{"name":"@e[type=zombie]","objective":"o"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"score":{"name":"@e[","objective":"o"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"score":{"name":"Op","objective":"o"},"color":"gold","bold":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"text":"a","extra":[{"score":{"name":"Plain","objective":"o"}},{"score":{"name":"*","objective":"o"}}]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"text":"x","hover_event":{"action":"show_text","value":{"score":{"name":"Op","objective":"o"}}}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"score":{"name":"@p","objective":"o"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"score":{"name":"@e[type=!player,limit=1,sort=furthest]","objective":"o"}}
+dump packets:Plain
+note keybind and object
+cmd_as Op tellraw Plain {"keybind":"key.jump"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"keybind":"key.nonsense","color":"red"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"keybind":"key.attack","extra":[{"keybind":"key.use"}]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"sprite":"item/diamond"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"sprite":"block/stone","atlas":"minecraft:blocks"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"sprite":"block/stone","fallback":{"selector":"@s"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"sprite":"block/stone","fallback":"plain fallback"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"player":{"name":"Notch"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"player":{"name":"Notch"},"hat":false,"fallback":{"text":"F","color":"red"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"player":{"id":[I;1,2,3,4]},"fallback":{"score":{"name":"Op","objective":"o"}}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"player":{"name":"Op","properties":[{"name":"textures","value":"abc"}]}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"text":"x","extra":[{"sprite":"item/apple","fallback":{"selector":"@e[type=pig]"}}]}
+dump packets:Plain
+note translatable
+cmd_as Op tellraw Plain {"translate":"chat.type.text","with":["Op","hi"]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"translate":"chat.type.text","with":[{"selector":"@s"},{"text":"hi"}]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"translate":"commands.give.success.single","with":[2,{"translate":"item.minecraft.diamond"},{"selector":"@a"}]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"translate":"no.such.key","fallback":"fb %s and %s","with":["x",{"selector":"@s"}]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"translate":"no.such.key","with":[1,true,1.5,"s",{"text":"c"},1b,2L]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"translate":"commands.give.success.single","with":[{"score":{"name":"Op","objective":"o"},"color":"red"},[{"text":"a"},{"text":"b"}],{"nbt":"str","storage":"t:s"}]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"translate":"chat.type.text","with":[{"translate":"chat.type.text","with":[{"selector":"@e[type=pig]"},{"nbt":"list[]","storage":"t:s"}]},{"keybind":"key.jump"}]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"translate":"%s%1$s %3$s","fallback":"%s%1$s %3$s","with":["x",{"selector":"@s"}]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"translate":"chat.type.text","with":[{"selector":"@e[","color":"red"}]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"translate":"chat.type.text","with":[{"score":{"name":"@a","objective":"o"}},"x"]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"translate":"chat.type.text","with":["a","b"],"hover_event":{"action":"show_text","value":{"translate":"chat.type.text","with":[{"selector":"@s"},"b"]}}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"translate":"chat.type.text","with":[]}
+dump packets:Plain
+cmd_as Op tellraw Plain {"translate":"chat.type.text"}
+dump packets:Plain

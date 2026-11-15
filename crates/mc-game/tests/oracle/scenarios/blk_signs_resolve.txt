@@ -1,0 +1,45 @@
+# SignBlockEntity.resolveLines through /data merge block: the source of the command, allow_op_features, both sides, filtered lines.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Op survival 0.5 -60 0.5 0 0
+spawn_player Plain survival 4.5 -60 0.5 0 0
+op Op
+gamerule send_command_feedback true
+tick 1
+cmd_quiet scoreboard objectives add o dummy
+cmd_quiet scoreboard players set Op o 7
+cmd_quiet scoreboard players set Plain o 9
+cmd_quiet scoreboard players set Fake o 3
+cmd_quiet data merge storage t:s {str:"hi",num:5,list:[1,2,3],comp:{text:"stored",color:"gold"},comps:[{text:"a"},{text:"b",bold:1b}],nest:{a:{b:"deep"}},sel:{selector:"@s"},bad:{translate:5},rec:{nbt:"rec",storage:"t:s",interpret:true}}
+cmd_quiet summon minecraft:pig 3 -60 3 {UUID:[I;1,2,3,4],CustomName:"Bob",NoAI:1b,Tags:["t1"]}
+cmd_quiet summon minecraft:cow 5 -60 3 {UUID:[I;1,2,3,5],NoAI:1b}
+cmd_quiet setblock 0 -60 4 minecraft:oak_sign[rotation=0]
+cmd_quiet data merge block 0 -60 4 {front_text:{messages:["one",{text:"two",color:"red"},"",""]}}
+cmd_quiet setblock 2 -60 4 minecraft:chest
+cmd_quiet item replace block 2 -60 4 container.0 with minecraft:diamond 3
+cmd_quiet item replace block 2 -60 4 container.1 with minecraft:stick
+cmd_quiet item replace entity Op weapon.mainhand with minecraft:apple 2
+tick 1
+dump packets:Op:none packets:Plain:none
+note allow_op_features resolves the lines of a sign on /data merge (the sign is the source: @s selects nothing)
+cmd_quiet setblock 6 -60 4 minecraft:oak_sign[rotation=0]
+cmd_as Op data merge block 6 -60 4 {allow_op_features:1b,front_text:{messages:[{selector:"@e[type=pig]"},{score:{name:"Op",objective:"o"}},{nbt:"str",storage:"t:s"},{translate:"chat.type.text",with:[{selector:"@s"},{keybind:"key.jump"}]}]}}
+dump be:6,-60,4 beu:6,-60,4 packets:Plain
+cmd_as Op data merge block 6 -60 4 {front_text:{messages:[{selector:"@s"},"","",""]},back_text:{messages:[{score:{name:"*",objective:"o"}},"","",""],filtered_messages:[{selector:"@a"},"","",""]}}
+dump be:6,-60,4 packets:Plain
+note without allow_op_features the lines stay as written
+cmd_quiet setblock 8 -60 4 minecraft:oak_sign[rotation=0]
+cmd_as Op data merge block 8 -60 4 {front_text:{messages:[{selector:"@e[type=pig]"},{score:{name:"Op",objective:"o"}},"",""]}}
+dump be:8,-60,4 beu:8,-60,4
+cmd data get block 6 -60 4 front_text.messages
+cmd_json data get block 6 -60 4 front_text.messages[0]
+note a console merge resolves with the same sign source
+cmd data merge block 6 -60 4 {front_text:{messages:[{selector:"@s"},{score:{name:"*",objective:"o"}},{nbt:"Pos",entity:"@e[type=pig]"},""]}}
+dump be:6,-60,4
+note a hanging sign
+cmd_quiet setblock 10 -60 4 minecraft:oak_hanging_sign[rotation=0,attached=false]
+cmd_as Op data merge block 10 -60 4 {allow_op_features:1b,back_text:{messages:[{selector:"@a"},"","",""]}}
+dump be:10,-60,4

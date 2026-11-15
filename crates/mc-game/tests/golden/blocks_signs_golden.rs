@@ -1,6 +1,6 @@
 //! Sign goldens: scenarios `tests/oracle/scenarios/blk_signs_*.txt` replayed on the real vanilla level
 //! (`scripts/block-oracle.sh NAME`) vs our ticking level (fixtures `tests/fixtures/entity_oracle/blk_signs_*.txt`).
-//! `run_command` click events are not run (`Not implemented:` in `SignBlockEntity`); the scenarios keep `allow_op_features` off.
+//! `blk_signs_click` runs the click events of waxed signs with `allow_op_features` (commands, dialogs); the other scenarios keep it off.
 
 use crate::common;
 
@@ -27,4 +27,14 @@ fn wall_and_hanging_variants_match_vanilla() {
 #[test]
 fn applicators_match_vanilla() {
     common::block_scenario::check("blk_signs_apply");
+}
+
+#[test]
+fn click_events_match_vanilla() {
+    common::block_scenario::check("blk_signs_click");
+}
+
+#[test]
+fn line_resolution_on_data_merge_matches_vanilla() {
+    common::block_scenario::check("blk_signs_resolve");
 }

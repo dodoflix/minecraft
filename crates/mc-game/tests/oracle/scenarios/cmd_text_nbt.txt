@@ -1,0 +1,130 @@
+# NBT text components through /tellraw: storage, entity and block sources, interpret, plain, separators, bad paths and sources.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Op survival 0.5 -60 0.5 0 0
+spawn_player Plain survival 4.5 -60 0.5 0 0
+op Op
+gamerule send_command_feedback true
+tick 1
+cmd_quiet scoreboard objectives add o dummy
+cmd_quiet scoreboard players set Op o 7
+cmd_quiet scoreboard players set Plain o 9
+cmd_quiet scoreboard players set Fake o 3
+cmd_quiet data merge storage t:s {str:"hi",num:5,list:[1,2,3],comp:{text:"stored",color:"gold"},comps:[{text:"a"},{text:"b",bold:1b}],nest:{a:{b:"deep"}},sel:{selector:"@s"},bad:{translate:5},rec:{nbt:"rec",storage:"t:s",interpret:true}}
+cmd_quiet summon minecraft:pig 3 -60 3 {UUID:[I;1,2,3,4],CustomName:"Bob",NoAI:1b,Tags:["t1"]}
+cmd_quiet summon minecraft:cow 5 -60 3 {UUID:[I;1,2,3,5],NoAI:1b}
+cmd_quiet setblock 0 -60 4 minecraft:oak_sign[rotation=0]
+cmd_quiet data merge block 0 -60 4 {front_text:{messages:["one",{text:"two",color:"red"},"",""]}}
+cmd_quiet setblock 2 -60 4 minecraft:chest
+cmd_quiet item replace block 2 -60 4 container.0 with minecraft:diamond 3
+cmd_quiet item replace block 2 -60 4 container.1 with minecraft:stick
+cmd_quiet item replace entity Op weapon.mainhand with minecraft:apple 2
+tick 1
+dump packets:Op:none packets:Plain:none
+note nbt storage
+cmd_as Op tellraw Plain {"nbt":"str","storage":"t:s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"num","storage":"t:s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"list","storage":"t:s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"list[]","storage":"t:s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"list[]","storage":"t:s","separator":{"text":"/","color":"aqua"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"list[]","storage":"t:s","separator":{"selector":"@s"}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"comp","storage":"t:s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"comp","storage":"t:s","plain":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"comp","storage":"t:s","interpret":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"comps[]","storage":"t:s","interpret":true,"separator":" and "}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"comps[]","storage":"t:s","plain":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"comps[]","storage":"t:s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"comps","storage":"t:s","interpret":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"sel","storage":"t:s","interpret":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"str","storage":"t:s","interpret":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"num","storage":"t:s","interpret":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"list[]","storage":"t:s","interpret":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"bad","storage":"t:s","interpret":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"nest.a","storage":"t:s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"nest","storage":"t:s","plain":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"missing","storage":"t:s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"str","storage":"nothing:here"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"","storage":"t:s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"list[1]","storage":"t:s","color":"yellow"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"rec","storage":"t:s","interpret":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"str","storage":"t:s","hover_event":{"action":"show_text","value":{"nbt":"str","storage":"t:s"}}}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"[bad","storage":"t:s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"str","storage":"BAD ID"}
+dump packets:Plain
+note nbt entity and block
+cmd_as Op tellraw Plain {"nbt":"CustomName","entity":"@e[type=pig]"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"CustomName","entity":"@e[type=pig]","interpret":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"Pos","entity":"@e[type=pig]"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"Pos[]","entity":"@e[type=pig]"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"Health","entity":"@e[type=!player]"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"Health","entity":"@e[type=!player]","separator":" ; "}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"Tags","entity":"@e[type=pig]"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"SelectedItemSlot","entity":"@s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"playerGameType","entity":"@s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"Inventory","entity":"@s"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"Health","entity":"@e[type=zombie]"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"Health","entity":"@e["}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"front_text.messages[]","block":"0 -60 4"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"front_text.messages[]","block":"0 -60 4","interpret":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"front_text.messages[1]","block":"0 -60 4","interpret":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"Items","block":"2 -60 4"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"Items[].id","block":"2 -60 4","separator":"+"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"Items[0]","block":"2 -60 4","plain":true}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"id","block":"~-0.5 -60 ~4"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"id","block":"0 -60 4"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"id","block":"9 -60 9"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"id","block":"bad"}
+dump packets:Plain
+cmd_as Op tellraw Plain {"nbt":"id","block":"0 -60 4","color":"green","bold":true}
+dump packets:Plain

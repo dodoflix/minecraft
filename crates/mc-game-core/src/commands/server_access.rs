@@ -8,6 +8,7 @@
 //! like a `RefCell`): nesting `with_server` is a bug and panics instead of aliasing.
 
 use crate::server::MinecraftServer;
+use crate::server::level::ServerLevel;
 use std::cell::Cell;
 use std::ptr::null_mut;
 
@@ -46,4 +47,13 @@ pub fn with_server<R>(f: impl FnOnce(&mut MinecraftServer) -> R) -> R {
     // call of `enter_server` and unused by it; the pointer was taken out of the cell, so no other `&mut` derived from it
     // can exist until `_restore` puts it back (also on unwind).
     f(unsafe { &mut *ptr })
+}
+
+/// Runs `f` for level code that resolves text (`ComponentUtils.resolve` finds entities through `server.level` and borrows the
+/// server with [`with_server`]): `level` is lent to the installed server and the server is reachable again inside `f`, which
+/// must not use `level`. `None` (nothing runs) when no server is installed, like a bare test level.
+pub fn with_level_lent<R>(level: &mut ServerLevel, f: impl FnOnce() -> R) -> Option<R> {
+    has_server().then(|| {
+        with_server(|server| server.with_lent_level(level, |server| enter_server(server, f)))
+    })
 }

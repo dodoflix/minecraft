@@ -1,0 +1,70 @@
+# Text components reaching players through /title, /bossbar, /say, /me and /msg: resolution context (source, target as the score wildcard), packets, feedback.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+spawn_player Op survival 0.5 -60 0.5 0 0
+spawn_player Plain survival 4.5 -60 0.5 0 0
+op Op
+gamerule send_command_feedback true
+tick 1
+cmd_quiet scoreboard objectives add o dummy
+cmd_quiet scoreboard players set Op o 7
+cmd_quiet scoreboard players set Plain o 9
+cmd_quiet scoreboard players set Fake o 3
+cmd_quiet data merge storage t:s {str:"hi",num:5,list:[1,2,3],comp:{text:"stored",color:"gold"},comps:[{text:"a"},{text:"b",bold:1b}],nest:{a:{b:"deep"}},sel:{selector:"@s"},bad:{translate:5},rec:{nbt:"rec",storage:"t:s",interpret:true}}
+cmd_quiet summon minecraft:pig 3 -60 3 {UUID:[I;1,2,3,4],CustomName:"Bob",NoAI:1b,Tags:["t1"]}
+cmd_quiet summon minecraft:cow 5 -60 3 {UUID:[I;1,2,3,5],NoAI:1b}
+cmd_quiet setblock 0 -60 4 minecraft:oak_sign[rotation=0]
+cmd_quiet data merge block 0 -60 4 {front_text:{messages:["one",{text:"two",color:"red"},"",""]}}
+cmd_quiet setblock 2 -60 4 minecraft:chest
+cmd_quiet item replace block 2 -60 4 container.0 with minecraft:diamond 3
+cmd_quiet item replace block 2 -60 4 container.1 with minecraft:stick
+cmd_quiet item replace entity Op weapon.mainhand with minecraft:apple 2
+tick 1
+dump packets:Op:none packets:Plain:none
+note title, subtitle and action bar: the score wildcard is the target, @s the source
+cmd_as Op title Plain title {"selector":"@e[type=pig]"}
+cmd_as Op title Plain subtitle {"score":{"name":"*","objective":"o"}}
+cmd_as Op title Plain actionbar {"nbt":"str","storage":"t:s"}
+dump packets:Plain
+cmd_as Op title @a title {"score":{"name":"*","objective":"o"},"extra":["/",{"selector":"@s"}]}
+dump packets:Op packets:Plain
+cmd title @a actionbar {"score":{"name":"*","objective":"o"}}
+dump packets:Op packets:Plain
+cmd_json title Plain title {"text":"plain","color":"red"}
+cmd title Plain times 5 10 15
+cmd title Plain clear
+cmd title Plain reset
+cmd title @a subtitle {"selector":"@s"}
+cmd title Plain title {"score":{"name":"@a","objective":"o"}}
+cmd title Plain title {"nbt":"Pos","entity":"@e[type=pig]"}
+cmd title Plain title {"text":"x","hover_event":{"action":"show_text","value":{"selector":"@e[type=cow]"}}}
+cmd title Plain title {"selector":"@e[type=pig]","extra":[{"nbt":"list[]","storage":"t:s","separator":"-"}]}
+dump packets:Op packets:Plain
+note boss bars: names resolve at add and at set name
+cmd_json bossbar add b {"selector":"@e[type=pig]"}
+cmd_json bossbar add c {"score":{"name":"*","objective":"o"}}
+cmd_as Op bossbar add d {"score":{"name":"*","objective":"o"}}
+cmd_json bossbar set b name {"nbt":"comp","storage":"t:s","interpret":true}
+cmd_as Op bossbar set d name {"selector":"@s","color":"red"}
+cmd_json bossbar set b players Plain
+cmd_json bossbar set d players Op Plain
+cmd_json bossbar get b value
+cmd_json bossbar list
+cmd bossbar add e {"score":{"name":"@a","objective":"o"}}
+cmd_json bossbar set b name {"translate":"chat.type.text","with":[{"selector":"@e[type=cow]"},{"score":{"name":"Plain","objective":"o"}}]}
+dump packets:Op packets:Plain bossbars
+note chat commands: selectors typed into the message resolve to entity names
+cmd_as Op say hello @e[type=pig] and @s
+cmd_as Op me waves at @e[type=cow]
+cmd_as Op msg Plain @e[type=pig] hi @p
+cmd say @a @e[type=!player,limit=1,sort=furthest] @s
+cmd_json say nothing @e[type=zombie] here
+cmd_as Op msg Plain @e[type=pig
+dump packets:Op packets:Plain
+note data merge entity and block with text: names and custom names are not resolved by the command
+cmd_json data merge entity @e[type=pig,limit=1] {CustomName:{selector:"@s"}}
+cmd_json data get entity @e[type=pig,limit=1] CustomName
+dump packets:Op packets:Plain

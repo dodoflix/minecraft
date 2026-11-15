@@ -115,15 +115,6 @@ fn resolve_contents(
     contents: &ComponentContents,
     depth: i32,
 ) -> Result<Component, CommandSyntaxException> {
-    let Some(source) = context.source else {
-        // Without a source only the plain contents are copied (`selector`/`score`/`nbt` become empty).
-        return Ok(match contents {
-            ComponentContents::Selector(_)
-            | ComponentContents::Score(_)
-            | ComponentContents::Nbt(_) => Component::empty(),
-            other => Component::new(other.clone()),
-        });
-    };
     match contents {
         ComponentContents::Translatable(t) => {
             let mut args = Vec::with_capacity(t.args.len());
@@ -141,7 +132,15 @@ fn resolve_contents(
                 args,
             ))
         }
+        ComponentContents::Object(o) => {
+            let fallback = resolve_opt(context, o.fallback.as_deref(), depth)?;
+            Ok(Component::object(o.contents.clone(), fallback))
+        }
         ComponentContents::Selector(s) => {
+            // `source == null` resolves to the empty component
+            let Some(source) = context.source else {
+                return Ok(Component::empty());
+            };
             let separator = resolve_opt(context, s.separator.as_deref(), depth)?
                 .unwrap_or_else(default_separator);
             let entities = find_entities(source, &s.selector)?;
@@ -154,6 +153,10 @@ fn resolve_contents(
             Ok(formatted)
         }
         ComponentContents::Score(score) => {
+            // `source == null` resolves to the empty component
+            let Some(source) = context.source else {
+                return Ok(Component::empty());
+            };
             let holder = match &score.name {
                 ScoreName::Selector(selector) => {
                     let entities = find_entities(source, selector)?;
@@ -185,6 +188,10 @@ fn resolve_contents(
                 .with_server(|server| host::score_component(server, &holder, &score.objective)))
         }
         ComponentContents::Nbt(nbt) => {
+            // `source == null` resolves to the empty component
+            let Some(source) = context.source else {
+                return Ok(Component::empty());
+            };
             if context.resolved_component_count.get() > context.resolved_component_limit {
                 return Ok(Component::empty());
             }
@@ -234,10 +241,6 @@ fn resolve_contents(
                     acc.append(separator.clone()).append(next)
                 }),
             })
-        }
-        ComponentContents::Object(o) => {
-            let fallback = resolve_opt(context, o.fallback.as_deref(), depth)?;
-            Ok(Component::object(o.contents.clone(), fallback))
         }
         other => Ok(Component::new(other.clone())),
     }

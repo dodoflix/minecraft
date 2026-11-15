@@ -1,0 +1,126 @@
+# Sign click events (SignBlockEntity.executeClickCommandsIfPresent): run_command with and without a leading slash, show_dialog (inline
+# and registered), custom, signs without allow_op_features, unwaxed signs, several commands on one sign, the back side, a sign that
+# removes itself or changes itself, commands that fail, and the permissions of the click source (always game master).
+command_env
+level flat
+preload 3
+level_seed 3
+entity_counter 50
+spawn_player p survival 0.5 -60 6.5 0 0
+spawn_player q survival 8.5 -60 6.5 0 0
+gamerule send_command_feedback true
+tick 1
+dump packets:p:none packets:q:none
+note say from a waxed op sign: the player is the source, the chat reaches both players
+block 0 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 0 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"say",click_event:{action:"run_command",command:"say hello from sign"}},"","",""]}}
+snap p 0.5 -60 6.5 0.0 0
+use_on p 0 -60 3 south
+tick 1
+dump packets:p:!update_attributes packets:q:!update_attributes
+note setblock and a leading slash
+block 2 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 2 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"sb",click_event:{action:"run_command",command:"setblock 2 -59 6 minecraft:gold_block"}},{text:"slash",click_event:{action:"run_command",command:"/say slashed"}},"",""]}}
+snap p 2.5 -60 6.5 0.0 0
+use_on p 2 -60 3 south
+tick 1
+dump blocks:2,-60,6,2,-58,6 packets:p:!update_attributes packets:q:!update_attributes
+note without allow_op_features: the click actions disabled overlay, nothing runs
+block 4 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 4 -60 3 {is_waxed:1b,front_text:{messages:[{text:"no",click_event:{action:"run_command",command:"setblock 4 -59 6 minecraft:gold_block"}},"","",""]}}
+snap p 4.5 -60 6.5 0.0 0
+use_on p 4 -60 3 south
+tick 1
+dump blocks:4,-60,6,4,-58,6 packets:p:!update_attributes packets:q:!update_attributes
+note unwaxed sign with commands: the commands run, the editor stays closed
+block 6 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 6 -60 3 {allow_op_features:1b,front_text:{messages:[{text:"un",click_event:{action:"run_command",command:"say unwaxed"}},"","",""]}}
+snap p 6.5 -60 6.5 0.0 0
+use_on p 6 -60 3 south
+tick 1
+dump packets:p:!update_attributes packets:q:!update_attributes be:6,-60,3
+note two commands on one sign run in line order; gamemode of a named player
+block 8 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 8 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"a",click_event:{action:"run_command",command:"say first"}},{text:"b",click_event:{action:"run_command",command:"gamemode creative q"}},{text:"c",click_event:{action:"run_command",command:"say second"}},""]}}
+snap p 8.5 -60 6.5 0.0 0
+use_on p 8 -60 3 south
+tick 1
+dump packets:p:!update_attributes packets:q:!update_attributes player:q
+note the clicking player is the executor: @s, @p and execute as @a
+block 10 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 10 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"s",click_event:{action:"run_command",command:"tellraw @s {\"text\":\"self\"}"}},{text:"p",click_event:{action:"run_command",command:"tellraw @p {\"text\":\"nearest\"}"}},{text:"e",click_event:{action:"run_command",command:"execute as @a run tellraw @s {\"selector\":\"@s\"}"}},""]}}
+snap p 10.5 -60 6.5 0.0 0
+use_on p 10 -60 3 south
+tick 1
+dump packets:p:!update_attributes packets:q:!update_attributes
+note show_dialog inline and registered, custom
+block 12 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 12 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"d",click_event:{action:"show_dialog",dialog:{type:"minecraft:notice",title:"Hello"}}},"","",""]}}
+snap p 12.5 -60 6.5 0.0 0
+use_on p 12 -60 3 south
+tick 1
+dump packets:p:!update_attributes packets:q:!update_attributes
+block 14 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 14 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"d",click_event:{action:"show_dialog",dialog:"minecraft:server_links"}},"","",""]}}
+snap p 14.5 -60 6.5 0.0 0
+use_on p 14 -60 3 south
+tick 1
+dump packets:p:!update_attributes packets:q:!update_attributes
+block 16 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 16 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"c",click_event:{action:"custom",id:"test:thing",payload:{a:1}}},"","",""]}}
+snap p 16.5 -60 6.5 0.0 0
+use_on p 16 -60 3 south
+tick 1
+dump packets:p:!update_attributes packets:q:!update_attributes
+note dialog and custom without allow_op_features: overlay only
+block 18 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 18 -60 3 {is_waxed:1b,front_text:{messages:[{text:"d",click_event:{action:"show_dialog",dialog:"minecraft:server_links"}},"","",""]}}
+snap p 18.5 -60 6.5 0.0 0
+use_on p 18 -60 3 south
+tick 1
+dump packets:p:!update_attributes packets:q:!update_attributes
+note the back side is the one facing the player
+block 20 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 20 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"f",click_event:{action:"run_command",command:"say front"}},"","",""]},back_text:{messages:[{text:"b",click_event:{action:"run_command",command:"say back"}},"","",""]}}
+snap p 20.5 -60 0.5 180.0 0
+use_on p 20 -60 3 north
+tick 1
+dump packets:p:!update_attributes packets:q:!update_attributes
+note a hanging sign and a wall sign
+block 22 -60 3 minecraft:oak_hanging_sign[rotation=0,attached=false]
+be_nbt 22 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"h",click_event:{action:"run_command",command:"say hanging"}},"","",""]}}
+block 24 -60 3 minecraft:oak_wall_sign[facing=south]
+be_nbt 24 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"w",click_event:{action:"run_command",command:"say wall"}},"","",""]}}
+snap p 22.5 -60 6.5 0.0 0
+use_on p 22 -60 3 south
+snap p 24.5 -60 6.5 0.0 0
+use_on p 24 -60 3 south
+tick 1
+dump packets:p:!update_attributes packets:q:!update_attributes
+note a sign that removes itself, and failing commands
+block 26 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 26 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"x",click_event:{action:"run_command",command:"setblock 26 -60 3 minecraft:air"}},{text:"y",click_event:{action:"run_command",command:"say after removal"}},"",""]}}
+snap p 26.5 -60 6.5 0.0 0
+use_on p 26 -60 3 south
+tick 1
+dump blocks:26,-60,3,26,-60,3 packets:p:!update_attributes packets:q:!update_attributes
+block 28 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 28 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"x",click_event:{action:"run_command",command:"frobnicate"}},{text:"y",click_event:{action:"run_command",command:"tellraw nobody {\"text\":\"x\"}"}},{text:"z",click_event:{action:"run_command",command:"say still runs"}},""]}}
+snap p 28.5 -60 6.5 0.0 0
+use_on p 28 -60 3 south
+tick 1
+dump packets:p:!update_attributes packets:q:!update_attributes
+note the sign's source is a game master whoever clicks: op (level 3) is refused, gamemode (level 2) is not
+block 30 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 30 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"o",click_event:{action:"run_command",command:"op q"}},{text:"g",click_event:{action:"run_command",command:"gamemode adventure p"}},{text:"s",click_event:{action:"run_command",command:"save-off"}},""]}}
+snap p 30.5 -60 6.5 0.0 0
+use_on p 30 -60 3 south
+tick 1
+dump packets:p:!update_attributes packets:q:!update_attributes player:p player:q
+note a command that changes the clicked sign: the waxed check after the commands sees the change
+block 32 -60 3 minecraft:oak_sign[rotation=0]
+be_nbt 32 -60 3 {allow_op_features:1b,is_waxed:1b,front_text:{messages:[{text:"u",click_event:{action:"run_command",command:"data merge block 32 -60 3 {is_waxed:0b}"}},"","",""]}}
+snap p 32.5 -60 6.5 0.0 0
+use_on p 32 -60 3 south
+tick 1
+dump be:32,-60,3 packets:p:!update_attributes packets:q:!update_attributes

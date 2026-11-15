@@ -296,44 +296,29 @@ impl SignBlockEntity {
                 .has_any_click_commands(player.text_filtering_enabled)
     }
 
-    /// `executeClickCommandsIfPresent(level, player, pos, slot)`: runs the `run_command` / `show_dialog` / `custom`
-    /// click events of the slot's lines (only for signs with `allow_op_features`); whether any line has one.
-    pub fn execute_click_commands_if_present(
-        &self,
-        level: &mut ServerLevel,
-        player: &mut ServerPlayer,
-        pos: BlockPos,
-        slot: SignTextSlot,
-    ) -> bool {
-        let mut has_any_click_command = false;
+    /// The first half of `executeClickCommandsIfPresent(level, player, pos, slot)`: the `run_command` / `show_dialog` /
+    /// `custom` click events of the slot's lines, and the overlay a sign without `allow_op_features` sends. The events run
+    /// with [`ClickActions::run`] once the block entity is back in its chunk (vanilla's commands see the sign they click).
+    pub fn click_actions(&self, slot: SignTextSlot, player: &ServerPlayer) -> ClickActions {
+        let mut events = Vec::new();
+        let mut any = false;
         for message in self
             .get_text(slot)
             .get_messages(player.text_filtering_enabled)
         {
-            match message.style().click_event() {
-                Some(ClickEvent::RunCommand(command)) => {
-                    if self.allow_op_features {
-                        run_click_command(level, player, pos, command);
-                    }
-                    has_any_click_command = true;
+            if let Some(
+                event @ (ClickEvent::RunCommand(_)
+                | ClickEvent::ShowDialog(_)
+                | ClickEvent::Custom { .. }),
+            ) = message.style().click_event()
+            {
+                any = true;
+                if self.allow_op_features {
+                    events.push(event.clone());
                 }
-                Some(ClickEvent::ShowDialog(dialog)) => {
-                    if self.allow_op_features {
-                        open_dialog(player, dialog);
-                    }
-                    has_any_click_command = true;
-                }
-                Some(ClickEvent::Custom { id, .. }) => {
-                    if self.allow_op_features {
-                        // `server.handleCustomClickAction(id, payload)`: no handler is registered in the dedicated server
-                        log::debug!("Unhandled custom click action {id}");
-                    }
-                    has_any_click_command = true;
-                }
-                _ => {}
             }
         }
-        if !self.allow_op_features && has_any_click_command {
+        if !self.allow_op_features && any {
             // `player.sendOverlayMessage(CLICK_ACTIONS_DISABLED)`
             if let Some(handle) = &player.handle {
                 handle.send_system_message(
@@ -343,7 +328,29 @@ impl SignBlockEntity {
                 );
             }
         }
-        has_any_click_command
+        ClickActions { any, events }
+    }
+}
+
+/// The click events [`SignBlockEntity::click_actions`] found.
+pub struct ClickActions {
+    /// Some line has a click event that runs something (`executeClickCommandsIfPresent`'s result).
+    pub any: bool,
+    events: Vec<ClickEvent>,
+}
+
+impl ClickActions {
+    /// Runs the events in line order: a command with the sign's source, a dialog for the player, a custom action.
+    pub fn run(&self, level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos) {
+        for event in &self.events {
+            match event {
+                ClickEvent::RunCommand(command) => run_click_command(level, player, pos, command),
+                ClickEvent::ShowDialog(dialog) => open_dialog(player, dialog),
+                // `server.handleCustomClickAction(id, payload)`: the dedicated server only logs it
+                ClickEvent::Custom { id, .. } => log::debug!("Unhandled custom click action {id}"),
+                _ => {}
+            }
+        }
     }
 }
 
@@ -416,15 +423,28 @@ fn create_command_source_stack(
     }
 }
 
-/// `performPrefixedCommand(createCommandSourceStack(player, level, pos), command)`. Not implemented: the command source is
-/// built but the command is not run.
+/// `performPrefixedCommand(createCommandSourceStack(player, level, pos), command)`. The player (taken out of the level while its
+/// packet is handled) is lent to the level so `@s` and the player queries find it, and the level is lent back to the server for
+/// the duration of the command, like for a command block. A level without an installed server (a bare test level) runs nothing.
 fn run_click_command(
     level: &mut ServerLevel,
-    player: &ServerPlayer,
+    player: &mut ServerPlayer,
     pos: BlockPos,
-    _command: &str,
+    command: &str,
 ) {
-    let _source = create_command_source_stack(Some(player), level, pos);
+    use crate::commands::server_access::{has_server, with_server};
+    if !has_server() {
+        return;
+    }
+    let source = create_command_source_stack(Some(player), level, pos);
+    level.lend(player, |level| {
+        with_server(|server| {
+            let commands = server.commands.clone();
+            server.with_lent_level(level, |server| {
+                commands.perform_prefixed_command(server, source, command)
+            });
+        });
+    });
 }
 
 /// `player.openDialog(holder)`: the click event's dialog (registry id or inline definition) as `ClientboundShowDialogPacket`.
@@ -471,6 +491,35 @@ impl BlockEntity for SignBlockEntity {
         self.front_text = resolve_lines(read_codec(tag, "front_text", &SignText::codec()));
         self.back_text = resolve_lines(read_codec(tag, "back_text", &SignText::codec()));
         self.is_waxed = tag.get_boolean_or("is_waxed", false);
+    }
+
+    /// `loadAdditional` of a block entity that has its level: `resolveLines` resolves every line of both sides (raw and
+    /// filtered, each with its own context) with the sign's source; a line that fails to resolve stays as written.
+    fn load_additional_in_level(
+        &mut self,
+        level: &mut ServerLevel,
+        tag: &CompoundTag,
+    ) -> Option<BlockState> {
+        use crate::commands::component_utils::{ResolutionContext, resolve};
+        self.load_additional(tag);
+        if self.allow_op_features {
+            let source = create_command_source_stack(None, level, self.get_block_pos());
+            let (front, back) = (&mut self.front_text, &mut self.back_text);
+            // without a server (a bare test level) the lines stay as written
+            crate::commands::server_access::with_level_lent(level, || {
+                for text in [front, back] {
+                    for line in text
+                        .messages
+                        .iter_mut()
+                        .chain(text.filtered_messages.iter_mut())
+                    {
+                        *line = resolve(&ResolutionContext::create(&source), line)
+                            .unwrap_or_else(|_| line.clone());
+                    }
+                }
+            });
+        }
+        None
     }
 
     fn get_update_tag(&self) -> CompoundTag {
