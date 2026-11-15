@@ -24,3 +24,9 @@ cmd data merge entity @e[type=minecraft:tadpole,limit=1] {Age:24500}
 dump mobs
 tick 2
 dump mobs events
+# /summon: the conversion runs inside Entity.load, before the move to the summon position, so the frog stands where the tag put the
+# tadpole (no Pos: the origin) and the added tadpole is already removed.
+cmd summon minecraft:tadpole 34.5 -58 4.5 {Age:24000}
+dump mobs
+tick 2
+dump mobs events

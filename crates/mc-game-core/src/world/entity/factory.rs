@@ -259,3 +259,21 @@ pub fn read_level_dependent_data(entities: &mut LoadedEntities, level: &mut Serv
         entity.read_level_dependent_data(level);
     }
 }
+
+/// [`read_level_dependent_data`] for a loader that moves the entities afterwards (summon, spawners): the part of loading that
+/// `Entity.load` does runs now, while the `addPassenger` of attached passengers (`startRiding`, after the `postLoad` move) is
+/// left for the add to the level.
+pub fn read_level_dependent_data_before_move(
+    entities: &mut LoadedEntities,
+    level: &mut ServerLevel,
+) {
+    for entity in entities {
+        let held = entity
+            .mob_mut()
+            .map(|m| std::mem::take(&mut m.passengers_loaded));
+        entity.read_level_dependent_data(level);
+        if let (Some(held), Some(m)) = (held, entity.mob_mut()) {
+            m.passengers_loaded = held;
+        }
+    }
+}

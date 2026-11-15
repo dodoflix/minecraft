@@ -1,0 +1,33 @@
+C Game rule spawn_mobs is now set to false
+G minecraft:donkey pos=-35.0,113.0,93.0 rot=148.12148,0.0 Age=0 Health=19.0f PersistenceRequired=0b
+G minecraft:donkey pos=-37.0,113.0,91.0 rot=193.48578,0.0 Age=0 Health=17.0f PersistenceRequired=0b
+G minecraft:donkey pos=94.0,112.0,-94.0 rot=240.21828,0.0 Age=0 Health=18.0f PersistenceRequired=0b
+G minecraft:fox pos=80.60000002384186,145.0,-19.0 rot=139.06033,0.0 Age=0 Health=10.0f PersistenceRequired=0b Type="snow"
+G minecraft:fox pos=82.0,144.0,-20.0 rot=159.54796,0.0 Age=0 Health=10.0f PersistenceRequired=0b Type="snow"
+G minecraft:goat pos=-50.0,144.0,-49.0 rot=176.45865,0.0 Age=0 Health=10.0f PersistenceRequired=0b attack=2.0d
+G minecraft:goat pos=-53.0,157.0,-82.0 rot=303.42224,0.0 Age=0 Health=10.0f PersistenceRequired=0b attack=2.0d
+G minecraft:goat pos=-57.0,145.0,-94.0 rot=220.9225,0.0 Age=0 Health=10.0f PersistenceRequired=0b attack=2.0d
+G minecraft:goat pos=-59.0,145.0,-93.0 rot=40.69323,0.0 Age=0 Health=10.0f PersistenceRequired=0b attack=2.0d
+G minecraft:goat pos=-59.0,145.0,-95.0 rot=31.864729,0.0 Age=0 Health=10.0f PersistenceRequired=0b attack=2.0d
+G minecraft:goat pos=61.0,157.0,59.0 rot=165.70413,0.0 Age=-24000 Health=10.0f PersistenceRequired=0b attack=1.0d
+G minecraft:goat pos=63.0,159.0,60.0 rot=71.560524,0.0 Age=0 Health=10.0f PersistenceRequired=0b attack=2.0d
+G minecraft:goat pos=91.0,143.0,111.0 rot=19.26592,0.0 Age=0 Health=10.0f PersistenceRequired=0b attack=2.0d
+G minecraft:goat pos=92.0,144.0,110.0 rot=291.88647,0.0 Age=0 Health=10.0f PersistenceRequired=0b attack=2.0d
+G minecraft:goat pos=93.0,144.0,111.0 rot=356.29236,0.0 Age=0 Health=10.0f PersistenceRequired=0b attack=2.0d
+G minecraft:rabbit pos=-57.0,115.0,11.0 rot=234.28493,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=5 attack=3.0d
+G minecraft:rabbit pos=-57.0,116.0,15.0 rot=256.79822,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=5 attack=3.0d
+G minecraft:rabbit pos=-57.0,118.0,2.0 rot=67.62254,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=0 attack=3.0d
+G minecraft:rabbit pos=-59.0,114.0,10.0 rot=358.13434,0.0 Age=0 Health=3.0f PersistenceRequired=0b RabbitType=5 attack=3.0d
+G minecraft:rabbit pos=-59.0,114.0,12.0 rot=263.17197,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=5 attack=3.0d
+G minecraft:rabbit pos=-61.0,114.0,2.0 rot=33.401806,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=0 attack=3.0d
+G minecraft:rabbit pos=-61.0,114.0,4.0 rot=190.17223,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=0 attack=3.0d
+G minecraft:rabbit pos=-62.0,114.0,6.0 rot=108.93468,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=0 attack=3.0d
+G minecraft:rabbit pos=-63.0,114.0,1.0 rot=201.37695,0.0 Age=0 Health=3.0f PersistenceRequired=0b RabbitType=0 attack=3.0d
+G minecraft:rabbit pos=-82.0,125.0,107.0 rot=218.2394,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=2 attack=3.0d
+G minecraft:rabbit pos=-83.0,125.0,109.0 rot=229.42691,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=2 attack=3.0d
+G minecraft:rabbit pos=-83.0,126.0,110.0 rot=247.3491,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=2 attack=3.0d
+G minecraft:rabbit pos=-85.0,126.0,111.0 rot=121.10813,0.0 Age=0 Health=3.0f PersistenceRequired=0b RabbitType=2 attack=3.0d
+G minecraft:rabbit pos=-89.0,111.0,31.0 rot=50.1498,0.0 Age=0 Health=3.0f PersistenceRequired=0b RabbitType=5 attack=3.0d
+G minecraft:sheep pos=-98.0,115.0,-25.0 rot=163.3206,0.0 Age=0 Color=0b Health=8.0f PersistenceRequired=0b Sheared=0b
+G minecraft:sheep pos=-98.0,115.0,-26.0 rot=281.9642,0.0 Age=0 Color=0b Health=8.0f PersistenceRequired=0b Sheared=0b
+G minecraft:sheep pos=-99.0,114.0,-29.0 rot=42.529106,0.0 Age=0 Color=0b Health=8.0f PersistenceRequired=0b Sheared=0b

@@ -126,6 +126,8 @@ pub fn create_entity(
         let Some(level) = server.level_mut(&dimension) else {
             return Err(ERROR_FAILED.create());
         };
+        // the level-dependent part of loading (a tadpole past its age converts) ran inside `Entity.load`, before the move
+        factory::read_level_dependent_data_before_move(&mut loaded, level);
         // the `postLoad` of the command: every entity of the tree is moved to `pos`, keeping its own rotation
         for entity in &mut loaded {
             let (y_rot, x_rot) = (entity.base().y_rot(), entity.base().x_rot());

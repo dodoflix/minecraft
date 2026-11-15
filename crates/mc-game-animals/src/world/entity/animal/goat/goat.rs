@@ -234,6 +234,10 @@ impl Entity for Goat {
         self.update_attack_damage();
     }
 
+    fn age_boundary_reached_without_level(&mut self) {
+        self.update_attack_damage();
+    }
+
     fn calculate_fall_damage(&self, fall_distance: f64, damage_modifier: f32) -> i32 {
         mc_game_core::world::entity::living_entity::damage::calculate_fall_damage(
             self,

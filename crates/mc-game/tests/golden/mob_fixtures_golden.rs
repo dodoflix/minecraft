@@ -164,6 +164,11 @@ fn mob_place_village() {
 }
 
 #[test]
+fn mob_chunkgen_goat() {
+    block_scenario::check("mob_chunkgen_goat");
+}
+
+#[test]
 fn mob_chunkgen_snowy() {
     block_scenario::check("mob_chunkgen_snowy");
 }

@@ -844,6 +844,8 @@ impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLeve
         entity: Box<dyn crate::world::entity::Entity>,
     ) -> bool {
         let mut entity = entity;
+        // `setAge` ran `ageBoundaryReached()` inside `finalizeSpawn`: the saved attributes carry its effect
+        crate::world::entity::mob::ageable::run_pending_age_boundary_without_level(entity.as_mut());
         let pending = entity
             .mob_mut()
             .map(|m| std::mem::take(&mut m.pending_passengers))

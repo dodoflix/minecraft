@@ -164,6 +164,17 @@ pub fn run_pending_age_boundary(e: &mut dyn Entity, level: &mut ServerLevel) {
     }
 }
 
+/// [`run_pending_age_boundary`] for a mob a generation region saves before any level holds it: only what needs no level runs.
+pub fn run_pending_age_boundary_without_level(e: &mut dyn Entity) {
+    if e.mob()
+        .and_then(|m| m.ageable.as_ref())
+        .is_some_and(|a| a.pending_age_boundary)
+    {
+        adm(e).pending_age_boundary = false;
+        e.age_boundary_reached_without_level();
+    }
+}
+
 /// `AgeableMob.finalizeSpawn(...)` up to `super.finalizeSpawn` (which the caller runs next).
 pub fn finalize_spawn(
     e: &mut dyn Entity,

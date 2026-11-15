@@ -1536,6 +1536,21 @@ impl Scenario {
                                 ));
                             }
                         }
+                        if arg == Some("attack") {
+                            let base = tag
+                                .get_list("attributes")
+                                .into_iter()
+                                .flat_map(|l| l.iter())
+                                .filter_map(|t| t.as_compound())
+                                .find(|c| c.get_string("id") == Some("minecraft:attack_damage"))
+                                .and_then(|c| c.get("base"));
+                            if let Some(base) = base {
+                                line.push_str(&format!(
+                                    " attack={}",
+                                    crate::common::entity_scenario::canon(base)
+                                ));
+                            }
+                        }
                         line
                     })
                     .collect();

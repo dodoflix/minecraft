@@ -238,7 +238,7 @@ import net.minecraft.util.RandomSource;
  *   trader_data (`TRADERDATA delay=.. chance=..`: the trader spawner's saved data).
  * dump/watch kinds for every entity: xentity:REF / xentities (all live non-player entities): the normal `E` line + the fields of the classes registered in
  *   EntityExtras.java (`mob:REF` also carries them); edata:REF = `ED REF id:serializer:hex ..` for every synched data item (accessor id, serializer id, wire form of the value);
- *   placed = `G type pos= rot= KEY=VALUE..` of every live entity except players, items, falling blocks and orbs, sorted (`placed:norot` prints `rot=-`; saved Age, CatType, Color, Health, PersistenceRequired, RabbitType, Sheared, Type, Variant, variant).
+ *   placed = `G type pos= rot= KEY=VALUE..` of every live entity except players, items, falling blocks and orbs, sorted (`placed:norot` prints `rot=-`, `placed:attack` adds the saved base attack damage as `attack=`; saved Age, CatType, Color, Health, PersistenceRequired, RabbitType, Sheared, Type, Variant, variant).
  *   rng:level / rng:REF = `RNG level|REF STATE` (the 48-bit state of Level.random / of the entity's own random).
  *   parts:REF = `PART REF index name id=+N pos=x,y,z old=xo,yo,zo size=w,h bb=minx,miny,minz,maxx,maxy,maxz` for each part of the ender dragon REF (`id` = the part's entity id minus the dragon's),
  *   counter = `COUNTER N` (ServerLevel.ENTITY_COUNTER: the last id handed out).
@@ -1997,6 +1997,13 @@ public final class EntityOracleDriver {
                      for (String k : PLACED_KEYS) {
                         if (tag.contains(k)) {
                            b.append(' ').append(k).append('=').append(canon(tag.get(k)));
+                        }
+                     }
+                     if ("attack".equals(arg)) {
+                        for (net.minecraft.nbt.Tag t : tag.getListOrEmpty("attributes")) {
+                           if (t instanceof CompoundTag c && "minecraft:attack_damage".equals(c.getStringOr("id", ""))) {
+                              b.append(" attack=").append(canon(c.get("base")));
+                           }
                         }
                      }
                   }

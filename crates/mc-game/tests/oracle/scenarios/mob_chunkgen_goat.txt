@@ -1,0 +1,9 @@
+# Original mob generation at chunk generation (goats in the peaks): a generated group can contain a baby, whose saved Age and attack damage
+# (`placed:attack`) come from the age boundary applied when the entity joins the generating region, compared by type, position and saved fields.
+level normal
+seed 297
+preload 5
+difficulty normal
+bootrule spawn_mobs true
+gamerule spawn_mobs false
+dump placed:attack

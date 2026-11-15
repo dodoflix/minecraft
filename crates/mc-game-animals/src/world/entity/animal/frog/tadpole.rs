@@ -301,7 +301,8 @@ impl Entity for Tadpole {
     }
 
     fn read_level_dependent_data(&mut self, level: &mut ServerLevel) {
-        if self.age >= TICKS_TO_BE_FROG {
+        // a loader that converted the tadpole before the move to its spawn position leaves it removed
+        if self.age >= TICKS_TO_BE_FROG && !self.is_removed() {
             self.age_up_to_frog(level);
         }
     }

@@ -4417,6 +4417,9 @@ pub trait Entity: Any {
     fn age_boundary_reached(&mut self, level: &mut ServerLevel) {
         super::mob::ageable::age_boundary_reached(self.as_dyn_mut(), level);
     }
+    /// The part of `ageBoundaryReached()` that changes only the mob itself (a goat's attack damage): a mob that generation
+    /// places is saved into its chunk before any level could run the rest, so the region runs this part instead.
+    fn age_boundary_reached_without_level(&mut self) {}
     /// `canAgeUp()`.
     fn can_age_up(&self) -> bool {
         self.mob().is_some_and(|m| m.ageable.is_some())

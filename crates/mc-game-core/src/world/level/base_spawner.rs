@@ -94,10 +94,11 @@ pub fn read_or_random_spawn_pos(
 }
 
 /// `EntityType.loadEntityRecursive(input, level, reason, postLoad)` without `postLoad`: the loaded tree, root first. The
-/// caller applies its post-load step to every entity in this order (a passenger is post-processed after its vehicle).
+/// level-dependent part of loading (a tadpole past its age converts) runs here, before the caller's post-load step (the
+/// move to the spawn position), which it applies to every entity in this order (a passenger after its vehicle).
 pub fn load_entity_tree(
     tag: &CompoundTag,
-    level: &ServerLevel,
+    level: &mut ServerLevel,
     reason: EntitySpawnReason,
 ) -> Option<LoadedEntities> {
     let mut out = Vec::new();
@@ -110,6 +111,7 @@ pub fn load_entity_tree(
         },
         &mut out,
     );
+    factory::read_level_dependent_data_before_move(&mut out, level);
     if out.is_empty() { None } else { Some(out) }
 }
 
