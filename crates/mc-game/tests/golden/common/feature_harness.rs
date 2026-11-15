@@ -46,6 +46,7 @@ use mc_world::ticks::TickPriority;
 use mc_world::upgrade_data::UpgradeData;
 use mc_worldgen::biome::{BiomeRegistry, biome_source_from_json};
 use mc_worldgen::data::{FsDataSource, WorldgenDataSource, WorldgenRegistries};
+use mc_worldgen::flat::{FlatLevelGeneratorSettings, FlatLevelSource};
 use mc_worldgen::generator::NoiseBasedChunkGenerator;
 use mc_worldgen::random_state::RandomState;
 
@@ -334,6 +335,33 @@ pub fn gen_env(seed: i64) -> Arc<GenEnv> {
     })
 }
 
+/// The generation environment of a `level flat` world: `FlatLevelSource` with the default flat settings (bedrock, two dirt, grass,
+/// plains), so structures placed by command land on the layers' first free height.
+pub fn flat_gen_env(seed: i64) -> Arc<GenEnv> {
+    let w = &*WORLD;
+    let settings = FlatLevelGeneratorSettings::get_default(&w.worldgen, &w.biomes)
+        .expect("default flat settings");
+    Arc::new(GenEnv {
+        dimension: Identifier::with_default_namespace("overworld").unwrap(),
+        seed,
+        generator: Arc::new(FlatLevelSource::new(settings, w.biomes.clone())),
+        random_state: Arc::new(RandomState::create(
+            w.worldgen.clone(),
+            seed,
+            w.generator.settings(),
+        )),
+        biomes: w.biomes.clone(),
+        registries: w.registries.clone(),
+        structures: w.structures.clone(),
+        start_cache: StartCache::default(),
+        structure_state: None,
+        structure_check: StructureCheck::new(Box::new(NoChunkScan)),
+        structure_template_manager: w.templates.clone(),
+        generate_structures: true,
+        level_height: level_height(),
+    })
+}
+
 /// The nether's chunk generator (`noise_settings/nether`, the nether multi-noise preset).
 static NETHER_GENERATOR: LazyLock<Arc<NoiseBasedChunkGenerator>> = LazyLock::new(|| {
     let w = &*WORLD;
@@ -551,6 +579,17 @@ impl SynthRegion {
     /// The `GenLevel` (vanilla `WorldGenRegion`) over the lent chunks.
     pub fn level(&mut self) -> GenLevel<'_> {
         GenLevel::new(&mut self.region, self.env.clone()).with_step(self.step)
+    }
+
+    /// [`SynthRegion::level`] bound to the live values mob creation reads (registries, dimension type, difficulty), as the
+    /// dedicated server binds them: structure pieces then create and finalize their mobs.
+    pub fn level_live(&mut self) -> GenLevel<'_> {
+        let live = Arc::new(mc_game::server::level::gen_live_state::GenLiveState::default());
+        live.install(
+            super::block_scenario::real_registries(),
+            Arc::new(super::block_scenario::load_dimension_type("overworld")),
+        );
+        self.level().with_live_state(live)
     }
 }
 

@@ -212,18 +212,31 @@ impl WorldGenLevel for ServerLevel {
         crate::world::entity::factory::add_structure_entity(tag, self, difficulty)
     }
 
-    /// `addFreshEntityWithPassengers` of the entity `EntityType.create(tag, level, STRUCTURE)` loads.
+    fn add_structure_mob(
+        &mut self,
+        ty: mc_data::EntityType,
+        pos: BlockPos,
+        finalize: bool,
+    ) -> bool {
+        let difficulty = finalize.then(|| WorldGenLevel::get_current_difficulty_at(self, pos));
+        crate::world::entity::factory::add_structure_mob(self, ty, pos, difficulty)
+    }
+
+    /// `addFreshEntityWithPassengers` of the entity `EntityType.create(tag, level, STRUCTURE)` loads. The structure code drew the
+    /// entity's unique random seed when it built the tag (for its UUID, as the constructor does), so loading must not draw a second.
     fn add_fresh_entity_nbt(&mut self, tag: CompoundTag) -> bool {
         let mut loaded = Vec::new();
-        load_entity_recursive(
-            &tag,
-            self,
-            EntitySpawnRequest {
-                reason: EntitySpawnReason::Structure,
-                ignore_checks: false,
-            },
-            &mut loaded,
-        );
+        mc_core::random::without_advancing_oracle_uniquifier(|| {
+            load_entity_recursive(
+                &tag,
+                self,
+                EntitySpawnRequest {
+                    reason: EntitySpawnReason::Structure,
+                    ignore_checks: false,
+                },
+                &mut loaded,
+            );
+        });
         if loaded.is_empty() {
             return false;
         }

@@ -32,9 +32,10 @@ use mc_core::ident::Identifier;
 use mc_core::math::mth;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
+use mc_data::EntityType;
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::{Fluid, FluidState};
-use mc_nbt::CompoundTag;
+use mc_nbt::{CompoundTag, ListTag};
 use mc_world::chunk::{ProtoChunk, StructureData};
 use mc_world::heightmap::{Heightmap, HeightmapMap, HeightmapType};
 use mc_world::level_storage::Difficulty;
@@ -72,6 +73,9 @@ pub struct GenLevel<'a> {
     light: Option<mc_light::LightReader>,
     /// Heightmaps read while missing from their (writable) chunk: `(chunkX, chunkZ, type)`, primed lazily.
     pending_heightmaps: RefCell<Vec<(i32, i32, HeightmapType)>>,
+    /// The last vehicle saved without its riders (a jockey mount: the rider is added right after it): its entity id,
+    /// chunk and index in the chunk's entity list, so that the rider is saved into its `Passengers`.
+    unridden_vehicle: Option<(crate::world::entity::EntityId, BlockPos, usize)>,
 }
 
 impl<'a> GenLevel<'a> {
@@ -99,6 +103,7 @@ impl<'a> GenLevel<'a> {
             live: None,
             light: None,
             pending_heightmaps: RefCell::new(Vec::new()),
+            unridden_vehicle: None,
         }
     }
 
@@ -698,14 +703,29 @@ impl WorldGenLevel for GenLevel<'_> {
         crate::world::entity::factory::add_structure_entity(tag, self, difficulty)
     }
 
-    fn add_fresh_entity_nbt(&mut self, tag: CompoundTag) -> bool {
-        let (x, z) = tag.get_list("Pos").map_or((0.0, 0.0), |pos| {
-            (pos.get_double_or(0, 0.0), pos.get_double_or(2, 0.0))
-        });
-        let pos = BlockPos::new(mth::floor_f64(x), 0, mth::floor_f64(z));
-        if let Some(chunk) = self.chunk_for_write(pos) {
-            chunk.add_entity(tag);
+    fn add_structure_mob(&mut self, ty: EntityType, pos: BlockPos, finalize: bool) -> bool {
+        if self.live.is_none() {
+            // no live level to create the mob with: its identity and position only (see `add_structure_entity`)
+            let mut tag = CompoundTag::new();
+            tag.put_string("id", ty.name());
+            let mut position = ListTag::new();
+            for v in [
+                f64::from(pos.x()) + 0.5,
+                f64::from(pos.y()),
+                f64::from(pos.z()) + 0.5,
+            ] {
+                position.push(v);
+            }
+            tag.put("Pos", position);
+            tag.put_boolean("PersistenceRequired", finalize);
+            return self.add_structure_entity(&tag, pos, false);
         }
+        let difficulty = finalize.then(|| WorldGenLevel::get_current_difficulty_at(self, pos));
+        crate::world::entity::factory::add_structure_mob(self, ty, pos, difficulty)
+    }
+
+    fn add_fresh_entity_nbt(&mut self, tag: CompoundTag) -> bool {
+        self.push_entity_tag(tag);
         true
     }
 
@@ -778,14 +798,16 @@ impl crate::world::entity::variant::SpawnContextLevel for GenLevel<'_> {
         self.difficulty.2
     }
 
-    /// Vanilla reads the real level's chunks at `STRUCTURE_REFERENCES` without loading them (`getChunk(.., false)`); the
-    /// chunks of a generation region are not published to the level yet, so nothing is found.
-    fn has_structure_piece_at(
-        &self,
-        _pos: BlockPos,
-        _matcher: &dyn Fn(&Identifier) -> bool,
-    ) -> bool {
-        false
+    /// `level.getLevel().structureManager().getStructureWithPieceAt(pos, ..)` while the chunk is being generated: the real
+    /// level's chunk already holds its structure references and starts, which the region's chunks are here.
+    fn has_structure_piece_at(&self, pos: BlockPos, matcher: &dyn Fn(&Identifier) -> bool) -> bool {
+        super::structure::manager::StructureManager::new(&self.env)
+            .get_structure_with_piece_at(
+                &super::structure::manager::LevelSource(self),
+                pos,
+                matcher,
+            )
+            .is_some()
     }
 }
 
@@ -846,15 +868,38 @@ impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLeve
         let mut entity = entity;
         // `setAge` ran `ageBoundaryReached()` inside `finalizeSpawn`: the saved attributes carry its effect
         crate::world::entity::mob::ageable::run_pending_age_boundary_without_level(entity.as_mut());
+        // a jockey rider: `Entity.save` skips passengers, so it is saved into the vehicle added just before it
+        if let Some(vehicle) = entity.base().vehicle
+            && let Some((id, pos, index)) = self.unridden_vehicle
+            && id == vehicle
+        {
+            self.unridden_vehicle = None;
+            let Some(rider) = crate::world::entity::entity::save_as_passenger(&*entity, &|_| None)
+            else {
+                return false;
+            };
+            if let Some(saved) = self
+                .chunk_for_write(pos)
+                .and_then(|chunk| chunk.entities.get_mut(index))
+            {
+                let mut passengers = ListTag::new();
+                passengers.push(mc_nbt::Tag::Compound(rider));
+                saved.put("Passengers", passengers);
+            }
+            return true;
+        }
         let pending = entity
             .mob_mut()
             .map(|m| std::mem::take(&mut m.pending_passengers))
             .unwrap_or_default();
         let lookup = |id| pending.iter().find(|p| p.id() == id).map(|p| &**p);
-        match crate::world::entity::entity::save(&*entity, &lookup) {
-            Some(tag) => self.add_fresh_entity_nbt(tag),
-            None => false,
-        }
+        let Some(tag) = crate::world::entity::entity::save(&*entity, &lookup) else {
+            return false;
+        };
+        let unridden = !entity.base().passengers.is_empty() && !tag.contains("Passengers");
+        let (pos, index) = self.push_entity_tag(tag);
+        self.unridden_vehicle = index.filter(|_| unridden).map(|i| (entity.id(), pos, i));
+        true
     }
 
     fn no_collision_aabb(&self, aabb: &mc_core::phys::AABB) -> bool {
@@ -959,6 +1004,20 @@ impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLeve
 }
 
 impl GenLevel<'_> {
+    /// `ProtoChunk.addEntity(tag)` in the chunk holding the tag's `Pos`: that block position and the index in the chunk's
+    /// entity list (`None` when the chunk is not writable).
+    fn push_entity_tag(&mut self, tag: CompoundTag) -> (BlockPos, Option<usize>) {
+        let (x, z) = tag.get_list("Pos").map_or((0.0, 0.0), |pos| {
+            (pos.get_double_or(0, 0.0), pos.get_double_or(2, 0.0))
+        });
+        let pos = BlockPos::new(mth::floor_f64(x), 0, mth::floor_f64(z));
+        let index = self.chunk_for_write(pos).map(|chunk| {
+            chunk.add_entity(tag);
+            chunk.entities.len() - 1
+        });
+        (pos, index)
+    }
+
     /// The dimension type's constant layer of the spawning attributes.
     fn spawn_base(&self) -> crate::world::level::spawner::biome_spawns::DimensionSpawnBase {
         match self.live.as_ref().and_then(|l| l.dimension_type()) {

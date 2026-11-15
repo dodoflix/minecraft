@@ -6,11 +6,11 @@
 //! building's child pieces. Only `MonumentBuilding` is ever saved; its children are rebuilt from the building's seed
 //! (`OceanMonumentStructure.regeneratePiecesAfterLoad`), so the child types never load from NBT.
 
-use crate::world::level::levelgen::structure::structures::structure_entities;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
+use mc_data::EntityType;
 use mc_data::block::{Block, BlockState};
 use mc_game_core::world::level::levelgen::env::GenEnv;
 use mc_game_core::world::level::levelgen::feature::tree::shuffle;
@@ -434,8 +434,8 @@ trait OceanMonumentPiece: StructurePiece {
         chunk_bb.intersects_xz(wx0.min(wx1), wz0.min(wz1), wx0.max(wx1), wz0.max(wz1))
     }
 
-    /// `spawnElder(level, chunkBB, x, y, z)`: `EntityTypes.ELDER_GUARDIAN.create`, `heal`, `snapTo`, `finalizeSpawn` (which
-    /// draws from the level's random) and `addFreshEntityWithPassengers`, as the saved entity NBT.
+    /// `spawnElder(level, chunkBB, x, y, z)`: `EntityTypes.ELDER_GUARDIAN.create`, `heal`, `snapTo`, `finalizeSpawn` and
+    /// `addFreshEntityWithPassengers`.
     fn spawn_elder(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -446,8 +446,7 @@ trait OceanMonumentPiece: StructurePiece {
     ) {
         let pos = self.get_world_pos(x, y, z);
         if chunk_bb.is_inside(&pos) {
-            let tag = structure_entities::elder_guardian(level.random(), pos);
-            level.add_fresh_entity_nbt(tag);
+            level.add_structure_mob(EntityType::ELDER_GUARDIAN, pos, true);
         }
     }
 }

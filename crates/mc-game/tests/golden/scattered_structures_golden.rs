@@ -128,7 +128,7 @@ fn fold(lines: Vec<String>) -> Vec<String> {
 }
 
 /// Keys of a mob tag that `finalizeSpawn`, the unseeded `Entity.random` and the UUID decide (mirror of the oracle's `VOLATILE`).
-const VOLATILE: [&str; 12] = [
+const VOLATILE: [&str; 13] = [
     "UUID",
     "attributes",
     "LeftHanded",
@@ -141,6 +141,7 @@ const VOLATILE: [&str; 12] = [
     "sound_variant",
     "Age",
     "ForcedAge",
+    "EggLayTime",
 ];
 
 /// Mirror of `ScatteredStructuresOracle.TEMPLATE_ENTITY_KEYS`.
@@ -167,10 +168,22 @@ fn normalize_entity(line: &str, template_entities_only_basics: bool) -> String {
             tag.remove(&key);
         }
     }
+    strip_volatile(&mut tag);
+    format!("{n} {cx} {cz} {}", Tag::Compound(tag))
+}
+
+/// Mirror of the oracle's `stripVolatile`: the volatile keys of the entity and of its passengers (a drowned riding a chicken).
+fn strip_volatile(tag: &mut mc_nbt::CompoundTag) {
     for key in VOLATILE {
         tag.remove(key);
     }
-    format!("{n} {cx} {cz} {}", Tag::Compound(tag))
+    if let Some(passengers) = tag.get_list_mut("Passengers") {
+        for passenger in passengers.iter_mut() {
+            if let Tag::Compound(passenger) = passenger {
+                strip_volatile(passenger);
+            }
+        }
+    }
 }
 
 fn generate(
@@ -356,7 +369,7 @@ fn check(id: &str, nether: bool, needles: &[&str]) -> Coverage {
             let mut synth = SynthRegion::new(seed, px, pz, ChunkStatus::Features, 1);
             let before = snapshot(&synth);
             let place_env = synth.env.clone();
-            let mut level = synth.level();
+            let mut level = synth.level_live();
             let mut random = WorldgenRandom::new(Box::new(LegacyRandomSource::new(0)));
             let decoration_seed = random.set_decoration_seed(seed, px * 16, pz * 16);
             random.set_feature_seed(

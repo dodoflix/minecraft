@@ -11,9 +11,8 @@ use super::mineshaft_structure::MineshaftType;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::{Axis, Direction};
 use mc_core::ident::Identifier;
-use mc_core::math::mth;
 use mc_core::pos::{BlockPos, ChunkPos};
-use mc_core::random::{LegacyRandomSource, RandomSource};
+use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::RailShape;
 use mc_data::props;
@@ -609,16 +608,7 @@ fn chest_minecart_tag(pos: BlockPos, loot_table: &str, loot_table_seed: i64) -> 
     tag.put_boolean("OnGround", false);
     tag.put_boolean("Invulnerable", false);
     tag.put_int("PortalCooldown", 0);
-    let mut random = LegacyRandomSource::new(
-        std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map_or(0, |d| d.as_nanos() as i64),
-    );
-    let uuid = mth::create_insecure_uuid(&mut random);
-    tag.put_int_array(
-        "UUID",
-        mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec(),
-    );
+    tag.put_int_array("UUID", super::structure_entities::random_uuid());
     tag.put_boolean("FlippedRotation", false);
     tag.put_boolean("HasTicked", true);
     tag.put_string("LootTable", loot_table);

@@ -219,9 +219,20 @@ fn mob_spawnpass_fortress() {
     block_scenario::check("mob_spawnpass_fortress");
 }
 
+/// The monument's three elder guardians are chunk-generated: their stroll timing comes from the unseeded entity random and
+/// from the chunk completion order, so their position and rotation at the dump are not compared.
 #[test]
 fn mob_spawnpass_structures_monument() {
-    block_scenario::check("mob_spawnpass_structures_monument");
+    block_scenario::check_with(
+        "mob_spawnpass_structures_monument",
+        &Options {
+            ignore_fields_of: vec![
+                ("minecraft:elder_guardian", "pos"),
+                ("minecraft:elder_guardian", "rot"),
+            ],
+            ..Options::default()
+        },
+    );
 }
 
 #[test]

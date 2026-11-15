@@ -28,7 +28,6 @@ pub mod ruined_portal_piece;
 pub mod ruined_portal_structure;
 pub mod shipwreck_pieces;
 pub mod shipwreck_structure;
-pub mod spawned_mob_tag;
 pub mod stronghold_pieces;
 pub mod stronghold_structure;
 pub mod structure_entities;

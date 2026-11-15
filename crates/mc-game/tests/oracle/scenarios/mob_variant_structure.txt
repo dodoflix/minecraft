@@ -1,5 +1,6 @@
 # The cat variant by structure on a generated swamp hut: a cat on a hut piece (the structure condition outranks the moon) is all black at a new moon,
-# one beside or above the hut is not; spawn-egg and command reasons pick the same way. The hut's generation-time witch and cat are killed first.
+# one beside or above the hut is not; spawn-egg and command reasons pick the same way. The hut's generation-time witch and cat are dumped first;
+# the cat is killed, the witch stays.
 level normal
 structures true
 seed 5
@@ -13,8 +14,8 @@ tick 60
 set Steve no_gravity true
 tp Steve -222.5 80 -690.5
 tick 20
+dump mobs
 cmd kill @e[type=minecraft:cat]
-cmd kill @e[type=minecraft:witch]
 level_seed 9201
 note a new moon: the hut's pieces decide
 level_seed 9211

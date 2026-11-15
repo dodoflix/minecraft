@@ -42,21 +42,11 @@ import net.minecraft.world.level.storage.LevelStorageSource;
  *
  * Lines per start: {@code START id seed chunkX chunkZ pieceCount} (pieceCount -1: no valid start), one {@code P <piece tag SNBT>} per
  * piece, then per placement {@code PLACE cx cz featureIndex} + {@code D <dump line>} (block lines folded to a {@code B* cx cz count fnv} digest
- * unless fullBlockLines) + {@code END}. Mobs spawned by pieces (drowned, witch, cat) are created through a fake ServerLevel;
- * their {@code finalizeSpawn} randomness (region random, unseeded Entity.random, UUID) is not reproducible, so the entity lines
- * carry the tag without the keys it influences.
+ * unless fullBlockLines) + {@code END}. Mobs spawned by pieces (drowned, witch, cat) are created through a fake ServerLevel and
+ * finalized with the region's random, so the region random line carries their draws; their unseeded Entity.random and UUID are not
+ * reproducible, and the entity lines carry the tag without the keys {@code VOLATILE} lists (those and the finalized equipment/flags).
  */
 public class ScatteredStructuresOracle {
-    /** Neutral outcome of every roll a mob's finalizeSpawn makes (no equipment, no baby, not left-handed). */
-    static class ConstRandom extends LegacyRandomSource {
-        ConstRandom() { super(0L); }
-        @Override public float nextFloat() { return 0.5F; }
-        @Override public double nextDouble() { return 0.5; }
-        @Override public int nextInt(int bound) { return bound / 2; }
-        @Override public boolean nextBoolean() { return false; }
-        @Override public long nextLong() { return 0L; }
-    }
-
     public static class FakeLevel extends net.minecraft.server.level.ServerLevel {
         FakeLevel() { super(null, null, null, null, null, null, false, 0L, null, false); }
         public net.minecraft.server.MinecraftServer srv;
@@ -104,7 +94,7 @@ public class ScatteredStructuresOracle {
     }
 
     /** Keys of a mob tag that finalizeSpawn / the unseeded entity random / the UUID decide. */
-    static final String[] VOLATILE = {"UUID", "attributes", "LeftHanded", "CanPickUpLoot", "CanBreakDoors", "IsBaby", "equipment", "drop_chances", "variant", "sound_variant", "Age", "ForcedAge"};
+    static final String[] VOLATILE = {"UUID", "attributes", "LeftHanded", "CanPickUpLoot", "CanBreakDoors", "IsBaby", "equipment", "drop_chances", "variant", "sound_variant", "Age", "ForcedAge", "EggLayTime"};
 
     /**
      * The entities of the igloo templates (villager, zombie villager) are loaded and saved by their real classes (data fixer
@@ -116,8 +106,14 @@ public class ScatteredStructuresOracle {
         String[] t = line.split(" ", 4);
         CompoundTag tag = TagParser.parseCompoundFully(t[3]);
         if (templateEntitiesOnlyBasics) for (String k : new ArrayList<>(tag.keySet())) if (!TEMPLATE_ENTITY_KEYS.contains(k)) tag.remove(k);
-        for (String k : VOLATILE) tag.remove(k);
+        stripVolatile(tag);
         return t[0] + " " + t[1] + " " + t[2] + " " + tag;
+    }
+
+    /** The volatile keys of the entity and of its passengers (a drowned riding a chicken). */
+    static void stripVolatile(CompoundTag tag) {
+        for (String k : VOLATILE) tag.remove(k);
+        for (net.minecraft.nbt.Tag p : tag.getListOrEmpty("Passengers")) if (p instanceof CompoundTag c) stripVolatile(c);
     }
 
     /** Folds the B lines of the dump per chunk into one digest line (mirrored in the Rust test). */
@@ -211,7 +207,6 @@ public class ScatteredStructuresOracle {
                 FeatureOracleBase.Region region = FeatureOracleBase.newRegion(seed, px, pz, ChunkStatus.FEATURES, 1);
                 fakeLevel.seed = seed;
                 region.fakeLevel = fakeLevel;
-                region.finalizeSpawnRandom = new ConstRandom();
                 FeatureOracleBase.Snapshot before = FeatureOracleBase.snapshot(region);
                 WorldgenRandom random = new WorldgenRandom(new LegacyRandomSource(0L));
                 long decorationSeed = random.setDecorationSeed(seed, chunkPos.getMinBlockX(), chunkPos.getMinBlockZ());

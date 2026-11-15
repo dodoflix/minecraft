@@ -3,7 +3,7 @@
 use mc_core::math::mth;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
-use mc_core::random::{LegacyRandomSource, RandomSource, SingleThreadedRandomSource};
+use mc_core::random::{RandomSource, SingleThreadedRandomSource};
 use mc_data::block::Block;
 use mc_data::props;
 use mc_game_core::world::level::levelgen::GenEnv;
@@ -262,15 +262,9 @@ fn end_crystal_tag(
     tag.put_boolean("OnGround", false);
     tag.put_boolean("Invulnerable", invulnerable);
     tag.put_int("PortalCooldown", 0);
-    let mut random = LegacyRandomSource::new(
-        std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map_or(0, |d| d.as_nanos() as i64),
-    );
-    let uuid = mth::create_insecure_uuid(&mut random);
     tag.put_int_array(
         "UUID",
-        mc_core::uuid_util::uuid_to_int_array(&uuid).to_vec(),
+        crate::world::level::levelgen::structure::structures::structure_entities::random_uuid(),
     );
     if let Some(target) = beam_target {
         tag.put_int_array("beam_target", vec![target.x(), target.y(), target.z()]);

@@ -8,6 +8,7 @@ use mc_game_core::world::level::LevelReader;
 use mc_game_core::world::level::levelgen::structure::piece::{
     PieceBase, StructurePieceSerializationContext, StructurePieceType, make_bounding_box,
 };
+use mc_game_core::world::level::levelgen::structure::structure_start::update_placing_piece_box;
 use mc_nbt::CompoundTag;
 use mc_world::heightmap::HeightmapType;
 
@@ -100,6 +101,7 @@ impl ScatteredFeaturePieceData {
         self.height_position = total / count;
         let dy = self.height_position - self.base.bounding_box.min_y() + offset;
         self.base.bounding_box.move_(0, dy, 0);
+        update_placing_piece_box(self.base.bounding_box);
         true
     }
 
@@ -131,6 +133,7 @@ impl ScatteredFeaturePieceData {
         self.height_position = lowest_ground_height;
         let dy = self.height_position - self.base.bounding_box.min_y() + offset;
         self.base.bounding_box.move_(0, dy, 0);
+        update_placing_piece_box(self.base.bounding_box);
         true
     }
 }

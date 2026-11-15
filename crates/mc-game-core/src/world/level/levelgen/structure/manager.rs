@@ -124,7 +124,7 @@ impl<'a> StructureManager<'a> {
                 continue;
             };
             if let Some(start) = self.get_start_for_structure(chunk_pos, data, structure)
-                && start.lock().is_valid()
+                && start.is_valid()
             {
                 consumer(start);
             }
@@ -170,7 +170,7 @@ impl<'a> StructureManager<'a> {
         let section_z = SectionPos::block_to_section_coord_i32(block_pos.z());
         self.starts_for_structure_matching(source, section_x, section_z, predicate)
             .into_iter()
-            .find(|start| self.structure_has_piece_at(block_pos, &start.lock()))
+            .find(|start| start.has_piece_at(block_pos.x(), block_pos.y(), block_pos.z()))
     }
 
     /// `getStructureWithPieceAt(x, y, z, structure)`.
@@ -186,7 +186,7 @@ impl<'a> StructureManager<'a> {
         let section_z = SectionPos::block_to_section_coord_i32(z);
         self.starts_for_structure(source, section_x, section_z, structure)
             .into_iter()
-            .find(|start| Self::structure_has_piece_at_xyz(x, y, z, &start.lock()))
+            .find(|start| start.has_piece_at(x, y, z))
     }
 
     /// `structureHasPieceAt(blockPos, structureStart)`.

@@ -50,6 +50,11 @@ pub trait WorldGenLevel: LevelAccessor {
     /// The entity half of `StructureTemplate.placeEntities`: the entity of `tag` created, rotated, finalized
     /// (`Mob.finalizeSpawn` at `pos`) when `finalize` and added with its passengers; false when it cannot be created.
     fn add_structure_entity(&mut self, tag: &CompoundTag, pos: BlockPos, finalize: bool) -> bool;
+    /// A mob a structure piece creates (`EntityType.create(level, STRUCTURE)`): with `finalize` persistent, `snapTo(pos, 0, 0)`,
+    /// `Mob.finalizeSpawn` and `addFreshEntityWithPassengers`; otherwise `setPos(pos)` and `addFreshEntity`. `pos` is the
+    /// block whose centre the mob stands at. False when it cannot be created.
+    fn add_structure_mob(&mut self, ty: mc_data::EntityType, pos: BlockPos, finalize: bool)
+    -> bool;
     /// Structure starts/references of any chunk within reach (`StructureManager.startsForStructure` source).
     fn structure_data(&self, pos: ChunkPos) -> Option<&StructureData>;
     /// Replaces the raw start of `structure_id` in the chunk `pos` with `tag` (a piece mutated its state while being

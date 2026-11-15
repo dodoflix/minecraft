@@ -13,6 +13,7 @@ use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
 use mc_nbt::{CompoundTag, Tag};
+use std::cell::RefCell;
 use std::sync::{Arc, Mutex, MutexGuard};
 
 /// `StructureStart.INVALID_START_ID`.
@@ -122,8 +123,9 @@ impl StructureStart {
         let center_bb = self.piece_container.pieces[0].base().bounding_box;
         let center_pos = center_bb.get_center();
         let reference_pos = BlockPos::new(center_pos.x(), center_bb.min_y(), center_pos.z());
-        for next in &mut self.piece_container.pieces {
+        for (index, next) in self.piece_container.pieces.iter_mut().enumerate() {
             if next.base().bounding_box.intersects(chunk_bb) {
+                set_placing_piece(index);
                 next.post_process(
                     level,
                     structure_manager,
@@ -211,6 +213,45 @@ impl StructureStart {
 #[derive(Clone)]
 pub struct StartHandle(pub Arc<Mutex<StructureStart>>);
 
+/// The start whose pieces this thread is placing: its lock is held for the whole placement, while a mob a piece creates asks
+/// the structure manager about that same start (`Cat.finalizeSpawn` tests for the swamp hut), so the boxes of its pieces are
+/// kept here (the address of the handle, the piece boxes, the index of the piece being placed).
+type Placing = (usize, Vec<BoundingBox>, usize);
+
+thread_local! {
+    static PLACING: RefCell<Option<Placing>> = const { RefCell::new(None) };
+}
+
+/// Ends [`StartHandle::begin_placing`] when dropped, restoring the registration it replaced.
+pub struct PlacingGuard(Option<Placing>);
+
+impl Drop for PlacingGuard {
+    fn drop(&mut self) {
+        let previous = self.0.take();
+        PLACING.with(|placing| *placing.borrow_mut() = previous);
+    }
+}
+
+/// The piece `place_in_chunk` is about to place.
+fn set_placing_piece(index: usize) {
+    PLACING.with(|placing| {
+        if let Some(placing) = placing.borrow_mut().as_mut() {
+            placing.2 = index;
+        }
+    });
+}
+
+/// The box of the piece being placed moved (`ScatteredFeaturePiece` adjusts its height while placing).
+pub fn update_placing_piece_box(bounding_box: BoundingBox) {
+    PLACING.with(|placing| {
+        if let Some((_, boxes, index)) = placing.borrow_mut().as_mut()
+            && let Some(slot) = boxes.get_mut(*index)
+        {
+            *slot = bounding_box;
+        }
+    });
+}
+
 impl StartHandle {
     pub fn new(start: StructureStart) -> StartHandle {
         StartHandle(Arc::new(Mutex::new(start)))
@@ -222,5 +263,44 @@ impl StartHandle {
 
     pub fn ptr_eq(&self, other: &StartHandle) -> bool {
         Arc::ptr_eq(&self.0, &other.0)
+    }
+
+    /// Registers `start` (locked by the caller) as the one this thread places until the guard drops.
+    pub fn begin_placing(&self, start: &StructureStart) -> PlacingGuard {
+        let boxes = start
+            .piece_container
+            .pieces
+            .iter()
+            .map(|piece| piece.base().bounding_box)
+            .collect();
+        let previous = PLACING.with(|placing| {
+            placing
+                .borrow_mut()
+                .replace((Arc::as_ptr(&self.0) as usize, boxes, 0))
+        });
+        PlacingGuard(previous)
+    }
+
+    /// Runs `f` on the piece boxes of this start when this thread is placing it (its lock is held).
+    fn with_placing_boxes<R>(&self, f: impl FnOnce(&[BoundingBox]) -> R) -> Option<R> {
+        PLACING.with(|placing| {
+            placing
+                .borrow()
+                .as_ref()
+                .filter(|(address, ..)| *address == Arc::as_ptr(&self.0) as usize)
+                .map(|(_, boxes, _)| f(boxes))
+        })
+    }
+
+    /// `StructureStart.isValid()`.
+    pub fn is_valid(&self) -> bool {
+        self.with_placing_boxes(|_| true)
+            .unwrap_or_else(|| self.lock().is_valid())
+    }
+
+    /// `StructureManager.structureHasPieceAt(x, y, z, start)`.
+    pub fn has_piece_at(&self, x: i32, y: i32, z: i32) -> bool {
+        self.with_placing_boxes(|boxes| boxes.iter().any(|b| b.is_inside_xyz(x, y, z)))
+            .unwrap_or_else(|| StructureManager::structure_has_piece_at_xyz(x, y, z, &self.lock()))
     }
 }

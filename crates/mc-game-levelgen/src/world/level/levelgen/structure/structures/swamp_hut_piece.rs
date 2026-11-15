@@ -1,12 +1,12 @@
 //! `SwampHutPiece`.
 
-use super::spawned_mob_tag::{cat_entity_tag, witch_entity_tag};
 use crate::world::level::levelgen::structure::scattered_feature_piece::ScatteredFeaturePieceData;
 use linkme::distributed_slice;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
+use mc_data::EntityType;
 use mc_data::block::Block;
 use mc_data::enums::StairsShape;
 use mc_data::props;
@@ -67,7 +67,7 @@ impl SwampHutPiece {
             let pos = self.get_world_pos(2, 2, 5);
             if chunk_bb.is_inside(&pos) {
                 self.spawned_cat = true;
-                level.add_fresh_entity_nbt(cat_entity_tag(pos));
+                level.add_structure_mob(EntityType::CAT, pos, true);
             }
         }
     }
@@ -189,7 +189,7 @@ impl StructurePiece for SwampHutPiece {
             let pos = self.get_world_pos(2, 2, 5);
             if chunk_bb.is_inside(&pos) {
                 self.spawned_witch = true;
-                level.add_fresh_entity_nbt(witch_entity_tag(pos));
+                level.add_structure_mob(EntityType::WITCH, pos, true);
             }
         }
         self.spawn_cat(level, chunk_bb);

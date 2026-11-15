@@ -1,6 +1,6 @@
 # An end city placed with /place structure in the end: its sentry markers create one shulker each (structure spawn reason, not finalized) and the
-# ship's item frame is created, dumped before anything ticks: type, position and saved fields (the yaw of a living entity is random, and the
-# shulkers that cannot stay where the marker put them teleport on their first tick to random places).
+# ship's item frame is created, dumped before anything ticks: type, position, yaw and saved fields (the shulkers that cannot stay where the marker
+# put them teleport on their first tick to random places).
 command_env
 level normal
 dimension the_end
@@ -12,4 +12,4 @@ tick 2
 cmd execute in minecraft:the_end run forceload add 624 944 848 1104
 tick 150
 cmd execute in minecraft:the_end run place structure minecraft:end_city 736 70 1024
-dump placed:norot
+dump placed

@@ -41,6 +41,8 @@ pub struct Options {
     pub ignore_kinds: Vec<&'static str>,
     /// Field keys (`"fire"`, `"hurt"`, ...) of `P`/`E` lines ignored on both sides (for fields the Rust side does not model yet).
     pub ignore_fields: Vec<&'static str>,
+    /// `(entity type, field key)`: the field is ignored only on lines containing that type (`"minecraft:witch"`).
+    pub ignore_fields_of: Vec<(&'static str, &'static str)>,
     /// Lines containing any of these substrings are skipped on both sides (output the replay does not produce, such as the equip sound of a driver `give`).
     pub ignore_containing: Vec<&'static str>,
 }
@@ -185,13 +187,18 @@ fn keep(line: &str, opts: &Options) -> bool {
 }
 
 fn normalize(line: &str, opts: &Options) -> String {
-    if opts.ignore_fields.is_empty() {
+    if opts.ignore_fields.is_empty() && opts.ignore_fields_of.is_empty() {
         return line.to_string();
     }
     line.split(' ')
         .filter(|t| {
-            t.split_once('=')
-                .is_none_or(|(k, _)| !opts.ignore_fields.contains(&k))
+            t.split_once('=').is_none_or(|(k, _)| {
+                !opts.ignore_fields.contains(&k)
+                    && !opts
+                        .ignore_fields_of
+                        .iter()
+                        .any(|(ty, field)| *field == k && line.contains(ty))
+            })
         })
         .collect::<Vec<_>>()
         .join(" ")

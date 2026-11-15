@@ -19,6 +19,7 @@ use mc_core::mirror::Mirror;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
 use mc_core::rotation::Rotation;
+use mc_data::EntityType;
 use mc_data::block::Block;
 use mc_data::props;
 use mc_game_core::world::level::BlockGetter;
@@ -582,7 +583,9 @@ impl StructurePiece for OceanRuinPiece {
 /// The `drowned` data marker: a persistent drowned at `position`, then the marker block becomes air above sea level and
 /// water otherwise.
 fn place_drowned(level: &mut dyn WorldGenLevel, position: BlockPos) {
-    level.add_fresh_entity_nbt(super::spawned_mob_tag::drowned_entity_tag(position));
+    if !level.add_structure_mob(EntityType::DROWNED, position, true) {
+        return;
+    }
     if position.y() > level.get_sea_level() {
         level.set_block_flags(position, Block::AIR.default_state(), 2);
     } else {

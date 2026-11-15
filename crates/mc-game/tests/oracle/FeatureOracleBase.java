@@ -244,14 +244,6 @@ public class FeatureOracleBase {
 
         /** Optional fake level so pieces can create mobs (`level.getLevel()`); null by default like the real null level. */
         public net.minecraft.server.level.ServerLevel fakeLevel;
-        /** Optional: returned by getRandom() inside a mob's finalizeSpawn (Rust has no mob classes, those draws are not modelled). */
-        public RandomSource finalizeSpawnRandom;
-        @Override public RandomSource getRandom() {
-            if (finalizeSpawnRandom != null) {
-                for (StackTraceElement e : Thread.currentThread().getStackTrace()) if (e.getMethodName().equals("finalizeSpawn")) return finalizeSpawnRandom;
-            }
-            return super.getRandom();
-        }
     }
 
     /**

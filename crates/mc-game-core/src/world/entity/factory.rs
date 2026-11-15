@@ -139,6 +139,41 @@ pub fn add_structure_entity(
     level.add_fresh_entity_with_passengers(entity)
 }
 
+/// A mob a structure piece creates while generating: `EntityType.create(level, STRUCTURE)`, then with `difficulty`
+/// `setPersistenceRequired()`, `snapTo(pos, 0, 0)` (the constructor's random head and body rotation stay) and
+/// `finalizeSpawn`, otherwise `setPos(pos)`; then `addFreshEntityWithPassengers`. False when it cannot be created.
+pub fn add_structure_mob(
+    level: &mut dyn crate::world::level::server_level_accessor::ServerLevelAccessor,
+    ty: EntityType,
+    pos: mc_core::pos::BlockPos,
+    difficulty: Option<crate::world::difficulty_instance::DifficultyInstance>,
+) -> bool {
+    let Some(mut entity) = level.create_entity(
+        ty,
+        EntitySpawnRequest {
+            reason: EntitySpawnReason::Structure,
+            ignore_checks: false,
+        },
+    ) else {
+        return false;
+    };
+    let (x, y, z) = (
+        f64::from(pos.x()) + 0.5,
+        f64::from(pos.y()),
+        f64::from(pos.z()) + 0.5,
+    );
+    if let Some(difficulty) = difficulty {
+        entity.set_persistence_required();
+        entity.snap_to(x, y, z, 0.0, 0.0);
+        entity.finalize_spawn(level, difficulty, EntitySpawnReason::Structure, None);
+    } else {
+        entity.set_pos(x, y, z);
+    }
+    // vanilla ignores the add result (a jockey rider is saved with its vehicle, not on its own)
+    level.add_fresh_entity_with_passengers(entity);
+    true
+}
+
 /// A loaded entity tree: `entity` first, then every passenger depth-first, with `vehicle`/`passengers` links set.
 pub type LoadedEntities = Vec<Box<dyn Entity>>;
 

@@ -2,7 +2,6 @@
 //! grid, from the structure's random), its placement as template pieces (`MansionPiecePlacer`: entrance, outer walls, roofs,
 //! carpets, indoor walls/doors, rooms) and the data markers of `WoodlandMansionPiece` (chests, evoker/vindicator/allay).
 
-use super::structure_entities;
 use crate::world::level::levelgen::structure::template_structure_piece::{
     TemplateStructurePieceData, mirror_legacy_name, read_mirror, read_rotation,
     rotation_legacy_name,
@@ -15,6 +14,7 @@ use mc_core::mirror::Mirror;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
 use mc_core::rotation::Rotation;
+use mc_data::EntityType;
 use mc_data::block::Block;
 use mc_data::props;
 use mc_game_core::world::level::levelgen::env::GenEnv;
@@ -1666,18 +1666,14 @@ fn handle_data_marker(
         "Group of Allays" => level.random().next_int_bounded(3) + 1,
         _ => return,
     };
+    let ty = match marker_id {
+        "Mage" => EntityType::EVOKER,
+        "Warrior" => EntityType::VINDICATOR,
+        _ => EntityType::ALLAY,
+    };
     for _ in 0..count {
-        let tag = match marker_id {
-            "Mage" => structure_entities::evoker(level.random(), position),
-            "Warrior" => {
-                let special_multiplier = level
-                    .get_current_difficulty_at(position)
-                    .get_special_multiplier();
-                structure_entities::vindicator(level.random(), position, special_multiplier)
-            }
-            _ => structure_entities::allay(level.random(), position),
-        };
-        level.add_fresh_entity_nbt(tag);
-        level.set_block_flags(position, Block::AIR.default_state(), 2);
+        if level.add_structure_mob(ty, position, true) {
+            level.set_block_flags(position, Block::AIR.default_state(), 2);
+        }
     }
 }

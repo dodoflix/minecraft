@@ -237,6 +237,7 @@ pub fn place_structure(
     for handle in starts {
         let (origin, tag) = {
             let mut start = handle.lock();
+            let _placing = handle.begin_placing(&start);
             start.place_in_chunk(level, &manager, env, random, writable_area, center);
             // Pieces mutate themselves while placing (vanilla's chunk shares the start object): persist the new state.
             let origin = start.get_chunk_pos();

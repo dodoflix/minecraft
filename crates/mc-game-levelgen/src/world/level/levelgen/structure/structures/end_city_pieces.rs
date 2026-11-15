@@ -18,6 +18,7 @@ use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
 use mc_core::rotation::Rotation;
+use mc_data::EntityType;
 use mc_game_core::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
 use mc_game_core::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
 use mc_game_core::world::level::levelgen::env::GenEnv;
@@ -201,7 +202,7 @@ fn handle_data_marker(
         }
     } else if chunk_bb.is_inside(&position) && is_in_spawnable_bounds(position) {
         if marker_id.starts_with("Sentry") {
-            level.add_fresh_entity_nbt(structure_entities::shulker(position));
+            level.add_structure_mob(EntityType::SHULKER, position, false);
         } else if marker_id.starts_with("Elytra") {
             level.add_fresh_entity_nbt(structure_entities::elytra_item_frame(
                 position,

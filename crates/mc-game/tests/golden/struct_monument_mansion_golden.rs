@@ -244,7 +244,7 @@ fn run(name: &str, accept_every_biome: bool, fixture: &str) -> Stats {
             let mut synth = SynthRegion::new(seed, px, pz, ChunkStatus::Features, 1);
             let before = snapshot(&synth);
             let env = synth.env.clone();
-            let mut level = synth.level();
+            let mut level = synth.level_live();
             let mut random = WorldgenRandom::new(Box::new(XoroshiroRandomSource::new(0)));
             let decoration_seed = random.set_decoration_seed(seed, px * 16, pz * 16);
             random.set_feature_seed(decoration_seed, 0, SURFACE_STRUCTURES);

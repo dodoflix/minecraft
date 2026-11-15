@@ -1,0 +1,105 @@
+# The cat variant on a swamp hut placed with /place structure on a flat level (the flat chunk generator's first free height): placing records no
+# structure start or reference on the chunks, so the hut's own cat, and cats spawned on and around its pieces afterwards, pick like any cat; the
+# hut's witch and cat are finalized when the hut is placed, and dumped before anything ticks.
+level flat
+seed 5
+preload 2
+difficulty normal
+command_env
+entity_counter 9200
+spawn_player Steve survival 0.5 -60 24.5 0 0
+time 96000
+tick 5
+set Steve no_gravity true
+cmd place structure minecraft:swamp_hut 0 -60 0
+dump placed:norot
+dump mobs
+note a new moon: no structure condition, the moon picks
+level_seed 9201
+mobspawn H0 minecraft:cat -1.5 -58 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H0 10201
+level_seed 9202
+mobspawn H1 minecraft:cat 0.5 -58 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H1 10202
+level_seed 9203
+mobspawn H2 minecraft:cat 2.5 -58 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H2 10203
+level_seed 9204
+mobspawn H3 minecraft:cat 4.5 -58 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H3 10204
+level_seed 9205
+mobspawn H4 minecraft:cat 6.5 -58 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H4 10205
+level_seed 9206
+mobspawn H5 minecraft:cat 8.5 -58 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed H5 10206
+level_seed 9207
+mobspawn Z0 minecraft:cat 2.5 -58 -1.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z0 10207
+level_seed 9208
+mobspawn Z1 minecraft:cat 2.5 -58 0.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z1 10208
+level_seed 9209
+mobspawn Z2 minecraft:cat 2.5 -58 2.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z2 10209
+level_seed 9210
+mobspawn Z3 minecraft:cat 2.5 -58 4.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z3 10210
+level_seed 9211
+mobspawn Z4 minecraft:cat 2.5 -58 6.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z4 10211
+level_seed 9212
+mobspawn Z5 minecraft:cat 2.5 -58 8.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z5 10212
+level_seed 9213
+mobspawn Z6 minecraft:cat 2.5 -58 10.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z6 10213
+level_seed 9214
+mobspawn Y0 minecraft:cat 2.5 -62 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y0 10214
+level_seed 9215
+mobspawn Y1 minecraft:cat 2.5 -60 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y1 10215
+level_seed 9216
+mobspawn Y2 minecraft:cat 2.5 -59 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y2 10216
+level_seed 9217
+mobspawn Y3 minecraft:cat 2.5 -57 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y3 10217
+level_seed 9218
+mobspawn Y4 minecraft:cat 2.5 -55 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y4 10218
+level_seed 9219
+mobspawn Y5 minecraft:cat 2.5 -50 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed Y5 10219
+level_seed 9220
+mobspawn E0 minecraft:cat 2.5 -58 5.5 0 0 reason=spawn_item_use {NoAI:1b,PersistenceRequired:1b}
+entity_seed E0 10220
+level_seed 9221
+mobspawn O0 minecraft:cat 2.5 -58 5.5 0 0 reason=command {NoAI:1b,PersistenceRequired:1b}
+entity_seed O0 10221
+tick 1
+dump mobs
+note a full moon
+time 0
+tick 2
+level_seed 9222
+mobspawn F0 minecraft:cat -1.5 -58 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F0 10222
+level_seed 9223
+mobspawn F1 minecraft:cat 0.5 -58 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F1 10223
+level_seed 9224
+mobspawn F2 minecraft:cat 2.5 -58 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F2 10224
+level_seed 9225
+mobspawn F3 minecraft:cat 4.5 -58 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F3 10225
+level_seed 9226
+mobspawn F4 minecraft:cat 6.5 -58 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F4 10226
+level_seed 9227
+mobspawn F5 minecraft:cat 8.5 -58 5.5 0 0 reason=natural {NoAI:1b,PersistenceRequired:1b}
+entity_seed F5 10227
+tick 1
+dump mobs
