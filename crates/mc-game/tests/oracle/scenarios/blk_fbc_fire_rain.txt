@@ -1,5 +1,6 @@
 # FireBlock in rain: random burn out chance 0.2 + age*0.03, no spreading into rained-on positions; rain only counts
 # with sky access.
+command_env
 level flat
 preload 3
 difficulty normal

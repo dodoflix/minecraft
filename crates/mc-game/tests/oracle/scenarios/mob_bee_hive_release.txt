@@ -1,6 +1,7 @@
 # Bees leaving a hive on their own (block replay: the hive ticks its occupants): a bee that carries nectar delivers it and raises
 # the honey level (by 1, by 2 with the 1 in 100 draw, never above 5), the released bee knows its hive, the hive's flower, and
 # has its age and love time reduced by the time spent inside; a blocked front, the night and rain keep the occupants in.
+command_env
 level flat
 preload 3
 difficulty normal

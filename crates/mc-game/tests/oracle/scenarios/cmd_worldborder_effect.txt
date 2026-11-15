@@ -1,7 +1,6 @@
 # /worldborder: every subcommand with its feedback, the border packets a player receives, the border moving with the tick loop (set with
 # a duration, add) and its effect on a player outside (damage amount, buffer, warning), as the console, an operator and a plain player.
 command_env
-server_env
 level flat
 preload 2
 level_seed 3

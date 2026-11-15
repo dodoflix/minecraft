@@ -2,6 +2,7 @@
 # shears, a second harness and a ghastling's harness are refused, the home radius shrinks from 64 to 32 with the harness, the tempt
 # goal follows harnesses and snowballs only while the ghast has none, a ghastling grows from snowballs and into an adult (goals,
 # controls and brain are swapped at the age boundary), and an adult heals one point every 600 ticks (every 20 in the rain).
+command_env
 level flat
 difficulty normal
 preload 4

@@ -2,6 +2,7 @@
 # an ominous item spawner shoots a trident, creative throws are pick-up-only-by-creative, a trident that would break with the next point cannot be used, riptide needs water or rain (use fails on dry
 # land) and launches the player instead of throwing (in water, in rain on the ground, riptide sounds, the spin attack). An entity's UUID comes from its random,
 # which is seeded from the command line: a repeated `use`/`release` line would create an entity with an existing UUID, so the lines differ by a counter.
+command_env
 level flat
 preload 2
 difficulty normal

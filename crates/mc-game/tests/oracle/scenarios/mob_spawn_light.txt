@@ -1,5 +1,6 @@
 # Natural monster spawning versus light and weather: four sealed 16x16 rooms at block light 0, 7, 8 and 15 (daytime, no sky light) and open ground at noon, clear and then under
 # thunder (sky darkening): ONE spawnForChunk pass per chunk with the monster category and many seeds; compares spawned mobs (positions, packs, equipment), the spawn state and the level random after each pass.
+command_env
 level flat
 difficulty normal
 preload 6

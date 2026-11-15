@@ -1,5 +1,6 @@
 # Snow through Block.handlePrecipitation in a cold biome (snowy plains): an empty cauldron becomes a powder snow cauldron (10% per hit),
 # a powder snow cauldron gains a level up to 3, a water cauldron and a lava cauldron stay; under a roof nothing falls.
+command_env
 level flat
 preload 3
 level_seed 17

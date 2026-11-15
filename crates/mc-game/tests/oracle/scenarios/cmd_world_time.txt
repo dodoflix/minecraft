@@ -1,7 +1,6 @@
 # /time /weather /difficulty /setworldspawn /spawnpoint /seed /defaultgamemode /gamerule advance_time: feedback, results and the level state
 # (`dump world`), the clock advancing with the tick loop, the packets of a spawn change, as the console, an operator and a plain player.
 command_env
-server_env
 level flat
 preload 2
 level_seed 3

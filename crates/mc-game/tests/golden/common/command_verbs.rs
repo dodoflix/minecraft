@@ -13,12 +13,17 @@
 //! success feedback only while `send_command_feedback` is on, read on every message (the quiet oracle world turns it off: `gamerule send_command_feedback true`).
 //! `find_spawn X Y Z TIMES` runs the spawn search of a first join TIMES times and prints what does not depend on its random order.
 //!
-//! The installed server holds the oracle world's quiet game rules ([`sync_rules`]), so `/gamerule` reads and compares the same old values.
+//! The installed server holds the oracle world's quiet game rules ([`install_command_env`]) and the replayed level reads the server's own
+//! state ([`attach_server_state`]: rule handle, scoreboard, command storage; the entity replay also takes the server's world data, so
+//! difficulty, respawn position and game time are shared): `/gamerule`, `/difficulty`, `/scoreboard` and `/data` act on what the level
+//! reads. A block replay with a command environment also ticks through the server (weather, tick rate manager, clocks, difficulty).
 //!
-//! Limits of the replay (a scenario that needs one of them adds it here): the entity replay shares no difficulty, scoreboard or respawn
-//! position with the installed server; the emulated `cmd weather|recipe` arms and the entity replay's `cmd` without `command_env` print
-//! no `CF` lines; the console source always acts in the replay's dimension; a command that changes a game rule from inside a command
-//! block reaches the level's live rules, but the tick environment's copy (the command block rules) follows `gamerule` commands and verbs only.
+//! The console source acts in the overworld like `MinecraftServer.createCommandSourceStack`: the replay of another dimension runs its
+//! commands through `execute in`.
+//!
+//! Limits of the replay (a scenario that needs one of them adds it here): the entity replay's `cmd` without `command_env` prints no `CF` lines;
+//! the entity replay keeps its own overworld clock and never ticks through the server, so `/time`, `/weather` and `/tick` change only the
+//! server's state there.
 use super::entity_scenario::canon;
 use super::mob_verbs::MobHost;
 use super::player_actions::ActionHost;
@@ -422,7 +427,7 @@ pub fn legacy_feedback(name: &str, lines: Vec<String>) -> Vec<String> {
         .collect()
 }
 
-/// `MinecraftServer.createCommandSourceStack`: the respawn position, no rotation, owner permissions, named `Server`.
+/// `MinecraftServer.createCommandSourceStack`: the overworld at the respawn position, no rotation, owner permissions, named `Server`.
 fn console_stack(level: &ServerLevel, source: Arc<dyn CommandSource>) -> CommandSourceStack {
     let respawn = level.level_data.get_respawn_data().pos;
     CommandSourceStack::named(
@@ -433,7 +438,7 @@ fn console_stack(level: &ServerLevel, source: Arc<dyn CommandSource>) -> Command
             f64::from(respawn.z()),
         ),
         Vec2::ZERO,
-        level.dimension.clone(),
+        mc_game::server::world_dimensions::overworld_key(),
         LevelBasedPermissionSet::OWNER.into(),
         Component::literal("Server"),
     )
@@ -785,22 +790,25 @@ pub fn install_command_env(
     mc_game::commands::install_text_validators();
     mc_protocol::components::install_text_hooks();
     server.0.world_gen_settings.options.seed = 4242;
+    // the oracle world runs the quiet rule set from boot
+    let enabled = server
+        .0
+        .world_data
+        .lock()
+        .settings
+        .data_configuration
+        .enabled_features;
+    *server.0.game_rules() = super::block_scenario::quiet_game_rules(enabled);
     server
 }
 
-/// The installed server takes over the rules of the replayed level (the oracle world's quiet set plus the boot rules), or the other way
-/// round after a `/gamerule` command: the rules both sets have, since the feature flags may enable more on one side.
-pub fn sync_rules(from: &GameRules, to: &mut GameRules) {
-    for rule in from.available_rules() {
-        to.try_set_value(rule, from.get_value(rule));
-    }
-}
-
-/// [`sync_rules`] into the installed server's rules (a replay without `command_env` has none).
-pub fn sync_server_rules(rules: &GameRules) {
-    if server_access::has_server() {
-        server_access::with_server(|server| sync_rules(rules, server.game_rules()));
-    }
+/// The replayed level reads the installed server's rule handle, scoreboard and command storage (what `/gamerule`, `/scoreboard` and
+/// `/data` change).
+pub fn attach_server_state(level: &mut ServerLevel, server: &mut MinecraftServer) {
+    level.server_state.rules = server.game_rules().live();
+    level.server_state.scoreboard = server.scoreboard.clone();
+    let storage = server.command_storage.view();
+    level.server_state.loot.command_storage = Arc::new(move |id| storage.get(id));
 }
 
 /// The installed server's world seed (`/seed`), when a command environment is installed.

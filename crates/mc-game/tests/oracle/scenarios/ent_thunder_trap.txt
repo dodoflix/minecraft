@@ -1,6 +1,7 @@
 # ServerLevel.tickThunder on hard with mob spawning on: the strike roll (difficulty times 1/100) makes the bolt visual only and
 # spawns a trap skeleton horse at the strike position first (the bolt follows); a trap needs no rod below the strike. A trap horse
 # with no player within 10 blocks stays a horse. The seed makes the first chunk's draw of the 96th tick a strike and the next draw a trap (mob spawning draws from the level random after each chunk).
+command_env
 level flat
 preload 4
 difficulty hard

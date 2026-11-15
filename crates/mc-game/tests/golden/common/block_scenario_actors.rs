@@ -1073,30 +1073,6 @@ impl Scenario {
         true
     }
 
-    /// `/recipe give|take PLAYER RECIPE|*`: `awardRecipes` / `resetRecipes` over the one recipe or every learnable recipe.
-    pub(super) fn recipe_command(&mut self, a: &[String]) {
-        self.load_registries();
-        let level_recipes = self.level().recipe_access();
-        let holders: Vec<_> = if a[4] == "*" {
-            level_recipes.learnable_recipes().to_vec()
-        } else {
-            let id = Identifier::parse(&a[4]).unwrap_or_else(|e| panic!("recipe {}: {e:?}", a[4]));
-            vec![
-                level_recipes
-                    .by_key(&id)
-                    .unwrap_or_else(|| panic!("unknown recipe {id}"))
-                    .clone(),
-            ]
-        };
-        self.with_player_named(&a[3], |level, p| {
-            if a[2] == "give" {
-                p.award_recipes(level, &holders);
-            } else {
-                p.reset_recipes(level, &holders);
-            }
-        });
-    }
-
     fn with_player_named<R>(
         &mut self,
         name: &str,

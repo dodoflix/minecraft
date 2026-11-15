@@ -1,4 +1,5 @@
 # daylight detector power with rain, at several times, inverted, and in the nether and the end (no sky light / sun angle), updated by BE tick every 20 ticks.
+command_env
 level flat
 preload 2
 watch off

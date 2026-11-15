@@ -13,7 +13,7 @@
 //!
 //! Supported commands (same text as the Java driver, see its header): `level flat|void|normal` (`normal`: the real noise generator of the dimension), `structures true|false` (`generate-structures`: placed structures and the structure search), `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `preload_settle` (boot also finishes the chunks two rings beyond the preload), `features NAME,..`,
 //! `command_env` (a real command environment around the whole scenario; the command verbs of `command_verbs.rs` then run real commands: `cmd COMMAND...` as the console with its feedback printed as compared `CF` lines, `cmd_quiet`, `cmd_json`, `cmd_as PLAYER|-LEVEL COMMAND...` with a player's or a permission level's permissions; dumps `scoreboard`, `bossbars`, `storage:ID`, `select:EXECUTOR/X,Y,Z/SELECTOR`), `jigsaw_generate PLAYER X Y Z LEVELS KEEP`, `menu_button PLAYER N`, `close_menu PLAYER`, `move_packet`, `move_vehicle`, `paddle`, `client_tick_end`, `respawn`, `effect`, `mobspawn` (the actor verbs of `block_scenario_actors.rs`), the mob verbs of `mob_verbs.rs` (`target love age breed tame leash mob_attack nav path_query nav_stop`, dumps `mob:REF mobs goals: brain: path: attrs: nbt:`),
-//! `note`, the spawning verbs of `spawn_verbs.rs` (`spawnpass`, `spawnat`, `custom_spawner`, `raid_start`, `raid_waves`, `rest`, `memory`, `activity`, dumps `difficulty:X,Y,Z spawn_state raids`), `cmd weather rain|clear TICKS`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
+//! `note`, the spawning verbs of `spawn_verbs.rs` (`spawnpass`, `spawnat`, `custom_spawner`, `raid_start`, `raid_waves`, `rest`, `memory`, `activity`, dumps `difficulty:X,Y,Z spawn_state raids`), `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `biome X1 Y1 Z1 X2 Y2 Z2 BIOME` (`/fillbiome`: loads the real biome registry), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
 //! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list), `chunkbes:cx,cz` (`CHUNKBES`/`BEP x y z type`: the block entity list of the chunk packet; `BEM` is the map's iteration order, vanilla's fastutil order), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
 //! delay=N prio=P`, execution order), `events` (`EV ...` lines of level events / sounds / block events broadcast since the last
@@ -205,16 +205,11 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
     {
         s.actors.use_server_data(server);
     }
-    // `server_env` (needs the command environment): the clocks the sky reads are the installed server's, and `tick` runs the
-    // server's own per-tick work around the level tick
-    if let Some((server, _)) = &mut server
-        && text.lines().any(|l| l.trim() == "server_env")
-    {
-        s.server_env = true;
+    // with a command environment the level ticks through the installed server (tick rate manager, clocks, weather, difficulty), and the
+    // clocks the sky reads are the server's
+    if let Some((server, _)) = &server {
         s.clocks = server.clock_manager().totals();
         s.env.clocks = s.clocks.clone();
-        // the oracle world runs the frozen, quiet rule set from boot: the installed server's rules start there too
-        *server.game_rules() = quiet_game_rules(FeatureFlagSet::DEFAULT_FLAGS);
     }
     for (i, line) in text.lines().enumerate() {
         let line = line.trim();
@@ -435,7 +430,7 @@ impl LevelTickEnv for Env {
     fn teleport_through_portal(&mut self, _level: &mut ServerLevel, _entity: &mut dyn Entity) {}
 }
 
-/// [`Env`] of a `server_env` scenario: what `ServerTickEnv` reads from the server (tick rate manager, weather, difficulty, clocks) comes from
+/// [`Env`] of a scenario with a command environment: what `ServerTickEnv` reads from the server (tick rate manager, weather, difficulty, clocks) comes from
 /// the installed server, so the commands that change them (`/tick`, `/weather`, `/difficulty`, `/time`) act on the level's tick; the rest
 /// stays the replay's.
 struct ServerBackedEnv<'a>(&'a mut Env);
@@ -648,8 +643,6 @@ pub struct Scenario {
     line: String,
     /// The `world_clock` totals the attribute timelines read (`time N` sets the overworld clock).
     clocks: Arc<mc_game::world::clock::ClockTotals>,
-    /// `server_env`: the level ticks through the installed server's tick rate manager, clocks, weather and difficulty ([`ServerBackedEnv`]).
-    server_env: bool,
 }
 
 impl Scenario {
@@ -689,7 +682,6 @@ impl Scenario {
             line_no: 0,
             actors: Default::default(),
             line: String::new(),
-            server_env: false,
         }
     }
 
@@ -699,15 +691,9 @@ impl Scenario {
 
     /// `ActionHost::command_done`: what a command changes outside the installed server.
     fn after_command(&mut self, command: &str, succeeded: bool) {
-        // the level and the tick environment read their own copy of the rules the installed server's `/gamerule` just changed
+        // the level shares the installed server's rule handle: only the chunk source's spawn flag follows a `/gamerule`
         if succeeded && command.split_whitespace().next() == Some("gamerule") {
-            let rules = &mut self.env.game_rules;
-            mc_game::commands::server_access::with_server(|server| {
-                super::command_verbs::sync_rules(server.game_rules(), rules)
-            });
-            let level = self.level.as_mut().expect("world");
-            level.server_state.rules.refresh(&self.env.game_rules);
-            apply_spawn_settings(level, &self.env.game_rules);
+            apply_spawn_settings(self.level.as_mut().expect("world"));
         }
         // a reload (or toggling a pack) swaps the server's registries, recipes and advancements: the replay's entity creation reads the new ones
         if succeeded
@@ -884,32 +870,28 @@ impl Scenario {
             && !dimension_type.has_ceiling
             && self.opts.dimension != "the_end";
         level.tick_state.enabled_features = self.opts.features;
-        for (name, value) in &self.opts.boot_rules {
-            set_rule(&mut self.env.game_rules, name, value);
-        }
-        level.server_state.rules.refresh(&self.env.game_rules);
-        super::command_verbs::sync_server_rules(&self.env.game_rules);
-        // the levels of a real server read the live values of its rules: a rule a command changes is seen by the code that command runs
+        // with a command environment the level reads the installed server's rules, scoreboard and command storage (`/gamerule`,
+        // `/team`, `/data` edit the ones the level reads); else the replay keeps its own rules
         if mc_game::commands::server_access::has_server() {
-            level.server_state.rules =
-                mc_game::commands::server_access::with_server(|server| server.game_rules().live());
+            mc_game::commands::server_access::with_server(|server| {
+                for (name, value) in &self.opts.boot_rules {
+                    set_rule(server.game_rules(), name, value);
+                }
+                super::command_verbs::attach_server_state(&mut level, server);
+            });
+        } else {
+            for (name, value) in &self.opts.boot_rules {
+                set_rule(&mut self.env.game_rules, name, value);
+            }
+            level.server_state.rules.refresh(&self.env.game_rules);
         }
-        apply_spawn_settings(&mut level, &self.env.game_rules);
+        apply_spawn_settings(&mut level);
         // `MinecraftServer.createLevels`: only the overworld has custom spawners (phantom, patrol, cat, siege, trader)
         if self.opts.dimension == "overworld" {
             level.install_custom_spawners();
         }
         // chunk generation reads the rules from the values published per tick; the preload generates before the first one
         level.publish_spawn_environment(&self.env);
-        if mc_game::commands::server_access::has_server() {
-            // the scoreboard the `team`/`scoreboard` commands edit is the one the level reads
-            level.server_state.scoreboard =
-                mc_game::commands::server_access::with_server(|s| s.scoreboard.clone());
-            // the storage `/data` edits is the one loot number and NBT providers read
-            let storage =
-                mc_game::commands::server_access::with_server(|s| s.command_storage.view());
-            level.server_state.loot.command_storage = Arc::new(move |id| storage.get(id));
-        }
         // the border applies its saved settings when the level first reads it (the server does so while it creates the levels, before
         // any player listens): the change events of that first read are not player-visible
         level.get_world_border().take_events();
@@ -1059,7 +1041,7 @@ impl Scenario {
                 if let (Some(data), Some(level)) = (&self.world_data, self.level.as_mut()) {
                     data.lock().settings.difficulty_settings.difficulty = self.opts.difficulty;
                     self.env.difficulty = self.opts.difficulty;
-                    apply_spawn_settings(level, &self.env.game_rules);
+                    apply_spawn_settings(level);
                 }
             }
             "preload" => self.opts.preload = int(&a[1]),
@@ -1079,50 +1061,7 @@ impl Scenario {
                 }
                 self.env.game_rules = quiet_game_rules(self.opts.features);
             }
-            // `cmd weather rain|thunder|clear DURATION` (the duration is explicit: the command's default draws from the level random) and
-            // `cmd recipe give|take PLAYER RECIPE|*`
-            "cmd" => {
-                self.world();
-                match (a.get(1).map(String::as_str), a.get(2).map(String::as_str)) {
-                    (Some("weather"), Some(kind @ ("rain" | "thunder" | "clear")))
-                        if !self.server_env =>
-                    {
-                        let ticks: i32 = a
-                            .get(3)
-                            .and_then(|d| d.parse().ok())
-                            .unwrap_or_else(|| panic!("weather {kind} needs a duration in ticks"));
-                        self.env.weather = if kind != "clear" {
-                            WeatherState {
-                                clear_weather_time: 0,
-                                rain_time: ticks,
-                                thunder_time: ticks,
-                                thundering: kind == "thunder",
-                                raining: true,
-                            }
-                        } else {
-                            WeatherState {
-                                clear_weather_time: ticks,
-                                rain_time: 0,
-                                thunder_time: 0,
-                                thundering: false,
-                                raining: false,
-                            }
-                        };
-                        // the replay's weather is the tick environment's; the real command (on the installed server's own weather)
-                        // only supplies the feedback lines
-                        if mc_game::commands::server_access::has_server() {
-                            let line = self.line.clone();
-                            super::command_verbs::command(self, a, &line);
-                        }
-                    }
-                    (Some("recipe"), Some("give" | "take")) => self.recipe_command(a),
-                    _ => {
-                        let line = self.line.clone();
-                        super::command_verbs::command(self, a, &line);
-                    }
-                }
-            }
-            "cmd_quiet" => {
+            "cmd" | "cmd_quiet" => {
                 self.world();
                 let line = self.line.clone();
                 super::command_verbs::command(self, a, &line);
@@ -1135,7 +1074,7 @@ impl Scenario {
             "time" => {
                 self.world();
                 let ticks: i64 = a[1].parse().unwrap_or_else(|_| panic!("time {}", a[1]));
-                if self.server_env {
+                if mc_game::commands::server_access::has_server() {
                     // the installed server's own clock, which the level reads
                     let command = format!("cmd_quiet time set {ticks}");
                     super::command_verbs::command(self, &tokens(&command), &command);
@@ -1216,7 +1155,7 @@ impl Scenario {
                 self.world();
                 self.random_tick(pos(a, 1));
             }
-            "command_env" | "datapack" | "server_env" => {}
+            "command_env" | "datapack" => {}
             "be_nbt" => {
                 self.world();
                 let snbt = self.line[self.line.find(a[4].as_str()).expect("snbt")..].to_string();
@@ -1252,16 +1191,17 @@ impl Scenario {
     }
 
     fn gamerule(&mut self, name: &str, value: &str) {
-        set_rule(&mut self.env.game_rules, name, value);
-        // the editor packet handlers read the rules of the installed server
+        let level = self.level.as_mut().expect("world");
+        // the level reads the installed server's rules (the editor packet handlers do as well), else its own set
         if mc_game::commands::server_access::has_server() {
             mc_game::commands::server_access::with_server(|server| {
                 set_rule(server.game_rules(), name, value)
             });
+        } else {
+            set_rule(&mut self.env.game_rules, name, value);
+            level.server_state.rules.refresh(&self.env.game_rules);
         }
-        let level = self.level.as_mut().expect("world");
-        level.server_state.rules.refresh(&self.env.game_rules);
-        apply_spawn_settings(level, &self.env.game_rules);
+        apply_spawn_settings(level);
     }
 
     /// `VanillaLevel.drainChunkTasks`: the vanilla server loop runs the chunk source's queued tasks while it waits for the next tick, so
@@ -1297,7 +1237,7 @@ impl Scenario {
         }
         self.force_game_time_synchronization();
         let mut level = self.level.take().expect("world");
-        if self.server_env {
+        if mc_game::commands::server_access::has_server() {
             // `tickServer` / `tickChildren` around the level tick: the tick rate manager's step counter, then the clocks while the game runs
             mc_game::commands::server_access::with_server(|server| {
                 server.tick_rate_manager.tick();
@@ -1305,6 +1245,8 @@ impl Scenario {
                     server.tick_clocks();
                 }
             });
+            // a rule a command block changed since the last tick reaches the chunk source (`updateMobSpawningFlags`)
+            apply_spawn_settings(&mut level);
             level.tick(&mut ServerBackedEnv(&mut self.env), &mut || true);
         } else {
             level.tick(&mut self.env, &mut || true);
@@ -1315,7 +1257,7 @@ impl Scenario {
         if mc_game::commands::server_access::has_server() {
             mc_game::commands::server_access::with_server(|server| server.flush_scoreboard());
         }
-        if self.server_env {
+        if mc_game::commands::server_access::has_server() {
             let level = self.level.as_mut().expect("world");
             mc_game::commands::server_access::with_server(|server| {
                 server.with_lent_level(level, |server| server.flush_world_border_events())
@@ -1631,10 +1573,9 @@ fn fill_biomes(
 
 /// `/gamerule NAME VALUE` (unknown rules and rules disabled by the feature flags are ignored like a rejected command).
 /// `MinecraftServer.updateMobSpawningFlags`: the chunk source spawns monsters while `spawn_mobs` and `spawn_monsters` are on.
-fn apply_spawn_settings(level: &mut ServerLevel, rules: &GameRules) {
-    level.chunk_source_mut().set_spawn_settings(
-        rules.get(GameRules::SPAWN_MOBS) && rules.get(GameRules::SPAWN_MONSTERS),
-    );
+fn apply_spawn_settings(level: &mut ServerLevel) {
+    let spawn = level.spawn_mobs() && level.spawn_monsters();
+    level.chunk_source_mut().set_spawn_settings(spawn);
 }
 
 /// `VanillaLevel.boot`: the frozen, quiet world's rules (a rule that needs a feature flag exists only when the world enables it).

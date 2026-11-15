@@ -1,7 +1,6 @@
 # /tick freeze, step, unfreeze, rate, sprint and query: the feedback, the ticking state packets, and what a frozen or stepping game does to
 # the clock, the game time and a falling item (`tick query` prints measured times: its result is read through `execute store`).
 command_env
-server_env
 level flat
 preload 2
 level_seed 3

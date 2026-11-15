@@ -36,8 +36,8 @@ pub trait ActionHost {
     fn next_sequence(&mut self, player: &str) -> i32;
     /// One line of the replay output.
     fn emit(&mut self, line: String);
-    /// A `cmd` verb ran `command` (`succeeded`: its result callback reported success): what the replay re-does for its effects outside the command environment (a `gamerule` command sets the
-    /// replay's own rules, a command that kicked a player disconnects it).
+    /// A `cmd` verb ran `command` (`succeeded`: its result callback reported success): what the replay re-does for its effects outside the command environment (a `gamerule` command
+    /// reaches the chunk source's spawn flag, a command that kicked a player disconnects it).
     fn command_done(&mut self, _command: &str, _succeeded: bool) {}
 }
 

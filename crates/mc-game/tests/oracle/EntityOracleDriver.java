@@ -129,9 +129,8 @@ import net.minecraft.util.RandomSource;
  * random_tick X Y Z           randomTick of that block (+ its fluid) as tickChunk's inner loop does for one chosen position
  * bonemeal X Y Z            BoneMealItem.growCrop without a player; prints `BONEMEAL true|false` (true = the block was a valid target)
  * destroy X Y Z              Level.destroyBlock(pos, true) (no breaker: destroy particles event, drops, BLOCK_DESTROY); prints `DESTROY true|false`
- * command_env               (before the first world command) no-op here, the Rust replay installs a command environment (server access) for the scenario
- * server_env               (before the first world command, with `command_env`) no-op here: the Rust replay ticks its level through the installed server's tick rate manager,
- *                             clocks, weather and difficulty (a scenario that runs /tick, /time, /weather, /difficulty or moves the border)
+ * command_env               (before the first world command) no-op here, the Rust replay installs a command environment (server access) for the scenario and ticks its level
+ *                             through the installed server's tick rate manager, clocks, weather and difficulty (a scenario that runs /tick, /time, /weather, /difficulty or moves the border)
  * jigsaw_generate PLAYER X Y Z LEVELS KEEP   ServerboundJigsawGeneratePacket from an operator in creative mode (`op PLAYER`): JigsawBlockEntity.generate(level, LEVELS, KEEP=true|false)
  * be_nbt X Y Z SNBT           merge SNBT into the block entity (`/data merge block`: saveWithFullMetadata.merge, loadWithComponents, setChanged)
  * -- entities --
@@ -590,9 +589,6 @@ public final class EntityOracleDriver {
             world();
             BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
             out.println("BONEMEAL " + net.minecraft.world.item.BoneMealItem.growCrop(new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 64), v.level, pos));
-         }
-         case "server_env" -> {
-            // see the header: the real server always ticks through its own state
          }
          case "command_env" -> {
             // the real server always has its command environment; the Rust replay installs one for the whole scenario

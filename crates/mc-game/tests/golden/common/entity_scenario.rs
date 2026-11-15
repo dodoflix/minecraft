@@ -111,7 +111,7 @@ pub fn run_scenario_text(label: &str, text: &str) -> Vec<String> {
         .any(|l| l.trim() == "command_env")
         .then(|| super::command_verbs::install_command_env(&[], &[]));
     if let Some((server, _)) = server.as_mut() {
-        super::command_verbs::sync_rules(&h.game_rules, server.game_rules());
+        h.attach_server(server);
     }
     for (i, raw) in text.lines().enumerate() {
         h.line_no = i + 1;
@@ -332,7 +332,8 @@ pub struct Harness {
     pub line: String,
     flat: bool,
     sequences: super::player_actions::Sequences,
-    /// The oracle's rules: the quiet world of `VanillaLevel.boot` plus every `gamerule` verb so far.
+    /// The oracle's rules (the quiet world of `VanillaLevel.boot` plus every `gamerule` verb so far) of a replay without a command environment; with
+    /// one the level reads the installed server's rules.
     game_rules: mc_game::world::level::gamerules::GameRules,
     /// The overworld clock the `time` verb sets (`/time set`): the sky, the sun and the villager schedule follow it.
     clocks: std::sync::Arc<mc_game::world::clock::ClockTotals>,
@@ -402,6 +403,23 @@ impl Harness {
             connections: Vec::new(),
             broadcast_log,
         }
+    }
+
+    /// The level reads the installed server's state: its world data (the harness's difficulty, respawn position and game time are copied
+    /// into it first), rules, scoreboard and command storage.
+    fn attach_server(&mut self, server: &mut mc_game::server::MinecraftServer) {
+        {
+            let ours = self.world.lock();
+            let mut theirs = server.world_data.lock();
+            theirs.settings.difficulty_settings = ours.settings.difficulty_settings;
+            theirs.respawn_data = ours.respawn_data.clone();
+            theirs.game_time = ours.game_time;
+        }
+        self.world = server.world_data.clone();
+        self.level.level_data = Box::new(
+            mc_game::server::level::level_data::PrimaryServerLevelData(self.world.clone()),
+        );
+        super::command_verbs::attach_server_state(&mut self.level, server);
     }
 
     fn fail(&self, msg: &str) -> ! {
@@ -683,13 +701,14 @@ impl Harness {
             "note" => self.out.push(format!("# {}", self.line[4..].trim())),
             "gamerule" => {
                 self.world();
-                super::block_scenario::set_rule(&mut self.game_rules, &a[1], &a[2]);
-                self.level.server_state.rules.refresh(&self.game_rules);
-                // the command environment's server reads its own rules
+                // with a command environment the level reads the installed server's rules
                 if mc_game::commands::server_access::has_server() {
                     mc_game::commands::server_access::with_server(|server| {
                         super::block_scenario::set_rule(server.game_rules(), &a[1], &a[2])
                     });
+                } else {
+                    super::block_scenario::set_rule(&mut self.game_rules, &a[1], &a[2]);
+                    self.level.server_state.rules.refresh(&self.game_rules);
                 }
             }
             "time" => {
@@ -1434,16 +1453,6 @@ impl super::player_actions::ActionHost for Harness {
     }
     fn emit(&mut self, line: String) {
         self.out.push(line);
-    }
-    fn command_done(&mut self, command: &str, succeeded: bool) {
-        // the level reads its own copy of the rules the installed server's `/gamerule` just changed
-        if succeeded && command.split_whitespace().next() == Some("gamerule") {
-            let rules = &mut self.game_rules;
-            mc_game::commands::server_access::with_server(|server| {
-                super::command_verbs::sync_rules(server.game_rules(), rules)
-            });
-            self.level.server_state.rules.refresh(&self.game_rules);
-        }
     }
 }
 
