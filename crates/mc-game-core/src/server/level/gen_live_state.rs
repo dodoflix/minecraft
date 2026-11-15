@@ -7,14 +7,15 @@ use crate::registry::RegistryAccess;
 use crate::registry::typed::dimension_type::DimensionType;
 use mc_world::level_storage::Difficulty;
 use std::sync::atomic::{AtomicBool, AtomicI32, AtomicI64, AtomicU32, Ordering};
-use std::sync::{Arc, OnceLock};
+use std::sync::{Arc, OnceLock, RwLock};
 
 pub struct GenLiveState {
     difficulty: AtomicI32,
     spawn_mobs: AtomicBool,
     overworld_clock_time: AtomicI64,
     moon_brightness: AtomicU32,
-    registries: OnceLock<RegistryAccess>,
+    /// `registryAccess()`; `/reload` swaps it.
+    registries: RwLock<RegistryAccess>,
     dimension_type: OnceLock<Arc<DimensionType>>,
     /// The level's private `ENTITY_COUNTER` (see `ServerLevel::entity_id_counter`), when it has one.
     entity_counter: OnceLock<Arc<AtomicI32>>,
@@ -29,7 +30,7 @@ impl Default for GenLiveState {
             spawn_mobs: AtomicBool::new(true),
             overworld_clock_time: AtomicI64::new(0),
             moon_brightness: AtomicU32::new(0.0f32.to_bits()),
-            registries: OnceLock::new(),
+            registries: RwLock::new(RegistryAccess::default()),
             dimension_type: OnceLock::new(),
             entity_counter: OnceLock::new(),
             light: OnceLock::new(),
@@ -57,7 +58,7 @@ impl GenLiveState {
 
     /// Installed once by the level factory.
     pub fn install(&self, registries: RegistryAccess, dimension_type: Arc<DimensionType>) {
-        let _ = self.registries.set(registries);
+        self.set_registries(registries);
         let _ = self.dimension_type.set(dimension_type);
     }
 
@@ -98,11 +99,17 @@ impl GenLiveState {
         f32::from_bits(self.moon_brightness.load(Ordering::Relaxed))
     }
 
+    /// What `/reload` does to `server.registryAccess()`: generation reads the reloaded registries and tags from now on.
+    pub fn set_registries(&self, registries: RegistryAccess) {
+        *self.registries.write().unwrap_or_else(|e| e.into_inner()) = registries;
+    }
+
     /// `registryAccess()` (empty before the factory installed it).
-    pub fn registries(&self) -> &RegistryAccess {
-        static EMPTY: std::sync::LazyLock<RegistryAccess> =
-            std::sync::LazyLock::new(RegistryAccess::default);
-        self.registries.get().unwrap_or(&EMPTY)
+    pub fn registries(&self) -> RegistryAccess {
+        self.registries
+            .read()
+            .unwrap_or_else(|e| e.into_inner())
+            .clone()
     }
 
     pub fn dimension_type(&self) -> Option<&Arc<DimensionType>> {

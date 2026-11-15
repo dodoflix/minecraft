@@ -164,6 +164,7 @@ import net.minecraft.util.RandomSource;
  * chunk_batch_received PLAYER RATE   ServerboundChunkBatchReceivedPacket (the client acknowledges the last chunk batch and asks for RATE chunks per tick; without it the
  *                             server sends no second batch after the join)
  * pick_block PLAYER X Y Z [true|false]   ServerboundPickItemFromBlockPacket (the flag = include block data, creative only)
+ * teleport_to_entity PLAYER REF   ServerboundTeleportToEntityPacket (the spectator teleports to the entity REF)
  * move_packet PLAYER X Y Z ONGROUND [yaw pitch]   ServerboundMovePlayerPacket (server-authoritative path)
  * dig PLAYER X Y Z [TICKS]    client-like digging: START_DESTROY_BLOCK, per tick client progress, STOP_DESTROY_BLOCK when the
  *                             client would send it (or after TICKS ticks); prints "DIG ticks=N broken=B"; ticks the server
@@ -797,6 +798,10 @@ public final class EntityOracleDriver {
             ServerPlayer p = player(a.get(1));
             p.connection.handlePickItemFromBlock(new ServerboundPickItemFromBlockPacket(
                new BlockPos(Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)), Integer.parseInt(a.get(4))), a.size() > 5 && Boolean.parseBoolean(a.get(5))));
+         }
+         case "teleport_to_entity" -> {
+            world();
+            player(a.get(1)).connection.handleTeleportToEntityPacket(new ServerboundTeleportToEntityPacket(ref(a.get(2)).getUUID()));
          }
          case "move_packet" -> {
             world();

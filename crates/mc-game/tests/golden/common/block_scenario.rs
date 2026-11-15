@@ -189,6 +189,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                         | "move_packet"
                         | "move_vehicle"
                         | "accept_teleport"
+                        | "teleport_to_entity"
                         | "paddle"
                         | "client_tick_end"
                         | "leave"

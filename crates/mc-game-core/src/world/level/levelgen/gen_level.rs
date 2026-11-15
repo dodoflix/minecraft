@@ -69,6 +69,8 @@ pub struct GenLevel<'a> {
     difficulty: (Difficulty, i64, f32),
     /// The live level values mob spawning reads (difficulty, `spawnMobs`, registries, dimension type).
     live: Option<Arc<crate::server::level::gen_live_state::GenLiveState>>,
+    /// `registryAccess()` of the live level as of the region's creation.
+    registries: crate::registry::RegistryAccess,
     /// `getLightEngine()` of the live level (what the spawn step reads: `LIGHT` precedes `SPAWN`).
     light: Option<mc_light::LightReader>,
     /// Heightmaps read while missing from their (writable) chunk: `(chunkX, chunkZ, type)`, primed lazily.
@@ -101,6 +103,7 @@ impl<'a> GenLevel<'a> {
             game_time: 0,
             difficulty: (Difficulty::Normal, 0, 0.0),
             live: None,
+            registries: Default::default(),
             light: None,
             pending_heightmaps: RefCell::new(Vec::new()),
             unridden_vehicle: None,
@@ -142,6 +145,7 @@ impl<'a> GenLevel<'a> {
             live.overworld_clock_time(),
             live.moon_brightness(),
         );
+        self.registries = live.registries();
         self.live = Some(live);
         self
     }
@@ -920,9 +924,7 @@ impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLeve
     }
 
     fn registry_access(&self) -> &crate::registry::RegistryAccess {
-        static EMPTY: std::sync::LazyLock<crate::registry::RegistryAccess> =
-            std::sync::LazyLock::new(Default::default);
-        self.live.as_ref().map_or(&EMPTY, |l| l.registries())
+        &self.registries
     }
 
     fn get_biome_id(&self, pos: BlockPos) -> Option<BiomeId> {

@@ -51,3 +51,9 @@ fn thrown_banner_picked_up_by_a_raider_awards_the_thrower() {
 fn allay_delivery_to_a_note_block_awards_the_liked_player() {
     check("adv_allay_note_block");
 }
+
+/// The stack `any_block_use` sees when the use kills the player (a respawn anchor explosion) and the hand's object goes into the death drops.
+#[test]
+fn dying_of_a_block_use_awards_the_dropped_object() {
+    check("adv_block_use_death");
+}

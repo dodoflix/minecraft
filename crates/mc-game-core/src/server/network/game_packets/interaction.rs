@@ -392,7 +392,12 @@ impl PlayCtx<'_> {
             return;
         }
         // `for (ServerLevel level : server.getAllLevels()) { entity = packet.getEntity(level); ... }`
-        for dimension in self.server.level_keys() {
+        let mut dimensions = self.server.level_keys();
+        if !dimensions.contains(&self.level.dimension) {
+            // a server that only borrows the level of the packet (no level of its own) still has it among `getAllLevels()`
+            dimensions.push(self.level.dimension.clone());
+        }
+        for dimension in dimensions {
             let found = if dimension == self.level.dimension {
                 self.level
                     .get_entity_by_uuid(packet.uuid)

@@ -1,0 +1,34 @@
+# A spectator teleporting to an entity (ServerboundTeleportToEntityPacket) is a same-dimension ServerPlayer.teleport: it dismounts the vehicle
+# the spectator rides first (also when the target is that vehicle), resets the camera and receives the position packet.
+command_env
+level flat
+preload 2
+level_seed 61
+entity_counter 1500
+spawn_player S spectator 0.5 -60 0.5 0 0
+spawn boat minecraft:oak_boat 4.5 -60 0.5 0 0
+spawn pig minecraft:pig 8.5 -60 4.5 90 0 {NoAI:1b,Silent:1b}
+spawn cow minecraft:cow 12.5 -60 4.5 180 0 {NoAI:1b,Silent:1b}
+entity_seed boat 1
+entity_seed pig 2
+entity_seed cow 3
+tick 1
+note riding spectator, target another entity
+ride S boat
+tick 1
+dump entities player:S packets:S:set_passengers,player_position,set_camera,teleport_entity
+teleport_to_entity S pig
+tick 2
+dump entities player:S packets:S:set_passengers,player_position,set_camera,teleport_entity
+note riding again, target the vehicle itself
+ride S boat
+tick 1
+teleport_to_entity S boat
+tick 2
+dump entities player:S packets:S:set_passengers,player_position,set_camera,teleport_entity
+note not riding, camera on another entity
+spawn_player T spectator 0.5 -60 6.5 0 0
+tick 1
+teleport_to_entity T cow
+tick 2
+dump entities player:T packets:T:set_passengers,player_position,set_camera,teleport_entity

@@ -42,6 +42,7 @@ impl MinecraftServer {
         for dimension in self.level_keys() {
             if let Some(level) = self.level_mut(&dimension) {
                 level.registries = composite.clone();
+                level.spawning.gen_live.set_registries(composite.clone());
                 level.refresh_poi_village_tag();
             }
         }

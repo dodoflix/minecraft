@@ -1,0 +1,32 @@
+CF msg The game is frozen
+CF result success 1
+# chunks generated before the tag changes
+CF msg Marked 12 chunks in minecraft:overworld from [-3, -3] to [0, 0] to be force loaded
+CF result success 12
+G minecraft:chicken pos=-22.0,79.0,25.0 rot=- Age=0 Health=4.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:chicken pos=-24.0,78.0,22.0 rot=- Age=-24000 Health=4.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:chicken pos=-24.0,79.0,26.0 rot=- Age=0 Health=4.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:chicken pos=-25.0,77.0,21.0 rot=- Age=0 Health=4.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:cow pos=-31.0,70.0,-10.0 rot=- Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=-11.0,72.0,-8.0 rot=- Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=-11.0,72.0,-8.0 rot=- Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=-11.0,72.0,-9.0 rot=- Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=-15.0,71.0,-8.0 rot=- Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=-34.0,71.0,0.8999999761581421 rot=- Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=-36.0,70.0,1.0 rot=- Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=-36.0,70.0,1.0 rot=- Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+G minecraft:pig pos=-39.0,70.0,3.0 rot=- Age=0 Health=10.0f PersistenceRequired=0b variant="minecraft:temperate"
+CF msg Killed 13 entities
+CF result success 13
+CF msg Reloading!
+CF result success 0
+# chunks generated after the reload
+CF msg Marked 16 chunks in minecraft:overworld from [66, 66] to [69, 69] to be force loaded
+CF result success 16
+G minecraft:chicken pos=1080.0,72.0,1111.0 rot=- Age=0 Health=4.0f PersistenceRequired=0b variant="minecraft:cold"
+G minecraft:chicken pos=1082.0,72.0,1114.0 rot=- Age=-24000 Health=4.0f PersistenceRequired=0b variant="minecraft:cold"
+G minecraft:chicken pos=1083.0,72.0,1113.0 rot=- Age=0 Health=4.0f PersistenceRequired=0b variant="minecraft:cold"
+G minecraft:chicken pos=1083.0,72.0,1113.0 rot=- Age=0 Health=4.0f PersistenceRequired=0b variant="minecraft:cold"
+G minecraft:sheep pos=1108.0,64.0,1050.0 rot=- Age=0 Color=15b Health=8.0f PersistenceRequired=0b Sheared=0b
+G minecraft:sheep pos=1109.0,64.0,1051.0 rot=- Age=0 Color=15b Health=8.0f PersistenceRequired=0b Sheared=0b
+G minecraft:sheep pos=1110.0,64.0,1050.0 rot=- Age=0 Color=15b Health=8.0f PersistenceRequired=0b Sheared=0b

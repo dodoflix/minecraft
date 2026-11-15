@@ -154,6 +154,11 @@ fn mob_chunkgen_plains() {
 }
 
 #[test]
+fn chunk_generation_reads_reloaded_biome_tags() {
+    block_scenario::check("gen_reload_biome_tags");
+}
+
+#[test]
 fn mob_chunkgen_village() {
     block_scenario::check("mob_chunkgen_village");
 }

@@ -494,13 +494,23 @@ impl ServerPlayer {
         &mut self,
         hand: InteractionHand,
         before: &ItemStack,
+        was_alive: bool,
     ) -> ItemStack {
         if before.is_empty() {
             return ItemStack::empty();
         }
         match self.game_mode.replaced_hand_object.take() {
             Some(object) => object,
-            None => self.get_item_in_hand(hand),
+            None => {
+                let hand_now = self.get_item_in_hand(hand);
+                // a use that killed the player (a bed or respawn anchor explosion) dropped the hand's object with the death
+                // drops: vanilla's variable still holds it intact, the hand is empty
+                if was_alive && hand_now.is_empty() && self.player.living.is_dead_or_dying() {
+                    before.clone()
+                } else {
+                    hand_now
+                }
+            }
         }
     }
 
@@ -529,6 +539,7 @@ impl ServerPlayer {
             };
         }
         let item_stack = self.get_item_in_hand(hand);
+        let was_alive = !self.player.living.is_dead_or_dying();
         self.game_mode.used_on_item = item_stack.clone();
         self.game_mode.replaced_hand_object = None;
         let have_something = !self.player.inventory.get_selected_item().is_empty()
@@ -544,7 +555,7 @@ impl ServerPlayer {
                 behaviour_of_block.use_item_on(&item_stack, state, level, pos, self, hand, hit);
             if item_use.consumes_action() {
                 self.game_mode.used_on_item =
-                    self.in_hand_object_after_block_use(hand, &item_stack);
+                    self.in_hand_object_after_block_use(hand, &item_stack, was_alive);
                 CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, self, pos, &item_stack);
                 return item_use;
             }
@@ -554,7 +565,7 @@ impl ServerPlayer {
                 let r = behaviour_of_block.use_without_item(state, level, pos, self, hit);
                 if r.consumes_action() {
                     self.game_mode.used_on_item =
-                        self.in_hand_object_after_block_use(hand, &item_stack);
+                        self.in_hand_object_after_block_use(hand, &item_stack, was_alive);
                     CriteriaTriggers::DEFAULT_BLOCK_USE.trigger(level, self, pos);
                     return r;
                 }

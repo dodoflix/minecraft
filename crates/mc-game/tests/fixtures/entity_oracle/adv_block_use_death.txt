@@ -1,0 +1,47 @@
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+# the stack in the hand of a player who dies of the explosion
+ADV A minecraft:recipes/combat/wooden_spear has_stick
+ADV A minecraft:recipes/combat/wooden_sword has_stick
+ADV A minecraft:recipes/decorations/campfire has_stick
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/ladder has_stick
+ADV A minecraft:recipes/tools/wooden_axe has_stick
+ADV A minecraft:recipes/tools/wooden_hoe has_stick
+ADV A minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV A minecraft:recipes/tools/wooden_shovel has_stick
+ADV A uses:block/any_any c
+ADV A uses:block/any_stick c
+ADV A uses:block/default_any c
+P A minecraft:player pos=0.5,-60.0,2.5 delta=0.0,0.3094752037061653,0.6926342921083489 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+ADV A minecraft:recipes/combat/wooden_spear has_stick
+ADV A minecraft:recipes/combat/wooden_sword has_stick
+ADV A minecraft:recipes/decorations/campfire has_stick
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/ladder has_stick
+ADV A minecraft:recipes/tools/wooden_axe has_stick
+ADV A minecraft:recipes/tools/wooden_hoe has_stick
+ADV A minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV A minecraft:recipes/tools/wooden_shovel has_stick
+ADV A uses:block/any_any c
+ADV A uses:block/any_stick c
+ADV A uses:block/default_any c
+E item#1 minecraft:item pos=0.7839005777766062,-58.40319999819994,2.6221818698046544 delta=0.1377061226684169,0.11446400808072105,0.059264379392759026 rot=2.3995686,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*3 age=2 pickup=38 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.7670202880518633,-61.459331648687915,-3.440547890386542 delta=0.07423749107706896,0.11446400521850592,0.0948876551249066 rot=195.38678,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=2 owner=- thrower=-
+E item#3 minecraft:item pos=2.534083167967775,-62.34304251253617,-0.5532249045001331 delta=0.0045432675207495235,0.11446400521850592,0.020530376184936576 rot=301.63147,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=2 pickup=8 health=2 owner=- thrower=-
+# keep_inventory: the stick stays in the hand
+C Game rule keep_inventory is now set to true
+ADV B minecraft:recipes/combat/wooden_spear has_stick
+ADV B minecraft:recipes/combat/wooden_sword has_stick
+ADV B minecraft:recipes/decorations/campfire has_stick
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV B minecraft:recipes/decorations/ladder has_stick
+ADV B minecraft:recipes/tools/wooden_axe has_stick
+ADV B minecraft:recipes/tools/wooden_hoe has_stick
+ADV B minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV B minecraft:recipes/tools/wooden_shovel has_stick
+ADV B uses:block/any_any c
+ADV B uses:block/any_stick c
+ADV B uses:block/default_any c
+P B minecraft:player pos=40.5,-60.0,2.5 delta=0.0,0.3094752037061653,0.6926342921083489 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:stick*3
+I B 0 minecraft:stick*3

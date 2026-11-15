@@ -1,0 +1,25 @@
+# The biome tags a /reload brings are what the mobs of chunks generated afterwards see: the farm animals of freshly generated chunks pick the
+# cold variant once every overworld biome joins the cold farm animal biome tag (variant selection reads the tag through the level's registries).
+datapack gen_variants
+command_env
+level normal
+seed 9999
+preload 1
+difficulty normal
+bootrule spawn_mobs true
+entity_counter 41300
+level_seed 41301
+cmd tick freeze
+tick 1
+note chunks generated before the tag changes
+cmd forceload add -48 -48 15 15
+tick 400
+dump placed:norot
+cmd kill @e[type=!player]
+pack_file gen_variants data/minecraft/tags/worldgen/biome/spawns_cold_variant_farm_animals.json {"values":["#minecraft:is_overworld"]}
+cmd reload
+tick 1
+note chunks generated after the reload
+cmd forceload add 1056 1056 1119 1119
+tick 400
+dump placed:norot

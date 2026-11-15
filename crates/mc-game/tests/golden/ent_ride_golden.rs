@@ -39,3 +39,8 @@ fn controlled_vehicles_are_left_to_the_client() {
 fn boat_passengers_keep_their_head_within_their_own_limit() {
     common::block_scenario::check("ent_ride_boat_mob_head");
 }
+
+#[test]
+fn spectator_teleporting_to_an_entity_dismounts() {
+    common::block_scenario::check("ent_ride_spectator_teleport");
+}

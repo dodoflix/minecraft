@@ -207,6 +207,8 @@ impl PlayerSystems for ServerPlayerSystems {
             }));
             return;
         }
+        // `ServerPlayer.teleport` (not a passenger move): `removeVehicle()` before the position packet
+        ctx.level.remove_vehicle(&mut *ctx.player);
         ctx.player.connection_teleport(x, y, z, y_rot, x_rot);
         crate::world::entity::Entity::set_y_head_rot(&mut *ctx.player, y_rot);
         if let Some(l) = ctx.player.listener.as_mut() {

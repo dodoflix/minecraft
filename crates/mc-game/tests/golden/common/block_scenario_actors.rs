@@ -42,7 +42,7 @@ use mc_protocol::packets::play::{
     ServerboundContainerClosePacket, ServerboundDebugSubscriptionRequestPacket,
     ServerboundMovePlayerPosPacket, ServerboundMovePlayerPosRotPacket,
     ServerboundMoveVehiclePacket, ServerboundPaddleBoatPacket, ServerboundPickItemFromBlockPacket,
-    ServerboundPlayPacket as P, ServerboundSetCarriedItemPacket,
+    ServerboundPlayPacket as P, ServerboundSetCarriedItemPacket, ServerboundTeleportToEntityPacket,
 };
 use std::collections::{HashMap, HashSet};
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
@@ -731,6 +731,15 @@ impl Scenario {
                     include_data: a.get(5).is_some_and(|v| v == "true"),
                 })
             }),
+            // `teleport_to_entity PLAYER REF`: `ServerboundTeleportToEntityPacket` (a spectator teleports to the entity)
+            "teleport_to_entity" => {
+                let target = self.entity_id(&a[2]);
+                deliver(self, &a[1], |level, _| {
+                    P::TeleportToEntity(ServerboundTeleportToEntityPacket {
+                        uuid: level.get_entity(target).expect("teleport target").uuid(),
+                    })
+                })
+            }
             "jigsaw_generate" => {
                 self.world();
                 self.load_registries();
