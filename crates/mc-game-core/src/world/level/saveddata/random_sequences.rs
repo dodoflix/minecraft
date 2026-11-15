@@ -53,7 +53,7 @@ impl RandomSequence {
         })
     }
 
-    fn encode(&self) -> Tag {
+    pub fn encode(&self) -> Tag {
         let [lo, hi] = self.source.generator().to_longs();
         Tag::Compound(CompoundTag::new().with("source", Tag::LongArray(vec![lo, hi])))
     }

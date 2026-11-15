@@ -94,6 +94,11 @@ impl RandomSource for SequenceRandom {
 /// `server.getRandomSequence(key)`.
 pub fn random_sequence(level: &ServerLevel, key: &Identifier) -> Box<dyn RandomSource> {
     let services = &level.server_state.loot;
+    // vanilla creates the sequence when the source is requested, even if the table never draws from it
+    services
+        .random_sequences
+        .lock()
+        .get(key, services.world_seed);
     Box::new(SequenceRandom {
         sequences: services.random_sequences.clone(),
         key: key.clone(),
