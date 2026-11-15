@@ -1,0 +1,123 @@
+# `loot insert`: the items go into the first slot that accepts them (a free slot, or a stack of the same item): chests, barrels, hoppers,
+# furnaces, brewing stands, shulker boxes, decorated pots, jukeboxes, lecterns, bookshelves, crafters, a double chest, a full container,
+# targets that are no container, and every loot source as the origin of the items.
+datapack loot_cmds
+command_env
+level flat
+preload 2
+level_seed 11
+entity_counter 90
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 40.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note empty chests and barrels: free slots in order, same-item stacks merge, the stack limit splits
+cmd setblock 2 -60 2 minecraft:chest
+cmd setblock 4 -60 2 minecraft:trapped_chest
+cmd setblock 6 -60 2 minecraft:barrel[facing=up]
+cmd setblock 8 -60 2 minecraft:hopper
+cmd setblock 10 -60 2 minecraft:dropper[facing=up]
+cmd setblock 12 -60 2 minecraft:dispenser[facing=up]
+cmd loot insert 2 -60 2 loot lc:five
+cmd loot insert 4 -60 2 loot lc:five
+cmd loot insert 6 -60 2 loot lc:five
+cmd loot insert 8 -60 2 loot lc:five
+cmd loot insert 10 -60 2 loot lc:five
+cmd loot insert 12 -60 2 loot lc:five
+cmd loot insert 2 -60 2 loot lc:five
+cmd loot insert 4 -60 2 loot lc:five
+cmd loot insert 6 -60 2 loot lc:five
+cmd loot insert 8 -60 2 loot lc:five
+cmd loot insert 10 -60 2 loot lc:five
+cmd loot insert 12 -60 2 loot lc:five
+dump be:2,-60,2 be:4,-60,2 be:6,-60,2 be:8,-60,2 be:10,-60,2 be:12,-60,2
+cmd loot insert 2 -60 2 loot lc:split
+cmd loot insert 8 -60 2 loot lc:split
+cmd loot insert 8 -60 2 loot lc:many
+dump be:2,-60,2 be:8,-60,2
+note a full container takes nothing
+cmd loot insert 8 -60 2 loot lc:five
+cmd loot insert 8 -60 2 loot lc:empty
+cmd loot insert 2 -60 2 loot lc:empty
+note furnaces: the input slot takes everything, fuel only fuel, the output slot nothing
+cmd setblock 2 -60 4 minecraft:furnace
+cmd setblock 4 -60 4 minecraft:blast_furnace
+cmd setblock 6 -60 4 minecraft:smoker
+cmd loot insert 2 -60 4 loot lc:mixed
+cmd loot insert 4 -60 4 loot lc:mixed
+cmd loot insert 6 -60 4 loot lc:mixed
+dump be:2,-60,4 be:4,-60,4 be:6,-60,4
+cmd loot insert 2 -60 4 loot lc:five
+cmd loot insert 2 -60 4 loot lc:mixed
+dump be:2,-60,4
+cmd data merge block 8 -60 4 {}
+cmd setblock 8 -60 4 minecraft:brewing_stand
+cmd loot insert 8 -60 4 loot lc:mixed
+cmd loot insert 8 -60 4 loot lc:mixed
+dump be:8,-60,4
+note shulker boxes refuse shulker boxes; decorated pots, jukeboxes, lecterns, bookshelves, crafters have their own rules
+cmd setblock 2 -60 6 minecraft:shulker_box
+cmd setblock 4 -60 6 minecraft:decorated_pot
+cmd setblock 6 -60 6 minecraft:jukebox
+cmd setblock 8 -60 6 minecraft:lectern
+cmd setblock 10 -60 6 minecraft:chiseled_bookshelf
+cmd setblock 12 -60 6 minecraft:crafter
+cmd loot insert 2 -60 6 loot lc:mixed
+cmd loot insert 4 -60 6 loot lc:mixed
+cmd loot insert 6 -60 6 loot lc:mixed
+cmd loot insert 8 -60 6 loot lc:mixed
+cmd loot insert 10 -60 6 loot lc:mixed
+cmd loot insert 12 -60 6 loot lc:mixed
+dump be:2,-60,6 be:4,-60,6 be:6,-60,6 be:8,-60,6 be:10,-60,6 be:12,-60,6
+cmd loot insert 2 -60 6 loot lc:mixed
+cmd loot insert 4 -60 6 loot lc:mixed
+cmd loot insert 6 -60 6 loot lc:mixed
+cmd loot insert 8 -60 6 loot lc:mixed
+cmd loot insert 10 -60 6 loot lc:mixed
+cmd loot insert 12 -60 6 loot lc:mixed
+dump be:2,-60,6 be:4,-60,6 be:6,-60,6 be:8,-60,6 be:10,-60,6 be:12,-60,6
+note a double chest is two containers: the half at the position only
+cmd setblock 2 -60 8 minecraft:chest[type=left,facing=north]
+cmd setblock 3 -60 8 minecraft:chest[type=right,facing=north]
+cmd loot insert 2 -60 8 loot lc:many
+cmd loot insert 3 -60 8 loot lc:five
+dump be:2,-60,8 be:3,-60,8
+note not containers: plain blocks, air, an ender chest, a campfire, a sign, a furnace position without a block entity
+cmd setblock 5 -60 8 minecraft:stone
+cmd setblock 6 -60 8 minecraft:ender_chest
+cmd setblock 7 -60 8 minecraft:campfire
+cmd setblock 8 -60 8 minecraft:oak_sign
+cmd setblock 9 -60 8 minecraft:beacon
+cmd setblock 10 -60 8 minecraft:spawner
+cmd loot insert 5 -60 8 loot lc:five
+cmd loot insert 6 -60 8 loot lc:five
+cmd loot insert 7 -60 8 loot lc:five
+cmd loot insert 8 -60 8 loot lc:five
+cmd loot insert 9 -60 8 loot lc:five
+cmd loot insert 10 -60 8 loot lc:five
+cmd loot insert 20 -60 8 loot lc:five
+cmd loot insert 100000 -60 8 loot lc:five
+cmd loot insert 0 400 8 loot lc:five
+cmd loot insert 2 -60 loot lc:five
+cmd loot insert loot lc:five
+cmd loot insert ~2 ~ ~2 loot lc:five
+note the source of the items: loot tables, kill drops, mined blocks, fishing
+cmd setblock 2 -60 10 minecraft:chest
+cmd setblock 4 -60 10 minecraft:barrel[facing=up]
+cmd loot insert 2 -60 10 loot minecraft:chests/simple_dungeon
+cmd loot insert 2 -60 10 loot minecraft:chests/abandoned_mineshaft
+cmd loot insert 4 -60 10 loot minecraft:chests/bastion_other
+cmd loot insert 2 -60 10 fish minecraft:gameplay/fishing 22 -60 22 minecraft:fishing_rod
+cmd loot insert 2 -60 10 fish lc:ctx_fishing 2 -60 2 minecraft:fishing_rod
+cmd setblock 6 -60 10 minecraft:diamond_ore
+cmd loot insert 4 -60 10 mine 6 -60 10 minecraft:iron_pickaxe
+cmd loot insert 4 -60 10 mine 6 -60 10 minecraft:diamond_pickaxe[enchantments={"minecraft:fortune":3}]
+cmd summon minecraft:cow 12 -60 12 {NoAI:1b}
+cmd_as A loot insert 4 -60 10 kill @e[type=cow,limit=1]
+cmd_as A loot insert 4 -60 10 kill @e[type=cow,limit=1]
+dump be:2,-60,10 be:4,-60,10
+note tables placed through the loot nbt of a block entity roll on first access: the contents of a looted chest
+cmd setblock 2 -60 12 minecraft:chest{LootTable:"lc:five",LootTableSeed:5L}
+cmd loot insert 2 -60 12 loot lc:mixed
+dump be:2,-60,12

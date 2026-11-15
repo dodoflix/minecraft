@@ -58,11 +58,10 @@ macro_rules! impl_items_container {
                 $crate::world::container::helper::take_item(&mut self.$items, slot)
             }
             fn set_item(&mut self, slot: usize, mut stack: $crate::world::item::ItemStack) {
-                if slot < self.$items.len() {
-                    let max = $crate::world::container::Container::get_max_stack_size_for(self, &stack);
-                    stack.limit_size(max);
-                    self.$items[slot] = stack;
-                }
+                // `NonNullList.set` throws `IndexOutOfBoundsException` past the end (a `/loot replace block` can reach it)
+                let max = $crate::world::container::Container::get_max_stack_size_for(self, &stack);
+                stack.limit_size(max);
+                self.$items[slot] = stack;
                 $crate::world::container::Container::set_changed(self);
             }
             fn clear_content(&mut self) {

@@ -1,0 +1,76 @@
+# `item modify` on items that hold items: bundles and shulker boxes (`modify_contents`, `set_contents`), on a player, in a chest and on a
+# mob's hand, with counts, discards, filters and conditions on the nested stacks.
+datapack loot_cmds
+command_env
+level flat
+preload 2
+level_seed 29
+entity_counter 240
+spawn_player A survival 0.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+cmd setblock 4 -60 3 minecraft:chest
+note bundles and shulker boxes in the inventory
+cmd item replace entity A container.0 with minecraft:bundle[bundle_contents=[{id:"minecraft:stone",count:5},{id:"minecraft:apple",count:3},{id:"minecraft:diamond_sword"}]]
+cmd item replace entity A container.1 with minecraft:bundle[bundle_contents=[{id:"minecraft:stone",count:5},{id:"minecraft:apple",count:3},{id:"minecraft:diamond_sword"}]]
+cmd item replace entity A container.2 with minecraft:bundle[bundle_contents=[{id:"minecraft:stone",count:5},{id:"minecraft:apple",count:3},{id:"minecraft:diamond_sword"}]]
+cmd item replace entity A container.3 with minecraft:bundle[bundle_contents=[{id:"minecraft:stone",count:5},{id:"minecraft:apple",count:3},{id:"minecraft:diamond_sword"}]]
+cmd item replace entity A container.4 with minecraft:bundle[bundle_contents=[{id:"minecraft:stone",count:5},{id:"minecraft:apple",count:3},{id:"minecraft:diamond_sword"}]]
+cmd item replace entity A container.5 with minecraft:bundle[bundle_contents=[{id:"minecraft:stone",count:5},{id:"minecraft:apple",count:3},{id:"minecraft:diamond_sword"}]]
+cmd item replace entity A container.6 with minecraft:shulker_box[container=[{slot:0,item:{id:"minecraft:stick",count:5}},{slot:3,item:{id:"minecraft:apple",count:2}},{slot:5,item:{id:"minecraft:diamond_sword"}}]]
+cmd item replace entity A container.7 with minecraft:shulker_box[container=[{slot:0,item:{id:"minecraft:stick",count:5}},{slot:3,item:{id:"minecraft:apple",count:2}},{slot:5,item:{id:"minecraft:diamond_sword"}}]]
+cmd item replace entity A container.8 with minecraft:shulker_box[container=[{slot:0,item:{id:"minecraft:stick",count:5}},{slot:3,item:{id:"minecraft:apple",count:2}},{slot:5,item:{id:"minecraft:diamond_sword"}}]]
+cmd item replace entity A container.9 with minecraft:shulker_box[container=[{slot:0,item:{id:"minecraft:stick",count:5}},{slot:3,item:{id:"minecraft:apple",count:2}},{slot:5,item:{id:"minecraft:diamond_sword"}}]]
+cmd item replace entity A container.10 with minecraft:shulker_box[container=[{slot:0,item:{id:"minecraft:stick",count:5}},{slot:3,item:{id:"minecraft:apple",count:2}},{slot:5,item:{id:"minecraft:diamond_sword"}}]]
+cmd item replace entity A container.11 with minecraft:shulker_box[container=[{slot:0,item:{id:"minecraft:stick",count:5}},{slot:3,item:{id:"minecraft:apple",count:2}},{slot:5,item:{id:"minecraft:diamond_sword"}}]]
+cmd item modify entity A container.0 {"type":"minecraft:modify_contents","component":"minecraft:bundle_contents","modifier":{"type":"minecraft:set_count","count":2}}
+cmd item modify entity A container.1 {"type":"minecraft:modify_contents","component":"minecraft:bundle_contents","modifier":{"type":"minecraft:set_count","count":3,"add":true}}
+cmd item modify entity A container.2 {"type":"minecraft:modify_contents","component":"minecraft:bundle_contents","modifier":{"type":"minecraft:discard"}}
+cmd item modify entity A container.3 {"type":"minecraft:modify_contents","component":"minecraft:bundle_contents","modifier":{"type":"minecraft:filtered","item_filter":{"items":"minecraft:apple"},"on_pass":{"type":"minecraft:discard"}}}
+cmd item modify entity A container.4 {"type":"minecraft:modify_contents","component":"minecraft:bundle_contents","modifier":{"type":"minecraft:set_name","name":{"text":"inner"}}}
+cmd item modify entity A container.5 {"type":"minecraft:modify_contents","component":"minecraft:bundle_contents","modifier":{"type":"minecraft:set_count","count":500}}
+cmd item modify entity A container.6 {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":2}}
+cmd item modify entity A container.7 {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":3,"add":true}}
+cmd item modify entity A container.8 {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:discard"}}
+cmd item modify entity A container.9 {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:filtered","item_filter":{"items":"minecraft:apple"},"on_fail":{"type":"minecraft:discard"}}}
+cmd item modify entity A container.10 {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_name","name":{"text":"inner"},"target":"item_name"}}
+cmd item modify entity A container.11 {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":80}}
+dump inventory:A
+note modify_contents on items without that component, and set_contents
+cmd item replace entity A container.12 with minecraft:stone 3
+cmd item replace entity A container.13 with minecraft:bundle
+cmd item replace entity A container.14 with minecraft:shulker_box
+cmd item replace entity A container.15 with minecraft:chest
+cmd item replace entity A container.16 with minecraft:bundle
+cmd item modify entity A container.12 {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":2}}
+cmd item modify entity A container.13 {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":2}}
+cmd item modify entity A container.14 {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":2}}
+cmd item modify entity A container.15 {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":2}}
+cmd item modify entity A container.13 {"type":"minecraft:modify_contents","component":"minecraft:bundle_contents","modifier":{"type":"minecraft:set_count","count":2}}
+cmd item modify entity A container.13 {"type":"minecraft:set_contents","component":"minecraft:bundle_contents","entries":[{"type":"minecraft:item","name":"minecraft:emerald"},{"type":"minecraft:item","name":"minecraft:gold_ingot","modifier":{"type":"minecraft:set_count","count":4}}]}
+cmd item modify entity A container.14 {"type":"minecraft:set_contents","component":"minecraft:container","entries":[{"type":"minecraft:item","name":"minecraft:emerald"},{"type":"minecraft:item","name":"minecraft:gold_ingot","modifier":{"type":"minecraft:set_count","count":4}},{"type":"minecraft:empty"},{"type":"minecraft:item","name":"minecraft:stone","modifier":{"type":"minecraft:set_count","count":64}}]}
+cmd item modify entity A container.15 {"type":"minecraft:set_contents","component":"minecraft:container","entries":[{"type":"minecraft:item","name":"minecraft:apple"}]}
+cmd item modify entity A container.12 {"type":"minecraft:set_contents","component":"minecraft:container","entries":[{"type":"minecraft:item","name":"minecraft:apple"}]}
+cmd item modify entity A container.16 {"type":"minecraft:set_contents","component":"minecraft:bundle_contents","entries":[{"type":"minecraft:item","name":"minecraft:cobblestone","modifier":{"type":"minecraft:set_count","count":64}},{"type":"minecraft:item","name":"minecraft:cobblestone","modifier":{"type":"minecraft:set_count","count":64}}]}
+cmd item modify entity A container.16 {"type":"minecraft:set_contents","component":"minecraft:bundle_contents","entries":[{"type":"minecraft:loot_table","value":"lc:five"}]}
+cmd item modify entity A container.15 {"type":"minecraft:set_contents","component":"minecraft:container","entries":[{"type":"minecraft:loot_table","value":"lc:five"}]}
+cmd item modify entity A container.14 {"type":"minecraft:set_contents","component":"minecraft:charged_projectiles","entries":[{"type":"minecraft:item","name":"minecraft:arrow"}]}
+dump inventory:A
+note containers holding containers
+cmd item replace block 4 -60 3 container.0 with minecraft:bundle[bundle_contents=[{id:"minecraft:stone",count:5},{id:"minecraft:apple",count:3},{id:"minecraft:diamond_sword"}]]
+cmd item replace block 4 -60 3 container.1 with minecraft:shulker_box[container=[{slot:0,item:{id:"minecraft:stick",count:5}},{slot:3,item:{id:"minecraft:apple",count:2}},{slot:5,item:{id:"minecraft:diamond_sword"}}]]
+cmd item modify block 4 -60 3 container.0 {"type":"minecraft:modify_contents","component":"minecraft:bundle_contents","modifier":{"type":"minecraft:set_count","count":2}}
+cmd item modify block 4 -60 3 container.* {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":9,"add":true}}
+cmd item modify block 4 -60 3 container.1 {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":1}}}
+cmd item replace block 4 -60 3 container.2 from block 4 -60 3 container.0 {"type":"minecraft:modify_contents","component":"minecraft:bundle_contents","modifier":{"type":"minecraft:discard"}}
+dump be:4,-60,3
+note on a mob's hand
+spawn z1 minecraft:zombie 20.5 -60 4.5 0 0 {NoAI:1b,Tags:[zb]}
+tick 1
+cmd item replace entity @e[tag=zb] weapon.offhand with minecraft:bundle[bundle_contents=[{id:"minecraft:stone",count:5},{id:"minecraft:apple",count:3},{id:"minecraft:diamond_sword"}]]
+cmd item replace entity @e[tag=zb] weapon.mainhand with minecraft:shulker_box[container=[{slot:0,item:{id:"minecraft:stick",count:5}},{slot:3,item:{id:"minecraft:apple",count:2}},{slot:5,item:{id:"minecraft:diamond_sword"}}]]
+cmd item modify entity @e[tag=zb] weapon.* {"type":"minecraft:modify_contents","component":"minecraft:bundle_contents","modifier":{"type":"minecraft:set_count","count":4}}
+cmd item modify entity @e[tag=zb] weapon.* {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":4}}
+tick 1
+dump nbt:z1

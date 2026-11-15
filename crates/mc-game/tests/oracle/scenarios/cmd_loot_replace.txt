@@ -1,0 +1,156 @@
+# `loot replace`: block containers (a slot, a slot with a count, slots beyond the container, slots that refuse the item, a count above the
+# number of drops) and entities (players, mobs, item entities, armor stands, entities without slots, several targets), from every source.
+datapack loot_cmds
+command_env
+level flat
+preload 2
+level_seed 13
+entity_counter 120
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note replace block: a chest, from a slot, with an explicit count, past the end, negative count
+cmd setblock 2 -60 2 minecraft:chest
+cmd setblock 4 -60 2 minecraft:barrel[facing=up]
+cmd setblock 6 -60 2 minecraft:hopper
+cmd setblock 8 -60 2 minecraft:furnace
+cmd setblock 10 -60 2 minecraft:shulker_box
+cmd setblock 12 -60 2 minecraft:jukebox
+cmd setblock 14 -60 2 minecraft:chiseled_bookshelf
+cmd setblock 16 -60 2 minecraft:brewing_stand
+cmd loot replace block 2 -60 2 container.0 loot lc:five
+cmd loot replace block 2 -60 2 container.10 loot lc:five
+cmd loot replace block 2 -60 2 container.12 2 loot lc:five
+cmd loot replace block 2 -60 2 container.20 8 loot lc:five
+cmd loot replace block 2 -60 2 container.0 0 loot lc:five
+cmd loot replace block 2 -60 2 container.14 1 loot lc:empty
+cmd loot replace block 2 -60 2 container.14 3 loot lc:empty
+cmd loot replace block 2 -60 2 container.1 3 loot lc:five
+dump be:2,-60,2
+cmd loot replace block 2 -60 2 container.26 loot lc:five
+cmd loot replace block 2 -60 2 container.26 1 loot lc:five
+cmd loot replace block 2 -60 2 container.27 loot lc:five
+cmd loot replace block 2 -60 2 container.53 loot lc:five
+cmd loot replace block 2 -60 2 container.54 loot lc:five
+cmd loot replace block 2 -60 2 container.-1 loot lc:five
+cmd loot replace block 2 -60 2 hotbar.0 loot lc:five
+cmd loot replace block 2 -60 2 weapon.mainhand loot lc:five
+cmd loot replace block 2 -60 2 nope.0 loot lc:five
+dump be:2,-60,2
+note replace block: other containers, slots that refuse items
+cmd loot replace block 4 -60 2 container.3 loot lc:five
+cmd loot replace block 6 -60 2 container.3 loot lc:five
+cmd loot replace block 6 -60 2 container.4 loot lc:five
+cmd loot replace block 6 -60 2 container.5 loot lc:five
+cmd loot replace block 8 -60 2 container.0 loot lc:mixed
+cmd loot replace block 8 -60 2 container.0 loot lc:mixed
+cmd loot replace block 8 -60 2 container.1 loot lc:mixed
+cmd loot replace block 8 -60 2 container.2 loot lc:mixed
+cmd loot replace block 8 -60 2 container.2 loot lc:five
+cmd loot replace block 10 -60 2 container.0 loot lc:mixed
+cmd loot replace block 10 -60 2 container.0 loot lc:five
+cmd loot replace block 12 -60 2 container.0 loot lc:mixed
+cmd loot replace block 12 -60 2 container.0 loot lc:five
+cmd loot replace block 14 -60 2 container.0 loot lc:mixed
+cmd loot replace block 14 -60 2 container.2 loot lc:five
+cmd loot replace block 16 -60 2 container.0 loot lc:mixed
+cmd loot replace block 16 -60 2 container.3 loot lc:mixed
+cmd loot replace block 16 -60 2 container.4 loot lc:mixed
+dump be:4,-60,2 be:6,-60,2 be:8,-60,2 be:10,-60,2 be:12,-60,2 be:14,-60,2 be:16,-60,2
+note replace block: not a container, unloaded, missing arguments
+cmd setblock 2 -60 6 minecraft:stone
+cmd loot replace block 2 -60 6 container.0 loot lc:five
+cmd loot replace block 2 -60 7 container.0 loot lc:five
+cmd loot replace block 100000 -60 6 container.0 loot lc:five
+cmd loot replace block 2 -60 2 container.0
+cmd loot replace block 2 -60 2 loot lc:five
+cmd loot replace block 2 -60 2 container.0 -1 loot lc:five
+cmd loot replace block 2 -60 2 container.x loot lc:five
+note replace block: every source
+cmd loot replace block 2 -60 2 container.0 loot minecraft:chests/simple_dungeon
+cmd loot replace block 2 -60 2 container.9 fish minecraft:gameplay/fishing 22 -60 22 minecraft:fishing_rod
+cmd summon minecraft:cow 12 -60 12 {NoAI:1b}
+cmd setblock 6 -60 6 minecraft:diamond_ore
+cmd loot replace block 2 -60 2 container.12 2 mine 6 -60 6 minecraft:iron_pickaxe
+cmd loot replace block 2 -60 2 container.14 2 mine 6 -60 6 minecraft:diamond_pickaxe[enchantments={"minecraft:fortune":3}]
+cmd loot replace block 2 -60 2 container.16 3 kill @e[type=cow,limit=1]
+cmd_as A loot replace block 2 -60 2 container.18 3 kill @e[type=cow,limit=1]
+dump be:2,-60,2
+note replace entity: players, hotbar, inventory, armor, offhand, the count, slots past the end of a group
+cmd loot replace entity A hotbar.0 loot lc:five
+cmd loot replace entity A hotbar.7 loot lc:five
+cmd loot replace entity A container.30 3 loot lc:five
+cmd loot replace entity A armor.head loot lc:split
+cmd loot replace entity A armor.chest 1 loot lc:split
+cmd loot replace entity A armor.legs 2 loot lc:split
+cmd loot replace entity A armor.feet 4 loot lc:split
+cmd loot replace entity A weapon.offhand 1 loot lc:five
+cmd loot replace entity A weapon.mainhand loot lc:mixed
+cmd loot replace entity A player.cursor loot lc:five
+cmd loot replace entity A player.crafting.0 loot lc:five
+cmd loot replace entity A enderchest.0 loot lc:five
+cmd loot replace entity A hotbar.0 0 loot lc:five
+cmd loot replace entity A hotbar.0 20 loot lc:five
+dump inventory:A
+cmd loot replace entity @a hotbar.0 loot lc:five
+cmd loot replace entity @a weapon.mainhand 2 loot lc:mixed
+dump inventory:A inventory:B
+cmd loot replace entity A nope.0 loot lc:five
+cmd loot replace entity A container.99 loot lc:five
+cmd loot replace entity A hotbar.-1 loot lc:five
+cmd loot replace entity nobody hotbar.0 loot lc:five
+cmd loot replace entity @e[type=zombie] hotbar.0 loot lc:five
+cmd loot replace entity A
+cmd loot replace entity A hotbar.0
+cmd loot replace entity A hotbar.0 -1 loot lc:five
+note replace entity: mobs, vehicles, item entities, armor stands, entities without slots
+spawn p1 minecraft:pig 20.5 -60 4.5 0 0 {NoAI:1b,Tags:[pg]}
+spawn z1 minecraft:zombie 22.5 -60 4.5 0 0 {NoAI:1b,Tags:[zb]}
+spawn h1 minecraft:horse 24.5 -60 4.5 0 0 {NoAI:1b,Tags:[hs]}
+spawn s1 minecraft:armor_stand 26.5 -60 4.5 0 0 {Tags:[as]}
+spawn i1 minecraft:item 28.5 -60 4.5 0 0 {Item:{id:"minecraft:stone",count:3},Tags:[it]}
+spawn v1 minecraft:chest_minecart 30.5 -60 4.5 0 0 {Tags:[cm]}
+spawn c1 minecraft:area_effect_cloud 32.5 -60 4.5 0 0 {Tags:[ae]}
+spawn d1 minecraft:donkey 34.5 -60 4.5 0 0 {NoAI:1b,Tags:[dk]}
+spawn w1 minecraft:wolf 36.5 -60 4.5 0 0 {NoAI:1b,Tags:[wf]}
+tick 1
+cmd loot replace entity @e[tag=pg] weapon.mainhand loot lc:five
+cmd loot replace entity @e[tag=pg] armor.body loot lc:five
+cmd loot replace entity @e[tag=zb] weapon.mainhand 3 loot lc:five
+cmd loot replace entity @e[tag=zb] armor.head loot lc:split
+cmd loot replace entity @e[tag=hs] horse.saddle loot lc:mixed
+cmd loot replace entity @e[tag=hs] saddle loot lc:mixed
+cmd loot replace entity @e[tag=hs] horse.chest loot lc:five
+cmd loot replace entity @e[tag=hs] horse.0 loot lc:five
+cmd loot replace entity @e[tag=hs] armor.body loot lc:five
+cmd loot replace entity @e[tag=dk] horse.chest loot lc:five
+cmd loot replace entity @e[tag=dk] horse.0 loot lc:five
+cmd loot replace entity @e[tag=dk] horse.2 3 loot lc:five
+cmd loot replace entity @e[tag=as] weapon.mainhand loot lc:five
+cmd loot replace entity @e[tag=as] armor.head 4 loot lc:split
+cmd loot replace entity @e[tag=it] contents loot lc:five
+cmd loot replace entity @e[tag=it] contents loot lc:empty
+cmd loot replace entity @e[tag=it] contents 2 loot lc:split
+cmd loot replace entity @e[tag=cm] container.0 loot lc:five
+cmd loot replace entity @e[tag=cm] container.4 4 loot lc:five
+cmd loot replace entity @e[tag=cm] container.28 4 loot lc:five
+cmd loot replace entity @e[tag=ae] weapon.mainhand loot lc:five
+cmd loot replace entity @e[tag=wf] armor.body loot lc:five
+cmd loot replace entity @e[tag=wf] weapon.mainhand loot lc:mixed
+cmd loot replace entity @e[tag=pg,tag=zb] weapon.mainhand loot lc:five
+cmd loot replace entity @e[type=!player,tag=!x] weapon.mainhand loot lc:mixed
+tick 1
+dump nbt:p1 nbt:z1 nbt:h1 nbt:s1 nbt:i1 nbt:v1 nbt:d1 nbt:w1 xentities
+note replace entity: every source, with the source entity as the loot context's entity
+cmd loot replace entity A hotbar.0 loot minecraft:chests/simple_dungeon
+cmd loot replace entity A hotbar.5 fish minecraft:gameplay/fishing 22 -60 22 minecraft:fishing_rod
+cmd loot replace entity A hotbar.8 1 mine 6 -60 6 minecraft:diamond_pickaxe[enchantments={"minecraft:fortune":3}]
+cmd summon minecraft:cow 12 -60 12 {NoAI:1b}
+cmd_as A loot replace entity A container.10 3 kill @e[type=cow,limit=1]
+cmd_as A loot replace entity A container.20 loot lc:ctx_chest
+cmd loot replace entity A container.30 loot lc:ctx_chest
+cmd execute as A at @s run loot replace entity B hotbar.4 loot lc:ctx_chest
+cmd execute as B at @s run loot replace entity B hotbar.5 loot lc:ctx_chest
+dump inventory:A inventory:B

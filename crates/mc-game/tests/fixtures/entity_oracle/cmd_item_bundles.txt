@@ -1,0 +1,142 @@
+C Game rule send_command_feedback is now set to true
+CF msg Changed the block at 4, -60, 3
+CF result success 1
+# bundles and shulker boxes in the inventory
+CF msg Replaced 1 slot(s) on A with [Bundle]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Bundle]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Bundle]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Bundle]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Bundle]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Bundle]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Shulker Box]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Shulker Box]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Shulker Box]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Shulker Box]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Shulker Box]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Shulker Box]
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+I A 0 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:apple"},{count:2,id:"minecraft:stone"}]}
+I A 1 minecraft:bundle*1{minecraft:bundle_contents:[{count:6,id:"minecraft:apple"},{count:8,id:"minecraft:stone"}]}
+I A 2 minecraft:bundle*1
+I A 3 minecraft:bundle*1{minecraft:bundle_contents:[{count:5,id:"minecraft:stone"}]}
+I A 4 minecraft:bundle*1{minecraft:bundle_contents:[{components:{minecraft:custom_name:"inner"},count:3,id:"minecraft:apple"},{components:{minecraft:custom_name:"inner"},count:5,id:"minecraft:stone"}]}
+I A 5 minecraft:bundle*1{minecraft:bundle_contents:[{count:64,id:"minecraft:stone"}]}
+I A 6 minecraft:shulker_box*1{minecraft:container:[{item:{count:2,id:"minecraft:stick"},slot:0},{item:{count:2,id:"minecraft:apple"},slot:3},{item:{id:"minecraft:diamond_sword"},slot:5}]}
+I A 7 minecraft:shulker_box*1{minecraft:container:[{item:{count:8,id:"minecraft:stick"},slot:0},{item:{count:5,id:"minecraft:apple"},slot:3},{item:{id:"minecraft:diamond_sword"},slot:5}]}
+I A 8 minecraft:shulker_box*1
+I A 9 minecraft:shulker_box*1{minecraft:container:[{item:{count:2,id:"minecraft:apple"},slot:3}]}
+I A 10 minecraft:shulker_box*1{minecraft:container:[{item:{components:{minecraft:item_name:"inner"},count:5,id:"minecraft:stick"},slot:0},{item:{components:{minecraft:item_name:"inner"},count:2,id:"minecraft:apple"},slot:3},{item:{components:{minecraft:item_name:"inner"},id:"minecraft:diamond_sword"},slot:5}]}
+I A 11 minecraft:shulker_box*1{minecraft:container:[{item:{count:64,id:"minecraft:stick"},slot:0},{item:{count:64,id:"minecraft:apple"},slot:3},{item:{id:"minecraft:diamond_sword"},slot:5}]}
+# modify_contents on items without that component, and set_contents
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Bundle]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Shulker Box]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Chest]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Bundle]
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+I A 0 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:apple"},{count:2,id:"minecraft:stone"}]}
+I A 1 minecraft:bundle*1{minecraft:bundle_contents:[{count:6,id:"minecraft:apple"},{count:8,id:"minecraft:stone"}]}
+I A 2 minecraft:bundle*1
+I A 3 minecraft:bundle*1{minecraft:bundle_contents:[{count:5,id:"minecraft:stone"}]}
+I A 4 minecraft:bundle*1{minecraft:bundle_contents:[{components:{minecraft:custom_name:"inner"},count:3,id:"minecraft:apple"},{components:{minecraft:custom_name:"inner"},count:5,id:"minecraft:stone"}]}
+I A 5 minecraft:bundle*1{minecraft:bundle_contents:[{count:64,id:"minecraft:stone"}]}
+I A 6 minecraft:shulker_box*1{minecraft:container:[{item:{count:2,id:"minecraft:stick"},slot:0},{item:{count:2,id:"minecraft:apple"},slot:3},{item:{id:"minecraft:diamond_sword"},slot:5}]}
+I A 7 minecraft:shulker_box*1{minecraft:container:[{item:{count:8,id:"minecraft:stick"},slot:0},{item:{count:5,id:"minecraft:apple"},slot:3},{item:{id:"minecraft:diamond_sword"},slot:5}]}
+I A 8 minecraft:shulker_box*1
+I A 9 minecraft:shulker_box*1{minecraft:container:[{item:{count:2,id:"minecraft:apple"},slot:3}]}
+I A 10 minecraft:shulker_box*1{minecraft:container:[{item:{components:{minecraft:item_name:"inner"},count:5,id:"minecraft:stick"},slot:0},{item:{components:{minecraft:item_name:"inner"},count:2,id:"minecraft:apple"},slot:3},{item:{components:{minecraft:item_name:"inner"},id:"minecraft:diamond_sword"},slot:5}]}
+I A 11 minecraft:shulker_box*1{minecraft:container:[{item:{count:64,id:"minecraft:stick"},slot:0},{item:{count:64,id:"minecraft:apple"},slot:3},{item:{id:"minecraft:diamond_sword"},slot:5}]}
+I A 12 minecraft:stone*3{minecraft:container:[{item:{id:"minecraft:apple"},slot:0}]}
+I A 13 minecraft:bundle*1{minecraft:bundle_contents:[{count:4,id:"minecraft:gold_ingot"},{id:"minecraft:emerald"}]}
+I A 14 minecraft:shulker_box*1{minecraft:charged_projectiles:[{id:"minecraft:arrow"}],minecraft:container:[{item:{id:"minecraft:emerald"},slot:0},{item:{count:4,id:"minecraft:gold_ingot"},slot:1},{item:{count:64,id:"minecraft:stone"},slot:2}]}
+I A 15 minecraft:chest*1{minecraft:container:[{item:{id:"minecraft:diamond"},slot:0},{item:{count:2,id:"minecraft:emerald"},slot:1},{item:{count:64,id:"minecraft:stick"},slot:2},{item:{count:64,id:"minecraft:stick"},slot:3},{item:{id:"minecraft:apple"},slot:4}]}
+I A 16 minecraft:bundle*1{minecraft:bundle_contents:[{count:61,id:"minecraft:stick"},{count:2,id:"minecraft:emerald"},{id:"minecraft:diamond"}]}
+# containers holding containers
+CF msg Replaced 1 slot(s) at 4, -60, 3 with [Bundle]
+CF result success 1
+CF msg Replaced 1 slot(s) at 4, -60, 3 with [Shulker Box]
+CF result success 1
+CF msg Modified 1 slot(s) at 4, -60, 3
+CF result success 1
+CF msg Modified 2 slot(s) at 4, -60, 3
+CF result success 2
+CF msg Modified 1 slot(s) at 4, -60, 3
+CF result success 1
+CF msg Replaced 1 slot(s) at 4, -60, 3
+CF result success 1
+BE 4 -60 3 {Items:[{Slot:0b,components:{"minecraft:bundle_contents":[{count:2,id:"minecraft:apple"},{count:2,id:"minecraft:stone"}]},count:1,id:"minecraft:bundle"},{Slot:1b,components:{"minecraft:container":[{item:{count:14,id:"minecraft:stick"},slot:0},{item:{count:11,id:"minecraft:apple"},slot:3},{item:{id:"minecraft:diamond_sword"},slot:5}]},count:1,id:"minecraft:shulker_box"},{Slot:2b,count:1,id:"minecraft:bundle"}],components:{},id:"minecraft:chest",x:4,y:-60,z:3}
+# on a mob's hand
+CF msg Replaced 1 slot(s) on Zombie with [Bundle]
+CF result success 1
+CF msg Replaced 1 slot(s) on Zombie with [Shulker Box]
+CF result success 1
+CF msg Modified 2 slot(s) on Zombie
+CF result success 2
+CF msg Modified 2 slot(s) on Zombie
+CF result success 2
+N z1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[20.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["zb"],attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,equipment:{mainhand:{components:{minecraft:container:[{item:{count:4,id:"minecraft:stick"},slot:0},{item:{count:4,id:"minecraft:apple"},slot:3},{item:{id:"minecraft:diamond_sword"},slot:5}]},count:1,id:"minecraft:shulker_box"},offhand:{components:{minecraft:bundle_contents:[{count:4,id:"minecraft:apple"},{count:4,id:"minecraft:stone"}]},count:1,id:"minecraft:bundle"}},fall_distance:0.0d}

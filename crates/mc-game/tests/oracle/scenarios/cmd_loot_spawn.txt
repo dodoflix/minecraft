@@ -1,0 +1,50 @@
+# `loot spawn`: one item entity per drop at the position (their random motion and pickup delay come from the level's random), relative
+# and execute positions, every source, no drops, and a spawn height outside the build limit.
+datapack loot_cmds
+command_env
+level flat
+preload 2
+level_seed 17
+entity_counter 150
+spawn_player A survival 0.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note spawn from loot tables
+cmd loot spawn 4.5 -60 4.5 loot lc:five
+tick 1
+dump xentities
+cmd loot spawn 4.5 -59.5 8.25 loot lc:empty
+cmd loot spawn 6 -60 6 loot lc:split
+cmd loot spawn 6 -60 8 loot minecraft:chests/simple_dungeon
+tick 2
+note positions: relative, local, execute positioned, selectors of the running entity
+cmd_as A loot spawn ~ ~ ~ loot lc:five
+cmd_as A loot spawn ~1 ~2 ~-3 loot lc:five
+cmd_as A loot spawn ^ ^ ^2 loot lc:ctx_chest
+cmd loot spawn ~ ~ ~ loot lc:five
+cmd execute positioned 10 -60 10 run loot spawn ~ ~ ~ loot lc:five
+cmd execute as A at @s run loot spawn ~ ~1 ~ loot lc:ctx_chest
+tick 2
+note spawn from fishing, killing and mining
+cmd loot spawn 14 -60 14 fish lc:ctx_fishing 2 -60 2 minecraft:fishing_rod
+cmd loot spawn 14 -60 15 fish minecraft:gameplay/fishing 22 -60 22 minecraft:fishing_rod[enchantments={"minecraft:luck_of_the_sea":3}]
+cmd setblock 6 -60 12 minecraft:diamond_ore
+cmd loot spawn 14 -60 16 mine 6 -60 12 minecraft:iron_pickaxe
+cmd loot spawn 14 -60 17 mine 6 -60 12 minecraft:diamond_pickaxe[enchantments={"minecraft:fortune":3}]
+cmd summon minecraft:cow 12 -60 12 {NoAI:1b}
+cmd_as A loot spawn 14 -60 18 kill @e[type=cow,limit=1]
+cmd loot spawn 14 -60 19 kill @e[type=cow,limit=1]
+tick 2
+note spawn far away: negative and large coordinates, the limit of the world height
+cmd loot spawn 0 319 0 loot lc:five
+cmd loot spawn 0 -200 0 loot lc:five
+cmd loot spawn 0 1000 0 loot lc:five
+cmd loot spawn 1.5e10 0 0 loot lc:five
+cmd loot spawn 3 -60 loot lc:five
+cmd loot spawn ~ ~ loot lc:five
+cmd loot spawn 3 -60 3 loot nope:x
+cmd loot spawn 3 -60 3 mine 6 -60 12 nope:x
+cmd loot spawn 3 -60 3 kill nobody
+tick 2
+dump xentities

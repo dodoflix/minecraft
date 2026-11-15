@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:set_count",
+  "count": 7,
+  "condition": {"type": "minecraft:location_check", "predicate": {"position": {"x": {"max": 10.0}}}}
+}

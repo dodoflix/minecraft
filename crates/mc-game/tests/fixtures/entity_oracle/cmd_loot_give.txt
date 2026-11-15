@@ -1,0 +1,749 @@
+C Game rule send_command_feedback is now set to true
+# loot source: fixed tables, several drops, single drop, no drop, drops that split into several stacks
+CF msg Dropped 5 items
+CF result success 5
+I A 0 minecraft:diamond*1
+I A 1 minecraft:emerald*2
+I A 2 minecraft:stick*64
+I A 3 minecraft:stick*64
+I A 4 minecraft:apple*1
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 12 items
+CF result success 12
+I A 0 minecraft:diamond*1
+I A 1 minecraft:emerald*2
+I A 2 minecraft:stick*64
+I A 3 minecraft:stick*64
+I A 4 minecraft:apple*1
+I A 5 minecraft:diamond_sword*1
+I A 6 minecraft:diamond_sword*1
+I A 7 minecraft:diamond_sword*1
+I A 8 minecraft:diamond_sword*1
+I A 9 minecraft:diamond_sword*1
+I A 10 minecraft:ender_pearl*16
+I A 11 minecraft:ender_pearl*16
+I A 12 minecraft:ender_pearl*8
+I A 13 minecraft:shulker_box*1
+I A 14 minecraft:cobblestone*64
+I A 15 minecraft:cobblestone*64
+I A 16 minecraft:cobblestone*2
+CF msg Removed 308 item(s) from player A
+CF result success 308
+CF msg Dropped 10 items
+CF result success 10
+I A 0 minecraft:diamond*1
+I A 1 minecraft:emerald*2
+I A 2 minecraft:stick*64
+I A 3 minecraft:stick*64
+I A 4 minecraft:apple*1
+I B 0 minecraft:diamond*1
+I B 1 minecraft:emerald*2
+I B 2 minecraft:stick*64
+I B 3 minecraft:stick*64
+I B 4 minecraft:apple*1
+CF msg Removed 264 item(s) from 2 players
+CF result success 264
+# a full inventory: only the drops that fit are counted, partly full inventories take what merges
+CF msg Dropped 36 items
+CF result success 36
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 12 items
+CF result success 12
+I A 0 minecraft:cobblestone*64
+I A 1 minecraft:cobblestone*64
+I A 2 minecraft:cobblestone*64
+I A 3 minecraft:cobblestone*64
+I A 4 minecraft:cobblestone*64
+I A 5 minecraft:cobblestone*64
+I A 6 minecraft:cobblestone*64
+I A 7 minecraft:cobblestone*64
+I A 8 minecraft:cobblestone*64
+I A 9 minecraft:cobblestone*64
+I A 10 minecraft:cobblestone*64
+I A 11 minecraft:cobblestone*64
+I A 12 minecraft:cobblestone*64
+I A 13 minecraft:cobblestone*64
+I A 14 minecraft:cobblestone*64
+I A 15 minecraft:cobblestone*64
+I A 16 minecraft:cobblestone*64
+I A 17 minecraft:cobblestone*64
+I A 18 minecraft:cobblestone*64
+I A 19 minecraft:cobblestone*64
+I A 20 minecraft:cobblestone*64
+I A 21 minecraft:cobblestone*64
+I A 22 minecraft:cobblestone*64
+I A 23 minecraft:cobblestone*64
+I A 24 minecraft:cobblestone*64
+I A 25 minecraft:cobblestone*64
+I A 26 minecraft:cobblestone*64
+I A 27 minecraft:cobblestone*64
+I A 28 minecraft:cobblestone*64
+I A 29 minecraft:cobblestone*64
+I A 30 minecraft:cobblestone*64
+I A 31 minecraft:cobblestone*64
+I A 32 minecraft:cobblestone*64
+I A 33 minecraft:cobblestone*64
+I A 34 minecraft:cobblestone*64
+I A 35 minecraft:cobblestone*64
+I B 0 minecraft:diamond*2
+I B 1 minecraft:emerald*4
+I B 2 minecraft:stick*64
+I B 3 minecraft:stick*64
+I B 4 minecraft:apple*2
+I B 5 minecraft:stick*64
+I B 6 minecraft:stick*64
+I B 7 minecraft:diamond_sword*1
+I B 8 minecraft:diamond_sword*1
+I B 9 minecraft:diamond_sword*1
+I B 10 minecraft:diamond_sword*1
+I B 11 minecraft:diamond_sword*1
+I B 12 minecraft:ender_pearl*16
+I B 13 minecraft:ender_pearl*16
+I B 14 minecraft:ender_pearl*8
+I B 15 minecraft:shulker_box*1
+I B 16 minecraft:cobblestone*64
+I B 17 minecraft:cobblestone*64
+I B 18 minecraft:cobblestone*2
+CF msg Removed 2744 item(s) from 2 players
+CF result success 2744
+CF msg Dropped 7 items
+CF result success 7
+CF msg Replaced 1 slot(s) on B with [Stick]
+CF result success 1
+CF msg Replaced 1 slot(s) on B with [Stick]
+CF result success 1
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 10 items
+CF result success 10
+I A 0 minecraft:iron_horse_armor*1
+I A 1 minecraft:diamond_horse_armor*1
+I A 2 minecraft:music_disc_cat*1
+I A 3 minecraft:bread*1
+I A 4 minecraft:gunpowder*8
+I A 5 minecraft:string*2
+I A 6 minecraft:rotten_flesh*4
+I A 7 minecraft:diamond*1
+I A 8 minecraft:emerald*2
+I A 9 minecraft:stick*64
+I A 10 minecraft:stick*64
+I A 11 minecraft:apple*1
+I B 0 minecraft:stick*64
+I B 1 minecraft:diamond*2
+I B 2 minecraft:emerald*4
+I B 3 minecraft:stick*64
+I B 4 minecraft:stick*64
+I B 5 minecraft:apple*2
+I B 6 minecraft:stick*64
+I B 7 minecraft:stick*60
+CF msg Removed 474 item(s) from 2 players
+CF result success 474
+# loot source: context of the running source (this entity, origin) for a player, a console, a mob
+CF msg Dropped 3 items
+CF result success 3
+CF msg Dropped 4 items
+CF result success 4
+CF msg Dropped 2 items
+CF result success 2
+CF msg Summoned new Pig
+CF result success 1
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 5 items
+CF result success 5
+I A 0 minecraft:coal*1
+I A 1 minecraft:redstone*3
+I A 2 minecraft:paper*4
+I A 3 minecraft:porkchop*2
+I A 4 minecraft:name_tag*2
+I A 5 minecraft:lapis_lazuli*2
+I A 6 minecraft:glowstone_dust*1
+CF msg Removed 15 item(s) from player A
+CF result success 15
+# loot source: default chest tables (random rolls)
+CF msg Dropped 10 items
+CF result success 10
+CF msg Dropped 10 items
+CF result success 10
+CF msg Dropped 7 items
+CF result success 7
+CF msg Dropped 1 [Chainmail Leggings]
+CF result success 1
+I A 0 minecraft:music_disc_13*1
+I A 1 minecraft:name_tag*1
+I A 2 minecraft:iron_horse_armor*1
+I A 3 minecraft:iron_ingot*7
+I A 4 minecraft:pumpkin_seeds*3
+I A 5 minecraft:melon_seeds*7
+I A 6 minecraft:rotten_flesh*6
+I A 7 minecraft:string*2
+I A 8 minecraft:coal*12
+I A 9 minecraft:disc_fragment_5*1
+I A 10 minecraft:sculk*5
+I A 11 minecraft:iron_leggings*1{minecraft:enchantments:{minecraft:binding_curse:1,minecraft:protection:4,minecraft:unbreaking:3}}
+I A 12 minecraft:candle*1
+I A 13 minecraft:compass*1
+I A 14 minecraft:glow_berries*19
+I A 15 minecraft:experience_bottle*6
+I A 16 minecraft:saddle*1
+I A 17 minecraft:copper_spear*1
+I A 18 minecraft:iron_leggings*1
+I A 19 minecraft:bread*3
+I A 20 minecraft:iron_sword*1
+I B 0 minecraft:coal*1
+I B 1 minecraft:lapis_lazuli*1
+I B 2 minecraft:redstone*1
+I B 3 minecraft:paper*1
+I B 4 minecraft:chainmail_leggings*1
+# loot source: errors (unknown table, an entity table, no argument)
+CF fail Can't find element 'nope:table' in registry 'minecraft:loot_table'
+CF fail ...nope:table<--[HERE]
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 1 [Cobblestone]
+CF result success 1
+CF msg Dropped 1 [Raw Salmon]
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ive A loot<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail loot give @e[type=pig] loot lc:five<--[HERE]
+CF msg Removed 88 item(s) from 2 players
+CF result success 88
+# fish source: tool forms
+CF msg Dropped 2 items
+CF result success 2
+CF msg Dropped 3 items
+CF result success 3
+CF msg Dropped 3 items
+CF result success 3
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 4 items
+CF result success 4
+CF result failure 0
+CF fail An entity is required to run this command here
+CF msg Gave 1 [Fishing Rod] to A
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Fishing Rod]
+CF result success 1
+CF result failure 0
+CF fail An entity is required to run this command here
+CF msg Replaced 1 slot(s) on A with [Stick]
+CF result success 1
+CF result failure 0
+CF fail An entity is required to run this command here
+CF msg Dropped 3 items
+CF result success 3
+CF msg Dropped 3 items
+CF result success 3
+CF result failure 0
+CF fail An entity is required to run this command here
+CF msg Summoned new Pig
+CF result success 1
+CF msg Dropped 2 items
+CF result success 2
+CF msg Summoned new Stone
+CF result success 1
+CF result failure 0
+CF result failure 0
+# fish source: default fishing tables (open water and treasure conditions, location)
+CF msg Successfully filled 75 block(s)
+CF result success 75
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+CF msg Dropped 1 [Tropical Fish]
+CF result success 1
+CF msg Dropped 1 [Lily Pad]
+CF result success 1
+CF msg Dropped 1 [Saddle]
+CF result success 1
+CF msg Dropped 1 [Fishing Rod]
+CF result success 1
+I A 0 minecraft:fishing_rod*1{minecraft:enchantments:{minecraft:luck_of_the_sea:2}}
+I A 1 minecraft:paper*6
+I A 2 minecraft:cod*8
+I A 3 minecraft:salmon*1
+I A 4 minecraft:nautilus_shell*1
+I A 5 minecraft:lapis_lazuli*2
+I A 6 minecraft:fishing_rod*1{minecraft:enchantments:{minecraft:luck_of_the_sea:2}}
+I A 7 minecraft:redstone*1
+I A 8 minecraft:tropical_fish*1
+I A 9 minecraft:lily_pad*1
+I A 10 minecraft:saddle*1
+I A 11 minecraft:fishing_rod*1/dmg=62{minecraft:damage:62,minecraft:enchantments:{minecraft:luck_of_the_sea:2,minecraft:unbreaking:3}}
+I A 40 minecraft:stick*1
+# fish source: failures (unloaded position, unknown table, wrong type, bad tool)
+CF result failure 0
+CF fail That position is not loaded
+CF fail Can't find element 'nope:x' in registry 'minecraft:loot_table'
+CF fail ...ish nope:x 2 -60 2<--[HERE]
+CF msg Dropped 2 [Rotten Flesh]
+CF result success 1
+CF fail Unknown item 'minecraft:nope'
+CF fail ...g 2 -60 2 minecraft:nope<--[HERE]
+CF fail Incomplete (expected 3 coordinates)
+CF fail ...x_fishing 2 -60<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...shing_rod extra<--[HERE]
+CF msg Removed 34 item(s) from 2 players
+CF result success 34
+# kill source: the killer is the running entity (player, mob, none)
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Dropped 3 [Raw Porkchop] from loot table minecraft:entities/pig
+CF result success 1
+CF msg Dropped 6 items from loot table lc:ctx_entity
+CF result success 6
+CF msg Dropped 1 [Raw Porkchop] from loot table minecraft:entities/pig
+CF result success 1
+CF msg Dropped 2 [Raw Porkchop] from loot table minecraft:entities/pig
+CF result success 1
+CF msg Dropped 1 [Raw Porkchop] from loot table minecraft:entities/pig
+CF result success 1
+CF msg Dropped 2 [Raw Porkchop] from loot table minecraft:entities/pig
+CF result success 1
+I A 0 minecraft:porkchop*9
+I A 1 minecraft:coal*1
+I A 2 minecraft:iron_ingot*1
+I A 3 minecraft:gold_ingot*1
+I A 4 minecraft:emerald*1
+I A 5 minecraft:quartz*1
+I A 6 minecraft:paper*1
+E pig#1 minecraft:pig pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.0062067302287252485,0.08172237128019333,0.31506519457340526 rot=225.50269,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:fishing_rod*1 age=5999 pickup=32767 health=5 owner=- thrower=-
+E pig#2 minecraft:pig pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#2 minecraft:item pos=2.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=0 pickup=0 health=5 owner=- thrower=-
+E pig#3 minecraft:pig pos=12.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow#1 minecraft:cow pos=14.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+CF msg Removed 15 item(s) from player A
+CF result success 15
+# kill source: default entity tables
+CF msg Summoned new Zombie
+CF result success 1
+CF msg Summoned new Creeper
+CF result success 1
+CF msg Summoned new Sheep
+CF result success 1
+CF msg Summoned new Sheep
+CF result success 1
+CF msg Summoned new Skeleton
+CF result success 1
+CF msg Summoned new Enderman
+CF result success 1
+CF msg Summoned new Villager
+CF result success 1
+CF msg Summoned new Iron Golem
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Minecart
+CF result success 1
+CF msg Dropped 1 [Rotten Flesh] from loot table minecraft:entities/zombie
+CF result success 1
+CF msg Dropped 1 [Rotten Flesh] from loot table minecraft:entities/zombie
+CF result success 1
+CF msg Dropped 2 [Gunpowder] from loot table minecraft:entities/creeper
+CF result success 1
+CF msg Dropped 2 items from loot table minecraft:entities/sheep
+CF result success 2
+CF msg Dropped 2 [Raw Mutton] from loot table minecraft:entities/sheep
+CF result success 1
+CF msg Dropped 0 items from loot table minecraft:entities/skeleton
+CF result success 0
+CF msg Dropped 0 items from loot table minecraft:entities/enderman
+CF result success 0
+CF msg Dropped 0 items from loot table minecraft:entities/villager
+CF result success 0
+CF msg Dropped 5 [Iron Ingot] from loot table minecraft:entities/iron_golem
+CF result success 1
+CF msg Dropped 0 items from loot table minecraft:entities/armor_stand
+CF result success 0
+CF result failure 0
+CF fail Entity Minecart has no loot table
+CF msg Dropped 2 [Rotten Flesh] from loot table minecraft:entities/zombie
+CF result success 1
+CF msg Dropped 2 [Gunpowder] from loot table minecraft:entities/creeper
+CF result success 1
+CF msg Dropped 2 items from loot table minecraft:entities/sheep
+CF result success 2
+I A 0 minecraft:rotten_flesh*4
+I A 1 minecraft:gunpowder*4
+I A 2 minecraft:mutton*5
+I A 3 minecraft:light_blue_wool*2
+I A 4 minecraft:iron_ingot*5
+CF msg Removed 20 item(s) from player A
+CF result success 20
+# kill source: failures (a player, no entity, several entities, an entity without a table, not a selector)
+CF msg Dropped 0 items from loot table minecraft:entities/player
+CF result success 0
+CF msg Dropped 0 items from loot table minecraft:entities/player
+CF result success 0
+CF result failure 0
+CF fail No entity was found
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=pig]<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ive A kill<--[HERE]
+CF result failure 0
+CF fail Unable to summon entity due to duplicate UUIDs
+CF result failure 0
+CF fail Entity Fishing Rod has no loot table
+CF msg Summoned new Area Effect Cloud
+CF result success 1
+CF result failure 0
+CF fail Entity Area Effect Cloud has no loot table
+CF msg Summoned new Pig
+CF result success 1
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=pig,x=12,y=-60,z=16,distance=..1]<--[HERE]
+CF msg Summoned new "Hamlet"
+CF result success 1
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=pig,name=Hamlet]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give B kill @e[type=pig,name=Hamlet]<--[HERE]
+# mine source: block tables with the tool forms
+CF msg Changed the block at 2, -60, 2
+CF result success 1
+CF msg Changed the block at 3, -60, 2
+CF result success 1
+CF msg Changed the block at 4, -60, 2
+CF result success 1
+CF msg Changed the block at 5, -60, 2
+CF result success 1
+CF msg Changed the block at 6, -60, 2
+CF result success 1
+CF msg Changed the block at 7, -60, 2
+CF result success 1
+CF msg Changed the block at 8, -60, 2
+CF result success 1
+CF msg Changed the block at 9, -60, 2
+CF result success 1
+CF msg Changed the block at 10, -60, 2
+CF result success 1
+CF msg Changed the block at 11, -60, 2
+CF result success 1
+CF msg Changed the block at 12, -60, 2
+CF result success 1
+CF msg Changed the block at 13, -60, 2
+CF result success 1
+CF msg Changed the block at 14, -60, 2
+CF result success 1
+CF msg Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+CF result success 1
+CF msg Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+CF result success 1
+CF msg Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+CF result success 1
+CF msg Dropped 1 [Stone] from loot table minecraft:blocks/stone
+CF result success 1
+CF msg Dropped 1 [Diamond] from loot table minecraft:blocks/diamond_ore
+CF result success 1
+CF msg Dropped 1 [Diamond] from loot table minecraft:blocks/diamond_ore
+CF result success 1
+CF msg Dropped 4 [Diamond] from loot table minecraft:blocks/diamond_ore
+CF result success 1
+CF msg Dropped 1 [Diamond] from loot table minecraft:blocks/diamond_ore
+CF result success 1
+CF msg Dropped 1 [Diamond Ore] from loot table minecraft:blocks/diamond_ore
+CF result success 1
+CF msg Dropped 0 items from loot table minecraft:blocks/oak_leaves
+CF result success 0
+CF msg Dropped 1 [Oak Leaves] from loot table minecraft:blocks/oak_leaves
+CF result success 1
+CF msg Dropped 0 items from loot table minecraft:blocks/oak_leaves
+CF result success 0
+CF msg Dropped 1 [Gravel] from loot table minecraft:blocks/gravel
+CF result success 1
+CF msg Dropped 1 [Flint] from loot table minecraft:blocks/gravel
+CF result success 1
+CF result failure 0
+CF fail Block Air has no loot table
+CF result failure 0
+CF fail Block Air has no loot table
+CF msg Dropped 0 items from loot table minecraft:blocks/glass
+CF result success 0
+CF msg Dropped 1 [Glass] from loot table minecraft:blocks/glass
+CF result success 1
+CF msg Dropped 3 [Book] from loot table minecraft:blocks/bookshelf
+CF result success 1
+CF msg Dropped 1 [Bookshelf] from loot table minecraft:blocks/bookshelf
+CF result success 1
+CF msg Dropped 1 [Coal] from loot table minecraft:blocks/coal_ore
+CF result success 1
+CF msg Dropped 0 items from loot table minecraft:blocks/short_grass
+CF result success 0
+CF msg Dropped 1 [Short Grass] from loot table minecraft:blocks/short_grass
+CF result success 1
+CF msg Dropped 6 [Melon Slice] from loot table minecraft:blocks/melon
+CF result success 1
+CF msg Dropped 6 [Redstone Dust] from loot table minecraft:blocks/redstone_ore
+CF result success 1
+CF msg Dropped 3 [Sweet Berries] from loot table minecraft:blocks/sweet_berry_bush
+CF result success 1
+CF msg Dropped 1 [String] from loot table minecraft:blocks/cobweb
+CF result success 1
+CF msg Dropped 1 [Cobweb] from loot table minecraft:blocks/cobweb
+CF result success 1
+CF msg Dropped 1 [Cobweb] from loot table minecraft:blocks/cobweb
+CF result success 1
+CF msg Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+CF result success 1
+CF result failure 0
+CF fail An entity is required to run this command here
+CF msg Replaced 1 slot(s) on A with [Diamond Pickaxe]
+CF result success 1
+CF result failure 0
+CF fail An entity is required to run this command here
+CF result failure 0
+CF fail An entity is required to run this command here
+CF msg Replaced 1 slot(s) on A with [Diamond Pickaxe]
+CF result success 1
+CF result failure 0
+CF fail An entity is required to run this command here
+CF msg Dropped 1 [Diamond] from loot table minecraft:blocks/diamond_ore
+CF result success 1
+CF msg Dropped 1 [Diamond] from loot table minecraft:blocks/diamond_ore
+CF result success 1
+CF msg Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+CF result success 1
+CF result failure 0
+CF result failure 0
+I A 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:silk_touch:1}}
+I A 1 minecraft:stone*1
+I A 2 minecraft:diamond*7
+I A 3 minecraft:diamond_ore*1
+I A 4 minecraft:oak_leaves*1
+I A 5 minecraft:gravel*1
+I A 6 minecraft:flint*1
+I A 7 minecraft:glass*1
+I A 8 minecraft:book*3
+I A 9 minecraft:bookshelf*1
+I A 10 minecraft:coal*1
+I A 11 minecraft:short_grass*1
+I A 12 minecraft:melon_slice*6
+I A 13 minecraft:redstone*6
+I A 14 minecraft:sweet_berries*3
+I A 15 minecraft:string*1
+I A 16 minecraft:cobweb*2
+I A 17 minecraft:cobblestone*1
+I A 40 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:fortune:3}}
+I B 0 minecraft:diamond*2
+CF msg Removed 42 item(s) from 2 players
+CF result success 42
+# mine source: block entities and block states in the context
+CF msg Changed the block at 2, -60, 4
+CF result success 1
+CF msg Changed the block at 3, -60, 4
+CF result success 1
+CF msg Changed the block at 4, -60, 4
+CF result success 1
+CF msg Changed the block at 5, -60, 4
+CF result success 1
+CF msg Changed the block at 6, -60, 4
+CF result success 1
+CF msg Changed the block at 7, -60, 4
+CF result success 1
+CF msg Changed the block at 8, -60, 4
+CF result success 1
+CF msg Changed the block at 9, -60, 4
+CF result success 1
+CF msg Changed the block at 10, -60, 4
+CF result success 1
+CF msg Changed the block at 11, -60, 4
+CF result success 1
+CF msg Changed the block at 12, -60, 4
+CF result success 1
+CF msg Changed the block at 13, -60, 4
+CF result success 1
+CF msg Changed the block at 14, -60, 4
+CF result success 1
+CF msg Dropped 1 ["Stash"] from loot table minecraft:blocks/chest
+CF result success 1
+CF msg Dropped 1 ["Stash"] from loot table minecraft:blocks/chest
+CF result success 1
+CF msg Dropped 1 ["Boxed"] from loot table minecraft:blocks/shulker_box
+CF result success 1
+CF msg Dropped 1 [White Banner] from loot table minecraft:blocks/white_banner
+CF result success 1
+CF msg Dropped 1 [Beehive] from loot table minecraft:blocks/beehive
+CF result success 1
+CF msg Dropped 1 [Beehive] from loot table minecraft:blocks/beehive
+CF result success 1
+CF msg Dropped 1 [Decorated Pot] from loot table minecraft:blocks/decorated_pot
+CF result success 1
+CF msg Dropped 1 [Decorated Pot] from loot table minecraft:blocks/decorated_pot
+CF result success 1
+CF msg Dropped 1 [Flower Pot] from loot table minecraft:blocks/flower_pot
+CF result success 1
+CF msg Dropped 0 items from loot table minecraft:blocks/oak_door
+CF result success 0
+CF msg Dropped 1 [Oak Door] from loot table minecraft:blocks/oak_door
+CF result success 1
+CF msg Dropped 3 [Candle] from loot table minecraft:blocks/candle
+CF result success 1
+CF msg Dropped 2 [Sea Pickle] from loot table minecraft:blocks/sea_pickle
+CF result success 1
+CF msg Dropped 0 items from loot table minecraft:blocks/snow
+CF result success 0
+CF msg Dropped 0 items from loot table minecraft:blocks/snow
+CF result success 0
+CF msg Dropped 1 [TNT] from loot table minecraft:blocks/tnt
+CF result success 1
+CF msg Dropped 1 [Furnace] from loot table minecraft:blocks/furnace
+CF result success 1
+I A 0 minecraft:chest*2{minecraft:custom_name:'"Stash"'}
+I A 1 minecraft:shulker_box*1{minecraft:container:[{item:{count:3,id:"minecraft:apple"},slot:0}],minecraft:custom_name:'"Boxed"'}
+I A 2 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"red",pattern:"minecraft:globe"}]}
+I A 3 minecraft:beehive*1
+I A 4 minecraft:beehive*1{minecraft:block_state:{honey_level:"5"}}
+I A 5 minecraft:decorated_pot*2{minecraft:pot_decorations:{}}
+I A 6 minecraft:flower_pot*1
+I A 7 minecraft:oak_door*1
+I A 8 minecraft:candle*3
+I A 9 minecraft:sea_pickle*2
+I A 10 minecraft:tnt*1
+I A 11 minecraft:furnace*1
+BE 2 -60 4 {CustomName:'"Stash"',Items:[{Slot:0b,count:3,id:"minecraft:apple"}],components:{},id:"minecraft:chest",x:2,y:-60,z:4}
+B 2 -60 2 minecraft:stone
+B 2 -60 4 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 3 -60 2 minecraft:diamond_ore
+B 3 -60 4 minecraft:shulker_box[facing=up]
+B 4 -60 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -60 4 minecraft:white_banner[rotation=8]
+B 5 -60 2 minecraft:gravel
+B 5 -60 4 minecraft:beehive[facing=north,honey_level=5]
+B 6 -60 4 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]
+B 7 -60 2 minecraft:glass
+B 7 -60 4 minecraft:flower_pot
+B 8 -60 2 minecraft:bookshelf
+B 8 -60 4 minecraft:oak_door[facing=north,half=upper,hinge=left,open=false,powered=false]
+B 9 -60 2 minecraft:coal_ore
+B 9 -60 4 minecraft:oak_door[facing=north,half=lower,hinge=left,open=false,powered=false]
+B 10 -60 2 minecraft:short_grass
+B 10 -60 4 minecraft:candle[candles=3,lit=false,waterlogged=false]
+B 11 -60 2 minecraft:melon
+B 11 -60 4 minecraft:sea_pickle[pickles=2,waterlogged=true]
+B 12 -60 2 minecraft:redstone_ore[lit=false]
+B 12 -60 4 minecraft:snow[layers=3]
+B 13 -60 2 minecraft:sweet_berry_bush[age=3]
+B 13 -60 4 minecraft:tnt[unstable=false]
+B 14 -60 2 minecraft:cobweb
+B 14 -60 4 minecraft:furnace[facing=north,lit=false]
+# mine source: failures (no loot table, unloaded, outside the world, bad tool)
+CF result failure 0
+CF fail Block Air has no loot table
+CF result failure 0
+CF fail An entity is required to run this command here
+CF msg Changed the block at 2, -60, 8
+CF result success 1
+CF result failure 0
+CF fail Block Water has no loot table
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail That position is out of this world!
+CF fail Unknown item 'minecraft:nope'
+CF fail ...e 2 -60 2 minecraft:nope<--[HERE]
+CF fail Incomplete (expected 3 coordinates)
+CF fail ...ve A mine 2 -60<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ive A mine<--[HERE]
+CF msg Changed the block at 2, -60, 8
+CF result success 1
+CF msg Dropped 0 items from loot table minecraft:blocks/spawner
+CF result success 0
+CF msg Changed the block at 2, -60, 8
+CF result success 1
+CF result failure 0
+CF fail Block Bedrock has no loot table
+CF msg Changed the block at 2, -60, 8
+CF result success 1
+CF result failure 0
+CF fail Block Lava has no loot table
+CF msg Changed the block at 2, -60, 8
+CF result success 1
+CF msg Dropped 0 items from loot table minecraft:blocks/fire
+CF result success 0
+CF msg Changed the block at 2, -60, 8
+CF result success 1
+CF msg Changed the block at 3, -60, 8
+CF result success 1
+CF msg Dropped 8 [Obsidian] from loot table minecraft:blocks/ender_chest
+CF result success 1
+CF msg Dropped 1 [Ender Chest] from loot table minecraft:blocks/ender_chest
+CF result success 1
+# inventories of both players at the end
+I A 0 minecraft:chest*2{minecraft:custom_name:'"Stash"'}
+I A 1 minecraft:shulker_box*1{minecraft:container:[{item:{count:3,id:"minecraft:apple"},slot:0}],minecraft:custom_name:'"Boxed"'}
+I A 2 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"red",pattern:"minecraft:globe"}]}
+I A 3 minecraft:beehive*1
+I A 4 minecraft:beehive*1{minecraft:block_state:{honey_level:"5"}}
+I A 5 minecraft:decorated_pot*2{minecraft:pot_decorations:{}}
+I A 6 minecraft:flower_pot*1
+I A 7 minecraft:oak_door*1
+I A 8 minecraft:candle*3
+I A 9 minecraft:sea_pickle*2
+I A 10 minecraft:tnt*1
+I A 11 minecraft:furnace*1
+I A 12 minecraft:obsidian*8
+I A 13 minecraft:ender_chest*1
+# permission levels: gamemaster commands
+CF fail Unknown or incomplete command. See below for error
+CF fail loot give A loot lc:five<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail loot give A loot lc:five<--[HERE]
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 5 items
+CF result success 5
+CF result failure 0
+CF fail Target position 2, -60, 8 is not a container
+CF msg Dropped 5 items
+CF result success 5
+CF fail Unknown or incomplete command. See below for error
+CF fail execute as B run loot give A loot lc:five<--[HERE]
+I A 0 minecraft:diamond*2
+I A 1 minecraft:emerald*4
+I A 2 minecraft:stick*64
+I A 3 minecraft:stick*64
+I A 4 minecraft:apple*2
+I A 5 minecraft:decorated_pot*2{minecraft:pot_decorations:{}}
+I A 6 minecraft:flower_pot*1
+I A 7 minecraft:oak_door*1
+I A 8 minecraft:candle*3
+I A 9 minecraft:sea_pickle*2
+I A 10 minecraft:tnt*1
+I A 11 minecraft:furnace*1
+I A 12 minecraft:obsidian*8
+I A 13 minecraft:ender_chest*1
+I A 14 minecraft:diamond*1
+I A 15 minecraft:emerald*2
+I A 16 minecraft:stick*64
+I A 17 minecraft:stick*64
+I A 18 minecraft:apple*1
+I A 19 minecraft:stick*64
+I A 20 minecraft:stick*64

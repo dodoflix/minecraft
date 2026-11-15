@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:sequence",
+  "functions": [
+    {"type": "minecraft:set_count", "count": 5},
+    {"type": "minecraft:set_name", "name": {"text": "Chained", "color": "gold"}, "target": "item_name"},
+    {"type": "minecraft:set_lore", "lore": [{"text": "one"}, {"text": "two"}], "mode": "append"}
+  ]
+}

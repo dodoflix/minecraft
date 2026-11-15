@@ -185,11 +185,10 @@ impl Container for CrafterBlockEntity {
         if self.is_slot_disabled(slot as i32) {
             self.set_slot_state(slot as i32, true);
         }
-        if slot < CONTAINER_SIZE {
-            let max = self.get_max_stack_size_for(&stack);
-            stack.limit_size(max);
-            self.items[slot] = stack;
-        }
+        let max = self.get_max_stack_size_for(&stack);
+        stack.limit_size(max);
+        // `NonNullList.set` throws `IndexOutOfBoundsException` past the end
+        self.items[slot] = stack;
         self.set_changed();
     }
     fn clear_content(&mut self) {

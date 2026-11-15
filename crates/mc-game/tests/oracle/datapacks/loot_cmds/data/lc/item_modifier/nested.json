@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:sequence",
+  "functions": [
+    {"type": "minecraft:set_count", "count": 3},
+    {"type": "minecraft:filtered", "item_filter": {"items": "minecraft:stick"}, "on_pass": {"type": "minecraft:set_name", "name": {"text": "A stick"}}, "on_fail": {"type": "minecraft:set_name", "name": {"text": "Not a stick"}}}
+  ]
+}

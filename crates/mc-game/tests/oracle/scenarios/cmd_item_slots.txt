@@ -1,0 +1,171 @@
+# `item replace|fill|override|modify` between players, mobs, item entities and containers: every target and source form (`with`, `from`
+# with and without a modifier), slot wildcards, ranges that match nothing, items that do not fit, and the failure and success texts.
+datapack loot_cmds
+command_env
+level flat
+preload 2
+level_seed 23
+entity_counter 210
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 2.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note replace entity: single slots, groups, counts, items that vanish
+cmd item replace entity A weapon.mainhand with minecraft:diamond_sword
+cmd item replace entity A weapon.offhand with minecraft:shield
+cmd item replace entity A hotbar.0 with minecraft:apple 5
+cmd item replace entity A container.3 with minecraft:stick 99
+cmd item replace entity A armor.head with minecraft:stick
+cmd item replace entity A armor.head with minecraft:iron_helmet
+cmd item replace entity A armor.chest with minecraft:iron_chestplate
+cmd item replace entity A armor.* with minecraft:air
+cmd item replace entity A hotbar.* with minecraft:bread 3
+cmd item replace entity A nope.0 with minecraft:stick
+cmd item replace entity A container.99 with minecraft:stick
+cmd item replace entity A enderchest.0 with minecraft:diamond 2
+cmd item replace entity A player.cursor with minecraft:dirt 4
+cmd item replace entity A player.crafting.0 with minecraft:oak_planks 4
+cmd item replace entity A container.5 with minecraft:stick 100
+cmd item replace entity A container.5 with minecraft:stick 0
+cmd item replace entity A container.5 with minecraft:nope
+cmd item replace entity A container.5 with minecraft:air
+cmd item replace entity A container.6 with minecraft:diamond_sword[damage=3,enchantments={"minecraft:sharpness":3}] 1
+cmd item replace entity @a hotbar.1 with minecraft:carrot
+cmd item replace entity @a hotbar.1 with minecraft:carrot
+cmd item replace entity nobody hotbar.1 with minecraft:carrot
+dump inventory:A inventory:B
+note replace entity from entity and block, wildcards, modifiers on the way
+cmd item replace entity A container.0 from entity A hotbar.0
+cmd item replace entity A container.1 from entity A hotbar.*
+cmd item replace entity A container.2 from entity A container.50
+cmd item replace entity A container.4 from entity B hotbar.1 lc:double
+cmd item replace entity A container.7 from entity A hotbar.0 {"type":"minecraft:set_count","count":2,"add":true}
+cmd item replace entity A container.8 from entity A hotbar.* lc:double
+cmd item replace entity A container.9 from entity A container.50 lc:double
+cmd item replace entity A container.10 from entity A hotbar.0 lc:nope
+cmd item replace entity A container.10 from entity A hotbar.0 lc:discard
+cmd item replace entity A container.11 from entity A hotbar.0 lc:chain
+dump inventory:A
+note fill and override
+cmd item fill entity A container.* with minecraft:stick 3
+cmd item fill entity A hotbar.* from entity A weapon.mainhand
+cmd item fill entity A container.0 from entity A hotbar.*
+cmd item fill entity A container.0 from entity A container.50
+cmd item override entity A container.0 from entity A hotbar.*
+cmd item override entity A container.* from entity A hotbar.0
+cmd item override entity A container.* with minecraft:cobblestone 7
+cmd item override entity A container.1 from entity A hotbar.0 lc:double
+cmd item override entity A hotbar.* from entity A container.0 lc:chain
+cmd item replace entity A hotbar.* from entity A container.0 lc:chain
+cmd item fill entity A hotbar.* from entity A container.0 lc:chain
+dump inventory:A
+cmd clear A
+note blocks as targets and sources
+cmd setblock 4 -60 3 minecraft:dropper
+cmd setblock 4 -60 5 minecraft:stone
+cmd setblock 6 -60 3 minecraft:chest
+cmd setblock 8 -60 3 minecraft:furnace
+cmd setblock 10 -60 3 minecraft:hopper
+cmd item replace block 4 -60 3 container.0 with minecraft:diamond 5
+cmd item replace block 4 -60 3 container.1 from entity A hotbar.0
+cmd item replace block 4 -60 3 container.8 with minecraft:emerald
+cmd item replace block 4 -60 3 container.9 with minecraft:emerald
+cmd item replace block 4 -60 3 container.* with minecraft:gold_ingot 2
+cmd item replace block 4 -60 5 container.0 with minecraft:diamond
+cmd item replace block 4 -60 5 container.0 from block 4 -60 3 container.0
+cmd item replace entity A hotbar.2 from block 4 -60 3 container.0
+cmd item replace entity A hotbar.2 from block 4 -60 5 container.0
+cmd item replace block 4 -60 3 container.0 from block 4 -60 3 container.4
+cmd item replace block 500 -60 3 container.0 with minecraft:stick
+cmd item replace block 6 -60 3 container.* with minecraft:stick 7
+cmd item replace block 6 -60 3 container.* from block 4 -60 3 container.*
+cmd item fill block 6 -60 3 container.* from block 4 -60 3 container.*
+cmd item fill block 6 -60 3 container.0 from block 4 -60 3 container.*
+cmd item override block 6 -60 3 container.* from block 4 -60 3 container.0
+cmd item replace block 8 -60 3 container.0 with minecraft:coal
+cmd item replace block 8 -60 3 container.1 with minecraft:stone
+cmd item replace block 8 -60 3 container.2 with minecraft:stone
+cmd item replace block 8 -60 3 container.* with minecraft:coal 3
+cmd item replace block 10 -60 3 container.* with minecraft:arrow 9
+cmd item replace block 10 -60 3 container.5 with minecraft:arrow
+cmd item replace block ~ ~ ~ container.0 with minecraft:arrow
+cmd item replace block 4 -60 3 container.0 with minecraft:arrow 100
+dump be:4,-60,3 be:6,-60,3 be:8,-60,3 be:10,-60,3 inventory:A
+note modify entity and block: one, several, empty slots, nothing changed, wildcards
+cmd item modify entity A weapon.mainhand {"type":"minecraft:set_count","count":7}
+cmd item modify entity A hotbar.* {"type":"minecraft:set_count","count":2,"add":true}
+cmd item modify entity A hotbar.0 {"type":"minecraft:set_name","name":{"text":"Hi"},"target":"item_name"}
+cmd item modify entity A container.20 {"type":"minecraft:set_count","count":2}
+cmd item modify entity A hotbar.* lc:double
+cmd item modify entity A hotbar.0 lc:double
+cmd item modify entity A hotbar.0 lc:nope
+cmd item modify entity A hotbar.0 lc:name_pig
+cmd item modify entity A hotbar.0 lc:chance_zero
+cmd item modify entity A hotbar.* lc:chance_zero
+cmd item modify entity @a container.* lc:double
+cmd item modify entity A nope.0 lc:double
+cmd item modify entity A hotbar.0
+cmd item modify entity nobody hotbar.0 lc:double
+cmd item modify block 4 -60 3 container.0 {"type":"minecraft:set_count","count":9}
+cmd item modify block 4 -60 3 container.* {"type":"minecraft:set_count","count":3,"add":true}
+cmd item modify block 4 -60 3 container.* lc:double
+cmd item modify block 4 -60 3 container.0 lc:discard
+cmd item modify block 4 -60 5 container.0 lc:double
+cmd item modify block 500 -60 3 container.0 lc:double
+cmd item modify block 6 -60 3 container.5 lc:chain
+cmd item modify block 8 -60 3 container.* lc:double
+cmd item modify block 10 -60 3 container.30 lc:double
+dump be:4,-60,3 be:6,-60,3 be:8,-60,3 inventory:A
+note mobs, item entities, vehicles and armor stands
+spawn p1 minecraft:pig 20.5 -60 4.5 0 0 {NoAI:1b,Tags:[pg]}
+spawn z1 minecraft:zombie 22.5 -60 4.5 0 0 {NoAI:1b,Tags:[zb]}
+spawn s1 minecraft:armor_stand 24.5 -60 4.5 0 0 {Tags:[as]}
+spawn i1 minecraft:item 26.5 -60 4.5 0 0 {Item:{id:"minecraft:stone",count:3},Tags:[it]}
+spawn v1 minecraft:chest_minecart 28.5 -60 4.5 0 0 {Tags:[cm]}
+spawn h1 minecraft:horse 30.5 -60 4.5 0 0 {NoAI:1b,Tags:[hs]}
+tick 1
+cmd item replace entity @e[type=minecraft:pig] weapon.mainhand with minecraft:stick
+cmd item replace entity @e[type=minecraft:pig] armor.head with minecraft:iron_helmet
+cmd item replace entity @e[tag=zb] weapon.mainhand with minecraft:iron_sword
+cmd item replace entity @e[tag=zb] armor.chest with minecraft:diamond_chestplate
+cmd item replace entity @e[tag=hs] saddle with minecraft:saddle
+cmd item replace entity @e[tag=hs] armor.body with minecraft:iron_horse_armor
+cmd item replace entity @e[tag=as] weapon.mainhand with minecraft:stick
+cmd item replace entity @e[tag=it] contents with minecraft:emerald 4
+cmd item replace entity @e[tag=cm] container.2 with minecraft:emerald 4
+cmd item replace entity @e[tag=cm] container.* with minecraft:coal 2
+cmd item replace entity @e[tag=cm] container.0 from entity @e[tag=zb] weapon.mainhand
+cmd item replace entity @e[tag=zb] weapon.offhand from entity @e[tag=cm] container.2
+cmd item modify entity @e[tag=zb] weapon.* {"type":"minecraft:set_count","count":3}
+cmd item modify entity @e[tag=zb] armor.* lc:double
+cmd item modify entity @e[tag=zb] weapon.mainhand lc:name_pig
+cmd item modify entity @e[tag=pg] weapon.mainhand lc:name_pig
+cmd item modify entity @e[tag=it] contents lc:double
+cmd item modify entity @e[tag=cm] container.* lc:double
+cmd item modify entity @e[type=!player,tag=!zz] weapon.mainhand lc:double
+cmd execute as @e[tag=pg] run item modify entity @e[tag=pg] weapon.mainhand lc:name_pig
+cmd execute as @e[tag=zb] run item modify entity @e[tag=pg] weapon.mainhand lc:name_pig
+tick 1
+dump nbt:p1 nbt:z1 nbt:s1 nbt:i1 nbt:v1 nbt:h1
+note modifiers with a position and an entity: conditions on the running source
+cmd_as A item modify entity A weapon.mainhand lc:near_origin
+cmd_as A item modify entity A weapon.offhand lc:near_origin
+cmd execute positioned 50 -60 0 run item modify entity A weapon.mainhand lc:near_origin
+cmd execute positioned 50 -60 0 run item modify entity A hotbar.* lc:near_origin
+cmd execute as @e[tag=pg] positioned 50 -60 0 run item modify entity A weapon.mainhand lc:name_pig
+dump inventory:A
+note replace with an inline loot modifier that is not valid: texts of the parse failures
+cmd item modify entity A hotbar.0 minecraft:nope
+cmd item modify entity A hotbar.0 {"type":"minecraft:nope"}
+cmd item modify entity A hotbar.0 {"type":"minecraft:set_count","count":"x"}
+cmd item replace entity A hotbar.0 from entity A hotbar.1 {"type":"minecraft:nope"}
+note permission levels: gamemaster commands
+cmd_as -0 item replace entity A hotbar.0 with minecraft:stick
+cmd_as -1 item modify entity A hotbar.0 lc:double
+cmd_as -2 item replace entity A hotbar.0 with minecraft:stick
+cmd_as -2 item modify entity A hotbar.0 lc:double
+cmd_as -2 item replace block 4 -60 3 container.0 with minecraft:stick
+cmd_as -4 item fill entity A hotbar.* with minecraft:arrow
+cmd_as -0 execute as A run item modify entity A hotbar.0 lc:double
+dump inventory:A be:4,-60,3

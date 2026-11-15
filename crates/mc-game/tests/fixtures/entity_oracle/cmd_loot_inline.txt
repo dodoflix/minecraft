@@ -1,0 +1,101 @@
+C Game rule send_command_feedback is now set to true
+CF msg Changed the block at 4, -60, 3
+CF result success 1
+CF msg Changed the block at 4, -60, 5
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+# give: inline tables
+CF msg Dropped 3 [Diamond]
+CF result success 1
+CF msg Dropped 4 items
+CF result success 4
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 3 items
+CF result success 3
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+I A 0 minecraft:diamond*3
+I A 1 minecraft:apple*1
+I A 2 minecraft:stick*1
+I A 3 minecraft:cookie*3
+I A 4 minecraft:cod*4
+I B 0 minecraft:apple*1
+I B 1 minecraft:stick*1
+# the other targets with inline tables
+CF msg Dropped 1 [Apple]
+CF result success 1
+CF msg Dropped 1 [Apple]
+CF result success 1
+CF result failure 0
+CF fail Target position 4, -60, 5 is not a container
+CF msg Dropped 1 [Cookie]
+CF result success 1
+CF msg Dropped 3 items
+CF result success 3
+CF result failure 0
+CF fail The target does not have slot 30
+CF result failure 0
+CF fail Target position 4, -60, 5 is not a container
+CF msg Dropped 1 [Cookie]
+CF result success 1
+CF msg Dropped 4 items
+CF result success 4
+CF msg Dropped 1 [Iron Helmet]
+CF result success 1
+CF msg Dropped 0 items
+CF result success 0
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot spawn 0 -59 8 kill @e[type=minecraft:cow]<--[HERE]
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+CF result failure 0
+CF fail An entity is required to run this command here
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+BE 4 -60 3 {Items:[{Slot:0b,count:1,id:"minecraft:cookie"}],components:{},id:"minecraft:dropper",x:4,y:-60,z:3}
+I A 0 minecraft:cookie*1
+I A 1 minecraft:cookie*1
+I A 4 minecraft:cod*4
+I A 39 minecraft:iron_helmet*1
+E cow#1 minecraft:cow pos=12.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=0.4041298033428907,-58.84,8.520045772007215 delta=-0.09395279455254596,0.1568000030517578,0.019644856949413127 rot=14.254847,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.4355647153987649,-58.84,8.501490357210104 delta=-0.06314658013821593,0.1568000030517578,0.0014605500943285284 rot=63.634808,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cod*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.4715810400864172,-58.84,8.467692319072057 delta=-0.02785058125735976,0.1568000030517578,-0.031661527925604394 rot=187.23358,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cod*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.40706800991112485,-58.84,8.469203909846648 delta=-0.09107335205963468,0.1568000030517578,-0.030180168937674466 rot=22.692669,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cod*1 age=1 pickup=9 health=5 owner=- thrower=-
+# parse failures of the definition and of the command
+CF fail Failed to parse structure: Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: minecraft:nope
+CF fail ...nope"}]}]}<--[HERE]
+CF fail Failed to parse structure: Failed to get element minecraft:x from registry minecraft:context_int_provider
+CF fail ...ies":[]}]}<--[HERE]
+CF fail Failed to parse structure: Not a list: "x"
+CF fail ...ools":"x"}<--[HERE]
+CF msg Dropped 0 items
+CF result success 0
+CF fail Expected literal "
+CF fail ...e A loot {<--[HERE]
+CF fail Can't find element 'minecraft:chests/nope' in registry 'minecraft:loot_table'
+CF fail ...hests/nope<--[HERE]
+CF msg Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...oot give A<--[HERE]
+CF fail Incorrect argument for command
+CF fail loot nope<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail loot<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail loot give<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ot replace<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...lock 1 2 3<--[HERE]

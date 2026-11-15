@@ -1,0 +1,281 @@
+# `loot give`: every source (fish with the four tool forms, loot, kill, mine with the four tool forms) into the inventory of one or
+# several players, a full inventory (only the items that fit are counted), the count wording of the feedback (one drop, several,
+# with and without the table name), the source entity as the loot context's entity, and the failures of each source.
+datapack loot_cmds
+command_env
+level flat
+preload 2
+level_seed 7
+entity_counter 60
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+op A
+op B
+gamerule send_command_feedback true
+tick 1
+note loot source: fixed tables, several drops, single drop, no drop, drops that split into several stacks
+cmd loot give A loot lc:five
+dump inventory:A
+cmd loot give A loot lc:empty
+cmd loot give A loot lc:split
+dump inventory:A
+cmd clear A
+cmd loot give @a loot lc:five
+dump inventory:A inventory:B
+cmd clear @a
+note a full inventory: only the drops that fit are counted, partly full inventories take what merges
+cmd loot give A loot lc:many
+cmd loot give A loot lc:many
+cmd loot give A loot lc:five
+cmd loot give @a loot lc:five
+cmd loot give B loot lc:five
+cmd loot give @a loot lc:split
+dump inventory:A inventory:B
+cmd clear @a
+cmd loot give A loot minecraft:chests/simple_dungeon
+cmd item replace entity B hotbar.0 with minecraft:stick 60
+cmd item replace entity B container.0 with minecraft:stick 60
+cmd loot give B loot lc:five
+cmd loot give @a loot lc:five
+dump inventory:A inventory:B
+cmd clear @a
+note loot source: context of the running source (this entity, origin) for a player, a console, a mob
+cmd_as A loot give A loot lc:ctx_chest
+cmd_as B loot give B loot lc:ctx_chest
+cmd loot give A loot lc:ctx_chest
+cmd summon minecraft:pig 8 -60 8 {NoAI:1b,Tags:["marked"]}
+cmd execute as @e[type=pig] at @s run loot give A loot lc:ctx_chest
+cmd execute as @e[type=pig] at @s positioned 6 -50 0 run loot give A loot lc:ctx_chest
+dump inventory:A
+cmd clear A
+note loot source: default chest tables (random rolls)
+cmd loot give A loot minecraft:chests/simple_dungeon
+cmd loot give A loot minecraft:chests/ancient_city
+cmd loot give A loot minecraft:chests/village/village_weaponsmith
+cmd loot give B loot minecraft:gameplay/hero_of_the_village/armorer_gift
+dump inventory:A inventory:B
+note loot source: errors (unknown table, an entity table, no argument)
+cmd loot give A loot nope:table
+cmd loot give A loot minecraft:entities/zombie
+cmd loot give A loot minecraft:blocks/stone
+cmd loot give A loot minecraft:gameplay/fishing
+cmd loot give A loot
+cmd loot give nobody loot lc:five
+cmd loot give @e[type=pig] loot lc:five
+cmd clear @a
+note fish source: tool forms
+cmd loot give A fish lc:ctx_fishing 2 -60 2
+cmd loot give A fish lc:ctx_fishing 2 -60 2 minecraft:fishing_rod
+cmd loot give A fish lc:ctx_fishing 2 -60 2 minecraft:stick
+cmd loot give A fish lc:ctx_fishing 8 -60 2 minecraft:fishing_rod[enchantments={"minecraft:luck_of_the_sea":3}]
+cmd loot give A fish lc:ctx_fishing 8 -61 2 minecraft:fishing_rod[enchantments={"minecraft:luck_of_the_sea":1}]
+cmd loot give A fish lc:ctx_fishing ~ ~ ~ mainhand
+cmd give A minecraft:fishing_rod[enchantments={"minecraft:luck_of_the_sea":2}]
+cmd item replace entity A weapon.mainhand with minecraft:fishing_rod[enchantments={"minecraft:luck_of_the_sea":2}]
+cmd loot give A fish lc:ctx_fishing 2 -60 2 mainhand
+cmd item replace entity A weapon.offhand with minecraft:stick
+cmd loot give A fish lc:ctx_fishing 2 -60 2 offhand
+cmd_as B loot give B fish lc:ctx_fishing 2 -60 2 mainhand
+cmd_as B loot give B fish lc:ctx_fishing 2 -60 2 offhand
+cmd loot give A fish lc:ctx_fishing 2 -60 2 mainhand
+cmd summon minecraft:pig 8 -60 8 {NoAI:1b}
+cmd execute as @e[type=pig,limit=1] run loot give A fish lc:ctx_fishing 2 -60 2 mainhand
+cmd summon minecraft:item 2 -60 6 {Item:{id:"minecraft:stone",count:1}}
+cmd execute as @e[type=item,limit=1] run loot give A fish lc:ctx_fishing 2 -60 2 mainhand
+cmd execute as @e[type=item,limit=1] run loot give A fish lc:ctx_fishing 2 -60 2 offhand
+note fish source: default fishing tables (open water and treasure conditions, location)
+cmd fill 20 -61 20 24 -59 24 minecraft:water
+cmd loot give A fish minecraft:gameplay/fishing 22 -60 22 minecraft:fishing_rod
+cmd loot give A fish minecraft:gameplay/fishing 22 -60 22 minecraft:fishing_rod[enchantments={"minecraft:luck_of_the_sea":3}]
+cmd loot give A fish minecraft:gameplay/fishing 22 -60 22 minecraft:fishing_rod[enchantments={"minecraft:luck_of_the_sea":3}]
+cmd loot give A fish minecraft:gameplay/fishing 22 -60 22
+cmd loot give A fish minecraft:gameplay/fishing 2 -60 2 minecraft:fishing_rod
+cmd loot give A fish minecraft:gameplay/fishing/fish 22 -60 22 minecraft:fishing_rod
+cmd loot give A fish minecraft:gameplay/fishing/junk 22 -60 22 minecraft:fishing_rod
+cmd loot give A fish minecraft:gameplay/fishing/treasure 22 -60 22 minecraft:fishing_rod
+cmd loot give A fish minecraft:gameplay/fishing/treasure 22 -60 22 minecraft:fishing_rod[enchantments={"minecraft:luck_of_the_sea":3}]
+dump inventory:A
+note fish source: failures (unloaded position, unknown table, wrong type, bad tool)
+cmd loot give A fish lc:ctx_fishing 100000 -60 0
+cmd loot give A fish nope:x 2 -60 2
+cmd loot give A fish minecraft:entities/zombie 2 -60 2
+cmd loot give A fish lc:ctx_fishing 2 -60 2 minecraft:nope
+cmd loot give A fish lc:ctx_fishing 2 -60
+cmd loot give A fish lc:ctx_fishing 2 -60 2 minecraft:fishing_rod extra
+cmd clear @a
+note kill source: the killer is the running entity (player, mob, none)
+cmd summon minecraft:pig 12 -60 12 {NoAI:1b,DeathLootTable:"lc:ctx_entity"}
+cmd summon minecraft:cow 14 -60 12 {NoAI:1b,DeathLootTable:"lc:ctx_entity"}
+cmd_as A loot give A kill @e[type=pig,limit=1]
+cmd_as A loot give A kill @e[type=cow,limit=1]
+cmd loot give A kill @e[type=pig,limit=1]
+cmd execute as @e[type=cow,limit=1] run loot give A kill @e[type=pig,limit=1]
+cmd execute as B run loot give A kill @e[type=pig,limit=1]
+cmd execute as B at @s positioned 9 -60 0 run loot give A kill @e[type=pig,limit=1]
+dump inventory:A xentities
+cmd clear @a
+note kill source: default entity tables
+cmd summon minecraft:zombie 12 -60 14 {NoAI:1b}
+cmd summon minecraft:creeper 14 -60 14 {NoAI:1b}
+cmd summon minecraft:sheep 16 -60 14 {NoAI:1b,Color:3b}
+cmd summon minecraft:sheep 18 -60 14 {NoAI:1b,Sheared:1b}
+cmd summon minecraft:skeleton 20 -60 14 {NoAI:1b}
+cmd summon minecraft:enderman 22 -60 14 {NoAI:1b}
+cmd summon minecraft:villager 24 -60 14 {NoAI:1b}
+cmd summon minecraft:iron_golem 26 -60 14 {NoAI:1b}
+cmd summon minecraft:armor_stand 28 -60 14
+cmd summon minecraft:minecart 30 -60 14
+cmd_as A loot give A kill @e[type=zombie,limit=1]
+cmd_as A loot give A kill @e[type=zombie,limit=1]
+cmd_as A loot give A kill @e[type=creeper,limit=1]
+cmd_as A loot give A kill @e[type=sheep,limit=1]
+cmd_as A loot give A kill @e[type=sheep,limit=1,nbt={Sheared:1b}]
+cmd_as A loot give A kill @e[type=skeleton,limit=1]
+cmd_as A loot give A kill @e[type=enderman,limit=1]
+cmd_as A loot give A kill @e[type=villager,limit=1]
+cmd_as A loot give A kill @e[type=iron_golem,limit=1]
+cmd_as A loot give A kill @e[type=armor_stand,limit=1]
+cmd_as A loot give A kill @e[type=minecart,limit=1]
+cmd loot give A kill @e[type=zombie,limit=1]
+cmd loot give A kill @e[type=creeper,limit=1]
+cmd loot give A kill @e[type=sheep,limit=1]
+dump inventory:A
+cmd clear @a
+note kill source: failures (a player, no entity, several entities, an entity without a table, not a selector)
+cmd loot give A kill A
+cmd loot give A kill B
+cmd loot give A kill nobody
+cmd loot give A kill @e[type=pig]
+cmd loot give A kill
+cmd summon minecraft:item 2 -60 6 {Item:{id:"minecraft:stone",count:1}}
+cmd loot give A kill @e[type=item,limit=1]
+cmd summon minecraft:area_effect_cloud 2 -60 8
+cmd loot give A kill @e[type=area_effect_cloud,limit=1]
+cmd summon minecraft:pig 12 -60 16 {NoAI:1b,DeathLootTable:"nope:missing"}
+cmd loot give A kill @e[type=pig,x=12,y=-60,z=16,distance=..1]
+cmd summon minecraft:pig 12 -60 18 {NoAI:1b,CustomName:'"Hamlet"',DeathLootTable:"lc:five"}
+cmd loot give A kill @e[type=pig,name=Hamlet]
+cmd loot give B kill @e[type=pig,name=Hamlet]
+note mine source: block tables with the tool forms
+cmd setblock 2 -60 2 minecraft:stone
+cmd setblock 3 -60 2 minecraft:diamond_ore
+cmd setblock 4 -60 2 minecraft:oak_leaves
+cmd setblock 5 -60 2 minecraft:gravel
+cmd setblock 6 -60 2 minecraft:wheat[age=7]
+cmd setblock 7 -60 2 minecraft:glass
+cmd setblock 8 -60 2 minecraft:bookshelf
+cmd setblock 9 -60 2 minecraft:coal_ore
+cmd setblock 10 -60 2 minecraft:short_grass
+cmd setblock 11 -60 2 minecraft:melon
+cmd setblock 12 -60 2 minecraft:redstone_ore
+cmd setblock 13 -60 2 minecraft:sweet_berry_bush[age=3]
+cmd setblock 14 -60 2 minecraft:cobweb
+cmd loot give A mine 2 -60 2
+cmd loot give A mine 2 -60 2 minecraft:iron_pickaxe
+cmd loot give A mine 2 -60 2 minecraft:wooden_pickaxe
+cmd loot give A mine 2 -60 2 minecraft:diamond_pickaxe[enchantments={"minecraft:silk_touch":1}]
+cmd loot give A mine 3 -60 2
+cmd loot give A mine 3 -60 2 minecraft:iron_pickaxe
+cmd loot give A mine 3 -60 2 minecraft:diamond_pickaxe[enchantments={"minecraft:fortune":3}]
+cmd loot give A mine 3 -60 2 minecraft:diamond_pickaxe[enchantments={"minecraft:fortune":3}]
+cmd loot give A mine 3 -60 2 minecraft:diamond_pickaxe[enchantments={"minecraft:silk_touch":1}]
+cmd loot give A mine 4 -60 2
+cmd loot give A mine 4 -60 2 minecraft:shears
+cmd loot give A mine 4 -60 2 minecraft:diamond_hoe[enchantments={"minecraft:fortune":3}]
+cmd loot give A mine 5 -60 2 minecraft:iron_shovel
+cmd loot give A mine 5 -60 2 minecraft:iron_shovel[enchantments={"minecraft:fortune":3}]
+cmd loot give A mine 6 -60 2
+cmd loot give A mine 6 -60 2 minecraft:iron_hoe[enchantments={"minecraft:fortune":3}]
+cmd loot give A mine 7 -60 2
+cmd loot give A mine 7 -60 2 minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+cmd loot give A mine 8 -60 2 minecraft:iron_axe
+cmd loot give A mine 8 -60 2 minecraft:iron_axe[enchantments={"minecraft:silk_touch":1}]
+cmd loot give A mine 9 -60 2 minecraft:iron_pickaxe[enchantments={"minecraft:fortune":2}]
+cmd loot give A mine 10 -60 2
+cmd loot give A mine 10 -60 2 minecraft:shears
+cmd loot give A mine 11 -60 2 minecraft:iron_axe[enchantments={"minecraft:fortune":3}]
+cmd loot give A mine 12 -60 2 minecraft:iron_pickaxe[enchantments={"minecraft:fortune":3}]
+cmd loot give A mine 13 -60 2
+cmd loot give A mine 14 -60 2 minecraft:iron_sword
+cmd loot give A mine 14 -60 2 minecraft:shears
+cmd loot give A mine 14 -60 2 minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+cmd loot give A mine ~2 ~ ~2
+cmd loot give A mine 2 -60 2 mainhand
+cmd item replace entity A weapon.mainhand with minecraft:diamond_pickaxe[enchantments={"minecraft:silk_touch":1}]
+cmd loot give A mine 2 -60 2 mainhand
+cmd loot give A mine 3 -60 2 mainhand
+cmd item replace entity A weapon.offhand with minecraft:diamond_pickaxe[enchantments={"minecraft:fortune":3}]
+cmd loot give A mine 3 -60 2 offhand
+cmd_as B loot give B mine 3 -60 2 mainhand
+cmd_as B loot give B mine 3 -60 2 offhand
+cmd execute as @e[type=pig,limit=1] run loot give A mine 2 -60 2 mainhand
+cmd execute as @e[type=item,limit=1] run loot give A mine 2 -60 2 mainhand
+cmd execute as @e[type=item,limit=1] run loot give A mine 2 -60 2 offhand
+dump inventory:A inventory:B
+cmd clear @a
+note mine source: block entities and block states in the context
+cmd setblock 2 -60 4 minecraft:chest{Items:[{Slot:0b,id:"minecraft:apple",count:3}],CustomName:'"Stash"'}
+cmd setblock 3 -60 4 minecraft:shulker_box{Items:[{Slot:0b,id:"minecraft:apple",count:3}],CustomName:'"Boxed"'}
+cmd setblock 4 -60 4 minecraft:white_banner{patterns:[{pattern:"minecraft:globe",color:"red"}]}
+cmd setblock 5 -60 4 minecraft:beehive[honey_level=5]
+cmd setblock 6 -60 4 minecraft:decorated_pot{back:{id:"minecraft:brick"},front:{id:"minecraft:arms_up_pottery_sherd"},left:{id:"minecraft:brick"},right:{id:"minecraft:brick"}}
+cmd setblock 7 -60 4 minecraft:flower_pot
+cmd setblock 8 -60 4 minecraft:oak_door[half=upper]
+cmd setblock 9 -60 4 minecraft:oak_door[half=lower]
+cmd setblock 10 -60 4 minecraft:candle[candles=3]
+cmd setblock 11 -60 4 minecraft:sea_pickle[pickles=2]
+cmd setblock 12 -60 4 minecraft:snow[layers=3]
+cmd setblock 13 -60 4 minecraft:tnt
+cmd setblock 14 -60 4 minecraft:furnace
+cmd loot give A mine 2 -60 4
+cmd loot give A mine 2 -60 4 minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+cmd loot give A mine 3 -60 4
+cmd loot give A mine 4 -60 4
+cmd loot give A mine 5 -60 4
+cmd loot give A mine 5 -60 4 minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+cmd loot give A mine 6 -60 4
+cmd loot give A mine 6 -60 4 minecraft:iron_pickaxe
+cmd loot give A mine 7 -60 4
+cmd loot give A mine 8 -60 4
+cmd loot give A mine 9 -60 4
+cmd loot give A mine 10 -60 4
+cmd loot give A mine 11 -60 4
+cmd loot give A mine 12 -60 4
+cmd loot give A mine 12 -60 4 minecraft:iron_shovel
+cmd loot give A mine 13 -60 4
+cmd loot give A mine 14 -60 4
+dump inventory:A be:2,-60,4 blocks:2,-60,2,14,-60,4
+note mine source: failures (no loot table, unloaded, outside the world, bad tool)
+cmd loot give A mine 2 -60 8
+cmd loot give A mine 2 -60 8 mainhand
+cmd setblock 2 -60 8 minecraft:water
+cmd loot give A mine 2 -60 8
+cmd loot give A mine 100000 -60 0
+cmd loot give A mine 0 400 0
+cmd loot give A mine 2 -60 2 minecraft:nope
+cmd loot give A mine 2 -60
+cmd loot give A mine
+cmd setblock 2 -60 8 minecraft:spawner
+cmd loot give A mine 2 -60 8
+cmd setblock 2 -60 8 minecraft:bedrock
+cmd loot give A mine 2 -60 8
+cmd setblock 2 -60 8 minecraft:lava
+cmd loot give A mine 2 -60 8
+cmd setblock 2 -60 8 minecraft:fire
+cmd loot give A mine 2 -60 8
+cmd setblock 2 -60 8 minecraft:deepslate
+cmd setblock 3 -60 8 minecraft:ender_chest
+cmd loot give A mine 3 -60 8
+cmd loot give A mine 3 -60 8 minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+note inventories of both players at the end
+dump inventory:A inventory:B
+note permission levels: gamemaster commands
+cmd_as -0 loot give A loot lc:five
+cmd_as -1 loot give A loot lc:five
+cmd_as -2 loot give A loot lc:five
+cmd_as -2 loot spawn 0 -60 0 loot lc:five
+cmd_as -3 loot replace entity A hotbar.0 loot lc:five
+cmd_as -4 loot replace block 2 -60 8 container.0 loot lc:five
+cmd execute as B run loot give A loot lc:five
+cmd_as -0 execute as B run loot give A loot lc:five
+dump inventory:A inventory:B

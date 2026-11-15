@@ -1,0 +1,327 @@
+# `item modify` with every kind of item function on a player's slots: counts, damage, names and lore, enchantments, components, potions,
+# books, banners, fireworks, heads, attributes, filters and sequences, item modifiers of the data pack with their conditions, and the
+# feedback wording (one slot, several slots, nothing changed).
+datapack loot_cmds
+command_env
+level flat
+preload 2
+level_seed 19
+entity_counter 180
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 40.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note counts, damage, item type
+cmd item replace entity A container.0 with minecraft:stone 5
+cmd item replace entity A container.1 with minecraft:stone 5
+cmd item replace entity A container.2 with minecraft:stone 5
+cmd item replace entity A container.3 with minecraft:stone 5
+cmd item replace entity A container.4 with minecraft:stone 5
+cmd item replace entity A container.5 with minecraft:stone 5
+cmd item replace entity A container.6 with minecraft:stone 5
+cmd item replace entity A container.7 with minecraft:ender_pearl 5
+cmd item replace entity A container.8 with minecraft:diamond_sword
+cmd item replace entity A container.9 with minecraft:stone 20
+cmd item replace entity A container.10 with minecraft:stone 20
+cmd item replace entity A container.11 with minecraft:stone 20
+cmd item replace entity A container.12 with minecraft:diamond_sword
+cmd item replace entity A container.13 with minecraft:diamond_sword
+cmd item replace entity A container.14 with minecraft:diamond_sword[damage=100]
+cmd item replace entity A container.15 with minecraft:diamond_sword[damage=100]
+cmd item replace entity A container.16 with minecraft:stone 5
+cmd item replace entity A container.17 with minecraft:stone 5
+cmd item replace entity A container.18 with minecraft:diamond_sword[enchantments={"minecraft:sharpness":3}]
+cmd item replace entity A container.19 with minecraft:stone 70
+cmd item replace entity A container.20 with minecraft:stone 5
+cmd item replace entity A container.21 with minecraft:stone 5
+cmd item replace entity A container.22 with minecraft:stone 5
+cmd item replace entity A container.23 with minecraft:stone 5
+cmd item replace entity A container.24 with minecraft:stone 5
+cmd item replace entity A container.25 with minecraft:stick 5
+cmd item replace entity A container.26 with minecraft:stone 5
+cmd item modify entity A container.0 {"type":"minecraft:set_count","count":7}
+cmd item modify entity A container.1 {"type":"minecraft:set_count","count":7,"add":true}
+cmd item modify entity A container.2 {"type":"minecraft:set_count","count":-3,"add":true}
+cmd item modify entity A container.3 {"type":"minecraft:set_count","count":{"type":"minecraft:uniform","min":2,"max":9}}
+cmd item modify entity A container.4 {"type":"minecraft:set_count","count":{"type":"minecraft:binomial","n":10,"p":0.5}}
+cmd item modify entity A container.5 {"type":"minecraft:set_count","count":500}
+cmd item modify entity A container.6 {"type":"minecraft:set_count","count":0}
+cmd item modify entity A container.7 {"type":"minecraft:set_count","count":30}
+cmd item modify entity A container.8 {"type":"minecraft:set_count","count":4}
+cmd item modify entity A container.9 {"type":"minecraft:limit_count","limit":{"max":8}}
+cmd item modify entity A container.10 {"type":"minecraft:limit_count","limit":{"min":30}}
+cmd item modify entity A container.11 {"type":"minecraft:limit_count","limit":{"min":3,"max":8}}
+cmd item modify entity A container.12 {"type":"minecraft:set_damage","damage":0.25}
+cmd item modify entity A container.13 {"type":"minecraft:set_damage","damage":0.25,"add":true}
+cmd item modify entity A container.14 {"type":"minecraft:set_damage","damage":0.25,"add":true}
+cmd item modify entity A container.15 {"type":"minecraft:set_damage","damage":{"type":"minecraft:uniform","min":0.1,"max":0.9}}
+cmd item modify entity A container.16 {"type":"minecraft:set_damage","damage":0.5}
+cmd item modify entity A container.17 {"type":"minecraft:set_item","item":"minecraft:diamond"}
+cmd item modify entity A container.18 {"type":"minecraft:set_item","item":"minecraft:iron_axe"}
+cmd item modify entity A container.19 {"type":"minecraft:set_item","item":"minecraft:diamond_sword"}
+cmd item modify entity A container.20 {"type":"minecraft:discard"}
+cmd item modify entity A container.21 lc:discard
+cmd item modify entity A container.22 lc:double
+cmd item modify entity A container.23 lc:chain
+cmd item modify entity A container.24 lc:nested
+cmd item modify entity A container.25 lc:nested
+cmd item modify entity A container.26 lc:near_origin
+dump inventory:A
+cmd clear A
+note data pack modifiers: conditions, references, nested sequences
+cmd item replace entity A container.0 with minecraft:stone 5
+cmd item replace entity A container.1 with minecraft:stone 5
+cmd item replace entity A container.2 with minecraft:stone 5
+cmd item replace entity A container.3 with minecraft:stone 5
+cmd item replace entity A container.4 with minecraft:stone 5
+cmd item replace entity A container.5 with minecraft:stone 5
+cmd item replace entity A container.6 with minecraft:iron_pickaxe
+cmd item replace entity A container.7 with minecraft:iron_pickaxe
+cmd item replace entity A container.8 with minecraft:book
+cmd item replace entity A container.9 with minecraft:diamond_chestplate
+cmd item replace entity A container.10 with minecraft:stone 5
+cmd item modify entity A container.0 lc:chance_zero
+cmd item modify entity A container.1 lc:chance_half
+cmd item modify entity A container.2 lc:chance_half
+cmd item modify entity A container.3 lc:chance_half
+cmd item modify entity A container.4 lc:name_pig
+cmd item modify entity A container.5 lc:damage_half
+cmd item modify entity A container.6 lc:damage_half
+cmd item modify entity A container.7 lc:enchant_levels
+cmd item modify entity A container.8 lc:enchant_levels
+cmd item modify entity A container.9 lc:enchant_levels
+cmd item modify entity A container.10 lc:enchant_levels
+dump inventory:A
+cmd clear A
+note names, lore, tooltips, custom data, components
+cmd item replace entity A container.0 with minecraft:stone
+cmd item replace entity A container.1 with minecraft:stone
+cmd item replace entity A container.2 with minecraft:stone
+cmd item replace entity A container.3 with minecraft:stone
+cmd item replace entity A container.4 with minecraft:stone
+cmd item replace entity A container.5 with minecraft:stone
+cmd item replace entity A container.6 with minecraft:stone[custom_name='"old"']
+cmd item replace entity A container.7 with minecraft:stone
+cmd item replace entity A container.8 with minecraft:stone[lore=['"x"']]
+cmd item replace entity A container.9 with minecraft:stone[lore=['"x"','"y"','"z"']]
+cmd item replace entity A container.10 with minecraft:stone[lore=['"x"','"y"','"z"']]
+cmd item replace entity A container.11 with minecraft:stone[lore=['"x"','"y"','"z"']]
+cmd item replace entity A container.12 with minecraft:stone[lore=['"x"','"y"','"z"']]
+cmd item replace entity A container.13 with minecraft:stone[lore=['"x"']]
+cmd item replace entity A container.14 with minecraft:stone
+cmd item replace entity A container.15 with minecraft:diamond_sword[enchantments={"minecraft:sharpness":2}]
+cmd item replace entity A container.16 with minecraft:stone
+cmd item replace entity A container.17 with minecraft:stone
+cmd item replace entity A container.18 with minecraft:stone[custom_data={a:5,z:1}]
+cmd item replace entity A container.19 with minecraft:stone
+cmd item replace entity A container.20 with minecraft:stone
+cmd item replace entity A container.21 with minecraft:diamond_sword
+cmd item replace entity A container.22 with minecraft:stone
+cmd item modify entity A container.0 {"type":"minecraft:set_name","name":{"text":"Custom","color":"red"}}
+cmd item modify entity A container.1 {"type":"minecraft:set_name","name":{"text":"Item name"},"target":"item_name"}
+cmd item modify entity A container.2 {"type":"minecraft:set_name","name":{"translate":"block.minecraft.dirt"},"target":"custom_name"}
+cmd item modify entity A container.3 {"type":"minecraft:set_name","name":{"text":"Bold","bold":true,"italic":false}}
+cmd item modify entity A container.4 {"type":"minecraft:set_name","name":[{"text":"A"},{"text":"B"}]}
+cmd item modify entity A container.5 {"type":"minecraft:set_name"}
+cmd item modify entity A container.6 {"type":"minecraft:set_name","name":{"text":"new"}}
+cmd item modify entity A container.7 {"type":"minecraft:set_lore","lore":[{"text":"a"},{"text":"b","color":"blue"}],"mode":"append"}
+cmd item modify entity A container.8 {"type":"minecraft:set_lore","lore":[{"text":"a"},{"text":"b"}],"mode":"append"}
+cmd item modify entity A container.9 {"type":"minecraft:set_lore","lore":[{"text":"a"}],"mode":"replace_all"}
+cmd item modify entity A container.10 {"type":"minecraft:set_lore","lore":[{"text":"a"}],"mode":"insert","offset":1}
+cmd item modify entity A container.11 {"type":"minecraft:set_lore","lore":[{"text":"a"},{"text":"b"}],"mode":"replace_section","offset":1,"size":1}
+cmd item modify entity A container.12 {"type":"minecraft:set_lore","lore":[],"mode":"replace_all"}
+cmd item modify entity A container.13 {"type":"minecraft:set_lore","lore":[{"text":"a"}],"mode":"insert","offset":5}
+cmd item modify entity A container.14 {"type":"minecraft:toggle_tooltips","toggles":{"minecraft:enchantments":false,"minecraft:attribute_modifiers":false}}
+cmd item modify entity A container.15 {"type":"minecraft:toggle_tooltips","toggles":{"minecraft:enchantments":false}}
+cmd item modify entity A container.16 {"type":"minecraft:set_custom_model_data","strings":{"values":["a"],"mode":"append"}}
+cmd item modify entity A container.17 {"type":"minecraft:set_custom_data","tag":"{a:1b,b:[1,2],c:{d:'x'}}"}
+cmd item modify entity A container.18 {"type":"minecraft:set_custom_data","tag":"{a:1b,b:2}"}
+cmd item modify entity A container.19 {"type":"minecraft:set_components","components":{"minecraft:max_stack_size":16,"minecraft:rarity":"epic"}}
+cmd item modify entity A container.20 {"type":"minecraft:set_components","components":{"minecraft:unbreakable":{}}}
+cmd item modify entity A container.21 {"type":"minecraft:set_components","components":{"!minecraft:attribute_modifiers":{}}}
+dump inventory:A
+cmd clear A
+note enchantments
+cmd item replace entity A container.0 with minecraft:diamond_sword
+cmd item replace entity A container.1 with minecraft:diamond_sword[enchantments={"minecraft:sharpness":1}]
+cmd item replace entity A container.2 with minecraft:diamond_sword[enchantments={"minecraft:sharpness":1}]
+cmd item replace entity A container.3 with minecraft:diamond_sword[enchantments={"minecraft:sharpness":3,"minecraft:looting":2}]
+cmd item replace entity A container.4 with minecraft:diamond_sword[enchantments={"minecraft:sharpness":3,"minecraft:looting":2}]
+cmd item replace entity A container.5 with minecraft:book
+cmd item replace entity A container.6 with minecraft:stone
+cmd item replace entity A container.7 with minecraft:diamond_sword
+cmd item replace entity A container.8 with minecraft:diamond_sword
+cmd item replace entity A container.9 with minecraft:diamond_sword
+cmd item replace entity A container.10 with minecraft:diamond_sword
+cmd item replace entity A container.11 with minecraft:book
+cmd item replace entity A container.12 with minecraft:book
+cmd item replace entity A container.13 with minecraft:bow
+cmd item replace entity A container.14 with minecraft:diamond_boots
+cmd item replace entity A container.15 with minecraft:diamond_boots
+cmd item replace entity A container.16 with minecraft:diamond_boots
+cmd item replace entity A container.17 with minecraft:book
+cmd item replace entity A container.18 with minecraft:book
+cmd item replace entity A container.19 with minecraft:diamond_sword
+cmd item replace entity A container.20 with minecraft:diamond_sword
+cmd item replace entity A container.21 with minecraft:stone
+cmd item replace entity A container.22 with minecraft:stone
+cmd item replace entity A container.23 with minecraft:diamond_sword[enchantments={"minecraft:sharpness":3}]
+cmd item modify entity A container.0 {"type":"minecraft:set_enchantments","enchantments":{"minecraft:sharpness":4,"minecraft:unbreaking":3}}
+cmd item modify entity A container.1 {"type":"minecraft:set_enchantments","enchantments":{"minecraft:sharpness":4}}
+cmd item modify entity A container.2 {"type":"minecraft:set_enchantments","enchantments":{"minecraft:sharpness":4},"add":true}
+cmd item modify entity A container.3 {"type":"minecraft:set_enchantments","enchantments":{"minecraft:sharpness":-5},"add":true}
+cmd item modify entity A container.4 {"type":"minecraft:set_enchantments","enchantments":{}}
+cmd item modify entity A container.5 {"type":"minecraft:set_enchantments","enchantments":{"minecraft:mending":1}}
+cmd item modify entity A container.6 {"type":"minecraft:set_enchantments","enchantments":{"minecraft:mending":1}}
+cmd item modify entity A container.7 {"type":"minecraft:enchant_with_levels","levels":20}
+cmd item modify entity A container.8 {"type":"minecraft:enchant_with_levels","levels":{"type":"minecraft:uniform","min":1,"max":30}}
+cmd item modify entity A container.9 {"type":"minecraft:enchant_with_levels","levels":30,"options":"#minecraft:in_enchanting_table"}
+cmd item modify entity A container.10 {"type":"minecraft:enchant_with_levels","levels":30,"options":["minecraft:sharpness","minecraft:fire_aspect"]}
+cmd item modify entity A container.11 {"type":"minecraft:enchant_with_levels","levels":30}
+cmd item modify entity A container.12 {"type":"minecraft:enchant_with_levels","levels":30,"include_additional_cost_component":true}
+cmd item modify entity A container.13 {"type":"minecraft:enchant_with_levels","levels":0}
+cmd item modify entity A container.14 {"type":"minecraft:enchant_randomly"}
+cmd item modify entity A container.15 {"type":"minecraft:enchant_randomly"}
+cmd item modify entity A container.16 {"type":"minecraft:enchant_randomly","only_compatible":false}
+cmd item modify entity A container.17 {"type":"minecraft:enchant_randomly"}
+cmd item modify entity A container.18 {"type":"minecraft:enchant_randomly","options":["minecraft:mending","minecraft:fortune"]}
+cmd item modify entity A container.19 {"type":"minecraft:enchant_randomly","options":["minecraft:mending","minecraft:protection"]}
+cmd item modify entity A container.20 {"type":"minecraft:enchant_randomly","options":"#minecraft:curse"}
+cmd item modify entity A container.21 {"type":"minecraft:enchant_randomly"}
+cmd item modify entity A container.22 {"type":"minecraft:enchant_randomly","only_compatible":false}
+cmd item modify entity A container.23 {"type":"minecraft:enchant_randomly"}
+dump inventory:A
+cmd clear A
+note potions, effects, instruments, attributes
+cmd item replace entity A container.0 with minecraft:potion
+cmd item replace entity A container.1 with minecraft:splash_potion
+cmd item replace entity A container.2 with minecraft:stone
+cmd item replace entity A container.3 with minecraft:potion
+cmd item replace entity A container.4 with minecraft:potion
+cmd item replace entity A container.5 with minecraft:tipped_arrow 4
+cmd item replace entity A container.6 with minecraft:suspicious_stew
+cmd item replace entity A container.7 with minecraft:suspicious_stew
+cmd item replace entity A container.8 with minecraft:stone
+cmd item replace entity A container.9 with minecraft:ominous_bottle
+cmd item replace entity A container.10 with minecraft:ominous_bottle
+cmd item replace entity A container.11 with minecraft:stone
+cmd item replace entity A container.12 with minecraft:goat_horn
+cmd item replace entity A container.13 with minecraft:goat_horn
+cmd item replace entity A container.14 with minecraft:stone
+cmd item replace entity A container.15 with minecraft:diamond_sword
+cmd item replace entity A container.16 with minecraft:diamond_sword
+cmd item replace entity A container.17 with minecraft:leather_boots
+cmd item replace entity A container.18 with minecraft:stone
+cmd item modify entity A container.0 {"type":"minecraft:set_potion","id":"minecraft:strong_healing"}
+cmd item modify entity A container.1 {"type":"minecraft:set_potion","id":"minecraft:long_swiftness"}
+cmd item modify entity A container.2 {"type":"minecraft:set_potion","id":"minecraft:water"}
+cmd item modify entity A container.3 {"type":"minecraft:set_random_potion"}
+cmd item modify entity A container.4 {"type":"minecraft:set_random_potion"}
+cmd item modify entity A container.5 {"type":"minecraft:set_random_potion","options":["minecraft:poison","minecraft:regeneration"]}
+cmd item modify entity A container.6 {"type":"minecraft:set_stew_effect","effects":[{"type":"minecraft:night_vision","duration":100},{"type":"minecraft:blindness","duration":{"type":"minecraft:uniform","min":40,"max":80}}]}
+cmd item modify entity A container.7 {"type":"minecraft:set_stew_effect"}
+cmd item modify entity A container.8 {"type":"minecraft:set_stew_effect","effects":[{"type":"minecraft:speed","duration":20}]}
+cmd item modify entity A container.9 {"type":"minecraft:set_ominous_bottle_amplifier","amplifier":3}
+cmd item modify entity A container.10 {"type":"minecraft:set_ominous_bottle_amplifier","amplifier":{"type":"minecraft:uniform","min":0,"max":4}}
+cmd item modify entity A container.11 {"type":"minecraft:set_ominous_bottle_amplifier","amplifier":2}
+cmd item modify entity A container.12 {"type":"minecraft:set_instrument","options":"#minecraft:goat_horns"}
+cmd item modify entity A container.13 {"type":"minecraft:set_instrument","options":["minecraft:ponder_goat_horn"]}
+cmd item modify entity A container.14 {"type":"minecraft:set_instrument","options":"#minecraft:goat_horns"}
+cmd item modify entity A container.15 {"type":"minecraft:set_attributes","modifiers":[{"id":"lc:extra","attribute":"minecraft:attack_damage","operation":"add_value","amount":4.0,"slot":"mainhand"}]}
+cmd item modify entity A container.16 {"type":"minecraft:set_attributes","modifiers":[{"id":"lc:extra","attribute":"minecraft:attack_damage","operation":"add_value","amount":{"type":"minecraft:uniform","min":1.0,"max":2.0},"slot":"mainhand"}],"replace":false}
+cmd item modify entity A container.17 {"type":"minecraft:set_attributes","modifiers":[{"id":"lc:fast","attribute":"minecraft:movement_speed","operation":"add_multiplied_base","amount":0.5,"slot":["feet","legs"]}]}
+cmd item modify entity A container.18 {"type":"minecraft:set_attributes","modifiers":[{"id":"lc:x","attribute":"minecraft:max_health","operation":"add_value","amount":2.0,"slot":"any"}]}
+dump inventory:A
+cmd clear A
+note books, banners, fireworks, dyes, loot tables, heads
+cmd item replace entity A container.0 with minecraft:white_banner
+cmd item replace entity A container.1 with minecraft:white_banner[banner_patterns=[{pattern:"minecraft:creeper",color:"green"}]]
+cmd item replace entity A container.2 with minecraft:white_banner[banner_patterns=[{pattern:"minecraft:creeper",color:"green"}]]
+cmd item replace entity A container.3 with minecraft:writable_book
+cmd item replace entity A container.4 with minecraft:writable_book
+cmd item replace entity A container.5 with minecraft:written_book[written_book_content={title:"T",author:"me",pages:["p1"]}]
+cmd item replace entity A container.6 with minecraft:written_book
+cmd item replace entity A container.7 with minecraft:written_book
+cmd item replace entity A container.8 with minecraft:written_book
+cmd item replace entity A container.9 with minecraft:written_book
+cmd item replace entity A container.10 with minecraft:written_book
+cmd item replace entity A container.11 with minecraft:writable_book
+cmd item replace entity A container.12 with minecraft:firework_rocket 3
+cmd item replace entity A container.13 with minecraft:firework_rocket 3
+cmd item replace entity A container.14 with minecraft:firework_star
+cmd item replace entity A container.15 with minecraft:firework_star
+cmd item replace entity A container.16 with minecraft:leather_chestplate
+cmd item replace entity A container.17 with minecraft:leather_chestplate
+cmd item replace entity A container.18 with minecraft:stone
+cmd item replace entity A container.19 with minecraft:chest
+cmd item replace entity A container.20 with minecraft:shulker_box
+cmd item replace entity A container.21 with minecraft:stone
+cmd item replace entity A container.22 with minecraft:player_head
+cmd item replace entity A container.23 with minecraft:player_head
+cmd item replace entity A container.24 with minecraft:player_head
+cmd item replace entity A container.25 with minecraft:stone
+cmd item modify entity A container.0 {"type":"minecraft:set_banner_pattern","patterns":[{"pattern":"minecraft:globe","color":"red"}],"append":true}
+cmd item modify entity A container.1 {"type":"minecraft:set_banner_pattern","patterns":[{"pattern":"minecraft:globe","color":"red"}],"append":true}
+cmd item modify entity A container.2 {"type":"minecraft:set_banner_pattern","patterns":[{"pattern":"minecraft:globe","color":"red"}],"append":false}
+cmd item modify entity A container.3 {"type":"minecraft:set_writable_book_pages","pages":["first","second"],"mode":"append"}
+cmd item modify entity A container.4 {"type":"minecraft:set_writable_book_pages","pages":["first","second"],"mode":"replace_all"}
+cmd item modify entity A container.5 {"type":"minecraft:set_writable_book_pages","pages":["x"],"mode":"append"}
+cmd item modify entity A container.6 {"type":"minecraft:set_written_book_pages","pages":["p1","p2"],"mode":"append"}
+cmd item modify entity A container.7 {"type":"minecraft:set_written_book_pages","pages":[{"text":"rich","color":"red"}],"mode":"append"}
+cmd item modify entity A container.8 {"type":"minecraft:set_book_cover","title":"Name","author":"Auth","generation":2}
+cmd item modify entity A container.9 {"type":"minecraft:set_book_cover","author":"Only"}
+cmd item modify entity A container.11 {"type":"minecraft:set_book_cover","title":"Name"}
+cmd item modify entity A container.12 {"type":"minecraft:set_fireworks","flight_duration":3,"explosions":{"values":[{"shape":"star","colors":[16711680]}],"mode":"append"}}
+cmd item modify entity A container.13 {"type":"minecraft:set_fireworks","flight_duration":2}
+cmd item modify entity A container.14 {"type":"minecraft:set_firework_explosion","shape":"large_ball","colors":[255,65280],"fade_colors":[16777215],"trail":true,"twinkle":false}
+cmd item modify entity A container.15 {"type":"minecraft:set_firework_explosion","shape":"burst"}
+cmd item modify entity A container.16 {"type":"minecraft:set_random_dyes","number_of_dyes":3}
+cmd item modify entity A container.17 {"type":"minecraft:set_random_dyes","number_of_dyes":{"type":"minecraft:uniform","min":1,"max":8}}
+cmd item modify entity A container.18 {"type":"minecraft:set_random_dyes","number_of_dyes":2}
+cmd item modify entity A container.19 {"type":"minecraft:set_loot_table","loot_table_id":"lc:five","seed":9}
+cmd item modify entity A container.20 {"type":"minecraft:set_loot_table","loot_table_id":"minecraft:chests/simple_dungeon"}
+cmd item modify entity A container.21 {"type":"minecraft:set_loot_table","loot_table_id":"lc:five"}
+cmd item modify entity A container.22 {"type":"minecraft:fill_player_head","entity":"this"}
+cmd item modify entity A container.23 {"type":"minecraft:fill_player_head","entity":"target_entity"}
+cmd item modify entity A container.24 {"type":"minecraft:fill_player_head","entity":"attacker"}
+cmd item modify entity A container.25 {"type":"minecraft:fill_player_head","entity":"this"}
+dump inventory:A
+cmd clear A
+note furnace_smelt, model data, filters, sequences, copy_custom_data
+cmd item replace entity A container.0 with minecraft:raw_iron 5
+cmd item replace entity A container.1 with minecraft:beef 5
+cmd item replace entity A container.2 with minecraft:stone 5
+cmd item replace entity A container.3 with minecraft:diamond_sword
+cmd item replace entity A container.4 with minecraft:stone 5
+cmd item replace entity A container.5 with minecraft:stone 5
+cmd item replace entity A container.6 with minecraft:dirt 5
+cmd item replace entity A container.7 with minecraft:dirt 5
+cmd item replace entity A container.8 with minecraft:dirt 5
+cmd item replace entity A container.9 with minecraft:dirt 5
+cmd item replace entity A container.10 with minecraft:dirt 5
+cmd item replace entity A container.11 with minecraft:dirt 5
+cmd item replace entity A container.12 with minecraft:diamond_sword
+cmd item replace entity A container.13 with minecraft:diamond_sword
+cmd item replace entity A container.14 with minecraft:diamond_sword
+cmd item replace entity A container.15 with minecraft:diamond_sword
+cmd item replace entity A container.16 with minecraft:diamond_sword
+cmd item modify entity A container.0 {"type":"minecraft:furnace_smelt"}
+cmd item modify entity A container.1 {"type":"minecraft:furnace_smelt"}
+cmd item modify entity A container.2 {"type":"minecraft:furnace_smelt"}
+cmd item modify entity A container.3 {"type":"minecraft:furnace_smelt"}
+cmd item modify entity A container.4 {"type":"minecraft:set_custom_model_data","floats":{"values":[1.5],"mode":"append"},"flags":{"values":[true],"mode":"append"},"strings":{"values":["x"],"mode":"append"},"colors":{"values":[255],"mode":"append"}}
+cmd item modify entity A container.5 {"type":"minecraft:filtered","item_filter":{"items":"minecraft:stone"},"on_pass":{"type":"minecraft:set_count","count":2},"on_fail":{"type":"minecraft:set_count","count":3}}
+cmd item modify entity A container.6 {"type":"minecraft:filtered","item_filter":{"items":"minecraft:stone"},"on_pass":{"type":"minecraft:set_count","count":2},"on_fail":{"type":"minecraft:set_count","count":3}}
+cmd item modify entity A container.7 {"type":"minecraft:filtered","item_filter":{"items":"minecraft:stone"},"on_pass":{"type":"minecraft:set_count","count":2}}
+cmd item modify entity A container.8 {"type":"minecraft:filtered","item_filter":{"items":"minecraft:stone"},"on_fail":{"type":"minecraft:discard"}}
+cmd item modify entity A container.9 {"type":"minecraft:sequence","functions":[{"type":"minecraft:set_count","count":2},{"type":"minecraft:set_count","count":3,"add":true},{"type":"minecraft:set_name","name":{"text":"seq"}}]}
+cmd item modify entity A container.10 [{"type":"minecraft:set_count","count":9},{"type":"minecraft:set_count","count":1,"add":true}]
+cmd item modify entity A container.11 {"type":"minecraft:sequence","functions":[]}
+cmd item modify entity A container.12 {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:context","target":"this"},"ops":[{"source":"Health","target":"hp","op":"replace"}]}
+cmd item modify entity A container.13 {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:context","target":"this"},"ops":[{"source":"Pos","target":"where","op":"append"}]}
+cmd item modify entity A container.14 {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:context","target":"attacker"},"ops":[{"source":"Health","target":"hp","op":"replace"}]}
+cmd item modify entity A container.15 {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:storage","source":"lc:s"},"ops":[{"source":"a","target":"copied","op":"replace"}]}
+cmd item modify entity A container.16 {"type":"minecraft:copy_components","source":"this"}
+dump inventory:A
+cmd clear A

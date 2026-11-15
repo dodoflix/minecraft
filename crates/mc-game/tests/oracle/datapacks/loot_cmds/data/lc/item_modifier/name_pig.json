@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:set_name",
+  "name": {"text": "Piggy"},
+  "target": "custom_name",
+  "condition": {"type": "minecraft:entity_properties", "entity": "this", "predicate": {"minecraft:entity_type": "minecraft:pig"}}
+}

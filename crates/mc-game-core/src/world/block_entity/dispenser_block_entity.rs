@@ -204,9 +204,8 @@ impl Container for DispenserBlockEntity {
     fn set_item(&mut self, slot: usize, mut stack: ItemStack) {
         let max = self.get_max_stack_size_for(&stack);
         stack.limit_size(max);
-        if let Some(s) = self.items.get_mut(slot) {
-            *s = stack;
-        }
+        // `NonNullList.set` throws `IndexOutOfBoundsException` past the end
+        self.items[slot] = stack;
         self.set_changed();
     }
     fn clear_content(&mut self) {

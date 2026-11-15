@@ -1,0 +1,314 @@
+C Game rule send_command_feedback is now set to true
+# replace block: a chest, from a slot, with an explicit count, past the end, negative count
+CF msg Changed the block at 2, -60, 2
+CF result success 1
+CF msg Changed the block at 4, -60, 2
+CF result success 1
+CF msg Changed the block at 6, -60, 2
+CF result success 1
+CF msg Changed the block at 8, -60, 2
+CF result success 1
+CF msg Changed the block at 10, -60, 2
+CF result success 1
+CF msg Changed the block at 12, -60, 2
+CF result success 1
+CF msg Changed the block at 14, -60, 2
+CF result success 1
+CF msg Changed the block at 16, -60, 2
+CF result success 1
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 2 items
+CF result success 2
+CF fail An unexpected error occurred while trying to execute that command
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 0 [Air]
+CF result success 1
+CF msg Dropped 3 items
+CF result success 3
+CF msg Dropped 3 items
+CF result success 3
+BE 2 -60 2 {Items:[{Slot:0b,count:1,id:"minecraft:diamond"},{Slot:1b,count:1,id:"minecraft:diamond"},{Slot:2b,count:2,id:"minecraft:emerald"},{Slot:3b,count:64,id:"minecraft:stick"},{Slot:4b,count:1,id:"minecraft:apple"},{Slot:10b,count:1,id:"minecraft:diamond"},{Slot:11b,count:2,id:"minecraft:emerald"},{Slot:12b,count:1,id:"minecraft:diamond"},{Slot:13b,count:2,id:"minecraft:emerald"},{Slot:20b,count:1,id:"minecraft:diamond"},{Slot:21b,count:2,id:"minecraft:emerald"},{Slot:22b,count:64,id:"minecraft:stick"},{Slot:23b,count:64,id:"minecraft:stick"},{Slot:24b,count:1,id:"minecraft:apple"}],components:{},id:"minecraft:chest",x:2,y:-60,z:2}
+CF fail An unexpected error occurred while trying to execute that command
+CF msg Dropped 1 [Diamond]
+CF result success 1
+CF result failure 0
+CF fail The target does not have slot 27
+CF result failure 0
+CF fail The target does not have slot 53
+CF fail Unknown slot 'container.54'
+CF fail ...ntainer.54 loot lc:five<--[HERE]
+CF fail Unknown slot 'container.-1'
+CF fail ...ntainer.-1 loot lc:five<--[HERE]
+CF msg Dropped 5 items
+CF result success 5
+CF result failure 0
+CF fail The target does not have slot 98
+CF fail Unknown slot 'nope.0'
+CF fail ...0 2 nope.0 loot lc:five<--[HERE]
+BE 2 -60 2 {Items:[{Slot:0b,count:1,id:"minecraft:diamond"},{Slot:1b,count:2,id:"minecraft:emerald"},{Slot:2b,count:64,id:"minecraft:stick"},{Slot:3b,count:64,id:"minecraft:stick"},{Slot:4b,count:1,id:"minecraft:apple"},{Slot:10b,count:1,id:"minecraft:diamond"},{Slot:11b,count:2,id:"minecraft:emerald"},{Slot:12b,count:1,id:"minecraft:diamond"},{Slot:13b,count:2,id:"minecraft:emerald"},{Slot:20b,count:1,id:"minecraft:diamond"},{Slot:21b,count:2,id:"minecraft:emerald"},{Slot:22b,count:64,id:"minecraft:stick"},{Slot:23b,count:64,id:"minecraft:stick"},{Slot:24b,count:1,id:"minecraft:apple"},{Slot:26b,count:1,id:"minecraft:diamond"}],components:{},id:"minecraft:chest",x:2,y:-60,z:2}
+# replace block: other containers, slots that refuse items
+CF msg Dropped 5 items
+CF result success 5
+CF fail An unexpected error occurred while trying to execute that command
+CF fail An unexpected error occurred while trying to execute that command
+CF result failure 0
+CF fail The target does not have slot 5
+CF fail An unexpected error occurred while trying to execute that command
+CF fail An unexpected error occurred while trying to execute that command
+CF fail An unexpected error occurred while trying to execute that command
+CF fail An unexpected error occurred while trying to execute that command
+CF fail An unexpected error occurred while trying to execute that command
+CF msg Dropped 9 items
+CF result success 9
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 1 [Music Disc]
+CF result success 1
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 2 [Book]
+CF result success 1
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 2 items
+CF result success 2
+CF fail An unexpected error occurred while trying to execute that command
+CF fail An unexpected error occurred while trying to execute that command
+BE 4 -60 2 {Items:[{Slot:3b,count:1,id:"minecraft:diamond"},{Slot:4b,count:2,id:"minecraft:emerald"},{Slot:5b,count:64,id:"minecraft:stick"},{Slot:6b,count:64,id:"minecraft:stick"},{Slot:7b,count:1,id:"minecraft:apple"}],components:{},id:"minecraft:barrel",x:4,y:-60,z:2}
+BE 6 -60 2 {Items:[{Slot:3b,count:1,id:"minecraft:diamond"},{Slot:4b,count:1,id:"minecraft:diamond"}],TransferCooldown:-1,components:{},id:"minecraft:hopper",x:6,y:-60,z:2}
+BE 8 -60 2 {Items:[{Slot:0b,count:8,id:"minecraft:coal"},{Slot:1b,count:8,id:"minecraft:coal"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:8,y:-60,z:2}
+BE 10 -60 2 {Items:[{Slot:0b,count:1,id:"minecraft:diamond"},{Slot:1b,count:2,id:"minecraft:emerald"},{Slot:2b,count:64,id:"minecraft:stick"},{Slot:3b,count:64,id:"minecraft:stick"},{Slot:4b,count:1,id:"minecraft:apple"},{Slot:5b,count:1,id:"minecraft:music_disc_13"},{Slot:6b,count:4,id:"minecraft:beef"},{Slot:7b,count:1,id:"minecraft:shulker_box"},{Slot:8b,count:16,id:"minecraft:oak_log"}],components:{},id:"minecraft:shulker_box",x:10,y:-60,z:2}
+BE 12 -60 2 {components:{},id:"minecraft:jukebox",x:12,y:-60,z:2}
+BE 14 -60 2 {Items:[{Slot:4b,count:2,id:"minecraft:book"}],components:{},id:"minecraft:chiseled_bookshelf",last_interacted_slot:4,x:14,y:-60,z:2}
+BE 16 -60 2 {BrewTime:0,Fuel:0,Items:[{Slot:2b,count:1,id:"minecraft:potion"},{Slot:3b,count:5,id:"minecraft:nether_wart"},{Slot:4b,count:3,id:"minecraft:blaze_powder"}],components:{},id:"minecraft:brewing_stand",speed_multiplier:1.0f,total_brew_time:0,total_fuel:0,x:16,y:-60,z:2}
+# replace block: not a container, unloaded, missing arguments
+CF msg Changed the block at 2, -60, 6
+CF result success 1
+CF result failure 0
+CF fail Target position 2, -60, 6 is not a container
+CF result failure 0
+CF fail Target position 2, -60, 7 is not a container
+CF result failure 0
+CF fail That position is not loaded
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ontainer.0<--[HERE]
+CF fail Unknown slot 'loot'
+CF fail ...-60 2 loot lc:five<--[HERE]
+CF fail Integer must not be less than 0: found -1
+CF fail ...ntainer.0 -1 loot lc:five<--[HERE]
+CF fail Unknown slot 'container.x'
+CF fail ...ontainer.x loot lc:five<--[HERE]
+# replace block: every source
+CF msg Dropped 7 items
+CF result success 7
+CF msg Dropped 1 [Raw Salmon]
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Changed the block at 6, -60, 6
+CF result success 1
+CF msg Dropped 2 items from loot table minecraft:blocks/diamond_ore
+CF result success 2
+CF msg Dropped 2 items from loot table minecraft:blocks/diamond_ore
+CF result success 2
+CF msg Dropped 3 items from loot table minecraft:entities/cow
+CF result success 3
+CF msg Dropped 3 items from loot table minecraft:entities/cow
+CF result success 3
+BE 2 -60 2 {Items:[{Slot:0b,count:1,id:"minecraft:iron_horse_armor"},{Slot:1b,count:1,id:"minecraft:diamond_horse_armor"},{Slot:2b,count:1,id:"minecraft:music_disc_cat"},{Slot:3b,count:1,id:"minecraft:bread"},{Slot:4b,count:8,id:"minecraft:gunpowder"},{Slot:5b,count:2,id:"minecraft:string"},{Slot:6b,count:4,id:"minecraft:rotten_flesh"},{Slot:9b,count:1,id:"minecraft:salmon"},{Slot:10b,count:1,id:"minecraft:diamond"},{Slot:11b,count:2,id:"minecraft:emerald"},{Slot:12b,count:1,id:"minecraft:diamond"},{Slot:14b,count:4,id:"minecraft:diamond"},{Slot:17b,count:1,id:"minecraft:beef"},{Slot:19b,count:2,id:"minecraft:beef"},{Slot:21b,count:2,id:"minecraft:emerald"},{Slot:22b,count:64,id:"minecraft:stick"},{Slot:23b,count:64,id:"minecraft:stick"},{Slot:24b,count:1,id:"minecraft:apple"},{Slot:26b,count:1,id:"minecraft:diamond"}],components:{},id:"minecraft:chest",x:2,y:-60,z:2}
+# replace entity: players, hotbar, inventory, armor, offhand, the count, slots past the end of a group
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 3 items
+CF result success 3
+CF msg Dropped 1 [Diamond Sword]
+CF result success 1
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 1 [Diamond Sword]
+CF result success 1
+CF msg Dropped 1 [Diamond]
+CF result success 1
+CF msg Dropped 3 items
+CF result success 3
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 4 items
+CF result success 4
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 20 items
+CF result success 20
+I A 0 minecraft:diamond*1
+I A 1 minecraft:emerald*2
+I A 2 minecraft:stick*64
+I A 3 minecraft:stick*64
+I A 4 minecraft:apple*1
+I A 30 minecraft:diamond*1
+I A 31 minecraft:emerald*2
+I A 32 minecraft:stick*64
+I A 39 minecraft:music_disc_13*1
+I A 40 minecraft:blaze_powder*3
+CF msg Dropped 10 items
+CF result success 10
+CF msg Dropped 4 items
+CF result success 4
+I A 0 minecraft:coal*8
+I A 1 minecraft:emerald*2
+I A 2 minecraft:stick*64
+I A 3 minecraft:stick*64
+I A 4 minecraft:apple*1
+I A 30 minecraft:diamond*1
+I A 31 minecraft:emerald*2
+I A 32 minecraft:stick*64
+I A 39 minecraft:music_disc_13*1
+I A 40 minecraft:blaze_powder*3
+I B 0 minecraft:coal*8
+I B 1 minecraft:emerald*2
+I B 2 minecraft:stick*64
+I B 3 minecraft:stick*64
+I B 4 minecraft:apple*1
+I B 40 minecraft:blaze_powder*3
+CF fail Unknown slot 'nope.0'
+CF fail ...y A nope.0 loot lc:five<--[HERE]
+CF fail Unknown slot 'container.99'
+CF fail ...ntainer.99 loot lc:five<--[HERE]
+CF fail Unknown slot 'hotbar.-1'
+CF fail ... hotbar.-1 loot lc:five<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF fail Unknown or incomplete command. See below for error
+CF fail ...e entity A<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...A hotbar.0<--[HERE]
+CF fail Integer must not be less than 0: found -1
+CF fail ... hotbar.0 -1 loot lc:five<--[HERE]
+# replace entity: mobs, vehicles, item entities, armor stands, entities without slots
+CF msg Dropped 2 items
+CF result success 2
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 2 items
+CF result success 2
+CF msg Dropped 1 [Diamond Sword]
+CF result success 1
+CF fail Unknown slot 'horse.saddle'
+CF fail ...rse.saddle loot lc:mixed<--[HERE]
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 2 items
+CF result success 2
+CF msg Dropped 1 [Diamond Sword]
+CF result success 1
+CF msg Dropped 1 [Diamond]
+CF result success 1
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 1 [Diamond Sword]
+CF result success 1
+CF msg Dropped 5 items
+CF result success 5
+CF msg Dropped 4 items
+CF result success 4
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 0 items
+CF result success 0
+CF msg Dropped 3 items
+CF result success 3
+CF result failure 0
+CF fail No entity was found
+CF msg Dropped 21 items
+CF result success 21
+N p1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[20.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["pg"],attributes:[{base:0.25d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:music_disc_13"},mainhand:{count:8,id:"minecraft:coal"},offhand:{count:3,id:"minecraft:blaze_powder"}},fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+N z1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[22.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["zb"],attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:music_disc_13"},mainhand:{count:8,id:"minecraft:coal"},offhand:{count:3,id:"minecraft:blaze_powder"}},fall_distance:0.0d}
+N h1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[24.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["hs"],Tame:0b,Temper:0,Variant:0,attributes:[{base:0.22499999403953552d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:music_disc_13"},mainhand:{count:8,id:"minecraft:coal"},offhand:{count:3,id:"minecraft:blaze_powder"}},fall_distance:0.0d}
+N s1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[26.5d,-60.0d,4.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["as"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:music_disc_13"},mainhand:{count:8,id:"minecraft:coal"},offhand:{count:3,id:"minecraft:blaze_powder"}},fall_distance:0.0d}
+N i1 {Age:2s,Air:300s,Fire:0s,Health:5s,Invulnerable:0b,Item:{count:1,id:"minecraft:diamond_sword"},Motion:[0.0d,-0.04d,0.0d],OnGround:1b,PickupDelay:0s,PortalCooldown:0,Pos:[28.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["it"],fall_distance:0.0d}
+N v1 {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Items:[{Slot:0b,count:1,id:"minecraft:diamond"},{Slot:1b,count:2,id:"minecraft:emerald"},{Slot:2b,count:64,id:"minecraft:stick"},{Slot:3b,count:64,id:"minecraft:stick"},{Slot:4b,count:1,id:"minecraft:diamond"},{Slot:5b,count:2,id:"minecraft:emerald"},{Slot:6b,count:64,id:"minecraft:stick"},{Slot:7b,count:64,id:"minecraft:stick"}],Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[30.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["cm"],fall_distance:0.0d}
+N d1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[34.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["dk"],Tame:0b,Temper:0,attributes:[{base:0.17499999701976776d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:music_disc_13"},mainhand:{count:8,id:"minecraft:coal"},offhand:{count:3,id:"minecraft:blaze_powder"}},fall_distance:0.0d}
+N w1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[36.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Sitting:0b,Tags:["wf"],anger_end_time:-1L,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:8.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:music_disc_13"},mainhand:{count:8,id:"minecraft:coal"},offhand:{count:3,id:"minecraft:blaze_powder"}},fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:pale"}
+E cow#1 minecraft:cow pos=12.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:coal*8;offhand:minecraft:blaze_powder*3;head:minecraft:music_disc_13*1 attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p1 minecraft:pig pos=20.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:coal*8;offhand:minecraft:blaze_powder*3;head:minecraft:music_disc_13*1 attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E z1 minecraft:zombie pos=22.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:coal*8;offhand:minecraft:blaze_powder*3;head:minecraft:music_disc_13*1 attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E h1 minecraft:horse pos=24.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:coal*8;offhand:minecraft:blaze_powder*3;head:minecraft:music_disc_13*1 attrs=minecraft:fall_damage_multiplier:0.5;minecraft:follow_range:16.0;minecraft:jump_strength:0.7;minecraft:max_health:53.0;minecraft:movement_speed:0.22499999403953552;minecraft:safe_fall_distance:6.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- owner=- temper=0 eatc=0 mouthc=0 standc=0 tailc=0 sprintc=0 jscale=0.0 slide=0 gallopc=0
+E s1 minecraft:armor_stand pos=26.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E i1 minecraft:item pos=28.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=2 pickup=0 health=5 owner=- thrower=-
+E v1 minecraft:chest_minecart pos=30.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:diamond*1;1:minecraft:emerald*2;2:minecraft:stick*64;3:minecraft:stick*64;4:minecraft:diamond*1;5:minecraft:emerald*2;6:minecraft:stick*64;7:minecraft:stick*64 loot=- seed=0
+E c1 minecraft:area_effect_cloud pos=32.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=-1 age=2
+E d1 minecraft:donkey pos=34.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:coal*8;offhand:minecraft:blaze_powder*3;head:minecraft:music_disc_13*1 attrs=minecraft:fall_damage_multiplier:0.5;minecraft:follow_range:16.0;minecraft:jump_strength:0.5;minecraft:max_health:53.0;minecraft:movement_speed:0.17499999701976776;minecraft:safe_fall_distance:6.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- owner=- temper=0 eatc=0 mouthc=0 standc=0 tailc=0 sprintc=0 jscale=0.0 slide=0 gallopc=0
+E w1 minecraft:wolf pos=36.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:coal*8;offhand:minecraft:blaze_powder*3;head:minecraft:music_disc_13*1 attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+# replace entity: every source, with the source entity as the loot context's entity
+CF msg Dropped 10 items
+CF result success 10
+CF msg Dropped 1 [Raw Cod]
+CF result success 1
+CF msg Dropped 1 [Diamond] from loot table minecraft:blocks/diamond_ore
+CF result success 1
+CF result failure 0
+CF fail Unable to summon entity due to duplicate UUIDs
+CF msg Dropped 3 items from loot table minecraft:entities/cow
+CF result success 3
+CF msg Dropped 3 items
+CF result success 3
+CF msg Dropped 2 items
+CF result success 2
+CF msg Dropped 3 items
+CF result success 3
+CF msg Dropped 4 items
+CF result success 4
+I A 0 minecraft:music_disc_13*1
+I A 1 minecraft:name_tag*1
+I A 2 minecraft:iron_horse_armor*1
+I A 3 minecraft:iron_ingot*2
+I A 4 minecraft:pumpkin_seeds*3
+I A 5 minecraft:cod*1
+I A 6 minecraft:melon_seeds*4
+I A 7 minecraft:rotten_flesh*1
+I A 8 minecraft:diamond*1
+I A 9 minecraft:rotten_flesh*5
+I A 11 minecraft:beef*3
+I A 20 minecraft:coal*1
+I A 21 minecraft:redstone*1
+I A 22 minecraft:paper*1
+I A 30 minecraft:redstone*1
+I A 31 minecraft:paper*1
+I A 32 minecraft:stick*64
+I A 39 minecraft:music_disc_13*1
+I A 40 minecraft:blaze_powder*3
+I B 0 minecraft:coal*8
+I B 1 minecraft:emerald*2
+I B 2 minecraft:stick*64
+I B 3 minecraft:stick*64
+I B 4 minecraft:coal*1
+I B 5 minecraft:coal*1
+I B 6 minecraft:lapis_lazuli*1
+I B 7 minecraft:redstone*1
+I B 8 minecraft:paper*1
+I B 40 minecraft:blaze_powder*3

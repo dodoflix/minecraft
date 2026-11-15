@@ -146,10 +146,9 @@ impl Container for ChiseledBookShelfBlockEntity {
     }
     fn set_item(&mut self, slot: usize, stack: ItemStack) {
         if Self::accepts_item_type(&stack) {
-            if slot < self.items.len() {
-                self.items[slot] = stack;
-                self.pending_slot = Some(slot);
-            }
+            // `NonNullList.set` throws `IndexOutOfBoundsException` past the end
+            self.items[slot] = stack;
+            self.pending_slot = Some(slot);
         } else if stack.is_empty() {
             self.remove_item(slot, self.get_max_stack_size());
         }

@@ -24,9 +24,9 @@ use mc_game_core::commands::{
 };
 use mc_game_core::registry::keys;
 use mc_game_core::server::commands::item::slots::{
-    EntitySlots, apply_container_writes, apply_entity_writes, container_at, entity_in,
-    give_to_inventory,
+    EntitySlots, apply_entity_writes, container_at, entity_in, give_to_inventory,
 };
+use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::container::Container;
 use mc_game_core::world::entity::equipment::EquipmentSlot;
 use mc_game_core::world::entity::item::ItemEntity;
@@ -319,9 +319,13 @@ fn block_distribute(
             return Err(not_a_container(pos));
         }
         level.with_block_entity(pos, |level, block_entity| {
+            // the first `getItem` of the distribution unpacks a pending loot table
+            if drops.iter().any(|drop| !drop.is_empty()) {
+                block_entity.unpack_loot_table(level, None);
+            }
             let container = block_entity.as_container_mut().expect("checked above");
             for drop in drops {
-                if distribute_to_container(container, drop.copy()) {
+                if distribute_to_container(level, container, drop.copy()) {
                     container.set_changed();
                     used.track(drop, 1);
                 }
@@ -339,11 +343,15 @@ fn not_a_container(pos: BlockPos) -> CommandSyntaxException {
 }
 
 /// `distributeToContainer(container, itemStack)`.
-fn distribute_to_container(container: &mut dyn Container, mut item_stack: ItemStack) -> bool {
+fn distribute_to_container(
+    level: &ServerLevel,
+    container: &mut dyn Container,
+    mut item_stack: ItemStack,
+) -> bool {
     let mut changed = false;
     let mut slot = 0;
     while slot < container.get_container_size() && !item_stack.is_empty() {
-        if container.can_place_item(slot, &item_stack) {
+        if container.can_place_item_in_level(level, slot, &item_stack) {
             let current_empty = container.get_item(slot).is_empty();
             if current_empty {
                 container.set_item(slot, item_stack.clone());
@@ -389,20 +397,29 @@ fn block_replace(
         if start_slot < 0 || start_slot >= max_slot {
             return Err(ERROR_TARGET_INAPPLICABLE_SLOT.create(start_slot.to_string()));
         }
-        let mut writes = Vec::new();
-        {
-            let container = container_at(level, pos).expect("checked above");
-            for i in 0..slot_count {
-                let slot = start_slot + i;
-                let to_add = drops.get(i as usize).cloned().unwrap_or_default();
-                // vanilla indexes past the container end (an `IndexOutOfBoundsException` fails the command); slots beyond it are skipped
-                if slot < max_slot && container.can_place_item(slot as usize, &to_add) {
-                    writes.push((slot as usize, to_add.clone()));
-                    used.track(&to_add, 1);
+        // a Java exception of `setItem` past the container end (`IndexOutOfBoundsException`) fails the command after the earlier
+        // writes: it is replayed once the block entity is back in its chunk
+        let mut failure = None;
+        level.with_block_entity(pos, |level, block_entity| {
+            let container = block_entity.as_container_mut().expect("checked above");
+            failure = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+                for i in 0..slot_count {
+                    let slot = (start_slot + i) as usize;
+                    let to_add = drops.get(i as usize).cloned().unwrap_or_default();
+                    if container.can_place_item_in_level(level, slot, &to_add) {
+                        container.set_item(slot, to_add.clone());
+                        used.track(&to_add, 1);
+                    }
                 }
+            }))
+            .err();
+            if block_entity.container_pending() {
+                block_entity.container_accessed(level);
             }
+        });
+        if let Some(payload) = failure {
+            std::panic::resume_unwind(payload);
         }
-        apply_container_writes(level, pos, writes);
         Ok(())
     })
 }

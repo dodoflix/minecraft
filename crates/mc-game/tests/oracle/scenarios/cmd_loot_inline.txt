@@ -1,0 +1,59 @@
+# `loot` with a loot table written in the command (inline definition), for each target, with the parse failures of the definition, and the
+# fixed-name failures of the corpus forms (`loot` alone, an unknown source, a source that needs a tool).
+datapack loot_cmds
+command_env
+level flat
+preload 2
+level_seed 31
+entity_counter 270
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 2.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+cmd setblock 4 -60 3 minecraft:dropper
+cmd setblock 4 -60 5 minecraft:stone
+cmd summon minecraft:cow 12 -60 12 {NoAI:1b}
+note give: inline tables
+cmd loot give A loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:diamond","modifier":{"type":"minecraft:set_count","count":3}}]}]}
+cmd loot give @a loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]},{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:stick"}]}]}
+cmd loot give A loot {"pools":[]}
+cmd loot give A loot {"type":"minecraft:chest","pools":[{"rolls":{"type":"minecraft:uniform","min":2,"max":6},"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+cmd loot give A loot {"type":"minecraft:fishing","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]}
+cmd loot give A loot {"type":"minecraft:entity","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]}
+cmd loot give A loot {"type":"minecraft:block","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]}
+cmd loot give A loot {"type":"minecraft:generic","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]}
+dump inventory:A inventory:B
+note the other targets with inline tables
+cmd loot spawn 0 -59 8 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]}]}
+cmd loot insert 4 -60 3 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]}]}
+cmd loot insert 4 -60 5 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]}]}
+cmd loot replace block 4 -60 3 container.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+cmd loot replace block 4 -60 3 container.0 3 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+cmd loot replace block 4 -60 3 container.30 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+cmd loot replace block 4 -60 5 container.0 loot {"pools":[]}
+cmd loot replace entity A hotbar.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+cmd loot replace entity A hotbar.0 4 loot {"pools":[{"rolls":2,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+cmd loot replace entity A armor.head loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:iron_helmet"}]}]}
+cmd loot replace entity @e[type=minecraft:cow] weapon.mainhand loot {"pools":[]}
+cmd loot spawn 0 -59 8 kill @e[type=minecraft:cow]
+cmd loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]} 0 -60 0
+cmd loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]} 0 -60 0 minecraft:fishing_rod
+cmd loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]} 0 -60 0 mainhand
+cmd_as A loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]} 0 -60 0 mainhand
+tick 1
+dump be:4,-60,3 inventory:A xentities
+note parse failures of the definition and of the command
+cmd loot give A loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:nope"}]}]}
+cmd loot give A loot {"pools":[{"rolls":"x","entries":[]}]}
+cmd loot give A loot {"pools":"x"}
+cmd loot give A loot {"type":"minecraft:nope"}
+cmd loot give A loot {
+cmd loot give A loot minecraft:chests/nope
+cmd loot give A mine 4 -60 5 minecraft:stick
+cmd loot give A
+cmd loot nope
+cmd loot
+cmd loot give
+cmd loot replace
+cmd loot replace block 1 2 3

@@ -1,0 +1,327 @@
+C Game rule send_command_feedback is now set to true
+# replace entity: single slots, groups, counts, items that vanish
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Shield]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Apple]
+CF result success 1
+CF result failure 0
+CF fail minecraft:stick can only stack up to 64
+CF msg Replaced 1 slot(s) on A with [Stick]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Iron Helmet]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Iron Chestplate]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Air]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Bread]
+CF result success 1
+CF fail Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+CF fail ...y A nope.0 with minecraft:stick<--[HERE]
+CF fail Can't find element 'minecraft:container.99' in registry 'minecraft:slot_source'
+CF fail ...ntainer.99 with minecraft:stick<--[HERE]
+CF msg Replaced 1 slot(s) on A with [Diamond]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Dirt]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Oak Planks]
+CF result success 1
+CF fail Integer must not be more than 99: found 100
+CF fail ...aft:stick 100<--[HERE]
+CF fail Integer must not be less than 1: found 0
+CF fail ...aft:stick 0<--[HERE]
+CF fail Unknown item 'minecraft:nope'
+CF fail ...er.5 with minecraft:nope<--[HERE]
+CF msg Replaced 1 slot(s) on A with [Air]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced slot(s) on 2 entities with [Carrot]
+CF result success 2
+CF msg Replaced slot(s) on 2 entities with [Carrot]
+CF result success 2
+CF result failure 0
+CF fail No entity was found
+I A 0 minecraft:bread*3
+I A 1 minecraft:carrot*1
+I A 6 minecraft:diamond_sword*1/dmg=3{minecraft:damage:3,minecraft:enchantments:{minecraft:sharpness:3}}
+I A 38 minecraft:iron_chestplate*1
+I A 40 minecraft:shield*1
+I B 1 minecraft:carrot*1
+# replace entity from entity and block, wildcards, modifiers on the way
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF result failure 0
+CF fail The source does not have slot container.50
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF result failure 0
+CF fail The source does not have slot container.50
+CF fail Can't find element 'lc:nope' in registry 'minecraft:item_modifier'
+CF fail ....0 lc:nope<--[HERE]
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+I A 0 minecraft:bread*3
+I A 1 minecraft:bread*3
+I A 4 minecraft:carrot*3
+I A 6 minecraft:diamond_sword*1/dmg=3{minecraft:damage:3,minecraft:enchantments:{minecraft:sharpness:3}}
+I A 7 minecraft:bread*5
+I A 8 minecraft:bread*5
+I A 11 minecraft:bread*5{minecraft:item_name:{color:"gold",text:"Chained"},minecraft:lore:["one","two"]}
+I A 38 minecraft:iron_chestplate*1
+I A 40 minecraft:shield*1
+# fill and override
+CF msg Replaced 36 slot(s) on A with [Stick]
+CF result success 36
+CF msg Replaced 9 slot(s) on A
+CF result success 9
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF result failure 0
+CF fail The source does not have slot container.50
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF msg Replaced 36 slot(s) on A
+CF result success 36
+CF msg Replaced 36 slot(s) on A with [Cobblestone]
+CF result success 36
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF msg Replaced 9 slot(s) on A
+CF result success 9
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF msg Replaced 9 slot(s) on A
+CF result success 9
+I A 0 minecraft:cobblestone*5{minecraft:item_name:{color:"gold",text:"Chained"},minecraft:lore:["one","two","one","two","one","two"]}
+I A 1 minecraft:cobblestone*5{minecraft:item_name:{color:"gold",text:"Chained"},minecraft:lore:["one","two","one","two","one","two"]}
+I A 2 minecraft:cobblestone*5{minecraft:item_name:{color:"gold",text:"Chained"},minecraft:lore:["one","two","one","two","one","two"]}
+I A 3 minecraft:cobblestone*5{minecraft:item_name:{color:"gold",text:"Chained"},minecraft:lore:["one","two","one","two","one","two"]}
+I A 4 minecraft:cobblestone*5{minecraft:item_name:{color:"gold",text:"Chained"},minecraft:lore:["one","two","one","two","one","two"]}
+I A 5 minecraft:cobblestone*5{minecraft:item_name:{color:"gold",text:"Chained"},minecraft:lore:["one","two","one","two","one","two"]}
+I A 6 minecraft:cobblestone*5{minecraft:item_name:{color:"gold",text:"Chained"},minecraft:lore:["one","two","one","two","one","two"]}
+I A 7 minecraft:cobblestone*5{minecraft:item_name:{color:"gold",text:"Chained"},minecraft:lore:["one","two","one","two","one","two"]}
+I A 8 minecraft:cobblestone*5{minecraft:item_name:{color:"gold",text:"Chained"},minecraft:lore:["one","two","one","two","one","two"]}
+I A 38 minecraft:iron_chestplate*1
+I A 40 minecraft:shield*1
+CF msg Removed 55 item(s) from player A
+CF result success 55
+# blocks as targets and sources
+CF msg Changed the block at 4, -60, 3
+CF result success 1
+CF msg Changed the block at 4, -60, 5
+CF result success 1
+CF msg Changed the block at 6, -60, 3
+CF result success 1
+CF msg Changed the block at 8, -60, 3
+CF result success 1
+CF msg Changed the block at 10, -60, 3
+CF result success 1
+CF msg Replaced 1 slot(s) at 4, -60, 3 with [Diamond]
+CF result success 1
+CF msg Replaced 1 slot(s) at 4, -60, 3
+CF result success 1
+CF msg Replaced 1 slot(s) at 4, -60, 3 with [Emerald]
+CF result success 1
+CF result failure 0
+CF fail The target does not have slot container.9
+CF msg Replaced 1 slot(s) at 4, -60, 3 with [Gold Ingot]
+CF result success 1
+CF result failure 0
+CF fail Target position 4, -60, 5 is not a container
+CF result failure 0
+CF fail Target position 4, -60, 5 is not a container
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF result failure 0
+CF fail Source position 4, -60, 5 is not a container
+CF msg Replaced 1 slot(s) at 4, -60, 3
+CF result success 1
+CF result failure 0
+CF fail That position is not loaded
+CF msg Replaced 1 slot(s) at 6, -60, 3 with [Stick]
+CF result success 1
+CF msg Replaced 9 slot(s) at 6, -60, 3
+CF result success 9
+CF msg Replaced 27 slot(s) at 6, -60, 3
+CF result success 27
+CF msg Replaced 1 slot(s) at 6, -60, 3
+CF result success 1
+CF msg Replaced 27 slot(s) at 6, -60, 3
+CF result success 27
+CF msg Replaced 1 slot(s) at 8, -60, 3 with [Coal]
+CF result success 1
+CF msg Replaced 1 slot(s) at 8, -60, 3 with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) at 8, -60, 3 with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) at 8, -60, 3 with [Coal]
+CF result success 1
+CF msg Replaced 1 slot(s) at 10, -60, 3 with [Arrow]
+CF result success 1
+CF result failure 0
+CF fail The target does not have slot container.5
+CF result failure 0
+CF fail Target position 0, -60, 0 is not a container
+CF fail Integer must not be more than 99: found 100
+CF fail ...aft:arrow 100<--[HERE]
+BE 4 -60 3 {Items:[{Slot:8b,count:1,id:"minecraft:emerald"}],components:{},id:"minecraft:dropper",x:4,y:-60,z:3}
+BE 6 -60 3 {Items:[],components:{},id:"minecraft:chest",x:6,y:-60,z:3}
+BE 8 -60 3 {Items:[{Slot:0b,count:3,id:"minecraft:coal"},{Slot:1b,count:1,id:"minecraft:stone"},{Slot:2b,count:1,id:"minecraft:stone"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:8,y:-60,z:3}
+BE 10 -60 3 {Items:[{Slot:0b,count:9,id:"minecraft:arrow"}],TransferCooldown:-1,components:{},id:"minecraft:hopper",x:10,y:-60,z:3}
+I A 2 minecraft:gold_ingot*2
+# modify entity and block: one, several, empty slots, nothing changed, wildcards
+CF result failure 0
+CF fail The target does not have slot weapon.mainhand
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF result failure 0
+CF fail The target does not have slot hotbar.0
+CF result failure 0
+CF fail The target does not have slot container.20
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF result failure 0
+CF fail The target does not have slot hotbar.0
+CF fail Can't find element 'lc:nope' in registry 'minecraft:item_modifier'
+CF fail ....0 lc:nope<--[HERE]
+CF result failure 0
+CF fail The target does not have slot hotbar.0
+CF result failure 0
+CF fail The target does not have slot hotbar.0
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified slot(s) on 2 entities
+CF result success 2
+CF fail Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+CF fail ...y A nope.0 lc:double<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...A hotbar.0<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail The target does not have slot container.0
+CF msg Modified 1 slot(s) at 4, -60, 3
+CF result success 1
+CF msg Modified 1 slot(s) at 4, -60, 3
+CF result success 1
+CF result failure 0
+CF fail The target does not have slot container.0
+CF result failure 0
+CF fail Target position 4, -60, 5 is not a container
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail The target does not have slot container.5
+CF msg Modified 3 slot(s) at 8, -60, 3
+CF result success 3
+CF result failure 0
+CF fail The target does not have slot container.30
+BE 4 -60 3 {Items:[{Slot:8b,count:6,id:"minecraft:emerald"}],components:{},id:"minecraft:dropper",x:4,y:-60,z:3}
+BE 6 -60 3 {Items:[],components:{},id:"minecraft:chest",x:6,y:-60,z:3}
+BE 8 -60 3 {Items:[{Slot:0b,count:5,id:"minecraft:coal"},{Slot:1b,count:3,id:"minecraft:stone"},{Slot:2b,count:3,id:"minecraft:stone"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:8,y:-60,z:3}
+I A 2 minecraft:gold_ingot*8
+# mobs, item entities, vehicles and armor stands
+CF msg Replaced 1 slot(s) on Pig with [Stick]
+CF result success 1
+CF msg Replaced 1 slot(s) on Pig with [Iron Helmet]
+CF result success 1
+CF msg Replaced 1 slot(s) on Zombie with [Iron Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on Zombie with [Diamond Chestplate]
+CF result success 1
+CF msg Replaced 1 slot(s) on Horse with [Saddle]
+CF result success 1
+CF msg Replaced 1 slot(s) on Horse with [Iron Horse Armor]
+CF result success 1
+CF msg Replaced 1 slot(s) on Armor Stand with [Stick]
+CF result success 1
+CF msg Replaced 1 slot(s) on Emerald with [Emerald]
+CF result success 1
+CF msg Replaced 1 slot(s) on Minecart with Chest with [Emerald]
+CF result success 1
+CF msg Replaced 1 slot(s) on Minecart with Chest with [Coal]
+CF result success 1
+CF msg Replaced 1 slot(s) on Minecart with Chest
+CF result success 1
+CF msg Replaced 1 slot(s) on Zombie
+CF result success 1
+CF msg Modified 2 slot(s) on Zombie
+CF result success 2
+CF msg Modified 1 slot(s) on Zombie
+CF result success 1
+CF msg Modified 1 slot(s) on Zombie
+CF result success 1
+CF msg Modified 1 slot(s) on Pig
+CF result success 1
+CF msg Modified 1 slot(s) on Emerald
+CF result success 1
+CF msg Modified 2 slot(s) on Minecart with Chest
+CF result success 2
+CF msg Modified slot(s) on 3 entities
+CF result success 3
+CF msg Modified 1 slot(s) on Pig
+CF result success 1
+CF msg Modified 1 slot(s) on Pig
+CF result success 1
+N p1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[20.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["pg"],attributes:[{base:0.25d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:iron_helmet"},mainhand:{components:{minecraft:custom_name:"Piggy"},count:3,id:"minecraft:stick"}},fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+N z1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[22.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["zb"],attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:3.0d,id:"minecraft:attack_damage"},{base:2.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:diamond_chestplate"},mainhand:{count:1,id:"minecraft:iron_sword"},offhand:{count:3,id:"minecraft:emerald"}},fall_distance:0.0d}
+N s1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[24.5d,-60.0d,4.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["as"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,equipment:{mainhand:{count:3,id:"minecraft:stick"}},fall_distance:0.0d}
+N i1 {Age:2s,Air:300s,Fire:0s,Health:5s,Invulnerable:0b,Item:{count:6,id:"minecraft:emerald"},Motion:[0.0d,-0.04d,0.0d],OnGround:1b,PickupDelay:0s,PortalCooldown:0,Pos:[26.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["it"],fall_distance:0.0d}
+N v1 {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Items:[{Slot:0b,count:1,id:"minecraft:iron_sword"},{Slot:2b,count:6,id:"minecraft:emerald"}],Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[28.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["cm"],fall_distance:0.0d}
+N h1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[30.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["hs"],Tame:0b,Temper:0,Variant:0,attributes:[{base:0.22499999403953552d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{body:{count:1,id:"minecraft:iron_horse_armor"},saddle:{count:1,id:"minecraft:saddle"}},fall_distance:0.0d}
+# modifiers with a position and an entity: conditions on the running source
+CF result failure 0
+CF fail The target does not have slot weapon.mainhand
+CF result failure 0
+CF fail The target does not have slot weapon.offhand
+CF result failure 0
+CF fail The target does not have slot weapon.mainhand
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF result failure 0
+I A 2 minecraft:gold_ingot*8
+# replace with an inline loot modifier that is not valid: texts of the parse failures
+CF fail Can't find element 'minecraft:nope' in registry 'minecraft:item_modifier'
+CF fail ...craft:nope<--[HERE]
+CF fail Failed to parse structure: Failed to parse either. First: Unknown registry key in ResourceKey[minecraft:root / minecraft:loot_function_type]: minecraft:nope; Second: Failed to parse either. First: Not a string; Second: Failed to parse either. First: Not a list: {type:"minecraft:nope"}; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:loot_function_type]: minecraft:nope
+CF fail ...aft:nope"}<--[HERE]
+CF fail Failed to parse structure: Failed to parse either. First: Failed to get element minecraft:x from registry minecraft:context_int_provider; Second: Failed to parse either. First: Not a string; Second: Failed to parse either. First: Not a list: {count:"x",type:"minecraft:set_count"}; Second: Failed to get element minecraft:x from registry minecraft:context_int_provider
+CF fail ...ount":"x"}<--[HERE]
+CF fail Failed to parse structure: Failed to parse either. First: Unknown registry key in ResourceKey[minecraft:root / minecraft:loot_function_type]: minecraft:nope; Second: Failed to parse either. First: Not a string; Second: Failed to parse either. First: Not a list: {type:"minecraft:nope"}; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:loot_function_type]: minecraft:nope
+CF fail ...aft:nope"}<--[HERE]
+# permission levels: gamemaster commands
+CF fail Unknown or incomplete command. See below for error
+CF fail item replace entity A hotbar.0 with minecraft:stick<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail item modify entity A hotbar.0 lc:double<--[HERE]
+CF msg Replaced 1 slot(s) on A with [Stick]
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Replaced 1 slot(s) at 4, -60, 3 with [Stick]
+CF result success 1
+CF msg Replaced 9 slot(s) on A with [Arrow]
+CF result success 9
+CF fail Unknown or incomplete command. See below for error
+CF fail execute as A run item modify entity A hotbar.0 lc:double<--[HERE]
+I A 0 minecraft:arrow*1
+I A 1 minecraft:arrow*1
+I A 2 minecraft:arrow*1
+I A 3 minecraft:arrow*1
+I A 4 minecraft:arrow*1
+I A 5 minecraft:arrow*1
+I A 6 minecraft:arrow*1
+I A 7 minecraft:arrow*1
+I A 8 minecraft:arrow*1
+BE 4 -60 3 {Items:[{Slot:0b,count:1,id:"minecraft:stick"},{Slot:8b,count:6,id:"minecraft:emerald"}],components:{},id:"minecraft:dropper",x:4,y:-60,z:3}

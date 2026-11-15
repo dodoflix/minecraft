@@ -1,0 +1,748 @@
+C Game rule send_command_feedback is now set to true
+# counts, damage, item type
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Ender Pearl]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF result failure 0
+CF fail minecraft:stone can only stack up to 64
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stick]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF result failure 0
+CF fail The target does not have slot container.19
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+I A 0 minecraft:stone*7
+I A 1 minecraft:stone*12
+I A 2 minecraft:stone*2
+I A 3 minecraft:stone*4
+I A 4 minecraft:stone*5
+I A 5 minecraft:stone*64
+I A 7 minecraft:ender_pearl*16
+I A 8 minecraft:diamond_sword*1
+I A 9 minecraft:stone*8
+I A 10 minecraft:stone*30
+I A 11 minecraft:stone*8
+I A 12 minecraft:diamond_sword*1/dmg=1170{minecraft:damage:1170}
+I A 13 minecraft:diamond_sword*1
+I A 14 minecraft:diamond_sword*1
+I A 15 minecraft:diamond_sword*1/dmg=487{minecraft:damage:487}
+I A 16 minecraft:stone*5
+I A 17 minecraft:diamond*5
+I A 18 minecraft:iron_axe*1{minecraft:enchantments:{minecraft:sharpness:3}}
+I A 22 minecraft:stone*7
+I A 23 minecraft:stone*5{minecraft:item_name:{color:"gold",text:"Chained"},minecraft:lore:["one","two"]}
+I A 24 minecraft:stone*3{minecraft:custom_name:"Not a stick"}
+I A 25 minecraft:stick*3{minecraft:custom_name:"A stick"}
+I A 26 minecraft:stone*7
+CF msg Removed 197 item(s) from player A
+CF result success 197
+# data pack modifiers: conditions, references, nested sequences
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Iron Pickaxe]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Iron Pickaxe]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Book]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Chestplate]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+I A 0 minecraft:stone*5
+I A 1 minecraft:stone*3
+I A 2 minecraft:stone*3
+I A 3 minecraft:stone*3
+I A 4 minecraft:stone*5
+I A 5 minecraft:stone*5
+I A 6 minecraft:iron_pickaxe*1/dmg=125{minecraft:damage:125}
+I A 7 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:2,minecraft:unbreaking:2}}
+I A 8 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:lunge:1}}
+I A 9 minecraft:diamond_chestplate*1{minecraft:enchantments:{minecraft:projectile_protection:2}}
+I A 10 minecraft:stone*5
+CF msg Removed 33 item(s) from player A
+CF result success 33
+# names, lore, tooltips, custom data, components
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with ["old"]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+I A 0 minecraft:stone*1{minecraft:custom_name:{color:"red",text:"Custom"}}
+I A 1 minecraft:stone*1{minecraft:item_name:"Item name"}
+I A 2 minecraft:stone*1{minecraft:custom_name:{translate:"block.minecraft.dirt"}}
+I A 3 minecraft:stone*1{minecraft:custom_name:{bold:1b,italic:0b,text:"Bold"}}
+I A 4 minecraft:stone*1{minecraft:custom_name:{extra:["B"],text:"A"}}
+I A 5 minecraft:stone*1
+I A 6 minecraft:stone*1{minecraft:custom_name:"new"}
+I A 7 minecraft:stone*1{minecraft:lore:["a",{color:"blue",text:"b"}]}
+I A 8 minecraft:stone*1{minecraft:lore:['"x"',"a","b"]}
+I A 9 minecraft:stone*1{minecraft:lore:["a"]}
+I A 10 minecraft:stone*1{minecraft:lore:['"x"',"a",'"y"','"z"']}
+I A 11 minecraft:stone*1{minecraft:lore:['"x"',"a","b",'"z"']}
+I A 12 minecraft:stone*1
+I A 13 minecraft:stone*1{minecraft:lore:['"x"']}
+I A 14 minecraft:stone*1{minecraft:tooltip_display:{hidden_components:["minecraft:attribute_modifiers","minecraft:enchantments"]}}
+I A 15 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:2},minecraft:tooltip_display:{hidden_components:["minecraft:enchantments"]}}
+I A 16 minecraft:stone*1{minecraft:custom_model_data:{strings:["a"]}}
+I A 17 minecraft:stone*1{minecraft:custom_data:{a:1b,b:[1,2],c:{d:"x"}}}
+I A 18 minecraft:stone*1{minecraft:custom_data:{a:1b,b:2,z:1}}
+I A 19 minecraft:stone*1{minecraft:max_stack_size:16,minecraft:rarity:"epic"}
+I A 20 minecraft:stone*1{minecraft:unbreakable:{}}
+I A 21 minecraft:diamond_sword*1{!minecraft:attribute_modifiers:{}}
+I A 22 minecraft:stone*1
+CF msg Removed 23 item(s) from player A
+CF result success 23
+# enchantments
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Book]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Book]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Book]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Bow]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Boots]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Boots]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Boots]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Book]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Book]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+I A 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4,minecraft:unbreaking:3}}
+I A 1 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+I A 2 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:5}}
+I A 3 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:looting:2}}
+I A 4 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:looting:2,minecraft:sharpness:3}}
+I A 5 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:mending:1}}
+I A 6 minecraft:stone*1{minecraft:enchantments:{minecraft:mending:1}}
+I A 7 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:fire_aspect:1,minecraft:smite:3}}
+I A 8 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:bane_of_arthropods:1}}
+I A 9 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:3}}
+I A 10 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:3}}
+I A 11 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:density:4}}
+I A 12 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:frost_walker:2,minecraft:lure:2}}
+I A 13 minecraft:bow*1{minecraft:enchantments:{minecraft:power:1}}
+I A 14 minecraft:diamond_boots*1{minecraft:enchantments:{minecraft:fire_protection:3}}
+I A 15 minecraft:diamond_boots*1{minecraft:enchantments:{minecraft:unbreaking:2}}
+I A 16 minecraft:diamond_boots*1{minecraft:enchantments:{minecraft:vanishing_curse:1}}
+I A 17 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:blast_protection:2}}
+I A 18 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:mending:1}}
+I A 19 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:mending:1}}
+I A 20 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:vanishing_curse:1}}
+I A 21 minecraft:stone*1
+I A 22 minecraft:stone*1{minecraft:enchantments:{minecraft:smite:1}}
+I A 23 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:bane_of_arthropods:1,minecraft:sharpness:3}}
+CF msg Removed 24 item(s) from player A
+CF result success 24
+# potions, effects, instruments, attributes
+CF msg Replaced 1 slot(s) on A with [Uncraftable Potion]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Splash Uncraftable Potion]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Uncraftable Potion]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Uncraftable Potion]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Uncraftable Tipped Arrow]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Suspicious Stew]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Suspicious Stew]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Ominous Bottle]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Ominous Bottle]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Goat Horn]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Goat Horn]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Leather Boots]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+I A 0 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:strong_healing"}}
+I A 1 minecraft:splash_potion*1{minecraft:potion_contents:{potion:"minecraft:long_swiftness"}}
+I A 2 minecraft:stone*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+I A 3 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:harming"}}
+I A 4 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:long_invisibility"}}
+I A 5 minecraft:tipped_arrow*4{minecraft:potion_contents:{potion:"minecraft:poison"}}
+I A 6 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:2000,id:"minecraft:night_vision"}]}
+I A 7 minecraft:suspicious_stew*1
+I A 8 minecraft:stone*1
+I A 9 minecraft:ominous_bottle*1{minecraft:ominous_bottle_amplifier:3}
+I A 10 minecraft:ominous_bottle*1
+I A 11 minecraft:stone*1{minecraft:ominous_bottle_amplifier:2}
+I A 12 minecraft:goat_horn*1{minecraft:instrument:"minecraft:admire_goat_horn"}
+I A 13 minecraft:goat_horn*1
+I A 14 minecraft:stone*1{minecraft:instrument:"minecraft:seek_goat_horn"}
+I A 15 minecraft:diamond_sword*1{minecraft:attribute_modifiers:[{amount:4.0d,id:"lc:extra",operation:"add_value",slot:"mainhand",type:"minecraft:attack_damage"}]}
+I A 16 minecraft:diamond_sword*1{minecraft:attribute_modifiers:[{amount:6.0d,id:"minecraft:base_attack_damage",operation:"add_value",slot:"mainhand",type:"minecraft:attack_damage"},{amount:-2.4000000953674316d,id:"minecraft:base_attack_speed",operation:"add_value",slot:"mainhand",type:"minecraft:attack_speed"},{amount:1.0843360424041748d,id:"lc:extra",operation:"add_value",slot:"mainhand",type:"minecraft:attack_damage"}]}
+I A 17 minecraft:leather_boots*1{minecraft:attribute_modifiers:[{amount:0.5d,id:"lc:fast",operation:"add_multiplied_base",slot:"feet",type:"minecraft:movement_speed"}]}
+I A 18 minecraft:stone*1{minecraft:attribute_modifiers:[{amount:2.0d,id:"lc:x",operation:"add_value",type:"minecraft:max_health"}]}
+CF msg Removed 22 item(s) from player A
+CF result success 22
+# books, banners, fireworks, dyes, loot tables, heads
+CF msg Replaced 1 slot(s) on A with [White Banner]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [White Banner]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [White Banner]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Book and Quill]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Book and Quill]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [T]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Written Book]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Written Book]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Written Book]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Written Book]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Written Book]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Book and Quill]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Firework Rocket]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Firework Rocket]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Firework Star]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Firework Star]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Leather Tunic]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Leather Tunic]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Chest]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Shulker Box]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Player Head]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Player Head]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Player Head]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+I A 0 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"red",pattern:"minecraft:globe"}]}
+I A 1 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"green",pattern:"minecraft:creeper"},{color:"red",pattern:"minecraft:globe"}]}
+I A 2 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"red",pattern:"minecraft:globe"}]}
+I A 3 minecraft:writable_book*1{minecraft:writable_book_content:{pages:[{raw:"first"},{raw:"second"}]}}
+I A 4 minecraft:writable_book*1{minecraft:writable_book_content:{pages:[{raw:"first"},{raw:"second"}]}}
+I A 5 minecraft:written_book*1{minecraft:writable_book_content:{pages:[{raw:"x"}]},minecraft:written_book_content:{author:"me",pages:[{raw:"p1"}],title:{raw:"T"}}}
+I A 6 minecraft:written_book*1{minecraft:written_book_content:{author:"",pages:[{raw:"p1"},{raw:"p2"}],title:{raw:""}}}
+I A 7 minecraft:written_book*1{minecraft:written_book_content:{author:"",pages:[{raw:{color:"red",text:"rich"}}],title:{raw:""}}}
+I A 8 minecraft:written_book*1{minecraft:written_book_content:{author:"Auth",generation:2,resolved:1b,title:{raw:"Name"}}}
+I A 9 minecraft:written_book*1{minecraft:written_book_content:{author:"Only",resolved:1b,title:{raw:""}}}
+I A 10 minecraft:written_book*1
+I A 11 minecraft:writable_book*1{minecraft:written_book_content:{author:"",resolved:1b,title:{raw:"Name"}}}
+I A 12 minecraft:firework_rocket*3{minecraft:fireworks:{explosions:[{colors:[16711680],shape:"star"}],flight_duration:3b}}
+I A 13 minecraft:firework_rocket*3{minecraft:fireworks:{flight_duration:2b}}
+I A 14 minecraft:firework_star*1{minecraft:firework_explosion:{colors:[255,65280],fade_colors:[16777215],has_trail:1b,shape:"large_ball"}}
+I A 15 minecraft:firework_star*1{minecraft:firework_explosion:{shape:"burst"}}
+I A 16 minecraft:leather_chestplate*1{minecraft:dyed_color:7043413}
+I A 17 minecraft:leather_chestplate*1{minecraft:dyed_color:9072541}
+I A 18 minecraft:stone*1{minecraft:dyed_color:8566922}
+I A 19 minecraft:chest*1{minecraft:container_loot:{loot_table:"lc:five",seed:9L}}
+I A 20 minecraft:shulker_box*1{minecraft:container_loot:{loot_table:"minecraft:chests/simple_dungeon"}}
+I A 21 minecraft:stone*1{minecraft:container_loot:{loot_table:"lc:five"}}
+I A 22 minecraft:player_head*1
+I A 23 minecraft:player_head*1
+I A 24 minecraft:player_head*1
+I A 25 minecraft:stone*1
+CF msg Removed 30 item(s) from player A
+CF result success 30
+# furnace_smelt, model data, filters, sequences, copy_custom_data
+CF msg Replaced 1 slot(s) on A with [Raw Iron]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Raw Beef]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Dirt]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Dirt]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Dirt]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Dirt]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Dirt]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Dirt]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+I A 0 minecraft:iron_ingot*5
+I A 1 minecraft:cooked_beef*5
+I A 2 minecraft:smooth_stone*5
+I A 3 minecraft:diamond_sword*1
+I A 4 minecraft:stone*5{minecraft:custom_model_data:{colors:[255],flags:[1b],floats:[1.5f],strings:["x"]}}
+I A 5 minecraft:stone*2
+I A 6 minecraft:dirt*3
+I A 7 minecraft:dirt*5
+I A 9 minecraft:dirt*5{minecraft:custom_name:"seq"}
+I A 10 minecraft:dirt*10
+I A 11 minecraft:dirt*5
+I A 12 minecraft:diamond_sword*1
+I A 13 minecraft:diamond_sword*1
+I A 14 minecraft:diamond_sword*1
+I A 15 minecraft:diamond_sword*1
+I A 16 minecraft:diamond_sword*1
+CF msg Removed 56 item(s) from player A
+CF result success 56

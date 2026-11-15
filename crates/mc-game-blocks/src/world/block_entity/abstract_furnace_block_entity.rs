@@ -425,9 +425,8 @@ impl Container for AbstractFurnaceBlockEntity {
         helper::take_item(&mut self.items, slot)
     }
     fn set_item(&mut self, slot: usize, mut stack: ItemStack) {
-        let Some(old) = self.items.get(slot) else {
-            return;
-        };
+        // `NonNullList.get` throws past the end
+        let old = &self.items[slot];
         let same = !stack.is_empty() && ItemStack::is_same_item_same_components(old, &stack);
         let max = self.get_max_stack_size_for(&stack);
         stack.limit_size(max);
