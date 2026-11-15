@@ -58,3 +58,8 @@ fn mobs_pick_up_and_equip_dropped_items() {
 fn sweep_attack_spares_the_pets_beside_the_target() {
     check("mob_sweep_pet");
 }
+
+#[test]
+fn player_interactions_with_mobs_match_vanilla() {
+    check("mob_interact_matrix");
+}

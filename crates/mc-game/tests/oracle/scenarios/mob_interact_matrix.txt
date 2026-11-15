@@ -1,0 +1,833 @@
+# Player-on-mob interactions (Mob.interact / mobInteract of 72 mob + item pairs, one per row, player teleported beside each): shearing, dyeing, milking and bucketing, bowls and
+# stew, feeding, taming, saddling, armour/carpet/chest, golden apple on zombie villagers, the brush, glass bottles, honeycomb on a copper golem; compares the mob state, the
+# inventory, dropped items, and the events (sounds, particles, game events) after each.
+command_env
+level flat
+preload 6
+difficulty normal
+entity_counter 12000
+level_seed 61
+spawn_player I1 survival 0.5 -60 0.5 0 0
+set I1 invulnerable true
+tick 30
+
+mobspawn Q0 minecraft:sheep -59.5 -60 10.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q0 600
+mobspawn Q1 minecraft:sheep -49.5 -60 10.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Age:-1200}
+entity_seed Q1 601
+mobspawn Q2 minecraft:sheep -39.5 -60 10.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q2 602
+mobspawn Q3 minecraft:sheep -29.5 -60 10.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Sheared:1b}
+entity_seed Q3 603
+mobspawn Q4 minecraft:mooshroom -19.5 -60 10.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red"}
+entity_seed Q4 604
+mobspawn Q5 minecraft:mooshroom -9.5 -60 10.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"brown"}
+entity_seed Q5 605
+mobspawn Q6 minecraft:mooshroom 0.5 -60 10.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Type:"red",Age:-24000}
+entity_seed Q6 606
+mobspawn Q7 minecraft:mooshroom 10.5 -60 10.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q7 607
+mobspawn Q8 minecraft:mooshroom 20.5 -60 10.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q8 608
+mobspawn Q9 minecraft:cow 30.5 -60 10.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q9 609
+mobspawn Q10 minecraft:cow 40.5 -60 10.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+entity_seed Q10 610
+mobspawn Q11 minecraft:cow 50.5 -60 10.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q11 611
+mobspawn Q12 minecraft:cow -59.5 -60 20.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+entity_seed Q12 612
+mobspawn Q13 minecraft:cow -49.5 -60 20.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q13 613
+mobspawn Q14 minecraft:snow_golem -39.5 -60 20.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q14 614
+mobspawn Q15 minecraft:bogged -29.5 -60 20.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q15 615
+mobspawn Q16 minecraft:iron_golem -19.5 -60 20.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Health:30.0f}
+entity_seed Q16 616
+mobspawn Q17 minecraft:iron_golem -9.5 -60 20.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q17 617
+mobspawn Q18 minecraft:pig 0.5 -60 20.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q18 618
+mobspawn Q19 minecraft:pig 10.5 -60 20.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Saddle:1b}
+entity_seed Q19 619
+mobspawn Q20 minecraft:strider 20.5 -60 20.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q20 620
+mobspawn Q21 minecraft:horse 30.5 -60 20.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q21 621
+mobspawn Q22 minecraft:horse 40.5 -60 20.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q22 622
+mobspawn Q23 minecraft:horse 50.5 -60 20.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Temper:0}
+entity_seed Q23 623
+mobspawn Q24 minecraft:horse -59.5 -60 30.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q24 624
+mobspawn Q25 minecraft:donkey -49.5 -60 30.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q25 625
+mobspawn Q26 minecraft:llama -39.5 -60 30.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q26 626
+mobspawn Q27 minecraft:llama -29.5 -60 30.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+entity_seed Q27 627
+mobspawn Q28 minecraft:camel -19.5 -60 30.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q28 628
+mobspawn Q29 minecraft:wolf -9.5 -60 30.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q29 629
+mobspawn Q30 minecraft:wolf 0.5 -60 30.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Health:10.0f}
+entity_seed Q30 630
+mobspawn Q31 minecraft:wolf 10.5 -60 30.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q31 631
+mobspawn Q32 minecraft:cat 20.5 -60 30.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q32 632
+mobspawn Q33 minecraft:ocelot 30.5 -60 30.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q33 633
+mobspawn Q34 minecraft:parrot 40.5 -60 30.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q34 634
+mobspawn Q35 minecraft:parrot 50.5 -60 30.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q35 635
+mobspawn Q36 minecraft:axolotl -59.5 -60 40.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q36 636
+mobspawn Q37 minecraft:tadpole -49.5 -60 40.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q37 637
+mobspawn Q38 minecraft:cod -39.5 -60 40.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q38 638
+mobspawn Q39 minecraft:tropical_fish -29.5 -60 40.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q39 639
+mobspawn Q40 minecraft:pufferfish -19.5 -60 40.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q40 640
+mobspawn Q41 minecraft:salmon -9.5 -60 40.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q41 641
+mobspawn Q42 minecraft:armadillo 0.5 -60 40.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q42 642
+mobspawn Q43 minecraft:armadillo 10.5 -60 40.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q43 643
+mobspawn Q44 minecraft:villager 20.5 -60 40.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q44 644
+mobspawn Q45 minecraft:villager 30.5 -60 40.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q45 645
+mobspawn Q46 minecraft:wandering_trader 40.5 -60 40.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q46 646
+mobspawn Q47 minecraft:bee 50.5 -60 40.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q47 647
+mobspawn Q48 minecraft:bee -59.5 -60 50.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q48 648
+mobspawn Q49 minecraft:fox -49.5 -60 50.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q49 649
+mobspawn Q50 minecraft:panda -39.5 -60 50.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q50 650
+mobspawn Q51 minecraft:rabbit -29.5 -60 50.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q51 651
+mobspawn Q52 minecraft:rabbit -19.5 -60 50.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q52 652
+mobspawn Q53 minecraft:chicken -9.5 -60 50.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q53 653
+mobspawn Q54 minecraft:turtle 0.5 -60 50.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q54 654
+mobspawn Q55 minecraft:sniffer 10.5 -60 50.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q55 655
+mobspawn Q56 minecraft:goat 20.5 -60 50.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q56 656
+mobspawn Q57 minecraft:goat 30.5 -60 50.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q57 657
+mobspawn Q58 minecraft:frog 40.5 -60 50.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q58 658
+mobspawn Q59 minecraft:happy_ghast 50.5 -60 50.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q59 659
+mobspawn Q60 minecraft:copper_golem -59.5 -60 60.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q60 660
+mobspawn Q61 minecraft:copper_golem -49.5 -60 60.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q61 661
+mobspawn Q62 minecraft:copper_golem -39.5 -60 60.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q62 662
+mobspawn Q63 minecraft:allay -29.5 -60 60.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q63 663
+mobspawn Q64 minecraft:camel_husk -19.5 -60 60.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q64 664
+mobspawn Q65 minecraft:nautilus -9.5 -60 60.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q65 665
+mobspawn Q66 minecraft:zombie_nautilus 0.5 -60 60.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q66 666
+mobspawn Q67 minecraft:skeleton_horse 10.5 -60 60.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q67 667
+mobspawn Q68 minecraft:zombie_horse 20.5 -60 60.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q68 668
+mobspawn Q69 minecraft:mule 30.5 -60 60.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q69 669
+mobspawn Q70 minecraft:trader_llama 40.5 -60 60.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q70 670
+mobspawn Q71 minecraft:creeper 50.5 -60 60.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q71 671
+mobspawn Q72 minecraft:zombie -59.5 -60 70.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q72 672
+mobspawn Q73 minecraft:zombie_villager -49.5 -60 70.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q73 673
+mobspawn Q74 minecraft:zombie_villager -39.5 -60 70.5 180 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Q74 674
+tick 2
+note 0 sheep shears
+tp I1 -59.5 -60 9.0 0 0
+give I1 hotbar0 minecraft:shears 1
+select I1 0
+level_seed 1000
+tick 1
+interact I1 Q0 main
+tick 3
+dump mob:Q0 inventory:I1 entities events
+note 1 sheep shears
+tp I1 -49.5 -60 9.0 0 0
+give I1 hotbar0 minecraft:shears 1
+select I1 0
+level_seed 1001
+tick 1
+interact I1 Q1 main
+tick 3
+dump mob:Q1 inventory:I1 entities events
+note 2 sheep blue_dye
+tp I1 -39.5 -60 9.0 0 0
+give I1 hotbar0 minecraft:blue_dye 1
+select I1 0
+level_seed 1002
+tick 1
+interact I1 Q2 main
+tick 3
+dump mob:Q2 inventory:I1 entities events
+note 3 sheep blue_dye
+tp I1 -29.5 -60 9.0 0 0
+give I1 hotbar0 minecraft:blue_dye 1
+select I1 0
+level_seed 1003
+tick 1
+interact I1 Q3 main
+tick 3
+dump mob:Q3 inventory:I1 entities events
+note 4 mooshroom shears
+tp I1 -19.5 -60 9.0 0 0
+give I1 hotbar0 minecraft:shears 1
+select I1 0
+level_seed 1004
+tick 1
+interact I1 Q4 main
+tick 3
+dump mob:Q4 inventory:I1 entities events
+note 5 mooshroom bowl
+tp I1 -9.5 -60 9.0 0 0
+give I1 hotbar0 minecraft:bowl 1
+select I1 0
+level_seed 1005
+tick 1
+interact I1 Q5 main
+tick 3
+dump mob:Q5 inventory:I1 entities events
+note 6 mooshroom bowl
+tp I1 0.5 -60 9.0 0 0
+give I1 hotbar0 minecraft:bowl 1
+select I1 0
+level_seed 1006
+tick 1
+interact I1 Q6 main
+tick 3
+dump mob:Q6 inventory:I1 entities events
+note 7 mooshroom bucket
+tp I1 10.5 -60 9.0 0 0
+give I1 hotbar0 minecraft:bucket 1
+select I1 0
+level_seed 1007
+tick 1
+interact I1 Q7 main
+tick 3
+dump mob:Q7 inventory:I1 entities events
+note 8 mooshroom wheat
+tp I1 20.5 -60 9.0 0 0
+give I1 hotbar0 minecraft:wheat 1
+select I1 0
+level_seed 1008
+tick 1
+interact I1 Q8 main
+tick 3
+dump mob:Q8 inventory:I1 entities events
+note 9 cow bucket
+tp I1 30.5 -60 9.0 0 0
+give I1 hotbar0 minecraft:bucket 1
+select I1 0
+level_seed 1009
+tick 1
+interact I1 Q9 main
+tick 3
+dump mob:Q9 inventory:I1 entities events
+note 10 cow bucket
+tp I1 40.5 -60 9.0 0 0
+give I1 hotbar0 minecraft:bucket 1
+select I1 0
+level_seed 1010
+tick 1
+interact I1 Q10 main
+tick 3
+dump mob:Q10 inventory:I1 entities events
+note 11 cow wheat
+tp I1 50.5 -60 9.0 0 0
+give I1 hotbar0 minecraft:wheat 1
+select I1 0
+level_seed 1011
+tick 1
+interact I1 Q11 main
+tick 3
+dump mob:Q11 inventory:I1 entities events
+note 12 cow wheat
+tp I1 -59.5 -60 19.0 0 0
+give I1 hotbar0 minecraft:wheat 1
+select I1 0
+level_seed 1012
+tick 1
+interact I1 Q12 main
+tick 3
+dump mob:Q12 inventory:I1 entities events
+note 13 cow lead
+tp I1 -49.5 -60 19.0 0 0
+give I1 hotbar0 minecraft:lead 1
+select I1 0
+level_seed 1013
+tick 1
+interact I1 Q13 main
+tick 3
+dump mob:Q13 inventory:I1 entities events
+note 14 snow_golem shears
+tp I1 -39.5 -60 19.0 0 0
+give I1 hotbar0 minecraft:shears 1
+select I1 0
+level_seed 1014
+tick 1
+interact I1 Q14 main
+tick 3
+dump mob:Q14 inventory:I1 entities events
+note 15 bogged shears
+tp I1 -29.5 -60 19.0 0 0
+give I1 hotbar0 minecraft:shears 1
+select I1 0
+level_seed 1015
+tick 1
+interact I1 Q15 main
+tick 3
+dump mob:Q15 inventory:I1 entities events
+note 16 iron_golem iron_ingot
+tp I1 -19.5 -60 19.0 0 0
+give I1 hotbar0 minecraft:iron_ingot 1
+select I1 0
+level_seed 1016
+tick 1
+interact I1 Q16 main
+tick 3
+dump mob:Q16 inventory:I1 entities events
+note 17 iron_golem iron_ingot
+tp I1 -9.5 -60 19.0 0 0
+give I1 hotbar0 minecraft:iron_ingot 1
+select I1 0
+level_seed 1017
+tick 1
+interact I1 Q17 main
+tick 3
+dump mob:Q17 inventory:I1 entities events
+note 18 pig saddle
+tp I1 0.5 -60 19.0 0 0
+give I1 hotbar0 minecraft:saddle 1
+select I1 0
+level_seed 1018
+tick 1
+interact I1 Q18 main
+tick 3
+dump mob:Q18 inventory:I1 entities events
+note 19 pig saddle
+tp I1 10.5 -60 19.0 0 0
+give I1 hotbar0 minecraft:saddle 1
+select I1 0
+level_seed 1019
+tick 1
+interact I1 Q19 main
+tick 3
+dump mob:Q19 inventory:I1 entities events
+note 20 strider saddle
+tp I1 20.5 -60 19.0 0 0
+give I1 hotbar0 minecraft:saddle 1
+select I1 0
+level_seed 1020
+tick 1
+interact I1 Q20 main
+tick 3
+dump mob:Q20 inventory:I1 entities events
+note 21 horse saddle
+tp I1 30.5 -60 19.0 0 0
+give I1 hotbar0 minecraft:saddle 1
+select I1 0
+level_seed 1021
+tick 1
+interact I1 Q21 main
+tick 3
+dump mob:Q21 inventory:I1 entities events
+note 22 horse golden_apple
+tp I1 40.5 -60 19.0 0 0
+give I1 hotbar0 minecraft:golden_apple 1
+select I1 0
+level_seed 1022
+tick 1
+interact I1 Q22 main
+tick 3
+dump mob:Q22 inventory:I1 entities events
+note 23 horse sugar
+tp I1 50.5 -60 19.0 0 0
+give I1 hotbar0 minecraft:sugar 1
+select I1 0
+level_seed 1023
+tick 1
+interact I1 Q23 main
+tick 3
+dump mob:Q23 inventory:I1 entities events
+note 24 horse iron_horse_armor
+tp I1 -59.5 -60 29.0 0 0
+give I1 hotbar0 minecraft:iron_horse_armor 1
+select I1 0
+level_seed 1024
+tick 1
+interact I1 Q24 main
+tick 3
+dump mob:Q24 inventory:I1 entities events
+note 25 donkey chest
+tp I1 -49.5 -60 29.0 0 0
+give I1 hotbar0 minecraft:chest 1
+select I1 0
+level_seed 1025
+tick 1
+interact I1 Q25 main
+tick 3
+dump mob:Q25 inventory:I1 entities events
+note 26 llama white_carpet
+tp I1 -39.5 -60 29.0 0 0
+give I1 hotbar0 minecraft:white_carpet 1
+select I1 0
+level_seed 1026
+tick 1
+interact I1 Q26 main
+tick 3
+dump mob:Q26 inventory:I1 entities events
+note 27 llama hay_block
+tp I1 -29.5 -60 29.0 0 0
+give I1 hotbar0 minecraft:hay_block 1
+select I1 0
+level_seed 1027
+tick 1
+interact I1 Q27 main
+tick 3
+dump mob:Q27 inventory:I1 entities events
+note 28 camel saddle
+tp I1 -19.5 -60 29.0 0 0
+give I1 hotbar0 minecraft:saddle 1
+select I1 0
+level_seed 1028
+tick 1
+interact I1 Q28 main
+tick 3
+dump mob:Q28 inventory:I1 entities events
+note 29 wolf bone
+tp I1 -9.5 -60 29.0 0 0
+give I1 hotbar0 minecraft:bone 3
+select I1 0
+level_seed 1029
+tick 1
+interact I1 Q29 main
+tick 3
+dump mob:Q29 inventory:I1 entities events
+note 30 wolf cooked_beef
+tp I1 0.5 -60 29.0 0 0
+give I1 hotbar0 minecraft:cooked_beef 2
+select I1 0
+level_seed 1030
+tick 1
+interact I1 Q30 main
+tick 3
+dump mob:Q30 inventory:I1 entities events
+note 31 wolf name_tag
+tp I1 10.5 -60 29.0 0 0
+give I1 hotbar0 minecraft:name_tag 1
+select I1 0
+level_seed 1031
+tick 1
+interact I1 Q31 main
+tick 3
+dump mob:Q31 inventory:I1 entities events
+note 32 cat cod
+tp I1 20.5 -60 29.0 0 0
+give I1 hotbar0 minecraft:cod 3
+select I1 0
+level_seed 1032
+tick 1
+interact I1 Q32 main
+tick 3
+dump mob:Q32 inventory:I1 entities events
+note 33 ocelot salmon
+tp I1 30.5 -60 29.0 0 0
+give I1 hotbar0 minecraft:salmon 3
+select I1 0
+level_seed 1033
+tick 1
+interact I1 Q33 main
+tick 3
+dump mob:Q33 inventory:I1 entities events
+note 35 parrot wheat_seeds
+tp I1 50.5 -60 29.0 0 0
+give I1 hotbar0 minecraft:wheat_seeds 4
+select I1 0
+level_seed 1035
+tick 1
+interact I1 Q35 main
+tick 3
+dump mob:Q35 inventory:I1 entities events
+note 36 axolotl water_bucket
+tp I1 -59.5 -60 39.0 0 0
+give I1 hotbar0 minecraft:water_bucket 1
+select I1 0
+level_seed 1036
+tick 1
+interact I1 Q36 main
+tick 3
+dump mob:Q36 inventory:I1 entities events
+note 37 tadpole water_bucket
+tp I1 -49.5 -60 39.0 0 0
+give I1 hotbar0 minecraft:water_bucket 1
+select I1 0
+level_seed 1037
+tick 1
+interact I1 Q37 main
+tick 3
+dump mob:Q37 inventory:I1 entities events
+note 38 cod water_bucket
+tp I1 -39.5 -60 39.0 0 0
+give I1 hotbar0 minecraft:water_bucket 1
+select I1 0
+level_seed 1038
+tick 1
+interact I1 Q38 main
+tick 3
+dump mob:Q38 inventory:I1 entities events
+note 39 tropical_fish water_bucket
+tp I1 -29.5 -60 39.0 0 0
+give I1 hotbar0 minecraft:water_bucket 1
+select I1 0
+level_seed 1039
+tick 1
+interact I1 Q39 main
+tick 3
+dump mob:Q39 inventory:I1 entities events
+note 40 pufferfish water_bucket
+tp I1 -19.5 -60 39.0 0 0
+give I1 hotbar0 minecraft:water_bucket 1
+select I1 0
+level_seed 1040
+tick 1
+interact I1 Q40 main
+tick 3
+dump mob:Q40 inventory:I1 entities events
+note 41 salmon bucket
+tp I1 -9.5 -60 39.0 0 0
+give I1 hotbar0 minecraft:bucket 1
+select I1 0
+level_seed 1041
+tick 1
+interact I1 Q41 main
+tick 3
+dump mob:Q41 inventory:I1 entities events
+note 42 armadillo brush
+tp I1 0.5 -60 39.0 0 0
+give I1 hotbar0 minecraft:brush 1
+select I1 0
+level_seed 1042
+tick 1
+interact I1 Q42 main
+tick 3
+dump mob:Q42 inventory:I1 entities events
+note 43 armadillo spider_eye
+tp I1 10.5 -60 39.0 0 0
+give I1 hotbar0 minecraft:spider_eye 1
+select I1 0
+level_seed 1043
+tick 1
+interact I1 Q43 main
+tick 3
+dump mob:Q43 inventory:I1 entities events
+note 44 villager bread
+tp I1 20.5 -60 39.0 0 0
+give I1 hotbar0 minecraft:bread 1
+select I1 0
+level_seed 1044
+tick 1
+interact I1 Q44 main
+tick 3
+dump mob:Q44 inventory:I1 entities events
+note 45 villager name_tag
+tp I1 30.5 -60 39.0 0 0
+give I1 hotbar0 minecraft:name_tag 1
+select I1 0
+level_seed 1045
+tick 1
+interact I1 Q45 main
+tick 3
+dump mob:Q45 inventory:I1 entities events
+note 46 wandering_trader lead
+tp I1 40.5 -60 39.0 0 0
+give I1 hotbar0 minecraft:lead 1
+select I1 0
+level_seed 1046
+tick 1
+interact I1 Q46 main
+tick 3
+dump mob:Q46 inventory:I1 entities events
+note 47 bee glass_bottle
+tp I1 50.5 -60 39.0 0 0
+give I1 hotbar0 minecraft:glass_bottle 1
+select I1 0
+level_seed 1047
+tick 1
+interact I1 Q47 main
+tick 3
+dump mob:Q47 inventory:I1 entities events
+note 48 bee poppy
+tp I1 -59.5 -60 49.0 0 0
+give I1 hotbar0 minecraft:poppy 1
+select I1 0
+level_seed 1048
+tick 1
+interact I1 Q48 main
+tick 3
+dump mob:Q48 inventory:I1 entities events
+note 49 fox sweet_berries
+tp I1 -49.5 -60 49.0 0 0
+give I1 hotbar0 minecraft:sweet_berries 1
+select I1 0
+level_seed 1049
+tick 1
+interact I1 Q49 main
+tick 3
+dump mob:Q49 inventory:I1 entities events
+note 50 panda bamboo
+tp I1 -39.5 -60 49.0 0 0
+give I1 hotbar0 minecraft:bamboo 1
+select I1 0
+level_seed 1050
+tick 1
+interact I1 Q50 main
+tick 3
+dump mob:Q50 inventory:I1 entities events
+note 51 rabbit carrot
+tp I1 -29.5 -60 49.0 0 0
+give I1 hotbar0 minecraft:carrot 1
+select I1 0
+level_seed 1051
+tick 1
+interact I1 Q51 main
+tick 3
+dump mob:Q51 inventory:I1 entities events
+note 52 rabbit golden_carrot
+tp I1 -19.5 -60 49.0 0 0
+give I1 hotbar0 minecraft:golden_carrot 1
+select I1 0
+level_seed 1052
+tick 1
+interact I1 Q52 main
+tick 3
+dump mob:Q52 inventory:I1 entities events
+note 53 chicken wheat_seeds
+tp I1 -9.5 -60 49.0 0 0
+give I1 hotbar0 minecraft:wheat_seeds 1
+select I1 0
+level_seed 1053
+tick 1
+interact I1 Q53 main
+tick 3
+dump mob:Q53 inventory:I1 entities events
+note 54 turtle seagrass
+tp I1 0.5 -60 49.0 0 0
+give I1 hotbar0 minecraft:seagrass 1
+select I1 0
+level_seed 1054
+tick 1
+interact I1 Q54 main
+tick 3
+dump mob:Q54 inventory:I1 entities events
+note 55 sniffer torchflower_seeds
+tp I1 10.5 -60 49.0 0 0
+give I1 hotbar0 minecraft:torchflower_seeds 1
+select I1 0
+level_seed 1055
+tick 1
+interact I1 Q55 main
+tick 3
+dump mob:Q55 inventory:I1 entities events
+note 56 goat wheat
+tp I1 20.5 -60 49.0 0 0
+give I1 hotbar0 minecraft:wheat 1
+select I1 0
+level_seed 1056
+tick 1
+interact I1 Q56 main
+tick 3
+dump mob:Q56 inventory:I1 entities events
+note 57 goat bucket
+tp I1 30.5 -60 49.0 0 0
+give I1 hotbar0 minecraft:bucket 1
+select I1 0
+level_seed 1057
+tick 1
+interact I1 Q57 main
+tick 3
+dump mob:Q57 inventory:I1 entities events
+note 58 frog slime_ball
+tp I1 40.5 -60 49.0 0 0
+give I1 hotbar0 minecraft:slime_ball 1
+select I1 0
+level_seed 1058
+tick 1
+interact I1 Q58 main
+tick 3
+dump mob:Q58 inventory:I1 entities events
+note 59 happy_ghast snowball
+tp I1 50.5 -60 49.0 0 0
+give I1 hotbar0 minecraft:snowball 1
+select I1 0
+level_seed 1059
+tick 1
+interact I1 Q59 main
+tick 3
+dump mob:Q59 inventory:I1 entities events
+note 60 copper_golem honeycomb
+tp I1 -59.5 -60 59.0 0 0
+give I1 hotbar0 minecraft:honeycomb 1
+select I1 0
+level_seed 1060
+tick 1
+interact I1 Q60 main
+tick 3
+dump mob:Q60 inventory:I1 entities events
+note 61 copper_golem iron_axe
+tp I1 -49.5 -60 59.0 0 0
+give I1 hotbar0 minecraft:iron_axe 1
+select I1 0
+level_seed 1061
+tick 1
+interact I1 Q61 main
+tick 3
+dump mob:Q61 inventory:I1 entities events
+note 62 copper_golem shears
+tp I1 -39.5 -60 59.0 0 0
+give I1 hotbar0 minecraft:shears 1
+select I1 0
+level_seed 1062
+tick 1
+interact I1 Q62 main
+tick 3
+dump mob:Q62 inventory:I1 entities events
+note 63 allay amethyst_shard
+tp I1 -29.5 -60 59.0 0 0
+give I1 hotbar0 minecraft:amethyst_shard 1
+select I1 0
+level_seed 1063
+tick 1
+interact I1 Q63 main
+tick 3
+dump mob:Q63 inventory:I1 entities events
+note 64 camel_husk saddle
+tp I1 -19.5 -60 59.0 0 0
+give I1 hotbar0 minecraft:saddle 1
+select I1 0
+level_seed 1064
+tick 1
+interact I1 Q64 main
+tick 3
+dump mob:Q64 inventory:I1 entities events
+note 65 nautilus saddle
+tp I1 -9.5 -60 59.0 0 0
+give I1 hotbar0 minecraft:saddle 1
+select I1 0
+level_seed 1065
+tick 1
+interact I1 Q65 main
+tick 3
+dump mob:Q65 inventory:I1 entities events
+note 66 zombie_nautilus saddle
+tp I1 0.5 -60 59.0 0 0
+give I1 hotbar0 minecraft:saddle 1
+select I1 0
+level_seed 1066
+tick 1
+interact I1 Q66 main
+tick 3
+dump mob:Q66 inventory:I1 entities events
+note 67 skeleton_horse saddle
+tp I1 10.5 -60 59.0 0 0
+give I1 hotbar0 minecraft:saddle 1
+select I1 0
+level_seed 1067
+tick 1
+interact I1 Q67 main
+tick 3
+dump mob:Q67 inventory:I1 entities events
+note 68 zombie_horse saddle
+tp I1 20.5 -60 59.0 0 0
+give I1 hotbar0 minecraft:saddle 1
+select I1 0
+level_seed 1068
+tick 1
+interact I1 Q68 main
+tick 3
+dump mob:Q68 inventory:I1 entities events
+note 69 mule chest
+tp I1 30.5 -60 59.0 0 0
+give I1 hotbar0 minecraft:chest 1
+select I1 0
+level_seed 1069
+tick 1
+interact I1 Q69 main
+tick 3
+dump mob:Q69 inventory:I1 entities events
+note 70 trader_llama white_carpet
+tp I1 40.5 -60 59.0 0 0
+give I1 hotbar0 minecraft:white_carpet 1
+select I1 0
+level_seed 1070
+tick 1
+interact I1 Q70 main
+tick 3
+dump mob:Q70 inventory:I1 entities events
+note 71 creeper flint_and_steel
+tp I1 50.5 -60 59.0 0 0
+give I1 hotbar0 minecraft:flint_and_steel 1
+select I1 0
+level_seed 1071
+tick 1
+interact I1 Q71 main
+tick 3
+dump mob:Q71 inventory:I1 entities events
+note 72 zombie golden_apple
+tp I1 -59.5 -60 69.0 0 0
+give I1 hotbar0 minecraft:golden_apple 1
+select I1 0
+level_seed 1072
+tick 1
+interact I1 Q72 main
+tick 3
+dump mob:Q72 inventory:I1 entities events
+note 73 zombie_villager golden_apple
+tp I1 -49.5 -60 69.0 0 0
+give I1 hotbar0 minecraft:golden_apple 1
+select I1 0
+effect I1 minecraft:weakness 0 200
+level_seed 1073
+tick 1
+interact I1 Q73 main
+tick 3
+dump mob:Q73 inventory:I1 entities events
+note 74 zombie_villager bread
+tp I1 -39.5 -60 69.0 0 0
+give I1 hotbar0 minecraft:bread 1
+select I1 0
+level_seed 1074
+tick 1
+interact I1 Q74 main
+tick 3
+dump mob:Q74 inventory:I1 entities events
+tick 5
+dump mobs entities

@@ -79,3 +79,36 @@ impl WanderingTraderData {
         )
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::world::level::saveddata::SavedDataManager;
+    use mc_world::level_storage::SavedDataStorage;
+
+    /// The spawner's shared copy goes into the server store when dirty (`sync_shared_data_to_saved_data`), is written by the
+    /// save and is read back into the shared copy at the next load (`load_scoreboard`).
+    #[test]
+    fn timers_survive_a_save_and_load() {
+        let dir = tempfile::tempdir().unwrap();
+        let ty = WanderingTraderData::type_();
+        let mut store = SavedDataManager::new(SavedDataStorage::new(dir.path().join("data")));
+        let mut shared = store.compute_if_absent(&ty).clone();
+        assert_eq!((shared.spawn_delay(), shared.spawn_chance()), (24000, 25));
+        shared.set_spawn_delay(1234);
+        shared.set_spawn_chance(40);
+        assert!(shared.is_dirty());
+        *store.compute_if_absent(&ty) = shared.clone();
+        store.save_and_join();
+        assert!(
+            dir.path()
+                .join("data/minecraft/wandering_trader.dat")
+                .is_file()
+        );
+
+        let mut reloaded = SavedDataManager::new(SavedDataStorage::new(dir.path().join("data")));
+        let loaded = reloaded.compute_if_absent(&ty).clone();
+        assert_eq!((loaded.spawn_delay(), loaded.spawn_chance()), (1234, 40));
+        assert!(!loaded.is_dirty());
+    }
+}
