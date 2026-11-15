@@ -1,0 +1,15 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "minecraft:apple",
+          "count": {
+            "max": 1
+          }
+        }
+      }
+    }
+  }
+}

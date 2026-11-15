@@ -1,0 +1,73 @@
+# The thrown_item_picked_up_by_entity and thrown_item_picked_up_by_player triggers. A player drops an item looking down (it lies at the feet,
+# the pickup delay is 40 ticks) and then a mob with the right to pick up loot takes it: a zombie (the generic Mob.pickUpItem), a piglin and a
+# baby piglin (gold, the vanilla distract_piglin advancement refuses a thrower in piglin-safe armor and a baby), a sulfur cube (TNT, the vanilla
+# uh_oh advancement), a villager (inventory carrier), a fox, a panda, a pillager (a crossbow, and a banner that raiders pick up); another
+# player taking the item (the thrower is awarded for the entity that took it, the taker for the thrower) and the thrower taking its own item.
+# Data pack advancements observe the entity, item and baby conditions.
+datapack adv_items
+command_env
+level flat
+preload 6
+difficulty normal
+time 6000
+entity_counter 29300
+level_seed 29301
+spawn_player TZombie survival 0.5 -60 0.5 0 90
+spawn_player TPiglin survival 6.5 -60 0.5 0 90
+spawn_player TGoldPiglin survival 12.5 -60 0.5 0 90
+spawn_player TBabyPiglin survival 18.5 -60 0.5 0 90
+spawn_player TSulfur survival 24.5 -60 0.5 0 90
+spawn_player TVillager survival 30.5 -60 0.5 0 90
+spawn_player TFox survival 36.5 -60 0.5 0 90
+spawn_player TPanda survival 42.5 -60 0.5 0 90
+spawn_player TPillager survival 48.5 -60 0.5 0 90
+spawn_player TRaider survival 54.5 -60 0.5 0 90
+spawn_player ToB survival 60.5 -60 0.5 0 90
+spawn_player Taker survival 60.5 -60 4.5 0 0
+spawn_player Self survival 66.5 -60 0.5 0 90
+give TGoldPiglin head minecraft:golden_helmet
+give TZombie hotbar0 minecraft:iron_helmet 2
+give TPiglin hotbar0 minecraft:gold_ingot 2
+give TGoldPiglin hotbar0 minecraft:gold_ingot 2
+give TBabyPiglin hotbar0 minecraft:gold_ingot 2
+give TSulfur hotbar0 minecraft:tnt 2
+give TVillager hotbar0 minecraft:bread 2
+give TFox hotbar0 minecraft:stick 2
+give TPanda hotbar0 minecraft:bamboo 2
+give TPillager hotbar0 minecraft:crossbow 2
+give TRaider hotbar0 minecraft:white_banner 2
+give ToB hotbar0 minecraft:gold_ingot 1
+give Self hotbar0 minecraft:gold_ingot 1
+tick 3
+dump advancements:TZombie advancements:TPiglin advancements:TGoldPiglin advancements:TBabyPiglin advancements:TSulfur advancements:TVillager advancements:TFox advancements:TPanda advancements:TPillager advancements:TRaider advancements:ToB advancements:Taker advancements:Self
+note every thrower drops one item at its feet
+drop TZombie
+drop TPiglin
+drop TGoldPiglin
+drop TBabyPiglin
+drop TSulfur
+drop TVillager
+drop TFox
+drop TPanda
+drop TPillager
+drop TRaider
+drop ToB
+drop Self
+tick 1
+dump entities
+note the mobs come into reach of the items
+mobspawn MZombie minecraft:zombie 1.0 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,CanPickUpLoot:1b}
+mobspawn MPiglin minecraft:piglin 7.0 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,CanPickUpLoot:1b,IsImmuneToZombification:1b,IsBaby:0b}
+mobspawn MGoldPiglin minecraft:piglin 13.0 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,CanPickUpLoot:1b,IsImmuneToZombification:1b,IsBaby:0b}
+mobspawn MBabyPiglin minecraft:piglin 19.0 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,CanPickUpLoot:1b,IsImmuneToZombification:1b,IsBaby:1b}
+mobspawn MSulfur minecraft:sulfur_cube 25.0 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Size:1}
+mobspawn MVillager minecraft:villager 31.0 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn MFox minecraft:fox 37.0 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn MPanda minecraft:panda 43.0 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn MPillager minecraft:pillager 49.0 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,CanPickUpLoot:1b}
+mobspawn MRaider minecraft:pillager 55.0 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,CanPickUpLoot:1b}
+tp ToB 60.5 -60 -3.5
+tp Taker 60.5 -60 0.5 0 0
+tick 45
+dump entities events inventory:TZombie inventory:TPiglin inventory:TGoldPiglin inventory:TBabyPiglin inventory:TSulfur inventory:TVillager inventory:TFox inventory:TPanda inventory:TPillager inventory:TRaider inventory:Taker inventory:Self
+dump advancements:TZombie advancements:TPiglin advancements:TGoldPiglin advancements:TBabyPiglin advancements:TSulfur advancements:TVillager advancements:TFox advancements:TPanda advancements:TPillager advancements:TRaider advancements:ToB advancements:Taker advancements:Self mob:MZombie mob:MPiglin mob:MGoldPiglin mob:MBabyPiglin mob:MSulfur mob:MVillager mob:MFox mob:MPanda mob:MPillager mob:MRaider

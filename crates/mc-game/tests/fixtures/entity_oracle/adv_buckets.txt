@@ -1,0 +1,202 @@
+ADV Water minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Flowing minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Lava minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Snow minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Stone minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Slab minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV CreWater minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV PCod minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV PSalmon minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV PPuffer minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV PTropical minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV PAxolotl minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV PTadpole minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV PCreCod minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV PLava minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV PMilk minecraft:recipes/decorations/crafting_table unlock_right_away
+# a bucket takes the fluid under the player; the creative bucket stays an empty one while a water bucket joins it
+ADV Water items:bucket/any c
+ADV Water items:bucket/water c
+ADV Water items:inventory/any c
+ADV Water minecraft:recipes/brewing/cauldron has_water_bucket
+ADV Water minecraft:recipes/decorations/crafting_table unlock_right_away
+I Water 0 minecraft:water_bucket*1
+STAT Water minecraft.custom:minecraft.play_time 4
+STAT Water minecraft.custom:minecraft.time_since_death 4
+STAT Water minecraft.custom:minecraft.time_since_rest 4
+STAT Water minecraft.custom:minecraft.total_world_time 4
+STAT Water minecraft.used:minecraft.bucket 1
+ADV Flowing items:inventory/any c
+ADV Flowing minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Flowing minecraft:recipes/transportation/acacia_boat in_water
+ADV Flowing minecraft:recipes/transportation/bamboo_raft in_water
+ADV Flowing minecraft:recipes/transportation/birch_boat in_water
+ADV Flowing minecraft:recipes/transportation/cherry_boat in_water
+ADV Flowing minecraft:recipes/transportation/dark_oak_boat in_water
+ADV Flowing minecraft:recipes/transportation/jungle_boat in_water
+ADV Flowing minecraft:recipes/transportation/mangrove_boat in_water
+ADV Flowing minecraft:recipes/transportation/oak_boat in_water
+ADV Flowing minecraft:recipes/transportation/pale_oak_boat in_water
+ADV Flowing minecraft:recipes/transportation/poplar_boat in_water
+ADV Flowing minecraft:recipes/transportation/spruce_boat in_water
+I Flowing 0 minecraft:bucket*1
+STAT Flowing minecraft.custom:minecraft.play_time 4
+STAT Flowing minecraft.custom:minecraft.time_since_death 4
+STAT Flowing minecraft.custom:minecraft.time_since_rest 4
+STAT Flowing minecraft.custom:minecraft.total_world_time 4
+ADV Lava items:bucket/any c
+ADV Lava items:bucket/lava c
+ADV Lava items:inventory/any c
+ADV Lava minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Lava minecraft:story/lava_bucket lava_bucket
+I Lava 0 minecraft:lava_bucket*1
+STAT Lava minecraft.custom:minecraft.play_time 4
+STAT Lava minecraft.custom:minecraft.time_since_death 4
+STAT Lava minecraft.custom:minecraft.time_since_rest 4
+STAT Lava minecraft.custom:minecraft.total_world_time 4
+STAT Lava minecraft.used:minecraft.bucket 1
+ADV Snow items:bucket/any c
+ADV Snow items:bucket/powder_snow c
+ADV Snow items:inventory/any c
+ADV Snow minecraft:recipes/decorations/crafting_table unlock_right_away
+I Snow 0 minecraft:powder_snow_bucket*1
+STAT Snow minecraft.custom:minecraft.play_time 4
+STAT Snow minecraft.custom:minecraft.time_since_death 4
+STAT Snow minecraft.custom:minecraft.time_since_rest 4
+STAT Snow minecraft.custom:minecraft.total_world_time 4
+STAT Snow minecraft.used:minecraft.bucket 1
+ADV Stone items:inventory/any c
+ADV Stone minecraft:recipes/decorations/crafting_table unlock_right_away
+I Stone 0 minecraft:bucket*1
+STAT Stone minecraft.custom:minecraft.play_time 4
+STAT Stone minecraft.custom:minecraft.time_since_death 4
+STAT Stone minecraft.custom:minecraft.time_since_rest 4
+STAT Stone minecraft.custom:minecraft.total_world_time 4
+ADV Slab items:bucket/any c
+ADV Slab items:bucket/water c
+ADV Slab items:inventory/any c
+ADV Slab minecraft:recipes/brewing/cauldron has_water_bucket
+ADV Slab minecraft:recipes/decorations/crafting_table unlock_right_away
+I Slab 0 minecraft:water_bucket*1
+STAT Slab minecraft.custom:minecraft.play_time 4
+STAT Slab minecraft.custom:minecraft.time_since_death 4
+STAT Slab minecraft.custom:minecraft.time_since_rest 4
+STAT Slab minecraft.custom:minecraft.total_world_time 4
+STAT Slab minecraft.used:minecraft.bucket 1
+ADV CreWater items:bucket/any c
+ADV CreWater items:inventory/any c
+ADV CreWater minecraft:recipes/brewing/cauldron has_water_bucket
+ADV CreWater minecraft:recipes/decorations/crafting_table unlock_right_away
+I CreWater 0 minecraft:bucket*1
+I CreWater 1 minecraft:water_bucket*1
+STAT CreWater minecraft.custom:minecraft.play_time 4
+STAT CreWater minecraft.custom:minecraft.time_since_death 4
+STAT CreWater minecraft.custom:minecraft.time_since_rest 4
+STAT CreWater minecraft.custom:minecraft.total_world_time 4
+STAT CreWater minecraft.used:minecraft.bucket 1
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 0 minecraft:water[level=3]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 9 -61 0 minecraft:grass_block[snowy=false]
+B 10 -61 0 minecraft:grass_block[snowy=false]
+B 11 -61 0 minecraft:grass_block[snowy=false]
+B 13 -61 0 minecraft:grass_block[snowy=false]
+B 14 -61 0 minecraft:grass_block[snowy=false]
+B 15 -61 0 minecraft:grass_block[snowy=false]
+B 16 -61 0 minecraft:stone
+B 17 -61 0 minecraft:grass_block[snowy=false]
+B 18 -61 0 minecraft:grass_block[snowy=false]
+B 19 -61 0 minecraft:grass_block[snowy=false]
+B 20 -61 0 minecraft:oak_slab[type=bottom,waterlogged=false]
+B 21 -61 0 minecraft:grass_block[snowy=false]
+B 22 -61 0 minecraft:grass_block[snowy=false]
+B 23 -61 0 minecraft:grass_block[snowy=false]
+# mobs: a pool and a mob in front of each player; the water bucket takes the mob (a lava bucket and the empty bucket do not)
+ADV PCod items:bucket/any c
+ADV PCod items:bucket/cod c
+ADV PCod items:inventory/any c
+ADV PCod minecraft:husbandry/tactical_fishing cod_bucket
+ADV PCod minecraft:recipes/decorations/crafting_table unlock_right_away
+I PCod 0 minecraft:cod_bucket*1{minecraft:bucket_entity_data:{Health:3.0f,NoAI:1b,PersistenceRequired:1b}}
+ADV PSalmon items:bucket/any c
+ADV PSalmon items:bucket/salmon c
+ADV PSalmon items:inventory/any c
+ADV PSalmon minecraft:husbandry/tactical_fishing salmon_bucket
+ADV PSalmon minecraft:recipes/decorations/crafting_table unlock_right_away
+I PSalmon 0 minecraft:salmon_bucket*1{minecraft:bucket_entity_data:{Health:3.0f,NoAI:1b,PersistenceRequired:1b},minecraft:salmon/size:"medium"}
+ADV PPuffer items:bucket/any c
+ADV PPuffer items:bucket/pufferfish c
+ADV PPuffer items:inventory/any c
+ADV PPuffer minecraft:husbandry/tactical_fishing pufferfish_bucket
+ADV PPuffer minecraft:recipes/decorations/crafting_table unlock_right_away
+I PPuffer 0 minecraft:pufferfish_bucket*1{minecraft:bucket_entity_data:{Health:3.0f,NoAI:1b,PersistenceRequired:1b}}
+ADV PTropical items:bucket/any c
+ADV PTropical items:bucket/tropical_fish c
+ADV PTropical items:inventory/any c
+ADV PTropical minecraft:husbandry/tactical_fishing tropical_fish_bucket
+ADV PTropical minecraft:recipes/decorations/crafting_table unlock_right_away
+I PTropical 0 minecraft:tropical_fish_bucket*1{minecraft:bucket_entity_data:{Health:3.0f,NoAI:1b,PersistenceRequired:1b},minecraft:tropical_fish/base_color:"white",minecraft:tropical_fish/pattern:"kob",minecraft:tropical_fish/pattern_color:"white"}
+ADV PAxolotl items:bucket/any c
+ADV PAxolotl items:bucket/axolotl c
+ADV PAxolotl items:inventory/any c
+ADV PAxolotl minecraft:husbandry/axolotl_in_a_bucket axolotl_bucket
+ADV PAxolotl minecraft:recipes/decorations/crafting_table unlock_right_away
+I PAxolotl 0 minecraft:axolotl_bucket*1{minecraft:axolotl/variant:"lucy",minecraft:bucket_entity_data:{Age:0,AgeLocked:0b,Health:14.0f,NoAI:1b,PersistenceRequired:1b}}
+ADV PTadpole items:bucket/any c
+ADV PTadpole items:bucket/tadpole c
+ADV PTadpole items:inventory/any c
+ADV PTadpole minecraft:husbandry/tadpole_in_a_bucket tadpole_bucket
+ADV PTadpole minecraft:recipes/decorations/crafting_table unlock_right_away
+I PTadpole 0 minecraft:tadpole_bucket*1{minecraft:bucket_entity_data:{Age:2,AgeLocked:0b,Health:6.0f,NoAI:1b,PersistenceRequired:1b}}
+ADV PCreCod items:bucket/any c
+ADV PCreCod items:inventory/any c
+ADV PCreCod items:inventory/two_full_slots c
+ADV PCreCod minecraft:recipes/brewing/cauldron has_water_bucket
+ADV PCreCod minecraft:recipes/decorations/crafting_table unlock_right_away
+I PCreCod 0 minecraft:water_bucket*1
+I PCreCod 1 minecraft:cod_bucket*1{minecraft:bucket_entity_data:{Health:3.0f,NoAI:1b,PersistenceRequired:1b}}
+ADV PLava items:inventory/any c
+ADV PLava minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV PLava minecraft:story/lava_bucket lava_bucket
+I PLava 0 minecraft:lava_bucket*1
+ADV PMilk items:inventory/any c
+ADV PMilk minecraft:recipes/decorations/crafting_table unlock_right_away
+I PMilk 0 minecraft:milk_bucket*1
+E MLava minecraft:cod pos=28.5,-60.0,13.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E MMilk minecraft:cow pos=32.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+# the bucket that finds no fish: the empty bucket on the fish
+ADV PLava items:inventory/any c
+ADV PLava minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV PLava minecraft:story/lava_bucket lava_bucket
+I PLava 0 minecraft:bucket*1
+E MLava minecraft:cod pos=28.5,-60.0,13.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E MMilk minecraft:cow pos=32.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+# a stack of two buckets: the filled bucket goes into the inventory before the trigger fires, which sees the emptied stack (no item condition matches)
+ADV Two items:bucket/any c
+ADV Two items:inventory/any c
+ADV Two minecraft:recipes/brewing/cauldron has_water_bucket
+ADV Two minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Two minecraft:recipes/transportation/acacia_boat in_water
+ADV Two minecraft:recipes/transportation/bamboo_raft in_water
+ADV Two minecraft:recipes/transportation/birch_boat in_water
+ADV Two minecraft:recipes/transportation/cherry_boat in_water
+ADV Two minecraft:recipes/transportation/dark_oak_boat in_water
+ADV Two minecraft:recipes/transportation/jungle_boat in_water
+ADV Two minecraft:recipes/transportation/mangrove_boat in_water
+ADV Two minecraft:recipes/transportation/oak_boat in_water
+ADV Two minecraft:recipes/transportation/pale_oak_boat in_water
+ADV Two minecraft:recipes/transportation/poplar_boat in_water
+ADV Two minecraft:recipes/transportation/spruce_boat in_water
+I Two 0 minecraft:bucket*1
+I Two 1 minecraft:water_bucket*1
+ADV PTwo items:bucket/any c
+ADV PTwo items:inventory/any c
+ADV PTwo items:inventory/two_full_slots c
+ADV PTwo minecraft:recipes/brewing/cauldron has_water_bucket
+ADV PTwo minecraft:recipes/decorations/crafting_table unlock_right_away
+I PTwo 0 minecraft:water_bucket*1
+I PTwo 1 minecraft:cod_bucket*1{minecraft:bucket_entity_data:{Health:3.0f,NoAI:1b,PersistenceRequired:1b}}

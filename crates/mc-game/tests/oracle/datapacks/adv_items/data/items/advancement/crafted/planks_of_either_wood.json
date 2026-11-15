@@ -1,0 +1,13 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipes": [
+          "minecraft:oak_planks",
+          "minecraft:birch_planks"
+        ]
+      }
+    }
+  }
+}

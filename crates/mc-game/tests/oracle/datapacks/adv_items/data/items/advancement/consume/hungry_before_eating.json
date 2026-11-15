@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:type_specific/player": {
+              "food": {
+                "level": {
+                  "max": 6
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

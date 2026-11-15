@@ -1,0 +1,179 @@
+ADV P items:inventory/any c
+ADV P minecraft:recipes/building_blocks/oak_planks has_logs
+ADV P minecraft:recipes/building_blocks/oak_wood has_log
+ADV P minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV P minecraft:recipes/misc/charcoal has_log
+ADV T items:inventory/any c
+ADV T minecraft:recipes/building_blocks/oak_slab has_planks
+ADV T minecraft:recipes/building_blocks/oak_stairs has_planks
+ADV T minecraft:recipes/decorations/barrel has_planks
+ADV T minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV T minecraft:recipes/decorations/oak_fence has_planks
+ADV T minecraft:recipes/decorations/oak_sign has_planks
+ADV T minecraft:recipes/misc/stick has_planks
+ADV T minecraft:recipes/redstone/oak_button has_planks
+ADV T minecraft:recipes/redstone/oak_door has_planks
+ADV T minecraft:recipes/redstone/oak_fence_gate has_planks
+ADV T minecraft:recipes/redstone/oak_pressure_plate has_planks
+ADV T minecraft:recipes/redstone/oak_trapdoor has_planks
+ADV Q items:inventory/any c
+ADV Q minecraft:adventure/salvage_sherd has_sherd
+ADV Q minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Q minecraft:recipes/decorations/decorated_pot_simple has_brick
+ADV R items:inventory/any c
+ADV R minecraft:recipes/building_blocks/bricks has_brick
+ADV R minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV R minecraft:recipes/decorations/decorated_pot_simple has_brick
+ADV R minecraft:recipes/decorations/flower_pot has_brick
+ADV S items:inventory/any c
+ADV S minecraft:recipes/building_blocks/amethyst_block has_amethyst_shard
+ADV S minecraft:recipes/building_blocks/tinted_glass has_amethyst_shard
+ADV S minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV S minecraft:recipes/misc/iron_nugget_from_blasting has_iron_helmet
+ADV S minecraft:recipes/misc/iron_nugget_from_smelting has_iron_helmet
+ADV S minecraft:recipes/misc/sentry_armor_trim_smithing_template has_sentry_armor_trim_smithing_template
+ADV S minecraft:recipes/misc/sentry_armor_trim_smithing_template_smithing_trim has_smithing_trim_template
+ADV S minecraft:recipes/redstone/calibrated_sculk_sensor has_amethyst_shard
+ADV S minecraft:recipes/tools/spyglass has_amethyst_shard
+ADV S minecraft:story/obtain_armor iron_helmet
+# P: two logs in the inventory grid shift-crafted twice, the recipe sees one log each time
+ADV P items:crafted/planks_from_log c
+ADV P items:crafted/planks_of_either_wood c
+ADV P items:inventory/any c
+ADV P minecraft:recipes/building_blocks/oak_planks has_logs
+ADV P minecraft:recipes/building_blocks/oak_slab has_planks
+ADV P minecraft:recipes/building_blocks/oak_stairs has_planks
+ADV P minecraft:recipes/building_blocks/oak_wood has_log
+ADV P minecraft:recipes/decorations/barrel has_planks
+ADV P minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV P minecraft:recipes/decorations/oak_fence has_planks
+ADV P minecraft:recipes/decorations/oak_sign has_planks
+ADV P minecraft:recipes/misc/charcoal has_log
+ADV P minecraft:recipes/misc/stick has_planks
+ADV P minecraft:recipes/redstone/oak_button has_planks
+ADV P minecraft:recipes/redstone/oak_door has_planks
+ADV P minecraft:recipes/redstone/oak_fence_gate has_planks
+ADV P minecraft:recipes/redstone/oak_pressure_plate has_planks
+ADV P minecraft:recipes/redstone/oak_trapdoor has_planks
+STAT P minecraft.crafted:minecraft.oak_planks 8
+STAT P minecraft.custom:minecraft.play_time 4
+STAT P minecraft.custom:minecraft.time_since_death 4
+STAT P minecraft.custom:minecraft.time_since_rest 4
+STAT P minecraft.custom:minecraft.total_world_time 4
+I P 8 minecraft:oak_planks*8
+# T: four planks make a crafting table, two planks in a column make sticks (two plank stacks, not three)
+ADV T items:crafted/table c
+ADV T items:inventory/any c
+ADV T minecraft:recipes/building_blocks/oak_slab has_planks
+ADV T minecraft:recipes/building_blocks/oak_stairs has_planks
+ADV T minecraft:recipes/decorations/barrel has_planks
+ADV T minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV T minecraft:recipes/decorations/oak_fence has_planks
+ADV T minecraft:recipes/decorations/oak_sign has_planks
+ADV T minecraft:recipes/misc/stick has_planks
+ADV T minecraft:recipes/redstone/oak_button has_planks
+ADV T minecraft:recipes/redstone/oak_door has_planks
+ADV T minecraft:recipes/redstone/oak_fence_gate has_planks
+ADV T minecraft:recipes/redstone/oak_pressure_plate has_planks
+ADV T minecraft:recipes/redstone/oak_trapdoor has_planks
+ADV T minecraft:story/root crafting_table
+MENU T cid=1 type=minecraft:crafting state=19 carried=empty
+MS 38 minecraft:oak_planks*2
+MS 45 minecraft:crafting_table*1
+ADV T items:crafted/sticks_from_plank_tag c
+ADV T items:crafted/sticks_two_plank_predicates c
+ADV T items:crafted/table c
+ADV T items:inventory/any c
+ADV T minecraft:recipes/building_blocks/oak_slab has_planks
+ADV T minecraft:recipes/building_blocks/oak_stairs has_planks
+ADV T minecraft:recipes/combat/wooden_spear has_stick
+ADV T minecraft:recipes/combat/wooden_sword has_stick
+ADV T minecraft:recipes/decorations/barrel has_planks
+ADV T minecraft:recipes/decorations/campfire has_stick
+ADV T minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV T minecraft:recipes/decorations/ladder has_stick
+ADV T minecraft:recipes/decorations/oak_fence has_planks
+ADV T minecraft:recipes/decorations/oak_sign has_planks
+ADV T minecraft:recipes/misc/stick has_planks
+ADV T minecraft:recipes/redstone/oak_button has_planks
+ADV T minecraft:recipes/redstone/oak_door has_planks
+ADV T minecraft:recipes/redstone/oak_fence_gate has_planks
+ADV T minecraft:recipes/redstone/oak_pressure_plate has_planks
+ADV T minecraft:recipes/redstone/oak_trapdoor has_planks
+ADV T minecraft:recipes/tools/wooden_axe has_stick
+ADV T minecraft:recipes/tools/wooden_hoe has_stick
+ADV T minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV T minecraft:recipes/tools/wooden_shovel has_stick
+ADV T minecraft:story/root crafting_table
+STAT T minecraft.crafted:minecraft.crafting_table 1
+STAT T minecraft.crafted:minecraft.stick 4
+STAT T minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT T minecraft.custom:minecraft.play_time 5
+STAT T minecraft.custom:minecraft.time_since_death 5
+STAT T minecraft.custom:minecraft.time_since_rest 5
+STAT T minecraft.custom:minecraft.total_world_time 5
+I T 7 minecraft:stick*4
+I T 8 minecraft:crafting_table*1
+# Q: a decorated pot from four sherds, R: from four bricks
+MENU Q cid=1 type=minecraft:crafting state=10 carried=empty
+MS 0 minecraft:decorated_pot*1{minecraft:pot_decorations:{back:{id:"minecraft:angler_pottery_sherd"},front:{id:"minecraft:angler_pottery_sherd"},left:{id:"minecraft:angler_pottery_sherd"},right:{id:"minecraft:angler_pottery_sherd"}}}
+MS 2 minecraft:angler_pottery_sherd*1
+MS 4 minecraft:angler_pottery_sherd*1
+MS 6 minecraft:angler_pottery_sherd*1
+MS 8 minecraft:angler_pottery_sherd*1
+MENU R cid=1 type=minecraft:crafting state=10 carried=empty
+MS 0 minecraft:decorated_pot*1
+MS 2 minecraft:brick*1
+MS 4 minecraft:brick*1
+MS 6 minecraft:brick*1
+MS 8 minecraft:brick*1
+ADV Q items:inventory/any c
+ADV Q minecraft:adventure/craft_decorated_pot_using_only_sherds pot_crafted_using_only_sherds
+ADV Q minecraft:adventure/salvage_sherd has_sherd
+ADV Q minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Q minecraft:recipes/decorations/decorated_pot_simple has_brick
+ADV R items:inventory/any c
+ADV R minecraft:recipes/building_blocks/bricks has_brick
+ADV R minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV R minecraft:recipes/decorations/decorated_pot_simple has_brick
+ADV R minecraft:recipes/decorations/flower_pot has_brick
+STAT Q minecraft.crafted:minecraft.decorated_pot 1
+STAT Q minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT Q minecraft.custom:minecraft.play_time 6
+STAT Q minecraft.custom:minecraft.time_since_death 6
+STAT Q minecraft.custom:minecraft.time_since_rest 6
+STAT Q minecraft.custom:minecraft.total_world_time 6
+STAT R minecraft.crafted:minecraft.decorated_pot 1
+STAT R minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT R minecraft.custom:minecraft.play_time 6
+STAT R minecraft.custom:minecraft.time_since_death 6
+STAT R minecraft.custom:minecraft.time_since_rest 6
+STAT R minecraft.custom:minecraft.total_world_time 6
+I Q 8 minecraft:decorated_pot*1{minecraft:pot_decorations:{back:{id:"minecraft:angler_pottery_sherd"},front:{id:"minecraft:angler_pottery_sherd"},left:{id:"minecraft:angler_pottery_sherd"},right:{id:"minecraft:angler_pottery_sherd"}}}
+I R 8 minecraft:decorated_pot*1
+# S: a trim at the smithing table
+MENU S cid=1 type=minecraft:smithing state=8 carried=empty
+MS 0 minecraft:sentry_armor_trim_smithing_template*1
+MS 1 minecraft:iron_helmet*1
+MS 2 minecraft:amethyst_shard*1
+MS 3 minecraft:iron_helmet*1{minecraft:trim:{material:"minecraft:amethyst",pattern:"minecraft:sentry"}}
+MD 0 0
+ADV S items:inventory/any c
+ADV S minecraft:adventure/trim_with_any_armor_pattern armor_trimmed_minecraft:sentry_armor_trim_smithing_template_smithing_trim
+ADV S minecraft:recipes/building_blocks/amethyst_block has_amethyst_shard
+ADV S minecraft:recipes/building_blocks/tinted_glass has_amethyst_shard
+ADV S minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV S minecraft:recipes/misc/iron_nugget_from_blasting has_iron_helmet
+ADV S minecraft:recipes/misc/iron_nugget_from_smelting has_iron_helmet
+ADV S minecraft:recipes/misc/sentry_armor_trim_smithing_template has_sentry_armor_trim_smithing_template
+ADV S minecraft:recipes/misc/sentry_armor_trim_smithing_template_smithing_trim has_smithing_trim_template
+ADV S minecraft:recipes/redstone/calibrated_sculk_sensor has_amethyst_shard
+ADV S minecraft:recipes/tools/spyglass has_amethyst_shard
+ADV S minecraft:story/obtain_armor iron_helmet
+STAT S minecraft.crafted:minecraft.air 0
+STAT S minecraft.custom:minecraft.interact_with_smithing_table 1
+STAT S minecraft.custom:minecraft.play_time 7
+STAT S minecraft.custom:minecraft.time_since_death 7
+STAT S minecraft.custom:minecraft.time_since_rest 7
+STAT S minecraft.custom:minecraft.total_world_time 7
+I S 8 minecraft:iron_helmet*1{minecraft:trim:{material:"minecraft:amethyst",pattern:"minecraft:sentry"}}

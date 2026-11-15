@@ -1,0 +1,17 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipes": [
+          "minecraft:oak_planks"
+        ],
+        "ingredients": [
+          {
+            "items": "minecraft:diamond"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipes": [
+          "minecraft:stick"
+        ],
+        "ingredients": [
+          {
+            "items": "#minecraft:planks"
+          },
+          {
+            "items": "#minecraft:planks"
+          }
+        ]
+      }
+    }
+  }
+}

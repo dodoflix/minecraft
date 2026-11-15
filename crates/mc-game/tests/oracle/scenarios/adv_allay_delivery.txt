@@ -1,0 +1,32 @@
+# An allay holding an iron ingot from player A fetches the ingot on the ground, flies back to A and throws it; the throw is an item whose
+# thrower is the allay, so A picking it up awards thrown_item_picked_up_by_player with the allay as the entity (vanilla
+# allay_deliver_item_to_player and a data pack advancement for the iron ingot).
+datapack adv_items
+command_env
+level flat
+preload 2
+difficulty normal
+time 6000
+entity_counter 29700
+level_seed 29701
+spawn_player A survival 0.5 -60 0.5 0 0
+mobspawn al minecraft:allay 4.5 -59 0.5 0 0 {PersistenceRequired:1b}
+level_seed 29702
+entity_seed al 29703
+tick 5
+give A mainhand minecraft:iron_ingot 3
+interact A al main
+tick 1
+spawn_item i1 minecraft:iron_ingot 6.5 -60 0.5 0 0 0 2
+tick 20
+dump mob:al entities advancements:A
+tick 20
+dump mob:al entities advancements:A
+tick 20
+dump mob:al entities advancements:A
+tick 40
+dump mob:al entities advancements:A inventory:A
+tick 60
+dump mob:al entities advancements:A inventory:A events
+tick 60
+dump mob:al entities advancements:A inventory:A

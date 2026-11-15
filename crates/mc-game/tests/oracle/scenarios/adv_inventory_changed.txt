@@ -1,0 +1,137 @@
+# The inventory_changed trigger: fired for every changed slot of the player's own inventory after the slot counts (full, empty and
+# occupied slots of the 41 slots, armor and offhand included) are taken; one item predicate tests only the changed stack, a list of
+# predicates tests the whole inventory (one stack satisfies every predicate it matches). Gives, a pickup that merges into a stack, a
+# command give and clear, armor slots and the vanilla advancements built on it (froglights needs three items, netherite_armor four).
+# A data pack of conditions observes the rest.
+datapack adv_items
+command_env
+level flat
+preload 2
+difficulty normal
+entity_counter 29400
+level_seed 29401
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+spawn_player C survival 12.5 -60 0.5 0 0
+spawn_player D survival 18.5 -60 0.5 0 0
+spawn_player V survival 24.5 -60 0.5 0 0
+spawn_player W survival 30.5 -60 0.5 0 0
+spawn_player X survival 36.5 -60 0.5 0 0
+tick 3
+dump advancements:A advancements:B advancements:C advancements:D advancements:V advancements:W advancements:X
+note A: coal alone satisfies both coal predicates (one stack matches every predicate it matches), iron joins coal
+give A hotbar0 minecraft:coal 1
+tick 1
+dump advancements:A
+give A hotbar1 minecraft:iron_ingot 1
+tick 1
+dump advancements:A
+note B: the changed stack alone decides a one-predicate list: 32 stones, then a pickup merges to 33
+give B hotbar0 minecraft:cobblestone 32
+tick 1
+dump advancements:B
+spawn_item i1 minecraft:cobblestone 6.5 -60 0.5 0 0 0 1 rot=0
+tick 42
+dump advancements:B inventory:B entities
+note C fills the 36 slots one by one: two full stacks, then occupied and empty counts
+give C hotbar0 minecraft:dirt 64
+tick 1
+dump advancements:C
+give C hotbar1 minecraft:dirt 64
+tick 1
+dump advancements:C
+give C hotbar2 minecraft:dirt 64
+tick 1
+give C hotbar3 minecraft:dirt 64
+tick 1
+give C hotbar4 minecraft:dirt 64
+tick 1
+dump advancements:C
+give C hotbar5 minecraft:dirt 64
+tick 1
+give C hotbar6 minecraft:dirt 64
+tick 1
+give C hotbar7 minecraft:dirt 64
+tick 1
+give C hotbar8 minecraft:dirt 64
+tick 1
+give C inv9 minecraft:dirt 1
+give C inv10 minecraft:dirt 1
+give C inv11 minecraft:dirt 1
+give C inv12 minecraft:dirt 1
+give C inv13 minecraft:dirt 1
+give C inv14 minecraft:dirt 1
+give C inv15 minecraft:dirt 1
+give C inv16 minecraft:dirt 1
+give C inv17 minecraft:dirt 1
+give C inv18 minecraft:dirt 1
+give C inv19 minecraft:dirt 1
+give C inv20 minecraft:dirt 1
+give C inv21 minecraft:dirt 1
+give C inv22 minecraft:dirt 1
+give C inv23 minecraft:dirt 1
+give C inv24 minecraft:dirt 1
+give C inv25 minecraft:dirt 1
+give C inv26 minecraft:dirt 1
+give C inv27 minecraft:dirt 1
+give C inv28 minecraft:dirt 1
+give C inv29 minecraft:dirt 1
+give C inv30 minecraft:dirt 1
+give C inv31 minecraft:dirt 1
+give C inv32 minecraft:dirt 1
+give C inv33 minecraft:dirt 1
+give C inv34 minecraft:dirt 1
+give C inv35 minecraft:dirt 1
+tick 1
+dump advancements:C
+give C feet minecraft:iron_boots
+give C legs minecraft:iron_leggings
+give C chest minecraft:iron_chestplate
+tick 1
+dump advancements:C inventory:C
+note D: an enchanted sword by a give, then the same enchantment on a second item by a command
+give D hotbar0 minecraft:iron_sword
+tick 1
+dump advancements:D
+give D hotbar1 minecraft:iron_sword[enchantments={"minecraft:unbreaking":1}]
+tick 1
+dump advancements:D
+cmd give D minecraft:cobblestone 5
+cmd clear D minecraft:cobblestone 2
+tick 1
+dump advancements:D inventory:D
+note V: the froglights advancement needs the three froglights together, one added per tick
+give V hotbar0 minecraft:ochre_froglight 1
+tick 1
+dump advancements:V
+give V hotbar1 minecraft:verdant_froglight 1
+tick 1
+dump advancements:V
+give V hotbar2 minecraft:pearlescent_froglight 1
+tick 1
+dump advancements:V
+note W: single-item advancements of the nether, end and husbandry tabs
+give W hotbar0 minecraft:blaze_rod 1
+give W hotbar1 minecraft:ancient_debris 1
+give W hotbar2 minecraft:crying_obsidian 1
+give W hotbar3 minecraft:dragon_egg 1
+give W hotbar4 minecraft:elytra 1
+give W hotbar5 minecraft:netherite_hoe 1
+give W hotbar6 minecraft:sniffer_egg 1
+give W hotbar7 minecraft:wither_skeleton_skull 1
+give W hotbar8 minecraft:dragon_breath 1
+give W inv9 minecraft:angler_pottery_sherd 1
+tick 1
+dump advancements:W
+note X: netherite armor needs four pieces: three pieces, a fourth in the offhand slot is no armor slot, then the helmet
+give X head minecraft:netherite_helmet
+give X chest minecraft:netherite_chestplate
+give X legs minecraft:netherite_leggings
+tick 1
+dump advancements:X
+give X offhand minecraft:netherite_boots
+tick 1
+dump advancements:X
+give X feet minecraft:netherite_boots
+tick 1
+dump advancements:X

@@ -1,0 +1,53 @@
+ADV Bow items:inventory/any c
+ADV Bow minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Bow minecraft:recipes/redstone/dispenser has_bow
+ADV NoArrows items:inventory/any c
+ADV NoArrows minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV NoArrows minecraft:recipes/redstone/dispenser has_bow
+ADV Shield items:inventory/any c
+ADV Shield minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Glass items:inventory/any c
+ADV Glass minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Sneak items:inventory/any c
+ADV Sneak minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Wrong items:inventory/any c
+ADV Wrong minecraft:recipes/decorations/crafting_table unlock_right_away
+# a drawn bow, a bow without arrows, a raised shield, spyglasses
+ADV Bow items:inventory/any c
+ADV Bow items:using/bow c
+ADV Bow minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Bow minecraft:recipes/redstone/dispenser has_bow
+ADV NoArrows items:inventory/any c
+ADV NoArrows minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV NoArrows minecraft:recipes/redstone/dispenser has_bow
+ADV Shield items:inventory/any c
+ADV Shield items:using/shield c
+ADV Shield minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Glass items:inventory/any c
+ADV Glass minecraft:adventure/spyglass_at_parrot spyglass_at_parrot
+ADV Glass minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Sneak items:inventory/any c
+ADV Sneak items:using/spyglass_sneaking c
+ADV Sneak minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Wrong items:inventory/any c
+ADV Wrong minecraft:recipes/decorations/crafting_table unlock_right_away
+USE Bow hand=main item=minecraft:bow*1 remaining=71996 ticks=4 kinetic=0
+USE NoArrows hand=main item=empty remaining=0 ticks=0 kinetic=0
+USE Shield hand=main item=minecraft:shield*1 remaining=71996 ticks=4 kinetic=0
+USE Glass hand=main item=minecraft:spyglass*1 remaining=1196 ticks=4 kinetic=0
+USE Sneak hand=main item=minecraft:spyglass*1 remaining=1197 ticks=3 kinetic=0
+USE Wrong hand=main item=minecraft:spyglass*1 remaining=1197 ticks=3 kinetic=0
+# the draw is released, the glass is still up
+ADV Bow items:durability/any c
+ADV Bow items:durability/costs_one c
+ADV Bow items:inventory/any c
+ADV Bow items:using/bow c
+ADV Bow minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Bow minecraft:recipes/redstone/dispenser has_bow
+ADV Shield items:inventory/any c
+ADV Shield items:using/shield c
+ADV Shield minecraft:recipes/decorations/crafting_table unlock_right_away
+USE Bow hand=main item=empty remaining=0 ticks=0 kinetic=0
+USE Shield hand=main item=empty remaining=0 ticks=0 kinetic=0
+I Bow 0 minecraft:bow*1/dmg=1{minecraft:damage:1}
+I Bow 1 minecraft:arrow*7

@@ -1,0 +1,80 @@
+# The item_durability_changed trigger: fired from ItemStack.hurtAndBreak for a player before the damage is applied, with the new damage value
+# (the durability condition is what is left after the hit, the delta is old damage minus new damage, so negative). Mining with a tool, a hoe, flint
+# and steel, shears on a sheep, armor hit by damage, the last point of a tool, and the strider stick of the vanilla ride_strider advancement; a
+# creative player wears nothing and fires nothing. Data pack advancements observe the conditions.
+datapack adv_items
+command_env
+level flat
+preload 2
+difficulty normal
+entity_counter 29100
+level_seed 29101
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 10.5 -60 0.5 0 0
+spawn_player C creative 20.5 -60 0.5 0 0
+spawn_player D survival 30.5 -60 0.5 0 0 sim
+tick 3
+dump advancements:A advancements:B advancements:C advancements:D
+note pickaxe on stone: one point, the trigger sees the item before the damage is applied
+block 0 -60 3 minecraft:stone
+give A mainhand minecraft:iron_pickaxe
+tick 1
+dig A 0 -60 3
+dump advancements:A inventory:A
+note the sword costs two on stone: a delta of -2
+block 0 -60 3 minecraft:stone
+give A mainhand minecraft:iron_sword
+tick 1
+dig A 0 -60 3
+dump advancements:A inventory:A
+note a pickaxe with 2 points left keeps 1 after the hit (almost broken), one with 1 point left breaks (nothing left)
+block 10 -60 3 minecraft:stone
+give B mainhand minecraft:iron_pickaxe[damage=248]
+tick 1
+dig B 10 -60 3
+dump advancements:B inventory:B
+block 10 -60 3 minecraft:stone
+give B mainhand minecraft:iron_pickaxe[damage=249]
+tick 1
+dig B 10 -60 3
+dump advancements:B inventory:B stats:B
+note shears on a sheep, a hoe on dirt, flint and steel on a block
+mobspawn Sheep minecraft:sheep 10.5 -60 -2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:14b}
+tick 1
+level_seed 29102
+give B mainhand minecraft:shears
+interact B Sheep main
+tick 2
+dump advancements:B inventory:B
+block 12 -61 0 minecraft:dirt
+give B mainhand minecraft:iron_hoe
+use_on B 12 -61 0 up main
+tick 1
+block 13 -61 0 minecraft:stone
+give B mainhand minecraft:flint_and_steel
+use_on B 13 -61 0 up main
+tick 1
+dump advancements:B inventory:B blocks:12,-61,0,13,-59,0
+note armor loses durability when its wearer is hurt
+give A chest minecraft:iron_chestplate
+tick 1
+hurt A minecraft:player_attack 6 by=B
+tick 1
+dump advancements:A inventory:A
+note the creative player digs and breaks a block with a pickaxe: no durability changes
+block 20 -60 3 minecraft:stone
+give C mainhand minecraft:iron_pickaxe
+tick 1
+dig C 20 -60 3
+dump advancements:C inventory:C
+note ride_strider: a steered strider boosted by a warped fungus on a stick
+mobspawn VD minecraft:strider 31.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+give D mainhand minecraft:warped_fungus_on_a_stick
+tick 3
+entity_seed VD 4068
+interact D VD
+tick 2
+input D forward
+use D main
+tick 3
+dump advancements:D inventory:D

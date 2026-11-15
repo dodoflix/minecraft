@@ -1,0 +1,85 @@
+# The recipe_crafted trigger from taking a crafting result (ResultSlot, in the inventory grid and at a crafting table) and a smithing
+# result: the recipe id must be one of the listed recipes and every ingredient predicate must match a distinct stack of the grid that was
+# used. Vanilla advancements (decorated pots from sherds only, armor trims) and a data pack of recipe and ingredient conditions observe it.
+datapack adv_items
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 29500
+level_seed 29501
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player T survival 6.5 -60 7.5 0 0
+spawn_player Q survival 12.5 -60 7.5 0 0
+spawn_player R survival 18.5 -60 7.5 0 0
+spawn_player S survival 24.5 -60 7.5 0 0
+block 6 -60 4 minecraft:crafting_table
+block 12 -60 4 minecraft:crafting_table
+block 18 -60 4 minecraft:crafting_table
+block 24 -60 4 minecraft:smithing_table
+give P hotbar0 minecraft:oak_log 2
+give T hotbar0 minecraft:oak_planks 4
+give T hotbar1 minecraft:oak_planks 2
+give Q hotbar0 minecraft:angler_pottery_sherd 4
+give R hotbar0 minecraft:brick 4
+give S hotbar0 minecraft:sentry_armor_trim_smithing_template 1
+give S hotbar1 minecraft:iron_helmet 1
+give S hotbar2 minecraft:amethyst_shard 1
+tick 3
+dump advancements:P advancements:T advancements:Q advancements:R advancements:S
+note P: two logs in the inventory grid shift-crafted twice, the recipe sees one log each time
+click P 36 0 PICKUP
+click P 1 0 PICKUP
+level_seed 29502
+click P 0 0 QUICK_MOVE
+tick 1
+dump advancements:P stats:P inventory:P
+note T: four planks make a crafting table, two planks in a column make sticks (two plank stacks, not three)
+use_on T 6 -60 4 up main
+click T 37 0 PICKUP
+click T 1 1 PICKUP
+click T 2 1 PICKUP
+click T 4 1 PICKUP
+click T 5 1 PICKUP
+level_seed 29503
+click T 0 0 QUICK_MOVE
+dump advancements:T menu:T
+click T 38 0 PICKUP
+click T 1 1 PICKUP
+click T 4 1 PICKUP
+level_seed 29504
+click T 0 0 QUICK_MOVE
+tick 1
+dump advancements:T stats:T inventory:T
+note Q: a decorated pot from four sherds, R: from four bricks
+use_on Q 12 -60 4 up main
+click Q 37 0 PICKUP
+click Q 2 1 PICKUP
+click Q 4 1 PICKUP
+click Q 6 1 PICKUP
+click Q 8 1 PICKUP
+use_on R 18 -60 4 up main
+click R 37 0 PICKUP
+click R 2 1 PICKUP
+click R 4 1 PICKUP
+click R 6 1 PICKUP
+click R 8 1 PICKUP
+dump menu:Q menu:R
+level_seed 29505
+click Q 0 0 QUICK_MOVE
+click R 0 0 QUICK_MOVE
+tick 1
+dump advancements:Q advancements:R stats:Q stats:R inventory:Q inventory:R
+note S: a trim at the smithing table
+use_on S 24 -60 4 up main
+click S 31 0 PICKUP
+click S 0 0 PICKUP
+click S 32 0 PICKUP
+click S 1 0 PICKUP
+click S 33 0 PICKUP
+click S 2 0 PICKUP
+dump menu:S
+level_seed 29506
+click S 3 0 QUICK_MOVE
+tick 1
+dump advancements:S stats:S inventory:S

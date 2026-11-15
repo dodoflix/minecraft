@@ -1,0 +1,113 @@
+# The filled_bucket trigger from both of its call sites: an empty bucket taking a fluid from a block (water, lava, powder snow, a waterlogged
+# slab; flowing water, stone and a creative player's bucket are the edge cases) and a water bucket taking a mob out of the water (cod, salmon,
+# pufferfish, tropical fish, axolotl, tadpole; a cow only gives milk, a lava bucket and an empty bucket take no fish). Vanilla advancements
+# (tactical_fishing, axolotl_in_a_bucket, tadpole_in_a_bucket) and a data pack of per-item criteria observe them; every case has its own
+# player because an advancement keeps its first criterion. The block cases look down at the block under their feet.
+datapack adv_items
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 29200
+level_seed 29201
+spawn_player Water survival 0.5 -60 0.5 0 90
+spawn_player Flowing survival 4.5 -60 0.5 0 90
+spawn_player Lava survival 8.5 -60 0.5 0 90
+spawn_player Snow survival 12.5 -60 0.5 0 90
+spawn_player Stone survival 16.5 -60 0.5 0 90
+spawn_player Slab survival 20.5 -60 0.5 0 90
+spawn_player CreWater creative 24.5 -60 0.5 0 90
+spawn_player PCod survival 0.5 -60 10.5 0 0
+spawn_player PSalmon survival 4.5 -60 10.5 0 0
+spawn_player PPuffer survival 8.5 -60 10.5 0 0
+spawn_player PTropical survival 12.5 -60 10.5 0 0
+spawn_player PAxolotl survival 16.5 -60 10.5 0 0
+spawn_player PTadpole survival 20.5 -60 10.5 0 0
+spawn_player PCreCod creative 24.5 -60 10.5 0 0
+spawn_player PLava survival 28.5 -60 10.5 0 0
+spawn_player PMilk survival 32.5 -60 10.5 0 0
+spawn_player Two survival 28.5 -60 0.5 0 90
+spawn_player PTwo survival 36.5 -60 10.5 0 0
+tick 3
+dump advancements:Water advancements:Flowing advancements:Lava advancements:Snow advancements:Stone advancements:Slab advancements:CreWater advancements:PCod advancements:PSalmon advancements:PPuffer advancements:PTropical advancements:PAxolotl advancements:PTadpole advancements:PCreCod advancements:PLava advancements:PMilk
+note a bucket takes the fluid under the player; the creative bucket stays an empty one while a water bucket joins it
+block 0 -61 0 minecraft:water[level=0]
+give Water mainhand minecraft:bucket
+use Water main 0
+block 4 -61 0 minecraft:water[level=3]
+give Flowing mainhand minecraft:bucket
+use Flowing main 1
+block 8 -61 0 minecraft:lava[level=0]
+give Lava mainhand minecraft:bucket
+use Lava main 2
+block 12 -61 0 minecraft:powder_snow
+give Snow mainhand minecraft:bucket
+use Snow main 3
+block 16 -61 0 minecraft:stone
+give Stone mainhand minecraft:bucket
+use Stone main 4
+block 20 -61 0 minecraft:oak_slab[type=bottom,waterlogged=true]
+give Slab mainhand minecraft:bucket
+use Slab main 5
+block 24 -61 0 minecraft:water[level=0]
+give CreWater mainhand minecraft:bucket
+use CreWater main 6
+tick 1
+dump advancements:Water inventory:Water stats:Water advancements:Flowing inventory:Flowing stats:Flowing advancements:Lava inventory:Lava stats:Lava advancements:Snow inventory:Snow stats:Snow advancements:Stone inventory:Stone stats:Stone advancements:Slab inventory:Slab stats:Slab advancements:CreWater inventory:CreWater stats:CreWater blocks:0,-61,0,24,-61,0
+note mobs: a pool and a mob in front of each player; the water bucket takes the mob (a lava bucket and the empty bucket do not)
+block 0 -60 13 minecraft:water[level=0]
+mobspawn MCod minecraft:cod 0.5 -60 13.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+block 4 -60 13 minecraft:water[level=0]
+mobspawn MSalmon minecraft:salmon 4.5 -60 13.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+block 8 -60 13 minecraft:water[level=0]
+mobspawn MPuffer minecraft:pufferfish 8.5 -60 13.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+block 12 -60 13 minecraft:water[level=0]
+mobspawn MTropical minecraft:tropical_fish 12.5 -60 13.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+block 16 -60 13 minecraft:water[level=0]
+mobspawn MAxolotl minecraft:axolotl 16.5 -60 13.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+block 20 -60 13 minecraft:water[level=0]
+mobspawn MTadpole minecraft:tadpole 20.5 -60 13.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+block 24 -60 13 minecraft:water[level=0]
+mobspawn MCreCod minecraft:cod 24.5 -60 13.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+block 28 -60 13 minecraft:water[level=0]
+mobspawn MLava minecraft:cod 28.5 -60 13.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn MMilk minecraft:cow 32.5 -60 12.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 2
+level_seed 29202
+give PCod mainhand minecraft:water_bucket
+interact PCod MCod main
+give PSalmon mainhand minecraft:water_bucket
+interact PSalmon MSalmon main
+give PPuffer mainhand minecraft:water_bucket
+interact PPuffer MPuffer main
+give PTropical mainhand minecraft:water_bucket
+interact PTropical MTropical main
+give PAxolotl mainhand minecraft:water_bucket
+interact PAxolotl MAxolotl main
+give PTadpole mainhand minecraft:water_bucket
+interact PTadpole MTadpole main
+give PCreCod mainhand minecraft:water_bucket
+interact PCreCod MCreCod main
+give PLava mainhand minecraft:lava_bucket
+interact PLava MLava main
+give PMilk mainhand minecraft:bucket
+interact PMilk MMilk main
+tick 1
+dump advancements:PCod inventory:PCod advancements:PSalmon inventory:PSalmon advancements:PPuffer inventory:PPuffer advancements:PTropical inventory:PTropical advancements:PAxolotl inventory:PAxolotl advancements:PTadpole inventory:PTadpole advancements:PCreCod inventory:PCreCod advancements:PLava inventory:PLava advancements:PMilk inventory:PMilk entities
+note the bucket that finds no fish: the empty bucket on the fish
+give PLava mainhand minecraft:bucket
+interact PLava MLava main
+tick 1
+dump advancements:PLava inventory:PLava entities
+note a stack of two buckets: the filled bucket goes into the inventory before the trigger fires, which sees the emptied stack (no item condition matches)
+block 28 -61 0 minecraft:water[level=0]
+block 36 -60 13 minecraft:water[level=0]
+mobspawn MTwo minecraft:cod 36.5 -60 13.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 2
+level_seed 29203
+give Two mainhand minecraft:bucket 2
+use Two main 20
+give PTwo mainhand minecraft:water_bucket 2
+interact PTwo MTwo main
+tick 1
+dump advancements:Two inventory:Two advancements:PTwo inventory:PTwo

@@ -1,0 +1,82 @@
+# The consume_item and using_item triggers. consume_item fires when a consumable starts its effects, with the stack as it was before one item is
+# used up (count conditions see the full stack), before the food applies (a hunger predicate on the player sees the old food level); a refused meal
+# (full food) fires nothing, a creative player fires it without losing the stack. using_item fires every tick of use. The vanilla husbandry
+# advancements (root, balanced_diet) and a data pack of conditions observe the results.
+datapack adv_items
+command_env
+level flat
+preload 2
+difficulty normal
+entity_counter 29000
+level_seed 29001
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player C creative 6.5 -60 0.5 0 0
+spawn_player F survival 12.5 -60 0.5 0 0
+give P hotbar0 minecraft:apple 3
+give P hotbar1 minecraft:bread 1
+give P hotbar2 minecraft:dried_kelp 1
+give C hotbar0 minecraft:apple 3
+give C hotbar1 minecraft:potion[potion_contents={potion:"minecraft:healing"}] 1
+give C hotbar2 minecraft:milk_bucket 1
+give C hotbar3 minecraft:honey_bottle 1
+give F hotbar0 minecraft:bread 2
+give F hotbar1 minecraft:golden_apple 2
+set P food 4
+set P saturation 0.0
+set F food 20
+tick 3
+dump advancements:P advancements:C advancements:F
+note F is full: plain food is refused, nothing fires, not even the using_item trigger
+select F 0
+use F main 1
+tick 40
+dump advancements:F stats:F inventory:F use:F
+note F eats a golden apple, always edible: consume_item for the item, the hunger predicate (food above 6) fails
+level_seed 29002
+select F 1
+use F main 2
+tick 3
+dump advancements:F use:F
+tick 36
+dump advancements:F stats:F inventory:F
+note P is hungry and eats the stack of three apples one by one: the count conditions see 3, then 2, then 1
+level_seed 29003
+select P 0
+use P main 3
+tick 3
+dump advancements:P use:P
+tick 36
+dump advancements:P stats:P inventory:P
+level_seed 29004
+use P main 4
+tick 40
+dump advancements:P stats:P inventory:P
+level_seed 29005
+use P main 5
+tick 40
+dump advancements:P stats:P inventory:P
+note bread and dried kelp: balanced_diet criteria
+level_seed 29006
+select P 1
+use P main 6
+tick 40
+select P 2
+use P main 7
+tick 40
+dump advancements:P stats:P inventory:P
+note C creative: potion, milk, honey and the apple stack stays whole
+level_seed 29007
+select C 0
+use C main 8
+tick 40
+select C 1
+use C main 9
+tick 40
+dump advancements:C stats:C inventory:C
+select C 2
+use C main 10
+tick 40
+select C 3
+use C main 11
+tick 40
+dump advancements:C stats:C inventory:C

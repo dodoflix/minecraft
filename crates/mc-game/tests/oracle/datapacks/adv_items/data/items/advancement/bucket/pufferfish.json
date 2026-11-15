@@ -1,0 +1,12 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:filled_bucket",
+      "conditions": {
+        "item": {
+          "items": "minecraft:pufferfish_bucket"
+        }
+      }
+    }
+  }
+}

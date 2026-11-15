@@ -1,0 +1,362 @@
+C Set minecraft:overworld to 6000 tick(s)
+ADV TZombie items:inventory/any c
+ADV TZombie minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TZombie minecraft:recipes/misc/iron_nugget_from_blasting has_iron_helmet
+ADV TZombie minecraft:recipes/misc/iron_nugget_from_smelting has_iron_helmet
+ADV TZombie minecraft:story/obtain_armor iron_helmet
+ADV TPiglin items:inventory/any c
+ADV TPiglin minecraft:recipes/building_blocks/gold_block has_gold_ingot
+ADV TPiglin minecraft:recipes/combat/golden_boots has_gold_ingot
+ADV TPiglin minecraft:recipes/combat/golden_chestplate has_gold_ingot
+ADV TPiglin minecraft:recipes/combat/golden_helmet has_gold_ingot
+ADV TPiglin minecraft:recipes/combat/golden_leggings has_gold_ingot
+ADV TPiglin minecraft:recipes/combat/golden_spear has_gold_ingot
+ADV TPiglin minecraft:recipes/combat/golden_sword has_gold_ingot
+ADV TPiglin minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TPiglin minecraft:recipes/food/golden_apple has_gold_ingot
+ADV TPiglin minecraft:recipes/misc/gold_nugget has_gold_ingot
+ADV TPiglin minecraft:recipes/redstone/light_weighted_pressure_plate has_gold_ingot
+ADV TPiglin minecraft:recipes/tools/golden_axe has_gold_ingot
+ADV TPiglin minecraft:recipes/tools/golden_hoe has_gold_ingot
+ADV TPiglin minecraft:recipes/tools/golden_pickaxe has_gold_ingot
+ADV TPiglin minecraft:recipes/tools/golden_shovel has_gold_ingot
+ADV TGoldPiglin items:inventory/any c
+ADV TGoldPiglin minecraft:recipes/building_blocks/gold_block has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/combat/golden_boots has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/combat/golden_chestplate has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/combat/golden_helmet has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/combat/golden_leggings has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/combat/golden_spear has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/combat/golden_sword has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TGoldPiglin minecraft:recipes/food/golden_apple has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/misc/gold_nugget has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/misc/gold_nugget_from_blasting has_golden_helmet
+ADV TGoldPiglin minecraft:recipes/misc/gold_nugget_from_smelting has_golden_helmet
+ADV TGoldPiglin minecraft:recipes/redstone/light_weighted_pressure_plate has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/tools/golden_axe has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/tools/golden_hoe has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/tools/golden_pickaxe has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/tools/golden_shovel has_gold_ingot
+ADV TBabyPiglin items:inventory/any c
+ADV TBabyPiglin minecraft:recipes/building_blocks/gold_block has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/combat/golden_boots has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/combat/golden_chestplate has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/combat/golden_helmet has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/combat/golden_leggings has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/combat/golden_spear has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/combat/golden_sword has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TBabyPiglin minecraft:recipes/food/golden_apple has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/misc/gold_nugget has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/redstone/light_weighted_pressure_plate has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/tools/golden_axe has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/tools/golden_hoe has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/tools/golden_pickaxe has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/tools/golden_shovel has_gold_ingot
+ADV TSulfur items:inventory/any c
+ADV TSulfur minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TVillager items:inventory/any c
+ADV TVillager minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TFox items:inventory/any c
+ADV TFox minecraft:recipes/combat/wooden_spear has_stick
+ADV TFox minecraft:recipes/combat/wooden_sword has_stick
+ADV TFox minecraft:recipes/decorations/campfire has_stick
+ADV TFox minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TFox minecraft:recipes/decorations/ladder has_stick
+ADV TFox minecraft:recipes/tools/wooden_axe has_stick
+ADV TFox minecraft:recipes/tools/wooden_hoe has_stick
+ADV TFox minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV TFox minecraft:recipes/tools/wooden_shovel has_stick
+ADV TPanda items:inventory/any c
+ADV TPanda minecraft:recipes/building_blocks/bamboo_block has_bamboo
+ADV TPanda minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TPanda minecraft:recipes/decorations/scaffolding has_bamboo
+ADV TPanda minecraft:recipes/misc/stick_from_bamboo_item has_bamboo
+ADV TPillager items:inventory/any c
+ADV TPillager minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TRaider items:inventory/any c
+ADV TRaider minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV ToB items:inventory/any c
+ADV ToB minecraft:recipes/building_blocks/gold_block has_gold_ingot
+ADV ToB minecraft:recipes/combat/golden_boots has_gold_ingot
+ADV ToB minecraft:recipes/combat/golden_chestplate has_gold_ingot
+ADV ToB minecraft:recipes/combat/golden_helmet has_gold_ingot
+ADV ToB minecraft:recipes/combat/golden_leggings has_gold_ingot
+ADV ToB minecraft:recipes/combat/golden_spear has_gold_ingot
+ADV ToB minecraft:recipes/combat/golden_sword has_gold_ingot
+ADV ToB minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV ToB minecraft:recipes/food/golden_apple has_gold_ingot
+ADV ToB minecraft:recipes/misc/gold_nugget has_gold_ingot
+ADV ToB minecraft:recipes/redstone/light_weighted_pressure_plate has_gold_ingot
+ADV ToB minecraft:recipes/tools/golden_axe has_gold_ingot
+ADV ToB minecraft:recipes/tools/golden_hoe has_gold_ingot
+ADV ToB minecraft:recipes/tools/golden_pickaxe has_gold_ingot
+ADV ToB minecraft:recipes/tools/golden_shovel has_gold_ingot
+ADV Taker minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Self items:inventory/any c
+ADV Self minecraft:recipes/building_blocks/gold_block has_gold_ingot
+ADV Self minecraft:recipes/combat/golden_boots has_gold_ingot
+ADV Self minecraft:recipes/combat/golden_chestplate has_gold_ingot
+ADV Self minecraft:recipes/combat/golden_helmet has_gold_ingot
+ADV Self minecraft:recipes/combat/golden_leggings has_gold_ingot
+ADV Self minecraft:recipes/combat/golden_spear has_gold_ingot
+ADV Self minecraft:recipes/combat/golden_sword has_gold_ingot
+ADV Self minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Self minecraft:recipes/food/golden_apple has_gold_ingot
+ADV Self minecraft:recipes/misc/gold_nugget has_gold_ingot
+ADV Self minecraft:recipes/redstone/light_weighted_pressure_plate has_gold_ingot
+ADV Self minecraft:recipes/tools/golden_axe has_gold_ingot
+ADV Self minecraft:recipes/tools/golden_hoe has_gold_ingot
+ADV Self minecraft:recipes/tools/golden_pickaxe has_gold_ingot
+ADV Self minecraft:recipes/tools/golden_shovel has_gold_ingot
+# every thrower drops one item at its feet
+E item#1 minecraft:item pos=0.4999610727708206,-58.94060655772686,0.4998536153494599 delta=-3.8148685338307834E-5,-0.2553944245334921,-1.4345696032138275E-4 rot=214.44351,0.0 og=0 fall=0.2606065571308136 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=1 pickup=39 health=5 owner=- thrower=TZombie
+E item#2 minecraft:item pos=6.511946523231699,-58.89007816553116,0.5127158752598808 delta=0.011707592994927036,-0.20587659921795196,0.012461557997219316 rot=65.17888,0.0 og=0 fall=0.210078164935112 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=1 pickup=39 health=5 owner=- thrower=TPiglin
+E item#3 minecraft:item pos=12.514221280962458,-58.91654611468315,0.48682699169091553 delta=0.013936855614458267,-0.23181518989174096,-0.012909548394157996 rot=280.88504,0.0 og=0 fall=0.2365461140871048 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=1 pickup=39 health=5 owner=- thrower=TGoldPiglin
+E item#4 minecraft:item pos=18.509320327617804,-58.93936152100563,0.5039230524892822 delta=0.009133921243218978,-0.25417428852293994,0.0038445915143227724 rot=22.752085,0.0 og=0 fall=0.25936150550842285 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=1 pickup=39 health=5 owner=- thrower=TBabyPiglin
+E item#5 minecraft:item pos=24.502839636518345,-58.931731351614,0.4975211482233811 delta=0.0027828438421394633,-0.24669672237360657,-0.002429274788366869 rot=225.62206,0.0 og=0 fall=0.25173133611679077 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt*1 age=1 pickup=39 health=5 owner=- thrower=TSulfur
+E item#6 minecraft:item pos=30.509552219458573,-58.93854010939598,0.4865767973780546 delta=0.009361175251596843,-0.2533693051298161,-0.013154738825533776 rot=69.61257,0.0 og=0 fall=0.2585400938987732 fire=0 air=300 alive=1 pose=standing item=minecraft:bread*1 age=1 pickup=39 health=5 owner=- thrower=TVillager
+E item#7 minecraft:item pos=36.50263885953734,-58.91826362252235,0.5026742849078442 delta=0.002586082396925273,-0.23349834760691865,0.002620799260695171 rot=226.93549,0.0 og=0 fall=0.23826362192630768 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=39 health=5 owner=- thrower=TFox
+E item#8 minecraft:item pos=42.49882361646132,-58.8330643260479,0.49893285022906575 delta=-0.0011528558903448438,-0.15000303543690338,-0.0010458067958698256 rot=6.34218,0.0 og=0 fall=0.1530643254518509 fire=0 air=300 alive=1 pose=standing item=minecraft:bamboo*1 age=1 pickup=39 health=5 owner=- thrower=TPanda
+E item#9 minecraft:item pos=48.50819966606176,-58.90006911098957,0.4843880858550485 delta=0.008035672896922794,-0.21566772595775804,-0.015299676159826081 rot=203.92986,0.0 og=0 fall=0.22006911039352417 fire=0 air=300 alive=1 pose=standing item=minecraft:crossbow*1 age=1 pickup=39 health=5 owner=- thrower=TPillager
+E item#10 minecraft:item pos=54.4897029251168,-58.89531063377857,0.5017450373354964 delta=-0.010091133581935152,-0.21100441820021873,0.001710136622070426 rot=254.73567,0.0 og=0 fall=0.21531063318252563 fire=0 air=300 alive=1 pose=standing item=minecraft:white_banner*1 age=1 pickup=39 health=5 owner=- thrower=TRaider
+E item#11 minecraft:item pos=60.494512077289336,-58.9197245323658,0.5085119256472119 delta=-0.005378164361127361,-0.23493003928135922,0.008341687296619788 rot=57.147404,0.0 og=0 fall=0.2397245317697525 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=1 pickup=39 health=5 owner=- thrower=ToB
+E item#12 minecraft:item pos=66.500140205861,-58.888672330379485,0.4988868616459358 delta=1.3740174645366369E-4,-0.20449888074249886,-0.0010908756082143303 rot=283.70187,0.0 og=0 fall=0.20867232978343964 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=1 pickup=39 health=5 owner=- thrower=Self
+# the mobs come into reach of the items
+E MZombie minecraft:zombie pos=1.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E MPiglin minecraft:piglin pos=7.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+E MGoldPiglin minecraft:piglin pos=13.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+E MBabyPiglin minecraft:piglin pos=19.0,-60.0,0.5 delta=1.6275742722593103,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+E MSulfur minecraft:sulfur_cube pos=25.0,-60.0,0.5 delta=3.419849480390605,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E MVillager minecraft:villager pos=31.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E MFox minecraft:fox pos=37.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E MPanda minecraft:panda pos=43.0,-60.0,0.5 delta=3.4198494803906043,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E MPillager minecraft:pillager pos=49.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=-
+E MRaider minecraft:pillager pos=55.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=43.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.panda.ambient source=neutral vol=1.0 pitch=1.0537914
+EV sound at=24.332432899652318,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=42.33243289965232,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.4084313583926894,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=6.408431358392689,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=12.40843135839269,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=30.40843135839269,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=36.40843135839269,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=48.40843135839269,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=54.40843135839269,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=18.42212471767705,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=24.33212175633937,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=42.33212175633937,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=49.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pillager.ambient source=hostile vol=1.0 pitch=0.95307434
+EV sound at=37.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fox.ambient source=neutral vol=1.0 pitch=0.9815531
+EV sound at=24.332120492637976,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=42.332120492637976,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.37619139722029066,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=6.376191397220291,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=12.37619139722029,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=30.37619139722029,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=36.37619139722029,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=48.37619139722029,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=54.37619139722029,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=19.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.piglin.ambient source=hostile vol=1.0 pitch=1.3760633
+EV sound at=55.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pillager.ambient source=hostile vol=1.0 pitch=0.8965914
+EV sound at=1.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.armor.equip_iron source=hostile vol=1.0 pitch=1.0
+EV sound at=25.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.sulfur_cube.absorb source=neutral vol=1.0 pitch=1.0
+EV sound at=31.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.9711307
+EV sound at=24.33212048750556,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=42.332120487505556,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=18.422124791795024,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+I TZombie 0 minecraft:iron_helmet*1
+I TPiglin 0 minecraft:gold_ingot*1
+I TGoldPiglin 0 minecraft:gold_ingot*1
+I TGoldPiglin 39 minecraft:golden_helmet*1
+I TBabyPiglin 0 minecraft:gold_ingot*1
+I TSulfur 0 minecraft:tnt*1
+I TVillager 0 minecraft:bread*1
+I TFox 0 minecraft:stick*1
+I TPanda 0 minecraft:bamboo*1
+I TPillager 0 minecraft:crossbow*1
+I TPillager 1 minecraft:crossbow*1
+I TRaider 0 minecraft:white_banner*1
+I Taker 0 minecraft:gold_ingot*1
+I Self 0 minecraft:gold_ingot*1
+ADV TZombie items:inventory/any c
+ADV TZombie items:thrown/entity_any c
+ADV TZombie items:thrown/entity_helmet c
+ADV TZombie items:thrown/entity_zombie c
+ADV TZombie minecraft:adventure/adventuring_time minecraft:plains
+ADV TZombie minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TZombie minecraft:recipes/misc/iron_nugget_from_blasting has_iron_helmet
+ADV TZombie minecraft:recipes/misc/iron_nugget_from_smelting has_iron_helmet
+ADV TZombie minecraft:story/obtain_armor iron_helmet
+ADV TPiglin items:inventory/any c
+ADV TPiglin items:thrown/entity_any c
+ADV TPiglin minecraft:adventure/adventuring_time minecraft:plains
+ADV TPiglin minecraft:nether/distract_piglin distract_piglin
+ADV TPiglin minecraft:recipes/building_blocks/gold_block has_gold_ingot
+ADV TPiglin minecraft:recipes/combat/golden_boots has_gold_ingot
+ADV TPiglin minecraft:recipes/combat/golden_chestplate has_gold_ingot
+ADV TPiglin minecraft:recipes/combat/golden_helmet has_gold_ingot
+ADV TPiglin minecraft:recipes/combat/golden_leggings has_gold_ingot
+ADV TPiglin minecraft:recipes/combat/golden_spear has_gold_ingot
+ADV TPiglin minecraft:recipes/combat/golden_sword has_gold_ingot
+ADV TPiglin minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TPiglin minecraft:recipes/food/golden_apple has_gold_ingot
+ADV TPiglin minecraft:recipes/misc/gold_nugget has_gold_ingot
+ADV TPiglin minecraft:recipes/redstone/light_weighted_pressure_plate has_gold_ingot
+ADV TPiglin minecraft:recipes/tools/golden_axe has_gold_ingot
+ADV TPiglin minecraft:recipes/tools/golden_hoe has_gold_ingot
+ADV TPiglin minecraft:recipes/tools/golden_pickaxe has_gold_ingot
+ADV TPiglin minecraft:recipes/tools/golden_shovel has_gold_ingot
+ADV TGoldPiglin items:inventory/any c
+ADV TGoldPiglin items:thrown/entity_any c
+ADV TGoldPiglin minecraft:adventure/adventuring_time minecraft:plains
+ADV TGoldPiglin minecraft:recipes/building_blocks/gold_block has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/combat/golden_boots has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/combat/golden_chestplate has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/combat/golden_helmet has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/combat/golden_leggings has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/combat/golden_spear has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/combat/golden_sword has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TGoldPiglin minecraft:recipes/food/golden_apple has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/misc/gold_nugget has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/misc/gold_nugget_from_blasting has_golden_helmet
+ADV TGoldPiglin minecraft:recipes/misc/gold_nugget_from_smelting has_golden_helmet
+ADV TGoldPiglin minecraft:recipes/redstone/light_weighted_pressure_plate has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/tools/golden_axe has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/tools/golden_hoe has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/tools/golden_pickaxe has_gold_ingot
+ADV TGoldPiglin minecraft:recipes/tools/golden_shovel has_gold_ingot
+ADV TBabyPiglin items:inventory/any c
+ADV TBabyPiglin items:thrown/entity_any c
+ADV TBabyPiglin items:thrown/entity_baby c
+ADV TBabyPiglin minecraft:adventure/adventuring_time minecraft:plains
+ADV TBabyPiglin minecraft:recipes/building_blocks/gold_block has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/combat/golden_boots has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/combat/golden_chestplate has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/combat/golden_helmet has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/combat/golden_leggings has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/combat/golden_spear has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/combat/golden_sword has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TBabyPiglin minecraft:recipes/food/golden_apple has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/misc/gold_nugget has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/redstone/light_weighted_pressure_plate has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/tools/golden_axe has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/tools/golden_hoe has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/tools/golden_pickaxe has_gold_ingot
+ADV TBabyPiglin minecraft:recipes/tools/golden_shovel has_gold_ingot
+ADV TSulfur items:inventory/any c
+ADV TSulfur items:thrown/entity_any c
+ADV TSulfur minecraft:adventure/adventuring_time minecraft:plains
+ADV TSulfur minecraft:husbandry/uh_oh pick_up_dropped_tnt
+ADV TSulfur minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TVillager items:inventory/any c
+ADV TVillager items:thrown/entity_any c
+ADV TVillager items:thrown/entity_villager c
+ADV TVillager minecraft:adventure/adventuring_time minecraft:plains
+ADV TVillager minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TFox items:inventory/any c
+ADV TFox items:thrown/entity_any c
+ADV TFox items:thrown/entity_fox c
+ADV TFox minecraft:adventure/adventuring_time minecraft:plains
+ADV TFox minecraft:recipes/combat/wooden_spear has_stick
+ADV TFox minecraft:recipes/combat/wooden_sword has_stick
+ADV TFox minecraft:recipes/decorations/campfire has_stick
+ADV TFox minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TFox minecraft:recipes/decorations/ladder has_stick
+ADV TFox minecraft:recipes/tools/wooden_axe has_stick
+ADV TFox minecraft:recipes/tools/wooden_hoe has_stick
+ADV TFox minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV TFox minecraft:recipes/tools/wooden_shovel has_stick
+ADV TPanda items:inventory/any c
+ADV TPanda items:thrown/entity_any c
+ADV TPanda minecraft:adventure/adventuring_time minecraft:plains
+ADV TPanda minecraft:recipes/building_blocks/bamboo_block has_bamboo
+ADV TPanda minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TPanda minecraft:recipes/decorations/scaffolding has_bamboo
+ADV TPanda minecraft:recipes/misc/stick_from_bamboo_item has_bamboo
+ADV TPillager items:inventory/any c
+ADV TPillager items:inventory/two_full_slots c
+ADV TPillager items:thrown/entity_any c
+ADV TPillager items:thrown/entity_player c
+ADV TPillager items:thrown/player_any c
+ADV TPillager items:thrown/player_from_player c
+ADV TPillager minecraft:adventure/adventuring_time minecraft:plains
+ADV TPillager minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV TRaider items:inventory/any c
+ADV TRaider items:thrown/entity_any c
+ADV TRaider minecraft:adventure/adventuring_time minecraft:plains
+ADV TRaider minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV ToB items:inventory/any c
+ADV ToB items:thrown/entity_any c
+ADV ToB items:thrown/entity_player c
+ADV ToB minecraft:adventure/adventuring_time minecraft:plains
+ADV ToB minecraft:recipes/building_blocks/gold_block has_gold_ingot
+ADV ToB minecraft:recipes/combat/golden_boots has_gold_ingot
+ADV ToB minecraft:recipes/combat/golden_chestplate has_gold_ingot
+ADV ToB minecraft:recipes/combat/golden_helmet has_gold_ingot
+ADV ToB minecraft:recipes/combat/golden_leggings has_gold_ingot
+ADV ToB minecraft:recipes/combat/golden_spear has_gold_ingot
+ADV ToB minecraft:recipes/combat/golden_sword has_gold_ingot
+ADV ToB minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV ToB minecraft:recipes/food/golden_apple has_gold_ingot
+ADV ToB minecraft:recipes/misc/gold_nugget has_gold_ingot
+ADV ToB minecraft:recipes/redstone/light_weighted_pressure_plate has_gold_ingot
+ADV ToB minecraft:recipes/tools/golden_axe has_gold_ingot
+ADV ToB minecraft:recipes/tools/golden_hoe has_gold_ingot
+ADV ToB minecraft:recipes/tools/golden_pickaxe has_gold_ingot
+ADV ToB minecraft:recipes/tools/golden_shovel has_gold_ingot
+ADV Taker items:inventory/any c
+ADV Taker items:thrown/player_any c
+ADV Taker items:thrown/player_from_player c
+ADV Taker items:thrown/player_gold c
+ADV Taker minecraft:adventure/adventuring_time minecraft:plains
+ADV Taker minecraft:recipes/building_blocks/gold_block has_gold_ingot
+ADV Taker minecraft:recipes/combat/golden_boots has_gold_ingot
+ADV Taker minecraft:recipes/combat/golden_chestplate has_gold_ingot
+ADV Taker minecraft:recipes/combat/golden_helmet has_gold_ingot
+ADV Taker minecraft:recipes/combat/golden_leggings has_gold_ingot
+ADV Taker minecraft:recipes/combat/golden_spear has_gold_ingot
+ADV Taker minecraft:recipes/combat/golden_sword has_gold_ingot
+ADV Taker minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Taker minecraft:recipes/food/golden_apple has_gold_ingot
+ADV Taker minecraft:recipes/misc/gold_nugget has_gold_ingot
+ADV Taker minecraft:recipes/redstone/light_weighted_pressure_plate has_gold_ingot
+ADV Taker minecraft:recipes/tools/golden_axe has_gold_ingot
+ADV Taker minecraft:recipes/tools/golden_hoe has_gold_ingot
+ADV Taker minecraft:recipes/tools/golden_pickaxe has_gold_ingot
+ADV Taker minecraft:recipes/tools/golden_shovel has_gold_ingot
+ADV Self items:inventory/any c
+ADV Self items:thrown/entity_any c
+ADV Self items:thrown/entity_player c
+ADV Self items:thrown/player_any c
+ADV Self items:thrown/player_from_player c
+ADV Self items:thrown/player_gold c
+ADV Self minecraft:adventure/adventuring_time minecraft:plains
+ADV Self minecraft:recipes/building_blocks/gold_block has_gold_ingot
+ADV Self minecraft:recipes/combat/golden_boots has_gold_ingot
+ADV Self minecraft:recipes/combat/golden_chestplate has_gold_ingot
+ADV Self minecraft:recipes/combat/golden_helmet has_gold_ingot
+ADV Self minecraft:recipes/combat/golden_leggings has_gold_ingot
+ADV Self minecraft:recipes/combat/golden_spear has_gold_ingot
+ADV Self minecraft:recipes/combat/golden_sword has_gold_ingot
+ADV Self minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Self minecraft:recipes/food/golden_apple has_gold_ingot
+ADV Self minecraft:recipes/misc/gold_nugget has_gold_ingot
+ADV Self minecraft:recipes/redstone/light_weighted_pressure_plate has_gold_ingot
+ADV Self minecraft:recipes/tools/golden_axe has_gold_ingot
+ADV Self minecraft:recipes/tools/golden_hoe has_gold_ingot
+ADV Self minecraft:recipes/tools/golden_pickaxe has_gold_ingot
+ADV Self minecraft:recipes/tools/golden_shovel has_gold_ingot
+E MZombie minecraft:zombie pos=1.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=head:minecraft:iron_helmet*1 attrs=minecraft:armor:4.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E MPiglin minecraft:piglin pos=7.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=admiring_item:1:119 equip=offhand:minecraft:gold_ingot*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.3499999940395355
+E MGoldPiglin minecraft:piglin pos=13.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=admiring_item:1:119 equip=offhand:minecraft:gold_ingot*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.3499999940395355
+E MBabyPiglin minecraft:piglin pos=19.0,-60.0,0.5 delta=1.6275742722593103,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=admiring_item:1:119 equip=offhand:minecraft:gold_ingot*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.4199999938905239
+E MSulfur minecraft:sulfur_cube pos=25.0,-60.0,0.5 delta=3.419849480390605,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:tnt*1 attrs=minecraft:air_drag_modifier:0.30000001192092896;minecraft:bounciness:0.5;minecraft:follow_range:16.0;minecraft:friction_modifier:0.30000001192092896;minecraft:knockback_resistance:-1.0;minecraft:max_health:8.0;minecraft:movement_speed:0.4000000059604645;minecraft:tempt_range:8.0 age=0 baby=0 forcedage=0 size=2 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=162.73369 maggr=0 fuse=-1 bucket=0 pickup=0 pushcd=0 floats=1 explosion=1
+E MVillager minecraft:villager pos=31.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E MFox minecraft:fox pos=37.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:stick*1 attrs=minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896;minecraft:safe_fall_distance:5.0 age=0 baby=0 forcedage=0 love=0 lovecause=- flags=0 variant=red trust0=- trust1=- eaten=0 crouch=0.0 interest=0.0
+E MPanda minecraft:panda pos=43.0,-60.0,0.5 delta=3.4198494803906043,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:bamboo*1 attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.0;minecraft:movement_speed:0.15000000596046448 age=0 baby=0 forcedage=0 love=0 lovecause=- flags=0 main=normal hidden=normal unhappy=0 sneeze=0 eat=0 rollcount=0 gotbamboo=0 didbite=0
+E MPillager minecraft:pillager pos=49.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:5.0;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=- wave=0 canjoin=0 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
+E MRaider minecraft:pillager pos=55.0,-60.0,0.5 delta=2.204412771492366,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:white_banner*1 attrs=minecraft:attack_damage:5.0;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=- wave=0 canjoin=0 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
