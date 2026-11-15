@@ -134,6 +134,48 @@ impl MinecraftServer {
         }
     }
 
+    /// Runs the advancement reward functions queued on `level` (`AdvancementRewards.grant`, see `PendingFunction`) with
+    /// `player.createCommandSourceStack().withSuppressedOutput().withPermission(GAMEMASTER)`; `level` is lent to the server
+    /// meanwhile. A function that awards advancements itself is run in the same call.
+    pub fn run_pending_functions(&mut self, level: &mut crate::server::level::ServerLevel) {
+        loop {
+            let pending = level.take_pending_functions();
+            if pending.is_empty() {
+                return;
+            }
+            for queued in pending {
+                let Some(function) = self.functions.get(&queued.function) else {
+                    continue;
+                };
+                let Some(player) = level
+                    .get_entity_or_part(queued.player)
+                    .or_else(|| level.get_dead_player(queued.player))
+                    .and_then(|e| {
+                        e.as_any()
+                            .downcast_ref::<crate::world::entity::ServerPlayer>()
+                    })
+                else {
+                    continue;
+                };
+                let Some(source) =
+                    crate::server::network::game_packets::player_command_source_stack(
+                        self,
+                        &level.dimension,
+                        player,
+                        queued.position,
+                        queued.rotation,
+                    )
+                else {
+                    continue;
+                };
+                let source = source
+                    .with_suppressed_output()
+                    .with_permission(LevelBasedPermissionSet::GAMEMASTER.into());
+                self.with_lent_level(level, |server| server.execute_function(&function, source));
+            }
+        }
+    }
+
     /// `getGameLoopSender()`.
     pub fn get_game_loop_sender(&self) -> CommandSourceStack {
         self.create_command_source_stack()

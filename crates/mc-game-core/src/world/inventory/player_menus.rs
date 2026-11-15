@@ -25,6 +25,8 @@ pub struct PlayerMenus {
     container_menu: Option<Box<dyn AbstractContainerMenu>>,
     /// `containerCounter`.
     container_counter: i32,
+    /// The current menu is out of this struct (`with_current`): it is running and a nested `broadcastChanges()` cannot reach it.
+    current_taken: bool,
 }
 
 impl PlayerMenus {
@@ -33,7 +35,13 @@ impl PlayerMenus {
             inventory_menu: Some(Box::new(InventoryMenu::new(true))),
             container_menu: None,
             container_counter: 0,
+            current_taken: false,
         }
+    }
+
+    /// The current menu is running (it is taken out of the player), e.g. a trigger fired from its slot listener.
+    pub fn is_current_taken(&self) -> bool {
+        self.current_taken
     }
 
     /// `containerMenu != inventoryMenu` (`hasContainerOpen`).
@@ -90,6 +98,7 @@ impl PlayerMenus {
 
     /// Takes the current menu out (`None` slot means the inventory menu), for running it with the player.
     fn take_current(&mut self) -> (Box<dyn AbstractContainerMenu>, bool) {
+        self.current_taken = true;
         match self.container_menu.take() {
             Some(m) => (m, false),
             None => (
@@ -102,6 +111,7 @@ impl PlayerMenus {
     }
 
     fn put_current(&mut self, menu: Box<dyn AbstractContainerMenu>, is_inventory: bool) {
+        self.current_taken = false;
         if is_inventory {
             self.inventory_menu = Some(menu);
         } else {

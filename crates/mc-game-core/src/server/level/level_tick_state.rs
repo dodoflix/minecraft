@@ -116,6 +116,8 @@ pub struct LevelTickState {
     pub ticking_block_entities: bool,
     /// The tick environment while block ticks run (see `level_commands.rs`).
     pub command_env: Option<super::level_commands::CommandEnvPtr>,
+    /// Advancement reward functions waiting for their player to be back in the level (see `level_commands.rs`).
+    pub pending_functions: Vec<super::level_commands::PendingFunction>,
     /// The command block game rules at the start of the last tick (`ServerLevel::command_rules` outside block ticks).
     pub command_rules: super::level_commands::CommandRules,
     /// `subTickCount`.
@@ -183,6 +185,7 @@ impl LevelTickState {
             pending_block_entity_tickers: Vec::new(),
             ticking_block_entities: false,
             command_env: None,
+            pending_functions: Vec::new(),
             command_rules: Default::default(),
             sub_tick_count: 0,
             rand_value: create_thread_local_instance_new().next_int(),

@@ -91,6 +91,10 @@ impl LevelTickEnv for ServerTickEnv<'_> {
         });
     }
 
+    fn run_pending_functions(&mut self, level: &mut ServerLevel) {
+        self.server.run_pending_functions(level);
+    }
+
     fn command_rules(&self) -> crate::server::level::level_commands::CommandRules {
         let rules = self.server.game_rules_ref();
         crate::server::level::level_commands::CommandRules {

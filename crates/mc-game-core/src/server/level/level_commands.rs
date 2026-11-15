@@ -8,6 +8,9 @@
 use super::ServerLevel;
 use super::level_tick::LevelTickEnv;
 use crate::commands::CommandSourceStack;
+use crate::world::entity::EntityId;
+use mc_core::ident::Identifier;
+use mc_core::phys::{Vec2, Vec3};
 use std::panic::{self, AssertUnwindSafe};
 use std::ptr::NonNull;
 
@@ -34,6 +37,17 @@ impl Default for CommandRules {
             max_command_sequence_length: 65536,
         }
     }
+}
+
+/// An advancement reward function (`AdvancementRewards.function`). Vanilla runs it inside `grant`, but the awarded player is
+/// out of its level then and the commands could not select it (`@s`): the function waits in the level's queue until the player
+/// is back and the server can run it ([`MinecraftServer::run_pending_functions`](crate::server::MinecraftServer)). The
+/// player's position and rotation are those of the award (`player.createCommandSourceStack()`).
+pub struct PendingFunction {
+    pub player: EntityId,
+    pub position: Vec3,
+    pub rotation: Vec2,
+    pub function: Identifier,
 }
 
 /// The tick environment of the running tick with its lifetime erased (valid only inside `with_command_env`).
@@ -77,6 +91,16 @@ impl ServerLevel {
     /// Whether a command can be run from this level right now (it is being ticked by a server).
     pub fn can_perform_commands(&self) -> bool {
         self.tick_state.command_env.is_some()
+    }
+
+    /// Queues a reward function of an awarded player (see [`PendingFunction`]).
+    pub fn queue_function(&mut self, function: PendingFunction) {
+        self.tick_state.pending_functions.push(function);
+    }
+
+    /// The queued reward functions, oldest first.
+    pub fn take_pending_functions(&mut self) -> Vec<PendingFunction> {
+        std::mem::take(&mut self.tick_state.pending_functions)
     }
 
     /// `server.getCommands().performPrefixedCommand(source, command)` for a source located in this level. Panics when

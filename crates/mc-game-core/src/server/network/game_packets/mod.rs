@@ -18,6 +18,7 @@
 
 mod chat;
 mod commands_host;
+pub(crate) use commands_host::player_command_source_stack;
 mod interaction;
 mod movement;
 pub(crate) mod play_helpers;

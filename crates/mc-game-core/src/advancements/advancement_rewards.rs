@@ -3,6 +3,7 @@
 use std::sync::Arc;
 
 use mc_core::ident::Identifier;
+use mc_core::phys::Vec2;
 use mc_core::random::RandomSource;
 use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{Codec, INT};
@@ -10,6 +11,7 @@ use mc_protocol::packets::play::SoundSource;
 
 use crate::registry::keys;
 use crate::server::level::ServerLevel;
+use crate::server::level::level_commands::PendingFunction;
 use crate::world::entity::Entity;
 use crate::world::entity::player::ServerPlayer;
 use crate::world::entity::player::item_use::SWING_ANIMATION_DEFAULT;
@@ -58,8 +60,8 @@ impl AdvancementRewards {
         C.clone()
     }
 
-    /// `grant(player)`.
-    /// Not implemented: the `function` reward is skipped.
+    /// `grant(player)`. The `function` reward is queued on the level and runs as soon as `player` is back in it (see
+    /// `PendingFunction`).
     pub fn grant(&self, level: &mut ServerLevel, player: &mut ServerPlayer) {
         player.give_experience_points(level, self.experience);
         let tables: Vec<Arc<LootTable>> = self.loot.values(&level.registries);
@@ -111,11 +113,21 @@ impl AdvancementRewards {
                 }
             }
         }
-        if changes {
+        // a reward granted by the slot listener of the menu that is broadcasting right now (`inventory_changed`): that broadcast
+        // goes on to synchronise the new items itself (vanilla's nested one would send them first)
+        if changes && !player.player.menus.is_current_taken() {
             player.broadcast_menu_changes(level);
         }
         if !self.recipes.is_empty() {
             player.award_recipes_by_key(level, &self.recipes);
+        }
+        if let Some(function) = &self.function {
+            level.queue_function(PendingFunction {
+                player: player.id(),
+                position: player.position(),
+                rotation: Vec2::new(player.get_x_rot(), player.get_y_rot()),
+                function: function.clone(),
+            });
         }
     }
 }

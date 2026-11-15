@@ -450,7 +450,12 @@ impl MinecraftServer {
                 Err(payload) => panic::resume_unwind(payload),
             };
         };
-        let result = panic::catch_unwind(AssertUnwindSafe(|| f(self, &mut level)));
+        let result = panic::catch_unwind(AssertUnwindSafe(|| {
+            let result = f(self, &mut level);
+            // reward functions of players the closure awarded: the player is back in the level now
+            self.run_pending_functions(&mut level);
+            result
+        }));
         if let Some(slot) = self.levels.get_mut(dimension) {
             *slot = Some(level);
         }
