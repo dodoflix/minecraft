@@ -672,7 +672,7 @@ impl Scenario {
                     let handle = p.handle.as_ref().expect("player list entry");
                     let owners = LevelBasedPermissionSet::for_level(PermissionLevel::Owners);
                     handle.shared.lock().permissions = owners;
-                    // `sendPlayerPermissionLevel`: the op-level entity event (the command tree packet that follows it is not sent)
+                    // `sendPlayerPermissionLevel`: the op-level entity event, then the command tree
                     handle.connection.send(
                         &mc_protocol::packets::play::ClientboundEntityEventPacket {
                             entity_id: handle.id,
@@ -682,6 +682,11 @@ impl Scenario {
                                 ),
                         },
                     );
+                    if mc_game::commands::server_access::has_server() {
+                        mc_game::commands::server_access::with_server(|server| {
+                            mc_game::commands::send_commands(server, handle, &owners.into());
+                        });
+                    }
                     let ops = &mut level.server_state.spawn_protection;
                     ops.ops_empty = false;
                     if !ops.op_players.contains(&p.uuid()) {
