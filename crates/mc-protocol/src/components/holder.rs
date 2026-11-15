@@ -68,6 +68,31 @@ pub fn registry_by_name_codec<T: RegistryId>() -> Codec<T> {
     )
 }
 
+/// `RegistryFixedCodec.create(key)` over a built-in typed id (`RegistryCodecs.holderSet(key)` elements): like
+/// [`registry_by_name_codec`], but an unknown id reads "Failed to get element ... from registry ...".
+pub fn registry_fixed_codec<T: RegistryId>() -> Codec<T> {
+    IDENTIFIER.flat_xmap(
+        |name| match T::registry().id_of(&name.to_string()).and_then(T::from_id) {
+            Some(t) => DataResult::success(t),
+            None => {
+                let registry = T::registry().name();
+                DataResult::error(move || {
+                    format!(
+                        "Failed to get element {name} from registry {}",
+                        ctx::qualified_registry(registry)
+                    )
+                })
+            }
+        },
+        |t: &T| {
+            DataResult::success(
+                Identifier::parse(T::registry().name_of(t.id()).expect("valid id"))
+                    .expect("valid name"),
+            )
+        },
+    )
+}
+
 /// A name that must exist in `registry` (built-in or data-driven): `holderByNameCodec` without the holder.
 pub fn registry_name_codec(registry: &'static str) -> Codec<Identifier> {
     IDENTIFIER.flat_xmap(
@@ -98,7 +123,10 @@ pub fn holder_fixed_codec<T: 'static>(registry: &'static str) -> Codec<Holder<T>
                     DataResult::success((Holder::Reference(id), rest))
                 } else {
                     DataResult::error(move || {
-                        format!("Failed to get element {id} from registry {registry}")
+                        format!(
+                            "Failed to get element {id} from registry {}",
+                            ctx::qualified_registry(registry)
+                        )
                     })
                 }
             })
@@ -124,7 +152,10 @@ pub fn holder_file_codec<T: Clone + 'static>(
                     DataResult::success((Holder::Reference(id), rest))
                 } else {
                     DataResult::error(move || {
-                        format!("Failed to get element {id} from registry {registry}")
+                        format!(
+                            "Failed to get element {id} from registry {}",
+                            ctx::qualified_registry(registry)
+                        )
                     })
                 }
             }
@@ -168,7 +199,10 @@ pub fn holder_set_codec<T: Clone + Send + Sync + 'static>(
                             DataResult::success((HolderSet::Named(tag), rest))
                         } else {
                             DataResult::error(move || {
-                                format!("Missing tag: '{tag}' in '{registry}'")
+                                format!(
+                                    "Missing tag: '{tag}' in '{}'",
+                                    ctx::qualified_registry(registry)
+                                )
                             })
                         }
                     }

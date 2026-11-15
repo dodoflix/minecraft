@@ -1,6 +1,22 @@
 //! Codec helpers that vanilla keeps in `ExtraCodecs` and that `mc_dfu` lacks.
 
-use mc_dfu::{Codec, DataResult, Dyn, MapCodec};
+use mc_dfu::{Codec, DataResult, Dyn, MapCodec, STRING};
+
+/// `ExtraCodecs.LateBoundIdMapper.codec(Codec.STRING)` (`idResolverCodec`): "Unknown element id: x" for an unlisted name.
+pub fn id_resolver_codec<E: Copy + PartialEq + Send + Sync + 'static>(
+    values: &'static [(E, &'static str)],
+) -> Codec<E> {
+    STRING.flat_xmap(
+        move |name| match values.iter().find(|(_, n)| *n == name) {
+            Some((e, _)) => DataResult::success(*e),
+            None => DataResult::error(move || format!("Unknown element id: {name}")),
+        },
+        move |e| match values.iter().find(|(v, _)| v == e) {
+            Some((_, n)) => DataResult::success((*n).to_owned()),
+            None => DataResult::error_str("Element with unknown id"),
+        },
+    )
+}
 
 /// `ExtraCodecs.dispatchOptionalValue(typeKey, valueKey, typeCodec, typeGetter, valueCodec)`: the `valueKey` object may be
 /// absent (decoded as an empty map) and an empty encoded value is not written.

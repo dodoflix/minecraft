@@ -288,10 +288,10 @@ impl<T: RegistryId> RegistrySet<T> {
     pub fn codec() -> Codec<RegistrySet<T>> {
         Self::codec_with(false)
     }
-    /// `HolderSetCodec.create(key, byNameCodec, alwaysUseList)`.
+    /// `HolderSetCodec.create(key, RegistryFixedCodec.create(key), alwaysUseList)`.
     pub fn codec_with(always_use_list: bool) -> Codec<RegistrySet<T>> {
         let registry = T::registry().name();
-        let element = holder::registry_by_name_codec::<T>();
+        let element = holder::registry_fixed_codec::<T>();
         let list = element.list_of();
         let direct = if always_use_list {
             list
@@ -314,7 +314,10 @@ impl<T: RegistryId> RegistrySet<T> {
                                 DataResult::success((RegistrySet::Tag(tag), rest))
                             } else {
                                 DataResult::error(move || {
-                                    format!("Missing tag: '{tag}' in '{registry}'")
+                                    format!(
+                                        "Missing tag: '{tag}' in '{}'",
+                                        crate::registry_context::qualified_registry(registry)
+                                    )
                                 })
                             }
                         }

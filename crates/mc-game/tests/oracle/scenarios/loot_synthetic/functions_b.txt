@@ -1,0 +1,302 @@
+# copy_name
+modifier || fn_copy_name_block_entity || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_name","source":"block_entity"}
+modifier || fn_copy_name_this_entity || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_name","source":"this"}
+modifier || fn_copy_name_attacker || kill || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_name","source":"attacker"}
+modifier || fn_copy_name_missing_param || origin || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_name","source":"this"}
+modifier || fn_copy_name_existing_name_kept || block || {id:"minecraft:chest",count:1,components:{"minecraft:custom_name":"Keep me"}} || {"type":"minecraft:copy_name","source":"block_entity"}
+modifier || fn_copy_name_condition || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_name","source":"block_entity","condition":{"type":"minecraft:random_chance","chance":0.5}}
+modifier || fn_copy_name_val_needs_block_entity || command || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_name","source":"block_entity"}
+modifier || fn_copy_name_neg_source || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_name","source":"tool"}
+modifier || fn_copy_name_neg_missing_source || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_name"}
+# set_contents
+modifier || fn_set_contents_shulker || command || {id:"minecraft:shulker_box",count:1} || {"type":"minecraft:set_contents","component":"minecraft:container","entries":[{"type":"minecraft:item","name":"minecraft:diamond","modifier":{"type":"minecraft:set_count","count":{"type":"minecraft:uniform","min":1,"max":5}}},{"type":"minecraft:item","name":"minecraft:dirt"}]}
+modifier || fn_set_contents_overwrites || command || {id:"minecraft:shulker_box",count:1,components:{"minecraft:container":[{slot:0,item:{id:"minecraft:stick",count:2}}]}} || {"type":"minecraft:set_contents","component":"minecraft:container","entries":[{"type":"minecraft:item","name":"minecraft:apple"}]}
+modifier || fn_set_contents_bundle || command || {id:"minecraft:bundle",count:1} || {"type":"minecraft:set_contents","component":"minecraft:bundle_contents","entries":[{"type":"minecraft:item","name":"minecraft:apple"},{"type":"minecraft:item","name":"minecraft:stick","weight":2}]}
+modifier || fn_set_contents_charged_projectiles || command || {id:"minecraft:crossbow",count:1} || {"type":"minecraft:set_contents","component":"minecraft:charged_projectiles","entries":[{"type":"minecraft:item","name":"minecraft:arrow"}]}
+modifier || fn_set_contents_empty_entries || command || {id:"minecraft:shulker_box",count:1,components:{"minecraft:container":[{slot:0,item:{id:"minecraft:stick",count:2}}]}} || {"type":"minecraft:set_contents","component":"minecraft:container","entries":[]}
+modifier || fn_set_contents_alternatives_entry || command || {id:"minecraft:shulker_box",count:1} || {"type":"minecraft:set_contents","component":"minecraft:container","entries":[{"type":"minecraft:alternatives","children":[{"type":"minecraft:item","name":"minecraft:gold_ingot","condition":{"type":"minecraft:random_chance","chance":0.3}},{"type":"minecraft:item","name":"minecraft:iron_ingot"}]}]}
+modifier || fn_set_contents_many_entries || command || {id:"minecraft:shulker_box",count:1} || {"type":"minecraft:set_contents","component":"minecraft:container","entries":[{"type":"minecraft:item","name":"minecraft:stone"},{"type":"minecraft:item","name":"minecraft:dirt"},{"type":"minecraft:item","name":"minecraft:sand"},{"type":"minecraft:item","name":"minecraft:gravel"},{"type":"minecraft:item","name":"minecraft:clay"}]}
+modifier || fn_set_contents_neg_component || command || {id:"minecraft:shulker_box",count:1} || {"type":"minecraft:set_contents","component":"minecraft:lore","entries":[]}
+modifier || fn_set_contents_neg_unknown_component || command || {id:"minecraft:shulker_box",count:1} || {"type":"minecraft:set_contents","component":"minecraft:nope","entries":[]}
+modifier || fn_set_contents_neg_entries_type || command || {id:"minecraft:shulker_box",count:1} || {"type":"minecraft:set_contents","component":"minecraft:container","entries":{"type":"minecraft:item","name":"minecraft:dirt"}}
+modifier || fn_set_contents_neg_entry_type || command || {id:"minecraft:shulker_box",count:1} || {"type":"minecraft:set_contents","component":"minecraft:container","entries":[{"type":"minecraft:nope"}]}
+# modify_contents
+modifier || fn_modify_contents_set_count || command || {id:"minecraft:shulker_box",count:1,components:{"minecraft:container":[{slot:0,item:{id:"minecraft:stick",count:2}},{slot:1,item:{id:"minecraft:apple",count:3}}]}} || {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":7}}
+modifier || fn_modify_contents_bundle_name || command || {id:"minecraft:bundle",count:1,components:{"minecraft:bundle_contents":[{id:"minecraft:stick",count:2},{id:"minecraft:apple",count:3}]}} || {"type":"minecraft:modify_contents","component":"minecraft:bundle_contents","modifier":{"type":"minecraft:set_name","name":"Renamed"}}
+modifier || fn_modify_contents_sequence || command || {id:"minecraft:shulker_box",count:1,components:{"minecraft:container":[{slot:0,item:{id:"minecraft:iron_sword",count:1}}]}} || {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":[{"type":"minecraft:set_damage","damage":0.5},{"type":"minecraft:set_name","name":"Seq"}]}
+modifier || fn_modify_contents_no_contents || command || {id:"minecraft:shulker_box",count:1} || {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":7}}
+modifier || fn_modify_contents_other_item || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":7}}
+modifier || fn_modify_contents_discard || command || {id:"minecraft:shulker_box",count:1,components:{"minecraft:container":[{slot:0,item:{id:"minecraft:stick",count:2}},{slot:1,item:{id:"minecraft:apple",count:3}}]}} || {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:discard"}}
+modifier || fn_modify_contents_condition_random || command || {id:"minecraft:shulker_box",count:1,components:{"minecraft:container":[{slot:0,item:{id:"minecraft:stick",count:2}},{slot:1,item:{id:"minecraft:apple",count:3}},{slot:2,item:{id:"minecraft:dirt",count:3}}]}} || {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":{"type":"minecraft:set_count","count":1,"condition":{"type":"minecraft:random_chance","chance":0.5}}}
+modifier || fn_modify_contents_neg_component || command || {id:"minecraft:shulker_box",count:1} || {"type":"minecraft:modify_contents","component":"minecraft:custom_name","modifier":{"type":"minecraft:set_count","count":7}}
+modifier || fn_modify_contents_neg_missing_modifier || command || {id:"minecraft:shulker_box",count:1} || {"type":"minecraft:modify_contents","component":"minecraft:container"}
+modifier || fn_modify_contents_neg_modifier_unknown_id || command || {id:"minecraft:shulker_box",count:1} || {"type":"minecraft:modify_contents","component":"minecraft:container","modifier":"minecraft:nope"}
+# filtered
+modifier || fn_filtered_pass || command || {id:"minecraft:stone",count:2} || {"type":"minecraft:filtered","item_filter":{"items":"minecraft:stone"},"on_pass":{"type":"minecraft:set_count","count":9}}
+modifier || fn_filtered_fail || command || {id:"minecraft:dirt",count:2} || {"type":"minecraft:filtered","item_filter":{"items":"minecraft:stone"},"on_pass":{"type":"minecraft:set_count","count":9},"on_fail":{"type":"minecraft:set_name","name":"Failed"}}
+modifier || fn_filtered_fail_without_on_fail || command || {id:"minecraft:dirt",count:2} || {"type":"minecraft:filtered","item_filter":{"items":"minecraft:stone"},"on_pass":{"type":"minecraft:set_count","count":9}}
+modifier || fn_filtered_pass_without_on_pass || command || {id:"minecraft:stone",count:2} || {"type":"minecraft:filtered","item_filter":{"items":"minecraft:stone"},"on_fail":{"type":"minecraft:set_count","count":9}}
+modifier || fn_filtered_tag_filter || command || {id:"minecraft:oak_log",count:2} || {"type":"minecraft:filtered","item_filter":{"items":"#minecraft:logs"},"on_pass":{"type":"minecraft:set_name","name":"Log"}}
+modifier || fn_filtered_component_filter || command || {id:"minecraft:iron_sword",count:1,components:{"minecraft:damage":10}} || {"type":"minecraft:filtered","item_filter":{"predicates":{"minecraft:damage":{"damage":{"min":5}}}},"on_pass":{"type":"minecraft:set_damage","damage":0.0}}
+modifier || fn_filtered_count_filter || command || {id:"minecraft:stone",count:30} || {"type":"minecraft:filtered","item_filter":{"count":{"min":16}},"on_pass":{"type":"minecraft:limit_count","limit":{"max":16}},"on_fail":{"type":"minecraft:set_count","count":1}}
+modifier || fn_filtered_sequence_branches || command || {id:"minecraft:stone",count:2} || {"type":"minecraft:filtered","item_filter":{"items":"minecraft:stone"},"on_pass":[{"type":"minecraft:set_count","count":4},{"type":"minecraft:set_name","name":"Both"}]}
+modifier || fn_filtered_empty_stack || command || - || {"type":"minecraft:filtered","item_filter":{},"on_pass":{"type":"minecraft:set_count","count":4}}
+modifier || fn_filtered_neg_missing_filter || command || {id:"minecraft:stone",count:2} || {"type":"minecraft:filtered","on_pass":{"type":"minecraft:set_count","count":9}}
+modifier || fn_filtered_neg_filter || command || {id:"minecraft:stone",count:2} || {"type":"minecraft:filtered","item_filter":{"items":"minecraft:nope"}}
+modifier || fn_filtered_neg_on_pass || command || {id:"minecraft:stone",count:2} || {"type":"minecraft:filtered","item_filter":{},"on_pass":{"type":"minecraft:nope"}}
+# limit_count
+modifier || fn_limit_count_max || command || {id:"minecraft:stone",count:30} || {"type":"minecraft:limit_count","limit":{"max":10}}
+modifier || fn_limit_count_min || command || {id:"minecraft:stone",count:3} || {"type":"minecraft:limit_count","limit":{"min":10}}
+modifier || fn_limit_count_range || command || {id:"minecraft:stone",count:40} || {"type":"minecraft:limit_count","limit":{"min":5,"max":20}}
+modifier || fn_limit_count_range_below || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:limit_count","limit":{"min":5,"max":20}}
+modifier || fn_limit_count_inverted_range || command || {id:"minecraft:stone",count:8} || {"type":"minecraft:limit_count","limit":{"min":20,"max":5}}
+modifier || fn_limit_count_empty_limit || command || {id:"minecraft:stone",count:8} || {"type":"minecraft:limit_count","limit":{}}
+modifier || fn_limit_count_provider_bounds || command || {id:"minecraft:stone",count:50} || {"type":"minecraft:limit_count","limit":{"min":{"type":"minecraft:uniform","min":1,"max":4},"max":{"type":"minecraft:uniform","min":8,"max":16}}}
+modifier || fn_limit_count_score_bound || command || {id:"minecraft:stone",count:50} || {"type":"minecraft:limit_count","limit":{"max":{"type":"minecraft:score","target":{"type":"minecraft:context","target":"this"},"score":"synth"}}}
+modifier || fn_limit_count_negative || command || {id:"minecraft:stone",count:8} || {"type":"minecraft:limit_count","limit":{"max":-3}}
+modifier || fn_limit_count_neg_missing_limit || command || {id:"minecraft:stone",count:8} || {"type":"minecraft:limit_count"}
+modifier || fn_limit_count_neg_limit_number || command || {id:"minecraft:stone",count:8} || {"type":"minecraft:limit_count","limit":4}
+modifier || fn_limit_count_neg_bound_type || command || {id:"minecraft:stone",count:8} || {"type":"minecraft:limit_count","limit":{"max":"x"}}
+# apply_bonus
+modifier || fn_apply_bonus_ore_drops || block || {id:"minecraft:diamond",count:1} || {"type":"minecraft:apply_bonus","enchantment":"minecraft:fortune","formula":"minecraft:ore_drops"}
+modifier || fn_apply_bonus_uniform || block || {id:"minecraft:wheat_seeds",count:2} || {"type":"minecraft:apply_bonus","enchantment":"minecraft:fortune","formula":"minecraft:uniform_bonus_count","parameters":{"bonusMultiplier":2}}
+modifier || fn_apply_bonus_binomial || block || {id:"minecraft:wheat_seeds",count:1} || {"type":"minecraft:apply_bonus","enchantment":"minecraft:fortune","formula":"minecraft:binomial_with_bonus_count","parameters":{"extra":3,"probability":0.5714286}}
+modifier || fn_apply_bonus_level_zero || block || {id:"minecraft:diamond",count:1} || {"type":"minecraft:apply_bonus","enchantment":"minecraft:silk_touch","formula":"minecraft:ore_drops"}
+modifier || fn_apply_bonus_val_no_tool || command || {id:"minecraft:diamond",count:1} || {"type":"minecraft:apply_bonus","enchantment":"minecraft:fortune","formula":"minecraft:ore_drops"}
+modifier || fn_apply_bonus_tool_profile || enchitem || {id:"minecraft:diamond",count:2} || {"type":"minecraft:apply_bonus","enchantment":"minecraft:fortune","formula":"minecraft:uniform_bonus_count","parameters":{"bonusMultiplier":1}}
+modifier || fn_apply_bonus_binomial_negative_extra || block || {id:"minecraft:wheat_seeds",count:1} || {"type":"minecraft:apply_bonus","enchantment":"minecraft:fortune","formula":"minecraft:binomial_with_bonus_count","parameters":{"extra":-3,"probability":1.0}}
+modifier || fn_apply_bonus_uniform_zero_multiplier || block || {id:"minecraft:wheat_seeds",count:2} || {"type":"minecraft:apply_bonus","enchantment":"minecraft:fortune","formula":"minecraft:uniform_bonus_count","parameters":{"bonusMultiplier":0}}
+modifier || fn_apply_bonus_val_needs_tool || empty || {id:"minecraft:diamond",count:1} || {"type":"minecraft:apply_bonus","enchantment":"minecraft:fortune","formula":"minecraft:ore_drops"}
+modifier || fn_apply_bonus_neg_formula || block || {id:"minecraft:diamond",count:1} || {"type":"minecraft:apply_bonus","enchantment":"minecraft:fortune","formula":"minecraft:nope"}
+modifier || fn_apply_bonus_neg_missing_parameters || block || {id:"minecraft:diamond",count:1} || {"type":"minecraft:apply_bonus","enchantment":"minecraft:fortune","formula":"minecraft:uniform_bonus_count"}
+modifier || fn_apply_bonus_neg_enchantment || block || {id:"minecraft:diamond",count:1} || {"type":"minecraft:apply_bonus","enchantment":"minecraft:nope","formula":"minecraft:ore_drops"}
+modifier || fn_apply_bonus_neg_missing_enchantment || block || {id:"minecraft:diamond",count:1} || {"type":"minecraft:apply_bonus","formula":"minecraft:ore_drops"}
+# set_loot_table
+modifier || fn_set_loot_table_chest || command || {id:"minecraft:chest",count:1} || {"type":"minecraft:set_loot_table","loot_table_id":"minecraft:chests/simple_dungeon"}
+modifier || fn_set_loot_table_seed || command || {id:"minecraft:chest",count:1} || {"type":"minecraft:set_loot_table","loot_table_id":"minecraft:chests/spawn_bonus_chest","seed":123456789012}
+modifier || fn_set_loot_table_barrel || command || {id:"minecraft:barrel",count:1} || {"type":"minecraft:set_loot_table","loot_table_id":"minecraft:chests/igloo_chest"}
+modifier || fn_set_loot_table_shulker || command || {id:"minecraft:shulker_box",count:1} || {"type":"minecraft:set_loot_table","loot_table_id":"minecraft:chests/end_city_treasure"}
+modifier || fn_set_loot_table_not_container || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_loot_table","loot_table_id":"minecraft:chests/simple_dungeon"}
+modifier || fn_set_loot_table_empty_input || command || - || {"type":"minecraft:set_loot_table","loot_table_id":"minecraft:chests/simple_dungeon"}
+modifier || fn_set_loot_table_negative_seed || command || {id:"minecraft:chest",count:1} || {"type":"minecraft:set_loot_table","loot_table_id":"minecraft:chests/simple_dungeon","seed":-5}
+modifier || fn_set_loot_table_neg_unknown_table || command || {id:"minecraft:chest",count:1} || {"type":"minecraft:set_loot_table","loot_table_id":"minecraft:chests/nope"}
+modifier || fn_set_loot_table_neg_missing_id || command || {id:"minecraft:chest",count:1} || {"type":"minecraft:set_loot_table"}
+modifier || fn_set_loot_table_neg_seed_type || command || {id:"minecraft:chest",count:1} || {"type":"minecraft:set_loot_table","loot_table_id":"minecraft:chests/simple_dungeon","seed":"x"}
+modifier || fn_set_loot_table_neg_inline_table || command || {id:"minecraft:chest",count:1} || {"type":"minecraft:set_loot_table","loot_table_id":{"pools":[]}}
+# explosion_decay
+modifier || fn_explosion_decay_stack || block || {id:"minecraft:stone",count:16} || {"type":"minecraft:explosion_decay"}
+modifier || fn_explosion_decay_single || block || {id:"minecraft:stone",count:1} || {"type":"minecraft:explosion_decay"}
+modifier || fn_explosion_decay_64 || block || {id:"minecraft:stone",count:64} || {"type":"minecraft:explosion_decay"}
+modifier || fn_explosion_decay_no_radius || command || {id:"minecraft:stone",count:16} || {"type":"minecraft:explosion_decay"}
+modifier || fn_explosion_decay_condition || block || {id:"minecraft:stone",count:16} || {"type":"minecraft:explosion_decay","condition":{"type":"minecraft:random_chance","chance":0.5}}
+modifier || fn_explosion_decay_no_problem_without_radius || command || {id:"minecraft:stone",count:16} || {"type":"minecraft:explosion_decay"}
+modifier || fn_explosion_decay_neg_condition || block || {id:"minecraft:stone",count:16} || {"type":"minecraft:explosion_decay","condition":{"type":"minecraft:nope"}}
+# fill_player_head
+modifier || fn_fill_player_head_this || command || {id:"minecraft:player_head",count:1} || {"type":"minecraft:fill_player_head","entity":"this"}
+modifier || fn_fill_player_head_attacker || kill || {id:"minecraft:player_head",count:1} || {"type":"minecraft:fill_player_head","entity":"attacker"}
+modifier || fn_fill_player_head_victim || kill || {id:"minecraft:player_head",count:1} || {"type":"minecraft:fill_player_head","entity":"this"}
+modifier || fn_fill_player_head_other_item || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:fill_player_head","entity":"this"}
+modifier || fn_fill_player_head_missing_entity || origin || {id:"minecraft:player_head",count:1} || {"type":"minecraft:fill_player_head","entity":"this"}
+modifier || fn_fill_player_head_val_needs_attacker || command || {id:"minecraft:player_head",count:1} || {"type":"minecraft:fill_player_head","entity":"attacker"}
+modifier || fn_fill_player_head_neg_entity || command || {id:"minecraft:player_head",count:1} || {"type":"minecraft:fill_player_head","entity":"zombie"}
+modifier || fn_fill_player_head_neg_missing_entity_field || command || {id:"minecraft:player_head",count:1} || {"type":"minecraft:fill_player_head"}
+# copy_custom_data
+modifier || fn_copy_custom_data_storage_replace || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:storage","source":"synth:data"},"ops":[{"source":"n","target":"copied","op":"replace"},{"source":"c","target":"nested.c","op":"replace"}]}
+modifier || fn_copy_custom_data_append || command || {id:"minecraft:stone",count:1,components:{"minecraft:custom_data":{l:[9]}}} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:storage","source":"synth:data"},"ops":[{"source":"l","target":"l","op":"append"}]}
+modifier || fn_copy_custom_data_merge || command || {id:"minecraft:stone",count:1,components:{"minecraft:custom_data":{c:{b:2,a:0}}}} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:storage","source":"synth:data"},"ops":[{"source":"c","target":"c","op":"merge"}]}
+modifier || fn_copy_custom_data_missing_source_path || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:storage","source":"synth:data"},"ops":[{"source":"nothing","target":"x","op":"replace"}]}
+modifier || fn_copy_custom_data_missing_storage || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:storage","source":"synth:other"},"ops":[{"source":"n","target":"x","op":"replace"}]}
+modifier || fn_copy_custom_data_empty_ops || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:storage","source":"synth:data"},"ops":[]}
+modifier || fn_copy_custom_data_path_index || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:storage","source":"synth:data"},"ops":[{"source":"l[1]","target":"second","op":"replace"},{"source":"l[-1]","target":"last","op":"replace"},{"source":"s","target":"text","op":"replace"}]}
+modifier || fn_copy_custom_data_context_this_name || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:context","target":"this"},"ops":[{"source":"Pos","target":"pos","op":"replace"}]}
+modifier || fn_copy_custom_data_block_entity_id || block || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:context","target":"block_entity"},"ops":[{"source":"id","target":"be_id","op":"replace"}]}
+modifier || fn_copy_custom_data_neg_op || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:storage","source":"synth:data"},"ops":[{"source":"n","target":"x","op":"swap"}]}
+modifier || fn_copy_custom_data_neg_path || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:storage","source":"synth:data"},"ops":[{"source":"a..b","target":"x","op":"replace"}]}
+modifier || fn_copy_custom_data_neg_source || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:nope"},"ops":[]}
+modifier || fn_copy_custom_data_neg_missing_ops || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:storage","source":"synth:data"}}
+modifier || fn_copy_custom_data_val_context_needs_block_entity || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_custom_data","source":{"type":"minecraft:context","target":"block_entity"},"ops":[]}
+# copy_state
+modifier || fn_copy_state_chest || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_state","block":"minecraft:chest","properties":["facing","type"]}
+modifier || fn_copy_state_all_props || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_state","block":"minecraft:chest","properties":["facing","type","waterlogged"]}
+modifier || fn_copy_state_unknown_property_ignored || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_state","block":"minecraft:chest","properties":["facing","nope"]}
+modifier || fn_copy_state_empty_properties || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_state","block":"minecraft:chest","properties":[]}
+modifier || fn_copy_state_other_block_property || block || {id:"minecraft:oak_stairs",count:1} || {"type":"minecraft:copy_state","block":"minecraft:oak_stairs","properties":["facing","half"]}
+modifier || fn_copy_state_existing_state_merged || block || {id:"minecraft:chest",count:1,components:{"minecraft:block_state":{facing:"south",foo:"bar"}}} || {"type":"minecraft:copy_state","block":"minecraft:chest","properties":["type"]}
+modifier || fn_copy_state_val_no_block_state || command || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_state","block":"minecraft:chest","properties":["facing"]}
+modifier || fn_copy_state_val_needs_state || command || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_state","block":"minecraft:chest","properties":["facing"]}
+modifier || fn_copy_state_neg_block || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_state","block":"minecraft:nope","properties":[]}
+modifier || fn_copy_state_neg_missing_block || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_state","properties":[]}
+modifier || fn_copy_state_neg_missing_properties || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_state","block":"minecraft:chest"}
+modifier || fn_copy_state_neg_properties_type || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_state","block":"minecraft:chest","properties":"facing"}
+# copy_components
+modifier || fn_copy_components_block_entity || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_components","source":"block_entity"}
+modifier || fn_copy_components_block_entity_include || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_components","source":"block_entity","include":["minecraft:custom_name"]}
+modifier || fn_copy_components_block_entity_exclude || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_components","source":"block_entity","exclude":["minecraft:custom_name"]}
+modifier || fn_copy_components_tool || block || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_components","source":"tool","include":["minecraft:enchantments"]}
+modifier || fn_copy_components_tool_all || enchitem || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_components","source":"tool"}
+modifier || fn_copy_components_this_entity || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_components","source":"this","include":["minecraft:custom_name"]}
+modifier || fn_copy_components_include_and_exclude || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_components","source":"block_entity","include":["minecraft:custom_name","minecraft:lore"],"exclude":["minecraft:custom_name"]}
+modifier || fn_copy_components_missing_source || origin || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_components","source":"this"}
+modifier || fn_copy_components_val_needs_tool || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:copy_components","source":"tool"}
+modifier || fn_copy_components_neg_source || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_components","source":"hand"}
+modifier || fn_copy_components_neg_component || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_components","source":"block_entity","include":["minecraft:nope"]}
+modifier || fn_copy_components_neg_missing_source || block || {id:"minecraft:chest",count:1} || {"type":"minecraft:copy_components"}
+# sequence
+modifier || fn_sequence_inline_list || command || {id:"minecraft:stone",count:1} || [{"type":"minecraft:set_count","count":5},{"type":"minecraft:set_name","name":"Seq"}]
+modifier || fn_sequence_typed || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:sequence","functions":[{"type":"minecraft:set_count","count":5},{"type":"minecraft:set_count","count":2,"add":true}]}
+modifier || fn_sequence_empty || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:sequence","functions":[]}
+modifier || fn_sequence_empty_inline || command || {id:"minecraft:stone",count:1} || []
+modifier || fn_sequence_condition_gate || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:sequence","condition":{"type":"minecraft:random_chance","chance":0.5},"functions":[{"type":"minecraft:set_count","count":9}]}
+modifier || fn_sequence_nested || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:sequence","functions":[{"type":"minecraft:sequence","functions":[{"type":"minecraft:set_count","count":3}]},{"type":"minecraft:set_count","count":4,"add":true}]}
+modifier || fn_sequence_discard_in_middle || command || {id:"minecraft:stone",count:1} || [{"type":"minecraft:discard"},{"type":"minecraft:set_count","count":4}]
+modifier || fn_sequence_registry_reference_inline_order || command || {id:"minecraft:stone",count:3} || [{"type":"minecraft:set_count","count":2,"add":true},{"type":"minecraft:limit_count","limit":{"max":4}},{"type":"minecraft:set_count","count":10,"add":true}]
+modifier || fn_sequence_functions_single_object || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:sequence","functions":{"type":"minecraft:set_count","count":1}}
+modifier || fn_sequence_neg_missing_functions || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:sequence"}
+modifier || fn_sequence_neg_element || command || {id:"minecraft:stone",count:1} || [{"type":"minecraft:nope"}]
+modifier || fn_sequence_neg_inline_number || command || {id:"minecraft:stone",count:1} || [1,2]
+modifier || fn_sequence_val_param_in_second || empty || {id:"minecraft:stone",count:1} || [{"type":"minecraft:set_count","count":1},{"type":"minecraft:copy_name","source":"this"}]
+# discard
+modifier || fn_discard || command || {id:"minecraft:stone",count:3} || {"type":"minecraft:discard"}
+modifier || fn_discard_conditional_false || command || {id:"minecraft:stone",count:3} || {"type":"minecraft:discard","condition":{"type":"minecraft:inverted","term":{"type":"minecraft:random_chance","chance":1.0}}}
+modifier || fn_discard_conditional_chance || command || {id:"minecraft:stone",count:3} || {"type":"minecraft:discard","condition":{"type":"minecraft:random_chance","chance":0.5}}
+modifier || fn_discard_empty_input || command || - || {"type":"minecraft:discard"}
+modifier || fn_discard_neg_condition || command || {id:"minecraft:stone",count:3} || {"type":"minecraft:discard","condition":"yes"}
+modifier || fn_discard_val_condition_needs_entity || empty || {id:"minecraft:stone",count:3} || {"type":"minecraft:discard","condition":{"type":"minecraft:killed_by_player"}}
+# set_banner_pattern
+modifier || fn_banner_pattern_append || command || {id:"minecraft:white_banner",count:1} || {"type":"minecraft:set_banner_pattern","patterns":[{"pattern":"minecraft:stripe_top","color":"red"}],"append":true}
+modifier || fn_banner_pattern_replace || command || {id:"minecraft:white_banner",count:1,components:{"minecraft:banner_patterns":[{pattern:"minecraft:border",color:"blue"}]}} || {"type":"minecraft:set_banner_pattern","patterns":[{"pattern":"minecraft:stripe_top","color":"red"},{"pattern":"minecraft:globe","color":"black"}],"append":false}
+modifier || fn_banner_pattern_append_existing || command || {id:"minecraft:white_banner",count:1,components:{"minecraft:banner_patterns":[{pattern:"minecraft:border",color:"blue"}]}} || {"type":"minecraft:set_banner_pattern","patterns":[{"pattern":"minecraft:skull","color":"white"}],"append":true}
+modifier || fn_banner_pattern_empty || command || {id:"minecraft:white_banner",count:1,components:{"minecraft:banner_patterns":[{pattern:"minecraft:border",color:"blue"}]}} || {"type":"minecraft:set_banner_pattern","patterns":[],"append":false}
+modifier || fn_banner_pattern_on_other_item || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_banner_pattern","patterns":[{"pattern":"minecraft:globe","color":"black"}],"append":true}
+modifier || fn_banner_pattern_inline_pattern_definition || command || {id:"minecraft:white_banner",count:1} || {"type":"minecraft:set_banner_pattern","patterns":[{"pattern":{"asset_id":"minecraft:custom","translation_key":"x"},"color":"lime"}],"append":true}
+modifier || fn_banner_pattern_neg_pattern || command || {id:"minecraft:white_banner",count:1} || {"type":"minecraft:set_banner_pattern","patterns":[{"pattern":"minecraft:nope","color":"red"}],"append":true}
+modifier || fn_banner_pattern_neg_color || command || {id:"minecraft:white_banner",count:1} || {"type":"minecraft:set_banner_pattern","patterns":[{"pattern":"minecraft:skull","color":"octarine"}],"append":true}
+modifier || fn_banner_pattern_neg_missing_append || command || {id:"minecraft:white_banner",count:1} || {"type":"minecraft:set_banner_pattern","patterns":[]}
+modifier || fn_banner_pattern_neg_missing_patterns || command || {id:"minecraft:white_banner",count:1} || {"type":"minecraft:set_banner_pattern","append":true}
+# set_potion
+modifier || fn_set_potion_healing || command || {id:"minecraft:potion",count:1} || {"type":"minecraft:set_potion","id":"minecraft:healing"}
+modifier || fn_set_potion_tipped_arrow || command || {id:"minecraft:tipped_arrow",count:4} || {"type":"minecraft:set_potion","id":"minecraft:strong_poison"}
+modifier || fn_set_potion_other_item || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_potion","id":"minecraft:swiftness"}
+modifier || fn_set_potion_replaces_existing || command || {id:"minecraft:potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:water"}}} || {"type":"minecraft:set_potion","id":"minecraft:night_vision"}
+modifier || fn_set_potion_keeps_custom_effects || command || {id:"minecraft:potion",count:1,components:{"minecraft:potion_contents":{custom_color:255,custom_effects:[{id:"minecraft:speed",duration:5}]}}} || {"type":"minecraft:set_potion","id":"minecraft:night_vision"}
+modifier || fn_set_potion_empty_input || command || - || {"type":"minecraft:set_potion","id":"minecraft:healing"}
+modifier || fn_set_potion_neg_unknown || command || {id:"minecraft:potion",count:1} || {"type":"minecraft:set_potion","id":"minecraft:nope"}
+modifier || fn_set_potion_neg_missing_id || command || {id:"minecraft:potion",count:1} || {"type":"minecraft:set_potion"}
+modifier || fn_set_potion_neg_type || command || {id:"minecraft:potion",count:1} || {"type":"minecraft:set_potion","id":7}
+# set_random_dyes
+modifier || fn_random_dyes_boots || command || {id:"minecraft:leather_boots",count:1} || {"type":"minecraft:set_random_dyes","number_of_dyes":3}
+modifier || fn_random_dyes_provider || command || {id:"minecraft:leather_chestplate",count:1} || {"type":"minecraft:set_random_dyes","number_of_dyes":{"type":"minecraft:uniform","min":1,"max":8}}
+modifier || fn_random_dyes_zero || command || {id:"minecraft:leather_boots",count:1} || {"type":"minecraft:set_random_dyes","number_of_dyes":0}
+modifier || fn_random_dyes_negative || command || {id:"minecraft:leather_boots",count:1} || {"type":"minecraft:set_random_dyes","number_of_dyes":-2}
+modifier || fn_random_dyes_existing_color || command || {id:"minecraft:leather_boots",count:1,components:{"minecraft:dyed_color":16711680}} || {"type":"minecraft:set_random_dyes","number_of_dyes":2}
+modifier || fn_random_dyes_non_dyeable || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_random_dyes","number_of_dyes":2}
+modifier || fn_random_dyes_wolf_armor || command || {id:"minecraft:wolf_armor",count:1} || {"type":"minecraft:set_random_dyes","number_of_dyes":2}
+modifier || fn_random_dyes_many || command || {id:"minecraft:leather_helmet",count:1} || {"type":"minecraft:set_random_dyes","number_of_dyes":20}
+modifier || fn_random_dyes_neg_missing || command || {id:"minecraft:leather_boots",count:1} || {"type":"minecraft:set_random_dyes"}
+modifier || fn_random_dyes_neg_type || command || {id:"minecraft:leather_boots",count:1} || {"type":"minecraft:set_random_dyes","number_of_dyes":"three"}
+# set_random_potion
+modifier || fn_random_potion_any || command || {id:"minecraft:potion",count:1} || {"type":"minecraft:set_random_potion"}
+modifier || fn_random_potion_options_list || command || {id:"minecraft:splash_potion",count:1} || {"type":"minecraft:set_random_potion","options":["minecraft:healing","minecraft:poison","minecraft:swiftness"]}
+modifier || fn_random_potion_options_tag || command || {id:"minecraft:lingering_potion",count:1} || {"type":"minecraft:set_random_potion","options":"#minecraft:tradeable"}
+modifier || fn_random_potion_single || command || {id:"minecraft:potion",count:1} || {"type":"minecraft:set_random_potion","options":"minecraft:luck"}
+modifier || fn_random_potion_empty_options || command || {id:"minecraft:potion",count:1} || {"type":"minecraft:set_random_potion","options":[]}
+modifier || fn_random_potion_other_item || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_random_potion"}
+modifier || fn_random_potion_neg_option || command || {id:"minecraft:potion",count:1} || {"type":"minecraft:set_random_potion","options":["minecraft:nope"]}
+modifier || fn_random_potion_neg_tag || command || {id:"minecraft:potion",count:1} || {"type":"minecraft:set_random_potion","options":"#minecraft:nope"}
+# set_instrument
+modifier || fn_instrument_tag || command || {id:"minecraft:goat_horn",count:1} || {"type":"minecraft:set_instrument","options":"#minecraft:goat_horns"}
+modifier || fn_instrument_list || command || {id:"minecraft:goat_horn",count:1} || {"type":"minecraft:set_instrument","options":["minecraft:ponder_goat_horn","minecraft:sing_goat_horn"]}
+modifier || fn_instrument_single || command || {id:"minecraft:goat_horn",count:1} || {"type":"minecraft:set_instrument","options":"minecraft:call_goat_horn"}
+modifier || fn_instrument_other_item || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_instrument","options":"#minecraft:goat_horns"}
+modifier || fn_instrument_empty_options || command || {id:"minecraft:goat_horn",count:1} || {"type":"minecraft:set_instrument","options":[]}
+modifier || fn_instrument_existing || command || {id:"minecraft:goat_horn",count:1,components:{"minecraft:instrument":"minecraft:seek_goat_horn"}} || {"type":"minecraft:set_instrument","options":["minecraft:feel_goat_horn"]}
+modifier || fn_instrument_neg_unknown || command || {id:"minecraft:goat_horn",count:1} || {"type":"minecraft:set_instrument","options":["minecraft:nope"]}
+modifier || fn_instrument_neg_missing_options || command || {id:"minecraft:goat_horn",count:1} || {"type":"minecraft:set_instrument"}
+# set_fireworks
+modifier || fn_fireworks_flight_only || command || {id:"minecraft:firework_rocket",count:1} || {"type":"minecraft:set_fireworks","flight_duration":3}
+modifier || fn_fireworks_explosions_replace || command || {id:"minecraft:firework_rocket",count:1} || {"type":"minecraft:set_fireworks","explosions":{"values":[{"shape":"star","colors":[16711680],"fade_colors":[255],"has_trail":true,"has_twinkle":false}],"mode":"replace_all"},"flight_duration":1}
+modifier || fn_fireworks_explosions_append || command || {id:"minecraft:firework_rocket",count:1,components:{"minecraft:fireworks":{flight_duration:2,explosions:[{shape:"small_ball",colors:[1]}]}}} || {"type":"minecraft:set_fireworks","explosions":{"values":[{"shape":"burst"}],"mode":"append"}}
+modifier || fn_fireworks_explosions_insert || command || {id:"minecraft:firework_rocket",count:1,components:{"minecraft:fireworks":{flight_duration:2,explosions:[{shape:"small_ball",colors:[1]},{shape:"large_ball",colors:[2]}]}}} || {"type":"minecraft:set_fireworks","explosions":{"values":[{"shape":"creeper"}],"mode":"insert","offset":1}}
+modifier || fn_fireworks_empty || command || {id:"minecraft:firework_rocket",count:1} || {"type":"minecraft:set_fireworks"}
+modifier || fn_fireworks_other_item || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_fireworks","flight_duration":4}
+modifier || fn_fireworks_flight_300 || command || {id:"minecraft:firework_rocket",count:1} || {"type":"minecraft:set_fireworks","flight_duration":300}
+modifier || fn_fireworks_neg_shape || command || {id:"minecraft:firework_rocket",count:1} || {"type":"minecraft:set_fireworks","explosions":{"values":[{"shape":"cube"}],"mode":"append"}}
+modifier || fn_fireworks_neg_operation || command || {id:"minecraft:firework_rocket",count:1} || {"type":"minecraft:set_fireworks","explosions":{"values":[],"mode":"prepend"}}
+# set_firework_explosion
+modifier || fn_firework_explosion_full || command || {id:"minecraft:firework_star",count:1} || {"type":"minecraft:set_firework_explosion","shape":"large_ball","colors":[16711680,255],"fade_colors":[65280],"trail":true,"twinkle":true}
+modifier || fn_firework_explosion_shape_only || command || {id:"minecraft:firework_star",count:1,components:{"minecraft:firework_explosion":{shape:"star",colors:[1,2],fade_colors:[3],has_trail:true,has_twinkle:false}}} || {"type":"minecraft:set_firework_explosion","shape":"creeper"}
+modifier || fn_firework_explosion_flags_only || command || {id:"minecraft:firework_star",count:1,components:{"minecraft:firework_explosion":{shape:"star",colors:[1,2],fade_colors:[3],has_trail:true,has_twinkle:false}}} || {"type":"minecraft:set_firework_explosion","trail":false,"twinkle":true}
+modifier || fn_firework_explosion_colors_only || command || {id:"minecraft:firework_star",count:1} || {"type":"minecraft:set_firework_explosion","colors":[5,6,7]}
+modifier || fn_firework_explosion_empty_fields || command || {id:"minecraft:firework_star",count:1} || {"type":"minecraft:set_firework_explosion"}
+modifier || fn_firework_explosion_other_item || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_firework_explosion","shape":"burst"}
+modifier || fn_firework_explosion_empty_colors || command || {id:"minecraft:firework_star",count:1} || {"type":"minecraft:set_firework_explosion","colors":[],"fade_colors":[]}
+modifier || fn_firework_explosion_neg_shape || command || {id:"minecraft:firework_star",count:1} || {"type":"minecraft:set_firework_explosion","shape":"cube"}
+modifier || fn_firework_explosion_neg_colors || command || {id:"minecraft:firework_star",count:1} || {"type":"minecraft:set_firework_explosion","colors":["red"]}
+modifier || fn_firework_explosion_neg_trail || command || {id:"minecraft:firework_star",count:1} || {"type":"minecraft:set_firework_explosion","trail":"yes"}
+# set_book_cover
+modifier || fn_book_cover_all || command || {id:"minecraft:written_book",count:1} || {"type":"minecraft:set_book_cover","title":"The Title","author":"Someone","generation":2}
+modifier || fn_book_cover_title_only || command || {id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"Old",author:"Orig",generation:1,pages:["p1"]}}} || {"type":"minecraft:set_book_cover","title":"New"}
+modifier || fn_book_cover_filterable_title || command || {id:"minecraft:written_book",count:1} || {"type":"minecraft:set_book_cover","title":{"raw":"Raw","filtered":"Filtered"}}
+modifier || fn_book_cover_author_only || command || {id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"Old",author:"Orig",generation:1,pages:["p1"]}}} || {"type":"minecraft:set_book_cover","author":"Nobody"}
+modifier || fn_book_cover_generation_only || command || {id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"Old",author:"Orig",generation:1,pages:["p1"]}}} || {"type":"minecraft:set_book_cover","generation":3}
+modifier || fn_book_cover_no_fields || command || {id:"minecraft:written_book",count:1} || {"type":"minecraft:set_book_cover"}
+modifier || fn_book_cover_other_item || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_book_cover","title":"X"}
+modifier || fn_book_cover_title_32_chars || command || {id:"minecraft:written_book",count:1} || {"type":"minecraft:set_book_cover","title":"12345678901234567890123456789012"}
+modifier || fn_book_cover_neg_title_long || command || {id:"minecraft:written_book",count:1} || {"type":"minecraft:set_book_cover","title":"123456789012345678901234567890123"}
+modifier || fn_book_cover_neg_generation || command || {id:"minecraft:written_book",count:1} || {"type":"minecraft:set_book_cover","generation":4}
+modifier || fn_book_cover_neg_author_type || command || {id:"minecraft:written_book",count:1} || {"type":"minecraft:set_book_cover","author":5}
+# set_written_book_pages
+modifier || fn_written_pages_append || command || {id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"T",author:"A",pages:["one"]}}} || {"type":"minecraft:set_written_book_pages","pages":["two",{"text":"three","color":"red"}],"mode":"append"}
+modifier || fn_written_pages_replace_all || command || {id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"T",author:"A",pages:["one","two"]}}} || {"type":"minecraft:set_written_book_pages","pages":["x"],"mode":"replace_all"}
+modifier || fn_written_pages_insert || command || {id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"T",author:"A",pages:["one","two"]}}} || {"type":"minecraft:set_written_book_pages","pages":["mid"],"mode":"insert","offset":1}
+modifier || fn_written_pages_replace_section || command || {id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"T",author:"A",pages:["a","b","c"]}}} || {"type":"minecraft:set_written_book_pages","pages":["x","y"],"mode":"replace_section","offset":1,"size":1}
+modifier || fn_written_pages_filterable || command || {id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"T",author:"A",pages:["a"]}}} || {"type":"minecraft:set_written_book_pages","pages":[{"raw":"Raw","filtered":"Filt"}],"mode":"append"}
+modifier || fn_written_pages_no_existing || command || {id:"minecraft:written_book",count:1} || {"type":"minecraft:set_written_book_pages","pages":["fresh"],"mode":"append"}
+modifier || fn_written_pages_other_item || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_written_book_pages","pages":["x"],"mode":"append"}
+modifier || fn_written_pages_empty || command || {id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"T",author:"A",pages:["a"]}}} || {"type":"minecraft:set_written_book_pages","pages":[],"mode":"replace_all"}
+modifier || fn_written_pages_neg_mode || command || {id:"minecraft:written_book",count:1} || {"type":"minecraft:set_written_book_pages","pages":["x"],"mode":"prepend"}
+modifier || fn_written_pages_neg_missing_pages || command || {id:"minecraft:written_book",count:1} || {"type":"minecraft:set_written_book_pages"}
+# set_writable_book_pages
+modifier || fn_writable_pages_append || command || {id:"minecraft:writable_book",count:1,components:{"minecraft:writable_book_content":{pages:["one"]}}} || {"type":"minecraft:set_writable_book_pages","pages":["two","three"],"mode":"append"}
+modifier || fn_writable_pages_replace_all || command || {id:"minecraft:writable_book",count:1,components:{"minecraft:writable_book_content":{pages:["one","two"]}}} || {"type":"minecraft:set_writable_book_pages","pages":["x"],"mode":"replace_all"}
+modifier || fn_writable_pages_insert || command || {id:"minecraft:writable_book",count:1,components:{"minecraft:writable_book_content":{pages:["one","two"]}}} || {"type":"minecraft:set_writable_book_pages","pages":["mid"],"mode":"insert","offset":2}
+modifier || fn_writable_pages_replace_section || command || {id:"minecraft:writable_book",count:1,components:{"minecraft:writable_book_content":{pages:["a","b","c"]}}} || {"type":"minecraft:set_writable_book_pages","pages":["x"],"mode":"replace_section","offset":0,"size":2}
+modifier || fn_writable_pages_filterable || command || {id:"minecraft:writable_book",count:1} || {"type":"minecraft:set_writable_book_pages","pages":[{"raw":"Raw","filtered":"Filt"}],"mode":"append"}
+modifier || fn_writable_pages_other_item || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_writable_book_pages","pages":["x"],"mode":"append"}
+modifier || fn_writable_pages_offset_150 || command || {id:"minecraft:writable_book",count:1} || {"type":"minecraft:set_writable_book_pages","pages":["x"],"mode":"replace_section","offset":150,"size":1}
+modifier || fn_writable_pages_neg_page_long || command || {id:"minecraft:writable_book",count:1} || {"type":"minecraft:set_writable_book_pages","pages":["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]}
+modifier || fn_writable_pages_neg_missing_pages || command || {id:"minecraft:writable_book",count:1} || {"type":"minecraft:set_writable_book_pages"}
+# toggle_tooltips
+modifier || fn_toggle_tooltips_hide || command || {id:"minecraft:iron_sword",count:1} || {"type":"minecraft:toggle_tooltips","toggles":{"minecraft:attribute_modifiers":false}}
+modifier || fn_toggle_tooltips_show_again || command || {id:"minecraft:iron_sword",count:1,components:{"minecraft:tooltip_display":{hide_tooltip:false,hidden_components:["minecraft:attribute_modifiers","minecraft:enchantments"]}}} || {"type":"minecraft:toggle_tooltips","toggles":{"minecraft:attribute_modifiers":true}}
+modifier || fn_toggle_tooltips_multi || command || {id:"minecraft:iron_sword",count:1} || {"type":"minecraft:toggle_tooltips","toggles":{"minecraft:attribute_modifiers":false,"minecraft:enchantments":false,"minecraft:damage":false}}
+modifier || fn_toggle_tooltips_already_hidden || command || {id:"minecraft:iron_sword",count:1,components:{"minecraft:tooltip_display":{hidden_components:["minecraft:enchantments"]}}} || {"type":"minecraft:toggle_tooltips","toggles":{"minecraft:enchantments":false}}
+modifier || fn_toggle_tooltips_empty_toggles || command || {id:"minecraft:iron_sword",count:1} || {"type":"minecraft:toggle_tooltips","toggles":{}}
+modifier || fn_toggle_tooltips_any_component || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:toggle_tooltips","toggles":{"minecraft:custom_name":false}}
+modifier || fn_toggle_tooltips_empty_input || command || - || {"type":"minecraft:toggle_tooltips","toggles":{"minecraft:enchantments":false}}
+modifier || fn_toggle_tooltips_neg_unknown_component || command || {id:"minecraft:iron_sword",count:1} || {"type":"minecraft:toggle_tooltips","toggles":{"minecraft:nope":false}}
+modifier || fn_toggle_tooltips_neg_value || command || {id:"minecraft:iron_sword",count:1} || {"type":"minecraft:toggle_tooltips","toggles":{"minecraft:enchantments":"no"}}
+modifier || fn_toggle_tooltips_neg_missing || command || {id:"minecraft:iron_sword",count:1} || {"type":"minecraft:toggle_tooltips"}
+# set_ominous_bottle_amplifier
+modifier || fn_ominous_amplifier_const || command || {id:"minecraft:ominous_bottle",count:1} || {"type":"minecraft:set_ominous_bottle_amplifier","amplifier":3}
+modifier || fn_ominous_amplifier_uniform || command || {id:"minecraft:ominous_bottle",count:1} || {"type":"minecraft:set_ominous_bottle_amplifier","amplifier":{"type":"minecraft:uniform","min":0,"max":4}}
+modifier || fn_ominous_amplifier_zero || command || {id:"minecraft:ominous_bottle",count:1} || {"type":"minecraft:set_ominous_bottle_amplifier","amplifier":0}
+modifier || fn_ominous_amplifier_negative || command || {id:"minecraft:ominous_bottle",count:1} || {"type":"minecraft:set_ominous_bottle_amplifier","amplifier":-1}
+modifier || fn_ominous_amplifier_over_max || command || {id:"minecraft:ominous_bottle",count:1} || {"type":"minecraft:set_ominous_bottle_amplifier","amplifier":9}
+modifier || fn_ominous_amplifier_other_item || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_ominous_bottle_amplifier","amplifier":2}
+modifier || fn_ominous_amplifier_existing || command || {id:"minecraft:ominous_bottle",count:1,components:{"minecraft:ominous_bottle_amplifier":1}} || {"type":"minecraft:set_ominous_bottle_amplifier","amplifier":4}
+modifier || fn_ominous_amplifier_neg_missing || command || {id:"minecraft:ominous_bottle",count:1} || {"type":"minecraft:set_ominous_bottle_amplifier"}
+modifier || fn_ominous_amplifier_neg_type || command || {id:"minecraft:ominous_bottle",count:1} || {"type":"minecraft:set_ominous_bottle_amplifier","amplifier":"high"}
+# set_custom_model_data
+modifier || fn_custom_model_data_floats || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_custom_model_data","floats":{"values":[1.5,2.5],"mode":"replace_all"}}
+modifier || fn_custom_model_data_all_lists || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_custom_model_data","floats":{"values":[1.0],"mode":"append"},"flags":{"values":[true,false],"mode":"append"},"strings":{"values":["a","b"],"mode":"append"},"colors":{"values":[255,{"type":"minecraft:uniform","min":0,"max":100}],"mode":"append"}}
+modifier || fn_custom_model_data_append_existing || command || {id:"minecraft:stone",count:1,components:{"minecraft:custom_model_data":{floats:[1.0],strings:["x"]}}} || {"type":"minecraft:set_custom_model_data","floats":{"values":[2.0],"mode":"append"},"strings":{"values":["y"],"mode":"insert","offset":0}}
+modifier || fn_custom_model_data_colors_rgb_list || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_custom_model_data","colors":{"values":[[1.0,0.5,0.0],16711680],"mode":"append"}}
+modifier || fn_custom_model_data_replace_section || command || {id:"minecraft:stone",count:1,components:{"minecraft:custom_model_data":{flags:[true,true,true]}}} || {"type":"minecraft:set_custom_model_data","flags":{"values":[false],"mode":"replace_section","offset":1,"size":1}}
+modifier || fn_custom_model_data_provider_floats || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_custom_model_data","floats":{"mode":"append","values":[{"type":"minecraft:uniform","min":0.0,"max":1.0},{"type":"minecraft:from_int","input":{"type":"minecraft:score","target":{"type":"minecraft:context","target":"this"},"score":"synth"}}]}}
+modifier || fn_custom_model_data_nothing || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_custom_model_data"}
+modifier || fn_custom_model_data_empty_input || command || - || {"type":"minecraft:set_custom_model_data","floats":{"values":[1.0],"mode":"append"}}
+modifier || fn_custom_model_data_neg_values_type || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_custom_model_data","floats":{"values":"x"}}
+modifier || fn_custom_model_data_neg_flags_type || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_custom_model_data","flags":{"values":[1]}}
+modifier || fn_custom_model_data_neg_operation || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_custom_model_data","strings":{"values":["a"],"mode":"sort"}}
+modifier || fn_custom_model_data_neg_color || command || {id:"minecraft:stone",count:1} || {"type":"minecraft:set_custom_model_data","colors":{"values":["red"]}}

@@ -224,6 +224,10 @@ impl LootPoolEntryContainer {
                 }
                 true
             }
+            // `EntryGroup.compose`: a lone child decides the result, any other count is always true
+            EntryKind::Group(children) if children.len() == 1 => {
+                children[0].expand(context, output)
+            }
             EntryKind::Group(children) => {
                 for child in children {
                     child.expand(context, output);
@@ -458,7 +462,15 @@ fn build_entry_codec() -> Codec<LootPoolEntryContainer> {
                 },
             ),
             "item" => uniform_entry(
-                mc_protocol::components::holder::registry_by_name_codec::<Item>().field_of("name"),
+                mc_protocol::components::holder::registry_by_name_codec::<Item>()
+                    .validate(|item| {
+                        if item == Item::AIR {
+                            mc_dfu::DataResult::error_str("Item must not be minecraft:air")
+                        } else {
+                            mc_dfu::DataResult::success(item)
+                        }
+                    })
+                    .field_of("name"),
                 EntryKind::Item,
                 |k| {
                     if let EntryKind::Item(i, u) = k {

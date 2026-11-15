@@ -81,7 +81,9 @@ impl NbtSource {
             all.push((NbtSource::BlockEntity, "block_entity"));
             all
         });
-        mc_dfu::string_enum_codec(LazyLock::force(&ALL).as_slice())
+        crate::world::level::storage::loot::codec_ext::id_resolver_codec(
+            LazyLock::force(&ALL).as_slice(),
+        )
     }
 
     pub fn context_param(self) -> ContextKey {

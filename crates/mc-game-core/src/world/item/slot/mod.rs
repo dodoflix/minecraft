@@ -59,6 +59,24 @@ impl SlotAccess for ValueSlot {
     }
 }
 
+/// One slot of an entity (`Entity.getSlot(slot)`) as a loot context sees it: read-only. The entity is only borrowed shared
+/// while the context holds it, so a write is refused (`set` returns `false`: the command reports no change) instead of
+/// pretending to succeed.
+struct EntitySlotAccess<'a> {
+    entity: &'a dyn crate::world::entity::Entity,
+    slot: i32,
+}
+
+impl SlotAccess for EntitySlotAccess<'_> {
+    fn get(&self) -> ItemStack {
+        self.entity.get_slot(self.slot).unwrap_or_default()
+    }
+
+    fn set(&self, _stack: ItemStack) -> bool {
+        false
+    }
+}
+
 /// `SlotSelector`.
 #[derive(Clone)]
 pub enum SlotSelector<'a> {
@@ -484,7 +502,24 @@ impl SlotSource for RangeSlotSource {
         let params = context.params();
         let provider: Option<&'a dyn SlotProvider> = match self.source {
             RangeSource::Container => params.container,
-            RangeSource::Entity(t) => t.get(context).and_then(|e| e.as_slot_provider()),
+            RangeSource::Entity(t) => {
+                // `Entity implements SlotProvider`: `getSlot(slot)` is null for a slot the entity does not have
+                return match t.get(context) {
+                    Some(entity) => SlotCollection::of(
+                        self.slot_range
+                            .iter()
+                            .filter(|slot| entity.get_slot(**slot).is_some())
+                            .map(|slot| {
+                                Rc::new(EntitySlotAccess {
+                                    entity,
+                                    slot: *slot,
+                                }) as SlotRef<'a>
+                            })
+                            .collect(),
+                    ),
+                    None => SlotCollection::Empty,
+                };
+            }
             RangeSource::BlockEntity => params.block_entity.and_then(|b| b.as_slot_provider()),
         };
         match provider {
@@ -593,7 +628,9 @@ fn range_source_codec() -> Codec<RangeSource> {
         all.push((RangeSource::Container, "container"));
         all
     });
-    mc_dfu::string_enum_codec(LazyLock::force(&ALL).as_slice())
+    crate::world::level::storage::loot::codec_ext::id_resolver_codec(
+        LazyLock::force(&ALL).as_slice(),
+    )
 }
 
 /// `SlotRanges.CODEC`: the name and its slot ids.

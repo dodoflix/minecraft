@@ -59,7 +59,8 @@ pub fn check_holder(registry: &str, id: &Identifier) -> Result<(), String> {
             Ok(())
         } else {
             Err(format!(
-                "Failed to get element {id} from registry {registry}"
+                "Failed to get element {id} from registry {}",
+                mc_protocol::registry_context::qualified_registry(registry)
             ))
         }
     })
@@ -70,7 +71,10 @@ fn check_tag(registry: &str, tag: &Identifier) -> Result<(), String> {
         if global::get().tag_exists(registry, tag) {
             Ok(())
         } else {
-            Err(format!("Missing tag: '{tag}' in '{registry}'"))
+            Err(format!(
+                "Missing tag: '{tag}' in '{}'",
+                mc_protocol::registry_context::qualified_registry(registry)
+            ))
         }
     })
 }

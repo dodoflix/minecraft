@@ -26,7 +26,7 @@ use mc_protocol::components::values::predicates::data_driven_set_codec;
 use mc_protocol::components::{HolderSet, ItemStack, NoDirect};
 use mc_protocol::packets::play::{AttributeModifier, AttributeModifierOperation};
 
-use super::list_operation::{ListOperation, StandAlone};
+use super::list_operation::{ListOperation, StandAlone, UNLIMITED};
 use super::{ConditionalFunction, LootItemFunctionRef, condition_field};
 use crate::registry::keys;
 use crate::world::level::storage::loot::context::{ContextKey, LootContext};
@@ -513,7 +513,7 @@ impl ConditionalFunction for SetCustomModelDataFunction {
                     .map(|p| p.value(context.get_resolver()).get_float(context))
                     .collect();
                 op.operation
-                    .apply(&component.floats, &replacement, usize::MAX)
+                    .apply(&component.floats, &replacement, UNLIMITED)
             }
             None => component.floats.clone(),
         };
@@ -533,7 +533,7 @@ impl ConditionalFunction for SetCustomModelDataFunction {
                     .map(|p| p.value(context.get_resolver()).get_int(context))
                     .collect();
                 op.operation
-                    .apply(&component.colors, &replacement, usize::MAX)
+                    .apply(&component.colors, &replacement, UNLIMITED)
             }
             None => component.colors.clone(),
         };
@@ -586,7 +586,8 @@ impl ConditionalFunction for SetWrittenBookPagesFunction {
             .unwrap_or_default();
         original.pages = self
             .page_operation
-            .apply(&original.pages, &self.pages, usize::MAX);
+            .apply(&original.pages, &self.pages, UNLIMITED);
+        original.resolved = false;
         stack.set(WRITTEN_BOOK_CONTENT, original);
         stack
     }
@@ -726,11 +727,10 @@ pub(super) fn register(entries: &mut Entries) {
         "set_custom_model_data",
         entry(record!(SetCustomModelDataFunction {
             condition: cond(),
-            floats: StandAlone::codec(&float_holder_codec(), usize::MAX)
-                .optional_field_of("floats"),
-            flags: StandAlone::codec(&BOOL, usize::MAX).optional_field_of("flags"),
-            strings: StandAlone::codec(&STRING, usize::MAX).optional_field_of("strings"),
-            colors: StandAlone::codec(&color_provider_codec(), usize::MAX)
+            floats: StandAlone::codec(&float_holder_codec(), UNLIMITED).optional_field_of("floats"),
+            flags: StandAlone::codec(&BOOL, UNLIMITED).optional_field_of("flags"),
+            strings: StandAlone::codec(&STRING, UNLIMITED).optional_field_of("strings"),
+            colors: StandAlone::codec(&color_provider_codec(), UNLIMITED)
                 .optional_field_of("colors"),
         })),
     ));
@@ -747,7 +747,7 @@ pub(super) fn register(entries: &mut Entries) {
         entry(record!(SetWrittenBookPagesFunction {
             condition: cond(),
             pages: WrittenBookContent::pages_codec().field_of("pages"),
-            page_operation: ListOperation::codec(usize::MAX),
+            page_operation: ListOperation::codec(UNLIMITED),
         })),
     ));
     entries.push((
@@ -755,7 +755,7 @@ pub(super) fn register(entries: &mut Entries) {
         entry(record!(ExplorationMapFunction {
             condition: cond(),
             destination: data_driven_set_codec(keys::STRUCTURE).field_of("destination"),
-            map_decoration: crate::world::level::storage::loot::holder::registry_ref_codec(
+            map_decoration: mc_protocol::components::holder::registry_name_codec(
                 "minecraft:map_decoration_type"
             )
             .optional_field_of_default(

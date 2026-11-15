@@ -66,7 +66,8 @@ impl<'a> RegistryDecodeContext<'a> {
                 Ok(())
             }
             Lookup::No => Err(format!(
-                "Failed to get element {id} from registry {registry}"
+                "Failed to get element {id} from registry {}",
+                mc_protocol::registry_context::qualified_registry(registry)
             )),
             Lookup::NoRegistry => Err(format!("Registry does not exist: {registry}")),
         }
@@ -82,7 +83,10 @@ impl<'a> RegistryDecodeContext<'a> {
                     .push((registry.to_owned(), tag.clone()));
                 Ok(())
             }
-            Lookup::No => Err(format!("Missing tag: '{tag}' in '{registry}'")),
+            Lookup::No => Err(format!(
+                "Missing tag: '{tag}' in '{}'",
+                mc_protocol::registry_context::qualified_registry(registry)
+            )),
             Lookup::NoRegistry => Err(format!(
                 "Registry {registry} is not available in this context"
             )),

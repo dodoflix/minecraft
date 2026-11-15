@@ -26,7 +26,7 @@ use super::{
     function_holder_codec, function_list_codec_typed,
 };
 use crate::registry::keys;
-use crate::world::level::storage::loot::codec_ext::dispatch_optional_value;
+use crate::world::level::storage::loot::codec_ext::{dispatch_optional_value, id_resolver_codec};
 use crate::world::level::storage::loot::context::{ContextKey, EntityTarget, LootContext};
 use crate::world::level::storage::loot::holder::{lift, registry_ref_codec};
 use crate::world::level::storage::loot::predicates::ConditionHolder;
@@ -478,7 +478,7 @@ impl NameSource {
             all.push((NameSource::BlockEntity, "block_entity"));
             all
         });
-        mc_dfu::string_enum_codec(LazyLock::force(&ALL).as_slice())
+        id_resolver_codec(LazyLock::force(&ALL).as_slice())
     }
 
     fn context_param(self) -> ContextKey {
@@ -755,6 +755,7 @@ impl ConditionalFunction for CopyBlockState {
 /// `CopyComponentsFunction` source.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum ComponentSource {
+    Entity(EntityTarget),
     BlockEntity,
     Tool,
 }
@@ -771,6 +772,7 @@ impl ConditionalFunction for CopyComponentsFunction {
     conditional!(CopyComponentsFunction, "copy_components");
     fn referenced_params(&self) -> Vec<ContextKey> {
         vec![match self.source {
+            ComponentSource::Entity(t) => t.context_param(),
             ComponentSource::BlockEntity => ContextKey::BlockEntity,
             ComponentSource::Tool => ContextKey::Tool,
         }]
@@ -781,6 +783,29 @@ impl ConditionalFunction for CopyComponentsFunction {
                 && self.include.as_ref().is_none_or(|i| i.contains(&t))
         };
         match self.source {
+            ComponentSource::Entity(target) => {
+                // `Entity.get(type)`: the custom name (null without one) and the custom data (never null); the
+                // subclass overrides (variants, colors) are not ported
+                if let Some(entity) = target.get(context) {
+                    let exclude = self.exclude.clone().unwrap_or_default();
+                    let types: Vec<mc_data::DataComponentType> = match &self.include {
+                        Some(i) => i.clone(),
+                        None => mc_data::DataComponentType::iter().collect(),
+                    };
+                    for t in types {
+                        if exclude.contains(&t) {
+                            continue;
+                        }
+                        if t == mc_data::DataComponentType::CUSTOM_NAME {
+                            if let Some(name) = entity.base().get_custom_name() {
+                                stack.set(CUSTOM_NAME, name);
+                            }
+                        } else if t == mc_data::DataComponentType::CUSTOM_DATA {
+                            stack.set(CUSTOM_DATA, CustomData::of(&entity.base().custom_data));
+                        }
+                    }
+                }
+            }
             ComponentSource::BlockEntity => {
                 if let Some(be) = context.params().block_entity {
                     let components: DataComponentMap = be.collect_components();
@@ -987,6 +1012,13 @@ pub(super) fn register(entries: &mut Entries) {
         entry(record!(SetItemFunction {
             condition: cond(),
             item: mc_protocol::components::holder::registry_by_name_codec::<mc_data::Item>()
+                .validate(|item| {
+                    if item == mc_data::Item::AIR {
+                        DataResult::error_str("Item must not be minecraft:air")
+                    } else {
+                        DataResult::success(item)
+                    }
+                })
                 .field_of("item"),
         })),
     ));
@@ -1192,12 +1224,17 @@ struct ComponentSourceCodec;
 
 impl ComponentSourceCodec {
     fn codec() -> Codec<ComponentSource> {
-        static NAMES: [(ComponentSource, &str); 2] = [
-            (ComponentSource::BlockEntity, "block_entity"),
-            (ComponentSource::Tool, "tool"),
-        ];
-        // `LootContextArg` names: every `EntityTarget`/`ItemStackTarget`/`BlockEntityTarget`; only the item/block ones read components
-        mc_dfu::string_enum_codec(&NAMES)
+        static ALL: LazyLock<Vec<(ComponentSource, &'static str)>> = LazyLock::new(|| {
+            let mut all: Vec<(ComponentSource, &'static str)> = EntityTarget::ALL
+                .iter()
+                .map(|t| (ComponentSource::Entity(*t), t.name()))
+                .collect();
+            all.push((ComponentSource::BlockEntity, "block_entity"));
+            all.push((ComponentSource::Tool, "tool"));
+            all
+        });
+        // `LootContextArg.createArgCodec`: every `EntityTarget`, `BlockEntityTarget` and `ItemStackTarget`
+        id_resolver_codec(LazyLock::force(&ALL).as_slice())
     }
 }
 
@@ -1210,7 +1247,24 @@ fn copy_operation_codec() -> Codec<CopyOperation> {
     .codec()
 }
 
-/// `SetContainerLootTable.ID_ONLY_CODEC`: a `loot_table` registry id (inline definitions are rejected).
+/// `SetContainerLootTable.ID_ONLY_CODEC`: `LootTable.CODEC` that only accepts a registry reference (an inline definition
+/// decodes, then fails with "Only tag names supported").
 fn id_only_loot_table_codec() -> Codec<Identifier> {
-    crate::world::level::storage::loot::holder::registry_ref_codec(keys::LOOT_TABLE)
+    use crate::world::level::storage::loot::holder::{Holder as LootHolder, holder_codec};
+    holder_codec(
+        keys::LOOT_TABLE,
+        crate::world::level::storage::loot::table::loot_table_direct_codec(),
+    )
+    .flat_xmap(
+        |holder: LootHolder<crate::world::level::storage::loot::table::LootTable>| match holder {
+            LootHolder::Reference { id, .. } => DataResult::success(id),
+            LootHolder::Direct(_) => DataResult::error_str("Only tag names supported"),
+        },
+        |id: &Identifier| {
+            DataResult::success(LootHolder::Reference {
+                registry: keys::LOOT_TABLE,
+                id: id.clone(),
+            })
+        },
+    )
 }

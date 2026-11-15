@@ -105,10 +105,6 @@ impl LootItemCondition for LootItemRandomChanceCondition {
         let probability = self.chance.value(context.get_resolver()).get_float(context);
         context.get_random().next_float() < probability
     }
-    fn validate(&self, context: &ValidationContext) {
-        context.validate_context_usage(&self.referenced_params());
-        validate_holder_field(context, "chance", &self.chance);
-    }
 }
 
 /// `LootItemRandomChanceWithEnchantedBonusCondition`.

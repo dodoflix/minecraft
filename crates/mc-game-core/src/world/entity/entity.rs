@@ -3785,10 +3785,6 @@ pub trait Entity: Any {
     fn adjust_vehicle_to_ride(&self, _level: &ServerLevel, vehicle: EntityId) -> EntityId {
         vehicle
     }
-    /// `this instanceof SlotProvider` (entities whose slots `slot_range` loot sources read).
-    fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {
-        None
-    }
     /// `TamableAnimal.isInSittingPose()` (cats sitting on chests block them: `ChestBlock.isCatSittingOnChest`).
     fn is_in_sitting_pose(&self) -> bool {
         false

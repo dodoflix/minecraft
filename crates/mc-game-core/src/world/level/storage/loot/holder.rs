@@ -320,7 +320,8 @@ pub fn registry_ref_codec(registry: &'static str) -> Codec<Identifier> {
                 Some(r) => r,
                 None if mc_protocol::registry_context::registry_contains(registry, &id) => Ok(()),
                 None => Err(format!(
-                    "Failed to get element {id} from registry {registry}"
+                    "Failed to get element {id} from registry {}",
+                    mc_protocol::registry_context::qualified_registry(registry)
                 )),
             };
             match checked {

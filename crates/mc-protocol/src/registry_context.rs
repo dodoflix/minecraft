@@ -12,6 +12,15 @@ use mc_core::ident::Identifier;
 use std::collections::HashMap;
 use std::sync::OnceLock;
 
+/// A registry key as vanilla prints it in codec errors: namespaced (`damage_type` reads `minecraft:damage_type`).
+pub fn qualified_registry(registry: &str) -> std::borrow::Cow<'_, str> {
+    if registry.contains(':') {
+        registry.into()
+    } else {
+        format!("minecraft:{registry}").into()
+    }
+}
+
 /// Name <-> protocol-id table of one registry (entries in id order).
 #[derive(Debug, Clone, Default)]
 pub struct RegistryTable {
@@ -74,8 +83,9 @@ impl RegistryContext {
         self.tag_exists = Some(f);
         self
     }
+    /// The table of `key`; a bare data pack directory name (`damage_type`) is the `minecraft:` registry.
     pub fn registry(&self, key: &str) -> Option<&RegistryTable> {
-        self.registries.get(key)
+        self.registries.get(qualified_registry(key).as_ref())
     }
     pub fn tag_exists(&self, registry: &str, tag: &Identifier) -> bool {
         match &self.tag_exists {

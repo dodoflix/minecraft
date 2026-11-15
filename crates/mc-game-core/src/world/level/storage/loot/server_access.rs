@@ -13,10 +13,12 @@ use mc_nbt::CompoundTag;
 use parking_lot::Mutex;
 
 use super::context::LootContext;
-use crate::registry::typed::attributes::{ATTRIBUTES, AttributeDef, AttributeKind};
+use crate::registry::typed::attributes::{ATTRIBUTES, AttributeDef, AttributeKind, AttributeRange};
 use crate::server::level::ServerLevel;
 use crate::world::attribute::AttrValue;
+use crate::world::attribute::value::TriState;
 use crate::world::level::saveddata::random_sequences::RandomSequences;
+use mc_core::math::java::java_float_to_string;
 
 /// `clockManager().getInstance(clock).totalTicks()` by clock id; `None` for an unknown clock.
 type ClockTotalTicks = Arc<dyn Fn(&Identifier) -> Option<i64> + Send + Sync>;
@@ -217,7 +219,21 @@ pub fn environment_attribute_int(context: &LootContext, id: &Identifier) -> Opti
 /// `EnvironmentAttributeCheck`'s `value` codec for an attribute (`attribute.valueCodec()`).
 pub fn environment_attribute_value_codec(id: &Identifier) -> Option<Codec<AttrValue>> {
     let def = attribute_def(id)?;
-    Some(match def.kind {
+    let range = def.range;
+    // `EnvironmentAttribute.valueCodec()`: the type's codec validated against the attribute's range
+    let in_range = move |v: AttrValue| match (range, &v) {
+        (AttributeRange::Float(min, max), AttrValue::Float(f)) if !(*f >= min && *f <= max) => {
+            let m = format!(
+                "{} is not in range [{}; {}]",
+                java_float_to_string(*f),
+                java_float_to_string(min),
+                java_float_to_string(max)
+            );
+            DataResult::error(move || m.clone())
+        }
+        _ => DataResult::success(v),
+    };
+    let codec = Some(match def.kind {
         AttributeKind::Float | AttributeKind::AngleDegrees => {
             FLOAT.xmap(AttrValue::Float, |v: &AttrValue| {
                 if let AttrValue::Float(f) = v { *f } else { 0.0 }
@@ -227,6 +243,26 @@ pub fn environment_attribute_value_codec(id: &Identifier) -> Option<Codec<AttrVa
             matches!(v, AttrValue::Bool(true))
         }),
         AttributeKind::Integer => INT.xmap(AttrValue::Int, |v: &AttrValue| v.to_int().unwrap_or(0)),
+        AttributeKind::TriState => {
+            const NAMES: &[(TriState, &str)] = &[
+                (TriState::True, "true"),
+                (TriState::False, "false"),
+                (TriState::Default, "default"),
+            ];
+            BOOL.either(&mc_dfu::string_enum_codec(NAMES)).xmap(
+                |e| match e {
+                    mc_dfu::Either::Left(b) => {
+                        AttrValue::TriState(if b { TriState::True } else { TriState::False })
+                    }
+                    mc_dfu::Either::Right(t) => AttrValue::TriState(t),
+                },
+                |v: &AttrValue| match v {
+                    AttrValue::TriState(TriState::True) => mc_dfu::Either::Left(true),
+                    AttrValue::TriState(TriState::False) => mc_dfu::Either::Left(false),
+                    _ => mc_dfu::Either::Right(TriState::Default),
+                },
+            )
+        }
         AttributeKind::MoonPhase => STRING.flat_xmap(
             |name: String| match crate::world::attribute::value::MOON_PHASES
                 .iter()
@@ -243,7 +279,8 @@ pub fn environment_attribute_value_codec(id: &Identifier) -> Option<Codec<AttrVa
             },
         ),
         _ => return None,
-    })
+    });
+    codec.map(|c| c.validate(in_range))
 }
 
 /// `EnvironmentAttributeCheck.test`: the sampled value equals `value`.

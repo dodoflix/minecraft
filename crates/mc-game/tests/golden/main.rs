@@ -166,6 +166,7 @@ mod living_entity_golden;
 mod loot_all_golden;
 mod loot_golden;
 mod loot_load;
+mod loot_synthetic_golden;
 mod map_golden;
 mod menu_golden;
 mod menu_oracle_golden;

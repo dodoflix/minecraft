@@ -18,6 +18,9 @@ const MODES: &[(Mode, &str)] = &[
     (Mode::Append, "append"),
 ];
 
+/// `Integer.MAX_VALUE`: the size limit of `ListOperation.UNLIMITED_CODEC` and the unbounded stand-alone lists.
+pub const UNLIMITED: usize = i32::MAX as usize;
+
 /// `ListOperation`.
 #[derive(Clone, Debug, PartialEq)]
 pub enum ListOperation {
@@ -168,6 +171,6 @@ impl<T: Clone + Send + Sync + 'static> StandAlone<T> {
 
     /// `apply(input)`.
     pub fn apply(&self, input: &[T]) -> Vec<T> {
-        self.operation.apply(input, &self.value, usize::MAX)
+        self.operation.apply(input, &self.value, UNLIMITED)
     }
 }
