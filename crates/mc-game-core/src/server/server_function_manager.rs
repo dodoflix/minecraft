@@ -136,44 +136,76 @@ impl MinecraftServer {
 
     /// Runs the advancement reward functions queued on `level` (`AdvancementRewards.grant`, see `PendingFunction`) with
     /// `player.createCommandSourceStack().withSuppressedOutput().withPermission(GAMEMASTER)`; `level` is lent to the server
-    /// meanwhile. A function that awards advancements itself is run in the same call.
+    /// meanwhile. A function that awards advancements itself is run in the same call. The chat announcement of an advancement
+    /// completed behind a queued function waits in the same queue (`PlayerAdvancements.award` announces after the rewards ran,
+    /// and sends the announcement when the rule is on at that moment).
     pub fn run_pending_functions(&mut self, level: &mut crate::server::level::ServerLevel) {
+        use crate::server::level::level_commands::PendingReward;
         loop {
             let pending = level.take_pending_functions();
             if pending.is_empty() {
                 return;
             }
             for queued in pending {
-                let Some(function) = self.functions.get(&queued.function) else {
-                    continue;
+                let queued = match queued {
+                    PendingReward::Function(queued) => {
+                        self.run_pending_function(level, &queued);
+                        continue;
+                    }
+                    PendingReward::Announcement(queued) => queued,
                 };
-                let Some(player) = level
+                if !level.show_advancement_messages() {
+                    continue;
+                }
+                let name = level
                     .get_entity_or_part(queued.player)
                     .or_else(|| level.get_dead_player(queued.player))
                     .and_then(|e| {
                         e.as_any()
                             .downcast_ref::<crate::world::entity::ServerPlayer>()
                     })
-                else {
-                    continue;
-                };
-                let Some(source) =
-                    crate::server::network::game_packets::player_command_source_stack(
-                        self,
-                        &level.dimension,
-                        player,
-                        queued.position,
-                        queued.rotation,
-                    )
-                else {
-                    continue;
-                };
-                let source = source
-                    .with_suppressed_output()
-                    .with_permission(LevelBasedPermissionSet::GAMEMASTER.into());
-                self.with_lent_level(level, |server| server.execute_function(&function, source));
+                    .map_or(queued.player_name, |player| player.get_display_name());
+                if let Some(display) = &queued.advancement.value().display {
+                    let message = display.type_.create_announcement(&queued.advancement, name);
+                    crate::advancements::player_advancements::broadcast_system_message(
+                        level, &message,
+                    );
+                }
             }
         }
+    }
+
+    fn run_pending_function(
+        &mut self,
+        level: &mut crate::server::level::ServerLevel,
+        queued: &crate::server::level::level_commands::PendingFunction,
+    ) {
+        let Some(function) = self.functions.get(&queued.function) else {
+            return;
+        };
+        let Some(player) = level
+            .get_entity_or_part(queued.player)
+            .or_else(|| level.get_dead_player(queued.player))
+            .and_then(|e| {
+                e.as_any()
+                    .downcast_ref::<crate::world::entity::ServerPlayer>()
+            })
+        else {
+            return;
+        };
+        let Some(source) = crate::server::network::game_packets::player_command_source_stack(
+            self,
+            &level.dimension,
+            player,
+            queued.position,
+            queued.rotation,
+        ) else {
+            return;
+        };
+        let source = source
+            .with_suppressed_output()
+            .with_permission(LevelBasedPermissionSet::GAMEMASTER.into());
+        self.with_lent_level(level, |server| server.execute_function(&function, source));
     }
 
     /// `getGameLoopSender()`.

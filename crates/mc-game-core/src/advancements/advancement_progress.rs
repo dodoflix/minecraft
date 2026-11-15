@@ -78,9 +78,7 @@ impl AdvancementProgress {
                 let criteria = STRING.unbounded_map(&obtained_time_codec());
                 mc_dfu::record!(Raw {
                     criteria: criteria.optional_field_of_default("criteria", Vec::new()),
-                    done: BOOL
-                        .optional_field_of_default("done", true)
-                        .xmap(|d| d, |d: &bool| *d),
+                    done: mc_dfu::extra::optional_always_present_field_of(&BOOL, "done", true),
                 })
                 .codec()
                 .xmap(

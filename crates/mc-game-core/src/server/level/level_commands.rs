@@ -50,6 +50,20 @@ pub struct PendingFunction {
     pub function: Identifier,
 }
 
+/// The chat announcement of an advancement (`PlayerAdvancements.award`) that vanilla sends after the functions granted before
+/// it ran: it waits in the same queue. `player_name` is the display name at the award, used when the player is gone by then.
+pub struct PendingAnnouncement {
+    pub player: EntityId,
+    pub advancement: crate::advancements::AdvancementHolder,
+    pub player_name: mc_text::Component,
+}
+
+/// An entry of the level's queue of rewards that wait for the awarded player to be back in the level.
+pub enum PendingReward {
+    Function(PendingFunction),
+    Announcement(PendingAnnouncement),
+}
+
 /// The tick environment of the running tick with its lifetime erased (valid only inside `with_command_env`).
 pub struct CommandEnvPtr(NonNull<dyn LevelTickEnv>);
 
@@ -95,15 +109,24 @@ impl ServerLevel {
 
     /// Queues a reward function of an awarded player (see [`PendingFunction`]).
     pub fn queue_function(&mut self, function: PendingFunction) {
-        self.tick_state.pending_functions.push(function);
+        self.tick_state
+            .pending_functions
+            .push(PendingReward::Function(function));
+    }
+
+    /// Queues the chat announcement of an advancement behind the reward functions queued before it.
+    pub fn queue_announcement(&mut self, announcement: PendingAnnouncement) {
+        self.tick_state
+            .pending_functions
+            .push(PendingReward::Announcement(announcement));
     }
 
     pub fn has_pending_functions(&self) -> bool {
         !self.tick_state.pending_functions.is_empty()
     }
 
-    /// The queued reward functions, oldest first.
-    pub fn take_pending_functions(&mut self) -> Vec<PendingFunction> {
+    /// The queued rewards, oldest first.
+    pub fn take_pending_functions(&mut self) -> Vec<PendingReward> {
         std::mem::take(&mut self.tick_state.pending_functions)
     }
 

@@ -31,6 +31,8 @@ use super::java_hash::{JavaHash, JavaHashMap, JavaHashSet};
 use super::server_advancement_manager::ServerAdvancementManager;
 use super::triggers::{Criterion, CriterionTriggerInstance};
 use crate::server::level::ServerLevel;
+use crate::server::level::level_commands::PendingAnnouncement;
+use crate::world::entity::Entity as _;
 use crate::world::entity::player::ServerPlayer;
 
 /// `PlayerAdvancements.TriggerInstanceKey`.
@@ -94,6 +96,11 @@ impl PlayerAdvancements {
     /// Advancements of a player that has no advancement data (an empty manager, no file).
     pub fn detached() -> PlayerAdvancements {
         PlayerAdvancements::new(&ServerAdvancementManager::default(), None)
+    }
+
+    /// The progress file this player's advancements are loaded from and saved to (`None`: no file).
+    pub fn save_path(&self) -> Option<&std::path::Path> {
+        self.player_save_path.as_deref()
     }
 
     /// `clearTriggers()`.
@@ -516,12 +523,24 @@ impl SharedAdvancements {
             holder.value().rewards.grant(level, player);
             if let Some(display) = &holder.value().display
                 && display.announce_to_chat
-                && level.show_advancement_messages()
             {
-                let message = display
-                    .type_
-                    .create_announcement(holder, player.get_display_name());
-                broadcast_system_message(level, &message);
+                // vanilla runs a reward function at once, so its output precedes this announcement (and the announcements of
+                // awards after it): behind a queued function the announcement waits in the queue too. Inside a command
+                // execution vanilla queues the function behind the command and announces at once.
+                if level.has_pending_functions()
+                    && !crate::commands::commands::is_executing_command()
+                {
+                    level.queue_announcement(PendingAnnouncement {
+                        player: player.id(),
+                        advancement: holder.clone(),
+                        player_name: player.get_display_name(),
+                    });
+                } else if level.show_advancement_messages() {
+                    let message = display
+                        .type_
+                        .create_announcement(holder, player.get_display_name());
+                    broadcast_system_message(level, &message);
+                }
             }
             self.0.lock().mark_for_visibility_update(holder);
         }

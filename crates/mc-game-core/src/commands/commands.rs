@@ -224,6 +224,12 @@ thread_local! {
     static CURRENT_EXECUTION_CONTEXT: Cell<*mut ExecutionContext> = const { Cell::new(null_mut()) };
 }
 
+/// Whether the calling thread is inside a command execution (`CURRENT_EXECUTION_CONTEXT != null`): functions run from there
+/// join the execution's queue instead of running at once.
+pub fn is_executing_command() -> bool {
+    !CURRENT_EXECUTION_CONTEXT.with(|c| c.get()).is_null()
+}
+
 pub struct Commands {
     dispatcher: CommandDispatcher<CommandSourceStack>,
 }
