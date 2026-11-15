@@ -773,6 +773,7 @@ impl Scenario {
                     "air" => e.base_mut().set_air_supply(v.parse().unwrap()),
                     "fire" => e.set_remaining_fire_ticks(v.parse().unwrap()),
                     "fall_distance" => e.base_mut().fall_distance = num(&v),
+                    "portal_cooldown" => e.base_mut().portal_cooldown = v.parse().unwrap(),
                     "invulnerable" => e.base_mut().permanently_invulnerable = v == "true",
                     "no_gravity" => e.base_mut().set_no_gravity(v == "true"),
                     "tag" => {

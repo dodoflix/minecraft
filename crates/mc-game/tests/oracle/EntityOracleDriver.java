@@ -1317,6 +1317,7 @@ public final class EntityOracleDriver {
          case "fire" -> e.setRemainingFireTicks(Integer.parseInt(value));
          case "fall_distance" -> e.fallDistance = d(value);
          case "ticks_frozen" -> e.setTicksFrozen(Integer.parseInt(value));
+         case "portal_cooldown" -> e.setPortalCooldown(Integer.parseInt(value));
          case "xp_level" -> ((ServerPlayer)e).setExperienceLevels(Integer.parseInt(value));
          case "enchant_seed" -> priv(e, Player.class, "enchantmentSeed", Integer.parseInt(value));
          case "absorption" -> ((LivingEntity)e).setAbsorptionAmount(Float.parseFloat(value));
