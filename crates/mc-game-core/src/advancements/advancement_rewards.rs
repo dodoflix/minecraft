@@ -113,11 +113,16 @@ impl AdvancementRewards {
                 }
             }
         }
-        // a reward granted by the slot listener of the menu that is broadcasting right now (`inventory_changed`): that broadcast
-        // goes on to synchronise the new items itself (vanilla's nested one would send them first)
-        if changes && !player.player.menus.is_current_taken() {
-            player.broadcast_menu_changes(level);
+        // a reward granted by the slot listener of the menu that is broadcasting right now (`inventory_changed`): vanilla's nested
+        // `broadcastChanges()` cannot reenter the running menu here, so that broadcast runs once more when it is done
+        if changes {
+            if player.player.menus.is_current_taken() {
+                player.player.menus.request_rebroadcast();
+            } else {
+                player.broadcast_menu_changes(level);
+            }
         }
+
         if !self.recipes.is_empty() {
             player.award_recipes_by_key(level, &self.recipes);
         }

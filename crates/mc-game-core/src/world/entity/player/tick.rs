@@ -38,11 +38,16 @@ impl ServerPlayer {
             player: self,
             level,
         };
-        PlayerMenus::with_current(
-            &mut ctx,
-            |c| &mut c.player.player.menus,
-            |menu, c| menu.broadcast_changes(c),
-        );
+        loop {
+            PlayerMenus::with_current(
+                &mut ctx,
+                |c| &mut c.player.player.menus,
+                |menu, c| menu.broadcast_changes(c),
+            );
+            if !ctx.player.player.menus.take_rebroadcast() {
+                break;
+            }
+        }
     }
 
     /// `inventoryMenu.slotsChanged(inventory)`, after the recomputes the callers' own grid mutations already owe (vanilla

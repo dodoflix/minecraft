@@ -27,6 +27,8 @@ pub struct PlayerMenus {
     container_counter: i32,
     /// The current menu is out of this struct (`with_current`): it is running and a nested `broadcastChanges()` cannot reach it.
     current_taken: bool,
+    /// A nested `broadcastChanges()` was requested while the current menu was running (see `request_rebroadcast`).
+    rebroadcast: bool,
 }
 
 impl PlayerMenus {
@@ -36,7 +38,18 @@ impl PlayerMenus {
             container_menu: None,
             container_counter: 0,
             current_taken: false,
+            rebroadcast: false,
         }
+    }
+
+    /// `broadcastChanges()` asked for by code that runs inside the current menu's own broadcast: the menu cannot be reentered, so
+    /// the outer broadcast runs once more when it is done (`take_rebroadcast`).
+    pub fn request_rebroadcast(&mut self) {
+        self.rebroadcast = true;
+    }
+
+    pub fn take_rebroadcast(&mut self) -> bool {
+        std::mem::take(&mut self.rebroadcast)
     }
 
     /// The current menu is running (it is taken out of the player), e.g. a trigger fired from its slot listener.

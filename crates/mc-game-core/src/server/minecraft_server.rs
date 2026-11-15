@@ -465,6 +465,27 @@ impl MinecraftServer {
         }
     }
 
+    /// [`MinecraftServer::run_pending_functions`] for every level that has some, between two commands: vanilla's reward function
+    /// joins the running command execution right behind the command that awarded it.
+    pub fn run_reward_functions(&mut self) {
+        let dimensions: Vec<_> = self
+            .all_levels()
+            .filter(|l| l.has_pending_functions())
+            .map(|l| l.dimension.clone())
+            .collect();
+        for dimension in dimensions {
+            if self.with_level(&dimension, |_, _| {}).is_some() {
+                continue;
+            }
+            // the level of the running tick is lent to the server
+            if let Some(lent) = self.lent_level.take_if(|l| l.dimension == dimension) {
+                // SAFETY: as in `with_level`: the lent pointer was taken out, nothing else reaches the level meanwhile.
+                self.run_pending_functions(unsafe { &mut *lent.level.as_ptr() });
+                self.lent_level = Some(lent);
+            }
+        }
+    }
+
     /// All levels that are currently in place (`getAllLevels`).
     pub fn all_levels(&self) -> impl Iterator<Item = &ServerLevel> {
         let lent = self.lent_level.as_ref();

@@ -98,6 +98,10 @@ impl ServerLevel {
         self.tick_state.pending_functions.push(function);
     }
 
+    pub fn has_pending_functions(&self) -> bool {
+        !self.tick_state.pending_functions.is_empty()
+    }
+
     /// The queued reward functions, oldest first.
     pub fn take_pending_functions(&mut self) -> Vec<PendingFunction> {
         std::mem::take(&mut self.tick_state.pending_functions)
