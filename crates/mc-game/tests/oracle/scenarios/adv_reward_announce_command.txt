@@ -1,0 +1,17 @@
+# The same advancements granted by `/advancement grant`: inside a command execution vanilla queues the function behind the command, so the
+# announcement comes first, then the command's feedback, then what the function says.
+datapack adv_rewards
+command_env
+level flat
+preload 4
+entity_counter 25000
+level_seed 25001
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 6.5 -60 3.5 90 0
+tick 30
+dump packets:Steve:none packets:Alex:none
+cmd_as -4 advancement grant Steve only rewards:function_announce
+cmd_as -4 advancement grant Alex only rewards:feather_plain
+cmd_as -4 advancement grant Alex only rewards:function_announce
+tick 1
+dump advancements:Steve advancements:Alex packets:Steve:system_chat,disguised_chat packets:Alex:system_chat,disguised_chat

@@ -165,6 +165,7 @@ import net.minecraft.util.RandomSource;
  * dispense X Y Z              BlockStateBase.tick of the block there (a dispenser/dropper dispenses once: no neighbour signal, no 4-tick delay)
  * menu_button PLAYER N       ServerboundContainerButtonClickPacket for the player's open menu (lectern: 1 previous page, 2 next page, 3 take the book, 100+N page N)
  * close_menu PLAYER           ServerboundContainerClosePacket for the player's open menu
+ * advancement_tab PLAYER ID   ServerboundSeenAdvancementsPacket (OPENED_TAB ID): the tab the advancement screen shows (a select_advancement_tab packet when it changes)
  * sign_update PLAYER X Y Z front|back L1 L2 L3 L4   ServerboundSignUpdatePacket (each line one token: "quote" it to keep spaces; missing = "")
  * brush X Y Z PLAYER DIR    BrushableBlockEntity.brush(gameTime, level, PLAYER, DIR, main hand item) called directly; prints "BRUSH x y z result"
  * attack PLAYER REF           ServerboundAttackPacket               swing PLAYER   ServerboundPunchPacket (main hand)
@@ -227,6 +228,8 @@ import net.minecraft.util.RandomSource;
  *                             `packets` drains the player's packets; `:type,..` keeps only those, `:!type,..` drops those; `:none` drains silently;
  *                             runs of chunk change packets are sorted by chunk, see chunkOrder)
  * dump WHAT...                same WHATs immediately (`stats:PLAYER` = `STAT PLAYER type.name:value.name N` per earned statistic, sorted; `advancements:PLAYER` = `ADV PLAYER id criterion,..` per advancement with completed criteria, sorted;
+ *                             `advpackets:PLAYER[:filter]` = `packets:` with the `update_advancements` content decoded (see VanillaLevel.advancementDetail); `advfile:PLAYER` = `ADVFILE PLAYER LINE` per line of the progress file
+ *                             `PlayerAdvancements.save()` writes, the obtained times replaced by `T`;
  *                             `use:PLAYER` = `USE PLAYER hand=main|off item=ID*COUNT remaining=useItemRemaining ticks=getTicksUsingItem kinetic=recentKineticEnemies.size`; `cooldowns:PLAYER` = `CD PLAYER group=ID remaining=endTime-tickCount` per running cooldown, sorted by group), plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
  *                             block oracle extras: be:X,Y,Z -> `BE x y z SNBT` (saveWithFullMetadata, sorted keys; `-` = none),
  *                             beu:X,Y,Z -> `BEU x y z TYPE SNBT` (getUpdatePacket tag; `-` = none),
@@ -766,6 +769,10 @@ public final class EntityOracleDriver {
             world();
             ServerPlayer p = player(a.get(1));
             p.connection.handleContainerClose(new ServerboundContainerClosePacket(p.containerMenu.containerId));
+         }
+         case "advancement_tab" -> {
+            world();
+            player(a.get(1)).connection.handleSeenAdvancements(net.minecraft.network.protocol.game.ServerboundSeenAdvancementsPacket.openedTab(v.server.getAdvancements().get(id(a.get(2)))));
          }
          case "sign_update" -> {
             world();
@@ -2249,15 +2256,29 @@ public final class EntityOracleDriver {
                });
                sorted.forEach((id, criteria) -> out.println("ADV " + arg + " " + id + " " + criteria));
             }
-            case "packets" -> {
-               // packets:NAME[:type,type] -- the optional filter (bare type names, e.g. open_sign_editor) drops the other packets
+            case "advfile" -> {
+               // ADVFILE PLAYER LINE: PlayerAdvancements.save() (the real writer) and the file it wrote, line by line, with the obtained times
+               // ("yyyy-MM-dd HH:mm:ss Z") replaced by `T`
+               net.minecraft.server.PlayerAdvancements advancements = ((ServerPlayer)ref(arg)).getAdvancements();
+               advancements.save();
+               try {
+                  for (String line : java.nio.file.Files.readAllLines((java.nio.file.Path)priv(advancements, net.minecraft.server.PlayerAdvancements.class, "playerSavePath"))) {
+                     out.println("ADVFILE " + arg + " " + line.replaceAll("\"\\d{4}-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d [+-]\\d{4}\"", "\"T\""));
+                  }
+               } catch (java.io.IOException ex) {
+                  throw new IllegalStateException(ex);
+               }
+            }
+            case "packets", "advpackets" -> {
+               // packets:NAME[:type,type] -- the optional filter (bare type names, e.g. open_sign_editor) drops the other packets;
+               // advpackets: the same, but an `update_advancements` packet prints its content (VanillaLevel.advancementDetail) instead of `-`
                String[] pa = arg.split(":", 2);
                boolean except = pa.length > 1 && pa[1].startsWith("!"); // packets:NAME:!type,type = everything but those types
                Set<String> only = pa.length > 1 ? new HashSet<>(Arrays.asList(pa[1].substring(except ? 1 : 0).split(","))) : null;
                VanillaLevel.FakePlayer p = v.player(pa[0]);
                for (VanillaLevel.Sent s : debugOrder(chunkOrder(p.drain()))) {
                   if (only == null || only.contains(s.type().replace("minecraft:", "")) != except) {
-                     out.println("PKT " + pa[0] + " " + s.type() + " " + s.hex());
+                     out.println("PKT " + pa[0] + " " + s.type() + " " + (kind.equals("advpackets") && s.detail() != null ? s.detail() : s.hex()));
                   }
                }
             }

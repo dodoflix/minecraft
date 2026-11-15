@@ -1,0 +1,31 @@
+# The saved progress file written by PlayerAdvancements.save() (the vanilla writer, obtained times reduced to T): criteria of several
+# advancements, partial progress, a revoked criterion (an advancement with nothing done is not saved). The progress is read back by a
+# reload (the order of a loaded file follows the obtained times, which have a resolution of a second: only the progress is dumped).
+command_env
+level flat
+preload 2
+level_seed 5
+entity_counter 30
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 4.5 -60 0.5 0 0
+tick 2
+dump packets:Steve:none packets:Alex:none
+note a player without progress
+dump advfile:Alex
+cmd_as -4 advancement grant Steve only minecraft:story/root
+cmd_as -4 advancement grant Steve only minecraft:husbandry/balanced_diet apple
+cmd_as -4 advancement grant Steve only minecraft:husbandry/balanced_diet bread
+cmd_as -4 advancement grant Steve only minecraft:adventure/kill_all_mobs minecraft:zombie
+cmd_as -4 advancement grant Steve only minecraft:adventure/kill_all_mobs minecraft:creeper
+cmd_as -4 advancement grant Steve only minecraft:story/mine_stone
+tick 1
+dump advfile:Steve advancements:Steve
+note a revoked criterion and a fully revoked advancement
+cmd_as -4 advancement revoke Steve only minecraft:husbandry/balanced_diet bread
+cmd_as -4 advancement revoke Steve only minecraft:story/mine_stone
+tick 1
+dump advfile:Steve
+note the file read back
+cmd_as -4 reload
+tick 2
+dump advancements:Steve advpackets:Steve:update_advancements,select_advancement_tab

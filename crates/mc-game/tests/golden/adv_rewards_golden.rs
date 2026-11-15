@@ -26,3 +26,15 @@ fn reward_experience_and_recipes() {
 fn raid_omen_awards_the_voluntary_exile_trigger() {
     check("adv_voluntary_exile");
 }
+
+/// The function reward runs inside the award: its chat output comes before the announcement of the advancement.
+#[test]
+fn reward_function_output_precedes_the_announcement() {
+    check("adv_reward_announce");
+}
+
+/// Granted by a command, the function waits behind the command: the announcement comes first.
+#[test]
+fn reward_function_output_follows_the_announcement_of_a_granted_advancement() {
+    check("adv_reward_announce_command");
+}

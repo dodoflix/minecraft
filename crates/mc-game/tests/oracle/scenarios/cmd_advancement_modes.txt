@@ -1,6 +1,6 @@
 # /advancement grant|revoke with every mode (only, from, through, until, everything), the criterion forms, the argument errors, the
 # permission denial, one and many targets and the result values: feedback lines, the completed criteria of both players and the
-# update_advancements/select_advancement_tab packets (content printed as `-`: it carries timestamps) after each group.
+# update_advancements/select_advancement_tab packets (the content of update_advancements decoded, obtained times reduced to done) after each group.
 command_env
 level flat
 preload 2
@@ -12,7 +12,7 @@ op Alex
 gamerule send_command_feedback true
 tick 2
 note the first update
-dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+dump advancements:Steve advancements:Alex advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab
 note argument errors
 cmd_as -4 advancement
 cmd_as -4 advancement grant
@@ -31,7 +31,7 @@ cmd_as Steve advancement grant Steve only minecraft:story/root
 cmd_as -2 advancement grant Steve only minecraft:story/root
 cmd_as -1 advancement grant Steve only minecraft:story/root
 tick 1
-dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+dump advancements:Steve advancements:Alex advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab
 note revoke before anything is granted: every failure form
 cmd_as -4 advancement revoke Steve only minecraft:story/root
 cmd_as -4 advancement revoke Steve everything
@@ -41,7 +41,7 @@ cmd_as -4 advancement revoke Steve only minecraft:story/mine_stone get_stone
 cmd_as -4 advancement revoke @a until minecraft:story/mine_stone
 cmd_as -4 advancement revoke @a only minecraft:story/root crafting_table
 tick 1
-dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+dump advancements:Steve advancements:Alex advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab
 note single advancement, one player, then the same again
 cmd_as -4 advancement grant Steve only minecraft:story/root
 cmd_as -4 advancement grant Steve only minecraft:story/root
@@ -50,7 +50,7 @@ cmd_as -4 advancement grant Steve only minecraft:story/mine_stone get_stone
 cmd_as -4 advancement revoke Steve only minecraft:story/mine_stone get_stone
 cmd_as -4 advancement revoke Steve only minecraft:story/mine_stone get_stone
 tick 1
-dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+dump advancements:Steve advancements:Alex advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab
 note many players: one succeeds, both succeed, both fail
 cmd_as -4 advancement grant @a only minecraft:story/root
 cmd_as -4 advancement grant @a only minecraft:story/root crafting_table
@@ -61,7 +61,7 @@ cmd_as -4 advancement revoke @a only minecraft:story/root
 cmd_as Alex advancement grant Alex only minecraft:story/root
 cmd_as Alex advancement revoke Alex only minecraft:story/root
 tick 1
-dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+dump advancements:Steve advancements:Alex advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab
 note a criterion of an advancement with several criteria, an advancement with alternatives
 cmd_as -4 advancement grant Steve only minecraft:adventure/kill_a_mob
 cmd_as -4 advancement grant Steve only minecraft:adventure/kill_a_mob minecraft:zombie
@@ -74,7 +74,7 @@ cmd_as -4 advancement grant Steve only minecraft:adventure/kill_all_mobs minecra
 cmd_as -4 advancement grant Steve only minecraft:adventure/kill_all_mobs
 cmd_as -4 advancement revoke Steve only minecraft:adventure/kill_all_mobs
 tick 1
-dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+dump advancements:Steve advancements:Alex advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab
 note modes on a chain: root, mine_stone, upgrade_tools, smelt_iron, iron_tools
 cmd_as -4 advancement grant Steve from minecraft:story/mine_stone
 cmd_as -4 advancement grant Steve from minecraft:story/mine_stone
@@ -90,7 +90,7 @@ cmd_as -4 advancement revoke @a only minecraft:story/root
 cmd_as -4 advancement grant Alex from minecraft:story/root
 cmd_as -4 advancement revoke Alex from minecraft:story/root
 tick 1
-dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+dump advancements:Steve advancements:Alex advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab
 note rewards: experience, recipes (the default recipe advancements), the announcement of a challenge
 cmd_as -4 advancement grant Steve only minecraft:adventure/bullseye
 cmd_as -4 advancement grant Steve only minecraft:recipes/tools/shears
@@ -103,7 +103,7 @@ cmd_as -4 advancement revoke @a only minecraft:adventure/bullseye
 cmd_as -4 advancement revoke @a only minecraft:recipes/tools/shears
 tick 1
 dump player:Steve recipes:Steve recipes:Alex
-dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+dump advancements:Steve advancements:Alex advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab
 note everything: grant hides the toasts (show_advancements false), revoke shows them
 cmd_as -4 advancement grant Steve everything
 cmd_as -4 advancement grant Steve everything
@@ -114,7 +114,7 @@ cmd_as -4 advancement revoke Steve everything
 cmd_as -4 advancement grant Steve everything
 cmd_as -4 advancement revoke @a everything
 tick 1
-dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+dump advancements:Steve advancements:Alex advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab
 note result values through execute store and the console
 cmd_quiet scoreboard objectives add adv_n dummy
 cmd execute store result score Steve adv_n run advancement grant Steve only minecraft:story/root
@@ -123,4 +123,4 @@ cmd execute store success score Alex adv_n run advancement revoke @a everything
 cmd execute store result score Steve adv_n run advancement revoke @a everything
 dump scoreboard
 tick 1
-dump advancements:Steve advancements:Alex packets:Steve:update_advancements,select_advancement_tab packets:Alex:update_advancements,select_advancement_tab
+dump advancements:Steve advancements:Alex advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab

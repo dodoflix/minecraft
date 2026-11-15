@@ -278,7 +278,47 @@ public final class VanillaLevel {
       }
    }
 
-   public record Sent(String type, String hex, Packet<?> packet) {
+   /** `detail` is the readable content of an `update_advancements` packet (see {@link #advancementDetail}); null for every other packet. */
+   public record Sent(String type, String hex, Packet<?> packet, String detail) {
+   }
+
+   /**
+    * The content of an `update_advancements` packet with the timestamps of obtained criteria reduced to done (`T`) or not (`-`):
+    * `reset=B show=B removed=ID,.. added=ID@X,Y#DIGEST;.. progress=ID{CRITERION=T|-,..};..`. `removed` and `progress` keep their wire order (a
+    * `HashSet`/`HashMap` of strings and identifiers: the same in every run), `added` too (a `HashSet` of nodes that hash like their holder, by
+    * identifier), each entry with the first 12 hex digits of the SHA-1 of the advancement's encoded form.
+    */
+   private static String advancementDetail(net.minecraft.network.protocol.game.ClientboundUpdateAdvancementsPacket adv) {
+      StringBuilder sb = new StringBuilder();
+      sb.append("reset=").append(adv.shouldReset()).append(" show=").append(adv.showAdvancements());
+      sb.append(" removed=");
+      sb.append(adv.removed().isEmpty() ? "-" : String.join(",", adv.removed().stream().map(Object::toString).toList()));
+      List<String> added = new ArrayList<>();
+      for (var pa : adv.added()) {
+         RegistryFriendlyByteBuf buf = new RegistryFriendlyByteBuf(Unpooled.buffer(), REGISTRIES);
+         net.minecraft.advancements.AdvancementHolder.STREAM_CODEC.encode(buf, pa.advancement());
+         byte[] bytes = new byte[buf.readableBytes()];
+         buf.readBytes(bytes);
+         String digest;
+         try {
+            digest = java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-1").digest(bytes)).substring(0, 12);
+         } catch (java.security.NoSuchAlgorithmException e) {
+            throw new IllegalStateException(e);
+         }
+         added.add(pa.advancement().id() + "@" + pa.x() + "," + pa.y() + "#" + digest);
+      }
+      sb.append(" added=").append(added.isEmpty() ? "-" : String.join(";", added));
+      sb.append(" progress=");
+      List<String> progress = new ArrayList<>();
+      for (var e : adv.progress().entrySet()) {
+         @SuppressWarnings("unchecked")
+         Map<String, net.minecraft.advancements.CriterionProgress> criteria = (Map<String, net.minecraft.advancements.CriterionProgress>)getField(e.getValue(), "criteria");
+         List<String> done = new ArrayList<>();
+         criteria.forEach((name, c) -> done.add(name + "=" + (c.isDone() ? "T" : "-")));
+         progress.add(e.getKey() + "{" + String.join(",", done) + "}");
+      }
+      sb.append(progress.isEmpty() ? "-" : String.join(";", progress));
+      return sb.toString();
    }
 
    private VanillaLevel(Path dir, Server server, ServerLevel level) {
@@ -629,8 +669,10 @@ public final class VanillaLevel {
       }
       String type = p.type().id().toString();
       String text = hex.toString();
-      if (type.equals("minecraft:update_advancements")) {
-         text = "-"; // carries Instant.now() timestamps of obtained criteria
+      String detail = null;
+      if (p instanceof net.minecraft.network.protocol.game.ClientboundUpdateAdvancementsPacket advancements) {
+         text = "-"; // carries Instant.now() timestamps of obtained criteria: `advpackets:` dumps print `detail` instead
+         detail = advancementDetail(advancements);
       } else if (p instanceof ClientboundUpdateAttributesPacket attrs) {
          // readable form of the wire order: the snapshot list is the `attributesToSync` set (hashed by attribute, see shadow.patch), the modifiers of
          // one snapshot an insertion-ordered set
@@ -667,7 +709,7 @@ public final class VanillaLevel {
       } else if (p instanceof ClientboundLevelChunkWithLightPacket chunk) {
          text = "chunk=" + chunk.x() + "," + chunk.z() + "/len=" + bytes.length; // heightmap map order is identity-hash dependent
       }
-      fp.packets.add(new Sent(type, text, p));
+      fp.packets.add(new Sent(type, text, p, detail));
    }
 
    static void setField(Object o, String name, Object value) {

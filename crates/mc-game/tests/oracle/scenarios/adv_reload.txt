@@ -1,0 +1,35 @@
+# /reload: the server saves every player's progress, then every player's advancements are reloaded from the progress file: the next
+# update_advancements packet resets the client (reset flag) with the saved progress, and the selected tab is forgotten (a
+# select_advancement_tab packet follows the next time the tab is opened).
+command_env
+level flat
+preload 2
+level_seed 5
+entity_counter 30
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 4.5 -60 0.5 0 0
+tick 2
+dump packets:Steve:none packets:Alex:none
+cmd_as -4 advancement grant Steve until minecraft:story/mine_stone
+cmd_as -4 advancement grant Alex only minecraft:husbandry/root
+advancement_tab Steve minecraft:story/root
+advancement_tab Alex minecraft:husbandry/root
+tick 1
+dump advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab
+note a tab opened twice is announced once
+advancement_tab Steve minecraft:story/root
+advancement_tab Steve minecraft:nether/root
+advancement_tab Steve minecraft:recipes/misc/blue_dye
+tick 1
+dump advpackets:Steve:update_advancements,select_advancement_tab
+note the progress file of Steve before the reload (the reload saves Alex too)
+dump advfile:Steve
+cmd_as -4 reload
+tick 2
+dump advancements:Steve advancements:Alex advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab
+note progress after the reload is live again: a grant sends a normal update
+cmd_as -4 advancement grant Steve only minecraft:story/upgrade_tools
+cmd_as -4 advancement grant Alex only minecraft:husbandry/root
+advancement_tab Steve minecraft:story/root
+tick 1
+dump advancements:Steve advancements:Alex advpackets:Steve:update_advancements,select_advancement_tab advpackets:Alex:update_advancements,select_advancement_tab

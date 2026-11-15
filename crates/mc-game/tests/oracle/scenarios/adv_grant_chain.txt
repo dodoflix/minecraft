@@ -1,0 +1,50 @@
+# Granting along a tab, one player at a time: each step's update_advancements packet (new visible nodes, the progress of the changed
+# visible advancements, nothing removed) and the chat announcement of a completed advancement, for the granting player and a bystander.
+# Partial progress of a multi-criterion advancement is sent too; a hidden advancement shows when it is done.
+command_env
+level flat
+preload 2
+level_seed 5
+entity_counter 30
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 4.5 -60 0.5 0 0
+tick 2
+dump packets:Steve:none packets:Alex:none
+note the root of a tab
+cmd_as -4 advancement grant Steve only minecraft:story/root
+tick 1
+dump advpackets:Steve:update_advancements,system_chat advpackets:Alex:update_advancements,system_chat
+note a task that announces itself
+cmd_as -4 advancement grant Steve only minecraft:story/mine_stone
+tick 1
+dump advpackets:Steve:update_advancements,system_chat advpackets:Alex:update_advancements,system_chat
+note two further tasks of the chain in one tick
+cmd_as -4 advancement grant Steve only minecraft:story/upgrade_tools
+cmd_as -4 advancement grant Steve only minecraft:story/smelt_iron
+tick 1
+dump advpackets:Steve:update_advancements,system_chat advpackets:Alex:update_advancements,system_chat
+note a goal and a challenge
+cmd_as -4 advancement grant Steve only minecraft:story/mine_diamond
+cmd_as -4 advancement grant Steve only minecraft:nether/root
+cmd_as -4 advancement grant Steve only minecraft:nether/all_effects
+tick 1
+dump advpackets:Steve:update_advancements,system_chat advpackets:Alex:update_advancements,system_chat
+note partial progress of a multi-criterion advancement
+cmd_as -4 advancement grant Steve only minecraft:husbandry/balanced_diet apple
+tick 1
+dump advpackets:Steve:update_advancements,system_chat
+cmd_as -4 advancement grant Steve only minecraft:husbandry/balanced_diet bread
+cmd_as -4 advancement grant Steve only minecraft:husbandry/root
+tick 1
+dump advpackets:Steve:update_advancements,system_chat
+note a hidden advancement (and its tab) shows once it is done
+cmd_as -4 advancement grant Alex only minecraft:adventure/voluntary_exile
+tick 1
+dump advpackets:Steve:update_advancements,system_chat advpackets:Alex:update_advancements,system_chat
+note everything of a tab, then the same grant again (nothing to send)
+cmd_as -4 advancement grant Steve from minecraft:story/root
+tick 1
+dump advpackets:Steve:update_advancements,system_chat
+cmd_as -4 advancement grant Steve from minecraft:story/root
+tick 1
+dump advpackets:Steve:update_advancements,system_chat advancements:Steve advancements:Alex

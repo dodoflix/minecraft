@@ -1,0 +1,16 @@
+# The layout of the default data pack's advancement tree and the visibility evaluator for progress states: nothing done, a root, a short
+# chain, a done advancement whose ancestors are not (it shows its ancestors), secret (hidden) advancements, every tab, every recipe, everything.
+level flat
+preload 1
+state none -
+state story_root minecraft:story/root
+state story_chain minecraft:story/root,minecraft:story/mine_stone,minecraft:story/upgrade_tools
+state deep_only minecraft:story/follow_ender_eye
+state secret_done minecraft:adventure/voluntary_exile
+state secret_children minecraft:adventure/hero_of_the_village,minecraft:husbandry/feed_snifflet
+state roots minecraft:story/root,minecraft:nether/root,minecraft:end/root,minecraft:adventure/root,minecraft:husbandry/root
+state nether_chain minecraft:nether/root,minecraft:nether/return_to_sender,minecraft:nether/find_fortress
+state tab_story prefix:minecraft:story/
+state tab_husbandry prefix:minecraft:husbandry/
+state recipes prefix:minecraft:recipes/
+state all *

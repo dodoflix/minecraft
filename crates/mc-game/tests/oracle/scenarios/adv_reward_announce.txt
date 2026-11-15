@@ -1,0 +1,16 @@
+# An advancement with a display and a function reward: the function runs inside the award, before the chat announcement, so a player sees
+# what the function says (`say`) before "has made the advancement". A second advancement of the same item (display only) completes in the
+# same trigger and is announced after the first one's function and announcement. The second player gets both announcements too.
+datapack adv_rewards
+command_env
+level flat
+preload 4
+entity_counter 25000
+level_seed 25001
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 6.5 -60 3.5 90 0
+tick 30
+dump packets:Steve:none packets:Alex:none
+give Steve hotbar0 minecraft:feather 1
+tick 2
+dump advancements:Steve advancements:Alex packets:Steve:system_chat,disguised_chat packets:Alex:system_chat,disguised_chat

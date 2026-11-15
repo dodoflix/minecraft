@@ -143,3 +143,16 @@
  
        public int weightedValue(final Predicate<GossipType> types) {
           return this.entries.object2IntEntrySet().stream().filter(e -> types.test(e.getKey())).mapToInt(e -> e.getIntValue() * e.getKey().weight).sum();
+--- a/advancements/AdvancementNode.java
++++ b/advancements/AdvancementNode.java
+@@ -9,7 +9,9 @@
+    private final AdvancementHolder holder;
+    @Nullable
+    private final AdvancementNode parent;
+-   private final Set<AdvancementNode> children = new ReferenceOpenHashSet<>();
++   // ORACLE SHADOW (tests/oracle/shadow.patch): vanilla keeps the children in an identity-hashed set, so the order of siblings (and with it the
++   // layout of an advancement tab) is not reproducible; insertion order is.
++   private final Set<AdvancementNode> children = new java.util.LinkedHashSet<>();
+    private float x;
+    private float y;
+ 

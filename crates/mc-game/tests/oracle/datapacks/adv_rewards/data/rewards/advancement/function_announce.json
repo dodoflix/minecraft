@@ -1,0 +1,25 @@
+{
+  "display": {
+    "background": "minecraft:gui/advancements/backgrounds/stone",
+    "description": "A feather in the pack",
+    "icon": {
+      "id": "minecraft:feather"
+    },
+    "title": "Feather Reward"
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:feather"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "function": "rewards:on_announce"
+  }
+}

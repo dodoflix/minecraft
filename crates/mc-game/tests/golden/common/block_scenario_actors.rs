@@ -72,6 +72,8 @@ pub struct Actors {
     /// `mobspawn ... group=KEY`: the group data `finalizeSpawn` returned for the previous mob of that key.
     groups: HashMap<String, Box<dyn mc_game::world::entity::spawn_group_data::SpawnGroupData>>,
     pub registries_loaded: bool,
+    /// The directory of the advancement files of players spawned without a command environment.
+    advancements_dir: Option<tempfile::TempDir>,
     /// `datapack NAME`: the registries, recipes and advancements of the server that loaded the packs (otherwise the default pack's).
     pack: Option<ServerData>,
 }
@@ -190,6 +192,99 @@ fn packet_text(ty: &str, wire: &[u8]) -> String {
         }
         _ => wire.iter().map(|b| format!("{b:02x}")).collect(),
     }
+}
+
+/// `VanillaLevel.advancementDetail`: the content of an `update_advancements` packet with the obtained times reduced to done (`T`) or
+/// not (`-`); `removed`, `added` and `progress` in wire order, `added` with the first 12 hex digits of the SHA-1 of the encoded advancement.
+fn advancement_detail(wire: &[u8]) -> String {
+    use mc_protocol::packets::play::ClientboundUpdateAdvancementsPacket;
+    use sha1::{Digest, Sha1};
+    let mut body = wire;
+    read_varint(&mut body).expect("packet id");
+    let p = ClientboundUpdateAdvancementsPacket::decode(&mut body).expect("update_advancements");
+    let removed = if p.removed.is_empty() {
+        "-".to_owned()
+    } else {
+        p.removed
+            .iter()
+            .map(ToString::to_string)
+            .collect::<Vec<_>>()
+            .join(",")
+    };
+    let added: Vec<String> = p
+        .added
+        .iter()
+        .map(|a| {
+            let mut bytes = Vec::new();
+            a.advancement
+                .encode(&mut bytes)
+                .expect("advancement encodes");
+            let digest: String = Sha1::digest(&bytes)
+                .iter()
+                .map(|b| format!("{b:02x}"))
+                .collect();
+            format!(
+                "{}@{},{}#{}",
+                a.advancement.id,
+                flt(a.x),
+                flt(a.y),
+                &digest[..12]
+            )
+        })
+        .collect();
+    let added = if added.is_empty() {
+        "-".to_owned()
+    } else {
+        added.join(";")
+    };
+    let progress = if p.progress.is_empty() {
+        "-".to_owned()
+    } else {
+        p.progress
+            .iter()
+            .map(|(id, progress)| {
+                let criteria: Vec<String> = progress
+                    .criteria
+                    .iter()
+                    .map(|(name, c)| {
+                        format!("{name}={}", if c.obtained.is_some() { "T" } else { "-" })
+                    })
+                    .collect();
+                format!("{id}{{{}}}", criteria.join(","))
+            })
+            .collect::<Vec<_>>()
+            .join(";")
+    };
+    format!(
+        "reset={} show={} removed={removed} added={added} progress={progress}",
+        p.should_reset, p.show_advancements
+    )
+}
+
+/// The obtained times of a saved advancement file (`"yyyy-MM-dd HH:mm:ss Z"` strings) replaced by `"T"`.
+fn normalise_obtained_times(line: &str) -> String {
+    fn is_time(s: &str) -> bool {
+        let b = s.as_bytes();
+        b.len() == 25
+            && b.iter().enumerate().all(|(i, c)| match i {
+                4 | 7 => *c == b'-',
+                10 | 19 => *c == b' ',
+                13 | 16 => *c == b':',
+                20 => matches!(*c, b'+' | b'-'),
+                _ => c.is_ascii_digit(),
+            })
+    }
+    line.split('"')
+        .enumerate()
+        .map(|(i, part)| {
+            if i % 2 == 1 && is_time(part) {
+                "T"
+            } else {
+                part
+            }
+        })
+        .collect::<Vec<_>>()
+        .join("\"")
 }
 
 /// `ServerChunkCache.broadcastChangedChunks` walks an identity-hashed set in vanilla, so the chunks of one tick send their block
@@ -878,6 +973,13 @@ impl Scenario {
                     container_id: p.player.menus.current_container_id(),
                 })
             }),
+            "advancement_tab" => deliver(self, &a[1], |_, _| {
+                P::SeenAdvancements(
+                    mc_protocol::packets::play::ServerboundSeenAdvancementsPacket::OpenedTab(
+                        Identifier::parse(&a[2]).expect("advancement id"),
+                    ),
+                )
+            }),
             "select" => deliver(self, &a[1], |_, _| {
                 P::SetCarriedItem(ServerboundSetCarriedItemPacket {
                     slot: a[2].parse().expect("hotbar slot"),
@@ -1102,15 +1204,26 @@ impl Scenario {
         let sim = flags.iter().any(|f| f == "sim");
         let joinburst = flags.iter().any(|f| f == "joinburst");
         let n = a.len() - usize::from(sim) - usize::from(joinburst);
-        let advancements = mc_game::advancements::SharedAdvancements::new(
-            mc_game::advancements::player_advancements::PlayerAdvancements::new(
-                self.actors.advancements(),
-                None,
-            ),
-        );
+        let profile = mc_game::server::network::login_listener::create_offline_profile(&name);
+        // a replay without a command environment has no player list: the progress file lives in a directory of its own
+        let own_advancements = if mc_game::commands::server_access::has_server() {
+            None
+        } else {
+            let save_path = self
+                .actors
+                .advancements_dir
+                .get_or_insert_with(|| tempfile::tempdir().expect("advancement directory"))
+                .path()
+                .join(format!("{}.json", profile.id));
+            Some(mc_game::advancements::SharedAdvancements::new(
+                mc_game::advancements::player_advancements::PlayerAdvancements::new(
+                    self.actors.advancements(),
+                    Some(save_path),
+                ),
+            ))
+        };
         let level = self.level();
         let id = level.next_entity_id();
-        let profile = mc_game::server::network::login_listener::create_offline_profile(&name);
         let mut p = ServerPlayer::new(
             id,
             Identifier::parse("minecraft:overworld").unwrap(),
@@ -1125,7 +1238,9 @@ impl Scenario {
             other => panic!("game mode {other}"),
         };
         p.set_game_mode_for_player(mode, None);
-        p.advancements = advancements;
+        if let Some(own) = own_advancements {
+            p.advancements = own;
+        }
         let (yaw, pitch) = if n > 7 {
             (num(&a[6]) as f32, num(&a[7]) as f32)
         } else {
@@ -1151,7 +1266,14 @@ impl Scenario {
             mc_game::commands::server_access::with_server(|server| {
                 use mc_game::server::players::name_resolver::UserNameToIdResolver as _;
                 server.name_to_id_cache.add(handle.name_and_id());
-                server.player_list.add_player(handle.clone())
+                server.player_list.add_player(handle.clone());
+                // `PlayerList.getPlayerAdvancements`: `/reload` reaches the player's advancements through the list
+                let manager = server
+                    .resources
+                    .managers
+                    .listener::<mc_game::advancements::ServerAdvancementManager>()
+                    .expect("the advancement manager is registered");
+                p.advancements = server.player_list.get_player_advancements(&handle, manager);
             });
         }
         // `PlayerList.placeNewPlayer`: the packet listener (teleports, block change acks), the join teleport and the client's
@@ -1824,7 +1946,21 @@ impl Scenario {
                     self.out.push(line);
                 }
             }
-            "packets" => {
+            // ADVFILE PLAYER LINE: `PlayerAdvancements.save()` and the file it wrote, the obtained times replaced by `T`
+            "advfile" => {
+                let name = arg.expect("advfile:PLAYER");
+                let path = self.with_player_named(name, |_, p| {
+                    let advancements = p.advancements.lock();
+                    advancements.save();
+                    advancements.save_path().expect("save path").to_owned()
+                });
+                let text = std::fs::read_to_string(&path).expect("saved advancement file");
+                for line in text.lines() {
+                    self.out
+                        .push(format!("ADVFILE {name} {}", normalise_obtained_times(line)));
+                }
+            }
+            "packets" | "advpackets" => {
                 let arg = arg.expect("packets:NAME[:type,..]");
                 let (name, only) = arg
                     .split_once(':')
@@ -1863,7 +1999,11 @@ impl Scenario {
                         .as_ref()
                         .is_none_or(|o| o.contains(&ty.trim_start_matches("minecraft:")) != except)
                     {
-                        let hex = packet_text(ty, &p);
+                        let hex = if kind == "advpackets" && ty == "minecraft:update_advancements" {
+                            advancement_detail(&p)
+                        } else {
+                            packet_text(ty, &p)
+                        };
                         self.out.push(format!("PKT {name} {ty} {hex}"));
                     }
                 }

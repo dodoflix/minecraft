@@ -1,0 +1,25 @@
+# The first update_advancements packet of a joining player, decoded: the whole tree it may see (the roots and what the visibility evaluator
+# shows of the rest), the node layout, and the progress of the visible advancements. Steve joins fresh; Alex has completed two root
+# advancements before the first tick (the packet carries their progress with the obtained times reduced to done/not done); Bob has a partial
+# multi-criterion advancement; Cleo is in creative mode and a spectator (no difference expected).
+command_env
+level flat
+preload 2
+level_seed 5
+entity_counter 30
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 4.5 -60 0.5 0 0
+spawn_player Bob survival 8.5 -60 0.5 0 0
+spawn_player Cleo creative 12.5 -60 0.5 0 0
+spawn_player Dan spectator 16.5 -60 0.5 0 0
+cmd_as -4 advancement grant Alex only minecraft:husbandry/root
+cmd_as -4 advancement grant Alex only minecraft:story/root
+cmd_as -4 advancement grant Bob only minecraft:husbandry/balanced_diet apple
+cmd_as -4 advancement grant Bob only minecraft:adventure/kill_all_mobs minecraft:zombie
+tick 2
+note the first packet of each player
+dump advpackets:Steve:update_advancements advpackets:Alex:update_advancements advpackets:Bob:update_advancements advpackets:Cleo:update_advancements advpackets:Dan:update_advancements
+dump advancements:Steve advancements:Alex advancements:Bob advancements:Cleo advancements:Dan
+note nothing more is sent while nothing changes
+tick 5
+dump advpackets:Steve:update_advancements advpackets:Alex:update_advancements

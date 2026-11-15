@@ -1,0 +1,48 @@
+# Revoking: the visibility evaluator hides nodes again (the `removed` list), the progress of a node that stays visible is sent without the
+# revoked criterion, and a hidden advancement leaves when it is revoked. Revoking a criterion of a done advancement un-completes it without
+# announcing anything.
+command_env
+level flat
+preload 2
+level_seed 5
+entity_counter 30
+spawn_player Steve survival 0.5 -60 0.5 0 0
+tick 2
+dump packets:Steve:none
+cmd_as -4 advancement grant Steve only minecraft:story/root
+cmd_as -4 advancement grant Steve only minecraft:story/mine_stone
+cmd_as -4 advancement grant Steve only minecraft:story/upgrade_tools
+cmd_as -4 advancement grant Steve only minecraft:husbandry/balanced_diet apple
+cmd_as -4 advancement grant Steve only minecraft:adventure/voluntary_exile
+tick 1
+dump advpackets:Steve:update_advancements
+note revoking the deepest advancement hides what only it showed
+cmd_as -4 advancement revoke Steve only minecraft:story/upgrade_tools
+tick 1
+dump advpackets:Steve:update_advancements,system_chat advancements:Steve
+note a criterion of a done advancement
+cmd_as -4 advancement revoke Steve only minecraft:story/mine_stone get_stone
+tick 1
+dump advpackets:Steve:update_advancements,system_chat advancements:Steve
+note partial progress revoked
+cmd_as -4 advancement revoke Steve only minecraft:husbandry/balanced_diet apple
+tick 1
+dump advpackets:Steve:update_advancements,system_chat advancements:Steve
+note the hidden advancement and a root
+cmd_as -4 advancement revoke Steve only minecraft:adventure/voluntary_exile
+cmd_as -4 advancement revoke Steve only minecraft:story/root
+tick 1
+dump advpackets:Steve:update_advancements,system_chat advancements:Steve
+note a grant and a revoke of the same advancement in one tick
+cmd_as -4 advancement grant Steve only minecraft:story/root
+cmd_as -4 advancement revoke Steve only minecraft:story/root
+cmd_as -4 advancement grant Steve only minecraft:story/mine_stone
+tick 1
+dump advpackets:Steve:update_advancements,system_chat advancements:Steve
+note everything
+cmd_as -4 advancement grant Steve everything
+tick 1
+dump advpackets:Steve:update_advancements,system_chat
+cmd_as -4 advancement revoke Steve everything
+tick 1
+dump advpackets:Steve:update_advancements,system_chat advancements:Steve

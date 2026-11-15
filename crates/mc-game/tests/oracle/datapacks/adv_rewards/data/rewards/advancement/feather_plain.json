@@ -1,0 +1,22 @@
+{
+  "display": {
+    "background": "minecraft:gui/advancements/backgrounds/stone",
+    "description": "A feather, without a function",
+    "icon": {
+      "id": "minecraft:feather"
+    },
+    "title": "Plain Feather"
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:feather"
+          }
+        ]
+      }
+    }
+  }
+}

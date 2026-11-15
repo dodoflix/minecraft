@@ -1,0 +1,105 @@
+# a player without progress
+ADVFILE Alex {
+ADVFILE Alex   "minecraft:recipes/decorations/crafting_table": {
+ADVFILE Alex     "criteria": {
+ADVFILE Alex       "unlock_right_away": "T"
+ADVFILE Alex     },
+ADVFILE Alex     "done": true
+ADVFILE Alex   },
+ADVFILE Alex   "DataVersion": 5023
+ADVFILE Alex }
+CF msg Granted the advancement [Minecraft] to Steve
+CF result success 1
+CF msg Granted criterion 'apple' of advancement [A Balanced Diet] to Steve
+CF result success 1
+CF msg Granted criterion 'bread' of advancement [A Balanced Diet] to Steve
+CF result success 1
+CF msg Granted criterion 'minecraft:zombie' of advancement [Monsters Hunted] to Steve
+CF result success 1
+CF msg Granted criterion 'minecraft:creeper' of advancement [Monsters Hunted] to Steve
+CF result success 1
+CF msg Granted the advancement [Stone Age] to Steve
+CF result success 1
+ADVFILE Steve {
+ADVFILE Steve   "minecraft:adventure/kill_all_mobs": {
+ADVFILE Steve     "criteria": {
+ADVFILE Steve       "minecraft:zombie": "T",
+ADVFILE Steve       "minecraft:creeper": "T"
+ADVFILE Steve     },
+ADVFILE Steve     "done": false
+ADVFILE Steve   },
+ADVFILE Steve   "minecraft:husbandry/balanced_diet": {
+ADVFILE Steve     "criteria": {
+ADVFILE Steve       "apple": "T",
+ADVFILE Steve       "bread": "T"
+ADVFILE Steve     },
+ADVFILE Steve     "done": false
+ADVFILE Steve   },
+ADVFILE Steve   "minecraft:recipes/decorations/crafting_table": {
+ADVFILE Steve     "criteria": {
+ADVFILE Steve       "unlock_right_away": "T"
+ADVFILE Steve     },
+ADVFILE Steve     "done": true
+ADVFILE Steve   },
+ADVFILE Steve   "minecraft:story/mine_stone": {
+ADVFILE Steve     "criteria": {
+ADVFILE Steve       "get_stone": "T"
+ADVFILE Steve     },
+ADVFILE Steve     "done": true
+ADVFILE Steve   },
+ADVFILE Steve   "minecraft:story/root": {
+ADVFILE Steve     "criteria": {
+ADVFILE Steve       "crafting_table": "T"
+ADVFILE Steve     },
+ADVFILE Steve     "done": true
+ADVFILE Steve   },
+ADVFILE Steve   "DataVersion": 5023
+ADVFILE Steve }
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:creeper,minecraft:zombie
+ADV Steve minecraft:husbandry/balanced_diet apple,bread
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:story/mine_stone get_stone
+ADV Steve minecraft:story/root crafting_table
+# a revoked criterion and a fully revoked advancement
+CF msg Revoked criterion 'bread' of advancement [A Balanced Diet] from Steve
+CF result success 1
+CF msg Revoked the advancement [Stone Age] from Steve
+CF result success 1
+ADVFILE Steve {
+ADVFILE Steve   "minecraft:adventure/kill_all_mobs": {
+ADVFILE Steve     "criteria": {
+ADVFILE Steve       "minecraft:zombie": "T",
+ADVFILE Steve       "minecraft:creeper": "T"
+ADVFILE Steve     },
+ADVFILE Steve     "done": false
+ADVFILE Steve   },
+ADVFILE Steve   "minecraft:husbandry/balanced_diet": {
+ADVFILE Steve     "criteria": {
+ADVFILE Steve       "apple": "T"
+ADVFILE Steve     },
+ADVFILE Steve     "done": false
+ADVFILE Steve   },
+ADVFILE Steve   "minecraft:recipes/decorations/crafting_table": {
+ADVFILE Steve     "criteria": {
+ADVFILE Steve       "unlock_right_away": "T"
+ADVFILE Steve     },
+ADVFILE Steve     "done": true
+ADVFILE Steve   },
+ADVFILE Steve   "minecraft:story/root": {
+ADVFILE Steve     "criteria": {
+ADVFILE Steve       "crafting_table": "T"
+ADVFILE Steve     },
+ADVFILE Steve     "done": true
+ADVFILE Steve   },
+ADVFILE Steve   "DataVersion": 5023
+ADVFILE Steve }
+# the file read back
+CF msg Reloading!
+CF result success 0
+ADV Steve minecraft:adventure/kill_all_mobs minecraft:creeper,minecraft:zombie
+ADV Steve minecraft:husbandry/balanced_diet apple
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:story/root crafting_table
+PKT Steve minecraft:update_advancements reset=false show=true removed=- added=minecraft:story/smelt_iron@3.0,1.75#ae0a56e3bebe;minecraft:story/mine_stone@1.0,1.75#e2d1a874e03b;minecraft:story/upgrade_tools@2.0,1.75#057cec309bed;minecraft:story/root@0.0,1.75#3a6d5ea4fea6 progress=minecraft:story/smelt_iron{iron=-};minecraft:story/mine_stone{get_stone=T};minecraft:story/upgrade_tools{stone_pickaxe=-};minecraft:story/root{crafting_table=T}
+PKT Steve minecraft:update_advancements reset=false show=true removed=minecraft:story/smelt_iron added=- progress=minecraft:story/mine_stone{get_stone=-}
+PKT Steve minecraft:update_advancements reset=true show=true removed=- added=minecraft:recipes/decorations/crafting_table@0.0,0.0#438b5776de41;minecraft:story/mine_stone@1.0,1.75#e2d1a874e03b;minecraft:story/upgrade_tools@2.0,1.75#057cec309bed;minecraft:recipes/root@0.0,0.0#ebb9c62f2229;minecraft:story/root@0.0,1.75#3a6d5ea4fea6 progress=minecraft:recipes/decorations/crafting_table{has_the_recipe=-,unlock_right_away=T};minecraft:story/mine_stone{get_stone=-};minecraft:story/upgrade_tools{stone_pickaxe=-};minecraft:recipes/root{impossible=-};minecraft:story/root{crafting_table=T}
