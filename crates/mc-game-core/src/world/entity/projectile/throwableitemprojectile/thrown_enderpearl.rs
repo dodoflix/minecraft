@@ -178,7 +178,7 @@ impl Projectile for ThrownEnderpearl {
                 // `ServerPlayer.teleport`: `removeVehicle()` before a same-dimension move
                 level.remove_vehicle(owner);
                 teleport_same_dimension(level, owner, &t);
-                owner.reset_fall_distance();
+                owner.reset_fall_distance(level);
                 owner.reset_current_impulse_context();
                 let source = level.damage_sources().ender_pearl();
                 owner.hurt_server(level, &source, 5.0);
@@ -186,7 +186,7 @@ impl Projectile for ThrownEnderpearl {
                 let t = transition(owner.base().y_rot(), owner.base().x_rot());
                 level.stop_riding(owner);
                 teleport_same_dimension(level, owner, &t);
-                owner.reset_fall_distance();
+                owner.reset_fall_distance(level);
                 if owner.living().is_some() {
                     owner.reset_current_impulse_context();
                 }

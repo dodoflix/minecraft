@@ -481,9 +481,9 @@ pub fn get_fluid_falling_adjusted_movement(
 }
 
 /// `handleOnClimbable(delta)`.
-fn handle_on_climbable(entity: &mut dyn Entity, level: &ServerLevel, mut delta: Vec3) -> Vec3 {
+fn handle_on_climbable(entity: &mut dyn Entity, level: &mut ServerLevel, mut delta: Vec3) -> Vec3 {
     if climbable(entity, level) {
-        entity.reset_fall_distance();
+        entity.reset_fall_distance(level);
         let max = f64::from(0.15f32);
         let xd = mth::clamp_f64(delta.x, -max, max);
         let zd = mth::clamp_f64(delta.z, -max, max);

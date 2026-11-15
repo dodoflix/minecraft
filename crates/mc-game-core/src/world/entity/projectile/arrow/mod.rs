@@ -1151,11 +1151,11 @@ macro_rules! impl_abstract_arrow_entity {
         }
         fn on_inside_bubble_column(
             &mut self,
-            _level: &mut $crate::server::level::ServerLevel,
+            level: &mut $crate::server::level::ServerLevel,
             drag_down: bool,
         ) {
             if !$crate::world::entity::projectile::arrow::AbstractArrow::is_in_ground(self) {
-                $crate::world::entity::projectile::on_inside_bubble_column(self, drag_down);
+                $crate::world::entity::projectile::on_inside_bubble_column(self, level, drag_down);
             }
         }
         fn get_pierce_level(&self) -> i32 {

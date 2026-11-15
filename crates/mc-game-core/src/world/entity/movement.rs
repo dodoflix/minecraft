@@ -525,7 +525,7 @@ pub fn move_entity(
                 collision_context_in(entity, &*level),
             ));
             if !hit.miss {
-                entity.reset_fall_distance();
+                entity.reset_fall_distance(level);
             }
         }
         let pos = entity.base().position();

@@ -100,8 +100,6 @@ pub struct ServerPlayer {
     pub current_explosion_impact_pos: Option<Vec3>,
     /// `currentExplosionCause`: the entity that caused the explosion that hit this player.
     pub current_explosion_cause: Option<EntityId>,
-    /// `startingToFallPosition`s whose `resetFallDistance()` happened since the last `tick_server_player` (`FALL_FROM_HEIGHT`).
-    pub pending_fall_from_height: Vec<Vec3>,
     pub last_section_pos: SectionPos,
     pub respawn_config: Option<RespawnConfig>,
     pub text_filtering_enabled: bool,
@@ -190,7 +188,6 @@ impl ServerPlayer {
             entered_lava_on_vehicle_position: None,
             current_explosion_impact_pos: None,
             current_explosion_cause: None,
-            pending_fall_from_height: Vec::new(),
             last_section_pos: SectionPos::of(0, 0, 0),
             respawn_config: None,
             text_filtering_enabled: false,
@@ -634,16 +631,24 @@ impl Entity for ServerPlayer {
     ) {
         crate::advancements::triggers::CriteriaTriggers::ENTER_BLOCK.trigger(level, self, state);
     }
-    /// `ServerPlayer.resetFallDistance()`: the `FALL_FROM_HEIGHT` trigger is queued (callers have no level to award with) and
-    /// fires in `tick_server_player`.
-    fn reset_fall_distance(&mut self) {
+    /// `ServerPlayer.resetFallDistance()`: awards `FALL_FROM_HEIGHT` for the position the fall started at.
+    fn reset_fall_distance(&mut self, level: &mut crate::server::level::ServerLevel) {
         if self.get_health() > 0.0
             && let Some(start) = self.starting_to_fall_position
         {
-            self.pending_fall_from_height.push(start);
+            crate::advancements::triggers::CriteriaTriggers::FALL_FROM_HEIGHT
+                .trigger(level, self, start);
         }
         self.starting_to_fall_position = None;
         self.base_mut().fall_distance = 0.0;
+    }
+    /// `Player.getMovementEmission()`: a flying player and one sneaking on the ground make no sound and no vibration.
+    fn get_movement_emission(&self) -> entity::MovementEmission {
+        if self.player.abilities.flying || self.base().on_ground() && self.is_discrete() {
+            entity::MovementEmission::None
+        } else {
+            entity::MovementEmission::All
+        }
     }
     /// `ServerPlayer.checkFallDamage`: a mace smash makes the landing throw a block particle burst once.
     fn check_fall_damage(

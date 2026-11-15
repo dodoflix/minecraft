@@ -837,7 +837,7 @@ impl Entity for AbstractBoat {
         self.last_yd = self.base.delta_movement().y;
         if !self.base.is_passenger() {
             if on_ground {
-                self.reset_fall_distance();
+                self.reset_fall_distance(level);
             } else if !level
                 .get_fluid_state(self.base.block_position().below())
                 .is_tag("water")

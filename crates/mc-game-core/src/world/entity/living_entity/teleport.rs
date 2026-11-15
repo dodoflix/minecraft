@@ -138,7 +138,7 @@ pub fn apply_teleport_randomly(
                     clamped_pack_difference_in_position(origin, target, 127, 127, 127),
                 );
             }
-            user.reset_fall_distance();
+            user.reset_fall_distance(level);
             reset_current_impulse_context(user);
             return true;
         }

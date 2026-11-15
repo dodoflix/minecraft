@@ -513,7 +513,7 @@ impl Replay {
             Entity::do_check_fall_damage(p, level, delta.x, delta.y, delta.z, og);
             p.set_known_movement(delta);
             if moved_upwards {
-                Entity::reset_fall_distance(p);
+                Entity::reset_fall_distance(p, level);
             }
             p.check_movement_statistics(level, delta.x, delta.y, delta.z);
         });

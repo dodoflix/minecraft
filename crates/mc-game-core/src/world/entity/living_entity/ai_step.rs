@@ -175,7 +175,7 @@ pub fn ai_step(entity: &mut dyn Entity, level: &mut ServerLevel) {
         f64::from(l(entity).zza),
     );
     if has_effect(entity, MobEffect::SLOW_FALLING) || has_effect(entity, MobEffect::LEVITATION) {
-        entity.reset_fall_distance();
+        entity.reset_fall_distance(level);
     }
     let controller = entity
         .get_controlling_passenger()

@@ -166,9 +166,14 @@ impl Entity for Spider {
         self.is_climbing()
     }
 
-    fn make_stuck_in_block(&mut self, state: mc_data::block::BlockState, speed_multiplier: Vec3) {
+    fn make_stuck_in_block(
+        &mut self,
+        level: &mut mc_game_core::server::level::ServerLevel,
+        state: mc_data::block::BlockState,
+        speed_multiplier: Vec3,
+    ) {
         if state.block() != Block::COBWEB {
-            self.reset_fall_distance();
+            self.reset_fall_distance(level);
             self.base_mut().stuck_speed_multiplier = speed_multiplier;
         }
     }

@@ -141,8 +141,11 @@ impl BlockBehaviour for SweetBerryBushBlock {
             && entity.get_type() != EntityType::FOX
             && entity.get_type() != EntityType::BEE
         {
-            entity
-                .make_stuck_in_block(state, Vec3::new(f64::from(0.8f32), 0.75, f64::from(0.8f32)));
+            entity.make_stuck_in_block(
+                level,
+                state,
+                Vec3::new(f64::from(0.8f32), 0.75, f64::from(0.8f32)),
+            );
             if state.get(props::AGE_3) != 0 {
                 let movement = if entity.is_client_authoritative() {
                     entity.get_known_movement(level)

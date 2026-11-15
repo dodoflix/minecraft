@@ -94,7 +94,7 @@ pub fn tick<M: AbstractMinecart + ?Sized>(m: &mut M, level: &mut ServerLevel) {
 pub fn move_along_track<M: AbstractMinecart + ?Sized>(m: &mut M, level: &mut ServerLevel) {
     let pos = current_block_pos_or_rail_below(m, &*level);
     let state = level.get_block_state(pos);
-    m.reset_fall_distance();
+    m.reset_fall_distance(level);
     let mut x = m.base().x();
     let mut y = m.base().y();
     let mut z = m.base().z();

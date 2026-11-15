@@ -217,7 +217,7 @@ pub fn move_along_track<M: AbstractMinecart + ?Sized>(m: &mut M, level: &mut Ser
         }
 
         if on_rails {
-            m.reset_fall_distance();
+            m.reset_fall_distance(level);
             m.base_mut().set_old_pos_and_rot();
             if current_state.is_block(Block::ACTIVATOR_RAIL) {
                 m.activate_minecart(

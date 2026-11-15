@@ -164,13 +164,13 @@ impl ItemBehaviour for MaceItem {
 
     fn post_hurt_enemy(
         &self,
-        _level: &mut ServerLevel,
+        level: &mut ServerLevel,
         _stack: &mut ItemStack,
         _mob: &mut dyn Entity,
         attacker: &mut dyn Entity,
     ) {
         if can_smash_attack(attacker) {
-            attacker.reset_fall_distance();
+            attacker.reset_fall_distance(level);
         }
     }
 

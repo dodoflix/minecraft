@@ -994,7 +994,7 @@ pub trait Entity: Any {
     }
 
     /// `resetFallDistance()`.
-    fn reset_fall_distance(&mut self) {
+    fn reset_fall_distance(&mut self, _level: &mut ServerLevel) {
         self.base_mut().fall_distance = 0.0;
     }
 
@@ -1655,7 +1655,7 @@ pub trait Entity: Any {
             b.eye_in_fluid = eyes;
         }
         if in_water {
-            self.reset_fall_distance();
+            self.reset_fall_distance(level);
             if !self.base().was_touching_water && !self.base().first_tick {
                 self.do_water_splash_effect(level);
             }
@@ -2157,7 +2157,7 @@ pub trait Entity: Any {
         send_bubble_column_particles(level, pos);
     }
     /// `onInsideBubbleColumn(dragDown)`.
-    fn on_inside_bubble_column(&mut self, _level: &mut ServerLevel, drag_down: bool) {
+    fn on_inside_bubble_column(&mut self, level: &mut ServerLevel, drag_down: bool) {
         if self.can_simulate_movement() {
             let movement = self.base().delta_movement();
             let yd = if drag_down {
@@ -2168,7 +2168,7 @@ pub trait Entity: Any {
             self.base_mut()
                 .set_delta_movement(Vec3::new(movement.x, yd, movement.z));
         }
-        self.reset_fall_distance();
+        self.reset_fall_distance(level);
     }
     /// `checkFallDistanceAccumulation()`.
     fn check_fall_distance_accumulation(&mut self) {
@@ -2179,10 +2179,11 @@ pub trait Entity: Any {
     /// `makeStuckInBlock(blockState, speedMultiplier)`.
     fn make_stuck_in_block(
         &mut self,
+        level: &mut ServerLevel,
         _block_state: mc_data::block::BlockState,
         speed_multiplier: Vec3,
     ) {
-        self.reset_fall_distance();
+        self.reset_fall_distance(level);
         self.base_mut().stuck_speed_multiplier = speed_multiplier;
     }
     /// `applyGravity()`.
@@ -5032,7 +5033,7 @@ pub fn check_fall_damage_base(
                 position,
             );
         }
-        this.reset_fall_distance();
+        this.reset_fall_distance(level);
     }
     if this.living().is_some() {
         super::living_entity::fall::after_check_fall_damage(this, on_ground);

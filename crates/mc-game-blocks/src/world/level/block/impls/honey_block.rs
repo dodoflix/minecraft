@@ -43,7 +43,7 @@ fn is_sliding_down(pos: BlockPos, entity: &dyn Entity) -> bool {
     }
 }
 
-fn do_slide_movement(entity: &mut dyn Entity) {
+fn do_slide_movement(level: &mut ServerLevel, entity: &mut dyn Entity) {
     let delta_movement = entity.base().delta_movement();
     if get_old_delta_y(delta_movement.y) < -0.13 {
         let horizontal_reduction_factor = -0.05 / get_old_delta_y(delta_movement.y);
@@ -59,7 +59,7 @@ fn do_slide_movement(entity: &mut dyn Entity) {
             delta_movement.z,
         ));
     }
-    entity.reset_fall_distance();
+    entity.reset_fall_distance(level);
 }
 
 /// `maybeDoSlideAchievement`: players trigger `slide_down_block` once per second.
@@ -127,7 +127,7 @@ impl BlockBehaviour for HoneyBlock {
     ) {
         if is_sliding_down(pos, entity) {
             maybe_do_slide_achievement(level, entity, pos);
-            do_slide_movement(entity);
+            do_slide_movement(level, entity);
             maybe_do_slide_effects(level, entity);
         }
     }

@@ -547,7 +547,13 @@ impl Entity for WitherBoss {
         }
     }
 
-    fn make_stuck_in_block(&mut self, _block_state: BlockState, _speed_multiplier: Vec3) {}
+    fn make_stuck_in_block(
+        &mut self,
+        _level: &mut ServerLevel,
+        _block_state: BlockState,
+        _speed_multiplier: Vec3,
+    ) {
+    }
 
     fn start_seen_by_player(&mut self, player_id: EntityId, connection: &ConnectionSender) {
         self.boss_event.add_player(player_id, connection);

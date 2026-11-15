@@ -496,7 +496,7 @@ impl Entity for Strider {
         pos: BlockPos,
     ) {
         if self.is_in_lava() {
-            self.reset_fall_distance();
+            self.reset_fall_distance(level);
         } else {
             mc_game_core::world::entity::entity::check_fall_damage_base(
                 self, level, ya, on_ground, on_state, pos,

@@ -451,7 +451,7 @@ impl ServerLevel {
                 vehicle.position_rider(passenger);
             }
             if passenger.living().is_some() {
-                passenger.reset_fall_distance();
+                passenger.reset_fall_distance(self);
             }
         }
         if let Some(player) = passenger.as_any_mut().downcast_mut::<ServerPlayer>() {

@@ -305,8 +305,8 @@ macro_rules! impl_projectile_entity {
         fn on_above_bubble_column(&mut self, level: &mut $crate::server::level::ServerLevel, drag_down: bool, pos: mc_core::pos::BlockPos) {
             $crate::world::entity::projectile::on_above_bubble_column(self, level, drag_down, pos);
         }
-        fn on_inside_bubble_column(&mut self, _level: &mut $crate::server::level::ServerLevel, drag_down: bool) {
-            $crate::world::entity::projectile::on_inside_bubble_column(self, drag_down);
+        fn on_inside_bubble_column(&mut self, level: &mut $crate::server::level::ServerLevel, drag_down: bool) {
+            $crate::world::entity::projectile::on_inside_bubble_column(self, level, drag_down);
         }
     };
     // Projectiles that override `isPickable` and the bubble column behavior themselves (arrows).
@@ -326,8 +326,8 @@ macro_rules! impl_projectile_entity {
         fn on_above_bubble_column(&mut self, level: &mut $crate::server::level::ServerLevel, drag_down: bool, pos: mc_core::pos::BlockPos) {
             $crate::world::entity::projectile::on_above_bubble_column(self, level, drag_down, pos);
         }
-        fn on_inside_bubble_column(&mut self, _level: &mut $crate::server::level::ServerLevel, drag_down: bool) {
-            $crate::world::entity::projectile::on_inside_bubble_column(self, drag_down);
+        fn on_inside_bubble_column(&mut self, level: &mut $crate::server::level::ServerLevel, drag_down: bool) {
+            $crate::world::entity::projectile::on_inside_bubble_column(self, level, drag_down);
         }
     };
     (@hurt) => {
@@ -356,8 +356,8 @@ macro_rules! impl_projectile_entity {
         fn on_above_bubble_column(&mut self, level: &mut $crate::server::level::ServerLevel, drag_down: bool, pos: mc_core::pos::BlockPos) {
             $crate::world::entity::projectile::on_above_bubble_column(self, level, drag_down, pos);
         }
-        fn on_inside_bubble_column(&mut self, _level: &mut $crate::server::level::ServerLevel, drag_down: bool) {
-            $crate::world::entity::projectile::on_inside_bubble_column(self, drag_down);
+        fn on_inside_bubble_column(&mut self, level: &mut $crate::server::level::ServerLevel, drag_down: bool) {
+            $crate::world::entity::projectile::on_inside_bubble_column(self, level, drag_down);
         }
         fn hurt_knockback_direction(&self) -> Option<$crate::world::damagesource::HurtKnockbackDirection> {
             Some($crate::world::damagesource::HurtKnockbackDirection::AwayFromProjectile)
@@ -412,11 +412,15 @@ pub fn on_above_bubble_column(
 }
 
 /// `Projectile.onInsideBubbleColumn(dragDown)`.
-pub fn on_inside_bubble_column(projectile: &mut dyn Entity, drag_down: bool) {
+pub fn on_inside_bubble_column(
+    projectile: &mut dyn Entity,
+    level: &mut crate::server::level::ServerLevel,
+    drag_down: bool,
+) {
     let yd = if drag_down { -0.03 } else { 0.06 };
     let b = projectile.base_mut();
     b.set_delta_movement(b.delta_movement().add_xyz(0.0, yd, 0.0));
-    projectile.reset_fall_distance();
+    projectile.reset_fall_distance(level);
 }
 
 /// `Projectile.canHitEntity(entity)`.

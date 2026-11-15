@@ -394,7 +394,7 @@ impl PlayCtx<'_> {
         z_dist = target_z - lz;
         let vehicle_rests_on_something = vehicle.base().vertical_collision_below;
         if self.sys().vehicle_on_climbable(self, &*vehicle) {
-            vehicle.reset_fall_distance();
+            vehicle.reset_fall_distance(&mut *self.level);
         }
 
         vehicle.r#move(
@@ -723,7 +723,7 @@ impl PlayCtx<'_> {
             );
             self.handle_player_known_movement(client_delta_movement);
             if moved_upwards {
-                self.player.reset_fall_distance();
+                self.player.reset_fall_distance(&mut *self.level);
             }
 
             if is_on_ground

@@ -264,8 +264,8 @@ impl Entity for ShulkerBullet {
         super::on_above_bubble_column(self, level, drag_down, pos);
     }
 
-    fn on_inside_bubble_column(&mut self, _level: &mut ServerLevel, drag_down: bool) {
-        super::on_inside_bubble_column(self, drag_down);
+    fn on_inside_bubble_column(&mut self, level: &mut ServerLevel, drag_down: bool) {
+        super::on_inside_bubble_column(self, level, drag_down);
     }
 
     fn get_sound_source(&self) -> SoundSource {
