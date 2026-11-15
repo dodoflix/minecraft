@@ -1,0 +1,167 @@
+C Game rule send_command_feedback is now set to true
+# give: one and several players, count, stack splitting, components, errors
+CF msg Gave 1 [Apple] to A
+CF result success 1
+CF msg Gave 70 [Apple] to A
+CF result success 1
+CF msg Gave 3 [Stick] to 3 players
+CF result success 3
+CF msg Gave 1 [Diamond Sword] to A
+CF result success 1
+CF msg Gave 64 [Oak Log] to B
+CF result success 1
+CF msg Gave 5 [Birch Log] to B
+CF result success 1
+CF msg Gave 1 [Diamond Sword] to B
+CF result success 1
+CF result failure 0
+CF fail No player was found
+CF fail Unknown item 'minecraft:nope'
+CF fail give A minecraft:nope<--[HERE]
+CF fail Integer must not be less than 1: found 0
+CF fail ...aft:apple 0<--[HERE]
+CF fail Integer must not be less than 1: found -1
+CF fail ...aft:apple -1<--[HERE]
+CF msg Gave 99 [Bedrock] to A
+CF result success 1
+CF msg Gave 2 [Water Bucket] to A
+CF result success 1
+CF msg Gave 1 [Air] to A
+CF result success 1
+CF fail Unknown item component 'minecraft:nope'
+CF fail ...ond_sword[nope=1]<--[HERE]
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail give @e[type=pig] minecraft:apple<--[HERE]
+CF result failure 0
+CF fail Can't give more than 100 of [Totem of Undying]
+I A 0 minecraft:apple*64
+I A 1 minecraft:apple*7
+I A 2 minecraft:stick*3
+I A 3 minecraft:diamond_sword*1/dmg=7{minecraft:damage:7,minecraft:enchantments:{minecraft:sharpness:2}}
+I A 4 minecraft:bedrock*99{minecraft:max_stack_size:99}
+I A 5 minecraft:water_bucket*1
+I A 6 minecraft:water_bucket*1
+I B 0 minecraft:stick*3
+I B 1 minecraft:oak_log*64
+I B 2 minecraft:birch_log*5
+I B 3 minecraft:diamond_sword*1/dmg=2{minecraft:damage:2}
+I C 0 minecraft:stick*3
+E item#1 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.0062067302287252485,0.08172237128019333,0.31506519457340526 rot=78.87735,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=5999 pickup=32767 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.009908186624301036,0.1315704584121704,0.3042436722788328 rot=82.29086,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=5999 pickup=32767 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.012636698976520106,0.09823066741228104,0.29405277118361794 rot=127.54923,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=5999 pickup=32767 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.011028338093023142,0.17216703295707703,0.300336699963701 rot=309.03293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=5999 pickup=32767 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.5,-58.68000000715256,0.5 delta=-0.008970737207060488,0.07514463365077972,0.2986253065693738 rot=338.53363,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=5999 pickup=32767 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=4.5,-58.68000000715256,0.5 delta=0.0018423033234390947,0.027306944131851196,0.3195016552718609 rot=184.27316,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=5999 pickup=32767 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.0019515412358578742,0.10065910965204239,0.29351548143609524 rot=323.69592,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1/dmg=7 age=5999 pickup=32767 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=2.5,-58.68000000715256,0.5 delta=-0.011042379996364128,0.019130878150463104,0.316442517884341 rot=183.84485,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=5999 pickup=32767 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=2.5,-58.68000000715256,0.5 delta=0.004034111422995705,0.05801616236567497,0.3007128803935549 rot=268.61597,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:birch_log*1 age=5999 pickup=32767 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=2.5,-58.68000000715256,0.5 delta=-0.008701610880355872,0.060695964843034744,0.29600631781816383 rot=215.44385,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1/dmg=2 age=5999 pickup=32767 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=0.0036175371944985736,0.17252808809280396,0.3014988084642458 rot=197.08969,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bedrock*1 age=5999 pickup=32767 health=5 owner=- thrower=-
+E item#12 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.010378306149463194,0.04169926047325134,0.28941013370595403 rot=346.67975,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:water_bucket*1 age=5999 pickup=32767 health=5 owner=- thrower=-
+E item#13 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=0.004518945011605646,0.11307975649833679,0.30221942576260924 rot=240.84534,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:water_bucket*1 age=5999 pickup=32767 health=5 owner=- thrower=-
+# give into a full inventory: the rest drops as item entities
+CF msg Gave 2400 [Cobblestone] to C
+CF result success 1
+CF msg Gave 64 [Cobblestone] to C
+CF result success 1
+I C 0 minecraft:stick*3
+I C 1 minecraft:cobblestone*64
+I C 2 minecraft:cobblestone*64
+I C 3 minecraft:cobblestone*64
+I C 4 minecraft:cobblestone*64
+I C 5 minecraft:cobblestone*64
+I C 6 minecraft:cobblestone*64
+I C 7 minecraft:cobblestone*64
+I C 8 minecraft:cobblestone*64
+I C 9 minecraft:cobblestone*64
+I C 10 minecraft:cobblestone*64
+I C 11 minecraft:cobblestone*64
+I C 12 minecraft:cobblestone*64
+I C 13 minecraft:cobblestone*64
+I C 14 minecraft:cobblestone*64
+I C 15 minecraft:cobblestone*64
+I C 16 minecraft:cobblestone*64
+I C 17 minecraft:cobblestone*64
+I C 18 minecraft:cobblestone*64
+I C 19 minecraft:cobblestone*64
+I C 20 minecraft:cobblestone*64
+I C 21 minecraft:cobblestone*64
+I C 22 minecraft:cobblestone*64
+I C 23 minecraft:cobblestone*64
+I C 24 minecraft:cobblestone*64
+I C 25 minecraft:cobblestone*64
+I C 26 minecraft:cobblestone*64
+I C 27 minecraft:cobblestone*64
+I C 28 minecraft:cobblestone*64
+I C 29 minecraft:cobblestone*64
+I C 30 minecraft:cobblestone*64
+I C 31 minecraft:cobblestone*64
+I C 32 minecraft:cobblestone*64
+I C 33 minecraft:cobblestone*64
+I C 34 minecraft:cobblestone*64
+I C 35 minecraft:cobblestone*64
+# clear: counts, items, tags, predicates
+CF msg Removed 3 item(s) from player A
+CF result success 3
+CF msg Found 68 matching item(s) on player A
+CF result success 68
+CF msg Removed 68 item(s) from player A
+CF result success 68
+CF result failure 0
+CF fail No items were found on player A
+CF result failure 0
+CF fail No items were found on player A
+CF msg Removed 10 item(s) from player B
+CF result success 10
+CF msg Found 59 matching item(s) on player B
+CF result success 59
+CF msg Removed 59 item(s) from player B
+CF result success 59
+CF fail Unknown item tag 'minecraft:nope'
+CF fail ...craft:nope<--[HERE]
+CF fail Unknown item 'minecraft:nope'
+CF fail ...craft:nope<--[HERE]
+CF msg Removed 1 item(s) from player A
+CF result success 1
+CF result failure 0
+CF fail No items were found on player A
+CF result failure 0
+CF fail No items were found on player B
+CF msg Removed 4 item(s) from player B
+CF result success 4
+CF result failure 0
+CF fail No items were found on player B
+CF msg Removed 2243 item(s) from player C
+CF result success 2243
+CF fail Integer must not be less than 0: found -1
+CF fail ...bblestone -1<--[HERE]
+CF msg Removed 1 item(s) from player A
+CF result success 1
+CF msg Removed 2 item(s) from player A
+CF result success 2
+CF result failure 0
+CF fail No items were found on 3 players
+CF result failure 0
+CF fail No player was found
+CF fail Unknown item component 'minecraft:nope'
+CF fail ...ucket[nope=1]<--[HERE]
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...raft:stick,minecraft:apple<--[HERE]
+I A 4 minecraft:bedrock*99{minecraft:max_stack_size:99}
+I A 5 minecraft:water_bucket*1
+I A 6 minecraft:water_bucket*1
+# permission levels
+CF fail Unknown or incomplete command. See below for error
+CF fail give B minecraft:apple<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail clear B minecraft:apple<--[HERE]
+CF msg Gave 2 [Apple] to B
+CF result success 1
+CF msg Removed 1 item(s) from player B
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail give B minecraft:apple<--[HERE]
+CF msg Gave 3 [Apple] to B
+CF result success 1
+CF msg Removed 4 item(s) from player B
+CF result success 4

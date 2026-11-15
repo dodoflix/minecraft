@@ -1,0 +1,155 @@
+C Game rule send_command_feedback is now set to true
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Stick
+CF result success 1
+# enchant: no item, then items of several kinds
+CF result failure 0
+CF fail A is not holding any item
+CF result failure 0
+CF fail Pig is not holding any item
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail Stick is not a valid entity for this command
+CF msg Replaced 1 slot(s) on A with [Diamond Sword]
+CF result success 1
+CF msg Applied enchantment Sharpness I to A's item
+CF result success 1
+CF result failure 0
+CF fail Diamond Sword cannot support that enchantment
+CF result failure 0
+CF fail 6 is higher than the maximum level of 5 supported by that enchantment
+CF result failure 0
+CF fail Diamond Sword cannot support that enchantment
+CF fail Integer must not be less than 0: found -1
+CF fail ...sharpness -1<--[HERE]
+CF result failure 0
+CF fail Diamond Sword cannot support that enchantment
+CF msg Applied enchantment Unbreaking III to A's item
+CF result success 1
+CF result failure 0
+CF fail Diamond Sword cannot support that enchantment
+CF fail Can't find element 'minecraft:nope' of type 'minecraft:enchantment'
+CF fail ...craft:nope<--[HERE]
+CF msg Applied enchantment Mending to A's item
+CF result success 1
+CF msg Applied enchantment Fire Aspect II to A's item
+CF result success 1
+CF msg Replaced 1 slot(s) on B with [Bow]
+CF result success 1
+CF msg Replaced 1 slot(s) on C with [Stick]
+CF result success 1
+CF msg Applied enchantment Power II to B's item
+CF result success 1
+CF msg Applied enchantment Unbreaking I to B's item
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. Targets either have no item in their hands or the enchantment could not be applied
+CF msg Replaced 1 slot(s) on Cow with [Iron Axe]
+CF result success 1
+CF msg Applied enchantment Efficiency III to Cow's item
+CF result success 1
+CF result failure 0
+CF fail Iron Axe cannot support that enchantment
+CF msg Replaced 1 slot(s) on A with [Enchanted Book]
+CF result success 1
+CF result failure 0
+CF fail Enchanted Book cannot support that enchantment
+CF msg Replaced 1 slot(s) on A with [Book]
+CF result success 1
+CF result failure 0
+CF fail Book cannot support that enchantment
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF result failure 0
+CF fail Stone cannot support that enchantment
+CF result failure 0
+CF fail Stone cannot support that enchantment
+I A 0 minecraft:stone*1
+I B 0 minecraft:bow*1{minecraft:enchantments:{minecraft:power:2,minecraft:unbreaking:1}}
+I C 0 minecraft:stick*1
+E pig#1 minecraft:pig pos=6.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=8.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=10.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+# experience: add, set, query
+CF msg A has 0 experience points
+CF result success 0
+CF msg A has 0 experience levels
+CF result success 0
+CF msg Gave 10 experience points to A
+CF result success 1
+CF msg Gave 5 experience points to A
+CF result success 1
+CF msg Gave 3 experience levels to A
+CF result success 1
+CF msg A has 13 experience points
+CF result success 13
+CF msg A has 4 experience levels
+CF result success 4
+CF msg Set 30 experience levels on A
+CF result success 1
+CF msg Set 100 experience points on A
+CF result success 1
+CF msg Set 0 experience points on A
+CF result success 1
+CF msg Set 0 experience levels on A
+CF result success 1
+CF msg Gave -1 experience points to A
+CF result success 1
+CF msg Gave -5 experience levels to A
+CF result success 1
+CF fail Integer must not be less than 0: found -1
+CF fail xp set A -1 points<--[HERE]
+CF fail Integer must not be less than 0: found -1
+CF fail xp set A -1 levels<--[HERE]
+CF msg Gave 0 experience points to A
+CF result success 1
+CF msg Set 5 experience levels on A
+CF result success 1
+CF result failure 0
+CF fail Cannot set experience points above the maximum points for the player's current level
+CF result failure 0
+CF fail Cannot set experience points above the maximum points for the player's current level
+CF msg Gave 2147483647 experience levels to A
+CF result success 1
+CF msg A has 2147483647 experience levels
+CF result success 2147483647
+CF msg Gave 7 experience points to 3 players
+CF result success 3
+CF msg Set 12 experience levels on 3 players
+CF result success 3
+CF fail Only one player is allowed, but the provided selector allows more than one
+CF fail xp query @a levels<--[HERE]
+CF fail Only one player is allowed, but the provided selector allows more than one
+CF fail xp query @e[type=pig] points<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail xp add @e[type=pig] 1 points<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...p add A 1 nonsense<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail xp add B 1.5 points<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail xp query B<--[HERE]
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=12/7/3.2596292E-9 sel=0 main=minecraft:stone*1
+P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=12/7/0.0 sel=0 main=minecraft:bow*1{minecraft:enchantments:{minecraft:power:2,minecraft:unbreaking:1}}
+P C minecraft:player pos=4.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=12/7/0.0 sel=0 main=minecraft:stick*1
+# permission levels
+CF fail Unknown or incomplete command. See below for error
+CF fail xp add B 5 points<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail enchant B minecraft:power<--[HERE]
+CF msg Gave 5 experience points to B
+CF result success 1
+CF msg Set 3 experience levels on B
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail xp query B levels<--[HERE]
+CF result failure 0
+CF fail Bow cannot support that enchantment
+P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=3/12/0.16129032 sel=0 main=minecraft:bow*1{minecraft:enchantments:{minecraft:power:2,minecraft:unbreaking:1}}
+I B 0 minecraft:bow*1{minecraft:enchantments:{minecraft:power:2,minecraft:unbreaking:1}}

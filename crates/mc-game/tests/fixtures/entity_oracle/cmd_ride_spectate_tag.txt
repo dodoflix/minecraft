@@ -1,0 +1,320 @@
+C Game rule send_command_feedback is now set to true
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Horse
+CF result success 1
+CF msg Summoned new Oak Boat
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Minecart
+CF result success 1
+CF msg Summoned new Zombie
+CF result success 1
+CF msg Summoned new Stick
+CF result success 1
+# ride: mount
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ride @e[type=pig] mount @e[tag=c,limit=1]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ride @e[tag=p,limit=1] mount @e[type=pig]<--[HERE]
+CF msg A started riding Pig
+CF result success 1
+CF result failure 0
+CF fail A is already riding Pig
+CF result failure 0
+CF fail A is already riding Pig
+CF msg A stopped riding Pig
+CF result success 1
+CF result failure 0
+CF fail A is not riding any vehicle
+CF msg Cow started riding Pig
+CF result success 1
+CF result failure 0
+CF fail Can't mount entity on itself or any of its passengers
+CF result failure 0
+CF fail Cow is already riding Pig
+CF result failure 0
+CF fail Cow is already riding Pig
+CF result failure 0
+CF fail Players can't be ridden
+CF msg Pig started riding Armor Stand
+CF result success 1
+CF msg Zombie started riding Oak Boat
+CF result success 1
+CF msg Armor Stand started riding Minecart
+CF result success 1
+CF msg Marker started riding Pig
+CF result success 1
+CF msg Stick started riding Pig
+CF result success 1
+CF msg B started riding Oak Boat
+CF result success 1
+CF msg S started riding Horse
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail B is already riding Oak Boat
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ride B mount @a<--[HERE]
+E pig#1 minecraft:pig pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=10.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=12.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E oak_boat#1 minecraft:oak_boat pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=B;zombie#1
+E armor_stand#1 minecraft:armor_stand pos=16.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E marker#1 minecraft:marker pos=18.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E minecart#1 minecraft:minecart pos=20.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E zombie#1 minecraft:zombie pos=22.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=24.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+P A minecraft:player pos=7.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=14.5,-60.4125,8.700000002980232 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P S minecraft:player pos=12.5,-59.15624997615814,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT A minecraft:player_position 49024021000000000000c04ddd9999cccccd4021000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT A minecraft:set_passengers 6dfc0a01f90a
+PKT A minecraft:set_passengers 6dfc0a00
+PKT A minecraft:player_position 4903401e000000000000c04e00000000000040210000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT B minecraft:player_position 4902402d000000000000c04e34cccccccccd4021666666800000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT B minecraft:set_passengers 6dff0a02fa0a830b
+CF msg Pig stopped riding Armor Stand
+CF result success 1
+CF msg Cow stopped riding Pig
+CF result success 1
+CF msg Marker stopped riding Pig
+CF result success 1
+CF msg Zombie stopped riding Oak Boat
+CF result success 1
+CF msg B stopped riding Oak Boat
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail Pig is not riding any vehicle
+CF fail Unknown or incomplete command. See below for error
+CF fail ride A<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...de A mount<--[HERE]
+CF fail Incorrect argument for command
+CF fail ride A nonsense<--[HERE]
+E pig#1 minecraft:pig pos=16.5,-58.02499997615814,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=16.5,-57.125,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=12.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E oak_boat#1 minecraft:oak_boat pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E armor_stand#1 minecraft:armor_stand pos=16.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E marker#1 minecraft:marker pos=16.5,-57.15625,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E minecart#1 minecraft:minecart pos=20.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E zombie#1 minecraft:zombie pos=14.5,-60.0,9.772276811962001 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=16.5,-57.15625,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+P A minecraft:player pos=7.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=14.5,-60.0,9.772276811962001 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_passengers 6dff0a00
+PKT B minecraft:player_position 4903402d000000000000c04e00000000000040238b67ddc5ac000000000000000000000000000000000000000000000000000000000000000000000001f8
+# spectate
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail spectate @e[type=pig] S<--[HERE]
+CF msg Now spectating Pig
+CF result success 1
+CF msg Now spectating Pig
+CF result success 1
+CF msg Now spectating Cow
+CF result success 1
+CF result failure 0
+CF fail Cannot spectate yourself
+CF msg Now spectating A
+CF result success 1
+CF result failure 0
+CF fail A player is required to run this command here
+CF result failure 0
+CF fail A player is required to run this command here
+CF result failure 0
+CF fail A is not in spectator mode
+CF result failure 0
+CF fail B is not in spectator mode
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No player was found
+CF fail Only one player is allowed, but the provided selector allows more than one
+CF fail spectate @e[type=pig,limit=1] @a<--[HERE]
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail spectate @e[tag=p,limit=1] @e[type=pig,limit=1]<--[HERE]
+CF result failure 0
+CF fail Marker cannot be spectated
+CF msg Now spectating Stick
+CF result success 1
+CF result failure 0
+CF fail A player is required to run this command here
+CF result failure 0
+CF fail A player is required to run this command here
+P S minecraft:player pos=16.5,-57.15625,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:player_position 49024029000000000000c04d93ffffcccccd4021000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT S minecraft:player_position 49034030800000000000c04d0333330000004021000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT S minecraft:set_camera 5ffc0a
+PKT S minecraft:player_position 49044030800000000000c04c9000000000004021000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT S minecraft:set_camera 5ffd0a
+PKT S minecraft:player_position 4905401e000000000000c04e0000000000004021000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT S minecraft:set_camera 5ff90a
+PKT S minecraft:player_position 49064030800000000000c04c9400000000004021000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT S minecraft:set_camera 5f840b
+# swing
+CF msg Made Pig swing an arm
+CF result success 1
+CF msg Made Pig swing an arm
+CF result success 1
+CF msg Made Pig swing an arm
+CF result success 1
+CF fail Incorrect argument for command
+CF fail ...@e[tag=p] nonsense<--[HERE]
+CF msg Made Cow swing an arm
+CF result success 1
+CF msg Made A swing an arm
+CF result success 1
+CF msg Made A swing an arm
+CF result success 1
+CF msg Made 3 entities swing their arms
+CF result success 3
+CF msg Made Armor Stand swing an arm
+CF result success 1
+CF result failure 0
+CF fail No living entities were found to swing
+CF result failure 0
+CF fail No living entities were found to swing
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail An entity is required to run this command here
+E pig#1 minecraft:pig pos=16.5,-58.02499997615814,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=16.5,-57.125,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=12.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E oak_boat#1 minecraft:oak_boat pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E armor_stand#1 minecraft:armor_stand pos=20.5,-59.8125,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E marker#1 minecraft:marker pos=16.5,-57.15625,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E minecart#1 minecraft:minecart pos=20.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E zombie#1 minecraft:zombie pos=14.5,-60.0,9.772276811962001 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=16.5,-57.15625,8.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=2 pickup=0 health=5 owner=- thrower=-
+P A minecraft:player pos=7.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=14.5,-60.0,9.772276811962001 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# tag
+CF msg Added tag 'one' to Pig
+CF result success 1
+CF result failure 0
+CF fail Target either already has the tag or has too many tags
+CF msg Added tag 'two' to Pig
+CF result success 1
+CF msg Pig has 3 tag(s): one, p, two
+CF result success 3
+CF msg Removed tag 'one' from Pig
+CF result success 1
+CF result failure 0
+CF fail Target does not have this tag
+CF result failure 0
+CF fail Target does not have this tag
+CF msg Pig has 2 tag(s): p, two
+CF result success 2
+CF msg Cow has 1 tag(s): c
+CF result success 1
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...ag=p] add "quoted tag"<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...tag=p] add<--[HERE]
+CF msg Added tag 'a.b-c+d_e' to Pig
+CF result success 1
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...ag=p] add ünï<--[HERE]
+CF msg Pig has 3 tag(s): a.b-c+d_e, p, two
+CF result success 3
+CF msg Removed tag 'two' from Pig
+CF result success 1
+CF msg Added tag 'player' to 3 entities
+CF result success 3
+CF msg The 3 entities have 1 total tag(s): player
+CF result success 1
+CF msg Removed tag 'player' from 3 entities
+CF result success 3
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF msg Added tag 'pigs' to Pig
+CF result success 1
+CF msg Added tag 'things' to 8 entities
+CF result success 8
+CF msg The 8 entities have 11 total tag(s): a.b-c+d_e, b, c, h, m, mc, p, pigs, s, things, z
+CF result success 11
+CF msg Removed tag 'things' from 8 entities
+CF result success 8
+CF msg Added tag 'mm' to Marker
+CF result success 1
+CF msg Added tag 'i' to Stick
+CF result success 1
+CF msg Stick has 1 tag(s): i
+CF result success 1
+CF msg Zombie has 1 tag(s): z
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail tag<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ... @e[tag=p]<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...@e[tag=p] nonsense<--[HERE]
+E pig#1 minecraft:pig pos=16.5,-58.02499997615814,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=16.5,-57.125,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=12.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E oak_boat#1 minecraft:oak_boat pos=14.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E armor_stand#1 minecraft:armor_stand pos=20.5,-59.8125,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E marker#1 minecraft:marker pos=16.5,-57.15625,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E minecart#1 minecraft:minecart pos=20.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E zombie#1 minecraft:zombie pos=14.5,-60.0,9.772276811962001 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=16.5,-57.15625,8.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=2 pickup=0 health=5 owner=- thrower=-
+P A minecraft:player pos=7.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Added tag 't1' to A
+CF result success 1
+CF msg Added tag 't2' to A
+CF result success 1
+CF msg Added tag 't3' to A
+CF result success 1
+CF msg Added tag 't4' to A
+CF result success 1
+CF msg Added tag 't5' to A
+CF result success 1
+CF msg Added tag 't6' to A
+CF result success 1
+CF msg Added tag 't7' to A
+CF result success 1
+CF msg Added tag 't8' to A
+CF result success 1
+CF msg Added tag 't9' to A
+CF result success 1
+CF msg Added tag 't10' to A
+CF result success 1
+CF msg A has 10 tag(s): t1, t10, t2, t3, t4, t5, t6, t7, t8, t9
+CF result success 10
+P A minecraft:player pos=7.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# permission levels
+CF fail Unknown or incomplete command. See below for error
+CF fail ride B mount @e[tag=p]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ride B mount @e[tag=p]<--[HERE]
+CF result failure 0
+CF fail B is not riding any vehicle
+CF fail Unknown or incomplete command. See below for error
+CF fail spectate @e[tag=p] S<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail spectate @e[tag=p] S<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail swing B<--[HERE]
+CF msg Made B swing an arm
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail tag B add q<--[HERE]
+CF msg Added tag 'q' to B
+CF result success 1
+CF msg B has 1 tag(s): q
+CF result success 1
+P B minecraft:player pos=14.5,-60.0,9.772276811962001 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

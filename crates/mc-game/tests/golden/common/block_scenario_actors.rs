@@ -650,19 +650,26 @@ impl Scenario {
                 // `PlayerList.isOp` and the spawn protection read
                 self.with_player_named(&a[1], |level, p| {
                     use mc_game::server::permissions::{LevelBasedPermissionSet, PermissionLevel};
-                    p.handle
-                        .as_ref()
-                        .expect("player list entry")
-                        .shared
-                        .lock()
-                        .permissions = LevelBasedPermissionSet::for_level(PermissionLevel::Owners);
+                    let handle = p.handle.as_ref().expect("player list entry");
+                    let owners = LevelBasedPermissionSet::for_level(PermissionLevel::Owners);
+                    handle.shared.lock().permissions = owners;
+                    // `sendPlayerPermissionLevel`: the op-level entity event (the command tree packet that follows it is not sent)
+                    handle.connection.send(
+                        &mc_protocol::packets::play::ClientboundEntityEventPacket {
+                            entity_id: handle.id,
+                            event_id:
+                                mc_game::server::players::player_list::permission_level_event_id(
+                                    owners,
+                                ),
+                        },
+                    );
                     let ops = &mut level.server_state.spawn_protection;
                     ops.ops_empty = false;
                     if !ops.op_players.contains(&p.uuid()) {
                         ops.op_players.push(p.uuid());
                     }
                 });
-                // the installed server's operator list too: `/op`, `/deop` and the permissions of `cmd_as` read it (no permission level packet)
+                // the installed server's operator list too: `/op`, `/deop` and the permissions of `cmd_as` read it (`op_entry` alone sends no packet)
                 if mc_game::commands::server_access::has_server() {
                     let id = mc_game::server::players::NameAndId::create_offline(&a[1]);
                     mc_game::commands::server_access::with_server(|server| {
@@ -1421,10 +1428,14 @@ impl Scenario {
             },
         );
         mc_game::server::players::join::send_active_player_effects(&new);
-        // `PlayerList.sendPlayerPermissionLevel`: entity event 24 (op level 0)
+        // `PlayerList.sendPlayerPermissionLevel`: the op-level entity event of the player's permissions
+        let permissions = handle.as_ref().map(|h| h.shared.lock().permissions);
         new.send(&mc_protocol::packets::play::ClientboundEntityEventPacket {
             entity_id: id,
-            event_id: 24,
+            event_id: permissions.map_or(
+                24,
+                mc_game::server::players::player_list::permission_level_event_id,
+            ),
         });
         let pos = new.position();
         if let Some(listener) = new.listener.as_mut() {

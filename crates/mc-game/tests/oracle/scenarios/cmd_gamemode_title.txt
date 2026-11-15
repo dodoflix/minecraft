@@ -1,0 +1,94 @@
+# `gamemode` and `defaultgamemode` (every mode, self and others, repeated, wrong names, the hidden-feedback gamerule, new players
+# joining with the default mode) and `title` (title, subtitle, actionbar, times, clear, reset, several targets, components, errors)
+# with the game-mode-change, title and chat packets the players receive.
+command_env
+level flat
+preload 2
+level_seed 29
+entity_counter 1600
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 2.5 -60 0.5 0 0
+spawn_player C creative 4.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+dump player:A player:B player:C packets:A:none packets:B:none packets:C:none
+note gamemode
+cmd gamemode creative
+cmd gamemode creative A
+cmd gamemode creative A
+cmd gamemode survival
+cmd gamemode adventure B
+cmd gamemode spectator @a
+cmd gamemode survival @a
+cmd gamemode creative @a
+cmd gamemode survival nobody
+cmd gamemode nonsense
+cmd gamemode nonsense A
+cmd gamemode
+cmd gamemode 1
+cmd gamemode survival @e[type=pig]
+cmd gamemode survival @s
+cmd gamemode survival @p
+cmd gamemode survival @a[name=B]
+dump player:A player:B player:C packets:A:game_event,player_abilities,system_chat,player_info_update packets:B:game_event,player_abilities,system_chat,player_info_update packets:C:game_event,player_abilities,system_chat,player_info_update
+gamerule send_command_feedback false
+cmd gamemode adventure A
+cmd gamemode adventure B
+cmd gamemode survival A
+gamerule send_command_feedback true
+cmd gamemode creative B
+dump player:A player:B packets:A:game_event,player_abilities,system_chat packets:B:game_event,player_abilities,system_chat
+note defaultgamemode
+cmd defaultgamemode creative
+cmd defaultgamemode creative
+cmd defaultgamemode nonsense
+cmd defaultgamemode
+cmd defaultgamemode adventure
+cmd defaultgamemode spectator
+cmd defaultgamemode survival
+cmd defaultgamemode creative
+dump packets:A:system_chat packets:B:system_chat
+note title
+cmd title A title "Hello"
+cmd title A subtitle {"text":"Sub","color":"red"}
+cmd title A actionbar "Bar"
+cmd title A times 5 20 10
+cmd title A times 0 0 0
+cmd title A times -1 0 0
+cmd title A times 1 2
+cmd title A title {"text":"Colors","color":"gold","bold":true}
+cmd title @a title "All"
+cmd title @a subtitle "All sub"
+cmd title @a actionbar "All bar"
+cmd title @a times 1 2 3
+cmd title nobody title "x"
+cmd title nobody clear
+cmd title A clear
+cmd title @a clear
+cmd title A reset
+cmd title @a reset
+cmd title A title {"selector":"@s"}
+cmd title A title {"score":{"name":"A","objective":"none"}}
+cmd title A title {"nbt":"Health","entity":"@s"}
+cmd title A title {"translate":"commands.title.cleared.single","with":["x"]}
+cmd title A title {"text":
+cmd title A title nonsense
+cmd title A title
+cmd title A
+cmd title
+cmd title A nonsense "x"
+cmd title @e[type=pig] title "x"
+dump packets:A:set_title_text,set_subtitle_text,set_actionbar_text,set_titles_animation,clear_titles,system_chat packets:B:set_title_text,set_subtitle_text,set_actionbar_text,set_titles_animation,clear_titles,system_chat packets:C:set_title_text,set_subtitle_text,set_actionbar_text,set_titles_animation,clear_titles,system_chat
+note permission levels
+cmd_as B gamemode creative B
+cmd_as A gamemode creative B
+cmd_as -2 gamemode survival B
+cmd_as B defaultgamemode creative
+cmd_as -2 defaultgamemode survival
+cmd_as B title B title "x"
+cmd_as -2 title B title "x"
+cmd_as -2 title B clear
+cmd_as B gamemode survival
+cmd_as -2 gamemode survival
+dump player:A player:B packets:B:game_event,system_chat,set_title_text,clear_titles

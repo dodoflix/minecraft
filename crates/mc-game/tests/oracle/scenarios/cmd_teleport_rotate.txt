@@ -1,0 +1,139 @@
+# `teleport`/`tp` (destination entity or position, rotation, `facing`, anchors, relative and local coordinates, several targets,
+# riders, border and height failures, the world-border limit) and `rotate` (absolute, relative, `facing`), with positions, rotations
+# and the movement packets of the players.
+command_env
+level flat
+preload 2
+level_seed 21
+entity_counter 1200
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 90 10
+spawn_player C creative 12.5 -60 0.5 180 -20
+op A
+gamerule send_command_feedback true
+tick 1
+cmd summon minecraft:pig 20 -60 20 {NoAI:1b,Tags:["p"]}
+cmd summon minecraft:cow 22 -60 20 {NoAI:1b,Tags:["c"],Rotation:[45f,15f]}
+cmd summon minecraft:armor_stand 24 -60 20 {Tags:["s"]}
+cmd summon minecraft:marker 26 -60 20 {Tags:["m"]}
+cmd summon minecraft:item 28 -60 20 {Item:{id:"minecraft:stick",count:1}}
+tick 1
+dump entities player:A player:B player:C
+note tp to a position
+cmd tp A 10 -60 10
+cmd tp A 10.5 -60 10.5
+cmd tp 11 -60 11
+cmd tp B ~1 ~ ~-1
+cmd tp B ~ ~ ~
+cmd tp C ^ ^ ^3
+cmd tp C ^1 ^2 ^3
+cmd tp A ~ ~ ^
+cmd tp A 0 -60 0 90 45
+cmd tp A 0 -60 0 ~10 ~-5
+cmd tp A 0 -60 0 720 100
+cmd tp A 0 -60 0 -540 -100
+cmd tp A 0 -60 0 facing 5 -60 5
+cmd tp A 0 -60 0 facing entity B
+cmd tp A 0 -60 0 facing entity B eyes
+cmd tp A 0 -60 0 facing entity B feet
+cmd tp A 0 -60 0 facing entity nobody
+cmd tp A 0 -60 0 facing entity @e[tag=p]
+cmd tp A 0 -60 0 facing entity @e[tag=p,limit=1]
+cmd tp A 0 -60 0 facing entity @e[type=pig,limit=2]
+cmd tp A 0 -60 0 facing 0 -60 0
+cmd tp A 0 -60 0 facing 0 -50 0
+dump player:A player:B player:C packets:A:player_position,player_rotation,teleport_entity,entity_position_sync,set_entity_motion packets:B:player_position,player_rotation,teleport_entity,entity_position_sync,set_entity_motion
+note tp to entities
+cmd tp A B
+cmd tp A @e[tag=p]
+cmd tp A @e[tag=p,limit=1]
+cmd tp A nobody
+cmd tp A @a
+cmd tp A @e[type=cow]
+cmd tp A @e[type=cow,limit=1]
+cmd tp @e[tag=p] A
+cmd tp @e[tag=c] @e[tag=p]
+cmd tp @e[tag=c] @e[tag=p,limit=1]
+cmd tp @e[tag=s] 30 -60 30
+cmd tp @e[tag=m] 31 -60 30
+cmd tp @e[type=item] 32 -60 30
+cmd tp @e[tag=c] 30 -60 30 90 0
+cmd tp @a 40 -60 40
+cmd tp @a B
+cmd tp @e[tag=p] @e[tag=c]
+cmd tp @e[tag=p] @e[tag=c,limit=1]
+cmd tp @e[tag=p] B
+cmd tp nobody A
+cmd tp nobody 1 2 3
+cmd tp @e[tag=c] facing entity A
+cmd tp @e[tag=p] 30 -60 30 facing 0 -60 0
+dump entities player:A player:B player:C packets:A:player_position,player_rotation,teleport_entity,entity_position_sync packets:B:player_position,player_rotation,teleport_entity,entity_position_sync
+note invalid destinations
+cmd tp A 0 400 0
+cmd tp A 0 -1000 0
+cmd tp A 30000001 -60 0
+cmd tp A 0 -60 30000001
+cmd tp A 1e20 -60 0
+cmd tp A 3e7 -60 0
+cmd tp A ~ ~ ~ ~ ~
+cmd tp A ~ ~
+cmd tp A 1 2
+cmd tp A nonsense
+cmd tp A 0 -60 0 foo
+cmd tp @e[tag=p] 0 320 0
+cmd tp @e[tag=p] 0 319 0
+cmd tp @e[tag=p] 0 -64 0
+cmd tp @e[tag=p] 0 -65 0
+note teleport alias and riders
+cmd teleport A 3 -60 3
+cmd teleport B A
+cmd ride C mount @e[tag=p]
+cmd tp @e[tag=p] 50 -60 50
+cmd tp C 52 -60 50
+dump entities player:A player:B player:C packets:C:player_position,player_rotation,teleport_entity,entity_position_sync,set_passengers
+cmd ride C dismount
+cmd ride @e[tag=c] mount @e[tag=p]
+cmd tp @e[tag=p] 60 -60 60
+dump entities
+note worldborder
+cmd worldborder set 100
+cmd tp A 40 -60 40
+cmd tp A 60 -60 40
+cmd tp A 0 -60 -60
+cmd tp A 49.5 -60 49.5
+cmd tp A 50 -60 50
+cmd tp @e[tag=s] 60 -60 40
+cmd tp @e[tag=s] 49 -60 40
+cmd worldborder set 59999968
+dump player:A entity:armor_stand#1
+note rotate
+cmd rotate A 90 0
+cmd rotate A 90 45
+cmd rotate A ~10 ~
+cmd rotate A ~ ~-100
+cmd rotate A 720 -100
+cmd rotate A facing 0 -60 0
+cmd rotate A facing entity B
+cmd rotate A facing entity B eyes
+cmd rotate A facing entity nobody
+cmd rotate @e[tag=c,limit=1] 180 -10
+cmd rotate @e[tag=p,limit=1] 30 30
+cmd rotate @e[tag=m,limit=1] 30 30
+cmd rotate @e[tag=s,limit=1] ~45 ~
+cmd rotate @e[type=item,limit=1] 30 30
+cmd rotate @a 0 0
+cmd rotate nobody 0 0
+cmd rotate A
+cmd rotate A 1
+cmd rotate A nonsense 2
+dump entities player:A player:B player:C packets:A:player_rotation,rotate_head,entity_position_sync,move_entity_rot
+note permission levels
+cmd_as C tp C 1 -60 1
+cmd_as A tp C 2 -60 2
+cmd_as -2 tp A 3 -60 3
+cmd_as C rotate C 5 5
+cmd_as -2 rotate C 5 5
+cmd_as -2 tp ~ ~ ~
+cmd_as C tp @s ~1 ~ ~
+cmd_as -2 tp @s ~1 ~ ~
+dump player:A player:B player:C

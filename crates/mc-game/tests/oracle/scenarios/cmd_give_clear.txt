@@ -1,0 +1,73 @@
+# `give` and `clear`: every target form, counts that split into several stacks or overflow into item entities, component syntax, the
+# failure texts, `clear` with predicates (item, tag, wildcard, component test), a count limit of 0 (only counts) and permission levels.
+command_env
+level flat
+preload 2
+level_seed 5
+entity_counter 400
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 2.5 -60 0.5 0 0
+spawn_player C creative 4.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note give: one and several players, count, stack splitting, components, errors
+cmd give A minecraft:apple
+cmd give A minecraft:apple 70
+cmd give @a minecraft:stick 3
+cmd give A minecraft:diamond_sword[damage=7,enchantments={"minecraft:sharpness":2}]
+cmd give B minecraft:oak_log 64
+cmd give B minecraft:birch_log 5
+cmd give B minecraft:diamond_sword[damage=2]
+cmd give nobody minecraft:apple
+cmd give A minecraft:nope
+cmd give A minecraft:apple 0
+cmd give A minecraft:apple -1
+cmd give A minecraft:bedrock[minecraft:max_stack_size=99] 99
+cmd give A minecraft:water_bucket 2
+cmd give A minecraft:air
+cmd give A minecraft:diamond_sword[nope=1]
+cmd give @e[type=pig] minecraft:apple
+cmd give A minecraft:totem_of_undying 2000
+dump inventory:A inventory:B inventory:C
+dump entities
+note give into a full inventory: the rest drops as item entities
+cmd give C minecraft:cobblestone 2400
+cmd give C minecraft:cobblestone 64
+tick 1
+dump inventory:C
+dump entities
+note clear: counts, items, tags, predicates
+cmd clear A minecraft:apple 3
+cmd clear A minecraft:apple 0
+cmd clear A minecraft:apple
+cmd clear A minecraft:apple
+cmd clear A #minecraft:logs
+cmd clear B #minecraft:logs 10
+cmd clear B #minecraft:logs 0
+cmd clear B #minecraft:logs
+cmd clear B #minecraft:nope
+cmd clear B minecraft:nope
+cmd clear A minecraft:diamond_sword[damage=7]
+cmd clear A minecraft:diamond_sword[damage=7]
+cmd clear B minecraft:diamond_sword[damage=5]
+cmd clear B *
+cmd clear B * 0
+cmd clear C
+cmd clear C minecraft:cobblestone -1
+cmd clear @a minecraft:stick 1
+cmd clear @a minecraft:stick
+cmd clear @a minecraft:stick 0
+cmd clear nobody
+cmd clear A minecraft:water_bucket[nope=1]
+cmd clear A minecraft:stick,minecraft:apple
+dump inventory:A inventory:B inventory:C
+note permission levels
+cmd_as B give B minecraft:apple
+cmd_as B clear B minecraft:apple
+cmd_as A give B minecraft:apple 2
+cmd_as A clear B minecraft:apple 1
+cmd_as -1 give B minecraft:apple
+cmd_as -2 give B minecraft:apple 3
+cmd_as -2 clear B minecraft:apple
+dump inventory:B

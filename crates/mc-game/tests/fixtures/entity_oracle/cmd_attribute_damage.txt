@@ -1,0 +1,313 @@
+C Game rule send_command_feedback is now set to true
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Stick
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+# attribute get
+CF msg The value of attribute Max Health for entity A is 20.0
+CF result success 20
+CF msg The value of attribute Max Health for entity A is 20.0
+CF result success 50
+CF msg The value of attribute Max Health for entity A is 20.0
+CF result success 0
+CF msg The value of attribute Speed for entity A is 0.10000000149011612
+CF result success 10
+CF msg The value of attribute Attack Damage for entity A is 1.0
+CF result success 1
+CF result failure 0
+CF fail Entity A has no attribute Flying Speed
+CF msg The value of attribute Max Health for entity Cow is 10.0
+CF result success 10
+CF result failure 0
+CF fail Entity Cow has no attribute Attack Damage
+CF result failure 0
+CF fail Marker is not a valid entity for this command
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail attribute @e[type=item] minecraft:max_health get<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail attribute @a minecraft:max_health get<--[HERE]
+CF fail Can't find element 'minecraft:nope' of type 'minecraft:attribute'
+CF fail ...craft:nope get<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...max_health<--[HERE]
+# attribute base
+CF msg The base value of attribute Max Health for entity A is 20.0
+CF result success 20
+CF msg The base value of attribute Max Health for entity A is 20.0
+CF result success 60
+CF msg The base value for attribute Max Health for entity A set to 30.0
+CF result success 1
+CF msg The value of attribute Max Health for entity A is 30.0
+CF result success 30
+CF msg The base value for attribute Max Health for entity A set to 30.0
+CF result success 1
+CF msg The base value for attribute Max Health for entity A set to 0.0
+CF result success 1
+CF msg The base value for attribute Max Health for entity A set to 2000.0
+CF result success 1
+CF msg The base value for attribute Max Health for entity A set to 1024.0
+CF result success 1
+CF msg The base value for attribute Max Health for entity A set to -4.0
+CF result success 1
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...base set 1e400<--[HERE]
+CF fail Expected double
+CF fail ... base set nonsense<--[HERE]
+CF msg The base value for attribute Max Health for entity A reset to default 20.0
+CF result success 1
+CF msg The base value for attribute Max Health for entity A reset to default 20.0
+CF result success 1
+CF msg The base value for attribute Scale for entity Pig set to 2.5
+CF result success 1
+CF msg The base value of attribute Scale for entity Pig is 2.5
+CF result success 2
+CF msg The base value for attribute Scale for entity Pig reset to default 1.0
+CF result success 1
+CF result failure 0
+CF fail Marker is not a valid entity for this command
+CF result failure 0
+CF fail Marker is not a valid entity for this command
+CF result failure 0
+CF fail Marker is not a valid entity for this command
+# attribute modifiers
+CF msg Added modifier minecraft:test_a to attribute Speed for entity A
+CF result success 1
+CF result failure 0
+CF fail Modifier minecraft:test_a is already present on attribute Speed for entity A
+CF msg Added modifier minecraft:test_b to attribute Speed for entity A
+CF result success 1
+CF msg Added modifier minecraft:test_c to attribute Speed for entity A
+CF result success 1
+CF fail Incorrect argument for command
+CF fail ...:test_d 2 nonsense<--[HERE]
+CF msg Added modifier minecraft:nonsense to attribute Speed for entity A
+CF result success 1
+CF msg Added modifier minecraft:test_e to attribute Speed for entity A
+CF result success 1
+CF msg The value of attribute Speed for entity A is 27.600000008940697
+CF result success 27
+CF msg The value of attribute Speed for entity A is 27.600000008940697
+CF result success 82
+CF msg The value of modifier minecraft:test_a on attribute Speed for entity A is 0.5
+CF result success 0
+CF msg The value of modifier minecraft:test_b on attribute Speed for entity A is 1.0
+CF result success 10
+CF result failure 0
+CF fail Attribute Speed for entity A has no modifier minecraft:test_z
+CF result failure 0
+CF fail Attribute Max Health for entity A has no modifier minecraft:test_a
+CF msg Removed modifier minecraft:test_b from attribute Speed for entity A
+CF result success 1
+CF result failure 0
+CF fail Attribute Speed for entity A has no modifier minecraft:test_b
+CF result failure 0
+CF fail Attribute Speed for entity A has no modifier minecraft:test_z
+CF msg The value of attribute Speed for entity A is 13.800000004470348
+CF result success 13
+CF msg Added modifier minecraft:hp to attribute Max Health for entity Cow
+CF result success 1
+CF msg The value of attribute Max Health for entity Cow is 20.0
+CF result success 20
+CF msg Removed modifier minecraft:hp from attribute Max Health for entity Cow
+CF result success 1
+CF result failure 0
+CF fail Marker is not a valid entity for this command
+CF msg Added modifier minecraft:big to attribute Max Health for entity A
+CF result success 1
+CF msg The value of attribute Max Health for entity A is 1024.0
+CF result success 1024
+CF msg Added modifier minecraft:neg to attribute Max Health for entity A
+CF result success 1
+CF msg The value of attribute Max Health for entity A is 1024.0
+CF result success 1024
+E cow#1 minecraft:cow pos=6.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=8.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=10.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=12.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+E marker#1 minecraft:marker pos=14.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+ATTR A minecraft:air_drag_modifier:1.0 minecraft:armor:0.0 minecraft:armor_toughness:0.0 minecraft:attack_damage:1.0 minecraft:attack_knockback:0.0 minecraft:attack_speed:4.0 minecraft:below_name_distance:10.0 minecraft:block_break_speed:1.0 minecraft:block_interaction_range:4.5 minecraft:bounciness:0.0 minecraft:burning_time:1.0 minecraft:camera_distance:4.0 minecraft:entity_interaction_range:3.0 minecraft:explosion_knockback_resistance:0.0 minecraft:fall_damage_multiplier:1.0 minecraft:friction_modifier:1.0 minecraft:gravity:0.08 minecraft:jump_strength:0.41999998688697815 minecraft:knockback_resistance:0.0 minecraft:luck:0.0 minecraft:max_absorption:0.0 minecraft:max_health:1024.0 minecraft:mining_efficiency:0.0 minecraft:movement_efficiency:0.0 minecraft:movement_speed:13.800000004470348 minecraft:name_tag_distance:64.0 minecraft:oxygen_bonus:0.0 minecraft:safe_fall_distance:3.0 minecraft:scale:1.0 minecraft:sneaking_speed:0.3 minecraft:step_height:0.6 minecraft:submerged_mining_speed:0.2 minecraft:sweeping_damage_ratio:0.0 minecraft:water_movement_efficiency:0.0 minecraft:waypoint_receive_range:6.0E7 minecraft:waypoint_transmit_range:6.0E7
+ATTR cow#1 minecraft:air_drag_modifier:1.0 minecraft:armor:0.0 minecraft:armor_toughness:0.0 minecraft:attack_knockback:0.0 minecraft:below_name_distance:10.0 minecraft:bounciness:0.0 minecraft:burning_time:1.0 minecraft:camera_distance:4.0 minecraft:entity_interaction_range:3.0 minecraft:explosion_knockback_resistance:0.0 minecraft:fall_damage_multiplier:1.0 minecraft:follow_range:16.0 minecraft:friction_modifier:1.0 minecraft:gravity:0.08 minecraft:jump_strength:0.41999998688697815 minecraft:knockback_resistance:0.0 minecraft:max_absorption:0.0 minecraft:max_health:10.0 minecraft:movement_efficiency:0.0 minecraft:movement_speed:0.20000000298023224 minecraft:name_tag_distance:64.0 minecraft:oxygen_bonus:0.0 minecraft:safe_fall_distance:3.0 minecraft:scale:1.0 minecraft:step_height:0.6 minecraft:tempt_range:10.0 minecraft:water_movement_efficiency:0.0 minecraft:waypoint_transmit_range:0.0
+# damage: amounts, types, sources
+CF msg Applied 1.0 damage to A
+CF result success 1
+CF result failure 0
+CF fail Target is invulnerable to the given damage type
+CF fail Float must not be less than 0.0: found -1.0
+CF fail damage A -1<--[HERE]
+CF msg Applied 2.5 damage to A
+CF result success 1
+CF fail Can't find element 'minecraft:nope' of type 'minecraft:damage_type'
+CF fail ...craft:nope<--[HERE]
+CF msg Applied 1.0 damage to A
+CF result success 1
+CF msg Applied 1.0 damage to A
+CF result success 1
+CF msg Applied 1.0 damage to A
+CF result success 1
+CF msg Applied 1.0 damage to A
+CF result success 1
+CF msg Applied 1.0 damage to A
+CF result success 1
+CF msg Applied 1.0 damage to A
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Applied 1.0 damage to A
+CF result success 1
+CF result failure 0
+CF fail Target is invulnerable to the given damage type
+CF msg Applied 5.0 damage to B
+CF result success 1
+CF msg Applied 5.0 damage to B
+CF result success 1
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail damage @e[tag=c] 3<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail damage @e[tag=c] 3 minecraft:magic<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail damage @e[tag=c] 3 minecraft:fall<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail damage @e[tag=s] 3<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail damage @e[type=item] 3<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail damage @e[tag=m] 3<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail damage @a 1<--[HERE]
+CF msg Applied 1000000.0 damage to A
+CF result success 1
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...mage A 3.5e38<--[HERE]
+CF fail Expected float
+CF fail damage A nonsense<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail damage @e[tag=p] 100 minecraft:out_of_world<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail damage @e[tag=c] 100 minecraft:generic_kill<--[HERE]
+P A minecraft:player pos=-3.5,-60.0,-1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.500001 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=17 sat=0.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+E cow#1 minecraft:cow pos=6.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=8.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=10.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=12.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=610 pickup=0 health=5 owner=- thrower=-
+E marker#1 minecraft:marker pos=14.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT A minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20422000080009696e73657274696f6e000142080004746578740001420a000b686f7665725f6576656e740800046e616d65000142080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f44cd58d790230e78bde679d783ee6310000080005636f6c6f72000679656c6c6f770800097472616e736c61746500196d756c7469706c617965722e706c617965722e6a6f696e65640000
+PKT A minecraft:entity_event 22000003211c
+PKT A minecraft:set_health 6a41a000001440a00000
+PKT A minecraft:damage_event 19a10612000000
+PKT A minecraft:set_health 6a419800001440a00000
+PKT A minecraft:set_health 6a419eaaab1440a00000
+PKT A minecraft:set_health 6a41a400001440800000
+PKT A minecraft:set_health 6a41a800001440400000
+PKT A minecraft:set_health 6a41ac00001440400000
+PKT A minecraft:set_health 6a41aeaaab1440000000
+PKT A minecraft:set_health 6a41b00000143f800000
+PKT A minecraft:damage_event 19a1061b000000
+PKT A minecraft:set_health 6a419c0000143f800000
+PKT A minecraft:set_health 6a419d5555143f800000
+PKT A minecraft:set_health 6a419eaaaa143f800000
+PKT A minecraft:set_health 6a419fffff143f800000
+PKT A minecraft:set_health 6a419fffff1400000000
+PKT A minecraft:damage_event 19a1060a000000
+PKT A minecraft:set_health 6a4197ffff1400000000
+PKT A minecraft:damage_event 19a1060a0000013fe0000000000000c04e0000000000003fe0000000000000
+PKT A minecraft:set_health 6a418fffff1400000000
+PKT A minecraft:damage_event 19a10622a306a30600
+PKT A minecraft:hurt_animation 2ba10600000000
+PKT A minecraft:set_health 6a4187ffff1400000000
+PKT A minecraft:damage_event 19a10622a306a30600
+PKT A minecraft:hurt_animation 2ba10600000000
+PKT A minecraft:set_health 6a417ffffe1400000000
+PKT A minecraft:set_health 6a4187ffff1400000000
+PKT A minecraft:set_health 6a4187ffff1300000000
+PKT A minecraft:damage_event 19a1061ca406a40600
+PKT A minecraft:hurt_animation 2ba1064233ffff
+PKT A minecraft:set_health 6a417ffffe1300000000
+PKT A minecraft:damage_event 19a10600a506a40600
+PKT A minecraft:hurt_animation 2ba1064233ffff
+PKT A minecraft:set_health 6a416ffffe1300000000
+PKT A minecraft:set_health 6a417ffffe1300000000
+PKT A minecraft:set_health 6a417ffffe1200000000
+PKT A minecraft:set_health 6a417ffffe1100000000
+PKT A minecraft:damage_event 19a106150000014012000000000000c04e0000000000004012000000000000
+PKT A minecraft:set_health 6a416ffffe1100000000
+PKT A minecraft:damage_event 19a10612000000
+PKT A minecraft:player_combat_kill 45a1060a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20412000080009696e73657274696f6e000141080004746578740001410a000b686f7665725f6576656e740800046e616d65000141080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b76d4ad38d013150b33368cfb425777400000800097472616e736c617465001464656174682e61747461636b2e67656e6572696300
+PKT A minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20412000080009696e73657274696f6e000141080004746578740001410a000b686f7665725f6576656e740800046e616d65000141080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b76d4ad38d013150b33368cfb425777400000800097472616e736c617465001464656174682e61747461636b2e67656e657269630000
+PKT A minecraft:entity_event 220000032103
+PKT A minecraft:set_health 6a000000001100000000
+PKT A minecraft:entity_event 22000003213c
+PKT A minecraft:entity_event 22000003211c
+PKT A minecraft:set_health 6a41a000001440a00000
+PKT B minecraft:set_health 6a41a000001440a00000
+PKT B minecraft:damage_event 19a20620000000
+PKT B minecraft:set_health 6a417000001440a00000
+PKT B minecraft:set_health 6a417d55551440a00000
+PKT B minecraft:set_health 6a418400001440800000
+PKT B minecraft:damage_event 19a20613000000
+PKT B minecraft:set_health 6a413800001440400000
+PKT B minecraft:set_health 6a414000001440400000
+PKT B minecraft:set_health 6a414800001440400000
+PKT B minecraft:set_health 6a414d55551440000000
+PKT B minecraft:set_health 6a41500000143f800000
+PKT B minecraft:set_health 6a4152aaab143f800000
+PKT B minecraft:set_health 6a41555556143f800000
+PKT B minecraft:set_health 6a41580001143f800000
+PKT B minecraft:set_health 6a415800011400000000
+PKT B minecraft:set_health 6a416800011400000000
+PKT B minecraft:set_health 6a416800011300000000
+PKT B minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20412000080009696e73657274696f6e000141080004746578740001410a000b686f7665725f6576656e740800046e616d65000141080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b76d4ad38d013150b33368cfb425777400000800097472616e736c617465001464656174682e61747461636b2e67656e657269630000
+PKT B minecraft:set_health 6a417800011300000000
+PKT B minecraft:set_health 6a417800011200000000
+PKT B minecraft:set_health 6a417800011100000000
+# armor and effects
+CF msg Replaced 1 slot(s) on A with [Diamond Chestplate]
+CF result success 1
+CF msg Applied 6.0 damage to A
+CF result success 1
+CF msg Applied 6.0 damage to A
+CF result success 1
+CF msg Applied 6.0 damage to A
+CF result success 1
+CF msg Applied effect Resistance to A
+CF result success 1
+CF msg Applied 6.0 damage to A
+CF result success 1
+CF msg Applied 1.0 damage to A
+CF result success 1
+CF msg Applied effect Fire Resistance to A
+CF result success 1
+CF result failure 0
+CF fail Target is invulnerable to the given damage type
+CF result failure 0
+CF fail Target is invulnerable to the given damage type
+CF msg The base value for attribute Max Health for entity A set to 4.0
+CF result success 1
+CF msg Applied 100.0 damage to A
+CF result success 1
+P A minecraft:player pos=-3.5,-60.0,-1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/1937;minecraft:resistance/4/1895 gm=survival food=20 sat=0.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+I A 38 minecraft:diamond_chestplate*1
+# permission levels
+CF fail Unknown or incomplete command. See below for error
+CF fail damage B 1<--[HERE]
+CF result failure 0
+CF fail Target is invulnerable to the given damage type
+CF result failure 0
+CF fail Target is invulnerable to the given damage type
+CF msg The base value of attribute Max Health for entity B is 20.0
+CF result success 20
+CF fail Unknown or incomplete command. See below for error
+CF fail attribute B minecraft:max_health get<--[HERE]
+CF msg Applied 5.0 damage to B
+CF result success 1

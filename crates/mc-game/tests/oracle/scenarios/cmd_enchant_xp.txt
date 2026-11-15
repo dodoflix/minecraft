@@ -1,0 +1,90 @@
+# `enchant` (every failure: no entity, no item, incompatible, level out of range; enchantment tags and levels; mobs and players) and
+# `experience`/`xp` (add, set, query in points and levels, ranges, negative values, several players, permission forms).
+command_env
+level flat
+preload 2
+level_seed 9
+entity_counter 600
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 2.5 -60 0.5 0 0
+spawn_player C spectator 4.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+cmd summon minecraft:pig 6 -60 6 {NoAI:1b,Tags:["p"]}
+cmd summon minecraft:cow 8 -60 6 {NoAI:1b,Tags:["c"]}
+cmd summon minecraft:item 10 -60 6 {Item:{id:"minecraft:stick",count:1}}
+tick 1
+note enchant: no item, then items of several kinds
+cmd enchant A minecraft:sharpness
+cmd enchant @e[tag=p] minecraft:sharpness
+cmd enchant nobody minecraft:sharpness
+cmd enchant @e[type=item] minecraft:sharpness
+cmd item replace entity A weapon.mainhand with minecraft:diamond_sword
+cmd enchant A minecraft:sharpness
+cmd enchant A minecraft:sharpness 5
+cmd enchant A minecraft:sharpness 6
+cmd enchant A minecraft:sharpness 0
+cmd enchant A minecraft:sharpness -1
+cmd enchant A minecraft:smite 2
+cmd enchant A minecraft:unbreaking 3
+cmd enchant A minecraft:protection
+cmd enchant A minecraft:nope
+cmd enchant A minecraft:mending
+cmd enchant A minecraft:fire_aspect 2
+cmd item replace entity B weapon.mainhand with minecraft:bow
+cmd item replace entity C weapon.mainhand with minecraft:stick
+cmd enchant @a minecraft:power 2
+cmd enchant @a minecraft:unbreaking 1
+cmd enchant @a minecraft:sharpness 1
+cmd item replace entity @e[tag=c] weapon.mainhand with minecraft:iron_axe
+cmd enchant @e[tag=c] minecraft:efficiency 3
+cmd enchant @e[tag=c] minecraft:efficiency 3
+cmd item replace entity A weapon.mainhand with minecraft:enchanted_book
+cmd enchant A minecraft:sharpness 1
+cmd item replace entity A weapon.mainhand with minecraft:book
+cmd enchant A minecraft:sharpness 1
+cmd item replace entity A weapon.mainhand with minecraft:stone
+cmd enchant A minecraft:silk_touch 1
+cmd enchant A minecraft:fortune
+dump inventory:A inventory:B inventory:C entities
+note experience: add, set, query
+cmd xp query A points
+cmd xp query A levels
+cmd xp add A 10 points
+cmd xp add A 5
+cmd xp add A 3 levels
+cmd xp query A points
+cmd xp query A levels
+cmd xp set A 30 levels
+cmd xp set A 100 points
+cmd xp set A 0 points
+cmd xp set A 0 levels
+cmd xp add A -1 points
+cmd xp add A -5 levels
+cmd xp set A -1 points
+cmd xp set A -1 levels
+cmd xp add A 0 points
+cmd xp set A 5 levels
+cmd xp set A 9999999 points
+cmd xp set A 2147483647 points
+cmd xp add A 2147483647 levels
+cmd xp query A levels
+cmd xp add @a 7 points
+cmd xp set @a 12 levels
+cmd xp query @a levels
+cmd xp query @e[type=pig] points
+cmd xp add nobody 1 points
+cmd xp add @e[type=pig] 1 points
+cmd xp add A 1 nonsense
+cmd xp add B 1.5 points
+cmd xp query B
+dump player:A player:B player:C
+note permission levels
+cmd_as B xp add B 5 points
+cmd_as B enchant B minecraft:power
+cmd_as A xp add B 5 points
+cmd_as -2 xp set B 3 levels
+cmd_as -1 xp query B levels
+cmd_as -2 enchant B minecraft:power 1
+dump player:B inventory:B

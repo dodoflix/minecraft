@@ -1,0 +1,171 @@
+# `attribute` (get with a scale, base get/set/reset, modifier add/remove/value get, every failure: no attribute, no modifier, duplicate
+# modifier, non-living target, invalid values and operations) and `damage` (amounts, damage types, `at` and `by` sources, invulnerable
+# targets, creative players, armor, items that do not take damage, kills).
+command_env
+level flat
+preload 2
+level_seed 13
+entity_counter 800
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B creative 2.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+cmd summon minecraft:cow 6 -60 6 {NoAI:1b,Tags:["c"],DeathLootTable:"minecraft:empty"}
+cmd summon minecraft:pig 8 -60 6 {NoAI:1b,Tags:["p"],DeathLootTable:"minecraft:empty"}
+cmd summon minecraft:armor_stand 10 -60 6 {Tags:["s"]}
+cmd summon minecraft:item 12 -60 6 {Item:{id:"minecraft:stick",count:1}}
+cmd summon minecraft:marker 14 -60 6 {Tags:["m"]}
+tick 1
+note attribute get
+cmd attribute A minecraft:max_health get
+cmd attribute A minecraft:max_health get 2.5
+cmd attribute A minecraft:max_health get 0
+cmd attribute A minecraft:movement_speed get 100
+cmd attribute A minecraft:attack_damage get
+cmd attribute A minecraft:flying_speed get
+cmd attribute @e[tag=c,limit=1] minecraft:max_health get
+cmd attribute @e[tag=c,limit=1] minecraft:attack_damage get
+cmd attribute @e[tag=m,limit=1] minecraft:max_health get
+cmd attribute @e[type=item] minecraft:max_health get
+cmd attribute nobody minecraft:max_health get
+cmd attribute @a minecraft:max_health get
+cmd attribute A minecraft:nope get
+cmd attribute A minecraft:max_health
+note attribute base
+cmd attribute A minecraft:max_health base get
+cmd attribute A minecraft:max_health base get 3
+cmd attribute A minecraft:max_health base set 30
+cmd attribute A minecraft:max_health get
+cmd attribute A minecraft:max_health base set 30
+cmd attribute A minecraft:max_health base set 0
+cmd attribute A minecraft:max_health base set 2000
+cmd attribute A minecraft:max_health base set 1024
+cmd attribute A minecraft:max_health base set -4
+cmd attribute A minecraft:max_health base set 1e400
+cmd attribute A minecraft:max_health base set nonsense
+cmd attribute A minecraft:max_health base reset
+cmd attribute A minecraft:max_health base reset
+cmd attribute @e[tag=p,limit=1] minecraft:scale base set 2.5
+cmd attribute @e[tag=p,limit=1] minecraft:scale base get
+cmd attribute @e[tag=p,limit=1] minecraft:scale base reset
+cmd attribute @e[tag=m,limit=1] minecraft:scale base set 2
+cmd attribute @e[tag=m,limit=1] minecraft:scale base get
+cmd attribute @e[tag=m,limit=1] minecraft:scale base reset
+note attribute modifiers
+cmd attribute A minecraft:movement_speed modifier add minecraft:test_a 0.5 add_value
+cmd attribute A minecraft:movement_speed modifier add minecraft:test_a 0.5 add_value
+cmd attribute A minecraft:movement_speed modifier add minecraft:test_b 1 add_multiplied_base
+cmd attribute A minecraft:movement_speed modifier add minecraft:test_c 2 add_multiplied_total
+cmd attribute A minecraft:movement_speed modifier add minecraft:test_d 2 nonsense
+cmd attribute A minecraft:movement_speed modifier add nonsense 2 add_value
+cmd attribute A minecraft:movement_speed modifier add test_e 2 add_value
+cmd attribute A minecraft:movement_speed get
+cmd attribute A minecraft:movement_speed get 3
+cmd attribute A minecraft:movement_speed modifier value get minecraft:test_a
+cmd attribute A minecraft:movement_speed modifier value get minecraft:test_b 10
+cmd attribute A minecraft:movement_speed modifier value get minecraft:test_z
+cmd attribute A minecraft:max_health modifier value get minecraft:test_a
+cmd attribute A minecraft:movement_speed modifier remove minecraft:test_b
+cmd attribute A minecraft:movement_speed modifier remove minecraft:test_b
+cmd attribute A minecraft:movement_speed modifier remove minecraft:test_z
+cmd attribute A minecraft:movement_speed get
+cmd attribute @e[tag=c,limit=1] minecraft:max_health modifier add minecraft:hp 10 add_value
+cmd attribute @e[tag=c,limit=1] minecraft:max_health get
+cmd attribute @e[tag=c,limit=1] minecraft:max_health modifier remove minecraft:hp
+cmd attribute @e[tag=m,limit=1] minecraft:max_health modifier add minecraft:hp 10 add_value
+cmd attribute A minecraft:max_health modifier add minecraft:big 100000 add_value
+cmd attribute A minecraft:max_health get
+cmd attribute A minecraft:max_health modifier add minecraft:neg -100 add_value
+cmd attribute A minecraft:max_health get
+dump entities player:A attrs:A attrs:cow#1
+note damage: amounts, types, sources
+cmd damage A 1
+tick 21
+cmd damage A 0
+tick 21
+cmd damage A -1
+tick 21
+cmd damage A 2.5 minecraft:magic
+tick 21
+cmd damage A 1 minecraft:nope
+tick 21
+cmd damage A 1 minecraft:fall
+tick 21
+cmd damage A 1 minecraft:fall at 0 -60 0
+tick 21
+cmd damage A 1 minecraft:player_attack by B
+tick 21
+cmd damage A 1 minecraft:player_attack by B from B
+tick 21
+cmd damage A 1 minecraft:mob_attack by @e[tag=c,limit=1]
+tick 21
+cmd damage A 1 minecraft:arrow by @e[tag=c,limit=1] from @e[tag=p,limit=1]
+tick 21
+cmd damage A 1 minecraft:arrow by nobody
+tick 21
+cmd damage A 1 minecraft:in_fire at 4 -60 4
+tick 21
+cmd damage B 5
+tick 21
+cmd damage B 5 minecraft:out_of_world
+tick 21
+cmd damage B 5 minecraft:generic_kill
+tick 21
+cmd damage @e[tag=c] 3
+tick 21
+cmd damage @e[tag=c] 3 minecraft:magic
+tick 21
+cmd damage @e[tag=c] 3 minecraft:fall
+tick 21
+cmd damage @e[tag=s] 3
+tick 21
+cmd damage @e[type=item] 3
+tick 21
+cmd damage @e[tag=m] 3
+tick 21
+cmd damage nobody 3
+tick 21
+cmd damage @a 1
+tick 21
+cmd damage A 1000000
+tick 21
+cmd damage A 3.5e38
+tick 21
+respawn A
+cmd damage A nonsense
+tick 21
+cmd damage @e[tag=p] 100 minecraft:out_of_world
+tick 21
+cmd damage @e[tag=c] 100 minecraft:generic_kill
+tick 21
+dump player:A player:B entities packets:A:hurt_animation,damage_event,entity_event,set_health,player_combat_kill,system_chat packets:B:hurt_animation,damage_event,entity_event,set_health,system_chat
+note armor and effects
+cmd item replace entity A armor.chest with minecraft:diamond_chestplate
+cmd damage A 6
+tick 21
+cmd damage A 6 minecraft:magic
+tick 21
+cmd damage A 6 minecraft:out_of_world
+tick 21
+cmd effect give A minecraft:resistance 100 4
+cmd damage A 6
+tick 21
+cmd damage A 1 minecraft:fall
+tick 21
+cmd effect give A minecraft:fire_resistance 100
+cmd damage A 1 minecraft:on_fire
+tick 21
+cmd damage A 1 minecraft:in_fire
+tick 21
+cmd attribute A minecraft:max_health base set 4
+cmd damage A 100
+tick 21
+dump player:A inventory:A
+note permission levels
+cmd_as B damage B 1
+cmd_as A damage B 1
+cmd_as -2 damage B 1
+cmd_as -2 attribute B minecraft:max_health base get
+cmd_as B attribute B minecraft:max_health get
+cmd_as -2 damage B 5 minecraft:generic_kill

@@ -1,0 +1,292 @@
+C Game rule send_command_feedback is now set to true
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# gamemode
+CF result failure 0
+CF fail A player is required to run this command here
+CF msg Set A's game mode to Creative Mode
+CF result success 1
+CF result success 0
+CF result failure 0
+CF fail A player is required to run this command here
+CF msg Set B's game mode to Adventure Mode
+CF result success 1
+CF msg Set A's game mode to Spectator Mode
+CF msg Set B's game mode to Spectator Mode
+CF msg Set C's game mode to Spectator Mode
+CF result success 3
+CF msg Set A's game mode to Survival Mode
+CF msg Set B's game mode to Survival Mode
+CF msg Set C's game mode to Survival Mode
+CF result success 3
+CF msg Set A's game mode to Creative Mode
+CF msg Set B's game mode to Creative Mode
+CF msg Set C's game mode to Creative Mode
+CF result success 3
+CF result failure 0
+CF fail No player was found
+CF fail Unknown game mode: nonsense
+CF fail ...e nonsense<--[HERE]
+CF fail Unknown game mode: nonsense
+CF fail ...e nonsense A<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail gamemode<--[HERE]
+CF fail Unknown game mode: 1
+CF fail gamemode 1<--[HERE]
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail gamemode survival @e[type=pig]<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF msg Set A's game mode to Survival Mode
+CF result success 1
+CF msg Set B's game mode to Survival Mode
+CF result success 1
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT A minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT A minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777401
+PKT A minecraft:game_event 27033f800000
+PKT A minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e6372656174697665000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT A minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63102
+PKT A minecraft:player_abilities 41073d4ccccd3dcccccd
+PKT A minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777403
+PKT A minecraft:game_event 270340400000
+PKT A minecraft:player_abilities 41073d4ccccd3dcccccd
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001267616d654d6f64652e737065637461746f72000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT A minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63103
+PKT A minecraft:player_info_update 470401184cd8f86cf630d585e281479cc7815b03
+PKT A minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT A minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777400
+PKT A minecraft:game_event 270300000000
+PKT A minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e737572766976616c000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT A minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63100
+PKT A minecraft:player_info_update 470401184cd8f86cf630d585e281479cc7815b00
+PKT A minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT A minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777401
+PKT A minecraft:game_event 27033f800000
+PKT A minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e6372656174697665000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT A minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63101
+PKT A minecraft:player_info_update 470401184cd8f86cf630d585e281479cc7815b01
+PKT A minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT A minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777400
+PKT A minecraft:game_event 270300000000
+PKT A minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e737572766976616c000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT A minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63100
+PKT B minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777401
+PKT B minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT B minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63102
+PKT B minecraft:game_event 270340000000
+PKT B minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT B minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001267616d654d6f64652e616476656e74757265000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT B minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777403
+PKT B minecraft:player_abilities 41073d4ccccd3dcccccd
+PKT B minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63103
+PKT B minecraft:game_event 270340400000
+PKT B minecraft:player_abilities 41073d4ccccd3dcccccd
+PKT B minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001267616d654d6f64652e737065637461746f72000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT B minecraft:player_info_update 470401184cd8f86cf630d585e281479cc7815b03
+PKT B minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777400
+PKT B minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT B minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63100
+PKT B minecraft:game_event 270300000000
+PKT B minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT B minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e737572766976616c000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT B minecraft:player_info_update 470401184cd8f86cf630d585e281479cc7815b00
+PKT B minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777401
+PKT B minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT B minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63101
+PKT B minecraft:game_event 27033f800000
+PKT B minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT B minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e6372656174697665000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT B minecraft:player_info_update 470401184cd8f86cf630d585e281479cc7815b01
+PKT B minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777400
+PKT B minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT B minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63100
+PKT B minecraft:game_event 270300000000
+PKT B minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT B minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e737572766976616c000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT C minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777401
+PKT C minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63102
+PKT C minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777403
+PKT C minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63103
+PKT C minecraft:player_abilities 41073d4ccccd3dcccccd
+PKT C minecraft:player_info_update 470401184cd8f86cf630d585e281479cc7815b03
+PKT C minecraft:game_event 270340400000
+PKT C minecraft:player_abilities 41073d4ccccd3dcccccd
+PKT C minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001267616d654d6f64652e737065637461746f72000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT C minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777400
+PKT C minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63100
+PKT C minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT C minecraft:player_info_update 470401184cd8f86cf630d585e281479cc7815b00
+PKT C minecraft:game_event 270300000000
+PKT C minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT C minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e737572766976616c000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT C minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777401
+PKT C minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63101
+PKT C minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT C minecraft:player_info_update 470401184cd8f86cf630d585e281479cc7815b01
+PKT C minecraft:game_event 27033f800000
+PKT C minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT C minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e6372656174697665000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT C minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777400
+PKT C minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63100
+C Game rule send_command_feedback is now set to false
+CF msg Set A's game mode to Adventure Mode
+CF result success 1
+CF msg Set B's game mode to Adventure Mode
+CF result success 1
+CF msg Set A's game mode to Survival Mode
+CF result success 1
+C Game rule send_command_feedback is now set to true
+CF msg Set B's game mode to Creative Mode
+CF result success 1
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT A minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT A minecraft:game_event 270340000000
+PKT A minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT A minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT A minecraft:game_event 270300000000
+PKT A minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT B minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT B minecraft:game_event 270340000000
+PKT B minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT B minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT B minecraft:game_event 27033f800000
+PKT B minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT B minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e6372656174697665000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+# defaultgamemode
+CF msg The default game mode is now Creative Mode
+CF result success 0
+CF msg The default game mode is now Creative Mode
+CF result success 0
+CF fail Unknown game mode: nonsense
+CF fail ...e nonsense<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ltgamemode<--[HERE]
+CF msg The default game mode is now Adventure Mode
+CF result success 0
+CF msg The default game mode is now Spectator Mode
+CF result success 0
+CF msg The default game mode is now Survival Mode
+CF result success 0
+CF msg The default game mode is now Creative Mode
+CF result success 0
+# title
+CF msg Showing new title for A
+CF result success 1
+CF msg Showing new subtitle for A
+CF result success 1
+CF msg Showing new actionbar title for A
+CF result success 1
+CF msg Changed title display times for A
+CF result success 1
+CF msg Changed title display times for A
+CF result success 1
+CF fail The tick count must not be less than 0: found -1
+CF fail ...A times -1 0 0<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ... times 1 2<--[HERE]
+CF msg Showing new title for A
+CF result success 1
+CF msg Showing new title for 3 players
+CF result success 3
+CF msg Showing new subtitle for 3 players
+CF result success 3
+CF msg Showing new actionbar title for 3 players
+CF result success 3
+CF msg Changed title display times for 3 players
+CF result success 3
+CF result failure 0
+CF fail No player was found
+CF result failure 0
+CF fail No player was found
+CF msg Cleared titles for A
+CF result success 1
+CF msg Cleared titles for 3 players
+CF result success 3
+CF msg Reset title options for A
+CF result success 1
+CF msg Reset title options for 3 players
+CF result success 3
+CF msg Showing new title for A
+CF result success 1
+CF msg Showing new title for A
+CF result success 1
+CF msg Showing new title for A
+CF result success 1
+CF msg Showing new title for A
+CF result success 1
+CF fail Expected a valid unquoted string
+CF fail ...e {"text":<--[HERE]
+CF msg Showing new title for A
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...le A title<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail title A<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail title<--[HERE]
+CF fail Incorrect argument for command
+CF fail title A nonsense "x"<--[HERE]
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail title @e[type=pig] title "x"<--[HERE]
+PKT A minecraft:set_title_text 7408000548656c6c6f
+PKT A minecraft:set_subtitle_text 720a080005636f6c6f72000372656408000474657874000353756200
+PKT A minecraft:set_titles_animation 7500000005000000140000000a
+PKT A minecraft:set_titles_animation 75000000000000000000000000
+PKT A minecraft:set_title_text 740a080005636f6c6f720004676f6c64080004746578740006436f6c6f7273010004626f6c640100
+PKT A minecraft:set_title_text 74080003416c6c
+PKT A minecraft:set_subtitle_text 72080007416c6c20737562
+PKT A minecraft:set_titles_animation 75000000010000000200000003
+PKT A minecraft:clear_titles 0e00
+PKT A minecraft:clear_titles 0e00
+PKT A minecraft:clear_titles 0e01
+PKT A minecraft:clear_titles 0e01
+PKT A minecraft:set_title_text 74080000
+PKT A minecraft:set_title_text 74080000
+PKT A minecraft:set_title_text 74080000
+PKT A minecraft:set_title_text 740a0900047769746808000000010001780800097472616e736c617465001d636f6d6d616e64732e7469746c652e636c65617265642e73696e676c6500
+PKT A minecraft:set_title_text 740800086e6f6e73656e7365
+PKT B minecraft:set_title_text 74080003416c6c
+PKT B minecraft:set_subtitle_text 72080007416c6c20737562
+PKT B minecraft:set_titles_animation 75000000010000000200000003
+PKT B minecraft:clear_titles 0e00
+PKT B minecraft:clear_titles 0e01
+PKT C minecraft:set_title_text 74080003416c6c
+PKT C minecraft:set_subtitle_text 72080007416c6c20737562
+PKT C minecraft:set_titles_animation 75000000010000000200000003
+PKT C minecraft:clear_titles 0e00
+PKT C minecraft:clear_titles 0e01
+# permission levels
+CF fail Unknown or incomplete command. See below for error
+CF fail gamemode creative B<--[HERE]
+CF result success 0
+CF msg Set B's game mode to Survival Mode
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail defaultgamemode creative<--[HERE]
+CF msg The default game mode is now Survival Mode
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail title B title "x"<--[HERE]
+CF msg Showing new title for B
+CF result success 1
+CF msg Cleared titles for B
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail gamemode survival<--[HERE]
+CF result failure 0
+CF fail A player is required to run this command here
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:game_event 270300000000
+PKT B minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e737572766976616c000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
+PKT B minecraft:set_title_text 7408000178
+PKT B minecraft:clear_titles 0e00

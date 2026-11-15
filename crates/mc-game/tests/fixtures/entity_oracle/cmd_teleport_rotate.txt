@@ -1,0 +1,305 @@
+C Game rule send_command_feedback is now set to true
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Stick
+CF result success 1
+E pig#1 minecraft:pig pos=20.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=22.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=45.0,15.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=24.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E marker#1 minecraft:marker pos=26.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=28.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,-20.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# tp to a position
+CF msg Teleported A to 10.500000, -60.000000, 10.500000
+CF result success 1
+CF msg Teleported A to 10.500000, -60.000000, 10.500000
+CF result success 1
+CF result failure 0
+CF fail An entity is required to run this command here
+CF msg Teleported B to 1.000000, -60.000000, -1.000000
+CF result success 1
+CF msg Teleported B to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF msg Teleported C to 0.000000, -60.000000, 3.000000
+CF result success 1
+CF msg Teleported C to 1.000000, -58.000000, 3.000000
+CF result success 1
+CF fail Incorrect argument for command
+CF fail tp A ~ ~ ^<--[HERE]
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF fail Incorrect argument for command
+CF fail tp A 0 -60 0 facing entity @e[tag=p]<--[HERE]
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF fail Incorrect argument for command
+CF fail tp A 0 -60 0 facing entity @e[type=pig,limit=2]<--[HERE]
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-90.0,-89.99999 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=0.0,-60.0,0.0 delta=0.0,0.0,0.0 rot=90.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=1.0000000000000004,-58.0,3.0000000000000004 delta=0.0,0.0,0.0 rot=-180.0,-20.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT A minecraft:player_position 49024025000000000000c04e0000000000004025000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT A minecraft:player_position 49034025000000000000c04e0000000000004025000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT A minecraft:player_position 49043fe0000000000000c04e0000000000003fe000000000000000000000000000000000000000000000000000000000000042b400004234000000000000
+PKT A minecraft:player_position 49053fe0000000000000c04e0000000000003fe0000000000000000000000000000000000000000000000000000000000000c2a00000c248000000000018
+PKT A minecraft:player_position 49063fe0000000000000c04e0000000000003fe00000000000000000000000000000000000000000000000000000000000000000000042c8000000000000
+PKT A minecraft:player_position 49073fe0000000000000c04e0000000000003fe0000000000000000000000000000000000000000000000000000000000000c3340000c2c8000000000000
+PKT A minecraft:player_position 49083fe0000000000000c04e0000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT A minecraft:player_position 49093fe0000000000000c04e0000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT A minecraft:player_position 490a3fe0000000000000c04e0000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT A minecraft:player_position 490b3fe0000000000000c04e0000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT A minecraft:player_position 490c3fe0000000000000c04e0000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT A minecraft:player_position 490d3fe0000000000000c04e0000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT A minecraft:player_position 490e3fe0000000000000c04e0000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT B minecraft:player_position 4902c0160000000000000000000000000000bff80000000000000000000000000000000000000000000000000000000000000000000000000000000000ff
+PKT B minecraft:player_position 4903bff000000000000000000000000000003ff00000000000000000000000000000000000000000000000000000000000000000000000000000000000ff
+# tp to entities
+CF msg Teleported A to B
+CF result success 1
+CF fail Incorrect argument for command
+CF fail tp A @e[tag=p]<--[HERE]
+CF msg Teleported A to Pig
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF fail Incorrect argument for command
+CF fail tp A @a<--[HERE]
+CF fail Incorrect argument for command
+CF fail tp A @e[type=cow]<--[HERE]
+CF msg Teleported A to Cow
+CF result success 1
+CF msg Teleported Pig to A
+CF result success 1
+CF fail Incorrect argument for command
+CF fail ...@e[tag=c] @e[tag=p]<--[HERE]
+CF msg Teleported Cow to Pig
+CF result success 1
+CF msg Teleported Armor Stand to 30.500000, -60.000000, 30.500000
+CF result success 1
+CF msg Teleported Marker to 31.500000, -60.000000, 30.500000
+CF result success 1
+CF msg Teleported Stick to 32.500000, -60.000000, 30.500000
+CF result success 1
+CF msg Teleported Cow to 30.500000, -60.000000, 30.500000
+CF result success 1
+CF msg Teleported 3 entities to 40.500000, -60.000000, 40.500000
+CF result success 3
+CF msg Teleported 3 entities to B
+CF result success 3
+CF fail Incorrect argument for command
+CF fail ...@e[tag=p] @e[tag=c]<--[HERE]
+CF msg Teleported Pig to Cow
+CF result success 1
+CF msg Teleported Pig to B
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF fail Incorrect argument for command
+CF fail ...c] facing entity A<--[HERE]
+CF msg Teleported Pig to 30.500000, -60.000000, 30.500000
+CF result success 1
+E pig#1 minecraft:pig pos=30.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=135.0,-0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=30.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=30.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E marker#1 minecraft:marker pos=31.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=32.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+P A minecraft:player pos=40.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=90.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=40.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=90.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=40.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=90.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT A minecraft:player_position 490f0000000000000000c04e000000000000000000000000000000000000000000000000000000000000000000000000000042b400004120000000000000
+PKT A minecraft:player_position 49104034800000000000c04e0000000000004034800000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:player_position 49114036800000000000c04e0000000000004034800000000000000000000000000000000000000000000000000000000000423400004170000000000000
+PKT A minecraft:player_position 49124044400000000000c04e0000000000004044400000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT A minecraft:player_position 49134044400000000000c04e000000000000404440000000000000000000000000000000000000000000000000000000000042b400004120000000000000
+PKT B minecraft:teleport_entity 8001b8094040400000000000c04e000000000000403e80000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+PKT B minecraft:player_position 49044044400000000000c04e0000000000004044400000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT B minecraft:player_position 49054044400000000000c04e000000000000404440000000000000000000000000000000000000000000000000000000000042b400004120000000000000
+# invalid destinations
+CF msg Teleported A to 0.500000, 400.000000, 0.500000
+CF result success 1
+CF msg Teleported A to 0.500000, -1000.000000, 0.500000
+CF result success 1
+CF result failure 0
+CF fail Invalid position for teleport
+CF result failure 0
+CF fail Invalid position for teleport
+CF fail Incorrect argument for command
+CF fail tp A 1e20 -60 0<--[HERE]
+CF fail Incorrect argument for command
+CF fail tp A 3e7 -60 0<--[HERE]
+CF msg Teleported A to 0.000000, -60.000000, 0.000000
+CF result success 1
+CF fail Incorrect argument for command
+CF fail tp A ~ ~<--[HERE]
+CF fail Incorrect argument for command
+CF fail tp A 1 2<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF fail Incorrect argument for command
+CF fail tp A 0 -60 0 foo<--[HERE]
+CF msg Teleported Pig to 0.500000, 320.000000, 0.500000
+CF result success 1
+CF msg Teleported Pig to 0.500000, 319.000000, 0.500000
+CF result success 1
+CF msg Teleported Pig to 0.500000, -64.000000, 0.500000
+CF result success 1
+CF msg Teleported Pig to 0.500000, -65.000000, 0.500000
+CF result success 1
+# teleport alias and riders
+CF msg Teleported A to 3.500000, -60.000000, 3.500000
+CF result success 1
+CF msg Teleported B to A
+CF result success 1
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ride C mount @e[tag=p]<--[HERE]
+CF msg Teleported Pig to 50.500000, -60.000000, 50.500000
+CF result success 1
+CF msg Teleported C to 52.500000, -60.000000, 50.500000
+CF result success 1
+E pig#1 minecraft:pig pos=50.5,-60.0,50.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=30.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=30.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E marker#1 minecraft:marker pos=31.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=32.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+P A minecraft:player pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=52.5,-60.0,50.5 delta=0.0,0.0,0.0 rot=90.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT C minecraft:player_position 4902c029000000000000000000000000000040040000000000000000000000000000000000000000000000000000000000000000000000000000000000ff
+PKT C minecraft:player_position 49033ff000000000000240000000000000003cc00000000000000000000000000000000000000000000000000000000000000000000000000000000000ff
+PKT C minecraft:teleport_entity 8001b8094040400000000000c04e000000000000403e80000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+PKT C minecraft:player_position 49044044400000000000c04e0000000000004044400000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT C minecraft:player_position 49054044400000000000c04e000000000000404440000000000000000000000000000000000000000000000000000000000042b400004120000000000000
+PKT C minecraft:player_position 4906404a400000000000c04e0000000000004049400000000000000000000000000000000000000000000000000000000000000000000000000000000018
+CF result failure 0
+CF fail C is not riding any vehicle
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ride @e[tag=c] mount @e[tag=p]<--[HERE]
+CF msg Teleported Pig to 60.500000, -60.000000, 60.500000
+CF result success 1
+E pig#1 minecraft:pig pos=60.5,-60.0,60.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=30.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=30.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E marker#1 minecraft:marker pos=31.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=32.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+# worldborder
+CF msg Set the world border to 100.0 block(s) wide
+CF result success -59999868
+CF msg Teleported A to 40.500000, -60.000000, 40.500000
+CF result success 1
+CF msg Teleported A to 60.500000, -60.000000, 40.500000
+CF result success 1
+CF msg Teleported A to 0.500000, -60.000000, -59.500000
+CF result success 1
+CF msg Teleported A to 49.500000, -60.000000, 49.500000
+CF result success 1
+CF msg Teleported A to 50.500000, -60.000000, 50.500000
+CF result success 1
+CF msg Teleported Armor Stand to 60.500000, -60.000000, 40.500000
+CF result success 1
+CF msg Teleported Armor Stand to 49.500000, -60.000000, 40.500000
+CF result success 1
+CF msg Set the world border to 59999968.0 block(s) wide
+CF result success 59999868
+P A minecraft:player pos=50.5,-60.0,50.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E armor_stand#1 minecraft:armor_stand pos=49.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+# rotate
+CF msg Rotated A
+CF result success 1
+CF msg Rotated A
+CF result success 1
+CF msg Rotated A
+CF result success 1
+CF msg Rotated A
+CF result success 1
+CF msg Rotated A
+CF result success 1
+CF msg Rotated A
+CF result success 1
+CF msg Rotated A
+CF result success 1
+CF msg Rotated A
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Rotated Cow
+CF result success 1
+CF msg Rotated Pig
+CF result success 1
+CF msg Rotated Marker
+CF result success 1
+CF msg Rotated Armor Stand
+CF result success 1
+CF msg Rotated Stick
+CF result success 1
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail rotate @a 0 0<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF fail Unknown or incomplete command. See below for error
+CF fail rotate A<--[HERE]
+CF fail Incomplete (expected 2 coordinates)
+CF fail rotate A 1<--[HERE]
+CF fail Expected double
+CF fail rotate A nonsense 2<--[HERE]
+E pig#1 minecraft:pig pos=60.5,-60.0,60.5 delta=0.0,0.0,0.0 rot=30.0,30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=30.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=180.0,-10.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=49.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E marker#1 minecraft:marker pos=31.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=30.0,30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=32.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=30.0,30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+P A minecraft:player pos=50.5,-60.0,50.5 delta=0.0,0.0,0.0 rot=135.0,-1.3961492 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=52.5,-60.0,50.5 delta=0.0,0.0,0.0 rot=90.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT A minecraft:player_rotation 4a42b40000000000000000
+PKT A minecraft:player_rotation 4a42b40000004234000000
+PKT A minecraft:player_rotation 4ac2a0000001c234000001
+PKT A minecraft:player_rotation 4ac120000001c2c8000001
+PKT A minecraft:player_rotation 4a4434000000c2c8000000
+# permission levels
+CF fail Unknown or incomplete command. See below for error
+CF fail tp C 1 -60 1<--[HERE]
+CF msg Teleported C to 2.500000, -60.000000, 2.500000
+CF result success 1
+CF msg Teleported A to 3.500000, -60.000000, 3.500000
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail rotate C 5 5<--[HERE]
+CF msg Rotated C
+CF result success 1
+CF result failure 0
+CF fail An entity is required to run this command here
+CF fail Unknown or incomplete command. See below for error
+CF fail tp @s ~1 ~ ~<--[HERE]
+CF result failure 0
+CF fail No entity was found
+P A minecraft:player pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,-1.3961492 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=5.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

@@ -1,0 +1,152 @@
+# `ride` (mount, dismount, every refusal), `spectate` (from a spectator, with and without a target, refusals), `swing`, and `tag`
+# (add, remove, list, limits and failures), with the passenger, camera and animation packets.
+command_env
+level flat
+preload 2
+level_seed 25
+entity_counter 1400
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 2.5 -60 0.5 0 0
+spawn_player S spectator 4.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+cmd summon minecraft:pig 8 -60 8 {NoAI:1b,Tags:["p"]}
+cmd summon minecraft:cow 10 -60 8 {NoAI:1b,Tags:["c"]}
+cmd summon minecraft:horse 12 -60 8 {NoAI:1b,Tags:["h"]}
+cmd summon minecraft:oak_boat 14 -60 8 {Tags:["b"]}
+cmd summon minecraft:armor_stand 16 -60 8 {Tags:["s"]}
+cmd summon minecraft:marker 18 -60 8 {Tags:["m"]}
+cmd summon minecraft:minecart 20 -60 8 {Tags:["mc"]}
+cmd summon minecraft:zombie 22 -60 8 {NoAI:1b,Tags:["z"]}
+cmd summon minecraft:item 24 -60 8 {Item:{id:"minecraft:stick",count:1}}
+tick 1
+note ride: mount
+cmd ride @e[type=pig] mount @e[tag=c,limit=1]
+cmd ride @e[tag=p,limit=1] mount @e[type=pig]
+cmd ride A mount @e[tag=p,limit=1]
+cmd ride A mount @e[tag=p,limit=1]
+cmd ride A mount @e[tag=c,limit=1]
+cmd ride A dismount
+cmd ride A dismount
+cmd ride @e[tag=c,limit=1] mount @e[tag=p,limit=1]
+cmd ride @e[tag=p,limit=1] mount @e[tag=c,limit=1]
+cmd ride @e[tag=c,limit=1] mount @e[tag=c,limit=1]
+cmd ride @e[tag=c,limit=1] mount A
+cmd ride B mount B
+cmd ride @e[tag=p,limit=1] mount @e[tag=s,limit=1]
+cmd ride @e[tag=z,limit=1] mount @e[tag=b,limit=1]
+cmd ride @e[tag=s,limit=1] mount @e[tag=mc,limit=1]
+cmd ride @e[tag=m,limit=1] mount @e[tag=p,limit=1]
+cmd ride @e[type=item,limit=1] mount @e[tag=p,limit=1]
+cmd ride B mount @e[tag=b,limit=1]
+cmd ride S mount @e[tag=h,limit=1]
+cmd ride nobody mount @e[tag=b,limit=1]
+cmd ride B mount nobody
+cmd ride B mount @e[type=!player,limit=1]
+cmd ride B mount @a
+dump entities player:A player:B player:S packets:A:set_passengers,teleport_entity,player_position packets:B:set_passengers,player_position
+cmd ride @e[tag=p,limit=1] dismount
+cmd ride @e[tag=c,limit=1] dismount
+cmd ride @e[tag=m,limit=1] dismount
+cmd ride @e[tag=z,limit=1] dismount
+cmd ride B dismount
+cmd ride nobody dismount
+cmd ride @e[type=pig,limit=1] dismount
+cmd ride A
+cmd ride A mount
+cmd ride A nonsense
+dump entities player:A player:B packets:A:set_passengers,teleport_entity,player_position packets:B:set_passengers,player_position
+note spectate
+cmd spectate @e[type=pig] S
+cmd spectate @e[tag=p,limit=1] S
+cmd spectate @e[tag=p,limit=1] S
+cmd spectate @e[tag=c,limit=1] S
+cmd spectate S S
+cmd spectate A S
+cmd spectate S
+cmd spectate S
+cmd spectate @e[tag=p,limit=1] A
+cmd spectate @e[tag=p,limit=1] B
+cmd spectate nobody S
+cmd spectate @e[tag=p,limit=1] nobody
+cmd spectate @e[type=pig,limit=1] @a
+cmd spectate @e[tag=p,limit=1] @e[type=pig,limit=1]
+cmd spectate @e[tag=m,limit=1] S
+cmd spectate @e[type=item,limit=1] S
+cmd spectate
+cmd spectate @e[tag=p,limit=1]
+dump player:S packets:S:set_camera,player_position,system_chat
+note swing
+cmd swing @e[tag=p]
+cmd swing @e[tag=p] mainhand
+cmd swing @e[tag=p] offhand
+cmd swing @e[tag=p] nonsense
+cmd swing @e[tag=c] offhand
+cmd swing A
+cmd swing A offhand
+cmd swing @a
+cmd swing @e[tag=s]
+cmd swing @e[tag=m]
+cmd swing @e[type=item]
+cmd swing nobody
+cmd swing
+tick 1
+dump entities player:A player:B packets:A:animate packets:B:animate packets:S:animate
+note tag
+cmd tag @e[tag=p] add one
+cmd tag @e[tag=p] add one
+cmd tag @e[tag=p] add two
+cmd tag @e[tag=p] list
+cmd tag @e[tag=p] remove one
+cmd tag @e[tag=p] remove one
+cmd tag @e[tag=p] remove nope
+cmd tag @e[tag=p] list
+cmd tag @e[tag=c] list
+cmd tag @e[tag=p] add "quoted tag"
+cmd tag @e[tag=p] add 
+cmd tag @e[tag=p] add a.b-c+d_e
+cmd tag @e[tag=p] add ünï
+cmd tag @e[tag=p] list
+cmd tag @e[tag=p] remove two
+cmd tag @a add player
+cmd tag @a list
+cmd tag @a remove player
+cmd tag nobody add x
+cmd tag nobody list
+cmd tag @e[type=pig] add pigs
+cmd tag @e[type=!player,type=!item] add things
+cmd tag @e[tag=things] list
+cmd tag @e[tag=things] remove things
+cmd tag @e[tag=m] add mm
+cmd tag @e[type=item] add i
+cmd tag @e[type=item] list
+cmd tag @e[tag=z] list
+cmd tag
+cmd tag @e[tag=p]
+cmd tag @e[tag=p] nonsense
+dump entities player:A
+cmd tag A add t1
+cmd tag A add t2
+cmd tag A add t3
+cmd tag A add t4
+cmd tag A add t5
+cmd tag A add t6
+cmd tag A add t7
+cmd tag A add t8
+cmd tag A add t9
+cmd tag A add t10
+cmd tag A list
+dump player:A
+note permission levels
+cmd_as B ride B mount @e[tag=p]
+cmd_as A ride B mount @e[tag=p]
+cmd_as -2 ride B dismount
+cmd_as B spectate @e[tag=p] S
+cmd_as -2 spectate @e[tag=p] S
+cmd_as B swing B
+cmd_as -2 swing B
+cmd_as B tag B add q
+cmd_as -2 tag B add q
+cmd_as -2 tag B list
+dump player:B

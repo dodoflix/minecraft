@@ -1,0 +1,145 @@
+# `effect` (give/clear on players and mobs, durations, amplifiers, infinite, hidden particles, instant effects, every failure and the
+# unaffected-target case), `kill` (mobs, players, items, none, `@e`) and `summon` (positions, NBT, passengers, invalid types and
+# positions, duplicate UUIDs, entities that cannot be summoned), with the player, entity and packet state they leave behind.
+command_env
+level flat
+preload 2
+level_seed 17
+entity_counter 1000
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B creative 2.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note summon: forms and failures
+cmd summon minecraft:pig 6 -60 6
+cmd summon minecraft:cow 8 -60 6 {NoAI:1b,CustomName:"Daisy",Tags:["c"]}
+cmd summon minecraft:pig ~ ~ ~
+cmd summon minecraft:pig ~ ~2 ~ {NoAI:1b}
+cmd summon minecraft:zombie 10 -60 6 {NoAI:1b,Passengers:[{id:"minecraft:chicken",NoAI:1b}]}
+cmd summon minecraft:armor_stand 12 -60 6 {ShowArms:1b,Tags:["s"]}
+cmd summon minecraft:item 14 -60 6 {Item:{id:"minecraft:diamond",count:3}}
+cmd summon minecraft:item 14 -60 6
+cmd summon minecraft:experience_orb 16 -60 6 {Value:5s}
+cmd summon minecraft:lightning_bolt 18 -60 6
+cmd summon minecraft:area_effect_cloud 20 -60 6 {Duration:100,Radius:2f}
+cmd summon minecraft:player 3 -60 3
+cmd summon minecraft:nope 3 -60 3
+cmd summon minecraft:ender_dragon 3 -60 3 {NoAI:1b}
+cmd summon minecraft:pig 3 400 3
+cmd summon minecraft:pig 3 -1000 3
+cmd summon minecraft:pig 30000001 -60 3
+cmd summon minecraft:pig 3 -60 3 {UUID:[I;1,2,3,4],NoAI:1b}
+cmd summon minecraft:pig 3 -60 3 {UUID:[I;1,2,3,4],NoAI:1b}
+cmd summon minecraft:pig 3 -60 3 {id:"minecraft:cow",NoAI:1b}
+cmd summon minecraft:pig 3 -60 3 {Health:"x"}
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b
+cmd summon minecraft:pig 3 -60 3 {CustomName:"{\"text\":\"Json\"}",NoAI:1b}
+cmd summon #minecraft:skeletons 3 -60 3
+cmd summon minecraft:pig 3 -60 3 foo
+cmd summon minecraft:marker 3 -60 3 {Tags:["m"]}
+cmd summon minecraft:marker ^ ^ ^2 {Tags:["m2"]}
+cmd summon minecraft:falling_block 3 -50 3 {BlockState:{Name:"minecraft:sand"},Time:1}
+cmd summon minecraft:tnt 5 -60 3 {fuse:80}
+cmd summon minecraft:wither 22 -60 6 {NoAI:1b}
+cmd summon minecraft:oak_boat 24 -60 6
+cmd summon minecraft:villager 26 -60 6 {NoAI:1b}
+cmd summon minecraft:block_display 28 -60 6 {block_state:{Name:"minecraft:stone"}}
+tick 1
+dump entities packets:A:add_entity,set_entity_data,system_chat
+note effect: give
+cmd effect give A minecraft:speed
+cmd effect give A minecraft:speed 30
+cmd effect give A minecraft:speed 30 2
+cmd effect give A minecraft:speed 30 2 true
+cmd effect give A minecraft:speed 30 255
+cmd effect give A minecraft:speed 30 256
+cmd effect give A minecraft:speed 0
+cmd effect give A minecraft:speed 1000000
+cmd effect give A minecraft:speed 1000001
+cmd effect give A minecraft:speed infinite
+cmd effect give A minecraft:speed infinite 1 false
+cmd effect give A minecraft:instant_health 1
+cmd effect give A minecraft:instant_health 30 1
+cmd effect give A minecraft:instant_damage 10 1
+cmd effect give A minecraft:regeneration 5
+cmd effect give A minecraft:poison 5
+cmd effect give A minecraft:nope
+cmd effect give A minecraft:speed -1
+cmd effect give A minecraft:speed 1 -1
+cmd effect give A minecraft:speed 1.5
+cmd effect give B minecraft:night_vision 600
+cmd effect give @a minecraft:glowing 20
+cmd effect give @e[tag=c] minecraft:slowness 30 3
+cmd effect give @e[tag=c] minecraft:slowness 30 3
+cmd effect give @e[tag=c] minecraft:weakness 30
+cmd effect give @e[tag=s] minecraft:slowness 30
+cmd effect give @e[tag=m] minecraft:slowness 30
+cmd effect give @e[type=item] minecraft:slowness 30
+cmd effect give @e[type=pig] minecraft:slowness 30
+cmd effect give @e[type=pig] minecraft:instant_damage 1 0
+cmd effect give @e[type=zombie] minecraft:instant_health 1 0
+cmd effect give @e[type=zombie] minecraft:instant_damage 1 0
+cmd effect give nobody minecraft:speed
+cmd effect give A minecraft:resistance 30
+cmd effect give A minecraft:wither 5
+cmd effect give A minecraft:levitation 5
+dump player:A player:B entities packets:A:update_mob_effect,remove_mob_effect,system_chat packets:B:update_mob_effect,remove_mob_effect
+note effect: clear
+cmd effect clear A minecraft:speed
+cmd effect clear A minecraft:speed
+cmd effect clear A minecraft:nope
+cmd effect clear A
+cmd effect clear A
+cmd effect clear @a
+cmd effect clear @e[tag=c] minecraft:slowness
+cmd effect clear @e[tag=c]
+cmd effect clear @e[tag=c]
+cmd effect clear @e[type=item]
+cmd effect clear @e[tag=m] minecraft:speed
+cmd effect clear @e[type=pig]
+cmd effect clear nobody
+cmd effect clear nobody minecraft:speed
+cmd effect clear
+cmd effect
+cmd effect give
+cmd effect nonsense A
+dump player:A player:B packets:A:update_mob_effect,remove_mob_effect packets:B:update_mob_effect,remove_mob_effect
+note kill
+cmd kill @e[tag=m]
+cmd kill @e[tag=m2]
+cmd kill @e[tag=nope]
+cmd kill @e[type=item]
+cmd kill @e[type=experience_orb]
+cmd kill @e[type=pig]
+cmd kill @e[type=zombie]
+cmd kill @e[tag=s]
+cmd kill nobody
+cmd kill B
+cmd kill
+cmd kill @e[type=lightning_bolt]
+cmd kill @e[type=area_effect_cloud]
+cmd kill @e[type=wither]
+cmd kill @e[type=oak_boat]
+cmd kill @e[type=villager]
+cmd kill @e[type=cow]
+cmd kill @e[type=tnt]
+cmd kill @e[type=falling_block]
+cmd kill @e[type=block_display]
+cmd kill @e[type=marker]
+tick 1
+dump player:A player:B entities packets:A:system_chat,player_combat_kill,remove_entities packets:B:system_chat,player_combat_kill
+cmd kill A
+cmd kill @a
+tick 1
+dump player:A player:B packets:A:system_chat,player_combat_kill packets:B:system_chat,player_combat_kill
+note permission levels
+respawn A
+respawn B
+cmd_as A summon minecraft:pig 3 -60 3 {NoAI:1b}
+cmd_as -2 summon minecraft:pig 3 -60 3 {NoAI:1b}
+cmd_as -2 effect give A minecraft:speed 5
+cmd_as A effect clear A
+cmd_as A kill @e[type=pig]
+cmd_as -2 kill @e[type=pig]
+cmd_as -1 kill @e[type=pig]

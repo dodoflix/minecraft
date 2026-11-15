@@ -1,0 +1,416 @@
+C Game rule send_command_feedback is now set to true
+# summon: forms and failures
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Daisy
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Zombie
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Diamond
+CF result success 1
+CF msg Summoned new Air
+CF result success 1
+CF msg Summoned new Experience Orb
+CF result success 1
+CF msg Summoned new Lightning Bolt
+CF result success 1
+CF msg Summoned new Area Effect Cloud
+CF result success 1
+CF result failure 0
+CF fail Can't summon entity of type minecraft:player
+CF fail Can't find element 'minecraft:nope' of type 'minecraft:entity_type'
+CF fail ...craft:nope 3 -60 3<--[HERE]
+CF msg Summoned new Ender Dragon
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF result failure 0
+CF fail Invalid position for summon
+CF msg Summoned new Pig
+CF result success 1
+CF result failure 0
+CF fail Unable to summon entity due to duplicate UUIDs
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF fail Expected literal ,
+CF fail ...3 {NoAI:1b<--[HERE]
+CF msg Summoned new {"text":"Json"}
+CF result success 1
+CF fail Can't find element 'minecraft:' of type 'minecraft:entity_type'
+CF fail summon #minecraft:skeletons 3 -60 3<--[HERE]
+CF fail Expected compound tag
+CF fail ... -60 3 foo<--[HERE]
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Falling Sand
+CF result success 1
+CF msg Summoned new Primed TNT
+CF result success 1
+CF msg Summoned new Wither
+CF result success 1
+CF msg Summoned new Oak Boat
+CF result success 1
+CF msg Summoned new Villager
+CF result success 1
+CF msg Summoned new Block Display
+CF result success 1
+E pig#1 minecraft:pig pos=6.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=8.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=0.0,-60.0,0.0 delta=-0.07193933046813877,-0.0784000015258789,-0.07193933046813877 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#3 minecraft:pig pos=0.0,-58.0,0.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#1 minecraft:zombie pos=10.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=10.5,-57.987499952316284,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=12.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=14.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=1 pickup=0 health=5 owner=- thrower=-
+E lightning_bolt#1 minecraft:lightning_bolt pos=18.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=1 flashes=1 seed=7596455906559063432 fires=3
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ender_dragon#1 minecraft:ender_dragon pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#4 minecraft:pig pos=3.5,400.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#5 minecraft:pig pos=3.5,-1000.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=9/19 death=0 fx=-
+E pig#6 minecraft:pig pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#7 minecraft:pig pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#8 minecraft:pig pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#9 minecraft:pig pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E marker#1 minecraft:marker pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E marker#2 minecraft:marker pos=2.4492937051703357E-16,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E falling_block#1 minecraft:falling_block pos=3.5,-50.04,3.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=2 hurt=false cancel=false drop=true
+E tnt#1 minecraft:tnt pos=5.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=79
+E wither#1 minecraft:wither pos=22.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=-
+E oak_boat#1 minecraft:oak_boat pos=24.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E villager#1 minecraft:villager pos=26.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E block_display#1 minecraft:block_display pos=28.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT A minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20422000080009696e73657274696f6e000142080004746578740001420a000b686f7665725f6576656e740800046e616d65000142080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f44cd58d790230e78bde679d783ee6310000080005636f6c6f72000679656c6c6f770800097472616e736c61746500196d756c7469706c617965722e706c617965722e6a6f696e65640000
+PKT A minecraft:set_entity_data 65e907090341a00000ff
+PKT A minecraft:add_entity 01eb070431fe771fb64d778b035d1cb327024165401a000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65eb07090341200000141d00ff
+PKT A minecraft:add_entity 01ec07c80735a7fcfe482cb4d04cc47d27d9ed1e4021000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65ec0702060108000544616973790903412000000f0001ff
+PKT A minecraft:add_entity 01ed076446188e237646e39b63002ac6abec48650000000000000000c04e00000000000000000000000000000000000000
+PKT A minecraft:set_entity_data 65ed07090341200000ff
+PKT A minecraft:add_entity 01ee0732223d0f3ae84ff5bd6e3791cfc55dae650000000000000000c04d00000000000000000000000000000000000000
+PKT A minecraft:set_entity_data 65ee070903412000000f0001ff
+PKT A minecraft:add_entity 01ef07f267c7ff72064ca8b90467e2442973049a014025000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65ef07090341a000000f0001ff
+PKT A minecraft:add_entity 01f0070a8a831129a541e7b791909dba3a46e11a4025000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65f0070903408000000f0001ff
+PKT A minecraft:add_entity 01f1073dce10c3cb804347966dc8e380d9a3a3054029000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65f107090341a000000f0004ff
+PKT A minecraft:add_entity 01f20771cd8445547a4025936ae5116be97a3a48402d000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65f207080703f4070000ff
+PKT A minecraft:add_entity 01f40732a604b24868435ea5239bacfbb1aba0324030800000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65f407080105ff
+PKT A minecraft:add_entity 01f5077548a0ab36204180811a283a889330164e4032800000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:add_entity 01f6075956986acd2c4ea8a58aa26968e9c965034034800000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65f6070803400000000a101cff385dc6ff
+PKT A minecraft:add_entity 01f7076acc128acfbd41d79cb32ef9f6b13ffd2c400c000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:set_entity_data 65f7070903434800000f0001ff
+PKT A minecraft:add_entity 01800826225714ac914d449daec3cca5fb471165400c0000000000004079000000000000400c0000000000000000000000
+PKT A minecraft:set_entity_data 658008090341200000141d02ff
+PKT A minecraft:add_entity 018108c9d5a421eea74b8b895e8ba5da86c3e065400c000000000000c08f400000000000400c0000000000000000000000
+PKT A minecraft:set_entity_data 658108090341200000ff
+PKT A minecraft:add_entity 0182080000000100000002000000030000000465400c000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:set_entity_data 6582080903412000000f0001ff
+PKT A minecraft:add_entity 018408e02affd6cf4a47148ebe0bb338f37d7665400c000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:set_entity_data 6584080903412000000f0001ff
+PKT A minecraft:add_entity 0185083e15f52c85124747a0617d9c19949feb65400c000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:set_entity_data 658508090341200000ff
+PKT A minecraft:add_entity 0186086a49b3e76e9944638726d69fd8dad36d65400c000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:set_entity_data 65860802060108000f7b2274657874223a224a736f6e227d0903412000000f0001ff
+PKT A minecraft:add_entity 0189084cb8de4c38ae4c378c9c49d55a05badb34400c000000000000c049000000000000400c0000000000000000000079
+PKT A minecraft:add_entity 018a08d9ae3c4a3adc483c96a1828104bf3bf188014016000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:add_entity 018b08f8586ef7eae6458e85b577d585db613695014036800000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 658b080903439600000f0001ff
+PKT A minecraft:add_entity 018c084eb4fde493c64194ab48236f9589e45f5a4038800000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:add_entity 018d084b87dfbe046546ef994738584380d4e28f01403a800000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 658d08090341a000000f0001ff
+PKT A minecraft:add_entity 018e08236816129a92433bb7ce43ad7a43189c0f403c800000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65ee070903412000000f0001ff
+PKT A minecraft:set_entity_data 65f207080703f4070000ff
+PKT A minecraft:set_entity_data 658b080903439600000f0001ff
+PKT A minecraft:set_entity_data 65f6070803400000000a101cff385dc6ff
+PKT A minecraft:set_entity_data 658e08080100ff
+PKT A minecraft:set_entity_data 658108090341200000ff
+PKT A minecraft:set_entity_data 6582080903412000000f0001ff
+PKT A minecraft:set_entity_data 658008090341200000141d02ff
+PKT A minecraft:set_entity_data 65860802060108000f7b2274657874223a224a736f6e227d0903412000000f0001ff
+PKT A minecraft:set_entity_data 658508090341200000ff
+PKT A minecraft:set_entity_data 6584080903412000000f0001ff
+PKT A minecraft:set_entity_data 65f0070903408000000f0001ff
+PKT A minecraft:set_entity_data 658d08090341a000000f0001ff
+PKT A minecraft:set_entity_data 65ec0702060108000544616973790903412000000f0001ff
+PKT A minecraft:set_entity_data 65f407080105ff
+PKT A minecraft:set_entity_data 65f107090341a000000f0004ff
+PKT A minecraft:set_entity_data 65ed07090341200000ff
+PKT A minecraft:set_entity_data 65f7070903434800000f0001ff
+PKT A minecraft:set_entity_data 65eb07090341200000141d00ff
+PKT A minecraft:set_entity_data 65ef07090341a000000f0001ff
+# effect: give
+CF msg Applied effect Speed to A
+CF result success 1
+CF result failure 0
+CF fail Unable to apply this effect (target is either immune to effects, or has something stronger)
+CF msg Applied effect Speed to A
+CF result success 1
+CF msg Applied effect Speed to A
+CF result success 1
+CF msg Applied effect Speed to A
+CF result success 1
+CF fail Integer must not be more than 255: found 256
+CF fail ...:speed 30 256<--[HERE]
+CF fail Integer must not be less than 1: found 0
+CF fail ...aft:speed 0<--[HERE]
+CF result failure 0
+CF fail Unable to apply this effect (target is either immune to effects, or has something stronger)
+CF fail Integer must not be more than 1000000: found 1000001
+CF fail ...aft:speed 1000001<--[HERE]
+CF result failure 0
+CF fail Unable to apply this effect (target is either immune to effects, or has something stronger)
+CF result failure 0
+CF fail Unable to apply this effect (target is either immune to effects, or has something stronger)
+CF msg Applied effect Instant Health to A
+CF result success 1
+CF msg Applied effect Instant Health to A
+CF result success 1
+CF msg Applied effect Instant Damage to A
+CF result success 1
+CF msg Applied effect Regeneration to A
+CF result success 1
+CF msg Applied effect Poison to A
+CF result success 1
+CF fail Can't find element 'minecraft:nope' of type 'minecraft:mob_effect'
+CF fail ...craft:nope<--[HERE]
+CF fail Integer must not be less than 1: found -1
+CF fail ...aft:speed -1<--[HERE]
+CF fail Integer must not be less than 0: found -1
+CF fail ...t:speed 1 -1<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ...aft:speed 1.5<--[HERE]
+CF msg Applied effect Night Vision to B
+CF result success 1
+CF msg Applied effect Glowing to 2 targets
+CF result success 2
+CF msg Applied effect Slowness to Daisy
+CF result success 1
+CF result failure 0
+CF fail Unable to apply this effect (target is either immune to effects, or has something stronger)
+CF msg Applied effect Weakness to Daisy
+CF result success 1
+CF msg Applied effect Slowness to Armor Stand
+CF result success 1
+CF result failure 0
+CF fail Unable to apply this effect (target is either immune to effects, or has something stronger)
+CF result failure 0
+CF fail Unable to apply this effect (target is either immune to effects, or has something stronger)
+CF msg Applied effect Slowness to 9 targets
+CF result success 9
+CF msg Applied effect Instant Damage to 9 targets
+CF result success 9
+CF msg Applied effect Instant Health to Zombie
+CF result success 1
+CF msg Applied effect Instant Damage to Zombie
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Applied effect Resistance to A
+CF result success 1
+CF msg Applied effect Wither to A
+CF result success 1
+CF msg Applied effect Levitation to A
+CF result success 1
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.05588800853823316,-0.0784000015258789,0.05588800853823316 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/400;minecraft:instant_damage/1/10;minecraft:instant_health/1/30;minecraft:levitation/0/100;minecraft:poison/0/100;minecraft:regeneration/0/100;minecraft:resistance/0/600;minecraft:speed/255/600;minecraft:wither/0/100 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/400;minecraft:night_vision/0/12000 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E pig#1 minecraft:pig pos=6.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:instant_damage/0/1;minecraft:slowness/0/600
+E cow#1 minecraft:cow pos=8.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:slowness/3/600;minecraft:weakness/0/600
+E pig#2 minecraft:pig pos=0.0,-60.0,0.0 delta=-0.07193933046813877,-0.0784000015258789,-0.07193933046813877 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:instant_damage/0/1;minecraft:slowness/0/600
+E pig#3 minecraft:pig pos=0.0,-58.0,0.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:instant_damage/0/1;minecraft:slowness/0/600
+E zombie#1 minecraft:zombie pos=10.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:instant_damage/0/1;minecraft:instant_health/0/1
+E chicken#1 minecraft:chicken pos=10.5,-57.987499952316284,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=12.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:slowness/0/600
+E item#1 minecraft:item pos=14.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=1 pickup=0 health=5 owner=- thrower=-
+E lightning_bolt#1 minecraft:lightning_bolt pos=18.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=1 flashes=1 seed=7596455906559063432 fires=3
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ender_dragon#1 minecraft:ender_dragon pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#4 minecraft:pig pos=3.5,400.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:instant_damage/0/1;minecraft:slowness/0/600
+E pig#5 minecraft:pig pos=3.5,-1000.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:instant_damage/0/1;minecraft:slowness/0/600
+E pig#6 minecraft:pig pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:instant_damage/0/1;minecraft:slowness/0/600
+E pig#7 minecraft:pig pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:instant_damage/0/1;minecraft:slowness/0/600
+E pig#8 minecraft:pig pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:instant_damage/0/1;minecraft:slowness/0/600
+E pig#9 minecraft:pig pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:instant_damage/0/1;minecraft:slowness/0/600
+E marker#1 minecraft:marker pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E marker#2 minecraft:marker pos=2.4492937051703357E-16,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E falling_block#1 minecraft:falling_block pos=3.5,-50.04,3.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=2 hurt=false cancel=false drop=true
+E tnt#1 minecraft:tnt pos=5.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=79
+E wither#1 minecraft:wither pos=22.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=-
+E oak_boat#1 minecraft:oak_boat pos=24.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E villager#1 minecraft:villager pos=26.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E block_display#1 minecraft:block_display pos=28.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT A minecraft:update_mob_effect 8701e9070000d8040e
+PKT A minecraft:update_mob_effect 8701e9070002d80406
+PKT A minecraft:update_mob_effect 8701e9070002d80400
+PKT A minecraft:update_mob_effect 8701e90700ff01d80406
+PKT A minecraft:update_mob_effect 8701e9070500010e
+PKT A minecraft:update_mob_effect 8701e90705011e06
+PKT A minecraft:update_mob_effect 8701e90706010a0e
+PKT A minecraft:update_mob_effect 8701e9070900640e
+PKT A minecraft:update_mob_effect 8701e9071200640e
+PKT A minecraft:update_mob_effect 8701e907170090030e
+PKT A minecraft:update_mob_effect 8701e9070a00d8040e
+PKT A minecraft:update_mob_effect 8701e9071300640e
+PKT A minecraft:update_mob_effect 8701e9071800640e
+PKT B minecraft:update_mob_effect 8701ea070f00e05d0e
+PKT B minecraft:update_mob_effect 8701ea07170090030e
+# effect: clear
+CF msg Removed effect Speed from A
+CF result success 1
+CF result failure 0
+CF fail Target doesn't have the requested effect
+CF fail Can't find element 'minecraft:nope' of type 'minecraft:mob_effect'
+CF fail ...craft:nope<--[HERE]
+CF msg Removed every effect from A
+CF result success 1
+CF result failure 0
+CF fail Target has no effects to remove
+CF msg Removed every effect from B
+CF result success 1
+CF msg Removed effect Slowness from Daisy
+CF result success 1
+CF msg Removed every effect from Daisy
+CF result success 1
+CF result failure 0
+CF fail Target has no effects to remove
+CF result failure 0
+CF fail Target has no effects to remove
+CF result failure 0
+CF fail Target doesn't have the requested effect
+CF msg Removed every effect from 9 targets
+CF result success 9
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail An entity is required to run this command here
+CF fail Unknown or incomplete command. See below for error
+CF fail effect<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...ffect give<--[HERE]
+CF fail Incorrect argument for command
+CF fail effect nonsense A<--[HERE]
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.05588800853823316,-0.0784000015258789,0.05588800853823316 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT A minecraft:remove_mob_effect 4fe90700
+PKT A minecraft:remove_mob_effect 4fe9070a
+PKT A minecraft:remove_mob_effect 4fe90713
+PKT A minecraft:remove_mob_effect 4fe90712
+PKT A minecraft:remove_mob_effect 4fe90717
+PKT A minecraft:remove_mob_effect 4fe90705
+PKT A minecraft:remove_mob_effect 4fe90706
+PKT A minecraft:remove_mob_effect 4fe90709
+PKT A minecraft:remove_mob_effect 4fe90718
+PKT B minecraft:remove_mob_effect 4fea070f
+PKT B minecraft:remove_mob_effect 4fea0717
+# kill
+CF msg Killed Marker
+CF result success 1
+CF msg Killed Marker
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Diamond
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Killed 9 entities
+CF result success 9
+CF msg Killed Zombie
+CF result success 1
+CF msg Killed Armor Stand
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Killed B
+CF result success 1
+CF result failure 0
+CF fail An entity is required to run this command here
+CF msg Killed Lightning Bolt
+CF result success 1
+CF msg Killed Area Effect Cloud
+CF result success 1
+CF msg Killed Wither
+CF result success 1
+CF msg Killed Oak Boat
+CF result success 1
+CF msg Killed Villager
+CF result success 1
+CF msg Killed Daisy
+CF result success 1
+CF msg Killed Primed TNT
+CF result success 1
+CF msg Killed Falling Sand
+CF result success 1
+CF msg Killed Block Display
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.05116093998334968,-0.0784000015258789,0.05116093998334968 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=9/19 death=1 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E chicken#1 minecraft:chicken pos=10.5,-57.987499952316284,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ender_dragon#1 minecraft:ender_dragon pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=6.556146901038946,-59.84,6.555393369596033 delta=0.055023964089083645,0.1568000030517578,0.05428550326065778 rot=228.77243,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=1 pickup=9 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-0.06955256978386176,-59.84,-0.04123778826485902 delta=-0.06816151971479452,0.1568000030517578,-0.040413033286110234 rot=299.46674,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.049932460466584866,-57.84,0.04876395830207009 delta=0.04893381220963927,0.1568000030517578,0.047788680066127374 rot=120.998566,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*2 age=1 pickup=9 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=3.575845685212695,400.16,3.4959474856752566 delta=0.07432877295508274,0.1568000030517578,-0.003971464115544047 rot=295.186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.5165242444029334,-59.84,3.426241816287279 delta=0.01619375983004979,0.1568000030517578,-0.07228302144529208 rot=56.881348,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=3.4867450871244148,-59.84,3.4773596615804343 delta=-0.012989814870891094,0.1568000030517578,-0.022187532083004377 rot=325.11316,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*2 age=1 pickup=9 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=3.593415906408854,-59.84,3.473794130061155 delta=0.09154759006244399,0.1568000030517578,-0.02568175303990529 rot=135.52164,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*2 age=1 pickup=9 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=3.4746528401652954,-59.84,3.5023848453526973 delta=-0.024840217121469055,0.1568000030517578,0.0023371484911305996 rot=203.53389,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=22.45957098480448,-59.84,6.419570844666803 delta=-0.03962043566273335,0.1568000030517578,-0.07882057376059684 rot=228.1017,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:nether_star*1 age=-5999 pickup=9 health=5 owner=- thrower=-
+E item#12 minecraft:item pos=8.45934659744132,-59.84,6.577622941243869 delta=-0.039840335282908625,0.1568000030517578,0.0760704838995325 rot=271.35535,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=1 pickup=9 health=5 owner=- thrower=-
+PKT A minecraft:remove_entities 4e01f207
+PKT A minecraft:remove_entities 4e01f107
+PKT A minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20422000080009696e73657274696f6e000142080004746578740001420a000b686f7665725f6576656e740800046e616d65000142080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f44cd58d790230e78bde679d783ee63100000800097472616e736c617465001864656174682e61747461636b2e67656e657269634b696c6c0000
+PKT A minecraft:remove_entities 4e01f507
+PKT A minecraft:remove_entities 4e01f607
+PKT A minecraft:remove_entities 4e018c08
+PKT A minecraft:remove_entities 4e018a08
+PKT A minecraft:remove_entities 4e018908
+PKT A minecraft:remove_entities 4e018e08
+PKT A minecraft:remove_entities 4e019308
+PKT B minecraft:player_combat_kill 45ea070a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20422000080009696e73657274696f6e000142080004746578740001420a000b686f7665725f6576656e740800046e616d65000142080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f44cd58d790230e78bde679d783ee63100000800097472616e736c617465001864656174682e61747461636b2e67656e657269634b696c6c00
+PKT B minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20422000080009696e73657274696f6e000142080004746578740001420a000b686f7665725f6576656e740800046e616d65000142080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f44cd58d790230e78bde679d783ee63100000800097472616e736c617465001864656174682e61747461636b2e67656e657269634b696c6c0000
+CF msg Killed A
+CF result success 1
+CF msg Killed 2 entities
+CF result success 2
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.02793387647550208,-0.0784000015258789,0.02793387647550208 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=9/19 death=1 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=8/18 death=2 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT A minecraft:player_combat_kill 45e9070a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20412000080009696e73657274696f6e000141080004746578740001410a000b686f7665725f6576656e740800046e616d65000141080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b76d4ad38d013150b33368cfb425777400000800097472616e736c617465001864656174682e61747461636b2e67656e657269634b696c6c00
+PKT A minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20412000080009696e73657274696f6e000141080004746578740001410a000b686f7665725f6576656e740800046e616d65000141080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b76d4ad38d013150b33368cfb425777400000800097472616e736c617465001864656174682e61747461636b2e67656e657269634b696c6c0000
+PKT B minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20412000080009696e73657274696f6e000141080004746578740001410a000b686f7665725f6576656e740800046e616d65000141080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b76d4ad38d013150b33368cfb425777400000800097472616e736c617465001864656174682e61747461636b2e67656e657269634b696c6c0000
+# permission levels
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Applied effect Speed to A
+CF result success 1
+CF msg Removed every effect from A
+CF result success 1
+CF msg Killed 2 entities
+CF result success 2
+CF result failure 0
+CF fail No entity was found
+CF fail Unknown or incomplete command. See below for error
+CF fail kill @e[type=pig]<--[HERE]
