@@ -1,0 +1,620 @@
+C Set minecraft:overworld to 18000 tick(s)
+C Game rule spawn_mobs is now set to true
+EFFECT p minecraft:trial_omen added=true
+BE 8 -60 12 {components:{},id:"minecraft:trial_spawner",normal_config:{loot_tables_to_eject:[],simultaneous_mobs:1.0f,simultaneous_mobs_added_per_player:0.0f,spawn_potentials:[{data:{entity:{NoAI:1b,Pos:[10.5d,-60.0d,14.5d],Silent:1b,id:"minecraft:zombie"}},weight:1}],spawn_range:3,ticks_between_spawn:20,total_mobs:1.0f,total_mobs_added_per_player:0.0f},ominous_config:{loot_tables_to_eject:[{data:"minecraft:spawners/ominous/trial_chamber/consumables",weight:1},{data:"minecraft:spawners/ominous/trial_chamber/key",weight:1}],simultaneous_mobs:1.0f,simultaneous_mobs_added_per_player:0.0f,spawn_potentials:[{data:{entity:{NoAI:1b,Pos:[10.5d,-60.0d,14.5d],Silent:1b,id:"minecraft:zombie"}},weight:1}],spawn_range:3,ticks_between_spawn:20,total_mobs:1.0f,total_mobs_added_per_player:0.0f},target_cooldown_length:60,x:8,y:-60,z:12}
+B 8 -60 12 minecraft:trial_spawner[ominous=false,trial_spawner_state=inactive]
+T 11
+EV sound at=8.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:event.mob_effect.trial_omen source=player vol=1.0 pitch=1.0
+T 12
+T 13
+T 14
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+EV level_event r=64.0 ex=0 type=3020 pos=8,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=3020 pos=8,-60,12 data=1 global=0
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+T 31
+T 32
+T 33
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+T 40
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+T 41
+T 42
+T 43
+T 44
+T 45
+T 46
+T 47
+T 48
+T 49
+T 50
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+T 51
+T 52
+T 53
+T 54
+T 55
+T 56
+T 57
+T 58
+T 59
+T 60
+EV level_event r=64.0 ex=0 type=3011 pos=8,-60,12 data=1 global=0
+EV level_event r=64.0 ex=0 type=3012 pos=10,-60,14 data=1 global=0
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 61
+T 62
+T 63
+T 64
+T 65
+T 66
+T 67
+T 68
+T 69
+T 70
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 71
+T 72
+T 73
+T 74
+T 75
+T 76
+T 77
+T 78
+T 79
+T 80
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 81
+T 82
+T 83
+T 84
+T 85
+T 86
+T 87
+T 88
+T 89
+T 90
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 91
+T 92
+T 93
+T 94
+T 95
+T 96
+T 97
+T 98
+T 99
+T 100
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 101
+T 102
+T 103
+T 104
+T 105
+T 106
+T 107
+T 108
+T 109
+T 110
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 111
+T 112
+T 113
+T 114
+T 115
+T 116
+T 117
+T 118
+T 119
+T 120
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 121
+T 122
+T 123
+T 124
+T 125
+T 126
+T 127
+T 128
+T 129
+T 130
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 131
+T 132
+T 133
+T 134
+T 135
+T 136
+T 137
+T 138
+T 139
+T 140
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 141
+T 142
+T 143
+T 144
+T 145
+T 146
+T 147
+T 148
+T 149
+T 150
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 151
+T 152
+T 153
+T 154
+T 155
+T 156
+T 157
+T 158
+T 159
+T 160
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 161
+T 162
+T 163
+T 164
+T 165
+T 166
+T 167
+T 168
+T 169
+T 170
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 171
+T 172
+T 173
+T 174
+T 175
+T 176
+T 177
+T 178
+T 179
+T 180
+EV sound at=8.5,-57.5,8.5 r=16.0 ex=0 event=minecraft:block.trial_spawner.spawn_item_begin source=block vol=1.0 pitch=1.0272657
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ominous_item_spawner#1 minecraft:ominous_item_spawner pos=8.5,-57.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 181
+T 182
+T 183
+T 184
+T 185
+T 186
+T 187
+T 188
+T 189
+T 190
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ominous_item_spawner#1 minecraft:ominous_item_spawner pos=8.5,-57.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 191
+T 192
+T 193
+T 194
+T 195
+T 196
+T 197
+T 198
+T 199
+T 200
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ominous_item_spawner#1 minecraft:ominous_item_spawner pos=8.5,-57.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 201
+T 202
+T 203
+T 204
+T 205
+T 206
+T 207
+T 208
+T 209
+T 210
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ominous_item_spawner#1 minecraft:ominous_item_spawner pos=8.5,-57.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 211
+T 212
+T 213
+T 214
+T 215
+T 216
+T 217
+T 218
+T 219
+T 220
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ominous_item_spawner#1 minecraft:ominous_item_spawner pos=8.5,-57.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 221
+T 222
+T 223
+T 224
+T 225
+T 226
+T 227
+EV sound at=8.5,-57.5,8.5 r=16.0 ex=0 event=minecraft:block.trial_spawner.about_to_spawn_item source=neutral vol=1.0 pitch=1.0
+T 228
+T 229
+T 230
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ominous_item_spawner#1 minecraft:ominous_item_spawner pos=8.5,-57.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 231
+T 232
+T 233
+T 234
+T 235
+T 236
+T 237
+T 238
+T 239
+T 240
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ominous_item_spawner#1 minecraft:ominous_item_spawner pos=8.5,-57.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 241
+T 242
+T 243
+T 244
+T 245
+T 246
+T 247
+T 248
+T 249
+T 250
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ominous_item_spawner#1 minecraft:ominous_item_spawner pos=8.5,-57.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 251
+T 252
+T 253
+T 254
+T 255
+T 256
+T 257
+T 258
+T 259
+T 260
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ominous_item_spawner#1 minecraft:ominous_item_spawner pos=8.5,-57.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 261
+T 262
+T 263
+EV level_event r=64.0 ex=0 type=3021 pos=8,-58,8 data=1 global=0
+T 264
+EV sound at=8.5,-60.0,8.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=8.47220042993665,-58.200000047683716,8.449263482978612 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1586858
+T 265
+T 266
+T 267
+T 268
+T 269
+T 270
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 271
+T 272
+T 273
+T 274
+T 275
+T 276
+T 277
+T 278
+T 279
+T 280
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 281
+T 282
+T 283
+T 284
+T 285
+T 286
+T 287
+T 288
+T 289
+T 290
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 291
+T 292
+T 293
+T 294
+T 295
+T 296
+T 297
+T 298
+T 299
+T 300
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 301
+T 302
+T 303
+T 304
+T 305
+T 306
+T 307
+T 308
+T 309
+T 310
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E zombie#1 minecraft:zombie pos=10.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=64.021454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 311
+T 312
+T 313
+T 314
+T 315
+T 316
+T 317
+T 318
+T 319
+T 320
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=waiting_for_reward_ejection]
+T 321
+T 322
+T 323
+T 324
+T 325
+T 326
+T 327
+T 328
+T 329
+T 330
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=waiting_for_reward_ejection]
+T 331
+T 332
+T 333
+T 334
+T 335
+T 336
+T 337
+T 338
+T 339
+T 340
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=waiting_for_reward_ejection]
+T 341
+T 342
+T 343
+T 344
+T 345
+T 346
+T 347
+T 348
+T 349
+T 350
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=waiting_for_reward_ejection]
+T 351
+EV sound at=8.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.trial_spawner.open_shutter source=block vol=1.0 pitch=1.0
+T 352
+T 353
+T 354
+T 355
+T 356
+T 357
+T 358
+T 359
+T 360
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=ejecting_reward]
+T 361
+T 362
+T 363
+T 364
+T 365
+T 366
+T 367
+T 368
+T 369
+T 370
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=ejecting_reward]
+T 371
+EV level_event r=64.0 ex=0 type=3014 pos=8,-60,12 data=0 global=0
+T 372
+T 373
+T 374
+T 375
+T 376
+T 377
+T 378
+T 379
+T 380
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=ejecting_reward]
+E item#1 minecraft:item pos=8.479168063309324,-58.975019371843146,12.609442023111662 delta=-0.0020894253881848686,-0.15963251941514042,0.01097694107942422 rot=160.71492,0.0 og=0 fall=0.4318014355376363 fire=0 air=300 alive=1 pose=standing item=minecraft:ominous_trial_key*1 age=9 pickup=0 health=5 owner=- thrower=-
+T 381
+T 382
+T 383
+T 384
+T 385
+T 386
+T 387
+T 388
+T 389
+T 390
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=ejecting_reward]
+E item#1 minecraft:item pos=8.474453106463868,-59.0,12.634212375657993 delta=-1.468634466421546E-4,-0.04,7.715572949520691E-4 rot=160.71492,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:ominous_trial_key*1 age=19 pickup=0 health=5 owner=- thrower=-
+T 391
+T 392
+T 393
+T 394
+T 395
+T 396
+T 397
+T 398
+T 399
+T 400
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=ejecting_reward]
+E item#1 minecraft:item pos=8.474219887301917,-59.0,12.635437608687997 delta=-5.0777165707892834E-5,-0.12,2.6676135903560866E-4 rot=160.71492,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:ominous_trial_key*1 age=29 pickup=0 health=5 owner=- thrower=-
+E chicken#1 minecraft:chicken pos=-88.5,-60.0,67.5 delta=0.0,-0.04704000091552734,0.0 rot=9.0694065,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=-89.5,-60.0,67.5 delta=0.0,-0.04704000091552734,0.0 rot=300.98904,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=-88.5,-60.0,68.5 delta=0.0,-0.04704000091552734,0.0 rot=309.77524,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=-92.5,-60.0,66.5 delta=0.0,-0.04704000091552734,0.0 rot=327.4641,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#5 minecraft:chicken pos=58.5,-60.0,-18.5 delta=0.0,-0.04704000091552734,0.0 rot=50.99214,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#6 minecraft:chicken pos=62.5,-60.0,-13.5 delta=0.0,-0.04704000091552734,0.0 rot=51.323277,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#7 minecraft:chicken pos=61.5,-60.0,-14.5 delta=0.0,-0.04704000091552734,0.0 rot=59.517467,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=58.5,-60.0,-20.5 delta=0.0,-0.0784000015258789,0.0 rot=175.97357,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=22.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#2 minecraft:horse pos=62.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=144.5392,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#8 minecraft:chicken pos=59.5,-60.0,-18.5 delta=0.0,-0.04704000091552734,0.0 rot=59.100693,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 401
+EV sound at=8.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.trial_spawner.close_shutter source=block vol=1.0 pitch=1.0
+T 402
+T 403
+T 404
+T 405
+T 406
+T 407
+T 408
+T 409
+T 410
+B 8 -60 12 minecraft:trial_spawner[ominous=false,trial_spawner_state=waiting_for_players]
+E item#1 minecraft:item pos=8.474219887301917,-59.0,12.635437608687997 delta=-1.0322872537865717E-5,-0.04,5.423192627950043E-5 rot=160.71492,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:ominous_trial_key*1 age=39 pickup=0 health=5 owner=- thrower=-
+E chicken#1 minecraft:chicken pos=-88.5,-60.0,67.5 delta=0.0,-0.0784000015258789,0.0 rot=9.0694065,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=-89.5,-60.0,67.5 delta=0.0,-0.0784000015258789,0.0 rot=300.98904,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=-88.5,-60.0,68.5 delta=0.0,-0.0784000015258789,0.0 rot=309.77524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=-92.5,-60.0,66.5 delta=0.0,-0.0784000015258789,0.0 rot=327.4641,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#5 minecraft:chicken pos=58.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=50.99214,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#6 minecraft:chicken pos=62.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=51.323277,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#7 minecraft:chicken pos=61.5,-60.0,-14.5 delta=0.0,-0.0784000015258789,0.0 rot=59.517467,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=58.5,-60.0,-20.5 delta=0.0,-0.0784000015258789,0.0 rot=175.97357,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=22.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#2 minecraft:horse pos=62.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=144.5392,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#8 minecraft:chicken pos=59.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=59.100693,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 411
+T 412
+T 413
+T 414
+T 415
+T 416
+T 417
+T 418
+T 419
+T 420
+EV level_event r=64.0 ex=0 type=3020 pos=8,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=3020 pos=8,-60,12 data=1 global=0
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E item#1 minecraft:item pos=8.474219887301917,-59.0,12.635437608687997 delta=-3.5690719605256146E-6,-0.12,1.8750366890558914E-5 rot=160.71492,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:ominous_trial_key*1 age=49 pickup=0 health=5 owner=- thrower=-
+E chicken#1 minecraft:chicken pos=-88.5,-60.0,67.5 delta=0.0,-0.0784000015258789,0.0 rot=9.0694065,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=-89.38747507848429,-60.0,67.6125118191104 delta=0.037306278284100186,-0.0784000015258789,0.0373037517398513 rot=315.00024,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=-88.5,-60.0,68.5 delta=0.0,-0.0784000015258789,0.0 rot=309.77524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=-92.5,-60.0,66.5 delta=0.0,-0.0784000015258789,0.0 rot=327.4641,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#5 minecraft:chicken pos=58.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=50.99214,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#6 minecraft:chicken pos=62.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=51.323277,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#7 minecraft:chicken pos=61.5,-60.0,-14.5 delta=0.0,-0.0784000015258789,0.0 rot=59.517467,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=58.30788072179429,-60.0,-20.692119278205716 delta=-0.017778859626904668,-0.0784000015258789,-0.017778859626904668 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=22.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#2 minecraft:horse pos=62.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=144.5392,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#8 minecraft:chicken pos=59.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=59.100693,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 421
+T 422
+T 423
+T 424
+EV sound at=58.20924206999284,-60.0,-20.790757930007167 r=16.0 ex=0 event=minecraft:entity.horse.ambient source=neutral vol=0.8 pitch=1.0773933
+T 425
+T 426
+EV sound at=59.45580582693219,-60.0,-18.455805826932192 r=16.0 ex=0 event=minecraft:entity.chicken.ambient source=neutral vol=1.0 pitch=1.065935
+T 427
+T 428
+T 429
+T 430
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E item#1 minecraft:item pos=8.474219887301917,-59.0,12.635437608687997 delta=-7.255835258494845E-7,-0.04,3.81190333786926E-6 rot=160.71492,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:ominous_trial_key*1 age=59 pickup=0 health=5 owner=- thrower=-
+E chicken#1 minecraft:chicken pos=-88.5,-60.0,67.5 delta=0.0,-0.0784000015258789,0.0 rot=9.0694065,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=-88.66760531999843,-60.0,68.33236166021655 delta=0.0032605647203696013,-0.0784000015258789,0.003255339181550538 rot=315.0007,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=-88.2340830681857,-60.0,68.7659363691594 delta=0.028440349363485166,-0.0784000015258789,0.02844326629373722 rot=309.77524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=-92.5,-60.0,66.5 delta=0.0,-0.0784000015258789,0.0 rot=327.4641,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#5 minecraft:chicken pos=58.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=50.99214,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#6 minecraft:chicken pos=62.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=51.323277,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#7 minecraft:chicken pos=61.5,-60.0,-14.5 delta=0.0,-0.0784000015258789,0.0 rot=59.517467,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=57.978054511924,-60.0,-21.02194548807601 delta=-0.018039209474900002,-0.0784000015258789,-0.018039209474900002 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=22.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#2 minecraft:horse pos=62.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=144.5392,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#8 minecraft:chicken pos=59.02990437483618,-60.0,-18.029904374836168 delta=-0.05174165439562544,-0.0784000015258789,0.05174165439562544 rot=45.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 431
+T 432
+T 433
+T 434
+T 435
+T 436
+T 437
+EV sound at=58.5,-60.0,-18.5 r=16.0 ex=0 event=minecraft:entity.chicken.ambient source=neutral vol=1.0 pitch=0.8876894
+T 438
+EV sound at=-88.27910397249893,-60.0,68.72077873357719 r=16.0 ex=0 event=minecraft:entity.chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=58.25422953675772,-60.0,-17.254229536757713 r=16.0 ex=0 event=minecraft:entity.chicken.step source=neutral vol=0.15 pitch=1.0
+T 439
+T 440
+EV sound at=62.5,-60.0,-18.5 r=16.0 ex=0 event=minecraft:entity.horse.ambient source=neutral vol=0.8 pitch=0.9909217
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E item#1 minecraft:item pos=8.474219887301917,-59.0,12.635437608687997 delta=-2.5086620101425054E-7,-0.12,1.3179429727063197E-6 rot=160.71492,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:ominous_trial_key*1 age=69 pickup=0 health=5 owner=- thrower=-
+E chicken#1 minecraft:chicken pos=-88.5,-60.0,67.5 delta=0.0,-0.0784000015258789,0.0 rot=9.0694065,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=-88.17440707391108,-60.0,68.82544099544609 delta=0.005257928138196432,-0.0784000015258789,0.005230219433307197 rot=315.0056,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=-87.7532064369509,-60.0,69.24696763698984 delta=0.026150548439600147,-0.0784000015258789,0.026168204088669076 rot=309.77524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=-93.31348049844203,-60.0,65.75772036422136 delta=-0.050142474355658995,-0.0784000015258789,-0.055536092509098814 rot=136.76059,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#5 minecraft:chicken pos=58.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=50.99214,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#6 minecraft:chicken pos=62.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=51.323277,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#7 minecraft:chicken pos=61.5,-60.0,-14.5 delta=0.0,-0.0784000015258789,0.0 rot=59.517467,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=57.64765619445305,-60.0,-21.352343805546973 delta=-0.018039822508473677,-0.0784000015258789,-0.018039822508473677 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=22.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#2 minecraft:horse pos=62.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=144.5392,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#8 minecraft:chicken pos=58.05955871775381,-60.0,-17.059558717753806 delta=-0.053146518296998166,-0.0784000015258789,0.053146518296998166 rot=45.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 441
+EV sound at=-87.7532064369509,-60.0,69.24696763698984 r=16.0 ex=0 event=minecraft:entity.chicken.ambient source=neutral vol=1.0 pitch=0.90166163
+T 442
+T 443
+T 444
+EV sound at=-93.68878089114119,-60.0,65.35573775753775 r=16.0 ex=0 event=minecraft:entity.chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=62.5,-60.0,-13.5 r=16.0 ex=0 event=minecraft:entity.chicken.ambient source=neutral vol=1.0 pitch=0.9964517
+T 445
+T 446
+T 447
+T 448
+T 449
+EV sound at=-87.29551452307317,-60.0,69.70545786925095 r=16.0 ex=0 event=minecraft:entity.chicken.step source=neutral vol=0.15 pitch=1.0
+T 450
+EV sound at=57.31725652986716,-60.0,-21.682743470132866 r=16.0 ex=0 event=minecraft:entity.horse.step source=neutral vol=0.15 pitch=1.0
+EV sound at=57.08613443311505,-60.0,-16.086117424672167 r=16.0 ex=0 event=minecraft:entity.chicken.step source=neutral vol=0.15 pitch=1.0
+B 8 -60 12 minecraft:trial_spawner[ominous=true,trial_spawner_state=active]
+E item#1 minecraft:item pos=8.474219887301917,-59.0,12.635437608687997 delta=-5.100047986187952E-8,-0.04,2.6793455541982743E-7 rot=160.71492,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:ominous_trial_key*1 age=79 pickup=0 health=5 owner=- thrower=-
+E chicken#1 minecraft:chicken pos=-88.5,-60.0,67.5 delta=0.0,-0.0784000015258789,0.0 rot=9.0694065,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=-87.70662200948257,-60.0,69.29255485865309 delta=0.01941918477108841,-0.0784000015258789,0.01932795940255372 rot=315.0151,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=-87.26179235404754,-60.0,69.73928824976014 delta=0.018412306426629478,-0.0784000015258789,0.01847138990351831 rot=309.77524,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=-94.191164713394,-60.0,64.71866691661641 delta=-0.029643999604063734,-0.0784000015258789,-0.06705873517179857 rot=164.85352,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#5 minecraft:chicken pos=58.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=50.99214,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#6 minecraft:chicken pos=62.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=51.323277,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#7 minecraft:chicken pos=61.5,-60.0,-14.5 delta=0.0,-0.0784000015258789,0.0 rot=59.517467,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=57.31725652986716,-60.0,-21.682743470132866 delta=-0.018039823951955077,-0.0784000015258789,-0.018039823951955077 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=22.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#2 minecraft:horse pos=62.5,-60.0,-18.5 delta=0.0,-0.0784000015258789,0.0 rot=144.5392,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#8 minecraft:chicken pos=57.08613443311505,-60.0,-16.086117424672167 delta=-0.05314944982794157,-0.0784000015258789,0.05315020303138184 rot=45.000656,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+BE 8 -60 12 {components:{},cooldown_ends_at:580L,id:"minecraft:trial_spawner",next_mob_spawns_at:460L,normal_config:{loot_tables_to_eject:[],simultaneous_mobs:1.0f,simultaneous_mobs_added_per_player:0.0f,spawn_potentials:[{data:{entity:{NoAI:1b,Pos:[10.5d,-60.0d,14.5d],Silent:1b,id:"minecraft:zombie"}},weight:1}],spawn_range:3,ticks_between_spawn:20,total_mobs:1.0f,total_mobs_added_per_player:0.0f},ominous_config:{loot_tables_to_eject:[{data:"minecraft:spawners/ominous/trial_chamber/consumables",weight:1},{data:"minecraft:spawners/ominous/trial_chamber/key",weight:1}],simultaneous_mobs:1.0f,simultaneous_mobs_added_per_player:0.0f,spawn_potentials:[{data:{entity:{NoAI:1b,Pos:[10.5d,-60.0d,14.5d],Silent:1b,id:"minecraft:zombie"}},weight:1}],spawn_range:3,ticks_between_spawn:20,total_mobs:1.0f,total_mobs_added_per_player:0.0f},registered_players:[[I;-1326943992,-2019279064,-1587751528,112070755]],spawn_data:{entity:{NoAI:1b,Pos:[10.5d,-60.0d,14.5d],Silent:1b,id:"minecraft:zombie"}},target_cooldown_length:60,x:8,y:-60,z:12}

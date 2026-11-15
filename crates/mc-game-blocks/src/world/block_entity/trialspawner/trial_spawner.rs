@@ -115,6 +115,7 @@ impl TrialSpawner {
     pub fn apply_ominous(&mut self, level: &mut ServerLevel, spawner_pos: BlockPos) {
         let state = level.get_block_state(spawner_pos).set(props::OMINOUS, true);
         level.set_block_and_update(spawner_pos, state);
+        self.block_state = state;
         level.level_event(None, 3020, spawner_pos, 1);
         self.is_ominous = true;
         self.reset_after_becoming_ominous(level);
@@ -126,6 +127,7 @@ impl TrialSpawner {
             .get_block_state(spawner_pos)
             .set(props::OMINOUS, false);
         level.set_block_and_update(spawner_pos, state);
+        self.block_state = state;
         self.is_ominous = false;
     }
 

@@ -1,0 +1,113 @@
+# Charged creeper kills: `Creeper.killedEntity` rolls `charged_creeper/root` for the victim (`LivingEntity.dropFromLootTable` with the dying
+# mob as `this`, the killing creeper as attacker and direct attacker, no looting player): zombie, skeleton, wither skeleton, piglin and creeper heads,
+# a victim without an entry (pig), a baby and a husk (zombie entry), a second victim of the same creeper (`droppedSkulls`), a creeper that is not
+# charged, and `mob_drops false` (`shouldDropLoot`).
+level flat
+preload 4
+entity_counter 6300
+level_seed 6301
+difficulty normal
+gamerule mob_drops true
+spawn_player I1 survival -30.5 -60 0.5 0 0
+tick 30
+fill -2 -57 -2 70 -57 20 minecraft:stone
+mobspawn C0 minecraft:creeper 2.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,powered:1b}
+entity_seed C0 500
+mobspawn V0 minecraft:zombie 2.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed V0 600
+mobspawn C1 minecraft:creeper 6.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,powered:1b}
+entity_seed C1 501
+mobspawn V1 minecraft:skeleton 6.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed V1 601
+mobspawn C2 minecraft:creeper 10.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,powered:1b}
+entity_seed C2 502
+mobspawn V2 minecraft:wither_skeleton 10.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed V2 602
+mobspawn C3 minecraft:creeper 14.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,powered:1b}
+entity_seed C3 503
+mobspawn V3 minecraft:piglin 14.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed V3 603
+mobspawn C4 minecraft:creeper 18.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,powered:1b}
+entity_seed C4 504
+mobspawn V4 minecraft:creeper 18.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed V4 604
+mobspawn C5 minecraft:creeper 22.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,powered:1b}
+entity_seed C5 505
+mobspawn V5 minecraft:pig 22.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed V5 605
+mobspawn C6 minecraft:creeper 26.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,powered:1b}
+entity_seed C6 506
+mobspawn V6 minecraft:zombie 26.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsBaby:1b}
+entity_seed V6 606
+mobspawn C7 minecraft:creeper 30.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,powered:1b}
+entity_seed C7 507
+mobspawn V7 minecraft:husk 30.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed V7 607
+mobspawn V8 minecraft:zombie 2.5 -60 10.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed V8 608
+mobspawn P0 minecraft:creeper 6.5 -60 10.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed P0 609
+mobspawn V9 minecraft:zombie 6.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed V9 610
+mobspawn V10 minecraft:zombie 10.5 -60 14.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed V10 611
+tick 2
+dump mobs entities
+note charged creeper kills a zombie
+level_seed 7000
+hurt V0 explosion 100 by=C0 direct=C0
+tick 22
+dump mobs entities events
+note charged creeper kills a skeleton
+level_seed 7001
+hurt V1 explosion 100 by=C1 direct=C1
+tick 22
+dump mobs entities events
+note charged creeper kills a wither
+level_seed 7002
+hurt V2 explosion 100 by=C2 direct=C2
+tick 22
+dump mobs entities events
+note charged creeper kills a piglin
+level_seed 7003
+hurt V3 explosion 100 by=C3 direct=C3
+tick 22
+dump mobs entities events
+note charged creeper kills a creeper
+level_seed 7004
+hurt V4 explosion 100 by=C4 direct=C4
+tick 22
+dump mobs entities events
+note charged creeper kills a pig
+level_seed 7005
+hurt V5 explosion 100 by=C5 direct=C5
+tick 22
+dump mobs entities events
+note charged creeper kills a baby
+level_seed 7006
+hurt V6 explosion 100 by=C6 direct=C6
+tick 22
+dump mobs entities events
+note charged creeper kills a husk
+level_seed 7007
+hurt V7 explosion 100 by=C7 direct=C7
+tick 22
+dump mobs entities events
+note the same creeper kills a second zombie: its head was dropped already
+level_seed 7100
+hurt V8 explosion 100 by=C0 direct=C0
+tick 22
+dump mobs entities events
+note an uncharged creeper kills a zombie
+level_seed 7101
+hurt V9 explosion 100 by=P0 direct=P0
+tick 22
+dump mobs entities events
+note mob_drops false: the charged creeper's victim drops nothing
+mobspawn C20 minecraft:creeper 14.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,powered:1b}
+entity_seed C20 512
+gamerule mob_drops false
+level_seed 7102
+hurt V10 explosion 100 by=C20 direct=C20
+tick 22
+dump mobs entities events

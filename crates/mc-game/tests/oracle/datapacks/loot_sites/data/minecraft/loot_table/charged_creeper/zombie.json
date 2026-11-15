@@ -1,0 +1,115 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:zombie"
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dirt"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:location_check",
+        "predicate": {
+          "position": {
+            "y": {
+              "min": -61,
+              "max": -59
+            }
+          }
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "attacker",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:creeper"
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "direct_attacker",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:creeper"
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:damage_source_properties",
+        "predicate": {
+          "tags": [
+            {
+              "id": "#minecraft:is_explosion",
+              "expected": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:killed_by_player"
+      }
+    },
+    {
+      "rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald"
+        }
+      ],
+      "bonus_rolls": 1.0
+    }
+  ]
+}

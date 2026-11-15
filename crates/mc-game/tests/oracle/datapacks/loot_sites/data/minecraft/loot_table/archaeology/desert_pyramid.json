@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:player"
+        }
+      }
+    }
+  ]
+}

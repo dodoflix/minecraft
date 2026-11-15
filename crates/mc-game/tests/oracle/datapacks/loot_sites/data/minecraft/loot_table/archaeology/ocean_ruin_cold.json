@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:location_check",
+        "predicate": {
+          "position": {
+            "y": {
+              "min": -61,
+              "max": -59
+            }
+          }
+        }
+      }
+    }
+  ]
+}

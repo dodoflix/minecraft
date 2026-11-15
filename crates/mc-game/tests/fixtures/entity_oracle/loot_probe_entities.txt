@@ -1,0 +1,63 @@
+C Set minecraft:overworld to 18000 tick(s)
+C Game rule mob_drops is already set to true
+# charged creeper kills a zombie (the table reads this, attacker, direct attacker, origin and the damage source)
+HURT V0 explosion 100 -> true
+E C0 minecraft:creeper pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.412143424475357;minecraft:movement_speed:0.25
+E AR minecraft:armadillo pos=-29.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=1 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.194829019255646;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=idle astateticks=24 scute=11428
+E C0 minecraft:creeper pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E AR minecraft:armadillo pos=-29.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=2.3999902242888522,-60.0,6.921518928021524 delta=-2.1819207132775306E-4,-0.12,9.19630979620511E-4 rot=306.11945,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.6606105113925476,-60.0,6.7854295776297056 delta=2.0558971054415606E-4,0.0,3.653645314795679E-4 rot=302.16367,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.2595672710868406,-60.0,6.702911372460287 delta=-5.24553872494073E-4,-0.04,4.426932501172713E-4 rot=287.2506,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.693177116551459,-60.0,6.142965318294943 delta=4.214559516184081E-4,-0.08,-7.789452199360149E-4 rot=181.22948,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=3.0518666275175206,-60.0,6.216460540336232 delta=7.064176511648347E-4,-0.12,-3.629450833242595E-4 rot=190.46439,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=22 pickup=0 health=5 owner=- thrower=-
+EV sound at=2.5,-60.0,6.5 r=16.0 ex=0 event=minecraft:entity.zombie.death source=hostile vol=1.0 pitch=1.0436889
+# a player brushes an armadillo (interacting entity, target, tool)
+I I1 0 minecraft:brush*1/dmg=16{minecraft:damage:16}
+E C0 minecraft:creeper pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E AR minecraft:armadillo pos=-29.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=2.3999902242888522,-60.0,6.921518928021524 delta=-2.1819207132775306E-4,-0.12,9.19630979620511E-4 rot=306.11945,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.6606105113925476,-60.0,6.7854295776297056 delta=2.0558971054415606E-4,0.0,3.653645314795679E-4 rot=302.16367,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.2595672710868406,-60.0,6.702911372460287 delta=-5.24553872494073E-4,-0.04,4.426932501172713E-4 rot=287.2506,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.693177116551459,-60.0,6.142965318294943 delta=4.214559516184081E-4,-0.08,-7.789452199360149E-4 rot=181.22948,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=3.0518666275175206,-60.0,6.216460540336232 delta=7.064176511648347E-4,-0.12,-3.629450833242595E-4 rot=190.46439,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=-29.5,-60.0,0.5 delta=0.07130245414669426,0.2,-0.012899308594495423 rot=333.78152,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=-29.5,-60.0,0.5 delta=-0.015494214830752834,0.2,0.0943824150107751 rot=253.62556,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-29.5,-60.0,0.5 delta=-0.09748437482429971,0.2,-0.05091898593714557 rot=322.38,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=-29.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.brush source=neutral vol=1.0 pitch=1.0
+# a dispenser brushes an armadillo (no interacting entity)
+BE 0 -60 10 {Items:[{Slot:0b,components:{"minecraft:damage":16},count:1,id:"minecraft:brush"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:10}
+E C0 minecraft:creeper pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E AR minecraft:armadillo pos=-29.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=2.3999902242888522,-60.0,6.921518928021524 delta=-2.1819207132775306E-4,-0.12,9.19630979620511E-4 rot=306.11945,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.6606105113925476,-60.0,6.7854295776297056 delta=2.0558971054415606E-4,0.0,3.653645314795679E-4 rot=302.16367,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.2595672710868406,-60.0,6.702911372460287 delta=-5.24553872494073E-4,-0.04,4.426932501172713E-4 rot=287.2506,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.693177116551459,-60.0,6.142965318294943 delta=4.214559516184081E-4,-0.08,-7.789452199360149E-4 rot=181.22948,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=3.0518666275175206,-60.0,6.216460540336232 delta=7.064176511648347E-4,-0.12,-3.629450833242595E-4 rot=190.46439,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=-29.5,-60.0,0.5 delta=0.07130245414669426,0.2,-0.012899308594495423 rot=333.78152,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=-29.5,-60.0,0.5 delta=-0.015494214830752834,0.2,0.0943824150107751 rot=253.62556,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-29.5,-60.0,0.5 delta=-0.09748437482429971,0.2,-0.05091898593714557 rot=322.38,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=0 pickup=10 health=5 owner=- thrower=-
+E AR2 minecraft:armadillo pos=1.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#9 minecraft:item pos=1.5,-60.0,10.5 delta=0.0993511156179859,0.2,-0.09236669728282049 rot=22.649324,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=1.5,-60.0,10.5 delta=-0.005109267530720829,0.2,0.009940824346262866 rot=281.73578,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=1.5,-60.0,10.5 r=16.0 ex=0 event=minecraft:entity.armadillo.brush source=neutral vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,10 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,10 data=5 global=0
+# the advancement reward loot of a player
+I I1 0 minecraft:brush*1/dmg=16{minecraft:damage:16}
+I I1 1 minecraft:stick*1
+I I1 2 minecraft:dirt*1
+I I1 3 minecraft:coal*1
+E C0 minecraft:creeper pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E AR minecraft:armadillo pos=-29.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=2.3997720322175247,-60.0,6.922438559001145 delta=-1.2829695084193762E-4,-0.08,5.407430703926241E-4 rot=306.11945,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=25 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.6606105113925476,-60.0,6.7854295776297056 delta=2.0558971054415606E-4,-0.12,3.653645314795679E-4 rot=302.16367,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=25 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.2590427172143466,-60.0,6.703354065710404 delta=-3.0843770804223536E-4,0.0,2.6030365724443686E-4 rot=287.2506,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=25 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.6935985725030775,-60.0,6.142186373075007 delta=2.478161244713904E-4,-0.04,-4.5801983537969987E-4 rot=181.22948,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=25 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=3.0525730451686854,-60.0,6.216097595252908 delta=4.153736206538498E-4,-0.08,-2.1341173045481165E-4 rot=190.46439,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=25 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=-29.290342259801502,-59.64873599172974,0.4620708722804827 delta=0.0671093033416283,0.07297472653442398,-0.012140726763545776 rot=333.78152,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=-29.54555919016311,-59.64873599172974,0.7775220584262802 delta=-0.014583031896463212,0.07297472653442398,0.08883197913556269 rot=253.62556,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-29.786643061237097,-59.64873599172974,0.3502778108756575 delta=-0.09175151906684029,0.07297472653442398,-0.047924545010382846 rot=322.38,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=3 pickup=7 health=5 owner=- thrower=-
+E AR2 minecraft:armadillo pos=1.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#9 minecraft:item pos=1.7921320259722433,-59.64873599172974,10.228404958094801 delta=0.09350848067051724,0.07297472653442398,-0.08693480162498081 rot=22.649324,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=1.4849767094642121,-59.64873599172974,10.529230000468985 delta=-0.004808802006551594,0.07297472653442398,0.009356224894401168 rot=281.73578,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=3 pickup=7 health=5 owner=- thrower=-

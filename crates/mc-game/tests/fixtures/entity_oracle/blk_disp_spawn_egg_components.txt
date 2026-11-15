@@ -1,0 +1,329 @@
+C Set minecraft:overworld to 18000 tick(s)
+# c0 sheep egg
+BE 0 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.sheep.ambient source=neutral vol=1.0 pitch=1.1224242
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+N sheep#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,Color:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,0.5d],Rotation:[112.57907f,0.0f],Sheared:0b,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.004133074222314476d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c1 wolf egg
+BE 0 -60 3 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:3}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.wolf_cute.ambient source=neutral vol=0.4 pitch=1.0766472
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,3 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,3 data=5 global=0
+N wolf#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:11b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,3.5d],Rotation:[-150.56934f,0.0f],Sitting:0b,anger_end_time:-1L,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.020213129682515703d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:8.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:cute",variant:"minecraft:rusty"}
+# c2 cat egg
+BE 0 -60 6 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:6}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,6.5 r=16.0 ex=0 event=minecraft:entity.cat_royal.stray_ambient source=neutral vol=1.0 pitch=1.1382358
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,6 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,6 data=5 global=0
+N cat#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:5b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,6.5d],Rotation:[-81.124146f,0.0f],Sitting:0b,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.001406477771464343d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:royal",variant:"minecraft:calico"}
+# c3 axolotl egg
+BE 0 -60 9 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:9}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,9.5 r=16.0 ex=0 event=minecraft:entity.axolotl.idle_air source=neutral vol=1.0 pitch=0.9402358
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,9 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,9 data=5 global=0
+N axolotl#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:6000s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,FromBucket:0b,Health:14.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,9.5d],Rotation:[15.727465f,0.0f],Variant:4,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.0711972760110933d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c4 tropical_fish egg
+BE 0 -60 12 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:12}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,12.5 r=16.0 ex=0 event=minecraft:entity.tropical_fish.ambient source=neutral vol=1.0 pitch=0.97697854
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,12 data=5 global=0
+N tropical_fish#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,FromBucket:0b,Health:3.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,12.5d],Rotation:[139.98546f,0.0f],Variant:151060737,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.06698461091662938d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c5 salmon egg
+BE 0 -60 15 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:15}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,15.5 r=16.0 ex=0 event=minecraft:entity.salmon.ambient source=neutral vol=1.0 pitch=0.82032377
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,15 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,15 data=5 global=0
+N salmon#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,FromBucket:0b,Health:3.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,15.5d],Rotation:[-123.16293f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.02095812655367751d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,type:"large"}
+# c6 rabbit egg
+BE 0 -60 18 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:18}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,18.5 r=16.0 ex=0 event=minecraft:entity.rabbit.ambient source=neutral vol=1.0 pitch=1.0966648
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,18 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,18 data=5 global=0
+N rabbit#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:3.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,MoreCarrotTicks:0,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,18.5d],RabbitType:4,Rotation:[-53.717743f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.08396992089361946d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:3.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c7 fox egg
+BE 0 -60 21 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:21}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,21.5 r=16.0 ex=0 event=minecraft:entity.fox.ambient source=neutral vol=1.0 pitch=1.0285162
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,21 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,21 data=5 global=0
+N fox#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,Crouching:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,21.5d],Rotation:[43.13387f,0.0f],Sitting:0b,Sleeping:0b,Trusted:[],Type:"snow",attributes:[{base:32.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.02239154016532804d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c8 pig egg
+BE 0 -60 24 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:24}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=167.39186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,24.5 r=16.0 ex=0 event=minecraft:entity.pig_mini.ambient source=neutral vol=1.0 pitch=0.9477136
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,24 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,24 data=5 global=0
+N pig#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,24.5d],Rotation:[167.39186f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.0390634446950714d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:mini",variant:"minecraft:temperate"}
+# c9 cow egg
+BE 0 -60 27 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:27}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=167.39186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=-95.75656,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,27.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.ambient source=neutral vol=0.4 pitch=0.9102125
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,27 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,27 data=5 global=0
+N cow#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,27.5d],Rotation:[-95.75656f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.10013275920975878d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:moody",variant:"minecraft:warm"}
+# c10 mooshroom egg
+BE 16 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:16,y:-60,z:0}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=167.39186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=-95.75656,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mooshroom#1 minecraft:mooshroom pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-26.31134,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=17.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=1.0531881
+EV level_event r=64.0 ex=0 type=1000 pos=16,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=16,-60,0 data=5 global=0
+N mooshroom#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[17.5d,-60.0d,0.5d],Rotation:[-26.31134f,0.0f],Type:"brown",attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.025068357809274355d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c11 chicken egg
+BE 16 -60 3 {Items:[],components:{},id:"minecraft:dispenser",x:16,y:-60,z:3}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=167.39186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=-95.75656,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mooshroom#1 minecraft:mooshroom pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-26.31134,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=17.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=70.54025,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=17.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.chicken_picky.ambient source=neutral vol=1.0 pitch=0.9025159
+EV level_event r=64.0 ex=0 type=1000 pos=16,-60,3 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=16,-60,3 data=5 global=0
+N chicken#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,EggLayTime:9538,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,InLove:0,Invulnerable:0b,IsChickenJockey:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[17.5d,-60.0d,3.5d],Rotation:[70.54025f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.06340964859990159d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:picky",variant:"minecraft:temperate"}
+# c12 horse egg
+BE 16 -60 6 {Items:[],components:{},id:"minecraft:dispenser",x:16,y:-60,z:6}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=167.39186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=-95.75656,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mooshroom#1 minecraft:mooshroom pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-26.31134,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=17.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=70.54025,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=17.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-165.20175,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=27.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=17.5,-60.0,6.5 r=16.0 ex=0 event=minecraft:entity.horse.ambient source=neutral vol=0.8 pitch=1.1297197
+EV level_event r=64.0 ex=0 type=1000 pos=16,-60,6 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=16,-60,6 data=5 global=0
+N horse#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:27.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[17.5d,-60.0d,6.5d],Rotation:[-165.20175f,0.0f],Tame:0b,Temper:0,Variant:262,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.028703905548853704d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.7429552534760755d,id:"minecraft:jump_strength"},{base:0.1948526242289858d,id:"minecraft:movement_speed"},{base:27.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c13 llama egg
+BE 16 -60 9 {Items:[],components:{},id:"minecraft:dispenser",x:16,y:-60,z:9}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=167.39186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=-95.75656,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mooshroom#1 minecraft:mooshroom pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-26.31134,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=17.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=70.54025,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=17.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-165.20175,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=27.0 abs=0.0 hurt=0/0 death=0 fx=-
+E llama#1 minecraft:llama pos=17.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=-68.35016,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=17.5,-60.0,9.5 r=16.0 ex=0 event=minecraft:entity.llama.ambient source=neutral vol=0.8 pitch=1.1011531
+EV level_event r=64.0 ex=0 type=1000 pos=16,-60,9 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=16,-60,9 data=5 global=0
+N llama#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:18.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[17.5d,-60.0d,9.5d],Rotation:[-68.35016f,0.0f],Strength:2,Tame:0b,Temper:0,Variant:3,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.029307739487684368d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:18.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c14 villager egg
+BE 16 -60 12 {Items:[],components:{},id:"minecraft:dispenser",x:16,y:-60,z:12}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=167.39186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=-95.75656,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mooshroom#1 minecraft:mooshroom pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-26.31134,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=17.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=70.54025,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=17.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-165.20175,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=27.0 abs=0.0 hurt=0/0 death=0 fx=-
+E llama#1 minecraft:llama pos=17.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=-68.35016,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/0 death=0 fx=-
+E villager#1 minecraft:villager pos=17.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=1.0950494,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=17.5,-60.0,12.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.98009497
+EV level_event r=64.0 ex=0 type=1000 pos=16,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=16,-60,12 data=5 global=0
+N villager#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,FoodLevel:0b,ForcedAge:0,Gossips:[],Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastGossipDecay:0L,LastRestock:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[17.5d,-60.0d,12.5d],RestocksToday:0,Rotation:[1.0950494f,0.0f],VillagerData:{level:1,profession:"minecraft:none",type:"minecraft:snow"},VillagerDataFinalized:1b,Xp:0,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.02052570302751983d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c15 zombie_villager egg
+BE 16 -60 15 {Items:[],components:{},id:"minecraft:dispenser",x:16,y:-60,z:15}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=167.39186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=-95.75656,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mooshroom#1 minecraft:mooshroom pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-26.31134,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=17.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=70.54025,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=17.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-165.20175,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=27.0 abs=0.0 hurt=0/0 death=0 fx=-
+E llama#1 minecraft:llama pos=17.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=-68.35016,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/0 death=0 fx=-
+E villager#1 minecraft:villager pos=17.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=1.0950494,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie_villager#1 minecraft:zombie_villager pos=17.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=97.946655,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=17.5,-60.0,15.5 r=16.0 ex=0 event=minecraft:entity.zombie_villager.ambient source=hostile vol=1.0 pitch=1.0312027
+EV level_event r=64.0 ex=0 type=1000 pos=16,-60,15 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=16,-60,15 data=5 global=0
+N zombie_villager#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,ConversionTime:-1,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[17.5d,-60.0d,15.5d],Rotation:[97.946655f,0.0f],VillagerData:{level:1,profession:"minecraft:toolsmith",type:"minecraft:desert"},VillagerDataFinalized:1b,Xp:0,attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:0.08934921524177124d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.07087688155088114d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.01477795659062148d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c16 shulker egg
+BE 16 -60 18 {Items:[],components:{},id:"minecraft:dispenser",x:16,y:-60,z:18}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=167.39186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=-95.75656,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mooshroom#1 minecraft:mooshroom pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-26.31134,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=17.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=70.54025,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=17.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-165.20175,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=27.0 abs=0.0 hurt=0/0 death=0 fx=-
+E llama#1 minecraft:llama pos=17.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=-68.35016,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/0 death=0 fx=-
+E villager#1 minecraft:villager pos=17.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=1.0950494,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie_villager#1 minecraft:zombie_villager pos=17.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=97.946655,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E shulker#1 minecraft:shulker pos=17.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=16,-60,18 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=16,-60,18 data=5 global=0
+N shulker#1 {AbsorptionAmount:0.0f,Air:300s,AttachFace:0b,Brain:{memories:{}},CanPickUpLoot:0b,Color:2b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:30.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Peek:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[17.5d,-60.0d,18.5d],Rotation:[0.0f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.046135688133146426d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c17 zombie_nautilus egg
+BE 16 -60 21 {Items:[],components:{},id:"minecraft:dispenser",x:16,y:-60,z:21}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=167.39186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=-95.75656,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mooshroom#1 minecraft:mooshroom pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-26.31134,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=17.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=70.54025,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=17.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-165.20175,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=27.0 abs=0.0 hurt=0/0 death=0 fx=-
+E llama#1 minecraft:llama pos=17.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=-68.35016,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/0 death=0 fx=-
+E villager#1 minecraft:villager pos=17.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=1.0950494,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie_villager#1 minecraft:zombie_villager pos=17.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=97.946655,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E shulker#1 minecraft:shulker pos=17.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie_nautilus#1 minecraft:zombie_nautilus pos=17.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=99.805084,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=17.5,-60.0,21.5 r=16.0 ex=0 event=minecraft:entity.zombie_nautilus.ambient_land source=neutral vol=1.0 pitch=0.9907874
+EV level_event r=64.0 ex=0 type=1000 pos=16,-60,21 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=16,-60,21 data=5 global=0
+N zombie_nautilus#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{minecraft:attack_target_cooldown:{value:3546}}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:15.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[17.5d,-60.0d,21.5d],Rotation:[99.805084f,0.0f],Sitting:0b,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.024776127660572092d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,variant:"minecraft:warm"}
+# c18 sulfur_cube egg
+BE 16 -60 24 {Items:[],components:{},id:"minecraft:dispenser",x:16,y:-60,z:24}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=167.39186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=-95.75656,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mooshroom#1 minecraft:mooshroom pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-26.31134,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=17.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=70.54025,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=17.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-165.20175,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=27.0 abs=0.0 hurt=0/0 death=0 fx=-
+E llama#1 minecraft:llama pos=17.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=-68.35016,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/0 death=0 fx=-
+E villager#1 minecraft:villager pos=17.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=1.0950494,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie_villager#1 minecraft:zombie_villager pos=17.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=97.946655,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E shulker#1 minecraft:shulker pos=17.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie_nautilus#1 minecraft:zombie_nautilus pos=17.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=99.805084,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sulfur_cube#1 minecraft:sulfur_cube pos=17.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=169.25029,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=16,-60,24 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=16,-60,24 data=5 global=0
+N sulfur_cube#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[17.5d,-60.0d,24.5d],Rotation:[169.25029f,0.0f],Size:1,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.0689327194072427d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.4000000059604645d,id:"minecraft:movement_speed"},{base:8.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f},equipment:{body:{count:1,id:"minecraft:tnt"}},fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+# c19 pig egg
+BE 16 -60 27 {Items:[],components:{},id:"minecraft:dispenser",x:16,y:-60,z:27}
+E sheep#1 minecraft:sheep pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=112.57907,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-150.56934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-81.124146,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=15.727465,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tropical_fish#1 minecraft:tropical_fish pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=139.98546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E salmon#1 minecraft:salmon pos=1.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=-123.16293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=-53.717743,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fox#1 minecraft:fox pos=1.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=43.13387,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=167.39186,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=-95.75656,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mooshroom#1 minecraft:mooshroom pos=17.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-26.31134,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=17.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=70.54025,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E horse#1 minecraft:horse pos=17.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=-165.20175,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=27.0 abs=0.0 hurt=0/0 death=0 fx=-
+E llama#1 minecraft:llama pos=17.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=-68.35016,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/0 death=0 fx=-
+E villager#1 minecraft:villager pos=17.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=1.0950494,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie_villager#1 minecraft:zombie_villager pos=17.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=97.946655,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E shulker#1 minecraft:shulker pos=17.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie_nautilus#1 minecraft:zombie_nautilus pos=17.5,-60.0,21.5 delta=0.0,0.0,0.0 rot=99.805084,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sulfur_cube#1 minecraft:sulfur_cube pos=17.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=169.25029,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=17.5,-60.0,27.5 delta=0.0,0.0,0.0 rot=-93.8981,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=17.5,-60.0,27.5 r=16.0 ex=0 event=minecraft:entity.pig_big.ambient source=neutral vol=1.0 pitch=0.8873674
+EV level_event r=64.0 ex=0 type=1000 pos=16,-60,27 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=16,-60,27 data=5 global=0
+N pig#2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CustomName:"Porky",DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[17.5d,-60.0d,27.5d],Rotation:[-93.8981f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.041381466241165905d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,data:{k:1b},fall_distance:0.0d,sound_variant:"minecraft:big",variant:"minecraft:warm"}

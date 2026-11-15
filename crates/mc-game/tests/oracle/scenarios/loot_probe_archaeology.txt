@@ -1,0 +1,173 @@
+# Archaeology loot read through data pack tables (`loot_sites`), one parameter each: a stick for the brushing player as `this_entity` (desert pyramid), dirt
+# for the brush as the tool (desert well), coal for the origin (cold ocean ruin) and an emerald for the player's luck, iron ingot without (warm ocean ruin).
+# Alice has no luck, Bob has Luck III.
+datapack loot_sites
+command_env
+level flat
+preload 3
+watch events
+level_seed 5
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Bob survival 0.5 -60 20.5 0 0
+give Alice mainhand minecraft:brush
+give Bob mainhand minecraft:brush
+effect Bob minecraft:luck 2 100000
+block 2 -60 4 minecraft:suspicious_sand
+be_nbt 2 -60 4 {LootTable:"minecraft:archaeology/desert_pyramid"}
+block 4 -60 4 minecraft:suspicious_sand
+be_nbt 4 -60 4 {LootTable:"minecraft:archaeology/desert_well"}
+block 6 -60 4 minecraft:suspicious_sand
+be_nbt 6 -60 4 {LootTable:"minecraft:archaeology/ocean_ruin_cold"}
+block 8 -60 4 minecraft:suspicious_sand
+be_nbt 8 -60 4 {LootTable:"minecraft:archaeology/ocean_ruin_warm"}
+block 10 -60 4 minecraft:suspicious_sand
+be_nbt 10 -60 4 {LootTable:"minecraft:archaeology/trail_ruins_common"}
+block 12 -60 4 minecraft:suspicious_sand
+be_nbt 12 -60 4 {LootTable:"minecraft:archaeology/trail_ruins_rare"}
+block 2 -60 24 minecraft:suspicious_gravel
+be_nbt 2 -60 24 {LootTable:"minecraft:archaeology/desert_pyramid"}
+block 4 -60 24 minecraft:suspicious_gravel
+be_nbt 4 -60 24 {LootTable:"minecraft:archaeology/desert_well"}
+block 6 -60 24 minecraft:suspicious_gravel
+be_nbt 6 -60 24 {LootTable:"minecraft:archaeology/ocean_ruin_cold"}
+block 8 -60 24 minecraft:suspicious_gravel
+be_nbt 8 -60 24 {LootTable:"minecraft:archaeology/ocean_ruin_warm"}
+block 10 -60 24 minecraft:suspicious_gravel
+be_nbt 10 -60 24 {LootTable:"minecraft:archaeology/trail_ruins_common"}
+block 12 -60 24 minecraft:suspicious_gravel
+be_nbt 12 -60 24 {LootTable:"minecraft:archaeology/trail_ruins_rare"}
+tick 3
+brush 2 -60 4 Alice north
+brush 4 -60 4 Alice north
+brush 6 -60 4 Alice north
+brush 8 -60 4 Alice north
+brush 10 -60 4 Alice north
+brush 12 -60 4 Alice north
+brush 2 -60 24 Bob north
+brush 4 -60 24 Bob north
+brush 6 -60 24 Bob north
+brush 8 -60 24 Bob north
+brush 10 -60 24 Bob north
+brush 12 -60 24 Bob north
+tick 10
+brush 2 -60 4 Alice north
+brush 4 -60 4 Alice north
+brush 6 -60 4 Alice north
+brush 8 -60 4 Alice north
+brush 10 -60 4 Alice north
+brush 12 -60 4 Alice north
+brush 2 -60 24 Bob north
+brush 4 -60 24 Bob north
+brush 6 -60 24 Bob north
+brush 8 -60 24 Bob north
+brush 10 -60 24 Bob north
+brush 12 -60 24 Bob north
+tick 10
+brush 2 -60 4 Alice north
+brush 4 -60 4 Alice north
+brush 6 -60 4 Alice north
+brush 8 -60 4 Alice north
+brush 10 -60 4 Alice north
+brush 12 -60 4 Alice north
+brush 2 -60 24 Bob north
+brush 4 -60 24 Bob north
+brush 6 -60 24 Bob north
+brush 8 -60 24 Bob north
+brush 10 -60 24 Bob north
+brush 12 -60 24 Bob north
+tick 10
+brush 2 -60 4 Alice north
+brush 4 -60 4 Alice north
+brush 6 -60 4 Alice north
+brush 8 -60 4 Alice north
+brush 10 -60 4 Alice north
+brush 12 -60 4 Alice north
+brush 2 -60 24 Bob north
+brush 4 -60 24 Bob north
+brush 6 -60 24 Bob north
+brush 8 -60 24 Bob north
+brush 10 -60 24 Bob north
+brush 12 -60 24 Bob north
+tick 10
+brush 2 -60 4 Alice north
+brush 4 -60 4 Alice north
+brush 6 -60 4 Alice north
+brush 8 -60 4 Alice north
+brush 10 -60 4 Alice north
+brush 12 -60 4 Alice north
+brush 2 -60 24 Bob north
+brush 4 -60 24 Bob north
+brush 6 -60 24 Bob north
+brush 8 -60 24 Bob north
+brush 10 -60 24 Bob north
+brush 12 -60 24 Bob north
+tick 10
+brush 2 -60 4 Alice north
+brush 4 -60 4 Alice north
+brush 6 -60 4 Alice north
+brush 8 -60 4 Alice north
+brush 10 -60 4 Alice north
+brush 12 -60 4 Alice north
+brush 2 -60 24 Bob north
+brush 4 -60 24 Bob north
+brush 6 -60 24 Bob north
+brush 8 -60 24 Bob north
+brush 10 -60 24 Bob north
+brush 12 -60 24 Bob north
+tick 10
+brush 2 -60 4 Alice north
+brush 4 -60 4 Alice north
+brush 6 -60 4 Alice north
+brush 8 -60 4 Alice north
+brush 10 -60 4 Alice north
+brush 12 -60 4 Alice north
+brush 2 -60 24 Bob north
+brush 4 -60 24 Bob north
+brush 6 -60 24 Bob north
+brush 8 -60 24 Bob north
+brush 10 -60 24 Bob north
+brush 12 -60 24 Bob north
+tick 10
+brush 2 -60 4 Alice north
+brush 4 -60 4 Alice north
+brush 6 -60 4 Alice north
+brush 8 -60 4 Alice north
+brush 10 -60 4 Alice north
+brush 12 -60 4 Alice north
+brush 2 -60 24 Bob north
+brush 4 -60 24 Bob north
+brush 6 -60 24 Bob north
+brush 8 -60 24 Bob north
+brush 10 -60 24 Bob north
+brush 12 -60 24 Bob north
+tick 10
+brush 2 -60 4 Alice north
+brush 4 -60 4 Alice north
+brush 6 -60 4 Alice north
+brush 8 -60 4 Alice north
+brush 10 -60 4 Alice north
+brush 12 -60 4 Alice north
+brush 2 -60 24 Bob north
+brush 4 -60 24 Bob north
+brush 6 -60 24 Bob north
+brush 8 -60 24 Bob north
+brush 10 -60 24 Bob north
+brush 12 -60 24 Bob north
+tick 10
+brush 2 -60 4 Alice north
+brush 4 -60 4 Alice north
+brush 6 -60 4 Alice north
+brush 8 -60 4 Alice north
+brush 10 -60 4 Alice north
+brush 12 -60 4 Alice north
+brush 2 -60 24 Bob north
+brush 4 -60 24 Bob north
+brush 6 -60 24 Bob north
+brush 8 -60 24 Bob north
+brush 10 -60 24 Bob north
+brush 12 -60 24 Bob north
+tick 10
+dump entities
+tick 5
+dump entities
+dump blocks:2,-60,4,12,-60,4 blocks:2,-60,24,12,-60,24

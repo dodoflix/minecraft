@@ -1,0 +1,52 @@
+{
+  "type": "minecraft:entity_interact",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "interacting_entity",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:player"
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dirt"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "target_entity",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:armadillo"
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:match_tool",
+        "predicate": {
+          "items": "minecraft:brush"
+        }
+      }
+    }
+  ]
+}

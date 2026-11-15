@@ -1,0 +1,105 @@
+# Loot parameters of the block call sites, read through data pack tables (`loot_sites`) that drop a different item for each parameter they
+# find: an oak log dug with an axe, destroyed without a player and blown up by primed TNT (block state, origin, tool, `this_entity`,
+# explosion decay), and the block-interaction tables of a sweet berry bush, cave vines (a glow berry pick), a beehive and a pumpkin
+# (shears) and rooted dirt (hoe): block state, origin, the interacting entity and the tool each caller passes.
+datapack loot_sites
+command_env
+level flat
+preload 3
+difficulty normal
+time 6000
+entity_counter 28000
+level_seed 28001
+spawn_player Steve survival 0.5 -60 -4.5 0 0
+spawn_player Alex survival 40.5 -60 -4.5 0 0
+tick 30
+give Steve hotbar0 minecraft:iron_axe
+give Steve hotbar1 minecraft:shears
+give Steve hotbar2 minecraft:iron_hoe
+give Steve hotbar3 minecraft:glass_bottle
+note dig an oak log with an axe, and bare handed
+block 2 -60 0 minecraft:oak_log[axis=y]
+block 4 -60 0 minecraft:oak_log[axis=x]
+select Steve 0
+dig Steve 2 -60 0
+tick 3
+dump blocks:2,-60,0,4,-60,0 entities events
+select Steve 4
+dig Steve 4 -60 0
+tick 3
+dump blocks:2,-60,0,4,-60,0 entities events inventory:Steve
+note destroyed without a player
+block 6 -60 0 minecraft:oak_log[axis=z]
+level_seed 28002
+destroy 6 -60 0
+tick 3
+dump blocks:6,-60,0,6,-60,0 entities events
+note blown up by primed TNT, with and without decay
+block 10 -60 0 minecraft:oak_log[axis=y]
+block 14 -60 0 minecraft:oak_log[axis=y]
+spawn T1 minecraft:tnt 10.5 -60 3.5 0 0 {fuse:80s}
+spawn T2 minecraft:tnt 14.5 -60 3.5 0 0 {fuse:80s}
+level_seed 28003
+explode 10.5 -59.5 0.5 2 tnt source=T1
+tick 3
+dump blocks:10,-60,0,10,-60,0 entities events
+level_seed 28004
+explode 14.5 -59.5 0.5 2 block source=T2
+tick 3
+dump blocks:14,-60,0,14,-60,0 entities events
+cmd kill @e[type=item]
+note sweet berry bushes: empty hand and with shears
+block 20 -60 0 minecraft:sweet_berry_bush[age=3]
+block 22 -60 0 minecraft:sweet_berry_bush[age=3]
+select Steve 4
+level_seed 28005
+use_on Steve 20 -60 0 south
+tick 3
+dump blocks:20,-60,0,20,-60,0 entities inventory:Steve events
+select Steve 1
+level_seed 28006
+use_on Steve 22 -60 0 south
+tick 3
+dump blocks:22,-60,0,22,-60,0 entities inventory:Steve events
+cmd kill @e[type=item]
+note cave vines: glow berries picked by hand
+block 26 -41 0 minecraft:cave_vines[age=0,berries=false]
+block 29 -41 0 minecraft:cave_vines_plant[berries=true]
+block 29 -42 0 minecraft:cave_vines[age=10,berries=true]
+snap Steve 29.5 -41 -3.5 0 0
+select Steve 4
+level_seed 28007
+use_on Steve 29 -42 0 south
+tick 3
+dump blocks:29,-42,0,29,-41,0 entities inventory:Steve events
+snap Steve 29.5 -41 -3.5 0 0
+level_seed 28008
+use_on Steve 29 -41 0 south
+tick 3
+dump blocks:29,-42,0,29,-41,0 entities inventory:Steve events
+cmd kill @e[type=item]
+snap Steve 0.5 -60 -4.5 0 0
+note beehive harvested with shears
+block 32 -60 0 minecraft:beehive[honey_level=5,facing=north]
+select Steve 1
+level_seed 28009
+use_on Steve 32 -60 0 south
+tick 3
+dump blocks:32,-60,0,32,-60,0 entities inventory:Steve events
+cmd kill @e[type=item]
+note a pumpkin carved with shears
+block 34 -60 0 minecraft:pumpkin
+snap Steve 34.5 -60 -4.5 0 0
+level_seed 28010
+use_on Steve 34 -60 0 south main 0.5 0.5 0.0
+tick 3
+dump blocks:34,-60,0,34,-60,0 entities inventory:Steve events
+cmd kill @e[type=item]
+note rooted dirt with a hoe
+block 36 -60 0 minecraft:rooted_dirt
+snap Steve 36.5 -60 -4.5 0 0
+select Steve 2
+level_seed 28011
+use_on Steve 36 -60 0 north
+tick 3
+dump blocks:36,-60,0,36,-60,0 entities inventory:Steve events

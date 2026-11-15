@@ -37,20 +37,6 @@ pub fn default_get_drops(state: BlockState, builder: LootParamsBuilder) -> Vec<I
     get_loot_table(&level.registries, &id).get_random_items(&params)
 }
 
-/// `Block.getDrops(state, level, pos, blockEntity)` (empty tool).
-pub fn get_drops(
-    level: &ServerLevel,
-    state: BlockState,
-    pos: BlockPos,
-    block_entity: Option<&dyn BlockEntity>,
-) -> Vec<ItemStack> {
-    let params = LootParams::builder(level)
-        .origin(Vec3::at_center_of(&pos))
-        .tool(&ItemStack::empty())
-        .block_entity(block_entity);
-    state_get_drops(state, params)
-}
-
 /// `Block.getDrops(state, level, pos, blockEntity, breaker, tool)`.
 pub fn block_drops(
     level: &ServerLevel,
@@ -113,7 +99,7 @@ pub fn drop_resources_for_destroy(
     breaker: Option<EntityId>,
 ) {
     let breaker_type = breaker
-        .and_then(|id| level.get_entity(id))
+        .and_then(|id| level.get_entity_or_lent(id))
         .map(|e| e.get_type());
     behaviour(state.block()).before_get_drops(state, level, pos, breaker_type);
     let drops = {
@@ -123,7 +109,7 @@ pub fn drop_resources_for_destroy(
         } else {
             None
         };
-        let breaker_entity = breaker.and_then(|id| level_ref.get_entity(id));
+        let breaker_entity = breaker.and_then(|id| level_ref.get_entity_or_lent(id));
         block_drops(
             level_ref,
             state,

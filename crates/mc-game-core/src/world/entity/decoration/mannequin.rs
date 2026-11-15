@@ -167,6 +167,15 @@ impl Entity for Mannequin {
     fn is_effective_ai(&self) -> bool {
         !self.get_immovable() && self.is_local_instance_authoritative()
     }
+    /// `Mannequin.get(type)`: `PROFILE` besides the base components.
+    fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
+        let base =
+            crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        mc_protocol::components::DataComponentMap::builder()
+            .add_all(&base)
+            .set(PROFILE, self.get_profile())
+            .build()
+    }
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
         if let Some(profile) = stack.get(&PROFILE) {
             self.living

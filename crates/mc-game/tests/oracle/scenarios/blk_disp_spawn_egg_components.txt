@@ -1,0 +1,125 @@
+# Dispenser spawn eggs carrying the entity components of every class that implements `applyImplicitComponents` (colours, collar colours,
+# variants and sound variants, the sulfur cube content): SpawnEggItemBehavior -> EntityType.spawn(.., stack, ..) -> Entity.applyComponentsFromItemStack.
+level flat
+preload 2
+time 18000
+note c0 sheep egg
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:sheep_spawn_egg",count:1,components:{"minecraft:sheep/color":"red"}}]}
+level_seed 800
+dispense 0 -60 0 c0
+dump be:0,-60,0 entities events nbt:sheep#1
+note c1 wolf egg
+block 0 -60 3 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 3 {Items:[{Slot:0b,id:"minecraft:wolf_spawn_egg",count:1,components:{"minecraft:wolf/variant":"minecraft:rusty","minecraft:wolf/sound_variant":"minecraft:cute","minecraft:wolf/collar":"blue"}}]}
+level_seed 801
+dispense 0 -60 3 c1
+dump be:0,-60,3 entities events nbt:wolf#1
+note c2 cat egg
+block 0 -60 6 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 6 {Items:[{Slot:0b,id:"minecraft:cat_spawn_egg",count:1,components:{"minecraft:cat/sound_variant":"minecraft:royal","minecraft:cat/collar":"lime"}}]}
+level_seed 802
+dispense 0 -60 6 c2
+dump be:0,-60,6 entities events nbt:cat#1
+note c3 axolotl egg
+block 0 -60 9 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 9 {Items:[{Slot:0b,id:"minecraft:axolotl_spawn_egg",count:1,components:{"minecraft:axolotl/variant":"blue"}}]}
+level_seed 803
+dispense 0 -60 9 c3
+dump be:0,-60,9 entities events nbt:axolotl#1
+note c4 tropical_fish egg
+block 0 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:tropical_fish_spawn_egg",count:1,components:{"minecraft:tropical_fish/pattern":"stripey","minecraft:tropical_fish/base_color":"orange","minecraft:tropical_fish/pattern_color":"cyan"}}]}
+level_seed 804
+dispense 0 -60 12 c4
+dump be:0,-60,12 entities events nbt:tropical_fish#1
+note c5 salmon egg
+block 0 -60 15 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 15 {Items:[{Slot:0b,id:"minecraft:salmon_spawn_egg",count:1,components:{"minecraft:salmon/size":"large"}}]}
+level_seed 805
+dispense 0 -60 15 c5
+dump be:0,-60,15 entities events nbt:salmon#1
+note c6 rabbit egg
+block 0 -60 18 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 18 {Items:[{Slot:0b,id:"minecraft:rabbit_spawn_egg",count:1,components:{"minecraft:rabbit/variant":"gold"}}]}
+level_seed 806
+dispense 0 -60 18 c6
+dump be:0,-60,18 entities events nbt:rabbit#1
+note c7 fox egg
+block 0 -60 21 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 21 {Items:[{Slot:0b,id:"minecraft:fox_spawn_egg",count:1,components:{"minecraft:fox/variant":"snow"}}]}
+level_seed 807
+dispense 0 -60 21 c7
+dump be:0,-60,21 entities events nbt:fox#1
+note c8 pig egg
+block 0 -60 24 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 24 {Items:[{Slot:0b,id:"minecraft:pig_spawn_egg",count:1,components:{"minecraft:pig/sound_variant":"minecraft:mini"}}]}
+level_seed 808
+dispense 0 -60 24 c8
+dump be:0,-60,24 entities events nbt:pig#1
+note c9 cow egg
+block 0 -60 27 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 27 {Items:[{Slot:0b,id:"minecraft:cow_spawn_egg",count:1,components:{"minecraft:cow/variant":"minecraft:warm","minecraft:cow/sound_variant":"minecraft:moody"}}]}
+level_seed 809
+dispense 0 -60 27 c9
+dump be:0,-60,27 entities events nbt:cow#1
+note c10 mooshroom egg
+block 16 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 16 -60 0 {Items:[{Slot:0b,id:"minecraft:mooshroom_spawn_egg",count:1,components:{"minecraft:mooshroom/variant":"brown"}}]}
+level_seed 810
+dispense 16 -60 0 c10
+dump be:16,-60,0 entities events nbt:mooshroom#1
+note c11 chicken egg
+block 16 -60 3 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 16 -60 3 {Items:[{Slot:0b,id:"minecraft:chicken_spawn_egg",count:1,components:{"minecraft:chicken/sound_variant":"minecraft:picky"}}]}
+level_seed 811
+dispense 16 -60 3 c11
+dump be:16,-60,3 entities events nbt:chicken#1
+note c12 horse egg
+block 16 -60 6 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 16 -60 6 {Items:[{Slot:0b,id:"minecraft:horse_spawn_egg",count:1,components:{"minecraft:horse/variant":"dark_brown"}}]}
+level_seed 812
+dispense 16 -60 6 c12
+dump be:16,-60,6 entities events nbt:horse#1
+note c13 llama egg
+block 16 -60 9 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 16 -60 9 {Items:[{Slot:0b,id:"minecraft:llama_spawn_egg",count:1,components:{"minecraft:llama/variant":"gray"}}]}
+level_seed 813
+dispense 16 -60 9 c13
+dump be:16,-60,9 entities events nbt:llama#1
+note c14 villager egg
+block 16 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 16 -60 12 {Items:[{Slot:0b,id:"minecraft:villager_spawn_egg",count:1,components:{"minecraft:villager/variant":"minecraft:snow"}}]}
+level_seed 814
+dispense 16 -60 12 c14
+dump be:16,-60,12 entities events nbt:villager#1
+note c15 zombie_villager egg
+block 16 -60 15 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 16 -60 15 {Items:[{Slot:0b,id:"minecraft:zombie_villager_spawn_egg",count:1,components:{"minecraft:villager/variant":"minecraft:desert"}}]}
+level_seed 815
+dispense 16 -60 15 c15
+dump be:16,-60,15 entities events nbt:zombie_villager#1
+note c16 shulker egg
+block 16 -60 18 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 16 -60 18 {Items:[{Slot:0b,id:"minecraft:shulker_spawn_egg",count:1,components:{"minecraft:shulker/color":"magenta"}}]}
+level_seed 816
+dispense 16 -60 18 c16
+dump be:16,-60,18 entities events nbt:shulker#1
+note c17 zombie_nautilus egg
+block 16 -60 21 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 16 -60 21 {Items:[{Slot:0b,id:"minecraft:zombie_nautilus_spawn_egg",count:1,components:{"minecraft:zombie_nautilus/variant":"minecraft:warm"}}]}
+level_seed 817
+dispense 16 -60 21 c17
+dump be:16,-60,21 entities events nbt:zombie_nautilus#1
+note c18 sulfur_cube egg
+block 16 -60 24 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 16 -60 24 {Items:[{Slot:0b,id:"minecraft:sulfur_cube_spawn_egg",count:1,components:{"minecraft:sulfur_cube_content":{id:"minecraft:tnt",count:1}}}]}
+level_seed 818
+dispense 16 -60 24 c18
+dump be:16,-60,24 entities events nbt:sulfur_cube#1
+note c19 pig egg
+block 16 -60 27 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 16 -60 27 {Items:[{Slot:0b,id:"minecraft:pig_spawn_egg",count:1,components:{"minecraft:custom_name":"Porky","minecraft:custom_data":{k:1b},"minecraft:pig/variant":"minecraft:warm"}}]}
+level_seed 819
+dispense 16 -60 27 c19
+dump be:16,-60,27 entities events nbt:pig#2

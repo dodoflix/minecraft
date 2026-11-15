@@ -1,0 +1,44 @@
+# Loot parameters of the entity call sites, read through data pack tables that drop a different item for each parameter they find
+# (`loot_sites`): the victim, attacker, direct attacker and damage source of a charged creeper's kill (no looting player, so no luck), the
+# interacting entity, target and tool of a brushed armadillo (a player, then a dispenser with no entity), the piglin of a barter, and the
+# player of an advancement reward.
+datapack loot_sites
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 27000
+level_seed 27001
+time 18000
+gamerule mob_drops true
+spawn_player I1 survival -30.5 -60 0.5 0 0
+tick 30
+fill -2 -57 -2 70 -57 20 minecraft:stone
+give I1 mainhand minecraft:brush
+mobspawn C0 minecraft:creeper 2.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,powered:1b}
+entity_seed C0 27010
+mobspawn V0 minecraft:zombie 2.5 -60 6.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed V0 27011
+mobspawn AR minecraft:armadillo -29.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed AR 27012
+tick 2
+note charged creeper kills a zombie (the table reads this, attacker, direct attacker, origin and the damage source)
+level_seed 27020
+hurt V0 explosion 100 by=C0 direct=C0
+tick 22
+dump mobs entities events
+note a player brushes an armadillo (interacting entity, target, tool)
+interact I1 AR main
+dump inventory:I1 entities events
+note a dispenser brushes an armadillo (no interacting entity)
+block 0 -60 10 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 10 {Items:[{Slot:0b,id:"minecraft:brush",count:1}]}
+mobspawn AR2 minecraft:armadillo 1.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+level_seed 27021
+dispense 0 -60 10 d1
+dump be:0,-60,10 entities events
+note the advancement reward loot of a player
+level_seed 27022
+give I1 hotbar3 minecraft:coal
+tick 3
+dump inventory:I1 entities

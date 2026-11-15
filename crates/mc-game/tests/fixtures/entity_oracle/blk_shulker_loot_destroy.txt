@@ -1,0 +1,31 @@
+C Set minecraft:overworld to 6000 tick(s)
+# destroy: seeded table
+DESTROY true
+E item#1 minecraft:item pos=0.30640763481940186,-59.27708767198706,0.9520657605036853 delta=-0.07337013224968204,0.0323152326326785,0.09203647061060417 rot=53.898434,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=4 pickup=6 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=16849 global=0
+# destroy: table without a seed
+DESTROY true
+E item#1 minecraft:item pos=0.02161470826577727,-59.54373280739933,1.3093137987880135 delta=-0.06767427915060353,-0.1223518697449284,0.08489151665888318 rot=53.898434,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.38883758876302,-59.35322668243527,0.15323981400631187 delta=-0.053729392797727656,0.0323152326326785,-0.0801402729911774 rot=213.0247,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=4 pickup=6 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2001 pos=4,-60,0 data=16849 global=0
+# explosion: seeded table
+E item#1 minecraft:item pos=-0.21559144538534666,-60.0,1.6068683556596313 delta=-0.022471421516258465,0.0,0.028188450293662702 rot=53.898434,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.1802820015284015,-59.61987181784754,-0.1578320374426505 delta=-0.04955828503091741,-0.1223518697449284,-0.07391884189542287 rot=213.0247,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=8.314238066869263,-59.3485241041486,0.3001461342525208 delta=-0.08305955090130869,0.0323152326326785,-0.03238959596335755 rot=317.69354,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=4 pickup=6 health=5 owner=- thrower=-
+# explosion with decay: the loot table of the box rolls with an explosion radius
+E item#1 minecraft:item pos=-0.26361380936976037,-60.0,1.6671082483241615 delta=-0.0026862103941371223,0.0,0.0033696180777290636 rot=53.898434,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=16 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.006574496679049,-60.0,-0.4169261037324197 delta=-0.016455958253715597,0.0,-0.02454494491960761 rot=213.0247,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=7.991834769313317,-59.61516923956087,0.17442293406932857 delta=-0.07661149109954463,-0.1223518697449284,-0.02987513435767344 rot=317.69354,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=8 pickup=2 health=4 owner=- thrower=-
+E item#4 minecraft:item pos=12.527155889091457,-59.043819331918215,0.46230578802277794 delta=-0.0300791834980278,0.0323152326326785,0.03646692468734587 rot=289.91592,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=14.38798104554517,-60.18193783405342,0.6810409498184985 delta=-0.016381966954228513,0.0323152326326785,-0.006648682119898807 rot=241.38399,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=11.875,-60.33909140226357,3.2904886761742977 delta=-0.0,0.0323152326326785,-0.0025856371495186583 rot=263.06995,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*6 age=4 pickup=6 health=5 owner=- thrower=-
+# an already unpacked box (control)
+DESTROY true
+E item#1 minecraft:item pos=-0.26787951163447987,-60.0,1.6724592020308333 delta=-9.287413132943187E-4,-0.08,0.0011650254669704093 rot=53.898434,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=20 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.971407428302867,-60.0,-0.46937967361690464 delta=-0.001967128162080664,0.0,-0.0029340772286643962 rot=213.0247,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=16 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=7.723302657005798,-60.0,0.06970714249031978 delta=-0.025439046135323305,0.0,-0.009920116555835506 rot=317.69354,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=12 pickup=0 health=4 owner=- thrower=-
+E item#4 minecraft:item pos=12.410400767707797,-59.31046446733048,0.6038555152166369 delta=-0.027744083297281806,-0.1223518697449284,0.03363593284331547 rot=289.91592,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=14.324392931846223,-60.44858296946569,0.655233477750613 delta=-0.015110205893096607,-0.1223518697449284,-0.006132533170779561 rot=241.38399,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=8 pickup=2 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=11.875,-60.60573653767584,3.280452287411752 delta=0.0,-0.1223518697449284,-0.002384909565696671 rot=263.06995,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*6 age=8 pickup=2 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=16.7951269590687,-59.43799887289505,0.7049484512977878 delta=0.04280498888005367,0.0323152326326785,-9.411876290480806E-5 rot=86.937454,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=4 pickup=6 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2001 pos=16,-60,0 data=16849 global=0

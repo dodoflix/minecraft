@@ -1,0 +1,83 @@
+# `copy_components` from the `this` entity (`LootContextArg` -> `Entity.get(DataComponentType)`): every class that overrides `get` (variants,
+# collar and body colours, painting variant, mannequin profile, sulfur cube content, area effect cloud potion) next to the custom name and
+# custom data every entity has, through `/item modify` of chest slots as the entity (`include` and `exclude` forms too).
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 400
+spawn_player A creative 0.5 -60 -8.5 0 0
+op A
+tick 2
+block 3 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+block 6 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 3 -60 0 {Items:[{Slot:0b,id:"minecraft:stick",count:1},{Slot:1b,id:"minecraft:stick",count:1},{Slot:2b,id:"minecraft:stick",count:1},{Slot:3b,id:"minecraft:stick",count:1},{Slot:4b,id:"minecraft:stick",count:1},{Slot:5b,id:"minecraft:stick",count:1},{Slot:6b,id:"minecraft:stick",count:1},{Slot:7b,id:"minecraft:stick",count:1},{Slot:8b,id:"minecraft:stick",count:1},{Slot:9b,id:"minecraft:stick",count:1},{Slot:10b,id:"minecraft:stick",count:1},{Slot:11b,id:"minecraft:stick",count:1},{Slot:12b,id:"minecraft:stick",count:1},{Slot:13b,id:"minecraft:stick",count:1},{Slot:14b,id:"minecraft:stick",count:1},{Slot:15b,id:"minecraft:stick",count:1},{Slot:16b,id:"minecraft:stick",count:1},{Slot:17b,id:"minecraft:stick",count:1},{Slot:18b,id:"minecraft:stick",count:1},{Slot:19b,id:"minecraft:stick",count:1},{Slot:20b,id:"minecraft:stick",count:1},{Slot:21b,id:"minecraft:stick",count:1},{Slot:22b,id:"minecraft:stick",count:1},{Slot:23b,id:"minecraft:stick",count:1},{Slot:24b,id:"minecraft:stick",count:1},{Slot:25b,id:"minecraft:stick",count:1},{Slot:26b,id:"minecraft:stick",count:1}]}
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:stick",count:1},{Slot:1b,id:"minecraft:stick",count:1},{Slot:2b,id:"minecraft:stick",count:1},{Slot:3b,id:"minecraft:stick",count:1}]}
+mobspawn e0 minecraft:sheep -20.5 -60 6.5 0 0 nofinalize {Tags:[sheep],PersistenceRequired:1b,NoAI:1b,Silent:1b,Color:11,CustomName:"Dolly",data:{n:1}}
+mobspawn e1 minecraft:wolf -16.5 -60 6.5 0 0 nofinalize {Tags:[wolf],PersistenceRequired:1b,NoAI:1b,Silent:1b,variant:"minecraft:ashen",sound_variant:"minecraft:grumpy",CollarColor:3}
+mobspawn e2 minecraft:cat -12.5 -60 6.5 0 0 nofinalize {Tags:[cat],PersistenceRequired:1b,NoAI:1b,Silent:1b,variant:"minecraft:calico",sound_variant:"minecraft:royal",CollarColor:14,CustomName:"Tom"}
+mobspawn e3 minecraft:axolotl -8.5 -60 6.5 0 0 nofinalize {Tags:[axolotl],PersistenceRequired:1b,NoAI:1b,Silent:1b,Variant:3}
+mobspawn e4 minecraft:tropical_fish -4.5 -60 6.5 0 0 nofinalize {Tags:[tropical],PersistenceRequired:1b,NoAI:1b,Silent:1b,Variant:117506305}
+mobspawn e5 minecraft:salmon 0.5 -60 6.5 0 0 nofinalize {Tags:[salmon],PersistenceRequired:1b,NoAI:1b,Silent:1b,type:"large"}
+mobspawn e6 minecraft:rabbit 4.5 -60 6.5 0 0 nofinalize {Tags:[rabbit],PersistenceRequired:1b,NoAI:1b,Silent:1b,RabbitType:99}
+mobspawn e7 minecraft:fox 8.5 -60 6.5 0 0 nofinalize {Tags:[fox],PersistenceRequired:1b,NoAI:1b,Silent:1b,Type:"snow"}
+mobspawn e8 minecraft:frog 12.5 -60 6.5 0 0 nofinalize {Tags:[frog],PersistenceRequired:1b,NoAI:1b,Silent:1b,variant:"minecraft:warm"}
+mobspawn e9 minecraft:pig 16.5 -60 6.5 0 0 nofinalize {Tags:[pig],PersistenceRequired:1b,NoAI:1b,Silent:1b,variant:"minecraft:cold",sound_variant:"minecraft:mini"}
+mobspawn e10 minecraft:cow -20.5 -60 11.5 0 0 nofinalize {Tags:[cow],PersistenceRequired:1b,NoAI:1b,Silent:1b,variant:"minecraft:warm",sound_variant:"minecraft:moody"}
+mobspawn e11 minecraft:mooshroom -16.5 -60 11.5 0 0 nofinalize {Tags:[mooshroom],PersistenceRequired:1b,NoAI:1b,Silent:1b,Type:"brown"}
+mobspawn e12 minecraft:chicken -12.5 -60 11.5 0 0 nofinalize {Tags:[chicken],PersistenceRequired:1b,NoAI:1b,Silent:1b,variant:"minecraft:cold",sound_variant:"minecraft:picky"}
+mobspawn e13 minecraft:horse -8.5 -60 11.5 0 0 nofinalize {Tags:[horse],PersistenceRequired:1b,NoAI:1b,Silent:1b,Variant:515}
+mobspawn e14 minecraft:llama -4.5 -60 11.5 0 0 nofinalize {Tags:[llama],PersistenceRequired:1b,NoAI:1b,Silent:1b,Variant:2}
+mobspawn e15 minecraft:parrot 0.5 -60 11.5 0 0 nofinalize {Tags:[parrot],PersistenceRequired:1b,NoAI:1b,Silent:1b,Variant:3}
+mobspawn e16 minecraft:villager 4.5 -60 11.5 0 0 nofinalize {Tags:[villager],PersistenceRequired:1b,NoAI:1b,Silent:1b,VillagerData:{type:"minecraft:snow",profession:"minecraft:farmer",level:2}}
+mobspawn e17 minecraft:zombie_villager 8.5 -60 11.5 0 0 nofinalize {Tags:[zvillager],PersistenceRequired:1b,NoAI:1b,Silent:1b,VillagerData:{type:"minecraft:desert",profession:"minecraft:librarian",level:3}}
+mobspawn e18 minecraft:shulker 12.5 -60 11.5 0 0 nofinalize {Tags:[shulker],PersistenceRequired:1b,NoAI:1b,Silent:1b,Color:7b}
+mobspawn e19 minecraft:shulker 16.5 -60 11.5 0 0 nofinalize {Tags:[shulker_plain],PersistenceRequired:1b,NoAI:1b,Silent:1b,Color:16b}
+mobspawn e20 minecraft:zombie_nautilus -20.5 -60 16.5 0 0 nofinalize {Tags:[znautilus],PersistenceRequired:1b,NoAI:1b,Silent:1b,variant:"minecraft:warm"}
+mobspawn e21 minecraft:sulfur_cube -16.5 -60 16.5 0 0 nofinalize {Tags:[sulfur],PersistenceRequired:1b,NoAI:1b,Silent:1b,NoAI:1b,Silent:1b,equipment:{body:{id:"minecraft:tnt",count:1}}}
+mobspawn e22 minecraft:sulfur_cube -12.5 -60 16.5 0 0 nofinalize {Tags:[sulfur_empty],PersistenceRequired:1b,NoAI:1b,Silent:1b,NoAI:1b,Silent:1b}
+mobspawn e23 minecraft:creeper -8.5 -60 16.5 0 0 nofinalize {Tags:[creeper],PersistenceRequired:1b,NoAI:1b,Silent:1b,CustomName:"Boom",data:{n:2,s:"x"}}
+spawn e24 minecraft:painting -4.5 -59.5 16.5 0 0 {Tags:[painting],variant:"minecraft:kebab",facing:2b}
+spawn e25 minecraft:cushion 0.5 -60 16.5 0 0 {Tags:[cushion],color:"red"}
+spawn e26 minecraft:mannequin 4.5 -60 16.5 0 0 {Tags:[mannequin],profile:{name:"Mq",id:[I;1,2,3,4]}}
+spawn e27 minecraft:area_effect_cloud 8.5 -60 16.5 0 0 {Tags:[cloud],Duration:600,potion_duration_scale:0.5f,potion_contents:{potion:"minecraft:strong_poison"}}
+tick 2
+cmd execute as @e[tag=sheep,limit=1] run item modify block 3 -60 0 container.0 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=wolf,limit=1] run item modify block 3 -60 0 container.1 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=cat,limit=1] run item modify block 3 -60 0 container.2 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=axolotl,limit=1] run item modify block 3 -60 0 container.3 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=tropical,limit=1] run item modify block 3 -60 0 container.4 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=salmon,limit=1] run item modify block 3 -60 0 container.5 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=rabbit,limit=1] run item modify block 3 -60 0 container.6 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=fox,limit=1] run item modify block 3 -60 0 container.7 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=frog,limit=1] run item modify block 3 -60 0 container.8 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=pig,limit=1] run item modify block 3 -60 0 container.9 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=cow,limit=1] run item modify block 3 -60 0 container.10 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=mooshroom,limit=1] run item modify block 3 -60 0 container.11 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=chicken,limit=1] run item modify block 3 -60 0 container.12 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=horse,limit=1] run item modify block 3 -60 0 container.13 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=llama,limit=1] run item modify block 3 -60 0 container.14 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=parrot,limit=1] run item modify block 3 -60 0 container.15 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=villager,limit=1] run item modify block 3 -60 0 container.16 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=zvillager,limit=1] run item modify block 3 -60 0 container.17 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=shulker,limit=1] run item modify block 3 -60 0 container.18 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=shulker_plain,limit=1] run item modify block 3 -60 0 container.19 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=znautilus,limit=1] run item modify block 3 -60 0 container.20 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=sulfur,limit=1] run item modify block 3 -60 0 container.21 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=sulfur_empty,limit=1] run item modify block 3 -60 0 container.22 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=creeper,limit=1] run item modify block 3 -60 0 container.23 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=painting,limit=1] run item modify block 3 -60 0 container.24 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=cushion,limit=1] run item modify block 3 -60 0 container.25 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=mannequin,limit=1] run item modify block 3 -60 0 container.26 {type:"minecraft:copy_components",source:"this"}
+cmd execute as @e[tag=cloud,limit=1] run item modify block 6 -60 0 container.0 {type:"minecraft:copy_components",source:"this"}
+tick 1
+dump be:3,-60,0 be:6,-60,0
+note include and exclude lists on a second chest row
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:stick",count:1},{Slot:1b,id:"minecraft:stick",count:1},{Slot:2b,id:"minecraft:stick",count:1},{Slot:3b,id:"minecraft:stick",count:1},{Slot:4b,id:"minecraft:stick",count:1}]}
+cmd execute as @e[tag=sheep,limit=1] run item modify block 6 -60 0 container.0 {type:"minecraft:copy_components",source:"this",include:["minecraft:custom_name","minecraft:sheep/color"]}
+cmd execute as @e[tag=sheep,limit=1] run item modify block 6 -60 0 container.1 {type:"minecraft:copy_components",source:"this",exclude:["minecraft:custom_name"]}
+cmd execute as @e[tag=cat,limit=1] run item modify block 6 -60 0 container.2 {type:"minecraft:copy_components",source:"this",include:["minecraft:cat/collar","minecraft:wolf/collar","minecraft:custom_data"]}
+cmd execute as @e[tag=cat,limit=1] run item modify block 6 -60 0 container.3 {type:"minecraft:copy_components",source:"this",exclude:["minecraft:cat/collar","minecraft:cat/variant","minecraft:custom_name"]}
+cmd execute as @e[tag=tropical,limit=1] run item modify block 6 -60 0 container.4 {type:"minecraft:copy_components",source:"this",include:["minecraft:tropical_fish/base_color","minecraft:tropical_fish/pattern"]}
+tick 1
+dump be:6,-60,0

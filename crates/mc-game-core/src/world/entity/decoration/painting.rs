@@ -326,6 +326,19 @@ impl Entity for Painting {
     fn get_pick_result(&self) -> Option<ItemStack> {
         Some(ItemStack::new(Item::PAINTING))
     }
+    /// `Painting.get(type)`: `PAINTING_VARIANT` besides the base components.
+    fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
+        let base =
+            crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        let holder = match &self.variant_key {
+            Some(key) => mc_protocol::components::Holder::Reference(key.clone()),
+            None => mc_protocol::components::Holder::Direct(self.variant.clone()),
+        };
+        mc_protocol::components::DataComponentMap::builder()
+            .add_all(&base)
+            .set(PAINTING_VARIANT, holder)
+            .build()
+    }
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
         if let Some(mc_protocol::components::Holder::Reference(key)) = stack.get(&PAINTING_VARIANT)
         {

@@ -1,0 +1,32 @@
+# Chest loot read through the data pack table (`loot_sites`) for `chests/simple_dungeon`: a stick for the origin, dirt for a second origin test, coal for the
+# opening player as `this_entity` and one emerald per point of the player's luck. A chest opened by a player with Luck III, one opened by a player without
+# luck, and a barrel unpacked by a hopper pulling from it (no player: no `this_entity`, no luck).
+datapack loot_sites
+command_env
+level flat
+preload 3
+time 6000
+level_seed 29001
+spawn_player Lucky survival 0.5 -60 2.5 180 0
+spawn_player Plain survival 8.5 -60 2.5 180 0
+tick 30
+effect Lucky minecraft:luck 2 100000
+note Lucky opens a chest
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+use_on Lucky 0 -60 0 south main
+tick 2
+dump be:0,-60,0 inventory:Lucky
+note Plain opens a chest
+block 8 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 8 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+use_on Plain 8 -60 0 south main
+tick 2
+dump be:8,-60,0 inventory:Plain
+note a hopper pulls from an unopened chest
+block 17 -60 0 minecraft:barrel[facing=up,open=false]
+block 16 -60 0 minecraft:hopper[enabled=true,facing=east]
+block 16 -59 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 16 -59 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:13L}
+tick 12
+dump be:16,-59,0 be:16,-60,0 be:17,-60,0 entities

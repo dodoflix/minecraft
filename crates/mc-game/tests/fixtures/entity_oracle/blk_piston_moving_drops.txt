@@ -1,0 +1,67 @@
+C Set minecraft:overworld to 6000 tick(s)
+# minecraft:glowstone destroyed 1 tick(s) into the push
+B 2 -60 0 minecraft:piston[extended=true,facing=east]
+B 3 -60 0 minecraft:moving_piston[facing=east,type=normal]
+B 4 -60 0 minecraft:moving_piston[facing=east,type=normal]
+DESTROY true
+B 2 -60 0 minecraft:piston[extended=true,facing=east]
+B 4 -60 0 minecraft:glowstone
+# minecraft:oak_leaves[persistent=false] destroyed 1 tick(s) into the push
+B 2 -60 3 minecraft:piston[extended=true,facing=east]
+B 3 -60 3 minecraft:moving_piston[facing=east,type=normal]
+DESTROY true
+B 2 -60 3 minecraft:piston[extended=true,facing=east]
+# minecraft:shulker_box[facing=up] destroyed 1 tick(s) into the push
+B 2 -60 6 minecraft:piston[extended=true,facing=east]
+B 3 -60 6 minecraft:moving_piston[facing=east,type=normal]
+DESTROY true
+B 2 -60 6 minecraft:piston[extended=true,facing=east]
+E item#1 minecraft:item pos=3.882281357884538,-59.56716645879988,6.040646847063572 delta=0.038377170729825,-0.08484884424859764,-0.0854162401847633 rot=296.98495,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=7 pickup=3 health=5 owner=- thrower=-
+# minecraft:glowstone destroyed 2 tick(s) into the push
+B 2 -60 9 minecraft:piston[extended=true,facing=east]
+B 3 -60 9 minecraft:moving_piston[facing=east,type=normal]
+B 4 -60 9 minecraft:moving_piston[facing=east,type=normal]
+DESTROY true
+B 2 -60 9 minecraft:piston[extended=true,facing=east]
+B 4 -60 9 minecraft:glowstone
+E item#1 minecraft:item pos=4.044030602290287,-60.0,5.680640831843477 delta=0.0015233136755341636,0.0,-0.003390446046744156 rot=296.98495,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=15 pickup=0 health=5 owner=- thrower=-
+# minecraft:oak_leaves[persistent=false] destroyed 2 tick(s) into the push
+B 2 -60 12 minecraft:piston[extended=true,facing=east]
+B 3 -60 12 minecraft:moving_piston[facing=east,type=normal]
+DESTROY true
+B 2 -60 12 minecraft:piston[extended=true,facing=east]
+E item#1 minecraft:item pos=4.046976301166462,-60.0,5.67408457670704 delta=3.0968591272282465E-4,-0.04,-6.892693181890289E-4 rot=296.98495,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=23 pickup=0 health=5 owner=- thrower=-
+# minecraft:shulker_box[facing=up] destroyed 2 tick(s) into the push
+B 2 -60 15 minecraft:piston[extended=true,facing=east]
+B 3 -60 15 minecraft:moving_piston[facing=east,type=normal]
+DESTROY true
+B 2 -60 15 minecraft:piston[extended=true,facing=east]
+E item#1 minecraft:item pos=4.047468082414177,-60.0,5.672990016989001 delta=1.0707206774223507E-4,-0.04,-2.383107790758108E-4 rot=296.98495,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=31 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.930887819455542,-59.63699304537948,15.588600574988664 delta=-0.03167747082838756,-0.1223518697449284,-0.0057496183663038065 rot=217.88531,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=8 pickup=2 health=5 owner=- thrower=-
+# minecraft:glowstone destroyed 3 tick(s) into the push
+B 2 -60 18 minecraft:piston[extended=true,facing=east]
+B 3 -60 18 minecraft:piston_head[facing=east,short=false,type=normal]
+B 4 -60 18 minecraft:glowstone
+DESTROY true
+B 4 -60 18 minecraft:glowstone
+E item#1 minecraft:item pos=4.047468082414177,-60.0,5.672990016989001 delta=3.701953243465316E-5,-0.08,-8.239453857156159E-5 rot=296.98495,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=40 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.7973759718196534,-60.0,15.564367511198782 delta=-0.0012573809794090916,0.0,-2.2822089591107597E-4 rot=217.88531,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=17 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.125198705722617,-59.48681600302124,18.217842447803797 delta=-0.030679035188085933,-0.115263684456482,-0.04794031451306559 rot=98.720505,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:piston*1 age=6 pickup=4 health=5 owner=- thrower=-
+# minecraft:oak_leaves[persistent=false] destroyed 3 tick(s) into the push
+B 2 -60 21 minecraft:piston[extended=true,facing=east]
+B 3 -60 21 minecraft:piston_head[facing=east,short=false,type=normal]
+DESTROY true
+E item#1 minecraft:item pos=4.047468082414177,-60.0,5.672990016989001 delta=1.2799283796214192E-5,-0.12,-2.8487423073132985E-5 rot=296.98495,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.7953792507500053,-60.0,15.56400509640258 delta=-4.3473201677592983E-4,-0.04,-7.890602130506049E-5 rot=217.88531,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=26 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.9958949903522225,-60.0,18.015787176359925 delta=-0.0012177498488153457,-0.04,-0.0019029056941502875 rot=98.720505,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:piston*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.4539061827025677,-59.36283452327195,21.541998678356894 delta=-0.008770609201660408,-0.04658045162980263,-0.030680226693569835 rot=354.9871,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:piston*1 age=6 pickup=4 health=5 owner=- thrower=-
+# minecraft:shulker_box[facing=up] destroyed 3 tick(s) into the push
+B 2 -60 24 minecraft:piston[extended=true,facing=east]
+B 3 -60 24 minecraft:piston_head[facing=east,short=false,type=normal]
+DESTROY true
+E item#1 minecraft:item pos=4.047468082414177,-60.0,5.672990016989001 delta=2.6020628241515163E-6,0.0,-5.791422841674992E-6 rot=296.98495,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=58 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.7949445187332294,-60.0,15.563926190381276 delta=-1.5030601663696585E-4,-0.08,-2.7281288916772205E-5 rot=217.88531,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=35 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.9935401737318967,-60.0,18.012107443646464 delta=-2.4756554047623944E-4,0.0,-3.868560337789573E-4 rot=98.720505,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:piston*1 age=24 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.4016071243086112,-60.0,21.3590527813851 delta=-5.686184479343562E-4,0.0,-0.001989068545143844 rot=354.9871,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:piston*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=4.135,-59.54484187910818,24.522852743807707 delta=0.0,-0.159104835446646,0.02715069423330923 rot=301.7409,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=9 pickup=1 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.791214050459088,-59.44407298426889,24.9283749627024 delta=0.027668024916232013,-0.04658045162980263,0.08111173779533888 rot=144.50272,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:piston*1 age=6 pickup=4 health=5 owner=- thrower=-

@@ -112,6 +112,35 @@ fn trial_spawner_mobs_match_vanilla() {
     check_normalized_default("blk_trial_spawner_mobs");
 }
 
+/// The reward loot of an ejecting spawner: the items are the table's rolls, their velocities come from the level random.
+#[test]
+fn trial_spawner_rewards_match_vanilla() {
+    check_normalized(
+        "blk_trial_spawner_rewards",
+        &Options {
+            ignore_fields: vec!["delta"],
+            ..options()
+        },
+    );
+}
+
+#[test]
+fn ominous_trial_spawner_matches_vanilla() {
+    check_normalized(
+        "blk_trial_spawner_ominous",
+        &Options {
+            ignore_fields: vec!["delta", "pos"],
+            ..options()
+        },
+    );
+}
+
+/// Equipment tables read parameters of the new mob (probe tables of the `loot_sites` data pack).
+#[test]
+fn probe_spawner_equipment() {
+    check_normalized_default("loot_probe_spawner_equipment");
+}
+
 #[test]
 fn trial_spawner_rules_match_vanilla() {
     check_normalized_default("blk_trial_spawner_rules");

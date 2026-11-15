@@ -217,35 +217,33 @@ impl Armadillo {
         }
     }
 
-    /// `brushOffScute(interactingEntity, tool)`: the drops of `BuiltInLootTables.ARMADILLO_BRUSH`, the brush sound and the
-    /// interact game event; `false` for a baby.
-    fn brush_off_scute_by(
-        &mut self,
-        level: &mut ServerLevel,
-        interacting: impl FnOnce(&ServerLevel) -> Option<EntityId>,
+    /// `brushOffScute(interactingEntity, tool)`: the drops of `BuiltInLootTables.ARMADILLO_BRUSH`; `None` for a baby.
+    fn scute_brush_loot(
+        &self,
+        level: &ServerLevel,
+        interacting: Option<&dyn Entity>,
         tool: &ItemStack,
-    ) -> bool {
+    ) -> Option<Vec<ItemStack>> {
         if self.is_baby() {
-            return false;
+            return None;
         }
-        let interacting = interacting(level);
         let table = Identifier::parse("minecraft:brush/armadillo").expect("valid id");
         let loot = get_loot_table(&level.registries, &table);
-        let items = {
-            let this: &dyn Entity = &*self;
-            let params = LootParams::builder(level)
-                .target_entity(this)
-                .interacting_entity(interacting.and_then(|id| level.get_entity(id)))
-                .tool(tool)
-                .create(&LootContextParamSets::ENTITY_INTERACT);
-            loot.get_random_items(&params)
-        };
+        let params = LootParams::builder(level)
+            .target_entity(self)
+            .interacting_entity(interacting)
+            .tool(tool)
+            .create(&LootContextParamSets::ENTITY_INTERACT);
+        Some(loot.get_random_items(&params))
+    }
+
+    /// The rest of `brushOffScute`: the drops, the brush sound and the interact game event.
+    fn drop_brushed_scutes(&mut self, level: &mut ServerLevel, items: Vec<ItemStack>) {
         for stack in items {
             mc_game_core::world::entity::item::spawn_at_location(level, self, stack, Vec3::ZERO);
         }
         self.play_sound(level, SoundEvent::ENTITY_ARMADILLO_BRUSH, 1.0, 1.0);
         self.game_event(level, GameEvent::ENTITY_INTERACT);
-        true
     }
 }
 
@@ -460,20 +458,20 @@ impl Entity for Armadillo {
         hand: InteractionHand,
     ) -> InteractionResult {
         let item_stack = player.get_item_in_hand(hand);
-        if item_stack.is(Item::BRUSH) {
-            let player_id = player.id();
-            if self.brush_off_scute_by(level, |_| Some(player_id), &item_stack) {
-                mob::interact::with_hand_stack(player, hand, |stack, player| {
-                    mc_game_core::world::item::hurt_and_break(
-                        stack,
-                        16,
-                        level,
-                        player,
-                        hand.as_equipment_slot(),
-                    );
-                });
-                return InteractionResult::SUCCESS;
-            }
+        if item_stack.is(Item::BRUSH)
+            && let Some(items) = self.scute_brush_loot(level, Some(&*player), &item_stack)
+        {
+            self.drop_brushed_scutes(level, items);
+            mob::interact::with_hand_stack(player, hand, |stack, player| {
+                mc_game_core::world::item::hurt_and_break(
+                    stack,
+                    16,
+                    level,
+                    player,
+                    hand.as_equipment_slot(),
+                );
+            });
+            return InteractionResult::SUCCESS;
         }
         if self.is_scared() {
             InteractionResult::FAIL
@@ -488,7 +486,13 @@ impl Entity for Armadillo {
         interacting: Option<EntityId>,
         tool: &ItemStack,
     ) -> bool {
-        self.brush_off_scute_by(level, |_| interacting, tool)
+        let Some(items) =
+            self.scute_brush_loot(level, interacting.and_then(|id| level.get_entity(id)), tool)
+        else {
+            return false;
+        };
+        self.drop_brushed_scutes(level, items);
+        true
     }
 
     fn can_fall_in_love(&self) -> bool {

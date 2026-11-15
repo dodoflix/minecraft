@@ -1,0 +1,86 @@
+# `DeathLootTable` / `DeathLootTableSeed` of a mob (`Mob.getLootTable`, `Mob.dropFromLootTable` clears the override after the roll):
+# another entity's table, the empty table, a seed, a baby, a chest and a gameplay table, the natural table with only a seed, and `mob_drops false`.
+level flat
+preload 4
+entity_counter 6400
+level_seed 6401
+difficulty normal
+gamerule mob_drops true
+spawn_player I1 survival -30.5 -60 0.5 0 0
+tick 30
+fill -2 -57 -2 70 -57 20 minecraft:stone
+mobspawn M0 minecraft:zombie 2.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,DeathLootTable:"minecraft:entities/cow",DeathLootTableSeed:5L}
+entity_seed M0 100
+mobspawn M1 minecraft:zombie 6.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,DeathLootTable:"minecraft:entities/sheep"}
+entity_seed M1 101
+mobspawn M2 minecraft:sheep 10.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,DeathLootTable:"minecraft:empty"}
+entity_seed M2 102
+mobspawn M3 minecraft:cow 14.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,DeathLootTable:"minecraft:entities/zombie",DeathLootTableSeed:-9L,Age:-24000}
+entity_seed M3 103
+mobspawn M4 minecraft:skeleton 18.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,DeathLootTable:"minecraft:chests/simple_dungeon",DeathLootTableSeed:11L}
+entity_seed M4 104
+mobspawn M5 minecraft:pig 22.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,DeathLootTable:"minecraft:entities/pig",DeathLootTableSeed:3L}
+entity_seed M5 105
+mobspawn M6 minecraft:pig 26.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,DeathLootTableSeed:3L}
+entity_seed M6 106
+mobspawn M7 minecraft:zombie 30.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,DeathLootTable:"minecraft:gameplay/fishing/fish",DeathLootTableSeed:21L}
+entity_seed M7 107
+tick 2
+dump mobs nbt:M0 nbt:M3
+note case 0: zombie DeathLootTable:minecraft:entities/cow,DeathLootTableSeed:5L
+level_seed 7200
+hurt M0 player_attack 100 by=I1
+dump nbt:M0
+tick 22
+dump mobs entities events
+note case 1: zombie DeathLootTable:minecraft:entities/sheep
+level_seed 7201
+hurt M1 player_attack 100 by=I1
+dump nbt:M1
+tick 22
+dump mobs entities events
+note case 2: sheep DeathLootTable:minecraft:empty
+level_seed 7202
+hurt M2 player_attack 100 by=I1
+dump nbt:M2
+tick 22
+dump mobs entities events
+note case 3: cow DeathLootTable:minecraft:entities/zombie,DeathLootTableSeed:-9L
+level_seed 7203
+hurt M3 player_attack 100 by=I1
+dump nbt:M3
+tick 22
+dump mobs entities events
+note case 4: skeleton DeathLootTable:minecraft:chests/simple_dungeon,DeathLootTableSeed:11L
+level_seed 7204
+hurt M4 player_attack 100 by=I1
+dump nbt:M4
+tick 22
+dump mobs entities events
+note case 5: pig DeathLootTable:minecraft:entities/pig,DeathLootTableSeed:3L
+level_seed 7205
+hurt M5 player_attack 100 by=I1
+dump nbt:M5
+tick 22
+dump mobs entities events
+note case 6: pig DeathLootTableSeed:3L
+level_seed 7206
+hurt M6 player_attack 100 by=I1
+dump nbt:M6
+tick 22
+dump mobs entities events
+note case 7: zombie DeathLootTable:minecraft:gameplay/fishing/fish,DeathLootTableSeed:21L
+level_seed 7207
+hurt M7 player_attack 100 by=I1
+dump nbt:M7
+tick 22
+dump mobs entities events
+note mob_drops false: the override still clears and nothing drops
+mobspawn N0 minecraft:zombie 2.5 -60 8.5 0 0 {PersistenceRequired:1b,NoAI:1b,DeathLootTable:"minecraft:entities/cow",DeathLootTableSeed:5L}
+entity_seed N0 150
+gamerule mob_drops false
+level_seed 7300
+hurt N0 player_attack 100 by=I1
+dump nbt:N0
+tick 22
+dump mobs entities events

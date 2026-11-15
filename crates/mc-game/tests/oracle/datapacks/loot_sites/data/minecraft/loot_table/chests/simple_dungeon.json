@@ -1,0 +1,71 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:location_check",
+        "predicate": {
+          "position": {
+            "y": {
+              "min": -61,
+              "max": -59
+            }
+          }
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dirt"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:location_check",
+        "predicate": {
+          "position": {
+            "x": {
+              "min": -1000,
+              "max": 1000
+            }
+          }
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:player"
+        }
+      }
+    },
+    {
+      "rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald"
+        }
+      ],
+      "bonus_rolls": 1.0
+    }
+  ]
+}

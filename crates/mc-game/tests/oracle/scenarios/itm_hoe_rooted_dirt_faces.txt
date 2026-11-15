@@ -1,0 +1,49 @@
+# A hoe on rooted dirt from the side faces (`BlockTransformer` -> `till/rooted_dirt`, popped from the clicked face: east, south and west; the
+# vertical and north faces are in item_blocks): the hanging roots drop beside the block, the dirt stays, the hoe loses durability.
+level flat
+preload 3
+spawn_player Steve survival 0.5 -60 0.5 0 0
+move_packet Steve 0.5 -60 0.5 true
+level_seed 4321
+note hoe on rooted dirt face=east
+block 2 -60 0 minecraft:rooted_dirt
+give Steve mainhand minecraft:iron_hoe
+use_on Steve 2 -60 0 east
+dump blocks:1,-60,-1,3,-59,1 inventory:Steve entities
+block 2 -60 0 minecraft:air
+cmd kill @e[type=item]
+note hoe on rooted dirt face=south
+block 2 -60 0 minecraft:rooted_dirt
+give Steve mainhand minecraft:iron_hoe
+use_on Steve 2 -60 0 south
+dump blocks:1,-60,-1,3,-59,1 inventory:Steve entities
+block 2 -60 0 minecraft:air
+cmd kill @e[type=item]
+note hoe on rooted dirt face=west
+block 2 -60 0 minecraft:rooted_dirt
+give Steve mainhand minecraft:iron_hoe
+use_on Steve 2 -60 0 west
+dump blocks:1,-60,-1,3,-59,1 inventory:Steve entities
+block 2 -60 0 minecraft:air
+cmd kill @e[type=item]
+note hoe on rooted dirt face=east
+block 2 -60 0 minecraft:rooted_dirt
+give Steve mainhand minecraft:iron_hoe
+use_on Steve 2 -60 0 east
+dump blocks:1,-60,-1,3,-59,1 inventory:Steve entities
+block 2 -60 0 minecraft:air
+cmd kill @e[type=item]
+note hoe on rooted dirt face=south
+block 2 -60 0 minecraft:rooted_dirt
+give Steve mainhand minecraft:iron_hoe
+use_on Steve 2 -60 0 south
+dump blocks:1,-60,-1,3,-59,1 inventory:Steve entities
+block 2 -60 0 minecraft:air
+cmd kill @e[type=item]
+note hoe on rooted dirt face=west
+block 2 -60 0 minecraft:rooted_dirt
+give Steve mainhand minecraft:iron_hoe
+use_on Steve 2 -60 0 west
+dump blocks:1,-60,-1,3,-59,1 inventory:Steve entities
+block 2 -60 0 minecraft:air
+cmd kill @e[type=item]

@@ -77,6 +77,22 @@ impl BlockBehaviour for ShulkerBoxBlock {
         helpers::base_entity_trigger_event(level, pos, b0, b1)
     }
 
+    /// `getDrops`: the `contents` drop reads every slot through `ShulkerBoxBlockEntity.getItem`, which unpacks a pending loot
+    /// table (no player) first; the unpack runs here because `LootParams` holds the level immutably.
+    fn before_get_drops(
+        &self,
+        _state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _this_entity: Option<mc_data::EntityType>,
+    ) {
+        level.with_block_entity(pos, |level, be| {
+            if be.as_any().is::<ShulkerBoxBlockEntity>() {
+                be.unpack_loot_table(level, None);
+            }
+        });
+    }
+
     /// `getDrops`: the `minecraft:contents` dynamic drop (every slot, in order) of a box with a block entity.
     fn get_drops<'a>(&self, state: BlockState, builder: LootParamsBuilder<'a>) -> Vec<ItemStack> {
         use mc_game_core::world::container::Container;

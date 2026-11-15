@@ -1,0 +1,70 @@
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 3, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 6, -60, 0
+CF result success 1
+BE 3 -60 0 {Items:[{Slot:0b,components:{"minecraft:custom_data":{n:1},"minecraft:custom_name":"Dolly","minecraft:sheep/color":"blue"},count:1,id:"minecraft:stick"},{Slot:1b,components:{"minecraft:custom_data":{},"minecraft:wolf/collar":"light_blue","minecraft:wolf/sound_variant":"minecraft:grumpy","minecraft:wolf/variant":"minecraft:ashen"},count:1,id:"minecraft:stick"},{Slot:2b,components:{"minecraft:cat/collar":"red","minecraft:cat/sound_variant":"minecraft:royal","minecraft:cat/variant":"minecraft:calico","minecraft:custom_data":{},"minecraft:custom_name":"Tom"},count:1,id:"minecraft:stick"},{Slot:3b,components:{"minecraft:axolotl/variant":"cyan","minecraft:custom_data":{}},count:1,id:"minecraft:stick"},{Slot:4b,components:{"minecraft:custom_data":{},"minecraft:tropical_fish/base_color":"orange","minecraft:tropical_fish/pattern":"stripey","minecraft:tropical_fish/pattern_color":"gray"},count:1,id:"minecraft:stick"},{Slot:5b,components:{"minecraft:custom_data":{},"minecraft:salmon/size":"large"},count:1,id:"minecraft:stick"},{Slot:6b,components:{"minecraft:custom_data":{},"minecraft:custom_name":{translate:"entity.minecraft.killer_bunny"},"minecraft:rabbit/variant":"evil"},count:1,id:"minecraft:stick"},{Slot:7b,components:{"minecraft:custom_data":{},"minecraft:fox/variant":"snow"},count:1,id:"minecraft:stick"},{Slot:8b,components:{"minecraft:custom_data":{},"minecraft:frog/variant":"minecraft:warm"},count:1,id:"minecraft:stick"},{Slot:9b,components:{"minecraft:custom_data":{},"minecraft:pig/sound_variant":"minecraft:mini","minecraft:pig/variant":"minecraft:cold"},count:1,id:"minecraft:stick"},{Slot:10b,components:{"minecraft:cow/sound_variant":"minecraft:moody","minecraft:cow/variant":"minecraft:warm","minecraft:custom_data":{}},count:1,id:"minecraft:stick"},{Slot:11b,components:{"minecraft:custom_data":{},"minecraft:mooshroom/variant":"brown"},count:1,id:"minecraft:stick"},{Slot:12b,components:{"minecraft:chicken/sound_variant":"minecraft:picky","minecraft:chicken/variant":"minecraft:cold","minecraft:custom_data":{}},count:1,id:"minecraft:stick"},{Slot:13b,components:{"minecraft:custom_data":{},"minecraft:horse/variant":"brown"},count:1,id:"minecraft:stick"},{Slot:14b,components:{"minecraft:custom_data":{},"minecraft:llama/variant":"brown"},count:1,id:"minecraft:stick"},{Slot:15b,components:{"minecraft:custom_data":{},"minecraft:parrot/variant":"yellow_blue"},count:1,id:"minecraft:stick"},{Slot:16b,components:{"minecraft:custom_data":{},"minecraft:villager/variant":"minecraft:snow"},count:1,id:"minecraft:stick"},{Slot:17b,components:{"minecraft:custom_data":{},"minecraft:villager/variant":"minecraft:desert"},count:1,id:"minecraft:stick"},{Slot:18b,components:{"minecraft:custom_data":{},"minecraft:shulker/color":"gray"},count:1,id:"minecraft:stick"},{Slot:19b,components:{"minecraft:custom_data":{}},count:1,id:"minecraft:stick"},{Slot:20b,components:{"minecraft:custom_data":{},"minecraft:zombie_nautilus/variant":"minecraft:warm"},count:1,id:"minecraft:stick"},{Slot:21b,components:{"minecraft:custom_data":{},"minecraft:sulfur_cube_content":{id:"minecraft:tnt"}},count:1,id:"minecraft:stick"},{Slot:22b,components:{"minecraft:custom_data":{}},count:1,id:"minecraft:stick"},{Slot:23b,components:{"minecraft:custom_data":{n:2,s:"x"},"minecraft:custom_name":"Boom"},count:1,id:"minecraft:stick"},{Slot:24b,components:{"minecraft:custom_data":{},"minecraft:painting/variant":"minecraft:kebab"},count:1,id:"minecraft:stick"},{Slot:25b,components:{"minecraft:cushion/color":"red","minecraft:custom_data":{}},count:1,id:"minecraft:stick"},{Slot:26b,components:{"minecraft:custom_data":{},"minecraft:profile":{id:[I;1,2,3,4],name:"Mq"}},count:1,id:"minecraft:stick"}],components:{},id:"minecraft:chest",x:3,y:-60,z:0}
+BE 6 -60 0 {Items:[{Slot:0b,components:{"minecraft:custom_data":{},"minecraft:potion_contents":{potion:"minecraft:strong_poison"},"minecraft:potion_duration_scale":0.5f},count:1,id:"minecraft:stick"},{Slot:1b,count:1,id:"minecraft:stick"},{Slot:2b,count:1,id:"minecraft:stick"},{Slot:3b,count:1,id:"minecraft:stick"}],components:{},id:"minecraft:chest",x:6,y:-60,z:0}
+# include and exclude lists on a second chest row
+CF msg Modified 1 slot(s) at 6, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 6, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 6, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 6, -60, 0
+CF result success 1
+CF msg Modified 1 slot(s) at 6, -60, 0
+CF result success 1
+BE 6 -60 0 {Items:[{Slot:0b,components:{"minecraft:custom_name":"Dolly","minecraft:sheep/color":"blue"},count:1,id:"minecraft:stick"},{Slot:1b,components:{"minecraft:custom_data":{n:1},"minecraft:sheep/color":"blue"},count:1,id:"minecraft:stick"},{Slot:2b,components:{"minecraft:cat/collar":"red","minecraft:custom_data":{}},count:1,id:"minecraft:stick"},{Slot:3b,components:{"minecraft:cat/sound_variant":"minecraft:royal","minecraft:custom_data":{}},count:1,id:"minecraft:stick"},{Slot:4b,components:{"minecraft:tropical_fish/base_color":"orange","minecraft:tropical_fish/pattern":"stripey"},count:1,id:"minecraft:stick"}],components:{},id:"minecraft:chest",x:6,y:-60,z:0}

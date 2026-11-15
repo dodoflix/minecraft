@@ -1,0 +1,36 @@
+# hoe on rooted dirt face=east
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_hoe*1/dmg=1{minecraft:damage:1}
+E item#1 minecraft:item pos=3.125,-59.82466502833754,0.5154064930156488 delta=0.1,0.0019958976169217935,-0.08385639232939104 rot=125.7906,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:hanging_roots*1 age=0 pickup=10 health=5 owner=- thrower=-
+CF msg Killed Hanging Roots
+CF result success 1
+# hoe on rooted dirt face=south
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_hoe*1/dmg=1{minecraft:damage:1}
+E item#2 minecraft:item pos=2.619151517394955,-59.735035634653705,1.125 delta=0.07024139473727656,0.060138698551849994,0.1 rot=289.46902,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:hanging_roots*1 age=0 pickup=10 health=5 owner=- thrower=-
+CF msg Killed Hanging Roots
+CF result success 1
+# hoe on rooted dirt face=west
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_hoe*1/dmg=1{minecraft:damage:1}
+E item#3 minecraft:item pos=1.875,-59.77898793079552,0.3193062709468665 delta=-0.1,0.08715122919516434,0.0760967862892494 rot=269.15683,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:hanging_roots*1 age=0 pickup=10 health=5 owner=- thrower=-
+CF msg Killed Hanging Roots
+CF result success 1
+# hoe on rooted dirt face=east
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_hoe*1/dmg=1{minecraft:damage:1}
+E item#4 minecraft:item pos=3.125,-59.57588013941167,0.5845439663934606 delta=0.1,0.034552910261721914,-0.019970362320652343 rot=125.7906,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:hanging_roots*1 age=0 pickup=10 health=5 owner=- thrower=-
+CF msg Killed Hanging Roots
+CF result success 1
+# hoe on rooted dirt face=south
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_hoe*1/dmg=1{minecraft:damage:1}
+E item#5 minecraft:item pos=2.730170185389286,-59.52008628261459,1.125 delta=0.08538282359931554,0.081652189925948,0.1 rot=289.46902,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:hanging_roots*1 age=0 pickup=10 health=5 owner=- thrower=-
+CF msg Killed Hanging Roots
+CF result success 1
+# hoe on rooted dirt face=west
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_hoe*1/dmg=1{minecraft:damage:1}
+E item#6 minecraft:item pos=1.875,-59.548340268576595,0.3110688682727023 delta=-0.1,0.07455969019407484,-0.005422090127238904 rot=269.15683,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:hanging_roots*1 age=0 pickup=10 health=5 owner=- thrower=-
+CF msg Killed Hanging Roots
+CF result success 1

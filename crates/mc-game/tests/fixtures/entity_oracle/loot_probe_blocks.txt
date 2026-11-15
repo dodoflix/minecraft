@@ -1,0 +1,154 @@
+C Set minecraft:overworld to 6000 tick(s)
+# dig an oak log with an axe, and bare handed
+DIG Steve ticks=10 broken=true
+B 4 -60 0 minecraft:oak_log[axis=x]
+E item#1 minecraft:item pos=2.677300812462553,-59.14802500381438,0.6566832365996427 delta=0.09020635191189999,0.0323152326326785,0.0033812713805830195 rot=79.63358,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.3242873830471553,-59.0083753680334,0.0954566291680834 delta=-0.06331045721352711,0.0323152326326785,-0.05918375188781486 rot=103.5861,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.4787830505572477,-59.46565297393632,0.40782232593629586 delta=0.019699159636436328,0.0323152326326785,-0.02976928471272585 rot=47.17029,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.4913812685229546,-59.07165030344566,0.6128892051081486 delta=-0.013729980055274909,0.0323152326326785,-0.011206432041567642 rot=338.63177,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.6859839741861307,-59.131954229000605,0.680722293187747 delta=7.727555533954183E-4,0.0323152326326785,0.07694519554762022 rot=354.12964,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=4 pickup=6 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=2,-60,0 data=140 global=0
+DIG Steve ticks=61 broken=false
+B 4 -60 0 minecraft:oak_log[axis=x]
+E item#1 minecraft:item pos=3.3855775016406295,-60.0,0.6832320953872244 delta=3.317138841887045E-6,-0.12,1.2433876765626452E-7 rot=79.63358,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=68 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.7738217030702124,-60.0,-0.4191285698715443 delta=-2.2815398786199084E-6,0.0,-2.132824434405521E-6 rot=103.5861,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=68 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.6162735118060927,-60.0,0.20004733645754033 delta=7.391764902314693E-7,-0.04,-1.1170403101842574E-6 rot=47.17029,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=68 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.3723325169330503,-60.0,0.5157214205261762 delta=-2.433830960085439E-6,-0.08,-1.9864967862340203E-6 rot=338.63177,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=68 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.6927028549189154,-60.0,1.349737985891191 delta=4.7360620016392E-8,-0.12,4.715814920262497E-6 rot=354.12964,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=68 pickup=0 health=5 owner=- thrower=-
+I Steve 0 minecraft:iron_axe*1/dmg=1{minecraft:damage:1}
+I Steve 1 minecraft:shears*1
+I Steve 2 minecraft:iron_hoe*1
+I Steve 3 minecraft:glass_bottle*1
+# destroyed without a player
+DESTROY true
+E item#1 minecraft:item pos=3.3855775016406295,-60.0,0.6832320953872244 delta=1.9504778351647297E-6,-0.08,7.311120273376227E-8 rot=79.63358,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=71 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.7738217030702124,-60.0,-0.4191285698715443 delta=-2.2815398786199084E-6,-0.12,-2.132824434405521E-6 rot=103.5861,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=71 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.6162735118060927,-60.0,0.20004733645754033 delta=4.346358199619893E-7,0.0,-6.568197684364879E-7 rot=47.17029,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=71 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.3723325169330503,-60.0,0.5157214205261762 delta=-1.4310927484373268E-6,-0.04,-1.1680602277628037E-6 rot=338.63177,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=71 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.6927028549189154,-60.0,1.349737985891191 delta=2.7848047369968127E-8,-0.08,2.7728994519501456E-6 rot=354.12964,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=71 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=6.741416002280345,-59.08175331855707,0.44610274153006413 delta=0.05556304846840569,0.07297472653442398,-0.08032659136019939 rot=39.593803,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=6.3848894870034805,-59.11172414567566,0.5498877203372063 delta=0.030287041558551702,0.07297472653442398,0.026239902190256945 rot=188.78273,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3 pickup=7 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2001 pos=6,-60,0 data=141 global=0
+# blown up by primed TNT, with and without decay
+E item#1 minecraft:item pos=3.3855775016406295,-60.0,0.6832320953872244 delta=1.1468810824043392E-6,-0.04,4.298939153035734E-8 rot=79.63358,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=74 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.7738217030702124,-60.0,-0.4191285698715443 delta=-1.3415455835309572E-6,-0.08,-1.2541008935396792E-6 rot=103.5861,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=74 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.6162735118060927,-60.0,0.20004733645754033 delta=4.346358199619893E-7,-0.12,-6.568197684364879E-7 rot=47.17029,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=74 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.3723325169330503,-60.0,0.5157214205261762 delta=-8.414826206985248E-7,0.0,-6.86819482989369E-7 rot=338.63177,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=74 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.6927028549189154,-60.0,1.349737985891191 delta=1.6374653500135247E-8,-0.04,1.630465041702151E-6 rot=354.12964,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=74 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=6.904793593133797,-59.103994431556515,0.20991042775949373 delta=0.0522954997675169,-0.04658045162980263,-0.07560274958979886 rot=39.593803,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=6 pickup=4 health=4 owner=- thrower=-
+E item#7 minecraft:item pos=6.473945505712177,-59.133965258675104,0.6270435302188777 delta=0.028505922882986524,-0.04658045162980263,0.024696787464253803 rot=188.78273,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=6 pickup=4 health=5 owner=- thrower=-
+E T1 minecraft:tnt pos=10.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=77
+E T2 minecraft:tnt pos=14.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=77
+E item#8 minecraft:item pos=10.830923088360327,-59.50646510547678,0.6451304251784344 delta=0.07068195899990516,0.07297472653442398,0.08841804399154952 rot=30.064217,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=11.018825649938137,-59.24948534408813,0.4336263846915736 delta=0.09043311601958003,0.07297472653442398,-0.06139393133563729 rot=166.88828,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=3 pickup=7 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=10.466435525120675,-59.22602731951358,0.49296486277413154 delta=-0.007885293138384257,0.07297472653442398,-0.07224304267624068 rot=169.57901,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=10.542873501575464,-59.49072647320506,0.9133724736907762 delta=0.039798532529126525,0.07297472653442398,0.0930889673928218 rot=308.77655,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=3.3855775016406295,-60.0,0.6832320953872244 delta=6.743661442663155E-7,0.0,2.527776476171859E-8 rot=79.63358,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=77 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.7738217030702124,-60.0,-0.4191285698715443 delta=-7.88828882438852E-7,-0.04,-7.374113995535677E-7 rot=103.5861,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=77 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.6162735118060927,-60.0,0.20004733645754033 delta=2.5556588783671287E-7,-0.08,-3.8621006267696777E-7 rot=47.17029,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=77 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.3723325169330503,-60.0,0.5157214205261762 delta=-8.414826206985248E-7,-0.12,-6.86819482989369E-7 rot=338.63177,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=77 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.6927028549189154,-60.0,1.349737985891191 delta=9.628297226276887E-9,0.0,9.587135409266882E-7 rot=354.12964,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=77 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=7.058563283602678,-59.47777559717984,-0.012391901402694597 delta=0.049220108891063374,-0.159104835446646,-0.07115670724663553 rot=39.593803,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=9 pickup=1 health=4 owner=- thrower=-
+E item#7 minecraft:item pos=6.557764322966684,-59.50774642429843,0.699661965473089 delta=0.02682954813661344,-0.159104835446646,0.02324442014425631 rot=188.78273,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=9 pickup=1 health=5 owner=- thrower=-
+E T1 minecraft:tnt pos=10.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=74
+E T2 minecraft:tnt pos=14.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=74
+E item#8 minecraft:item pos=11.038756324594177,-59.52870621847622,0.9051148467230502 delta=0.06652529823933256,-0.04658045162980263,0.08321836051946653 rot=30.064217,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=6 pickup=4 health=4 owner=- thrower=-
+E item#9 minecraft:item pos=11.28473518938774,-59.271726457087574,0.25310366552611663 delta=0.08511493030240994,-0.04658045162980263,-0.057783480395525756 rot=166.88828,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=6 pickup=4 health=4 owner=- thrower=-
+E item#10 minecraft:item pos=10.443249608731385,-59.24826843251302,0.2805414160102504 delta=-0.007421575252834732,-0.04658045162980263,-0.06799457779261878 rot=169.57901,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=10.659897108871034,-59.5129675862045,1.1870912786682017 delta=0.03745806261526329,-0.04658045162980263,0.08761459651404517 rot=308.77655,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=6 pickup=4 health=4 owner=- thrower=-
+E item#12 minecraft:item pos=14.486281963780984,-59.346588989144784,0.7016919803433824 delta=0.06446384607665599,0.07297472653442398,0.02010716836785336 rot=260.57413,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#13 minecraft:item pos=14.812750992524998,-59.48591222470617,0.5831895171229331 delta=0.09100918670500655,0.07297472653442398,-0.024662884472609396 rot=172.65216,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#14 minecraft:item pos=14.057263920481107,-59.445830923366394,0.2618697137714553 delta=-0.09139871349314498,0.07297472653442398,-0.03116429088753266 rot=311.13797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#15 minecraft:item pos=14.705026429332763,-59.20313822146997,0.7634083159370865 delta=-3.7751745124604813E-4,0.07297472653442398,0.04675065373490973 rot=78.93698,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3 pickup=7 health=5 owner=- thrower=-
+CF msg Killed 15 entities
+CF result success 15
+# sweet berry bushes: empty hand and with shears
+B 20 -60 0 minecraft:sweet_berry_bush[age=3]
+E T1 minecraft:tnt pos=10.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=71
+E T2 minecraft:tnt pos=14.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=71
+I Steve 0 minecraft:iron_axe*1/dmg=1{minecraft:damage:1}
+I Steve 1 minecraft:shears*1
+I Steve 2 minecraft:iron_hoe*1
+I Steve 3 minecraft:glass_bottle*1
+B 22 -60 0 minecraft:sweet_berry_bush[age=3]
+E T1 minecraft:tnt pos=10.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=68
+E T2 minecraft:tnt pos=14.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=68
+I Steve 0 minecraft:iron_axe*1/dmg=1{minecraft:damage:1}
+I Steve 1 minecraft:shears*1
+I Steve 2 minecraft:iron_hoe*1
+I Steve 3 minecraft:glass_bottle*1
+CF result failure 0
+CF fail No entity was found
+# cave vines: glow berries picked by hand
+B 29 -42 0 minecraft:cave_vines[age=10,berries=false]
+B 29 -41 0 minecraft:cave_vines_plant[berries=true]
+E T1 minecraft:tnt pos=10.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=65
+E T2 minecraft:tnt pos=14.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=65
+E item#16 minecraft:item pos=29.816400600374273,-41.157892329005286,0.9167147077260189 delta=0.07963653633708807,0.07297472653442398,0.09408022503974384 rot=248.75325,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#17 minecraft:item pos=29.90874100030976,-41.186197596410686,0.6835828864358575 delta=0.05210161442115084,0.07297472653442398,0.010698966957102473 rot=133.83656,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=3 pickup=7 health=5 owner=- thrower=-
+I Steve 0 minecraft:iron_axe*1/dmg=1{minecraft:damage:1}
+I Steve 1 minecraft:shears*1
+I Steve 2 minecraft:iron_hoe*1
+I Steve 3 minecraft:glass_bottle*1
+EV sound at=29.5,-41.5,0.5 r=16.0 ex=0 event=minecraft:block.cave_vines.pick_berries source=block vol=1.0 pitch=1.1032895
+B 29 -42 0 minecraft:cave_vines[age=10,berries=false]
+B 29 -41 0 minecraft:cave_vines_plant[berries=false]
+E T1 minecraft:tnt pos=10.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=62
+E T2 minecraft:tnt pos=14.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=62
+E item#16 minecraft:item pos=30.05056387631593,-41.18013344200473,1.1933482067444179 delta=0.07495327528456501,-0.04658045162980263,0.08854756033574111 rot=248.75325,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#17 minecraft:item pos=30.06194059029524,-41.20843870941013,0.7150421294805588 delta=0.04903762554349153,-0.04658045162980263,0.010069782696245892 rot=133.83656,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#18 minecraft:item pos=29.800687190005252,-40.234031339453495,0.36492127202360475 delta=0.07467852192661796,0.07297472653442398,-0.05877449056551938 rot=180.29068,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#19 minecraft:item pos=29.750490798150153,-40.26067103969513,0.11278386432608553 delta=0.015627286284143706,0.07297472653442398,-0.07029847131326884 rot=307.5638,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=3 pickup=7 health=5 owner=- thrower=-
+I Steve 0 minecraft:iron_axe*1/dmg=1{minecraft:damage:1}
+I Steve 1 minecraft:shears*1
+I Steve 2 minecraft:iron_hoe*1
+I Steve 3 minecraft:glass_bottle*1
+EV sound at=29.5,-40.5,0.5 r=16.0 ex=0 event=minecraft:block.cave_vines.pick_berries source=block vol=1.0 pitch=1.0603207
+CF msg Killed 4 entities
+CF result success 4
+# beehive harvested with shears
+B 32 -60 0 minecraft:beehive[facing=north,honey_level=5]
+E T1 minecraft:tnt pos=10.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=59
+E T2 minecraft:tnt pos=14.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=59
+I Steve 0 minecraft:iron_axe*1/dmg=1{minecraft:damage:1}
+I Steve 1 minecraft:shears*1
+I Steve 2 minecraft:iron_hoe*1
+I Steve 3 minecraft:glass_bottle*1
+CF result failure 0
+CF fail No entity was found
+# a pumpkin carved with shears
+B 34 -60 0 minecraft:carved_pumpkin[facing=south]
+E T1 minecraft:tnt pos=10.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=56
+E T2 minecraft:tnt pos=14.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=56
+E item#20 minecraft:item pos=34.53733977178624,-59.98979600019836,1.3111527726938146 delta=0.011952079942947239,-0.0682040817087555,0.05158335817611322 rot=327.88223,0.0 og=0 fall=0.0997959990054369 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=0 health=5 owner=- thrower=-
+E item#21 minecraft:item pos=34.52684498371208,-59.98979600019836,1.316942881600273 delta=0.008592805366639306,-0.0682040817087555,0.05343671295622621 rot=313.6957,0.0 og=0 fall=0.0997959990054369 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=0 health=5 owner=- thrower=-
+E item#22 minecraft:item pos=34.54620595638887,-59.98979600019836,1.3451844821202612 delta=0.014790055165885217,-0.0682040817087555,0.062476561112342725 rot=15.828638,0.0 og=0 fall=0.0997959990054369 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=3 pickup=0 health=5 owner=- thrower=-
+I Steve 0 minecraft:iron_axe*1/dmg=1{minecraft:damage:1}
+I Steve 1 minecraft:shears*1/dmg=1{minecraft:damage:1}
+I Steve 2 minecraft:iron_hoe*1
+I Steve 3 minecraft:glass_bottle*1
+EV sound at=34.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.pumpkin.carve source=block vol=1.0 pitch=1.0
+CF msg Killed 3 entities
+CF result success 3
+# rooted dirt with a hoe
+B 36 -60 0 minecraft:dirt
+E T1 minecraft:tnt pos=10.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=53
+E T2 minecraft:tnt pos=14.5,-60.0,3.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=53
+E item#23 minecraft:item pos=36.28913740677631,-59.87128753422955,-0.41904000564575206 delta=-0.0890776834475094,-0.10386976345174183,-0.094119205495453 rot=58.776127,0.0 og=0 fall=0.20121998898684978 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#24 minecraft:item pos=36.07642971076802,-59.69294938567693,-0.41904000564575206 delta=-0.08051216497303118,-0.05991662164448402,-0.094119205495453 rot=99.641235,0.0 og=0 fall=0.08271023258566856 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#25 minecraft:item pos=36.17082514097054,-59.70552352886816,-0.41904000564575206 delta=-0.07355451995583735,-0.05511178395417082,-0.094119205495453 rot=293.91144,0.0 og=0 fall=0.07280438393354416 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#26 minecraft:item pos=36.711097549304526,-59.662047792293656,-0.41904000564575206 delta=0.07475820599879386,-0.04884436326013686,-0.094119205495453 rot=272.7125,0.0 og=0 fall=0.05988321080803871 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=3 pickup=7 health=5 owner=- thrower=-
+I Steve 0 minecraft:iron_axe*1/dmg=1{minecraft:damage:1}
+I Steve 1 minecraft:shears*1/dmg=1{minecraft:damage:1}
+I Steve 2 minecraft:iron_hoe*1/dmg=1{minecraft:damage:1}
+I Steve 3 minecraft:glass_bottle*1
+EV sound at=36.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:item.hoe.till source=block vol=1.0 pitch=1.0

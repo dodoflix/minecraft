@@ -784,9 +784,9 @@ impl ConditionalFunction for CopyComponentsFunction {
         };
         match self.source {
             ComponentSource::Entity(target) => {
-                // `Entity.get(type)`: the custom name (null without one) and the custom data (never null); the
-                // subclass overrides (variants, colors) are not ported
+                // `Entity.get(type)` per component type, in registry (or `include`) order
                 if let Some(entity) = target.get(context) {
+                    let components = entity.entity_components();
                     let exclude = self.exclude.clone().unwrap_or_default();
                     let types: Vec<mc_data::DataComponentType> = match &self.include {
                         Some(i) => i.clone(),
@@ -796,12 +796,8 @@ impl ConditionalFunction for CopyComponentsFunction {
                         if exclude.contains(&t) {
                             continue;
                         }
-                        if t == mc_data::DataComponentType::CUSTOM_NAME {
-                            if let Some(name) = entity.base().get_custom_name() {
-                                stack.set(CUSTOM_NAME, name);
-                            }
-                        } else if t == mc_data::DataComponentType::CUSTOM_DATA {
-                            stack.set(CUSTOM_DATA, CustomData::of(&entity.base().custom_data));
+                        if let Some((_, v)) = components.iter().find(|(k, _)| *k == t) {
+                            stack.set_value(t, Some(v.clone()));
                         }
                     }
                 }

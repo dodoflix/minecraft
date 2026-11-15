@@ -83,6 +83,19 @@ fn is_sulfur_cube_food(stack: &ItemStack) -> bool {
 }
 
 impl SulfurCube {
+    /// `getSulfurCubeContent(getBodyArmorItem())`: `null` for an empty body slot.
+    fn sulfur_cube_content(&self) -> Option<SulfurCubeContent> {
+        let body = self.get_item_by_slot(EquipmentSlot::Body);
+        if body.is_empty() {
+            return None;
+        }
+        ItemStackTemplate::from_stack(&body)
+            .ok()
+            .map(|absorbed_block_item_stack| SulfurCubeContent {
+                absorbed_block_item_stack,
+            })
+    }
+
     /// `new SulfurCube(type, level)`.
     pub fn new(ty: EntityType, id: EntityId) -> Self {
         let mob = MobData::new(ty, id, MobKind::AgeableMob, |b| {
@@ -695,16 +708,8 @@ impl Bucketable for SulfurCube {
     }
     fn save_to_bucket_tag(&self, bucket: &mut ItemStack) {
         bucketable::save_default_data_to_bucket_tag(self, bucket);
-        let body = self.get_item_by_slot(EquipmentSlot::Body);
-        if !body.is_empty()
-            && let Ok(template) = ItemStackTemplate::from_stack(&body)
-        {
-            bucket.set(
-                SULFUR_CUBE_CONTENT,
-                SulfurCubeContent {
-                    absorbed_block_item_stack: template,
-                },
-            );
+        if let Some(content) = self.sulfur_cube_content() {
+            bucket.set(SULFUR_CUBE_CONTENT, content);
         }
         let mut tag = bucket
             .get(&BUCKET_ENTITY_DATA)
@@ -1228,6 +1233,17 @@ impl Entity for SulfurCube {
             delta_movement.z - horizontal_knockback.z,
         );
         self.play_sound_default(level, hit_sound);
+    }
+    /// `SulfurCube.get(type)`: `SULFUR_CUBE_CONTENT` (the body item, absent when empty) besides the base components.
+    fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(
+            self.base(),
+        );
+        let mut builder = mc_protocol::components::DataComponentMap::builder().add_all(&base);
+        if let Some(content) = self.sulfur_cube_content() {
+            builder = builder.set(SULFUR_CUBE_CONTENT, content);
+        }
+        builder.build()
     }
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
         mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);

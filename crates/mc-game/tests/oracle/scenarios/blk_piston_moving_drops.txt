@@ -1,0 +1,92 @@
+# Breaking the moving block of a piston mid-push (`MovingPistonBlock.getDrops`: the loot of the block being moved, read from the piston block entity at the
+# origin): glowstone, leaves and a loot-table shulker box pushed east, destroyed one, two and three ticks after the base fires (`Level.destroyBlock`).
+level flat
+preload 3
+time 6000
+spawn_player Steve survival 0.5 -60 -6.5 0 0
+tick 30
+level_seed 41
+note minecraft:glowstone destroyed 1 tick(s) into the push
+block 3 -60 0 minecraft:glowstone
+block 2 -60 0 minecraft:piston[facing=east,extended=false]
+block 2 -59 0 minecraft:redstone_block
+tick 1
+dump blocks:2,-60,0,4,-60,0
+destroy 3 -60 0
+tick 6
+dump blocks:2,-60,0,4,-60,0 entities
+note minecraft:oak_leaves[persistent=false] destroyed 1 tick(s) into the push
+block 3 -60 3 minecraft:oak_leaves[persistent=false]
+block 2 -60 3 minecraft:piston[facing=east,extended=false]
+block 2 -59 3 minecraft:redstone_block
+tick 1
+dump blocks:2,-60,3,4,-60,3
+destroy 3 -60 3
+tick 6
+dump blocks:2,-60,3,4,-60,3 entities
+note minecraft:shulker_box[facing=up] destroyed 1 tick(s) into the push
+block 3 -60 6 minecraft:shulker_box[facing=up]
+be_nbt 3 -60 6 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:4L}
+block 2 -60 6 minecraft:piston[facing=east,extended=false]
+block 2 -59 6 minecraft:redstone_block
+tick 1
+dump blocks:2,-60,6,4,-60,6
+destroy 3 -60 6
+tick 6
+dump blocks:2,-60,6,4,-60,6 entities
+note minecraft:glowstone destroyed 2 tick(s) into the push
+block 3 -60 9 minecraft:glowstone
+block 2 -60 9 minecraft:piston[facing=east,extended=false]
+block 2 -59 9 minecraft:redstone_block
+tick 2
+dump blocks:2,-60,9,4,-60,9
+destroy 3 -60 9
+tick 6
+dump blocks:2,-60,9,4,-60,9 entities
+note minecraft:oak_leaves[persistent=false] destroyed 2 tick(s) into the push
+block 3 -60 12 minecraft:oak_leaves[persistent=false]
+block 2 -60 12 minecraft:piston[facing=east,extended=false]
+block 2 -59 12 minecraft:redstone_block
+tick 2
+dump blocks:2,-60,12,4,-60,12
+destroy 3 -60 12
+tick 6
+dump blocks:2,-60,12,4,-60,12 entities
+note minecraft:shulker_box[facing=up] destroyed 2 tick(s) into the push
+block 3 -60 15 minecraft:shulker_box[facing=up]
+be_nbt 3 -60 15 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:4L}
+block 2 -60 15 minecraft:piston[facing=east,extended=false]
+block 2 -59 15 minecraft:redstone_block
+tick 2
+dump blocks:2,-60,15,4,-60,15
+destroy 3 -60 15
+tick 6
+dump blocks:2,-60,15,4,-60,15 entities
+note minecraft:glowstone destroyed 3 tick(s) into the push
+block 3 -60 18 minecraft:glowstone
+block 2 -60 18 minecraft:piston[facing=east,extended=false]
+block 2 -59 18 minecraft:redstone_block
+tick 3
+dump blocks:2,-60,18,4,-60,18
+destroy 3 -60 18
+tick 6
+dump blocks:2,-60,18,4,-60,18 entities
+note minecraft:oak_leaves[persistent=false] destroyed 3 tick(s) into the push
+block 3 -60 21 minecraft:oak_leaves[persistent=false]
+block 2 -60 21 minecraft:piston[facing=east,extended=false]
+block 2 -59 21 minecraft:redstone_block
+tick 3
+dump blocks:2,-60,21,4,-60,21
+destroy 3 -60 21
+tick 6
+dump blocks:2,-60,21,4,-60,21 entities
+note minecraft:shulker_box[facing=up] destroyed 3 tick(s) into the push
+block 3 -60 24 minecraft:shulker_box[facing=up]
+be_nbt 3 -60 24 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:4L}
+block 2 -60 24 minecraft:piston[facing=east,extended=false]
+block 2 -59 24 minecraft:redstone_block
+tick 3
+dump blocks:2,-60,24,4,-60,24
+destroy 3 -60 24
+tick 6
+dump blocks:2,-60,24,4,-60,24 entities

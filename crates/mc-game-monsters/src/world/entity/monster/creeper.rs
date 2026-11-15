@@ -281,23 +281,27 @@ impl Entity for Creeper {
             let Some(table) = Identifier::try_parse("charged_creeper/root") else {
                 return true;
             };
-            let dropped = level
-                .with_entity(victim.id, |level, entity| {
-                    let items = mc_game_core::world::entity::living_entity::death::loot_table_items(
-                        entity, level, source, false, &table,
-                    );
-                    let any = !items.is_empty();
-                    for stack in items {
-                        mc_game_core::world::entity::item::spawn_at_location(
-                            level,
-                            entity,
-                            stack,
-                            mc_core::phys::Vec3::ZERO,
-                        );
-                    }
-                    any
-                })
-                .unwrap_or(false);
+            // the creeper is the attacker and direct attacker of `source`: it must be visible to the loot parameters
+            let dropped = level.expose(&*self, |level| {
+                level
+                    .with_entity(victim.id, |level, entity| {
+                        let items =
+                            mc_game_core::world::entity::living_entity::death::loot_table_items(
+                                entity, level, source, false, &table,
+                            );
+                        let any = !items.is_empty();
+                        for stack in items {
+                            mc_game_core::world::entity::item::spawn_at_location(
+                                level,
+                                entity,
+                                stack,
+                                mc_core::phys::Vec3::ZERO,
+                            );
+                        }
+                        any
+                    })
+                    .unwrap_or(false)
+            });
             self.dropped_skulls |= dropped;
         }
         true

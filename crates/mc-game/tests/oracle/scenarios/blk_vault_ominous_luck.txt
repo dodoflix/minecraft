@@ -1,0 +1,52 @@
+# Vault rewards with the player's luck (`VaultBlockEntity.Server.tryInsertKey`: ORIGIN, luck from the LUCK attribute, THIS_ENTITY, TOOL = the key): an ominous
+# vault with the ominous reward table, an ominous key refused by a normal vault, a normal vault with the normal reward table, and the display item
+# override (`override_loot_table_to_display`) of a vault with a table of its own. Luck III effect on the player, loot tables rolled with their own sequences.
+level flat
+preload 2
+time 6000
+spawn_player p survival 8.5 -60 9.5 0 0
+tick 10
+effect p minecraft:luck 2 100000
+block 8 -60 12 minecraft:vault[facing=north,ominous=true]
+be_nbt 8 -60 12 {config:{loot_table:"minecraft:chests/trial_chambers/reward_ominous",key_item:{id:"minecraft:ominous_trial_key",count:1}}}
+block 14 -60 12 minecraft:vault[facing=north]
+block 20 -60 12 minecraft:vault[facing=north]
+be_nbt 20 -60 12 {config:{loot_table:"minecraft:chests/trial_chambers/reward_unique",override_loot_table_to_display:"minecraft:chests/trial_chambers/reward_ominous_rare",key_item:{id:"minecraft:trial_key",count:1}}}
+dump be:8,-60,12 be:14,-60,12 be:20,-60,12 blocks:8,-60,12,20,-60,12
+watch events
+tick 5
+dump be:8,-60,12 be:14,-60,12 be:20,-60,12 blocks:8,-60,12,20,-60,12
+note the ominous vault takes the ominous key
+give p mainhand minecraft:ominous_trial_key
+entity_counter 100
+level_seed 31
+use_on p 8 -60 12 north main
+dump inventory:p be:8,-60,12 blocks:8,-60,12,8,-60,12
+tick 10
+dump be:8,-60,12 blocks:8,-60,12,8,-60,12 entities
+tick 40
+dump be:8,-60,12 blocks:8,-60,12,8,-60,12 entities
+tick 60
+dump be:8,-60,12 blocks:8,-60,12,8,-60,12 entities
+note the normal vault takes the trial key
+give p mainhand minecraft:trial_key
+level_seed 32
+use_on p 14 -60 12 north main
+dump inventory:p be:14,-60,12 blocks:14,-60,12,14,-60,12
+tick 10
+dump be:14,-60,12 entities
+tick 40
+dump be:14,-60,12 entities
+tick 60
+dump be:14,-60,12 entities
+note the vault with its own loot table and display override
+give p mainhand minecraft:trial_key
+level_seed 33
+use_on p 20 -60 12 north main
+dump inventory:p be:20,-60,12 blocks:20,-60,12,20,-60,12
+tick 10
+dump be:20,-60,12 entities
+tick 40
+dump be:20,-60,12 entities
+tick 60
+dump be:20,-60,12 entities

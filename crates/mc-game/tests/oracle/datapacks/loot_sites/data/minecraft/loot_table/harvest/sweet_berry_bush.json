@@ -1,0 +1,75 @@
+{
+  "type": "minecraft:block_interact",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "interacting_entity",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:player"
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dirt"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:location_check",
+        "predicate": {
+          "position": {
+            "y": {
+              "min": -61,
+              "max": -59
+            }
+          }
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "minecraft:sweet_berry_bush",
+        "state": {
+          "age": "3"
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:inverted",
+        "term": {
+          "type": "minecraft:match_tool",
+          "predicate": {
+            "items": "minecraft:shears"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+C Set minecraft:overworld to 6000 tick(s)
+EFFECT Lucky minecraft:luck added=true
+# Lucky opens a chest
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:stick"},{Slot:3b,count:1,id:"minecraft:coal"},{Slot:5b,count:1,id:"minecraft:emerald"},{Slot:7b,count:1,id:"minecraft:dirt"},{Slot:11b,count:1,id:"minecraft:emerald"},{Slot:12b,count:1,id:"minecraft:emerald"}],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+# Plain opens a chest
+BE 8 -60 0 {Items:[{Slot:3b,count:1,id:"minecraft:dirt"},{Slot:6b,count:1,id:"minecraft:coal"},{Slot:20b,count:1,id:"minecraft:stick"}],components:{},id:"minecraft:chest",x:8,y:-60,z:0}
+# a hopper pulls from an unopened chest
+BE 16 -59 0 {Items:[],components:{},id:"minecraft:chest",x:16,y:-59,z:0}
+BE 16 -60 0 {Items:[],TransferCooldown:5,components:{},id:"minecraft:hopper",x:16,y:-60,z:0}
+BE 17 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:dirt"}],components:{},id:"minecraft:barrel",x:17,y:-60,z:0}

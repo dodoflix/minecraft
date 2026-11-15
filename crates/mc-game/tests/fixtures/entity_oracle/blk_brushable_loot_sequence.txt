@@ -1,0 +1,277 @@
+EFFECT Bob minecraft:luck added=true
+T 1
+T 2
+T 3
+BRUSH 2 -60 4 false
+BRUSH 4 -60 4 false
+BRUSH 6 -60 4 false
+BRUSH 8 -60 4 false
+BRUSH 10 -60 4 false
+BRUSH 12 -60 4 false
+BRUSH 2 -60 24 false
+BRUSH 4 -60 24 false
+BRUSH 6 -60 24 false
+BRUSH 8 -60 24 false
+BRUSH 10 -60 24 false
+BRUSH 12 -60 24 false
+T 4
+T 5
+T 6
+T 7
+T 8
+T 9
+T 10
+T 11
+T 12
+T 13
+BRUSH 2 -60 4 false
+BRUSH 4 -60 4 false
+BRUSH 6 -60 4 false
+BRUSH 8 -60 4 false
+BRUSH 10 -60 4 false
+BRUSH 12 -60 4 false
+BRUSH 2 -60 24 false
+BRUSH 4 -60 24 false
+BRUSH 6 -60 24 false
+BRUSH 8 -60 24 false
+BRUSH 10 -60 24 false
+BRUSH 12 -60 24 false
+T 14
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+BRUSH 2 -60 4 false
+BRUSH 4 -60 4 false
+BRUSH 6 -60 4 false
+BRUSH 8 -60 4 false
+BRUSH 10 -60 4 false
+BRUSH 12 -60 4 false
+BRUSH 2 -60 24 false
+BRUSH 4 -60 24 false
+BRUSH 6 -60 24 false
+BRUSH 8 -60 24 false
+BRUSH 10 -60 24 false
+BRUSH 12 -60 24 false
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+T 31
+T 32
+T 33
+BRUSH 2 -60 4 false
+BRUSH 4 -60 4 false
+BRUSH 6 -60 4 false
+BRUSH 8 -60 4 false
+BRUSH 10 -60 4 false
+BRUSH 12 -60 4 false
+BRUSH 2 -60 24 false
+BRUSH 4 -60 24 false
+BRUSH 6 -60 24 false
+BRUSH 8 -60 24 false
+BRUSH 10 -60 24 false
+BRUSH 12 -60 24 false
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+T 40
+T 41
+T 42
+T 43
+BRUSH 2 -60 4 false
+BRUSH 4 -60 4 false
+BRUSH 6 -60 4 false
+BRUSH 8 -60 4 false
+BRUSH 10 -60 4 false
+BRUSH 12 -60 4 false
+BRUSH 2 -60 24 false
+BRUSH 4 -60 24 false
+BRUSH 6 -60 24 false
+BRUSH 8 -60 24 false
+BRUSH 10 -60 24 false
+BRUSH 12 -60 24 false
+T 44
+T 45
+T 46
+T 47
+T 48
+T 49
+T 50
+T 51
+T 52
+T 53
+BRUSH 2 -60 4 false
+BRUSH 4 -60 4 false
+BRUSH 6 -60 4 false
+BRUSH 8 -60 4 false
+BRUSH 10 -60 4 false
+BRUSH 12 -60 4 false
+BRUSH 2 -60 24 false
+BRUSH 4 -60 24 false
+BRUSH 6 -60 24 false
+BRUSH 8 -60 24 false
+BRUSH 10 -60 24 false
+BRUSH 12 -60 24 false
+T 54
+T 55
+T 56
+T 57
+T 58
+T 59
+T 60
+T 61
+T 62
+T 63
+BRUSH 2 -60 4 false
+BRUSH 4 -60 4 false
+BRUSH 6 -60 4 false
+BRUSH 8 -60 4 false
+BRUSH 10 -60 4 false
+BRUSH 12 -60 4 false
+BRUSH 2 -60 24 false
+BRUSH 4 -60 24 false
+BRUSH 6 -60 24 false
+BRUSH 8 -60 24 false
+BRUSH 10 -60 24 false
+BRUSH 12 -60 24 false
+T 64
+T 65
+T 66
+T 67
+T 68
+T 69
+T 70
+T 71
+T 72
+T 73
+BRUSH 2 -60 4 false
+BRUSH 4 -60 4 false
+BRUSH 6 -60 4 false
+BRUSH 8 -60 4 false
+BRUSH 10 -60 4 false
+BRUSH 12 -60 4 false
+BRUSH 2 -60 24 false
+BRUSH 4 -60 24 false
+BRUSH 6 -60 24 false
+BRUSH 8 -60 24 false
+BRUSH 10 -60 24 false
+BRUSH 12 -60 24 false
+T 74
+T 75
+T 76
+T 77
+T 78
+T 79
+T 80
+T 81
+T 82
+T 83
+BRUSH 2 -60 4 false
+BRUSH 4 -60 4 false
+BRUSH 6 -60 4 false
+BRUSH 8 -60 4 false
+BRUSH 10 -60 4 false
+BRUSH 12 -60 4 false
+BRUSH 2 -60 24 false
+BRUSH 4 -60 24 false
+BRUSH 6 -60 24 false
+BRUSH 8 -60 24 false
+BRUSH 10 -60 24 false
+BRUSH 12 -60 24 false
+T 84
+T 85
+T 86
+T 87
+T 88
+T 89
+T 90
+T 91
+T 92
+T 93
+BRUSH 2 -60 4 true
+BRUSH 4 -60 4 true
+BRUSH 6 -60 4 true
+BRUSH 8 -60 4 true
+BRUSH 10 -60 4 true
+BRUSH 12 -60 4 true
+BRUSH 2 -60 24 true
+BRUSH 4 -60 24 true
+BRUSH 6 -60 24 true
+BRUSH 8 -60 24 true
+BRUSH 10 -60 24 true
+BRUSH 12 -60 24 true
+T 94
+EV level_event r=64.0 ex=0 type=3008 pos=2,-60,4 data=125 global=0
+EV level_event r=64.0 ex=0 type=3008 pos=4,-60,4 data=125 global=0
+EV level_event r=64.0 ex=0 type=3008 pos=6,-60,4 data=125 global=0
+EV level_event r=64.0 ex=0 type=3008 pos=8,-60,4 data=125 global=0
+EV level_event r=64.0 ex=0 type=3008 pos=10,-60,4 data=125 global=0
+EV level_event r=64.0 ex=0 type=3008 pos=12,-60,4 data=125 global=0
+EV level_event r=64.0 ex=0 type=3008 pos=2,-60,24 data=131 global=0
+EV level_event r=64.0 ex=0 type=3008 pos=4,-60,24 data=131 global=0
+EV level_event r=64.0 ex=0 type=3008 pos=6,-60,24 data=131 global=0
+EV level_event r=64.0 ex=0 type=3008 pos=8,-60,24 data=131 global=0
+EV level_event r=64.0 ex=0 type=3008 pos=10,-60,24 data=131 global=0
+EV level_event r=64.0 ex=0 type=3008 pos=12,-60,24 data=131 global=0
+T 95
+T 96
+T 97
+T 98
+T 99
+T 100
+T 101
+T 102
+T 103
+E item#1 minecraft:item pos=2.5,-60.0,3.5 delta=0.0,-0.04,0.0 rot=80.227684,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gunpowder*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.5,-60.0,3.5 delta=0.0,-0.08,0.0 rot=16.454966,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brewer_pottery_sherd*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=6.5,-60.0,3.5 delta=0.0,-0.12,0.0 rot=257.5855,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_nugget*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=48.768394,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_axe*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=10.5,-60.0,3.5 delta=0.0,-0.04,0.0 rot=60.732014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_candle*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=12.5,-60.0,3.5 delta=0.0,-0.08,0.0 rot=145.62932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shaper_armor_trim_smithing_template*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=2.5,-60.0,23.5 delta=0.0,-0.12,0.0 rot=209.95377,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gunpowder*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=4.5,-60.0,23.5 delta=0.0,0.0,0.0 rot=5.136516,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brewer_pottery_sherd*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=6.5,-60.0,23.5 delta=0.0,-0.04,0.0 rot=128.12901,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wooden_hoe*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=8.5,-60.0,23.5 delta=0.0,-0.08,0.0 rot=2.2417903,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:snort_pottery_sherd*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=10.5,-60.0,23.5 delta=0.0,-0.12,0.0 rot=179.24945,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:light_blue_stained_glass_pane*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#12 minecraft:item pos=12.5,-60.0,23.5 delta=0.0,0.0,0.0 rot=45.47632,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shaper_armor_trim_smithing_template*1 age=10 pickup=0 health=5 owner=- thrower=-
+T 104
+T 105
+T 106
+T 107
+T 108
+E item#1 minecraft:item pos=2.5,-60.0,3.5 delta=0.0,-0.08,0.0 rot=80.227684,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gunpowder*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.5,-60.0,3.5 delta=0.0,-0.12,0.0 rot=16.454966,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brewer_pottery_sherd*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=257.5855,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_nugget*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=8.5,-60.0,3.5 delta=0.0,-0.04,0.0 rot=48.768394,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_axe*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=10.5,-60.0,3.5 delta=0.0,-0.08,0.0 rot=60.732014,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_candle*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=12.5,-60.0,3.5 delta=0.0,-0.12,0.0 rot=145.62932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shaper_armor_trim_smithing_template*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=2.5,-60.0,23.5 delta=0.0,0.0,0.0 rot=209.95377,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gunpowder*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=4.5,-60.0,23.5 delta=0.0,-0.04,0.0 rot=5.136516,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brewer_pottery_sherd*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=6.5,-60.0,23.5 delta=0.0,-0.08,0.0 rot=128.12901,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wooden_hoe*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=8.5,-60.0,23.5 delta=0.0,-0.12,0.0 rot=2.2417903,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:snort_pottery_sherd*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=10.5,-60.0,23.5 delta=0.0,0.0,0.0 rot=179.24945,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:light_blue_stained_glass_pane*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#12 minecraft:item pos=12.5,-60.0,23.5 delta=0.0,-0.04,0.0 rot=45.47632,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shaper_armor_trim_smithing_template*1 age=15 pickup=0 health=5 owner=- thrower=-
+B 2 -60 4 minecraft:sand
+B 4 -60 4 minecraft:sand
+B 6 -60 4 minecraft:sand
+B 8 -60 4 minecraft:sand
+B 10 -60 4 minecraft:sand
+B 12 -60 4 minecraft:sand
+B 2 -60 24 minecraft:gravel
+B 4 -60 24 minecraft:gravel
+B 6 -60 24 minecraft:gravel
+B 8 -60 24 minecraft:gravel
+B 10 -60 24 minecraft:gravel
+B 12 -60 24 minecraft:gravel

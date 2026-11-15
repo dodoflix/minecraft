@@ -1,0 +1,57 @@
+{
+  "type": "minecraft:equipment",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_sword"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:zombie"
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_helmet"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:location_check",
+        "predicate": {
+          "position": {
+            "y": {
+              "min": -61,
+              "max": -59
+            }
+          }
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_chestplate"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:skeleton"
+        }
+      }
+    }
+  ]
+}

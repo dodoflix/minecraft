@@ -1,0 +1,43 @@
+# An unopened loot-table shulker box destroyed without a player (`Level.destroyBlock`, an explosion, a survival player digging for
+# the control): `ShulkerBoxBlock.getDrops` reads the slots through `getItem`, which unpacks the loot table first, so the dropped box
+# carries the rolled contents. The same with a table that has no seed (the table's random sequence).
+level flat
+preload 2
+time 6000
+spawn_player Sv survival 0.5 -60 12.5 180 0
+tick 2
+note destroy: seeded table
+block 0 -60 0 minecraft:shulker_box[facing=up]
+be_nbt 0 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+level_seed 11
+destroy 0 -60 0
+tick 4
+dump entities blocks:0,-60,0,0,-60,0 events
+note destroy: table without a seed
+block 4 -60 0 minecraft:shulker_box[facing=up]
+be_nbt 4 -60 0 {LootTable:"minecraft:chests/simple_dungeon"}
+level_seed 12
+destroy 4 -60 0
+tick 4
+dump entities blocks:4,-60,0,4,-60,0 events
+note explosion: seeded table
+block 8 -60 0 minecraft:shulker_box[facing=up]
+be_nbt 8 -60 0 {LootTable:"minecraft:chests/village/village_armorer",LootTableSeed:9L}
+level_seed 13
+explode 8.5 -59.5 0.5 2 block
+tick 4
+dump entities blocks:8,-60,0,8,-60,0 events
+note explosion with decay: the loot table of the box rolls with an explosion radius
+block 12 -60 0 minecraft:shulker_box[facing=up]
+be_nbt 12 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:3L}
+level_seed 14
+explode 12.5 -59.5 0.5 3 tnt
+tick 4
+dump entities blocks:12,-60,0,12,-60,0 events
+note an already unpacked box (control)
+block 16 -60 0 minecraft:shulker_box[facing=up]
+be_nbt 16 -60 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3}]}
+level_seed 15
+destroy 16 -60 0
+tick 4
+dump entities blocks:16,-60,0,16,-60,0 events

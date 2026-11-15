@@ -1,0 +1,19 @@
+{
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:coal"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "loot": [
+      "probe:advancement/probe"
+    ]
+  }
+}

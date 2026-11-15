@@ -296,6 +296,15 @@ impl Entity for Cushion {
     fn get_pick_result(&self) -> Option<ItemStack> {
         Some(ItemStack::new(cushion_item(self.get_color())))
     }
+    /// `Cushion.get(type)`: `CUSHION_COLOR` besides the base components.
+    fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
+        let base =
+            crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        mc_protocol::components::DataComponentMap::builder()
+            .add_all(&base)
+            .set(CUSHION_COLOR, self.get_color())
+            .build()
+    }
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
         if let Some(color) = stack.get(&CUSHION_COLOR) {
             self.set_color(*color);
