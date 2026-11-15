@@ -3,7 +3,7 @@
 
 use super::{
     InteractionHand, InteractionResult, ItemBehaviour, ItemStack, bucket_empty_success_item,
-    create_filled_result,
+    create_filled_result, create_filled_result_in_place,
     item_use_helpers::{may_interact, may_use_item_at, player_play_sound},
     player_pov_hit_result,
 };
@@ -373,10 +373,11 @@ impl ItemBehaviour for BucketItem {
                         GameEvent::FLUID_PICKUP,
                         Vec3::at_center_of(&pos),
                     );
-                    let result = create_filled_result(
+                    let mut taken = taken;
+                    let result = create_filled_result_in_place(
                         stack,
                         &mut PlayerCtx { player, level },
-                        taken.clone(),
+                        &mut taken,
                         true,
                     );
                     crate::advancements::triggers::CriteriaTriggers::FILLED_BUCKET

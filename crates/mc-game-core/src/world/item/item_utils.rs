@@ -4,15 +4,31 @@ use crate::world::inventory::{MenuPlayer, Prediction};
 
 /// `createFilledResult(itemStack, player, newItemStack, limitCreativeStackSize)`.
 pub fn create_filled_result(
-    mut item_stack: ItemStack,
+    item_stack: ItemStack,
     player: &mut dyn MenuPlayer,
     mut new_item_stack: ItemStack,
     limit_creative_stack_size: bool,
 ) -> ItemStack {
+    create_filled_result_in_place(
+        item_stack,
+        player,
+        &mut new_item_stack,
+        limit_creative_stack_size,
+    )
+}
+
+/// `createFilledResult` for a caller that keeps using `newItemStack` afterwards (a trigger fires with it): the inventory add moves
+/// the stack out, leaving it empty, exactly as it does for the vanilla object.
+pub fn create_filled_result_in_place(
+    mut item_stack: ItemStack,
+    player: &mut dyn MenuPlayer,
+    new_item_stack: &mut ItemStack,
+    limit_creative_stack_size: bool,
+) -> ItemStack {
     let is_creative = player.has_infinite_materials();
     if limit_creative_stack_size && is_creative {
-        if !player.inventory().contains(&new_item_stack) {
-            player.inventory_mut().add(&mut new_item_stack, true);
+        if !player.inventory().contains(new_item_stack) {
+            player.inventory_mut().add(new_item_stack, true);
         }
         item_stack
     } else {
@@ -21,11 +37,11 @@ pub fn create_filled_result(
             item_stack.shrink(1);
         }
         if item_stack.is_empty() {
-            new_item_stack
+            new_item_stack.clone()
         } else {
             let infinite = player.has_infinite_materials();
-            if !player.inventory_mut().add(&mut new_item_stack, infinite) {
-                player.drop(new_item_stack, false, Prediction::Predicted);
+            if !player.inventory_mut().add(new_item_stack, infinite) {
+                player.drop(new_item_stack.clone(), false, Prediction::Predicted);
             }
             item_stack
         }

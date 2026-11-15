@@ -2,7 +2,9 @@
 
 use super::{Entity, EntityId, ServerPlayer};
 use crate::server::level::ServerLevel;
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, create_filled_result};
+use crate::world::item::{
+    InteractionHand, InteractionResult, ItemStack, create_filled_result_in_place,
+};
 use mc_data::{Item, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{BUCKET_ENTITY_DATA, CUSTOM_NAME, CustomData};
@@ -109,10 +111,11 @@ pub fn bucket_mob_pickup_in_place(
     entity.as_bucketable()?.save_to_bucket_tag(&mut bucket);
     crate::world::entity::mob::leashable::drop_leash(entity, level);
     entity.discard_in_level(level);
-    let result = create_filled_result(
+    let mut bucket = bucket;
+    let result = create_filled_result_in_place(
         stack,
         &mut crate::world::entity::player::menu_ctx::PlayerCtx { player, level },
-        bucket.clone(),
+        &mut bucket,
         false,
     );
     player.set_item_in_hand(hand, result);
@@ -141,10 +144,11 @@ pub fn bucket_mob_pickup(
         entity.discard_in_level(level);
         Some(bucket)
     })??;
-    let result = create_filled_result(
+    let mut bucket = bucket;
+    let result = create_filled_result_in_place(
         stack,
         &mut crate::world::entity::player::menu_ctx::PlayerCtx { player, level },
-        bucket.clone(),
+        &mut bucket,
         false,
     );
     player.set_item_in_hand(hand, result);
