@@ -165,11 +165,9 @@ impl PlayCtx<'_> {
             if self.is_under_spawn_protection(pos) {
                 self.sys().send_spawn_protection_message(self, pos);
             } else if self.lis().awaiting_position_from_client.is_none() && self.may_interact(pos) {
-                let before_use = self.player.get_item_in_hand(hand);
                 let result = self.item_sys().use_item_on(self, hand, block_hit);
                 if result.consumes_action() {
-                    self.sys()
-                        .trigger_any_block_use(self, pos, hand, &before_use);
+                    self.sys().trigger_any_block_use(self, pos);
                 }
                 // The decompiled vanilla code swings in both of these branches; the second swing is a no-op for the
                 // player but is kept to preserve the packet sequence.

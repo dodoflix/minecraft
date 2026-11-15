@@ -1,0 +1,28 @@
+# The statistics a client asks for (ServerboundClientCommandPacket REQUEST_STATS answers with an award_stats packet of every statistic the
+# player has) and the statistics a player ends with when its connection ends (LEAVE_GAME).
+command_env
+level flat
+preload 3
+entity_counter 51600
+level_seed 51601
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+tick 3
+dump packets:A:none packets:B:none
+note a jump, a dropped stone and a stone placed, then the client asks for its statistics
+move_packet A 0.5 -59.2 0.5 false
+client_tick_end A
+tick 1
+move_packet A 0.5 -60 0.5 true
+client_tick_end A
+give A mainhand minecraft:stone 2
+drop A
+tick 2
+dump packets:A:none
+request_stats A
+dump packets:A:award_stats
+request_stats B
+dump packets:B:award_stats
+note both players leave
+leave A
+leave B

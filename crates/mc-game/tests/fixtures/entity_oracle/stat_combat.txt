@@ -1,0 +1,39 @@
+# a hit on a husk with absorption hearts
+STAT A minecraft.custom:minecraft.damage_dealt 29
+STAT A minecraft.custom:minecraft.damage_dealt_absorbed 40
+STAT A minecraft.custom:minecraft.play_time 25
+STAT A minecraft.custom:minecraft.time_since_death 25
+STAT A minecraft.custom:minecraft.time_since_rest 25
+STAT A minecraft.custom:minecraft.total_world_time 25
+STAT A minecraft.used:minecraft.diamond_sword 1
+E husk1 minecraft:husk pos=0.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=17.112 abs=0.0 hurt=10/20 death=0 fx=-
+# a hit on a husk with the resistance effect
+EFFECT husk2 minecraft:resistance added=true
+STAT A minecraft.custom:minecraft.damage_dealt 70
+STAT A minecraft.custom:minecraft.damage_dealt_absorbed 40
+STAT A minecraft.custom:minecraft.damage_dealt_resisted 28
+STAT A minecraft.custom:minecraft.play_time 45
+STAT A minecraft.custom:minecraft.time_since_death 45
+STAT A minecraft.custom:minecraft.time_since_rest 45
+STAT A minecraft.custom:minecraft.total_world_time 45
+STAT A minecraft.used:minecraft.diamond_sword 2
+E husk2 minecraft:husk pos=0.5,-60.0,4.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=15.8672 abs=0.0 hurt=10/20 death=0 fx=minecraft:resistance/1/600
+# a husk hits a player with the resistance effect
+EFFECT R minecraft:resistance added=true
+HURT R minecraft:mob_attack 6 -> true
+STAT R minecraft.custom:minecraft.damage_resisted 24
+STAT R minecraft.custom:minecraft.damage_taken 36
+STAT R minecraft.custom:minecraft.play_time 65
+STAT R minecraft.custom:minecraft.time_since_death 65
+STAT R minecraft.custom:minecraft.time_since_rest 65
+STAT R minecraft.custom:minecraft.total_world_time 65
+P R minecraft:player pos=10.5,-60.0,0.5 delta=0.0,0.36080000519752503,-0.4000000059604645 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.4 abs=0.0 hurt=10/20 death=0 fx=minecraft:resistance/1/600 gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+# a husk hits a player whose shield is raised
+HURT S minecraft:mob_attack 6 -> false
+STAT S minecraft.custom:minecraft.damage_blocked_by_shield 60
+STAT S minecraft.custom:minecraft.play_time 71
+STAT S minecraft.custom:minecraft.time_since_death 71
+STAT S minecraft.custom:minecraft.time_since_rest 71
+STAT S minecraft.custom:minecraft.total_world_time 71
+STAT S minecraft.used:minecraft.shield 1
+P S minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

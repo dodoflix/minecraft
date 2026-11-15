@@ -39,6 +39,12 @@ pub struct ServerPlayerGameMode {
     pub delayed_destroy_pos: BlockPos,
     pub delayed_tick_start: i32,
     pub last_sent_state: i32,
+    /// The in-hand object `ServerPlayerGameMode.useItemOn` worked on, as the listener's `ANY_BLOCK_USE` sees it after the use
+    /// (vanilla passes the same `ItemStack` object, which the use mutates in place or empties when it puts another one in the hand).
+    pub used_on_item: crate::world::item::ItemStack,
+    /// Set when the use in progress put another stack in the hand: the state the old object ends with (used up after
+    /// `createFilledResult` handed back the new stack or a bottle turned into honey, the stack itself when a shelf took it).
+    pub replaced_hand_object: Option<crate::world::item::ItemStack>,
 }
 
 impl Default for ServerPlayerGameMode {
@@ -55,6 +61,8 @@ impl Default for ServerPlayerGameMode {
             delayed_destroy_pos: BlockPos::ZERO,
             delayed_tick_start: 0,
             last_sent_state: -1,
+            used_on_item: crate::world::item::ItemStack::empty(),
+            replaced_hand_object: None,
         }
     }
 }

@@ -1,0 +1,240 @@
+CF msg Created new objective [jumps]
+CF result success 1
+CF msg Created new objective [walked]
+CF result success 2
+CF msg Created new objective [mined]
+CF result success 3
+CF msg Created new objective [used]
+CF result success 4
+CF msg Created new objective [broken]
+CF result success 5
+CF msg Created new objective [picked]
+CF result success 6
+CF msg Created new objective [dropped]
+CF result success 7
+CF msg Created new objective [crafted]
+CF result success 8
+CF msg Created new objective [killed]
+CF result success 9
+CF msg Created new objective [killedby]
+CF result success 10
+CF msg Created new objective [deaths]
+CF result success 11
+OBJ {CriteriaName:"minecraft.broken:minecraft.iron_pickaxe",DisplayName:"broken",Name:"broken"}
+OBJ {CriteriaName:"minecraft.crafted:minecraft.oak_planks",DisplayName:"crafted",Name:"crafted"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.deaths",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"jumps",Name:"jumps"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.walk_one_cm",DisplayName:"walked",Name:"walked"}
+OBJ {CriteriaName:"minecraft.dropped:minecraft.cobblestone",DisplayName:"dropped",Name:"dropped"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.husk",DisplayName:"killed",Name:"killed"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.husk",DisplayName:"killedby",Name:"killedby"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"minecraft.picked_up:minecraft.cobblestone",DisplayName:"picked",Name:"picked"}
+OBJ {CriteriaName:"minecraft.used:minecraft.iron_pickaxe",DisplayName:"used",Name:"used"}
+DISPLAY {}
+# one block walked, then a jump
+OBJ {CriteriaName:"minecraft.broken:minecraft.iron_pickaxe",DisplayName:"broken",Name:"broken"}
+OBJ {CriteriaName:"minecraft.crafted:minecraft.oak_planks",DisplayName:"crafted",Name:"crafted"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.deaths",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"jumps",Name:"jumps"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.walk_one_cm",DisplayName:"walked",Name:"walked"}
+OBJ {CriteriaName:"minecraft.dropped:minecraft.cobblestone",DisplayName:"dropped",Name:"dropped"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.husk",DisplayName:"killed",Name:"killed"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.husk",DisplayName:"killedby",Name:"killedby"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"minecraft.picked_up:minecraft.cobblestone",DisplayName:"picked",Name:"picked"}
+OBJ {CriteriaName:"minecraft.used:minecraft.iron_pickaxe",DisplayName:"used",Name:"used"}
+SCORE {Locked:1b,Name:"A",Objective:"jumps",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"walked",Score:100}
+DISPLAY {}
+STAT A minecraft.custom:minecraft.fly_one_cm 100
+STAT A minecraft.custom:minecraft.jump 1
+STAT A minecraft.custom:minecraft.play_time 28
+STAT A minecraft.custom:minecraft.time_since_death 28
+STAT A minecraft.custom:minecraft.time_since_rest 28
+STAT A minecraft.custom:minecraft.total_world_time 28
+STAT A minecraft.custom:minecraft.walk_one_cm 100
+# mining a stone block with a pickaxe that has one use left, then picking up the cobblestone and dropping it
+DIG A ticks=60 broken=true
+OBJ {CriteriaName:"minecraft.broken:minecraft.iron_pickaxe",DisplayName:"broken",Name:"broken"}
+OBJ {CriteriaName:"minecraft.crafted:minecraft.oak_planks",DisplayName:"crafted",Name:"crafted"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.deaths",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"jumps",Name:"jumps"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.walk_one_cm",DisplayName:"walked",Name:"walked"}
+OBJ {CriteriaName:"minecraft.dropped:minecraft.cobblestone",DisplayName:"dropped",Name:"dropped"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.husk",DisplayName:"killed",Name:"killed"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.husk",DisplayName:"killedby",Name:"killedby"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"minecraft.picked_up:minecraft.cobblestone",DisplayName:"picked",Name:"picked"}
+OBJ {CriteriaName:"minecraft.used:minecraft.iron_pickaxe",DisplayName:"used",Name:"used"}
+SCORE {Locked:1b,Name:"A",Objective:"broken",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"jumps",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"mined",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"picked",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"used",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"walked",Score:100}
+DISPLAY {}
+STAT A minecraft.broken:minecraft.iron_pickaxe 1
+STAT A minecraft.custom:minecraft.fly_one_cm 100
+STAT A minecraft.custom:minecraft.jump 1
+STAT A minecraft.custom:minecraft.play_time 109
+STAT A minecraft.custom:minecraft.time_since_death 109
+STAT A minecraft.custom:minecraft.time_since_rest 109
+STAT A minecraft.custom:minecraft.total_world_time 109
+STAT A minecraft.custom:minecraft.walk_one_cm 100
+STAT A minecraft.mined:minecraft.stone 1
+STAT A minecraft.picked_up:minecraft.cobblestone 1
+STAT A minecraft.used:minecraft.iron_pickaxe 1
+I A 0 minecraft:cobblestone*1
+OBJ {CriteriaName:"minecraft.broken:minecraft.iron_pickaxe",DisplayName:"broken",Name:"broken"}
+OBJ {CriteriaName:"minecraft.crafted:minecraft.oak_planks",DisplayName:"crafted",Name:"crafted"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.deaths",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"jumps",Name:"jumps"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.walk_one_cm",DisplayName:"walked",Name:"walked"}
+OBJ {CriteriaName:"minecraft.dropped:minecraft.cobblestone",DisplayName:"dropped",Name:"dropped"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.husk",DisplayName:"killed",Name:"killed"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.husk",DisplayName:"killedby",Name:"killedby"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"minecraft.picked_up:minecraft.cobblestone",DisplayName:"picked",Name:"picked"}
+OBJ {CriteriaName:"minecraft.used:minecraft.iron_pickaxe",DisplayName:"used",Name:"used"}
+SCORE {Locked:1b,Name:"A",Objective:"broken",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"dropped",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"jumps",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"mined",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"picked",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"used",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"walked",Score:100}
+DISPLAY {}
+STAT A minecraft.broken:minecraft.iron_pickaxe 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.fly_one_cm 100
+STAT A minecraft.custom:minecraft.jump 1
+STAT A minecraft.custom:minecraft.play_time 111
+STAT A minecraft.custom:minecraft.time_since_death 111
+STAT A minecraft.custom:minecraft.time_since_rest 111
+STAT A minecraft.custom:minecraft.total_world_time 111
+STAT A minecraft.custom:minecraft.walk_one_cm 100
+STAT A minecraft.dropped:minecraft.cobblestone 1
+STAT A minecraft.mined:minecraft.stone 1
+STAT A minecraft.picked_up:minecraft.cobblestone 1
+STAT A minecraft.used:minecraft.iron_pickaxe 1
+# crafting planks from a log in the inventory grid
+OBJ {CriteriaName:"minecraft.broken:minecraft.iron_pickaxe",DisplayName:"broken",Name:"broken"}
+OBJ {CriteriaName:"minecraft.crafted:minecraft.oak_planks",DisplayName:"crafted",Name:"crafted"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.deaths",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"jumps",Name:"jumps"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.walk_one_cm",DisplayName:"walked",Name:"walked"}
+OBJ {CriteriaName:"minecraft.dropped:minecraft.cobblestone",DisplayName:"dropped",Name:"dropped"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.husk",DisplayName:"killed",Name:"killed"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.husk",DisplayName:"killedby",Name:"killedby"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"minecraft.picked_up:minecraft.cobblestone",DisplayName:"picked",Name:"picked"}
+OBJ {CriteriaName:"minecraft.used:minecraft.iron_pickaxe",DisplayName:"used",Name:"used"}
+SCORE {Locked:1b,Name:"A",Objective:"broken",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"crafted",Score:4}
+SCORE {Locked:1b,Name:"A",Objective:"dropped",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"jumps",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"mined",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"picked",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"used",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"walked",Score:100}
+DISPLAY {}
+STAT A minecraft.broken:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 4
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.fly_one_cm 100
+STAT A minecraft.custom:minecraft.jump 1
+STAT A minecraft.custom:minecraft.play_time 112
+STAT A minecraft.custom:minecraft.time_since_death 112
+STAT A minecraft.custom:minecraft.time_since_rest 112
+STAT A minecraft.custom:minecraft.total_world_time 112
+STAT A minecraft.custom:minecraft.walk_one_cm 100
+STAT A minecraft.dropped:minecraft.cobblestone 1
+STAT A minecraft.mined:minecraft.stone 1
+STAT A minecraft.picked_up:minecraft.cobblestone 1
+STAT A minecraft.used:minecraft.iron_pickaxe 1
+# killing a husk, then being killed by one
+OBJ {CriteriaName:"minecraft.broken:minecraft.iron_pickaxe",DisplayName:"broken",Name:"broken"}
+OBJ {CriteriaName:"minecraft.crafted:minecraft.oak_planks",DisplayName:"crafted",Name:"crafted"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.deaths",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"jumps",Name:"jumps"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.walk_one_cm",DisplayName:"walked",Name:"walked"}
+OBJ {CriteriaName:"minecraft.dropped:minecraft.cobblestone",DisplayName:"dropped",Name:"dropped"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.husk",DisplayName:"killed",Name:"killed"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.husk",DisplayName:"killedby",Name:"killedby"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"minecraft.picked_up:minecraft.cobblestone",DisplayName:"picked",Name:"picked"}
+OBJ {CriteriaName:"minecraft.used:minecraft.iron_pickaxe",DisplayName:"used",Name:"used"}
+SCORE {Locked:1b,Name:"A",Objective:"broken",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"crafted",Score:4}
+SCORE {Locked:1b,Name:"A",Objective:"dropped",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"jumps",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"killed",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"mined",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"picked",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"used",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"walked",Score:100}
+DISPLAY {}
+STAT A minecraft.broken:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 4
+STAT A minecraft.custom:minecraft.damage_dealt 10
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.fly_one_cm 100
+STAT A minecraft.custom:minecraft.jump 1
+STAT A minecraft.custom:minecraft.mob_kills 1
+STAT A minecraft.custom:minecraft.play_time 139
+STAT A minecraft.custom:minecraft.time_since_death 139
+STAT A minecraft.custom:minecraft.time_since_rest 139
+STAT A minecraft.custom:minecraft.total_world_time 139
+STAT A minecraft.custom:minecraft.walk_one_cm 100
+STAT A minecraft.dropped:minecraft.cobblestone 1
+STAT A minecraft.killed:minecraft.husk 1
+STAT A minecraft.mined:minecraft.stone 1
+STAT A minecraft.picked_up:minecraft.cobblestone 1
+STAT A minecraft.used:minecraft.diamond_sword 1
+STAT A minecraft.used:minecraft.iron_pickaxe 1
+HURT A minecraft:mob_attack 100 -> true
+OBJ {CriteriaName:"minecraft.broken:minecraft.iron_pickaxe",DisplayName:"broken",Name:"broken"}
+OBJ {CriteriaName:"minecraft.crafted:minecraft.oak_planks",DisplayName:"crafted",Name:"crafted"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.deaths",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"jumps",Name:"jumps"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.walk_one_cm",DisplayName:"walked",Name:"walked"}
+OBJ {CriteriaName:"minecraft.dropped:minecraft.cobblestone",DisplayName:"dropped",Name:"dropped"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.husk",DisplayName:"killed",Name:"killed"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.husk",DisplayName:"killedby",Name:"killedby"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"minecraft.picked_up:minecraft.cobblestone",DisplayName:"picked",Name:"picked"}
+OBJ {CriteriaName:"minecraft.used:minecraft.iron_pickaxe",DisplayName:"used",Name:"used"}
+SCORE {Locked:1b,Name:"A",Objective:"broken",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"crafted",Score:4}
+SCORE {Locked:1b,Name:"A",Objective:"deaths",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"dropped",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"jumps",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"killed",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"killedby",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"mined",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"picked",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"used",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"walked",Score:100}
+DISPLAY {}
+STAT A minecraft.broken:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 4
+STAT A minecraft.custom:minecraft.damage_dealt 10
+STAT A minecraft.custom:minecraft.damage_taken 1000
+STAT A minecraft.custom:minecraft.deaths 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.fly_one_cm 100
+STAT A minecraft.custom:minecraft.jump 1
+STAT A minecraft.custom:minecraft.mob_kills 1
+STAT A minecraft.custom:minecraft.play_time 140
+STAT A minecraft.custom:minecraft.time_since_death 0
+STAT A minecraft.custom:minecraft.time_since_rest 1
+STAT A minecraft.custom:minecraft.total_world_time 140
+STAT A minecraft.custom:minecraft.walk_one_cm 100
+STAT A minecraft.dropped:minecraft.cobblestone 1
+STAT A minecraft.killed:minecraft.husk 1
+STAT A minecraft.killed_by:minecraft.husk 1
+STAT A minecraft.mined:minecraft.stone 1
+STAT A minecraft.picked_up:minecraft.cobblestone 1
+STAT A minecraft.used:minecraft.diamond_sword 1
+STAT A minecraft.used:minecraft.iron_pickaxe 1

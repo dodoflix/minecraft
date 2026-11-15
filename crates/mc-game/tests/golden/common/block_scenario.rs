@@ -168,6 +168,8 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                         | "accept_teleport"
                         | "paddle"
                         | "client_tick_end"
+                        | "leave"
+                        | "request_stats"
                         | "respawn"
                         | "set_command_minecart"
                 )

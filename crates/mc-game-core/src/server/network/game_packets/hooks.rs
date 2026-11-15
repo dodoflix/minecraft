@@ -77,14 +77,7 @@ pub trait PlayerSystems: Sync {
         InteractionResult::PASS
     }
     /// `CriteriaTriggers.ANY_BLOCK_USE` / `PLAYER_INTERACTED_WITH_ENTITY` triggers.
-    fn trigger_any_block_use(
-        &self,
-        ctx: &mut PlayCtx,
-        pos: mc_core::pos::BlockPos,
-        hand: InteractionHand,
-        before_use: &crate::world::item::ItemStack,
-    ) {
-    }
+    fn trigger_any_block_use(&self, ctx: &mut PlayCtx, pos: mc_core::pos::BlockPos) {}
     fn trigger_player_interacted_with_entity(
         &self,
         ctx: &mut PlayCtx,

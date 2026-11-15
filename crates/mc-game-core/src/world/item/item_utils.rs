@@ -37,6 +37,7 @@ pub fn create_filled_result_in_place(
             item_stack.shrink(1);
         }
         if item_stack.is_empty() {
+            player.in_hand_object_replaced();
             new_item_stack.clone()
         } else {
             let infinite = player.has_infinite_materials();

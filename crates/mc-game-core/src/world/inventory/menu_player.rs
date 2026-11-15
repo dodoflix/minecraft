@@ -59,6 +59,8 @@ pub trait MenuPlayer {
     }
     /// `Player.handleCreativeModeItemDrop` (no-op for plain players).
     fn handle_creative_mode_item_drop(&mut self, _stack: &ItemStack) {}
+    /// `ItemUtils.createFilledResult` handed back the new stack because the in-hand object was used up (no-op for plain players).
+    fn in_hand_object_replaced(&mut self) {}
     /// `Player.drop(stack, thrownFromHand, prediction)`: spawns the item entity (swing, `createItemStackToDrop`).
     fn drop(&mut self, stack: ItemStack, thrown_from_hand: bool, prediction: Prediction);
     /// `LivingEntity.onEquipItem(slot, old, new)` (equip sound + game event).

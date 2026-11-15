@@ -1,0 +1,65 @@
+STAT A minecraft.custom:minecraft.play_time 27
+STAT A minecraft.custom:minecraft.time_since_death 27
+STAT A minecraft.custom:minecraft.time_since_rest 27
+STAT A minecraft.custom:minecraft.total_world_time 27
+STAT B minecraft.custom:minecraft.happy_ghast_one_cm 19
+STAT B minecraft.custom:minecraft.play_time 27
+STAT B minecraft.custom:minecraft.time_since_death 27
+STAT B minecraft.custom:minecraft.time_since_rest 27
+STAT B minecraft.custom:minecraft.total_world_time 27
+STAT C minecraft.custom:minecraft.play_time 27
+STAT C minecraft.custom:minecraft.time_since_death 27
+STAT C minecraft.custom:minecraft.time_since_rest 27
+STAT C minecraft.custom:minecraft.total_world_time 27
+# the cart rolls on its own, the ghast and the nautilus are driven by the packets of their riders
+STAT A minecraft.custom:minecraft.minecart_one_cm 10
+STAT A minecraft.custom:minecraft.play_time 28
+STAT A minecraft.custom:minecraft.time_since_death 28
+STAT A minecraft.custom:minecraft.time_since_rest 28
+STAT A minecraft.custom:minecraft.total_world_time 28
+STAT B minecraft.custom:minecraft.happy_ghast_one_cm 456
+STAT B minecraft.custom:minecraft.play_time 28
+STAT B minecraft.custom:minecraft.time_since_death 28
+STAT B minecraft.custom:minecraft.time_since_rest 28
+STAT B minecraft.custom:minecraft.total_world_time 28
+STAT C minecraft.custom:minecraft.nautilus_one_cm 75
+STAT C minecraft.custom:minecraft.play_time 28
+STAT C minecraft.custom:minecraft.time_since_death 28
+STAT C minecraft.custom:minecraft.time_since_rest 28
+STAT C minecraft.custom:minecraft.total_world_time 28
+E cart minecraft:minecart pos=0.6,-60.0,2.5 delta=0.1,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ghast minecraft:happy_ghast pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=10,-60,2/32 leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:white_harness*1 attrs=minecraft:camera_distance:8.0;minecraft:flying_speed:0.05;minecraft:follow_range:16.0;minecraft:movement_speed:0.05;minecraft:tempt_range:16.0 age=0 baby=0 forcedage=0 love=0 lovecause=- still=0 stillt=0 lholder=0 lhtime=0
+E nautilus minecraft:nautilus pos=20.5,-60.0,3.25 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=272 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=20,-60,2/16 leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=mobs:(C;B;ghast):inf;nearest_players:(C;B):inf;nearest_visible_player:C:inf;nearest_visible_targetable_player:B:inf;nearest_visible_targetable_players:(B):inf;visible_mobs:(C;B;ghast):inf equip=saddle:minecraft:saddle*1 attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:0.30000001192092896;minecraft:max_health:15.0;minecraft:movement_speed:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=C sitting=0 ordered=0 dashcd=0 jscale=0.0
+STAT A minecraft.custom:minecraft.minecart_one_cm 15
+STAT A minecraft.custom:minecraft.play_time 29
+STAT A minecraft.custom:minecraft.time_since_death 29
+STAT A minecraft.custom:minecraft.time_since_rest 29
+STAT A minecraft.custom:minecraft.total_world_time 29
+STAT B minecraft.custom:minecraft.happy_ghast_one_cm 556
+STAT B minecraft.custom:minecraft.play_time 29
+STAT B minecraft.custom:minecraft.time_since_death 29
+STAT B minecraft.custom:minecraft.time_since_rest 29
+STAT B minecraft.custom:minecraft.total_world_time 29
+STAT C minecraft.custom:minecraft.nautilus_one_cm 175
+STAT C minecraft.custom:minecraft.play_time 29
+STAT C minecraft.custom:minecraft.time_since_death 29
+STAT C minecraft.custom:minecraft.time_since_rest 29
+STAT C minecraft.custom:minecraft.total_world_time 29
+E cart minecraft:minecart pos=0.65,-60.0,2.5 delta=0.05,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ghast minecraft:happy_ghast pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=10,-60,2/32 leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=body:minecraft:white_harness*1 attrs=minecraft:camera_distance:8.0;minecraft:flying_speed:0.05;minecraft:follow_range:16.0;minecraft:movement_speed:0.05;minecraft:tempt_range:16.0 age=0 baby=0 forcedage=0 love=0 lovecause=- still=0 stillt=0 lholder=0 lhtime=0
+E nautilus minecraft:nautilus pos=21.5,-60.0,3.25 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=271 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=20,-60,2/16 leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=mobs:(C;B;ghast):inf;nearest_players:(C;B):inf;nearest_visible_player:C:inf;nearest_visible_targetable_player:B:inf;nearest_visible_targetable_players:(B):inf;visible_mobs:(C;B;ghast):inf equip=saddle:minecraft:saddle*1 attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:0.30000001192092896;minecraft:max_health:15.0;minecraft:movement_speed:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=C sitting=0 ordered=0 dashcd=0 jscale=0.0
+STAT A minecraft.custom:minecraft.minecart_one_cm 19
+STAT A minecraft.custom:minecraft.play_time 31
+STAT A minecraft.custom:minecraft.time_since_death 31
+STAT A minecraft.custom:minecraft.time_since_rest 31
+STAT A minecraft.custom:minecraft.total_world_time 31
+STAT B minecraft.custom:minecraft.happy_ghast_one_cm 556
+STAT B minecraft.custom:minecraft.play_time 31
+STAT B minecraft.custom:minecraft.time_since_death 31
+STAT B minecraft.custom:minecraft.time_since_rest 31
+STAT B minecraft.custom:minecraft.total_world_time 31
+STAT C minecraft.custom:minecraft.nautilus_one_cm 175
+STAT C minecraft.custom:minecraft.play_time 31
+STAT C minecraft.custom:minecraft.time_since_death 31
+STAT C minecraft.custom:minecraft.time_since_rest 31
+STAT C minecraft.custom:minecraft.total_world_time 31

@@ -177,6 +177,7 @@ impl BlockBehaviour for BeehiveBlock {
                 );
                 let mut honey = ItemStack::new(Item::HONEY_BOTTLE);
                 if held.is_empty() {
+                    player.game_mode.replaced_hand_object = Some(held.clone());
                     player.set_item_in_hand(hand, honey);
                 } else {
                     player.set_item_in_hand(hand, held);

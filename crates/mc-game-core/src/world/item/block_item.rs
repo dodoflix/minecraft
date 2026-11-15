@@ -935,7 +935,12 @@ impl ItemBehaviour for BlockItem {
                 let place_result = self.block_use_on(context, level, player);
                 if place_result.consumes_action() {
                     // `BucketItem.getEmptySuccessItem(stack, player)`; the caller stores `context.item_stack` into the hand
-                    context.item_stack = bucket_empty_success_item(&context.item_stack, player);
+                    let emptied = bucket_empty_success_item(&context.item_stack, player);
+                    let placed = std::mem::replace(&mut context.item_stack, emptied);
+                    if !player.has_infinite_materials() {
+                        // the placed bucket (used up) is the object the use started with
+                        player.game_mode.replaced_hand_object = Some(placed);
+                    }
                 }
                 place_result
             }

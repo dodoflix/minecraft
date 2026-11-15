@@ -1,0 +1,27 @@
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV C minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV D minecraft:recipes/decorations/crafting_table unlock_right_away
+# one patterned banner
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A uses:block/any_any c
+ADV A uses:block/used_any c
+I A 0 minecraft:white_banner*1
+# two patterned banners
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV B uses:block/any_any c
+ADV B uses:block/any_banner c
+ADV B uses:block/used_any c
+I B 0 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"red",pattern:"minecraft:creeper"}]}
+I B 1 minecraft:white_banner*1
+# a water bottle turns dirt into mud and leaves a glass bottle in the hand: the used-up water bottle is not a glass bottle
+ADV C minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV C uses:block/any_any c
+ADV C uses:block/used_any c
+I C 0 minecraft:glass_bottle*1
+# a powder snow bucket placed on stone leaves an empty bucket in the hand: the used-up powder snow bucket is not a bucket
+ADV D minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV D uses:block/any_any c
+ADV D uses:block/placed_any c
+ADV D uses:block/used_any c
+I D 0 minecraft:bucket*1

@@ -38,11 +38,17 @@ fn swap_single_item(
     hit_slot: usize,
 ) -> bool {
     let infinite = player.has_infinite_materials();
+    let held_empty = item_stack.is_empty();
     let inventory = &mut player.player.inventory;
+    let replaced = &mut player.game_mode.replaced_hand_object;
     level
         .with_block_entity(pos, |_, be| {
             let shelf = be.as_any_mut().downcast_mut::<ShelfBlockEntity>()?;
             let removed = shelf.swap_item_no_update(hit_slot, item_stack);
+            // the held object itself moved into the shelf (the stack size limit applies to it)
+            if !held_empty {
+                *replaced = Some(shelf.get_item(hit_slot).clone());
+            }
             // `itemStack.copy()` is taken after the shelf limited the (shared) stack size
             let new_inventory_item = if infinite && removed.is_empty() {
                 shelf.get_item(hit_slot).clone()
@@ -83,6 +89,8 @@ impl ShelfBlock {
         let chain_len = connected.len() as i32;
         for (index, part_pos) in connected.iter().enumerate() {
             let inventory = &mut player.player.inventory;
+            let replaced = &mut player.game_mode.replaced_hand_object;
+            let selected = inventory.get_selected_slot() as usize;
             let swapped = level.with_block_entity(*part_pos, |_, be| {
                 let shelf = be.as_any_mut().downcast_mut::<ShelfBlockEntity>()?;
                 let size = shelf.get_container_size() as i32;
@@ -96,6 +104,10 @@ impl ShelfBlock {
                         let placed = inventory.remove_item_no_update(inventory_slot);
                         let placed_empty = placed.is_empty();
                         let removed_shelf_item = shelf.swap_item_no_update(slot as usize, placed);
+                        // the selected stack is the in-hand object: it moved into the shelf
+                        if inventory_slot == selected && !placed_empty {
+                            *replaced = Some(shelf.get_item(slot as usize).clone());
+                        }
                         if !placed_empty || !removed_shelf_item.is_empty() {
                             inventory.set_item(inventory_slot, removed_shelf_item);
                             swapped = true;

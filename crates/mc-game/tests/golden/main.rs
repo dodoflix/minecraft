@@ -268,6 +268,7 @@ mod registration_counts;
 mod scattered_structures_golden;
 mod scoreboard_lifecycle_golden;
 mod sculk_block_entities_golden;
+mod stats_sweep_golden;
 mod stronghold_golden;
 mod struct_monument_mansion_golden;
 mod structure_piece_golden;

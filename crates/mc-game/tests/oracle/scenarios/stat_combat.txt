@@ -1,0 +1,41 @@
+# The damage statistics of LivingEntity.actuallyHurt and hurtServer: damage a player deals that the victim's absorption and its resistance
+# effect take, damage a resistance effect takes from a player, and damage a raised shield blocks. The statistics are dumped after each hit.
+level flat
+difficulty normal
+preload 3
+entity_counter 51200
+level_seed 51201
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player R survival 10.5 -60 0.5 0 0
+spawn_player S survival 20.5 -60 0.5 0 0
+spawn husk1 minecraft:husk 0.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed husk1 51202
+spawn husk2 minecraft:husk 0.5 -60 4.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed husk2 51203
+spawn husk3 minecraft:husk 10.5 -60 3.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed husk3 51204
+spawn husk4 minecraft:husk 20.5 -60 3.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed husk4 51205
+give A mainhand minecraft:diamond_sword
+give S offhand minecraft:shield
+tick 25
+note a hit on a husk with absorption hearts
+attribute husk1 minecraft:max_absorption 20
+set husk1 absorption 4
+attack A husk1
+dump stats:A entity:husk1
+tick 20
+note a hit on a husk with the resistance effect
+effect husk2 minecraft:resistance 1 600
+attack A husk2
+dump stats:A entity:husk2
+tick 20
+note a husk hits a player with the resistance effect
+effect R minecraft:resistance 1 600
+hurt R minecraft:mob_attack 6 by=husk3 direct=husk3
+dump stats:R player:R
+note a husk hits a player whose shield is raised
+use S off
+tick 6
+hurt S minecraft:mob_attack 6 by=husk4 direct=husk4
+dump stats:S player:S

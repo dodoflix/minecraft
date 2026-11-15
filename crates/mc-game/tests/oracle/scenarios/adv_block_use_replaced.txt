@@ -1,0 +1,48 @@
+# any_block_use sees the in-hand object of the use: a patterned banner cleaned in a cauldron is replaced in the hand by a new stack of the
+# same item, so a single banner leaves the used-up object (no match) and a stack of two keeps one (a match); a water bottle used on dirt and
+# a powder snow bucket placed on stone leave an empty bottle and bucket in the hand, which the used-up objects are not.
+datapack adv_use
+command_env
+level flat
+preload 3
+difficulty normal
+entity_counter 31200
+level_seed 31201
+spawn_player A survival 0.5 -60 2.5 0 0
+spawn_player B survival 4.5 -60 2.5 0 0
+spawn_player C survival 8.5 -60 2.5 0 0
+spawn_player D survival 12.5 -60 2.5 0 0
+block 0 -60 0 minecraft:water_cauldron[level=3]
+block 4 -60 0 minecraft:water_cauldron[level=3]
+block 8 -60 0 minecraft:dirt
+block 12 -60 0 minecraft:stone
+tick 5
+dump advancements:A advancements:B advancements:C advancements:D
+note one patterned banner
+give A hotbar0 minecraft:white_banner[banner_patterns=[{pattern:"minecraft:creeper",color:"red"}]] 1
+select A 0
+snap A 0.5 -60 2.5
+tick 1
+use_on A 0 -60 0 up main
+dump advancements:A inventory:A
+note two patterned banners
+give B hotbar0 minecraft:white_banner[banner_patterns=[{pattern:"minecraft:creeper",color:"red"}]] 2
+select B 0
+snap B 4.5 -60 2.5
+tick 1
+use_on B 4 -60 0 up main
+dump advancements:B inventory:B
+note a water bottle turns dirt into mud and leaves a glass bottle in the hand: the used-up water bottle is not a glass bottle
+give C hotbar0 minecraft:potion[potion_contents={potion:"minecraft:water"}] 1
+select C 0
+snap C 8.5 -60 2.5
+tick 1
+use_on C 8 -60 0 up main
+dump advancements:C inventory:C
+note a powder snow bucket placed on stone leaves an empty bucket in the hand: the used-up powder snow bucket is not a bucket
+give D hotbar0 minecraft:powder_snow_bucket 1
+select D 0
+snap D 12.5 -60 2.5
+tick 1
+use_on D 12 -60 0 up main
+dump advancements:D inventory:D

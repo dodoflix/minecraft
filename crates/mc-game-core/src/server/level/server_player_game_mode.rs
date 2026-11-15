@@ -488,6 +488,22 @@ impl ServerPlayer {
         self.player.menus = menus;
     }
 
+    /// The `itemStack` object after a block's `useItemOn`/`useWithoutItem`: the hand, unless the block put another stack there (then
+    /// the state the old object ends with); an empty hand holds `ItemStack.EMPTY`, which nothing changes.
+    fn in_hand_object_after_block_use(
+        &mut self,
+        hand: InteractionHand,
+        before: &ItemStack,
+    ) -> ItemStack {
+        if before.is_empty() {
+            return ItemStack::empty();
+        }
+        match self.game_mode.replaced_hand_object.take() {
+            Some(object) => object,
+            None => self.get_item_in_hand(hand),
+        }
+    }
+
     /// `ServerPlayerGameMode.useItemOn(player, level, stack, hand, hitResult)`.
     pub fn use_item_on(
         &mut self,
@@ -501,6 +517,7 @@ impl ServerPlayer {
             return InteractionResult::FAIL;
         }
         if self.game_mode.game_mode_for_player == GameType::Spectator {
+            self.game_mode.used_on_item = self.get_item_in_hand(hand);
             // The `Portal` branch (a PASS here) is handled by `ItemPlayerSystems::use_item_on`, which holds the server.
             let provider = block_behaviour(state.block()).get_menu_provider(state, level, pos);
             return match provider {
@@ -512,6 +529,8 @@ impl ServerPlayer {
             };
         }
         let item_stack = self.get_item_in_hand(hand);
+        self.game_mode.used_on_item = item_stack.clone();
+        self.game_mode.replaced_hand_object = None;
         let have_something = !self.player.inventory.get_selected_item().is_empty()
             || !self
                 .player
@@ -524,6 +543,8 @@ impl ServerPlayer {
             let item_use =
                 behaviour_of_block.use_item_on(&item_stack, state, level, pos, self, hand, hit);
             if item_use.consumes_action() {
+                self.game_mode.used_on_item =
+                    self.in_hand_object_after_block_use(hand, &item_stack);
                 CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, self, pos, &item_stack);
                 return item_use;
             }
@@ -532,11 +553,14 @@ impl ServerPlayer {
             {
                 let r = behaviour_of_block.use_without_item(state, level, pos, self, hit);
                 if r.consumes_action() {
+                    self.game_mode.used_on_item =
+                        self.in_hand_object_after_block_use(hand, &item_stack);
                     CriteriaTriggers::DEFAULT_BLOCK_USE.trigger(level, self, pos);
                     return r;
                 }
             }
         }
+        self.game_mode.replaced_hand_object = None;
         if !item_stack.is_empty() && !self.player.cooldowns.is_on_cooldown(&item_stack) {
             let mut context =
                 UseOnContext::new(Some(self.context_player()), hand, item_stack.clone(), *hit);
@@ -544,10 +568,13 @@ impl ServerPlayer {
             let count = item_stack.count();
             let result = crate::world::item::item_stack_use_on(&mut context, level, self);
             let mut s = context.item_stack;
+            let replaced = self.game_mode.replaced_hand_object.take();
             if infinite {
                 s.set_count(count);
+                self.game_mode.used_on_item = s.clone();
                 self.set_item_in_hand(hand, s);
             } else {
+                self.game_mode.used_on_item = replaced.unwrap_or_else(|| s.clone());
                 if let InteractionResult::Success(success) = &result
                     && let Some(t) = &success.item_context.held_item_transformed_to
                 {

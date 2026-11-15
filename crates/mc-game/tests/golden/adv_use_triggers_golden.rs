@@ -9,6 +9,12 @@ fn using_blocks_awards_the_user() {
     check("adv_block_use");
 }
 
+/// The stack `any_block_use` sees when the use replaces the hand by a stack of the same item (a patterned banner cleaned in a cauldron).
+#[test]
+fn using_blocks_that_replace_the_hand_awards_the_used_object() {
+    check("adv_block_use_replaced");
+}
+
 /// Interacting with entities and shearing their equipment: brush, bucket, wheat, name tag, lead, boat, saddles, wolf armor, a sulfur cube
 /// and dragon breath in a bottle.
 #[test]

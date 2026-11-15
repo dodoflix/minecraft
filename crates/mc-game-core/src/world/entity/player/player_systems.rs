@@ -35,21 +35,10 @@ impl PlayerSystems for ServerPlayerSystems {
             }
         });
     }
-    /// `CriteriaTriggers.ANY_BLOCK_USE.trigger(player, pos, itemStack)`: vanilla passes the in-hand object it took before the
-    /// use, which the use mutates in place or empties when it puts another stack in the hand.
-    // shortcut: stacks are values here, so a hand stack of another item than before stands for the emptied old object; upgrade
-    // when a use replaces the hand by a stack of the same item or keeps part of the old object.
-    fn trigger_any_block_use(
-        &self,
-        ctx: &mut PlayCtx,
-        pos: mc_core::pos::BlockPos,
-        hand: crate::world::item::InteractionHand,
-        before_use: &crate::world::item::ItemStack,
-    ) {
-        let mut stack = ctx.player.get_item_in_hand(hand);
-        if stack.item() != before_use.item() {
-            stack = crate::world::item::ItemStack::empty();
-        }
+    /// `CriteriaTriggers.ANY_BLOCK_USE.trigger(player, pos, itemStack)`: vanilla passes the in-hand object of the use, which the use
+    /// mutates in place or empties when it puts another stack in the hand (`ServerPlayerGameMode.used_on_item`).
+    fn trigger_any_block_use(&self, ctx: &mut PlayCtx, pos: mc_core::pos::BlockPos) {
+        let stack = ctx.player.game_mode.used_on_item.clone();
         crate::advancements::triggers::CriteriaTriggers::ANY_BLOCK_USE
             .trigger(ctx.level, ctx.player, pos, &stack);
     }

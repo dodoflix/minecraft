@@ -1,0 +1,17 @@
+# a jump, a dropped stone and a stone placed, then the client asks for its statistics
+PKT A minecraft:award_stats 0307081701080406080106080306080206050101081801
+PKT B minecraft:award_stats 0304080406080106080306080206
+# both players leave
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.jump 1
+STAT A minecraft.custom:minecraft.leave_game 1
+STAT A minecraft.custom:minecraft.play_time 6
+STAT A minecraft.custom:minecraft.time_since_death 6
+STAT A minecraft.custom:minecraft.time_since_rest 6
+STAT A minecraft.custom:minecraft.total_world_time 6
+STAT A minecraft.dropped:minecraft.stone 1
+STAT B minecraft.custom:minecraft.leave_game 1
+STAT B minecraft.custom:minecraft.play_time 6
+STAT B minecraft.custom:minecraft.time_since_death 6
+STAT B minecraft.custom:minecraft.time_since_rest 6
+STAT B minecraft.custom:minecraft.total_world_time 6

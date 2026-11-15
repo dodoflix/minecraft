@@ -175,6 +175,8 @@ import net.minecraft.util.RandomSource;
  * accept_teleport PLAYER    ServerboundAcceptTeleportationPacket for the teleport the server waits on (mounting a vehicle teleports the rider; its movement
  *                             packets are ignored until the client acknowledged it, as a real client does at once); nothing when none is pending
  * drop PLAYER [all]           DROP_ITEM / DROP_ALL_ITEMS            respawn PLAYER   ServerboundClientCommandPacket
+ * leave PLAYER               PlayerList.remove(player) (the connection ends: LEAVE_GAME, the player is saved and leaves the level); prints the player's `STAT` lines afterwards
+ * request_stats PLAYER      ServerboundClientCommandPacket(REQUEST_STATS): the server answers with the statistics (`award_stats` packet)
  * pcommand PLAYER ACTION [data]   ServerboundPlayerCommandPacket (START_SPRINTING STOP_SPRINTING START_FALL_FLYING STOP_SLEEPING START_RIDING_JUMP [power]
  *                             STOP_RIDING_JUMP OPEN_INVENTORY ...)
  * hurt REF DAMAGETYPE AMOUNT [by=REF] [direct=REF] [at=X,Y,Z]    entity.hurtServer(level, source, amount); prints "HURT result"
@@ -376,6 +378,15 @@ public final class EntityOracleDriver {
          throw new IllegalArgumentException("unknown ref " + name);
       }
       return e;
+   }
+
+   /** `STAT PLAYER type.name:value.name N`, sorted by name: the statistics a player has earned. */
+   @SuppressWarnings("unchecked")
+   void printStats(String arg) {
+      it.unimi.dsi.fastutil.objects.Object2IntMap<net.minecraft.stats.Stat<?>> counter = (it.unimi.dsi.fastutil.objects.Object2IntMap<net.minecraft.stats.Stat<?>>)priv(((ServerPlayer)ref(arg)).getStats(), net.minecraft.stats.StatsCounter.class, "stats");
+      TreeMap<String, Integer> sorted = new TreeMap<>();
+      counter.forEach((stat, n) -> sorted.put(stat.getName(), n));
+      sorted.forEach((name, n) -> out.println("STAT " + arg + " " + name + " " + n));
    }
 
    ServerPlayer player(String name) {
@@ -865,6 +876,16 @@ public final class EntityOracleDriver {
             v.player(a.get(1)).replaceServerPlayer(neu);
             // a real client reports the respawn world loaded (ServerboundPlayerLoadedPacket); until then hasClientLoaded() is false and the player is invulnerable
             neu.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
+         }
+         case "request_stats" -> {
+            world();
+            player(a.get(1)).connection.handleClientCommand(new ServerboundClientCommandPacket(ServerboundClientCommandPacket.Action.REQUEST_STATS));
+         }
+         case "leave" -> {
+            // PlayerList.remove(player) (awards LEAVE_GAME, saves the player, takes it out of the level); the statistics it ends with are printed as `STAT` lines
+            world();
+            v.server.getPlayerList().remove(player(a.get(1)));
+            printStats(a.get(1));
          }
          case "pcommand" -> {
             world();
@@ -2234,14 +2255,7 @@ public final class EntityOracleDriver {
                running.forEach((group, instance) -> sorted.put(group.toString(), (Integer)priv(instance, "endTime") - tickCount));
                sorted.forEach((group, remaining) -> out.println("CD " + arg + " group=" + group + " remaining=" + remaining));
             }
-            case "stats" -> {
-               // STAT PLAYER type.name:value.name N, sorted by name (the statistics a player has earned)
-               @SuppressWarnings("unchecked")
-               it.unimi.dsi.fastutil.objects.Object2IntMap<net.minecraft.stats.Stat<?>> counter = (it.unimi.dsi.fastutil.objects.Object2IntMap<net.minecraft.stats.Stat<?>>)priv(((ServerPlayer)ref(arg)).getStats(), net.minecraft.stats.StatsCounter.class, "stats");
-               TreeMap<String, Integer> sorted = new TreeMap<>();
-               counter.forEach((stat, n) -> sorted.put(stat.getName(), n));
-               sorted.forEach((name, n) -> out.println("STAT " + arg + " " + name + " " + n));
-            }
+            case "stats" -> printStats(arg);
             case "advancements" -> {
                // ADV PLAYER advancement-id criterion,criterion: the completed criteria of every advancement with progress, sorted
                @SuppressWarnings("unchecked")

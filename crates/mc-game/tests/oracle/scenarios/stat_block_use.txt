@@ -1,0 +1,90 @@
+# Statistics awarded by the block use sites: EAT_CAKE_SLICE, POT_FLOWER, PLAY_RECORD, PLAY_NOTEBLOCK (a left click), FILL_CAULDRON,
+# USE_CAULDRON (a bottle), CLEAN_ARMOR, CLEAN_BANNER, CLEAN_SHULKER_BOX, SLEEP_IN_BED and SLEEP_IN_STRAW_BED. The statistics are dumped
+# after each group.
+level flat
+preload 3
+difficulty normal
+entity_counter 51300
+level_seed 51301
+spawn_player A survival 0.5 -60 2.5 0 0
+tick 30
+block 0 -60 0 minecraft:cake[bites=0]
+block 2 -60 0 minecraft:flower_pot
+block 4 -60 0 minecraft:jukebox[has_record=false]
+block 6 -60 0 minecraft:note_block[note=0]
+block 8 -60 0 minecraft:cauldron
+block 10 -60 0 minecraft:water_cauldron[level=3]
+block 12 -60 0 minecraft:water_cauldron[level=3]
+block 14 -60 0 minecraft:water_cauldron[level=3]
+block 16 -60 0 minecraft:water_cauldron[level=3]
+block 20 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 20 -60 1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 24 -60 0 minecraft:straw_bed[facing=south,part=foot,occupied=false]
+block 24 -60 1 minecraft:straw_bed[facing=south,part=head,occupied=false]
+tick 1
+note a cake slice, a flower in a pot, a record in a jukebox
+set A food 10
+snap A 0.5 -60 2.5
+tick 1
+use_on A 0 -60 0 up main
+dump stats:A
+give A mainhand minecraft:poppy 1
+snap A 2.5 -60 2.5
+tick 1
+use_on A 2 -60 0 up main
+dump stats:A
+give A mainhand minecraft:music_disc_13 1
+snap A 4.5 -60 2.5
+tick 1
+use_on A 4 -60 0 up main
+dump stats:A
+note a left click on a note block
+snap A 6.5 -60 2.5
+tick 1
+dig A 6 -60 0 1
+dump stats:A
+note a water bucket on an empty cauldron, a glass bottle, a dyed helmet, a patterned banner and a coloured shulker box on water cauldrons
+give A mainhand minecraft:water_bucket 1
+snap A 8.5 -60 2.5
+tick 1
+use_on A 8 -60 0 up main
+dump stats:A
+give A mainhand minecraft:glass_bottle 1
+snap A 10.5 -60 2.5
+tick 1
+use_on A 10 -60 0 up main
+dump stats:A
+give A mainhand minecraft:leather_helmet[dyed_color=16711680] 1
+snap A 12.5 -60 2.5
+tick 1
+use_on A 12 -60 0 up main
+dump stats:A
+give A mainhand minecraft:white_banner[banner_patterns=[{pattern:"minecraft:creeper",color:"red"}]] 1
+snap A 14.5 -60 2.5
+tick 1
+use_on A 14 -60 0 up main
+dump stats:A
+give A mainhand minecraft:red_shulker_box 1
+snap A 16.5 -60 2.5
+tick 1
+use_on A 16 -60 0 up main
+dump stats:A
+note sleeping in a bed and in a straw bed at night
+time 14000
+tick 1
+snap A 20.5 -60 3.5
+tick 1
+use_on A 20 -60 1 up main
+tick 2
+pcommand A stop_sleeping
+accept_teleport A
+tick 1
+dump stats:A
+snap A 24.5 -60 3.5
+tick 1
+use_on A 24 -60 1 up main
+tick 2
+pcommand A stop_sleeping
+accept_teleport A
+tick 1
+dump stats:A

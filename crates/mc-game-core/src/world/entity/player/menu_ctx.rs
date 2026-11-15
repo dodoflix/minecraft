@@ -58,6 +58,9 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn has_disconnected(&self) -> bool {
         self.player.disconnected
     }
+    fn in_hand_object_replaced(&mut self) {
+        self.player.game_mode.replaced_hand_object = Some(ItemStack::empty());
+    }
     /// `Player.drop(...)`: spawns the item entity (`ServerPlayer.drop`).
     fn drop(&mut self, stack: ItemStack, thrown_from_hand: bool, prediction: Prediction) {
         self.player

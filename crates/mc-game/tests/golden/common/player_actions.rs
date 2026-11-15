@@ -269,7 +269,6 @@ fn use_on(level: &mut ServerLevel, p: &mut ServerPlayer, a: &[String], sequence:
         .is_some_and(|l| l.is_awaiting_position_from_client());
     if !awaiting_teleport {
         let animation = interact_animation(p, hand);
-        let before_use = p.get_item_in_hand(hand);
         let outcome = p.use_item_on(level, hand, &result);
         if outcome.consumes_action() && mc_game::commands::server_access::has_server() {
             // the listener's `ANY_BLOCK_USE`
@@ -284,8 +283,6 @@ fn use_on(level: &mut ServerLevel, p: &mut ServerPlayer, a: &[String], sequence:
                             player: p,
                         },
                         pos,
-                        hand,
-                        &before_use,
                     );
             });
         }
@@ -618,6 +615,28 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
                 }
             });
         }
+        // leave PLAYER   `PlayerList.remove(player)`: LEAVE_GAME, the player is saved and leaves the level; the statistics it ends with are printed
+        "leave" => {
+            h.boot();
+            let stats = with_player(h, &a[1], |level, p| {
+                mc_game::commands::server_access::with_server(|server| {
+                    mc_game::server::players::player_ops::remove(server, level, p)
+                });
+                p.stats.clone()
+            });
+            for line in stat_lines(&a[1], &stats.lock()) {
+                h.emit(line);
+            }
+        }
+        // request_stats PLAYER   `ServerboundClientCommandPacket(REQUEST_STATS)`: the listener sends the statistics
+        "request_stats" => super::menu_actions::deliver(h, &a[1], |_, _| {
+            mc_protocol::packets::play::ServerboundPlayPacket::ClientCommand(
+                mc_protocol::packets::play::ServerboundClientCommandPacket {
+                    action:
+                        mc_protocol::packets::play::ServerboundClientCommandAction::RequestStats,
+                },
+            )
+        }),
         // the vehicle actions need the listener (`handlePlayerCommand` reads the vehicle the player controls or rides)
         "pcommand" if vehicle_action(&a[2]).is_some() => {
             let action = vehicle_action(&a[2]).expect("guard");
@@ -659,6 +678,21 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
     true
 }
 
+/// `STAT REF type.name:value.name N`, sorted by name: the statistics a player has earned.
+fn stat_lines(name: &str, stats: &mc_game::stats::ServerStatsCounter) -> Vec<String> {
+    let mut stats: Vec<(String, i32)> = stats
+        .counter
+        .iter_fast_order()
+        .into_iter()
+        .map(|(stat, n)| (mc_game::stats::stat::build_name(&stat), n))
+        .collect();
+    stats.sort();
+    stats
+        .into_iter()
+        .map(|(stat, n)| format!("STAT {name} {stat} {n}"))
+        .collect()
+}
+
 /// The player dump kinds: `use:REF`, `cooldowns:REF`, `stats:REF`, `inventory:REF`, `menu:REF`, `recipes:REF`; `false` for any other kind.
 pub fn dump<H: ActionHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
     if matches!(kind, "menu" | "recipes") {
@@ -694,21 +728,7 @@ pub fn dump<H: ActionHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
             .map(|(group, remaining)| format!("CD {name} group={group} remaining={remaining}"))
             .collect(),
         // STAT REF type.name:value.name N, sorted by name
-        "stats" => {
-            let mut stats: Vec<(String, i32)> = p
-                .stats
-                .lock()
-                .counter
-                .iter_fast_order()
-                .into_iter()
-                .map(|(stat, n)| (mc_game::stats::stat::build_name(&stat), n))
-                .collect();
-            stats.sort();
-            stats
-                .into_iter()
-                .map(|(stat, n)| format!("STAT {name} {stat} {n}"))
-                .collect()
-        }
+        "stats" => stat_lines(name, &p.stats.lock()),
         // I REF SLOT ITEM: `Inventory.getItem(i)`, the 36 slots, then the equipment slots (feet, legs, chest, head, offhand, body, saddle)
         _ => {
             let inv = &p.player.inventory;

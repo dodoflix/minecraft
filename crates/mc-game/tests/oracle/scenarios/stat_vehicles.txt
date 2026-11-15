@@ -1,0 +1,37 @@
+# The distance a player travels as a passenger counts towards the statistic of the vehicle's kind: a minecart pushed along by its own
+# motion, a happy ghast in a harness and a saddled nautilus, both driven by movement packets of the controlling rider.
+level flat
+preload 4
+entity_counter 51100
+level_seed 51101
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 10.5 -60 0.5 0 0
+spawn_player C survival 20.5 -60 0.5 0 0
+spawn cart minecraft:minecart 0.5 -60 2.5 0 0
+entity_seed cart 51102
+mobspawn ghast minecraft:happy_ghast 10.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{body:{id:"minecraft:white_harness",count:1}}}
+entity_seed ghast 51103
+mobspawn nautilus minecraft:nautilus 20.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed nautilus 51104
+tame nautilus C
+tick 25
+ride A cart
+ride B ghast
+ride C nautilus
+accept_teleport A
+accept_teleport B
+accept_teleport C
+tick 2
+dump stats:A stats:B stats:C
+note the cart rolls on its own, the ghast and the nautilus are driven by the packets of their riders
+velocity cart 0.2 0 0
+move_vehicle B 10.5 -60 3.5 0 0 true
+move_vehicle C 20.5 -60 3.25 0 0 true
+tick 1
+dump stats:A stats:B stats:C entity:cart mob:ghast mob:nautilus
+move_vehicle B 11.5 -60 3.5 0 0 true
+move_vehicle C 21.5 -60 3.25 0 0 true
+tick 1
+dump stats:A stats:B stats:C entity:cart mob:ghast mob:nautilus
+tick 2
+dump stats:A stats:B stats:C
