@@ -2,9 +2,10 @@
 //! `context_float_provider` registries and every inline number provider of loot tables).
 
 use std::any::Any;
+use std::borrow::Cow;
 use std::sync::{Arc, LazyLock};
 
-use mc_core::math::java::{floor_mod_i32, round_f32};
+use mc_core::math::java::{floor_mod_i32, java_float_to_string, round_f32};
 use mc_core::random::RandomSource;
 use mc_dfu::extra::NON_NEGATIVE_INT;
 use mc_dfu::{Codec, DataResult, Either, FLOAT, INT, MapCodec, record};
@@ -26,9 +27,29 @@ use crate::world::level::storage::loot::validation::{
     validate_holder_set_min,
 };
 
-/// `java.lang.ArithmeticException`.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct ArithmeticException;
+/// `java.lang.ArithmeticException` with its message.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ArithmeticException {
+    pub message: Cow<'static, str>,
+}
+
+impl ArithmeticException {
+    pub fn new(message: impl Into<Cow<'static, str>>) -> Self {
+        Self {
+            message: message.into(),
+        }
+    }
+
+    /// The overflow of the `Math.*Exact` methods.
+    fn overflow() -> Self {
+        Self::new("integer overflow")
+    }
+
+    /// An integer `/`, `%` or `Math.floorMod`/`floorDivExact` by zero.
+    fn division_by_zero() -> Self {
+        Self::new("/ by zero")
+    }
+}
 
 pub type IntResult = Result<i32, ArithmeticException>;
 pub type FloatResult = Result<f32, ArithmeticException>;
@@ -83,7 +104,10 @@ impl dyn ContextFloatProvider {
         if v.is_finite() {
             Ok(v)
         } else {
-            Err(ArithmeticException)
+            Err(ArithmeticException::new(format!(
+                "Invalid value: {}",
+                java_float_to_string(v)
+            )))
         }
     }
 }
@@ -113,7 +137,9 @@ pub type FloatHolderSet = HolderSet<dyn ContextFloatProvider>;
 pub fn long_to_int_safe(value: i64) -> IntResult {
     let result = value as i32;
     if i64::from(result) != value {
-        Err(ArithmeticException)
+        Err(ArithmeticException::new(format!(
+            "Value {value} can't be safely converted to int"
+        )))
     } else {
         Ok(result)
     }
@@ -122,7 +148,10 @@ pub fn long_to_int_safe(value: i64) -> IntResult {
 /// `ContextIntProvider.floatToIntSafe`.
 pub fn float_to_int_safe(value: f32) -> IntResult {
     if !value.is_finite() {
-        Err(ArithmeticException)
+        Err(ArithmeticException::new(format!(
+            "Value {} can't be safely converted to int",
+            java_float_to_string(value)
+        )))
     } else {
         long_to_int_safe(value as i64)
     }
@@ -390,8 +419,12 @@ impl ContextIntProvider for Unary<IntHolder> {
     fn get_int_unsafe(&self, context: &mut LootContext) -> IntResult {
         let v = int_in(&self.input, context)?;
         match self.kind {
-            "abs" => v.checked_abs().ok_or(ArithmeticException),
-            "negate" => v.checked_neg().ok_or(ArithmeticException),
+            "abs" => v.checked_abs().ok_or_else(|| {
+                ArithmeticException::new(
+                    "Overflow to represent absolute value of Integer.MIN_VALUE",
+                )
+            }),
+            "negate" => v.checked_neg().ok_or_else(ArithmeticException::overflow),
             _ => unreachable!(),
         }
     }
@@ -411,45 +444,49 @@ impl ContextIntProvider for Binary<IntHolder> {
         let l = int_in(&self.left, context)?;
         let r = int_in(&self.right, context)?;
         match self.kind {
-            "sub" => l.checked_sub(r).ok_or(ArithmeticException),
+            "sub" => l.checked_sub(r).ok_or_else(ArithmeticException::overflow),
             "floor_mod" => {
                 if r == 0 {
-                    Err(ArithmeticException)
+                    Err(ArithmeticException::division_by_zero())
                 } else {
                     Ok(floor_mod_i32(l, r))
                 }
             }
             "floor_div" => {
                 // `Math.floorDivExact`
-                if r == 0 || (l == i32::MIN && r == -1) {
-                    Err(ArithmeticException)
+                if r == 0 {
+                    Err(ArithmeticException::division_by_zero())
+                } else if l == i32::MIN && r == -1 {
+                    Err(ArithmeticException::overflow())
                 } else {
                     Ok(mc_core::math::java::floor_div_i32(l, r))
                 }
             }
             "mod" => {
                 if r == 0 {
-                    Err(ArithmeticException)
+                    Err(ArithmeticException::division_by_zero())
                 } else {
                     Ok(l.wrapping_rem(r))
                 }
             }
             "div" => {
                 if r == 0 {
-                    Err(ArithmeticException)
+                    Err(ArithmeticException::division_by_zero())
                 } else {
                     Ok(l.wrapping_div(r))
                 }
             }
             "pow" => {
                 if l == 0 && r == 0 {
-                    return Err(ArithmeticException);
+                    return Err(ArithmeticException::new(
+                        "Result of 0 to the power of 0 is undefined",
+                    ));
                 }
                 // `Math.powExact`
-                u32::try_from(r)
-                    .ok()
-                    .and_then(|n| l.checked_pow(n))
-                    .ok_or(ArithmeticException)
+                let exponent =
+                    u32::try_from(r).map_err(|_| ArithmeticException::new("negative exponent"))?;
+                l.checked_pow(exponent)
+                    .ok_or_else(ArithmeticException::overflow)
             }
             _ => unreachable!(),
         }
@@ -485,7 +522,7 @@ impl ContextIntProvider for Aggregate<IntHolderSet> {
                     count += 1;
                 }
                 if count == 0 {
-                    return Err(ArithmeticException);
+                    return Err(ArithmeticException::division_by_zero());
                 }
                 long_to_int_safe(sum.wrapping_div(count))
             }
@@ -1270,7 +1307,7 @@ impl ContextIntProvider for EnvironmentAttributeValue {
     }
     fn get_int_unsafe(&self, context: &mut LootContext) -> IntResult {
         server_access::environment_attribute_int(context, &self.attribute)
-            .ok_or(ArithmeticException)
+            .ok_or_else(|| ArithmeticException::new("environment attribute has no value"))
     }
     fn validate(&self, context: &ValidationContext) {
         context.validate_context_usage(&ContextIntProvider::referenced_params(self));
@@ -1293,7 +1330,7 @@ impl ContextFloatProvider for EnvironmentAttributeValue {
     }
     fn get_float_unsafe(&self, context: &mut LootContext) -> FloatResult {
         server_access::environment_attribute_float(context, &self.attribute)
-            .ok_or(ArithmeticException)
+            .ok_or_else(|| ArithmeticException::new("environment attribute has no value"))
     }
     fn validate(&self, context: &ValidationContext) {
         context.validate_context_usage(&ContextFloatProvider::referenced_params(self));

@@ -739,11 +739,14 @@ impl MinecraftServer {
         crate::world::level::storage::loot::server_access::LootServices {
             random_sequences: self.loot_random_sequences.clone(),
             world_seed: self.world_gen_settings.options.seed,
+            command_storage: {
+                let storage = self.command_storage.view();
+                Arc::new(move |id| storage.get(id))
+            },
             clock_total_ticks: {
                 let totals = self.clock_manager().totals();
                 Arc::new(move |clock| Some(totals.total_ticks(clock)))
             },
-            ..Default::default()
         }
     }
 

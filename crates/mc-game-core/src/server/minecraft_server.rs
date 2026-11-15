@@ -227,9 +227,11 @@ impl MinecraftServer {
             .install_protocol_context();
         shared.bind_game_thread();
         let enabled_features = init.world_data.settings.data_configuration.enabled_features;
+        let data_folder = init
+            .storage_source
+            .get_level_path(mc_world::level_storage::LevelResource::DATA);
         let mut saved_data = SavedDataManager::new(mc_world::level_storage::SavedDataStorage::new(
-            init.storage_source
-                .get_level_path(mc_world::level_storage::LevelResource::DATA),
+            data_folder.clone(),
         ));
         shared
             .map_storage
@@ -296,7 +298,10 @@ impl MinecraftServer {
             world_gen_settings: init.world_gen_settings,
             world_gen_settings_dirty: true,
             saved_data,
-            command_storage: Default::default(),
+            command_storage:
+                crate::world::level::saveddata::command_storage::CommandStorage::with_data_folder(
+                    data_folder,
+                ),
             game_rules_type,
             saved_types: SavedDataTypes::new(),
             loot_random_sequences: Default::default(),
