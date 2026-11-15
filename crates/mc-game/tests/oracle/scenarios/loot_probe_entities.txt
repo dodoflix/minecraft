@@ -29,7 +29,7 @@ tick 22
 dump mobs entities events
 note a player brushes an armadillo (interacting entity, target, tool)
 interact I1 AR main
-dump inventory:I1 entities events
+dump inventory:I1 entities events advancements:I1
 note a dispenser brushes an armadillo (no interacting entity)
 block 0 -60 10 minecraft:dispenser[facing=east,triggered=false]
 be_nbt 0 -60 10 {Items:[{Slot:0b,id:"minecraft:brush",count:1}]}

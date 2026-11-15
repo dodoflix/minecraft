@@ -1,0 +1,4 @@
+ADV Alice minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alice minecraft:recipes/decorations/end_crystal has_ender_eye
+ADV Alice minecraft:recipes/decorations/ender_chest has_ender_eye
+I Alice 0 minecraft:ender_eye*3

@@ -82,6 +82,7 @@ pub trait PlayerSystems: Sync {
         ctx: &mut PlayCtx,
         pos: mc_core::pos::BlockPos,
         hand: InteractionHand,
+        before_use: &crate::world::item::ItemStack,
     ) {
     }
     fn trigger_player_interacted_with_entity(

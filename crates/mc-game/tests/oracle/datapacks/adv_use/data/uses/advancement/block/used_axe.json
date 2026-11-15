@@ -1,0 +1,8 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {"location": {"type": "minecraft:match_tool", "predicate": {"items": "#minecraft:axes"}}}
+    }
+  }
+}

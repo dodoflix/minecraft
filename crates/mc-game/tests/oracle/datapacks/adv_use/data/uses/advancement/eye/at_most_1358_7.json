@@ -1,0 +1,8 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:used_ender_eye",
+      "conditions": {"distance": {"max": 1358.7}}
+    }
+  }
+}

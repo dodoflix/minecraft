@@ -1,0 +1,7 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:allay_drop_item_on_block"
+    }
+  }
+}

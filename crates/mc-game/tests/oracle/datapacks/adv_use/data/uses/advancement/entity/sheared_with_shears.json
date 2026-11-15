@@ -1,0 +1,8 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:player_sheared_equipment",
+      "conditions": {"item": {"items": "minecraft:shears"}}
+    }
+  }
+}

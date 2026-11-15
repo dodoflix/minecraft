@@ -1,0 +1,24 @@
+# EnderEyeItem.use awards used_ender_eye with the horizontal distance to the located stronghold (a data pack advancement per distance
+# bound; the stronghold of this seed is at 1008, 912) to the survival player and to the creative player standing 2 blocks closer; the
+# bounds tell the two apart.
+datapack adv_use
+command_env
+level normal
+structures true
+seed 4242
+preload 1
+difficulty normal
+fill -3 119 -3 3 119 3 minecraft:stone
+entity_counter 90
+spawn_player Alice survival 0.5 120 0.5 0 0
+spawn_player Bob creative 2.5 120 0.5 0 0
+give Alice mainhand minecraft:ender_eye 2
+give Bob mainhand minecraft:ender_eye 1
+tick 5
+entity_counter 500
+level_seed 11
+dump advancements:Alice advancements:Bob
+use Alice
+dump advancements:Alice advancements:Bob inventory:Alice
+use Bob
+dump advancements:Alice advancements:Bob inventory:Bob events

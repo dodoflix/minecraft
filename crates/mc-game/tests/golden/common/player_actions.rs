@@ -269,7 +269,26 @@ fn use_on(level: &mut ServerLevel, p: &mut ServerPlayer, a: &[String], sequence:
         .is_some_and(|l| l.is_awaiting_position_from_client());
     if !awaiting_teleport {
         let animation = interact_animation(p, hand);
+        let before_use = p.get_item_in_hand(hand);
         let outcome = p.use_item_on(level, hand, &result);
+        if outcome.consumes_action() && mc_game::commands::server_access::has_server() {
+            // the listener's `ANY_BLOCK_USE`
+            mc_game::commands::server_access::with_server(|server| {
+                mc_game::server::network::game_packets::hooks::PLAYER_SYSTEMS
+                    .first()
+                    .expect("player systems")
+                    .trigger_any_block_use(
+                        &mut mc_game::server::network::game_packets::PlayCtx {
+                            server,
+                            level,
+                            player: p,
+                        },
+                        pos,
+                        hand,
+                        &before_use,
+                    );
+            });
+        }
         // a successful use swings (the decompiled handler swings in two branches, both reach the client)
         for _ in 0..2 {
             swing_on_success(level, p, hand, animation, &outcome);
@@ -308,6 +327,29 @@ fn interact(level: &mut ServerLevel, p: &mut ServerPlayer, target: EntityId, a: 
         };
         (t.block_position(), bounds, location)
     };
+    if mc_game::commands::server_access::has_server() {
+        // the listener also awards `PLAYER_INTERACTED_WITH_ENTITY` after a successful interaction
+        mc_game::commands::server_access::with_server(|server| {
+            mc_game::server::network::game_packets::PlayCtx {
+                server,
+                level,
+                player: p,
+            }
+            .deliver(mc_protocol::packets::play::ServerboundPlayPacket::Interact(
+                mc_protocol::packets::play::ServerboundInteractPacket {
+                    entity_id: target,
+                    hand: if hand == InteractionHand::MainHand {
+                        mc_protocol::packets::play::InteractionHand::MainHand
+                    } else {
+                        mc_protocol::packets::play::InteractionHand::OffHand
+                    },
+                    location,
+                    using_secondary_action: sneak,
+                },
+            ))
+        });
+        return;
+    }
     p.set_shift_key_down(sneak);
     if !level.is_within_world_border(block_pos)
         || !p.is_within_entity_interaction_range(&bounds, 3.0)

@@ -1,0 +1,7 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:any_block_use"
+    }
+  }
+}

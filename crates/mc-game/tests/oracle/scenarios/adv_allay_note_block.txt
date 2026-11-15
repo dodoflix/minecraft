@@ -1,0 +1,33 @@
+# ALLAY_DROP_ITEM_ON_BLOCK (AllayAi.throwItem): an allay that likes player A hears a note block that A played (default_block_use and
+# any_block_use for the note block use), then delivers the cake it fetched above the note block instead of throwing it to A; A is awarded
+# for the block under the delivery point and the item thrown (the vanilla husbandry advancement allay_deliver_cake_to_note_block and the
+# data pack advancements for the block and the item). A second player who gave nothing is awarded nothing.
+datapack adv_use
+command_env
+level flat
+preload 2
+difficulty normal
+time 6000
+entity_counter 31300
+level_seed 31301
+spawn_player A survival 0.5 -60 3.5 0 0
+spawn_player B survival 0.5 -60 8.5 0 0
+block 0 -60 0 minecraft:note_block[note=0]
+mobspawn al minecraft:allay 4.5 -59 0.5 0 0 {PersistenceRequired:1b}
+entity_seed al 31302
+tick 3
+dump advancements:A advancements:B
+note A plays the note block: the allay hears the vibration
+use_on A 0 -60 0 up main
+tick 8
+dump mob:al brain:al advancements:A
+note A gives the allay a cake and a second cake lies on the ground: the allay fetches it and drops it above the note block
+give A mainhand minecraft:cake 2
+interact A al main
+spawn_item i1 minecraft:cake 6.5 -60 0.5 0 0 0 1
+tick 40
+dump mob:al brain:al entities advancements:A advancements:B
+tick 60
+dump mob:al brain:al entities advancements:A advancements:B inventory:A events
+tick 60
+dump mob:al entities advancements:A advancements:B

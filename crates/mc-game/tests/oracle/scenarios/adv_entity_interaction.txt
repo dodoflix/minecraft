@@ -1,0 +1,107 @@
+# The player_interacted_with_entity and player_sheared_equipment triggers (ServerGamePacketListenerImpl.handleInteract, BottleItem,
+# Mob.shearItem, SulfurCube.mobInteract), observed through the vanilla advancements (brush_armadillo, remove_wolf_armor) and the data pack
+# `adv_use`: the tool counts only when the interaction used the item (a brush on an armadillo, a bucket on a cow, wheat on a cow, a name
+# tag, a lead), a bare boarding or a sheared saddle awards an empty stack, shears take a saddle off a pig and a horse and the armor off an
+# owned wolf (only its owner), a sneaking player does not shear equipment, a swallowed block comes out of a sulfur cube, a bottle takes
+# dragon breath from a cloud of the dragon (the bottle is awarded, not the cloud). Every case has its own player (an advancement keeps its
+# first criterion).
+datapack adv_use
+command_env
+level flat
+preload 4
+difficulty normal
+time 6000
+entity_counter 31200
+level_seed 31201
+spawn_player Brush survival 0.5 -60 0.5 0 0
+spawn_player Bucket survival 4.5 -60 0.5 0 0
+spawn_player Wheat survival 8.5 -60 0.5 0 0
+spawn_player Tag survival 12.5 -60 0.5 0 0
+spawn_player Lead survival 16.5 -60 0.5 0 0
+spawn_player Boat survival 20.5 -60 0.5 0 0
+spawn_player PigShears survival 24.5 -60 0.5 0 0
+spawn_player PigSneak survival 28.5 -60 0.5 0 0
+spawn_player Horse survival 32.5 -60 0.5 0 0
+spawn_player Owner survival 36.5 -60 0.5 0 0
+spawn_player Stranger survival 40.5 -60 0.5 0 0
+spawn_player Cube survival 44.5 -60 0.5 0 0
+spawn_player Sheep survival 48.5 -60 0.5 0 0
+spawn_player Bottle survival 52.5 -60 0.5 0 0
+spawn_player Spec spectator 56.5 -60 0.5 0 0
+spawn_player Creative creative 60.5 -60 0.5 0 0
+mobspawn Arm minecraft:armadillo 0.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Cow minecraft:cow 4.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Cow2 minecraft:cow 8.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Cow3 minecraft:cow 12.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Pig1 minecraft:pig 16.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+spawn B1 minecraft:oak_boat 20.5 -60 2.5 0 0
+mobspawn Pig2 minecraft:pig 24.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn Pig3 minecraft:pig 28.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn Horse1 minecraft:horse 32.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn Wolf1 minecraft:wolf 36.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,equipment:{body:{id:"minecraft:wolf_armor",count:1}}}
+mobspawn Wolf2 minecraft:wolf 40.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,equipment:{body:{id:"minecraft:wolf_armor",count:1}}}
+mobspawn SC minecraft:sulfur_cube 44.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Size:1,equipment:{body:{id:"minecraft:tnt",count:1}}}
+mobspawn Sheep1 minecraft:sheep 48.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:14b}
+mobspawn Cow4 minecraft:cow 56.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Cow5 minecraft:cow 60.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Dragon minecraft:ender_dragon 52.5 -60 6.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,UUID:[I;7,8,9,10]}
+spawn Cloud minecraft:area_effect_cloud 52.5 -60 1.5 0 0 {Owner:[I;7,8,9,10],Particle:{type:"minecraft:dragon_breath"},Duration:600,Radius:3.0f}
+tame Wolf1 Owner
+tick 3
+dump advancements:Brush advancements:Bucket advancements:Wheat advancements:Tag advancements:Lead advancements:Boat advancements:PigShears advancements:PigSneak advancements:Horse advancements:Owner advancements:Stranger advancements:Cube advancements:Sheep advancements:Bottle advancements:Spec advancements:Creative
+note a brush on an armadillo, a bucket on a cow (milk), wheat on a cow (love mode), a name tag on a cow, a lead on a pig
+give Brush mainhand minecraft:brush 1
+level_seed 31210
+entity_seed Arm 31211
+interact Brush Arm main
+give Bucket mainhand minecraft:bucket 1
+interact Bucket Cow main
+give Wheat mainhand minecraft:wheat 2
+interact Wheat Cow2 main
+give Tag mainhand minecraft:name_tag[custom_name="Bessie"] 1
+interact Tag Cow3 main
+give Lead mainhand minecraft:lead 1
+interact Lead Pig1 main
+tick 1
+dump advancements:Brush advancements:Bucket advancements:Wheat advancements:Tag advancements:Lead inventory:Brush inventory:Bucket inventory:Wheat inventory:Tag inventory:Lead events
+note boarding a boat with an empty hand
+interact Boat B1 main
+tick 1
+dump advancements:Boat events
+note shears take the saddle off a pig, a sneaking player cannot, a horse
+give PigShears mainhand minecraft:shears 1
+give PigSneak mainhand minecraft:shears 1
+give Horse mainhand minecraft:shears 1
+level_seed 31220
+interact PigShears Pig2 main
+interact PigSneak Pig3 main sneak
+interact Horse Horse1 main
+tick 1
+dump advancements:PigShears advancements:PigSneak advancements:Horse inventory:PigShears inventory:PigSneak inventory:Horse entities events
+note only the owner shears the armor off a wolf
+give Owner mainhand minecraft:shears 1
+give Stranger mainhand minecraft:shears 1
+interact Owner Wolf1 main
+interact Stranger Wolf2 main
+tick 1
+dump advancements:Owner advancements:Stranger inventory:Owner inventory:Stranger entities events
+note shears on a sulfur cube with a swallowed block, shears on a sheep (wool, no equipment)
+give Cube mainhand minecraft:shears 1
+give Sheep mainhand minecraft:shears 1
+level_seed 31230
+interact Cube SC main
+interact Sheep Sheep1 main
+tick 1
+dump advancements:Cube advancements:Sheep inventory:Cube inventory:Sheep entities events
+note a glass bottle in the breath of the dragon
+give Bottle mainhand minecraft:glass_bottle 2
+use Bottle main 0
+tick 1
+dump advancements:Bottle inventory:Bottle entities events
+note a spectator cannot interact, a creative player feeds a cow
+give Spec mainhand minecraft:wheat 2
+give Creative mainhand minecraft:wheat 2
+interact Spec Cow4 main
+interact Creative Cow5 main
+tick 1
+dump advancements:Spec advancements:Creative inventory:Spec inventory:Creative events

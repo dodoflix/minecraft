@@ -8,6 +8,7 @@ mod adv_combat_triggers_golden;
 mod adv_item_triggers_golden;
 mod adv_mob_triggers_golden;
 mod adv_rewards_golden;
+mod adv_use_triggers_golden;
 mod advancement_command_golden;
 mod advancement_predicates_golden;
 mod args;

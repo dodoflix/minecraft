@@ -1,0 +1,113 @@
+C Set minecraft:overworld to 6000 tick(s)
+ADV Dolph minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Dolph minecraft:recipes/food/cooked_cod has_cod
+ADV Dolph minecraft:recipes/food/cooked_cod_from_campfire_cooking has_cod
+ADV Dolph minecraft:recipes/food/cooked_cod_from_smoking has_cod
+ADV Dolph minecraft:recipes/transportation/acacia_boat in_water
+ADV Dolph minecraft:recipes/transportation/bamboo_raft in_water
+ADV Dolph minecraft:recipes/transportation/birch_boat in_water
+ADV Dolph minecraft:recipes/transportation/cherry_boat in_water
+ADV Dolph minecraft:recipes/transportation/dark_oak_boat in_water
+ADV Dolph minecraft:recipes/transportation/jungle_boat in_water
+ADV Dolph minecraft:recipes/transportation/mangrove_boat in_water
+ADV Dolph minecraft:recipes/transportation/oak_boat in_water
+ADV Dolph minecraft:recipes/transportation/pale_oak_boat in_water
+ADV Dolph minecraft:recipes/transportation/poplar_boat in_water
+ADV Dolph minecraft:recipes/transportation/spruce_boat in_water
+ADV Full minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Full minecraft:recipes/food/cooked_cod has_cod
+ADV Full minecraft:recipes/food/cooked_cod_from_campfire_cooking has_cod
+ADV Full minecraft:recipes/food/cooked_cod_from_smoking has_cod
+ADV Full minecraft:recipes/transportation/acacia_boat in_water
+ADV Full minecraft:recipes/transportation/bamboo_raft in_water
+ADV Full minecraft:recipes/transportation/birch_boat in_water
+ADV Full minecraft:recipes/transportation/cherry_boat in_water
+ADV Full minecraft:recipes/transportation/dark_oak_boat in_water
+ADV Full minecraft:recipes/transportation/jungle_boat in_water
+ADV Full minecraft:recipes/transportation/mangrove_boat in_water
+ADV Full minecraft:recipes/transportation/oak_boat in_water
+ADV Full minecraft:recipes/transportation/pale_oak_boat in_water
+ADV Full minecraft:recipes/transportation/poplar_boat in_water
+ADV Full minecraft:recipes/transportation/spruce_boat in_water
+ADV Stay minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Stay minecraft:recipes/food/cooked_cod has_cod
+ADV Stay minecraft:recipes/food/cooked_cod_from_campfire_cooking has_cod
+ADV Stay minecraft:recipes/food/cooked_cod_from_smoking has_cod
+ADV Stay minecraft:recipes/transportation/acacia_boat in_water
+ADV Stay minecraft:recipes/transportation/bamboo_raft in_water
+ADV Stay minecraft:recipes/transportation/birch_boat in_water
+ADV Stay minecraft:recipes/transportation/cherry_boat in_water
+ADV Stay minecraft:recipes/transportation/dark_oak_boat in_water
+ADV Stay minecraft:recipes/transportation/jungle_boat in_water
+ADV Stay minecraft:recipes/transportation/mangrove_boat in_water
+ADV Stay minecraft:recipes/transportation/oak_boat in_water
+ADV Stay minecraft:recipes/transportation/pale_oak_boat in_water
+ADV Stay minecraft:recipes/transportation/poplar_boat in_water
+ADV Stay minecraft:recipes/transportation/spruce_boat in_water
+# every swimmer throws one item
+E item#1 minecraft:item pos=0.5002911879087825,-59.880349465608596,0.4972316626376372 delta=2.853641561607467E-4,-0.19634247310828132,-0.002712970667917405 rot=80.03482,0.0 og=0 fall=0.20034946501255035 fire=0 air=300 alive=1 pose=standing item=minecraft:cod*1 age=1 pickup=39 health=5 owner=- thrower=Dolph
+E item#2 minecraft:item pos=6.5003831799276535,-59.94096715092659,0.5190177182600045 delta=3.7551633640884804E-4,-0.2557478058761052,0.01863736425753864 rot=48.815132,0.0 og=0 fall=0.2609671354293823 fire=0 air=300 alive=1 pose=standing item=minecraft:cod*1 age=1 pickup=39 health=5 owner=- thrower=Full
+E item#3 minecraft:item pos=12.4924290029948,-60.014756717681884,0.512629607709343 delta=-0.007419577209500637,-0.3280615827037184,0.012377015796046725 rot=89.75849,0.0 og=0 fall=0.3347567021846771 fire=0 air=300 alive=1 pose=standing item=minecraft:cod*1 age=1 pickup=39 health=5 owner=- thrower=Stay
+# the dolphins swim to the items (the second already holds a stick)
+E item#2 minecraft:item pos=6.507089579096638,-61.71990256900158,0.8518650328778709 delta=5.8331434084388146E-5,0.0128980576011689,0.0028950649526781327 rot=48.815132,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cod*1 age=46 pickup=0 health=5 owner=- thrower=Full
+E D1 minecraft:dolphin pos=0.5,-61.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=4800 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E D2 minecraft:dolphin pos=6.5,-61.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=4800 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=0.5005765520649432,-60.116691938716876,0.49451869196971976 r=16.0 ex=0 event=minecraft:entity.generic.splash source=ambient vol=0.046323743 pitch=0.73239684
+EV sound at=6.500758696264063,-60.23671495680269,0.5376550825175431 r=16.0 ex=0 event=minecraft:entity.generic.splash source=ambient vol=0.057989597 pitch=1.1875949
+EV sound at=12.4850094257853,-60.3828183003856,0.5250066235053897 r=16.0 ex=0 event=minecraft:entity.generic.splash source=ambient vol=0.07215116 pitch=0.9083287
+EV sound at=0.5,-61.5,0.5 r=16.0 ex=0 event=minecraft:entity.dolphin.ambient_water source=neutral vol=1.0 pitch=1.017111
+EV sound at=6.5,-61.5,0.5 r=16.0 ex=0 event=minecraft:entity.dolphin.ambient_water source=neutral vol=1.0 pitch=1.0663565
+I Stay 0 minecraft:cod*1
+E D1 minecraft:dolphin pos=0.5,-61.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=4800 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:cod*1 attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:1.2000000476837158 age=0 baby=0 forcedage=0 gotfish=0 moist=2400 treasure=-
+E D2 minecraft:dolphin pos=6.5,-61.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=4800 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:stick*1 attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:1.2000000476837158 age=0 baby=0 forcedage=0 gotfish=0 moist=2400 treasure=-
+ADV Dolph minecraft:adventure/adventuring_time minecraft:plains
+ADV Dolph minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Dolph minecraft:recipes/food/cooked_cod has_cod
+ADV Dolph minecraft:recipes/food/cooked_cod_from_campfire_cooking has_cod
+ADV Dolph minecraft:recipes/food/cooked_cod_from_smoking has_cod
+ADV Dolph minecraft:recipes/transportation/acacia_boat in_water
+ADV Dolph minecraft:recipes/transportation/bamboo_raft in_water
+ADV Dolph minecraft:recipes/transportation/birch_boat in_water
+ADV Dolph minecraft:recipes/transportation/cherry_boat in_water
+ADV Dolph minecraft:recipes/transportation/dark_oak_boat in_water
+ADV Dolph minecraft:recipes/transportation/jungle_boat in_water
+ADV Dolph minecraft:recipes/transportation/mangrove_boat in_water
+ADV Dolph minecraft:recipes/transportation/oak_boat in_water
+ADV Dolph minecraft:recipes/transportation/pale_oak_boat in_water
+ADV Dolph minecraft:recipes/transportation/poplar_boat in_water
+ADV Dolph minecraft:recipes/transportation/spruce_boat in_water
+ADV Dolph uses:thrown/entity_any c
+ADV Dolph uses:thrown/entity_dolphin c
+ADV Full minecraft:adventure/adventuring_time minecraft:plains
+ADV Full minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Full minecraft:recipes/food/cooked_cod has_cod
+ADV Full minecraft:recipes/food/cooked_cod_from_campfire_cooking has_cod
+ADV Full minecraft:recipes/food/cooked_cod_from_smoking has_cod
+ADV Full minecraft:recipes/transportation/acacia_boat in_water
+ADV Full minecraft:recipes/transportation/bamboo_raft in_water
+ADV Full minecraft:recipes/transportation/birch_boat in_water
+ADV Full minecraft:recipes/transportation/cherry_boat in_water
+ADV Full minecraft:recipes/transportation/dark_oak_boat in_water
+ADV Full minecraft:recipes/transportation/jungle_boat in_water
+ADV Full minecraft:recipes/transportation/mangrove_boat in_water
+ADV Full minecraft:recipes/transportation/oak_boat in_water
+ADV Full minecraft:recipes/transportation/pale_oak_boat in_water
+ADV Full minecraft:recipes/transportation/poplar_boat in_water
+ADV Full minecraft:recipes/transportation/spruce_boat in_water
+ADV Stay minecraft:adventure/adventuring_time minecraft:plains
+ADV Stay minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Stay minecraft:recipes/food/cooked_cod has_cod
+ADV Stay minecraft:recipes/food/cooked_cod_from_campfire_cooking has_cod
+ADV Stay minecraft:recipes/food/cooked_cod_from_smoking has_cod
+ADV Stay minecraft:recipes/transportation/acacia_boat in_water
+ADV Stay minecraft:recipes/transportation/bamboo_raft in_water
+ADV Stay minecraft:recipes/transportation/birch_boat in_water
+ADV Stay minecraft:recipes/transportation/cherry_boat in_water
+ADV Stay minecraft:recipes/transportation/dark_oak_boat in_water
+ADV Stay minecraft:recipes/transportation/jungle_boat in_water
+ADV Stay minecraft:recipes/transportation/mangrove_boat in_water
+ADV Stay minecraft:recipes/transportation/oak_boat in_water
+ADV Stay minecraft:recipes/transportation/pale_oak_boat in_water
+ADV Stay minecraft:recipes/transportation/poplar_boat in_water
+ADV Stay minecraft:recipes/transportation/spruce_boat in_water
+ADV Stay uses:thrown/entity_any c

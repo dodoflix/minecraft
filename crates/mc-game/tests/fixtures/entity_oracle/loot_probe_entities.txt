@@ -25,6 +25,9 @@ E item#6 minecraft:item pos=-29.5,-60.0,0.5 delta=0.07130245414669426,0.2,-0.012
 E item#7 minecraft:item pos=-29.5,-60.0,0.5 delta=-0.015494214830752834,0.2,0.0943824150107751 rot=253.62556,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=0 pickup=10 health=5 owner=- thrower=-
 E item#8 minecraft:item pos=-29.5,-60.0,0.5 delta=-0.09748437482429971,0.2,-0.05091898593714557 rot=322.38,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=0 pickup=10 health=5 owner=- thrower=-
 EV sound at=-29.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.brush source=neutral vol=1.0 pitch=1.0
+ADV I1 minecraft:adventure/adventuring_time minecraft:plains
+ADV I1 minecraft:adventure/brush_armadillo brush_armadillo
+ADV I1 minecraft:recipes/decorations/crafting_table unlock_right_away
 # a dispenser brushes an armadillo (no interacting entity)
 BE 0 -60 10 {Items:[{Slot:0b,components:{"minecraft:damage":16},count:1,id:"minecraft:brush"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:10}
 E C0 minecraft:creeper pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-

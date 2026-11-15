@@ -1,0 +1,204 @@
+# The block use triggers of ServerGamePacketListenerImpl.handleUseItemOn and ServerPlayerGameMode.useItemOn, observed through data pack
+# advancements (`adv_use`): any_block_use (the stack in hand after the use: a used-up honeycomb, a broken flint and steel, an emptied bucket
+# no longer match), default_block_use (use without an item), item_used_on_block (the stack before the use: a glass bottle used on a hive)
+# and placed_block (the stack before it is consumed). Each tool of the transformer and applicator rows is used once, a stick on a lever
+# does nothing, a sneaking player with an item in hand cannot use the block, an adventure player cannot place, a spectator opens a
+# chest (a consumed action that is neither of the other two), a creative player keeps the stack.
+datapack adv_use
+command_env
+level flat
+preload 4
+difficulty normal
+time 6000
+entity_counter 31100
+level_seed 31101
+spawn_player A survival 0.5 -60 2.5 0 0
+spawn_player N survival 0.5 -60 6.5 0 0
+spawn_player P adventure 6.5 -60 6.5 0 0
+spawn_player S spectator 4.5 -60 6.5 0 0
+spawn_player C creative 28.5 -60 6.5 0 0
+spawn_player B survival 26.5 -60 0.5 0 90
+block 0 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+block 2 -60 0 minecraft:note_block[note=0]
+block 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+block 6 -60 0 minecraft:copper_block
+block 8 -60 0 minecraft:copper_block
+block 10 -60 0 minecraft:oak_log[axis=y]
+block 12 -60 0 minecraft:dirt
+block 16 -60 0 minecraft:pumpkin
+block 18 -60 0 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+block 18 -59 0 minecraft:beehive[facing=north,honey_level=5]
+block 20 -60 0 minecraft:beehive[facing=north,honey_level=5]
+block 22 -61 0 minecraft:grass_block
+block 24 -60 0 minecraft:stone
+block 30 -60 0 minecraft:stone
+block 32 -60 0 minecraft:copper_block
+block 36 -60 0 minecraft:cauldron
+block 4 -60 8 minecraft:lever[face=floor,facing=north,powered=false]
+block 6 -60 8 minecraft:copper_block
+block 6 -60 10 minecraft:lever[face=floor,facing=north,powered=false]
+block 4 -60 10 minecraft:chest[facing=south,type=single,waterlogged=false]
+block 28 -60 8 minecraft:stone
+tick 5
+dump advancements:A advancements:B advancements:N advancements:P advancements:S advancements:C
+note use without an item: a lever and a note block (default_block_use), a chest (menu)
+level_seed 31110
+use_on A 0 -60 0 up main
+dump advancements:A
+snap A 2.5 -60 2.5
+level_seed 31111
+use_on A 2 -60 0 up main
+dump advancements:A
+snap A 4.5 -60 2.5
+level_seed 31112
+use_on A 4 -60 0 up main
+close_menu A
+dump advancements:A
+note a honeycomb on copper: one in hand (used up), then two
+give A hotbar0 minecraft:honeycomb 1
+give A hotbar1 minecraft:honeycomb 2
+select A 0
+snap A 6.5 -60 2.5
+level_seed 31113
+use_on A 6 -60 0 up main
+dump advancements:A inventory:A
+select A 1
+snap A 8.5 -60 2.5
+level_seed 31114
+use_on A 8 -60 0 up main
+dump advancements:A inventory:A
+note an axe strips a log, a hoe tills dirt, a shovel makes a path, shears carve a pumpkin
+give A hotbar2 minecraft:iron_axe 1
+give A hotbar3 minecraft:iron_hoe 1
+give A hotbar4 minecraft:iron_shovel 1
+give A hotbar5 minecraft:shears 1
+select A 2
+snap A 10.5 -60 2.5
+level_seed 31115
+use_on A 10 -60 0 up main
+dump advancements:A
+select A 3
+snap A 12.5 -60 2.5
+level_seed 31116
+use_on A 12 -60 0 up main
+dump advancements:A
+select A 4
+snap A 14.5 -60 2.5
+level_seed 31117
+use_on A 14 -61 0 up main
+dump advancements:A
+select A 5
+snap A 16.5 -60 2.5
+level_seed 31118
+use_on A 16 -60 0 up main
+dump advancements:A inventory:A
+note one glass bottle on a smoked hive, two on a plain hive
+give A hotbar6 minecraft:glass_bottle 1
+give A hotbar7 minecraft:glass_bottle 2
+select A 6
+snap A 18.5 -60 2.5
+level_seed 31119
+use_on A 18 -59 0 south main
+dump advancements:A inventory:A
+select A 7
+snap A 20.5 -60 2.5
+level_seed 31120
+use_on A 20 -60 0 south main
+dump advancements:A inventory:A
+note bone meal on grass
+give A hotbar8 minecraft:bone_meal 1
+select A 8
+snap A 22.5 -60 2.5
+level_seed 31121
+use_on A 22 -61 0 up main
+dump advancements:A inventory:A
+note a flint and steel with one use left makes a fire, a stone is placed, a stick does nothing
+give A hotbar0 minecraft:flint_and_steel[damage=63] 1
+give A hotbar2 minecraft:stone 1
+give A hotbar3 minecraft:stick 1
+select A 0
+snap A 24.5 -60 2.5
+level_seed 31122
+use_on A 24 -60 0 up main
+dump advancements:A inventory:A
+select A 2
+snap A 28.5 -60 2.5
+level_seed 31124
+use_on A 28 -61 0 up main
+dump advancements:A inventory:A
+select A 3
+snap A 30.5 -60 2.5
+level_seed 31125
+use_on A 30 -60 0 up main
+dump advancements:A inventory:A
+note a water bucket on an empty cauldron fills it and leaves an empty bucket in the hand: any_block_use sees the used-up water bucket
+give A hotbar8 minecraft:water_bucket 1
+select A 8
+snap A 36.5 -60 2.5
+level_seed 31134
+use_on A 36 -60 0 up main
+dump advancements:A inventory:A
+note a water bucket looks down at the block under the feet (a bucket is used on a ray, not on a block)
+give B hotbar0 minecraft:water_bucket 1
+level_seed 31123
+use B main 0
+dump advancements:B inventory:B
+note a sneaking player with a stick cannot use the lever; without the stick the lever is used; a stick on the copper block does nothing
+give N hotbar0 minecraft:stick 1
+select N 0
+input N sneak
+tick 2
+snap N 0.5 -60 2.5
+level_seed 31126
+use_on N 0 -60 0 up main
+dump advancements:N
+note a sneaking player with an empty hand uses it
+select N 5
+level_seed 31127
+use_on N 0 -60 0 up main
+dump advancements:N
+input N none
+tick 2
+note a sneaking player with a honeycomb: the item acts on the copper block
+give N hotbar1 minecraft:honeycomb 1
+select N 1
+snap N 32.5 -60 2.5
+input N sneak
+tick 2
+level_seed 31128
+use_on N 32 -60 0 up main
+dump advancements:N inventory:N
+input N none
+note an adventure player uses a lever, places nothing and cannot wax copper
+give P hotbar0 minecraft:stone 1
+give P hotbar1 minecraft:honeycomb 1
+select P 5
+snap P 4.5 -60 6.5
+level_seed 31129
+use_on P 4 -60 8 up main
+dump advancements:P
+select P 0
+snap P 8.5 -60 12.5
+level_seed 31130
+use_on P 8 -61 10 up main
+dump advancements:P inventory:P
+select P 1
+snap P 6.5 -60 6.5
+level_seed 31131
+use_on P 6 -60 8 up main
+dump advancements:P inventory:P
+note a spectator opens a chest and cannot use a lever
+snap S 4.5 -60 6.5
+level_seed 31132
+use_on S 4 -60 10 up main
+close_menu S
+dump advancements:S
+use_on S 6 -60 10 up main
+dump advancements:S
+note a creative player places a stone and keeps the stack
+give C hotbar0 minecraft:stone 1
+select C 0
+snap C 28.5 -60 6.5
+level_seed 31133
+use_on C 28 -60 8 up main
+dump advancements:C inventory:C

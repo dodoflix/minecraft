@@ -1,0 +1,47 @@
+# The thrown_item_picked_up_by_entity trigger for a raider (Raider.pickUpItem): during a raid a pillager picks up the ominous banner a player
+# throws once the raid has no leader, and a pillager does not pick up a crossbow (only a banner reaches Pillager.pickUpItem's item path
+# and it takes none). The captain with the banner is killed first so the raid has no leader; Steve collects the banner it drops and
+# throws it back.
+datapack adv_use
+command_env
+level flat
+difficulty easy
+gamerule raids true
+gamerule mob_drops true
+entity_counter 31500
+level_seed 31501
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+spawn_player Tosser survival 4.5 -60 6.5 0 0
+set Steve invulnerable true
+set Tosser invulnerable true
+tick 300
+effect Steve minecraft:raid_omen 0 600
+raid_start Steve 0 -60 0
+tick 340
+dump raids mobs
+note the captain dies and drops the banner
+cmd execute as @e[type=minecraft:pillager,nbt={equipment:{head:{id:"minecraft:white_banner"}}}] run damage @s 1000 minecraft:player_attack by Steve
+tick 2
+dump raids mobs entities
+note Steve walks onto the banner, collects it and throws it back at the raiders
+cmd tp Steve @e[type=minecraft:item,nbt={Item:{id:"minecraft:white_banner"}},limit=1]
+tick 12
+dump entities inventory:Steve advancements:Steve
+select Steve 1
+drop Steve
+tick 100
+dump raids mobs entities inventory:Steve advancements:Steve events
+note Tosser throws a crossbow at the raiders: a pillager does not take it (the raid already has its leader again)
+cmd tp Tosser @e[type=minecraft:pillager,limit=1]
+give Tosser hotbar0 minecraft:crossbow 1
+tick 2
+drop Tosser
+tick 100
+dump raids mobs entities inventory:Tosser advancements:Tosser

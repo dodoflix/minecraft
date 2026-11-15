@@ -1,0 +1,14 @@
+# EnderEyeItem.use where no stronghold can be located (a flat world without structures): nothing is thrown and used_ender_eye is not awarded.
+datapack adv_use
+command_env
+level flat
+preload 3
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 0
+give Alice mainhand minecraft:ender_eye 3
+tick 3
+entity_counter 600
+level_seed 5
+use Alice
+tick 2
+dump advancements:Alice inventory:Alice entities events

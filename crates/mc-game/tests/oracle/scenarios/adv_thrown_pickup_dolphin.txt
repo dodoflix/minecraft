@@ -1,0 +1,34 @@
+# The thrown_item_picked_up_by_entity trigger for a dolphin (Dolphin.pickUpItem: only an empty main hand takes an item, a dolphin always
+# wants loot): a player swimming in a pool throws an item that floats at the surface, a dolphin in the pool takes it after the pickup delay
+# (the thrower is awarded), a dolphin that already holds an item takes nothing, and the thrower awarded for its own item when it stays.
+datapack adv_use
+command_env
+level flat
+preload 4
+difficulty normal
+time 6000
+entity_counter 31400
+level_seed 31401
+fill -2 -62 -2 14 -61 8 minecraft:water
+spawn_player Dolph survival 0.5 -61 0.5 0 90
+spawn_player Full survival 6.5 -61 0.5 0 90
+spawn_player Stay survival 12.5 -61 0.5 0 90
+give Dolph hotbar0 minecraft:cod 1
+give Full hotbar0 minecraft:cod 1
+give Stay hotbar0 minecraft:cod 1
+tick 3
+dump advancements:Dolph advancements:Full advancements:Stay
+note every swimmer throws one item
+drop Dolph
+drop Full
+drop Stay
+tick 1
+dump entities
+note the dolphins swim to the items (the second already holds a stick)
+mobspawn D1 minecraft:dolphin 0.5 -61.5 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn D2 minecraft:dolphin 6.5 -61.5 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:stick",count:1}}}
+tp Dolph 0.5 -60 12.5 0 0
+tp Full 6.5 -60 12.5 0 0
+tick 45
+dump entities events inventory:Dolph inventory:Full inventory:Stay mob:D1 mob:D2
+dump advancements:Dolph advancements:Full advancements:Stay

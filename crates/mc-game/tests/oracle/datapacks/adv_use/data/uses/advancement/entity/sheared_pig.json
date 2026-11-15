@@ -1,0 +1,8 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:player_sheared_equipment",
+      "conditions": {"entity": {"type": "minecraft:entity_properties", "entity": "this", "predicate": {"minecraft:entity_type": "minecraft:pig"}}}
+    }
+  }
+}

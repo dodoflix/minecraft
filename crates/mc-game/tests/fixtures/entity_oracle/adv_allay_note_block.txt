@@ -1,0 +1,95 @@
+C Set minecraft:overworld to 6000 tick(s)
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+# A plays the note block: the allay hears the vibration
+E al minecraft:allay pos=4.752656305932471,-58.64269611680989,0.7526476867043297 delta=0.04090122850738276,0.05784266256576569,0.0409006482319802 rot=315.00012,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.1 head=315.00012 body=315.00012 nav=moving stuck=0 navspeed=1.0 ntarget=10,-54,3 path=2/7/1/10,-54,3 nodes=4,-59,0:OPEN:0.0;5,-58,1:OPEN:0.0;6,-57,2:OPEN:0.0;7,-56,2:OPEN:0.0;8,-55,3:OPEN:0.0;9,-54,3:OPEN:0.0;10,-54,3:OPEN:0.0 goals=- tgoals=- acts=core;idle mem=liked_noteblock:minecraft:overworld@0,-60,0:inf;liked_noteblock_cooldown_ticks:596:inf;mobs:(A;B):inf;path:path(2;7):inf;visible_mobs:(A;B):inf;walk_target:walk(pos(10,-54,3);1.0;0):inf equip=- attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:14.602716597275618;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+BRAIN al acts=core;idle
+BM al type=liked_noteblock value=minecraft:overworld@0,-60,0 ttl=inf
+BM al type=liked_noteblock_cooldown_ticks value=596 ttl=inf
+BM al type=mobs value=(A;B) ttl=inf
+BM al type=path value=path(2;7) ttl=inf
+BM al type=visible_mobs value=(A;B) ttl=inf
+BM al type=walk_target value=walk(pos(10,-54,3);1.0;0) ttl=inf
+BR al MoveToTargetSink
+BR al CountDownCooldownTicks
+BR al RunOne: [DoNothing]
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A uses:block/any_any c
+ADV A uses:block/default_any c
+ADV A uses:block/default_note_block c
+# A gives the allay a cake and a second cake lies on the ground: the allay fetches it and drops it above the note block
+E al minecraft:allay pos=6.339462129695028,-60.0,0.40018826552316145 delta=-0.018439824409813718,0.0,0.04744515555473815 rot=2.9991074,35.4984 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.175 zza=0.0 xxa=0.0 yya=0.0 head=-17.18425 body=2.9991074 nav=done stuck=0 navspeed=1.75 ntarget=6,-60,0 path=- nodes=- goals=- tgoals=- acts=core;idle mem=liked_noteblock:minecraft:overworld@0,-60,0:inf;liked_noteblock_cooldown_ticks:556:inf;liked_player:A:inf;look_target:entity(i1):inf;mobs:(A;B):inf;nearest_players:(A;B):inf;nearest_visible_player:A:inf;nearest_visible_targetable_player:B:inf;nearest_visible_targetable_players:(B):inf;visible_mobs:(A;B):inf equip=mainhand:minecraft:cake*1 attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:14.602716597275618;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+BRAIN al acts=core;idle
+BM al type=liked_noteblock value=minecraft:overworld@0,-60,0 ttl=inf
+BM al type=liked_noteblock_cooldown_ticks value=556 ttl=inf
+BM al type=liked_player value=A ttl=inf
+BM al type=look_target value=entity(i1) ttl=inf
+BM al type=mobs value=(A;B) ttl=inf
+BM al type=nearest_players value=(A;B) ttl=inf
+BM al type=nearest_visible_player value=A ttl=inf
+BM al type=nearest_visible_targetable_player value=B ttl=inf
+BM al type=nearest_visible_targetable_players value=(B) ttl=inf
+BM al type=visible_mobs value=(A;B) ttl=inf
+BR al GoAndGiveItemsToTarget
+BR al LookAtTargetSink
+BR al CountDownCooldownTicks
+BR al RunOne: [DoNothing]
+E al minecraft:allay pos=6.339462129695028,-60.0,0.40018826552316145 delta=-0.018439824409813718,0.0,0.04744515555473815 rot=2.9991074,35.4984 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+ADV A minecraft:adventure/adventuring_time minecraft:plains
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A uses:block/any_any c
+ADV A uses:block/default_any c
+ADV A uses:block/default_note_block c
+ADV A uses:entity/interacted_any c
+ADV B minecraft:adventure/adventuring_time minecraft:plains
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+E al minecraft:allay pos=-0.5241905716130533,-58.84183477123188,0.45795553707543313 delta=-0.006652552067324994,0.0,0.0 rot=93.288536,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.22500001 zza=0.0 xxa=0.0 yya=0.0 head=48.288536 body=93.288536 nav=done stuck=0 navspeed=2.25 ntarget=0,-59,0 path=- nodes=- goals=- tgoals=- acts=core;idle mem=item_pickup_cooldown_ticks:19:inf;liked_noteblock:minecraft:overworld@0,-60,0:inf;liked_noteblock_cooldown_ticks:496:inf;liked_player:A:inf;mobs:(A;B):inf;nearest_players:(A;B):inf;nearest_visible_player:A:inf;nearest_visible_targetable_player:B:inf;nearest_visible_targetable_players:(B):inf;visible_mobs:(A;B):inf equip=mainhand:minecraft:cake*1 attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:14.602716597275618;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+BRAIN al acts=core;idle
+BM al type=item_pickup_cooldown_ticks value=19 ttl=inf
+BM al type=liked_noteblock value=minecraft:overworld@0,-60,0 ttl=inf
+BM al type=liked_noteblock_cooldown_ticks value=496 ttl=inf
+BM al type=liked_player value=A ttl=inf
+BM al type=mobs value=(A;B) ttl=inf
+BM al type=nearest_players value=(A;B) ttl=inf
+BM al type=nearest_visible_player value=A ttl=inf
+BM al type=nearest_visible_targetable_player value=B ttl=inf
+BM al type=nearest_visible_targetable_players value=(B) ttl=inf
+BM al type=visible_mobs value=(A;B) ttl=inf
+BR al CountDownCooldownTicks
+BR al RunOne: [DoNothing]
+BR al CountDownCooldownTicks
+E al minecraft:allay pos=-0.5241905716130533,-58.84183477123188,0.45795553707543313 delta=-0.006652552067324994,0.0,0.0 rot=93.288536,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.125,-60.0,0.5209311324083942 delta=0.0,-0.08,-2.863761206481018E-5 rot=262.38455,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cake*1 age=41 pickup=0 health=5 owner=- thrower=al
+ADV A minecraft:adventure/adventuring_time minecraft:plains
+ADV A minecraft:husbandry/allay_deliver_cake_to_note_block allay_deliver_cake_to_note_block
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A uses:block/allay_dropped c
+ADV A uses:block/allay_dropped_cake c
+ADV A uses:block/allay_dropped_on_note_block c
+ADV A uses:block/any_any c
+ADV A uses:block/default_any c
+ADV A uses:block/default_note_block c
+ADV A uses:entity/interacted_any c
+ADV B minecraft:adventure/adventuring_time minecraft:plains
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+I A 0 minecraft:cake*1
+EV sound at=0.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.harp source=record vol=3.0 pitch=0.5297316
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:note_block b0=0 b1=0
+EV packet at=4.752656305932471,-58.64269611680989,0.7526476867043297 r=32.0 ex=1 id=minecraft:sound_entity
+EV sound at=5.201110263433119,-58.008488853378395,1.201098228655483 r=16.0 ex=0 event=minecraft:entity.allay.ambient_with_item source=neutral vol=0.4 pitch=0.94316286
+EV packet at=3.2834574573236956,-58.45178599470897,0.606543642810059 r=16.0 ex=0 id=minecraft:sound_entity
+E al minecraft:allay pos=-1.5939849235869101,-59.037240132366136,-0.582170008362815 delta=-0.0622295286298954,-0.0032525292496445924,-0.062805081069424 rot=135.18011,-3.7376175 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.1 zza=0.1 xxa=0.0 yya=0.1 head=60.183228 body=135.18011 nav=moving stuck=0 navspeed=1.0 ntarget=-8,-60,-8 path=3/9/1/-8,-60,-8 nodes=-1,-59,0:OPEN:0.0;-2,-59,-1:OPEN:0.0;-3,-59,-2:OPEN:0.0;-4,-59,-3:OPEN:0.0;-5,-59,-4:OPEN:0.0;-6,-59,-5:OPEN:0.0;-7,-59,-6:OPEN:0.0;-8,-59,-7:OPEN:0.0;-8,-60,-8:WALKABLE:2.0 goals=- tgoals=- acts=core;idle mem=liked_noteblock:minecraft:overworld@0,-60,0:inf;liked_noteblock_cooldown_ticks:436:inf;liked_player:A:inf;look_target:entity(A):inf;mobs:(A;B):inf;nearest_players:(A;B):inf;nearest_visible_player:A:inf;nearest_visible_targetable_player:B:inf;nearest_visible_targetable_players:(B):inf;path:path(3;9):inf;visible_mobs:(A;B):inf;walk_target:walk(pos(-8,-60,-8);1.0;0):inf equip=mainhand:minecraft:cake*1 attrs=minecraft:flying_speed:0.10000000149011612;minecraft:follow_range:14.602716597275618;minecraft:movement_speed:0.10000000149011612 dance=0 candup=1 dupcd=0 jukebox=-
+E al minecraft:allay pos=-1.5939849235869101,-59.037240132366136,-0.582170008362815 delta=-0.0622295286298954,-0.0032525292496445924,-0.062805081069424 rot=135.18011,-3.7376175 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.125,-60.0,0.5209311324083942 delta=0.0,-0.08,-9.944829641390488E-9 rot=262.38455,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cake*1 age=101 pickup=0 health=5 owner=- thrower=al
+ADV A minecraft:adventure/adventuring_time minecraft:plains
+ADV A minecraft:husbandry/allay_deliver_cake_to_note_block allay_deliver_cake_to_note_block
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A uses:block/allay_dropped c
+ADV A uses:block/allay_dropped_cake c
+ADV A uses:block/allay_dropped_on_note_block c
+ADV A uses:block/any_any c
+ADV A uses:block/default_any c
+ADV A uses:block/default_note_block c
+ADV A uses:entity/interacted_any c
+ADV B minecraft:adventure/adventuring_time minecraft:plains
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away

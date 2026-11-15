@@ -1,0 +1,8 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:any_block_use",
+      "conditions": {"location": {"type": "minecraft:match_tool", "predicate": {"items": "minecraft:bucket"}}}
+    }
+  }
+}
