@@ -1,0 +1,55 @@
+# The loot reward of an advancement goes into the player's inventory with a pickup sound, and drops as an item entity that only the
+# player can pick up (no pickup delay) when the inventory is full. Steve's inventory is full of bedrock, Alex's is empty.
+datapack adv_rewards
+command_env
+level flat
+preload 4
+entity_counter 26000
+level_seed 26001
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 6.5 -60 3.5 90 0
+tick 30
+give Steve hotbar0 minecraft:bedrock 64
+give Steve hotbar1 minecraft:bedrock 64
+give Steve hotbar2 minecraft:bedrock 64
+give Steve hotbar3 minecraft:bedrock 64
+give Steve hotbar4 minecraft:bedrock 64
+give Steve hotbar5 minecraft:bedrock 64
+give Steve hotbar6 minecraft:bedrock 64
+give Steve hotbar7 minecraft:bedrock 64
+give Steve hotbar8 minecraft:bedrock 64
+give Steve inv9 minecraft:bedrock 64
+give Steve inv10 minecraft:bedrock 64
+give Steve inv11 minecraft:bedrock 64
+give Steve inv12 minecraft:bedrock 64
+give Steve inv13 minecraft:bedrock 64
+give Steve inv14 minecraft:bedrock 64
+give Steve inv15 minecraft:bedrock 64
+give Steve inv16 minecraft:bedrock 64
+give Steve inv17 minecraft:bedrock 64
+give Steve inv18 minecraft:bedrock 64
+give Steve inv19 minecraft:bedrock 64
+give Steve inv20 minecraft:bedrock 64
+give Steve inv21 minecraft:bedrock 64
+give Steve inv22 minecraft:bedrock 64
+give Steve inv23 minecraft:bedrock 64
+give Steve inv24 minecraft:bedrock 64
+give Steve inv25 minecraft:bedrock 64
+give Steve inv26 minecraft:bedrock 64
+give Steve inv27 minecraft:bedrock 64
+give Steve inv28 minecraft:bedrock 64
+give Steve inv29 minecraft:bedrock 64
+give Steve inv30 minecraft:bedrock 64
+give Steve inv31 minecraft:bedrock 64
+give Steve inv32 minecraft:bedrock 64
+give Steve inv33 minecraft:bedrock 64
+give Steve inv34 minecraft:bedrock 64
+give Steve inv35 minecraft:bedrock 64
+tick 2
+dump packets:Steve:none packets:Alex:none
+give Steve hotbar0 minecraft:coal 1
+give Alex hotbar0 minecraft:coal 1
+tick 2
+dump advancements:Steve advancements:Alex inventory:Steve inventory:Alex entities events packets:Steve:disguised_chat packets:Alex:disguised_chat
+tick 40
+dump entities inventory:Steve

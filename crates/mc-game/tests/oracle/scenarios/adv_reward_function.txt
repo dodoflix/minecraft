@@ -1,0 +1,22 @@
+# The function reward of an advancement runs as the awarded player with game master permissions and suppressed output: the pack's
+# function says something, places a block under the player, counts on a scoreboard and gives apples on the first count. Two players earn it in
+# the same tick (in player list order), the second one stands somewhere else. An advancement whose function does not exist
+# completes without running anything.
+datapack adv_rewards
+command_env
+level flat
+preload 4
+entity_counter 25000
+level_seed 25001
+cmd_quiet scoreboard objectives add marks dummy
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 6.5 -60 3.5 90 0
+tick 30
+dump packets:Steve:none packets:Alex:none
+give Steve hotbar0 minecraft:stick 1
+give Alex hotbar0 minecraft:stick 2
+tick 2
+dump advancements:Steve advancements:Alex inventory:Steve inventory:Alex blocks:-2,-62,-2,8,-60,5 packets:Steve:disguised_chat packets:Alex:disguised_chat
+give Steve hotbar1 minecraft:flint 1
+tick 2
+dump advancements:Steve inventory:Steve blocks:-2,-62,-2,8,-60,5 packets:Steve:disguised_chat

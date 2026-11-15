@@ -1,0 +1,399 @@
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:recipes/combat/wooden_spear has_stick
+ADV Steve minecraft:recipes/combat/wooden_sword has_stick
+ADV Steve minecraft:recipes/decorations/campfire has_stick
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:recipes/decorations/ladder has_stick
+ADV Steve minecraft:recipes/tools/wooden_axe has_stick
+ADV Steve minecraft:recipes/tools/wooden_hoe has_stick
+ADV Steve minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV Steve minecraft:recipes/tools/wooden_shovel has_stick
+ADV Steve rewards:function_stick got
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:recipes/combat/wooden_spear has_stick
+ADV Alex minecraft:recipes/combat/wooden_sword has_stick
+ADV Alex minecraft:recipes/decorations/campfire has_stick
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:recipes/decorations/ladder has_stick
+ADV Alex minecraft:recipes/tools/wooden_axe has_stick
+ADV Alex minecraft:recipes/tools/wooden_hoe has_stick
+ADV Alex minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV Alex minecraft:recipes/tools/wooden_shovel has_stick
+ADV Alex rewards:function_stick got
+I Steve 0 minecraft:stick*1
+I Steve 1 minecraft:apple*3
+I Alex 0 minecraft:stick*2
+I Alex 1 minecraft:apple*3
+B -2 -62 -2 minecraft:dirt
+B -2 -62 -1 minecraft:dirt
+B -2 -62 0 minecraft:dirt
+B -2 -62 1 minecraft:dirt
+B -2 -62 2 minecraft:dirt
+B -2 -62 3 minecraft:dirt
+B -2 -62 4 minecraft:dirt
+B -2 -62 5 minecraft:dirt
+B -2 -61 -2 minecraft:grass_block[snowy=false]
+B -2 -61 -1 minecraft:grass_block[snowy=false]
+B -2 -61 0 minecraft:grass_block[snowy=false]
+B -2 -61 1 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 5 minecraft:grass_block[snowy=false]
+B -1 -62 -2 minecraft:dirt
+B -1 -62 -1 minecraft:dirt
+B -1 -62 0 minecraft:dirt
+B -1 -62 1 minecraft:dirt
+B -1 -62 2 minecraft:dirt
+B -1 -62 3 minecraft:dirt
+B -1 -62 4 minecraft:dirt
+B -1 -62 5 minecraft:dirt
+B -1 -61 -2 minecraft:grass_block[snowy=false]
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 5 minecraft:grass_block[snowy=false]
+B 0 -62 -2 minecraft:dirt
+B 0 -62 -1 minecraft:dirt
+B 0 -62 0 minecraft:dirt
+B 0 -62 1 minecraft:dirt
+B 0 -62 2 minecraft:dirt
+B 0 -62 3 minecraft:dirt
+B 0 -62 4 minecraft:dirt
+B 0 -62 5 minecraft:dirt
+B 0 -61 -2 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:gold_block
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 1 -62 -2 minecraft:dirt
+B 1 -62 -1 minecraft:dirt
+B 1 -62 0 minecraft:dirt
+B 1 -62 1 minecraft:dirt
+B 1 -62 2 minecraft:dirt
+B 1 -62 3 minecraft:dirt
+B 1 -62 4 minecraft:dirt
+B 1 -62 5 minecraft:dirt
+B 1 -61 -2 minecraft:grass_block[snowy=false]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 2 -62 -2 minecraft:dirt
+B 2 -62 -1 minecraft:dirt
+B 2 -62 0 minecraft:dirt
+B 2 -62 1 minecraft:dirt
+B 2 -62 2 minecraft:dirt
+B 2 -62 3 minecraft:dirt
+B 2 -62 4 minecraft:dirt
+B 2 -62 5 minecraft:dirt
+B 2 -61 -2 minecraft:grass_block[snowy=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 5 minecraft:grass_block[snowy=false]
+B 3 -62 -2 minecraft:dirt
+B 3 -62 -1 minecraft:dirt
+B 3 -62 0 minecraft:dirt
+B 3 -62 1 minecraft:dirt
+B 3 -62 2 minecraft:dirt
+B 3 -62 3 minecraft:dirt
+B 3 -62 4 minecraft:dirt
+B 3 -62 5 minecraft:dirt
+B 3 -61 -2 minecraft:grass_block[snowy=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 4 -62 -2 minecraft:dirt
+B 4 -62 -1 minecraft:dirt
+B 4 -62 0 minecraft:dirt
+B 4 -62 1 minecraft:dirt
+B 4 -62 2 minecraft:dirt
+B 4 -62 3 minecraft:dirt
+B 4 -62 4 minecraft:dirt
+B 4 -62 5 minecraft:dirt
+B 4 -61 -2 minecraft:grass_block[snowy=false]
+B 4 -61 -1 minecraft:grass_block[snowy=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 5 -62 -2 minecraft:dirt
+B 5 -62 -1 minecraft:dirt
+B 5 -62 0 minecraft:dirt
+B 5 -62 1 minecraft:dirt
+B 5 -62 2 minecraft:dirt
+B 5 -62 3 minecraft:dirt
+B 5 -62 4 minecraft:dirt
+B 5 -62 5 minecraft:dirt
+B 5 -61 -2 minecraft:grass_block[snowy=false]
+B 5 -61 -1 minecraft:grass_block[snowy=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 6 -62 -2 minecraft:dirt
+B 6 -62 -1 minecraft:dirt
+B 6 -62 0 minecraft:dirt
+B 6 -62 1 minecraft:dirt
+B 6 -62 2 minecraft:dirt
+B 6 -62 3 minecraft:dirt
+B 6 -62 4 minecraft:dirt
+B 6 -62 5 minecraft:dirt
+B 6 -61 -2 minecraft:grass_block[snowy=false]
+B 6 -61 -1 minecraft:grass_block[snowy=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:gold_block
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 7 -62 -2 minecraft:dirt
+B 7 -62 -1 minecraft:dirt
+B 7 -62 0 minecraft:dirt
+B 7 -62 1 minecraft:dirt
+B 7 -62 2 minecraft:dirt
+B 7 -62 3 minecraft:dirt
+B 7 -62 4 minecraft:dirt
+B 7 -62 5 minecraft:dirt
+B 7 -61 -2 minecraft:grass_block[snowy=false]
+B 7 -61 -1 minecraft:grass_block[snowy=false]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 1 minecraft:grass_block[snowy=false]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 3 minecraft:grass_block[snowy=false]
+B 7 -61 4 minecraft:grass_block[snowy=false]
+B 7 -61 5 minecraft:grass_block[snowy=false]
+B 8 -62 -2 minecraft:dirt
+B 8 -62 -1 minecraft:dirt
+B 8 -62 0 minecraft:dirt
+B 8 -62 1 minecraft:dirt
+B 8 -62 2 minecraft:dirt
+B 8 -62 3 minecraft:dirt
+B 8 -62 4 minecraft:dirt
+B 8 -62 5 minecraft:dirt
+B 8 -61 -2 minecraft:grass_block[snowy=false]
+B 8 -61 -1 minecraft:grass_block[snowy=false]
+B 8 -61 0 minecraft:grass_block[snowy=false]
+B 8 -61 1 minecraft:grass_block[snowy=false]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 3 minecraft:grass_block[snowy=false]
+B 8 -61 4 minecraft:grass_block[snowy=false]
+B 8 -61 5 minecraft:grass_block[snowy=false]
+PKT Steve minecraft:disguised_chat 210800087265776172646564050a0a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000c2f74656c6c2053746576652000080009696e73657274696f6e0005537465766508000474657874000553746576650a000b686f7665725f6576656e740800046e616d6500055374657665080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b000475756964000000045627dd98e6be3c21b8a8e92344183641000000
+PKT Steve minecraft:disguised_chat 210800087265776172646564050a0a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000b2f74656c6c20416c65782000080009696e73657274696f6e0004416c6578080004746578740004416c65780a000b686f7665725f6576656e740800046e616d650004416c6578080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000436532b5ec4423dbba24cc7e55d0f979a000000
+PKT Alex minecraft:disguised_chat 210800087265776172646564050a0a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000c2f74656c6c2053746576652000080009696e73657274696f6e0005537465766508000474657874000553746576650a000b686f7665725f6576656e740800046e616d6500055374657665080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b000475756964000000045627dd98e6be3c21b8a8e92344183641000000
+PKT Alex minecraft:disguised_chat 210800087265776172646564050a0a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000b2f74656c6c20416c65782000080009696e73657274696f6e0004416c6578080004746578740004416c65780a000b686f7665725f6576656e740800046e616d650004416c6578080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000436532b5ec4423dbba24cc7e55d0f979a000000
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:recipes/combat/arrow has_flint
+ADV Steve minecraft:recipes/combat/wooden_spear has_stick
+ADV Steve minecraft:recipes/combat/wooden_sword has_stick
+ADV Steve minecraft:recipes/decorations/campfire has_stick
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve minecraft:recipes/decorations/fletching_table has_flint
+ADV Steve minecraft:recipes/decorations/ladder has_stick
+ADV Steve minecraft:recipes/tools/flint_and_steel has_flint
+ADV Steve minecraft:recipes/tools/wooden_axe has_stick
+ADV Steve minecraft:recipes/tools/wooden_hoe has_stick
+ADV Steve minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV Steve minecraft:recipes/tools/wooden_shovel has_stick
+ADV Steve rewards:function_stick got
+ADV Steve rewards:missing_function got
+I Steve 0 minecraft:stick*1
+I Steve 1 minecraft:flint*1
+B -2 -62 -2 minecraft:dirt
+B -2 -62 -1 minecraft:dirt
+B -2 -62 0 minecraft:dirt
+B -2 -62 1 minecraft:dirt
+B -2 -62 2 minecraft:dirt
+B -2 -62 3 minecraft:dirt
+B -2 -62 4 minecraft:dirt
+B -2 -62 5 minecraft:dirt
+B -2 -61 -2 minecraft:grass_block[snowy=false]
+B -2 -61 -1 minecraft:grass_block[snowy=false]
+B -2 -61 0 minecraft:grass_block[snowy=false]
+B -2 -61 1 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 5 minecraft:grass_block[snowy=false]
+B -1 -62 -2 minecraft:dirt
+B -1 -62 -1 minecraft:dirt
+B -1 -62 0 minecraft:dirt
+B -1 -62 1 minecraft:dirt
+B -1 -62 2 minecraft:dirt
+B -1 -62 3 minecraft:dirt
+B -1 -62 4 minecraft:dirt
+B -1 -62 5 minecraft:dirt
+B -1 -61 -2 minecraft:grass_block[snowy=false]
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 5 minecraft:grass_block[snowy=false]
+B 0 -62 -2 minecraft:dirt
+B 0 -62 -1 minecraft:dirt
+B 0 -62 0 minecraft:dirt
+B 0 -62 1 minecraft:dirt
+B 0 -62 2 minecraft:dirt
+B 0 -62 3 minecraft:dirt
+B 0 -62 4 minecraft:dirt
+B 0 -62 5 minecraft:dirt
+B 0 -61 -2 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:gold_block
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 1 -62 -2 minecraft:dirt
+B 1 -62 -1 minecraft:dirt
+B 1 -62 0 minecraft:dirt
+B 1 -62 1 minecraft:dirt
+B 1 -62 2 minecraft:dirt
+B 1 -62 3 minecraft:dirt
+B 1 -62 4 minecraft:dirt
+B 1 -62 5 minecraft:dirt
+B 1 -61 -2 minecraft:grass_block[snowy=false]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 2 -62 -2 minecraft:dirt
+B 2 -62 -1 minecraft:dirt
+B 2 -62 0 minecraft:dirt
+B 2 -62 1 minecraft:dirt
+B 2 -62 2 minecraft:dirt
+B 2 -62 3 minecraft:dirt
+B 2 -62 4 minecraft:dirt
+B 2 -62 5 minecraft:dirt
+B 2 -61 -2 minecraft:grass_block[snowy=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 5 minecraft:grass_block[snowy=false]
+B 3 -62 -2 minecraft:dirt
+B 3 -62 -1 minecraft:dirt
+B 3 -62 0 minecraft:dirt
+B 3 -62 1 minecraft:dirt
+B 3 -62 2 minecraft:dirt
+B 3 -62 3 minecraft:dirt
+B 3 -62 4 minecraft:dirt
+B 3 -62 5 minecraft:dirt
+B 3 -61 -2 minecraft:grass_block[snowy=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 4 -62 -2 minecraft:dirt
+B 4 -62 -1 minecraft:dirt
+B 4 -62 0 minecraft:dirt
+B 4 -62 1 minecraft:dirt
+B 4 -62 2 minecraft:dirt
+B 4 -62 3 minecraft:dirt
+B 4 -62 4 minecraft:dirt
+B 4 -62 5 minecraft:dirt
+B 4 -61 -2 minecraft:grass_block[snowy=false]
+B 4 -61 -1 minecraft:grass_block[snowy=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 5 -62 -2 minecraft:dirt
+B 5 -62 -1 minecraft:dirt
+B 5 -62 0 minecraft:dirt
+B 5 -62 1 minecraft:dirt
+B 5 -62 2 minecraft:dirt
+B 5 -62 3 minecraft:dirt
+B 5 -62 4 minecraft:dirt
+B 5 -62 5 minecraft:dirt
+B 5 -61 -2 minecraft:grass_block[snowy=false]
+B 5 -61 -1 minecraft:grass_block[snowy=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 6 -62 -2 minecraft:dirt
+B 6 -62 -1 minecraft:dirt
+B 6 -62 0 minecraft:dirt
+B 6 -62 1 minecraft:dirt
+B 6 -62 2 minecraft:dirt
+B 6 -62 3 minecraft:dirt
+B 6 -62 4 minecraft:dirt
+B 6 -62 5 minecraft:dirt
+B 6 -61 -2 minecraft:grass_block[snowy=false]
+B 6 -61 -1 minecraft:grass_block[snowy=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:gold_block
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 7 -62 -2 minecraft:dirt
+B 7 -62 -1 minecraft:dirt
+B 7 -62 0 minecraft:dirt
+B 7 -62 1 minecraft:dirt
+B 7 -62 2 minecraft:dirt
+B 7 -62 3 minecraft:dirt
+B 7 -62 4 minecraft:dirt
+B 7 -62 5 minecraft:dirt
+B 7 -61 -2 minecraft:grass_block[snowy=false]
+B 7 -61 -1 minecraft:grass_block[snowy=false]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 1 minecraft:grass_block[snowy=false]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 3 minecraft:grass_block[snowy=false]
+B 7 -61 4 minecraft:grass_block[snowy=false]
+B 7 -61 5 minecraft:grass_block[snowy=false]
+B 8 -62 -2 minecraft:dirt
+B 8 -62 -1 minecraft:dirt
+B 8 -62 0 minecraft:dirt
+B 8 -62 1 minecraft:dirt
+B 8 -62 2 minecraft:dirt
+B 8 -62 3 minecraft:dirt
+B 8 -62 4 minecraft:dirt
+B 8 -62 5 minecraft:dirt
+B 8 -61 -2 minecraft:grass_block[snowy=false]
+B 8 -61 -1 minecraft:grass_block[snowy=false]
+B 8 -61 0 minecraft:grass_block[snowy=false]
+B 8 -61 1 minecraft:grass_block[snowy=false]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 3 minecraft:grass_block[snowy=false]
+B 8 -61 4 minecraft:grass_block[snowy=false]
+B 8 -61 5 minecraft:grass_block[snowy=false]

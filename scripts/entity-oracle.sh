@@ -68,7 +68,7 @@ PY
   rm -rf "$classes"; trap - EXIT
 fi
 CP="${CP//"$SERVER_JAR"/"$PATCHED"}"
-JAVA_OPTS_ORACLE=(-Xmx2G -Dio.netty.noUnsafe=false -Doracle.directExecutors=true -Dlog4j2.configurationFile="$T/oracle/log4j2-oracle.xml")
+JAVA_OPTS_ORACLE=(-Xmx2G -Dio.netty.noUnsafe=false -Doracle.directExecutors=true -Doracle.datapacks="$T/oracle/datapacks" -Dlog4j2.configurationFile="$T/oracle/log4j2-oracle.xml")
 scenario="$(realpath "$1")"; shift
 out=""
 if [ "${1:-}" = -o ]; then out="$(realpath -m "$2")"; shift 2; fi

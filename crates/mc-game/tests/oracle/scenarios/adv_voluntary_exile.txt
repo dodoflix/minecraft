@@ -1,0 +1,28 @@
+# A player under the raid omen who starts or extends a raid in a village before its first wave has spawned is awarded the
+# voluntary_exile trigger (a pack advancement uses it: no vanilla advancement does); a player without the omen who starts the raid is not.
+datapack adv_rewards
+command_env
+level flat
+difficulty easy
+gamerule raids true
+gamerule mob_drops false
+entity_counter 28000
+level_seed 28001
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn V minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+spawn_player Steve survival 0.5 -60 6.5 0 0
+spawn_player Alex survival 4.5 -60 6.5 0 0
+set Steve invulnerable true
+set Alex invulnerable true
+tick 300
+dump advancements:Steve advancements:Alex
+raid_start Alex 0 -60 0
+dump raids advancements:Steve advancements:Alex
+effect Steve minecraft:raid_omen 0 600
+raid_start Steve 0 -60 0
+dump raids advancements:Steve advancements:Alex

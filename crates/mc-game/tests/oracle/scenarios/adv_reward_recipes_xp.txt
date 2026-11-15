@@ -1,0 +1,14 @@
+# The experience and recipe rewards of an advancement: 70 points take the player from level 0 to level 5, and the recipes (two
+# vanilla ones and one of the pack) show up in the recipe book. The recipe book packets are compared with the xp.
+datapack adv_rewards
+command_env
+level flat
+preload 4
+entity_counter 27000
+level_seed 27001
+spawn_player Steve survival 0.5 -60 0.5 0 0
+tick 30
+dump packets:Steve:none events
+give Steve hotbar0 minecraft:lapis_lazuli 1
+tick 2
+dump advancements:Steve player:Steve recipes:Steve events packets:Steve:recipe_book_add,set_experience

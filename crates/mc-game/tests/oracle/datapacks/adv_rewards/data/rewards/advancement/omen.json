@@ -1,0 +1,7 @@
+{
+  "criteria": {
+    "omen": {
+      "trigger": "minecraft:voluntary_exile"
+    }
+  }
+}

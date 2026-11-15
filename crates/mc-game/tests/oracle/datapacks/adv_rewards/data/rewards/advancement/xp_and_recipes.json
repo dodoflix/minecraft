@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:lapis_lazuli"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 70,
+    "recipes": [
+      "minecraft:diamond_pickaxe",
+      "minecraft:crafting_table",
+      "rewards:gold_sticks"
+    ]
+  }
+}

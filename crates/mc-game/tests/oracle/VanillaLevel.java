@@ -110,6 +110,7 @@ public final class VanillaLevel {
       public int viewDistance = 4;
       public int simulationDistance = 4;
       public List<String[]> bootRules = new ArrayList<>(); // `gamerule NAME VALUE` pairs applied before the preload (chunk generation reads them)
+      public List<String> dataPacks = new ArrayList<>(); // `datapack NAME`: oracle/datapacks/NAME copied into the world's datapacks folder and enabled
    }
 
    /** Real DedicatedServer minus network/console/query/rcon/watchdog; used on the calling thread. */
@@ -308,7 +309,11 @@ public final class VanillaLevel {
             + "\nsimulation-distance=" + o.simulationDistance + "\nspawn-monsters=false\nspawn-animals=false\nspawn-npcs=false\nallow-nether=false\n"
             + "pause-when-empty-seconds=0\nmax-tick-time=-1\nenable-jmx-monitoring=false\nlevel-name=world\n"
             // feature packs are not selected automatically: a world only gets a feature's flag from its enabled pack
-            + (o.features.isBlank() ? "" : "initial-enabled-packs=vanilla," + o.features.strip() + "\n"));
+            + (o.features.isBlank() && o.dataPacks.isEmpty() ? "" : "initial-enabled-packs=vanilla" + (o.features.isBlank() ? "" : "," + o.features.strip())
+               + o.dataPacks.stream().map(n -> ",file/" + n).collect(java.util.stream.Collectors.joining()) + "\n"));
+      for (String pack : o.dataPacks) {
+         copyTree(Path.of(System.getProperty("oracle.datapacks", "datapacks")).resolve(pack), dir.resolve("world/datapacks").resolve(pack));
+      }
       // a vanilla server refuses to start without an accepted EULA: accepting it is the user's decision, never ours
       if (!"1".equals(System.getenv("MC_ACCEPT_EULA"))) throw new IllegalStateException("starting a vanilla server accepts the Minecraft EULA (https://aka.ms/MinecraftEULA) in your name: set MC_ACCEPT_EULA=1 if you accept it");
       Files.writeString(dir.resolve("eula.txt"), "eula=true\n");
@@ -364,6 +369,19 @@ public final class VanillaLevel {
          }
       }
       return FeatureFlags.DEFAULT_FLAGS.join(FeatureFlags.REGISTRY.fromNames(ids));
+   }
+
+   private static void copyTree(Path from, Path to) throws IOException {
+      try (var s = Files.walk(from)) {
+         for (Path f : (Iterable<Path>) s::iterator) {
+            Path target = to.resolve(from.relativize(f).toString());
+            if (Files.isDirectory(f)) {
+               Files.createDirectories(target);
+            } else {
+               Files.copy(f, target);
+            }
+         }
+      }
    }
 
    private static void deleteTree(Path p) {

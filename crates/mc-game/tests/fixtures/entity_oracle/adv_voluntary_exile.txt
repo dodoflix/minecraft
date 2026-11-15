@@ -1,0 +1,20 @@
+C Game rule raids is now set to true
+C Game rule mob_drops is now set to false
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=0 groups=0/3 health=0.0 raiders=-
+RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=0 groups=0/3 health=0.0 raiders=-
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
+EFFECT Steve minecraft:raid_omen added=true
+RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=1 groups=0/3 health=0.0 raiders=-
+RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=1 groups=0/3 health=0.0 raiders=-
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Steve rewards:omen omen
+ADV Alex minecraft:adventure/adventuring_time minecraft:plains
+ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away

@@ -98,6 +98,7 @@ import net.minecraft.util.RandomSource;
  * preload_settle            also finish the chunks up to two rings beyond the preload at boot (entities of a chunk only show up in `dump placed` once its promotion ran)
  * bootrule NAME VALUE      game rule set before the preload (the quiet rules stay otherwise), e.g. `bootrule spawn_mobs true` lets chunk generation spawn the original mobs
  * features NAME[,NAME]       extra feature flags besides vanilla, e.g. redstone_experiments       structures true|false   `generate-structures` (default false: a normal world has no structures)
+ * datapack NAME              enable the data pack oracle/datapacks/NAME (copied into the world's datapacks folder before boot; repeatable)
  * -- world --
  * gamerule NAME VALUE         e.g. gamerule keep_inventory true    time N       (game clock stays frozen otherwise)
  * block X Y Z STATE           e.g. block 0 -60 0 minecraft:water[level=0]   (setBlock flags 3, like /setblock)
@@ -441,6 +442,7 @@ public final class EntityOracleDriver {
          case "dimension" -> options.dimension = a.get(1);
          case "seed" -> options.seed = Long.parseLong(a.get(1));
          case "features" -> options.features = a.get(1);
+         case "datapack" -> options.dataPacks.add(a.get(1));
          case "structures" -> options.generateStructures = Boolean.parseBoolean(a.get(1));
          case "difficulty" -> {
             if (v == null) {
