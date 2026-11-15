@@ -1,0 +1,69 @@
+# The saved form of the custom boss bars: the data file the storage writes for bars made by commands, the same bars through the codec and
+# back (their players stay stored, nobody is sent anything), bars written by hand (defaults, every property, an invalid max, a hidden
+# bar), and the bars a player gets when it joins afterwards. The loaded bars get fixed ids (vanilla draws random ones).
+command_env
+level flat
+preload 2
+level_seed 3301
+entity_counter 3300
+spawn_player A creative 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+spawn_player C survival 8.5 -60 0.5 0 0
+gamerule send_command_feedback false
+tick 1
+dump packets:A:none packets:B:none packets:C:none saved:custom_boss_events
+note before any bar was made
+level_seed 41
+cmd bossbar add test:plain "Plain"
+level_seed 42
+cmd bossbar add test:full {"text":"Full","color":"gold","bold":true}
+cmd bossbar set test:full color purple
+cmd bossbar set test:full style notched_12
+cmd bossbar set test:full max 80
+cmd bossbar set test:full value 20
+cmd bossbar set test:full players A B
+cmd bossbar set test:full players @a
+cmd bossbar set test:plain visible false
+cmd bossbar set test:plain players C
+dump bossbars saved:custom_boss_events packets:A:boss_event packets:B:boss_event packets:C:boss_event
+note through the codec and back: the same bars, new ids, no packets
+bossbars_load
+dump bossbars saved:custom_boss_events packets:A:boss_event packets:B:boss_event packets:C:boss_event
+cmd bossbar get test:full players
+cmd bossbar set test:full value 21
+cmd bossbar set test:plain visible true
+dump bossbars packets:A:boss_event packets:B:boss_event packets:C:boss_event
+note a player that joins afterwards gets the bars it is stored on, with the loaded ids
+leave A
+spawn_player A creative 0.5 -60 0.5 0 0 joinburst
+dump packets:A:boss_event
+leave C
+spawn_player C survival 8.5 -60 0.5 0 0 joinburst
+dump packets:C:boss_event
+cmd bossbar get test:full players
+cmd bossbar set test:full value 22
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+note bars written by hand: defaults only, every property, a bad max
+bossbars_load {"test:bare":{Name:"Bare"},"test:every":{Name:{text:"Every",color:"red"},Visible:1b,Value:7,Max:9,Color:"green",Overlay:"notched_20",DarkenScreen:1b,PlayBossMusic:1b,CreateWorldFog:1b,Players:[[I;-196291187,2030186727,-1948358755,2017388081]]},"test:zero":{Name:"Zero",Visible:1b,Value:5,Max:0,Players:[[I;-196291187,2030186727,-1948358755,2017388081]]},"test:nan":{Name:"Nan",Visible:1b,Value:0,Max:0,Players:[[I;-196291187,2030186727,-1948358755,2017388081]]},"test:over":{Name:"Over",Visible:1b,Value:900,Max:100,Color:"blue",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081]]},"test:hid":{Name:"Hid",Value:3,Players:[[I;-196291187,2030186727,-1948358755,2017388081]]}}
+dump bossbars saved:custom_boss_events packets:A:boss_event packets:B:boss_event packets:C:boss_event
+leave B
+spawn_player B survival 4.5 -60 0.5 0 0 joinburst
+dump packets:B:boss_event
+cmd bossbar list
+cmd bossbar get test:every players
+cmd bossbar get test:over players
+cmd bossbar get test:zero max
+cmd bossbar set test:every value 8
+cmd bossbar set test:zero max 10
+cmd bossbar set test:nan value 1
+cmd bossbar set test:nan max 4
+cmd bossbar set test:over max 1000
+dump bossbars packets:A:boss_event packets:B:boss_event packets:C:boss_event
+note removing the last bars writes an empty file
+cmd bossbar remove test:bare
+cmd bossbar remove test:every
+cmd bossbar remove test:zero
+cmd bossbar remove test:nan
+cmd bossbar remove test:over
+cmd bossbar remove test:hid
+dump bossbars saved:custom_boss_events packets:A:boss_event packets:B:boss_event packets:C:boss_event

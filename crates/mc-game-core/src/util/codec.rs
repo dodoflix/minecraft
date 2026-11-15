@@ -111,13 +111,30 @@ pub fn optional<'a, T>(
 /// carrying the entries that did decode (vanilla's partial result).
 pub fn unbounded_map<K, V>(
     tag: &Tag,
+    key: impl FnMut(&str) -> DataResult<K>,
+    value: impl FnMut(&Tag) -> DataResult<V>,
+) -> DecodeResult<Vec<(K, V)>> {
+    unbounded_map_in(compound(tag)?.iter(), key, value)
+}
+
+/// [`unbounded_map`] reading the entries in the iteration order of vanilla's `CompoundTag` (a `HashMap`), for a decoder whose
+/// result depends on it (the order the entries enter another hash map).
+pub fn unbounded_map_hash_order<K, V>(
+    tag: &Tag,
+    key: impl FnMut(&str) -> DataResult<K>,
+    value: impl FnMut(&Tag) -> DataResult<V>,
+) -> DecodeResult<Vec<(K, V)>> {
+    unbounded_map_in(compound(tag)?.iter_java_order().into_iter(), key, value)
+}
+
+fn unbounded_map_in<'a, K, V>(
+    entries: impl ExactSizeIterator<Item = (&'a String, &'a Tag)>,
     mut key: impl FnMut(&str) -> DataResult<K>,
     mut value: impl FnMut(&Tag) -> DataResult<V>,
 ) -> DecodeResult<Vec<(K, V)>> {
-    let m = compound(tag)?;
-    let mut ok = Vec::with_capacity(m.len());
+    let mut ok = Vec::with_capacity(entries.len());
     let mut errors = Vec::new();
-    for (k, v) in m.iter() {
+    for (k, v) in entries {
         match key(k).and_then(|k| Ok((k, value(v)?))) {
             Ok(entry) => ok.push(entry),
             Err(e) => errors.push(format!("{e} missed input: {{{k:?}:{v}}}")),

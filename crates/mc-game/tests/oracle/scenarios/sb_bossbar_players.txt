@@ -1,0 +1,111 @@
+# The players of a custom boss bar: `players` with a name, a selector and nothing, what each change sends to the players that see the bar
+# (add, remove, progress, name and style packets), a hidden bar, the progress a value and a max give, and the feedback of `get players`.
+command_env
+level flat
+preload 2
+level_seed 3101
+entity_counter 3100
+spawn_player A creative 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+spawn_player C survival 8.5 -60 0.5 0 0
+spawn Pig minecraft:pig 12.5 -60 0.5 0 0 {NoAI:1b}
+tick 1
+dump packets:A:none packets:B:none packets:C:none
+level_seed 21
+cmd bossbar add test:p "Players"
+note nobody sees it: clearing, an empty selector, an unknown player
+cmd bossbar set test:p players
+cmd bossbar set test:p players @e[type=pig]
+cmd bossbar set test:p players Nobody
+cmd bossbar set test:p players @a[limit=0]
+cmd bossbar get test:p players
+dump bossbars packets:A:boss_event packets:B:boss_event packets:C:boss_event
+note one player, then everybody, then fewer
+cmd bossbar set test:p players A
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+cmd bossbar set test:p players A
+cmd bossbar get test:p players
+cmd bossbar set test:p players @a
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+cmd bossbar get test:p players
+cmd bossbar set test:p players B C
+cmd bossbar set test:p players @a[name=B]
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event bossbars
+cmd bossbar get test:p players
+cmd bossbar set test:p players @a[name=C]
+cmd bossbar set test:p players @e
+cmd bossbar set test:p players @a
+cmd bossbar set test:p players
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event bossbars
+cmd bossbar get test:p players
+note every property reaches the players that see the bar
+cmd bossbar set test:p players @a
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+cmd bossbar set test:p name "Renamed"
+cmd bossbar set test:p name {"text":"Coloured","color":"gold","italic":true}
+cmd bossbar set test:p color red
+cmd bossbar set test:p style notched_12
+cmd bossbar set test:p value 25
+cmd bossbar set test:p max 50
+cmd bossbar set test:p max 50
+cmd bossbar set test:p value 25
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+note progress: a clamped value, the same progress again, a rounding fraction, a max that keeps the progress, a value of zero
+cmd bossbar set test:p value 500
+cmd bossbar set test:p value 600
+cmd bossbar set test:p max 1000
+cmd bossbar set test:p max 3
+cmd bossbar set test:p value 1
+cmd bossbar set test:p max 9
+cmd bossbar set test:p value 0
+cmd bossbar set test:p max 7
+cmd bossbar set test:p max 8
+cmd bossbar set test:p value 2147483647
+cmd bossbar set test:p max 2147483647
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+note a hidden bar sends nothing, then adds itself again for everyone who is on it
+cmd bossbar set test:p visible false
+cmd bossbar set test:p name "Hidden"
+cmd bossbar set test:p color blue
+cmd bossbar set test:p style notched_6
+cmd bossbar set test:p value 3
+cmd bossbar set test:p max 10
+cmd bossbar set test:p players A
+cmd bossbar set test:p players @a
+cmd bossbar set test:p players B
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event bossbars
+cmd bossbar set test:p visible true
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+cmd bossbar set test:p players
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event bossbars
+note two bars: one player on both, removing a bar removes it from its players
+level_seed 22
+cmd bossbar add test:q {"text":"Second","color":"green"}
+cmd bossbar set test:p players @a
+cmd bossbar set test:q players @a[name=!C]
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+cmd bossbar set test:q color purple
+cmd bossbar remove test:p
+cmd bossbar remove test:q
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event bossbars
+note a player target through execute as, a command block-free permission check through cmd_as
+cmd_as -0 bossbar list
+cmd_as -2 bossbar list
+cmd_as -2 bossbar add test:perm "Perm"
+cmd_as -3 bossbar add test:perm "Perm"
+cmd_as -3 bossbar set test:perm players A
+cmd_as -2 bossbar set test:perm players B
+dump packets:A:boss_event packets:B:boss_event bossbars
+cmd execute as B run bossbar set test:perm players @s
+cmd execute as @a run bossbar set test:perm players @s
+cmd execute store result score A bbx run bossbar get test:perm value
+cmd scoreboard objectives add bbx dummy
+cmd execute store result score A bbx run bossbar get test:perm max
+cmd execute store success score B bbx run bossbar set test:perm value 33
+cmd execute store result score C bbx run bossbar set test:perm value 34
+cmd execute store result score #n bbx run bossbar list
+cmd execute store result bossbar test:perm value run scoreboard players get C bbx
+cmd execute store result bossbar test:perm max run scoreboard players get C bbx
+cmd execute store success bossbar test:perm max run scoreboard players get C bbx
+cmd execute store result bossbar test:unknown max run scoreboard players get C bbx
+dump scoreboard bossbars packets:A:boss_event packets:B:boss_event

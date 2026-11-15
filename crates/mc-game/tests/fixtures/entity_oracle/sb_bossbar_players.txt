@@ -1,0 +1,248 @@
+CF msg Created custom bossbar [Players]
+CF result success 1
+# nobody sees it: clearing, an empty selector, an unknown player
+CF result failure 0
+CF fail Nothing changed. Those players are already on the bossbar with nobody to add or remove
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail bossbar set test:p players @e[type=pig]<--[HERE]
+CF result failure 0
+CF fail Nothing changed. Those players are already on the bossbar with nobody to add or remove
+CF fail Limit must be at least 1
+CF fail ... @a[limit=0]<--[HERE]
+CF msg Custom bossbar [Players] has no players currently online
+CF result success 0
+BOSSBAR test:p {Name:"Players",Visible:1b}
+# one player, then everybody, then fewer
+CF msg Custom bossbar [Players] now has 1 player(s): A
+CF result success 1
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa600080007506c617965727300000000060000
+CF result failure 0
+CF fail Nothing changed. Those players are already on the bossbar with nobody to add or remove
+CF msg Custom bossbar [Players] has 1 player(s) currently online: A
+CF result success 1
+CF msg Custom bossbar [Players] now has 3 player(s): A, B, C
+CF result success 3
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa600080007506c617965727300000000060000
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa600080007506c617965727300000000060000
+CF msg Custom bossbar [Players] has 3 player(s) currently online: A, B, C
+CF result success 3
+CF fail Incorrect argument for command
+CF fail ...players B C<--[HERE]
+CF msg Custom bossbar [Players] now has 1 player(s): B
+CF result success 1
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+BOSSBAR test:p {Name:"Players",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Visible:1b}
+CF msg Custom bossbar [Players] has 1 player(s) currently online: B
+CF result success 1
+CF msg Custom bossbar [Players] now has 1 player(s): C
+CF result success 1
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail bossbar set test:p players @e<--[HERE]
+CF msg Custom bossbar [Players] now has 3 player(s): A, B, C
+CF result success 3
+CF msg Custom bossbar [Players] no longer has any players
+CF result success 0
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa600080007506c617965727300000000060000
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa600080007506c617965727300000000060000
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa600080007506c617965727300000000060000
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+BOSSBAR test:p {Name:"Players",Visible:1b}
+CF msg Custom bossbar [Players] has no players currently online
+CF result success 0
+# every property reaches the players that see the bar
+CF msg Custom bossbar [Players] now has 3 player(s): A, B, C
+CF result success 3
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa600080007506c617965727300000000060000
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa600080007506c617965727300000000060000
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa600080007506c617965727300000000060000
+CF msg Custom bossbar [Renamed] has been renamed
+CF result success 0
+CF msg Custom bossbar [Coloured] has been renamed
+CF result success 0
+CF msg Custom bossbar [Coloured] has changed color
+CF result success 0
+CF msg Custom bossbar [Coloured] has changed style
+CF result success 0
+CF msg Custom bossbar [Coloured] has changed value to 25
+CF result success 25
+CF msg Custom bossbar [Coloured] has changed maximum to 50
+CF result success 50
+CF result failure 0
+CF fail Nothing changed. That's already the maximum of this bossbar
+CF result failure 0
+CF fail Nothing changed. That's already the value of this bossbar
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa60308000752656e616d6564
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6030a080005636f6c6f720004676f6c64080004746578740008436f6c6f757265640100066974616c69630100
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6040200
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6040203
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023e800000
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f000000
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa60308000752656e616d6564
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6030a080005636f6c6f720004676f6c64080004746578740008436f6c6f757265640100066974616c69630100
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6040200
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6040203
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023e800000
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f000000
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa60308000752656e616d6564
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6030a080005636f6c6f720004676f6c64080004746578740008436f6c6f757265640100066974616c69630100
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6040200
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6040203
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023e800000
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f000000
+# progress: a clamped value, the same progress again, a rounding fraction, a max that keeps the progress, a value of zero
+CF msg Custom bossbar [Coloured] has changed value to 500
+CF result success 500
+CF msg Custom bossbar [Coloured] has changed value to 600
+CF result success 600
+CF msg Custom bossbar [Coloured] has changed maximum to 1000
+CF result success 1000
+CF msg Custom bossbar [Coloured] has changed maximum to 3
+CF result success 3
+CF msg Custom bossbar [Coloured] has changed value to 1
+CF result success 1
+CF msg Custom bossbar [Coloured] has changed maximum to 9
+CF result success 9
+CF msg Custom bossbar [Coloured] has changed value to 0
+CF result success 0
+CF msg Custom bossbar [Coloured] has changed maximum to 7
+CF result success 7
+CF msg Custom bossbar [Coloured] has changed maximum to 8
+CF result success 8
+CF msg Custom bossbar [Coloured] has changed value to 2147483647
+CF result success 2147483647
+CF msg Custom bossbar [Coloured] has changed maximum to 2147483647
+CF result success 2147483647
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f800000
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f19999a
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f800000
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023eaaaaab
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023de38e39
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa60200000000
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f800000
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f800000
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f19999a
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f800000
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023eaaaaab
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023de38e39
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa60200000000
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f800000
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f800000
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f19999a
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f800000
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023eaaaaab
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023de38e39
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa60200000000
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa6023f800000
+# a hidden bar sends nothing, then adds itself again for everyone who is on it
+CF msg Custom bossbar [Coloured] is now hidden
+CF result success 0
+CF msg Custom bossbar [Hidden] has been renamed
+CF result success 0
+CF msg Custom bossbar [Hidden] has changed color
+CF result success 0
+CF msg Custom bossbar [Hidden] has changed style
+CF result success 0
+CF msg Custom bossbar [Hidden] has changed value to 3
+CF result success 3
+CF msg Custom bossbar [Hidden] has changed maximum to 10
+CF result success 10
+CF msg Custom bossbar [Hidden] now has 1 player(s): A
+CF result success 1
+CF msg Custom bossbar [Hidden] now has 3 player(s): A, B, C
+CF result success 3
+CF msg Custom bossbar [Hidden] now has 1 player(s): B
+CF result success 1
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+BOSSBAR test:p {Color:"blue",Max:10,Name:"Hidden",Overlay:"notched_6",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:3}
+CF msg Custom bossbar [Hidden] is now visible
+CF result success 0
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa60008000648696464656e3e99999a010100
+CF msg Custom bossbar [Hidden] no longer has any players
+CF result success 0
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+BOSSBAR test:p {Color:"blue",Max:10,Name:"Hidden",Overlay:"notched_6",Value:3,Visible:1b}
+# two bars: one player on both, removing a bar removes it from its players
+CF msg Created custom bossbar [Second]
+CF result success 2
+CF msg Custom bossbar [Hidden] now has 3 player(s): A, B, C
+CF result success 3
+CF msg Custom bossbar [Second] now has 2 player(s): A, B
+CF result success 2
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa60008000648696464656e3e99999a010100
+PKT A minecraft:boss_event 09bb72e55410a34e799dee22116419f52b000a080005636f6c6f720005677265656e0800047465787400065365636f6e640000000000060000
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa60008000648696464656e3e99999a010100
+PKT B minecraft:boss_event 09bb72e55410a34e799dee22116419f52b000a080005636f6c6f720005677265656e0800047465787400065365636f6e640000000000060000
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa60008000648696464656e3e99999a010100
+CF msg Custom bossbar [Second] has changed color
+CF result success 0
+CF msg Removed custom bossbar [Hidden]
+CF result success 1
+CF msg Removed custom bossbar [Second]
+CF result success 0
+PKT A minecraft:boss_event 09bb72e55410a34e799dee22116419f52b040500
+PKT A minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+PKT A minecraft:boss_event 09bb72e55410a34e799dee22116419f52b01
+PKT B minecraft:boss_event 09bb72e55410a34e799dee22116419f52b040500
+PKT B minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+PKT B minecraft:boss_event 09bb72e55410a34e799dee22116419f52b01
+PKT C minecraft:boss_event 09bb61488cdf414159a023eaf0cb578fa601
+# a player target through execute as, a command block-free permission check through cmd_as
+CF fail Unknown or incomplete command. See below for error
+CF fail bossbar list<--[HERE]
+CF msg There are no custom bossbars active
+CF result success 0
+CF msg Created custom bossbar [Perm]
+CF result success 1
+CF result failure 0
+CF fail A bossbar already exists with the ID 'test:perm'
+CF msg Custom bossbar [Perm] now has 1 player(s): A
+CF result success 1
+CF msg Custom bossbar [Perm] now has 1 player(s): B
+CF result success 1
+PKT A minecraft:boss_event 09a73b9f9f20e246419938603687ecd912000800045065726d00000000060000
+PKT A minecraft:boss_event 09a73b9f9f20e246419938603687ecd91201
+PKT B minecraft:boss_event 09a73b9f9f20e246419938603687ecd912000800045065726d00000000060000
+BOSSBAR test:perm {Name:"Perm",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Visible:1b}
+CF result failure 0
+CF msg Custom bossbar [Perm] now has 1 player(s): A
+CF result success 1
+CF msg Custom bossbar [Perm] now has 1 player(s): B
+CF result success 1
+CF msg Custom bossbar [Perm] now has 1 player(s): C
+CF result success 1
+CF fail Unknown scoreboard objective 'bbx'
+CF msg Created new objective [bbx]
+CF result success 1
+CF msg Custom bossbar [Perm] has a maximum of 100
+CF result success 100
+CF msg Custom bossbar [Perm] has changed value to 33
+CF result success 33
+CF msg Custom bossbar [Perm] has changed value to 34
+CF result success 34
+CF msg There are 1 custom bossbar(s) active: [Perm]
+CF result success 1
+CF msg C has 34 [bbx]
+CF result success 34
+CF msg C has 34 [bbx]
+CF result success 34
+CF msg C has 34 [bbx]
+CF result success 34
+CF fail No bossbar exists with the ID 'test:unknown'
+OBJ {DisplayName:"bbx",Name:"bbx"}
+SCORE {Locked:1b,Name:"#n",Objective:"bbx",Score:1}
+SCORE {Locked:1b,Name:"A",Objective:"bbx",Score:100}
+SCORE {Locked:1b,Name:"B",Objective:"bbx",Score:1}
+SCORE {Locked:1b,Name:"C",Objective:"bbx",Score:34}
+DISPLAY {}
+BOSSBAR test:perm {Max:1,Name:"Perm",Players:[[I;407689464,1828073685,-2048753337,-1664646821]],Value:34,Visible:1b}
+PKT A minecraft:boss_event 09a73b9f9f20e246419938603687ecd912000800045065726d00000000060000
+PKT A minecraft:boss_event 09a73b9f9f20e246419938603687ecd91201
+PKT B minecraft:boss_event 09a73b9f9f20e246419938603687ecd91201
+PKT B minecraft:boss_event 09a73b9f9f20e246419938603687ecd912000800045065726d00000000060000
+PKT B minecraft:boss_event 09a73b9f9f20e246419938603687ecd91201

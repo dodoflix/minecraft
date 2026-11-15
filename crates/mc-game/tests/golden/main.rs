@@ -63,6 +63,7 @@ mod blocks_vibrations_golden;
 mod blocks_workstations_golden;
 mod boat_golden;
 mod books_golden;
+mod bossbar_golden;
 mod brewing_golden;
 mod click_support;
 mod command_blocks_golden;

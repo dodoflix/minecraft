@@ -1,0 +1,106 @@
+# /bossbar as the console: add (plain, JSON and selector names, a duplicate, a bad id), list, get, every `set` property with its unchanged
+# errors, the progress a value and a max give, players and visibility, remove. The two players are tracked; their boss_event packets follow each step.
+command_env
+level flat
+preload 2
+level_seed 3001
+entity_counter 3000
+spawn_player A creative 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+tick 1
+dump packets:A:none packets:B:none
+note nothing exists yet
+cmd bossbar list
+cmd bossbar get test:one value
+cmd bossbar set test:one value 5
+cmd bossbar remove test:one
+note add: plain text, an id with a path, a duplicate, JSON text, a selector name, an invalid id
+level_seed 11
+cmd bossbar add test:one One
+level_seed 12
+cmd bossbar add test:one Again
+level_seed 13
+cmd bossbar add test:path/deeper {"text":"Deep","color":"green","bold":true}
+level_seed 14
+cmd bossbar add test:who {"selector":"@a"}
+level_seed 15
+cmd bossbar add Bad:Id x
+cmd bossbar add test:noname
+cmd_json bossbar add test:jsonout "Jsonout"
+dump bossbars packets:A:boss_event packets:B:boss_event
+note list and get on a fresh bar
+cmd bossbar list
+cmd bossbar get test:one value
+cmd bossbar get test:one max
+cmd bossbar get test:one visible
+cmd bossbar get test:one players
+cmd bossbar get test:one nothing
+cmd bossbar get test:unknown max
+note name: a new name, the same name, JSON
+cmd bossbar set test:one name "Uno"
+cmd bossbar set test:one name "Uno"
+cmd bossbar set test:one name {"text":"Uno","color":"red"}
+cmd bossbar set test:one name {"selector":"@p"}
+cmd bossbar set test:one name
+cmd bossbar get test:one value
+dump bossbars
+note colour: the default, every colour, the same colour again, an unknown colour
+cmd bossbar set test:one color white
+cmd bossbar set test:one color pink
+cmd bossbar set test:one color pink
+cmd bossbar set test:one color blue
+cmd bossbar set test:one color red
+cmd bossbar set test:one color green
+cmd bossbar set test:one color yellow
+cmd bossbar set test:one color purple
+cmd bossbar set test:one color white
+cmd bossbar set test:one color black
+dump bossbars
+note style: the default, every style, the same style again
+cmd bossbar set test:one style progress
+cmd bossbar set test:one style notched_6
+cmd bossbar set test:one style notched_6
+cmd bossbar set test:one style notched_10
+cmd bossbar set test:one style notched_12
+cmd bossbar set test:one style notched_20
+cmd bossbar set test:one style progress
+cmd bossbar set test:one style notched_7
+dump bossbars
+note value and max: the same value, a new value, a negative value, a value above the max, the minimum max, the same max, a rounding fraction
+cmd bossbar set test:one value 0
+cmd bossbar set test:one value 40
+cmd bossbar set test:one value 40
+cmd bossbar set test:one value -1
+cmd bossbar set test:one value 250
+cmd bossbar set test:one value 2147483647
+cmd bossbar set test:one value 1.5
+cmd bossbar set test:one max 100
+cmd bossbar set test:one max 0
+cmd bossbar set test:one max 3
+cmd bossbar set test:one value 1
+cmd bossbar set test:one max 1
+cmd bossbar set test:one max 7
+cmd bossbar set test:one value 5
+cmd bossbar set test:one max 2147483647
+cmd bossbar get test:one value
+cmd bossbar get test:one max
+dump bossbars
+note visibility: hide, hide again, show, show again, a bad word
+cmd bossbar set test:one visible true
+cmd bossbar set test:one visible false
+cmd bossbar set test:one visible false
+cmd bossbar set test:one visible true
+cmd bossbar set test:one visible maybe
+cmd bossbar get test:one visible
+dump bossbars packets:A:boss_event packets:B:boss_event
+note remove: a bar, the same bar again, the others by list
+cmd bossbar remove test:one
+cmd bossbar remove test:one
+cmd bossbar list
+cmd bossbar remove test:path/deeper
+cmd bossbar remove test:who
+cmd bossbar remove test:jsonout
+cmd bossbar list
+cmd bossbar
+cmd bossbar frobnicate
+dump bossbars packets:A:boss_event packets:B:boss_event

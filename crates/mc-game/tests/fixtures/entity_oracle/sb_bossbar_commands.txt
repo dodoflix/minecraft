@@ -1,0 +1,182 @@
+# nothing exists yet
+CF msg There are no custom bossbars active
+CF result success 0
+CF result failure 0
+CF fail No bossbar exists with the ID 'test:one'
+CF result failure 0
+CF fail No bossbar exists with the ID 'test:one'
+CF result failure 0
+CF fail No bossbar exists with the ID 'test:one'
+# add: plain text, an id with a path, a duplicate, JSON text, a selector name, an invalid id
+CF msg Created custom bossbar [One]
+CF result success 1
+CF result failure 0
+CF fail A bossbar already exists with the ID 'test:one'
+CF msg Created custom bossbar [Deep]
+CF result success 2
+CF msg Created custom bossbar [A, B]
+CF result success 3
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...ssbar add Bad:Id x<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...est:noname<--[HERE]
+CF msg Created custom bossbar [Jsonout]
+CF json {"translate":"commands.bossbar.create.success","with":[{"color":"white","hover_event":{"action":"show_text","value":"test:jsonout"},"insertion":"test:jsonout","translate":"chat.square_brackets","with":["Jsonout"]}]}
+CF result success 4
+BOSSBAR test:jsonout {Name:"Jsonout",Visible:1b}
+BOSSBAR test:one {Name:"One",Visible:1b}
+BOSSBAR test:path/deeper {Name:{bold:1b,color:"green",text:"Deep"},Visible:1b}
+BOSSBAR test:who {Name:{extra:[{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"},{color:"gray",text:", "},{click_event:{action:"suggest_command",command:"/tell B "},hover_event:{action:"show_entity",id:"minecraft:player",name:"B",uuid:[I;-196291187,2030186727,-1948358755,2017388081]},insertion:"B",text:"B"}],text:""},Visible:1b}
+# list and get on a fresh bar
+CF msg There are 4 custom bossbar(s) active: [Jsonout], [One], [Deep], [A, B]
+CF result success 4
+CF msg Custom bossbar [One] has a value of 0
+CF result success 0
+CF msg Custom bossbar [One] has a maximum of 100
+CF result success 100
+CF msg Custom bossbar [One] is currently visible
+CF result success 1
+CF msg Custom bossbar [One] has no players currently online
+CF result success 0
+CF fail Incorrect argument for command
+CF fail ... test:one nothing<--[HERE]
+CF result failure 0
+CF fail No bossbar exists with the ID 'test:unknown'
+# name: a new name, the same name, JSON
+CF msg Custom bossbar [Uno] has been renamed
+CF result success 0
+CF result failure 0
+CF fail Nothing changed. That's already the name of this bossbar
+CF msg Custom bossbar [Uno] has been renamed
+CF result success 0
+CF msg Custom bossbar [A] has been renamed
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail ...t:one name<--[HERE]
+CF msg Custom bossbar [A] has a value of 0
+CF result success 0
+BOSSBAR test:jsonout {Name:"Jsonout",Visible:1b}
+BOSSBAR test:one {Name:{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"},Visible:1b}
+BOSSBAR test:path/deeper {Name:{bold:1b,color:"green",text:"Deep"},Visible:1b}
+BOSSBAR test:who {Name:{extra:[{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"},{color:"gray",text:", "},{click_event:{action:"suggest_command",command:"/tell B "},hover_event:{action:"show_entity",id:"minecraft:player",name:"B",uuid:[I;-196291187,2030186727,-1948358755,2017388081]},insertion:"B",text:"B"}],text:""},Visible:1b}
+# colour: the default, every colour, the same colour again, an unknown colour
+CF result failure 0
+CF fail Nothing changed. That's already the color of this bossbar
+CF msg Custom bossbar [A] has changed color
+CF result success 0
+CF result failure 0
+CF fail Nothing changed. That's already the color of this bossbar
+CF msg Custom bossbar [A] has changed color
+CF result success 0
+CF msg Custom bossbar [A] has changed color
+CF result success 0
+CF msg Custom bossbar [A] has changed color
+CF result success 0
+CF msg Custom bossbar [A] has changed color
+CF result success 0
+CF msg Custom bossbar [A] has changed color
+CF result success 0
+CF msg Custom bossbar [A] has changed color
+CF result success 0
+CF fail Incorrect argument for command
+CF fail ...one color black<--[HERE]
+BOSSBAR test:jsonout {Name:"Jsonout",Visible:1b}
+BOSSBAR test:one {Name:{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"},Visible:1b}
+BOSSBAR test:path/deeper {Name:{bold:1b,color:"green",text:"Deep"},Visible:1b}
+BOSSBAR test:who {Name:{extra:[{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"},{color:"gray",text:", "},{click_event:{action:"suggest_command",command:"/tell B "},hover_event:{action:"show_entity",id:"minecraft:player",name:"B",uuid:[I;-196291187,2030186727,-1948358755,2017388081]},insertion:"B",text:"B"}],text:""},Visible:1b}
+# style: the default, every style, the same style again
+CF result failure 0
+CF fail Nothing changed. That's already the style of this bossbar
+CF msg Custom bossbar [A] has changed style
+CF result success 0
+CF result failure 0
+CF fail Nothing changed. That's already the style of this bossbar
+CF msg Custom bossbar [A] has changed style
+CF result success 0
+CF msg Custom bossbar [A] has changed style
+CF result success 0
+CF msg Custom bossbar [A] has changed style
+CF result success 0
+CF msg Custom bossbar [A] has changed style
+CF result success 0
+CF fail Incorrect argument for command
+CF fail ...one style notched_7<--[HERE]
+BOSSBAR test:jsonout {Name:"Jsonout",Visible:1b}
+BOSSBAR test:one {Name:{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"},Visible:1b}
+BOSSBAR test:path/deeper {Name:{bold:1b,color:"green",text:"Deep"},Visible:1b}
+BOSSBAR test:who {Name:{extra:[{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"},{color:"gray",text:", "},{click_event:{action:"suggest_command",command:"/tell B "},hover_event:{action:"show_entity",id:"minecraft:player",name:"B",uuid:[I;-196291187,2030186727,-1948358755,2017388081]},insertion:"B",text:"B"}],text:""},Visible:1b}
+# value and max: the same value, a new value, a negative value, a value above the max, the minimum max, the same max, a rounding fraction
+CF result failure 0
+CF fail Nothing changed. That's already the value of this bossbar
+CF msg Custom bossbar [A] has changed value to 40
+CF result success 40
+CF result failure 0
+CF fail Nothing changed. That's already the value of this bossbar
+CF fail Integer must not be less than 0: found -1
+CF fail ...one value -1<--[HERE]
+CF msg Custom bossbar [A] has changed value to 250
+CF result success 250
+CF msg Custom bossbar [A] has changed value to 2147483647
+CF result success 2147483647
+CF fail Invalid integer '1.5'
+CF fail ...one value 1.5<--[HERE]
+CF result failure 0
+CF fail Nothing changed. That's already the maximum of this bossbar
+CF fail Integer must not be less than 1: found 0
+CF fail ...t:one max 0<--[HERE]
+CF msg Custom bossbar [A] has changed maximum to 3
+CF result success 3
+CF msg Custom bossbar [A] has changed value to 1
+CF result success 1
+CF msg Custom bossbar [A] has changed maximum to 1
+CF result success 1
+CF msg Custom bossbar [A] has changed maximum to 7
+CF result success 7
+CF msg Custom bossbar [A] has changed value to 5
+CF result success 5
+CF msg Custom bossbar [A] has changed maximum to 2147483647
+CF result success 2147483647
+CF msg Custom bossbar [A] has a value of 5
+CF result success 5
+CF msg Custom bossbar [A] has a maximum of 2147483647
+CF result success 2147483647
+BOSSBAR test:jsonout {Name:"Jsonout",Visible:1b}
+BOSSBAR test:one {Max:2147483647,Name:{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"},Value:5,Visible:1b}
+BOSSBAR test:path/deeper {Name:{bold:1b,color:"green",text:"Deep"},Visible:1b}
+BOSSBAR test:who {Name:{extra:[{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"},{color:"gray",text:", "},{click_event:{action:"suggest_command",command:"/tell B "},hover_event:{action:"show_entity",id:"minecraft:player",name:"B",uuid:[I;-196291187,2030186727,-1948358755,2017388081]},insertion:"B",text:"B"}],text:""},Visible:1b}
+# visibility: hide, hide again, show, show again, a bad word
+CF result failure 0
+CF fail Nothing changed. The bossbar is already visible
+CF msg Custom bossbar [A] is now hidden
+CF result success 0
+CF result failure 0
+CF fail Nothing changed. The bossbar is already hidden
+CF msg Custom bossbar [A] is now visible
+CF result success 0
+CF fail Invalid boolean: expected 'true' or 'false' but found 'maybe'
+CF fail ...e visible maybe<--[HERE]
+CF msg Custom bossbar [A] is currently visible
+CF result success 1
+BOSSBAR test:jsonout {Name:"Jsonout",Visible:1b}
+BOSSBAR test:one {Max:2147483647,Name:{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"},Value:5,Visible:1b}
+BOSSBAR test:path/deeper {Name:{bold:1b,color:"green",text:"Deep"},Visible:1b}
+BOSSBAR test:who {Name:{extra:[{click_event:{action:"suggest_command",command:"/tell A "},hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:"A"},{color:"gray",text:", "},{click_event:{action:"suggest_command",command:"/tell B "},hover_event:{action:"show_entity",id:"minecraft:player",name:"B",uuid:[I;-196291187,2030186727,-1948358755,2017388081]},insertion:"B",text:"B"}],text:""},Visible:1b}
+# remove: a bar, the same bar again, the others by list
+CF msg Removed custom bossbar [A]
+CF result success 3
+CF result failure 0
+CF fail No bossbar exists with the ID 'test:one'
+CF msg There are 3 custom bossbar(s) active: [Jsonout], [Deep], [A, B]
+CF result success 3
+CF msg Removed custom bossbar [Deep]
+CF result success 2
+CF msg Removed custom bossbar [A, B]
+CF result success 1
+CF msg Removed custom bossbar [Jsonout]
+CF result success 0
+CF msg There are no custom bossbars active
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail bossbar<--[HERE]
+CF fail Incorrect argument for command
+CF fail bossbar frobnicate<--[HERE]

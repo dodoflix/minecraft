@@ -1,0 +1,135 @@
+C Game rule send_command_feedback is already set to false
+SAVED custom_boss_events DataVersion=5023
+# before any bar was made
+CF msg Created custom bossbar [Plain]
+CF result success 1
+CF msg Created custom bossbar [Full]
+CF result success 2
+CF msg Custom bossbar [Full] has changed color
+CF result success 0
+CF msg Custom bossbar [Full] has changed style
+CF result success 0
+CF msg Custom bossbar [Full] has changed maximum to 80
+CF result success 80
+CF msg Custom bossbar [Full] has changed value to 20
+CF result success 20
+CF fail Incorrect argument for command
+CF fail ...players A B<--[HERE]
+CF msg Custom bossbar [Full] now has 3 player(s): A, B, C
+CF result success 3
+CF msg Custom bossbar [Plain] is now hidden
+CF result success 0
+CF msg Custom bossbar [Plain] now has 1 player(s): C
+CF result success 1
+BOSSBAR test:full {Color:"purple",Max:80,Name:{bold:1b,color:"gold",text:"Full"},Overlay:"notched_12",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081],[I;407689464,1828073685,-2048753337,-1664646821]],Value:20,Visible:1b}
+BOSSBAR test:plain {Name:"Plain",Players:[[I;407689464,1828073685,-2048753337,-1664646821]]}
+SAVED custom_boss_events DataVersion=5023
+SAVEDBAR test:full {Color:"purple",Max:80,Name:{bold:1b,color:"gold",text:"Full"},Overlay:"notched_12",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081],[I;407689464,1828073685,-2048753337,-1664646821]],Value:20,Visible:1b}
+SAVEDBAR test:plain {Name:"Plain",Players:[[I;407689464,1828073685,-2048753337,-1664646821]]}
+PKT A minecraft:boss_event 09ba419d350dfe4af7aee7bbe10c45c028000a080005636f6c6f720004676f6c6408000474657874000446756c6c010004626f6c6401003e800000050300
+PKT B minecraft:boss_event 09ba419d350dfe4af7aee7bbe10c45c028000a080005636f6c6f720004676f6c6408000474657874000446756c6c010004626f6c6401003e800000050300
+PKT C minecraft:boss_event 09ba419d350dfe4af7aee7bbe10c45c028000a080005636f6c6f720004676f6c6408000474657874000446756c6c010004626f6c6401003e800000050300
+# through the codec and back: the same bars, new ids, no packets
+BOSSBAR test:full {Color:"purple",Max:80,Name:{bold:1b,color:"gold",text:"Full"},Overlay:"notched_12",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081],[I;407689464,1828073685,-2048753337,-1664646821]],Value:20,Visible:1b}
+BOSSBAR test:plain {Name:"Plain",Players:[[I;407689464,1828073685,-2048753337,-1664646821]]}
+SAVED custom_boss_events DataVersion=5023
+SAVEDBAR test:full {Color:"purple",Max:80,Name:{bold:1b,color:"gold",text:"Full"},Overlay:"notched_12",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081],[I;407689464,1828073685,-2048753337,-1664646821]],Value:20,Visible:1b}
+SAVEDBAR test:plain {Name:"Plain",Players:[[I;407689464,1828073685,-2048753337,-1664646821]]}
+CF msg Custom bossbar [Full] has no players currently online
+CF result success 0
+CF msg Custom bossbar [Full] has changed value to 21
+CF result success 21
+CF msg Custom bossbar [Plain] is now visible
+CF result success 0
+BOSSBAR test:full {Color:"purple",Max:80,Name:{bold:1b,color:"gold",text:"Full"},Overlay:"notched_12",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081],[I;407689464,1828073685,-2048753337,-1664646821]],Value:21,Visible:1b}
+BOSSBAR test:plain {Name:"Plain",Players:[[I;407689464,1828073685,-2048753337,-1664646821]],Visible:1b}
+# a player that joins afterwards gets the bars it is stored on, with the loaded ids
+STAT A minecraft.custom:minecraft.leave_game 1
+STAT A minecraft.custom:minecraft.play_time 1
+STAT A minecraft.custom:minecraft.time_since_death 1
+STAT A minecraft.custom:minecraft.time_since_rest 1
+STAT A minecraft.custom:minecraft.total_world_time 1
+PKT A minecraft:boss_event 09b055b000000000000000000000000000000a080005636f6c6f720004676f6c6408000474657874000446756c6c010004626f6c6401003e866666050300
+STAT C minecraft.custom:minecraft.leave_game 1
+STAT C minecraft.custom:minecraft.play_time 1
+STAT C minecraft.custom:minecraft.time_since_death 1
+STAT C minecraft.custom:minecraft.time_since_rest 1
+STAT C minecraft.custom:minecraft.total_world_time 1
+PKT C minecraft:boss_event 09b055b00000000000000000000000000100080005506c61696e00000000060000
+PKT C minecraft:boss_event 09b055b000000000000000000000000000000a080005636f6c6f720004676f6c6408000474657874000446756c6c010004626f6c6401003e866666050300
+CF msg Custom bossbar [Full] has 2 player(s) currently online: A, C
+CF result success 2
+CF msg Custom bossbar [Full] has changed value to 22
+CF result success 22
+PKT A minecraft:boss_event 09b055b000000000000000000000000000023e8ccccd
+PKT C minecraft:boss_event 09b055b000000000000000000000000000023e8ccccd
+# bars written by hand: defaults only, every property, a bad max
+BOSSBAR test:bare {Name:"Bare"}
+BOSSBAR test:every {Color:"green",CreateWorldFog:1b,DarkenScreen:1b,Max:9,Name:{color:"red",text:"Every"},Overlay:"notched_20",PlayBossMusic:1b,Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:7,Visible:1b}
+BOSSBAR test:hid {Name:"Hid",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:3}
+BOSSBAR test:nan {Max:0,Name:"Nan",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Visible:1b}
+BOSSBAR test:over {Color:"blue",Name:"Over",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081]],Value:900,Visible:1b}
+BOSSBAR test:zero {Max:0,Name:"Zero",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:5,Visible:1b}
+SAVED custom_boss_events DataVersion=5023
+SAVEDBAR test:bare {Name:"Bare"}
+SAVEDBAR test:every {Color:"green",CreateWorldFog:1b,DarkenScreen:1b,Max:9,Name:{color:"red",text:"Every"},Overlay:"notched_20",PlayBossMusic:1b,Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:7,Visible:1b}
+SAVEDBAR test:hid {Name:"Hid",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:3}
+SAVEDBAR test:nan {Max:0,Name:"Nan",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Visible:1b}
+SAVEDBAR test:over {Color:"blue",Name:"Over",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081]],Value:900,Visible:1b}
+SAVEDBAR test:zero {Max:0,Name:"Zero",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:5,Visible:1b}
+STAT B minecraft.custom:minecraft.leave_game 1
+STAT B minecraft.custom:minecraft.play_time 1
+STAT B minecraft.custom:minecraft.time_since_death 1
+STAT B minecraft.custom:minecraft.time_since_rest 1
+STAT B minecraft.custom:minecraft.total_world_time 1
+PKT B minecraft:boss_event 09b055b000000000000000000000000001000a080005636f6c6f7200037265640800047465787400054576657279003f471c72030407
+PKT B minecraft:boss_event 09b055b000000000000000000000000004000800044f7665723f800000010000
+PKT B minecraft:boss_event 09b055b000000000000000000000000003000800034e616effc00000060000
+PKT B minecraft:boss_event 09b055b000000000000000000000000005000800045a65726f3f800000060000
+CF msg There are 6 custom bossbar(s) active: [Bare], [Every], [Hid], [Over], [Nan], [Zero]
+CF result success 6
+CF msg Custom bossbar [Every] has 1 player(s) currently online: B
+CF result success 1
+CF msg Custom bossbar [Over] has 1 player(s) currently online: B
+CF result success 1
+CF msg Custom bossbar [Zero] has a maximum of 0
+CF result success 0
+CF msg Custom bossbar [Every] has changed value to 8
+CF result success 8
+CF msg Custom bossbar [Zero] has changed maximum to 10
+CF result success 10
+CF msg Custom bossbar [Nan] has changed value to 1
+CF result success 1
+CF msg Custom bossbar [Nan] has changed maximum to 4
+CF result success 4
+CF msg Custom bossbar [Over] has changed maximum to 1000
+CF result success 1000
+BOSSBAR test:bare {Name:"Bare"}
+BOSSBAR test:every {Color:"green",CreateWorldFog:1b,DarkenScreen:1b,Max:9,Name:{color:"red",text:"Every"},Overlay:"notched_20",PlayBossMusic:1b,Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:8,Visible:1b}
+BOSSBAR test:hid {Name:"Hid",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:3}
+BOSSBAR test:nan {Max:4,Name:"Nan",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:1,Visible:1b}
+BOSSBAR test:over {Color:"blue",Max:1000,Name:"Over",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081]],Value:900,Visible:1b}
+BOSSBAR test:zero {Max:10,Name:"Zero",Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:5,Visible:1b}
+PKT B minecraft:boss_event 09b055b000000000000000000000000001023f638e39
+PKT B minecraft:boss_event 09b055b000000000000000000000000005023f000000
+PKT B minecraft:boss_event 09b055b000000000000000000000000003023f800000
+PKT B minecraft:boss_event 09b055b000000000000000000000000003023e800000
+PKT B minecraft:boss_event 09b055b000000000000000000000000004023f666666
+# removing the last bars writes an empty file
+CF msg Removed custom bossbar [Bare]
+CF result success 5
+CF msg Removed custom bossbar [Every]
+CF result success 4
+CF msg Removed custom bossbar [Zero]
+CF result success 3
+CF msg Removed custom bossbar [Nan]
+CF result success 2
+CF msg Removed custom bossbar [Over]
+CF result success 1
+CF msg Removed custom bossbar [Hid]
+CF result success 0
+SAVED custom_boss_events DataVersion=5023
+PKT B minecraft:boss_event 09b055b00000000000000000000000000101
+PKT B minecraft:boss_event 09b055b00000000000000000000000000501
+PKT B minecraft:boss_event 09b055b00000000000000000000000000301
+PKT B minecraft:boss_event 09b055b00000000000000000000000000401

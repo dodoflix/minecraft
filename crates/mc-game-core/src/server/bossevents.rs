@@ -590,16 +590,25 @@ impl CustomBossEvents {
     /// Mutable access; changes through the event's setters mark this saved data dirty.
     /// `onPlayerConnect(player)`.
     pub fn on_player_connect(&mut self, player: &PlayerHandle) {
-        for e in self.events.values_mut() {
-            e.on_player_connect(player);
+        for id in self.ids_in_map_order() {
+            if let Some(e) = self.events.get_mut(&id) {
+                e.on_player_connect(player);
+            }
         }
     }
 
     /// `onPlayerDisconnect(player)`.
     pub fn on_player_disconnect(&mut self, player: &PlayerHandle) {
-        for e in self.events.values_mut() {
-            e.on_player_disconnect(player);
+        for id in self.ids_in_map_order() {
+            if let Some(e) = self.events.get_mut(&id) {
+                e.on_player_disconnect(player);
+            }
         }
+    }
+
+    /// The bar ids in the iteration order of vanilla's `HashMap` (`events.values()`).
+    fn ids_in_map_order(&self) -> Vec<Identifier> {
+        self.get_ids().into_iter().cloned().collect()
     }
 
     pub fn get_mut(&mut self, id: &Identifier) -> Option<&mut CustomBossEvent> {
@@ -651,15 +660,22 @@ impl CustomBossEvents {
     }
 
     fn decode(tag: &Tag) -> DecodeResult<CustomBossEvents> {
-        let entries = codec::unbounded_map(tag, Identifier::read, PackedBossEvent::decode);
+        CustomBossEvents::decode_with(tag, &mut |_| Uuid::new_v4())
+    }
+
+    /// The codec's decode; `bar_uuid` supplies the UUID of each loaded bar (vanilla draws `UUID.randomUUID()`).
+    pub fn decode_with(
+        tag: &Tag,
+        bar_uuid: &mut dyn FnMut(&Identifier) -> Uuid,
+    ) -> DecodeResult<CustomBossEvents> {
+        let entries =
+            codec::unbounded_map_hash_order(tag, Identifier::read, PackedBossEvent::decode);
         codec::map_decoded(entries, |entries| {
             let events: IndexMap<Identifier, CustomBossEvent> = entries
                 .into_iter()
                 .map(|(id, packed)| {
-                    (
-                        id.clone(),
-                        CustomBossEvent::load(Uuid::new_v4(), id, packed),
-                    )
+                    let uuid = bar_uuid(&id);
+                    (id.clone(), CustomBossEvent::load(uuid, id, packed))
                 })
                 .collect();
             let mut capacity = JavaHashCapacity::default();

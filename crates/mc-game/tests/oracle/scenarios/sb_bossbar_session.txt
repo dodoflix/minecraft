@@ -1,0 +1,80 @@
+# A boss bar and the connection of its players: the packets a player gets when it joins (only the bars it is stored on), what leaving does to the
+# bar's online players but not to its stored ones, a rejoin, a respawn after death (the bar is not moved to the new player) and a teleport.
+command_env
+level flat
+preload 2
+level_seed 3201
+entity_counter 3200
+spawn_player A creative 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+spawn_player C survival 8.5 -60 0.5 0 0
+gamerule send_command_feedback false
+tick 1
+dump packets:A:none packets:B:none packets:C:none
+level_seed 31
+cmd bossbar add test:s "Session"
+level_seed 32
+cmd bossbar add test:t {"text":"Other","color":"red"}
+level_seed 33
+cmd bossbar add test:h "Hidden"
+cmd bossbar set test:s players @a
+cmd bossbar set test:s value 30
+cmd bossbar set test:s color yellow
+cmd bossbar set test:s style notched_10
+cmd bossbar set test:t players @a[name=B]
+cmd bossbar set test:t max 20
+cmd bossbar set test:t value 5
+cmd bossbar set test:h visible false
+cmd bossbar set test:h players A
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event bossbars
+note A leaves: the online player is removed from the bars, the stored one stays
+leave A
+cmd bossbar set test:s value 40
+cmd bossbar set test:h players A
+cmd bossbar set test:h players
+dump bossbars saved:custom_boss_events packets:A:boss_event packets:B:boss_event packets:C:boss_event
+cmd bossbar set test:h players A
+cmd bossbar get test:s players
+note A rejoins: the bars it is stored on are added with the current state, a hidden bar is not
+spawn_player A creative 0.5 -60 0.5 0 0 joinburst
+dump packets:A:boss_event
+cmd bossbar get test:s players
+cmd bossbar get test:t players
+cmd bossbar set test:s value 41
+cmd bossbar set test:t value 6
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+note C leaves, a bar is changed and C joins again
+leave C
+cmd bossbar set test:s name "Renamed"
+cmd bossbar set test:s visible false
+cmd bossbar set test:s visible true
+spawn_player C survival 8.5 -60 0.5 0 0 joinburst
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+note a bar removed while a player is away: nothing is sent when the player comes back
+leave B
+cmd bossbar remove test:t
+cmd bossbar get test:t players
+spawn_player B survival 4.5 -60 0.5 0 0 joinburst
+dump packets:B:boss_event bossbars
+note death and respawn
+cmd bossbar set test:s players @a
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+hurt B minecraft:generic 1000
+tick 1
+respawn B
+tick 2
+dump packets:B:boss_event
+cmd bossbar get test:s players
+cmd bossbar set test:s value 50
+cmd bossbar set test:s color blue
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+cmd bossbar set test:s players @a
+cmd bossbar set test:s players
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event bossbars
+note teleporting inside the dimension changes nothing for the bar
+cmd bossbar set test:s players @a
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event
+cmd tp A 20 -60 20
+tick 2
+cmd bossbar set test:s value 60
+dump packets:A:boss_event packets:B:boss_event packets:C:boss_event

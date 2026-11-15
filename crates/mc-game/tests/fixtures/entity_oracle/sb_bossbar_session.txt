@@ -1,0 +1,152 @@
+C Game rule send_command_feedback is already set to false
+CF msg Created custom bossbar [Session]
+CF result success 1
+CF msg Created custom bossbar [Other]
+CF result success 2
+CF msg Created custom bossbar [Hidden]
+CF result success 3
+CF msg Custom bossbar [Session] now has 3 player(s): A, B, C
+CF result success 3
+CF msg Custom bossbar [Session] has changed value to 30
+CF result success 30
+CF msg Custom bossbar [Session] has changed color
+CF result success 0
+CF msg Custom bossbar [Session] has changed style
+CF result success 0
+CF msg Custom bossbar [Other] now has 1 player(s): B
+CF result success 1
+CF msg Custom bossbar [Other] has changed maximum to 20
+CF result success 20
+CF msg Custom bossbar [Other] has changed value to 5
+CF result success 5
+CF msg Custom bossbar [Hidden] is now hidden
+CF result success 0
+CF msg Custom bossbar [Hidden] now has 1 player(s): A
+CF result success 1
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000753657373696f6e00000000060000
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023e99999a
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c040400
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c040402
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000753657373696f6e00000000060000
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023e99999a
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c040400
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c040402
+PKT B minecraft:boss_event 09ba64d6c370c24537aa7c2a223dca8b32000a080005636f6c6f7200037265640800047465787400054f746865720000000000060000
+PKT B minecraft:boss_event 09ba64d6c370c24537aa7c2a223dca8b32023e800000
+PKT C minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000753657373696f6e00000000060000
+PKT C minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023e99999a
+PKT C minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c040400
+PKT C minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c040402
+BOSSBAR test:h {Name:"Hidden",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004]]}
+BOSSBAR test:s {Color:"yellow",Name:"Session",Overlay:"notched_10",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081],[I;407689464,1828073685,-2048753337,-1664646821]],Value:30,Visible:1b}
+BOSSBAR test:t {Max:20,Name:{color:"red",text:"Other"},Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:5,Visible:1b}
+# A leaves: the online player is removed from the bars, the stored one stays
+STAT A minecraft.custom:minecraft.leave_game 1
+STAT A minecraft.custom:minecraft.play_time 1
+STAT A minecraft.custom:minecraft.time_since_death 1
+STAT A minecraft.custom:minecraft.time_since_rest 1
+STAT A minecraft.custom:minecraft.total_world_time 1
+CF msg Custom bossbar [Session] has changed value to 40
+CF result success 40
+CF msg Custom bossbar [Hidden] no longer has any players
+CF result success 0
+CF result failure 0
+CF fail Nothing changed. Those players are already on the bossbar with nobody to add or remove
+BOSSBAR test:h {Name:"Hidden"}
+BOSSBAR test:s {Color:"yellow",Name:"Session",Overlay:"notched_10",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081],[I;407689464,1828073685,-2048753337,-1664646821]],Value:40,Visible:1b}
+BOSSBAR test:t {Max:20,Name:{color:"red",text:"Other"},Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:5,Visible:1b}
+SAVED custom_boss_events DataVersion=5023
+SAVEDBAR test:h {Name:"Hidden"}
+SAVEDBAR test:s {Color:"yellow",Name:"Session",Overlay:"notched_10",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081],[I;407689464,1828073685,-2048753337,-1664646821]],Value:40,Visible:1b}
+SAVEDBAR test:t {Max:20,Name:{color:"red",text:"Other"},Players:[[I;-196291187,2030186727,-1948358755,2017388081]],Value:5,Visible:1b}
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c01
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023ecccccd
+PKT C minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023ecccccd
+CF result failure 0
+CF fail Nothing changed. Those players are already on the bossbar with nobody to add or remove
+CF msg Custom bossbar [Session] has 2 player(s) currently online: B, C
+CF result success 2
+# A rejoins: the bars it is stored on are added with the current state, a hidden bar is not
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000753657373696f6e3ecccccd040200
+CF msg Custom bossbar [Session] has 3 player(s) currently online: B, C, A
+CF result success 3
+CF msg Custom bossbar [Other] has 1 player(s) currently online: B
+CF result success 1
+CF msg Custom bossbar [Session] has changed value to 41
+CF result success 41
+CF msg Custom bossbar [Other] has changed value to 6
+CF result success 6
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023ed1eb85
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023ed1eb85
+PKT B minecraft:boss_event 09ba64d6c370c24537aa7c2a223dca8b32023e99999a
+PKT C minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023ed1eb85
+# C leaves, a bar is changed and C joins again
+STAT C minecraft.custom:minecraft.leave_game 1
+STAT C minecraft.custom:minecraft.play_time 1
+STAT C minecraft.custom:minecraft.time_since_death 1
+STAT C minecraft.custom:minecraft.time_since_rest 1
+STAT C minecraft.custom:minecraft.total_world_time 1
+CF msg Custom bossbar [Renamed] has been renamed
+CF result success 0
+CF msg Custom bossbar [Renamed] is now hidden
+CF result success 0
+CF msg Custom bossbar [Renamed] is now visible
+CF result success 0
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0308000752656e616d6564
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c01
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000752656e616d65643ed1eb85040200
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0308000752656e616d6564
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c01
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000752656e616d65643ed1eb85040200
+PKT C minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000752656e616d65643ed1eb85040200
+# a bar removed while a player is away: nothing is sent when the player comes back
+STAT B minecraft.custom:minecraft.leave_game 1
+STAT B minecraft.custom:minecraft.play_time 1
+STAT B minecraft.custom:minecraft.time_since_death 1
+STAT B minecraft.custom:minecraft.time_since_rest 1
+STAT B minecraft.custom:minecraft.total_world_time 1
+CF msg Removed custom bossbar [Other]
+CF result success 2
+CF result failure 0
+CF fail No bossbar exists with the ID 'test:t'
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000752656e616d65643ed1eb85040200
+BOSSBAR test:h {Name:"Hidden"}
+BOSSBAR test:s {Color:"yellow",Name:"Renamed",Overlay:"notched_10",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081],[I;407689464,1828073685,-2048753337,-1664646821]],Value:41,Visible:1b}
+# death and respawn
+CF result failure 0
+CF fail Nothing changed. Those players are already on the bossbar with nobody to add or remove
+HURT B minecraft:generic 1000 -> true
+CF msg Custom bossbar [Renamed] has 3 player(s) currently online: A, C, B
+CF result success 3
+CF msg Custom bossbar [Renamed] has changed value to 50
+CF result success 50
+CF msg Custom bossbar [Renamed] has changed color
+CF result success 0
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023f000000
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c040102
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023f000000
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c040102
+PKT C minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023f000000
+PKT C minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c040102
+CF result failure 0
+CF fail Nothing changed. Those players are already on the bossbar with nobody to add or remove
+CF msg Custom bossbar [Renamed] no longer has any players
+CF result success 0
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c01
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c01
+PKT C minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c01
+BOSSBAR test:h {Name:"Hidden"}
+BOSSBAR test:s {Color:"blue",Name:"Renamed",Overlay:"notched_10",Value:50,Visible:1b}
+# teleporting inside the dimension changes nothing for the bar
+CF msg Custom bossbar [Renamed] now has 3 player(s): A, C, B
+CF result success 3
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000752656e616d65643f000000010200
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000752656e616d65643f000000010200
+PKT C minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000752656e616d65643f000000010200
+CF msg Teleported A to 20.500000, -60.000000, 20.500000
+CF result success 1
+CF msg Custom bossbar [Renamed] has changed value to 60
+CF result success 60
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023f19999a
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023f19999a
+PKT C minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023f19999a

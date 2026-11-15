@@ -112,6 +112,8 @@ import net.minecraft.util.RandomSource;
  *                             server's command source; `dump console` prints the console messages since the last dump (`CON TEXT`)
  * cmd_as WHO COMMAND...       `cmd` as WHO: a player name (that player's position, rotation, entity and permissions: `op` makes it level 4, otherwise 0) or `-N`
  *                             (the console with permission level N); `cmd_as_json` adds the JSON lines
+ * bossbars_load [SNBT]        the custom boss bars through their saved codec and back (a restart without the join: every bar keeps its stored players, none is sent to anybody),
+ *                             or replaced by the bars of SNBT (`{ID:{Name:..,Visible:..,..}}`, the saved form); the loaded bars get the ids `b055b000-0000-0000-0000-00000000000N` (N by custom id, vanilla draws random ones); a player that joins afterwards gets the bars it is stored on
  * note TEXT...                prints "# TEXT"
  * reseed N                    restart the entity random-seed sequence (entities created afterwards: see VanillaLevel header)
  * level_seed N                Level.random.setSeed(N) (explosion rays, drop spread, ... draw from it; LegacyRandomSource)
@@ -527,6 +529,20 @@ public final class EntityOracleDriver {
          case "cmd_as", "cmd_as_json" -> {
             world();
             commandAs(a.get(1), line.substring(cmd.length()).strip().substring(a.get(1).length()).strip(), cmd.equals("cmd_as_json"), false, false);
+         }
+         case "bossbars_load" -> {
+            world();
+            var type = net.minecraft.server.bossevents.CustomBossEvents.TYPE;
+            var ops = v.server.registryAccess().createSerializationContext(NbtOps.INSTANCE);
+            Tag saved = a.size() > 1 ? TagParser.parseCompoundFully(line.substring(cmd.length()).strip()) : type.codec().encodeStart(ops, v.server.getCustomBossEvents()).getOrThrow();
+            var loaded = type.codec().parse(ops, saved).getOrThrow();
+            // vanilla draws random bar ids: the loaded bars get fixed ones, in order of their custom ids
+            int n = 0;
+            for (var bar : new TreeMap<String, net.minecraft.server.bossevents.CustomBossEvent>(loaded.getEvents().stream().collect(java.util.stream.Collectors.toMap(b -> b.customId().toString(), b -> b))).values()) {
+               priv(bar, net.minecraft.world.BossEvent.class, "id", new UUID(0xB055B00000000000L, n++));
+            }
+            v.server.getDataStorage().set(type, loaded);
+            priv(v.server, net.minecraft.server.MinecraftServer.class, "customBossEvents", loaded); // the server keeps the instance it loaded at start
          }
          case "level_seed" -> {
             world();
@@ -2255,6 +2271,27 @@ public final class EntityOracleDriver {
                bars.forEach((id, tag) -> out.println("BOSSBAR " + id + " " + tag));
             }
             case "storage" -> out.println("STORAGE " + arg + " " + canon(v.server.getCommandStorage().get(Identifier.parse(arg))));
+            case "saved" -> {
+               // SAVED custom_boss_events DataVersion=N, then SAVEDBAR ID SNBT per bar (players sorted): the data file the real storage writes
+               // (`saveAndJoin`: only dirty data is written; SAVED .. none when no file exists)
+               v.server.getDataStorage().saveAndJoin();
+               java.nio.file.Path file = Identifier.parse(arg).withSuffix(".dat").resolveAgainst(v.server.getWorldPath(net.minecraft.world.level.storage.LevelResource.DATA));
+               if (!Files.exists(file)) {
+                  out.println("SAVED " + arg + " none");
+               } else {
+                  CompoundTag root;
+                  try {
+                     root = net.minecraft.nbt.NbtIo.readCompressed(file, net.minecraft.nbt.NbtAccounter.unlimitedHeap());
+                  } catch (java.io.IOException ex) {
+                     throw new java.io.UncheckedIOException(ex);
+                  }
+                  out.println("SAVED " + arg + " DataVersion=" + root.getIntOr("DataVersion", -1));
+                  CompoundTag data = root.getCompoundOrEmpty("data");
+                  for (String id : new TreeSet<>(data.keySet())) {
+                     out.println("SAVEDBAR " + id + " " + canon(sortedStrings(data.getCompoundOrEmpty(id), "Players")));
+                  }
+               }
+            }
             case "select", "selectsorted", "selectcount" -> {
                // SELECT SELECTOR EXECUTOR POS -> REF..: `select:EXECUTOR/X,Y,Z/SELECTOR` (EXECUTOR `-` = the console), the entities the selector finds
                // as an operator at that position, in result order (scenario names; `?` for an entity without one). `selectsorted:` prints

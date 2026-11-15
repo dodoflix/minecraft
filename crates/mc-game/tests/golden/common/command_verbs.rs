@@ -171,6 +171,44 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String], line: &str) -> bool {
             let id = NameAndId::create_offline(&a[1]);
             server_access::with_server(|server| server.player_list.op_entry(id, None, None));
         }
+        // bossbars_load [SNBT]   the custom boss bars through their saved codec and back, or replaced by the bars of SNBT
+        "bossbars_load" => {
+            h.boot();
+            server_access::with_server(|server| {
+                let ty = mc_game::server::bossevents::CustomBossEvents::type_();
+                let saved = match rest.is_empty() {
+                    true => (ty.encode)(server.custom_boss_events()).expect("the boss bars encode"),
+                    false => Tag::Compound(
+                        mc_nbt::snbt::parse_compound(rest).expect("bossbars_load SNBT"),
+                    ),
+                };
+                // vanilla draws random bar ids: the loaded bars get fixed ones, in order of their custom ids
+                let Tag::Compound(bars) = &saved else {
+                    panic!("the boss bars encode as a compound")
+                };
+                let mut keys: Vec<String> = bars
+                    .keys()
+                    .map(|k| {
+                        mc_core::ident::Identifier::parse(k)
+                            .expect("bar id")
+                            .to_string()
+                    })
+                    .collect();
+                keys.sort();
+                let loaded =
+                    mc_game::server::bossevents::CustomBossEvents::decode_with(&saved, &mut |id| {
+                        let n = keys
+                            .iter()
+                            .position(|k| **k == id.to_string())
+                            .expect("bar id") as u128;
+                        uuid::Uuid::from_u128(0xB055_B000_0000_0000_0000_0000_0000_0000 + n)
+                    })
+                    .unwrap_or_else(|e| panic!("{}", e.error));
+                server
+                    .saved_data
+                    .set(&server.saved_types.custom_boss_events, loaded);
+            });
+        }
         _ => return false,
     }
     true
@@ -408,7 +446,8 @@ fn sorted_lines(prefix: &str, list: Option<&Tag>) -> Vec<String> {
 }
 
 /// The dump kinds of this module (`EntityOracleDriver.dump`): `scoreboard` (`OBJ`/`SCORE`/`TEAM` entries of the scoreboard's saved form,
-/// sorted, and `DISPLAY` slots), `bossbars` (`BOSSBAR ID SNBT` per custom boss bar), `storage:ID` (`STORAGE ID SNBT`) and
+/// sorted, and `DISPLAY` slots), `bossbars` (`BOSSBAR ID SNBT` per custom boss bar), `saved:ID` (the data file the storage writes, see
+/// [`saved_lines`]), `storage:ID` (`STORAGE ID SNBT`) and
 /// `select:EXECUTOR/X,Y,Z/SELECTOR` (`SELECT SELECTOR EXECUTOR POS -> REF..`: what the selector finds for an operator in result order;
 /// `selectsorted:` and `selectcount:` give the sorted names and the count).
 /// `false` for any other kind.
@@ -465,6 +504,10 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
             bars.sort();
             bars
         }
+        ("saved", Some(id)) => {
+            h.boot();
+            saved_lines(id)
+        }
         ("storage", Some(id)) => {
             h.boot();
             let identifier = mc_core::ident::Identifier::parse(id).expect("storage id");
@@ -488,6 +531,41 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
         h.emit(line);
     }
     true
+}
+
+/// `dump saved:ID`: `SAVED ID DataVersion=N` and a `SAVEDBAR ID SNBT` per entry (players sorted) of the data file the saved-data storage
+/// writes for the boss bars (`SAVED ID none` when no file exists; only dirty data is written).
+fn saved_lines(id: &str) -> Vec<String> {
+    let identifier = mc_core::ident::Identifier::parse(id).expect("saved data id");
+    let file = server_access::with_server(|server| {
+        server.saved_data.save_and_join();
+        server
+            .saved_data
+            .storage()
+            .get_data_file(&identifier)
+            .expect("data file path")
+    });
+    if !file.exists() {
+        return vec![format!("SAVED {id} none")];
+    }
+    let root = mc_world::level_storage::SavedDataStorage::read_tag_from_disk(&file)
+        .expect("the data file reads");
+    let version = match root.get("DataVersion") {
+        Some(Tag::Int(version)) => *version,
+        _ => -1,
+    };
+    let mut lines = vec![format!("SAVED {id} DataVersion={version}")];
+    if let Some(Tag::Compound(data)) = root.get("data") {
+        let mut ids: Vec<&String> = data.keys().collect();
+        ids.sort();
+        for key in ids {
+            lines.push(format!(
+                "SAVEDBAR {key} {}",
+                canon_with_sorted(data.get(key).expect("key exists"), "Players")
+            ));
+        }
+    }
+    lines
 }
 
 /// `dump select:EXECUTOR/X,Y,Z/SELECTOR`; `selectsorted:` lists the names sorted and `selectcount:` only counts them (`sort=random` shuffles

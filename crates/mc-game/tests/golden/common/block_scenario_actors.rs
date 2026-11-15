@@ -1222,6 +1222,14 @@ impl Scenario {
         let sim = flags.iter().any(|f| f == "sim");
         let joinburst = flags.iter().any(|f| f == "joinburst");
         let n = a.len() - usize::from(sim) - usize::from(joinburst);
+        // a player that left and joins again replaces its old entry
+        if self.actors.players.contains(&name) {
+            let old = self.entity_id(&name);
+            if self.level().with_player(old, |_, _| ()).is_none() {
+                self.actors.players.retain(|n| *n != name);
+                self.actors.refs.retain(|(n, _)| *n != name);
+            }
+        }
         let profile = mc_game::server::network::login_listener::create_offline_profile(&name);
         // a replay without a command environment has no player list: the progress file lives in a directory of its own
         let own_advancements = if mc_game::commands::server_access::has_server() {
@@ -1292,6 +1300,8 @@ impl Scenario {
                     .listener::<mc_game::advancements::ServerAdvancementManager>()
                     .expect("the advancement manager is registered");
                 p.advancements = server.player_list.get_player_advancements(&handle, manager);
+                // `PlayerList.getPlayerStats`: a player that joins again resumes the statistics it left with
+                p.stats = server.player_list.get_player_stats(&handle);
             });
         }
         // `PlayerList.placeNewPlayer`: the packet listener (teleports, block change acks), the join teleport and the client's
@@ -1319,6 +1329,7 @@ impl Scenario {
             listener.tick_client_load_timeout();
         }
         p.listener = Some(listener);
+        let boss_bar_handle = handle.clone();
         p.handle = Some(handle);
         p.connection_teleport(num(&a[3]), num(&a[4]), num(&a[5]), yaw, pitch);
         // `PlayerList.placeNewPlayer` broadcasts the join message before the new player joins the list: only the players
@@ -1326,7 +1337,9 @@ impl Scenario {
         let joined =
             mc_game::server::players::player_list::join_message(p.get_display_name(), None);
         for other in self.actors.players.clone() {
-            self.with_player_named(&other, |_, o| {
+            let other_id = self.entity_id(&other);
+            // a player that left is no longer on the list
+            self.level().with_player(other_id, |_, o| {
                 o.send(&mc_protocol::packets::play::ClientboundSystemChatPacket {
                     content: joined.clone(),
                     overlay: false,
@@ -1379,6 +1392,14 @@ impl Scenario {
                     &recipes,
                 ));
                 mc_game::server::players::join::send_initial_recipe_book(p, &recipes);
+            }
+            // `PlayerList.placeNewPlayer`: the custom boss bars the player is stored on are added once it is in the level
+            if mc_game::commands::server_access::has_server() {
+                mc_game::commands::server_access::with_server(|server| {
+                    server
+                        .custom_boss_events()
+                        .on_player_connect(&boss_bar_handle)
+                });
             }
             p.init_inventory_menu(level)
         });

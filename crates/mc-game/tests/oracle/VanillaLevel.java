@@ -747,10 +747,11 @@ public final class VanillaLevel {
       }
    }
 
+   /** The newest player of that name (one that left and joined again replaces its old connection). */
    public FakePlayer player(String name) {
-      for (FakePlayer p : players) {
-         if (p.name.equals(name)) {
-            return p;
+      for (int i = players.size() - 1; i >= 0; i--) {
+         if (players.get(i).name.equals(name)) {
+            return players.get(i);
          }
       }
       throw new IllegalArgumentException("no player " + name);
