@@ -434,9 +434,10 @@ fn select_line<H: MobHost>(h: &mut H, executor: &str, position: &str, selector: 
 // ------------------------------------------------------------------------------------------------ the command environment
 
 /// The command environment of a replay (`command_env`): a real `MinecraftServer` (nothing started) with the parsers the dedicated server
-/// installs, whose world seed is the oracle's default (`seed N` changes both through [`set_world_seed`]).
-pub fn install_command_env() -> (MinecraftServer, Box<dyn std::any::Any>) {
-    let mut server = crate::command_common::test_server();
+/// installs, whose world seed is the oracle's default (`seed N` changes both through [`set_world_seed`]). `packs`: the data packs
+/// of the scenario's `datapack` lines.
+pub fn install_command_env(packs: &[String]) -> (MinecraftServer, Box<dyn std::any::Any>) {
+    let mut server = crate::command_common::test_server_with_packs(packs);
     mc_game::commands::BrigadierExceptions::install();
     mc_game::commands::install_text_validators();
     server.0.world_gen_settings.options.seed = 4242;

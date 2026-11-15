@@ -109,7 +109,7 @@ pub fn run_scenario_text(label: &str, text: &str) -> Vec<String> {
     let mut server = text
         .lines()
         .any(|l| l.trim() == "command_env")
-        .then(super::command_verbs::install_command_env);
+        .then(|| super::command_verbs::install_command_env(&[]));
     for (i, raw) in text.lines().enumerate() {
         h.line_no = i + 1;
         h.line = raw.trim().to_string();

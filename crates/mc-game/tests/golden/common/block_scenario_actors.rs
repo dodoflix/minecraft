@@ -72,6 +72,15 @@ pub struct Actors {
     /// `mobspawn ... group=KEY`: the group data `finalizeSpawn` returned for the previous mob of that key.
     groups: HashMap<String, Box<dyn mc_game::world::entity::spawn_group_data::SpawnGroupData>>,
     pub registries_loaded: bool,
+    /// `datapack NAME`: the registries, recipes and advancements of the server that loaded the packs (otherwise the default pack's).
+    pack: Option<ServerData>,
+}
+
+/// What a scenario with data packs reads from the server's reloaded resources instead of the default pack's.
+struct ServerData {
+    registries: mc_game::registry::RegistryAccess,
+    recipes: mc_game::world::item::crafting::RecipeManager,
+    advancements: mc_game::advancements::server_advancement_manager::ServerAdvancementManager,
 }
 
 static ACCESS: std::sync::LazyLock<(
@@ -290,16 +299,56 @@ pub(super) fn real_registries() -> mc_game::registry::RegistryAccess {
     ACCESS.0.clone()
 }
 
+impl Actors {
+    /// The scenario's data packs are loaded: use the server's registries, recipes and advancement tree.
+    pub(super) fn use_server_data(&mut self, server: &mc_game::server::MinecraftServer) {
+        let registries = server.registries.composite_access().clone();
+        let recipes = server
+            .resources
+            .managers
+            .listener::<mc_game::world::item::crafting::RecipeManager>()
+            .expect("recipe manager")
+            .clone();
+        let advancements =
+            mc_game::advancements::server_advancement_manager::ServerAdvancementManager::from_registries(
+                &registries,
+            );
+        self.pack = Some(ServerData {
+            registries,
+            recipes,
+            advancements,
+        });
+    }
+
+    fn registries(&self) -> &mc_game::registry::RegistryAccess {
+        self.pack.as_ref().map_or(&ACCESS.0, |p| &p.registries)
+    }
+
+    fn recipes(&self) -> &mc_game::world::item::crafting::RecipeManager {
+        self.pack.as_ref().map_or(&ACCESS.1, |p| &p.recipes)
+    }
+
+    fn advancements(
+        &self,
+    ) -> &mc_game::advancements::server_advancement_manager::ServerAdvancementManager {
+        self.pack
+            .as_ref()
+            .map_or(&*ADVANCEMENTS, |p| &p.advancements)
+    }
+}
+
 impl Scenario {
     /// Entity creation needs the data pack registries (damage types, enchantments, ...): loaded once per test binary.
     pub(super) fn load_registries(&mut self) {
         if !self.actors.registries_loaded {
             self.actors.registries_loaded = true;
+            let registries = self.actors.registries().clone();
+            let recipes = self.actors.recipes().clone();
             let level = self.level();
-            level.registries = ACCESS.0.clone();
-            level.shared.set_recipe_manager(ACCESS.1.clone());
+            level.registries = registries.clone();
+            level.shared.set_recipe_manager(recipes);
             // item behaviour that reads registries without a level (`Item.getUseDuration` of a goat horn)
-            mc_game::world::item::set_item_registries(ACCESS.0.clone());
+            mc_game::world::item::set_item_registries(registries);
         }
     }
 
@@ -1052,6 +1101,12 @@ impl Scenario {
         let sim = flags.iter().any(|f| f == "sim");
         let joinburst = flags.iter().any(|f| f == "joinburst");
         let n = a.len() - usize::from(sim) - usize::from(joinburst);
+        let advancements = mc_game::advancements::SharedAdvancements::new(
+            mc_game::advancements::player_advancements::PlayerAdvancements::new(
+                self.actors.advancements(),
+                None,
+            ),
+        );
         let level = self.level();
         let id = level.next_entity_id();
         let profile = mc_game::server::network::login_listener::create_offline_profile(&name);
@@ -1069,12 +1124,7 @@ impl Scenario {
             other => panic!("game mode {other}"),
         };
         p.set_game_mode_for_player(mode, None);
-        p.advancements = mc_game::advancements::SharedAdvancements::new(
-            mc_game::advancements::player_advancements::PlayerAdvancements::new(
-                &ADVANCEMENTS,
-                None,
-            ),
-        );
+        p.advancements = advancements;
         let (yaw, pitch) = if n > 7 {
             (num(&a[6]) as f32, num(&a[7]) as f32)
         } else {
@@ -1675,9 +1725,10 @@ impl Scenario {
             "advancements" => {
                 let name = arg.expect("advancements:PLAYER");
                 let mut lines: Vec<(String, String)> = Vec::new();
+                let holders = self.actors.advancements().get_all_advancements().to_vec();
                 self.with_player_named(name, |_, p| {
                     let progress = p.advancements.lock();
-                    for holder in ADVANCEMENTS.get_all_advancements() {
+                    for holder in &holders {
                         let Some(progress) = progress.progress_of(holder) else {
                             continue;
                         };

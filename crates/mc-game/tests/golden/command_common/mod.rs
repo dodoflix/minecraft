@@ -65,10 +65,34 @@ pub static CWD_LOCK: std::sync::Mutex<()> = std::sync::Mutex::new(());
 /// The user lists (`ops.json`, ...) live in the working directory like vanilla's: the process switches into the temp
 /// directory, so tests holding a server are serialized (the second value keeps the lock and the directory alive).
 pub fn test_server() -> (mc_game::server::MinecraftServer, Box<dyn std::any::Any>) {
+    test_server_with_packs(&[])
+}
+
+/// [`test_server`] with the data packs `tests/oracle/datapacks/NAME` copied into the world's `datapacks` folder and enabled
+/// (`initial-enabled-packs`), like the oracle's `datapack NAME` option.
+pub fn test_server_with_packs(
+    packs: &[String],
+) -> (mc_game::server::MinecraftServer, Box<dyn std::any::Any>) {
     let guard = CWD_LOCK.lock().unwrap_or_else(|e| e.into_inner());
     use mc_game::server::dedicated::options::ServerOptions;
     use mc_game::server::dedicated::properties::DedicatedServerSettings;
     let dir = tempfile::tempdir().expect("temp dir");
+    if !packs.is_empty() {
+        let source =
+            std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/oracle/datapacks");
+        for pack in packs {
+            copy_tree(
+                &source.join(pack),
+                &dir.path().join("world/datapacks").join(pack),
+            );
+        }
+        let enabled: String = packs.iter().map(|p| format!(",file/{p}")).collect();
+        std::fs::write(
+            dir.path().join("server.properties"),
+            format!("initial-enabled-packs=vanilla{enabled}\n"),
+        )
+        .expect("server.properties");
+    }
     let options = ServerOptions {
         universe: dir.path().to_string_lossy().into_owned(),
         ..ServerOptions::default()
@@ -80,4 +104,17 @@ pub fn test_server() -> (mc_game::server::MinecraftServer, Box<dyn std::any::Any
         .expect("server")
         .expect("not stopped early");
     (server, Box::new((guard, dir)))
+}
+
+fn copy_tree(from: &std::path::Path, to: &std::path::Path) {
+    std::fs::create_dir_all(to).expect("create pack folder");
+    for entry in std::fs::read_dir(from).unwrap_or_else(|e| panic!("data pack {from:?}: {e}")) {
+        let entry = entry.expect("pack entry");
+        let target = to.join(entry.file_name());
+        if entry.file_type().expect("file type").is_dir() {
+            copy_tree(&entry.path(), &target);
+        } else {
+            std::fs::copy(entry.path(), target).expect("copy pack file");
+        }
+    }
 }

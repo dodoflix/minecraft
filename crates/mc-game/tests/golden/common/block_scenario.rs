@@ -143,6 +143,12 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
     // `command_env`: the vanilla server always has its command environment (lecterns resolve written book pages through it);
     // the replay installs a real `MinecraftServer` (nothing started) around every command of the scenario. The verbs that
     // deliver a packet to the player's listener (`select`, `close_menu`, `menu_button`, `pick_block`) need it as well.
+    // `datapack NAME`: the data packs `tests/oracle/datapacks/NAME` the server loads (the oracle copies them into its world)
+    let packs: Vec<String> = text
+        .lines()
+        .filter_map(|l| l.trim().strip_prefix("datapack "))
+        .map(|name| name.trim().to_owned())
+        .collect();
     let mut server = text
         .lines()
         .any(|l| {
@@ -151,6 +157,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                 Some(
                     "chunk_batch_received"
                         | "command_env"
+                        | "datapack"
                         | "debug_subscribe"
                         | "select"
                         | "close_menu"
@@ -166,7 +173,12 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                 )
             )
         })
-        .then(super::command_verbs::install_command_env);
+        .then(|| super::command_verbs::install_command_env(&packs));
+    if let Some((server, _)) = &server
+        && !packs.is_empty()
+    {
+        s.actors.use_server_data(server);
+    }
     for (i, line) in text.lines().enumerate() {
         let line = line.trim();
         if line.is_empty() || line.starts_with('#') {
@@ -175,9 +187,10 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
         s.line_no = i + 1;
         s.line = line.to_string();
         match server.as_mut() {
-            Some((server, _keep)) => {
-                mc_game::commands::server_access::enter_server(server, || s.run(&tokens(line)))
-            }
+            Some((server, _keep)) => mc_game::commands::server_access::enter_server(server, || {
+                s.run(&tokens(line));
+                s.run_pending_functions();
+            }),
             None => s.run(&tokens(line)),
         }
     }
@@ -359,6 +372,13 @@ impl LevelTickEnv for Env {
                 commands.perform_prefixed_command(server, source, command)
             });
         });
+    }
+    fn run_pending_functions(&mut self, level: &mut ServerLevel) {
+        if mc_game::commands::server_access::has_server() {
+            mc_game::commands::server_access::with_server(|server| {
+                server.run_pending_functions(level)
+            });
+        }
     }
     fn command_rules(&self) -> mc_game::server::level::level_commands::CommandRules {
         let rules = &self.game_rules;
@@ -549,6 +569,17 @@ impl Scenario {
             self.gamerule(name, value);
         }
         self.handle_disconnections();
+    }
+
+    /// The reward functions queued by the line that just ran (vanilla runs them inside the award; see `PendingFunction`).
+    fn run_pending_functions(&mut self) {
+        if let Some(level) = self.level.as_mut()
+            && !level.tick_state.pending_functions.is_empty()
+        {
+            mc_game::commands::server_access::with_server(|server| {
+                server.run_pending_functions(level)
+            });
+        }
     }
 
     /// `VanillaLevel.boot`: the level with the preloaded chunks forced, ticking, entities loaded.
@@ -1011,7 +1042,7 @@ impl Scenario {
                 self.world();
                 self.random_tick(pos(a, 1));
             }
-            "command_env" => {}
+            "command_env" | "datapack" => {}
             "be_nbt" => {
                 self.world();
                 let snbt = self.line[self.line.find(a[4].as_str()).expect("snbt")..].to_string();
