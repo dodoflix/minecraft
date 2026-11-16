@@ -1,0 +1,1 @@
+{"criteria": {"c": {"trigger": "minecraft:tick", "conditions": {"player": {"type": "minecraft:inverted", "term": {"type": "minecraft:entity_scores", "entity": "this", "scores": {"s": 5}}}}}}}

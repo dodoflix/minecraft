@@ -1,0 +1,1 @@
+{"criteria": {"c": {"trigger": "minecraft:tick", "conditions": {"player": {"type": "minecraft:entity_properties", "entity": "this", "predicate": {"minecraft:flags": {"is_sneaking": false, "is_baby": false}}}}}}}

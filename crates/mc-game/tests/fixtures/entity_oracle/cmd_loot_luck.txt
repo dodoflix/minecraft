@@ -1,0 +1,456 @@
+# chests with luck 0, 4, -4 (effect), 10
+CF result failure 0
+CF fail Target has no effects to remove
+CF result success 7
+I A 0 minecraft:iron_horse_armor*1
+I A 1 minecraft:diamond_horse_armor*1
+I A 2 minecraft:music_disc_cat*1
+I A 3 minecraft:bread*1
+I A 4 minecraft:gunpowder*8
+I A 5 minecraft:string*2
+I A 6 minecraft:rotten_flesh*4
+CF msg Removed 18 item(s) from player A
+CF result success 18
+CF result success 13
+I A 0 minecraft:heart_of_the_sea*1
+I A 1 minecraft:tnt*3
+I A 2 minecraft:gold_ingot*7
+I A 3 minecraft:iron_ingot*3
+I A 4 minecraft:diamond*5
+I A 5 minecraft:cooked_salmon*4
+I A 6 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water_breathing"}}
+I A 7 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water_breathing"}}
+CF msg Removed 25 item(s) from player A
+CF result success 25
+CF result success 10
+I A 0 minecraft:coal*12
+I A 1 minecraft:disc_fragment_5*1
+I A 2 minecraft:sculk*5
+I A 3 minecraft:iron_leggings*1{minecraft:enchantments:{minecraft:binding_curse:1,minecraft:protection:4,minecraft:unbreaking:3}}
+I A 4 minecraft:candle*1
+I A 5 minecraft:compass*1
+I A 6 minecraft:glow_berries*19
+I A 7 minecraft:experience_bottle*6
+CF msg Removed 46 item(s) from player A
+CF result success 46
+CF msg Applied effect Luck to A
+CF result success 1
+CF result success 10
+I A 0 minecraft:music_disc_13*1
+I A 1 minecraft:name_tag*1
+I A 2 minecraft:iron_horse_armor*1
+I A 3 minecraft:iron_ingot*2
+I A 4 minecraft:pumpkin_seeds*3
+I A 5 minecraft:melon_seeds*7
+I A 6 minecraft:rotten_flesh*6
+I A 7 minecraft:string*2
+CF msg Removed 23 item(s) from player A
+CF result success 23
+CF result success 10
+I A 0 minecraft:heart_of_the_sea*1
+I A 1 minecraft:gold_ingot*6
+I A 2 minecraft:iron_ingot*7
+I A 3 minecraft:diamond*1
+I A 4 minecraft:emerald*5
+I A 5 minecraft:cooked_cod*6
+CF msg Removed 26 item(s) from player A
+CF result success 26
+CF result success 9
+I A 0 minecraft:compass*2
+I A 1 minecraft:bone*15
+I A 2 minecraft:sculk_sensor*3
+I A 3 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:breach:4}}
+I A 4 minecraft:book*9
+I A 5 minecraft:disc_fragment_5*1
+I A 6 minecraft:amethyst_shard*5
+I A 7 minecraft:coal*10
+CF msg Removed 46 item(s) from player A
+CF result success 46
+CF result success 3
+I A 0 minecraft:iron_chestplate*1{minecraft:enchantments:{minecraft:protection:4,minecraft:thorns:2,minecraft:unbreaking:3}}
+I A 1 minecraft:diamond_shovel*1{minecraft:enchantments:{minecraft:efficiency:4,minecraft:fortune:3,minecraft:mending:1,minecraft:vanishing_curse:1}}
+I A 2 minecraft:iron_ingot*7
+CF msg Removed 9 item(s) from player A
+CF result success 9
+CF msg Removed every effect from A
+CF result success 1
+CF msg Applied effect Bad Luck to A
+CF result success 1
+CF result success 7
+I A 0 minecraft:iron_horse_armor*1
+I A 1 minecraft:melon_seeds*5
+I A 2 minecraft:beetroot_seeds*4
+I A 3 minecraft:bone*4
+I A 4 minecraft:rotten_flesh*10
+CF msg Removed 24 item(s) from player A
+CF result success 24
+CF result success 3
+I A 0 minecraft:golden_horse_armor*1
+I A 1 minecraft:iron_shovel*1{minecraft:enchantments:{minecraft:efficiency:3,minecraft:unbreaking:3}}
+I A 2 minecraft:saddle*1
+CF msg Removed 3 item(s) from player A
+CF result success 3
+CF msg Removed every effect from A
+CF result success 1
+CF msg Applied effect Luck to A
+CF result success 1
+CF result success 8
+I A 0 minecraft:ancient_debris*3
+I A 1 minecraft:diamond_chestplate*1/dmg=97{minecraft:damage:97,minecraft:enchantments:{minecraft:projectile_protection:4}}
+I A 2 minecraft:gilded_blackstone*6
+I A 3 minecraft:magma_cream*16
+I A 4 minecraft:crying_obsidian*3
+I A 5 minecraft:netherite_upgrade_smithing_template*1
+CF msg Removed 30 item(s) from player A
+CF result success 30
+CF result success 9
+I A 0 minecraft:iron_ingot*8
+I A 1 minecraft:lapis_lazuli*10
+I A 2 minecraft:iron_nugget*26
+CF msg Removed 44 item(s) from player A
+CF result success 44
+CF result success 3
+I A 0 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:breach:4}}
+I A 1 minecraft:emerald*8
+I A 2 minecraft:ominous_bottle*1{minecraft:ominous_bottle_amplifier:2}
+CF msg Removed 10 item(s) from player A
+CF result success 10
+CF result success 3
+I A 0 minecraft:paper*4
+I A 1 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:lure:3}}
+I A 2 minecraft:eye_armor_trim_smithing_template*1
+CF msg Removed 6 item(s) from player A
+CF result success 6
+CF msg Removed every effect from A
+CF result success 1
+CF msg The base value for attribute Luck for entity A set to 2.5
+CF result success 1
+CF result success 8
+I A 0 minecraft:music_disc_13*1
+I A 1 minecraft:wheat*3
+I A 2 minecraft:redstone*1
+I A 3 minecraft:bread*2
+I A 4 minecraft:bone*4
+I A 5 minecraft:rotten_flesh*4
+CF msg Removed 15 item(s) from player A
+CF result success 15
+CF result success 10
+I A 0 minecraft:diamond*2
+I A 1 minecraft:iron_ingot*2
+I A 2 minecraft:emerald*5
+I A 3 minecraft:iron_nugget*7
+I A 4 minecraft:lapis_lazuli*6
+I A 5 minecraft:coast_armor_trim_smithing_template*2
+CF msg Removed 24 item(s) from player A
+CF result success 24
+CF msg The base value for attribute Luck for entity A set to 0.0
+CF result success 1
+# fishing: rod enchantments and luck
+CF result success 1
+I A 0 minecraft:fishing_rod*1
+I A 1 minecraft:salmon*1
+CF result failure 0
+CF fail No items were found on player A
+CF msg Removed 1 item(s) from player A
+CF result success 1
+CF result failure 0
+CF fail No items were found on player A
+CF result failure 0
+CF fail No items were found on player A
+CF result success 1
+I A 0 minecraft:fishing_rod*1{minecraft:enchantments:{minecraft:luck_of_the_sea:3,minecraft:lure:3}}
+I A 1 minecraft:cod*1
+CF result success 1
+I A 0 minecraft:fishing_rod*1{minecraft:enchantments:{minecraft:luck_of_the_sea:3,minecraft:lure:3}}
+I A 1 minecraft:cod*2
+CF result success 1
+I A 0 minecraft:fishing_rod*1{minecraft:enchantments:{minecraft:luck_of_the_sea:3,minecraft:lure:3}}
+I A 1 minecraft:cod*3
+CF result success 1
+I A 0 minecraft:fishing_rod*1{minecraft:enchantments:{minecraft:luck_of_the_sea:3,minecraft:lure:3}}
+I A 1 minecraft:cod*3
+I A 2 minecraft:saddle*1
+CF result success 1
+I A 0 minecraft:fishing_rod*1{minecraft:enchantments:{minecraft:luck_of_the_sea:3,minecraft:lure:3}}
+I A 1 minecraft:cod*3
+I A 2 minecraft:saddle*1
+I A 3 minecraft:lily_pad*1
+CF result success 1
+I A 0 minecraft:fishing_rod*1{minecraft:enchantments:{minecraft:luck_of_the_sea:3,minecraft:lure:3}}
+I A 1 minecraft:cod*3
+I A 2 minecraft:saddle*1
+I A 3 minecraft:lily_pad*1
+I A 4 minecraft:tropical_fish*1
+CF msg Applied effect Luck to A
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+I A 0 minecraft:fishing_rod*1{minecraft:enchantments:{minecraft:luck_of_the_sea:3,minecraft:lure:3}}
+I A 1 minecraft:cod*6
+I A 2 minecraft:saddle*1
+I A 3 minecraft:lily_pad*1
+I A 4 minecraft:tropical_fish*1
+CF msg Removed every effect from A
+CF result success 1
+CF msg Removed 10 item(s) from player A
+CF result success 10
+CF result success 1
+CF result success 1
+I A 0 minecraft:salmon*2
+# mining: fortune, silk touch, shears, hoe, axe, no tool
+CF msg Removed 2 item(s) from player A
+CF result success 2
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 0
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 0
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+I A 0 minecraft:diamond_pickaxe*1
+I A 1 minecraft:diamond*1
+I A 2 minecraft:lapis_lazuli*9
+I A 3 minecraft:redstone*4
+I A 4 minecraft:prismarine_crystals*2
+I A 5 minecraft:glowstone_dust*4
+I A 6 minecraft:melon_slice*5
+I A 7 minecraft:gravel*1
+I A 8 minecraft:coal*1
+I A 9 minecraft:ancient_debris*1
+I A 10 minecraft:obsidian*8
+I A 11 minecraft:cobblestone*1
+I A 12 minecraft:snowball*4
+I A 13 minecraft:pointed_dripstone*1
+CF msg Removed 43 item(s) from player A
+CF result success 43
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 0
+CF result success 1
+CF result success 2
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 0
+CF result success 1
+CF result success 1
+CF result success 0
+CF result success 0
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+I A 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:fortune:3}}
+I A 1 minecraft:diamond*4
+I A 2 minecraft:lapis_lazuli*12
+I A 3 minecraft:redstone*7
+I A 4 minecraft:prismarine_crystals*4
+I A 5 minecraft:glowstone_dust*2
+I A 6 minecraft:melon_slice*6
+I A 7 minecraft:flint*1
+I A 8 minecraft:wheat*1
+I A 9 minecraft:wheat_seeds*3
+I A 10 minecraft:nether_wart*5
+I A 11 minecraft:sweet_berries*4
+I A 12 minecraft:glow_berries*1
+I A 13 minecraft:coal*1
+I A 14 minecraft:ancient_debris*1
+I A 15 minecraft:obsidian*8
+I A 16 minecraft:cobblestone*1
+I A 17 minecraft:snowball*4
+I A 18 minecraft:pointed_dripstone*1
+CF msg Removed 67 item(s) from player A
+CF result success 67
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+I A 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:silk_touch:1}}
+I A 1 minecraft:diamond_ore*1
+I A 2 minecraft:lapis_ore*1
+I A 3 minecraft:redstone_ore*1
+I A 4 minecraft:sea_lantern*1
+I A 5 minecraft:glowstone*1
+I A 6 minecraft:melon*1
+I A 7 minecraft:oak_leaves*1
+I A 8 minecraft:gravel*1
+I A 9 minecraft:coal_ore*1
+I A 10 minecraft:turtle_egg*1
+I A 11 minecraft:bee_nest*1
+I A 12 minecraft:ender_chest*1
+I A 13 minecraft:snow*4
+I A 14 minecraft:pointed_dripstone*1
+CF msg Removed 18 item(s) from player A
+CF result success 18
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+I A 0 minecraft:shears*1
+I A 1 minecraft:oak_leaves*1
+I A 2 minecraft:short_grass*1
+I A 3 minecraft:sweet_berries*3
+I A 4 minecraft:glow_berries*1
+CF msg Removed 7 item(s) from player A
+CF result success 7
+CF result success 0
+CF result success 2
+CF result success 1
+CF result success 2
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 0
+CF result success 0
+I A 0 minecraft:stick*1
+I A 1 minecraft:wheat*2
+I A 2 minecraft:wheat_seeds*4
+I A 3 minecraft:diamond*1
+I A 4 minecraft:nether_wart*3
+I A 5 minecraft:sweet_berries*2
+I A 6 minecraft:glow_berries*1
+CF msg Removed 14 item(s) from player A
+CF result success 14
+CF result success 1
+CF result success 0
+CF result success 1
+CF result success 1
+I A 0 minecraft:iron_axe*1{minecraft:enchantments:{minecraft:fortune:5}}
+I A 1 minecraft:melon_slice*7
+I A 2 minecraft:glowstone_dust*4
+I A 3 minecraft:prismarine_crystals*2
+CF msg Removed 14 item(s) from player A
+CF result success 14
+CF result success 1
+CF result failure 0
+CF fail Block Bedrock has no loot table
+CF result success 1
+CF result success 1
+I A 0 minecraft:diamond*3
+CF msg Removed 3 item(s) from player A
+CF result success 3
+# killing: looting, sweeping, fire, baby, charged creeper, player kill
+CF msg Summoned new Zombie
+CF result success 1
+CF msg Summoned new Skeleton
+CF result success 1
+CF msg Summoned new Creeper
+CF result success 1
+CF msg Summoned new Creeper
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Summoned new Chicken
+CF result success 1
+CF msg Summoned new Wither Skeleton
+CF result success 1
+CF msg Summoned new Blaze
+CF result success 1
+CF msg Summoned new Slime
+CF result success 1
+CF msg Summoned new Rabbit
+CF result success 1
+CF msg Summoned new Sheep
+CF result success 1
+CF msg Summoned new Villager
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=zombie,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=skeleton,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=creeper,tag=k,nbt={powered:1b}]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=creeper,tag=k,nbt=!{powered:1b}]<--[HERE]
+CF result success 2
+CF result success 1
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=chicken,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=wither_skeleton,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=blaze,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=slime,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=rabbit,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=sheep,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=villager,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=pig,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[tag=k]<--[HERE]
+CF result success 0
+I A 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:looting:3}}
+I A 1 minecraft:leather*2
+I A 2 minecraft:beef*2
+I A 3 minecraft:cooked_beef*1
+CF msg Removed 6 item(s) from player A
+CF result success 6
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=zombie,tag=k]<--[HERE]
+CF result success 2
+CF result success 2
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=wither_skeleton,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=rabbit,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=sheep,tag=k]<--[HERE]
+I A 0 minecraft:stick*1
+I A 1 minecraft:leather*3
+I A 2 minecraft:beef*2
+I A 3 minecraft:cooked_beef*3
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot give A kill @e[type=chicken,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot spawn 0 -60 0 kill @e[type=pig,tag=k]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail loot replace entity A hotbar.2 3 kill @e[type=pig,tag=k]<--[HERE]
+E zombie#1 minecraft:zombie pos=20.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E skeleton#1 minecraft:skeleton pos=22.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E creeper#1 minecraft:creeper pos=24.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E creeper#2 minecraft:creeper pos=26.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=28.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=30.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=99 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=9/19 death=0 fx=-
+E chicken#1 minecraft:chicken pos=32.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wither_skeleton#1 minecraft:wither_skeleton pos=34.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E blaze#1 minecraft:blaze pos=36.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#1 minecraft:slime pos=38.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rabbit#1 minecraft:rabbit pos=40.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sheep#1 minecraft:sheep pos=42.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E villager#1 minecraft:villager pos=44.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=46.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:stick*1
+I A 1 minecraft:leather*3
+I A 2 minecraft:beef*2
+I A 3 minecraft:cooked_beef*3

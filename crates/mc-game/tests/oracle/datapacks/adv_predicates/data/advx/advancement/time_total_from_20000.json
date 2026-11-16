@@ -1,0 +1,1 @@
+{"criteria": {"c": {"trigger": "minecraft:tick", "conditions": {"player": {"type": "minecraft:time_check", "clock": "minecraft:overworld", "value": {"min": 20000}}}}}}

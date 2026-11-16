@@ -1,0 +1,218 @@
+LOG ERROR: Couldn't load tag fnx:group as it is missing following references: fnx:missing (from file/fn_interplay)
+CF msg Created new objective [n]
+CF result success 1
+CF msg Set [n] for 0 entities to 0
+CF result success 0
+STORAGE fnx:out {}
+CF msg #ticks has 2 [n]
+CF result success 2
+# results
+CF msg Running function fnx:ret7
+CF msg Function fnx:ret7 returned 7
+CF result success 7
+CF msg Running function fnx:retfail
+CF msg Function fnx:retfail returned 0
+CF result failure 0
+CF msg Running function fnx:noret
+CF msg Running function fnx:ret_run
+CF msg Function fnx:ret_run returned 7
+CF result success 7
+CF msg Running function fnx:cond_ret
+CF msg Function fnx:cond_ret returned 0
+CF result failure 0
+CF msg Running function fnx:macro_ret
+CF msg Function fnx:macro_ret returned 3
+CF result success 3
+CF msg Running function fnx:macro_ret
+CF fail Failed to instantiate function fnx:macro_ret: While instantiating macro fnx:macro_ret: Command 'scoreboard players add #c n -1' caused error: Integer must not be less than 0: found -1 at position 28: ... add #c n <--[HERE]
+CF result failure 0
+CF msg Running function fnx:macro_ret
+CF fail Failed to instantiate function fnx:macro_ret: While instantiating macro fnx:macro_ret: Command 'scoreboard players add #c n 1.5' caused error: Invalid integer '1.5' at position 28: ... add #c n <--[HERE]
+CF result failure 0
+CF msg Running function fnx:macro_ret
+CF fail Failed to instantiate function fnx:macro_ret: While instantiating macro fnx:macro_ret: Command 'scoreboard players add #c n x' caused error: Expected integer at position 28: ... add #c n <--[HERE]
+CF result failure 0
+CF msg Running function fnx:macro_ret
+CF fail Failed to instantiate function fnx:macro_ret: Missing arguments to function fnx:macro_ret
+CF result failure 0
+CF msg Running function fnx:store_ret
+STORAGE fnx:out {r:7,s:0b}
+CF msg #r has 5 [n]
+CF result success 5
+CF msg #c has 15 [n]
+CF result success 15
+CF msg Running function fnx:ret7
+CF msg Function fnx:ret7 returned 7
+CF result success 7
+CF msg Running function fnx:ret7
+CF msg Function fnx:ret7 returned 7
+CF result success 7
+CF msg Running function fnx:retfail
+CF msg Function fnx:retfail returned 0
+CF result failure 0
+CF msg Running function fnx:retfail
+CF msg Function fnx:retfail returned 0
+CF result failure 0
+CF msg Running function fnx:noret
+CF msg Running function fnx:noret
+CF msg #x has 1 score(s):
+CF msg [n]: 7
+CF result success 1
+CF msg #y has 1 score(s):
+CF msg [n]: 1
+CF result success 1
+CF msg #z has 1 score(s):
+CF msg [n]: 0
+CF result success 1
+CF msg #w has 1 score(s):
+CF msg [n]: 0
+CF result success 1
+CF msg #v has no scores to show
+CF result success 0
+CF msg #u has no scores to show
+CF result success 0
+CF fail Unknown or incomplete command. See below for error
+CF fail ...n fnx:ret7<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...nx:retfail<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ... fnx:noret<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...nx:retfail<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...macro_ret {v:0}<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...macro_ret {v:9}<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...nx:missing<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...#fnx:group<--[HERE]
+CF fail Can't find any functions for name fnx:group
+CF result failure 0
+CF fail Can't find any functions for name fnx:nothing
+CF result failure 0
+CF msg Running function fnx:call_tag
+CF msg Running function fnx:indent
+CF msg Running function fnx:macro_json
+CF msg Running function fnx:macro_json
+CF fail Failed to instantiate function fnx:macro_json: While instantiating macro fnx:macro_json: Command 'tellraw @a {"text":"x"y","color":"bad"}' caused error: Expected literal , at position 22: ..."text":"x"<--[HERE]
+CF result failure 0
+CF msg Running function fnx:macro_json
+STORAGE fnx:out {k2:[1,2],key:1b,r:7,s:0b}
+# limits
+CF msg Set [n] for 0 entities to 0
+CF result success 0
+CF msg Running function fnx:recurse
+CF msg #depth has 101 [n]
+CF result success 101
+CF msg Game rule max_command_sequence_length is now set to 50
+CF result success 50
+CF msg Set [n] for 0 entities to 0
+CF result success 0
+CF msg Running function fnx:recurse
+CF msg #depth has 17 [n]
+CF result success 17
+CF msg Game rule max_command_sequence_length is now set to 65536
+CF result success 65536
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Running function fnx:fork_many
+CF msg Game rule max_command_forks is now set to 2
+CF result success 2
+CF msg Running function fnx:fork_many
+CF msg Game rule max_command_forks is now set to 65536
+CF result success 65536
+# schedule with frozen ticks
+CF msg Scheduled function 'fnx:sched_a' in 3 tick(s) at gametime 6
+CF result success 6
+CF msg Scheduled function 'fnx:sched_a' in 3 tick(s) at gametime 6
+CF result success 6
+CF msg Scheduled function 'fnx:sched_a' in 3 tick(s) at gametime 6
+CF result success 6
+CF result failure 0
+CF fail Can't schedule for current tick
+CF msg Scheduled function 'fnx:sched_a' in 1 tick(s) at gametime 4
+CF result success 4
+CF msg Scheduled function 'fnx:sched_b' in 1 tick(s) at gametime 4
+CF result success 4
+CF msg Scheduled tag 'fnx:group' in 2 tick(s) at gametime 5
+CF result success 5
+CF msg Scheduled function 'fnx:sched_macro' in 1 tick(s) at gametime 4
+CF result success 4
+CF result failure 0
+CF fail Unknown function fnx:missing
+CF msg Scheduled function 'fnx:sched_a' in 24000 tick(s) at gametime 24003
+CF result success 24003
+CF msg Scheduled function 'fnx:sched_a' in 2147483647 tick(s) at gametime 2147483650
+CF result success 3
+CF fail The tick count must not be less than 0: found -1
+CF fail ...ched_a -1t<--[HERE]
+CF msg Removed 1 schedule(s) with ID fnx:sched_a
+CF result success 1
+CF result failure 0
+CF fail No schedules with ID fnx:sched_a
+CF result failure 0
+CF fail No schedules with ID fnx:missing
+CF msg Scheduled function 'fnx:sched_a' in 2 tick(s) at gametime 5
+CF result success 5
+CF msg Scheduled function 'fnx:sched_b' in 2 tick(s) at gametime 5
+CF result success 5
+CF msg The game is frozen
+CF result success 1
+CF result failure 0
+CF fail Can't get value of n for #sched; none is set
+CF msg The game is running normally
+CF result success 0
+CF msg #sched has 23 [n]
+CF result success 23
+CF msg Set the target tick rate to 1.0 per second
+CF result success 1
+CF msg #sched has 23 [n]
+CF result success 23
+CF msg #ticks has 10 [n]
+CF result success 10
+CF msg Set the target tick rate to 20.0 per second
+CF result success 20
+CF result failure 0
+CF fail Unable to step the game - the game must be frozen first
+CF msg The game is frozen
+CF result success 1
+CF msg Stepping 4 tick(s)
+CF result success 1
+CF msg #ticks has 10 [n]
+CF result success 10
+CF msg The game is sprinting
+CF result success 1
+CF msg Interrupted the current tick sprint
+CF result success 1
+CF msg The game is running normally
+CF result success 0
+CF msg #ticks has 12 [n]
+CF result success 12
+# reload
+CF msg Reloading!
+CF result success 0
+CF msg #ticks has 14 [n]
+CF result success 14
+CF msg There are 2 data pack(s) enabled: [vanilla (built-in)], [file/fn_interplay (world)]
+CF msg There are no more data packs available
+CF result success 2
+CF msg Disabling data pack [file/fn_interplay (world)]
+CF result success 1
+CF msg There are 1 data pack(s) enabled: [vanilla (built-in)]
+CF msg There are 1 data pack(s) available: [file/fn_interplay (world)]
+CF result success 2
+CF msg Enabling data pack [file/fn_interplay (world)]
+CF result success 2
+CF result failure 0
+CF fail Unknown data pack 'nonsense'
+CF msg There are no more data packs available
+CF result success 0
+CF msg There are 2 data pack(s) enabled: [vanilla (built-in)], [file/fn_interplay (world)]
+CF result success 2
+LOG ERROR: Couldn't load tag fnx:group as it is missing following references: fnx:missing (from file/fn_interplay)
+LOG ERROR: Couldn't load tag fnx:group as it is missing following references: fnx:missing (from file/fn_interplay)

@@ -1,0 +1,296 @@
+# Scenario: loot under luck (effect, negative luck), tools with fortune/silk/looting/luck of the sea/lure, killer weapons,
+# through /loot give: chests with bonus rolls, fishing, mining, killing.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 600
+spawn_player A creative 0.5 -60 0.5 0 0
+op A
+tick 1
+note chests with luck 0, 4, -4 (effect), 10
+cmd effect clear A
+level_seed 100
+cmd_as A loot give A loot minecraft:chests/simple_dungeon
+dump inventory:A
+cmd clear A
+level_seed 101
+cmd_as A loot give A loot minecraft:chests/buried_treasure
+dump inventory:A
+cmd clear A
+level_seed 102
+cmd_as A loot give A loot minecraft:chests/ancient_city
+dump inventory:A
+cmd clear A
+cmd effect give A minecraft:luck 100 4 true
+level_seed 100
+cmd_as A loot give A loot minecraft:chests/simple_dungeon
+dump inventory:A
+cmd clear A
+level_seed 101
+cmd_as A loot give A loot minecraft:chests/buried_treasure
+dump inventory:A
+cmd clear A
+level_seed 102
+cmd_as A loot give A loot minecraft:chests/ancient_city
+dump inventory:A
+cmd clear A
+level_seed 103
+cmd_as A loot give A loot minecraft:chests/end_city_treasure
+dump inventory:A
+cmd clear A
+cmd effect clear A
+cmd effect give A minecraft:unluck 100 3 true
+level_seed 100
+cmd_as A loot give A loot minecraft:chests/simple_dungeon
+dump inventory:A
+cmd clear A
+level_seed 103
+cmd_as A loot give A loot minecraft:chests/end_city_treasure
+dump inventory:A
+cmd clear A
+cmd effect clear A
+cmd effect give A minecraft:luck 100 9 true
+level_seed 104
+cmd_as A loot give A loot minecraft:chests/bastion_treasure
+dump inventory:A
+cmd clear A
+level_seed 105
+cmd_as A loot give A loot minecraft:chests/shipwreck_treasure
+dump inventory:A
+cmd clear A
+level_seed 106
+cmd_as A loot give A loot minecraft:chests/trial_chambers/reward_ominous
+dump inventory:A
+cmd clear A
+level_seed 107
+cmd_as A loot give A loot minecraft:chests/stronghold_library
+dump inventory:A
+cmd clear A
+cmd effect clear A
+cmd attribute A minecraft:luck base set 2.5
+level_seed 100
+cmd_as A loot give A loot minecraft:chests/simple_dungeon
+dump inventory:A
+cmd clear A
+level_seed 105
+cmd_as A loot give A loot minecraft:chests/shipwreck_treasure
+dump inventory:A
+cmd clear A
+cmd attribute A minecraft:luck base set 0
+note fishing: rod enchantments and luck
+give A mainhand minecraft:fishing_rod
+level_seed 200
+cmd_as A loot give A fish minecraft:gameplay/fishing 0 -60 0 mainhand
+dump inventory:A
+cmd clear A minecraft:cod
+cmd clear A minecraft:salmon
+cmd clear A minecraft:pufferfish
+cmd clear A minecraft:tropical_fish
+give A mainhand minecraft:fishing_rod[minecraft:enchantments={"minecraft:luck_of_the_sea":3,"minecraft:lure":3}]
+level_seed 200
+cmd_as A loot give A fish minecraft:gameplay/fishing 0 -60 0 mainhand
+dump inventory:A
+level_seed 201
+cmd_as A loot give A fish minecraft:gameplay/fishing 0 -60 0 mainhand
+dump inventory:A
+level_seed 202
+cmd_as A loot give A fish minecraft:gameplay/fishing 0 -60 0 mainhand
+dump inventory:A
+level_seed 203
+cmd_as A loot give A fish minecraft:gameplay/fishing/treasure 0 -60 0 mainhand
+dump inventory:A
+level_seed 204
+cmd_as A loot give A fish minecraft:gameplay/fishing/junk 0 -60 0 mainhand
+dump inventory:A
+level_seed 205
+cmd_as A loot give A fish minecraft:gameplay/fishing/fish 0 -60 0 mainhand
+dump inventory:A
+cmd effect give A minecraft:luck 100 5 true
+level_seed 200
+cmd_as A loot give A fish minecraft:gameplay/fishing 0 -60 0 mainhand
+level_seed 201
+cmd_as A loot give A fish minecraft:gameplay/fishing 0 -60 0 mainhand
+level_seed 202
+cmd_as A loot give A fish minecraft:gameplay/fishing 0 -60 0 mainhand
+dump inventory:A
+cmd effect clear A
+cmd clear A
+level_seed 210
+cmd_as A loot give A fish minecraft:gameplay/fishing 0 -60 0 mainhand
+level_seed 210
+cmd_as A loot give A fish minecraft:gameplay/fishing 0 -64 0 mainhand
+dump inventory:A
+note mining: fortune, silk touch, shears, hoe, axe, no tool
+cmd clear A
+block 3 -60 3 minecraft:diamond_ore
+block 3 -60 5 minecraft:lapis_ore
+block 3 -60 7 minecraft:redstone_ore
+block 3 -60 9 minecraft:sea_lantern
+block 3 -60 11 minecraft:glowstone
+block 3 -60 13 minecraft:melon
+block 3 -60 15 minecraft:oak_leaves
+block 3 -60 17 minecraft:gravel
+block 3 -60 19 minecraft:wheat[age=7]
+block 3 -60 21 minecraft:nether_wart[age=3]
+block 3 -60 23 minecraft:sweet_berry_bush[age=3]
+block 3 -60 25 minecraft:cave_vines[berries=true]
+block 3 -60 27 minecraft:short_grass
+block 3 -60 29 minecraft:coal_ore
+block 3 -60 31 minecraft:ancient_debris
+block 3 -60 33 minecraft:turtle_egg[eggs=3]
+block 3 -60 35 minecraft:bee_nest
+block 3 -60 37 minecraft:ender_chest
+block 3 -60 39 minecraft:stone
+block 3 -60 41 minecraft:snow[layers=4]
+block 3 -60 43 minecraft:pointed_dripstone
+tick 1
+give A mainhand minecraft:diamond_pickaxe
+level_seed 300
+cmd_as A loot give A mine 3 -60 3 mainhand
+cmd_as A loot give A mine 3 -60 5 mainhand
+cmd_as A loot give A mine 3 -60 7 mainhand
+cmd_as A loot give A mine 3 -60 9 mainhand
+cmd_as A loot give A mine 3 -60 11 mainhand
+cmd_as A loot give A mine 3 -60 13 mainhand
+cmd_as A loot give A mine 3 -60 15 mainhand
+cmd_as A loot give A mine 3 -60 17 mainhand
+cmd_as A loot give A mine 3 -60 29 mainhand
+cmd_as A loot give A mine 3 -60 31 mainhand
+cmd_as A loot give A mine 3 -60 33 mainhand
+cmd_as A loot give A mine 3 -60 37 mainhand
+cmd_as A loot give A mine 3 -60 39 mainhand
+cmd_as A loot give A mine 3 -60 41 mainhand
+cmd_as A loot give A mine 3 -60 43 mainhand
+dump inventory:A
+cmd clear A
+give A mainhand minecraft:diamond_pickaxe[minecraft:enchantments={"minecraft:fortune":3}]
+level_seed 300
+cmd_as A loot give A mine 3 -60 3 mainhand
+cmd_as A loot give A mine 3 -60 5 mainhand
+cmd_as A loot give A mine 3 -60 7 mainhand
+cmd_as A loot give A mine 3 -60 9 mainhand
+cmd_as A loot give A mine 3 -60 11 mainhand
+cmd_as A loot give A mine 3 -60 13 mainhand
+cmd_as A loot give A mine 3 -60 15 mainhand
+cmd_as A loot give A mine 3 -60 17 mainhand
+cmd_as A loot give A mine 3 -60 19 mainhand
+cmd_as A loot give A mine 3 -60 21 mainhand
+cmd_as A loot give A mine 3 -60 23 mainhand
+cmd_as A loot give A mine 3 -60 25 mainhand
+cmd_as A loot give A mine 3 -60 27 mainhand
+cmd_as A loot give A mine 3 -60 29 mainhand
+cmd_as A loot give A mine 3 -60 31 mainhand
+cmd_as A loot give A mine 3 -60 33 mainhand
+cmd_as A loot give A mine 3 -60 35 mainhand
+cmd_as A loot give A mine 3 -60 37 mainhand
+cmd_as A loot give A mine 3 -60 39 mainhand
+cmd_as A loot give A mine 3 -60 41 mainhand
+cmd_as A loot give A mine 3 -60 43 mainhand
+dump inventory:A
+cmd clear A
+give A mainhand minecraft:diamond_pickaxe[minecraft:enchantments={"minecraft:silk_touch":1}]
+level_seed 300
+cmd_as A loot give A mine 3 -60 3 mainhand
+cmd_as A loot give A mine 3 -60 5 mainhand
+cmd_as A loot give A mine 3 -60 7 mainhand
+cmd_as A loot give A mine 3 -60 9 mainhand
+cmd_as A loot give A mine 3 -60 11 mainhand
+cmd_as A loot give A mine 3 -60 13 mainhand
+cmd_as A loot give A mine 3 -60 15 mainhand
+cmd_as A loot give A mine 3 -60 17 mainhand
+cmd_as A loot give A mine 3 -60 29 mainhand
+cmd_as A loot give A mine 3 -60 33 mainhand
+cmd_as A loot give A mine 3 -60 35 mainhand
+cmd_as A loot give A mine 3 -60 37 mainhand
+cmd_as A loot give A mine 3 -60 41 mainhand
+cmd_as A loot give A mine 3 -60 43 mainhand
+dump inventory:A
+cmd clear A
+give A mainhand minecraft:shears
+level_seed 300
+cmd_as A loot give A mine 3 -60 15 mainhand
+cmd_as A loot give A mine 3 -60 27 mainhand
+cmd_as A loot give A mine 3 -60 23 mainhand
+cmd_as A loot give A mine 3 -60 25 mainhand
+dump inventory:A
+cmd clear A
+give A mainhand minecraft:diamond_hoe
+level_seed 300
+cmd_as A loot give A mine 3 -60 15 mainhand
+cmd_as A loot give A mine 3 -60 19 mainhand
+give A mainhand minecraft:stick
+level_seed 300
+cmd_as A loot give A mine 3 -60 3 mainhand
+cmd_as A loot give A mine 3 -60 19 mainhand
+cmd_as A loot give A mine 3 -60 21 mainhand
+cmd_as A loot give A mine 3 -60 23 mainhand
+cmd_as A loot give A mine 3 -60 25 mainhand
+cmd_as A loot give A mine 3 -60 27 mainhand
+cmd_as A loot give A mine 3 -60 35 mainhand
+dump inventory:A
+cmd clear A
+give A mainhand minecraft:iron_axe[minecraft:enchantments={"minecraft:fortune":5}]
+level_seed 300
+cmd_as A loot give A mine 3 -60 13 mainhand
+cmd_as A loot give A mine 3 -60 15 mainhand
+cmd_as A loot give A mine 3 -60 11 mainhand
+cmd_as A loot give A mine 3 -60 9 mainhand
+dump inventory:A
+cmd clear A
+cmd_as A loot give A mine 3 -60 3
+cmd_as A loot give A mine 3 -64 3 mainhand
+cmd_as A loot give A mine 3 -60 3 offhand
+cmd_as A loot give A mine 3 -60 3 mainhand
+dump inventory:A
+cmd clear A
+note killing: looting, sweeping, fire, baby, charged creeper, player kill
+give A mainhand minecraft:diamond_sword[minecraft:enchantments={"minecraft:looting":3}]
+cmd summon minecraft:zombie 20 -60 20 {NoAI:1b,Tags:["k"],PersistenceRequired:1b}
+cmd summon minecraft:skeleton 22 -60 20 {NoAI:1b,Tags:["k"]}
+cmd summon minecraft:creeper 24 -60 20 {NoAI:1b,Tags:["k"],powered:1b}
+cmd summon minecraft:creeper 26 -60 20 {NoAI:1b,Tags:["k"]}
+cmd summon minecraft:cow 28 -60 20 {NoAI:1b,Tags:["k"]}
+cmd summon minecraft:cow 30 -60 20 {NoAI:1b,Tags:["k"],Fire:100s}
+cmd summon minecraft:chicken 32 -60 20 {NoAI:1b,Tags:["k"]}
+cmd summon minecraft:wither_skeleton 34 -60 20 {NoAI:1b,Tags:["k"]}
+cmd summon minecraft:blaze 36 -60 20 {NoAI:1b,Tags:["k"]}
+cmd summon minecraft:slime 38 -60 20 {NoAI:1b,Tags:["k"],Size:2}
+cmd summon minecraft:rabbit 40 -60 20 {NoAI:1b,Tags:["k"]}
+cmd summon minecraft:sheep 42 -60 20 {NoAI:1b,Tags:["k"],Color:3b}
+cmd summon minecraft:villager 44 -60 20 {NoAI:1b,Tags:["k"]}
+cmd summon minecraft:pig 46 -60 20 {NoAI:1b,Tags:["k"],Saddle:1b}
+tick 1
+level_seed 400
+cmd_as A loot give A kill @e[type=zombie,tag=k]
+cmd_as A loot give A kill @e[type=skeleton,tag=k]
+cmd_as A loot give A kill @e[type=creeper,tag=k,nbt={powered:1b}]
+cmd_as A loot give A kill @e[type=creeper,tag=k,nbt=!{powered:1b}]
+cmd_as A loot give A kill @e[type=cow,tag=k,limit=1,sort=nearest]
+cmd_as A loot give A kill @e[type=cow,tag=k,limit=1,sort=furthest]
+cmd_as A loot give A kill @e[type=chicken,tag=k]
+cmd_as A loot give A kill @e[type=wither_skeleton,tag=k]
+cmd_as A loot give A kill @e[type=blaze,tag=k]
+cmd_as A loot give A kill @e[type=slime,tag=k]
+cmd_as A loot give A kill @e[type=rabbit,tag=k]
+cmd_as A loot give A kill @e[type=sheep,tag=k]
+cmd_as A loot give A kill @e[type=villager,tag=k]
+cmd_as A loot give A kill @e[type=pig,tag=k]
+cmd_as A loot give A kill @e[tag=k]
+cmd_as A loot give A kill A
+dump inventory:A
+cmd clear A
+give A mainhand minecraft:stick
+level_seed 400
+cmd_as A loot give A kill @e[type=zombie,tag=k]
+cmd_as A loot give A kill @e[type=cow,tag=k,limit=1,sort=nearest]
+cmd_as A loot give A kill @e[type=cow,tag=k,limit=1,sort=furthest]
+cmd_as A loot give A kill @e[type=wither_skeleton,tag=k]
+cmd_as A loot give A kill @e[type=rabbit,tag=k]
+cmd_as A loot give A kill @e[type=sheep,tag=k]
+dump inventory:A
+cmd_as -2 loot give A kill @e[type=chicken,tag=k]
+cmd_as A loot spawn 0 -60 0 kill @e[type=pig,tag=k]
+cmd_as A loot replace entity A hotbar.2 3 kill @e[type=pig,tag=k]
+dump entities
+dump inventory:A

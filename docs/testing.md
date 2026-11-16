@@ -135,6 +135,20 @@ crate can use it as a dev-dependency.
   table on each side and a script. A menu that an entity provides (villager trading, horse inventories) is opened with `SPAWN` and
   `USE` after an `OPEN` of the kind `merchant` or `mount`, and `TRADE`, `NBT`, `DISCARD`, `PLAYER` and `HEALTH` change the world around
   it; statistics and advancement triggers need a real player and are compared by the packet scenarios (`mnu_trade_session`).
+- Command coverage: a block-tier scenario that starts with `command_env` replays real commands through an installed server and compares
+  what they report, not only what they change. `cmd COMMAND...` runs as the console, `cmd_quiet` runs without printing, `cmd_json`
+  adds the JSON of every message, and `cmd_as PLAYER COMMAND...` runs with that player's position, rotation and permissions
+  (`cmd_as -N COMMAND...` is the console at permission level `N`). Each message becomes a `CF msg TEXT` line (`CF fail TEXT` for the red
+  failure form, `CF json JSON` for the canonical component JSON) and each call of the result callback a `CF result success|failure N`
+  line; the oracle driver prints the same lines, so feedback text, results and permission denials are compared line by line. A
+  player that left or was kicked can still be the subject of `cmd_as` and `dump stats:`: the driver keeps the removed player object,
+  the replay remembers what it needs. The dumps (`scoreboard`, `bossbars`, `storage:ID`, `select:EXECUTOR/X,Y,Z/SELECTOR`,
+  `advancements:`, `stats:`, `logs`) compare the state the commands changed. `legacy_feedback` keeps older fixtures recorded
+  before `CF` lines existed comparable: it turns the replay's `CF` lines back into the plain `C` lines they contain. The dual-server
+  command corpora above remain the proof of the operator commands that need a network, a file or a second server.
+- Advancement triggers: `golden/advancement_loot_guards.rs` lists, per trigger, the scenario that fires it and the criterion that
+  scenario's fixture records as completed (`ADV PLAYER ADVANCEMENT CRITERION`); a trigger that no recorded completion proves, or that
+  is not listed, fails the test. A trigger with no observation yet is listed with its reason.
 - A third target, `tests/it/main.rs`, holds T0/T1 tests that need a process of their own because they change
   process-wide state that every other test of the crate would see (today only `mc-text`: `Language::inject` replaces
   the translations of the whole process). A crate adds it only for that reason. Tests that capture log lines, or that

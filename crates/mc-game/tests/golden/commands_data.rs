@@ -122,3 +122,10 @@ fn data_tree_matches_vanilla() {
 fn data_accessors_match_vanilla() {
     crate::common::block_scenario::check("cmd_data_accessors");
 }
+
+/// `/data` get with a scale, every modify form, remove and merge on entities, blocks and storage, and `execute store` into NBT types
+/// (`tests/oracle/scenarios/cmd_data_edges.txt`).
+#[test]
+fn data_edge_cases_match_vanilla() {
+    crate::common::block_scenario::check("cmd_data_edges");
+}

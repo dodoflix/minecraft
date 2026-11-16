@@ -1,0 +1,115 @@
+# The operator commands that do not need a network or a file: recipe, ban lists and their pardons, saving, transfer, version, the profilers
+# and profile lookup of an entity: feedback texts, results, the transfer packet and the recipes a player holds.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 1800
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 8.5 -60 0.5 0 0
+spawn cow minecraft:cow 4.5 -60 4.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note recipes
+dump recipes:B
+cmd recipe give B minecraft:oak_planks
+cmd recipe give B minecraft:oak_planks
+cmd recipe give B minecraft:no_such_recipe
+cmd recipe give @a[name=Nobody] minecraft:stick
+dump recipes:B
+cmd recipe take B minecraft:oak_planks
+cmd recipe take B minecraft:oak_planks
+dump recipes:B
+cmd recipe give @a *
+tick 1
+dump recipes:B
+cmd recipe take B *
+cmd recipe take B *
+cmd recipe take @a *
+tick 1
+dump recipes:A recipes:B
+cmd_as B recipe give B *
+cmd_as A recipe give B minecraft:stick
+cmd_as -2 recipe give B minecraft:stick
+note ban lists
+cmd banlist
+cmd banlist players
+cmd banlist ips
+cmd banlist nothing
+cmd pardon B
+cmd pardon-ip 1.2.3.4
+cmd pardon-ip not.an.ip
+cmd pardon-ip B
+cmd ban-ip 1.2.3.4
+cmd ban-ip 1.2.3.4
+cmd ban-ip 5.6.7.8 spamming the chat
+cmd banlist ips
+cmd banlist
+cmd pardon-ip 1.2.3.4
+cmd pardon-ip 1.2.3.4
+cmd banlist ips
+cmd pardon-ip 5.6.7.8
+cmd banlist
+cmd ban-ip not.an.ip
+cmd ban-ip Nobody
+cmd ban @a[name=Nobody] griefing
+cmd pardon @a[name=Nobody]
+cmd banlist
+cmd_as B banlist
+cmd_as A banlist
+cmd_as B pardon @a[name=Nobody]
+cmd_as A ban-ip 9.9.9.9
+cmd_as A banlist ips
+cmd_as A pardon-ip 9.9.9.9
+note saving
+cmd save-off
+cmd save-off
+cmd save-all
+cmd save-all flush
+cmd save-on
+cmd save-on
+cmd save-all
+cmd_as A save-off
+cmd_as A save-on
+cmd_as B save-all
+note version, transfer and profile lookup
+cmd version
+cmd_as A version
+cmd_as B version
+cmd transfer localhost
+cmd transfer localhost 25565
+cmd transfer localhost 25565 B
+dump packets:B:transfer packets:A:transfer
+cmd transfer example.com 1234 @a
+dump packets:B:transfer packets:A:transfer
+cmd transfer example.com 70000 B
+cmd transfer example.com 0 B
+cmd transfer example.com 25565 @a[name=Nobody]
+cmd transfer 127.0.0.1 25565 B
+cmd transfer 127.0.0.1 25565 @e[type=minecraft:cow,limit=1]
+cmd transfer
+cmd_as A transfer play.example.org
+cmd_as A transfer play.example.org 25566 B
+dump packets:B:transfer
+cmd_as B transfer play.example.org B
+cmd fetchprofile entity @e[type=minecraft:cow,limit=1]
+cmd fetchprofile entity A
+cmd fetchprofile entity @a
+cmd fetchprofile entity @e[type=minecraft:pig,limit=1]
+cmd fetchprofile
+cmd_as B fetchprofile entity A
+note profilers
+cmd debug stop
+cmd debug start
+cmd debug start
+cmd debug function minecraft:no_such_function
+cmd_as B debug start
+cmd_as A debug start
+cmd perf stop
+cmd perf start
+cmd perf start
+cmd_as B perf start
+cmd jfr stop
+cmd_as B jfr stop
+tick 2

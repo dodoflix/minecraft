@@ -38,3 +38,15 @@ fn scoreboard_criteria_follow_the_statistics() {
 fn requested_and_final_statistics() {
     check("stat_request_leave");
 }
+
+/// Item, block and entity statistic objectives, kill criteria by team, and the statistics of a player who left.
+#[test]
+fn statistic_objectives_and_kill_criteria_match_vanilla() {
+    check("stat_criteria_objectives");
+}
+
+/// Play time, deaths and time since death tick by tick across death, respawn and leaving.
+#[test]
+fn play_time_across_death_respawn_and_leave_matches_vanilla() {
+    check("stat_respawn_play_time");
+}

@@ -1,0 +1,251 @@
+# Scenario: feedback text and packets of the less common commands: random, playsound, stopsound, particle, title, xp, enchant, attribute,
+# damage, defaultgamemode, spawnpoint, setworldspawn, forceload, tag, rotate, clear, give, setidletimeout.
+command_env
+level flat
+preload 2
+level_seed 5
+entity_counter 100
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 10.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+dump packets:A:none packets:B:none
+note random
+level_seed 1
+cmd random value 1..6
+level_seed 1
+cmd random value 5
+cmd random value 3..1
+cmd random value 0
+cmd random value 2147483647
+cmd random value -5..-1
+level_seed 1
+cmd random value 1..6 t:x
+level_seed 1
+cmd random roll 1..6 t:x
+level_seed 2
+cmd random roll 1..100
+cmd random reset t:x
+cmd random reset t:x 12
+cmd random reset t:x 12 true
+cmd random reset t:x 12 true false
+cmd random reset * 7
+cmd random reset * 7 false true
+cmd random reset nope:x
+cmd random value 1..6 t:x
+cmd random roll 1..6 t:x
+cmd_as B random value 1..6
+cmd_as B random roll 1..6
+tick 1
+dump packets:A packets:B
+note playsound and stopsound
+cmd playsound minecraft:entity.pig.ambient master A
+cmd playsound minecraft:entity.pig.ambient master @a 3 -60 3 2 0.5 0.1
+cmd playsound minecraft:entity.pig.ambient master @a 3000 -60 3 2 0.5 0.1
+cmd playsound minecraft:entity.pig.ambient master @a 3000 -60 3 2 0.5
+cmd playsound minecraft:entity.pig.ambient master @a 3000 -60 3 0.0001 0.5 1
+cmd playsound minecraft:entity.pig.ambient hostile B ~ ~ ~ 1 3 1
+cmd playsound minecraft:entity.pig.ambient hostile B ~ ~ ~ 1 -1
+cmd playsound minecraft:entity.pig.ambient hostile @e[type=minecraft:zombie]
+cmd playsound nonsense:sound master A
+cmd playsound custom:pack_sound music A
+cmd stopsound A
+cmd stopsound A master
+cmd stopsound A master minecraft:entity.pig.ambient
+cmd stopsound A * minecraft:entity.pig.ambient
+cmd stopsound A * *
+cmd stopsound @a record
+cmd stopsound @e[type=minecraft:zombie]
+tick 1
+dump packets:A packets:B
+note particle
+cmd particle minecraft:flame
+cmd particle minecraft:flame ~ ~1 ~
+cmd particle minecraft:flame ~ ~1 ~ 0.5 0.5 0.5 0 10
+cmd particle minecraft:flame ~ ~1 ~ 0.5 0.5 0.5 0 10 force
+cmd particle minecraft:flame ~ ~1 ~ 0.5 0.5 0.5 0 10 force B
+cmd particle minecraft:flame 3000 ~ 3000 0 0 0 0 1 normal A
+cmd particle minecraft:flame ~ ~ ~ 0 0 0 0 0
+cmd particle minecraft:flame ~ ~ ~ 0 0 0 0 0 normal @e[type=minecraft:zombie]
+cmd particle minecraft:dust{color:[1.0,0.0,0.0],scale:2.0} ~ ~ ~
+cmd particle minecraft:dust{color:[1.0,0.0,0.0]} ~ ~ ~ 0 0 0 1 2
+cmd particle minecraft:block{block_state:"minecraft:stone"} ~ ~ ~
+cmd particle minecraft:block{block_state:"minecraft:nonsense"} ~ ~ ~
+cmd particle minecraft:item{item:"minecraft:apple"} ~ ~ ~ 0 0 0 0 1
+cmd particle minecraft:entity_effect{color:[1.0,1.0,0.0,0.5]} ~ ~ ~
+cmd particle minecraft:nonsense ~ ~ ~
+cmd particle minecraft:flame ~ ~ ~ -1 0 0 0 1
+cmd particle minecraft:flame ~ ~ ~ 0 0 0 -1 1
+cmd particle minecraft:flame ~ ~ ~ 0 0 0 0 -1
+tick 1
+dump packets:A packets:B
+note title
+cmd title A title {"text":"Hello","color":"red"}
+cmd title A subtitle "Sub"
+cmd title A actionbar [{"text":"a"},{"text":"b","bold":true}]
+cmd title A times 5 20 5
+cmd title A times 0 0 0
+cmd title A times -1 2 3
+cmd title @a clear
+cmd title A reset
+cmd title @e[type=minecraft:zombie] title "x"
+cmd title A title {"selector":"@a"}
+cmd title A title {"score":{"name":"A","objective":"none"}}
+cmd title A title {bad
+cmd title A title
+tick 1
+dump packets:A packets:B
+note experience
+cmd xp query A points
+cmd xp query A levels
+cmd xp add A 5 points
+cmd xp add A 5 levels
+cmd xp add A -3 levels
+cmd xp add A -100 levels
+cmd xp set A 10 levels
+cmd xp set A -1 levels
+cmd xp set A 5 points
+cmd xp set A 100000 points
+cmd xp set A 2147483647 levels
+cmd xp add A 1 levels
+cmd xp query A levels
+cmd xp set @a 3 points
+cmd xp add @e[type=minecraft:zombie] 1
+cmd xp query @a points
+cmd xp set A 0 levels
+cmd xp add A 2147483647 points
+cmd xp set A 0 points
+note enchant
+give A mainhand minecraft:diamond_sword
+cmd enchant A minecraft:sharpness 5
+cmd enchant A minecraft:sharpness 6
+cmd enchant A minecraft:smite 1
+cmd enchant A minecraft:unbreaking
+cmd enchant A minecraft:nonsense
+cmd enchant A minecraft:protection 1
+cmd enchant A minecraft:sharpness 0
+cmd enchant A minecraft:sharpness 255
+cmd enchant @a minecraft:mending
+cmd enchant @e[type=minecraft:zombie] minecraft:mending
+give A mainhand minecraft:stick
+cmd enchant A minecraft:sharpness
+give A mainhand minecraft:air
+cmd enchant A minecraft:sharpness
+cmd enchant A #minecraft:in_enchanting_table
+dump inventory:A
+note attribute
+cmd attribute A minecraft:max_health get
+cmd attribute A minecraft:max_health get 2
+cmd attribute A minecraft:max_health base get
+cmd attribute A minecraft:max_health base get 0.5
+cmd attribute A minecraft:max_health base set 30
+cmd attribute A minecraft:max_health base set 0
+cmd attribute A minecraft:max_health base set 2000
+cmd attribute A minecraft:max_health modifier add t:a 5 add_value
+cmd attribute A minecraft:max_health modifier add t:a 5 add_value
+cmd attribute A minecraft:max_health modifier add t:b 0.5 add_multiplied_base
+cmd attribute A minecraft:max_health modifier add t:c 0.5 add_multiplied_total
+cmd attribute A minecraft:max_health modifier value get t:a
+cmd attribute A minecraft:max_health modifier value get t:a 10
+cmd attribute A minecraft:max_health modifier value get t:none
+cmd attribute A minecraft:max_health get
+cmd attribute A minecraft:max_health modifier remove t:a
+cmd attribute A minecraft:max_health modifier remove t:a
+cmd attribute A minecraft:nonsense get
+cmd attribute A minecraft:armor get
+cmd attribute @e[type=minecraft:zombie] minecraft:armor get
+cmd attribute A minecraft:movement_speed base set 0.2
+cmd attribute A minecraft:block_interaction_range base get 100
+tick 1
+dump packets:A:update_attributes,set_health
+note damage
+cmd damage A 1
+cmd damage A 1 minecraft:fall
+cmd damage A 0 minecraft:fall
+cmd damage A -1
+cmd damage A 1 minecraft:nonsense
+cmd damage A 2 minecraft:arrow by B
+cmd damage A 2 minecraft:arrow by B from B
+cmd damage A 2 minecraft:generic at 0 -60 0
+cmd damage @a 1 minecraft:out_of_world
+cmd damage @e[type=minecraft:zombie] 1
+cmd damage B 1000 minecraft:generic
+tick 1
+dump player:A player:B
+note spawn and defaultgamemode
+cmd defaultgamemode creative
+cmd defaultgamemode survival
+cmd defaultgamemode nonsense
+cmd spawnpoint
+cmd spawnpoint A
+cmd spawnpoint A 5 -60 5
+cmd spawnpoint A 5 -60 5 45
+cmd spawnpoint A 5 -60 5 45 -10
+cmd spawnpoint A ~ ~ ~ 400
+cmd spawnpoint @e[type=minecraft:zombie]
+cmd setworldspawn
+cmd setworldspawn 3 -60 3
+cmd setworldspawn 3 -60 3 90
+cmd setworldspawn 3 -60 3 90 10
+cmd setworldspawn 3 -60 3 181
+cmd setworldspawn 3 100000 3
+cmd spawnpoint A 3 100000 3
+cmd setidletimeout 5
+cmd setidletimeout 0
+cmd setidletimeout -1
+cmd setidletimeout 100000
+note forceload
+cmd forceload query
+cmd forceload query 100 100
+cmd forceload add 100 100
+cmd forceload add 100 100
+cmd forceload query 100 100
+cmd forceload add 100 100 164 164
+cmd forceload add 0 0 100000 100000
+cmd forceload add 30000000 30000000
+cmd forceload remove 100 100
+cmd forceload remove 100 100
+cmd forceload remove all
+cmd forceload remove all
+cmd forceload query
+note tag and rotate
+cmd tag A add edge
+cmd tag A add edge
+cmd tag A list
+cmd tag A remove edge
+cmd tag A remove edge
+cmd tag A list
+cmd tag @a add x
+cmd tag @a list
+cmd tag @e[type=minecraft:zombie] add x
+cmd rotate A 90 45
+cmd rotate A ~10 ~
+cmd rotate A facing 0 -60 10
+cmd rotate A facing entity B eyes
+cmd rotate A facing entity B feet
+cmd rotate A facing entity @e[type=minecraft:zombie] eyes
+cmd rotate A 1000 1000
+tick 1
+dump player:A player:B
+note clear and give
+cmd give A minecraft:apple 3
+cmd give A minecraft:apple 0
+cmd give A minecraft:apple -1
+cmd give A minecraft:apple 100000
+cmd give A minecraft:diamond_sword[minecraft:damage=5,minecraft:enchantments={"minecraft:sharpness":3}]
+cmd give @a minecraft:bread 2
+cmd give A minecraft:nonsense
+cmd give A minecraft:apple[nonsense=1]
+cmd give @e[type=minecraft:zombie] minecraft:apple
+cmd clear A minecraft:apple 0
+cmd clear A minecraft:apple 1
+cmd clear A minecraft:apple
+cmd clear A minecraft:bread
+cmd clear A
+cmd clear @a
+cmd clear A minecraft:diamond_sword[minecraft:damage=5]
+cmd clear A *[minecraft:enchantments={}]
+cmd clear @e[type=minecraft:zombie]
+cmd clear A #minecraft:swords
+dump inventory:A inventory:B

@@ -1,0 +1,1 @@
+{"criteria": {"c": {"trigger": "minecraft:tick", "conditions": {"player": {"type": "minecraft:entity_properties", "entity": "this", "predicate": {"minecraft:passenger": {"minecraft:entity_type": "minecraft:pig"}}}}}}}

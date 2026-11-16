@@ -54,3 +54,8 @@ fn chain_and_fork_limits_match_vanilla() {
 fn reload_of_an_edited_pack_matches_vanilla() {
     common::block_scenario::check("cmd_function_reload");
 }
+
+#[test]
+fn functions_interplay_with_execute_store_schedule_and_reload_match_vanilla() {
+    common::block_scenario::check("cmd_function_interplay");
+}

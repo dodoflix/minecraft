@@ -1,0 +1,272 @@
+CF msg Created new objective [jump]
+CF result success 1
+CF msg Created new objective [walk]
+CF result success 2
+CF msg Created new objective [used_apple]
+CF result success 3
+CF msg Created new objective [crafted]
+CF result success 4
+CF msg Created new objective [mined]
+CF result success 5
+CF msg Created new objective [broken]
+CF result success 6
+CF msg Created new objective [dropped]
+CF result success 7
+CF msg Created new objective [picked]
+CF result success 8
+CF msg Created new objective [killed]
+CF result success 9
+CF msg Created new objective [killedby]
+CF result success 10
+CF msg Created new objective [dmgdealt]
+CF result success 11
+CF msg Created new objective [dmgtaken]
+CF result success 12
+CF msg Created new objective [playtime]
+CF result success 13
+CF msg Created new objective [deaths]
+CF result success 14
+CF msg Created new objective [pk]
+CF result success 15
+CF msg Created new objective [tk]
+CF result success 16
+CF msg Created new objective [redk]
+CF result success 17
+CF msg Created team [red]
+CF result success 1
+CF msg Added B to team [red]
+CF result success 1
+CF msg Created new objective [blue_kills]
+CF result success 18
+# drop and pick up an apple, use it, mine dirt, break a sword
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 7
+STAT A minecraft.custom:minecraft.time_since_death 7
+STAT A minecraft.custom:minecraft.time_since_rest 7
+STAT A minecraft.custom:minecraft.total_world_time 7
+STAT A minecraft.dropped:minecraft.apple 1
+CF result failure 0
+CF fail Can't get value of jump for A; none is set
+CF result failure 0
+CF fail Can't get value of walk for A; none is set
+CF result failure 0
+CF fail Can't get value of used_apple for A; none is set
+CF msg A has 1 [dropped]
+CF result success 1
+CF result failure 0
+CF fail Can't get value of picked for A; none is set
+CF result failure 0
+CF fail Can't get value of killed for A; none is set
+CF result failure 0
+CF fail Can't get value of dmgdealt for A; none is set
+CF result failure 0
+CF fail Can't get value of dmgtaken for A; none is set
+CF msg A has 6 [playtime]
+CF result success 6
+CF result failure 0
+CF fail Can't get value of deaths for A; none is set
+CF result failure 0
+CF fail Can't get value of pk for A; none is set
+CF result failure 0
+CF fail Can't get value of tk for A; none is set
+CF result failure 0
+CF fail Can't get value of redk for A; none is set
+CF result failure 0
+CF fail Can't get value of blue_kills for A; none is set
+# damage taken and dealt, deaths
+HURT A minecraft:generic 3 -> true
+STAT A minecraft.custom:minecraft.damage_taken 30
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 9
+STAT A minecraft.custom:minecraft.time_since_death 9
+STAT A minecraft.custom:minecraft.time_since_rest 9
+STAT A minecraft.custom:minecraft.total_world_time 9
+STAT A minecraft.dropped:minecraft.apple 1
+CF result failure 0
+CF fail Can't get value of jump for A; none is set
+CF result failure 0
+CF fail Can't get value of walk for A; none is set
+CF result failure 0
+CF fail Can't get value of used_apple for A; none is set
+CF msg A has 1 [dropped]
+CF result success 1
+CF result failure 0
+CF fail Can't get value of picked for A; none is set
+CF result failure 0
+CF fail Can't get value of killed for A; none is set
+CF result failure 0
+CF fail Can't get value of dmgdealt for A; none is set
+CF msg A has 30 [dmgtaken]
+CF result success 30
+CF msg A has 8 [playtime]
+CF result success 8
+CF result failure 0
+CF fail Can't get value of deaths for A; none is set
+CF result failure 0
+CF fail Can't get value of pk for A; none is set
+CF result failure 0
+CF fail Can't get value of tk for A; none is set
+CF result failure 0
+CF fail Can't get value of redk for A; none is set
+CF result failure 0
+CF fail Can't get value of blue_kills for A; none is set
+STAT A minecraft.custom:minecraft.damage_dealt 17
+STAT A minecraft.custom:minecraft.damage_taken 30
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 13
+STAT A minecraft.custom:minecraft.time_since_death 13
+STAT A minecraft.custom:minecraft.time_since_rest 13
+STAT A minecraft.custom:minecraft.total_world_time 13
+STAT A minecraft.dropped:minecraft.apple 1
+STAT A minecraft.used:minecraft.wooden_sword 2
+CF result failure 0
+CF fail Can't get value of jump for A; none is set
+CF result failure 0
+CF fail Can't get value of walk for A; none is set
+CF result failure 0
+CF fail Can't get value of used_apple for A; none is set
+CF msg A has 1 [dropped]
+CF result success 1
+CF result failure 0
+CF fail Can't get value of picked for A; none is set
+CF result failure 0
+CF fail Can't get value of killed for A; none is set
+CF msg A has 17 [dmgdealt]
+CF result success 17
+CF msg A has 30 [dmgtaken]
+CF result success 30
+CF msg A has 12 [playtime]
+CF result success 12
+CF result failure 0
+CF fail Can't get value of deaths for A; none is set
+CF result failure 0
+CF fail Can't get value of pk for A; none is set
+CF result failure 0
+CF fail Can't get value of tk for A; none is set
+CF result failure 0
+CF fail Can't get value of redk for A; none is set
+CF result failure 0
+CF fail Can't get value of blue_kills for A; none is set
+# a player kills a player on a team
+HURT B minecraft:player_attack 100 -> true
+CF result failure 0
+CF fail Can't get value of jump for A; none is set
+CF result failure 0
+CF fail Can't get value of walk for A; none is set
+CF result failure 0
+CF fail Can't get value of used_apple for A; none is set
+CF msg A has 1 [dropped]
+CF result success 1
+CF result failure 0
+CF fail Can't get value of picked for A; none is set
+CF result failure 0
+CF fail Can't get value of killed for A; none is set
+CF msg A has 17 [dmgdealt]
+CF result success 17
+CF msg A has 30 [dmgtaken]
+CF result success 30
+CF msg A has 14 [playtime]
+CF result success 14
+CF result failure 0
+CF fail Can't get value of deaths for A; none is set
+CF msg A has 1 [pk]
+CF result success 1
+CF msg A has 1 [tk]
+CF result success 1
+CF result failure 0
+CF fail Can't get value of redk for A; none is set
+CF result failure 0
+CF fail Can't get value of blue_kills for A; none is set
+CF result failure 0
+CF fail Can't get value of jump for B; none is set
+CF result failure 0
+CF fail Can't get value of walk for B; none is set
+CF result failure 0
+CF fail Can't get value of used_apple for B; none is set
+CF result failure 0
+CF fail Can't get value of dropped for B; none is set
+CF result failure 0
+CF fail Can't get value of picked for B; none is set
+CF result failure 0
+CF fail Can't get value of killed for B; none is set
+CF result failure 0
+CF fail Can't get value of dmgdealt for B; none is set
+CF msg B has 1000 [dmgtaken]
+CF result success 1000
+CF msg B has 14 [playtime]
+CF result success 14
+CF msg B has 1 [deaths]
+CF result success 1
+CF result failure 0
+CF fail Can't get value of pk for B; none is set
+CF result failure 0
+CF fail Can't get value of tk for B; none is set
+CF result failure 0
+CF fail Can't get value of redk for B; none is set
+CF result failure 0
+CF fail Can't get value of blue_kills for B; none is set
+STAT A minecraft.custom:minecraft.damage_dealt 17
+STAT A minecraft.custom:minecraft.damage_taken 30
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 15
+STAT A minecraft.custom:minecraft.player_kills 1
+STAT A minecraft.custom:minecraft.time_since_death 15
+STAT A minecraft.custom:minecraft.time_since_rest 15
+STAT A minecraft.custom:minecraft.total_world_time 15
+STAT A minecraft.dropped:minecraft.apple 1
+STAT A minecraft.used:minecraft.wooden_sword 2
+STAT B minecraft.custom:minecraft.damage_taken 1000
+STAT B minecraft.custom:minecraft.deaths 1
+STAT B minecraft.custom:minecraft.play_time 15
+STAT B minecraft.custom:minecraft.time_since_death 0
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 15
+STAT B minecraft.killed_by:minecraft.player 1
+# leave and rejoin counters
+STAT B minecraft.custom:minecraft.damage_taken 1000
+STAT B minecraft.custom:minecraft.deaths 1
+STAT B minecraft.custom:minecraft.leave_game 1
+STAT B minecraft.custom:minecraft.play_time 17
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 4
+STAT B minecraft.custom:minecraft.total_world_time 17
+STAT B minecraft.killed_by:minecraft.player 1
+CF result failure 0
+CF fail Can't get value of jump for B; none is set
+CF result failure 0
+CF fail Can't get value of walk for B; none is set
+CF result failure 0
+CF fail Can't get value of used_apple for B; none is set
+CF result failure 0
+CF fail Can't get value of dropped for B; none is set
+CF result failure 0
+CF fail Can't get value of picked for B; none is set
+CF result failure 0
+CF fail Can't get value of killed for B; none is set
+CF result failure 0
+CF fail Can't get value of dmgdealt for B; none is set
+CF msg B has 1000 [dmgtaken]
+CF result success 1000
+CF msg B has 16 [playtime]
+CF result success 16
+CF msg B has 1 [deaths]
+CF result success 1
+CF result failure 0
+CF fail Can't get value of pk for B; none is set
+CF result failure 0
+CF fail Can't get value of tk for B; none is set
+CF result failure 0
+CF fail Can't get value of redk for B; none is set
+CF result failure 0
+CF fail Can't get value of blue_kills for B; none is set
+STAT A minecraft.custom:minecraft.damage_dealt 17
+STAT A minecraft.custom:minecraft.damage_taken 30
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 18
+STAT A minecraft.custom:minecraft.player_kills 1
+STAT A minecraft.custom:minecraft.time_since_death 18
+STAT A minecraft.custom:minecraft.time_since_rest 18
+STAT A minecraft.custom:minecraft.total_world_time 18
+STAT A minecraft.dropped:minecraft.apple 1
+STAT A minecraft.used:minecraft.wooden_sword 2
+PKT A minecraft:award_stats 030a080412081911080112080312081c1e0802120281080205ef0701081801082301

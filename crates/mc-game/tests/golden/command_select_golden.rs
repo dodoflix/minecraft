@@ -63,3 +63,8 @@ fn commands_with_selectors_match_vanilla() {
 fn selector_letters_states_and_parse_errors_match_vanilla() {
     common::block_scenario::check("cmd_select_basics");
 }
+
+#[test]
+fn selector_option_edges_match_vanilla() {
+    common::block_scenario::check("cmd_select_edges");
+}

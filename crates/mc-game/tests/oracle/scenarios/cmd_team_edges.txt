@@ -1,0 +1,125 @@
+# Scenario: every team command and option with its feedback and failures, members of both kinds, colours, prefixes and suffixes,
+# visibility rules, the packets teams send, team chat and death messages in team colour.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 800
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+op A
+tick 1
+dump packets:A:none packets:B:none
+cmd team list
+cmd team add red
+cmd team add red
+cmd team add blue {"text":"The Blues","color":"blue"}
+cmd team add "with space"
+cmd team add this_is_a_very_long_team_name_that_goes_past_sixteen
+cmd team add t3 {bad
+cmd team add 123
+cmd team add a.b-c+d_e
+cmd team list
+cmd team list red
+cmd team list blue
+cmd team list nothing
+cmd team join red A
+cmd team join red A
+cmd team join blue A
+cmd team join red B Bob #fake fake&name
+cmd team join red @e[type=zombie]
+cmd team join red
+cmd team join nothing A
+cmd team join red @a
+cmd team list red
+cmd team list blue
+cmd team leave A
+cmd team leave A
+cmd team leave @a
+cmd team leave @e[type=zombie]
+cmd team leave Nobody
+cmd team join red A B
+cmd team empty red
+cmd team empty red
+cmd team empty blue
+cmd team empty nothing
+note modify options
+cmd team modify red color red
+cmd team modify red color reset
+cmd team modify red color nonsense
+cmd team modify red color
+cmd team modify red displayName {"text":"RED","color":"red"}
+cmd team modify red displayName {bad
+cmd team modify red displayName "plain"
+cmd team modify red friendlyFire false
+cmd team modify red friendlyFire false
+cmd team modify red friendlyFire true
+cmd team modify red friendlyFire nonsense
+cmd team modify red seeFriendlyInvisibles false
+cmd team modify red seeFriendlyInvisibles false
+cmd team modify red seeFriendlyInvisibles true
+cmd team modify red nametagVisibility never
+cmd team modify red nametagVisibility never
+cmd team modify red nametagVisibility hideForOtherTeams
+cmd team modify red nametagVisibility hideForOwnTeam
+cmd team modify red nametagVisibility always
+cmd team modify red nametagVisibility nonsense
+cmd team modify red deathMessageVisibility never
+cmd team modify red deathMessageVisibility hideForOtherTeams
+cmd team modify red deathMessageVisibility hideForOwnTeam
+cmd team modify red deathMessageVisibility always
+cmd team modify red collisionRule never
+cmd team modify red collisionRule never
+cmd team modify red collisionRule pushOtherTeams
+cmd team modify red collisionRule pushOwnTeam
+cmd team modify red collisionRule always
+cmd team modify red collisionRule nonsense
+cmd team modify red prefix {"text":"[R] ","color":"red"}
+cmd team modify red suffix {"text":" <3","color":"light_purple","bold":true}
+cmd team modify red prefix "p"
+cmd team modify red suffix "s"
+cmd team modify red prefix {bad
+cmd team modify red nonsense x
+cmd team modify nothing color red
+cmd team modify nothing prefix "x"
+cmd team modify blue color blue
+cmd team modify blue prefix {"selector":"@s"}
+cmd team join red A
+cmd team join blue B
+tick 1
+dump packets:A:set_player_team packets:B:set_player_team
+note chat and death messages in teams
+cmd teammsg hi
+cmd_as A teammsg hi
+cmd_as A tm hello team
+cmd_as B teammsg {"text":"json"}
+cmd_as A msg B hello
+cmd_as A say hello
+cmd_as A me waves
+cmd_as -2 teammsg x
+cmd_as -2 say x
+cmd_as -2 me x
+cmd_as -2 msg A x
+tick 1
+dump packets:A:system_chat,player_chat,disguised_chat packets:B:system_chat,player_chat,disguised_chat
+cmd team modify red deathMessageVisibility never
+cmd team modify blue deathMessageVisibility hideForOwnTeam
+hurt A minecraft:generic 100
+tick 1
+dump packets:A:system_chat,player_chat,disguised_chat,player_combat_kill packets:B:system_chat,player_chat,disguised_chat,player_combat_kill
+respawn A
+tick 1
+cmd team modify blue deathMessageVisibility hideForOtherTeams
+cmd team modify red deathMessageVisibility always
+hurt B minecraft:generic 100
+tick 1
+dump packets:A:system_chat,player_chat,disguised_chat,player_combat_kill packets:B:system_chat,player_chat,disguised_chat,player_combat_kill
+respawn B
+tick 1
+cmd team remove red
+cmd team remove red
+cmd team remove nothing
+cmd team list
+tick 1
+dump packets:A:set_player_team packets:B:set_player_team
+dump scoreboard

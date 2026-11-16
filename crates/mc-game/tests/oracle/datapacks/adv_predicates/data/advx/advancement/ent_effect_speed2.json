@@ -1,0 +1,1 @@
+{"criteria": {"c": {"trigger": "minecraft:tick", "conditions": {"player": {"type": "minecraft:entity_properties", "entity": "this", "predicate": {"minecraft:effects": {"minecraft:speed": {"amplifier": {"min": 1}, "duration": {"min": 100}}}}}}}}}

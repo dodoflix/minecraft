@@ -1,0 +1,40 @@
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
+CF msg Banned B: griefing
+CF result success 1
+CF msg There are 1 ban(s):
+CF msg B was banned by Server: griefing
+CF result success 1
+CF msg There are 2 of a max of 20 players online: A, C
+CF result success 2
+CF result failure 0
+CF fail Nothing changed. The player is already banned
+PKT B minecraft:disconnect 200a0800097472616e736c617465001d6d756c7469706c617965722e646973636f6e6e6563742e62616e6e656400
+CF msg There are 2 of a max of 20 players online: A, C
+CF result success 2
+CF result success 2
+CF msg Unbanned B
+CF result success 1
+CF msg There are no bans
+CF result success 0
+CF msg Banned IP <unknown>: spamming the chat
+CF msg This ban affects 2 player(s): A, C
+CF result success 2
+CF msg There are 1 ban(s):
+CF msg <unknown> was banned by Server: spamming the chat
+CF result success 1
+CF msg There are 0 of a max of 20 players online: 
+CF result success 0
+CF msg There are 0 of a max of 20 players online: 
+CF result success 0
+CF msg There are 1 ban(s):
+CF msg <unknown> was banned by Server: spamming the chat
+CF result success 1
+CF result failure 0
+CF fail No player was found
+CF result failure 0
+CF fail No player was found
+CF msg There are 0 of a max of 20 players online: 
+CF result success 0
+CF result failure 0
+CF fail Nothing changed. The player isn't banned

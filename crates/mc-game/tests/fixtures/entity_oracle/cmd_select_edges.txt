@@ -1,0 +1,269 @@
+CF msg Summoned new "Piggy"
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new "Piggy"
+CF result success 1
+CF msg Summoned new Zombie
+CF result success 1
+CF msg Summoned new Armor Stand
+CF result success 1
+CF msg Summoned new Apple
+CF result success 1
+CF msg Summoned new Marker
+CF result success 1
+CF msg Summoned new Farmer
+CF result success 1
+CF msg Created team [red]
+CF result success 1
+CF msg Created team [blue]
+CF result success 2
+CF fail Incorrect argument for command
+CF fail ...oin red A Bob @e[type=minecraft:pig,limit=1,sort=nearest]<--[HERE]
+CF fail Incorrect argument for command
+CF fail ... blue Cee 72000000-0000-0000-0000-000000000000<--[HERE]
+CF msg Created new objective [s]
+CF result success 1
+CF msg Set [s] for A to 5
+CF result success 5
+CF msg Set [s] for Bob to -3
+CF result success -3
+CF msg Set [s] for 0 entities to 0
+CF result success 0
+CF msg Set [s] for Zombie to 100
+CF result success 100
+CF msg Created new objective [t]
+CF result success 2
+# distance and volume floats and boundaries
+SELECT @e[distance=..0] - 0,-60,0 ->
+SELECT @e[distance=0] - 0,-60,0 ->
+SELECT @e[distance=0..0.5] - 0,-60,0 ->
+SELECT @e[distance=4.2426406871..4.2426406872] - 0,-60,0 ->
+SELECT @e[distance=4.242640687119285] - 0,-60,0 ->
+SELECT @e[distance=..4.2426406871192] - 0,-60,0 -> armor_stand#1 A marker#1
+SELECT @e[distance=..-1] - 0,-60,0 -> !Distance cannot be negative
+SELECT @e[distance=3..1] - 0,-60,0 -> !Min cannot be bigger than max
+SELECT @e[distance=1e1..] - 0,-60,0 -> !Expected end of options
+SELECT @e[distance=.5..1.] - 0,-60,0 -> A marker#1
+SELECT @e[x=3,y=-60,z=3,dx=0,dy=0,dz=0] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[x=3,y=-60,z=3,dx=0.4,dy=0,dz=0.4] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[x=3,y=-60,z=3,dx=-1,dy=0,dz=-1] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[x=3,y=-60,z=3,dx=0.6] - 0,-60,0 -> pig#1 pig#2
+SELECT @e[dx=100,dy=100,dz=100] - 0,-60,0 -> A Bob Cee pig#1 pig#2 cow#1 zombie#1 villager#1
+SELECT @e[dy=0.5] - 0,-60,0 -> A
+SELECT @e[dx=4,dy=1,dz=4,x=0,z=0] - 0.5,-60,0.5 -> A Bob pig#1 pig#2
+SELECT @e[x=1000000000,y=0,z=0] - 0,-60,0 -> A Bob Cee Dee pig#1 pig#2 cow#1 zombie#1 armor_stand#1 marker#1 villager#1
+SELECT @e[x=1.5e1,y=-60,z=0,distance=..1] - 0,-60,0 -> !Expected end of options
+SELECT @e[x=~,y=~,z=~] - 0,-60,0 -> !Expected double
+SELECT @e[x=~3,y=~,z=~3,distance=..1] A 0.5,-60,0.5 -> !Expected double
+SELECT @e[distance=..3] A 0.5,-60,0.5 -> A marker#1
+# rotation ranges (wrap) and levels
+SELECT @e[y_rotation=-180..-100] A 0.5,-60,0.5 ->
+SELECT @e[y_rotation=170..-170] A 0.5,-60,0.5 -> Dee
+SELECT @e[y_rotation=80..100] A 0.5,-60,0.5 -> armor_stand#1
+SELECT @e[y_rotation=350..370] A 0.5,-60,0.5 -> Bob pig#1 pig#2 cow#1 zombie#1 marker#1 villager#1
+SELECT @e[x_rotation=40..50] A 0.5,-60,0.5 -> armor_stand#1
+SELECT @e[x_rotation=..-20] A 0.5,-60,0.5 -> A Bob Cee Dee pig#1 pig#2 cow#1 zombie#1 armor_stand#1 marker#1 villager#1
+SELECT @e[x_rotation=-90..90] A 0.5,-60,0.5 -> A Bob Cee Dee pig#1 pig#2 cow#1 zombie#1 armor_stand#1 marker#1 villager#1
+SELECT @e[x_rotation=100..] A 0.5,-60,0.5 -> Cee
+SELECT @a[level=0] A 0.5,-60,0.5 -> A Bob Cee Dee
+SELECT @a[level=1..] A 0.5,-60,0.5 ->
+SELECT @a[level=-1] A 0.5,-60,0.5 -> !Level shouldn't be negative
+CF msg Set 7 experience levels on Bob
+CF result success 1
+SELECT @a[level=7] A 0.5,-60,0.5 -> Bob
+SELECT @a[level=..6] A 0.5,-60,0.5 -> A Cee Dee
+SELECT @a[level=7..7] A 0.5,-60,0.5 -> Bob
+# repeated and negated options
+SELECT @e[type=!minecraft:pig,type=!minecraft:cow] A 0.5,-60,0.5 -> A Bob Cee Dee zombie#1 armor_stand#1 marker#1 villager#1
+SELECT @e[type=minecraft:pig,type=!minecraft:pig] A 0.5,-60,0.5 -> !Option 'type' isn't applicable here
+SELECT @e[type=minecraft:pig,type=minecraft:cow] A 0.5,-60,0.5 -> !Option 'type' isn't applicable here
+SELECT @e[type=#minecraft:zombies] A 0.5,-60,0.5 -> zombie#1
+SELECT @e[type=!#minecraft:zombies,type=!minecraft:item,type=!minecraft:player] A 0.5,-60,0.5 -> pig#1 pig#2 cow#1 armor_stand#1 marker#1 villager#1
+SELECT @e[type=#minecraft:nothing] A 0.5,-60,0.5 ->
+SELECT @e[type=minecraft:nothing] A 0.5,-60,0.5 -> !Invalid or unknown entity type 'minecraft:nothing'
+SELECT @e[type=pig] A 0.5,-60,0.5 -> pig#1 pig#2
+SELECT @e[type=Pig] A 0.5,-60,0.5 -> !Invalid or unknown entity type 'minecraft:'
+SELECT @a[gamemode=!creative,gamemode=!spectator] A 0.5,-60,0.5 -> A Cee
+SELECT @a[gamemode=creative,gamemode=!creative] A 0.5,-60,0.5 -> !Option 'gamemode' isn't applicable here
+SELECT @a[gamemode=creative,gamemode=survival] A 0.5,-60,0.5 -> !Option 'gamemode' isn't applicable here
+SELECT @a[gamemode=adventure] A 0.5,-60,0.5 -> Cee
+SELECT @e[gamemode=survival] A 0.5,-60,0.5 -> A
+SELECT @e[name=Piggy] A 0.5,-60,0.5 ->
+SELECT @e[name="Piggy"] A 0.5,-60,0.5 ->
+SELECT @e[name=!Piggy,type=!player] A 0.5,-60,0.5 -> pig#1 pig#2 cow#1 zombie#1 armor_stand#1 marker#1 villager#1
+SELECT @e[name=!Piggy,name=!A,type=!item] A 0.5,-60,0.5 -> Bob Cee Dee pig#1 pig#2 cow#1 zombie#1 armor_stand#1 marker#1 villager#1
+SELECT @e[name=Piggy,name=Piggy] A 0.5,-60,0.5 -> !Option 'name' isn't applicable here
+SELECT @e[name=piggy] A 0.5,-60,0.5 ->
+SELECT @e[name=""] A 0.5,-60,0.5 ->
+SELECT @e[name=Pig gy] A 0.5,-60,0.5 -> !Expected end of options
+SELECT @e[name="Pig gy"] A 0.5,-60,0.5 ->
+SELECT @e[tag=] A 0.5,-60,0.5 -> A Bob Cee Dee cow#1 armor_stand#1 villager#1
+SELECT @e[tag=!] A 0.5,-60,0.5 -> pig#1 pig#2 zombie#1 marker#1
+SELECT @e[tag=a] A 0.5,-60,0.5 -> pig#1 pig#2
+SELECT @e[tag=a,tag=b] A 0.5,-60,0.5 -> pig#1
+SELECT @e[tag=!a] A 0.5,-60,0.5 -> A Bob Cee Dee cow#1 zombie#1 armor_stand#1 marker#1 villager#1
+SELECT @e[tag=a,tag=!b] A 0.5,-60,0.5 -> pig#2
+SELECT @e[tag=!a,tag=!b,type=!player] A 0.5,-60,0.5 -> cow#1 armor_stand#1 marker#1 villager#1
+SELECT @e[tag=m] A 0.5,-60,0.5 -> marker#1
+SELECT @e[team=] A 0.5,-60,0.5 -> A Bob Cee Dee pig#1 pig#2 cow#1 zombie#1 armor_stand#1 marker#1 villager#1
+SELECT @e[team=!] A 0.5,-60,0.5 ->
+SELECT @e[team=red] A 0.5,-60,0.5 ->
+SELECT @e[team=!red,team=!blue] A 0.5,-60,0.5 -> A Bob Cee Dee pig#1 pig#2 cow#1 zombie#1 armor_stand#1 marker#1 villager#1
+SELECT @e[team=red,team=blue] A 0.5,-60,0.5 -> !Option 'team' isn't applicable here
+SELECT @e[team=nothing] A 0.5,-60,0.5 ->
+SELECT @e[team=!nothing,type=player] A 0.5,-60,0.5 -> A Bob Cee Dee
+# scores
+SELECT @a[scores={s=5}] A 0.5,-60,0.5 -> A
+SELECT @a[scores={s=..0}] A 0.5,-60,0.5 -> Bob Cee
+SELECT @a[scores={s=-3..0}] A 0.5,-60,0.5 -> Bob Cee
+SELECT @e[scores={s=100}] A 0.5,-60,0.5 -> zombie#1
+SELECT @e[scores={s=1..}] A 0.5,-60,0.5 -> A zombie#1
+SELECT @e[scores={s=1..,t=0}] A 0.5,-60,0.5 ->
+SELECT @a[scores={t=0}] A 0.5,-60,0.5 ->
+SELECT @a[scores={t=..0}] A 0.5,-60,0.5 ->
+SELECT @a[scores={nothing=0}] A 0.5,-60,0.5 ->
+SELECT @a[scores={}] A 0.5,-60,0.5 -> A Bob Cee Dee
+SELECT @a[scores={s=}] A 0.5,-60,0.5 -> !Expected value or range of values
+SELECT @a[scores={s=5..1}] A 0.5,-60,0.5 -> !Min cannot be bigger than max
+SELECT @a[scores={s=1.5}] A 0.5,-60,0.5 -> !Invalid integer '1.5'
+SELECT @a[scores={s=2147483647}] A 0.5,-60,0.5 ->
+SELECT @a[scores={s=2147483648}] A 0.5,-60,0.5 -> !Invalid integer '2147483648'
+SELECT @a[scores={ s = 5 }] A 0.5,-60,0.5 -> A
+# sort and limit corners
+SELECT @e[limit=0] A 0.5,-60,0.5 -> !Limit must be at least 1
+SELECT @e[limit=-1] A 0.5,-60,0.5 -> !Limit must be at least 1
+SELECT @e[limit=1,limit=2] A 0.5,-60,0.5 -> !Option 'limit' isn't applicable here
+SELECT @e[sort=nearest] A 0.5,-60,0.5 -> A marker#1 Bob pig#1 pig#2 armor_stand#1 cow#1 Cee Dee zombie#1 villager#1
+SELECT @e[sort=furthest,limit=2] A 0.5,-60,0.5 -> villager#1 zombie#1
+SELECT @e[sort=arbitrary] A 0.5,-60,0.5 -> A Bob Cee Dee pig#1 pig#2 cow#1 zombie#1 armor_stand#1 marker#1 villager#1
+SELECT @e[sort=arbitrary,limit=3] A 0.5,-60,0.5 -> A Bob Cee
+SELECT @e[sort=random,sort=nearest] A 0.5,-60,0.5 -> !Option 'sort' isn't applicable here
+SELECT @e[sort=nonsense] A 0.5,-60,0.5 -> !Invalid or unknown sort type 'nonsense'
+SELECT @p[limit=3] A 0.5,-60,0.5 -> A Bob Cee
+SELECT @p[limit=0] A 0.5,-60,0.5 -> !Limit must be at least 1
+SELECT @p[sort=furthest] A 0.5,-60,0.5 -> Dee
+SELECTCOUNT @p[sort=random] A 0.5,-60,0.5 -> 1
+SELECT @a[limit=2,sort=furthest] A 0.5,-60,0.5 -> Dee Cee
+SELECTCOUNT @r[limit=3,type=player] A 0.5,-60,0.5 -> 3
+SELECTCOUNT @r[limit=2,type=player] A 0.5,-60,0.5 -> 2
+SELECTCOUNT @r A 0.5,-60,0.5 -> 1
+SELECTCOUNT @r[type=pig] A 0.5,-60,0.5 -> 0
+SELECTCOUNT @r[limit=5,type=minecraft:pig] A 0.5,-60,0.5 -> 0
+SELECT @n[limit=2] A 0.5,-60,0.5 -> A marker#1
+SELECT @n[type=pig,sort=furthest] A 0.5,-60,0.5 -> pig#1
+SELECT @n[type=pig,limit=2,sort=nearest] A 0.5,-60,0.5 -> pig#1 pig#2
+SELECT @n[type=nothing] A 0.5,-60,0.5 -> !Invalid or unknown entity type 'minecraft:nothing'
+SELECT @s[limit=2] A 0.5,-60,0.5 -> !Option 'limit' isn't applicable here
+SELECT @s[distance=5..] A 0.5,-60,0.5 ->
+SELECT @s[gamemode=spectator] Dee -8.5,-60,0.5 -> Dee
+SELECT @p Dee -8.5,-60,0.5 -> Dee
+SELECT @p[gamemode=spectator] Dee -8.5,-60,0.5 -> Dee
+SELECT @a[gamemode=!survival,distance=..20] Dee -8.5,-60,0.5 -> Bob Cee Dee
+# nbt
+SELECT @e[nbt={Health:4f}] A 0.5,-60,0.5 -> pig#2
+SELECT @e[nbt={Health:4.0f}] A 0.5,-60,0.5 -> pig#2
+SELECT @e[nbt={Health:4}] A 0.5,-60,0.5 ->
+SELECT @e[nbt={Health:4d}] A 0.5,-60,0.5 ->
+SELECT @e[nbt=!{Health:4f},type=pig] A 0.5,-60,0.5 -> pig#1
+SELECT @e[nbt={Tags:["a"]}] A 0.5,-60,0.5 -> pig#1 pig#2
+SELECT @e[nbt={Tags:["b","a"]}] A 0.5,-60,0.5 -> pig#1
+SELECT @e[nbt={Tags:[]}] A 0.5,-60,0.5 ->
+SELECT @e[nbt={CustomName:'"Piggy"'}] A 0.5,-60,0.5 -> pig#1 cow#1
+SELECT @e[nbt={NoAI:1b}] A 0.5,-60,0.5 -> pig#1 pig#2 cow#1 zombie#1 villager#1
+SELECT @e[nbt={NoAI:true}] A 0.5,-60,0.5 -> pig#1 pig#2 cow#1 zombie#1 villager#1
+SELECT @e[nbt={Item:{id:"minecraft:apple"}}] A 0.5,-60,0.5 ->
+SELECT @e[nbt={Item:{count:3}}] A 0.5,-60,0.5 ->
+SELECT @e[nbt={Item:{count:3b}}] A 0.5,-60,0.5 ->
+SELECT @e[nbt={VillagerData:{level:2}}] A 0.5,-60,0.5 -> villager#1
+SELECT @e[nbt={VillagerData:{profession:"minecraft:farmer"}}] A 0.5,-60,0.5 -> villager#1
+SELECT @e[nbt={ArmorItems:[{},{},{},{id:"minecraft:diamond_helmet"}]}] A 0.5,-60,0.5 ->
+SELECT @e[nbt={ArmorItems:[{id:"minecraft:diamond_helmet"}]}] A 0.5,-60,0.5 ->
+SELECT @e[nbt={Rotation:[90f,45f]}] A 0.5,-60,0.5 -> armor_stand#1
+SELECT @e[nbt={Rotation:[90f]}] A 0.5,-60,0.5 -> armor_stand#1
+SELECT @e[nbt={Pos:[3.0d,-60.0d,3.0d]}] A 0.5,-60,0.5 ->
+SELECT @e[nbt={foo:1}] A 0.5,-60,0.5 ->
+SELECT @e[nbt={}] A 0.5,-60,0.5 -> A Bob Cee Dee pig#1 pig#2 cow#1 zombie#1 armor_stand#1 marker#1 villager#1
+SELECT @e[nbt={Age:-100}] A 0.5,-60,0.5 ->
+SELECT @a[nbt={playerGameType:1}] A 0.5,-60,0.5 -> Bob
+SELECT @a[nbt={XpLevel:7}] A 0.5,-60,0.5 -> Bob
+SELECT @a[nbt={Inventory:[]}] A 0.5,-60,0.5 -> Bob Cee Dee
+SELECT @e[nbt={Tags:["a"],NoAI:1b},nbt=!{Health:4f}] A 0.5,-60,0.5 -> pig#1
+# uuid and name forms
+SELECT 72000000-0000-0000-0000-000000000001 A 0.5,-60,0.5 ->
+SELECT 72000000-0000-0000-0000-000000000099 A 0.5,-60,0.5 ->
+SELECT @e[type=pig,limit=1,nbt={Tags:["b"]}] A 0.5,-60,0.5 -> pig#1
+SELECT Bob A 0.5,-60,0.5 -> Bob
+SELECT bob A 0.5,-60,0.5 -> Bob
+SELECT Nobody A 0.5,-60,0.5 ->
+SELECT @e[sort=nearest,type=!player,limit=2,distance=..10] A 0.5,-60,0.5 -> marker#1 armor_stand#1
+SELECT @ A 0.5,-60,0.5 -> !Missing selector type
+SELECT @x A 0.5,-60,0.5 -> !Unknown selector type '@x'
+SELECT @e[ A 0.5,-60,0.5 -> !Expected end of options
+SELECT @e[] A 0.5,-60,0.5 -> A Bob Cee Dee pig#1 pig#2 cow#1 zombie#1 armor_stand#1 marker#1 villager#1
+SELECT @e[,] A 0.5,-60,0.5 -> !Unknown option ''
+SELECT @e[type=pig,] A 0.5,-60,0.5 -> pig#1 pig#2
+SELECT @e[nothing=1] A 0.5,-60,0.5 -> !Unknown option 'nothing'
+SELECT @e[ type = pig ] A 0.5,-60,0.5 -> pig#1 pig#2
+SELECT @e[distance=1,distance=2] A 0.5,-60,0.5 -> !Option 'distance' isn't applicable here
+SELECT @e[x=1,x=2] A 0.5,-60,0.5 -> !Option 'x' isn't applicable here
+SELECT @e[dx=1,dx=2] A 0.5,-60,0.5 -> !Option 'dx' isn't applicable here
+SELECT @e[level=1] A 0.5,-60,0.5 ->
+SELECT @e[advancements={minecraft:story/root=true}] A 0.5,-60,0.5 ->
+SELECT @a[advancements={minecraft:story/root=true}] A 0.5,-60,0.5 ->
+SELECT @a[advancements={minecraft:story/root=false}] A 0.5,-60,0.5 -> A Bob Cee Dee
+SELECT @a[advancements={minecraft:nothing=true}] A 0.5,-60,0.5 ->
+SELECT @a[advancements={minecraft:story/root={nothing=true}}] A 0.5,-60,0.5 ->
+SELECT @a[advancements={}] A 0.5,-60,0.5 -> A Bob Cee Dee
+SELECT @a[predicate=minecraft:nothing] A 0.5,-60,0.5 ->
+SELECT @a[predicate=!minecraft:nothing] A 0.5,-60,0.5 ->
+# commands using selectors
+CF msg Teleported "Piggy" to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Pig
+CF result success 1
+CF msg Added tag 'sel' to 7 entities
+CF result success 7
+CF msg The 7 entities have 4 total tag(s): a, b, m, sel
+CF result success 4
+CF msg Added 1 to [s] for 5 entities
+CF result success 105
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ...pe=zombie] s<--[HERE]
+CF msg "Piggy" has 1 [s]
+CF result success 1
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ...e[tag=sel] s<--[HERE]
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF result success 1
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail msg @e[type=cow] hi<--[HERE]
+CF result failure 0
+CF fail No player was found
+CF msg You whisper to Bob: hi
+CF result success 1
+CF msg You whisper to A: hi
+CF result success 1
+CF result failure 0
+CF fail No player was found
+CF result success 1
+CF result success 4
+CF result success 1
+CF result failure 0
+CF fail An entity is required to run this command here
+CF result failure 0
+CF fail You must be on a team to message your team
+CF result failure 0
+CF fail You must be on a team to message your team
+CF result failure 0
+CF fail An entity is required to run this command here
+CF result failure 0
+CF fail You must be on a team to message your team

@@ -39,6 +39,72 @@ pub trait ActionHost {
     /// A `cmd` verb ran `command` (`succeeded`: its result callback reported success): what the replay re-does for its effects outside the command environment (a `gamerule` command
     /// reaches the chunk source's spawn flag, a command that kicked a player disconnects it).
     fn command_done(&mut self, _command: &str, _succeeded: bool) {}
+    /// What the harness remembers of its players, for the ones the server removes (`None`: it does not).
+    fn departed(&mut self) -> Option<&mut Departed> {
+        None
+    }
+}
+
+/// The facts of a player that survive its removal. The driver keeps the removed `ServerPlayer`, so a scenario can still dump its
+/// statistics and run a command as it after a `leave` or a kick; a replay has no such object, so it remembers the player before each
+/// command verb and before `leave`.
+#[derive(Default)]
+pub struct Departed(HashMap<String, Remembered>);
+
+#[derive(Clone)]
+pub struct Remembered {
+    pub stats: mc_game::stats::SharedStats,
+    pub entity: mc_game::commands::CommandEntity,
+    pub position: Vec3,
+    pub rotation: mc_core::phys::Vec2,
+    pub dimension: mc_game::world::level::DimensionKey,
+}
+
+impl Departed {
+    pub fn get(&self, name: &str) -> Option<&Remembered> {
+        self.0.get(name)
+    }
+}
+
+/// The entity a command source of `p` runs as (`player.createCommandSourceStack()`).
+pub fn command_entity(p: &ServerPlayer) -> mc_game::commands::CommandEntity {
+    mc_game::commands::server_access::with_server(|server| mc_game::commands::CommandEntity {
+        id: p.id(),
+        uuid: p.uuid(),
+        is_player: true,
+        display_name: mc_game::commands::host::entity_display_name(server, p),
+        plain_text_name: p.get_plain_text_name(),
+        eye_height: p.player.living.entity.eye_height,
+        player: p.handle.clone(),
+    })
+}
+
+/// Remembers every player of the current level (see [`Departed`]).
+pub fn remember_players<H: ActionHost>(h: &mut H) {
+    let level = h.action_level();
+    let dimension = level.dimension.clone();
+    let remembered: Vec<(String, Remembered)> = level
+        .players()
+        .to_vec()
+        .into_iter()
+        .filter_map(|id| {
+            level.with_player(id, |_, p| {
+                (
+                    p.get_plain_text_name(),
+                    Remembered {
+                        stats: p.stats.clone(),
+                        entity: command_entity(p),
+                        position: p.position(),
+                        rotation: mc_core::phys::Vec2::new(p.get_x_rot(), p.get_y_rot()),
+                        dimension: dimension.clone(),
+                    },
+                )
+            })
+        })
+        .collect();
+    if let Some(departed) = h.departed() {
+        departed.0.extend(remembered);
+    }
 }
 
 /// The per player packet counters behind [`ActionHost::next_sequence`].
@@ -120,10 +186,17 @@ pub(super) fn with_player<H: ActionHost, R>(
     name: &str,
     f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> R,
 ) -> R {
+    try_with_player(h, name, f).unwrap_or_else(|| panic!("{name} is not a player"))
+}
+
+/// [`with_player`] for a player the server may have removed meanwhile.
+fn try_with_player<H: ActionHost, R>(
+    h: &mut H,
+    name: &str,
+    f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> R,
+) -> Option<R> {
     let id = h.action_ref(name);
-    h.action_level()
-        .with_player(id, f)
-        .unwrap_or_else(|| panic!("{name} is not a player"))
+    h.action_level().with_player(id, f)
 }
 
 /// `ItemStack.getInteractAnimation()` of the stack in `hand`, read before the item is used (it may be gone afterwards).
@@ -614,6 +687,7 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
         // leave PLAYER   `PlayerList.remove(player)`: LEAVE_GAME, the player is saved and leaves the level; the statistics it ends with are printed
         "leave" => {
             h.boot();
+            remember_players(h);
             let stats = with_player(h, &a[1], |level, p| {
                 mc_game::commands::server_access::with_server(|server| {
                     mc_game::server::players::player_ops::remove(server, level, p)
@@ -697,7 +771,7 @@ pub fn dump<H: ActionHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
     let (Some(name), "use" | "cooldowns" | "portal" | "stats" | "inventory") = (arg, kind) else {
         return false;
     };
-    let lines: Vec<String> = with_player(h, name, |_, p| match kind {
+    let lines = try_with_player(h, name, |_, p| match kind {
         // USE REF hand=main|off item=ID*COUNT remaining=N ticks=N kinetic=N
         "use" => vec![format!(
             "USE {name} hand={} item={} remaining={} ticks={} kinetic={}",
@@ -749,7 +823,13 @@ pub fn dump<H: ActionHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
                 .map(|(i, s)| format!("I {name} {i} {}", super::entity_scenario::item_full(s)))
                 .collect()
         }
-    });
+    })
+    // a player that left keeps its statistics, as the driver's removed `ServerPlayer` does
+    .or_else(|| {
+        let left = h.departed()?.get(name)?;
+        (kind == "stats").then(|| stat_lines(name, &left.stats.lock()))
+    })
+    .unwrap_or_else(|| panic!("{name} is not a player"));
     for line in lines {
         h.emit(line);
     }

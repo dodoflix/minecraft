@@ -18,3 +18,8 @@ fn advancements_selector_option_matches_vanilla() {
 fn selected_item_nbt_matches_vanilla() {
     common::block_scenario::check("cmd_selected_item_nbt");
 }
+
+#[test]
+fn advancement_predicates_of_a_data_pack_match_vanilla() {
+    common::block_scenario::check("adv_predicate_pack");
+}

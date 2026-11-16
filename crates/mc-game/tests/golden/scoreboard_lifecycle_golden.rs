@@ -23,3 +23,13 @@ fn player_state_criteria_match_vanilla() {
 fn team_death_message_friendly_fire_and_collision_rules_match_vanilla() {
     common::block_scenario::check("sb_team_visibility");
 }
+
+#[test]
+fn objective_formats_displays_and_operations_match_vanilla() {
+    common::block_scenario::check("sb_formats");
+}
+
+#[test]
+fn team_subcommands_options_and_chat_match_vanilla() {
+    common::block_scenario::check("cmd_team_edges");
+}

@@ -1,0 +1,110 @@
+CF msg Created new objective [pt]
+CF result success 1
+CF msg Created new objective [dt]
+CF result success 2
+CF msg Created new objective [ts]
+CF result success 3
+CF msg Created new objective [lg]
+CF result success 4
+CF msg B has 3 [pt]
+CF result success 3
+STAT B minecraft.custom:minecraft.play_time 4
+STAT B minecraft.custom:minecraft.time_since_death 4
+STAT B minecraft.custom:minecraft.time_since_rest 4
+STAT B minecraft.custom:minecraft.total_world_time 4
+HURT B minecraft:generic 100 -> true
+CF msg B has 3 [pt]
+CF result success 3
+CF msg B has 1 [dt]
+CF result success 1
+STAT B minecraft.custom:minecraft.damage_taken 1000
+STAT B minecraft.custom:minecraft.deaths 1
+STAT B minecraft.custom:minecraft.play_time 4
+STAT B minecraft.custom:minecraft.time_since_death 0
+STAT B minecraft.custom:minecraft.time_since_rest 0
+STAT B minecraft.custom:minecraft.total_world_time 4
+CF msg B has 4 [pt]
+CF result success 4
+CF msg B has 0 [ts]
+CF result success 0
+STAT B minecraft.custom:minecraft.damage_taken 1000
+STAT B minecraft.custom:minecraft.deaths 1
+STAT B minecraft.custom:minecraft.play_time 5
+STAT B minecraft.custom:minecraft.time_since_death 0
+STAT B minecraft.custom:minecraft.time_since_rest 1
+STAT B minecraft.custom:minecraft.total_world_time 5
+CF msg B has 6 [pt]
+CF result success 6
+STAT B minecraft.custom:minecraft.damage_taken 1000
+STAT B minecraft.custom:minecraft.deaths 1
+STAT B minecraft.custom:minecraft.play_time 7
+STAT B minecraft.custom:minecraft.time_since_death 0
+STAT B minecraft.custom:minecraft.time_since_rest 3
+STAT B minecraft.custom:minecraft.total_world_time 7
+CF msg B has 6 [pt]
+CF result success 6
+CF msg B has 0 [ts]
+CF result success 0
+STAT B minecraft.custom:minecraft.damage_taken 1000
+STAT B minecraft.custom:minecraft.deaths 1
+STAT B minecraft.custom:minecraft.play_time 7
+STAT B minecraft.custom:minecraft.time_since_death 0
+STAT B minecraft.custom:minecraft.time_since_rest 3
+STAT B minecraft.custom:minecraft.total_world_time 7
+CF msg B has 7 [pt]
+CF result success 7
+CF msg B has 1 [ts]
+CF result success 1
+STAT B minecraft.custom:minecraft.damage_taken 1000
+STAT B minecraft.custom:minecraft.deaths 1
+STAT B minecraft.custom:minecraft.play_time 8
+STAT B minecraft.custom:minecraft.time_since_death 1
+STAT B minecraft.custom:minecraft.time_since_rest 4
+STAT B minecraft.custom:minecraft.total_world_time 8
+CF msg B has 8 [pt]
+CF result success 8
+CF msg B has 2 [ts]
+CF result success 2
+STAT B minecraft.custom:minecraft.damage_taken 1000
+STAT B minecraft.custom:minecraft.deaths 1
+STAT B minecraft.custom:minecraft.play_time 9
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 5
+STAT B minecraft.custom:minecraft.total_world_time 9
+STAT B minecraft.custom:minecraft.damage_taken 1000
+STAT B minecraft.custom:minecraft.deaths 1
+STAT B minecraft.custom:minecraft.leave_game 1
+STAT B minecraft.custom:minecraft.play_time 9
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 5
+STAT B minecraft.custom:minecraft.total_world_time 9
+CF msg B has 8 [pt]
+CF result success 8
+CF msg B has 2 [ts]
+CF result success 2
+CF msg B has 1 [lg]
+CF result success 1
+CF msg B has 1 [dt]
+CF result success 1
+CF msg B has 8 [pt]
+CF result success 8
+CF msg A has 10 [pt]
+CF result success 10
+CF msg A has 10 [ts]
+CF result success 10
+STAT A minecraft.custom:minecraft.play_time 11
+STAT A minecraft.custom:minecraft.time_since_death 11
+STAT A minecraft.custom:minecraft.time_since_rest 11
+STAT A minecraft.custom:minecraft.total_world_time 11
+# the player that left keeps its statistics and can still run commands
+STAT B minecraft.custom:minecraft.damage_taken 1000
+STAT B minecraft.custom:minecraft.deaths 1
+STAT B minecraft.custom:minecraft.leave_game 1
+STAT B minecraft.custom:minecraft.play_time 9
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 5
+STAT B minecraft.custom:minecraft.total_world_time 9
+CF fail Unknown or incomplete command. See below for error
+CF fail scoreboard players get B pt<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail tellraw A "from the player that left"<--[HERE]

@@ -1,0 +1,224 @@
+# Scenario: /data modify forms and errors (insert, prepend, append, merge, set from/string/value, substring ranges, negative indexes),
+# get with scale, remove, on entities, blocks and storage; execute store into NBT with types, and bossbar/score stores.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 1300
+spawn_player A survival 0.5 -60 0.5 0 0
+op A
+tick 1
+block 2 -60 2 minecraft:chest
+be_nbt 2 -60 2 {Items:[{Slot:0b,id:"minecraft:apple",count:3}]}
+cmd data merge storage t:d {l:[1,2,3],s:"hello world",c:{a:1,b:{x:"y"}},i:5,f:1.5f,d:2.25d,b:7b,L:99L,sh:3s,ia:[I;1,2,3],ba:[B;1b,2b],la:[L;1L,2L],ll:[{k:1},{k:2},{k:3}],e:[],z:""}
+note get
+cmd data get storage t:d
+cmd data get storage t:d l
+cmd data get storage t:d l[1]
+cmd data get storage t:d l[-1]
+cmd data get storage t:d l[5]
+cmd data get storage t:d s
+cmd data get storage t:d s 2
+cmd data get storage t:d i
+cmd data get storage t:d i 2
+cmd data get storage t:d i 0.5
+cmd data get storage t:d i -3
+cmd data get storage t:d f 3
+cmd data get storage t:d d 2
+cmd data get storage t:d d 10000000000
+cmd data get storage t:d b 100
+cmd data get storage t:d L 3
+cmd data get storage t:d sh 3
+cmd data get storage t:d c.b
+cmd data get storage t:d ia
+cmd data get storage t:d ba[0]
+cmd data get storage t:d la[1]
+cmd data get storage t:d ll[{k:2}]
+cmd data get storage t:d ll[].k
+cmd data get storage t:d e
+cmd data get storage t:d z
+cmd data get storage t:d z 2
+cmd data get storage t:d nothing
+cmd data get storage t:nothing
+cmd data get storage t:d {a:1}
+cmd data get storage t:d c{a:1}
+cmd data get storage t:d c{a:2}
+cmd data get storage t:d l[]
+cmd data get storage t:d "quoted"
+cmd data get storage t:d c."a"
+cmd data get block 2 -60 2
+cmd data get block 2 -60 2 Items[0].count
+cmd data get block 2 -60 2 Items[0].count 2
+cmd data get block 0 -60 0
+cmd data get block 2 100 2
+cmd data get entity A Health
+cmd data get entity A Health 2
+cmd data get entity A Pos[1]
+cmd data get entity A Pos[1] 100
+cmd data get entity A foodLevel
+cmd data get entity A abilities.walkSpeed 1000
+cmd data get entity A nothing
+cmd data get entity @e[type=zombie]
+cmd data get entity @a
+cmd data get entity @e[type=player,limit=1] XpLevel
+note modify set
+cmd data modify storage t:d i set value 10
+cmd data modify storage t:d i set value 10
+cmd data modify storage t:d i set value 11b
+cmd data modify storage t:d i set value "str"
+cmd data modify storage t:d i set from storage t:d f
+cmd data modify storage t:d i set from storage t:d l
+cmd data modify storage t:d i set from storage t:d nothing
+cmd data modify storage t:d i set from storage t:nothing x
+cmd data modify storage t:d c.new set value {deep:{er:[1]}}
+cmd data modify storage t:d c.new.deep.er[0] set value 5
+cmd data modify storage t:d c.new.deep.er[1] set value 5
+cmd data modify storage t:d c.a.b set value 1
+cmd data modify storage t:d l[0] set value "x"
+cmd data modify storage t:d l[10] set value "x"
+cmd data modify storage t:d l[-1] set value "last"
+cmd data modify storage t:d l[{x:1}] set value "x"
+cmd data modify storage t:d ll[{k:2}] set value {k:20}
+cmd data modify storage t:d ll[].k set value 0
+cmd data modify storage t:d ll[] set value {z:1}
+cmd data modify storage t:d ia[1] set value 50
+cmd data modify storage t:d ia[1] set value "x"
+cmd data modify storage t:d ba[0] set value 300
+cmd data modify storage t:d la[0] set value 5L
+cmd data modify storage t:d la[0] set value 5
+cmd data modify storage t:d s set string storage t:d s
+cmd data modify storage t:d s set string storage t:d s 6
+cmd data modify storage t:d s set string storage t:d s 6 8
+cmd data modify storage t:d s set string storage t:d s -5
+cmd data modify storage t:d s set string storage t:d s 0 -3
+cmd data modify storage t:d s set string storage t:d s 5 3
+cmd data modify storage t:d s set string storage t:d s 100
+cmd data modify storage t:d s set string storage t:d s 0 100
+cmd data modify storage t:d t set string storage t:d s 0 5
+cmd data modify storage t:d t set string storage t:d i
+cmd data modify storage t:d t set string storage t:d l
+cmd data modify storage t:d t set string storage t:d c
+cmd data modify storage t:d t set string entity A Health
+cmd data modify storage t:d t set string block 2 -60 2 Items[0].id
+cmd data modify storage t:d t set string storage t:d nothing
+cmd data get storage t:d t
+note modify insert append prepend merge
+cmd data modify storage t:d l append value 4
+cmd data modify storage t:d l prepend value 0
+cmd data modify storage t:d l insert 2 value 99
+cmd data modify storage t:d l insert 0 value "first"
+cmd data modify storage t:d l insert -1 value "beforelast"
+cmd data modify storage t:d l insert 100 value "x"
+cmd data modify storage t:d l insert -100 value "x"
+cmd data modify storage t:d l insert 3 from storage t:d ll
+cmd data modify storage t:d l append from storage t:d ll[]
+cmd data modify storage t:d l append from storage t:d nothing
+cmd data modify storage t:d l append string storage t:d s 0 3
+cmd data modify storage t:d e append value 1
+cmd data modify storage t:d e append value "mixed"
+cmd data modify storage t:d e append value {a:1}
+cmd data modify storage t:d ia append value 4
+cmd data modify storage t:d ia append value 4L
+cmd data modify storage t:d ia insert 0 value 9
+cmd data modify storage t:d ia prepend value 8
+cmd data modify storage t:d ba append value 3b
+cmd data modify storage t:d ba append value 3
+cmd data modify storage t:d la append value 3L
+cmd data modify storage t:d la insert 1 from storage t:d L
+cmd data modify storage t:d ll append value {k:4}
+cmd data modify storage t:d ll[0] merge value {extra:1}
+cmd data modify storage t:d ll[0] merge value {k:100}
+cmd data modify storage t:d ll[0] merge value 5
+cmd data modify storage t:d ll[0] merge from storage t:d c
+cmd data modify storage t:d c merge value {b:{y:"z"}}
+cmd data modify storage t:d c merge value {b:5}
+cmd data modify storage t:d c merge from storage t:d c
+cmd data modify storage t:d i merge value {a:1}
+cmd data modify storage t:d i append value 1
+cmd data modify storage t:d s append value 1
+cmd data modify storage t:d nothing append value 1
+cmd data modify storage t:d nothing merge value {a:1}
+cmd data modify storage t:d nothing set value 1
+cmd data modify storage t:new.path set value 1
+cmd data modify storage t:d l[0] set value
+cmd data modify storage t:d l bad value 1
+cmd data modify storage t:d l append value {
+cmd data modify storage t:d l append value 1 extra
+cmd data get storage t:d
+note remove
+cmd data remove storage t:d l[0]
+cmd data remove storage t:d l[-1]
+cmd data remove storage t:d l[100]
+cmd data remove storage t:d ll[{k:2}]
+cmd data remove storage t:d ll[].k
+cmd data remove storage t:d c.b.x
+cmd data remove storage t:d c.b.x
+cmd data remove storage t:d c
+cmd data remove storage t:d nothing
+cmd data remove storage t:d
+cmd data remove storage t:d {}
+cmd data remove storage t:d s[0]
+cmd data remove storage t:d ia[0]
+cmd data remove storage t:nothing x
+cmd data remove entity A Health
+cmd data remove entity A foodLevel
+cmd data remove entity A Pos
+cmd data remove block 2 -60 2 Items
+cmd data remove block 2 -60 2 id
+cmd data remove block 2 -60 2 x
+cmd data remove block 0 -60 0 x
+cmd data get storage t:d
+note merge on entity and block and storage
+cmd data merge storage t:m {a:1}
+cmd data merge storage t:m {a:2,b:{c:1}}
+cmd data merge storage t:m {b:{d:2}}
+cmd data merge storage t:m {}
+cmd data merge storage t:m {a:[1]}
+cmd data merge storage t:m 5
+cmd data merge storage t:m {bad
+cmd data merge entity A {Health:5f}
+cmd data merge entity A {UUID:[I;1,2,3,4]}
+cmd data merge entity A {abilities:{flying:1b}}
+cmd data merge entity A {Pos:[1.0d,-60.0d,1.0d]}
+cmd data merge entity A {nothing:1}
+cmd data merge entity @e[type=zombie] {a:1}
+cmd data merge block 2 -60 2 {Items:[]}
+cmd data merge block 2 -60 2 {Items:[{Slot:1b,id:"minecraft:stick",count:2}],x:5,y:5,z:5}
+cmd data merge block 2 -60 2 {id:"minecraft:furnace"}
+cmd data merge block 0 -60 0 {Items:[]}
+cmd data get block 2 -60 2
+cmd data get entity A
+dump be:2,-60,2
+note execute store into nbt
+cmd execute store result storage t:st r int 1 run data get storage t:d i
+cmd execute store result storage t:st r int 0.5 run scoreboard players get #x nothing
+cmd execute store result storage t:st b byte 1 run time query gametime
+cmd execute store result storage t:st sh short 1 run time query gametime
+cmd execute store result storage t:st lo long 1 run time query gametime
+cmd execute store result storage t:st fl float 0.25 run time query gametime
+cmd execute store result storage t:st dbl double 1.5 run time query gametime
+cmd execute store result storage t:st neg int -1 run time query gametime
+cmd execute store result storage t:st big byte 1000 run time query gametime
+cmd execute store success storage t:st ok byte 1 run time query gametime
+cmd execute store success storage t:st ok2 byte 1 run data get storage t:st nothing
+cmd execute store result storage t:st l[0] int 1 run time query gametime
+cmd execute store result storage t:st arr[] int 1 run time query gametime
+cmd execute store result storage t:st c.d.e int 1 run time query gametime
+cmd execute store result entity A Health float 1 run time query gametime
+cmd execute store result entity A foodLevel int 1 run data get storage t:st b
+cmd execute store result entity A Pos[0] double 1 run data get storage t:st b
+cmd execute store result entity A nothing int 1 run data get storage t:st b
+cmd execute store result entity A Inventory int 1 run data get storage t:st b
+cmd execute store result block 2 -60 2 Items[0].count int 1 run data get storage t:st b
+cmd execute store result block 2 -60 2 nothing.x int 1 run data get storage t:st b
+cmd execute store result block 0 -60 0 x int 1 run data get storage t:st b
+cmd execute store result bossbar minecraft:nothing value run time query gametime
+cmd bossbar add t:bar "Bar"
+cmd execute store result bossbar t:bar value run time query gametime
+cmd execute store result bossbar t:bar max run data get storage t:st b
+cmd execute store success bossbar t:bar value run data get storage t:st nothing
+cmd bossbar get t:bar value
+cmd bossbar get t:bar max
+cmd data get storage t:st
+tick 1
+dump storage:t:st storage:t:d storage:t:m be:2,-60,2

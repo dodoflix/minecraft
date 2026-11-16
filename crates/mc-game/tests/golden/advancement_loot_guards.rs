@@ -8,67 +8,326 @@ use std::path::Path;
 use mc_game::advancements::triggers::TRIGGER_TYPES;
 
 /// Trigger -> the scenario (`tests/oracle/scenarios/NAME.txt`, recorded under `tests/fixtures/entity_oracle/`) in which it
-/// fires and the award shows in a `dump advancements:`.
-const OBSERVED: &[(&str, &str)] = &[
-    ("allay_drop_item_on_block", "adv_allay_note_block"),
-    ("any_block_use", "adv_block_use"),
-    ("avoid_vibration", "adv_avoid_vibration"),
-    ("bee_nest_destroyed", "blk_adv_block_events"),
-    ("bred_animals", "adv_bred_animals"),
-    ("brewed_potion", "mnu_brewing_stand"),
-    ("channeled_lightning", "ent_trident_hit_advancement"),
-    ("construct_beacon", "blk_adv_block_events"),
-    ("consume_item", "adv_consume_items"),
-    ("crafter_recipe_crafted", "blk_adv_block_events"),
-    ("cured_zombie_villager", "mob_zombie_villager_cure"),
-    ("default_block_use", "adv_block_use"),
-    ("effects_changed", "adv_effects_changed"),
-    ("enchanted_item", "mnu_enchant_table"),
-    ("enter_block", "adv_enter_block_sleep"),
-    ("entity_hurt_player", "adv_hurt_player"),
-    ("entity_killed_player", "adv_kill_triggers"),
-    ("fall_after_explosion", "adv_totem_explosion"),
-    ("fall_from_height", "adv_fall_height"),
-    ("filled_bucket", "adv_buckets"),
-    ("fishing_rod_hooked", "ent_fishing_hooked_entity"),
-    ("hero_of_the_village", "adv_raid_hero"),
-    ("impossible", "adv_join_packet"),
-    ("inventory_changed", "adv_inventory_changed"),
-    ("item_durability_changed", "adv_durability"),
-    ("item_used_on_block", "blk_adv_item_used_on_block"),
-    ("kill_mob_near_sculk_catalyst", "adv_sculk_kills"),
-    ("killed_by_arrow", "adv_arrow_kills"),
-    ("levitation", "adv_levitation"),
-    ("lightning_strike", "adv_lightning_strike"),
-    ("location", "adv_location_triggers"),
-    ("placed_block", "blk_adv_placed_block"),
+/// fires, and the advancement criterion of that trigger the fixture records as completed (`ADV PLAYER ADVANCEMENT CRITERION`).
+/// An empty criterion marks a trigger that never completes (`impossible`): the fixture only lists its advancement in an
+/// `update_advancements` packet.
+const OBSERVED: &[(&str, &str, &str, &str)] = &[
+    (
+        "allay_drop_item_on_block",
+        "adv_allay_note_block",
+        "minecraft:husbandry/allay_deliver_cake_to_note_block",
+        "allay_deliver_cake_to_note_block",
+    ),
+    ("any_block_use", "adv_block_use", "uses:block/any_any", "c"),
+    (
+        "avoid_vibration",
+        "adv_avoid_vibration",
+        "minecraft:adventure/avoid_vibration",
+        "avoid_vibration",
+    ),
+    (
+        "bee_nest_destroyed",
+        "blk_adv_block_events",
+        "minecraft:husbandry/silk_touch_nest",
+        "silk_touch_nest",
+    ),
+    (
+        "bred_animals",
+        "adv_bred_animals",
+        "minecraft:husbandry/bred_all_animals",
+        "minecraft:cow",
+    ),
+    (
+        "brewed_potion",
+        "mnu_brewing_stand",
+        "minecraft:nether/brew_potion",
+        "potion",
+    ),
+    (
+        "channeled_lightning",
+        "ent_lightning_channeling",
+        "minecraft:adventure/very_very_frightening",
+        "struck_villager",
+    ),
+    (
+        "construct_beacon",
+        "blk_adv_block_events",
+        "minecraft:nether/create_beacon",
+        "beacon",
+    ),
+    (
+        "consume_item",
+        "adv_consume_items",
+        "minecraft:husbandry/balanced_diet",
+        "apple",
+    ),
+    (
+        "crafter_recipe_crafted",
+        "blk_adv_block_events",
+        "minecraft:adventure/crafters_crafting_crafters",
+        "crafter_crafted_crafter",
+    ),
+    (
+        "cured_zombie_villager",
+        "mob_zombie_villager_cure",
+        "minecraft:story/cure_zombie_villager",
+        "cured_zombie",
+    ),
+    (
+        "default_block_use",
+        "adv_block_use",
+        "uses:block/default_any",
+        "c",
+    ),
+    ("effects_changed", "adv_effects_changed", "mv:eff/any", "c"),
+    (
+        "enchanted_item",
+        "mnu_enchant_table",
+        "minecraft:story/enchant_item",
+        "enchanted_item",
+    ),
+    ("enter_block", "adv_enter_block_sleep", "mv:enter/any", "c"),
+    (
+        "entity_hurt_player",
+        "adv_hurt_player",
+        "minecraft:story/deflect_arrow",
+        "deflected_projectile",
+    ),
+    (
+        "entity_killed_player",
+        "adv_kill_triggers",
+        "minecraft:adventure/root",
+        "killed_by_something",
+    ),
+    (
+        "fall_after_explosion",
+        "adv_totem_explosion",
+        "minecraft:adventure/who_needs_rockets",
+        "who_needs_rockets",
+    ),
+    ("fall_from_height", "adv_fall_height", "mv:fall/any", "c"),
+    (
+        "filled_bucket",
+        "adv_buckets",
+        "minecraft:husbandry/axolotl_in_a_bucket",
+        "axolotl_bucket",
+    ),
+    (
+        "fishing_rod_hooked",
+        "ent_fishing_bite",
+        "minecraft:husbandry/fishy_business",
+        "cod",
+    ),
+    (
+        "hero_of_the_village",
+        "adv_raid_hero",
+        "minecraft:adventure/hero_of_the_village",
+        "hero_of_the_village",
+    ),
+    (
+        "impossible",
+        "adv_join_packet",
+        "minecraft:recipes/root",
+        "",
+    ),
+    (
+        "inventory_changed",
+        "adv_inventory_changed",
+        "minecraft:adventure/salvage_sherd",
+        "has_sherd",
+    ),
+    (
+        "item_durability_changed",
+        "adv_durability",
+        "minecraft:nether/ride_strider",
+        "used_warped_fungus_on_a_stick",
+    ),
+    (
+        "item_used_on_block",
+        "blk_adv_item_used_on_block",
+        "minecraft:adventure/lighten_up",
+        "lighten_up",
+    ),
+    (
+        "kill_mob_near_sculk_catalyst",
+        "adv_sculk_kills",
+        "minecraft:adventure/kill_mob_near_sculk_catalyst",
+        "kill_mob_near_sculk_catalyst",
+    ),
+    (
+        "killed_by_arrow",
+        "adv_arrow_kills",
+        "minecraft:adventure/arbalistic",
+        "arbalistic",
+    ),
+    (
+        "levitation",
+        "adv_levitation",
+        "minecraft:end/levitate",
+        "levitated",
+    ),
+    (
+        "lightning_strike",
+        "adv_lightning_strike",
+        "combat:lightning/any",
+        "c",
+    ),
+    (
+        "location",
+        "adv_location_triggers",
+        "minecraft:adventure/adventuring_time",
+        "minecraft:desert",
+    ),
+    (
+        "placed_block",
+        "blk_adv_placed_block",
+        "minecraft:adventure/heart_transplanter",
+        "place_creaking_heart_dormant",
+    ),
     (
         "player_generates_container_loot",
         "ent_container_minecart_loot",
+        "minecraft:nether/loot_bastion",
+        "loot_bastion_other",
     ),
-    ("player_hurt_entity", "adv_hurt_entity"),
-    ("player_interacted_with_entity", "adv_entity_interaction"),
-    ("player_killed_entity", "adv_kill_triggers"),
-    ("player_sheared_equipment", "adv_entity_interaction"),
-    ("recipe_crafted", "adv_recipe_crafted"),
-    ("recipe_unlocked", "mnu_recipe_unlock"),
-    ("ride_entity_in_lava", "adv_ride_lava"),
-    ("shot_crossbow", "adv_arrow_kills"),
-    ("slept_in_bed", "adv_enter_block_sleep"),
-    ("slide_down_block", "blk_honey_slide"),
-    ("spear_mobs", "adv_spear_mobs"),
-    ("started_riding", "ent_ride_advancement"),
-    ("summoned_entity", "adv_summoned_golems"),
-    ("tame_animal", "adv_tamed_animals"),
-    ("target_hit", "blk_adv_block_events"),
-    ("thrown_item_picked_up_by_entity", "adv_thrown_pickup"),
-    ("thrown_item_picked_up_by_player", "adv_allay_delivery"),
-    ("tick", "adv_join_packet"),
-    ("used_ender_eye", "adv_ender_eye"),
-    ("used_totem", "adv_totem_explosion"),
-    ("using_item", "adv_using_item"),
-    ("villager_trade", "adv_villager_trades"),
-    ("voluntary_exile", "adv_voluntary_exile"),
+    (
+        "player_hurt_entity",
+        "adv_hurt_entity",
+        "minecraft:adventure/shoot_arrow",
+        "shot_arrow",
+    ),
+    (
+        "player_interacted_with_entity",
+        "adv_entity_interaction",
+        "minecraft:adventure/brush_armadillo",
+        "brush_armadillo",
+    ),
+    (
+        "player_killed_entity",
+        "adv_kill_triggers",
+        "minecraft:adventure/kill_a_mob",
+        "minecraft:skeleton",
+    ),
+    (
+        "player_sheared_equipment",
+        "adv_entity_interaction",
+        "minecraft:husbandry/remove_wolf_armor",
+        "remove_wolf_armor",
+    ),
+    (
+        "recipe_crafted",
+        "adv_recipe_crafted",
+        "minecraft:adventure/craft_decorated_pot_using_only_sherds",
+        "pot_crafted_using_only_sherds",
+    ),
+    (
+        "recipe_unlocked",
+        "mnu_recipe_unlock",
+        "minecraft:recipes/brewing/blaze_powder",
+        "has_the_recipe",
+    ),
+    (
+        "ride_entity_in_lava",
+        "adv_ride_lava",
+        "minecraft:nether/ride_strider_in_overworld_lava",
+        "ride_entity_distance",
+    ),
+    (
+        "shot_crossbow",
+        "adv_arrow_kills",
+        "minecraft:adventure/ol_betsy",
+        "shot_crossbow",
+    ),
+    (
+        "slept_in_bed",
+        "adv_enter_block_sleep",
+        "minecraft:adventure/sleep_in_bed",
+        "slept_in_bed",
+    ),
+    (
+        "slide_down_block",
+        "blk_honey_slide",
+        "minecraft:adventure/honey_block_slide",
+        "honey_block_slide",
+    ),
+    (
+        "spear_mobs",
+        "adv_spear_mobs",
+        "minecraft:adventure/spear_many_mobs",
+        "spear_many_mobs",
+    ),
+    (
+        "started_riding",
+        "ent_ride_advancement",
+        "minecraft:husbandry/ride_a_boat_with_a_goat",
+        "ride_a_boat_with_a_goat",
+    ),
+    (
+        "summoned_entity",
+        "adv_summoned_golems",
+        "minecraft:adventure/summon_iron_golem",
+        "summoned_golem",
+    ),
+    (
+        "tame_animal",
+        "adv_tamed_animals",
+        "minecraft:husbandry/complete_catalogue",
+        "minecraft:all_black",
+    ),
+    (
+        "target_hit",
+        "blk_adv_block_events",
+        "minecraft:adventure/bullseye",
+        "bullseye",
+    ),
+    (
+        "thrown_item_picked_up_by_entity",
+        "adv_thrown_pickup",
+        "minecraft:husbandry/uh_oh",
+        "pick_up_dropped_tnt",
+    ),
+    (
+        "thrown_item_picked_up_by_player",
+        "adv_allay_delivery",
+        "minecraft:husbandry/allay_deliver_item_to_player",
+        "allay_deliver_item_to_player",
+    ),
+    (
+        "tick",
+        "adv_join_packet",
+        "minecraft:recipes/decorations/crafting_table",
+        "unlock_right_away",
+    ),
+    (
+        "used_ender_eye",
+        "adv_ender_eye",
+        "uses:eye/at_least_1358_5",
+        "c",
+    ),
+    (
+        "used_totem",
+        "adv_totem_explosion",
+        "minecraft:adventure/totem_of_undying",
+        "used_totem",
+    ),
+    (
+        "using_item",
+        "adv_using_item",
+        "minecraft:adventure/spyglass_at_parrot",
+        "spyglass_at_parrot",
+    ),
+    (
+        "villager_trade",
+        "adv_villager_trades",
+        "minecraft:adventure/trade",
+        "traded",
+    ),
+    (
+        "voluntary_exile",
+        "adv_voluntary_exile",
+        "rewards:omen",
+        "omen",
+    ),
 ];
 
 /// Triggers without an observation, and why.
@@ -94,7 +353,7 @@ fn every_trigger_is_observed_by_a_scenario_or_listed_as_a_gap() {
     let mut problems = Vec::new();
     let listed: Vec<&str> = OBSERVED
         .iter()
-        .map(|(t, _)| *t)
+        .map(|(t, ..)| *t)
         .chain(UNOBSERVED.iter().map(|(t, _)| *t))
         .collect();
     for trigger in &registered {
@@ -109,7 +368,7 @@ fn every_trigger_is_observed_by_a_scenario_or_listed_as_a_gap() {
             problems.push(format!("{trigger}: listed but not registered"));
         }
     }
-    for (trigger, scenario) in OBSERVED {
+    for (trigger, scenario, advancement, criterion) in OBSERVED {
         let script = std::fs::read_to_string(dir.join(format!("oracle/scenarios/{scenario}.txt")));
         match script {
             Ok(text) if text.contains("advancements") => {}
@@ -117,10 +376,31 @@ fn every_trigger_is_observed_by_a_scenario_or_listed_as_a_gap() {
             Err(_) => problems.push(format!("{trigger}: no scenario {scenario}")),
         }
         let fixtures = dir.join("fixtures/entity_oracle");
-        if !fixtures.join(format!("{scenario}.txt")).exists()
-            && !fixtures.join(format!("{scenario}.txt.gz")).exists()
-        {
+        let (plain, packed) = (
+            fixtures.join(format!("{scenario}.txt")),
+            fixtures.join(format!("{scenario}.txt.gz")),
+        );
+        let fixture = if plain.exists() {
+            std::fs::read_to_string(plain).expect("fixture reads")
+        } else if packed.exists() {
+            mc_testkit::read_gz(packed)
+        } else {
             problems.push(format!("{trigger}: {scenario} has no recorded fixture"));
+            continue;
+        };
+        let proved = fixture.lines().any(|line| {
+            if criterion.is_empty() {
+                line.starts_with("PKT ") && line.contains(advancement)
+            } else {
+                line.strip_prefix("ADV ")
+                    .and_then(|rest| rest.split_once(' '))
+                    .is_some_and(|(_, rest)| rest == format!("{advancement} {criterion}"))
+            }
+        });
+        if !proved {
+            problems.push(format!(
+                "{trigger}: {scenario} records no completed `{advancement}` criterion `{criterion}`"
+            ));
         }
     }
     assert!(problems.is_empty(), "{problems:#?}");

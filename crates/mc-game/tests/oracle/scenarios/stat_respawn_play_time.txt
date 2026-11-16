@@ -1,0 +1,54 @@
+# Scenario: a statistic objective across death, respawn and leaving: play time and deaths counters tick-by-tick against the stat file.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 1500
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 8.5 -60 0.5 0 0
+op A
+tick 1
+cmd scoreboard objectives add pt minecraft.custom:minecraft.play_time
+cmd scoreboard objectives add dt minecraft.custom:minecraft.deaths
+cmd scoreboard objectives add ts minecraft.custom:minecraft.time_since_death
+cmd scoreboard objectives add lg minecraft.custom:minecraft.leave_game
+tick 3
+cmd scoreboard players get B pt
+dump stats:B
+hurt B minecraft:generic 100
+cmd scoreboard players get B pt
+cmd scoreboard players get B dt
+dump stats:B
+tick 1
+cmd scoreboard players get B pt
+cmd scoreboard players get B ts
+dump stats:B
+tick 2
+cmd scoreboard players get B pt
+dump stats:B
+respawn B
+cmd scoreboard players get B pt
+cmd scoreboard players get B ts
+dump stats:B
+tick 1
+cmd scoreboard players get B pt
+cmd scoreboard players get B ts
+dump stats:B
+tick 1
+cmd scoreboard players get B pt
+cmd scoreboard players get B ts
+dump stats:B
+leave B
+cmd scoreboard players get B pt
+cmd scoreboard players get B ts
+cmd scoreboard players get B lg
+cmd scoreboard players get B dt
+tick 2
+cmd scoreboard players get B pt
+cmd scoreboard players get A pt
+cmd scoreboard players get A ts
+dump stats:A
+note the player that left keeps its statistics and can still run commands
+dump stats:B
+cmd_as B scoreboard players get B pt
+cmd_as B tellraw A "from the player that left"

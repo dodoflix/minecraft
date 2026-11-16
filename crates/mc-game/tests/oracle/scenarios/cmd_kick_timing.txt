@@ -1,0 +1,36 @@
+# Scenario: when a kicked player leaves: the player list and the selector right after /kick, after one tick, and the command as the kicked player.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 1600
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 8.5 -60 0.5 0 0
+op A
+tick 1
+cmd scoreboard objectives add lg minecraft.custom:minecraft.leave_game
+cmd_as -4 kick B bye
+cmd_as -4 list
+cmd_as -4 kick B again
+cmd_as -4 tellraw @a "after kick"
+cmd_as -4 tag @a add t
+cmd scoreboard players get B lg
+tick 1
+cmd_as -4 list
+cmd_as -4 kick B third
+cmd scoreboard players get B lg
+cmd_as -4 tag @a list
+tick 2
+cmd_as -4 list
+cmd_as -4 kick A
+cmd_as -4 list
+tick 1
+cmd_as -4 list
+note the kicked player is gone from the world but still a command source
+dump stats:B
+cmd_as B scoreboard players get B lg
+cmd_as B tellraw A "from the kicked player"
+cmd_as -4 op B
+cmd_as B tellraw A "from the kicked operator"
+cmd_as B list
+cmd_as B say hello from the kicked operator

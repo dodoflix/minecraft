@@ -1,0 +1,1 @@
+{"criteria": {"c": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": "minecraft:enchanted_book", "predicates": {"minecraft:stored_enchantments": [{"enchantments": ["minecraft:mending", "minecraft:unbreaking"], "levels": {"min": 1}}]}}]}}}}

@@ -1,0 +1,222 @@
+# Scenario: permission levels 0..4 (console and players) against every command: denied text and position, or the allowed run's feedback.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 1200
+spawn_player Plain survival 0.5 -60 0.5 0 0
+spawn_player Op survival 4.5 -60 0.5 0 0
+op Op
+tick 1
+dump packets:Plain:none packets:Op:none
+note level 1
+cmd_as -1 advancement grant Plain everything
+cmd_as -1 attribute Plain minecraft:armor get
+cmd_as -1 bossbar list
+cmd_as -1 clear Plain
+cmd_as -1 clone 0 -60 0 0 -60 0 5 -60 5
+cmd_as -1 data get entity Plain Health
+cmd_as -1 datapack list
+cmd_as -1 debug start
+cmd_as -1 defaultgamemode survival
+cmd_as -1 difficulty
+cmd_as -1 effect clear Plain
+cmd_as -1 enchant Plain minecraft:sharpness
+cmd_as -1 execute run say hi
+cmd_as -1 experience query Plain points
+cmd_as -1 fill 0 -60 0 0 -60 0 minecraft:air
+cmd_as -1 fillbiome 0 -60 0 0 -60 0 minecraft:plains
+cmd_as -1 forceload query
+cmd_as -1 function minecraft:nothing
+cmd_as -1 gamemode survival Plain
+cmd_as -1 gamerule keep_inventory
+cmd_as -1 give Plain minecraft:apple
+cmd_as -1 help
+cmd_as -1 item replace entity Plain weapon.mainhand with minecraft:apple
+cmd_as -1 kick Plain
+cmd_as -1 kill Plain
+cmd_as -1 list
+cmd_as -1 locate biome minecraft:plains
+cmd_as -1 loot give Plain loot minecraft:chests/simple_dungeon
+cmd_as -1 me hi
+cmd_as -1 msg Plain hi
+cmd_as -1 op Plain
+cmd_as -1 pardon Plain
+cmd_as -1 particle minecraft:flame
+cmd_as -1 perf start
+cmd_as -1 place feature minecraft:oak 0 -60 0
+cmd_as -1 playsound minecraft:entity.pig.ambient master Plain
+cmd_as -1 publish
+cmd_as -1 random value 1..6
+cmd_as -1 recipe give Plain *
+cmd_as -1 reload
+cmd_as -1 return 1
+cmd_as -1 ride Plain dismount
+cmd_as -1 rotate Plain 0 0
+cmd_as -1 save-all
+cmd_as -1 say hi
+cmd_as -1 schedule clear minecraft:nothing
+cmd_as -1 scoreboard objectives list
+cmd_as -1 seed
+cmd_as -1 setblock 0 -60 0 minecraft:air
+cmd_as -1 setidletimeout 5
+cmd_as -1 setworldspawn
+cmd_as -1 spawnpoint Plain
+cmd_as -1 spectate
+cmd_as -1 spreadplayers 0 0 1 10 false Plain
+cmd_as -1 stop
+cmd_as -1 stopsound Plain
+cmd_as -1 summon minecraft:pig
+cmd_as -1 swing Plain
+cmd_as -1 tag Plain list
+cmd_as -1 team list
+cmd_as -1 teammsg hi
+cmd_as -1 teleport Plain 0 -60 0
+cmd_as -1 tellraw Plain "x"
+cmd_as -1 tick query
+cmd_as -1 time query daytime
+cmd_as -1 title Plain clear
+cmd_as -1 transfer localhost
+cmd_as -1 trigger x
+cmd_as -1 version
+cmd_as -1 weather clear
+cmd_as -1 whitelist list
+cmd_as -1 worldborder get
+cmd_as -1 waypoint list
+cmd_as -1 stopwatch create t:w
+cmd_as -1 dialog clear Plain
+cmd_as -1 test
+cmd_as -1 jfr start
+cmd_as -1 fetchprofile name
+cmd_as -1 ban Plain
+cmd_as -1 ban-ip 1.2.3.4
+cmd_as -1 banlist
+cmd_as -1 pardon-ip 1.2.3.4
+cmd_as -1 deop Plain
+cmd_as -1 save-on
+cmd_as -1 save-off
+cmd_as -1 postfx
+cmd_as -1 compute
+note levels 2 3 4: the administrative commands
+cmd_as -2 op Plain
+cmd_as -2 deop Plain
+cmd_as -2 ban Plain
+cmd_as -2 ban-ip 1.2.3.4
+cmd_as -2 banlist
+cmd_as -2 pardon Plain
+cmd_as -2 pardon-ip 1.2.3.4
+cmd_as -2 kick Plain
+cmd_as -2 whitelist list
+cmd_as -2 whitelist on
+cmd_as -2 save-all
+cmd_as -2 save-on
+cmd_as -2 save-off
+cmd_as -2 stop
+cmd_as -2 setidletimeout 5
+cmd_as -2 transfer localhost
+cmd_as -2 perf start
+cmd_as -2 jfr start
+cmd_as -2 debug start
+cmd_as -2 fetchprofile name
+cmd_as -2 reload
+cmd_as -2 datapack list
+cmd_as -2 function minecraft:nothing
+cmd_as -2 publish
+cmd_as -2 version
+cmd_as -2 list
+cmd_as -3 op Plain
+cmd_as -3 deop Op
+cmd_as -3 ban Nobody
+cmd_as -3 banlist
+cmd_as -3 pardon Plain
+cmd_as -3 pardon-ip 1.2.3.4
+cmd_as -3 ban-ip 1.2.3.4
+cmd_as -3 kick Nobody
+cmd_as -3 whitelist list
+cmd_as -3 whitelist on
+cmd_as -3 whitelist off
+cmd_as -3 whitelist add Plain
+cmd_as -3 whitelist remove Plain
+cmd_as -3 whitelist reload
+cmd_as -3 save-all
+cmd_as -3 save-on
+cmd_as -3 save-off
+cmd_as -3 save-on
+cmd_as -3 stop
+cmd_as -3 setidletimeout 5
+cmd_as -3 transfer
+cmd_as -3 perf stop
+cmd_as -3 jfr stop
+cmd_as -3 debug stop
+cmd_as -3 fetchprofile
+cmd_as -3 reload
+cmd_as -3 publish
+cmd_as -3 test
+cmd_as -3 gamerule keep_inventory true
+cmd_as -3 difficulty easy
+cmd_as -3 defaultgamemode creative
+cmd_as -3 seed
+cmd_as -3 locate biome minecraft:plains
+cmd_as -4 banlist
+cmd_as -4 op Plain
+cmd_as -4 deop Plain
+cmd_as -4 pardon Plain
+cmd_as -4 pardon-ip 1.2.3.4
+cmd_as -4 ban-ip 1.2.3.4
+cmd_as -4 ban-ip 1.2.3.4 reason
+cmd_as -4 banlist ips
+cmd_as -4 banlist players
+cmd_as -4 pardon-ip 1.2.3.4
+cmd_as -4 whitelist list
+cmd_as -4 whitelist add Plain
+cmd_as -4 whitelist list
+cmd_as -4 whitelist remove Plain
+cmd_as -4 save-all flush
+cmd_as -4 save-off
+cmd_as -4 save-off
+cmd_as -4 save-all
+cmd_as -4 save-on
+cmd_as -4 save-on
+cmd_as -4 setidletimeout 5
+cmd_as -4 setidletimeout 0
+cmd_as -4 setidletimeout -1
+cmd_as -4 jfr stop
+cmd_as -4 perf stop
+cmd_as -4 debug stop
+cmd_as -4 fetchprofile name
+cmd_as -4 version
+cmd_as -4 transfer
+cmd_as -4 transfer localhost
+cmd_as -4 transfer localhost 99999
+cmd_as -4 transfer localhost 25565 Nobody
+cmd_as -4 kick Nobody
+cmd_as -4 list
+cmd_as -4 list uuids
+note player sources: non-op and op player
+cmd_as Plain op Plain
+cmd_as Plain stop
+cmd_as Plain list
+cmd_as Plain help
+cmd_as Plain msg Op hi
+cmd_as Plain me waves
+cmd_as Plain trigger x
+cmd_as Plain teammsg hi
+cmd_as Plain seed
+cmd_as Plain gamemode creative
+cmd_as Plain version
+cmd_as Plain tell Op hi
+cmd_as Plain w Op hi
+cmd_as Plain tm hi
+cmd_as Plain say hi
+cmd_as Plain random value 1..6
+cmd_as Plain tick query
+cmd_as Plain time query daytime
+cmd_as Plain locate biome minecraft:plains
+cmd_as Plain waypoint list
+cmd_as Op op Plain
+cmd_as Op deop Plain
+cmd_as Op whitelist list
+cmd_as Op save-all
+cmd_as Op stop
+tick 1
+dump packets:Plain:system_chat packets:Op:system_chat

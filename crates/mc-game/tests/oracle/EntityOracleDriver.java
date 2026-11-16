@@ -1024,9 +1024,12 @@ public final class EntityOracleDriver {
             player(a.get(1)).connection.handleClientCommand(new ServerboundClientCommandPacket(ServerboundClientCommandPacket.Action.REQUEST_STATS));
          }
          case "leave" -> {
-            // PlayerList.remove(player) (awards LEAVE_GAME, saves the player, takes it out of the level); the statistics it ends with are printed as `STAT` lines
+            // PlayerList.remove(player) (awards LEAVE_GAME, saves the player, takes it out of the level); the statistics it ends with are printed as `STAT` lines.
+            // A real disconnect also drops the connection: without that its listener would keep ticking the removed player (play time and the
+            // objectives that follow it would move on).
             world();
             v.server.getPlayerList().remove(player(a.get(1)));
+            v.server.getConnection().getConnections().remove(v.player(a.get(1)).connection);
             printStats(a.get(1));
          }
          case "pcommand" -> {

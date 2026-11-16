@@ -63,6 +63,8 @@ pub struct Actors {
     rx: HashMap<String, UnboundedReceiver<Outbound>>,
     /// The driver's `seq(player)` counters.
     sequences: crate::common::player_actions::Sequences,
+    /// What the players had before the server removed them.
+    departed: crate::common::player_actions::Departed,
     /// `track_movement` players with the position at the start of the previous tick (`None` before the first tick).
     tracked_movement: HashMap<EntityId, Option<Vec3>>,
     /// Keeps the inbound queue of every replayed listener open.
@@ -2320,6 +2322,9 @@ impl crate::common::player_actions::ActionHost for Scenario {
     }
     fn command_done(&mut self, command: &str, succeeded: bool) {
         self.after_command(command, succeeded);
+    }
+    fn departed(&mut self) -> Option<&mut crate::common::player_actions::Departed> {
+        Some(&mut self.actors.departed)
     }
 }
 

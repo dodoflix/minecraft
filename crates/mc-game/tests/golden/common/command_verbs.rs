@@ -31,9 +31,7 @@ use mc_core::math::java::{java_double_to_string as jd, java_float_to_string as j
 use mc_core::phys::{Vec2, Vec3};
 use mc_core::pos::BlockPos;
 use mc_game::commands::arguments::selector::{EntityRef, EntitySelectorParser};
-use mc_game::commands::{
-    CommandEntity, CommandResultCallback, CommandSource, CommandSourceStack, server_access,
-};
+use mc_game::commands::{CommandResultCallback, CommandSource, CommandSourceStack, server_access};
 use mc_game::server::MinecraftServer;
 use mc_game::server::level::ServerLevel;
 use mc_game::server::level::level_rules::LiveRules;
@@ -258,6 +256,7 @@ fn run<H: ActionHost>(h: &mut H, who: Who, command: &str, json: bool, quiet: boo
         server_access::has_server(),
         "`cmd {command}` needs the `command_env` verb"
     );
+    super::player_actions::remember_players(h);
     let player_feedback = matches!(who, Who::Player(_))
         .then(|| server_access::with_server(|server| server.game_rules().live()));
     let feedback = Arc::new(Feedback {
@@ -307,7 +306,8 @@ fn run<H: ActionHost>(h: &mut H, who: Who, command: &str, json: bool, quiet: boo
     }
 }
 
-/// `player.createCommandSourceStack()` with `source` as the feedback sink.
+/// `player.createCommandSourceStack()` with `source` as the feedback sink. A player the server removed (`leave`, a kick) is the
+/// removed `ServerPlayer` the driver still holds: its last position, rotation and entity, and the permissions of the operator list.
 fn player_stack<H: ActionHost>(
     h: &mut H,
     name: &str,
@@ -315,37 +315,49 @@ fn player_stack<H: ActionHost>(
 ) -> CommandSourceStack {
     let id = h.action_ref(name);
     let level = h.action_level();
-    let dimension = level.dimension.clone();
-    level
-        .with_player(id, |_, p| {
-            let entity = server_access::with_server(|server| CommandEntity {
-                id: p.id(),
-                uuid: p.uuid(),
-                is_player: true,
-                display_name: mc_game::commands::host::entity_display_name(server, &*p),
-                plain_text_name: p.get_plain_text_name(),
-                eye_height: p.player.living.entity.eye_height,
-                player: p.handle.clone(),
-            });
-            // `getProfilePermissions`: the player list entry's permissions when it has one, else the operator list
-            let permissions = match &p.handle {
-                Some(handle) => handle.shared.lock().permissions,
-                None => server_access::with_server(|server| {
-                    server
-                        .player_list
-                        .get_profile_permissions(&NameAndId::create_offline(name))
-                }),
-            };
-            CommandSourceStack::for_entity(
-                source,
-                p.position(),
-                Vec2::new(p.get_x_rot(), p.get_y_rot()),
-                dimension,
-                permissions.into(),
-                entity,
-            )
+    let level_dimension = level.dimension.clone();
+    let live = level.with_player(id, |_, p| {
+        // `getProfilePermissions`: the player list entry's permissions when it has one, else the operator list
+        let permissions = match &p.handle {
+            Some(handle) => handle.shared.lock().permissions,
+            None => profile_permissions(name),
+        };
+        (
+            p.position(),
+            Vec2::new(p.get_x_rot(), p.get_y_rot()),
+            permissions,
+            super::player_actions::command_entity(p),
+            level_dimension,
+        )
+    });
+    let (position, rotation, permissions, entity, dimension) = live
+        .or_else(|| {
+            let left = h.departed()?.get(name)?;
+            Some((
+                left.position,
+                left.rotation,
+                profile_permissions(name),
+                left.entity.clone(),
+                left.dimension.clone(),
+            ))
         })
-        .unwrap_or_else(|| panic!("`{name}` is not a player"))
+        .unwrap_or_else(|| panic!("`{name}` is not a player"));
+    CommandSourceStack::for_entity(
+        source,
+        position,
+        rotation,
+        dimension,
+        permissions.into(),
+        entity,
+    )
+}
+
+fn profile_permissions(name: &str) -> LevelBasedPermissionSet {
+    server_access::with_server(|server| {
+        server
+            .player_list
+            .get_profile_permissions(&NameAndId::create_offline(name))
+    })
 }
 
 /// Every `[dd:dd:dd]` (the wall-clock stamp a command block puts before its last output) as `[HH:MM:SS]`, in text and inside a hex dump of
@@ -583,6 +595,10 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
             let mut logs: Vec<String> = super::take_logs()
                 .into_iter()
                 .filter(|l| l.starts_with("WARN: ") || l.starts_with("ERROR: "))
+                // the registries the replays load from the extracted vanilla data directory list its root marker file; vanilla reads a jar
+                .filter(|l| {
+                    !l.ends_with("/data/.mcassetsroot found in namespace directory, rejecting")
+                })
                 .collect();
             logs.sort();
             logs.iter()
@@ -805,13 +821,16 @@ pub fn install_command_env(
     server
 }
 
-/// The replayed level reads the installed server's rule handle, scoreboard and command storage (what `/gamerule`, `/scoreboard` and
-/// `/data` change).
+/// The replayed level reads the installed server's rule handle, scoreboard, command storage and clocks (what `/gamerule`, `/scoreboard`,
+/// `/data` and `/time` change).
 pub fn attach_server_state(level: &mut ServerLevel, server: &mut MinecraftServer) {
     level.server_state.rules = server.game_rules().live();
     level.server_state.scoreboard = server.scoreboard.clone();
     let storage = server.command_storage.view();
     level.server_state.loot.command_storage = Arc::new(move |id| storage.get(id));
+    let totals = server.clock_manager().totals();
+    level.server_state.loot.clock_total_ticks =
+        Arc::new(move |clock| Some(totals.total_ticks(clock)));
 }
 
 /// The installed server's world seed (`/seed`), when a command environment is installed.

@@ -1,0 +1,246 @@
+# Scenario: selector edge cases: float ranges and boundaries, repeated and negated options, empty-valued tag/team, sort/limit corners,
+# advancement criteria selectors, rotation ranges, nbt partial matches, uuid and name forms, executor-relative volumes.
+command_env
+level flat
+preload 2
+level_seed 9
+entity_counter 400
+spawn_player A survival 0.5 -60 0.5 30 10
+spawn_player Bob creative 4.5 -60 0.5 0 0
+spawn_player Cee adventure 8.5 -60 0.5 -45 -20
+spawn_player Dee spectator -8.5 -60 0.5 170 0
+op A
+tick 1
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b,UUID:[I;72,0,0,1],Tags:["a","b"],CustomName:'"Piggy"'}
+cmd summon minecraft:pig 3.5 -60 3.5 {NoAI:1b,UUID:[I;72,0,0,2],Tags:["a"],Health:4f}
+cmd summon minecraft:cow 5 -60 5 {NoAI:1b,UUID:[I;72,0,0,3],CustomName:'"Piggy"',Age:-100}
+cmd summon minecraft:zombie 7 -60 7 {NoAI:1b,PersistenceRequired:1b,UUID:[I;72,0,0,4],ArmorItems:[{},{},{},{id:"minecraft:diamond_helmet",count:1}],Tags:["b"]}
+cmd summon minecraft:armor_stand -3 -60 -3 {NoGravity:1b,UUID:[I;72,0,0,5],Rotation:[90f,45f]}
+cmd summon minecraft:item 1 -60 1 {Item:{id:"minecraft:apple",count:3},UUID:[I;72,0,0,6]}
+cmd summon minecraft:marker 0 -60 0 {UUID:[I;72,0,0,7],Tags:["m"]}
+cmd summon minecraft:villager 9 -60 9 {NoAI:1b,UUID:[I;72,0,0,8],VillagerData:{profession:"minecraft:farmer",level:2,type:"minecraft:plains"}}
+tick 1
+cmd team add red
+cmd team add blue
+cmd team join red A Bob @e[type=minecraft:pig,limit=1,sort=nearest]
+cmd team join blue Cee 72000000-0000-0000-0000-000000000000
+cmd scoreboard objectives add s dummy
+cmd scoreboard players set A s 5
+cmd scoreboard players set Bob s -3
+cmd scoreboard players set Cee s 0
+cmd scoreboard players set @e[type=minecraft:zombie] s 100
+cmd scoreboard objectives add t dummy
+tick 1
+note distance and volume floats and boundaries
+dump select:-/0,-60,0/@e[distance=..0]
+dump select:-/0,-60,0/@e[distance=0]
+dump select:-/0,-60,0/@e[distance=0..0.5]
+dump select:-/0,-60,0/@e[distance=4.2426406871..4.2426406872]
+dump select:-/0,-60,0/@e[distance=4.242640687119285]
+dump select:-/0,-60,0/@e[distance=..4.2426406871192]
+dump select:-/0,-60,0/@e[distance=..-1]
+dump select:-/0,-60,0/@e[distance=3..1]
+dump select:-/0,-60,0/@e[distance=1e1..]
+dump select:-/0,-60,0/@e[distance=.5..1.]
+dump select:-/0,-60,0/@e[x=3,y=-60,z=3,dx=0,dy=0,dz=0]
+dump select:-/0,-60,0/@e[x=3,y=-60,z=3,dx=0.4,dy=0,dz=0.4]
+dump select:-/0,-60,0/@e[x=3,y=-60,z=3,dx=-1,dy=0,dz=-1]
+dump select:-/0,-60,0/@e[x=3,y=-60,z=3,dx=0.6]
+dump select:-/0,-60,0/@e[dx=100,dy=100,dz=100]
+dump select:-/0,-60,0/@e[dy=0.5]
+dump select:-/0.5,-60,0.5/@e[dx=4,dy=1,dz=4,x=0,z=0]
+dump select:-/0,-60,0/@e[x=1000000000,y=0,z=0]
+dump select:-/0,-60,0/@e[x=1.5e1,y=-60,z=0,distance=..1]
+dump select:-/0,-60,0/@e[x=~,y=~,z=~]
+dump select:A/0.5,-60,0.5/@e[x=~3,y=~,z=~3,distance=..1]
+dump select:A/0.5,-60,0.5/@e[distance=..3]
+note rotation ranges (wrap) and levels
+dump select:A/0.5,-60,0.5/@e[y_rotation=-180..-100]
+dump select:A/0.5,-60,0.5/@e[y_rotation=170..-170]
+dump select:A/0.5,-60,0.5/@e[y_rotation=80..100]
+dump select:A/0.5,-60,0.5/@e[y_rotation=350..370]
+dump select:A/0.5,-60,0.5/@e[x_rotation=40..50]
+dump select:A/0.5,-60,0.5/@e[x_rotation=..-20]
+dump select:A/0.5,-60,0.5/@e[x_rotation=-90..90]
+dump select:A/0.5,-60,0.5/@e[x_rotation=100..]
+dump select:A/0.5,-60,0.5/@a[level=0]
+dump select:A/0.5,-60,0.5/@a[level=1..]
+dump select:A/0.5,-60,0.5/@a[level=-1]
+cmd xp set Bob 7 levels
+dump select:A/0.5,-60,0.5/@a[level=7]
+dump select:A/0.5,-60,0.5/@a[level=..6]
+dump select:A/0.5,-60,0.5/@a[level=7..7]
+note repeated and negated options
+dump select:A/0.5,-60,0.5/@e[type=!minecraft:pig,type=!minecraft:cow]
+dump select:A/0.5,-60,0.5/@e[type=minecraft:pig,type=!minecraft:pig]
+dump select:A/0.5,-60,0.5/@e[type=minecraft:pig,type=minecraft:cow]
+dump select:A/0.5,-60,0.5/@e[type=#minecraft:zombies]
+dump select:A/0.5,-60,0.5/@e[type=!#minecraft:zombies,type=!minecraft:item,type=!minecraft:player]
+dump select:A/0.5,-60,0.5/@e[type=#minecraft:nothing]
+dump select:A/0.5,-60,0.5/@e[type=minecraft:nothing]
+dump select:A/0.5,-60,0.5/@e[type=pig]
+dump select:A/0.5,-60,0.5/@e[type=Pig]
+dump select:A/0.5,-60,0.5/@a[gamemode=!creative,gamemode=!spectator]
+dump select:A/0.5,-60,0.5/@a[gamemode=creative,gamemode=!creative]
+dump select:A/0.5,-60,0.5/@a[gamemode=creative,gamemode=survival]
+dump select:A/0.5,-60,0.5/@a[gamemode=adventure]
+dump select:A/0.5,-60,0.5/@e[gamemode=survival]
+dump select:A/0.5,-60,0.5/@e[name=Piggy]
+dump select:A/0.5,-60,0.5/@e[name="Piggy"]
+dump select:A/0.5,-60,0.5/@e[name=!Piggy,type=!player]
+dump select:A/0.5,-60,0.5/@e[name=!Piggy,name=!A,type=!item]
+dump select:A/0.5,-60,0.5/@e[name=Piggy,name=Piggy]
+dump select:A/0.5,-60,0.5/@e[name=piggy]
+dump select:A/0.5,-60,0.5/@e[name=""]
+dump select:A/0.5,-60,0.5/@e[name=Pig gy]
+dump select:A/0.5,-60,0.5/@e[name="Pig gy"]
+dump select:A/0.5,-60,0.5/@e[tag=]
+dump select:A/0.5,-60,0.5/@e[tag=!]
+dump select:A/0.5,-60,0.5/@e[tag=a]
+dump select:A/0.5,-60,0.5/@e[tag=a,tag=b]
+dump select:A/0.5,-60,0.5/@e[tag=!a]
+dump select:A/0.5,-60,0.5/@e[tag=a,tag=!b]
+dump select:A/0.5,-60,0.5/@e[tag=!a,tag=!b,type=!player]
+dump select:A/0.5,-60,0.5/@e[tag=m]
+dump select:A/0.5,-60,0.5/@e[team=]
+dump select:A/0.5,-60,0.5/@e[team=!]
+dump select:A/0.5,-60,0.5/@e[team=red]
+dump select:A/0.5,-60,0.5/@e[team=!red,team=!blue]
+dump select:A/0.5,-60,0.5/@e[team=red,team=blue]
+dump select:A/0.5,-60,0.5/@e[team=nothing]
+dump select:A/0.5,-60,0.5/@e[team=!nothing,type=player]
+note scores
+dump select:A/0.5,-60,0.5/@a[scores={s=5}]
+dump select:A/0.5,-60,0.5/@a[scores={s=..0}]
+dump select:A/0.5,-60,0.5/@a[scores={s=-3..0}]
+dump select:A/0.5,-60,0.5/@e[scores={s=100}]
+dump select:A/0.5,-60,0.5/@e[scores={s=1..}]
+dump select:A/0.5,-60,0.5/@e[scores={s=1..,t=0}]
+dump select:A/0.5,-60,0.5/@a[scores={t=0}]
+dump select:A/0.5,-60,0.5/@a[scores={t=..0}]
+dump select:A/0.5,-60,0.5/@a[scores={nothing=0}]
+dump select:A/0.5,-60,0.5/@a[scores={}]
+dump select:A/0.5,-60,0.5/@a[scores={s=}]
+dump select:A/0.5,-60,0.5/@a[scores={s=5..1}]
+dump select:A/0.5,-60,0.5/@a[scores={s=1.5}]
+dump select:A/0.5,-60,0.5/@a[scores={s=2147483647}]
+dump select:A/0.5,-60,0.5/@a[scores={s=2147483648}]
+dump select:A/0.5,-60,0.5/@a[scores={ s = 5 }]
+note sort and limit corners
+dump select:A/0.5,-60,0.5/@e[limit=0]
+dump select:A/0.5,-60,0.5/@e[limit=-1]
+dump select:A/0.5,-60,0.5/@e[limit=1,limit=2]
+dump select:A/0.5,-60,0.5/@e[sort=nearest]
+dump select:A/0.5,-60,0.5/@e[sort=furthest,limit=2]
+dump select:A/0.5,-60,0.5/@e[sort=arbitrary]
+dump select:A/0.5,-60,0.5/@e[sort=arbitrary,limit=3]
+dump select:A/0.5,-60,0.5/@e[sort=random,sort=nearest]
+dump select:A/0.5,-60,0.5/@e[sort=nonsense]
+dump select:A/0.5,-60,0.5/@p[limit=3]
+dump select:A/0.5,-60,0.5/@p[limit=0]
+dump select:A/0.5,-60,0.5/@p[sort=furthest]
+dump selectcount:A/0.5,-60,0.5/@p[sort=random]
+dump select:A/0.5,-60,0.5/@a[limit=2,sort=furthest]
+dump selectcount:A/0.5,-60,0.5/@r[limit=3,type=player]
+dump selectcount:A/0.5,-60,0.5/@r[limit=2,type=player]
+dump selectcount:A/0.5,-60,0.5/@r
+dump selectcount:A/0.5,-60,0.5/@r[type=pig]
+dump selectcount:A/0.5,-60,0.5/@r[limit=5,type=minecraft:pig]
+dump select:A/0.5,-60,0.5/@n[limit=2]
+dump select:A/0.5,-60,0.5/@n[type=pig,sort=furthest]
+dump select:A/0.5,-60,0.5/@n[type=pig,limit=2,sort=nearest]
+dump select:A/0.5,-60,0.5/@n[type=nothing]
+dump select:A/0.5,-60,0.5/@s[limit=2]
+dump select:A/0.5,-60,0.5/@s[distance=5..]
+dump select:Dee/-8.5,-60,0.5/@s[gamemode=spectator]
+dump select:Dee/-8.5,-60,0.5/@p
+dump select:Dee/-8.5,-60,0.5/@p[gamemode=spectator]
+dump select:Dee/-8.5,-60,0.5/@a[gamemode=!survival,distance=..20]
+note nbt
+dump select:A/0.5,-60,0.5/@e[nbt={Health:4f}]
+dump select:A/0.5,-60,0.5/@e[nbt={Health:4.0f}]
+dump select:A/0.5,-60,0.5/@e[nbt={Health:4}]
+dump select:A/0.5,-60,0.5/@e[nbt={Health:4d}]
+dump select:A/0.5,-60,0.5/@e[nbt=!{Health:4f},type=pig]
+dump select:A/0.5,-60,0.5/@e[nbt={Tags:["a"]}]
+dump select:A/0.5,-60,0.5/@e[nbt={Tags:["b","a"]}]
+dump select:A/0.5,-60,0.5/@e[nbt={Tags:[]}]
+dump select:A/0.5,-60,0.5/@e[nbt={CustomName:'"Piggy"'}]
+dump select:A/0.5,-60,0.5/@e[nbt={NoAI:1b}]
+dump select:A/0.5,-60,0.5/@e[nbt={NoAI:true}]
+dump select:A/0.5,-60,0.5/@e[nbt={Item:{id:"minecraft:apple"}}]
+dump select:A/0.5,-60,0.5/@e[nbt={Item:{count:3}}]
+dump select:A/0.5,-60,0.5/@e[nbt={Item:{count:3b}}]
+dump select:A/0.5,-60,0.5/@e[nbt={VillagerData:{level:2}}]
+dump select:A/0.5,-60,0.5/@e[nbt={VillagerData:{profession:"minecraft:farmer"}}]
+dump select:A/0.5,-60,0.5/@e[nbt={ArmorItems:[{},{},{},{id:"minecraft:diamond_helmet"}]}]
+dump select:A/0.5,-60,0.5/@e[nbt={ArmorItems:[{id:"minecraft:diamond_helmet"}]}]
+dump select:A/0.5,-60,0.5/@e[nbt={Rotation:[90f,45f]}]
+dump select:A/0.5,-60,0.5/@e[nbt={Rotation:[90f]}]
+dump select:A/0.5,-60,0.5/@e[nbt={Pos:[3.0d,-60.0d,3.0d]}]
+dump select:A/0.5,-60,0.5/@e[nbt={foo:1}]
+dump select:A/0.5,-60,0.5/@e[nbt={}]
+dump select:A/0.5,-60,0.5/@e[nbt={Age:-100}]
+dump select:A/0.5,-60,0.5/@a[nbt={playerGameType:1}]
+dump select:A/0.5,-60,0.5/@a[nbt={XpLevel:7}]
+dump select:A/0.5,-60,0.5/@a[nbt={Inventory:[]}]
+dump select:A/0.5,-60,0.5/@e[nbt={Tags:["a"],NoAI:1b},nbt=!{Health:4f}]
+note uuid and name forms
+dump select:A/0.5,-60,0.5/72000000-0000-0000-0000-000000000001
+dump select:A/0.5,-60,0.5/72000000-0000-0000-0000-000000000099
+dump select:A/0.5,-60,0.5/@e[type=pig,limit=1,nbt={Tags:["b"]}]
+dump select:A/0.5,-60,0.5/Bob
+dump select:A/0.5,-60,0.5/bob
+dump select:A/0.5,-60,0.5/Nobody
+dump select:A/0.5,-60,0.5/@e[sort=nearest,type=!player,limit=2,distance=..10]
+dump select:A/0.5,-60,0.5/@
+dump select:A/0.5,-60,0.5/@x
+dump select:A/0.5,-60,0.5/@e[
+dump select:A/0.5,-60,0.5/@e[]
+dump select:A/0.5,-60,0.5/@e[,]
+dump select:A/0.5,-60,0.5/@e[type=pig,]
+dump select:A/0.5,-60,0.5/@e[nothing=1]
+dump select:A/0.5,-60,0.5/@e[ type = pig ]
+dump select:A/0.5,-60,0.5/@e[distance=1,distance=2]
+dump select:A/0.5,-60,0.5/@e[x=1,x=2]
+dump select:A/0.5,-60,0.5/@e[dx=1,dx=2]
+dump select:A/0.5,-60,0.5/@e[level=1]
+dump select:A/0.5,-60,0.5/@e[advancements={minecraft:story/root=true}]
+dump select:A/0.5,-60,0.5/@a[advancements={minecraft:story/root=true}]
+dump select:A/0.5,-60,0.5/@a[advancements={minecraft:story/root=false}]
+dump select:A/0.5,-60,0.5/@a[advancements={minecraft:nothing=true}]
+dump select:A/0.5,-60,0.5/@a[advancements={minecraft:story/root={nothing=true}}]
+dump select:A/0.5,-60,0.5/@a[advancements={}]
+dump select:A/0.5,-60,0.5/@a[predicate=minecraft:nothing]
+dump select:A/0.5,-60,0.5/@a[predicate=!minecraft:nothing]
+note commands using selectors
+cmd tp @e[type=pig,limit=1,sort=nearest] 0 -60 0
+cmd kill @e[type=pig,name=Nobody]
+cmd kill @e[type=pig,limit=1,sort=furthest]
+cmd tag @e[type=!player,distance=..20] add sel
+cmd tag @e[tag=sel] list
+cmd scoreboard players add @e[tag=sel,type=!item,type=!marker] s 1
+cmd scoreboard players get @e[type=zombie] s
+cmd scoreboard players get @e[type=!zombie,type=!player,limit=1] s
+cmd scoreboard players get @e[tag=sel] s
+cmd say @e[tag=sel,type=!item,type=!marker]
+cmd tellraw A {"selector":"@e[tag=sel,type=!item,type=!marker]"}
+cmd tellraw A {"selector":"@e[tag=sel,type=!item,type=!marker]","separator":"; "}
+cmd tellraw A {"selector":"@e[type=cow]"}
+cmd tellraw A {"selector":"@a[team=red]","color":"gold"}
+cmd tellraw A {"selector":"Nobody"}
+cmd tellraw A {"selector":"72000000-0000-0000-0000-000000000003"}
+cmd tellraw A {"selector":"@e[type=villager]"}
+cmd msg @e[type=cow] hi
+cmd msg @a[team=red] hi
+cmd msg @a[gamemode=creative] hi
+cmd msg @a[gamemode=survival] hi
+cmd msg @s hi
+cmd_as A msg @s hi
+cmd_as A msg @a hi
+cmd_as A msg @p hi
+cmd teammsg hi
+cmd_as A teammsg hi
+cmd_as Cee teammsg hi
+cmd_as -2 teammsg hi
+cmd_as Dee teammsg hi

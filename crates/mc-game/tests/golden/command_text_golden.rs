@@ -28,3 +28,8 @@ fn resolved_component_limit_matches_vanilla() {
 fn title_bossbar_and_chat_commands_match_vanilla() {
     common::block_scenario::check("cmd_text_outputs");
 }
+
+#[test]
+fn component_resolution_edges_match_vanilla() {
+    common::block_scenario::check("cmd_text_resolve");
+}

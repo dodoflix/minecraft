@@ -1,0 +1,415 @@
+CF msg Modified storage t:d
+CF result success 1
+# get
+CF msg Storage t:d has the following contents: {ll: [{k: 1}, {k: 2}, {k: 3}], b: 7b, c: {a: 1, b: {x: "y"}}, d: 2.25d, e: [], f: 1.5f, i: 5, l: [1, 2, 3], L: 99L, s: "hello world", sh: 3s, la: [L; 1L, 2L], ia: [I; 1, 2, 3], z: "", ba: [B; 1b, 2b]}
+CF result success 1
+CF msg Storage t:d has the following contents: [1, 2, 3]
+CF result success 3
+CF msg Storage t:d has the following contents: 2
+CF result success 2
+CF msg Storage t:d has the following contents: 3
+CF result success 3
+CF result failure 0
+CF fail Found no elements matching l[5]
+CF msg Storage t:d has the following contents: "hello world"
+CF result success 11
+CF result failure 0
+CF fail Can't get s; only numeric tags are allowed
+CF msg Storage t:d has the following contents: 5
+CF result success 5
+CF msg i in storage t:d after scale factor of 2.00 is 10
+CF result success 10
+CF msg i in storage t:d after scale factor of 0.50 is 2
+CF result success 2
+CF msg i in storage t:d after scale factor of -3.00 is -15
+CF result success -15
+CF msg f in storage t:d after scale factor of 3.00 is 4
+CF result success 4
+CF msg d in storage t:d after scale factor of 2.00 is 4
+CF result success 4
+CF msg d in storage t:d after scale factor of 10000000000.00 is 2147483647
+CF result success 2147483647
+CF msg b in storage t:d after scale factor of 100.00 is 700
+CF result success 700
+CF msg L in storage t:d after scale factor of 3.00 is 297
+CF result success 297
+CF msg sh in storage t:d after scale factor of 3.00 is 9
+CF result success 9
+CF msg Storage t:d has the following contents: {x: "y"}
+CF result success 1
+CF msg Storage t:d has the following contents: [I; 1, 2, 3]
+CF result success 3
+CF msg Storage t:d has the following contents: 1b
+CF result success 1
+CF msg Storage t:d has the following contents: 2L
+CF result success 2
+CF msg Storage t:d has the following contents: {k: 2}
+CF result success 1
+CF result failure 0
+CF fail This argument accepts a single NBT value
+CF msg Storage t:d has the following contents: []
+CF result success 0
+CF msg Storage t:d has the following contents: ""
+CF result success 0
+CF result failure 0
+CF fail Can't get z; only numeric tags are allowed
+CF result failure 0
+CF fail Found no elements matching nothing
+CF msg Storage t:nothing has the following contents: {}
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching {a:1}
+CF msg Storage t:d has the following contents: {a: 1, b: {x: "y"}}
+CF result success 2
+CF result failure 0
+CF fail Found no elements matching c{a:2}
+CF result failure 0
+CF fail This argument accepts a single NBT value
+CF result failure 0
+CF fail Found no elements matching "quoted"
+CF msg Storage t:d has the following contents: 1
+CF result success 1
+CF msg 2, -60, 2 has the following block data: {components: {}, x: 2, y: -60, Items: [{count: 3, Slot: 0b, id: "minecraft:apple"}], z: 2, id: "minecraft:chest"}
+CF result success 1
+CF msg 2, -60, 2 has the following block data: 3
+CF result success 3
+CF msg Items[0].count on block 2, -60, 2 after scale factor of 2.00 is 6
+CF result success 6
+CF result failure 0
+CF fail The target block is not a block entity
+CF result failure 0
+CF fail The target block is not a block entity
+CF msg A has the following entity data: 20.0f
+CF result success 20
+CF msg Health on A after scale factor of 2.00 is 40
+CF result success 40
+CF msg A has the following entity data: -60.0d
+CF result success -60
+CF msg Pos[1] on A after scale factor of 100.00 is -6000
+CF result success -6000
+CF msg A has the following entity data: 20
+CF result success 20
+CF msg abilities.walkSpeed on A after scale factor of 1000.00 is 100
+CF result success 100
+CF result failure 0
+CF fail Found no elements matching nothing
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data get entity @e[type=zombie]<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data get entity @a<--[HERE]
+CF msg A has the following entity data: 0
+CF result success 0
+# modify set
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching nothing
+CF result failure 0
+CF fail Found no elements matching x
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 3
+CF msg Modified storage t:d
+CF result success 3
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Invalid substring indices: 6 to 8
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Invalid substring indices: 5 to 3
+CF result failure 0
+CF fail Invalid substring indices: 100 to 2
+CF result failure 0
+CF fail Invalid substring indices: 0 to 100
+CF result failure 0
+CF fail Invalid substring indices: 0 to 5
+CF result failure 0
+CF fail Expected a value: got [1,2,3]
+CF result failure 0
+CF fail Expected a value: got ["x",2,"last"]
+CF result failure 0
+CF fail Expected a value: got {a:1,b:{x:"y"},new:{deep:{er:[5]}}}
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching nothing
+CF msg Storage t:d has the following contents: "minecraft:apple"
+CF result success 15
+# modify insert append prepend merge
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Invalid list index: 100
+CF result failure 0
+CF fail Invalid list index: -91
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching nothing
+CF result failure 0
+CF fail Invalid substring indices: 0 to 3
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Expected an object: got 5
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Expected an object: got [1,2,3]
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Expected a list: got "wo"
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Expected an object: got [1]
+CF msg Modified storage t:d
+CF result success 1
+CF fail Incorrect argument for command
+CF fail ....path set value 1<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ... set value<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...age t:d l bad value 1<--[HERE]
+CF fail Expected literal "
+CF fail ...nd value {<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...d value 1 extra<--[HERE]
+CF msg Storage t:d has the following contents: {ll: [{a: 1, new: {deep: {er: [5]}}, b: {x: "y"}, extra: 1, z: 1, k: 100}, {z: 1}, {z: 1}, {k: 4}], b: 7b, c: {a: 1, new: {deep: {er: [5]}}, b: 5}, d: 2.25d, e: [1, "mixed", {a: 1}], f: 1.5f, nothing: 1, i: [1, 2, 3, 1], l: ["first", 0, "x", [{z: 1}, {z: 1}, {z: 1}], 99, 2, "last", 4, "beforelast", {z: 1}, {z: 1}, {z: 1}], L: 99L, s: "wo", t: "minecraft:apple", sh: 3s, la: [L; 5L, 99L, 2L, 3L], ia: [I; 8, 9, 1, 50, 3, 4, 4], z: "", ba: [B; 44b, 2b, 3b, 3b]}
+CF result success 1
+# remove
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified storage t:d
+CF result success 2
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified storage t:d
+CF result success 1
+CF msg Modified storage t:d
+CF result success 1
+CF fail Unknown or incomplete command. See below for error
+CF fail ...torage t:d<--[HERE]
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified storage t:d
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Unable to modify player data
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF result failure 0
+CF fail The target block is not a block entity
+CF msg Storage t:d has the following contents: {ll: [{a: 1, new: {deep: {er: [5]}}, b: {x: "y"}, extra: 1, z: 1}, {z: 1}, {z: 1}, {}], b: 7b, d: 2.25d, e: [1, "mixed", {a: 1}], f: 1.5f, i: [1, 2, 3, 1], l: [0, "x", [{z: 1}, {z: 1}, {z: 1}], 99, 2, "last", 4, "beforelast", {z: 1}, {z: 1}], L: 99L, s: "wo", t: "minecraft:apple", sh: 3s, la: [L; 5L, 99L, 2L, 3L], ia: [I; 9, 1, 50, 3, 4, 4], z: "", ba: [B; 44b, 2b, 3b, 3b]}
+CF result success 1
+# merge on entity and block and storage
+CF msg Modified storage t:m
+CF result success 1
+CF msg Modified storage t:m
+CF result success 1
+CF msg Modified storage t:m
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified storage t:m
+CF result success 1
+CF fail Expected compound tag
+CF fail ...rage t:m 5<--[HERE]
+CF fail Expected literal :
+CF fail ...e t:m {bad<--[HERE]
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Unable to modify player data
+CF result failure 0
+CF fail Unable to modify player data
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail data merge entity @e[type=zombie] {a:1}<--[HERE]
+CF result failure 0
+CF fail Nothing changed. The specified properties already have these values
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF msg Modified block data of 2, -60, 2
+CF result success 1
+CF result failure 0
+CF fail The target block is not a block entity
+CF msg 2, -60, 2 has the following block data: {components: {}, x: 2, y: -60, Items: [{count: 2, Slot: 1b, id: "minecraft:stick"}], z: 2, id: "minecraft:chest"}
+CF result success 1
+CF msg A has the following entity data: {Brain: {memories: {}}, post_effects: [], SleepTimer: 0s, Invulnerable: 0b, FallFlying: 0b, PortalCooldown: 0, AbsorptionAmount: 0.0f, abilities: {invulnerable: 0b, mayfly: 0b, instabuild: 0b, walkSpeed: 0.1f, mayBuild: 1b, flying: 0b, flySpeed: 0.05f}, recipeBook: {recipes: ["minecraft:crafting_table"], toBeDisplayed: ["minecraft:crafting_table"]}, DeathTime: 0s, XpSeed: 0, XpTotal: 0, UUID: [I; -1217574189, -1929301680, -1288476465, -1272613004], playerGameType: 0, seenCredits: 0b, Motion: [0.0d, -0.0784000015258789d, 0.0d], Health: 20.0f, foodSaturationLevel: 5.0f, fall_distance: 0.0d, Air: 300s, OnGround: 1b, Dimension: "minecraft:overworld", Rotation: [0.0f, 0.0f], XpLevel: 0, current_impulse_context_reset_grace_time: 0, warden_spawn_tracker: {warning_level: 0, ticks_since_last_warning: 1, cooldown_ticks: 0}, Score: 0, Pos: [0.5d, -60.0d, 0.5d], Fire: -20s, XpP: 0.0f, EnderItems: [], attributes: [{id: "minecraft:entity_interaction_range", base: 3.0d}, {id: "minecraft:movement_speed", base: 0.10000000149011612d}, {id: "minecraft:block_interaction_range", base: 4.5d}, {id: "minecraft:waypoint_transmit_range", base: 6.0E7d}], DataVersion: 5023, foodLevel: 20, foodExhaustionLevel: 0.0f, spawn_extra_particles_on_fall: 0b, HurtTime: 0s, SelectedItemSlot: 0, Inventory: [], foodTickTimer: 0}
+CF result success 1
+BE 2 -60 2 {Items:[{Slot:1b,count:2,id:"minecraft:stick"}],components:{},id:"minecraft:chest",x:2,y:-60,z:2}
+# execute store into nbt
+CF msg Storage t:d has the following contents: [1, 2, 3, 1]
+CF result success 4
+CF result failure 0
+CF fail Unknown scoreboard objective 'nothing'
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching nothing
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg Storage t:st has the following contents: 1b
+CF result success 1
+CF msg Storage t:st has the following contents: 1b
+CF result success 1
+CF msg Storage t:st has the following contents: 1b
+CF result success 1
+CF msg Storage t:st has the following contents: 1b
+CF result success 1
+CF msg Storage t:st has the following contents: 1b
+CF result success 1
+CF msg Storage t:st has the following contents: 1b
+CF result success 1
+CF fail The target block is not a block entity
+CF fail No bossbar exists with the ID 'minecraft:nothing'
+CF msg Created custom bossbar [Bar]
+CF result success 1
+CF msg The game time is 1 tick(s)
+CF result success 1
+CF msg Storage t:st has the following contents: 1b
+CF result success 1
+CF result failure 0
+CF fail Found no elements matching nothing
+CF msg Custom bossbar [Bar] has a value of 0
+CF result success 0
+CF msg Custom bossbar [Bar] has a maximum of 1
+CF result success 1
+CF msg Storage t:st has the following contents: {arr: [1], big: -24b, b: 1b, lo: 1L, c: {d: {e: 1}}, fl: 0.25f, l: [], dbl: 1.5d, neg: -1, r: 0, sh: 1s, ok2: 0b, ok: 1b}
+CF result success 1
+STORAGE t:st {arr:[1],b:1b,big:-24b,c:{d:{e:1}},dbl:1.5d,fl:0.25f,l:[],lo:1L,neg:-1,ok:1b,ok2:0b,r:0,sh:1s}
+STORAGE t:d {L:99L,b:7b,ba:[B;44B,2B,3B,3B],d:2.25d,e:[1,"mixed",{a:1}],f:1.5f,i:[1,2,3,1],ia:[I;9,1,50,3,4,4],l:[0,"x",[{z:1},{z:1},{z:1}],99,2,"last",4,"beforelast",{z:1},{z:1}],la:[L;5L,99L,2L,3L],ll:[{a:1,b:{x:"y"},extra:1,new:{deep:{er:[5]}},z:1},{z:1},{z:1},{}],s:"wo",sh:3s,t:"minecraft:apple",z:""}
+STORAGE t:m {a:[1],b:{c:1,d:2}}
+BE 2 -60 2 {Items:[{Slot:1b,count:1,id:"minecraft:stick"}],components:{},id:"minecraft:chest",x:2,y:-60,z:2}

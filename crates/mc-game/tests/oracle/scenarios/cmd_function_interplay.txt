@@ -1,0 +1,129 @@
+# Scenario: function results through execute store/if, return run, macro returns, recursion and fork limits, tick/load tags, schedule
+# append/replace/clear with ticks frozen, macro JSON arguments, indentation and continuation lines.
+datapack fn_interplay
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 1100
+spawn_player A survival 0.5 -60 0.5 0 0
+op A
+tick 1
+dump logs
+cmd scoreboard objectives add n dummy
+cmd scoreboard players set #c n 0
+tick 2
+dump storage:fnx:out
+cmd scoreboard players get #ticks n
+note results
+cmd function fnx:ret7
+cmd function fnx:retfail
+cmd function fnx:noret
+cmd function fnx:ret_run
+cmd function fnx:cond_ret
+cmd function fnx:macro_ret {v:3}
+cmd function fnx:macro_ret {v:-1}
+cmd function fnx:macro_ret {v:1.5}
+cmd function fnx:macro_ret {v:"x"}
+cmd function fnx:macro_ret
+cmd function fnx:store_ret
+dump storage:fnx:out
+cmd scoreboard players get #r n
+cmd scoreboard players get #c n
+cmd execute store result score #x n run function fnx:ret7
+cmd execute store success score #y n run function fnx:ret7
+cmd execute store result score #z n run function fnx:retfail
+cmd execute store success score #w n run function fnx:retfail
+cmd execute store result score #v n run function fnx:noret
+cmd execute store success score #u n run function fnx:noret
+cmd scoreboard players list #x
+cmd scoreboard players list #y
+cmd scoreboard players list #z
+cmd scoreboard players list #w
+cmd scoreboard players list #v
+cmd scoreboard players list #u
+cmd execute if function fnx:ret7
+cmd execute if function fnx:retfail
+cmd execute if function fnx:noret
+cmd execute unless function fnx:retfail
+cmd execute if function fnx:macro_ret {v:0}
+cmd execute if function fnx:macro_ret {v:9}
+cmd execute if function fnx:missing
+cmd execute if function #fnx:group
+cmd function #fnx:group
+cmd function #fnx:nothing
+cmd function fnx:call_tag
+cmd function fnx:indent
+cmd function fnx:macro_json {a:"x",b:"y",c:"red",k:"key",v:"1b"}
+cmd function fnx:macro_json {a:"x\"y",b:"",c:"bad",k:"key",v:"{"}
+cmd function fnx:macro_json {a:"é",b:"日本",c:"blue",k:"k2",v:"[1,2]"}
+dump storage:fnx:out
+note limits
+cmd scoreboard players set #depth n 0
+cmd function fnx:recurse
+cmd scoreboard players get #depth n
+gamerule max_command_sequence_length 50
+cmd scoreboard players set #depth n 0
+cmd function fnx:recurse
+cmd scoreboard players get #depth n
+gamerule max_command_sequence_length 65536
+cmd summon minecraft:marker 0 -60 0
+cmd summon minecraft:marker 1 -60 0
+cmd summon minecraft:marker 2 -60 0
+cmd function fnx:fork_many
+gamerule max_command_forks 2
+cmd function fnx:fork_many
+cmd execute as @e[type=marker] run function fnx:fork_many
+gamerule max_command_forks 65536
+note schedule with frozen ticks
+cmd schedule function fnx:sched_a 3t
+cmd schedule function fnx:sched_a 3t
+cmd schedule function fnx:sched_a 3t append
+cmd schedule function fnx:sched_a 0t
+cmd schedule function fnx:sched_a 1t replace
+cmd schedule function fnx:sched_b 1t
+cmd schedule function #fnx:group 2t
+cmd schedule function fnx:sched_macro 1t
+cmd schedule function fnx:missing 1t
+cmd schedule function fnx:sched_a 1d
+cmd schedule function fnx:sched_a 2147483647t
+cmd schedule function fnx:sched_a -1t
+cmd schedule clear fnx:sched_a
+cmd schedule clear fnx:sched_a
+cmd schedule clear fnx:missing
+cmd schedule function fnx:sched_a 2t
+cmd schedule function fnx:sched_b 2t append
+cmd tick freeze
+tick 5
+cmd scoreboard players get #sched n
+cmd tick unfreeze
+tick 5
+cmd scoreboard players get #sched n
+cmd tick rate 1
+tick 3
+cmd scoreboard players get #sched n
+cmd scoreboard players get #ticks n
+cmd tick rate 20
+cmd tick step 3
+cmd_quiet tick query
+cmd tick freeze
+cmd tick step 4
+cmd scoreboard players get #ticks n
+cmd tick sprint 20
+cmd tick sprint stop
+cmd tick unfreeze
+tick 2
+cmd scoreboard players get #ticks n
+note reload
+cmd reload
+tick 2
+cmd scoreboard players get #ticks n
+cmd datapack list
+cmd datapack disable "file/fn_interplay"
+cmd datapack list
+cmd datapack enable "file/fn_interplay"
+cmd datapack disable "nonsense"
+cmd datapack list available
+cmd datapack list enabled
+tick 2
+dump logs

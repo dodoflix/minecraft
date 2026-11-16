@@ -1,0 +1,220 @@
+# Scenario: scoreboard display and number formats, objective modify, players operation (all operators, zero divisor, overflow),
+# enable/trigger, list/reset, and the packets a watching player receives.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 700
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+op A
+tick 1
+dump packets:A:none packets:B:none
+note objectives
+cmd scoreboard objectives list
+cmd scoreboard objectives add dm dummy
+cmd scoreboard objectives add dm dummy
+cmd scoreboard objectives add hearts health {"text":"Hearts","color":"red"}
+cmd scoreboard objectives add tr trigger
+cmd scoreboard objectives add deaths deathCount
+cmd scoreboard objectives add kills killedByTeam.red
+cmd scoreboard objectives add tk teamkill.blue
+cmd scoreboard objectives add mined minecraft.mined:minecraft.stone
+cmd scoreboard objectives add used minecraft.used:minecraft.apple
+cmd scoreboard objectives add custom minecraft.custom:minecraft.jump
+cmd scoreboard objectives add killed minecraft.killed:minecraft.zombie
+cmd scoreboard objectives add bad nonsense
+cmd scoreboard objectives add bad minecraft.nonsense:minecraft.stone
+cmd scoreboard objectives add bad minecraft.mined:minecraft.nonsense
+cmd scoreboard objectives add bad minecraft.custom:minecraft.nonsense
+cmd scoreboard objectives add bad minecraft.killed_by:minecraft.pig
+cmd scoreboard objectives add this_name_is_longer_than_16 dummy
+cmd scoreboard objectives add a.b-c+d_e dummy
+cmd scoreboard objectives add "with space" dummy
+cmd scoreboard objectives add 1 dummy
+cmd scoreboard objectives list
+cmd scoreboard objectives modify dm displayname {"text":"Dummy","color":"gold","bold":true}
+cmd scoreboard objectives modify dm displayname "plain"
+cmd scoreboard objectives modify dm displayname {bad
+cmd scoreboard objectives modify nothing displayname "x"
+cmd scoreboard objectives modify dm rendertype hearts
+cmd scoreboard objectives modify dm rendertype integer
+cmd scoreboard objectives modify dm rendertype nonsense
+cmd scoreboard objectives modify dm displayautoupdate true
+cmd scoreboard objectives modify dm displayautoupdate false
+cmd scoreboard objectives modify dm numberformat blank
+cmd scoreboard objectives modify dm numberformat fixed {"text":"FIX","color":"green"}
+cmd scoreboard objectives modify dm numberformat styled {"color":"red","bold":true}
+cmd scoreboard objectives modify dm numberformat styled {}
+cmd scoreboard objectives modify dm numberformat
+cmd scoreboard objectives modify dm numberformat fixed {bad
+cmd scoreboard objectives modify dm numberformat nonsense
+cmd scoreboard objectives list
+tick 1
+dump packets:A:set_objective,set_score,reset_score,set_display_objective,set_player_team
+note display slots
+cmd scoreboard objectives setdisplay list dm
+cmd scoreboard objectives setdisplay list dm
+cmd scoreboard objectives setdisplay list
+cmd scoreboard objectives setdisplay list
+cmd scoreboard objectives setdisplay sidebar dm
+cmd scoreboard objectives setdisplay sidebar hearts
+cmd scoreboard objectives setdisplay below_name hearts
+cmd scoreboard objectives setdisplay sidebar.team.red dm
+cmd scoreboard objectives setdisplay sidebar.team.dark_purple dm
+cmd scoreboard objectives setdisplay sidebar.team.nonsense dm
+cmd scoreboard objectives setdisplay nonsense dm
+cmd scoreboard objectives setdisplay sidebar nothing
+tick 1
+dump packets:A:set_objective,set_score,reset_score,set_display_objective,set_player_team
+dump scoreboard
+note players set/add/remove/get/reset/list
+cmd scoreboard players list
+cmd scoreboard players list A
+cmd scoreboard players set A dm 5
+cmd scoreboard players set A dm -2147483648
+cmd scoreboard players set A dm 2147483647
+cmd scoreboard players set A dm 2147483648
+cmd scoreboard players set A dm 1.5
+cmd scoreboard players add A dm 1
+cmd scoreboard players add A dm 0
+cmd scoreboard players add A dm -1
+cmd scoreboard players remove A dm 1
+cmd scoreboard players remove A dm 0
+cmd scoreboard players add A dm 2147483647
+cmd scoreboard players add A dm 2147483647
+cmd scoreboard players get A dm
+cmd scoreboard players get A nothing
+cmd scoreboard players get Nobody dm
+cmd scoreboard players get * dm
+cmd scoreboard players set * dm 3
+cmd scoreboard players set @a dm 7
+cmd scoreboard players set #fake dm 11
+cmd scoreboard players set fake&name dm 12
+cmd scoreboard players set "quoted name" dm 13
+cmd scoreboard players set @e[type=zombie] dm 7
+cmd scoreboard players set @s dm 7
+cmd_as A scoreboard players set @s dm 8
+cmd scoreboard players list
+cmd scoreboard players list A
+cmd scoreboard players list #fake
+cmd scoreboard players list *
+cmd scoreboard players list @e[type=zombie]
+cmd scoreboard players get hearts dm
+cmd scoreboard players set B hearts 20
+cmd scoreboard players set B deaths 3
+cmd scoreboard players set B tr 1
+cmd scoreboard players set A kills 3
+cmd scoreboard players get B hearts
+cmd scoreboard players reset B dm
+cmd scoreboard players reset B dm
+cmd scoreboard players reset B nothing
+cmd scoreboard players reset B
+cmd scoreboard players reset B
+cmd scoreboard players reset *
+cmd scoreboard players reset @e[type=zombie]
+tick 1
+dump packets:A:set_objective,set_score,reset_score,set_display_objective,set_player_team
+dump scoreboard
+note number formats on scores and display names
+cmd scoreboard players set A dm 9
+cmd scoreboard players set B dm 10
+cmd scoreboard players display name A dm {"text":"Alice","color":"aqua"}
+cmd scoreboard players display name A dm
+cmd scoreboard players display name A dm "x"
+cmd scoreboard players display name @a dm {"selector":"@s"}
+cmd scoreboard players display name A nothing "x"
+cmd scoreboard players display name Nobody dm "x"
+cmd scoreboard players display numberformat A dm blank
+cmd scoreboard players display numberformat A dm fixed "fixed!"
+cmd scoreboard players display numberformat B dm styled {"italic":true}
+cmd scoreboard players display numberformat @a dm styled {"color":"blue"}
+cmd scoreboard players display numberformat A dm
+cmd scoreboard players display numberformat A dm nonsense
+cmd scoreboard players display numberformat A nothing blank
+tick 1
+dump packets:A:set_objective,set_score,reset_score,set_display_objective,set_player_team
+dump scoreboard
+note operations
+cmd scoreboard objectives add x dummy
+cmd scoreboard objectives add y dummy
+cmd scoreboard players set A x 10
+cmd scoreboard players set A y 3
+cmd scoreboard players set B x -7
+cmd scoreboard players set B y 2
+cmd scoreboard players operation A x += A y
+cmd scoreboard players operation A x -= A y
+cmd scoreboard players operation A x *= A y
+cmd scoreboard players operation A x /= A y
+cmd scoreboard players operation A x %= A y
+cmd scoreboard players operation B x /= B y
+cmd scoreboard players operation B x %= B y
+cmd scoreboard players operation B x %= A y
+cmd scoreboard players operation A x = B y
+cmd scoreboard players operation A x < B y
+cmd scoreboard players operation A x > B y
+cmd scoreboard players operation A x >< B x
+cmd scoreboard players operation A x /= Nobody y
+cmd scoreboard players set Zero y 0
+cmd scoreboard players operation A x /= Zero y
+cmd scoreboard players operation A x %= Zero y
+cmd scoreboard players operation A x *= Zero y
+cmd scoreboard players operation A x = Zero y
+cmd scoreboard players operation A x >< Zero y
+cmd scoreboard players set M x 2147483647
+cmd scoreboard players set M y 2
+cmd scoreboard players operation M x *= M y
+cmd scoreboard players operation M x += M y
+cmd scoreboard players set M x -2147483648
+cmd scoreboard players set N y -1
+cmd scoreboard players operation M x /= N y
+cmd scoreboard players operation M x %= N y
+cmd scoreboard players operation @a x += @a y
+cmd scoreboard players operation @a x += @e[type=zombie] y
+cmd scoreboard players operation @e[type=zombie] x += @a y
+cmd scoreboard players operation * x += A y
+cmd scoreboard players operation A x += * y
+cmd scoreboard players operation A x ?= A y
+cmd scoreboard players operation A nothing += A y
+cmd scoreboard players get A x
+cmd scoreboard players get B x
+tick 1
+dump packets:A:set_score,reset_score
+note enable and trigger
+cmd scoreboard players enable A tr
+cmd scoreboard players enable A tr
+cmd scoreboard players enable A dm
+cmd scoreboard players enable A nothing
+cmd scoreboard players enable @a tr
+cmd scoreboard players set A tr 5
+cmd scoreboard players get A tr
+cmd_as A trigger tr
+cmd_as A trigger tr add 3
+cmd_as A trigger tr set 7
+cmd_as A trigger tr set 9
+cmd scoreboard players enable A tr
+cmd_as A trigger tr add 3
+cmd_as B trigger tr
+cmd_as -2 trigger tr
+cmd_as A trigger dm
+cmd_as A trigger nothing
+cmd_as A trigger
+cmd scoreboard players get A tr
+cmd scoreboard players enable @a tr
+cmd_as B trigger tr set 100
+cmd scoreboard players get B tr
+cmd execute as A run trigger tr
+cmd execute as B run trigger tr add 1
+tick 1
+dump packets:A:set_score,reset_score
+dump scoreboard
+note remove objectives in display slots
+cmd scoreboard objectives remove dm
+cmd scoreboard objectives remove dm
+cmd scoreboard objectives remove nothing
+cmd scoreboard objectives list
+tick 1
+dump packets:A:set_objective,set_score,reset_score,set_display_objective,set_player_team
+dump scoreboard
+cmd scoreboard players list
+cmd scoreboard players get A y

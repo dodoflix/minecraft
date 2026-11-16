@@ -1,0 +1,198 @@
+# Scenario: advancement criteria whose conditions are loot-condition lists and complex predicates: time/weather/score/location checks,
+# any_of/all_of/inverted, references, entity predicates (flags, equipment, effects, player, slots, team, vehicle, passenger, distance, periodic tick,
+# movement, stepping on), inventory predicates (components, enchantments, containers, slots). Each phase changes one state, revokes everything
+# and dumps what completed.
+datapack adv_predicates
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 900
+time 1000
+spawn_player A survival 0.5 -60 0.5 0 0 sim
+spawn_player B survival 20.5 -60 0.5 0 0
+op A
+tick 1
+dump logs
+cmd scoreboard objectives add s dummy
+cmd scoreboard objectives add t dummy
+cmd team add red
+cmd scoreboard players set A s 5
+note phase 1: day, clear, score 5, nothing else
+cmd weather clear 100000
+tick 3
+dump advancements:A
+cmd advancement revoke A everything
+note phase 2: night, thunder, score 50, team red, sneaking
+cmd weather thunder 100000
+cmd scoreboard players set A s 50
+cmd scoreboard players set A t 1
+cmd team join red A
+input A sneak
+tick 3
+dump advancements:A
+cmd advancement revoke A everything
+note phase 3: time 20000 and rain only; score 20; not sneaking
+time 20000
+cmd weather rain 100000
+cmd scoreboard players set A s 20
+input A none
+tick 3
+dump advancements:A
+cmd advancement revoke A everything
+note phase 4: time 5 (exact), period boundaries, day with rain
+time 3
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+time 23997
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+time 11998
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+time 6000
+cmd weather rain 100000
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+note phase 5: equipment: enchanted damaged sword, helmet, effects, level, hotbar apples
+cmd weather clear 100000
+give A mainhand minecraft:diamond_sword[minecraft:enchantments={"minecraft:sharpness":3},minecraft:damage=20]
+give A head minecraft:leather_helmet
+effect A minecraft:speed 200 2
+effect A minecraft:speed 500 3 hidden
+cmd xp set A 6 levels
+tick 3
+dump advancements:A
+cmd advancement revoke A everything
+give A mainhand minecraft:air
+give A hotbar0 minecraft:apple 2
+give A hotbar1 minecraft:stick
+cmd item modify entity A hotbar.1 {function:"minecraft:set_custom_data",tag:{a:1b}}
+select A 0
+effect A minecraft:speed 5 0 true
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+select A 1
+cmd effect clear A
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+note phase 6: world: look at a pig, boat passenger, stepping on, vehicle
+mobspawn pigL minecraft:pig 0.5 -60 3.0 0 0 {NoAI:1b,PersistenceRequired:1b}
+tp A 0.5 -60 0.5 0 25
+tick 3
+dump advancements:A
+cmd advancement revoke A everything
+tp A 0.5 -60 0.5 0 0
+spawn boat minecraft:oak_boat 8 -60 8
+ride A boat
+tick 3
+dump advancements:A
+cmd advancement revoke A everything
+cmd ride A dismount
+tp A 0.5 -60 0.5 0 0
+ride pigL A
+tick 3
+dump advancements:A
+cmd advancement revoke A everything
+note phase 7: input and jump stat
+tp A 0.5 -60 0.5 0 0
+input A forward
+tick 3
+dump advancements:A
+cmd advancement revoke A everything
+input A jump
+tick 12
+dump advancements:A
+cmd advancement revoke A everything
+input A none
+tick 10
+dump advancements:A
+cmd advancement revoke A everything
+note phase 8: a dimension and a location far away
+cmd tp A 30 -60 30
+tick 3
+dump advancements:A
+cmd advancement revoke A everything
+cmd gamemode creative A
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+cmd gamemode adventure A
+cmd tp A 0.5 -50 0.5
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+note phase 9: inventory triggers
+cmd clear A
+tick 1
+cmd advancement revoke A everything
+give A hotbar0 minecraft:apple 2
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+give A hotbar0 minecraft:apple 3
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+cmd give A minecraft:enchanted_book[minecraft:stored_enchantments={"minecraft:mending":1}]
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+cmd give A minecraft:enchanted_book[minecraft:stored_enchantments={"minecraft:unbreaking":2}]
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+cmd give A minecraft:stick[minecraft:custom_name='"x"',minecraft:lore=['"hello"']]
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+cmd give A minecraft:potion[minecraft:potion_contents={potion:"minecraft:swiftness"}]
+cmd give A minecraft:firework_rocket[minecraft:fireworks={flight_duration:3,explosions:[{shape:"small_ball",colors:[I;255]}]}]
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+cmd give A minecraft:shulker_box[minecraft:container=[{slot:0,item:{id:"minecraft:apple",count:1}}]]
+cmd give A minecraft:bundle[minecraft:bundle_contents=[{id:"minecraft:apple",count:2}]]
+cmd give A minecraft:diamond_sword[minecraft:enchantments={"minecraft:sharpness":3}]
+cmd give A minecraft:iron_sword[minecraft:attribute_modifiers=[{id:"advx:x",type:"minecraft:attack_damage",amount:2.5,operation:"add_value",slot:"mainhand"}]]
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+cmd give A minecraft:diamond_sword[minecraft:enchantments={"minecraft:sharpness":4}]
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+cmd item replace entity A container.0 with minecraft:stone 64
+cmd item replace entity A container.1 with minecraft:stone 64
+cmd item replace entity A container.2 with minecraft:stone 64
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+cmd clear A
+cmd advancement revoke A everything
+cmd give A minecraft:dirt 2000
+tick 2
+dump advancements:A
+cmd advancement revoke A everything
+cmd clear A
+tick 1
+cmd advancement revoke A everything
+cmd give A minecraft:bread 1
+cmd give A minecraft:egg 1
+tick 2
+dump advancements:A
+cmd advancement grant A only advx:ref_missing
+cmd advancement grant A only advx:inv_apples3 c
+cmd advancement revoke A only advx:inv_apples3 c
+cmd advancement grant A from advx:score_five
+cmd advancement revoke A through advx:score_five
+tick 1
+dump advancements:A
+dump packets:A:system_chat
+dump logs

@@ -1,0 +1,473 @@
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
+# random
+CF msg Randomized value: 4
+CF result success 4
+CF result failure 0
+CF fail The range of the random value must be at least 1
+CF fail Min cannot be bigger than max
+CF fail ...dom value 3..1<--[HERE]
+CF result failure 0
+CF fail The range of the random value must be at least 1
+CF result failure 0
+CF fail The range of the random value must be at least 1
+CF msg Randomized value: -5
+CF result success -5
+CF msg Randomized value: 1
+CF result success 1
+CF result success 4
+CF result success 9
+CF msg Reset random sequence t:x
+CF result success 1
+CF msg Reset random sequence t:x
+CF result success 1
+CF msg Reset random sequence t:x
+CF result success 1
+CF msg Reset random sequence t:x
+CF result success 1
+CF msg Reset 1 random sequence(s)
+CF result success 1
+CF msg Reset 0 random sequence(s)
+CF result success 0
+CF msg Reset random sequence nope:x
+CF result success 1
+CF msg Randomized value: 4
+CF result success 4
+CF result success 6
+CF msg Randomized value: 1
+CF result success 1
+CF result success 3
+PKT A minecraft:system_chat 7c0a090004776974680a000000040800000006536572766572000300000000000400030000000000010003000000000006000800097472616e736c6174650014636f6d6d616e64732e72616e646f6d2e726f6c6c0000
+PKT A minecraft:system_chat 7c0a090004776974680a000000040800000006536572766572000300000000000900030000000000010003000000000064000800097472616e736c6174650014636f6d6d616e64732e72616e646f6d2e726f6c6c0000
+PKT A minecraft:system_chat 7c0a090004776974680a000000040800000006536572766572000300000000000600030000000000010003000000000006000800097472616e736c6174650014636f6d6d616e64732e72616e646f6d2e726f6c6c0000
+PKT A minecraft:system_chat 7c0a090004776974680a000000040a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20422000080009696e73657274696f6e000142080004746578740001420a000b686f7665725f6576656e740800046e616d65000142080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f44cd58d790230e78bde679d783ee63100000300000000000300030000000000010003000000000006000800097472616e736c6174650014636f6d6d616e64732e72616e646f6d2e726f6c6c0000
+PKT B minecraft:system_chat 7c0a090004776974680a000000040800000006536572766572000300000000000400030000000000010003000000000006000800097472616e736c6174650014636f6d6d616e64732e72616e646f6d2e726f6c6c0000
+PKT B minecraft:system_chat 7c0a090004776974680a000000040800000006536572766572000300000000000900030000000000010003000000000064000800097472616e736c6174650014636f6d6d616e64732e72616e646f6d2e726f6c6c0000
+PKT B minecraft:system_chat 7c0a090004776974680a000000040800000006536572766572000300000000000600030000000000010003000000000006000800097472616e736c6174650014636f6d6d616e64732e72616e646f6d2e726f6c6c0000
+PKT B minecraft:system_chat 7c0a090004776974680a000000040a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20422000080009696e73657274696f6e000142080004746578740001420a000b686f7665725f6576656e740800046e616d65000142080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f44cd58d790230e78bde679d783ee63100000300000000000300030000000000010003000000000006000800097472616e736c6174650014636f6d6d616e64732e72616e646f6d2e726f6c6c0000
+# playsound and stopsound
+CF msg Played sound minecraft:entity.pig.ambient to A
+CF result success 1
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF result failure 0
+CF fail The sound is too far away to be heard
+CF msg Played sound minecraft:entity.pig.ambient to 2 players
+CF result success 2
+CF fail Float must not be more than 2.0: found 3.0
+CF fail ...B ~ ~ ~ 1 3 1<--[HERE]
+CF fail Float must not be less than 0.0: found -1.0
+CF fail ...B ~ ~ ~ 1 -1<--[HERE]
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail playsound minecraft:entity.pig.ambient hostile @e[type=minecraft:zombie]<--[HERE]
+CF msg Played sound nonsense:sound to A
+CF result success 1
+CF msg Played sound custom:pack_sound to A
+CF result success 1
+CF msg Stopped all sounds
+CF result success 1
+CF msg Stopped all 'master' sounds
+CF result success 1
+CF msg Stopped sound 'minecraft:entity.pig.ambient' on source 'master'
+CF result success 1
+CF msg Stopped sound 'minecraft:entity.pig.ambient'
+CF result success 1
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...sound A * *<--[HERE]
+CF msg Stopped all 'record' sounds
+CF result success 2
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail stopsound @e[type=minecraft:zombie]<--[HERE]
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000000fffffe20000000003f8000003f8000009eeb772498f05da9
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e7400000000001cfffffe200000001c400000003f000000df499ad77d04f72a
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000013fffffe20000000043dcccccd3f000000f0821b2ee7c16766
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000013fffffe20000000043f8000003f000000cdaf028e75e8663b
+PKT A minecraft:sound 77000e6e6f6e73656e73653a736f756e64000000000000fffffe20000000003f8000003f800000cfe9015d650264b6
+PKT A minecraft:sound 770011637573746f6d3a7061636b5f736f756e64000100000000fffffe20000000003f8000003f800000eb481c13ccd9bace
+PKT A minecraft:stop_sound 7900
+PKT A minecraft:stop_sound 790100
+PKT A minecraft:stop_sound 7903001c6d696e6563726166743a656e746974792e7069672e616d6269656e74
+PKT A minecraft:stop_sound 79021c6d696e6563726166743a656e746974792e7069672e616d6269656e74
+PKT A minecraft:stop_sound 790102
+PKT A minecraft:update_attributes entity=101;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e7400000000001cfffffe200000001c400000003f000000df499ad77d04f72a
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000063fffffe20000000043dcccccd3f000000f0821b2ee7c16766
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e74000000000063fffffe20000000043f8000003f000000cdaf028e75e8663b
+PKT B minecraft:stop_sound 790102
+PKT B minecraft:update_attributes entity=102;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
+# particle
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF msg Displaying particle minecraft:flame
+CF result success 1
+CF result failure 0
+CF fail The particle was not visible for anybody
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail particle minecraft:flame ~ ~ ~ 0 0 0 0 0 normal @e[type=minecraft:zombie]<--[HERE]
+CF msg Displaying particle minecraft:dust
+CF result success 2
+CF fail Can't parse particle options: No key scale in MapLike[{color:[1.0d,0.0d,0.0d]}]
+CF msg Displaying particle minecraft:block
+CF result success 2
+CF fail Can't parse particle options: Failed to parse either. First: Failed to parse either. First: Unknown registry key in ResourceKey[minecraft:root / minecraft:block]: minecraft:nonsense; Second: Not a map: "minecraft:nonsense"; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:block]: minecraft:nonsense
+CF msg Displaying particle minecraft:item
+CF result success 2
+CF msg Displaying particle minecraft:entity_effect
+CF result success 2
+CF fail Unknown particle: minecraft:nonsense
+CF fail ...t:nonsense ~ ~ ~<--[HERE]
+CF msg Displaying particle minecraft:flame
+CF result success 2
+CF fail Float must not be less than 0.0: found -1.0
+CF fail ...~ ~ 0 0 0 -1 1<--[HERE]
+CF fail Integer must not be less than 0: found -1
+CF fail ...~ 0 0 0 0 -1<--[HERE]
+PKT A minecraft:level_particles 302700000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:level_particles 302700000000000000000000c04d80000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:level_particles 302700000000000000000000c04d80000000000000000000000000003f0000003f0000003f0000000000000000000000000000000a00
+PKT A minecraft:level_particles 302701000000000000000000c04d80000000000000000000000000003f0000003f0000003f0000000000000000000000000000000a00
+PKT A minecraft:level_particles 302700000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:level_particles 3015ffff00004000000000000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:level_particles 30010100000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:level_particles 3039ef0701000000000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 301c7fffff0000000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:level_particles 302700000000000000000000c04e0000000000000000000000000000bf80000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 302700000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:level_particles 302700000000000000000000c04d80000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:level_particles 302700000000000000000000c04d80000000000000000000000000003f0000003f0000003f0000000000000000000000000000000a00
+PKT B minecraft:level_particles 302701000000000000000000c04d80000000000000000000000000003f0000003f0000003f0000000000000000000000000000000a00
+PKT B minecraft:level_particles 302701000000000000000000c04d80000000000000000000000000003f0000003f0000003f0000000000000000000000000000000a00
+PKT B minecraft:level_particles 302700000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:level_particles 3015ffff00004000000000000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:level_particles 30010100000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:level_particles 3039ef0701000000000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:level_particles 301c7fffff0000000000000000000000c04e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:level_particles 302700000000000000000000c04e0000000000000000000000000000bf80000000000000000000000000000000000000000000000100
+# title
+CF msg Showing new title for A
+CF result success 1
+CF msg Showing new subtitle for A
+CF result success 1
+CF msg Showing new actionbar title for A
+CF result success 1
+CF msg Changed title display times for A
+CF result success 1
+CF msg Changed title display times for A
+CF result success 1
+CF fail The tick count must not be less than 0: found -1
+CF fail ...A times -1 2 3<--[HERE]
+CF msg Cleared titles for 2 players
+CF result success 2
+CF msg Reset title options for A
+CF result success 1
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail title @e[type=minecraft:zombie] title "x"<--[HERE]
+CF msg Showing new title for A
+CF result success 1
+CF msg Showing new title for A
+CF result success 1
+CF fail Expected literal :
+CF fail ...title {bad<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail ...le A title<--[HERE]
+PKT A minecraft:set_title_text 740a080005636f6c6f72000372656408000474657874000548656c6c6f00
+PKT A minecraft:set_subtitle_text 72080003537562
+PKT A minecraft:set_action_bar_text 590a09000565787472610a0000000108000474657874000162010004626f6c6401000800047465787400016100
+PKT A minecraft:set_titles_animation 75000000050000001400000005
+PKT A minecraft:set_titles_animation 75000000000000000000000000
+PKT A minecraft:clear_titles 0e00
+PKT A minecraft:clear_titles 0e01
+PKT A minecraft:set_title_text 740a09000565787472610a000000030a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20412000080009696e73657274696f6e000141080004746578740001410a000b686f7665725f6576656e740800046e616d65000141080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b76d4ad38d013150b33368cfb42577740000080005636f6c6f720004677261790800047465787400022c20000a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20422000080009696e73657274696f6e000142080004746578740001420a000b686f7665725f6576656e740800046e616d65000142080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f44cd58d790230e78bde679d783ee631000008000474657874000000
+PKT A minecraft:set_title_text 74080000
+PKT B minecraft:clear_titles 0e00
+# experience
+CF msg A has 0 experience points
+CF result success 0
+CF msg A has 0 experience levels
+CF result success 0
+CF msg Gave 5 experience points to A
+CF result success 1
+CF msg Gave 5 experience levels to A
+CF result success 1
+CF msg Gave -3 experience levels to A
+CF result success 1
+CF msg Gave -100 experience levels to A
+CF result success 1
+CF msg Set 10 experience levels on A
+CF result success 1
+CF fail Integer must not be less than 0: found -1
+CF fail xp set A -1 levels<--[HERE]
+CF msg Set 5 experience points on A
+CF result success 1
+CF result failure 0
+CF fail Cannot set experience points above the maximum points for the player's current level
+CF msg Set 2147483647 experience levels on A
+CF result success 1
+CF msg Gave 1 experience levels to A
+CF result success 1
+CF msg A has 2147483647 experience levels
+CF result success 2147483647
+CF msg Set 3 experience points on 2 players
+CF result success 2
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail xp add @e[type=minecraft:zombie] 1<--[HERE]
+CF fail Only one player is allowed, but the provided selector allows more than one
+CF fail xp query @a points<--[HERE]
+CF msg Set 0 experience levels on A
+CF result success 1
+CF msg Gave 2147483647 experience points to A
+CF result success 1
+CF msg Set 0 experience points on A
+CF result success 1
+# enchant
+CF msg Applied enchantment Sharpness V to A's item
+CF result success 1
+CF result failure 0
+CF fail 6 is higher than the maximum level of 5 supported by that enchantment
+CF result failure 0
+CF fail Diamond Sword cannot support that enchantment
+CF msg Applied enchantment Unbreaking I to A's item
+CF result success 1
+CF fail Can't find element 'minecraft:nonsense' of type 'minecraft:enchantment'
+CF fail ...t:nonsense<--[HERE]
+CF result failure 0
+CF fail Diamond Sword cannot support that enchantment
+CF result failure 0
+CF fail Diamond Sword cannot support that enchantment
+CF result failure 0
+CF fail 255 is higher than the maximum level of 5 supported by that enchantment
+CF msg Applied enchantment Mending to A's item
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail Stick cannot support that enchantment
+CF result failure 0
+CF fail A is not holding any item
+CF fail Can't find element 'minecraft:' of type 'minecraft:enchantment'
+CF fail enchant A #minecraft:in_enchanting_table<--[HERE]
+# attribute
+CF msg The value of attribute Max Health for entity A is 20.0
+CF result success 20
+CF msg The value of attribute Max Health for entity A is 20.0
+CF result success 40
+CF msg The base value of attribute Max Health for entity A is 20.0
+CF result success 20
+CF msg The base value of attribute Max Health for entity A is 20.0
+CF result success 10
+CF msg The base value for attribute Max Health for entity A set to 30.0
+CF result success 1
+CF msg The base value for attribute Max Health for entity A set to 0.0
+CF result success 1
+CF msg The base value for attribute Max Health for entity A set to 2000.0
+CF result success 1
+CF msg Added modifier t:a to attribute Max Health for entity A
+CF result success 1
+CF result failure 0
+CF fail Modifier t:a is already present on attribute Max Health for entity A
+CF msg Added modifier t:b to attribute Max Health for entity A
+CF result success 1
+CF msg Added modifier t:c to attribute Max Health for entity A
+CF result success 1
+CF msg The value of modifier t:a on attribute Max Health for entity A is 5.0
+CF result success 5
+CF msg The value of modifier t:a on attribute Max Health for entity A is 5.0
+CF result success 50
+CF result failure 0
+CF fail Attribute Max Health for entity A has no modifier t:none
+CF msg The value of attribute Max Health for entity A is 1024.0
+CF result success 1024
+CF msg Removed modifier t:a from attribute Max Health for entity A
+CF result success 1
+CF result failure 0
+CF fail Attribute Max Health for entity A has no modifier t:a
+CF fail Can't find element 'minecraft:nonsense' of type 'minecraft:attribute'
+CF fail ...t:nonsense get<--[HERE]
+CF msg The value of attribute Armor for entity A is 0.0
+CF result success 0
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail attribute @e[type=minecraft:zombie] minecraft:armor get<--[HERE]
+CF msg The base value for attribute Speed for entity A set to 0.2
+CF result success 1
+CF msg The base value of attribute Block Interaction Range for entity A is 4.5
+CF result success 450
+PKT A minecraft:update_attributes entity=101;minecraft:movement_speed=0.2[];minecraft:max_health=2000.0[t:b/0.5/add_multiplied_base,t:c/0.5/add_multiplied_total]
+# damage
+CF msg Applied 1.0 damage to A
+CF result success 1
+CF result failure 0
+CF fail Target is invulnerable to the given damage type
+CF result failure 0
+CF fail Target is invulnerable to the given damage type
+CF fail Float must not be less than 0.0: found -1.0
+CF fail damage A -1<--[HERE]
+CF fail Can't find element 'minecraft:nonsense' of type 'minecraft:damage_type'
+CF fail ...t:nonsense<--[HERE]
+CF msg Applied 2.0 damage to A
+CF result success 1
+CF result failure 0
+CF fail Target is invulnerable to the given damage type
+CF result failure 0
+CF fail Target is invulnerable to the given damage type
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail damage @a 1 minecraft:out_of_world<--[HERE]
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail damage @e[type=minecraft:zombie] 1<--[HERE]
+CF msg Applied 1000.0 damage to B
+CF result success 1
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=21863/2147483647/0.0 sel=0 main=empty
+P B minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=9/19 death=1 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.42857143 sel=0 main=empty
+# spawn and defaultgamemode
+CF msg The default game mode is now Creative Mode
+CF result success 0
+CF msg The default game mode is now Survival Mode
+CF result success 0
+CF fail Unknown game mode: nonsense
+CF fail ...e nonsense<--[HERE]
+CF result failure 0
+CF fail A player is required to run this command here
+CF msg Set spawn point to 0, -60, 0 [0.0, 0.0] in minecraft:overworld for A
+CF result success 1
+CF msg Set spawn point to 5, -60, 5 [0.0, 0.0] in minecraft:overworld for A
+CF result success 1
+CF fail Incomplete (expected 2 coordinates)
+CF fail ...A 5 -60 5 45<--[HERE]
+CF msg Set spawn point to 5, -60, 5 [45.0, -10.0] in minecraft:overworld for A
+CF result success 1
+CF fail Incomplete (expected 2 coordinates)
+CF fail ...t A ~ ~ ~ 400<--[HERE]
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail spawnpoint @e[type=minecraft:zombie]<--[HERE]
+CF msg Set the world spawn point to 0, -60, 0 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+CF msg Set the world spawn point to 3, -60, 3 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+CF fail Incomplete (expected 2 coordinates)
+CF fail ...n 3 -60 3 90<--[HERE]
+CF msg Set the world spawn point to 3, -60, 3 [90.0, 10.0] in minecraft:overworld
+CF result success 1
+CF fail Incomplete (expected 2 coordinates)
+CF fail ...n 3 -60 3 181<--[HERE]
+CF msg Set the world spawn point to 3, 100000, 3 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+CF msg Set spawn point to 3, 100000, 3 [0.0, 0.0] in minecraft:overworld for A
+CF result success 1
+CF msg The player idle timeout is now 5 minute(s)
+CF result success 5
+CF msg The player idle timeout is now disabled
+CF result success 0
+CF fail Integer must not be less than 0: found -1
+CF fail ...letimeout -1<--[HERE]
+CF msg The player idle timeout is now 100000 minute(s)
+CF result success 100000
+# forceload
+CF msg 25 force loaded chunks were found in minecraft:overworld at: [0, -2], [1, -2], [2, -2], [-2, -2], [-1, -2], [0, -1], [1, -1], [2, -1], [-2, -1], [-1, -1], [0, 0], [1, 0], [2, 0], [-2, 0], [-1, 0], [0, 1], [1, 1], [2, 1], [-2, 1], [-1, 1], [0, 2], [1, 2], [2, 2], [-2, 2], [-1, 2]
+CF result success 25
+CF result failure 0
+CF fail Chunk at [6, 6] in minecraft:overworld is not marked for force loading
+CF msg Marked chunk [6, 6] in minecraft:overworld to be force loaded
+CF result success 1
+CF result failure 0
+CF fail No chunks were marked for force loading
+CF msg Chunk at [6, 6] in minecraft:overworld is marked for force loading
+CF result success 1
+CF msg Marked 24 chunks in minecraft:overworld from [6, 6] to [10, 10] to be force loaded
+CF result success 24
+CF result failure 0
+CF fail Too many chunks in the specified area (maximum 256, but specified 39075001)
+CF result failure 0
+CF fail That position is out of this world!
+CF msg Unmarked chunk [6, 6] in minecraft:overworld for force loading
+CF result success 1
+CF result failure 0
+CF fail No chunks were removed from force loading
+CF msg Unmarked all force loaded chunks in minecraft:overworld
+CF result success 0
+CF msg Unmarked all force loaded chunks in minecraft:overworld
+CF result success 0
+CF fail No force loaded chunks were found in minecraft:overworld
+CF result success 0
+# tag and rotate
+CF msg Added tag 'edge' to A
+CF result success 1
+CF result failure 0
+CF fail Target either already has the tag or has too many tags
+CF msg A has 1 tag(s): edge
+CF result success 1
+CF msg Removed tag 'edge' from A
+CF result success 1
+CF result failure 0
+CF fail Target does not have this tag
+CF msg There are no tags on the 0 entities
+CF result success 0
+CF msg Added tag 'x' to 2 entities
+CF result success 2
+CF msg The 2 entities have 1 total tag(s): x
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Rotated A
+CF result success 1
+CF msg Rotated A
+CF result success 1
+CF msg Rotated A
+CF result success 1
+CF msg Rotated A
+CF result success 1
+CF msg Rotated A
+CF result success 1
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail rotate A facing entity @e[type=minecraft:zombie] eyes<--[HERE]
+CF msg Rotated A
+CF result success 1
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=280.0,90.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=21863/2147483647/0.0 sel=0 main=empty
+P B minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=8/18 death=2 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.42857143 sel=0 main=empty
+# clear and give
+CF msg Gave 3 [Apple] to A
+CF result success 1
+CF fail Integer must not be less than 1: found 0
+CF fail ...aft:apple 0<--[HERE]
+CF fail Integer must not be less than 1: found -1
+CF fail ...aft:apple -1<--[HERE]
+CF result failure 0
+CF fail Can't give more than 6400 of [Apple]
+CF msg Gave 1 [Diamond Sword] to A
+CF result success 1
+CF msg Gave 2 [Bread] to 2 players
+CF result success 2
+CF fail Unknown item 'minecraft:nonsense'
+CF fail give A minecraft:nonsense<--[HERE]
+CF fail Unknown item component 'minecraft:nonsense'
+CF fail ...aft:apple[nonsense=1]<--[HERE]
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail give @e[type=minecraft:zombie] minecraft:apple<--[HERE]
+CF msg Found 3 matching item(s) on player A
+CF result success 3
+CF msg Removed 1 item(s) from player A
+CF result success 1
+CF msg Removed 2 item(s) from player A
+CF result success 2
+CF msg Removed 2 item(s) from player A
+CF result success 2
+CF msg Removed 1 item(s) from player A
+CF result success 1
+CF msg Removed 2 item(s) from player B
+CF result success 2
+CF result failure 0
+CF fail No items were found on player A
+CF result failure 0
+CF fail No items were found on player A
+CF fail Only players may be affected by this command, but the provided selector includes entities
+CF fail clear @e[type=minecraft:zombie]<--[HERE]
+CF result failure 0
+CF fail No items were found on player A

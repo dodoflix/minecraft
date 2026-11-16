@@ -1,0 +1,194 @@
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
+# argument limits and world border bounds
+CF fail Double must not be less than -5.9999968E7: found -6.0000001E7
+CF fail ...order set -60000001<--[HERE]
+CF fail Double must not be less than -5.9999968E7: found -6.0000001E7
+CF fail ...order add -60000001<--[HERE]
+CF fail Double must not be more than 5.9999968E7: found 5.9999969E7
+CF fail ...order set 59999969<--[HERE]
+CF result failure 0
+CF fail World border cannot be bigger than 5.9999968E7 blocks wide
+CF result failure 0
+CF fail Nothing changed. The world border damage buffer is already that distance
+CF msg Set the world border damage buffer to 7.00 block(s)
+CF result success 7
+CF result failure 0
+CF fail Nothing changed. The world border damage buffer is already that distance
+# missing data and empty tag lists
+CF result failure 0
+CF fail Found no elements matching NoSuchKey
+CF result failure 0
+CF fail Found no elements matching a
+CF msg There are no tags on the 0 entities
+CF result success 0
+CF msg Added tag 'one' to Cow
+CF result success 1
+CF msg Cow has 1 tag(s): one
+CF result success 1
+CF msg Removed tag 'one' from Cow
+CF result success 1
+CF msg There are no tags on the 0 entities
+CF result success 0
+# teams
+CF msg Created team [crew]
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. That team is already empty
+CF msg Added Cow to team [crew]
+CF result success 1
+CF msg Removed 1 member(s) from team [crew]
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. That team is already empty
+# scores of one entity
+CF msg Created new objective [pts]
+CF result success 1
+CF msg A has no scores to show
+CF result success 0
+CF msg Set [pts] for A to 3
+CF result success 3
+CF msg A has 1 score(s):
+CF msg [pts]: 3
+CF result success 1
+CF msg There are 1 tracked entity/entities: A
+CF result success 1
+# list with ids
+CF msg There are 2 of a max of 20 players online: A, B
+CF result success 2
+CF msg There are 2 of a max of 20 players online: A (b76d4ad3-8d01-3150-b333-68cfb4257774), B (f44cd58d-7902-30e7-8bde-679d783ee631)
+CF result success 2
+# particles nobody can see
+CF result failure 0
+CF fail The particle was not visible for anybody
+CF result failure 0
+CF fail The particle was not visible for anybody
+CF result failure 0
+CF fail The particle was not visible for anybody
+# players that do not exist
+CF result failure 0
+CF fail No player was found
+CF result failure 0
+CF fail No player was found
+CF result failure 0
+CF fail No player was found
+# waypoints
+CF msg 2 waypoint(s) in minecraft:overworld: A, B
+CF result success 2
+CF msg Waypoint color is now red
+CF result success 0
+CF msg Waypoint style changed
+CF result success 0
+# the loot target needs a holder
+CF msg Dropped 7 items
+CF result success 7
+CF msg Dropped 0 items
+CF result success 0
+CF result failure 0
+# riding
+CF msg Cow started riding Oak Boat
+CF result success 1
+CF msg Pig started riding Oak Boat
+CF result success 1
+CF msg Sheep started riding Oak Boat
+CF result success 1
+CF msg Zombie started riding Oak Boat
+CF result success 1
+CF result failure 0
+CF fail Cow is already riding Oak Boat
+CF msg Cow stopped riding Oak Boat
+CF result success 1
+CF result failure 0
+CF fail Cow is not riding any vehicle
+CF result failure 0
+CF fail Zombie is already riding Oak Boat
+CF result failure 0
+CF fail Players can't be ridden
+CF msg A started riding Cow
+CF result success 1
+CF result failure 0
+CF fail Can't mount entity on itself or any of its passengers
+CF result failure 0
+CF fail Pig is already riding Oak Boat
+CF result failure 0
+CF fail Zombie is already riding Oak Boat
+CF msg Cow started riding Zombie
+CF result success 1
+# spectating
+CF result failure 0
+CF fail A player is required to run this command here
+CF result failure 0
+CF msg Set B's game mode to Spectator Mode
+CF result success 1
+CF msg Now spectating Cow
+CF result success 1
+CF msg No longer spectating an entity
+CF result success 1
+CF msg Now spectating Cow
+CF result success 1
+CF msg Set B's game mode to Survival Mode
+CF result success 1
+# item slots that nobody has
+CF result failure 0
+CF fail The target does not have slot container.*
+CF result failure 0
+CF fail The target does not have slot container.*
+CF result failure 0
+CF fail The source does not have slot container.*
+CF result failure 0
+CF fail The source does not have slot container.0
+CF msg Replaced 1 slot(s) on Cow with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on Cow with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF msg Replaced 1 slot(s) on Zombie with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on Zombie with [Stone]
+CF result success 1
+CF result failure 0
+CF fail The target does not have slot horse.*
+CF msg Replaced 1 slot(s) on A with [Air]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Air]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+CF msg Replaced 1 slot(s) on A with [Stone]
+CF result success 1
+# spreadplayers under the world
+CF result failure 0
+CF fail Invalid maxHeight -100; expected higher than world minimum -64
+# clocks
+CF result failure 0
+CF fail Timeline minecraft:day is not valid for clock minecraft:the_end
+CF msg Timeline minecraft:day is at 0 tick(s)
+CF result success 0
+CF result failure 0
+CF fail Timeline minecraft:moon is not valid for clock minecraft:the_end
+# datapacks and the whitelist
+CF msg There are no more data packs available
+CF result success 0
+CF msg There are 1 data pack(s) enabled: [vanilla (built-in)]
+CF result success 1
+CF result failure 0
+CF fail Pack 'vanilla' is already enabled!
+CF result failure 0
+CF fail Whitelist is already turned on
+CF result failure 0
+CF fail Whitelist is already turned on
+CF msg Added B to the whitelist
+CF result success 1
+CF result failure 0
+CF fail Player is already whitelisted
+CF msg There are 1 whitelisted player(s): B
+CF result success 1
+CF msg Removed B from the whitelist
+CF result success 1
+CF result failure 0
+CF fail Player is not whitelisted
+CF msg Whitelist is now turned off
+CF result success 1
+CF result failure 0
+CF fail Whitelist is already turned off

@@ -1,0 +1,122 @@
+# The feedback texts the other command scenarios never reach: argument limits, empty results, riding and spectating failures, item slot
+# failures, world border limits, clock queries, whitelist and datapack states, waypoints and tags.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 1750
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 8.5 -60 0.5 0 0
+spawn cow minecraft:cow 4.5 -60 4.5 0 0
+spawn pig minecraft:pig 5.5 -60 4.5 0 0
+spawn sheep minecraft:sheep 6.5 -60 4.5 0 0
+spawn zombie minecraft:zombie 7.5 -60 4.5 0 0
+spawn boat minecraft:oak_boat 12.5 -60 4.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+note argument limits and world border bounds
+cmd worldborder set -60000001
+cmd worldborder add -60000001
+cmd worldborder set 59999969
+cmd worldborder add 59999968
+cmd worldborder damage buffer 5
+cmd worldborder damage buffer 7
+cmd worldborder damage buffer 7
+note missing data and empty tag lists
+cmd data get entity A NoSuchKey
+cmd data get storage t:none a.b
+cmd tag @e[type=minecraft:cow,limit=1] list
+cmd tag @e[type=minecraft:cow,limit=1] add one
+cmd tag @e[type=minecraft:cow,limit=1] list
+cmd tag @e[type=minecraft:cow,limit=1] remove one
+cmd tag @e[type=minecraft:cow,limit=1] list
+note teams
+cmd team add crew
+cmd team empty crew
+cmd team join crew @e[type=minecraft:cow,limit=1]
+cmd team empty crew
+cmd team empty crew
+note scores of one entity
+cmd scoreboard objectives add pts dummy
+cmd scoreboard players list A
+cmd scoreboard players set A pts 3
+cmd scoreboard players list A
+cmd scoreboard players list
+note list with ids
+cmd list
+cmd list uuids
+note particles nobody can see
+cmd particle minecraft:end_rod 1000 -60 1000
+cmd particle minecraft:end_rod 1000 -60 1000 0 0 0 0 1 force
+cmd particle minecraft:end_rod 1000 -60 1000 0 0 0 0 1 force @a
+note players that do not exist
+cmd ban @a[name=Nobody]
+cmd pardon @a[name=Nobody]
+cmd whitelist add @a[name=Nobody]
+note waypoints
+cmd waypoint list
+cmd waypoint modify @e[type=minecraft:cow,limit=1] color red
+cmd waypoint modify @e[type=minecraft:cow,limit=1] style set minecraft:default
+note the loot target needs a holder
+cmd execute as @e[type=minecraft:oak_boat,limit=1] run loot give B loot minecraft:chests/simple_dungeon
+cmd execute as @e[type=minecraft:oak_boat,limit=1] run loot replace entity @s weapon.mainhand loot minecraft:chests/simple_dungeon
+cmd execute as @e[type=minecraft:oak_boat,limit=1] run loot spawn 0 -60 0 mine 0 -60 0 mainhand
+note riding
+cmd ride @e[type=minecraft:cow,limit=1] mount @e[type=minecraft:oak_boat,limit=1]
+cmd ride @e[type=minecraft:pig,limit=1] mount @e[type=minecraft:oak_boat,limit=1]
+cmd ride @e[type=minecraft:sheep,limit=1] mount @e[type=minecraft:oak_boat,limit=1]
+cmd ride @e[type=minecraft:zombie,limit=1] mount @e[type=minecraft:oak_boat,limit=1]
+cmd ride @e[type=minecraft:cow,limit=1] mount @e[type=minecraft:cow,limit=1]
+cmd ride @e[type=minecraft:cow,limit=1] dismount
+cmd ride @e[type=minecraft:cow,limit=1] dismount
+cmd ride @e[type=minecraft:zombie,limit=1] mount @e[type=minecraft:sheep,limit=1]
+cmd ride @e[type=minecraft:oak_boat,limit=1] mount A
+cmd ride A mount @e[type=minecraft:cow,limit=1]
+cmd ride @e[type=minecraft:oak_boat,limit=1] mount @e[type=minecraft:pig,limit=1]
+cmd ride @e[type=minecraft:pig,limit=1] mount @e[type=minecraft:pig,limit=1]
+cmd ride @e[type=minecraft:zombie,limit=1] mount A
+cmd ride @e[type=minecraft:cow,limit=1] mount @e[type=minecraft:zombie,limit=1]
+note spectating
+cmd spectate
+cmd execute as B run spectate
+cmd gamemode spectator B
+cmd execute as B run spectate @e[type=minecraft:cow,limit=1]
+cmd execute as B run spectate
+cmd execute as B run spectate @e[type=minecraft:cow,limit=1] B
+cmd gamemode survival B
+note item slots that nobody has
+cmd item replace entity @e[type=minecraft:cow,limit=1] container.* with minecraft:stone
+cmd item replace entity @e[type=minecraft:cow,limit=1] container.* from entity A container.*
+cmd item replace entity A hotbar.0 from entity @e[type=minecraft:cow,limit=1] container.*
+cmd item replace entity A hotbar.0 from entity @e[type=minecraft:cow,limit=1] container.0
+cmd item replace entity @e[type=minecraft:cow,limit=1] weapon.* with minecraft:stone
+cmd item replace entity @e[type=minecraft:cow,limit=1] armor.* with minecraft:stone
+cmd item replace entity A hotbar.0 from entity @e[type=minecraft:cow,limit=1] armor.*
+cmd item replace entity @e[type=minecraft:zombie,limit=1] armor.* with minecraft:stone
+cmd item replace entity @e[type=minecraft:zombie,limit=1] armor.* with minecraft:stone
+cmd item replace entity @e[type=minecraft:zombie,limit=1] horse.* with minecraft:stone
+cmd item replace entity A armor.* with minecraft:air
+cmd item replace entity A hotbar.0 with minecraft:air
+cmd item replace entity A hotbar.0 with minecraft:stone
+cmd item replace entity A hotbar.0 with minecraft:stone
+note spreadplayers under the world
+cmd spreadplayers 0 0 1 10 under -100 false A
+note clocks
+cmd time of minecraft:the_end query minecraft:day
+cmd time of minecraft:overworld query minecraft:day
+cmd time of minecraft:the_end query minecraft:moon repetition
+note datapacks and the whitelist
+cmd datapack list available
+cmd datapack list enabled
+cmd datapack enable "vanilla"
+cmd whitelist on
+cmd whitelist on
+cmd whitelist add B
+cmd whitelist add B
+cmd whitelist list
+cmd whitelist remove B
+cmd whitelist remove B
+cmd whitelist off
+cmd whitelist off
+tick 1

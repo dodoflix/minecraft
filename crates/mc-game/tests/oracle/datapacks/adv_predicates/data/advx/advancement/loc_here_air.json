@@ -1,0 +1,1 @@
+{"criteria": {"c": {"trigger": "minecraft:tick", "conditions": {"player": {"type": "minecraft:location_check", "predicate": {"block": {"blocks": "minecraft:air"}}}}}}}

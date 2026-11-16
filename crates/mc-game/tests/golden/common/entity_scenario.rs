@@ -338,6 +338,7 @@ pub struct Harness {
     pub line: String,
     flat: bool,
     sequences: super::player_actions::Sequences,
+    departed: super::player_actions::Departed,
     /// The oracle's rules (the quiet world of `VanillaLevel.boot` plus every `gamerule` verb so far) of a replay without a command environment; with
     /// one the level reads the installed server's rules.
     game_rules: mc_game::world::level::gamerules::GameRules,
@@ -406,6 +407,7 @@ impl Harness {
             line: String::new(),
             flat: true,
             sequences: Default::default(),
+            departed: Default::default(),
             connections: Vec::new(),
             broadcast_log,
         }
@@ -1458,6 +1460,9 @@ impl super::player_actions::ActionHost for Harness {
     }
     fn emit(&mut self, line: String) {
         self.out.push(line);
+    }
+    fn departed(&mut self) -> Option<&mut super::player_actions::Departed> {
+        Some(&mut self.departed)
     }
 }
 

@@ -24,3 +24,33 @@ fn entity_replay_runs_real_commands() {
 fn scoreboard_bossbar_storage_and_selector_dumps_match_vanilla() {
     common::block_scenario::check("dump_smoke");
 }
+
+#[test]
+fn every_command_at_every_permission_level_matches_vanilla() {
+    common::block_scenario::check("cmd_perm_matrix");
+}
+
+#[test]
+fn a_kicked_player_leaves_the_list_and_selectors_like_vanilla() {
+    common::block_scenario::check("cmd_kick_timing");
+}
+
+#[test]
+fn random_playsound_title_xp_enchant_and_spawn_commands_match_vanilla() {
+    common::block_scenario::check("cmd_misc_values");
+}
+
+#[test]
+fn rarely_reached_command_failures_match_vanilla() {
+    common::block_scenario::check("cmd_feedback_rest");
+}
+
+#[test]
+fn operator_commands_match_vanilla() {
+    common::block_scenario::check("cmd_operator_commands");
+}
+
+#[test]
+fn bans_of_online_players_match_vanilla() {
+    common::block_scenario::check("cmd_ban_online_players");
+}

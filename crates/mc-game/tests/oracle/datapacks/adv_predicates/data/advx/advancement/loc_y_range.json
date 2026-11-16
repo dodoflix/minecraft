@@ -1,0 +1,1 @@
+{"criteria": {"c": {"trigger": "minecraft:tick", "conditions": {"player": {"type": "minecraft:location_check", "predicate": {"position": {"y": {"min": -61.0, "max": -59.5}, "x": {"max": 1.0}}}}}}}}

@@ -1,0 +1,148 @@
+# Scenario: statistics through objectives and the stat file: item/block/entity stat types, kill criteria by team, play time,
+# distance, and leaving; objectives that follow stats update in the same tick as the stat.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 1400
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 8.5 -60 0.5 0 0
+op A
+tick 1
+cmd scoreboard objectives add jump minecraft.custom:minecraft.jump
+cmd scoreboard objectives add walk minecraft.custom:minecraft.walk_one_cm
+cmd scoreboard objectives add used_apple minecraft.used:minecraft.apple
+cmd scoreboard objectives add crafted minecraft.crafted:minecraft.stick
+cmd scoreboard objectives add mined minecraft.mined:minecraft.dirt
+cmd scoreboard objectives add broken minecraft.broken:minecraft.wooden_sword
+cmd scoreboard objectives add dropped minecraft.dropped:minecraft.apple
+cmd scoreboard objectives add picked minecraft.picked_up:minecraft.apple
+cmd scoreboard objectives add killed minecraft.killed:minecraft.zombie
+cmd scoreboard objectives add killedby minecraft.killed_by:minecraft.zombie
+cmd scoreboard objectives add dmgdealt minecraft.custom:minecraft.damage_dealt
+cmd scoreboard objectives add dmgtaken minecraft.custom:minecraft.damage_taken
+cmd scoreboard objectives add playtime minecraft.custom:minecraft.play_time
+cmd scoreboard objectives add deaths deathCount
+cmd scoreboard objectives add pk playerKillCount
+cmd scoreboard objectives add tk totalKillCount
+cmd scoreboard objectives add redk killedByTeam.red
+cmd team add red
+cmd team join red B
+cmd scoreboard objectives add blue_kills teamkill.red
+tick 2
+note drop and pick up an apple, use it, mine dirt, break a sword
+give A hotbar0 minecraft:apple 2
+tick 1
+drop A
+tick 3
+dump stats:A
+cmd scoreboard players get A jump
+cmd scoreboard players get A walk
+cmd scoreboard players get A used_apple
+cmd scoreboard players get A dropped
+cmd scoreboard players get A picked
+cmd scoreboard players get A killed
+cmd scoreboard players get A dmgdealt
+cmd scoreboard players get A dmgtaken
+cmd scoreboard players get A playtime
+cmd scoreboard players get A deaths
+cmd scoreboard players get A pk
+cmd scoreboard players get A tk
+cmd scoreboard players get A redk
+cmd scoreboard players get A blue_kills
+note damage taken and dealt, deaths
+hurt A minecraft:generic 3
+tick 2
+dump stats:A
+cmd scoreboard players get A jump
+cmd scoreboard players get A walk
+cmd scoreboard players get A used_apple
+cmd scoreboard players get A dropped
+cmd scoreboard players get A picked
+cmd scoreboard players get A killed
+cmd scoreboard players get A dmgdealt
+cmd scoreboard players get A dmgtaken
+cmd scoreboard players get A playtime
+cmd scoreboard players get A deaths
+cmd scoreboard players get A pk
+cmd scoreboard players get A tk
+cmd scoreboard players get A redk
+cmd scoreboard players get A blue_kills
+mobspawn zombie minecraft:zombie 3 -60 0.5 0 0 {NoAI:1b,Health:1f,PersistenceRequired:1b}
+tick 1
+give A hotbar0 minecraft:wooden_sword
+attack A zombie
+tick 1
+mobspawn z1 minecraft:zombie 3 -60 3 0 0 {NoAI:1b,Health:2f}
+attack A z1
+tick 2
+dump stats:A
+cmd scoreboard players get A jump
+cmd scoreboard players get A walk
+cmd scoreboard players get A used_apple
+cmd scoreboard players get A dropped
+cmd scoreboard players get A picked
+cmd scoreboard players get A killed
+cmd scoreboard players get A dmgdealt
+cmd scoreboard players get A dmgtaken
+cmd scoreboard players get A playtime
+cmd scoreboard players get A deaths
+cmd scoreboard players get A pk
+cmd scoreboard players get A tk
+cmd scoreboard players get A redk
+cmd scoreboard players get A blue_kills
+note a player kills a player on a team
+hurt B minecraft:player_attack 100 by=A direct=A
+tick 2
+cmd scoreboard players get A jump
+cmd scoreboard players get A walk
+cmd scoreboard players get A used_apple
+cmd scoreboard players get A dropped
+cmd scoreboard players get A picked
+cmd scoreboard players get A killed
+cmd scoreboard players get A dmgdealt
+cmd scoreboard players get A dmgtaken
+cmd scoreboard players get A playtime
+cmd scoreboard players get A deaths
+cmd scoreboard players get A pk
+cmd scoreboard players get A tk
+cmd scoreboard players get A redk
+cmd scoreboard players get A blue_kills
+cmd scoreboard players get B jump
+cmd scoreboard players get B walk
+cmd scoreboard players get B used_apple
+cmd scoreboard players get B dropped
+cmd scoreboard players get B picked
+cmd scoreboard players get B killed
+cmd scoreboard players get B dmgdealt
+cmd scoreboard players get B dmgtaken
+cmd scoreboard players get B playtime
+cmd scoreboard players get B deaths
+cmd scoreboard players get B pk
+cmd scoreboard players get B tk
+cmd scoreboard players get B redk
+cmd scoreboard players get B blue_kills
+dump stats:A stats:B
+respawn B
+tick 2
+note leave and rejoin counters
+leave B
+tick 1
+cmd scoreboard players get B jump
+cmd scoreboard players get B walk
+cmd scoreboard players get B used_apple
+cmd scoreboard players get B dropped
+cmd scoreboard players get B picked
+cmd scoreboard players get B killed
+cmd scoreboard players get B dmgdealt
+cmd scoreboard players get B dmgtaken
+cmd scoreboard players get B playtime
+cmd scoreboard players get B deaths
+cmd scoreboard players get B pk
+cmd scoreboard players get B tk
+cmd scoreboard players get B redk
+cmd scoreboard players get B blue_kills
+dump stats:A
+request_stats A
+tick 1
+dump packets:A:award_stats

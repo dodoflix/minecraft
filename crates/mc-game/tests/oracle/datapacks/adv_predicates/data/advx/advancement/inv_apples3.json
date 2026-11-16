@@ -1,0 +1,1 @@
+{"criteria": {"c": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": "minecraft:apple", "count": {"min": 3}}]}}}}

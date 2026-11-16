@@ -1,0 +1,524 @@
+# objectives
+CF msg There are no objectives
+CF result success 0
+CF msg Created new objective [dm]
+CF result success 1
+CF result failure 0
+CF fail An objective already exists by that name
+CF msg Created new objective [Hearts]
+CF result success 2
+CF msg Created new objective [tr]
+CF result success 3
+CF msg Created new objective [deaths]
+CF result success 4
+CF msg Created new objective [kills]
+CF result success 5
+CF msg Created new objective [tk]
+CF result success 6
+CF msg Created new objective [mined]
+CF result success 7
+CF msg Created new objective [used]
+CF result success 8
+CF msg Created new objective [custom]
+CF result success 9
+CF msg Created new objective [killed]
+CF result success 10
+CF fail Unknown criterion 'nonsense'
+CF fail ...s add bad nonsense<--[HERE]
+CF fail Unknown criterion 'minecraft.nonsense:minecraft.stone'
+CF fail ...s add bad minecraft.nonsense:minecraft.stone<--[HERE]
+CF fail Unknown criterion 'minecraft.mined:minecraft.nonsense'
+CF fail ...s add bad minecraft.mined:minecraft.nonsense<--[HERE]
+CF fail Unknown criterion 'minecraft.custom:minecraft.nonsense'
+CF fail ...s add bad minecraft.custom:minecraft.nonsense<--[HERE]
+CF msg Created new objective [bad]
+CF result success 11
+CF msg Created new objective [this_name_is_longer_than_16]
+CF result success 12
+CF msg Created new objective [a.b-c+d_e]
+CF result success 13
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...tives add "with space" dummy<--[HERE]
+CF msg Created new objective [1]
+CF result success 14
+CF msg There are 14 objective(s): [bad], [1], [tr], [Hearts], [custom], [a.b-c+d_e], [tk], [this_name_is_longer_than_16], [mined], [kills], [deaths], [dm], [killed], [used]
+CF result success 14
+CF msg Changed the display name of dm to [Dummy]
+CF result success 0
+CF msg Changed the display name of dm to [plain]
+CF result success 0
+CF fail Expected literal :
+CF fail ...yname {bad<--[HERE]
+CF result failure 0
+CF fail Unknown scoreboard objective 'nothing'
+CF msg Changed the render type of objective [plain]
+CF result success 0
+CF msg Changed the render type of objective [plain]
+CF result success 0
+CF fail Incorrect argument for command
+CF fail ...endertype nonsense<--[HERE]
+CF msg Enabled display auto-update for objective dm
+CF result success 0
+CF msg Disabled display auto-update for objective dm
+CF result success 0
+CF msg Changed default number format of objective dm
+CF result success 0
+CF msg Changed default number format of objective dm
+CF result success 0
+CF msg Changed default number format of objective dm
+CF result success 0
+CF msg Changed default number format of objective dm
+CF result success 0
+CF msg Cleared default number format of objective dm
+CF result success 0
+CF fail Expected literal :
+CF fail ...fixed {bad<--[HERE]
+CF fail Incorrect argument for command
+CF fail ...berformat nonsense<--[HERE]
+CF msg There are 14 objective(s): [bad], [1], [tr], [Hearts], [custom], [a.b-c+d_e], [tk], [this_name_is_longer_than_16], [mined], [kills], [deaths], [plain], [killed], [used]
+CF result success 14
+# display slots
+CF msg Set display slot list to show objective plain
+CF result success 0
+CF result failure 0
+CF fail Nothing changed. That display slot is already showing that objective
+CF msg Cleared any objectives in display slot list
+CF result success 0
+CF result failure 0
+CF fail Nothing changed. That display slot is already empty
+CF msg Set display slot sidebar to show objective plain
+CF result success 0
+CF msg Set display slot sidebar to show objective Hearts
+CF result success 0
+CF msg Set display slot below_name to show objective Hearts
+CF result success 0
+CF msg Set display slot sidebar.team.red to show objective plain
+CF result success 0
+CF msg Set display slot sidebar.team.dark_purple to show objective plain
+CF result success 0
+CF fail Unknown display slot 'sidebar.team.nonsense'
+CF fail ...m.nonsense dm<--[HERE]
+CF fail Unknown display slot 'nonsense'
+CF fail ...y nonsense dm<--[HERE]
+CF result failure 0
+CF fail Unknown scoreboard objective 'nothing'
+PKT A minecraft:set_objective 6c02646d00080005706c61696e0000
+PKT A minecraft:set_display_objective 640002646d
+PKT A minecraft:set_objective 6c02646d01
+PKT A minecraft:set_objective 6c02646d00080005706c61696e0000
+PKT A minecraft:set_display_objective 640102646d
+PKT A minecraft:set_objective 6c02646d01
+PKT A minecraft:set_objective 6c06686561727473000a080005636f6c6f720003726564080004746578740006486561727473000100
+PKT A minecraft:set_display_objective 640106686561727473
+PKT A minecraft:set_display_objective 640206686561727473
+PKT A minecraft:set_objective 6c02646d00080005706c61696e0000
+PKT A minecraft:set_display_objective 640f02646d
+PKT A minecraft:set_display_objective 640802646d
+OBJ {CriteriaName:"deathCount",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"health",DisplayName:{color:"red",text:"Hearts"},Name:"hearts",RenderType:"hearts"}
+OBJ {CriteriaName:"killedByTeam.red",DisplayName:"kills",Name:"kills"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"custom",Name:"custom"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.zombie",DisplayName:"killed",Name:"killed"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.pig",DisplayName:"bad",Name:"bad"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"minecraft.used:minecraft.apple",DisplayName:"used",Name:"used"}
+OBJ {CriteriaName:"teamkill.blue",DisplayName:"tk",Name:"tk"}
+OBJ {CriteriaName:"trigger",DisplayName:"tr",Name:"tr"}
+OBJ {DisplayName:"1",Name:"1"}
+OBJ {DisplayName:"a.b-c+d_e",Name:"a.b-c+d_e"}
+OBJ {DisplayName:"plain",Name:"dm"}
+OBJ {DisplayName:"this_name_is_longer_than_16",Name:"this_name_is_longer_than_16"}
+DISPLAY {below_name:"hearts",sidebar:"hearts",sidebar.team.dark_purple:"dm",sidebar.team.red:"dm"}
+# players set/add/remove/get/reset/list
+CF msg There are no tracked entities
+CF result success 0
+CF msg A has no scores to show
+CF result success 0
+CF msg Set [plain] for A to 5
+CF result success 5
+CF msg Set [plain] for A to -2147483648
+CF result success -2147483648
+CF msg Set [plain] for A to 2147483647
+CF result success 2147483647
+CF fail Invalid integer '2147483648'
+CF fail ... set A dm 2147483648<--[HERE]
+CF fail Invalid integer '1.5'
+CF fail ... set A dm 1.5<--[HERE]
+CF msg Added 1 to [plain] for A (now -2147483648)
+CF result success -2147483648
+CF msg Added 0 to [plain] for A (now -2147483648)
+CF result success -2147483648
+CF fail Integer must not be less than 0: found -1
+CF fail ... add A dm -1<--[HERE]
+CF msg Removed 1 from [plain] for A (now 2147483647)
+CF result success 2147483647
+CF msg Removed 0 from [plain] for A (now 2147483647)
+CF result success 2147483647
+CF msg Added 2147483647 to [plain] for A (now -2)
+CF result success -2
+CF msg Added 2147483647 to [plain] for A (now 2147483645)
+CF result success 2147483645
+CF msg A has 2147483645 [plain]
+CF result success 2147483645
+CF result failure 0
+CF fail Unknown scoreboard objective 'nothing'
+CF result failure 0
+CF fail Can't get value of dm for Nobody; none is set
+CF result failure 0
+CF fail No relevant score holders could be found
+CF msg Set [plain] for A to 3
+CF result success 3
+CF msg Set [plain] for 2 entities to 7
+CF result success 14
+CF msg Set [plain] for #fake to 11
+CF result success 11
+CF msg Set [plain] for fake&name to 12
+CF result success 12
+CF fail Expected whitespace to end one argument, but found trailing data
+CF fail ...uoted name" dm 13<--[HERE]
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result success 8
+CF msg There are 4 tracked entity/entities: fake&name, A, #fake, B
+CF result success 4
+CF msg A has 1 score(s):
+CF msg [plain]: 8
+CF result success 1
+CF msg #fake has 1 score(s):
+CF msg [plain]: 11
+CF result success 1
+CF result failure 0
+CF fail No relevant score holders could be found
+CF fail Only one entity is allowed, but the provided selector allows more than one
+CF fail ...pe=zombie]<--[HERE]
+CF result failure 0
+CF fail Can't get value of dm for hearts; none is set
+CF result failure 0
+CF fail Scoreboard objective 'hearts' is read-only
+CF msg Set [deaths] for B to 3
+CF result success 3
+CF msg Set [tr] for B to 1
+CF result success 1
+CF msg Set [kills] for A to 3
+CF result success 3
+CF result failure 0
+CF fail Can't get value of hearts for B; none is set
+CF msg Reset [plain] for B
+CF result success 1
+CF msg Reset [plain] for B
+CF result success 1
+CF result failure 0
+CF fail Unknown scoreboard objective 'nothing'
+CF msg Reset all scores for B
+CF result success 1
+CF msg Reset all scores for B
+CF result success 1
+CF msg Reset all scores for 3 entities
+CF result success 3
+CF result failure 0
+CF fail No entity was found
+PKT A minecraft:set_score 70014102646d050000
+PKT A minecraft:set_score 70014102646d80808080080000
+PKT A minecraft:set_score 70014102646dffffffff070000
+PKT A minecraft:set_score 70014102646d80808080080000
+PKT A minecraft:set_score 70014102646dffffffff070000
+PKT A minecraft:set_score 70014102646dfeffffff0f0000
+PKT A minecraft:set_score 70014102646dfdffffff070000
+PKT A minecraft:set_score 70014102646d030000
+PKT A minecraft:set_score 70014102646d070000
+PKT A minecraft:set_score 70014202646d070000
+PKT A minecraft:set_score 70052366616b6502646d0b0000
+PKT A minecraft:set_score 700966616b65266e616d6502646d0c0000
+PKT A minecraft:set_score 70014102646d080000
+PKT A minecraft:reset_score 5001420102646d
+PKT A minecraft:reset_score 50014200
+PKT A minecraft:reset_score 500966616b65266e616d6500
+PKT A minecraft:reset_score 50014100
+PKT A minecraft:reset_score 50052366616b6500
+OBJ {CriteriaName:"deathCount",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"health",DisplayName:{color:"red",text:"Hearts"},Name:"hearts",RenderType:"hearts"}
+OBJ {CriteriaName:"killedByTeam.red",DisplayName:"kills",Name:"kills"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"custom",Name:"custom"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.zombie",DisplayName:"killed",Name:"killed"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.pig",DisplayName:"bad",Name:"bad"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"minecraft.used:minecraft.apple",DisplayName:"used",Name:"used"}
+OBJ {CriteriaName:"teamkill.blue",DisplayName:"tk",Name:"tk"}
+OBJ {CriteriaName:"trigger",DisplayName:"tr",Name:"tr"}
+OBJ {DisplayName:"1",Name:"1"}
+OBJ {DisplayName:"a.b-c+d_e",Name:"a.b-c+d_e"}
+OBJ {DisplayName:"plain",Name:"dm"}
+OBJ {DisplayName:"this_name_is_longer_than_16",Name:"this_name_is_longer_than_16"}
+DISPLAY {below_name:"hearts",sidebar:"hearts",sidebar.team.dark_purple:"dm",sidebar.team.red:"dm"}
+# number formats on scores and display names
+CF msg Set [plain] for A to 9
+CF result success 9
+CF msg Set [plain] for B to 10
+CF result success 10
+CF msg Changed display name to Alice for A in [plain]
+CF result success 1
+CF msg Cleared display name for A in [plain]
+CF result success 1
+CF msg Changed display name to x for A in [plain]
+CF result success 1
+CF msg Changed display name to  for 2 entities in [plain]
+CF result success 2
+CF result failure 0
+CF fail Unknown scoreboard objective 'nothing'
+CF msg Changed display name to x for Nobody in [plain]
+CF result success 1
+CF msg Changed number format for A in [plain]
+CF result success 1
+CF msg Changed number format for A in [plain]
+CF result success 1
+CF msg Changed number format for B in [plain]
+CF result success 1
+CF msg Changed number format for 2 entities in [plain]
+CF result success 2
+CF msg Cleared number format for A in [plain]
+CF result success 1
+CF fail Incorrect argument for command
+CF fail ...rmat A dm nonsense<--[HERE]
+CF result failure 0
+CF fail Unknown scoreboard objective 'nothing'
+PKT A minecraft:set_score 70014102646d090000
+PKT A minecraft:set_score 70014202646d0a0000
+PKT A minecraft:set_score 70014102646d09010a080005636f6c6f72000461717561080004746578740005416c6963650000
+PKT A minecraft:set_score 70014102646d090000
+PKT A minecraft:set_score 70014102646d09010800017800
+PKT A minecraft:set_score 70014102646d090108000000
+PKT A minecraft:set_score 70014202646d0a0108000000
+PKT A minecraft:set_score 70064e6f626f647902646d00010800017800
+PKT A minecraft:set_score 70014102646d09010800000100
+PKT A minecraft:set_score 70014102646d09010800000102080006666978656421
+PKT A minecraft:set_score 70014202646d0a0108000001010a0100066974616c69630100
+PKT A minecraft:set_score 70014102646d090108000001010a080005636f6c6f720004626c756500
+PKT A minecraft:set_score 70014202646d0a0108000001010a080005636f6c6f720004626c756500
+PKT A minecraft:set_score 70014102646d090108000000
+OBJ {CriteriaName:"deathCount",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"health",DisplayName:{color:"red",text:"Hearts"},Name:"hearts",RenderType:"hearts"}
+OBJ {CriteriaName:"killedByTeam.red",DisplayName:"kills",Name:"kills"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"custom",Name:"custom"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.zombie",DisplayName:"killed",Name:"killed"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.pig",DisplayName:"bad",Name:"bad"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"minecraft.used:minecraft.apple",DisplayName:"used",Name:"used"}
+OBJ {CriteriaName:"teamkill.blue",DisplayName:"tk",Name:"tk"}
+OBJ {CriteriaName:"trigger",DisplayName:"tr",Name:"tr"}
+OBJ {DisplayName:"1",Name:"1"}
+OBJ {DisplayName:"a.b-c+d_e",Name:"a.b-c+d_e"}
+OBJ {DisplayName:"plain",Name:"dm"}
+OBJ {DisplayName:"this_name_is_longer_than_16",Name:"this_name_is_longer_than_16"}
+SCORE {Locked:1b,Name:"A",Objective:"dm",Score:9,display:""}
+SCORE {Locked:1b,Name:"B",Objective:"dm",Score:10,display:"",format:{color:"blue",type:"minecraft:styled"}}
+SCORE {Locked:1b,Name:"Nobody",Objective:"dm",display:"x"}
+DISPLAY {below_name:"hearts",sidebar:"hearts",sidebar.team.dark_purple:"dm",sidebar.team.red:"dm"}
+# operations
+CF msg Created new objective [x]
+CF result success 15
+CF msg Created new objective [y]
+CF result success 16
+CF msg Set [x] for A to 10
+CF result success 10
+CF msg Set [y] for A to 3
+CF result success 3
+CF msg Set [x] for B to -7
+CF result success -7
+CF msg Set [y] for B to 2
+CF result success 2
+CF msg Set [x] for A to 13
+CF result success 13
+CF msg Set [x] for A to 10
+CF result success 10
+CF msg Set [x] for A to 30
+CF result success 30
+CF msg Set [x] for A to 10
+CF result success 10
+CF msg Set [x] for A to 1
+CF result success 1
+CF msg Set [x] for B to -4
+CF result success -4
+CF msg Set [x] for B to 0
+CF result success 0
+CF msg Set [x] for B to 0
+CF result success 0
+CF msg Set [x] for A to 2
+CF result success 2
+CF msg Set [x] for A to 2
+CF result success 2
+CF msg Set [x] for A to 2
+CF result success 2
+CF msg Set [x] for A to 0
+CF result success 0
+CF result failure 0
+CF fail Cannot divide by zero
+CF msg Set [y] for 0 entities to 0
+CF result success 0
+CF result failure 0
+CF fail Cannot divide by zero
+CF result failure 0
+CF fail Cannot divide by zero
+CF msg Set [x] for A to 0
+CF result success 0
+CF msg Set [x] for A to 0
+CF result success 0
+CF msg Set [x] for A to 0
+CF result success 0
+CF msg Set [x] for M to 2147483647
+CF result success 2147483647
+CF msg Set [y] for M to 2
+CF result success 2
+CF msg Set [x] for M to -2
+CF result success -2
+CF msg Set [x] for M to 0
+CF result success 0
+CF msg Set [x] for M to -2147483648
+CF result success -2147483648
+CF msg Set [y] for N to -1
+CF result success -1
+CF msg Set [x] for M to -2147483648
+CF result success -2147483648
+CF msg Set [x] for M to 0
+CF result success 0
+CF msg Updated [x] for 2 entities
+CF result success 12
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF msg Updated [x] for 6 entities
+CF result success 30
+CF msg Set [x] for A to 14
+CF result success 14
+CF fail Invalid operation
+CF result failure 0
+CF fail Unknown scoreboard objective 'nothing'
+CF msg A has 14 [x]
+CF result success 14
+CF msg B has 10 [x]
+CF result success 10
+# enable and trigger
+CF msg Enabled trigger [tr] for A
+CF result success 1
+CF result failure 0
+CF fail Nothing changed. That trigger is already enabled
+CF result failure 0
+CF fail Enable only works on trigger-objectives
+CF result failure 0
+CF fail Unknown scoreboard objective 'nothing'
+CF msg Enabled trigger [tr] for B
+CF result success 1
+CF msg Set [tr] for A to 5
+CF result success 5
+CF msg A has 5 [tr]
+CF result success 5
+CF result success 6
+CF result failure 0
+CF fail You cannot trigger this objective yet
+CF result failure 0
+CF fail You cannot trigger this objective yet
+CF result failure 0
+CF fail You cannot trigger this objective yet
+CF msg Enabled trigger [tr] for A
+CF result success 1
+CF result success 9
+CF result success 1
+CF result failure 0
+CF fail A player is required to run this command here
+CF result failure 0
+CF fail You can only trigger objectives that are 'trigger' type
+CF result failure 0
+CF fail Unknown scoreboard objective 'nothing'
+CF fail Unknown or incomplete command. See below for error
+CF fail trigger<--[HERE]
+CF msg A has 9 [tr]
+CF result success 9
+CF msg Enabled trigger [tr] for 2 entities
+CF result success 2
+CF result success 100
+CF msg B has 100 [tr]
+CF result success 100
+CF msg Triggered [tr]
+CF result success 10
+CF result failure 0
+OBJ {CriteriaName:"deathCount",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"health",DisplayName:{color:"red",text:"Hearts"},Name:"hearts",RenderType:"hearts"}
+OBJ {CriteriaName:"killedByTeam.red",DisplayName:"kills",Name:"kills"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"custom",Name:"custom"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.zombie",DisplayName:"killed",Name:"killed"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.pig",DisplayName:"bad",Name:"bad"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"minecraft.used:minecraft.apple",DisplayName:"used",Name:"used"}
+OBJ {CriteriaName:"teamkill.blue",DisplayName:"tk",Name:"tk"}
+OBJ {CriteriaName:"trigger",DisplayName:"tr",Name:"tr"}
+OBJ {DisplayName:"1",Name:"1"}
+OBJ {DisplayName:"a.b-c+d_e",Name:"a.b-c+d_e"}
+OBJ {DisplayName:"plain",Name:"dm"}
+OBJ {DisplayName:"this_name_is_longer_than_16",Name:"this_name_is_longer_than_16"}
+OBJ {DisplayName:"x",Name:"x"}
+OBJ {DisplayName:"y",Name:"y"}
+SCORE {Locked:1b,Name:"A",Objective:"dm",Score:9,display:""}
+SCORE {Locked:1b,Name:"A",Objective:"tr",Score:10}
+SCORE {Locked:1b,Name:"A",Objective:"x",Score:14}
+SCORE {Locked:1b,Name:"A",Objective:"y",Score:3}
+SCORE {Locked:1b,Name:"B",Objective:"dm",Score:10,display:"",format:{color:"blue",type:"minecraft:styled"}}
+SCORE {Locked:1b,Name:"B",Objective:"tr",Score:100}
+SCORE {Locked:1b,Name:"B",Objective:"x",Score:10}
+SCORE {Locked:1b,Name:"B",Objective:"y",Score:2}
+SCORE {Locked:1b,Name:"M",Objective:"x",Score:3}
+SCORE {Locked:1b,Name:"M",Objective:"y",Score:2}
+SCORE {Locked:1b,Name:"N",Objective:"x",Score:3}
+SCORE {Locked:1b,Name:"N",Objective:"y",Score:-1}
+SCORE {Locked:1b,Name:"Nobody",Objective:"dm",display:"x"}
+SCORE {Locked:1b,Name:"Nobody",Objective:"x",Score:3}
+SCORE {Locked:1b,Name:"Nobody",Objective:"y"}
+SCORE {Locked:1b,Name:"Zero",Objective:"x",Score:3}
+SCORE {Locked:1b,Name:"Zero",Objective:"y"}
+DISPLAY {below_name:"hearts",sidebar:"hearts",sidebar.team.dark_purple:"dm",sidebar.team.red:"dm"}
+# remove objectives in display slots
+CF msg Removed objective [plain]
+CF result success 15
+CF result failure 0
+CF fail Unknown scoreboard objective 'dm'
+CF result failure 0
+CF fail Unknown scoreboard objective 'nothing'
+CF msg There are 15 objective(s): [bad], [x], [1], [tr], [Hearts], [custom], [a.b-c+d_e], [tk], [this_name_is_longer_than_16], [mined], [kills], [y], [deaths], [killed], [used]
+CF result success 15
+PKT A minecraft:set_display_objective 640800
+PKT A minecraft:set_objective 6c02646d01
+OBJ {CriteriaName:"deathCount",DisplayName:"deaths",Name:"deaths"}
+OBJ {CriteriaName:"health",DisplayName:{color:"red",text:"Hearts"},Name:"hearts",RenderType:"hearts"}
+OBJ {CriteriaName:"killedByTeam.red",DisplayName:"kills",Name:"kills"}
+OBJ {CriteriaName:"minecraft.custom:minecraft.jump",DisplayName:"custom",Name:"custom"}
+OBJ {CriteriaName:"minecraft.killed:minecraft.zombie",DisplayName:"killed",Name:"killed"}
+OBJ {CriteriaName:"minecraft.killed_by:minecraft.pig",DisplayName:"bad",Name:"bad"}
+OBJ {CriteriaName:"minecraft.mined:minecraft.stone",DisplayName:"mined",Name:"mined"}
+OBJ {CriteriaName:"minecraft.used:minecraft.apple",DisplayName:"used",Name:"used"}
+OBJ {CriteriaName:"teamkill.blue",DisplayName:"tk",Name:"tk"}
+OBJ {CriteriaName:"trigger",DisplayName:"tr",Name:"tr"}
+OBJ {DisplayName:"1",Name:"1"}
+OBJ {DisplayName:"a.b-c+d_e",Name:"a.b-c+d_e"}
+OBJ {DisplayName:"this_name_is_longer_than_16",Name:"this_name_is_longer_than_16"}
+OBJ {DisplayName:"x",Name:"x"}
+OBJ {DisplayName:"y",Name:"y"}
+SCORE {Locked:1b,Name:"A",Objective:"tr",Score:10}
+SCORE {Locked:1b,Name:"A",Objective:"x",Score:14}
+SCORE {Locked:1b,Name:"A",Objective:"y",Score:3}
+SCORE {Locked:1b,Name:"B",Objective:"tr",Score:100}
+SCORE {Locked:1b,Name:"B",Objective:"x",Score:10}
+SCORE {Locked:1b,Name:"B",Objective:"y",Score:2}
+SCORE {Locked:1b,Name:"M",Objective:"x",Score:3}
+SCORE {Locked:1b,Name:"M",Objective:"y",Score:2}
+SCORE {Locked:1b,Name:"N",Objective:"x",Score:3}
+SCORE {Locked:1b,Name:"N",Objective:"y",Score:-1}
+SCORE {Locked:1b,Name:"Nobody",Objective:"x",Score:3}
+SCORE {Locked:1b,Name:"Nobody",Objective:"y"}
+SCORE {Locked:1b,Name:"Zero",Objective:"x",Score:3}
+SCORE {Locked:1b,Name:"Zero",Objective:"y"}
+DISPLAY {below_name:"hearts",sidebar:"hearts"}
+CF msg There are 6 tracked entity/entities: Nobody, M, A, Zero, N, B
+CF result success 6
+CF msg A has 3 [y]
+CF result success 3

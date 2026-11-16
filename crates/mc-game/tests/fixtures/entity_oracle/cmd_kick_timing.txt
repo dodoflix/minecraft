@@ -1,0 +1,45 @@
+CF msg Created new objective [lg]
+CF result success 1
+CF msg Kicked B: bye
+CF result success 1
+CF msg There are 1 of a max of 20 players online: A
+CF result success 1
+CF result failure 0
+CF fail No player was found
+CF result success 1
+CF msg Added tag 't' to A
+CF result success 1
+CF msg B has 1 [lg]
+CF result success 1
+CF msg There are 1 of a max of 20 players online: A
+CF result success 1
+CF result failure 0
+CF fail No player was found
+CF msg B has 1 [lg]
+CF result success 1
+CF msg A has 1 tag(s): t
+CF result success 1
+CF msg There are 1 of a max of 20 players online: A
+CF result success 1
+CF msg Kicked A: Kicked by an operator
+CF result success 1
+CF msg There are 0 of a max of 20 players online: 
+CF result success 0
+CF msg There are 0 of a max of 20 players online: 
+CF result success 0
+# the kicked player is gone from the world but still a command source
+STAT B minecraft.custom:minecraft.leave_game 1
+STAT B minecraft.custom:minecraft.play_time 1
+STAT B minecraft.custom:minecraft.time_since_death 1
+STAT B minecraft.custom:minecraft.time_since_rest 1
+STAT B minecraft.custom:minecraft.total_world_time 1
+CF fail Unknown or incomplete command. See below for error
+CF fail scoreboard players get B lg<--[HERE]
+CF fail Unknown or incomplete command. See below for error
+CF fail tellraw A "from the kicked player"<--[HERE]
+CF msg Made B a server operator
+CF result success 1
+CF result failure 0
+CF fail No player was found
+CF result success 0
+CF result success 1

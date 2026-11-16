@@ -42,3 +42,8 @@ fn loot_replace_matches_vanilla() {
 fn loot_spawn_matches_vanilla() {
     common::block_scenario::check("cmd_loot_spawn");
 }
+
+#[test]
+fn luck_changes_loot_rolls_like_vanilla() {
+    common::block_scenario::check("cmd_loot_luck");
+}

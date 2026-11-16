@@ -1,0 +1,261 @@
+# Scenario: text component resolution in tellraw/title/say/msg: selector, score, nbt (entity, block, storage, interpret, separator),
+# translatable with arguments and fallbacks, keybind, object, styles, events, and malformed components; with the packets a player receives.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 1000
+spawn_player A survival 0.5 -60 0.5 30 10
+spawn_player B survival 4.5 -60 0.5 0 0
+op A
+tick 1
+cmd summon minecraft:pig 3 -60 3 {NoAI:1b,CustomName:'{"text":"Piggy","color":"gold"}',Tags:["p"],Health:7f}
+cmd summon minecraft:pig 5 -60 3 {NoAI:1b,Tags:["p"]}
+cmd summon minecraft:armor_stand 7 -60 3 {NoGravity:1b,CustomName:'[{"text":"A"},{"text":"Stand","bold":true}]',CustomNameVisible:1b}
+block 3 -60 -3 minecraft:chest
+be_nbt 3 -60 -3 {Items:[{Slot:0b,id:"minecraft:apple",count:3},{Slot:1b,id:"minecraft:stick",count:1}],CustomName:'"Box"'}
+block 5 -60 -3 minecraft:oak_sign
+be_nbt 5 -60 -3 {front_text:{messages:['"l1"','""','""','""']}}
+cmd data merge storage t:st {a:1,b:"two",c:[1,2,3],d:{e:"x",f:[{g:1},{g:2}]},j:'{"text":"json","color":"red"}',k:'[{"text":"k1"},"k2"]',bad:'{bad',n:1.5d}
+cmd scoreboard objectives add s dummy {"text":"Score Obj","color":"green"}
+cmd scoreboard players set A s 5
+cmd scoreboard players set Bob s 6
+cmd scoreboard players set @e[type=pig,limit=1] s 7
+cmd team add red {"text":"Red Team"}
+cmd team modify red color red
+cmd team modify red prefix {"text":"[P]","color":"blue"}
+cmd team join red A
+tick 1
+dump packets:A:none packets:B:none
+note selectors
+cmd tellraw A {"selector":"@a"}
+cmd tellraw A {"selector":"@a","separator":" | "}
+cmd tellraw A {"selector":"@a","separator":{"text":" & ","color":"red"},"color":"aqua","bold":true}
+cmd tellraw A {"selector":"@e[type=pig]"}
+cmd tellraw A {"selector":"@e[tag=p]","separator":""}
+cmd tellraw A {"selector":"@e[type=armor_stand]"}
+cmd tellraw A {"selector":"@e[type=zombie]"}
+cmd tellraw A {"selector":"@e[type=zombie]","separator":"x"}
+cmd tellraw A {"selector":"@s"}
+cmd tellraw A {"selector":"B"}
+cmd tellraw A {"selector":"nonsense"}
+cmd tellraw A {"selector":"@a[","separator":"x"}
+cmd tellraw A {"selector":"@e[type=pig,limit=1]"}
+cmd tellraw A {"selector":"@e[sort=nearest,limit=1,type=!player]"}
+cmd_as A tellraw B {"selector":"@s"}
+cmd_as B tellraw A {"selector":"@s"}
+cmd_as -2 tellraw A {"selector":"@s"}
+cmd_as -2 tellraw A {"selector":"@p"}
+cmd execute as @e[tag=p] run tellraw A {"selector":"@s"}
+cmd execute as @e[tag=p] run tellraw A [{"selector":"@s"},": ",{"score":{"name":"@s","objective":"s"}}]
+tick 1
+dump packets:A:system_chat packets:B:system_chat
+note scores
+cmd tellraw A {"score":{"name":"A","objective":"s"}}
+cmd tellraw A {"score":{"name":"@s","objective":"s"}}
+cmd_as A tellraw A {"score":{"name":"@s","objective":"s"}}
+cmd_as A tellraw A {"score":{"name":"*","objective":"s"}}
+cmd tellraw A {"score":{"name":"*","objective":"s"}}
+cmd tellraw A {"score":{"name":"@a","objective":"s"}}
+cmd tellraw A {"score":{"name":"@p","objective":"s"}}
+cmd tellraw A {"score":{"name":"@e[type=pig,limit=1]","objective":"s"}}
+cmd tellraw A {"score":{"name":"@e[type=zombie]","objective":"s"}}
+cmd tellraw A {"score":{"name":"@e[type=pig]","objective":"s"}}
+cmd tellraw A {"score":{"name":"Nobody","objective":"s"}}
+cmd tellraw A {"score":{"name":"A","objective":"nothing"}}
+cmd tellraw A {"score":{"name":"A","objective":"s"},"color":"gold","italic":true}
+cmd tellraw A {"score":{"name":"A"}}
+cmd tellraw A {"score":{"objective":"s"}}
+cmd tellraw A {"score":{"name":"","objective":"s"}}
+cmd tellraw A {"score":{"name":"#hash","objective":"s"}}
+tick 1
+dump packets:A:system_chat
+note nbt
+cmd tellraw A {"nbt":"Health","entity":"@s"}
+cmd tellraw A {"nbt":"Pos","entity":"@s"}
+cmd tellraw A {"nbt":"Pos","entity":"@s","separator":", "}
+cmd tellraw A {"nbt":"Pos[]","entity":"@s","separator":", "}
+cmd tellraw A {"nbt":"Pos[1]","entity":"@s"}
+cmd tellraw A {"nbt":"Rotation","entity":"@s"}
+cmd tellraw A {"nbt":"Inventory","entity":"@s"}
+cmd tellraw A {"nbt":"abilities","entity":"@s"}
+cmd tellraw A {"nbt":"abilities.flying","entity":"@s"}
+cmd tellraw A {"nbt":"nothing","entity":"@s"}
+cmd tellraw A {"nbt":"Health","entity":"@e[tag=p]"}
+cmd tellraw A {"nbt":"Health","entity":"@e[tag=p]","separator":" / "}
+cmd tellraw A {"nbt":"CustomName","entity":"@e[tag=p,limit=1]"}
+cmd tellraw A {"nbt":"CustomName","entity":"@e[tag=p,limit=1]","interpret":true}
+cmd tellraw A {"nbt":"CustomName","entity":"@e[type=armor_stand]","interpret":true}
+cmd tellraw A {"nbt":"Health","entity":"@e[type=zombie]"}
+cmd tellraw A {"nbt":"Items","block":"3 -60 -3"}
+cmd tellraw A {"nbt":"Items[].id","block":"3 -60 -3","separator":"; "}
+cmd tellraw A {"nbt":"Items[0]","block":"3 -60 -3"}
+cmd tellraw A {"nbt":"CustomName","block":"3 -60 -3"}
+cmd tellraw A {"nbt":"CustomName","block":"3 -60 -3","interpret":true}
+cmd tellraw A {"nbt":"front_text.messages[0]","block":"5 -60 -3","interpret":true}
+cmd tellraw A {"nbt":"front_text.messages","block":"5 -60 -3"}
+cmd tellraw A {"nbt":"Items","block":"~ ~ ~"}
+cmd tellraw A {"nbt":"Items","block":"0 -60 0"}
+cmd tellraw A {"nbt":"Items","block":"100000 -60 0"}
+cmd tellraw A {"nbt":"Items","block":"~ ~ ~","separator":"x"}
+cmd tellraw A {"nbt":"a","storage":"t:st"}
+cmd tellraw A {"nbt":"b","storage":"t:st"}
+cmd tellraw A {"nbt":"c","storage":"t:st"}
+cmd tellraw A {"nbt":"c[]","storage":"t:st","separator":"-"}
+cmd tellraw A {"nbt":"d","storage":"t:st"}
+cmd tellraw A {"nbt":"d.f[].g","storage":"t:st","separator":","}
+cmd tellraw A {"nbt":"d.f[{g:2}]","storage":"t:st"}
+cmd tellraw A {"nbt":"n","storage":"t:st"}
+cmd tellraw A {"nbt":"j","storage":"t:st","interpret":true}
+cmd tellraw A {"nbt":"k","storage":"t:st","interpret":true}
+cmd tellraw A {"nbt":"j","storage":"t:st"}
+cmd tellraw A {"nbt":"bad","storage":"t:st","interpret":true}
+cmd tellraw A {"nbt":"bad","storage":"t:st"}
+cmd tellraw A {"nbt":"c","storage":"t:st","interpret":true}
+cmd tellraw A {"nbt":"d","storage":"t:st","interpret":true}
+cmd tellraw A {"nbt":"a","storage":"t:st","interpret":true}
+cmd tellraw A {"nbt":"missing","storage":"t:st"}
+cmd tellraw A {"nbt":"a","storage":"t:nothing"}
+cmd tellraw A {"nbt":"a","storage":"bad name"}
+cmd tellraw A {"nbt":"a[","storage":"t:st"}
+cmd tellraw A {"nbt":"a"}
+cmd tellraw A {"nbt":"a","storage":"t:st","entity":"@s"}
+cmd tellraw A {"nbt":"a","storage":"t:st","color":"red","bold":true,"separator":{"text":"S","color":"blue"}}
+cmd tellraw A {"nbt":"c","storage":"t:st","separator":{"selector":"@s"}}
+tick 1
+dump packets:A:system_chat
+note translatable
+cmd tellraw A {"translate":"chat.type.text","with":[{"selector":"@s"},"x"]}
+cmd tellraw A {"translate":"chat.type.text","with":["only one"]}
+cmd tellraw A {"translate":"chat.type.text","with":["a","b","c"]}
+cmd tellraw A {"translate":"nonsense.key"}
+cmd tellraw A {"translate":"nonsense.key","fallback":"Fallback %s","with":["arg"]}
+cmd tellraw A {"translate":"nonsense.key","fallback":"100%% %1$s %2$s","with":["a","b"]}
+cmd tellraw A {"translate":"commands.give.success.single","with":[3,{"translate":"item.minecraft.apple"},{"selector":"@s"}]}
+cmd tellraw A {"translate":"commands.give.success.single","with":[{"score":{"name":"A","objective":"s"}},{"nbt":"a","storage":"t:st"},{"selector":"@a"}]}
+cmd tellraw A {"translate":"commands.give.success.single","with":[1,2,3,4]}
+cmd tellraw A {"translate":"chat.type.text","with":[true,1.5,2L,[1,2],{"text":"obj"},null]}
+cmd tellraw A {"translate":"chat.type.text","with":[[{"text":"a"},{"text":"b"}],5b]}
+cmd tellraw A {"translate":"%s","with":["x"]}
+cmd tellraw A {"translate":"death.attack.generic","with":[{"selector":"@s"}]}
+cmd tellraw A {"translate":"death.attack.player","with":[{"selector":"@s"},{"selector":"B"}]}
+cmd tellraw A {"translate":"commands.scoreboard.players.set.success.single","with":[{"text":"obj","hover_event":{"action":"show_text","value":"h"}},"A",5]}
+cmd tellraw A [{"translate":"chat.type.admin","with":["Server","text"],"italic":false}," ",{"translate":"chat.type.admin","with":[{"selector":"@s"},{"translate":"nonsense","fallback":"nested %s","with":[{"selector":"@s"}]}]}]
+tick 1
+dump packets:A:system_chat
+note keybind object and styles
+cmd tellraw A {"keybind":"key.jump"}
+cmd tellraw A {"keybind":"nonsense"}
+cmd tellraw A {"object":"atlas","sprite":"item/apple"}
+cmd tellraw A {"object":"atlas","atlas":"minecraft:blocks","sprite":"block/stone"}
+cmd tellraw A {"object":"atlas","atlas":"minecraft:items","sprite":"item/apple","fallback":{"text":"fb"}}
+cmd tellraw A {"object":"player","player":{"name":"Notch"}}
+cmd tellraw A {"object":"player","player":{"name":"Notch"},"hat":false}
+cmd tellraw A {"object":"player","player":{"id":[I;1,2,3,4]}}
+cmd tellraw A {"object":"player","player":{"name":"A"},"fallback":"f"}
+cmd tellraw A {"object":"nonsense"}
+cmd tellraw A {"text":"x","color":"#ff00aa","shadow_color":16711680,"bold":true,"italic":false,"underlined":true,"strikethrough":false,"obfuscated":true,"font":"minecraft:alt","insertion":"ins"}
+cmd tellraw A {"text":"x","shadow_color":[1.0,0.5,0.25,1.0]}
+cmd tellraw A {"text":"x","shadow_color":"#80ff0000"}
+cmd tellraw A {"text":"x","color":"#fff"}
+cmd tellraw A {"text":"x","color":"nonsense"}
+cmd tellraw A {"text":"x","color":"gold","extra":[{"text":"y","color":"reset"},{"text":"z","extra":["w"]}]}
+cmd tellraw A {"text":"x","click_event":{"action":"run_command","command":"/say hi"},"hover_event":{"action":"show_text","value":{"text":"hi","color":"red"}}}
+cmd tellraw A {"text":"x","click_event":{"action":"open_url","url":"https://example.com"}}
+cmd tellraw A {"text":"x","click_event":{"action":"open_url","url":"ftp://example.com"}}
+cmd tellraw A {"text":"x","click_event":{"action":"suggest_command","command":"/say"}}
+cmd tellraw A {"text":"x","click_event":{"action":"copy_to_clipboard","value":"v"}}
+cmd tellraw A {"text":"x","click_event":{"action":"change_page","page":3}}
+cmd tellraw A {"text":"x","click_event":{"action":"nonsense"}}
+cmd tellraw A {"text":"x","hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":[I;1,2,3,4],"name":"n"}}
+cmd tellraw A {"text":"x","hover_event":{"action":"show_item","id":"minecraft:apple","count":2,"components":{"minecraft:custom_name":"n"}}}
+cmd tellraw A {"text":"x","hover_event":{"action":"show_item","id":"minecraft:nonsense"}}
+cmd tellraw A {"text":"x","hover_event":{"action":"show_text"}}
+cmd tellraw A {"text":"x","clickEvent":{"action":"run_command","value":"/say hi"}}
+cmd tellraw A {"text":"x","bold":"true"}
+cmd tellraw A {"text":"x","bold":1}
+cmd tellraw A {"text":"x","bold":"maybe"}
+cmd tellraw A {"text":"x","font":"bad font"}
+tick 1
+dump packets:A:system_chat
+note malformed and plain forms
+cmd tellraw A "plain string"
+cmd tellraw A ""
+cmd tellraw A []
+cmd tellraw A [[]]
+cmd tellraw A ["a",["b",["c"]],{"text":"d"}]
+cmd tellraw A 5
+cmd tellraw A 1.5
+cmd tellraw A true
+cmd tellraw A null
+cmd tellraw A {"text":1}
+cmd tellraw A {"text":true}
+cmd tellraw A {"text":[]}
+cmd tellraw A {"text":{}}
+cmd tellraw A {"unknown":1}
+cmd tellraw A {}
+cmd tellraw A {"text":"a","translate":"b"}
+cmd tellraw A {"text":"a","selector":"@s"}
+cmd tellraw A {"translate":5}
+cmd tellraw A {"extra":["x"]}
+cmd tellraw A {"extra":"x"}
+cmd tellraw A {"text":"a",}
+cmd tellraw A {text:a}
+cmd tellraw A {"text":"a"} trailing
+cmd tellraw A {"text":"a
+cmd tellraw A '{"text":"single"}'
+cmd tellraw A "\u00e9\u00fc\ud83d\ude00"
+cmd tellraw A "tab\there"
+cmd tellraw A "line\nbreak"
+cmd tellraw A {"text":"a"}{"text":"b"}
+cmd tellraw A [{"text":"a"},5,true,null]
+cmd tellraw A [{"text":"a"},[],{}]
+cmd tellraw A ["a",{"text":"b","color":"red"},"c"]
+cmd tellraw A {"selector":"@s","color":"red","extra":[{"selector":"@s"}]}
+cmd tellraw @e[type=pig] "x"
+cmd tellraw @a[team=nothing] "x"
+cmd tellraw Nobody "x"
+cmd tellraw
+cmd tellraw A
+tick 1
+dump packets:A:system_chat
+note say, msg, me, title, actionbar, subtitle with selectors and scores
+cmd say plain
+cmd say @e[tag=p]
+cmd say @a
+cmd say @e[type=zombie]
+cmd say @e[type=pig] and @s and Bob
+cmd say {"text":"json not parsed"}
+cmd say §6section
+cmd say a  b   c
+cmd say
+cmd_as A say @s
+cmd_as A say @a[team=red]
+cmd_as -2 say @s
+cmd_as -2 say @e[type=armor_stand]
+cmd execute as @e[tag=p] run say hi
+cmd execute as @e[type=armor_stand] run say hi
+cmd_as A me waves at @a
+cmd_as A me @e[tag=p]
+cmd_as -2 me @s
+cmd me @s
+cmd_as A msg B @s says hi @a
+cmd_as A msg @e[tag=p] hi
+cmd_as A msg @a hi
+cmd_as A msg Nobody hi
+cmd_as A w B whisper
+cmd_as A tell B "quoted"
+cmd_as B msg A reply
+cmd_as -2 msg A from console
+cmd msg A from owner console
+cmd title A title [{"selector":"@s"},{"score":{"name":"@s","objective":"s"}}]
+cmd title A subtitle {"nbt":"Health","entity":"@s"}
+cmd title A actionbar {"selector":"@a","separator":", "}
+cmd title @a title {"translate":"chat.type.text","with":[{"selector":"@s"},{"selector":"@s"}]}
+cmd_as B title @a title {"selector":"@s"}
+cmd_as B title @a actionbar {"score":{"name":"@s","objective":"s"}}
+cmd title @a title {"selector":"@e[type=zombie]"}
+cmd title @a title {"selector":"@e[type=pig]"}
+cmd title @a title {"nbt":"a","storage":"t:st"}
+tick 1
+dump packets:A:system_chat,set_title_text,set_subtitle_text,set_action_bar_text packets:B:system_chat,set_title_text,set_subtitle_text,set_action_bar_text

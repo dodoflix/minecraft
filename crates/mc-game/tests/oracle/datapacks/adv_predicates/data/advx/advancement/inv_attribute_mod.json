@@ -1,0 +1,1 @@
+{"criteria": {"c": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"predicates": {"minecraft:attribute_modifiers": {"modifiers": {"contains": [{"attribute": "minecraft:attack_damage", "amount": {"min": 1.0}}]}}}}]}}}}

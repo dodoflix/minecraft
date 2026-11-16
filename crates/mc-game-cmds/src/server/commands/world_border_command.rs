@@ -26,7 +26,7 @@ static ERROR_TOO_SMALL: LazyLock<SimpleCommandExceptionType> =
 static ERROR_TOO_BIG: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| {
     SimpleCommandExceptionType::new(message(translatable!(
         "commands.worldborder.set.failed.big",
-        5.999997E7_f32
+        MAX_SIZE
     )))
 });
 static ERROR_TOO_FAR_OUT: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| {

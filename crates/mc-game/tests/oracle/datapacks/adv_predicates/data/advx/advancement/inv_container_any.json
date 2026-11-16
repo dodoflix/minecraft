@@ -1,0 +1,1 @@
+{"criteria": {"c": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": "minecraft:shulker_box", "predicates": {"minecraft:container": {"items": {"contains": [{"items": "minecraft:apple"}]}}}}]}}}}

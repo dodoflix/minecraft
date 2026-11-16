@@ -1,0 +1,1 @@
+{"criteria": {"c": {"trigger": "minecraft:tick", "conditions": {"player": {"type": "minecraft:location_check", "offsetX": 2, "offsetY": 1, "offsetZ": -3, "predicate": {"fluid": {"fluids": "minecraft:water"}}}}}}}

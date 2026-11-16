@@ -1,0 +1,35 @@
+# /ban and /ban-ip against players that are online: the kick, the players an IP ban affects, the player list and the ban lists after the
+# kicked players leave.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 1900
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 8.5 -60 0.5 0 0
+spawn_player C survival 16.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+cmd ban B griefing
+cmd banlist
+cmd list
+cmd ban B griefing
+dump packets:B:disconnect
+tick 1
+cmd list
+cmd tellraw @a "after the ban"
+cmd pardon B
+cmd banlist
+cmd ban-ip C spamming the chat
+cmd banlist ips
+cmd list
+tick 1
+cmd list
+cmd banlist ips
+cmd kick A
+cmd kick A
+tick 1
+cmd list
+cmd_as -4 pardon C
+tick 1
