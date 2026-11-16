@@ -887,9 +887,26 @@ impl MinecraftServer {
         log::info!("Stopping server");
         self.stop_connection();
         self.shared.set_saving(true);
-        log::info!("Saving players");
-        crate::server::players::player_ops::save_all(self);
-        self.player_list.remove_all();
+        // vanilla's player list does not exist yet when `initServer` failed before it (a bind failure)
+        if self.network_hooks.is_some() {
+            log::info!("Saving players");
+            crate::server::players::player_ops::save_all(self);
+            let kicked: Vec<_> = self
+                .player_list
+                .players()
+                .iter()
+                .map(|p| p.connection.handle().clone())
+                .collect();
+            self.player_list.remove_all();
+            // `disconnect` ends in `executeBlocking(handleDisconnection)`: each player leaves right here
+            crate::server::network::game_listener::handle_disconnections(self);
+            // netty's event loop writes the kicks while the worlds save; the writers of this process have to be done
+            // before it exits
+            let deadline = std::time::Instant::now() + std::time::Duration::from_secs(5);
+            while kicked.iter().any(|c| c.is_connected()) && std::time::Instant::now() < deadline {
+                std::thread::sleep(std::time::Duration::from_millis(1));
+            }
+        }
 
         log::info!("Saving worlds");
         for level in self.all_levels_mut() {

@@ -185,7 +185,9 @@ impl MinecraftServer {
             },
             self.port
         );
-        self.start_connection_listener(_local_address)?;
+        if !self.start_connection_listener(_local_address)? {
+            return Ok(false);
+        }
 
         if !self.uses_authentication() {
             log::warn!("**** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!");
@@ -341,6 +343,7 @@ impl MinecraftServer {
         self.dedicated
             .settings
             .update(|p| p.update(&p.max_players, max_players));
+        self.player_list.settings.max_players = max_players;
     }
 
     pub fn is_enforce_whitelist(&self) -> bool {
@@ -361,6 +364,7 @@ impl MinecraftServer {
         self.dedicated
             .settings
             .update(|p| p.update(&p.white_list, using_whitelist));
+        self.player_list.settings.using_whitelist = using_whitelist;
     }
 
     pub fn allow_flight(&self) -> bool {
@@ -658,6 +662,8 @@ impl MinecraftServer {
             self.connection = Some(connection);
         }
         self.handle_console_inputs();
+        // a console `kick`/`ban` closes the connection: the player leaves in the tick of the command
+        crate::server::network::game_listener::handle_disconnections(self);
     }
 
     /// The network layer's view of the server settings (`server.properties` + runtime changes).
@@ -677,7 +683,8 @@ impl MinecraftServer {
     }
 
     /// `getConnection().startTcpServerListener(localAddress, port)`.
-    fn start_connection_listener(&mut self, local_address: Option<IpAddr>) -> io::Result<()> {
+    /// `false` after the bind failure warnings (vanilla: `initServer` returns false).
+    fn start_connection_listener(&mut self, local_address: Option<IpAddr>) -> io::Result<bool> {
         use crate::server::network::server_configuration_data::configuration_data;
         use crate::server::network::server_network_hooks::ServerNetworkHooks;
         let key_pair = self.key_pair.clone().ok_or_else(|| {
@@ -693,7 +700,12 @@ impl MinecraftServer {
         let mut connection = crate::server::network::ServerConnectionListener::new(hooks.clone())?;
         connection
             .set_play_connection_ticker(crate::server::network::game_listener::tick_connection);
-        connection.start_tcp_server_listener(local_address, self.port as u16)?;
+        if let Err(e) = connection.start_tcp_server_listener(local_address, self.port as u16) {
+            log::warn!("**** FAILED TO BIND TO PORT!");
+            log::warn!("The exception was: {}", netty_bind_exception(&e));
+            log::warn!("Perhaps a server is already running on that port?");
+            return Ok(false);
+        }
         // the world side of the hooks: the player list's login checks come with `PlayerListHooks`, the spawn task and
         // the activity monitor (`new ServerActivityMonitor(notificationManager, 30)`) are installed here
         hooks
@@ -707,7 +719,7 @@ impl MinecraftServer {
         ));
         self.network_hooks = Some(hooks);
         self.connection = Some(connection);
-        Ok(())
+        Ok(true)
     }
 
     /// `handleConsoleInputs`: every queued console line runs as a command of the server console source.
@@ -721,10 +733,11 @@ impl MinecraftServer {
 
     /// `stopServer`'s `getConnection().stop()`.
     pub(in crate::server) fn stop_connection(&mut self) {
-        if let Some(mut connection) = self.connection.take() {
+        if let Some(connection) = self.connection.as_mut() {
             connection.stop();
         }
     }
+
     /// `createCommandSourceStack`: the console (`Server`, owner permissions, at the respawn position of the respawn
     /// dimension).
     pub fn create_command_source_stack(&self) -> crate::commands::CommandSourceStack {
@@ -843,4 +856,18 @@ fn game_type_name(game_type: GameType) -> String {
 
 fn properties_management_enabled(properties: &DedicatedServerProperties) -> bool {
     properties.management_server_enabled
+}
+
+/// `Exception.toString()` of the netty epoll transport's bind failure.
+fn netty_bind_exception(error: &io::Error) -> String {
+    match error.raw_os_error() {
+        Some(errno) => {
+            let text = error.to_string();
+            let message = text.split(" (os error").next().unwrap_or(&text);
+            format!(
+                "io.netty.channel.unix.Errors$NativeIoException: bind(..) failed with error(-{errno}): {message}"
+            )
+        }
+        None => format!("java.io.IOException: {error}"),
+    }
 }

@@ -155,7 +155,7 @@ pub struct MinecraftServer {
     /// `getFunctions()`.
     pub(super) functions: super::server_function_manager::ServerFunctionManager,
     pub key_pair: Option<Arc<ServerKeyPair>>,
-    /// `getConnection()`: the TCP listener and the live connections (`None` before `initServer` / after `stop`).
+    /// `getConnection()`: the TCP listener and the live connections (`None` before `initServer`).
     pub connection: Option<super::network::ServerConnectionListener>,
     /// What the connection tasks read from the server (settings snapshot, configuration data, player-list side).
     pub network_hooks: Option<Arc<super::network::server_network_hooks::ServerNetworkHooks>>,

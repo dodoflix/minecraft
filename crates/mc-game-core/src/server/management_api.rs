@@ -414,14 +414,8 @@ impl MinecraftServer {
                 self.set_difficulty_property(d)
             }
             (SettingKey::EnforceWhitelist, SettingValue::Bool(b)) => self.set_enforce_whitelist(b),
-            (SettingKey::UsingWhitelist, SettingValue::Bool(b)) => {
-                self.set_using_whitelist(b);
-                self.player_list.settings.using_whitelist = b;
-            }
-            (SettingKey::MaxPlayers, SettingValue::Int(i)) => {
-                self.set_max_players(i);
-                self.player_list.settings.max_players = i;
-            }
+            (SettingKey::UsingWhitelist, SettingValue::Bool(b)) => self.set_using_whitelist(b),
+            (SettingKey::MaxPlayers, SettingValue::Int(i)) => self.set_max_players(i),
             (SettingKey::PauseWhenEmptySeconds, SettingValue::Int(i)) => {
                 self.set_pause_when_empty_seconds(i)
             }

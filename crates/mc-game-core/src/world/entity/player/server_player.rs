@@ -180,7 +180,7 @@ impl ServerPlayer {
             chat_visibility: ChatVisibility::Full,
             particle_status: ParticleStatus::All,
             can_chat_color: true,
-            last_action_time: 0,
+            last_action_time: crate::util::util::get_millis(),
             camera: None,
             is_changing_dimension: false,
             seen_credits: false,

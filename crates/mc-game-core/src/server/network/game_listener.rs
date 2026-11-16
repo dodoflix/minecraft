@@ -6,7 +6,7 @@
 
 use super::common_listener::{CommonListenerCookie, ServerCommonListener};
 pub use super::game_packets::{
-    PlayCtx, process_queued_packets, send_next_chunks_all, tick_connection,
+    PlayCtx, handle_disconnections, process_queued_packets, send_next_chunks_all, tick_connection,
 };
 use super::player_chunk_sender::PlayerChunkSender;
 use super::{ConnectionSender, InboundPacket};

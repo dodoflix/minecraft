@@ -98,13 +98,11 @@ impl ServerConnectionListener {
         }
     }
 
-    /// `stop()`: stops accepting and tears the network runtime down.
+    /// `stop()`: closes the listening channels; established connections stay open (the shutdown kick of
+    /// `PlayerList.removeAll` still needs their writers) until the listener is dropped.
     pub fn stop(&mut self) {
         self.running = false;
         self.stop_tcp_server_listener();
-        if let Some(runtime) = self.runtime.take() {
-            runtime.shutdown_background();
-        }
     }
 
     pub fn is_running(&self) -> bool {
@@ -136,6 +134,15 @@ impl ServerConnectionListener {
     /// Number of connections that are still open (all protocol states).
     pub fn connection_count(&self) -> usize {
         self.listener.connection_count()
+    }
+}
+
+impl Drop for ServerConnectionListener {
+    /// Netty's event loop threads are daemons: they die with the process, nothing waits for them.
+    fn drop(&mut self) {
+        if let Some(runtime) = self.runtime.take() {
+            runtime.shutdown_background();
+        }
     }
 }
 

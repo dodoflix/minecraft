@@ -173,6 +173,28 @@ pub fn process_queued_packets(server: &mut MinecraftServer) {
             perform_respawn(server, &handle, won_game);
         }
     }
+    handle_disconnections(server);
+}
+
+/// `Connection.handleDisconnection()` for every player whose connection `disconnect(reason)` has just closed for
+/// reading. Vanilla runs it from `disconnect` itself (`executeBlocking`), so a kicked player leaves (log line, leave
+/// message, player list) in the tick of the command or packet that kicked it instead of one connection tick later.
+pub fn handle_disconnections(server: &mut MinecraftServer) {
+    let uuids: Vec<Uuid> = server
+        .player_list
+        .players()
+        .iter()
+        .map(|p| p.uuid)
+        .collect();
+    for uuid in uuids {
+        if with_player(server, uuid, |ctx| {
+            ctx.handle_disconnection_without_socket()
+        })
+        .is_some()
+        {
+            finish_player_step(server, uuid);
+        }
+    }
 }
 
 /// `MinecraftServer.tickChildren` "send chunks": every player's `chunkSender.sendNextChunks(player)`.
@@ -201,6 +223,10 @@ pub fn send_next_chunks_all(server: &mut MinecraftServer) {
 /// `Connection.tick()` for one play connection (called by `ServerConnectionListener.tick`): the listener's tick,
 /// then `handleDisconnection` once the connection is closed.
 pub fn tick_connection(server: &mut MinecraftServer, uuid: Uuid) {
+    if server.player_list.get_player(&uuid).is_none() {
+        // already removed by `handle_disconnections`; the closed connection leaves the list on this tick
+        return;
+    }
     let found = with_player(server, uuid, |ctx| {
         ctx.tick();
         ctx.handle_disconnection_if_closed();
