@@ -254,9 +254,7 @@ pub fn hurt_server(
                 let matches = level.expose(&*player, |level| matcher(&*level, &*player, &*player));
                 matches.award(level, player);
             }
-        } else if level.get_entity(source_player).is_none()
-            && let Some(uuid) = causing_uuid.filter(|&uuid| level.is_in_other_level(uuid))
-        {
+        } else if let Some(uuid) = causing_uuid.filter(|&uuid| level.is_in_other_level(uuid)) {
             // the player is in another level: the criteria are matched when the server runs the queue
             crate::server::players::cross_level::queue_trigger_in_origin(
                 level,
@@ -531,7 +529,7 @@ pub fn get_damage_after_magic_absorb(
 }
 
 /// Awards `stat` to the player that caused the damage: the level hands it out (in storage or lent by its running
-/// attack), or it is the damaged entity itself.
+/// attack), or it is the damaged entity itself, or it is in another level (the server awards it once the tick's work runs).
 fn award_causing_player_stat(
     entity: &mut dyn Entity,
     level: &mut ServerLevel,
@@ -544,8 +542,15 @@ fn award_causing_player_stat(
         if let Some(p) = as_server_player(entity) {
             p.award_stat(level, stat, amount);
         }
-    } else {
-        level.with_player(causing, |level, p| p.award_stat(level, stat, amount));
+    } else if level
+        .with_player(causing, |level, p| p.award_stat(level, stat, amount))
+        .is_none()
+        && let Some(uuid) = source.causing_info().map(|c| c.uuid)
+        && level.is_in_other_level(uuid)
+    {
+        crate::server::players::cross_level::queue_for_player(level, uuid, move |level, p| {
+            p.award_stat(level, stat, amount);
+        });
     }
 }
 

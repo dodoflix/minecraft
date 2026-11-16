@@ -901,12 +901,15 @@ impl Scenario {
         if self.dims.is_empty() {
             self.level = levels.pop();
         } else {
-            // one player roster and one entity directory for every level, like the server's
+            // one player roster, entity directory and POI directory for every level, like the server's
             let roster = levels[0].server_state.roster.clone();
             let entities = levels[0].server_state.entities.clone();
+            let pois = levels[0].server_state.pois.clone();
             for level in &mut levels {
                 level.server_state.roster = roster.clone();
                 level.server_state.entities = entities.clone();
+                level.server_state.pois = pois.clone();
+                pois.register(level.dimension.clone(), level.poi_manager().clone());
             }
             mc_game::commands::server_access::with_server(|server| {
                 for level in levels {

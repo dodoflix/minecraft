@@ -5,14 +5,14 @@ use mc_data::enums::Pose;
 use mc_data::{Block, EntityType, GameEvent, Item};
 
 use super::damage::broadcast_entity_event;
-use crate::server::level::ServerLevel;
+use crate::server::level::{AnyDimensionEntity, ServerLevel};
 use crate::world::damagesource::{DamageEntity, DamageSource};
 use crate::world::entity::Entity;
 use crate::world::item::ItemStack;
 use crate::world::item::enchantment::actors::Actors;
 
-/// `LivingEntity.getKillCredit()`: `lastHurtByPlayer` (must resolve to a player), else `lastHurtByMob` (a living entity).
-/// The entity that is running right now (the attacker) is taken out of the level: `source` supplies its snapshot.
+/// `LivingEntity.getKillCredit()`: `lastHurtByPlayer` (must resolve to a player), else `lastHurtByMob` (a living entity), in any
+/// level. The entity that is running right now (the attacker) is taken out of the level: `source` supplies its snapshot.
 pub fn resolve_kill_credit(
     level: &ServerLevel,
     victim: &dyn Entity,
@@ -24,13 +24,24 @@ pub fn resolve_kill_credit(
         (None, Some(uuid)) => (uuid, false),
         (None, None) => return None,
     };
-    if let Some(e) = level.get_entity_by_uuid(uuid) {
-        let ok = if need_player {
-            e.is_player()
-        } else {
-            e.living().is_some()
-        };
-        return ok.then(|| DamageEntity::of(e));
+    match level.get_entity_in_any_dimension(uuid) {
+        Some(AnyDimensionEntity::Here(e)) => {
+            let ok = if need_player {
+                e.is_player()
+            } else {
+                e.living().is_some()
+            };
+            return ok.then(|| DamageEntity::of(e));
+        }
+        Some(AnyDimensionEntity::Elsewhere(remote)) => {
+            let ok = if need_player {
+                remote.is_player
+            } else {
+                remote.is_living
+            };
+            return remote.damage_entity.as_deref().filter(|_| ok).cloned();
+        }
+        None => {}
     }
     let from_source = source
         .into_iter()
@@ -256,7 +267,7 @@ pub fn loot_table_items(
         let killer_uuid = entity.living().expect("living").last_hurt_by_player;
         let killer_player: Option<&dyn Entity> = match killer_uuid {
             Some(uuid) if player_killed => level
-                .get_entity_by_uuid(uuid)
+                .get_entity_or_remote_player(uuid)
                 .filter(|e| e.is_player())
                 .or_else(|| attacker.filter(|a| a.uuid() == uuid && a.is_player())),
             _ => None,

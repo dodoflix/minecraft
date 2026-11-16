@@ -27,6 +27,13 @@ fn mob_villager_job_claim() {
     block_scenario::check("mob_villager_job_claim");
 }
 
+/// A villager of the nether remembers a lectern of the overworld as its job site: the point of interest is read and released in
+/// the level of the remembered position.
+#[test]
+fn mob_villager_job_site_other_dimension() {
+    block_scenario::check("mob_villager_job_site_other_dimension");
+}
+
 /// A zombie hunts a villager: panic activity, flight, calming down.
 #[test]
 fn mob_villager_panic_zombie() {

@@ -24,9 +24,11 @@ pub fn create() -> OneShot {
         if villager.get_villager_data().profession != VillagerProfession::NONE {
             return true;
         }
-        // `server.getLevel(pos.dimension())`: only the level the villager is in is reachable from here
-        if pos.dimension == c.level.dimension
-            && let Some(poi_type) = c.level.poi_manager().get_type(pos.pos)
+        // `server.getLevel(pos.dimension())`
+        if let Some(poi_type) = c
+            .level
+            .poi_manager_in(&pos.dimension)
+            .and_then(|manager| manager.get_type(pos.pos))
             && let Some(profession) = VillagerProfession::iter()
                 .find(|&p| profession_data::data(p).held_job_site.test(poi_type))
         {

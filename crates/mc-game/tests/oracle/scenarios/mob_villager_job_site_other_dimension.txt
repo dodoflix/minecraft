@@ -1,0 +1,43 @@
+# A villager of the nether that remembers a lectern of the overworld as its potential job site: the point of interest is looked up in the level of the
+# remembered position (AssignProfessionFromJobSite takes the profession of its type, GoToPotentialJobSite releases the claim in that level), and a
+# villager that dies releases the job site it holds there (Villager.releasePoi). A second villager of the overworld finds the released lectern free.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+fill -8 99 -8 8 99 8 minecraft:stone
+in the_nether fill -8 99 -8 8 99 8 minecraft:netherrack
+time 2000
+in the_nether time 2000
+block 3 100 3 minecraft:lectern[facing=north,has_book=false,powered=false]
+block -3 100 3 minecraft:lectern[facing=north,has_book=false,powered=false]
+in the_nether spawn_player Alice survival 0.5 100 8.5 180 0
+note both lecterns of the overworld are taken
+poi_take 3 100 3
+poi_take -3 100 3
+in the_nether mobspawn V minecraft:villager 3.5 100 0.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+in the_nether entity_seed V 81
+in the_nether memory V minecraft:potential_job_site {value:{dimension:"minecraft:overworld",pos:[I;3,100,3]}}
+tick 3
+in the_nether dump brain:V mob:V nbt:V
+tick 20
+in the_nether dump brain:V mob:V nbt:V
+tick 40
+in the_nether dump brain:V mob:V nbt:V
+note a villager that holds a job site of the overworld dies: the claim of that lectern is released
+in the_nether mobspawn W minecraft:villager -3.5 100 0.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:1}}
+in the_nether entity_seed W 82
+in the_nether memory W minecraft:job_site {value:{dimension:"minecraft:overworld",pos:[I;-3,100,3]}}
+tick 2
+in the_nether hurt W minecraft:generic_kill 1000
+tick 2
+mobspawn U minecraft:villager -2.5 100 6.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+entity_seed U 83
+tick 3
+dump brain:U mob:U nbt:U
+tick 40
+dump brain:U mob:U nbt:U

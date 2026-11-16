@@ -2,11 +2,36 @@
 //! (which loads chunks through the level).
 
 use super::ServerLevel;
-use crate::world::entity::ai::village::poi::PoiTypeHolder;
+use crate::world::entity::ai::village::poi::{PoiManager, PoiTypeHolder};
+use crate::world::level::DimensionKey;
 use mc_core::pos::{BlockPos, SectionPos};
 use mc_world::status::ChunkStatus;
 
 impl ServerLevel {
+    /// `server.getLevel(dimension).getPoiManager()`: the manager of this level or of another level of the server (`None`
+    /// when the server has no such level).
+    pub fn poi_manager_in(&self, dimension: &DimensionKey) -> Option<PoiManager> {
+        if *dimension == self.dimension {
+            return Some(self.poi_manager().clone());
+        }
+        self.server_state.pois.get(dimension)
+    }
+
+    /// `server.getLevel(dimension).debugSynchronizers().updatePoi(pos)`: another level's synchronizers run once the
+    /// server runs this level's queue.
+    pub fn debug_update_poi_in(&mut self, dimension: &DimensionKey, pos: BlockPos) {
+        if *dimension == self.dimension {
+            self.debug_update_poi(pos);
+        } else {
+            crate::server::players::cross_level::run_in_level(
+                self,
+                dimension.clone(),
+                move |level| level.debug_update_poi(pos),
+                |_, ()| {},
+            );
+        }
+    }
+
     /// `isVillage(pos)`.
     pub fn is_village(&self, pos: BlockPos) -> bool {
         self.is_close_to_village(pos, 1)

@@ -97,6 +97,8 @@ pub struct LevelServerState {
     pub roster: PlayerRoster,
     /// `getEntityInAnyDimension`: every tracked entity of every level of the server.
     pub entities: super::EntityDirectory,
+    /// `getLevel(dimension).getPoiManager()`: the POI manager of every level of the server.
+    pub pois: super::PoiDirectory,
     /// What loot evaluation reads from the server (random sequences, command storage, clocks).
     pub loot: crate::world::level::storage::loot::server_access::LootServices,
     pub spawn_protection: SpawnProtection,

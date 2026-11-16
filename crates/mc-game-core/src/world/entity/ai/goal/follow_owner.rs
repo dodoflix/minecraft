@@ -100,7 +100,7 @@ impl Goal for FollowOwnerGoal {
                     mob::look_at_position_full(
                         tamable,
                         owner.position.x,
-                        owner.eye_y,
+                        owner.eye_y(),
                         owner.position.z,
                         10.0,
                         max_x,

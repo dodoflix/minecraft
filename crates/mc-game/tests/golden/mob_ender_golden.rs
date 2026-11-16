@@ -9,6 +9,12 @@ fn anger_load() {
     check("mob_anger_load");
 }
 
+/// Neutral mobs of one level loaded with saved data that names a player of another level: they keep that player as their target.
+#[test]
+fn anger_load_other_dimension() {
+    check("mob_anger_load_other_dimension");
+}
+
 /// The stare that angers an enderman, the carved pumpkin and the averted gaze.
 #[test]
 fn enderman_stare() {

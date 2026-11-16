@@ -1,11 +1,10 @@
-//! Shared plumbing of the village behaviors (POI predicates, `HashSet<BlockPos>` iteration order, same-dimension POI access).
+//! Shared plumbing of the village behaviors (POI predicates, `HashSet<BlockPos>` iteration order).
 
 use crate::server::level::ServerLevel;
 use crate::util::java_hash_order::JavaHashCapacity;
 use crate::world::entity::ai::brain::java_hash_map_order;
 use crate::world::entity::ai::village::poi::PoiTypeHolder;
 use mc_core::pos::BlockPos;
-use mc_protocol::codec::GlobalPos;
 use std::sync::Arc;
 
 /// `Predicate<Holder<PoiType>>`.
@@ -59,12 +58,6 @@ pub fn java_poi_set_order(pois: Vec<(PoiTypeHolder, BlockPos)>) -> Vec<(PoiTypeH
             .wrapping_mul(31)
             .wrapping_add(block_pos_hash(*pos))
     })
-}
-
-/// `level.getServer().getLevel(pos.dimension())` restricted to the level the behavior runs in: the POI manager of
-/// `global`'s dimension, or `None` when that is another dimension (the server's other levels are not reachable from a level).
-pub fn poi_level<'a>(level: &'a ServerLevel, global: &GlobalPos) -> Option<&'a ServerLevel> {
-    (level.dimension == global.dimension).then_some(level)
 }
 
 /// `brain.updateActivityFromSchedule(level.environmentAttributes(), level.getGameTime(), body.position())`.

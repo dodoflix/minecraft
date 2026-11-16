@@ -138,6 +138,8 @@ pub struct MinecraftServer {
     pub scoreboard: crate::server::level::SharedScoreboard,
     /// `getEntityInAnyDimension`'s index, shared with every level.
     pub entity_directory: crate::server::level::EntityDirectory,
+    /// `getLevel(dimension).getPoiManager()` for code inside a level, shared with every level.
+    pub poi_directory: crate::server::level::PoiDirectory,
     pub player_list: PlayerList,
     /// `debugSubscribers`: refreshed at the end of every tick, read by the levels.
     pub debug_subscribers: crate::util::debug::DebugSubscribers,
@@ -315,6 +317,7 @@ impl MinecraftServer {
             tick_rate_manager: ServerTickRateManager::new(),
             scoreboard: crate::server::level::SharedScoreboard::default(),
             entity_directory: Default::default(),
+            poi_directory: Default::default(),
             commands,
             functions,
             player_list,

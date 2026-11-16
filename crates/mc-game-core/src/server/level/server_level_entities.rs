@@ -90,14 +90,6 @@ impl AnyDimensionEntity<'_> {
         }
     }
 
-    /// `getEyeY()`.
-    pub fn eye_y(&self) -> f64 {
-        match self {
-            Self::Here(e) => e.base().get_eye_y(),
-            Self::Elsewhere(r) => r.eye_y,
-        }
-    }
-
     /// `getScoreboardName()`.
     pub fn scoreboard_name(&self) -> String {
         match self {
@@ -119,15 +111,6 @@ impl AnyDimensionEntity<'_> {
         match self {
             Self::Here(e) => e.ownable_owner_uuid(),
             Self::Elsewhere(r) => r.ownable_owner,
-        }
-    }
-
-    /// `getLastHurtByMob() != null`: the reference resolves to a living entity of any level (`LivingEntity`, `uuid` of
-    /// `lastHurtByMob`).
-    pub fn last_hurt_by_mob(&self) -> Option<Uuid> {
-        match self {
-            Self::Here(e) => e.living().and_then(|l| l.last_hurt_by_mob),
-            Self::Elsewhere(r) => r.last_hurt_by_mob,
         }
     }
 }
@@ -253,11 +236,38 @@ impl ServerLevel {
 
     // ---- lookups ----------------------------------------------------------------------------------------------
 
-    /// `getEntity(id)`: a tracked entity that is not currently taken out, or the entity that is loading.
+    /// `getEntity(id)`: a tracked entity that is not currently taken out, or the entity that is loading, or the stand-in of
+    /// a player of another level that a mob of this level targets (see [`RemoteTargets`](super::RemoteTargets)).
     pub fn get_entity(&self, id: EntityId) -> Option<&dyn Entity> {
         self.entity_manager
             .get(id)
             .or_else(|| self.loading_entity.as_deref().filter(|e| e.id() == id))
+            .or_else(|| {
+                // a player that has come to this level is the level's own entity
+                (!self.entity_manager.has_entity_with_id(id))
+                    .then(|| self.remote_targets.get(id))
+                    .flatten()
+            })
+    }
+
+    /// `EntityReference.getLivingEntity(reference, level)` for a mob's target or anger target: the entity of this level, or
+    /// the stand-in of a player of another level (made when first asked for).
+    pub fn get_entity_or_remote_player(&self, uuid: Uuid) -> Option<&dyn Entity> {
+        if let Some(entity) = self.get_entity_by_uuid(uuid) {
+            return Some(entity);
+        }
+        let id = self.server_state.entities.with(uuid, |remote| {
+            (remote.is_player && remote.dimension != self.dimension).then(|| {
+                self.remote_targets.ensure(remote);
+                remote.id
+            })
+        })??;
+        self.remote_targets.get(id)
+    }
+
+    /// Whether `id` names the stand-in of a player of another level (`entity.level() != this.level()`).
+    pub fn is_remote_target(&self, id: EntityId) -> bool {
+        self.remote_targets.contains(id) && !self.entity_manager.has_entity_with_id(id)
     }
 
     /// [`ServerLevel::get_entity`], or the entity its running code lent although it removed itself meanwhile.

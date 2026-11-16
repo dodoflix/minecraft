@@ -53,9 +53,8 @@ impl Behavior for GoToPotentialJobSite {
 
     fn stop(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
         if let Some(global) = body.brain().get_memory(&POTENTIAL_JOB_SITE).cloned() {
-            // `server.getLevel(globalPos.dimension())`: only the level the villager is in is reachable from here
-            if global.dimension == level.dimension {
-                let manager = level.poi_manager();
+            // `server.getLevel(globalPos.dimension())`
+            if let Some(manager) = level.poi_manager_in(&global.dimension) {
                 if manager.exists(global.pos, &|_| true) {
                     let _ = manager.release(global.pos);
                 }

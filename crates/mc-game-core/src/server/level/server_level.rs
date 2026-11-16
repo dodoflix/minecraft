@@ -81,6 +81,8 @@ pub struct ServerLevel {
     /// memory or a player's last explosion cause still names them, because vanilla holds the object and still gives its position (see
     /// `ServerLevel::get_entity_or_recently_removed`).
     pub(super) recently_removed: Vec<(i64, EntityId, Box<dyn crate::world::entity::Entity>)>,
+    /// Stand-ins for players of other levels that mobs of this level target (see `remote_targets.rs`).
+    pub(super) remote_targets: super::RemoteTargets,
     /// The last known [`PlayerRecord`] of every player that is out of the entity storage (its packet or tick is being
     /// handled); players in storage or lent are read live.
     pub(super) player_records: std::collections::HashMap<EntityId, super::PlayerRecord>,
@@ -201,6 +203,7 @@ impl ServerLevel {
             loading_entity: None,
             removed_entities: None,
             recently_removed: Vec::new(),
+            remote_targets: Default::default(),
             player_records: Default::default(),
             registries: Default::default(),
             chunk_source,

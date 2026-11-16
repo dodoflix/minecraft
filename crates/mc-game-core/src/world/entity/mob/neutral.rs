@@ -81,10 +81,9 @@ pub fn add_persistent_anger_save_data(e: &dyn Entity, out: &mut CompoundTag) {
     }
 }
 
-/// `readPersistentAngerSaveData(level, input)`: the saved target is resolved against the level's loaded entities (a player is
-/// there; a mob of the same chunk list is not yet) and set through the class's own `setTarget`. World generation has no level
-/// (`None`): the target stays unset and the time is relative to 0.
-// shortcut: only this level is searched (vanilla's `getEntityInAnyDimension`), so a target left in another dimension is not set; upgrade when a cross-dimension entity lookup exists.
+/// `readPersistentAngerSaveData(level, input)`: the saved target is resolved in any level (a player is there; a mob of the
+/// same chunk list is not yet) and set through the class's own `setTarget`. World generation has no level (`None`): the
+/// target stays unset and the time is relative to 0.
 pub fn read_persistent_anger_save_data(
     e: &mut dyn Entity,
     level: Option<&ServerLevel>,
@@ -104,7 +103,7 @@ pub fn read_persistent_anger_save_data(
     );
     if let Some(level) = level {
         let target = get_persistent_anger_target(e)
-            .and_then(|u| level.get_entity_by_uuid(u))
+            .and_then(|u| level.get_entity_or_remote_player(u))
             .filter(|t| t.living().is_some())
             .map(|t| t.id());
         e.set_target(level, target);
@@ -157,7 +156,7 @@ pub fn update_persistent_anger(
         stop_being_angry(e, level);
     }
     let persistent_player_invalid = persistent_target
-        .and_then(|u| level.get_entity_by_uuid(u))
+        .and_then(|u| level.get_entity_or_remote_player(u))
         .filter(|p| p.is_player())
         .is_some_and(|p| {
             ext::is_creative_player(p)

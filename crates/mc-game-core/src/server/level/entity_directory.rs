@@ -13,11 +13,13 @@
 //! `put_back_entity` calls.
 
 use crate::world::damagesource::DamageEntity;
+use crate::world::entity::entity::DATA_SHARED_FLAGS_ID;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::item::ItemStack;
 use crate::world::level::DimensionKey;
 use mc_core::phys::{AABB, Vec3};
 use mc_data::EntityType;
+use mc_data::enums::{GameType, Pose};
 use parking_lot::Mutex;
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -41,30 +43,33 @@ pub struct RemoteEntity {
     /// `instanceof LivingEntity`.
     pub is_living: bool,
     pub spectator: bool,
-    /// `isSleeping()`.
-    pub sleeping: bool,
-    /// `isPassenger()`.
-    pub passenger: bool,
     /// `canUsePortal(true)` (a living entity that sleeps cannot).
     pub can_use_portal: bool,
     /// `ServerPlayer.wonGame` / `seenCredits` (false for other entities).
     pub won_game: bool,
     pub seen_credits: bool,
-    /// `getEyeY()`.
-    pub eye_y: f64,
+    /// `eyeHeight` (`getEyeY()` is `position.y + eyeHeight`).
+    pub eye_height: f32,
+    /// `getHealth()` of a living entity.
+    pub health: f32,
+    /// The game mode of a player (survival for the others).
+    pub game_type: GameType,
+    /// `getPose()` and the shared flags byte (`isCrouching`, `isInvisible`, ...).
+    pub pose: Pose,
+    pub shared_flags: i8,
+    /// `Attribute.LUCK` of a player.
+    pub luck: f64,
     /// `getScoreboardName()`.
     pub scoreboard_name: String,
     /// `instanceof OwnableEntity` and its `getOwnerReference()`.
     pub is_ownable: bool,
     pub ownable_owner: Option<Uuid>,
-    /// `lastHurtByMob` of a living entity.
-    pub last_hurt_by_mob: Option<Uuid>,
     /// What a damage source keeps of a living entity (`None` for the others): taken when the entity is published and
     /// refreshed with every copy of a player (the others keep their equipment, name and aim of that moment).
     pub damage_entity: Option<Arc<DamageEntity>>,
     /// The filled maps in the inventory of a player, and whether it wears a map invisibility item (what `tickCarriedBy`
     /// reads of a holder in another level).
-    pub held_maps: Vec<ItemStack>,
+    pub held_maps: Arc<[ItemStack]>,
     pub map_invisibility: bool,
 }
 
@@ -83,21 +88,23 @@ impl RemoteEntity {
             is_player: false,
             is_living: false,
             spectator: false,
-            sleeping: false,
-            passenger: false,
             can_use_portal: false,
             won_game: false,
             seen_credits: false,
-            eye_y: 0.0,
+            eye_height: 0.0,
+            health: 0.0,
+            game_type: GameType::Survival,
+            pose: Pose::Standing,
+            shared_flags: 0,
+            luck: 0.0,
             scoreboard_name: entity.get_scoreboard_name(),
             is_ownable: false,
             ownable_owner: None,
-            last_hurt_by_mob: None,
             damage_entity: entity
                 .living()
                 .is_some()
                 .then(|| Arc::new(DamageEntity::of(entity))),
-            held_maps: Vec::new(),
+            held_maps: Arc::new([]),
             map_invisibility: false,
         };
         remote.update(entity);
@@ -116,22 +123,34 @@ impl RemoteEntity {
         self.is_player = entity.is_player();
         self.is_living = entity.living().is_some();
         self.spectator = entity.is_spectator();
-        self.sleeping = entity.is_sleeping();
-        self.passenger = base.is_passenger();
         self.can_use_portal = entity.can_use_portal(true) && !entity.is_sleeping();
         self.won_game = player.is_some_and(|p| p.won_game);
         self.seen_credits = player.is_some_and(|p| p.seen_credits);
-        self.eye_y = base.get_eye_y();
+        self.eye_height = base.eye_height;
+        self.health = entity.living().map_or(0.0, |l| l.get_health());
+        self.game_type = player.map_or(GameType::Survival, |p| p.game_mode.game_mode_for_player);
+        self.pose = base.get_pose();
+        self.shared_flags = base.entity_data.get(DATA_SHARED_FLAGS_ID);
+        self.luck = player.map_or(0.0, |p| {
+            p.player
+                .living
+                .get_attribute_value(mc_data::Attribute::LUCK)
+        });
         self.is_ownable = entity.is_ownable();
         self.ownable_owner = entity.ownable_owner_uuid();
-        self.last_hurt_by_mob = entity.living().and_then(|l| l.last_hurt_by_mob);
         if player.is_some() {
             self.damage_entity = Some(Arc::new(DamageEntity::of(entity)));
         }
         if let Some(data) = entity.player() {
-            (self.held_maps, self.map_invisibility) =
+            let (maps, invisibility) =
                 crate::world::item::map_item::held_maps_and_invisibility(data);
+            (self.held_maps, self.map_invisibility) = (maps.into(), invisibility);
         }
+    }
+
+    /// `getEyeY()`.
+    pub fn eye_y(&self) -> f64 {
+        self.position.y + f64::from(self.eye_height)
     }
 
     /// `blockPosition()`.
@@ -203,6 +222,11 @@ impl EntityDirectory {
     /// The copy of the entity `uuid` of whichever level tracks it.
     pub fn get(&self, uuid: Uuid) -> Option<RemoteEntity> {
         self.0.lock().by_uuid.get(&uuid).cloned()
+    }
+
+    /// `f` on the copy of the entity `uuid`, without cloning it.
+    pub fn with<R>(&self, uuid: Uuid, f: impl FnOnce(&RemoteEntity) -> R) -> Option<R> {
+        self.0.lock().by_uuid.get(&uuid).map(f)
     }
 
     pub fn len(&self) -> usize {

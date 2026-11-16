@@ -23,9 +23,10 @@ use mc_world::chunk::LevelHeight;
 use mc_world::level_storage::WORLD_VERSION;
 use mc_world::region::{RegionStorageInfo, SimpleRegionStorage};
 use mc_world::section::LevelChunkSection;
-use std::cell::RefCell;
+use parking_lot::Mutex;
 use std::collections::{HashMap, HashSet};
 use std::path::PathBuf;
+use std::sync::Arc;
 
 pub const MAX_VILLAGE_DISTANCE: i32 = 6;
 pub const VILLAGE_SECTION_SIZE: i32 = 1;
@@ -380,8 +381,11 @@ fn range_closed(from: ChunkPos, to: ChunkPos) -> impl Iterator<Item = ChunkPos> 
     })
 }
 
+/// Shared between the levels of a server (the handle is cloned into the server's POI directory): a villager reads and
+/// releases the point of interest of another level through it.
+#[derive(Clone)]
 pub struct PoiManager {
-    inner: RefCell<Storage>,
+    inner: Arc<Mutex<Storage>>,
 }
 
 /// `Predicate<Holder<PoiType>>`.
@@ -402,7 +406,7 @@ impl PoiManager {
         level_height: LevelHeight,
     ) -> Self {
         Self {
-            inner: RefCell::new(Storage {
+            inner: Arc::new(Mutex::new(Storage {
                 storage: SimpleRegionStorage::new(info, folder, sync_writes),
                 level_height,
                 sections: HashMap::new(),
@@ -412,20 +416,20 @@ impl PoiManager {
                 tracker_levels: HashMap::new(),
                 ensured_chunks: HashSet::new(),
                 village_types: vanilla_village_types(),
-            }),
+            })),
         }
     }
 
     /// Re-reads `PoiTypeTags.VILLAGE` (the tag of the loaded data packs) for later distance updates.
     pub fn set_village_types(&self, mask: u32) {
-        self.inner.borrow_mut().village_types = mask;
+        self.inner.lock().village_types = mask;
     }
 
     // ------------------------------------------------------------------ modification
 
     /// `add(pos, type)`: the new record, `None` if the position already holds this type.
     pub fn add(&self, pos: BlockPos, poi_type: PoiTypeHolder) -> Option<PoiRecord> {
-        let mut s = self.inner.borrow_mut();
+        let mut s = self.inner.lock();
         let key = SectionPos::as_long_block_pos(&pos);
         let record = s.get_or_create(key)?.add(pos, poi_type);
         if record.is_some() {
@@ -436,7 +440,7 @@ impl PoiManager {
 
     /// `remove(pos)`.
     pub fn remove(&self, pos: BlockPos) {
-        let mut s = self.inner.borrow_mut();
+        let mut s = self.inner.lock();
         let key = SectionPos::as_long_block_pos(&pos);
         if s.get_or_load(key)
             .is_some_and(|section| section.remove(pos))
@@ -447,7 +451,7 @@ impl PoiManager {
 
     /// `release(pos)`: `Err` is vanilla's `IllegalStateException("POI never registered at ...")`.
     pub fn release(&self, pos: BlockPos) -> Result<bool, PoiNeverRegistered> {
-        let mut s = self.inner.borrow_mut();
+        let mut s = self.inner.lock();
         let key = SectionPos::as_long_block_pos(&pos);
         let success = s
             .get_or_load(key)
@@ -463,7 +467,7 @@ impl PoiManager {
         section_pos: SectionPos,
         block_section: &LevelChunkSection,
     ) {
-        let mut s = self.inner.borrow_mut();
+        let mut s = self.inner.lock();
         let key = section_pos.as_long();
         let may_have_poi = block_section.maybe_has(PoiTypes::has_poi);
         let mut changed = false;
@@ -495,7 +499,7 @@ impl PoiManager {
         f: &mut dyn FnMut(i64, u32, &PoiRecord) -> bool,
     ) -> bool {
         let (min_y, max_y) = {
-            let s = self.inner.borrow();
+            let s = self.inner.lock();
             (
                 s.level_height.min_section_y(),
                 s.level_height.max_section_y(),
@@ -503,10 +507,7 @@ impl PoiManager {
         };
         for section_y in min_y..=max_y {
             let key = SectionPos::of_chunk(&chunk_pos, section_y).as_long();
-            let hits = self
-                .inner
-                .borrow_mut()
-                .section_records(key, mask, occupancy);
+            let hits = self.inner.lock().section_records(key, mask, occupancy);
             for (id, record) in &hits {
                 if !f(key, *id, record) {
                     return false;
@@ -848,7 +849,7 @@ impl PoiManager {
             },
         );
         let (key, id, pos) = found?;
-        let mut s = self.inner.borrow_mut();
+        let mut s = self.inner.lock();
         if s.get_or_load(key)
             .is_some_and(|section| section.acquire_ticket(id))
         {
@@ -886,7 +887,7 @@ impl PoiManager {
     /// `getType(pos)`.
     pub fn get_type(&self, pos: BlockPos) -> Option<PoiTypeHolder> {
         self.inner
-            .borrow_mut()
+            .lock()
             .get_or_load(SectionPos::as_long_block_pos(&pos))
             .and_then(|section| section.get_type(pos))
     }
@@ -894,14 +895,14 @@ impl PoiManager {
     /// `getDebugPoiInfo(pos)`: the record at `pos` (`DebugPoiInfo` is built from it).
     pub fn get_debug_poi_info(&self, pos: BlockPos) -> Option<PoiRecord> {
         self.inner
-            .borrow_mut()
+            .lock()
             .get_or_load(SectionPos::as_long_block_pos(&pos))
             .and_then(|section| section.get_poi_record(pos))
     }
 
     /// `sectionsToVillage(sectionPos)`.
     pub fn sections_to_village(&self, section_pos: SectionPos) -> i32 {
-        let mut s = self.inner.borrow_mut();
+        let mut s = self.inner.lock();
         s.run_all_updates();
         s.tracker_level(section_pos.as_long())
     }
@@ -914,7 +915,7 @@ impl PoiManager {
         center: BlockPos,
         radius: i32,
     ) -> impl Iterator<Item = SectionPos> + use<> {
-        let height = self.inner.borrow().level_height;
+        let height = self.inner.lock().level_height;
         SectionPos::around_chunk(
             &ChunkPos::containing(&center),
             radius.div_euclid(16),
@@ -926,24 +927,21 @@ impl PoiManager {
     /// `getOrLoad(section).map(isValid).orElse(false)`.
     pub fn is_section_valid(&self, section_pos: SectionPos) -> bool {
         self.inner
-            .borrow_mut()
+            .lock()
             .get_or_load(section_pos.as_long())
             .is_some_and(|s| s.is_valid())
     }
 
     /// `loadedChunks.add(chunk.pack())` of `ensureLoadedAndValid`: whether the chunk was not requested yet.
     pub fn mark_chunk_ensured(&self, chunk_pos: ChunkPos) -> bool {
-        self.inner
-            .borrow_mut()
-            .ensured_chunks
-            .insert(chunk_pos.pack())
+        self.inner.lock().ensured_chunks.insert(chunk_pos.pack())
     }
 
     // ------------------------------------------------------------------ persistence / ticking
 
     /// `tick(haveTime)`: writes dirty chunks while there is time, then settles the village distances.
     pub fn tick(&self, have_time: &dyn Fn() -> bool) {
-        let mut s = self.inner.borrow_mut();
+        let mut s = self.inner.lock();
         while !s.dirty_chunks.is_empty() && have_time() {
             let Some(key) = s.dirty_chunks.shift_remove_index(0) else {
                 break;
@@ -955,7 +953,7 @@ impl PoiManager {
 
     /// `flush(chunkPos)`: writes the chunk now if it is dirty.
     pub fn flush(&self, chunk_pos: ChunkPos) {
-        let mut s = self.inner.borrow_mut();
+        let mut s = self.inner.lock();
         if s.dirty_chunks.shift_remove(&chunk_pos.pack()) {
             s.write_chunk(chunk_pos);
         }
@@ -963,7 +961,7 @@ impl PoiManager {
 
     /// `flushAll()`.
     pub fn flush_all(&self) {
-        let mut s = self.inner.borrow_mut();
+        let mut s = self.inner.lock();
         if !s.dirty_chunks.is_empty() {
             let dirty: Vec<i64> = s.dirty_chunks.drain(..).collect();
             for key in dirty {
@@ -975,7 +973,7 @@ impl PoiManager {
     /// The stored points of interest of `chunk_pos`, a write still queued counting (`SimpleRegionStorage.read(pos).join()`).
     pub fn read_stored_chunk(&self, chunk_pos: ChunkPos) -> Option<mc_nbt::CompoundTag> {
         self.inner
-            .borrow_mut()
+            .lock()
             .storage
             .read(&chunk_pos)
             .unwrap_or_else(|e| panic!("POI chunk {chunk_pos} does not read: {e}"))
@@ -983,12 +981,12 @@ impl PoiManager {
 
     /// `hasWork()`.
     pub fn has_work(&self) -> bool {
-        !self.inner.borrow().dirty_chunks.is_empty()
+        !self.inner.lock().dirty_chunks.is_empty()
     }
 
     /// `close()`: stores everything queued and closes the region files.
     pub fn close(&self) {
-        if let Err(e) = self.inner.borrow_mut().storage.close() {
+        if let Err(e) = self.inner.lock().storage.close() {
             log::error!("Failed to close POI storage: {e}");
         }
     }

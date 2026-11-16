@@ -868,6 +868,8 @@ impl ServerLevel {
 
     /// `ServerLevel.tick(haveTime)`.
     pub fn tick(&mut self, env: &mut dyn LevelTickEnv, have_time: &mut dyn FnMut() -> bool) {
+        self.remote_targets
+            .refresh(&self.server_state.entities, &self.dimension);
         self.apply_pending_start_references();
         self.tick_state.handling_tick = true;
         self.tick_state.attributes.invalidate_tick_cache();

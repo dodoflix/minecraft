@@ -1,4 +1,4 @@
-//! Work on a player that another level of the server holds, for code that runs inside one level (an arrow of
+//! Work on a player or a level that another level of the server holds, for code that runs inside one level (an arrow of
 //! the overworld whose owner is in the nether). The other level and the running level cannot both be borrowed from there:
 //! the work is queued as a server action, which the server runs once the running entity's tick is over.
 
@@ -8,6 +8,7 @@ use crate::server::MinecraftServer;
 use crate::server::level::ServerLevel;
 use crate::world::damagesource::{DamageEntity, DamageSource};
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
+use crate::world::level::DimensionKey;
 use uuid::Uuid;
 
 /// Like [`deliver`](super::ender_pearl_ticket::deliver), and `f` also gets `origin`, the level of the running action
@@ -21,8 +22,7 @@ pub fn deliver_from(
     let Some(dimension) = origin
         .server_state
         .entities
-        .get(uuid)
-        .map(|remote| remote.dimension)
+        .with(uuid, |remote| remote.dimension.clone())
         .or_else(|| {
             origin
                 .get_player_in_any_dimension(uuid)
@@ -44,6 +44,44 @@ pub fn deliver_from(
         && let Some(f) = f
     {
         origin.defer_server_action(move |server, origin| deliver_from(server, origin, uuid, f));
+    }
+}
+
+/// `server.getLevel(dimension)` work for code that runs inside one level (a villager's behavior reading or releasing a
+/// point of interest of another level): `f` runs on that level when the server runs the queue, then `then` runs on the
+/// running level with its result. Nothing runs when the server has no such level; a level that is held up the stack
+/// (taken out of the server) is retried the next time the running level's queue runs.
+pub fn run_in_level<R: Send + 'static>(
+    level: &mut ServerLevel,
+    dimension: DimensionKey,
+    f: impl FnOnce(&mut ServerLevel) -> R + Send + 'static,
+    then: impl FnOnce(&mut ServerLevel, R) + Send + 'static,
+) {
+    level.queue_server_action(move |server, origin| {
+        run_in_level_now(server, origin, dimension, f, then);
+    });
+}
+
+fn run_in_level_now<R: Send + 'static>(
+    server: &mut MinecraftServer,
+    origin: &mut ServerLevel,
+    dimension: DimensionKey,
+    f: impl FnOnce(&mut ServerLevel) -> R + Send + 'static,
+    then: impl FnOnce(&mut ServerLevel, R) + Send + 'static,
+) {
+    if !server.level_keys().contains(&dimension) {
+        return;
+    }
+    let mut f = Some(f);
+    let reached = server.with_level(&dimension, |_, other| (f.take().expect("runs once"))(other));
+    match reached {
+        Some(result) => then(origin, result),
+        None => {
+            let f = f.expect("not run");
+            origin.defer_server_action(move |server, origin| {
+                run_in_level_now(server, origin, dimension, f, then);
+            });
+        }
     }
 }
 

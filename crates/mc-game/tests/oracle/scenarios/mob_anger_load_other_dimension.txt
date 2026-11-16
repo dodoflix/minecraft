@@ -1,0 +1,24 @@
+# Entities loaded from saved data that names a player in another level (`angry_at`): the target is looked up in any dimension, so a mob of the
+# overworld is set to target a player of the nether (NeutralMob.readPersistentAngerSaveData -> EntityReference.getLivingEntity ->
+# getEntityInAnyDimension) and keeps that target while the player stays there.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty normal
+entity_counter 100
+fill -20 99 -20 40 99 20 minecraft:stone
+in the_nether fill -20 99 -20 40 99 20 minecraft:netherrack
+in the_nether spawn_player Alice survival 0.5 100 0.5 0 0
+note a zombified piglin and a wolf of the overworld saved angry at Alice, who is in the nether
+mobspawn Z minecraft:zombified_piglin 0.5 100 8.5 180 0 {PersistenceRequired:1b,anger_end_time:4000L,angry_at:[I;278005000,-707248403,-1814916367,-1817188393]}
+mobspawn W minecraft:wolf 20.5 100 8.5 180 0 {PersistenceRequired:1b,AngerTime:600,angry_at:[I;278005000,-707248403,-1814916367,-1817188393]}
+entity_seed Z 3201
+entity_seed W 3204
+dump mob:Z mob:W nbt:Z nbt:W
+tick 1
+dump mob:Z mob:W nbt:Z nbt:W
+tick 40
+dump mob:Z mob:W nbt:Z nbt:W

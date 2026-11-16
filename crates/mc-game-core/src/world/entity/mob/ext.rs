@@ -35,6 +35,10 @@ pub fn has_line_of_sight_with(
     fluid: ClipFluid,
     eye_height: f64,
 ) -> bool {
+    // `target.level() != this.level()`
+    if level.is_remote_target(target.id()) {
+        return false;
+    }
     let from = Vec3::new(
         viewer.base().x(),
         viewer.base().get_eye_y(),

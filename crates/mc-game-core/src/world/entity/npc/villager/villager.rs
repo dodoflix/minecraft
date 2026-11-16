@@ -1060,18 +1060,14 @@ impl Entity for Villager {
         let Some(global) = self.brain().get_memory(&memory).cloned() else {
             return;
         };
-        let data = self.get_villager_data();
-        let release = |poi_level: &mut ServerLevel| {
-            let manager = poi_level.poi_manager();
-            let ty = manager.get_type(global.pos);
-            if ty.is_some_and(|t| poi_memory_matches(&data, memory, t)) {
-                let _ = manager.release(global.pos);
-                poi_level.debug_update_poi(global.pos);
-            }
+        // `server.getLevel(globalPos.dimension())`
+        let Some(manager) = level.poi_manager_in(&global.dimension) else {
+            return;
         };
-        // another dimension's POI manager is not reachable from a level
-        if global.dimension == level.dimension {
-            release(level);
+        let ty = manager.get_type(global.pos);
+        if ty.is_some_and(|t| poi_memory_matches(&self.get_villager_data(), memory, t)) {
+            let _ = manager.release(global.pos);
+            level.debug_update_poi_in(&global.dimension, global.pos);
         }
     }
 
