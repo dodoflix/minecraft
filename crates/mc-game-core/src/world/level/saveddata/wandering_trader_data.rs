@@ -93,7 +93,15 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let ty = WanderingTraderData::type_();
         let mut store = SavedDataManager::new(SavedDataStorage::new(dir.path().join("data")));
-        let mut shared = store.compute_if_absent(&ty).clone();
+        // the load reads a file that exists and leaves the entry absent otherwise: an unchanged timer writes no file
+        assert!(store.get(&ty).is_none());
+        store.save_and_join();
+        assert!(
+            !dir.path()
+                .join("data/minecraft/wandering_trader.dat")
+                .exists()
+        );
+        let mut shared = WanderingTraderData::default();
         assert_eq!((shared.spawn_delay(), shared.spawn_chance()), (24000, 25));
         shared.set_spawn_delay(1234);
         shared.set_spawn_chance(40);
@@ -107,7 +115,7 @@ mod tests {
         );
 
         let mut reloaded = SavedDataManager::new(SavedDataStorage::new(dir.path().join("data")));
-        let loaded = reloaded.compute_if_absent(&ty).clone();
+        let loaded = reloaded.get(&ty).expect("saved timers").clone();
         assert_eq!((loaded.spawn_delay(), loaded.spawn_chance()), (1234, 40));
         assert!(!loaded.is_dirty());
     }

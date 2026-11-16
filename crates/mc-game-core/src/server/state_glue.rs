@@ -139,11 +139,11 @@ impl MinecraftServer {
         // `this.stopwatches = computeIfAbsent(Stopwatches.TYPE)`
         self.saved_data
             .compute_if_absent(&self.saved_types.stopwatches);
-        // `new WanderingTraderSpawner(savedDataStorage)`: the overworld's spawner reads this store
-        *self.shared.wandering_trader.lock() = self
-            .saved_data
-            .compute_if_absent(&self.saved_types.wandering_trader)
-            .clone();
+        // `new WanderingTraderSpawner(savedDataStorage)`: the overworld's spawner reads this store. The spawner creates
+        // the entry lazily at its first timer expiry, so a missing file stays missing until a timer changes.
+        if let Some(data) = self.saved_data.get(&self.saved_types.wandering_trader) {
+            *self.shared.wandering_trader.lock() = data.clone();
+        }
     }
 
     /// `scoreboard.storeToSaveDataIfDirty(...)` (first step of `saveAllChunks`).
