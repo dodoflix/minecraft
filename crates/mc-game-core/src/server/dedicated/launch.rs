@@ -493,11 +493,10 @@ fn create_dimensions(
         }
     };
     if preset_id == "minecraft:flat" {
-        let settings_json: Value = serde_json::from_str(
-            &crate::server::players::gson::JsonElement::Object(data.generator_settings.clone())
-                .to_compact_string(),
-        )
-        .unwrap_or(Value::Null);
+        let compact =
+            crate::server::players::gson::JsonElement::Object(data.generator_settings.clone())
+                .to_compact_string();
+        let settings_json: Value = serde_json::from_str(&compact).unwrap_or(Value::Null);
         // `resultOrPartial(LOGGER::error)`: a decoding error is logged, and settings that only failed `validateHeight` are still used
         match FlatLevelGeneratorSettings::from_json_partial(
             &settings_json,
@@ -516,6 +515,10 @@ fn create_dimensions(
                     Ok(()) => {}
                     Err(e) => log::error!("{e}"),
                 }
+            }
+            // the codec reports a missing field of the settings object as `No key NAME in MapLike[OBJECT]`
+            Err(e) if e.message() == "missing required field" && !e.path().contains(['.', '[']) => {
+                log::error!("No key {} in MapLike[{compact}]", e.path())
             }
             Err(e) => log::error!("{e}"),
         }
