@@ -376,7 +376,7 @@ impl PrepareSpawn for PrepareSpawnTask {
 
 /// `ServerPlayer.loadAndSpawnParentVehicle(input)`: recreates the root vehicle (with its passengers) saved in the player
 /// data and seats `player` on the entity named by `Attach`; the vehicle is discarded when that entity is missing.
-fn load_and_spawn_parent_vehicle(level: &mut ServerLevel, player: EntityId) {
+pub fn load_and_spawn_parent_vehicle(level: &mut ServerLevel, player: EntityId) {
     let Some(root) = level
         .get_entity_mut(player)
         .and_then(|e| e.as_any_mut().downcast_mut::<ServerPlayer>())

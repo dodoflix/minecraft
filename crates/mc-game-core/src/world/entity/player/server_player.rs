@@ -100,6 +100,8 @@ pub struct ServerPlayer {
     pub levitation_start_pos: Option<Vec3>,
     pub levitation_start_time: i32,
     pub disconnected: bool,
+    /// `PlayerList.remove(player)` ran: a killed player that left the list is not kept alive for a respawn.
+    pub removed_from_player_list: bool,
     pub requested_view_distance: i32,
     pub language: String,
     pub starting_to_fall_position: Option<Vec3>,
@@ -189,6 +191,7 @@ impl ServerPlayer {
             levitation_start_time: 0,
             listener: None,
             disconnected: false,
+            removed_from_player_list: false,
             requested_view_distance: 2,
             language: "en_us".into(),
             starting_to_fall_position: None,
@@ -1359,7 +1362,6 @@ impl Entity for ServerPlayer {
             entity::read_vec3(input.get("last_explosion_impact_pos"));
         self.seen_credits = input.get_boolean_or("seenCredits", false);
         // validated against the recipe manager at join (`ServerRecipeBook::retain_known`)
-        self.recipe_book = Default::default();
         if let Some(book) = input.get("recipeBook") {
             self.recipe_book.load_untrusted(book, |_| true);
         }

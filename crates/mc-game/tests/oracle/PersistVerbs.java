@@ -34,6 +34,8 @@ import net.minecraft.world.level.chunk.storage.SimpleRegionStorage;
  * dump entityfile:CX,CZ        `ENTITYFILE CX,CZ SNBT`: the stored entity chunk of the level
  * dump poifile:CX,CZ           `POIFILE CX,CZ SNBT`: the stored points of interest of the chunk
  * dump playerfile:PLAYER       `PLAYERFILE PLAYER SNBT`: the saved player data (`PlayerList.loadPlayerData`; `none` without a file)
+ * dump statsfile:PLAYER        `STATSFILE PLAYER path=value;..`: the statistics file `players/stats/UUID.json` as sorted leaf entries (`none` without a file; only what a save wrote)
+ * dump advancementsfile:PLAYER `ADVANCEMENTSFILE PLAYER path=value;..`: the progress file `players/advancements/UUID.json` the same way, the obtained times replaced by `T`
  * dump datafile:ID             `DATAFILE ID DataVersion=N SNBT`: the level's saved data file `data/ID.dat` (`none` without a file; only what `save` wrote); a `tickets` list (the chunk tickets: map order) is sorted
  * </pre>
  * Every UUID (an int array of four) that belongs to a named entity prints as that name (the UUIDs of two servers differ), any other as `?`.
@@ -179,6 +181,20 @@ final class PersistVerbs {
             }
             d.out.println("PLAYERFILE " + arg + " " + text(d, saved, false));
          }
+         case "statsfile", "advancementsfile" -> {
+            String directory = kind.equals("statsfile") ? "players/stats" : "players/advancements";
+            Path file = d.v.dir.resolve("world").resolve(directory).resolve(d.v.player(arg).player.getUUID() + ".json");
+            List<String> leaves = new ArrayList<>();
+            if (Files.exists(file)) {
+               try (java.io.Reader reader = Files.newBufferedReader(file)) {
+                  jsonLeaves("", com.google.gson.JsonParser.parseReader(reader), leaves);
+               } catch (java.io.IOException ex) {
+                  throw new java.io.UncheckedIOException(ex);
+               }
+               java.util.Collections.sort(leaves);
+            }
+            d.out.println(kind.toUpperCase() + " " + arg + " " + (leaves.isEmpty() ? "none" : String.join(";", leaves)));
+         }
          case "datafile" -> {
             Identifier dimension = d.v.level.dimension().identifier();
             Path file = Identifier.parse(arg).withSuffix(".dat").resolveAgainst(d.v.dir.resolve("world/dimensions").resolve(dimension.getNamespace()).resolve(dimension.getPath()).resolve("data"));
@@ -243,6 +259,21 @@ final class PersistVerbs {
          default -> {
             return tag;
          }
+      }
+   }
+
+   /** `path=value` for every leaf of `json`; an obtained time (`2026-11-16 10:41:34 +0300`) prints as `T`. */
+   private static void jsonLeaves(String path, com.google.gson.JsonElement json, List<String> out) {
+      if (json.isJsonObject()) {
+         json.getAsJsonObject().entrySet().forEach(e -> jsonLeaves(path + "/" + e.getKey(), e.getValue(), out));
+      } else if (json.isJsonArray()) {
+         int i = 0;
+         for (com.google.gson.JsonElement e : json.getAsJsonArray()) {
+            jsonLeaves(path + "[" + i++ + "]", e, out);
+         }
+      } else {
+         String value = json.getAsString();
+         out.add(path + "=" + (value.matches("\\d{4}-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d [+-]\\d{4}") ? "T" : value));
       }
    }
 }

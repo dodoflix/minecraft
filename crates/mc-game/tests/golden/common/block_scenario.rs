@@ -146,6 +146,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
             || l.contains("unless biome ")
             || l.contains("minecraft:bone_meal")
             || l.contains("advancements:")
+            || l.contains("advancementsfile:")
     });
     // the generation environment also holds the block transformer registry (axes, shovels and hoes strip, scrape, flatten and till)
     s.gen_env = text.contains("minecraft:structure_block")

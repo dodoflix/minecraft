@@ -1,0 +1,24 @@
+# A player who leaves after the death screen has been up for a while (the dead player was removed from the level by its own tick 20 ticks after the death):
+# the player data is still written, and joining again with it starts from the saved dead state. A second player in the level watches.
+level void
+command_env
+preload 2
+difficulty normal
+entity_counter 800
+level_seed 23
+fill -8 -61 -8 40 -61 8 minecraft:stone
+cmd setworldspawn 0 -60 0
+spawn_player Alice survival 0.5 -60 6.5 0 0
+spawn_player Obs survival 12.5 -60 6.5 0 0
+tick 2
+hurt Alice generic 1000
+tick 25
+dump players player:Alice placed
+note Alice leaves while dead
+leave Alice
+tick 2
+dump players entities playerfile:Alice
+note Alice joins again with her saved data
+rejoin Alice
+tick 3
+dump players nbt:Alice placed

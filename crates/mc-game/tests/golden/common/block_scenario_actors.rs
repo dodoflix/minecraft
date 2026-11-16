@@ -1612,7 +1612,7 @@ impl Scenario {
                 p.init_inventory_menu(level)
             });
         }
-        // `PrepareSpawnTask.Ready.spawn`: the pearls the player saved are spawned after the join
+        // `PrepareSpawnTask.Ready.spawn`: the pearls the player saved are spawned after the join, then the vehicle it left on
         if load {
             let level = self.level.as_mut().expect("world");
             mc_game::commands::server_access::with_server(|server| {
@@ -1620,6 +1620,7 @@ impl Scenario {
                     server, level, id,
                 )
             });
+            mc_game::server::players::prepare_spawn::load_and_spawn_parent_vehicle(level, id);
         }
         self.actors.known.insert(id);
         self.actors.refs.push((name.clone(), id));

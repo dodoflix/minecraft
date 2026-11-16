@@ -1,0 +1,22 @@
+CF msg Set the world spawn point to 0, -60, 0 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+HURT Alice generic 1000 -> true
+PL Alice dim=minecraft:overworld
+PL Obs dim=minecraft:overworld
+P Alice minecraft:player pos=0.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=0/0 death=25 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# Alice leaves while dead
+STAT Alice minecraft.custom:minecraft.damage_taken 10000
+STAT Alice minecraft.custom:minecraft.deaths 1
+STAT Alice minecraft.custom:minecraft.leave_game 1
+STAT Alice minecraft.custom:minecraft.play_time 27
+STAT Alice minecraft.custom:minecraft.time_since_death 0
+STAT Alice minecraft.custom:minecraft.time_since_rest 25
+STAT Alice minecraft.custom:minecraft.total_world_time 27
+PL Alice dim=minecraft:overworld
+PL Obs dim=minecraft:overworld
+PLAYERFILE Alice {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:25s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:0.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastDeathLocation:{dimension:"minecraft:overworld",pos:[I;0,-60,6]},Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,6.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,UUID:"Alice",XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:22,warning_level:0}}
+# Alice joins again with her saved data
+PL Alice dim=minecraft:overworld
+PL Obs dim=minecraft:overworld
+PL Alice dim=minecraft:overworld
+N Alice {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:28s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:0.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastDeathLocation:{dimension:"minecraft:overworld",pos:[I;0,-60,6]},Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,6.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:-631202416,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:23,warning_level:0}}

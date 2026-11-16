@@ -1312,13 +1312,13 @@ fn part_parent(part: &dyn Entity) -> Option<EntityId> {
 }
 
 /// A killed player that keeps its connection: it leaves the level but the player lives on (see
-/// [`ServerLevel::dead_players`]).
+/// [`ServerLevel::dead_players`]). A player that left the player list is removed for good.
 fn is_parked_dead_player(e: &dyn Entity) -> bool {
     e.is_player()
         && e.base().removal_reason() == Some(RemovalReason::Killed)
         && e.as_any()
             .downcast_ref::<crate::world::entity::ServerPlayer>()
-            .is_some_and(|p| p.connection.is_some())
+            .is_some_and(|p| p.connection.is_some() && !p.removed_from_player_list)
 }
 #[cfg(test)]
 mod tests {
@@ -1353,5 +1353,41 @@ mod tests {
             level.dragon_part(103).unwrap().position(),
             mc_core::phys::Vec3::new(4.0, 5.0, 6.0)
         );
+    }
+
+    /// A killed player with a connection is parked; once it left the player list it is removed for good.
+    #[test]
+    fn a_dead_player_that_left_the_player_list_is_not_parked_again() {
+        let mut level = ServerLevel::detached(
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+        );
+        level.entity_manager.update_chunk_status(
+            mc_core::pos::chunk_pos::ChunkPos::new(0, 0),
+            crate::world::level::entity::Visibility::Ticking,
+        );
+        let (tx, _rx) = tokio::sync::mpsc::unbounded_channel();
+        let mut player = crate::world::entity::ServerPlayer::new(
+            1,
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+            mc_protocol::codec::GameProfile {
+                id: uuid::Uuid::from_u128(1),
+                name: "A".into(),
+                properties: vec![],
+            },
+            Default::default(),
+        );
+        player.connection = Some(crate::server::network::ConnectionSender::new(tx));
+        level.add_player(Box::new(player));
+        level.remove_player_immediately(1, RemovalReason::Killed);
+        level.process_entity_events();
+        assert!(level.dead_players.contains_key(&1));
+
+        let mut dead = level.take_entity(1).expect("parked player");
+        dead.as_any_mut()
+            .downcast_mut::<crate::world::entity::ServerPlayer>()
+            .unwrap()
+            .removed_from_player_list = true;
+        level.put_back_entity(1, dead);
+        assert!(level.dead_players.is_empty());
     }
 }

@@ -1,6 +1,6 @@
 //! The save, unload and reload verbs and the file dumps of the block replay (grammar and recorded twin: `tests/oracle/PersistVerbs.java`):
 //! `save [flush]`, `unload CX CZ`, `unloadall`, `load CX CZ`, `reload CX CZ`, `rejoin PLAYER`, dumps `region:CX,CZ`, `entityfile:CX,CZ`,
-//! `poifile:CX,CZ`, `playerfile:PLAYER`, `datafile:ID`.
+//! `poifile:CX,CZ`, `playerfile:PLAYER`, `datafile:ID`, `statsfile:PLAYER`, `advancementsfile:PLAYER`.
 use super::Scenario;
 use crate::common::entity_scenario::canon;
 use mc_core::ident::Identifier;
@@ -304,6 +304,30 @@ impl Scenario {
                 });
                 format!("PLAYERFILE {name} {}", self.file_text(stored, false))
             }
+            "statsfile" | "advancementsfile" => {
+                let name = arg.expect("PLAYER");
+                let id = mc_game::server::network::login_listener::create_offline_profile(name).id;
+                let directory = if kind == "statsfile" {
+                    mc_world::level_storage::LevelResource::PLAYER_STATS_DIR
+                } else {
+                    mc_world::level_storage::LevelResource::PLAYER_ADVANCEMENTS_DIR
+                };
+                let file = mc_game::commands::server_access::with_server(|server| {
+                    server.storage_source.get_level_path(directory)
+                })
+                .join(format!("{id}.json"));
+                let mut leaves = Vec::new();
+                if let Ok(text) = std::fs::read_to_string(&file) {
+                    json_leaves("", &serde_json::from_str(&text).expect("json"), &mut leaves);
+                    leaves.sort();
+                }
+                let text = if leaves.is_empty() {
+                    "none".to_owned()
+                } else {
+                    leaves.join(";")
+                };
+                format!("{} {name} {text}", kind.to_uppercase())
+            }
             "datafile" => {
                 let id = arg.expect("datafile:ID");
                 let identifier = Identifier::parse(id).expect("saved data id");
@@ -339,5 +363,31 @@ impl Scenario {
         };
         self.out.push(line);
         true
+    }
+}
+
+/// `path=value` for every leaf of `json`; an obtained time (`2026-11-16 10:41:34 +0300`) prints as `T`.
+fn json_leaves(path: &str, json: &serde_json::Value, out: &mut Vec<String>) {
+    use serde_json::Value;
+    match json {
+        Value::Object(map) => map
+            .iter()
+            .for_each(|(k, v)| json_leaves(&format!("{path}/{k}"), v, out)),
+        Value::Array(items) => items
+            .iter()
+            .enumerate()
+            .for_each(|(i, v)| json_leaves(&format!("{path}[{i}]"), v, out)),
+        leaf => {
+            let value = leaf
+                .as_str()
+                .map_or_else(|| leaf.to_string(), str::to_owned);
+            let bytes = value.as_bytes();
+            let time = bytes.len() == 25
+                && bytes[4] == b'-'
+                && bytes[10] == b' '
+                && bytes[13] == b':'
+                && bytes[19] == b' ';
+            out.push(format!("{path}={}", if time { "T" } else { &value }));
+        }
     }
 }

@@ -95,6 +95,7 @@ pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mu
             });
         }
     }
+    player.removed_from_player_list = true;
     player.remove(RemovalReason::UnloadedWithPlayer);
     player.close_menus_on_removal(level);
     player.advancements.clear_triggers();

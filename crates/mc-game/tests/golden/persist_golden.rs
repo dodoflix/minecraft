@@ -45,7 +45,24 @@ fn forced_chunks_are_saved_data_of_their_level() {
 
 /// A player who leaves while riding comes back on the vehicle.
 #[test]
-#[ignore = "Not implemented: the vehicle and the passengers a rejoining player left on are not spawned again"]
 fn player_rejoins_on_the_vehicle_he_left_on() {
     check("persist_rejoin_mounted");
+}
+
+/// A player who leaves after the death screen has been up for a while is still saved, and joins again from the saved dead state.
+#[test]
+fn player_leaves_and_rejoins_while_dead() {
+    check("persist_leave_dead");
+}
+
+/// A populated player (inventory with components, effects, experience, ender chest, abilities, respawn point, recipe book, shoulder entity) keeps all of it through leave, join and leave.
+#[test]
+fn populated_player_data_round_trips() {
+    check("persist_player_populated");
+}
+
+/// The statistics and progress files are written by a world save and when the player leaves, not while the player plays.
+#[test]
+fn statistics_and_progress_files_are_written_on_save_and_leave() {
+    check("persist_stats_files");
 }

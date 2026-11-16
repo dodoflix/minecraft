@@ -1,0 +1,26 @@
+# The statistics and advancement progress files of a player are written when the world saves and when the player leaves, never while the player just plays:
+# progress made after a save is only in the files once the player leaves.
+level void
+command_env
+preload 2
+difficulty normal
+entity_counter 800
+level_seed 37
+fill -8 -61 -8 40 -61 8 minecraft:stone
+spawn_player Alice survival 0.5 -60 0.5 0 0
+tick 2
+note nothing is written while the player plays
+cmd give Alice minecraft:oak_log 1
+tick 3
+dump statsfile:Alice advancementsfile:Alice
+note a world save writes both files
+save
+dump statsfile:Alice advancementsfile:Alice
+note progress made after the save is not in the files yet
+cmd give Alice minecraft:cobblestone 1
+tick 30
+dump statsfile:Alice advancementsfile:Alice
+note leaving writes the progress and the leave statistic
+leave Alice
+tick 2
+dump statsfile:Alice advancementsfile:Alice

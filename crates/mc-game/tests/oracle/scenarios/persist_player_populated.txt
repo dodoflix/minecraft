@@ -1,0 +1,34 @@
+# A populated player's data file: inventory with components, armor, effects, experience, ender chest, abilities, respawn point, last death location, nether
+# entry position, credits flag, warden tracker, recipe book and a shoulder parrot are written when the player leaves, read again when the player joins
+# and written once more when the player leaves again; every file is dumped while the player is away.
+level void
+command_env
+preload 2
+difficulty normal
+entity_counter 800
+level_seed 31
+fill -8 -61 -8 40 -61 8 minecraft:stone
+cmd setworldspawn 0 -60 0
+spawn_player Alice survival 0.5 -60 0.5 0 0
+tick 2
+nbt Alice {EnderItems:[{Slot:3b,id:"minecraft:ender_pearl",count:5},{Slot:26b,id:"minecraft:book",count:1,components:{"minecraft:custom_name":'"Chest"'}}],abilities:{mayfly:1b,walkSpeed:0.12f},respawn:{dimension:"minecraft:overworld",pos:[I;10,-60,1],yaw:90.0f,pitch:0.0f,forced:1b},LastDeathLocation:{dimension:"minecraft:overworld",pos:[I;1,-60,2]},entered_nether_pos:[1.5d,64.0d,2.5d],seenCredits:1b,warden_spawn_tracker:{ticks_since_last_warning:30,warning_level:2,cooldown_ticks:15},recipeBook:{recipes:["minecraft:stick","minecraft:oak_planks"],toBeDisplayed:["minecraft:stick"]},ShoulderEntityLeft:{id:"minecraft:parrot",Variant:2,Health:6.0f}}
+cmd give Alice minecraft:diamond_sword[enchantments={sharpness:3},custom_name='"Blade"',damage=5]
+cmd give Alice minecraft:stone 64
+cmd give Alice minecraft:iron_helmet[trim={material:"minecraft:gold",pattern:"minecraft:coast"}]
+cmd effect give Alice minecraft:speed 600 1
+cmd xp set Alice 7 levels
+cmd xp add Alice 3 points
+tick 2
+note the data of the player while it is in the level
+dump players nbt:Alice
+leave Alice
+tick 2
+note the file written on leaving
+dump players playerfile:Alice
+rejoin Alice
+tick 3
+dump players nbt:Alice
+leave Alice
+tick 2
+note the file written on leaving a second time
+dump playerfile:Alice
