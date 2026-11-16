@@ -240,6 +240,7 @@ fn place_in_world_matches_vanilla() {
     let lists = load_processor_lists(&ctx).expect("vanilla processor lists");
 
     let mut templates: HashMap<String, Arc<StructureTemplate>> = HashMap::new();
+    let mut regions = HashMap::new();
     let mut lines = fixture.lines().filter(|l| !l.starts_with("X ")).peekable();
     let (mut run, mut skipped, mut harness_limited) = (0, 0, 0);
     let mut failures: Vec<String> = Vec::new();
@@ -327,8 +328,16 @@ fn place_in_world_matches_vanilla() {
             harness_limited += 1;
             continue;
         }
-        let mut synth = SynthRegion::new(seed, cx, cz, ChunkStatus::Features, 2);
-        let before = snapshot(&synth);
+        // the terrain of a region is the dominant cost and the fixture holds a handful of regions: build each once
+        let (terrain, before) = regions.entry((seed, cx, cz)).or_insert_with(|| {
+            let terrain = terrain_chunks(seed, cx, cz, 2, true);
+            let fresh =
+                SynthRegion::with_chunks(seed, cx, cz, ChunkStatus::Features, 2, terrain.clone());
+            (terrain, snapshot(&fresh))
+        });
+        let before = before.clone();
+        let mut synth =
+            SynthRegion::with_chunks(seed, cx, cz, ChunkStatus::Features, 2, terrain.clone());
         let mut level = synth.level();
         let mut rng = random::create(rng_seed);
         // a read outside the region throws in vanilla (`IllegalArgumentException`: StaticCache2D out of range) and panics here

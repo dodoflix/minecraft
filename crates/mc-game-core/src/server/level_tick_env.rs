@@ -1,9 +1,5 @@
 //! `LevelTickEnv` for the server: what `ServerLevel.tick` reads from `MinecraftServer` (tick rate manager, game rules,
 //! weather saved data, difficulty, clocks, player list).
-//!
-//! Not modelled here: raids and the
-//! environment attribute system behind `sky_light_level` / `moon_brightness` (the overworld day/night cycle is read from
-//! the overworld clock with the vanilla day length instead).
 
 use super::MinecraftServer;
 use crate::server::level::ServerLevel;

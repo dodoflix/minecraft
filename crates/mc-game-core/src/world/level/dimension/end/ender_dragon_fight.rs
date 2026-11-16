@@ -378,6 +378,19 @@ impl ServerLevel {
             .get(ender_dragon_fight_type())
     }
 
+    /// The saved data the `ServerLevel` constructor loads: `raids = getDataStorage().computeIfAbsent(Raids.TYPE)`, and the
+    /// fight of a dimension type that has one.
+    pub fn install_constructor_saved_data(&mut self) {
+        self.install_raids();
+        if self
+            .dimension_type
+            .as_ref()
+            .is_some_and(|t| t.has_ender_dragon_fight)
+        {
+            self.install_dragon_fight();
+        }
+    }
+
     /// `ServerLevel` constructor, for a dimension type with a fight: `dragonFight = getDataStorage().computeIfAbsent(TYPE);
     /// dragonFight.init(this, seed, BlockPos.ZERO)`.
     pub fn install_dragon_fight(&mut self) {

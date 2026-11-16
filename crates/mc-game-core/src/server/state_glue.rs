@@ -272,15 +272,7 @@ impl MinecraftServer {
             let border = level.get_world_border();
             border.set_absolute_max_size(max);
             border.take_events();
-            // `this.raids = this.getDataStorage().computeIfAbsent(Raids.TYPE)` in the `ServerLevel` constructor
-            level.install_raids();
-            if level
-                .dimension_type
-                .as_ref()
-                .is_some_and(|t| t.has_ender_dragon_fight)
-            {
-                level.install_dragon_fight();
-            }
+            level.install_constructor_saved_data();
         }
     }
 

@@ -197,6 +197,21 @@ fn entities_survive_a_chunk_unload() {
     level.close();
 }
 
+/// Guard: `ServerLevel::detached` (the level of every unit test) is built like a server's level, with entity storage: its
+/// entities reach `entities/r.X.Z.mca` on a save.
+#[test]
+fn a_detached_level_has_entity_storage() {
+    let pos = ChunkPos::new(0, 0);
+    let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
+    load_chunk(&mut level, pos);
+    populate(&mut level);
+    level.save(true);
+    let dir = level.scratch_dir.as_ref().expect("scratch dir").path();
+    assert!(dir.join("entities/r.0.0.mca").is_file());
+    assert_eq!(stored_tags(dir, pos).len(), 5);
+    level.close();
+}
+
 #[test]
 fn entities_survive_a_restart() {
     let scratch = tempfile::tempdir().unwrap();

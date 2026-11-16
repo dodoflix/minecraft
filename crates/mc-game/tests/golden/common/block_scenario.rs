@@ -611,7 +611,7 @@ pub(super) fn real_registries() -> mc_game::registry::RegistryAccess {
     actors::real_registries()
 }
 
-pub(super) fn load_dimension_type(
+pub fn load_dimension_type(
     dimension: &str,
 ) -> mc_game::registry::typed::dimension_type::DimensionType {
     let dimension_json: serde_json::Value = serde_json::from_str(

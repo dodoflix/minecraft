@@ -183,6 +183,7 @@ mod itm_spear_golden;
 mod jigsaw_codec;
 mod jigsaw_structures_golden;
 mod lazy_unpack_golden;
+mod level_construction_guards;
 mod levelgen_predicates_golden;
 mod lightning_golden;
 mod living_entity_golden;

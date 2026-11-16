@@ -521,6 +521,26 @@ pub fn make_chunk(seed: i64, cx: i32, cz: i32, status: ChunkStatus, prime_wg: bo
     chunk
 }
 
+/// The synthetic terrain chunks of a region of `radius` around (`cx`, `cz`), by packed position.
+pub fn terrain_chunks(
+    seed: i64,
+    cx: i32,
+    cz: i32,
+    radius: i32,
+    prime_wg: bool,
+) -> HashMap<i64, ProtoChunk> {
+    let mut chunks = HashMap::new();
+    for x in cx - radius..=cx + radius {
+        for z in cz - radius..=cz + radius {
+            chunks.insert(
+                ChunkPos::pack_xz(x, z),
+                make_chunk(seed, x, z, ChunkStatus::Terrain, prime_wg),
+            );
+        }
+    }
+    chunks
+}
+
 /// A region over synthetic chunks, set up for the generation step that produces `step_status`
 /// (`ChunkPyramid.GENERATION_PYRAMID`), plus the `GenEnv` of its seed.
 pub struct SynthRegion {
@@ -548,22 +568,30 @@ impl SynthRegion {
         radius: i32,
         prime_wg: bool,
     ) -> SynthRegion {
+        Self::with_chunks(
+            seed,
+            cx,
+            cz,
+            step_status,
+            radius,
+            terrain_chunks(seed, cx, cz, radius, prime_wg),
+        )
+    }
+
+    /// A region over chunks built by [`terrain_chunks`] (or a clone of them: the terrain of a region costs about 100 ms).
+    pub fn with_chunks(
+        seed: i64,
+        cx: i32,
+        cz: i32,
+        step_status: ChunkStatus,
+        radius: i32,
+        terrain: HashMap<i64, ProtoChunk>,
+    ) -> SynthRegion {
         let step = GENERATION_PYRAMID.get_step_to(step_status);
-        let mut chunks = HashMap::new();
-        for x in cx - radius..=cx + radius {
-            for z in cz - radius..=cz + radius {
-                chunks.insert(
-                    ChunkPos::pack_xz(x, z),
-                    GenChunk::Loaned(Box::new(make_chunk(
-                        seed,
-                        x,
-                        z,
-                        ChunkStatus::Terrain,
-                        prime_wg,
-                    ))),
-                );
-            }
-        }
+        let chunks = terrain
+            .into_iter()
+            .map(|(key, chunk)| (key, GenChunk::Loaned(Box::new(chunk))))
+            .collect();
         let region = WorldGenRegion::new(
             ChunkPos::new(cx, cz),
             step.direct_dependencies.get_radius(),
@@ -680,6 +708,7 @@ fn blocks_of(chunk: &ProtoChunk) -> Vec<BlockState> {
 }
 
 /// The block states of every chunk of the region before the test body ran (the baseline of [`dump`]'s `B` lines).
+#[derive(Clone)]
 pub struct Snapshot {
     cx: i32,
     cz: i32,
