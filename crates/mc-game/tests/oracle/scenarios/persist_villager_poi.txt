@@ -1,0 +1,31 @@
+# Points of interest across an unload: beds (home), a composter (farmer), a lectern (librarian) and a bell (meeting point) register their points of interest when
+# they are placed; a point a villager claimed keeps its ticket count in the chunk's POI file. The POI file is written when the chunk unloads, read back when it loads
+# (claiming the bed again fails, the composter is still free), and the villager keeps its job site and home memories through its entity file.
+level void
+command_env
+preload 0
+difficulty normal
+entity_counter 500
+level_seed 15
+fill 0 -61 0 15 -61 15 minecraft:stone
+block 2 -60 2 minecraft:red_bed[facing=north,part=foot]
+block 2 -60 1 minecraft:red_bed[facing=north,part=head]
+block 6 -60 2 minecraft:composter
+block 8 -60 2 minecraft:lectern[facing=north]
+block 10 -60 2 minecraft:bell[attachment=floor,facing=north]
+poi_take 2 -60 1
+tick 2
+mobspawn V minecraft:villager 4.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,VillagerData:{profession:"minecraft:farmer",level:2,type:"minecraft:plains"},Xp:15,Brain:{memories:{"minecraft:home":{value:{dimension:"minecraft:overworld",pos:[I;2,-60,1]}},"minecraft:job_site":{value:{dimension:"minecraft:overworld",pos:[I;6,-60,2]}}}}}
+tick 2
+note before the unload
+dump mob:V nbt:V
+unload 0 0
+dump levels poifile:0,0 entityfile:0,0
+note loaded again: the claimed bed stays claimed, the composter is free, the villager keeps its memories
+load 0 0
+tick 2
+dump mob:V nbt:V
+poi_take 2 -60 1
+poi_take 6 -60 2
+save flush
+dump poifile:0,0

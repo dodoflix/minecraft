@@ -1,0 +1,23 @@
+# A warden's anger management across an unload: the suspects (a player and a UUID that names no entity) and their anger are written to the entity file with the
+# warden, and read back when its chunk loads again (anger keeps counting down; a suspect that is not in the level yet stays in the list).
+level void
+command_env
+preload 0
+difficulty hard
+entity_counter 600
+level_seed 17
+fill 0 -61 0 15 -61 15 minecraft:stone
+fill 192 -61 -8 208 -61 8 minecraft:stone
+spawn_player Steve survival 200.5 -60 0.5 0 0
+mobspawn W minecraft:warden 8.5 -60 8.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,anger:{suspects:[{uuid:[I;1445453208,-423740383,-1196889821,1142437441],anger:90},{uuid:[I;1,2,3,4],anger:40}]}}
+tick 2
+note before the unload
+dump mob:W nbt:W
+unload 0 0
+dump levels entityfile:0,0
+note loaded again
+load 0 0
+tick 2
+dump mob:W nbt:W
+tick 25
+dump nbt:W

@@ -66,7 +66,9 @@ pub struct Actors {
     /// The entries of players that left and joined again: the driver keeps the old entry of its player list next to the new one
     /// (`dump players` prints both). Position in `players` at the time, name and the dimension the old player was in.
     stale_players: Vec<(usize, String, Identifier)>,
-    known: HashSet<EntityId>,
+    pub(super) known: HashSet<EntityId>,
+    /// The UUID of every reference the persistence verbs saw alive (an unloaded entity is gone from the levels): `rejoin`/`reload` rebind by it.
+    pub(super) persist_uuids: HashMap<EntityId, uuid::Uuid>,
     auto: HashMap<String, i32>,
     rx: HashMap<String, UnboundedReceiver<Outbound>>,
     /// The driver's `seq(player)` counters.
@@ -587,9 +589,14 @@ impl Scenario {
 
     /// Entities created by game logic get stable names `type_path#n` in creation (id) order (twin of `nameNewEntities`).
     pub(super) fn name_new_entities(&mut self) {
-        let Some(level) = self.level.as_ref() else {
+        if self.level.is_none() {
             return;
-        };
+        }
+        // after an unload a reference follows the entity of its UUID that is loaded again, before any entity is named
+        if !self.actors.persist_uuids.is_empty() {
+            self.rebind_refs();
+        }
+        let level = self.level.as_ref().expect("world");
         // the entities of every level, by id (the ids come from one sequence)
         let known = &self.actors.known;
         let mut fresh: Vec<(EntityId, String)> = Vec::new();
@@ -2351,7 +2358,7 @@ impl Scenario {
 
     /// The scenario names of the entities and the UUID table the dump context needs (the driver's `refs` / `uuidName`: a known entity
     /// prints as its scenario name, a removed one too, `refs` keeps it).
-    fn names_and_uuids(
+    pub(super) fn names_and_uuids(
         &self,
     ) -> (
         std::collections::BTreeMap<EntityId, String>,
@@ -2381,7 +2388,9 @@ impl Scenario {
                             .find_map(|l| l.get_entity_or_removed(*id).map(|e| e.uuid()))
                     })
                 })
-                .or_else(|| self.actors.ref_uuids.get(id).copied());
+                .or_else(|| self.actors.ref_uuids.get(id).copied())
+                // an entity that was unloaded keeps the UUID it had
+                .or_else(|| self.actors.persist_uuids.get(id).copied());
             if let Some(uuid) = uuid {
                 uuids.entry(uuid).or_insert(*id);
             }

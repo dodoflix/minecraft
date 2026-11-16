@@ -19,6 +19,7 @@
 //! delay=N prio=P`, execution order), `events` (`EV ...` lines of level events / sounds / block events broadcast since the last
 //! dump: [`ServerLevel`]'s `tick_state.broadcast_log` here, `VanillaLevel.RecordingPlayerList` in Java). Everything else panics
 //! with the line number, so a scenario never silently runs half.
+//! Persistence: `save [flush]`, `unload CX CZ`, `unloadall`, `load CX CZ`, `reload CX CZ`, `rejoin PLAYER`, dumps `region:CX,CZ`, `entityfile:CX,CZ`, `poifile:CX,CZ`, `playerfile:PLAYER`, `datafile:ID` (`block_scenario_persist.rs`).
 //! Multipart entities: `partref NAME DRAGON INDEX` (the hitbox INDEX of an ender dragon as a REF), dumps `parts:REF` (`PART ..` per hitbox) and `counter` (`COUNTER n`). `crystal_destroyed DRAGON CRYSTAL DAMAGETYPE [by=..]` calls the dragon's crystal reaction directly.
 //!
 //! Notes: the level ticks like `ServerLevel::tick` (scheduled block/fluid ticks, block events, random ticks, block entity
@@ -29,6 +30,8 @@
 mod actors;
 #[path = "block_scenario_fight.rs"]
 mod fight;
+#[path = "block_scenario_persist.rs"]
+mod persist;
 use super::entity_oracle::{Fixture, Options, compare, fixture_dir, scenario_dir};
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
@@ -195,6 +198,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                         | "client_tick_end"
                         | "levels"
                         | "leave"
+                        | "rejoin"
                         | "request_stats"
                         | "respawn"
                         | "set_command_block"
@@ -1542,6 +1546,7 @@ impl Scenario {
                 self.dump(&what);
             }
             _ if self.fight_command(a) => {}
+            _ if self.persist_command(a) => {}
             _ if self.actor_command(a) => {}
             other => {
                 panic!("command `{other}` is not supported by tests/common/block_scenario.rs yet")
@@ -1820,6 +1825,7 @@ impl Scenario {
                 }
                 "ticks" => self.dump_ticks(arg),
                 _ if self.dump_fight(kind) => {}
+                _ if self.dump_persist(kind, arg) => {}
                 _ if self.dump_actor(kind, arg) => {}
                 _ if super::command_verbs::dump(self, kind, arg) => {}
                 "events" => self.dump_events(),

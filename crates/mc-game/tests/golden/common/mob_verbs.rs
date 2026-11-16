@@ -329,7 +329,7 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
 
 /// `ServerRecipeBook.known` is an identity hash set in vanilla: its order differs from run to run, so both sides dump the player's
 /// recipes sorted.
-fn sort_recipe_book(tag: &mut CompoundTag) {
+pub fn sort_recipe_book(tag: &mut CompoundTag) {
     let Some(Tag::Compound(book)) = tag.get_mut("recipeBook") else {
         return;
     };

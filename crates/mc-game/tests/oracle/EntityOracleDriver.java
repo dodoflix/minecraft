@@ -196,6 +196,7 @@ import net.minecraft.util.RandomSource;
  *                             packets are ignored until the client acknowledged it, as a real client does at once); nothing when none is pending
  * drop PLAYER [all]           DROP_ITEM / DROP_ALL_ITEMS            respawn PLAYER   ServerboundClientCommandPacket
  * player_loaded PLAYER       ServerboundPlayerLoadedPacket (a real client reports its level loaded after a dimension change; until then the player is invulnerable)
+ * save [flush], unload CX CZ, unloadall, load CX CZ, reload CX CZ, rejoin PLAYER, dump region:CX,CZ entityfile:CX,CZ poifile:CX,CZ playerfile:PLAYER datafile:ID: see PersistVerbs.java
  * leave PLAYER               PlayerList.remove(player) (the connection ends: LEAVE_GAME, the player is saved and leaves the level); prints the player's `STAT` lines afterwards
  * request_stats PLAYER      ServerboundClientCommandPacket(REQUEST_STATS): the server answers with the statistics (`award_stats` packet)
  * pcommand PLAYER ACTION [data]   ServerboundPlayerCommandPacket (START_SPRINTING STOP_SPRINTING START_FALL_FLYING STOP_SLEEPING START_RIDING_JUMP [power]
@@ -326,6 +327,8 @@ public final class EntityOracleDriver {
    final Map<String, Integer> autoCounter = new HashMap<>();
    final Set<Integer> known = new HashSet<>();
    int lineNo;
+   /** Set by the first unload verb: a reference to a removed entity follows the entity of its UUID that is loaded (see PersistVerbs). */
+   boolean rebinding;
    String line = "";
 
    public static void main(String[] args) throws Exception {
@@ -1229,7 +1232,7 @@ public final class EntityOracleDriver {
             player(a.get(1)).connection.handleSelectTrade(new ServerboundSelectTradePacket(Integer.parseInt(a.get(2))));
          }
          default -> {
-            if (!FightVerbs.run(this, a) && !MenuVerbs.run(this, a)) {
+            if (!FightVerbs.run(this, a) && !MenuVerbs.run(this, a) && !PersistVerbs.run(this, a)) {
                throw new IllegalArgumentException("unknown command " + cmd);
             }
          }
@@ -1320,6 +1323,9 @@ public final class EntityOracleDriver {
    void nameNewEntities() {
       if (v == null) {
          return;
+      }
+      if (rebinding) {
+         PersistVerbs.rebind(this);
       }
       List<Entity> all = new ArrayList<>();
       for (net.minecraft.server.level.ServerLevel l : v.scope) {
@@ -2675,6 +2681,7 @@ public final class EntityOracleDriver {
             }
             case "trader_data" -> dumpTraderData();
             case "fight", "fightbar", "fightfile", "fighthash" -> FightVerbs.dump(this, kind);
+            case "region", "entityfile", "poifile", "playerfile", "datafile" -> PersistVerbs.dump(this, kind, arg);
             case "difficulty" -> localDifficulty(arg);
             case "light" -> lightDump(arg);
             case "lights" -> lightsDump(arg);

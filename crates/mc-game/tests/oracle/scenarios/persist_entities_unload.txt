@@ -1,0 +1,39 @@
+# Entities of a chunk survive an unload: every entity of chunk 0,0 is written to the entity file when the chunk unloads (an armor stand with its pose
+# and equipment, an item, a cow on a lead tied to a fence, a minecart with a chest, a boat with a villager and a zombie as passengers, a wolf tamed by a player in another chunk), and
+# comes back from it when the chunk loads again (`unload` drops the forced flag and ticks until the chunk is gone, `load` forces it and ticks until it
+# ticks again; a reference names the reloaded entity of the same UUID). The files are dumped while the chunk is unloaded.
+level void
+command_env
+preload 0
+difficulty normal
+entity_counter 100
+level_seed 7
+fill 0 -61 0 15 -61 15 minecraft:stone
+fill 192 -61 -8 208 -61 8 minecraft:stone
+spawn_player Alice survival 200.5 -60 0.5 0 0
+block 3 -60 3 minecraft:oak_fence
+spawn Stand minecraft:armor_stand 1.5 -60 1.5 30 0 {ShowArms:1b,Pose:{Head:[10f,20f,30f]},CustomName:'"Stand"',equipment:{head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:stick",count:1}}}
+spawn_item Item minecraft:diamond 2.5 -60 2.5 0 0 0 5
+mobspawn Cow minecraft:cow 2.5 -60 6.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b,leash:[I;3,-60,3]}
+spawn Cart minecraft:chest_minecart 8.5 -60 2.5 0 0 {Items:[{Slot:0b,id:"minecraft:apple",count:3},{Slot:5b,id:"minecraft:bread",count:2}]}
+spawn Boat minecraft:oak_boat 8.5 -60 8.5 90 0
+mobspawn Villager minecraft:villager 8.5 -60 8.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+mobspawn Zombie minecraft:zombie 8.5 -60 8.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+mobspawn Wolf minecraft:wolf 12.5 -60 4.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+tame Wolf Alice
+ride Villager Boat
+ride Zombie Boat
+tick 5
+note before the unload
+dump xentities
+dump nbt:Stand nbt:Item nbt:Cow nbt:Cart nbt:Boat nbt:Villager nbt:Zombie nbt:Wolf
+note the chunk unloads: it and its entities are written, nothing is left in the level
+unload 0 0
+dump levels entities
+dump entityfile:0,0 region:0,0 poifile:0,0
+note the chunk loads again: the same entities, riders on their boat, the cow on its lead
+load 0 0
+tick 3
+dump xentities
+dump nbt:Stand nbt:Item nbt:Cow nbt:Cart nbt:Boat nbt:Villager nbt:Zombie nbt:Wolf
+dump levels entityfile:0,0

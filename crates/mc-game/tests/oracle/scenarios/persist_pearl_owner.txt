@@ -1,0 +1,32 @@
+# An ender pearl in flight when its owner leaves: the pearl goes with the player (it is saved in the player data, not in the chunk), the chunk it flew in unloads
+# without it, and joining again with the saved data spawns the pearl again, still the owner's pearl in the level's chunk. The files are dumped while the player is away.
+level void
+command_env
+preload 0
+difficulty peaceful
+entity_counter 700
+fill 0 -61 0 15 -61 15 minecraft:stone
+spawn_player Alice survival 8.5 -60 8.5 0 -90
+give Alice mainhand minecraft:ender_pearl 3
+tick 2
+level_seed 5
+use Alice
+tick 1
+set ender_pearl#1 no_gravity true
+velocity ender_pearl#1 0 0 0
+tick 2
+note before leaving: the player data lists the pearl
+dump entities players nbt:ender_pearl#1 nbt:Alice
+leave Alice
+tick 2
+dump entities players
+unload 0 0
+dump levels entities entityfile:0,0 playerfile:Alice
+note joining again with the saved data
+rejoin Alice
+tick 3
+dump levels entities players nbt:ender_pearl#1 nbt:Alice
+tick 30
+dump entities nbt:ender_pearl#1
+save flush
+dump playerfile:Alice

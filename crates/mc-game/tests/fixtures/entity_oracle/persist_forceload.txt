@@ -1,0 +1,26 @@
+DATAFILE minecraft:chunk_tickets none
+# the preloaded chunk is a ticket too: it is in the file after a save
+DATAFILE minecraft:chunk_tickets DataVersion=5023 {tickets:[{chunk_pos:[I;0,0],level:31,type:"minecraft:forced"}]}
+FORCED 0,0
+CF msg Marked 4 chunks in minecraft:overworld from [40, 40] to [41, 41] to be force loaded
+CF result success 4
+FORCED 0,0 40,40 40,41 41,40 41,41
+DATAFILE minecraft:chunk_tickets DataVersion=5023 {tickets:[{chunk_pos:[I;0,0],level:31,type:"minecraft:forced"},{chunk_pos:[I;40,40],level:31,type:"minecraft:forced"},{chunk_pos:[I;40,41],level:31,type:"minecraft:forced"},{chunk_pos:[I;41,40],level:31,type:"minecraft:forced"},{chunk_pos:[I;41,41],level:31,type:"minecraft:forced"}]}
+# the chunks load while forced and the tickets are in the file
+LEVEL minecraft:overworld gametime=3 forced=5 loaded=1513 players=0 border=5.9999968E7
+CF msg Unmarked 4 chunks in minecraft:overworld from [40, 40] to [41, 41] for force loading
+CF result success 4
+FORCED 0,0
+DATAFILE minecraft:chunk_tickets DataVersion=5023 {tickets:[{chunk_pos:[I;0,0],level:31,type:"minecraft:forced"}]}
+# the chunks go with the ticket
+LEVEL minecraft:overworld gametime=6 forced=1 loaded=729 players=0 border=5.9999968E7
+CF msg Marked chunk [20, 20] in minecraft:overworld to be force loaded
+CF result success 1
+DATAFILE minecraft:chunk_tickets DataVersion=5023 {tickets:[{chunk_pos:[I;0,0],level:31,type:"minecraft:forced"},{chunk_pos:[I;20,20],level:31,type:"minecraft:forced"}]}
+UNLOAD 20 20 ticks=2 loaded=false
+LEVEL minecraft:overworld gametime=8 forced=1 loaded=1233 players=0 border=5.9999968E7
+FORCED 0,0
+UNLOADALL ticks=2 loaded=0
+LEVEL minecraft:overworld gametime=10 forced=0 loaded=0 players=0 border=5.9999968E7
+FORCED 
+DATAFILE minecraft:chunk_tickets DataVersion=5023 {}

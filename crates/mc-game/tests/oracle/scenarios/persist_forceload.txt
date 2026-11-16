@@ -1,0 +1,34 @@
+# Forced chunks are saved data of their level: `/forceload add` marks chunks that `save flush` writes to `chunk_tickets.dat` (the file the next start
+# reads), `forceload remove` removes them from it, and a chunk that loses its last ticket unloads. The tickets file is dumped after each step (its entries
+# sorted: the order of the map they come from is the hash order of the chunk keys); the forced chunks are far from the preloaded one so that each unloads by itself.
+level void
+command_env
+preload 0
+difficulty normal
+entity_counter 300
+dump datafile:minecraft:chunk_tickets
+save flush
+note the preloaded chunk is a ticket too: it is in the file after a save
+dump datafile:minecraft:chunk_tickets forced
+cmd forceload add 640 640 656 656
+dump forced
+save flush
+dump datafile:minecraft:chunk_tickets
+tick 3
+note the chunks load while forced and the tickets are in the file
+dump levels
+cmd forceload remove 640 640 656 656
+save flush
+dump forced datafile:minecraft:chunk_tickets
+tick 3
+note the chunks go with the ticket
+dump levels
+cmd forceload add 320 320 335 335
+save flush
+dump datafile:minecraft:chunk_tickets
+unload 20 20
+dump levels forced
+unloadall
+dump levels forced
+save flush
+dump datafile:minecraft:chunk_tickets

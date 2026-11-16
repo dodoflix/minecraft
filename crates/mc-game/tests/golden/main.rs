@@ -261,6 +261,7 @@ mod nether_fortress_golden;
 mod network_login_config;
 mod packs;
 mod pathfinder_golden;
+mod persist_golden;
 mod pistons_golden;
 mod place_recipe_golden;
 mod placement_golden;
