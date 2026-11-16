@@ -1,0 +1,28 @@
+# Unloading after the last ticket goes: `forceload remove all` in the nether, and in the end right after a block dump read the end through
+# its chunk source (that read puts a one-tick ticket on the chunk, which keeps the chunks around it loaded one tick longer): the loaded
+# chunk count of every tick.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+spawn_player P creative 0.5 -60 0.5 0 0
+tick 1
+dump levels
+in the_end dump blocks:0,200,0,3,200,3
+cmd execute in minecraft:the_end run forceload remove all
+cmd execute in minecraft:the_nether run forceload remove all
+dump levels
+tick 1
+dump levels
+tick 1
+dump levels
+tick 1
+dump levels
+tick 1
+dump levels
+tick 4
+dump levels

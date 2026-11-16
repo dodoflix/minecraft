@@ -1073,6 +1073,13 @@ impl Scenario {
         if self.flat_structures && self.opts.flat && dimension == "overworld" {
             level.gen_env = Some(super::feature_harness::flat_gen_env(self.opts.seed));
         }
+        // the void levels of a multi-level server generate like the oracle's: the flat generator's plains, no structures (`/locate`)
+        if !self.dims.is_empty() && noise_world.is_none() {
+            level.gen_env = Some(super::feature_harness::flat_gen_env_in(
+                dimension,
+                self.opts.seed,
+            ));
+        }
         // `/place feature` with an inline definition decodes it against the worldgen registries of the level
         if level.gen_env.is_some() {
             level.worldgen_data = Some(super::feature_harness::WORLD.worldgen.clone());
@@ -1131,6 +1138,65 @@ impl Scenario {
             }
         }
         let start = Instant::now();
+        if self.dims.last() == Some(&dimension) && !self.opts.settle_preload_ring {
+            // `VanillaLevel.preload` of the server's last level: nothing polls the chunk source after it, so the work beyond what the
+            // wait for the preload's entities and the chunk requests need stays queued until a later wait or tick
+            let idle = || std::thread::sleep(Duration::from_micros(200));
+            loop {
+                level.process_pending_entity_loads();
+                if (-r..=r).all(|cx| {
+                    (-r..=r).all(|cz| level.are_entities_loaded(ChunkPos::pack_xz(cx, cz)))
+                }) {
+                    break;
+                }
+                assert!(
+                    start.elapsed() < Duration::from_secs(120),
+                    "the preload's entities did not load"
+                );
+                if !level.poll_chunk_task() {
+                    idle();
+                }
+            }
+            for cx in -r..=r {
+                for cz in -r..=r {
+                    let future = level.chunk_source_mut().get_chunk_future_main_thread(
+                        cx,
+                        cz,
+                        mc_world::status::ChunkStatus::Full,
+                        true,
+                    );
+                    while level.chunk_source().future_result(future).is_none() {
+                        assert!(
+                            start.elapsed() < Duration::from_secs(120),
+                            "the preload's chunks did not load"
+                        );
+                        if !level.poll_chunk_task() {
+                            idle();
+                        }
+                    }
+                }
+            }
+        } else {
+            self.preload_until_ticking(&mut level, r, start);
+        }
+        // `MinecraftServer.setInitialSpawn` searches the overworld's spawn once, when the server creates its levels
+        if (self.opts.find_world_spawn || self.multi()) && dimension == "overworld" {
+            let data = self.world_data.as_ref().expect("world data");
+            mc_game::server::spawn::find_initial_spawn(data, &mut level);
+        }
+        use mc_core::random::RandomSource;
+        level
+            .tick_state
+            .random
+            .set_seed(self.opts_seed() ^ 0x5DEECE66D);
+        // the oracle's references keep a removed entity: it dumps with `alive=0`
+        level.removed_entities = Some(Default::default());
+        level
+    }
+
+    /// The preload's wait of a level that is not the last one: every chunk step runs until the forced chunks are entity ticking (the
+    /// later levels' waits keep polling this level's chunk source in the oracle until it has no work left).
+    fn preload_until_ticking(&self, level: &mut ServerLevel, r: i32, start: Instant) {
         loop {
             level.tick_chunk_source(&|| true, false, true);
             while level.poll_chunk_task() {}
@@ -1154,19 +1220,6 @@ impl Scenario {
             );
             std::thread::sleep(Duration::from_millis(1));
         }
-        // `MinecraftServer.setInitialSpawn` searches the overworld's spawn once, when the server creates its levels
-        if (self.opts.find_world_spawn || self.multi()) && dimension == "overworld" {
-            let data = self.world_data.as_ref().expect("world data");
-            mc_game::server::spawn::find_initial_spawn(data, &mut level);
-        }
-        use mc_core::random::RandomSource;
-        level
-            .tick_state
-            .random
-            .set_seed(self.opts_seed() ^ 0x5DEECE66D);
-        // the oracle's references keep a removed entity: it dumps with `alive=0`
-        level.removed_entities = Some(Default::default());
-        level
     }
 
     fn opts_seed(&self) -> i64 {
@@ -1518,7 +1571,25 @@ impl Scenario {
             if has_server {
                 // a rule a command block changed since the last tick reaches the chunk source (`updateMobSpawningFlags`)
                 apply_spawn_settings(&mut level);
-                level.tick(&mut ServerBackedEnv(&mut self.env), &mut || !sprinting);
+                if self.multi() {
+                    // the server's own level tick environment (`tickChildren`): the levels of the server tick like in production
+                    let dimension = level.dimension.clone();
+                    mc_game::commands::server_access::with_server(|server| {
+                        server
+                            .with_lent_level(&mut level, |server| {
+                                server.with_level(&dimension.clone(), |server, level| {
+                                    let mut env = mc_game::server::level_tick_env::ServerTickEnv {
+                                        server,
+                                        dimension,
+                                    };
+                                    level.tick(&mut env, &mut || !sprinting)
+                                })
+                            })
+                            .expect("the ticking level")
+                    });
+                } else {
+                    level.tick(&mut ServerBackedEnv(&mut self.env), &mut || !sprinting);
+                }
             } else {
                 level.tick(&mut self.env, &mut || true);
             }
@@ -1615,6 +1686,22 @@ impl Scenario {
                         .map(int)
                         .collect();
                     assert_eq!(c.len(), 6, "blocks:x1,y1,z1,x2,y2,z2");
+                    if self.multi() {
+                        // the oracle reads through `Level.getBlockState`, which asks the chunk source for the full chunk: that adds
+                        // the one-tick `UNKNOWN` ticket that keeps the chunk (and its neighbours) from unloading in that tick
+                        for cx in (c[0].min(c[3]) >> 4)..=(c[0].max(c[3]) >> 4) {
+                            for cz in (c[2].min(c[5]) >> 4)..=(c[2].max(c[5]) >> 4) {
+                                self.level()
+                                    .chunk_source_mut()
+                                    .get_chunk_future_main_thread(
+                                        cx,
+                                        cz,
+                                        mc_world::status::ChunkStatus::Full,
+                                        true,
+                                    );
+                            }
+                        }
+                    }
                     for x in c[0].min(c[3])..=c[0].max(c[3]) {
                         for y in c[1].min(c[4])..=c[1].max(c[4]) {
                             for z in c[2].min(c[5])..=c[2].max(c[5]) {

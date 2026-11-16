@@ -1,5 +1,6 @@
 # The login packet of a join: the levels list of the server and the spawn position, view and simulation distances, the sea level and the
-# dimension type of the level the player joins; a second player joining in the nether.
+# dimension type of the level the player joins; a second player joining in the nether. A join waits for the entities of the chunks
+# around its spawn, and the server thread polls the chunk source of every level meanwhile: the loaded chunk counts are dumped after each.
 level void
 command_env
 end void
@@ -9,9 +10,12 @@ levels overworld,the_nether,the_end
 preload 2
 difficulty peaceful
 entity_counter 100
+dump levels
 spawn_player A creative 0.5 -60 0.5 0 0 joinburst
 dump packets:A:login,set_default_spawn_position,change_difficulty,player_abilities,set_held_slot,game_event,set_time,initialize_border
+dump levels players
 in the_nether spawn_player B creative 0.5 201 0.5 0 0 joinburst
 dump packets:B:login,set_default_spawn_position,change_difficulty,player_abilities,set_held_slot,game_event,set_time,initialize_border
+dump levels players
 tick 2
 dump levels players

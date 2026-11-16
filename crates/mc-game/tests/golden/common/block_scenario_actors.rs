@@ -16,17 +16,19 @@ use crate::common::spawn_verbs;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
-use mc_core::pos::BlockPos;
+use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::LegacyRandomSource;
 use mc_data::EntityType;
 use mc_data::enums::GameType;
-use mc_game::server::level::ServerLevel;
 use mc_game::server::level::level_explode::Explode;
+use mc_game::server::level::{ServerLevel, TicketType};
 use mc_game::server::network::common_listener::CommonListenerCookie;
 use mc_game::server::network::game_listener::{
     CLIENT_LOADED_TIMEOUT_TIME, ListenerSettings, ServerGamePacketListenerImpl,
 };
 use mc_game::server::network::{ConnectionSender, Outbound};
+use mc_game::server::players::join::{ListenerParams, place_new_player};
+use mc_game::server::players::server_join_host::ServerJoinHost;
 use mc_game::world::block_entity::sign_block_entity::{SignTextSlot, update_sign_text_from_packet};
 use mc_game::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game::world::entity::projectile::eye_of_ender::EyeOfEnder;
@@ -1374,171 +1376,163 @@ impl Scenario {
         p.simulate_local_player = sim;
         let (tx, rx) = unbounded_channel();
         let sender = ConnectionSender::new(tx);
-        p.connection = Some(sender.clone());
-        // the player list's roster: `PlayerList.broadcastSystemMessage` (advancement announcements) reaches the players
-        let handle = mc_game::server::players::PlayerHandle::new(
-            id,
-            profile.clone(),
-            sender.clone(),
-            "<unknown>".to_owned(),
-            level.dimension.clone(),
-        );
-        level.server_state.roster.add(handle.clone());
-        // the command environment's own player list and name cache: `msg`, `say`, `tellraw` and `/op` reach the player through them
-        if mc_game::commands::server_access::has_server() {
-            mc_game::commands::server_access::with_server(|server| {
-                use mc_game::server::players::name_resolver::UserNameToIdResolver as _;
-                server.name_to_id_cache.add(handle.name_and_id());
-                server.player_list.add_player(handle.clone());
-                // `PlayerList.getPlayerAdvancements`: `/reload` reaches the player's advancements through the list
-                let manager = server
-                    .resources
-                    .managers
-                    .listener::<mc_game::advancements::ServerAdvancementManager>()
-                    .expect("the advancement manager is registered");
-                p.advancements = server.player_list.get_player_advancements(&handle, manager);
-                // `PlayerList.getPlayerStats`: a player that joins again resumes the statistics it left with
-                p.stats = server.player_list.get_player_stats(&handle);
-            });
-        }
-        // `PlayerList.placeNewPlayer`: the packet listener (teleports, block change acks), the join teleport and the client's
-        // "loaded" report (`VanillaLevel.connect`: the driver accepts the teleport and sends `PlayerLoaded`)
         let (inbound_tx, inbound_rx) = std::sync::mpsc::channel();
-        let mut listener = ServerGamePacketListenerImpl::new(
-            sender.clone(),
-            inbound_rx,
-            &CommonListenerCookie {
-                profile,
-                latency: 0,
-                client_information: Default::default(),
-                transferred: false,
-            },
-            handle.chat_out.clone(),
-            ListenerSettings {
-                command_spam_threshold_seconds: 10,
-                chat_spam_threshold_seconds: 10,
-                memory_connection: false,
-                enforce_secure_profile: std::sync::Arc::new(|| false),
-            },
-            0,
-        );
-        for _ in 0..CLIENT_LOADED_TIMEOUT_TIME {
-            listener.tick_client_load_timeout();
-        }
-        p.listener = Some(listener);
-        let boss_bar_handle = handle.clone();
-        p.handle = Some(handle);
-        p.connection_teleport(num(&a[3]), num(&a[4]), num(&a[5]), yaw, pitch);
-        // `PlayerList.placeNewPlayer` broadcasts the join message before the new player joins the list: only the players
-        // already in the level get it
-        let joined =
-            mc_game::server::players::player_list::join_message(p.get_display_name(), None);
-        for other in self.actors.players.clone() {
-            // a player that left is no longer on the list
-            self.try_with_player(&other, |_, o| {
-                o.send(&mc_protocol::packets::play::ClientboundSystemChatPacket {
-                    content: joined.clone(),
-                    overlay: false,
-                });
-                // `broadcastAll(createPlayerInitializing(List.of(player)))`: the tab list entry reaches every level's players
-                o.send(
-                    &mc_game::server::players::player_handle::create_player_initializing([
-                        &boss_bar_handle,
-                    ]),
-                )
-            });
-        }
+        let cookie = CommonListenerCookie {
+            profile: profile.clone(),
+            latency: 0,
+            client_information: Default::default(),
+            transferred: false,
+        };
         self.focus(spawn_at);
         // `VanillaLevel.connect` waits for the spawn chunks' entities (`waitForEntities`) before the player joins; the wait polls the
         // chunk source, whose task loop runs the distance manager updates. The players that joined earlier are in its trackers before
         // this one is added: the iteration order of the natural spawn map, hence the shuffled spawning chunks, depends on it.
+        let has_server = mc_game::commands::server_access::has_server();
+        let multi = self.multi();
         let level = self.level();
+        let spawn_chunk = ChunkPos::new(
+            (num(&a[3]).floor() as i32) >> 4,
+            (num(&a[5]).floor() as i32) >> 4,
+        );
+        // a spawn far from the preloaded chunks of a one-level replay keeps its chunks as they were: its fixtures show a structure
+        // mob there that has not ticked, which a wait that promotes the chunks further would change
+        let waits = has_server
+            && (multi
+                || (-3..=3).all(|dx| {
+                    (-3..=3).all(|dz| {
+                        level.are_entities_loaded(
+                            ChunkPos::new(spawn_chunk.x + dx, spawn_chunk.z + dz).pack(),
+                        )
+                    })
+                }));
+        if waits {
+            // `PrepareSpawnTask.Ready.keepAlive`: the ticket that keeps the chunks around a spawn far from the origin loading
+            level.add_ticket_with_radius(TicketType::PLAYER_SPAWN, spawn_chunk, 3);
+        }
         level.run_distance_manager_updates();
-        // `PlayerList.placeNewPlayer` registers the player with the chunk map and the entity tracker (`add_player` does, through
-        // the listener's chunk sender: the spawning chunks it creates are shuffled with the level random on every tick, which
-        // every later spawner draw depends on, and the batches it sends decide which chunks the player tracks entities in)
-        level.add_player(Box::new(p));
-        level.with_player(id, |level, p| {
-            if joinburst {
-                // `placeNewPlayer`: the login packet first. Only its three rule flags are compared (`packet_text`): they come from the
-                // level facts the join reads; the rest of the packet needs the whole server (levels, player list, view distances)
-                if mc_game::commands::server_access::has_server() {
-                    let info = mc_game::commands::server_access::with_server(|server| {
-                        mc_game::server::players::server_join_host::level_join_info(server, level)
-                    });
-                    p.send(&mc_protocol::packets::play::ClientboundLoginPacket {
-                        player_id: id,
-                        hardcore: info.hardcore,
-                        levels: mc_game::commands::server_access::with_server(|server| {
-                            server.level_keys()
-                        }),
-                        max_players: mc_game::commands::server_access::with_server(|server| {
-                            server.player_list.get_max_players()
-                        }),
-                        chunk_radius: mc_game::commands::server_access::with_server(|server| {
-                            server.player_list.get_view_distance()
-                        }),
-                        simulation_distance: mc_game::commands::server_access::with_server(
-                            |server| server.player_list.get_simulation_distance(),
-                        ),
-                        reduced_debug_info: info.reduced_debug_info,
-                        show_death_screen: !info.immediate_respawn,
-                        do_limited_crafting: info.limited_crafting,
-                        common_player_spawn_info:
-                            mc_game::server::players::join::create_common_spawn_info(
-                                p,
-                                &info,
-                                &level.dimension,
-                            ),
-                        online_mode: false,
-                        enforces_secure_chat: false,
-                    });
-                    p.send(
-                        &mc_protocol::packets::play::ClientboundChangeDifficultyPacket {
-                            difficulty: info.difficulty,
-                            locked: info.difficulty_locked,
-                        },
-                    );
-                    p.send(&mc_game::server::players::join::abilities_packet(p));
-                }
-                // `placeNewPlayer`: the held slot, the recipe properties and the recipe book come before the inventory menu
-                p.send(&mc_protocol::packets::play::ClientboundSetHeldSlotPacket {
-                    slot: p.player.inventory.get_selected_slot(),
-                });
-                let recipes = level.recipe_access();
-                p.send(&mc_game::world::item::crafting::update_recipes_packet(
-                    &recipes,
-                ));
-                mc_game::server::players::join::send_initial_recipe_book(p, &recipes);
-                // `sendLevelInfo`: the border, the clock, the world spawn, the weather and the ticking state of the server
-                if mc_game::commands::server_access::has_server() {
-                    let connection = p.connection.clone().expect("player connection");
-                    mc_game::commands::server_access::with_server(|server| {
-                        let info = mc_game::server::players::server_join_host::level_join_info(
-                            server, level,
-                        );
-                        let host = mc_game::server::players::server_join_host::ServerJoinHost {
-                            server,
-                            level,
-                        };
-                        mc_game::server::players::join::send_level_info_to(
-                            &host,
-                            &info,
-                            &connection,
-                        );
-                    });
-                }
-            }
-            // `PlayerList.placeNewPlayer`: the custom boss bars the player is stored on are added once it is in the level
-            if mc_game::commands::server_access::has_server() {
+        if waits {
+            // `ServerLevel.waitForEntities` blocks the server thread, which polls the chunk source of every level meanwhile
+            let spawn = spawn_chunk;
+            let dimension = level.dimension.clone();
+            mc_core::random::without_advancing_oracle_uniquifier(|| {
                 mc_game::commands::server_access::with_server(|server| {
-                    server
-                        .custom_boss_events()
-                        .on_player_connect(&boss_bar_handle)
+                    server.with_lent_level(level, |server| {
+                        server.managed_block(|server| {
+                            server
+                                .with_level(&dimension, |_, level| {
+                                    level.process_pending_entity_loads();
+                                    (-3..=3).all(|dx| {
+                                        (-3..=3).all(|dz| {
+                                            level.are_entities_loaded(
+                                                ChunkPos::new(spawn.x + dx, spawn.z + dz).pack(),
+                                            )
+                                        })
+                                    })
+                                })
+                                .unwrap_or(true)
+                        })
+                    })
+                })
+            });
+        }
+        if has_server {
+            // `PlayerList.placeNewPlayer` itself: the login packets, the tab list, the join message, the chunk map and the entity
+            // tracker, the boss bars and the inventory menu
+            let params = ListenerParams {
+                cookie,
+                now_ms: 0,
+                command_spam_threshold_seconds: 10,
+                chat_spam_threshold_seconds: 10,
+                memory_connection: false,
+                remote_address: None,
+                inbound: inbound_rx,
+                enforce_secure_profile: std::sync::Arc::new(|| false),
+            };
+            let dimension = level.dimension.clone();
+            let handle = mc_game::commands::server_access::with_server(|server| {
+                server.with_lent_level(level, |server| {
+                    server.with_level(&dimension, |server, level| {
+                        let mut host = ServerJoinHost { server, level };
+                        place_new_player(&mut host, p, sender, params)
+                    })
+                })
+            })
+            .expect("the level the player joins");
+            // the level's roster is not the server player list's one in a replay
+            level.server_state.roster.add(handle);
+            level.with_player(id, |_, p| {
+                let listener = p.listener.as_mut().expect("player listener");
+                for _ in 0..CLIENT_LOADED_TIMEOUT_TIME {
+                    listener.tick_client_load_timeout();
+                }
+            });
+        } else {
+            // no server (a replay without `command_env`): the join is assembled by hand around the level
+            p.connection = Some(sender.clone());
+            let handle = mc_game::server::players::PlayerHandle::new(
+                id,
+                profile,
+                sender.clone(),
+                "<unknown>".to_owned(),
+                level.dimension.clone(),
+            );
+            level.server_state.roster.add(handle.clone());
+            let mut listener = ServerGamePacketListenerImpl::new(
+                sender,
+                inbound_rx,
+                &cookie,
+                handle.chat_out.clone(),
+                ListenerSettings {
+                    command_spam_threshold_seconds: 10,
+                    chat_spam_threshold_seconds: 10,
+                    memory_connection: false,
+                    enforce_secure_profile: std::sync::Arc::new(|| false),
+                },
+                0,
+            );
+            for _ in 0..CLIENT_LOADED_TIMEOUT_TIME {
+                listener.tick_client_load_timeout();
+            }
+            p.listener = Some(listener);
+            let joined =
+                mc_game::server::players::player_list::join_message(p.get_display_name(), None);
+            p.handle = Some(handle.clone());
+            p.sync_handle();
+            p.connection_teleport(num(&a[3]), num(&a[4]), num(&a[5]), yaw, pitch);
+            // `PlayerList.placeNewPlayer` broadcasts the join message before the new player joins the list: only the players
+            // already in the level get it
+            for other in self.actors.players.clone() {
+                // a player that left is no longer on the list
+                self.try_with_player(&other, |_, o| {
+                    o.send(&mc_protocol::packets::play::ClientboundSystemChatPacket {
+                        content: joined.clone(),
+                        overlay: false,
+                    });
+                    // `broadcastAll(createPlayerInitializing(List.of(player)))`: the tab list entry reaches every player
+                    o.send(
+                        &mc_game::server::players::player_handle::create_player_initializing([
+                            &handle,
+                        ]),
+                    )
                 });
             }
-            p.init_inventory_menu(level)
-        });
+            let level = self.level();
+            level.add_player(Box::new(p));
+            level.with_player(id, |level, p| {
+                if joinburst {
+                    // `placeNewPlayer`: the held slot, the recipe properties and the recipe book come before the inventory menu
+                    p.send(&mc_protocol::packets::play::ClientboundSetHeldSlotPacket {
+                        slot: p.player.inventory.get_selected_slot(),
+                    });
+                    let recipes = level.recipe_access();
+                    p.send(&mc_game::world::item::crafting::update_recipes_packet(
+                        &recipes,
+                    ));
+                    mc_game::server::players::join::send_initial_recipe_book(p, &recipes);
+                }
+                p.init_inventory_menu(level)
+            });
+        }
         self.actors.known.insert(id);
         self.actors.refs.push((name.clone(), id));
         self.actors.players.push(name.clone());

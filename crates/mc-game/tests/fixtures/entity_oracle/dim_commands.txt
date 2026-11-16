@@ -154,3 +154,16 @@ CF msg Number provider returned value 2
 CF result success 2
 CF msg Number provider returned value 1
 CF result success 1
+# locate as the console searches the level of the command
+CF msg The nearest minecraft:plains is at [8, -63, 8] (1 blocks away)
+CF result success 1
+CF msg The nearest minecraft:plains is at [1, 1, 1] (65 blocks away)
+CF result success 65
+CF result failure 0
+CF fail Could not find a biome of type "minecraft:nether_wastes" within a reasonable distance
+CF result failure 0
+CF fail Could not find a biome of type "minecraft:the_end" within a reasonable distance
+CF msg The nearest minecraft:plains is at [8, 1, 8] (65 blocks away)
+CF result success 65
+CF result failure 0
+CF fail Could not find a structure of type "minecraft:fortress" nearby

@@ -1,0 +1,43 @@
+# allow_entering_nether_using_portals: a player that stands in a nether portal for the delay arrives in the nether (a portal is built there)
+# when the rule is on and stays put, with its portal cooldown set, when it is off; a creative player waits for the creative delay only.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+gamerule players_nether_portal_default_delay 4
+gamerule players_nether_portal_creative_delay 2
+fill 0 -61 0 1 -61 0 minecraft:obsidian
+fill 0 -57 0 1 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 8 -61 0 9 -61 0 minecraft:obsidian
+fill 8 -57 0 9 -57 0 minecraft:obsidian
+fill 7 -60 0 7 -58 0 minecraft:obsidian
+fill 10 -60 0 10 -58 0 minecraft:obsidian
+fill 8 -60 0 9 -58 0 minecraft:nether_portal[axis=x]
+gamerule allow_entering_nether_using_portals false
+spawn_player S survival 0.5 -60 0.5 0 0 sim
+tick 1
+note the rule is off: the player stays and gets the cooldown
+watch portal:S
+tick 8
+watch off
+dump levels players
+note the rule is on: the creative player arrives in the nether
+gamerule allow_entering_nether_using_portals true
+spawn_player C creative 8.5 -60 0.5 0 0 sim
+tick 1
+dump packets:C:none
+watch portal:C
+tick 6
+watch off
+dump levels players player:C advancements:C packets:C:respawn,player_position,set_default_spawn_position,initialize_border,set_time,game_event
+in the_nether dump blocks:-3,66,-2,2,74,2
+note the survival player still stands in its portal with the rule on
+tick 12
+dump levels players player:S advancements:S packets:S:respawn,player_position

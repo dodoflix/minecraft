@@ -1,0 +1,65 @@
+LEVEL minecraft:overworld gametime=1 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_end gametime=1 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=1 forced=25 loaded=961 players=0 border=5.9999968E7
+PL A dim=minecraft:overworld
+PL B dim=minecraft:overworld
+# B is moved into the nether: a block change in each level reaches only its own player
+CF msg Changed the block at 0, 200, 0
+CF result success 1
+CF msg Changed the block at 0, -61, 0
+CF result success 1
+PKT A minecraft:block_update 080000000000000fc301
+# sounds and events of a level
+CF msg Played sound minecraft:entity.pig.ambient to B
+CF result success 1
+CF msg Played sound minecraft:entity.cow.ambient to A
+CF result success 1
+CF msg Displaying particle minecraft:flame
+CF result success 1
+CF msg Displaying particle minecraft:smoke
+CF result success 1
+PKT A minecraft:sound 77001c6d696e6563726166743a656e746974792e636f772e616d6269656e74000000000004fffffe20000000043f8000003f800000462d2b7c2ab7ac4b
+PKT A minecraft:level_particles 304800003fe0000000000000c04e0000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT B minecraft:sound 77001c6d696e6563726166743a656e746974792e7069672e616d6269656e7400000000000400000648000000043f8000003f8000009bcf3c4fcc2f7b4b
+PKT B minecraft:level_particles 302700003fe000000000000040692000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+# the player list broadcasts reach every level
+CF result success 1
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
+CF msg The difficulty has been set to Hard
+CF result success 0
+CF msg Set the weather to rain
+CF result success -1
+PKT A minecraft:set_time 7300000000000000050100f02e0000000000000000
+PKT A minecraft:change_difficulty 0a0300
+PKT A minecraft:game_event 27073c23d70a
+PKT A minecraft:game_event 27073ca3d70a
+PKT B minecraft:set_time 7300000000000000050100f02e0000000000000000
+PKT B minecraft:change_difficulty 0a0300
+# a third player joins in the nether
+LEVEL minecraft:overworld gametime=9 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=9 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=9 forced=25 loaded=1225 players=2 border=5.9999968E7
+PL A dim=minecraft:overworld
+PL B dim=minecraft:the_nether
+PL C dim=minecraft:the_nether
+PKT A minecraft:player_info_update 47ff01184cd8f86cf630d585e281479cc7815b01430000000100000000
+PKT B minecraft:player_info_update 47ff01184cd8f86cf630d585e281479cc7815b01430000000100000000
+# the nether player is hit, the overworld player is not told
+CF msg Applied effect Speed to C
+CF result success 1
+PKT C minecraft:update_mob_effect 8701670000640e
+# C leaves
+STAT C minecraft.custom:minecraft.leave_game 1
+STAT C minecraft.custom:minecraft.play_time 3
+STAT C minecraft.custom:minecraft.time_since_death 3
+STAT C minecraft.custom:minecraft.time_since_rest 3
+STAT C minecraft.custom:minecraft.total_world_time 3
+LEVEL minecraft:overworld gametime=12 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=12 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=12 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL A dim=minecraft:overworld
+PL B dim=minecraft:the_nether
+PL C dim=minecraft:the_nether
+PKT A minecraft:player_info_remove 4601184cd8f86cf630d585e281479cc7815b
+PKT B minecraft:player_info_remove 4601184cd8f86cf630d585e281479cc7815b

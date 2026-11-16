@@ -56,3 +56,10 @@ cmd execute as B at @s run compute block ~ ~-1 ~ integer {type:"minecraft:condit
 cmd execute in minecraft:the_end run compute block 0 200 0 integer {type:"minecraft:conditional",condition:{type:"minecraft:match_block",blocks:"minecraft:netherrack"},on_true:1,on_false:2}
 cmd execute in minecraft:the_nether run compute block 0 200 0 integer {type:"minecraft:conditional",condition:{type:"minecraft:match_block",blocks:"minecraft:netherrack"},on_true:1,on_false:2}
 cmd compute block 0 200 0 integer {type:"minecraft:conditional",condition:{type:"minecraft:match_block",blocks:"minecraft:netherrack"},on_true:1,on_false:2}
+note locate as the console searches the level of the command
+cmd locate biome minecraft:plains
+cmd execute in minecraft:the_nether run locate biome minecraft:plains
+cmd execute in minecraft:the_nether run locate biome minecraft:nether_wastes
+cmd execute in minecraft:the_end run locate biome minecraft:the_end
+cmd execute in minecraft:the_end run locate biome minecraft:plains
+cmd execute in minecraft:the_nether run locate structure minecraft:fortress

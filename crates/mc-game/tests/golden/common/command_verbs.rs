@@ -480,6 +480,10 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
             super::take_logs()
                 .into_iter()
                 .filter_map(|l| l.strip_prefix("INFO: System chat: ").map(str::to_owned))
+                // the oracle leaves the join and leave broadcasts (`multiplayer.player.*`) out of its console record
+                .filter(|text| {
+                    !text.ends_with(" joined the game") && !text.ends_with(" left the game")
+                })
                 .map(|text| format!("CON {}", text.replace('\\', "\\\\").replace('\n', "\\n")))
                 .collect()
         }

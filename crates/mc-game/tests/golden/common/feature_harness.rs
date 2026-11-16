@@ -338,11 +338,16 @@ pub fn gen_env(seed: i64) -> Arc<GenEnv> {
 /// The generation environment of a `level flat` world: `FlatLevelSource` with the default flat settings (bedrock, two dirt, grass,
 /// plains), so structures placed by command land on the layers' first free height.
 pub fn flat_gen_env(seed: i64) -> Arc<GenEnv> {
+    flat_gen_env_in("overworld", seed)
+}
+
+/// [`flat_gen_env`] of the level of `dimension` (the void levels of a multi-level replay: the flat generator's `plains` and no structures).
+pub fn flat_gen_env_in(dimension: &str, seed: i64) -> Arc<GenEnv> {
     let w = &*WORLD;
     let settings = FlatLevelGeneratorSettings::get_default(&w.worldgen, &w.biomes)
         .expect("default flat settings");
     Arc::new(GenEnv {
-        dimension: Identifier::with_default_namespace("overworld").unwrap(),
+        dimension: Identifier::with_default_namespace(dimension).unwrap(),
         seed,
         generator: Arc::new(FlatLevelSource::new(settings, w.biomes.clone())),
         random_state: Arc::new(RandomState::create(

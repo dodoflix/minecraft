@@ -1,0 +1,49 @@
+# Two players in different levels: what a level broadcasts (block changes, sounds, particles, the level events of weather and time) reaches
+# only its own players, what the player list broadcasts (chat, tab list, time, difficulty) reaches both, and a player that leaves
+# or dies in another level takes its level's player count with it.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+spawn_player A creative 0.5 -60 0.5 0 0
+spawn_player B creative 4.5 -60 0.5 0 0
+tick 1
+dump packets:A:none packets:B:none levels players
+note B is moved into the nether: a block change in each level reaches only its own player
+tp_dim B the_nether 0.5 201 0.5
+tick 2
+dump packets:B:none
+cmd execute in minecraft:the_nether run setblock 0 200 0 minecraft:netherrack
+cmd setblock 0 -61 0 minecraft:stone
+tick 1
+dump packets:A:block_update,section_blocks_update,block_changed_ack packets:B:block_update,section_blocks_update,block_changed_ack
+note sounds and events of a level
+cmd execute in minecraft:the_nether run playsound minecraft:entity.pig.ambient master @a 0.5 201 0.5
+cmd execute in minecraft:overworld run playsound minecraft:entity.cow.ambient master @a 0.5 -60 0.5
+cmd execute in minecraft:the_nether run particle minecraft:flame 0.5 201 0.5 0 0 0 0 1
+cmd execute in minecraft:overworld run particle minecraft:smoke 0.5 -60 0.5 0 0 0 0 1
+tick 1
+dump packets:A:sound,level_particles packets:B:sound,level_particles
+note the player list broadcasts reach every level
+cmd say hello
+cmd time set 6000
+cmd difficulty hard
+cmd weather rain
+tick 2
+dump packets:A:system_chat,player_chat,set_time,change_difficulty,game_event packets:B:system_chat,player_chat,set_time,change_difficulty,game_event
+note a third player joins in the nether
+in the_nether spawn_player C survival 4.5 201 0.5 0 0
+tick 2
+dump levels players packets:A:player_info_update,add_entity,teleport_entity packets:B:player_info_update,add_entity,teleport_entity
+note the nether player is hit, the overworld player is not told
+cmd execute in minecraft:the_nether run effect give C minecraft:speed 5
+tick 1
+dump packets:A:update_mob_effect,entity_event packets:B:update_mob_effect,entity_event packets:C:update_mob_effect,entity_event
+note C leaves
+leave C
+tick 2
+dump levels players packets:A:player_info_remove,remove_entities packets:B:player_info_remove,remove_entities

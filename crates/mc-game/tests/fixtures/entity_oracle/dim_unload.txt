@@ -1,0 +1,25 @@
+LEVEL minecraft:overworld gametime=1 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=1 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=1 forced=25 loaded=961 players=0 border=5.9999968E7
+CF msg Unmarked all force loaded chunks in minecraft:the_end
+CF result success 0
+CF msg Unmarked all force loaded chunks in minecraft:the_nether
+CF result success 0
+LEVEL minecraft:overworld gametime=1 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=1 forced=0 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=1 forced=0 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:overworld gametime=2 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=2 forced=0 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=2 forced=0 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:overworld gametime=3 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=3 forced=0 loaded=529 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=3 forced=0 loaded=0 players=0 border=5.9999968E7
+LEVEL minecraft:overworld gametime=4 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=4 forced=0 loaded=0 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=4 forced=0 loaded=0 players=0 border=5.9999968E7
+LEVEL minecraft:overworld gametime=5 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=5 forced=0 loaded=0 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=5 forced=0 loaded=0 players=0 border=5.9999968E7
+LEVEL minecraft:overworld gametime=9 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=9 forced=0 loaded=0 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=9 forced=0 loaded=0 players=0 border=5.9999968E7

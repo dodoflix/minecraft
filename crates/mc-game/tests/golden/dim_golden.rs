@@ -43,3 +43,21 @@ fn chunk_tickets_belong_to_their_level() {
 fn login_packet_lists_the_levels_of_the_server() {
     check("dim_joinburst");
 }
+
+/// Chunks that lose their last ticket unload two ticks later; a chunk a block read touched in the tick of the removal keeps its neighbours one tick longer.
+#[test]
+fn unloading_follows_the_ticket_removal() {
+    check("dim_unload");
+}
+
+/// `allow_entering_nether_using_portals` on and off: the arrival in the nether and the portal built there.
+#[test]
+fn portal_arrival_follows_the_game_rule() {
+    check("dim_rules");
+}
+
+/// Players in different levels: what a level broadcasts stays in the level, what the player list broadcasts reaches every level.
+#[test]
+fn players_in_different_levels_hear_their_own_level() {
+    check("dim_players");
+}

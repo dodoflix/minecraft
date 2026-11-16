@@ -1,0 +1,87 @@
+CF msg Game rule players_nether_portal_default_delay is now set to 4
+CF result success 4
+CF msg Game rule players_nether_portal_creative_delay is now set to 2
+CF result success 2
+CF msg Game rule allow_entering_nether_using_portals is now set to false
+CF result success 0
+# the rule is off: the player stays and gets the cooldown
+T 2
+PORTAL S cooldown=0 time=1
+T 3
+PORTAL S cooldown=0 time=2
+T 4
+PORTAL S cooldown=0 time=3
+T 5
+PORTAL S cooldown=0 time=4
+T 6
+PORTAL S cooldown=10 time=5
+T 7
+PORTAL S cooldown=10 time=1
+T 8
+PORTAL S cooldown=10 time=-
+T 9
+PORTAL S cooldown=10 time=-
+LEVEL minecraft:overworld gametime=9 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=9 forced=25 loaded=961 players=0 border=5.9999968E7
+PL S dim=minecraft:overworld
+# the rule is on: the creative player arrives in the nether
+CF msg Game rule allow_entering_nether_using_portals is now set to true
+CF result success 1
+T 11
+PORTAL C cooldown=0 time=1
+T 12
+PORTAL C cooldown=0 time=2
+T 13
+PORTAL C cooldown=10 time=3
+T 14
+PORTAL C cooldown=10 time=-
+T 15
+PORTAL C cooldown=10 time=-
+T 16
+PORTAL C cooldown=10 time=-
+LEVEL minecraft:overworld gametime=16 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=16 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL S dim=minecraft:overworld
+PL C dim=minecraft:the_nether
+P C minecraft:player pos=-0.5,70.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+ADV C minecraft:nether/root entered_nether
+ADV C minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV C minecraft:story/enter_the_nether entered_nether
+PKT C minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT C minecraft:player_position 4902bfe000000000000040518000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT C minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT C minecraft:set_time 73000000000000000d020000000000000000000001000000000000000000
+PKT C minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT C minecraft:game_event 270d00000000
+B -2 69 0 minecraft:obsidian
+B -2 70 0 minecraft:obsidian
+B -2 71 0 minecraft:obsidian
+B -2 72 0 minecraft:obsidian
+B -2 73 0 minecraft:obsidian
+B -1 69 -1 minecraft:obsidian
+B -1 69 0 minecraft:obsidian
+B -1 69 1 minecraft:obsidian
+B -1 70 0 minecraft:nether_portal[axis=x]
+B -1 71 0 minecraft:nether_portal[axis=x]
+B -1 72 0 minecraft:nether_portal[axis=x]
+B -1 73 0 minecraft:obsidian
+B 0 69 -1 minecraft:obsidian
+B 0 69 0 minecraft:obsidian
+B 0 69 1 minecraft:obsidian
+B 0 70 0 minecraft:nether_portal[axis=x]
+B 0 71 0 minecraft:nether_portal[axis=x]
+B 0 72 0 minecraft:nether_portal[axis=x]
+B 0 73 0 minecraft:obsidian
+B 1 69 0 minecraft:obsidian
+B 1 70 0 minecraft:obsidian
+B 1 71 0 minecraft:obsidian
+B 1 72 0 minecraft:obsidian
+B 1 73 0 minecraft:obsidian
+# the survival player still stands in its portal with the rule on
+LEVEL minecraft:overworld gametime=28 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=28 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL S dim=minecraft:overworld
+PL C dim=minecraft:the_nether
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+ADV S minecraft:adventure/adventuring_time minecraft:plains
+ADV S minecraft:recipes/decorations/crafting_table unlock_right_away
