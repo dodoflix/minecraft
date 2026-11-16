@@ -303,6 +303,29 @@ async fn spawn_protection(s: &Server) -> Vec<String> {
     r.out
 }
 
+/// Waits until the bot has received no chunk or forget packet for a second: the rate the server sends them at depends on
+/// the load of the machine.
+async fn chunks_settled(bot: &Bot) {
+    let count = || {
+        bot.log_text()
+            .lines()
+            .filter(|l| {
+                l.contains("<- play/level_chunk_with_light")
+                    || l.contains("<- play/forget_level_chunk")
+            })
+            .count()
+    };
+    let deadline = Instant::now() + Duration::from_secs(60);
+    let (mut last, mut quiet_since) = (count(), Instant::now());
+    while quiet_since.elapsed() < Duration::from_secs(1) && Instant::now() < deadline {
+        tokio::time::sleep(Duration::from_millis(100)).await;
+        let now = count();
+        if now != last {
+            (last, quiet_since) = (now, Instant::now());
+        }
+    }
+}
+
 /// The management API call `serversettings/view_distance/set`: the reply, what the connected player is told, the
 /// value afterwards and the line of `server.properties`. A value below the lowest the chunk map accepts is told to the
 /// player as it was given.
@@ -315,7 +338,7 @@ async fn view_distance_rpc(s: &Server) -> Vec<String> {
     let bot = r.join("Bot").await;
     r.log();
     // the chunks of the join are still arriving
-    tokio::time::sleep(Duration::from_secs(3)).await;
+    chunks_settled(&bot.bot).await;
     let line = s
         .wait_log("Json-RPC Management connection listening on", 30)
         .expect("management server");
@@ -357,6 +380,7 @@ async fn view_distance_rpc(s: &Server) -> Vec<String> {
                 .filter(|l| l.starts_with("view-distance="))
                 .map(|l| format!("  properties: {l}")),
         );
+        chunks_settled(&bot.bot).await;
         let text = bot.bot.log_text();
         let heard: Vec<&str> = text
             .lines()
@@ -412,9 +436,14 @@ async fn pause_when_empty(s: &Server) -> Vec<String> {
     tokio::time::sleep(Duration::from_secs(3)).await;
     r.log();
     r.step("a console command while paused");
+    let first = game_time(s, Duration::from_secs(2)).await;
+    r.out.push(format!("  answered: {}", first.is_some()));
+    // a running server ticks a few dozen times meanwhile
+    tokio::time::sleep(Duration::from_secs(2)).await;
+    let second = game_time(s, Duration::from_secs(2)).await;
     r.out.push(format!(
-        "  answered: {}",
-        game_time(s, Duration::from_secs(2)).await.is_some()
+        "  game time stands still: {}",
+        first.is_some() && first == second
     ));
     r.log();
     let bot = r.join("Bot").await;

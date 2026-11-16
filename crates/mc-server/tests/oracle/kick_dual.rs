@@ -203,6 +203,7 @@ impl<'a> Rec<'a> {
             tokio::time::sleep(Duration::from_millis(50)).await;
         }
         tokio::time::sleep(SETTLE).await;
+        self.wait_quiet(all).await;
         for c in all {
             self.out.push(format!(
                 "{} {}",
@@ -231,6 +232,41 @@ impl<'a> Rec<'a> {
         self.log();
     }
 
+    /// Waits until neither the server log nor the packets `settle` reports grew for a moment: a loaded machine delays the
+    /// leave and join events past `SETTLE`.
+    async fn wait_quiet(&self, all: &[&Client]) {
+        let count = || {
+            let packets: usize = all
+                .iter()
+                .map(|c| {
+                    c.bot
+                        .log_text()
+                        .lines()
+                        .filter(|l| {
+                            [
+                                "<- play/system_chat",
+                                "<- play/disconnect",
+                                "<- play/player_info_remove",
+                            ]
+                            .iter()
+                            .any(|k| l.split_once("ms ").is_some_and(|(_, r)| r.starts_with(k)))
+                        })
+                        .count()
+                })
+                .sum();
+            packets + self.server.log().lines().count()
+        };
+        let deadline = Instant::now() + Duration::from_secs(10);
+        let mut last = count();
+        while Instant::now() < deadline {
+            tokio::time::sleep(Duration::from_millis(300)).await;
+            let now = count();
+            if now == last {
+                break;
+            }
+            last = now;
+        }
+    }
     /// The server log lines since the last report.
     pub(crate) fn log(&mut self) {
         let text = self.server.log();

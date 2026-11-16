@@ -29,6 +29,7 @@ pub mod spawn;
 pub mod spawn_search;
 pub mod state_glue;
 pub mod status;
+pub mod suppressed_exceptions;
 pub mod tick_pacing;
 pub mod tick_rate_manager;
 mod tick_time_logging;

@@ -81,11 +81,15 @@ pub struct ServerShared {
         Mutex<crate::world::level::saveddata::wandering_trader_data::WanderingTraderData>,
     /// `ChunkIOErrorReporter` of every level's chunk map.
     pub chunk_io_reporter: Arc<super::level::chunk_io_reporter::ChunkIoReporter>,
+    /// `MinecraftServer.suppressedExceptions`.
+    pub suppressed_exceptions: Arc<super::suppressed_exceptions::SuppressedExceptionCollector>,
 }
 
 impl ServerShared {
     pub fn new() -> (Arc<Self>, Receiver<TickTask>) {
         let (tx, rx) = channel();
+        let suppressed_exceptions =
+            Arc::<super::suppressed_exceptions::SuppressedExceptionCollector>::default();
         let shared = Arc::new(Self {
             running: AtomicBool::new(true),
             stopped: AtomicBool::new(false),
@@ -104,7 +108,10 @@ impl ServerShared {
             recipe_manager: RwLock::new(crate::world::item::crafting::RecipeManager::empty()),
             map_storage: Default::default(),
             wandering_trader: Default::default(),
-            chunk_io_reporter: Default::default(),
+            chunk_io_reporter: Arc::new(super::level::chunk_io_reporter::ChunkIoReporter::new(
+                suppressed_exceptions.clone(),
+            )),
+            suppressed_exceptions,
         });
         (shared, rx)
     }

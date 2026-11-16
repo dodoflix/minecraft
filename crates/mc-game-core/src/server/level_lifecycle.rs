@@ -881,10 +881,11 @@ impl MinecraftServer {
         self.all_levels().any(|level| !level.no_save)
     }
 
-    /// A reported chunk IO failure runs `warnOnLowDiskSpace` (vanilla does so on the reporting thread, here the game thread does).
-    pub(super) fn warn_on_low_disk_space_if_reported(&mut self) {
-        if self.shared.chunk_io_reporter.take_low_disk_space_check() {
-            self.warn_on_low_disk_space();
+    /// A chunk IO failure reported from another thread already logged the low disk space warning (vanilla's
+    /// `warnOnLowDiskSpace` runs on the reporting thread); the operators' connections belong to this thread.
+    pub(super) fn notify_ops_of_reported_low_disk_space(&mut self) {
+        if self.shared.chunk_io_reporter.take_ops_warning() {
+            self.notify_ops_of_low_disk_space();
         }
     }
 
@@ -898,6 +899,10 @@ impl MinecraftServer {
     /// `sendLowDiskSpaceWarning` (`DedicatedServer`: also tells every operator).
     fn send_low_disk_space_warning(&mut self) {
         log::warn!("Low disk space! Might not be able to save the world.");
+        self.notify_ops_of_low_disk_space();
+    }
+
+    fn notify_ops_of_low_disk_space(&mut self) {
         for player in self.player_list.get_players() {
             if self.player_list.is_op(&player.name_and_id()) {
                 player
@@ -960,7 +965,7 @@ impl MinecraftServer {
         }
 
         self.save_all_chunks(false, true, false);
-        self.warn_on_low_disk_space_if_reported();
+        self.notify_ops_of_reported_low_disk_space();
 
         for level in self.all_levels_mut() {
             level.close();

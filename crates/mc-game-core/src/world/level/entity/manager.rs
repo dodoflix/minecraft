@@ -6,7 +6,7 @@ use mc_core::phys::AABB;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_core::pos::{BlockPos, SectionPos};
 use mc_nbt::CompoundTag;
-use mc_world::region::entity_storage::{ChunkEntities, EntityStorage};
+use mc_world::region::entity_storage::{ChunkEntities, EntityStorage, PositionProblem};
 use std::collections::{HashMap, HashSet, VecDeque};
 use std::ops::ControlFlow;
 use std::panic::{AssertUnwindSafe, catch_unwind, resume_unwind};
@@ -74,6 +74,9 @@ pub struct PersistentEntitySectionManager {
     /// `loadingInbox`: raw entity NBT of loaded chunks, instantiated by the level (`process_pending_loads`).
     loading_inbox: VecDeque<ChunkEntities>,
     permanent_storage: Option<EntityStorage>,
+    /// The server's chunk IO error reporter (`EntityStorage.level.getServer()`): unset for a manager without a server.
+    chunk_io_reporter:
+        Option<std::sync::Arc<crate::server::level::chunk_io_reporter::ChunkIoReporter>>,
     pub tick_list: EntityTickList,
     events: Vec<EntityLevelEvent>,
     /// Entities removed from storage whose events are still being processed.
@@ -98,12 +101,20 @@ impl PersistentEntitySectionManager {
             chunks_to_unload: IndexSet::new(),
             loading_inbox: VecDeque::new(),
             permanent_storage,
+            chunk_io_reporter: None,
             tick_list: EntityTickList::default(),
             events: Vec::new(),
             limbo: HashMap::new(),
             lent: Vec::new(),
             lent_moves: HashMap::new(),
         }
+    }
+
+    pub fn set_chunk_io_reporter(
+        &mut self,
+        reporter: std::sync::Arc<crate::server::level::chunk_io_reporter::ChunkIoReporter>,
+    ) {
+        self.chunk_io_reporter = Some(reporter);
     }
 
     // ---- events ---------------------------------------------------------------------------------------------
@@ -338,8 +349,33 @@ impl PersistentEntitySectionManager {
             return;
         };
         match storage.load_entities(&pos) {
-            Ok(loaded) => self.loading_inbox.push_back(loaded.chunk),
-            Err(e) => log::error!("Failed to read chunk {pos}: {e}"),
+            Ok(loaded) => {
+                if let (Some(problem), Some(reporter)) =
+                    (&loaded.position_problem, &self.chunk_io_reporter)
+                {
+                    let info = storage.simple_region_storage().storage_info().clone();
+                    match problem {
+                        PositionProblem::Misplaced { stored } => {
+                            reporter.report_misplaced_chunk(*stored, pos, &info)
+                        }
+                        // `Optional.orElseThrow()` of the missing `Position`
+                        PositionProblem::Unparseable => reporter.report_chunk_load_failure(
+                            "java.util.NoSuchElementException: No value present",
+                            &info,
+                            pos,
+                        ),
+                    }
+                }
+                self.loading_inbox.push_back(loaded.chunk);
+            }
+            Err(e) => {
+                log::error!("Failed to load entity chunk {pos}: {e}");
+                if let Some(reporter) = &self.chunk_io_reporter {
+                    let info = storage.simple_region_storage().storage_info().clone();
+                    reporter.report_chunk_load_failure(&e.to_string(), &info, pos);
+                }
+                log::error!("Failed to read chunk {pos}: {e}");
+            }
         }
     }
 
@@ -586,7 +622,8 @@ impl PersistentEntitySectionManager {
             match storage.simple_region_storage().store_pending_chunk() {
                 Ok(true) => {}
                 Ok(false) => return,
-                Err(e) => log::error!("Failed to store entity chunk: {e}"),
+                // logged and reported by the storage's failure handler
+                Err(_) => {}
             }
         }
     }

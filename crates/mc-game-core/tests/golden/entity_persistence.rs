@@ -101,14 +101,14 @@ fn unload_chunk(level: &mut ServerLevel, pos: ChunkPos) {
     });
 }
 
-const PIG: &str =
+pub(crate) const PIG: &str =
     r#"{id:"minecraft:pig",UUID:[I;1,1,1,1],Pos:[8.5d,64.0d,8.5d],CustomName:'"Wilbur"'}"#;
 const ITEM: &str = r#"{id:"minecraft:item",UUID:[I;2,2,2,2],Pos:[9.5d,64.0d,3.5d],Item:{id:"minecraft:diamond",count:3},Age:5s}"#;
 const FRAME: &str = r#"{id:"minecraft:item_frame",UUID:[I;3,3,3,3],Pos:[4.5d,64.5d,4.5d],block_pos:[I;4,64,4],facing:2b,Item:{id:"minecraft:apple",count:1},ItemRotation:3b}"#;
 const MINECART: &str = r#"{id:"minecraft:minecart",UUID:[I;4,4,4,4],Pos:[2.5d,64.0d,12.5d],Passengers:[{id:"minecraft:zombie",UUID:[I;5,5,5,5],Pos:[2.5d,64.0d,12.5d],Health:7.0f}]}"#;
 const VILLAGER: &str = r#"{id:"minecraft:villager",UUID:[I;6,6,6,6],Pos:[12.5d,64.0d,12.5d],VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:2},Xp:11}"#;
 
-fn spawn(level: &mut ServerLevel, snbt: &str) -> EntityId {
+pub(crate) fn spawn(level: &mut ServerLevel, snbt: &str) -> EntityId {
     let tag = mc_nbt::snbt::parse_compound(snbt).expect("snbt");
     let mut loaded = Vec::new();
     factory::load_entity_recursive(

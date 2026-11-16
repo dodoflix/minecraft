@@ -325,6 +325,7 @@ impl ChunkMap {
             sync_writes,
             level_height,
         );
+        poi_manager.set_chunk_io_reporter(reporter.clone());
         let io = RegionIo::new(
             storage_info.clone(),
             region_dir,

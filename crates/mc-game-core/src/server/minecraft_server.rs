@@ -290,6 +290,9 @@ impl MinecraftServer {
         shared
             .chunk_io_reporter
             .set_debug_dir(init.server_directory.join("debug"));
+        shared
+            .chunk_io_reporter
+            .set_low_disk_space_check(init.storage_source.low_disk_space_checker());
         let mut server = Self {
             shared,
             tasks: TaskQueue::new(tasks),
@@ -960,7 +963,7 @@ impl MinecraftServer {
 
     /// `tickServer`. `sprinting`: the level tick gets `() -> false` as time budget.
     pub fn tick_server(&mut self, sprinting: bool) {
-        self.warn_on_low_disk_space_if_reported();
+        self.notify_ops_of_reported_low_disk_space();
         let nano = get_nanos();
         let empty_tick_threshold = self.pause_when_empty_seconds().wrapping_mul(20);
         if empty_tick_threshold > 0 {
@@ -1112,6 +1115,10 @@ impl MinecraftServer {
             ),
         );
         report.set_detail("World Seed", self.world_gen_settings.options.seed);
+        report.set_detail(
+            "Suppressed Exceptions",
+            self.shared.suppressed_exceptions.dump(),
+        );
         self.fill_system_report_details(report);
     }
 

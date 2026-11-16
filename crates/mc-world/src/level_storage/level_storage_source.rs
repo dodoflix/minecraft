@@ -550,7 +550,14 @@ impl LevelStorageAccess {
     }
 
     pub fn check_for_low_disk_space(&self) -> bool {
-        self.estimate_disk_space() < DISK_SPACE_WARNING_THRESHOLD
+        self.low_disk_space_checker()()
+    }
+
+    /// `checkForLowDiskSpace` for a thread that has no access to the storage source (a chunk IO failure is reported
+    /// from the IO threads).
+    pub fn low_disk_space_checker(&self) -> impl Fn() -> bool + Send + Sync + 'static {
+        let path = self.level_directory.path.clone();
+        move || usable_space(&path) < DISK_SPACE_WARNING_THRESHOLD
     }
 
     /// `safeClose`: closes, logging a failure.

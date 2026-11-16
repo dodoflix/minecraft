@@ -13,6 +13,7 @@ use super::poi_codec::{self, PackedPoiSection};
 use super::poi_record::PoiRecord;
 use super::poi_section::{Occupancy, PoiNeverRegistered, PoiSection};
 use super::poi_type::{PoiTypeHolder, PoiTypes};
+use crate::server::level::chunk_io_reporter::ChunkIoReporter;
 use crate::server::level::dynamic_graph::{GraphBehavior, GraphState};
 use indexmap::IndexSet;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
@@ -180,6 +181,8 @@ struct Storage {
     /// `PoiManager.loadedChunks` (`ensureLoadedAndValid`).
     ensured_chunks: HashSet<i64>,
     village_types: u32,
+    /// `SectionStorage.errorReporter`: unset for a manager without a server.
+    reporter: Option<Arc<ChunkIoReporter>>,
 }
 
 impl Storage {
@@ -223,6 +226,13 @@ impl Storage {
             Ok(tag) => tag,
             Err(e) => {
                 log::error!("Error reading chunk {chunk_pos} data from disk: {e}");
+                if let Some(reporter) = &self.reporter {
+                    reporter.report_chunk_load_failure(
+                        &e.to_string(),
+                        self.storage.storage_info(),
+                        chunk_pos,
+                    );
+                }
                 None
             }
         };
@@ -282,10 +292,9 @@ impl Storage {
         }
         let tag: CompoundTag = poi_codec::encode_chunk(tags, WORLD_VERSION);
         self.storage.write(&chunk_pos, Some(tag));
-        // vanilla's IOWorker thread stores the queued chunk in the background
-        if let Err(e) = self.storage.synchronize(false) {
-            log::error!("Failed to store POI chunk {chunk_pos}: {e}");
-        }
+        // vanilla's IOWorker thread stores the queued chunk in the background; a failure is logged and reported by the
+        // storage's failure handler
+        let _ = self.storage.synchronize(false);
     }
 
     /// `setDirty(sectionPos)` (`PoiManager`: also refreshes the village distance).
@@ -416,6 +425,7 @@ impl PoiManager {
                 tracker_levels: HashMap::new(),
                 ensured_chunks: HashSet::new(),
                 village_types: vanilla_village_types(),
+                reporter: None,
             })),
         }
     }
@@ -423,6 +433,19 @@ impl PoiManager {
     /// Re-reads `PoiTypeTags.VILLAGE` (the tag of the loaded data packs) for later distance updates.
     pub fn set_village_types(&self, mask: u32) {
         self.inner.lock().village_types = mask;
+    }
+
+    /// The `ChunkIOErrorReporter` of the server (`PoiManager`'s constructor argument): a failed section read or write
+    /// is reported to it.
+    pub fn set_chunk_io_reporter(&self, reporter: Arc<ChunkIoReporter>) {
+        let mut inner = self.inner.lock();
+        let (handler_reporter, info) = (reporter.clone(), inner.storage.storage_info().clone());
+        inner
+            .storage
+            .set_store_failure_handler(Box::new(move |pos, error| {
+                handler_reporter.report_chunk_save_failure(&error.to_string(), &info, pos)
+            }));
+        inner.reporter = Some(reporter);
     }
 
     // ------------------------------------------------------------------ modification

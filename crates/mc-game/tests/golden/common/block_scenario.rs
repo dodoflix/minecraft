@@ -1184,8 +1184,9 @@ impl Scenario {
                 .install(level.registries.clone(), Arc::new(dimension_type.clone()));
         }
         // `MinecraftServer.setInitialSpawn` searches the overworld's spawn once, when the server creates its levels: before any
-        // preload ticket, so its chunks are the first the generator sees (`world_spawn`)
-        if self.opts.find_world_spawn && dimension == "overworld" {
+        // preload ticket, so its chunks are the first the generator sees (the oracle's multi-level server always did; a single
+        // level only with `world_spawn`)
+        if (self.opts.find_world_spawn || self.multi()) && dimension == "overworld" {
             let data = self.world_data.as_ref().expect("world data");
             mc_game::server::spawn::find_initial_spawn(data, &mut level);
         }
@@ -1239,11 +1240,6 @@ impl Scenario {
         } else {
             self.preload_until_ticking(&mut level, r, start);
         }
-        // the multi-level replays search after the preload: their recorded chunk counts depend on the chunks the search loads
-        if !self.opts.find_world_spawn && self.multi() && dimension == "overworld" {
-            let data = self.world_data.as_ref().expect("world data");
-            mc_game::server::spawn::find_initial_spawn(data, &mut level);
-        }
         use mc_core::random::RandomSource;
         level
             .tick_state
@@ -1258,7 +1254,7 @@ impl Scenario {
     /// later levels' waits keep polling this level's chunk source in the oracle until it has no work left).
     fn preload_until_ticking(&self, level: &mut ServerLevel, r: i32, start: Instant) {
         loop {
-            level.tick_chunk_source(&|| true, false, true);
+            // `ServerChunkCache.pollTask` of every level while a preload waits: no ticket ages and nothing unloads before the first tick
             while level.poll_chunk_task() {}
             level.tick_entity_management();
             let ready = (-r..=r).all(|cx| {

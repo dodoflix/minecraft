@@ -151,17 +151,25 @@ impl ServerLevel {
         let region_dir = params.dimension_dir.join("region");
         let poi_dir = params.dimension_dir.join("poi");
         let data_dir = params.dimension_dir.join("data");
-        let entity_storage = mc_world::region::entity_storage::EntityStorage::new(
-            mc_world::region::simple_region_storage::SimpleRegionStorage::new(
-                mc_world::region::region_storage_info::RegionStorageInfo::new(
-                    params.level_id.clone(),
-                    params.dimension.clone(),
-                    "entities",
-                ),
-                params.dimension_dir.join("entities"),
-                params.sync_writes,
-            ),
+        let entity_info = mc_world::region::region_storage_info::RegionStorageInfo::new(
+            params.level_id.clone(),
+            params.dimension.clone(),
+            "entities",
         );
+        let mut entity_region = mc_world::region::simple_region_storage::SimpleRegionStorage::new(
+            entity_info.clone(),
+            params.dimension_dir.join("entities"),
+            params.sync_writes,
+        );
+        // `EntityStorage.reportSaveFailureIfPresent`
+        let reporter = params.shared.chunk_io_reporter.clone();
+        entity_region.set_store_failure_handler(Box::new(move |pos, error| {
+            log::error!("Failed to store entity chunk {pos}");
+            reporter.report_chunk_save_failure(&error.to_string(), &entity_info, pos)
+        }));
+        let entity_storage = mc_world::region::entity_storage::EntityStorage::new(entity_region);
+        let mut entity_manager = PersistentEntitySectionManager::new(Some(entity_storage));
+        entity_manager.set_chunk_io_reporter(params.shared.chunk_io_reporter.clone());
         let spawning = crate::world::level::spawner::LevelSpawnData::default();
         let gen_context = Arc::new(WorldGenContext {
             dimension: params.dimension.clone(),
@@ -194,7 +202,7 @@ impl ServerLevel {
         chunk_source.chunk_map.tick_containers = Some(tick_state.ticks.clone());
         Self {
             dimension: params.dimension,
-            entity_manager: PersistentEntitySectionManager::new(Some(entity_storage)),
+            entity_manager,
             players: Vec::new(),
             entity_tracker: Default::default(),
             debug_synchronizers: Some(Default::default()),
