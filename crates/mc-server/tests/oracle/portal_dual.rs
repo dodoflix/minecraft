@@ -3,8 +3,8 @@
 //! Nether (PortalForcer.createPortal on the real nether terrain), step out, step back in and return to the overworld portal.
 //!
 //! `portal_dual_vanilla` checks the vanilla observations against `tests/fixtures/portal_dual/*.txt` (`MC_UPDATE_FIXTURES=1`
-//! rewrites them); `portal_dual_ours` diffs our server's observations against them (`run/portal-dual-ours.diff`,
-//! `PORTAL_DUAL_STRICT=1` makes differences a failure).
+//! rewrites them); `portal_dual_ours` diffs our server's observations against them (`run/portal-dual-ours.diff`) and
+//! fails on a difference (`PORTAL_DUAL_STRICT=0` only reports it).
 use std::sync::Arc;
 use std::time::Duration;
 
@@ -264,10 +264,5 @@ async fn portal_dual_ours() {
     let _ = std::fs::create_dir_all(repo_root().join("run"));
     let _ = std::fs::write(repo_root().join("run/portal-dual-ours.diff"), &report);
     println!("{report}");
-    if std::env::var("PORTAL_DUAL_STRICT").is_ok() {
-        assert!(
-            !report.contains("DIFF "),
-            "our server differs from vanilla:\n{report}"
-        );
-    }
+    assert_no_diff("PORTAL_DUAL_STRICT", &report);
 }

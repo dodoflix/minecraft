@@ -99,12 +99,18 @@ crate can use it as a dev-dependency.
 - The port is chosen by the OS and passed to the server; if another process takes it first, the start is retried with
   a new port. No fixed ports.
 - Readiness is the `Done (` log line plus an answered status ping, with a timeout. No fixed sleeps after start.
+  With `enable-status=false` the server closes status connections; the helper then treats the close as the ready signal.
+- `Builder::arg("--demo")` passes command-line arguments of the jar and of `mc-server` (after `nogui`).
 - Each server runs in its own temporary directory (or one the test passes with `.dir(..)`), never in `run/servers/<name>`.
 - A missing `java`, `ref/server.jar` or `MC_ACCEPT_EULA=1` makes `start()` return an error that names the fix; tests
   `expect` it and fail.
 - At most two tests of one process run servers at the same time, whatever `--test-threads` says: a test takes a
   permit with its first server and keeps it until its last server is dropped (`MC_TESTKIT_TESTS=<n>` changes the
   limit). Without it, a default `cargo test --test oracle` would start one JVM per core.
+- Dual-server tests wait for events where one exists instead of for a fixed time: a console command is fenced by a log line plus an
+  answered `/list` (`record_setblock.rs`), a walk starts once the chunks around it arrived, a join waits for the spawn
+  position. The `*_dual_ours` tests fail on any difference from the vanilla fixtures (`PORTAL_DUAL_STRICT=0` and
+  `ENTITY_DUAL_STRICT=0` only report it); debugging dumps go to `target/tmp/oracle-dumps/`, never to a fixed `/tmp` path.
 
 ## 4. Layout
 

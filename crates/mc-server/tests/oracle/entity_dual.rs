@@ -3,7 +3,7 @@
 //!                        in `tests/fixtures/entity_dual/*.txt` (`MC_UPDATE_FIXTURES=1` rewrites them; `ENTITY_DUAL_ONLY=name`
 //!                        runs one scenario).
 //! `entity_dual_ours`     runs the scenarios against `mc-server`, writes
-//!                        `run/entity-dual-ours.diff` and fails on differences only with `ENTITY_DUAL_STRICT=1`.
+//!                        `run/entity-dual-ours.diff` and fails on a difference (`ENTITY_DUAL_STRICT=0` only reports it).
 use std::sync::Arc;
 
 use crate::common::dual::*;
@@ -87,10 +87,5 @@ async fn entity_dual_ours() {
     let _ = std::fs::create_dir_all(repo_root().join("run"));
     let _ = std::fs::write(repo_root().join("run/entity-dual-ours.diff"), &report);
     println!("{report}");
-    if std::env::var("ENTITY_DUAL_STRICT").is_ok() {
-        assert!(
-            !report.contains("DIFF "),
-            "our server differs from vanilla:\n{report}"
-        );
-    }
+    assert_no_diff("ENTITY_DUAL_STRICT", &report);
 }

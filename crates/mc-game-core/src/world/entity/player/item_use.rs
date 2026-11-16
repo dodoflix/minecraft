@@ -12,7 +12,8 @@ use crate::world::item::{InteractionHand, ItemStack, behaviour};
 use mc_data::{DataComponentType, GameEvent};
 use mc_protocol::components::USE_EFFECTS;
 use mc_protocol::packets::play::{
-    ClientboundCooldownPacket, ClientboundSetEquipmentPacket, SwingAnimation, SwingAnimationType,
+    ClientboundCooldownPacket, ClientboundEntityEventPacket, ClientboundSetEquipmentPacket,
+    SwingAnimation, SwingAnimationType,
 };
 
 /// `SwingAnimation.DEFAULT`.
@@ -201,8 +202,15 @@ impl ServerPlayer {
         }
     }
 
-    /// `completeUsingItem()`.
+    /// `ServerPlayer.completeUsingItem()` (the player is told first, then `LivingEntity.completeUsingItem()` runs).
     pub fn complete_using_item(&mut self, level: &mut ServerLevel) {
+        if self.player.living.use_item.is_empty() || !self.is_using_item() {
+            return;
+        }
+        self.send(&ClientboundEntityEventPacket {
+            entity_id: self.id(),
+            event_id: 9,
+        });
         let hand = self.get_used_item_hand();
         if self.player.living.use_item != self.get_item_in_hand(hand) {
             self.release_using_item(level);

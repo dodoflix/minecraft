@@ -1,0 +1,46 @@
+## join
+minecraft:login
+minecraft:change_difficulty
+minecraft:player_abilities
+minecraft:set_held_slot
+minecraft:update_recipes
+minecraft:commands
+minecraft:recipe_book_settings
+minecraft:recipe_book_add
+minecraft:player_position
+minecraft:server_data
+minecraft:player_info_update *
+minecraft:initialize_border
+minecraft:set_default_spawn_position
+minecraft:game_event
+minecraft:ticking_state
+minecraft:ticking_step
+minecraft:post_effects
+minecraft:container_set_content
+minecraft:recipe_book_add
+minecraft:update_advancements
+minecraft:set_health
+minecraft:set_experience
+## idle 8 s
+## walk 20 ticks
+## jump
+## speed hack
+minecraft:player_position
+## chat+commands
+minecraft:player_chat
+minecraft:commands
+minecraft:system_chat chat.type.admin
+## cmd time query gametime
+minecraft:system_chat commands.time.query.gametime
+## cmd gamemode creative
+minecraft:player_abilities
+minecraft:player_info_update
+minecraft:game_event
+minecraft:player_abilities
+minecraft:system_chat commands.gamemode.success.self
+## cmd tp @s ~ ~5 ~
+minecraft:player_position
+minecraft:system_chat commands.teleport.success.location.single
+## cmd say hi
+minecraft:disguised_chat
+## keep-alives

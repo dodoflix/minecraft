@@ -48,10 +48,10 @@ async fn join_our_server() {
                     .map(|b| format!("{b:02x}"))
                     .collect::<String>()
             ));
-            std::fs::write("/tmp/ours_join_seq.txt", &out).unwrap();
+            std::fs::write(crate::common::dump_path("ours_join_seq.txt"), &out).unwrap();
         }
     }
-    std::fs::write("/tmp/ours_join_seq.txt", &out).unwrap();
+    std::fs::write(crate::common::dump_path("ours_join_seq.txt"), &out).unwrap();
     server.kill();
 }
 
@@ -90,6 +90,6 @@ async fn join_vanilla_for_comparison() {
                 .collect::<String>()
         ));
     }
-    std::fs::write("/tmp/vanilla_join_hex.txt", &out).unwrap();
+    std::fs::write(crate::common::dump_path("vanilla_join_hex.txt"), &out).unwrap();
     server.stop();
 }

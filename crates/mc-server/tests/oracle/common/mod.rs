@@ -17,6 +17,13 @@ use mc_testbot::{Bot, BotError};
 
 pub const T: Duration = Duration::from_secs(30);
 
+/// A file for a debugging dump of this test run, inside the target directory (never a fixed `/tmp` path).
+pub fn dump_path(name: &str) -> std::path::PathBuf {
+    let dir = std::path::Path::new(env!("CARGO_TARGET_TMPDIR")).join("oracle-dumps");
+    std::fs::create_dir_all(&dir).expect("create the dump directory");
+    dir.join(name)
+}
+
 /// OUR server (`mc-server`, offline, peaceful, view/simulation distance 4) for `seed` and `gamemode`; counterpart of
 /// `mc_testbot::harness::vanilla`, `props` replace the defaults of the same key. Start it with `.start()`.
 pub fn ours(seed: i64, gamemode: &str, props: &[&str]) -> mc_testkit::Builder {
@@ -64,6 +71,21 @@ fn pos_of(bot: &Bot) -> (i32, i32, i32) {
 /// Join, survive `secs` seconds walking square loops; must not be rubber-banded (no extra teleports) or kicked.
 pub async fn walk_scenario(bot: &Bot, secs: u64) {
     let start = bot.position();
+    // The bot only simulates inside loaded chunks: under load the neighbours of the spawn chunk arrive late and the
+    // walk would stand still, so wait for the 3x3 chunks around the start.
+    let (bx, bz) = (start.x.floor() as i32, start.z.floor() as i32);
+    bot.wait_for(Duration::from_secs(90), |s| {
+        [-16, 0, 16]
+            .into_iter()
+            .all(|dx| {
+                [-16, 0, 16]
+                    .into_iter()
+                    .all(|dz| s.world.has_chunk_at_block(bx + dx, bz + dz))
+            })
+            .then_some(())
+    })
+    .await
+    .unwrap_or_else(|e| panic!("chunks around the start: {e}\n{}", bot.log_tail(40)));
     let teleports_after_join = bot.with_state(|s| s.teleports);
     let end = std::time::Instant::now() + Duration::from_secs(secs);
     let mut travelled = 0.0;

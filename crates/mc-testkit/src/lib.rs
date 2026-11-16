@@ -238,6 +238,8 @@ impl Drop for Proc {
 /// A running server. Dropping it kills the process group and removes its temporary directory.
 pub struct Server {
     pub port: u16,
+    /// False with `enable-status=false`: the server closes status connections instead of answering them.
+    replies_to_status: bool,
     proc: Proc,
     dir: PathBuf,
     /// Dropped after `proc`: the directory is removed only once the process is dead.
@@ -343,7 +345,7 @@ impl Server {
         {
             return Err(self.failure("the server exited or timed out before printing `Done (`"));
         }
-        while status_ping(self.port).is_err() {
+        while status_ping(self.port, self.replies_to_status).is_err() {
             if Instant::now() >= deadline || lock(&self.proc.log.state).eof {
                 return Err(
                     self.failure("the server printed `Done (` but never answered a status ping")
@@ -365,6 +367,7 @@ enum Program {
 /// Configures and starts a [`Server`].
 pub struct Builder {
     program: Program,
+    args: Vec<String>,
     props: Vec<(String, String)>,
     dir: Option<PathBuf>,
     prepare: Option<Prepare>,
@@ -374,6 +377,7 @@ pub struct Builder {
 impl Builder {
     fn new(program: Program) -> Self {
         Builder {
+            args: Vec::new(),
             program,
             props: Vec::new(),
             dir: None,
@@ -411,6 +415,12 @@ impl Builder {
     /// Called with the server directory before the first launch, for example to put a world into it.
     pub fn prepare(mut self, f: impl FnOnce(&Path) + 'static) -> Self {
         self.prepare = Some(Box::new(f));
+        self
+    }
+
+    /// A command-line argument after `nogui` (`--demo`, `--bonusChest`), passed to the vanilla jar and to `mc-server`.
+    pub fn arg(mut self, arg: &str) -> Self {
+        self.args.push(arg.into());
         self
     }
 
@@ -518,6 +528,8 @@ impl Builder {
                 (bin.display().to_string(), cmd)
             }
         };
+        let mut cmd = cmd;
+        cmd.args(&self.args);
         let proc = Proc::start(cmd, dir).map_err(|e| match (e.kind(), &self.program) {
             (io::ErrorKind::NotFound, Program::Vanilla) => Error(
                 "java was not found on PATH: install JDK 25 (scripts/setup-ref.sh needs it too)"
@@ -527,6 +539,9 @@ impl Builder {
         })?;
         Ok(Server {
             port,
+            replies_to_status: !props
+                .iter()
+                .any(|(k, v)| k == "enable-status" && v == "false"),
             proc,
             dir: dir.to_path_buf(),
             _temp: None,
@@ -571,8 +586,9 @@ fn read_varint(r: &mut impl Read) -> io::Result<u32> {
     Err(io::Error::other("varint too long"))
 }
 
-/// A server list ping: handshake with the status intent, status request, read the response packet.
-fn status_ping(port: u16) -> io::Result<()> {
+/// A server list ping: handshake with the status intent, status request, read the response packet. A server that
+/// ignores status requests (`replies` false) is ready once it closes the connection.
+fn status_ping(port: u16, replies: bool) -> io::Result<()> {
     let mut s =
         TcpStream::connect_timeout(&(Ipv4Addr::LOCALHOST, port).into(), Duration::from_secs(2))?;
     s.set_read_timeout(Some(Duration::from_secs(2)))?;
@@ -587,6 +603,14 @@ fn status_ping(port: u16) -> io::Result<()> {
     request.extend(handshake);
     request.extend([1, 0]); // status request: length 1, id 0
     s.write_all(&request)?;
+    if !replies {
+        return match s.read(&mut [0u8; 1]) {
+            Ok(0) => Ok(()),
+            Ok(_) => Err(io::Error::other("status reply with enable-status=false")),
+            Err(e) if e.kind() == io::ErrorKind::ConnectionReset => Ok(()),
+            Err(e) => Err(e),
+        };
+    }
     let len = read_varint(&mut s)?;
     if len == 0 || len > 1 << 20 {
         return Err(io::Error::other("bad status response length"));
@@ -608,6 +632,15 @@ mod tests {
                 "{e}"
             );
         }
+    }
+
+    /// With `enable-status=false` vanilla closes the connection after the handshake: that is the ready signal.
+    #[test]
+    fn a_server_that_ignores_status_is_ready_once_it_closes_the_connection() {
+        let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 0)).unwrap();
+        let port = listener.local_addr().unwrap().port();
+        std::thread::spawn(move || drop(listener.accept()));
+        assert!(status_ping(port, false).is_ok());
     }
 
     #[test]

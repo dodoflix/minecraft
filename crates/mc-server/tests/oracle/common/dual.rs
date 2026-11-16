@@ -1,7 +1,7 @@
 //! Dual-server survival scenarios: the SAME bot script against the real vanilla server (observations committed as
 //! `tests/fixtures/entity_dual/*.txt`, regenerate with `MC_UPDATE_FIXTURES=1 cargo test -p mc-server --test oracle
 //! entity_dual_vanilla -- --ignored`) and OUR server (`entity_dual_ours` diffs its observations against those fixtures and writes
-//! `run/entity-dual-ours.diff`; `ENTITY_DUAL_STRICT=1` makes any difference a test failure).
+//! `run/entity-dual-ours.diff`; any difference fails the test, `ENTITY_DUAL_STRICT=0` only reports it).
 //!
 //! Setup/assertion channel is the server console (`give`, `tp`, `damage`, `summon`, `setblock`, `effect`, `kill`), observation channel
 //! is only what a vanilla client sees (the bot's state: health/food/air, block updates, tracked entities, events). The world
@@ -743,13 +743,21 @@ pub async fn eating(c: &Ctx) -> Vec<String> {
         })
         .await;
     let ticks = c.bot.tick() - t0;
-    c.ticks(5).await;
+    // the food update and the finish event follow the stack update: wait for them, not for a number of ticks
+    let _ = c
+        .bot
+        .wait_for(Duration::from_secs(10), |s| {
+            (s.food > food0 && s.saturation > sat0).then_some(())
+        })
+        .await;
     let (food1, sat1) = c.bot.with_state(|s| (s.food, s.saturation));
     let finished = c
         .bot
-        .events_since(mark)
-        .iter()
-        .any(|e| matches!(e, Observed::EntityEvent { event_id: 9, .. }));
+        .wait_event(mark, Duration::from_secs(5), |e| {
+            matches!(e, Observed::EntityEvent { event_id: 9, .. }).then_some(())
+        })
+        .await
+        .is_ok();
     vec![
         Obs::new("eat")
             .exact("consumed", done.is_ok())
@@ -803,6 +811,18 @@ fn token_matches(expected: &str, actual: &str) -> bool {
     };
     let tol = if epct { en.abs() * et / 100.0 } else { et };
     (en - an).abs() <= tol
+}
+
+/// Fails when `report` (`MATCH`/`DIFF` lines of the `*_ours` tests) contains a difference; `<var>=0` only reports it, to
+/// look at a diff without failing.
+pub fn assert_no_diff(var: &str, report: &str) {
+    if std::env::var(var).is_ok_and(|v| v == "0") {
+        return;
+    }
+    assert!(
+        !report.contains("DIFF "),
+        "our server differs from vanilla ({var}=0 reports without failing):\n{report}"
+    );
 }
 
 /// Compare fixture lines against observed lines (same scenario order); returns the differences.
