@@ -135,7 +135,7 @@ fn replay(name: &str) -> Vec<String> {
 
 fn check(name: &str) {
     let opts = Options {
-        ignore_kinds: vec!["I", "PKT", "C", "#", "B", "EFFECT", "DIG", "HURT"],
+        ignore_kinds: vec!["I", "PKT", "C", "CF", "#", "B", "EFFECT", "DIG", "HURT"],
         ignore_fields: vec![
             "pos", "delta", "rot", "og", "fall", "fire", "air", "alive", "pose", "abs", "hurt",
             "death", "fx", "gm", "xp", "sel", "main",
