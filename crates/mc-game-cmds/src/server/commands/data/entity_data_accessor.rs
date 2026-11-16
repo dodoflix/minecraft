@@ -10,6 +10,7 @@ use mc_game_core::commands::{CommandSourceStack, argument, host};
 use mc_game_core::translatable;
 use mc_nbt::{CompoundTag, Tag};
 use mc_text::Component;
+use parking_lot::Mutex;
 use std::sync::LazyLock;
 
 static ERROR_NO_PLAYERS: LazyLock<SimpleCommandExceptionType> =
@@ -17,6 +18,9 @@ static ERROR_NO_PLAYERS: LazyLock<SimpleCommandExceptionType> =
 
 pub struct EntityDataAccessor {
     entity: EntityRef,
+    /// The display name before `set_data`: an entity that loads into another type (a tadpole that grows up) leaves the level, and
+    /// vanilla's accessor still names the entity object it holds.
+    name_before_load: Mutex<Option<Component>>,
 }
 
 /// `EntityDataAccessor.PROVIDER`.
@@ -35,13 +39,23 @@ pub fn provider(arg: &'static str) -> ArgProvider<Box<dyn DataAccessor>> {
 
 impl EntityDataAccessor {
     pub fn new(entity: EntityRef) -> Self {
-        Self { entity }
+        Self {
+            entity,
+            name_before_load: Mutex::new(None),
+        }
     }
 
     fn display_name(&self, source: &CommandSourceStack) -> Component {
         source.with_server(|server| {
-            host::get_entity(server, &self.entity)
-                .map_or_else(Component::empty, |e| host::entity_display_name(server, e))
+            host::get_entity(server, &self.entity).map_or_else(
+                || {
+                    self.name_before_load
+                        .lock()
+                        .clone()
+                        .unwrap_or_else(Component::empty)
+                },
+                |e| host::entity_display_name(server, e),
+            )
         })
     }
 }
@@ -56,6 +70,8 @@ impl DataAccessor for EntityDataAccessor {
             if host::get_entity(server, &self.entity).is_some_and(|e| e.is_player()) {
                 return Err(ERROR_NO_PLAYERS.create());
             }
+            *self.name_before_load.lock() = host::get_entity(server, &self.entity)
+                .map(|e| host::entity_display_name(server, e));
             // vanilla: `Entity.load` failing is a crash report (the command fails with a logged exception)
             if let Err(reason) = host::entity_load_data(server, &self.entity, &tag) {
                 panic!("{reason}");
