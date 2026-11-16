@@ -921,8 +921,10 @@ impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLeve
         true // a generation region has no entities
     }
 
-    fn is_within_world_border(&self, _pos: BlockPos) -> bool {
-        true // the border is not published to worker threads
+    fn is_within_world_border(&self, pos: BlockPos) -> bool {
+        self.live
+            .as_ref()
+            .is_none_or(|l| l.is_within_world_border(pos))
     }
 
     fn contains_any_liquid(&self, aabb: &mc_core::phys::AABB) -> bool {

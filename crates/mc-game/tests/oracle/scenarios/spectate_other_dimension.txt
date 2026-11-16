@@ -1,0 +1,32 @@
+# `/spectate` an entity of another level: ServerPlayer.setCamera teleports the spectator into the level of the camera (a dimension change with its
+# respawn packet), the chunk source of the new level follows it and the client is told the camera; leaving the camera with `/spectate` goes on in
+# the new level. Watchers of both levels hear of it.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+spawn_player S spectator 0.5 -60 0.5 0 0
+spawn_player O survival 4.5 -60 0.5 0 0
+in the_nether spawn_player N survival 18.5 200 18.5 0 0
+in the_nether spawn cow minecraft:cow 20.5 200 22.5 90 30 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+entity_seed cow 3
+tick 2
+dump levels players player:S packets:S:none packets:O:none packets:N:none
+note the spectator takes the cow of the nether as its camera
+cmd spectate @e[type=minecraft:cow,limit=1] S
+dump levels players player:S packets:S:respawn,change_difficulty,player_abilities,player_position,set_camera,initialize_border,set_time,game_event,set_held_slot packets:O:remove_entities,add_entity,teleport_entity packets:N:add_entity,teleport_entity,player_info_update
+tick 2
+dump levels players player:S packets:S:set_camera,player_position,teleport_entity,entity_position_sync,move_entity_pos,chunk_batch_start,forget_level_chunk
+note the cow moves, the spectator follows
+in the_nether tp cow 26.5 200 22.5 90 30
+tick 2
+dump levels players player:S packets:S:set_camera,player_position,teleport_entity,entity_position_sync,move_entity_pos
+note the spectator lets go of the camera
+cmd execute as S run spectate
+tick 2
+dump levels players player:S packets:S:set_camera,player_position,respawn packets:N:remove_entities,add_entity,teleport_entity

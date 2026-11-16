@@ -1,0 +1,72 @@
+CF msg Now spectating Cow
+CF result success 1
+CF msg Now spectating Pig
+CF result success 1
+LEVEL minecraft:overworld gametime=4 forced=25 loaded=1225 players=3 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=4 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL A dim=minecraft:overworld
+PL S dim=minecraft:overworld
+PL T dim=minecraft:overworld
+PL N dim=minecraft:the_nether
+P S minecraft:player pos=4.5,-61.0,2.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P T minecraft:player pos=2.5,-61.0,4.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the cow is pushed into the portal
+LEVEL minecraft:overworld gametime=5 forced=25 loaded=1225 players=3 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=5 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL A dim=minecraft:overworld
+PL S dim=minecraft:overworld
+PL T dim=minecraft:overworld
+PL N dim=minecraft:the_nether
+P S minecraft:player pos=0.5,-60.0,0.4 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P T minecraft:player pos=2.5,-61.0,4.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E cow minecraft:cow pos=0.5,-60.0,0.4 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E pig minecraft:pig pos=2.5,-61.0,4.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+LEVEL minecraft:overworld gametime=8 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=8 forced=25 loaded=1328 players=2 border=5.9999968E7
+PL A dim=minecraft:overworld
+PL S dim=minecraft:the_nether
+PL T dim=minecraft:overworld
+PL N dim=minecraft:the_nether
+P S minecraft:player pos=-0.5,70.0,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P T minecraft:player pos=2.5,-61.0,4.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E pig minecraft:pig pos=2.5,-61.0,4.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow#1 minecraft:cow pos=-0.5,70.0,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+PKT S minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e030000010000c1ffffff0f03
+PKT S minecraft:player_position 4903bfe000000000000040518000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT S minecraft:player_position 4904bfe000000000000040518000000000003fe0000000000000000000000000000000000000000000000000000000000000423400000000000000000000
+PKT S minecraft:set_camera 5f66
+PKT A minecraft:remove_entities 4e0169
+E pig minecraft:pig pos=2.5,-61.0,4.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow#1 minecraft:cow pos=-0.5,70.0,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+B -2 69 0 minecraft:obsidian
+B -2 70 0 minecraft:obsidian
+B -2 71 0 minecraft:obsidian
+B -2 72 0 minecraft:obsidian
+B -2 73 0 minecraft:obsidian
+B -1 69 -1 minecraft:obsidian
+B -1 69 0 minecraft:obsidian
+B -1 69 1 minecraft:obsidian
+B -1 70 0 minecraft:nether_portal[axis=x]
+B -1 71 0 minecraft:nether_portal[axis=x]
+B -1 72 0 minecraft:nether_portal[axis=x]
+B -1 73 0 minecraft:obsidian
+B 0 69 -1 minecraft:obsidian
+B 0 69 0 minecraft:obsidian
+B 0 69 1 minecraft:obsidian
+B 0 70 0 minecraft:nether_portal[axis=x]
+B 0 71 0 minecraft:nether_portal[axis=x]
+B 0 72 0 minecraft:nether_portal[axis=x]
+B 0 73 0 minecraft:obsidian
+B 1 69 0 minecraft:obsidian
+B 1 70 0 minecraft:obsidian
+B 1 71 0 minecraft:obsidian
+B 1 72 0 minecraft:obsidian
+B 1 73 0 minecraft:obsidian
+LEVEL minecraft:overworld gametime=11 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=11 forced=25 loaded=1328 players=2 border=5.9999968E7
+PL A dim=minecraft:overworld
+PL S dim=minecraft:the_nether
+PL T dim=minecraft:overworld
+PL N dim=minecraft:the_nether
+P S minecraft:player pos=-0.5,70.0,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P T minecraft:player pos=2.5,-61.0,4.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

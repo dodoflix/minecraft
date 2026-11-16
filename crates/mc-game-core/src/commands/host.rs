@@ -832,24 +832,7 @@ pub fn teleport_entity(
             dimension: destination.clone(),
             id: victim.id,
         };
-        if let Some(player) = server
-            .level_mut(&result.dimension)
-            .and_then(|l| l.get_entity_mut(result.id))
-        {
-            let head = if relatives.contains(mc_protocol::packets::play::Relative::YRot) {
-                player.get_y_head_rot() + y_rot
-            } else {
-                y_rot
-            };
-            player.set_y_head_rot(head);
-            if let Some(listener) = player
-                .as_any_mut()
-                .downcast_mut::<crate::world::entity::ServerPlayer>()
-                .and_then(|p| p.listener.as_mut())
-            {
-                listener.reset_flying_ticks();
-            }
-        }
+        finish_player_teleport(server, &result, relatives, y_rot);
         result
     } else {
         let id = teleport_entity(server, &victim.dimension, victim.id, &transition)?;
@@ -859,6 +842,95 @@ pub fn teleport_entity(
         }
     };
     Some(result)
+}
+
+/// `ServerPlayer.teleportTo(level, ..)` after the teleport: the head turns with the body and the movement checks restart.
+fn finish_player_teleport(
+    server: &mut MinecraftServer,
+    player: &EntityRef,
+    relatives: mc_protocol::packets::play::Relatives,
+    y_rot: f32,
+) {
+    let Some(player) = server
+        .level_mut(&player.dimension)
+        .and_then(|l| l.get_entity_mut(player.id))
+    else {
+        return;
+    };
+    let head = if relatives.contains(mc_protocol::packets::play::Relative::YRot) {
+        player.get_y_head_rot() + y_rot
+    } else {
+        y_rot
+    };
+    player.set_y_head_rot(head);
+    if let Some(listener) = player
+        .as_any_mut()
+        .downcast_mut::<crate::world::entity::ServerPlayer>()
+        .and_then(|p| p.listener.as_mut())
+    {
+        listener.reset_flying_ticks();
+    }
+}
+
+/// `ServerPlayer.setCamera(camera)` (`None` resets it). A camera in another level takes the player there first
+/// (`teleportTo(level, ..)` of the camera's level), then the chunk source of that level follows the player.
+pub fn set_camera(server: &mut MinecraftServer, player: &EntityRef, camera: Option<&EntityRef>) {
+    use crate::server::players::dimension_change::{
+        PostTeleportTransition, TeleportTransition, teleport_player,
+    };
+    let Some(camera) = camera.filter(|c| c.dimension != player.dimension) else {
+        if let Some(level) = server.level_mut(&player.dimension) {
+            level.with_player(player.id, |level, p| {
+                p.set_camera(level, camera.map(|c| c.id))
+            });
+        }
+        return;
+    };
+    let Some(position) = get_entity(server, camera).map(|e| e.position()) else {
+        return;
+    };
+    let Some((y_rot, x_rot)) = server.level_mut(&player.dimension).and_then(|l| {
+        l.with_player(player.id, |level, p| {
+            let rotation = (p.base().y_rot(), p.base().x_rot());
+            p.camera = Some(camera.id);
+            if p.player.living.is_sleeping() {
+                p.stop_sleep_in_bed(level, true, true);
+            }
+            rotation
+        })
+    }) else {
+        return;
+    };
+    let transition = TeleportTransition::new(
+        camera.dimension.clone(),
+        position,
+        mc_core::phys::Vec3::ZERO,
+        y_rot,
+        x_rot,
+        PostTeleportTransition::DO_NOTHING,
+    );
+    if !teleport_player(server, &player.dimension, player.id, &transition) {
+        return;
+    }
+    let moved = EntityRef {
+        dimension: camera.dimension.clone(),
+        id: player.id,
+    };
+    finish_player_teleport(
+        server,
+        &moved,
+        mc_protocol::packets::play::Relatives::NONE,
+        y_rot,
+    );
+    if let Some(level) = server.level_mut(&moved.dimension) {
+        level.with_player(moved.id, |level, p| {
+            p.chunk_source_move(level);
+            p.send(&mc_protocol::packets::play::ClientboundSetCameraPacket {
+                camera_id: camera.id,
+            });
+            p.reset_position_after_teleport();
+        });
+    }
 }
 
 /// `TeleportCommand.performTeleport`'s tail for a successfully teleported `victim`: keeps only horizontal momentum and

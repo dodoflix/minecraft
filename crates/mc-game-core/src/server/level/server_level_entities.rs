@@ -768,6 +768,17 @@ impl ServerLevel {
         self.chunk_source.chunk_map.remove_removed_player(id);
     }
 
+    /// `ChunkMap.removeEntity(player)` for a player that leaves this level for another: its connection hears
+    /// `remove_entities` for everything it was shown here. The stand-in that stays in the level has no connection, so
+    /// this runs with the record of the real player before the later removal of the stand-in.
+    pub fn stop_tracking_entities_for(&mut self, player: &PlayerRecord) {
+        self.entity_tracker.remove_player_pairings(
+            &mut Entities::new(&mut self.entity_manager, &self.server_state.entities),
+            &mut self.debug_synchronizers,
+            player,
+        );
+    }
+
     /// A killed player that is no longer in the level (see [`ServerLevel::dead_players`]).
     pub fn get_dead_player(&self, id: EntityId) -> Option<&dyn Entity> {
         self.dead_players.get(&id).map(|e| e.as_ref())

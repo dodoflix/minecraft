@@ -1,0 +1,48 @@
+# The InitializeBorder packet of the level a player joins or changes to carries that level's border: a custom size, centre, safe zone,
+# damage, warning values and a lerp in progress in the nether and End, the default in the overworld. A player moving between the levels
+# is sent the border of every level it enters and nothing of the one it leaves.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+cmd execute in minecraft:the_nether run worldborder set 200
+cmd execute in minecraft:the_nether run worldborder center 12 -34
+cmd execute in minecraft:the_nether run worldborder damage buffer 4
+cmd execute in minecraft:the_nether run worldborder damage amount 0.25
+cmd execute in minecraft:the_nether run worldborder warning distance 9
+cmd execute in minecraft:the_nether run worldborder warning time 30
+cmd execute in minecraft:the_end run worldborder set 80 100s
+cmd execute in minecraft:the_end run worldborder center -5 6
+cmd worldborder set 5000
+tick 5
+note players join each level: the first packets carry that level's border
+spawn_player A creative 0.5 -60 0.5 0 0 joinburst
+in the_nether spawn_player B creative 0.5 70 0.5 0 0 joinburst
+in the_end spawn_player C creative 0.5 70 0.5 0 0 joinburst
+tick 2
+dump levels packets:A:login,initialize_border packets:B:login,initialize_border packets:C:login,initialize_border
+in the_nether dump world
+in the_end dump world
+note a player changes level, the border follows
+tp_dim A the_nether 0.5 70 0.5
+tick 2
+dump levels players packets:A:respawn,initialize_border,set_border_size packets:B:initialize_border packets:C:initialize_border
+tp_dim A the_end 0.5 70 0.5
+tick 2
+dump levels players packets:A:respawn,initialize_border,set_border_size packets:B:initialize_border packets:C:initialize_border
+tp_dim A overworld 0.5 -60 0.5
+tick 2
+dump levels players packets:A:respawn,initialize_border,set_border_size packets:B:initialize_border packets:C:initialize_border
+note the nether border changes while A is away from it, then A returns
+cmd execute in minecraft:the_nether run worldborder add 100 4s
+tick 30
+dump packets:A:set_border_size,set_border_lerp_size,set_border_center packets:B:set_border_size,set_border_lerp_size,set_border_center
+tp_dim A the_nether 0.5 70 0.5
+tick 2
+dump levels players packets:A:respawn,initialize_border,set_border_size,set_border_lerp_size
+in the_nether dump world

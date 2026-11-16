@@ -1,0 +1,40 @@
+CF msg Set minecraft:overworld to 14000 tick(s)
+CF result success 14000
+CF msg Now spectating Pig
+CF result success 1
+# W sleeps, turns spectator and teleports to the cow of the nether: it is woken first
+CF msg Set W's game mode to Spectator Mode
+CF result success 1
+LEVEL minecraft:overworld gametime=6 forced=25 loaded=1225 players=3 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=6 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL S dim=minecraft:overworld
+PL W dim=minecraft:overworld
+PL O dim=minecraft:overworld
+PL N dim=minecraft:the_nether
+P S minecraft:player pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P W minecraft:player pos=8.5,-59.3125,5.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+LEVEL minecraft:overworld gametime=8 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=8 forced=25 loaded=1225 players=2 border=5.9999968E7
+PL S dim=minecraft:overworld
+PL W dim=minecraft:the_nether
+PL O dim=minecraft:overworld
+PL N dim=minecraft:the_nether
+P W minecraft:player pos=20.5,200.0,22.5 delta=0.0,0.0,0.0 rot=90.0,30.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT W minecraft:animate 026600
+PKT W minecraft:player_position 4903401e000000000000c04e0000000000004016000000000000000000000000000000000000000000000000000000000000c2b400000000000000000000
+PKT W minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e030100010000c1ffffff0f03
+PKT W minecraft:player_position 490440348000000000004069000000000000403680000000000000000000000000000000000000000000000000000000000042b4000041f0000000000000
+PKT W minecraft:set_entity_data 65660000200614000e0b00ff
+# S has the pig as its camera and teleports to the cow of the nether
+LEVEL minecraft:overworld gametime=10 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=10 forced=25 loaded=1225 players=3 border=5.9999968E7
+PL S dim=minecraft:the_nether
+PL W dim=minecraft:the_nether
+PL O dim=minecraft:overworld
+PL N dim=minecraft:the_nether
+P S minecraft:player pos=20.5,200.0,22.5 delta=0.0,0.0,0.0 rot=90.0,30.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:player_position 4903400c000000000000c04e000000000000400c000000000000000000000000000000000000000000000000000000000000423400000000000000000000
+PKT S minecraft:set_camera 5f65
+PKT S minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e030000010000c1ffffff0f03
+PKT S minecraft:player_position 490440348000000000004069000000000000403680000000000000000000000000000000000000000000000000000000000042b4000041f0000000000000
+PKT S minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02

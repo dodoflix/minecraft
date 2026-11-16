@@ -511,6 +511,15 @@ impl Entity for ServerPlayer {
             self.base_mut().portal_cooldown -= 1;
         }
     }
+    /// `ServerPlayer.broadcastToPlayer(player)`: a spectating viewer is sent only the players that look through their own
+    /// eyes, any other viewer is not sent spectators.
+    fn broadcast_to_player(&self, player: &crate::server::level::PlayerRecord) -> bool {
+        if player.spectator {
+            self.camera.is_none()
+        } else {
+            !self.is_spectator()
+        }
+    }
     /// `ServerPlayer.removeVehicle()`: the effects of the old vehicle are removed client side, the passenger list resent.
     fn on_vehicle_removed(
         &mut self,

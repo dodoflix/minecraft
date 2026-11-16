@@ -180,6 +180,10 @@ impl PlayerSystems for ServerPlayerSystems {
         x_rot: f32,
         set_camera: bool,
     ) {
+        // a sleeper wakes up and the camera is reset before the transition
+        if ctx.player.player.living.is_sleeping() {
+            ctx.player.stop_sleep_in_bed_impl(ctx.level, true, true);
+        }
         if set_camera {
             ctx.player.set_camera(ctx.level, None);
         }
@@ -190,19 +194,14 @@ impl PlayerSystems for ServerPlayerSystems {
                 dimension.clone(),
             );
             ctx.lis().deferred_tasks.push(Box::new(move |server| {
-                let transition = crate::server::players::dimension_change::TeleportTransition::new(
-                    target,
+                crate::commands::host::teleport_entity(
+                    server,
+                    &crate::commands::arguments::selector::EntityRef { dimension: old, id },
+                    &target,
                     mc_core::phys::Vec3::new(x, y, z),
-                    mc_core::phys::Vec3::ZERO,
+                    mc_protocol::packets::play::Relatives::NONE,
                     y_rot,
                     x_rot,
-                    crate::server::players::dimension_change::PostTeleportTransition::DO_NOTHING,
-                );
-                crate::server::players::dimension_change::teleport_player(
-                    server,
-                    &old,
-                    id,
-                    &transition,
                 );
             }));
             return;

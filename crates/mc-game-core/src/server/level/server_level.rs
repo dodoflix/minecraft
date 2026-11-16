@@ -466,6 +466,7 @@ impl ServerLevel {
 
     /// `getChunk(x, z, status, loadOrGenerate)` for `FULL`: loads/generates the chunk and waits for it.
     pub fn chunk_blocking_mut(&mut self, x: i32, z: i32) -> &mut LevelChunk {
+        self.publish_world_border();
         let future = self
             .chunk_source
             .get_chunk_future_main_thread(x, z, ChunkStatus::Full, true);
@@ -491,6 +492,7 @@ impl ServerLevel {
             status != ChunkStatus::Full,
             "use chunk_blocking_mut for FULL"
         );
+        self.publish_world_border();
         let future = self
             .chunk_source
             .get_chunk_future_main_thread(x, z, status, load_or_generate);

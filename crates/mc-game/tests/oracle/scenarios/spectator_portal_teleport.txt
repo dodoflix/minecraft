@@ -1,0 +1,44 @@
+# A spectator right-clicking a nether portal block is teleported through it (ServerPlayerGameMode.useItemOn, Portal.getPortalDestination, no
+# portal is built for it): to the portal that exists in the nether, its camera is reset first; the use is consumed.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+in the_nether fill -1 69 0 2 69 0 minecraft:obsidian
+in the_nether fill -1 73 0 2 73 0 minecraft:obsidian
+in the_nether fill -1 70 0 -1 72 0 minecraft:obsidian
+in the_nether fill 2 70 0 2 72 0 minecraft:obsidian
+in the_nether fill 0 70 0 1 72 0 minecraft:nether_portal[axis=x]
+spawn_player S spectator 0.5 -60 3.5 180 0
+spawn_player T spectator 3.5 -60 3.5 180 0
+spawn cow minecraft:cow 1.5 -60 3.5 0 0 {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+in the_nether spawn_player N creative 5.5 70 5.5 0 0
+tick 2
+dump levels players packets:S:none packets:T:none packets:N:none
+note S right-clicks the portal block; the exit portal exists
+use_on S 0 -60 0 south
+tick 2
+dump levels players player:S packets:S:respawn,player_position,set_camera,initialize_border,system_chat packets:N:add_entity,player_info_update
+note T takes the cow as camera first, then right-clicks: the camera is reset on the way
+cmd spectate @e[type=minecraft:cow,limit=1] T
+tick 1
+dump player:T packets:T:set_camera,player_position
+accept_teleport T
+use_on T 0 -60 0 south
+tick 2
+dump levels players player:T packets:T:respawn,player_position,set_camera,system_chat
+note back through the nether portal
+accept_teleport S
+use_on S 0 70 0 south
+tick 2
+dump levels players player:S packets:S:respawn,player_position,set_camera,system_chat

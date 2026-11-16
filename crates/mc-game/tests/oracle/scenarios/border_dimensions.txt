@@ -1,0 +1,59 @@
+# Every level has its own world border: size, centre, damage, warning and lerp commands run in the nether and the End change only that
+# level (the overworld border stays at the default), their packets reach only the players of that level, a lerp ends with the tick loop of its own level,
+# and a player outside the border of its level is hurt while the overworld player at the same coordinates is not.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+spawn_player A survival 70.5 -60 0.5 0 0
+spawn_player E creative 4.5 -60 0.5 0 0
+in the_nether spawn_player B creative 20.5 70 20.5 0 0
+in the_nether spawn_player D survival 70.5 70 0.5 0 0
+in the_end spawn_player C creative 20.5 70 20.5 0 0
+tick 2
+note default borders everywhere
+dump levels world packets:A:none packets:E:none packets:B:none packets:D:none packets:C:none
+in the_nether dump world
+in the_end dump world
+note the nether border: size, centre, damage, buffer and warnings
+cmd execute in minecraft:the_nether run worldborder set 100
+cmd execute in minecraft:the_nether run worldborder center 10 -20
+cmd execute in minecraft:the_nether run worldborder damage amount 0.05
+cmd execute in minecraft:the_nether run worldborder damage buffer 3
+cmd execute in minecraft:the_nether run worldborder warning distance 7
+cmd execute in minecraft:the_nether run worldborder warning time 20
+cmd execute in minecraft:the_nether run worldborder get
+cmd worldborder get
+cmd execute in minecraft:the_end run worldborder get
+dump levels world packets:A:initialize_border,set_border_size,set_border_lerp_size,set_border_center,set_border_warning_delay,set_border_warning_distance packets:E:initialize_border,set_border_size,set_border_lerp_size,set_border_center,set_border_warning_delay,set_border_warning_distance packets:B:initialize_border,set_border_size,set_border_lerp_size,set_border_center,set_border_warning_delay,set_border_warning_distance packets:D:initialize_border,set_border_size,set_border_lerp_size,set_border_center,set_border_warning_delay,set_border_warning_distance packets:C:initialize_border,set_border_size,set_border_lerp_size,set_border_center,set_border_warning_delay,set_border_warning_distance
+in the_nether dump world
+in the_end dump world
+note the End border shrinks over ten seconds, then grows over five; the nether player outside the border is hurt, the overworld player at the same place is not
+cmd execute in minecraft:the_end run worldborder set 60 10s
+cmd execute in minecraft:the_end run worldborder damage amount 1
+cmd execute in minecraft:the_end run worldborder get
+tick 25
+dump levels world player:A player:D packets:A:set_border_size,set_border_lerp_size,set_border_center,damage_event,hurt_animation,entity_event packets:D:set_border_size,set_border_lerp_size,set_border_center,damage_event,hurt_animation,entity_event packets:C:initialize_border,set_border_size,set_border_lerp_size,set_border_center packets:B:set_border_size,set_border_lerp_size,set_border_center
+in the_end dump world
+cmd execute in minecraft:the_end run worldborder add 20 5s
+tick 200
+dump levels packets:C:set_border_size,set_border_lerp_size,set_border_center packets:B:set_border_size,set_border_lerp_size,set_border_center
+in the_end dump world
+note a short lerp in the nether ends there: the level sizes follow their own ticks
+cmd execute in minecraft:the_nether run worldborder set 40 2s
+tick 45
+dump levels world packets:B:set_border_size,set_border_lerp_size,set_border_center packets:A:set_border_size,set_border_lerp_size
+in the_nether dump world
+note back to the default in the nether, the End keeps its lerp
+cmd execute in minecraft:the_nether run worldborder set 59999968
+cmd execute in minecraft:the_nether run worldborder center 0 0
+cmd execute in minecraft:the_nether run worldborder damage buffer 5
+tick 3
+dump levels world packets:B:set_border_size,set_border_lerp_size,set_border_center packets:D:set_border_size,set_border_lerp_size,set_border_center,damage_event
+in the_nether dump world
+in the_end dump world

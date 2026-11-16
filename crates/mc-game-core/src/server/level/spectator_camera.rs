@@ -37,7 +37,7 @@ impl ServerPlayer {
         if old_camera == camera {
             return;
         }
-        // `camera.level() instanceof ServerLevel`: an entity in another dimension is not found here
+        // `camera.level() instanceof ServerLevel`: a camera in another level is `commands::host::set_camera`'s
         let target = if camera == own {
             Some(self.position())
         } else {
@@ -45,8 +45,9 @@ impl ServerPlayer {
         };
         if let Some(pos) = target {
             let (y_rot, x_rot) = (self.base().y_rot(), self.base().x_rot());
+            // `ServerPlayer.teleportTo(level, ..)`
             if self.player.living.is_sleeping() {
-                // Not implemented: `ServerPlayer.teleportTo` calls `stopSleepInBed(true, true)` here.
+                self.stop_sleep_in_bed(level, true, true);
             }
             // `ServerPlayer.teleport` (a transition that is not a passenger move): `removeVehicle()`
             level.remove_vehicle(self);

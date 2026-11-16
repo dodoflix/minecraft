@@ -1096,7 +1096,7 @@ pub trait Entity: Any {
     }
 
     /// `broadcastToPlayer(player)`.
-    fn broadcast_to_player(&self, _player_id: EntityId) -> bool {
+    fn broadcast_to_player(&self, _player: &crate::server::level::PlayerRecord) -> bool {
         true
     }
 

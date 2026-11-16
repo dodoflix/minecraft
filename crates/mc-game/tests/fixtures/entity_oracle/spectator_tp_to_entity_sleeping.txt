@@ -1,0 +1,15 @@
+CF msg Set minecraft:overworld to 14000 tick(s)
+CF result success 14000
+P S minecraft:player pos=0.5,-59.3125,5.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the sleeper turns spectator (still in its bed) and is teleported to the cow
+CF msg Set S's game mode to Spectator Mode
+CF result success 1
+P S minecraft:player pos=0.5,-59.3125,5.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E cow minecraft:cow pos=8.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P S minecraft:player pos=8.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:animate 02a50d00
+PKT S minecraft:player_position 4903bfe0000000000000c04e0000000000004016000000000000000000000000000000000000000000000000000000000000c2b400000000000000000000
+PKT S minecraft:player_position 49044021000000000000c04e000000000000401a00000000000000000000000000000000000000000000000000000000000042b400000000000000000000
+PKT S minecraft:set_entity_data 65a50d0000200614000e0b00ff
+# a spectator that sleeps again cannot (spectators never sleep), a survival player teleports like before
+P S minecraft:player pos=8.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

@@ -1,0 +1,69 @@
+CF msg Set the center of the world border to 50.50, 50.50
+CF result success 0
+CF msg Set the world border to 20.0 block(s) wide
+CF result success -59999948
+LEVEL minecraft:overworld gametime=2 forced=289 loaded=1849 players=0 border=20.0
+LEVEL minecraft:the_nether gametime=2 forced=289 loaded=1849 players=1 border=5.9999968E7
+E I minecraft:item pos=40.5,70.46,40.5 delta=0.0,-0.03920000076293945,0.0 rot=244.22574,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+E I minecraft:item pos=40.5,70.46,40.5 delta=0.0,-0.03920000076293945,0.0 rot=244.22574,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+LEVEL minecraft:overworld gametime=3 forced=289 loaded=1849 players=0 border=20.0
+LEVEL minecraft:the_nether gametime=3 forced=289 loaded=1849 players=1 border=5.9999968E7
+E item#1 minecraft:item pos=59.5,70.26318399697875,60.5 delta=0.0,-0.115263684456482,0.0 rot=244.22574,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=0 health=5 owner=- thrower=-
+B 58 69 60 minecraft:obsidian
+B 58 70 60 minecraft:obsidian
+B 58 71 60 minecraft:obsidian
+B 58 72 60 minecraft:obsidian
+B 58 73 60 minecraft:obsidian
+B 59 69 59 minecraft:obsidian
+B 59 69 60 minecraft:obsidian
+B 59 69 61 minecraft:obsidian
+B 59 70 60 minecraft:nether_portal[axis=x]
+B 59 71 60 minecraft:nether_portal[axis=x]
+B 59 72 60 minecraft:nether_portal[axis=x]
+B 59 73 60 minecraft:obsidian
+B 60 69 59 minecraft:obsidian
+B 60 69 60 minecraft:obsidian
+B 60 69 61 minecraft:obsidian
+B 60 70 60 minecraft:nether_portal[axis=x]
+B 60 71 60 minecraft:nether_portal[axis=x]
+B 60 72 60 minecraft:nether_portal[axis=x]
+B 60 73 60 minecraft:obsidian
+B 61 69 60 minecraft:obsidian
+B 61 70 60 minecraft:obsidian
+B 61 71 60 minecraft:obsidian
+B 61 72 60 minecraft:obsidian
+B 61 73 60 minecraft:obsidian
+E item#1 minecraft:item pos=59.5,70.26318399697875,60.5 delta=0.0,-0.115263684456482,0.0 rot=244.22574,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=0 health=5 owner=- thrower=-
+LEVEL minecraft:overworld gametime=10 forced=289 loaded=1849 players=1 border=20.0
+LEVEL minecraft:the_nether gametime=10 forced=289 loaded=1849 players=1 border=5.9999968E7
+PL P dim=minecraft:the_nether
+PL C dim=minecraft:overworld
+P C minecraft:player pos=60.0,70.0,60.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:stick*1
+PKT C minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT C minecraft:player_position 4902404e0000000000004051800000000000404e4000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT C minecraft:initialize_border 2c404940000000000040494000000000004034000000000000403400000000000000f086a70e05ac02
+PKT C minecraft:level_event 2f0000040800000000000000000000000000
+B 58 69 60 minecraft:obsidian
+B 58 70 60 minecraft:obsidian
+B 58 71 60 minecraft:obsidian
+B 58 72 60 minecraft:obsidian
+B 58 73 60 minecraft:obsidian
+B 59 69 59 minecraft:obsidian
+B 59 69 60 minecraft:obsidian
+B 59 69 61 minecraft:obsidian
+B 59 70 60 minecraft:nether_portal[axis=x]
+B 59 71 60 minecraft:nether_portal[axis=x]
+B 59 72 60 minecraft:nether_portal[axis=x]
+B 59 73 60 minecraft:obsidian
+B 60 69 59 minecraft:obsidian
+B 60 69 60 minecraft:obsidian
+B 60 69 61 minecraft:obsidian
+B 60 70 60 minecraft:nether_portal[axis=x]
+B 60 71 60 minecraft:nether_portal[axis=x]
+B 60 72 60 minecraft:nether_portal[axis=x]
+B 60 73 60 minecraft:obsidian
+B 61 69 60 minecraft:obsidian
+B 61 70 60 minecraft:obsidian
+B 61 71 60 minecraft:obsidian
+B 61 72 60 minecraft:obsidian
+B 61 73 60 minecraft:obsidian

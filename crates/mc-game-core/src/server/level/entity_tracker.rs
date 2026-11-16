@@ -198,7 +198,7 @@ impl TrackedEntity {
         let entity = entities.get_any(self.entity_id).expect("checked above");
         let chunk = entity.chunk_position();
         let visible = dist_sqr <= visible_range * visible_range
-            && entity.broadcast_to_player(player.id)
+            && entity.broadcast_to_player(player)
             && env.is_chunk_tracked(player.id, chunk.x, chunk.z);
         if visible {
             if !self.seen_by.contains_key(&player.id) {
@@ -349,6 +349,20 @@ impl EntityTracker {
         }
     }
 
+    /// The player half of `ChunkMap.removeEntity(player)`: the player forgets every entity it was told about.
+    pub fn remove_player_pairings(
+        &mut self,
+        entities: &mut Entities<'_>,
+        debug: &mut Option<LevelDebugSynchronizers>,
+        player: &PlayerRecord,
+    ) {
+        for id in self.entity_map.keys() {
+            if let Some(t) = self.entity_map.get_mut(id) {
+                t.remove_player(entities, debug, player.id, player.connection.as_ref());
+            }
+        }
+    }
+
     /// `ChunkMap.removeEntity(entity)`; `player` is the removed entity if it was a player.
     pub fn remove_entity(
         &mut self,
@@ -358,11 +372,7 @@ impl EntityTracker {
         player: Option<&PlayerRecord>,
     ) {
         if let Some(player) = player {
-            for id in self.entity_map.keys() {
-                if let Some(t) = self.entity_map.get_mut(id) {
-                    t.remove_player(entities, debug, player.id, player.connection.as_ref());
-                }
-            }
+            self.remove_player_pairings(entities, debug, player);
         }
         if let Some(t) = self.entity_map.remove(i64::from(entity_id)) {
             t.broadcast_removed(entities);

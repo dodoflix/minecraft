@@ -1,12 +1,14 @@
 //! What chunk generation (worker threads, no `ServerLevel`) reads from the live level: vanilla's `WorldGenRegion` reaches
 //! the real level through `getLevel()` for the difficulty, the `spawnMobs` game rule, the clocks and the registries when
-//! it spawns the original mobs of a chunk. The level publishes these every tick ([`GenLiveState::publish`]) and once at
-//! creation.
+//! it spawns the original mobs of a chunk, and the world border through `getWorldBorder()` (the spawn placement types
+//! check it). The level publishes these every tick ([`GenLiveState::publish`], [`GenLiveState::publish_border`]) and once
+//! at creation.
 
 use crate::registry::RegistryAccess;
 use crate::registry::typed::dimension_type::DimensionType;
+use mc_core::pos::BlockPos;
 use mc_world::level_storage::Difficulty;
-use std::sync::atomic::{AtomicBool, AtomicI32, AtomicI64, AtomicU32, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicI32, AtomicI64, AtomicU32, AtomicU64, Ordering};
 use std::sync::{Arc, OnceLock, RwLock};
 
 pub struct GenLiveState {
@@ -14,6 +16,8 @@ pub struct GenLiveState {
     spawn_mobs: AtomicBool,
     overworld_clock_time: AtomicI64,
     moon_brightness: AtomicU32,
+    /// The bounds of the world border (`getMinX()`, `getMaxX()`, `getMinZ()`, `getMaxZ()`) as `f64` bits.
+    border: [AtomicU64; 4],
     /// `registryAccess()`; `/reload` swaps it.
     registries: RwLock<RegistryAccess>,
     dimension_type: OnceLock<Arc<DimensionType>>,
@@ -30,6 +34,13 @@ impl Default for GenLiveState {
             spawn_mobs: AtomicBool::new(true),
             overworld_clock_time: AtomicI64::new(0),
             moon_brightness: AtomicU32::new(0.0f32.to_bits()),
+            border: [
+                f64::NEG_INFINITY,
+                f64::INFINITY,
+                f64::NEG_INFINITY,
+                f64::INFINITY,
+            ]
+            .map(|bound| AtomicU64::new(bound.to_bits())),
             registries: RwLock::new(RegistryAccess::default()),
             dimension_type: OnceLock::new(),
             entity_counter: OnceLock::new(),
@@ -54,6 +65,23 @@ impl GenLiveState {
             .store(overworld_clock_time, Ordering::Relaxed);
         self.moon_brightness
             .store(moon_brightness.to_bits(), Ordering::Relaxed);
+    }
+
+    /// Publishes the bounds of the level's world border (`[min_x, max_x, min_z, max_z]`).
+    pub fn publish_border(&self, bounds: [f64; 4]) {
+        for (slot, bound) in self.border.iter().zip(bounds) {
+            slot.store(bound.to_bits(), Ordering::Relaxed);
+        }
+    }
+
+    /// `getWorldBorder().isWithinBounds(pos)` as of the last publication.
+    pub fn is_within_world_border(&self, pos: BlockPos) -> bool {
+        let [min_x, max_x, min_z, max_z] = self
+            .border
+            .each_ref()
+            .map(|b| f64::from_bits(b.load(Ordering::Relaxed)));
+        let (x, z) = (f64::from(pos.x()), f64::from(pos.z()));
+        x >= min_x && x < max_x && z >= min_z && z < max_z
     }
 
     /// Installed once by the level factory.

@@ -1,0 +1,31 @@
+CF result failure 0
+CF fail Game rule random_tick_speed is already set to 0
+# the border is 64 blocks around (-200,190); the 160 x 160 blocks around it are generated
+CF msg The game is frozen
+CF result success 1
+CF msg Set the center of the world border to -199.50, 190.50
+CF result success 0
+CF msg Set the world border to 64.0 block(s) wide
+CF result success -59999904
+CF msg Marked 100 chunks in minecraft:overworld from [-18, 6] to [-9, 15] to be force loaded
+CF result success 100
+LEVEL minecraft:overworld gametime=3 forced=109 loaded=1719 players=0 border=64.0
+FORCED -1,-1 -1,0 -1,1 -10,10 -10,11 -10,12 -10,13 -10,14 -10,15 -10,6 -10,7 -10,8 -10,9 -11,10 -11,11 -11,12 -11,13 -11,14 -11,15 -11,6 -11,7 -11,8 -11,9 -12,10 -12,11 -12,12 -12,13 -12,14 -12,15 -12,6 -12,7 -12,8 -12,9 -13,10 -13,11 -13,12 -13,13 -13,14 -13,15 -13,6 -13,7 -13,8 -13,9 -14,10 -14,11 -14,12 -14,13 -14,14 -14,15 -14,6 -14,7 -14,8 -14,9 -15,10 -15,11 -15,12 -15,13 -15,14 -15,15 -15,6 -15,7 -15,8 -15,9 -16,10 -16,11 -16,12 -16,13 -16,14 -16,15 -16,6 -16,7 -16,8 -16,9 -17,10 -17,11 -17,12 -17,13 -17,14 -17,15 -17,6 -17,7 -17,8 -17,9 -18,10 -18,11 -18,12 -18,13 -18,14 -18,15 -18,6 -18,7 -18,8 -18,9 -9,10 -9,11 -9,12 -9,13 -9,14 -9,15 -9,6 -9,7 -9,8 -9,9 0,-1 0,0 0,1 1,-1 1,0 1,1
+G minecraft:polar_bear pos=-221.0,63.0,168.0 rot=312.7179,0.0 Age=0 Health=30.0f PersistenceRequired=0b
+G minecraft:polar_bear pos=-221.0,63.0,168.0 rot=87.421646,0.0 Age=-24000 Health=30.0f PersistenceRequired=0b
+G minecraft:polar_bear pos=-29.0,91.0,35.0 rot=275.60782,0.0 Age=0 Health=30.0f PersistenceRequired=0b
+G minecraft:polar_bear pos=-30.600000023841858,92.0,53.0 rot=334.53137,0.0 Age=0 Health=30.0f PersistenceRequired=0b
+G minecraft:polar_bear pos=58.0,131.0,-26.0 rot=175.90164,0.0 Age=0 Health=30.0f PersistenceRequired=0b
+G minecraft:rabbit pos=-17.0,90.0,8.0 rot=204.48479,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=1
+G minecraft:rabbit pos=-178.0,63.0,185.0 rot=359.1433,0.0 Age=0 Health=3.0f PersistenceRequired=0b RabbitType=1
+G minecraft:rabbit pos=-179.0,63.0,187.0 rot=312.8032,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=1
+G minecraft:rabbit pos=-181.0,63.0,187.0 rot=298.60236,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=1
+G minecraft:rabbit pos=-185.0,63.0,193.0 rot=110.85834,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=1
+G minecraft:rabbit pos=-186.0,63.0,193.0 rot=325.65573,0.0 Age=0 Health=3.0f PersistenceRequired=0b RabbitType=1
+G minecraft:rabbit pos=-20.0,89.0,11.0 rot=189.82227,0.0 Age=0 Health=3.0f PersistenceRequired=0b RabbitType=1
+G minecraft:rabbit pos=-209.0,63.0,191.0 rot=31.295628,0.0 Age=0 Health=3.0f PersistenceRequired=0b RabbitType=1
+G minecraft:rabbit pos=-210.0,63.0,188.0 rot=126.70603,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=1
+G minecraft:rabbit pos=-211.0,63.0,190.0 rot=240.80089,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=1
+G minecraft:rabbit pos=-22.0,93.0,50.0 rot=130.10814,0.0 Age=0 Health=3.0f PersistenceRequired=0b RabbitType=1
+G minecraft:rabbit pos=-24.0,92.0,50.0 rot=115.22424,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=1
+G minecraft:rabbit pos=-28.0,91.0,48.49000000953674 rot=342.53964,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=1

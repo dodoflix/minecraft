@@ -1,0 +1,44 @@
+# ServerPlayer.startRiding sends the position (rotation kept), the effects of a living vehicle and the passenger list; removeVehicle sends a
+# remove-effect packet for every effect of the old vehicle and the vehicle's remaining passengers. Boats carry no effects, riding a horse
+# with effects does, also when the player is teleported off (ServerPlayer.teleport takes it off its vehicle).
+level flat
+command_env
+preload 2
+difficulty peaceful
+entity_counter 1900
+level_seed 73
+spawn_player P survival 0.5 -60 0.5 30 10
+spawn_player Q survival 2.5 -60 0.5 0 0
+spawn horse minecraft:horse 5.5 -60 0.5 0 0 {NoAI:1b,Silent:1b,Tame:1b,PersistenceRequired:1b}
+spawn boat minecraft:oak_boat 8.5 -60 0.5 0 0
+entity_seed horse 3
+tick 2
+effect horse minecraft:speed 1 2000
+effect horse minecraft:jump_boost 0 3000
+effect horse minecraft:night_vision 0 4000
+effect horse minecraft:regeneration 2 5000
+effect horse minecraft:resistance 1 6000
+dump entities packets:P:none packets:Q:none
+note P mounts the horse
+ride P horse
+tick 1
+dump player:P packets:P:player_position,update_mob_effect,set_passengers,set_entity_data packets:Q:set_passengers
+note Q mounts the boat, then P dismounts with the ride command
+ride Q boat
+cmd ride P dismount
+tick 1
+dump player:P packets:P:player_position,remove_mob_effect,set_passengers packets:Q:set_passengers
+note P mounts again and is teleported away
+ride P horse
+tick 1
+dump packets:P:none
+tp P 12.5 -60 4.5 90 0
+tick 1
+dump player:P packets:P:player_position,remove_mob_effect,set_passengers
+note two passengers on the boat, one leaves
+ride P boat
+tick 1
+dump packets:P:none packets:Q:none
+cmd ride P dismount
+tick 1
+dump packets:P:set_passengers,remove_mob_effect,player_position packets:Q:set_passengers

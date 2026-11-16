@@ -1,0 +1,48 @@
+LEVEL minecraft:overworld gametime=2 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=2 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL S dim=minecraft:overworld
+PL O dim=minecraft:overworld
+PL N dim=minecraft:the_nether
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the spectator takes the cow of the nether as its camera
+CF msg Now spectating Cow
+CF result success 1
+LEVEL minecraft:overworld gametime=2 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=2 forced=25 loaded=1225 players=2 border=5.9999968E7
+PL S dim=minecraft:the_nether
+PL O dim=minecraft:overworld
+PL N dim=minecraft:the_nether
+P S minecraft:player pos=20.5,200.0,22.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e030000010000c1ffffff0f03
+PKT S minecraft:change_difficulty 0a0000
+PKT S minecraft:player_position 4902403480000000000040690000000000004036800000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT S minecraft:player_abilities 41073d4ccccd3dcccccd
+PKT S minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT S minecraft:set_time 730000000000000002020000000000000000000001000000000000000000
+PKT S minecraft:game_event 270d00000000
+PKT S minecraft:set_held_slot 6b00
+PKT S minecraft:set_camera 5f68
+LEVEL minecraft:overworld gametime=4 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=4 forced=25 loaded=1225 players=2 border=5.9999968E7
+PL S dim=minecraft:the_nether
+PL O dim=minecraft:overworld
+PL N dim=minecraft:the_nether
+P S minecraft:player pos=20.5,200.0,22.5 delta=0.0,0.0,0.0 rot=90.0,30.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the cow moves, the spectator follows
+LEVEL minecraft:overworld gametime=6 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=6 forced=25 loaded=1225 players=2 border=5.9999968E7
+PL S dim=minecraft:the_nether
+PL O dim=minecraft:overworld
+PL N dim=minecraft:the_nether
+P S minecraft:player pos=26.5,200.0,22.5 delta=0.0,0.0,0.0 rot=90.0,30.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the spectator lets go of the camera
+CF msg No longer spectating an entity
+CF result success 1
+LEVEL minecraft:overworld gametime=8 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=8 forced=25 loaded=1225 players=2 border=5.9999968E7
+PL S dim=minecraft:the_nether
+PL O dim=minecraft:overworld
+PL N dim=minecraft:the_nether
+P S minecraft:player pos=26.5,200.0,22.5 delta=0.0,0.0,0.0 rot=90.0,30.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:player_position 4903403a8000000000004069000000000000403680000000000000000000000000000000000000000000000000000000000042b4000041f0000000000000
+PKT S minecraft:set_camera 5f65

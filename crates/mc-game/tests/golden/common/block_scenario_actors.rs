@@ -810,14 +810,30 @@ impl Scenario {
                     include_data: a.get(5).is_some_and(|v| v == "true"),
                 })
             }),
-            // `teleport_to_entity PLAYER REF`: `ServerboundTeleportToEntityPacket` (a spectator teleports to the entity)
+            // `teleport_to_entity PLAYER REF`: `ServerboundTeleportToEntityPacket` (a spectator teleports to the entity, which may be
+            // in another level)
             "teleport_to_entity" => {
                 let target = self.entity_id(&a[2]);
                 deliver(self, &a[1], |level, _| {
+                    let uuid = level.get_entity(target).map(|e| e.uuid()).or_else(|| {
+                        mc_game::commands::server_access::with_server(|server| {
+                            server
+                                .all_levels()
+                                .find_map(|l| l.get_entity(target).map(|e| e.uuid()))
+                        })
+                    });
                     P::TeleportToEntity(ServerboundTeleportToEntityPacket {
-                        uuid: level.get_entity(target).expect("teleport target").uuid(),
+                        uuid: uuid.expect("teleport target"),
                     })
-                })
+                });
+                // another level's entity is a deferred level change, which the server runs with the queued packets
+                let level = self.level.as_mut().expect("world");
+                mc_game::commands::server_access::with_server(|server| {
+                    server.with_lent_level(level, |server| {
+                        mc_game::server::network::game_packets::process_queued_packets(server)
+                    })
+                });
+                self.focus_ref(&a[1]);
             }
             "jigsaw_generate" => {
                 self.world();

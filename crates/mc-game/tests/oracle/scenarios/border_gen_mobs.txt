@@ -1,0 +1,19 @@
+# Chunk generation reads the border of its level: the animals that generation spawns (NaturalSpawner.spawnMobsForChunkGeneration through the
+# spawn placement types, which check WorldGenRegion.getWorldBorder) appear only inside a small border: of the chunks generated around it only
+# those inside get animals.
+level normal
+structures false
+seed 25
+preload 1
+difficulty normal
+bootrule spawn_mobs true
+gamerule random_tick_speed 0
+entity_counter 100
+tick 3
+note the border is 64 blocks around (-200,190); the 160 x 160 blocks around it are generated
+cmd tick freeze
+cmd worldborder center -200 190
+cmd worldborder set 64
+cmd forceload add -288 96 -129 255
+tick 150
+dump levels forced placed

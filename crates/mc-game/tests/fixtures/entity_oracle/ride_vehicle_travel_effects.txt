@@ -1,0 +1,32 @@
+EFFECT H minecraft:speed added=true
+EFFECT H minecraft:jump_boost added=true
+EFFECT H minecraft:night_vision added=true
+# the horse is pushed into the portal
+E horse#1 minecraft:horse pos=-0.09999999999999998,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:jump_boost/0/2997;minecraft:night_vision/0/3997;minecraft:speed/1/1997 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:fall_damage_multiplier:0.5;minecraft:follow_range:16.0;minecraft:jump_strength:0.7;minecraft:max_health:53.0;minecraft:movement_speed:0.3149999929964542;minecraft:safe_fall_distance:7.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- owner=- temper=0 eatc=0 mouthc=0 standc=0 tailc=0 sprintc=0 jscale=0.0 slide=0 gallopc=0
+PL P dim=minecraft:overworld
+PL R dim=minecraft:the_nether
+P R minecraft:player pos=-0.09999999999999998,70.84375002384186,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+LEVEL minecraft:overworld gametime=6 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=6 forced=25 loaded=1225 players=1 border=5.9999968E7
+PKT R minecraft:remove_mob_effect 4f670f
+PKT R minecraft:remove_mob_effect 4f6707
+PKT R minecraft:remove_mob_effect 4f6700
+PKT R minecraft:set_passengers 6d6700
+PKT R minecraft:player_position 49033feccccccccccccdc04d93ffffcccccd3fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT R minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e010000010000c1ffffff0f03
+PKT R minecraft:remove_entities 4e0167
+PKT R minecraft:player_position 4904bfb99999999999984051b6000019999a3fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT R minecraft:player_position 4905bfb99999999999984051b6000019999a3fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT R minecraft:update_mob_effect 8701680f009f1f06
+PKT R minecraft:update_mob_effect 8701680700b71706
+PKT R minecraft:update_mob_effect 8701680001cf0f06
+PKT R minecraft:set_passengers 6d680166
+PKT P minecraft:remove_entities 4e0166
+PKT P minecraft:remove_entities 4e0167
+E horse#1 minecraft:horse pos=-0.09999999999999998,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:jump_boost/0/2994;minecraft:night_vision/0/3994;minecraft:speed/1/1994 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:fall_damage_multiplier:0.5;minecraft:follow_range:16.0;minecraft:jump_strength:0.7;minecraft:max_health:53.0;minecraft:movement_speed:0.3149999929964542;minecraft:safe_fall_distance:7.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- owner=- temper=0 eatc=0 mouthc=0 standc=0 tailc=0 sprintc=0 jscale=0.0 slide=0 gallopc=0
+PL P dim=minecraft:overworld
+PL R dim=minecraft:the_nether
+P R minecraft:player pos=-0.09999999999999998,70.84375002384186,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+LEVEL minecraft:overworld gametime=9 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=9 forced=25 loaded=1225 players=1 border=5.9999968E7
+E horse#1 minecraft:horse pos=-0.09999999999999998,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:jump_boost/0/2994;minecraft:night_vision/0/3994;minecraft:speed/1/1994 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:fall_damage_multiplier:0.5;minecraft:follow_range:16.0;minecraft:jump_strength:0.7;minecraft:max_health:53.0;minecraft:movement_speed:0.3149999929964542;minecraft:safe_fall_distance:7.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- owner=- temper=0 eatc=0 mouthc=0 standc=0 tailc=0 sprintc=0 jscale=0.0 slide=0 gallopc=0

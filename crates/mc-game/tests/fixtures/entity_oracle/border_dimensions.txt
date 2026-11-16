@@ -1,0 +1,200 @@
+# default borders everywhere
+LEVEL minecraft:overworld gametime=2 forced=25 loaded=1365 players=2 border=5.9999968E7
+LEVEL minecraft:the_end gametime=2 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=2 forced=25 loaded=1362 players=2 border=5.9999968E7
+WORLD gametime=2 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+WORLD gametime=2 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+WORLD gametime=2 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+# the nether border: size, centre, damage, buffer and warnings
+CF msg Set the world border to 100.0 block(s) wide
+CF result success -59999868
+CF msg Set the center of the world border to 10.50, -19.50
+CF result success 0
+CF msg Set the world border damage to 0.05 per block each second
+CF result success 0
+CF msg Set the world border damage buffer to 3.00 block(s)
+CF result success 3
+CF msg Set the world border warning distance to 7 block(s)
+CF result success 7
+CF msg Set the world border warning time to 1.00 second(s)
+CF result success 20
+CF msg The world border is currently 100 block(s) wide
+CF result success 100
+CF msg The world border is currently 59999968 block(s) wide
+CF result success 59999968
+CF msg The world border is currently 59999968 block(s) wide
+CF result success 59999968
+LEVEL minecraft:overworld gametime=2 forced=25 loaded=1365 players=2 border=5.9999968E7
+LEVEL minecraft:the_end gametime=2 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=2 forced=25 loaded=1362 players=2 border=100.0
+WORLD gametime=2 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+PKT B minecraft:set_border_size 5c4059000000000000
+PKT B minecraft:set_border_center 5a4025000000000000c033800000000000
+PKT B minecraft:set_border_warning_distance 5e07
+PKT B minecraft:set_border_warning_delay 5d14
+PKT D minecraft:set_border_size 5c4059000000000000
+PKT D minecraft:set_border_center 5a4025000000000000c033800000000000
+PKT D minecraft:set_border_warning_distance 5e07
+PKT D minecraft:set_border_warning_delay 5d14
+WORLD gametime=2 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=10.5,-19.5 size=100.0 target=100.0 lerp=0 safe=3.0 damage=0.05000000074505806 warn_blocks=7 warn_time=20 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+WORLD gametime=2 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+# the End border shrinks over ten seconds, then grows over five; the nether player outside the border is hurt, the overworld player at the same place is not
+CF msg Shrinking the world border to 60.0 block(s) wide over 10.00 second(s)
+CF result success -59999908
+CF msg Set the world border damage to 1.00 per block each second
+CF result success 1
+CF msg The world border is currently 59999968 block(s) wide
+CF result success 59999968
+LEVEL minecraft:overworld gametime=27 forced=25 loaded=1365 players=2 border=5.9999968E7
+LEVEL minecraft:the_end gametime=27 forced=25 loaded=1225 players=1 border=5.24999795E7
+LEVEL minecraft:the_nether gametime=27 forced=25 loaded=1362 players=2 border=100.0
+WORLD gametime=27 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+P A minecraft:player pos=70.5,-60.0,0.5 delta=0.0,-1.6480957061501194,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=70.5,70.0,0.5 delta=0.0,-1.6480957061501194,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=5/16 death=0 fx=- gm=survival food=20 sat=4.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT C minecraft:set_border_lerp_size 5b418c9c3700000000404e000000000000c801
+WORLD gametime=27 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.24999795E7 target=60.0 lerp=175 safe=5.0 damage=1.0 warn_blocks=5 warn_time=300 status=SHRINKING
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+CF msg Growing the world border to 52499999.5 block(s) wide over 13.75 second(s)
+CF result success 20
+LEVEL minecraft:overworld gametime=227 forced=25 loaded=1365 players=2 border=5.9999968E7
+LEVEL minecraft:the_end gametime=227 forced=25 loaded=1225 players=1 border=5.249999404545455E7
+LEVEL minecraft:the_nether gametime=227 forced=25 loaded=1362 players=2 border=100.0
+PKT C minecraft:set_border_lerp_size 5b418908b05c000000418908b0fc0000009302
+WORLD gametime=227 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.249999404545455E7 target=5.24999995E7 lerp=75 safe=5.0 damage=1.0 warn_blocks=5 warn_time=300 status=GROWING
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+# a short lerp in the nether ends there: the level sizes follow their own ticks
+CF msg Shrinking the world border to 40.0 block(s) wide over 2.00 second(s)
+CF result success -60
+LEVEL minecraft:overworld gametime=272 forced=25 loaded=1365 players=2 border=5.9999968E7
+LEVEL minecraft:the_end gametime=272 forced=25 loaded=1225 players=1 border=5.249999731818182E7
+LEVEL minecraft:the_nether gametime=272 forced=25 loaded=1362 players=2 border=40.0
+WORLD gametime=272 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+PKT B minecraft:set_border_lerp_size 5b4059000000000000404400000000000028
+WORLD gametime=272 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=10.5,-19.5 size=40.0 target=40.0 lerp=0 safe=3.0 damage=0.05000000074505806 warn_blocks=7 warn_time=20 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+# back to the default in the nether, the End keeps its lerp
+CF msg Set the world border to 59999968.0 block(s) wide
+CF result success 59999928
+CF msg Set the center of the world border to 0.50, 0.50
+CF result success 0
+CF msg Set the world border damage buffer to 5.00 block(s)
+CF result success 5
+LEVEL minecraft:overworld gametime=275 forced=25 loaded=1365 players=2 border=5.9999968E7
+LEVEL minecraft:the_end gametime=275 forced=25 loaded=1225 players=1 border=5.249999753636364E7
+LEVEL minecraft:the_nether gametime=275 forced=25 loaded=1362 players=2 border=5.9999968E7
+WORLD gametime=275 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+PKT B minecraft:set_border_size 5c418c9c3700000000
+PKT B minecraft:set_border_center 5a3fe00000000000003fe0000000000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:set_border_lerp_size 5b4059000000000000404400000000000028
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:damage_event 196821000000
+PKT D minecraft:set_border_size 5c418c9c3700000000
+PKT D minecraft:set_border_center 5a3fe00000000000003fe0000000000000
+WORLD gametime=275 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=0.5,0.5 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.05000000074505806 warn_blocks=7 warn_time=20 status=STATIONARY
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
+WORLD gametime=275 difficulty=peaceful locked=false
+CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
+CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
+WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
+SPAWN minecraft:overworld 8,-64,8 yaw=0.0 pitch=0.0
+BORDER center=0.0,0.0 size=5.249999753636364E7 target=5.24999995E7 lerp=27 safe=5.0 damage=1.0 warn_blocks=5 warn_time=300 status=GROWING
+TICKRATE rate=20.0 frozen=false steps=0 sprinting=false

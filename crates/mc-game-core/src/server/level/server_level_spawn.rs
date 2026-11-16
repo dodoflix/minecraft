@@ -27,6 +27,20 @@ impl ServerLevel {
             env.overworld_clock_time(),
             self.get_moon_brightness(BlockPos::ZERO),
         );
+        self.publish_world_border();
+    }
+
+    /// Publishes the bounds of the level's world border (`getWorldBorder()` of a `WorldGenRegion`): every tick and before the
+    /// level waits for a chunk, which generates it on the spot.
+    pub fn publish_world_border(&self) {
+        if let Some(border) = self.world_border_ref() {
+            self.spawning.gen_live.publish_border([
+                border.get_min_x(),
+                border.get_max_x(),
+                border.get_min_z(),
+                border.get_max_z(),
+            ]);
+        }
     }
 }
 

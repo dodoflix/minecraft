@@ -1,0 +1,34 @@
+# The way back: the destination of a nether portal is clamped into the border of the overworld too (the scaled target lies far outside a 20 wide border
+# around (50,50)): an item and a creative player enter a portal of the nether, and the overworld portal is built at the border's edge.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 8
+difficulty peaceful
+entity_counter 100
+level_seed 7
+cmd worldborder center 50 50
+cmd worldborder set 20
+in the_nether fill 39 69 40 42 69 40 minecraft:obsidian
+in the_nether fill 39 73 40 42 73 40 minecraft:obsidian
+in the_nether fill 39 70 40 39 72 40 minecraft:obsidian
+in the_nether fill 42 70 40 42 72 40 minecraft:obsidian
+in the_nether fill 40 70 40 41 72 40 minecraft:nether_portal[axis=x]
+in the_nether fill 41 68 42 45 68 46 minecraft:stone
+in the_nether spawn_player P creative 42.5 69 43.5 180 0
+tick 2
+dump levels
+in the_nether spawn_item I minecraft:stick 40.5 70.5 40.5 0 0 0
+tick 1
+in the_nether dump xentities
+dump xentities levels
+tick 3
+dump xentities blocks:52,64,52,68,78,68
+in the_nether dump xentities
+in the_nether spawn_player C creative 41.0 70 40.5 0 0 sim
+tick 4
+dump levels players player:C packets:C:respawn,player_position,initialize_border,level_event
+dump blocks:52,64,52,68,78,68
+tick 1

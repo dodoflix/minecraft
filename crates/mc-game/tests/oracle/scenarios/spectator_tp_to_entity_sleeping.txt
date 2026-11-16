@@ -1,0 +1,29 @@
+# A sleeping player that turned spectator and teleports to an entity (ServerboundTeleportToEntityPacket) is woken first: ServerPlayer.teleportTo
+# calls stopSleepInBed(true, true) (animate packet to the watchers and itself, a position packet), and the camera reset comes after it.
+command_env
+level flat
+preload 3
+difficulty peaceful
+level_seed 71
+entity_counter 1700
+time 14000
+block 0 -60 4 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 5 minecraft:red_bed[facing=south,part=head,occupied=false]
+spawn_player S survival 0.5 -60 2.5 0 0
+spawn_player W survival 6.5 -60 2.5 0 0
+spawn cow minecraft:cow 8.5 -60 6.5 90 0 {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+entity_seed cow 3
+tick 1
+use_on S 0 -60 5 up
+tick 2
+dump player:S packets:S:none packets:W:none
+note the sleeper turns spectator (still in its bed) and is teleported to the cow
+cmd gamemode spectator S
+dump player:S packets:S:none packets:W:none
+teleport_to_entity S cow
+tick 2
+dump entities player:S packets:S:animate,player_position,set_camera,teleport_entity,player_info_update,set_entity_data packets:W:animate,teleport_entity,set_entity_data,entity_position_sync,move_entity_pos
+note a spectator that sleeps again cannot (spectators never sleep), a survival player teleports like before
+use_on S 0 -60 5 up
+tick 2
+dump player:S packets:S:animate,player_position

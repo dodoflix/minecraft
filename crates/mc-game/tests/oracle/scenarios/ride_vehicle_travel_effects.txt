@@ -1,0 +1,36 @@
+# A player on a horse with effects when the horse is taken through a nether portal: the player is told to forget the effects and the passenger
+# list of the old vehicle (ServerPlayer.removeVehicle), changes level itself and, on arrival, rides the new horse (ServerPlayer.startRiding: position,
+# the effects of the new vehicle, the passenger list); a second rider that is not a player just arrives with its vehicle.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player P creative 2.5 -61 3.5 180 0
+tick 2
+spawn_player R creative 2.5 -61 3.5 180 0
+tick 1
+spawn H minecraft:horse 0.9 -60 0.5 90 0 {NoAI:1b,Silent:1b,Tame:1b,PersistenceRequired:1b}
+entity_seed H 3
+effect H minecraft:speed 1 2000
+effect H minecraft:jump_boost 0 3000
+effect H minecraft:night_vision 0 4000
+ride R H
+tick 1
+dump packets:P:none packets:R:none
+note the horse is pushed into the portal
+tick 2
+dump xentities players player:R levels packets:R:respawn,player_position,update_mob_effect,remove_mob_effect,set_passengers,add_entity,remove_entities,teleport_entity packets:P:remove_entities,set_passengers,remove_mob_effect
+tick 3
+dump xentities players player:R levels packets:R:respawn,player_position,update_mob_effect,remove_mob_effect,set_passengers,add_entity,remove_entities,teleport_entity packets:P:remove_entities,set_passengers
+in the_nether dump xentities

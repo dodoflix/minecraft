@@ -1,0 +1,43 @@
+EFFECT horse minecraft:speed added=true
+EFFECT horse minecraft:jump_boost added=true
+EFFECT horse minecraft:night_vision added=true
+EFFECT horse minecraft:regeneration added=true
+EFFECT horse minecraft:resistance added=true
+E horse minecraft:horse pos=5.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:jump_boost/0/3000;minecraft:night_vision/0/4000;minecraft:regeneration/2/5000;minecraft:resistance/1/6000;minecraft:speed/1/2000
+E boat minecraft:oak_boat pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+# P mounts the horse
+P P minecraft:player pos=5.5,-59.15624997615814,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:player_position 49024016000000000000c04d93ffffcccccd3fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P minecraft:update_mob_effect 8701ef0e0f00a01f06
+PKT P minecraft:update_mob_effect 8701ef0e0a01f02e06
+PKT P minecraft:update_mob_effect 8701ef0e0700b81706
+PKT P minecraft:update_mob_effect 8701ef0e0902882706
+PKT P minecraft:update_mob_effect 8701ef0e0001d00f06
+PKT P minecraft:set_passengers 6def0e01ed0e
+# Q mounts the boat, then P dismounts with the ride command
+CF msg P stopped riding Horse
+CF result success 1
+P P minecraft:player pos=4.501752800579197,-60.0,0.5000000000000001 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:remove_mob_effect 4fef0e0f
+PKT P minecraft:remove_mob_effect 4fef0e0a
+PKT P minecraft:remove_mob_effect 4fef0e07
+PKT P minecraft:remove_mob_effect 4fef0e09
+PKT P minecraft:remove_mob_effect 4fef0e00
+PKT P minecraft:set_passengers 6def0e00
+PKT P minecraft:player_position 4903401201cb7c74a800c04e0000000000003fe00000000000010000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT Q minecraft:set_passengers 6df00e01ee0e
+# P mounts again and is teleported away
+P P minecraft:player pos=12.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:remove_mob_effect 4fef0e0f
+PKT P minecraft:remove_mob_effect 4fef0e0a
+PKT P minecraft:remove_mob_effect 4fef0e07
+PKT P minecraft:remove_mob_effect 4fef0e09
+PKT P minecraft:remove_mob_effect 4fef0e00
+PKT P minecraft:set_passengers 6def0e00
+PKT P minecraft:player_position 49054029000000000000c04e000000000000401200000000000000000000000000000000000000000000000000000000000042b400000000000000000000
+# two passengers on the boat, one leaves
+CF msg P stopped riding Oak Boat
+CF result success 1
+PKT P minecraft:set_passengers 6df00e01ee0e
+PKT P minecraft:player_position 4907401ce9304474a800c04e0000000000003fe00000000000010000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT P minecraft:set_passengers 6df00e01ee0e

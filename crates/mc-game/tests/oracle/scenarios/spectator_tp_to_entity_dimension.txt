@@ -1,0 +1,39 @@
+# A spectator that teleports to an entity of another level (ServerboundTeleportToEntityPacket looks the uuid up in every level): the camera is
+# reset first, a sleeper is woken, then the player changes level with the respawn packet and arrives at the entity.
+command_env
+level void
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+time 14000
+block 8 -60 4 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 8 -60 5 minecraft:red_bed[facing=south,part=head,occupied=false]
+fill 6 -61 0 12 -61 8 minecraft:stone
+spawn_player S spectator 0.5 -60 0.5 0 0
+spawn_player W survival 8.5 -60 2.5 0 0
+spawn_player O survival 4.5 -60 0.5 0 0
+in the_nether spawn_player N survival 18.5 200 18.5 0 0
+tick 2
+spawn pig minecraft:pig 3.5 -60 3.5 45 0 {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+in the_nether spawn cow minecraft:cow 20.5 200 22.5 90 30 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+entity_seed pig 8
+entity_seed cow 3
+tick 1
+cmd spectate @e[type=minecraft:pig,limit=1] S
+tick 1
+use_on W 8 -60 5 up
+tick 2
+note W sleeps, turns spectator and teleports to the cow of the nether: it is woken first
+cmd gamemode spectator W
+dump levels players player:S player:W packets:S:none packets:W:none packets:O:none packets:N:none
+teleport_to_entity W cow
+tick 2
+dump levels players player:W packets:W:animate,respawn,player_position,set_camera,set_entity_data packets:O:remove_entities,add_entity,animate packets:N:add_entity,teleport_entity
+note S has the pig as its camera and teleports to the cow of the nether
+teleport_to_entity S cow
+tick 2
+dump levels players player:S packets:S:respawn,player_position,set_camera,initialize_border packets:O:remove_entities,add_entity packets:N:add_entity,teleport_entity

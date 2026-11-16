@@ -338,7 +338,35 @@ fn use_on(level: &mut ServerLevel, p: &mut ServerPlayer, a: &[String], sequence:
         .is_some_and(|l| l.is_awaiting_position_from_client());
     if !awaiting_teleport {
         let animation = interact_animation(p, hand);
-        let outcome = p.use_item_on(level, hand, &result);
+        // a spectator's use goes through the listener's item systems, which include the portal branch (the packet hit has float
+        // coordinates, so any other player keeps the exact hit the driver passes)
+        let outcome = if p.is_spectator() && mc_game::commands::server_access::has_server() {
+            let packet = mc_game::server::network::game_packets::hooks::ServerboundBlockHitResult {
+                block_pos: pos,
+                direction: face,
+                click_x: (hit.x - f64::from(pos.x())) as f32,
+                click_y: (hit.y - f64::from(pos.y())) as f32,
+                click_z: (hit.z - f64::from(pos.z())) as f32,
+                inside,
+                world_border_hit: false,
+            };
+            mc_game::commands::server_access::with_server(|server| {
+                mc_game::server::network::game_packets::hooks::ITEM_SYSTEMS
+                    .first()
+                    .expect("item systems")
+                    .use_item_on(
+                        &mut mc_game::server::network::game_packets::PlayCtx {
+                            server,
+                            level,
+                            player: p,
+                        },
+                        hand,
+                        &packet,
+                    )
+            })
+        } else {
+            p.use_item_on(level, hand, &result)
+        };
         if outcome.consumes_action() && mc_game::commands::server_access::has_server() {
             // the listener's `ANY_BLOCK_USE`
             mc_game::commands::server_access::with_server(|server| {

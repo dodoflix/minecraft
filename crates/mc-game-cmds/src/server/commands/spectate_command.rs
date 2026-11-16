@@ -78,13 +78,7 @@ fn spectate(
     {
         return Err(ERROR_CANNOT_SPECTATE.create(host::display_name_of(source, target)));
     }
-    source.with_server(|server| {
-        if let Some(level) = server.level_mut(&player.dimension) {
-            level.with_player(player.id, |level, p| {
-                p.set_camera(level, target.as_ref().map(|t| t.id))
-            });
-        }
-    });
+    source.with_server(|server| host::set_camera(server, &player, target.as_ref()));
     match &target {
         Some(target) => source.send_success(
             || {
