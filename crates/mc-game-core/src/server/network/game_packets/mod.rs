@@ -228,9 +228,19 @@ pub fn tick_connection(server: &mut MinecraftServer, uuid: Uuid) {
         return;
     }
     let found = with_player(server, uuid, |ctx| {
-        ctx.tick();
-        ctx.handle_disconnection_if_closed();
+        let moved = ctx.tick();
+        if !moved {
+            ctx.handle_disconnection_if_closed();
+        }
+        moved
     });
+    // the player changed level in its portal step: the rest of its tick runs in the new level
+    if found == Some(true) {
+        with_player(server, uuid, |ctx| {
+            ctx.tick_after_portal();
+            ctx.handle_disconnection_if_closed();
+        });
+    }
     if found.is_none() {
         log::warn!("play tick: player {uuid} not found (handle/level/entity lookup failed)");
     } else {

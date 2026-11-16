@@ -1,0 +1,45 @@
+LEVEL minecraft:overworld gametime=8 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=8 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL P dim=minecraft:the_nether
+ADV P minecraft:nether/root entered_nether
+ADV P minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV P minecraft:story/enter_the_nether entered_nether
+# a nether portal 900 blocks away
+CF msg Marked 6 chunks in minecraft:the_nether from [56, -1] to [57, 1] to be force loaded
+CF result success 6
+T 61
+PORTAL P cooldown=0 time=0
+T 62
+PORTAL P cooldown=10 time=1
+T 63
+PORTAL P cooldown=10 time=-
+T 64
+PORTAL P cooldown=10 time=-
+LEVEL minecraft:overworld gametime=64 forced=25 loaded=2186 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=64 forced=31 loaded=1773 players=0 border=5.9999968E7
+PL P dim=minecraft:overworld
+P P minecraft:player pos=7203.5,70.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=8.0 exh=0.0 xp=7/100/0.42857128 sel=0 main=empty
+ADV P minecraft:adventure/adventuring_time minecraft:plains
+ADV P minecraft:nether/fast_travel travelled
+ADV P minecraft:nether/root entered_nether
+ADV P minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV P minecraft:story/enter_the_nether entered_nether
+PKT P minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT P minecraft:player_position 4902bfe000000000000040518000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT P minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT P minecraft:level_event 2f0000040800000000000000000000000000
+PKT P minecraft:player_position 4903401a00000000000040518000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT P minecraft:player_position 4904408c24000000000040518000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT P minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT P minecraft:player_position 490540bc238000000000405180000000000040120000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT P minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT P minecraft:level_event 2f0000040800000000000000000000000000
+LEVEL minecraft:overworld gametime=67 forced=25 loaded=2186 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=67 forced=31 loaded=1773 players=0 border=5.9999968E7
+PL P dim=minecraft:overworld
+P P minecraft:player pos=7203.5,70.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=8.0 exh=0.0 xp=7/100/0.42857128 sel=0 main=empty
+ADV P minecraft:adventure/adventuring_time minecraft:plains
+ADV P minecraft:nether/fast_travel travelled
+ADV P minecraft:nether/root entered_nether
+ADV P minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV P minecraft:story/enter_the_nether entered_nether

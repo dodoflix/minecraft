@@ -73,7 +73,7 @@ pub trait LevelTickEnv {
     fn broadcast_game_event_to_all(&mut self, packet: &ClientboundGameEventPacket);
     /// `setGameTime(time)` on the level data (`tickTime` levels only; also stores it for `getGameTime`).
     fn set_game_time(&mut self, game_time: i64);
-    /// The `PortalProcessor` of `entity` (which just ticked and is out of `level`) reached its transition time:
+    /// The `PortalProcessor` of `entity` (which is ticking and out of `level`) reached its transition time:
     /// `getPortalDestination` + `Entity.teleportToPortalDestination`.
     fn teleport_through_portal(&mut self, level: &mut ServerLevel, entity: &mut dyn Entity);
     /// Runs the work the entities of `level` queued for the server (`ServerLevel::queue_server_action`); `level` is the

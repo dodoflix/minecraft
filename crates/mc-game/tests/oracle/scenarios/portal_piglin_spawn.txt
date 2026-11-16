@@ -1,0 +1,50 @@
+# A random tick of an overworld portal block spawns a zombified piglin on the block below the portal when the level's draw is below the difficulty,
+# with a portal cooldown; a draw that is not, peaceful difficulty and the nether do not.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty hard
+entity_counter 100
+reseed 5
+gamerule spawn_mobs true
+gamerule spawn_monsters true
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+in the_nether fill -1 69 0 2 69 0 minecraft:obsidian
+in the_nether fill -1 73 0 2 73 0 minecraft:obsidian
+in the_nether fill -1 70 0 -1 72 0 minecraft:obsidian
+in the_nether fill 2 70 0 2 72 0 minecraft:obsidian
+in the_nether fill 0 70 0 1 72 0 minecraft:nether_portal[axis=x]
+spawn_player P creative 2.5 -61 3.5 180 0
+tick 2
+note a draw of 1486 is below the difficulty only on hard; 1 is above it
+level_seed 1
+random_tick 0 -58 0
+tick 1
+dump xentities rng:level
+note the nether does not spawn piglins from its portals
+in the_nether level_seed 2399
+in the_nether random_tick 0 71 0
+tick 1
+dump xentities
+note peaceful: no spawn
+difficulty peaceful
+level_seed 2399
+random_tick 0 -58 0
+tick 1
+dump xentities
+difficulty hard
+note the draw 2399 spawns one
+level_seed 2399
+random_tick 1 -59 0
+tick 1
+dump xentities placed rng:level packets:P:add_entity
+dump nbt:zombified_piglin#1
+tick 3
+dump xentities

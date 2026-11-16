@@ -771,6 +771,27 @@ pub fn dump<H: ActionHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
     let (Some(name), "use" | "cooldowns" | "portal" | "stats" | "inventory") = (arg, kind) else {
         return false;
     };
+    // PORTAL REF cooldown=N time=N|-: the portal cooldown and the portal process's time inside the portal (any entity)
+    if kind == "portal" {
+        let id = h.action_ref(name);
+        let line = h
+            .action_level()
+            .with_entity(id, |_, e| {
+                format!(
+                    "PORTAL {name} cooldown={} time={}",
+                    e.base().portal_cooldown,
+                    e.base()
+                        .portal_process
+                        .as_ref()
+                        .map_or("-".to_owned(), |process| process
+                            .get_portal_time()
+                            .to_string())
+                )
+            })
+            .unwrap_or_else(|| panic!("{name} is not an entity"));
+        h.emit(line);
+        return true;
+    }
     let lines = try_with_player(h, name, |_, p| match kind {
         // USE REF hand=main|off item=ID*COUNT remaining=N ticks=N kinetic=N
         "use" => vec![format!(
@@ -797,17 +818,6 @@ pub fn dump<H: ActionHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
             .into_iter()
             .map(|(group, remaining)| format!("CD {name} group={group} remaining={remaining}"))
             .collect(),
-        // PORTAL REF cooldown=N time=N|-: the portal cooldown and the portal process's time inside the portal
-        "portal" => vec![format!(
-            "PORTAL {name} cooldown={} time={}",
-            p.base().portal_cooldown,
-            p.base()
-                .portal_process
-                .as_ref()
-                .map_or("-".to_owned(), |process| process
-                    .get_portal_time()
-                    .to_string())
-        )],
         // STAT REF type.name:value.name N, sorted by name
         "stats" => stat_lines(name, &p.stats.lock()),
         // I REF SLOT ITEM: `Inventory.getItem(i)`, the 36 slots, then the equipment slots (feet, legs, chest, head, offhand, body, saddle)

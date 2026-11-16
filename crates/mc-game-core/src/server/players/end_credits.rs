@@ -32,8 +32,8 @@ impl ServerPlayer {
     }
 }
 
-/// What has to happen once a player's packet handling / tick is over and the player is back in its level: the portal
-/// teleport `handlePortal()` decided on, the removal `showEndCredits()` asked for.
+/// What has to happen once a player's packet handling / tick is over and the player is back in its level: the removal
+/// `showEndCredits()` asked for.
 pub fn finish_player_step(server: &mut MinecraftServer, uuid: Uuid) {
     let Some((id, dimension)) = server
         .player_list
@@ -42,55 +42,35 @@ pub fn finish_player_step(server: &mut MinecraftServer, uuid: Uuid) {
     else {
         return;
     };
-    let moved_to = server
-        .with_level(&dimension, |server, level| {
-            if level.take_portal_teleport(id) {
-                level.with_entity(id, |level, e| {
-                    crate::server::players::dimension_change::teleport_through_portal(
-                        server, level, e,
-                    )
-                });
-                return server
-                    .player_list
-                    .get_player(&uuid)
-                    .map(|h| h.dimension())
-                    .filter(|d| *d != dimension);
+    server.with_level(&dimension, |server, level| {
+        let Some(index) = level
+            .tick_state
+            .pending_player_detach
+            .iter()
+            .position(|&e| e == id)
+        else {
+            return;
+        };
+        level.tick_state.pending_player_detach.remove(index);
+        level.with_entity(id, |level, e| {
+            let Some(slot) = e.as_any_mut().downcast_mut::<ServerPlayer>() else {
+                return;
+            };
+            let mut placeholder = ServerPlayer::new(
+                id,
+                slot.dimension.clone(),
+                slot.player.game_profile.clone(),
+                Default::default(),
+            );
+            placeholder.remove(RemovalReason::ChangedDimension);
+            let mut real = Box::new(std::mem::replace(slot, placeholder));
+            real.close_menus_on_removal(level);
+            real.remove(RemovalReason::ChangedDimension);
+            let won_game = real.won_game;
+            server.detached_players.insert(uuid, real);
+            if let Some(handle) = server.player_list.get_player(&uuid) {
+                handle.shared.lock().won_game = won_game;
             }
-            if let Some(index) = level
-                .tick_state
-                .pending_player_detach
-                .iter()
-                .position(|&e| e == id)
-            {
-                level.tick_state.pending_player_detach.remove(index);
-                level.with_entity(id, |level, e| {
-                    let Some(slot) = e.as_any_mut().downcast_mut::<ServerPlayer>() else {
-                        return;
-                    };
-                    let mut placeholder = ServerPlayer::new(
-                        id,
-                        slot.dimension.clone(),
-                        slot.player.game_profile.clone(),
-                        Default::default(),
-                    );
-                    placeholder.remove(RemovalReason::ChangedDimension);
-                    let mut real = Box::new(std::mem::replace(slot, placeholder));
-                    real.close_menus_on_removal(level);
-                    real.remove(RemovalReason::ChangedDimension);
-                    let won_game = real.won_game;
-                    server.detached_players.insert(uuid, real);
-                    if let Some(handle) = server.player_list.get_player(&uuid) {
-                        handle.shared.lock().won_game = won_game;
-                    }
-                });
-            }
-            None
-        })
-        .flatten();
-    // a player that changed dimension runs the tail of `doTick()` in its new level (see `teleport_player_through_portal`)
-    if let Some(new_dimension) = moved_to {
-        server.with_level(&new_dimension, |_, level| {
-            level.with_player(id, |level, player| player.do_tick_tail(level))
         });
-    }
+    });
 }

@@ -1,0 +1,42 @@
+# The portal delay of a player: creative players use players_nether_portal_creative_delay (default 0), others players_nether_portal_default_delay
+# (default 80); a negative value counts as 0. Every player enters the same portal, is watched until it is in the nether and leaves again.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+spawn_player P creative 2.5 -61 3.5 180 0
+tick 2
+note a creative player: no delay
+spawn_player C0 creative 0.5 -60 0.5 0 0 sim
+watch portal:C0
+tick 4
+watch off
+dump levels players packets:C0:respawn,player_position,level_event
+leave C0
+note a survival player with a delay of 0
+gamerule players_nether_portal_default_delay 0
+spawn_player S0 survival 0.5 -60 0.5 0 0 sim
+watch portal:S0
+tick 4
+watch off
+dump levels players packets:S0:respawn,player_position,level_event
+leave S0
+note a survival player with a negative delay and a creative player with a delay of 3
+gamerule players_nether_portal_default_delay -5
+gamerule players_nether_portal_creative_delay 3
+spawn_player S1 survival 0.5 -60 0.5 0 0 sim
+spawn_player C3 creative 1.5 -60 0.5 0 0 sim
+watch portal:S1 portal:C3
+tick 6
+watch off
+dump levels players

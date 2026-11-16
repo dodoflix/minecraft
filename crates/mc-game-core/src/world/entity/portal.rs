@@ -1,11 +1,10 @@
 //! `Portal` (the block-side interface of nether/end portals and end gateways) and `PortalProcessor`, the per-entity
 //! state machine of `Entity.handlePortal()`.
 //!
-//! A portal that decides to teleport cannot be resolved inside the entity's tick: the destination needs the server's
-//! other levels (`getPortalDestination(level, entity, entryPos)`). `Entity::handle_portal` therefore queues the
-//! entity in `ServerLevel::tick_state.pending_portal_teleports` and the level tick runs
-//! [`LevelTickEnv::teleport_through_portal`](crate::server::level::level_tick::LevelTickEnv) right after the entity's
-//! tick (vanilla teleports in the middle of `baseTick`).
+//! A portal that decides to teleport needs the server's other levels (`getPortalDestination(level, entity, entryPos)`):
+//! `Entity::handle_portal` reaches them through the level's tick environment
+//! ([`LevelTickEnv::teleport_through_portal`](crate::server::level::level_tick::LevelTickEnv)) and teleports inside
+//! `baseTick` like vanilla. A player's portal step runs ahead of its tick (`dimension_change::hoist_portal`).
 
 use super::entity::Entity;
 use crate::server::MinecraftServer;

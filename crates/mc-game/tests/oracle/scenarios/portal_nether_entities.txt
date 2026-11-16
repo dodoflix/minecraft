@@ -1,0 +1,69 @@
+# Entities that are not players travel through a nether portal: they have no portal delay (mobs_nether_portal_delay 0), arrive as new entities
+# with the 300 tick cooldown, keep their motion turned by the portal axis, and a villager forgets the player it was trading with.
+# Every group is removed from the nether before the next one travels.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player P creative 2.5 -61 3.5 180 0
+tick 2
+note a villager that is trading and a cow
+spawn V minecraft:villager 0.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,VillagerData:{profession:"minecraft:farmer",level:1,type:"minecraft:plains"}}
+entity_seed V 5
+interact P V
+tick 1
+dump trader:V packets:P:open_screen,merchant_offers
+spawn C minecraft:cow 1.5 -60 0.4 45 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C 9
+tick 1
+tick 1
+dump xentities nbt:villager#1 packets:P:remove_entities,teleport_entity,add_entity,container_close levels
+tick 4
+in the_nether dump xentities trader:villager#1 portal:villager#1 portal:cow#1
+dump packets:P:remove_entities,container_close
+kill villager#1
+kill cow#1
+note an item and a primed tnt with motion
+spawn_item I minecraft:stick 0.4 -59.5 0.5 0.1 0.2 0.3
+spawn T minecraft:tnt 1.0 -59 0.5 30 0 {fuse:200s}
+entity_seed T 3
+tick 1
+dump xentities packets:P:remove_entities
+tick 6
+in the_nether dump xentities
+kill item#1
+kill tnt#1
+note a minecart
+spawn M minecraft:minecart 0.4 -60 0.6 135 0
+velocity M 0.3 0 0.1
+tick 1
+dump xentities packets:P:remove_entities
+tick 6
+in the_nether dump xentities
+kill minecart#1
+note a zombified piglin
+spawn Z minecraft:zombified_piglin 1.6 -60 0.5 270 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z 11
+tick 1
+dump xentities packets:P:remove_entities
+tick 6
+in the_nether dump xentities
+kill zombified_piglin#1
+note an arrow is shot through the portal
+spawn A minecraft:arrow 0.5 -59 -3.5 0 0
+velocity A 0 0 0.9
+tick 8
+dump xentities packets:P:remove_entities
+in the_nether dump xentities
+in the_nether dump blocks:-8,66,-4,8,76,4

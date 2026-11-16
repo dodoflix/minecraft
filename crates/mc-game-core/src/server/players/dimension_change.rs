@@ -8,9 +8,8 @@
 //! level first. A player that changes dimension is moved out of the entity slot (a removed dummy with the same id stays
 //! behind, like `removePlayerImmediately`), so the caller must not use the slot afterwards.
 //!
-//! Portal teleports (`handlePortal`) are queued by the entity (`ServerLevel::queue_portal_teleport`) and run by
-//! [`teleport_through_portal`] right after the entity's tick (non-players: `tick_listed_entity`; players: the end of
-//! the connection tick, see `game_packets::tick_connection`).
+//! Portal teleports (`handlePortal`) run [`teleport_through_portal`] inside `baseTick` (non-players: through the level's
+//! tick environment); a player's portal step runs ahead of its tick ([`hoist_portal`]).
 
 pub use super::teleport_transition::{
     PostTeleportTransition, TeleportTransition, place_portal_ticket,
@@ -31,12 +30,10 @@ use crate::world::entity::factory::{self, EntitySpawnRequest};
 use crate::world::entity::{EntityId, RemovalReason, ServerPlayer};
 use crate::world::level::DimensionKey;
 use crate::world::level::gamerules::GameRules;
-use mc_core::phys::Vec3;
 use mc_data::enums::EntitySpawnReason;
 use mc_protocol::packets::play::{
     ClientboundChangeDifficultyPacket, ClientboundGameEventPacket, ClientboundRespawnPacket,
-    ClientboundSetHeldSlotPacket, ClientboundTeleportEntityPacket, PositionMoveRotation, Relative,
-    Relatives,
+    ClientboundSetHeldSlotPacket, ClientboundTeleportEntityPacket, Relative, Relatives,
 };
 
 /// `calculatePassengerTransition(transition, passenger)` of `vehicle`.
@@ -264,22 +261,9 @@ fn teleport_cross_dimension(
             let new_id = new.id();
             new_level.add_fresh_entity(new);
             for &passenger in &new_passengers {
+                // `startRiding(newVehicle, true, false)`: a player rider is told its position and the passengers
                 new_level.with_entity(passenger, |level, p| {
-                    if level.start_riding(p, new_id, true, false)
-                        && let Some(player) = p.as_any_mut().downcast_mut::<ServerPlayer>()
-                    {
-                        // `ServerPlayer.startRiding`
-                        let position = player.position();
-                        player.connection_teleport_pmr(
-                            PositionMoveRotation {
-                                position,
-                                delta_movement: Vec3::ZERO,
-                                y_rot: 0.0,
-                                x_rot: 0.0,
-                            },
-                            Relatives::ROTATION,
-                        );
-                    }
+                    level.start_riding(p, new_id, true, false);
                 });
             }
             new_level.reset_empty_time();
@@ -486,6 +470,38 @@ pub fn teleport_through_portal(
     if let Some(t) = process.get_portal_destination(server, level, entity) {
         teleport_to_portal_destination(server, level, entity, &t);
     }
+}
+
+/// A player's `handlePortal()`, the first step of `baseTick`, run ahead of `doTick()`: the player moves between levels as a
+/// whole (the real player lives in the new level, the slot it leaves holds a placeholder), so the rest of its tick can only
+/// continue in the new level when it starts there. Marks the step done so `baseTick` skips it. Returns whether the player
+/// changed level; `level` is the player's level (out of `server`), `player` is out of `level`.
+///
+/// shortcut: the statements of `doTick()` that precede `baseTick`'s `handlePortal()` (`Player.tick`'s spectator, xp-delay and sleep
+/// counters, `LivingEntity.baseTick`'s swing and enchantment effects, `computeSpeed`) run in the new level instead of the old
+/// one; upgrade by splitting the player's tick at `handlePortal()` and resuming it on the moved player.
+pub fn hoist_portal(
+    server: &mut MinecraftServer,
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+) -> bool {
+    // `doTick()` skips `baseTick` for a spectator inside an unloaded chunk
+    if player.is_spectator()
+        && crate::world::entity::movement::touching_unloaded_chunk(player, level)
+    {
+        return false;
+    }
+    let due = player.portal_teleport_due(level);
+    player.base_mut().portal_handled = true;
+    if !due {
+        return false;
+    }
+    let uuid = player.uuid();
+    teleport_through_portal(server, level, player);
+    server
+        .player_list
+        .get_player(&uuid)
+        .is_some_and(|h| h.dimension() != level.dimension)
 }
 
 impl ServerPlayer {

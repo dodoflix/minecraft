@@ -1,0 +1,30 @@
+# an item enters the nether portal: the overworld portal at x=100 is within 128 blocks of x=4
+E I minecraft:item pos=0.5,70.46,0.5 delta=0.0,-0.03920000076293945,0.0 rot=244.22574,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+LEVEL minecraft:overworld gametime=3 forced=441 loaded=2209 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=3 forced=441 loaded=2209 players=0 border=5.9999968E7
+E item#1 minecraft:item pos=100.5,-59.73681600302125,0.5 delta=0.0,-0.115263684456482,0.0 rot=244.22574,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=0 health=5 owner=- thrower=-
+B 99 -61 0 minecraft:obsidian
+B 99 -60 0 minecraft:obsidian
+B 99 -59 0 minecraft:obsidian
+B 99 -58 0 minecraft:obsidian
+B 99 -57 0 minecraft:obsidian
+B 100 -61 0 minecraft:obsidian
+B 100 -60 0 minecraft:nether_portal[axis=x]
+B 100 -59 0 minecraft:nether_portal[axis=x]
+B 100 -58 0 minecraft:nether_portal[axis=x]
+B 100 -57 0 minecraft:obsidian
+B 101 -61 0 minecraft:obsidian
+B 101 -60 0 minecraft:nether_portal[axis=x]
+B 101 -59 0 minecraft:nether_portal[axis=x]
+B 101 -58 0 minecraft:nether_portal[axis=x]
+B 101 -57 0 minecraft:obsidian
+B 102 -61 0 minecraft:obsidian
+B 102 -60 0 minecraft:obsidian
+B 102 -59 0 minecraft:obsidian
+B 102 -58 0 minecraft:obsidian
+B 102 -57 0 minecraft:obsidian
+# the first overworld portal is removed: the next one is 136 blocks away
+E item#1 minecraft:item pos=100.5,-59.892079687477725,0.5 delta=0.0,-0.15215841372877212,0.0 rot=244.22574,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=4 pickup=0 health=5 owner=- thrower=-
+E J minecraft:item pos=0.5,70.46,0.5 delta=0.0,-0.03920000076293945,0.0 rot=89.02335,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=100.5,-60.57630229881753,0.5 delta=0.0,-0.2584739745524866,0.0 rot=244.22574,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=7 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.5,70.26318399697875,4.5 delta=0.0,-0.115263684456482,0.0 rot=89.02335,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=0 health=5 owner=- thrower=-

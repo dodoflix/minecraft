@@ -1,0 +1,47 @@
+# The portal search of the destination: an existing nether portal is found within 16 blocks (square, on the scaled position), farther away a new
+# portal is built. Two overworld portals at x=0 and x=-64 send an item each; the nether already has a portal block 16 blocks from the first target
+# and one 17 blocks from the second.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 5
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill -65 -61 0 -62 -61 0 minecraft:obsidian
+fill -65 -57 0 -62 -57 0 minecraft:obsidian
+fill -65 -60 0 -65 -58 0 minecraft:obsidian
+fill -62 -60 0 -62 -58 0 minecraft:obsidian
+fill -64 -60 0 -63 -58 0 minecraft:nether_portal[axis=x]
+note nether portal blocks at x=16 and x=-25
+in the_nether fill 15 69 0 18 69 0 minecraft:obsidian
+in the_nether fill 15 73 0 18 73 0 minecraft:obsidian
+in the_nether fill 15 70 0 15 72 0 minecraft:obsidian
+in the_nether fill 18 70 0 18 72 0 minecraft:obsidian
+in the_nether fill 16 70 0 17 72 0 minecraft:nether_portal[axis=x]
+in the_nether fill -27 69 0 -24 69 0 minecraft:obsidian
+in the_nether fill -27 73 0 -24 73 0 minecraft:obsidian
+in the_nether fill -27 70 0 -27 72 0 minecraft:obsidian
+in the_nether fill -24 70 0 -24 72 0 minecraft:obsidian
+in the_nether fill -26 70 0 -25 72 0 minecraft:nether_portal[axis=x]
+spawn_player P creative 2.5 -61 3.5 180 0
+tick 2
+note an item enters the first portal: the nether portal at x=16 is within reach
+spawn_item I minecraft:stick 0.5 -59.5 0.5 0 0 0
+tick 1
+dump xentities levels
+tick 3
+in the_nether dump xentities blocks:-6,66,-4,20,76,4
+note an item enters the second portal: the nearest nether portal block is 17 away, a portal is built
+spawn_item J minecraft:stick -63.5 -59.5 0.5 0 0 0
+tick 1
+dump xentities
+tick 3
+in the_nether dump xentities blocks:-30,66,-4,0,76,4

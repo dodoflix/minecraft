@@ -1,0 +1,19 @@
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
+CF msg Game rule spawn_monsters is now set to true
+CF result success 1
+# a draw of 1486 is below the difficulty only on hard; 1 is above it
+RNG level 225010085246369
+# the nether does not spawn piglins from its portals
+# peaceful: no spawn
+CF msg The difficulty has been set to Peaceful
+CF result success 0
+CF msg The difficulty has been set to Hard
+CF result success 0
+# the draw 2399 spawns one
+E zombified_piglin#1 minecraft:zombified_piglin pos=1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-52.51947,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-52.51947 body=-52.51947 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:golden_sword*1 attrs=minecraft:armor:2.0;minecraft:attack_damage:8.0;minecraft:follow_range:36.18044202328148;minecraft:knockback_resistance:0.009721782716712292;minecraft:movement_speed:0.23000000417232513
+G minecraft:zombified_piglin pos=1.5,-60.0,0.5 rot=-52.51947,0.0 Health=20.0f PersistenceRequired=0b
+RNG level 149056187528624
+PKT P minecraft:add_entity 01668b5ff591dfdd4886aba24ae0423add2f9e013ff8000000000000c04e0000000000003fe00000000000000000dada00
+N zombified_piglin#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:300,Pos:[1.5d,-60.0d,0.5d],Rotation:[-52.51947f,0.0f],anger_end_time:0L,attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:0.03372691495089947d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.0d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.009721782716712292d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]},{base:5.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,equipment:{mainhand:{count:1,id:"minecraft:golden_sword"}},fall_distance:0.0d}
+E zombified_piglin#1 minecraft:zombified_piglin pos=1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-52.51947,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-52.51947 body=-52.51947 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:golden_sword*1 attrs=minecraft:armor:2.0;minecraft:attack_damage:8.0;minecraft:follow_range:36.18044202328148;minecraft:knockback_resistance:0.009721782716712292;minecraft:movement_speed:0.23000000417232513

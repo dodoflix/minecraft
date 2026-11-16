@@ -160,6 +160,8 @@ pub struct EntityData {
     pub sync_position: bool,
     pub sync_velocity: bool,
     pub portal_cooldown: i32,
+    /// A player's `handlePortal()` already ran this tick (see `dimension_change::hoist_portal`): `baseTick` skips it once.
+    pub portal_handled: bool,
     pub permanently_invulnerable: bool,
     pub uuid: Uuid,
     pub has_glowing_tag: bool,
@@ -275,6 +277,7 @@ impl EntityData {
             sync_position: false,
             sync_velocity: false,
             portal_cooldown: 0,
+            portal_handled: false,
             permanently_invulnerable: false,
             uuid,
             has_glowing_tag: false,
@@ -2315,18 +2318,32 @@ pub trait Entity: Any {
             }
         }
     }
-    /// `handlePortal()`: the teleport itself is queued on the level (see `world::entity::portal`).
-    fn handle_portal(&mut self, level: &mut ServerLevel) {
+    /// `handlePortal()`: the cooldown and the portal process; `true` when the portal's transition time is over and the entity
+    /// has to teleport (the cooldown is set already; the process stays for `getPortalDestination`).
+    fn portal_teleport_due(&mut self, level: &ServerLevel) -> bool {
         self.process_portal_cooldown();
-        if let Some(mut process) = self.base_mut().portal_process.take() {
-            let can_use = self.can_use_portal(false);
-            if process.process_portal_teleportation(&*level, self.as_dyn(), can_use) {
-                self.set_portal_cooldown(&*level);
-                level.queue_portal_teleport(self.id());
-                self.base_mut().portal_process = Some(process);
-            } else if !process.has_expired() {
-                self.base_mut().portal_process = Some(process);
-            }
+        let Some(mut process) = self.base_mut().portal_process.take() else {
+            return false;
+        };
+        let can_use = self.can_use_portal(false);
+        let due = process.process_portal_teleportation(level, self.as_dyn(), can_use);
+        if due {
+            self.set_portal_cooldown(level);
+        }
+        if due || !process.has_expired() {
+            self.base_mut().portal_process = Some(process);
+        }
+        due
+    }
+    /// `handlePortal()`: teleports inside `baseTick`. A player's `handlePortal()` runs ahead of its tick instead (the player moves
+    /// between levels as a whole and its tick cannot continue in another level: `dimension_change::hoist_portal`), which sets
+    /// `portal_handled` so this call is skipped once.
+    fn handle_portal(&mut self, level: &mut ServerLevel) {
+        if std::mem::take(&mut self.base_mut().portal_handled) {
+            return;
+        }
+        if self.portal_teleport_due(level) {
+            level.teleport_through_portal(self.as_dyn_mut());
         }
     }
 

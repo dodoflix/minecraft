@@ -1,0 +1,41 @@
+# The portal search towards the overworld reaches 128 blocks: an overworld portal 96 blocks from the scaled position is used, one 136 blocks away
+# is not and a portal is built.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 10
+difficulty easy
+entity_counter 100
+level_seed 7
+fill 99 -61 0 102 -61 0 minecraft:obsidian
+fill 99 -57 0 102 -57 0 minecraft:obsidian
+fill 99 -60 0 99 -58 0 minecraft:obsidian
+fill 102 -60 0 102 -58 0 minecraft:obsidian
+fill 100 -60 0 101 -58 0 minecraft:nether_portal[axis=x]
+fill 139 -61 0 142 -61 0 minecraft:obsidian
+fill 139 -57 0 142 -57 0 minecraft:obsidian
+fill 139 -60 0 139 -58 0 minecraft:obsidian
+fill 142 -60 0 142 -58 0 minecraft:obsidian
+fill 140 -60 0 141 -58 0 minecraft:nether_portal[axis=x]
+in the_nether fill -1 69 0 2 69 0 minecraft:obsidian
+in the_nether fill -1 73 0 2 73 0 minecraft:obsidian
+in the_nether fill -1 70 0 -1 72 0 minecraft:obsidian
+in the_nether fill 2 70 0 2 72 0 minecraft:obsidian
+in the_nether fill 0 70 0 1 72 0 minecraft:nether_portal[axis=x]
+spawn_player P creative 98.5 -61 3.5 180 0
+tick 2
+note an item enters the nether portal: the overworld portal at x=100 is within 128 blocks of x=4
+in the_nether spawn_item I minecraft:stick 0.5 70.5 0.5 0 0 0
+tick 1
+dump xentities levels
+tick 3
+dump xentities blocks:96,-62,-4,104,-55,4
+note the first overworld portal is removed: the next one is 136 blocks away
+fill 99 -61 0 102 -57 0 minecraft:air
+in the_nether spawn_item J minecraft:stick 0.5 70.5 0.5 0 0 0
+tick 1
+dump xentities
+tick 3
+dump xentities blocks:-6,-62,-4,12,-55,4

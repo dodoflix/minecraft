@@ -1,0 +1,27 @@
+# the cow stands in the arrival portal: the cooldown stays at 300
+T 4
+PORTAL cow#1 cooldown=300 time=-
+T 5
+PORTAL cow#1 cooldown=300 time=-
+T 6
+PORTAL cow#1 cooldown=300 time=-
+T 7
+PORTAL cow#1 cooldown=300 time=-
+T 8
+PORTAL cow#1 cooldown=300 time=-
+E cow#1 minecraft:cow pos=-0.5,70.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+# the cow is moved out of the portal and its cooldown runs down
+T 9
+PORTAL cow#1 cooldown=299 time=-
+T 10
+PORTAL cow#1 cooldown=298 time=-
+T 11
+PORTAL cow#1 cooldown=297 time=-
+PORTAL cow#1 cooldown=2 time=-
+PORTAL cow#1 cooldown=1 time=-
+# the cow walks back into the portal and travels
+E cow#2 minecraft:cow pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+LEVEL minecraft:overworld gametime=310 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=310 forced=25 loaded=961 players=0 border=5.9999968E7
+E cow#2 minecraft:cow pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+PORTAL cow#2 cooldown=300 time=-

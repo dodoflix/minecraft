@@ -1,0 +1,43 @@
+CF msg Set the center of the world border to 100.50, 100.50
+CF result success 0
+CF msg Set the world border to 40.0 block(s) wide
+CF result success -59999928
+LEVEL minecraft:overworld gametime=2 forced=289 loaded=1849 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=2 forced=289 loaded=1849 players=0 border=40.0
+E I minecraft:item pos=0.5,-59.54,0.5 delta=0.0,-0.03920000076293945,0.0 rot=244.22574,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+LEVEL minecraft:overworld gametime=3 forced=289 loaded=1849 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=3 forced=289 loaded=1849 players=0 border=40.0
+E item#1 minecraft:item pos=80.5,70.10792031252228,80.5 delta=0.0,-0.15215841372877212,0.0 rot=244.22574,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=4 pickup=0 health=5 owner=- thrower=-
+B 79 69 80 minecraft:obsidian
+B 79 70 80 minecraft:obsidian
+B 79 71 80 minecraft:obsidian
+B 79 72 80 minecraft:obsidian
+B 79 73 80 minecraft:obsidian
+B 80 69 79 minecraft:obsidian
+B 80 69 80 minecraft:obsidian
+B 80 69 81 minecraft:obsidian
+B 80 70 80 minecraft:nether_portal[axis=x]
+B 80 71 80 minecraft:nether_portal[axis=x]
+B 80 72 80 minecraft:nether_portal[axis=x]
+B 80 73 80 minecraft:obsidian
+B 81 69 79 minecraft:obsidian
+B 81 69 80 minecraft:obsidian
+B 81 69 81 minecraft:obsidian
+B 81 70 80 minecraft:nether_portal[axis=x]
+B 81 71 80 minecraft:nether_portal[axis=x]
+B 81 72 80 minecraft:nether_portal[axis=x]
+B 81 73 80 minecraft:obsidian
+B 82 69 80 minecraft:obsidian
+B 82 70 80 minecraft:obsidian
+B 82 71 80 minecraft:obsidian
+B 82 72 80 minecraft:obsidian
+B 82 73 80 minecraft:obsidian
+LEVEL minecraft:overworld gametime=10 forced=289 loaded=1849 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=10 forced=289 loaded=1918 players=1 border=40.0
+PL P dim=minecraft:overworld
+PL C dim=minecraft:the_nether
+P C minecraft:player pos=81.0,70.0,80.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:stick*1
+PKT C minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT C minecraft:player_position 49024054400000000000405180000000000040542000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT C minecraft:initialize_border 2c405920000000000040592000000000004044000000000000404400000000000000f086a70e05ac02
+PKT C minecraft:level_event 2f0000040800000000000000000000000000

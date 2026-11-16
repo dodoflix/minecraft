@@ -59,6 +59,9 @@ fn reseed_for(name: &str) {
 pub struct Actors {
     /// Named entities (spawned by the script or auto-named `type_path#n`), in naming order.
     pub refs: Vec<(String, EntityId)>,
+    /// The UUID of each ref as last seen alive in any level: an entity that left its level (a portal trip replaces it by a copy with the
+    /// same UUID) still names that UUID, like the driver's `refs` that keep the removed object.
+    ref_uuids: std::collections::BTreeMap<EntityId, uuid::Uuid>,
     pub players: Vec<String>,
     /// The entries of players that left and joined again: the driver keeps the old entry of its player list next to the new one
     /// (`dump players` prints both). Position in `players` at the time, name and the dimension the old player was in.
@@ -1821,6 +1824,7 @@ impl Scenario {
             // `tickPlayer`: `resetPosition`, `xo/yo/zo`, `doTick`, then `absSnapTo(firstGood)`: a client-authoritative player
             // keeps the position it had, whatever the server-side tick did to it
             // a player the listener disconnected is gone from the level
+            let mut moved = false;
             self.try_with_player(&name, |level, p| {
                 if let Some(listener) = p.listener.as_mut() {
                     listener.send_block_changed_ack();
@@ -1832,27 +1836,25 @@ impl Scenario {
                     listener.reset_position(pos);
                 }
                 p.player.living.entity.set_old_pos(pos);
-                p.do_tick(level);
-                let (y_rot, x_rot) = (p.get_y_rot(), p.get_x_rot());
-                // a simulated player keeps the position its own physics produced (`SimPlayer.absSnapTo`)
-                if !p.simulate_local_player {
-                    p.abs_snap_to(pos.x, pos.y, pos.z, y_rot, x_rot);
-                }
-                // the rest of `tickPlayer`: the tick count, the floating kicks, the vehicle a `move_vehicle` packet is checked against
+                // the portal step of the player's `baseTick` can move it to another level: its tick continues there
                 if mc_game::commands::server_access::has_server() {
-                    mc_game::commands::server_access::with_server(|server| {
-                        let mut ctx = mc_game::server::network::game_packets::PlayCtx {
-                            server,
-                            level,
-                            player: p,
-                        };
-                        if ctx.finish_tick_player() {
-                            ctx.handle_disconnection_without_socket();
-                        }
+                    moved = mc_game::commands::server_access::with_server(|server| {
+                        mc_game::server::players::dimension_change::hoist_portal(server, level, p)
                     });
                 }
+                if !moved {
+                    Self::tick_player_body(level, p, pos);
+                }
             });
-            // the portal teleport `handlePortal` decided on and the removal the end credits asked for run once the player is back in its level
+            if moved {
+                // the player lives in another level now
+                self.focus_ref(&name);
+                self.try_with_player(&name, |level, p| {
+                    let pos = p.position();
+                    Self::tick_player_body(level, p, pos);
+                });
+            }
+            // the removal the end credits asked for runs once the player is back in its level
             if mc_game::commands::server_access::has_server() {
                 self.focus_ref(&name);
                 let id = self.entity_id(&name);
@@ -1867,6 +1869,29 @@ impl Scenario {
             }
         }
         self.focus(keep);
+    }
+
+    /// `tickPlayer()` from `doTick()` on. `pos` is the position the tick started at.
+    fn tick_player_body(level: &mut ServerLevel, p: &mut ServerPlayer, pos: mc_core::phys::Vec3) {
+        p.do_tick(level);
+        let (y_rot, x_rot) = (p.get_y_rot(), p.get_x_rot());
+        // a simulated player keeps the position its own physics produced (`SimPlayer.absSnapTo`)
+        if !p.simulate_local_player {
+            p.abs_snap_to(pos.x, pos.y, pos.z, y_rot, x_rot);
+        }
+        // the rest of `tickPlayer`: the tick count, the floating kicks, the vehicle a `move_vehicle` packet is checked against
+        if mc_game::commands::server_access::has_server() {
+            mc_game::commands::server_access::with_server(|server| {
+                let mut ctx = mc_game::server::network::game_packets::PlayCtx {
+                    server,
+                    level,
+                    player: p,
+                };
+                if ctx.finish_tick_player() {
+                    ctx.handle_disconnection_without_socket();
+                }
+            });
+        }
     }
 
     /// `MinecraftServer.tickChildren` "send chunks", after the players ticked: every player's `chunkSender.sendNextChunks(player)`. The
@@ -2017,10 +2042,15 @@ impl Scenario {
                 let mut lines = Vec::new();
                 for name in self.actors.players.clone() {
                     let id = self.entity_id(&name);
-                    if let Some(d) = self.dimension_of(id) {
+                    let located = self.dimension_of(id);
+                    if let Some(d) = located {
                         self.focus(d);
                     }
-                    let dimension = self.level().dimension.clone();
+                    // a player that left reports the level it left from
+                    let dimension = match self.actors.departed.get(&name) {
+                        Some(left) if located.is_none() && self.multi() => left.dimension.clone(),
+                        _ => self.level().dimension.clone(),
+                    };
                     lines.push(format!("PL {name} dim={dimension}"));
                 }
                 for (at, name, dimension) in &self.actors.stale_players {
@@ -2313,12 +2343,31 @@ impl Scenario {
                             .all_levels()
                             .find_map(|l| l.get_entity_or_removed(*id).map(|e| e.uuid()))
                     })
-                });
+                })
+                .or_else(|| self.actors.ref_uuids.get(id).copied());
             if let Some(uuid) = uuid {
                 uuids.entry(uuid).or_insert(*id);
             }
         }
         (names, uuids)
+    }
+
+    /// Remembers the UUID of every ref that is alive in some level (see [`Actors::ref_uuids`]); called before a tick moves entities away.
+    pub(super) fn remember_ref_uuids(&mut self) {
+        let focus = self.at;
+        let ids: Vec<EntityId> = self.actors.refs.iter().map(|(_, id)| *id).collect();
+        for id in ids {
+            if self.actors.ref_uuids.contains_key(&id) {
+                continue;
+            }
+            if let Some(dimension) = self.dimension_of(id) {
+                self.focus(dimension);
+            }
+            if let Some(uuid) = self.level().get_entity(id).map(|e| e.uuid()) {
+                self.actors.ref_uuids.insert(id, uuid);
+            }
+        }
+        self.focus(focus);
     }
 
     /// The `P`/`E` line of the driver's `describe` (`rich`: with the fields of the registered classes, `xentity:REF`).

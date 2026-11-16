@@ -1,0 +1,61 @@
+# a villager that is trading and a cow
+TRADER V xp=0 level=1 trading=P
+PKT P minecraft:open_screen 3c01130a080009696e73657274696f6e002466663035623461382d353565372d343531662d616330372d6332306634653232616137310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650020656e746974792e6d696e6563726166742e76696c6c616765722e6661726d657200080006616374696f6e000b73686f775f656e74697479080002696400126d696e6563726166743a76696c6c616765720b00047575696400000004ff05b4a855e7451fac07c20f4e22aa71000800097472616e736c6174650020656e746974792e6d696e6563726166742e76696c6c616765722e6661726d657200
+PKT P minecraft:merchant_offers 350102f507010006ab0800000000000000000000001000000001000000003d4ccccd00000000aa08140001f50700000000000000000000001000000002000000003d4ccccd0000000001000101
+E villager#1 minecraft:villager pos=-0.5,70.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
+E cow#1 minecraft:cow pos=0.5,70.0,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+N villager#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,FoodLevel:0b,ForcedAge:0,Gossips:[],Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastGossipDecay:3L,LastRestock:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,Offers:{Recipes:[{buy:{count:1,id:"minecraft:emerald"},maxUses:16,priceMultiplier:0.05f,sell:{count:6,id:"minecraft:bread"}},{buy:{count:20,id:"minecraft:wheat"},maxUses:16,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:emerald"},xp:2}]},OnGround:0b,PersistenceRequired:1b,PortalCooldown:300,Pos:[-0.5d,70.0d,0.5d],RestocksToday:0,Rotation:[0.0f,0.0f],VillagerData:{level:1,profession:"minecraft:farmer",type:"minecraft:plains"},VillagerDataFinalized:1b,Xp:0,attributes:[{base:0.5d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+PKT P minecraft:add_entity 0167345d54469ea941c4ab32825df225fec81e3ff8000000000000c04e0000000000003fd999999999999a0000202000
+PKT P minecraft:remove_entities 4e0166
+PKT P minecraft:container_close 1101
+PKT P minecraft:remove_entities 4e0167
+LEVEL minecraft:overworld gametime=5 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=5 forced=25 loaded=961 players=0 border=5.9999968E7
+E villager#1 minecraft:villager pos=-0.5,70.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
+E cow#1 minecraft:cow pos=0.5,70.0,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+TRADER villager#1 xp=0 level=1 trading=-
+PORTAL villager#1 cooldown=300 time=-
+PORTAL cow#1 cooldown=300 time=-
+# an item and a primed tnt with motion
+E I minecraft:item pos=0.5,-59.34,0.8 delta=0.09800000190734864,0.1568000030517578,0.2940000057220459 rot=244.22574,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+E T minecraft:tnt pos=1.0,-59.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=30.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=199
+E item#1 minecraft:item pos=0.05937237122927204,70.74244244364101,2.4781171136878157 delta=0.08681256515194449,-0.08484884424859764,0.26043769545583334 rot=244.22574,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=7 pickup=0 health=5 owner=- thrower=-
+E tnt#1 minecraft:tnt pos=0.0,70.0,0.5 delta=0.0,-0.0,0.0 rot=30.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=193
+# a minecart
+E M minecraft:minecart pos=0.7,-60.0,0.7 delta=0.3,0.0,0.1 rot=-161.56503,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=east rider=-
+PKT P minecraft:remove_entities 4e016a
+PKT P minecraft:remove_entities 4e016b
+E minecart#1 minecraft:minecart pos=-0.004687500000000055,70.0,0.5984375000000001 delta=0.0046875,0.0,0.0015625 rot=-161.56503,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=east rider=-
+# a zombified piglin
+E Z minecraft:zombified_piglin pos=1.6,-60.0,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:5.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+PKT P minecraft:remove_entities 4e016e
+E zombified_piglin#1 minecraft:zombified_piglin pos=0.6000000000000001,70.0,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:5.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+# an arrow is shot through the portal
+E arrow#1 minecraft:arrow pos=-0.5,69.4791477585757,4.326246857615217 delta=0.0,-0.3862765406876899,0.8304702889849787 rot=0.0,-12.711862 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+PKT P minecraft:remove_entities 4e0170
+PKT P minecraft:remove_entities 4e0172
+E arrow#1 minecraft:arrow pos=-0.5,69.4791477585757,4.326246857615217 delta=0.0,-0.3862765406876899,0.8304702889849787 rot=0.0,-12.711862 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+B -2 69 0 minecraft:obsidian
+B -2 70 0 minecraft:obsidian
+B -2 71 0 minecraft:obsidian
+B -2 72 0 minecraft:obsidian
+B -2 73 0 minecraft:obsidian
+B -1 69 -1 minecraft:obsidian
+B -1 69 0 minecraft:obsidian
+B -1 69 1 minecraft:obsidian
+B -1 70 0 minecraft:nether_portal[axis=x]
+B -1 71 0 minecraft:nether_portal[axis=x]
+B -1 72 0 minecraft:nether_portal[axis=x]
+B -1 73 0 minecraft:obsidian
+B 0 69 -1 minecraft:obsidian
+B 0 69 0 minecraft:obsidian
+B 0 69 1 minecraft:obsidian
+B 0 70 0 minecraft:nether_portal[axis=x]
+B 0 71 0 minecraft:nether_portal[axis=x]
+B 0 72 0 minecraft:nether_portal[axis=x]
+B 0 73 0 minecraft:obsidian
+B 1 69 0 minecraft:obsidian
+B 1 70 0 minecraft:obsidian
+B 1 71 0 minecraft:obsidian
+B 1 72 0 minecraft:obsidian
+B 1 73 0 minecraft:obsidian

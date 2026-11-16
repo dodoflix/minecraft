@@ -1,0 +1,37 @@
+# A spectator in a portal starts its cooldown but no portal is built for it; once the nether has a portal it arrives there.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+spawn_player P creative 2.5 -61 3.5 180 0
+tick 2
+spawn_player Q spectator 0.5 -60 0.5 0 0 sim
+watch portal:Q
+tick 5
+watch off
+dump levels players packets:Q:respawn,player_position
+in the_nether dump blocks:-8,60,-8,8,80,8
+note a portal exists in the nether now
+in the_nether fill -1 69 0 2 69 0 minecraft:obsidian
+in the_nether fill -1 73 0 2 73 0 minecraft:obsidian
+in the_nether fill -1 70 0 -1 72 0 minecraft:obsidian
+in the_nether fill 2 70 0 2 72 0 minecraft:obsidian
+in the_nether fill 0 70 0 1 72 0 minecraft:nether_portal[axis=x]
+tp Q 5.5 -60 0.5
+tick 12
+tp Q 0.5 -60 0.5
+watch portal:Q
+tick 5
+watch off
+dump levels players player:Q packets:Q:respawn,player_position,level_event
+in the_nether dump blocks:-8,60,-8,8,80,8

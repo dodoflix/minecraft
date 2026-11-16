@@ -267,6 +267,7 @@ mod placement_golden;
 mod poi_golden;
 mod portal_fall_golden;
 mod portal_golden;
+mod portal_nether_golden;
 mod rails_golden;
 mod rails_vehicles_golden;
 mod recipe_book_golden;

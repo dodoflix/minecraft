@@ -1,0 +1,42 @@
+# A survival player stands in an overworld portal for the default delay (80 ticks), arrives in the nether where a portal is built for it
+# (rotation and offset follow the portal axis), leaves the portal, waits out the cooldown and travels back to the portal it came from.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+spawn_player S survival 0.7 -60 0.4 90 15 sim
+tick 1
+dump packets:S:none
+watch portal:S
+tick 80
+watch off
+dump levels players player:S packets:S:level_event,player_position
+level_seed 8
+tick 3
+note the arrival packets and the portal built for the player
+dump levels players player:S advancements:S packets:S:respawn,player_position,level_event,set_default_spawn_position,game_event,initialize_border,set_time,change_difficulty
+in the_nether dump blocks:-4,66,-4,4,76,4
+note the client accepts the arrival teleport and the player steps out of the nether portal: the cooldown runs down
+accept_teleport S
+set S no_gravity true
+tp S 6.5 70 0.5
+watch portal:S
+tick 12
+watch off
+note and walks back into it
+tp S -0.5 70.2 0.4 270 0
+watch portal:S
+tick 82
+watch off
+dump levels players player:S advancements:S packets:S:respawn,player_position,level_event
+dump blocks:-4,-62,-4,4,-55,4

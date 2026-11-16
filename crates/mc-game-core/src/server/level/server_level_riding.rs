@@ -392,9 +392,6 @@ impl ServerLevel {
             // a command block minecart runs its command while it ticks, as a rider too
             self.with_command_env(&mut *env, |level| entity.tick(level));
             movement::apply_pending_fudge(entity.as_mut(), self);
-            if self.take_portal_teleport(id) {
-                env.teleport_through_portal(self, entity.as_mut());
-            }
             passengers = entity.base().passengers.clone();
         }
         self.put_back_entity(id, entity);

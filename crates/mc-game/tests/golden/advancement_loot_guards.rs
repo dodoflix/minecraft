@@ -44,6 +44,12 @@ const OBSERVED: &[(&str, &str, &str, &str)] = &[
         "potion",
     ),
     (
+        "changed_dimension",
+        "portal_nether_player",
+        "minecraft:story/enter_the_nether",
+        "entered_nether",
+    ),
+    (
         "channeled_lightning",
         "ent_lightning_channeling",
         "minecraft:adventure/very_very_frightening",
@@ -177,6 +183,12 @@ const OBSERVED: &[(&str, &str, &str, &str)] = &[
         "adv_location_triggers",
         "minecraft:adventure/adventuring_time",
         "minecraft:desert",
+    ),
+    (
+        "nether_travel",
+        "portal_nether_travel",
+        "minecraft:nether/fast_travel",
+        "travelled",
     ),
     (
         "placed_block",
@@ -331,16 +343,7 @@ const OBSERVED: &[(&str, &str, &str, &str)] = &[
 ];
 
 /// Triggers without an observation, and why.
-const UNOBSERVED: &[(&str, &str)] = &[
-    (
-        "changed_dimension",
-        "needs a replay that holds several levels and portal travel",
-    ),
-    (
-        "nether_travel",
-        "needs a replay that holds several levels and portal travel",
-    ),
-];
+const UNOBSERVED: &[(&str, &str)] = &[];
 
 fn tests_dir() -> std::path::PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("tests")

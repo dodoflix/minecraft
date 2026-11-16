@@ -1,0 +1,75 @@
+# a creative player: no delay
+T 3
+PORTAL C0 cooldown=0 time=0
+T 4
+PORTAL C0 cooldown=10 time=1
+T 5
+PORTAL C0 cooldown=10 time=-
+T 6
+PORTAL C0 cooldown=10 time=-
+LEVEL minecraft:overworld gametime=6 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=6 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL P dim=minecraft:overworld
+PL C0 dim=minecraft:the_nether
+PKT C0 minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT C0 minecraft:player_position 4902bfe000000000000040518000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT C0 minecraft:level_event 2f0000040800000000000000000000000000
+STAT C0 minecraft.custom:minecraft.leave_game 1
+STAT C0 minecraft.custom:minecraft.play_time 4
+STAT C0 minecraft.custom:minecraft.time_since_death 4
+STAT C0 minecraft.custom:minecraft.time_since_rest 4
+STAT C0 minecraft.custom:minecraft.total_world_time 4
+# a survival player with a delay of 0
+CF msg Game rule players_nether_portal_default_delay is now set to 0
+CF result success 0
+T 7
+PORTAL S0 cooldown=0 time=0
+T 8
+PORTAL S0 cooldown=10 time=1
+T 9
+PORTAL S0 cooldown=10 time=-
+T 10
+PORTAL S0 cooldown=10 time=-
+LEVEL minecraft:overworld gametime=10 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=10 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL P dim=minecraft:overworld
+PL C0 dim=minecraft:the_nether
+PL S0 dim=minecraft:the_nether
+PKT S0 minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e00000001000ac1ffffff0f03
+PKT S0 minecraft:player_position 4902bfe000000000000040518000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT S0 minecraft:level_event 2f0000040800000000000000000000000000
+STAT S0 minecraft.custom:minecraft.leave_game 1
+STAT S0 minecraft.custom:minecraft.play_time 4
+STAT S0 minecraft.custom:minecraft.time_since_death 4
+STAT S0 minecraft.custom:minecraft.time_since_rest 4
+STAT S0 minecraft.custom:minecraft.total_world_time 4
+# a survival player with a negative delay and a creative player with a delay of 3
+CF fail Integer must not be less than 0: found -5
+CF fail ...ult_delay -5<--[HERE]
+CF msg Game rule players_nether_portal_creative_delay is now set to 3
+CF result success 3
+T 11
+PORTAL S1 cooldown=0 time=0
+PORTAL C3 cooldown=0 time=0
+T 12
+PORTAL S1 cooldown=10 time=1
+PORTAL C3 cooldown=0 time=1
+T 13
+PORTAL S1 cooldown=10 time=-
+PORTAL C3 cooldown=0 time=2
+T 14
+PORTAL S1 cooldown=10 time=-
+PORTAL C3 cooldown=0 time=3
+T 15
+PORTAL S1 cooldown=10 time=-
+PORTAL C3 cooldown=10 time=4
+T 16
+PORTAL S1 cooldown=10 time=-
+PORTAL C3 cooldown=10 time=-
+LEVEL minecraft:overworld gametime=16 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=16 forced=25 loaded=1260 players=2 border=5.9999968E7
+PL P dim=minecraft:overworld
+PL C0 dim=minecraft:the_nether
+PL S0 dim=minecraft:the_nether
+PL S1 dim=minecraft:the_nether
+PL C3 dim=minecraft:the_nether

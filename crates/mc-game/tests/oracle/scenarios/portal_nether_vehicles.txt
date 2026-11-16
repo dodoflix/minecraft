@@ -1,0 +1,56 @@
+# Vehicles with passengers travel through a nether portal: the vehicle decides (mobs_nether_portal_delay 0 even with a player aboard), its
+# passengers arrive with it as new entities, a player rider changes dimension itself and rides the new vehicle.
+# A boat with a cow and a villager, then a boat with a player, then a minecart with a cow; arrivals are removed before the next trip.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player P creative 2.5 -61 3.5 180 0
+tick 2
+note a boat with a cow and a villager
+spawn B minecraft:oak_boat 0.9 -60 0.5 90 0
+spawn C minecraft:cow 0.9 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C 9
+spawn V minecraft:villager 0.9 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V 5
+ride C B
+ride V B
+dump packets:P:none
+tick 1
+dump xentities packets:P:remove_entities,set_passengers levels
+tick 2
+in the_nether dump xentities packets:P:none
+kill villager#1
+kill cow#1
+kill oak_boat#1
+note a boat with a player
+spawn B2 minecraft:oak_boat 0.9 -60 0.5 90 0
+spawn_player R creative 0.9 -60 0.5 90 0
+ride R B2
+dump packets:R:none
+tick 1
+dump xentities players player:R packets:R:respawn,player_position,set_passengers,teleport_entity,add_entity,level_event,game_event
+tick 3
+dump players player:R portal:R portal:oak_boat#2 packets:R:player_position,set_passengers,teleport_entity,move_entity_pos_rot,rotate_head
+in the_nether dump xentities
+note a minecart with a cow
+spawn M minecraft:minecart 0.9 -60 0.5 135 0
+spawn C2 minecraft:cow 0.9 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C2 4
+ride C2 M
+velocity M 0.2 0 0.1
+tick 1
+dump xentities packets:P:remove_entities
+tick 4
+in the_nether dump xentities

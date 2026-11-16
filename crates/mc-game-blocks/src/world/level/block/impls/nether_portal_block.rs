@@ -67,8 +67,15 @@ impl BlockBehaviour for NetherPortalBlock {
                 &*level,
                 pos,
                 mc_data::EntityType::ZOMBIFIED_PIGLIN,
-            ) && let Some(id) = spawn_zombified_piglin(level, pos.above())
-            {
+            ) && let Some(id) = mc_game_core::world::entity::spawn_config::spawn_at(
+                level,
+                mc_data::EntityType::ZOMBIFIED_PIGLIN,
+                None,
+                pos.above(),
+                mc_data::enums::EntitySpawnReason::Structure,
+                false,
+                false,
+            ) {
                 let vehicle = level.with_entity(id, |level, entity| {
                     entity.set_portal_cooldown(level);
                     entity.base().vehicle
@@ -104,32 +111,6 @@ impl BlockBehaviour for NetherPortalBlock {
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         rotate_pillar_horizontal(state, rotation)
     }
-}
-
-/// `EntityTypes.ZOMBIFIED_PIGLIN.spawn(level, pos, STRUCTURE)`.
-fn spawn_zombified_piglin(
-    level: &mut ServerLevel,
-    pos: BlockPos,
-) -> Option<mc_game_core::world::entity::EntityId> {
-    use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
-    let mut entity = factory::create(
-        mc_data::EntityType::ZOMBIFIED_PIGLIN,
-        level,
-        EntitySpawnRequest {
-            reason: mc_data::enums::EntitySpawnReason::Structure,
-            ignore_checks: false,
-        },
-    )?;
-    let y_rot = mc_core::math::mth::wrap_degrees_f32(level.random().next_float() * 360.0);
-    entity.snap_to(
-        f64::from(pos.x()) + 0.5,
-        f64::from(pos.y()),
-        f64::from(pos.z()) + 0.5,
-        y_rot,
-        0.0,
-    );
-    let id = entity.id();
-    level.add_fresh_entity(entity).then_some(id)
 }
 
 fn nether_key() -> Identifier {

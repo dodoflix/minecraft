@@ -49,7 +49,7 @@ pub const WATER_SLOWDOWN_FACTOR: f32 = 0.95;
 static MINECART_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
     order: 30,
     applies: |e| e.as_abstract_minecart().is_some(),
-    fields: |e, _level, ctx| {
+    fields: |e, level, ctx| {
         let m = e.as_abstract_minecart().expect("applies");
         let b = e.base();
         vec![
@@ -68,7 +68,16 @@ static MINECART_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
                 "mdir".into(),
                 e.get_motion_direction().get_serialized_name().to_string(),
             ),
-            ("rider".into(), ctx.name_opt(b.passengers.first().copied())),
+            (
+                "rider".into(),
+                // `entName`: by UUID, so a rider that was re-created by a dimension change keeps its name
+                ctx.name_uuid(
+                    b.passengers
+                        .first()
+                        .and_then(|id| level.get_entity(*id))
+                        .map(|p| p.uuid()),
+                ),
+            ),
         ]
     },
 };

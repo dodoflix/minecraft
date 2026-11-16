@@ -118,11 +118,29 @@ fn invalid_player_movement() -> Component {
 }
 
 impl PlayCtx<'_> {
-    /// `tick()`.
-    pub fn tick(&mut self) {
+    /// `tick()` up to the player's portal step. Returns `true` when that step moved the player to another level: this context
+    /// then holds a placeholder, and the rest of the tick ([`PlayCtx::tick_after_portal`]) runs in a context of the new level.
+    pub fn tick(&mut self) -> bool {
         self.lis().send_block_changed_ack();
+        if !self.server.is_paused() {
+            self.reset_position();
+            let p = self.player.position();
+            self.player.player.living.entity.set_old_pos(p);
+            if crate::server::players::dimension_change::hoist_portal(
+                &mut *self.server,
+                &mut *self.level,
+                &mut *self.player,
+            ) {
+                return true;
+            }
+        }
+        self.tick_after_portal();
+        false
+    }
 
-        if self.server.is_paused() || !self.tick_player() {
+    /// `tick()` from `doTick()` on.
+    pub fn tick_after_portal(&mut self) {
+        if self.server.is_paused() || !self.tick_player_body() {
             let now = self.now_ms();
             self.keep_connection_alive(now);
             self.lis().tick_throttlers();
@@ -157,11 +175,8 @@ impl PlayCtx<'_> {
         }
     }
 
-    /// `tickPlayer()`: returns whether the player was kicked.
-    fn tick_player(&mut self) -> bool {
-        self.reset_position();
-        let p = self.player.position();
-        self.player.player.living.entity.set_old_pos(p);
+    /// `tickPlayer()` from `doTick()` on.
+    fn tick_player_body(&mut self) -> bool {
         self.player.do_tick(self.level);
         let (fx, fy, fz) = {
             let lis = self.lis();

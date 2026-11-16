@@ -1,0 +1,428 @@
+T 2
+PORTAL S cooldown=0 time=1
+T 3
+PORTAL S cooldown=0 time=2
+T 4
+PORTAL S cooldown=0 time=3
+T 5
+PORTAL S cooldown=0 time=4
+T 6
+PORTAL S cooldown=0 time=5
+T 7
+PORTAL S cooldown=0 time=6
+T 8
+PORTAL S cooldown=0 time=7
+T 9
+PORTAL S cooldown=0 time=8
+T 10
+PORTAL S cooldown=0 time=9
+T 11
+PORTAL S cooldown=0 time=10
+T 12
+PORTAL S cooldown=0 time=11
+T 13
+PORTAL S cooldown=0 time=12
+T 14
+PORTAL S cooldown=0 time=13
+T 15
+PORTAL S cooldown=0 time=14
+T 16
+PORTAL S cooldown=0 time=15
+T 17
+PORTAL S cooldown=0 time=16
+T 18
+PORTAL S cooldown=0 time=17
+T 19
+PORTAL S cooldown=0 time=18
+T 20
+PORTAL S cooldown=0 time=19
+T 21
+PORTAL S cooldown=0 time=20
+T 22
+PORTAL S cooldown=0 time=21
+T 23
+PORTAL S cooldown=0 time=22
+T 24
+PORTAL S cooldown=0 time=23
+T 25
+PORTAL S cooldown=0 time=24
+T 26
+PORTAL S cooldown=0 time=25
+T 27
+PORTAL S cooldown=0 time=26
+T 28
+PORTAL S cooldown=0 time=27
+T 29
+PORTAL S cooldown=0 time=28
+T 30
+PORTAL S cooldown=0 time=29
+T 31
+PORTAL S cooldown=0 time=30
+T 32
+PORTAL S cooldown=0 time=31
+T 33
+PORTAL S cooldown=0 time=32
+T 34
+PORTAL S cooldown=0 time=33
+T 35
+PORTAL S cooldown=0 time=34
+T 36
+PORTAL S cooldown=0 time=35
+T 37
+PORTAL S cooldown=0 time=36
+T 38
+PORTAL S cooldown=0 time=37
+T 39
+PORTAL S cooldown=0 time=38
+T 40
+PORTAL S cooldown=0 time=39
+T 41
+PORTAL S cooldown=0 time=40
+T 42
+PORTAL S cooldown=0 time=41
+T 43
+PORTAL S cooldown=0 time=42
+T 44
+PORTAL S cooldown=0 time=43
+T 45
+PORTAL S cooldown=0 time=44
+T 46
+PORTAL S cooldown=0 time=45
+T 47
+PORTAL S cooldown=0 time=46
+T 48
+PORTAL S cooldown=0 time=47
+T 49
+PORTAL S cooldown=0 time=48
+T 50
+PORTAL S cooldown=0 time=49
+T 51
+PORTAL S cooldown=0 time=50
+T 52
+PORTAL S cooldown=0 time=51
+T 53
+PORTAL S cooldown=0 time=52
+T 54
+PORTAL S cooldown=0 time=53
+T 55
+PORTAL S cooldown=0 time=54
+T 56
+PORTAL S cooldown=0 time=55
+T 57
+PORTAL S cooldown=0 time=56
+T 58
+PORTAL S cooldown=0 time=57
+T 59
+PORTAL S cooldown=0 time=58
+T 60
+PORTAL S cooldown=0 time=59
+T 61
+PORTAL S cooldown=0 time=60
+T 62
+PORTAL S cooldown=0 time=61
+T 63
+PORTAL S cooldown=0 time=62
+T 64
+PORTAL S cooldown=0 time=63
+T 65
+PORTAL S cooldown=0 time=64
+T 66
+PORTAL S cooldown=0 time=65
+T 67
+PORTAL S cooldown=0 time=66
+T 68
+PORTAL S cooldown=0 time=67
+T 69
+PORTAL S cooldown=0 time=68
+T 70
+PORTAL S cooldown=0 time=69
+T 71
+PORTAL S cooldown=0 time=70
+T 72
+PORTAL S cooldown=0 time=71
+T 73
+PORTAL S cooldown=0 time=72
+T 74
+PORTAL S cooldown=0 time=73
+T 75
+PORTAL S cooldown=0 time=74
+T 76
+PORTAL S cooldown=0 time=75
+T 77
+PORTAL S cooldown=0 time=76
+T 78
+PORTAL S cooldown=0 time=77
+T 79
+PORTAL S cooldown=0 time=78
+T 80
+PORTAL S cooldown=0 time=79
+T 81
+PORTAL S cooldown=0 time=80
+LEVEL minecraft:overworld gametime=81 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=81 forced=25 loaded=961 players=0 border=5.9999968E7
+PL S dim=minecraft:overworld
+P S minecraft:player pos=0.7,-60.0,0.4 delta=0.0,-0.0784000015258789,0.0 rot=90.0,15.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=9.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the arrival packets and the portal built for the player
+LEVEL minecraft:overworld gametime=84 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=84 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL S dim=minecraft:the_nether
+P S minecraft:player pos=-0.30000000000000004,70.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,15.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=9.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+ADV S minecraft:adventure/adventuring_time minecraft:plains
+ADV S minecraft:nether/root entered_nether
+ADV S minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV S minecraft:story/enter_the_nether entered_nether
+PKT S minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e00000001000ac1ffffff0f03
+PKT S minecraft:change_difficulty 0a0000
+PKT S minecraft:player_position 4902bfd333333333333440518000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT S minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT S minecraft:set_time 730000000000000052020000000000000000000001000000000000000000
+PKT S minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT S minecraft:game_event 270d00000000
+PKT S minecraft:level_event 2f0000040800000000000000000000000000
+B -2 69 0 minecraft:obsidian
+B -2 70 0 minecraft:obsidian
+B -2 71 0 minecraft:obsidian
+B -2 72 0 minecraft:obsidian
+B -2 73 0 minecraft:obsidian
+B -1 69 -1 minecraft:obsidian
+B -1 69 0 minecraft:obsidian
+B -1 69 1 minecraft:obsidian
+B -1 70 0 minecraft:nether_portal[axis=x]
+B -1 71 0 minecraft:nether_portal[axis=x]
+B -1 72 0 minecraft:nether_portal[axis=x]
+B -1 73 0 minecraft:obsidian
+B 0 69 -1 minecraft:obsidian
+B 0 69 0 minecraft:obsidian
+B 0 69 1 minecraft:obsidian
+B 0 70 0 minecraft:nether_portal[axis=x]
+B 0 71 0 minecraft:nether_portal[axis=x]
+B 0 72 0 minecraft:nether_portal[axis=x]
+B 0 73 0 minecraft:obsidian
+B 1 69 0 minecraft:obsidian
+B 1 70 0 minecraft:obsidian
+B 1 71 0 minecraft:obsidian
+B 1 72 0 minecraft:obsidian
+B 1 73 0 minecraft:obsidian
+# the client accepts the arrival teleport and the player steps out of the nether portal: the cooldown runs down
+T 85
+PORTAL S cooldown=9 time=69
+T 86
+PORTAL S cooldown=8 time=65
+T 87
+PORTAL S cooldown=7 time=61
+T 88
+PORTAL S cooldown=6 time=57
+T 89
+PORTAL S cooldown=5 time=53
+T 90
+PORTAL S cooldown=4 time=49
+T 91
+PORTAL S cooldown=3 time=45
+T 92
+PORTAL S cooldown=2 time=41
+T 93
+PORTAL S cooldown=1 time=37
+T 94
+PORTAL S cooldown=0 time=33
+T 95
+PORTAL S cooldown=0 time=29
+T 96
+PORTAL S cooldown=0 time=25
+# and walks back into it
+T 97
+PORTAL S cooldown=0 time=21
+T 98
+PORTAL S cooldown=0 time=22
+T 99
+PORTAL S cooldown=0 time=23
+T 100
+PORTAL S cooldown=0 time=24
+T 101
+PORTAL S cooldown=0 time=25
+T 102
+PORTAL S cooldown=0 time=26
+T 103
+PORTAL S cooldown=0 time=27
+T 104
+PORTAL S cooldown=0 time=28
+T 105
+PORTAL S cooldown=0 time=29
+T 106
+PORTAL S cooldown=0 time=30
+T 107
+PORTAL S cooldown=0 time=31
+T 108
+PORTAL S cooldown=0 time=32
+T 109
+PORTAL S cooldown=0 time=33
+T 110
+PORTAL S cooldown=0 time=34
+T 111
+PORTAL S cooldown=0 time=35
+T 112
+PORTAL S cooldown=0 time=36
+T 113
+PORTAL S cooldown=0 time=37
+T 114
+PORTAL S cooldown=0 time=38
+T 115
+PORTAL S cooldown=0 time=39
+T 116
+PORTAL S cooldown=0 time=40
+T 117
+PORTAL S cooldown=0 time=41
+T 118
+PORTAL S cooldown=0 time=42
+T 119
+PORTAL S cooldown=0 time=43
+T 120
+PORTAL S cooldown=0 time=44
+T 121
+PORTAL S cooldown=0 time=45
+T 122
+PORTAL S cooldown=0 time=46
+T 123
+PORTAL S cooldown=0 time=47
+T 124
+PORTAL S cooldown=0 time=48
+T 125
+PORTAL S cooldown=0 time=49
+T 126
+PORTAL S cooldown=0 time=50
+T 127
+PORTAL S cooldown=0 time=51
+T 128
+PORTAL S cooldown=0 time=52
+T 129
+PORTAL S cooldown=0 time=53
+T 130
+PORTAL S cooldown=0 time=54
+T 131
+PORTAL S cooldown=0 time=55
+T 132
+PORTAL S cooldown=0 time=56
+T 133
+PORTAL S cooldown=0 time=57
+T 134
+PORTAL S cooldown=0 time=58
+T 135
+PORTAL S cooldown=0 time=59
+T 136
+PORTAL S cooldown=0 time=60
+T 137
+PORTAL S cooldown=0 time=61
+T 138
+PORTAL S cooldown=0 time=62
+T 139
+PORTAL S cooldown=0 time=63
+T 140
+PORTAL S cooldown=0 time=64
+T 141
+PORTAL S cooldown=0 time=65
+T 142
+PORTAL S cooldown=0 time=66
+T 143
+PORTAL S cooldown=0 time=67
+T 144
+PORTAL S cooldown=0 time=68
+T 145
+PORTAL S cooldown=0 time=69
+T 146
+PORTAL S cooldown=0 time=70
+T 147
+PORTAL S cooldown=0 time=71
+T 148
+PORTAL S cooldown=0 time=72
+T 149
+PORTAL S cooldown=0 time=73
+T 150
+PORTAL S cooldown=0 time=74
+T 151
+PORTAL S cooldown=0 time=75
+T 152
+PORTAL S cooldown=0 time=76
+T 153
+PORTAL S cooldown=0 time=77
+T 154
+PORTAL S cooldown=0 time=78
+T 155
+PORTAL S cooldown=0 time=79
+T 156
+PORTAL S cooldown=0 time=80
+T 157
+PORTAL S cooldown=10 time=81
+T 158
+PORTAL S cooldown=10 time=77
+T 159
+PORTAL S cooldown=10 time=73
+T 160
+PORTAL S cooldown=10 time=69
+T 161
+PORTAL S cooldown=10 time=65
+T 162
+PORTAL S cooldown=10 time=61
+T 163
+PORTAL S cooldown=10 time=57
+T 164
+PORTAL S cooldown=10 time=53
+T 165
+PORTAL S cooldown=10 time=49
+T 166
+PORTAL S cooldown=10 time=45
+T 167
+PORTAL S cooldown=10 time=41
+T 168
+PORTAL S cooldown=10 time=37
+T 169
+PORTAL S cooldown=10 time=33
+T 170
+PORTAL S cooldown=10 time=29
+T 171
+PORTAL S cooldown=10 time=25
+T 172
+PORTAL S cooldown=10 time=21
+T 173
+PORTAL S cooldown=10 time=17
+T 174
+PORTAL S cooldown=10 time=13
+T 175
+PORTAL S cooldown=10 time=9
+T 176
+PORTAL S cooldown=10 time=5
+T 177
+PORTAL S cooldown=10 time=1
+T 178
+PORTAL S cooldown=10 time=-
+LEVEL minecraft:overworld gametime=178 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=178 forced=25 loaded=961 players=0 border=5.9999968E7
+PL S dim=minecraft:overworld
+P S minecraft:player pos=0.5,-59.8,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=13.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+ADV S minecraft:adventure/adventuring_time minecraft:plains
+ADV S minecraft:nether/root entered_nether
+ADV S minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV S minecraft:story/enter_the_nether entered_nether
+PKT S minecraft:player_position 4903401a00000000000040518000000000003fe000000000000000000000000000000000000000000000000000000000000042b400004170000000000000
+PKT S minecraft:player_position 4904bfe000000000000040518ccccccccccd3fd999999999999a000000000000000000000000000000000000000000000000438700000000000000000000
+PKT S minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e00000001000ac1ffffff0f03
+PKT S minecraft:player_position 49053fe0000000000000c04de666666666663fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT S minecraft:level_event 2f0000040800000000000000000000000000
+B -1 -61 0 minecraft:obsidian
+B -1 -60 0 minecraft:obsidian
+B -1 -59 0 minecraft:obsidian
+B -1 -58 0 minecraft:obsidian
+B -1 -57 0 minecraft:obsidian
+B 0 -61 0 minecraft:obsidian
+B 0 -60 0 minecraft:nether_portal[axis=x]
+B 0 -59 0 minecraft:nether_portal[axis=x]
+B 0 -58 0 minecraft:nether_portal[axis=x]
+B 0 -57 0 minecraft:obsidian
+B 1 -61 0 minecraft:obsidian
+B 1 -60 0 minecraft:nether_portal[axis=x]
+B 1 -59 0 minecraft:nether_portal[axis=x]
+B 1 -58 0 minecraft:nether_portal[axis=x]
+B 1 -57 0 minecraft:obsidian
+B 2 -61 0 minecraft:obsidian
+B 2 -60 0 minecraft:obsidian
+B 2 -59 0 minecraft:obsidian
+B 2 -58 0 minecraft:obsidian
+B 2 -57 0 minecraft:obsidian

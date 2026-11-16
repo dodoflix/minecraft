@@ -1,0 +1,52 @@
+T 3
+PORTAL Q cooldown=0 time=-
+T 4
+PORTAL Q cooldown=0 time=-
+T 5
+PORTAL Q cooldown=0 time=-
+T 6
+PORTAL Q cooldown=0 time=-
+T 7
+PORTAL Q cooldown=0 time=-
+LEVEL minecraft:overworld gametime=7 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=7 forced=25 loaded=961 players=0 border=5.9999968E7
+PL P dim=minecraft:overworld
+PL Q dim=minecraft:overworld
+# a portal exists in the nether now
+T 20
+PORTAL Q cooldown=0 time=-
+T 21
+PORTAL Q cooldown=0 time=-
+T 22
+PORTAL Q cooldown=0 time=-
+T 23
+PORTAL Q cooldown=0 time=-
+T 24
+PORTAL Q cooldown=0 time=-
+LEVEL minecraft:overworld gametime=24 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=24 forced=25 loaded=961 players=0 border=5.9999968E7
+PL P dim=minecraft:overworld
+PL Q dim=minecraft:overworld
+P Q minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT Q minecraft:player_position 49024016000000000000c04e0000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT Q minecraft:player_position 49033fe0000000000000c04e0000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+B -1 69 0 minecraft:obsidian
+B -1 70 0 minecraft:obsidian
+B -1 71 0 minecraft:obsidian
+B -1 72 0 minecraft:obsidian
+B -1 73 0 minecraft:obsidian
+B 0 69 0 minecraft:obsidian
+B 0 70 0 minecraft:nether_portal[axis=x]
+B 0 71 0 minecraft:nether_portal[axis=x]
+B 0 72 0 minecraft:nether_portal[axis=x]
+B 0 73 0 minecraft:obsidian
+B 1 69 0 minecraft:obsidian
+B 1 70 0 minecraft:nether_portal[axis=x]
+B 1 71 0 minecraft:nether_portal[axis=x]
+B 1 72 0 minecraft:nether_portal[axis=x]
+B 1 73 0 minecraft:obsidian
+B 2 69 0 minecraft:obsidian
+B 2 70 0 minecraft:obsidian
+B 2 71 0 minecraft:obsidian
+B 2 72 0 minecraft:obsidian
+B 2 73 0 minecraft:obsidian

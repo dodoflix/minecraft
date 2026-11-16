@@ -1,0 +1,35 @@
+# a boat with a cow and a villager
+E B minecraft:oak_boat pos=0.9,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=C;V mdir=north leash=- ooc=0.0
+E C minecraft:cow pos=0.49999999403953554,-59.8125,0.5 delta=0.0,0.0,0.0 rot=360.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=360.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E V minecraft:villager pos=1.5000000238418578,-59.8125,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=15.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+PKT P minecraft:set_passengers 6d66026768
+LEVEL minecraft:overworld gametime=3 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=3 forced=25 loaded=961 players=0 border=5.9999968E7
+E cow#1 minecraft:cow pos=-0.5000000059604645,70.1875,0.5 delta=0.0,0.0,0.0 rot=360.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=360.0 body=360.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E villager#1 minecraft:villager pos=0.5000000238418579,70.1875,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E oak_boat#1 minecraft:oak_boat pos=-0.09999999999999998,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=C;V mdir=north leash=- ooc=0.0
+# a boat with a player
+E B2 minecraft:oak_boat pos=0.9,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=R mdir=north leash=- ooc=0.0
+PL P dim=minecraft:overworld
+PL R dim=minecraft:overworld
+P R minecraft:player pos=0.9,-60.4125,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PL P dim=minecraft:overworld
+PL R dim=minecraft:the_nether
+P R minecraft:player pos=-0.09999999999999998,69.5875,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PORTAL R cooldown=0 time=-
+PORTAL oak_boat#2 cooldown=10 time=-
+PKT R minecraft:set_passengers 6d6c00
+PKT R minecraft:player_position 49033feccccccccccccdc04e0000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT R minecraft:player_position 4904bfb999999999999840518000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT R minecraft:player_position 4905bfb9999999999998405165999999999a3fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT R minecraft:set_passengers 6d6e016d
+E oak_boat#2 minecraft:oak_boat pos=-0.09999999999999998,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=R mdir=north leash=- ooc=0.0
+# a minecart with a cow
+E oak_boat#2 minecraft:oak_boat pos=-0.09999999999999998,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=R mdir=north leash=- ooc=0.0
+E M minecraft:minecart pos=1.1,-60.0,0.6 delta=0.2,0.0,0.1 rot=-153.43498,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=east rider=C2
+E C2 minecraft:cow pos=1.1,-59.8125,0.6 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+PKT P minecraft:remove_entities 4e016d
+PKT P minecraft:remove_entities 4e016c
+E oak_boat#2 minecraft:oak_boat pos=-0.09999999999999998,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=R mdir=north leash=- ooc=0.0
+E cow#2 minecraft:cow pos=0.39183890131715104,70.1875,0.6135841345095853 delta=0.06925932945509533,0.0,0.015796187174601836 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E minecart#1 minecraft:minecart pos=0.39183890131715104,70.0,0.6135841345095853 delta=0.1040298771395039,0.0,0.026459633348772552 rot=-164.60889,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=east rider=C2

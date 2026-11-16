@@ -1,0 +1,75 @@
+# nether portal blocks at x=16 and x=-25
+# an item enters the first portal: the nether portal at x=16 is within reach
+E I minecraft:item pos=0.5,-59.54,0.5 delta=0.0,-0.03920000076293945,0.0 rot=244.22574,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+LEVEL minecraft:overworld gametime=3 forced=121 loaded=1369 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=3 forced=121 loaded=1369 players=0 border=5.9999968E7
+E item#1 minecraft:item pos=16.5,70.10792031252228,0.5 delta=0.0,-0.15215841372877212,0.0 rot=244.22574,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=4 pickup=0 health=5 owner=- thrower=-
+B 15 69 0 minecraft:obsidian
+B 15 70 0 minecraft:obsidian
+B 15 71 0 minecraft:obsidian
+B 15 72 0 minecraft:obsidian
+B 15 73 0 minecraft:obsidian
+B 16 69 0 minecraft:obsidian
+B 16 70 0 minecraft:nether_portal[axis=x]
+B 16 71 0 minecraft:nether_portal[axis=x]
+B 16 72 0 minecraft:nether_portal[axis=x]
+B 16 73 0 minecraft:obsidian
+B 17 69 0 minecraft:obsidian
+B 17 70 0 minecraft:nether_portal[axis=x]
+B 17 71 0 minecraft:nether_portal[axis=x]
+B 17 72 0 minecraft:nether_portal[axis=x]
+B 17 73 0 minecraft:obsidian
+B 18 69 0 minecraft:obsidian
+B 18 70 0 minecraft:obsidian
+B 18 71 0 minecraft:obsidian
+B 18 72 0 minecraft:obsidian
+B 18 73 0 minecraft:obsidian
+# an item enters the second portal: the nearest nether portal block is 17 away, a portal is built
+E item#1 minecraft:item pos=16.5,70.0,0.5 delta=0.0,0.0,0.0 rot=244.22574,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=5 pickup=0 health=5 owner=- thrower=-
+E J minecraft:item pos=-63.5,-59.54,0.5 delta=0.0,-0.03920000076293945,0.0 rot=89.02335,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=16.5,70.0,0.5 delta=0.0,-0.08,0.0 rot=244.22574,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=8 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-8.5,70.10792031252228,0.5 delta=0.0,-0.15215841372877212,0.0 rot=89.02335,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=4 pickup=0 health=5 owner=- thrower=-
+B -27 69 0 minecraft:obsidian
+B -27 70 0 minecraft:obsidian
+B -27 71 0 minecraft:obsidian
+B -27 72 0 minecraft:obsidian
+B -27 73 0 minecraft:obsidian
+B -26 69 0 minecraft:obsidian
+B -26 70 0 minecraft:nether_portal[axis=x]
+B -26 71 0 minecraft:nether_portal[axis=x]
+B -26 72 0 minecraft:nether_portal[axis=x]
+B -26 73 0 minecraft:obsidian
+B -25 69 0 minecraft:obsidian
+B -25 70 0 minecraft:nether_portal[axis=x]
+B -25 71 0 minecraft:nether_portal[axis=x]
+B -25 72 0 minecraft:nether_portal[axis=x]
+B -25 73 0 minecraft:obsidian
+B -24 69 0 minecraft:obsidian
+B -24 70 0 minecraft:obsidian
+B -24 71 0 minecraft:obsidian
+B -24 72 0 minecraft:obsidian
+B -24 73 0 minecraft:obsidian
+B -10 69 0 minecraft:obsidian
+B -10 70 0 minecraft:obsidian
+B -10 71 0 minecraft:obsidian
+B -10 72 0 minecraft:obsidian
+B -10 73 0 minecraft:obsidian
+B -9 69 -1 minecraft:obsidian
+B -9 69 0 minecraft:obsidian
+B -9 69 1 minecraft:obsidian
+B -9 70 0 minecraft:nether_portal[axis=x]
+B -9 71 0 minecraft:nether_portal[axis=x]
+B -9 72 0 minecraft:nether_portal[axis=x]
+B -9 73 0 minecraft:obsidian
+B -8 69 -1 minecraft:obsidian
+B -8 69 0 minecraft:obsidian
+B -8 69 1 minecraft:obsidian
+B -8 70 0 minecraft:nether_portal[axis=x]
+B -8 71 0 minecraft:nether_portal[axis=x]
+B -8 72 0 minecraft:nether_portal[axis=x]
+B -8 73 0 minecraft:obsidian
+B -7 69 0 minecraft:obsidian
+B -7 70 0 minecraft:obsidian
+B -7 71 0 minecraft:obsidian
+B -7 72 0 minecraft:obsidian
+B -7 73 0 minecraft:obsidian

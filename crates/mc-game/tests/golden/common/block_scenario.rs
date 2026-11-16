@@ -1065,6 +1065,8 @@ impl Scenario {
         level
             .spawning
             .install_dimension_type(Arc::new(dimension_type.clone()));
+        // the coordinate scale and logical height portals read
+        level.dimension_type = Some(Arc::new(dimension_type.clone()));
         // one entity id sequence for every level of the replay (the oracle's `ENTITY_COUNTER` is global; parallel tests must not share ids)
         match &self.entity_counter {
             Some(counter) => {
@@ -1514,6 +1516,7 @@ impl Scenario {
             }
             "tick" => {
                 self.world();
+                self.remember_ref_uuids();
                 for _ in 0..a.get(1).map_or(1, |n| int(n)) {
                     self.tick_once();
                 }

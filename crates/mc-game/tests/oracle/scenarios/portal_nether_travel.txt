@@ -1,0 +1,38 @@
+# nether_travel and changed_dimension: a player enters the nether at the origin, walks to a nether portal 900 blocks away and returns to the
+# overworld 7200 blocks from where it left (the advancement needs 7000).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+spawn_player P creative 0.5 -60 0.5 0 0 sim
+tick 8
+accept_teleport P
+set P no_gravity true
+dump levels players advancements:P
+note a nether portal 900 blocks away
+cmd execute in minecraft:the_nether run forceload add 896 -16 912 16
+tick 40
+in the_nether fill 899 69 0 902 69 0 minecraft:obsidian
+in the_nether fill 899 73 0 902 73 0 minecraft:obsidian
+in the_nether fill 899 70 0 899 72 0 minecraft:obsidian
+in the_nether fill 902 70 0 902 72 0 minecraft:obsidian
+in the_nether fill 900 70 0 901 72 0 minecraft:nether_portal[axis=x]
+tp P 6.5 70 0.5
+tick 12
+tp P 900.5 70 0.5
+watch portal:P
+tick 4
+watch off
+dump levels players player:P advancements:P packets:P:respawn,player_position,level_event,initialize_border
+tick 3
+dump levels players player:P advancements:P

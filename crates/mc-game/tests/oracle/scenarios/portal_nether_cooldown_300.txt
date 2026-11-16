@@ -1,0 +1,42 @@
+# A cow that came through a portal has a portal cooldown of 300 ticks: standing in the arrival portal keeps resetting it, so it only travels
+# again after it left the portal, waited the 300 ticks and walked back in.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+spawn_player P creative 2.5 -61 3.5 180 0
+tick 2
+spawn C minecraft:cow 0.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C 9
+tick 1
+note the cow stands in the arrival portal: the cooldown stays at 300
+watch portal:cow#1
+tick 5
+watch off
+in the_nether dump xentities
+note the cow is moved out of the portal and its cooldown runs down
+tp cow#1 6.5 70 0.5
+watch portal:cow#1
+tick 3
+watch off
+tick 295
+dump portal:cow#1
+tick 1
+dump portal:cow#1
+note the cow walks back into the portal and travels
+tp cow#1 -0.5 70 0.5
+tick 3
+dump xentities levels
+in the_nether dump xentities
+tick 2
+dump portal:cow#2

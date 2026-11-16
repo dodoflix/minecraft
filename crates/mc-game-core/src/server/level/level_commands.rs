@@ -108,4 +108,15 @@ impl ServerLevel {
         unsafe { env.0.as_mut() }.perform_prefixed_command(self, source, command);
         self.tick_state.command_env = Some(env);
     }
+
+    /// `Entity.teleportToPortalDestination` for an entity of this level that is out of its storage (its tick): the destination
+    /// needs the server's other levels, which the tick environment reaches. Nothing happens without a server around the level.
+    pub fn teleport_through_portal(&mut self, entity: &mut dyn crate::world::entity::Entity) {
+        let Some(mut env) = self.tick_state.command_env.take() else {
+            return;
+        };
+        // SAFETY: see `perform_prefixed_command`: the pointer is taken out of the level while it is used.
+        unsafe { env.0.as_mut() }.teleport_through_portal(self, entity);
+        self.tick_state.command_env = Some(env);
+    }
 }
