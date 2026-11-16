@@ -135,6 +135,7 @@ import net.minecraft.util.RandomSource;
  * tick_chunk CX CZ SPEED      ServerLevel.tickChunk(chunk, SPEED): random ticks of one chunk (use instead of gamerule random_tick_speed)
  * random_tick X Y Z           randomTick of that block (+ its fluid) as tickChunk's inner loop does for one chosen position
  * bonemeal X Y Z            BoneMealItem.growCrop without a player; prints `BONEMEAL true|false` (true = the block was a valid target)
+ * bonus_chest X Y Z          BonusChestFeature.place with the level's random after loading the chunk of X Z (as the world spawn search has); prints `BONUS_CHEST true|false`; chunks beside it load when the feature reads them
  * destroy X Y Z              Level.destroyBlock(pos, true) (no breaker: destroy particles event, drops, BLOCK_DESTROY); prints `DESTROY true|false`
  * command_env               (before the first world command) no-op here, the Rust replay installs a command environment (server access) for the scenario and ticks its level
  *                             through the installed server's tick rate manager, clocks, weather and difficulty (a scenario that runs /tick, /time, /weather, /difficulty or moves the border)
@@ -647,6 +648,13 @@ public final class EntityOracleDriver {
             world();
             BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
             out.println("BONEMEAL " + net.minecraft.world.item.BoneMealItem.growCrop(new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 64), v.level, pos));
+         }
+         case "bonus_chest" -> {
+            world();
+            // `MinecraftServer.setInitialSpawn`'s placement at X Y Z: the spawn search has loaded that chunk, the neighbours load when read
+            BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
+            v.level.getChunk(pos.getX() >> 4, pos.getZ() >> 4);
+            out.println("BONUS_CHEST " + new net.minecraft.world.level.levelgen.feature.BonusChestFeature().place(v.level, v.level.getChunkSource().getGenerator(), v.level.getRandom(), pos));
          }
          case "command_env" -> {
             // the real server always has its command environment; the Rust replay installs one for the whole scenario

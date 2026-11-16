@@ -1,0 +1,36 @@
+# BonusChestFeature as the world spawn search leaves it: the chunk of the chest is loaded, the chunks beside it are not. The chest column comes
+# from the pinned level random. A torch beside a chest on a chunk edge is read and placed in the chunk next to it, and the shape updates of
+# the chest and of each torch read their neighbours: vanilla loads (and generates) every chunk those reads land in, the diagonal one of a corner
+# chest too. The dumps read exactly those chunks (the vanilla level would load any other chunk a dump touches, the replay's dump does not).
+# Normal (noise) level without structures, nothing preloaded.
+level normal
+structures false
+preload 0
+note south edge: the torch south of the chest stands in the next chunk
+level_seed 7
+bonus_chest 488 0 488
+dump blocks:481,63,493,485,65,497 be:483,64,495
+note west edge: the torch west of the chest stands in the next chunk
+level_seed 9
+bonus_chest 968 0 488
+dump blocks:958,68,488,962,70,492 be:960,69,490
+note east edge: the torch east of the chest stands in the next chunk
+level_seed 12
+bonus_chest 488 0 968
+dump blocks:493,64,968,497,66,972 be:495,65,970
+note north-west corner: the torches west and north of the chest stand in two chunks beside it, their shape updates read the diagonal one
+level_seed 96
+bonus_chest 1608 0 5608
+dump blocks:1599,64,5599,1601,66,5601 be:1600,65,5600
+note south-west corner: the torches west and south of the chest stand in two chunks beside it, their shape updates read the diagonal one
+level_seed 33
+bonus_chest 2088 0 5608
+dump blocks:2079,67,5614,2081,69,5616 be:2080,68,5615
+note one block from the north-west corner: the torches stand on the edge cells, their shape updates read the chunks west and north
+level_seed 108
+bonus_chest 648 0 6408
+dump blocks:638,67,6401,642,69,6401 blocks:641,67,6399,641,69,6403 be:641,68,6401
+note one block from the south-east corner: the torches stand on the edge cells, their shape updates read the chunks east and south
+level_seed 189
+bonus_chest 2248 0 6888
+dump blocks:2252,63,6894,2257,65,6894 blocks:2254,63,6892,2254,65,6897 be:2254,64,6894

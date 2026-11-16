@@ -269,6 +269,10 @@ impl WorldGenLevel for ServerLevel {
         true
     }
 
+    fn ensure_column_loaded(&mut self, x: i32, z: i32) {
+        self.ensure_chunks_loaded(ChunkPos::new(x >> 4, z >> 4), ChunkPos::new(x >> 4, z >> 4));
+    }
+
     fn ensure_chunks_loaded_around(&mut self, area: &mc_core::bounding_box::BoundingBox) {
         self.ensure_chunks_loaded(
             ChunkPos::new((area.min_x() - 1) >> 4, (area.min_z() - 1) >> 4),

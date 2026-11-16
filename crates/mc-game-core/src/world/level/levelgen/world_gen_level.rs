@@ -88,6 +88,9 @@ pub trait WorldGenLevel: LevelAccessor {
     /// Makes sure every chunk within one block of `area` is available for reading: a live level loads them like vanilla's
     /// `getChunk` does on first touch; generation regions have their chunks already.
     fn ensure_chunks_loaded_around(&mut self, _area: &mc_core::bounding_box::BoundingBox) {}
+    /// Makes sure the chunk of the column `x`, `z` is available for reading and writing: a live level loads it like vanilla's
+    /// `getChunk` does on first touch; generation regions have their chunks already.
+    fn ensure_column_loaded(&mut self, _x: i32, _z: i32) {}
     /// `chunk.isUpgrading()` of the center chunk.
     fn is_upgrading(&self) -> bool {
         false

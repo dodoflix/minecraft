@@ -7,7 +7,9 @@
 //! `level_data`   the `level.dat` of the demo world (survival, `North Carolina`, bonus chest and structures on).
 //! `bonus_chest`  the chest `--bonusChest` places near the world spawn: the chunk, the block entity keys, the chest's
 //!                surroundings, and the contents that a loot seed set on both servers rolls (the position inside the
-//!                chunk and the loot seed come from the level's unseeded random, in vanilla too).
+//!                chunk and the loot seed come from the level's random, which vanilla's jar seeds from the clock; the
+//!                seeded scenario `feat_bonus_chest_edge` of `mc-game` compares exact columns, loot seeds and the torches
+//!                across chunk edges).
 //!
 //! `demo_dual_vanilla` runs the scenarios against the real vanilla server and checks them against the committed
 //! observations in `tests/fixtures/demo_dual/*.txt` (`MC_UPDATE_FIXTURES=1` rewrites them; `DEMO_DUAL_ONLY=name` runs
@@ -317,7 +319,10 @@ async fn bonus_chest(s: &Server) -> Vec<String> {
                 let Tag::Compound(entity) = entity else {
                     continue;
                 };
-                if entity.get_string_or("id", "") == "minecraft:chest" {
+                // the chunks around it that features reached hold chests of their own (a monster room's)
+                if entity.get_string_or("id", "") == "minecraft:chest"
+                    && entity.get_string_or("LootTable", "") == "minecraft:chests/spawn_bonus_chest"
+                {
                     chests.push((cx, cz, entity.clone()));
                 }
             }

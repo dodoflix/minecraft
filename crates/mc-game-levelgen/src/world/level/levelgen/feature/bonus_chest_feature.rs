@@ -56,6 +56,7 @@ impl Feature for BonusChestFeature {
                         .get_collision_shape(&*level, chest_pos)
                         .is_empty()
                 {
+                    load_horizontal_neighbours(level, chest_pos);
                     level.set_block_flags(chest_pos, Block::CHEST.default_state(), 2);
                     // vanilla's `getBlockEntity` turns the `DUMMY` stub of `setBlock` into the real (empty) chest block entity
                     level.set_block_entity_nbt(base_tag("minecraft:chest", chest_pos));
@@ -64,7 +65,10 @@ impl Feature for BonusChestFeature {
 
                     for direction in Plane::Horizontal {
                         let torch_pos = chest_pos.relative(direction);
+                        // vanilla's `canSurvive` reads the block below, which loads the chunk of the torch
+                        level.ensure_column_loaded(torch_pos.x(), torch_pos.z());
                         if torch.can_survive(&*level, torch_pos) {
+                            load_horizontal_neighbours(level, torch_pos);
                             level.set_block_flags(torch_pos, torch, 2);
                         }
                     }
@@ -73,5 +77,13 @@ impl Feature for BonusChestFeature {
             }
         }
         false
+    }
+}
+
+/// Vanilla's `setBlock` shape updates read the four horizontal neighbours of `pos`, and a read loads the chunk it lands in.
+fn load_horizontal_neighbours(level: &mut dyn WorldGenLevel, pos: BlockPos) {
+    for direction in Plane::Horizontal {
+        let neighbour = pos.relative(direction);
+        level.ensure_column_loaded(neighbour.x(), neighbour.z());
     }
 }
