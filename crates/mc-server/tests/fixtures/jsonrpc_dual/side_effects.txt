@@ -1,0 +1,170 @@
+> join Bot
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/joined","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] System chat: Bot joined the game
+> server list: initial
+  answered: ServerStatus { description: Component { contents: Literal("A Minecraft Server"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, players: Some(Players { max: 20, online: 1, sample: [(00000000-0000-0000-0000-000000000000, "Anonymous Player")] }), version: Some(Version { name: "26.3", protocol: 777 }), favicon: None, enforces_secure_chat: false }
+> serversettings/difficulty/set ["hard"]
+  rpc: {"jsonrpc":"2.0","id":1,"result":"hard"}
+  log: [Server thread/INFO] RPC Connection #1: Update difficulty from 'PEACEFUL' to 'HARD'
+  properties +difficulty=hard
+  properties -difficulty=peaceful
+  Bot heard: <- play/change_difficulty ChangeDifficulty(ClientboundChangeDifficultyPacket { difficulty: Hard, locked: false })
+> serversettings/difficulty/set ["peaceful"]
+  rpc: {"jsonrpc":"2.0","id":2,"result":"peaceful"}
+  log: [Server thread/INFO] RPC Connection #1: Update difficulty from 'HARD' to 'PEACEFUL'
+  properties +difficulty=peaceful
+  properties -difficulty=hard
+  Bot heard: <- play/change_difficulty ChangeDifficulty(ClientboundChangeDifficultyPacket { difficulty: Peaceful, locked: false })
+> serversettings/game_mode/set ["creative"]
+  rpc: {"jsonrpc":"2.0","id":3,"result":"creative"}
+  log: [Server thread/INFO] RPC Connection #1: Update game mode from 'SURVIVAL' to 'CREATIVE'
+  properties +gamemode=creative
+  properties -gamemode=survival
+  Bot heard: <- play/player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: false, can_fly: true, instabuild: true, flying_speed: 0.05, walking_speed: 0.1 })
+  Bot heard: <- play/game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 1.0 })
+  Bot heard: <- play/player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: false, can_fly: true, instabuild: true, flying_speed: 0.05, walking_speed: 0.1 })
+> serversettings/force_game_mode/set [true]
+  rpc: {"jsonrpc":"2.0","id":4,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update force game mode from true to true
+> serversettings/game_mode/set ["adventure"]
+  rpc: {"jsonrpc":"2.0","id":5,"result":"adventure"}
+  log: [Server thread/INFO] RPC Connection #1: Update game mode from 'CREATIVE' to 'ADVENTURE'
+  properties +gamemode=adventure
+  properties -gamemode=creative
+  Bot heard: <- play/player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+  Bot heard: <- play/game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 2.0 })
+  Bot heard: <- play/player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+> serversettings/game_mode/set ["survival"]
+  rpc: {"jsonrpc":"2.0","id":6,"result":"survival"}
+  log: [Server thread/INFO] RPC Connection #1: Update game mode from 'ADVENTURE' to 'SURVIVAL'
+  properties +gamemode=survival
+  properties -gamemode=adventure
+  Bot heard: <- play/player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+  Bot heard: <- play/game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 0.0 })
+  Bot heard: <- play/player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: false, is_flying: false, can_fly: false, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+> serversettings/allow_flight/set [true]
+  rpc: {"jsonrpc":"2.0","id":7,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update allow flight from false to true
+  properties +allow-flight=true
+  properties -allow-flight=false
+> serversettings/view_distance/set [6]
+  rpc: {"jsonrpc":"2.0","id":8,"result":6}
+  log: [Server thread/INFO] RPC Connection #1: Update view distance from 4 to 6
+  properties +view-distance=6
+  properties -view-distance=4
+  Bot heard: <- play/set_chunk_cache_radius SetChunkCacheRadius(ClientboundSetChunkCacheRadiusPacket { radius: 6 })
+> serversettings/view_distance/set [3]
+  rpc: {"jsonrpc":"2.0","id":9,"result":3}
+  log: [Server thread/INFO] RPC Connection #1: Update view distance from 6 to 3
+  properties +view-distance=3
+  properties -view-distance=6
+  Bot heard: <- play/set_chunk_cache_radius SetChunkCacheRadius(ClientboundSetChunkCacheRadiusPacket { radius: 3 })
+> serversettings/simulation_distance/set [2]
+  rpc: {"jsonrpc":"2.0","id":10,"result":2}
+  log: [Server thread/INFO] RPC Connection #1: Update simulation distance from 4 to 2
+  properties +simulation-distance=2
+  properties -simulation-distance=4
+  Bot heard: <- play/set_simulation_distance SetSimulationDistance(ClientboundSetSimulationDistancePacket { simulation_distance: 2 })
+> serversettings/simulation_distance/set [5]
+  rpc: {"jsonrpc":"2.0","id":11,"result":5}
+  log: [Server thread/INFO] RPC Connection #1: Update simulation distance from 2 to 5
+  properties +simulation-distance=5
+  properties -simulation-distance=2
+  Bot heard: <- play/set_simulation_distance SetSimulationDistance(ClientboundSetSimulationDistancePacket { simulation_distance: 5 })
+> serversettings/operator_user_permission_level/set [2]
+  rpc: {"jsonrpc":"2.0","id":12,"result":2}
+  log: [Server thread/INFO] RPC Connection #1: Update operator user permission level from permission level: OWNERS to GAMEMASTERS
+  properties +op-permission-level=2
+  properties -op-permission-level=4
+> serversettings/accept_transfers/set [true]
+  rpc: {"jsonrpc":"2.0","id":13,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update accepts transfers from false to true
+  properties +accepts-transfers=true
+  properties -accepts-transfers=false
+> serversettings/hide_online_players/set [true]
+  rpc: {"jsonrpc":"2.0","id":14,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update hides online players from false to true
+  properties +hide-online-players=true
+  properties -hide-online-players=false
+> server list: after hide_online_players true
+  answered: ServerStatus { description: Component { contents: Literal("A Minecraft Server"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, players: Some(Players { max: 20, online: 1, sample: [(00000000-0000-0000-0000-000000000000, "Anonymous Player")] }), version: Some(Version { name: "26.3", protocol: 777 }), favicon: None, enforces_secure_chat: false }
+> serversettings/motd/set ["changed motd"]
+  rpc: {"jsonrpc":"2.0","id":15,"result":"changed motd"}
+  log: [Server thread/INFO] RPC Connection #1: Update MOTD from 'A Minecraft Server' to 'changed motd'
+  properties +motd=changed motd
+  properties -motd=A Minecraft Server
+> server list: after motd "changed motd"
+  answered: ServerStatus { description: Component { contents: Literal("A Minecraft Server"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, players: Some(Players { max: 20, online: 1, sample: [(00000000-0000-0000-0000-000000000000, "Anonymous Player")] }), version: Some(Version { name: "26.3", protocol: 777 }), favicon: None, enforces_secure_chat: false }
+> serversettings/max_players/set [3]
+  rpc: {"jsonrpc":"2.0","id":16,"result":3}
+  log: [Server thread/INFO] RPC Connection #1: Update max players from 20 to 3
+  properties +max-players=3
+  properties -max-players=20
+> server list: after max_players 3
+  answered: ServerStatus { description: Component { contents: Literal("A Minecraft Server"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, players: Some(Players { max: 20, online: 1, sample: [(00000000-0000-0000-0000-000000000000, "Anonymous Player")] }), version: Some(Version { name: "26.3", protocol: 777 }), favicon: None, enforces_secure_chat: false }
+> serversettings/entity_broadcast_range/set [150]
+  rpc: {"jsonrpc":"2.0","id":17,"result":150}
+  log: [Server thread/INFO] RPC Connection #1: Update entity broadcast range percentage from 100% to 150%
+  properties +entity-broadcast-range-percentage=150
+  properties -entity-broadcast-range-percentage=100
+> serversettings/spawn_protection_radius/set [5]
+  rpc: {"jsonrpc":"2.0","id":18,"result":5}
+  log: [Server thread/INFO] RPC Connection #1: Update spawn protection radius from 0 to 5
+  properties +spawn-protection=5
+  properties -spawn-protection=0
+> serversettings/status_replies/set [false]
+  rpc: {"jsonrpc":"2.0","id":19,"result":false}
+  log: [Server thread/INFO] RPC Connection #1: Update replies to status from true to false
+  properties +enable-status=false
+  properties -enable-status=true
+> server list: after status_replies false
+  no answer: connection closed
+> serversettings/status_replies/set [true]
+  rpc: {"jsonrpc":"2.0","id":20,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update replies to status from false to true
+  properties +enable-status=true
+  properties -enable-status=false
+> server list: after status_replies true
+  answered: ServerStatus { description: Component { contents: Literal("A Minecraft Server"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, players: Some(Players { max: 20, online: 1, sample: [(00000000-0000-0000-0000-000000000000, "Anonymous Player")] }), version: Some(Version { name: "26.3", protocol: 777 }), favicon: None, enforces_secure_chat: false }
+> serversettings/game_mode/set ["spectator"]
+  rpc: {"jsonrpc":"2.0","id":21,"result":"spectator"}
+  log: [Server thread/INFO] RPC Connection #1: Update game mode from 'SURVIVAL' to 'SPECTATOR'
+  properties +gamemode=spectator
+  properties -gamemode=survival
+> join Other
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/joined","params":[{"id":"1316d40c-a081-306e-9e27-70f5cb544c20","name":"Other"}]}
+  log: [Server thread/INFO] System chat: Other joined the game
+  Bot heard: <- play/player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: true, can_fly: true, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+  Bot heard: <- play/game_event GameEvent(ClientboundGameEventPacket { event: 3, param: 3.0 })
+  Bot heard: <- play/player_abilities PlayerAbilities(ClientboundPlayerAbilitiesPacket { invulnerable: true, is_flying: true, can_fly: true, instabuild: false, flying_speed: 0.05, walking_speed: 0.1 })
+  Bot heard: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "multiplayer.player.joined", fallback: None, args: [Component(Compo
+> serversettings/max_players/set [2]
+  rpc: {"jsonrpc":"2.0","id":22,"result":2}
+  log: [Server thread/INFO] RPC Connection #1: Update max players from 3 to 2
+  properties +max-players=2
+  properties -max-players=3
+> a third player logs in with the server full
+  Third refused: disconnected: The server is full!
+  log: [Server thread/INFO] Disconnecting Third (/127.0.0.1:<port>): The server is full!
+  log: [Server thread/INFO] Third (/127.0.0.1:<port>) lost connection: <reason>
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/left","params":[{"id":"1316d40c-a081-306e-9e27-70f5cb544c20","name":"Other"}]}
+  log: [Server thread/INFO] Other lost connection: <reason>
+  log: [Server thread/INFO] System chat: Other left the game
+> serversettings/use_allowlist/set [true]
+  rpc: {"jsonrpc":"2.0","id":23,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update using allowlist from false to true
+  properties +white-list=true
+  properties -white-list=false
+> serversettings/enforce_allowlist/set [true]
+  rpc: {"jsonrpc":"2.0","id":24,"result":true}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/left","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] RPC Connection #1: Update enforce allowlist from false to true
+  log: [Server thread/INFO] System chat: Bot left the game
+  properties +enforce-whitelist=true
+  properties -enforce-whitelist=false
+Bot disconnected: You are not white-listed on this server!
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.not_whitelisted", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+  Bot: <- play/player_info_remove PlayerInfoRemove(ClientboundPlayerInfoRemovePacket { profile_ids: [1316d40c-a081-306e-9e27-70f5cb544c20] })
+  Bot: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "multiplayer.player.joined", fallback: None, args: [Component(Component { contents: Literal("Other"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: Some(SuggestCommand("/tell Other ")), hover_event: Some(ShowEntity(EntityTooltipInfo { entity_type: minecraft:player, uuid: 25373863322048873834576658597957356576, name: Some(Component { contents: Literal("Other"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }) })), insertion: Some("Other"), font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 16777045, name: Some("yellow") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  Bot: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "multiplayer.player.left", fallback: None, args: [Component(Component { contents: Literal("Other"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: Some(SuggestCommand("/tell Other ")), hover_event: Some(ShowEntity(EntityTooltipInfo { entity_type: minecraft:player, uuid: 25373863322048873834576658597957356576, name: Some(Component { contents: Literal("Other"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }) })), insertion: Some("Other"), font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 16777045, name: Some("yellow") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })

@@ -41,6 +41,9 @@ pub(crate) struct Case {
     pub(crate) attempts: u32,
     /// Called with the server directory before the first launch (ban lists, ops, ...).
     pub(crate) prepare: Option<fn(&std::path::Path)>,
+    /// Run the scenario as soon as the process is launched instead of once the server answers status pings (what
+    /// happens while the server is still starting).
+    pub(crate) unready: bool,
 }
 
 macro_rules! case {
@@ -51,12 +54,16 @@ macro_rules! case {
         case!($name, $props, $attempts, None)
     };
     ($name:ident, $props:expr, $attempts:expr, $prepare:expr) => {
+        case!($name, $props, $attempts, $prepare, false)
+    };
+    ($name:ident, $props:expr, $attempts:expr, $prepare:expr, $unready:expr) => {
         Case {
             name: stringify!($name),
             props: $props,
             run: |s| Box::pin($name(s)),
             attempts: $attempts,
             prepare: $prepare,
+            unready: $unready,
         }
     };
 }
@@ -794,7 +801,12 @@ pub(crate) async fn record_vanilla(dir: &str, only_var: &str, cases: &[Case]) {
             if let Some(prepare) = case.prepare {
                 builder = builder.prepare(prepare);
             }
-            let server = builder.start().expect("start vanilla");
+            let server = if case.unready {
+                builder.start_unready()
+            } else {
+                builder.start()
+            }
+            .expect("start vanilla");
             let lines = (case.run)(&server).await;
             server.stop();
             println!("SCENARIO {}:\n  {}", case.name, lines.join("\n  "));
@@ -830,9 +842,24 @@ pub(crate) async fn compare_ours(dir: &str, only_var: &str, cases: &[Case]) {
         if let Some(prepare) = case.prepare {
             builder = builder.prepare(prepare);
         }
-        let server = builder.start().expect("start our server");
-        let lines = (case.run)(&server).await;
+        let server = if case.unready {
+            builder.start_unready()
+        } else {
+            builder.start()
+        }
+        .expect("start our server");
+        let lines: Vec<String> = (case.run)(&server)
+            .await
+            .iter()
+            .flat_map(|l| l.split('\n').map(str::to_string).collect::<Vec<_>>())
+            .collect();
         server.stop();
+        let actual_dir = repo_root().join(format!("run/{}-ours", dir.replace('_', "-")));
+        let _ = std::fs::create_dir_all(&actual_dir);
+        let _ = std::fs::write(
+            actual_dir.join(format!("{}.txt", case.name)),
+            lines.join("\n") + "\n",
+        );
         let expected: Vec<String> = std::fs::read_to_string(fixture_in(dir, case.name))
             .unwrap_or_default()
             .lines()

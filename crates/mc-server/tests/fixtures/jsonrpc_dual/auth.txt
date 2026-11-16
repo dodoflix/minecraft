@@ -1,0 +1,108 @@
+> no credentials
+    HTTP/1.1 401 Unauthorized
+    connection: close
+    content-length: 52
+    content-type: application/json
+    body: {"error":"Unauthorized","message":"Missing API key"}
+> wrong bearer
+    HTTP/1.1 401 Unauthorized
+    connection: close
+    content-length: 52
+    content-type: application/json
+    body: {"error":"Unauthorized","message":"Invalid API key"}
+> right bearer
+    HTTP/1.1 101 Switching Protocols
+    connection: upgrade
+    sec-websocket-accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+    upgrade: websocket
+> bearer with surrounding spaces
+    HTTP/1.1 101 Switching Protocols
+    connection: upgrade
+    sec-websocket-accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+    upgrade: websocket
+> lower case scheme
+    HTTP/1.1 401 Unauthorized
+    connection: close
+    content-length: 52
+    content-type: application/json
+    body: {"error":"Unauthorized","message":"Missing API key"}
+> bearer without a key
+    HTTP/1.1 401 Unauthorized
+    connection: close
+    content-length: 52
+    content-type: application/json
+    body: {"error":"Unauthorized","message":"Missing API key"}
+> basic scheme
+    HTTP/1.1 401 Unauthorized
+    connection: close
+    content-length: 52
+    content-type: application/json
+    body: {"error":"Unauthorized","message":"Missing API key"}
+> key in the sub-protocol, no origin
+    HTTP/1.1 401 Unauthorized
+    connection: close
+    content-length: 55
+    content-type: application/json
+    body: {"error":"Unauthorized","message":"Origin Not Allowed"}
+> key in the sub-protocol, foreign origin
+    HTTP/1.1 401 Unauthorized
+    connection: close
+    content-length: 55
+    content-type: application/json
+    body: {"error":"Unauthorized","message":"Origin Not Allowed"}
+> key in the sub-protocol, allowed origin
+    HTTP/1.1 101 Switching Protocols
+    connection: upgrade
+    sec-websocket-accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+    sec-websocket-protocol: minecraft-v1
+    upgrade: websocket
+> wrong key in the sub-protocol, allowed origin
+    HTTP/1.1 401 Unauthorized
+    connection: close
+    content-length: 52
+    content-type: application/json
+    body: {"error":"Unauthorized","message":"Invalid API key"}
+> empty key in the sub-protocol, allowed origin
+    HTTP/1.1 401 Unauthorized
+    connection: close
+    content-length: 52
+    content-type: application/json
+    body: {"error":"Unauthorized","message":"Invalid API key"}
+> wrong bearer, right sub-protocol key
+    HTTP/1.1 401 Unauthorized
+    connection: close
+    content-length: 52
+    content-type: application/json
+    body: {"error":"Unauthorized","message":"Invalid API key"}
+> right bearer, other sub-protocol
+    HTTP/1.1 101 Switching Protocols
+    connection: upgrade
+    sec-websocket-accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+    upgrade: websocket
+> right bearer, allowed origin header present
+    HTTP/1.1 101 Switching Protocols
+    connection: upgrade
+    sec-websocket-accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+    upgrade: websocket
+> right bearer, other path
+    
+> right bearer, no upgrade
+    HTTP/1.1 400 Bad Request
+    body: not a WebSocket handshake request: missing upgrade
+> no credentials, no upgrade
+    HTTP/1.1 401 Unauthorized
+    connection: close
+    content-length: 52
+    content-type: application/json
+    body: {"error":"Unauthorized","message":"Missing API key"}
+> right bearer, POST
+    HTTP/1.1 400 Bad Request
+    body: Invalid WebSocket handshake method: POST
+> client: wrong bearer
+  refused: HTTP error: 401 Unauthorized
+> client: key in the sub-protocol with the allowed origin
+  connected
+  rpc: {"jsonrpc":"2.0","id":1,"result":"A Minecraft Server"}
+> client: right bearer, two connections
+  first  rpc: {"jsonrpc":"2.0","id":7,"result":[]}
+  second  rpc: {"jsonrpc":"2.0","id":7,"result":[]}

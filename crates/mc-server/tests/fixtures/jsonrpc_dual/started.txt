@@ -1,0 +1,6 @@
+> frames since the connection
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saving"}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saved"}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/started"}
+> server/status
+  rpc: {"jsonrpc":"2.0","id":1,"result":{"started":true,"version":{"name":"26.3","protocol":777}}}

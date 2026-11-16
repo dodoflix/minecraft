@@ -24,6 +24,18 @@ impl ReportType {
         header: "Minecraft Crash Report",
         nuggets: &CRASH_NUGGETS,
     };
+    pub const PROFILE: ReportType = ReportType {
+        header: "Minecraft Profiler Results",
+        nuggets: &PROFILE_NUGGETS,
+    };
+    pub const TEST: ReportType = ReportType {
+        header: "Minecraft Test Report",
+        nuggets: &TEST_NUGGETS,
+    };
+    pub const NETWORK_PROTOCOL_ERROR: ReportType = ReportType {
+        header: "Minecraft Network Protocol Error Report",
+        nuggets: &NETWORK_PROTOCOL_ERROR_NUGGETS,
+    };
     pub const CHUNK_IO_ERROR: ReportType = ReportType {
         header: "Minecraft Chunk IO Error Report",
         nuggets: &CHUNK_IO_ERROR_NUGGETS,
@@ -36,7 +48,57 @@ impl ReportType {
             .map_or(0, |d| d.as_nanos());
         self.nuggets[(nanos % self.nuggets.len() as u128) as usize]
     }
+
+    /// `appendHeader`: the title line, the witty comment, one `// ` line per extra comment and a blank line.
+    pub fn append_header(&self, out: &mut String, extra_comments: &[&str]) {
+        out.push_str("---- ");
+        out.push_str(self.header);
+        out.push_str(" ----\n// ");
+        out.push_str(self.error_comment());
+        out.push('\n');
+        for comment in extra_comments {
+            out.push_str("// ");
+            out.push_str(comment);
+            out.push('\n');
+        }
+        out.push('\n');
+    }
 }
+
+/// `ReportType.TEST.nuggets`.
+const TEST_NUGGETS: [&str; 8] = [
+    "Don't mind me",
+    "One day I will be a real crash!",
+    "Booo! Haha, did I scare you?",
+    "Help, I'm trapped in a report factory!",
+    "Have I answered your question?",
+    "No hugs here, sorry",
+    "I Can't Believe It's Not A Crash Report!",
+    "Where's the kaboom!?",
+];
+
+/// `ReportType.NETWORK_PROTOCOL_ERROR.nuggets`.
+const NETWORK_PROTOCOL_ERROR_NUGGETS: [&str; 19] = [
+    "0xBADF00D",
+    "+'${`%&NO CARRIER",
+    "Please insert The Internet CD #4",
+    "Sabotage!",
+    "Are you sure you are not moving wrongly?",
+    "This time is not my fault, I promise!",
+    "All lines are down!",
+    "Maybe a shark bit some cable",
+    "404",
+    "I'm sorry, I don't speak that language",
+    "What we've got here is failure to communicate",
+    "It's the tubes, they're clogged!",
+    "Abort, Retry, Ignore?",
+    "Could be worse, I guess",
+    "Wait, was the last bit one or zero?",
+    "Too many suspicious packets",
+    "Don't worry, I'll be fine",
+    "Maybe this time it will work!",
+    "I heard pigeons are more reliable",
+];
 
 const CHUNK_IO_ERROR_NUGGETS: [&str; 14] = [
     "I have failed you!",
@@ -97,6 +159,8 @@ const CRASH_NUGGETS: [&str; 34] = [
 pub struct CrashReportCategory {
     title: String,
     entries: Vec<(String, String)>,
+    /// `stackTrace`: the frames from where the category was added, one `symbol(file:line)` each.
+    stack_trace: Vec<String>,
 }
 
 impl CrashReportCategory {
@@ -104,6 +168,7 @@ impl CrashReportCategory {
         Self {
             title: title.into(),
             entries: Vec::new(),
+            stack_trace: Vec::new(),
         }
     }
 
@@ -140,7 +205,50 @@ impl CrashReportCategory {
             out.push_str(": ");
             out.push_str(value);
         }
+        if !self.stack_trace.is_empty() {
+            out.push_str("\nStacktrace:");
+            for frame in &self.stack_trace {
+                out.push_str("\n\tat ");
+                out.push_str(frame);
+            }
+        }
     }
+}
+
+/// `fillInStackTrace`: the frames of the calling thread below `CrashReport::add_category`, as `symbol(file:line)`.
+fn capture_stack_trace() -> Vec<String> {
+    let text = std::backtrace::Backtrace::force_capture().to_string();
+    let mut frames: Vec<(String, Option<String>)> = Vec::new();
+    for line in text.lines() {
+        let line = line.trim();
+        if let Some(location) = line.strip_prefix("at ") {
+            let mut parts = location.rsplitn(3, ':');
+            if let (Some(last), Some(_column), Some(line_no), Some(path)) =
+                (frames.last_mut(), parts.next(), parts.next(), parts.next())
+            {
+                let name = path.rsplit('/').next().unwrap_or(path);
+                last.1 = Some(format!("{name}:{line_no}"));
+            }
+        } else if let Some((index, symbol)) = line.split_once(": ")
+            && index.bytes().all(|b| b.is_ascii_digit())
+        {
+            frames.push((symbol.to_owned(), None));
+        }
+    }
+    let below = frames
+        .iter()
+        .rposition(|(symbol, _)| symbol.contains("CrashReport::add_category"))
+        .map_or(0, |i| i + 1);
+    frames
+        .into_iter()
+        .skip(below)
+        .map(|(symbol, location)| {
+            format!(
+                "{symbol}({})",
+                location.as_deref().unwrap_or("Unknown Source")
+            )
+        })
+        .collect()
 }
 
 /// `SystemReport`: the `-- System Details --` block.
@@ -180,14 +288,9 @@ impl SystemReport {
         report
     }
 
-    /// `setDetail`: replaces the value of an existing key (vanilla's `LinkedHashMap`-like `put`), else appends.
+    /// `setDetail`: appends a row; a key that is set twice appears twice.
     pub fn set_detail(&mut self, key: impl Into<String>, value: impl Display) {
-        let key = key.into();
-        let value = value.to_string();
-        match self.entries.iter_mut().find(|(k, _)| *k == key) {
-            Some(entry) => entry.1 = value,
-            None => self.entries.push((key, value)),
-        }
+        self.entries.push((key.into(), value.to_string()));
     }
 
     pub fn set_detail_with(&mut self, key: impl Into<String>, supplier: impl FnOnce() -> String) {
@@ -280,7 +383,9 @@ impl CrashReport {
     }
 
     pub fn add_category(&mut self, name: impl Into<String>) -> &mut CrashReportCategory {
-        self.details.push(CrashReportCategory::new(name));
+        let mut category = CrashReportCategory::new(name);
+        category.stack_trace = capture_stack_trace();
+        self.details.push(category);
         self.details.last_mut().expect("just pushed")
     }
 
@@ -290,6 +395,14 @@ impl CrashReport {
 
     pub fn get_details(&self) -> String {
         let mut out = String::new();
+        // the uncategorized trace is the first frame of the first category's own
+        if let Some(frame) = self.details.first().and_then(|c| c.stack_trace.first()) {
+            out.push_str("-- Head --\nThread: ");
+            out.push_str(std::thread::current().name().unwrap_or("<unnamed>"));
+            out.push_str("\nStacktrace:\n\tat ");
+            out.push_str(frame);
+            out.push_str("\n\n");
+        }
         for category in &self.details {
             category.write_details(&mut out);
             out.push_str("\n\n");
@@ -299,19 +412,24 @@ impl CrashReport {
     }
 
     pub fn get_friendly_report(&self, report_type: ReportType) -> String {
+        self.get_friendly_report_with(report_type, &[])
+    }
+
+    pub fn get_friendly_report_with(
+        &self,
+        report_type: ReportType,
+        extra_comments: &[&str],
+    ) -> String {
         let mut out = String::new();
-        out.push_str("---- ");
-        out.push_str(report_type.header);
-        out.push_str(" ----\n// ");
-        out.push_str(report_type.error_comment());
-        out.push_str("\n\n");
+        report_type.append_header(&mut out, extra_comments);
         out.push_str("Time: ");
         out.push_str(&chrono::Local::now().format("%Y-%m-%d %H:%M:%S").to_string());
         out.push_str("\nDescription: ");
         out.push_str(&self.title);
         out.push_str("\n\n");
-        out.push_str(&self.exception);
-        out.push_str("\n\nA detailed walkthrough of the error, its code path and all known details is as follows:\n");
+        // `printStackTrace` ends its last line with a newline
+        out.push_str(self.exception.trim_end_matches('\n'));
+        out.push_str("\n\n\nA detailed walkthrough of the error, its code path and all known details is as follows:\n");
         out.push_str(&"-".repeat(87));
         out.push_str("\n\n");
         out.push_str(&self.get_details());
@@ -425,37 +543,9 @@ const PROFILE_NUGGETS: [&str; 15] = [
     "Maybe if you treated it better then it'll have more motivation to work faster! Poor server.",
 ];
 
-/// `ReportType.PROFILE.appendHeader(builder, List.of())`.
-pub fn append_profile_report_header(builder: &mut String) {
-    let nanos = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .map_or(0, |d| d.as_nanos());
-    builder.push_str("---- Minecraft Profiler Results ----\n// ");
-    builder.push_str(PROFILE_NUGGETS[(nanos % PROFILE_NUGGETS.len() as u128) as usize]);
-    builder.push_str("\n\n");
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn report_layout_matches_vanilla() {
-        let mut report = CrashReport::new(
-            "Exception in server tick loop",
-            "IllegalStateException: boom",
-        );
-        report
-            .add_category("Performance stats")
-            .set_detail("Random tick rate", 3);
-        report.system_report().set_detail("Server Running", "true");
-        let text = report.get_friendly_report(ReportType::CRASH);
-        assert!(text.starts_with("---- Minecraft Crash Report ----\n// "));
-        assert!(text.contains("\n\nTime: "));
-        assert!(text.contains("\nDescription: Exception in server tick loop\n\nIllegalStateException: boom\n\nA detailed walkthrough of the error, its code path and all known details is as follows:\n"));
-        assert!(text.contains(&format!("{}\n\n-- Performance stats --\nDetails:\n\tRandom tick rate: 3\n\n-- System Details --\nDetails:\n\tMinecraft Version: 26.3", "-".repeat(87))));
-        assert!(text.ends_with("\n\tServer Running: true"));
-    }
 
     #[test]
     fn reported_exception_roundtrip() {

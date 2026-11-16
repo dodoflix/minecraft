@@ -1,0 +1,138 @@
+> server/status 
+  rpc: {"jsonrpc":"2.0","id":1,"result":{"started":true,"version":{"name":"26.3","protocol":777}}}
+> join Bot
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/joined","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] System chat: Bot joined the game
+> server/status 
+  rpc: {"jsonrpc":"2.0","id":2,"result":{"started":true,"players":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}],"version":{"name":"26.3","protocol":777}}}
+> server/save [true]
+  rpc: {"jsonrpc":"2.0","id":3,"result":true}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saving"}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saved"}
+  log: [Server thread/INFO] RPC Connection #1: Save everything. SuppressLogs: true, flush: true, force: true
+> server/save [false]
+  rpc: {"jsonrpc":"2.0","id":4,"result":true}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saving"}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saved"}
+  log: [Server thread/INFO] RPC Connection #1: Save everything. SuppressLogs: true, flush: false, force: true
+> server/save {"flush":true}
+  rpc: {"jsonrpc":"2.0","id":5,"result":true}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saving"}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saved"}
+  log: [Server thread/INFO] RPC Connection #1: Save everything. SuppressLogs: true, flush: true, force: true
+> server/save 
+  rpc: {"jsonrpc":"2.0","id":6,"error":{"code":-32602,"message":"Invalid params","data":"Expected params as array or named"}}
+> server/save ["x"]
+  rpc: {"jsonrpc":"2.0","id":7,"error":{"code":-32602,"message":"Invalid params","data":"Not a boolean: \"x\""}}
+> console save-all
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saving"}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saved"}
+  log: [Server thread/INFO] System chat: Saved the game
+  log: [Server thread/INFO] System chat: Saving the game (this may take a moment!)
+> console save-all flush
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saving"}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saved"}
+  log: [Server thread/INFO] System chat: Saved the game
+  log: [Server thread/INFO] System chat: Saving the game (this may take a moment!)
+> server/system_message [{"message":{"literal":"hello everyone"},"overlay":false}]
+  rpc: {"jsonrpc":"2.0","id":8,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Broadcast system message (overlay: false): 'hello everyone'
+  Bot heard: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Literal("hello everyone"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic:
+> server/system_message [{"message":{"literal":"over the hotbar"},"overlay":true}]
+  rpc: {"jsonrpc":"2.0","id":9,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Broadcast system message (overlay: true): 'over the hotbar'
+  Bot heard: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Literal("over the hotbar"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic
+> server/system_message [{"message":{"translatable":"chat.type.admin","translatableParams":["a","b"]},"overlay":false}]
+  rpc: {"jsonrpc":"2.0","id":10,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Broadcast system message (overlay: false): '[a: b]'
+  Bot heard: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "chat.type.admin", fallback: None, args: [String("a"), String("b")]
+> server/system_message [{"message":{"translatable":"no.such.key"},"overlay":false}]
+  rpc: {"jsonrpc":"2.0","id":11,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Broadcast system message (overlay: false): 'no.such.key'
+  Bot heard: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "no.such.key", fallback: None, args: [] }), siblings: [], style: St
+> server/system_message [{"message":{"literal":"to Bot","translatable":"commands.list.players","translatableParams":["1","2","x"]},"overlay":false}]
+  rpc: {"jsonrpc":"2.0","id":12,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Broadcast system message (overlay: false): 'There are 1 of a max of 2 players online: x'
+  Bot heard: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "commands.list.players", fallback: None, args: [String("1"), String
+> server/system_message [{"message":{},"overlay":false}]
+  rpc: {"jsonrpc":"2.0","id":13,"result":false}
+> server/system_message [{"message":{"literal":"to Bot"},"overlay":false,"receivingPlayers":[{"name":"Bot"}]}]
+  rpc: {"jsonrpc":"2.0","id":14,"result":true}
+  Bot heard: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Literal("to Bot"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, u
+> server/system_message [{"message":{"literal":"to nobody"},"overlay":false,"receivingPlayers":[{"name":"Nobody"}]}]
+  rpc: {"jsonrpc":"2.0","id":15,"result":true}
+> server/system_message [{"message":{"literal":"to an empty list"},"overlay":false,"receivingPlayers":[]}]
+  rpc: {"jsonrpc":"2.0","id":16,"result":false}
+> server/system_message [{"message":{"literal":"nothing named"},"overlay":false,"receivingPlayers":[{}]}]
+  rpc: {"jsonrpc":"2.0","id":17,"result":true}
+> server/system_message [{"message":{"literal":"overlay"}}]
+  rpc: {"jsonrpc":"2.0","id":18,"error":{"code":-32602,"message":"Invalid params","data":"No key overlay in MapLike[{\"message\":{\"literal\":\"overlay\"}}]"}}
+> server/system_message {"message":{"message":{"literal":"named"},"overlay":false}}
+  rpc: {"jsonrpc":"2.0","id":19,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Broadcast system message (overlay: false): 'named'
+  Bot heard: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Literal("named"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, un
+> server/system_message [{"message":{"literal":"to the id"},"overlay":false,"receivingPlayers":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847"}]}]
+  rpc: {"jsonrpc":"2.0","id":20,"result":true}
+  Bot heard: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Literal("to the id"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None
+> players/kick [[{"player":{"name":"Nobody"}}]]
+  rpc: {"jsonrpc":"2.0","id":21,"result":[]}
+> players/kick [[{"player":{}}]]
+  rpc: {"jsonrpc":"2.0","id":22,"result":[]}
+> players/kick [[]]
+  rpc: {"jsonrpc":"2.0","id":23,"result":[]}
+> players/kick [[{"player":{"name":"Bot"},"message":{"translatable":"multiplayer.disconnect.kicked"}}]]
+  rpc: {"jsonrpc":"2.0","id":24,"result":[{"name":"Bot"}]}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/left","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] RPC Connection #1: Remove player 'Bot'
+Bot disconnected: Kicked by an operator
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.kicked", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+  Bot: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Literal("hello everyone"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  Bot: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Literal("named"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  Bot: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Literal("over the hotbar"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: true })
+  Bot: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Literal("to Bot"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  Bot: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Literal("to the id"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  Bot: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "chat.type.admin", fallback: None, args: [String("a"), String("b")] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  Bot: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "no.such.key", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+> join Bot
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/joined","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] System chat: Bot joined the game
+> players/kick [[{"player":{"name":"Bot"},"message":{"literal":"custom reason"}}]]
+  rpc: {"jsonrpc":"2.0","id":25,"result":[{"name":"Bot"}]}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/left","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] RPC Connection #1: Remove player 'Bot'
+Bot disconnected: custom reason
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Literal("custom reason"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+> join Bot
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/joined","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] System chat: Bot joined the game
+> players/kick {"kick":[{"player":{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847"}}]}
+  rpc: {"jsonrpc":"2.0","id":26,"result":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847"}]}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/left","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] RPC Connection #1: Remove player 'Bot'
+Bot disconnected: Kicked by an operator
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.kicked", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+> console kick Nobody
+  log: [Server thread/INFO] System chat: No player was found
+> join Bot
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/joined","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] System chat: Bot joined the game
+> console kick Bot console kick
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/left","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] System chat: Kicked Bot: console kick
+Bot disconnected: console kick
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Literal("console kick"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+> serversettings/status_heartbeat_interval/set [1]
+  rpc: {"jsonrpc":"2.0","id":27,"result":1}
+  log: [Server thread/INFO] RPC Connection #1: Updated status heartbeat interval from 1 to 1
+  properties +status-heartbeat-interval=1
+  properties -status-heartbeat-interval=0
+> frames over 3.5 s
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/status","params":[{"started":true,"version":{"name":"26.3","protocol":777}}]}
+  heartbeats between 2 and 4: true
+> serversettings/status_heartbeat_interval/set [0]
+  rpc: {"jsonrpc":"2.0","id":28,"result":0}
+  log: [Server thread/INFO] RPC Connection #1: Updated status heartbeat interval from 0 to 0
+  properties +status-heartbeat-interval=0
+  properties -status-heartbeat-interval=1
+> frames over 2.5 s
+  frames: 0

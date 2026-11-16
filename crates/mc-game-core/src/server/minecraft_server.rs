@@ -1096,23 +1096,29 @@ impl MinecraftServer {
                 "{} / {}; {}",
                 self.player_list.get_player_count(),
                 self.player_list.get_max_players(),
-                player_names_debug(&self.player_list)
+                self.players_debug()
             ),
         );
         report.set_detail(
             "Active Data Packs",
-            self.pack_repository.selected_ids().join(", "),
+            display_pack_list(self.pack_repository.selected_packs().iter()),
+        );
+        report.set_detail(
+            "Available Data Packs",
+            display_pack_list(self.pack_repository.available_packs()),
         );
         report.set_detail(
             "Enabled Feature Flags",
-            format!(
-                "{:?}",
-                self.world_data
-                    .lock()
-                    .settings
-                    .data_configuration
-                    .enabled_features
-            ),
+            self.world_data
+                .lock()
+                .settings
+                .data_configuration
+                .enabled_features
+                .names()
+                .iter()
+                .map(ToString::to_string)
+                .collect::<Vec<_>>()
+                .join(", "),
         );
         report.set_detail("World Seed", self.world_gen_settings.options.seed);
         report.set_detail(
@@ -1122,6 +1128,29 @@ impl MinecraftServer {
         self.fill_system_report_details(report);
     }
 
+    /// `playerList.getPlayers().toString()`: each player as `Entity.toString()` and the list as `AbstractCollection`.
+    fn players_debug(&self) -> String {
+        let level_name = self.world_data.lock().settings.level_name.clone();
+        let players: Vec<String> = self
+            .player_list
+            .get_players()
+            .iter()
+            .map(|p| {
+                let pos = p.position();
+                let fixed = |v| crate::util::java_format::format_fixed(v, 2);
+                format!(
+                    "ServerPlayer['{}'/{}, l='ServerLevel[{level_name}]', x={}, y={}, z={}]",
+                    p.name(),
+                    p.id,
+                    fixed(pos.x),
+                    fixed(pos.y),
+                    fixed(pos.z)
+                )
+            })
+            .collect();
+        format!("[{}]", players.join(", "))
+    }
+
     /// `getSelectedPacks`-style data configuration is persisted by `world_data`; `GameRuleValue` helpers live in
     /// `on_game_rule_changed`.
     pub(super) fn game_rule_value_bool(value: GameRuleValue) -> bool {
@@ -1129,13 +1158,19 @@ impl MinecraftServer {
     }
 }
 
-fn player_names_debug(list: &PlayerList) -> String {
-    format!(
-        "[{}]",
-        list.get_players()
-            .iter()
-            .map(|p| p.name().to_owned())
-            .collect::<Vec<_>>()
-            .join(", ")
-    )
+/// `PackRepository.displayPackList`.
+fn display_pack_list<'a>(
+    packs: impl Iterator<Item = &'a std::sync::Arc<crate::server::packs::repository::Pack>>,
+) -> String {
+    packs
+        .map(|pack| {
+            let suffix = if pack.compatibility().is_compatible() {
+                ""
+            } else {
+                " (incompatible)"
+            };
+            format!("{}{suffix}", pack.id())
+        })
+        .collect::<Vec<_>>()
+        .join(", ")
 }

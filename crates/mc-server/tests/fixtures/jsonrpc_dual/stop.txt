@@ -1,0 +1,13 @@
+> server/status 
+  rpc: {"jsonrpc":"2.0","id":1,"result":{"started":true,"version":{"name":"26.3","protocol":777}}}
+> server/stop 
+  rpc: {"jsonrpc":"2.0","id":2,"result":true}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/stopping"}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saving"}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/server/saved"}
+  rpc: <error WebSocket protocol error: Connection reset without closing handshake>
+  log: [Server thread/INFO] RPC Connection #1: Halt server. WaitForShutdown: false
+  log: [Server thread/INFO] Saving players
+  log: [Server thread/INFO] Saving worlds
+  log: [Server thread/INFO] Stopping server
+  exited: true

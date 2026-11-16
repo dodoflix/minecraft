@@ -230,7 +230,7 @@ impl FilledProfileResults {
 
     fn get_profiler_results_report(&self, timespan: i64, tickspan: i32) -> String {
         let mut builder = String::new();
-        crate::crash_report::append_profile_report_header(&mut builder);
+        crate::crash_report::ReportType::PROFILE.append_header(&mut builder, &[]);
         let _ = writeln!(builder, "Version: {}", crate::server::packs::GAME_VERSION);
         let _ = writeln!(builder, "Time span: {} ms", timespan / 1_000_000);
         let _ = writeln!(builder, "Tick span: {tickspan} ticks");

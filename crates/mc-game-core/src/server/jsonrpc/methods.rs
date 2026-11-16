@@ -6,6 +6,8 @@ use std::net::IpAddr;
 use std::sync::{Arc, LazyLock};
 
 use mc_core::ident::Identifier;
+use mc_core::java_collections::hash_map_ordered;
+use mc_core::math::java::java_string_hash;
 use mc_text::Component;
 use uuid::Uuid;
 
@@ -210,7 +212,7 @@ fn add_user_ban(c: &Ctx, ban: &UserBan) {
     let entry = ban.to_entry();
     c.log(format!(
         "Add player '{}' to banlist. Reason: '{}'",
-        plain(&entry.get_display_name()),
+        entry.get_display_name(),
         plain(&entry.get_reason_message())
     ));
     c.api.add_user_ban(entry);
@@ -455,7 +457,7 @@ fn players_kick(c: &Ctx, p: &JsonElement) -> RpcResult {
             _ => None,
         };
         if let Some(player) = player {
-            c.api.remove_player(player.profile.id);
+            let disconnect = c.api.remove_player(player.profile.id);
             c.log(format!("Remove player '{}'", player.profile.name));
             let reason = kick
                 .message
@@ -464,7 +466,9 @@ fn players_kick(c: &Ctx, p: &JsonElement) -> RpcResult {
                 .unwrap_or_else(|| {
                     Component::translatable("multiplayer.disconnect.kicked", vec![])
                 });
-            c.api.disconnect_player(player.profile.id, reason);
+            if let Some(disconnect) = disconnect {
+                disconnect(reason);
+            }
             kicked.push(kick.player.encode());
         }
     }
@@ -747,9 +751,10 @@ fn set_setting(
                 unreachable!("kind is Int")
             };
             if c.api.set_status_heartbeat_interval(seconds) {
+                // vanilla reads the "old" value after the change
                 c.log(format!(
                     "Updated status heartbeat interval from {} to {seconds}",
-                    display_setting(&old)
+                    display_setting(&c.api.get_setting(key))
                 ));
             } else {
                 c.log(format!(
@@ -783,12 +788,22 @@ fn gamerules_get(c: &Ctx) -> JsonElement {
 }
 
 fn gamerules_update(c: &Ctx, p: &JsonElement) -> RpcResult {
-    let (key, value) = decode_untyped_game_rule(p)?;
+    let (key, raw) = decode_untyped_game_rule(p)?;
+    let name = key.strip_prefix("minecraft:").unwrap_or(&key);
     let old = c
         .api
         .game_rules()
         .into_iter()
-        .find(|r| r.id == key || r.id.strip_prefix("minecraft:") == Some(key.as_str()));
+        .find(|r| r.id == name)
+        .ok_or_else(|| {
+            RpcError::InvalidParameter(format!(
+                "Unknown registry key in ResourceKey[minecraft:root / minecraft:game_rule]: minecraft:{name}"
+            ))
+        })?;
+    let value = match old.rule_type {
+        super::api::GameRuleType::Bool => super::api::GameRuleValue::Bool(decode_bool(raw)?),
+        super::api::GameRuleType::Int => super::api::GameRuleValue::Int(decode_int(raw)?),
+    };
     let updated = c
         .api
         .update_game_rule(&key, value)
@@ -800,7 +815,7 @@ fn gamerules_update(c: &Ctx, p: &JsonElement) -> RpcResult {
     c.log(format!(
         "Game rule '{}' updated from '{}' to '{}'",
         updated.id,
-        old.map(|o| show(o.value)).unwrap_or_default(),
+        show(old.value),
         show(updated.value)
     ));
     Ok(encode_typed_game_rule(&updated))
@@ -825,8 +840,9 @@ static SCHEMA: LazyLock<JsonElement> = LazyLock::new(|| {
         .expect("embedded schema is not empty")
 });
 
-/// The `rpc.discover` result: `openrpc`, `info`, `methods`, `components` (vanilla's record order). Only the
-/// incoming methods and outgoing notifications flagged discoverable are listed, as in the generated report.
+/// The `rpc.discover` result as the running server encodes it: the member order of the generated report is
+/// alphabetical, the live answer keeps the codec's field order, and the maps (`schemas`, `properties`) come out in
+/// `HashMap` order. Only the incoming methods and outgoing notifications flagged discoverable are listed.
 pub fn discover_result() -> JsonElement {
     let JsonElement::Object(schema) = &*SCHEMA else {
         unreachable!("schema is an object")
@@ -834,10 +850,44 @@ pub fn discover_result() -> JsonElement {
     let mut out = JsonObject::new();
     for key in ["openrpc", "info", "methods", "components"] {
         if let Some(v) = schema.get(key) {
-            out.add(key, v.clone());
+            out.add(key, live_order(v, key));
         }
     }
     JsonElement::Object(out)
+}
+
+/// `element`, found under `key` (the key of the enclosing array for its items), with the members of its objects in the
+/// order vanilla writes them.
+fn live_order(element: &JsonElement, key: &str) -> JsonElement {
+    match element {
+        JsonElement::Array(items) => {
+            JsonElement::Array(items.iter().map(|i| live_order(i, key)).collect())
+        }
+        JsonElement::Object(object) => {
+            let is_map = matches!(key, "properties" | "schemas");
+            let mut members: Vec<(&str, JsonElement)> = object
+                .iter()
+                .map(|(k, v)| (k, live_order(v, if is_map { "" } else { k })))
+                .collect();
+            let fields: &[&str] = match key {
+                "methods" => &["name", "description", "params", "result"],
+                "params" | "result" => &["name", "schema", "required"],
+                _ => &[],
+            };
+            if is_map {
+                members = hash_map_ordered(members, |(k, _)| java_string_hash(k), 16);
+            } else if !fields.is_empty() {
+                members
+                    .sort_by_key(|(k, _)| fields.iter().position(|f| f == k).unwrap_or(usize::MAX));
+            }
+            let mut out = JsonObject::new();
+            for (k, v) in members {
+                out.add(k, v);
+            }
+            JsonElement::Object(out)
+        }
+        other => other.clone(),
+    }
 }
 
 fn schema_param_names() -> HashMap<String, String> {

@@ -34,7 +34,7 @@ struct State {
 }
 
 struct Mock {
-    state: Mutex<State>,
+    state: Arc<Mutex<State>>,
 }
 
 impl Mock {
@@ -49,7 +49,7 @@ impl Mock {
             ip_address: "10.1.1.1".into(),
         });
         Arc::new(Mock {
-            state: Mutex::new(st),
+            state: Arc::new(Mutex::new(st)),
         })
     }
 }
@@ -173,8 +173,16 @@ impl ManagementApi for Mock {
     fn fetch_user_by_name(&self, name: &str) -> Option<NameAndId> {
         Some(NameAndId::create_offline(name))
     }
-    fn remove_player(&self, id: Uuid) {
-        self.state.lock().online.retain(|p| p.profile.id != id);
+    fn remove_player(&self, id: Uuid) -> Option<Box<dyn FnOnce(Component) + Send>> {
+        let mut state = self.state.lock();
+        let before = state.online.len();
+        state.online.retain(|p| p.profile.id != id);
+        (state.online.len() != before).then(|| {
+            let state = self.state.clone();
+            Box::new(move |reason: Component| {
+                state.lock().disconnected.push((id, reason.get_string()));
+            }) as Box<_>
+        })
     }
     fn disconnect_player(&self, id: Uuid, reason: Component) {
         self.state
@@ -191,7 +199,7 @@ impl ManagementApi for Mock {
     fn halt(&self, _wait: bool) {}
     fn game_rules(&self) -> Vec<GameRuleInfo> {
         vec![GameRuleInfo {
-            id: "minecraft:advance_time".into(),
+            id: "advance_time".into(),
             rule_type: GameRuleType::Bool,
             value: GameRuleValue::Bool(true),
         }]
@@ -202,7 +210,7 @@ impl ManagementApi for Mock {
                 if matches!(value, GameRuleValue::Bool(_)) =>
             {
                 Ok(GameRuleInfo {
-                    id: "minecraft:advance_time".into(),
+                    id: "advance_time".into(),
                     rule_type: GameRuleType::Bool,
                     value,
                 })
@@ -490,9 +498,9 @@ fn allowlist_ops_bans_players_and_settings() {
             &d,
             r#"{"jsonrpc":"2.0","id":15,"method":"gamerules/update","params":[{"key":"advance_time","value":false}]}"#
         ),
-        r#"{"jsonrpc":"2.0","id":15,"result":{"key":"minecraft:advance_time","type":"boolean","value":false}}"#
+        r#"{"jsonrpc":"2.0","id":15,"result":{"type":"boolean","value":false,"key":"minecraft:advance_time"}}"#
     );
-    assert!(call(&d, r#"{"jsonrpc":"2.0","id":16,"method":"gamerules/update","params":[{"key":"advance_time","value":3}]}"#).contains("Unknown or mistyped rule"));
+    assert!(call(&d, r#"{"jsonrpc":"2.0","id":16,"method":"gamerules/update","params":[{"key":"advance_time","value":3}]}"#).contains("Not a boolean: 3"));
 
     // batches answer every request that has an id, in order
     let r = call(

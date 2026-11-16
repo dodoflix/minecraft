@@ -242,7 +242,7 @@ mod tests {
         );
         assert_eq!(
             typed_rule("advance_time", &GameRuleValue::Bool(true)).to_compact_string(),
-            "{\"key\":\"minecraft:advance_time\",\"type\":\"boolean\",\"value\":true}"
+            "{\"type\":\"boolean\",\"value\":true,\"key\":\"minecraft:advance_time\"}"
         );
     }
 }

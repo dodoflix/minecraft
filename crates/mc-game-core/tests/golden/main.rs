@@ -18,6 +18,7 @@ mod chunk_tracking;
 mod command_common;
 #[path = "../../../mc-game/tests/golden/common/mod.rs"]
 mod common;
+mod crash_report_golden;
 #[path = "../../../mc-game/tests/golden/decoration_common/mod.rs"]
 mod decoration_common;
 mod decoration_golden;

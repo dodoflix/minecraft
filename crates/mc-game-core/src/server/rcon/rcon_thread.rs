@@ -3,6 +3,7 @@
 
 use std::io::{ErrorKind, Read, Write};
 use std::net::{Shutdown, TcpListener, TcpStream, ToSocketAddrs};
+use std::panic::AssertUnwindSafe;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
@@ -55,7 +56,15 @@ impl RconClient {
 }
 
 fn send(stream: &mut TcpStream, request_id: i32, cmd: i32, text: &str) -> std::io::Result<()> {
-    let bytes = text.as_bytes();
+    send_bytes(stream, request_id, cmd, text.as_bytes())
+}
+
+fn send_bytes(
+    stream: &mut TcpStream,
+    request_id: i32,
+    cmd: i32,
+    bytes: &[u8],
+) -> std::io::Result<()> {
     let mut out = Vec::with_capacity(bytes.len() + 14);
     out.extend_from_slice(&(bytes.len() as i32 + 10).to_le_bytes());
     out.extend_from_slice(&request_id.to_le_bytes());
@@ -84,12 +93,15 @@ fn send_cmd_response(
     let mut rest = &units[..];
     loop {
         let n = rest.len().min(4096);
-        // Java `substring` happily splits surrogate pairs; the lossy conversion matches how they would be encoded
-        send(
+        // Java `substring` happily splits surrogate pairs, and `getBytes(UTF_8)` writes a lone surrogate as `?`
+        let bytes: String = char::decode_utf16(rest[..n].iter().copied())
+            .map(|c| c.unwrap_or('?'))
+            .collect();
+        send_bytes(
             stream,
             request_id,
             SERVERDATA_RESPONSE_VALUE,
-            &String::from_utf16_lossy(&rest[..n]),
+            bytes.as_bytes(),
         )?;
         rest = &rest[n..];
         if rest.is_empty() {
@@ -127,7 +139,15 @@ fn serve(
                             log::error!("Exception whilst parsing RCON input");
                             return Ok(());
                         };
-                        send_cmd_response(&mut stream, request_id, &runner.run(&command))?;
+                        let response =
+                            std::panic::catch_unwind(AssertUnwindSafe(|| runner.run(&command)))
+                                .unwrap_or_else(|payload| {
+                                    format!(
+                                        "Error executing: {command} ({})",
+                                        crate::crash_report::panic_message(payload.as_ref())
+                                    )
+                                });
+                        send_cmd_response(&mut stream, request_id, &response)?;
                     } else {
                         send_auth_failure(&mut stream)?;
                     }
@@ -277,6 +297,10 @@ mod tests {
         fn run(&self, cmd: &str) -> String {
             if cmd == "long" {
                 "x".repeat(5000)
+            } else if cmd == "pair" {
+                format!("{}\u{1f600}", "a".repeat(4095))
+            } else if cmd == "boom" {
+                panic!("nope")
             } else {
                 format!("ran: {cmd}")
             }
@@ -331,6 +355,17 @@ mod tests {
             .unwrap();
         assert_eq!(read_packet(&mut c).2.len(), 4096);
         assert_eq!(read_packet(&mut c).2.len(), 904);
+        // a surrogate pair cut at the packet boundary: Java writes `?` for each half
+        c.write_all(&packet(13, SERVERDATA_EXECCOMMAND, "pair"))
+            .unwrap();
+        assert_eq!(read_packet(&mut c).2, format!("{}?", "a".repeat(4095)));
+        assert_eq!(read_packet(&mut c).2, "?");
+        c.write_all(&packet(14, SERVERDATA_EXECCOMMAND, "boom"))
+            .unwrap();
+        assert_eq!(
+            read_packet(&mut c),
+            (14, 0, "Error executing: boom (nope)".to_owned())
+        );
         c.write_all(&packet(12, 99, "")).unwrap();
         assert_eq!(
             read_packet(&mut c),

@@ -52,7 +52,7 @@ pub use crate::server::notifications::GameRuleValue;
 /// One available game rule with its current value (`GameRules.availableRules()` + `get`).
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct GameRuleInfo {
-    /// `GameRule.id()`, always with a namespace (`minecraft:advance_time`).
+    /// `GameRule.id()`: the name without a namespace (`advance_time`); the JSON `key` adds `minecraft:`.
     pub id: String,
     pub rule_type: GameRuleType,
     pub value: GameRuleValue,
@@ -156,8 +156,9 @@ pub trait ManagementApi: Send + Sync {
     fn fetch_user_by_id(&self, id: Uuid) -> Option<NameAndId>;
     /// `nameToIdCache.get(name)`.
     fn fetch_user_by_name(&self, name: &str) -> Option<NameAndId>;
-    /// `PlayerList.remove(player)`.
-    fn remove_player(&self, id: Uuid);
+    /// `PlayerList.remove(player)`; the result disconnects the removed player's connection (`player.connection`
+    /// outlives the list entry). `None` when no such player is online.
+    fn remove_player(&self, id: Uuid) -> Option<Box<dyn FnOnce(Component) + Send>>;
     /// `player.connection.disconnect(reason)`.
     fn disconnect_player(&self, id: Uuid, reason: Component);
 

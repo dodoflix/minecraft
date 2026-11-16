@@ -1,0 +1,31 @@
+> op Bot
+  log: [Server thread/INFO] System chat: Made Bot a server operator
+> type 3 id 1: "secret"
+  reply id 1 type 2 len 0: ""
+> type 2 id 2: "time set 1000"
+  reply id 2 type 0 len 39: "Set minecraft:overworld to 1000 tick(s)"
+  log: [Server thread/INFO] System chat: [Rcon: Set minecraft:overworld to 1000 tick(s)]
+> type 2 id 3: "difficulty hard"
+  reply id 3 type 0 len 35: "The difficulty has been set to Hard"
+  log: [Server thread/INFO] System chat: [Rcon: The difficulty has been set to Hard]
+> type 2 id 4: "gamemode creative Bot"
+  reply id 4 type 0 len 36: "Set Bot's game mode to Creative Mode"
+  log: [Server thread/INFO] System chat: [Rcon: Set Bot's game mode to Creative Mode]
+> type 2 id 5: "say hi from rcon"
+  reply id 5 type 0 len 0: ""
+  log: [Server thread/INFO] [Not Secure] [Rcon] hi from rcon
+> type 2 id 6: "weather clear"
+  reply id 6 type 0 len 24: "Set the weather to clear"
+  log: [Server thread/INFO] System chat: [Rcon: Set the weather to clear]
+> type 2 id 7: "foo"
+  reply id 7 type 0 len 62: "Unknown or incomplete command. See below for errorfoo<--[HERE]"
+> type 2 id 8: "give Nobody stone"
+  reply id 8 type 0 len 19: "No player was found"
+the operator was told: [
+    "system_chat [Rcon: Set minecraft:overworld to 1000 tick(s)]",
+    "system_chat [Rcon: The difficulty has been set to Hard]",
+    "system_chat Your game mode has been updated to Creative Mode",
+    "system_chat [Rcon: Set Bot's game mode to Creative Mode]",
+    "disguised_chat hi from rcon",
+    "system_chat [Rcon: Set the weather to clear]",
+]

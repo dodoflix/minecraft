@@ -1,0 +1,53 @@
+> console op Bot
+  log: [Server thread/INFO] System chat: Bot joined the game
+  log: [Server thread/INFO] System chat: Made Bot a server operator
+> console whitelist add Bot
+  log: [Server thread/INFO] System chat: Added Bot to the whitelist
+> console ban-ip 5.6.7.8 spam
+  log: [Server thread/INFO] System chat: Banned IP 5.6.7.8: spam
+> console pardon-ip 5.6.7.8
+  log: [Server thread/INFO] System chat: Unbanned IP 5.6.7.8
+> console ban-ip 6.7.8.9 other
+  log: [Server thread/INFO] System chat: Banned IP 6.7.8.9: other
+> console ban Bot a reason
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Banned Bot: a reason
+  log: [Server thread/INFO] System chat: Bot left the game
+> console save-all flush
+  log: [Server thread/INFO] System chat: Saved the game
+  log: [Server thread/INFO] System chat: Saving the game (this may take a moment!)
+> after the stop
+usercache.json: [{"uuid":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot","expiresOn":"<date>"}]
+ops.json: [
+  {
+    "uuid": "bb19ef2f-2f95-39a8-8bad-bda3ed373847",
+    "name": "Bot",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  }
+]
+whitelist.json: [
+  {
+    "uuid": "bb19ef2f-2f95-39a8-8bad-bda3ed373847",
+    "name": "Bot"
+  }
+]
+banned-players.json: [
+  {
+    "uuid": "bb19ef2f-2f95-39a8-8bad-bda3ed373847",
+    "name": "Bot",
+    "created": "<date>",
+    "source": "Server",
+    "expires": "forever",
+    "reason": "a reason"
+  }
+]
+banned-ips.json: [
+  {
+    "ip": "6.7.8.9",
+    "created": "<date>",
+    "source": "Server",
+    "expires": "forever",
+    "reason": "other"
+  }
+]

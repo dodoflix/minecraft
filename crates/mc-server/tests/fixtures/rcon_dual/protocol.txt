@@ -1,0 +1,119 @@
+> type 2 id 5: "list"
+  reply id -1 type 2 len 0: ""
+> type 3 id 6: "wrong"
+  reply id -1 type 2 len 0: ""
+> type 3 id 7: ""
+  reply id -1 type 2 len 0: ""
+> type 2 id 8: "list"
+  reply id -1 type 2 len 0: ""
+> type 3 id 9: "Secret"
+  reply id -1 type 2 len 0: ""
+> type 3 id 10: "secret "
+  reply id -1 type 2 len 0: ""
+> type 3 id 11: "secret"
+  reply id 11 type 2 len 0: ""
+> type 3 id 12: "secret"
+  reply id 12 type 2 len 0: ""
+> type 3 id 13: "wrong"
+  reply id -1 type 2 len 0: ""
+> type 2 id 14: "list"
+  reply id -1 type 2 len 0: ""
+> type 3 id 15: "secret"
+  reply id 15 type 2 len 0: ""
+> type 2 id 20: "list"
+  reply id 20 type 0 len 43: "There are 0 of a max of 20 players online: "
+> type 2 id 21: "/list"
+  reply id 21 type 0 len 43: "There are 0 of a max of 20 players online: "
+> type 2 id 22: "say hello rcon"
+  reply id 22 type 0 len 0: ""
+  log: [Server thread/INFO] [Not Secure] [Rcon] hello rcon
+> type 2 id 23: "say héllo € 😀"
+  reply id 23 type 0 len 0: ""
+  log: [Server thread/INFO] [Not Secure] [Rcon] héllo € 😀
+> type 2 id 24: "give Nobody minecraft:stone"
+  reply id 24 type 0 len 19: "No player was found"
+> type 2 id 25: "foo"
+  reply id 25 type 0 len 62: "Unknown or incomplete command. See below for errorfoo<--[HERE]"
+> type 2 id 26: "time set 1000"
+  reply id 26 type 0 len 39: "Set minecraft:overworld to 1000 tick(s)"
+  log: [Server thread/INFO] System chat: [Rcon: Set minecraft:overworld to 1000 tick(s)]
+> type 2 id 27: "gamerule random_tick_speed"
+  reply id 27 type 0 len 49: "Game rule random_tick_speed is currently set to 3"
+> type 2 id 28: "data get entity @e"
+  reply id 28 type 0 len 101: "Only one entity is allowed, but the provided selector allows more than onedata get entity @e<--[HERE]"
+> type 2 id 29: "execute as @s run say as the source"
+  reply id 29 type 0 len 0: ""
+> type 2 id 30: "execute if entity @s"
+  reply id 30 type 0 len 11: "Test failed"
+> type 2 id 31: ""
+  reply id 31 type 0 len 59: "Unknown or incomplete command. See below for error<--[HERE]"
+> type 2 id 32: " "
+  reply id 32 type 0 len 60: "Unknown or incomplete command. See below for error <--[HERE]"
+> type 2 id 33: "say"
+  reply id 33 type 0 len 62: "Unknown or incomplete command. See below for errorsay<--[HERE]"
+> type 2 id 34: "tell Nobody hi"
+  reply id 34 type 0 len 19: "No player was found"
+> type 2 id 35: "kill @e[type=item]"
+  reply id 35 type 0 len 19: "No entity was found"
+> type 2 id 36: "difficulty"
+  reply id 36 type 0 len 26: "The difficulty is Peaceful"
+> type 2 id 37: "seed"
+  reply id 37 type 0 len 13: "Seed: [12345]"
+> type 9 id 40: "x"
+  reply id 40 type 0 len 17: "Unknown request 9"
+> type 0 id 41: "x"
+  reply id 41 type 0 len 17: "Unknown request 0"
+> type 100 id 42: "x"
+  reply id 42 type 0 len 18: "Unknown request 64"
+> type -5 id 43: "x"
+  reply id 43 type 0 len 24: "Unknown request fffffffb"
+> type 1 id 44: "x"
+  reply id 44 type 0 len 17: "Unknown request 1"
+> type 4 id 45: "x"
+  reply id 45 type 0 len 17: "Unknown request 4"
+> type 2 id 50: "data modify storage probe:s a set value \"aaaaaaaaaaaaaaaaaaa" ... "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"" (sum ce380d865f018c2d)
+  reply id 50 type 0 len 24: "Modified storage probe:s"
+  log: [Server thread/INFO] System chat: [Rcon: Modified storage probe:s]
+> type 2 id 51: "data modify storage probe:s b set value \"bbbbbbbbbbbbbbbbbbb" ... "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"" (sum a9a2f0fb24699dae)
+  reply id 51 type 0 len 24: "Modified storage probe:s"
+  log: [Server thread/INFO] System chat: [Rcon: Modified storage probe:s]
+> type 2 id 52: "data modify storage probe:s c set value \"ccccccccccccccccccc" ... "ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\"" (sum 2af1a4c6cd1e88ff)
+  reply id 52 type 0 len 24: "Modified storage probe:s"
+  log: [Server thread/INFO] System chat: [Rcon: Modified storage probe:s]
+> type 2 id 53: "data modify storage probe:s d set value \"XQX\""
+  reply id 53 type 0 len 24: "Modified storage probe:s"
+  log: [Server thread/INFO] System chat: [Rcon: Modified storage probe:s]
+> type 2 id 54: "data get storage probe:s"
+  reply id 54 type 0 len 3075: "Storage probe:s has the following contents: {a: \"aaaaaaaaaaa" ... "cccccccccccccccccccccccccccccccccccccccccccccccc\", d: \"XQX\"}" (sum 1dbd665cb17ebe28)
+  packets of the long answer: [3075]
+> type 2 id 60: "data modify storage probe:s d set value \"ddddddddddddddddddd" ... "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd😀b\"" (sum 961f928ad10658da)
+  reply id 60 type 0 len 24: "Modified storage probe:s"
+  log: [Server thread/INFO] System chat: [Rcon: Modified storage probe:s]
+> type 2 id 61: "data get storage probe:s"
+  reply id 61 type 0 len 4096: "Storage probe:s has the following contents: {a: \"aaaaaaaaaaa" ... "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd😀" (sum 21bd0694395e3160)
+  reply id 61 type 0 len 3: "b\"}"
+  bytes around the end of the first packet and the start of the second: Some([100, 100, 240, 159, 152, 128]) Some([98, 34, 125])
+> type 2 id 70: "data modify storage probe:s d set value \"ddddddddddddddddddd" ... "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd😀b\"" (sum fc32f65948bc1e06)
+  reply id 70 type 0 len 24: "Modified storage probe:s"
+  log: [Server thread/INFO] System chat: [Rcon: Modified storage probe:s]
+> type 2 id 71: "data get storage probe:s"
+  reply id 71 type 0 len 4096: "Storage probe:s has the following contents: {a: \"aaaaaaaaaaa" ... "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd?" (sum b316de1aebaebe3b)
+  reply id 71 type 0 len 4: "?b\"}"
+  bytes around the end of the first packet and the start of the second: Some([100, 100, 100, 100, 100, 63]) Some([63, 98, 34, 125])
+> a new connection: fewer than ten bytes
+  no reply
+  connection closed
+> a new connection: a length that does not match the read
+  no reply
+  connection closed
+> a new connection: two packets in one write
+  no reply
+  connection closed
+> a new connection: a command of 2000 bytes
+  no reply
+  connection closed
+> authenticate, then a command of 1450 bytes
+> type 3 id 1: "secret"
+  reply id 1 type 2 len 0: ""
+> type 2 id 3: "say aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" ... "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" (sum 24e9b8dcdf5dc8a1)
+  reply id 3 type 0 len 57: "Chat message was too long (1440 > maximum 256 characters)"

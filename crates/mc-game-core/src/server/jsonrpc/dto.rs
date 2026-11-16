@@ -40,7 +40,6 @@ pub fn decode_string(e: &JsonElement) -> Decoded<String> {
 pub fn decode_bool(e: &JsonElement) -> Decoded<bool> {
     match e {
         JsonElement::Bool(b) => Ok(*b),
-        JsonElement::Number(n) => Ok(number_as_i32(n) as i8 != 0),
         _ => Err(not("boolean", e)),
     }
 }
@@ -522,30 +521,26 @@ pub fn encode_game_rule_value(v: GameRuleValue) -> JsonElement {
     }
 }
 
-/// `GameRuleUpdate.TYPED_CODEC`: `key`, `type`, `value`.
+/// `GameRuleUpdate.TYPED_CODEC`: `type`, `value`, then the registry `key` (always with its namespace).
 pub fn encode_typed_game_rule(rule: &GameRuleInfo) -> JsonElement {
+    let key = if rule.id.contains(':') {
+        rule.id.clone()
+    } else {
+        format!("minecraft:{}", rule.id)
+    };
     obj(vec![
-        ("key", Some(str_e(&rule.id))),
         ("type", Some(str_e(rule.rule_type.serialized_name()))),
         ("value", Some(encode_game_rule_value(rule.value))),
+        ("key", Some(str_e(&key))),
     ])
 }
 
-/// The `{key, value}` object of `gamerules/update`: the key text and the raw JSON value (typed by the server).
-pub fn decode_untyped_game_rule(e: &JsonElement) -> Decoded<(String, GameRuleValue)> {
+/// The `{key, value}` object of `gamerules/update`: the key text and the raw JSON value, which the rule's own type
+/// decodes.
+pub fn decode_untyped_game_rule(e: &JsonElement) -> Decoded<(String, &JsonElement)> {
     let m = decode_map(e)?;
     let key = decode_string(required(m, "key")?)?;
-    let value = match required(m, "value")? {
-        JsonElement::Bool(b) => GameRuleValue::Bool(*b),
-        JsonElement::Number(_) => GameRuleValue::Int(decode_int(required(m, "value")?)?),
-        other => {
-            return err(format!(
-                "Not a boolean or number: {}",
-                other.to_compact_string()
-            ));
-        }
-    };
-    Ok((key, value))
+    Ok((key, required(m, "value")?))
 }
 
 pub fn encode_player_list(players: &[NameAndId]) -> JsonElement {

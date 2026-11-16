@@ -235,8 +235,12 @@ impl ManagementApi for ServerManagementApi {
         let name = name.to_owned();
         self.with(move |s| s.name_to_id_cache.get_by_name(&name))
     }
-    fn remove_player(&self, id: Uuid) {
-        self.with(move |s| s.remove_player_by_id(id));
+    fn remove_player(&self, id: Uuid) -> Option<Box<dyn FnOnce(Component) + Send>> {
+        self.with(move |s| {
+            let handle = s.player_list.get_player(&id).cloned()?;
+            s.remove_player_by_id(id);
+            Some(Box::new(move |reason: Component| handle.disconnect(&reason)) as Box<_>)
+        })
     }
     fn disconnect_player(&self, id: Uuid, reason: Component) {
         self.with(move |s| {
@@ -498,7 +502,8 @@ impl RconCommandRunner for ServerRconRunner {
 }
 
 impl MinecraftServer {
-    /// `rconConsoleSource.createCommandSourceStack()`: owner permissions, named `Rcon`, at the respawn position.
+    /// `rconConsoleSource.createCommandSourceStack()`: owner permissions, named `Rcon`, in the overworld at the respawn
+    /// position (whatever dimension that position belongs to).
     pub fn create_rcon_command_source_stack(
         &self,
         source: Arc<RconConsoleSource>,
@@ -512,7 +517,7 @@ impl MinecraftServer {
                 f64::from(respawn.pos.z()),
             ),
             mc_core::phys::Vec2::ZERO,
-            self.find_respawn_dimension(),
+            super::world_dimensions::overworld_key(),
             LevelBasedPermissionSet::OWNER.into(),
             RconConsoleSource::name(),
         )

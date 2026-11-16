@@ -1,0 +1,227 @@
+## crash with categories
+---- Minecraft Crash Report ----
+// <comment>
+
+Time: <time>
+Description: Exception in server tick loop
+
+java.lang.IllegalStateException: boom
+	at com.example.Server.tick(Server.java:42)
+	at java.lang.Thread.run(Thread.java:1583)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Performance stats --
+Details:
+	Random tick rate: 3
+	Level stats: minecraft:overworld: 12
+
+-- Empty category --
+Details:
+
+-- Detail kinds --
+Details:
+	Number: 5
+	Text: two
+lines
+
+-- System Details --
+Details:
+	Minecraft Version: 26.3
+	Minecraft Version ID: 26.3
+	Operating System: <value>
+	CPUs: <value>
+	Server Running: true
+	Server Running: false
+	Players: 0 / 20; []
+## crash details
+-- Performance stats --
+Details:
+	Random tick rate: 3
+	Level stats: minecraft:overworld: 12
+
+-- Empty category --
+Details:
+
+-- Detail kinds --
+Details:
+	Number: 5
+	Text: two
+lines
+
+-- System Details --
+Details:
+	Minecraft Version: 26.3
+	Minecraft Version ID: 26.3
+	Operating System: <value>
+	CPUs: <value>
+	Server Running: true
+	Server Running: false
+	Players: 0 / 20; []
+## crash without categories
+---- Minecraft Crash Report ----
+// <comment>
+
+Time: <time>
+Description: Watching Server
+
+java.lang.IllegalStateException: boom
+	at com.example.Server.tick(Server.java:42)
+	at java.lang.Thread.run(Thread.java:1583)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 26.3
+	Minecraft Version ID: 26.3
+	Operating System: <value>
+	CPUs: <value>
+	Server Running: true
+	Server Running: false
+	Players: 0 / 20; []
+## profile with extra comments
+---- Minecraft Profiler Results ----
+// <comment>
+// first extra
+// second extra
+
+Time: <time>
+Description: Profiling
+
+java.lang.IllegalStateException: boom
+	at com.example.Server.tick(Server.java:42)
+	at java.lang.Thread.run(Thread.java:1583)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 26.3
+	Minecraft Version ID: 26.3
+	Operating System: <value>
+	CPUs: <value>
+	Server Running: true
+	Server Running: false
+	Players: 0 / 20; []
+## test
+---- Minecraft Test Report ----
+// <comment>
+
+Time: <time>
+Description: Test failed
+
+java.lang.IllegalStateException: boom
+	at com.example.Server.tick(Server.java:42)
+	at java.lang.Thread.run(Thread.java:1583)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Performance stats --
+Details:
+	Random tick rate: 3
+	Level stats: minecraft:overworld: 12
+
+-- Empty category --
+Details:
+
+-- Detail kinds --
+Details:
+	Number: 5
+	Text: two
+lines
+
+-- System Details --
+Details:
+	Minecraft Version: 26.3
+	Minecraft Version ID: 26.3
+	Operating System: <value>
+	CPUs: <value>
+	Server Running: true
+	Server Running: false
+	Players: 0 / 20; []
+## network protocol error
+---- Minecraft Network Protocol Error Report ----
+// <comment>
+// one extra
+
+Time: <time>
+Description: Packet
+
+java.lang.IllegalStateException: boom
+	at com.example.Server.tick(Server.java:42)
+	at java.lang.Thread.run(Thread.java:1583)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Performance stats --
+Details:
+	Random tick rate: 3
+	Level stats: minecraft:overworld: 12
+
+-- Empty category --
+Details:
+
+-- Detail kinds --
+Details:
+	Number: 5
+	Text: two
+lines
+
+-- System Details --
+Details:
+	Minecraft Version: 26.3
+	Minecraft Version ID: 26.3
+	Operating System: <value>
+	CPUs: <value>
+	Server Running: true
+	Server Running: false
+	Players: 0 / 20; []
+## chunk io error
+---- Minecraft Chunk IO Error Report ----
+// <comment>
+
+Time: <time>
+Description: Chunk save failure
+
+java.lang.IllegalStateException: boom
+	at com.example.Server.tick(Server.java:42)
+	at java.lang.Thread.run(Thread.java:1583)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Performance stats --
+Details:
+	Random tick rate: 3
+	Level stats: minecraft:overworld: 12
+
+-- Empty category --
+Details:
+
+-- Detail kinds --
+Details:
+	Number: 5
+	Text: two
+lines
+
+-- System Details --
+Details:
+	Minecraft Version: 26.3
+	Minecraft Version ID: 26.3
+	Operating System: <value>
+	CPUs: <value>
+	Server Running: true
+	Server Running: false
+	Players: 0 / 20; []

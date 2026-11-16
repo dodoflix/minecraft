@@ -1,0 +1,544 @@
+> serversettings/autosave 
+  rpc: {"jsonrpc":"2.0","id":1,"result":true}
+> serversettings/autosave/set [false]
+  rpc: {"jsonrpc":"2.0","id":2,"result":false}
+  log: [Server thread/INFO] RPC Connection #1: Update autosave from true to false
+> serversettings/autosave 
+  rpc: {"jsonrpc":"2.0","id":3,"result":false}
+> serversettings/autosave/set [true]
+  rpc: {"jsonrpc":"2.0","id":4,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update autosave from false to true
+> serversettings/autosave 
+  rpc: {"jsonrpc":"2.0","id":5,"result":true}
+> serversettings/autosave/set ["x"]
+  rpc: {"jsonrpc":"2.0","id":6,"error":{"code":-32602,"message":"Invalid params","data":"Not a boolean: \"x\""}}
+> serversettings/autosave 
+  rpc: {"jsonrpc":"2.0","id":7,"result":true}
+> serversettings/autosave/set [1]
+  rpc: {"jsonrpc":"2.0","id":8,"error":{"code":-32602,"message":"Invalid params","data":"Not a boolean: 1"}}
+> serversettings/autosave 
+  rpc: {"jsonrpc":"2.0","id":9,"result":true}
+> serversettings/difficulty 
+  rpc: {"jsonrpc":"2.0","id":10,"result":"peaceful"}
+> serversettings/difficulty/set ["hard"]
+  rpc: {"jsonrpc":"2.0","id":11,"result":"hard"}
+  log: [Server thread/INFO] RPC Connection #1: Update difficulty from 'PEACEFUL' to 'HARD'
+  properties +difficulty=hard
+  properties -difficulty=peaceful
+> serversettings/difficulty 
+  rpc: {"jsonrpc":"2.0","id":12,"result":"hard"}
+> serversettings/difficulty/set ["peaceful"]
+  rpc: {"jsonrpc":"2.0","id":13,"result":"peaceful"}
+  log: [Server thread/INFO] RPC Connection #1: Update difficulty from 'HARD' to 'PEACEFUL'
+  properties +difficulty=peaceful
+  properties -difficulty=hard
+> serversettings/difficulty 
+  rpc: {"jsonrpc":"2.0","id":14,"result":"peaceful"}
+> serversettings/difficulty/set ["impossible"]
+  rpc: {"jsonrpc":"2.0","id":15,"error":{"code":-32602,"message":"Invalid params","data":"Unknown element name:impossible"}}
+> serversettings/difficulty 
+  rpc: {"jsonrpc":"2.0","id":16,"result":"peaceful"}
+> serversettings/difficulty/set [2]
+  rpc: {"jsonrpc":"2.0","id":17,"error":{"code":-32602,"message":"Invalid params","data":"Not a string: 2"}}
+> serversettings/difficulty 
+  rpc: {"jsonrpc":"2.0","id":18,"result":"peaceful"}
+> serversettings/enforce_allowlist 
+  rpc: {"jsonrpc":"2.0","id":19,"result":false}
+> serversettings/enforce_allowlist/set [true]
+  rpc: {"jsonrpc":"2.0","id":20,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update enforce allowlist from false to true
+  properties +enforce-whitelist=true
+  properties -enforce-whitelist=false
+> serversettings/enforce_allowlist 
+  rpc: {"jsonrpc":"2.0","id":21,"result":true}
+> serversettings/enforce_allowlist/set [false]
+  rpc: {"jsonrpc":"2.0","id":22,"result":false}
+  log: [Server thread/INFO] RPC Connection #1: Update enforce allowlist from true to false
+  properties +enforce-whitelist=false
+  properties -enforce-whitelist=true
+> serversettings/enforce_allowlist 
+  rpc: {"jsonrpc":"2.0","id":23,"result":false}
+> serversettings/use_allowlist 
+  rpc: {"jsonrpc":"2.0","id":24,"result":false}
+> serversettings/use_allowlist/set [true]
+  rpc: {"jsonrpc":"2.0","id":25,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update using allowlist from false to true
+  properties +white-list=true
+  properties -white-list=false
+> serversettings/use_allowlist 
+  rpc: {"jsonrpc":"2.0","id":26,"result":true}
+> serversettings/use_allowlist/set [false]
+  rpc: {"jsonrpc":"2.0","id":27,"result":false}
+  log: [Server thread/INFO] RPC Connection #1: Update using allowlist from true to false
+  properties +white-list=false
+  properties -white-list=true
+> serversettings/use_allowlist 
+  rpc: {"jsonrpc":"2.0","id":28,"result":false}
+> serversettings/max_players 
+  rpc: {"jsonrpc":"2.0","id":29,"result":20}
+> serversettings/max_players/set [5]
+  rpc: {"jsonrpc":"2.0","id":30,"result":5}
+  log: [Server thread/INFO] RPC Connection #1: Update max players from 20 to 5
+  properties +max-players=5
+  properties -max-players=20
+> serversettings/max_players 
+  rpc: {"jsonrpc":"2.0","id":31,"result":5}
+> serversettings/max_players/set [0]
+  rpc: {"jsonrpc":"2.0","id":32,"result":0}
+  log: [Server thread/INFO] RPC Connection #1: Update max players from 5 to 0
+  properties +max-players=0
+  properties -max-players=5
+> serversettings/max_players 
+  rpc: {"jsonrpc":"2.0","id":33,"result":0}
+> serversettings/max_players/set [-1]
+  rpc: {"jsonrpc":"2.0","id":34,"result":-1}
+  log: [Server thread/INFO] RPC Connection #1: Update max players from 0 to -1
+  properties +max-players=-1
+  properties -max-players=0
+> serversettings/max_players 
+  rpc: {"jsonrpc":"2.0","id":35,"result":-1}
+> serversettings/max_players/set [2147483647]
+  rpc: {"jsonrpc":"2.0","id":36,"result":2147483647}
+  log: [Server thread/INFO] RPC Connection #1: Update max players from -1 to 2147483647
+  properties +max-players=2147483647
+  properties -max-players=-1
+> serversettings/max_players 
+  rpc: {"jsonrpc":"2.0","id":37,"result":2147483647}
+> serversettings/pause_when_empty_seconds 
+  rpc: {"jsonrpc":"2.0","id":38,"result":60}
+> serversettings/pause_when_empty_seconds/set [60]
+  rpc: {"jsonrpc":"2.0","id":39,"result":60}
+  log: [Server thread/INFO] RPC Connection #1: Update pause when empty from 60 seconds to 60 seconds
+> serversettings/pause_when_empty_seconds 
+  rpc: {"jsonrpc":"2.0","id":40,"result":60}
+> serversettings/pause_when_empty_seconds/set [0]
+  rpc: {"jsonrpc":"2.0","id":41,"result":0}
+  log: [Server thread/INFO] RPC Connection #1: Update pause when empty from 60 seconds to 0 seconds
+  properties +pause-when-empty-seconds=0
+  properties -pause-when-empty-seconds=60
+> serversettings/pause_when_empty_seconds 
+  rpc: {"jsonrpc":"2.0","id":42,"result":0}
+> serversettings/pause_when_empty_seconds/set [-5]
+  rpc: {"jsonrpc":"2.0","id":43,"result":-5}
+  log: [Server thread/INFO] RPC Connection #1: Update pause when empty from 0 seconds to -5 seconds
+  properties +pause-when-empty-seconds=-5
+  properties -pause-when-empty-seconds=0
+> serversettings/pause_when_empty_seconds 
+  rpc: {"jsonrpc":"2.0","id":44,"result":-5}
+> serversettings/player_idle_timeout 
+  rpc: {"jsonrpc":"2.0","id":45,"result":0}
+> serversettings/player_idle_timeout/set [5]
+  rpc: {"jsonrpc":"2.0","id":46,"result":5}
+  log: [Server thread/INFO] RPC Connection #1: Update player idle timeout from 0 minutes to 5 minutes
+  properties +player-idle-timeout=5
+  properties -player-idle-timeout=0
+> serversettings/player_idle_timeout 
+  rpc: {"jsonrpc":"2.0","id":47,"result":5}
+> serversettings/player_idle_timeout/set [0]
+  rpc: {"jsonrpc":"2.0","id":48,"result":0}
+  log: [Server thread/INFO] RPC Connection #1: Update player idle timeout from 5 minutes to 0 minutes
+  properties +player-idle-timeout=0
+  properties -player-idle-timeout=5
+> serversettings/player_idle_timeout 
+  rpc: {"jsonrpc":"2.0","id":49,"result":0}
+> serversettings/player_idle_timeout/set [-1]
+  rpc: {"jsonrpc":"2.0","id":50,"result":-1}
+  log: [Server thread/INFO] RPC Connection #1: Update player idle timeout from 0 minutes to -1 minutes
+  properties +player-idle-timeout=-1
+  properties -player-idle-timeout=0
+> serversettings/player_idle_timeout 
+  rpc: {"jsonrpc":"2.0","id":51,"result":-1}
+> serversettings/allow_flight 
+  rpc: {"jsonrpc":"2.0","id":52,"result":false}
+> serversettings/allow_flight/set [true]
+  rpc: {"jsonrpc":"2.0","id":53,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update allow flight from false to true
+  properties +allow-flight=true
+  properties -allow-flight=false
+> serversettings/allow_flight 
+  rpc: {"jsonrpc":"2.0","id":54,"result":true}
+> serversettings/allow_flight/set [false]
+  rpc: {"jsonrpc":"2.0","id":55,"result":false}
+  log: [Server thread/INFO] RPC Connection #1: Update allow flight from true to false
+  properties +allow-flight=false
+  properties -allow-flight=true
+> serversettings/allow_flight 
+  rpc: {"jsonrpc":"2.0","id":56,"result":false}
+> serversettings/motd 
+  rpc: {"jsonrpc":"2.0","id":57,"result":"A Minecraft Server"}
+> serversettings/motd/set ["A new motd"]
+  rpc: {"jsonrpc":"2.0","id":58,"result":"A new motd"}
+  log: [Server thread/INFO] RPC Connection #1: Update MOTD from 'A Minecraft Server' to 'A new motd'
+  properties +motd=A new motd
+  properties -motd=A Minecraft Server
+> serversettings/motd 
+  rpc: {"jsonrpc":"2.0","id":59,"result":"A new motd"}
+> serversettings/motd/set [""]
+  rpc: {"jsonrpc":"2.0","id":60,"result":""}
+  log: [Server thread/INFO] RPC Connection #1: Update MOTD from 'A new motd' to ''
+  properties +motd=
+  properties -motd=A new motd
+> serversettings/motd 
+  rpc: {"jsonrpc":"2.0","id":61,"result":""}
+> serversettings/motd/set ["with \u00a7a colour"]
+  rpc: {"jsonrpc":"2.0","id":62,"result":"with §a colour"}
+  log: [Server thread/INFO] RPC Connection #1: Update MOTD from '' to 'with §a colour'
+  properties +motd=with §a colour
+  properties -motd=
+> serversettings/motd 
+  rpc: {"jsonrpc":"2.0","id":63,"result":"with §a colour"}
+> serversettings/motd/set [5]
+  rpc: {"jsonrpc":"2.0","id":64,"error":{"code":-32602,"message":"Invalid params","data":"Not a string: 5"}}
+> serversettings/motd 
+  rpc: {"jsonrpc":"2.0","id":65,"result":"with §a colour"}
+> serversettings/spawn_protection_radius 
+  rpc: {"jsonrpc":"2.0","id":66,"result":0}
+> serversettings/spawn_protection_radius/set [3]
+  rpc: {"jsonrpc":"2.0","id":67,"result":3}
+  log: [Server thread/INFO] RPC Connection #1: Update spawn protection radius from 0 to 3
+  properties +spawn-protection=3
+  properties -spawn-protection=0
+> serversettings/spawn_protection_radius 
+  rpc: {"jsonrpc":"2.0","id":68,"result":3}
+> serversettings/spawn_protection_radius/set [0]
+  rpc: {"jsonrpc":"2.0","id":69,"result":0}
+  log: [Server thread/INFO] RPC Connection #1: Update spawn protection radius from 3 to 0
+  properties +spawn-protection=0
+  properties -spawn-protection=3
+> serversettings/spawn_protection_radius 
+  rpc: {"jsonrpc":"2.0","id":70,"result":0}
+> serversettings/spawn_protection_radius/set [-1]
+  rpc: {"jsonrpc":"2.0","id":71,"result":-1}
+  log: [Server thread/INFO] RPC Connection #1: Update spawn protection radius from 0 to -1
+  properties +spawn-protection=-1
+  properties -spawn-protection=0
+> serversettings/spawn_protection_radius 
+  rpc: {"jsonrpc":"2.0","id":72,"result":-1}
+> serversettings/force_game_mode 
+  rpc: {"jsonrpc":"2.0","id":73,"result":true}
+> serversettings/force_game_mode/set [true]
+  rpc: {"jsonrpc":"2.0","id":74,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update force game mode from true to true
+> serversettings/force_game_mode 
+  rpc: {"jsonrpc":"2.0","id":75,"result":true}
+> serversettings/force_game_mode/set [false]
+  rpc: {"jsonrpc":"2.0","id":76,"result":false}
+  log: [Server thread/INFO] RPC Connection #1: Update force game mode from true to false
+  properties +force-gamemode=false
+  properties -force-gamemode=true
+> serversettings/force_game_mode 
+  rpc: {"jsonrpc":"2.0","id":77,"result":false}
+> serversettings/game_mode 
+  rpc: {"jsonrpc":"2.0","id":78,"result":"survival"}
+> serversettings/game_mode/set ["creative"]
+  rpc: {"jsonrpc":"2.0","id":79,"result":"creative"}
+  log: [Server thread/INFO] RPC Connection #1: Update game mode from 'SURVIVAL' to 'CREATIVE'
+  properties +gamemode=creative
+  properties -gamemode=survival
+> serversettings/game_mode 
+  rpc: {"jsonrpc":"2.0","id":80,"result":"creative"}
+> serversettings/game_mode/set ["survival"]
+  rpc: {"jsonrpc":"2.0","id":81,"result":"survival"}
+  log: [Server thread/INFO] RPC Connection #1: Update game mode from 'CREATIVE' to 'SURVIVAL'
+  properties +gamemode=survival
+  properties -gamemode=creative
+> serversettings/game_mode 
+  rpc: {"jsonrpc":"2.0","id":82,"result":"survival"}
+> serversettings/game_mode/set ["spectator"]
+  rpc: {"jsonrpc":"2.0","id":83,"result":"spectator"}
+  log: [Server thread/INFO] RPC Connection #1: Update game mode from 'SURVIVAL' to 'SPECTATOR'
+  properties +gamemode=spectator
+  properties -gamemode=survival
+> serversettings/game_mode 
+  rpc: {"jsonrpc":"2.0","id":84,"result":"spectator"}
+> serversettings/game_mode/set ["adventure"]
+  rpc: {"jsonrpc":"2.0","id":85,"result":"adventure"}
+  log: [Server thread/INFO] RPC Connection #1: Update game mode from 'SPECTATOR' to 'ADVENTURE'
+  properties +gamemode=adventure
+  properties -gamemode=spectator
+> serversettings/game_mode 
+  rpc: {"jsonrpc":"2.0","id":86,"result":"adventure"}
+> serversettings/game_mode/set ["nothing"]
+  rpc: {"jsonrpc":"2.0","id":87,"error":{"code":-32602,"message":"Invalid params","data":"Unknown element name:nothing"}}
+> serversettings/game_mode 
+  rpc: {"jsonrpc":"2.0","id":88,"result":"adventure"}
+> serversettings/game_mode/set [1]
+  rpc: {"jsonrpc":"2.0","id":89,"error":{"code":-32602,"message":"Invalid params","data":"Not a string: 1"}}
+> serversettings/game_mode 
+  rpc: {"jsonrpc":"2.0","id":90,"result":"adventure"}
+> serversettings/view_distance 
+  rpc: {"jsonrpc":"2.0","id":91,"result":4}
+> serversettings/view_distance/set [6]
+  rpc: {"jsonrpc":"2.0","id":92,"result":6}
+  log: [Server thread/INFO] RPC Connection #1: Update view distance from 4 to 6
+  properties +view-distance=6
+  properties -view-distance=4
+> serversettings/view_distance 
+  rpc: {"jsonrpc":"2.0","id":93,"result":6}
+> serversettings/view_distance/set [0]
+  rpc: {"jsonrpc":"2.0","id":94,"result":0}
+  log: [Server thread/INFO] RPC Connection #1: Update view distance from 6 to 0
+  properties +view-distance=0
+  properties -view-distance=6
+> serversettings/view_distance 
+  rpc: {"jsonrpc":"2.0","id":95,"result":0}
+> serversettings/view_distance/set [1]
+  rpc: {"jsonrpc":"2.0","id":96,"result":1}
+  log: [Server thread/INFO] RPC Connection #1: Update view distance from 0 to 1
+  properties +view-distance=1
+  properties -view-distance=0
+> serversettings/view_distance 
+  rpc: {"jsonrpc":"2.0","id":97,"result":1}
+> serversettings/view_distance/set [2]
+  rpc: {"jsonrpc":"2.0","id":98,"result":2}
+  log: [Server thread/INFO] RPC Connection #1: Update view distance from 1 to 2
+  properties +view-distance=2
+  properties -view-distance=1
+> serversettings/view_distance 
+  rpc: {"jsonrpc":"2.0","id":99,"result":2}
+> serversettings/view_distance/set [33]
+  rpc: {"jsonrpc":"2.0","id":100,"result":33}
+  log: [Server thread/INFO] RPC Connection #1: Update view distance from 2 to 33
+  properties +view-distance=33
+  properties -view-distance=2
+> serversettings/view_distance 
+  rpc: {"jsonrpc":"2.0","id":101,"result":33}
+> serversettings/view_distance/set [32]
+  rpc: {"jsonrpc":"2.0","id":102,"result":32}
+  log: [Server thread/INFO] RPC Connection #1: Update view distance from 33 to 32
+  properties +view-distance=32
+  properties -view-distance=33
+> serversettings/view_distance 
+  rpc: {"jsonrpc":"2.0","id":103,"result":32}
+> serversettings/view_distance/set [4]
+  rpc: {"jsonrpc":"2.0","id":104,"result":4}
+  log: [Server thread/INFO] RPC Connection #1: Update view distance from 32 to 4
+  properties +view-distance=4
+  properties -view-distance=32
+> serversettings/view_distance 
+  rpc: {"jsonrpc":"2.0","id":105,"result":4}
+> serversettings/simulation_distance 
+  rpc: {"jsonrpc":"2.0","id":106,"result":4}
+> serversettings/simulation_distance/set [3]
+  rpc: {"jsonrpc":"2.0","id":107,"result":3}
+  log: [Server thread/INFO] RPC Connection #1: Update simulation distance from 4 to 3
+  properties +simulation-distance=3
+  properties -simulation-distance=4
+> serversettings/simulation_distance 
+  rpc: {"jsonrpc":"2.0","id":108,"result":3}
+> serversettings/simulation_distance/set [0]
+  rpc: {"jsonrpc":"2.0","id":109,"result":0}
+  log: [Server thread/INFO] RPC Connection #1: Update simulation distance from 3 to 0
+  properties +simulation-distance=0
+  properties -simulation-distance=3
+> serversettings/simulation_distance 
+  rpc: {"jsonrpc":"2.0","id":110,"result":0}
+> serversettings/simulation_distance/set [1]
+  rpc: {"jsonrpc":"2.0","id":111,"result":1}
+  log: [Server thread/INFO] RPC Connection #1: Update simulation distance from 0 to 1
+  properties +simulation-distance=1
+  properties -simulation-distance=0
+> serversettings/simulation_distance 
+  rpc: {"jsonrpc":"2.0","id":112,"result":1}
+> serversettings/simulation_distance/set [33]
+  rpc: {"jsonrpc":"2.0","id":113,"result":33}
+  log: [Server thread/INFO] RPC Connection #1: Update simulation distance from 1 to 33
+  properties +simulation-distance=33
+  properties -simulation-distance=1
+> serversettings/simulation_distance 
+  rpc: {"jsonrpc":"2.0","id":114,"result":33}
+> serversettings/simulation_distance/set [32]
+  rpc: {"jsonrpc":"2.0","id":115,"result":32}
+  log: [Server thread/INFO] RPC Connection #1: Update simulation distance from 33 to 32
+  properties +simulation-distance=32
+  properties -simulation-distance=33
+> serversettings/simulation_distance 
+  rpc: {"jsonrpc":"2.0","id":116,"result":32}
+> serversettings/simulation_distance/set [4]
+  rpc: {"jsonrpc":"2.0","id":117,"result":4}
+  log: [Server thread/INFO] RPC Connection #1: Update simulation distance from 32 to 4
+  properties +simulation-distance=4
+  properties -simulation-distance=32
+> serversettings/simulation_distance 
+  rpc: {"jsonrpc":"2.0","id":118,"result":4}
+> serversettings/accept_transfers 
+  rpc: {"jsonrpc":"2.0","id":119,"result":false}
+> serversettings/accept_transfers/set [true]
+  rpc: {"jsonrpc":"2.0","id":120,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update accepts transfers from false to true
+  properties +accepts-transfers=true
+  properties -accepts-transfers=false
+> serversettings/accept_transfers 
+  rpc: {"jsonrpc":"2.0","id":121,"result":true}
+> serversettings/accept_transfers/set [false]
+  rpc: {"jsonrpc":"2.0","id":122,"result":false}
+  log: [Server thread/INFO] RPC Connection #1: Update accepts transfers from true to false
+  properties +accepts-transfers=false
+  properties -accepts-transfers=true
+> serversettings/accept_transfers 
+  rpc: {"jsonrpc":"2.0","id":123,"result":false}
+> serversettings/status_heartbeat_interval 
+  rpc: {"jsonrpc":"2.0","id":124,"result":0}
+> serversettings/status_heartbeat_interval/set [5]
+  rpc: {"jsonrpc":"2.0","id":125,"result":5}
+  log: [Server thread/INFO] RPC Connection #1: Updated status heartbeat interval from 5 to 5
+  properties +status-heartbeat-interval=5
+  properties -status-heartbeat-interval=0
+> serversettings/status_heartbeat_interval 
+  rpc: {"jsonrpc":"2.0","id":126,"result":5}
+> serversettings/status_heartbeat_interval/set [0]
+  rpc: {"jsonrpc":"2.0","id":127,"result":0}
+  log: [Server thread/INFO] RPC Connection #1: Updated status heartbeat interval from 0 to 0
+  properties +status-heartbeat-interval=0
+  properties -status-heartbeat-interval=5
+> serversettings/status_heartbeat_interval 
+  rpc: {"jsonrpc":"2.0","id":128,"result":0}
+> serversettings/status_heartbeat_interval/set [-1]
+  rpc: {"jsonrpc":"2.0","id":129,"result":0}
+  log: [Server thread/INFO] RPC Connection #1: The heartbeat interval was not updated to the new value of -1 seconds as the json rpc server is null or a pre-existing heartbeat failed to get canceled
+  log: [Server thread/WARN] The existing heartbeat was not canceled and the new heartbeat of -1 seconds has not been applied.
+> serversettings/status_heartbeat_interval 
+  rpc: {"jsonrpc":"2.0","id":130,"result":0}
+> serversettings/operator_user_permission_level 
+  rpc: {"jsonrpc":"2.0","id":131,"result":4}
+> serversettings/operator_user_permission_level/set [3]
+  rpc: {"jsonrpc":"2.0","id":132,"result":3}
+  log: [Server thread/INFO] RPC Connection #1: Update operator user permission level from permission level: OWNERS to ADMINS
+  properties +op-permission-level=3
+  properties -op-permission-level=4
+> serversettings/operator_user_permission_level 
+  rpc: {"jsonrpc":"2.0","id":133,"result":3}
+> serversettings/operator_user_permission_level/set [0]
+  rpc: {"jsonrpc":"2.0","id":134,"result":0}
+  log: [Server thread/INFO] RPC Connection #1: Update operator user permission level from permission level: ADMINS to ALL
+  properties +op-permission-level=0
+  properties -op-permission-level=3
+> serversettings/operator_user_permission_level 
+  rpc: {"jsonrpc":"2.0","id":135,"result":0}
+> serversettings/operator_user_permission_level/set [4]
+  rpc: {"jsonrpc":"2.0","id":136,"result":4}
+  log: [Server thread/INFO] RPC Connection #1: Update operator user permission level from permission level: ALL to OWNERS
+  properties +op-permission-level=4
+  properties -op-permission-level=0
+> serversettings/operator_user_permission_level 
+  rpc: {"jsonrpc":"2.0","id":137,"result":4}
+> serversettings/operator_user_permission_level/set [5]
+  rpc: {"jsonrpc":"2.0","id":138,"result":4}
+  log: [Server thread/INFO] RPC Connection #1: Update operator user permission level from permission level: OWNERS to OWNERS
+> serversettings/operator_user_permission_level 
+  rpc: {"jsonrpc":"2.0","id":139,"result":4}
+> serversettings/operator_user_permission_level/set [-1]
+  rpc: {"jsonrpc":"2.0","id":140,"result":0}
+  log: [Server thread/INFO] RPC Connection #1: Update operator user permission level from permission level: OWNERS to ALL
+  properties +op-permission-level=0
+  properties -op-permission-level=4
+> serversettings/operator_user_permission_level 
+  rpc: {"jsonrpc":"2.0","id":141,"result":0}
+> serversettings/hide_online_players 
+  rpc: {"jsonrpc":"2.0","id":142,"result":false}
+> serversettings/hide_online_players/set [true]
+  rpc: {"jsonrpc":"2.0","id":143,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update hides online players from false to true
+  properties +hide-online-players=true
+  properties -hide-online-players=false
+> serversettings/hide_online_players 
+  rpc: {"jsonrpc":"2.0","id":144,"result":true}
+> serversettings/hide_online_players/set [false]
+  rpc: {"jsonrpc":"2.0","id":145,"result":false}
+  log: [Server thread/INFO] RPC Connection #1: Update hides online players from true to false
+  properties +hide-online-players=false
+  properties -hide-online-players=true
+> serversettings/hide_online_players 
+  rpc: {"jsonrpc":"2.0","id":146,"result":false}
+> serversettings/status_replies 
+  rpc: {"jsonrpc":"2.0","id":147,"result":true}
+> serversettings/status_replies/set [false]
+  rpc: {"jsonrpc":"2.0","id":148,"result":false}
+  log: [Server thread/INFO] RPC Connection #1: Update replies to status from true to false
+  properties +enable-status=false
+  properties -enable-status=true
+> serversettings/status_replies 
+  rpc: {"jsonrpc":"2.0","id":149,"result":false}
+> serversettings/status_replies/set [true]
+  rpc: {"jsonrpc":"2.0","id":150,"result":true}
+  log: [Server thread/INFO] RPC Connection #1: Update replies to status from false to true
+  properties +enable-status=true
+  properties -enable-status=false
+> serversettings/status_replies 
+  rpc: {"jsonrpc":"2.0","id":151,"result":true}
+> serversettings/entity_broadcast_range 
+  rpc: {"jsonrpc":"2.0","id":152,"result":100}
+> serversettings/entity_broadcast_range/set [120]
+  rpc: {"jsonrpc":"2.0","id":153,"result":120}
+  log: [Server thread/INFO] RPC Connection #1: Update entity broadcast range percentage from 100% to 120%
+  properties +entity-broadcast-range-percentage=120
+  properties -entity-broadcast-range-percentage=100
+> serversettings/entity_broadcast_range 
+  rpc: {"jsonrpc":"2.0","id":154,"result":120}
+> serversettings/entity_broadcast_range/set [10]
+  rpc: {"jsonrpc":"2.0","id":155,"result":10}
+  log: [Server thread/INFO] RPC Connection #1: Update entity broadcast range percentage from 120% to 10%
+  properties +entity-broadcast-range-percentage=10
+  properties -entity-broadcast-range-percentage=120
+> serversettings/entity_broadcast_range 
+  rpc: {"jsonrpc":"2.0","id":156,"result":10}
+> serversettings/entity_broadcast_range/set [500]
+  rpc: {"jsonrpc":"2.0","id":157,"result":500}
+  log: [Server thread/INFO] RPC Connection #1: Update entity broadcast range percentage from 10% to 500%
+  properties +entity-broadcast-range-percentage=500
+  properties -entity-broadcast-range-percentage=10
+> serversettings/entity_broadcast_range 
+  rpc: {"jsonrpc":"2.0","id":158,"result":500}
+> serversettings/entity_broadcast_range/set [501]
+  rpc: {"jsonrpc":"2.0","id":159,"result":501}
+  log: [Server thread/INFO] RPC Connection #1: Update entity broadcast range percentage from 500% to 501%
+  properties +entity-broadcast-range-percentage=501
+  properties -entity-broadcast-range-percentage=500
+> serversettings/entity_broadcast_range 
+  rpc: {"jsonrpc":"2.0","id":160,"result":501}
+> serversettings/entity_broadcast_range/set [0]
+  rpc: {"jsonrpc":"2.0","id":161,"result":10}
+  log: [Server thread/INFO] RPC Connection #1: Update entity broadcast range percentage from 501% to 0%
+  properties +entity-broadcast-range-percentage=10
+  properties -entity-broadcast-range-percentage=501
+> serversettings/entity_broadcast_range 
+  rpc: {"jsonrpc":"2.0","id":162,"result":10}
+> serversettings/entity_broadcast_range/set [-1]
+  rpc: {"jsonrpc":"2.0","id":163,"result":10}
+  log: [Server thread/INFO] RPC Connection #1: Update entity broadcast range percentage from 10% to -1%
+> serversettings/entity_broadcast_range 
+  rpc: {"jsonrpc":"2.0","id":164,"result":10}
+> serversettings/entity_broadcast_range/set [100]
+  rpc: {"jsonrpc":"2.0","id":165,"result":100}
+  log: [Server thread/INFO] RPC Connection #1: Update entity broadcast range percentage from 10% to 100%
+  properties +entity-broadcast-range-percentage=100
+  properties -entity-broadcast-range-percentage=10
+> serversettings/entity_broadcast_range 
+  rpc: {"jsonrpc":"2.0","id":166,"result":100}
+> serversettings/motd/set {"message":"named"}
+  rpc: {"jsonrpc":"2.0","id":167,"result":"named"}
+  log: [Server thread/INFO] RPC Connection #1: Update MOTD from 'with §a colour' to 'named'
+  properties +motd=named
+  properties -motd=with §a colour
+> serversettings/motd/set {"wrong":"named"}
+  rpc: {"jsonrpc":"2.0","id":168,"error":{"code":-32602,"message":"Invalid params","data":"Params passed by-name, but expected param [message] does not exist"}}
+> console difficulty hard
+  log: [Server thread/INFO] System chat: The difficulty has been set to Hard
+> console setidletimeout 7
+  log: [Server thread/INFO] System chat: The player idle timeout is now 7 minute(s)
+  properties +player-idle-timeout=7
+  properties -player-idle-timeout=-1
+> console defaultgamemode creative
+  log: [Server thread/INFO] System chat: The default game mode is now Creative Mode
+> console whitelist on
+  log: [Server thread/INFO] System chat: Whitelist is now turned on
+  properties +white-list=true
+  properties -white-list=false
+> console whitelist off
+  log: [Server thread/INFO] System chat: Whitelist is now turned off
+  properties +white-list=false
+  properties -white-list=true
+> console save-off
+  log: [Server thread/INFO] System chat: Automatic saving is now disabled
+> console save-on
+  log: [Server thread/INFO] System chat: Automatic saving is now enabled
