@@ -5,10 +5,10 @@
 //! The timeline draws from the hook's own random, the dive of a bite from `syncronizedRandom`, which is reseeded every
 //! tick from the hook's UUID and the game time.
 //!
-//! Not implemented: the hook of a player is not deregistered from `Player.fishing` when it is removed from outside its
-//! own tick or retrieval (an unloaded chunk keeps the stale reference vanilla keeps and reels in); readers treat an id
-//! without a live hook as no hook. The hooked entity is kept by id: one that left the level before the reel-in is not
-//! pulled and counts as no item entity (vanilla keeps the object).
+//! Not implemented: a hook that leaves its level without `remove` (its chunk unloads, or it changes dimension) keeps its
+//! place in `Player.fishing` in vanilla, and the owner's next use of the rod reels in that removed object; here the id
+//! without a live hook counts as no hook, so the owner casts a new one. The hooked entity is kept by id: one that left
+//! the level before the reel-in is not pulled (vanilla pulls the removed object, which moves nothing).
 
 use super::{
     EntityHitResult, Projectile, ProjectileData, RAD_TO_DEG, hit_target_or_deflect_self,
@@ -84,6 +84,8 @@ pub struct FishingHook {
     fish_angle: f32,
     open_water: bool,
     hooked_in: Option<EntityId>,
+    /// `hookedIn instanceof ItemEntity`, as of the hit.
+    hooked_in_is_item: bool,
     current_state: FishHookState,
     luck: i32,
     lure_speed: i32,
@@ -109,6 +111,7 @@ impl FishingHook {
             fish_angle: 0.0,
             open_water: true,
             hooked_in: None,
+            hooked_in_is_item: false,
             current_state: FishHookState::Flying,
             luck: luck.max(0),
             lure_speed: lure_speed.max(0),
@@ -451,19 +454,15 @@ impl FishingHook {
         if let Some(hooked) = self.hooked_in {
             self.pull_entity(level, owner.position(), hooked);
             let matches = {
-                let hooked_in = level.get_entity(hooked).unwrap_or(self.as_dyn());
+                let hooked_in = level
+                    .get_entity_or_recently_removed(hooked)
+                    .unwrap_or(self.as_dyn());
                 CriteriaTriggers::FISHING_ROD_HOOKED.matches(&*level, &*owner, rod, hooked_in, &[])
             };
             matches.award(level, owner);
             level.broadcast_entity_event(self.id(), 31);
-            dmg = if level
-                .get_entity(hooked)
-                .is_some_and(|e| e.as_any().is::<ItemEntity>())
-            {
-                3
-            } else {
-                5
-            };
+            // the hook keeps the object it hooked: one that was removed meanwhile still counts by its class
+            dmg = if self.hooked_in_is_item { 3 } else { 5 };
         } else if self.nibble > 0 {
             let luck = self.luck as f32
                 + owner
@@ -550,7 +549,10 @@ impl Projectile for FishingHook {
         self.projectile.owner_id.unwrap_or(self.id())
     }
 
-    fn on_hit_entity(&mut self, _level: &mut ServerLevel, hit: &EntityHitResult) {
+    fn on_hit_entity(&mut self, level: &mut ServerLevel, hit: &EntityHitResult) {
+        self.hooked_in_is_item = level
+            .get_entity(hit.entity)
+            .is_some_and(|e| e.as_any().is::<ItemEntity>());
         self.set_hooked_entity(Some(hit.entity));
     }
 

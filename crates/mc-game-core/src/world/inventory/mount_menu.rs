@@ -19,6 +19,18 @@ pub trait MountInventory {
     fn inventory_epoch(&self) -> u32 {
         0
     }
+    /// The container `createInventory` replaced while its call number was `epoch`, which a screen built on it keeps
+    /// using until the player's next tick closes it.
+    fn retired_inventory_mut(
+        &mut self,
+        _epoch: u32,
+    ) -> Option<&mut dyn crate::world::container::Container> {
+        None
+    }
+    /// A screen is built on the live container: the mob keeps the container it replaces while screens use it.
+    fn inventory_menu_opened(&mut self) {}
+    /// A screen built on the container of `epoch` is gone.
+    fn inventory_menu_removed(&mut self, _epoch: u32) {}
     /// `canUseSlot(slot)`.
     fn can_use_slot(&self, slot: EquipmentSlot) -> bool;
     /// `isEquippableInSlot(stack, slot)`.
@@ -84,9 +96,6 @@ impl SlotBehavior for MountArmorSlot {
 struct MountMenuCore {
     base: MenuBase,
     mount: EntityId,
-    // Not implemented: the container object the slots were built on. Vanilla's slots keep the old container after
-    // `createInventory` replaces the mob's chest (until the next player tick closes the screen); ours address the mob's
-    // current container, so the slots already read the new chest in that window.
     container: super::ContainerRef,
     epoch: u32,
 }
@@ -111,8 +120,15 @@ impl MountMenuCore {
                 )
             })
             .unwrap_or((0, 0, 0));
-        let container = super::ContainerRef::entity(mount, size);
+        let container = super::ContainerRef::mount_chest(mount, size, epoch);
         container.start_open(player);
+        if let Some(level) = player.level() {
+            level.with_entity(mount, |_, e| {
+                if let Some(m) = e.as_mount_inventory_mut() {
+                    m.inventory_menu_opened();
+                }
+            });
+        }
         base.add_slot(Slot::with_behavior(
             ContainerKey::EntityEquipment(mount, EquipmentSlot::Saddle),
             0,
@@ -140,6 +156,18 @@ impl MountMenuCore {
             mount,
             container,
             epoch,
+        }
+    }
+
+    /// The mob no longer needs the container this menu was built on once the last screen using it is gone.
+    fn inventory_menu_removed(&self, player: &mut dyn MenuPlayer) {
+        let (mount, epoch) = (self.mount, self.epoch);
+        if let Some(level) = player.level() {
+            level.with_entity(mount, |_, e| {
+                if let Some(m) = e.as_mount_inventory_mut() {
+                    m.inventory_menu_removed(epoch);
+                }
+            });
         }
     }
 
@@ -280,6 +308,7 @@ macro_rules! mount_menu {
             fn removed(&mut self, player: &mut dyn MenuPlayer) {
                 self.base_removed(player);
                 self.core.container.stop_open(player);
+                self.core.inventory_menu_removed(player);
             }
             fn quick_move_stack(
                 &mut self,

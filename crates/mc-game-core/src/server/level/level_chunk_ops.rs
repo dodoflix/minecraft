@@ -83,9 +83,10 @@ impl ServerLevel {
                 .is_some_and(|c| c.block_entities.contains_key(&pos));
             if !in_chunk && let Some(taken) = self.live_taken_block_entity(pos) {
                 // the block entity is out of its chunk running its own code: it is dropped when that code returns, and its
-                // `preRemoveSideEffects` run then, after `affectNeighborsAfterRemoval`/`onPlace` (vanilla: before).
-                // Not implemented: the running code holds `&mut` to the entity, so it cannot be reached from here without
-                // aliasing it; no vanilla block entity replaces its own position with another block, so nothing observes it.
+                // `preRemoveSideEffects` run then, after `affectNeighborsAfterRemoval`/`onPlace` (vanilla: before). The running
+                // code holds `&mut` to the entity, so it cannot be reached from here. The only block entities whose own code
+                // replaces their position with another block have nothing to run: a brushed block turning into sand or gravel
+                // has no `preRemoveSideEffects`, and a moving piston removes itself first, so the order is not observable.
                 taken.removed = true;
                 taken.pre_remove_state = side_effects.then_some(old_state);
             } else if side_effects && let Some(mut block_entity) = self.take_block_entity(pos) {

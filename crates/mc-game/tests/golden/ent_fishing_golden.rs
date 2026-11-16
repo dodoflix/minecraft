@@ -18,6 +18,7 @@ golden!(
     bobber_bounces_off_the_world_border => "ent_fishing_border",
     lure_and_luck_of_the_sea => "ent_fishing_enchants",
     bobber_hooks_entities_and_reeling_in_pulls_them => "ent_fishing_hooked_entity",
+    bobber_reels_in_an_entity_removed_since_its_last_tick => "ent_fishing_hooked_entity_removed",
     open_water_rule => "ent_fishing_open_water",
     bobber_stops_when_the_owner_cannot_fish => "ent_fishing_stop",
     rod_casts_and_reels_in => "itm_fishing_rod",

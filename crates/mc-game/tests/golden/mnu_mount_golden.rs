@@ -13,6 +13,13 @@ fn mount_menu_script_matches_vanilla() {
     assert!(ops > 1000, "fixture has {ops} ops");
 }
 
+/// A chest replaced while the screen is open: the slots keep the old container until the player's next tick closes the screen.
+#[test]
+fn mount_menu_keeps_the_replaced_chest_until_it_closes() {
+    let ops = replay("menu_oracle", "mount_replaced_chest");
+    assert!(ops > 20, "fixture has {ops} ops");
+}
+
 /// Opening by sneaking or from the saddle, what each slot takes, shift-click, the screen packets with the mount's entity id, a spectator,
 /// an untamed horse and the screen closing when the mount is out of reach, replaced its chest or is gone.
 #[test]

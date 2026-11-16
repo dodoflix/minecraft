@@ -1,0 +1,40 @@
+# An experience orb keeps the Player object it follows (ExperienceOrb.followingPlayer) while that player is within 8 blocks of it, also after the
+# player left the orb's level (the object keeps its coordinates there) or died and respawned (the dead object stays where it died): the orb flies
+# on toward those coordinates until they are too far away or the player is a spectator.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+fill -12 99 -12 12 99 12 minecraft:stone
+in the_nether fill -12 99 -12 12 99 12 minecraft:netherrack
+cmd setworldspawn 0 100 0
+spawn_player Alice survival 0.5 100 0.5 0 0
+spawn_player Bob survival -0.5 100 -0.5 0 0
+tick 2
+dump packets:Alice:none packets:Bob:none
+level_seed 5
+note two orbs near Alice and Bob that follow them
+spawn orbA minecraft:experience_orb 4.5 100.5 0.5 {Value:3s}
+spawn orbB minecraft:experience_orb -4.5 100.5 0.5 {Value:3s}
+watch xentities
+tick 3
+watch off
+note Alice goes to the nether, to the same coordinates: the orb keeps following her
+tp_dim Alice the_nether 0.5 100 0.5
+watch xentities
+tick 5
+watch off
+note Alice moves in the nether, 4 blocks away from the first orb
+in the_nether tp Alice 4.5 100 4.5
+watch xentities
+tick 8
+watch off
+note Alice moves farther than 8 blocks away: the orb looks for another player
+in the_nether tp Alice 30.5 100 4.5
+watch xentities
+tick 4
+watch off

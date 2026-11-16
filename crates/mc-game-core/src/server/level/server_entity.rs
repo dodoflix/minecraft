@@ -155,8 +155,8 @@ impl ServerEntity {
         self.tick_count % 10 == 0
     }
 
-    /// `sendChanges()`.
-    pub fn send_changes(&mut self, entity: &mut dyn Entity, sync: &mut dyn Synchronizer) {
+    /// `sendChanges()` up to the item frame's map updates: the data hook and the set-passengers packet.
+    pub fn send_passenger_changes(&mut self, entity: &mut dyn Entity, sync: &mut dyn Synchronizer) {
         entity.update_data_before_sync();
         let passengers = entity.base().passengers.clone();
         if passengers != self.last_passengers {
@@ -166,9 +166,10 @@ impl ServerEntity {
             }));
             self.last_passengers = passengers;
         }
-        // `entity instanceof ItemFrame frame && tickCount % 10 == 0`: the map updates went out in the tracker (it sees the
-        // players); the frame's own changed data follows. Not implemented: the map updates of a frame that gains a passenger
-        // in the same tick precede its set-passengers packet (vanilla sends that first).
+    }
+
+    /// The rest of `sendChanges()`, after the map updates of an item frame (sent by the tracker, which sees the players).
+    pub fn send_remaining_changes(&mut self, entity: &mut dyn Entity, sync: &mut dyn Synchronizer) {
         if self.is_frame_sync_tick() && entity.as_any().is::<ItemFrame>() {
             self.send_dirty_entity_data(entity, sync);
         }

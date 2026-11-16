@@ -1,0 +1,31 @@
+# Reeling in a hooked entity that was removed since the bobber's last tick (no tick runs between the removal and the reel-in): the bobber still holds the
+# removed object, pulls it and counts it by its class: an item entity costs the rod 3, another entity 5; the fishing_rod_hooked trigger reads the removed entity.
+command_env
+level flat
+preload 7
+difficulty normal
+entity_counter 1600
+level_seed 61
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 20.5 -60 0.5 0 0
+give A mainhand minecraft:fishing_rod
+give B mainhand minecraft:fishing_rod
+spawn cowA minecraft:cow 0.5 -60 6.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cowA 11
+spawn_item itemB minecraft:diamond 20.5 -60 9.3 0 0 0 1
+tick 3
+dump packets:A:none packets:B:none
+level_seed 62
+use A main 1
+use B main 1
+tick 14
+dump xentities
+note both hooked entities are removed and the players reel in before the next tick
+kill cowA
+kill itemB
+level_seed 63
+use A main 2
+use B main 2
+dump inventory:A inventory:B xentities events advancements:A advancements:B packets:A:entity_event,set_entity_motion,remove_entities packets:B:entity_event,set_entity_motion,remove_entities
+tick 5
+dump xentities events

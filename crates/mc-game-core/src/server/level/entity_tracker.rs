@@ -438,23 +438,29 @@ impl EntityTracker {
             }
             if section_changed || needs_sync || env.in_entity_ticking_range(new_pos.chunk().pack())
             {
-                if t.server_entity.is_frame_sync_tick() {
-                    frame_maps::sync_framed_map(entities, players, maps, t.entity_id);
-                }
-                let Some(entity) = entities.get_any_mut(t.entity_id) else {
-                    continue;
-                };
+                let frame_sync_tick = t.server_entity.is_frame_sync_tick();
                 let TrackedEntity {
                     server_entity,
                     seen_by,
                     self_connection,
+                    entity_id,
                     ..
                 } = t;
                 let mut sync = SeenBySync {
                     seen_by,
                     self_connection,
                 };
-                server_entity.send_changes(entity, &mut sync);
+                let Some(entity) = entities.get_any_mut(*entity_id) else {
+                    continue;
+                };
+                server_entity.send_passenger_changes(entity, &mut sync);
+                if frame_sync_tick {
+                    frame_maps::sync_framed_map(entities, players, maps, *entity_id);
+                }
+                let Some(entity) = entities.get_any_mut(*entity_id) else {
+                    continue;
+                };
+                server_entity.send_remaining_changes(entity, &mut sync);
             }
         }
         if !moved_players.is_empty() {

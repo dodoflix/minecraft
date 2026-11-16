@@ -20,6 +20,7 @@ golden!(
     frame_map => "ent_frame_map",
     frame_map_holder_in_another_level => "ent_frame_map_holder_other_level",
     frame_map_limit => "ent_frame_map_limit",
+    frame_map_passenger => "ent_frame_map_passenger",
     frame_slot => "ent_frame_slot",
     stand_disabled_slots => "ent_stand_disabled_slots_cmd",
 );

@@ -1,0 +1,30 @@
+CF msg Set the world spawn point to -6, 100, 0 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+T 3
+E orbA minecraft:experience_orb pos=4.4752240006973905,100.47192013996072,0.5 delta=-0.02428047978912215,-0.02751826337407533,0.0 rot=0.0,0.0 og=0 fall=0.028079859912395477 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=1 health=5
+T 4
+E orbA minecraft:experience_orb pos=4.425903424714878,100.41653145526564,0.5 delta=-0.0483341654035771,-0.05428091205762977,0.0 rot=0.0,0.0 og=0 fall=0.08346854522824287 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=2 health=5
+T 5
+E orbA minecraft:experience_orb pos=4.352012311749012,100.33481195492355,0.5 delta=-0.07241329211591024,-0.08008511189392988,0.0 rot=0.0,0.0 og=0 fall=0.1651880480349064 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=3 health=5
+# Alice dies, the orb follows her on
+HURT Alice minecraft:generic_kill 1000 -> true
+T 6
+E orbA minecraft:experience_orb pos=4.25329153209268,100.22797216070418,0.5 delta=-0.09674636594615461,-0.10470300037279338,0.0 rot=0.0,0.0 og=0 fall=0.2720278389751911 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=4 health=5
+T 7
+E orbA minecraft:experience_orb pos=4.129284223678076,100.09749655044256,0.5 delta=-0.12152716461156345,-0.12786610054502415,0.0 rot=0.0,0.0 og=0 fall=0.40250344946980476 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=5 health=5
+T 8
+E orbA minecraft:experience_orb pos=3.9793886321618355,100.0,0.5 delta=-0.08813861667454734,0.06091871697011786,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=6 health=5
+# Alice respawns at the world spawn
+T 9
+E orbA minecraft:experience_orb pos=3.8892180608539917,100.03117273526587,0.5006272056666613 delta=-0.0883671616015541,0.030549281155118863,6.1466156529111E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=7 health=5
+T 10
+E orbA minecraft:experience_orb pos=3.798498945154646,100.03200871284689,0.5019778623086358 delta=-0.08890473511568849,8.192580453478047E-4,0.0013236435348967384 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=8 health=5
+T 11
+E orbA minecraft:experience_orb pos=3.706912250487468,100.00315924683403,0.504152282290894 delta=-0.08975496252071202,-0.028272477242860056,0.0021309316240868538 rot=0.0,0.0 og=0 fall=0.028849465772509575 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=9 health=5
+T 12
+E orbA minecraft:experience_orb pos=3.6141370213553357,100.0,0.5072543879835048 delta=-0.05455184021528977,0.023151948290683462,0.001824038330675801 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=10 health=5
+T 13
+E orbA minecraft:experience_orb pos=3.556186495331386,100.0,0.5101861404867898 delta=-0.03407491272857005,0.0,0.0017238706452796931 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=11 health=5
+T 14
+E orbA minecraft:experience_orb pos=3.5184630521459552,100.0,0.5131087682171616 delta=-0.022181386823537798,0.0,0.0017185052782671825 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=12 health=5
+PL Alice dim=minecraft:overworld

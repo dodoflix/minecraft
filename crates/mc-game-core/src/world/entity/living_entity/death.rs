@@ -72,7 +72,19 @@ pub fn award_kill_score_to_killer(
         return;
     }
     if killer.is_player && level.is_in_other_level(killer.uuid) {
-        // Not implemented: `ENTITY_KILLED_PLAYER` when the victim is a player and its killer is in another level
+        // `Entity.awardKillScore` of a killer in another level: `ENTITY_KILLED_PLAYER` matches the killer's stand-in here,
+        // which mirrors position, box, pose, flags, health and game mode: a criterion on the killer's equipment, effects or
+        // data is not seen
+        if let Some(player) = victim
+            .as_any_mut()
+            .downcast_mut::<crate::world::entity::ServerPlayer>()
+            && let Some(matches) = level.get_entity_or_remote_player(killer.uuid).map(|k| {
+                crate::advancements::triggers::CriteriaTriggers::ENTITY_KILLED_PLAYER
+                    .matches(&*level, &*player, k, source)
+            })
+        {
+            matches.award(level, player);
+        }
         crate::server::players::cross_level::queue_award_kill_score(
             level,
             killer.uuid,

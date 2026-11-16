@@ -1,0 +1,27 @@
+# An experience orb that follows a player keeps following the Player object after the player died and respawned: the dead object stays at the place
+# of its death while the new player (another object) appears at the world spawn, 6 blocks from the place of death.
+level void
+command_env
+difficulty peaceful
+entity_counter 100
+fill -12 99 -12 40 99 12 minecraft:stone
+cmd setworldspawn -6 100 0
+spawn_player Alice survival 0.5 100 0.5 0 0
+tick 2
+dump packets:Alice:none
+level_seed 5
+spawn orbA minecraft:experience_orb 4.5 100.5 0.5 {Value:3s}
+watch xentities
+tick 3
+watch off
+note Alice dies, the orb follows her on
+hurt Alice minecraft:generic_kill 1000
+watch xentities
+tick 3
+watch off
+note Alice respawns at the world spawn
+respawn Alice
+watch xentities
+tick 6
+watch off
+dump players

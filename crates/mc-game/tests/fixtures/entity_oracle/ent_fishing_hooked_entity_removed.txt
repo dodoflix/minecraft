@@ -1,0 +1,33 @@
+E cowA minecraft:cow pos=0.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E itemB minecraft:item pos=20.5,-60.0,9.3 delta=0.0,-0.04,0.0 rot=114.847534,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=17 pickup=0 health=5 owner=- thrower=-
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.5,-58.880000019073485,6.5 delta=0.0,0.0,0.0 rot=-7.0481345E-15,-5.129268 og=0 fall=0.5224059205502272 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 state=hooked_in_entity life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=cowA luck=0 lure=0
+E fishing_bobber#2 minecraft:fishing_bobber pos=20.5,-59.8,9.3 delta=0.0,0.0,0.0 rot=-7.025081E-15,-15.224771 og=0 fall=1.5059361513704062 fire=0 air=300 alive=1 pose=standing owner=B leftowner=1 shot=1 canbreak=0 state=hooked_in_entity life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=itemB luck=0 lure=0
+# both hooked entities are removed and the players reel in before the next tick
+I A 0 minecraft:fishing_rod*1/dmg=5{minecraft:damage:5}
+I B 0 minecraft:fishing_rod*1/dmg=3{minecraft:damage:3}
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fishing_bobber.throw source=neutral vol=0.5 pitch=0.36648312
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fishing_bobber.throw source=neutral vol=0.5 pitch=0.35382214
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fishing_bobber.retrieve source=neutral vol=1.0 pitch=0.36649513
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fishing_bobber.retrieve source=neutral vol=1.0 pitch=0.47725618
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+PKT A minecraft:set_entity_motion 67c60cf9ffdc34e1e1
+PKT A minecraft:set_entity_motion 67c50cf9ffdc82e1e1
+PKT A minecraft:set_entity_motion 67c50cf9ffd51ce449
+PKT A minecraft:set_entity_motion 67c60cf9ffbcc4ce09
+PKT A minecraft:set_entity_motion 67c50c00
+PKT A minecraft:set_entity_motion 67c60cf9ffb7e8d209
+PKT A minecraft:entity_event 22000006451f
+PKT A minecraft:remove_entities 4e01c50c
+PKT A minecraft:entity_event 22000006461f
+PKT A minecraft:remove_entities 4e01c60c
+PKT B minecraft:set_entity_motion 67c60cf9ffdc34e1e1
+PKT B minecraft:set_entity_motion 67c50cf9ffdc82e1e1
+PKT B minecraft:set_entity_motion 67c50cf9ffd51ce449
+PKT B minecraft:set_entity_motion 67c60cf9ffbcc4ce09
+PKT B minecraft:set_entity_motion 67c50c00
+PKT B minecraft:set_entity_motion 67c60cf9ffb7e8d209
+PKT B minecraft:entity_event 22000006451f
+PKT B minecraft:remove_entities 4e01c50c
+PKT B minecraft:entity_event 22000006461f
+PKT B minecraft:remove_entities 4e01c60c

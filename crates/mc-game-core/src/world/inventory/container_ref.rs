@@ -43,6 +43,11 @@ impl ContainerRef {
         Self::single(ContainerKey::Entity(id), size)
     }
 
+    /// The chest of a mount as its `createInventory` call number `epoch` made it (see [`ContainerKey::MountChest`]).
+    pub fn mount_chest(id: crate::world::entity::EntityId, size: usize, epoch: u32) -> Self {
+        Self::single(ContainerKey::MountChest(id, epoch), size)
+    }
+
     /// `player.getEnderChestInventory()`.
     pub fn player_ender_chest() -> Self {
         Self::single(ContainerKey::PlayerEnderChest, 27)

@@ -1,0 +1,64 @@
+CF msg Set the world spawn point to 0, 100, 0 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+# two orbs near Alice and Bob that follow them
+T 3
+E orbA minecraft:experience_orb pos=4.4752240006973905,100.47192013996072,0.5 delta=-0.02428047978912215,-0.02751826337407533,0.0 rot=0.0,0.0 og=0 fall=0.028079859912395477 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=1 health=5
+E orbB minecraft:experience_orb pos=-4.477416656806671,100.47175020911094,0.4943541642016677 delta=0.02213167676020552,-0.027684795610097155,-0.00553291919005138 rot=0.0,0.0 og=0 fall=0.028249790892004967 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=1 health=5
+T 4
+E orbA minecraft:experience_orb pos=4.425903424714878,100.41653145526564,0.5 delta=-0.0483341654035771,-0.05428091205762977,0.0 rot=0.0,0.0 og=0 fall=0.08346854522824287 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=2 health=5
+E orbB minecraft:experience_orb pos=-4.432468828325154,100.41600575801813,0.4831172070812886 delta=0.04404887276919799,-0.05462956313418913,-0.011012218192299498 rot=0.0,0.0 og=0 fall=0.08399424143135548 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=2 health=5
+T 5
+E orbA minecraft:experience_orb pos=4.352012311749012,100.33481195492355,0.5 delta=-0.07241329211591024,-0.08008511189392988,0.0 rot=0.0,0.0 og=0 fall=0.1651880480349064 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=3 health=5
+E orbB minecraft:experience_orb pos=-4.365148466007852,100.33370776656068,0.4662871165019631 delta=0.06597395635499005,-0.08065203319801176,-0.016493489088747513 rot=0.0,0.0 og=0 fall=0.16629222966730595 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=3 health=5
+# Alice goes to the nether, to the same coordinates: the orb keeps following her
+T 6
+E orbA minecraft:experience_orb pos=4.25329153209268,100.22797216070418,0.5 delta=-0.09674636594615461,-0.10470300037279338,0.0 rot=0.0,0.0 og=0 fall=0.2720278389751911 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=4 health=5
+E orbB minecraft:experience_orb pos=-4.275242375364966,100.2260048282935,0.44381059384124166 delta=0.08810797054485066,-0.10554888155610835,-0.022026992636212665 rot=0.0,0.0 og=0 fall=0.2739951703697443 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=4 health=5
+T 7
+E orbA minecraft:experience_orb pos=4.129284223678076,100.09749655044256,0.5 delta=-0.12152716461156345,-0.12786610054502415,0.0 rot=0.0,0.0 og=0 fall=0.40250344946980476 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=5 health=5
+E orbB minecraft:experience_orb pos=-4.162363674706994,100.09428775021024,0.41559091867674863 delta=0.11062112879780302,-0.12908273903389916,-0.027655282199450754 rot=0.0,0.0 og=0 fall=0.405712241306901 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=5 health=5
+T 8
+E orbA minecraft:experience_orb pos=3.9793886321618355,100.0,0.5 delta=-0.08813861667454734,0.06091871697011786,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=6 health=5
+E orbB minecraft:experience_orb pos=-4.025997800731436,100.0,0.381499450182859 delta=0.08018314196064358,0.06162064341717425,-0.020045785490160895 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=6 health=5
+T 9
+E orbA minecraft:experience_orb pos=3.861417450654284,100.03786372373438,0.5 delta=-0.11561176012752233,0.03710644998188538,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=7 health=5
+E orbB minecraft:experience_orb pos=-3.918758277158588,100.03783609515848,0.35468956928964696 delta=0.10509473514682284,0.03707937397697574,-0.02627368378670571 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=7 health=5
+T 10
+E orbA minecraft:experience_orb pos=3.714264667253867,100.0522153221372,0.5 delta=-0.14420973053912525,0.014064566708507354,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=8 health=5
+E orbB minecraft:experience_orb pos=-3.785095537613185,100.05136786503763,0.32127388440329624 delta=0.1309894873039092,0.013261134739661073,-0.0327473718259773 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=8 health=5
+# Alice moves in the nether, 4 blocks away from the first orb
+T 11
+E orbA minecraft:experience_orb pos=3.574452365350027,100.04052088948984,0.5223863097509761 delta=-0.13701605853247117,-0.011460544217460804,0.021938583982941604 rot=0.0,0.0 og=0 fall=0.011694432236254215 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=9 health=5
+E orbB minecraft:experience_orb pos=-3.6237538037829973,100.04163829049406,0.2809384509457492 delta=0.1581149022309336,-0.009534983238272746,-0.0395287255577334 rot=0.0,0.0 og=0 fall=0.00972957443445921 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=9 health=5
+T 12
+E orbA minecraft:experience_orb pos=3.4425790761040815,100.00333592591271,0.5664263488660598 delta=-0.12923582597630998,-0.03644126501483149,0.04315923917277912 rot=0.0,0.0 og=0 fall=0.048879397101700306 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=10 health=5
+E orbB minecraft:experience_orb pos=-3.4332109310441385,100.01007973961816,0.23330273276103453 delta=0.1867320189183985,-0.030927380460309784,-0.046683004729599624 rot=0.0,0.0 og=0 fall=0.041288125328719616 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=10 health=5
+T 13
+E orbA minecraft:experience_orb pos=3.31923401342855,100.0,0.6314990482147894 delta=-0.07252690414633552,0.02477897503965395,0.03826275106465905 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=11 health=5
+E orbB minecraft:experience_orb pos=-3.2116879953330013,100.0,0.17792199883325016 delta=0.13025549929631436,0.020575799369414893,-0.03256387482407858 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=11 health=5
+T 14
+E orbA minecraft:experience_orb pos=3.2534230059071683,100.0,0.6917648488093245 delta=-0.03869687631383308,0.0,0.035436294312971295 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=12 health=5
+E orbB minecraft:experience_orb pos=-3.0437137974024697,100.001842636128,0.13592844935061724 delta=0.16461471717577464,0.0018057834405900573,-0.04115367929394365 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=12 health=5
+T 15
+E orbA minecraft:experience_orb pos=3.2220171310861425,100.0,0.7494748159911739 delta=-0.018466656251723577,0.0,0.03393346411519129 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=13 health=5
+E orbB minecraft:experience_orb pos=-2.8390764852089907,100.0,0.0847691213022475 delta=0.12032675166952128,0.0,-0.030081687917380317 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=13 health=5
+T 16
+E orbA minecraft:experience_orb pos=3.211276781838241,100.0,0.8060828477410991 delta=-0.006315325992819387,0.0,0.0332855260160648 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=14 health=5
+E orbB minecraft:experience_orb pos=-2.675967365306753,100.0,0.04399184132668799 delta=0.09590817214680063,0.0,-0.023977043036700153 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=14 health=5
+T 17
+E orbA minecraft:experience_orb pos=3.213044784763022,100.0,0.8625379317470208 delta=0.0010395858243092864,0.0,0.03319559273354734 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=15 health=5
+E orbB minecraft:experience_orb pos=-2.5351040021818543,100.0,0.008776000545463368 delta=0.08282766584638218,0.0,-0.02070691646159554 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=15 health=5
+T 18
+E orbA minecraft:experience_orb pos=3.2224813193861634,100.0,0.9194667378691856 delta=0.005548682916368609,0.0,0.03347414136590843 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=16 health=5
+E orbB minecraft:experience_orb pos=-2.405501636132197,100.0,-0.02362459096695098 delta=0.07620619890030234,0.0,-0.019051549725075577 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=16 health=5
+# Alice moves farther than 8 blocks away: the orb looks for another player
+T 19
+E orbA minecraft:experience_orb pos=3.2058819620932417,100.0,0.9444953280855557 delta=-0.009760423069721616,0.0,0.014716812527111248 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=17 health=5
+E orbB minecraft:experience_orb pos=-2.2809201748037755,100.0,-0.054769956299056274 delta=0.07325390662734037,0.0,-0.018313476656835085 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=17 health=5
+T 20
+E orbA minecraft:experience_orb pos=3.1739663578407296,100.0,0.9505763945099084 delta=-0.018766377187576882,0.0,0.003575667417079497 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=18 health=5
+E orbB minecraft:experience_orb pos=-2.157847893169194,100.0,-0.08553802670770169 delta=0.07236650887812822,0.0,-0.018091627219532048 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=18 health=5
+T 21
+E orbA minecraft:experience_orb pos=3.132785623022717,100.0,0.9453022971469092 delta=-0.02421427450791791,0.0,-0.0031011695612893513 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=19 health=5
+T 22
+E orbA minecraft:experience_orb pos=3.0857428477051,100.0,0.9331188177318319 delta=-0.027661154668295013,0.0,-0.0071638866164478576 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=20 health=5

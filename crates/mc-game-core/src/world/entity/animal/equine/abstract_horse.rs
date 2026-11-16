@@ -118,6 +118,11 @@ pub struct AbstractHorseData {
     pub first_passenger_is_mob: bool,
     /// Bumped by `createInventory()` (`MountInventory::inventory_epoch`).
     pub inventory_epoch: u32,
+    /// The mount screens built on the live container.
+    pub inventory_viewers: u32,
+    /// The containers `createInventory()` replaced while screens were built on them, by the epoch each served, with the
+    /// screens that still use it.
+    pub retired_inventories: Vec<(u32, SimpleContainer, u32)>,
 }
 
 impl AbstractHorseData {
@@ -145,6 +150,8 @@ impl AbstractHorseData {
             first_passenger_is_player: false,
             first_passenger_is_mob: false,
             inventory_epoch: 0,
+            retired_inventories: Vec::new(),
+            inventory_viewers: 0,
         }
     }
 }
@@ -309,6 +316,32 @@ impl<T: AbstractHorse + ?Sized> crate::world::inventory::MountInventory for T {
     }
     fn inventory_epoch(&self) -> u32 {
         self.horse().inventory_epoch
+    }
+    fn retired_inventory_mut(
+        &mut self,
+        epoch: u32,
+    ) -> Option<&mut dyn crate::world::container::Container> {
+        self.horse_mut()
+            .retired_inventories
+            .iter_mut()
+            .find(|(e, ..)| *e == epoch)
+            .map(|(_, c, _)| c as &mut dyn crate::world::container::Container)
+    }
+    fn inventory_menu_opened(&mut self) {
+        self.horse_mut().inventory_viewers += 1;
+    }
+    fn inventory_menu_removed(&mut self, epoch: u32) {
+        let horse = self.horse_mut();
+        if epoch == horse.inventory_epoch {
+            horse.inventory_viewers = horse.inventory_viewers.saturating_sub(1);
+        } else if let Some((.., viewers)) = horse
+            .retired_inventories
+            .iter_mut()
+            .find(|(e, ..)| *e == epoch)
+        {
+            *viewers -= 1;
+            horse.retired_inventories.retain(|(.., v)| *v > 0);
+        }
     }
     fn can_use_slot(&self, slot: EquipmentSlot) -> bool {
         Entity::can_use_slot(self, slot)
@@ -487,14 +520,21 @@ pub fn get_inventory_size(e: &(impl AbstractHorse + ?Sized)) -> i32 {
 /// `createInventory()`: a new container of the current size that keeps the old content.
 pub fn create_inventory(e: &mut (impl AbstractHorse + ?Sized)) {
     let size = get_inventory_size(e) as usize;
-    e.horse_mut().inventory_epoch += 1;
-    let old = std::mem::replace(&mut e.horse_mut().inventory, SimpleContainer::new(size));
+    let horse = e.horse_mut();
+    let epoch = horse.inventory_epoch;
+    horse.inventory_epoch += 1;
+    let old = std::mem::replace(&mut horse.inventory, SimpleContainer::new(size));
     let max = old.get_container_size().min(size);
     for slot in 0..max {
         let stack = old.get_item(slot);
         if !stack.is_empty() {
-            e.horse_mut().inventory.set_item(slot, stack.copy());
+            horse.inventory.set_item(slot, stack.copy());
         }
+    }
+    // screens built on the old container keep it until each of them is removed
+    let viewers = std::mem::take(&mut horse.inventory_viewers);
+    if viewers > 0 {
+        horse.retired_inventories.push((epoch, old, viewers));
     }
 }
 

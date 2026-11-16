@@ -29,6 +29,9 @@ pub enum ContainerKey {
     BlockEntity(BlockPos),
     /// The `Container` of an entity (`Entity::as_container`): horse inventory, chest minecart, ...
     Entity(EntityId),
+    /// The chest of a mount as the `createInventory` call number `u32` made it: the live container while the mount still
+    /// has that one, else the one the mount replaced (a screen keeps the container its slots were built on).
+    MountChest(EntityId, u32),
     /// The owner's `PlayerEnderChestContainer`.
     PlayerEnderChest,
     /// `mob.createEquipmentSlotContainer(slot)`: one equipment slot of a mount (via `Entity::as_mount_inventory`).
@@ -46,6 +49,7 @@ impl ContainerKey {
             (Self::Shared(a), Self::Shared(b)) => Rc::ptr_eq(a, b),
             (Self::BlockEntity(a), Self::BlockEntity(b)) => a == b,
             (Self::Entity(a), Self::Entity(b)) => a == b,
+            (Self::MountChest(a, ea), Self::MountChest(b, eb)) => a == b && ea == eb,
             (Self::EntityEquipment(a, sa), Self::EntityEquipment(b, sb)) => a == b && sa == sb,
             _ => false,
         }
@@ -61,7 +65,7 @@ impl ContainerKey {
                 .level_ref()
                 .and_then(|l| l.get_block_entity(*pos))
                 .is_some_and(|be| be.menu_container().is_some_and(|c| c.still_valid(player))),
-            Self::Entity(id) => player
+            Self::Entity(id) | Self::MountChest(id, _) => player
                 .level_ref()
                 .and_then(|l| l.get_entity(*id))
                 .is_some_and(|e| e.as_container().is_some_and(|c| c.still_valid(player))),
@@ -143,6 +147,29 @@ pub fn with_player_container<R>(
                 None => (f.take().expect("not consumed"))(&mut SimpleContainer::new(0)),
             }
         }
+        ContainerKey::MountChest(id, epoch) => {
+            let mut f = Some(f);
+            let resolved = player
+                .level()
+                .and_then(|l| {
+                    l.with_entity(*id, |_, e| {
+                        let live = e
+                            .as_mount_inventory()
+                            .is_some_and(|m| m.inventory_epoch() == *epoch);
+                        let container = if live {
+                            e.as_container_mut()
+                        } else {
+                            e.as_mount_inventory_mut()?.retired_inventory_mut(*epoch)
+                        };
+                        container.map(|c| (f.take().expect("called once"))(c))
+                    })
+                })
+                .flatten();
+            match resolved {
+                Some(r) => r,
+                None => (f.take().expect("not consumed"))(&mut SimpleContainer::new(0)),
+            }
+        }
         ContainerKey::EntityEquipment(id, equipment) => {
             let mut f = Some(f);
             let resolved = player.level().and_then(|l| {
@@ -212,7 +239,7 @@ impl ContainerKey {
                 }
             }
             ContainerKey::BlockEntity(pos) => notify_be(player, *pos),
-            ContainerKey::Entity(id) => {
+            ContainerKey::Entity(id) | ContainerKey::MountChest(id, _) => {
                 player.with_level_seen(&mut |level| {
                     level.with_entity(*id, |level, e| e.container_open_close(level, user, open));
                 });

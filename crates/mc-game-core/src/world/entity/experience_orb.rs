@@ -4,7 +4,7 @@ use super::entity::{Entity, EntityData, MovementEmission};
 use super::factory::{ENTITY_FACTORIES, EntityRegistration};
 use super::{EntityId, MoverType, RemovalReason, ServerPlayer, movement};
 use crate::define_accessor;
-use crate::server::level::ServerLevel;
+use crate::server::level::{AnyDimensionEntity, ServerLevel};
 use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor;
 use crate::world::level::collision::CollisionGetter;
@@ -29,8 +29,43 @@ pub struct ExperienceOrb {
     pub age: i32,
     pub health: i32,
     pub count: i32,
-    /// `followingPlayer` (id of a player of the level).
-    following_player: Option<EntityId>,
+    /// `followingPlayer`.
+    following_player: Option<FollowedPlayer>,
+}
+
+/// The `Player` object an orb follows. The object lives on after it left the orb's level (another level, a respawn, the
+/// server) with the coordinates it had there, so the orb keeps what it last knew of it.
+struct FollowedPlayer {
+    id: EntityId,
+    uuid: uuid::Uuid,
+    position: Vec3,
+    eye_height: f32,
+    spectator: bool,
+}
+
+impl FollowedPlayer {
+    fn of(player: &dyn Entity) -> Self {
+        Self {
+            id: player.id(),
+            uuid: player.uuid(),
+            position: player.base().position(),
+            eye_height: player.base().eye_height,
+            spectator: player.is_spectator(),
+        }
+    }
+
+    /// Reads the player where it is now: in this level, or in another level of the server.
+    fn refresh(&mut self, level: &ServerLevel) {
+        if let Some(player) = level.get_entity(self.id) {
+            *self = Self::of(player);
+        } else if let Some(AnyDimensionEntity::Elsewhere(remote)) =
+            level.get_entity_in_any_dimension(self.uuid)
+        {
+            self.position = remote.position;
+            self.eye_height = remote.eye_height;
+            self.spectator = remote.spectator;
+        }
+    }
 }
 
 impl ExperienceOrb {
@@ -229,30 +264,31 @@ impl ExperienceOrb {
     }
 
     /// `followNearbyPlayer()`.
-    /// Not implemented: vanilla keeps the `Player` object after it left the level and keeps following its last position
-    /// while it stays within 8 blocks; here the target is looked up by id each tick, so it is searched again at once.
     fn follow_nearby_player(&mut self, level: &ServerLevel) {
-        let following_valid = self
-            .following_player
-            .and_then(|id| level.get_entity(id))
-            .is_some_and(|p| {
-                !p.is_spectator() && p.base().distance_to_sqr_vec(self.base.position()) <= 64.0
-            });
-        if !following_valid {
-            let pos = self.base.position();
-            let nearest = level
-                .get_nearest_player(pos.x, pos.y, pos.z, MAX_FOLLOW_DIST, |p| !p.is_spectator());
-            self.following_player = nearest.filter(|&id| {
-                level.get_entity(id).is_some_and(|p| {
-                    !p.is_spectator() && !p.living().is_some_and(|l| l.get_health() <= 0.0)
-                })
-            });
+        let here = self.base.position();
+        if let Some(followed) = &mut self.following_player {
+            followed.refresh(level);
         }
-        if let Some(player) = self.following_player.and_then(|id| level.get_entity(id)) {
-            let (pp, here) = (player.base().position(), self.base.position());
+        if self
+            .following_player
+            .as_ref()
+            .is_none_or(|p| p.spectator || p.position.distance_to_sqr(here) > 64.0)
+        {
+            let nearest = level
+                .get_nearest_player(here.x, here.y, here.z, MAX_FOLLOW_DIST, |p| {
+                    !p.is_spectator()
+                })
+                .and_then(|id| level.get_entity(id))
+                .filter(|p| {
+                    !p.is_spectator() && !p.living().is_some_and(|l| l.get_health() <= 0.0)
+                });
+            self.following_player = nearest.map(FollowedPlayer::of);
+        }
+        if let Some(player) = &self.following_player {
+            let pp = player.position;
             let delta = Vec3::new(
                 pp.x - here.x,
-                pp.y + f64::from(player.base().eye_height) / 2.0 - here.y,
+                pp.y + f64::from(player.eye_height) / 2.0 - here.y,
                 pp.z - here.z,
             );
             let length = delta.length_sqr();

@@ -1,0 +1,29 @@
+# The screen of a donkey whose chest container is replaced while the screen is open (its data is loaded again): the slots keep the container object
+# they were built on until the player's next tick closes the screen, so clicks and SET ops between the data merge and the tick still read and write the old
+# chest, and the donkey keeps the new one.
+OPEN mount 0 0 0 31 32
+SPAWN D minecraft:donkey 0.5 71 2.5 12 {Tame:1b,NoAI:1b,NoGravity:1b,ChestedHorse:1b,Items:[{Slot:0b,id:"minecraft:bread",count:5},{Slot:2b,id:"minecraft:apple",count:3}]}
+USE D 1
+GIVE 9 stickx5
+NBT D {ChestedHorse:1b,Items:[{Slot:1b,id:"minecraft:carrot",count:7}]}
+CLICK 2 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 4 0 QUICK_MOVE
+SET 5 white_carpetx3
+CLICK 26 0 QUICK_MOVE
+TICK 1
+OPEN mount 0 0 0 33 34
+SPAWN D minecraft:donkey 0.5 71 2.5 12 {Tame:1b,NoAI:1b,NoGravity:1b,ChestedHorse:1b,Items:[{Slot:0b,id:"minecraft:bread",count:5}]}
+USE D 1
+NBT D {ChestedHorse:1b,Items:[{Slot:0b,id:"minecraft:carrot",count:7}]}
+NBT D {ChestedHorse:1b,Items:[{Slot:1b,id:"minecraft:apple",count:2}]}
+CLICK 2 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 2 0 PICKUP
+TICK 1
+USE D 1
+CLICK 2 0 PICKUP
+CLICK 3 0 PICKUP
+CLOSE
